@@ -199,7 +199,7 @@ export function ReviewForm({
 
       {/* Итог отправки объявляется отсюда: область живёт в разметке всегда,
           иначе часть скринридеров не заметит её появления */}
-      <p className={styles.live} role="status" aria-live="polite" aria-atomic="true">
+      <p className="srOnly" role="status" aria-live="polite" aria-atomic="true">
         {announcement}
       </p>
 
