@@ -155,7 +155,6 @@ apps/web/                    — приложение; в корне репоз�
   entities/                  — доменные сущности: model, price, article, review, lead
     <entity>/
       model.ts               — типы и схемы Zod
-      repo.ts                — доступ к данным (Prisma), только серверный код
       ui/                    — карточки и представления сущности
   features/                  — пользовательские сценарии: lead-form, review-form, calculator, model-picker, theme-toggle
   widgets/                   — крупные секции страниц: hero, catalog, pricing, faq, footer
@@ -166,6 +165,7 @@ apps/web/                    — приложение; в корне репоз�
     styles/                  — tokens.css, global.css
   server/
     db.ts                    — экземпляр Prisma
+    repo/                    — доступ к данным (Prisma), только серверный код
     auth.ts                  — сессия админки
     notifications/           — очередь, каналы, воркер
     revalidate.ts            — точечная ревалидация после правок в админке
