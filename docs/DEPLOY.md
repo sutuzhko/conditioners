@@ -25,7 +25,7 @@
 
 ## 2. Разработка — тот же Docker
 
-🔴 Локальный запуск только через compose. `npm run dev` на хосте не поддерживается: смысл в том, чтобы дев-среда совпадала с боевой (ADR-017, [TECH_DECISIONS §18](TECH_DECISIONS.md)).
+🔴 Локальный запуск только через compose. `pnpm dev` на хосте не поддерживается: смысл в том, чтобы дев-среда совпадала с боевой (ADR-017, [TECH_DECISIONS §18](TECH_DECISIONS.md)).
 
 ```bash
 cp .env.example .env.dev            # заполнить; уведомления оставить в режиме «в лог»
@@ -37,9 +37,9 @@ docker compose -f docker-compose.dev.yml up --build
 Команды выполняются **внутри контейнера**, никогда с хоста:
 
 ```bash
-docker compose -f docker-compose.dev.yml exec web npx prisma migrate dev
-docker compose -f docker-compose.dev.yml exec web npm run seed
-docker compose -f docker-compose.dev.yml exec web npm test
+docker compose -f docker-compose.dev.yml exec web pnpm prisma migrate dev
+docker compose -f docker-compose.dev.yml exec web pnpm seed
+docker compose -f docker-compose.dev.yml exec web pnpm test
 docker compose -f docker-compose.dev.yml exec db psql -U tk -d tulaklimat
 ```
 
@@ -55,8 +55,8 @@ docker compose -f docker-compose.dev.yml exec db psql -U tk -d tulaklimat
 git clone <repo> /opt/tulaklimat && cd /opt/tulaklimat
 cp .env.prod.example .env.prod   # заполнить все значения
 docker compose -f docker-compose.prod.yml up -d --build
-docker compose -f docker-compose.prod.yml exec web npx prisma migrate deploy
-docker compose -f docker-compose.prod.yml exec web npm run seed   # только на пустой базе
+docker compose -f docker-compose.prod.yml exec web pnpm prisma migrate deploy
+docker compose -f docker-compose.prod.yml exec web pnpm seed   # только на пустой базе
 ```
 
 DNS-записи `A` для домена и `www` должны уже вести на IP сервера — Caddy выпустит сертификат при первом обращении.
@@ -68,7 +68,7 @@ DNS-записи `A` для домена и `www` должны уже вести
 ```bash
 cd /opt/tulaklimat && git pull
 docker compose -f docker-compose.prod.yml up -d --build
-docker compose -f docker-compose.prod.yml exec web npx prisma migrate deploy
+docker compose -f docker-compose.prod.yml exec web pnpm prisma migrate deploy
 ```
 
 Автодеплой с каждого пуша сознательно не настраивается: на проекте одного разработчика он создаёт больше рисков, чем экономит времени.
