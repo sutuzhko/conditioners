@@ -1,0 +1,140 @@
+/* Расчёт экономии: слева ползунки, справа результат. С 900px — одна колонка.
+
+   Полоски раскрашены холодно: тёплый акцент на сайте допустим только у скидки
+   (docs/DESIGN_BRIEF.md §10), а красная полоса «обычного» кондиционера рядом
+   с оценочными цифрами читалась бы как угроза, которой в данных нет. */
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 28px;
+  align-items: stretch;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  border-radius: var(--r-xl);
+}
+
+.basis {
+  margin: 0;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: var(--r-xl);
+}
+
+.resultHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.resultTitle {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.row + .row {
+  margin-top: 22px;
+}
+
+.rowHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0 0 8px;
+}
+
+.rowLabel {
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.rowValue {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.bar {
+  display: block;
+  overflow: hidden;
+  height: 14px;
+  border-radius: var(--r-pill);
+  background: var(--stripe-a);
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--r-pill);
+}
+
+.fillUsual {
+  width: 100%;
+  background: linear-gradient(90deg, var(--line-strong), var(--faint));
+}
+
+.fillInverter {
+  background: linear-gradient(90deg, var(--brand), var(--brand-mark-dark));
+  transition: width var(--dur-base) var(--ease-out);
+}
+
+.total {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
+  margin: 22px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.totalLabel {
+  color: var(--muted);
+  font-size: var(--fs-base);
+}
+
+.totalValue {
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-size: clamp(22px, 5vw, 28px);
+  font-weight: 700;
+}
+
+.totalHorizon {
+  color: var(--faint);
+  font-size: var(--fs-dense);
+}
+
+@media (width < 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+}
+
+/* пользователь просил не двигать интерфейс — полоска меняет длину мгновенно */
+@media (prefers-reduced-motion: reduce) {
+  .fillInverter {
+    transition: none;
+  }
+}

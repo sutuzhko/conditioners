@@ -1,0 +1,304 @@
+/* Этапы монтажа и таймлайн дня. Раскладка из макета: четыре колонки шагов и
+   тёмная панель с восемью пунктами в две строки по четыре. Деградация —
+   docs/DESIGN_BRIEF.md §6: 4 → 2 → 1 колонка, таймлайн на телефоне
+   вертикальный. Горизонтального скролла нет ни на одной ширине. */
+
+.section {
+  background: var(--bg);
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter);
+}
+
+.intro {
+  max-width: 640px;
+  margin: 0 auto 52px;
+  text-align: center;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-lead);
+}
+
+/* --- четыре шага --- */
+
+.steps {
+  display: grid;
+
+  /* minmax(0, 1fr) вместо 1fr: длинное слово в тексте шага иначе растягивает
+     колонку и вместе с ней страницу */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  min-width: 0;
+}
+
+.stepHead {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 0 0 16px;
+}
+
+.stepNum {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-md);
+  background: var(--brand);
+  color: var(--on-brand);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.stepRule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line-strong), transparent);
+}
+
+.stepTitle {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.stepText {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+/* Сроки гарантии в последнем шаге. Значения приходят из настроек, поэтому
+   блок рисуется только когда они заданы — пустого места не остаётся. */
+.terms {
+  margin: 10px 0 0;
+}
+
+.term {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: baseline;
+}
+
+.termLabel {
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.termValue {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+}
+
+/* --- таймлайн дня монтажа --- */
+
+.timeline {
+  position: relative;
+  overflow: hidden;
+  margin-top: 56px;
+  border-radius: 26px;
+}
+
+/* холодное свечение в правом верхнем углу — из макета */
+.glow {
+  position: absolute;
+  top: -70px;
+  right: -50px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--brand-mark-dark) 15%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.timelineInner {
+  position: relative;
+  padding: clamp(24px, 5vw, 44px);
+}
+
+.timelineHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 34px;
+}
+
+.timelineHeading {
+  min-width: 0;
+}
+
+.timelineKicker {
+  margin: 0 0 10px;
+  color: var(--brand-mark-dark);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.timelineTitle {
+  margin: 0;
+  color: var(--on-panel);
+  font-family: var(--font-display);
+  font-size: clamp(21px, 4vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.timelineNote {
+  margin: 0;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+}
+
+.day {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 30px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dayItem {
+  min-width: 0;
+}
+
+.dayHead {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 0 0 12px;
+}
+
+/* время моноширинным — это техническая метка, а не текст
+   (docs/DESIGN_BRIEF.md §3) */
+.dayTime {
+  flex-shrink: 0;
+  padding: 4px 9px;
+  border-radius: 8px;
+  background: var(--brand-mark-dark);
+  color: var(--panel);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.dayRule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--brand-mark-dark) 50%, transparent),
+    transparent
+  );
+}
+
+.dayTitle {
+  margin: 0 0 6px;
+  color: var(--on-panel);
+  font-family: var(--font-display);
+  font-size: 16.5px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.dayText {
+  margin: 0;
+  color: var(--faint);
+  font-size: 13.5px;
+}
+
+@media (width < 1000px) {
+  .steps,
+  .day {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width < 600px) {
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .intro {
+    margin-bottom: 36px;
+  }
+
+  /* на телефоне и шаги, и таймлайн — одна вертикальная колонка:
+     горизонтальный скролл у страницы не появляется никогда */
+  .steps,
+  .day {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+
+  .timeline {
+    margin-top: 36px;
+    border-radius: var(--r-xl);
+  }
+
+  .stepNum {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+
+/* Появления при скролле здесь нет намеренно. Эффект из макета
+   (docs/DESIGN_BRIEF.md §7) требует либо view()-таймлайна, либо клиентского
+   наблюдателя. Первый на узком экране оставляет панель прозрачной: она выше
+   вьюпорта, и диапазон entry не доходит до конца — таймлайн дня монтажа,
+   главный блок доверия, просто не появляется. Второй противоречит правилу
+   «шаги и таймлайн видны без JavaScript». Появление секций — общий приём всех
+   блоков, ему место в одном месте на весь сайт, а не в отдельной секции. */

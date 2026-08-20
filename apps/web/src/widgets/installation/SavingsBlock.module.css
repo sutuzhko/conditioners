@@ -1,0 +1,82 @@
+/* Экономия инвертора. Контейнер уже основного (1080px в макете), текст по
+   центру. 🔴 Оговорка про приблизительность — часть секции, а не украшение:
+   она рендерится сервером и стоит вплотную к цифрам. */
+
+.section {
+  border-top: 1px solid var(--line-soft);
+  background: var(--bg-soft);
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter);
+}
+
+.intro {
+  max-width: 660px;
+  margin: 0 auto 44px;
+  text-align: center;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.articleLink {
+  color: var(--accent-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.articleLink:hover {
+  text-decoration: underline;
+}
+
+/* Оговорка набрана читаемым кеглем, а не микроподписью на грани контраста:
+   мелкий серый шрифт под цифрами про деньги — ровно тот приём, который сайт
+   разоблачает в разделе «Как обманывают при установке». */
+.disclaimer {
+  max-width: 760px;
+  margin: 24px auto 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+  line-height: 1.6;
+  text-align: center;
+}
+
+@media (width < 600px) {
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .intro {
+    margin-bottom: 28px;
+  }
+
+  .disclaimer {
+    text-align: left;
+  }
+}
