@@ -3,7 +3,7 @@ import { db } from '@/server/db';
 import { isHoneypotFilled, readIntakeBody } from '@/server/intake/body';
 import { errorResponse, jsonResponse, toApiError } from '@/server/intake/http';
 import { REVIEW_RATE_LIMIT, assertWithinRateLimit } from '@/server/intake/rate-limit';
-import { reviewSchema } from '@/server/intake/schemas';
+import { compactFormFields, reviewFormSchema } from '@/server/intake/schemas';
 import { storeImage } from '@/server/intake/uploads';
 import { enqueueNotification } from '@/server/notifications/queue';
 import { env } from '@/shared/config/env';
@@ -28,7 +28,7 @@ export async function POST(request: Request): Promise<Response> {
 
     await assertWithinRateLimit(request, 'reviews', REVIEW_RATE_LIMIT);
 
-    const input = reviewSchema.parse(body.fields);
+    const input = reviewFormSchema.parse(compactFormFields(body.fields));
 
     const file = body.files.get('photo');
     const photo = file === undefined ? null : (await storeImage(file, 'reviews')).url;

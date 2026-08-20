@@ -3,7 +3,12 @@ import { db } from '@/server/db';
 import { isHoneypotFilled, readIntakeBody } from '@/server/intake/body';
 import { errorResponse, jsonResponse, toApiError } from '@/server/intake/http';
 import { LEAD_RATE_LIMIT, assertWithinRateLimit } from '@/server/intake/rate-limit';
-import { leadSchema } from '@/server/intake/schemas';
+import {
+  DEFAULT_LEAD_TOPIC,
+  compactFormFields,
+  leadFormSchema,
+  normalizePhone,
+} from '@/server/intake/schemas';
 import { collectTracking } from '@/server/intake/tracking';
 import { storeImage } from '@/server/intake/uploads';
 import { enqueueNotification } from '@/server/notifications/queue';
@@ -32,7 +37,7 @@ export async function POST(request: Request): Promise<Response> {
 
     await assertWithinRateLimit(request, 'leads', LEAD_RATE_LIMIT);
 
-    const input = leadSchema.parse(body.fields);
+    const input = leadFormSchema.parse(compactFormFields(body.fields));
     const tracking = collectTracking(request, body.fields);
 
     const file = body.files.get('photo');
@@ -41,11 +46,12 @@ export async function POST(request: Request): Promise<Response> {
     const lead = await db.lead.create({
       data: {
         name: input.name,
-        phone: input.phone,
-        topic: input.topic,
+        phone: normalizePhone(input.phone),
+        // форма темы может не спрашивать — тогда это обращение за консультацией
+        topic: input.topic ?? DEFAULT_LEAD_TOPIC,
         place: input.place ?? null,
         qty: input.qty ?? null,
-        callTime: input.time ?? null,
+        callTime: input.callTime ?? null,
         address: input.address ?? null,
         comment: input.comment ?? null,
         photo,

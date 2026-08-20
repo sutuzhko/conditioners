@@ -137,6 +137,16 @@ describe('POST /api/reviews', () => {
     expect(dbMock.review.create).not.toHaveBeenCalled();
   });
 
+  it('на пустые обязательные поля отвечает по-русски, а не сообщением Zod', async () => {
+    for (const broken of [{ name: '' }, { text: '' }, { rating: '' }, { rating: 'пять' }]) {
+      const response = await POST(reviewRequest({ ...VALID, ...broken }));
+      const message = String(((await readBody(response)).error as { message: string }).message);
+
+      expect(response.status).toBe(400);
+      expect(message).not.toMatch(/[A-Za-z]/);
+    }
+  });
+
   it('требует оценку от 1 до 5', async () => {
     const response = await POST(reviewRequest({ ...VALID, rating: '9' }));
     const body = await readBody(response);

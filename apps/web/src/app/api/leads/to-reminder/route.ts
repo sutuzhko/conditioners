@@ -3,7 +3,12 @@ import { db } from '@/server/db';
 import { isHoneypotFilled, readIntakeBody } from '@/server/intake/body';
 import { errorResponse, jsonResponse, toApiError } from '@/server/intake/http';
 import { LEAD_RATE_LIMIT, assertWithinRateLimit } from '@/server/intake/rate-limit';
-import { TO_REMINDER_TOPIC, toReminderSchema } from '@/server/intake/schemas';
+import {
+  TO_REMINDER_TOPIC,
+  compactFormFields,
+  normalizePhone,
+  toReminderFormSchema,
+} from '@/server/intake/schemas';
 import { collectTracking } from '@/server/intake/tracking';
 import { enqueueNotification } from '@/server/notifications/queue';
 
@@ -30,13 +35,13 @@ export async function POST(request: Request): Promise<Response> {
 
     await assertWithinRateLimit(request, 'leads', LEAD_RATE_LIMIT);
 
-    const input = toReminderSchema.parse(body.fields);
+    const input = toReminderFormSchema.parse(compactFormFields(body.fields));
     const tracking = collectTracking(request, body.fields);
 
     const lead = await db.lead.create({
       data: {
         name: TO_REMINDER_NAME,
-        phone: input.phone,
+        phone: normalizePhone(input.phone),
         topic: TO_REMINDER_TOPIC,
         // «установили этим летом», «не помню, когда чистили» — это и есть срок,
         // от которого владелец считает, когда перезвонить

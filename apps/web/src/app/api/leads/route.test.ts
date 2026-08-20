@@ -121,11 +121,19 @@ describe('POST /api/leads', () => {
     await expect(readBody(response)).resolves.toEqual({
       error: {
         code: 'validation_error',
-        message: expect.stringContaining('согласие'),
+        message: expect.stringContaining('согласия'),
         field: 'consent',
       },
     });
     expect(dbMock.lead.create).not.toHaveBeenCalled();
+  });
+
+  it('на пустые обязательные поля отвечает по-русски, а не сообщением Zod', async () => {
+    const empty = await POST(leadRequest({ ...VALID, name: '', phone: '' }));
+    const message = String(((await readBody(empty)).error as { message: string }).message);
+
+    // латиницы в тексте быть не должно: его читает клиент, а не разработчик
+    expect(message).not.toMatch(/[A-Za-z]/);
   });
 
   it('на некорректный телефон отвечает 400 с указанием поля', async () => {
