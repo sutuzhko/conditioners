@@ -29,9 +29,13 @@ dist/
 next-env.d.ts
 
 # ===== Данные и загрузки =====
-uploads/
-data/
-pgdata/
+# 🔴 Якорь обязателен. Правило вида `uploads/` без слеша в начале игнорирует
+# любой каталог с таким именем на любой глубине — включая исходники маршрутов
+# (apps/web/src/app/api/uploads/**). Такой файл не попадёт в коммит молча.
+/data/
+/uploads/
+/pgdata/
+apps/web/public/uploads/
 *.sql
 *.dump
 backups/
