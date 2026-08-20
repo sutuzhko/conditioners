@@ -1,0 +1,53 @@
+import { json, noContent, notFound, readJson, validationError, withAdmin } from '@/server/http';
+import { findById, remove, update } from '@/server/repo/products';
+import { productPatchSchema, productUpdateSchema } from '@/server/repo/validation';
+import { revalidateCatalog } from '@/server/revalidate';
+
+export const dynamic = 'force-dynamic';
+
+type Context = { params: Promise<{ id: string }> };
+
+export const GET = withAdmin(async (_request, context: Context) => {
+  const { id } = await context.params;
+  const product = await findById(id);
+  return product === null ? notFound('Модель') : json(product);
+});
+
+/** PUT заменяет карточку целиком, PATCH правит отдельные поля. */
+export const PUT = withAdmin(async (request, context: Context) => {
+  const { id } = await context.params;
+  const parsed = productUpdateSchema.safeParse(await readJson(request));
+  if (!parsed.success) return validationError(parsed.error);
+
+  const before = await findById(id);
+  if (before === null) return notFound('Модель');
+
+  const product = await update(id, parsed.data);
+  revalidateCatalog(product.slug);
+  if (before.slug !== product.slug) revalidateCatalog(before.slug);
+
+  return json(product);
+});
+
+export const PATCH = withAdmin(async (request, context: Context) => {
+  const { id } = await context.params;
+  const parsed = productPatchSchema.safeParse(await readJson(request));
+  if (!parsed.success) return validationError(parsed.error);
+
+  const before = await findById(id);
+  if (before === null) return notFound('Модель');
+
+  const product = await update(id, parsed.data);
+  revalidateCatalog(product.slug);
+  if (before.slug !== product.slug) revalidateCatalog(before.slug);
+
+  return json(product);
+});
+
+export const DELETE = withAdmin(async (_request, context: Context) => {
+  const { id } = await context.params;
+  const removed = await remove(id);
+  revalidateCatalog(removed.slug);
+
+  return noContent();
+});
