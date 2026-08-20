@@ -1,0 +1,144 @@
+/* Форма отзыва. Раскладка снята с макета: карточка с радиусом 22px,
+   поля в колонку с зазором 15px, имя и район в две колонки.
+   Строение повторяет форму заявки — две формы одного сайта обязаны
+   выглядеть и вести себя одинаково. Цвета — только токены. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-radius: var(--r-xl);
+  padding: clamp(18px, 4vw, 30px);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(20px, 4.5vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.description {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+/* область объявлений: её читает скринридер, глазами она не видна */
+.live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* --muted, а не --faint: мелкий текст обязан добирать AA в обеих темах */
+.note {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (width >= 560px) {
+  .pair {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.policy {
+  color: var(--accent-ink);
+  text-underline-offset: 2px;
+}
+
+/* ловушка для роботов: вне экрана, вне табуляции, вне дерева доступности */
+.trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.failure {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  padding: 12px 14px;
+}
+
+.failureText {
+  margin: 0;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+  line-height: 1.45;
+}
+
+.success {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  padding: clamp(16px, 5vw, 26px) 0;
+  text-align: center;
+}
+
+.successIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.successTitle {
+  max-width: 20ch;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.successText {
+  max-width: 38ch;
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-base);
+  line-height: 1.5;
+}
