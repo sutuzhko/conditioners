@@ -21,18 +21,25 @@ export async function hit(
 ): Promise<RateLimitVerdict> {
   const startedAt = Math.floor(now.getTime() / windowMs) * windowMs;
   const windowAt = new Date(startedAt);
+  const retryAfterSec = Math.max(1, Math.ceil((startedAt + windowMs - now.getTime()) / 1000));
 
-  const row = await db.rateLimit.upsert({
-    where: { key_windowAt: { key, windowAt } },
-    create: { key, windowAt, hits: 1 },
-    update: { hits: { increment: 1 } },
-  });
+  let hits: number;
+  try {
+    const row = await db.rateLimit.upsert({
+      where: { key_windowAt: { key, windowAt } },
+      create: { key, windowAt, hits: 1 },
+      update: { hits: { increment: 1 } },
+    });
+    hits = row.hits;
+  } catch (error) {
+    // 🔴 Счётчик защищает от спама, а не от потери заявки: если вспомогательная
+    // таблица недоступна, запрос идёт дальше. Отказать живому клиенту дороже,
+    // чем пропустить бота (инвариант 2).
+    console.error('Не удалось учесть частоту обращений', error);
+    return { allowed: true, hits: 0, retryAfterSec };
+  }
 
-  return {
-    allowed: row.hits <= limit,
-    hits: row.hits,
-    retryAfterSec: Math.max(1, Math.ceil((startedAt + windowMs - now.getTime()) / 1000)),
-  };
+  return { allowed: hits <= limit, hits, retryAfterSec };
 }
 
 /** После удачного входа счётчик неудач сбрасывается. */

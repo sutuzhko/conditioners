@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join, normalize } from 'node:path';
 import { env } from '@/shared/config/env';
-import { ApiError } from './http';
+import { ApiException } from '@/server/http';
 import { assertSupportedImage, extensionFor, stripImageMetadata } from './image';
 
 /**
@@ -24,8 +24,7 @@ export type StoredImage = {
 export async function storeImage(file: File, folder: UploadFolder): Promise<StoredImage> {
   if (file.size > env.UPLOAD_MAX_BYTES) {
     const limit = Math.round((env.UPLOAD_MAX_BYTES / 1_048_576) * 10) / 10;
-    throw new ApiError(
-      413,
+    throw new ApiException(
       'payload_too_large',
       `Фото больше ${limit} МБ. Уменьшите снимок и приложите его ещё раз.`,
       'photo',

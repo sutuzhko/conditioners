@@ -1,5 +1,5 @@
 import { db } from '@/server/db';
-import { purgeStaleRateLimits } from '@/server/intake/rate-limit';
+import { dropOlderThan } from '@/server/repo/rate-limit';
 import { enabledChannelNames } from './channels';
 import { processDueNotifications } from './runner';
 
@@ -26,7 +26,7 @@ async function tick(): Promise<void> {
 
   ticks += 1;
   if (ticks % CLEANUP_EVERY_TICKS === 0) {
-    await purgeStaleRateLimits(new Date(Date.now() - RATE_LIMIT_TTL_MS));
+    await dropOlderThan(new Date(Date.now() - RATE_LIMIT_TTL_MS));
   }
 }
 

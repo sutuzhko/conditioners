@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
-import { ApiError } from './http';
+import { ApiException } from '@/server/http';
 import { detectImageFormat, stripImageMetadata } from './image';
 
 /** Минимальные, но структурно верные файлы: настоящие снимки в тесты класть незачем. */
@@ -112,6 +112,6 @@ describe('вырезание метаданных', () => {
 
   it('на битом файле отказывает понятной ошибкой, а не отдаёт его как есть', () => {
     const broken = Buffer.concat([Buffer.from([0xff, 0xd8]), Buffer.from('мусор', 'utf-8')]);
-    expect(() => stripImageMetadata(broken, 'jpeg')).toThrow(ApiError);
+    expect(() => stripImageMetadata(broken, 'jpeg')).toThrow(ApiException);
   });
 });

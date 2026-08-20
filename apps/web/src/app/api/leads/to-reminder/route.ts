@@ -1,8 +1,13 @@
 import { randomUUID } from 'node:crypto';
 import { db } from '@/server/db';
 import { isHoneypotFilled, readIntakeBody } from '@/server/intake/body';
-import { errorResponse, jsonResponse, toApiError } from '@/server/intake/http';
-import { LEAD_RATE_LIMIT, assertWithinRateLimit } from '@/server/intake/rate-limit';
+import {
+  LEAD_RATE_LIMIT,
+  NO_STORE,
+  assertWithinRateLimit,
+  handleRouteError,
+  json,
+} from '@/server/http';
 import {
   TO_REMINDER_TOPIC,
   compactFormFields,
@@ -30,7 +35,7 @@ export async function POST(request: Request): Promise<Response> {
 
     if (isHoneypotFilled(body)) {
       console.warn('Запрос напоминания отклонён: заполнено поле-ловушка');
-      return jsonResponse({ id: randomUUID() }, 201);
+      return json({ id: randomUUID() }, 201, NO_STORE);
     }
 
     await assertWithinRateLimit(request, 'leads', LEAD_RATE_LIMIT);
@@ -60,8 +65,8 @@ export async function POST(request: Request): Promise<Response> {
       when: lead.comment,
     });
 
-    return jsonResponse({ id: lead.id }, 201);
+    return json({ id: lead.id }, 201, NO_STORE);
   } catch (error) {
-    return errorResponse(toApiError(error));
+    return handleRouteError(error);
   }
 }

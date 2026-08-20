@@ -24,6 +24,8 @@ const row = {
   text: 'Приехали в тот же день',
   photo: null,
   status: 'PENDING' as const,
+  // согласие на обработку ПДн фиксируется при отправке формы (152-ФЗ, инвариант 12)
+  consentAt: new Date('2026-08-01T10:00:00Z'),
   createdAt: new Date('2026-08-01T10:00:00Z'),
 };
 

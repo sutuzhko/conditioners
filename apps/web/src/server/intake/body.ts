@@ -1,4 +1,4 @@
-import { ApiError } from './http';
+import { ApiException } from '@/server/http';
 
 /**
  * Чтение тела публичной формы. Понимает `multipart/form-data` (основной формат
@@ -17,18 +17,16 @@ function megabytes(bytes: number): string {
   return `${Math.round((bytes / 1_048_576) * 10) / 10} МБ`;
 }
 
-function tooLarge(maxBytes: number): ApiError {
-  return new ApiError(
-    413,
+function tooLarge(maxBytes: number): ApiException {
+  return new ApiException(
     'payload_too_large',
-    `Данные слишком большие: допустимо до ${megabytes(maxBytes)}. Уменьшите фото и отправьте форму ещё раз.`,
+    `Данные слишком большие: допустимо до ${megabytes(maxBytes)}. Уменьшите фото и отправьте форму ещё раз`,
   );
 }
 
-const UNREADABLE = new ApiError(
-  400,
+const UNREADABLE = new ApiException(
   'validation_error',
-  'Не получилось прочитать данные формы. Обновите страницу и заполните её заново.',
+  'Не получилось прочитать данные формы. Обновите страницу и заполните её заново',
 );
 
 function stringify(value: unknown): string | null {

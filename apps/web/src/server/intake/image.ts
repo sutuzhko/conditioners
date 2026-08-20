@@ -1,4 +1,4 @@
-import { ApiError } from './http';
+import { ApiException } from '@/server/http';
 
 /**
  * Разбор загруженного изображения без сторонних библиотек.
@@ -21,15 +21,13 @@ export function extensionFor(format: ImageFormat): string {
   return EXTENSIONS[format];
 }
 
-const BROKEN_IMAGE = new ApiError(
-  400,
+const BROKEN_IMAGE = new ApiException(
   'validation_error',
   'Не удалось прочитать фото. Приложите обычный снимок в JPEG, PNG или WebP.',
   'photo',
 );
 
-const WRONG_FORMAT = new ApiError(
-  400,
+const WRONG_FORMAT = new ApiException(
   'validation_error',
   'Фото должно быть в формате JPEG, PNG или WebP.',
   'photo',
