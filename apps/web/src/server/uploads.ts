@@ -9,7 +9,7 @@
  * утечка персональных данных.
  */
 import { randomUUID } from 'node:crypto';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { env } from '@/shared/config/env';
 import { ApiException } from '@/server/http';
@@ -169,4 +169,17 @@ export function mimeFor(name: string): string {
   if (name.endsWith('.png')) return 'image/png';
   if (name.endsWith('.webp')) return 'image/webp';
   return 'image/jpeg';
+}
+
+/**
+ * Удаляет файл вместе с записью о нём: иначе том постепенно наполняется
+ * фотографиями удалённых карточек, а их никто уже не найдёт.
+ */
+export async function deleteStoredImage(url: string): Promise<void> {
+  if (!url.startsWith(`${MEDIA_URL_PREFIX}/`)) return;
+
+  const name = url.slice(MEDIA_URL_PREFIX.length + 1);
+  if (!isSafeFilename(name)) return;
+
+  await rm(join(env.UPLOADS_DIR, name), { force: true });
 }

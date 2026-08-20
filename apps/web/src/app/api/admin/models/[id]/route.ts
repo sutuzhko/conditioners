@@ -1,5 +1,6 @@
 import { json, noContent, notFound, readJson, validationError, withAdmin } from '@/server/http';
 import { findById, remove, update } from '@/server/repo/products';
+import { deleteStoredImage } from '@/server/uploads';
 import { productPatchSchema, productUpdateSchema } from '@/server/repo/validation';
 import { revalidateCatalog } from '@/server/revalidate';
 
@@ -46,8 +47,15 @@ export const PATCH = withAdmin(async (request, context: Context) => {
 
 export const DELETE = withAdmin(async (_request, context: Context) => {
   const { id } = await context.params;
-  const removed = await remove(id);
-  revalidateCatalog(removed.slug);
+
+  const product = await findById(id);
+  if (product === null) return notFound('Модель');
+
+  await remove(id);
+  // Файлы удаляются вместе с карточкой: том не должен копить осиротевшие фото.
+  await Promise.all(product.photos.map((photo) => deleteStoredImage(photo.url)));
+
+  revalidateCatalog(product.slug);
 
   return noContent();
 });
