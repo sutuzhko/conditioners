@@ -1,0 +1,236 @@
+/* Стеклянная sticky-шапка. Геометрия снята с макета: радиус 18px, подложка
+   var(--header-bg) с размытием, тонкая линия вместо тени (DESIGN_BRIEF §4).
+   Мобильная раскладка спроектирована нами — в макете её нет (§6). */
+
+.header {
+  position: sticky;
+  z-index: 50;
+  top: 0;
+  padding: 14px 16px;
+}
+
+.bar {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 8px 10px 8px 15px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--header-bg);
+  box-shadow: var(--shadow-header);
+  backdrop-filter: blur(16px);
+}
+
+/* ---- логотип ---- */
+
+.logo {
+  display: flex;
+  flex-shrink: 1;
+  gap: 11px;
+  align-items: center;
+  min-width: 0;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+}
+
+.logo:focus-visible {
+  outline-offset: 3px;
+  box-shadow: var(--ring-focus);
+}
+
+.lockup {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.12;
+}
+
+.name {
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tagline {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- навигация ---- */
+
+.nav {
+  /* навигация не сжимается: при длинном названии компании обрезается замок,
+     а не пункты меню */
+  flex-shrink: 0;
+}
+
+.navList {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 2px;
+  border-radius: 6px;
+  color: var(--ink2);
+  font-family: var(--font-text);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.navLink:hover {
+  color: var(--accent-ink);
+}
+
+.navLink:focus-visible {
+  outline-offset: 3px;
+  box-shadow: var(--ring-focus);
+}
+
+.navLink[aria-current='page'] {
+  color: var(--accent-ink);
+}
+
+/* ---- действия ---- */
+
+.actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  align-items: center;
+}
+
+.actions .phone {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: -0.01em;
+}
+
+.burger {
+  display: none;
+}
+
+/* ---- 999px и уже: навигация уезжает в выдвижное меню ---- */
+
+@media (width <= 999px) {
+  .nav {
+    display: none;
+  }
+
+  .burger {
+    display: inline-flex;
+  }
+
+  .tagline {
+    display: none;
+  }
+}
+
+/* ---- 599px и уже: телефон сжимается до значка, тема живёт в меню ---- */
+
+@media (width <= 599px) {
+  .header {
+    padding: 10px 12px;
+  }
+
+  .bar {
+    gap: 8px;
+    padding: 7px 8px 7px 10px;
+    border-radius: var(--r-md);
+  }
+
+  .actions {
+    gap: 6px;
+  }
+
+  .actions .phone {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .phoneText {
+    display: none;
+  }
+
+  .theme {
+    display: none;
+  }
+
+  .ctaLong {
+    display: none;
+  }
+
+  .ctaArrow {
+    display: none;
+  }
+
+  .name {
+    font-size: 15.5px;
+  }
+}
+
+/* ---- 399px и уже: сжимаем отступы, чтобы название бренда не резалось ---- */
+
+@media (width <= 399px) {
+  .header {
+    padding: 10px;
+  }
+
+  .bar {
+    padding: 7px 6px 7px 8px;
+  }
+
+  .actions {
+    gap: 4px;
+  }
+
+  .actions .cta {
+    padding-right: 13px;
+    padding-left: 13px;
+  }
+
+  .logo {
+    gap: 9px;
+  }
+}
+
+/* ---- 359px и уже: места на название нет, остаётся один знак ---- */
+
+@media (width <= 359px) {
+  .lockup {
+    display: none;
+  }
+}
+
+@media (width >= 600px) {
+  .ctaShort {
+    display: none;
+  }
+
+  .ctaArrow {
+    display: inline-flex;
+  }
+}

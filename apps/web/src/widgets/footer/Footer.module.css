@@ -1,0 +1,235 @@
+/* Футер. Тёмная панель в обеих темах — так в макете; текст на ней держит AA
+   за счёт var(--faint), ссылки при наведении уходят в белый. */
+
+.footer {
+  background: var(--panel);
+  color: var(--faint);
+  font-family: var(--font-text);
+  font-size: var(--fs-dense);
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: space-between;
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 48px var(--gutter) 36px;
+}
+
+/* ---- бренд ---- */
+
+.about {
+  max-width: 300px;
+}
+
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.brandName {
+  overflow: hidden;
+  color: var(--on-panel);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-overflow: ellipsis;
+}
+
+.tagline {
+  margin: 0;
+  font-size: var(--fs-dense);
+}
+
+/* ---- колонки ---- */
+
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 52px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.columnTitle {
+  margin: 0 0 4px;
+  color: var(--on-panel);
+  font-family: var(--font-text);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 2px 0;
+  border-radius: 6px;
+  color: var(--faint);
+  font-size: var(--fs-dense);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--on-panel);
+  text-decoration: underline;
+}
+
+.link:focus-visible {
+  outline-color: var(--on-panel);
+  color: var(--on-panel);
+}
+
+.link[aria-current='page'] {
+  color: var(--on-panel);
+}
+
+.phone {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+}
+
+.text {
+  padding: 2px 0;
+  font-size: var(--fs-dense);
+}
+
+/* ---- реквизиты ---- */
+
+.legal {
+  max-width: 280px;
+}
+
+.legalName {
+  margin: 0;
+  color: var(--on-panel);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.legalList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+}
+
+.legalRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13.5px;
+}
+
+.legalTerm {
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.legalValue {
+  margin: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}
+
+/* ---- нижняя полоса ---- */
+
+.bottom {
+  /* разделитель на тёмной панели выводится из белого: подходящего токена
+     «линия поверх панели» в палитре нет, а --line в светлой теме почти белая */
+  border-top: 1px solid color-mix(in srgb, var(--on-panel) 12%, transparent);
+}
+
+.bottomInner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 18px var(--gutter);
+  font-size: var(--fs-caption);
+}
+
+.copy {
+  color: var(--faint);
+}
+
+.policy {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--faint);
+  font-size: 12.5px;
+  text-decoration: underline;
+}
+
+.policy:hover {
+  color: var(--on-panel);
+}
+
+.policy:focus-visible {
+  outline-color: var(--on-panel);
+  color: var(--on-panel);
+}
+
+/* ---- планшет и телефон ---- */
+
+@media (width <= 899px) {
+  .columns {
+    gap: 28px 40px;
+  }
+}
+
+@media (width <= 599px) {
+  .inner {
+    flex-direction: column;
+    gap: 28px;
+    padding: 36px 16px 28px;
+  }
+
+  .about {
+    max-width: none;
+  }
+
+  .columns {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .legal {
+    max-width: none;
+  }
+
+  .bottomInner {
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px;
+  }
+}

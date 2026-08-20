@@ -1,0 +1,30 @@
+/* Цвета знака вынесены в локальные переменные: в тёмной теме плитка светлеет,
+   а струи «вырезаются» фоном — так устроены mark.svg и mark-dark.svg. */
+
+.mark {
+  --mark-tile: var(--brand-mark);
+  --mark-jet: var(--on-brand);
+  --mark-jet-soft: var(--accent-line);
+
+  flex-shrink: 0;
+}
+
+:root[data-theme='dark'] .mark {
+  --mark-tile: var(--brand-mark-dark);
+  --mark-jet: var(--bg);
+  --mark-jet-soft: var(--bg);
+}
+
+.tile {
+  fill: var(--mark-tile);
+}
+
+.jet {
+  fill: none;
+  stroke: var(--mark-jet);
+}
+
+.jetSoft {
+  fill: none;
+  stroke: var(--mark-jet-soft);
+}
