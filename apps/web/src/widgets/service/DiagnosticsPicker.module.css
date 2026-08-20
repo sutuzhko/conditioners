@@ -1,0 +1,115 @@
+/* Выбор симптома и разбор. Пропорции колонок 1.2 / 1.1 / 0.6 и мелкие
+   моноширинные подписи — из макета (docs/DESIGN_BRIEF.md §3, §4). */
+
+.picker {
+  display: block;
+}
+
+.chipsLabel {
+  margin: 0 0 12px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ряд переносится, а не уезжает за край: страница по горизонтали
+   не скроллится никогда (docs/DESIGN_BRIEF.md §6) */
+.chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.panels {
+  margin-top: 26px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.panel {
+  display: block;
+}
+
+/* класс на .panel перебил бы display:none из атрибута hidden — возвращаем */
+.panel[hidden] {
+  display: none;
+}
+
+.panelTitle {
+  margin: 0 0 18px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: 1.2fr 1.1fr 0.6fr;
+  gap: 26px;
+  align-items: start;
+  margin: 0;
+}
+
+.fact {
+  min-width: 0;
+}
+
+.factLabel {
+  margin: 0 0 7px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.factValue {
+  margin: 0;
+  color: var(--ink2);
+  font-size: var(--fs-base);
+  font-weight: 600;
+}
+
+.price {
+  margin: 0;
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* цены нет — это основное состояние, а не прочерк: формулировка занимает
+   место цифры и не притворяется суммой */
+.priceUnknown {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+@media (width < 900px) {
+  .facts {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .panels {
+    margin-top: 22px;
+    padding-top: 22px;
+  }
+}
+
+@media (width < 600px) {
+  .chips {
+    gap: 8px;
+  }
+
+  .price {
+    font-size: 22px;
+  }
+}
