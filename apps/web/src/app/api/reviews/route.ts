@@ -45,6 +45,8 @@ export async function POST(request: Request): Promise<Response> {
         rating: input.rating,
         text: input.text,
         photo,
+        // 🔴 доказательство согласия по 152-ФЗ: фиксируем момент отправки формы
+        consentAt: new Date(),
       },
     });
 

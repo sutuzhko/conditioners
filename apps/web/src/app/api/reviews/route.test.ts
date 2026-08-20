@@ -91,6 +91,8 @@ describe('POST /api/reviews', () => {
     });
     // статус не передаём: значение по умолчанию в схеме — PENDING
     expect(dbMock.review.create.mock.calls[0]?.[0].data.status).toBeUndefined();
+    // 🔴 152-ФЗ: факт согласия должен остаться в базе, а не только в форме
+    expect(dbMock.review.create.mock.calls[0]?.[0].data.consentAt).toBeInstanceOf(Date);
   });
 
   it('ставит уведомление с кнопками модерации в очередь', async () => {
