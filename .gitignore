@@ -1,0 +1,65 @@
+# ===== Секреты =====
+# Разрешены только шаблоны: .env.example и .env.prod.example
+.env
+.env.*
+!.env.example
+!.env.prod.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+.htpasswd
+
+# ===== Дизайн-исходники =====
+# Прототипы из Claude Design хранятся локально и в репозиторий не выкладываются.
+# В них, помимо прочего, лежит скомпрометированный токен Telegram-бота.
+design/
+
+# ===== Зависимости и сборка =====
+node_modules/
+.pnp
+.pnp.js
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# ===== Данные и загрузки =====
+uploads/
+data/
+pgdata/
+*.sql
+*.dump
+backups/
+
+# ===== Тесты и отчёты =====
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+blob-report/
+.playwright/
+
+# ===== Логи =====
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===== Окружение разработчика =====
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+.claude/settings.local.json
+
+# ===== Прочее =====
+.cache/
+.turbo/
+.vercel
