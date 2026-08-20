@@ -38,7 +38,9 @@ describe('BrandMark', () => {
   });
 
   it('вариант для тёмной панели отличается классом, а не геометрией', () => {
-    const auto = render(<BrandMark />).container.querySelector('svg')?.getAttribute('class');
+    const auto = render(<BrandMark />)
+      .container.querySelector('svg')
+      ?.getAttribute('class');
     const onDark = render(<BrandMark tone="onDark" />)
       .container.querySelector('svg')
       ?.getAttribute('class');
