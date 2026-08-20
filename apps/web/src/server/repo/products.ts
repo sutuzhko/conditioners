@@ -7,7 +7,7 @@
 import type { Prisma } from '@prisma/client';
 import { db } from '@/server/db';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
-import { uniqueSlug } from '@/server/repo/slug';
+import { pageSlug, uniqueSlug } from '@/shared/lib/slug';
 import { ApiException } from '@/server/http';
 import type {
   PhotoPatchInput,
@@ -140,13 +140,26 @@ export async function findById(id: string): Promise<ProductDto | null> {
   return row === null ? null : toDto(row);
 }
 
-async function slugTaken(candidate: string, exceptId?: string): Promise<boolean> {
-  const row = await db.product.findUnique({ where: { slug: candidate }, select: { id: true } });
-  return row !== null && row.id !== exceptId;
+/**
+ * Свободный адрес: занятые соседи берутся одним запросом по префиксу, а
+ * суффикс подбирает чистая функция из `shared/lib/slug` — та же, что и на
+ * клиенте, чтобы предпросмотр адреса в админке совпадал с тем, что сохранится.
+ */
+async function freeSlug(source: string, exceptId?: string): Promise<string> {
+  const base = pageSlug(source);
+  const rows = await db.product.findMany({
+    where: { slug: { startsWith: base } },
+    select: { id: true, slug: true },
+  });
+
+  return uniqueSlug(
+    base,
+    rows.filter((row) => row.id !== exceptId).map((row) => row.slug),
+  );
 }
 
 export async function create(input: ProductCreateInput): Promise<ProductDto> {
-  const slug = await uniqueSlug(input.slug ?? input.name, (candidate) => slugTaken(candidate));
+  const slug = await freeSlug(input.slug ?? input.name);
 
   const row = await db.product.create({
     data: {
@@ -182,7 +195,7 @@ export async function update(id: string, input: ProductPatchInput): Promise<Prod
   const slug =
     input.slug === undefined || input.slug === current.slug
       ? current.slug
-      : await uniqueSlug(input.slug, (candidate) => slugTaken(candidate, id));
+      : await freeSlug(input.slug, id);
 
   const row = await db.$transaction(async (tx) => {
     if (input.specs !== undefined) {

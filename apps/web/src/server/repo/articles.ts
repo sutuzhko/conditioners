@@ -3,7 +3,7 @@
  */
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
-import { uniqueSlug } from '@/server/repo/slug';
+import { pageSlug, uniqueSlug } from '@/shared/lib/slug';
 import type { ArticleCreateInput, ArticlePatchInput } from '@/server/repo/validation';
 
 export type ArticleListItem = {
@@ -91,13 +91,26 @@ export async function findById(id: string): Promise<ArticleDto | null> {
   return row === null ? null : toDto(row);
 }
 
-async function slugTaken(candidate: string, exceptId?: string): Promise<boolean> {
-  const row = await db.article.findUnique({ where: { slug: candidate }, select: { id: true } });
-  return row !== null && row.id !== exceptId;
+/**
+ * Свободный адрес: занятые соседи берутся одним запросом по префиксу, а
+ * суффикс подбирает чистая функция из `shared/lib/slug` — та же, что и на
+ * клиенте, чтобы предпросмотр адреса в админке совпадал с тем, что сохранится.
+ */
+async function freeSlug(source: string, exceptId?: string): Promise<string> {
+  const base = pageSlug(source);
+  const rows = await db.article.findMany({
+    where: { slug: { startsWith: base } },
+    select: { id: true, slug: true },
+  });
+
+  return uniqueSlug(
+    base,
+    rows.filter((row) => row.id !== exceptId).map((row) => row.slug),
+  );
 }
 
 export async function create(input: ArticleCreateInput): Promise<ArticleDto> {
-  const slug = await uniqueSlug(input.slug ?? input.title, (candidate) => slugTaken(candidate));
+  const slug = await freeSlug(input.slug ?? input.title);
 
   const row = await db.article.create({
     data: {
@@ -124,7 +137,7 @@ export async function update(id: string, input: ArticlePatchInput): Promise<Arti
   const slug =
     input.slug === undefined || input.slug === current.slug
       ? current.slug
-      : await uniqueSlug(input.slug, (candidate) => slugTaken(candidate, id));
+      : await freeSlug(input.slug, id);
 
   const row = await db.article.update({
     where: { id },

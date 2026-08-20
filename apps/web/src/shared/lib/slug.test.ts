@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { slugify, transliterate, uniqueSlug } from './slug';
+import { SLUG_MAX_LENGTH, pageSlug, slugify, transliterate, uniqueSlug } from './slug';
 
 describe('transliterate', () => {
   it('переводит кириллицу в латиницу', () => {
@@ -29,6 +29,24 @@ describe('slugify', () => {
   it('строка без букв и цифр даёт пустой слаг — решение принимает вызывающий', () => {
     expect(slugify('— !!! —')).toBe('');
     expect(slugify('')).toBe('');
+  });
+});
+
+describe('pageSlug', () => {
+  it('транслитерирует название страницы', () => {
+    expect(pageSlug('Сплит-система 09')).toBe('split-sistema-09');
+    expect(pageSlug('Инвертор ИЛИ On/Off?')).toMatch(/^[a-z0-9-]+$/);
+  });
+
+  it('название без латиницы и цифр не даёт пустой адрес', () => {
+    expect(pageSlug('«»— ')).toBe('element');
+  });
+
+  it('длинный заголовок обрезается и не заканчивается дефисом', () => {
+    const long = pageSlug('Как выбрать кондиционер для квартиры в Туле '.repeat(5));
+
+    expect(long.length).toBeLessThanOrEqual(SLUG_MAX_LENGTH);
+    expect(long.endsWith('-')).toBe(false);
   });
 });
 
