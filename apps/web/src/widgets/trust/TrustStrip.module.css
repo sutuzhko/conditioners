@@ -1,0 +1,45 @@
+/* Полоса доверия: тёмная врезка во всю ширину (макет, TRUST STRIP).
+   Панель тёмная в обеих темах, поэтому текст выводится из --on-panel. */
+
+.strip {
+  background: var(--panel);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 48px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 22px var(--gutter);
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  color: color-mix(in srgb, var(--on-panel) 80%, transparent);
+  font-size: var(--fs-dense);
+  line-height: 1.35;
+}
+
+.icon {
+  display: flex;
+  flex: none;
+  color: var(--brand-mark-dark);
+}
+
+/* На телефоне четыре утверждения в ряд не помещаются: столбец с прижатым
+   левым краем читается лучше, чем центрированные переносы по два слова */
+@media (width < 600px) {
+  .list {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 18px 16px;
+  }
+}

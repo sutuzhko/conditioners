@@ -1,0 +1,121 @@
+/* Услуги. Контейнер и ритм — docs/DESIGN_BRIEF.md §4, деградация сетки — §6:
+   три колонки на десктопе, одна на телефоне. */
+
+.container {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter);
+}
+
+.head {
+  max-width: 640px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+/* auto-fit вместо фиксированных трёх колонок: ряд сам сжимается до двух и
+   одной, и на 320px карточка не выталкивает страницу за край */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.iconBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 20px;
+  border-radius: var(--r-md);
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.cardTitle {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.cardText {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: var(--fs-base);
+}
+
+/* ссылка прижата к низу карточки: заголовки соседей встают в одну линию,
+   а тап-зона остаётся 44px даже у короткой подписи */
+.link {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  min-height: var(--tap);
+  margin-top: auto;
+  color: var(--accent-ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+@media (width < 600px) {
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .head {
+    margin-bottom: 28px;
+    text-align: left;
+  }
+
+  .lead {
+    font-size: var(--fs-base);
+  }
+
+  .grid {
+    gap: 16px;
+  }
+}

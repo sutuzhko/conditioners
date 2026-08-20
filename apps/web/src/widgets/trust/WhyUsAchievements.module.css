@@ -1,0 +1,32 @@
+/* Счётчики внутри тёмной панели «Почему нас выбирают». Панель тёмная в обеих
+   темах, поэтому вторичный текст выводим из --on-panel. */
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+  gap: 20px 28px;
+  margin: 0 0 36px;
+  padding: 0 0 32px;
+  border-bottom: 1px solid color-mix(in srgb, var(--on-panel) 14%, transparent);
+}
+
+.item {
+  min-width: 0;
+}
+
+.value {
+  margin: 0 0 4px;
+  color: var(--on-panel);
+  font-family: var(--font-display);
+  font-size: clamp(26px, 6vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  margin: 0;
+  color: color-mix(in srgb, var(--on-panel) 66%, transparent);
+  font-size: var(--fs-caption);
+}
