@@ -1,0 +1,171 @@
+/* Первый экран. Раскладка из макета: две колонки 1.02fr / 0.98fr, зазор 52px,
+   вертикаль 64/76px. С 900px — одна колонка: подбор уезжает под текст. */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--hero-grad);
+}
+
+/* холодное свечение в правом верхнем углу — из макета */
+.glow {
+  position: absolute;
+  top: -120px;
+  right: -100px;
+  z-index: 0;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent-ink) 16%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+
+  /* minmax(0, …) обязателен: без него колонка не сжимается ниже min-content
+     подбора, и на узком экране текст уезжает под обрезку секции */
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  gap: 52px;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 64px var(--gutter) 76px;
+}
+
+.copy {
+  min-width: 0;
+}
+
+.note {
+  margin-bottom: 22px;
+  padding: 7px 14px;
+  font-size: var(--fs-caption);
+}
+
+.noteDot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--accent-ink);
+}
+
+.title {
+  margin: 0 0 20px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+/*
+  Анимированный градиент в H1 (DESIGN_BRIEF §7).
+
+  Крайние точки макета (#22D3EE в светлой теме) на белом дают 1.9:1 и не
+  проходят AA даже для крупного текста, поэтому диапазон сужен по темам —
+  то же отступление ради контраста, что описано в DESIGN_BRIEF §12.
+*/
+.accent {
+  --hero-grad-a: var(--brand);
+  --hero-grad-b: var(--brand-mark);
+
+  background-image: linear-gradient(
+    90deg,
+    var(--hero-grad-a),
+    var(--hero-grad-b),
+    var(--hero-grad-a)
+  );
+  background-size: 300% 100%;
+  background-clip: text;
+  color: transparent;
+  animation: hero-gradient 6s ease infinite;
+
+  /* stylelint-disable property-no-vendor-prefix -- Safari знает обрезку фона
+     по тексту только с префиксом; без него надпись станет невидимой */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* stylelint-enable property-no-vendor-prefix */
+}
+
+:root[data-theme='dark'] .accent {
+  --hero-grad-a: var(--brand-mark);
+  --hero-grad-b: var(--brand-mark-dark);
+}
+
+/* в режиме высокой контрастности прозрачный текст исчезает совсем */
+@media (forced-colors: active) {
+  .accent {
+    background-image: none;
+    color: var(--accent-ink);
+    forced-color-adjust: none;
+  }
+}
+
+@keyframes hero-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.lead {
+  max-width: 520px;
+  margin: 0 0 30px;
+  color: var(--body);
+  font-size: var(--fs-lead);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+@media (width < 900px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding: clamp(32px, 7vw, 56px) var(--gutter) clamp(40px, 8vw, 64px);
+  }
+
+  .glow {
+    width: 340px;
+    height: 340px;
+  }
+}
+
+@media (width < 600px) {
+  .inner {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .lead {
+    margin-bottom: 24px;
+    font-size: var(--fs-base);
+  }
+
+  .actions {
+    margin-bottom: 26px;
+  }
+
+  /* кнопки в столбец: на 320px две штуки в ряд не помещаются без переноса слов */
+  .actions > * {
+    flex: 1 1 100%;
+  }
+}

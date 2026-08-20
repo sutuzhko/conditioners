@@ -1,0 +1,287 @@
+/* Подбор кондиционера. Карточка и тёмная панель рекомендации — из макета
+   (секция HERO + ПОДБОР). Радиусы и отступы взяты у Card из UI Kit:
+   свой примитив ради 24px вместо 20px блок не заводит. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.live {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  white-space: nowrap;
+}
+
+/* индикатор «на связи»: пульсирующее кольцо из макета (DESIGN_BRIEF §7) */
+.dot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--ok-ink);
+  animation: hero-pulse 2.2s ease infinite;
+}
+
+@keyframes hero-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--ok-line);
+  }
+
+  50% {
+    box-shadow: 0 0 0 5px transparent;
+  }
+}
+
+/* ——— пустой каталог ——— */
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.emptyTitle {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.emptyText {
+  margin: 0 0 6px;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+/* ——— тип помещения ——— */
+
+.places {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.placesLabel {
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+/* ——— рекомендация ——— */
+
+.result {
+  /* панель тёмная в обеих темах, поэтому вторичный текст выводим из --on-panel:
+     --body и --muted на ней не добирают контраст AA */
+  --panel-dim: color-mix(in srgb, var(--on-panel) 72%, transparent);
+  --panel-faint: color-mix(in srgb, var(--on-panel) 58%, transparent);
+  --panel-line: color-mix(in srgb, var(--on-panel) 18%, transparent);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  overflow: hidden;
+}
+
+/* Класс удвоен, чтобы перебить границу варианта panel у Card, не полагаясь на
+   порядок подключения модулей. Без рамки в тёмной теме панель сливается с
+   карточкой: --panel и --card там почти одного тона. */
+.result.result {
+  border-color: var(--panel-line);
+}
+
+.glow {
+  position: absolute;
+  top: -50px;
+  right: -40px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--brand-mark-dark) 16%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.resultEyebrow {
+  position: relative;
+  color: var(--brand-mark-dark);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.model {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.photo {
+  display: block;
+  flex-shrink: 0;
+  width: 104px;
+  height: 104px;
+  border: 1px solid var(--panel-line);
+  border-radius: 13px;
+  object-fit: cover;
+}
+
+.photoStub {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 104px;
+  height: 104px;
+  border: 1px dashed var(--panel-line);
+  border-radius: 13px;
+  color: var(--panel-faint);
+  font-family: var(--font-mono);
+  font-size: 22px;
+}
+
+.modelInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.modelHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.modelName {
+  margin: 0;
+  color: var(--on-panel);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.specs {
+  margin: 0;
+  color: var(--panel-faint);
+  font-size: var(--fs-caption);
+}
+
+.tag {
+  margin: 0;
+  color: var(--panel-dim);
+  font-size: 13.5px;
+}
+
+.priceRow {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.price {
+  color: var(--on-panel);
+  font-family: var(--font-display);
+  font-size: clamp(24px, 6vw, 30px);
+  font-weight: 700;
+}
+
+.oldPrice {
+  color: var(--panel-faint);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.priceNote {
+  color: var(--panel-faint);
+  font-size: 12.5px;
+}
+
+.modelLink {
+  margin-left: auto;
+  color: var(--brand-mark-dark);
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.saleUntil {
+  position: relative;
+  margin: -6px 0 0;
+  color: var(--panel-faint);
+  font-size: 12px;
+}
+
+/* Длинный призыв не помещается в 320px одной строкой, а Button по умолчанию
+   обрезает подпись многоточием. Перенос разрешаем точечно, только здесь.
+   Класс удвоен, чтобы не зависеть от порядка подключения модулей. */
+.orderCta.orderCta {
+  white-space: normal;
+}
+
+.disclaimer {
+  position: relative;
+  margin: 0;
+  color: var(--panel-faint);
+  font-size: 11.5px;
+  text-align: center;
+}
+
+@media (width < 600px) {
+  .model {
+    gap: 12px;
+  }
+
+  .photo,
+  .photoStub {
+    width: 76px;
+    height: 76px;
+  }
+
+  .modelLink {
+    margin-left: 0;
+  }
+}
