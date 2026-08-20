@@ -112,9 +112,7 @@ describe('Сервис — стоимость работ', () => {
   it('без данных снаружи в блоке нет ни одной цифры цены', () => {
     const { container } = render(<Diagnostics />);
 
-    expect(screen.getAllByText(diagnosticsText.priceUnknown)).toHaveLength(
-      defaultSymptoms.length,
-    );
+    expect(screen.getAllByText(diagnosticsText.priceUnknown)).toHaveLength(defaultSymptoms.length);
     expect(container.textContent).not.toContain('₽');
   });
 

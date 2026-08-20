@@ -1,0 +1,157 @@
+/* «Почему монтаж стоит столько» — две сметы рядом.
+   Ритм секции, радиусы и деградация — docs/DESIGN_BRIEF.md §4, §6.
+   Цвета только токенами: ни одного хекса. */
+
+.section {
+  background: var(--bg);
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter);
+}
+
+.head {
+  max-width: 680px;
+  margin: 0 auto 44px;
+  text-align: center;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+
+  /* заголовок содержит цену: перенос внутри «6 000 ₽» недопустим,
+     но длинное слово на 320px рвать всё же лучше, чем рвать страницу */
+  overflow-wrap: break-word;
+}
+
+.lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-lead);
+}
+
+/* до планшета сметы идут одна под другой: две колонки по 150px нечитаемы */
+.pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: var(--r-xl);
+}
+
+/* честная смета обведена акцентом — это ответ на вопрос заголовка */
+.honest {
+  border-color: var(--accent-ink);
+  border-width: 2px;
+}
+
+.cardHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.price {
+  padding: 6px 14px;
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: 700;
+}
+
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.point {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  font-size: var(--fs-dense);
+  line-height: 1.5;
+}
+
+.icon {
+  display: flex;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.honest .icon {
+  color: var(--accent-ink);
+}
+
+.rival .icon {
+  color: var(--error-ink);
+}
+
+.honest .pointText {
+  color: var(--ink2);
+}
+
+.rival .pointText {
+  color: var(--muted);
+}
+
+.note {
+  margin-top: 24px;
+  border-radius: var(--r-md);
+  text-align: center;
+}
+
+.noteText {
+  margin: 0;
+  color: var(--ink2);
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+.noteText strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+@media (width >= 900px) {
+  .pair {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
