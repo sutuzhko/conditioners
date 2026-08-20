@@ -1,0 +1,100 @@
+/* Аккордеон FAQ и разбора схем обмана.
+   🔴 Содержимое ответа остаётся в DOM всегда, даже свёрнутым: это часть
+   индексируемого контента и разметки FAQPage (docs/CLAUDE.md). Сворачивание —
+   чисто визуальное, через сетку 0fr → 1fr. */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card);
+}
+
+.heading {
+  margin: 0;
+  font-size: inherit;
+}
+
+.trigger {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--tap);
+  padding: 17px 18px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 16.5px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+
+.trigger:hover {
+  color: var(--accent-ink);
+}
+
+.trigger:focus-visible {
+  box-shadow: var(--ring-focus);
+}
+
+.icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r-pill);
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-base) var(--ease-out);
+}
+
+.panelInner {
+  overflow: hidden;
+}
+
+.content {
+  padding: 0 18px 18px;
+  color: var(--body);
+  font-size: var(--fs-base);
+}
+
+.open .icon {
+  transform: rotate(45deg);
+}
+
+.open .panel {
+  grid-template-rows: 1fr;
+}
+
+@media (width >= 600px) {
+  .trigger {
+    padding: 19px 24px;
+  }
+
+  .content {
+    padding: 0 24px 20px;
+  }
+}
