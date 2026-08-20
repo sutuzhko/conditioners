@@ -114,7 +114,7 @@ function RatingInput({
           <span key={position} className={styles.cell}>
             <input
               type="radio"
-              className={styles.radio}
+              className={`srOnly ${styles.radio}`}
               id={`${fieldId}-${position}`}
               name={name}
               value={position}
@@ -131,7 +131,7 @@ function RatingInput({
                 .join(' ')}
             >
               <Star filled={position <= value} />
-              <span className={styles.hidden}>{ratingLabel(position, max)}</span>
+              <span className="srOnly">{ratingLabel(position, max)}</span>
             </label>
           </span>
         ))}

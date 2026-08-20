@@ -41,16 +41,8 @@
   opacity: 0.6;
 }
 
-/* поле остаётся в потоке — иначе фокус с клавиатуры до него не доходит */
-.input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
+/* Поле скрыто общей утилитой .srOnly и остаётся в потоке — иначе фокус с
+   клавиатуры до него не доходит; имя класса нужно селектору фокуса ниже. */
 .input:focus-visible + .dropzone {
   border-color: var(--accent-ink);
   box-shadow: var(--ring-focus);

@@ -53,16 +53,9 @@
   display: inline-flex;
 }
 
-.hidden,
-.radio {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
+/* Радиокнопка не видна глазами (класс .srOnly на элементе), но остаётся в
+   потоке и в DOM: на ней держится фокус с клавиатуры и состояние соседней
+   звезды — потому имя класса и живёт в селекторах ниже. */
 .option {
   display: inline-flex;
   align-items: center;

@@ -38,7 +38,7 @@ export function ProductCard({ product, orderHref, now }: ProductCardProps) {
           <div className={styles.fallback}>
             <span className={styles.fallbackClass}>{product.badge}</span>
             <span className={styles.fallbackHint}>{catalogText.noPhoto}</span>
-            <span className={styles.srOnly}>{powerClassLabel(product.badge)}</span>
+            <span className="srOnly">{powerClassLabel(product.badge)}</span>
           </div>
         ) : (
           <>

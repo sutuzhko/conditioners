@@ -28,7 +28,7 @@ export function ProductPrice({ price }: ProductPriceProps) {
         <span className={styles.current}>{formatMoney(price.currentPrice)}</span>
         {price.oldPrice === null ? null : (
           <s className={styles.old}>
-            <span className={styles.srOnly}>{catalogText.oldPrice} </span>
+            <span className="srOnly">{catalogText.oldPrice} </span>
             {formatMoney(price.oldPrice)}
           </s>
         )}

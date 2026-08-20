@@ -49,14 +49,3 @@
   color: var(--muted);
   font-size: var(--fs-micro);
 }
-
-/* «Старая цена:» — только для скринридера: зачёркивание он не проговаривает,
-   и без подсказки два числа подряд звучат как ошибка */
-.srOnly {
-  position: absolute;
-  overflow: hidden;
-  width: 1px;
-  height: 1px;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}

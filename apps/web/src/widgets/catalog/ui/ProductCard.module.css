@@ -55,15 +55,6 @@
   text-transform: uppercase;
 }
 
-.srOnly {
-  position: absolute;
-  overflow: hidden;
-  width: 1px;
-  height: 1px;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
 .body {
   display: flex;
   flex: 1;

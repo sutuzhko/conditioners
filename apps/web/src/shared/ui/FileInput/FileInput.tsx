@@ -136,7 +136,7 @@ export function FileInput({
         type="file"
         id={fieldId}
         name={name}
-        className={styles.input}
+        className={`srOnly ${styles.input}`}
         accept={accept.join(',')}
         disabled={disabled}
         required={required}
