@@ -127,6 +127,11 @@ model Review {
   photo    String?
   status   ReviewStatus @default(PENDING)
 
+  // Доказательство согласия на обработку ПДн — по 152-ФЗ нужно так же,
+  // как для заявки. Необязательное: у отзывов, заведённых до появления поля,
+  // его нет, а выдумывать дату согласия нельзя.
+  consentAt DateTime?
+
   createdAt DateTime @default(now())
 
   @@index([status, createdAt])

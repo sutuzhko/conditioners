@@ -3,10 +3,13 @@ import { withThemeByDataAttribute } from '@storybook/addon-themes';
 import '../src/shared/styles/global.css';
 
 const preview: Preview = {
+  initialGlobals: { viewport: { value: 'lg' } },
   parameters: {
     viewport: {
-      // те же ширины, что в снепшот-тестах (docs/DESIGN_BRIEF.md §6)
-      viewports: {
+      // те же ширины, что в снепшот-тестах (docs/DESIGN_BRIEF.md §6).
+      // Storybook 9 читает options, а не viewports — в старом формате
+      // пресеты не появлялись в панели.
+      options: {
         xs: { name: '320 — минимум', styles: { width: '320px', height: '720px' } },
         sm: { name: '375 — телефон', styles: { width: '375px', height: '812px' } },
         md: { name: '768 — планшет', styles: { width: '768px', height: '1024px' } },
