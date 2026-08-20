@@ -91,14 +91,37 @@ describe('чтение настроек', () => {
 });
 
 describe('сохранение группы', () => {
+  // Номер хранится машинным, человеку его показывает formatPhone: разные
+  // записи одного номера поисковик считает разными организациями (ADR-009).
   it('телефон сохраняется в едином виде', async () => {
     const response = await PUT(...put('contacts', contacts));
 
     expect(response.status).toBe(200);
     expect(settings.putGroup).toHaveBeenCalledWith(
       'contacts',
-      expect.objectContaining({ phones: ['+7 (487) 212-34-56'] }),
+      expect.objectContaining({ phones: ['+74872123456'] }),
     );
+  });
+
+  /**
+   * 🔴 До сведения схем эта группа валидировалась серверной копией, которая не
+   * знала про поля из ADR-029: владелец сохранял включённые метры трассы, а
+   * запрос отвергался целиком. Калькулятор при этом считал по умолчаниям —
+   * то есть показывал не ту цену, которую задал владелец.
+   */
+  it('ставки сохраняются вместе с включёнными метрами и порогом этажа', async () => {
+    const extras = {
+      trassaPerM: 700,
+      shtrobPerM: 800,
+      heightWorks: 2000,
+      trassaIncludedM: 5,
+      heightFloorFrom: 6,
+    };
+
+    const response = await PUT(...put('extras', extras));
+
+    expect(response.status).toBe(200);
+    expect(settings.putGroup).toHaveBeenCalledWith('extras', extras);
   });
 
   it('ревалидирует весь сайт: контакты стоят в шапке и футере', async () => {

@@ -2,6 +2,8 @@ import { z } from 'zod';
 
 import { installRatesSchema } from '@/entities/price/model';
 
+import { SETTING_PLACEHOLDER } from './lib/readiness';
+
 /**
  * Настройки: всё, что владелец правит сам.
  *
@@ -13,119 +15,189 @@ import { installRatesSchema } from '@/entities/price/model';
  * Группы намеренно снисходительны к пустоте: владелец заполняет их постепенно,
  * и запрещать сохранение половины формы нельзя. Готовность к запуску проверяет
  * отдельная функция — `lib/readiness`.
+ *
+ * 🔴 Схемы едины для формы админки и для админ-API: репозиторий держал свою
+ * копию, она не знала про `trassaIncludedM` и `heightFloorFrom` из ADR-029 —
+ * владелец сохранял включённые метры трассы, а калькулятор считал по
+ * умолчаниям. Источник истины один, здесь (ADR-030).
+ *
+ * Группы закрыты `.strict()`: настройки приходят из формы админки, и лишний
+ * ключ в теле запроса — это опечатка в имени поля, а не расширение схемы.
  */
 
-/** Строка, которую можно оставить пустой. */
-const optionalText = z.string().trim().default('');
+/** Строка, которую можно оставить пустой. Предел — защита от вставки статьи в поле. */
+const optionalText = z.string().trim().max(300).default('');
+
+/** Многострочное поле: описание для выдачи, условия гарантии. */
+const optionalLongText = z.string().trim().max(2000).default('');
 
 /**
- * Телефоны приводятся к единому виду `+7XXXXXXXXXX`: они попадают и в `tel:`,
+ * Телефон приводится к единому виду `+7XXXXXXXXXX`: он попадает и в `tel:`,
  * и в разметку `HVACBusiness`, и в Яндекс.Бизнес — три разных написания
  * одного номера поисковик считает тремя организациями.
+ *
+ * В базе номер хранится машинным, человеку его показывает `formatPhone`: она
+ * знает, что у тульского городского номера код из четырёх цифр, и не режет
+ * его на «+7 (487) 2…». Всё, что на российский номер не похоже (в том числе
+ * заглушка сидов), остаётся как есть — иначе заглушка перестанет быть заметной.
  */
-export const phoneSettingSchema = z
+export function normalizeSettingPhone(raw: string): string {
+  const digits = raw.replace(/\D/g, '');
+  if (digits.length === 11 && (digits.startsWith('7') || digits.startsWith('8'))) {
+    return `+7${digits.slice(1)}`;
+  }
+  if (digits.length === 10) return `+7${digits}`;
+  return raw.trim();
+}
+
+export const phoneSettingSchema = z.string().trim().max(60).transform(normalizeSettingPhone);
+
+/**
+ * Машиночитаемое расписание для `openingHours` в JSON-LD: `Mo-Su 08:00-21:00`.
+ * Формат проверяется, потому что число в разметке обязано совпадать с видимым
+ * текстом (инвариант 9), а невалидную строку поисковик молча выбросит.
+ */
+const OPENING_HOURS_PATTERN =
+  /^(Mo|Tu|We|Th|Fr|Sa|Su)(-(Mo|Tu|We|Th|Fr|Sa|Su))?(,(Mo|Tu|We|Th|Fr|Sa|Su)(-(Mo|Tu|We|Th|Fr|Sa|Su))?)* ([01]\d|2[0-3]):[0-5]\d-([01]\d|2[0-3]):[0-5]\d$/;
+
+const openingHoursSchema = z
   .string()
   .trim()
-  .transform((raw) => {
-    const digits = raw.replace(/\D/g, '');
-    if (digits.length === 11 && (digits.startsWith('7') || digits.startsWith('8'))) {
-      return `+7${digits.slice(1)}`;
-    }
-    if (digits.length === 10) return `+7${digits}`;
-    return raw.trim();
-  });
+  .regex(OPENING_HOURS_PATTERN, 'Часы для разметки: «Mo-Su 08:00-21:00»');
 
-export const companySchema = z.object({
-  name: optionalText,
-  legalName: optionalText,
-  tagline: optionalText,
-  foundedYear: z.number().int().min(1900).max(2100).nullable().default(null),
-});
+/** Ссылка: либо пусто, либо настоящий адрес — битая ссылка в футере хуже её отсутствия. */
+const optionalUrl = z.union([z.literal(''), z.string().trim().url('Ссылка указана неверно')]);
 
-export const contactsSchema = z.object({
-  phones: z.array(phoneSettingSchema).default([]),
-  email: optionalText,
-  telegram: optionalText,
-  whatsapp: optionalText,
-  /** Часы работы для человека: «Пн–Вс, 8:00–21:00». */
-  hours: optionalText,
-  /**
-   * То же самое в формате schema.org (`Mo-Su 08:00-21:00`). Хранится отдельно,
-   * потому что человеческая запись и машинная должны совпадать по смыслу, а
-   * вывести одну из другой надёжно нельзя (инвариант 9).
-   */
-  openingHours: z.array(z.string().trim()).default([]),
-});
+export const companySchema = z
+  .object({
+    name: optionalText,
+    legalName: optionalText,
+    tagline: optionalText,
+    // из формы число приходит строкой — приводим здесь, а не в обработчике
+    foundedYear: z.coerce.number().int().min(1900).max(2100).nullable().default(null),
+  })
+  .strict();
+
+export const contactsSchema = z
+  .object({
+    phones: z.array(phoneSettingSchema).max(5).default([]),
+    /**
+     * Заглушка сидов пропускается явным литералом: пока владелец не заполнил
+     * почту, сохранять группу можно, но мусор вместо адреса — нельзя.
+     */
+    email: z
+      .union([
+        z.literal(''),
+        z.literal(SETTING_PLACEHOLDER),
+        z.string().trim().email('Проверьте адрес почты'),
+      ])
+      .default(''),
+    telegram: optionalText,
+    whatsapp: optionalText,
+    /** Часы работы для человека: «Пн–Вс, 8:00–21:00». */
+    hours: optionalText,
+    /**
+     * То же самое в формате schema.org (`Mo-Su 08:00-21:00`). Хранится отдельно,
+     * потому что человеческая запись и машинная должны совпадать по смыслу, а
+     * вывести одну из другой надёжно нельзя (инвариант 9).
+     */
+    openingHours: z.array(openingHoursSchema).max(7).default([]),
+  })
+  .strict();
 
 /**
  * Адрес хранится по частям: `PostalAddress` в JSON-LD требует отдельных полей,
  * а Яндекс.Бизнес сверяет их построчно. Из частей всегда можно собрать строку,
  * из строки части — нет.
  */
-export const addressSchema = z.object({
-  country: z.string().trim().default('RU'),
-  region: optionalText,
-  city: optionalText,
-  street: optionalText,
-  building: optionalText,
-  office: optionalText,
-  postalCode: optionalText,
-});
+export const addressSchema = z
+  .object({
+    country: z.string().trim().length(2, 'Код страны из двух букв, например RU').default('RU'),
+    region: optionalText,
+    city: optionalText,
+    street: optionalText,
+    building: optionalText,
+    office: optionalText,
+    postalCode: optionalText,
+  })
+  .strict();
 
-export const geoSchema = z.object({
-  lat: z.number().min(-90).max(90).nullable().default(null),
-  lng: z.number().min(-180).max(180).nullable().default(null),
-});
+export const geoSchema = z
+  .object({
+    lat: z.coerce.number().min(-90).max(90).nullable().default(null),
+    lng: z.coerce.number().min(-180).max(180).nullable().default(null),
+  })
+  .strict();
 
-export const areaSchema = z.object({
-  served: optionalText,
-  districts: z.array(z.string().trim()).default([]),
-});
+export const areaSchema = z
+  .object({
+    served: optionalText,
+    districts: z.array(z.string().trim().max(300)).max(50).default([]),
+  })
+  .strict();
 
 /** Для `form = "ИП"` подпись поля `ogrn` на сайте — «ОГРНИП», для «ООО» — «ОГРН». */
-export const legalSchema = z.object({
-  form: z.enum(['ИП', 'ООО']).default('ИП'),
-  name: optionalText,
-  inn: optionalText,
-  ogrn: optionalText,
-  address: optionalText,
-});
+export const legalSchema = z
+  .object({
+    form: z
+      .enum(['ИП', 'ООО'], { errorMap: () => ({ message: 'Форма — ИП или ООО' }) })
+      .default('ИП'),
+    name: optionalText,
+    inn: optionalText,
+    ogrn: optionalText,
+    address: optionalText,
+  })
+  .strict();
 
 /** Ставки калькулятора живут в домене цен — там же, где формула. */
 export const extrasSchema = installRatesSchema;
 
-export const warrantySchema = z.object({
-  installation: optionalText,
-  equipment: optionalText,
-});
+export const warrantySchema = z
+  .object({
+    installation: optionalLongText,
+    equipment: optionalLongText,
+  })
+  .strict();
 
-export const paymentSchema = z.object({
-  methods: z.array(z.string().trim()).default([]),
-  vat: optionalText,
-});
+export const paymentSchema = z
+  .object({
+    methods: z.array(z.string().trim().max(300)).max(20).default([]),
+    vat: optionalText,
+  })
+  .strict();
 
-export const socialSchema = z.object({
-  links: z.array(z.string().trim()).default([]),
-});
+export const socialSchema = z
+  .object({
+    links: z.array(optionalUrl).max(20).default([]),
+  })
+  .strict();
 
-export const seoSchema = z.object({
-  homeTitle: optionalText,
-  homeDescription: optionalText,
-  titleSuffix: optionalText,
-  ogImage: optionalText,
-});
+export const seoSchema = z
+  .object({
+    homeTitle: optionalText,
+    homeDescription: optionalLongText,
+    titleSuffix: optionalText,
+    ogImage: optionalText,
+  })
+  .strict();
 
 /**
  * Клиентские сервисы. Онлайн-чат сознательно не подключается: общение идёт
  * через Telegram по желанию клиента и через заявку (ADR-024).
  */
-export const integrationsSchema = z.object({
-  metrikaId: optionalText,
-  messengerButtons: z
-    .object({ telegram: z.boolean().default(false), whatsapp: z.boolean().default(false) })
-    .default({ telegram: false, whatsapp: false }),
-  callback: z.object({ enabled: z.boolean().default(true) }).default({ enabled: true }),
-});
+export const integrationsSchema = z
+  .object({
+    metrikaId: optionalText,
+    messengerButtons: z
+      .object({ telegram: z.boolean().default(false), whatsapp: z.boolean().default(false) })
+      .strict()
+      .default({ telegram: false, whatsapp: false }),
+    callback: z
+      .object({ enabled: z.boolean().default(true) })
+      .strict()
+      .default({ enabled: true }),
+  })
+  .strict();
 
 /** Реестр: `PUT /api/admin/settings/{key}` валидирует тело схемой своего ключа. */
 export const settingSchemas = {

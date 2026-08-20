@@ -1,14 +1,13 @@
 /**
  * Настройки компании. Читаются публичными страницами, пишутся только из админки.
  */
-import type { z } from 'zod';
 import { db } from '@/server/db';
+import { settingSchemas, type SettingKey } from '@/entities/settings/model';
+import type { InstallRates } from '@/entities/price/model';
 import {
   PLACEHOLDER,
   REQUIRED_FIELDS,
   SETTING_KEYS,
-  settingsSchemas,
-  type SettingKey,
 } from '@/server/repo/settings-schemas';
 
 export type SettingsMap = Partial<Record<SettingKey, unknown>>;
@@ -19,7 +18,7 @@ export async function getGroup(key: SettingKey): Promise<unknown | null> {
 }
 
 export async function getAll(): Promise<SettingsMap> {
-  const rows = await db.setting.findMany({ where: { key: { in: SETTING_KEYS } } });
+  const rows = await db.setting.findMany({ where: { key: { in: [...SETTING_KEYS] } } });
   const result: SettingsMap = {};
   for (const row of rows) {
     result[row.key as SettingKey] = row.value;
@@ -107,7 +106,8 @@ export async function readiness(): Promise<ReadinessReport> {
   return checkReadiness(await getAll());
 }
 
-export type Extras = z.infer<typeof settingsSchemas.extras>;
+/** Ставки калькулятора — доменный тип: ставки и формула живут в одном месте. */
+export type Extras = InstallRates;
 
 /**
  * Ставки калькулятора лежат в той же группе настроек.
@@ -115,6 +115,6 @@ export type Extras = z.infer<typeof settingsSchemas.extras>;
  * ставки — это выдумать факт о компании (инвариант 8).
  */
 export async function getExtras(): Promise<Extras | null> {
-  const parsed = settingsSchemas.extras.safeParse(await getGroup('extras'));
+  const parsed = settingSchemas.extras.safeParse(await getGroup('extras'));
   return parsed.success ? parsed.data : null;
 }

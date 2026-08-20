@@ -1,5 +1,6 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
+import { settingSchemas } from '@/entities/settings/model';
 import { checkReadiness } from '@/server/repo/settings';
 import {
   PLACEHOLDER,
@@ -7,14 +8,18 @@ import {
   SETTING_KEYS,
   isSettingKey,
   normalizePhone,
-  settingsSchemas,
 } from '@/server/repo/settings-schemas';
 
+/**
+ * Номер хранится машинным `+7XXXXXXXXXX`, а человеку его показывает
+ * `formatPhone`: она знает про четырёхзначный код Тулы и не режет городской
+ * номер на «+7 (487) 2…», как это делала прежняя серверная копия.
+ */
 describe('телефон приводится к единому виду', () => {
   it.each([
-    ['8 (4872) 12-34-56', '+7 (487) 212-34-56'],
-    ['+7 953 123-45-67', '+7 (953) 123-45-67'],
-    ['9531234567', '+7 (953) 123-45-67'],
+    ['8 (4872) 12-34-56', '+74872123456'],
+    ['+7 953 123-45-67', '+79531234567'],
+    ['9531234567', '+79531234567'],
   ])('%s → %s', (input, expected) => {
     expect(normalizePhone(input)).toBe(expected);
   });
@@ -24,51 +29,19 @@ describe('телефон приводится к единому виду', () =>
   });
 });
 
-describe('схемы групп настроек', () => {
-  it('координаты вне диапазона не сохраняются', () => {
-    expect(settingsSchemas.geo.safeParse({ lat: 54.19, lng: 37.61 }).success).toBe(true);
-    expect(settingsSchemas.geo.safeParse({ lat: 154, lng: 37.61 }).success).toBe(false);
-  });
-
-  it('форма собственности — только ИП или ООО', () => {
-    const legal = { name: 'x', inn: '1', ogrn: '2', address: 'y' };
-
-    expect(settingsSchemas.legal.safeParse({ ...legal, form: 'ИП' }).success).toBe(true);
-    expect(settingsSchemas.legal.safeParse({ ...legal, form: 'АО' }).success).toBe(false);
-  });
-
-  it('часы работы для разметки проверяются на формат', () => {
-    const contacts = {
-      phones: [],
-      email: '',
-      telegram: '',
-      whatsapp: '',
-      hours: 'Пн–Вс, 8:00–21:00',
-    };
-
-    expect(
-      settingsSchemas.contacts.safeParse({
-        ...contacts,
-        openingHours: [{ days: ['Mo'], opens: '08:00', closes: '21:00' }],
-      }).success,
-    ).toBe(true);
-
-    expect(
-      settingsSchemas.contacts.safeParse({
-        ...contacts,
-        openingHours: [{ days: ['Mo'], opens: 'утром', closes: '21:00' }],
-      }).success,
-    ).toBe(false);
-  });
-
-  it('лишние поля в группу не пролезают', () => {
-    expect(settingsSchemas.geo.safeParse({ lat: 1, lng: 2, secret: 'x' }).success).toBe(false);
-  });
-
+describe('реестр ключей', () => {
   it('настройки интеграций публично не отдаются', () => {
     expect(isSettingKey('integrations')).toBe(true);
     expect(PUBLIC_SETTING_KEYS).not.toContain('integrations');
     expect(SETTING_KEYS.length).toBeGreaterThan(PUBLIC_SETTING_KEYS.length);
+  });
+
+  it('ключи реестра совпадают с группами доменной схемы', () => {
+    expect([...SETTING_KEYS].sort()).toEqual(Object.keys(settingSchemas).sort());
+  });
+
+  it('выдуманного раздела настроек не существует', () => {
+    expect(isSettingKey('выдумка')).toBe(false);
   });
 });
 
@@ -109,7 +82,7 @@ describe('готовность данных компании', () => {
   it('заполненные данные проходят проверку', () => {
     const report = checkReadiness({
       company: { name: 'Компания', legalName: 'ООО «Компания»', tagline: 'Слоган' },
-      contacts: { phones: ['+7 (953) 123-45-67'], email: 'a@b.ru', hours: 'Пн–Вс, 8:00–21:00' },
+      contacts: { phones: ['+79531234567'], email: 'a@b.ru', hours: 'Пн–Вс, 8:00–21:00' },
       address: {
         country: 'RU',
         region: 'Область',

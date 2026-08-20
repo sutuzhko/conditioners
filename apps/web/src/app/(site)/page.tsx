@@ -2,7 +2,7 @@ import { listVisible } from '@/server/repo/products';
 import { getPrices } from '@/server/repo/prices';
 import { getAll } from '@/server/repo/settings';
 import { productSchema } from '@/entities/product/model';
-import { priceRowSchema, installRatesSchema } from '@/entities/price/model';
+import { priceRowSchema } from '@/entities/price/model';
 import { settingSchemas } from '@/entities/settings/model';
 import { Hero } from '@/widgets/hero';
 import { TrustStrip, Services, WhyUs } from '@/widgets/trust';
@@ -33,11 +33,6 @@ export default async function HomePage() {
   const products = rawProducts.map((dto) => productSchema.parse(dto));
   const priceRows = prices.map((row) => priceRowSchema.parse(row));
 
-  // Ставки разбираются доменной схемой: копия в server/repo/settings-schemas.ts
-  // не знает про trassaIncludedM и heightFloorFrom, и калькулятор получил бы
-  // умолчания вместо заданных владельцем значений. Две схемы сводятся отдельно.
-  const rates = extras === null ? null : installRatesSchema.parse(extras);
-
   const warranty = settingSchemas.warranty.safeParse(settings.warranty);
   const contacts = settingSchemas.contacts.safeParse(settings.contacts);
   const phone = contacts.success ? (contacts.data.phones[0] ?? '') : '';
@@ -50,10 +45,14 @@ export default async function HomePage() {
       <Catalog products={products} orderHref={LEAD_ANCHOR} />
       <SavingsBlock />
       <StepsTimeline {...(warranty.success ? { warranty: warranty.data } : {})} />
-      <Pricing prices={priceRows} rates={rates} leadHref={LEAD_ANCHOR} />
+      <Pricing prices={priceRows} rates={extras} leadHref={LEAD_ANCHOR} />
       <WhyUs {...(warranty.success ? { warranty: warranty.data } : {})} />
       <section id="zayavka">
-        <LeadForm phone={phone} policyHref={POLICY_HREF} title="Оставьте заявку — поможем с выбором" />
+        <LeadForm
+          phone={phone}
+          policyHref={POLICY_HREF}
+          title="Оставьте заявку — поможем с выбором"
+        />
       </section>
     </>
   );

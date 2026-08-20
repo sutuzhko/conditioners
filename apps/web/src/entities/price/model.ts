@@ -39,8 +39,9 @@ export const installRatesSchema = z
     trassaPerM: z.coerce.number().nonnegative(),
     shtrobPerM: z.coerce.number().nonnegative(),
     heightWorks: z.coerce.number().nonnegative(),
-    trassaIncludedM: z.number().nonnegative().default(3),
-    heightFloorFrom: z.number().int().positive().default(10),
+    // из формы админки все ставки приходят строками — приводим так же, как соседние
+    trassaIncludedM: z.coerce.number().nonnegative().default(3),
+    heightFloorFrom: z.coerce.number().int().positive().default(10),
   })
   .strict();
 

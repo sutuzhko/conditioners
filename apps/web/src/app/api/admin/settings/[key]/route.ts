@@ -6,7 +6,8 @@
  */
 import { json, notFound, readJson, validationError, withAdmin } from '@/server/http';
 import { getGroup, putGroup } from '@/server/repo/settings';
-import { isSettingKey, settingsSchemas } from '@/server/repo/settings-schemas';
+import { settingSchemas } from '@/entities/settings/model';
+import { isSettingKey } from '@/server/repo/settings-schemas';
 import { revalidateEverything } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';
@@ -24,7 +25,7 @@ export const PUT = withAdmin(async (request, context: Context) => {
   const { key } = await context.params;
   if (!isSettingKey(key)) return notFound('Раздел настроек');
 
-  const parsed = settingsSchemas[key].safeParse(await readJson(request));
+  const parsed = settingSchemas[key].safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
 
   await putGroup(key, parsed.data);
