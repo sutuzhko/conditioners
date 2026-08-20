@@ -14,6 +14,7 @@
 | [docs/TECH_DECISIONS.md](docs/TECH_DECISIONS.md) | Инфраструктура и эксплуатация с обоснованиями |
 | [docs/DESIGN_BRIEF.md](docs/DESIGN_BRIEF.md) | Токены, типографика, компоненты, адаптив |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Этапы и задачи |
+| [docs/ORCHESTRATION.md](docs/ORCHESTRATION.md) | Карта владения файлами при параллельной разработке |
 | [docs/DEPLOY.md](docs/DEPLOY.md) | Выкладка и эксплуатация |
 | [docs/BUGS.md](docs/BUGS.md) | Журнал багов |
 
