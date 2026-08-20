@@ -7,6 +7,7 @@
  * Карта адресов — docs/SEO.md §1.
  */
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
 export const ROUTES = {
   home: '/',
@@ -51,6 +52,18 @@ export function revalidateReviews(): void {
 export function revalidateEverything(): void {
   revalidatePath('/', 'layout');
 }
+
+/**
+ * Тело `POST /api/admin/revalidate` — docs/API.md §10. Схема живёт рядом с
+ * ревалидацией, а не среди сущностей: ревалидация маршрутов — это про
+ * устройство приложения, а не про предметную область.
+ */
+export const revalidateSchema = z
+  .object({
+    paths: z.array(z.string().trim().startsWith('/', 'Путь начинается со слэша')).min(1).max(50),
+    scope: z.enum(['page', 'layout']).optional(),
+  })
+  .strict();
 
 export function revalidateRoutes(
   paths: readonly string[],

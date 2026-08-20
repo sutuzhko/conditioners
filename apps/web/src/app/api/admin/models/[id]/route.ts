@@ -1,7 +1,7 @@
 import { json, noContent, notFound, readJson, validationError, withAdmin } from '@/server/http';
 import { findById, remove, update } from '@/server/repo/products';
 import { deleteStoredImage } from '@/server/uploads/store';
-import { productPatchSchema, productUpdateSchema } from '@/server/repo/validation';
+import { productInputSchema, productPatchSchema } from '@/entities/product/model';
 import { revalidateCatalog } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';
@@ -17,7 +17,7 @@ export const GET = withAdmin(async (_request, context: Context) => {
 /** PUT заменяет карточку целиком, PATCH правит отдельные поля. */
 export const PUT = withAdmin(async (request, context: Context) => {
   const { id } = await context.params;
-  const parsed = productUpdateSchema.safeParse(await readJson(request));
+  const parsed = productInputSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
 
   const before = await findById(id);

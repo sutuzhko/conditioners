@@ -9,12 +9,7 @@ import { db } from '@/server/db';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { pageSlug, uniqueSlug } from '@/shared/lib/slug';
 import { ApiException } from '@/server/http';
-import type {
-  PhotoPatchInput,
-  ProductCreateInput,
-  ProductPatchInput,
-  SaleInput,
-} from '@/server/repo/validation';
+import type { PhotoUpdate, ProductInput, ProductPatch, SaleInput } from '@/entities/product/model';
 
 const MSK_SHIFT_MS = 3 * 60 * 60 * 1000;
 
@@ -158,7 +153,7 @@ async function freeSlug(source: string, exceptId?: string): Promise<string> {
   );
 }
 
-export async function create(input: ProductCreateInput): Promise<ProductDto> {
+export async function create(input: ProductInput): Promise<ProductDto> {
   const slug = await freeSlug(input.slug ?? input.name);
 
   const row = await db.product.create({
@@ -188,7 +183,7 @@ export async function create(input: ProductCreateInput): Promise<ProductDto> {
  * Обновление товара. Характеристики приходят целиком: их порядок и состав —
  * часть данных, а не набор отдельных полей, поэтому список заменяется.
  */
-export async function update(id: string, input: ProductPatchInput): Promise<ProductDto> {
+export async function update(id: string, input: ProductPatch): Promise<ProductDto> {
   const current = await db.product.findUnique({ where: { id }, select: { slug: true } });
   if (current === null) throw new ApiException('not_found', 'Модель не найдена');
 
@@ -285,7 +280,7 @@ export async function addPhoto(
 export async function updatePhoto(
   productId: string,
   photoId: string,
-  input: PhotoPatchInput,
+  input: PhotoUpdate,
 ): Promise<PhotoDto> {
   const photo = await db.productPhoto.findFirst({ where: { id: photoId, productId } });
   if (photo === null) throw new ApiException('not_found', 'Фотография не найдена');

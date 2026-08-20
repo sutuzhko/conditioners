@@ -31,3 +31,47 @@ export const consentSchema = z
  * признак бота.
  */
 export const honeypotSchema = z.string().max(0, { message: 'Заявка отклонена' }).optional();
+
+/** Дата без времени: так её отдаёт `<input type="date">` в админке. */
+const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
+ * 🔴 Бизнес в Туле, поэтому календарная дата превращается в мгновение по
+ * московскому времени: «до 31 октября» обязано заканчиваться в полночь по
+ * Туле, а не в три часа ночи первого ноября. Пояс фиксированный — переходов
+ * на летнее время в России нет, — значит расчёт остаётся детерминированным.
+ */
+const MSK_OFFSET = '+03:00';
+
+/**
+ * Граница периода из формы: `start` — начало дня, `end` — его последняя
+ * миллисекунда. Пустая строка означает «границы нет», а не «дата неверна»:
+ * браузер шлёт незаполненное поле пустым.
+ */
+export function moscowDate(
+  boundary: 'start' | 'end' = 'start',
+): z.ZodEffects<z.ZodNullable<z.ZodString>, Date | null, string | null> {
+  const time = boundary === 'end' ? '23:59:59.999' : '00:00:00.000';
+
+  return z
+    .string({ invalid_type_error: 'Дата указана в неизвестном формате' })
+    .trim()
+    .nullable()
+    .transform((value, ctx) => {
+      if (value === null || value === '') return null;
+
+      const parsed = DATE_ONLY.test(value)
+        ? new Date(`${value}T${time}${MSK_OFFSET}`)
+        : new Date(value);
+
+      if (Number.isNaN(parsed.getTime())) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Дата указана в неизвестном формате',
+        });
+        return z.NEVER;
+      }
+
+      return parsed;
+    });
+}

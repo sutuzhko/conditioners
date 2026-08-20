@@ -1,6 +1,6 @@
 import { json, noContent, notFound, readJson, validationError, withAdmin } from '@/server/http';
 import { findById, removePhoto, updatePhoto } from '@/server/repo/products';
-import { photoPatchSchema } from '@/server/repo/validation';
+import { photoUpdateSchema } from '@/entities/product/model';
 import { deleteStoredImage } from '@/server/uploads/store';
 import { revalidateCatalog } from '@/server/revalidate';
 
@@ -14,7 +14,7 @@ export const PATCH = withAdmin(async (request, context: Context) => {
   const product = await findById(id);
   if (product === null) return notFound('Модель');
 
-  const parsed = photoPatchSchema.safeParse(await readJson(request));
+  const parsed = photoUpdateSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
 
   const photo = await updatePhoto(id, photoId, parsed.data);

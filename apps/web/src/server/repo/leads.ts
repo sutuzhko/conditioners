@@ -7,7 +7,7 @@
 import type { LeadStatus, Prisma } from '@prisma/client';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
-import type { LeadPatchInput } from '@/server/repo/validation';
+import type { LeadUpdate } from '@/entities/lead/model';
 
 export type LeadStatusApi = 'new' | 'in_progress' | 'done' | 'rejected';
 
@@ -77,7 +77,7 @@ export async function findById(id: string): Promise<LeadDto | null> {
 }
 
 /** Менеджер меняет статус и оставляет комментарий; данные клиента не правятся. */
-export async function update(id: string, input: LeadPatchInput): Promise<LeadDto> {
+export async function update(id: string, input: LeadUpdate): Promise<LeadDto> {
   const exists = await db.lead.findUnique({ where: { id }, select: { id: true } });
   if (exists === null) throw new ApiException('not_found', 'Заявка не найдена');
 

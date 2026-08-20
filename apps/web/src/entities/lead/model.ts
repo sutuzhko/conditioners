@@ -114,10 +114,20 @@ export const toReminderSchema = z.object({
 
 export type ToReminderInput = z.infer<typeof toReminderSchema>;
 
-/** Правка заявки в админке: статус и комментарий менеджера, больше ничего. */
-export const leadUpdateSchema = z.object({
-  status: leadStatusSchema.optional(),
-  managerComment: z.string().trim().max(2000).nullable().optional(),
-});
+/**
+ * Правка заявки в админке: статус и комментарий менеджера, больше ничего.
+ * Данные клиента — то, что он прислал; правка их превращает заявку в пересказ.
+ */
+export const leadUpdateSchema = z
+  .object({
+    status: z
+      .enum(leadStatusSchema.options, {
+        errorMap: () => ({ message: 'Неизвестный статус заявки' }),
+      })
+      .optional(),
+    managerComment: z.string().trim().max(2000).nullable().optional(),
+  })
+  .strict()
+  .refine((value) => Object.keys(value).length > 0, 'Нечего сохранять');
 
 export type LeadUpdate = z.infer<typeof leadUpdateSchema>;

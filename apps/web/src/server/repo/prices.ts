@@ -6,7 +6,7 @@
  */
 import { db } from '@/server/db';
 import { getExtras, putGroup, type Extras } from '@/server/repo/settings';
-import type { PricesUpdateInput } from '@/server/repo/validation';
+import type { PricesUpdate } from '@/entities/price/model';
 
 export type PriceRowDto = {
   cls: string;
@@ -35,7 +35,7 @@ export async function getPrices(): Promise<PricesDto> {
  * Прайс заменяется целиком: строку удаляют, добавляют и переставляют местами
  * в одной форме, и промежуточное состояние с половиной классов недопустимо.
  */
-export async function replacePrices(input: PricesUpdateInput): Promise<PricesDto> {
+export async function replacePrices(input: PricesUpdate): Promise<PricesDto> {
   await db.$transaction(async (tx) => {
     const keep = input.prices.map((row) => row.cls);
     await tx.priceRow.deleteMany({ where: { cls: { notIn: keep } } });

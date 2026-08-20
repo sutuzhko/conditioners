@@ -1,5 +1,8 @@
 import { z } from 'zod';
 
+import { moscowDate } from '@/shared/lib/zod';
+import { SLUG_MAX_LENGTH } from '@/shared/lib/slug';
+
 /**
  * Модель кондиционера в каталоге.
  *
@@ -9,8 +12,8 @@ import { z } from 'zod';
 
 /** Пара «характеристика → значение». Порядок задаёт владелец. */
 export const productSpecSchema = z.object({
-  k: z.string().trim().min(1),
-  v: z.string().trim(),
+  k: z.string().trim().min(1, 'У характеристики должно быть название').max(120),
+  v: z.string().trim().min(1, 'У характеристики должно быть значение').max(300),
   sort: z.number().int().default(0),
 });
 
@@ -57,26 +60,86 @@ export const productSchema = z.object({
 
 export type Product = z.infer<typeof productSchema>;
 
-/** Тело создания и правки модели в админке: без служебных полей и фотографий. */
+/** Строка, которую можно не заполнять; пустое значение хранится как NULL. */
+const optionalText = z.string().trim().max(300).nullable().default(null);
+
+/**
+ * Тело создания и правки модели в админке.
+ *
+ * Скидки здесь нет сознательно: её задаёт отдельная ручка
+ * `PATCH /api/admin/models/{id}/sale` (docs/API.md §3), и принимать конечную
+ * цену ещё и здесь значило бы иметь два места, где рождается перечёркнутая
+ * цена. Схема строгая: незнакомое поле — это опечатка формы, и молча терять
+ * его хуже, чем ответить 400.
+ *
+ * Числа приводятся из строк: форма админки отдаёт значения полей текстом.
+ */
 export const productInputSchema = productSchema
-  .omit({ id: true, photos: true, specs: true })
-  .partial({ slug: true })
-  .extend({ specs: z.array(productSpecSchema.omit({ sort: true })).default([]) });
+  .omit({
+    id: true,
+    photos: true,
+    specs: true,
+    salePrice: true,
+    saleFrom: true,
+    saleTo: true,
+    saleLabel: true,
+  })
+  .extend({
+    slug: z.string().trim().max(SLUG_MAX_LENGTH).optional(),
+    badge: z.string().trim().min(1, 'Укажите класс мощности').max(16),
+    name: z.string().trim().min(2, 'Название слишком короткое').max(200),
+    brand: optionalText,
+    sku: optionalText,
+    areaMax: z.coerce.number().int().positive('Площадь должна быть больше нуля').max(1000),
+    tag: optionalText,
+    priceNum: z.coerce.number().int().positive('Цена должна быть больше нуля'),
+    link: z.string().trim().max(500).nullable().default(null),
+    sort: z.coerce.number().int().min(0).default(0),
+    seoTitle: optionalText,
+    seoDescription: z.string().trim().max(500).nullable().default(null),
+    specs: z
+      .array(productSpecSchema.omit({ sort: true }))
+      .max(50)
+      .default([]),
+  })
+  .strict();
 
 export type ProductInput = z.infer<typeof productInputSchema>;
+
+/** PATCH правит часть карточки: не присланное поле остаётся прежним. */
+export const productPatchSchema = productInputSchema.partial();
+
+export type ProductPatch = z.infer<typeof productPatchSchema>;
 
 /**
  * Скидка задаётся конечной ценой и периодом (ADR-011). `salePrice: null`
  * снимает скидку.
+ *
+ * 🔴 Процента в схеме нет: он вычисляется из цен. Возможность прислать
+ * «скидку 40%» — это возможность нарисовать её (инвариант 14).
  */
-export const saleInputSchema = z.object({
-  salePrice: z.number().int().positive().nullable(),
-  saleFrom: nullableDate,
-  saleTo: nullableDate,
-  saleLabel: z.string().trim().nullable().default(null),
-});
+export const saleInputSchema = z
+  .object({
+    salePrice: z.coerce.number().int().positive().nullable(),
+    // граница «до» — конец дня по Туле, иначе скидка пропадёт утром последнего дня
+    saleFrom: moscowDate('start').optional(),
+    saleTo: moscowDate('end').optional(),
+    saleLabel: optionalText,
+  })
+  .strict();
 
 export type SaleInput = z.infer<typeof saleInputSchema>;
+
+/** Правка фотографии: подпись, признак главной и порядок. Файл заменяется загрузкой новой. */
+export const photoUpdateSchema = z
+  .object({
+    alt: optionalText,
+    isMain: z.boolean().optional(),
+    sort: z.coerce.number().int().min(0).optional(),
+  })
+  .strict();
+
+export type PhotoUpdate = z.infer<typeof photoUpdateSchema>;
 
 /** Действующая цена товара — единственный источник правды о скидке. */
 export type ActivePrice = {

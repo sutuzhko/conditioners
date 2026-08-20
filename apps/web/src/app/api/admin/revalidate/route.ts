@@ -5,8 +5,7 @@
  * админки на уровне middleware и обработчика.
  */
 import { json, readJson, validationError, withAdmin } from '@/server/http';
-import { revalidateSchema } from '@/server/repo/validation';
-import { revalidateRoutes } from '@/server/revalidate';
+import { revalidateRoutes, revalidateSchema } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';
 

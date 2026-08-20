@@ -7,7 +7,7 @@
  */
 import { json, readJson, validationError, withAdmin } from '@/server/http';
 import { setStatus } from '@/server/repo/reviews';
-import { reviewStatusSchema } from '@/server/repo/validation';
+import { reviewModerationSchema } from '@/entities/review/model';
 import { revalidateReviews } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';
@@ -15,7 +15,7 @@ export const dynamic = 'force-dynamic';
 export const PATCH = withAdmin(async (request, context: { params: Promise<{ id: string }> }) => {
   const { id } = await context.params;
 
-  const parsed = reviewStatusSchema.safeParse(await readJson(request));
+  const parsed = reviewModerationSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
 
   const review = await setStatus(id, parsed.data.status);

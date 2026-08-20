@@ -12,10 +12,20 @@ export const reviewStatusSchema = z.enum(['pending', 'approved', 'rejected', 'ar
 
 export type ReviewStatus = z.infer<typeof reviewStatusSchema>;
 
-/** Модератор переводит отзыв в один из трёх конечных статусов. */
-export const reviewModerationSchema = z.object({
-  status: z.enum(['approved', 'rejected', 'archived']),
-});
+/**
+ * Модератор переводит отзыв в один из трёх конечных статусов.
+ *
+ * 🔴 Схема строгая и ровно с одним полем: попытка прислать `text`, `name` или
+ * `rating` заканчивается 400, а не молчаливым игнорированием. Редактируемый
+ * отзыв — не отзыв (инвариант 7).
+ */
+export const reviewModerationSchema = z
+  .object({
+    status: z.enum(['approved', 'rejected', 'archived'], {
+      errorMap: () => ({ message: 'Неизвестный статус отзыва' }),
+    }),
+  })
+  .strict();
 
 export type ReviewModeration = z.infer<typeof reviewModerationSchema>;
 

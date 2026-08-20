@@ -1,6 +1,6 @@
 import { json, noContent, notFound, readJson, validationError, withAdmin } from '@/server/http';
 import { findById, remove, update } from '@/server/repo/articles';
-import { articlePatchSchema, articleUpdateSchema } from '@/server/repo/validation';
+import { articleInputSchema, articlePatchSchema } from '@/entities/article/model';
 import { deleteStoredImage } from '@/server/uploads/store';
 import { revalidateArticles } from '@/server/revalidate';
 
@@ -16,7 +16,7 @@ export const GET = withAdmin(async (_request, context: Context) => {
 
 export const PUT = withAdmin(async (request, context: Context) => {
   const { id } = await context.params;
-  const parsed = articleUpdateSchema.safeParse(await readJson(request));
+  const parsed = articleInputSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
 
   const before = await findById(id);

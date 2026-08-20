@@ -3,7 +3,7 @@
  */
 import { json, readJson, validationError, withAdmin } from '@/server/http';
 import { getPrices, replacePrices } from '@/server/repo/prices';
-import { pricesUpdateSchema } from '@/server/repo/validation';
+import { pricesUpdateSchema } from '@/entities/price/model';
 import { revalidatePrices } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';

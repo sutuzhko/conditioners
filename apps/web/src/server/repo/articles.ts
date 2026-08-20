@@ -4,7 +4,7 @@
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import { pageSlug, uniqueSlug } from '@/shared/lib/slug';
-import type { ArticleCreateInput, ArticlePatchInput } from '@/server/repo/validation';
+import type { ArticleInput, ArticlePatch } from '@/entities/article/model';
 
 export type ArticleListItem = {
   id: string;
@@ -109,7 +109,7 @@ async function freeSlug(source: string, exceptId?: string): Promise<string> {
   );
 }
 
-export async function create(input: ArticleCreateInput): Promise<ArticleDto> {
+export async function create(input: ArticleInput): Promise<ArticleDto> {
   const slug = await freeSlug(input.slug ?? input.title);
 
   const row = await db.article.create({
@@ -130,7 +130,7 @@ export async function create(input: ArticleCreateInput): Promise<ArticleDto> {
   return toDto(row);
 }
 
-export async function update(id: string, input: ArticlePatchInput): Promise<ArticleDto> {
+export async function update(id: string, input: ArticlePatch): Promise<ArticleDto> {
   const current = await db.article.findUnique({ where: { id }, select: { slug: true } });
   if (current === null) throw new ApiException('not_found', 'Статья не найдена');
 

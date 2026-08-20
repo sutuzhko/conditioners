@@ -34,15 +34,33 @@ export type PriceRow = z.infer<typeof priceRowSchema>;
  * базу, высотные работы начинаются с десятого этажа. Они вынесены в настройки
  * по той же причине, что и ставки: это условия сметы, а не константы кода.
  */
-export const installRatesSchema = z.object({
-  trassaPerM: z.number().nonnegative(),
-  shtrobPerM: z.number().nonnegative(),
-  heightWorks: z.number().nonnegative(),
-  trassaIncludedM: z.number().nonnegative().default(3),
-  heightFloorFrom: z.number().int().positive().default(10),
-});
+export const installRatesSchema = z
+  .object({
+    trassaPerM: z.coerce.number().nonnegative(),
+    shtrobPerM: z.coerce.number().nonnegative(),
+    heightWorks: z.coerce.number().nonnegative(),
+    trassaIncludedM: z.number().nonnegative().default(3),
+    heightFloorFrom: z.number().int().positive().default(10),
+  })
+  .strict();
 
 export type InstallRates = z.infer<typeof installRatesSchema>;
+
+/**
+ * Тело `PUT /api/admin/prices`: прайс заменяется целиком (docs/API.md §4).
+ * Строку удаляют, добавляют и переставляют в одной форме, и промежуточное
+ * состояние с половиной классов недопустимо — поэтому таблица приходит вся.
+ */
+export const pricesUpdateSchema = z
+  .object({
+    prices: z
+      .array(priceRowSchema.omit({ sort: true }).extend({ price: z.coerce.number().int().min(0) }))
+      .min(1, 'Нужна хотя бы одна строка прайса'),
+    extras: installRatesSchema,
+  })
+  .strict();
+
+export type PricesUpdate = z.infer<typeof pricesUpdateSchema>;
 
 /** Ввод калькулятора. `basePrice` — цена монтажа выбранного класса из `PriceRow`. */
 export const installationInputSchema = z.object({

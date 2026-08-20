@@ -1,6 +1,6 @@
 import { json, notFound, readJson, validationError, withAdmin } from '@/server/http';
 import { findById, update } from '@/server/repo/leads';
-import { leadPatchSchema } from '@/server/repo/validation';
+import { leadUpdateSchema } from '@/entities/lead/model';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,7 +20,7 @@ export const GET = withAdmin(async (_request, context: Context) => {
 export const PATCH = withAdmin(async (request, context: Context) => {
   const { id } = await context.params;
 
-  const parsed = leadPatchSchema.safeParse(await readJson(request));
+  const parsed = leadUpdateSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
 
   return json(await update(id, parsed.data));
