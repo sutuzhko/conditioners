@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { UPLOAD_MAX_BYTES, UPLOAD_MAX_MB } from '@/shared/config/uploads';
 import { FileInput } from './FileInput';
 
 const photo = () => new File(['x'.repeat(64)], 'stena.jpg', { type: 'image/jpeg' });
@@ -50,6 +51,38 @@ describe('FileInput', () => {
 
     expect(onChange).toHaveBeenCalledWith(null);
     expect(screen.getByRole('alert')).toHaveTextContent('1 МБ');
+  });
+
+  /**
+   * 🔴 Предел клиента и сервера — одно число (docs/API.md §7). Пока поле
+   * пускало 8 МБ, а сервер принимал 5, человек узнавал об отказе уже после
+   * отправки: на мобильном интернете это ещё и впустую потраченный трафик.
+   */
+  it('по умолчанию держит тот же предел, что и сервер', async () => {
+    const onChange = vi.fn();
+    const user = userEvent.setup();
+    render(<FileInput label="Фото" onChange={onChange} />);
+
+    expect(screen.getByText(`до ${UPLOAD_MAX_MB} МБ`)).toBeInTheDocument();
+
+    const overLimit = photo();
+    Object.defineProperty(overLimit, 'size', { value: UPLOAD_MAX_BYTES + 1 });
+    await user.upload(screen.getByLabelText('Фото'), overLimit);
+
+    expect(onChange).toHaveBeenCalledWith(null);
+    expect(screen.getByRole('alert')).toHaveTextContent(`${UPLOAD_MAX_MB} МБ`);
+  });
+
+  it('файл ровно по пределу проходит: граница включительна, как на сервере', async () => {
+    const onChange = vi.fn();
+    const user = userEvent.setup();
+    render(<FileInput label="Фото" onChange={onChange} />);
+
+    const exact = photo();
+    Object.defineProperty(exact, 'size', { value: UPLOAD_MAX_BYTES });
+    await user.upload(screen.getByLabelText('Фото'), exact);
+
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ name: 'stena.jpg' }));
   });
 
   it('показывает превью и имя выбранного файла', () => {

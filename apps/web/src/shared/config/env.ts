@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { UPLOAD_MAX_BYTES } from './uploads';
+
 /**
  * Конфигурация проверяется при старте: приложение не поднимается с неполными
  * переменными, вместо того чтобы падать на первой заявке (docs/CLAUDE.md).
@@ -12,7 +14,8 @@ const schema = z.object({
   SESSION_SECRET: z.string().min(16),
 
   UPLOADS_DIR: z.string().default('/data/uploads'),
-  UPLOAD_MAX_BYTES: z.coerce.number().int().positive().default(5_242_880),
+  // предел один на проект: клиентская проверка берёт его из того же файла
+  UPLOAD_MAX_BYTES: z.coerce.number().int().positive().default(UPLOAD_MAX_BYTES),
 
   NOTIFY_DRIVER: z.enum(['log', 'live']).default('log'),
   SMTP_HOST: z.string().optional(),

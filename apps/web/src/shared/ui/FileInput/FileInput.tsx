@@ -2,12 +2,11 @@
 
 import type { ChangeEvent, DragEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
+import { BYTES_IN_MB, UPLOAD_MAX_MB } from '@/shared/config/uploads';
 import { Field } from '../internal/Field';
 import { useFieldIds } from '../internal/useFieldIds';
 import { IconButton } from '../IconButton/IconButton';
 import styles from './FileInput.module.css';
-
-const BYTES_IN_MB = 1024 * 1024;
 
 /** Микрокопия по умолчанию. Переопределяется пропсами, если форме нужен свой тон. */
 const TEXTS = {
@@ -55,7 +54,9 @@ export function FileInput({
   hint,
   error,
   accept = DEFAULT_ACCEPT,
-  maxSizeMb = 8,
+  // предел тот же, что проверяет сервер (docs/API.md §7): иначе форма
+  // пропустит файл, который сервер отвергнет уже после отправки
+  maxSizeMb = UPLOAD_MAX_MB,
   id,
   name,
   disabled,
