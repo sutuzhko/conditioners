@@ -1,27 +1,11 @@
-/** Иконки блока доверия. Наследуют цвет через currentColor и всегда декоративны. */
+/**
+ * Иконки блока доверия, которые нужны только ему. Общие — стрелка, часы, щит —
+ * живут в UI Kit (`@/shared/ui`): иначе они разойдутся копиями по блокам.
+ *
+ * Наследуют цвет через currentColor и всегда декоративны.
+ */
 
 type IconProps = { readonly size?: number };
-
-export function ShieldIcon({ size = 18 }: IconProps) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 3l7 3v5c0 4.4-3 8-7 10-4-2-7-5.6-7-10V6l7-3Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-    </svg>
-  );
-}
-
-export function ClockIcon({ size = 18 }: IconProps) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M12 7v5l3 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 export function PulseIcon({ size = 18 }: IconProps) {
   return (
@@ -83,20 +67,6 @@ export function ServiceIcon({ size = 26 }: IconProps) {
         strokeLinecap="round"
       />
       <circle cx="12" cy="12" r="3.2" stroke="currentColor" strokeWidth="1.7" />
-    </svg>
-  );
-}
-
-export function ArrowIcon({ size = 15 }: IconProps) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M5 12h14M13 6l6 6-6 6"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
     </svg>
   );
 }

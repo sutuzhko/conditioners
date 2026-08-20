@@ -13,6 +13,9 @@ export type { IconButtonProps, IconButtonSize, IconButtonVariant } from './IconB
 export { Chip } from './Chip/Chip';
 export type { ChipProps } from './Chip/Chip';
 
+export { ArrowIcon, CheckIcon, ClockIcon, PhoneIcon, ShieldIcon } from './icons/icons';
+export type { IconProps } from './icons/icons';
+
 export { BrandMark } from './BrandMark/BrandMark';
 export type { BrandMarkProps, BrandMarkTone } from './BrandMark/BrandMark';
 

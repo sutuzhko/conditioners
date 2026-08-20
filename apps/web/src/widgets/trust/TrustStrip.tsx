@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react';
 
+import { ClockIcon, ShieldIcon } from '@/shared/ui';
+
 import { trustStripContent as t } from './content';
-import { GridIcon, PulseIcon, ShieldIcon, ClockIcon } from './icons';
+import { GridIcon, PulseIcon } from './icons';
 import type { TrustClaimKey } from './content';
 import styles from './TrustStrip.module.css';
 

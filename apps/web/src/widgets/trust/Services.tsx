@@ -2,10 +2,10 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import type { ButtonLinkHref } from '@/shared/ui';
-import { Card } from '@/shared/ui';
+import { ArrowIcon, Card } from '@/shared/ui';
 
 import { servicesContent as t } from './content';
-import { ArrowIcon, ServiceIcon, SplitIcon, WrenchIcon } from './icons';
+import { ServiceIcon, SplitIcon, WrenchIcon } from './icons';
 import type { ServiceKey } from './model';
 import styles from './Services.module.css';
 
