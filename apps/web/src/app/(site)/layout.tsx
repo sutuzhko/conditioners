@@ -31,12 +31,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
   return (
     <>
-      <Header
-        company={company}
-        contacts={contacts}
-        nav={SITE_NAV}
-        ctaHref={LEAD_ANCHOR}
-      />
+      <Header company={company} contacts={contacts} nav={SITE_NAV} ctaHref={LEAD_ANCHOR} />
       <main id="top">{children}</main>
       <Footer
         company={company}

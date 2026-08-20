@@ -41,6 +41,13 @@
   vertical-align: bottom;
 }
 
+/* Фон задаётся строке, а не ячейке: правило залипающей колонки ниже ставит
+   background: inherit, и без фона у tr под залипающим заголовком просвечивало
+   бы уезжающее содержимое. */
+.sticky thead tr {
+  background: var(--card);
+}
+
 .sticky th {
   background: var(--card);
 }
