@@ -1,7 +1,9 @@
 import { listVisible } from '@/server/repo/products';
+import { listApproved } from '@/server/repo/reviews';
 import { getPrices } from '@/server/repo/prices';
 import { getAll } from '@/server/repo/settings';
 import { productSchema } from '@/entities/product/model';
+import { reviewSchema } from '@/entities/review/model';
 import { priceRowSchema } from '@/entities/price/model';
 import { settingSchemas } from '@/entities/settings/model';
 import { Hero } from '@/widgets/hero';
@@ -9,6 +11,9 @@ import { TrustStrip, Services, WhyUs } from '@/widgets/trust';
 import { Catalog } from '@/widgets/catalog';
 import { SavingsBlock, StepsTimeline } from '@/widgets/installation';
 import { Pricing } from '@/widgets/pricing';
+import { HonestPricing, ScamAccordion } from '@/widgets/honesty';
+import { Diagnostics } from '@/widgets/service';
+import { Reviews } from '@/widgets/reviews';
 import { LeadForm } from '@/features/lead-form';
 import { LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
 
@@ -23,15 +28,20 @@ import { LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
 export const revalidate = 3600;
 
 export default async function HomePage() {
-  const [rawProducts, { prices, extras }, settings] = await Promise.all([
+  const [rawProducts, { prices, extras }, settings, reviews] = await Promise.all([
     listVisible(),
     getPrices(),
     getAll(),
+    listApproved(),
   ]);
 
   // репозитории отдают DTO контракта (даты строками), виджеты ждут доменный тип
   const products = rawProducts.map((dto) => productSchema.parse(dto));
   const priceRows = prices.map((row) => priceRowSchema.parse(row));
+  const approvedReviews = reviews.map((dto) => reviewSchema.parse(dto));
+
+  // цена в заголовке «честно о цене» — из прайса, а не из вёрстки (инвариант 8)
+  const installFrom = priceRows.length === 0 ? null : Math.min(...priceRows.map((r) => r.price));
 
   const warranty = settingSchemas.warranty.safeParse(settings.warranty);
   const contacts = settingSchemas.contacts.safeParse(settings.contacts);
@@ -46,7 +56,11 @@ export default async function HomePage() {
       <SavingsBlock />
       <StepsTimeline {...(warranty.success ? { warranty: warranty.data } : {})} />
       <Pricing prices={priceRows} rates={extras} leadHref={LEAD_ANCHOR} />
+      <HonestPricing installFrom={installFrom} />
+      <ScamAccordion />
+      <Diagnostics leadHref={LEAD_ANCHOR} />
       <WhyUs {...(warranty.success ? { warranty: warranty.data } : {})} />
+      <Reviews reviews={approvedReviews} policyHref={POLICY_HREF} />
       <section id="zayavka">
         <LeadForm
           phone={phone}
