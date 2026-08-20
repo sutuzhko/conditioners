@@ -34,6 +34,7 @@
 - [ ] Инициализация репозитория, `git init`, `.gitignore`
 - [ ] Next.js 15 + TypeScript strict, структура слоёв из [CLAUDE.md](CLAUDE.md)
 - [ ] ESLint + Prettier + Stylelint + husky + lint-staged
+- [ ] commitlint на `commit-msg` — Conventional Commits (ADR-018)
 - [ ] 🔴 `Dockerfile` многостадийный (`deps → dev → build → runner`), общий для дева и прода
 - [ ] 🔴 `docker-compose.dev.yml` в составе прода: `caddy` + `web` + `worker` + `db`, версии Node и Postgres общие с продом (ADR-017)
 - [ ] Bind-mount исходников, `node_modules` в именованном volume, локальный домен через Caddy
