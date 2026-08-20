@@ -1,0 +1,49 @@
+/* Скелетон вместо текста «Загрузка…»: у каждого асинхронного блока свой
+   каркас, иначе вёрстка прыгает и рушится CLS (docs/CLAUDE.md).
+   Анимация гасится глобальным правилом prefers-reduced-motion. */
+
+.skeleton {
+  display: block;
+  overflow: hidden;
+  background: var(--line-soft);
+  background-image: linear-gradient(90deg, transparent 0%, var(--line) 50%, transparent 100%);
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+.text {
+  height: 1em;
+  border-radius: 6px;
+}
+
+.block {
+  height: 100%;
+  border-radius: var(--r-sm);
+}
+
+.circle {
+  border-radius: var(--r-pill);
+  aspect-ratio: 1;
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+/* последняя строка короче — так абзац читается как текст, а не как блок */
+.lines > .text:last-child:not(:only-child) {
+  width: 62%;
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 150% 0;
+  }
+
+  to {
+    background-position: -50% 0;
+  }
+}

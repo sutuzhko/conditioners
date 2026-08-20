@@ -1,0 +1,85 @@
+/* Кнопка-иконка: переключатель темы, бургер, закрытие модалки.
+   Размер sm в макете 38px — тап-зона добирается прозрачной областью,
+   чтобы визуальная плотность шапки не поехала (docs/DESIGN_BRIEF.md §6). */
+
+.iconButton {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  color: var(--ink2);
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease,
+    box-shadow var(--dur-fast) ease;
+}
+
+.iconButton::after {
+  position: absolute;
+  inset: calc((var(--tap) - 100%) / -2);
+  min-width: var(--tap);
+  min-height: var(--tap);
+  content: '';
+}
+
+.iconButton:focus-visible {
+  box-shadow: var(--ring-focus);
+}
+
+.iconButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.sm {
+  width: 38px;
+  height: 38px;
+}
+
+.md {
+  width: var(--tap);
+  height: var(--tap);
+}
+
+.lg {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r-md);
+}
+
+.solid {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+.solid:hover:not(:disabled) {
+  border-color: var(--brand-hover);
+  background: var(--brand-hover);
+}
+
+.outline {
+  border-color: var(--line-strong);
+  background: var(--card);
+}
+
+.outline:hover:not(:disabled) {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.ghost {
+  background: transparent;
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}

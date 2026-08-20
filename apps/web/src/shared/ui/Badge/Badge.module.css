@@ -1,0 +1,67 @@
+/* Плашка. Пилюля 100px из макета; вариант sale — единственное место,
+   где на сайте допустим тёплый акцент (docs/DESIGN_BRIEF.md §10). */
+
+.badge {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 5px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  font-family: var(--font-text);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.sm {
+  padding: 3px 9px;
+  font-size: 11px;
+}
+
+.neutral {
+  border-color: var(--line);
+  background: var(--bg-soft);
+  color: var(--muted);
+}
+
+.accent {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.dark {
+  border-color: var(--panel);
+  background: var(--panel);
+  color: var(--on-panel);
+}
+
+.sale {
+  border-color: var(--sale-line);
+  background: var(--sale-bg);
+  color: var(--sale-ink);
+}
+
+.success {
+  border-color: var(--ok-line);
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.warning {
+  border-color: var(--warn-line);
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+/* технические метки таймлайна и схем обмана: моноширинный, разрядка из макета */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}

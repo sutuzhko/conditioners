@@ -1,0 +1,66 @@
+/* Карточка. Тени мягкие и цветные, линии тонкие — характер из макета
+   (docs/DESIGN_BRIEF.md §4). Радиус 20px: крупные карточки и панели. */
+
+.card {
+  position: relative;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  color: var(--body);
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.default {
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+}
+
+.soft {
+  border-color: var(--line-soft);
+  background: var(--bg-soft);
+}
+
+.accent {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+}
+
+.panel {
+  border-color: var(--panel);
+  background: var(--panel);
+  color: var(--on-panel);
+}
+
+.none {
+  padding: 0;
+}
+
+.sm {
+  padding: 14px;
+}
+
+.md {
+  padding: 20px;
+}
+
+.lg {
+  padding: clamp(20px, 4vw, 28px);
+}
+
+/* подъём при наведении — только там, где карточка ведёт куда-то,
+   и только при наличии указателя: на телефоне ховера не бывает */
+@media (hover: hover) {
+  .interactive:hover {
+    border-color: var(--accent-line);
+    box-shadow: var(--shadow-header);
+    transform: translateY(-2px);
+  }
+}
+
+.interactive:focus-within {
+  border-color: var(--accent-line);
+  box-shadow: var(--ring-focus);
+}
