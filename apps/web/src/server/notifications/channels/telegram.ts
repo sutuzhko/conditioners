@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { FormData as UndiciFormData, ProxyAgent, fetch as undiciFetch } from 'undici';
 import { z } from 'zod';
 import { env } from '@/shared/config/env';
-import { resolveUploadPath } from '@/server/intake/uploads';
+import { resolveUploadPath } from '@/server/uploads/store';
 import { attachedPhoto, notificationText } from '../format';
 import type { NotificationChannel, NotificationPayload } from '../types';
 

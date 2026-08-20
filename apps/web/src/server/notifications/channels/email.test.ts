@@ -106,20 +106,32 @@ describe('письмо владельцу', () => {
   });
 
   it('прикладывает фото, если файл лежит на диске', async () => {
-    await mkdir('/tmp/tk-test-uploads-email/leads', { recursive: true });
-    await writeFile('/tmp/tk-test-uploads-email/leads/b.jpg', Buffer.from([0xff, 0xd8]));
+    await mkdir('/tmp/tk-test-uploads-email', { recursive: true });
+    await writeFile(
+      '/tmp/tk-test-uploads-email/0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg',
+      Buffer.from([0xff, 0xd8]),
+    );
 
     const { transport, letters } = recorder();
-    await createEmailChannel(transport).send({ ...LEAD, photo: '/uploads/leads/b.jpg' });
+    await createEmailChannel(transport).send({
+      ...LEAD,
+      photo: '/api/media/0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg',
+    });
 
     expect(letters[0]?.attachments).toEqual([
-      { filename: 'b.jpg', path: '/tmp/tk-test-uploads-email/leads/b.jpg' },
+      {
+        filename: '0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg',
+        path: '/tmp/tk-test-uploads-email/0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg',
+      },
     ]);
   });
 
   it('не срывает отправку, если файла на диске уже нет', async () => {
     const { transport, letters } = recorder();
-    await createEmailChannel(transport).send({ ...LEAD, photo: '/uploads/leads/пропал.jpg' });
+    await createEmailChannel(transport).send({
+      ...LEAD,
+      photo: '/api/media/1b2c3d4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg',
+    });
 
     expect(letters[0]?.attachments).toEqual([]);
   });

@@ -9,7 +9,7 @@ import {
   json,
 } from '@/server/http';
 import { compactFormFields, reviewFormSchema } from '@/server/intake/schemas';
-import { storeImage } from '@/server/intake/uploads';
+import { saveImage } from '@/server/uploads/store';
 import { enqueueNotification } from '@/server/notifications/queue';
 import { env } from '@/shared/config/env';
 
@@ -36,7 +36,7 @@ export async function POST(request: Request): Promise<Response> {
     const input = reviewFormSchema.parse(compactFormFields(body.fields));
 
     const file = body.files.get('photo');
-    const photo = file === undefined ? null : (await storeImage(file, 'reviews')).url;
+    const photo = file === undefined ? null : (await saveImage(file)).url;
 
     const review = await db.review.create({
       data: {

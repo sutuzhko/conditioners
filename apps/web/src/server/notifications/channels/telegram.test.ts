@@ -132,9 +132,14 @@ describe('сообщение владельцу', () => {
 
   it('фото превращается в путь на диске — его читает воркер', async () => {
     const { transport, messages } = recorder();
-    await createTelegramChannel(transport).send({ ...REVIEW, photo: '/uploads/reviews/a.jpg' });
+    await createTelegramChannel(transport).send({
+      ...REVIEW,
+      photo: '/api/media/0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg',
+    });
 
-    expect(messages[0]?.photoPath).toBe('/tmp/tk-test-uploads-telegram/reviews/a.jpg');
+    expect(messages[0]?.photoPath).toBe(
+      '/tmp/tk-test-uploads-telegram/0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg',
+    );
   });
 });
 

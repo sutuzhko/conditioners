@@ -116,10 +116,10 @@ describe('POST /api/reviews', () => {
     const stored: unknown = dbMock.review.create.mock.calls[0]?.[0].data.photo;
     expect(typeof stored).toBe('string');
     const url = String(stored);
-    expect(url.startsWith('/uploads/reviews/')).toBe(true);
+    expect(url.startsWith('/api/media/')).toBe(true);
     expect(url).not.toContain('IMG_2024');
 
-    const saved = await readFile(`${testEnv.UPLOADS_DIR}/reviews/${url.split('/').pop()}`);
+    const saved = await readFile(`${testEnv.UPLOADS_DIR}/${url.split('/').pop()}`);
     expect(saved.toString('latin1')).not.toContain(SECRET_EXIF);
     expect(saved.subarray(0, 2).toString('hex')).toBe('ffd8');
   });

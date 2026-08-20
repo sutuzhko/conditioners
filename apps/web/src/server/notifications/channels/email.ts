@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { createTransport } from 'nodemailer';
 import { env } from '@/shared/config/env';
-import { resolveUploadPath } from '@/server/intake/uploads';
+import { resolveUploadPath } from '@/server/uploads/store';
 import { adminLink, attachedPhoto, notificationSubject, notificationText } from '../format';
 import type { NotificationChannel, NotificationPayload } from '../types';
 

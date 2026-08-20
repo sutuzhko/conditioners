@@ -1,7 +1,7 @@
 import { json, noContent, notFound, readJson, validationError, withAdmin } from '@/server/http';
 import { findById, remove, update } from '@/server/repo/articles';
 import { articlePatchSchema, articleUpdateSchema } from '@/server/repo/validation';
-import { deleteStoredImage } from '@/server/uploads';
+import { deleteStoredImage } from '@/server/uploads/store';
 import { revalidateArticles } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';

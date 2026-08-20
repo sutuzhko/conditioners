@@ -11,15 +11,18 @@ import { ApiException } from '@/server/http';
  */
 export type ImageFormat = 'jpeg' | 'png' | 'webp';
 
-const EXTENSIONS: Readonly<Record<ImageFormat, string>> = {
-  jpeg: '.jpg',
-  png: '.png',
-  webp: '.webp',
+/** Расширение и MIME определяются форматом, а не тем, что прислал клиент. */
+export type ImageKind = {
+  readonly format: ImageFormat;
+  readonly mime: string;
+  readonly ext: 'jpg' | 'png' | 'webp';
 };
 
-export function extensionFor(format: ImageFormat): string {
-  return EXTENSIONS[format];
-}
+const KINDS: Readonly<Record<ImageFormat, ImageKind>> = {
+  jpeg: { format: 'jpeg', mime: 'image/jpeg', ext: 'jpg' },
+  png: { format: 'png', mime: 'image/png', ext: 'png' },
+  webp: { format: 'webp', mime: 'image/webp', ext: 'webp' },
+};
 
 const BROKEN_IMAGE = new ApiException(
   'validation_error',
@@ -33,19 +36,21 @@ const WRONG_FORMAT = new ApiException(
   'photo',
 );
 
-export function detectImageFormat(buffer: Buffer): ImageFormat | null {
+export function detectImage(bytes: Uint8Array): ImageKind | null {
+  const buffer = Buffer.isBuffer(bytes) ? bytes : Buffer.from(bytes);
+
   if (buffer.length >= 3 && buffer.readUInt8(0) === 0xff && buffer.readUInt8(1) === 0xd8) {
-    return 'jpeg';
+    return KINDS.jpeg;
   }
   if (buffer.length >= 8 && buffer.subarray(0, 8).toString('hex') === '89504e470d0a1a0a') {
-    return 'png';
+    return KINDS.png;
   }
   if (
     buffer.length >= 12 &&
     buffer.subarray(0, 4).toString('latin1') === 'RIFF' &&
     buffer.subarray(8, 12).toString('latin1') === 'WEBP'
   ) {
-    return 'webp';
+    return KINDS.webp;
   }
   return null;
 }
@@ -160,14 +165,14 @@ function stripWebp(buffer: Buffer): Buffer {
 }
 
 /** Возвращает изображение без единого блока метаданных. Формат при этом не меняется. */
-export function stripImageMetadata(buffer: Buffer, format: ImageFormat): Buffer {
+export function stripMetadata(buffer: Buffer, format: ImageFormat): Buffer {
   if (format === 'jpeg') return stripJpeg(buffer);
   if (format === 'png') return stripPng(buffer);
   return stripWebp(buffer);
 }
 
-export function assertSupportedImage(buffer: Buffer): ImageFormat {
-  const format = detectImageFormat(buffer);
-  if (format === null) throw WRONG_FORMAT;
-  return format;
+export function assertSupportedImage(buffer: Buffer): ImageKind {
+  const kind = detectImage(buffer);
+  if (kind === null) throw WRONG_FORMAT;
+  return kind;
 }

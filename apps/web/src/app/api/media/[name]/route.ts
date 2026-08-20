@@ -11,7 +11,7 @@ import { join } from 'node:path';
 import { Readable } from 'node:stream';
 import { env } from '@/shared/config/env';
 import { notFound, withRoute } from '@/server/http';
-import { isSafeFilename, mimeFor } from '@/server/uploads';
+import { isSafeFilename, mimeFor } from '@/server/uploads/store';
 
 export const dynamic = 'force-dynamic';
 

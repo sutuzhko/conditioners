@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
 import { ApiException } from '@/server/http';
-import { detectImageFormat, stripImageMetadata } from './image';
+import { detectImage, stripMetadata } from './image';
 
 /** Минимальные, но структурно верные файлы: настоящие снимки в тесты класть незачем. */
 function be16(value: number): Buffer {
@@ -64,19 +64,19 @@ function webpWithExif(): Buffer {
 
 describe('определение формата по сигнатуре', () => {
   it('узнаёт jpeg, png и webp', () => {
-    expect(detectImageFormat(jpegWithExif())).toBe('jpeg');
-    expect(detectImageFormat(pngWithExif())).toBe('png');
-    expect(detectImageFormat(webpWithExif())).toBe('webp');
+    expect(detectImage(jpegWithExif())?.format).toBe('jpeg');
+    expect(detectImage(pngWithExif())?.format).toBe('png');
+    expect(detectImage(webpWithExif())?.format).toBe('webp');
   });
 
   it('не верит расширению: содержимое не изображение', () => {
-    expect(detectImageFormat(Buffer.from('<?php echo 1; ?>', 'utf-8'))).toBeNull();
+    expect(detectImage(Buffer.from('<?php echo 1; ?>', 'utf-8'))).toBeNull();
   });
 });
 
 describe('вырезание метаданных', () => {
   it('убирает EXIF и комментарий из jpeg, оставляя картинку', () => {
-    const cleaned = stripImageMetadata(jpegWithExif(), 'jpeg');
+    const cleaned = stripMetadata(jpegWithExif(), 'jpeg');
     const text = cleaned.toString('latin1');
 
     expect(text).not.toContain('Exif');
@@ -89,7 +89,7 @@ describe('вырезание метаданных', () => {
   });
 
   it('убирает eXIf и tEXt из png, оставляя IHDR, IDAT и IEND', () => {
-    const cleaned = stripImageMetadata(pngWithExif(), 'png');
+    const cleaned = stripMetadata(pngWithExif(), 'png');
     const text = cleaned.toString('latin1');
 
     expect(text).not.toContain('eXIf');
@@ -100,7 +100,7 @@ describe('вырезание метаданных', () => {
   });
 
   it('убирает чанк EXIF из webp и гасит флаги в VP8X', () => {
-    const cleaned = stripImageMetadata(webpWithExif(), 'webp');
+    const cleaned = stripMetadata(webpWithExif(), 'webp');
 
     expect(cleaned.toString('latin1')).not.toContain('GPS 54.196,37.618');
     expect(cleaned.subarray(0, 4).toString('latin1')).toBe('RIFF');
@@ -112,6 +112,6 @@ describe('вырезание метаданных', () => {
 
   it('на битом файле отказывает понятной ошибкой, а не отдаёт его как есть', () => {
     const broken = Buffer.concat([Buffer.from([0xff, 0xd8]), Buffer.from('мусор', 'utf-8')]);
-    expect(() => stripImageMetadata(broken, 'jpeg')).toThrow(ApiException);
+    expect(() => stripMetadata(broken, 'jpeg')).toThrow(ApiException);
   });
 });

@@ -3,7 +3,7 @@
  */
 import { apiError, json, notFound, withAdmin } from '@/server/http';
 import { findById, setCover } from '@/server/repo/articles';
-import { deleteStoredImage, saveImage } from '@/server/uploads';
+import { deleteStoredImage, saveImage } from '@/server/uploads/store';
 import { revalidateArticles } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';

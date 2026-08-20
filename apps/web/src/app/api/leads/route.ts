@@ -15,7 +15,7 @@ import {
   normalizePhone,
 } from '@/server/intake/schemas';
 import { collectTracking } from '@/server/intake/tracking';
-import { storeImage } from '@/server/intake/uploads';
+import { saveImage } from '@/server/uploads/store';
 import { enqueueNotification } from '@/server/notifications/queue';
 import { env } from '@/shared/config/env';
 
@@ -46,7 +46,7 @@ export async function POST(request: Request): Promise<Response> {
     const tracking = collectTracking(request, body.fields);
 
     const file = body.files.get('photo');
-    const photo = file === undefined ? null : (await storeImage(file, 'leads')).url;
+    const photo = file === undefined ? null : (await saveImage(file)).url;
 
     const lead = await db.lead.create({
       data: {

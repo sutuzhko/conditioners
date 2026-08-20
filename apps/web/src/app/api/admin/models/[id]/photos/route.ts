@@ -3,7 +3,7 @@
  */
 import { apiError, json, notFound, withAdmin } from '@/server/http';
 import { addPhoto, findById } from '@/server/repo/products';
-import { saveImage } from '@/server/uploads';
+import { saveImage } from '@/server/uploads/store';
 import { revalidateCatalog } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';
