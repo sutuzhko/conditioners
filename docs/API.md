@@ -10,39 +10,39 @@
 
 ## Отличия от исходного контракта
 
-| # | Было в прототипе | Стало | Почему |
-|---|---|---|---|
-| 1 | JWT в `Authorization: Bearer` | httpOnly cookie-сессия | XSS читает localStorage; на одном домене cookie и проще, и безопаснее ([TECH_DECISIONS §8](TECH_DECISIONS.md)) |
-| 2 | `POST /api/leads` шлёт в Telegram и всё | Заявка сохраняется в БД, уведомление ставится в очередь | 🔴 Инвариант 2: заявка не должна теряться |
-| 3 | Заявок в админке нет | Добавлен раздел `/api/admin/leads` | Заявки жили только в Telegram |
-| 4 | Telegram-токен на клиенте | Только сервер | 🔴 Инвариант 3 |
-| 5 | Согласие на обработку ПДн не фиксируется | Обязательное поле `consent`, время пишется в БД | 152-ФЗ: нужно доказательство |
-| 6 | У моделей нет slug | Добавлен `slug` | Нужен для `/katalog/[slug]` |
-| 7 | — | Добавлены `/api/health`, `/api/telegram/webhook` | Эксплуатация и модерация из Telegram |
-| 8 | Пути админки вперемешку с публичными | Всё под `/api/admin/*` | Одно правило в `middleware.ts` |
-| 9 | Контакты и юрлицо — два отдельных эндпоинта, остальное зашито в разметку | Единый `/api/settings/{key}` для всех данных компании | Название, координаты, часы, регион, гарантия, оплата тоже были выдуманы и зашиты (ADR-009) |
-| 10 | У товара одно фото и одна цена | Несколько фото + скидка с периодом | Каталог полностью управляется владельцем (ADR-010, ADR-011) |
+| #   | Было в прототипе                                                         | Стало                                                   | Почему                                                                                                         |
+| --- | ------------------------------------------------------------------------ | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| 1   | JWT в `Authorization: Bearer`                                            | httpOnly cookie-сессия                                  | XSS читает localStorage; на одном домене cookie и проще, и безопаснее ([TECH_DECISIONS §8](TECH_DECISIONS.md)) |
+| 2   | `POST /api/leads` шлёт в Telegram и всё                                  | Заявка сохраняется в БД, уведомление ставится в очередь | 🔴 Инвариант 2: заявка не должна теряться                                                                      |
+| 3   | Заявок в админке нет                                                     | Добавлен раздел `/api/admin/leads`                      | Заявки жили только в Telegram                                                                                  |
+| 4   | Telegram-токен на клиенте                                                | Только сервер                                           | 🔴 Инвариант 3                                                                                                 |
+| 5   | Согласие на обработку ПДн не фиксируется                                 | Обязательное поле `consent`, время пишется в БД         | 152-ФЗ: нужно доказательство                                                                                   |
+| 6   | У моделей нет slug                                                       | Добавлен `slug`                                         | Нужен для `/katalog/[slug]`                                                                                    |
+| 7   | —                                                                        | Добавлены `/api/health`, `/api/telegram/webhook`        | Эксплуатация и модерация из Telegram                                                                           |
+| 8   | Пути админки вперемешку с публичными                                     | Всё под `/api/admin/*`                                  | Одно правило в `middleware.ts`                                                                                 |
+| 9   | Контакты и юрлицо — два отдельных эндпоинта, остальное зашито в разметку | Единый `/api/settings/{key}` для всех данных компании   | Название, координаты, часы, регион, гарантия, оплата тоже были выдуманы и зашиты (ADR-009)                     |
+| 10  | У товара одно фото и одна цена                                           | Несколько фото + скидка с периодом                      | Каталог полностью управляется владельцем (ADR-010, ADR-011)                                                    |
 
 ---
 
 ## 1. Авторизация
 
-| Метод | Путь | Описание |
-|---|---|---|
-| POST | `/api/auth/login` | `{ login, password }` → `204` + `Set-Cookie: session=…; HttpOnly; Secure; SameSite=Lax`. `401` при ошибке, `429` при переборе |
-| POST | `/api/auth/logout` | Инвалидация сессии → `204` |
-| GET | `/api/auth/me` | Текущий администратор или `401` |
+| Метод | Путь               | Описание                                                                                                                      |
+| ----- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| POST  | `/api/auth/login`  | `{ login, password }` → `204` + `Set-Cookie: session=…; HttpOnly; Secure; SameSite=Lax`. `401` при ошибке, `429` при переборе |
+| POST  | `/api/auth/logout` | Инвалидация сессии → `204`                                                                                                    |
+| GET   | `/api/auth/me`     | Текущий администратор или `401`                                                                                               |
 
 ---
 
 ## 2. Публичные данные
 
-| Метод | Путь | Описание |
-|---|---|---|
-| GET | `/api/public/site` | Всё для рендера одним запросом: `models` (visible), `prices`, `extras`, `contacts`, `legal`, `reviews` (approved), `articles` (published, без `body`) |
-| GET | `/api/public/articles` | Список опубликованных, без `body` |
-| GET | `/api/public/articles/{slug}` | Статья целиком |
-| GET | `/api/public/models/{slug}` | Модель целиком |
+| Метод | Путь                          | Описание                                                                                                                                              |
+| ----- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET   | `/api/public/site`            | Всё для рендера одним запросом: `models` (visible), `prices`, `extras`, `contacts`, `legal`, `reviews` (approved), `articles` (published, без `body`) |
+| GET   | `/api/public/articles`        | Список опубликованных, без `body`                                                                                                                     |
+| GET   | `/api/public/articles/{slug}` | Статья целиком                                                                                                                                        |
+| GET   | `/api/public/models/{slug}`   | Модель целиком                                                                                                                                        |
 
 Страницы сайта получают данные напрямую через `repo.ts` при статической генерации — этот эндпоинт нужен для внешних потребителей и как граница будущего выноса бэкенда.
 
@@ -52,15 +52,26 @@
 
 ```json
 {
-  "id": "…", "slug": "split-sistema-09", "badge": "09",
-  "name": "Сплит-система 09", "brand": "…", "sku": "…",
-  "areaMax": 27, "tag": "инвертор",
+  "id": "…",
+  "slug": "split-sistema-09",
+  "badge": "09",
+  "name": "Сплит-система 09",
+  "brand": "…",
+  "sku": "…",
+  "areaMax": 27,
+  "tag": "инвертор",
   "priceNum": 38500,
-  "salePrice": 34900, "saleFrom": "2026-09-01", "saleTo": "2026-10-31", "saleLabel": "Осенняя цена",
-  "link": "", "visible": true, "sort": 0,
-  "seoTitle": null, "seoDescription": null,
-  "photos": [ { "id": "…", "url": "…", "alt": "…", "isMain": true, "sort": 0 } ],
-  "specs":  [ { "k": "Площадь", "v": "до 27 м²" } ]
+  "salePrice": 34900,
+  "saleFrom": "2026-09-01",
+  "saleTo": "2026-10-31",
+  "saleLabel": "Осенняя цена",
+  "link": "",
+  "visible": true,
+  "sort": 0,
+  "seoTitle": null,
+  "seoDescription": null,
+  "photos": [{ "id": "…", "url": "…", "alt": "…", "isMain": true, "sort": 0 }],
+  "specs": [{ "k": "Площадь", "v": "до 27 м²" }]
 }
 ```
 
@@ -68,17 +79,17 @@
 
 **Скидка.** `salePrice` — конечная цена, а не процент; процент вычисляется на выдаче. Скидка активна, если `salePrice` заполнена и текущая дата внутри `saleFrom…saleTo` (пустые границы = без ограничения). Публичные ответы отдают вычисленные `currentPrice`, `oldPrice`, `discountPercent`, `saleActive` — чтобы клиент, разметка и калькулятор не считали это каждый по-своему.
 
-| Метод | Путь |
-|---|---|
-| GET | `/api/admin/models` |
-| POST | `/api/admin/models` → `201` |
-| PUT | `/api/admin/models/{id}` |
-| PATCH | `/api/admin/models/{id}` |
-| DELETE | `/api/admin/models/{id}` |
-| POST | `/api/admin/models/{id}/photos` — `multipart/form-data`, поле `photo`, jpeg/png/webp ≤ 5 МБ → `201 { id, url }` |
-| PATCH | `/api/admin/models/{id}/photos/{photoId}` — `{ alt, isMain, sort }` |
-| DELETE | `/api/admin/models/{id}/photos/{photoId}` |
-| PATCH | `/api/admin/models/{id}/sale` — `{ salePrice, saleFrom, saleTo, saleLabel }`; `salePrice: null` снимает скидку |
+| Метод  | Путь                                                                                                            |
+| ------ | --------------------------------------------------------------------------------------------------------------- |
+| GET    | `/api/admin/models`                                                                                             |
+| POST   | `/api/admin/models` → `201`                                                                                     |
+| PUT    | `/api/admin/models/{id}`                                                                                        |
+| PATCH  | `/api/admin/models/{id}`                                                                                        |
+| DELETE | `/api/admin/models/{id}`                                                                                        |
+| POST   | `/api/admin/models/{id}/photos` — `multipart/form-data`, поле `photo`, jpeg/png/webp ≤ 5 МБ → `201 { id, url }` |
+| PATCH  | `/api/admin/models/{id}/photos/{photoId}` — `{ alt, isMain, sort }`                                             |
+| DELETE | `/api/admin/models/{id}/photos/{photoId}`                                                                       |
+| PATCH  | `/api/admin/models/{id}/sale` — `{ salePrice, saleFrom, saleTo, saleLabel }`; `salePrice: null` снимает скидку  |
 
 Слаг генерируется из названия транслитерацией, уникальность обеспечивается суффиксом. Изменение слага у опубликованной модели заводит 301-редирект со старого адреса.
 
@@ -88,15 +99,17 @@
 
 ```json
 {
-  "prices": [ { "cls": "07", "power": "2.0 кВт", "area": "до 20 м²", "price": 5500, "term": "3–4 часа" } ],
+  "prices": [
+    { "cls": "07", "power": "2.0 кВт", "area": "до 20 м²", "price": 5500, "term": "3–4 часа" }
+  ],
   "extras": { "trassaPerM": 700, "shtrobPerM": 800, "heightWorks": 2000 }
 }
 ```
 
-| Метод | Путь |
-|---|---|
-| GET | `/api/prices` |
-| PUT | `/api/admin/prices` |
+| Метод | Путь                |
+| ----- | ------------------- |
+| GET   | `/api/prices`       |
+| PUT   | `/api/admin/prices` |
 
 Формула калькулятора — в [PROJECT.md §2.4](PROJECT.md). Считается на клиенте для мгновенности и **перепроверяется на сервере** при отправке заявки: в заявку попадает та сумма, которую подтвердил сервер.
 
@@ -106,11 +119,11 @@
 
 🔴 Всё, что в прототипе было выдумано и зашито в разметку, живёт здесь. Ключи и их содержимое — в [PROJECT.md §3](PROJECT.md).
 
-| Метод | Путь | Описание |
-|---|---|---|
-| GET | `/api/settings/{key}` | Публичное чтение одной группы: `company`, `contacts`, `address`, `geo`, `area`, `legal`, `extras`, `warranty`, `payment`, `social`, `seo` |
-| GET | `/api/admin/settings` | Все группы разом |
-| PUT | `/api/admin/settings/{key}` | Обновить группу целиком. Тело валидируется схемой, своей для каждого ключа |
+| Метод | Путь                        | Описание                                                                                                                                  |
+| ----- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| GET   | `/api/settings/{key}`       | Публичное чтение одной группы: `company`, `contacts`, `address`, `geo`, `area`, `legal`, `extras`, `warranty`, `payment`, `social`, `seo` |
+| GET   | `/api/admin/settings`       | Все группы разом                                                                                                                          |
+| PUT   | `/api/admin/settings/{key}` | Обновить группу целиком. Тело валидируется схемой, своей для каждого ключа                                                                |
 
 Схема каждой группы задана Zod'ом: телефон приводится к единому виду, координаты проверяются на диапазон, часы работы — на формат, пригодный для `openingHours`. Неполные данные компании сохранить можно (владелец заполняет постепенно), но 🔴 **перед запуском действует проверка: ни одна группа не должна содержать заглушку** — эндпоинт `/api/admin/settings/readiness` возвращает список незаполненного.
 
@@ -122,12 +135,12 @@
 
 Объект `Article` — как в исходном контракте, плюс `seoTitle`, `seoDescription`, `updatedAt`.
 
-| Метод | Путь |
-|---|---|
-| GET | `/api/admin/articles` |
-| POST | `/api/admin/articles` → `201` |
-| PUT / PATCH / DELETE | `/api/admin/articles/{id}` |
-| POST | `/api/admin/articles/{id}/cover` → `200 { cover }` |
+| Метод                | Путь                                               |
+| -------------------- | -------------------------------------------------- |
+| GET                  | `/api/admin/articles`                              |
+| POST                 | `/api/admin/articles` → `201`                      |
+| PUT / PATCH / DELETE | `/api/admin/articles/{id}`                         |
+| POST                 | `/api/admin/articles/{id}/cover` → `200 { cover }` |
 
 `body` — плоский текст с разметкой `##`, `###`, `- `, `> `, `**жирный**`, блоки разделены пустой строкой. Рендер — чистая функция с тестами.
 
@@ -135,12 +148,12 @@
 
 ## 7. Отзывы
 
-| Метод | Путь | Описание |
-|---|---|---|
-| POST | `/api/reviews` | **Публичный.** `multipart/form-data`: `name`*, `district`, `rating`* (1–5), `text`* (≥ 10 символов), `photo` (≤ 5 МБ), `consent`*, `hp` (honeypot). Создаётся `pending` → `201 { id }`. Rate-limit по IP |
-| GET | `/api/admin/reviews?status=` | Список по статусу |
-| PATCH | `/api/admin/reviews/{id}/status` | `{ status: "approved" \| "rejected" \| "archived" }` |
-| DELETE | `/api/admin/reviews/{id}` | Безвозвратно |
+| Метод  | Путь                             | Описание                                                                                                                                                                                                 |
+| ------ | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| POST   | `/api/reviews`                   | **Публичный.** `multipart/form-data`: `name`_, `district`, `rating`_ (1–5), `text`* (≥ 10 символов), `photo` (≤ 5 МБ), `consent`*, `hp` (honeypot). Создаётся `pending` → `201 { id }`. Rate-limit по IP |
+| GET    | `/api/admin/reviews?status=`     | Список по статусу                                                                                                                                                                                        |
+| PATCH  | `/api/admin/reviews/{id}/status` | `{ status: "approved" \| "rejected" \| "archived" }`                                                                                                                                                     |
+| DELETE | `/api/admin/reviews/{id}`        | Безвозвратно                                                                                                                                                                                             |
 
 🔴 Текст отзыва не редактируется ни одним эндпоинтом. Модератор меняет только статус.
 
@@ -150,14 +163,18 @@
 
 ## 8. Заявки
 
-| Метод | Путь | Описание |
-|---|---|---|
-| POST | `/api/leads` | **Публичный.** `multipart/form-data`: `name`*, `phone`*, `topic`, `place`, `qty`, `time`, `address`, `comment`, `photo`, `sourceUrl`, `utm`, `consent`*, `hp` → `201 { id }` |
-| POST | `/api/leads/to-reminder` | Напоминание о ТО: `{ phone, when, consent }` → `201` |
-| GET | `/api/admin/leads?status=` | Список для админки |
-| PATCH | `/api/admin/leads/{id}` | `{ status, managerComment }` |
+| Метод | Путь                       | Описание                                                                                                                                                     |
+| ----- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| POST  | `/api/leads`               | **Публичный.** `multipart/form-data`: `name`_, `phone`_, `topic`, `place`, `qty`, `callTime`, `address`, `comment`, `photo`, `consent`*, `hp` → `201 { id }` |
+| POST  | `/api/leads/to-reminder`   | Напоминание о ТО: `{ phone, when, consent }` → `201`                                                                                                         |
+| GET   | `/api/admin/leads?status=` | Список для админки                                                                                                                                           |
+| PATCH | `/api/admin/leads/{id}`    | `{ status, managerComment }`                                                                                                                                 |
 
 🔴 Порядок обработки `POST /api/leads`: валидация → запись `Lead` → постановка `Notification` в очередь → `201`. Ответ клиенту **не ждёт** внешние сервисы.
+
+**Имя поля времени звонка — `callTime`.** В первой редакции контракта оно называлось `time`; сервер принимает оба имени ради совместимости, но канонический вариант один, и формы должны слать `callTime`. Расхождение имени поля между контрактом и схемой — то, из-за чего форма молча теряет данные.
+
+`sourceUrl`, `referrer` и utm-метки **не приходят из формы**: сервер собирает их сам из заголовков и адреса страницы-источника. Присылать их в теле бессмысленно — они будут проигнорированы.
 
 `consent` обязателен: без него `400`. Время согласия пишется в `Lead.consentAt`.
 
@@ -177,32 +194,42 @@ Notification { channel: "email" | "telegram", kind: "lead" | "review" | "to-remi
 **Формат сообщений в Telegram** — как в исходном контракте: заявка текстом (или `sendPhoto` с текстом в `caption`, если приложено фото); новый отзыв — с `inline_keyboard`:
 
 ```json
-{ "inline_keyboard": [[
-  { "text": "✅ Одобрить", "callback_data": "rev:approve:r5" },
-  { "text": "🚫 Запретить", "callback_data": "rev:reject:r5" },
-  { "text": "📦 Архив",    "callback_data": "rev:archive:r5" }
-]] }
+{
+  "inline_keyboard": [
+    [
+      { "text": "✅ Одобрить", "callback_data": "rev:approve:r5" },
+      { "text": "🚫 Запретить", "callback_data": "rev:reject:r5" },
+      { "text": "📦 Архив", "callback_data": "rev:archive:r5" }
+    ]
+  ]
+}
 ```
 
-| Метод | Путь | Описание |
-|---|---|---|
-| POST | `/api/telegram/webhook` | Приём `callback_query`. Проверяет `X-Telegram-Bot-Api-Secret-Token`, меняет статус тем же кодом, что админка, редактирует сообщение (`editMessageText`), дописывая итог |
+| Метод | Путь                    | Описание                                                                                                                                                                |
+| ----- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| POST  | `/api/telegram/webhook` | Приём `callback_query`. Проверяет `X-Telegram-Bot-Api-Secret-Token`, меняет статус тем же кодом, что админка, редактирует сообщение (`editMessageText`), дописывая итог |
 
 ---
 
 ## 10. Служебное
 
-| Метод | Путь | Описание |
-|---|---|---|
-| GET | `/api/health` | Проверка БД → `200 { ok: true }` |
-| POST | `/api/admin/revalidate` | Точечная ревалидация маршрутов после правок. Вызывается изнутри, наружу закрыт |
+| Метод | Путь                    | Описание                                                                       |
+| ----- | ----------------------- | ------------------------------------------------------------------------------ |
+| GET   | `/api/health`           | Проверка БД → `200 { ok: true }`                                               |
+| POST  | `/api/admin/revalidate` | Точечная ревалидация маршрутов после правок. Вызывается изнутри, наружу закрыт |
 
 ---
 
 ## 11. Ошибки
 
 ```json
-{ "error": { "code": "validation_error", "message": "Поле rating обязательно (1–5)", "field": "rating" } }
+{
+  "error": {
+    "code": "validation_error",
+    "message": "Поле rating обязательно (1–5)",
+    "field": "rating"
+  }
+}
 ```
 
 `400` валидация · `401` нет сессии · `403` нет прав · `404` нет объекта · `413` файл слишком большой · `429` rate-limit · `500` прочее.
