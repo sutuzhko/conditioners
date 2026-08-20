@@ -112,3 +112,14 @@
     margin-bottom: 28px;
   }
 }
+
+/* Полоса счётчиков внутри тёмной панели: сетка с автозаполнением и
+   отбивка от списка причин. Цвет и кегль цифр — у общего StatList. */
+.achievements {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+  gap: 20px 28px;
+  margin: 0 0 36px;
+  padding: 0 0 32px;
+  border-bottom: 1px solid color-mix(in srgb, var(--on-panel) 14%, transparent);
+}

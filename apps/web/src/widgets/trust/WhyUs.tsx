@@ -1,9 +1,9 @@
 import type { Warranty } from '@/entities/settings/model';
+import { StatList } from '@/shared/ui';
 
 import { whyUsContent as t } from './content';
 import { warrantyTerms } from './lib';
 import type { Achievement } from './model';
-import { WhyUsAchievements } from './WhyUsAchievements';
 import styles from './WhyUs.module.css';
 
 export interface WhyUsProps {
@@ -45,7 +45,12 @@ export function WhyUs({ achievements = [], warranty, id }: WhyUsProps) {
               {t.title}
             </h2>
 
-            <WhyUsAchievements achievements={achievements} />
+            <StatList
+              items={achievements}
+              tone="onPanel"
+              label={t.achievementsLabel}
+              className={styles.achievements}
+            />
 
             <ul className={styles.reasons}>
               {t.reasons.map((reason) => (

@@ -25,6 +25,9 @@ export type { BadgeProps, BadgeVariant } from './Badge/Badge';
 export { Card } from './Card/Card';
 export type { CardPadding, CardProps, CardVariant } from './Card/Card';
 
+export { StatList } from './Stat/Stat';
+export type { StatItem, StatListProps, StatTone } from './Stat/Stat';
+
 export { Skeleton } from './Skeleton/Skeleton';
 export type { SkeletonProps, SkeletonVariant } from './Skeleton/Skeleton';
 

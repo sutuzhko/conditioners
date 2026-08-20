@@ -1,0 +1,54 @@
+/* Типографика счётчика. Раскладку ряда задаёт блок: у первого экрана это
+   строка с зазором 34px, у тёмной панели — сетка с автозаполнением. */
+
+.list {
+  margin: 0;
+}
+
+.item {
+  min-width: 0;
+}
+
+.value {
+  font-family: var(--font-display);
+  font-weight: 700;
+
+  /* цифры не должны прыгать по ширине, пока идёт отсчёт */
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  margin: 0;
+}
+
+.default .value {
+  color: var(--ink);
+  font-size: 28px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.default .label {
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+@media (width < 600px) {
+  .default .value {
+    font-size: 24px;
+  }
+}
+
+/* Панель тёмная в обеих темах, поэтому вторичный текст выводим из --on-panel. */
+.onPanel .value {
+  margin: 0 0 4px;
+  color: var(--on-panel);
+  font-size: clamp(26px, 6vw, 34px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.onPanel .label {
+  color: color-mix(in srgb, var(--on-panel) 66%, transparent);
+  font-size: var(--fs-caption);
+}

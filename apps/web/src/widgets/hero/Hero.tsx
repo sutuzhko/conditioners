@@ -1,11 +1,10 @@
 import type { Product } from '@/entities/product/model';
 import type { ButtonLinkHref } from '@/shared/ui';
-import { Badge, ButtonLink } from '@/shared/ui';
+import { Badge, ButtonLink, StatList } from '@/shared/ui';
 
 import { heroContent as t } from './content';
 import { HeroParticles } from './HeroParticles';
 import { HeroPicker } from './HeroPicker';
-import { HeroStats } from './HeroStats';
 import type { HeroStat } from './model';
 import styles from './Hero.module.css';
 
@@ -73,7 +72,7 @@ export function Hero({
             </ButtonLink>
           </div>
 
-          <HeroStats stats={stats} />
+          <StatList items={stats} className={styles.stats} />
         </div>
 
         <HeroPicker products={products} leadHref={leadHref} now={now} />
