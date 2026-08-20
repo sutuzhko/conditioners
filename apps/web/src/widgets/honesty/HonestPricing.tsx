@@ -57,11 +57,7 @@ export function HonestPricing({ installFrom, id = 'chestno' }: HonestPricingProp
                 </Badge>
               )}
             </div>
-            <PointList
-              points={honestPoints}
-              label={honestyContent.honestListLabel}
-              tone="honest"
-            />
+            <PointList points={honestPoints} label={honestyContent.honestListLabel} tone="honest" />
           </Card>
 
           <Card padding="lg" className={styles.card}>

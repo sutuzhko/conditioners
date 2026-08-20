@@ -56,7 +56,9 @@ describe('Честно о цене — цена в заголовке', () => {
     render(<HonestPricing installFrom={null} />);
 
     expect(screen.getByRole('heading', { level: 2 }).textContent).not.toMatch(/\d/);
-    expect(screen.queryByText(spaced(honestyContent.honestPrice(installFrom)))).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(spaced(honestyContent.honestPrice(installFrom))),
+    ).not.toBeInTheDocument();
   });
 
   it('плашка с ценой появляется только вместе с ценой', () => {
@@ -68,7 +70,9 @@ describe('Честно о цене — цена в заголовке', () => {
     expect(
       screen.getByRole('heading', { level: 3, name: honestyContent.honestTitle }),
     ).toBeInTheDocument();
-    expect(screen.queryByText(spaced(honestyContent.honestPrice(installFrom)))).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(spaced(honestyContent.honestPrice(installFrom))),
+    ).not.toBeInTheDocument();
   });
 });
 
