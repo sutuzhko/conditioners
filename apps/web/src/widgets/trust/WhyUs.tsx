@@ -1,8 +1,8 @@
 import type { Warranty } from '@/entities/settings/model';
+import { warrantyTerms } from '@/shared/lib/warranty';
 import { StatList } from '@/shared/ui';
 
 import { whyUsContent as t } from './content';
-import { warrantyTerms } from './lib';
 import type { Achievement } from './model';
 import styles from './WhyUs.module.css';
 
@@ -32,7 +32,7 @@ const HEADING_ID = 'why-us-title';
  * (инвариант 1), `'use client'` стоит только на счётчиках.
  */
 export function WhyUs({ achievements = [], warranty, id }: WhyUsProps) {
-  const terms = warrantyTerms(warranty);
+  const terms = warrantyTerms(warranty, t.warranty);
 
   return (
     <section id={id} className={styles.section} aria-labelledby={HEADING_ID}>

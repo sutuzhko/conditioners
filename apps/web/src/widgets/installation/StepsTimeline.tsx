@@ -1,8 +1,8 @@
 import type { Warranty } from '@/entities/settings/model';
+import { warrantyTerms } from '@/shared/lib/warranty';
 import { Card } from '@/shared/ui';
 
 import { installDay, installSteps, stepsContent, timelineContent } from './content';
-import { warrantyTerms } from './warranty';
 import styles from './StepsTimeline.module.css';
 
 export type StepsTimelineProps = {
@@ -29,7 +29,7 @@ const TIMELINE_HEADING_ID = 'installation-day-title';
  */
 export function StepsTimeline({ warranty, id = 'etapy' }: StepsTimelineProps) {
   const lastIndex = installSteps.length - 1;
-  const terms = warrantyTerms(warranty);
+  const terms = warrantyTerms(warranty, stepsContent.warranty);
 
   return (
     <section id={id} className={styles.section} aria-labelledby={HEADING_ID}>
