@@ -11,9 +11,10 @@
 import { randomUUID } from 'node:crypto';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import sharp from 'sharp';
 import { env } from '@/shared/config/env';
 import { ApiException } from '@/server/http';
-import { assertSupportedImage, stripMetadata } from '@/server/uploads/image';
+import { assertSupportedImage, stripMetadata, type ImageKind } from '@/server/uploads/image';
 
 /**
  * Публичный префикс отдачи файлов. Не `/uploads`: этот путь попадает под
@@ -22,6 +23,47 @@ import { assertSupportedImage, stripMetadata } from '@/server/uploads/image';
 export const MEDIA_URL_PREFIX = '/api/media';
 
 export type StoredFile = { url: string; filename: string; mime: string };
+
+/**
+ * Длинная сторона сохраняемого изображения. Больше нигде на сайте не
+ * показывается: карточка модели на десктопе — 600px, ретина удваивает.
+ * Снимок с телефона весит несколько мегабайт, и без пережатия каждый такой
+ * файл потом уходит клиенту целиком — это прямой удар по LCP и по трафику.
+ */
+const MAX_SIDE_PX = 1200;
+
+/** Качество перекодировки: на фото монтажа разница с оригиналом не видна. */
+const QUALITY = 82;
+
+/**
+ * Пережатие после чистки метаданных.
+ *
+ * 🔴 Порядок важен: sharp по умолчанию **не** переносит метаданные исходника
+ * в результат, а `keepMetadata`/`withMetadata` мы сознательно не включаем —
+ * вместе с ними в файл вернулись бы EXIF и GPS-координаты квартиры клиента.
+ *
+ * Файл, который sharp не смог прочитать, сохраняется очищенным оригиналом:
+ * структуру мы уже проверили, а терять из-за перекодировки заявку с фото
+ * дороже, чем положить на диск лишние мегабайты (инвариант 2).
+ */
+async function shrink(cleaned: Buffer, kind: ImageKind): Promise<Buffer> {
+  const resized = sharp(cleaned).resize({
+    width: MAX_SIDE_PX,
+    height: MAX_SIDE_PX,
+    fit: 'inside',
+    // маленькое фото не растягиваем: апскейл добавит вес, но не детали
+    withoutEnlargement: true,
+  });
+
+  try {
+    if (kind.format === 'png') return await resized.png({ compressionLevel: 9 }).toBuffer();
+    if (kind.format === 'webp') return await resized.webp({ quality: QUALITY }).toBuffer();
+    return await resized.jpeg({ quality: QUALITY, progressive: true }).toBuffer();
+  } catch (error) {
+    console.error('Не удалось пережать изображение, сохраняем очищенный оригинал', error);
+    return cleaned;
+  }
+}
 
 function megabytes(bytes: number): string {
   return `${Math.round((bytes / 1_048_576) * 10) / 10} МБ`;
@@ -47,7 +89,7 @@ export async function saveImage(file: File): Promise<StoredFile> {
 
   const original = Buffer.from(await file.arrayBuffer());
   const kind = assertSupportedImage(original);
-  const cleaned = stripMetadata(original, kind.format);
+  const cleaned = await shrink(stripMetadata(original, kind.format), kind);
 
   const filename = `${randomUUID()}.${kind.ext}`;
   await mkdir(env.UPLOADS_DIR, { recursive: true });

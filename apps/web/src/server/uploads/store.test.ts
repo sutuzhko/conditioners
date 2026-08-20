@@ -17,6 +17,7 @@ const { testEnv } = vi.hoisted(() => ({
 
 vi.mock('@/shared/config/env', () => ({ env: testEnv }));
 
+const sharp = (await import('sharp')).default;
 const { detectImage, stripMetadata } = await import('@/server/uploads/image');
 const { deleteStoredImage, isSafeFilename, mimeFor, resolveUploadPath, saveImage } =
   await import('@/server/uploads/store');
@@ -42,6 +43,16 @@ function jpegWithExif(): Buffer {
 
 function upload(bytes: Buffer, name = 'IMG_2024 квартира.jpg'): File {
   return new File([new Uint8Array(bytes)], name, { type: 'image/jpeg' });
+}
+
+/** Снимок «с телефона»: заведомо больше 1200px по длинной стороне и с EXIF. */
+function photoFromPhone(): Promise<Buffer> {
+  return sharp({
+    create: { width: 3000, height: 2000, channels: 3, background: '#1f6feb' },
+  })
+    .withExif({ IFD0: { Copyright: 'GPS 54.196,37.618' } })
+    .jpeg()
+    .toBuffer();
 }
 
 beforeEach(async () => {
@@ -102,6 +113,52 @@ describe('сохранение файла', () => {
     const huge = upload(Buffer.alloc(testEnv.UPLOAD_MAX_BYTES + 1));
 
     await expect(saveImage(huge)).rejects.toMatchObject({ code: 'payload_too_large' });
+  });
+
+  it('снимок с телефона пережимается до 1200px по длинной стороне', async () => {
+    const stored = await saveImage(upload(await photoFromPhone()));
+
+    const saved = await readFile(`${testEnv.UPLOADS_DIR}/${stored.filename}`);
+    const meta = await sharp(saved).metadata();
+
+    expect(meta.width).toBe(1200);
+    expect(meta.height).toBe(800);
+    expect(saved.length).toBeLessThan((await photoFromPhone()).length);
+  });
+
+  /** 🔴 Пережатие не имеет права вернуть в файл то, что вырезала чистка. */
+  it('после пережатия метаданные в файл не возвращаются', async () => {
+    const stored = await saveImage(upload(await photoFromPhone()));
+
+    const saved = await readFile(`${testEnv.UPLOADS_DIR}/${stored.filename}`);
+    const meta = await sharp(saved).metadata();
+
+    expect(meta.exif).toBeUndefined();
+    expect(saved.toString('latin1')).not.toContain('GPS 54.196,37.618');
+  });
+
+  it('маленькое изображение не растягивается', async () => {
+    const small = await sharp({
+      create: { width: 320, height: 240, channels: 3, background: '#ffffff' },
+    })
+      .jpeg()
+      .toBuffer();
+
+    const stored = await saveImage(upload(small));
+    const meta = await sharp(
+      await readFile(`${testEnv.UPLOADS_DIR}/${stored.filename}`),
+    ).metadata();
+
+    expect(meta.width).toBe(320);
+  });
+
+  /** Заявка с фото дороже мегабайтов: не пережалось — кладём очищенный оригинал. */
+  it('файл, который не удалось пережать, сохраняется очищенным', async () => {
+    const stored = await saveImage(upload(jpegWithExif()));
+
+    const saved = await readFile(`${testEnv.UPLOADS_DIR}/${stored.filename}`);
+    expect(saved.subarray(0, 2).toString('hex')).toBe('ffd8');
+    expect(saved.toString('latin1')).not.toContain('GPS 54.19');
   });
 
   it('удаление карточки уносит файл с диска', async () => {
