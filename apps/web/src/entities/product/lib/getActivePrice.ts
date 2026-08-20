@@ -7,20 +7,32 @@ export type SalePricing = Pick<
 >;
 
 /**
- * Границы периода считаются в UTC — так же, как форматируются даты
- * (`shared/lib/format`). Период задаётся календарной датой и хранится как
- * полночь UTC; считать его в поясе читателя нельзя, иначе серверный и
- * клиентский рендер разойдутся на сутки.
+ * 🔴 Границы периода считаются по московскому времени, а не по UTC.
+ *
+ * Бизнес в Туле: скидка «до 31 октября» обязана заканчиваться в конце дня по
+ * местному времени, а не в три часа ночи первого ноября. Пояс фиксированный
+ * (+03:00, переходов на летнее время в России нет), поэтому серверный и
+ * клиентский рендер по-прежнему считают одинаково — детерминированность
+ * никуда не делась.
  */
-function startOfUtcDay(date: Date, shiftDays = 0): number {
-  return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + shiftDays);
+const MSK_OFFSET_MS = 3 * 60 * 60 * 1000;
+
+/**
+ * Начало московских суток, в которые попадает граница. Владелец задаёт период
+ * календарными днями, а хранится он мгновением: считаем день от того же
+ * смещения, из которого его записали.
+ */
+function startOfMoscowDay(date: Date, shiftDays = 0): number {
+  const local = new Date(date.getTime() + MSK_OFFSET_MS);
+  const day = Date.UTC(local.getUTCFullYear(), local.getUTCMonth(), local.getUTCDate() + shiftDays);
+  return day - MSK_OFFSET_MS;
 }
 
 function withinPeriod(now: Date, from: Date | null, to: Date | null): boolean {
   const moment = now.getTime();
-  if (from && moment < startOfUtcDay(from)) return false;
+  if (from && moment < startOfMoscowDay(from)) return false;
   // граница `saleTo` включительна: скидка действует весь последний день
-  if (to && moment >= startOfUtcDay(to, 1)) return false;
+  if (to && moment >= startOfMoscowDay(to, 1)) return false;
   return true;
 }
 

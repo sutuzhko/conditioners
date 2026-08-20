@@ -6,7 +6,7 @@
  */
 import type { Prisma } from '@prisma/client';
 import { db } from '@/server/db';
-import { getActivePrice } from '@/server/repo/pricing';
+import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { uniqueSlug } from '@/server/repo/slug';
 import { ApiException } from '@/server/http';
 import type {
@@ -99,7 +99,11 @@ export function toDto(row: ProductRow, now: Date = new Date()): ProductDto {
       sort: photo.sort,
     })),
     specs: row.specs.map((spec) => ({ k: spec.k, v: spec.v })),
-    ...active,
+    currentPrice: active.currentPrice,
+    oldPrice: active.oldPrice,
+    // в контракте (docs/API.md §3) поле всегда число: «нет скидки» видно по saleActive
+    discountPercent: active.discountPercent ?? 0,
+    saleActive: active.saleActive,
   };
 }
 
