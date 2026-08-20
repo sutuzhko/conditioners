@@ -10,12 +10,12 @@
 
 **Контейнеры:**
 
-| Сервис | Что делает |
-|---|---|
-| `caddy` | TLS (Let's Encrypt автоматически), реверс-прокси, отдача статики, gzip/brotli |
-| `web` | Next.js в режиме `standalone` |
-| `worker` | тот же образ, разбирает очередь уведомлений |
-| `db` | PostgreSQL 16, данные в именованном volume |
+| Сервис   | Что делает                                                                    |
+| -------- | ----------------------------------------------------------------------------- |
+| `caddy`  | TLS (Let's Encrypt автоматически), реверс-прокси, отдача статики, gzip/brotli |
+| `web`    | Next.js в режиме `standalone`                                                 |
+| `worker` | тот же образ, разбирает очередь уведомлений                                   |
+| `db`     | PostgreSQL 16, данные в именованном volume                                    |
 
 `worker` отдельным контейнером, чтобы перезапуск веба не рвал доставку уведомлений.
 
@@ -32,7 +32,17 @@ cp .env.example .env.dev            # заполнить; уведомления
 docker compose -f docker-compose.dev.yml up --build
 ```
 
-Поднимется тот же состав, что на проде: `caddy` + `web` + `worker` + `db`. Сайт — на локальном домене через Caddy, а не на голом `localhost:3000`: заголовки, сжатие и проксирование проверяются здесь.
+Поднимется тот же состав, что на проде: `caddy` + `web` + `worker` + `db`, плюс `storybook`.
+
+| Адрес                           | Что это                                                                         |
+| ------------------------------- | ------------------------------------------------------------------------------- |
+| **http://tulaklimat.localhost** | сайт через Caddy — так же, как будет на проде: сжатие, заголовки, проксирование |
+| http://localhost:3000           | то же приложение напрямую, в обход Caddy — для отладки                          |
+| **http://localhost:6006**       | Storybook: UI Kit и блоки лендинга                                              |
+| http://storybook.localhost      | Storybook через Caddy                                                           |
+| localhost:5432                  | Postgres, для psql и GUI-клиентов                                               |
+
+Смотреть сайт правильно на `tulaklimat.localhost`: домены `*.localhost` браузеры резолвят в петлю сами, ничего прописывать в `/etc/hosts` не нужно. Порт 3000 оставлен как запасной вход — если что-то ведёт себя по-разному на нём и через Caddy, разница в прокси-слое, и это стоит починить до прода.
 
 Команды выполняются **внутри контейнера**, никогда с хоста:
 
@@ -42,6 +52,10 @@ docker compose -f docker-compose.dev.yml exec web pnpm seed
 docker compose -f docker-compose.dev.yml exec web pnpm test
 docker compose -f docker-compose.dev.yml exec db psql -U tk -d tulaklimat
 ```
+
+Репозиторий — pnpm-воркспейс: приложение живёт в `apps/web`, в корне только инфраструктура и документация (ADR-027). Корневые скрипты пробрасывают команды в приложение, поэтому запускать их можно из `/app`, не переходя в каталог.
+
+Если pnpm просит подтвердить пересборку `node_modules`, а команда идёт без TTY — добавь `-e CI=true` к `docker compose exec`.
 
 Что это ловит до деплоя: расхождение версий Node и Postgres, регистр в путях импортов (на macOS `Button` и `button` — одно и то же, в Linux-сборке — нет), права и пути к volume с загрузками, поведение Caddy.
 
@@ -79,19 +93,19 @@ docker compose -f docker-compose.prod.yml exec web pnpm prisma migrate deploy
 
 Полный список с комментариями — в `.env.prod.example`. Ключевые:
 
-| Переменная | Смысл |
-|---|---|
-| `DATABASE_URL` | строка подключения к Postgres |
-| `SITE_URL` | канонический адрес, из него строятся каноникалы, sitemap и OG |
-| `SESSION_SECRET` | подпись cookie-сессии админки |
-| `ADMIN_LOGIN`, `ADMIN_PASSWORD_HASH` | первый администратор (Argon2id) |
-| `SMTP_*`, `NOTIFY_EMAIL_TO` | почтовый канал уведомлений |
-| `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | 🔴 только на сервере |
-| `TELEGRAM_TRANSPORT` | `direct` \| `proxy` \| `off` |
-| `TELEGRAM_PROXY_URL` | адрес прокси при `proxy` |
-| `TELEGRAM_WEBHOOK_SECRET` | проверка входящих апдейтов |
-| `UPLOADS_DIR` | путь к volume с файлами |
-| `YANDEX_METRIKA_ID` | счётчик, единственная публичная переменная |
+| Переменная                               | Смысл                                                         |
+| ---------------------------------------- | ------------------------------------------------------------- |
+| `DATABASE_URL`                           | строка подключения к Postgres                                 |
+| `SITE_URL`                               | канонический адрес, из него строятся каноникалы, sitemap и OG |
+| `SESSION_SECRET`                         | подпись cookie-сессии админки                                 |
+| `ADMIN_LOGIN`, `ADMIN_PASSWORD_HASH`     | первый администратор (Argon2id)                               |
+| `SMTP_*`, `NOTIFY_EMAIL_TO`              | почтовый канал уведомлений                                    |
+| `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | 🔴 только на сервере                                          |
+| `TELEGRAM_TRANSPORT`                     | `direct` \| `proxy` \| `off`                                  |
+| `TELEGRAM_PROXY_URL`                     | адрес прокси при `proxy`                                      |
+| `TELEGRAM_WEBHOOK_SECRET`                | проверка входящих апдейтов                                    |
+| `UPLOADS_DIR`                            | путь к volume с файлами                                       |
+| `YANDEX_METRIKA_ID`                      | счётчик, единственная публичная переменная                    |
 
 🔴 Ни одна из них, кроме `NEXT_PUBLIC_*`, не должна попасть в клиентский бандл. ENV проверяется Zod-схемой при старте: приложение не поднимется с неполной конфигурацией.
 
@@ -105,11 +119,11 @@ docker compose -f docker-compose.prod.yml exec web pnpm prisma migrate deploy
 docker compose -f docker-compose.prod.yml exec web curl -sS -o /dev/null -w "http=%{http_code} tls=%{time_appconnect}s\n" --max-time 10 https://api.telegram.org/
 ```
 
-| Результат | Действие |
-|---|---|
-| код 200/302, быстрый handshake | `TELEGRAM_TRANSPORT=direct` |
-| таймаут или обрыв TLS | поднять WireGuard-туннель с маршрутизацией `149.154.160.0/20` и `91.108.4.0/22`, либо SOCKS5 на зарубежном VPS → `TELEGRAM_TRANSPORT=proxy` |
-| решение отложено | `TELEGRAM_TRANSPORT=off`, работает email |
+| Результат                      | Действие                                                                                                                                    |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| код 200/302, быстрый handshake | `TELEGRAM_TRANSPORT=direct`                                                                                                                 |
+| таймаут или обрыв TLS          | поднять WireGuard-туннель с маршрутизацией `149.154.160.0/20` и `91.108.4.0/22`, либо SOCKS5 на зарубежном VPS → `TELEGRAM_TRANSPORT=proxy` |
+| решение отложено               | `TELEGRAM_TRANSPORT=off`, работает email                                                                                                    |
 
 После включения канала — поставить вебхук (с сервера, тем же транспортом):
 

@@ -1,0 +1,93 @@
+/* Токены дизайна. Значения сняты с прототипа — см. docs/DESIGN_BRIEF.md.
+   Единственный файл, где разрешён хекс: в CSS-модулях только переменные. */
+
+:root {
+  --bg: #fff;
+  --bg-soft: #f8fafc;
+  --card: #fff;
+  --header-bg: rgb(255 255 255 / 82%);
+  --hero-grad: linear-gradient(180deg, #f0f9fb 0%, #fff 100%);
+
+  --ink: #0f172a;
+  --ink2: #334155;
+  --body: #475569;
+  --muted: #64748b;
+  --faint: #94a3b8;
+
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
+  --line-soft: #eef2f6;
+
+  --accent-ink: #0891b2;
+  --accent-bg: #ecfeff;
+  --accent-line: #a5f3fc;
+
+  --panel: #0f172a;
+  --stripe-a: #edf2f6;
+  --stripe-b: #f5f8fa;
+  --field: #fff;
+
+  /* фирменные константы, одинаковые в обеих темах */
+  --brand: #0e7490;
+  --brand-hover: #155e75;
+  --brand-mark: #0891b2;
+  --brand-mark-dark: #22d3ee;
+
+  /* типографика: Onest — заголовки, Manrope — текст, JetBrains Mono — техподписи */
+  --font-display: 'Onest', system-ui, sans-serif;
+  --font-text: 'Manrope', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* шкала из макета */
+  --fs-h1: clamp(30px, 8.5vw, 49px);
+  --fs-h2: clamp(24px, 6vw, 38px);
+  --fs-h3: 19px;
+  --fs-lead: 17.5px;
+  --fs-base: 15px;
+  --fs-dense: 14.5px;
+  --fs-caption: 13px;
+  --fs-micro: 12px;
+
+  /* геометрия */
+  --r-sm: 11px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 22px;
+  --r-pill: 100px;
+
+  --container: 1200px;
+  --gutter: 24px;
+  --section-y: clamp(48px, 9vw, 88px);
+
+  --shadow-header: 0 12px 34px -16px rgb(15 23 42 / 22%);
+  --shadow-card: 0 20px 44px -28px rgb(15 23 42 / 20%);
+  --shadow-brand: 0 10px 24px rgb(14 116 144 / 30%);
+  --ring-focus: 0 0 0 3px rgb(8 145 178 / 12%);
+}
+
+:root[data-theme='dark'] {
+  --bg: #0b1220;
+  --bg-soft: #0e1729;
+  --card: #121d31;
+  --header-bg: rgb(11 18 32 / 80%);
+  --hero-grad: linear-gradient(180deg, #0c1628 0%, #0b1220 100%);
+
+  --ink: #eaf1f8;
+  --ink2: #c9d5e2;
+  --body: #a8b6c6;
+  --muted: #8598ac;
+  --faint: #7e92a7;
+
+  --line: #1e2b41;
+  --line-strong: #2c3d59;
+  --line-soft: #182338;
+
+  --accent-ink: #22d3ee;
+  --accent-bg: rgb(34 211 238 / 10%);
+  --accent-line: rgb(34 211 238 / 35%);
+
+  --panel: #111d34;
+  --stripe-a: #16223a;
+  --stripe-b: #121d31;
+  --field: #0b1424;
+}

@@ -1,0 +1,10 @@
+#!/bin/sh
+# Conventional Commits (ADR-018). Обходить хук нельзя.
+# Сообщение передаём потоком: git даёт абсолютный путь хоста, внутри контейнера
+# его нет, и commitlint с --edit ушёл бы ждать stdin.
+if [ -z "$(docker compose -f docker-compose.dev.yml ps -q web 2>/dev/null)" ]; then
+  echo "Контейнер web не запущен — проверить формат коммита негде."
+  echo "Подними окружение: docker compose -f docker-compose.dev.yml up -d"
+  exit 1
+fi
+docker compose -f docker-compose.dev.yml exec -T web pnpm commitlint < "$1"

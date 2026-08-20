@@ -1,0 +1,11 @@
+#!/bin/sh
+# Линтеры живут в контейнере: на хосте node_modules нет и быть не должно (ADR-017).
+if ! docker compose -f docker-compose.dev.yml ps --status running web >/dev/null 2>&1 \
+   || [ -z "$(docker compose -f docker-compose.dev.yml ps -q web 2>/dev/null)" ]; then
+  echo "Контейнер web не запущен — линтеры прогнать негде."
+  echo "Подними окружение: docker compose -f docker-compose.dev.yml up -d"
+  exit 1
+fi
+# --no-stash: stash/restore идёт через .git на бинд-маунте macOS и занимает минуты.
+# Цена — при падении задачи правки остаются в рабочем каталоге, а не откатываются.
+docker compose -f docker-compose.dev.yml exec -T web pnpm lint-staged --no-stash

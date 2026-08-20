@@ -1,0 +1,54 @@
+{
+  "name": "conditioner",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@9.11.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "start": "pnpm --filter web start",
+    "worker": "pnpm --filter web worker",
+    "seed": "pnpm --filter web seed",
+    "prisma": "pnpm --filter web prisma",
+    "storybook": "pnpm --filter web storybook",
+    "test": "pnpm --filter web test",
+    "e2e": "pnpm --filter web e2e",
+    "vr": "pnpm --filter web vr",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint . --max-warnings 0",
+    "lint:css": "stylelint \"apps/**/*.css\"",
+    "format": "prettier --write .",
+    "check": "pnpm lint && pnpm lint:css && pnpm typecheck && pnpm test",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/eslintrc": "^3.2.0",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^15.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "prettier": "^3.4.2",
+    "stylelint": "^16.12.0",
+    "stylelint-config-standard": "^36.0.1",
+    "typescript": "^5.7.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix --max-warnings 0",
+      "prettier --write"
+    ],
+    "*.css": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml}": [
+      "prettier --write"
+    ]
+  }
+}

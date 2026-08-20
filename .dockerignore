@@ -1,0 +1,16 @@
+.git
+.github
+node_modules
+**/.next
+**/storybook-static
+coverage
+playwright-report
+test-results
+design
+docs
+*.md
+.env
+.env.*
+!.env.example
+Dockerfile
+docker-compose*.yml

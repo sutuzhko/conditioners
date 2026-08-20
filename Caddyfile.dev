@@ -1,0 +1,24 @@
+# Дев-прокси. Тот же слой, что на проде, — заголовки, сжатие и проксирование
+# проверяются здесь, а не при деплое.
+{
+	admin off
+	local_certs
+}
+
+http://tulaklimat.localhost, https://tulaklimat.localhost, http://localhost {
+	encode zstd gzip
+
+	# Storybook отдельным хостом, чтобы не пересекаться с маршрутами приложения
+	handle /_next/webpack-hmr {
+		reverse_proxy web:3000
+	}
+
+	handle {
+		reverse_proxy web:3000
+	}
+}
+
+http://storybook.localhost {
+	encode zstd gzip
+	reverse_proxy storybook:6006
+}

@@ -1,0 +1,226 @@
+// Схема данных. Обоснование полей — docs/PROJECT.md §3.
+// Ключевые инварианты: характеристики товара произвольны (никаких фиксированных
+// колонок), данные компании живут в Setting, отзывы не редактируются.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Каталог ----------
+
+model Product {
+  id        String    @id @default(cuid())
+  slug      String    @unique
+  badge     String // класс мощности: «09»
+  name      String
+  brand     String?
+  sku       String?
+  areaMax   Int
+  tag       String?
+  priceNum  Int // обычная цена
+  salePrice Int? // цена со скидкой; null = скидки нет
+  saleFrom  DateTime?
+  saleTo    DateTime?
+  saleLabel String?
+  link      String?
+  visible   Boolean   @default(true)
+  sort      Int       @default(0)
+
+  seoTitle       String?
+  seoDescription String?
+
+  photos    ProductPhoto[]
+  specs     ProductSpec[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([visible, sort])
+}
+
+model ProductPhoto {
+  id        String  @id @default(cuid())
+  productId String
+  url       String
+  alt       String?
+  isMain    Boolean @default(false)
+  sort      Int     @default(0)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, sort])
+}
+
+model ProductSpec {
+  id        String  @id @default(cuid())
+  productId String
+  k         String
+  v         String
+  sort      Int     @default(0)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, sort])
+}
+
+// ---------- Цены на монтаж ----------
+
+model PriceRow {
+  cls   String @id // «07» | «09» | «12» | «18»
+  power String
+  area  String
+  price Int
+  term  String
+  sort  Int    @default(0)
+}
+
+// ---------- Настройки: всё о компании ----------
+// Ключи: company, contacts, address, geo, area, legal, extras,
+// warranty, payment, social, seo, integrations — см. docs/PROJECT.md §3
+
+model Setting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+// ---------- База знаний ----------
+
+model Article {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  category  String
+  date      DateTime
+  minutes   Int
+  cover     String?
+  excerpt   String
+  body      String
+  published Boolean  @default(false)
+
+  seoTitle       String?
+  seoDescription String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, date])
+}
+
+// ---------- Отзывы ----------
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  ARCHIVED
+}
+
+model Review {
+  id       String       @id @default(cuid())
+  name     String
+  district String?
+  rating   Int
+  text     String // неизменяем: модератор меняет только статус
+  photo    String?
+  status   ReviewStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+
+  @@index([status, createdAt])
+}
+
+// ---------- Заявки ----------
+
+enum LeadStatus {
+  NEW
+  IN_PROGRESS
+  DONE
+  REJECTED
+}
+
+model Lead {
+  id       String  @id @default(cuid())
+  name     String
+  phone    String
+  topic    String
+  place    String?
+  qty      String?
+  callTime String?
+  address  String?
+  comment  String?
+  photo    String?
+
+  sourceUrl String?
+  referrer  String?
+  utm       Json?
+
+  consentAt DateTime // доказательство согласия на обработку ПДн (152-ФЗ)
+
+  status         LeadStatus @default(NEW)
+  managerComment String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, createdAt])
+}
+
+// ---------- Очередь уведомлений ----------
+// Заявка сначала попадает в БД, уведомление — отдельная сущность с ретраями.
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+model Notification {
+  id        String             @id @default(cuid())
+  channel   String // «email» | «telegram»
+  kind      String // «lead» | «review» | «to-reminder»
+  payload   Json
+  status    NotificationStatus @default(PENDING)
+  attempts  Int                @default(0)
+  lastError String?
+  nextTryAt DateTime           @default(now())
+  createdAt DateTime           @default(now())
+  sentAt    DateTime?
+
+  @@index([status, nextTryAt])
+}
+
+// ---------- Админка ----------
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  login        String    @unique
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  lastLoginAt  DateTime?
+  sessions     Session[]
+}
+
+model Session {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+  user      AdminUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+}
+
+// ---------- Антиспам ----------
+
+model RateLimit {
+  id        String   @id @default(cuid())
+  key       String // ip + endpoint
+  windowAt  DateTime
+  hits      Int      @default(1)
+
+  @@unique([key, windowAt])
+}

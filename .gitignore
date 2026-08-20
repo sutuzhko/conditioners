@@ -18,6 +18,7 @@ design/
 
 # ===== Зависимости и сборка =====
 node_modules/
+.pnpm-store/
 .pnp
 .pnp.js
 .next/

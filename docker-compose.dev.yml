@@ -1,0 +1,99 @@
+# Дев-окружение повторяет боевой состав. Запуск на хосте не поддерживается —
+# см. docs/DEPLOY.md §2 и ADR-017.
+name: conditioner-dev
+
+services:
+  caddy:
+    image: ${CADDY_IMAGE:-caddy:2.8-alpine}
+    depends_on: [web]
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile.dev:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+  web:
+    build:
+      context: .
+      target: dev
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-node:22-alpine}
+    env_file: .env.dev
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      # node_modules — именованные тома: бинарники, собранные под macOS,
+      # не должны попадать в linux-контейнер
+      - node_modules:/app/node_modules
+      - web_node_modules:/app/apps/web/node_modules
+      - pnpm_store:/pnpm/store
+      - next_cache:/app/apps/web/.next
+      - uploads:/data/uploads
+    command: pnpm --filter web dev
+
+  worker:
+    build:
+      context: .
+      target: dev
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-node:22-alpine}
+    env_file: .env.dev
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+      - web_node_modules:/app/apps/web/node_modules
+      - pnpm_store:/pnpm/store
+      - uploads:/data/uploads
+    command: pnpm --filter web worker
+
+  storybook:
+    build:
+      context: .
+      target: dev
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-node:22-alpine}
+    env_file: .env.dev
+    ports:
+      - '6006:6006'
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+      - web_node_modules:/app/apps/web/node_modules
+      - pnpm_store:/pnpm/store
+    command: pnpm --filter web storybook
+
+  db:
+    image: ${POSTGRES_IMAGE:-postgres:16-alpine}
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-tk}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devpass}
+      POSTGRES_DB: ${POSTGRES_DB:-tulaklimat}
+    ports:
+      # наружу только в деве — чтобы можно было подключиться psql с хоста
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-tk} -d ${POSTGRES_DB:-tulaklimat}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
+  node_modules:
+  web_node_modules:
+  pnpm_store:
+  next_cache:
+  uploads:
+  caddy_data:
+  caddy_config:
