@@ -13,15 +13,17 @@ export const leadStatusSchema = z.enum(['new', 'in_progress', 'done', 'rejected'
 
 export type LeadStatus = z.infer<typeof leadStatusSchema>;
 
+const PHONE_REQUIRED = 'Укажите телефон — по нему мы перезвоним';
+
 /**
  * Телефон принимается в любом виде, лишь бы в нём было достаточно цифр:
  * человек в жару набирает номер как привык, и терять заявку из-за скобок
  * нельзя. К единому виду его приводит `shared/lib/format`.
  */
 export const phoneSchema = z
-  .string()
+  .string({ required_error: PHONE_REQUIRED, invalid_type_error: PHONE_REQUIRED })
   .trim()
-  .min(1, { message: 'Укажите телефон — по нему мы перезвоним' })
+  .min(1, { message: PHONE_REQUIRED })
   .refine((value) => value.replace(/\D/g, '').length >= 10, {
     message: 'Похоже, в номере не хватает цифр',
   });
@@ -51,16 +53,48 @@ export const leadSchema = z.object({
 
 export type Lead = z.infer<typeof leadSchema>;
 
-/** Публичная форма заявки. */
+const NAME_REQUIRED = 'Как к вам обращаться?';
+
+/**
+ * Публичная форма заявки.
+ *
+ * Тексты ошибок показываются человеку как есть, поэтому все ограничения
+ * подписаны по-русски: сообщение по умолчанию от Zod английское, а форма —
+ * последний шаг перед заявкой, и непонятная надпись там стоит клиента.
+ */
 export const leadInputSchema = z.object({
-  name: z.string().trim().min(2, { message: 'Как к вам обращаться?' }).max(80),
+  name: z
+    .string({ required_error: NAME_REQUIRED, invalid_type_error: NAME_REQUIRED })
+    .trim()
+    .min(2, { message: NAME_REQUIRED })
+    .max(80, { message: 'Имя длиннее 80 символов не поместится' }),
   phone: phoneSchema,
-  topic: z.string().trim().max(80).optional(),
-  place: z.string().trim().max(80).optional(),
-  qty: z.string().trim().max(40).optional(),
-  callTime: z.string().trim().max(80).optional(),
-  address: z.string().trim().max(200).optional(),
-  comment: z.string().trim().max(2000).optional(),
+  topic: z
+    .string()
+    .trim()
+    .max(80, { message: 'Тема длиннее 80 символов не поместится' })
+    .optional(),
+  place: z
+    .string()
+    .trim()
+    .max(80, { message: 'Слишком длинно: уместите в 80 символов' })
+    .optional(),
+  qty: z.string().trim().max(40, { message: 'Слишком длинно: уместите в 40 символов' }).optional(),
+  callTime: z
+    .string()
+    .trim()
+    .max(80, { message: 'Слишком длинно: уместите в 80 символов' })
+    .optional(),
+  address: z
+    .string()
+    .trim()
+    .max(200, { message: 'Адрес длиннее 200 символов не поместится' })
+    .optional(),
+  comment: z
+    .string()
+    .trim()
+    .max(2000, { message: 'Комментарий длиннее 2000 символов не поместится' })
+    .optional(),
   sourceUrl: z.string().trim().max(2000).optional(),
   referrer: z.string().trim().max(2000).optional(),
   utm: utmSchema.optional(),
@@ -73,7 +107,7 @@ export type LeadInput = z.infer<typeof leadInputSchema>;
 /** Напоминание о ТО: короткая форма, только телефон и удобное время. */
 export const toReminderSchema = z.object({
   phone: phoneSchema,
-  when: z.string().trim().max(80).optional(),
+  when: z.string().trim().max(80, { message: 'Слишком длинно: уместите в 80 символов' }).optional(),
   consent: consentSchema,
   hp: honeypotSchema,
 });

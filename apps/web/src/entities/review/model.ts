@@ -24,6 +24,11 @@ export const RATING_MAX = 5;
 /** Осмысленный отзыв короче этого не бывает — короткие оставляют спам-боты. */
 export const REVIEW_TEXT_MIN = 10;
 
+/** Оценка приходит из формы строкой, а её отсутствие и «abc» для человека — одна и та же ошибка. */
+const RATING_MESSAGE = `Поставьте оценку от ${RATING_MIN} до ${RATING_MAX} звёзд`;
+const NAME_REQUIRED = 'Как вас зовут? Не короче двух букв';
+const TEXT_REQUIRED = `Расскажите о работе подробнее — не меньше ${REVIEW_TEXT_MIN} символов`;
+
 export const reviewSchema = z.object({
   id: z.string().min(1),
   name: z.string().trim().min(1),
@@ -43,10 +48,26 @@ export type Review = z.infer<typeof reviewSchema>;
  * `hp` — honeypot, заполненное поле означает бота.
  */
 export const reviewInputSchema = z.object({
-  name: z.string().trim().min(2).max(80),
-  district: z.string().trim().max(120).optional(),
-  rating: z.coerce.number().int().min(RATING_MIN).max(RATING_MAX),
-  text: z.string().trim().min(REVIEW_TEXT_MIN).max(4000),
+  name: z
+    .string({ required_error: NAME_REQUIRED, invalid_type_error: NAME_REQUIRED })
+    .trim()
+    .min(2, { message: NAME_REQUIRED })
+    .max(80, { message: 'Имя длиннее 80 символов не поместится' }),
+  district: z
+    .string()
+    .trim()
+    .max(120, { message: 'Название района длиннее 120 символов не поместится' })
+    .optional(),
+  rating: z.coerce
+    .number({ required_error: RATING_MESSAGE, invalid_type_error: RATING_MESSAGE })
+    .int(RATING_MESSAGE)
+    .min(RATING_MIN, RATING_MESSAGE)
+    .max(RATING_MAX, RATING_MESSAGE),
+  text: z
+    .string({ required_error: TEXT_REQUIRED, invalid_type_error: TEXT_REQUIRED })
+    .trim()
+    .min(REVIEW_TEXT_MIN, { message: TEXT_REQUIRED })
+    .max(4000, { message: 'Отзыв длиннее 4000 символов не поместится' }),
   consent: consentSchema,
   hp: honeypotSchema,
 });

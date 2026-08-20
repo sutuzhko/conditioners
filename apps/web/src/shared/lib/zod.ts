@@ -10,13 +10,20 @@ import { z } from 'zod';
 
 const TRUTHY = new Set(['true', 'on', '1', 'yes']);
 
+function toConsent(value: unknown): boolean {
+  if (typeof value === 'boolean') return value;
+  if (typeof value === 'string') return TRUTHY.has(value.toLowerCase());
+  // Неотмеченный чекбокс браузер не отправляет вовсе — это тоже отказ,
+  // и человек должен увидеть про согласие, а не «Invalid input» от Zod.
+  return false;
+}
+
 /**
  * Согласие на обработку персональных данных. Обязательно: без него форма не
  * отправляется, а факт согласия пишется в БД (152-ФЗ, инвариант 12).
  */
 export const consentSchema = z
-  .union([z.boolean(), z.string()])
-  .transform((value) => (typeof value === 'boolean' ? value : TRUTHY.has(value.toLowerCase())))
+  .preprocess(toConsent, z.boolean())
   .refine((value) => value, { message: 'Без согласия на обработку данных отправка невозможна' });
 
 /**
