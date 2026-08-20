@@ -1,0 +1,162 @@
+/**
+ * База знаний. Публичное чтение — только опубликованные статьи.
+ */
+import { db } from '@/server/db';
+import { ApiException } from '@/server/http';
+import { uniqueSlug } from '@/server/repo/slug';
+import type { ArticleCreateInput, ArticlePatchInput } from '@/server/repo/validation';
+
+export type ArticleListItem = {
+  id: string;
+  slug: string;
+  title: string;
+  category: string;
+  date: string;
+  minutes: number;
+  cover: string | null;
+  excerpt: string;
+  published: boolean;
+  updatedAt: string;
+};
+
+export type ArticleDto = ArticleListItem & {
+  body: string;
+  seoTitle: string | null;
+  seoDescription: string | null;
+};
+
+const listSelect = {
+  id: true,
+  slug: true,
+  title: true,
+  category: true,
+  date: true,
+  minutes: true,
+  cover: true,
+  excerpt: true,
+  published: true,
+  updatedAt: true,
+} as const;
+
+type ListRow = {
+  id: string;
+  slug: string;
+  title: string;
+  category: string;
+  date: Date;
+  minutes: number;
+  cover: string | null;
+  excerpt: string;
+  published: boolean;
+  updatedAt: Date;
+};
+
+function toListItem(row: ListRow): ArticleListItem {
+  return { ...row, date: row.date.toISOString(), updatedAt: row.updatedAt.toISOString() };
+}
+
+function toDto(
+  row: ListRow & { body: string; seoTitle: string | null; seoDescription: string | null },
+): ArticleDto {
+  return {
+    ...toListItem(row),
+    body: row.body,
+    seoTitle: row.seoTitle,
+    seoDescription: row.seoDescription,
+  };
+}
+
+/** Список без `body`: он не нужен ни листингу, ни тизеру, а весит больше всего. */
+export async function listPublished(): Promise<ArticleListItem[]> {
+  const rows = await db.article.findMany({
+    where: { published: true },
+    select: listSelect,
+    orderBy: { date: 'desc' },
+  });
+  return rows.map(toListItem);
+}
+
+export async function findPublishedBySlug(slug: string): Promise<ArticleDto | null> {
+  const row = await db.article.findFirst({ where: { slug, published: true } });
+  return row === null ? null : toDto(row);
+}
+
+export async function listAll(): Promise<ArticleListItem[]> {
+  const rows = await db.article.findMany({ select: listSelect, orderBy: { date: 'desc' } });
+  return rows.map(toListItem);
+}
+
+export async function findById(id: string): Promise<ArticleDto | null> {
+  const row = await db.article.findUnique({ where: { id } });
+  return row === null ? null : toDto(row);
+}
+
+async function slugTaken(candidate: string, exceptId?: string): Promise<boolean> {
+  const row = await db.article.findUnique({ where: { slug: candidate }, select: { id: true } });
+  return row !== null && row.id !== exceptId;
+}
+
+export async function create(input: ArticleCreateInput): Promise<ArticleDto> {
+  const slug = await uniqueSlug(input.slug ?? input.title, (candidate) => slugTaken(candidate));
+
+  const row = await db.article.create({
+    data: {
+      slug,
+      title: input.title,
+      category: input.category,
+      date: input.date,
+      minutes: input.minutes,
+      excerpt: input.excerpt,
+      body: input.body,
+      published: input.published ?? false,
+      seoTitle: input.seoTitle ?? null,
+      seoDescription: input.seoDescription ?? null,
+    },
+  });
+
+  return toDto(row);
+}
+
+export async function update(id: string, input: ArticlePatchInput): Promise<ArticleDto> {
+  const current = await db.article.findUnique({ where: { id }, select: { slug: true } });
+  if (current === null) throw new ApiException('not_found', 'Статья не найдена');
+
+  const slug =
+    input.slug === undefined || input.slug === current.slug
+      ? current.slug
+      : await uniqueSlug(input.slug, (candidate) => slugTaken(candidate, id));
+
+  const row = await db.article.update({
+    where: { id },
+    // Не переданные поля не затираются: PATCH правит часть статьи.
+    data: {
+      slug,
+      ...(input.title === undefined ? {} : { title: input.title }),
+      ...(input.category === undefined ? {} : { category: input.category }),
+      ...(input.date === undefined ? {} : { date: input.date }),
+      ...(input.minutes === undefined ? {} : { minutes: input.minutes }),
+      ...(input.excerpt === undefined ? {} : { excerpt: input.excerpt }),
+      ...(input.body === undefined ? {} : { body: input.body }),
+      ...(input.published === undefined ? {} : { published: input.published }),
+      ...(input.seoTitle === undefined ? {} : { seoTitle: input.seoTitle }),
+      ...(input.seoDescription === undefined ? {} : { seoDescription: input.seoDescription }),
+    },
+  });
+
+  return toDto(row);
+}
+
+export async function setCover(id: string, cover: string): Promise<ArticleDto> {
+  const exists = await db.article.findUnique({ where: { id }, select: { id: true } });
+  if (exists === null) throw new ApiException('not_found', 'Статья не найдена');
+
+  const row = await db.article.update({ where: { id }, data: { cover } });
+  return toDto(row);
+}
+
+export async function remove(id: string): Promise<{ slug: string }> {
+  const row = await db.article.findUnique({ where: { id }, select: { slug: true } });
+  if (row === null) throw new ApiException('not_found', 'Статья не найдена');
+  await db.article.delete({ where: { id } });
+  return row;
+}
