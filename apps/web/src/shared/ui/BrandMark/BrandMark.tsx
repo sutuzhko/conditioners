@@ -4,29 +4,43 @@ import styles from './BrandMark.module.css';
  * Знак бренда 1a «Поток» (docs/DESIGN_BRIEF.md §11) — инлайн-SVG, а не <img>:
  * так знак наследует тему через CSS-переменные и не стоит лишнего запроса.
  *
- * 🔴 Компонент временно живёт внутри блока. Его место — shared/ui: тот же знак
- * нужен футеру, письмам и админке. См. отчёт по блоку «Шапка и футер».
+ * Знак нужен шапке, футеру, письмам и админке, поэтому живёт в UI Kit: копии
+ * по блокам расходятся при первой же правке геометрии (ADR-030).
  */
 
-/** Толщина штриха зависит от размера — оптическая компенсация из макета. */
+/**
+ * Толщина штриха зависит от размера — оптическая компенсация из макета
+ * (DESIGN_BRIEF §11), а не небрежность: при 3.4 в шестнадцати пикселях струи
+ * сливаются с плиткой.
+ */
 function strokeWidth(size: number): number {
   if (size >= 40) return 3.4;
   if (size >= 24) return 3.8;
   return 4.4;
 }
 
+/**
+ * `auto` — знак следует теме страницы: на светлой плитка бирюзовая со струями
+ * фоном, на тёмной светлеет. `onDark` — вариант для тёмной панели (футер,
+ * тёмные блоки), который от темы не зависит: панель тёмная в обеих.
+ */
+export type BrandMarkTone = 'auto' | 'onDark';
+
 export interface BrandMarkProps {
   /** сторона квадрата в пикселях; пропорции знака менять нельзя */
   size?: number | undefined;
+  tone?: BrandMarkTone | undefined;
   className?: string | undefined;
 }
 
-export function BrandMark({ size = 38, className }: BrandMarkProps) {
+export function BrandMark({ size = 38, tone = 'auto', className }: BrandMarkProps) {
   const stroke = strokeWidth(size);
 
   return (
     <svg
-      className={[styles.mark, className].filter(Boolean).join(' ')}
+      className={[styles.mark, tone === 'onDark' ? styles.onDark : styles.auto, className]
+        .filter(Boolean)
+        .join(' ')}
       width={size}
       height={size}
       viewBox="0 0 48 48"

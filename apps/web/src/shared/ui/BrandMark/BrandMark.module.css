@@ -2,17 +2,27 @@
    а струи «вырезаются» фоном — так устроены mark.svg и mark-dark.svg. */
 
 .mark {
-  --mark-tile: var(--brand-mark);
-  --mark-jet: var(--on-brand);
-  --mark-jet-soft: var(--accent-line);
-
   flex-shrink: 0;
 }
 
-:root[data-theme='dark'] .mark {
+.auto {
+  --mark-tile: var(--brand-mark);
+  --mark-jet: var(--on-brand);
+  --mark-jet-soft: var(--accent-line);
+}
+
+:root[data-theme='dark'] .auto {
   --mark-tile: var(--brand-mark-dark);
   --mark-jet: var(--bg);
   --mark-jet-soft: var(--bg);
+}
+
+/* Знак на тёмной панели: струи «вырезаны» цветом самой панели. Тема здесь
+   ни при чём — панель тёмная в обеих, и знак не должен на ней мигать. */
+.onDark {
+  --mark-tile: var(--brand-mark-dark);
+  --mark-jet: var(--panel);
+  --mark-jet-soft: var(--panel);
 }
 
 .tile {

@@ -1,9 +1,8 @@
 import Link from 'next/link';
-import { ButtonLink, ThemeToggle, buttonClassName } from '@/shared/ui';
+import { BrandMark, ButtonLink, ThemeToggle, buttonClassName } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 import type { Company, Contacts } from '@/entities/settings/model';
-import { BrandMark } from './BrandMark';
 import { DEFAULT_CTA_HREF, headerContent } from './content';
 import { HeaderMenu } from './HeaderMenu';
 import { ArrowIcon, PhoneIcon } from './icons';

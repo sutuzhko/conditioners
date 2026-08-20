@@ -1,8 +1,8 @@
 import Link from 'next/link';
+import { BrandMark } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 import type { Address, Company, Contacts, Legal } from '@/entities/settings/model';
-import { BrandMark } from './BrandMark';
 import { footerContent } from './content';
 import { formatAddress, legalTitle, ogrnLabel } from './lib';
 import type { NavItem } from './model';
@@ -59,7 +59,7 @@ export function Footer({
       <div className={styles.inner}>
         <div className={styles.about}>
           <div className={styles.brand}>
-            <BrandMark size={38} />
+            <BrandMark size={38} tone="onDark" />
             {name === '' ? null : <span className={styles.brandName}>{name}</span>}
           </div>
           {tagline === '' ? null : <p className={styles.tagline}>{tagline}</p>}

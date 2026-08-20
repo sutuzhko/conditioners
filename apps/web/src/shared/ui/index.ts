@@ -13,6 +13,9 @@ export type { IconButtonProps, IconButtonSize, IconButtonVariant } from './IconB
 export { Chip } from './Chip/Chip';
 export type { ChipProps } from './Chip/Chip';
 
+export { BrandMark } from './BrandMark/BrandMark';
+export type { BrandMarkProps, BrandMarkTone } from './BrandMark/BrandMark';
+
 export { Badge } from './Badge/Badge';
 export type { BadgeProps, BadgeVariant } from './Badge/Badge';
 
