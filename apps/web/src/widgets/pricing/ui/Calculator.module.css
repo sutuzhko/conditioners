@@ -1,0 +1,162 @@
+/* Калькулятор монтажа. Раскладка из макета: четыре поля в ряд, разбивка слева,
+   итог справа. На телефоне поля идут в столбец, а итог залипает снизу —
+   docs/DESIGN_BRIEF.md §6. */
+
+.card {
+  border-radius: var(--r-xl);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 26px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.field {
+  min-width: 0;
+}
+
+.shtrob {
+  margin: 20px 0 24px;
+}
+
+.result {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-top: 22px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.breakdown {
+  flex: 1 1 300px;
+  min-width: 0;
+}
+
+.breakdownTitle {
+  margin: 0 0 10px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.lines {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.line {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.lineLabel {
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.lineAmount {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.total {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+
+  /* когда разбивка занимает всю строку, итог уходит вправо, а не под неё */
+  margin-left: auto;
+}
+
+.totalValue {
+  text-align: right;
+}
+
+.totalLabel {
+  display: block;
+  color: var(--faint);
+  font-size: var(--fs-micro);
+}
+
+.totalAmount {
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (width < 900px) {
+  .fields {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width < 600px) {
+  .fields {
+    grid-template-columns: 1fr;
+  }
+
+  .result {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  /* итог не должен уезжать из виду, пока крутят поля: липнет к низу экрана,
+     оставаясь внутри карточки — фиксированная плашка перекрыла бы страницу */
+  .total {
+    position: sticky;
+    bottom: 0;
+    gap: 12px;
+    margin-left: 0;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-top: 1px solid var(--line-soft);
+    background: var(--card);
+  }
+
+  .totalValue {
+    text-align: left;
+  }
+
+  .totalAmount {
+    font-size: 26px;
+  }
+
+  .apply {
+    flex: 1 1 auto;
+  }
+}

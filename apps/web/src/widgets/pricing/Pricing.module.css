@@ -1,0 +1,104 @@
+/* Секция цен. Контейнер уже общего — 1000px по макету: таблица из четырёх
+   колонок на всю ширину страницы читалась бы хуже. Вертикальный ритм и
+   деградация — docs/DESIGN_BRIEF.md §4, §6. */
+
+.section {
+  background: var(--bg);
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter);
+}
+
+.head {
+  max-width: 640px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16.5px;
+}
+
+.note {
+  margin: 20px 0 0;
+  color: var(--faint);
+  font-size: 13.5px;
+  text-align: center;
+}
+
+.calc {
+  margin-top: 40px;
+}
+
+.calcOff {
+  margin-top: 40px;
+}
+
+.empty,
+.calcOff {
+  max-width: 620px;
+}
+
+.emptyTitle {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.emptyText {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-base);
+}
+
+@media (width < 600px) {
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .head {
+    margin-bottom: 28px;
+    text-align: left;
+  }
+
+  .lead {
+    font-size: var(--fs-base);
+  }
+
+  .note {
+    text-align: left;
+  }
+
+  .calc,
+  .calcOff {
+    margin-top: 28px;
+  }
+}
