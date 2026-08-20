@@ -1,0 +1,155 @@
+/* Форма заявки. Раскладка снята с макета: карточка с радиусом 22px,
+   поля в колонку с зазором 16px, парные поля в две колонки.
+   Цвета — только токены (docs/CLAUDE.md, раздел «Стилизация»). */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: var(--r-xl);
+  padding: clamp(18px, 4vw, 34px);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.description {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-base);
+  line-height: 1.5;
+}
+
+/* область объявлений: её читает скринридер, глазами она не видна */
+.live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* --muted, а не --faint: мелкий текст обязан добирать AA в обеих темах */
+.note {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (width >= 560px) {
+  .pair {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.policy {
+  color: var(--accent-ink);
+  text-underline-offset: 2px;
+}
+
+/* ловушка для роботов: вне экрана, вне табуляции, вне дерева доступности */
+.trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.failure {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  padding: 12px 14px;
+}
+
+.failureText {
+  margin: 0;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+  line-height: 1.45;
+}
+
+/* телефон — запасной путь: он обязан быть заметен и нажимаем пальцем */
+.failurePhone {
+  display: inline-block;
+  min-height: var(--tap);
+  padding: 11px 0;
+  color: var(--error-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+.success {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  padding: clamp(16px, 5vw, 30px) 0;
+  text-align: center;
+}
+
+.successIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.successTitle {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.successText {
+  max-width: 34ch;
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-base);
+  line-height: 1.5;
+}
