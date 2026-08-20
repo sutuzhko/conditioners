@@ -1,0 +1,94 @@
+/* Флажок. Метка принимает разметку: согласие на обработку данных содержит
+   ссылку на политику, и она обязана быть кликабельной отдельно от флажка
+   (152-ФЗ, docs/CLAUDE.md инвариант 12). */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.row {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  min-height: var(--tap);
+  padding: 10px 0;
+}
+
+.input {
+  position: relative;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin: 1px 0 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--field);
+  appearance: none;
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) ease,
+    border-color var(--dur-fast) ease,
+    box-shadow var(--dur-fast) ease;
+}
+
+/* галочка рисуется рамкой, а не картинкой: так она наследует цвет темы
+   и не тянет ни одного лишнего запроса */
+.input::after {
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--on-brand);
+  border-width: 0 2px 2px 0;
+  opacity: 0;
+  transform: rotate(45deg);
+  transition: opacity var(--dur-fast) ease;
+  content: '';
+}
+
+.input:focus-visible {
+  box-shadow: var(--ring-focus);
+}
+
+.input:disabled {
+  background: var(--bg-soft);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.input:checked {
+  border-color: var(--brand);
+  background: var(--brand);
+}
+
+.input:checked::after {
+  opacity: 1;
+}
+
+.input:hover:not(:disabled) {
+  border-color: var(--accent-ink);
+}
+
+.invalid {
+  border-color: var(--error-ink);
+}
+
+.label {
+  color: var(--body);
+  font-size: var(--fs-dense);
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.label a {
+  color: var(--accent-ink);
+  text-underline-offset: 2px;
+}
+
+.required {
+  color: var(--accent-ink);
+}

@@ -1,0 +1,110 @@
+/* Звёзды. Вывод — один элемент с текстовой альтернативой: скринридеру нужна
+   оценка, а не пять одинаковых значков. Ввод — нативные радиокнопки: они
+   дают стрелки, Tab и группировку без единой строки JS. */
+
+.stars {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.star {
+  flex-shrink: 0;
+  color: var(--line-strong);
+}
+
+.filled {
+  color: var(--star);
+}
+
+.sm .star {
+  width: 15px;
+  height: 15px;
+}
+
+.md .star {
+  width: 20px;
+  height: 20px;
+}
+
+.lg .star {
+  width: 28px;
+  height: 28px;
+}
+
+.caption {
+  margin-left: 4px;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.cell {
+  position: relative;
+  display: inline-flex;
+}
+
+.hidden,
+.radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--tap);
+  height: var(--tap);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--line-strong);
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) ease,
+    border-color var(--dur-fast) ease,
+    color var(--dur-fast) ease;
+}
+
+/* подсвечены все звёзды до выбранной, а не только сама выбранная:
+   так шкала читается как оценка, а не как переключатель */
+.optionFilled {
+  border-color: var(--star-line);
+  background: var(--star-bg);
+  color: var(--star);
+}
+
+/* звезда внутри кнопки выбора подчиняется цвету кнопки, иначе ховер
+   и отметка не читались бы */
+.option .star {
+  color: inherit;
+}
+
+.option:hover {
+  border-color: var(--star-line);
+  color: var(--star);
+}
+
+.radio:focus-visible + .option {
+  box-shadow: var(--ring-focus);
+}
+
+.radio:disabled + .option {
+  cursor: not-allowed;
+  opacity: 0.55;
+}

@@ -1,0 +1,27 @@
+/* Нативный select: на телефоне он открывается системным барабаном,
+   а это лучший опыт выбора, чем любой самописный дропдаун.
+   Своя стрелка вместо системной — иначе вид полей в форме разъезжается. */
+
+.wrapper {
+  position: relative;
+  display: block;
+}
+
+.select {
+  padding-right: 40px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.chevron {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  color: var(--muted);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.select:disabled + .chevron {
+  opacity: 0.5;
+}

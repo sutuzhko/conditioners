@@ -1,0 +1,57 @@
+/* Общая шкура полей ввода: input, textarea, select, файл.
+   Импортируется каждым из них, чтобы вид и фокус совпадали до пикселя.
+   Значения из макета: рамка --line-strong, радиус 11px, кольцо фокуса. */
+
+.control {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--tap);
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  background: var(--field);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--fs-base);
+  line-height: 1.4;
+  transition:
+    border-color var(--dur-fast) ease,
+    box-shadow var(--dur-fast) ease;
+}
+
+.control::placeholder {
+  color: var(--faint);
+}
+
+.control:focus {
+  border-color: var(--accent-ink);
+  box-shadow: var(--ring-focus);
+}
+
+.control:disabled {
+  background: var(--bg-soft);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.control:hover:not(:disabled) {
+  border-color: var(--accent-line);
+}
+
+/* iOS увеличивает страницу при фокусе на поле мельче 16px —
+   на сенсорных экранах поднимаем кегль, чтобы этого не случалось */
+@media (pointer: coarse) {
+  .control {
+    font-size: 16px;
+  }
+}
+
+.invalid {
+  border-color: var(--error-ink);
+}
+
+.invalid:focus {
+  border-color: var(--error-ink);
+  box-shadow: 0 0 0 3px var(--error-bg);
+}

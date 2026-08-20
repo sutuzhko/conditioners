@@ -1,0 +1,89 @@
+/* Ползунок: площадь помещения в подборе, длина трассы в калькуляторе.
+   Прототип полагался на accent-color и системный вид — здесь дорожка и
+   бегунок нарисованы вручную, иначе в тёмной теме контрол выглядит чужим. */
+
+.head {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.value {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.slider {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--tap);
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.slider:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: var(--line);
+}
+
+.slider::-moz-range-track {
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: var(--line);
+}
+
+.slider::-moz-range-progress {
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: var(--brand);
+}
+
+.slider::-webkit-slider-thumb {
+  width: 24px;
+  height: 24px;
+  margin-top: -9px;
+  border: 2px solid var(--card);
+  border-radius: var(--r-pill);
+  background: var(--brand);
+  box-shadow: var(--shadow-brand);
+  appearance: none;
+}
+
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--card);
+  border-radius: var(--r-pill);
+  background: var(--brand);
+  box-shadow: var(--shadow-brand);
+}
+
+.slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: var(--ring-focus);
+}
+
+.slider:focus-visible::-moz-range-thumb {
+  box-shadow: var(--ring-focus);
+}
+
+.scale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}

@@ -1,0 +1,132 @@
+/* Загрузка фото: место установки в заявке, фото работы в отзыве.
+   Прототип обходился нативным input[type=file] без превью — но человек с
+   телефона должен видеть, что именно он приложил, до отправки. */
+
+.dropzone {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 64px;
+  padding: 12px 14px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-sm);
+  background: var(--field);
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) ease,
+    background var(--dur-fast) ease;
+}
+
+.dropzone:hover {
+  border-color: var(--accent-ink);
+  background: var(--accent-bg);
+}
+
+.dragging {
+  border-color: var(--accent-ink);
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.invalid {
+  border-color: var(--error-ink);
+}
+
+.disabled {
+  background: var(--bg-soft);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* поле остаётся в потоке — иначе фокус с клавиатуры до него не доходит */
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.input:focus-visible + .dropzone {
+  border-color: var(--accent-ink);
+  box-shadow: var(--ring-focus);
+}
+
+.icon {
+  flex-shrink: 0;
+  color: var(--accent-ink);
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title {
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+.preview {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--card);
+}
+
+.thumb {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--line-soft);
+  border-radius: 9px;
+  object-fit: cover;
+}
+
+.meta {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.size {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+/* на самых узких экранах превью встаёт в колонку: 320px не держит
+   миниатюру, имя файла и кнопку удаления в один ряд */
+@media (width <= 359px) {
+  .preview {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .thumb {
+    width: 100%;
+    height: 120px;
+  }
+}
