@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 import { reviewInputSchema } from '@/entities/review/model';
 
 /**
@@ -60,20 +58,3 @@ export type ReviewSubmitResult =
 /** Отправка отзыва. Подменяется в историях и тестах, по умолчанию — `postReview`. */
 export type ReviewSubmit = (data: FormData) => Promise<ReviewSubmitResult>;
 
-/**
- * Конверт ошибки API — docs/API.md §11.
- *
- * Схема повторяет такую же из `features/lead-form`: правило зависимостей
- * запрещает импорт вбок между слайсами одного слоя, а общего места для
- * клиентских схем API в `shared` пока нет.
- */
-export const apiErrorSchema = z.object({
-  error: z.object({
-    code: z.string(),
-    message: z.string(),
-    field: z.string().optional(),
-  }),
-});
-
-/** Успешный ответ `POST /api/reviews` — docs/API.md §7. */
-export const reviewCreatedSchema = z.object({ id: z.string().min(1) });

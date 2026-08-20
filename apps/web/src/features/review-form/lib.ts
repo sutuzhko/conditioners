@@ -1,9 +1,9 @@
+import { apiErrorSchema, createdSchema } from '@/shared/lib/api';
+
 import { reviewFormContent } from './content';
 import {
   RATING_UNSET,
   REVIEW_FIELD_ORDER,
-  apiErrorSchema,
-  reviewCreatedSchema,
   reviewFormSchema,
   type ReviewFieldErrors,
   type ReviewFormValues,
@@ -117,7 +117,7 @@ export async function postReview(
   const payload: unknown = await response.json().catch(() => undefined);
 
   if (response.status === 201) {
-    const created = reviewCreatedSchema.safeParse(payload);
+    const created = createdSchema.safeParse(payload);
     // отзыв уже в базе; отсутствие `id` в теле — повод для лога, а не для тревоги
     return { ok: true, id: created.success ? created.data.id : '' };
   }

@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 import { leadInputSchema } from '@/entities/lead/model';
 
 /**
@@ -61,14 +59,3 @@ export type LeadSubmitResult =
 /** Отправка заявки. Подменяется в историях и тестах, по умолчанию — `postLead`. */
 export type LeadSubmit = (data: FormData) => Promise<LeadSubmitResult>;
 
-/** Конверт ошибки API — docs/API.md §11. Приходит снаружи, значит разбирается схемой. */
-export const apiErrorSchema = z.object({
-  error: z.object({
-    code: z.string(),
-    message: z.string(),
-    field: z.string().optional(),
-  }),
-});
-
-/** Успешный ответ `POST /api/leads`. */
-export const leadCreatedSchema = z.object({ id: z.string().min(1) });
