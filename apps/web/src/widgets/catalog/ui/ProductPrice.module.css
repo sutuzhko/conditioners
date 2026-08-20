@@ -1,0 +1,62 @@
+/* Цена и скидка на витрине — docs/DESIGN_BRIEF.md §10.
+   Красный допустим только здесь и приходит из варианта Badge `sale`. */
+
+.price {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+  margin: 0;
+}
+
+.current {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* старая цена мельче действующей на 3px и приглушена — не наоборот:
+   покупатель должен сначала прочитать то, что платит сегодня */
+.old {
+  color: var(--faint);
+  font-size: 19px;
+  text-decoration: line-through;
+}
+
+.sale {
+  align-self: center;
+}
+
+.note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+  margin: 0;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.until {
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}
+
+/* «Старая цена:» — только для скринридера: зачёркивание он не проговаривает,
+   и без подсказки два числа подряд звучат как ошибка */
+.srOnly {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

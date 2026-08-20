@@ -1,0 +1,86 @@
+/* Панель сравнения. Скролл живёт внутри Table (вариант sticky), здесь только
+   обвязка панели: шапка, поля крайних колонок и сноска про прочерк.
+   🔴 Страница по горизонтали не скроллится никогда — docs/DESIGN_BRIEF.md §6. */
+
+.panel {
+  overflow: hidden;
+  margin-top: 44px;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Залипающая ячейка в Table берёт фон у своей строки (`background: inherit`),
+   а у строки шапки его нет — при прокрутке под «Характеристикой» просвечивало
+   название уезжающей модели. Красим строку, а не ячейку: так фон достаётся
+   залипающей колонке по наследованию и каскад UI Kit не приходится перебивать. */
+.table thead tr {
+  background: var(--card);
+}
+
+/* поля крайних колонок выравнивают таблицу с шапкой и сноской панели.
+   Селекторы с thead/tbody — чтобы перебить отступы самого Table */
+.table thead th:first-child,
+.table tbody th:first-child {
+  width: 200px;
+  min-width: 150px;
+  padding-left: 28px;
+}
+
+.table thead th:last-child,
+.table tbody td:last-child {
+  padding-right: 28px;
+}
+
+.note {
+  margin: 0;
+  padding: 14px 28px 18px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--faint);
+  font-size: 12.5px;
+}
+
+@media (width < 600px) {
+  .panel {
+    margin-top: 28px;
+  }
+
+  .head {
+    padding: 18px 16px;
+  }
+
+  .title {
+    font-size: 19px;
+  }
+
+  .table thead th:first-child,
+  .table tbody th:first-child {
+    width: 150px;
+    padding-left: 16px;
+  }
+
+  .table thead th:last-child,
+  .table tbody td:last-child {
+    padding-right: 16px;
+  }
+
+  .note {
+    padding: 14px 16px 16px;
+  }
+}
