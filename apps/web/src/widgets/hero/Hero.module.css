@@ -78,31 +78,37 @@
   font-size: var(--fs-caption);
 }
 
-/* Чип погоды под кнопками — как в макете: капсула на приглушённом фоне,
-   моноширинная подпись 12.5px, точка слева. Строка длинная и на узком экране
-   переносится, поэтому это блок с выравниванием по первой строке, а не
-   центрированный ряд. */
+/* Чип погоды под кнопками. Размеры из макета: капсула на фоне карточки,
+   рамка --line, поля 8/15, радиус 100px, интервал 9px, подпись 12.5px
+   моноширинным. `inline-flex`, а не блок: капсула обязана быть по ширине
+   содержимого — растянутая на всю колонку она выглядит панелью, а не
+   пометкой. */
 .weather {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
+  display: inline-flex;
+  gap: 9px;
+  align-items: center;
+
+  /* колонка первого экрана — flex, и без этого капсула растянулась бы
+     на всю её ширину, превратившись из пометки в панель */
+  align-self: flex-start;
   box-sizing: border-box;
-  max-width: 640px;
-  margin: 26px 0 0;
-  padding: 12px 18px;
-  border: 1px solid var(--line-soft);
+  max-width: 100%;
+  margin: 0 0 28px;
+  padding: 8px 15px;
+  border: 1px solid var(--line);
   border-radius: var(--r-pill);
-  background: var(--bg-soft);
+  background: var(--card);
 }
 
-/* Точка тёплого цвета: тем же цветом набран пик — глаз связывает их сразу. */
+/* Точка тёплого цвета: тем же цветом набран пик — глаз связывает их сразу.
+   Пульсация из макета; оттенок здесь наш, AA-контрастный (DESIGN_BRIEF §12). */
 .weatherDot {
   flex: none;
   width: 7px;
   height: 7px;
-  margin-top: 6px;
   border-radius: var(--r-pill);
   background: var(--warn-ink);
+  animation: weather-pulse 2.2s ease infinite;
 }
 
 .weatherText {
@@ -110,6 +116,27 @@
   font-family: var(--font-mono);
   font-size: 12.5px;
   line-height: 1.45;
+}
+
+/* Просили убрать движение — пульсация уходит: она декоративная. */
+@media (prefers-reduced-motion: reduce) {
+  .weatherDot {
+    animation: none;
+  }
+}
+
+@keyframes weather-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--warn-ink) 35%, transparent);
+  }
+
+  70% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
 }
 
 .weatherMean {
