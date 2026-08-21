@@ -48,7 +48,7 @@ export function Catalog({
   const visible = products.filter((product) => product.visible);
 
   return (
-    <section id={id} className={styles.section} aria-labelledby={HEADING_ID}>
+    <section id={id} className={styles.section} aria-labelledby={HEADING_ID} data-band>
       <div className={styles.container}>
         <header className={styles.head}>
           <div className={styles.intro}>
