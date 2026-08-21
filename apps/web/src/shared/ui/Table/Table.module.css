@@ -3,6 +3,12 @@
    🔴 Страница по горизонтали не скроллится никогда — скролл живёт внутри
    контейнера (docs/DESIGN_BRIEF.md §6).
 
+   🔴 Базовые правила ячеек завёрнуты в :where() — их специфичность нулевая.
+   Раньше они были записаны как `.table thead th`, и потребителю приходилось
+   писать двухклассовые селекторы, чтобы поменять хоть отступ. Ноль означает,
+   что любой класс блока перебивает умолчание независимо от порядка
+   подключения модулей — а порядок между модулями не определён.
+
    Порядок правил ниже продиктован каскадом: зебра обязана перебивать
    непрозрачный фон залипающей колонки, иначе полосы исчезнут. */
 
@@ -26,7 +32,7 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  color: var(--body);
+  color: var(--ink2);
   font-size: var(--fs-dense);
   text-align: left;
 }
@@ -38,10 +44,38 @@
   text-align: left;
 }
 
-.table th {
-  padding: 12px 14px;
+:where(.table th) {
+  padding: 14px 18px;
   border-bottom: 1px solid var(--line);
   vertical-align: bottom;
+}
+
+/* Шапка — обычный кегль заголовков, как в обеих таблицах макета: 15px,
+   гарнитура заголовков, 700, --ink. Мелкий разряжённый надзаголовок здесь
+   был ошибкой: и прайс, и сравнение перебивали его у себя. */
+:where(.table thead th) {
+  padding: 16px 18px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Заголовок строки — название характеристики, а не рубрика: обычный текст. */
+:where(.table tbody th) {
+  padding: 14px 18px;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-align: left;
+  vertical-align: top;
+}
+
+:where(.table td) {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: top;
 }
 
 /* Фон задаётся строке, а не ячейке: правило залипающей колонки ниже ставит
@@ -53,31 +87,6 @@
 
 .sticky th {
   background: var(--card);
-}
-
-/* шапка — надзаголовок из макета: мелкий, разряжённый, капсом.
-   Заголовок строки — обычный текст: это название характеристики, а не рубрика */
-.table thead th {
-  color: var(--muted);
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.table tbody th {
-  color: var(--ink);
-  font-size: var(--fs-dense);
-  font-weight: 600;
-  text-align: left;
-  vertical-align: top;
-}
-
-.table td {
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--line-soft);
-  vertical-align: top;
 }
 
 .sticky tbody tr {

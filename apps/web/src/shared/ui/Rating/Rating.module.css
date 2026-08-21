@@ -4,7 +4,9 @@
 
 .stars {
   display: inline-flex;
-  gap: 4px;
+
+  /* зазор из макета */
+  gap: 6px;
   align-items: center;
 }
 

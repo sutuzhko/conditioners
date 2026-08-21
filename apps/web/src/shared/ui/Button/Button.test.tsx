@@ -60,4 +60,11 @@ describe('Button', () => {
     render(<Button aria-label="Позвонить" name="call" />);
     expect(screen.getByRole('button', { name: 'Позвонить' })).toHaveAttribute('name', 'call');
   });
+  it('акцентный вариант отличается от остальных — это отдельная заливка', () => {
+    const accent = render(<Button variant="accent">Заказать</Button>).container.firstElementChild;
+    const secondary = render(<Button variant="secondary">Заказать</Button>).container
+      .firstElementChild;
+
+    expect(accent?.className).not.toBe(secondary?.className);
+  });
 });

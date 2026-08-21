@@ -7,7 +7,7 @@ const meta = {
   component: Button,
   args: { children: 'Рассчитать стоимость' },
   argTypes: {
-    variant: { control: 'inline-radio', options: ['primary', 'secondary', 'ghost'] },
+    variant: { control: 'inline-radio', options: ['primary', 'secondary', 'accent', 'ghost'] },
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'] },
   },
 } satisfies Meta<typeof Button>;
@@ -26,6 +26,9 @@ export const Variants: Story = {
       </Button>
       <Button {...args} variant="secondary">
         Вторичная
+      </Button>
+      <Button {...args} variant="accent">
+        Акцентная
       </Button>
       <Button {...args} variant="ghost">
         Призрачная
@@ -83,4 +86,10 @@ export const FullWidth: Story = {
 export const EmptyLabel: Story = {
   name: 'Пустая подпись',
   args: { children: '' },
+};
+
+/** Кнопка «Заказать» в карточке каталога: заливка --accent-bg, текст --on-accent. */
+export const Accent: Story = {
+  name: 'Акцентная',
+  args: { variant: 'accent', children: 'Заказать' },
 };

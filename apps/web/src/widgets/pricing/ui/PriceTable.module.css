@@ -1,8 +1,8 @@
 /* Таблица цен. Оформление шапки и строк — из макета (тёмная панель, цена
    акцентом), деградация в карточки — docs/DESIGN_BRIEF.md §6.
 
-   Селекторы двухклассовые не для красоты: базовые правила общего компонента
-   Table записаны как `.table thead th`, и перебить их одним классом нельзя. */
+   Своё здесь только то, чем прайс отличается от умолчания Table: тёмная
+   шапка с белым текстом, поля 24px и кегль строк 15px. */
 
 .wrap {
   overflow: hidden;
@@ -16,32 +16,28 @@
   background: var(--panel);
 }
 
-.wrap .th {
+.th {
   padding: 16px 24px;
+  border-bottom: 0;
   color: var(--on-panel);
-  font-family: var(--font-display);
   font-size: var(--fs-dense);
   font-weight: 600;
-  letter-spacing: 0;
-  text-transform: none;
-  white-space: nowrap;
-  border-bottom: 0;
 }
 
-.wrap .row {
+.row {
   border-top: 1px solid var(--line-soft);
 }
 
 /* Линия под шапкой заметнее строчной: в тёмной теме --panel почти совпадает
    с --card, и без неё тёмная шапка сливается с первой строкой прайса. */
-.wrap .tbody .row:first-child {
+.tbody .row:first-child {
   border-top-color: var(--line);
 }
 
-.wrap .clsCell,
-.wrap .powerCell,
-.wrap .priceCell,
-.wrap .termCell {
+.clsCell,
+.powerCell,
+.priceCell,
+.termCell {
   padding: 18px 24px;
   border-bottom: 0;
   vertical-align: middle;
@@ -97,7 +93,7 @@
     display: none;
   }
 
-  .wrap .tbody {
+  .tbody {
     display: grid;
     gap: 12px;
   }

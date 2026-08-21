@@ -17,7 +17,9 @@ const meta = {
   },
   argTypes: {
     variant: { control: 'inline-radio', options: ['default', 'soft', 'accent', 'panel'] },
-    padding: { control: 'inline-radio', options: ['none', 'sm', 'md', 'lg'] },
+    padding: { control: 'inline-radio', options: ['none', 'sm', 'md', 'lg', 'xl'] },
+    radius: { control: 'inline-radio', options: ['sm', 'md', 'ml', 'lg', 'xl', 'xxl'] },
+    elevation: { control: 'inline-radio', options: ['none', 'card', 'raised', 'float'] },
   },
 } satisfies Meta<typeof Card>;
 
@@ -67,6 +69,7 @@ export const Paddings: Story = {
       <Card {...args} padding="sm" />
       <Card {...args} padding="md" />
       <Card {...args} padding="lg" />
+      <Card {...args} padding="xl" />
     </div>
   ),
 };
@@ -82,4 +85,52 @@ export const Empty: Story = {
     padding: 'lg',
     children: <p style={{ margin: 0, color: 'var(--muted)' }}>Пока нет ни одной модели</p>,
   },
+};
+
+export const Radii: Story = {
+  name: 'Радиусы',
+  render: (args) => (
+    <div
+      style={{
+        display: 'grid',
+        gap: 16,
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+      }}
+    >
+      <Card {...args} radius="sm" />
+      <Card {...args} radius="md" />
+      <Card {...args} radius="ml" />
+      <Card {...args} radius="lg" />
+      <Card {...args} radius="xl" />
+      <Card {...args} radius="xxl" />
+    </div>
+  ),
+};
+
+export const Elevations: Story = {
+  name: 'Глубина',
+  render: (args) => (
+    <div style={{ display: 'grid', gap: 44, padding: '12px 0 56px' }}>
+      <Card {...args} elevation="none" />
+      <Card {...args} elevation="card" />
+      <Card {...args} elevation="raised" radius="xxl" padding="lg" />
+    </div>
+  ),
+};
+
+/** Карточка формы заявки: тёмная секция, рамки нет, тень чёрная и глубокая. */
+export const OnDarkSection: Story = {
+  name: 'На тёмной секции',
+  args: { bordered: false, elevation: 'float', radius: 'xl', padding: 'xl' },
+  render: (args) => (
+    <div style={{ background: 'var(--lead-grad)', padding: '56px 24px' }}>
+      <Card {...args} />
+    </div>
+  ),
+};
+
+/** Карточка услуги: рамка есть, тени в покое нет — она приходит с наведением. */
+export const LiftOnHover: Story = {
+  name: 'Тень только на наведении',
+  args: { elevation: 'none', interactive: true, padding: 'xl' },
 };

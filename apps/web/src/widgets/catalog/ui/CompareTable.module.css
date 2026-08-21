@@ -26,48 +26,27 @@
   letter-spacing: -0.02em;
 }
 
-/* Шапка сравнения — из макета: название модели набрано обычным кеглем
-   заголовков (15px), а не мелким разряжённым надзаголовком, как в Table по
-   умолчанию. Селекторы с .panel — чтобы перебить базовые правила Table
-   независимо от порядка подключения модулей. */
-.panel .table thead th {
-  padding: 16px 18px;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: var(--fs-base);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  text-transform: none;
-}
-
-.panel .table tbody th,
-.panel .table tbody td {
-  padding: 14px 18px;
-}
-
-.panel .table tbody td {
-  color: var(--ink2);
-}
+/* Шапка сравнения, поля ячеек и цвет текста строк совпадают с умолчанием
+   Table — своих правил здесь больше нет. */
 
 /* строка цены закрывает таблицу — в макете она выделена акцентом */
-.panel .table .priceRow td {
+.priceRow td {
   color: var(--accent-ink);
   font-family: var(--font-display);
   font-weight: 700;
   white-space: nowrap;
 }
 
-/* поля крайних колонок выравнивают таблицу с шапкой и сноской панели.
-   Селекторы с thead/tbody — чтобы перебить отступы самого Table */
-.panel .table thead th:first-child,
-.panel .table tbody th:first-child {
+/* поля крайних колонок выравнивают таблицу с шапкой и сноской панели */
+.table thead th:first-child,
+.table tbody th:first-child {
   width: 200px;
   min-width: 150px;
   padding-left: 28px;
 }
 
-.panel .table thead th:last-child,
-.panel .table tbody td:last-child {
+.table thead th:last-child,
+.table tbody td:last-child {
   padding-right: 28px;
 }
 
@@ -92,14 +71,14 @@
     font-size: 19px;
   }
 
-  .panel .table thead th:first-child,
-  .panel .table tbody th:first-child {
+  .table thead th:first-child,
+  .table tbody th:first-child {
     width: 150px;
     padding-left: 16px;
   }
 
-  .panel .table thead th:last-child,
-  .panel .table tbody td:last-child {
+  .table thead th:last-child,
+  .table tbody td:last-child {
     padding-right: 16px;
   }
 
