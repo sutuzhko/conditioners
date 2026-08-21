@@ -70,8 +70,9 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero products={products} leadHref={LEAD_ANCHOR} catalogHref="#catalog" />
-      <TrustStrip />
+      <Hero products={products} leadHref={LEAD_ANCHOR} catalogHref="#catalog">
+        <TrustStrip />
+      </Hero>
       <Services />
       <Catalog products={products} orderHref={LEAD_ANCHOR} />
       <SavingsBlock />
@@ -90,7 +91,10 @@ export default async function HomePage() {
       />
       <KnowledgeTeaser
         articles={articleTeasers}
-        articleHref={(slug) => `/knowledge/${slug}`}
+        // Объектом, а не строкой: typedRoutes выводит параметр динамического
+        // маршрута только из литерала в самом Link, а через пропс-функцию тип
+        // схлопывается. Статический адрес рядом записан строкой и проверяется.
+        articleHref={(slug) => ({ pathname: `/knowledge/${slug}` })}
         allHref="/knowledge"
       />
       <Faq installFrom={installFrom} {...(warranty.success ? { warranty: warranty.data } : {})} />

@@ -2,10 +2,15 @@
    (секция HERO + ПОДБОР). Радиусы и отступы взяты у Card из UI Kit:
    свой примитив ради 24px вместо 20px блок не заводит. */
 
-.card {
+/* Отступы и зазоры ниже карточных: высота первого экрана — не вкусовая
+   величина, а требование (полоса доверия под ним должна быть видна без
+   прокрутки на ноутбучном экране). Класс удвоен, чтобы перебить вариант
+   Card независимо от порядка подключения модулей. */
+.card.card {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
+  padding: clamp(18px, 3.4vw, 22px);
 }
 
 .head {
@@ -82,10 +87,15 @@
 
 /* ——— тип помещения ——— */
 
+/* Подпись и чипы в одну строку: вертикальная раскладка стоила первому экрану
+   лишнего ряда, а группа из трёх коротких чипов рядом с подписью помещается.
+   На узком экране строка переносится сама — wrap, а не media query. */
 .places {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* Подпись группы чипов равна подписи ползунка над ней (макет: 15px, 700) —
@@ -100,6 +110,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 9px;
+  margin-left: auto;
 }
 
 /* ——— рекомендация ——— */
@@ -114,7 +125,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  gap: 10px;
   overflow: hidden;
 }
 
@@ -122,6 +133,7 @@
    порядок подключения модулей. Без рамки в тёмной теме панель сливается с
    карточкой: --panel и --card там почти одного тона. */
 .result.result {
+  padding: clamp(18px, 3.4vw, 22px);
   border-color: var(--panel-line);
 }
 
@@ -152,7 +164,7 @@
 .model {
   position: relative;
   display: flex;
-  gap: 16px;
+  gap: 14px;
   align-items: flex-start;
 }
 
@@ -162,8 +174,8 @@
 
   /* Миниатюра меньше макетной: первый экран должен помещаться так, чтобы
      полоса доверия под ним была видна без прокрутки. */
-  width: 84px;
-  height: 84px;
+  width: 62px;
+  height: 62px;
   border: 1px solid var(--panel-line);
   border-radius: 13px;
   object-fit: cover;
@@ -177,19 +189,19 @@
 
   /* Миниатюра меньше макетной: первый экран должен помещаться так, чтобы
      полоса доверия под ним была видна без прокрутки. */
-  width: 84px;
-  height: 84px;
+  width: 62px;
+  height: 62px;
   border: 1px dashed var(--panel-line);
   border-radius: 13px;
   color: var(--panel-faint);
   font-family: var(--font-mono);
-  font-size: 22px;
+  font-size: 19px;
 }
 
 .modelInfo {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   min-width: 0;
 }
 
@@ -204,7 +216,7 @@
   margin: 0;
   color: var(--on-panel);
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -232,7 +244,7 @@
 .price {
   color: var(--on-panel);
   font-family: var(--font-display);
-  font-size: clamp(24px, 6vw, 30px);
+  font-size: clamp(22px, 5vw, 26px);
   font-weight: 700;
 }
 
@@ -285,8 +297,8 @@
 
   .photo,
   .photoStub {
-    width: 76px;
-    height: 76px;
+    width: 62px;
+    height: 62px;
   }
 
   .modelLink {

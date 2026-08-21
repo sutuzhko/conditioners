@@ -12,6 +12,20 @@
   margin-top: calc(-1 * var(--header-h));
   padding-top: var(--header-h);
   background: var(--hero-grad);
+
+  /* Первый экран занимает окно целиком, а полоса доверия лежит его нижним
+     рядом — так она видна без прокрутки на любой высоте экрана, вместо
+     подгонки высоты карточки подбора под ноутбучное окно. dvh, а не vh:
+     на мобильных vh считается по развёрнутому окну и полоса уходит под
+     панель браузера. min-height, а не height: контент выше окна не режем. */
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* Полоса прижата к низу, свободная высота достаётся содержимому. */
+.hero > :last-child {
+  margin-top: auto;
 }
 
 /* Холодное свечение в правом верхнем углу — из макета. Оттенок фирменный
@@ -41,15 +55,17 @@
   /* minmax(0, …) обязателен: без него колонка не сжимается ниже min-content
      подбора, и на узком экране текст уезжает под обрезку секции */
   grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-  gap: 44px;
+  gap: 40px;
   align-items: center;
   box-sizing: border-box;
+  flex: 1 1 auto;
+  align-content: center;
   max-width: var(--container);
   margin: 0 auto;
 
   /* Ниже макетных 64/76: первый экран вместе с полосой доверия должен
      помещаться в типовой экран ноутбука, иначе полоса не видна без прокрутки. */
-  padding: 44px var(--gutter) 52px;
+  padding: 32px var(--gutter) 38px;
 }
 
 .copy {

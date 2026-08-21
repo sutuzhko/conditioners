@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { Product } from '@/entities/product/model';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { Badge, ButtonLink, StatList } from '@/shared/ui';
@@ -21,6 +22,12 @@ export type HeroProps = {
   readonly note?: string | undefined;
   /** Якорь или адрес формы заявки. */
   readonly leadHref?: ButtonLinkHref | undefined;
+  /**
+   * Полоса под первым экраном. Секция занимает не меньше высоты окна и кладёт
+   * слот вниз, поэтому полоса видна без прокрутки. Слот, а не импорт: что
+   * именно стоит под первым экраном — решение страницы, не блока.
+   */
+  readonly children?: ReactNode | undefined;
   /** Якорь или адрес каталога. */
   readonly catalogHref?: ButtonLinkHref | undefined;
   /** Момент расчёта скидки; задаётся в тестах и историях. */
@@ -41,6 +48,7 @@ export function Hero({
   leadHref = '#zayavka',
   catalogHref = '#catalog',
   now,
+  children,
 }: HeroProps) {
   return (
     <section className={styles.hero}>
@@ -79,6 +87,8 @@ export function Hero({
 
         <HeroPicker products={products} leadHref={leadHref} now={now} />
       </div>
+
+      {children}
     </section>
   );
 }
