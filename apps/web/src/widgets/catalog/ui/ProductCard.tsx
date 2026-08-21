@@ -31,7 +31,7 @@ export function ProductCard({ product, orderHref, now }: ProductCardProps) {
   const alt = photo?.alt?.trim();
 
   return (
-    <Card as="li" padding="none" radius="ml" interactive className={styles.card}>
+    <Card as="li" padding="none" radius="ml" elevation="none" interactive className={styles.card}>
       <div className={styles.media}>
         {photo === null ? (
           // заглушка вместо битой картинки: у моделей из сидов фото ещё нет

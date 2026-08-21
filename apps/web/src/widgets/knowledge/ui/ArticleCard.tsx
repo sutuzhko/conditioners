@@ -33,7 +33,7 @@ export function ArticleCard({ article, href }: ArticleCardProps) {
   const category = article.category.trim();
 
   return (
-    <Card as="li" padding="none" interactive className={styles.card}>
+    <Card as="li" padding="none" elevation="none" interactive className={styles.card}>
       {article.cover === null || article.cover.trim() === '' ? null : (
         <div className={styles.media}>
           <Image

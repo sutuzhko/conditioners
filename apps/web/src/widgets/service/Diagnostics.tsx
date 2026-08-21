@@ -58,15 +58,18 @@ export function Diagnostics({
             </ButtonLink>
           </Card>
         ) : (
-          <Card padding="xl" radius="xl" className={styles.board}>
-            <DiagnosticsPicker symptoms={symptoms} defaultSymptom={defaultSymptom} />
-
-            <div className={styles.footer}>
-              <p className={styles.note}>{t.ctaNote}</p>
-              <ButtonLink href={leadHref} className={styles.cta}>
-                {t.cta}
-              </ButtonLink>
-            </div>
+          <Card padding="xl" radius="xl" elevation="none" className={styles.board}>
+            {/* Кнопка стоит внутри ряда разбора, как в макете: причина, работа,
+                цена и действие — одна строка, а не разбор и отдельный подвал. */}
+            <DiagnosticsPicker
+              symptoms={symptoms}
+              defaultSymptom={defaultSymptom}
+              action={
+                <ButtonLink href={leadHref} className={styles.cta}>
+                  {t.cta}
+                </ButtonLink>
+              }
+            />
           </Card>
         )}
       </div>

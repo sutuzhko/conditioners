@@ -28,7 +28,7 @@ export interface ReviewCardProps {
  */
 export function ReviewCard({ review }: ReviewCardProps) {
   return (
-    <Card as="li" padding="none" className={styles.card}>
+    <Card as="li" padding="none" elevation="none" className={styles.card}>
       <article className={styles.body}>
         <Rating value={review.rating} size="sm" />
 

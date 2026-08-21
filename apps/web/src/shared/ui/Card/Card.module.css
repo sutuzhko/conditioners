@@ -123,8 +123,11 @@
 @media (hover: hover) {
   .interactive:hover {
     border-color: var(--accent-line);
-    box-shadow: var(--shadow-header);
-    transform: translateY(-2px);
+
+    /* Подъём и тень из макета: 4px и бирюзовая тень, а не серая. Карточка
+       должна отзываться заметно — это единственная её анимация. */
+    box-shadow: 0 22px 44px -24px color-mix(in srgb, var(--brand) 40%, transparent);
+    transform: translateY(-4px);
   }
 }
 

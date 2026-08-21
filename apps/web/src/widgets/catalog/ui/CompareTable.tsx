@@ -41,7 +41,7 @@ export function CompareTable({ products, now }: CompareTableProps) {
   const minWidth = `${SPEC_COLUMN_PX + table.products.length * VALUE_COLUMN_PX}px`;
 
   return (
-    <Card padding="none" className={styles.panel}>
+    <Card padding="none" elevation="none" className={styles.panel}>
       <div className={styles.head}>
         <h3 className={styles.title}>{catalogText.compareTitle}</h3>
       </div>
