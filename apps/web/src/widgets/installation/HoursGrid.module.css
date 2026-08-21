@@ -40,6 +40,11 @@
      выключенная ячейка взята на тон темнее. */
   background: var(--stripe-a);
   cursor: pointer;
+
+  /* Горизонтальный жест — наш, это протяжка по часам. Вертикальный оставляем
+     браузеру: сетка лежит посреди страницы, и отобрать у неё прокрутку
+     пальцем нельзя. */
+  touch-action: pan-y;
   transition: background var(--dur-fast) ease;
 }
 
@@ -73,8 +78,17 @@
   background: linear-gradient(180deg, var(--brand-mark-dark), var(--brand-mark));
 }
 
+/* Выбранный ночной час темнее выбранного дневного — так на сетке видно,
+   какие часы попадают в ночной тариф. Оттенки фирменные и общие для обеих
+   тем, поэтому в тёмной паре --brand/--brand-hover не хватает светлоты:
+   ячейка сливалась с почти чёрным фоном ночной зоны и выбор пропадал.
+   Там же сдвигаем пару на ступень светлее, сохраняя разницу с дневной. */
 .on.night {
   background: linear-gradient(180deg, var(--brand), var(--brand-hover));
+}
+
+:root[data-theme='dark'] .on.night {
+  background: linear-gradient(180deg, var(--brand-mark), var(--brand));
 }
 
 @media (hover: hover) {

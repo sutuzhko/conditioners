@@ -50,33 +50,41 @@ export function HoursGrid({ hours, onChange, labelId }: HoursGridProps) {
    */
   const paint = useRef<boolean | null>(null);
 
-  /**
-   * Тип последнего указателя. Мышь переключает ячейку уже в `pointerdown` —
-   * иначе протяжка не начнётся, — и следующий за ним `click` обязан эту же
-   * ячейку пропустить, чтобы она не вернулась обратно.
-   */
-  const pointer = useRef('');
+  /* Указатель могут отпустить где угодно — за пределами сетки и вообще за
+     окном, — поэтому слушаем window. Снимаем при размонтировании: иначе
+     обработчик переживёт компонент.
 
-  /* Кнопку могут отпустить где угодно, в том числе за пределами сетки и
-     вообще за окном, поэтому слушаем window. Снимаем при размонтировании —
-     иначе обработчик переживёт компонент. */
+     🔴 Именно `pointerup`, а не `mouseup`: в `pointerdown` ниже стоит
+     `preventDefault`, а он гасит совместимостные мышиные события. С `mouseup`
+     протяжка не заканчивалась никогда — после клика ячейки продолжали
+     краситься от одного наведения.
+
+     `pointercancel` обязателен для сенсорного экрана: когда браузер решает,
+     что жест был прокруткой страницы, он забирает указатель себе и `pointerup`
+     не присылает. */
   useEffect(() => {
     const stopPainting = () => {
       paint.current = null;
     };
 
-    window.addEventListener('mouseup', stopPainting);
+    window.addEventListener('pointerup', stopPainting);
+    window.addEventListener('pointercancel', stopPainting);
     return () => {
-      window.removeEventListener('mouseup', stopPainting);
+      window.removeEventListener('pointerup', stopPainting);
+      window.removeEventListener('pointercancel', stopPainting);
     };
   }, []);
 
   const handlePointerDown = (event: PointerEvent<HTMLButtonElement>, hour: number) => {
-    pointer.current = event.pointerType;
-
-    /* На сенсорном экране протяжки нет: перехватив здесь нажатие, мы отобрали
-       бы у страницы прокрутку пальцем. Там ячейку переключает обычный клик. */
-    if (event.pointerType !== 'mouse') return;
+    /* Сенсорный указатель по умолчанию закрепляется за элементом, на котором
+       нажали, и `pointerenter` у соседних ячеек не срабатывает. Отпускаем
+       захват — палец начинает вести себя как мышь. Прокрутку страницы это не
+       ломает: вертикальный жест остаётся за браузером (`touch-action: pan-y`),
+       и он присылает `pointercancel`. */
+    const cell = event.currentTarget;
+    if (typeof cell.hasPointerCapture === 'function' && cell.hasPointerCapture(event.pointerId)) {
+      cell.releasePointerCapture(event.pointerId);
+    }
 
     event.preventDefault();
     const next = hours[hour] !== true;
@@ -91,9 +99,11 @@ export function HoursGrid({ hours, onChange, labelId }: HoursGridProps) {
   };
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>, hour: number) => {
-    /* detail === 0 — активация с клавиатуры: пробел и Enter доходят сюда
-       синтетическим кликом, и их пропускать нельзя. */
-    if (event.detail !== 0 && pointer.current === 'mouse') return;
+    /* Указателем ячейку уже переключил `pointerdown` — иначе протяжка не
+       началась бы, — и клик обязан ту же ячейку пропустить, чтобы она не
+       вернулась обратно. Пропускаем по detail: у клавиатуры он равен нулю,
+       потому что пробел и Enter доходят сюда синтетическим кликом. */
+    if (event.detail !== 0) return;
     onChange(hour, hours[hour] !== true);
   };
 

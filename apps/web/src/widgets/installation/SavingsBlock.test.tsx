@@ -148,7 +148,7 @@ describe('Экономия инвертора — сетка часов', () => 
     expect(cellAt(9)).toHaveAttribute('aria-pressed', 'false');
   });
 
-  it('протяжка мышью красит соседние ячейки', () => {
+  it('протяжка указателем красит соседние ячейки', () => {
     render(<SavingsBlock defaultHours={[]} />);
 
     pointerEvent('pointerdown', cellAt(10));
@@ -162,20 +162,29 @@ describe('Экономия инвертора — сетка часов', () => 
     render(<SavingsBlock defaultHours={[]} />);
 
     pointerEvent('pointerdown', cellAt(10));
-    fireEvent.mouseUp(window);
+    fireEvent.pointerUp(window);
     pointerEvent('pointerover', cellAt(11));
 
     expect(totalHours()).toBe('1');
   });
 
-  it('на сенсорном экране нажатие ничего не красит — работает обычный клик', () => {
+  it('пальцем протяжка работает так же, как мышью', () => {
     render(<SavingsBlock defaultHours={[]} />);
 
     pointerEvent('pointerdown', cellAt(10), 'touch');
     pointerEvent('pointerover', cellAt(11), 'touch');
-    expect(totalHours()).toBe('0');
 
-    fireEvent.click(cellAt(10));
+    expect(totalHours()).toBe('2');
+  });
+
+  it('перехват жеста браузером прекращает протяжку', () => {
+    render(<SavingsBlock defaultHours={[]} />);
+
+    pointerEvent('pointerdown', cellAt(10), 'touch');
+    // браузер решил, что жест был прокруткой страницы, и забрал указатель
+    fireEvent.pointerCancel(window);
+    pointerEvent('pointerover', cellAt(11), 'touch');
+
     expect(totalHours()).toBe('1');
   });
 
