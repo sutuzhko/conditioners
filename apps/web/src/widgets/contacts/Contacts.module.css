@@ -10,7 +10,7 @@
   box-sizing: border-box;
   max-width: var(--container);
   margin: 0 auto;
-  padding: var(--section-y) var(--gutter);
+  padding: var(--section-y) var(--gutter) 0;
 }
 
 .layout {
