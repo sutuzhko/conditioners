@@ -42,3 +42,8 @@ export const WithoutStats: Story = {
   name: 'Без цифр и плашки',
   args: { stats: [], note: undefined },
 };
+
+export const WithWeather: Story = {
+  name: 'С погодой в городе',
+  args: { weather: { current: 27, max: 31 } },
+};

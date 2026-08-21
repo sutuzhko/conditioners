@@ -30,6 +30,18 @@ export function formatMoney(value: number): string {
   return `${formatNumber(value)}${NBSP}₽`;
 }
 
+/**
+ * Температура со знаком: `+27 °C`, `−3 °C`, `0 °C`.
+ *
+ * Минус — типографский U+2212, а не дефис: дефис в этой позиции читается как
+ * перенос и рвётся при переносе строки.
+ */
+export function formatCelsius(value: number): string {
+  const rounded = Math.round(value);
+  const sign = rounded > 0 ? '+' : rounded < 0 ? '−' : '';
+  return `${sign}${Math.abs(rounded)}${NBSP}°C`;
+}
+
 /** Только цифры телефона; ведущая «8» приводится к «7». */
 function phoneDigits(phone: string): string {
   const digits = phone.replace(/\D/g, '');

@@ -2,6 +2,7 @@ import { listVisible } from '@/server/repo/products';
 import { listApproved } from '@/server/repo/reviews';
 import { listPublished } from '@/server/repo/articles';
 import { getPrices } from '@/server/repo/prices';
+import { getCityWeather } from '@/server/weather';
 import { productSchema } from '@/entities/product/model';
 import { reviewSchema } from '@/entities/review/model';
 import { priceRowSchema } from '@/entities/price/model';
@@ -73,6 +74,11 @@ export default async function HomePage() {
   const { warranty, contacts } = settings;
   const phone = contacts.phones[0] ?? '';
 
+  /* Погода — после основных данных и отдельным запросом: она украшает первый
+     экран, но не имеет права его задерживать. Сервис недоступен — чипа нет,
+     страница собирается как обычно (docs/CLAUDE.md, «Безопасность»). */
+  const weather = await getCityWeather(settings.geo);
+
   /* Разметка собирается из тех же данных, что рисуют страницу: вопросы FAQ —
      тот же вызов `buildFaqItems`, что у виджета, отзывы — те же одобренные.
      Расхождение разметки и видимого текста — основание для санкций
@@ -107,7 +113,7 @@ export default async function HomePage() {
   return (
     <>
       <JsonLd nodes={[business, catalogList, buildFaqPageJsonLd(faqItems)]} />
-      <Hero products={products} leadHref={LEAD_ANCHOR} catalogHref="#catalog">
+      <Hero products={products} weather={weather} leadHref={LEAD_ANCHOR} catalogHref="#catalog">
         <TrustStrip />
       </Hero>
       <Services />

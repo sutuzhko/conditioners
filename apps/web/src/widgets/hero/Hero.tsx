@@ -1,12 +1,13 @@
 import type { ReactNode } from 'react';
 import type { Product } from '@/entities/product/model';
+import { formatCelsius } from '@/shared/lib/format';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { Badge, ButtonLink, StatList } from '@/shared/ui';
 
 import { heroContent as t } from './content';
 import { HeroParticles } from './HeroParticles';
 import { HeroPicker } from './HeroPicker';
-import type { HeroStat } from './model';
+import type { HeroStat, HeroWeather } from './model';
 import styles from './Hero.module.css';
 
 export type HeroProps = {
@@ -20,6 +21,12 @@ export type HeroProps = {
   readonly stats?: readonly HeroStat[] | undefined;
   /** Плашка над заголовком, например география работ. Приходит из настроек. */
   readonly note?: string | undefined;
+  /**
+   * Погода в городе. Запрос делает сервер страницы и кеширует на час: чип из
+   * макета в прототипе ходил в чужой сервис прямо из браузера и стоял на
+   * критическом пути LCP. Не пришла — чипа нет, первый экран не меняется.
+   */
+  readonly weather?: HeroWeather | null | undefined;
   /** Якорь или адрес формы заявки. */
   readonly leadHref?: ButtonLinkHref | undefined;
   /**
@@ -45,6 +52,7 @@ export function Hero({
   products,
   stats = [],
   note,
+  weather,
   leadHref = '#lead',
   catalogHref = '#catalog',
   now,
@@ -57,12 +65,21 @@ export function Hero({
 
       <div className={styles.inner}>
         <div className={styles.copy}>
-          {note === undefined || note === '' ? null : (
-            <Badge variant="accent" className={styles.note}>
-              <span className={styles.noteDot} aria-hidden="true" />
-              {note}
-            </Badge>
-          )}
+          {note === undefined || note === '' || weather ? (
+            <p className={styles.marks}>
+              {note === undefined || note === '' ? null : (
+                <Badge variant="accent" className={styles.note}>
+                  <span className={styles.noteDot} aria-hidden="true" />
+                  {note}
+                </Badge>
+              )}
+              {weather ? (
+                <Badge variant="neutral" mono className={styles.weather}>
+                  {`${t.weatherLabel} ${formatCelsius(weather.current)}, ${t.weatherPeak} ${formatCelsius(weather.max)}`}
+                </Badge>
+              ) : null}
+            </p>
+          ) : null}
 
           <h1 className={styles.title}>
             {t.title.before}

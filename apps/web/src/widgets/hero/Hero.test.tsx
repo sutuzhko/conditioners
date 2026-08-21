@@ -135,4 +135,26 @@ describe('Первый экран', () => {
     rerender(<Hero products={[]} />);
     expect(screen.queryByText('установок в Туле')).not.toBeInTheDocument();
   });
+
+  it('чип погоды показывает температуру, пришедшую пропсом', () => {
+    render(<Hero products={[]} weather={{ current: 27, max: 31 }} />);
+
+    // последний совпавший узел — самый глубокий, то есть сам чип, а не секция
+    const chip = screen.getAllByText((text) => visible(text).includes('+27 °C')).at(-1);
+    expect(visible(chip?.textContent ?? '')).toContain('+31 °C');
+  });
+
+  it('🔴 без данных о погоде чипа нет: выдуманная температура так же недопустима, как цена', () => {
+    const { container } = render(<Hero products={[]} />);
+
+    expect(container.textContent).not.toContain('°C');
+  });
+
+  it('отрицательная температура выводится с минусом, а не с дефисом', () => {
+    render(<Hero products={[]} weather={{ current: -7, max: -3 }} />);
+
+    const chip = screen.getAllByText((text) => visible(text).includes('−7 °C')).at(-1);
+    expect(visible(chip?.textContent ?? '')).toContain('−3 °C');
+    expect(chip?.textContent).not.toContain('-7');
+  });
 });

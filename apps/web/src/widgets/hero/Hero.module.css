@@ -72,10 +72,25 @@
   min-width: 0;
 }
 
+/* Метки над заголовком — география и погода. Ряд с переносом: на телефоне
+   вторая метка встаёт под первую, а не сжимает заголовок. */
+.marks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 0 0 22px;
+}
+
 .note {
-  margin-bottom: 22px;
   padding: 7px 14px;
   font-size: var(--fs-caption);
+}
+
+/* Погода — техническая подпись, поэтому кегль мельче основной метки. */
+.weather {
+  padding: 7px 12px;
+  font-size: var(--fs-micro);
 }
 
 .noteDot {
