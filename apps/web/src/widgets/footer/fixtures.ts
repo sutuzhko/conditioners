@@ -31,6 +31,7 @@ export const contactsFixture: Contacts = {
   telegram: '',
   whatsapp: '',
   hours: 'Пн–Вс, 8:00–21:00',
+  responseTime: '',
   openingHours: ['Mo-Su 08:00-21:00'],
 };
 
@@ -74,6 +75,7 @@ export const contactsPlaceholder: Contacts = {
   telegram: '',
   whatsapp: '',
   hours: SETTING_PLACEHOLDER,
+  responseTime: '',
   openingHours: [],
 };
 
@@ -104,6 +106,7 @@ export const contactsEmpty: Contacts = {
   telegram: '',
   whatsapp: '',
   hours: '',
+  responseTime: '',
   openingHours: [],
 };
 

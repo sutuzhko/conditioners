@@ -82,7 +82,13 @@ export default async function HomePage() {
       <Diagnostics leadHref={LEAD_ANCHOR} />
       <WhyUs {...(warranty.success ? { warranty: warranty.data } : {})} />
       <Reviews reviews={approvedReviews} policyHref={POLICY_HREF} />
-      <LeadSection phone={phone} policyHref={POLICY_HREF} />
+      <LeadSection
+        phone={phone}
+        policyHref={POLICY_HREF}
+        {...(contacts.success && contacts.data.responseTime !== ''
+          ? { responseTime: contacts.data.responseTime }
+          : {})}
+      />
       <KnowledgeTeaser
         articles={articleTeasers}
         articleHref={(slug) => ({ pathname: `/baza-znaniy/${slug}` })}

@@ -60,6 +60,7 @@ const settings: Record<string, unknown> = {
     telegram: '',
     whatsapp: '',
     hours: TODO,
+    responseTime: TODO,
   },
   address: {
     country: 'RU',
