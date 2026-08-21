@@ -1,0 +1,115 @@
+/* Вводная часть страницы кластера. Ритм секции, типографика и радиусы — те же,
+   что у блоков лендинга (docs/DESIGN_BRIEF.md §4): страница собирается из них,
+   и её собственный текст не имеет права выглядеть чужим.
+   Цвета только токенами: ни одного хекса. */
+
+.section {
+  background: var(--bg);
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter) 0;
+}
+
+.head {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 16px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+
+  /* в заголовке может стоять цена из прайса: на 320px длинное слово
+     лучше разорвать, чем разорвать страницу горизонтальным скроллом */
+  overflow-wrap: break-word;
+}
+
+.lead {
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+}
+
+/* Основной текст — узкой колонкой и по левому краю: центрированный абзац
+   на четыре строки читается заметно хуже. */
+.text {
+  max-width: 760px;
+  margin: 32px auto 0;
+}
+
+.paragraph {
+  margin: 0 0 14px;
+  color: var(--ink2);
+  font-size: var(--fs-base);
+  line-height: 1.7;
+}
+
+.paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Ответы на «сколько стоит» и «сколько ждать» — до первой прокрутки
+   (docs/SEO.md §7). */
+.facts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  max-width: 760px;
+  margin: 32px auto 0;
+}
+
+.fact {
+  box-sizing: border-box;
+  padding: 16px 18px;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--r-md);
+  background: var(--accent-bg);
+}
+
+.factLabel {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.factValue {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.actions {
+  margin: 32px 0 0;
+  text-align: center;
+}
+
+@media (width >= 600px) {
+  .facts {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
