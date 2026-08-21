@@ -58,4 +58,3 @@ export type LeadSubmitResult =
 
 /** Отправка заявки. Подменяется в историях и тестах, по умолчанию — `postLead`. */
 export type LeadSubmit = (data: FormData) => Promise<LeadSubmitResult>;
-

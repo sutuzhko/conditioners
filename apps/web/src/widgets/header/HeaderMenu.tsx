@@ -2,7 +2,14 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { ButtonLink, Drawer, IconButton, PhoneIcon, ThemeToggle, buttonClassName } from '@/shared/ui';
+import {
+  ButtonLink,
+  Drawer,
+  IconButton,
+  PhoneIcon,
+  ThemeToggle,
+  buttonClassName,
+} from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { headerContent } from './content';
 import { BurgerIcon } from './icons';

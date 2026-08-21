@@ -1,5 +1,12 @@
 import Link from 'next/link';
-import { ArrowIcon, BrandMark, ButtonLink, PhoneIcon, ThemeToggle, buttonClassName } from '@/shared/ui';
+import {
+  ArrowIcon,
+  BrandMark,
+  ButtonLink,
+  PhoneIcon,
+  ThemeToggle,
+  buttonClassName,
+} from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 import type { Company, Contacts } from '@/entities/settings/model';

@@ -57,4 +57,3 @@ export type ReviewSubmitResult =
 
 /** Отправка отзыва. Подменяется в историях и тестах, по умолчанию — `postReview`. */
 export type ReviewSubmit = (data: FormData) => Promise<ReviewSubmitResult>;
-
