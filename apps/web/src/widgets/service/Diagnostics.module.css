@@ -1,6 +1,13 @@
 /* Сервис и диагностика. Контейнер и ритм — docs/DESIGN_BRIEF.md §4,
    деградация до одной колонки — §6. */
 
+/* Секция на основном фоне (docs/PIXEL_SPEC.md). Фон задаётся явно, а не
+   наследуется от страницы: соседние секции бывают на --bg-soft, и без своего
+   правила блок повторял бы чужой фон. */
+.section {
+  background: var(--bg);
+}
+
 .container {
   box-sizing: border-box;
   max-width: var(--container);
@@ -35,7 +42,13 @@
 .lead {
   margin: 0;
   color: var(--muted);
-  font-size: var(--fs-lead);
+  font-size: 17px;
+}
+
+/* 22px — радиус секционного блока из макета, шире карточного по умолчанию */
+.board,
+.empty {
+  border-radius: var(--r-xl);
 }
 
 .board {

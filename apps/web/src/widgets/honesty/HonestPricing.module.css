@@ -44,7 +44,7 @@
 .lead {
   margin: 0;
   color: var(--muted);
-  font-size: var(--fs-lead);
+  font-size: 17px;
 }
 
 /* до планшета сметы идут одна под другой: две колонки по 150px нечитаемы */
@@ -133,7 +133,11 @@
 
 .note {
   margin-top: 24px;
-  border-radius: var(--r-md);
+
+  /* 16px и 20px 26px — из макета: плашка-вывод шире карточного отступа
+     и с радиусом между карточным и секционным */
+  padding: 20px 26px;
+  border-radius: 16px;
   text-align: center;
 }
 
@@ -147,6 +151,23 @@
 .noteText strong {
   color: var(--ink);
   font-weight: 700;
+}
+
+/* боковой отступ секции на телефоне — 16px (docs/DESIGN_BRIEF.md §6);
+   макета ниже 1200px нет, раскладка наша */
+@media (width < 600px) {
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .head {
+    margin-bottom: 28px;
+  }
+
+  .note {
+    padding: 18px 20px;
+  }
 }
 
 @media (width >= 900px) {

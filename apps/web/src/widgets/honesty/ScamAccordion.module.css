@@ -40,7 +40,7 @@
 .lead {
   margin: 0;
   color: var(--muted);
-  font-size: var(--fs-lead);
+  font-size: 17px;
 }
 
 /* заголовок строки: номер схемы и её название. На узком экране номер уходит
@@ -71,12 +71,15 @@
   border-left: 3px solid transparent;
 }
 
+/* Полоса слева — смысловой маркер, а не рамка плашки: реплика мошенника
+   и разбор различаются именно цветом. Поэтому насыщенный --*-ink, а не
+   полупрозрачный --*-line: на 3px тот сливался с фоном карточки. */
 .quote {
-  border-left-color: var(--error-line);
+  border-left-color: var(--error-ink);
 }
 
 .truth {
-  border-left-color: var(--ok-line);
+  border-left-color: var(--ok-ink);
 }
 
 .partLabel {
@@ -113,7 +116,7 @@
   margin: 24px 0 0;
   padding: 14px 20px;
   border: 1px solid var(--line-soft);
-  border-radius: var(--r-md);
+  border-radius: 16px;
   background: var(--bg-soft);
 }
 
@@ -144,8 +147,21 @@
 
 .articleLink:focus-visible {
   border-radius: var(--r-sm);
-  box-shadow: var(--ring-focus);
+  box-shadow: var(--ring-focus-ring);
   outline: none;
+}
+
+/* боковой отступ секции на телефоне — 16px (docs/DESIGN_BRIEF.md §6);
+   макета ниже 1200px нет, раскладка наша */
+@media (width < 600px) {
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .head {
+    margin-bottom: 28px;
+  }
 }
 
 @media (width >= 600px) {
