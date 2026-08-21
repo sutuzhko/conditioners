@@ -1,0 +1,59 @@
+/* Хлебные крошки. Ритм и цвета — токены проекта (docs/DESIGN_BRIEF.md);
+   собственных значений цвета в модуле нет. */
+
+.nav {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 20px var(--gutter) 0;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  list-style: none;
+}
+
+.item {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 24px;
+}
+
+.link {
+  padding: 4px 2px;
+  border-radius: var(--r-sm);
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--accent-ink);
+  text-decoration: underline;
+}
+
+/* Тап-зона нужна пальцу, а не курсору: на десктопе min-height растянул бы
+   след втрое против строки текста. */
+@media (pointer: coarse) {
+  .link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+}
+
+.current {
+  padding: 4px 2px;
+  color: var(--ink2);
+}
+
+.separator {
+  color: var(--faint);
+}
