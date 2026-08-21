@@ -3,15 +3,18 @@
    она рендерится сервером и стоит вплотную к цифрам. */
 
 .section {
-  border-top: 1px solid var(--line-soft);
-  background: var(--bg-soft);
+  background: var(--bg);
 }
 
 .container {
   box-sizing: border-box;
   max-width: 1080px;
   margin: 0 auto;
-  padding: var(--section-y) var(--gutter);
+
+  /* Отступ только сверху: в макете секции на основном фоне заданы как
+     `88px 24px 0`, и между блоками получается ровно 88px, а не удвоенные 176.
+     См. ADR-037. */
+  padding: var(--section-y) var(--gutter) 0;
 }
 
 .intro {
@@ -52,6 +55,12 @@
 
 .articleLink:hover {
   text-decoration: underline;
+}
+
+.articleLink:focus-visible {
+  border-radius: 4px;
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
 }
 
 /* Оговорка набрана читаемым кеглем, а не микроподписью на грани контраста:

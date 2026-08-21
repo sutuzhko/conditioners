@@ -1,59 +1,147 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 
 import { formatMoney } from '@/shared/lib/format';
-import { Badge, Card, RangeSlider } from '@/shared/ui';
+import { Badge, Button, Card, RangeSlider } from '@/shared/ui';
 
+import { HoursGrid } from './HoursGrid';
 import { savingsContent as t } from './content';
 import { SAVINGS_MODEL, estimateSavings } from './lib';
-import { HOURS_DEFAULT, HOURS_MAX, HOURS_MIN, TARIFF_MAX, TARIFF_MIN, TARIFF_STEP } from './model';
+import {
+  HOURS_IN_DAY,
+  TARIFF_DAY_MAX,
+  TARIFF_DAY_MIN,
+  TARIFF_NIGHT_MAX,
+  TARIFF_NIGHT_MIN,
+  TARIFF_STEP,
+  type TariffMode,
+} from './model';
 import styles from './SavingsCalculator.module.css';
 
 export type SavingsCalculatorProps = {
-  /** Стартовый тариф на ползунке, ₽/кВт·ч. */
-  readonly defaultTariff: number;
+  /** Часы, отмеченные при первом показе: список часов суток, 0…23. */
+  readonly defaultHours: readonly number[];
+  /** Режим тарифа при первом показе. */
+  readonly defaultMode: TariffMode;
+  /** Стартовые ставки на ползунках, ₽/кВт·ч. */
+  readonly defaultTariffDay: number;
+  readonly defaultTariffNight: number;
 };
 
-/** Ширина полоски в процентах — из той же доли, что и цифры рядом. */
+/** Список часов превращается в отметки по суткам; чужие числа отбрасываются. */
+function toHourFlags(hours: readonly number[]): boolean[] {
+  const flags = Array.from({ length: HOURS_IN_DAY }, () => false);
+  for (const hour of hours) {
+    if (Number.isInteger(hour) && hour >= 0 && hour < HOURS_IN_DAY) flags[hour] = true;
+  }
+  return flags;
+}
+
+/** Ширина полоски — из той же доли, что и цифры рядом. */
 function barWidth(share: number): string {
   return `${Math.round(share * 100)}%`;
 }
 
 /**
- * Ползунки и результат расчёта экономии.
+ * Сетка часов, тариф и результат расчёта экономии.
  *
  * `'use client'` стоит на этом листе, а не на секции: заголовок, лид и
  * оговорка про приблизительность рендерит сервер (инвариант 1). Арифметика —
  * в чистой `estimateSavings`, компонент только рисует её результат.
  */
-export function SavingsCalculator({ defaultTariff }: SavingsCalculatorProps) {
-  const [hours, setHours] = useState(HOURS_DEFAULT);
-  const [tariff, setTariff] = useState(defaultTariff);
+export function SavingsCalculator({
+  defaultHours,
+  defaultMode,
+  defaultTariffDay,
+  defaultTariffNight,
+}: SavingsCalculatorProps) {
+  const [hours, setHours] = useState(() => toHourFlags(defaultHours));
+  const [mode, setMode] = useState<TariffMode>(defaultMode);
+  const [tariffDay, setTariffDay] = useState(defaultTariffDay);
+  const [tariffNight, setTariffNight] = useState(defaultTariffNight);
 
-  const estimate = estimateSavings({ hoursPerDay: hours, tariff });
+  const gridLabelId = useId();
+  const estimate = estimateSavings({ hours, mode, tariffDay, tariffNight });
+  const dual = mode === 'dual';
+  const empty = estimate.totalHours === 0;
+
+  const setHour = (hour: number, next: boolean) => {
+    setHours((current) => current.map((on, index) => (index === hour ? next : on)));
+  };
 
   return (
     <div className={styles.grid}>
       <Card padding="lg" className={styles.inputs}>
-        <RangeSlider
-          label={t.hoursLabel}
-          value={hours}
-          onChange={setHours}
-          min={HOURS_MIN}
-          max={HOURS_MAX}
-          formatValue={t.hours}
-        />
-        <RangeSlider
-          label={t.tariffLabel}
-          value={tariff}
-          onChange={setTariff}
-          min={TARIFF_MIN}
-          max={TARIFF_MAX}
-          step={TARIFF_STEP}
-          formatValue={t.tariff}
-        />
-        <p className={styles.basis}>{t.basis}</p>
+        <div>
+          <p className={styles.gridHead}>
+            <span id={gridLabelId} className={styles.gridLabel}>
+              {t.gridLabel}
+            </span>
+            {/* сумма объявляется голосом: без этого протяжка мышью и нажатие
+                пробелом остаются беззвучными */}
+            <output className={styles.gridTotal} aria-live="polite" aria-label={t.gridTotalLabel}>
+              {t.hours(estimate.totalHours)}
+            </output>
+          </p>
+
+          <HoursGrid hours={hours} onChange={setHour} labelId={gridLabelId} />
+
+          <p className={styles.hint}>{t.gridHint}</p>
+        </div>
+
+        <div>
+          <p className={styles.tariffHead}>
+            <span className={styles.gridLabel}>{t.tariffLabel}</span>
+            <span className={styles.modes} role="group" aria-label={t.tariffLabel}>
+              <Button
+                size="sm"
+                variant={dual ? 'ghost' : 'primary'}
+                aria-pressed={!dual}
+                onClick={() => setMode('single')}
+              >
+                {t.modeSingle}
+              </Button>
+              <Button
+                size="sm"
+                variant={dual ? 'primary' : 'ghost'}
+                aria-pressed={dual}
+                onClick={() => setMode('dual')}
+              >
+                {t.modeDual}
+              </Button>
+            </span>
+          </p>
+
+          <div className={styles.sliders}>
+            <RangeSlider
+              label={dual ? t.tariffDayDual : t.tariffDaySingle}
+              value={tariffDay}
+              onChange={setTariffDay}
+              min={TARIFF_DAY_MIN}
+              max={TARIFF_DAY_MAX}
+              step={TARIFF_STEP}
+              formatValue={t.tariff}
+            />
+            {/* В едином тарифе ночная ставка не участвует в расчёте, поэтому
+                ползунок выключен, а не притушен: выключенное состояние видно
+                и глазом, и голосом. */}
+            <RangeSlider
+              label={t.tariffNight}
+              value={tariffNight}
+              onChange={setTariffNight}
+              min={TARIFF_NIGHT_MIN}
+              max={TARIFF_NIGHT_MAX}
+              step={TARIFF_STEP}
+              formatValue={t.tariff}
+              disabled={!dual}
+              hint={dual ? undefined : t.tariffNightOff}
+            />
+          </div>
+        </div>
+
+        {/* допущения названы прямо под управлением, а не только в оговорке */}
+        <p className={styles.basis}>{t.basis(SAVINGS_MODEL)}</p>
       </Card>
 
       <Card padding="lg" className={styles.result}>
@@ -72,7 +160,10 @@ export function SavingsCalculator({ defaultTariff }: SavingsCalculatorProps) {
             <span className={styles.rowValue}>{t.perSeason(formatMoney(estimate.usual))}</span>
           </p>
           <span className={styles.bar} aria-hidden="true">
-            <span className={`${styles.fill} ${styles.fillUsual}`} />
+            <span
+              className={`${styles.fill} ${styles.fillUsual}`}
+              style={{ width: empty ? '0%' : '100%' }}
+            />
           </span>
         </div>
 
@@ -84,7 +175,7 @@ export function SavingsCalculator({ defaultTariff }: SavingsCalculatorProps) {
           <span className={styles.bar} aria-hidden="true">
             <span
               className={`${styles.fill} ${styles.fillInverter}`}
-              style={{ width: barWidth(estimate.inverterShare) }}
+              style={{ width: empty ? '0%' : barWidth(estimate.inverterShare) }}
             />
           </span>
         </div>
@@ -96,6 +187,8 @@ export function SavingsCalculator({ defaultTariff }: SavingsCalculatorProps) {
             {t.perHorizon(formatMoney(estimate.savedOverHorizon), SAVINGS_MODEL.horizonYears)}
           </span>
         </p>
+
+        {empty ? <p className={styles.empty}>{t.empty}</p> : null}
       </Card>
     </div>
   );

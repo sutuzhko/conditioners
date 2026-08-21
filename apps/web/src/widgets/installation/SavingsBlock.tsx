@@ -4,7 +4,13 @@ import type { ButtonLinkHref } from '@/shared/ui';
 
 import { SavingsCalculator } from './SavingsCalculator';
 import { savingsContent } from './content';
-import { TARIFF_DEFAULT } from './model';
+import {
+  HOURS_DEFAULT,
+  TARIFF_DAY_DEFAULT,
+  TARIFF_MODE_DEFAULT,
+  TARIFF_NIGHT_DEFAULT,
+  type TariffMode,
+} from './model';
 import styles from './SavingsBlock.module.css';
 
 export type SavingsBlockProps = {
@@ -14,10 +20,18 @@ export type SavingsBlockProps = {
    */
   readonly articleHref?: ButtonLinkHref | undefined;
   /**
-   * Стартовое значение тарифа на ползунке, ₽/кВт·ч. Тариф пересматривают
-   * каждый год, поэтому его можно задать снаружи, не трогая код блока.
+   * Часы суток (0…23), отмеченные при первом показе сетки. Пустой список —
+   * пустая сетка: расчёт покажет нули и объяснит, почему.
    */
-  readonly defaultTariff?: number | undefined;
+  readonly defaultHours?: readonly number[] | undefined;
+  /** Режим тарифа при первом показе: единый счётчик или «день/ночь». */
+  readonly defaultTariffMode?: TariffMode | undefined;
+  /**
+   * Стартовые значения ползунков тарифа, ₽/кВт·ч. Тарифы пересматривают
+   * каждый год, поэтому их можно задать снаружи, не трогая код блока.
+   */
+  readonly defaultTariffDay?: number | undefined;
+  readonly defaultTariffNight?: number | undefined;
   /** Якорь секции: по нему на неё ведёт навигация в шапке. */
   readonly id?: string | undefined;
 };
@@ -35,7 +49,10 @@ const HEADING_ID = 'savings-title';
  */
 export function SavingsBlock({
   articleHref,
-  defaultTariff = TARIFF_DEFAULT,
+  defaultHours = HOURS_DEFAULT,
+  defaultTariffMode = TARIFF_MODE_DEFAULT,
+  defaultTariffDay = TARIFF_DAY_DEFAULT,
+  defaultTariffNight = TARIFF_NIGHT_DEFAULT,
   id = 'ekonomiya',
 }: SavingsBlockProps) {
   return (
@@ -60,7 +77,12 @@ export function SavingsBlock({
           </p>
         </header>
 
-        <SavingsCalculator defaultTariff={defaultTariff} />
+        <SavingsCalculator
+          defaultHours={defaultHours}
+          defaultMode={defaultTariffMode}
+          defaultTariffDay={defaultTariffDay}
+          defaultTariffNight={defaultTariffNight}
+        />
 
         <p className={styles.disclaimer}>{savingsContent.disclaimer}</p>
       </div>

@@ -1,0 +1,125 @@
+/* Сетка суток по часам.
+
+   🔴 Двадцать четыре ячейки в один ряд помещаются только на десктопе. Ниже
+   сутки складываются в ряды — по 12 и по 6, — и каждый ряд получает метку с
+   часом начала. Ширина ячейки при этом растёт, а не тает: на 320px она около
+   32px, то есть пальцем попадаешь. Горизонтального скролла у страницы не
+   возникает ни на одной ширине: колонок меньше, а не уже. */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+  gap: 3px;
+  align-items: center;
+
+  /* протяжка мышью не должна выделять текст под курсором */
+  user-select: none;
+}
+
+/* Метка ряда: скрыта, пока сутки лежат одним рядом. */
+.mark {
+  display: none;
+  padding-right: 4px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.cell {
+  position: relative;
+  box-sizing: border-box;
+  height: 34px;
+  padding: 0;
+
+  /* Выключенная ячейка обязана быть видна: на белой карточке одна лишь
+     заливка --bg-soft почти не читается, а на широком экране ячейка мелкая. */
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--bg-soft);
+  cursor: pointer;
+  transition: background var(--dur-fast) ease;
+}
+
+/* Ячейка ниже 44px по высоте — иначе ряд перестаёт быть рядом. Тап-зону
+   добираем прозрачной областью: она выходит за ячейку вверх и вниз и
+   доводит её до минимума из docs/DESIGN_BRIEF.md §6. */
+.cell::after {
+  position: absolute;
+  inset: -5px 0;
+  content: '';
+}
+
+.cell:focus-visible {
+  z-index: 1;
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* Ночная зона выделена и в выключенном состоянии — рамкой и другой заливкой:
+   одной лишь «более тёмной» заливки мало, в тёмной теме тёмное читается
+   наоборот. */
+.night {
+  border-color: var(--line-strong);
+  background: var(--stripe-a);
+}
+
+.on {
+  border-color: transparent;
+  background: linear-gradient(180deg, var(--brand-mark-dark), var(--brand-mark));
+}
+
+.on.night {
+  background: linear-gradient(180deg, var(--brand), var(--brand-hover));
+}
+
+@media (hover: hover) {
+  .cell:hover:not(.on) {
+    background: var(--accent-bg);
+  }
+}
+
+.scale {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0 0;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Планшет и крупный телефон: сутки в два ряда по 12 часов. */
+@media (width < 900px) {
+  .grid {
+    grid-template-columns: auto repeat(12, minmax(0, 1fr));
+    gap: 4px;
+  }
+
+  .markHalf {
+    display: block;
+  }
+
+  /* шкала описывает один ряд из 24 делений — рядам она уже не соответствует */
+  .scale {
+    display: none;
+  }
+}
+
+/* Телефон: четыре ряда по шесть часов, ячейка становится шире. */
+@media (width < 600px) {
+  .grid {
+    grid-template-columns: auto repeat(6, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .mark {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell {
+    transition: none;
+  }
+}

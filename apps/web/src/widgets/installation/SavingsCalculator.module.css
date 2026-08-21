@@ -1,4 +1,5 @@
-/* Расчёт экономии: слева ползунки, справа результат. С 900px — одна колонка.
+/* Расчёт экономии: слева сетка часов и тариф, справа результат.
+   С 900px — одна колонка.
 
    Полоски раскрашены холодно: тёплый акцент на сайте допустим только у скидки
    (docs/DESIGN_BRIEF.md §10), а красная полоса «обычного» кондиционера рядом
@@ -18,10 +19,64 @@
   border-radius: var(--r-xl);
 }
 
+.gridHead,
+.tariffHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0 0 12px;
+}
+
+.tariffHead {
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.gridLabel {
+  color: var(--ink);
+  font-size: 15.5px;
+  font-weight: 700;
+}
+
+.gridTotal {
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hint {
+  margin: 8px 0 0;
+  color: var(--faint);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+/* Переключатель тарифа: две кнопки в одной группе. */
+.modes {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-md);
+  background: var(--bg-soft);
+}
+
+.sliders {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
 .basis {
   margin: 0;
   color: var(--faint);
   font-size: var(--fs-caption);
+  line-height: 1.5;
 }
 
 .result {
@@ -86,16 +141,15 @@
   display: block;
   height: 100%;
   border-radius: var(--r-pill);
+  transition: width var(--dur-base) var(--ease-out);
 }
 
 .fillUsual {
-  width: 100%;
   background: linear-gradient(90deg, var(--line-strong), var(--faint));
 }
 
 .fillInverter {
   background: linear-gradient(90deg, var(--brand), var(--brand-mark-dark));
-  transition: width var(--dur-base) var(--ease-out);
 }
 
 .total {
@@ -125,6 +179,14 @@
   font-size: var(--fs-dense);
 }
 
+/* Нули — честный результат пустого выбора, но они требуют объяснения. */
+.empty {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+}
+
 @media (width < 900px) {
   .grid {
     grid-template-columns: minmax(0, 1fr);
@@ -132,9 +194,15 @@
   }
 }
 
+@media (width < 600px) {
+  .sliders {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* пользователь просил не двигать интерфейс — полоска меняет длину мгновенно */
 @media (prefers-reduced-motion: reduce) {
-  .fillInverter {
+  .fill {
     transition: none;
   }
 }
