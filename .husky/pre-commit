@@ -1,13 +1,15 @@
 #!/bin/sh
-# Линтеры живут в контейнере: на хосте node_modules нет и быть не должно (ADR-017).
-if ! docker compose -f docker-compose.dev.yml ps --status running web >/dev/null 2>&1 \
-   || [ -z "$(docker compose -f docker-compose.dev.yml ps -q web 2>/dev/null)" ]; then
-  echo "Контейнер web не запущен — линтеры прогнать негде."
-  echo "Подними окружение: docker compose -f docker-compose.dev.yml up -d"
+# Проверки идут нативно, если на хосте установлены зависимости, и только
+# иначе — через контейнер. Причина: при нескольких параллельных агентах
+# контейнер становится очередью, и хук ждёт минутами (ADR-043).
+if [ -x node_modules/.bin/lint-staged ]; then
+  node_modules/.bin/lint-staged --no-stash
+  exit $?
+fi
+
+if [ -z "$(docker compose -f docker-compose.dev.yml ps -q web 2>/dev/null)" ]; then
+  echo "Ни зависимостей на хосте, ни поднятого контейнера — проверить нечем."
+  echo "Либо pnpm install, либо docker compose -f docker-compose.dev.yml up -d"
   exit 1
 fi
-# Хук только ПРОВЕРЯЕТ и ничего не правит. Причина: `git commit -- <пути>`
-# делает частичный коммит и держит .git/index.lock всё время работы хуков,
-# поэтому попытка lint-staged вернуть исправления в индекс всегда падала.
-# Не отформатировано — запусти `pnpm format` и коммить заново (ADR-034).
 docker compose -f docker-compose.dev.yml exec -T web pnpm lint-staged --no-stash
