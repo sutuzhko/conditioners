@@ -66,7 +66,7 @@ export function HeroPicker({ products, leadHref, now }: HeroPickerProps) {
   const recommended = pickByArea(products, area, place);
 
   return (
-    <Card padding="lg" className={styles.card}>
+    <Card padding="lg" radius="xxl" elevation="raised" className={styles.card}>
       <div className={styles.head}>
         <h2 className={styles.eyebrow}>{t.title}</h2>
         {/* «онлайн-расчёт» обещает то, чего при пустом каталоге нет */}

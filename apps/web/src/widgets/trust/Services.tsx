@@ -54,7 +54,14 @@ export function Services({ hrefs, id = 'uslugi' }: ServicesProps) {
 
         <ul className={styles.grid}>
           {t.items.map((item) => (
-            <Card as="li" key={item.key} padding="lg" interactive className={styles.card}>
+            <Card
+              as="li"
+              key={item.key}
+              padding="xl"
+              elevation="none"
+              interactive
+              className={styles.card}
+            >
               <span className={styles.iconBox}>{icons[item.key]}</span>
               <h3 className={styles.cardTitle}>{item.title}</h3>
               <p className={styles.cardText}>{item.text}</p>

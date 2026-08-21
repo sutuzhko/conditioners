@@ -48,7 +48,7 @@ export function HonestPricing({ installFrom, id = 'chestno' }: HonestPricingProp
         </header>
 
         <div className={styles.pair}>
-          <Card padding="lg" className={`${styles.card} ${styles.honest}`}>
+          <Card padding="xl" radius="xl" className={`${styles.card} ${styles.honest}`}>
             <div className={styles.cardHead}>
               <h3 className={styles.cardTitle}>{honestyContent.honestTitle}</h3>
               {price === null ? null : (

@@ -58,7 +58,7 @@ export function Diagnostics({
             </ButtonLink>
           </Card>
         ) : (
-          <Card padding="lg" className={styles.board}>
+          <Card padding="xl" radius="xl" className={styles.board}>
             <DiagnosticsPicker symptoms={symptoms} defaultSymptom={defaultSymptom} />
 
             <div className={styles.footer}>

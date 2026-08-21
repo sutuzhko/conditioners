@@ -87,7 +87,7 @@ export function Calculator({
   const handoff: EstimateHandoff = { ...context, text: buildEstimateText(context) };
 
   return (
-    <Card padding="lg" className={styles.card}>
+    <Card padding="xl" radius="xl" className={styles.card}>
       <div className={styles.head}>
         <h3 className={styles.title}>{pricingText.calcTitle}</h3>
         <Badge variant="accent" mono size="sm">

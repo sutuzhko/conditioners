@@ -191,7 +191,10 @@ export function LeadForm({
   return (
     <Card
       variant="default"
-      padding="lg"
+      padding="xl"
+      radius="xl"
+      bordered={false}
+      elevation="float"
       className={[styles.card, className].filter(Boolean).join(' ')}
     >
       {title === undefined ? null : (
