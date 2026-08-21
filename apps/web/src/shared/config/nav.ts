@@ -9,8 +9,8 @@ export const SITE_NAV: readonly NavItem[] = [
   { label: 'Каталог', href: '#catalog' },
   { label: 'Цены', href: '#ceny' },
   { label: 'Монтаж', href: '#etapy' },
-  { label: 'Услуги', href: '#uslugi' },
   { label: 'Сервис', href: '#diagnostika' },
+  { label: 'База знаний', href: '#baza' },
   { label: 'Контакты', href: '#kontakty' },
 ];
 

@@ -18,9 +18,8 @@ import { Reviews } from '@/widgets/reviews';
 import { KnowledgeTeaser } from '@/widgets/knowledge';
 import { Faq } from '@/widgets/faq';
 import { Contacts } from '@/widgets/contacts';
-import { LeadForm } from '@/features/lead-form';
+import { LeadSection } from '@/widgets/lead';
 import { LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
-import styles from './page.module.css';
 
 /**
  * Главная. Собирается из блоков; данные читает страница и передаёт пропсами —
@@ -83,15 +82,7 @@ export default async function HomePage() {
       <Diagnostics leadHref={LEAD_ANCHOR} />
       <WhyUs {...(warranty.success ? { warranty: warranty.data } : {})} />
       <Reviews reviews={approvedReviews} policyHref={POLICY_HREF} />
-      <section id="zayavka" className={styles.lead}>
-        <div className={styles.leadInner}>
-          <LeadForm
-            phone={phone}
-            policyHref={POLICY_HREF}
-            title="Оставьте заявку — поможем с выбором"
-          />
-        </div>
-      </section>
+      <LeadSection phone={phone} policyHref={POLICY_HREF} />
       <KnowledgeTeaser
         articles={articleTeasers}
         articleHref={(slug) => ({ pathname: `/baza-znaniy/${slug}` })}

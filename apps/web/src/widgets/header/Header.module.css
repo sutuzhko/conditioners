@@ -121,13 +121,20 @@
   align-items: center;
 }
 
+/* В макете телефона в шапке нет. Он появляется там, где навигация уезжает
+   в меню: DESIGN_BRIEF §6 требует держать телефон и кнопку заявки видимыми
+   на мобильном, а на десктопе он занимал четверть ширины шапки. */
 .actions .phone {
+  display: none;
   font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: -0.01em;
 }
 
-.burger {
+/* Двухклассовый селектор обязателен: у `.burger` и у `.iconButton` из кита
+   одинаковая специфичность, и победил бы тот файл, что подключён позже.
+   На десктопе бургера в макете нет — навигация помещается целиком. */
+.actions .burger {
   display: none;
 }
 
@@ -138,12 +145,16 @@
     display: none;
   }
 
-  .burger {
+  .actions .burger {
     display: inline-flex;
   }
 
   .tagline {
     display: none;
+  }
+
+  .actions .phone {
+    display: inline-flex;
   }
 }
 
