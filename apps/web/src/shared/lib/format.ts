@@ -31,15 +31,17 @@ export function formatMoney(value: number): string {
 }
 
 /**
- * Температура со знаком: `+27 °C`, `−3 °C`, `0 °C`.
+ * Температура со знаком: `+27°`, `−3°`, `0°`.
  *
  * Минус — типографский U+2212, а не дефис: дефис в этой позиции читается как
- * перенос и рвётся при переносе строки.
+ * перенос и рвётся при переносе строки. Единицы не пишутся: в чипе погоды
+ * рядом стоят два значения и текст, и «°C» дважды растягивает строку на
+ * лишний перенос (макет, «HERO»).
  */
-export function formatCelsius(value: number): string {
+export function formatDegrees(value: number): string {
   const rounded = Math.round(value);
   const sign = rounded > 0 ? '+' : rounded < 0 ? '−' : '';
-  return `${sign}${Math.abs(rounded)}${NBSP}°C`;
+  return `${sign}${Math.abs(rounded)}°`;
 }
 
 /** Только цифры телефона; ведущая «8» приводится к «7». */

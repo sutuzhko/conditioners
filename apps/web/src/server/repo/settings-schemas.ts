@@ -71,5 +71,7 @@ export const REQUIRED_FIELDS: Record<SettingKey, readonly string[]> = {
   payment: ['methods', 'vat'],
   social: [],
   seo: ['homeTitle', 'homeDescription', 'titleSuffix'],
+  // цифры полосы первого экрана необязательны: нет — полосы просто не будет
+  achievements: [],
   integrations: [],
 };

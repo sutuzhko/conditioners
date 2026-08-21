@@ -22,6 +22,17 @@ function prefersReducedMotion(): boolean {
 }
 
 /**
+ * Вкладка открыта в фоне (например, ссылку открыли средней кнопкой).
+ *
+ * 🔴 Там браузер приостанавливает кадры анимации, и отсчёт, начатый с нуля,
+ * замирает на нуле: посетитель, вернувшись во вкладку, читает «0 установок».
+ * Врать про компанию нельзя даже так — в фоне цифра просто не анимируется.
+ */
+function documentHidden(): boolean {
+  return typeof document !== 'undefined' && document.visibilityState === 'hidden';
+}
+
+/**
  * Анимация счётчика цифр (первый экран, «Почему нас выбирают»).
  *
  * Начальное состояние — уже конечное число: серверный HTML обязан содержать
@@ -34,15 +45,17 @@ export function useCountUp(target: number, options: CountUpOptions = {}): number
   const [value, setValue] = useState(target);
 
   useEffect(() => {
-    if (!enabled || durationMs <= 0 || prefersReducedMotion()) {
+    if (!enabled || durationMs <= 0 || prefersReducedMotion() || documentHidden()) {
       setValue(target);
       return;
     }
 
     let frame = 0;
     let startedAt: number | null = null;
-    setValue(from);
 
+    /* Обнуляем не здесь, а в первом же кадре: если кадры не придут вовсе —
+       вкладку свернули, устройство экономит батарею, — на экране останется
+       настоящая цифра, а не ноль. */
     const step = (now: number): void => {
       startedAt ??= now;
       const progress = Math.min(1, (now - startedAt) / durationMs);

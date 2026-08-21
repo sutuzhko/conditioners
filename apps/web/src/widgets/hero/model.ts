@@ -14,7 +14,9 @@ import { OFFICE_PLACE_TYPE } from '@/entities/product/model';
  * как выдуманная цена.
  */
 export type HeroWeather = {
-  readonly current: number;
+  /** Среднесуточная температура, °C. */
+  readonly mean: number;
+  /** Дневной максимум, °C. */
   readonly max: number;
 };
 

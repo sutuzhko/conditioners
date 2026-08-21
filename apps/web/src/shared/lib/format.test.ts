@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-  formatCelsius,
+  formatDegrees,
   formatDate,
   formatDateIso,
   formatMoney,
@@ -29,23 +29,23 @@ describe('formatMoney', () => {
   });
 });
 
-describe('formatCelsius', () => {
+describe('formatDegrees', () => {
   it('ставит знак плюса у положительной температуры', () => {
-    expect(formatCelsius(27)).toBe('+27\u00A0°C');
+    expect(formatDegrees(27)).toBe('+27°');
   });
 
   it('🔴 отрицательная температура получает типографский минус, а не дефис', () => {
-    expect(formatCelsius(-7)).toBe('−7\u00A0°C');
-    expect(formatCelsius(-7)).not.toContain('-');
+    expect(formatDegrees(-7)).toBe('−7°');
+    expect(formatDegrees(-7)).not.toContain('-');
   });
 
   it('у нуля знака нет', () => {
-    expect(formatCelsius(0)).toBe('0\u00A0°C');
+    expect(formatDegrees(0)).toBe('0°');
   });
 
   it('доли градуса округляются', () => {
-    expect(formatCelsius(26.6)).toBe('+27\u00A0°C');
-    expect(formatCelsius(-2.4)).toBe('−2\u00A0°C');
+    expect(formatDegrees(26.6)).toBe('+27°');
+    expect(formatDegrees(-2.4)).toBe('−2°');
   });
 });
 

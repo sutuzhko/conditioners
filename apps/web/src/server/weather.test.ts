@@ -19,11 +19,21 @@ afterEach(() => {
 describe('Погода в городе', () => {
   it('округляет температуру: доли градуса читателю не нужны', async () => {
     respondWith({
-      current: { temperature_2m: 26.6 },
-      daily: { temperature_2m_max: [31.2] },
+      daily: { temperature_2m_max: [31.2], temperature_2m_mean: [26.6] },
     });
 
-    expect(await getCityWeather(TULA)).toEqual({ current: 27, max: 31 });
+    expect(await getCityWeather(TULA)).toEqual({ mean: 27, max: 31 });
+  });
+
+  it('🔴 берёт среднесуточную, а не текущую: чип говорит про день целиком', async () => {
+    respondWith({ daily: { temperature_2m_max: [30], temperature_2m_mean: [21] } });
+
+    await getCityWeather(TULA);
+
+    const [url] = vi.mocked(fetch).mock.calls[0] ?? [];
+    const daily = new URL(String(url)).searchParams.get('daily') ?? '';
+    expect(daily).toContain('temperature_2m_mean');
+    expect(daily).toContain('temperature_2m_max');
   });
 
   it('🔴 без координат в настройках запроса не делает вовсе (инвариант 8)', async () => {
@@ -35,7 +45,7 @@ describe('Погода в городе', () => {
   });
 
   it('координаты уходят в запрос те, что заданы владельцем', async () => {
-    respondWith({ current: { temperature_2m: 1 }, daily: { temperature_2m_max: [2] } });
+    respondWith({ daily: { temperature_2m_max: [2], temperature_2m_mean: [1] } });
 
     await getCityWeather(TULA);
 
@@ -52,7 +62,7 @@ describe('Погода в городе', () => {
   });
 
   it('🔴 ответ не по схеме считается отсутствующим, а не подставляется как есть', async () => {
-    respondWith({ current: { temperature_2m: 'жарко' }, daily: {} });
+    respondWith({ daily: { temperature_2m_max: ['жарко'] } });
 
     expect(await getCityWeather(TULA)).toBeNull();
   });
@@ -64,7 +74,7 @@ describe('Погода в городе', () => {
   });
 
   it('🔴 ответ кешируется на час: первый экран не ходит в чужой сервис на каждый визит', async () => {
-    respondWith({ current: { temperature_2m: 5 }, daily: { temperature_2m_max: [7] } });
+    respondWith({ daily: { temperature_2m_max: [7], temperature_2m_mean: [5] } });
 
     await getCityWeather(TULA);
 

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { Product } from '@/entities/product/model';
-import { formatCelsius } from '@/shared/lib/format';
+import { formatDegrees } from '@/shared/lib/format';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { Badge, ButtonLink, StatList } from '@/shared/ui';
 
@@ -27,6 +27,8 @@ export type HeroProps = {
    * критическом пути LCP. Не пришла — чипа нет, первый экран не меняется.
    */
   readonly weather?: HeroWeather | null | undefined;
+  /** Город для подписи чипа — из настроек компании, а не из кода. */
+  readonly city?: string | undefined;
   /** Якорь или адрес формы заявки. */
   readonly leadHref?: ButtonLinkHref | undefined;
   /**
@@ -53,6 +55,7 @@ export function Hero({
   stats = [],
   note,
   weather,
+  city,
   leadHref = '#lead',
   catalogHref = '#catalog',
   now,
@@ -65,21 +68,12 @@ export function Hero({
 
       <div className={styles.inner}>
         <div className={styles.copy}>
-          {note === undefined || note === '' || weather ? (
-            <p className={styles.marks}>
-              {note === undefined || note === '' ? null : (
-                <Badge variant="accent" className={styles.note}>
-                  <span className={styles.noteDot} aria-hidden="true" />
-                  {note}
-                </Badge>
-              )}
-              {weather ? (
-                <Badge variant="neutral" mono className={styles.weather}>
-                  {`${t.weatherLabel} ${formatCelsius(weather.current)}, ${t.weatherPeak} ${formatCelsius(weather.max)}`}
-                </Badge>
-              ) : null}
-            </p>
-          ) : null}
+          {note === undefined || note === '' ? null : (
+            <Badge variant="accent" className={styles.note}>
+              <span className={styles.noteDot} aria-hidden="true" />
+              {note}
+            </Badge>
+          )}
 
           <h1 className={styles.title}>
             {t.title.before}
@@ -98,6 +92,22 @@ export function Hero({
               {t.secondaryCta}
             </ButtonLink>
           </div>
+
+          {/* Чип погоды из макета: среднесуточная, пик и заметка про спрос.
+              Без города в настройках подписи не будет — придумывать его код
+              не вправе (инвариант 8), поэтому чип просто не рисуется. */}
+          {weather && city !== undefined && city !== '' ? (
+            <p className={styles.weather}>
+              <span className={styles.weatherDot} aria-hidden="true" />
+              <span className={styles.weatherText}>
+                {`${t.weatherPrefix(city)} ${t.weatherMean} `}
+                <b className={styles.weatherMean}>{formatDegrees(weather.mean)}</b>
+                {` · ${t.weatherPeak} `}
+                <b className={styles.weatherMax}>{formatDegrees(weather.max)}</b>
+                {` — ${t.weatherNote(weather.max)}`}
+              </span>
+            </p>
+          ) : null}
 
           <StatList items={stats} className={styles.stats} />
         </div>

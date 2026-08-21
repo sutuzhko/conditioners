@@ -81,6 +81,25 @@ describe('useCountUp', () => {
     expect(result.current).toBeGreaterThanOrEqual(10);
   });
 
+  it('🔴 в фоновой вкладке цифра остаётся настоящей: кадры там не идут', () => {
+    // ссылку открыли в фоне — браузер приостановил анимацию
+    const visibility = vi
+      .spyOn(document, 'visibilityState', 'get')
+      .mockReturnValue('hidden' as DocumentVisibilityState);
+
+    const { result } = renderHook(() => useCountUp(1200));
+
+    expect(result.current).toBe(1200);
+    visibility.mockRestore();
+  });
+
+  it('🔴 до первого кадра значение не обнуляется: без кадров остаётся цель', () => {
+    const { result } = renderHook(() => useCountUp(1200));
+
+    // кадр ещё не пришёл — на экране обязана стоять настоящая цифра
+    expect(result.current).toBe(1200);
+  });
+
   it('размонтирование отменяет кадр', () => {
     const cancel = vi.spyOn(globalThis, 'cancelAnimationFrame');
     const { unmount } = renderHook(() => useCountUp(100, { durationMs: 1000 }));

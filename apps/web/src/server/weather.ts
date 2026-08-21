@@ -29,14 +29,20 @@ const TIMEOUT_MS = 1500;
 const CACHE_SECONDS = 3600;
 
 const responseSchema = z.object({
-  current: z.object({ temperature_2m: z.number() }),
-  daily: z.object({ temperature_2m_max: z.array(z.number()).min(1) }),
+  daily: z.object({
+    temperature_2m_max: z.array(z.number()).min(1),
+    temperature_2m_mean: z.array(z.number()).min(1),
+  }),
 });
 
 export type CityWeather = {
-  /** Температура сейчас, °C — округлённая: доли градуса читателю не нужны. */
-  readonly current: number;
-  /** Дневной максимум, °C. */
+  /**
+   * Среднесуточная температура, °C — округлённая: доли градуса читателю не
+   * нужны. Именно средняя, а не «сейчас»: чип говорит про день целиком, по
+   * ней человек и прикидывает, нужен ли кондиционер (макет, «HERO»).
+   */
+  readonly mean: number;
+  /** Дневной максимум, °C — пик, ради которого технику и покупают. */
   readonly max: number;
 };
 
@@ -47,8 +53,7 @@ export async function getCityWeather(geo: Geo): Promise<CityWeather | null> {
   const url = new URL(ENDPOINT);
   url.searchParams.set('latitude', String(lat));
   url.searchParams.set('longitude', String(lng));
-  url.searchParams.set('current', 'temperature_2m');
-  url.searchParams.set('daily', 'temperature_2m_max');
+  url.searchParams.set('daily', 'temperature_2m_max,temperature_2m_mean');
   url.searchParams.set('timezone', TIME_ZONE);
   url.searchParams.set('forecast_days', '1');
 
@@ -63,9 +68,10 @@ export async function getCityWeather(geo: Geo): Promise<CityWeather | null> {
     if (!parsed.success) return null;
 
     const max = parsed.data.daily.temperature_2m_max[0];
-    if (max === undefined) return null;
+    const mean = parsed.data.daily.temperature_2m_mean[0];
+    if (max === undefined || mean === undefined) return null;
 
-    return { current: Math.round(parsed.data.current.temperature_2m), max: Math.round(max) };
+    return { mean: Math.round(mean), max: Math.round(max) };
   } catch {
     // Сервис недоступен, отвечает медленно или мусором — чипа просто не будет.
     return null;

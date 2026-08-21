@@ -188,6 +188,34 @@ export const seoSchema = z
   .strict();
 
 /**
+ * Полоса цифр первого экрана: «1200+ установок в Туле», «3 года гарантия»,
+ * «1 день от заявки до запуска» (макет, «HERO»).
+ *
+ * 🔴 Цифры хранятся здесь, а не в коде: это утверждения о компании, и
+ * отвечает за них владелец (инвариант 8). Пустой список — рабочее состояние:
+ * полосы просто нет. Придумать «1200 установок» за владельца нельзя —
+ * выдуманный счётчик выполненных работ прямо запрещён (инвариант 10).
+ */
+export const achievementsSchema = z
+  .object({
+    items: z
+      .array(
+        z
+          .object({
+            /** Число, которое видит посетитель: 1200, 3, 1. */
+            value: z.coerce.number().int().min(0).max(1_000_000),
+            /** Хвост после числа: «+», « года», « день» — склонение за владельцем. */
+            suffix: z.string().trim().max(20).default(''),
+            label: z.string().trim().max(120),
+          })
+          .strict(),
+      )
+      .max(4)
+      .default([]),
+  })
+  .strict();
+
+/**
  * Клиентские сервисы. Онлайн-чат сознательно не подключается: общение идёт
  * через Telegram по желанию клиента и через заявку (ADR-024).
  */
@@ -218,6 +246,7 @@ export const settingSchemas = {
   payment: paymentSchema,
   social: socialSchema,
   seo: seoSchema,
+  achievements: achievementsSchema,
   integrations: integrationsSchema,
 } as const;
 
@@ -233,6 +262,7 @@ export const settingKeySchema = z.enum([
   'payment',
   'social',
   'seo',
+  'achievements',
   'integrations',
 ]);
 
