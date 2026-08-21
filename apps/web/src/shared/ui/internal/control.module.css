@@ -26,7 +26,7 @@
 
 .control:focus {
   border-color: var(--accent-ink);
-  box-shadow: var(--ring-focus);
+  box-shadow: var(--ring-focus-ring);
 }
 
 .control:disabled {

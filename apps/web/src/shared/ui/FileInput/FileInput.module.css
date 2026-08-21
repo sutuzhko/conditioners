@@ -45,7 +45,7 @@
    клавиатуры до него не доходит; имя класса нужно селектору фокуса ниже. */
 .input:focus-visible + .dropzone {
   border-color: var(--accent-ink);
-  box-shadow: var(--ring-focus);
+  box-shadow: var(--ring-focus-ring);
 }
 
 .icon {

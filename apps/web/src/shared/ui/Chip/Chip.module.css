@@ -28,7 +28,7 @@
 }
 
 .chip:focus-visible {
-  box-shadow: var(--ring-focus);
+  box-shadow: var(--ring-focus-ring);
 }
 
 .chip:disabled {

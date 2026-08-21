@@ -51,7 +51,7 @@
 }
 
 .input:focus-visible {
-  box-shadow: var(--ring-focus);
+  box-shadow: var(--ring-focus-ring);
 }
 
 .input:disabled {

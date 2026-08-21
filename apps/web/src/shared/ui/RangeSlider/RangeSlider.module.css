@@ -9,8 +9,16 @@
   justify-content: space-between;
 }
 
-.value {
+/* Подпись ползунка выглядит так же, как подписи соседних полей: иначе
+   «Площадь помещения» и «Тип помещения» стоят рядом с разным начертанием */
+.head > label {
   color: var(--ink);
+  font-size: var(--fs-base);
+  font-weight: 700;
+}
+
+.value {
+  color: var(--accent-ink);
   font-family: var(--font-display);
   font-size: 16px;
   font-weight: 700;

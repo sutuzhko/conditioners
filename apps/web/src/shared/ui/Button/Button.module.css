@@ -24,7 +24,7 @@
 }
 
 .button:focus-visible {
-  box-shadow: var(--ring-focus);
+  box-shadow: var(--ring-focus-ring);
 }
 
 .button:disabled {
@@ -50,7 +50,10 @@
 .lg {
   min-height: 52px;
   padding: 15px 28px;
-  border-radius: var(--r-md);
+
+  /* 12px по макету: крупные кнопки первого экрана скруглены слабее,
+     чем карточки, — иначе они выглядят «мягче» соседних элементов */
+  border-radius: 12px;
   font-size: 16px;
 }
 

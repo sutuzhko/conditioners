@@ -34,6 +34,13 @@
   color: var(--accent-ink);
 }
 
+/* Плашка на всегда-тёмной панели: обычный accent там выглядит по-разному
+   в светлой и тёмной теме, потому что --accent-bg зависит от темы, а панель — нет */
+.onPanel {
+  background: var(--brand-mark-dark);
+  color: var(--panel);
+}
+
 .dark {
   border-color: var(--panel);
   background: var(--panel);

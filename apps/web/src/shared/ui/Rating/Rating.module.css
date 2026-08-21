@@ -94,7 +94,7 @@
 }
 
 .radio:focus-visible + .option {
-  box-shadow: var(--ring-focus);
+  box-shadow: var(--ring-focus-ring);
 }
 
 .radio:disabled + .option {

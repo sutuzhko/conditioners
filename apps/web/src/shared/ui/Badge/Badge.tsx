@@ -1,7 +1,15 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import styles from './Badge.module.css';
 
-export type BadgeVariant = 'neutral' | 'accent' | 'dark' | 'sale' | 'success' | 'warning';
+export type BadgeVariant =
+  | 'neutral'
+  | 'accent'
+  | 'dark'
+  /** для всегда-тёмных панелей: accent зависит от темы, а панель — нет */
+  | 'onPanel'
+  | 'sale'
+  | 'success'
+  | 'warning';
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   children: ReactNode;
