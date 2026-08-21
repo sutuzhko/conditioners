@@ -39,7 +39,6 @@
 
 .logo:focus-visible {
   outline-offset: 3px;
-  box-shadow: var(--ring-focus);
 }
 
 .lockup {
@@ -107,7 +106,6 @@
 
 .navLink:focus-visible {
   outline-offset: 3px;
-  box-shadow: var(--ring-focus);
 }
 
 .navLink[aria-current='page'] {

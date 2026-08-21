@@ -30,8 +30,11 @@
   color: var(--accent-ink);
 }
 
+/* Тело выдвижного меню прокручивается, а прокрутка обрезает внешнюю обводку
+   у крайних пунктов — кольцо рисуется внутрь */
 .link:focus-visible {
-  box-shadow: var(--ring-focus);
+  outline: none;
+  box-shadow: var(--ring-focus-inset);
 }
 
 .link[aria-current='page'] {

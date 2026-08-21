@@ -212,7 +212,7 @@ export function LeadForm({
       {status === 'success' ? (
         <div className={styles.success}>
           <span className={styles.successIcon} aria-hidden="true">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none">
               <path
                 d="M20 6 9 17l-5-5"
                 stroke="currentColor"

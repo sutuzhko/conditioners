@@ -20,7 +20,9 @@
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: var(--fs-h2);
+
+  /* 36px, а не общий --fs-h2 (38px): у секции заявки в макете свой размер */
+  font-size: clamp(24px, 6vw, 36px);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -79,7 +81,7 @@
   flex-direction: column;
   gap: 6px;
   border: 1px solid var(--error-line);
-  border-radius: var(--r-sm);
+  border-radius: 10px;
   background: var(--error-bg);
   padding: 12px 14px;
 }
@@ -118,8 +120,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 72px;
-  height: 72px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
   background: var(--accent-bg);
   color: var(--accent-ink);
@@ -137,6 +139,6 @@
   max-width: 34ch;
   margin: 0;
   color: var(--body);
-  font-size: var(--fs-base);
+  font-size: 16px;
   line-height: 1.5;
 }

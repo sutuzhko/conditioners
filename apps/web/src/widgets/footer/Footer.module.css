@@ -5,7 +5,10 @@
   background: var(--panel);
   color: var(--faint);
   font-family: var(--font-text);
-  font-size: var(--fs-dense);
+
+  /* 14px снято с макета: в шкале такого шага нет, ближайший --fs-dense
+     на полпикселя крупнее и сбивает ритм колонок */
+  font-size: 14px;
 }
 
 .inner {
@@ -44,7 +47,7 @@
 
 .tagline {
   margin: 0;
-  font-size: var(--fs-dense);
+  font-size: 14px;
 }
 
 /* ---- колонки ---- */
@@ -74,7 +77,7 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -83,13 +86,20 @@
 .link {
   display: inline-flex;
   align-items: center;
-  min-height: var(--tap);
   padding: 2px 0;
   border-radius: 6px;
   color: var(--faint);
-  font-size: var(--fs-dense);
+  font-size: 14px;
   text-decoration: none;
   transition: color var(--dur-fast) var(--ease-out);
+}
+
+/* Тап-зона нужна пальцу, а не курсору: на десктопе min-height растягивал
+   строки колонок втрое против макета */
+@media (pointer: coarse) {
+  .link {
+    min-height: var(--tap);
+  }
 }
 
 .link:hover {
@@ -113,13 +123,13 @@
 
 .text {
   padding: 2px 0;
-  font-size: var(--fs-dense);
+  font-size: 14px;
 }
 
 /* ---- реквизиты ---- */
 
 .legal {
-  max-width: 280px;
+  max-width: 260px;
 }
 
 .legalName {
@@ -184,10 +194,15 @@
 .policy {
   display: inline-flex;
   align-items: center;
-  min-height: var(--tap);
   color: var(--faint);
   font-size: 12.5px;
   text-decoration: underline;
+}
+
+@media (pointer: coarse) {
+  .policy {
+    min-height: var(--tap);
+  }
 }
 
 .policy:hover {

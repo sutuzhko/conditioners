@@ -80,7 +80,7 @@
   flex-direction: column;
   gap: 6px;
   border: 1px solid var(--error-line);
-  border-radius: var(--r-sm);
+  border-radius: 10px;
   background: var(--error-bg);
   padding: 12px 14px;
 }
