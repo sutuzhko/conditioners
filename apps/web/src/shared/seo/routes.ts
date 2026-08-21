@@ -20,20 +20,30 @@ export type SiteRoute = {
 
 export const HOME_ROUTE: SiteRoute = { path: '/', title: 'Главная' };
 
-/** Разделы каталога и статей: их адреса строятся из слага. */
+/* Каждый адрес — именованная константа, а не литерал в списке ниже: адреса
+   нужны и ревалидации в админке, и навигации, и карте сайта. Пока они были
+   литералами, копия карты жила в `server/revalidate.ts` и после перехода на
+   английские адреса (ADR-042) осталась русской — сохранение в админке
+   сбрасывало кеш несуществующих страниц, то есть не сбрасывало ничего.
+   В деве это незаметно: там страница пересобирается на каждый запрос. */
 export const CATALOG_PATH = '/catalog';
+export const INSTALL_PATH = '/installation';
+export const PRICES_PATH = '/prices';
+export const SERVICE_PATH = '/service';
+export const REVIEWS_PATH = '/reviews';
 export const ARTICLES_PATH = '/knowledge';
+export const CONTACTS_PATH = '/contacts';
 export const PRIVACY_PATH = '/privacy';
 
 export const SITE_ROUTES: readonly SiteRoute[] = [
   HOME_ROUTE,
   { path: CATALOG_PATH, title: 'Каталог кондиционеров' },
-  { path: '/installation', title: 'Установка кондиционеров' },
-  { path: '/prices', title: 'Цены на монтаж' },
-  { path: '/service', title: 'Ремонт и обслуживание' },
-  { path: '/reviews', title: 'Отзывы' },
+  { path: INSTALL_PATH, title: 'Установка кондиционеров' },
+  { path: PRICES_PATH, title: 'Цены на монтаж' },
+  { path: SERVICE_PATH, title: 'Ремонт и обслуживание' },
+  { path: REVIEWS_PATH, title: 'Отзывы' },
   { path: ARTICLES_PATH, title: 'База знаний' },
-  { path: '/contacts', title: 'Контакты' },
+  { path: CONTACTS_PATH, title: 'Контакты' },
   { path: PRIVACY_PATH, title: 'Политика обработки персональных данных' },
 ];
 

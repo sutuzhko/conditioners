@@ -40,6 +40,7 @@ export default async function AdminArticlePage({ params }: { params: Promise<{ i
 
       <ArticleEditor
         id={article.id}
+        cover={article.cover}
         values={{
           title: article.title,
           category: article.category,

@@ -17,6 +17,7 @@ vi.mock('@/server/repo/products', () => ({
 }));
 
 import { revalidatePath } from 'next/cache';
+import { CATALOG_PATH } from '@/shared/seo/routes';
 import { getAdminSession } from '@/server/auth';
 import * as products from '@/server/repo/products';
 import { GET, POST } from './route';
@@ -94,7 +95,10 @@ describe('каталог в админке', () => {
 
     expect(response.status).toBe(201);
     expect(products.create).toHaveBeenCalled();
-    expect(revalidatePath).toHaveBeenCalledWith('/katalog/split-sistema-09');
+    // Адрес английский (ADR-042). Раньше здесь стоял русский — тест
+    // фиксировал как правильное ровно то поведение, из-за которого правки в
+    // админке не появлялись бы на проде (ADR-051).
+    expect(revalidatePath).toHaveBeenCalledWith(`${CATALOG_PATH}/split-sistema-09`);
   });
 
   /** 🔴 Инвариант 6: характеристики произвольны, фиксированного набора полей нет. */

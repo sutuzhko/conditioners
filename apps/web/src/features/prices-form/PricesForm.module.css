@@ -1,0 +1,85 @@
+/* Прайс монтажа и ставки допработ. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0 0 14px;
+  max-width: 72ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.empty {
+  margin: 0 0 14px;
+  color: var(--warn-ink);
+  font-size: var(--fs-caption);
+}
+
+.rows {
+  /* Строка прайса — это таблица, и на узком экране она не перестраивается в
+     карточки, а прокручивается: колонки здесь связаны смыслом. */
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  margin-bottom: 14px;
+}
+
+.head,
+.row {
+  display: grid;
+  grid-template-columns: 80px 130px 130px 130px 130px 44px;
+  gap: 8px;
+  align-items: start;
+  min-width: 680px;
+}
+
+.head {
+  margin-bottom: 6px;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.row {
+  margin-bottom: 8px;
+}
+
+.extras {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px 16px;
+  align-items: start;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+}
+
+.saved {
+  margin: 0;
+  color: var(--ok-ink);
+  font-size: var(--fs-dense);
+}
+
+.error {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}

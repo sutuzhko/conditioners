@@ -1,5 +1,5 @@
 /** Отправка статьи — контракт docs/API.md §6. */
-import { articleFormContent as texts } from './content';
+import { articleCoverContent, articleFormContent as texts } from './content';
 import type { ArticleFormValues, ArticleSaveResult } from './model';
 
 export function toRequestBody(values: ArticleFormValues): Record<string, unknown> {
@@ -82,5 +82,33 @@ export async function deleteArticle(id: string): Promise<{ ok: boolean; message?
     return { ok: false, message: texts.serverError };
   } catch {
     return { ok: false, message: texts.networkError };
+  }
+}
+
+/** Загрузка обложки — отдельная ручка: это файл, а не поле формы. */
+export async function uploadCover(
+  id: string,
+  file: File,
+): Promise<{ ok: boolean; message?: string }> {
+  const form = new FormData();
+  form.append('cover', file);
+
+  try {
+    const response = await fetch(`/api/admin/articles/${id}/cover`, {
+      method: 'POST',
+      body: form,
+    });
+
+    if (response.ok) return { ok: true };
+
+    const payload: unknown = await response.json().catch(() => null);
+    const error = (payload as { error?: { message?: unknown } } | null)?.error;
+
+    return {
+      ok: false,
+      message: typeof error?.message === 'string' ? error.message : articleCoverContent.serverError,
+    };
+  } catch {
+    return { ok: false, message: articleCoverContent.networkError };
   }
 }

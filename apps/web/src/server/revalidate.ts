@@ -9,15 +9,29 @@
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
+import {
+  ARTICLES_PATH,
+  CATALOG_PATH,
+  CONTACTS_PATH,
+  HOME_ROUTE,
+  INSTALL_PATH,
+  PRICES_PATH,
+  REVIEWS_PATH,
+  SERVICE_PATH,
+} from '@/shared/seo/routes';
+
+/* Адреса берутся из карты сайта, а не повторяются здесь: своя копия уже
+   разошлась с ней при переходе на английские адреса (ADR-042), и сохранение
+   в админке сбрасывало кеш несуществующих страниц. */
 export const ROUTES = {
-  home: '/',
-  catalog: '/katalog',
-  prices: '/ceny',
-  install: '/ustanovka-kondicionerov',
-  service: '/remont-i-obsluzhivanie',
-  reviews: '/otzyvy',
-  contacts: '/kontakty',
-  knowledge: '/baza-znaniy',
+  home: HOME_ROUTE.path,
+  catalog: CATALOG_PATH,
+  prices: PRICES_PATH,
+  install: INSTALL_PATH,
+  service: SERVICE_PATH,
+  reviews: REVIEWS_PATH,
+  contacts: CONTACTS_PATH,
+  knowledge: ARTICLES_PATH,
 } as const;
 
 function revalidateMany(paths: readonly string[]): void {
