@@ -27,8 +27,16 @@ FROM base AS dev
 ENV NODE_ENV=development
 # git нужен lint-staged и husky: хуки выполняются внутри контейнера,
 # потому что на хосте нет node_modules (ADR-017). В боевой образ не попадает.
-RUN apk add --no-cache git \
+#
+# chromium — системный, из репозиториев Alpine: собственные сборки Playwright
+# для musl не выпускаются, и снепшот-тесты историй запускать было негде
+# (ADR-021, BUGS). Шрифты идут вместе с ним: без них снимок получается с
+# квадратами вместо кириллицы. Всё это только в дев-стадии — боевой образ
+# остаётся прежним.
+RUN apk add --no-cache git chromium nss freetype harfbuzz ttf-freefont font-noto \
  && git config --system --add safe.directory /app
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 \
+    CHROMIUM_PATH=/usr/bin/chromium
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
 COPY . .
