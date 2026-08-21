@@ -194,7 +194,6 @@ describe('Экономия инвертора — тариф день и ноч�
     render(<SavingsBlock />);
 
     expect(screen.getByLabelText(savingsContent.tariffNight)).toBeDisabled();
-    expect(screen.getByText(savingsContent.tariffNightOff)).toBeInTheDocument();
   });
 
   it('переключение на «День / ночь» включает ночную ставку', () => {
@@ -241,10 +240,20 @@ describe('Экономия инвертора — честность цифр', 
     expect(disclaimer.textContent).toMatch(/зависит от режима работы/);
   });
 
-  it('рядом с цифрами стоит метка «оценка»', () => {
+  it('суммы набраны как в макете — «₽/сезон»', () => {
     render(<SavingsBlock />);
 
-    expect(screen.getByText(savingsContent.estimateBadge)).toBeInTheDocument();
+    for (const label of [savingsContent.usual, savingsContent.inverter, savingsContent.saving]) {
+      expect(lineWith(label)).toContain('₽/сезон');
+    }
+  });
+
+  it('под сеткой стоит пояснение про ночную зону', () => {
+    render(<SavingsBlock />);
+
+    expect(screen.getByText(savingsContent.gridHint).textContent).toMatch(
+      /Тёмные ячейки — ночная зона 23:00–07:00/,
+    );
   });
 
   it('каждая сумма подписана знаком приблизительности', () => {
@@ -258,10 +267,17 @@ describe('Экономия инвертора — честность цифр', 
   it('допущения оценки названы под управлением', () => {
     render(<SavingsBlock />);
 
-    const basis = screen.getByText(/Допущения оценки/);
+    const basis = screen.getByText(savingsContent.basis);
 
+    expect(basis.textContent).toMatch(/класс[а]? 09/);
     expect(basis.textContent).toContain('120');
-    expect(basis.textContent).toContain('62%');
+  });
+
+  it('оценочность держится без плашки: знак «≈» и оговорка на месте', () => {
+    render(<SavingsBlock />);
+
+    expect(lineWith(savingsContent.saving)).toContain('≈');
+    expect(screen.getByText(savingsContent.disclaimer)).toBeInTheDocument();
   });
 
   it('ссылка на разбор появляется только когда адрес статьи задан', () => {

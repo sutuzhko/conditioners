@@ -1,11 +1,19 @@
 /* Расчёт экономии: слева сетка часов и тариф, справа результат.
-   С 900px — одна колонка.
-
-   Полоски раскрашены холодно: тёплый акцент на сайте допустим только у скидки
-   (docs/DESIGN_BRIEF.md §10), а красная полоса «обычного» кондиционера рядом
-   с оценочными цифрами читалась бы как угроза, которой в данных нет. */
+   С 900px — одна колонка. */
 
 .grid {
+  /* Градиенты полос — ровно из макета: тёплый у обычного on/off
+     (#F97316 → #EF4444) и холодный у инвертора (#06B6D4 → #22D3EE).
+     Записаны в rgb(), потому что хекс в модулях запрещён; наши затемнённые
+     оттенки ошибки здесь не нужны — это заливка декоративной полосы, а не
+     текст, и требования по контрасту к ней не применяются.
+
+     Держим их локально, а не в ui-tokens.css: тот файл принадлежит агенту
+     UI Kit, и коммит блока его не захватывает. */
+  --eco-usual-from: rgb(249 115 22);
+  --eco-usual-to: rgb(239 68 68);
+  --eco-inverter-from: rgb(6 182 212);
+
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
   gap: 28px;
@@ -72,6 +80,27 @@
   gap: 18px;
 }
 
+/* Подпись и значение ползунка обязаны стоять в одну строку, как в макете:
+   в колонке шириной ~190px кегль UI Kit (15px подпись, 16px значение)
+   переносит их на две. Здесь берём размеры макета — 12.5px и 14px. */
+.sliders label {
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.sliders output {
+  font-size: 14px;
+}
+
+/* Ночная ставка вне двухтарифного режима: в макете колонка просто пригашена
+   целиком, а не только дорожка ползунка. Атрибут disabled при этом остаётся —
+   он и сообщает состояние скринридеру. */
+.tariffOff {
+  opacity: 0.4;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
 .basis {
   margin: 0;
   color: var(--faint);
@@ -84,24 +113,6 @@
   flex-direction: column;
   justify-content: center;
   border-radius: var(--r-xl);
-}
-
-.resultHead {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 22px;
-}
-
-.resultTitle {
-  margin: 0;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
 }
 
 .row + .row {
@@ -145,11 +156,11 @@
 }
 
 .fillUsual {
-  background: linear-gradient(90deg, var(--line-strong), var(--faint));
+  background: linear-gradient(90deg, var(--eco-usual-from), var(--eco-usual-to));
 }
 
 .fillInverter {
-  background: linear-gradient(90deg, var(--brand), var(--brand-mark-dark));
+  background: linear-gradient(90deg, var(--eco-inverter-from), var(--brand-mark-dark));
 }
 
 .total {
@@ -202,7 +213,8 @@
 
 /* пользователь просил не двигать интерфейс — полоска меняет длину мгновенно */
 @media (prefers-reduced-motion: reduce) {
-  .fill {
+  .fill,
+  .tariffOff {
     transition: none;
   }
 }

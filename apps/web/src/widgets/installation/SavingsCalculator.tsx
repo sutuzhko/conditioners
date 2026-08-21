@@ -3,7 +3,7 @@
 import { useId, useState } from 'react';
 
 import { formatMoney } from '@/shared/lib/format';
-import { Badge, Button, Card, RangeSlider } from '@/shared/ui';
+import { Button, Card, RangeSlider } from '@/shared/ui';
 
 import { HoursGrid } from './HoursGrid';
 import { savingsContent as t } from './content';
@@ -122,10 +122,11 @@ export function SavingsCalculator({
               max={TARIFF_DAY_MAX}
               step={TARIFF_STEP}
               formatValue={t.tariff}
+              showScale={false}
             />
-            {/* В едином тарифе ночная ставка не участвует в расчёте, поэтому
-                ползунок выключен, а не притушен: выключенное состояние видно
-                и глазом, и голосом. */}
+            {/* В едином тарифе ночная ставка не участвует в расчёте. В макете
+                ползунок просто пригашен; `disabled` добавляет к этому то, чего
+                глазами не видно, — состояние доходит и до скринридера. */}
             <RangeSlider
               label={t.tariffNight}
               value={tariffNight}
@@ -134,26 +135,21 @@ export function SavingsCalculator({
               max={TARIFF_NIGHT_MAX}
               step={TARIFF_STEP}
               formatValue={t.tariff}
+              showScale={false}
               disabled={!dual}
-              hint={dual ? undefined : t.tariffNightOff}
+              className={dual ? undefined : styles.tariffOff}
             />
           </div>
         </div>
 
         {/* допущения названы прямо под управлением, а не только в оговорке */}
-        <p className={styles.basis}>{t.basis(SAVINGS_MODEL)}</p>
+        <p className={styles.basis}>{t.basis}</p>
       </Card>
 
+      {/* 🔴 Заголовка и плашки «оценка» в макете нет, но оценочность цифр
+          обязана быть видна: её держат знак «≈» у каждой суммы, названные
+          допущения под управлением и абзац-оговорка под карточками. */}
       <Card padding="lg" className={styles.result}>
-        <div className={styles.resultHead}>
-          <h3 className={styles.resultTitle}>{t.resultTitle}</h3>
-          {/* метка «оценка» стоит вплотную к цифрам: цифры оценочные,
-              и человек должен видеть это раньше, чем сумму */}
-          <Badge size="sm" mono>
-            {t.estimateBadge}
-          </Badge>
-        </div>
-
         <div className={styles.row}>
           <p className={styles.rowHead}>
             <span className={styles.rowLabel}>{t.usual}</span>

@@ -31,12 +31,14 @@
   box-sizing: border-box;
   height: 34px;
   padding: 0;
-
-  /* Выключенная ячейка обязана быть видна: на белой карточке одна лишь
-     заливка --bg-soft почти не читается, а на широком экране ячейка мелкая. */
-  border: 1px solid var(--line);
+  border: none;
   border-radius: 5px;
-  background: var(--bg-soft);
+
+  /* Геометрия из макета: 34px, радиус 5px и никаких рамок — сетка должна
+     читаться плотной полосой, а не клетчатым полем. Различимость даёт
+     заливка: --bg-soft из макета на белой карточке почти не видна, поэтому
+     выключенная ячейка взята на тон темнее. */
+  background: var(--stripe-a);
   cursor: pointer;
   transition: background var(--dur-fast) ease;
 }
@@ -56,16 +58,18 @@
   box-shadow: var(--ring-focus-ring);
 }
 
-/* Ночная зона выделена и в выключенном состоянии — рамкой и другой заливкой:
-   одной лишь «более тёмной» заливки мало, в тёмной теме тёмное читается
-   наоборот. */
+/* Ночная зона — «тёмные ячейки» из подписи под сеткой. В светлой теме это
+   заливка плотнее фона карточки, в тёмной — наоборот, темнее её: иначе
+   подпись врала бы половине посетителей. */
 .night {
-  border-color: var(--line-strong);
-  background: var(--stripe-a);
+  background: var(--line-strong);
+}
+
+:root[data-theme='dark'] .night {
+  background: var(--bg);
 }
 
 .on {
-  border-color: transparent;
   background: linear-gradient(180deg, var(--brand-mark-dark), var(--brand-mark));
 }
 
@@ -93,7 +97,6 @@
 @media (width < 900px) {
   .grid {
     grid-template-columns: auto repeat(12, minmax(0, 1fr));
-    gap: 4px;
   }
 
   .markHalf {
@@ -110,7 +113,6 @@
 @media (width < 600px) {
   .grid {
     grid-template-columns: auto repeat(6, minmax(0, 1fr));
-    gap: 5px;
   }
 
   .mark {
