@@ -10,7 +10,10 @@ ARG NODE_IMAGE=node:22-alpine
 FROM ${NODE_IMAGE} AS base
 # openssl нужен Prisma, libc6-compat — нативным зависимостям Next на alpine
 RUN apk add --no-cache openssl libc6-compat
-ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH
+# Store — в томе контейнера, а не рядом с проектом: путь задаётся здесь, а не
+# в .npmrc, потому что тот же файл читает pnpm на macOS, и абсолютный
+# контейнерный путь ломал установку на хосте (ADR-028).
+ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH PNPM_STORE_DIR=/pnpm/store
 RUN corepack enable
 WORKDIR /app
 

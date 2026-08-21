@@ -21,6 +21,9 @@ services:
       args:
         NODE_IMAGE: ${NODE_IMAGE:-node:22-alpine}
     env_file: .env.dev
+    environment:
+      # store живёт в томе: см. комментарий в .npmrc
+      PNPM_STORE_DIR: /pnpm/store
     depends_on:
       db:
         condition: service_healthy
@@ -44,6 +47,8 @@ services:
       args:
         NODE_IMAGE: ${NODE_IMAGE:-node:22-alpine}
     env_file: .env.dev
+    environment:
+      PNPM_STORE_DIR: /pnpm/store
     depends_on:
       db:
         condition: service_healthy
@@ -62,6 +67,8 @@ services:
       args:
         NODE_IMAGE: ${NODE_IMAGE:-node:22-alpine}
     env_file: .env.dev
+    environment:
+      PNPM_STORE_DIR: /pnpm/store
     ports:
       - '6006:6006'
     volumes:
