@@ -72,12 +72,17 @@
   box-shadow: var(--shadow-brand);
 }
 
+/* Общая обводка обводила бы всю дорожку — фокус принадлежит бегунку */
+.slider:focus-visible {
+  outline: none;
+}
+
 .slider:focus-visible::-webkit-slider-thumb {
-  box-shadow: var(--ring-focus);
+  box-shadow: var(--ring-focus-ring);
 }
 
 .slider:focus-visible::-moz-range-thumb {
-  box-shadow: var(--ring-focus);
+  box-shadow: var(--ring-focus-ring);
 }
 
 .scale {

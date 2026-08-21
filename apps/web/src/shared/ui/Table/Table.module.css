@@ -10,14 +10,17 @@
   max-width: 100%;
 }
 
+/* Радиус постоянный: раньше он появлялся только в фокусе, и таблица
+   «прыгала» в момент перехода на неё табуляцией. */
 .scrollable {
   overflow-x: auto;
   overscroll-behavior-x: contain;
+  border-radius: var(--r-sm);
 }
 
 .scrollable:focus-visible {
-  border-radius: var(--r-sm);
-  box-shadow: var(--ring-focus);
+  outline: none;
+  box-shadow: var(--ring-focus-inset);
 }
 
 .table {

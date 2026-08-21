@@ -45,8 +45,11 @@
   color: var(--accent-ink);
 }
 
+/* У элемента списка стоит overflow: hidden — он обрезает и обводку,
+   и внешнюю тень, поэтому кольцо рисуется внутрь заголовка */
 .trigger:focus-visible {
-  box-shadow: var(--ring-focus);
+  outline: none;
+  box-shadow: var(--ring-focus-inset);
 }
 
 .icon {
