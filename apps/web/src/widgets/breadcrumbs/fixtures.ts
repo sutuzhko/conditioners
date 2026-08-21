@@ -7,14 +7,16 @@ import type { BreadcrumbItem } from '@/shared/seo';
  */
 export const siteUrlFixture = 'https://example-klimat.ru';
 
-/** Карточка товара: два уровня вглубь — предел вложенности карты URL. */
-export const productTrail: readonly BreadcrumbItem[] = [
-  { name: 'Каталог', path: '/catalog' },
-  { name: 'Сплит-система 09' },
+/** Статья: два уровня вглубь — предел вложенности карты URL (ADR-049). */
+export const nestedTrail: readonly BreadcrumbItem[] = [
+  { name: 'База знаний', path: '/knowledge' },
+  { name: 'Как выбрать кондиционер' },
 ];
 
-/** Страница услуги: один уровень. */
-export const serviceTrail: readonly BreadcrumbItem[] = [{ name: 'Установка кондиционеров' }];
+/** Страница без родителя, кроме главной: один уровень. */
+export const singleTrail: readonly BreadcrumbItem[] = [
+  { name: 'Политика обработки персональных данных' },
+];
 
 /** Статья Базы знаний с длинным заголовком — проверка переноса следа. */
 export const articleTrail: readonly BreadcrumbItem[] = [

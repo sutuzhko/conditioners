@@ -20,7 +20,7 @@ export interface KnowledgeTeaserProps {
   /**
    * Адрес статьи по её слагу. Функцией, а не полем в данных: карта URL
    * принадлежит странице (docs/SEO.md §1), а не блоку. Маршрута
-   * `/baza-znaniy/[slug]` ещё нет, поэтому адрес собирается объектом —
+   * `/knowledge/[slug]` ещё нет, поэтому адрес собирается объектом —
    * `typedRoutes` проверяет строковые литералы и пропускает `UrlObject`.
    */
   articleHref: (slug: string) => ButtonLinkHref;
@@ -41,7 +41,7 @@ export function KnowledgeTeaser({
   articles = [],
   articleHref,
   allHref,
-  id = 'baza',
+  id = 'knowledge',
 }: KnowledgeTeaserProps) {
   return (
     <section id={id} className={styles.section} aria-labelledby={HEADING_ID}>

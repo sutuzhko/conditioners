@@ -36,7 +36,7 @@ const LEAD: NotificationPayload = {
   address: 'Привокзальный р-н',
   comment: 'Второй этаж',
   photo: null,
-  sourceUrl: 'https://example.test/ceny',
+  sourceUrl: 'https://example.test/prices',
 };
 
 function recorder(): { transport: MailTransport; letters: MailMessage[] } {

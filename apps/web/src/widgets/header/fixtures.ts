@@ -9,14 +9,12 @@ import type { NavItem } from './model';
  */
 
 export const navFixture: readonly NavItem[] = [
-  { label: 'Каталог', href: '#catalog' },
-  { label: 'Цены', href: '#ceny' },
-  { label: 'Монтаж', href: '#etapy', current: true },
-  { label: 'Сервис', href: '#diagnostika' },
-  // Раздел ещё не создан (волна 2), поэтому маршрут записан объектом:
-  // typedRoutes проверяет строковые литералы и пропускает UrlObject.
-  { label: 'База знаний', href: { pathname: '/baza-znaniy' } },
-  { label: 'Контакты', href: '#kontakty' },
+  { label: 'Каталог', href: '/#catalog' },
+  { label: 'Цены', href: '/#prices' },
+  { label: 'Монтаж', href: '/#installation', current: true },
+  { label: 'Сервис', href: '/#service' },
+  { label: 'База знаний', href: '/knowledge' },
+  { label: 'Контакты', href: '/#contacts' },
 ];
 
 export const companyFixture: Company = {

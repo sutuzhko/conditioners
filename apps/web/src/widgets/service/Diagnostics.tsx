@@ -35,8 +35,8 @@ const HEADING_ID = 'diagnostics-title';
 export function Diagnostics({
   symptoms = defaultSymptoms,
   defaultSymptom,
-  leadHref = '#zayavka',
-  id = 'diagnostika',
+  leadHref = '#lead',
+  id = 'service',
 }: DiagnosticsProps) {
   return (
     <section id={id} className={styles.section} aria-labelledby={HEADING_ID}>

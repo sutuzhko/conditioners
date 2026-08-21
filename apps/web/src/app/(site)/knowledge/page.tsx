@@ -19,8 +19,8 @@ import { bazaZnaniyContent as t } from './content';
  */
 export const revalidate = 3600;
 
-/** Имя параметра фильтра. Значение — слаг рубрики: `?rubrika=vybor`. */
-const CATEGORY_PARAM = 'rubrika';
+/** Имя параметра фильтра. Значение — слаг рубрики: `?category=vybor`. */
+const CATEGORY_PARAM = 'category';
 
 type ListingSearchParams = { readonly [CATEGORY_PARAM]?: string | string[] | undefined };
 
@@ -68,7 +68,7 @@ export default async function BazaZnaniyPage({
         articles={teasers}
         activeCategory={category}
         categoryHref={(slug) =>
-          slug === null ? ARTICLES_PATH : { pathname: ARTICLES_PATH, query: { rubrika: slug } }
+          slug === null ? ARTICLES_PATH : { pathname: ARTICLES_PATH, query: { category: slug } }
         }
         // Адрес статьи — объектом: `typedRoutes` выводит параметр
         // динамического маршрута только из литерала в самом `<Link href>`,

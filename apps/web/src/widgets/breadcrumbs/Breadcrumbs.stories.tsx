@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { Breadcrumbs } from './Breadcrumbs';
-import { articleTrail, productTrail, serviceTrail, siteUrlFixture } from './fixtures';
+import { articleTrail, nestedTrail, singleTrail, siteUrlFixture } from './fixtures';
 
 /**
  * Хлебные крошки. Стоят на всех страницах кроме главной (docs/SEO.md §5):
@@ -17,9 +17,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Service: Story = { name: 'Один уровень', args: { items: serviceTrail } };
+export const Single: Story = { name: 'Один уровень', args: { items: singleTrail } };
 
-export const Product: Story = { name: 'Карточка товара', args: { items: productTrail } };
+export const Nested: Story = { name: 'Два уровня', args: { items: nestedTrail } };
 
 export const LongTitle: Story = { name: 'Длинный заголовок', args: { items: articleTrail } };
 

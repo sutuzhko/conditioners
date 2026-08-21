@@ -146,9 +146,9 @@ describe('Каталог — карточка', () => {
   });
 
   it('кнопка заказа ведёт на форму заявки', () => {
-    render(<Catalog products={[plainProduct]} now={NOW} orderHref="#zayavka" />);
+    render(<Catalog products={[plainProduct]} now={NOW} orderHref="#lead" />);
 
-    expect(screen.getByRole('link', { name: 'Заказать' })).toHaveAttribute('href', '#zayavka');
+    expect(screen.getByRole('link', { name: 'Заказать' })).toHaveAttribute('href', '#lead');
   });
 
   it('ссылка к поставщику внешняя и не передаёт ему вес', () => {

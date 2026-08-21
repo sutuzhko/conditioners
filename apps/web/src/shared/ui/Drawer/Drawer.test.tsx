@@ -7,8 +7,8 @@ const open = (props: Partial<Parameters<typeof Drawer>[0]> = {}) =>
   render(
     <Drawer open onClose={props.onClose ?? (() => {})} title="Меню" {...props}>
       <nav aria-label="Основная навигация">
-        <a href="/katalog">Каталог</a>
-        <a href="/ceny">Цены</a>
+        <a href="/catalog">Каталог</a>
+        <a href="/prices">Цены</a>
       </nav>
     </Drawer>,
   );
@@ -17,7 +17,7 @@ describe('Drawer', () => {
   it('закрытая панель не попадает в разметку', () => {
     render(
       <Drawer open={false} onClose={() => {}} title="Меню">
-        <a href="/katalog">Каталог</a>
+        <a href="/catalog">Каталог</a>
       </Drawer>,
     );
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();

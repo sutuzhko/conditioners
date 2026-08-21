@@ -180,7 +180,7 @@ describe('POST /api/leads', () => {
       leadRequest(
         {
           ...VALID,
-          sourceUrl: 'https://example.test/ceny?utm_source=yandex&utm_campaign=leto',
+          sourceUrl: 'https://example.test/prices?utm_source=yandex&utm_campaign=leto',
           referrer: 'https://yandex.ru/search/',
         },
         { referer: 'https://example.test/other' },
@@ -189,7 +189,7 @@ describe('POST /api/leads', () => {
 
     expect(response.status).toBe(201);
     expect(dbMock.lead.create.mock.calls[0]?.[0].data).toMatchObject({
-      sourceUrl: 'https://example.test/ceny?utm_source=yandex&utm_campaign=leto',
+      sourceUrl: 'https://example.test/prices?utm_source=yandex&utm_campaign=leto',
       referrer: 'https://yandex.ru/search/',
       utm: { utm_source: 'yandex', utm_campaign: 'leto' },
     });

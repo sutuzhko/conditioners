@@ -4,7 +4,7 @@ import { ButtonLink } from './ButtonLink';
 const meta = {
   title: 'UI Kit/ButtonLink',
   component: ButtonLink,
-  args: { href: '#zayavka', children: 'Оставить заявку' },
+  args: { href: '#lead', children: 'Оставить заявку' },
 } satisfies Meta<typeof ButtonLink>;
 
 export default meta;

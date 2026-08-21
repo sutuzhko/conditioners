@@ -19,4 +19,4 @@ export const headerContent = {
 } as const;
 
 /** Якорь формы заявки на лендинге. Страница может передать свой адрес. */
-export const DEFAULT_CTA_HREF = '#zayavka';
+export const DEFAULT_CTA_HREF = '#lead';

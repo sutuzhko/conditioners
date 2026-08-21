@@ -43,7 +43,7 @@ export function LeadSection({
   policyHref,
   responseTime,
   defaultTopic,
-  id = 'zayavka',
+  id = 'lead',
 }: LeadSectionProps) {
   return (
     <section id={id} className={styles.section} aria-labelledby={HEADING_ID}>

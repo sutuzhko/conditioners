@@ -203,7 +203,7 @@ describe('ReviewForm', () => {
 
     expect(screen.getByRole('link', { name: texts.consentPolicy })).toHaveAttribute(
       'href',
-      '/politika-konfidencialnosti',
+      '/privacy',
     );
   });
 });

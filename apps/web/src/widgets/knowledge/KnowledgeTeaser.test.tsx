@@ -61,9 +61,9 @@ describe('Тизер Базы знаний', () => {
 
     expect(screen.getByRole('link', { name: first.title })).toHaveAttribute(
       'href',
-      `/baza-znaniy/${first.slug}`,
+      `/knowledge/${first.slug}`,
     );
-    expect(screen.getByRole('link', { name: t.allLink })).toHaveAttribute('href', '/baza-znaniy');
+    expect(screen.getByRole('link', { name: t.allLink })).toHaveAttribute('href', '/knowledge');
   });
 
   it('дата статьи выводится машиночитаемым `time` — её читает и разметка Article', () => {

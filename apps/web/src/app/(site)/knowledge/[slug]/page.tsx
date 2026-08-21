@@ -29,12 +29,13 @@ export const revalidate = 3600;
 
 /**
  * Куда статья ведёт дальше (docs/SEO.md §5, перелинковка): анкор называет
- * страницу, а не «подробнее». Адреса строками — `typedRoutes` проверяет их
- * по факту существования маршрута, и ссылка в никуда не соберётся.
+ * раздел, а не «подробнее». После ADR-049 коммерческие разделы — секции
+ * главной, поэтому ссылки ведут на её якоря; `typedRoutes` проверяет путь
+ * до решётки, и ссылка на несуществующий маршрут не соберётся.
  */
 const COMMERCIAL_LINKS: readonly ArticleLink[] = [
-  { label: t.catalogLink, href: '/catalog' },
-  { label: t.installationLink, href: '/installation' },
+  { label: t.catalogLink, href: '/#catalog' },
+  { label: t.installationLink, href: '/#installation' },
 ];
 
 type ArticleParams = { readonly slug: string };

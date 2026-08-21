@@ -40,7 +40,7 @@ const HEADING_ID = 'catalog-title';
  */
 export function Catalog({
   products,
-  orderHref = '#zayavka',
+  orderHref = '#lead',
   now,
   loading = false,
   id = 'catalog',

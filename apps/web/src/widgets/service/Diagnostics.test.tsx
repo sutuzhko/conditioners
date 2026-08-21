@@ -135,11 +135,11 @@ describe('Сервис — стоимость работ', () => {
 
 describe('Сервис — вызов мастера', () => {
   it('кнопка ведёт на адрес формы из пропса', () => {
-    render(<Diagnostics leadHref="#zayavka-servis" />);
+    render(<Diagnostics leadHref="#lead-service" />);
 
     expect(screen.getByRole('link', { name: diagnosticsText.cta })).toHaveAttribute(
       'href',
-      '#zayavka-servis',
+      '#lead-service',
     );
   });
 

@@ -80,7 +80,7 @@ describe('Страница статьи', () => {
   it('под текстом — переход к заявке и к коммерческим страницам', () => {
     renderArticle();
 
-    expect(screen.getByRole('link', { name: t.ctaLead })).toHaveAttribute('href', '/#zayavka');
+    expect(screen.getByRole('link', { name: t.ctaLead })).toHaveAttribute('href', '/#lead');
     for (const link of ctaLinksFixture) {
       expect(screen.getByRole('link', { name: link.label })).toBeInTheDocument();
     }

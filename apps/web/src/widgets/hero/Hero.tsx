@@ -45,7 +45,7 @@ export function Hero({
   products,
   stats = [],
   note,
-  leadHref = '#zayavka',
+  leadHref = '#lead',
   catalogHref = '#catalog',
   now,
   children,

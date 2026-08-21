@@ -53,7 +53,7 @@ export function SavingsBlock({
   defaultTariffMode = TARIFF_MODE_DEFAULT,
   defaultTariffDay = TARIFF_DAY_DEFAULT,
   defaultTariffNight = TARIFF_NIGHT_DEFAULT,
-  id = 'ekonomiya',
+  id = 'savings',
 }: SavingsBlockProps) {
   return (
     <section id={id} className={styles.section} aria-labelledby={HEADING_ID}>
