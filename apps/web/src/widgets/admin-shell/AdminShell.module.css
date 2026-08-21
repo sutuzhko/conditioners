@@ -1,0 +1,98 @@
+/* Оболочка панели управления.
+
+   Панель не повторяет сайт: здесь нет градиентов, свечений и анимаций из
+   макета. Это рабочий инструмент владельца, и всё внимание принадлежит
+   данным, а не оформлению. Общими остаются только токены — цвета, радиусы и
+   шрифты те же, чтобы панель не выглядела чужой программой. */
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 12px var(--gutter);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.brand {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.login {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+}
+
+.site {
+  color: var(--accent-ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site:hover {
+  text-decoration: underline;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 24px;
+  box-sizing: border-box;
+  width: 100%;
+
+  /* Шире сайтовой сетки: в панели таблицы, а не текст — им нужна ширина. */
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 20px var(--gutter) 48px;
+}
+
+.aside {
+  /* Навигация остаётся на виду при длинном списке моделей. */
+  position: sticky;
+  top: 74px;
+  align-self: start;
+}
+
+.content {
+  min-width: 0;
+}
+
+@media (width < 900px) {
+  .body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .aside {
+    position: static;
+  }
+
+  .login {
+    display: none;
+  }
+}

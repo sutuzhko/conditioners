@@ -1,0 +1,91 @@
+/* Сводка на входе в панель. */
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cardTitle {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.text {
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+.groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: inline-block;
+  margin-top: 14px;
+  color: var(--accent-ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.tiles {
+  display: grid;
+
+  /* Плитки сами решают, сколько их в ряду: колонок ровно столько, сколько
+     помещается по 200px, — и последний ряд не остаётся полупустым. */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--card);
+  text-decoration: none;
+  transition: border-color var(--dur-fast) ease;
+}
+
+.tile:hover {
+  border-color: var(--accent-ink);
+}
+
+.tileTitle {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.tileValue {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.urgent {
+  color: var(--accent-ink);
+}
+
+.tileNote {
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}

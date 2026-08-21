@@ -1,0 +1,11 @@
+/* Экран входа: единственная карточка по центру. */
+
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 100dvh;
+  padding: 32px var(--gutter);
+  background: var(--bg);
+}

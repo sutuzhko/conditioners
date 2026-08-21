@@ -1,0 +1,53 @@
+/* Боковая навигация панели. */
+
+.nav {
+  min-width: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: block;
+  padding: 9px 12px;
+  border-radius: var(--r-sm);
+  color: var(--body);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease;
+}
+
+.link:hover {
+  background: var(--accent-bg);
+  color: var(--ink);
+}
+
+.active {
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+/* На узком экране разделы ложатся в прокручиваемую ленту: колонка из шести
+   пунктов над содержимым отодвинула бы работу за пределы экрана. */
+@media (width < 900px) {
+  .list {
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding-bottom: 4px;
+  }
+
+  .link {
+    white-space: nowrap;
+  }
+}
