@@ -1,5 +1,5 @@
 import type { PriceRow } from '@/entities/price/model';
-import { Badge, Table } from '@/shared/ui';
+import { Table } from '@/shared/ui';
 import { priceFrom, pricingText } from '../content';
 import { sortedRows } from '../model';
 import styles from './PriceTable.module.css';
@@ -28,11 +28,13 @@ export function PriceTable({ rows }: PriceTableProps) {
   return (
     <div className={styles.wrap}>
       <Table className={styles.table}>
+        <colgroup>
+          <col className={styles.col1} />
+          <col className={styles.col2} />
+          <col className={styles.col3} />
+        </colgroup>
         <thead className={styles.thead}>
           <tr>
-            <th scope="col" className={styles.th}>
-              {pricingText.colClass}
-            </th>
             <th scope="col" className={styles.th}>
               {pricingText.colPower}
             </th>
@@ -47,16 +49,12 @@ export function PriceTable({ rows }: PriceTableProps) {
         <tbody className={styles.tbody} role="rowgroup">
           {sortedRows(rows).map((row) => (
             <tr key={row.cls} className={styles.row} role="row">
-              <th scope="row" className={styles.clsCell} role="rowheader">
-                <Badge variant="accent" mono>
-                  {row.cls}
-                </Badge>
-              </th>
-              <td className={styles.powerCell} role="cell">
-                <span className={styles.label}>{pricingText.colPower}</span>
+              {/* Мощность и площадь — одна ячейка, как в макете: это одна
+                  характеристика, разбитая точкой, а не два столбца. */}
+              <th scope="row" className={styles.powerCell} role="rowheader">
                 <span className={styles.power}>{row.power}</span>
                 <span className={styles.area}>{row.area}</span>
-              </td>
+              </th>
               <td className={styles.priceCell} role="cell">
                 <span className={styles.label}>{pricingText.colPrice}</span>
                 <span className={styles.price}>{priceFrom(row.price)}</span>

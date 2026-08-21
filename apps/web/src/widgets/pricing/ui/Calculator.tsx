@@ -5,7 +5,7 @@ import { calculateInstallation } from '@/entities/price/lib/calculateInstallatio
 import type { InstallRates, PriceRow } from '@/entities/price/model';
 import { formatMoney } from '@/shared/lib/format';
 import type { ButtonLinkHref } from '@/shared/ui';
-import { Badge, ButtonLink, Card, Checkbox, RangeSlider, Select } from '@/shared/ui';
+import { ButtonLink, Card, Checkbox, RangeSlider, Select } from '@/shared/ui';
 import { floorHint, lineLabel, meters, pricingText, qtyMultiplier, shtrobLabel } from '../content';
 import type { CalculatorDefaults, EstimateHandoff } from '../model';
 import {
@@ -90,9 +90,9 @@ export function Calculator({
     <Card padding="xl" radius="xl" className={styles.card}>
       <div className={styles.head}>
         <h3 className={styles.title}>{pricingText.calcTitle}</h3>
-        <Badge variant="accent" mono size="sm">
-          {pricingText.calcBadge}
-        </Badge>
+        {/* В макете это подпись моношрифтом, а не плашка: у калькулятора и
+            так есть заголовок, вторая пилюля рядом с ним лишняя. */}
+        <span className={styles.badge}>{pricingText.calcBadge}</span>
       </div>
 
       <div className={styles.body}>

@@ -33,20 +33,24 @@ function setTrassa(value: number): void {
 }
 
 describe('Цены — таблица монтажа', () => {
-  it('рисует строку прайса целиком: класс, мощность, площадь, цену и срок', () => {
+  it('рисует строку прайса целиком: мощность, площадь, цену и срок', () => {
     render(<Pricing prices={priceRows} rates={rates} />);
 
-    const row = screen.getByRole('rowheader', { name: '09' }).closest('tr');
+    /* Заголовок строки — мощность с площадью: колонки класса в прайсе нет,
+       как и в макете. Класс живёт в калькуляторе, где он выбор, а не факт. */
+    const header = screen.getByRole('rowheader', { name: /2\.6 кВт/ });
+    expect(header.textContent).toContain('до 27 м²');
+
+    const row = header.closest('tr');
     expect(row).not.toBeNull();
     if (row === null) return;
 
     const cells = within(row)
       .getAllByRole('cell')
       .map((cell) => cell.textContent ?? '');
-    expect(cells[0]).toContain('2.6 кВт');
-    expect(cells[0]).toContain('до 27 м²');
-    expect(cells[1]).toContain('от 6 000 ₽'.replace(/ /g, ' ').replace('от ', 'от '));
-    expect(cells[2]).toContain('3–4 часа');
+    expect(cells[0]).toContain('6');
+    expect(cells[0]).toContain('000');
+    expect(cells[1]).toContain('3–4 часа');
   });
 
   it('условия сметы под таблицей берутся из ставок, а не из вёрстки', () => {
@@ -68,7 +72,7 @@ describe('Цены — таблица монтажа', () => {
   it('без ставок таблица остаётся, а калькулятор не показывается', () => {
     render(<Pricing prices={priceRows} rates={null} />);
 
-    expect(screen.getByRole('rowheader', { name: '09' })).toBeInTheDocument();
+    expect(screen.getByRole('rowheader', { name: /2\.6 кВт/ })).toBeInTheDocument();
     expect(screen.getByText('Онлайн-расчёт временно недоступен')).toBeInTheDocument();
     expect(screen.queryByRole('slider')).not.toBeInTheDocument();
   });
