@@ -14,12 +14,27 @@
   text-transform: uppercase;
 }
 
-/* ряд переносится, а не уезжает за край: страница по горизонтали
-   не скроллится никогда (docs/DESIGN_BRIEF.md §6) */
+/* Ряд симптомов прокручивается внутри себя, а не переносится: шести кнопок
+   хватает на две строки уже на планшете и на четыре — на телефоне, и тогда
+   выбранный симптом уезжает от разбора под ним. Страница при этом по
+   горизонтали не скроллится (docs/DESIGN_BRIEF.md §6) — прокрутка здесь.
+   Поле внутри и его компенсация снаружи нужны кольцу фокуса: прокручиваемый
+   контейнер режет всё, что выходит за его границы. */
 .chips {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 4px;
+  margin: -4px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  overscroll-behavior-x: contain;
+}
+
+.chips > * {
+  flex: none;
+  scroll-snap-align: start;
 }
 
 .panels {

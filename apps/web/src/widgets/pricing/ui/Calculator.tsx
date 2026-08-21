@@ -95,92 +95,96 @@ export function Calculator({
         </Badge>
       </div>
 
-      <div className={styles.fields}>
-        <Select
-          label={pricingText.fieldClass}
-          options={classOptions(ordered)}
-          value={row.cls}
-          onChange={(event) => setCls(event.target.value)}
-          wrapperClassName={styles.field}
-        />
+      <div className={styles.body}>
+        <div className={styles.params}>
+          <div className={styles.fields}>
+            <Select
+              label={pricingText.fieldClass}
+              options={classOptions(ordered)}
+              value={row.cls}
+              onChange={(event) => setCls(event.target.value)}
+              wrapperClassName={styles.field}
+            />
 
-        <RangeSlider
-          label={pricingText.fieldTrassa}
-          value={trassaM}
-          onChange={setTrassaM}
-          min={trassa.min}
-          max={trassa.max}
-          formatValue={meters}
-          className={styles.field}
-        />
+            <RangeSlider
+              label={pricingText.fieldTrassa}
+              value={trassaM}
+              onChange={setTrassaM}
+              min={trassa.min}
+              max={trassa.max}
+              formatValue={meters}
+              className={styles.field}
+            />
 
-        <Select
-          label={pricingText.fieldFloor}
-          options={floors}
-          value={String(floor)}
-          onChange={(event) => setFloor(Number(event.target.value))}
-          hint={rates.heightWorks > 0 ? floorHint(rates.heightFloorFrom) : undefined}
-          wrapperClassName={styles.field}
-        />
+            <Select
+              label={pricingText.fieldFloor}
+              options={floors}
+              value={String(floor)}
+              onChange={(event) => setFloor(Number(event.target.value))}
+              hint={rates.heightWorks > 0 ? floorHint(rates.heightFloorFrom) : undefined}
+              wrapperClassName={styles.field}
+            />
 
-        <Select
-          label={pricingText.fieldQty}
-          options={qtyOptions(qtyMax)}
-          value={String(qty)}
-          onChange={(event) => setQty(Number(event.target.value))}
-          wrapperClassName={styles.field}
-        />
-      </div>
+            <Select
+              label={pricingText.fieldQty}
+              options={qtyOptions(qtyMax)}
+              value={String(qty)}
+              onChange={(event) => setQty(Number(event.target.value))}
+              wrapperClassName={styles.field}
+            />
+          </div>
 
-      {rates.shtrobPerM > 0 ? (
-        <Checkbox
-          label={shtrobLabel(rates.shtrobPerM)}
-          checked={shtroblenie}
-          onChange={(event) => setShtroblenie(event.target.checked)}
-          wrapperClassName={styles.shtrob}
-        />
-      ) : null}
-
-      <div className={styles.result}>
-        <div className={styles.breakdown}>
-          <p className={styles.breakdownTitle}>{pricingText.breakdownTitle}</p>
-          <dl className={styles.lines}>
-            {estimate.lines.map((line) => (
-              <div key={line.kind} className={styles.line}>
-                <dt className={styles.lineLabel}>
-                  {lineLabel(line, { cls: row.cls, heightFloorFrom: rates.heightFloorFrom })}
-                </dt>
-                <dd className={styles.lineAmount}>{formatMoney(line.amount)}</dd>
-              </div>
-            ))}
-            {estimate.qty > 1 ? (
-              <div className={styles.line}>
-                <dt className={styles.lineLabel}>
-                  {`${pricingText.perUnitLabel} ${qtyMultiplier(estimate.qty)}`}
-                </dt>
-                <dd className={styles.lineAmount}>{formatMoney(estimate.perUnit)}</dd>
-              </div>
-            ) : null}
-          </dl>
+          {rates.shtrobPerM > 0 ? (
+            <Checkbox
+              label={shtrobLabel(rates.shtrobPerM)}
+              checked={shtroblenie}
+              onChange={(event) => setShtroblenie(event.target.checked)}
+              wrapperClassName={styles.shtrob}
+            />
+          ) : null}
         </div>
 
-        <div className={styles.total}>
-          <div className={styles.totalValue}>
-            <span className={styles.totalLabel} id={totalLabelId}>
-              {pricingText.totalLabel}
-            </span>
-            <output className={styles.totalAmount} aria-labelledby={totalLabelId}>
-              {formatMoney(estimate.total)}
-            </output>
+        <div className={styles.summary}>
+          <div className={styles.breakdown}>
+            <p className={styles.breakdownTitle}>{pricingText.breakdownTitle}</p>
+            <dl className={styles.lines}>
+              {estimate.lines.map((line) => (
+                <div key={line.kind} className={styles.line}>
+                  <dt className={styles.lineLabel}>
+                    {lineLabel(line, { cls: row.cls, heightFloorFrom: rates.heightFloorFrom })}
+                  </dt>
+                  <dd className={styles.lineAmount}>{formatMoney(line.amount)}</dd>
+                </div>
+              ))}
+              {estimate.qty > 1 ? (
+                <div className={styles.line}>
+                  <dt className={styles.lineLabel}>
+                    {`${pricingText.perUnitLabel} ${qtyMultiplier(estimate.qty)}`}
+                  </dt>
+                  <dd className={styles.lineAmount}>{formatMoney(estimate.perUnit)}</dd>
+                </div>
+              ) : null}
+            </dl>
           </div>
-          <ButtonLink
-            href={leadHref}
-            size="lg"
-            className={styles.apply}
-            onClick={() => onApply?.(handoff)}
-          >
-            {pricingText.apply}
-          </ButtonLink>
+
+          <div className={styles.total}>
+            <div className={styles.totalValue}>
+              <span className={styles.totalLabel} id={totalLabelId}>
+                {pricingText.totalLabel}
+              </span>
+              <output className={styles.totalAmount} aria-labelledby={totalLabelId}>
+                {formatMoney(estimate.total)}
+              </output>
+            </div>
+            <ButtonLink
+              href={leadHref}
+              size="lg"
+              className={styles.apply}
+              onClick={() => onApply?.(handoff)}
+            >
+              {pricingText.apply}
+            </ButtonLink>
+          </div>
         </div>
       </div>
     </Card>

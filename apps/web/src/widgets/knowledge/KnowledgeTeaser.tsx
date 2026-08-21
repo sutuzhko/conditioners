@@ -10,6 +10,13 @@ import styles from './KnowledgeTeaser.module.css';
 
 const HEADING_ID = 'knowledge-title';
 
+/**
+ * Сколько статей показывает тизер. Ограничение принадлежит блоку, а не
+ * странице: это свойство краткой витрины — со временем статей станут
+ * десятки, и весь список на главной ей не нужен, для него есть листинг.
+ */
+const TEASER_LIMIT = 3;
+
 export interface KnowledgeTeaserProps {
   /**
    * Статьи в порядке вывода. 🔴 Блок в базу не ходит: опубликованные статьи
@@ -71,7 +78,7 @@ export function KnowledgeTeaser({
           </Card>
         ) : (
           <ul className={styles.grid} aria-label={t.listLabel}>
-            {articles.map((article) => (
+            {articles.slice(0, TEASER_LIMIT).map((article) => (
               <ArticleCard key={article.id} article={article} href={articleHref(article.slug)} />
             ))}
           </ul>

@@ -1,9 +1,13 @@
 /* Секция каталога. Контейнер и вертикальный ритм — из docs/DESIGN_BRIEF.md §4,
    деградация сетки — из §6: четыре колонки на десктопе, одна на телефоне. */
 
+/* Граница видимая (--line), а не приглушённая: у полосы с собственным фоном
+   отступ с обеих сторон (ADR-037), и рядом с соседом зазор выходит двойным.
+   Пока границы не видно, это читается как дыра в ритме, а не как край
+   полосы — разница --bg и --bg-soft в тёмной теме меньше процента. */
 .section {
-  border-top: 1px solid var(--line-soft);
-  border-bottom: 1px solid var(--line-soft);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   background: var(--bg-soft);
 }
 
@@ -66,15 +70,24 @@
   text-decoration: underline;
 }
 
-/* auto-fill вместо фиксированных четырёх колонок: ряд сам сжимается до трёх,
-   двух и одной, и на 320px карточка не уезжает за край */
+/* Ряд, а не грид: число моделей задаёт владелец из админки, и при жёсткой
+   сетке остаток от деления оставлял бы последний ряд полупустым при любом
+   числе, не кратном числу колонок. Здесь последний ряд центрируется, а
+   `max-width` не даёт одинокой карточке растянуться на всю полосу. */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 22px;
+  justify-content: center;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.grid > li {
+  flex: 1 1 250px;
+  min-width: 0;
+  max-width: 320px;
 }
 
 .empty {
