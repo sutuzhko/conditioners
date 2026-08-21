@@ -16,6 +16,7 @@ import { Diagnostics } from '@/widgets/service';
 import { Reviews } from '@/widgets/reviews';
 import { LeadForm } from '@/features/lead-form';
 import { LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
+import styles from './page.module.css';
 
 /**
  * Главная. Собирается из блоков; данные читает страница и передаёт пропсами —
@@ -61,12 +62,14 @@ export default async function HomePage() {
       <Diagnostics leadHref={LEAD_ANCHOR} />
       <WhyUs {...(warranty.success ? { warranty: warranty.data } : {})} />
       <Reviews reviews={approvedReviews} policyHref={POLICY_HREF} />
-      <section id="zayavka">
-        <LeadForm
-          phone={phone}
-          policyHref={POLICY_HREF}
-          title="Оставьте заявку — поможем с выбором"
-        />
+      <section id="zayavka" className={styles.lead}>
+        <div className={styles.leadInner}>
+          <LeadForm
+            phone={phone}
+            policyHref={POLICY_HREF}
+            title="Оставьте заявку — поможем с выбором"
+          />
+        </div>
       </section>
     </>
   );
