@@ -9,39 +9,35 @@
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
+import { ARTICLES_PATH, HOME_ROUTE, articlePath } from '@/shared/seo/routes';
+
+/* Адреса берутся из карты сайта, а не повторяются здесь: своя копия уже
+   разошлась с ней при переходе на английские адреса (ADR-042), и правки в
+   админке сбрасывали кеш несуществующих страниц. После ADR-049 разделы —
+   секции главной, поэтому каталог, цены и отзывы сбрасывают именно её. */
 export const ROUTES = {
-  home: '/',
-  catalog: '/katalog',
-  prices: '/ceny',
-  install: '/ustanovka-kondicionerov',
-  service: '/remont-i-obsluzhivanie',
-  reviews: '/otzyvy',
-  contacts: '/kontakty',
-  knowledge: '/baza-znaniy',
+  home: HOME_ROUTE.path,
+  knowledge: ARTICLES_PATH,
 } as const;
 
-function revalidateMany(paths: readonly string[]): void {
-  for (const path of paths) revalidatePath(path);
+/** Витрина и таблица сравнения живут на главной. */
+export function revalidateCatalog(): void {
+  revalidatePath(ROUTES.home);
 }
 
-/** Витрина живёт на главной, в каталоге и в карточке модели. */
-export function revalidateCatalog(slug?: string | null): void {
-  revalidateMany([ROUTES.home, ROUTES.catalog]);
-  if (slug !== undefined && slug !== null) revalidatePath(`${ROUTES.catalog}/${slug}`);
-}
-
-/** Цены и ставки видны в таблице цен, в калькуляторе и в подписях на страницах услуг. */
+/** Прайс, калькулятор и подписи «от N ₽» — секции главной. */
 export function revalidatePrices(): void {
-  revalidateMany([ROUTES.home, ROUTES.prices, ROUTES.install, ROUTES.service, ROUTES.catalog]);
+  revalidatePath(ROUTES.home);
 }
 
 export function revalidateArticles(slug?: string | null): void {
-  revalidateMany([ROUTES.home, ROUTES.knowledge]);
-  if (slug !== undefined && slug !== null) revalidatePath(`${ROUTES.knowledge}/${slug}`);
+  revalidatePath(ROUTES.home);
+  revalidatePath(ROUTES.knowledge);
+  if (slug !== undefined && slug !== null) revalidatePath(articlePath(slug));
 }
 
 export function revalidateReviews(): void {
-  revalidateMany([ROUTES.home, ROUTES.reviews]);
+  revalidatePath(ROUTES.home);
 }
 
 /**

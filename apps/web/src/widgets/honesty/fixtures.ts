@@ -11,6 +11,3 @@ export const installFrom = 6000;
 
 /** Другой прайс: цена изменилась в админке — заголовок обязан поехать следом. */
 export const higherInstallFrom = 7500;
-
-/** Якорь статьи в Базе знаний — полный разбор схем обмана. */
-export const scamArticleHref = '#kak-obmanyvayut-pri-ustanovke';

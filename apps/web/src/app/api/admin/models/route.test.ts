@@ -94,7 +94,8 @@ describe('каталог в админке', () => {
 
     expect(response.status).toBe(201);
     expect(products.create).toHaveBeenCalled();
-    expect(revalidatePath).toHaveBeenCalledWith('/katalog/split-sistema-09');
+    // витрина и сравнение живут на главной (ADR-049) — сбрасывается она
+    expect(revalidatePath).toHaveBeenCalledWith('/');
   });
 
   /** 🔴 Инвариант 6: характеристики произвольны, фиксированного набора полей нет. */

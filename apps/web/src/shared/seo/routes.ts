@@ -4,12 +4,11 @@
  * Один список кормит карту сайта и навигацию страницы 404: адрес, которого
  * нет в этом файле, не попадёт ни туда, ни туда. Пути записаны строками, а не
  * типизированными маршрутами: карта сайта и `robots` собираются вне
- * маршрутизации, а страницы кластера появляются волнами — литерал
- * несуществующего маршрута при `typedRoutes` ломает сборку.
+ * маршрутизации.
  *
- * Гео-страницы `/rayony/*` — вторая волна (docs/SEO.md §1), их здесь нет.
- * Динамические адреса (`/catalog/[slug]`, `/knowledge/[slug]`) приходят из
- * базы, а не отсюда.
+ * Сайт — лендинг: разделы живут секциями главной, отдельные адреса есть
+ * только у статей, их листинга и политики (ADR-049). Динамические адреса
+ * (`/knowledge/[slug]`) приходят из базы, а не отсюда.
  */
 
 export type SiteRoute = {
@@ -20,26 +19,19 @@ export type SiteRoute = {
 
 export const HOME_ROUTE: SiteRoute = { path: '/', title: 'Главная' };
 
-/** Разделы каталога и статей: их адреса строятся из слага. */
-export const CATALOG_PATH = '/catalog';
+/* Каждый адрес — именованная константа, а не литерал в списке ниже: адреса
+   нужны и ревалидации в админке, и навигации, и карте сайта. Пока они были
+   литералами, копия карты жила в `server/revalidate.ts` и после перехода на
+   английские адреса (ADR-042) осталась русской — правки в админке сбрасывали
+   кеш несуществующих страниц, то есть не сбрасывали ничего. */
 export const ARTICLES_PATH = '/knowledge';
 export const PRIVACY_PATH = '/privacy';
 
 export const SITE_ROUTES: readonly SiteRoute[] = [
   HOME_ROUTE,
-  { path: CATALOG_PATH, title: 'Каталог кондиционеров' },
-  { path: '/installation', title: 'Установка кондиционеров' },
-  { path: '/prices', title: 'Цены на монтаж' },
-  { path: '/service', title: 'Ремонт и обслуживание' },
-  { path: '/reviews', title: 'Отзывы' },
   { path: ARTICLES_PATH, title: 'База знаний' },
-  { path: '/contacts', title: 'Контакты' },
   { path: PRIVACY_PATH, title: 'Политика обработки персональных данных' },
 ];
-
-export function productPath(slug: string): string {
-  return `${CATALOG_PATH}/${slug}`;
-}
 
 export function articlePath(slug: string): string {
   return `${ARTICLES_PATH}/${slug}`;

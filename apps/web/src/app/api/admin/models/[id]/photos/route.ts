@@ -27,7 +27,7 @@ export const POST = withAdmin(async (request, context: { params: Promise<{ id: s
     alt: typeof alt === 'string' && alt.trim() !== '' ? alt.trim() : null,
   });
 
-  revalidateCatalog(product.slug);
+  revalidateCatalog();
 
   return json(photo, 201);
 });
