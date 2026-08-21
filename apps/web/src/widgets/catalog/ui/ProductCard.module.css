@@ -1,10 +1,13 @@
 /* Карточка модели. Пропорции и отступы сняты с прототипа: фото 4:3,
    тело 20px, действие прижато к низу — карточки в ряду одной высоты. */
 
+/* радиус 18px — из макета, он мельче общего радиуса крупных панелей (20px):
+   карточка витрины и панель сравнения под ней в макете скруглены по-разному */
 .card {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  border-radius: 18px;
 }
 
 .media {
@@ -98,9 +101,14 @@
   margin-top: 14px;
 }
 
-.order {
+/* Радиус 10px — из макета. Заливку макета (--accent-bg с текстом --accent-ink)
+   не берём: на светлой теме эта пара даёт 3.7:1 и не проходит AA, а контраст
+   у нас выше макета (docs/DESIGN_BRIEF.md §12). Селектор с .card — чтобы
+   перебить радиус варианта кнопки независимо от порядка модулей. */
+.card .order {
   flex: 1;
   min-width: 0;
+  border-radius: 10px;
 }
 
 .external {
@@ -111,7 +119,7 @@
   width: var(--tap);
   min-height: var(--tap);
   border: 1px solid var(--line);
-  border-radius: var(--r-sm);
+  border-radius: 10px;
   color: var(--muted);
   font-size: 15px;
   text-decoration: none;

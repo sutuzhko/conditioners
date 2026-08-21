@@ -63,6 +63,18 @@ describe('Каталог — таблица сравнения', () => {
     expect(region).toContainElement(screen.getByRole('table'));
   });
 
+  it('замыкается ценой под ключ — той же, что на карточке', () => {
+    render(<Catalog products={[plainProduct, discountedProduct]} now={NOW} />);
+
+    const row = screen.getByRole('rowheader', { name: 'Цена под ключ' }).closest('tr');
+    if (row === null) throw new Error('Строка цены не найдена');
+
+    expect(within(row).getByText('34 900 ₽')).toBeInTheDocument();
+    // у модели со скидкой в сравнении стоит действующая цена, а не перечёркнутая
+    expect(within(row).getByText('33 900 ₽')).toBeInTheDocument();
+    expect(within(row).queryByText('38 500 ₽')).not.toBeInTheDocument();
+  });
+
   it('без характеристик таблицы нет — сравнивать нечего', () => {
     render(<Catalog products={[{ ...plainProduct, specs: [] }]} now={NOW} />);
 
@@ -75,9 +87,11 @@ describe('Каталог — скидка', () => {
   it('показывает действующую цену, зачёркнутую старую и вычисленный процент', () => {
     render(<Catalog products={[discountedProduct]} now={NOW} />);
 
-    expect(screen.getByText('33 900 ₽')).toBeInTheDocument();
+    // цену ищем внутри карточки: та же сумма стоит и в строке сравнения
+    const card = within(screen.getByRole('listitem'));
+    expect(card.getByText('33 900 ₽')).toBeInTheDocument();
 
-    const old = screen.getByText(/38 500 ₽/);
+    const old = card.getByText(/38 500 ₽/);
     expect(old.closest('s')).not.toBeNull();
 
     // 1 − 33 900 / 38 500 = 11,9% → −12%
@@ -101,7 +115,7 @@ describe('Каталог — скидка', () => {
   it('товар без скидки рисуется без плашки и без перечёркнутой цены', () => {
     render(<Catalog products={[plainProduct]} now={NOW} />);
 
-    expect(screen.getByText('34 900 ₽')).toBeInTheDocument();
+    expect(within(screen.getByRole('listitem')).getByText('34 900 ₽')).toBeInTheDocument();
     expect(document.querySelector('s')).toBeNull();
     expect(screen.queryByText(/−\d+%/)).not.toBeInTheDocument();
   });
@@ -109,7 +123,7 @@ describe('Каталог — скидка', () => {
   it('закончившаяся скидка не оставляет следов на карточке', () => {
     render(<Catalog products={[expiredSaleProduct]} now={NOW} />);
 
-    expect(screen.getByText('74 500 ₽')).toBeInTheDocument();
+    expect(within(screen.getByRole('listitem')).getByText('74 500 ₽')).toBeInTheDocument();
     expect(screen.queryByText('69 900 ₽')).not.toBeInTheDocument();
     expect(document.querySelector('s')).toBeNull();
   });

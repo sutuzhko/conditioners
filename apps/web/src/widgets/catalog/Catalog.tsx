@@ -85,7 +85,7 @@ export function Catalog({
                 <ProductCard key={product.id} product={product} orderHref={orderHref} now={now} />
               ))}
             </ul>
-            <CompareTable products={visible} />
+            <CompareTable products={visible} now={now} />
           </>
         ) : null}
       </div>

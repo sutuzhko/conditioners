@@ -32,6 +32,12 @@
   border-top: 1px solid var(--line-soft);
 }
 
+/* Линия под шапкой заметнее строчной: в тёмной теме --panel почти совпадает
+   с --card, и без неё тёмная шапка сливается с первой строкой прайса. */
+.wrap .tbody .row:first-child {
+  border-top-color: var(--line);
+}
+
 .wrap .clsCell,
 .wrap .powerCell,
 .wrap .priceCell,
@@ -59,7 +65,7 @@
 .price {
   color: var(--accent-ink);
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: var(--fs-base);
   font-weight: 700;
   white-space: nowrap;
 }

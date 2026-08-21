@@ -1,5 +1,7 @@
 import { Badge, Card, Table } from '@/shared/ui';
 import { buildCompareTable } from '@/entities/product/lib/buildCompareTable';
+import { getActivePrice } from '@/entities/product/lib/getActivePrice';
+import { formatMoney } from '@/shared/lib/format';
 import { catalogText } from '../content';
 import type { CatalogProduct } from '../model';
 import styles from './CompareTable.module.css';
@@ -13,6 +15,8 @@ const VALUE_COLUMN_PX = 160;
 
 export interface CompareTableProps {
   products: readonly CatalogProduct[];
+  /** Момент расчёта скидки — тот же, что у карточек: цена не смеет разойтись. */
+  now?: Date | undefined;
 }
 
 /**
@@ -25,8 +29,12 @@ export interface CompareTableProps {
  *
  * Сравнивать нечего — секции нет: пустая таблица с одними прочерками хуже,
  * чем её отсутствие.
+ *
+ * Последняя строка — цена под ключ, как в макете. Она не характеристика и в
+ * объединение ключей не входит: значение берёт тот же `getActivePrice`, что и
+ * карточка, — цена в витрине и в сравнении обязана совпадать до рубля.
  */
-export function CompareTable({ products }: CompareTableProps) {
+export function CompareTable({ products, now }: CompareTableProps) {
   const table = buildCompareTable(products);
   if (table.rows.length === 0) return null;
 
@@ -67,6 +75,12 @@ export function CompareTable({ products }: CompareTableProps) {
               ))}
             </tr>
           ))}
+          <tr className={styles.priceRow}>
+            <th scope="row">{catalogText.comparePrice}</th>
+            {table.products.map((product) => (
+              <td key={product.id}>{formatMoney(getActivePrice(product, now).currentPrice)}</td>
+            ))}
+          </tr>
         </tbody>
       </Table>
 
