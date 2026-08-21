@@ -1,0 +1,1 @@
+export { AnchorSync } from './AnchorSync';

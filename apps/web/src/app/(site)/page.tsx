@@ -27,6 +27,7 @@ import { KnowledgeTeaser } from '@/widgets/knowledge';
 import { Faq, buildFaqItems } from '@/widgets/faq';
 import { Contacts } from '@/widgets/contacts';
 import { LeadSection } from '@/widgets/lead';
+import { AnchorSync } from '@/features/anchor-sync';
 import { LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
 
 import { loadSettings } from './_lib/settings';
@@ -79,6 +80,9 @@ export default async function HomePage() {
      страница собирается как обычно (docs/CLAUDE.md, «Безопасность»). */
   const weather = await getCityWeather(settings.geo);
 
+  // плашка над заголовком — регион обслуживания из настроек, а не из кода
+  const heroNote = settings.area.served;
+
   /* Разметка собирается из тех же данных, что рисуют страницу: вопросы FAQ —
      тот же вызов `buildFaqItems`, что у виджета, отзывы — те же одобренные.
      Расхождение разметки и видимого текста — основание для санкций
@@ -113,7 +117,18 @@ export default async function HomePage() {
   return (
     <>
       <JsonLd nodes={[business, catalogList, buildFaqPageJsonLd(faqItems)]} />
-      <Hero products={products} weather={weather} leadHref={LEAD_ANCHOR} catalogHref="#catalog">
+      {/* адрес следует за секцией, которую читают: ссылку на раздел можно
+          скопировать прямо из строки браузера */}
+      <AnchorSync />
+      <Hero
+        products={products}
+        weather={weather}
+        city={settings.address.city}
+        stats={settings.achievements.items}
+        note={heroNote}
+        leadHref={LEAD_ANCHOR}
+        catalogHref="#catalog"
+      >
         <TrustStrip />
       </Hero>
       <Services />
