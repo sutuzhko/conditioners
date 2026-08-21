@@ -72,7 +72,7 @@ export function SavingsCalculator({
 
   return (
     <div className={styles.grid}>
-      <Card padding="lg" className={styles.inputs}>
+      <Card padding="xl" radius="xl" className={styles.inputs}>
         <div>
           <p className={styles.gridHead}>
             <span id={gridLabelId} className={styles.gridLabel}>
@@ -87,13 +87,13 @@ export function SavingsCalculator({
 
           <HoursGrid hours={hours} onChange={setHour} labelId={gridLabelId} />
 
-          <p className={styles.hint}>{t.gridHint}</p>
+          <p className="srOnly">{t.gridHint}</p>
         </div>
 
         <div>
           <p className={styles.tariffHead}>
             <span className={styles.gridLabel}>{t.tariffLabel}</span>
-            <span className={styles.modes} role="group" aria-label={t.tariffLabel}>
+            <span className={styles.modes} role="group" aria-label={t.tariffLabelFull}>
               <Button
                 size="sm"
                 variant={dual ? 'ghost' : 'primary'}
@@ -143,13 +143,12 @@ export function SavingsCalculator({
         </div>
 
         {/* допущения названы прямо под управлением, а не только в оговорке */}
-        <p className={styles.basis}>{t.basis}</p>
       </Card>
 
       {/* 🔴 Заголовка и плашки «оценка» в макете нет, но оценочность цифр
           обязана быть видна: её держат знак «≈» у каждой суммы, названные
           допущения под управлением и абзац-оговорка под карточками. */}
-      <Card padding="lg" className={styles.result}>
+      <Card padding="xl" radius="xl" className={styles.result}>
         <div className={styles.row}>
           <p className={styles.rowHead}>
             <span className={styles.rowLabel}>{t.usual}</span>

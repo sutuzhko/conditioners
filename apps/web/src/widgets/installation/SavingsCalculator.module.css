@@ -2,18 +2,6 @@
    С 900px — одна колонка. */
 
 .grid {
-  /* Градиенты полос — ровно из макета: тёплый у обычного on/off
-     (#F97316 → #EF4444) и холодный у инвертора (#06B6D4 → #22D3EE).
-     Записаны в rgb(), потому что хекс в модулях запрещён; наши затемнённые
-     оттенки ошибки здесь не нужны — это заливка декоративной полосы, а не
-     текст, и требования по контрасту к ней не применяются.
-
-     Держим их локально, а не в ui-tokens.css: тот файл принадлежит агенту
-     UI Kit, и коммит блока его не захватывает. */
-  --eco-usual-from: rgb(249 115 22);
-  --eco-usual-to: rgb(239 68 68);
-  --eco-inverter-from: rgb(6 182 212);
-
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
   gap: 28px;
@@ -28,18 +16,15 @@
 }
 
 .gridHead,
+/* Заголовок и переключатель — одной строкой: заголовок сокращён до «Тариф»,
+   полная формулировка осталась именем группы для скринридера. */
 .tariffHead {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  align-items: baseline;
-  justify-content: space-between;
-  margin: 0 0 12px;
-}
-
-.tariffHead {
+  flex-wrap: nowrap;
+  gap: 12px;
   align-items: center;
-  margin-bottom: 14px;
+  justify-content: space-between;
+  margin: 0 0 14px;
 }
 
 .gridLabel {

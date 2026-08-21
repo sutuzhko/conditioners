@@ -24,9 +24,7 @@ export const Basic: Story = { name: 'Базовое состояние', render:
 
 export const WithHint: Story = {
   name: 'С подсказкой',
-  render: () => (
-    <ControlledFileInput hint="Общий план стены — так смета будет точнее" />
-  ),
+  render: () => <ControlledFileInput hint="Общий план стены — так смета будет точнее" />,
 };
 
 export const WithError: Story = {

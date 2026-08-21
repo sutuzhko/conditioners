@@ -1,4 +1,4 @@
-import { Badge, Card, Table } from '@/shared/ui';
+import { Card, Table } from '@/shared/ui';
 import { buildCompareTable } from '@/entities/product/lib/buildCompareTable';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { formatMoney } from '@/shared/lib/format';
@@ -44,9 +44,6 @@ export function CompareTable({ products, now }: CompareTableProps) {
     <Card padding="none" className={styles.panel}>
       <div className={styles.head}>
         <h3 className={styles.title}>{catalogText.compareTitle}</h3>
-        <Badge variant="accent" size="sm" mono>
-          {catalogText.compareSource}
-        </Badge>
       </div>
 
       <Table

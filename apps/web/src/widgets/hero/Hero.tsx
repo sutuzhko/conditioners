@@ -58,6 +58,8 @@ export function Hero({
 
           <h1 className={styles.title}>
             {t.title.before}
+            <br />
+            {t.title.middle}
             <span className={styles.accent}>{t.title.accent}</span>
           </h1>
 

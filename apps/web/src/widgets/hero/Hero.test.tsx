@@ -42,7 +42,11 @@ describe('Первый экран', () => {
     render(<Hero products={[]} />);
 
     const title = screen.getByRole('heading', { level: 1 });
-    expect(title).toHaveTextContent('Кондиционеры в Туле — с установкой за один день');
+    // Заголовок разбит на строки, а «за один день» связано неразрывными
+    // пробелами — сверяем по частям, а не по слитной строке.
+    expect(title).toHaveTextContent(/Кондиционеры в Туле/);
+    expect(title).toHaveTextContent(/с установкой/);
+    expect(title.textContent).toContain('за\u00A0один\u00A0день');
     expect(screen.getByText(/Продажа, монтаж и обслуживание/)).toBeInTheDocument();
   });
 

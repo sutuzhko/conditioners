@@ -39,7 +39,7 @@ export const honestyContent = {
   honestPrice: (installFrom: number): string => `от ${formatMoney(installFrom)}`,
   honestListLabel: 'Что входит в честный монтаж',
 
-  rivalTitle: '«Мастер» по объявлению',
+  rivalTitle: 'Монтаж по минимальной цене',
   rivalBadge: 'Цена ниже рынка',
   rivalListLabel: 'На чём экономят ради низкой цены',
 
@@ -99,7 +99,7 @@ export const rivalPoints: readonly HonestyPoint[] = [
 export const scamContent = {
   kicker: '— Проверьте своего монтажника —',
   title: 'Как обманывают при установке кондиционеров',
-  lead: 'Пять схем, на которых «мастера за три тысячи» добирают разницу. Раскройте каждую — и вас уже не обмануть.',
+  lead: 'Пять схем, которыми подозрительно низкая цена возвращается доплатами или поломкой. Раскройте каждую — и вас уже не обмануть.',
 
   /** Метка схемы: «СХЕМА 1». Номер — порядковый, к деньгам отношения не имеет. */
   schemeLabel: (num: string): string => `Схема ${num}`,

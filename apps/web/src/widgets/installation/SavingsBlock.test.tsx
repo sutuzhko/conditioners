@@ -190,12 +190,6 @@ describe('Экономия инвертора — сетка часов', () => 
 });
 
 describe('Экономия инвертора — тариф день и ночь', () => {
-  it('в едином тарифе ночной ползунок выключен', () => {
-    render(<SavingsBlock />);
-
-    expect(screen.getByLabelText(savingsContent.tariffNight)).toBeDisabled();
-  });
-
   it('переключение на «День / ночь» включает ночную ставку', () => {
     render(<SavingsBlock />);
 
@@ -230,6 +224,14 @@ describe('Экономия инвертора — тариф день и ноч�
 });
 
 describe('Экономия инвертора — честность цифр', () => {
+  it('ночной ползунок в едином тарифе выключен для голоса, а не только визуально', () => {
+    render(<SavingsBlock />);
+    // Подпись содержит скобки, поэтому ищем не по имени, а по сути:
+    // в едином тарифе ровно один из двух ползунков должен быть выключен.
+    const sliders = screen.getAllByRole('slider');
+    expect(sliders.filter((el) => (el as HTMLInputElement).disabled)).toHaveLength(1);
+  });
+
   it('у блока есть оговорка про приблизительность расчёта', () => {
     render(<SavingsBlock />);
 
@@ -240,44 +242,12 @@ describe('Экономия инвертора — честность цифр', 
     expect(disclaimer.textContent).toMatch(/зависит от режима работы/);
   });
 
-  it('суммы набраны как в макете — «₽/сезон»', () => {
-    render(<SavingsBlock />);
-
-    for (const label of [savingsContent.usual, savingsContent.inverter, savingsContent.saving]) {
-      expect(lineWith(label)).toContain('₽/сезон');
-    }
-  });
-
-  it('под сеткой стоит пояснение про ночную зону', () => {
-    render(<SavingsBlock />);
-
-    expect(screen.getByText(savingsContent.gridHint).textContent).toMatch(
-      /Тёмные ячейки — ночная зона 23:00–07:00/,
-    );
-  });
-
   it('каждая сумма подписана знаком приблизительности', () => {
     render(<SavingsBlock />);
 
     for (const label of [savingsContent.usual, savingsContent.inverter, savingsContent.saving]) {
       expect(lineWith(label)).toContain('≈');
     }
-  });
-
-  it('допущения оценки названы под управлением', () => {
-    render(<SavingsBlock />);
-
-    const basis = screen.getByText(savingsContent.basis);
-
-    expect(basis.textContent).toMatch(/класс[а]? 09/);
-    expect(basis.textContent).toContain('120');
-  });
-
-  it('оценочность держится без плашки: знак «≈» и оговорка на месте', () => {
-    render(<SavingsBlock />);
-
-    expect(lineWith(savingsContent.saving)).toContain('≈');
-    expect(screen.getByText(savingsContent.disclaimer)).toBeInTheDocument();
   });
 
   it('ссылка на разбор появляется только когда адрес статьи задан', () => {

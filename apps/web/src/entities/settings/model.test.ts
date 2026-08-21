@@ -112,6 +112,7 @@ describe('contactsSchema', () => {
       telegram: '',
       whatsapp: '',
       hours: '',
+      responseTime: '',
       openingHours: [],
     });
   });
@@ -156,8 +157,6 @@ describe('legalSchema', () => {
     const parsed = legalSchema.safeParse({ form: 'АО' });
 
     expect(parsed.success).toBe(false);
-    expect(parsed.success === false && parsed.error.issues[0]?.message).toBe(
-      'Форма — ИП или ООО',
-    );
+    expect(parsed.success === false && parsed.error.issues[0]?.message).toBe('Форма — ИП или ООО');
   });
 });

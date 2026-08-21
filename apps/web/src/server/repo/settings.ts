@@ -4,11 +4,7 @@
 import { db } from '@/server/db';
 import { settingSchemas, type SettingKey } from '@/entities/settings/model';
 import type { InstallRates } from '@/entities/price/model';
-import {
-  PLACEHOLDER,
-  REQUIRED_FIELDS,
-  SETTING_KEYS,
-} from '@/server/repo/settings-schemas';
+import { PLACEHOLDER, REQUIRED_FIELDS, SETTING_KEYS } from '@/server/repo/settings-schemas';
 
 export type SettingsMap = Partial<Record<SettingKey, unknown>>;
 

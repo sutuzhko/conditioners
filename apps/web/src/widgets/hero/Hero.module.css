@@ -41,12 +41,15 @@
   /* minmax(0, …) обязателен: без него колонка не сжимается ниже min-content
      подбора, и на узком экране текст уезжает под обрезку секции */
   grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-  gap: 52px;
+  gap: 44px;
   align-items: center;
   box-sizing: border-box;
   max-width: var(--container);
   margin: 0 auto;
-  padding: 64px var(--gutter) 76px;
+
+  /* Ниже макетных 64/76: первый экран вместе с полосой доверия должен
+     помещаться в типовой экран ноутбука, иначе полоса не видна без прокрутки. */
+  padding: 44px var(--gutter) 52px;
 }
 
 .copy {
