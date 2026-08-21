@@ -10,6 +10,8 @@ export const SITE_NAV: readonly NavItem[] = [
   { label: 'Цены', href: '#ceny' },
   { label: 'Монтаж', href: '#etapy' },
   { label: 'Услуги', href: '#uslugi' },
+  { label: 'Сервис', href: '#diagnostika' },
+  { label: 'Контакты', href: '#kontakty' },
 ];
 
 /** Куда ведёт кнопка заявки. */

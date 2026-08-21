@@ -1,5 +1,6 @@
 import { listVisible } from '@/server/repo/products';
 import { listApproved } from '@/server/repo/reviews';
+import { listPublished } from '@/server/repo/articles';
 import { getPrices } from '@/server/repo/prices';
 import { getAll } from '@/server/repo/settings';
 import { productSchema } from '@/entities/product/model';
@@ -14,6 +15,9 @@ import { Pricing } from '@/widgets/pricing';
 import { HonestPricing, ScamAccordion } from '@/widgets/honesty';
 import { Diagnostics } from '@/widgets/service';
 import { Reviews } from '@/widgets/reviews';
+import { KnowledgeTeaser } from '@/widgets/knowledge';
+import { Faq } from '@/widgets/faq';
+import { Contacts } from '@/widgets/contacts';
 import { LeadForm } from '@/features/lead-form';
 import { LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
 import styles from './page.module.css';
@@ -29,11 +33,12 @@ import styles from './page.module.css';
 export const revalidate = 3600;
 
 export default async function HomePage() {
-  const [rawProducts, { prices, extras }, settings, reviews] = await Promise.all([
+  const [rawProducts, { prices, extras }, settings, reviews, articles] = await Promise.all([
     listVisible(),
     getPrices(),
     getAll(),
     listApproved(),
+    listPublished(),
   ]);
 
   // репозитории отдают DTO контракта (даты строками), виджеты ждут доменный тип
@@ -41,10 +46,26 @@ export default async function HomePage() {
   const priceRows = prices.map((row) => priceRowSchema.parse(row));
   const approvedReviews = reviews.map((dto) => reviewSchema.parse(dto));
 
+  // Список статей приходит без тела — доменная схема требует его целиком,
+  // поэтому тизер собирается из нужных полей напрямую, с приведением даты.
+  const articleTeasers = articles.map((a) => ({
+    id: a.id,
+    slug: a.slug,
+    title: a.title,
+    category: a.category,
+    date: new Date(a.date),
+    minutes: a.minutes,
+    excerpt: a.excerpt,
+    cover: a.cover,
+  }));
+
   // цена в заголовке «честно о цене» — из прайса, а не из вёрстки (инвариант 8)
   const installFrom = priceRows.length === 0 ? null : Math.min(...priceRows.map((r) => r.price));
 
   const warranty = settingSchemas.warranty.safeParse(settings.warranty);
+  const address = settingSchemas.address.safeParse(settings.address);
+  const area = settingSchemas.area.safeParse(settings.area);
+  const geo = settingSchemas.geo.safeParse(settings.geo);
   const contacts = settingSchemas.contacts.safeParse(settings.contacts);
   const phone = contacts.success ? (contacts.data.phones[0] ?? '') : '';
 
@@ -71,6 +92,21 @@ export default async function HomePage() {
           />
         </div>
       </section>
+      <KnowledgeTeaser
+        articles={articleTeasers}
+        articleHref={(slug) => ({ pathname: `/baza-znaniy/${slug}` })}
+        allHref={{ pathname: '/baza-znaniy' }}
+      />
+      <Faq installFrom={installFrom} {...(warranty.success ? { warranty: warranty.data } : {})} />
+      {contacts.success && address.success && area.success ? (
+        <Contacts
+          contacts={contacts.data}
+          address={address.data}
+          area={area.data}
+          {...(geo.success ? { geo: geo.data } : {})}
+          leadHref={LEAD_ANCHOR}
+        />
+      ) : null}
     </>
   );
 }
