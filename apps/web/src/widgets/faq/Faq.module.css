@@ -1,0 +1,66 @@
+/* FAQ. Фон основной, ритм 88px 24px 0, H2 38px, контейнер 900px — из
+   docs/PIXEL_SPEC.md («FAQ») и ADR-037. Радиус 16px и раскладка карточки
+   вопроса принадлежат Accordion из UI Kit, здесь их нет. */
+
+.section {
+  background: var(--bg);
+}
+
+.container {
+  box-sizing: border-box;
+
+  /* в макете секция уже остальных: строка ответа не должна быть длиннее
+     680px по ширине чтения (docs/DESIGN_BRIEF.md §4) */
+  max-width: 900px;
+  margin: 0 auto;
+
+  /* отступ только сверху: секция на основном фоне, и снизу шаг ритма даёт
+     уже следующий блок — иначе между ними выходит двойной (ADR-037) */
+  padding: var(--section-y) var(--gutter) 0;
+}
+
+.head {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.list {
+  margin: 0;
+}
+
+.answer {
+  max-width: 720px;
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-base);
+}
+
+@media (width < 600px) {
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .head {
+    margin-bottom: 28px;
+  }
+}

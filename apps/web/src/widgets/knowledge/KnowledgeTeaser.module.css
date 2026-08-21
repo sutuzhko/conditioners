@@ -1,0 +1,128 @@
+/* Тизер Базы знаний. Фон секции, ритм и размеры — из docs/PIXEL_SPEC.md
+   («БАЗА ЗНАНИЙ»: var(--bg-soft), 88px 24px, H2 38px, 13 / 38 / 16.5 / 15).
+   Деградация сеток — docs/DESIGN_BRIEF.md §6. */
+
+.section {
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--bg-soft);
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 44px;
+}
+
+.intro {
+  max-width: 620px;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16.5px;
+}
+
+.all {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 10px 12px;
+  margin-right: -12px;
+  border-radius: var(--r-sm);
+  color: var(--accent-ink);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.all:hover {
+  text-decoration: underline;
+}
+
+.all:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* auto-fit вместо жёстких трёх колонок: ряд сам сжимается до одной,
+   и на 320px карточка не уезжает за край страницы */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.empty {
+  max-width: 620px;
+}
+
+.emptyTitle {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.emptyText {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-base);
+}
+
+@media (width < 900px) {
+  .head {
+    margin-bottom: 28px;
+  }
+}
+
+@media (width < 600px) {
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .lead {
+    font-size: var(--fs-base);
+  }
+
+  .grid {
+    gap: 16px;
+  }
+}
