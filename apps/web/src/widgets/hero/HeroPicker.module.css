@@ -88,10 +88,12 @@
   gap: 10px;
 }
 
+/* Подпись группы чипов равна подписи ползунка над ней (макет: 15px, 700) —
+   иначе два поля одной карточки выглядят из разных наборов. */
 .placesLabel {
-  color: var(--ink2);
-  font-size: var(--fs-caption);
-  font-weight: 600;
+  color: var(--ink);
+  font-size: var(--fs-base);
+  font-weight: 700;
 }
 
 .chips {
