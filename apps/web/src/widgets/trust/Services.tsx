@@ -27,8 +27,8 @@ export interface ServicesProps {
 
 const DEFAULT_HREFS: Record<ServiceKey, ButtonLinkHref> = {
   sale: '#catalog',
-  install: '#etapy',
-  service: '#diagnostika',
+  install: '#installation',
+  service: '#service',
 };
 
 const HEADING_ID = 'services-title';
@@ -40,7 +40,7 @@ const HEADING_ID = 'services-title';
  * JavaScript (инвариант 1). Тексты описывают услугу, а не компанию, поэтому
  * живут в `content.ts`, а не в настройках.
  */
-export function Services({ hrefs, id = 'uslugi' }: ServicesProps) {
+export function Services({ hrefs, id = 'services' }: ServicesProps) {
   return (
     <section id={id} className={styles.section} aria-labelledby={HEADING_ID}>
       <div className={styles.container}>

@@ -36,8 +36,14 @@ export type { LocalBusinessParts } from './business';
 export { buildBreadcrumbListJsonLd } from './breadcrumbs';
 export type { BreadcrumbItem, BreadcrumbListInput } from './breadcrumbs';
 
-export { buildItemListJsonLd, buildProductJsonLd } from './product';
-export type { ItemListEntry, ItemListInput, ProductJsonLdInput } from './product';
+export { buildCatalogItemListJsonLd, buildItemListJsonLd, buildProductJsonLd } from './product';
+export type {
+  CatalogListEntry,
+  CatalogListInput,
+  ItemListEntry,
+  ItemListInput,
+  ProductJsonLdInput,
+} from './product';
 
 export { buildServiceJsonLd } from './service';
 export type { ServiceJsonLdInput, ServiceOfferInput } from './service';
@@ -54,15 +60,7 @@ export type { AggregateRatingOptions, ReviewForSchema } from './reviews';
 export { buildPageMetadata, buildTitle } from './metadata';
 export type { PageMetadataInput } from './metadata';
 
-export {
-  ARTICLES_PATH,
-  CATALOG_PATH,
-  HOME_ROUTE,
-  PRIVACY_PATH,
-  SITE_ROUTES,
-  articlePath,
-  productPath,
-} from './routes';
+export { ARTICLES_PATH, HOME_ROUTE, PRIVACY_PATH, SITE_ROUTES, articlePath } from './routes';
 export type { SiteRoute } from './routes';
 
 export { NOT_FOUND_CONTENT, NOT_FOUND_ROUTES } from './notFound';

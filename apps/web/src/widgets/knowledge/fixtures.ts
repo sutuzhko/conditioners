@@ -13,10 +13,10 @@ import type { ArticleTeaser } from './model';
  * Маршрутов Базы знаний ещё нет (волна 2), поэтому адреса записаны объектом:
  * `typedRoutes` проверяет строковые литералы и пропускает `UrlObject`.
  */
-export const allHrefFixture: ButtonLinkHref = { pathname: '/baza-znaniy' };
+export const allHrefFixture: ButtonLinkHref = { pathname: '/knowledge' };
 
 export function articleHrefFixture(slug: string): ButtonLinkHref {
-  return { pathname: `/baza-znaniy/${slug}` };
+  return { pathname: `/knowledge/${slug}` };
 }
 
 /** Обложка прямо в фикстуре: истории не зависят от работающего `/api/media`. */

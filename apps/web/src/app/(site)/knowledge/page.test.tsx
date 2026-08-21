@@ -90,7 +90,7 @@ describe('Листинг Базы знаний', () => {
   it('рубрика из адреса фильтрует список на сервере, без участия скриптов', async () => {
     repoMock.listPublished.mockResolvedValue(ARTICLES);
 
-    render(await BazaZnaniyPage({ searchParams: Promise.resolve({ rubrika: 'uhod' }) }));
+    render(await BazaZnaniyPage({ searchParams: Promise.resolve({ category: 'uhod' }) }));
 
     const list = screen.getByRole('list', { name: articleContent.listLabel });
     expect(within(list).getAllByRole('listitem')).toHaveLength(1);

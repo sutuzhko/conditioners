@@ -14,7 +14,7 @@ const HEADING_ID = 'reviews-title';
  * Идентификатор выводится из адреса, а не наоборот, — иначе типизированные
  * маршруты не примут собранную из кусков строку.
  */
-const FORM_HREF = '#ostavit-otzyv';
+const FORM_HREF = '#review-form';
 const FORM_ID = FORM_HREF.slice(1);
 
 export interface ReviewsProps {
@@ -42,7 +42,7 @@ export interface ReviewsProps {
  * JavaScript (инвариант 1). `'use client'` стоит только на самой форме —
  * интерактивна она, а не раздел.
  */
-export function Reviews({ reviews = [], policyHref, id = 'otzyvy' }: ReviewsProps) {
+export function Reviews({ reviews = [], policyHref, id = 'reviews' }: ReviewsProps) {
   return (
     <section id={id} className={styles.section} aria-labelledby={HEADING_ID}>
       <div className={styles.container}>

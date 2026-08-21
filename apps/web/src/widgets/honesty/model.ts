@@ -12,15 +12,3 @@ export type HonestyPoint = {
   readonly id: string;
   readonly text: string;
 };
-
-/** Схема обмана: как это звучит от монтажника и как обстоит на самом деле. */
-export type ScamScheme = {
-  readonly id: string;
-  /** Номер схемы строкой — рисуется как есть, из индекса не выводится. */
-  readonly num: string;
-  readonly title: string;
-  /** Дословная реплика недобросовестного монтажника. */
-  readonly quote: string;
-  /** Разбор: что за этим стоит и чем это кончается. */
-  readonly truth: string;
-};

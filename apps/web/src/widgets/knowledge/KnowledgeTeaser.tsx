@@ -10,6 +10,13 @@ import styles from './KnowledgeTeaser.module.css';
 
 const HEADING_ID = 'knowledge-title';
 
+/**
+ * Сколько статей показывает тизер. Ограничение принадлежит блоку, а не
+ * странице: это свойство краткой витрины — со временем статей станут
+ * десятки, и весь список на главной ей не нужен, для него есть листинг.
+ */
+const TEASER_LIMIT = 3;
+
 export interface KnowledgeTeaserProps {
   /**
    * Статьи в порядке вывода. 🔴 Блок в базу не ходит: опубликованные статьи
@@ -20,7 +27,7 @@ export interface KnowledgeTeaserProps {
   /**
    * Адрес статьи по её слагу. Функцией, а не полем в данных: карта URL
    * принадлежит странице (docs/SEO.md §1), а не блоку. Маршрута
-   * `/baza-znaniy/[slug]` ещё нет, поэтому адрес собирается объектом —
+   * `/knowledge/[slug]` ещё нет, поэтому адрес собирается объектом —
    * `typedRoutes` проверяет строковые литералы и пропускает `UrlObject`.
    */
   articleHref: (slug: string) => ButtonLinkHref;
@@ -41,10 +48,10 @@ export function KnowledgeTeaser({
   articles = [],
   articleHref,
   allHref,
-  id = 'baza',
+  id = 'knowledge',
 }: KnowledgeTeaserProps) {
   return (
-    <section id={id} className={styles.section} aria-labelledby={HEADING_ID}>
+    <section id={id} className={styles.section} aria-labelledby={HEADING_ID} data-band>
       <div className={styles.container}>
         <header className={styles.head}>
           <div className={styles.intro}>
@@ -71,7 +78,7 @@ export function KnowledgeTeaser({
           </Card>
         ) : (
           <ul className={styles.grid} aria-label={t.listLabel}>
-            {articles.map((article) => (
+            {articles.slice(0, TEASER_LIMIT).map((article) => (
               <ArticleCard key={article.id} article={article} href={articleHref(article.slug)} />
             ))}
           </ul>

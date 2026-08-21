@@ -27,7 +27,7 @@ const TIMELINE_HEADING_ID = 'installation-day-title';
  * приходить готовым HTML и читаться без JavaScript (инвариант 1).
  * Интерактивности здесь нет вовсе, поэтому нет и `'use client'`.
  */
-export function StepsTimeline({ warranty, id = 'etapy' }: StepsTimelineProps) {
+export function StepsTimeline({ warranty, id = 'installation' }: StepsTimelineProps) {
   const lastIndex = installSteps.length - 1;
   const terms = warrantyTerms(warranty, stepsContent.warranty);
 

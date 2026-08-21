@@ -91,11 +91,11 @@ describe('Footer', () => {
     setup();
     expect(
       screen.getByRole('link', { name: 'Политика обработки персональных данных' }),
-    ).toHaveAttribute('href', '/politika-konfidencialnosti');
+    ).toHaveAttribute('href', '/privacy');
   });
 
   it('активный раздел помечен aria-current', () => {
-    setup({ nav: [{ label: 'Отзывы', href: '#otzyvy', current: true }] });
+    setup({ nav: [{ label: 'Отзывы', href: '#reviews', current: true }] });
     const nav = screen.getByRole('navigation', { name: 'Разделы сайта' });
     expect(within(nav).getByRole('link', { name: 'Отзывы' })).toHaveAttribute(
       'aria-current',

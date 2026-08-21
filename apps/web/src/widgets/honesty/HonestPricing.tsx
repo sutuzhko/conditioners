@@ -28,7 +28,7 @@ const HEADING_ID = 'honesty-price-title';
  * обязан приходить готовым HTML и читаться без JavaScript (инвариант 1).
  * Интерактивности здесь нет вовсе, поэтому нет и `'use client'`.
  */
-export function HonestPricing({ installFrom, id = 'chestno' }: HonestPricingProps) {
+export function HonestPricing({ installFrom, id = 'honesty' }: HonestPricingProps) {
   // цена приводится к числу или к null один раз: дальше решают её наличие,
   // а не форма пропа — страница может передать и null, и undefined
   const price =

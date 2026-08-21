@@ -73,7 +73,7 @@ describe('Услуги', () => {
     expect(screen.getByRole('link', { name: /В каталог/ })).toHaveAttribute('href', '#catalog');
     expect(screen.getByRole('link', { name: /Сервис и ремонт/ })).toHaveAttribute(
       'href',
-      '#diagnostika',
+      '#service',
     );
   });
 
@@ -83,7 +83,7 @@ describe('Услуги', () => {
     expect(screen.getByRole('link', { name: /В каталог/ })).toHaveAttribute('href', '#modeli');
     expect(screen.getByRole('link', { name: /Как это проходит/ })).toHaveAttribute(
       'href',
-      '#etapy',
+      '#installation',
     );
   });
 });

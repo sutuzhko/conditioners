@@ -5,26 +5,40 @@
   background: var(--panel);
 }
 
+.viewport {
+  overflow: hidden;
+}
+
+/* Трек из двух одинаковых списков. Сдвиг ровно на -50% возвращает вторую
+   копию туда, где была первая, — шов не виден. Поэтому интервал задан
+   правым полем пункта, а не gap списка: gap не ставится после последнего
+   пункта, и половина ширины трека перестала бы совпадать с копией. */
+.track {
+  display: flex;
+  width: max-content;
+  margin: 0 auto;
+}
+
 .list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 28px 48px;
+  flex-wrap: nowrap;
   align-items: center;
-  justify-content: center;
   box-sizing: border-box;
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 22px var(--gutter);
+  margin: 0;
+  padding: 22px 0;
   list-style: none;
 }
 
 .item {
   display: flex;
+  flex: none;
   gap: 9px;
   align-items: center;
+  margin-right: 48px;
   color: color-mix(in srgb, var(--on-panel) 80%, transparent);
   font-size: var(--fs-dense);
   line-height: 1.35;
+  white-space: nowrap;
 }
 
 .icon {
@@ -33,13 +47,68 @@
   color: var(--brand-mark-dark);
 }
 
-/* На телефоне четыре утверждения в ряд не помещаются: столбец с прижатым
-   левым краем читается лучше, чем центрированные переносы по два слова */
+/* На широком экране ряд помещается целиком: он стоит по центру, копия не
+   нужна и не показывается. Двигать то, что и так видно, — только мешать
+   читать. */
+@media (width >= 1100px) {
+  .track {
+    padding: 0 var(--gutter);
+  }
+
+  .list + .list {
+    display: none;
+  }
+
+  .item:last-child {
+    margin-right: 0;
+  }
+}
+
+/* Ниже — ряд не помещается, и вместо переноса на вторую строку (высота
+   первого экрана от этого едет, ADR-047) он едет лентой. */
+@media (width < 1100px) {
+  .track {
+    animation: slide 38s linear infinite;
+  }
+
+  .track:hover,
+  .track:focus-within {
+    animation-play-state: paused;
+  }
+}
+
 @media (width < 600px) {
   .list {
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
-    padding: 18px 16px;
+    padding: 18px 0;
+  }
+
+  .item {
+    margin-right: 28px;
+  }
+}
+
+/* Движение по просьбе пользователя системы выключается целиком: тогда лента
+   остаётся обычным рядом с горизонтальной прокруткой. */
+@media (prefers-reduced-motion: reduce) {
+  .viewport {
+    overflow-x: auto;
+  }
+
+  .track {
+    animation: none;
+  }
+
+  .list + .list {
+    display: none;
+  }
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
   }
 }

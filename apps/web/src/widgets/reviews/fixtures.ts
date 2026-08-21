@@ -12,7 +12,7 @@ import type { ReviewCardData } from './model';
  */
 
 /** Страница политики появится в волне 2 — до тех пор адрес объектом, не литералом. */
-export const policyHrefFixture: ButtonLinkHref = { pathname: '/politika-konfidencialnosti' };
+export const policyHrefFixture: ButtonLinkHref = { pathname: '/privacy' };
 
 /**
  * Фото прямо в фикстуре: data-URI, чтобы истории не зависели ни от загруженных

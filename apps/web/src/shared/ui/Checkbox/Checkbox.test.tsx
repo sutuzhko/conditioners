@@ -27,14 +27,14 @@ describe('Checkbox', () => {
       <Checkbox
         label={
           <>
-            Принимаю <a href="/politika-konfidencialnosti">политику</a>
+            Принимаю <a href="/privacy">политику</a>
           </>
         }
       />,
     );
 
     const link = screen.getByRole('link', { name: 'политику' });
-    expect(link).toHaveAttribute('href', '/politika-konfidencialnosti');
+    expect(link).toHaveAttribute('href', '/privacy');
 
     // по спецификации HTML клик по интерактивному потомку метки не активирует
     // саму метку, поэтому проверяем главное: до ссылки можно дойти табом

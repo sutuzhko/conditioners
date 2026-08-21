@@ -15,7 +15,7 @@ export const POST = withAdmin(async (request) => {
   if (!parsed.success) return validationError(parsed.error);
 
   const product = await create(parsed.data);
-  revalidateCatalog(product.slug);
+  revalidateCatalog();
 
   return json(product, 201);
 });

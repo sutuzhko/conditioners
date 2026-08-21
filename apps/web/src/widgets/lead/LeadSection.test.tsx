@@ -43,14 +43,14 @@ describe('Блок «Заявка»', () => {
     const section = container.querySelector('section');
     const heading = screen.getByRole('heading', { level: 2, name: t.title });
 
-    expect(section).toHaveAttribute('id', 'zayavka');
+    expect(section).toHaveAttribute('id', 'lead');
     expect(section).toHaveAttribute('aria-labelledby', heading.id);
   });
 
   it('якорь и тема обращения приходят пропсами', () => {
-    const { container } = renderSection({ id: 'zayavka-servis', defaultTopic: 'Сервис и ремонт' });
+    const { container } = renderSection({ id: 'lead-service', defaultTopic: 'Сервис и ремонт' });
 
-    expect(container.querySelector('section')).toHaveAttribute('id', 'zayavka-servis');
+    expect(container.querySelector('section')).toHaveAttribute('id', 'lead-service');
     expect(screen.getByLabelText(/Тема обращения/)).toHaveValue('Сервис и ремонт');
   });
 

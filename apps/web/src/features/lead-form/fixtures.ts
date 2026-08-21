@@ -9,7 +9,7 @@ import type { ButtonLinkHref } from '@/shared/ui';
 export const phoneFixture = '+74872000000';
 
 /** Страница политики появится в волне 2 — до тех пор адрес объектом, не литералом. */
-export const policyHrefFixture: ButtonLinkHref = { pathname: '/politika-konfidencialnosti' };
+export const policyHrefFixture: ButtonLinkHref = { pathname: '/privacy' };
 
 export const titleFixture = 'Оставьте заявку — поможем с выбором';
 

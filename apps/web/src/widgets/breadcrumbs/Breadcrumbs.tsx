@@ -20,7 +20,7 @@ import styles from './Breadcrumbs.module.css';
  */
 export interface BreadcrumbsProps {
   /**
-   * Путь от корня, без главной: `[{ name: 'Каталог', path: '/catalog' }, { name: 'Сплит 09' }]`.
+   * Путь от корня, без главной: `[{ name: 'База знаний', path: '/knowledge' }, { name: 'Статья' }]`.
    * У последнего элемента — текущей страницы — пути нет.
    */
   readonly items: readonly BreadcrumbItem[];

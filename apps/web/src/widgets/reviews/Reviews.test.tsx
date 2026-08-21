@@ -33,10 +33,7 @@ describe('Блок отзывов', () => {
     }
 
     // приглашение ведёт к форме: на телефоне она уезжает под текст
-    expect(screen.getByRole('link', { name: t.emptyCta })).toHaveAttribute(
-      'href',
-      '#ostavit-otzyv',
-    );
+    expect(screen.getByRole('link', { name: t.emptyCta })).toHaveAttribute('href', '#review-form');
     expect(screen.queryByRole('list', { name: t.listLabel })).not.toBeInTheDocument();
   });
 

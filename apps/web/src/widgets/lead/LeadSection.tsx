@@ -43,10 +43,10 @@ export function LeadSection({
   policyHref,
   responseTime,
   defaultTopic,
-  id = 'zayavka',
+  id = 'lead',
 }: LeadSectionProps) {
   return (
-    <section id={id} className={styles.section} aria-labelledby={HEADING_ID}>
+    <section id={id} className={styles.section} aria-labelledby={HEADING_ID} data-band>
       <div className={styles.container}>
         <div className={styles.intro}>
           <p className={styles.kicker}>{t.kicker}</p>

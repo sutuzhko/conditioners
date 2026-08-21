@@ -163,7 +163,7 @@ describe('LeadForm', () => {
     setup();
     expect(screen.getByRole('link', { name: texts.consentPolicy })).toHaveAttribute(
       'href',
-      '/politika-konfidencialnosti',
+      '/privacy',
     );
   });
 });

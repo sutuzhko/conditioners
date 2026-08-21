@@ -22,11 +22,19 @@ describe('Страница 404', () => {
     }
   });
 
-  it('не ведёт на главную и на политику — там навигация и без того есть', () => {
+  it('🔴 ведёт на главную: шапки с логотипом на этой странице нет', () => {
+    render(<NotFound />);
+
+    expect(screen.getByRole('link', { name: NOT_FOUND_CONTENT.homeLink })).toHaveAttribute(
+      'href',
+      '/',
+    );
+  });
+
+  it('политики в списке разделов нет — она тут только мешает', () => {
     render(<NotFound />);
 
     const links = screen.getAllByRole('link').map((link) => link.getAttribute('href'));
-    expect(links).not.toContain('/');
     expect(links).not.toContain('/privacy');
   });
 

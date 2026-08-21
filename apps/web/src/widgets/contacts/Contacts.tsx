@@ -55,8 +55,8 @@ export function Contacts({
   address,
   area,
   geo,
-  leadHref = '#zayavka',
-  id = 'kontakty',
+  leadHref = '#lead',
+  id = 'contacts',
 }: ContactsProps) {
   const phones = contacts.phones.map((phone) => phone.trim()).filter((phone) => phone !== '');
   const hours = contacts.hours.trim();

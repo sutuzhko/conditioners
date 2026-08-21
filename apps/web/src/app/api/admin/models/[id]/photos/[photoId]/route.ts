@@ -18,7 +18,7 @@ export const PATCH = withAdmin(async (request, context: Context) => {
   if (!parsed.success) return validationError(parsed.error);
 
   const photo = await updatePhoto(id, photoId, parsed.data);
-  revalidateCatalog(product.slug);
+  revalidateCatalog();
 
   return json(photo);
 });
@@ -34,7 +34,7 @@ export const DELETE = withAdmin(async (_request, context: Context) => {
   await removePhoto(id, photoId);
   if (stored !== undefined) await deleteStoredImage(stored.url);
 
-  revalidateCatalog(product.slug);
+  revalidateCatalog();
 
   return noContent();
 });

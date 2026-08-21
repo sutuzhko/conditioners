@@ -94,9 +94,9 @@ describe('Блок контактов', () => {
   });
 
   it('кнопка заявки ведёт на переданный якорь формы', () => {
-    renderSection({ leadHref: '#zayavka' });
+    renderSection({ leadHref: '#lead' });
 
-    expect(screen.getByRole('link', { name: t.lead })).toHaveAttribute('href', '#zayavka');
+    expect(screen.getByRole('link', { name: t.lead })).toHaveAttribute('href', '#lead');
   });
 
   it('у секции один заголовок второго уровня — h1 принадлежит странице', () => {

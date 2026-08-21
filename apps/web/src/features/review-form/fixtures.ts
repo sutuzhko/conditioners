@@ -6,4 +6,4 @@ import type { ButtonLinkHref } from '@/shared/ui';
  */
 
 /** Страница политики появится в волне 2 — до тех пор адрес объектом, не литералом. */
-export const policyHrefFixture: ButtonLinkHref = { pathname: '/politika-konfidencialnosti' };
+export const policyHrefFixture: ButtonLinkHref = { pathname: '/privacy' };

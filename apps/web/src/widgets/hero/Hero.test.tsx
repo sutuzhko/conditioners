@@ -135,4 +135,53 @@ describe('Первый экран', () => {
     rerender(<Hero products={[]} />);
     expect(screen.queryByText('установок в Туле')).not.toBeInTheDocument();
   });
+
+  it('чип погоды показывает среднесуточную и пиковую температуру', () => {
+    render(<Hero products={[]} weather={{ mean: 27, max: 31 }} city="Тула" />);
+
+    // последний совпавший узел — самый глубокий, то есть сам чип, а не секция
+    const chip = screen.getAllByText((text) => visible(text).includes('+27°')).at(-1);
+    const text = visible(chip?.parentElement?.textContent ?? '');
+
+    expect(text).toContain('Тула сегодня');
+    expect(text).toContain('ср/сут');
+    expect(text).toContain('+31°');
+  });
+
+  it('🔴 без города чипа нет: подпись «сегодня» без места ничего не значит', () => {
+    const { container } = render(<Hero products={[]} weather={{ mean: 27, max: 31 }} />);
+
+    expect(container.textContent).not.toContain('°');
+  });
+
+  it('заметка в чипе зависит от пиковой температуры, а не от календаря', () => {
+    const note = (max: number): string => {
+      const { container, unmount } = render(
+        <Hero products={[]} weather={{ mean: max - 4, max }} city="Тула" />,
+      );
+      const text = container.textContent ?? '';
+      unmount();
+      return text;
+    };
+
+    expect(note(31)).toContain('пик сезона');
+    expect(note(24)).toContain('сезон стартовал');
+    expect(note(12)).toContain('до жары');
+  });
+
+  it('🔴 без данных о погоде чипа нет: выдуманная температура так же недопустима, как цена', () => {
+    const { container } = render(<Hero products={[]} />);
+
+    expect(container.textContent).not.toContain('°');
+  });
+
+  it('отрицательная температура выводится с минусом, а не с дефисом', () => {
+    render(<Hero products={[]} weather={{ mean: -7, max: -3 }} city="Тула" />);
+
+    const chip = screen.getAllByText((text) => visible(text).includes('−7°')).at(-1);
+    const text = visible(chip?.parentElement?.textContent ?? '');
+
+    expect(text).toContain('−3°');
+    expect(text).not.toContain('-7');
+  });
 });

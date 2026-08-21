@@ -6,17 +6,14 @@ import type { NavItem } from './model';
 /** Фикстуры историй и тестов — см. комментарий в widgets/header/fixtures.ts. */
 
 export const navFixture: readonly NavItem[] = [
-  { label: 'Каталог', href: '#catalog' },
-  { label: 'Цены на монтаж', href: '#ceny' },
-  { label: 'Как обманывают', href: '#obman' },
-  { label: 'Отзывы', href: '#otzyvy' },
-  // Раздел ещё не создан (волна 2), поэтому маршрут записан объектом:
-  // typedRoutes проверяет строковые литералы и пропускает UrlObject.
-  { label: 'База знаний', href: { pathname: '/baza-znaniy' } },
+  { label: 'Каталог', href: '/#catalog' },
+  { label: 'Цены на монтаж', href: '/#prices' },
+  { label: 'Честно о цене', href: '/#honesty' },
+  { label: 'Отзывы', href: '/#reviews' },
+  { label: 'База знаний', href: '/knowledge' },
 ];
 
-/** Тот же случай, что и с «Базой знаний»: страница политики появится в волне 2. */
-export const policyHrefFixture: ButtonLinkHref = { pathname: '/politika-konfidencialnosti' };
+export const policyHrefFixture: ButtonLinkHref = '/privacy';
 
 export const companyFixture: Company = {
   name: 'ТулаКлимат',

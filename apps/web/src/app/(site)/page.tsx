@@ -2,11 +2,19 @@ import { listVisible } from '@/server/repo/products';
 import { listApproved } from '@/server/repo/reviews';
 import { listPublished } from '@/server/repo/articles';
 import { getPrices } from '@/server/repo/prices';
-import { getAll } from '@/server/repo/settings';
+import { getCityWeather } from '@/server/weather';
 import { productSchema } from '@/entities/product/model';
 import { reviewSchema } from '@/entities/review/model';
 import { priceRowSchema } from '@/entities/price/model';
-import { settingSchemas } from '@/entities/settings/model';
+import { getActivePrice } from '@/entities/product/lib/getActivePrice';
+import { env } from '@/shared/config/env';
+import {
+  JsonLd,
+  buildCatalogItemListJsonLd,
+  buildFaqPageJsonLd,
+  buildLocalBusinessJsonLd,
+} from '@/shared/seo';
+import { catalogText } from '@/widgets/catalog';
 import { Hero } from '@/widgets/hero';
 import { TrustStrip, Services, WhyUs } from '@/widgets/trust';
 import { Catalog } from '@/widgets/catalog';
@@ -16,13 +24,16 @@ import { HonestPricing } from '@/widgets/honesty';
 import { Diagnostics } from '@/widgets/service';
 import { Reviews } from '@/widgets/reviews';
 import { KnowledgeTeaser } from '@/widgets/knowledge';
-import { Faq } from '@/widgets/faq';
+import { Faq, buildFaqItems } from '@/widgets/faq';
 import { Contacts } from '@/widgets/contacts';
 import { LeadSection } from '@/widgets/lead';
+import { AnchorSync } from '@/features/anchor-sync';
 import { LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
 
+import { loadSettings } from './_lib/settings';
+
 /**
- * Главная. Собирается из блоков; данные читает страница и передаёт пропсами —
+ * Лендинг. Собирается из блоков; данные читает страница и передаёт пропсами —
  * виджеты в базу не ходят (docs/ORCHESTRATION.md).
  *
  * Порядок секций — из прототипа: сначала подбор и доверие, затем товар,
@@ -35,7 +46,7 @@ export default async function HomePage() {
   const [rawProducts, { prices, extras }, settings, reviews, articles] = await Promise.all([
     listVisible(),
     getPrices(),
-    getAll(),
+    loadSettings(),
     listApproved(),
     listPublished(),
   ]);
@@ -61,33 +72,78 @@ export default async function HomePage() {
   // цена в заголовке «честно о цене» — из прайса, а не из вёрстки (инвариант 8)
   const installFrom = priceRows.length === 0 ? null : Math.min(...priceRows.map((r) => r.price));
 
-  const warranty = settingSchemas.warranty.safeParse(settings.warranty);
-  const address = settingSchemas.address.safeParse(settings.address);
-  const area = settingSchemas.area.safeParse(settings.area);
-  const geo = settingSchemas.geo.safeParse(settings.geo);
-  const contacts = settingSchemas.contacts.safeParse(settings.contacts);
-  const phone = contacts.success ? (contacts.data.phones[0] ?? '') : '';
+  const { warranty, contacts } = settings;
+  const phone = contacts.phones[0] ?? '';
+
+  /* Погода — после основных данных и отдельным запросом: она украшает первый
+     экран, но не имеет права его задерживать. Сервис недоступен — чипа нет,
+     страница собирается как обычно (docs/CLAUDE.md, «Безопасность»). */
+  const weather = await getCityWeather(settings.geo);
+
+  // плашка над заголовком — регион обслуживания из настроек, а не из кода
+  const heroNote = settings.area.served;
+
+  /* Разметка собирается из тех же данных, что рисуют страницу: вопросы FAQ —
+     тот же вызов `buildFaqItems`, что у виджета, отзывы — те же одобренные.
+     Расхождение разметки и видимого текста — основание для санкций
+     (инвариант 9), и единственный источник делает его невозможным. */
+  const faqItems = buildFaqItems({ installFrom, warranty });
+
+  const business = buildLocalBusinessJsonLd({
+    siteUrl: env.SITE_URL,
+    company: settings.company,
+    contacts,
+    address: settings.address,
+    social: settings.social,
+    seo: settings.seo,
+    geo: settings.geo,
+    area: settings.area,
+    payment: settings.payment,
+    // 🔴 Только настоящие одобренные отзывы — те же, что видит посетитель
+    // (инвариант 10). Пока их нет, узлов `Review` в разметке тоже нет.
+    reviews: approvedReviews,
+  });
+
+  /* Витрина в разметке — те же модели и та же действующая цена, что в
+     карточках: `getActivePrice` вызывается здесь ровно один раз на модель и
+     уходит и в разметку, и в блок (инвариант 9). */
+  const visibleProducts = products.filter((product) => product.visible);
+  const catalogList = buildCatalogItemListJsonLd({
+    siteUrl: env.SITE_URL,
+    name: catalogText.title,
+    items: visibleProducts.map((product) => ({ product, price: getActivePrice(product) })),
+  });
 
   return (
     <>
-      <Hero products={products} leadHref={LEAD_ANCHOR} catalogHref="#catalog">
+      <JsonLd nodes={[business, catalogList, buildFaqPageJsonLd(faqItems)]} />
+      {/* адрес следует за секцией, которую читают: ссылку на раздел можно
+          скопировать прямо из строки браузера */}
+      <AnchorSync />
+      <Hero
+        products={products}
+        weather={weather}
+        city={settings.address.city}
+        stats={settings.achievements.items}
+        note={heroNote}
+        leadHref={LEAD_ANCHOR}
+        catalogHref="#catalog"
+      >
         <TrustStrip />
       </Hero>
       <Services />
       <Catalog products={products} orderHref={LEAD_ANCHOR} />
       <SavingsBlock />
-      <StepsTimeline {...(warranty.success ? { warranty: warranty.data } : {})} />
+      <StepsTimeline warranty={warranty} />
       <Pricing prices={priceRows} rates={extras} leadHref={LEAD_ANCHOR} />
       <HonestPricing installFrom={installFrom} />
       <Diagnostics leadHref={LEAD_ANCHOR} />
-      <WhyUs {...(warranty.success ? { warranty: warranty.data } : {})} />
+      <WhyUs warranty={warranty} />
       <Reviews reviews={approvedReviews} policyHref={POLICY_HREF} />
       <LeadSection
         phone={phone}
         policyHref={POLICY_HREF}
-        {...(contacts.success && contacts.data.responseTime !== ''
-          ? { responseTime: contacts.data.responseTime }
-          : {})}
+        {...(contacts.responseTime === '' ? {} : { responseTime: contacts.responseTime })}
       />
       <KnowledgeTeaser
         articles={articleTeasers}
@@ -97,16 +153,16 @@ export default async function HomePage() {
         articleHref={(slug) => ({ pathname: `/knowledge/${slug}` })}
         allHref="/knowledge"
       />
-      <Faq installFrom={installFrom} {...(warranty.success ? { warranty: warranty.data } : {})} />
-      {contacts.success && address.success && area.success ? (
-        <Contacts
-          contacts={contacts.data}
-          address={address.data}
-          area={area.data}
-          {...(geo.success ? { geo: geo.data } : {})}
-          leadHref={LEAD_ANCHOR}
-        />
-      ) : null}
+      {/* виджет собирает вопросы тем же `buildFaqItems` от тех же фактов —
+          разметка выше и видимый текст здесь не могут разойтись */}
+      <Faq installFrom={installFrom} warranty={warranty} />
+      <Contacts
+        contacts={contacts}
+        address={settings.address}
+        area={settings.area}
+        geo={settings.geo}
+        leadHref={LEAD_ANCHOR}
+      />
     </>
   );
 }

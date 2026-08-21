@@ -47,12 +47,12 @@ const HEADING_ID = 'pricing-title';
 export function Pricing({
   prices,
   rates,
-  leadHref = '#zayavka',
+  leadHref = '#lead',
   onApplyEstimate,
   trassaMaxM = TRASSA_MAX_M,
   qtyMax = QTY_MAX,
   calcDefaults,
-  id = 'ceny',
+  id = 'prices',
 }: PricingProps) {
   const hasPrices = prices.length > 0;
   const note = rates ? ratesNote(rates) : [];

@@ -24,8 +24,7 @@ export const PUT = withAdmin(async (request, context: Context) => {
   if (before === null) return notFound('Модель');
 
   const product = await update(id, parsed.data);
-  revalidateCatalog(product.slug);
-  if (before.slug !== product.slug) revalidateCatalog(before.slug);
+  revalidateCatalog();
 
   return json(product);
 });
@@ -39,8 +38,7 @@ export const PATCH = withAdmin(async (request, context: Context) => {
   if (before === null) return notFound('Модель');
 
   const product = await update(id, parsed.data);
-  revalidateCatalog(product.slug);
-  if (before.slug !== product.slug) revalidateCatalog(before.slug);
+  revalidateCatalog();
 
   return json(product);
 });
@@ -55,7 +53,7 @@ export const DELETE = withAdmin(async (_request, context: Context) => {
   // Файлы удаляются вместе с карточкой: том не должен копить осиротевшие фото.
   await Promise.all(product.photos.map((photo) => deleteStoredImage(photo.url)));
 
-  revalidateCatalog(product.slug);
+  revalidateCatalog();
 
   return noContent();
 });

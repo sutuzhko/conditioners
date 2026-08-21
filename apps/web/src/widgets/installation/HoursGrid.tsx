@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, type MouseEvent, type PointerEvent, useEffect, useRef } from 'react';
+import { Fragment, useRef, type MouseEvent, type PointerEvent } from 'react';
 
 import { savingsContent as t } from './content';
 import { isNightHour } from './lib';
@@ -16,6 +16,9 @@ const DAY_HOURS = [...Array(HOURS_IN_DAY).keys()];
 /** Деления шкалы под сеткой: 00, 06, 12, 18 и правый край суток. */
 const SCALE_MARKS = DAY_HOURS.filter((hour) => hour % MARK_STEP === 0);
 
+/** Атрибут с часом на ячейке: по нему протяжка узнаёт, над чем идёт курсор. */
+const HOUR_ATTR = 'data-hour';
+
 /**
  * Метка ряда. Половины суток (00 и 12) остаются видны и в раскладке на два
  * ряда, четверти (06 и 18) — только когда рядов четыре.
@@ -24,6 +27,31 @@ function markClass(hour: number): string {
   return [styles.mark, hour % (MARK_STEP * 2) === 0 ? styles.markHalf : null]
     .filter(Boolean)
     .join(' ');
+}
+
+/** Час ячейки, если элемент ею и является (или лежит внутри неё). */
+function hourOf(element: Element | null | undefined): number | null {
+  const cell = element?.closest?.(`[${HOUR_ATTR}]`);
+  const raw = cell?.getAttribute(HOUR_ATTR);
+  if (raw === undefined || raw === null) return null;
+
+  const hour = Number(raw);
+  return Number.isInteger(hour) ? hour : null;
+}
+
+/**
+ * Час ячейки под указателем.
+ *
+ * Пока захвата нет, событие приходит от самой ячейки. После `setPointerCapture`
+ * его целью становится контейнер, и ячейку приходится искать по координатам —
+ * иначе протяжка знала бы только про ту клетку, где начался жест.
+ */
+function hourUnder(event: PointerEvent<Element>): number | null {
+  const fromTarget = hourOf(event.target instanceof Element ? event.target : null);
+  if (fromTarget !== null) return fromTarget;
+
+  if (typeof document.elementFromPoint !== 'function') return null;
+  return hourOf(document.elementFromPoint(event.clientX, event.clientY));
 }
 
 export type HoursGridProps = {
@@ -42,6 +70,13 @@ export type HoursGridProps = {
  * `div`: протяжка мышью недоступна ни с клавиатуры, ни голосом, и она здесь
  * ускорение для мыши, а не единственный способ отметить час. Клик и пробел с
  * Enter работают всегда, в том числе на сенсорном экране.
+ *
+ * 🔴 Протяжка держится на захвате указателя контейнером, а не на слушателях
+ * окна. Прежняя версия ждала `pointerup` на `window` — и не получала его,
+ * если кнопку отпускали за пределами окна браузера или жест забирал себе сам
+ * браузер. Краска оставалась включённой, и дальше ячейки перекрашивались от
+ * одного наведения. С захватом события приходят контейнеру всегда, а
+ * `event.buttons` служит второй проверкой: кнопка не зажата — протяжки нет.
  */
 export function HoursGrid({ hours, onChange, labelId }: HoursGridProps) {
   /**
@@ -50,52 +85,58 @@ export function HoursGrid({ hours, onChange, labelId }: HoursGridProps) {
    */
   const paint = useRef<boolean | null>(null);
 
-  /* Указатель могут отпустить где угодно — за пределами сетки и вообще за
-     окном, — поэтому слушаем window. Снимаем при размонтировании: иначе
-     обработчик переживёт компонент.
+  /** Час, обработанный последним: без него сосед красится на каждом движении. */
+  const lastHour = useRef<number | null>(null);
 
-     🔴 Именно `pointerup`, а не `mouseup`: в `pointerdown` ниже стоит
-     `preventDefault`, а он гасит совместимостные мышиные события. С `mouseup`
-     протяжка не заканчивалась никогда — после клика ячейки продолжали
-     краситься от одного наведения.
-
-     `pointercancel` обязателен для сенсорного экрана: когда браузер решает,
-     что жест был прокруткой страницы, он забирает указатель себе и `pointerup`
-     не присылает. */
-  useEffect(() => {
-    const stopPainting = () => {
-      paint.current = null;
-    };
-
-    window.addEventListener('pointerup', stopPainting);
-    window.addEventListener('pointercancel', stopPainting);
-    return () => {
-      window.removeEventListener('pointerup', stopPainting);
-      window.removeEventListener('pointercancel', stopPainting);
-    };
-  }, []);
-
-  const handlePointerDown = (event: PointerEvent<HTMLButtonElement>, hour: number) => {
-    /* Сенсорный указатель по умолчанию закрепляется за элементом, на котором
-       нажали, и `pointerenter` у соседних ячеек не срабатывает. Отпускаем
-       захват — палец начинает вести себя как мышь. Прокрутку страницы это не
-       ломает: вертикальный жест остаётся за браузером (`touch-action: pan-y`),
-       и он присылает `pointercancel`. */
-    const cell = event.currentTarget;
-    if (typeof cell.hasPointerCapture === 'function' && cell.hasPointerCapture(event.pointerId)) {
-      cell.releasePointerCapture(event.pointerId);
-    }
-
-    event.preventDefault();
-    const next = hours[hour] !== true;
-    paint.current = next;
-    onChange(hour, next);
+  const stopPainting = () => {
+    paint.current = null;
+    lastHour.current = null;
   };
 
-  const handlePointerEnter = (hour: number) => {
+  const paintHour = (hour: number) => {
     const next = paint.current;
-    if (next === null || hours[hour] === next) return;
-    onChange(hour, next);
+    if (next === null || lastHour.current === hour) return;
+
+    lastHour.current = hour;
+    if (hours[hour] !== next) onChange(hour, next);
+  };
+
+  const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    // протяжка — жест основной кнопки; правая кнопка открывает меню браузера
+    if (!event.isPrimary || event.button !== 0) return;
+
+    const hour = hourUnder(event);
+    if (hour === null) return;
+
+    /* Захват указателя контейнером: события идут сюда, даже если курсор
+       ушёл за пределы сетки и окна. Заодно снимается неявный захват
+       сенсорным указателем, из-за которого палец «прилипал» к первой
+       ячейке. */
+    const grid = event.currentTarget;
+    if (typeof grid.setPointerCapture === 'function') {
+      grid.setPointerCapture(event.pointerId);
+    }
+
+    // гасим выделение текста и нативное перетаскивание под курсором
+    event.preventDefault();
+
+    paint.current = hours[hour] !== true;
+    lastHour.current = hour;
+    onChange(hour, paint.current);
+  };
+
+  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (paint.current === null) return;
+
+    /* Кнопку отпустили там, где события до нас не дошли, — заканчиваем
+       протяжку по факту, а не по обещанию браузера прислать `pointerup`. */
+    if (event.buttons === 0) {
+      stopPainting();
+      return;
+    }
+
+    const hour = hourUnder(event);
+    if (hour !== null) paintHour(hour);
   };
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>, hour: number) => {
@@ -109,7 +150,16 @@ export function HoursGrid({ hours, onChange, labelId }: HoursGridProps) {
 
   return (
     <>
-      <div className={styles.grid} role="group" aria-labelledby={labelId}>
+      <div
+        className={styles.grid}
+        role="group"
+        aria-labelledby={labelId}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={stopPainting}
+        onPointerCancel={stopPainting}
+        onLostPointerCapture={stopPainting}
+      >
         {DAY_HOURS.map((hour) => {
           const on = hours[hour] === true;
           const night = isNightHour(hour);
@@ -134,8 +184,7 @@ export function HoursGrid({ hours, onChange, labelId }: HoursGridProps) {
                 aria-pressed={on}
                 aria-label={name}
                 title={name}
-                onPointerDown={(event) => handlePointerDown(event, hour)}
-                onPointerEnter={() => handlePointerEnter(hour)}
+                data-hour={hour}
                 onClick={(event) => handleClick(event, hour)}
               />
             </Fragment>

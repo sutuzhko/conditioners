@@ -1,12 +1,13 @@
 import type { ReactNode } from 'react';
 import type { Product } from '@/entities/product/model';
+import { formatDegrees } from '@/shared/lib/format';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { Badge, ButtonLink, StatList } from '@/shared/ui';
 
 import { heroContent as t } from './content';
 import { HeroParticles } from './HeroParticles';
 import { HeroPicker } from './HeroPicker';
-import type { HeroStat } from './model';
+import type { HeroStat, HeroWeather } from './model';
 import styles from './Hero.module.css';
 
 export type HeroProps = {
@@ -20,6 +21,14 @@ export type HeroProps = {
   readonly stats?: readonly HeroStat[] | undefined;
   /** Плашка над заголовком, например география работ. Приходит из настроек. */
   readonly note?: string | undefined;
+  /**
+   * Погода в городе. Запрос делает сервер страницы и кеширует на час: чип из
+   * макета в прототипе ходил в чужой сервис прямо из браузера и стоял на
+   * критическом пути LCP. Не пришла — чипа нет, первый экран не меняется.
+   */
+  readonly weather?: HeroWeather | null | undefined;
+  /** Город для подписи чипа — из настроек компании, а не из кода. */
+  readonly city?: string | undefined;
   /** Якорь или адрес формы заявки. */
   readonly leadHref?: ButtonLinkHref | undefined;
   /**
@@ -45,7 +54,9 @@ export function Hero({
   products,
   stats = [],
   note,
-  leadHref = '#zayavka',
+  weather,
+  city,
+  leadHref = '#lead',
   catalogHref = '#catalog',
   now,
   children,
@@ -81,6 +92,22 @@ export function Hero({
               {t.secondaryCta}
             </ButtonLink>
           </div>
+
+          {/* Чип погоды из макета: среднесуточная, пик и заметка про спрос.
+              Без города в настройках подписи не будет — придумывать его код
+              не вправе (инвариант 8), поэтому чип просто не рисуется. */}
+          {weather && city !== undefined && city !== '' ? (
+            <p className={styles.weather}>
+              <span className={styles.weatherDot} aria-hidden="true" />
+              <span className={styles.weatherText}>
+                {`${t.weatherPrefix(city)} ${t.weatherMean} `}
+                <b className={styles.weatherMean}>{formatDegrees(weather.mean)}</b>
+                {` · ${t.weatherPeak} `}
+                <b className={styles.weatherMax}>{formatDegrees(weather.max)}</b>
+                {` — ${t.weatherNote(weather.max)}`}
+              </span>
+            </p>
+          ) : null}
 
           <StatList items={stats} className={styles.stats} />
         </div>

@@ -5,7 +5,7 @@ import { Checkbox } from './Checkbox';
 const consent = (
   <>
     Согласен на обработку персональных данных и принимаю{' '}
-    <a href="/politika-konfidencialnosti">политику конфиденциальности</a>
+    <a href="/privacy">политику конфиденциальности</a>
   </>
 );
 

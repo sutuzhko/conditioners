@@ -120,10 +120,7 @@ describe('Header', () => {
 
   it('кнопка заявки ведёт на форму', () => {
     setup();
-    expect(screen.getByRole('link', { name: 'Оставить заявку' })).toHaveAttribute(
-      'href',
-      '#zayavka',
-    );
+    expect(screen.getByRole('link', { name: 'Оставить заявку' })).toHaveAttribute('href', '#lead');
   });
 
   it('заглушка телефона не ломает шапку', () => {

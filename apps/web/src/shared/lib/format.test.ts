@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  formatDegrees,
   formatDate,
   formatDateIso,
   formatMoney,
@@ -25,6 +26,26 @@ describe('formatMoney', () => {
   it('ноль и дробное значение выводятся без копеек', () => {
     expect(formatMoney(0)).toBe(`0${NBSP}₽`);
     expect(formatNumber(15_900.4)).toBe(`15${NBSP}900`);
+  });
+});
+
+describe('formatDegrees', () => {
+  it('ставит знак плюса у положительной температуры', () => {
+    expect(formatDegrees(27)).toBe('+27°');
+  });
+
+  it('🔴 отрицательная температура получает типографский минус, а не дефис', () => {
+    expect(formatDegrees(-7)).toBe('−7°');
+    expect(formatDegrees(-7)).not.toContain('-');
+  });
+
+  it('у нуля знака нет', () => {
+    expect(formatDegrees(0)).toBe('0°');
+  });
+
+  it('доли градуса округляются', () => {
+    expect(formatDegrees(26.6)).toBe('+27°');
+    expect(formatDegrees(-2.4)).toBe('−2°');
   });
 });
 

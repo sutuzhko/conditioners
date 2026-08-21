@@ -61,9 +61,9 @@ describe('Тизер Базы знаний', () => {
 
     expect(screen.getByRole('link', { name: first.title })).toHaveAttribute(
       'href',
-      `/baza-znaniy/${first.slug}`,
+      `/knowledge/${first.slug}`,
     );
-    expect(screen.getByRole('link', { name: t.allLink })).toHaveAttribute('href', '/baza-znaniy');
+    expect(screen.getByRole('link', { name: t.allLink })).toHaveAttribute('href', '/knowledge');
   });
 
   it('дата статьи выводится машиночитаемым `time` — её читает и разметка Article', () => {
@@ -94,5 +94,19 @@ describe('Тизер Базы знаний', () => {
     expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument();
     expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1);
     expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(articlesFixture.length);
+  });
+
+  it('тизер краткий: длинный список обрезается, за остальным — ссылка на листинг', () => {
+    const many = Array.from({ length: 7 }, (_, index) => {
+      const source = articlesFixture[index % articlesFixture.length];
+      if (source === undefined) throw new Error('фикстура статей пуста');
+      return { ...source, id: `many-${index}`, slug: `${source.slug}-${index}` };
+    });
+
+    renderSection(many);
+
+    const list = screen.getByRole('list', { name: t.listLabel });
+    expect(within(list).getAllByRole('listitem')).toHaveLength(3);
+    expect(screen.getByRole('link', { name: t.allLink })).toBeInTheDocument();
   });
 });

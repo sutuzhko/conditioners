@@ -19,17 +19,15 @@ export function articleHrefFixture(slug: string): ButtonLinkHref {
 }
 
 export function categoryHrefFixture(category: string | null): ButtonLinkHref {
-  return category === null
-    ? '/knowledge'
-    : { pathname: '/knowledge', query: { rubrika: category } };
+  return category === null ? '/knowledge' : { pathname: '/knowledge', query: { category } };
 }
 
 export const listHrefFixture: ButtonLinkHref = '/knowledge';
-export const leadHrefFixture: ButtonLinkHref = '/#zayavka';
+export const leadHrefFixture: ButtonLinkHref = '/#lead';
 
 export const ctaLinksFixture: readonly ArticleLink[] = [
-  { label: 'Каталог кондиционеров с ценами', href: '/catalog' },
-  { label: 'Установка кондиционеров под ключ', href: '/installation' },
+  { label: 'Каталог кондиционеров с ценами', href: '/#catalog' },
+  { label: 'Установка кондиционеров под ключ', href: '/#installation' },
 ];
 
 /** Обложка прямо в фикстуре: истории не зависят от работающего `/api/media`. */

@@ -99,6 +99,8 @@ describe('готовность данных компании', () => {
       payment: { methods: ['карта'], vat: 'без НДС' },
       social: { links: [] },
       seo: { homeTitle: 'Заголовок', homeDescription: 'Описание', titleSuffix: 'Бренд' },
+      // цифры полосы первого экрана необязательны: пустой список — норма
+      achievements: { items: [] },
       integrations: { metrikaId: '', messengerButtons: { telegram: false, whatsapp: false } },
     });
 

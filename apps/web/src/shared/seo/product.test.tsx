@@ -7,7 +7,7 @@ import { formatMoney } from '@/shared/lib/format';
 import { ProductPrice } from '@/widgets/catalog/ui/ProductPrice';
 
 import { SITE_URL } from './fixtures';
-import { buildItemListJsonLd, buildProductJsonLd } from './product';
+import { buildCatalogItemListJsonLd, buildItemListJsonLd, buildProductJsonLd } from './product';
 import { organizationId } from './organization';
 
 /** Момент, относительно которого считается скидка. Фиксированный: иначе тест «протухнет». */
@@ -194,5 +194,59 @@ describe('ItemList листинга', () => {
 
   it('пустой каталог разметки не порождает', () => {
     expect(buildItemListJsonLd({ siteUrl: SITE_URL, items: [] })).toBeNull();
+  });
+});
+
+describe('ItemList витрины — товары без своих страниц', () => {
+  it('несёт вложенный Product с ценой, а не ссылку на несуществующую карточку', () => {
+    const product = makeProduct();
+    const node = buildCatalogItemListJsonLd({
+      siteUrl: SITE_URL,
+      name: 'Каталог',
+      items: [{ product, price: getActivePrice(product, NOW) }],
+    });
+
+    const list = node as { numberOfItems: number; itemListElement: readonly unknown[] };
+    expect(list.numberOfItems).toBe(1);
+
+    const entry = list.itemListElement[0] as {
+      position: number;
+      url?: unknown;
+      item: { '@type': string; url?: unknown; offers: { price: number; url?: unknown } };
+    };
+    expect(entry.position).toBe(1);
+    expect(entry.url).toBeUndefined();
+    expect(entry.item['@type']).toBe('Product');
+    expect(entry.item.offers.price).toBe(product.priceNum);
+  });
+
+  it('🔴 без своей страницы адреса в разметке нет — ни у товара, ни у предложения', () => {
+    const product = makeProduct();
+    const node = buildProductJsonLd({
+      siteUrl: SITE_URL,
+      product,
+      price: getActivePrice(product, NOW),
+    });
+    const built = node as { '@id': string; url?: unknown; offers: { url?: unknown } };
+
+    expect(built.url).toBeUndefined();
+    expect(built.offers.url).toBeUndefined();
+    expect(built['@id']).toBe(`${SITE_URL}/#product-${product.slug}`);
+  });
+
+  it('действующая цена со скидкой уходит в разметку той же, что видит посетитель', () => {
+    const price = getActivePrice(onSale, NOW);
+    const node = buildCatalogItemListJsonLd({
+      siteUrl: SITE_URL,
+      items: [{ product: onSale, price }],
+    });
+
+    const list = node as { itemListElement: readonly { item: { offers: { price: number } } }[] };
+    expect(list.itemListElement[0]?.item.offers.price).toBe(price.currentPrice);
+    expect(price.currentPrice).toBe(onSale.salePrice);
+  });
+
+  it('пустая витрина разметки не порождает', () => {
+    expect(buildCatalogItemListJsonLd({ siteUrl: SITE_URL, items: [] })).toBeNull();
   });
 });
