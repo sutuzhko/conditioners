@@ -127,7 +127,7 @@
 ```prisma
 model Product {                       // «Модель» в терминах админки
   id        String   @id @default(cuid())
-  slug      String   @unique          // для /katalog/[slug]
+  slug      String   @unique          // стабильный идентификатор модели в API и админке
   badge     String                    // класс мощности: «09»
   name      String                    // «Сплит-система 09» или реальное имя модели
   brand     String?                   // производитель
