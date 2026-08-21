@@ -16,6 +16,8 @@ const launchOptions =
 
 export default defineConfig({
   testDir: './e2e',
+  // снимки историй живут в своём конфиге: им нужен Storybook, а не сайт
+  testIgnore: '**/vr/**',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
