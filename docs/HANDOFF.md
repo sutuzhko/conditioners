@@ -9,8 +9,8 @@
 знаний и политика. Кластер страниц удалён. Админки нет совсем.
 
 - 4 маршрута: `/`, `/knowledge`, `/knowledge/[slug]`, `/privacy` — все отвечают 200
-- 101 файл тестов, 826 тестов зелёные (`pnpm check` — линт, типы, тесты)
-- 18 сквозных проверок Playwright в двух профилях (`pnpm --filter web e2e`)
+- 101 файл тестов, 835 тестов зелёные (`pnpm check` — линт, типы, тесты)
+- 26 сквозных проверок Playwright в двух профилях (`pnpm --filter web e2e`)
 - Разработка в Docker (ADR-017), сайт на `http://localhost:3000`
 - Ветка `main` запушена в `git@github.com:sutuzhko/conditioners.git`
 

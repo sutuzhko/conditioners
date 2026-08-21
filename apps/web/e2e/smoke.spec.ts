@@ -86,6 +86,100 @@ test.describe('Лендинг', () => {
   });
 });
 
+test.describe('Поведение лендинга', () => {
+  test('адрес следует за секцией, которую читают', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#catalog').waitFor();
+
+    const scrollTo = async (id: string): Promise<void> => {
+      await page.evaluate((target) => {
+        const section = target === '' ? null : document.querySelector(`#${target}`);
+        const top =
+          section === null ? 0 : section.getBoundingClientRect().top + window.scrollY + 80;
+        window.scrollTo({ top, behavior: 'instant' });
+      }, id);
+    };
+
+    /* Первая проверка с повтором: до гидратации наблюдателя ещё нет, и адрес
+       остаётся чистым — это не поломка, а незаконченная загрузка. */
+    const expectHash = async (id: string, hash: string): Promise<void> => {
+      await expect(async () => {
+        await scrollTo(id);
+        await page.waitForTimeout(300);
+        expect(new URL(page.url()).hash).toBe(hash);
+      }).toPass();
+    };
+
+    await expectHash('prices', '#prices');
+    await expectHash('reviews', '#reviews');
+    // наверху адрес снова чистый: ссылка со страницы ведёт на её начало
+    await expectHash('', '');
+  });
+
+  test('🔴 история не забивается якорями: назад уводит со страницы', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#catalog').waitFor();
+
+    const before = await page.evaluate(() => history.length);
+    for (const id of ['catalog', 'prices', 'service', 'contacts']) {
+      await page.evaluate((target) => {
+        const section = document.querySelector(`#${target}`);
+        if (section !== null) {
+          window.scrollTo({ top: section.getBoundingClientRect().top + window.scrollY + 80 });
+        }
+      }, id);
+      await page.waitForTimeout(250);
+    }
+
+    expect(await page.evaluate(() => history.length)).toBe(before);
+  });
+
+  test('🔴 протяжка по часам заканчивается вместе с кнопкой мыши', async ({ page }) => {
+    await page.goto('/');
+    const cells = page.locator('[class*="HoursGrid_grid"] button');
+    await cells.first().waitFor();
+
+    // ждём гидратации: до неё обработчики не навешаны
+    await expect(async () => {
+      await cells.nth(0).click();
+      await expect(cells.nth(0)).toHaveAttribute('aria-pressed', 'true');
+    }).toPass();
+    await cells.nth(0).click();
+
+    const state = async (): Promise<string> =>
+      cells.evaluateAll((list) =>
+        list.map((cell) => (cell.getAttribute('aria-pressed') === 'true' ? '1' : '0')).join(''),
+      );
+    const center = async (index: number): Promise<readonly [number, number]> => {
+      const box = await cells.nth(index).boundingBox();
+      if (box === null) throw new Error(`ячейка ${index} не видна`);
+      return [box.x + box.width / 2, box.y + box.height / 2] as const;
+    };
+
+    const [startX, startY] = await center(2);
+    await page.mouse.move(startX, startY);
+    await page.mouse.down();
+    for (const index of [3, 4]) {
+      const [x, y] = await center(index);
+      await page.mouse.move(x, y, { steps: 4 });
+    }
+    // протяжка действительно покрасила соседей, а не только стартовую ячейку
+    expect((await state()).slice(2, 5)).toBe('111');
+
+    // отпускаем далеко от сетки — так теряется `pointerup` у реального курсора
+    await page.mouse.move(startX, startY - 300, { steps: 4 });
+    await page.mouse.up();
+
+    const afterRelease = await state();
+    for (const index of [9, 10, 11]) {
+      const [x, y] = await center(index);
+      await page.mouse.move(x, y, { steps: 4 });
+    }
+
+    expect(await state()).toBe(afterRelease);
+  });
+});
+
 test.describe('Разделы сайта', () => {
   test('База знаний и политика отвечают, удалённые адреса — 404', async ({ page }) => {
     for (const path of ['/knowledge', '/privacy']) {
@@ -98,6 +192,17 @@ test.describe('Разделы сайта', () => {
       const response = await page.goto(path);
       expect(response?.status(), path).toBe(404);
     }
+  });
+
+  test('🔴 со страницы 404 есть выход на главную: шапки там нет', async ({ page }) => {
+    await page.goto('/takoy-stranicy-net');
+
+    const home = page.getByRole('link', { name: /на главную/i });
+    await expect(home).toHaveAttribute('href', '/');
+
+    await home.click();
+    await page.waitForURL((url) => url.pathname === '/');
+    await expect(page.locator('h1')).toHaveCount(1);
   });
 
   test('карта сайта содержит только существующие адреса', async ({ request }) => {
