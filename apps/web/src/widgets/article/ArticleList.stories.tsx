@@ -1,0 +1,62 @@
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
+import { ArticleList } from './ArticleList';
+import {
+  articleHrefFixture,
+  categoryHrefFixture,
+  singleCategoryFixture,
+  teasersFixture,
+} from './fixtures';
+
+/**
+ * Листинг Базы знаний.
+ *
+ * Первой идёт пустая витрина: статьи мы пишем сами, и «статей пока нет» —
+ * рабочее состояние раздела, а не крайний случай.
+ */
+const meta = {
+  title: 'Страницы/База знаний/Листинг',
+  component: ArticleList,
+  args: { categoryHref: categoryHrefFixture, articleHref: articleHrefFixture },
+  parameters: { layout: 'fullscreen' },
+} satisfies Meta<typeof ArticleList>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Empty: Story = { name: 'Статей ещё нет' };
+
+export const WithArticles: Story = { name: 'Три статьи', args: { articles: teasersFixture } };
+
+export const Filtered: Story = {
+  name: 'Выбрана рубрика',
+  args: { articles: teasersFixture, activeCategory: 'uhod' },
+};
+
+export const SingleCategory: Story = {
+  name: 'Одна рубрика — фильтра нет',
+  args: { articles: singleCategoryFixture },
+};
+
+export const UnknownCategory: Story = {
+  name: 'Рубрики из ссылки больше нет',
+  args: { articles: teasersFixture, activeCategory: 'takoy-rubriki-net' },
+};
+
+export const Tablet: Story = {
+  name: 'Планшет 768',
+  args: { articles: teasersFixture },
+  globals: { viewport: { value: 'md' } },
+};
+
+export const Phone: Story = {
+  name: 'Телефон 375',
+  args: { articles: teasersFixture },
+  globals: { viewport: { value: 'sm' } },
+};
+
+export const Narrow: Story = {
+  name: 'Минимум 320',
+  args: { articles: teasersFixture },
+  globals: { viewport: { value: 'xs' } },
+};

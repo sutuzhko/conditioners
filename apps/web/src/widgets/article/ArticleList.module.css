@@ -1,0 +1,185 @@
+/* Листинг Базы знаний. Ритм секции и типографика — те же, что у тизера на
+   главной (docs/PIXEL_SPEC.md, «БАЗА ЗНАНИЙ»): 88px 24px, H1 из шкалы,
+   надзаголовок 13px моноширинный, карточки в две колонки, как в макете
+   `design/База знаний.dc.html`. */
+
+.section {
+  background: var(--bg);
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter);
+}
+
+.head {
+  max-width: 680px;
+  margin-bottom: 36px;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-lead);
+}
+
+/* --- рубрики --- */
+
+.filter {
+  margin-bottom: 32px;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Ссылка в оформлении чипа. Компонент Chip — это button со своим состоянием,
+   а фильтр здесь работает без JavaScript, поэтому пилюля собрана из тех же
+   токенов заново. */
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 11px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  color: var(--body);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+/* Глобальное правило скругляет фокус любой ссылки до --r-sm; у пилюли это
+   заметно меняет форму на фокусе, поэтому радиус подтверждается явно. */
+.tab:focus-visible {
+  border-radius: var(--r-pill);
+}
+
+.tab:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+  color: var(--on-accent);
+}
+
+/* Заливка --brand, а не прототипный акцент: белый текст на нём не проходит AA
+   (docs/DESIGN_BRIEF.md §12) — то же решение, что и у чипа UI Kit. */
+.selected {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+.selected:hover {
+  border-color: var(--brand-hover);
+  background: var(--brand-hover);
+  color: var(--on-brand);
+}
+
+/* --- сетка --- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* --- пустые состояния --- */
+
+.empty {
+  max-width: 680px;
+}
+
+.emptyTitle {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.emptyText {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-base);
+}
+
+.emptyLink {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 10px 12px;
+  margin: 6px 0 -10px -12px;
+  border-radius: var(--r-sm);
+  color: var(--accent-ink);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.emptyLink:hover {
+  text-decoration: underline;
+}
+
+@media (width < 900px) {
+  .head {
+    margin-bottom: 28px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (width < 600px) {
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .lead {
+    font-size: var(--fs-base);
+  }
+
+  .grid {
+    gap: 16px;
+  }
+}

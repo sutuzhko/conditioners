@@ -1,0 +1,171 @@
+/* Страница статьи. Колонка сужена до 680px по ширине строки: в прототипе
+   контейнер 760px, но текстовые блоки проекта ограничены 620–680px
+   (DESIGN_BRIEF §4) — длинная строка нечитаема. */
+
+.article {
+  box-sizing: border-box;
+  max-width: calc(680px + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 48px var(--gutter) var(--section-y);
+}
+
+/* Хлебные крошки приходят слотом со своим контейнером (max-width 1200 и
+   отступ в гутер). Внутри узкой колонки статьи его ширина не связывает, а
+   боковой отступ сдвигал бы след относительно текста — гутер снимается
+   отрицательным полем, верхний отступ гасится, чтобы шапка статьи осталась
+   на своих 48px от шапки сайта. */
+.crumbs {
+  margin: -20px calc(var(--gutter) * -1) 4px;
+}
+
+/* --- шапка статьи --- */
+
+.head {
+  margin-bottom: 24px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 0 0 18px;
+}
+
+.dates {
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(28px, 7vw, 38px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+.cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 30px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-ml);
+  object-fit: cover;
+  aspect-ratio: 16 / 7;
+}
+
+/* --- переход к коммерческим страницам --- */
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 44px;
+  padding: 32px;
+  border-radius: var(--r-lg);
+  background: var(--panel);
+}
+
+.ctaText {
+  flex: 1 1 260px;
+}
+
+.ctaTitle {
+  margin: 0 0 6px;
+  color: var(--on-panel);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.ctaLead {
+  margin: 0;
+  color: var(--faint);
+  font-size: var(--fs-dense);
+}
+
+.ctaActions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.ctaLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ctaLink {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 10px 12px;
+  margin-left: -12px;
+  border-radius: var(--r-sm);
+  color: var(--accent-ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ctaLink:hover {
+  text-decoration: underline;
+}
+
+/* --- возврат к листингу --- */
+
+.back {
+  margin: 28px 0 0;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 10px 12px;
+  margin-left: -12px;
+  border-radius: var(--r-sm);
+  color: var(--accent-ink);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+@media (width < 600px) {
+  .article {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .crumbs {
+    margin-right: -16px;
+    margin-left: -16px;
+  }
+
+  .cta {
+    padding: 24px 20px;
+  }
+
+  .ctaActions {
+    align-self: stretch;
+  }
+}
