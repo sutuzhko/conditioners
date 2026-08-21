@@ -3,7 +3,7 @@ import { getAll } from '@/server/repo/settings';
 import { settingSchemas } from '@/entities/settings/model';
 import { Header } from '@/widgets/header';
 import { Footer } from '@/widgets/footer';
-import { SITE_NAV, LEAD_ANCHOR } from '@/shared/config/nav';
+import { SITE_NAV, LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
 
 /**
  * Каркас публичной части. Данные компании читаются здесь один раз и раздаются
@@ -39,7 +39,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         address={parseGroup(settingSchemas.address, settings.address)}
         legal={parseGroup(settingSchemas.legal, settings.legal)}
         nav={SITE_NAV}
-        policyHref={{ pathname: '/politika-konfidencialnosti' }}
+        policyHref={POLICY_HREF}
       />
     </>
   );

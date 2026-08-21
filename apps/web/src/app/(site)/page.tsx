@@ -12,7 +12,7 @@ import { TrustStrip, Services, WhyUs } from '@/widgets/trust';
 import { Catalog } from '@/widgets/catalog';
 import { SavingsBlock, StepsTimeline } from '@/widgets/installation';
 import { Pricing } from '@/widgets/pricing';
-import { HonestPricing, ScamAccordion } from '@/widgets/honesty';
+import { HonestPricing } from '@/widgets/honesty';
 import { Diagnostics } from '@/widgets/service';
 import { Reviews } from '@/widgets/reviews';
 import { KnowledgeTeaser } from '@/widgets/knowledge';
@@ -78,7 +78,6 @@ export default async function HomePage() {
       <StepsTimeline {...(warranty.success ? { warranty: warranty.data } : {})} />
       <Pricing prices={priceRows} rates={extras} leadHref={LEAD_ANCHOR} />
       <HonestPricing installFrom={installFrom} />
-      <ScamAccordion />
       <Diagnostics leadHref={LEAD_ANCHOR} />
       <WhyUs {...(warranty.success ? { warranty: warranty.data } : {})} />
       <Reviews reviews={approvedReviews} policyHref={POLICY_HREF} />
@@ -91,8 +90,8 @@ export default async function HomePage() {
       />
       <KnowledgeTeaser
         articles={articleTeasers}
-        articleHref={(slug) => ({ pathname: `/baza-znaniy/${slug}` })}
-        allHref={{ pathname: '/baza-znaniy' }}
+        articleHref={(slug) => `/knowledge/${slug}`}
+        allHref="/knowledge"
       />
       <Faq installFrom={installFrom} {...(warranty.success ? { warranty: warranty.data } : {})} />
       {contacts.success && address.success && area.success ? (
