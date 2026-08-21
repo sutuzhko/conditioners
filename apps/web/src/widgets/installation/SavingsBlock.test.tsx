@@ -45,9 +45,26 @@ function totalHours(): string {
  * руками: без `pointerType` компонент считает указатель сенсорным и красить
  * не начинает — ровно так же, как на телефоне.
  */
-function pointerEvent(type: string, target: Element, pointerType = 'mouse'): void {
+/**
+ * Событие указателя со всеми полями, которые читает сетка часов: основная ли
+ * это кнопка, зажата ли она сейчас. jsdom своих `PointerEvent` не строит,
+ * поэтому поля навешиваются вручную.
+ */
+function pointerEvent(
+  type: string,
+  target: Element,
+  { pointerType = 'mouse', buttons = 1 }: { pointerType?: string; buttons?: number } = {},
+): void {
   const event = new Event(type, { bubbles: true, cancelable: true });
-  Object.defineProperty(event, 'pointerType', { value: pointerType });
+  Object.defineProperties(event, {
+    pointerType: { value: pointerType },
+    pointerId: { value: 1 },
+    isPrimary: { value: true },
+    button: { value: 0 },
+    buttons: { value: buttons },
+    clientX: { value: 0 },
+    clientY: { value: 0 },
+  });
   fireEvent(target, event);
 }
 
@@ -152,8 +169,8 @@ describe('Экономия инвертора — сетка часов', () => 
     render(<SavingsBlock defaultHours={[]} />);
 
     pointerEvent('pointerdown', cellAt(10));
-    pointerEvent('pointerover', cellAt(11));
-    pointerEvent('pointerover', cellAt(12));
+    pointerEvent('pointermove', cellAt(11));
+    pointerEvent('pointermove', cellAt(12));
 
     expect(totalHours()).toBe('3');
   });
@@ -162,8 +179,31 @@ describe('Экономия инвертора — сетка часов', () => 
     render(<SavingsBlock defaultHours={[]} />);
 
     pointerEvent('pointerdown', cellAt(10));
-    fireEvent.pointerUp(window);
-    pointerEvent('pointerover', cellAt(11));
+    pointerEvent('pointerup', cellAt(10), { buttons: 0 });
+    pointerEvent('pointermove', cellAt(11), { buttons: 0 });
+
+    expect(totalHours()).toBe('1');
+  });
+
+  it('🔴 движение без зажатой кнопки не красит: отпускание могло уйти мимо окна', () => {
+    render(<SavingsBlock defaultHours={[]} />);
+
+    pointerEvent('pointerdown', cellAt(10));
+    // кнопку отпустили за пределами окна, `pointerup` до страницы не дошёл
+    pointerEvent('pointermove', cellAt(11), { buttons: 0 });
+    // и дальше указатель просто гуляет по сетке — ячейки меняться не должны
+    pointerEvent('pointermove', cellAt(12), { buttons: 1 });
+    pointerEvent('pointermove', cellAt(13), { buttons: 1 });
+
+    expect(totalHours()).toBe('1');
+  });
+
+  it('потеря захвата указателя прекращает протяжку', () => {
+    render(<SavingsBlock defaultHours={[]} />);
+
+    pointerEvent('pointerdown', cellAt(10));
+    pointerEvent('lostpointercapture', cellAt(10), { buttons: 0 });
+    pointerEvent('pointermove', cellAt(11), { buttons: 1 });
 
     expect(totalHours()).toBe('1');
   });
@@ -171,8 +211,8 @@ describe('Экономия инвертора — сетка часов', () => 
   it('пальцем протяжка работает так же, как мышью', () => {
     render(<SavingsBlock defaultHours={[]} />);
 
-    pointerEvent('pointerdown', cellAt(10), 'touch');
-    pointerEvent('pointerover', cellAt(11), 'touch');
+    pointerEvent('pointerdown', cellAt(10), { pointerType: 'touch' });
+    pointerEvent('pointermove', cellAt(11), { pointerType: 'touch' });
 
     expect(totalHours()).toBe('2');
   });
@@ -180,12 +220,29 @@ describe('Экономия инвертора — сетка часов', () => 
   it('перехват жеста браузером прекращает протяжку', () => {
     render(<SavingsBlock defaultHours={[]} />);
 
-    pointerEvent('pointerdown', cellAt(10), 'touch');
+    pointerEvent('pointerdown', cellAt(10), { pointerType: 'touch' });
     // браузер решил, что жест был прокруткой страницы, и забрал указатель
-    fireEvent.pointerCancel(window);
-    pointerEvent('pointerover', cellAt(11), 'touch');
+    pointerEvent('pointercancel', cellAt(10), { pointerType: 'touch', buttons: 0 });
+    pointerEvent('pointermove', cellAt(11), { pointerType: 'touch' });
 
     expect(totalHours()).toBe('1');
+  });
+
+  it('протяжка правой кнопкой не начинается — там меню браузера', () => {
+    render(<SavingsBlock defaultHours={[]} />);
+
+    const event = new Event('pointerdown', { bubbles: true, cancelable: true });
+    Object.defineProperties(event, {
+      pointerType: { value: 'mouse' },
+      pointerId: { value: 1 },
+      isPrimary: { value: true },
+      button: { value: 2 },
+      buttons: { value: 2 },
+    });
+    fireEvent(cellAt(10), event);
+    pointerEvent('pointermove', cellAt(11), { buttons: 2 });
+
+    expect(totalHours()).toBe('0');
   });
 
   it('сумма часов объявляется скринридеру', () => {
