@@ -18,7 +18,7 @@ const SALE_TIME_ZONE = 'Europe/Moscow';
 
 export type ProductJsonLdInput = {
   readonly siteUrl: string;
-  /** Путь карточки: `/katalog/split-09`. */
+  /** Путь карточки: `/catalog/split-09`. */
   readonly path: string;
   readonly product: Product;
   /**

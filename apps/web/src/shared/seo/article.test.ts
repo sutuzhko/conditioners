@@ -18,20 +18,20 @@ describe('Article', () => {
   it('собирает статью с датами публикации и правки', () => {
     const node = buildArticleJsonLd({
       siteUrl: SITE_URL,
-      path: '/baza-znaniy/invertor-ili-on-off',
+      path: '/knowledge/invertor-ili-on-off',
       article,
       hasOrganization: true,
     });
 
     expect(node).toEqual({
       '@type': 'Article',
-      '@id': `${SITE_URL}/baza-znaniy/invertor-ili-on-off#article`,
+      '@id': `${SITE_URL}/knowledge/invertor-ili-on-off#article`,
       headline: article.title,
       description: article.excerpt,
-      url: `${SITE_URL}/baza-znaniy/invertor-ili-on-off`,
+      url: `${SITE_URL}/knowledge/invertor-ili-on-off`,
       mainEntityOfPage: {
         '@type': 'WebPage',
-        '@id': `${SITE_URL}/baza-znaniy/invertor-ili-on-off`,
+        '@id': `${SITE_URL}/knowledge/invertor-ili-on-off`,
       },
       datePublished: '2026-05-12',
       dateModified: '2026-06-01',
@@ -45,7 +45,7 @@ describe('Article', () => {
   it('своё описание из админки важнее анонса', () => {
     const node = buildArticleJsonLd({
       siteUrl: SITE_URL,
-      path: '/baza-znaniy/a',
+      path: '/knowledge/a',
       article: { ...article, seoDescription: 'Описание для выдачи' },
     });
 
@@ -53,7 +53,7 @@ describe('Article', () => {
   });
 
   it('🔴 без заполненной компании автора и издателя в разметке нет', () => {
-    const node = buildArticleJsonLd({ siteUrl: SITE_URL, path: '/baza-znaniy/a', article });
+    const node = buildArticleJsonLd({ siteUrl: SITE_URL, path: '/knowledge/a', article });
 
     expect(node).not.toHaveProperty('author');
     expect(node).not.toHaveProperty('publisher');
@@ -62,16 +62,16 @@ describe('Article', () => {
   it('статья без обложки и анонса не даёт пустых полей', () => {
     const node = buildArticleJsonLd({
       siteUrl: SITE_URL,
-      path: '/baza-znaniy/a',
+      path: '/knowledge/a',
       article: { title: 'Заголовок', date: article.date },
     });
 
     expect(node).toEqual({
       '@type': 'Article',
-      '@id': `${SITE_URL}/baza-znaniy/a#article`,
+      '@id': `${SITE_URL}/knowledge/a#article`,
       headline: 'Заголовок',
-      url: `${SITE_URL}/baza-znaniy/a`,
-      mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/baza-znaniy/a` },
+      url: `${SITE_URL}/knowledge/a`,
+      mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/knowledge/a` },
       datePublished: '2026-05-12',
       inLanguage: 'ru-RU',
     });
@@ -81,7 +81,7 @@ describe('Article', () => {
     expect(
       buildArticleJsonLd({
         siteUrl: SITE_URL,
-        path: '/baza-znaniy/a',
+        path: '/knowledge/a',
         article: { ...article, title: ' ' },
       }),
     ).toBeNull();

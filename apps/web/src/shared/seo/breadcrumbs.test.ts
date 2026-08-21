@@ -9,7 +9,7 @@ describe('BreadcrumbList', () => {
       siteUrl: SITE_URL,
       items: [
         { name: 'Главная', path: '/' },
-        { name: 'Каталог', path: '/katalog' },
+        { name: 'Каталог', path: '/catalog' },
         { name: 'Сплит-система 09' },
       ],
     });
@@ -18,7 +18,7 @@ describe('BreadcrumbList', () => {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Главная', item: `${SITE_URL}/` },
-        { '@type': 'ListItem', position: 2, name: 'Каталог', item: `${SITE_URL}/katalog` },
+        { '@type': 'ListItem', position: 2, name: 'Каталог', item: `${SITE_URL}/catalog` },
         { '@type': 'ListItem', position: 3, name: 'Сплит-система 09' },
       ],
     });
@@ -34,12 +34,12 @@ describe('BreadcrumbList', () => {
   it('звено без подписи выбрасывается, а не выводится пустым', () => {
     const node = buildBreadcrumbListJsonLd({
       siteUrl: SITE_URL,
-      items: [{ name: 'Главная', path: '/' }, { name: '  ' }, { name: 'Цены', path: '/ceny' }],
+      items: [{ name: 'Главная', path: '/' }, { name: '  ' }, { name: 'Цены', path: '/prices' }],
     });
 
     expect(node?.itemListElement).toEqual([
       { '@type': 'ListItem', position: 1, name: 'Главная', item: `${SITE_URL}/` },
-      { '@type': 'ListItem', position: 2, name: 'Цены', item: `${SITE_URL}/ceny` },
+      { '@type': 'ListItem', position: 2, name: 'Цены', item: `${SITE_URL}/prices` },
     ]);
   });
 });

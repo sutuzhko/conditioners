@@ -32,7 +32,7 @@ export type ServiceOfferInput = {
 
 export type ServiceJsonLdInput = {
   readonly siteUrl: string;
-  /** Путь страницы услуги: `/ustanovka-kondicionerov`. */
+  /** Путь страницы услуги: `/installation`. */
   readonly path: string;
   readonly name: string;
   readonly description?: string | null | undefined;

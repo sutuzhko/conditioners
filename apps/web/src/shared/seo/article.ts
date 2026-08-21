@@ -17,7 +17,7 @@ const PUBLISH_TIME_ZONE = 'Europe/Moscow';
 
 export type ArticleJsonLdInput = {
   readonly siteUrl: string;
-  /** Путь статьи: `/baza-znaniy/invertor-ili-on-off`. */
+  /** Путь статьи: `/knowledge/invertor-ili-on-off`. */
   readonly path: string;
   readonly article: {
     readonly title: string;

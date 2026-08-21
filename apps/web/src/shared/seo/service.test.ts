@@ -8,7 +8,7 @@ describe('Service и OfferCatalog', () => {
   it('собирает услугу с прайсом: одна позиция каталога — одна строка таблицы цен', () => {
     const node = buildServiceJsonLd({
       siteUrl: SITE_URL,
-      path: '/ustanovka-kondicionerov',
+      path: '/installation',
       name: 'Установка кондиционеров',
       description: 'Монтаж под ключ за один день',
       serviceType: 'Монтаж кондиционеров',
@@ -22,11 +22,11 @@ describe('Service и OfferCatalog', () => {
 
     expect(node).toEqual({
       '@type': 'Service',
-      '@id': `${SITE_URL}/ustanovka-kondicionerov#service`,
+      '@id': `${SITE_URL}/installation#service`,
       name: 'Установка кондиционеров',
       description: 'Монтаж под ключ за один день',
       serviceType: 'Монтаж кондиционеров',
-      url: `${SITE_URL}/ustanovka-kondicionerov`,
+      url: `${SITE_URL}/installation`,
       provider: { '@id': organizationId(SITE_URL) },
       areaServed: [
         { '@type': 'AdministrativeArea', name: 'Тула и Тульская область' },
@@ -64,16 +64,16 @@ describe('Service и OfferCatalog', () => {
   it('услуга без прайса каталога предложений не выдумывает', () => {
     const node = buildServiceJsonLd({
       siteUrl: SITE_URL,
-      path: '/remont-i-obsluzhivanie',
+      path: '/service',
       name: 'Ремонт и обслуживание',
       area: emptyArea,
     });
 
     expect(node).toEqual({
       '@type': 'Service',
-      '@id': `${SITE_URL}/remont-i-obsluzhivanie#service`,
+      '@id': `${SITE_URL}/service#service`,
       name: 'Ремонт и обслуживание',
-      url: `${SITE_URL}/remont-i-obsluzhivanie`,
+      url: `${SITE_URL}/service`,
       provider: { '@id': organizationId(SITE_URL) },
     });
   });
@@ -81,7 +81,7 @@ describe('Service и OfferCatalog', () => {
   it('позиция без цены попадает в каталог, но без PriceSpecification', () => {
     const node = buildServiceJsonLd({
       siteUrl: SITE_URL,
-      path: '/ceny',
+      path: '/prices',
       name: 'Цены',
       offers: [{ name: 'Выезд мастера' }, { name: '  ' }],
     });
@@ -97,6 +97,6 @@ describe('Service и OfferCatalog', () => {
   });
 
   it('услуга без названия разметкой не становится', () => {
-    expect(buildServiceJsonLd({ siteUrl: SITE_URL, path: '/ceny', name: '  ' })).toBeNull();
+    expect(buildServiceJsonLd({ siteUrl: SITE_URL, path: '/prices', name: '  ' })).toBeNull();
   });
 });

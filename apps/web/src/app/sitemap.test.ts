@@ -30,9 +30,9 @@ describe('Карта сайта', () => {
     const urls = entries.map((entry) => entry.url);
 
     expect(urls).toContain('https://example.test/');
-    expect(urls).toContain('https://example.test/katalog');
-    expect(urls).toContain('https://example.test/ustanovka-kondicionerov');
-    expect(urls).toContain('https://example.test/baza-znaniy');
+    expect(urls).toContain('https://example.test/catalog');
+    expect(urls).toContain('https://example.test/installation');
+    expect(urls).toContain('https://example.test/knowledge');
     expect(urls.every((url) => url.startsWith('https://example.test'))).toBe(true);
   });
 
@@ -40,11 +40,11 @@ describe('Карта сайта', () => {
     const entries = await sitemap();
 
     expect(entries).toContainEqual({
-      url: 'https://example.test/katalog/split-09',
+      url: 'https://example.test/catalog/split-09',
       lastModified: PRODUCT_UPDATED,
     });
     expect(entries).toContainEqual({
-      url: 'https://example.test/baza-znaniy/invertor-ili-on-off',
+      url: 'https://example.test/knowledge/invertor-ili-on-off',
       lastModified: ARTICLE_UPDATED,
     });
   });
@@ -73,7 +73,7 @@ describe('Карта сайта', () => {
 
     const entries = await sitemap();
 
-    expect(entries.some((entry) => entry.url.includes('/katalog/'))).toBe(false);
-    expect(entries.some((entry) => entry.url.includes('/baza-znaniy/'))).toBe(false);
+    expect(entries.some((entry) => entry.url.includes('/catalog/'))).toBe(false);
+    expect(entries.some((entry) => entry.url.includes('/knowledge/'))).toBe(false);
   });
 });

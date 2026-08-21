@@ -7,8 +7,8 @@ import { absoluteUrl, compact, num, oneOrMany, text, textList } from './schema';
 describe('Основа разметки', () => {
   describe('absoluteUrl', () => {
     it('собирает абсолютный адрес без завершающего слэша', () => {
-      expect(absoluteUrl('https://site.ru', '/katalog')).toBe('https://site.ru/katalog');
-      expect(absoluteUrl('https://site.ru/', 'katalog/')).toBe('https://site.ru/katalog');
+      expect(absoluteUrl('https://site.ru', '/catalog')).toBe('https://site.ru/catalog');
+      expect(absoluteUrl('https://site.ru/', 'catalog/')).toBe('https://site.ru/catalog');
     });
 
     it('корень отдаётся со слэшем — это его единственная форма', () => {

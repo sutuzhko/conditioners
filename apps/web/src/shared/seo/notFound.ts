@@ -1,4 +1,4 @@
-import { SITE_ROUTES, type SiteRoute } from './routes';
+import { PRIVACY_PATH, SITE_ROUTES, type SiteRoute } from './routes';
 
 /**
  * Тексты страницы 404 и её навигация (docs/SEO.md §5).
@@ -20,5 +20,5 @@ export const NOT_FOUND_CONTENT = {
  * на главную ведёт логотип в шапке, а политика в этом списке только мешает.
  */
 export const NOT_FOUND_ROUTES: readonly SiteRoute[] = SITE_ROUTES.filter(
-  (route) => route.path !== '/' && route.path !== '/politika-konfidencialnosti',
+  (route) => route.path !== '/' && route.path !== PRIVACY_PATH,
 );

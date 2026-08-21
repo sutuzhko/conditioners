@@ -58,6 +58,7 @@ export {
   ARTICLES_PATH,
   CATALOG_PATH,
   HOME_ROUTE,
+  PRIVACY_PATH,
   SITE_ROUTES,
   articlePath,
   productPath,

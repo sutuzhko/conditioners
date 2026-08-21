@@ -12,7 +12,7 @@ import { absoluteUrl, text } from './schema';
 
 export type PageMetadataInput = {
   readonly siteUrl: string;
-  /** Путь страницы: `/katalog`. */
+  /** Путь страницы: `/catalog`. */
   readonly path: string;
   readonly title: string;
   readonly description?: string | null | undefined;

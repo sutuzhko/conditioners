@@ -4,10 +4,11 @@
  * Один список кормит карту сайта и навигацию страницы 404: адрес, которого
  * нет в этом файле, не попадёт ни туда, ни туда. Пути записаны строками, а не
  * типизированными маршрутами: карта сайта и `robots` собираются вне
- * маршрутизации, а страницы кластера появляются волнами.
+ * маршрутизации, а страницы кластера появляются волнами — литерал
+ * несуществующего маршрута при `typedRoutes` ломает сборку.
  *
  * Гео-страницы `/rayony/*` — вторая волна (docs/SEO.md §1), их здесь нет.
- * Динамические адреса (`/katalog/[slug]`, `/baza-znaniy/[slug]`) приходят из
+ * Динамические адреса (`/catalog/[slug]`, `/knowledge/[slug]`) приходят из
  * базы, а не отсюда.
  */
 
@@ -19,21 +20,22 @@ export type SiteRoute = {
 
 export const HOME_ROUTE: SiteRoute = { path: '/', title: 'Главная' };
 
+/** Разделы каталога и статей: их адреса строятся из слага. */
+export const CATALOG_PATH = '/catalog';
+export const ARTICLES_PATH = '/knowledge';
+export const PRIVACY_PATH = '/privacy';
+
 export const SITE_ROUTES: readonly SiteRoute[] = [
   HOME_ROUTE,
-  { path: '/katalog', title: 'Каталог кондиционеров' },
-  { path: '/ustanovka-kondicionerov', title: 'Установка кондиционеров' },
-  { path: '/ceny', title: 'Цены на монтаж' },
-  { path: '/remont-i-obsluzhivanie', title: 'Ремонт и обслуживание' },
-  { path: '/otzyvy', title: 'Отзывы' },
-  { path: '/baza-znaniy', title: 'База знаний' },
-  { path: '/kontakty', title: 'Контакты' },
-  { path: '/politika-konfidencialnosti', title: 'Политика обработки персональных данных' },
+  { path: CATALOG_PATH, title: 'Каталог кондиционеров' },
+  { path: '/installation', title: 'Установка кондиционеров' },
+  { path: '/prices', title: 'Цены на монтаж' },
+  { path: '/service', title: 'Ремонт и обслуживание' },
+  { path: '/reviews', title: 'Отзывы' },
+  { path: ARTICLES_PATH, title: 'База знаний' },
+  { path: '/contacts', title: 'Контакты' },
+  { path: PRIVACY_PATH, title: 'Политика обработки персональных данных' },
 ];
-
-/** Разделы каталога и статей: их адреса строятся из слага. */
-export const CATALOG_PATH = '/katalog';
-export const ARTICLES_PATH = '/baza-znaniy';
 
 export function productPath(slug: string): string {
   return `${CATALOG_PATH}/${slug}`;

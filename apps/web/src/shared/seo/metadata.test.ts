@@ -5,9 +5,9 @@ import { buildPageMetadata, buildTitle } from './metadata';
 
 describe('Метаданные страницы', () => {
   it('каноникал абсолютный и без завершающего слэша', () => {
-    const meta = buildPageMetadata({ siteUrl: SITE_URL, path: '/katalog', title: 'Каталог' });
+    const meta = buildPageMetadata({ siteUrl: SITE_URL, path: '/catalog', title: 'Каталог' });
 
-    expect(meta.alternates?.canonical).toBe(`${SITE_URL}/katalog`);
+    expect(meta.alternates?.canonical).toBe(`${SITE_URL}/catalog`);
   });
 
   it('суффикс бренда приходит из настроек и не дублируется', () => {
@@ -45,7 +45,7 @@ describe('Метаданные страницы', () => {
   it('пустое описание полем не становится', () => {
     const meta = buildPageMetadata({
       siteUrl: SITE_URL,
-      path: '/ceny',
+      path: '/prices',
       title: 'Цены',
       description: '',
     });

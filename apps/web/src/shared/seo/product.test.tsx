@@ -47,7 +47,7 @@ describe('Product и Offer', () => {
     const product = makeProduct();
     const node = buildProductJsonLd({
       siteUrl: SITE_URL,
-      path: '/katalog/split-09',
+      path: '/catalog/split-09',
       product,
       price: getActivePrice(product, NOW),
     });
@@ -58,7 +58,7 @@ describe('Product и Offer', () => {
       sku: 'PRM-09',
       brand: { '@type': 'Brand', name: 'Пример' },
       description: 'Кондиционер на 27 м² с монтажом под ключ',
-      url: `${SITE_URL}/katalog/split-09`,
+      url: `${SITE_URL}/catalog/split-09`,
       image: [`${SITE_URL}/media/split-09.jpg`],
       additionalProperty: [
         { '@type': 'PropertyValue', name: 'Мощность охлаждения', value: '2.6 кВт' },
@@ -70,14 +70,14 @@ describe('Product и Offer', () => {
     const product = makeProduct();
     const offer = offerOf({
       siteUrl: SITE_URL,
-      path: '/katalog/split-09',
+      path: '/catalog/split-09',
       product,
       price: getActivePrice(product, NOW),
     });
 
     expect(offer).toEqual({
       '@type': 'Offer',
-      url: `${SITE_URL}/katalog/split-09`,
+      url: `${SITE_URL}/catalog/split-09`,
       price: 42900,
       priceCurrency: 'RUB',
       availability: 'https://schema.org/InStock',
@@ -89,7 +89,7 @@ describe('Product и Offer', () => {
   it('🔴 при активной скидке в разметке действующая цена и срок из saleTo', () => {
     const offer = offerOf({
       siteUrl: SITE_URL,
-      path: '/katalog/split-09',
+      path: '/catalog/split-09',
       product: onSale,
       price: getActivePrice(onSale, NOW),
     });
@@ -101,7 +101,7 @@ describe('Product и Offer', () => {
     const after = new Date('2026-11-02T09:00:00.000Z');
     const offer = offerOf({
       siteUrl: SITE_URL,
-      path: '/katalog/split-09',
+      path: '/catalog/split-09',
       product: onSale,
       price: getActivePrice(onSale, after),
     });
@@ -112,7 +112,7 @@ describe('Product и Offer', () => {
 
   it('🔴 инвариант 9: цена в разметке — та же, что видит человек на витрине', () => {
     const price = getActivePrice(onSale, NOW);
-    const offer = offerOf({ siteUrl: SITE_URL, path: '/katalog/split-09', product: onSale, price });
+    const offer = offerOf({ siteUrl: SITE_URL, path: '/catalog/split-09', product: onSale, price });
 
     // на витрину и в разметку уходит один и тот же результат getActivePrice
     const { container } = render(<ProductPrice price={price} />);
@@ -129,7 +129,7 @@ describe('Product и Offer', () => {
     const hidden = makeProduct({ visible: false });
     const offer = offerOf({
       siteUrl: SITE_URL,
-      path: '/katalog/split-09',
+      path: '/catalog/split-09',
       product: hidden,
       price: getActivePrice(hidden, NOW),
     });
@@ -147,7 +147,7 @@ describe('Product и Offer', () => {
     });
     const node = buildProductJsonLd({
       siteUrl: SITE_URL,
-      path: '/katalog/split-09',
+      path: '/catalog/split-09',
       product: bare,
       price: getActivePrice(bare, NOW),
     });
@@ -167,8 +167,8 @@ describe('ItemList листинга', () => {
         siteUrl: SITE_URL,
         name: 'Каталог',
         items: [
-          { name: 'Сплит 07', path: '/katalog/split-07' },
-          { name: 'Сплит 09', path: '/katalog/split-09' },
+          { name: 'Сплит 07', path: '/catalog/split-07' },
+          { name: 'Сплит 09', path: '/catalog/split-09' },
         ],
       }),
     ).toEqual({
@@ -180,13 +180,13 @@ describe('ItemList листинга', () => {
           '@type': 'ListItem',
           position: 1,
           name: 'Сплит 07',
-          url: `${SITE_URL}/katalog/split-07`,
+          url: `${SITE_URL}/catalog/split-07`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Сплит 09',
-          url: `${SITE_URL}/katalog/split-09`,
+          url: `${SITE_URL}/catalog/split-09`,
         },
       ],
     });
