@@ -1,0 +1,57 @@
+/* Список моделей каталога. */
+
+.name {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.badge {
+  margin-left: 8px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+}
+
+.price {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.sale {
+  margin-left: 8px;
+}
+
+.sort {
+  font-variant-numeric: tabular-nums;
+}
+
+.edit {
+  color: var(--accent-ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.edit:hover {
+  text-decoration: underline;
+}
+
+.empty {
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.emptyText {
+  margin: 0 auto;
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
