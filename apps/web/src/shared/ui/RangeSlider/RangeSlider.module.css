@@ -25,6 +25,19 @@
   white-space: nowrap;
 }
 
+/* Компактная подпись — размеры макета для ползунков в узкой колонке (12.5 и
+   14px). Пока их не было в ките, блок задавал те же числа селектором по тегу
+   из своего модуля, то есть в обход кита. */
+.headSm > label {
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.headSm > .value {
+  font-size: 14px;
+}
+
 .slider {
   display: block;
   box-sizing: border-box;
@@ -78,6 +91,19 @@
   border-radius: var(--r-pill);
   background: var(--brand);
   box-shadow: var(--shadow-brand);
+}
+
+/* Компактный бегунок — 18px вместо 24px. Высота контрола остаётся тап-зоной:
+   палец целится в бегунок, а не в его рисунок. */
+.sliderSm::-webkit-slider-thumb {
+  width: 18px;
+  height: 18px;
+  margin-top: -6px;
+}
+
+.sliderSm::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
 }
 
 /* Общая обводка обводила бы всю дорожку — фокус принадлежит бегунку */

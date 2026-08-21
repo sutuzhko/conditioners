@@ -21,6 +21,13 @@ export interface RangeSliderProps {
   formatValue?: ((value: number) => string) | undefined;
   /** подписи краёв шкалы; по умолчанию берутся из formatValue */
   showScale?: boolean | undefined;
+  /**
+   * Компактный вариант: подпись и значение мельче, бегунок тоньше. Нужен там,
+   * где ползунок стоит в узкой колонке и обычный кегль переносит подпись со
+   * значением на две строки (врезка экономии). Без него блоки лезли править
+   * подписи из своего модуля — в обход кита.
+   */
+  size?: 'md' | 'sm' | undefined;
   className?: string | undefined;
 }
 
@@ -38,6 +45,7 @@ export function RangeSlider({
   disabled,
   formatValue,
   showScale = true,
+  size = 'md',
   className,
 }: RangeSliderProps) {
   const { fieldId, hintId, errorId, describedBy, invalid } = useFieldIds({ id, hint, error });
@@ -57,7 +65,7 @@ export function RangeSlider({
       className={className}
     >
       {label === undefined ? null : (
-        <span className={styles.head}>
+        <span className={`${styles.head} ${size === 'sm' ? styles.headSm : ''}`}>
           <label htmlFor={fieldId}>{label}</label>
           <output htmlFor={fieldId} className={styles.value}>
             {format(value)}
@@ -68,7 +76,7 @@ export function RangeSlider({
         type="range"
         id={fieldId}
         name={name}
-        className={styles.slider}
+        className={`${styles.slider} ${size === 'sm' ? styles.sliderSm : ''}`}
         min={min}
         max={max}
         step={step}

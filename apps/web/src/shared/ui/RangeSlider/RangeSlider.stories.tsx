@@ -67,6 +67,22 @@ export const NoScale: Story = {
   render: () => <AreaSlider showScale={false} />,
 };
 
+export const Compact: Story = {
+  name: 'Компактный — для узкой колонки',
+  render: () => (
+    <AreaSlider
+      initial={6.5}
+      size="sm"
+      label="Тариф день"
+      min={4}
+      max={9}
+      step={0.1}
+      showScale={false}
+      formatValue={(next) => `${next.toFixed(1)} ₽/кВт·ч`}
+    />
+  ),
+};
+
 export const Dragging: Story = {
   name: 'Изменение с клавиатуры',
   render: () => <AreaSlider />,

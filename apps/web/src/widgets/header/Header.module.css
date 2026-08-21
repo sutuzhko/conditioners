@@ -59,10 +59,13 @@
   white-space: nowrap;
 }
 
+/* 11px / 0.06em — из файла логотипов, а не из прототипа главной (там 10.5 и
+   0.05em). Замок — боевой ассет бренда (ADR-022), и его собственная
+   спецификация главнее случайного вхождения на макете страницы. */
 .tagline {
   overflow: hidden;
   color: var(--muted);
-  font-size: 10.5px;
+  font-size: 11px;
   letter-spacing: 0.06em;
   text-overflow: ellipsis;
   white-space: nowrap;

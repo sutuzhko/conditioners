@@ -123,6 +123,7 @@ export function SavingsCalculator({
               step={TARIFF_STEP}
               formatValue={t.tariff}
               showScale={false}
+              size="sm"
             />
             {/* В едином тарифе ночная ставка не участвует в расчёте. В макете
                 ползунок просто пригашен; `disabled` добавляет к этому то, чего
@@ -136,6 +137,7 @@ export function SavingsCalculator({
               step={TARIFF_STEP}
               formatValue={t.tariff}
               showScale={false}
+              size="sm"
               disabled={!dual}
               className={dual ? undefined : styles.tariffOff}
             />
