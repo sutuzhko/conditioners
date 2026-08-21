@@ -15,6 +15,12 @@
   margin: 0;
 }
 
+/* «под ключ» — приписка к цене: 13px приглушённым, на той же базовой линии */
+.turnkey {
+  color: var(--faint);
+  font-size: 13px;
+}
+
 .current {
   color: var(--ink);
   font-family: var(--font-display);

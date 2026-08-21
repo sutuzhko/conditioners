@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 
 import { formatMoney } from '@/shared/lib/format';
 import { Chip } from '@/shared/ui';
@@ -14,6 +14,11 @@ export type DiagnosticsPickerProps = {
   readonly symptoms: readonly Symptom[];
   /** С какого симптома открыть блок: ключ из списка. */
   readonly defaultSymptom?: string | undefined;
+  /**
+   * Действие рядом с разбором — кнопка вызова мастера. Приходит слотом:
+   * куда она ведёт, решает страница, а не блок.
+   */
+  readonly action?: ReactNode | undefined;
 };
 
 /**
@@ -27,7 +32,7 @@ export type DiagnosticsPickerProps = {
  * `'use client'` стоит на этом листе, а не на секции: заголовок и подводка
  * приходят с сервера обычным HTML (инвариант 1).
  */
-export function DiagnosticsPicker({ symptoms, defaultSymptom }: DiagnosticsPickerProps) {
+export function DiagnosticsPicker({ symptoms, defaultSymptom, action }: DiagnosticsPickerProps) {
   const uid = useId();
   const [chosenKey, setChosenKey] = useState<string | null>(null);
 
@@ -66,6 +71,7 @@ export function DiagnosticsPicker({ symptoms, defaultSymptom }: DiagnosticsPicke
             id={panelId(symptom.key)}
             symptom={symptom}
             active={symptom.key === active?.key}
+            action={action}
           />
         ))}
       </div>
@@ -74,12 +80,13 @@ export function DiagnosticsPicker({ symptoms, defaultSymptom }: DiagnosticsPicke
 }
 
 type SymptomCardProps = {
+  readonly action?: ReactNode | undefined;
   readonly id: string;
   readonly symptom: Symptom;
   readonly active: boolean;
 };
 
-function SymptomCard({ id, symptom, active }: SymptomCardProps) {
+function SymptomCard({ id, symptom, active, action }: SymptomCardProps) {
   const titleId = `${id}-title`;
 
   return (
@@ -113,6 +120,8 @@ function SymptomCard({ id, symptom, active }: SymptomCardProps) {
             <dd className={styles.price}>{t.priceFrom(formatMoney(symptom.priceFrom))}</dd>
           )}
         </div>
+
+        {action === undefined ? null : <div className={styles.action}>{action}</div>}
       </dl>
     </article>
   );

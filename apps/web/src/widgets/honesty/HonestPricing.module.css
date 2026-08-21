@@ -60,10 +60,13 @@
   align-items: stretch;
 }
 
+/* Отступ 30px из макета задаётся здесь, а не ступенью кита: у кита есть
+   28 и 32, и обе сметы стояли рядом с разными полями — это видно глазом. */
 .card {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 30px;
   border-radius: var(--r-xl);
 }
 

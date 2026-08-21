@@ -24,8 +24,11 @@ export function ProductPrice({ price }: ProductPriceProps) {
 
   return (
     <div className={styles.price}>
+      {/* Цена и «под ключ» стоят в одной строке по базовой линии, как в
+          макете: это одно утверждение о цене, а не два. */}
       <p className={styles.main}>
         <span className={styles.current}>{formatMoney(price.currentPrice)}</span>
+        <span className={styles.turnkey}>{catalogText.turnkey}</span>
         {price.oldPrice === null ? null : (
           <s className={styles.old}>
             <span className="srOnly">{catalogText.oldPrice} </span>
@@ -38,12 +41,11 @@ export function ProductPrice({ price }: ProductPriceProps) {
           </Badge>
         )}
       </p>
-      <p className={styles.note}>
-        <span>{catalogText.turnkey}</span>
-        {price.saleTo === null ? null : (
+      {price.saleTo === null ? null : (
+        <p className={styles.note}>
           <span className={styles.until}>{saleUntilLabel(formatDate(price.saleTo))}</span>
-        )}
-      </p>
+        </p>
+      )}
     </div>
   );
 }

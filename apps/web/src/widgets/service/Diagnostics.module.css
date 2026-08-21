@@ -60,25 +60,6 @@
   display: block;
 }
 
-/* строка вызова мастера отделена от разбора тонкой линией, как в макете */
-.footer {
-  display: flex;
-  gap: 16px 24px;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-top: 26px;
-  padding-top: 22px;
-  border-top: 1px solid var(--line-soft);
-}
-
-.note {
-  margin: 0;
-  max-width: 620px;
-  color: var(--muted);
-  font-size: var(--fs-dense);
-}
-
 .empty {
   display: flex;
   flex-direction: column;

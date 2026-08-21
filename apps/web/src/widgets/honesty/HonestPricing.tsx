@@ -48,7 +48,12 @@ export function HonestPricing({ installFrom, id = 'honesty' }: HonestPricingProp
         </header>
 
         <div className={styles.pair}>
-          <Card padding="xl" radius="xl" className={`${styles.card} ${styles.honest}`}>
+          <Card
+            padding="none"
+            radius="xl"
+            elevation="none"
+            className={`${styles.card} ${styles.honest}`}
+          >
             <div className={styles.cardHead}>
               <h3 className={styles.cardTitle}>{honestyContent.honestTitle}</h3>
               {price === null ? null : (
@@ -60,7 +65,7 @@ export function HonestPricing({ installFrom, id = 'honesty' }: HonestPricingProp
             <PointList points={honestPoints} label={honestyContent.honestListLabel} tone="honest" />
           </Card>
 
-          <Card padding="lg" className={styles.card}>
+          <Card padding="none" elevation="none" className={styles.card}>
             <div className={styles.cardHead}>
               <h3 className={styles.cardTitle}>{honestyContent.rivalTitle}</h3>
               <Badge variant="neutral" className={styles.price}>
