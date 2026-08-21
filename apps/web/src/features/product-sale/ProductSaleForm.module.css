@@ -1,0 +1,74 @@
+/* Форма скидки. */
+
+.title {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0 0 16px;
+  max-width: 72ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px 16px;
+  align-items: start;
+}
+
+/* Предпросмотр — не ошибка и не успех: это то, что увидит посетитель. */
+.preview {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--ok-line);
+  border-radius: var(--r-sm);
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+.warning {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-sm);
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  font-size: var(--fs-dense);
+}
+
+.error {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+}
+
+.saved {
+  margin: 0;
+  color: var(--ok-ink);
+  font-size: var(--fs-dense);
+}

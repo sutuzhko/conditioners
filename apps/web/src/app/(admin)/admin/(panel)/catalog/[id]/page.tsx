@@ -43,6 +43,15 @@ export default async function AdminProductPage({ params }: { params: Promise<{ i
 
       <ProductEditor
         id={product.id}
+        priceNum={product.priceNum}
+        photos={product.photos}
+        sale={{
+          salePrice: product.salePrice === null ? '' : String(product.salePrice),
+          // Границы приходят днями по местному времени — так их и правит владелец.
+          saleFrom: product.saleFrom ?? '',
+          saleTo: product.saleTo ?? '',
+          saleLabel: product.saleLabel ?? '',
+        }}
         values={{
           name: product.name,
           badge: product.badge,
