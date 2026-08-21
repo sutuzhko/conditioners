@@ -5,6 +5,7 @@ import { useId, useState, type FormEvent } from 'react';
 import { Button, Card, Checkbox, Input, Select, Textarea } from '@/shared/ui';
 
 import { ListField } from './ListField';
+import { ObjectListField, type ObjectRow } from './ObjectListField';
 import { settingsFormContent as texts } from './content';
 import { putGroup, readPath, writePath } from './lib';
 import type { FieldDescriptor, GroupDescriptor, GroupValue, SaveGroup, SaveStatus } from './model';
@@ -26,6 +27,14 @@ function asText(value: unknown): string {
 
 function asList(value: unknown): readonly string[] {
   return Array.isArray(value) ? value.map(asText) : [];
+}
+
+/** Строки списка объектов: всё, что не объект, отбрасывается как мусор. */
+function asObjectList(value: unknown): readonly ObjectRow[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter(
+    (item): item is ObjectRow => typeof item === 'object' && item !== null && !Array.isArray(item),
+  );
 }
 
 /**
@@ -168,6 +177,21 @@ function Field({
         itemLabel={field.itemLabel ?? field.label}
         hint={field.hint}
         values={asList(value)}
+        disabled={disabled}
+        onChange={onChange}
+      />
+    );
+  }
+
+  if (field.kind === 'objectList') {
+    return (
+      <ObjectListField
+        label={field.label}
+        itemLabel={field.itemLabel ?? field.label}
+        hint={field.hint}
+        columns={field.columns ?? []}
+        values={asObjectList(value)}
+        maxItems={field.maxItems}
         disabled={disabled}
         onChange={onChange}
       />

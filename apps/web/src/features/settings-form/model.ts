@@ -11,7 +11,22 @@
  */
 import type { SettingKey } from '@/entities/settings/model';
 
-export type FieldKind = 'text' | 'longText' | 'number' | 'checkbox' | 'select' | 'list';
+export type FieldKind =
+  'text' | 'longText' | 'number' | 'checkbox' | 'select' | 'list' | 'objectList';
+
+/**
+ * Колонка списка объектов: цифры первого экрана — это не строки, а тройки
+ * «число + хвост + подпись». Описание колонки — то же самое поле, только
+ * без списков внутри: вложенность глубже одного уровня форма не разбирает,
+ * и заводить её ради несуществующего случая незачем.
+ */
+export type ColumnDescriptor = {
+  readonly key: string;
+  readonly label: string;
+  readonly kind: 'text' | 'number';
+  /** Доля ширины колонки: подпись шире числа. */
+  readonly grow?: number;
+};
 
 export type FieldDescriptor = {
   /** Путь внутри группы: `email` или `messengerButtons.telegram`. */
@@ -22,6 +37,10 @@ export type FieldDescriptor = {
   readonly hint?: string;
   /** Подпись каждой строки списка: «Телефон», «Район». */
   readonly itemLabel?: string;
+  /** Колонки для `objectList`. */
+  readonly columns?: readonly ColumnDescriptor[];
+  /** Предел числа строк: у списка объектов он приходит из схемы. */
+  readonly maxItems?: number;
   /** Варианты для `select`. */
   readonly options?: readonly string[];
   readonly placeholder?: string;

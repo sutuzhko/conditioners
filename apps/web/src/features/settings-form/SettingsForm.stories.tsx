@@ -5,7 +5,10 @@ import { SettingsForm } from './SettingsForm';
 import { settingsFormContent as texts } from './content';
 import {
   acceptingSave,
+  achievementsGroupFixture,
   contactsGroupFixture,
+  filledAchievements,
+  fullAchievements,
   filledContacts,
   integrationsGroupFixture,
   legalGroupFixture,
@@ -71,4 +74,14 @@ export const СВыбором: Story = {
 
 export const СФлажками: Story = {
   args: { group: integrationsGroupFixture, value: {} },
+};
+
+/** Цифры первого экрана: строка из числа, хвоста и подписи. */
+export const СписокОбъектов: Story = {
+  args: { group: achievementsGroupFixture, value: filledAchievements },
+};
+
+/** Предел из схемы: четыре цифры, кнопка добавления исчезла. */
+export const СписокНаПределе: Story = {
+  args: { group: achievementsGroupFixture, value: fullAchievements },
 };

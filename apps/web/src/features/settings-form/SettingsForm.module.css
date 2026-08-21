@@ -109,3 +109,18 @@
   color: var(--error-ink);
   font-size: var(--fs-dense);
 }
+
+/* Строка списка объектов: колонки в ряд, доли ширины задаёт описание поля. */
+.objectRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: start;
+  width: 100%;
+  max-width: 640px;
+}
+
+.objectCell {
+  flex-basis: 90px;
+  min-width: 0;
+}

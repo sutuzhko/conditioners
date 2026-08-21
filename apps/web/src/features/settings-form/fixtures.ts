@@ -32,6 +32,43 @@ export const integrationsGroupFixture: GroupDescriptor = {
   ],
 };
 
+export const achievementsGroupFixture: GroupDescriptor = {
+  key: 'achievements',
+  title: 'Цифры первого экрана',
+  description: 'Полоса под заголовком главной.',
+  fields: [
+    {
+      path: 'items',
+      label: 'Цифры',
+      kind: 'objectList',
+      itemLabel: 'Цифра',
+      maxItems: 4,
+      columns: [
+        { key: 'value', label: 'Число', kind: 'number' },
+        { key: 'suffix', label: 'Хвост', kind: 'text' },
+        { key: 'label', label: 'Подпись', kind: 'text' },
+      ],
+    },
+  ],
+};
+
+export const filledAchievements = {
+  items: [
+    { value: 1200, suffix: '+', label: 'установок' },
+    { value: 3, suffix: ' года', label: 'гарантии' },
+  ],
+};
+
+/** Предел из схемы: четыре цифры — больше в полосу не помещается. */
+export const fullAchievements = {
+  items: [
+    { value: 1200, suffix: '+', label: 'установок' },
+    { value: 3, suffix: ' года', label: 'гарантии' },
+    { value: 1, suffix: ' день', label: 'на монтаж' },
+    { value: 24, suffix: ' ч', label: 'на ответ' },
+  ],
+};
+
 export const filledContacts = {
   phones: ['+74872000000'],
   email: 'mail@example.test',

@@ -5,7 +5,10 @@ import { describe, expect, it, vi } from 'vitest';
 import { SettingsForm } from './SettingsForm';
 import { settingsFormContent as texts } from './content';
 import {
+  achievementsGroupFixture,
   contactsGroupFixture,
+  filledAchievements,
+  fullAchievements,
   filledContacts,
   integrationsGroupFixture,
   legalGroupFixture,
@@ -170,5 +173,72 @@ describe('Форма группы настроек', () => {
 
     expect(screen.getByLabelText(/Почта/)).toHaveValue('');
     expect(within(screen.getByRole('group')).getByText(texts.listEmpty)).toBeInTheDocument();
+  });
+});
+
+describe('Цифры первого экрана', () => {
+  it('строка состоит из числа, хвоста и подписи', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({ ok: true }) as const);
+    render(
+      <SettingsForm group={achievementsGroupFixture} value={filledAchievements} save={save} />,
+    );
+
+    await user.clear(screen.getByLabelText('Число: цифра 1'));
+    await user.type(screen.getByLabelText('Число: цифра 1'), '1500');
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    expect(save).toHaveBeenCalledWith('achievements', {
+      items: [
+        { value: 1500, suffix: '+', label: 'установок' },
+        { value: 3, suffix: ' года', label: 'гарантии' },
+      ],
+    });
+  });
+
+  it('число уходит числом, а подпись строкой', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({ ok: true }) as const);
+    render(<SettingsForm group={achievementsGroupFixture} value={{ items: [] }} save={save} />);
+
+    await user.click(screen.getByRole('button', { name: 'Добавить: цифра' }));
+    await user.type(screen.getByLabelText('Число: цифра 1'), '7');
+    await user.type(screen.getByLabelText('Подпись: цифра 1'), 'лет на рынке');
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    expect(save).toHaveBeenCalledWith('achievements', {
+      items: [{ value: 7, suffix: '', label: 'лет на рынке' }],
+    });
+  });
+
+  it('🔴 на пределе из схемы кнопка добавления исчезает, а не роняет запрос', () => {
+    render(
+      <SettingsForm group={achievementsGroupFixture} value={fullAchievements} save={vi.fn()} />,
+    );
+
+    expect(screen.queryByRole('button', { name: 'Добавить: цифра' })).not.toBeInTheDocument();
+    expect(screen.getByText(texts.listFull(4))).toBeInTheDocument();
+  });
+
+  it('удаление строки не задевает соседние', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({ ok: true }) as const);
+    render(
+      <SettingsForm group={achievementsGroupFixture} value={filledAchievements} save={save} />,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Удалить: цифра 1' }));
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    expect(save).toHaveBeenCalledWith('achievements', {
+      items: [{ value: 3, suffix: ' года', label: 'гарантии' }],
+    });
+  });
+
+  it('пустая группа — рабочее состояние: полосы на сайте просто нет', () => {
+    render(<SettingsForm group={achievementsGroupFixture} value={{}} save={vi.fn()} />);
+
+    expect(screen.getByText(texts.listEmpty)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Добавить: цифра' })).toBeInTheDocument();
   });
 });
