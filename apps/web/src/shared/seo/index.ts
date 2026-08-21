@@ -36,8 +36,14 @@ export type { LocalBusinessParts } from './business';
 export { buildBreadcrumbListJsonLd } from './breadcrumbs';
 export type { BreadcrumbItem, BreadcrumbListInput } from './breadcrumbs';
 
-export { buildItemListJsonLd, buildProductJsonLd } from './product';
-export type { ItemListEntry, ItemListInput, ProductJsonLdInput } from './product';
+export { buildCatalogItemListJsonLd, buildItemListJsonLd, buildProductJsonLd } from './product';
+export type {
+  CatalogListEntry,
+  CatalogListInput,
+  ItemListEntry,
+  ItemListInput,
+  ProductJsonLdInput,
+} from './product';
 
 export { buildServiceJsonLd } from './service';
 export type { ServiceJsonLdInput, ServiceOfferInput } from './service';

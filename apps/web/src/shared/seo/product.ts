@@ -18,8 +18,13 @@ const SALE_TIME_ZONE = 'Europe/Moscow';
 
 export type ProductJsonLdInput = {
   readonly siteUrl: string;
-  /** Путь карточки: `/catalog/split-09`. */
-  readonly path: string;
+  /**
+   * Путь карточки: `/catalog/split-09`. Отдельных страниц у моделей нет
+   * (ADR-049), поэтому путь необязателен: без него узел описывает товар
+   * витрины и адреса не заявляет. Ссылка на несуществующую страницу в
+   * разметке — обещание роботу, которое закончится 404.
+   */
+  readonly path?: string | undefined;
   readonly product: Product;
   /**
    * Действующая цена — результат `getActivePrice` для этого же товара.
@@ -29,13 +34,18 @@ export type ProductJsonLdInput = {
   readonly price: ActivePrice;
 };
 
+/** Адрес карточки, если она есть. Нет пути — нет и адреса в разметке. */
+function productUrl(input: ProductJsonLdInput): string | undefined {
+  const path = text(input.path);
+  return path === undefined ? undefined : absoluteUrl(input.siteUrl, path);
+}
+
 function buildOffer(input: ProductJsonLdInput): JsonLdNode {
   const { price, product } = input;
-  const url = absoluteUrl(input.siteUrl, input.path);
 
   return compact({
     '@type': 'Offer',
-    url,
+    url: productUrl(input),
     price: price.currentPrice,
     priceCurrency: PRICE_CURRENCY,
     // скидка закончилась — `priceValidUntil` уходит вместе с ней, иначе
@@ -70,17 +80,63 @@ export function buildProductJsonLd(input: ProductJsonLdInput): JsonLdNode | null
 
   const brand = text(product.brand);
 
+  const url = productUrl(input);
+
+  /* Идентификатор нужен и без своей страницы: по нему товар остаётся одним и
+     тем же узлом между обходами. Слаг у модели уникален (PROJECT §3), поэтому
+     он и различает узлы на общем адресе. */
+  const id =
+    url === undefined ? `${absoluteUrl(input.siteUrl)}#product-${product.slug}` : `${url}#product`;
+
   return compact({
     '@type': 'Product',
-    '@id': `${absoluteUrl(input.siteUrl, input.path)}#product`,
+    '@id': id,
     name,
     description: text(product.seoDescription),
     sku: text(product.sku),
     brand: brand === undefined ? undefined : { '@type': 'Brand', name: brand },
     image: images,
-    url: absoluteUrl(input.siteUrl, input.path),
+    url,
     additionalProperty: specs,
     offers: buildOffer(input),
+  });
+}
+
+export type CatalogListEntry = {
+  readonly product: Product;
+  /** Действующая цена этой модели — та же, что нарисована в карточке витрины. */
+  readonly price: ActivePrice;
+};
+
+export type CatalogListInput = {
+  readonly siteUrl: string;
+  readonly items: readonly CatalogListEntry[];
+  readonly name?: string | undefined;
+};
+
+/**
+ * `ItemList` витрины: каждый пункт несёт вложенный `Product` с ценой.
+ *
+ * Так, а не ссылками на карточки: отдельных страниц у моделей нет (ADR-049),
+ * и `url` в разметке вёл бы на 404. Товар при этом остаётся описанным —
+ * Яндекс и Google читают предложение прямо из списка.
+ */
+export function buildCatalogItemListJsonLd(input: CatalogListInput): JsonLdNode | null {
+  const products = input.items
+    .map((item) => buildProductJsonLd({ siteUrl: input.siteUrl, ...item }))
+    .filter((node): node is JsonLdNode => node !== null);
+
+  if (products.length === 0) return null;
+
+  return compact({
+    '@type': 'ItemList',
+    name: text(input.name),
+    numberOfItems: products.length,
+    itemListElement: products.map((product, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: product,
+    })),
   });
 }
 
