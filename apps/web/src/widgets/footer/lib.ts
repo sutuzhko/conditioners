@@ -1,3 +1,4 @@
+import { formatAddress as sharedFormatAddress } from '@/shared/lib/address';
 import type { Address, Legal } from '@/entities/settings/model';
 import { footerContent } from './content';
 
@@ -24,11 +25,6 @@ export function ogrnLabel(legal: Legal): string {
  * обслуживания и в JSON-LD, а в футере удлинял бы строку без пользы.
  */
 export function formatAddress(address: Address): string {
-  const parts = [address.city, address.street, address.building, address.office]
-    .map((part) => part.trim())
-    .filter((part) => part !== '');
-
-  const postal = address.postalCode.trim();
-  if (parts.length === 0) return postal;
-  return postal === '' ? parts.join(', ') : `${postal}, ${parts.join(', ')}`;
+  // в реквизитах адрес юридический — с индексом
+  return sharedFormatAddress(address, { withPostalCode: true });
 }

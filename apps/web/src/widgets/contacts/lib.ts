@@ -1,3 +1,4 @@
+import { formatAddress as sharedFormatAddress } from '@/shared/lib/address';
 import type { Address, Geo } from '@/entities/settings/model';
 
 /**
@@ -20,7 +21,8 @@ function filled(parts: readonly string[]): readonly string[] {
  * удлиняет строку. Регион тоже: он виден в заголовке секции.
  */
 export function addressLine(address: Address): string {
-  return filled([address.city, address.street, address.building, address.office]).join(', ');
+  // в контактах индекс только удлиняет строку — он есть в реквизитах футера
+  return sharedFormatAddress(address);
 }
 
 /** Запрос для поиска по карте: с регионом, чтобы улица нашлась однозначно. */
