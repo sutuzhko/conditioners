@@ -1,0 +1,141 @@
+/* Карточка заявки в админке. */
+
+.card {
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.name {
+  margin: 0 0 2px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.phone {
+  color: var(--accent-ink);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.phone:hover {
+  text-decoration: underline;
+}
+
+.headerRight {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.when {
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px 16px;
+  margin: 0 0 14px;
+}
+
+.detail {
+  min-width: 0;
+}
+
+.detailLabel {
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.detailValue {
+  overflow-wrap: anywhere;
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+/* Комментарий клиента — цитата: это его слова, а не наша подпись. */
+.comment {
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border-left: 3px solid var(--line-strong);
+  background: var(--bg-soft);
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  margin-bottom: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  object-fit: cover;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: minmax(160px, 220px) minmax(0, 1fr);
+  gap: 12px 16px;
+  align-items: start;
+}
+
+.statusSelect {
+  min-width: 0;
+}
+
+.note {
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.savedNote {
+  margin: 0;
+  color: var(--ok-ink);
+  font-size: var(--fs-dense);
+}
+
+.error {
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}
+
+@media (width < 700px) {
+  .actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .headerRight {
+    align-items: flex-start;
+  }
+}

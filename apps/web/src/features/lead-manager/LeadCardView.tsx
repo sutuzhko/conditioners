@@ -1,0 +1,182 @@
+'use client';
+
+import Image from 'next/image';
+import { useState } from 'react';
+
+import { formatPhone, phoneHref } from '@/shared/lib/format';
+import { Badge, Button, Card, Select, Textarea } from '@/shared/ui';
+
+import { leadManagerContent as texts } from './content';
+import {
+  LEAD_STATUSES,
+  isLeadStatus,
+  type LeadCard,
+  type LeadStatus,
+  type LeadUpdate,
+} from './model';
+import styles from './LeadCardView.module.css';
+
+export interface LeadCardViewProps {
+  readonly lead: LeadCard;
+  readonly update: LeadUpdate;
+  readonly onChanged?: (() => void) | undefined;
+}
+
+/** Оттенок плашки статуса: новая требует действия, отказ — нет. */
+const STATUS_VARIANT: Record<LeadStatus, 'accent' | 'neutral' | 'success' | 'warning'> = {
+  new: 'accent',
+  in_progress: 'warning',
+  done: 'success',
+  rejected: 'neutral',
+};
+
+/** Поля заявки, которые показываются, только когда заполнены. */
+type Detail = { readonly label: string; readonly value: string | null };
+
+/**
+ * Карточка заявки: всё, что прислал клиент, плюс статус и заметка менеджера.
+ *
+ * 🔴 Данные клиента не редактируются: менять чужой телефон в заявке —
+ * ровно тот же по смыслу запрет, что и на правку текста отзыва. Менеджер
+ * управляет статусом и своей заметкой.
+ */
+export function LeadCardView({ lead, update, onChanged }: LeadCardViewProps) {
+  const [status, setStatus] = useState<LeadStatus>(lead.status);
+  const [note, setNote] = useState(lead.managerComment ?? '');
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState('');
+  const [saved, setSaved] = useState(false);
+
+  const noteChanged = note !== (lead.managerComment ?? '');
+
+  const run = async (patch: Parameters<LeadUpdate>[1]): Promise<void> => {
+    setBusy(true);
+    setMessage('');
+    setSaved(false);
+
+    const result = await update(lead.id, patch);
+
+    setBusy(false);
+    if (result.ok) {
+      setSaved(true);
+      onChanged?.();
+      return;
+    }
+    setMessage(result.message ?? texts.serverError);
+  };
+
+  const changeStatus = async (next: LeadStatus): Promise<void> => {
+    setStatus(next);
+    await run({ status: next });
+  };
+
+  const details: readonly Detail[] = [
+    { label: texts.topic, value: lead.topic },
+    { label: texts.place, value: lead.place },
+    { label: texts.qty, value: lead.qty },
+    { label: texts.callTime, value: lead.callTime },
+    { label: texts.address, value: lead.address },
+    { label: texts.source, value: lead.sourceUrl },
+  ];
+
+  return (
+    <Card as="article" className={styles.card}>
+      <header className={styles.header}>
+        <div>
+          <h2 className={styles.name}>{lead.name}</h2>
+          {/* Телефон ссылкой: заявку обрабатывают звонком, и набирать номер
+              руками с экрана — лишний способ ошибиться цифрой. */}
+          <a className={styles.phone} href={phoneHref(lead.phone)}>
+            {formatPhone(lead.phone)}
+          </a>
+        </div>
+
+        <div className={styles.headerRight}>
+          <Badge variant={STATUS_VARIANT[status]}>{texts.statusTitle(status)}</Badge>
+          <time className={styles.when} dateTime={lead.createdAt}>
+            {texts.when(lead.createdAt)}
+          </time>
+        </div>
+      </header>
+
+      <dl className={styles.details}>
+        {details
+          .filter((detail): detail is { label: string; value: string } => detail.value !== null)
+          .map((detail) => (
+            <div className={styles.detail} key={detail.label}>
+              <dt className={styles.detailLabel}>{detail.label}</dt>
+              <dd className={styles.detailValue}>{detail.value}</dd>
+            </div>
+          ))}
+
+        {/* 🔴 Факт согласия показывается всегда: он записан в базу, и по
+            152-ФЗ его нужно уметь предъявить. */}
+        <div className={styles.detail}>
+          <dt className={styles.detailLabel}>{texts.consent}</dt>
+          <dd className={styles.detailValue}>{texts.consentAt(lead.consentAt)}</dd>
+        </div>
+      </dl>
+
+      {lead.comment === null ? null : <p className={styles.comment}>{lead.comment}</p>}
+
+      {lead.photo === null ? null : (
+        <Image
+          className={styles.photo}
+          src={lead.photo}
+          alt={texts.photo}
+          width={220}
+          height={220}
+        />
+      )}
+
+      <div className={styles.actions}>
+        <Select
+          label={texts.status}
+          options={LEAD_STATUSES.map((value) => ({ value, label: texts.statusTitle(value) }))}
+          value={status}
+          disabled={busy}
+          wrapperClassName={styles.statusSelect}
+          onChange={(event) => {
+            const next = event.target.value;
+            if (isLeadStatus(next)) void changeStatus(next);
+          }}
+        />
+
+        <Textarea
+          label={texts.managerComment}
+          hint={texts.managerCommentHint}
+          rows={2}
+          value={note}
+          disabled={busy}
+          className={styles.note}
+          onChange={(event) => setNote(event.target.value)}
+        />
+      </div>
+
+      <div className={styles.footer}>
+        {noteChanged ? (
+          <Button
+            type="button"
+            size="sm"
+            loading={busy}
+            onClick={() => void run({ managerComment: note.trim() === '' ? null : note.trim() })}
+          >
+            {busy ? texts.saving : texts.saveNote}
+          </Button>
+        ) : null}
+
+        {saved && !noteChanged ? (
+          <p className={styles.savedNote} role="status">
+            {texts.saved}
+          </p>
+        ) : null}
+
+        {message === '' ? null : (
+          <p className={styles.error} role="alert">
+            {message}
+          </p>
+        )}
+      </div>
+    </Card>
+  );
+}
