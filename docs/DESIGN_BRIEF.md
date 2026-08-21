@@ -244,23 +244,23 @@
 
 **Общие стили** (`shared/styles/global.css`) — подключены глобально, класс доступен из любого модуля:
 
-| Класс | Что делает |
-|---|---|
+| Класс     | Что делает                                                            |
+| --------- | --------------------------------------------------------------------- |
 | `.srOnly` | текст только для скринридеров: подписи, нужные голосом, но не глазами |
 
 **Токены** — `tokens.css` (снято с макета) и `ui-tokens.css` (выведено нами: ошибка, скидка, звёзды, оверлей, длительности, `--tap`). Полный список — §2 и §12.
 
 **Доменные функции** — не переписывай, они покрыты тестами:
 
-| Функция | Откуда |
-|---|---|
-| `calculateInstallation` | `@/entities/price/lib/calculateInstallation` |
-| `getActivePrice` | `@/entities/product/lib/getActivePrice` |
-| `pickByArea`, `buildCompareTable` | `@/entities/product/lib/*` |
-| `parseArticleBody` | `@/entities/article/lib/*` |
-| `formatMoney`, `formatPhone`, `formatDate`, `phoneHref` | `@/shared/lib/format` |
-| `slugify`, `uniqueSlug`, `pageSlug` | `@/shared/lib/slug` |
-| `useCountUp` | `@/shared/lib/useCountUp` |
+| Функция                                                 | Откуда                                       |
+| ------------------------------------------------------- | -------------------------------------------- |
+| `calculateInstallation`                                 | `@/entities/price/lib/calculateInstallation` |
+| `getActivePrice`                                        | `@/entities/product/lib/getActivePrice`      |
+| `pickByArea`, `buildCompareTable`                       | `@/entities/product/lib/*`                   |
+| `parseArticleBody`                                      | `@/entities/article/lib/*`                   |
+| `formatMoney`, `formatPhone`, `formatDate`, `phoneHref` | `@/shared/lib/format`                        |
+| `slugify`, `uniqueSlug`, `pageSlug`                     | `@/shared/lib/slug`                          |
+| `useCountUp`                                            | `@/shared/lib/useCountUp`                    |
 
 **UI Kit** — 20 компонентов, инвентарь в §5, живой список историй на http://localhost:6006.
 
