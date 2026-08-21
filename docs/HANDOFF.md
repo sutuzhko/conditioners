@@ -69,6 +69,9 @@ docker compose -f docker-compose.dev.yml exec -T web pnpm check
   imported outside of pages/_document».
 - Сквозные сценарии: `pnpm --filter web e2e` в контейнере. Браузер системный
   (`CHROMIUM_PATH`), воркер один — рядом живут дев-сервер и Storybook.
+- Перед снимками историй (`pnpm --filter web vr`) перезапустите контейнер
+  `storybook`: Vite держит кеш зависимостей, и после установки пакетов истории
+  отдают «504 Outdated Optimize Dep», а снимок выходит пустым, а не упавшим.
 
 ## Чего нет и почему
 
