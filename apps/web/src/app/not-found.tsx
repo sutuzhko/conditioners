@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { NOT_FOUND_CONTENT as t, NOT_FOUND_ROUTES } from '@/shared/seo';
+import { ButtonLink } from '@/shared/ui';
 
 import styles from './not-found.module.css';
 
@@ -12,6 +13,10 @@ import styles from './not-found.module.css';
  * прятал бы битые ссылки от Вебмастера. Ошибка объясняется словами и
  * заканчивается навигацией: человек, пришедший из выдачи по устаревшему
  * адресу, должен уйти в нужный раздел, а не закрыть вкладку.
+ *
+ * 🔴 Кнопка «на главную» здесь обязательна: страница ошибки рендерится в
+ * корневом каркасе, без шапки и футера, и логотипа, за который можно было бы
+ * уцепиться, на ней нет. Без неё единственный выход — кнопка «назад».
  *
  * Фактов о компании здесь нет (инвариант 8): телефон и адрес живут в шапке и
  * футере, а страница ошибки ничего не обещает.
@@ -28,6 +33,10 @@ export default function NotFound() {
         <p className={styles.code}>{t.code}</p>
         <h1 className={styles.title}>{t.title}</h1>
         <p className={styles.lead}>{t.lead}</p>
+
+        <ButtonLink href="/" size="lg" className={styles.home}>
+          {t.homeLink}
+        </ButtonLink>
 
         <nav className={styles.nav} aria-labelledby="not-found-nav">
           <h2 id="not-found-nav" className={styles.navTitle}>
