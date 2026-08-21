@@ -1,0 +1,101 @@
+/* Форма статьи базы знаний. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px 16px;
+  align-items: start;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+/* Текст и предпросмотр рядом: править разметку, не видя результата, — это
+   писать вслепую. На узком экране предпросмотр уходит под поле. */
+.editor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.body {
+  width: 100%;
+
+  /* Моноширинный: в мини-разметке значимы отступы и пустые строки. */
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  line-height: 1.6;
+}
+
+.preview {
+  overflow: auto;
+  box-sizing: border-box;
+  max-height: 640px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg-soft);
+}
+
+.previewTitle {
+  margin: 0 0 2px;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+}
+
+.previewHint {
+  margin: 0 0 12px;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.previewEmpty {
+  margin: 0;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+}
+
+.remove {
+  margin-left: auto;
+  color: var(--error-ink);
+}
+
+.saved {
+  margin: 0;
+  color: var(--ok-ink);
+  font-size: var(--fs-dense);
+}
+
+.error {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}
