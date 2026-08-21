@@ -6,6 +6,8 @@ if ! docker compose -f docker-compose.dev.yml ps --status running web >/dev/null
   echo "Подними окружение: docker compose -f docker-compose.dev.yml up -d"
   exit 1
 fi
-# --no-stash: stash/restore идёт через .git на бинд-маунте macOS и занимает минуты.
-# Цена — при падении задачи правки остаются в рабочем каталоге, а не откатываются.
+# Хук только ПРОВЕРЯЕТ и ничего не правит. Причина: `git commit -- <пути>`
+# делает частичный коммит и держит .git/index.lock всё время работы хуков,
+# поэтому попытка lint-staged вернуть исправления в индекс всегда падала.
+# Не отформатировано — запусти `pnpm format` и коммить заново (ADR-034).
 docker compose -f docker-compose.dev.yml exec -T web pnpm lint-staged --no-stash
