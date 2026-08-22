@@ -211,6 +211,8 @@ curl -s https://<домен>/ | grep -c "₽"                # цены в HTML,
 curl -sI https://<домен>/admin | grep -i x-robots     # noindex
 curl -s https://<домен>/robots.txt
 curl -s https://<домен>/sitemap.xml | head
+curl -sI https://www.<домен>/ | head -2               # 301 на канонический хост
+curl -sI https://<домен>/knowledge/ | head -2         # 301 без слэша на конце
 ```
 
 Затем вручную: тестовая заявка → появилась в админке → пришло письмо → пришло в Telegram (если канал включён). Тестовую заявку после проверки удалить.
