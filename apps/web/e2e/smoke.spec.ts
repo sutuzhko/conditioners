@@ -206,7 +206,11 @@ test.describe('Разделы сайта', () => {
   });
 
   test('карта сайта содержит только существующие адреса', async ({ request }) => {
-    const response = await request.get('/sitemap.xml');
+    /* Запас по времени: дев-сервер собирает маршрут по первому обращению, и
+       под нагрузкой карта сайта успевала не уложиться в умолчание. Падающий
+       через раз тест хуже отсутствующего — в следующий раз его спишут на
+       «опять флейк» и пропустят настоящую поломку. */
+    const response = await request.get('/sitemap.xml', { timeout: 60_000 });
     expect(response.status()).toBe(200);
 
     const xml = await response.text();
