@@ -73,5 +73,8 @@ export const REQUIRED_FIELDS: Record<SettingKey, readonly string[]> = {
   seo: ['homeTitle', 'homeDescription', 'titleSuffix'],
   // цифры полосы первого экрана необязательны: нет — полосы просто не будет
   achievements: [],
+  /* Каналы уведомлений обязательными полями не описываются: выключить оба —
+     осознанный выбор владельца, а заявка всё равно попадает в админку. */
+  notifications: [],
   integrations: [],
 };

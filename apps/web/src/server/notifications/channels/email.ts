@@ -84,15 +84,19 @@ function smtpTransport(): MailTransport {
   };
 }
 
-function isConfigured(): boolean {
+/**
+ * Технически ли канал готов работать: есть сервер, отправитель и получатель.
+ * Выбор владельца в админке проверяется отдельно — это разные вещи.
+ */
+export function isEmailConfigured(to: string | undefined): boolean {
   if (env.NOTIFY_DRIVER === 'log') return true;
   return (
     env.SMTP_HOST !== undefined &&
     env.SMTP_HOST !== '' &&
     env.SMTP_FROM !== undefined &&
     env.SMTP_FROM !== '' &&
-    env.NOTIFY_EMAIL_TO !== undefined &&
-    env.NOTIFY_EMAIL_TO !== ''
+    to !== undefined &&
+    to !== ''
   );
 }
 
@@ -105,17 +109,28 @@ function attachments(payload: NotificationPayload): readonly MailAttachment[] {
   return [{ filename: photo.slice(photo.lastIndexOf('/') + 1), path }];
 }
 
-export function createEmailChannel(transport?: MailTransport): NotificationChannel {
+export type EmailChannelPrefs = {
+  /** Выбор владельца в админке. */
+  readonly enabled: boolean;
+  /** Получатель из настроек; пусто — берётся из окружения на уровне `prefs`. */
+  readonly to: string | undefined;
+};
+
+export function createEmailChannel(
+  transport?: MailTransport,
+  prefs: EmailChannelPrefs = { enabled: true, to: env.NOTIFY_EMAIL_TO },
+): NotificationChannel {
   return {
     name: 'email',
-    isEnabled: isConfigured,
+    // канал работает, только если владелец его выбрал и доступы на месте
+    isEnabled: () => prefs.enabled && isEmailConfigured(prefs.to),
     async send(payload: NotificationPayload): Promise<void> {
       const chosen =
         transport ?? (env.NOTIFY_DRIVER === 'log' ? logMailTransport : smtpTransport());
 
       await chosen.sendMail({
         from: orNotSet(env.SMTP_FROM),
-        to: orNotSet(env.NOTIFY_EMAIL_TO),
+        to: orNotSet(prefs.to),
         subject: notificationSubject(payload),
         text: `${notificationText(payload)}\n\nОткрыть в админке: ${adminLink(payload)}`,
         attachments: attachments(payload),

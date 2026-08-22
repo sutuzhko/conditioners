@@ -1,6 +1,6 @@
 import { db } from '@/server/db';
 import { dropOlderThan } from '@/server/repo/rate-limit';
-import { enabledChannelNames } from './channels';
+import { resolveChannels } from './channels';
 import { processDueNotifications } from './runner';
 
 /**
@@ -31,7 +31,7 @@ async function tick(): Promise<void> {
 }
 
 async function main(): Promise<void> {
-  const channels = enabledChannelNames();
+  const { enabled: channels } = await resolveChannels();
   console.warn(
     channels.length === 0
       ? 'Воркер уведомлений запущен, но ни один канал не настроен — обращения будут копиться в базе'

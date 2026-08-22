@@ -1,5 +1,5 @@
 import { db } from '@/server/db';
-import { enabledChannelNames } from './channels';
+import { resolveChannels } from './channels';
 import type { NotificationPayload } from './types';
 
 /**
@@ -11,7 +11,16 @@ import type { NotificationPayload } from './types';
  */
 export async function enqueueNotification(
   payload: NotificationPayload,
-  channels: readonly string[] = enabledChannelNames(),
+  channels?: readonly string[],
+): Promise<number> {
+  // список каналов приходит из настроек владельца; в тестах его задают явно
+  const targets = channels ?? (await resolveChannels()).enabled;
+  return enqueueTo(payload, targets);
+}
+
+async function enqueueTo(
+  payload: NotificationPayload,
+  channels: readonly string[],
 ): Promise<number> {
   if (channels.length === 0) {
     console.error(

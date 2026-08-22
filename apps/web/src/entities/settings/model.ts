@@ -216,6 +216,29 @@ export const achievementsSchema = z
   .strict();
 
 /**
+ * Куда уходят уведомления о заявках, отзывах и напоминаниях.
+ *
+ * 🔴 В базе живёт только выбор и адресация — какие каналы включены, в какой
+ * чат и на какую почту. Токен бота и пароль SMTP остаются в переменных
+ * окружения (инвариант 3): владелец распоряжается адресатами, доступами —
+ * тот, кто держит сервер.
+ *
+ * 🔴 Запись обращения в базу не выключается ничем: заявка сначала попадает в
+ * админку и только потом уходит в каналы (инвариант 2). Здесь настраивается
+ * то, что происходит после записи, а не вместо неё.
+ */
+export const notificationsSchema = z
+  .object({
+    telegram: z.boolean().default(true),
+    email: z.boolean().default(true),
+    /** Чат или канал, куда пишет бот. Пусто — берётся значение из окружения. */
+    telegramChatId: optionalText,
+    /** Кому уходят письма. Пусто — берётся значение из окружения. */
+    emailTo: optionalText,
+  })
+  .strict();
+
+/**
  * Клиентские сервисы. Онлайн-чат сознательно не подключается: общение идёт
  * через Telegram по желанию клиента и через заявку (ADR-024).
  */
@@ -247,6 +270,7 @@ export const settingSchemas = {
   social: socialSchema,
   seo: seoSchema,
   achievements: achievementsSchema,
+  notifications: notificationsSchema,
   integrations: integrationsSchema,
 } as const;
 
@@ -263,6 +287,7 @@ export const settingKeySchema = z.enum([
   'social',
   'seo',
   'achievements',
+  'notifications',
   'integrations',
 ]);
 

@@ -18,6 +18,11 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
   { href: '/admin/knowledge', title: 'База знаний', hint: 'Статьи и их публикация' },
   { href: '/admin/reviews', title: 'Отзывы', hint: 'Модерация: публикация и отклонение' },
   { href: '/admin/leads', title: 'Заявки', hint: 'Обращения с сайта и их статусы' },
+  {
+    href: '/admin/notifications',
+    title: 'Уведомления',
+    hint: 'Куда уходит сообщение о новой заявке',
+  },
 ];
 
 export const adminShellContent = {

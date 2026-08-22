@@ -185,18 +185,33 @@ function moderationButtons(reviewId: string): readonly (readonly InlineButton[])
   ];
 }
 
-function isConfigured(): boolean {
+/**
+ * Технически ли канал готов работать: транспорт не выключен, есть токен и
+ * адресат. Это не то же самое, что выбор владельца в админке, — тот
+ * приходит в `prefs` и проверяется отдельно.
+ */
+export function isTelegramConfigured(chatId: string | undefined): boolean {
   if (env.TELEGRAM_TRANSPORT === 'off') return false;
   if (env.NOTIFY_DRIVER === 'log') return true;
   const token = env.TELEGRAM_BOT_TOKEN;
-  const chat = env.TELEGRAM_CHAT_ID;
-  return token !== undefined && token !== '' && chat !== undefined && chat !== '';
+  return token !== undefined && token !== '' && chatId !== undefined && chatId !== '';
 }
 
-export function createTelegramChannel(transport?: TelegramTransport): NotificationChannel {
+export type TelegramChannelPrefs = {
+  /** Выбор владельца в админке. */
+  readonly enabled: boolean;
+  /** Чат из настроек; пусто — берётся из окружения на уровне `prefs`. */
+  readonly chatId: string | undefined;
+};
+
+export function createTelegramChannel(
+  transport?: TelegramTransport,
+  prefs: TelegramChannelPrefs = { enabled: true, chatId: env.TELEGRAM_CHAT_ID },
+): NotificationChannel {
   return {
     name: 'telegram',
-    isEnabled: isConfigured,
+    // канал работает, только если владелец его выбрал и доступы на месте
+    isEnabled: () => prefs.enabled && isTelegramConfigured(prefs.chatId),
     async send(payload: NotificationPayload): Promise<void> {
       const chosen =
         transport ?? (env.NOTIFY_DRIVER === 'log' ? logTelegramTransport : httpTelegramTransport);
@@ -205,7 +220,7 @@ export function createTelegramChannel(transport?: TelegramTransport): Notificati
       const photoPath = photo === null ? null : resolveUploadPath(photo);
 
       await chosen.send({
-        chatId: env.TELEGRAM_CHAT_ID ?? '(не задан)',
+        chatId: prefs.chatId ?? '(не задан)',
         text: notificationText(payload),
         photoPath,
         buttons: payload.kind === 'review' ? moderationButtons(payload.reviewId) : null,

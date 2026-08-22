@@ -1,0 +1,117 @@
+/* Раздел «Уведомления»: готовность каналов и форма выбора. */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+}
+
+.lead {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+.always {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.alwaysTitle {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-base);
+  font-weight: 700;
+}
+
+.alwaysText {
+  margin: 0;
+  max-width: 72ch;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.statusTitle {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.statusHint {
+  margin: 0;
+  max-width: 72ch;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.itemTitle {
+  min-width: 92px;
+  color: var(--ink);
+  font-size: var(--fs-base);
+  font-weight: 600;
+}
+
+.missing {
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.none {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.noneTitle {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-base);
+  font-weight: 700;
+}
+
+.noneText {
+  margin: 0;
+  max-width: 72ch;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}

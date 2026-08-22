@@ -1,5 +1,5 @@
 import { db } from '@/server/db';
-import { createChannels } from './channels';
+import { resolveChannels } from './channels';
 import { notificationPayloadSchema } from './types';
 import type { ChannelRegistry } from './types';
 
@@ -40,7 +40,9 @@ function errorText(error: unknown): string {
 }
 
 export async function processDueNotifications(options: TickOptions = {}): Promise<TickResult> {
-  const channels = options.channels ?? createChannels();
+  // реестр строится по настройкам владельца: канал, который он выключил,
+  // не должен доставлять даже то, что уже лежит в очереди
+  const channels = options.channels ?? (await resolveChannels()).registry;
   const now = options.now ?? new Date();
   const batchSize = options.batchSize ?? DEFAULT_BATCH_SIZE;
 
