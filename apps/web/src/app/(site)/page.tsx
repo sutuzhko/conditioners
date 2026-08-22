@@ -28,6 +28,7 @@ import { Faq, buildFaqItems } from '@/widgets/faq';
 import { Contacts } from '@/widgets/contacts';
 import { LeadSection } from '@/widgets/lead';
 import { AnchorSync } from '@/features/anchor-sync';
+import { ReminderForm } from '@/features/reminder-form';
 import { LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
 
 import { loadSettings } from './_lib/settings';
@@ -137,7 +138,10 @@ export default async function HomePage() {
       <StepsTimeline warranty={warranty} />
       <Pricing prices={priceRows} rates={extras} leadHref={LEAD_ANCHOR} />
       <HonestPricing installFrom={installFrom} />
-      <Diagnostics leadHref={LEAD_ANCHOR} />
+      <Diagnostics
+        leadHref={LEAD_ANCHOR}
+        reminder={<ReminderForm policyHref={POLICY_HREF} phone={phone} />}
+      />
       <WhyUs warranty={warranty} />
       <Reviews reviews={approvedReviews} policyHref={POLICY_HREF} />
       <LeadSection

@@ -1,0 +1,120 @@
+/* Форма напоминания живёт на тёмной панели в обеих темах (макет,
+   «Напоминание о ТО»).
+
+   🔴 Поля берутся из кита как есть, а «панельными» их делает переопределение
+   токенов в этой области: у Input, Select и Checkbox нет и не нужен вариант
+   «на панели», а лезть в их разметку из блока — это ровно та лазейка мимо
+   кита, которую мы уже закрывали у ползунков. */
+
+.form,
+.done {
+  --field: rgb(255 255 255 / 7%);
+  --line-strong: rgb(255 255 255 / 20%);
+  --ink: var(--on-panel);
+  --ink2: var(--on-panel);
+  --body: color-mix(in srgb, var(--on-panel) 84%, transparent);
+  --muted: color-mix(in srgb, var(--on-panel) 62%, transparent);
+  --faint: color-mix(in srgb, var(--on-panel) 55%, transparent);
+  --bg-soft: rgb(255 255 255 / 10%);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.policy {
+  color: var(--accent-ink);
+}
+
+/* Ошибка на тёмной панели: заливка и рамка из макета, текст светлее
+   --error-ink, который рассчитан на светлую карточку. */
+.error {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 10px 13px;
+  border: 1px solid color-mix(in srgb, var(--error-ink) 40%, transparent);
+  border-radius: var(--r-sm);
+  background: color-mix(in srgb, var(--error-ink) 15%, transparent);
+  color: color-mix(in srgb, var(--on-panel) 92%, transparent);
+  font-size: 13.5px;
+}
+
+.errorCall {
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+/* Подтверждение из макета: галочка слева, текст справа, рамка акцентом. */
+.done {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 20px 22px;
+  border: 1px solid color-mix(in srgb, var(--brand-mark) 35%, transparent);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--brand-mark) 10%, transparent);
+}
+
+.doneIcon {
+  display: flex;
+  flex: none;
+  color: var(--brand-mark);
+}
+
+.doneText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.doneTitle {
+  margin: 0;
+  color: var(--on-panel);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.doneNote {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* «Добавить ещё один номер» — второстепенное действие, поэтому ссылкой,
+   а не кнопкой: основное действие здесь уже выполнено. */
+.again {
+  align-self: flex-start;
+  min-height: var(--tap);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.again:hover {
+  text-decoration: underline;
+}
+
+.again:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* Ловушка уводится за экран, а не прячется display: none — робот
+   пропускает скрытые поля, а человек её всё равно не увидит. */
+.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

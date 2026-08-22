@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import type { ButtonLinkHref } from '@/shared/ui';
 import { ButtonLink, Card } from '@/shared/ui';
 
@@ -20,6 +22,12 @@ export interface DiagnosticsProps {
   defaultSymptom?: string | undefined;
   /** Куда ведёт «Вызвать мастера» — якорь формы заявки. */
   leadHref?: ButtonLinkHref | undefined;
+  /**
+   * Панель напоминания о сезонном ТО — слот под формой из макета. Слотом, а
+   * не импортом: форма это отдельная точка сбора заявки, и что стоит под
+   * диагностикой, решает страница.
+   */
+  reminder?: ReactNode | undefined;
   /** Якорь секции: по нему на неё ведёт навигация в шапке. */
   id?: string | undefined;
 }
@@ -36,6 +44,7 @@ export function Diagnostics({
   symptoms = defaultSymptoms,
   defaultSymptom,
   leadHref = '#lead',
+  reminder,
   id = 'service',
 }: DiagnosticsProps) {
   return (
@@ -71,6 +80,20 @@ export function Diagnostics({
               }
             />
           </Card>
+        )}
+
+        {reminder === undefined ? null : (
+          /* Тёмная панель под разбором — вторая точка сбора заявки из макета:
+             человек, у которого кондиционер уже стоит, приходит сюда не за
+             монтажом, а за обслуживанием. */
+          <div className={styles.reminder}>
+            <span className={styles.reminderGlow} aria-hidden="true" />
+            <div className={styles.reminderCopy}>
+              <h3 className={styles.reminderTitle}>{t.reminderTitle}</h3>
+              <p className={styles.reminderText}>{t.reminderText}</p>
+            </div>
+            <div className={styles.reminderForm}>{reminder}</div>
+          </div>
         )}
       </div>
     </section>
