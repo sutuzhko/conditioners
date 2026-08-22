@@ -5,14 +5,14 @@ import { VR_THEMES, VR_WIDTHS } from '../../playwright.vr.config';
 /**
  * Визуальная регрессия историй Storybook (ADR-021): свой раннер, без Chromatic.
  *
- * 🔴 Снимаются блоки лендинга и страницы, а не весь Storybook. Историй 281, и
- * полный охват четырьмя ширинами в двух темах — это больше двух тысяч PNG в
- * репозитории. Компоненты кита покрыты тестами поведения и меняются вместе с
- * блоками: регрессию во внешнем виде ловит блоковый снимок.
+ * 🔴 Снимаются блоки лендинга и страницы, а не весь Storybook: 128 историй из
+ * 281. Компоненты кита покрыты тестами поведения и меняются вместе с блоками —
+ * регрессию во внешнем виде ловит блоковый снимок.
  *
  * Эталонов в репозитории пока нет — первый прогон их создаёт:
- * `pnpm --filter web vr --update-snapshots`. Решение о хранении принимает
- * владелец: это десятки мегабайт двоичных файлов (docs/BUGS.md).
+ * `pnpm --filter web vr --update-snapshots`. Четыре ширины в двух темах дают
+ * порядка тысячи PNG, и хранить ли их в репозитории — решение владельца
+ * (docs/BUGS.md); до него они в `.gitignore`.
  *
  * 🔴 Перед прогоном перезапустите контейнер Storybook. Vite держит кеш
  * оптимизированных зависимостей, и после установки пакетов истории отдают
@@ -59,18 +59,30 @@ for (const width of VR_WIDTHS) {
       await page.emulateMedia({ reducedMotion: 'reduce' });
 
       for (const story of stories) {
-        await page.goto(`/iframe.html?id=${story.id}&viewMode=story&globals=theme:${theme}`);
+        /* Ждём разбор разметки, а не событие `load`: Storybook держит открытое
+           соединение горячей перезагрузки, и ни `load`, ни `networkidle` в деве
+           не наступают. */
+        await page.goto(`/iframe.html?id=${story.id}&viewMode=story&globals=theme:${theme}`, {
+          waitUntil: 'domcontentloaded',
+        });
 
-        /* Ждём саму историю, а не «тишину в сети»: Storybook держит открытое
-           соединение горячей перезагрузки, и `networkidle` не наступает
-           никогда — прогон упирался в таймаут на каждой истории. */
-        const root = page.locator('#storybook-root');
-        await root.waitFor();
-        await expect(root).not.toBeEmpty();
+        /* Готовность объявляет сам Storybook: `sb-show-main` появляется, когда
+           история отрисована, `sb-show-preparing-story` уходит, когда она
+           доготовилась. Ждать видимости `#storybook-root` нельзя — у историй
+           с пустым состоянием («Главная — следа нет») он честно нулевой
+           высоты, и ожидание не кончается никогда (docs/BUGS.md). */
+        await page.waitForFunction(() => {
+          const { classList } = document.body;
+          return (
+            classList.contains('sb-show-main') && !classList.contains('sb-show-preparing-story')
+          );
+        });
 
-        /* Мягкая проверка: одна разошедшаяся история не должна прятать
-           остальные — иначе каждый прогон показывает только первую поломку. */
-        await expect.soft(root).toHaveScreenshot(`${story.id}--${width}-${theme}.png`, {
+        /* Снимается область просмотра, а не контейнер истории: у пустых
+           историй его не снять, а регрессия «блок исчез» как раз и видна на
+           общем кадре. Проверка мягкая — одна разошедшаяся история не должна
+           прятать остальные, иначе прогон показывает только первую поломку. */
+        await expect.soft(page).toHaveScreenshot(`${story.id}--${width}-${theme}.png`, {
           animations: 'disabled',
           caret: 'hide',
         });

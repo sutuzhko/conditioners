@@ -40,5 +40,10 @@ export default defineConfig({
   use: {
     baseURL: process.env.VR_BASE_URL ?? 'http://storybook:6006',
     launchOptions,
+    /* 🔴 Ожидания обязаны иметь предел. По умолчанию у Playwright его нет, и
+       одна история, которая не дойдёт до готовности, останавливает прогон
+       навсегда: раннер молчит, а не падает (docs/BUGS.md). */
+    actionTimeout: 15_000,
+    navigationTimeout: 30_000,
   },
 });
