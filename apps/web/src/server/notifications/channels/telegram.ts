@@ -142,6 +142,38 @@ export const httpTelegramTransport: TelegramTransport = {
   },
 };
 
+/**
+ * Ответ на нажатие кнопки: без него Telegram крутит часики на кнопке минуту.
+ * Текст всплывает подсказкой у нажавшего — он и есть подтверждение действия.
+ */
+export async function answerCallbackQuery(callbackId: string, text: string): Promise<void> {
+  await callApi(
+    'answerCallbackQuery',
+    JSON.stringify({ callback_query_id: callbackId, text, show_alert: false }),
+  );
+}
+
+/**
+ * Правка отправленного сообщения: к тексту дописывается итог модерации, а
+ * кнопки убираются. Так в чате видно, что отзыв уже разобран и кем именно —
+ * иначе двое модераторов нажимают по очереди на одно и то же.
+ */
+export async function editMessageText(
+  chatId: number | string,
+  messageId: number,
+  text: string,
+): Promise<void> {
+  await callApi(
+    'editMessageText',
+    JSON.stringify({
+      chat_id: chatId,
+      message_id: messageId,
+      text: text.slice(0, TEXT_LIMIT),
+      reply_markup: { inline_keyboard: [] },
+    }),
+  );
+}
+
 /** Кнопки модерации отзыва — docs/API.md §9. Обрабатывает их `/api/telegram/webhook`. */
 function moderationButtons(reviewId: string): readonly (readonly InlineButton[])[] {
   return [
