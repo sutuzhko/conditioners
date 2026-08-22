@@ -1,0 +1,121 @@
+/* Журнал доставки: сводка по каналам и разбор сбоев. */
+
+.log {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.title {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0 0 10px;
+  max-width: 72ch;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.summary,
+.failures {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.channel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: baseline;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+
+.channelName {
+  min-width: 92px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+/* Отказы выделены цветом скидки — единственным тёплым акцентом кита. */
+.bad {
+  color: var(--sale-ink);
+}
+
+.failure {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.kind {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.channelTag {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+}
+
+.meta {
+  color: var(--faint);
+  font-size: var(--fs-micro);
+}
+
+/* Причина — дословный ответ канала, поэтому моноширинным и с переносом:
+   в ней встречаются адреса и коды, которые нельзя «причёсывать». */
+.reason {
+  margin: 0;
+  max-width: 80ch;
+  color: var(--body);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  overflow-wrap: anywhere;
+}
+
+.done {
+  margin: 0;
+  color: var(--ok-ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+.error {
+  margin: 10px 0 0;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}

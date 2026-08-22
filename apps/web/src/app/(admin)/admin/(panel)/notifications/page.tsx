@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 
+import { DeliveryLog } from '@/features/delivery-log';
 import { NOTIFICATIONS_GROUP, SettingsForm, type GroupValue } from '@/features/settings-form';
 import { isEmailConfigured } from '@/server/notifications/channels/email';
 import { isTelegramConfigured } from '@/server/notifications/channels/telegram';
 import { loadNotificationPrefs } from '@/server/notifications/prefs';
+import { deliverySummary, recentFailures } from '@/server/repo/notifications';
 import { getGroup } from '@/server/repo/settings';
 import { Badge, Card } from '@/shared/ui';
 
@@ -34,7 +36,12 @@ type ChannelState = {
  * выбрано здесь и что вообще способно работать.
  */
 export default async function AdminNotificationsPage() {
-  const [stored, prefs] = await Promise.all([getGroup('notifications'), loadNotificationPrefs()]);
+  const [stored, prefs, summary, failures] = await Promise.all([
+    getGroup('notifications'),
+    loadNotificationPrefs(),
+    deliverySummary(),
+    recentFailures(),
+  ]);
 
   const channels: readonly ChannelState[] = [
     {
@@ -111,6 +118,10 @@ export default async function AdminNotificationsPage() {
       </section>
 
       <SettingsForm group={NOTIFICATIONS_GROUP} value={value} />
+
+      {/* Журнал доставки под настройками: сначала владелец правит, куда слать,
+          и только потом разбирается, что не дошло. */}
+      <DeliveryLog summary={summary} failures={failures} />
     </div>
   );
 }
