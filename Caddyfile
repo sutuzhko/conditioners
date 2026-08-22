@@ -1,0 +1,42 @@
+# Боевой прокси. Дев-версия — Caddyfile.dev, состав тот же:
+# сертификаты, сжатие, заголовки и проксирование проверяются ещё в деве.
+{
+	admin off
+	# Адрес для писем Let's Encrypt об истечении сертификата
+	email {$ACME_EMAIL}
+}
+
+# Канонический хост. Всё, что пришло на www или по http, приводится к нему
+# 301-м редиректом: два адреса одной страницы — это дубли в выдаче.
+www.{$SITE_DOMAIN} {
+	redir https://{$SITE_DOMAIN}{uri} permanent
+}
+
+{$SITE_DOMAIN} {
+	encode zstd gzip
+
+	header {
+		# Сертификат уже выдан, откат на http не нужен
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Frame-Options SAMEORIGIN
+		# Сайт не просит ни камеру, ни микрофон, ни геолокацию
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+		# Версию сервера наружу не показываем
+		-Server
+	}
+
+	# Слэш в конце — второй адрес той же страницы. Убираем его до приложения:
+	# у Next есть своё правило, но редирект на прокси-слое дешевле.
+	@trailing_slash {
+		path_regexp trailing (.+)/$
+	}
+	redir @trailing_slash https://{$SITE_DOMAIN}{re.trailing.1} permanent
+
+	reverse_proxy web:3000 {
+		# Приложение считает частоту запросов по IP клиента, а не по адресу
+		# прокси: заголовки ставит Caddy, но пусть это будет видно в конфиге.
+		header_up X-Real-IP {remote_host}
+	}
+}

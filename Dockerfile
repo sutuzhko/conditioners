@@ -49,6 +49,14 @@ CMD ["pnpm", "--filter", "web", "dev"]
 # ---------- build ----------
 FROM base AS build
 ENV NEXT_TELEMETRY_DISABLED=1
+# Схема ENV проверяется при импорте (shared/config/env.ts), а `next build`
+# импортирует маршруты, чтобы собрать их. Без этих значений сборка падает ещё
+# до первой страницы. Значения заведомо нерабочие и нужны ровно на время
+# сборки: боевые приходят из .env.prod при запуске контейнера (ADR-063).
+ARG DATABASE_URL="postgresql://build:build@127.0.0.1:5432/build?schema=public"
+ARG SITE_URL="https://build.invalid"
+ARG SESSION_SECRET="build-time-only-not-a-secret"
+ENV DATABASE_URL=$DATABASE_URL SITE_URL=$SITE_URL SESSION_SECRET=$SESSION_SECRET
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
 COPY . .
@@ -63,6 +71,19 @@ COPY --from=build --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
 COPY --from=build --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
 COPY --from=build /app/apps/web/public ./apps/web/public
 COPY --from=build /app/apps/web/prisma ./apps/web/prisma
+# Каталог загрузок создаётся в образе с правами приложения: пустой именованный
+# том Docker заполняет содержимым и владельцем этого пути. Иначе том достаётся
+# root, а процесс под nextjs не может записать в него ни одного файла.
+RUN mkdir -p /data/uploads && chown -R nextjs:nodejs /data
 USER nextjs
 EXPOSE 3000
 CMD ["node", "apps/web/server.js"]
+
+# ---------- worker ----------
+# Воркер очереди и миграции идут из полной сборки, а не из standalone: там
+# нужны Prisma CLI и tsx, которых в боевом образе веба нет и быть не должно.
+# Тот же исходник, что в деве, — расхождения поведения очереди между средами
+# взяться неоткуда (ADR-062).
+FROM build AS worker
+ENV NODE_ENV=production
+CMD ["pnpm", "--filter", "web", "worker"]

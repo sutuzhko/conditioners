@@ -1,0 +1,79 @@
+name: CI
+
+# Что проверяем на каждый пуш: линт, стили, типы, тесты и — обязательно —
+# что боевой образ вообще собирается. Сломанная сборка, найденная при выкладке,
+# стоит простоя сайта; найденная здесь — ничего.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: tk
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: tulaklimat
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U tk -d tulaklimat"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      # Значения только для проверки: настоящие живут в .env.prod на сервере
+      DATABASE_URL: postgresql://tk:ci@127.0.0.1:5432/tulaklimat?schema=public
+      SITE_URL: https://ci.invalid
+      SESSION_SECRET: ci-secret-not-used-anywhere
+      NEXT_TELEMETRY_DISABLED: '1'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: pnpm из package.json
+        run: corepack enable
+
+      - name: Кеш store
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: pnpm-
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter web exec prisma generate
+
+      - run: pnpm lint
+      - run: pnpm lint:css
+      - run: pnpm typecheck
+      - run: pnpm test
+
+      # Схема нужна до сборки: главная и статьи пререндерятся с данными,
+      # и `next build` ходит в базу (ADR-062)
+      - name: Миграции
+        run: pnpm --filter web exec prisma migrate deploy
+
+      # Собираем именно боевой образ, а не `next build` на голой машине:
+      # так проверяется ещё и Dockerfile, из которого едет прод
+      - name: Боевой образ
+        run: |
+          docker build --network=host --target runner \
+            --build-arg DATABASE_URL="$DATABASE_URL" \
+            --build-arg SITE_URL="$SITE_URL" \
+            --build-arg SESSION_SECRET="$SESSION_SECRET" \
+            -t tulaklimat-web:ci .

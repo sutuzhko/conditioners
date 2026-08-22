@@ -1,0 +1,134 @@
+# Боевой состав. Дев-окружение повторяет его один в один — см. docs/DEPLOY.md §1
+# и ADR-017. Версии Node и Postgres здесь и в docker-compose.dev.yml обязаны
+# совпадать: расхождение сред — баг, а не мелочь.
+name: tulaklimat
+
+# Журналы контейнеров без ограничения съедают диск раньше, чем база
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: '10m'
+    max-file: '5'
+
+x-build: &build
+  context: .
+  args:
+    NODE_IMAGE: ${NODE_IMAGE:-node:22-alpine}
+
+services:
+  caddy:
+    image: ${CADDY_IMAGE:-caddy:2.8-alpine}
+    restart: unless-stopped
+    depends_on:
+      web:
+        condition: service_healthy
+    ports:
+      - '80:80'
+      - '443:443'
+    # Прокси незачем видеть токен бота и пароль SMTP: ему нужен домен и адрес
+    # для писем Let's Encrypt, остальное — лишняя поверхность (инвариант 3)
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN:?нужен домен сайта}
+      ACME_EMAIL: ${ACME_EMAIL:?нужен адрес для писем Let's Encrypt}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      # сертификаты: потеря тома означает повторный выпуск и лимиты Let's Encrypt
+      - caddy_data:/data
+      - caddy_config:/config
+    logging: *logging
+
+  # Миграции — отдельный шаг выкладки, а не действие руками после неё.
+  # Приложение стартует только после успешного накатывания: расхождение схемы
+  # и кода даёт ошибки на живых заявках (ADR-062).
+  migrate:
+    build:
+      <<: *build
+      target: worker
+    restart: 'no'
+    env_file: .env.prod
+    depends_on:
+      db:
+        condition: service_healthy
+    command: pnpm --filter web exec prisma migrate deploy
+    logging: *logging
+
+  web:
+    build:
+      <<: *build
+      target: runner
+      # Сборка обращается к базе: главная, политика и статьи пререндерятся
+      # с данными (ISR). Поэтому база должна быть поднята и мигрирована до
+      # сборки — этот порядок и держит infra/deploy.sh (ADR-062).
+      network: host
+      args:
+        DATABASE_URL: ${BUILD_DATABASE_URL:?нужен адрес базы для сборки, см. .env.prod.example}
+        SITE_URL: ${SITE_URL:?нужен канонический адрес}
+        SESSION_SECRET: ${SESSION_SECRET:?нужен секрет сессии}
+    restart: unless-stopped
+    env_file: .env.prod
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    # наружу не публикуется: единственный вход — Caddy с TLS
+    expose:
+      - '3000'
+    volumes:
+      - uploads:/data/uploads
+    healthcheck:
+      # проверяется база, а не порт: поднявшееся приложение без неё бесполезно
+      test: ['CMD', 'wget', '--quiet', '--spider', 'http://127.0.0.1:3000/api/health']
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    logging: *logging
+
+  worker:
+    build:
+      <<: *build
+      target: worker
+    restart: unless-stopped
+    env_file: .env.prod
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    volumes:
+      - uploads:/data/uploads
+    # цикл спит 30 секунд между проходами: даём такту закончиться по SIGTERM
+    stop_grace_period: 40s
+    command: pnpm --filter web worker
+    logging: *logging
+
+  db:
+    image: ${POSTGRES_IMAGE:-postgres:16-alpine}
+    restart: unless-stopped
+    # Базе нужны только её собственные доступы
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?нужен пользователь базы}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?нужен пароль базы}
+      POSTGRES_DB: ${POSTGRES_DB:?нужно имя базы}
+    ports:
+      # Только петля самого сервера: снаружи база недоступна. Локальный порт
+      # нужен трём вещам — psql при разборе инцидента, бэкапу и сборке образа,
+      # которая идёт вне сети compose (ADR-062).
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # $$ — чтобы подстановку сделал шелл контейнера, а не compose на хосте
+      test: ['CMD-SHELL', 'pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    logging: *logging
+
+volumes:
+  pgdata:
+  uploads:
+  caddy_data:
+  caddy_config:
