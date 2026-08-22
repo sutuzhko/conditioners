@@ -53,11 +53,11 @@ for table in Lead Review Setting Notification Product Article; do
 done
 
 echo "[4/4] что внутри"
-docker exec "${container}" psql -tAX -U check -d check -c '
-  SELECT ''заявок: ''    || (SELECT count(*) FROM "Lead")
-      || '', отзывов: ''  || (SELECT count(*) FROM "Review")
-      || '', товаров: ''  || (SELECT count(*) FROM "Product")
-      || '', статей: ''   || (SELECT count(*) FROM "Article")
-      || '', настроек: '' || (SELECT count(*) FROM "Setting");'
+docker exec "${container}" psql -tAX -U check -d check -c "
+  SELECT 'заявок: '     || (SELECT count(*) FROM \"Lead\")
+      || ', отзывов: '  || (SELECT count(*) FROM \"Review\")
+      || ', товаров: '  || (SELECT count(*) FROM \"Product\")
+      || ', статей: '   || (SELECT count(*) FROM \"Article\")
+      || ', настроек: ' || (SELECT count(*) FROM \"Setting\");"
 
 echo "✅ дамп восстанавливается. Отметь дату проверки в docs/DEPLOY.md §7"
