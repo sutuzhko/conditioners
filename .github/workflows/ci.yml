@@ -75,5 +75,4 @@ jobs:
           docker build --network=host --target runner \
             --build-arg DATABASE_URL="$DATABASE_URL" \
             --build-arg SITE_URL="$SITE_URL" \
-            --build-arg SESSION_SECRET="$SESSION_SECRET" \
             -t tulaklimat-web:ci .
