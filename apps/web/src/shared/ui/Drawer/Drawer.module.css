@@ -29,6 +29,15 @@
   box-shadow: var(--shadow-card);
 }
 
+/* На телефоне панель занимает экран целиком. Полоска сайта сбоку не даёт
+   ничего: нажать на неё, чтобы закрыть, всё равно попадёшь мимо, а меню от
+   неё становится теснее — пункты жмутся к краю. */
+@media (width < 560px) {
+  .panel {
+    width: 100%;
+  }
+}
+
 .left .panel {
   border-right: 1px solid var(--line);
   animation: drawer-in-left var(--dur-base) var(--ease-out);
