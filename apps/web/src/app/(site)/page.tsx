@@ -72,6 +72,8 @@ export default async function HomePage() {
 
   // цена в заголовке «честно о цене» — из прайса, а не из вёрстки (инвариант 8)
   const installFrom = priceRows.length === 0 ? null : Math.min(...priceRows.map((r) => r.price));
+  // срок из той же строки прайса, что и минимальная цена: они описывают один монтаж
+  const installTerm = priceRows.find((row) => row.price === installFrom)?.term ?? null;
 
   const { warranty, contacts } = settings;
   const phone = contacts.phones[0] ?? '';
@@ -88,7 +90,7 @@ export default async function HomePage() {
      тот же вызов `buildFaqItems`, что у виджета, отзывы — те же одобренные.
      Расхождение разметки и видимого текста — основание для санкций
      (инвариант 9), и единственный источник делает его невозможным. */
-  const faqItems = buildFaqItems({ installFrom, warranty });
+  const faqItems = buildFaqItems({ installFrom, installTerm, warranty });
 
   const business = buildLocalBusinessJsonLd({
     siteUrl: env.SITE_URL,
@@ -159,7 +161,7 @@ export default async function HomePage() {
       />
       {/* виджет собирает вопросы тем же `buildFaqItems` от тех же фактов —
           разметка выше и видимый текст здесь не могут разойтись */}
-      <Faq installFrom={installFrom} warranty={warranty} />
+      <Faq installFrom={installFrom} installTerm={installTerm} warranty={warranty} />
       <Contacts
         contacts={contacts}
         address={settings.address}

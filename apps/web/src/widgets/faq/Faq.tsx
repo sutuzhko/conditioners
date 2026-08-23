@@ -22,8 +22,8 @@ export interface FaqProps extends FaqFacts {
  * Сворачивание в `Accordion` чисто визуальное — сеткой `0fr → 1fr`, без
  * размонтирования панели. Стили секции этого не меняют.
  */
-export function Faq({ installFrom, warranty, id = 'faq' }: FaqProps) {
-  const items = buildFaqItems({ installFrom, warranty }).map((entry) => ({
+export function Faq({ installFrom, installTerm, warranty, id = 'faq' }: FaqProps) {
+  const items = buildFaqItems({ installFrom, installTerm, warranty }).map((entry) => ({
     id: entry.id,
     title: entry.question,
     content: <p className={styles.answer}>{entry.answer}</p>,

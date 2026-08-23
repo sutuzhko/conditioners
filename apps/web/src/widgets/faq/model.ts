@@ -24,6 +24,12 @@ export type FaqEntry = {
 export type FaqFacts = {
   /** Минимальная цена монтажа из прайса, ₽ — та же, что в таблице цен. */
   readonly installFrom?: number | null | undefined;
+  /**
+   * Сколько занимает типовой монтаж: «3–4 часа». Берётся из той же строки
+   * прайса, что и цена, — срок работ это обещание компании, и в коде его
+   * быть не может (инвариант 8).
+   */
+  readonly installTerm?: string | null | undefined;
   /** Условия гарантии из настроек компании. */
   readonly warranty?: Warranty | null | undefined;
 };

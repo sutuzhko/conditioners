@@ -73,10 +73,10 @@ describe('Блок FAQ', () => {
 
     // настройки не заполнены — ответ обходится без срока, а не выдумывает его
     rerender(<Faq warranty={warrantyEmpty} />);
-    const garantiya = buildFaqItems({ warranty: warrantyEmpty }).find(
-      (entry) => entry.id === 'garantiya',
+    const warrantyEntry = buildFaqItems({ warranty: warrantyEmpty }).find(
+      (entry) => entry.id === 'warranty',
     );
-    expect(garantiya?.answer).not.toMatch(/\d/);
+    expect(warrantyEntry?.answer).not.toMatch(/\d/);
   });
 
   it('заглушка сидов видна в ответе — незаполненный раздел не маскируется', () => {
