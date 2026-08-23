@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "pnpm --filter web dev",
     "build": "pnpm --filter web build",
+    "budget": "node scripts/js-budget.mjs apps/web/.next",
     "start": "pnpm --filter web start",
     "worker": "pnpm --filter web worker",
     "seed": "pnpm --filter web seed",

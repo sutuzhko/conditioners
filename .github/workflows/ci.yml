@@ -76,3 +76,16 @@ jobs:
             --build-arg DATABASE_URL="$DATABASE_URL" \
             --build-arg SITE_URL="$SITE_URL" \
             -t tulaklimat-web:ci .
+
+      # Бюджет считается по манифестам той же сборки: стадия `build` уже в
+      # кеше предыдущего шага, второй компиляции не происходит (ADR-088)
+      - name: Бюджет JS
+        run: |
+          docker build --network=host --target build \
+            --build-arg DATABASE_URL="$DATABASE_URL" \
+            --build-arg SITE_URL="$SITE_URL" \
+            -t tulaklimat-build:ci .
+          id=$(docker create tulaklimat-build:ci)
+          docker cp "$id:/app/apps/web/.next" ./next-build
+          docker rm "$id"
+          node scripts/js-budget.mjs ./next-build --strict
