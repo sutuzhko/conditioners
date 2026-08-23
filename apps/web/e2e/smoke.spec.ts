@@ -47,12 +47,19 @@ test.describe('Лендинг', () => {
       await page.setViewportSize({ width, height: 900 });
       await page.goto('/');
 
-      const overflow = await page.evaluate(() => {
-        const root = document.documentElement;
-        return root.scrollWidth - root.clientWidth;
-      });
-
-      expect(overflow).toBeLessThanOrEqual(0);
+      /* Замер с повтором, а не однократный: в деве стили приезжают отдельными
+         запросами, и в первый миг после загрузки лента доверия успевает
+         торчать за край — `overflow: hidden` к ней ещё не применён. Проверяем
+         «страница не скроллится», а не «не скроллится в первую миллисекунду»;
+         настоящее переполнение никуда не денется и за таймаут. */
+      await expect
+        .poll(() =>
+          page.evaluate(() => {
+            const root = document.documentElement;
+            return root.scrollWidth - root.clientWidth;
+          }),
+        )
+        .toBeLessThanOrEqual(0);
     });
   }
 
