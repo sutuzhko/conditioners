@@ -90,22 +90,7 @@ describe('ReviewForm', () => {
     expect(sent?.get('rating')).toBe('5');
     expect(sent?.get('text')).toBe(REVIEW_TEXT);
     expect(sent?.get('consent')).toBe('true');
-    // район не выбран — поле не уходит вовсе, а не уходит пустым
     expect(sent?.has('district')).toBe(false);
-  });
-
-  it('выбранный район уходит вместе с отзывом', async () => {
-    const user = userEvent.setup();
-    const { submit } = setup();
-
-    await fillTexts(user);
-    await user.click(fiveStars());
-    await user.selectOptions(screen.getByLabelText(/Район/), 'Зареченский р-н');
-    await user.click(screen.getByRole('checkbox'));
-    await user.click(submitButton());
-
-    await waitFor(() => expect(submit).toHaveBeenCalled());
-    expect(submit.mock.calls[0]?.[0].get('district')).toBe('Зареченский р-н');
   });
 
   it('ошибка сервера объясняет, что делать, и не стирает написанное', async () => {

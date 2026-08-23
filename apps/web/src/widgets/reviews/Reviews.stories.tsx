@@ -4,7 +4,7 @@ import { Reviews } from './Reviews';
 import {
   policyHrefFixture,
   reviewWithPhotoFixture,
-  reviewWithoutDistrictFixture,
+  reviewWithoutPhotoFixture,
   reviewsFixture,
 } from './fixtures';
 
@@ -42,5 +42,5 @@ export const WithPhoto: Story = {
 
 export const WithoutDistrict: Story = {
   name: 'Отзыв без района',
-  args: { reviews: [reviewWithoutDistrictFixture] },
+  args: { reviews: [reviewWithoutPhotoFixture] },
 };

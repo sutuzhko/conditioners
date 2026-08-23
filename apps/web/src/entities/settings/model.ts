@@ -138,7 +138,6 @@ export const geoSchema = z
 export const areaSchema = z
   .object({
     served: optionalText,
-    districts: z.array(z.string().trim().max(300)).max(50).default([]),
   })
   .strict();
 

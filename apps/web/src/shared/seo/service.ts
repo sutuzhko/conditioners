@@ -72,7 +72,7 @@ function buildOffer(offer: ServiceOfferInput): JsonLdNode | null {
 }
 
 function buildAreaServed(area: ServiceArea | null | undefined): readonly JsonLdNode[] | undefined {
-  const names = textList([area?.served ?? '', ...(area?.districts ?? [])]);
+  const names = textList([area?.served ?? '']);
   if (names === undefined) return undefined;
   return names.map((name) => ({ '@type': 'AdministrativeArea', name }));
 }

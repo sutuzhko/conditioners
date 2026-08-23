@@ -28,13 +28,12 @@ function renderSection(props: Partial<Parameters<typeof Contacts>[0]> = {}) {
 }
 
 describe('Блок контактов', () => {
-  it('рисует адрес, телефон, часы и районы из настроек', () => {
+  it('рисует адрес, телефон и часы из настроек', () => {
     renderSection();
 
     // адрес виден дважды: строкой контактов и на карточке карты
     expect(screen.getAllByText('Тула, ул. Демонстрационная, 1, оф. 5')).toHaveLength(2);
     expect(screen.getByText(contactsFixture.hours)).toBeInTheDocument();
-    expect(screen.getByText(areaFixture.districts.join(', '))).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: areaFixture.served })).toBeInTheDocument();
   });
 
@@ -57,11 +56,10 @@ describe('Блок контактов', () => {
   it('🔴 строку, которой нет в настройках, блок не рисует', () => {
     renderSection({
       contacts: { ...contactsFixture, hours: '' },
-      area: { served: areaFixture.served, districts: [] },
+      area: { served: areaFixture.served },
     });
 
     expect(screen.queryByText(t.hoursLabel)).not.toBeInTheDocument();
-    expect(screen.queryByText(t.districtsLabel)).not.toBeInTheDocument();
     // а те, что заполнены, на месте
     expect(screen.getByText(t.addressLabel)).toBeInTheDocument();
     expect(screen.getByText(t.phoneLabel)).toBeInTheDocument();

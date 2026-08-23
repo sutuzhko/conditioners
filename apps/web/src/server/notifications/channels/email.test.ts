@@ -95,7 +95,6 @@ describe('письмо владельцу', () => {
       kind: 'review',
       reviewId: 'r5',
       name: 'Игорь П.',
-      district: null,
       rating: 4,
       text: 'Работой доволен, приехали вовремя.',
       photo: null,

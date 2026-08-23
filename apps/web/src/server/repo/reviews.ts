@@ -32,7 +32,6 @@ export function toDbStatus(status: ReviewStatusApi): ReviewStatus {
 export type ReviewDto = {
   id: string;
   name: string;
-  district: string | null;
   rating: number;
   text: string;
   photo: string | null;
@@ -43,7 +42,6 @@ export type ReviewDto = {
 type ReviewRow = {
   id: string;
   name: string;
-  district: string | null;
   rating: number;
   text: string;
   photo: string | null;

@@ -36,7 +36,6 @@ export const addressFixture: Address = {
 
 export const areaFixture: ServiceArea = {
   served: 'Тула и Тульская область',
-  districts: ['Центральный', 'Пролетарский', 'Зареченский', 'Привокзальный', 'Советский'],
 };
 
 export const geoFixture: Geo = { lat: 54.193122, lng: 37.617348 };
@@ -83,6 +82,6 @@ export const addressEmpty: Address = {
   postalCode: '',
 };
 
-export const areaEmpty: ServiceArea = { served: '', districts: [] };
+export const areaEmpty: ServiceArea = { served: '' };
 
 export const geoEmpty: Geo = { lat: null, lng: null };

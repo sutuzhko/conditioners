@@ -33,7 +33,6 @@ const reviewPayloadSchema = z.object({
   kind: z.literal('review'),
   reviewId: z.string(),
   name: z.string(),
-  district: z.string().nullable(),
   rating: z.number().int(),
   text: z.string(),
   photo: z.string().nullable(),

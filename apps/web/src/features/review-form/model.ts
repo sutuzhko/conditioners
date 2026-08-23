@@ -20,7 +20,6 @@ export const reviewFormSchema = reviewInputSchema;
  */
 export interface ReviewFormValues {
   readonly name: string;
-  readonly district: string;
   readonly rating: number;
   readonly text: string;
   readonly consent: boolean;
@@ -38,7 +37,6 @@ export type ReviewFieldErrors = Partial<Record<keyof ReviewFormValues, string>>;
  */
 export const REVIEW_FIELD_ORDER: readonly (keyof ReviewFormValues)[] = [
   'name',
-  'district',
   'rating',
   'text',
   'consent',

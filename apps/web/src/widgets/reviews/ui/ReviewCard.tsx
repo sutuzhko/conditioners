@@ -54,12 +54,6 @@ export function ReviewCard({ review }: ReviewCardProps) {
           <span className={styles.who}>
             <span className={styles.name}>{review.name}</span>
             <span className={styles.meta}>
-              {review.district === null ? null : (
-                <>
-                  {review.district}
-                  <span aria-hidden="true"> · </span>
-                </>
-              )}
               <span className="srOnly">{t.dateLabel} </span>
               <time dateTime={formatDateIso(review.createdAt)}>{formatDate(review.createdAt)}</time>
             </span>

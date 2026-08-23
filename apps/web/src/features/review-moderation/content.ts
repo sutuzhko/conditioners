@@ -32,7 +32,6 @@ export const reviewModerationContent = {
     'Удалить отзыв безвозвратно? Отклонение и архив сохраняют его в базе, удаление — нет.',
 
   rating: (value: number): string => `Оценка ${value} из 5`,
-  district: (value: string): string => `Район: ${value}`,
   statusTitle: (status: ReviewStatus): string => STATUS_TITLES[status],
   when: (iso: string): string =>
     new Date(iso).toLocaleDateString('ru-RU', {

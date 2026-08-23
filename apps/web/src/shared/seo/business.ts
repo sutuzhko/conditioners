@@ -47,11 +47,11 @@ function buildGeo(geo: Geo | null | undefined): JsonLdNode | undefined {
 }
 
 /**
- * Регион обслуживания и районы. Район города — административная территория,
- * поэтому один тип на весь список: `City` для «Пролетарского» был бы враньём.
+ * Регион обслуживания. Тип `AdministrativeArea`, а не `City`: владелец пишет
+ * сюда «Тула и Тульская область», и город с областью одним типом не описать.
  */
 function buildAreaServed(area: ServiceArea | null | undefined): readonly JsonLdNode[] | undefined {
-  const names = textList([area?.served ?? '', ...(area?.districts ?? [])]);
+  const names = textList([area?.served ?? '']);
   if (names === undefined) return undefined;
 
   return names.map((name) => ({ '@type': 'AdministrativeArea', name }));

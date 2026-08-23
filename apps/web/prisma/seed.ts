@@ -74,7 +74,6 @@ const settings: Record<string, unknown> = {
   geo: { lat: null, lng: null },
   area: {
     served: 'Тула и Тульская область',
-    districts: [] as string[],
   },
   legal: {
     form: 'ИП',

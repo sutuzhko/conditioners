@@ -46,11 +46,6 @@ export const WithoutGeo: Story = {
   args: { geo: geoEmpty },
 };
 
-export const WithoutDistricts: Story = {
-  name: 'Районы не перечислены',
-  args: { area: { served: areaFixture.served, districts: [] } },
-};
-
 export const Placeholders: Story = {
   name: 'Данные компании ещё заглушки',
   args: { contacts: contactsPlaceholder, address: addressPlaceholder },

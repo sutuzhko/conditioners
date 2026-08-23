@@ -61,9 +61,6 @@ export function ReviewCardView({
       <header className={styles.header}>
         <div>
           <h2 className={styles.name}>{review.name}</h2>
-          {review.district === null ? null : (
-            <p className={styles.district}>{texts.district(review.district)}</p>
-          )}
         </div>
 
         <div className={styles.headerRight}>

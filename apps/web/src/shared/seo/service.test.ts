@@ -28,11 +28,7 @@ describe('Service и OfferCatalog', () => {
       serviceType: 'Монтаж кондиционеров',
       url: `${SITE_URL}/installation`,
       provider: { '@id': organizationId(SITE_URL) },
-      areaServed: [
-        { '@type': 'AdministrativeArea', name: 'Тула и Тульская область' },
-        { '@type': 'AdministrativeArea', name: 'Пролетарский район' },
-        { '@type': 'AdministrativeArea', name: 'Зареченский район' },
-      ],
+      areaServed: [{ '@type': 'AdministrativeArea', name: 'Тула и Тульская область' }],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Цены на монтаж',

@@ -10,12 +10,10 @@ import {
   FileInput,
   Input,
   Rating,
-  Select,
   Textarea,
   type ButtonLinkHref,
 } from '@/shared/ui';
 
-import { DISTRICT_OPTIONS, reviewFormContent as texts } from './content';
 import {
   HONEYPOT_FIELD,
   buildReviewFormData,
@@ -30,6 +28,7 @@ import {
   type ReviewFormValues,
   type ReviewSubmit,
 } from './model';
+import { reviewFormContent as texts } from './content';
 import styles from './ReviewForm.module.css';
 
 const HEADINGS = { 2: 'h2', 3: 'h3', 4: 'h4' } as const;
@@ -246,14 +245,6 @@ export function ReviewForm({
               value={values.name}
               error={errors.name}
               onChange={(event) => changeValue({ name: event.target.value }, 'name')}
-            />
-            <Select
-              name="district"
-              label={texts.districtLabel}
-              options={DISTRICT_OPTIONS}
-              value={values.district}
-              error={errors.district}
-              onChange={(event) => changeValue({ district: event.target.value }, 'district')}
             />
           </div>
 

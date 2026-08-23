@@ -36,7 +36,6 @@ export const reviewsFixture: readonly ReviewCardData[] = [
   {
     id: 'demo-1',
     name: 'Ирина',
-    district: 'Центральный р-н',
     rating: 5,
     text: DEMO_TEXT,
     photo: null,
@@ -45,7 +44,6 @@ export const reviewsFixture: readonly ReviewCardData[] = [
   {
     id: 'demo-2',
     name: 'Сергей',
-    district: 'Пролетарский р-н',
     rating: 4,
     text:
       'Второй кондиционер у этих ребят. В этот раз ждал выезда три дня из-за жары, ' +
@@ -56,7 +54,6 @@ export const reviewsFixture: readonly ReviewCardData[] = [
   {
     id: 'demo-3',
     name: 'Марина',
-    district: 'Зареченский р-н',
     rating: 5,
     text: 'Подобрали модель по площади, объяснили разницу с инвертором. Работает тихо, спим спокойно.',
     photo: null,
@@ -65,7 +62,6 @@ export const reviewsFixture: readonly ReviewCardData[] = [
   {
     id: 'demo-4',
     name: 'Алексей Владимирович',
-    district: null,
     rating: 4,
     text: 'Монтаж в частном доме, длинная трасса. Посчитали заранее, по факту доплат не было.',
     photo: null,
@@ -77,18 +73,16 @@ export const reviewsFixture: readonly ReviewCardData[] = [
 export const reviewWithPhotoFixture: ReviewCardData = {
   id: 'demo-photo',
   name: 'Дмитрий',
-  district: 'Привокзальный р-н',
   rating: 5,
   text: 'Аккуратно вывели трассу по фасаду — прикладываю фото, как получилось.',
   photo: SAMPLE_PHOTO,
   createdAt: new Date('2026-06-18T00:00:00.000Z'),
 };
 
-/** Район необязателен: человек вправе его не указывать, и карточка это переживает. */
-export const reviewWithoutDistrictFixture: ReviewCardData = {
-  id: 'demo-no-district',
+/** Фотография необязательна: карточка без неё не разъезжается. */
+export const reviewWithoutPhotoFixture: ReviewCardData = {
+  id: 'demo-no-photo',
   name: 'Ольга',
-  district: null,
   rating: 3,
   text: 'Работой довольна, но звонка о переносе времени пришлось ждать до последнего.',
   photo: null,

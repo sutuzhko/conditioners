@@ -26,7 +26,7 @@ export function notificationText(payload: NotificationPayload): string {
       `🧭 Тема: ${payload.topic}`,
       `👤 Имя: ${payload.name}`,
       `📞 Телефон: ${payload.phone}`,
-      `📍 Адрес/район: ${orDash(payload.address)}`,
+      `📍 Адрес: ${orDash(payload.address)}`,
       `🏠 Тип помещения: ${orDash(payload.place)}`,
       `❄️ Кол-во кондиционеров: ${orDash(payload.qty)}`,
       `⏰ Удобное время звонка: ${orDash(payload.callTime)}`,
@@ -42,7 +42,7 @@ export function notificationText(payload: NotificationPayload): string {
     ].join('\n');
   }
 
-  const who = payload.district === null ? payload.name : `${payload.name} · ${payload.district}`;
+  const who = payload.name;
   return [
     '⭐ Новый отзыв на модерации',
     '',

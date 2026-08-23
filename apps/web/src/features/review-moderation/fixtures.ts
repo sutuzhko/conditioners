@@ -4,7 +4,6 @@ import type { ReviewApi, ReviewCard } from './model';
 export const pendingReview: ReviewCard = {
   id: 'r1',
   name: 'Алексей',
-  district: 'Центральный',
   rating: 5,
   text: 'Приехали в тот же день, смету назвали заранее и не поменяли её на месте. Работает тихо.',
   photo: null,
@@ -23,7 +22,6 @@ export const lowRatedReview: ReviewCard = {
   ...pendingReview,
   id: 'r3',
   name: 'Марина',
-  district: null,
   rating: 2,
   text: 'Приехали на два часа позже обещанного, хотя работу сделали аккуратно.',
 };

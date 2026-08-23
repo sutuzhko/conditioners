@@ -19,7 +19,6 @@ import * as reviews from '@/server/repo/reviews';
 const row = {
   id: 'r5',
   name: 'Ирина',
-  district: null,
   rating: 5,
   text: 'Приехали в тот же день',
   photo: null,

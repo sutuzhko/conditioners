@@ -21,7 +21,6 @@ export function isReviewStatus(value: string): value is ReviewStatus {
 export type ReviewCard = {
   readonly id: string;
   readonly name: string;
-  readonly district: string | null;
   readonly rating: number;
   readonly text: string;
   readonly photo: string | null;

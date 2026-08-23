@@ -42,7 +42,6 @@ const TEXT_REQUIRED = `Расскажите о работе подробнее �
 export const reviewSchema = z.object({
   id: z.string().min(1),
   name: z.string().trim().min(1),
-  district: z.string().nullable().default(null),
   rating: z.number().int().min(RATING_MIN).max(RATING_MAX),
   text: z.string().trim().min(REVIEW_TEXT_MIN),
   photo: z.string().nullable().default(null),
@@ -63,11 +62,6 @@ export const reviewInputSchema = z.object({
     .trim()
     .min(2, { message: NAME_REQUIRED })
     .max(80, { message: 'Имя длиннее 80 символов не поместится' }),
-  district: z
-    .string()
-    .trim()
-    .max(120, { message: 'Название района длиннее 120 символов не поместится' })
-    .optional(),
   rating: z.coerce
     .number({ required_error: RATING_MESSAGE, invalid_type_error: RATING_MESSAGE })
     .int(RATING_MESSAGE)

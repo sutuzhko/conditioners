@@ -121,7 +121,6 @@ enum ReviewStatus {
 model Review {
   id       String       @id @default(cuid())
   name     String
-  district String?
   rating   Int
   text     String // неизменяем: модератор меняет только статус
   photo    String?

@@ -58,7 +58,6 @@ function without(fields: Fields, key: string): Fields {
 
 const VALID: Fields = {
   name: 'Игорь П.',
-  district: 'Привокзальный р-н',
   rating: '5',
   text: 'Приехали в срок, всё аккуратно, мусор убрали за собой.',
   consent: 'on',
@@ -85,7 +84,6 @@ describe('POST /api/reviews', () => {
     await expect(readBody(response)).resolves.toEqual({ id: 'rev-1' });
     expect(dbMock.review.create.mock.calls[0]?.[0].data).toMatchObject({
       name: 'Игорь П.',
-      district: 'Привокзальный р-н',
       rating: 5,
       photo: null,
     });

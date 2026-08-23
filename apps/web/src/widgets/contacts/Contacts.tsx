@@ -11,7 +11,7 @@ import { ButtonLink, Card, ClockIcon, PhoneIcon } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 
 import { contactsContent as t } from './content';
-import { MapIcon, PinIcon } from './icons';
+import { PinIcon } from './icons';
 import { addressLine, yandexMapsHref } from './lib';
 import styles from './Contacts.module.css';
 
@@ -61,7 +61,6 @@ export function Contacts({
   const phones = contacts.phones.map((phone) => phone.trim()).filter((phone) => phone !== '');
   const hours = contacts.hours.trim();
   const served = area.served.trim();
-  const districts = area.districts.map((item) => item.trim()).filter((item) => item !== '');
   const postal = addressLine(address);
   const mapHref = yandexMapsHref(address, geo);
 
@@ -102,14 +101,6 @@ export function Contacts({
           label: t.hoursLabel,
           icon: <ClockIcon size={20} />,
           value: <span className={styles.value}>{hours}</span>,
-        },
-    districts.length === 0
-      ? null
-      : {
-          id: 'districts',
-          label: t.districtsLabel,
-          icon: <MapIcon />,
-          value: <span className={styles.value}>{districts.join(', ')}</span>,
         },
   ];
 

@@ -1,6 +1,4 @@
 import { REVIEW_TEXT_MIN } from '@/entities/review/model';
-import type { SelectOption } from '@/shared/ui';
-
 /**
  * Подписи формы отзыва. Ни одного факта о компании: адрес политики приходит
  * пропсом (docs/CLAUDE.md, инвариант 8).
@@ -9,21 +7,6 @@ import type { SelectOption } from '@/shared/ui';
  * переезжает туда целиком — как и `features/lead-form/content.ts`.
  */
 
-/**
- * Районы Тулы. Это география города, а не данные организации, — поэтому список
- * живёт в коде. Первый пункт пустой: район необязателен, и «не указан» честнее,
- * чем подставленный формой.
- */
-export const DISTRICT_OPTIONS: readonly SelectOption[] = [
-  { value: '', label: 'Не указан' },
-  { value: 'Центральный р-н', label: 'Центральный р-н' },
-  { value: 'Зареченский р-н', label: 'Зареченский р-н' },
-  { value: 'Пролетарский р-н', label: 'Пролетарский р-н' },
-  { value: 'Привокзальный р-н', label: 'Привокзальный р-н' },
-  { value: 'Советский р-н', label: 'Советский р-н' },
-  { value: 'Тульская область', label: 'Тульская область' },
-];
-
 export const reviewFormContent = {
   title: 'Оставить отзыв',
   description: 'Отзыв появится на сайте после проверки модератором.',
@@ -31,7 +14,6 @@ export const reviewFormContent = {
 
   nameLabel: 'Имя',
   namePlaceholder: 'Как вас зовут',
-  districtLabel: 'Район',
   ratingLabel: 'Оценка',
   textLabel: 'Отзыв',
   textPlaceholder: 'Что понравилось, что можно улучшить...',

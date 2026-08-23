@@ -21,7 +21,6 @@ const session = { userId: 'u1', login: 'admin', expiresAt: new Date('2026-12-31'
 const stored = {
   id: 'r5',
   name: 'Ирина',
-  district: 'Зареченский',
   rating: 5,
   text: 'Приехали в тот же день, всё аккуратно',
   photo: null,

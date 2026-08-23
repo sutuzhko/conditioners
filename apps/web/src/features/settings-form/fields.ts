@@ -85,10 +85,7 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
     key: 'area',
     title: 'Регион работы',
     description: 'Куда выезжаете. Попадает в разметку зоны обслуживания.',
-    fields: [
-      { path: 'served', label: 'Зона обслуживания', kind: 'text' },
-      { path: 'districts', label: 'Районы', kind: 'list', itemLabel: 'Район' },
-    ],
+    fields: [{ path: 'served', label: 'Зона обслуживания', kind: 'text' }],
   },
   {
     key: 'legal',

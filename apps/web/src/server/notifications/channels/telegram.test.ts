@@ -54,7 +54,6 @@ const REVIEW: NotificationPayload = {
   kind: 'review',
   reviewId: 'r5',
   name: 'Игорь П.',
-  district: 'Привокзальный р-н',
   rating: 5,
   text: 'Вчера установили 09-ку, всё аккуратно.',
   photo: null,

@@ -10,7 +10,7 @@ import type { Review } from '@/entities/review/model';
  */
 export type ReviewCardData = Pick<
   Review,
-  'id' | 'name' | 'district' | 'rating' | 'text' | 'photo' | 'createdAt'
+  'id' | 'name' | 'rating' | 'text' | 'photo' | 'createdAt'
 >;
 
 /**

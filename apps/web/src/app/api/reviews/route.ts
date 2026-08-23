@@ -41,7 +41,6 @@ export async function POST(request: Request): Promise<Response> {
     const review = await db.review.create({
       data: {
         name: input.name,
-        district: input.district ?? null,
         rating: input.rating,
         text: input.text,
         photo,
@@ -54,7 +53,6 @@ export async function POST(request: Request): Promise<Response> {
       kind: 'review',
       reviewId: review.id,
       name: review.name,
-      district: review.district,
       rating: review.rating,
       text: review.text,
       photo: review.photo,

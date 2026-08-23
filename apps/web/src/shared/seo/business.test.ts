@@ -55,8 +55,6 @@ describe('HVACBusiness', () => {
     });
     expect(node?.areaServed).toEqual([
       { '@type': 'AdministrativeArea', name: 'Тула и Тульская область' },
-      { '@type': 'AdministrativeArea', name: 'Пролетарский район' },
-      { '@type': 'AdministrativeArea', name: 'Зареченский район' },
     ]);
     expect(node?.paymentAccepted).toEqual(paymentFixture.methods);
     expect(node?.address).toMatchObject({ addressLocality: 'Тула' });

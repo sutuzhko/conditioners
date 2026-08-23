@@ -53,19 +53,14 @@ describe('validateReviewValues', () => {
   it('коротких отзывов не пропускает — их оставляют спам-боты', () => {
     expect(validateReviewValues({ ...filled, text: 'Норм' })?.text).toMatch(/подробнее/i);
   });
-
-  it('район необязателен: без него форма проходит', () => {
-    expect(validateReviewValues({ ...filled, district: '' })).toBeNull();
-  });
 });
 
 describe('buildReviewFormData', () => {
-  it('не отправляет незаполненный район и шлёт оценку строкой', () => {
-    const data = buildReviewFormData({ ...filled, district: '  ' }, null, '');
+  it('шлёт оценку строкой, а незаполненное фото не шлёт вовсе', () => {
+    const data = buildReviewFormData({ ...filled }, null, '');
 
     expect(data.get('name')).toBe('Ирина');
     expect(data.get('rating')).toBe('5');
-    expect(data.has('district')).toBe(false);
     expect(data.has('photo')).toBe(false);
     expect(data.get('consent')).toBe('true');
     expect(data.get('hp')).toBe('');

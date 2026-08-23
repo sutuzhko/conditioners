@@ -13,7 +13,6 @@ export const contactsContent = {
   addressLabel: 'Адрес',
   phoneLabel: 'Телефон',
   hoursLabel: 'Часы работы',
-  districtsLabel: 'Выезжаем в районы',
 
   listLabel: 'Контакты компании',
   callLabel: 'Позвонить',

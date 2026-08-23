@@ -17,7 +17,7 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
   label?: string | undefined;
   hint?: string | undefined;
   error?: string | undefined;
-  /** первый неактивный пункт: «Выберите район» */
+  /** первый неактивный пункт: «Выберите вариант» */
   placeholder?: string | undefined;
   wrapperClassName?: string | undefined;
 }

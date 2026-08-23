@@ -17,26 +17,17 @@ export const REVIEW_ENDPOINT = '/api/reviews';
 export const HONEYPOT_FIELD = 'hp';
 
 export function emptyReviewValues(): ReviewFormValues {
-  return { name: '', district: '', rating: RATING_UNSET, text: '', consent: false };
+  return { name: '', rating: RATING_UNSET, text: '', consent: false };
 }
 
-/**
- * Незаполненный район и района, которого нет, — для схемы разные вещи:
- * `optional()` не срабатывает на пустой строке. Убираем пустое значение до
- * разбора, ровно как это делает сервер перед своей проверкой.
- */
+/** Значения формы в вид, который понимает схема сущности. */
 function toPayload(values: ReviewFormValues): Record<string, unknown> {
-  const payload: Record<string, unknown> = {
+  return {
     name: values.name,
     rating: values.rating,
     text: values.text,
     consent: values.consent,
   };
-
-  const district = values.district.trim();
-  if (district !== '') payload.district = district;
-
-  return payload;
 }
 
 /**
@@ -79,9 +70,6 @@ export function buildReviewFormData(
   data.append('name', values.name.trim());
   data.append('rating', String(values.rating));
   data.append('text', values.text.trim());
-
-  const district = values.district.trim();
-  if (district !== '') data.append('district', district);
 
   if (photo !== null) data.append('photo', photo);
   // 🔴 согласие уходит явным полем: сервер пишет его время в `Review.consentAt` (152-ФЗ)

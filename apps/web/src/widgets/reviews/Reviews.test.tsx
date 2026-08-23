@@ -6,7 +6,7 @@ import { reviewsContent as t } from './content';
 import {
   policyHrefFixture,
   reviewWithPhotoFixture,
-  reviewWithoutDistrictFixture,
+  reviewWithoutPhotoFixture,
   reviewsFixture,
 } from './fixtures';
 import type { ReviewCardData } from './model';
@@ -55,28 +55,27 @@ describe('Блок отзывов', () => {
     expect(screen.getByRole('heading', { level: 3, name: 'Оставить отзыв' })).toBeInTheDocument();
   });
 
-  it('рисует переданные отзывы списком: имя, район, дата, оценка и текст', () => {
+  it('рисует переданные отзывы списком: имя, дата, оценка и текст', () => {
     renderSection(reviewsFixture);
 
     const list = screen.getByRole('list', { name: t.listLabel });
     expect(within(list).getAllByRole('listitem')).toHaveLength(reviewsFixture.length);
 
     const card = cardOf('Ирина');
-    expect(card.textContent).toContain('Центральный р-н');
     expect(card.textContent).toContain('14 июня 2026');
     expect(within(card).getByRole('img')).toHaveAccessibleName('Оценка 5 из 5');
   });
 
   it('🔴 текст отзыва выводится дословно: кавычки рисует CSS, а не разметка', () => {
-    renderSection([reviewWithoutDistrictFixture]);
+    renderSection([reviewWithoutPhotoFixture]);
 
-    expect(screen.getByText(reviewWithoutDistrictFixture.text)).toBeInTheDocument();
+    expect(screen.getByText(reviewWithoutPhotoFixture.text)).toBeInTheDocument();
   });
 
   it('отзыв без района не оставляет разделителя и пустого места', () => {
-    renderSection([reviewWithoutDistrictFixture]);
+    renderSection([reviewWithoutPhotoFixture]);
 
-    const card = cardOf(reviewWithoutDistrictFixture.name);
+    const card = cardOf(reviewWithoutPhotoFixture.name);
     expect(card.textContent).not.toContain('·');
     expect(card.textContent).toContain('30 апреля 2026');
   });
@@ -86,7 +85,7 @@ describe('Блок отзывов', () => {
 
     expect(screen.getByAltText(t.photoAlt)).toBeInTheDocument();
 
-    rerender(<Reviews policyHref={policyHrefFixture} reviews={[reviewWithoutDistrictFixture]} />);
+    rerender(<Reviews policyHref={policyHrefFixture} reviews={[reviewWithoutPhotoFixture]} />);
     expect(screen.queryByAltText(t.photoAlt)).not.toBeInTheDocument();
   });
 

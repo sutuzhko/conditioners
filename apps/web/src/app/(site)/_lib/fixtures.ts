@@ -26,7 +26,7 @@ export const settingsFixture: Record<string, unknown> = {
     postalCode: '300000',
   },
   geo: { lat: 54.193, lng: 37.617 },
-  area: { served: 'Тула и Тульская область', districts: ['Центральный', 'Пролетарский'] },
+  area: { served: 'Тула и Тульская область' },
   legal: {
     form: 'ИП',
     name: 'ИП Тестов Тест Тестович',
