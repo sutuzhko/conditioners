@@ -77,8 +77,9 @@ model PriceRow {
 }
 
 // ---------- Настройки: всё о компании ----------
-// Ключи: company, contacts, address, geo, area, legal, extras,
-// warranty, payment, social, seo, integrations — см. docs/PROJECT.md §3
+// Ключи: company, contacts, address, geo, area, legal, extras, warranty,
+// payment, social, seo, achievements, integrations, notifications
+// — см. docs/PROJECT.md §3
 
 model Setting {
   key       String   @id
