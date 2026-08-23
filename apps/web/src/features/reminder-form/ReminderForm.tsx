@@ -188,23 +188,25 @@ export function ReminderForm({
         {announcement}
       </p>
 
-      <PhoneInput
-        name="phone"
-        label={texts.phoneLabel}
-        value={values.phone}
-        onChange={(phone) => changeValue({ phone }, 'phone')}
-        error={errors.phone}
-        required
-      />
+      <div className={styles.pair}>
+        <PhoneInput
+          name="phone"
+          label={texts.phoneLabel}
+          value={values.phone}
+          onChange={(phone) => changeValue({ phone }, 'phone')}
+          error={errors.phone}
+          required
+        />
 
-      <Select
-        name="when"
-        label={texts.whenLabel}
-        options={WHEN_OPTIONS}
-        value={values.when}
-        onChange={(event) => changeValue({ when: event.target.value }, 'when')}
-        error={errors.when}
-      />
+        <Select
+          name="when"
+          label={texts.whenLabel}
+          options={WHEN_OPTIONS}
+          value={values.when}
+          onChange={(event) => changeValue({ when: event.target.value }, 'when')}
+          error={errors.when}
+        />
+      </div>
 
       <Checkbox
         name="consent"
