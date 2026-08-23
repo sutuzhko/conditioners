@@ -43,39 +43,6 @@
   line-height: 1.55;
 }
 
-.pointsTitle {
-  margin: 6px 0 0;
-  color: var(--accent-ink);
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.points {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.point {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  color: var(--ink2);
-  font-size: var(--fs-dense);
-  line-height: 1.45;
-}
-
-.tick {
-  flex-shrink: 0;
-  margin-top: 2px;
-  color: var(--accent-ink);
-}
-
 .cta {
   margin-top: 6px;
 }

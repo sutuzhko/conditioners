@@ -28,13 +28,23 @@ describe('Блок отзывов', () => {
 
     expect(screen.getByRole('heading', { level: 3, name: t.emptyTitle })).toBeInTheDocument();
     expect(screen.getByText(t.emptyText)).toBeInTheDocument();
-    for (const point of t.emptyPoints) {
-      expect(screen.getByText(point)).toBeInTheDocument();
-    }
 
     // приглашение ведёт к форме: на телефоне она уезжает под текст
     expect(screen.getByRole('link', { name: t.emptyCta })).toHaveAttribute('href', '#review-form');
     expect(screen.queryByRole('list', { name: t.listLabel })).not.toBeInTheDocument();
+  });
+
+  it('🔴 памятка «о чём написать» стоит и у пустого раздела, и у заполненного', () => {
+    const { unmount } = renderSection();
+    for (const hint of t.hints) {
+      expect(screen.getByText(hint)).toBeInTheDocument();
+    }
+    unmount();
+
+    renderSection(reviewsFixture);
+    for (const hint of t.hints) {
+      expect(screen.getByText(hint)).toBeInTheDocument();
+    }
   });
 
   it('🔴 пустая секция не выдумывает ни отзывов, ни рейтинга: цифр в ней нет', () => {

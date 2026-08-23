@@ -4,6 +4,7 @@ import type { ButtonLinkHref } from '@/shared/ui';
 import { reviewsContent as t } from './content';
 import type { ReviewCardData } from './model';
 import { ReviewCard } from './ui/ReviewCard';
+import { ReviewHints } from './ui/ReviewHints';
 import { ReviewsInvite } from './ui/ReviewsInvite';
 import styles from './Reviews.module.css';
 
@@ -67,6 +68,9 @@ export function Reviews({ reviews = [], policyHref, id = 'reviews' }: ReviewsPro
 
           <div className={styles.aside}>
             <ReviewForm id={FORM_ID} policyHref={policyHref} headingLevel={3} />
+            {/* памятка под формой: она нужна тому, кто уже решил написать, и
+                не зависит от того, есть ли рядом чужие отзывы */}
+            <ReviewHints />
           </div>
         </div>
       </div>
