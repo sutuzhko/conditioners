@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 import { formatPhone, phoneHref } from '@/shared/lib/format';
@@ -154,6 +155,17 @@ export function LeadCardView({ lead, update, onChanged }: LeadCardViewProps) {
       </div>
 
       <div className={styles.footer}>
+        {/* Из заявки в календарь одним переходом: форма дела открывается уже
+            заполненной именем, телефоном и адресом — перебивать их руками
+            значит однажды ошибиться в цифре телефона. */}
+        <Link
+          className={styles.plan}
+          href={{ pathname: '/admin/crm', query: { lead: lead.id } }}
+          prefetch={false}
+        >
+          {texts.plan}
+        </Link>
+
         {noteChanged ? (
           <Button
             type="button"

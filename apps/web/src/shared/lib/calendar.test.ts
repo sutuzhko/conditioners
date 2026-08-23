@@ -1,0 +1,138 @@
+import { describe, expect, it } from 'vitest';
+
+import {
+  dayKeyOf,
+  dayRange,
+  gridRange,
+  momentOf,
+  monthGrid,
+  monthKeyOf,
+  parseDayKey,
+  parseMonthKey,
+  shiftMonth,
+  timeOf,
+} from './calendar';
+
+describe('ключи дня и месяца', () => {
+  it('берёт дату в московском времени, а не в UTC', () => {
+    // 22:30 UTC — в Туле уже следующий день
+    const at = new Date('2026-08-23T22:30:00.000Z');
+
+    expect(dayKeyOf(at)).toBe('2026-08-24');
+    expect(timeOf(at)).toBe('01:30');
+    expect(monthKeyOf(at)).toBe('2026-08');
+  });
+
+  it('переносит последний день месяца в следующий месяц', () => {
+    expect(monthKeyOf(new Date('2026-08-31T21:00:00.000Z'))).toBe('2026-09');
+  });
+
+  it('показывает полночь как 00:00, а не 24:00', () => {
+    expect(timeOf(new Date('2026-08-23T21:00:00.000Z'))).toBe('00:00');
+  });
+});
+
+describe('разбор параметров адреса', () => {
+  it('принимает корректные ключи', () => {
+    expect(parseMonthKey('2026-08')).toBe('2026-08');
+    expect(parseDayKey('2028-02-29')).toBe('2028-02-29'); // високосный
+  });
+
+  it('отклоняет несуществующие даты и мусор', () => {
+    expect(parseMonthKey('2026-13')).toBeNull();
+    expect(parseMonthKey('август')).toBeNull();
+    expect(parseMonthKey('2026-8')).toBeNull();
+    expect(parseDayKey('2028-02-30')).toBeNull();
+    expect(parseDayKey('2026-02-29')).toBeNull(); // невисокосный
+    expect(parseDayKey('2026-08-32')).toBeNull();
+  });
+});
+
+describe('соседний месяц', () => {
+  it('переходит через границу года', () => {
+    expect(shiftMonth('2026-01', -1)).toBe('2025-12');
+    expect(shiftMonth('2026-12', 1)).toBe('2027-01');
+  });
+});
+
+describe('сетка месяца', () => {
+  it('всегда шесть недель по семь дней', () => {
+    for (const month of ['2026-02', '2026-08', '2027-05']) {
+      const weeks = monthGrid(month);
+      expect(weeks).toHaveLength(6);
+      expect(weeks.every((week) => week.length === 7)).toBe(true);
+    }
+  });
+
+  it('начинается с понедельника и захватывает хвост прошлого месяца', () => {
+    // 1 августа 2026 — суббота, значит строка начинается с 27 июля
+    const weeks = monthGrid('2026-08');
+
+    expect(weeks[0]?.[0]?.key).toBe('2026-07-27');
+    expect(weeks[0]?.[0]?.inMonth).toBe(false);
+    expect(weeks[0]?.[5]?.key).toBe('2026-08-01');
+    expect(weeks[0]?.[5]?.inMonth).toBe(true);
+  });
+
+  it('помечает субботу и воскресенье выходными', () => {
+    const [week] = monthGrid('2026-08');
+
+    expect(week?.map((day) => day.weekend)).toEqual([
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+    ]);
+  });
+
+  it('идёт днями подряд без пропусков', () => {
+    const days = monthGrid('2026-02').flat();
+    const stamps = days.map((day) => Date.parse(`${day.key}T00:00:00.000Z`));
+
+    expect(
+      stamps.every((at, index) => index === 0 || at - (stamps[index - 1] ?? 0) === 86_400_000),
+    );
+  });
+});
+
+describe('границы выборки', () => {
+  it('накрывает всю сетку, включая хвосты', () => {
+    const { from, to } = gridRange('2026-08');
+
+    // сетка начинается 27 июля: московская полночь — это 21:00 UTC накануне
+    expect(from.toISOString()).toBe('2026-07-26T21:00:00.000Z');
+    expect(to.toISOString()).toBe('2026-09-06T21:00:00.000Z');
+  });
+
+  it('день — ровно сутки от местной полуночи', () => {
+    const { from, to } = dayRange('2026-08-23');
+
+    expect(from.toISOString()).toBe('2026-08-22T21:00:00.000Z');
+    expect(to.toISOString()).toBe('2026-08-23T21:00:00.000Z');
+  });
+});
+
+describe('местное время → момент', () => {
+  it('переводит московское время в UTC', () => {
+    expect(momentOf('2026-08-23', '14:30').toISOString()).toBe('2026-08-23T11:30:00.000Z');
+  });
+
+  it('возвращает то же местное время обратно', () => {
+    const at = momentOf('2026-12-31', '23:45');
+
+    expect(dayKeyOf(at)).toBe('2026-12-31');
+    expect(timeOf(at)).toBe('23:45');
+  });
+
+  it('не зависит от часового пояса машины', () => {
+    // тот же расчёт в поясе с другим знаком смещения даёт другой момент,
+    // но местное время читается тем же — это и требуется от календаря
+    const at = momentOf('2026-08-23', '09:00', 'America/New_York');
+
+    expect(at.toISOString()).toBe('2026-08-23T13:00:00.000Z');
+    expect(timeOf(at, 'America/New_York')).toBe('09:00');
+  });
+});

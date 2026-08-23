@@ -12,6 +12,11 @@ export type AdminSection = {
 };
 
 export const ADMIN_SECTIONS: readonly AdminSection[] = [
+  {
+    href: '/admin/crm',
+    title: 'Календарь работ',
+    hint: 'Замеры, монтажи, звонки и заявки по дням',
+  },
   { href: '/admin/company', title: 'Компания', hint: 'Контакты, адрес, часы работы, реквизиты' },
   { href: '/admin/catalog', title: 'Каталог', hint: 'Модели, цены, фотографии, скидки' },
   { href: '/admin/prices', title: 'Цены на монтаж', hint: 'Прайс по классам и ставки допуслуг' },

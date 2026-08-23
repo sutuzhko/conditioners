@@ -2,7 +2,7 @@ import { apiErrorSchema } from '@/shared/lib/api';
 
 import { deliveryLogContent } from './content';
 
-/** Адрес повтора доставки — docs/API.md §9. */
+/** Адрес повтора доставки — docs/API.md §10. */
 export const RETRY_ENDPOINT = '/api/admin/notifications';
 
 /**

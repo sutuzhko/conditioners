@@ -174,7 +174,7 @@ export async function editMessageText(
   );
 }
 
-/** Кнопки модерации отзыва — docs/API.md §9. Обрабатывает их `/api/telegram/webhook`. */
+/** Кнопки модерации отзыва — docs/API.md §10. Обрабатывает их `/api/telegram/webhook`. */
 function moderationButtons(reviewId: string): readonly (readonly InlineButton[])[] {
   return [
     [

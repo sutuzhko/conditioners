@@ -2,7 +2,7 @@ import { json, notFound, withAdmin } from '@/server/http';
 import { retryDelivery } from '@/server/repo/notifications';
 
 /**
- * Повторная доставка уведомления — docs/API.md §9.
+ * Повторная доставка уведомления — docs/API.md §10.
  *
  * 🔴 Ничего не создаёт заново: отправляется тот же снимок события, который
  * лежит в `payload`. Заявка при этом не дублируется — она давно в базе, речь

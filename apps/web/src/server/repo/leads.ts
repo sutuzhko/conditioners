@@ -71,6 +71,20 @@ export async function listByStatus(status?: LeadStatusApi): Promise<LeadDto[]> {
   return rows.map(toDto);
 }
 
+/**
+ * Заявки за промежуток — ими календарь заполняет дни обращений.
+ *
+ * Отдельно от `listByStatus`: календарю нужен месяц, а не весь список, и
+ * тянуть в память все заявки за годы ради одной сетки незачем.
+ */
+export async function listCreatedBetween(from: Date, to: Date): Promise<LeadDto[]> {
+  const rows = await db.lead.findMany({
+    where: { createdAt: { gte: from, lt: to } },
+    orderBy: { createdAt: 'asc' },
+  });
+  return rows.map(toDto);
+}
+
 export async function findById(id: string): Promise<LeadDto | null> {
   const row = await db.lead.findUnique({ where: { id } });
   return row === null ? null : toDto(row);

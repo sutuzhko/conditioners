@@ -1,0 +1,58 @@
+/* Форма дела в окне. Поля идут группами по смыслу: «когда», «с кем», «что
+   помнить». Ряд складывается в колонку, когда ширины на два поля не хватает. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.row {
+  display: grid;
+  gap: 12px;
+}
+
+@media (width >= 560px) {
+  .row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Вид дела, дата и время — одна мысль «когда и что», и в ряд их три. */
+  .row:first-child {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 0.7fr);
+  }
+}
+
+.kind,
+.time {
+  min-width: 0;
+}
+
+.failure {
+  margin: 0;
+  border: 1px solid var(--error-line);
+  border-radius: 10px;
+  background: var(--error-bg);
+  padding: 10px 12px;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+  line-height: 1.45;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+@media (width < 480px) {
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .actions > * {
+    width: 100%;
+  }
+}

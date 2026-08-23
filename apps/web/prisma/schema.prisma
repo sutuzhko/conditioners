@@ -174,7 +174,57 @@ model Lead {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  events CrmEvent[]
+
   @@index([status, createdAt])
+}
+
+// ---------- Календарь работ ----------
+// Заявка говорит, что человек обратился. Календарь — что с ним происходит
+// дальше: когда выехали на замер, когда монтаж, когда перезвонить.
+
+enum CrmEventKind {
+  CALL // позвонить
+  MEASURE // выезд на замер
+  INSTALL // монтаж
+  SERVICE // обслуживание, чистка
+  MEETING // встреча
+  NOTE // прочее: то, что просто нужно помнить в этот день
+}
+
+enum CrmEventStatus {
+  PLANNED
+  DONE
+  CANCELLED
+}
+
+model CrmEvent {
+  id     String         @id @default(cuid())
+  kind   CrmEventKind
+  status CrmEventStatus @default(PLANNED)
+
+  // Момент времени в UTC. Владелец вводит и видит московское время: часовой
+  // пояс дела задаёт город работ, а не настройки браузера у того, кто смотрит.
+  at DateTime
+
+  // Клиент вписывается строками, а не ссылкой на заявку: половина работ
+  // приходит по звонку и сарафану, и такое дело обязано попадать в календарь
+  // без выдуманной заявки на сайте.
+  clientName  String
+  clientPhone String?
+  address     String?
+  note        String?
+
+  // Заявка, из которой выросло дело. `SetNull`, а не каскад: удалённая заявка
+  // не отменяет монтаж, о котором уже договорились с человеком.
+  leadId String?
+  lead   Lead?   @relation(fields: [leadId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([at])
+  @@index([leadId])
 }
 
 // ---------- Очередь уведомлений ----------

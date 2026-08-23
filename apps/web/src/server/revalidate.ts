@@ -50,7 +50,7 @@ export function revalidateEverything(): void {
 }
 
 /**
- * Тело `POST /api/admin/revalidate` — docs/API.md §10. Схема живёт рядом с
+ * Тело `POST /api/admin/revalidate` — docs/API.md §11. Схема живёт рядом с
  * ревалидацией, а не среди сущностей: ревалидация маршрутов — это про
  * устройство приложения, а не про предметную область.
  */

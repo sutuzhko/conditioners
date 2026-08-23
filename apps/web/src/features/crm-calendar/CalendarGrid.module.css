@@ -1,0 +1,232 @@
+/* Сетка месяца.
+
+   Ячейка — ссылка на день. Размер ячейки задаётся высотой, а не пропорцией:
+   в квадратных ячейках подписи дел не помещаются, а календарь без подписей
+   заставляет открывать каждый день, чтобы вспомнить, что в нём. */
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.weekdays,
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.weekday {
+  padding: 2px 6px;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-sizing: border-box;
+  min-height: 96px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--card);
+  padding: 6px;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+.cell:hover {
+  border-color: var(--line-strong);
+}
+
+.cell:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* Дни соседних месяцев остаются кликабельными: монтаж 1 сентября виден в
+   августовской сетке, и по нему должно открываться то же, что по своим. */
+.outside {
+  background: var(--bg-soft);
+  opacity: 0.72;
+}
+
+.number {
+  align-self: flex-start;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.weekend .number {
+  color: var(--sale-ink);
+}
+
+.today {
+  border-color: var(--accent-line);
+}
+
+.today .number {
+  border-radius: var(--r-pill);
+  background: var(--accent-ink);
+  padding: 0 6px;
+  color: var(--on-brand);
+}
+
+.selected {
+  border-color: var(--accent-ink);
+  box-shadow: var(--ring-focus);
+}
+
+.marks {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.mark {
+  display: flex;
+  gap: 5px;
+  align-items: baseline;
+  min-width: 0;
+  border-radius: 6px;
+  padding: 2px 5px;
+  font-size: var(--fs-micro);
+  line-height: 1.35;
+}
+
+.markTime {
+  flex: none;
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.markName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Сделанное гаснет, отменённое зачёркнуто: в сетке видно, что осталось на
+   сегодня, без чтения каждой строки. */
+.markDone {
+  opacity: 0.55;
+}
+
+.markCancelled {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.call {
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.measure {
+  background: var(--info-bg);
+  color: var(--info-ink);
+}
+
+.install {
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.service {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.meeting {
+  background: var(--sale-bg);
+  color: var(--sale-ink);
+}
+
+.note {
+  background: var(--bg-soft);
+  color: var(--body);
+}
+
+.more,
+.lead {
+  padding: 0 5px;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  line-height: 1.35;
+}
+
+.lead {
+  border-radius: 6px;
+  background: var(--line-soft);
+  color: var(--ink2);
+  font-weight: 600;
+}
+
+/* Планшет и телефон: на подписи ширины нет, и дела сворачиваются в точки —
+   ряд точек цветом вида. Что именно в дне, читается в панели дня, а сетке
+   остаётся ответить на один вопрос: в какие дни вообще что-то есть.
+
+   Точки идут строкой, а не столбцом: столбец растил ячейку под каждое дело,
+   и месяц с работой перестал помещаться на экран. */
+@media (width < 900px) {
+  .cell {
+    min-height: 62px;
+    gap: 3px;
+    padding: 4px;
+  }
+
+  .marks {
+    flex-flow: row wrap;
+    gap: 3px;
+    align-items: center;
+  }
+
+  .markTime,
+  .markName,
+  .more {
+    display: none;
+  }
+
+  .mark,
+  .lead {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    padding: 0;
+
+    /* Текст точки скрыт размером: он всё равно продублирован в `aria-label`
+       ссылки, а сама полоса меток спрятана от скринридера. */
+    font-size: 0;
+  }
+
+  /* Фон метки бледный по замыслу — точке нужен насыщенный цвет самой метки. */
+  .mark {
+    background: currentcolor;
+  }
+
+  .lead {
+    background: var(--line-strong);
+  }
+}
+
+/* Телефон боком: экрана по высоте 350–420px, и сетка в 6 строк по 62px
+   вытесняет список дня за экран. Ячейки ужимаются до опознаваемого минимума. */
+@media (height < 520px) and (orientation: landscape) {
+  .cell {
+    min-height: 40px;
+  }
+}
