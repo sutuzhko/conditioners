@@ -22,8 +22,8 @@ export type HeroWeather = {
 
 /** Цифра полосы преимуществ: «1200+ установок в Туле». */
 export type HeroStat = {
-  /** Число, которое отсчитывает счётчик. */
-  readonly value: number;
+  /** Что стоит на месте числа: «1200», «3», «1–5», «до 5» (ADR-071). */
+  readonly value: string;
   /** Хвост после числа: «+», « года», « день». Склонение задаёт владелец данных. */
   readonly suffix?: string | undefined;
   readonly label: string;

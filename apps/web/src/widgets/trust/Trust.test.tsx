@@ -116,7 +116,7 @@ describe('Почему нас выбирают', () => {
 
   it('счётчик доходит до переданного значения, когда движение разрешено', async () => {
     stubMotion(false);
-    render(<WhyUs achievements={[{ value: 1200, suffix: '+', label: 'установок в Туле' }]} />);
+    render(<WhyUs achievements={[{ value: '1200', suffix: '+', label: 'установок в Туле' }]} />);
 
     await waitFor(
       () => {

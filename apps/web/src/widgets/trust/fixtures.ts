@@ -12,9 +12,9 @@ import type { Achievement } from './model';
  * ему отвечает история «Без цифр».
  */
 export const achievements: readonly Achievement[] = [
-  { value: 1200, suffix: '+', label: 'установок в Туле' },
-  { value: 8, suffix: ' лет', label: 'на рынке' },
-  { value: 1, suffix: ' день', label: 'от заявки до запуска' },
+  { value: '1200', suffix: '+', label: 'установок в Туле' },
+  { value: '8', suffix: ' лет', label: 'на рынке' },
+  { value: '1', suffix: ' день', label: 'от заявки до запуска' },
 ];
 
 /** Сроки гарантии приходят из настроек свободным текстом. */

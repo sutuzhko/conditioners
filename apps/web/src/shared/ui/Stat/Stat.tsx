@@ -17,8 +17,13 @@ import styles from './Stat.module.css';
  */
 
 export type StatItem = {
-  /** Число, которое отсчитывает счётчик. */
-  readonly value: number;
+  /**
+   * Что стоит на месте числа: «1200», «3», а также «1–5» или «до 5».
+   * Диапазон нужен там, где одного числа не хватает: гарантия на технику
+   * зависит от модели, и «5 лет» вместо «1–5 лет» — обещание, которого
+   * компания не давала (ADR-071).
+   */
+  readonly value: string;
   /** Хвост после числа: «+», « года», « день». Склонение задаёт владелец данных. */
   readonly suffix?: string | undefined;
   readonly label: string;
@@ -54,13 +59,27 @@ export function StatList({ items, tone = 'default', label, className }: StatList
   );
 }
 
+/**
+ * Ровное целое число — его можно отсчитать. «1–5», «до 5» и прочее
+ * показывается сразу: отсчитывать диапазон не к чему, а дорисовывать ему
+ * анимацию значит выдумывать за владельца, что именно он имел в виду.
+ */
+function countable(value: string): number | null {
+  const digits = value.replace(/\s/g, '');
+  if (!/^\d+$/.test(digits)) return null;
+
+  const parsed = Number(digits);
+  return Number.isSafeInteger(parsed) ? parsed : null;
+}
+
 function Stat({ item }: { readonly item: StatItem }) {
-  const value = useCountUp(item.value);
+  const target = countable(item.value);
+  const counted = useCountUp(target ?? 0, { enabled: target !== null });
 
   return (
     <div className={styles.item}>
       <dt className={styles.value}>
-        {formatNumber(value)}
+        {target === null ? item.value : formatNumber(counted)}
         {formatSuffix(item.suffix)}
       </dt>
       <dd className={styles.label}>{item.label}</dd>

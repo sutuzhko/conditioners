@@ -30,13 +30,13 @@ afterEach(() => {
 const visible = (text: string): string => text.replace(/ /g, ' ');
 
 const stats = [
-  { value: 1200, suffix: '+', label: 'установок в Туле' },
-  { value: 3, suffix: ' года', label: 'гарантия на монтаж' },
+  { value: '1200', suffix: '+', label: 'установок в Туле' },
+  { value: '3', suffix: ' года', label: 'гарантия на монтаж' },
 ];
 
 /* Настройки обрезают значения по краям, поэтому владелец физически не может
    сохранить хвост с пробелом: из админки приходит «года», а не « года». */
-const stored = [{ value: 3, suffix: 'года', label: 'гарантия на монтаж' }];
+const stored = [{ value: '3', suffix: 'года', label: 'гарантия на монтаж' }];
 
 describe('StatList', () => {
   it('рисует цифру с хвостом и подписью', () => {
@@ -55,7 +55,7 @@ describe('StatList', () => {
   });
 
   it('знак остаётся вплотную к числу', () => {
-    render(<StatList items={[{ value: 1200, suffix: '+', label: 'установок' }]} label="Цифры" />);
+    render(<StatList items={[{ value: '1200', suffix: '+', label: 'установок' }]} label="Цифры" />);
 
     expect(visible(screen.getByLabelText('Цифры').textContent ?? '')).toContain('1 200+');
   });
@@ -68,8 +68,22 @@ describe('StatList', () => {
   });
 
   it('цифра в разметке настоящая, а не ноль', () => {
-    const { container } = render(<StatList items={[{ value: 1200, label: 'установок' }]} />);
+    const { container } = render(<StatList items={[{ value: '1200', label: 'установок' }]} />);
     expect(container.querySelector('dt')?.textContent).not.toBe('0');
+  });
+
+  it('🔴 диапазон показывается как есть: «1–5 лет» — не то же, что «5 лет»', () => {
+    render(<StatList items={[{ value: '1–5', suffix: 'лет', label: 'гарантии' }]} label="Цифры" />);
+
+    expect(visible(screen.getByLabelText('Цифры').textContent ?? '')).toContain('1–5 лет');
+  });
+
+  it('«до 5» тоже доходит до страницы дословно', () => {
+    render(
+      <StatList items={[{ value: 'до 5', suffix: 'лет', label: 'гарантии' }]} label="Цифры" />,
+    );
+
+    expect(visible(screen.getByLabelText('Цифры').textContent ?? '')).toContain('до 5 лет');
   });
 
   it('вариант на тёмной панели отличается классом', () => {

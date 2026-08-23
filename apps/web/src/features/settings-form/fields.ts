@@ -161,9 +161,9 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
         kind: 'objectList',
         itemLabel: 'Цифра',
         maxItems: 4,
-        hint: 'Знак приклеивается к числу, слово отделяется само: «1200» и «+» дадут «1200+», «3» и «года» — «3 года». Склонение — за вами.',
+        hint: 'Знак приклеивается к числу, слово отделяется само: «1200» и «+» дадут «1200+», «3» и «года» — «3 года». В поле числа можно написать и диапазон: «1–5» или «до 5». Склонение — за вами.',
         columns: [
-          { key: 'value', label: 'Число', kind: 'number', grow: 1 },
+          { key: 'value', label: 'Число', kind: 'text', grow: 1 },
           { key: 'suffix', label: 'Хвост', kind: 'text', grow: 1 },
           { key: 'label', label: 'Подпись', kind: 'text', grow: 3 },
         ],

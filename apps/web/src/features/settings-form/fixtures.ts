@@ -44,7 +44,7 @@ export const achievementsGroupFixture: GroupDescriptor = {
       itemLabel: 'Цифра',
       maxItems: 4,
       columns: [
-        { key: 'value', label: 'Число', kind: 'number' },
+        { key: 'value', label: 'Число', kind: 'text' },
         { key: 'suffix', label: 'Хвост', kind: 'text' },
         { key: 'label', label: 'Подпись', kind: 'text' },
       ],
@@ -54,18 +54,18 @@ export const achievementsGroupFixture: GroupDescriptor = {
 
 export const filledAchievements = {
   items: [
-    { value: 1200, suffix: '+', label: 'установок' },
-    { value: 3, suffix: ' года', label: 'гарантии' },
+    { value: '1200', suffix: '+', label: 'установок' },
+    { value: '3', suffix: ' года', label: 'гарантии' },
   ],
 };
 
 /** Предел из схемы: четыре цифры — больше в полосу не помещается. */
 export const fullAchievements = {
   items: [
-    { value: 1200, suffix: '+', label: 'установок' },
-    { value: 3, suffix: ' года', label: 'гарантии' },
-    { value: 1, suffix: ' день', label: 'на монтаж' },
-    { value: 24, suffix: ' ч', label: 'на ответ' },
+    { value: '1200', suffix: '+', label: 'установок' },
+    { value: '3', suffix: ' года', label: 'гарантии' },
+    { value: '1', suffix: ' день', label: 'на монтаж' },
+    { value: '24', suffix: ' ч', label: 'на ответ' },
   ],
 };
 

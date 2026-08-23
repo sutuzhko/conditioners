@@ -15,8 +15,8 @@ import type { Warranty } from '@/entities/settings/model';
  * работ» запрещён напрямую (инварианты 8 и 10). Не передали — полосы нет.
  */
 export type Achievement = {
-  /** Число, которое отсчитывает счётчик. */
-  readonly value: number;
+  /** Что стоит на месте числа: «1200», «3», «1–5», «до 5» (ADR-071). */
+  readonly value: string;
   /** Хвост после числа: «+», « года». Склонение задаёт владелец данных. */
   readonly suffix?: string | undefined;
   readonly label: string;

@@ -6,9 +6,9 @@ const meta = {
   component: StatList,
   args: {
     items: [
-      { value: 1200, suffix: '+', label: 'установок в Туле' },
-      { value: 3, suffix: ' года', label: 'гарантия на монтаж' },
-      { value: 1, suffix: ' день', label: 'от заявки до монтажа' },
+      { value: '1200', suffix: '+', label: 'установок в Туле' },
+      { value: '3', suffix: ' года', label: 'гарантия на монтаж' },
+      { value: '1', suffix: ' день', label: 'от заявки до монтажа' },
     ],
     tone: 'default',
   },

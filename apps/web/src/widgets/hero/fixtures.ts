@@ -115,7 +115,7 @@ export const discountedModels: readonly Product[] = heroModels.map((item) =>
 
 /** Цифры полосы преимуществ приходят из настроек компании, а не из кода. */
 export const heroStats: readonly HeroStat[] = [
-  { value: 1200, suffix: '+', label: 'установок в Туле' },
-  { value: 3, suffix: ' года', label: 'гарантия на монтаж' },
-  { value: 1, suffix: ' день', label: 'от заявки до запуска' },
+  { value: '1200', suffix: '+', label: 'установок в Туле' },
+  { value: '3', suffix: ' года', label: 'гарантия на монтаж' },
+  { value: '1', suffix: ' день', label: 'от заявки до запуска' },
 ];

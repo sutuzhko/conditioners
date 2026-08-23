@@ -190,13 +190,13 @@ describe('Цифры первого экрана', () => {
 
     expect(save).toHaveBeenCalledWith('achievements', {
       items: [
-        { value: 1500, suffix: '+', label: 'установок' },
-        { value: 3, suffix: ' года', label: 'гарантии' },
+        { value: '1500', suffix: '+', label: 'установок' },
+        { value: '3', suffix: ' года', label: 'гарантии' },
       ],
     });
   });
 
-  it('число уходит числом, а подпись строкой', async () => {
+  it('🔴 значение уходит строкой: в нём бывает диапазон «1–5», а не только число', async () => {
     const user = userEvent.setup();
     const save = vi.fn(async () => ({ ok: true }) as const);
     render(<SettingsForm group={achievementsGroupFixture} value={{ items: [] }} save={save} />);
@@ -207,7 +207,7 @@ describe('Цифры первого экрана', () => {
     await user.click(screen.getByRole('button', { name: texts.save }));
 
     expect(save).toHaveBeenCalledWith('achievements', {
-      items: [{ value: 7, suffix: '', label: 'лет на рынке' }],
+      items: [{ value: '7', suffix: '', label: 'лет на рынке' }],
     });
   });
 
@@ -231,7 +231,7 @@ describe('Цифры первого экрана', () => {
     await user.click(screen.getByRole('button', { name: texts.save }));
 
     expect(save).toHaveBeenCalledWith('achievements', {
-      items: [{ value: 3, suffix: ' года', label: 'гарантии' }],
+      items: [{ value: '3', suffix: ' года', label: 'гарантии' }],
     });
   });
 
