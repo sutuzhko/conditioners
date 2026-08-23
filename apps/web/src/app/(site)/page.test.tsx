@@ -28,7 +28,7 @@ vi.mock('@/server/repo/articles', () => articlesMock);
 vi.mock('@/server/repo/prices', () => pricesMock);
 vi.mock('@/server/repo/settings', () => settingsMock);
 
-const { default: HomePage } = await import('./page');
+const { default: HomePage, generateMetadata } = await import('./page');
 
 const RATES = {
   trassaPerM: 900,
@@ -219,5 +219,36 @@ describe('Лендинг — состав страницы', () => {
 
     expect(container.querySelectorAll('h1')).toHaveLength(1);
     expect(container.querySelector('#catalog')).not.toBeNull();
+  });
+});
+
+describe('Лендинг — метаданные (инвариант 5)', () => {
+  it('🔴 title, description и OG приходят из настроек, каноникал абсолютный', async () => {
+    settingsMock.getAll.mockResolvedValue({
+      ...FILLED,
+      seo: {
+        homeTitle: 'Кондиционеры в Туле — купить с установкой',
+        homeDescription: 'Продажа и монтаж под ключ за один день.',
+        titleSuffix: 'Демо-Климат',
+        ogImage: '/og.png',
+      },
+    });
+
+    const metadata = await generateMetadata();
+
+    expect(metadata.title).toBe('Кондиционеры в Туле — купить с установкой | Демо-Климат');
+    expect(metadata.description).toBe('Продажа и монтаж под ключ за один день.');
+    expect(metadata.alternates?.canonical).toBe('https://example.test/');
+    expect(JSON.stringify(metadata.openGraph)).toContain('https://example.test/og.png');
+  });
+
+  it('🔴 пустые настройки не рождают выдуманных значений: полей просто нет', async () => {
+    settingsMock.getAll.mockResolvedValue({});
+
+    const metadata = await generateMetadata();
+
+    expect(metadata.title).toBeUndefined();
+    expect(metadata.description).toBeUndefined();
+    expect(metadata.alternates?.canonical).toBe('https://example.test/');
   });
 });

@@ -28,8 +28,11 @@ import { Faq, buildFaqItems } from '@/widgets/faq';
 import { Contacts } from '@/widgets/contacts';
 import { LeadSection } from '@/widgets/lead';
 import { AnchorSync } from '@/features/anchor-sync';
+import type { Metadata } from 'next';
+
 import { ScrollTop } from '@/features/scroll-top';
 import { ReminderForm } from '@/features/reminder-form';
+import { buildPageMetadata } from '@/shared/seo';
 import { LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
 
 import { loadSettings } from './_lib/settings';
@@ -43,6 +46,26 @@ import { loadSettings } from './_lib/settings';
  * за что платит, прежде чем его просят оставить телефон.
  */
 export const revalidate = 3600;
+
+/**
+ * Метаданные главной — из группы настроек `seo` (инвариант 5): владелец правит
+ * заголовок и описание из админки, код ничего не сочиняет. Пустые поля
+ * сборщик отбрасывает, и до заполнения действует запасной title каркаса —
+ * вместе с noindex по неготовности настроек (ADR-090).
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await loadSettings();
+
+  return buildPageMetadata({
+    siteUrl: env.SITE_URL,
+    path: '/',
+    title: settings.seo.homeTitle,
+    description: settings.seo.homeDescription,
+    titleSuffix: settings.seo.titleSuffix,
+    siteName: settings.company.name,
+    image: settings.seo.ogImage,
+  });
+}
 
 export default async function HomePage() {
   const [rawProducts, { prices, extras }, settings, reviews, articles] = await Promise.all([

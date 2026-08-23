@@ -2,10 +2,12 @@ import type { Metadata, Viewport } from 'next';
 import '@/shared/styles/global.css';
 
 export const metadata: Metadata = {
-  // Настоящие title и description придут из настроек компании (ADR-009).
-  // Здесь — минимум, пока раздел «Компания» не заполнен.
+  // Запасной title для страниц без собственного (404 и подобные): настоящие
+  // метаданные каждая публичная страница собирает из настроек (ADR-009).
+  // Индексируемость решается не здесь: публичная часть закрывается noindex,
+  // пока настройки не заполнены (layout группы (site), ADR-090), админка
+  // закрыта всегда — своим layout и заголовком в middleware.
   title: 'Кондиционеры в Туле',
-  robots: { index: false, follow: false },
 };
 
 export const viewport: Viewport = {

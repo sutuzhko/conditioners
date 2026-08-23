@@ -1,5 +1,8 @@
+import type { Metadata } from 'next';
+
 import { JsonLd, buildOrganizationJsonLd, buildWebSiteJsonLd } from '@/shared/seo';
 import { env } from '@/shared/config/env';
+import { readiness } from '@/server/repo/settings';
 import { Header } from '@/widgets/header';
 import { Footer } from '@/widgets/footer';
 import { SITE_NAV, LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
@@ -16,6 +19,20 @@ import { loadSettings } from './_lib/settings';
  * компании — нет и узла: выдумать его код не вправе.
  */
 export const revalidate = 3600;
+
+/**
+ * 🔴 Индексируемость привязана к готовности настроек (ADR-090): пока владелец
+ * не заполнил обязательные поля, публичная часть закрыта noindex — в выдачу
+ * не должны попасть страницы с пустыми ценами и без данных компании. Заполнил —
+ * ревалидация настроек пересобирает layout, и запрет снимается сам: ручного
+ * шага, который можно забыть при запуске, здесь нет. Страница со своим
+ * `robots` (404) этот выбор переопределяет.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  const report = await readiness();
+  if (report.ready) return {};
+  return { robots: { index: false, follow: false } };
+}
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   const settings = await loadSettings();
