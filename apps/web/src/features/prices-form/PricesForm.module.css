@@ -28,11 +28,21 @@
 }
 
 .rows {
-  /* Строка прайса — это таблица, и на узком экране она не перестраивается в
-     карточки, а прокручивается: колонки здесь связаны смыслом. */
   overflow-x: auto;
   overscroll-behavior-x: contain;
   margin-bottom: 14px;
+}
+
+/* Подпись поля прячется, пока над строками стоит общая шапка: повторять её
+   у каждого поля значит утроить высоту таблицы. Видимой она становится
+   только там, где шапки нет, — на узком экране. */
+.cell label {
+  position: absolute;
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .head,
@@ -52,6 +62,49 @@
 
 .row {
   margin-bottom: 8px;
+}
+
+/* 🔴 На телефоне строка прайса становится карточкой. Раньше она уезжала за
+   край с горизонтальной прокруткой: колонки связаны смыслом, и рвать их
+   казалось неверным — но править цену, не видя, к какому классу она
+   относится, ещё хуже. В карточке видны все пять полей сразу.
+
+   Цена монтажа — то, ради чего в панель заходят с телефона чаще всего: её
+   правят по звонку поставщика, а не сидя за столом. */
+@media (width < 720px) {
+  .rows {
+    overflow-x: visible;
+  }
+
+  .head {
+    display: none;
+  }
+
+  .row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    align-items: end;
+    min-width: 0;
+    margin-bottom: 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 12px;
+  }
+
+  .cell label {
+    position: static;
+    clip-path: none;
+    width: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Кнопка удаления — отдельной строкой справа: рядом с полем её жмут по
+     инерции, а удаляет она весь класс. */
+  .row > button {
+    grid-column: 1 / -1;
+    justify-self: end;
+  }
 }
 
 .extras {

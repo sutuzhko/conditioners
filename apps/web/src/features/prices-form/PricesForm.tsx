@@ -108,24 +108,32 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
               <div className={styles.row} key={index}>
                 <Input
                   aria-label={`${texts.cls} ${index + 1}`}
+                  label={texts.cls}
+                  wrapperClassName={styles.cell}
                   value={row.cls}
                   disabled={sending}
                   onChange={(event) => setRow(index, { cls: event.target.value })}
                 />
                 <Input
                   aria-label={`${texts.power} ${index + 1}`}
+                  label={texts.power}
+                  wrapperClassName={styles.cell}
                   value={row.power}
                   disabled={sending}
                   onChange={(event) => setRow(index, { power: event.target.value })}
                 />
                 <Input
                   aria-label={`${texts.area} ${index + 1}`}
+                  label={texts.area}
+                  wrapperClassName={styles.cell}
                   value={row.area}
                   disabled={sending}
                   onChange={(event) => setRow(index, { area: event.target.value })}
                 />
                 <Input
                   aria-label={`${texts.price} ${index + 1}`}
+                  label={texts.price}
+                  wrapperClassName={styles.cell}
                   type="number"
                   value={row.price}
                   disabled={sending}
@@ -133,6 +141,8 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
                 />
                 <Input
                   aria-label={`${texts.term} ${index + 1}`}
+                  label={texts.term}
+                  wrapperClassName={styles.cell}
                   value={row.term}
                   disabled={sending}
                   onChange={(event) => setRow(index, { term: event.target.value })}
