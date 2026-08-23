@@ -51,6 +51,11 @@ export default [
     files: ['*.config.mjs', '*.config.ts', '.storybook/**'],
     rules: { 'import/no-anonymous-default-export': 'off' },
   },
+  {
+    // скрипты сборки печатают отчёт в stdout — для них это интерфейс, а не отладка
+    files: ['scripts/**'],
+    rules: { 'no-console': 'off' },
+  },
   layerRule('shared', ['app', 'widgets', 'features', 'entities', 'server']),
   layerRule('entities', ['app', 'widgets', 'features']),
   layerRule('features', ['app', 'widgets']),
