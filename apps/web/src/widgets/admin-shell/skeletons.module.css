@@ -1,0 +1,53 @@
+/* Скелетоны разделов панели: та же раскладка, что у готовой страницы. */
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fields {
+  display: grid;
+  gap: 16px;
+}
+
+@media (width >= 720px) {
+  .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.month {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.cell {
+  height: 96px;
+  border-radius: var(--r-sm);
+}
+
+@media (width < 900px) {
+  .cell {
+    height: 62px;
+  }
+}
+
+@media (height < 520px) and (orientation: landscape) {
+  .cell {
+    height: 40px;
+  }
+}

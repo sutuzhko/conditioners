@@ -34,9 +34,9 @@ export function AdminArticleList({ articles }: AdminArticleListProps) {
 
   return (
     <Card as="section" padding="none">
-      <Table label={texts.title} variant="sticky" minWidth="680px">
+      <Table label={texts.title} variant="cards">
         <thead>
-          <tr>
+          <tr role="row">
             <th scope="col">{texts.colTitle}</th>
             <th scope="col">{texts.colCategory}</th>
             <th scope="col">{texts.colDate}</th>
@@ -49,17 +49,25 @@ export function AdminArticleList({ articles }: AdminArticleListProps) {
         </thead>
         <tbody>
           {articles.map((article) => (
-            <tr key={article.id}>
-              <td className={styles.name}>{article.title}</td>
-              <td>{article.category}</td>
-              <td className={styles.date}>{texts.date(article.date)}</td>
-              <td className={styles.minutes}>{texts.minutes(article.minutes)}</td>
-              <td>
+            <tr key={article.id} role="row">
+              <td className={styles.name} role="cell" data-label={texts.colTitle}>
+                {article.title}
+              </td>
+              <td role="cell" data-label={texts.colCategory}>
+                {article.category}
+              </td>
+              <td className={styles.date} role="cell" data-label={texts.colDate}>
+                {texts.date(article.date)}
+              </td>
+              <td className={styles.minutes} role="cell" data-label={texts.colMinutes}>
+                {texts.minutes(article.minutes)}
+              </td>
+              <td role="cell" data-label={texts.colPublished}>
                 <Badge variant={article.published ? 'success' : 'neutral'}>
                   {article.published ? texts.published : texts.draft}
                 </Badge>
               </td>
-              <td>
+              <td role="cell">
                 <Link
                   className={styles.edit}
                   href={{ pathname: `/admin/knowledge/${article.id}` }}

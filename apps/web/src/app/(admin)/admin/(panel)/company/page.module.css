@@ -33,6 +33,35 @@
   gap: 6px;
 }
 
+/* 🔴 На телефоне раздел растягивается на девять экранов: одиннадцать групп по
+   несколько полей. Оглавление липнет к шапке — иначе после первой же правки
+   до него не добраться, не пролистав всё обратно.
+
+   Ниже — лента в одну строку, а не четыре: неподвижное оглавление из четырёх
+   строк заняло бы треть экрана, ради которого всё и затевалось. */
+@media (width < 900px) {
+  .toc {
+    position: sticky;
+    top: var(--admin-header-h);
+    z-index: 5;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    margin: 0 calc(var(--gutter) * -1);
+    background: var(--bg);
+    padding: 8px var(--gutter);
+  }
+
+  .toc::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tocLink {
+    white-space: nowrap;
+  }
+}
+
 .tocLink {
   padding: 5px 10px;
   border: 1px solid var(--line);

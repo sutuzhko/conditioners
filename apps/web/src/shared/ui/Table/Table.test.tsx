@@ -48,4 +48,17 @@ describe('Table', () => {
     render(<Table>{body}</Table>);
     expect(screen.getByRole('rowheader', { name: 'Класс 09' })).toBeInTheDocument();
   });
+
+  it('карточный режим не заворачивает таблицу в прокручиваемую область', () => {
+    render(<Table variant="cards">{body}</Table>);
+
+    // прокрутки нет: строки на узком экране раскладываются карточками
+    expect(screen.queryByRole('region')).not.toBeInTheDocument();
+  });
+
+  it('карточный режим сохраняет роль таблицы — её снимает display: block', () => {
+    render(<Table variant="cards">{body}</Table>);
+
+    expect(screen.getByRole('table')).toHaveAttribute('role', 'table');
+  });
 });

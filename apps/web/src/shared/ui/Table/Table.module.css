@@ -126,3 +126,71 @@
 .table tbody tr:last-child td {
   border-bottom: 0;
 }
+
+/* Карточный режим. На узком экране таблица из шести колонок либо уезжает за
+   край, либо жмётся до нечитаемого — и то и другое хуже, чем строка,
+   разложенная карточкой. Подпись каждого поля берётся из `data-label`: шапка
+   в этом режиме не видна, а поле без подписи — просто число ниоткуда.
+
+   Семантику снимает `display: block`, поэтому разметка несёт явные роли
+   (см. комментарий в Table.tsx). */
+@media (width < 720px) {
+  .cards,
+  .cards tbody,
+  .cards tr,
+  .cards td {
+    display: block;
+  }
+
+  /* Шапка остаётся в дереве доступности, но уходит с экрана: подписи полей
+     теперь стоят в самих ячейках. */
+  .cards thead {
+    position: absolute;
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .cards tbody tr {
+    margin-bottom: 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--card);
+    padding: 4px 0;
+  }
+
+  .cards tbody tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .cards td {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 0;
+    padding: 7px 14px;
+    text-align: right;
+  }
+
+  .cards td::before {
+    content: attr(data-label);
+    flex: none;
+    color: var(--muted);
+    font-size: var(--fs-caption);
+    text-align: left;
+  }
+
+  /* Ячейка без подписи — действие строки: ему нужна вся ширина. */
+  .cards td:not([data-label]) {
+    justify-content: flex-end;
+    border-top: 1px solid var(--line-soft);
+    margin-top: 4px;
+  }
+
+  .cards td:not([data-label])::before {
+    content: none;
+  }
+}

@@ -17,14 +17,20 @@
   top: 0;
   z-index: 10;
   display: flex;
-  flex-wrap: wrap;
   gap: 10px 16px;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
+  min-height: var(--admin-header-h);
   padding: 12px var(--gutter);
   border-bottom: 1px solid var(--line);
   background: var(--bg);
+}
+
+/* Подписи по ширине экрана: полная и короткая. Показывается ровно одна —
+   скрытая уходит из дерева доступности вместе с `display: none`. */
+.narrow {
+  display: none;
 }
 
 .brand {
@@ -94,5 +100,45 @@
 
   .login {
     display: none;
+  }
+}
+
+/* Телефон: шапка обязана остаться в одну строку — она липкая, и вторая
+   строка отъедала бы её у содержимого на каждом экране. */
+@media (width < 620px) {
+  .header {
+    gap: 8px 10px;
+    padding: 10px 16px;
+  }
+
+  .actions {
+    gap: 10px;
+  }
+
+  .wide {
+    display: none;
+  }
+
+  .narrow {
+    display: inline;
+  }
+}
+
+/* Телефон боком: высоты 350–420px, и липкая шапка с навигацией съедали
+   четверть экрана. Шапка ужимается и перестаёт липнуть — на таком экране
+   важнее видеть работу, а не всегда иметь под рукой выход. */
+@media (height < 520px) and (orientation: landscape) {
+  .header {
+    position: static;
+    padding: 6px 16px;
+  }
+
+  .body {
+    padding-top: 12px;
+    padding-bottom: 24px;
+  }
+
+  .aside {
+    position: static;
   }
 }

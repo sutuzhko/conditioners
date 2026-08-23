@@ -32,8 +32,11 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
 
 export const adminShellContent = {
   brand: 'Панель управления',
+  /** Короткие подписи для телефона: полные уводят шапку на вторую строку. */
+  brandShort: 'Панель',
   /** Ссылка на сам сайт: смотреть результат правки нужно постоянно. */
   site: 'Открыть сайт',
+  siteShort: 'Сайт',
   logout: 'Выйти',
   navLabel: 'Разделы панели управления',
   menu: 'Меню',

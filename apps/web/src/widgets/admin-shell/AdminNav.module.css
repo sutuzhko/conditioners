@@ -37,17 +37,52 @@
 }
 
 /* На узком экране разделы ложатся в прокручиваемую ленту: колонка из шести
-   пунктов над содержимым отодвинула бы работу за пределы экрана. */
+   пунктов над содержимым отодвинула бы работу за пределы экрана.
+
+   Лента растянута до краёв экрана и гасит их маской: обрезанный по прямой
+   пункт читается как «здесь всё», и до половины разделов никто не долистает.
+   Открытый раздел подводит к середине сам компонент. */
 @media (width < 900px) {
   .list {
     flex-direction: row;
     gap: 6px;
     overflow-x: auto;
     overscroll-behavior-x: contain;
+    scrollbar-width: none;
     padding-bottom: 4px;
+
+    /* Маска работает по прозрачности, а не по цвету: чёрный здесь — «оставить
+       как есть», и к палитре отношения не имеет. */
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      rgb(0 0 0) 14px,
+      rgb(0 0 0) calc(100% - 14px),
+      transparent
+    );
+    scroll-padding-inline: 14px;
   }
 
+  .list::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Тап-зона по высоте (DESIGN_BRIEF §6): в ленте это единственная навигация. */
   .link {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
     white-space: nowrap;
+  }
+}
+
+/* Телефон боком: лента разделов — единственная строка, которую можно сжать,
+   не теряя смысла. Экрана по высоте 350–420px, и каждые десять пикселей
+   здесь — это ещё одна видимая строка работы. */
+@media (height < 520px) and (orientation: landscape) {
+  .link {
+    min-height: 32px;
+    padding: 5px 10px;
+    font-size: var(--fs-caption);
   }
 }

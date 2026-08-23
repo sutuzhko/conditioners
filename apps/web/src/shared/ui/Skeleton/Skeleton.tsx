@@ -4,12 +4,12 @@ import styles from './Skeleton.module.css';
 export type SkeletonVariant = 'text' | 'block' | 'circle';
 
 export interface SkeletonProps {
-  variant?: SkeletonVariant;
+  variant?: SkeletonVariant | undefined;
   /** количество строк для variant="text" */
-  lines?: number;
-  width?: string;
-  height?: string;
-  className?: string;
+  lines?: number | undefined;
+  width?: string | undefined;
+  height?: string | undefined;
+  className?: string | undefined;
 }
 
 export function Skeleton({ variant = 'text', lines = 1, width, height, className }: SkeletonProps) {

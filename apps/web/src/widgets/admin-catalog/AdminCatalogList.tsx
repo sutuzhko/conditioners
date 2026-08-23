@@ -47,9 +47,9 @@ export function AdminCatalogList({ products }: AdminCatalogListProps) {
 
   return (
     <Card as="section" padding="none">
-      <Table label={texts.title} variant="sticky" minWidth="720px">
+      <Table label={texts.title} variant="cards">
         <thead>
-          <tr>
+          <tr role="row">
             <th scope="col">{texts.colName}</th>
             <th scope="col">{texts.colArea}</th>
             <th scope="col">{texts.colPrice}</th>
@@ -62,13 +62,15 @@ export function AdminCatalogList({ products }: AdminCatalogListProps) {
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product.id}>
-              <td>
+            <tr key={product.id} role="row">
+              <td role="cell" data-label={texts.colName}>
                 <span className={styles.name}>{product.name}</span>
                 <span className={styles.badge}>{product.badge}</span>
               </td>
-              <td>{texts.area(product.areaMax)}</td>
-              <td>
+              <td role="cell" data-label={texts.colArea}>
+                {texts.area(product.areaMax)}
+              </td>
+              <td role="cell" data-label={texts.colPrice}>
                 {/* Действующая цена, а не базовая: именно её видит посетитель.
                     Перечёркнутая старая показывается рядом, когда скидка идёт. */}
                 <span className={styles.price}>{formatMoney(product.priceNum)}</span>
@@ -78,13 +80,15 @@ export function AdminCatalogList({ products }: AdminCatalogListProps) {
                   </Badge>
                 )}
               </td>
-              <td>
+              <td role="cell" data-label={texts.colVisible}>
                 <Badge variant={product.visible ? 'success' : 'neutral'}>
                   {product.visible ? texts.visible : texts.hidden}
                 </Badge>
               </td>
-              <td className={styles.sort}>{product.sort}</td>
-              <td>
+              <td className={styles.sort} role="cell" data-label={texts.colSort}>
+                {product.sort}
+              </td>
+              <td role="cell">
                 <Link
                   className={styles.edit}
                   href={{ pathname: `/admin/catalog/${product.id}` }}
