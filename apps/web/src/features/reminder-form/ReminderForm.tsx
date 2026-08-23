@@ -213,7 +213,11 @@ export function ReminderForm({
         label={
           <>
             {texts.consentLabel} —{' '}
-            <Link href={policyHref} className={styles.policy}>
+            {/* 🔴 Отдельная вкладка: политику открывают из формы, наполовину
+                    заполненной, и уход со страницы стирает введённое.
+                    `rel` обязателен вместе с `target` — без него открытая
+                    страница получает доступ к окну-источнику. */}
+            <Link href={policyHref} className={styles.policy} target="_blank" rel="noreferrer">
               {texts.consentPolicy}
             </Link>
           </>
