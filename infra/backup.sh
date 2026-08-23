@@ -9,9 +9,17 @@
 set -euo pipefail
 
 COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.prod.yml}"
+ENV_FILE="${ENV_FILE:-.env.prod}"
 PROJECT="${COMPOSE_PROJECT_NAME:-tulaklimat}"
 BACKUP_DIR="${BACKUP_DIR:-/var/backups/tulaklimat}"
 KEEP_DAYS="${KEEP_DAYS:-30}"
+
+# Compose интерполирует обязательные переменные файла при любой команде —
+# без env-файла вызов падает до pg_dump, и cron молчит об этом ночами
+if [ ! -f "${ENV_FILE}" ]; then
+	echo "🔴 нет ${ENV_FILE} — бэкап без окружения compose не работает" >&2
+	exit 1
+fi
 
 stamp="$(date +%Y-%m-%d_%H-%M)"
 db_file="${BACKUP_DIR}/db_${stamp}.dump"
@@ -22,7 +30,7 @@ mkdir -p "${BACKUP_DIR}"
 echo "[$(date +%H:%M:%S)] дамп базы → ${db_file}"
 # -Fc — сжатый формат: восстанавливается через pg_restore выборочно и быстрее,
 # чем простыня SQL. Пользователь и база берутся из окружения контейнера.
-docker compose -f "${COMPOSE_FILE}" exec -T db \
+docker compose --env-file "${ENV_FILE}" -f "${COMPOSE_FILE}" exec -T db \
 	sh -c 'pg_dump -Fc -U "$POSTGRES_USER" -d "$POSTGRES_DB"' >"${db_file}"
 
 echo "[$(date +%H:%M:%S)] архив загрузок → ${files_file}"
