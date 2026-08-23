@@ -100,7 +100,7 @@
 - Next.js 15, App Router, React Server Components
 - TypeScript (strict)
 - CSS Modules + глобальные CSS-переменные (токены из прототипа)
-- Шрифты через `next/font/local` — Space Grotesk, Manrope, Space Mono
+- Шрифты самохостом через `@font-face` в `shared/styles/fonts.css` — Onest, Manrope, JetBrains Mono (ADR-025)
 - Zod — валидация на границе (формы, тела запросов, ENV)
 - React Hook Form — только там, где форма действительно сложная
 
@@ -150,11 +150,12 @@ apps/web/                    — приложение; в корне репоз�
     (admin)/admin/           — админка, свой layout, noindex
     api/                     — route handlers по контракту
     sitemap.ts robots.ts
-  entities/                  — доменные сущности: model, price, article, review, lead
+  entities/                  — доменные сущности: product, price, article, review, lead, crm, settings
     <entity>/
       model.ts               — типы и схемы Zod
       ui/                    — карточки и представления сущности
-  features/                  — пользовательские сценарии: lead-form, review-form, calculator, model-picker, theme-toggle
+  features/                  — пользовательские сценарии: lead-form, review-form, calculator, model-picker,
+                               crm-calendar (календарь работ), lead-manager, review-moderation, delivery-log
   widgets/                   — крупные секции страниц: hero, catalog, pricing, faq, footer
   shared/
     ui/                      — UI Kit: Button, Input, Select, Card, Badge, Chip, Modal, Skeleton

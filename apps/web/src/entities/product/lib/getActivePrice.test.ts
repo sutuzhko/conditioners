@@ -33,7 +33,7 @@ describe('getActivePrice', () => {
     expect(result.oldPrice).toBe(38_500);
   });
 
-  it('процент округляется по правилам PROJECT §2.8', () => {
+  it('процент округляется по правилам PROJECT §2.9', () => {
     // 1 − 34900/38500 = 0.0935… → 9%
     expect(getActivePrice(product({ salePrice: 34_900 })).discountPercent).toBe(9);
     expect(getActivePrice(product({ priceNum: 40_000, salePrice: 30_000 })).discountPercent).toBe(
