@@ -25,8 +25,18 @@ const TIME_ZONE = 'Europe/Moscow';
 /** Больше секунды первый экран ждать не будет — лучше без чипа, чем медленно. */
 const TIMEOUT_MS = 1500;
 
-/** Час — шаг, с которым обновляется и сама страница (ISR). */
-const CACHE_SECONDS = 3600;
+/**
+ * Четверть часа: с таким шагом обновляет прогноз сам сервис, и с таким же
+ * шагом чип перезапрашивает данные у нас, пока человек читает страницу.
+ */
+const CACHE_SECONDS = 900;
+
+/**
+ * Сколько прошедших дней берём для пика. Месяц — это про сезон, а не про
+ * сегодня: «пик +22°» в прохладный день выглядит как повод не торопиться,
+ * хотя неделю назад стояла жара, ради которой технику и покупают.
+ */
+const PEAK_DAYS = 30;
 
 const responseSchema = z.object({
   daily: z.object({
@@ -42,7 +52,11 @@ export type CityWeather = {
    * ней человек и прикидывает, нужен ли кондиционер (макет, «HERO»).
    */
   readonly mean: number;
-  /** Дневной максимум, °C — пик, ради которого технику и покупают. */
+  /**
+   * Максимум за последние тридцать дней, °C — пик, ради которого технику и
+   * покупают. Не сегодняшний: один прохладный день не отменяет жары, которая
+   * стояла на прошлой неделе.
+   */
   readonly max: number;
 };
 
@@ -56,6 +70,8 @@ export async function getCityWeather(geo: Geo): Promise<CityWeather | null> {
   url.searchParams.set('daily', 'temperature_2m_max,temperature_2m_mean');
   url.searchParams.set('timezone', TIME_ZONE);
   url.searchParams.set('forecast_days', '1');
+  // прошедшие дни нужны для месячного пика; сегодняшний день идёт последним
+  url.searchParams.set('past_days', String(PEAK_DAYS));
 
   try {
     const response = await fetch(url, {
@@ -67,11 +83,13 @@ export async function getCityWeather(geo: Geo): Promise<CityWeather | null> {
     const parsed = responseSchema.safeParse(await response.json());
     if (!parsed.success) return null;
 
-    const max = parsed.data.daily.temperature_2m_max[0];
-    const mean = parsed.data.daily.temperature_2m_mean[0];
-    if (max === undefined || mean === undefined) return null;
+    const { temperature_2m_max: maxima, temperature_2m_mean: means } = parsed.data.daily;
 
-    return { mean: Math.round(mean), max: Math.round(max) };
+    // среднесуточная — про сегодня, поэтому последний день ряда
+    const mean = means[means.length - 1];
+    if (mean === undefined) return null;
+
+    return { mean: Math.round(mean), max: Math.round(Math.max(...maxima)) };
   } catch {
     // Сервис недоступен, отвечает медленно или мусором — чипа просто не будет.
     return null;

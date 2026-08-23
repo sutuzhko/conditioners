@@ -1,6 +1,6 @@
 'use client';
 
-import { formatNumber } from '@/shared/lib/format';
+import { formatNumber, formatSuffix } from '@/shared/lib/format';
 import { useCountUp } from '@/shared/lib/useCountUp';
 
 import styles from './Stat.module.css';
@@ -61,7 +61,7 @@ function Stat({ item }: { readonly item: StatItem }) {
     <div className={styles.item}>
       <dt className={styles.value}>
         {formatNumber(value)}
-        {item.suffix}
+        {formatSuffix(item.suffix)}
       </dt>
       <dd className={styles.label}>{item.label}</dd>
     </div>

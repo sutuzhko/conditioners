@@ -161,7 +161,7 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
         kind: 'objectList',
         itemLabel: 'Цифра',
         maxItems: 4,
-        hint: 'Число и хвост показываются слитно: 1200 и «+» дадут «1200+». Склонение — за вами: «3» и « года».',
+        hint: 'Знак приклеивается к числу, слово отделяется само: «1200» и «+» дадут «1200+», «3» и «года» — «3 года». Склонение — за вами.',
         columns: [
           { key: 'value', label: 'Число', kind: 'number', grow: 1 },
           { key: 'suffix', label: 'Хвост', kind: 'text', grow: 1 },

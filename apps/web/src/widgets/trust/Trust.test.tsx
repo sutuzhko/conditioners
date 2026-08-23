@@ -141,6 +141,21 @@ describe('Почему нас выбирают', () => {
     expect(card).toHaveTextContent('1 год');
   });
 
+  it('гарантия стоит третьей, как в макете, а не в хвосте списка', () => {
+    render(<WhyUs warranty={warranty} />);
+
+    const titles = screen
+      .getAllByRole('heading', { level: 3 })
+      .map((heading) => heading.textContent);
+
+    expect(titles).toEqual([
+      'Фиксированная смета',
+      'Свои монтажники',
+      'Гарантия по договору',
+      'Чисто и быстро',
+    ]);
+  });
+
   it('незаполненный срок выпадает из карточки, пустая гарантия убирает её целиком', () => {
     const { rerender } = render(<WhyUs warranty={warrantyPartial} />);
 

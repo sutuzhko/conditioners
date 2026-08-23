@@ -26,6 +26,13 @@ export interface WhyUsProps {
 const HEADING_ID = 'why-us-title';
 
 /**
+ * Место карточки гарантии среди причин — из макета, где она третья.
+ * Карточка отделена от остальных, потому что собирается из сроков в
+ * настройках (инвариант 8), но в ряду обязана стоять там же, где в макете.
+ */
+const WARRANTY_POSITION = 2;
+
+/**
  * «Почему в Туле выбирают нас» — тёмная панель с причинами и счётчиками.
  *
  * Серверный компонент: заголовок и причины приходят в HTML готовыми
@@ -53,7 +60,7 @@ export function WhyUs({ achievements = [], warranty, id }: WhyUsProps) {
             />
 
             <ul className={styles.reasons}>
-              {t.reasons.map((reason) => (
+              {t.reasons.slice(0, WARRANTY_POSITION).map((reason) => (
                 <li key={reason.key} className={styles.reason}>
                   <h3 className={styles.reasonTitle}>{reason.title}</h3>
                   <p className={styles.reasonText}>{reason.text}</p>
@@ -74,6 +81,13 @@ export function WhyUs({ achievements = [], warranty, id }: WhyUsProps) {
                   <p className={styles.reasonText}>{t.warranty.lead}</p>
                 </li>
               )}
+
+              {t.reasons.slice(WARRANTY_POSITION).map((reason) => (
+                <li key={reason.key} className={styles.reason}>
+                  <h3 className={styles.reasonTitle}>{reason.title}</h3>
+                  <p className={styles.reasonText}>{reason.text}</p>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

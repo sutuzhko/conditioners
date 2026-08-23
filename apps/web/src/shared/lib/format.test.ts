@@ -7,6 +7,7 @@ import {
   formatMoney,
   formatNumber,
   formatPhone,
+  formatSuffix,
   phoneHref,
 } from './format';
 
@@ -26,6 +27,30 @@ describe('formatMoney', () => {
   it('ноль и дробное значение выводятся без копеек', () => {
     expect(formatMoney(0)).toBe(`0${NBSP}₽`);
     expect(formatNumber(15_900.4)).toBe(`15${NBSP}900`);
+  });
+});
+
+describe('formatSuffix', () => {
+  it('🔴 слово отделяется от числа: настройки обрезают пробел, ставит его код', () => {
+    expect(formatSuffix('года')).toBe(`${NBSP}года`);
+    expect(formatSuffix(' года')).toBe(`${NBSP}года`);
+    expect(formatSuffix('день')).toBe(`${NBSP}день`);
+  });
+
+  it('знак остаётся вплотную к числу', () => {
+    expect(formatSuffix('+')).toBe('+');
+    expect(formatSuffix('%')).toBe('%');
+    expect(formatSuffix('°')).toBe('°');
+  });
+
+  it('пробел неразрывный: «3 года» — одна величина и по строкам не рвётся', () => {
+    expect(formatSuffix('года')).not.toContain(' ');
+  });
+
+  it('пустой хвост ничего не добавляет', () => {
+    expect(formatSuffix('')).toBe('');
+    expect(formatSuffix('   ')).toBe('');
+    expect(formatSuffix(undefined)).toBe('');
   });
 });
 

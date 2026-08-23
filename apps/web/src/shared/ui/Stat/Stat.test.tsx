@@ -34,6 +34,10 @@ const stats = [
   { value: 3, suffix: ' года', label: 'гарантия на монтаж' },
 ];
 
+/* Настройки обрезают значения по краям, поэтому владелец физически не может
+   сохранить хвост с пробелом: из админки приходит «года», а не « года». */
+const stored = [{ value: 3, suffix: 'года', label: 'гарантия на монтаж' }];
+
 describe('StatList', () => {
   it('рисует цифру с хвостом и подписью', () => {
     render(<StatList items={stats} label="Наши цифры" />);
@@ -41,6 +45,19 @@ describe('StatList', () => {
     const list = screen.getByLabelText('Наши цифры');
     expect(visible(list.textContent ?? '')).toContain(`${visible(formatNumber(1200))}+`);
     expect(list).toHaveTextContent('установок в Туле');
+  });
+
+  it('🔴 слово отделяется от числа: «3года» вместо «3 года» читается как опечатка', () => {
+    render(<StatList items={stored} label="Наши цифры" />);
+
+    const list = screen.getByLabelText('Наши цифры');
+    expect(visible(list.textContent ?? '')).toContain('3 года');
+  });
+
+  it('знак остаётся вплотную к числу', () => {
+    render(<StatList items={[{ value: 1200, suffix: '+', label: 'установок' }]} label="Цифры" />);
+
+    expect(visible(screen.getByLabelText('Цифры').textContent ?? '')).toContain('1 200+');
   });
 
   // 🔴 Инварианты 8 и 10: счётчик со значением по умолчанию был бы выдуманным

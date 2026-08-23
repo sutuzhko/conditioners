@@ -51,15 +51,30 @@
   letter-spacing: -0.02em;
 }
 
-/* четыре причины на десктопе, две на планшете, одна на телефоне —
-   и ни одной фиксированной ширины, иначе панель распирает страницу */
+/* Четыре причины в ряд (макет), ниже — 2×2 и одна колонка.
+   🔴 Колонки заданы явно, а не через `auto-fit`: тот при промежуточной ширине
+   раскладывал четыре карточки на три и одну, и четвёртая висела под пустым
+   местом. Делителей у четырёх ровно три — 4, 2 и 1, и промежуточные значения
+   здесь не нужны (docs/BUGS.md). */
 .reasons {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  grid-template-columns: 1fr;
   gap: 24px 20px;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+@media (width >= 560px) {
+  .reasons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 1040px) {
+  .reasons {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 .reason {

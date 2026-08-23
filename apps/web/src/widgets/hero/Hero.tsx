@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { Product } from '@/entities/product/model';
-import { formatDegrees } from '@/shared/lib/format';
+import { WeatherChip } from '@/features/weather-chip';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { Badge, ButtonLink, StatList } from '@/shared/ui';
 
@@ -22,9 +22,10 @@ export type HeroProps = {
   /** Плашка над заголовком, например география работ. Приходит из настроек. */
   readonly note?: string | undefined;
   /**
-   * Погода в городе. Запрос делает сервер страницы и кеширует на час: чип из
-   * макета в прототипе ходил в чужой сервис прямо из браузера и стоял на
-   * критическом пути LCP. Не пришла — чипа нет, первый экран не меняется.
+   * Погода в городе. Запрос делает сервер страницы: чип из макета в прототипе
+   * ходил в чужой сервис прямо из браузера и стоял на критическом пути LCP.
+   * Не пришла — чипа нет, первый экран не меняется. Дальше цифры освежает сам
+   * чип, пока вкладку держат открытой.
    */
   readonly weather?: HeroWeather | null | undefined;
   /** Город для подписи чипа — из настроек компании, а не из кода. */
@@ -97,16 +98,9 @@ export function Hero({
               Без города в настройках подписи не будет — придумывать его код
               не вправе (инвариант 8), поэтому чип просто не рисуется. */}
           {weather && city !== undefined && city !== '' ? (
-            <p className={styles.weather}>
-              <span className={styles.weatherDot} aria-hidden="true" />
-              <span className={styles.weatherText}>
-                {`${t.weatherPrefix(city)} ${t.weatherMean} `}
-                <b className={styles.weatherMean}>{formatDegrees(weather.mean)}</b>
-                {` · ${t.weatherPeak} `}
-                <b className={styles.weatherMax}>{formatDegrees(weather.max)}</b>
-                {` — ${t.weatherNote(weather.max)}`}
-              </span>
-            </p>
+            <div className={styles.weather}>
+              <WeatherChip city={city} weather={weather} />
+            </div>
           ) : null}
 
           <StatList items={stats} className={styles.stats} />

@@ -73,12 +73,33 @@ describe('Погода в городе', () => {
     expect(await getCityWeather(TULA)).toBeNull();
   });
 
-  it('🔴 ответ кешируется на час: первый экран не ходит в чужой сервис на каждый визит', async () => {
+  it('🔴 ответ кешируется: первый экран не ходит в чужой сервис на каждый визит', async () => {
     respondWith({ daily: { temperature_2m_max: [7], temperature_2m_mean: [5] } });
 
     await getCityWeather(TULA);
 
     const [, init] = vi.mocked(fetch).mock.calls[0] ?? [];
-    expect((init as { next?: { revalidate?: number } } | undefined)?.next?.revalidate).toBe(3600);
+    expect((init as { next?: { revalidate?: number } } | undefined)?.next?.revalidate).toBe(900);
+  });
+
+  it('🔴 пик — максимум за месяц, а не за сегодня: сезон продают жаркие дни', async () => {
+    respondWith({
+      daily: {
+        // тридцать прошедших дней и сегодняшний последним
+        temperature_2m_max: [24, 31.4, 19, 22],
+        temperature_2m_mean: [20, 26, 15, 18],
+      },
+    });
+
+    expect(await getCityWeather(TULA)).toEqual({ mean: 18, max: 31 });
+  });
+
+  it('за прошедшими днями ходим явно: без них максимум был бы сегодняшним', async () => {
+    respondWith({ daily: { temperature_2m_max: [30], temperature_2m_mean: [21] } });
+
+    await getCityWeather(TULA);
+
+    const [url] = vi.mocked(fetch).mock.calls[0] ?? [];
+    expect(new URL(String(url)).searchParams.get('past_days')).toBe('30');
   });
 });
