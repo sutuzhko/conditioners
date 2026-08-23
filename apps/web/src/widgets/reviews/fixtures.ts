@@ -39,6 +39,7 @@ export const reviewsFixture: readonly ReviewCardData[] = [
     rating: 5,
     text: DEMO_TEXT,
     photo: null,
+    avatar: null,
     createdAt: new Date('2026-06-14T00:00:00.000Z'),
   },
   {
@@ -49,6 +50,7 @@ export const reviewsFixture: readonly ReviewCardData[] = [
       'Второй кондиционер у этих ребят. В этот раз ждал выезда три дня из-за жары, ' +
       'но по монтажу вопросов нет: вакуумацию делали при мне.',
     photo: null,
+    avatar: null,
     createdAt: new Date('2026-06-02T00:00:00.000Z'),
   },
   {
@@ -57,6 +59,7 @@ export const reviewsFixture: readonly ReviewCardData[] = [
     rating: 5,
     text: 'Подобрали модель по площади, объяснили разницу с инвертором. Работает тихо, спим спокойно.',
     photo: null,
+    avatar: null,
     createdAt: new Date('2026-05-21T00:00:00.000Z'),
   },
   {
@@ -65,6 +68,7 @@ export const reviewsFixture: readonly ReviewCardData[] = [
     rating: 4,
     text: 'Монтаж в частном доме, длинная трасса. Посчитали заранее, по факту доплат не было.',
     photo: null,
+    avatar: null,
     createdAt: new Date('2026-05-08T00:00:00.000Z'),
   },
 ];
@@ -76,6 +80,7 @@ export const reviewWithPhotoFixture: ReviewCardData = {
   rating: 5,
   text: 'Аккуратно вывели трассу по фасаду — прикладываю фото, как получилось.',
   photo: SAMPLE_PHOTO,
+  avatar: null,
   createdAt: new Date('2026-06-18T00:00:00.000Z'),
 };
 
@@ -86,5 +91,6 @@ export const reviewWithoutPhotoFixture: ReviewCardData = {
   rating: 3,
   text: 'Работой довольна, но звонка о переносе времени пришлось ждать до последнего.',
   photo: null,
+  avatar: null,
   createdAt: new Date('2026-04-30T00:00:00.000Z'),
 };

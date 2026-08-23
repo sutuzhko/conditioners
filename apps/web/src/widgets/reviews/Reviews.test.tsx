@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { Reviews } from './Reviews';
 import { reviewsContent as t } from './content';
+import { reviewModalContent as modalTexts } from '@/features/review-modal/content';
 import {
   policyHrefFixture,
   reviewWithPhotoFixture,
@@ -26,25 +28,51 @@ describe('Блок отзывов', () => {
   it('🔴 пустое состояние показывает приглашение, а не пустоту', () => {
     renderSection();
 
-    expect(screen.getByRole('heading', { level: 3, name: t.emptyTitle })).toBeInTheDocument();
+    // 🔴 приглашение выглядит карточкой отзыва: те же подпись и подвал —
+    // иначе оно выпадает из ряда и читается как поломка вёрстки
+    expect(screen.getByText(t.emptyTitle)).toBeInTheDocument();
     expect(screen.getByText(t.emptyText)).toBeInTheDocument();
+    expect(screen.getByText(t.emptyAuthor)).toBeInTheDocument();
 
-    // приглашение ведёт к форме: на телефоне она уезжает под текст
-    expect(screen.getByRole('link', { name: t.emptyCta })).toHaveAttribute('href', '#review-form');
-    expect(screen.queryByRole('list', { name: t.listLabel })).not.toBeInTheDocument();
+    // кнопка одна — над лентой: вторая на том же экране заставляет выбирать
+    // между двумя одинаковыми
+    expect(screen.getAllByRole('button', { name: t.emptyCta })).toHaveLength(1);
+
+    /* Лента на месте и без отзывов: она держит заготовки, а приглашение
+       стоит в её середине — пустая полоса под заголовком выглядела бы
+       поломкой вёрстки. */
+    const track = screen.getByRole('list', { name: t.listLabel });
+    expect(track.children.length).toBeGreaterThan(1);
   });
 
-  it('🔴 памятка «о чём написать» стоит и у пустого раздела, и у заполненного', () => {
+  it('🔴 форма спрятана в окно: раздел — витрина чужого опыта, а не бланк', () => {
+    renderSection(reviewsFixture);
+
+    // до нажатия ни полей, ни памятки на странице нет
+    expect(screen.queryByLabelText(/Имя/)).not.toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: modalTexts.open }).length).toBeGreaterThan(0);
+  });
+
+  it('🔴 лента держит одинаковое число мест: два отзыва в пустой строке выглядят поломкой', () => {
     const { unmount } = renderSection();
-    for (const hint of t.hints) {
-      expect(screen.getByText(hint)).toBeInTheDocument();
-    }
+    const empty = screen.getByRole('list', { name: t.listLabel }).children.length;
     unmount();
 
-    renderSection(reviewsFixture);
-    for (const hint of t.hints) {
-      expect(screen.getByText(hint)).toBeInTheDocument();
-    }
+    renderSection(reviewsFixture.slice(0, 2));
+    const partial = screen.getByRole('list', { name: t.listLabel }).children.length;
+
+    expect(partial).toBe(empty);
+  });
+
+  it('настоящие отзывы занимают места первыми, заготовки закрывают остаток', () => {
+    renderSection(reviewsFixture.slice(0, 2));
+
+    const track = screen.getByRole('list', { name: t.listLabel });
+    const filled = [...track.children].filter(
+      (slot) => slot.getAttribute('aria-hidden') !== 'true',
+    );
+
+    expect(filled).toHaveLength(2);
   });
 
   it('🔴 пустая секция не выдумывает ни отзывов, ни рейтинга: цифр в ней нет', () => {
@@ -57,14 +85,18 @@ describe('Блок отзывов', () => {
     expect(section?.textContent ?? '').not.toMatch(/\d/);
   });
 
-  it('форма отзыва стоит в секции всегда — и когда отзывов нет, и когда они есть', () => {
-    const { rerender } = renderSection();
-    expect(screen.getByRole('heading', { level: 3, name: 'Оставить отзыв' })).toBeInTheDocument();
+  it('окно с формой открывается по нажатию и содержит памятку', async () => {
+    const user = userEvent.setup();
+    renderSection(reviewsFixture);
 
-    rerender(<Reviews policyHref={policyHrefFixture} reviews={reviewsFixture} />);
-    expect(screen.getByRole('heading', { level: 3, name: 'Оставить отзыв' })).toBeInTheDocument();
+    await user.click(screen.getAllByRole('button', { name: modalTexts.open })[0] as HTMLElement);
+
+    expect(screen.getByRole('dialog', { name: modalTexts.title })).toBeInTheDocument();
+    expect(screen.getByLabelText(/Имя/)).toBeInTheDocument();
+    for (const hint of modalTexts.hints) {
+      expect(screen.getByText(hint)).toBeInTheDocument();
+    }
   });
-
   it('рисует переданные отзывы списком: имя, дата, оценка и текст', () => {
     renderSection(reviewsFixture);
 
@@ -90,15 +122,12 @@ describe('Блок отзывов', () => {
     expect(card.textContent).toContain('30 апреля 2026');
   });
 
-  it('фотография показывается, только если её прислали', () => {
-    const { rerender } = renderSection([reviewWithPhotoFixture]);
+  it('🔴 в ленте снимка нет — только значок: фото вытягивало карточку из ряда', () => {
+    renderSection([reviewWithPhotoFixture]);
 
-    expect(screen.getByAltText(t.photoAlt)).toBeInTheDocument();
-
-    rerender(<Reviews policyHref={policyHrefFixture} reviews={[reviewWithoutPhotoFixture]} />);
     expect(screen.queryByAltText(t.photoAlt)).not.toBeInTheDocument();
+    expect(screen.getByTitle(t.hasPhoto)).toBeInTheDocument();
   });
-
   it('у секции один заголовок второго уровня — h1 принадлежит странице', () => {
     renderSection(reviewsFixture);
 

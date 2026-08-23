@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from 'react';
 
 import {
   Button,
@@ -54,6 +54,19 @@ export interface ReviewFormProps {
   headingLevel?: 2 | 3 | 4 | undefined;
   /** Якорь: на форму ведут ссылки «Оставить отзыв» из пустого состояния секции. */
   id?: string | undefined;
+  /**
+   * `card` — форма в собственной карточке с заголовком (секция на странице).
+   * `bare` — только поля: рамку, заголовок и пояснение уже дало окно, и
+   * повторять их внутри значит показать два заголовка подряд.
+   */
+  chrome?: 'card' | 'bare' | undefined;
+  /**
+   * Содержимое левой колонки — памятка окна. Пропсом, а не импортом: что
+   * объяснять пишущему, решает место, где форма открыта. Раскладку под это
+   * держит сама форма: иначе половина ширины окна пустовала бы, а снимки
+   * висели бы под обязательными полями.
+   */
+  aside?: ReactNode | undefined;
   className?: string | undefined;
   /** Отправка. Подменяется в историях и тестах; по умолчанию — `POST /api/reviews`. */
   submit?: ReviewSubmit | undefined;
@@ -75,13 +88,17 @@ export function ReviewForm({
   title = texts.title,
   description = texts.description,
   headingLevel = 2,
+  chrome = 'card',
+  aside,
   id,
   className,
   submit = postReview,
   onSuccess,
 }: ReviewFormProps) {
   const [values, setValues] = useState<ReviewFormValues>(emptyReviewValues);
-  const [photo, setPhoto] = useState<File | null>(null);
+  // два снимка: сам автор и место установки
+  const [authorPhoto, setAuthorPhoto] = useState<File | null>(null);
+  const [placePhoto, setPlacePhoto] = useState<File | null>(null);
   const [honeypot, setHoneypot] = useState('');
   const [errors, setErrors] = useState<ReviewFieldErrors>({});
   const [status, setStatus] = useState<ReviewFormStatus>('idle');
@@ -121,7 +138,8 @@ export function ReviewForm({
 
   function restart(): void {
     setValues(emptyReviewValues());
-    setPhoto(null);
+    setAuthorPhoto(null);
+    setPlacePhoto(null);
     setErrors({});
     setFailure(undefined);
     restarted.current = true;
@@ -155,7 +173,9 @@ export function ReviewForm({
     setErrors({});
     setStatus('sending');
 
-    const result = await submit(buildReviewFormData(values, photo, honeypot));
+    const result = await submit(
+      buildReviewFormData(values, { place: placePhoto, author: authorPhoto }, honeypot),
+    );
 
     if (result.ok) {
       setGreeting(values.name.trim());
@@ -183,19 +203,27 @@ export function ReviewForm({
           ? `${failure}. ${texts.errorRetryLead}`
           : '';
 
+  const bare = chrome === 'bare';
+  const Frame = bare ? 'div' : Card;
+  const frameProps = bare
+    ? { id, className: [styles.bare, className].filter(Boolean).join(' ') }
+    : {
+        variant: 'default' as const,
+        padding: 'lg' as const,
+        id,
+        className: [styles.card, className].filter(Boolean).join(' '),
+      };
+
   return (
-    <Card
-      variant="default"
-      padding="lg"
-      id={id}
-      className={[styles.card, className].filter(Boolean).join(' ')}
-    >
-      <header className={styles.header}>
-        <Heading className={styles.title} id={headingId}>
-          {title}
-        </Heading>
-        <p className={styles.description}>{description}</p>
-      </header>
+    <Frame {...frameProps}>
+      {bare ? null : (
+        <header className={styles.header}>
+          <Heading className={styles.title} id={headingId}>
+            {title}
+          </Heading>
+          <p className={styles.description}>{description}</p>
+        </header>
+      )}
 
       {/* Итог отправки объявляется отсюда: область живёт в разметке всегда,
           иначе часть скринридеров не заметит её появления */}
@@ -226,53 +254,77 @@ export function ReviewForm({
           onSubmit={(event) => void handleSubmit(event)}
           aria-labelledby={headingId}
         >
-          <p className={styles.note}>{texts.requiredNote}</p>
+          {/* Две колонки, когда есть что положить слева: памятка и снимки —
+              то, что читают и прикладывают по желанию; справа — обязательное.
+              Так ширина окна занята целиком, а поля, без которых отзыв не
+              отправится, не уезжают под нижний край. */}
+          <div className={aside === undefined ? styles.single : styles.split}>
+            <div className={styles.column}>
+              {aside}
 
-          <div className={styles.pair}>
-            <Input
-              name="name"
-              label={texts.nameLabel}
-              placeholder={texts.namePlaceholder}
-              autoComplete="name"
-              required
-              value={values.name}
-              error={errors.name}
-              onChange={(event) => changeValue({ name: event.target.value }, 'name')}
-            />
+              {/* Два снимка: сам автор и место установки. Второй — не
+                  украшение: по нему видно и аккуратность бригады, и мусор,
+                  если он остался. */}
+              <FileInput
+                name="avatar"
+                label={texts.avatarLabel}
+                hint={texts.avatarHint}
+                value={authorPhoto}
+                onChange={setAuthorPhoto}
+              />
+              <FileInput
+                name="photo"
+                label={texts.photoLabel}
+                hint={texts.photoHint}
+                value={placePhoto}
+                onChange={setPlacePhoto}
+              />
+            </div>
+
+            <div className={styles.column}>
+              <p className={styles.note}>{texts.requiredNote}</p>
+
+              {/* Имя и оценка одна под другой: в узкой колонке рядом они не
+                  помещаются, и пятая звезда уходила под край. */}
+              <div className={styles.pair}>
+                <Input
+                  name="name"
+                  label={texts.nameLabel}
+                  placeholder={texts.namePlaceholder}
+                  autoComplete="name"
+                  required
+                  value={values.name}
+                  error={errors.name}
+                  onChange={(event) => changeValue({ name: event.target.value }, 'name')}
+                />
+
+                {/* оценка — нативные радиокнопки внутри Rating: стрелки, Tab
+                    и группировка работают без единой строки своего JS */}
+                <Rating
+                  mode="input"
+                  name="rating"
+                  size="md"
+                  label={texts.ratingLabel}
+                  required
+                  value={values.rating}
+                  error={errors.rating}
+                  onChange={(rating) => changeValue({ rating }, 'rating')}
+                />
+              </div>
+
+              <Textarea
+                name="text"
+                label={texts.textLabel}
+                placeholder={texts.textPlaceholder}
+                hint={texts.textHint}
+                rows={7}
+                required
+                value={values.text}
+                error={errors.text}
+                onChange={(event) => changeValue({ text: event.target.value }, 'text')}
+              />
+            </div>
           </div>
-
-          {/* оценка — нативные радиокнопки внутри Rating: стрелки, Tab
-              и группировка работают без единой строки своего JS */}
-          <Rating
-            mode="input"
-            name="rating"
-            size="lg"
-            label={texts.ratingLabel}
-            required
-            value={values.rating}
-            error={errors.rating}
-            onChange={(rating) => changeValue({ rating }, 'rating')}
-          />
-
-          <Textarea
-            name="text"
-            label={texts.textLabel}
-            placeholder={texts.textPlaceholder}
-            hint={texts.textHint}
-            rows={4}
-            required
-            value={values.text}
-            error={errors.text}
-            onChange={(event) => changeValue({ text: event.target.value }, 'text')}
-          />
-
-          <FileInput
-            name="photo"
-            label={texts.photoLabel}
-            hint={texts.photoHint}
-            value={photo}
-            onChange={setPhoto}
-          />
 
           <Checkbox
             name="consent"
@@ -318,6 +370,6 @@ export function ReviewForm({
           </Button>
         </form>
       )}
-    </Card>
+    </Frame>
   );
 }

@@ -2,7 +2,26 @@
    Цвета только токенами (docs/CLAUDE.md, раздел «Стилизация»). */
 
 .card {
+  position: relative;
   border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+/* 🔴 Кнопка растянута поверх карточки и прозрачна: нажимается вся площадь,
+   а клавиатура и экранный диктор получают обычную кнопку с именем. Без
+   `inset` она оставалась видимым прямоугольником под текстом. */
+.hit {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.hit:focus-visible {
+  box-shadow: var(--ring-focus-inset);
+  outline: none;
 }
 
 .body {
@@ -13,15 +32,18 @@
   padding: clamp(18px, 4vw, 26px);
 }
 
-/* фото приходит от клиента и бывает любой формы: кадрируем в 3:2,
-   чтобы ряд карточек не съезжал по высоте */
-.photo {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 3 / 2;
-  border: 1px solid var(--line-soft);
-  border-radius: var(--r-sm);
-  object-fit: cover;
+.top {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Значок вложения: без цифры и подписи — сколько снимков, видно в окне. */
+.attach {
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
 }
 
 .quote {
@@ -31,7 +53,15 @@
 
 /* кавычки-ёлочки рисует CSS: в базе лежит чистый текст автора,
    и добавлять к нему символы в разметке нельзя (инвариант 7) */
+
+/* 🔴 Три строки — предел показа. Отзыв на пол-экрана растягивал бы ряд, а
+   соседние карточки превращались в полосы пустоты. Читается он целиком в
+   окне: обрезан показ, а не содержание. */
 .text {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   margin: 0;
   color: var(--ink2);
   font-size: var(--fs-dense);
@@ -53,6 +83,14 @@
   align-items: center;
   border-top: 1px solid var(--line-soft);
   padding-top: 14px;
+}
+
+.avatarPhoto {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-pill);
+  object-fit: cover;
 }
 
 .avatar {
@@ -87,4 +125,20 @@
 .meta {
   color: var(--muted);
   font-size: 12.5px;
+}
+
+/* Кнопка выглядит ссылкой: она продолжает текст, а не спорит с ним. */
+.more {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent-ink);
+  font: inherit;
+  font-size: var(--fs-dense);
+  cursor: pointer;
+}
+
+.more:hover {
+  text-decoration: underline;
 }

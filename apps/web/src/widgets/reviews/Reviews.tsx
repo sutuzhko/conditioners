@@ -1,22 +1,63 @@
-import { ReviewForm } from '@/features/review-form';
+import { ReviewModal } from '@/features/review-modal';
 import type { ButtonLinkHref } from '@/shared/ui';
 
 import { reviewsContent as t } from './content';
 import type { ReviewCardData } from './model';
-import { ReviewCard } from './ui/ReviewCard';
-import { ReviewHints } from './ui/ReviewHints';
-import { ReviewsInvite } from './ui/ReviewsInvite';
+import { ReviewsGallery } from './ui/ReviewsGallery';
 import styles from './Reviews.module.css';
 
 const HEADING_ID = 'reviews-title';
 
 /**
- * Якорь формы: на него ведёт «Оставить отзыв» из приглашения и ссылки страниц.
- * Идентификатор выводится из адреса, а не наоборот, — иначе типизированные
- * маршруты не примут собранную из кусков строку.
+ * Сколько мест держит лента. Двенадцать — это шесть колонок по два ряда:
+ * лента уходит за край даже на широком экране, и по обрезанной карточке
+ * сразу видно, что вбок она двигается. Число чётное: ряда два, и нечётное
+ * оставило бы дыру в хвосте.
  */
-const FORM_HREF = '#review-form';
-const FORM_ID = FORM_HREF.slice(1);
+const SLOTS = 12;
+
+/**
+ * От скольких отзывов лента едет сама. Меньше — ход показывал бы одни
+ * заготовки: отзывы уехали бы за край, а на их месте ползла бы пустота.
+ */
+const DRIFT_FROM = 6;
+
+/**
+ * Где стоит приглашение, когда отзывов нет вовсе. Чуть левее середины: оно
+ * занимает колонку целиком, а сдвинутый второй ряд смещает всё вправо на
+ * полкарточки — «математический» центр оказывается правее видимого.
+ */
+const INVITE_AT = Math.floor(SLOTS / 2) - 2;
+
+/**
+ * Раскладка мест: что показать в каждом.
+ *
+ * 🔴 Пока лента стоит, отзывы кладутся от середины: она и видна на экране,
+ * а края уходят под обрез. Сложенные в начало, они оказались бы за левым
+ * краем — человек увидел бы только заготовки. Когда отзывов хватает на ход
+ * ленты, порядок обычный: они идут подряд с начала, а заготовки закрывают
+ * хвост, пока лента их не прокрутит.
+ */
+function layoutSlots(count: number): readonly (number | null)[] {
+  if (count === 0) return Array.from({ length: SLOTS }, () => null);
+
+  if (count >= DRIFT_FROM) {
+    return Array.from({ length: Math.max(SLOTS, count) }, (_, at) => (at < count ? at : null));
+  }
+
+  /* Ряда два, поэтому места идут парами: колонка — это два подряд идущих
+     места. Отзывы занимают колонки, начиная с центральной. */
+  const columns = SLOTS / 2;
+  const used = Math.ceil(count / 2);
+  /* Округляем вниз: сдвинутый второй ряд смещает пару вправо на полкарточки,
+     и «математический» центр оказывается правее видимого. */
+  const from = 2 * Math.floor((columns - used) / 2);
+
+  return Array.from({ length: SLOTS }, (_, at) => {
+    const index = at - from;
+    return index >= 0 && index < count ? index : null;
+  });
+}
 
 export interface ReviewsProps {
   /**
@@ -37,13 +78,23 @@ export interface ReviewsProps {
 }
 
 /**
- * Отзывы и форма отзыва — одна секция макета.
+ * Отзывы: витрина чужого опыта (макет v2, «Отзывы»).
  *
- * Серверный компонент: карточки приходят в HTML готовыми и индексируются без
- * JavaScript (инвариант 1). `'use client'` стоит только на самой форме —
- * интерактивна она, а не раздел.
+ * 🔴 Карточки приходят в HTML готовыми и индексируются без JavaScript
+ * (инвариант 1). Прокрутка — это `overflow-x` у списка, а не скрипт: колесо,
+ * палец и клавиатура работают в ней сами, а отзывы остаются в разметке
+ * целиком, сколько бы их ни было.
+ *
+ * Лента всегда держит пять мест. Настоящие отзывы занимают их по порядку,
+ * оставшиеся закрывают заготовки: раздел, где две карточки болтаются в пустой
+ * строке, читается как сломанный, а не как молодой.
+ *
+ * Форма переехала в модальное окно: рядом с лентой она забирала половину
+ * ширины у самих отзывов, ради которых в раздел и приходят.
  */
 export function Reviews({ reviews = [], policyHref, id = 'reviews' }: ReviewsProps) {
+  const slots = layoutSlots(reviews.length);
+
   return (
     <section id={id} className={styles.section} aria-labelledby={HEADING_ID}>
       <div className={styles.container}>
@@ -53,27 +104,22 @@ export function Reviews({ reviews = [], policyHref, id = 'reviews' }: ReviewsPro
             {t.title}
           </h2>
           <p className={styles.lead}>{t.lead}</p>
+          <ReviewModal policyHref={policyHref} className={styles.cta} />
         </header>
-
-        <div className={styles.layout}>
-          {reviews.length === 0 ? (
-            <ReviewsInvite formHref={FORM_HREF} />
-          ) : (
-            <ul className={styles.grid} aria-label={t.listLabel}>
-              {reviews.map((review) => (
-                <ReviewCard key={review.id} review={review} />
-              ))}
-            </ul>
-          )}
-
-          <div className={styles.aside}>
-            <ReviewForm id={FORM_ID} policyHref={policyHref} headingLevel={3} />
-            {/* памятка под формой: она нужна тому, кто уже решил написать, и
-                не зависит от того, есть ли рядом чужие отзывы */}
-            <ReviewHints />
-          </div>
-        </div>
       </div>
+
+      {/* Лента шире контейнера: она едет от края до края, как в макете.
+          `tabIndex` — чтобы до прокрутки добирались с клавиатуры: у области
+          с `overflow` без него нет фокуса, и клавишами её не сдвинуть.
+          🔴 Пока отзывов нет, лента не едет сама: двигать пустые заготовки —
+          это движение ради движения, и приглашение в середине уезжало бы
+          от глаз. */}
+      <ReviewsGallery
+        reviews={reviews}
+        slots={slots}
+        inviteAt={INVITE_AT}
+        drift={reviews.length >= DRIFT_FROM}
+      />
     </section>
   );
 }

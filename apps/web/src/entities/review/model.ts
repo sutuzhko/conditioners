@@ -21,7 +21,11 @@ export type ReviewStatus = z.infer<typeof reviewStatusSchema>;
  */
 export const reviewModerationSchema = z
   .object({
-    status: z.enum(['approved', 'rejected', 'archived'], {
+    /* 🔴 `pending` в списке намеренно: модератор должен уметь вернуть отзыв
+       в очередь — например, когда ошибся кнопкой или решил перечитать. Без
+       этого одобренный отзыв нельзя было снять с публикации иначе, чем
+       отклонить, а это разные вещи. */
+    status: z.enum(['pending', 'approved', 'rejected', 'archived'], {
       errorMap: () => ({ message: 'Неизвестный статус отзыва' }),
     }),
   })
@@ -44,7 +48,10 @@ export const reviewSchema = z.object({
   name: z.string().trim().min(1),
   rating: z.number().int().min(RATING_MIN).max(RATING_MAX),
   text: z.string().trim().min(REVIEW_TEXT_MIN),
+  /** Место установки: по нему видно и аккуратность бригады, и мусор. */
   photo: z.string().nullable().default(null),
+  /** Автор отзыва. */
+  avatar: z.string().nullable().default(null),
   status: reviewStatusSchema.default('pending'),
   createdAt: z.coerce.date(),
 });

@@ -58,13 +58,16 @@
 /* Радиокнопка не видна глазами (класс .srOnly на элементе), но остаётся в
    потоке и в DOM: на ней держится фокус с клавиатуры и состояние соседней
    звезды — потому имя класса и живёт в селекторах ниже. */
+
+/* Высота как у поля ввода рядом: `--tap` даёт 44px, а поле с его полями —
+   49px, и в одном ряду звёзды оказывались ниже строки на пять пикселей. */
 .option {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   width: var(--tap);
-  height: var(--tap);
+  height: calc(var(--tap) + 5px);
   border: 1px solid var(--line-strong);
   border-radius: var(--r-sm);
   background: transparent;

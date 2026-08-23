@@ -1,23 +1,19 @@
 import Image from 'next/image';
 
 import { formatDate, formatDateIso } from '@/shared/lib/format';
-import { Card, Rating } from '@/shared/ui';
+import { Card, Icon, Rating } from '@/shared/ui';
 
 import { reviewsContent as t } from '../content';
 import { initialOf, type ReviewCardData } from '../model';
 import styles from './ReviewCard.module.css';
 
-/**
- * Ширина исходника фотографии в карточке. Снимки хранятся с длинной стороной
- * 1200px, карточке столько не нужно: 520×360 покрывает десктопную колонку
- * с запасом на ретину, а `sizes` даёт браузеру выбрать меньший вариант.
- */
-const PHOTO_WIDTH = 520;
-const PHOTO_HEIGHT = 360;
-const PHOTO_SIZES = '(max-width: 599px) 100vw, (max-width: 1199px) 50vw, 300px';
+/** Кружок автора — 40px в макете; исходник вдвое больше ради ретины. */
+const AVATAR_SIZE = 80;
 
 export interface ReviewCardProps {
   review: ReviewCardData;
+  /** Открыть отзыв целиком: в ленте текст обрезан. */
+  onOpen?: (() => void) | undefined;
 }
 
 /**
@@ -26,31 +22,49 @@ export interface ReviewCardProps {
  *
  * 🔴 Текст выводится как есть и нигде не правится (инвариант 7).
  */
-export function ReviewCard({ review }: ReviewCardProps) {
+export function ReviewCard({ review, onOpen }: ReviewCardProps) {
   return (
     <Card as="li" padding="none" elevation="none" className={styles.card}>
+      {/* Открывается вся карточка, а не ссылка в углу: цель размером с
+          карточку попадается пальцем, а «читать целиком» отдельной строкой
+          повторяло бы то, на что и так нажимают. */}
       <article className={styles.body}>
-        <Rating value={review.rating} size="sm" />
+        <div className={styles.top}>
+          <Rating value={review.rating} size="sm" />
 
-        {review.photo === null ? null : (
-          <Image
-            className={styles.photo}
-            src={review.photo}
-            alt={t.photoAlt}
-            width={PHOTO_WIDTH}
-            height={PHOTO_HEIGHT}
-            sizes={PHOTO_SIZES}
-          />
-        )}
+          {/* Снимок в ленте не показываем: он вытягивал карточку и спорил с
+              текстом. Значок говорит, что внутри есть фотография, — она
+              открывается вместе с отзывом. */}
+          {review.photo === null ? null : (
+            <span className={styles.attach} title={t.hasPhoto}>
+              <Icon name="camera" size={16} />
+              <span className="srOnly">{t.hasPhoto}</span>
+            </span>
+          )}
+        </div>
 
+        {/* Показ обрезан по числу строк, само содержание — нет: полный текст
+            остаётся в разметке и открывается в окне (инвариант 7). */}
         <blockquote className={styles.quote}>
           <p className={styles.text}>{review.text}</p>
         </blockquote>
 
         <footer className={styles.footer}>
-          <span className={styles.avatar} aria-hidden="true">
-            {initialOf(review.name)}
-          </span>
+          {review.avatar === null ? (
+            /* Буква вместо фотографии: подставлять чужое лицо за автора
+               нельзя, а пустой кружок ломает ритм подписи. */
+            <span className={styles.avatar} aria-hidden="true">
+              {initialOf(review.name)}
+            </span>
+          ) : (
+            <Image
+              className={styles.avatarPhoto}
+              src={review.avatar}
+              alt={t.avatarAlt(review.name)}
+              width={AVATAR_SIZE}
+              height={AVATAR_SIZE}
+            />
+          )}
           <span className={styles.who}>
             <span className={styles.name}>{review.name}</span>
             <span className={styles.meta}>
@@ -60,6 +74,13 @@ export function ReviewCard({ review }: ReviewCardProps) {
           </span>
         </footer>
       </article>
+      {onOpen === undefined ? null : (
+        /* Кнопка растянута поверх карточки: клавиатура и экранный диктор
+           получают обычную кнопку с понятным именем, а мышь — всю площадь. */
+        <button type="button" className={styles.hit} onClick={onOpen}>
+          <span className="srOnly">{t.openCard(review.name)}</span>
+        </button>
+      )}
     </Card>
   );
 }

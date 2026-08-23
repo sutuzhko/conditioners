@@ -63,7 +63,7 @@ export function validateReviewValues(values: ReviewFormValues): ReviewFieldError
  */
 export function buildReviewFormData(
   values: ReviewFormValues,
-  photo: File | null,
+  photos: { readonly place: File | null; readonly author: File | null },
   honeypot: string,
 ): FormData {
   const data = new FormData();
@@ -71,7 +71,9 @@ export function buildReviewFormData(
   data.append('rating', String(values.rating));
   data.append('text', values.text.trim());
 
-  if (photo !== null) data.append('photo', photo);
+  // два снимка приходят раздельно: место установки и сам автор
+  if (photos.place !== null) data.append('photo', photos.place);
+  if (photos.author !== null) data.append('avatar', photos.author);
   // 🔴 согласие уходит явным полем: сервер пишет его время в `Review.consentAt` (152-ФЗ)
   data.append('consent', String(values.consent));
   data.append(HONEYPOT_FIELD, honeypot);

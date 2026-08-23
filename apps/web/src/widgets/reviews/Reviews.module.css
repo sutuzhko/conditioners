@@ -47,46 +47,8 @@
   font-size: 16.5px;
 }
 
-/* до 900px форма уходит под отзывы: рядом с ними она стала бы уже 300px,
-   а поле ввода уже этого не заполняют даже одной строкой */
-.layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-  align-items: start;
-}
-
-/* Форма и памятка идут одной колонкой: памятка объясняет, что писать, и
-   отрывать её от поля ввода незачем. */
-.aside {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-/* auto-fill вместо жёстких двух колонок: ряд сам сжимается до одной,
-   и на 320px карточка не уезжает за край */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-@media (width >= 900px) {
-  .layout {
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 28px;
-  }
-
-  /* форма следует за чтением отзывов: колонка слева длиннее правой,
-     и без залипания форма ушла бы вверх экрана уже на втором ряду */
-  .aside {
-    position: sticky;
-    top: 96px;
-  }
+.cta {
+  margin-top: 26px;
 }
 
 @media (width < 600px) {

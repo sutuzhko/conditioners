@@ -35,8 +35,14 @@ export async function POST(request: Request): Promise<Response> {
 
     const input = reviewFormSchema.parse(compactFormFields(body.fields));
 
-    const file = body.files.get('photo');
-    const photo = file === undefined ? null : (await saveImage(file)).url;
+    /* Два снимка приходят раздельно: место установки и сам автор. Порядок
+       сохранения последовательный — параллельная запись двух файлов ничего не
+       ускоряет, а ошибку второй делает труднее объяснимой. */
+    const photoFile = body.files.get('photo');
+    const photo = photoFile === undefined ? null : (await saveImage(photoFile)).url;
+
+    const avatarFile = body.files.get('avatar');
+    const avatar = avatarFile === undefined ? null : (await saveImage(avatarFile)).url;
 
     const review = await db.review.create({
       data: {
@@ -44,6 +50,7 @@ export async function POST(request: Request): Promise<Response> {
         rating: input.rating,
         text: input.text,
         photo,
+        avatar,
         // 🔴 доказательство согласия по 152-ФЗ: фиксируем момент отправки формы
         consentAt: new Date(),
       },

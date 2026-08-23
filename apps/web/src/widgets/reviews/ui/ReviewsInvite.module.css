@@ -1,54 +1,18 @@
-/* Приглашение вместо пустоты. Оформлено как полноценная карточка раздела,
-   а не как заглушка: это основной вид блока до первых настоящих отзывов. */
-
+/* Приглашение повторяет карточку отзыва и отличается только пунктиром:
+   место, куда встанет первый настоящий отзыв, а не другой блок. */
 .invite {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  align-items: flex-start;
-
-  /* пунктир вместо сплошной линии: место для будущих отзывов размечено,
-     но карточка не притворяется, что в ней уже что-то есть */
-  border-color: var(--accent-line);
   border-style: dashed;
-}
-
-.icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  border: 1px solid var(--accent-line);
-  border-radius: var(--r-md);
+  border-color: var(--accent-line);
   background: var(--accent-bg);
-  color: var(--accent-ink);
 }
 
+/* Заголовок набран как текст отзыва, только плотнее: карточка не должна
+   выделяться кеглем из ряда. */
 .title {
-  margin: 0;
+  margin: 0 0 8px;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: clamp(19px, 4.5vw, 22px);
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-}
-
-.text {
-  max-width: 48ch;
-  margin: 0;
-  color: var(--body);
-  font-size: var(--fs-base);
-  line-height: 1.55;
-}
-
-.cta {
-  margin-top: 6px;
-}
-
-@media (width < 480px) {
-  .cta {
-    width: 100%;
-  }
+  letter-spacing: -0.01em;
 }

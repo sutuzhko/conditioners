@@ -10,12 +10,14 @@ import type { Review } from '@/entities/review/model';
  */
 export type ReviewCardData = Pick<
   Review,
-  'id' | 'name' | 'rating' | 'text' | 'photo' | 'createdAt'
+  'id' | 'name' | 'rating' | 'text' | 'photo' | 'avatar' | 'createdAt'
 >;
 
 /**
- * Буква для кружка-аватара. Фотографий авторов у нас нет и не будет:
- * отзыв присылают текстом, а рисовать за человека стоковое лицо — обман.
+ * Буква для кружка-аватара — когда человек не приложил своё фото.
+ *
+ * 🔴 Именно буква, а не стоковое лицо: рисовать за автора чужую физиономию
+ * значит выдумывать отзыв наполовину.
  */
 export function initialOf(name: string): string {
   return name.trim().slice(0, 1).toUpperCase();

@@ -1,0 +1,121 @@
+/* Отзыв целиком: всё, что прислал человек. */
+.dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  /* Окно не выше экрана: длинный отзыв прокручивается внутри, а не
+     вытягивает окно за нижний край. */
+  max-height: min(72vh, 620px);
+}
+
+.scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.head {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Тот же кружок, что в карточке ленты: 40px. Свой размер в окне читался
+   как другой компонент — человек видит один и тот же отзыв дважды и
+   замечает разницу. */
+.avatar,
+.initial {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-pill);
+}
+
+.avatar {
+  object-fit: cover;
+}
+
+.initial {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-display);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+}
+
+.who {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+.date {
+  margin: 0;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.quote {
+  margin: 0;
+}
+
+/* Текст не обрезается: ради него окно и открывают. Переносы автора
+   сохраняются — правка чужого отзыва запрещена (инвариант 7). */
+.text {
+  margin: 0;
+  color: var(--ink2);
+  font-size: 15.5px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-sm);
+  object-fit: cover;
+}
+
+/* Листание: стрелки по краям, счётчик между ними — видно, сколько отзывов
+   осталось, и что круг замкнётся, а не упрётся.
+
+   🔴 Держится у нижнего края всегда: у длинного отзыва управление уезжало
+   под текст, и человек, дочитавший до середины, не знал, что отзывы можно
+   листать. */
+.nav {
+  /* Полоса стоит после прокручиваемой области, а не поверх неё: наложение
+     давало просвет под кнопками, где виднелся уезжающий текст. */
+  flex: none;
+  background: var(--card);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 14px;
+}
+
+.counter {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+}
+
+.back {
+  transform: rotate(180deg);
+}

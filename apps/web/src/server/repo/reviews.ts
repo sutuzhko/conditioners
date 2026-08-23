@@ -34,7 +34,10 @@ export type ReviewDto = {
   name: string;
   rating: number;
   text: string;
+  /** Фотография места установки. */
   photo: string | null;
+  /** Фотография автора отзыва. */
+  avatar: string | null;
   status: ReviewStatusApi;
   createdAt: string;
 };
@@ -45,6 +48,7 @@ type ReviewRow = {
   rating: number;
   text: string;
   photo: string | null;
+  avatar: string | null;
   status: ReviewStatus;
   createdAt: Date;
 };

@@ -24,6 +24,7 @@ const stored = {
   rating: 5,
   text: 'Приехали в тот же день, всё аккуратно',
   photo: null,
+  avatar: null,
   status: 'pending' as const,
   createdAt: '2026-08-01T10:00:00.000Z',
 };

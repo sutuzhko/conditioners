@@ -1,0 +1,30 @@
+/* Заготовка повторяет форму настоящей карточки: при появлении первого отзыва
+   лента не должна дёрнуться. */
+.slot {
+  border-radius: var(--r-lg);
+  opacity: 0.55;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  padding: clamp(18px, 4vw, 26px);
+}
+
+.footer {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: auto;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 14px;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}

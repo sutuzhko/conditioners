@@ -57,7 +57,7 @@ describe('validateReviewValues', () => {
 
 describe('buildReviewFormData', () => {
   it('шлёт оценку строкой, а незаполненное фото не шлёт вовсе', () => {
-    const data = buildReviewFormData({ ...filled }, null, '');
+    const data = buildReviewFormData({ ...filled }, { place: null, author: null }, '');
 
     expect(data.get('name')).toBe('Ирина');
     expect(data.get('rating')).toBe('5');
@@ -72,7 +72,7 @@ describe('postReview', () => {
     const fetchMock = vi.fn<typeof fetch>(() => Promise.resolve(respond(201, { id: 'rev-7' })));
     vi.stubGlobal('fetch', fetchMock);
 
-    const result = await postReview(buildReviewFormData(filled, null, ''));
+    const result = await postReview(buildReviewFormData(filled, { place: null, author: null }, ''));
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     const call = fetchMock.mock.calls[0];
