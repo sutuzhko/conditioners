@@ -1,18 +1,17 @@
 import type { ReactNode } from 'react';
 
-import { ClockIcon, ShieldIcon } from '@/shared/ui';
+import { Icon } from '@/shared/ui';
 
 import { trustStripContent as t } from './content';
-import { GridIcon, PulseIcon } from './icons';
 import type { TrustClaimKey } from './content';
 import styles from './TrustStrip.module.css';
 
 /** Иконка своя у каждого утверждения — разметку задаёт код, текст контент. */
 const icons: Record<TrustClaimKey, ReactNode> = {
-  contract: <ShieldIcon />,
-  turnkey: <ClockIcon />,
-  vacuum: <PulseIcon />,
-  brands: <GridIcon />,
+  contract: <Icon name="shield" />,
+  turnkey: <Icon name="clock" />,
+  vacuum: <Icon name="pulse" />,
+  brands: <Icon name="conditioner" />,
 };
 
 function claims(): ReactNode {

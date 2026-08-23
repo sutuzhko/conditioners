@@ -1,7 +1,6 @@
-import { Badge, Card } from '@/shared/ui';
+import { Badge, Card, Icon } from '@/shared/ui';
 
 import { honestPoints, honestyContent, rivalPoints } from './content';
-import { CheckIcon, CrossIcon } from './icons';
 import type { HonestyPoint } from './model';
 import styles from './HonestPricing.module.css';
 
@@ -97,14 +96,15 @@ type PointListProps = {
  * чем глазами его делает галочка или крестик — иначе колонки неразличимы.
  */
 function PointList({ points, label, tone }: PointListProps) {
-  const Icon = tone === 'honest' ? CheckIcon : CrossIcon;
+  // галочка честному пункту, предупреждение — приёму из разбора обмана
+  const name = tone === 'honest' ? 'check' : 'danger';
 
   return (
     <ul className={`${styles.points} ${styles[tone]}`} aria-label={label}>
       {points.map((point) => (
         <li key={point.id} className={styles.point}>
           <span className={styles.icon}>
-            <Icon />
+            <Icon name={name} size={18} />
           </span>
           <span className={styles.pointText}>{point.text}</span>
         </li>

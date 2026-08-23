@@ -1,5 +1,6 @@
 import { reviewsContent as t } from '../content';
 import styles from './ReviewHints.module.css';
+import { Icon } from '@/shared/ui';
 
 /**
  * Памятка тому, кто пишет отзыв.
@@ -17,22 +18,7 @@ export function ReviewHints() {
       <ul className={styles.list}>
         {t.hints.map((hint) => (
           <li key={hint} className={styles.item}>
-            <svg
-              className={styles.tick}
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M20 6 9 17l-5-5"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <Icon name="check" size={16} className={styles.tick} />
             {hint}
           </li>
         ))}

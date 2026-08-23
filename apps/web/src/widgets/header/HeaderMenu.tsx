@@ -2,17 +2,9 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import {
-  ButtonLink,
-  Drawer,
-  IconButton,
-  PhoneIcon,
-  ThemeToggle,
-  buttonClassName,
-} from '@/shared/ui';
+import { ButtonLink, Drawer, Icon, IconButton, ThemeToggle, buttonClassName } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { headerContent } from './content';
-import { BurgerIcon } from './icons';
 import type { NavItem } from './model';
 import styles from './HeaderMenu.module.css';
 
@@ -43,7 +35,7 @@ export function HeaderMenu({ nav, ctaHref, phone, hours, className }: HeaderMenu
         aria-expanded={open}
         aria-haspopup="dialog"
         onClick={() => setOpen(true)}
-        icon={<BurgerIcon />}
+        icon={<Icon name="burger" />}
       />
       <Drawer
         open={open}
@@ -62,7 +54,7 @@ export function HeaderMenu({ nav, ctaHref, phone, hours, className }: HeaderMenu
                 aria-label={`${headerContent.callLabel} ${phone.text}`}
                 onClick={close}
               >
-                <PhoneIcon />
+                <Icon name="phone" />
                 {phone.text}
               </a>
             )}

@@ -9,6 +9,7 @@ import {
   Card,
   Checkbox,
   FileInput,
+  Icon,
   Input,
   PhoneInput,
   Select,
@@ -216,15 +217,7 @@ export function LeadForm({
       {status === 'success' ? (
         <div className={styles.success}>
           <span className={styles.successIcon} aria-hidden="true">
-            <svg width="38" height="38" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M20 6 9 17l-5-5"
-                stroke="currentColor"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <Icon name="check" size={38} />
           </span>
           <SuccessHeading className={styles.successTitle}>{texts.successTitle}</SuccessHeading>
           <p className={styles.successText}>{texts.successThanks(greeting)}</p>

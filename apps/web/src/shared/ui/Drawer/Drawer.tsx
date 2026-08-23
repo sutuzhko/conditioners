@@ -6,6 +6,7 @@ import { IconButton } from '../IconButton/IconButton';
 import { Portal } from '../lib/Portal';
 import { useDialog } from '../lib/useDialog';
 import styles from './Drawer.module.css';
+import { Icon } from '../Icon';
 
 export interface DrawerProps {
   open: boolean;
@@ -74,11 +75,7 @@ export function Drawer({
               variant="ghost"
               size="md"
               onClick={onClose}
-              icon={
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" />
-                </svg>
-              }
+              icon={<Icon name="close" size={20} />}
             />
           </div>
           <div className={styles.body}>{children}</div>

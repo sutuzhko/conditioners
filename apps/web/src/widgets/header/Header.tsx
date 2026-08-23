@@ -1,12 +1,5 @@
 import Link from 'next/link';
-import {
-  ArrowIcon,
-  BrandMark,
-  ButtonLink,
-  PhoneIcon,
-  ThemeToggle,
-  buttonClassName,
-} from '@/shared/ui';
+import { Icon, BrandMark, ButtonLink, ThemeToggle, buttonClassName } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 import type { Company, Contacts } from '@/entities/settings/model';
@@ -90,7 +83,7 @@ export function Header({
               )}
               aria-label={`${headerContent.callLabel} ${phone.text}`}
             >
-              <PhoneIcon />
+              <Icon name="phone" />
               <span className={styles.phoneText}>{phone.text}</span>
             </a>
           )}
@@ -109,7 +102,7 @@ export function Header({
             aria-label={headerContent.ctaLabel}
             iconEnd={
               <span className={styles.ctaArrow}>
-                <ArrowIcon />
+                <Icon name="arrow-right" />
               </span>
             }
           >

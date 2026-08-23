@@ -2,17 +2,16 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import type { ButtonLinkHref } from '@/shared/ui';
-import { ArrowIcon, Card } from '@/shared/ui';
+import { Card, Icon } from '@/shared/ui';
 
 import { servicesContent as t } from './content';
-import { ServiceIcon, SplitIcon, WrenchIcon } from './icons';
 import type { ServiceKey } from './model';
 import styles from './Services.module.css';
 
 const icons: Record<ServiceKey, ReactNode> = {
-  sale: <SplitIcon />,
-  install: <WrenchIcon />,
-  service: <ServiceIcon />,
+  sale: <Icon name="sale" />,
+  install: <Icon name="wrench" />,
+  service: <Icon name="settings" />,
 };
 
 export interface ServicesProps {
@@ -67,7 +66,7 @@ export function Services({ hrefs, id = 'services' }: ServicesProps) {
               <p className={styles.cardText}>{item.text}</p>
               <Link href={hrefs?.[item.key] ?? DEFAULT_HREFS[item.key]} className={styles.link}>
                 {item.link}
-                <ArrowIcon />
+                <Icon name="arrow-right" />
               </Link>
             </Card>
           ))}

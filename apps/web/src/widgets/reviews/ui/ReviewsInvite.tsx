@@ -1,4 +1,4 @@
-import { ButtonLink, Card } from '@/shared/ui';
+import { ButtonLink, Card, Icon } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 
 import { reviewsContent as t } from '../content';
@@ -21,18 +21,7 @@ export function ReviewsInvite({ formHref }: ReviewsInviteProps) {
   return (
     <Card variant="soft" padding="lg" className={styles.invite}>
       <span className={styles.icon} aria-hidden="true">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5H9l-5 4z"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinejoin="round"
-          />
-          <path
-            d="m12 7 1.35 2.74 3.02.44-2.18 2.13.51 3.01L12 13.9l-2.7 1.42.51-3.01-2.18-2.13 3.02-.44z"
-            fill="currentColor"
-          />
-        </svg>
+        <Icon name="chat" size={30} />
       </span>
 
       <h3 className={styles.title}>{t.emptyTitle}</h3>

@@ -7,6 +7,7 @@ import { Field } from '../internal/Field';
 import { useFieldIds } from '../internal/useFieldIds';
 import { IconButton } from '../IconButton/IconButton';
 import styles from './FileInput.module.css';
+import { Icon } from '../Icon';
 
 /** Микрокопия по умолчанию. Переопределяется пропсами, если форме нужен свой тон. */
 const TEXTS = {
@@ -162,21 +163,7 @@ export function FileInput({
         onDragLeave={() => setDragging(false)}
         onDrop={handleDrop}
       >
-        <svg
-          className={styles.icon}
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M12 16V4m0 0L7 9m5-5 5 5M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"
-            stroke="currentColor"
-            strokeWidth="1.7"
-            strokeLinecap="round"
-          />
-        </svg>
+        <Icon name="camera" size={22} className={styles.icon} />
         <span className={styles.texts}>
           <span className={styles.title}>{promptText}</span>
           <span>до {maxSizeMb} МБ</span>
@@ -198,11 +185,7 @@ export function FileInput({
             variant="outline"
             size="sm"
             onClick={clear}
-            icon={
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" />
-              </svg>
-            }
+            icon={<Icon name="close" size={16} />}
           />
         </div>
       )}

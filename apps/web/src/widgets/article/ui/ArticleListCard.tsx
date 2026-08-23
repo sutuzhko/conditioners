@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ArrowIcon, Badge, Card } from '@/shared/ui';
+import { Icon, Badge, Card } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { formatDate, formatDateIso } from '@/shared/lib/format';
 
@@ -78,7 +78,7 @@ export function ArticleListCard({ article, href }: ArticleListCardProps) {
             уже дал заголовок, поэтому строка скрыта от него целиком */}
         <span className={styles.more} aria-hidden="true">
           {t.readMore}
-          <ArrowIcon size={15} />
+          <Icon name="arrow-right" size={15} />
         </span>
       </div>
     </Card>

@@ -7,11 +7,10 @@ import type {
   ServiceArea,
 } from '@/entities/settings/model';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
-import { ButtonLink, Card, ClockIcon, PhoneIcon } from '@/shared/ui';
+import { ButtonLink, Card, Icon } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 
 import { contactsContent as t } from './content';
-import { PinIcon } from './icons';
 import { addressLine, yandexMapsHref } from './lib';
 import styles from './Contacts.module.css';
 
@@ -70,7 +69,7 @@ export function Contacts({
       : {
           id: 'address',
           label: t.addressLabel,
-          icon: <PinIcon />,
+          icon: <Icon name="map-point" />,
           value: <address className={styles.address}>{postal}</address>,
         },
     phones.length === 0
@@ -78,7 +77,7 @@ export function Contacts({
       : {
           id: 'phone',
           label: t.phoneLabel,
-          icon: <PhoneIcon size={20} />,
+          icon: <Icon name="phone" />,
           value: (
             <span className={styles.phones}>
               {phones.map((phone) => (
@@ -99,7 +98,7 @@ export function Contacts({
       : {
           id: 'hours',
           label: t.hoursLabel,
-          icon: <ClockIcon size={20} />,
+          icon: <Icon name="clock" />,
           value: <span className={styles.value}>{hours}</span>,
         },
   ];

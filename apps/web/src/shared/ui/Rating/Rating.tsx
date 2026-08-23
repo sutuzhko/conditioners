@@ -3,6 +3,7 @@
 import { useFieldIds } from '../internal/useFieldIds';
 import fieldStyles from '../internal/Field.module.css';
 import styles from './Rating.module.css';
+import { Icon } from '../Icon';
 
 export type RatingSize = 'sm' | 'md' | 'lg';
 
@@ -37,17 +38,15 @@ export interface RatingInputProps extends RatingCommon {
 export type RatingProps = RatingDisplayProps | RatingInputProps;
 
 function Star({ filled }: { filled: boolean }) {
+  /* Две иконки набора, а не одна с переключением заливки: закрашенная звезда
+     нарисована отдельным глифом, и подмена `fill` у контурной давала фигуру
+     с другой геометрией. */
   return (
-    <svg
+    <Icon
+      name={filled ? 'star-filled' : 'star'}
+      size={20}
       className={[styles.star, filled ? styles.filled : null].filter(Boolean).join(' ')}
-      viewBox="0 0 24 24"
-      fill={filled ? 'currentColor' : 'none'}
-      stroke="currentColor"
-      strokeWidth="1.6"
-      aria-hidden="true"
-    >
-      <path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.6 9.7l5.8-.8z" />
-    </svg>
+    />
   );
 }
 

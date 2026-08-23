@@ -3,7 +3,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import { parseArticleBody } from '@/entities/article/lib/parseArticleBody';
-import { ArrowIcon, Badge, ButtonLink } from '@/shared/ui';
+import { Icon, Badge, ButtonLink } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { formatDate, formatDateIso } from '@/shared/lib/format';
 
@@ -117,7 +117,7 @@ export function ArticleView({
                 <li key={link.label}>
                   <Link href={link.href} className={styles.ctaLink}>
                     {link.label}
-                    <ArrowIcon size={15} />
+                    <Icon name="arrow-right" size={15} />
                   </Link>
                 </li>
               ))}

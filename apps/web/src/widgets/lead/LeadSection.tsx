@@ -1,5 +1,5 @@
 import { LeadForm, type LeadTopic } from '@/features/lead-form';
-import { CheckIcon, type ButtonLinkHref } from '@/shared/ui';
+import { Icon, type ButtonLinkHref } from '@/shared/ui';
 
 import { leadSectionContent as t } from './content';
 import styles from './LeadSection.module.css';
@@ -62,7 +62,7 @@ export function LeadSection({
             {t.benefits.map((benefit) => (
               <li key={benefit} className={styles.benefit}>
                 <span className={styles.mark}>
-                  <CheckIcon size={18} />
+                  <Icon name="check" size={18} />
                 </span>
                 {benefit}
               </li>

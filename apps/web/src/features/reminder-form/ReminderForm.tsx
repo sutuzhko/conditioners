@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 
-import { Button, Checkbox, PhoneInput, Select, type ButtonLinkHref } from '@/shared/ui';
+import { Button, Checkbox, Icon, PhoneInput, Select, type ButtonLinkHref } from '@/shared/ui';
 
 import { WHEN_OPTIONS, reminderFormContent as texts } from './content';
 import {
@@ -256,15 +256,5 @@ export function ReminderForm({
 
 /** Галочка подтверждения — та же, что в макете: 30px, толщина 2.4. */
 function CheckIcon() {
-  return (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M20 6 9 17l-5-5"
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+  return <Icon name="check" size={30} />;
 }

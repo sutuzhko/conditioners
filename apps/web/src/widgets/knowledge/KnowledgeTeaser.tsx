@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { ArrowIcon, Card } from '@/shared/ui';
+import { Card, Icon } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 
 import { knowledgeContent as t } from './content';
@@ -66,7 +66,7 @@ export function KnowledgeTeaser({
           {articles.length === 0 ? null : (
             <Link href={allHref} className={styles.all}>
               {t.allLink}
-              <ArrowIcon size={16} />
+              <Icon name="arrow-right" size={16} />
             </Link>
           )}
         </header>

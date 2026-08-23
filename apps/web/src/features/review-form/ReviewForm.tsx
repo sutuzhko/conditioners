@@ -8,6 +8,7 @@ import {
   Card,
   Checkbox,
   FileInput,
+  Icon,
   Input,
   Rating,
   Textarea,
@@ -205,15 +206,7 @@ export function ReviewForm({
       {status === 'success' ? (
         <div className={styles.success}>
           <span className={styles.successIcon} aria-hidden="true">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M20 6 9 17l-5-5"
-                stroke="currentColor"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <Icon name="check" size={34} />
           </span>
           <SuccessHeading className={styles.successTitle}>{texts.successTitle}</SuccessHeading>
           <p className={styles.successText}>{texts.successThanks(greeting)}</p>

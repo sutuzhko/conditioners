@@ -5,6 +5,7 @@ import { Field } from '../internal/Field';
 import { useFieldIds } from '../internal/useFieldIds';
 import control from '../internal/control.module.css';
 import styles from './Select.module.css';
+import { Icon } from '../Icon';
 
 export interface SelectOption {
   value: string;
@@ -69,16 +70,7 @@ export function Select({
             </option>
           ))}
         </select>
-        <svg
-          className={styles.chevron}
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        </svg>
+        <Icon name="chevron-down" size={14} className={styles.chevron} />
       </span>
     </Field>
   );
