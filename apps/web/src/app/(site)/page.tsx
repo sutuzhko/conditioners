@@ -28,6 +28,7 @@ import { Faq, buildFaqItems } from '@/widgets/faq';
 import { Contacts } from '@/widgets/contacts';
 import { LeadSection } from '@/widgets/lead';
 import { AnchorSync } from '@/features/anchor-sync';
+import { ScrollTop } from '@/features/scroll-top';
 import { ReminderForm } from '@/features/reminder-form';
 import { LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
 
@@ -123,6 +124,7 @@ export default async function HomePage() {
       {/* адрес следует за секцией, которую читают: ссылку на раздел можно
           скопировать прямо из строки браузера */}
       <AnchorSync />
+      <ScrollTop />
       <Hero
         products={products}
         weather={weather}

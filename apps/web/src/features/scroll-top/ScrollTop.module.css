@@ -1,0 +1,46 @@
+/* Кнопка возврата к началу. Держится в углу над контентом, но ниже шапки и
+   выдвижной панели по слою: перекрывать навигацию она не должна. */
+.button {
+  position: fixed;
+  z-index: 90;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+
+  /* 44px — минимальная площадь нажатия на телефоне */
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+  color: var(--ink);
+  cursor: pointer;
+  animation: scroll-top-in var(--dur-base) var(--ease-out);
+}
+
+.button:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+
+.icon {
+  display: block;
+}
+
+@keyframes scroll-top-in {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    animation: none;
+  }
+}
