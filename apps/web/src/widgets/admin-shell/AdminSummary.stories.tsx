@@ -7,6 +7,7 @@ import {
   quietCounts,
   readyReadiness,
   unfinishedReadiness,
+  upcomingEvents,
 } from './fixtures';
 
 const meta = {
@@ -28,4 +29,9 @@ export const ТребуетВнимания: Story = {
 /** Первый заход после установки: данные компании ещё заглушки. */
 export const ПустойСайт: Story = {
   args: { counts: emptyCounts, readiness: unfinishedReadiness },
+};
+
+/** Календарь не пуст: дела на ближайшие дни и одно просроченное. */
+export const СДелами: Story = {
+  args: { upcoming: upcomingEvents },
 };

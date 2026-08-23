@@ -6,6 +6,7 @@ export {
   type AdminSummaryProps,
   type ReadinessSummary,
   type SummaryCounts,
+  type UpcomingEvent,
 } from './AdminSummary';
 export { adminSummaryContent } from './summary-content';
 export {

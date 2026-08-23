@@ -80,11 +80,58 @@
   min-width: 0;
 }
 
+/* На телефоне пара в строку ужимается до полей, где не помещается ни
+   «Уровень шума», ни «Потребление»: видно «Уровень» и «Потребл». Пара
+   встаёт в столбик — характеристику правят по названию, а не угадывают. */
+@media (width < 620px) {
+  .specRow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 8px;
+    align-items: center;
+
+    /* Черта между парами: в столбик они идут подряд с равным зазором, и
+       видно поля, но не видно, где кончается одна характеристика. */
+    border-bottom: 1px solid var(--line-soft);
+    padding-bottom: 12px;
+  }
+
+  .specRow:last-of-type {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .specKey,
+  .specValue {
+    grid-column: 1;
+  }
+
+  /* Крестик остаётся сбоку от обоих полей — он удаляет пару целиком. */
+  .specRow > button {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    align-self: center;
+  }
+}
+
+/* 🔴 Кнопка сохранения липнет к нижнему краю. Форма модели — четыре с
+   половиной экрана: поправив название сверху, владелец листал три экрана
+   вниз ради «Сохранить», и половину правок это просто отменяло. */
 .actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 4;
   display: flex;
   flex-wrap: wrap;
   gap: 10px 14px;
   align-items: center;
+
+  /* Полоса действий отрывается от края карточки на всю её ширину: иначе
+     под липкой строкой просвечивает уезжающее поле. */
+  margin: 0 calc(var(--pad, 0px) * -1);
+  border-top: 1px solid var(--line);
+  background: var(--card);
+  padding: 12px 0 2px;
 }
 
 /* Удаление уводится вправо: рядом с «Сохранить» его нажимают по инерции. */

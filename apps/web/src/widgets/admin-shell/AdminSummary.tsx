@@ -20,9 +20,24 @@ export type ReadinessSummary = {
   readonly unfinished: readonly string[];
 };
 
+/**
+ * Дело из календаря в том виде, в каком его показывает сводка.
+ *
+ * Название вида и день приходят готовыми строками: сводка не знает ни видов
+ * дел, ни часового пояса работ — за них отвечает календарь.
+ */
+export type UpcomingEvent = {
+  readonly id: string;
+  readonly when: string;
+  readonly kind: string;
+  readonly clientName: string;
+  readonly overdue: boolean;
+};
+
 export interface AdminSummaryProps {
   readonly counts: SummaryCounts;
   readonly readiness: ReadinessSummary;
+  readonly upcoming?: readonly UpcomingEvent[] | undefined;
 }
 
 /**
@@ -31,7 +46,7 @@ export interface AdminSummaryProps {
  * Порядок блоков — по срочности, а не по алфавиту разделов: заявка ждёт
  * человека, незаполненные данные компании держат запуск, остальное терпит.
  */
-export function AdminSummary({ counts, readiness }: AdminSummaryProps) {
+export function AdminSummary({ counts, readiness, upcoming = [] }: AdminSummaryProps) {
   return (
     <div className={styles.summary}>
       <Card
@@ -61,6 +76,33 @@ export function AdminSummary({ counts, readiness }: AdminSummaryProps) {
             </Link>
           </>
         )}
+      </Card>
+
+      {/* Что делать сегодня — выше того, сколько чего заведено: за цифрами
+          каталога в панель не заходят, а за «кому позвонить» — да. */}
+      <Card as="section" className={styles.upcoming} aria-labelledby="upcoming-title">
+        <h2 className={styles.cardTitle} id="upcoming-title">
+          {texts.upcomingTitle}
+        </h2>
+
+        {upcoming.length === 0 ? (
+          <p className={styles.text}>{texts.upcomingEmpty}</p>
+        ) : (
+          <ul className={styles.events}>
+            {upcoming.map((event) => (
+              <li className={styles.event} key={event.id}>
+                <span className={styles.eventWhen}>{event.when}</span>
+                <span className={styles.eventKind}>{event.kind}</span>
+                <span className={styles.eventName}>{event.clientName}</span>
+                {event.overdue ? <Badge variant="warning">{texts.upcomingOverdue}</Badge> : null}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <Link className={styles.link} href={{ pathname: '/admin/crm' }}>
+          {texts.upcomingCta}
+        </Link>
       </Card>
 
       <div className={styles.tiles}>

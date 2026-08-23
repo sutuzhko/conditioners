@@ -1,5 +1,5 @@
 /** Данные для историй и тестов сводки. */
-import type { ReadinessSummary, SummaryCounts } from './AdminSummary';
+import type { ReadinessSummary, SummaryCounts, UpcomingEvent } from './AdminSummary';
 
 export const quietCounts: SummaryCounts = {
   newLeads: 0,
@@ -29,3 +29,16 @@ export const unfinishedReadiness: ReadinessSummary = {
   ready: false,
   unfinished: ['company', 'contacts', 'address', 'legal'],
 };
+
+/** Дела на ближайшие дни, включая одно просроченное. */
+export const upcomingEvents: readonly UpcomingEvent[] = [
+  {
+    id: 'e1',
+    when: 'вчера 14:00',
+    kind: 'Звонок',
+    clientName: 'Сергей',
+    overdue: true,
+  },
+  { id: 'e2', when: 'сегодня 18:00', kind: 'Замер', clientName: 'Ирина', overdue: false },
+  { id: 'e3', when: 'завтра 10:00', kind: 'Монтаж', clientName: 'Ольга', overdue: false },
+];

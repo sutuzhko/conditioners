@@ -35,5 +35,17 @@ export const adminSummaryContent = {
   articles: 'Статей',
   articlesNote: 'всего, включая черновики',
 
+  upcomingTitle: 'Ближайшие дела',
+  upcomingNote: 'Из календаря работ. Просроченные показываются первыми.',
+  upcomingEmpty: 'Ничего не запланировано.',
+  upcomingCta: 'Открыть календарь →',
+  /** Просроченное дело помечается словом, а не только цветом. */
+  upcomingOverdue: 'просрочено',
+  /* Ближайшие два дня называются словами: «сегодня 18:00» понятнее даты, а
+     одинокое время без дня в списке из трёх дат читается как опечатка. */
+  upcomingToday: (time: string): string => `сегодня ${time}`,
+  upcomingTomorrow: (time: string): string => `завтра ${time}`,
+  upcomingOn: (date: string, time: string): string => `${date}, ${time}`,
+
   groupTitle: (key: string): string => GROUP_TITLES[key] ?? key,
 } as const;

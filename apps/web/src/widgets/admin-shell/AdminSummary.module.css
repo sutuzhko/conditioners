@@ -89,3 +89,53 @@
   color: var(--faint);
   font-size: var(--fs-caption);
 }
+
+/* Ближайшие дела из календаря. */
+.upcoming {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.events {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.event {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 8px;
+}
+
+.event:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.eventWhen {
+  flex: none;
+  min-width: 9ch;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.eventKind {
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}
+
+.eventName {
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}

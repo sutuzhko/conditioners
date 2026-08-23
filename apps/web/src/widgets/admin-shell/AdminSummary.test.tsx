@@ -8,6 +8,7 @@ import {
   quietCounts,
   readyReadiness,
   unfinishedReadiness,
+  upcomingEvents,
 } from './fixtures';
 import { adminSummaryContent as texts } from './summary-content';
 
@@ -59,5 +60,33 @@ describe('Сводка панели управления', () => {
     const { container } = render(<AdminSummary counts={busyCounts} readiness={readyReadiness} />);
 
     expect(container.querySelectorAll('[class*="urgent"]')).toHaveLength(2);
+  });
+
+  it('показывает ближайшие дела: за ними в панель и заходят', () => {
+    render(
+      <AdminSummary counts={quietCounts} readiness={readyReadiness} upcoming={upcomingEvents} />,
+    );
+
+    expect(screen.getByText('сегодня 18:00')).toBeInTheDocument();
+    expect(screen.getByText('Ирина')).toBeInTheDocument();
+    expect(screen.getByText('Замер')).toBeInTheDocument();
+  });
+
+  it('просроченное дело помечено словом, а не одним цветом', () => {
+    render(
+      <AdminSummary counts={quietCounts} readiness={readyReadiness} upcoming={upcomingEvents} />,
+    );
+
+    expect(screen.getByText(texts.upcomingOverdue)).toBeInTheDocument();
+  });
+
+  it('пустой календарь объясняет пустоту, а не молчит', () => {
+    render(<AdminSummary counts={quietCounts} readiness={readyReadiness} />);
+
+    expect(screen.getByText(texts.upcomingEmpty)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: texts.upcomingCta })).toHaveAttribute(
+      'href',
+      '/admin/crm',
+    );
   });
 });

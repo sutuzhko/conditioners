@@ -72,11 +72,24 @@
   font-size: var(--fs-caption);
 }
 
+/* 🔴 Кнопка сохранения липнет к нижнему краю. Форма модели — четыре с
+   половиной экрана: поправив название сверху, владелец листал три экрана
+   вниз ради «Сохранить», и половину правок это просто отменяло. */
 .actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 4;
   display: flex;
   flex-wrap: wrap;
   gap: 10px 14px;
   align-items: center;
+
+  /* Полоса действий отрывается от края карточки на всю её ширину: иначе
+     под липкой строкой просвечивает уезжающее поле. */
+  margin: 0 calc(var(--pad, 0px) * -1);
+  border-top: 1px solid var(--line);
+  background: var(--card);
+  padding: 12px 0 2px;
 }
 
 .remove {
