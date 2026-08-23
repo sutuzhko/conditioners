@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
 
 import { getAdminSession } from '@/server/auth';
-import { AdminShell } from '@/widgets/admin-shell';
+import { AdminShell, NAV_COOKIE } from '@/widgets/admin-shell';
 
 export const metadata: Metadata = {
   title: { default: 'Панель управления', template: '%s · Панель управления' },
@@ -24,5 +25,14 @@ export default async function AdminPanelLayout({ children }: { children: ReactNo
   const session = await getAdminSession();
   if (session === null) redirect('/admin/login');
 
-  return <AdminShell login={session.login}>{children}</AdminShell>;
+  /* Состояние колонки разделов читается на сервере: развёрнутая по умолчанию
+     панель, схлопывающаяся после гидратации, мигала бы на каждом заходе. */
+  const jar = await cookies();
+  const navOpen = jar.get(NAV_COOKIE)?.value !== 'off';
+
+  return (
+    <AdminShell login={session.login} navOpen={navOpen}>
+      {children}
+    </AdminShell>
+  );
 }

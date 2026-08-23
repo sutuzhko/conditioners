@@ -76,6 +76,13 @@
   color: var(--accent-ink);
 }
 
+/* Оглавление на телефоне прокручивается — кольцо внутрь, иначе край области
+   срежет его у крайних пунктов. */
+.tocLink:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-inset);
+}
+
 .groups {
   display: flex;
   flex-direction: column;

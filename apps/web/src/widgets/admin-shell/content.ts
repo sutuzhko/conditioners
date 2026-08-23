@@ -39,5 +39,8 @@ export const adminShellContent = {
   siteShort: 'Сайт',
   logout: 'Выйти',
   navLabel: 'Разделы панели управления',
+  /** Кнопка колонки разделов: подпись меняется по состоянию. */
+  navHide: 'Скрыть разделы',
+  navShow: 'Показать разделы',
   menu: 'Меню',
 } as const;

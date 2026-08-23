@@ -5,6 +5,8 @@ import { ThemeToggle } from '@/shared/ui';
 
 import { AdminNav } from './AdminNav';
 import { LogoutButton } from './LogoutButton';
+import { NavState } from './NavState';
+import { NavToggle } from './NavToggle';
 import { adminShellContent as texts } from './content';
 import styles from './AdminShell.module.css';
 
@@ -12,27 +14,39 @@ export interface AdminShellProps {
   children: ReactNode;
   /** Логин вошедшего. Из сессии, не из кода: администраторов может быть больше одного. */
   login: string;
+  /**
+   * Была ли колонка разделов развёрнута в прошлый раз. Приходит из cookie,
+   * прочитанной на сервере, — панель не мигает при каждом заходе.
+   */
+  navOpen?: boolean | undefined;
 }
 
 /**
  * Оболочка панели: шапка, боковая навигация, область содержимого.
  *
- * Серверный компонент — клиентскими остаются только подсветка текущего
- * раздела и выход. Данных компании здесь нет намеренно: панель не должна
- * зависеть от того, заполнены они или ещё нет.
+ * Серверный компонент — клиентскими остаются подсветка текущего раздела,
+ * выход и переключатель колонки. Данных компании здесь нет намеренно: панель
+ * не должна зависеть от того, заполнены они или ещё нет.
+ *
+ * Колонка разделов прижата к краю окна, а не вписана в общий контейнер: она
+ * граница рабочей области, и отступ слева читался как «панель не дотянулась».
  */
-export function AdminShell({ children, login }: AdminShellProps) {
+export function AdminShell({ children, login, navOpen = true }: AdminShellProps) {
   return (
-    <div className={styles.shell}>
+    <NavState initialOpen={navOpen}>
       <header className={styles.header}>
-        {/* 🔴 Две подписи вместо одной: на телефоне полные названия уводили
-            шапку на вторую строку — сотня пикселей из восьмисот уходила на
-            то, что и так понятно. Переключает их CSS, а не JS: выбор в JS
-            дал бы либо расхождение гидратации, либо мигание после загрузки. */}
-        <Link className={styles.brand} href={{ pathname: '/admin' }}>
-          <span className={styles.wide}>{texts.brand}</span>
-          <span className={styles.narrow}>{texts.brandShort}</span>
-        </Link>
+        <div className={styles.headerLeft}>
+          <NavToggle />
+
+          {/* 🔴 Две подписи вместо одной: на телефоне полные названия уводили
+              шапку на вторую строку — сотня пикселей из восьмисот уходила на
+              то, что и так понятно. Переключает их CSS, а не JS: выбор в JS
+              дал бы либо расхождение гидратации, либо мигание после загрузки. */}
+          <Link className={styles.brand} href={{ pathname: '/admin' }}>
+            <span className={styles.wide}>{texts.brand}</span>
+            <span className={styles.narrow}>{texts.brandShort}</span>
+          </Link>
+        </div>
 
         <div className={styles.actions}>
           <span className={styles.login}>{login}</span>
@@ -54,6 +68,6 @@ export function AdminShell({ children, login }: AdminShellProps) {
 
         <main className={styles.content}>{children}</main>
       </div>
-    </div>
+    </NavState>
   );
 }

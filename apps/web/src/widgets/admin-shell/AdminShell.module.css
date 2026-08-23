@@ -6,6 +6,9 @@
    шрифты те же, чтобы панель не выглядела чужой программой. */
 
 .shell {
+  /* Ширина колонки разделов: значение нужно и сетке, и её отмене. */
+  --aside-w: 232px;
+
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
@@ -64,11 +67,50 @@
   text-decoration: underline;
 }
 
+/* 🔴 Колонка разделов прижата к краю окна, а не вписана в общий контейнер:
+   она граница рабочей области, и отступ слева читался как «панель не
+   дотянулась до края». Содержимое центрируется в том, что осталось. */
 .body {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: 24px;
+  grid-template-columns: var(--aside-w) minmax(0, 1fr);
   box-sizing: border-box;
+  width: 100%;
+}
+
+/* Колонка убрана: место отдаётся содержимому целиком. Скрывается она через
+   `display: none`, а не нулевую ширину, — иначе разделы остаются в
+   табуляции, невидимые глазу.
+
+   🔴 Вместе с колонкой убирается и её место в сетке. Скрытый элемент выпадает
+   из раскладки, и содержимое съезжало в первую колонку — ту самую, ширины у
+   которой уже не было: страница схлопывалась в четверть экрана. */
+.shell[data-nav='off'] .body {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.aside {
+  /* Навигация остаётся на виду при длинном списке моделей. */
+  position: sticky;
+  top: var(--admin-header-h);
+  align-self: start;
+  box-sizing: border-box;
+  height: calc(100dvh - var(--admin-header-h));
+  overflow-y: auto;
+  border-right: 1px solid var(--line);
+  padding: 16px 12px;
+}
+
+.shell[data-nav='off'] .aside {
+  display: none;
+}
+
+.content {
+  box-sizing: border-box;
+  min-width: 0;
+
+  /* 🔴 Ширина задана явно. Одних `margin: 0 auto` в сетке мало: автоотступы
+     отменяют растяжение ячейки, и содержимое сжималось до своей ширины —
+     таблица каталога занимала половину пустого экрана. */
   width: 100%;
 
   /* Шире сайтовой сетки: в панели таблицы, а не текст — им нужна ширина. */
@@ -77,14 +119,10 @@
   padding: 20px var(--gutter) 48px;
 }
 
-.aside {
-  /* Навигация остаётся на виду при длинном списке моделей. */
-  position: sticky;
-  top: 74px;
-  align-self: start;
-}
-
-.content {
+.headerLeft {
+  display: flex;
+  gap: 10px;
+  align-items: center;
   min-width: 0;
 }
 
@@ -92,10 +130,25 @@
   .body {
     grid-template-columns: minmax(0, 1fr);
     gap: 16px;
+    padding: 16px var(--gutter) 32px;
+  }
+
+  /* На узком экране разделы лежат лентой над содержимым, и прятать их
+     кнопкой нечего: она бы прятала единственную навигацию. */
+  .toggle {
+    display: none;
   }
 
   .aside {
     position: static;
+    height: auto;
+    overflow: visible;
+    border-right: 0;
+    padding: 0;
+  }
+
+  .content {
+    padding: 0;
   }
 
   .login {

@@ -5,6 +5,32 @@
   position: relative;
   border-radius: var(--r-lg);
   overflow: hidden;
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+/* 🔴 Отклик на наведение. Карточка открывает отзыв целиком по нажатию, но
+   выглядела неподвижной — по ней не было видно, что она кликабельна, и
+   половина людей до полного текста не доходила.
+
+   Приподнимается сама карточка, а не кнопка поверх неё: ховер ловится на
+   `:has()`, потому что курсор физически стоит на кнопке, растянутой по всей
+   площади. */
+.card:has(.hit:hover),
+.card:has(.hit:focus-visible) {
+  border-color: var(--accent-line);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+/* Тем, кто просил меньше движения, остаются рамка и тень. */
+@media (prefers-reduced-motion: reduce) {
+  .card:has(.hit:hover),
+  .card:has(.hit:focus-visible) {
+    transform: none;
+  }
 }
 
 /* 🔴 Кнопка растянута поверх карточки и прозрачна: нажимается вся площадь,
@@ -14,6 +40,11 @@
   position: absolute;
   inset: 0;
   border: 0;
+
+  /* 🔴 Радиус берётся у карточки. Без него кольцо фокуса рисовалось по
+     прямоугольнику кнопки: углы уходили под скругление карточки, и рамка
+     выглядела обрезанной с боков. */
+  border-radius: inherit;
   padding: 0;
   background: none;
   cursor: pointer;
