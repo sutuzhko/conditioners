@@ -1,6 +1,6 @@
 'use client';
 
-import type { InputHTMLAttributes } from 'react';
+import type { InputHTMLAttributes, Ref } from 'react';
 import { Field } from '../internal/Field';
 import { useFieldIds } from '../internal/useFieldIds';
 import control from '../internal/control.module.css';
@@ -12,6 +12,8 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
   error?: string | undefined;
   /** класс на обёртку, а не на само поле — им управляет раскладка формы */
   wrapperClassName?: string | undefined;
+  /** Ссылка на само поле: нужна маске телефона, чтобы вернуть курсор на место. */
+  ref?: Ref<HTMLInputElement> | undefined;
 }
 
 export function Input({

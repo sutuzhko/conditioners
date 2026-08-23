@@ -7,6 +7,8 @@ import { reminderFormContent as texts } from './content';
 import { phoneFixture, policyHrefFixture } from './fixtures';
 
 const PHONE = '+79051234567';
+/** Что уходит на сервер: маска приводит набранное к одному виду. */
+const MASKED_PHONE = '+7 (905) 123-45-67';
 
 function setup(props: Partial<Parameters<typeof ReminderForm>[0]> = {}) {
   const submit = vi.fn<ReminderSubmit>(() => Promise.resolve({ ok: true, id: 'lead-1' }));
@@ -62,7 +64,7 @@ describe('ReminderForm', () => {
     expect(submit).toHaveBeenCalledTimes(1);
 
     const sent = fieldsOf(submit.mock.calls[0]?.[0] as FormData);
-    expect(sent.phone).toBe(PHONE);
+    expect(sent.phone).toBe(MASKED_PHONE);
     expect(sent.when).toBe('Стоит больше двух лет');
     expect(sent.consent).toBe('true');
   });

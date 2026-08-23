@@ -34,6 +34,7 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
         path: 'phones',
         label: 'Телефоны',
         kind: 'list',
+        mask: 'phone',
         itemLabel: 'Телефон',
         hint: 'Первый показывается в шапке. Номер приводится к единому виду при сохранении',
       },
@@ -204,7 +205,7 @@ export const NOTIFICATIONS_GROUP: GroupDescriptor = {
       path: 'telegramChatId',
       label: 'Чат или канал',
       kind: 'text',
-      hint: 'Идентификатор чата, куда пишет бот. Пусто — берётся значение из настроек сервера',
+      hint: 'Числовой id чата (у групп он отрицательный) или @имя канала. Пусто — берётся значение из настроек сервера',
     },
     { path: 'email', label: 'Отправлять на почту', kind: 'checkbox' },
     {

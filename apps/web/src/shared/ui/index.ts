@@ -33,6 +33,8 @@ export type { SkeletonProps, SkeletonVariant } from './Skeleton/Skeleton';
 
 export { Input } from './Input/Input';
 export type { InputProps } from './Input/Input';
+export { PhoneInput } from './Input/PhoneInput';
+export type { PhoneInputProps } from './Input/PhoneInput';
 
 export { Textarea } from './Textarea/Textarea';
 export type { TextareaProps } from './Textarea/Textarea';

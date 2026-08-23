@@ -176,6 +176,7 @@ function Field({
         label={field.label}
         itemLabel={field.itemLabel ?? field.label}
         hint={field.hint}
+        mask={field.mask}
         values={asList(value)}
         disabled={disabled}
         onChange={onChange}

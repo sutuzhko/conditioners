@@ -54,6 +54,26 @@ describe('LeadForm', () => {
     expect(screen.getByText('Похоже, в номере не хватает цифр')).toBeInTheDocument();
   });
 
+  it('🔴 маска ведёт набор: восьмёрку заменяет кодом страны, разделители ставит сама', async () => {
+    const user = userEvent.setup();
+    setup();
+
+    const phone = screen.getByLabelText(/Телефон/);
+    await user.type(phone, '89001234567');
+
+    expect(phone).toHaveValue('+7 (900) 123-45-67');
+  });
+
+  it('лишние цифры в номер не влезают: длиннее российского номера не бывает', async () => {
+    const user = userEvent.setup();
+    setup();
+
+    const phone = screen.getByLabelText(/Телефон/);
+    await user.type(phone, '900123456789999');
+
+    expect(phone).toHaveValue('+7 (900) 123-45-67');
+  });
+
   it('успешная отправка показывает подтверждение и объявляет его', async () => {
     const user = userEvent.setup();
     const onSuccess = vi.fn();
@@ -69,7 +89,9 @@ describe('LeadForm', () => {
 
     const sent = submit.mock.calls[0]?.[0];
     expect(sent?.get('name')).toBe('Ирина');
-    expect(sent?.get('phone')).toBe('+7 900 123-45-67');
+    // 🔴 маска приводит набранное к одному виду: в заявку и в уведомление
+    // уходит номер, который можно набрать не глядя
+    expect(sent?.get('phone')).toBe('+7 (900) 123-45-67');
     expect(sent?.get('consent')).toBe('true');
     // 🔴 канонический контракт (docs/API.md §8) называет поле `callTime`, а не `time`
     expect(sent?.has('time')).toBe(false);

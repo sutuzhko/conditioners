@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 
-import { Button, Checkbox, Input, Select, type ButtonLinkHref } from '@/shared/ui';
+import { Button, Checkbox, PhoneInput, Select, type ButtonLinkHref } from '@/shared/ui';
 
 import { WHEN_OPTIONS, reminderFormContent as texts } from './content';
 import {
@@ -188,15 +188,11 @@ export function ReminderForm({
         {announcement}
       </p>
 
-      <Input
+      <PhoneInput
         name="phone"
-        type="tel"
-        inputMode="tel"
-        autoComplete="tel"
         label={texts.phoneLabel}
-        placeholder={texts.phonePlaceholder}
         value={values.phone}
-        onChange={(event) => changeValue({ phone: event.target.value }, 'phone')}
+        onChange={(phone) => changeValue({ phone }, 'phone')}
         error={errors.phone}
         required
       />

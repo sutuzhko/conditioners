@@ -10,6 +10,7 @@ import {
   Checkbox,
   FileInput,
   Input,
+  PhoneInput,
   Select,
   Textarea,
   type ButtonLinkHref,
@@ -257,17 +258,13 @@ export function LeadForm({
               error={errors.name}
               onChange={(event) => changeValue({ name: event.target.value }, 'name')}
             />
-            <Input
+            <PhoneInput
               name="phone"
-              type="tel"
-              inputMode="tel"
               label={texts.phoneLabel}
-              placeholder={texts.phonePlaceholder}
-              autoComplete="tel"
               required
               value={values.phone}
               error={errors.phone}
-              onChange={(event) => changeValue({ phone: event.target.value }, 'phone')}
+              onChange={(phone) => changeValue({ phone }, 'phone')}
             />
           </div>
 

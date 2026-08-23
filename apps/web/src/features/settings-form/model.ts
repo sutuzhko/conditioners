@@ -43,6 +43,11 @@ export type FieldDescriptor = {
   readonly maxItems?: number;
   /** Варианты для `select`. */
   readonly options?: readonly string[];
+  /**
+   * Маска ввода. Телефон в админке набирают так же, как на сайте, — и
+   * приводить его к единому виду должен тот же код, а не привычка владельца.
+   */
+  readonly mask?: 'phone';
   readonly placeholder?: string;
 };
 
