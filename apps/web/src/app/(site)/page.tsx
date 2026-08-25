@@ -68,6 +68,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
+  /* Момент рендера — один на страницу: серверная разметка, JSON-LD и
+     клиентская гидратация подбора считают скидку от одной и той же точки.
+     Часовое окно ISR для истёкшей скидки — осознанный допуск (ADR-101). */
+  const now = new Date();
+
   const [rawProducts, { prices, extras }, settings, reviews, articles] = await Promise.all([
     listVisible(),
     getPrices(),
@@ -138,7 +143,7 @@ export default async function HomePage() {
   const catalogList = buildCatalogItemListJsonLd({
     siteUrl: env.SITE_URL,
     name: catalogText.title,
-    items: visibleProducts.map((product) => ({ product, price: getActivePrice(product) })),
+    items: visibleProducts.map((product) => ({ product, price: getActivePrice(product, now) })),
   });
 
   return (
@@ -150,6 +155,7 @@ export default async function HomePage() {
       <ScrollTop />
       <Hero
         products={products}
+        now={now}
         weather={weather}
         city={settings.address.city}
         stats={settings.achievements.items}
