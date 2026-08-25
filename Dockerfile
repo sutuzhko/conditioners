@@ -21,7 +21,7 @@ WORKDIR /app
 FROM base AS deps
 COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml .npmrc ./
 COPY apps/web/package.json ./apps/web/
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile || pnpm install
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY apps/web/prisma ./apps/web/prisma
 RUN pnpm --filter web exec prisma generate
 
