@@ -1,0 +1,39 @@
+/* Выбор темы: три состояния вместо переключателя в шапке. */
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.option {
+  padding: 8px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--body);
+  font-family: inherit;
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) ease,
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease;
+}
+
+.option:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+
+.option:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.active {
+  border-color: var(--accent-ink);
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
