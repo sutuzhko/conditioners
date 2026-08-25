@@ -8,6 +8,7 @@ import { isTelegramConfigured } from '@/server/notifications/channels/telegram';
 import { loadNotificationPrefs } from '@/server/notifications/prefs';
 import { deliverySummary, recentFailures } from '@/server/repo/notifications';
 import { getGroup } from '@/server/repo/settings';
+import { env } from '@/shared/config/env';
 import { Badge, Card } from '@/shared/ui';
 
 import styles from './page.module.css';
@@ -75,6 +76,16 @@ export default async function AdminNotificationsPage() {
         <h1 className={styles.title}>{texts.title}</h1>
         <p className={styles.lead}>{texts.lead}</p>
       </header>
+
+      {/* Режим журнала неотличим от рабочего изнутри панели: каналы отвечают
+          «настроен», доставка пишет «отправлено» — а наружу не уходит ничего.
+          Баннер — единственное место, где это видно (аудит, BUGS). */}
+      {env.NOTIFY_DRIVER === 'log' ? (
+        <Card variant="accent" padding="md" className={styles.none}>
+          <p className={styles.noneTitle}>{texts.logDriverTitle}</p>
+          <p className={styles.noneText}>{texts.logDriverText}</p>
+        </Card>
+      ) : null}
 
       <Card variant="soft" padding="lg" className={styles.always}>
         <p className={styles.alwaysTitle}>{texts.alwaysTitle}</p>

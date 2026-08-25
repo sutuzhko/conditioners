@@ -93,4 +93,20 @@ describe('Раздел «Уведомления»', () => {
     expect(container.textContent).not.toContain('token');
     expect(container.textContent).not.toContain('smtp.example.test');
   });
+
+  it('🔴 режим журнала виден баннером: снаружи он неотличим от рабочего', async () => {
+    testEnv.NOTIFY_DRIVER = 'log';
+
+    render(await NotificationsPage());
+
+    expect(screen.getByText(texts.logDriverTitle)).toBeInTheDocument();
+  });
+
+  it('в боевом режиме баннера про журнал нет', async () => {
+    testEnv.NOTIFY_DRIVER = 'live';
+
+    render(await NotificationsPage());
+
+    expect(screen.queryByText(texts.logDriverTitle)).not.toBeInTheDocument();
+  });
 });
