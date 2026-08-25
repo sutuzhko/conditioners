@@ -1,11 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+
+import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
 
 import { PricesForm } from './PricesForm';
 import { pricesFormContent as texts } from './content';
 import { emptyExtras, emptyPrices, failingSave, filledPrices, pendingSave } from './fixtures';
-import { toRequestBody } from './lib';
+import { putPrices, toRequestBody } from './lib';
 
 describe('Прайс — тело запроса', () => {
   it('уходит целиком: контракт заменяет таблицу, а не правит строку', () => {
@@ -29,6 +31,56 @@ describe('Прайс — тело запроса', () => {
 
     expect(Array.isArray(body.prices)).toBe(true);
     expect((body.prices as { price: unknown }[])[0]?.price).toBe('5500');
+  });
+});
+
+describe('Прайс — отправка', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('сообщение сервера доносится как есть', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(
+        async () =>
+          new Response(
+            JSON.stringify({ error: { code: 'validation_error', message: 'Хотя бы одна строка' } }),
+            { status: 422 },
+          ),
+      ),
+    );
+
+    await expect(putPrices(filledPrices)).resolves.toEqual({
+      ok: false,
+      message: 'Хотя бы одна строка',
+    });
+  });
+
+  it('истёкшая сессия объясняется общим текстом панели: своего у фичи нет', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response(null, { status: 401 })),
+    );
+
+    await expect(putPrices(filledPrices)).resolves.toEqual({
+      ok: false,
+      message: ADMIN_API_TEXTS.session,
+    });
+  });
+
+  it('упавшая сеть сообщает, что изменения не сохранены', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => {
+        throw new TypeError('Failed to fetch');
+      }),
+    );
+
+    await expect(putPrices(filledPrices)).resolves.toEqual({
+      ok: false,
+      message: texts.networkError,
+    });
   });
 });
 

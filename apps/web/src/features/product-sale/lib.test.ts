@@ -1,8 +1,10 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+
+import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
 
 import { productSaleContent as texts } from './content';
 import { activeSale, expiredSale, higherThanBase, nowFixture, priceFixture } from './fixtures';
-import { explainInactive, previewSale, toSaleBody } from './lib';
+import { explainInactive, patchSale, previewSale, toSaleBody } from './lib';
 import { emptySaleValues } from './model';
 
 describe('Скидка — предпросмотр', () => {
@@ -73,5 +75,64 @@ describe('Скидка — тело запроса', () => {
 
   it('пустая подпись уходит как null, а не пустой строкой', () => {
     expect(toSaleBody({ ...activeSale, saleLabel: '   ' })).toMatchObject({ saleLabel: null });
+  });
+});
+
+describe('Скидка — отправка', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('200 — сохранено', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response('{}', { status: 200 })),
+    );
+
+    await expect(patchSale('m1', activeSale)).resolves.toEqual({ ok: true });
+  });
+
+  it('сообщение сервера доносится как есть', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(
+        async () =>
+          new Response(
+            JSON.stringify({ error: { code: 'validation_error', message: 'Проверьте даты' } }),
+            { status: 422 },
+          ),
+      ),
+    );
+
+    await expect(patchSale('m1', activeSale)).resolves.toEqual({
+      ok: false,
+      message: 'Проверьте даты',
+    });
+  });
+
+  it('истёкшая сессия объясняется общим текстом панели: своего у фичи нет', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response(null, { status: 401 })),
+    );
+
+    await expect(patchSale('m1', activeSale)).resolves.toEqual({
+      ok: false,
+      message: ADMIN_API_TEXTS.session,
+    });
+  });
+
+  it('упавшая сеть сообщает, что изменения не сохранены', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => {
+        throw new TypeError('Failed to fetch');
+      }),
+    );
+
+    await expect(patchSale('m1', activeSale)).resolves.toEqual({
+      ok: false,
+      message: texts.networkError,
+    });
   });
 });

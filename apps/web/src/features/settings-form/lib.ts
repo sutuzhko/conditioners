@@ -1,7 +1,13 @@
 /** Чтение и запись значения по пути, отправка группы — контракт docs/API.md §5. */
 import type { SettingKey } from '@/entities/settings/model';
+import { adminRequest, jsonInit } from '@/shared/lib/api';
 
 import type { GroupValue, SaveResult } from './model';
+
+/** Сужение вместо приведения типа: `as` на проекте запрещён. */
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
+}
 
 /**
  * Значение по пути вида `messengerButtons.telegram`.
@@ -12,8 +18,8 @@ import type { GroupValue, SaveResult } from './model';
 export function readPath(value: GroupValue, path: string): unknown {
   let current: unknown = value;
   for (const step of path.split('.')) {
-    if (typeof current !== 'object' || current === null) return undefined;
-    current = (current as Record<string, unknown>)[step];
+    if (!isRecord(current)) return undefined;
+    current = current[step];
   }
   return current;
 }
@@ -29,66 +35,38 @@ export function writePath(value: GroupValue, path: string, next: unknown): Group
   if (rest.length === 0) return { ...value, [head]: next };
 
   const nested = value[head];
-  const base: GroupValue =
-    typeof nested === 'object' && nested !== null ? { ...(nested as GroupValue) } : {};
+  const base: GroupValue = isRecord(nested) ? { ...nested } : {};
 
   return { ...value, [head]: writePath(base, rest.join('.'), next) };
 }
 
-/**
- * Тело ошибки — `{ error: { code, message, field? } }` (docs/API.md §13).
- *
- * Поле одно, а не список: сервер отвечает по первой непройденной проверке
- * Zod. Форма показывает его у нужного поля и общее сообщение над кнопкой.
+/*
+ * Формулировки этой формы, включая её собственный текст про сессию. Они жили
+ * прямо здесь до общего хелпера — в content.ts не переносятся, чтобы миграция
+ * не меняла видимых владельцу слов (ADR-030).
  */
-type ApiErrorBody = {
-  readonly code?: string;
-  readonly message?: string;
-  readonly field?: string;
-};
-
-function readApiError(payload: unknown): ApiErrorBody | undefined {
-  if (typeof payload !== 'object' || payload === null) return undefined;
-  const error = (payload as { error?: unknown }).error;
-  if (typeof error !== 'object' || error === null) return undefined;
-
-  const { code, message, field } = error as Record<string, unknown>;
-  return {
-    ...(typeof code === 'string' ? { code } : {}),
-    ...(typeof message === 'string' ? { message } : {}),
-    ...(typeof field === 'string' && field !== '' ? { field } : {}),
-  };
-}
+const SAVE_TEXTS = {
+  network: 'Не удалось связаться с сервером. Изменения не сохранены',
+  server: 'Сервер не принял изменения. Попробуйте ещё раз',
+  session: 'Сессия истекла. Войдите заново',
+} as const;
 
 export async function putGroup(key: SettingKey, value: GroupValue): Promise<SaveResult> {
-  let response: Response;
-  try {
-    response = await fetch(`/api/admin/settings/${key}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(value),
-    });
-  } catch {
-    return { ok: false, message: 'Не удалось связаться с сервером. Изменения не сохранены' };
-  }
+  // общий разбор ответа админского API (ADR-030): свои остаются только формулировки
+  const result = await adminRequest(
+    `/api/admin/settings/${key}`,
+    jsonInit('PUT', value),
+    SAVE_TEXTS,
+  );
 
-  if (response.ok) return { ok: true };
-
-  if (response.status === 401) {
-    return { ok: false, message: 'Сессия истекла. Войдите заново' };
-  }
-
-  /* Тело ошибки может не быть JSON — например, если запрос не дошёл до
-     обработчика. Разбор не должен превращать отказ сервера в отказ разбора. */
-  const error = readApiError(await response.json().catch(() => null));
+  if (result.ok) return { ok: true };
 
   /* Сообщение Zod объясняет, что именно не так («Проверьте адрес почты»), и
-     оно точнее любого нашего обобщения — показываем его как есть. */
-  const message = error?.message ?? 'Сервер не принял изменения. Попробуйте ещё раз';
-
-  if (error?.field !== undefined) {
-    return { ok: false, message, fieldErrors: { [error.field]: message } };
+     оно точнее любого нашего обобщения — показываем его как есть. Если сервер
+     назвал поле, то же сообщение встаёт рядом с этим полем. */
+  if (result.field !== undefined) {
+    return { ok: false, message: result.message, fieldErrors: { [result.field]: result.message } };
   }
 
-  return { ok: false, message };
+  return { ok: false, message: result.message };
 }

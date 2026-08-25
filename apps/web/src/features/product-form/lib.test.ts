@@ -1,6 +1,7 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { toRequestBody } from './lib';
+import { productFormContent as texts } from './content';
+import { createProduct, deleteProduct, toRequestBody } from './lib';
 import { filledProduct } from './fixtures';
 
 describe('Модель каталога — тело запроса', () => {
@@ -54,5 +55,76 @@ describe('Модель каталога — тело запроса', () => {
     expect(body).not.toHaveProperty('salePrice');
     expect(body).not.toHaveProperty('saleFrom');
     expect(body).not.toHaveProperty('discountPercent');
+  });
+});
+
+describe('Модель каталога — отправка', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('201 отдаёт id созданной модели', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response(JSON.stringify({ id: 'm1' }), { status: 201 })),
+    );
+
+    await expect(createProduct(filledProduct)).resolves.toEqual({ ok: true, id: 'm1' });
+  });
+
+  it('ошибка валидации доносит сообщение сервера и поле', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(
+        async () =>
+          new Response(
+            JSON.stringify({
+              error: { code: 'validation_error', message: 'Укажите цену', field: 'priceNum' },
+            }),
+            { status: 422 },
+          ),
+      ),
+    );
+
+    await expect(createProduct(filledProduct)).resolves.toEqual({
+      ok: false,
+      message: 'Укажите цену',
+      field: 'priceNum',
+    });
+  });
+
+  it('истёкшая сессия объясняется своим текстом, а не «сервер не принял»', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response(null, { status: 401 })),
+    );
+
+    await expect(createProduct(filledProduct)).resolves.toEqual({
+      ok: false,
+      message: texts.sessionError,
+    });
+  });
+
+  it('отказ без внятного конверта показывает текст фичи', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response('<html>502</html>', { status: 502 })),
+    );
+
+    await expect(deleteProduct('m1')).resolves.toEqual({ ok: false, message: texts.serverError });
+  });
+
+  it('упавшая сеть сообщает, что изменения не сохранены', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => {
+        throw new TypeError('Failed to fetch');
+      }),
+    );
+
+    await expect(createProduct(filledProduct)).resolves.toEqual({
+      ok: false,
+      message: texts.networkError,
+    });
   });
 });

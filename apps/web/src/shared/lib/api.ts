@@ -29,3 +29,69 @@ export type ApiErrorEnvelope = z.infer<typeof apiErrorSchema>;
 export const createdSchema = z.object({ id: z.string().min(1) });
 
 export type Created = z.infer<typeof createdSchema>;
+
+/**
+ * Общий запрос админских фич к API панели.
+ *
+ * До него девять фич держали свои копии fetch-обёртки на каскадах приведений,
+ * и обработка 401 успела разойтись: шесть из девяти показывали владельцу
+ * «сервер не принял изменения» вместо «войдите заново» (аудит, BUGS; ADR-030
+ * предписывал общую деталь с самого начала). Ответ сервера — внешние данные,
+ * поэтому конверт ошибки разбирается схемой, а не приведением типа.
+ */
+export type AdminRequestResult =
+  | { readonly ok: true; readonly payload: unknown }
+  | {
+      readonly ok: false;
+      readonly message: string;
+      /** Поле формы из ошибки валидации — если сервер его назвал. */
+      readonly field?: string;
+      /** 401: чинить нужно не форму, а сессию — войти заново. */
+      readonly unauthorized?: boolean;
+    };
+
+export type AdminRequestTexts = {
+  /** Сеть недоступна или запрос оборвался. */
+  readonly network: string;
+  /** Сервер ответил отказом без внятного текста. */
+  readonly server: string;
+  /** 401 — сессия истекла. */
+  readonly session: string;
+};
+
+export async function adminRequest(
+  url: string,
+  init: RequestInit,
+  texts: AdminRequestTexts,
+): Promise<AdminRequestResult> {
+  let response: Response;
+  try {
+    response = await fetch(url, init);
+  } catch {
+    return { ok: false, message: texts.network };
+  }
+
+  if (response.status === 401) {
+    return { ok: false, message: texts.session, unauthorized: true };
+  }
+
+  const payload: unknown = await response.json().catch(() => null);
+
+  if (response.ok) return { ok: true, payload };
+
+  const parsed = apiErrorSchema.safeParse(payload);
+  if (!parsed.success) return { ok: false, message: texts.server };
+
+  const { message, field } = parsed.data.error;
+  return { ok: false, message, ...(field === undefined || field === '' ? {} : { field }) };
+}
+
+/** JSON-запрос: заголовок и сериализация тела в одном месте. */
+export function jsonInit(method: string, body?: unknown): RequestInit {
+  return {
+    method,
+    ...(body === undefined
+      ? {}
+      : { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }),
+  };
+}

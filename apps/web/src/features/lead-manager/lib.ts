@@ -1,25 +1,17 @@
 /** Правка заявки — контракт docs/API.md §8. */
+import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
+import { adminRequest, jsonInit } from '@/shared/lib/api';
+
 import { leadManagerContent as texts } from './content';
 import type { LeadPatch, LeadUpdateResult } from './model';
 
 export async function patchLead(id: string, patch: LeadPatch): Promise<LeadUpdateResult> {
-  try {
-    const response = await fetch(`/api/admin/leads/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(patch),
-    });
+  // общий разбор ответа (ADR-030): свои остаются только формулировки фичи
+  const result = await adminRequest(`/api/admin/leads/${id}`, jsonInit('PATCH', patch), {
+    ...ADMIN_API_TEXTS,
+    network: texts.networkError,
+    server: texts.serverError,
+  });
 
-    if (response.ok) return { ok: true };
-
-    const payload: unknown = await response.json().catch(() => null);
-    const error = (payload as { error?: { message?: unknown } } | null)?.error;
-
-    return {
-      ok: false,
-      message: typeof error?.message === 'string' ? error.message : texts.serverError,
-    };
-  } catch {
-    return { ok: false, message: texts.networkError };
-  }
+  return result.ok ? { ok: true } : { ok: false, message: result.message };
 }

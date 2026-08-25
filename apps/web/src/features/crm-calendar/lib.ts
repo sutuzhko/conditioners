@@ -1,5 +1,7 @@
 /** Правка календаря — маршруты `/api/admin/crm`. */
 import type { CrmEventStatus } from '@/entities/crm/model';
+import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
+import { adminRequest, jsonInit } from '@/shared/lib/api';
 
 import { crmContent as texts } from './content';
 import type { CrmEventDraft, CrmResult } from './model';
@@ -19,26 +21,14 @@ function payloadOf(draft: CrmEventDraft): Record<string, string | null> {
 }
 
 async function send(url: string, method: string, body?: unknown): Promise<CrmResult> {
-  try {
-    const response = await fetch(url, {
-      method,
-      ...(body === undefined
-        ? {}
-        : { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }),
-    });
+  // общий разбор ответа (ADR-030): свои остаются только формулировки фичи
+  const result = await adminRequest(url, jsonInit(method, body), {
+    ...ADMIN_API_TEXTS,
+    network: texts.failure,
+    server: texts.failure,
+  });
 
-    if (response.ok) return { ok: true };
-
-    const payload: unknown = await response.json().catch(() => null);
-    const error = (payload as { error?: { message?: unknown } } | null)?.error;
-
-    return {
-      ok: false,
-      message: typeof error?.message === 'string' ? error.message : texts.failure,
-    };
-  } catch {
-    return { ok: false, message: texts.failure };
-  }
+  return result.ok ? { ok: true } : { ok: false, message: result.message };
 }
 
 export function createEvent(draft: CrmEventDraft): Promise<CrmResult> {

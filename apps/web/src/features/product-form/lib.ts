@@ -1,5 +1,6 @@
 /** Приведение модели к форме и обратно, отправка — контракт docs/API.md §3. */
 import type { Product } from '@/entities/product/model';
+import { adminRequest, createdSchema, jsonInit } from '@/shared/lib/api';
 
 import { productFormContent as texts } from './content';
 import { emptyProductValues, type ProductFormValues, type ProductSaveResult } from './model';
@@ -62,50 +63,29 @@ export function toRequestBody(values: ProductFormValues): Record<string, unknown
   };
 }
 
-type ApiError = { readonly message?: string; readonly field?: string };
-
-function readError(payload: unknown): ApiError | undefined {
-  if (typeof payload !== 'object' || payload === null) return undefined;
-  const error = (payload as { error?: unknown }).error;
-  if (typeof error !== 'object' || error === null) return undefined;
-
-  const { message, field } = error as Record<string, unknown>;
-  return {
-    ...(typeof message === 'string' ? { message } : {}),
-    ...(typeof field === 'string' && field !== '' ? { field } : {}),
-  };
-}
+/* Общий разбор ответа (ADR-030): фича оставляет только свои формулировки. */
+const FORM_TEXTS = {
+  network: texts.networkError,
+  server: texts.serverError,
+  session: texts.sessionError,
+};
 
 async function send(
   url: string,
   method: 'POST' | 'PUT',
   values: ProductFormValues,
 ): Promise<ProductSaveResult> {
-  let response: Response;
-  try {
-    response = await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(toRequestBody(values)),
-    });
-  } catch {
-    return { ok: false, message: texts.networkError };
+  const result = await adminRequest(url, jsonInit(method, toRequestBody(values)), FORM_TEXTS);
+
+  if (result.ok) {
+    const created = createdSchema.safeParse(result.payload);
+    return { ok: true, id: created.success ? created.data.id : '' };
   }
 
-  if (response.status === 401) return { ok: false, message: texts.sessionError };
-
-  const payload: unknown = await response.json().catch(() => null);
-
-  if (response.ok) {
-    const id = (payload as { id?: unknown } | null)?.id;
-    return { ok: true, id: typeof id === 'string' ? id : '' };
-  }
-
-  const error = readError(payload);
   return {
     ok: false,
-    message: error?.message ?? texts.serverError,
-    ...(error?.field === undefined ? {} : { field: error.field }),
+    message: result.message,
+    ...(result.field === undefined ? {} : { field: result.field }),
   };
 }
 
@@ -118,14 +98,8 @@ export function updateProduct(id: string, values: ProductFormValues): Promise<Pr
 }
 
 export async function deleteProduct(id: string): Promise<{ ok: boolean; message?: string }> {
-  try {
-    const response = await fetch(`/api/admin/models/${id}`, { method: 'DELETE' });
-    if (response.ok) return { ok: true };
-    if (response.status === 401) return { ok: false, message: texts.sessionError };
-    return { ok: false, message: texts.serverError };
-  } catch {
-    return { ok: false, message: texts.networkError };
-  }
+  const result = await adminRequest(`/api/admin/models/${id}`, { method: 'DELETE' }, FORM_TEXTS);
+  return result.ok ? { ok: true } : { ok: false, message: result.message };
 }
 
 export { emptyProductValues };

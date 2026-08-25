@@ -1,6 +1,8 @@
 /** Разбор формы скидки и отправка — контракт docs/API.md §3. */
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import type { ActivePrice } from '@/entities/product/model';
+import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
+import { adminRequest, jsonInit } from '@/shared/lib/api';
 
 import { productSaleContent as texts } from './content';
 import type { SaleFormValues, SaleResult } from './model';
@@ -74,21 +76,12 @@ export function toSaleBody(values: SaleFormValues): Record<string, unknown> {
 }
 
 export async function patchSale(productId: string, values: SaleFormValues): Promise<SaleResult> {
-  try {
-    const response = await fetch(`/api/admin/models/${productId}/sale`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(toSaleBody(values)),
-    });
+  // Общий разбор ответа (ADR-030): свои остаются только формулировки фичи.
+  const result = await adminRequest(
+    `/api/admin/models/${productId}/sale`,
+    jsonInit('PATCH', toSaleBody(values)),
+    { ...ADMIN_API_TEXTS, network: texts.networkError, server: texts.serverError },
+  );
 
-    if (response.ok) return { ok: true };
-
-    const payload: unknown = await response.json().catch(() => null);
-    const error = (payload as { error?: { message?: unknown } } | null)?.error;
-    const message = typeof error?.message === 'string' ? error.message : texts.serverError;
-
-    return { ok: false, message };
-  } catch {
-    return { ok: false, message: texts.networkError };
-  }
+  return result.ok ? { ok: true } : { ok: false, message: result.message };
 }
