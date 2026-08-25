@@ -17,10 +17,10 @@ if [ ! -f .env.prod ]; then
 	exit 1
 fi
 
-echo "[1/5] база"
+echo "[1/6] база"
 "${COMPOSE[@]}" up -d db
 
-echo "[2/5] жду готовности базы"
+echo "[2/6] жду готовности базы"
 for _ in $(seq 1 60); do
 	state="$("${COMPOSE[@]}" ps db --format '{{.Health}}' 2>/dev/null || echo '')"
 	[ "${state}" = "healthy" ] && break
@@ -31,15 +31,27 @@ done
 	exit 1
 }
 
-echo "[3/5] миграции"
+echo "[3/6] дамп перед миграциями"
+# Упавшая миграция лечится руками (migrate resolve, DEPLOY.md §4), и для
+# этого нужен срез «за минуту до», а не вчерашний ночной бэкап. На первом
+# деплое дамп пустой схемы — это нормально.
+BACKUP_DIR="${BACKUP_DIR:-/var/backups/tulaklimat}"
+mkdir -p "${BACKUP_DIR}"
+"${COMPOSE[@]}" exec -T db \
+	sh -c 'pg_dump -Fc -U "$POSTGRES_USER" -d "$POSTGRES_DB"' \
+	>"${BACKUP_DIR}/predeploy_$(date +%Y-%m-%d_%H-%M).dump"
+# срезы перед деплоем живут по тем же правилам, что ночные (infra/backup.sh)
+find "${BACKUP_DIR}" -maxdepth 1 -name 'predeploy_*.dump' -mtime "+${KEEP_DAYS:-30}" -delete
+
+echo "[4/6] миграции"
 # --build обязателен: без него run берёт образ прошлого релиза, и свежие
 # миграции применяются не до сборки, а вместе с запуском (ADR-089)
 "${COMPOSE[@]}" run --build --rm migrate
 
-echo "[4/5] сборка образов"
+echo "[5/6] сборка образов"
 "${COMPOSE[@]}" build
 
-echo "[5/5] запуск"
+echo "[6/6] запуск"
 "${COMPOSE[@]}" up -d
 
 echo
