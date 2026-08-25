@@ -85,7 +85,14 @@ CMD ["node", "apps/web/server.js"]
 # Тот же исходник, что в деве, — расхождения поведения очереди между средами
 # взяться неоткуда (ADR-062).
 FROM build AS worker
-ENV NODE_ENV=production
+ENV NODE_ENV=production COREPACK_HOME=/pnpm/corepack
+# Воркер ходит во внешнюю сеть и пишет в том загрузок — root ему ни к чему.
+# Кеш corepack наполняется заранее под root и открывается на чтение: иначе
+# запуск pnpm под nextjs полез бы в сеть за самим pnpm при старте контейнера.
+RUN corepack prepare && chmod -R a+rX /pnpm/corepack \
+ && addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001 \
+ && mkdir -p /data/uploads && chown -R nextjs:nodejs /data
+USER nextjs
 CMD ["pnpm", "--filter", "web", "worker"]
 
 # ---------- migrate ----------
@@ -95,5 +102,9 @@ CMD ["pnpm", "--filter", "web", "worker"]
 # упирается в круг «миграции требуют образ, образ требует миграций» (ADR-089).
 # В deps уже есть Prisma CLI и каталог prisma со схемой и миграциями.
 FROM deps AS migrate
-ENV NODE_ENV=production
+ENV NODE_ENV=production COREPACK_HOME=/pnpm/corepack
+# Миграциям root тоже не нужен: процесс короткоживущий, но принцип один
+RUN corepack prepare && chmod -R a+rX /pnpm/corepack \
+ && addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
+USER nextjs
 CMD ["pnpm", "--filter", "web", "exec", "prisma", "migrate", "deploy"]
