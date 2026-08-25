@@ -87,8 +87,13 @@ export async function setStatus(id: string, status: ReviewStatusApi): Promise<Re
   return toDto(row);
 }
 
-export async function remove(id: string): Promise<void> {
-  const exists = await db.review.findUnique({ where: { id }, select: { id: true } });
+/** Пути снимков возвращаются наружу: файлы чистит маршрут, как у моделей и статей. */
+export async function remove(id: string): Promise<{ photo: string | null; avatar: string | null }> {
+  const exists = await db.review.findUnique({
+    where: { id },
+    select: { id: true, photo: true, avatar: true },
+  });
   if (exists === null) throw new ApiException('not_found', 'Отзыв не найден');
   await db.review.delete({ where: { id } });
+  return { photo: exists.photo, avatar: exists.avatar };
 }

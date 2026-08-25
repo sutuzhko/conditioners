@@ -9,8 +9,10 @@ vi.mock('@/server/repo/reviews', () => ({
   setStatus: vi.fn(),
   remove: vi.fn(),
 }));
+vi.mock('@/server/uploads/store', () => ({ deleteStoredImage: vi.fn() }));
 
 import { getAdminSession } from '@/server/auth';
+import { deleteStoredImage } from '@/server/uploads/store';
 import * as reviews from '@/server/repo/reviews';
 import { GET } from './route';
 import { PATCH } from './[id]/status/route';
@@ -50,6 +52,7 @@ beforeEach(() => {
   vi.mocked(getAdminSession).mockResolvedValue(session);
   vi.mocked(reviews.listByStatus).mockResolvedValue([stored]);
   vi.mocked(reviews.setStatus).mockResolvedValue({ ...stored, status: 'approved' });
+  vi.mocked(reviews.remove).mockResolvedValue({ photo: null, avatar: null });
 });
 
 describe('список отзывов', () => {
@@ -188,6 +191,28 @@ describe('удаление отзыва', () => {
 
     expect(response.status).toBe(204);
     expect(reviews.remove).toHaveBeenCalledWith('r5');
+  });
+
+  it('🔴 снимки удалённого отзыва не остаются на диске (152-ФЗ)', async () => {
+    vi.mocked(reviews.remove).mockResolvedValue({
+      photo: '/api/media/aaaa.jpg',
+      avatar: '/api/media/bbbb.jpg',
+    });
+
+    const response = await DELETE(
+      request('/api/admin/reviews/r5', { method: 'DELETE' }),
+      context('r5'),
+    );
+
+    expect(response.status).toBe(204);
+    expect(deleteStoredImage).toHaveBeenCalledWith('/api/media/aaaa.jpg');
+    expect(deleteStoredImage).toHaveBeenCalledWith('/api/media/bbbb.jpg');
+  });
+
+  it('отзыв без снимков не трогает диск', async () => {
+    await DELETE(request('/api/admin/reviews/r5', { method: 'DELETE' }), context('r5'));
+
+    expect(deleteStoredImage).not.toHaveBeenCalled();
   });
 
   it('без сессии не удаляет', async () => {

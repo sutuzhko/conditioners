@@ -2,6 +2,7 @@ import { writeFile } from 'node:fs/promises';
 
 import { db } from '@/server/db';
 import { dropOlderThan } from '@/server/repo/rate-limit';
+import { dropSentOlderThan } from '@/server/repo/notifications';
 import { resolveChannels } from './channels';
 import { processDueNotifications } from './runner';
 
@@ -24,6 +25,13 @@ const HEARTBEAT_FILE = '/tmp/worker-heartbeat';
 const RATE_LIMIT_TTL_MS = 24 * 60 * 60_000;
 const CLEANUP_EVERY_TICKS = 120;
 
+/**
+ * Доставленные уведомления держим месяц: журналу доставки этого хватает,
+ * а ПДн клиента в payload не должны жить годами (152-ФЗ). Срок совпадает
+ * с ротацией бэкапов — дольше месяца не живёт ни одна копия снимка.
+ */
+const SENT_TTL_MS = 30 * 24 * 60 * 60_000;
+
 let ticks = 0;
 
 async function tick(): Promise<void> {
@@ -37,6 +45,7 @@ async function tick(): Promise<void> {
   ticks += 1;
   if (ticks % CLEANUP_EVERY_TICKS === 0) {
     await dropOlderThan(new Date(Date.now() - RATE_LIMIT_TTL_MS));
+    await dropSentOlderThan(new Date(Date.now() - SENT_TTL_MS));
   }
 }
 

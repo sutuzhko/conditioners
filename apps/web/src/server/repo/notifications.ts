@@ -102,3 +102,16 @@ export async function retryFailedByChannel(channel?: string): Promise<number> {
 
   return updated.count;
 }
+
+/**
+ * Чистка доставленных уведомлений. В payload лежат имя, телефон и адрес
+ * клиента — снимку ПДн незачем жить дольше, чем нужно журналу доставки
+ * (152-ФЗ; аудит, BUGS). Отказы не трогаем: их разбирает владелец, и до
+ * разбора они должны быть видны.
+ */
+export async function dropSentOlderThan(before: Date): Promise<number> {
+  const removed = await db.notification.deleteMany({
+    where: { status: 'SENT', sentAt: { lt: before } },
+  });
+  return removed.count;
+}
