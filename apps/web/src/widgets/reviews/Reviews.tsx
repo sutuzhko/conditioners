@@ -1,5 +1,4 @@
-import { ReviewModal } from '@/features/review-modal';
-import { ReviewForm } from '@/features/review-form';
+import { ReviewsCta } from './ReviewsCta';
 import type { ButtonLinkHref } from '@/shared/ui';
 
 import { reviewsContent as t } from './content';
@@ -105,11 +104,7 @@ export function Reviews({ reviews = [], policyHref, id = 'reviews' }: ReviewsPro
             {t.title}
           </h2>
           <p className={styles.lead}>{t.lead}</p>
-          <ReviewModal
-            className={styles.cta}
-            // композиция «окно + форма» живёт здесь: фичи друг о друге не знают
-            renderForm={(slot) => <ReviewForm policyHref={policyHref} {...slot} />}
-          />
+          <ReviewsCta policyHref={policyHref} className={styles.cta} />
         </header>
       </div>
 
