@@ -16,6 +16,8 @@ const { testEnv, dbMock } = vi.hoisted(() => ({
     lead: { create: vi.fn() },
     notification: { createMany: vi.fn() },
     rateLimit: { upsert: vi.fn() },
+    setting: { findUnique: vi.fn() },
+    $transaction: vi.fn(),
   },
 }));
 
@@ -61,6 +63,12 @@ beforeEach(() => {
   dbMock.rateLimit.upsert.mockResolvedValue({ hits: 1 });
   dbMock.notification.createMany.mockResolvedValue({ count: 1 });
   dbMock.lead.create.mockImplementation(async ({ data }) => ({ id: 'lead-1', ...data }));
+  // пустая группа настроек → каналы по умолчанию: email включён (driver=log)
+  dbMock.setting.findUnique.mockResolvedValue({ value: {} });
+  // транзакция в моке прозрачна: настоящую атомарность обеспечивает Prisma
+  dbMock.$transaction.mockImplementation(async (fn: (tx: typeof dbMock) => Promise<unknown>) =>
+    fn(dbMock),
+  );
 });
 
 describe('POST /api/leads', () => {
@@ -105,13 +113,23 @@ describe('POST /api/leads', () => {
     ]);
   });
 
-  it('отвечает 201, даже если очередь недоступна: заявка уже в базе', async () => {
+  it('сбой постановки в очередь откатывает транзакцию и отдаёт ошибку (ADR-091)', async () => {
     dbMock.notification.createMany.mockRejectedValue(new Error('соединение потеряно'));
 
     const response = await POST(leadRequest(VALID));
 
-    expect(response.status).toBe(201);
+    // раньше здесь был 201: заявка сохранялась, но уведомление молча терялось —
+    // владелец узнал бы о клиенте, только случайно открыв список заявок
+    expect(response.status).toBe(500);
+    expect(dbMock.$transaction).toHaveBeenCalledTimes(1);
+  });
+
+  it('заявка и уведомление пишутся внутри одной транзакции', async () => {
+    await POST(leadRequest(VALID));
+
+    expect(dbMock.$transaction).toHaveBeenCalledTimes(1);
     expect(dbMock.lead.create).toHaveBeenCalledTimes(1);
+    expect(dbMock.notification.createMany).toHaveBeenCalledTimes(1);
   });
 
   it('без согласия на обработку данных отвечает 400 и не пишет заявку', async () => {

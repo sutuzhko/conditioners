@@ -43,26 +43,35 @@ export async function POST(request: Request): Promise<Response> {
     const input = toReminderFormSchema.parse(compactFormFields(body.fields));
     const tracking = collectTracking(request, body.fields);
 
-    const lead = await db.lead.create({
-      data: {
-        name: TO_REMINDER_NAME,
-        phone: normalizePhone(input.phone),
-        topic: TO_REMINDER_TOPIC,
-        // «установили этим летом», «не помню, когда чистили» — это и есть срок,
-        // от которого владелец считает, когда перезвонить
-        comment: input.when ?? null,
-        sourceUrl: tracking.sourceUrl,
-        referrer: tracking.referrer,
-        ...(tracking.utm === null ? {} : { utm: tracking.utm }),
-        consentAt: new Date(),
-      },
-    });
+    // 🔴 Обращение и уведомление о нём — одна транзакция (ADR-091): падение
+    // между двумя записями оставляло телефон, о котором владелец не узнал бы
+    const lead = await db.$transaction(async (tx) => {
+      const created = await tx.lead.create({
+        data: {
+          name: TO_REMINDER_NAME,
+          phone: normalizePhone(input.phone),
+          topic: TO_REMINDER_TOPIC,
+          // «установили этим летом», «не помню, когда чистили» — это и есть срок,
+          // от которого владелец считает, когда перезвонить
+          comment: input.when ?? null,
+          sourceUrl: tracking.sourceUrl,
+          referrer: tracking.referrer,
+          ...(tracking.utm === null ? {} : { utm: tracking.utm }),
+          consentAt: new Date(),
+        },
+      });
 
-    await enqueueNotification({
-      kind: 'to-reminder',
-      leadId: lead.id,
-      phone: lead.phone,
-      when: lead.comment,
+      await enqueueNotification(
+        {
+          kind: 'to-reminder',
+          leadId: created.id,
+          phone: created.phone,
+          when: created.comment,
+        },
+        tx,
+      );
+
+      return created;
     });
 
     return json({ id: lead.id }, 201, NO_STORE);
