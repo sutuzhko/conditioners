@@ -36,7 +36,7 @@ export function writePath(value: GroupValue, path: string, next: unknown): Group
 }
 
 /**
- * Тело ошибки — `{ error: { code, message, field? } }` (docs/API.md §12).
+ * Тело ошибки — `{ error: { code, message, field? } }` (docs/API.md §13).
  *
  * Поле одно, а не список: сервер отвечает по первой непройденной проверке
  * Zod. Форма показывает его у нужного поля и общее сообщение над кнопкой.
