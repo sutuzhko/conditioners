@@ -33,6 +33,10 @@ services:
   caddy:
     image: ${CADDY_IMAGE:-caddy:2.8-alpine}
     restart: unless-stopped
+    # Лимиты памяти на всех сервисах: без них при нехватке памяти на VPS
+    # OOM-killer ядра выбирает жертву сам — и может убить postgres на живых
+    # заявках. С лимитом умирает и перезапускается тот, кто разросся.
+    mem_limit: 256m
     depends_on:
       web:
         condition: service_healthy
@@ -61,6 +65,7 @@ services:
       <<: *build
       target: migrate
     restart: 'no'
+    mem_limit: 512m
     env_file: .env.prod
     depends_on:
       db:
@@ -73,6 +78,7 @@ services:
       <<: *build
       target: runner
     restart: unless-stopped
+    mem_limit: 768m
     env_file: .env.prod
     depends_on:
       db:
@@ -98,6 +104,7 @@ services:
       <<: *build
       target: worker
     restart: unless-stopped
+    mem_limit: 768m
     env_file: .env.prod
     depends_on:
       db:
@@ -126,6 +133,8 @@ services:
   db:
     image: ${POSTGRES_IMAGE:-postgres:16-alpine}
     restart: unless-stopped
+    # базе — самый большой кусок: именно её OOM-killer должен трогать последней
+    mem_limit: 1g
     # Базе нужны только её собственные доступы
     environment:
       POSTGRES_USER: ${POSTGRES_USER:?нужен пользователь базы}
