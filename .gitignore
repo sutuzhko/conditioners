@@ -40,6 +40,11 @@ apps/web/public/uploads/
 *.dump
 backups/
 
+# 🔴 Исключение из `*.sql`: миграции Prisma — это исходный код схемы, а не
+# дамп базы. Без них `prisma migrate deploy` на боевом сервере не находит,
+# что накатывать, и база остаётся на схеме первого запуска.
+!apps/web/prisma/migrations/**/*.sql
+
 # ===== Тесты и отчёты =====
 coverage/
 .nyc_output/
