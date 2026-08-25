@@ -66,10 +66,20 @@ function smtpTransport(): MailTransport {
       ? null
       : { user: env.SMTP_USER, pass: env.SMTP_PASSWORD };
 
+  /* Дефолтные таймауты nodemailer исчисляются минутами, а воркер один:
+     зависший SMTP стопорил бы всю очередь и рвал graceful shutdown при
+     деплое (40 с). Сумма ожиданий держится под окном захвата задачи —
+     30 с до следующей попытки (runner.nextDelayMs). */
+  const timeouts = {
+    connectionTimeout: 5_000,
+    greetingTimeout: 5_000,
+    socketTimeout: 15_000,
+  };
+
   const transport =
     auth === null
-      ? createTransport({ host, port, secure })
-      : createTransport({ host, port, secure, auth });
+      ? createTransport({ host, port, secure, ...timeouts })
+      : createTransport({ host, port, secure, auth, ...timeouts });
 
   return {
     async sendMail(message: MailMessage): Promise<void> {

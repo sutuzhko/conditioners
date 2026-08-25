@@ -4,7 +4,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { NotificationPayload } from '../types';
 import type { MailMessage, MailTransport } from './email';
 
-const { testEnv } = vi.hoisted(() => ({
+const { testEnv, createTransportMock } = vi.hoisted(() => ({
+  createTransportMock: vi.fn(() => ({ sendMail: vi.fn() })),
   testEnv: {
     NODE_ENV: 'test',
     DATABASE_URL: 'postgresql://user:pass@db:5432/test',
@@ -21,6 +22,8 @@ const { testEnv } = vi.hoisted(() => ({
 }));
 
 vi.mock('@/shared/config/env', () => ({ env: testEnv }));
+// настоящий транспорт в тестах не создаётся: проверяем только его настройку
+vi.mock('nodemailer', () => ({ createTransport: createTransportMock }));
 
 const { createEmailChannel, logMailTransport } = await import('./email');
 
@@ -147,5 +150,18 @@ describe('письмо владельцу', () => {
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(String(spy.mock.calls[0]?.[0])).toContain('тело письма');
+  });
+
+  it('SMTP-транспорт создаётся с таймаутами: зависшее письмо не стопорит очередь', async () => {
+    // транспорт не передан — канал соберёт его сам из настроек окружения
+    await createEmailChannel().send(LEAD);
+
+    expect(createTransportMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        connectionTimeout: 5_000,
+        greetingTimeout: 5_000,
+        socketTimeout: 15_000,
+      }),
+    );
   });
 });
