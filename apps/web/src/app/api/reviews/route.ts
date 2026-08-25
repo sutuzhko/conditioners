@@ -9,7 +9,7 @@ import {
   json,
 } from '@/server/http';
 import { compactFormFields, reviewFormSchema } from '@/server/intake/schemas';
-import { saveImage } from '@/server/uploads/store';
+import { deleteStoredImage, saveImage } from '@/server/uploads/store';
 import { enqueueNotification } from '@/server/notifications/queue';
 import { env } from '@/shared/config/env';
 
@@ -45,34 +45,44 @@ export async function POST(request: Request): Promise<Response> {
     const avatar = avatarFile === undefined ? null : (await saveImage(avatarFile)).url;
 
     // 🔴 Отзыв и уведомление о нём — одна транзакция (ADR-091): падение между
-    // двумя записями оставляло отзыв, застрявший вне очереди модерации
-    const review = await db.$transaction(async (tx) => {
-      const created = await tx.review.create({
-        data: {
-          name: input.name,
-          rating: input.rating,
-          text: input.text,
-          photo,
-          avatar,
-          // 🔴 доказательство согласия по 152-ФЗ: фиксируем момент отправки формы
-          consentAt: new Date(),
-        },
+    // двумя записями оставляло отзыв, застрявший вне очереди модерации.
+    // Упала вставка — сохранённые снимки остаются сиротами на диске, чистим.
+    const review = await db
+      .$transaction(async (tx) => {
+        const created = await tx.review.create({
+          data: {
+            name: input.name,
+            rating: input.rating,
+            text: input.text,
+            photo,
+            avatar,
+            // 🔴 доказательство согласия по 152-ФЗ: фиксируем момент отправки формы
+            consentAt: new Date(),
+          },
+        });
+
+        await enqueueNotification(
+          {
+            kind: 'review',
+            reviewId: created.id,
+            name: created.name,
+            rating: created.rating,
+            text: created.text,
+            photo: created.photo,
+          },
+          tx,
+        );
+
+        return created;
+      })
+      .catch(async (error: unknown) => {
+        await Promise.all(
+          [photo, avatar]
+            .filter((url): url is string => url !== null)
+            .map((url) => deleteStoredImage(url)),
+        );
+        throw error;
       });
-
-      await enqueueNotification(
-        {
-          kind: 'review',
-          reviewId: created.id,
-          name: created.name,
-          rating: created.rating,
-          text: created.text,
-          photo: created.photo,
-        },
-        tx,
-      );
-
-      return created;
-    });
 
     return json({ id: review.id }, 201, NO_STORE);
   } catch (error) {
