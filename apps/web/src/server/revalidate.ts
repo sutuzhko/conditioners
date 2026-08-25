@@ -33,6 +33,9 @@ export function revalidatePrices(): void {
 export function revalidateArticles(slug?: string | null): void {
   revalidatePath(ROUTES.home);
   revalidatePath(ROUTES.knowledge);
+  // карта сайта тоже статична: без сброса новая статья попадала бы в неё
+  // с опозданием до часа — для SEO-проекта это потерянная скорость индексации
+  revalidatePath('/sitemap.xml');
   if (slug !== undefined && slug !== null) revalidatePath(articlePath(slug));
 }
 

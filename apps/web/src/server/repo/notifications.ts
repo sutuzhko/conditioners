@@ -93,16 +93,6 @@ export async function retryDelivery(id: string): Promise<boolean> {
   return updated.count > 0;
 }
 
-/** Вернуть в очередь все отказы канала — после починки доступов их обычно много. */
-export async function retryFailedByChannel(channel?: string): Promise<number> {
-  const updated = await db.notification.updateMany({
-    where: { status: 'FAILED', ...(channel === undefined ? {} : { channel }) },
-    data: { status: 'PENDING', attempts: 0, nextTryAt: new Date(), lastError: null },
-  });
-
-  return updated.count;
-}
-
 /**
  * Чистка доставленных уведомлений. В payload лежат имя, телефон и адрес
  * клиента — снимку ПДн незачем жить дольше, чем нужно журналу доставки

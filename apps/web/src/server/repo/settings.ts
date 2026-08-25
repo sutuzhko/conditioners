@@ -1,6 +1,8 @@
 /**
  * Настройки компании. Читаются публичными страницами, пишутся только из админки.
  */
+import type { Prisma } from '@prisma/client';
+
 import { db } from '@/server/db';
 import { settingSchemas, type SettingKey } from '@/entities/settings/model';
 import type { InstallRates } from '@/entities/price/model';
@@ -22,8 +24,13 @@ export async function getAll(): Promise<SettingsMap> {
   return result;
 }
 
-export async function putGroup(key: SettingKey, value: unknown): Promise<void> {
-  await db.setting.upsert({
+/** Клиент передаётся, когда запись группы — часть чужой транзакции (прайс + ставки). */
+export async function putGroup(
+  key: SettingKey,
+  value: unknown,
+  client: Prisma.TransactionClient = db,
+): Promise<void> {
+  await client.setting.upsert({
     where: { key },
     create: { key, value: value as never },
     update: { value: value as never },

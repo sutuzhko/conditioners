@@ -2,6 +2,7 @@
  * База знаний. Публичное чтение — только опубликованные статьи.
  */
 import { db } from '@/server/db';
+import { withSlugRetry } from '@/server/repo/slug-retry';
 import { ApiException } from '@/server/http';
 import { pageSlug, uniqueSlug } from '@/shared/lib/slug';
 import type { ArticleInput, ArticlePatch } from '@/entities/article/model';
@@ -109,7 +110,12 @@ async function freeSlug(source: string, exceptId?: string): Promise<string> {
   );
 }
 
-export async function create(input: ArticleInput): Promise<ArticleDto> {
+export function create(input: ArticleInput): Promise<ArticleDto> {
+  // повтор закрывает гонку подбора адреса — см. withSlugRetry
+  return withSlugRetry(() => createOnce(input));
+}
+
+async function createOnce(input: ArticleInput): Promise<ArticleDto> {
   const slug = await freeSlug(input.slug ?? input.title);
 
   const row = await db.article.create({
@@ -130,7 +136,11 @@ export async function create(input: ArticleInput): Promise<ArticleDto> {
   return toDto(row);
 }
 
-export async function update(id: string, input: ArticlePatch): Promise<ArticleDto> {
+export function update(id: string, input: ArticlePatch): Promise<ArticleDto> {
+  return withSlugRetry(() => updateOnce(id, input));
+}
+
+async function updateOnce(id: string, input: ArticlePatch): Promise<ArticleDto> {
   const current = await db.article.findUnique({ where: { id }, select: { slug: true } });
   if (current === null) throw new ApiException('not_found', 'Статья не найдена');
 

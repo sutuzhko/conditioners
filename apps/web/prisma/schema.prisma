@@ -319,4 +319,7 @@ model RateLimit {
   hits      Int      @default(1)
 
   @@unique([key, windowAt])
+  // чистка отработавших окон идёт диапазоном по времени — составной
+  // уникальный индекс по [key, windowAt] такой запрос не обслуживает
+  @@index([windowAt])
 }

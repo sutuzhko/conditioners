@@ -47,9 +47,12 @@ export async function replacePrices(input: PricesUpdate): Promise<PricesDto> {
         update: { ...row, sort: index },
       });
     }
-  });
 
-  await putGroup('extras', input.extras);
+    /* Ставки — в той же транзакции: по паре «прайс + ставки» считает смету
+       калькулятор, и рассинхрон после частичного сбоя показал бы клиенту
+       цену, которую по телефону не подтвердят (аудит, BUGS). */
+    await putGroup('extras', input.extras, tx);
+  });
 
   return getPrices();
 }

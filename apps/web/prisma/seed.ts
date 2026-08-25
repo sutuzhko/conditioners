@@ -124,50 +124,66 @@ async function main() {
     });
   }
 
-  for (const [i, p] of data.prices.entries()) {
-    await prisma.priceRow.upsert({
-      where: { cls: p.cls },
-      update: {},
-      create: { ...p, sort: i },
-    });
+  /* Контент сидится только в пустую витрину: повторный запуск на живой базе
+     возвращал бы удалённые владельцем сид-товары, сид-статьи и строки прайса
+     (upsert с create заново создаёт то, чего «не хватает»). Настройки и
+     администратор безопасны всегда: их upsert ничего не перезаписывает.
+     DEPLOY.md ограничивал запуск словами — теперь предохранитель в коде. */
+  const contentRows =
+    (await prisma.product.count()) +
+    (await prisma.article.count()) +
+    (await prisma.priceRow.count());
+  const seedContent = contentRows === 0;
+  if (!seedContent) {
+    console.warn('В базе уже есть каталог, статьи или прайс — контентная часть сида пропущена');
   }
 
-  for (const [i, m] of data.models.entries()) {
-    const slug = slugFor(m.badge);
-    await prisma.product.upsert({
-      where: { slug },
-      update: {},
-      create: {
-        slug,
-        badge: m.badge,
-        name: m.name,
-        areaMax: m.areaMax,
-        tag: m.tag,
-        priceNum: m.priceNum,
-        visible: true,
-        sort: i,
-        specs: {
-          create: m.specs.map((s, si) => ({ k: s.k, v: s.v, sort: si })),
+  if (seedContent) {
+    for (const [i, p] of data.prices.entries()) {
+      await prisma.priceRow.upsert({
+        where: { cls: p.cls },
+        update: {},
+        create: { ...p, sort: i },
+      });
+    }
+
+    for (const [i, m] of data.models.entries()) {
+      const slug = slugFor(m.badge);
+      await prisma.product.upsert({
+        where: { slug },
+        update: {},
+        create: {
+          slug,
+          badge: m.badge,
+          name: m.name,
+          areaMax: m.areaMax,
+          tag: m.tag,
+          priceNum: m.priceNum,
+          visible: true,
+          sort: i,
+          specs: {
+            create: m.specs.map((s, si) => ({ k: s.k, v: s.v, sort: si })),
+          },
         },
-      },
-    });
-  }
+      });
+    }
 
-  for (const a of data.articles) {
-    await prisma.article.upsert({
-      where: { slug: a.slug },
-      update: {},
-      create: {
-        slug: a.slug,
-        title: a.title,
-        category: a.category,
-        date: new Date(a.date),
-        minutes: a.minutes,
-        excerpt: a.excerpt,
-        body: a.body,
-        published: true,
-      },
-    });
+    for (const a of data.articles) {
+      await prisma.article.upsert({
+        where: { slug: a.slug },
+        update: {},
+        create: {
+          slug: a.slug,
+          title: a.title,
+          category: a.category,
+          date: new Date(a.date),
+          minutes: a.minutes,
+          excerpt: a.excerpt,
+          body: a.body,
+          published: true,
+        },
+      });
+    }
   }
 
   const login = process.env.ADMIN_LOGIN;
@@ -178,6 +194,12 @@ async function main() {
       update: {},
       create: { login, passwordHash },
     });
+  } else if ((await prisma.adminUser.count()) === 0) {
+    // Молчаливый пропуск оставлял прод без единого входа в панель — и это
+    // обнаруживалось только на странице логина (аудит, BUGS)
+    console.error(
+      '🔴 Администратор НЕ создан: заполните ADMIN_LOGIN и ADMIN_PASSWORD_HASH — войти в панель сейчас невозможно',
+    );
   }
 
   const counts = {

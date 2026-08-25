@@ -6,6 +6,7 @@
  */
 import type { Prisma } from '@prisma/client';
 import { db } from '@/server/db';
+import { withSlugRetry } from '@/server/repo/slug-retry';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { pageSlug, uniqueSlug } from '@/shared/lib/slug';
 import { ApiException } from '@/server/http';
@@ -153,7 +154,12 @@ async function freeSlug(source: string, exceptId?: string): Promise<string> {
   );
 }
 
-export async function create(input: ProductInput): Promise<ProductDto> {
+export function create(input: ProductInput): Promise<ProductDto> {
+  // повтор закрывает гонку подбора адреса — см. withSlugRetry
+  return withSlugRetry(() => createOnce(input));
+}
+
+async function createOnce(input: ProductInput): Promise<ProductDto> {
   const slug = await freeSlug(input.slug ?? input.name);
 
   const row = await db.product.create({
@@ -183,7 +189,11 @@ export async function create(input: ProductInput): Promise<ProductDto> {
  * Обновление товара. Характеристики приходят целиком: их порядок и состав —
  * часть данных, а не набор отдельных полей, поэтому список заменяется.
  */
-export async function update(id: string, input: ProductPatch): Promise<ProductDto> {
+export function update(id: string, input: ProductPatch): Promise<ProductDto> {
+  return withSlugRetry(() => updateOnce(id, input));
+}
+
+async function updateOnce(id: string, input: ProductPatch): Promise<ProductDto> {
   const current = await db.product.findUnique({ where: { id }, select: { slug: true } });
   if (current === null) throw new ApiException('not_found', 'Модель не найдена');
 
