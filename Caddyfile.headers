@@ -1,0 +1,21 @@
+# Общие заголовки безопасности прод- и дев-прокси. Один файл на оба окружения:
+# аудит нашёл, что дев-Caddy не ставил ни одного заголовка вопреки собственному
+# комментарию «проверяется ещё в деве» — расхождение всплыло бы только на проде.
+# HSTS здесь намеренно нет: в деве он запер бы браузер на https для локальных
+# хостов, боевой конфиг добавляет его сам.
+(security_headers) {
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Frame-Options SAMEORIGIN
+		# Каркас CSP без script-src: Next вставляет собственные инлайн-скрипты,
+		# и полная политика требует nonce-инфраструктуры — а эти четыре
+		# директивы ничего не ломают и закрывают clickjacking, смену <base>
+		# и увод формы на чужой адрес (аудит, BUGS).
+		Content-Security-Policy "object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'"
+		# Сайт не просит ни камеру, ни микрофон, ни геолокацию
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+		# Версию сервера наружу не показываем
+		-Server
+	}
+}

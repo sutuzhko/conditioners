@@ -13,11 +13,21 @@ export type RateLimitVerdict = {
   retryAfterSec: number;
 };
 
+/**
+ * Что делать, когда сам счётчик недоступен. У форм и у входа цена ошибки
+ * противоположная, поэтому решает вызывающий:
+ * `open` — пропустить (формы: отказать живому клиенту дороже, чем пропустить
+ * бота, инвариант 2); `closed` — отказать (вход: без счётчика перебор пароля
+ * не ограничен ничем, аудит, BUGS).
+ */
+export type RateLimitFailMode = 'open' | 'closed';
+
 export async function hit(
   key: string,
   limit: number,
   windowMs: number,
   now: Date = new Date(),
+  failMode: RateLimitFailMode = 'open',
 ): Promise<RateLimitVerdict> {
   const startedAt = Math.floor(now.getTime() / windowMs) * windowMs;
   const windowAt = new Date(startedAt);
@@ -32,11 +42,8 @@ export async function hit(
     });
     hits = row.hits;
   } catch (error) {
-    // 🔴 Счётчик защищает от спама, а не от потери заявки: если вспомогательная
-    // таблица недоступна, запрос идёт дальше. Отказать живому клиенту дороже,
-    // чем пропустить бота (инвариант 2).
     console.error('Не удалось учесть частоту обращений', error);
-    return { allowed: true, hits: 0, retryAfterSec };
+    return { allowed: failMode === 'open', hits: 0, retryAfterSec };
   }
 
   return { allowed: hits <= limit, hits, retryAfterSec };

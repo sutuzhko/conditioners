@@ -1,12 +1,17 @@
-# Дев-прокси. Тот же слой, что на проде, — заголовки, сжатие и проксирование
-# проверяются здесь, а не при деплое.
+# Дев-прокси. Заголовки безопасности — общие с боевым через Caddyfile.headers:
+# проверяются здесь, а не при деплое. Редиректы канонического хоста и HSTS —
+# только в боевом Caddyfile: в деве хостов несколько и все легальные.
 {
 	admin off
 	local_certs
 }
 
+import Caddyfile.headers
+
 http://tulaklimat.localhost, https://tulaklimat.localhost, http://localhost {
 	encode zstd gzip
+
+	import security_headers
 
 	# Storybook отдельным хостом, чтобы не пересекаться с маршрутами приложения
 	handle /_next/webpack-hmr {
@@ -14,7 +19,10 @@ http://tulaklimat.localhost, https://tulaklimat.localhost, http://localhost {
 	}
 
 	handle {
-		reverse_proxy web:3000
+		reverse_proxy web:3000 {
+			# как на проде: приложение доверяет X-Real-IP от прокси
+			header_up X-Real-IP {remote_host}
+		}
 	}
 }
 

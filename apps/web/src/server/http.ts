@@ -7,6 +7,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { ZodError } from 'zod';
 import { getAdminSession, isOwner, type AdminSession } from '@/server/auth';
+import { clientIp } from '@/server/client-ip';
 import { hit } from '@/server/repo/rate-limit';
 
 export type ApiErrorCode =
@@ -141,11 +142,33 @@ export function handleRouteError(error: unknown): NextResponse {
 
 type RouteHandler<Ctx> = (request: NextRequest, context: Ctx) => Promise<Response> | Response;
 
+/**
+ * Кросс-сайтовая мутация: браузер прислал Origin, и он не совпадает с хостом
+ * запроса. Закрывает окно «SameSite=Lax + top-level POST в первые две минуты
+ * после установки cookie» (Chrome; аудит, BUGS). Сверяем с Host, а не с
+ * SITE_URL: в деве панель открывают и через Caddy, и напрямую на :3000, и
+ * оба захода легальны. Запрос без Origin (curl, тесты) проходит — защита
+ * нацелена на браузерный CSRF, а не на прямые вызовы API.
+ */
+function isCrossSiteMutation(request: NextRequest): boolean {
+  if (request.method === 'GET' || request.method === 'HEAD') return false;
+
+  const origin = request.headers.get('origin');
+  const host = request.headers.get('host');
+  if (origin === null || host === null) return false;
+  if (!URL.canParse(origin)) return true;
+
+  return new URL(origin).host !== host;
+}
+
 /** Маршрут админки: без сессии — 401, исключения не утекают наружу стектрейсом. */
 export function withAdmin<Ctx>(
   handler: (request: NextRequest, context: Ctx, session: AdminSession) => Promise<Response>,
 ): RouteHandler<Ctx> {
   return async (request: NextRequest, context: Ctx): Promise<Response> => {
+    if (isCrossSiteMutation(request)) {
+      return apiError('forbidden', 'Запрос пришёл с чужого сайта и отклонён');
+    }
     const session = await getAdminSession();
     if (session === null) return unauthorized();
     try {
@@ -204,17 +227,9 @@ export const LEAD_RATE_LIMIT: RateLimitRule = { limit: 5, windowMs: 10 * 60_000 
 /** Отзыв человек пишет один раз, частые повторы с одного адреса — почти всегда бот. */
 export const REVIEW_RATE_LIMIT: RateLimitRule = { limit: 3, windowMs: 60 * 60_000 };
 
-/** Адрес клиента виден только из заголовков Caddy: приложение стоит за обратным прокси. */
-export function clientIp(request: Request): string {
-  const forwarded = request.headers.get('x-forwarded-for');
-  if (forwarded !== null) {
-    const first = forwarded.split(',')[0]?.trim();
-    if (first !== undefined && first !== '') return first;
-  }
-  const real = request.headers.get('x-real-ip')?.trim();
-  if (real !== undefined && real !== '') return real;
-  return 'unknown';
-}
+/* Общая реализация переехала в server/client-ip (аудит: две копии разошлись
+   в порядке доверия заголовкам); реэкспорт сохраняет привычный адрес. */
+export { clientIp };
 
 export async function assertWithinRateLimit(
   request: Request,

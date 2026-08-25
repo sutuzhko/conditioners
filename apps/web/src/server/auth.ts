@@ -24,6 +24,10 @@ export const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 const LOGIN_ATTEMPT_LIMIT = 10;
 const LOGIN_WINDOW_MS = 15 * 60 * 1000;
 
+/** Хеш случайной строки — только для выравнивания времени ответа при неизвестном логине. */
+const PHANTOM_PASSWORD_HASH =
+  '$argon2id$v=19$m=19456,t=2,p=1$3CvWzJNnqto4mLjKM5vDjg$bxlsqKaZOBxzWxbFs5L0RpQDuoEFP74iJhGiYXOWln8';
+
 export type AdminSession = {
   userId: string;
   login: string;
@@ -128,11 +132,14 @@ export async function login(params: {
   now?: Date | undefined;
 }): Promise<LoginResult> {
   const now = params.now ?? new Date();
+  // 🔴 fail-closed: у форм недоступный счётчик пропускает запрос (инвариант 2),
+  // у входа — наоборот: без счётчика перебор пароля не ограничен ничем
   const verdict = await rateLimit.hit(
     `login:${params.ip}`,
     LOGIN_ATTEMPT_LIMIT,
     LOGIN_WINDOW_MS,
     now,
+    'closed',
   );
 
   if (!verdict.allowed) {
@@ -140,7 +147,15 @@ export async function login(params: {
   }
 
   const user = await adminUsers.findByLogin(params.login);
-  if (user === null) return { ok: false, reason: 'invalid_credentials' };
+  if (user === null) {
+    /* Выравнивание времени: без этой проверки ответ на неизвестный логин
+       уходил без argon2 — на десятки миллисекунд быстрее, чем на неверный
+       пароль, и перебор отличал существующие логины по паузе (найдено
+       тестами входа; аудит, BUGS). Хеш — от случайной строки, совпадение
+       с чьим-либо паролем исключено, результат не используется. */
+    await verifyPassword(PHANTOM_PASSWORD_HASH, params.password).catch(() => false);
+    return { ok: false, reason: 'invalid_credentials' };
+  }
 
   const passwordOk = await verifyPassword(user.passwordHash, params.password).catch(() => false);
   if (!passwordOk) return { ok: false, reason: 'invalid_credentials' };
@@ -195,15 +210,9 @@ export async function changePassword(params: {
   return 'ok';
 }
 
-/** IP берём из заголовка прокси: приложение всегда стоит за Caddy. */
-export function clientIp(request: Request): string {
-  const forwarded = request.headers.get('x-forwarded-for');
-  if (forwarded !== null && forwarded.length > 0) {
-    const first = forwarded.split(',')[0]?.trim();
-    if (first !== undefined && first !== '') return first;
-  }
-  return request.headers.get('x-real-ip') ?? 'unknown';
-}
+/* Общая реализация переехала в server/client-ip (аудит: две копии разошлись
+   в порядке доверия заголовкам); реэкспорт сохраняет привычный адрес. */
+export { clientIp } from '@/server/client-ip';
 
 /** Сравнение секретов постоянного времени — для вебхуков и служебных вызовов. */
 export function safeEqual(a: string, b: string): boolean {

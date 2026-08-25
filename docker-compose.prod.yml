@@ -50,6 +50,8 @@ services:
       ACME_EMAIL: ${ACME_EMAIL:?нужен адрес для писем Let's Encrypt}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      # общие заголовки безопасности обоих окружений
+      - ./Caddyfile.headers:/etc/caddy/Caddyfile.headers:ro
       # сертификаты: потеря тома означает повторный выпуск и лимиты Let's Encrypt
       - caddy_data:/data
       - caddy_config:/config

@@ -44,9 +44,20 @@ export async function readIntakeBody(request: Request, maxBytes: number): Promis
   const files = new Map<string, File>();
 
   if (contentType.includes('application/json')) {
-    const parsed: unknown = await request.json().catch(() => {
+    /* Через text(), а не json(): chunked-запрос приходит без Content-Length,
+       и проверка заголовка выше его не ловит — размер сверяется по факту,
+       до разбора и раздачи строк дальше (аудит, BUGS). */
+    const raw = await request.text().catch(() => {
       throw UNREADABLE;
     });
+    if (raw.length > maxBytes) throw tooLarge(maxBytes);
+
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(raw === '' ? '{}' : raw);
+    } catch {
+      throw UNREADABLE;
+    }
     if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) throw UNREADABLE;
     for (const [key, value] of Object.entries(parsed)) {
       const text = stringify(value);
@@ -59,14 +70,19 @@ export async function readIntakeBody(request: Request, maxBytes: number): Promis
     throw UNREADABLE;
   });
 
-  let uploaded = 0;
+  /* Считаются и файлы, и строки: гигантское «текстовое поле» в chunked-запросе
+     без Content-Length иначе проходило досмотр и резалось только Zod-ом много
+     позже (аудит, BUGS). */
+  let received = 0;
   for (const [key, value] of form.entries()) {
     if (typeof value === 'string') {
+      received += value.length;
+      if (received > maxBytes) throw tooLarge(maxBytes);
       fields[key] = value.trim();
       continue;
     }
-    uploaded += value.size;
-    if (uploaded > maxBytes) throw tooLarge(maxBytes);
+    received += value.size;
+    if (received > maxBytes) throw tooLarge(maxBytes);
     if (value.size > 0) files.set(key, value);
   }
 

@@ -33,6 +33,9 @@ export const GET = withRoute(async (_request, context: { params: Promise<{ name:
         'Content-Length': String(info.size),
         // Имя файла уникально и содержимое по нему не меняется.
         'Cache-Control': 'public, max-age=31536000, immutable',
+        // контракт маршрута не должен зависеть от прокси: nosniff ставит и
+        // Caddy, но прямой заход мимо него обязан быть так же безопасен
+        'X-Content-Type-Options': 'nosniff',
       },
     });
   } catch {

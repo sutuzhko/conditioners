@@ -11,6 +11,8 @@ services:
       - '443:443'
     volumes:
       - ./Caddyfile.dev:/etc/caddy/Caddyfile:ro
+      # общие заголовки безопасности обоих окружений
+      - ./Caddyfile.headers:/etc/caddy/Caddyfile.headers:ro
       - caddy_data:/data
       - caddy_config:/config
 

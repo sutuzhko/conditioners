@@ -1,10 +1,21 @@
-# Боевой прокси. Дев-версия — Caddyfile.dev, состав тот же:
-# сертификаты, сжатие, заголовки и проксирование проверяются ещё в деве.
+# Боевой прокси. Дев-версия — Caddyfile.dev; общие заголовки безопасности
+# живут в Caddyfile.headers и подключаются в обоих окружениях.
 {
 	admin off
 	# Адрес для писем Let's Encrypt об истечении сертификата
 	email {$ACME_EMAIL}
+	servers {
+		# Медленный клиент не должен держать соединение вечно (slowloris):
+		# заголовки — быстро, тело — щедро (фото в форме идёт с телефона)
+		timeouts {
+			read_header 10s
+			read_body 60s
+			idle 5m
+		}
+	}
 }
+
+import Caddyfile.headers
 
 # Канонический хост. Всё, что пришло на www или по http, приводится к нему
 # 301-м редиректом: два адреса одной страницы — это дубли в выдаче.
@@ -15,24 +26,33 @@ www.{$SITE_DOMAIN} {
 {$SITE_DOMAIN} {
 	encode zstd gzip
 
+	import security_headers
 	header {
-		# Сертификат уже выдан, откат на http не нужен
+		# Сертификат уже выдан, откат на http не нужен. Только в проде:
+		# в деве HSTS запер бы браузер на https для локальных хостов.
 		Strict-Transport-Security "max-age=31536000; includeSubDomains"
-		X-Content-Type-Options nosniff
-		Referrer-Policy strict-origin-when-cross-origin
-		X-Frame-Options SAMEORIGIN
-		# Сайт не просит ни камеру, ни микрофон, ни геолокацию
-		Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
-		# Версию сервера наружу не показываем
-		-Server
 	}
 
-	# Слэш в конце — второй адрес той же страницы. Убираем его до приложения:
-	# у Next есть своё правило, но редирект на прокси-слое дешевле.
-	@trailing_slash {
-		path_regexp trailing (.+)/$
+	# Приложение и так режет загрузки своим лимитом, но тело обязано быть
+	# отброшено до буферизации в Node, а не после (аудит, BUGS).
+	request_body {
+		max_size 12MB
 	}
-	redir @trailing_slash https://{$SITE_DOMAIN}{re.trailing.1} permanent
+
+	# Слэш в конце — второй адрес той же страницы. Убираем его до приложения.
+	# Query сохраняется: рекламные метки и ?category= не должны пропадать на
+	# редиректе (аудит, BUGS) — отсюда два матчера, с параметрами и без.
+	@slash_with_query {
+		path_regexp trailingq (.+)/$
+		expression {query} != ""
+	}
+	redir @slash_with_query https://{$SITE_DOMAIN}{re.trailingq.1}?{query} permanent
+
+	@slash_bare {
+		path_regexp trailing (.+)/$
+		expression {query} == ""
+	}
+	redir @slash_bare https://{$SITE_DOMAIN}{re.trailing.1} permanent
 
 	reverse_proxy web:3000 {
 		# Приложение считает частоту запросов по IP клиента, а не по адресу

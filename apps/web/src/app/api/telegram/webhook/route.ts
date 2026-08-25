@@ -8,6 +8,7 @@ import {
 import { setStatus } from '@/server/repo/reviews';
 import { revalidateReviews } from '@/server/revalidate';
 import { env } from '@/shared/config/env';
+import { safeEqual } from '@/server/auth';
 
 /**
  * Приём нажатий на кнопки модерации из Telegram — docs/API.md §7.
@@ -32,7 +33,9 @@ function secretMatches(request: Request): boolean {
   // секрет не задан — вебхук выключен: принимать команды «от кого угодно» нельзя
   if (expected === undefined || expected === '') return false;
 
-  return request.headers.get('x-telegram-bot-api-secret-token') === expected;
+  const presented = request.headers.get('x-telegram-bot-api-secret-token');
+  // сравнение постоянного времени — как у любого секрета в проекте (аудит, BUGS)
+  return presented !== null && safeEqual(presented, expected);
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -46,7 +49,17 @@ export async function POST(request: Request): Promise<Response> {
     return json({ ok: true }, 200, NO_STORE);
   }
 
-  const parsed = telegramUpdateSchema.safeParse(JSON.parse(raw || '{}'));
+  // битый JSON — не наше обновление: 500 заставил бы Telegram ретраить его
+  // вечно и стопорить очередь обновлений вместе с кнопками модерации
+  let body: unknown = null;
+  try {
+    body = JSON.parse(raw === '' ? '{}' : raw);
+  } catch {
+    console.warn('Обновление Telegram отброшено: тело не разбирается как JSON');
+    return json({ ok: true }, 200, NO_STORE);
+  }
+
+  const parsed = telegramUpdateSchema.safeParse(body);
   const query = parsed.success ? parsed.data.callback_query : undefined;
   if (query === undefined) {
     // не наше обновление (сообщение в чат, вступление в группу) — молча принимаем

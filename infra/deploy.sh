@@ -54,6 +54,10 @@ echo "[5/6] сборка образов"
 echo "[6/6] запуск"
 "${COMPOSE[@]}" up -d
 
+# Слои прошлых сборок копятся по 8–10 ГБ и без чистки съедают диск VPS
+echo "[после] чистка старых слоёв образов"
+docker image prune -f >/dev/null
+
 echo
 echo "Проверка:"
 echo "  curl -s https://\$SITE_DOMAIN/api/health"
