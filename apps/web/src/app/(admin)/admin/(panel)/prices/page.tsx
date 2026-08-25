@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { pricesFormContent as texts } from '@/features/prices-form';
+import { requireOwnerPage } from '@/server/guards';
 import { getPrices } from '@/server/repo/prices';
 
 import { PricesEditor } from './PricesEditor';
@@ -18,6 +19,9 @@ export const dynamic = 'force-dynamic';
  * цену (инвариант 8). В форме такое поле открывается пустым.
  */
 export default async function AdminPricesPage() {
+  /* Раздел владельца: проверка до чтения данных (ADR-095). */
+  await requireOwnerPage();
+
   const { prices, extras } = await getPrices();
 
   return (

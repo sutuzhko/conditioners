@@ -13,6 +13,18 @@
   list-style: none;
 }
 
+/* Заголовок группы разделов. Разделов десять, и без «Настройки · сайт»
+   каталог с ценами читаются как продолжение работы с заказами. */
+.caption {
+  display: block;
+  padding: 16px 12px 5px;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .link {
   display: block;
   padding: 9px 12px;
@@ -82,6 +94,12 @@
     align-items: center;
     min-height: 40px;
     white-space: nowrap;
+  }
+
+  /* В ленте заголовки групп не нужны: они разорвали бы её на три обрубка,
+     каждый из которых пришлось бы листать отдельно. */
+  .caption {
+    display: none;
   }
 }
 

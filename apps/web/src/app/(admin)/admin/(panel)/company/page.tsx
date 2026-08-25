@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { SETTINGS_GROUPS, SettingsForm, type GroupValue } from '@/features/settings-form';
+import { requireOwnerPage } from '@/server/guards';
 import { getAll } from '@/server/repo/settings';
 
 import styles from './page.module.css';
@@ -19,6 +20,9 @@ export const dynamic = 'force-dynamic';
  * условия гарантии.
  */
 export default async function AdminCompanyPage() {
+  /* Раздел владельца: проверка до чтения данных (ADR-095). */
+  await requireOwnerPage();
+
   const settings = await getAll();
 
   return (

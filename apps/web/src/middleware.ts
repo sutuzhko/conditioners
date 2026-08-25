@@ -11,6 +11,8 @@
  */
 import { NextResponse, type NextRequest } from 'next/server';
 
+import { ADMIN_PATHNAME_HEADER } from '@/shared/config/admin-headers';
+
 const SESSION_COOKIE = 'session';
 const LOGIN_PATH = '/admin/login';
 const NOINDEX = 'noindex, nofollow';
@@ -52,9 +54,20 @@ export function middleware(request: NextRequest): NextResponse {
     return redirect;
   }
 
-  const response = NextResponse.next();
+  /* Адрес запроса уходит вниз заголовком: разграничение по ролям обязано
+     сработать во внешнем layout панели, до того как страница начнёт
+     отдаваться (ADR-095), а пути там иначе не узнать. */
+  const response = NextResponse.next({
+    request: { headers: withPathname(request.headers, pathname) },
+  });
   response.headers.set('X-Robots-Tag', NOINDEX);
   return response;
+}
+
+function withPathname(source: Headers, pathname: string): Headers {
+  const headers = new Headers(source);
+  headers.set(ADMIN_PATHNAME_HEADER, pathname);
+  return headers;
 }
 
 export const config = {

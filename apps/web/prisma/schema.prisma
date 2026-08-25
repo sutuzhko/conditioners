@@ -254,13 +254,49 @@ model Notification {
 
 // ---------- Админка ----------
 
+// Ролей две, и обе — люди с логином и паролем: монтажник заходит в ту же
+// панель, просто видит из неё три раздела вместо тринадцати (ADR-092).
+enum AdminRole {
+  OWNER
+  INSTALLER
+}
+
 model AdminUser {
   id           String    @id @default(cuid())
   login        String    @unique
   passwordHash String
-  createdAt    DateTime  @default(now())
-  lastLoginAt  DateTime?
-  sessions     Session[]
+  role         AdminRole @default(OWNER)
+
+  // Имя и телефон нужны в наряде и в списке команды. Необязательные: у учётной
+  // записи владельца, заведённой сидом, имени может не быть, и выдумывать его
+  // нельзя — интерфейс покажет логин.
+  name  String?
+  phone String?
+
+  // Отключение закрывает вход, но сохраняет историю: выполненные наряды
+  // остаются за человеком, даже когда он больше не работает.
+  active Boolean @default(true)
+
+  createdAt   DateTime  @default(now())
+  lastLoginAt DateTime?
+
+  sessions Session[]
+  notes    InstallerNote[]
+
+  @@index([role, active])
+}
+
+// Заметки владельца о монтажнике. Сам монтажник их не видит — поэтому это
+// отдельная таблица, а не поле в `AdminUser`: так «не отдавать наружу» —
+// решение о том, присоединять ли связь, а не о том, вырезать ли поле.
+model InstallerNote {
+  id        String    @id @default(cuid())
+  userId    String
+  text      String
+  createdAt DateTime  @default(now())
+  user      AdminUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
 }
 
 model Session {

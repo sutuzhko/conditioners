@@ -1,4 +1,5 @@
 import { KIND_LOOK } from '@/features/crm-calendar';
+import { requireOwnerPage } from '@/server/guards';
 import { listAll as listArticles } from '@/server/repo/articles';
 import { listUpcoming } from '@/server/repo/crm';
 import { listByStatus as listLeads } from '@/server/repo/leads';
@@ -27,6 +28,9 @@ const UPCOMING = 5;
  * лишний способ отказать.
  */
 export default async function AdminHomePage() {
+  /* Раздел владельца: проверка до чтения данных (ADR-095). */
+  await requireOwnerPage();
+
   const now = new Date();
   const today = todayKey(now);
 

@@ -22,7 +22,13 @@ import * as products from '@/server/repo/products';
 import { GET, POST } from './route';
 import { PATCH as PATCH_SALE } from './[id]/sale/route';
 
-const session = { userId: 'u1', login: 'admin', expiresAt: new Date('2026-12-31') };
+const session = {
+  userId: 'u1',
+  login: 'admin',
+  name: null,
+  role: 'owner',
+  expiresAt: new Date('2026-12-31'),
+} as const;
 
 const product = {
   id: 'p1',

@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
 
 import { getAdminSession } from '@/server/auth';
-import { AdminShell, NAV_COOKIE } from '@/widgets/admin-shell';
+import { ADMIN_PATHNAME_HEADER } from '@/shared/config/admin-headers';
+import { AdminShell, NAV_COOKIE, sectionAllows } from '@/widgets/admin-shell';
 
 export const metadata: Metadata = {
   title: { default: 'Панель управления', template: '%s · Панель управления' },
@@ -20,18 +21,32 @@ export const dynamic = 'force-dynamic';
  * 🔴 Проверка сессии здесь настоящая, с обращением к базе. Middleware смотрит
  * только на наличие cookie: этого хватает, чтобы отсечь случайный заход, но
  * подделанное значение он не отличит.
+ *
+ * 🔴 Разграничение по ролям стоит здесь же, а не во вложенном layout раздела
+ * (ADR-095): вложенный редирект срабатывает, когда страница уже отдана, и
+ * монтажник успевал получить каталог с данными до того, как браузер уводил
+ * его прочь. Внешний layout решает до первого байта.
  */
 export default async function AdminPanelLayout({ children }: { children: ReactNode }) {
   const session = await getAdminSession();
   if (session === null) redirect('/admin/login');
 
+  const jar = await headers();
+  const pathname = jar.get(ADMIN_PATHNAME_HEADER) ?? '';
+
+  if (!sectionAllows(pathname, session.role)) {
+    /* Монтажнику сводка не адресована — она про готовность сайта и модерацию.
+       Его рабочий экран — календарь своих выездов. */
+    redirect(session.role === 'owner' ? '/admin' : '/admin/crm');
+  }
+
   /* Состояние колонки разделов читается на сервере: развёрнутая по умолчанию
      панель, схлопывающаяся после гидратации, мигала бы на каждом заходе. */
-  const jar = await cookies();
-  const navOpen = jar.get(NAV_COOKIE)?.value !== 'off';
+  const cookieJar = await cookies();
+  const navOpen = cookieJar.get(NAV_COOKIE)?.value !== 'off';
 
   return (
-    <AdminShell login={session.login} navOpen={navOpen}>
+    <AdminShell login={session.login} name={session.name} role={session.role} navOpen={navOpen}>
       {children}
     </AdminShell>
   );

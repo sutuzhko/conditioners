@@ -1,6 +1,15 @@
 /** Публичный API оболочки панели управления. */
 export { AdminShell, type AdminShellProps } from './AdminShell';
-export { ADMIN_SECTIONS, adminShellContent, type AdminSection } from './content';
+export {
+  ADMIN_GROUP_TITLES,
+  ADMIN_SECTIONS,
+  adminShellContent,
+  sectionAllows,
+  sectionOf,
+  sectionsFor,
+  type AdminSection,
+  type AdminSectionGroup,
+} from './content';
 export {
   AdminSummary,
   type AdminSummaryProps,

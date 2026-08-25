@@ -40,6 +40,9 @@ export const POST = withRoute(async (request) => {
         headers: { 'Retry-After': String(result.retryAfterSec) },
       });
     }
+    if (result.reason === 'disabled') {
+      return apiError('forbidden', 'Доступ к панели закрыт. Обратитесь к владельцу');
+    }
     return apiError('unauthorized', 'Неверный логин или пароль');
   }
 

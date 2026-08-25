@@ -1,12 +1,12 @@
 /**
- * Единый конверт ответов API — docs/API.md §12.
+ * Единый конверт ответов API — docs/API.md §13.
  *
  * Текст `message` уходит пользователю, поэтому он по-русски и объясняет, что
  * делать. Технические подробности пишутся в лог и наружу не отдаются.
  */
 import { NextResponse, type NextRequest } from 'next/server';
 import { ZodError } from 'zod';
-import { getAdminSession, type AdminSession } from '@/server/auth';
+import { getAdminSession, isOwner, type AdminSession } from '@/server/auth';
 import { hit } from '@/server/repo/rate-limit';
 
 export type ApiErrorCode =
@@ -154,6 +154,23 @@ export function withAdmin<Ctx>(
       return handleRouteError(error);
     }
   };
+}
+
+/**
+ * Маршрут, доступный только владельцу: клиенты, команда, деньги, всё про сайт.
+ *
+ * 🔴 Проверка здесь, а не в разметке: скрытая кнопка — подсказка интерфейса,
+ * а не защита. Монтажник знает адреса панели — он в ней работает (ADR-092).
+ */
+export function withOwner<Ctx>(
+  handler: (request: NextRequest, context: Ctx, session: AdminSession) => Promise<Response>,
+): RouteHandler<Ctx> {
+  return withAdmin(async (request, context: Ctx, session) => {
+    if (!isOwner(session)) {
+      return apiError('forbidden', 'Раздел доступен только владельцу');
+    }
+    return handler(request, context, session);
+  });
 }
 
 /** Публичный маршрут: та же обработка ошибок, без проверки сессии. */

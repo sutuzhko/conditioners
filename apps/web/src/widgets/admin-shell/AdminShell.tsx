@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+import type { AdminRole } from '@/entities/staff/model';
 import { ThemeToggle } from '@/shared/ui';
 
 import { AdminNav } from './AdminNav';
@@ -14,6 +15,10 @@ export interface AdminShellProps {
   children: ReactNode;
   /** Логин вошедшего. Из сессии, не из кода: администраторов может быть больше одного. */
   login: string;
+  /** Имя вошедшего, если заполнено: в шапке оно понятнее логина. */
+  name?: string | null | undefined;
+  /** Роль решает, какие разделы показывать (ADR-092). */
+  role: AdminRole;
   /**
    * Была ли колонка разделов развёрнута в прошлый раз. Приходит из cookie,
    * прочитанной на сервере, — панель не мигает при каждом заходе.
@@ -31,7 +36,7 @@ export interface AdminShellProps {
  * Колонка разделов прижата к краю окна, а не вписана в общий контейнер: она
  * граница рабочей области, и отступ слева читался как «панель не дотянулась».
  */
-export function AdminShell({ children, login, navOpen = true }: AdminShellProps) {
+export function AdminShell({ children, login, name, role, navOpen = true }: AdminShellProps) {
   return (
     <NavState initialOpen={navOpen}>
       <header className={styles.header}>
@@ -49,7 +54,7 @@ export function AdminShell({ children, login, navOpen = true }: AdminShellProps)
         </div>
 
         <div className={styles.actions}>
-          <span className={styles.login}>{login}</span>
+          <span className={styles.login}>{name ?? login}</span>
           {/* Ссылка на сайт открывается в новой вкладке: правку хочется
               сверить, не теряя место в панели. */}
           <Link className={styles.site} href={{ pathname: '/' }} target="_blank" rel="noreferrer">
@@ -63,7 +68,7 @@ export function AdminShell({ children, login, navOpen = true }: AdminShellProps)
 
       <div className={styles.body}>
         <aside className={styles.aside}>
-          <AdminNav />
+          <AdminNav role={role} />
         </aside>
 
         <main className={styles.content}>{children}</main>

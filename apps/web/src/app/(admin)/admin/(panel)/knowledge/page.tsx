@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { buttonClassName } from '@/shared/ui';
+import { requireOwnerPage } from '@/server/guards';
 import { listAll } from '@/server/repo/articles';
 import { AdminArticleList, adminKnowledgeContent as texts } from '@/widgets/admin-knowledge';
 
@@ -13,6 +14,9 @@ export const dynamic = 'force-dynamic';
 
 /** База знаний: список статей и вход в правку. */
 export default async function AdminKnowledgePage() {
+  /* Раздел владельца: проверка до чтения данных (ADR-095). */
+  await requireOwnerPage();
+
   const articles = await listAll();
 
   return (

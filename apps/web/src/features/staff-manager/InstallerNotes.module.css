@@ -1,0 +1,84 @@
+/* Заметки владельца о монтажнике. */
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 4px 0 12px;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.add {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  margin-bottom: 14px;
+}
+
+.field {
+  flex: 1;
+  min-width: 0;
+}
+
+.empty {
+  margin: 0;
+  color: var(--faint);
+  font-size: var(--fs-dense);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.note {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0 8px;
+  align-items: start;
+  padding: 8px 12px;
+  border-left: 3px solid var(--line-strong);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  background: var(--bg-soft);
+}
+
+.when {
+  grid-column: 1;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.text {
+  grid-column: 1;
+  overflow-wrap: anywhere;
+  margin: 2px 0 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+.note button {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+}
+
+.error {
+  margin: 10px 0 0;
+  padding: 8px 12px;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}

@@ -6,10 +6,13 @@ vi.mock('@/server/repo/sessions', () => ({
   findByTokenHash: vi.fn(),
   deleteByTokenHash: vi.fn(),
   deleteExpired: vi.fn(),
+  deleteOtherForUser: vi.fn(),
 }));
 
 vi.mock('@/server/repo/admin-users', () => ({
   findByLogin: vi.fn(),
+  findPasswordHash: vi.fn(),
+  setPasswordHash: vi.fn(),
   markLogin: vi.fn(),
 }));
 
@@ -33,6 +36,8 @@ import {
   hashPassword,
   hashToken,
   issueSession,
+  changePassword,
+  isOwner,
   login,
   readSession,
 } from '@/server/auth';
@@ -92,12 +97,15 @@ describe('проверка сессии', () => {
       id: 's1',
       userId: 'u1',
       login: 'admin',
+      name: null,
+      role: 'owner',
+      active: true,
       expiresAt,
     });
 
     const session = await readSession('токен', new Date('2026-08-20T10:00:00Z'));
 
-    expect(session).toEqual({ userId: 'u1', login: 'admin', expiresAt });
+    expect(session).toEqual({ userId: 'u1', login: 'admin', name: null, role: 'owner', expiresAt });
   });
 
   it('истёкшая сессия не действует и вычищается', async () => {
@@ -105,6 +113,9 @@ describe('проверка сессии', () => {
       id: 's1',
       userId: 'u1',
       login: 'admin',
+      name: null,
+      role: 'owner',
+      active: true,
       expiresAt: new Date('2026-08-19T10:00:00Z'),
     });
 
@@ -120,6 +131,9 @@ describe('проверка сессии', () => {
       id: 's1',
       userId: 'u1',
       login: 'admin',
+      name: null,
+      role: 'owner',
+      active: true,
       expiresAt,
     });
     vi.mocked(cookies).mockResolvedValue({
@@ -143,6 +157,8 @@ describe('вход', () => {
     vi.mocked(adminUsers.findByLogin).mockResolvedValue({
       id: 'u1',
       login: 'admin',
+      role: 'owner',
+      active: true,
       passwordHash: await hashPassword('настоящий-пароль'),
     });
 
@@ -155,6 +171,8 @@ describe('вход', () => {
     vi.mocked(adminUsers.findByLogin).mockResolvedValue({
       id: 'u1',
       login: 'admin',
+      role: 'owner',
+      active: true,
       passwordHash: await hashPassword('верный-пароль'),
     });
 
@@ -194,5 +212,76 @@ describe('выход', () => {
     await destroySession(undefined);
 
     expect(sessions.deleteByTokenHash).not.toHaveBeenCalled();
+  });
+});
+
+describe('отключённый доступ', () => {
+  it('не пускает даже с верным паролем — и говорит, почему', async () => {
+    vi.mocked(adminUsers.findByLogin).mockResolvedValue({
+      id: 'u2',
+      login: 'sokolov',
+      role: 'installer',
+      active: false,
+      passwordHash: await hashPassword('верный-пароль'),
+    });
+
+    const result = await login({ login: 'sokolov', password: 'верный-пароль', ip: '10.0.0.1' });
+
+    expect(result).toEqual({ ok: false, reason: 'disabled' });
+    expect(sessions.create).not.toHaveBeenCalled();
+  });
+
+  it('закрывает уже открытую сессию: cookie в телефоне уволенного перестаёт работать', async () => {
+    vi.mocked(sessions.findByTokenHash).mockResolvedValue({
+      id: 's1',
+      userId: 'u2',
+      login: 'sokolov',
+      name: 'Дмитрий Соколов',
+      role: 'installer',
+      active: false,
+      expiresAt: new Date('2026-09-20T10:00:00Z'),
+    });
+
+    await expect(readSession('токен', new Date('2026-08-20T10:00:00Z'))).resolves.toBeNull();
+  });
+});
+
+describe('роль', () => {
+  it('владелец отличается от монтажника', () => {
+    const base = { userId: 'u1', login: 'admin', name: null, expiresAt: new Date() };
+
+    expect(isOwner({ ...base, role: 'owner' })).toBe(true);
+    expect(isOwner({ ...base, role: 'installer' })).toBe(false);
+  });
+});
+
+describe('смена своего пароля', () => {
+  it('без верного текущего пароля ничего не меняет', async () => {
+    vi.mocked(adminUsers.findPasswordHash).mockResolvedValue(await hashPassword('настоящий'));
+
+    const result = await changePassword({
+      userId: 'u1',
+      currentToken: 'токен',
+      current: 'не-тот',
+      next: 'новый-пароль',
+    });
+
+    expect(result).toBe('invalid_current');
+    expect(adminUsers.setPasswordHash).not.toHaveBeenCalled();
+  });
+
+  it('меняет пароль и выгоняет остальные сессии, оставляя текущую', async () => {
+    vi.mocked(adminUsers.findPasswordHash).mockResolvedValue(await hashPassword('настоящий'));
+
+    const result = await changePassword({
+      userId: 'u1',
+      currentToken: 'токен',
+      current: 'настоящий',
+      next: 'новый-пароль',
+    });
+
+    expect(result).toBe('ok');
+    expect(adminUsers.setPasswordHash).toHaveBeenCalledWith('u1', expect.any(String));
+    expect(sessions.deleteOtherForUser).toHaveBeenCalledWith('u1', hashToken('токен'));
   });
 });

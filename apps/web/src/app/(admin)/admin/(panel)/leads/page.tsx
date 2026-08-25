@@ -7,6 +7,7 @@ import {
   isLeadStatus,
   leadManagerContent as texts,
 } from '@/features/lead-manager';
+import { requireOwnerPage } from '@/server/guards';
 import { listByStatus } from '@/server/repo/leads';
 
 import styles from './page.module.css';
@@ -26,6 +27,9 @@ export default async function AdminLeadsPage({
 }: {
   searchParams: Promise<{ status?: string }>;
 }) {
+  /* Раздел владельца: проверка до чтения данных (ADR-095). */
+  await requireOwnerPage();
+
   const { status } = await searchParams;
   const selected = status !== undefined && isLeadStatus(status) ? status : undefined;
   const leads = await listByStatus(selected);

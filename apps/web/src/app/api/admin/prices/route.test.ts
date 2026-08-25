@@ -41,7 +41,13 @@ import { db } from '@/server/db';
 import { getAdminSession } from '@/server/auth';
 import { GET, PUT } from './route';
 
-const session = { userId: 'u1', login: 'admin', expiresAt: new Date('2026-12-31') };
+const session = {
+  userId: 'u1',
+  login: 'admin',
+  name: null,
+  role: 'owner',
+  expiresAt: new Date('2026-12-31'),
+} as const;
 
 const priceRow = { cls: '09', power: '2.6 кВт', area: 'до 25 м²', price: 33900, term: '1 день' };
 

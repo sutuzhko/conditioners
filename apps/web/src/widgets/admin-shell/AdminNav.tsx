@@ -4,8 +4,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
-import { ADMIN_SECTIONS, adminShellContent as texts } from './content';
+import type { AdminRole } from '@/entities/staff/model';
+
+import { ADMIN_GROUP_TITLES, adminShellContent as texts, sectionsFor } from './content';
 import styles from './AdminNav.module.css';
+
+export type AdminNavProps = {
+  /** Монтажник видит три раздела из десяти — список собирается по роли. */
+  readonly role: AdminRole;
+};
 
 /**
  * Боковая навигация панели.
@@ -13,7 +20,7 @@ import styles from './AdminNav.module.css';
  * Клиентский компонент ровно из-за одного: текущий раздел подсвечивается по
  * адресу. Всё остальное в оболочке остаётся серверным.
  */
-export function AdminNav() {
+export function AdminNav({ role }: AdminNavProps) {
   const pathname = usePathname();
   const list = useRef<HTMLUListElement>(null);
   const active = useRef<HTMLAnchorElement>(null);
@@ -37,16 +44,28 @@ export function AdminNav() {
     track.scrollLeft = link.offsetLeft - (track.clientWidth - link.offsetWidth) / 2;
   }, [pathname]);
 
+  const sections = sectionsFor(role);
+
   return (
     <nav className={styles.nav} aria-label={texts.navLabel}>
       <ul className={styles.list} ref={list}>
-        {ADMIN_SECTIONS.map((section) => {
+        {sections.map((section, index) => {
           /* Раздел активен и на своих вложенных страницах: со страницы правки
              модели подсвеченным должен остаться «Каталог». */
           const current = pathname === section.href || pathname.startsWith(`${section.href}/`);
 
+          /* Заголовок группы рисуется перед её первым разделом. Он декоративный:
+             список ссылок и без него полный, поэтому от озвучки скрыт. */
+          const caption =
+            sections[index - 1]?.group === section.group ? null : ADMIN_GROUP_TITLES[section.group];
+
           return (
             <li key={section.href}>
+              {caption === null ? null : (
+                <span className={styles.caption} aria-hidden="true">
+                  {caption}
+                </span>
+              )}
               <Link
                 className={[styles.link, current ? styles.active : null].filter(Boolean).join(' ')}
                 href={{ pathname: section.href }}

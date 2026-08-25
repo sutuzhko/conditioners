@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { DeliveryLog } from '@/features/delivery-log';
 import { NOTIFICATIONS_GROUP, SettingsForm, type GroupValue } from '@/features/settings-form';
+import { requireOwnerPage } from '@/server/guards';
 import { isEmailConfigured } from '@/server/notifications/channels/email';
 import { isTelegramConfigured } from '@/server/notifications/channels/telegram';
 import { loadNotificationPrefs } from '@/server/notifications/prefs';
@@ -36,6 +37,9 @@ type ChannelState = {
  * выбрано здесь и что вообще способно работать.
  */
 export default async function AdminNotificationsPage() {
+  /* Раздел владельца: проверка до чтения данных (ADR-095). */
+  await requireOwnerPage();
+
   const [stored, prefs, summary, failures] = await Promise.all([
     getGroup('notifications'),
     loadNotificationPrefs(),

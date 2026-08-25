@@ -21,7 +21,13 @@ import { GET as GET_ALL } from './route';
 import { PUT } from './[key]/route';
 import { GET as GET_PUBLIC } from '../../settings/[key]/route';
 
-const session = { userId: 'u1', login: 'admin', expiresAt: new Date('2026-12-31') };
+const session = {
+  userId: 'u1',
+  login: 'admin',
+  name: null,
+  role: 'owner',
+  expiresAt: new Date('2026-12-31'),
+} as const;
 
 const contacts = {
   phones: ['8 (4872) 12-34-56'],

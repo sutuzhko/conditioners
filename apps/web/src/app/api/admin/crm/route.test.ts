@@ -14,7 +14,13 @@ import * as crm from '@/server/repo/crm';
 import { POST } from './route';
 import { DELETE, PATCH } from './[id]/route';
 
-const session = { userId: 'u1', login: 'admin', expiresAt: new Date('2026-12-31') };
+const session = {
+  userId: 'u1',
+  login: 'admin',
+  name: null,
+  role: 'owner',
+  expiresAt: new Date('2026-12-31'),
+} as const;
 
 const event = {
   id: 'e1',

@@ -8,7 +8,9 @@
  */
 import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 import { cookies } from 'next/headers';
+import { cache } from 'react';
 import { verify as verifyPassword, hash as hashPasswordArgon } from '@node-rs/argon2';
+import type { AdminRole } from '@/entities/staff/model';
 import { env } from '@/shared/config/env';
 import * as adminUsers from '@/server/repo/admin-users';
 import * as sessions from '@/server/repo/sessions';
@@ -25,8 +27,15 @@ const LOGIN_WINDOW_MS = 15 * 60 * 1000;
 export type AdminSession = {
   userId: string;
   login: string;
+  name: string | null;
+  role: AdminRole;
   expiresAt: Date;
 };
+
+/** Владелец видит панель целиком, монтажник — свои наряды, календарь и профиль. */
+export function isOwner(session: AdminSession): boolean {
+  return session.role === 'owner';
+}
 
 export type SessionCookieOptions = {
   httpOnly: true;
@@ -74,14 +83,31 @@ export async function readSession(
     return null;
   }
 
-  return { userId: stored.userId, login: stored.login, expiresAt: stored.expiresAt };
+  /* Отключение доступа обязано действовать сразу, а не через тридцать дней:
+     у уволенного монтажника cookie в телефоне остаётся рабочим. */
+  if (!stored.active) return null;
+
+  return {
+    userId: stored.userId,
+    login: stored.login,
+    name: stored.name,
+    role: stored.role,
+    expiresAt: stored.expiresAt,
+  };
 }
 
-/** Сессия текущего запроса. Возвращает null, а не бросает: решение об ответе — за обработчиком. */
-export async function getAdminSession(): Promise<AdminSession | null> {
+/**
+ * Сессия текущего запроса. Возвращает null, а не бросает: решение об ответе —
+ * за обработчиком.
+ *
+ * Обёрнута в `cache`: за один запрос сессию спрашивают и layout панели, и
+ * сама страница (ADR-095), и обе проверки настоящие — но ходить в базу
+ * дважды за одним и тем же незачем.
+ */
+export const getAdminSession = cache(async (): Promise<AdminSession | null> => {
   const store = await cookies();
   return readSession(store.get(SESSION_COOKIE)?.value);
-}
+});
 
 export async function destroySession(token: string | undefined): Promise<void> {
   if (token === undefined || token === '') return;
@@ -91,6 +117,7 @@ export async function destroySession(token: string | undefined): Promise<void> {
 export type LoginResult =
   | { ok: true; token: string; expiresAt: Date }
   | { ok: false; reason: 'invalid_credentials' }
+  | { ok: false; reason: 'disabled' }
   | { ok: false; reason: 'rate_limited'; retryAfterSec: number };
 
 export async function login(params: {
@@ -118,6 +145,11 @@ export async function login(params: {
   const passwordOk = await verifyPassword(user.passwordHash, params.password).catch(() => false);
   if (!passwordOk) return { ok: false, reason: 'invalid_credentials' };
 
+  /* Отдельная причина, а не «неверный логин или пароль»: до этой ветки
+     доходит только тот, кто пароль знает, — значит, подсказка ничего не
+     раскрывает, зато человек понимает, что звонить надо владельцу. */
+  if (!user.active) return { ok: false, reason: 'disabled' };
+
   // Ротация: cookie, с которым пришли, перестаёт работать.
   await destroySession(params.currentToken);
   await sessions.deleteExpired(now);
@@ -132,6 +164,35 @@ export async function login(params: {
 /** Хеш пароля для заведения администратора. Argon2id — параметры по умолчанию @node-rs/argon2. */
 export function hashPassword(password: string): Promise<string> {
   return hashPasswordArgon(password);
+}
+
+/**
+ * Смена своего пароля.
+ *
+ * Все прочие сессии этого человека закрываются: смена пароля — обычная
+ * реакция на «кажется, кто-то знает мой пароль», и она обязана выгонять того,
+ * кто уже вошёл. Текущая сессия остаётся: выкидывать человека из панели
+ * ровно за то, что он сделал правильную вещь, — плохая награда.
+ */
+export async function changePassword(params: {
+  userId: string;
+  currentToken: string | undefined;
+  current: string;
+  next: string;
+}): Promise<'ok' | 'invalid_current'> {
+  const stored = await adminUsers.findPasswordHash(params.userId);
+  if (stored === null) return 'invalid_current';
+
+  const ok = await verifyPassword(stored, params.current).catch(() => false);
+  if (!ok) return 'invalid_current';
+
+  await adminUsers.setPasswordHash(params.userId, await hashPassword(params.next));
+  await sessions.deleteOtherForUser(
+    params.userId,
+    params.currentToken === undefined ? '' : hashToken(params.currentToken),
+  );
+
+  return 'ok';
 }
 
 /** IP берём из заголовка прокси: приложение всегда стоит за Caddy. */

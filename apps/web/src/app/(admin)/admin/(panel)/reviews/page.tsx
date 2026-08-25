@@ -7,6 +7,7 @@ import {
   isReviewStatus,
   reviewModerationContent as texts,
 } from '@/features/review-moderation';
+import { requireOwnerPage } from '@/server/guards';
 import { listByStatus } from '@/server/repo/reviews';
 
 import styles from '../leads/page.module.css';
@@ -26,6 +27,9 @@ export default async function AdminReviewsPage({
 }: {
   searchParams: Promise<{ status?: string }>;
 }) {
+  /* Раздел владельца: проверка до чтения данных (ADR-095). */
+  await requireOwnerPage();
+
   const { status } = await searchParams;
   const selected = status !== undefined && isReviewStatus(status) ? status : undefined;
   const reviews = await listByStatus(selected);

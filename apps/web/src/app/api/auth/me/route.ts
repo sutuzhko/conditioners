@@ -9,6 +9,8 @@ export const GET = withRoute(async () => {
 
   return json({
     login: session.login,
+    name: session.name,
+    role: session.role,
     expiresAt: session.expiresAt.toISOString(),
   });
 });

@@ -23,6 +23,18 @@ const { testEnv, settingsMock } = vi.hoisted(() => ({
 vi.mock('@/shared/config/env', () => ({ env: testEnv }));
 vi.mock('@/server/repo/settings', () => settingsMock);
 
+/* Страница вызывает проверку роли первой строкой (ADR-095). Здесь проверяется
+   её содержимое, а не доступ: сессии в тестовом окружении нет вовсе. */
+vi.mock('@/server/guards', () => ({
+  requireOwnerPage: vi.fn(async () => ({
+    userId: 'u1',
+    login: 'admin',
+    name: null,
+    role: 'owner',
+    expiresAt: new Date('2026-12-31'),
+  })),
+}));
+
 const { default: NotificationsPage } = await import('./page');
 const { notificationsPageContent: texts } = await import('./content');
 

@@ -14,7 +14,13 @@ import * as leads from '@/server/repo/leads';
 import { GET } from './route';
 import { PATCH } from './[id]/route';
 
-const session = { userId: 'u1', login: 'admin', expiresAt: new Date('2026-12-31') };
+const session = {
+  userId: 'u1',
+  login: 'admin',
+  name: null,
+  role: 'owner',
+  expiresAt: new Date('2026-12-31'),
+} as const;
 
 const lead = {
   id: 'l1',

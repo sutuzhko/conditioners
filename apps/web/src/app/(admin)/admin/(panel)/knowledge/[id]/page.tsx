@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { requireOwnerPage } from '@/server/guards';
 import { findById } from '@/server/repo/articles';
 
 import { ArticleEditor } from '../ArticleEditor';
@@ -22,6 +23,9 @@ export async function generateMetadata({
 
 /** Правка статьи. */
 export default async function AdminArticlePage({ params }: { params: Promise<{ id: string }> }) {
+  /* Раздел владельца: проверка до чтения данных (ADR-095). */
+  await requireOwnerPage();
+
   const { id } = await params;
   const article = await findById(id);
 
