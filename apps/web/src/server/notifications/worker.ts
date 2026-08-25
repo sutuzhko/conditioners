@@ -1,3 +1,5 @@
+import { writeFile } from 'node:fs/promises';
+
 import { db } from '@/server/db';
 import { dropOlderThan } from '@/server/repo/rate-limit';
 import { resolveChannels } from './channels';
@@ -9,6 +11,14 @@ import { processDueNotifications } from './runner';
  * (docs/TECH_DECISIONS.md §5).
  */
 const INTERVAL_MS = 30_000;
+
+/**
+ * Файл-пульс: цикл пишет его после каждого прохода, а healthcheck контейнера
+ * (docker-compose.prod.yml) проверяет возраст. Без этого зависший `await`
+ * внутри такта оставлял контейнер «running» при мёртвой очереди — владелец
+ * узнавал бы о заявках из тишины (аудит 23 августа, BUGS).
+ */
+const HEARTBEAT_FILE = '/tmp/worker-heartbeat';
 
 /** Отработавшие окна счётчика частоты держим сутки — дольше они ни на что не влияют. */
 const RATE_LIMIT_TTL_MS = 24 * 60 * 60_000;
@@ -53,6 +63,10 @@ async function main(): Promise<void> {
       // молчащая очередь и владелец, который не узнал о заявке.
       console.error('Сбой при разборе очереди уведомлений', error);
     }
+    // Пульс — после любого исхода такта: он свидетельствует о живом цикле,
+    // а не об успехе доставки. Ошибку записи глотаем осознанно — постаревший
+    // файл сам сделает контейнер unhealthy, ронять воркер из-за него незачем.
+    await writeFile(HEARTBEAT_FILE, String(Date.now())).catch(() => undefined);
     await new Promise((resolve) => setTimeout(resolve, INTERVAL_MS));
   }
 
