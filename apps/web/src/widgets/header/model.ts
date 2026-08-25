@@ -1,13 +1,6 @@
-import type { ButtonLinkHref } from '@/shared/ui';
-
 /**
- * Пункт навигации. Адрес типизирован так же, как у next/link: при включённых
- * typedRoutes опечатка в маршруте ловится компилятором на стороне страницы,
- * а блок остаётся представлением и ничего не знает о карте URL.
+ * Форму пункта навигации задаёт карта навигации в shared (ADR-096): слой
+ * shared не может импортировать виджеты, поэтому тип живёт там, а шапка
+ * подхватывает его реэкспортом — потребители шапки ничего не заметили.
  */
-export interface NavItem {
-  readonly label: string;
-  readonly href: ButtonLinkHref;
-  /** активный раздел — на него ставится aria-current="page" */
-  readonly current?: boolean | undefined;
-}
+export type { NavItem } from '@/shared/config/nav';

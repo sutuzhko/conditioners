@@ -4,11 +4,11 @@ import { render } from '@testing-library/react';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { productSchema, type Product } from '@/entities/product/model';
 import { formatMoney } from '@/shared/lib/format';
-import { ProductPrice } from '@/widgets/catalog/ui/ProductPrice';
+import { ProductPrice } from './ui/ProductPrice';
 
-import { SITE_URL } from './fixtures';
-import { buildCatalogItemListJsonLd, buildItemListJsonLd, buildProductJsonLd } from './product';
-import { organizationId } from './organization';
+import { SITE_URL } from '@/shared/seo/fixtures';
+import { buildCatalogItemListJsonLd, buildItemListJsonLd, buildProductJsonLd } from '@/shared/seo';
+import { organizationId } from '@/shared/seo/organization';
 
 /** Момент, относительно которого считается скидка. Фиксированный: иначе тест «протухнет». */
 const NOW = new Date('2026-08-20T09:00:00.000Z');

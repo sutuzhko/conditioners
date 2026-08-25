@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import { formatMoney } from '@/shared/lib/format';
 import { Faq, buildFaqItems } from '@/widgets/faq';
 
-import { buildFaqPageJsonLd } from './faq';
+import { buildFaqPageJsonLd } from '@/shared/seo';
 
 /**
  * 🔴 Инвариант 9 в чистом виде: разметка `FAQPage` строится из того же

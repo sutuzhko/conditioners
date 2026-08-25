@@ -1,4 +1,4 @@
-import { formatAddress as sharedFormatAddress } from '@/shared/lib/address';
+import { formatAddress as sharedFormatAddress } from '@/entities/settings/lib/address';
 import type { Address, Legal } from '@/entities/settings/model';
 import { footerContent } from './content';
 

@@ -1,4 +1,4 @@
-import { SETTING_PLACEHOLDER } from '@/entities/settings/lib/readiness';
+import { SETTING_PLACEHOLDER } from '@/shared/config/placeholder';
 
 /**
  * Основа сборщиков разметки Schema.org (docs/SEO.md §4).

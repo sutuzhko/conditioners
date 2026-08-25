@@ -1,4 +1,4 @@
-import type { Address } from '@/entities/settings/model';
+import type { Address } from '../model';
 
 /**
  * Сборка почтового адреса из частей. Адрес хранится по полям, потому что
@@ -7,7 +7,8 @@ import type { Address } from '@/entities/settings/model';
  *
  * Третья по счёту реализация этой сборки в проекте — первые две написали
  * независимо футер и контакты, потому что правило слоёв запрещает импорт
- * вбок между виджетами.
+ * вбок между виджетами. Живёт в entities/settings: сборка адреса — знание
+ * о данных компании, а не утилита общего назначения (ADR-096).
  */
 export type AddressFormatOptions = {
   /**

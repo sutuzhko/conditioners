@@ -1,17 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 
-import { ReviewForm } from '@/features/review-form';
-import { Button, Modal, type ButtonLinkHref } from '@/shared/ui';
+import { Button, Modal } from '@/shared/ui';
 
 import { reviewModalContent as t } from './content';
 import { ReviewHints } from './ReviewHints';
 import styles from './ReviewModal.module.css';
 
+/** Слот формы: оформление и памятку задаёт окно, содержимое — вызывающий. */
+export type ReviewModalFormSlot = {
+  readonly chrome: 'bare';
+  readonly aside: ReactNode;
+  readonly className: string;
+};
+
 export interface ReviewModalProps {
-  /** Адрес политики обработки персональных данных — уходит в форму. */
-  readonly policyHref: ButtonLinkHref;
+  /**
+   * Форма отзыва приходит снаружи: импорт вбок между фичами запрещён
+   * правилом слоёв (ADR-096), поэтому композицию «окно + форма» собирает
+   * виджет отзывов — ему обе фичи доступны.
+   */
+  readonly renderForm: (slot: ReviewModalFormSlot) => ReactNode;
   /** Подпись кнопки, открывающей окно. */
   readonly label?: string | undefined;
   readonly className?: string | undefined;
@@ -28,7 +38,7 @@ export interface ReviewModalProps {
  * Памятка «о чём полезно написать» живёт здесь же: подсказка нужна ровно в
  * момент заполнения, а не на странице у того, кто просто читает отзывы.
  */
-export function ReviewModal({ policyHref, label = t.open, className }: ReviewModalProps) {
+export function ReviewModal({ renderForm, label = t.open, className }: ReviewModalProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -48,12 +58,7 @@ export function ReviewModal({ policyHref, label = t.open, className }: ReviewMod
             ширина окна занята целиком, а не колонкой подсказок рядом с
             узкой формой. Заголовок и пояснение уже дало окно — форма их не
             повторяет. */}
-        <ReviewForm
-          policyHref={policyHref}
-          chrome="bare"
-          aside={<ReviewHints />}
-          className={styles.form}
-        />
+        {renderForm({ chrome: 'bare', aside: <ReviewHints />, className: styles.form })}
       </Modal>
     </>
   );

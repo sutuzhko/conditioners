@@ -15,8 +15,11 @@ const layerRule = (layer, forbidden) => ({
     'no-restricted-imports': [
       'error',
       {
+        // `*` не пересекает `/`, и одиночная звёздочка пропускала подпути
+        // (`@/entities/product/model`) — так нарушения жили незамеченными
+        // (аудит 23 августа). `**` закрывает и корень, и подпути.
         patterns: forbidden.map((f) => ({
-          group: [`@/${f}/*`, `**/${f}/*`],
+          group: [`@/${f}`, `@/${f}/**`, `**/${f}/**`],
           message: `Слой ${layer} не может импортировать из ${f} — см. правило зависимостей в docs/CLAUDE.md`,
         })),
       },
@@ -61,12 +64,30 @@ export default [
   layerRule('features', ['app', 'widgets']),
   layerRule('widgets', ['app']),
   {
+    // Единственное узаконенное исключение из правила слоёв (ADR-096):
+    // сборщики разметки обязаны видеть доменные типы и константы — второй
+    // источник правды о том, что такое товар и отзыв, разошёлся бы с
+    // видимой страницей (инвариант 9). Всё остальное запрещено как прежде.
+    files: ['apps/*/src/shared/seo/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: ['app', 'widgets', 'features', 'server'].map((f) => ({
+            group: [`@/${f}`, `@/${f}/**`, `**/${f}/**`],
+            message: `Слой shared не может импортировать из ${f} — исключение ADR-096 касается только entities`,
+          })),
+        },
+      ],
+    },
+  },
+  {
     // серверный код не должен утекать в клиентские слои — секреты живут только тут
     files: ['apps/*/src/{shared,entities,features,widgets}/**/*.{ts,tsx}'],
     rules: {
       'no-restricted-imports': [
         'error',
-        { patterns: [{ group: ['@/server/*'], message: 'Доступ к серверному слою — только из app/ и route handlers' }] },
+        { patterns: [{ group: ['@/server', '@/server/**'], message: 'Доступ к серверному слою — только из app/ и route handlers' }] },
       ],
     },
   },

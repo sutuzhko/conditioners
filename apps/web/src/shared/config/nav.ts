@@ -1,4 +1,18 @@
-import type { NavItem } from '@/widgets/header';
+import type { ButtonLinkHref } from '@/shared/ui';
+
+/**
+ * Пункт навигации. Тип живёт рядом с картой навигации, а не в шапке: слой
+ * shared не может импортировать виджеты (ADR-096), и это карта диктует
+ * шапке форму пункта, а не наоборот. Адрес типизирован так же, как у
+ * next/link: при включённых typedRoutes опечатка в маршруте ловится
+ * компилятором на стороне страницы.
+ */
+export type NavItem = {
+  readonly label: string;
+  readonly href: ButtonLinkHref;
+  /** активный раздел — на него ставится aria-current="page" */
+  readonly current?: boolean | undefined;
+};
 
 /**
  * Навигация сайта. Здесь перечислено только то, что на сайте действительно

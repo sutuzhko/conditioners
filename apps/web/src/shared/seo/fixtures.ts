@@ -8,7 +8,7 @@ import type {
   ServiceArea,
   Social,
 } from '@/entities/settings/model';
-import { SETTING_PLACEHOLDER } from '@/entities/settings/lib/readiness';
+import { SETTING_PLACEHOLDER } from '@/shared/config/placeholder';
 
 /**
  * Фикстуры сборщиков разметки.
