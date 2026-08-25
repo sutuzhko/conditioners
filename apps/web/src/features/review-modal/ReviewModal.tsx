@@ -12,7 +12,8 @@ import styles from './ReviewModal.module.css';
 export type ReviewModalFormSlot = {
   readonly chrome: 'bare';
   readonly aside: ReactNode;
-  readonly className: string;
+  /** Классы CSS-модуля типизированы как необязательные — форма это принимает. */
+  readonly className: string | undefined;
 };
 
 export interface ReviewModalProps {
