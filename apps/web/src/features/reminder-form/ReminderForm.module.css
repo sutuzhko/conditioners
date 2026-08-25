@@ -8,14 +8,14 @@
 
 .form,
 .done {
-  --field: rgb(255 255 255 / 7%);
-  --line-strong: rgb(255 255 255 / 20%);
+  --field: color-mix(in srgb, var(--on-panel) 7%, transparent);
+  --line-strong: color-mix(in srgb, var(--on-panel) 20%, transparent);
   --ink: var(--on-panel);
   --ink2: var(--on-panel);
   --body: color-mix(in srgb, var(--on-panel) 84%, transparent);
   --muted: color-mix(in srgb, var(--on-panel) 62%, transparent);
   --faint: color-mix(in srgb, var(--on-panel) 55%, transparent);
-  --bg-soft: rgb(255 255 255 / 10%);
+  --bg-soft: color-mix(in srgb, var(--on-panel) 10%, transparent);
 }
 
 .form {

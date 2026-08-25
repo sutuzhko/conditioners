@@ -12,6 +12,7 @@ import { Icon } from '../Icon';
 /** Микрокопия по умолчанию. Переопределяется пропсами, если форме нужен свой тон. */
 const TEXTS = {
   prompt: 'Выберите фото или перетащите сюда',
+  limit: (maxMb: number) => `до ${maxMb} МБ`,
   remove: 'Удалить фото',
   previewAlt: 'Загруженное фото',
   tooLarge: (limit: number) => `Файл больше ${limit} МБ — сожмите или выберите другой`,
@@ -34,6 +35,8 @@ export interface FileInputProps {
   disabled?: boolean | undefined;
   required?: boolean | undefined;
   promptText?: string | undefined;
+  /** подпись предела размера под приглашением; по умолчанию — «до N МБ» из maxSizeMb */
+  limitText?: string | undefined;
   previewAlt?: string | undefined;
   className?: string | undefined;
 }
@@ -63,6 +66,7 @@ export function FileInput({
   disabled,
   required,
   promptText = TEXTS.prompt,
+  limitText = TEXTS.limit(maxSizeMb),
   previewAlt = TEXTS.previewAlt,
   className,
 }: FileInputProps) {
@@ -166,7 +170,7 @@ export function FileInput({
         <Icon name="camera" size={22} className={styles.icon} />
         <span className={styles.texts}>
           <span className={styles.title}>{promptText}</span>
-          <span>до {maxSizeMb} МБ</span>
+          <span>{limitText}</span>
         </span>
       </label>
 

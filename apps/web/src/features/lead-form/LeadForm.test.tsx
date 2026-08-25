@@ -97,6 +97,20 @@ describe('LeadForm', () => {
     expect(sent?.has('time')).toBe(false);
   });
 
+  it('после успеха фокус переходит на заголовок подтверждения, а не висит на body', async () => {
+    const user = userEvent.setup();
+    setup();
+
+    await fillRequired(user);
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    // кнопка отправки исчезла вместе с формой — фокус обязан оказаться
+    // на заголовке экрана успеха, откуда читалка объявит итог
+    const heading = await screen.findByText(texts.successTitle);
+    await waitFor(() => expect(heading).toHaveFocus());
+  });
+
   it('ошибка сервера объясняет, что делать, и оставляет телефон', async () => {
     const user = userEvent.setup();
     const submit = vi.fn<LeadSubmit>(() =>

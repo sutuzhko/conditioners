@@ -93,6 +93,21 @@ describe('ReviewForm', () => {
     expect(sent?.has('district')).toBe(false);
   });
 
+  it('после успеха фокус переходит на заголовок подтверждения, а не висит на body', async () => {
+    const user = userEvent.setup();
+    setup();
+
+    await fillTexts(user);
+    await user.click(fiveStars());
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    // кнопка отправки исчезла вместе с формой — фокус обязан оказаться
+    // на заголовке экрана успеха, откуда читалка объявит итог
+    const heading = await screen.findByText(texts.successTitle);
+    await waitFor(() => expect(heading).toHaveFocus());
+  });
+
   it('ошибка сервера объясняет, что делать, и не стирает написанное', async () => {
     const user = userEvent.setup();
     const submit = vi.fn<ReviewSubmit>(() =>

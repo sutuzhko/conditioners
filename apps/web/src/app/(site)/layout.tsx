@@ -3,9 +3,10 @@ import type { Metadata } from 'next';
 import { JsonLd, buildOrganizationJsonLd, buildWebSiteJsonLd } from '@/shared/seo';
 import { env } from '@/shared/config/env';
 import { readiness } from '@/server/repo/settings';
+import { SkipLink } from '@/shared/ui';
 import { Header } from '@/widgets/header';
 import { Footer } from '@/widgets/footer';
-import { SITE_NAV, LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
+import { SITE_NAV, LEAD_ANCHOR, POLICY_HREF, SKIP_LINK } from '@/shared/config/nav';
 
 import { loadSettings } from './_lib/settings';
 
@@ -49,6 +50,8 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
   return (
     <>
+      {/* первая ссылка в body: обход sticky-шапки с клавиатуры (WCAG 2.4.1) */}
+      <SkipLink href={SKIP_LINK.href}>{SKIP_LINK.label}</SkipLink>
       {/* пустые узлы `JsonLd` отбрасывает сам — скрипта без содержимого не будет */}
       <JsonLd nodes={[buildOrganizationJsonLd(parts), buildWebSiteJsonLd(parts)]} />
       <Header

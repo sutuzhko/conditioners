@@ -34,7 +34,8 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
   useEffect(() => {
     const track = ref.current;
     if (track === null || !drift) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     let paused = false;
     let frame = 0;
@@ -62,6 +63,28 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
       frame = requestAnimationFrame(step);
     };
 
+    const start = (): void => {
+      if (frame !== 0) return;
+      // отсчёт времени с нуля: иначе первый кадр после паузы получил бы
+      // дельту за всё время простоя и лента прыгала бы вперёд
+      last = 0;
+      offset = 0;
+      frame = requestAnimationFrame(step);
+    };
+
+    const stop = (): void => {
+      if (frame === 0) return;
+      cancelAnimationFrame(frame);
+      frame = 0;
+    };
+
+    // экономию движения включают и не уходя со страницы (та же панель ОС):
+    // подписка останавливает ленту сразу, а не при следующем маунте
+    const sync = (): void => {
+      if (calm.matches) stop();
+      else start();
+    };
+
     const pause = (): void => {
       paused = true;
     };
@@ -76,10 +99,12 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
     // палец: пока его не убрали, лента принадлежит человеку
     track.addEventListener('touchstart', pause, { passive: true });
     track.addEventListener('touchend', resume, { passive: true });
-    frame = requestAnimationFrame(step);
+    calm.addEventListener('change', sync);
+    sync();
 
     return () => {
-      cancelAnimationFrame(frame);
+      stop();
+      calm.removeEventListener('change', sync);
       track.removeEventListener('pointerenter', pause);
       track.removeEventListener('pointerleave', resume);
       track.removeEventListener('focusin', pause);

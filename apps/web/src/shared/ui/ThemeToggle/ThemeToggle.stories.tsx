@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { ThemeToggle } from './ThemeToggle';
 
 const meta = {
@@ -33,10 +33,20 @@ export const CustomLabel: Story = {
 export const Switching: Story = {
   name: 'Переключение',
   play: async ({ canvasElement }) => {
+    const button = within(canvasElement).getByRole('button');
     const before = document.documentElement.getAttribute('data-theme');
-    await userEvent.click(within(canvasElement).getByRole('button'));
+
+    await userEvent.click(button);
     await expect(document.documentElement.getAttribute('data-theme')).not.toBe(before);
+    // кнопка сообщает состояние: «нажата» = тёмная тема включена
+    await waitFor(() =>
+      expect(button).toHaveAttribute(
+        'aria-pressed',
+        document.documentElement.getAttribute('data-theme') === 'dark' ? 'true' : 'false',
+      ),
+    );
+
     // возвращаем как было, чтобы история не ломала соседние
-    await userEvent.click(within(canvasElement).getByRole('button'));
+    await userEvent.click(button);
   },
 };

@@ -19,6 +19,7 @@ import {
 
 import {
   CALL_TIME_OPTIONS,
+  DEFAULT_LEAD_TOPIC,
   LEAD_TOPICS,
   PLACE_OPTIONS,
   QTY_OPTIONS,
@@ -82,7 +83,7 @@ export function LeadForm({
   title,
   description,
   headingLevel = 2,
-  defaultTopic = 'Консультация',
+  defaultTopic = DEFAULT_LEAD_TOPIC,
   className,
   submit = postLead,
   onSuccess,
@@ -96,6 +97,7 @@ export function LeadForm({
   const [greeting, setGreeting] = useState('');
 
   const formRef = useRef<HTMLFormElement>(null);
+  const successHeadingRef = useRef<HTMLHeadingElement>(null);
   const restarted = useRef(false);
   const headingId = useId();
   const honeypotId = useId();
@@ -110,6 +112,14 @@ export function LeadForm({
     if (!restarted.current) return;
     restarted.current = false;
     formRef.current?.querySelector<HTMLInputElement>('[name="name"]')?.focus();
+  }, [status]);
+
+  // экран успеха замещает форму вместе с кнопкой отправки, и фокус повисал бы
+  // на body: переводим его на заголовок подтверждения — клавиатура продолжает
+  // путь с него, а читалка объявляет итог, а не тишину
+  useEffect(() => {
+    if (status !== 'success') return;
+    successHeadingRef.current?.focus();
   }, [status]);
 
   function focusField(field: string): void {
@@ -223,7 +233,11 @@ export function LeadForm({
           <span className={styles.successIcon} aria-hidden="true">
             <Icon name="check" size={38} />
           </span>
-          <SuccessHeading className={styles.successTitle}>{texts.successTitle}</SuccessHeading>
+          {/* tabIndex={-1}: заголовок принимает фокус программно, но не встаёт
+              лишней остановкой в обычный ход Tab */}
+          <SuccessHeading ref={successHeadingRef} tabIndex={-1} className={styles.successTitle}>
+            {texts.successTitle}
+          </SuccessHeading>
           <p className={styles.successText}>{texts.successThanks(greeting)}</p>
           <p className={styles.successText}>{texts.successNext}</p>
           <Button variant="secondary" size="md" onClick={restart}>

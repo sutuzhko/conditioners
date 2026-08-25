@@ -83,4 +83,33 @@ describe('Modal', () => {
     unmount();
     expect(document.body.style.overflow).not.toBe('hidden');
   });
+
+  it('фон помечен inert, а само окно — нет; закрытие снимает пометку', () => {
+    // страница под окном: без inert виртуальный курсор читалки уходил бы в неё
+    const page = document.createElement('p');
+    page.textContent = 'Контент страницы';
+    document.body.append(page);
+
+    const { unmount } = open();
+
+    expect(page).toHaveAttribute('inert');
+    // корень портала — прямой ребёнок body, внутри которого живёт окно
+    expect(screen.getByRole('dialog').parentElement).not.toHaveAttribute('inert');
+
+    unmount();
+    expect(page).not.toHaveAttribute('inert');
+    page.remove();
+  });
+
+  it('чужой inert закрытие не трогает: снимается только своя пометка', () => {
+    const parked = document.createElement('div');
+    parked.setAttribute('inert', '');
+    document.body.append(parked);
+
+    const { unmount } = open();
+    unmount();
+
+    expect(parked).toHaveAttribute('inert');
+    parked.remove();
+  });
 });

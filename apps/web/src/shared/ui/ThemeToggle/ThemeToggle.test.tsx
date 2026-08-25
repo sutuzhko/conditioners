@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -47,6 +47,32 @@ describe('ThemeToggle', () => {
     await user.keyboard('{Enter}');
 
     expect(onToggle).toHaveBeenCalledWith('dark');
+  });
+
+  it('сообщает состояние через aria-pressed: нажата — значит тёмная тема', async () => {
+    const user = userEvent.setup();
+    render(<ThemeToggle />);
+    const button = screen.getByRole('button');
+
+    // состояние читается из DOM после маунта — серверный HTML темы не знает
+    await waitFor(() => expect(button).toHaveAttribute('aria-pressed', 'false'));
+
+    await user.click(button);
+    await waitFor(() => expect(button).toHaveAttribute('aria-pressed', 'true'));
+
+    await user.click(button);
+    await waitFor(() => expect(button).toHaveAttribute('aria-pressed', 'false'));
+  });
+
+  it('чужая смена темы отражается в состоянии: кнопок на странице две', async () => {
+    render(<ThemeToggle />);
+    const button = screen.getByRole('button');
+    await waitFor(() => expect(button).toHaveAttribute('aria-pressed', 'false'));
+
+    // так выглядит нажатие второй кнопки (в выдвижном меню) или смена извне
+    document.documentElement.setAttribute('data-theme', 'dark');
+
+    await waitFor(() => expect(button).toHaveAttribute('aria-pressed', 'true'));
   });
 
   it('недоступное хранилище не ломает переключение', async () => {

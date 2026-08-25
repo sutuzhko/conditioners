@@ -105,6 +105,32 @@
   --icon-when-light: block;
   --icon-when-dark: none;
 
+  /* Знак бренда в режиме «авто»: в тёмной теме плитка светлеет, а струи
+     «вырезаются» фоном страницы — так устроены mark.svg и mark-dark.svg.
+     Развилка темы живёт здесь, а не в модуле BrandMark: компонент про тему
+     не знает — переопределяются только значения переменных. */
+  --mark-auto-tile: var(--brand-mark);
+  --mark-auto-jet: var(--on-brand);
+  --mark-auto-jet-soft: var(--accent-line);
+
+  /* Сетка суток (widgets/installation). Ночная зона — «тёмные ячейки» из
+     подписи под сеткой: в светлой теме заливка плотнее фона карточки,
+     в тёмной — наоборот, темнее её, иначе подпись врала бы половине
+     посетителей. Выбранный ночной час темнее выбранного дневного, но
+     фирменной паре --brand/--brand-hover в тёмной теме не хватает светлоты —
+     ячейка сливалась с почти чёрным фоном ночной зоны, поэтому там пара
+     сдвинута на ступень светлее с сохранением разницы с дневной. */
+  --hours-night: var(--line-strong);
+  --hours-night-on-from: var(--brand);
+  --hours-night-on-to: var(--brand-hover);
+
+  /* Анимированный градиент в H1 первого экрана (DESIGN_BRIEF §7). Крайние
+     точки макета (#22D3EE в светлой теме) на белом дают 1.9:1 и не проходят
+     AA даже для крупного текста, поэтому диапазон сужен по темам — то же
+     отступление ради контраста, что описано в DESIGN_BRIEF §12. */
+  --hero-accent-from: var(--brand);
+  --hero-accent-to: var(--brand-mark);
+
   --dur-fast: 0.15s;
   --dur-base: 0.22s;
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -140,6 +166,17 @@
 
   --icon-when-light: none;
   --icon-when-dark: block;
+
+  --mark-auto-tile: var(--brand-mark-dark);
+  --mark-auto-jet: var(--bg);
+  --mark-auto-jet-soft: var(--bg);
+
+  --hours-night: var(--bg);
+  --hours-night-on-from: var(--brand-mark);
+  --hours-night-on-to: var(--brand);
+
+  --hero-accent-from: var(--brand-mark);
+  --hero-accent-to: var(--brand-mark-dark);
 
   --overlay: rgb(2 6 16 / 68%);
 }

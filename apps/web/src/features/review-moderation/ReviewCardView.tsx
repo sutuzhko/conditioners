@@ -80,7 +80,7 @@ export function ReviewCardView({
         <Image
           className={styles.photo}
           src={review.photo}
-          alt={`Фотография к отзыву: ${review.name}`}
+          alt={texts.photoAlt(review.name)}
           width={220}
           height={220}
         />

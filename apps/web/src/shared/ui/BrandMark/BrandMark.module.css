@@ -1,20 +1,15 @@
-/* Цвета знака вынесены в локальные переменные: в тёмной теме плитка светлеет,
-   а струи «вырезаются» фоном — так устроены mark.svg и mark-dark.svg. */
+/* Цвета знака вынесены в локальные переменные: их набор выбирает вариант.
+   Развилку светлой и тёмной темы для «авто»-режима держат токены
+   --mark-auto-* в shared/styles/ui-tokens.css — модуль про тему не знает. */
 
 .mark {
   flex-shrink: 0;
 }
 
 .auto {
-  --mark-tile: var(--brand-mark);
-  --mark-jet: var(--on-brand);
-  --mark-jet-soft: var(--accent-line);
-}
-
-:root[data-theme='dark'] .auto {
-  --mark-tile: var(--brand-mark-dark);
-  --mark-jet: var(--bg);
-  --mark-jet-soft: var(--bg);
+  --mark-tile: var(--mark-auto-tile);
+  --mark-jet: var(--mark-auto-jet);
+  --mark-jet-soft: var(--mark-auto-jet-soft);
 }
 
 /* Знак на тёмной панели: струи «вырезаны» цветом самой панели. Тема здесь
