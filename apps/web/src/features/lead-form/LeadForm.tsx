@@ -187,7 +187,11 @@ export function LeadForm({
       : status === 'success'
         ? texts.successAnnounce
         : status === 'error' && failure !== undefined
-          ? `${failure}. ${texts.errorFallbackLead} ${readablePhone}`
+          ? // пока телефон компании не заполнен, запасного пути нет — и звать
+            // «позвоните нам» с пустым номером нельзя ни на экране, ни вслух
+            phone === ''
+            ? failure
+            : `${failure}. ${texts.errorFallbackLead} ${readablePhone}`
           : '';
 
   return (
@@ -366,12 +370,16 @@ export function LeadForm({
           {status === 'error' && failure !== undefined ? (
             <div className={styles.failure}>
               <p className={styles.failureText}>{failure}</p>
-              <p className={styles.failureText}>
-                {texts.errorFallbackLead}{' '}
-                <a className={styles.failurePhone} href={phoneHref(phone)}>
-                  {readablePhone}
-                </a>
-              </p>
+              {/* нет телефона в настройках — нет и приглашения позвонить:
+                  пустая ссылка tel: хуже отсутствия запасного пути */}
+              {phone === '' ? null : (
+                <p className={styles.failureText}>
+                  {texts.errorFallbackLead}{' '}
+                  <a className={styles.failurePhone} href={phoneHref(phone)}>
+                    {readablePhone}
+                  </a>
+                </p>
+              )}
             </div>
           ) : null}
 

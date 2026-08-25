@@ -115,6 +115,28 @@ describe('LeadForm', () => {
     expect(screen.getByRole('status')).toHaveTextContent(texts.errorRateLimited);
   });
 
+  it('без телефона компании ошибка не рисует пустую ссылку tel: и не зовёт звонить', async () => {
+    const user = userEvent.setup();
+    const submit = vi.fn<LeadSubmit>(() =>
+      Promise.resolve({ ok: false, message: texts.errorRateLimited }),
+    );
+    setup({ submit, phone: '' });
+
+    await fillRequired(user);
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    // текст виден и в блоке ошибки, и в aria-live — без хвоста про звонок
+    // они совпадают дословно, поэтому элементов два
+    expect(await screen.findAllByText(texts.errorRateLimited)).toHaveLength(2);
+
+    // рабочее состояние до заполнения «Компании»: запасного пути нет —
+    // значит нет ни обрубка «позвоните нам», ни ссылки на пустой номер
+    expect(screen.queryByRole('link', { name: /\d/ })).not.toBeInTheDocument();
+    expect(document.querySelector('a[href="tel:"]')).toBeNull();
+    expect(screen.getByRole('status')).not.toHaveTextContent(texts.errorFallbackLead);
+  });
+
   it('поле-ловушку не видит ни человек, ни скринридер', () => {
     const { container } = setup();
     const trap = container.querySelector('input[name="hp"]');
