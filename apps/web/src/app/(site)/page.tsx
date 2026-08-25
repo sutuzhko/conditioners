@@ -160,7 +160,7 @@ export default async function HomePage() {
         <TrustStrip />
       </Hero>
       <Services />
-      <Catalog products={products} orderHref={LEAD_ANCHOR} />
+      <Catalog products={products} orderHref={LEAD_ANCHOR} specDictionary={settings.specs} />
       <SavingsBlock />
       <StepsTimeline warranty={warranty} />
       <Pricing prices={priceRows} rates={extras} leadHref={LEAD_ANCHOR} />

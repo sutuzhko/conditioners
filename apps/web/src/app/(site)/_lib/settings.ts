@@ -39,6 +39,7 @@ export async function loadSettings(): Promise<SiteSettings> {
     social: parseGroup(settingSchemas.social, raw.social),
     seo: parseGroup(settingSchemas.seo, raw.seo),
     achievements: parseGroup(settingSchemas.achievements, raw.achievements),
+    specs: parseGroup(settingSchemas.specs, raw.specs),
     notifications: parseGroup(settingSchemas.notifications, raw.notifications),
     integrations: parseGroup(settingSchemas.integrations, raw.integrations),
   };

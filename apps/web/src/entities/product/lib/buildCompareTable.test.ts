@@ -41,7 +41,7 @@ describe('buildCompareTable', () => {
     const table = buildCompareTable(products);
 
     expect(table.rows).toHaveLength(2);
-    expect(table.rows[1]).toEqual({ key: 'Wi-Fi управление', values: ['—', 'есть'] });
+    expect(table.rows[1]).toEqual({ key: 'Wi-Fi управление', values: ['—', 'есть'], group: null });
   });
 
   it('отсутствующее значение — прочерк, и его можно заменить', () => {
@@ -98,5 +98,29 @@ describe('buildCompareTable', () => {
     const products: Model[] = [{ name: '07', visible: true, specs: [] }];
 
     expect(buildCompareTable(products).rows).toEqual([]);
+  });
+
+  it('справочник задаёт порядок строк и их группы', () => {
+    const products: Model[] = [
+      {
+        name: '09',
+        visible: true,
+        specs: [spec('Цвет', 'белый', 0), spec('Шум', '21 дБ', 1), spec('Мощность', '2.6 кВт', 2)],
+      },
+    ];
+
+    const table = buildCompareTable(products, '—', {
+      groups: [
+        { title: 'Основное', fields: [{ k: 'Мощность' }] },
+        { title: 'Шум', fields: [{ k: 'Шум' }] },
+      ],
+    });
+
+    expect(table.rows.map((row) => [row.key, row.group])).toEqual([
+      ['Мощность', 'Основное'],
+      ['Шум', 'Шум'],
+      // характеристики вне справочника не теряются — уходят в конец (инвариант 6)
+      ['Цвет', null],
+    ]);
   });
 });

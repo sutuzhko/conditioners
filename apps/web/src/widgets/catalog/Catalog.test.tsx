@@ -9,6 +9,7 @@ import {
   labelledSaleProduct,
   NOW,
   plainProduct,
+  specDictionaryFixture,
   uniqueSpecProduct,
 } from './fixtures';
 
@@ -177,5 +178,46 @@ describe('Каталог — пустые состояния', () => {
 
     expect(container.querySelector('[aria-busy="true"]')).not.toBeNull();
     expect(screen.queryByText('Каталог пока пуст')).not.toBeInTheDocument();
+  });
+});
+
+describe('Каталог — характеристики в карточке', () => {
+  it('🔴 характеристики есть в разметке, а не подгружаются по клику (инвариант 1)', () => {
+    render(<Catalog products={[plainProduct]} now={NOW} />);
+
+    const card = screen.getByRole('listitem');
+    expect(within(card).getByText('Уровень шума')).toBeInTheDocument();
+    expect(within(card).getByText('Компрессор')).toBeInTheDocument();
+  });
+
+  it('справочник раскладывает характеристики по группам', () => {
+    render(<Catalog products={[plainProduct]} now={NOW} specDictionary={specDictionaryFixture} />);
+
+    const card = screen.getByRole('listitem');
+    expect(within(card).getByText('Основное')).toBeInTheDocument();
+    expect(within(card).getByText('Шум и воздух')).toBeInTheDocument();
+  });
+
+  it('🔴 характеристика вне справочника не исчезает, а уходит в «Прочее»', () => {
+    render(
+      <Catalog products={[uniqueSpecProduct]} now={NOW} specDictionary={specDictionaryFixture} />,
+    );
+
+    const card = screen.getByRole('listitem');
+    expect(within(card).getByText('Прочее')).toBeInTheDocument();
+    expect(within(card).getByText('Wi-Fi управление')).toBeInTheDocument();
+  });
+
+  it('справочник задаёт порядок строк сравнения и подписывает группы', () => {
+    render(
+      <Catalog
+        products={[plainProduct, uniqueSpecProduct]}
+        now={NOW}
+        specDictionary={specDictionaryFixture}
+      />,
+    );
+
+    const groupHeader = screen.getAllByRole('columnheader', { name: 'Основное' });
+    expect(groupHeader.length).toBeGreaterThan(0);
   });
 });

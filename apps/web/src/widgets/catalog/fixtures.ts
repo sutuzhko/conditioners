@@ -144,3 +144,20 @@ export const catalogFixture: readonly CatalogProduct[] = [
   uniqueSpecProduct,
   labelledSaleProduct,
 ];
+
+/**
+ * Справочник характеристик для историй и тестов: две группы и одно поле вне
+ * их — так видно и группировку, и то, что чужая характеристика не теряется.
+ */
+export const specDictionaryFixture = {
+  groups: [
+    {
+      title: 'Основное',
+      fields: [
+        { k: 'Компрессор', unit: '' },
+        { k: 'Обогрев до', unit: '°C' },
+      ],
+    },
+    { title: 'Шум и воздух', fields: [{ k: 'Уровень шума', unit: 'дБ' }] },
+  ],
+};

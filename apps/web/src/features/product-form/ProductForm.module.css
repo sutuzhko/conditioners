@@ -61,6 +61,14 @@
   font-size: var(--fs-caption);
 }
 
+/* Кнопка добавления и выбор типового набора — в одной строке. */
+.specActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
 .specRow {
   display: flex;
   gap: 8px;

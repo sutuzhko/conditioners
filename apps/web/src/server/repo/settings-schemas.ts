@@ -49,6 +49,9 @@ export const PUBLIC_SETTING_KEYS: readonly SettingKey[] = [
   'payment',
   'social',
   'seo',
+  // справочник нужен сайту: по нему группируются характеристики в карточке
+  // товара и упорядочиваются строки таблицы сравнения
+  'specs',
 ];
 
 export function isSettingKey(value: string): value is SettingKey {
@@ -73,6 +76,9 @@ export const REQUIRED_FIELDS: Record<SettingKey, readonly string[]> = {
   seo: ['homeTitle', 'homeDescription', 'titleSuffix'],
   // цифры полосы первого экрана необязательны: нет — полосы просто не будет
   achievements: [],
+  // справочник характеристик — подсказка, а не обязательство: пустой он
+  // означает «характеристики без групп», ровно как было до его появления
+  specs: [],
   /* Каналы уведомлений обязательными полями не описываются: выключить оба —
      осознанный выбор владельца, а заявка всё равно попадает в админку. */
   notifications: [],

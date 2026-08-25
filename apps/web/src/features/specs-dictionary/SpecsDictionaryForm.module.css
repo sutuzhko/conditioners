@@ -1,0 +1,108 @@
+/* Справочник характеристик: группы и поля внутри них. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.empty {
+  margin: 0;
+  color: var(--warn-ink);
+  font-size: var(--fs-dense);
+}
+
+.groupHead {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.groupTitle {
+  flex: 1;
+  min-width: 0;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.fieldRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.fieldName {
+  flex: 3 1 0;
+  min-width: 0;
+}
+
+.fieldUnit {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.fieldHint {
+  flex: 4 1 0;
+  min-width: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+
+  /* Действия липнут к нижнему краю: справочник длинный, и кнопка сохранения
+     на сорок полей ниже — это прокрутка ради каждой правки (ADR-084). */
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  padding: 12px 0;
+  background: var(--bg);
+}
+
+.ok {
+  color: var(--ok-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.error {
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}
+
+/* На телефоне строка поля не помещается в ряд: название сверху, единица и
+   подсказка под ним, крестик — сбоку от всей строки. */
+@media (width < 760px) {
+  .fieldRow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .fieldName,
+  .fieldUnit,
+  .fieldHint {
+    grid-column: 1;
+  }
+
+  .fieldRow button {
+    grid-row: 1 / span 3;
+    grid-column: 2;
+    align-self: start;
+  }
+}

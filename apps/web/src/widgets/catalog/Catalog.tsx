@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/lib/groupSpecs';
 import { Card } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { catalogText } from './content';
@@ -27,6 +28,12 @@ export interface CatalogProps {
   loading?: boolean | undefined;
   /** Якорь секции: по нему на неё ведёт навигация в шапке. */
   id?: string | undefined;
+  /**
+   * Справочник характеристик из настроек: он группирует характеристики в
+   * карточке и задаёт порядок строк сравнения (ADR-094). Пустой — рабочее
+   * состояние: характеристики просто идут одним списком.
+   */
+  specDictionary?: SpecDictionary | undefined;
 }
 
 const HEADING_ID = 'catalog-title';
@@ -44,6 +51,7 @@ export function Catalog({
   now,
   loading = false,
   id = 'catalog',
+  specDictionary = EMPTY_SPEC_DICTIONARY,
 }: CatalogProps) {
   const visible = products.filter((product) => product.visible);
 
@@ -82,10 +90,16 @@ export function Catalog({
           <>
             <ul className={styles.grid}>
               {visible.map((product) => (
-                <ProductCard key={product.id} product={product} orderHref={orderHref} now={now} />
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  orderHref={orderHref}
+                  now={now}
+                  specDictionary={specDictionary}
+                />
               ))}
             </ul>
-            <CompareTable products={visible} now={now} />
+            <CompareTable products={visible} now={now} specDictionary={specDictionary} />
           </>
         ) : null}
       </div>

@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
+import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/lib/groupSpecs';
 import {
   ProductForm,
   createProduct,
@@ -21,6 +22,8 @@ export interface ProductEditorProps {
   readonly sale?: SaleFormValues | undefined;
   /** Обычная цена: от неё форма скидки считает процент. */
   readonly priceNum?: number | undefined;
+  /** Справочник характеристик: подсказки в редакторе (ADR-094). */
+  readonly specDictionary?: SpecDictionary | undefined;
 }
 
 /**
@@ -35,6 +38,7 @@ export function ProductEditor({
   photos = [],
   sale,
   priceNum = 0,
+  specDictionary = EMPTY_SPEC_DICTIONARY,
 }: ProductEditorProps) {
   const router = useRouter();
 
@@ -45,6 +49,7 @@ export function ProductEditor({
       <ProductForm
         values={values}
         isNew={isNew}
+        specDictionary={specDictionary}
         save={isNew ? createProduct : (next) => updateProduct(id, next)}
         {...(isNew ? {} : { remove: () => deleteProduct(id) })}
         onDone={(createdId) => {

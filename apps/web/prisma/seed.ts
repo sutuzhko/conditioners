@@ -35,11 +35,15 @@ type SeedArticle = {
   excerpt: string;
   body: string;
 };
+type SeedSpecField = { k: string; unit: string; hint: string };
+type SeedSpecGroup = { title: string; fields: SeedSpecField[] };
 type SeedData = {
   models: SeedModel[];
   prices: SeedPrice[];
   extras: { trassaPerM: number; shtrobPerM: number; heightWorks: number };
   articles: SeedArticle[];
+  /** Справочник характеристик: группы и типовые поля (ADR-094). */
+  specDictionary: { groups: SeedSpecGroup[] };
 };
 
 const data = JSON.parse(
@@ -83,6 +87,10 @@ const settings: Record<string, unknown> = {
     address: TODO,
   },
   extras: data.extras,
+  /* Справочник — единственные сидируемые данные, которые не про компанию:
+     это отраслевой словарь, одинаковый у любого продавца сплит-систем, и
+     заглушкой он быть не может. Владелец правит его из панели. */
+  specs: data.specDictionary,
   warranty: { installation: TODO, equipment: TODO },
   payment: { methods: [TODO], vat: TODO },
   social: { links: [] as string[] },

@@ -4,6 +4,8 @@ import { useState, type FormEvent } from 'react';
 
 import { Button, Card, Checkbox, Input, Textarea } from '@/shared/ui';
 
+import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/lib/groupSpecs';
+
 import { SpecsEditor } from './SpecsEditor';
 import { productFormContent as texts } from './content';
 import type {
@@ -26,6 +28,8 @@ export interface ProductFormProps {
   readonly isNew?: boolean | undefined;
   /** Подтверждение удаления. Подменяется в тестах — `confirm` в них недоступен. */
   readonly confirmRemove?: ((message: string) => boolean) | undefined;
+  /** Справочник характеристик: подсказки названий и типовые наборы (ADR-094). */
+  readonly specDictionary?: SpecDictionary | undefined;
 }
 
 /**
@@ -46,6 +50,7 @@ export function ProductForm({
   onDone,
   isNew = false,
   confirmRemove = (message) => window.confirm(message),
+  specDictionary = EMPTY_SPEC_DICTIONARY,
 }: ProductFormProps) {
   const [values, setValues] = useState<ProductFormValues>(initial);
   const [status, setStatus] = useState<ProductFormStatus>('idle');
@@ -172,6 +177,7 @@ export function ProductForm({
         <SpecsEditor
           specs={values.specs}
           disabled={busy}
+          dictionary={specDictionary}
           onChange={(specs: readonly SpecPair[]) => set('specs', specs)}
         />
       </Card>

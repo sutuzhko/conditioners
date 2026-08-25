@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { productFormContent as texts } from '@/features/product-form';
+import { settingSchemas } from '@/entities/settings/model';
+import { requireOwnerPage } from '@/server/guards';
+import { getGroup } from '@/server/repo/settings';
 import { findById } from '@/server/repo/products';
 
 import { ProductEditor } from '../ProductEditor';
@@ -23,6 +26,14 @@ export async function generateMetadata({
 
 /** Правка модели каталога. */
 export default async function AdminProductPage({ params }: { params: Promise<{ id: string }> }) {
+  /* Раздел владельца: проверка до чтения данных (ADR-095). */
+  await requireOwnerPage();
+
+  /* Справочник подсказывает названия характеристик в редакторе (ADR-094).
+     Битая запись не должна ронять страницу правки — разбираем со схемой. */
+  const dictionary = settingSchemas.specs.safeParse((await getGroup('specs')) ?? {});
+  const specDictionary = dictionary.success ? dictionary.data : settingSchemas.specs.parse({});
+
   const { id } = await params;
   const product = await findById(id);
 
@@ -42,6 +53,7 @@ export default async function AdminProductPage({ params }: { params: Promise<{ i
       </header>
 
       <ProductEditor
+        specDictionary={specDictionary}
         id={product.id}
         priceNum={product.priceNum}
         photos={product.photos}

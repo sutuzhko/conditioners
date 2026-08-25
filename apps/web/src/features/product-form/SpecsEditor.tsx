@@ -1,6 +1,9 @@
 'use client';
 
-import { Button, Input } from '@/shared/ui';
+import { useId } from 'react';
+
+import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/lib/groupSpecs';
+import { Button, Input, Select } from '@/shared/ui';
 
 import { productFormContent as texts } from './content';
 import type { SpecPair } from './model';
@@ -10,6 +13,14 @@ export interface SpecsEditorProps {
   readonly specs: readonly SpecPair[];
   readonly disabled: boolean;
   readonly onChange: (next: readonly SpecPair[]) => void;
+  /**
+   * Справочник характеристик из настроек: подсказывает названия и позволяет
+   * добавить типовой набор группы одним нажатием (ADR-094).
+   *
+   * 🔴 Он ничего не ограничивает: поле остаётся обычным текстовым, и своя
+   * характеристика заводится ровно как раньше (инвариант 6).
+   */
+  readonly dictionary?: SpecDictionary | undefined;
 }
 
 /**
@@ -20,9 +31,40 @@ export interface SpecsEditorProps {
  * моделей. Владелец добавляет характеристику, которой раньше не было, и она
  * появляется в таблице сама — без разработчика.
  */
-export function SpecsEditor({ specs, disabled, onChange }: SpecsEditorProps) {
+export function SpecsEditor({
+  specs,
+  disabled,
+  onChange,
+  dictionary = EMPTY_SPEC_DICTIONARY,
+}: SpecsEditorProps) {
+  const listId = useId();
+
   const replace = (index: number, patch: Partial<SpecPair>): void => {
     onChange(specs.map((spec, at) => (at === index ? { ...spec, ...patch } : spec)));
+  };
+
+  /* Уже заполненные названия не предлагаем второй раз: дубль ключа в таблице
+     сравнения превращается в строку, у которой значение берётся от первого
+     вхождения, — то есть в тихо потерянную характеристику. */
+  const taken = new Set(specs.map((spec) => spec.k.trim()).filter((k) => k !== ''));
+
+  const suggestions = dictionary.groups.flatMap((group) =>
+    group.fields.map((field) => ({ ...field, group: group.title })),
+  );
+
+  const addGroup = (title: string): void => {
+    const group = dictionary.groups.find((candidate) => candidate.title === title);
+    if (group === undefined) return;
+
+    const fresh = group.fields
+      .filter((field) => !taken.has(field.k))
+      .map((field) => ({ k: field.k, v: '' }));
+
+    if (fresh.length === 0) return;
+
+    /* Пустые строки, оставшиеся от прошлых нажатий, не копим: добавляем
+       набор вместо них. */
+    onChange([...specs.filter((spec) => spec.k.trim() !== '' || spec.v.trim() !== ''), ...fresh]);
   };
 
   return (
@@ -40,6 +82,7 @@ export function SpecsEditor({ specs, disabled, onChange }: SpecsEditorProps) {
             aria-label={`${texts.specName} ${index + 1}`}
             placeholder={texts.specName}
             value={spec.k}
+            list={suggestions.length === 0 ? undefined : listId}
             wrapperClassName={styles.specKey}
             onChange={(event) => replace(index, { k: event.target.value })}
           />
@@ -62,14 +105,40 @@ export function SpecsEditor({ specs, disabled, onChange }: SpecsEditorProps) {
         </div>
       ))}
 
-      <Button
-        type="button"
-        variant="secondary"
-        size="sm"
-        onClick={() => onChange([...specs, { k: '', v: '' }])}
-      >
-        {texts.specAdd}
-      </Button>
+      {/* Подсказки, а не список допустимых значений: `datalist` предлагает
+          названия из справочника и не мешает вписать своё. */}
+      {suggestions.length === 0 ? null : (
+        <datalist id={listId}>
+          {suggestions.map((field) => (
+            <option key={`${field.group}:${field.k}`} value={field.k}>
+              {field.unit === '' ? field.group : `${field.group} · ${field.unit}`}
+            </option>
+          ))}
+        </datalist>
+      )}
+
+      <div className={styles.specActions}>
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          onClick={() => onChange([...specs, { k: '', v: '' }])}
+        >
+          {texts.specAdd}
+        </Button>
+
+        {dictionary.groups.length === 0 ? null : (
+          <Select
+            aria-label={texts.specsFromGroup}
+            value=""
+            onChange={(event) => addGroup(event.target.value)}
+            options={[
+              { value: '', label: texts.specsFromGroup },
+              ...dictionary.groups.map((group) => ({ value: group.title, label: group.title })),
+            ]}
+          />
+        )}
+      </div>
     </fieldset>
   );
 }

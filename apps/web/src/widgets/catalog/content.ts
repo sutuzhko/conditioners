@@ -25,6 +25,10 @@ export const catalogText = {
   emptyText:
     'Модели появятся здесь, как только их заведут в админ-панели. Нужную технику подберём и привезём под заказ — оставьте заявку.',
 
+  specsSummary: 'Все характеристики',
+  specsCount: (count: number): string =>
+    `${count} ${count % 10 === 1 && count % 100 !== 11 ? 'характеристика' : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20) ? 'характеристики' : 'характеристик'}`,
+
   compareTitle: 'Сравнение моделей',
   compareSpec: 'Характеристика',
   comparePrice: 'Цена под ключ',

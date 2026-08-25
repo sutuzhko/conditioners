@@ -101,6 +101,8 @@ describe('готовность данных компании', () => {
       seo: { homeTitle: 'Заголовок', homeDescription: 'Описание', titleSuffix: 'Бренд' },
       // цифры полосы первого экрана необязательны: пустой список — норма
       achievements: { items: [] },
+      // справочник характеристик необязателен: без него они идут одним списком
+      specs: { groups: [] },
       // каналы уведомлений: выключить оба — осознанный выбор владельца
       notifications: { telegram: true, email: true },
       integrations: { metrikaId: '', messengerButtons: { telegram: false, whatsapp: false } },

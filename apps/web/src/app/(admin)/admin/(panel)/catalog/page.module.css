@@ -41,3 +41,11 @@
 .back:hover {
   text-decoration: underline;
 }
+
+/* Две кнопки в шапке раздела: справочник и добавление модели. */
+.headActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}

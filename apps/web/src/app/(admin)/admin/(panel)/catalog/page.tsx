@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import { requireOwnerPage } from '@/server/guards';
 import { listAll } from '@/server/repo/products';
 import { AdminCatalogList, adminCatalogContent as texts } from '@/widgets/admin-catalog';
 import { buttonClassName } from '@/shared/ui';
@@ -13,6 +14,9 @@ export const dynamic = 'force-dynamic';
 
 /** Каталог: список моделей и вход в правку каждой. */
 export default async function AdminCatalogPage() {
+  /* Раздел владельца: проверка до чтения данных (ADR-095). */
+  await requireOwnerPage();
+
   const products = await listAll();
 
   return (
@@ -23,9 +27,22 @@ export default async function AdminCatalogPage() {
           <p className={styles.lead}>{texts.lead}</p>
         </div>
 
-        <Link className={buttonClassName({ size: 'sm' })} href={{ pathname: '/admin/catalog/new' }}>
-          {texts.add}
-        </Link>
+        <div className={styles.headActions}>
+          {/* Справочник открывают редко, но искать его в «Компании» никто не
+              станет: он про товар и живёт рядом с каталогом (ADR-094). */}
+          <Link
+            className={buttonClassName({ size: 'sm', variant: 'secondary' })}
+            href={{ pathname: '/admin/catalog/specs' }}
+          >
+            {texts.specsDictionary}
+          </Link>
+          <Link
+            className={buttonClassName({ size: 'sm' })}
+            href={{ pathname: '/admin/catalog/new' }}
+          >
+            {texts.add}
+          </Link>
+        </div>
       </header>
 
       <AdminCatalogList products={products} />

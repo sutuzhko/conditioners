@@ -1,4 +1,10 @@
 import type { Product } from '../model';
+import {
+  EMPTY_SPEC_DICTIONARY,
+  orderSpecKeys,
+  specGroupTitle,
+  type SpecDictionary,
+} from './groupSpecs';
 
 /** Сравнению нужны имя, характеристики и видимость. */
 export type ComparableProduct = Pick<Product, 'specs' | 'visible'>;
@@ -7,6 +13,11 @@ export type CompareRow = {
   readonly key: string;
   /** Значения в порядке колонок; отсутствующее заменено прочерком. */
   readonly values: readonly string[];
+  /**
+   * Группа из справочника характеристик. `null` — характеристики в нём нет:
+   * она всё равно попадает в таблицу, просто в конец (ADR-094).
+   */
+  readonly group: string | null;
 };
 
 export type CompareTable<T> = {
@@ -28,9 +39,14 @@ const EM_DASH = '—';
  * Порядок строк — порядок первого появления ключа, порядок колонок — входной
  * (репозиторий отдаёт модели уже отсортированными).
  */
+/**
+ * Справочник задаёт порядок строк и их группы. Без него таблица ведёт себя
+ * ровно как раньше: строки идут в порядке первого появления ключа.
+ */
 export function buildCompareTable<T extends ComparableProduct>(
   products: readonly T[],
   placeholder: string = EM_DASH,
+  dictionary: SpecDictionary = EMPTY_SPEC_DICTIONARY,
 ): CompareTable<T> {
   const columns = products.filter((p) => p.visible);
 
@@ -47,10 +63,15 @@ export function buildCompareTable<T extends ComparableProduct>(
     }
   });
 
-  const rows = [...byKey.entries()].map(([key, values]) => ({
-    key,
-    values: columns.map((_, column) => values.get(column) ?? placeholder),
-  }));
+  const rows = orderSpecKeys([...byKey.keys()], dictionary).map((key) => {
+    const values = byKey.get(key) ?? new Map<number, string>();
+
+    return {
+      key,
+      values: columns.map((_, column) => values.get(column) ?? placeholder),
+      group: specGroupTitle(key, dictionary),
+    };
+  });
 
   return { products: columns, rows };
 }
