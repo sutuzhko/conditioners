@@ -139,37 +139,3 @@ export function buildCatalogItemListJsonLd(input: CatalogListInput): JsonLdNode 
     })),
   });
 }
-
-export type ItemListEntry = {
-  readonly name: string;
-  readonly path: string;
-};
-
-export type ItemListInput = {
-  readonly siteUrl: string;
-  readonly items: readonly ItemListEntry[];
-  readonly name?: string | undefined;
-};
-
-/** `ItemList` из карточек листинга: порядок в разметке — порядок на витрине. */
-export function buildItemListJsonLd(input: ItemListInput): JsonLdNode | null {
-  const items = input.items
-    .map((item) => ({ name: text(item.name), path: text(item.path) }))
-    .filter((item): item is { name: string; path: string } => {
-      return item.name !== undefined && item.path !== undefined;
-    });
-
-  if (items.length === 0) return null;
-
-  return compact({
-    '@type': 'ItemList',
-    name: text(input.name),
-    numberOfItems: items.length,
-    itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item.name,
-      url: absoluteUrl(input.siteUrl, item.path),
-    })),
-  });
-}

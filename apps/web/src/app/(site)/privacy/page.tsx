@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 
 import { Card } from '@/shared/ui';
 
-import { pageMetadata } from '../_lib/seo';
+import { buildPageMetadata } from '@/shared/seo';
+import { env } from '@/shared/config/env';
 import { loadSettings, type SiteSettings } from '../_lib/settings';
 import { PageIntro } from '../_ui/PageIntro';
 import { policyContent as t, policySections } from './content';
@@ -48,10 +49,14 @@ function requisites(settings: SiteSettings): readonly Requisite[] {
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await loadSettings();
 
-  return pageMetadata({
+  return buildPageMetadata({
+    siteUrl: env.SITE_URL,
     path: PATH,
     title: t.metaTitle(settings.company.name.trim()),
     description: t.metaDescription,
+    titleSuffix: settings.seo.titleSuffix,
+    siteName: settings.company.name,
+    image: settings.seo.ogImage,
   });
 }
 

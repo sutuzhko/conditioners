@@ -37,7 +37,7 @@ describe('Оглавление статьи', () => {
   it('заголовок без букв всё равно получает якорь', () => {
     const { headings } = outline('## ???');
 
-    expect(headings.map((h) => h.id)).toEqual(['razdel']);
+    expect(headings.map((h) => h.id)).toEqual(['section']);
   });
 
   it('жирный внутри заголовка не попадает в текст оглавления тегом', () => {

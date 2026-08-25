@@ -16,7 +16,7 @@ export interface ArticleOutline {
 }
 
 /** Запасное имя якоря: заголовок из одних знаков препинания дал бы пустой `id`. */
-const FALLBACK_ANCHOR = 'razdel';
+const FALLBACK_ANCHOR = 'section';
 
 /**
  * Готовит дерево статьи к выводу: якорь каждому заголовку и выправленный

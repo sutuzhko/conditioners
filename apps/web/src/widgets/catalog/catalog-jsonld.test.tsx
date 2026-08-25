@@ -7,7 +7,7 @@ import { formatMoney } from '@/shared/lib/format';
 import { ProductPrice } from './ui/ProductPrice';
 
 import { SITE_URL } from '@/shared/seo/fixtures';
-import { buildCatalogItemListJsonLd, buildItemListJsonLd, buildProductJsonLd } from '@/shared/seo';
+import { buildCatalogItemListJsonLd, buildProductJsonLd } from '@/shared/seo';
 import { organizationId } from '@/shared/seo/organization';
 
 /** Момент, относительно которого считается скидка. Фиксированный: иначе тест «протухнет». */
@@ -157,43 +157,6 @@ describe('Product и Offer', () => {
     expect(node).not.toHaveProperty('sku');
     expect(node).not.toHaveProperty('description');
     expect(node).not.toHaveProperty('additionalProperty');
-  });
-});
-
-describe('ItemList листинга', () => {
-  it('нумерует карточки в порядке витрины', () => {
-    expect(
-      buildItemListJsonLd({
-        siteUrl: SITE_URL,
-        name: 'Каталог',
-        items: [
-          { name: 'Сплит 07', path: '/catalog/split-07' },
-          { name: 'Сплит 09', path: '/catalog/split-09' },
-        ],
-      }),
-    ).toEqual({
-      '@type': 'ItemList',
-      name: 'Каталог',
-      numberOfItems: 2,
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: 'Сплит 07',
-          url: `${SITE_URL}/catalog/split-07`,
-        },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'Сплит 09',
-          url: `${SITE_URL}/catalog/split-09`,
-        },
-      ],
-    });
-  });
-
-  it('пустой каталог разметки не порождает', () => {
-    expect(buildItemListJsonLd({ siteUrl: SITE_URL, items: [] })).toBeNull();
   });
 });
 
