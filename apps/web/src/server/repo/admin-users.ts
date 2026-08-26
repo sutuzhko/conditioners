@@ -9,6 +9,7 @@ import type { AdminRole as DbRole, Employment as DbEmployment } from '@prisma/cl
 import type { AdminRole, InstallerNoteCard, StaffCard } from '@/entities/staff/model';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
+import { employmentFromDb, employmentToDb } from '@/server/repo/employment';
 import type { Employment } from '@/shared/lib/employment';
 
 export type AdminUserRecord = {
@@ -21,26 +22,6 @@ export type AdminUserRecord = {
 
 const ROLE_FROM_DB: Record<DbRole, AdminRole> = { OWNER: 'owner', INSTALLER: 'installer' };
 const ROLE_TO_DB: Record<AdminRole, DbRole> = { owner: 'OWNER', installer: 'INSTALLER' };
-
-/* Значения словаря в базе кричат заглавными, наружу уходят в том виде, в
-   каком их знают домен и контракт. Таблицы вместо `toUpperCase()`: опечатка
-   в ключе — ошибка типов, а не пустое поле в карточке. */
-const EMPLOYMENT_FROM_DB: Record<DbEmployment, Employment> = {
-  SELF_EMPLOYED: 'self_employed',
-  CONTRACT: 'contract',
-  STAFF: 'staff',
-};
-
-const EMPLOYMENT_TO_DB: Record<Employment, DbEmployment> = {
-  self_employed: 'SELF_EMPLOYED',
-  contract: 'CONTRACT',
-  staff: 'STAFF',
-};
-
-/** `null` остаётся `null`: «оформление не заведено» — это ответ, а не пропуск. */
-function employmentToDb(employment: Employment | null): DbEmployment | null {
-  return employment === null ? null : EMPLOYMENT_TO_DB[employment];
-}
 
 type StaffRow = {
   id: string;
@@ -73,7 +54,7 @@ function toCard(row: StaffRow): StaffCard {
     name: row.name,
     phone: row.phone,
     role: ROLE_FROM_DB[row.role],
-    employment: row.employment === null ? null : EMPLOYMENT_FROM_DB[row.employment],
+    employment: employmentFromDb(row.employment),
     active: row.active,
     createdAt: row.createdAt.toISOString(),
     lastLoginAt: row.lastLoginAt?.toISOString() ?? null,

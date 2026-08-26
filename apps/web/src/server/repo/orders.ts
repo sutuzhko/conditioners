@@ -38,10 +38,10 @@ import {
 } from '@/entities/order/model';
 import type { AdminRole } from '@/entities/staff/model';
 import { momentOf, monthKeyOf, shiftMonth, type MonthKey } from '@/shared/lib/calendar';
-import type { Employment } from '@/shared/lib/employment';
 import { pageWindow, type Page } from '@/shared/lib/paging';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
+import { employmentFromDb } from '@/server/repo/employment';
 
 // ---------- Словари: база ↔ контракт ----------
 
@@ -104,12 +104,6 @@ const EQUIP_FROM_DB: Record<DbEquip, OrderEquip> = {
 const SOURCE_TO_DB: Record<UnitSource, DbSource> = { ours: 'OURS', client: 'CLIENT' };
 
 const SOURCE_FROM_DB: Record<DbSource, UnitSource> = { OURS: 'ours', CLIENT: 'client' };
-
-const EMPLOYMENT_FROM_DB: Record<DbEmployment, Employment> = {
-  SELF_EMPLOYED: 'self_employed',
-  CONTRACT: 'contract',
-  STAFF: 'staff',
-};
 
 // ---------- Чтение ----------
 
@@ -234,10 +228,7 @@ function toCard(row: OrderRow, role: AdminRole): OrderCard {
             id: row.installer.id,
             name: row.installer.name,
             login: row.installer.login,
-            employment:
-              row.installer.employment === null
-                ? null
-                : EMPLOYMENT_FROM_DB[row.installer.employment],
+            employment: employmentFromDb(row.installer.employment),
           },
     at: row.at.toISOString(),
     durationMin: row.durationMin,
