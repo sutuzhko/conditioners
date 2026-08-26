@@ -95,6 +95,22 @@ describe('Каталог — страница', () => {
     expect(screen.getByRole('heading', { name: 'Сплит-система 07' })).toBeInTheDocument();
   });
 
+  it('🔴 сравнение собирается на сервере: таблица приходит в HTML (инвариант 1)', async () => {
+    await renderPage({ compare: 'split-09,split-07' });
+
+    const headers = screen.getAllByRole('columnheader').map((cell) => cell.textContent);
+    expect(headers).toEqual(['Характеристика', 'Сплит-система 09', 'Сплит-система 07']);
+  });
+
+  it('🔴 отмеченная модель остаётся в сравнении, даже когда подбор её отсеял', async () => {
+    await renderPage({ class: '07', compare: 'split-09' });
+
+    expect(screen.queryByRole('heading', { name: 'Сплит-система 09' })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /Сплит-система 09 — убрать из сравнения/ }),
+    ).toBeInTheDocument();
+  });
+
   it('фильтр из адреса отрабатывает на сервере', async () => {
     await renderPage({ class: '07' });
 
@@ -156,6 +172,13 @@ describe('Каталог — канонизация (ADR-109)', () => {
 
   it('🔴 сортировка — то же самое: это тот же каталог под другим углом', async () => {
     const meta = await metadata({ sort: 'price-asc' });
+
+    expect(meta.robots).toEqual({ index: false, follow: true });
+    expect(meta.alternates?.canonical).toBe('https://example.test/catalog');
+  });
+
+  it('🔴 `?compare=` — состояние интерфейса, а не страница (ADR-109)', async () => {
+    const meta = await metadata({ compare: 'split-09,split-07' });
 
     expect(meta.robots).toEqual({ index: false, follow: true });
     expect(meta.alternates?.canonical).toBe('https://example.test/catalog');

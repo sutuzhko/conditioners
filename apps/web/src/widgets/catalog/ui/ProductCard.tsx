@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Badge, ButtonLink, Card } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
-import { areaLabel, catalogText, photoAlt, powerClassLabel } from '../content';
+import { areaLabel, catalogText, compareMarkLabel, photoAlt, powerClassLabel } from '../content';
 import { mainPhoto, type CatalogProduct } from '../model';
 import { ProductPrice } from './ProductPrice';
 import styles from './ProductCard.module.css';
@@ -24,6 +24,14 @@ export interface ProductCardProps {
   orderHref: ButtonLinkHref;
   /** Адрес страницы модели: карточка — вход в неё (ADR-109). */
   detailsHref: ButtonLinkHref;
+  /**
+   * Адрес с отметкой сравнения: тот же каталог, но со слагом этой модели,
+   * добавленным в `?compare=` или убранным оттуда. Не задан — отметки на
+   * карточке нет вовсе (страница модели, снимок без сравнения).
+   */
+  compareHref?: ButtonLinkHref | undefined;
+  /** Модель уже отмечена: подпись меняется, а ссылка снимает отметку. */
+  compared?: boolean | undefined;
   /** Момент расчёта скидки. Задаётся в тестах и снепшотах, в проде — «сейчас». */
   now?: Date | undefined;
 }
@@ -41,7 +49,14 @@ export interface ProductCardProps {
  * сознательно: осмысленный анкор — название модели (docs/SEO.md §5), а два
  * пункта на один адрес в списке ссылок скринридера — шум.
  */
-export function ProductCard({ product, orderHref, detailsHref, now }: ProductCardProps) {
+export function ProductCard({
+  product,
+  orderHref,
+  detailsHref,
+  compareHref,
+  compared = false,
+  now,
+}: ProductCardProps) {
   const price = getActivePrice(product, now);
   const photo = mainPhoto(product.photos);
   const alt = photo?.alt?.trim();
@@ -95,11 +110,35 @@ export function ProductCard({ product, orderHref, detailsHref, now }: ProductCar
           <ProductPrice price={price} />
         </div>
 
-        {/* Подсказка, что за карточкой есть страница. Не ссылка: ссылка здесь
-            уже есть — заголовок, растянутый на всю карточку. */}
-        <p className={styles.details} aria-hidden="true">
-          {catalogText.more} →
-        </p>
+        <div className={styles.meta}>
+          {/* Подсказка, что за карточкой есть страница. Не ссылка: ссылка здесь
+              уже есть — заголовок, растянутый на всю карточку. */}
+          <p className={styles.details} aria-hidden="true">
+            {catalogText.more} →
+          </p>
+
+          {compareHref === undefined ? null : (
+            /* 🔴 Отметка сравнения — ссылка, а не чекбокс: выбор живёт в
+               адресе (ADR-109). Ссылкой он переживает обновление страницы,
+               открывается на другом устройстве и не стоит ни килобайта в
+               бюджете JS (ADR-088).
+
+               Состояние читается не только цветом: меняется подпись, рядом
+               стоит знак, а скринридер получает имя модели и то, что
+               повторное нажатие снимает отметку. */
+            <Link
+              href={compareHref}
+              className={compared ? `${styles.compare} ${styles.comparePicked}` : styles.compare}
+              aria-label={compareMarkLabel(product.name, compared)}
+              aria-current={compared ? 'true' : undefined}
+            >
+              <span className={styles.compareMark} aria-hidden="true">
+                {compared ? '✓' : '+'}
+              </span>
+              {compared ? catalogText.compareOn : catalogText.compareAdd}
+            </Link>
+          )}
+        </div>
 
         <div className={styles.actions}>
           <ButtonLink href={orderHref} variant="accent" fullWidth className={styles.order}>

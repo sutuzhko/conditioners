@@ -33,7 +33,7 @@ describe('robots.txt', () => {
   it('🔴 Clean-param снимает дубли по параметрам фильтра каталога (ADR-109)', async () => {
     const text = await robots();
 
-    expect(text).toContain('Clean-param: class&area&sale&sort /catalog');
+    expect(text).toContain('Clean-param: class&area&sale&sort&compare /catalog');
   });
 
   it('🔴 разбивка в Clean-param не попадает: у страниц разное содержимое', async () => {

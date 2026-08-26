@@ -17,6 +17,10 @@ const SPEC_COLUMN_PX = 200;
 const VALUE_COLUMN_PX = 160;
 
 export interface CompareTableProps {
+  /**
+   * Модели, отмеченные клиентом, в порядке адреса (ADR-109). Их приносит
+   * страница: таблица ничего не отбирает сама, она рисует чужой выбор.
+   */
   products: readonly CatalogProduct[];
   /** Момент расчёта скидки — тот же, что у карточек: цена не смеет разойтись. */
   now?: Date | undefined;
@@ -25,19 +29,21 @@ export interface CompareTableProps {
 }
 
 /**
- * Сравнение моделей.
+ * Таблица сравнения отмеченных моделей.
  *
  * 🔴 Список строк не задан в разметке: это объединение ключей `specs` всех
- * видимых моделей, которое считает `buildCompareTable` (инвариант 6). Владелец
- * заводит характеристику одной модели — таблица вырастает на строку сама,
- * отсутствующее значение приходит прочерком.
+ * сравниваемых моделей, которое считает `buildCompareTable` (инвариант 6).
+ * Владелец заводит характеристику одной модели — таблица вырастает на строку
+ * сама, отсутствующее значение приходит прочерком.
  *
- * Сравнивать нечего — секции нет: пустая таблица с одними прочерками хуже,
- * чем её отсутствие.
+ * Потолка на число колонок нет: лишние уходят в горизонтальную прокрутку
+ * внутри `Table` (вариант `sticky` — первая колонка залипает, иначе на
+ * четвёртой модели непонятно, чьё это значение).
  *
  * Последняя строка — цена под ключ, как в макете. Она не характеристика и в
  * объединение ключей не входит: значение берёт тот же `getActivePrice`, что и
- * карточка, — цена в витрине и в сравнении обязана совпадать до рубля.
+ * карточка, — цена в витрине и в сравнении обязана совпадать до рубля. Она же
+ * оставляет таблице смысл, когда характеристик не заполнено ни у кого.
  */
 export function CompareTable({
   products,
@@ -45,17 +51,13 @@ export function CompareTable({
   specDictionary = EMPTY_SPEC_DICTIONARY,
 }: CompareTableProps) {
   const table = buildCompareTable(products, undefined, specDictionary);
-  if (table.rows.length === 0) return null;
+  if (table.products.length === 0) return null;
 
   const minWidth = `${SPEC_COLUMN_PX + table.products.length * VALUE_COLUMN_PX}px`;
   const columnCount = table.products.length + 1;
 
   return (
     <Card padding="none" elevation="none" className={styles.panel}>
-      <div className={styles.head}>
-        <h3 className={styles.title}>{catalogText.compareTitle}</h3>
-      </div>
-
       <Table
         variant="sticky"
         zebra
@@ -108,7 +110,9 @@ export function CompareTable({
         </tbody>
       </Table>
 
-      <p className={styles.note}>{catalogText.compareNote}</p>
+      <p className={styles.note}>
+        {table.rows.length === 0 ? catalogText.compareNoSpecs : catalogText.compareNote}
+      </p>
     </Card>
   );
 }

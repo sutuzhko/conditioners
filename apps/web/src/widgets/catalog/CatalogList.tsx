@@ -1,14 +1,17 @@
 import {
   catalogSearchParams,
+  withCatalogCompare,
   type CatalogFacets,
   type CatalogQuery,
 } from '@/entities/product/lib/catalogQuery';
+import type { SpecDictionary } from '@/entities/product/lib/groupSpecs';
 import type { Page } from '@/shared/lib/paging';
 import { ButtonLink, Card, Pager } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 
 import { catalogListText as t, catalogText } from './content';
-import type { CatalogProduct, ProductHref } from './model';
+import { COMPARE_ANCHOR, type CatalogProduct, type ProductHref } from './model';
+import { CatalogCompare } from './ui/CatalogCompare';
 import { CatalogFilters } from './ui/CatalogFilters';
 import { CatalogSort } from './ui/CatalogSort';
 import { ProductCard } from './ui/ProductCard';
@@ -23,6 +26,14 @@ export interface CatalogListProps {
   readonly facets: CatalogFacets;
   /** Текущий запрос: он же подсвечивает выбранные значения. */
   readonly query: CatalogQuery;
+  /**
+   * Модели, отмеченные для сравнения, в порядке адреса (ADR-109). Отдельно от
+   * выдачи: отмеченная модель могла остаться на другой странице или выпасть
+   * из текущего подбора, и сравнение обязано её пережить.
+   */
+  readonly compared: readonly CatalogProduct[];
+  /** Справочник характеристик: он задаёт порядок строк сравнения (ADR-094). */
+  readonly specDictionary?: SpecDictionary | undefined;
   /** Адрес каталога. Маршрут приносит страница: блок карты URL не знает. */
   readonly basePath: string;
   readonly productHref: ProductHref;
@@ -45,19 +56,47 @@ export function CatalogList({
   page,
   facets,
   query,
+  compared,
   basePath,
   productHref,
   orderHref = '/#lead',
   now,
+  specDictionary,
 }: CatalogListProps) {
+  /* 🔴 Ссылки строятся по разобранному выбору, а не по сырому параметру:
+     адрес мог принести слаг снятой с продажи модели, и держать его в каждой
+     ссылке страницы значит тащить мусор дальше. Так адрес чинит себя сам при
+     первом же переходе. */
+  const chosen = compared.map((product) => product.slug);
+  const current: CatalogQuery = { ...query, compare: chosen };
+  const inCompare = new Set(chosen);
+
   /* Разбивке параметры фильтра нужны без номера страницы: его она ставит
      сама. Иначе «дальше» уводило бы на ту же страницу, с которой пришли. */
-  const pagerQuery = catalogSearchParams({ ...query, page: 1 });
+  const pagerQuery = catalogSearchParams({ ...current, page: 1 });
+
+  /* Отметка — переход по адресу с добавленным или убранным слагом. Якорь
+     возвращает человека к таблице: он нажал «Сравнить» в середине списка. */
+  const compareHref = (
+    slug: string,
+  ): { pathname: string; query: Record<string, string>; hash: string } => ({
+    pathname: basePath,
+    query: catalogSearchParams(withCatalogCompare(current, slug)),
+    hash: COMPARE_ANCHOR,
+  });
 
   return (
     <section className={styles.section} aria-labelledby={RESULTS_ID}>
       <div className={styles.container}>
-        <CatalogFilters facets={facets} query={query} basePath={basePath} />
+        <CatalogFilters facets={facets} query={current} basePath={basePath} />
+
+        <CatalogCompare
+          products={compared}
+          query={current}
+          basePath={basePath}
+          now={now}
+          specDictionary={specDictionary}
+        />
 
         {/* Заголовок области — для скринридера: на экране роль названия играет
             `h1` страницы, а счётчик найденного заголовком не является. */}
@@ -67,7 +106,7 @@ export function CatalogList({
 
         <div className={styles.toolbar}>
           <p className={styles.found}>{t.found(page.total)}</p>
-          <CatalogSort query={query} basePath={basePath} />
+          <CatalogSort query={current} basePath={basePath} />
         </div>
 
         {page.items.length === 0 ? (
@@ -86,6 +125,8 @@ export function CatalogList({
                 product={product}
                 orderHref={orderHref}
                 detailsHref={productHref(product.slug)}
+                compareHref={compareHref(product.slug)}
+                compared={inCompare.has(product.slug)}
                 now={now}
               />
             ))}

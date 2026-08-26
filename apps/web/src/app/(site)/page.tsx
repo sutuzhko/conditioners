@@ -7,6 +7,11 @@ import { productSchema } from '@/entities/product/model';
 import { reviewSchema } from '@/entities/review/model';
 import { priceRowSchema } from '@/entities/price/model';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
+import {
+  DEFAULT_CATALOG_QUERY,
+  catalogSearchParams,
+  withCatalogCompare,
+} from '@/entities/product/lib/catalogQuery';
 import { env } from '@/shared/config/env';
 import {
   CATALOG_PATH,
@@ -19,7 +24,7 @@ import {
 import { catalogText } from '@/widgets/catalog';
 import { Hero } from '@/widgets/hero';
 import { TrustStrip, Services, WhyUs } from '@/widgets/trust';
-import { Catalog } from '@/widgets/catalog';
+import { COMPARE_ANCHOR, Catalog } from '@/widgets/catalog';
 import { SavingsBlock, StepsTimeline } from '@/widgets/installation';
 import { Pricing } from '@/widgets/pricing';
 import { HonestPricing } from '@/widgets/honesty';
@@ -158,6 +163,17 @@ export default async function HomePage() {
     })),
   });
 
+  /* Сравнение живёт на странице каталога и в её адресе (ADR-109): с витрины
+     «Сравнить» уводит туда, где модель уже отмечена. Имя параметра собирает
+     домен, а не строка здесь. */
+  const compareHref = (
+    slug: string,
+  ): { pathname: string; query: Record<string, string>; hash: string } => ({
+    pathname: CATALOG_PATH,
+    query: catalogSearchParams(withCatalogCompare(DEFAULT_CATALOG_QUERY, slug)),
+    hash: COMPARE_ANCHOR,
+  });
+
   return (
     <>
       <JsonLd nodes={[business, catalogList, buildFaqPageJsonLd(faqItems)]} />
@@ -182,8 +198,8 @@ export default async function HomePage() {
         products={featured}
         orderHref={LEAD_ANCHOR}
         productHref={(slug) => ({ pathname: productPath(slug) })}
+        compareHref={compareHref}
         catalogHref={CATALOG_PATH}
-        specDictionary={settings.specs}
       />
       <SavingsBlock />
       <StepsTimeline warranty={warranty} />

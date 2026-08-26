@@ -14,7 +14,7 @@ import { getActivePrice } from './getActivePrice';
  * означал бы, что робот видит либо всё, либо ничего.
  *
  * Имена параметров английские (инвариант 17): `class`, `area`, `sale`,
- * `sort`, `page`.
+ * `sort`, `compare`, `page`.
  *
  * Отбор идёт в памяти, а не запросом в базу. Каталог небольшой — десятки
  * моделей, — и один список даёт и страницу, и набор доступных фильтров, и
@@ -38,8 +38,12 @@ export const CATALOG_PARAMS = {
   area: 'area',
   sale: 'sale',
   sort: 'sort',
+  compare: 'compare',
   page: 'page',
 } as const;
+
+/** Разделитель слагов в `?compare=`: адрес читается глазами (ADR-109). */
+const COMPARE_SEPARATOR = ',';
 
 /**
  * Параметры, которые не меняют состав страницы, а только её угол зрения.
@@ -53,6 +57,9 @@ export const CATALOG_NARROWING_PARAMS: readonly string[] = [
   CATALOG_PARAMS.area,
   CATALOG_PARAMS.sale,
   CATALOG_PARAMS.sort,
+  /* Отметки сравнения состав каталога не меняют — это угол зрения на те же
+     модели, и для робота такой адрес — дубль чистого. */
+  CATALOG_PARAMS.compare,
 ];
 
 export const CATALOG_SORTS = ['default', 'price-asc', 'price-desc', 'area-asc'] as const;
@@ -71,6 +78,12 @@ export type CatalogFilter = {
 export type CatalogQuery = {
   readonly filter: CatalogFilter;
   readonly sort: CatalogSort;
+  /**
+   * Слаги моделей, отмеченных для сравнения, в порядке адреса — он же задаёт
+   * порядок колонок таблицы (ADR-109). Не фильтр: состав выдачи от него не
+   * зависит, поэтому и лежит рядом с фильтром, а не внутри него.
+   */
+  readonly compare: readonly string[];
   readonly page: number;
 };
 
@@ -79,6 +92,7 @@ export const EMPTY_CATALOG_FILTER: CatalogFilter = { powerClass: null, area: nul
 export const DEFAULT_CATALOG_QUERY: CatalogQuery = {
   filter: EMPTY_CATALOG_FILTER,
   sort: 'default',
+  compare: [],
   page: 1,
 };
 
@@ -104,6 +118,27 @@ function isSort(value: string | undefined): value is CatalogSort {
 }
 
 /**
+ * Слаги сравнения из адреса.
+ *
+ * 🔴 Пустые куски и повторы отбрасываются молча, порядок сохраняется:
+ * `?compare=split-09,,split-09` обязан открыться одной колонкой, а не отказом.
+ * Ссылку на сравнение пересылают и правят руками, и ошибка вместо таблицы там
+ * ничего не объясняет. Слаг, которого нет в каталоге, отсеется позже —
+ * `selectCatalogCompare`: здесь про ассортимент ещё ничего не известно.
+ */
+function parseCompare(raw: string | string[] | undefined): readonly string[] {
+  const value = single(raw);
+  if (value === undefined) return [];
+
+  const slugs = value
+    .split(COMPARE_SEPARATOR)
+    .map((slug) => slug.trim())
+    .filter((slug) => slug !== '');
+
+  return [...new Set(slugs)];
+}
+
+/**
  * Разбор адреса.
  *
  * Незнакомое значение молча игнорируется, а не отвечает ошибкой: адрес правят
@@ -123,6 +158,7 @@ export function parseCatalogQuery(raw: RawSearchParams): CatalogQuery {
       sale: single(raw[CATALOG_PARAMS.sale]) === '1',
     },
     sort: isSort(sort) ? sort : 'default',
+    compare: parseCompare(raw[CATALOG_PARAMS.compare]),
     page: pageNumber(single(raw[CATALOG_PARAMS.page])),
   };
 }
@@ -140,6 +176,11 @@ export function catalogSearchParams(query: CatalogQuery): Record<string, string>
   if (query.filter.sale) params[CATALOG_PARAMS.sale] = '1';
   if (query.sort !== 'default') params[CATALOG_PARAMS.sort] = query.sort;
   if (query.page > 1) params[CATALOG_PARAMS.page] = String(query.page);
+  // выбор сравнения — последним: подбор описывает страницу, сравнение — работу
+  // читателя поверх неё, и в пересланной ссылке оно так и читается
+  if (query.compare.length > 0) {
+    params[CATALOG_PARAMS.compare] = query.compare.join(COMPARE_SEPARATOR);
+  }
 
   return params;
 }
@@ -148,7 +189,9 @@ export function catalogSearchParams(query: CatalogQuery): Record<string, string>
  * Запрос с изменённым фильтром или порядком.
  *
  * 🔴 Номер страницы сбрасывается: после смены фильтра список другой, и
- * седьмая страница прежнего почти наверняка пуста.
+ * седьмая страница прежнего почти наверняка пуста. А вот выбор сравнения
+ * переживает смену подбора: человек отметил модели, чтобы их сравнить, и
+ * потерять отметки из-за нажатого фильтра он не согласится.
  */
 export function withCatalogQuery(
   query: CatalogQuery,
@@ -159,8 +202,51 @@ export function withCatalogQuery(
   return {
     filter: { ...query.filter, ...filter },
     sort: sort ?? query.sort,
+    compare: query.compare,
     page: 1,
   };
+}
+
+/**
+ * Отметить модель в сравнении или снять отметку — то же действие, тот же
+ * адрес наоборот (ADR-109).
+ *
+ * 🔴 Номер страницы, в отличие от смены фильтра, сохраняется: сравнение не
+ * меняет состав выдачи, и выбрасывать человека с четвёртой страницы на первую
+ * за одну отметку — значит отобрать у него то, что он листал.
+ *
+ * Новый слаг встаёт в конец: порядок отметок — это и есть порядок колонок.
+ */
+export function withCatalogCompare(query: CatalogQuery, slug: string): CatalogQuery {
+  const chosen = query.compare.includes(slug)
+    ? query.compare.filter((value) => value !== slug)
+    : [...query.compare, slug];
+
+  return { ...query, compare: chosen };
+}
+
+/** Снять сравнение целиком. Подбор, порядок и страница остаются на месте. */
+export function clearCatalogCompare(query: CatalogQuery): CatalogQuery {
+  return { ...query, compare: [] };
+}
+
+/**
+ * Отмеченные модели в порядке адреса.
+ *
+ * 🔴 Отбор идёт по всему каталогу, а не по текущей странице выдачи: модель,
+ * отмеченную на второй странице, ни фильтр, ни листание не имеют права
+ * выкинуть из сравнения. Незнакомый слаг молча отбрасывается — он приходит из
+ * адреса, который правят руками и пересылают.
+ */
+export function selectCatalogCompare<T extends { readonly slug: string }>(
+  products: readonly T[],
+  slugs: readonly string[],
+): readonly T[] {
+  const bySlug = new Map(products.map((product) => [product.slug, product]));
+
+  return slugs
+    .map((slug) => bySlug.get(slug))
+    .filter((product): product is T => product !== undefined);
 }
 
 /**
@@ -175,6 +261,19 @@ export function isNarrowedCatalog(query: CatalogQuery): boolean {
     query.filter.sale ||
     query.sort !== 'default'
   );
+}
+
+/**
+ * Адрес показывает не отдельную страницу, а состояние интерфейса: подбор,
+ * порядок или выбор сравнения. Такие адреса отдают `noindex, follow` с
+ * каноникалом на чистый `/catalog` (ADR-109, docs/SEO.md §1).
+ *
+ * Отдельно от `isNarrowedCatalog`: тот отвечает на вопрос «есть ли что
+ * сбрасывать в подборе», и ссылка «Сбросить подбор» не должна появляться
+ * из-за отмеченной для сравнения модели.
+ */
+export function isCatalogViewState(query: CatalogQuery): boolean {
+  return isNarrowedCatalog(query) || query.compare.length > 0;
 }
 
 function matches(product: CatalogQueryProduct, filter: CatalogFilter, now: Date): boolean {

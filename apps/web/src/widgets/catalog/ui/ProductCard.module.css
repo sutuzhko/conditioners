@@ -124,12 +124,79 @@
   padding-top: 14px;
 }
 
+/* Ряд под ценой: подсказка про страницу модели слева, отметка сравнения
+   справа. Одной строкой, а не двумя: карточки стоят в ряду и обязаны быть
+   одной высоты, а лишний ряд действий уводил бы кнопку заказа за экран. */
+.meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
 /* Подсказка про страницу модели: не ссылка, поэтому и не тап-зона. */
 .details {
-  margin: 10px 0 0;
+  margin: 0;
   color: var(--accent-ink);
   font-size: var(--fs-caption);
   font-weight: 600;
+}
+
+/* Отметка сравнения. Поднята над перекрытием карточки (z-index), иначе клик
+   забирала бы растянутая на карточку ссылка заголовка — как у кнопки заказа
+   и ссылки к поставщику. */
+.compare {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  flex: none;
+  gap: 6px;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--body);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+.compare:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+  color: var(--on-accent);
+}
+
+/* Кольцо рисуется внутрь: карточка обрезает по overflow, и внешняя тень
+   у отметки была бы срезана её краем. */
+.compare:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-inset);
+}
+
+/* Отмеченная модель. 🔴 Не только заливка: подпись меняется с «Сравнить» на
+   «В сравнении», иначе состояние не читается ни без цвета, ни вслух. Пара
+   --accent-bg / --on-accent берёт AA в обеих темах, в отличие от
+   прототипной --accent-ink на той же подложке. */
+.comparePicked {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+  color: var(--on-accent);
+}
+
+.compareMark {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  line-height: 1;
 }
 
 .actions {

@@ -4,29 +4,13 @@
 
 .panel {
   overflow: hidden;
-  margin-top: 44px;
 }
 
-.head {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 28px;
-  border-bottom: 1px solid var(--line-soft);
-}
+/* Заголовок панели живёт в секции сравнения, а не здесь: она же рисует список
+   отмеченных моделей и ссылку «Очистить», и разрывать заголовок с ними —
+   значит собирать одну шапку из двух компонентов.
 
-.title {
-  margin: 0;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-/* Шапка сравнения, поля ячеек и цвет текста строк совпадают с умолчанием
+   Шапка таблицы, поля ячеек и цвет текста строк совпадают с умолчанием
    Table — своих правил здесь больше нет. */
 
 /* Заголовок группы характеристик: строк в сравнении стало под сорок, и без
@@ -73,18 +57,6 @@
 }
 
 @media (width < 600px) {
-  .panel {
-    margin-top: 28px;
-  }
-
-  .head {
-    padding: 18px 16px;
-  }
-
-  .title {
-    font-size: 19px;
-  }
-
   .table thead th:first-child,
   .table tbody th:first-child {
     width: 150px;

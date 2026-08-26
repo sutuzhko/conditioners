@@ -4,6 +4,7 @@ import {
   CATALOG_PAGE_SIZE,
   catalogFacets,
   parseCatalogQuery,
+  selectCatalogCompare,
   selectCatalogPage,
 } from '@/entities/product/lib/catalogQuery';
 
@@ -14,6 +15,7 @@ import {
   NOW,
   plainProduct,
   productHrefFixture,
+  specDictionaryFixture,
 } from './fixtures';
 import type { CatalogProduct } from './model';
 
@@ -45,10 +47,12 @@ function argsFor(
     page: selectCatalogPage(products, query, NOW),
     facets: catalogFacets(products),
     query,
+    compared: selectCatalogCompare(products, query.compare),
     basePath: '/catalog',
     productHref: productHrefFixture,
     orderHref: '/#lead',
     now: NOW,
+    specDictionary: specDictionaryFixture,
   };
 }
 
@@ -92,4 +96,24 @@ export const NothingFound: Story = {
 export const Empty: Story = {
   name: 'Каталог пуст',
   args: argsFor([]),
+};
+
+export const CompareTwo: Story = {
+  name: 'Сравнение: отмечены две модели',
+  args: argsFor(catalog, { compare: 'split-07,split-12' }),
+};
+
+export const CompareOne: Story = {
+  name: 'Сравнение: отмечена одна модель',
+  args: argsFor(catalog, { compare: 'split-07' }),
+};
+
+export const CompareAll: Story = {
+  name: 'Сравнение: отмечены все модели',
+  args: argsFor(catalog, { compare: catalog.map((product) => product.slug).join(',') }),
+};
+
+export const CompareWithFilter: Story = {
+  name: 'Сравнение переживает подбор',
+  args: argsFor(catalog, { class: '09', compare: 'split-07,split-12' }),
 };

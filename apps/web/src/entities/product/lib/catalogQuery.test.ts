@@ -5,11 +5,15 @@ import {
   DEFAULT_CATALOG_QUERY,
   catalogFacets,
   catalogSearchParams,
+  clearCatalogCompare,
   filterCatalog,
+  isCatalogViewState,
   isNarrowedCatalog,
   parseCatalogQuery,
+  selectCatalogCompare,
   selectCatalogPage,
   sortCatalog,
+  withCatalogCompare,
   withCatalogQuery,
   type CatalogQuery,
   type CatalogQueryProduct,
@@ -62,6 +66,7 @@ describe('Разбор адреса каталога', () => {
     expect(query).toEqual({
       filter: { powerClass: '09', area: 25, sale: true },
       sort: 'price-asc',
+      compare: [],
       page: 3,
     });
   });
@@ -87,13 +92,21 @@ describe('Разбор адреса каталога', () => {
       catalogSearchParams({
         filter: { powerClass: '09', area: 25, sale: true },
         sort: 'price-desc',
+        compare: [],
         page: 2,
       }),
     ).toEqual({ class: '09', area: '25', sale: '1', sort: 'price-desc', page: '2' });
   });
 
   it('разбор и сборка адреса обратны друг другу', () => {
-    const params = { class: '12', area: '35', sale: '1', sort: 'area-asc', page: '4' };
+    const params = {
+      class: '12',
+      area: '35',
+      sale: '1',
+      sort: 'area-asc',
+      page: '4',
+      compare: 'split-07,split-12',
+    };
 
     expect(catalogSearchParams(parseCatalogQuery(params))).toEqual(params);
   });
@@ -116,6 +129,100 @@ describe('Индексируемость запроса', () => {
     expect(isNarrowedCatalog(parseCatalogQuery({ area: '25' }))).toBe(true);
     expect(isNarrowedCatalog(parseCatalogQuery({ sale: '1' }))).toBe(true);
     expect(isNarrowedCatalog(parseCatalogQuery({ sort: 'price-asc' }))).toBe(true);
+  });
+
+  it('🔴 сравнение — состояние интерфейса, а не страница (ADR-109)', () => {
+    expect(isCatalogViewState(parseCatalogQuery({ compare: 'split-07,split-12' }))).toBe(true);
+    expect(isCatalogViewState(DEFAULT_CATALOG_QUERY)).toBe(false);
+    expect(isCatalogViewState({ ...DEFAULT_CATALOG_QUERY, page: 3 })).toBe(false);
+  });
+
+  it('отмеченная модель не считается подбором: сбрасывать в нём нечего', () => {
+    const query = parseCatalogQuery({ compare: 'split-07' });
+
+    expect(isNarrowedCatalog(query)).toBe(false);
+  });
+});
+
+describe('Разбор сравнения', () => {
+  it('🔴 порядок слагов в адресе сохраняется: он же задаёт порядок колонок', () => {
+    expect(parseCatalogQuery({ compare: 'split-12,split-07' }).compare).toEqual([
+      'split-12',
+      'split-07',
+    ]);
+  });
+
+  it('🔴 повтор и пустое место отбрасываются молча — адрес правят руками', () => {
+    expect(parseCatalogQuery({ compare: 'split-07,,split-07, split-12 ' }).compare).toEqual([
+      'split-07',
+      'split-12',
+    ]);
+  });
+
+  it('пустой и отсутствующий параметр — это пустое сравнение, а не отказ', () => {
+    expect(parseCatalogQuery({ compare: '' }).compare).toEqual([]);
+    expect(parseCatalogQuery({ compare: '  ,  ' }).compare).toEqual([]);
+    expect(parseCatalogQuery({}).compare).toEqual([]);
+  });
+});
+
+describe('Отметка сравнения', () => {
+  const chosen: CatalogQuery = parseCatalogQuery({ compare: 'split-07,split-12', page: '3' });
+
+  it('новая модель встаёт в конец — порядок отметок и есть порядок колонок', () => {
+    expect(withCatalogCompare(chosen, 'split-09').compare).toEqual([
+      'split-07',
+      'split-12',
+      'split-09',
+    ]);
+  });
+
+  it('повторная отметка снимает выбор: ссылка одна, действие обратимо', () => {
+    expect(withCatalogCompare(chosen, 'split-07').compare).toEqual(['split-12']);
+  });
+
+  it('🔴 отметка не выбрасывает со страницы: состав выдачи она не меняет', () => {
+    expect(withCatalogCompare(chosen, 'split-09').page).toBe(3);
+  });
+
+  it('🔴 смена фильтра сохраняет отметки, но возвращает на первую страницу', () => {
+    const next = withCatalogQuery(chosen, { powerClass: '09' });
+
+    expect(next.compare).toEqual(['split-07', 'split-12']);
+    expect(next.page).toBe(1);
+  });
+
+  it('очистка снимает только сравнение, подбор и страница остаются', () => {
+    const narrowed = parseCatalogQuery({ class: '09', page: '2', compare: 'split-07' });
+    const cleared = clearCatalogCompare(narrowed);
+
+    expect(cleared.compare).toEqual([]);
+    expect(cleared.filter.powerClass).toBe('09');
+    expect(cleared.page).toBe(2);
+  });
+});
+
+describe('Отбор отмеченных моделей', () => {
+  const catalogWithSlugs = [
+    { slug: 'split-07', name: '07' },
+    { slug: 'split-09', name: '09' },
+    { slug: 'split-12', name: '12' },
+  ];
+
+  it('🔴 колонки идут в порядке адреса, а не в порядке каталога', () => {
+    const found = selectCatalogCompare(catalogWithSlugs, ['split-12', 'split-07']);
+
+    expect(found.map((product) => product.slug)).toEqual(['split-12', 'split-07']);
+  });
+
+  it('🔴 незнакомый слаг молча выпадает, остальные остаются', () => {
+    const found = selectCatalogCompare(catalogWithSlugs, ['split-09', 'нет-такой']);
+
+    expect(found.map((product) => product.slug)).toEqual(['split-09']);
+  });
+
+  it('пустой выбор даёт пустой список', () => {
+    expect(selectCatalogCompare(catalogWithSlugs, [])).toEqual([]);
   });
 });
 

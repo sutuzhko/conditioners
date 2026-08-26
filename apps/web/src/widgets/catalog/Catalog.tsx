@@ -1,10 +1,8 @@
 import Link from 'next/link';
-import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/lib/groupSpecs';
 import { Card } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { catalogText } from './content';
 import type { CatalogProduct, ProductHref } from './model';
-import { CompareTable } from './ui/CompareTable';
 import { ProductCard } from './ui/ProductCard';
 import { ProductCardSkeleton } from './ui/ProductCardSkeleton';
 import styles from './Catalog.module.css';
@@ -25,6 +23,15 @@ export interface CatalogProps {
   products: readonly CatalogProduct[];
   /** Адрес страницы модели: карта URL принадлежит странице, а не блоку. */
   productHref: ProductHref;
+  /**
+   * Адрес каталога с этой моделью, отмеченной для сравнения (ADR-109).
+   * Не задан — отметки на карточках витрины нет.
+   *
+   * 🔴 Сравнение живёт на `/catalog`, а не здесь: витрина показывает то, что
+   * владелец вынес флагом `featured`, и сравнивать «всё вынесенное скопом»
+   * — ровно та бесполезная таблица, которую это решение и убирает.
+   */
+  compareHref?: ProductHref | undefined;
   /** Ссылка во весь каталог. Нет — заголовок остаётся без неё. */
   catalogHref?: ButtonLinkHref | undefined;
   /** Куда ведёт «Заказать» и ссылка «подберём» — якорь формы заявки. */
@@ -35,32 +42,32 @@ export interface CatalogProps {
   loading?: boolean | undefined;
   /** Якорь секции: по нему на неё ведёт навигация в шапке. */
   id?: string | undefined;
-  /**
-   * Справочник характеристик из настроек: он задаёт порядок строк сравнения
-   * (ADR-094). Пустой — рабочее состояние: характеристики просто идут одним
-   * списком.
-   */
-  specDictionary?: SpecDictionary | undefined;
 }
 
 const HEADING_ID = 'catalog-title';
 
 /**
- * Витрина моделей и сравнение характеристик (docs/DESIGN_BRIEF.md §6, §10).
+ * Витрина моделей на лендинге (docs/DESIGN_BRIEF.md §6, §10).
  *
- * Серверный компонент: карточки, цены и таблица приходят в HTML готовыми —
- * робот не ждёт JavaScript (инвариант 1). Интерактивности в блоке нет вовсе,
- * поэтому и `'use client'` нет.
+ * Серверный компонент: карточки и цены приходят в HTML готовыми — робот не
+ * ждёт JavaScript (инвариант 1). Интерактивности в блоке нет вовсе, поэтому и
+ * `'use client'` нет.
+ *
+ * 🔴 Таблицы сравнения здесь больше нет (ADR-109). Она показывала все видимые
+ * модели скопом и становилась полезной только случайно; сравнивают теперь то,
+ * что клиент отметил сам, — на `/catalog`, где выбор живёт в адресе. С витрины
+ * туда ведёт отметка «Сравнить» на карточке: модель приезжает в сравнение уже
+ * отмеченной.
  */
 export function Catalog({
   products,
   productHref,
+  compareHref,
   catalogHref,
   orderHref = '#lead',
   now,
   loading = false,
   id = 'catalog',
-  specDictionary = EMPTY_SPEC_DICTIONARY,
 }: CatalogProps) {
   const visible = products.filter((product) => product.visible);
 
@@ -103,20 +110,18 @@ export function Catalog({
         ) : null}
 
         {!loading && visible.length > 0 ? (
-          <>
-            <ul className={styles.grid}>
-              {visible.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  orderHref={orderHref}
-                  detailsHref={productHref(product.slug)}
-                  now={now}
-                />
-              ))}
-            </ul>
-            <CompareTable products={visible} now={now} specDictionary={specDictionary} />
-          </>
+          <ul className={styles.grid}>
+            {visible.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                orderHref={orderHref}
+                detailsHref={productHref(product.slug)}
+                compareHref={compareHref === undefined ? undefined : compareHref(product.slug)}
+                now={now}
+              />
+            ))}
+          </ul>
         ) : null}
       </div>
     </section>

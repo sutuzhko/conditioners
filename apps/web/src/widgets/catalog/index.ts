@@ -13,4 +13,5 @@ export { catalogListText, catalogText, productPageText } from './content';
 export type { CatalogProps } from './Catalog';
 export type { CatalogListProps } from './CatalogList';
 export type { ProductDetailsProps } from './ProductDetails';
+export { COMPARE_ANCHOR } from './model';
 export type { CatalogProduct, ProductHref } from './model';

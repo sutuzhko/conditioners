@@ -4,8 +4,9 @@ import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import {
   CATALOG_PARAMS,
   catalogFacets,
-  isNarrowedCatalog,
+  isCatalogViewState,
   parseCatalogQuery,
+  selectCatalogCompare,
   selectCatalogPage,
   type RawSearchParams,
 } from '@/entities/product/lib/catalogQuery';
@@ -46,10 +47,11 @@ const productHref = (slug: string): { pathname: string } => ({ pathname: product
  * Фильтр и сортировка порождают комбинаторику адресов с одним и тем же
  * содержимым: они отдают `noindex, follow` и каноникал на чистый `/catalog` —
  * вес собирается в одном месте, а робот идёт по ссылкам дальше и находит
- * карточки моделей. Пагинация — исключение: у `?page=2` содержимое
- * действительно другое, поэтому она самоканонична и индексируема, иначе
- * модели со второй страницы не попадут в индекс вовсе. `rel=prev/next` не
- * используем: Google их не учитывает, Яндексу достаточно каноникала.
+ * карточки моделей. `?compare=` — то же самое и по той же причине: это
+ * состояние интерфейса, а не страница. Пагинация — исключение: у `?page=2`
+ * содержимое действительно другое, поэтому она самоканонична и индексируема,
+ * иначе модели со второй страницы не попадут в индекс вовсе. `rel=prev/next`
+ * не используем: Google их не учитывает, Яндексу достаточно каноникала.
  */
 export async function generateMetadata({
   searchParams,
@@ -63,14 +65,14 @@ export async function generateMetadata({
   ]);
 
   const query = parseCatalogQuery(raw);
-  const narrowed = isNarrowedCatalog(query);
+  const sideView = isCatalogViewState(query);
 
   /* Номер страницы берётся тот, что реально показан: `?page=99` прижимается
      к последней странице, и каноникал обязан указывать на неё, а не на
      несуществующий адрес. */
   const { page } = selectCatalogPage(products, query, new Date());
   const canonical =
-    narrowed || page === 1 ? CATALOG_PATH : `${CATALOG_PATH}?${CATALOG_PARAMS.page}=${page}`;
+    sideView || page === 1 ? CATALOG_PATH : `${CATALOG_PATH}?${CATALOG_PARAMS.page}=${page}`;
 
   return buildPageMetadata({
     siteUrl: env.SITE_URL,
@@ -80,7 +82,7 @@ export async function generateMetadata({
     titleSuffix: settings.seo.titleSuffix,
     siteName: settings.company.name,
     image: settings.seo.ogImage,
-    ...(narrowed ? { noIndex: true, follow: true } : {}),
+    ...(sideView ? { noIndex: true, follow: true } : {}),
   });
 }
 
@@ -93,12 +95,23 @@ export default async function CatalogPage({
      скидкой» и в разметке считается от одной точки (ADR-101). */
   const now = new Date();
 
-  /* Настройки компании здесь не нужны: карточки каталога о компании ничего
+  /* Из настроек нужен только справочник характеристик: он задаёт порядок и
+     группы строк сравнения (ADR-094). Остального о компании карточки каталога
      не рассказывают, а шапку и футер собирает layout. */
-  const [raw, products] = await Promise.all([searchParams, loadCatalog()]);
+  const [raw, settings, products] = await Promise.all([
+    searchParams,
+    loadSettings(),
+    loadCatalog(),
+  ]);
 
   const query = parseCatalogQuery(raw);
   const page = selectCatalogPage(products, query, now);
+
+  /* 🔴 Сравнение отбирается по всему каталогу, а не по текущей странице
+     выдачи: модель, отмеченную на второй странице, ни фильтр, ни листание не
+     имеют права выкинуть из таблицы (ADR-109). Незнакомый слаг отсеивается
+     здесь же — молча, адрес правят руками. */
+  const compared = selectCatalogCompare(products, query.compare);
 
   /* Разметка списка — те же модели и та же цена, что нарисованы карточками:
      `getActivePrice` считается один раз на модель и уходит и в разметку, и в
@@ -123,10 +136,12 @@ export default async function CatalogPage({
         page={page}
         facets={catalogFacets(products)}
         query={query}
+        compared={compared}
         basePath={CATALOG_PATH}
         productHref={productHref}
         orderHref={`/${LEAD_ANCHOR}`}
         now={now}
+        specDictionary={settings.specs}
       />
     </>
   );
