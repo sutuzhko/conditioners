@@ -74,22 +74,26 @@ function megabytes(bytes: number): string {
  *
  * Имя файла генерируется: оригинальное имя приходит от пользователя и
  * доверять ему нельзя — ни как имени на диске, ни как части URL.
+ *
+ * `field` — имя поля формы, из которого пришёл файл. Оно едет в ошибку, а не
+ * подставляется по умолчанию: форма обложки статьи ждёт `cover`, форма
+ * отзыва — `photo` и `avatar`, и клиент подсвечивает поле по этому имени.
  */
-export async function saveImage(file: File): Promise<StoredFile> {
+export async function saveImage(file: File, field: string): Promise<StoredFile> {
   if (file.size === 0) {
-    throw new ApiException('validation_error', 'Файл пустой', 'photo');
+    throw new ApiException('validation_error', 'Файл пустой', field);
   }
   if (file.size > env.UPLOAD_MAX_BYTES) {
     throw new ApiException(
       'payload_too_large',
       `Фото больше ${megabytes(env.UPLOAD_MAX_BYTES)}. Уменьшите снимок и приложите его ещё раз`,
-      'photo',
+      field,
     );
   }
 
   const original = Buffer.from(await file.arrayBuffer());
-  const kind = assertSupportedImage(original);
-  const cleaned = await shrink(stripMetadata(original, kind.format), kind);
+  const kind = assertSupportedImage(original, field);
+  const cleaned = await shrink(stripMetadata(original, kind.format, field), kind);
 
   const filename = `${randomUUID()}.${kind.ext}`;
   await mkdir(env.UPLOADS_DIR, { recursive: true });

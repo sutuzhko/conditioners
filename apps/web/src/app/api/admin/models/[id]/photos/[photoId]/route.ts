@@ -12,7 +12,7 @@ export const PATCH = withAdmin(async (request, context: Context) => {
   const { id, photoId } = await context.params;
 
   const product = await findById(id);
-  if (product === null) return notFound('Модель');
+  if (product === null) return notFound('Модель', 'f');
 
   const parsed = photoUpdateSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
@@ -27,7 +27,7 @@ export const DELETE = withAdmin(async (_request, context: Context) => {
   const { id, photoId } = await context.params;
 
   const product = await findById(id);
-  if (product === null) return notFound('Модель');
+  if (product === null) return notFound('Модель', 'f');
 
   const stored = product.photos.find((photo) => photo.id === photoId);
 

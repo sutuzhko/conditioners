@@ -1,5 +1,5 @@
 /**
- * Единый конверт ответов API — docs/API.md §13.
+ * Единый конверт ответов API — docs/API.md §14.
  *
  * Текст `message` уходит пользователю, поэтому он по-русски и объясняет, что
  * делать. Технические подробности пишутся в лог и наружу не отдаются.
@@ -66,8 +66,13 @@ export function unauthorized(): NextResponse {
   return apiError('unauthorized', 'Нужно войти в админку');
 }
 
-export function notFound(what: string): NextResponse {
-  return apiError('not_found', `${what} не найден`);
+/**
+ * Род подсказывает вызывающий, а не угадывает функция: «Статья не найдена», но
+ * «Файл не найден» — а вывести это из самого слова нельзя, «Модель» и
+ * «Отказ» кончаются одинаково мягко при разном роде.
+ */
+export function notFound(what: string, gender: 'm' | 'f' = 'm'): NextResponse {
+  return apiError('not_found', `${what} не ${gender === 'f' ? 'найдена' : 'найден'}`);
 }
 
 /** Первая ошибка Zod показывается пользователю: список из десяти проблем он не прочитает. */

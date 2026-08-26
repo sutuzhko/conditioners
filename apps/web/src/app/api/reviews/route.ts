@@ -39,10 +39,10 @@ export async function POST(request: Request): Promise<Response> {
        сохранения последовательный — параллельная запись двух файлов ничего не
        ускоряет, а ошибку второй делает труднее объяснимой. */
     const photoFile = body.files.get('photo');
-    const photo = photoFile === undefined ? null : (await saveImage(photoFile)).url;
+    const photo = photoFile === undefined ? null : (await saveImage(photoFile, 'photo')).url;
 
     const avatarFile = body.files.get('avatar');
-    const avatar = avatarFile === undefined ? null : (await saveImage(avatarFile)).url;
+    const avatar = avatarFile === undefined ? null : (await saveImage(avatarFile, 'avatar')).url;
 
     // 🔴 Отзыв и уведомление о нём — одна транзакция (ADR-091): падение между
     // двумя записями оставляло отзыв, застрявший вне очереди модерации.

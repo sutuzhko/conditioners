@@ -24,17 +24,26 @@ const KINDS: Readonly<Record<ImageFormat, ImageKind>> = {
   webp: { format: 'webp', mime: 'image/webp', ext: 'webp' },
 };
 
-const BROKEN_IMAGE = new ApiException(
-  'validation_error',
-  'Не удалось прочитать фото. Приложите обычный снимок в JPEG, PNG или WebP.',
-  'photo',
-);
+/**
+ * Ошибки называют то поле формы, из которого пришёл файл: обложка статьи
+ * грузится в `cover`, снимок автора отзыва — в `avatar`, и клиент, который
+ * подсвечивает поле по ответу, должен найти именно его.
+ */
+function brokenImage(field: string): ApiException {
+  return new ApiException(
+    'validation_error',
+    'Не удалось прочитать фото. Приложите обычный снимок в JPEG, PNG или WebP.',
+    field,
+  );
+}
 
-const WRONG_FORMAT = new ApiException(
-  'validation_error',
-  'Фото должно быть в формате JPEG, PNG или WebP.',
-  'photo',
-);
+function wrongFormat(field: string): ApiException {
+  return new ApiException(
+    'validation_error',
+    'Фото должно быть в формате JPEG, PNG или WebP.',
+    field,
+  );
+}
 
 export function detectImage(bytes: Uint8Array): ImageKind | null {
   const buffer = Buffer.isBuffer(bytes) ? bytes : Buffer.from(bytes);
@@ -59,12 +68,12 @@ export function detectImage(bytes: Uint8Array): ImageKind | null {
  * JPEG — цепочка сегментов. Выкидываем все APPn (там живут EXIF, XMP, IPTC)
  * и комментарии; APP0 JFIF оставляем — в нём только плотность пикселей.
  */
-function stripJpeg(buffer: Buffer): Buffer {
+function stripJpeg(buffer: Buffer, field: string): Buffer {
   const parts: Buffer[] = [buffer.subarray(0, 2)];
   let pos = 2;
 
   while (pos + 1 < buffer.length) {
-    if (buffer.readUInt8(pos) !== 0xff) throw BROKEN_IMAGE;
+    if (buffer.readUInt8(pos) !== 0xff) throw brokenImage(field);
     const marker = buffer.readUInt8(pos + 1);
 
     // SOS и EOI: дальше идут сжатые данные, метаданных там нет
@@ -79,10 +88,10 @@ function stripJpeg(buffer: Buffer): Buffer {
       continue;
     }
 
-    if (pos + 4 > buffer.length) throw BROKEN_IMAGE;
+    if (pos + 4 > buffer.length) throw brokenImage(field);
     const length = buffer.readUInt16BE(pos + 2);
     const end = pos + 2 + length;
-    if (length < 2 || end > buffer.length) throw BROKEN_IMAGE;
+    if (length < 2 || end > buffer.length) throw brokenImage(field);
 
     const isApp = marker >= 0xe0 && marker <= 0xef;
     const isComment = marker === 0xfe;
@@ -93,7 +102,7 @@ function stripJpeg(buffer: Buffer): Buffer {
     pos = end;
   }
 
-  throw BROKEN_IMAGE;
+  throw brokenImage(field);
 }
 
 /** Чанки PNG, нужные для отрисовки. Всё остальное (eXIf, tEXt, iTXt, tIME…) вырезаем. */
@@ -112,7 +121,7 @@ const PNG_KEEP: ReadonlySet<string> = new Set([
   'pHYs',
 ]);
 
-function stripPng(buffer: Buffer): Buffer {
+function stripPng(buffer: Buffer, field: string): Buffer {
   const parts: Buffer[] = [buffer.subarray(0, 8)];
   let pos = 8;
 
@@ -120,20 +129,20 @@ function stripPng(buffer: Buffer): Buffer {
     const length = buffer.readUInt32BE(pos);
     const type = buffer.subarray(pos + 4, pos + 8).toString('latin1');
     const end = pos + 12 + length;
-    if (end > buffer.length) throw BROKEN_IMAGE;
+    if (end > buffer.length) throw brokenImage(field);
     if (PNG_KEEP.has(type)) parts.push(buffer.subarray(pos, end));
     pos = end;
     if (type === 'IEND') return Buffer.concat(parts);
   }
 
-  throw BROKEN_IMAGE;
+  throw brokenImage(field);
 }
 
 /** Биты флагов в чанке VP8X: их снимаем вместе с удалением чанков EXIF и XMP. */
 const VP8X_EXIF_FLAG = 0x08;
 const VP8X_XMP_FLAG = 0x04;
 
-function stripWebp(buffer: Buffer): Buffer {
+function stripWebp(buffer: Buffer, field: string): Buffer {
   const chunks: Buffer[] = [];
   let pos = 12;
 
@@ -142,7 +151,7 @@ function stripWebp(buffer: Buffer): Buffer {
     const size = buffer.readUInt32LE(pos + 4);
     // чанки RIFF выравниваются по чётной границе
     const end = pos + 8 + size + (size % 2);
-    if (pos + 8 + size > buffer.length) throw BROKEN_IMAGE;
+    if (pos + 8 + size > buffer.length) throw brokenImage(field);
 
     if (type !== 'EXIF' && type !== 'XMP ') {
       const chunk = Buffer.from(buffer.subarray(pos, Math.min(end, buffer.length)));
@@ -154,7 +163,7 @@ function stripWebp(buffer: Buffer): Buffer {
     pos = end;
   }
 
-  if (chunks.length === 0) throw BROKEN_IMAGE;
+  if (chunks.length === 0) throw brokenImage(field);
 
   const payload = Buffer.concat(chunks);
   const header = Buffer.alloc(12);
@@ -165,14 +174,14 @@ function stripWebp(buffer: Buffer): Buffer {
 }
 
 /** Возвращает изображение без единого блока метаданных. Формат при этом не меняется. */
-export function stripMetadata(buffer: Buffer, format: ImageFormat): Buffer {
-  if (format === 'jpeg') return stripJpeg(buffer);
-  if (format === 'png') return stripPng(buffer);
-  return stripWebp(buffer);
+export function stripMetadata(buffer: Buffer, format: ImageFormat, field: string): Buffer {
+  if (format === 'jpeg') return stripJpeg(buffer, field);
+  if (format === 'png') return stripPng(buffer, field);
+  return stripWebp(buffer, field);
 }
 
-export function assertSupportedImage(buffer: Buffer): ImageKind {
+export function assertSupportedImage(buffer: Buffer, field: string): ImageKind {
   const kind = detectImage(buffer);
-  if (kind === null) throw WRONG_FORMAT;
+  if (kind === null) throw wrongFormat(field);
   return kind;
 }

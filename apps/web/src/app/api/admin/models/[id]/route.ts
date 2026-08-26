@@ -11,7 +11,7 @@ type Context = { params: Promise<{ id: string }> };
 export const GET = withAdmin(async (_request, context: Context) => {
   const { id } = await context.params;
   const product = await findById(id);
-  return product === null ? notFound('Модель') : json(product);
+  return product === null ? notFound('Модель', 'f') : json(product);
 });
 
 /** PUT заменяет карточку целиком, PATCH правит отдельные поля. */
@@ -21,7 +21,7 @@ export const PUT = withAdmin(async (request, context: Context) => {
   if (!parsed.success) return validationError(parsed.error);
 
   const before = await findById(id);
-  if (before === null) return notFound('Модель');
+  if (before === null) return notFound('Модель', 'f');
 
   const product = await update(id, parsed.data);
   revalidateCatalog();
@@ -35,7 +35,7 @@ export const PATCH = withAdmin(async (request, context: Context) => {
   if (!parsed.success) return validationError(parsed.error);
 
   const before = await findById(id);
-  if (before === null) return notFound('Модель');
+  if (before === null) return notFound('Модель', 'f');
 
   const product = await update(id, parsed.data);
   revalidateCatalog();
@@ -47,7 +47,7 @@ export const DELETE = withAdmin(async (_request, context: Context) => {
   const { id } = await context.params;
 
   const product = await findById(id);
-  if (product === null) return notFound('Модель');
+  if (product === null) return notFound('Модель', 'f');
 
   await remove(id);
   // Файлы удаляются вместе с карточкой: том не должен копить осиротевшие фото.

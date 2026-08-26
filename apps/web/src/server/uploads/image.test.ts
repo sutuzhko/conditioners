@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
 import { ApiException } from '@/server/http';
-import { detectImage, stripMetadata } from './image';
+import { assertSupportedImage, detectImage, stripMetadata } from './image';
 
 /** Минимальные, но структурно верные файлы: настоящие снимки в тесты класть незачем. */
 function be16(value: number): Buffer {
@@ -76,7 +76,7 @@ describe('определение формата по сигнатуре', () => 
 
 describe('вырезание метаданных', () => {
   it('убирает EXIF и комментарий из jpeg, оставляя картинку', () => {
-    const cleaned = stripMetadata(jpegWithExif(), 'jpeg');
+    const cleaned = stripMetadata(jpegWithExif(), 'jpeg', 'photo');
     const text = cleaned.toString('latin1');
 
     expect(text).not.toContain('Exif');
@@ -89,7 +89,7 @@ describe('вырезание метаданных', () => {
   });
 
   it('убирает eXIf и tEXt из png, оставляя IHDR, IDAT и IEND', () => {
-    const cleaned = stripMetadata(pngWithExif(), 'png');
+    const cleaned = stripMetadata(pngWithExif(), 'png', 'photo');
     const text = cleaned.toString('latin1');
 
     expect(text).not.toContain('eXIf');
@@ -100,7 +100,7 @@ describe('вырезание метаданных', () => {
   });
 
   it('убирает чанк EXIF из webp и гасит флаги в VP8X', () => {
-    const cleaned = stripMetadata(webpWithExif(), 'webp');
+    const cleaned = stripMetadata(webpWithExif(), 'webp', 'photo');
 
     expect(cleaned.toString('latin1')).not.toContain('GPS 54.196,37.618');
     expect(cleaned.subarray(0, 4).toString('latin1')).toBe('RIFF');
@@ -112,6 +112,17 @@ describe('вырезание метаданных', () => {
 
   it('на битом файле отказывает понятной ошибкой, а не отдаёт его как есть', () => {
     const broken = Buffer.concat([Buffer.from([0xff, 0xd8]), Buffer.from('мусор', 'utf-8')]);
-    expect(() => stripMetadata(broken, 'jpeg')).toThrow(ApiException);
+    expect(() => stripMetadata(broken, 'jpeg', 'photo')).toThrow(ApiException);
+  });
+
+  it('ошибка называет то поле формы, из которого пришёл файл', () => {
+    const broken = Buffer.concat([Buffer.from([0xff, 0xd8]), Buffer.from('мусор', 'utf-8')]);
+
+    expect(() => stripMetadata(broken, 'jpeg', 'cover')).toThrow(
+      expect.objectContaining({ field: 'cover' }),
+    );
+    expect(() => assertSupportedImage(Buffer.from('<?php echo 1; ?>'), 'avatar')).toThrow(
+      expect.objectContaining({ field: 'avatar' }),
+    );
   });
 });

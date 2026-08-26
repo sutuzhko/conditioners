@@ -9,7 +9,7 @@ type Context = { params: Promise<{ id: string }> };
 export const GET = withAdmin(async (_request, context: Context) => {
   const { id } = await context.params;
   const lead = await findById(id);
-  return lead === null ? notFound('Заявка') : json(lead);
+  return lead === null ? notFound('Заявка', 'f') : json(lead);
 });
 
 /**

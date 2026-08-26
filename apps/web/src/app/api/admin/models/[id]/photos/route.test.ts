@@ -224,4 +224,25 @@ describe('POST /api/admin/models/[id]/photos', () => {
     });
     expect(products.addPhoto).not.toHaveBeenCalled();
   });
+
+  it('упавшая запись в БД не оставляет файл сиротой на диске', async () => {
+    vi.mocked(products.addPhoto).mockRejectedValue(new Error('база недоступна'));
+
+    const file = new File([new Uint8Array(jpegBytes())], 'photo.jpg', { type: 'image/jpeg' });
+
+    const response = await POST(photoRequest(file), context('p1'));
+
+    expect(response.status).toBe(500);
+    await expect(storedFiles()).resolves.toEqual([]);
+  });
+
+  it('несуществующая модель — 404 по-русски', async () => {
+    vi.mocked(products.findById).mockResolvedValue(null);
+
+    const response = await POST(photoRequest(), context('missing'));
+
+    await expect(response.json()).resolves.toMatchObject({
+      error: { message: 'Модель не найдена' },
+    });
+  });
 });

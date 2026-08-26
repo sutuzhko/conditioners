@@ -1,5 +1,5 @@
 /**
- * Свежая погода для чипа первого экрана — docs/API.md §12.
+ * Свежая погода для чипа первого экрана — docs/API.md §13.
  *
  * 🔴 Существует ради того, чтобы у открытой часами вкладки цифры не
  * устаревали: страница отдаётся из кеша ISR, и без этого адреса посетитель
@@ -17,11 +17,11 @@ export const dynamic = 'force-dynamic';
 
 export const GET = withRoute(async () => {
   const stored = geoSchema.safeParse(await getGroup('geo'));
-  if (!stored.success) return notFound('Погода');
+  if (!stored.success) return notFound('Погода', 'f');
 
   const weather = await getCityWeather(stored.data);
   // сервис молчит или координат нет — чипу нечего показать, прежние цифры останутся
-  if (weather === null) return notFound('Погода');
+  if (weather === null) return notFound('Погода', 'f');
 
   /* Ответ не кешируется браузером: за кеш отвечает серверный запрос к сервису
      (15 минут), и второй слой поверх него только запутал бы картину. */

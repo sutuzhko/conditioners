@@ -11,7 +11,7 @@ type Context = { params: Promise<{ id: string }> };
 export const GET = withAdmin(async (_request, context: Context) => {
   const { id } = await context.params;
   const article = await findById(id);
-  return article === null ? notFound('Статья') : json(article);
+  return article === null ? notFound('Статья', 'f') : json(article);
 });
 
 export const PUT = withAdmin(async (request, context: Context) => {
@@ -20,7 +20,7 @@ export const PUT = withAdmin(async (request, context: Context) => {
   if (!parsed.success) return validationError(parsed.error);
 
   const before = await findById(id);
-  if (before === null) return notFound('Статья');
+  if (before === null) return notFound('Статья', 'f');
 
   const article = await update(id, parsed.data);
   revalidateArticles(article.slug);
@@ -35,7 +35,7 @@ export const PATCH = withAdmin(async (request, context: Context) => {
   if (!parsed.success) return validationError(parsed.error);
 
   const before = await findById(id);
-  if (before === null) return notFound('Статья');
+  if (before === null) return notFound('Статья', 'f');
 
   const article = await update(id, parsed.data);
   revalidateArticles(article.slug);
@@ -48,7 +48,7 @@ export const DELETE = withAdmin(async (_request, context: Context) => {
   const { id } = await context.params;
 
   const article = await findById(id);
-  if (article === null) return notFound('Статья');
+  if (article === null) return notFound('Статья', 'f');
 
   await remove(id);
   if (article.cover !== null) await deleteStoredImage(article.cover);

@@ -80,7 +80,7 @@ describe('метаданные вырезаются', () => {
     const original = jpegWithExif();
     expect(original.includes(Buffer.from('GPS 54.19'))).toBe(true);
 
-    const cleaned = stripMetadata(original, 'jpeg');
+    const cleaned = stripMetadata(original, 'jpeg', 'photo');
 
     expect(cleaned.includes(Buffer.from('GPS 54.19'))).toBe(false);
     // Картинка остаётся картинкой: сигнатура и сжатые данные на месте
@@ -91,7 +91,7 @@ describe('метаданные вырезаются', () => {
 
 describe('сохранение файла', () => {
   it('даёт файлу своё имя и адрес в /api/media', async () => {
-    const stored = await saveImage(upload(jpegWithExif()));
+    const stored = await saveImage(upload(jpegWithExif()), 'photo');
 
     expect(stored.url).toBe(`/api/media/${stored.filename}`);
     expect(stored.mime).toBe('image/jpeg');
@@ -103,20 +103,34 @@ describe('сохранение файла', () => {
   });
 
   it('пустой файл и не-изображение на диск не попадают', async () => {
-    await expect(saveImage(upload(Buffer.alloc(0)))).rejects.toBeInstanceOf(ApiException);
-    await expect(saveImage(upload(Buffer.from('<?php echo 1; ?>')))).rejects.toBeInstanceOf(
-      ApiException,
-    );
+    await expect(saveImage(upload(Buffer.alloc(0)), 'photo')).rejects.toBeInstanceOf(ApiException);
+    await expect(
+      saveImage(upload(Buffer.from('<?php echo 1; ?>')), 'photo'),
+    ).rejects.toBeInstanceOf(ApiException);
   });
 
   it('файл больше разрешённого отклоняется до чтения содержимого', async () => {
     const huge = upload(Buffer.alloc(testEnv.UPLOAD_MAX_BYTES + 1));
 
-    await expect(saveImage(huge)).rejects.toMatchObject({ code: 'payload_too_large' });
+    await expect(saveImage(huge, 'photo')).rejects.toMatchObject({ code: 'payload_too_large' });
+  });
+
+  it('ошибка называет поле формы, а не всегда photo', async () => {
+    // Обложка статьи грузится в поле `cover`: клиент подсвечивает поле по
+    // имени из ответа и в форме обложки поля `photo` не найдёт.
+    await expect(saveImage(upload(Buffer.alloc(0)), 'cover')).rejects.toMatchObject({
+      field: 'cover',
+    });
+    await expect(
+      saveImage(upload(Buffer.from('<?php echo 1; ?>')), 'avatar'),
+    ).rejects.toMatchObject({ field: 'avatar' });
+    await expect(
+      saveImage(upload(Buffer.alloc(testEnv.UPLOAD_MAX_BYTES + 1)), 'cover'),
+    ).rejects.toMatchObject({ code: 'payload_too_large', field: 'cover' });
   });
 
   it('снимок с телефона пережимается до 1200px по длинной стороне', async () => {
-    const stored = await saveImage(upload(await photoFromPhone()));
+    const stored = await saveImage(upload(await photoFromPhone()), 'photo');
 
     const saved = await readFile(`${testEnv.UPLOADS_DIR}/${stored.filename}`);
     const meta = await sharp(saved).metadata();
@@ -128,7 +142,7 @@ describe('сохранение файла', () => {
 
   /** 🔴 Пережатие не имеет права вернуть в файл то, что вырезала чистка. */
   it('после пережатия метаданные в файл не возвращаются', async () => {
-    const stored = await saveImage(upload(await photoFromPhone()));
+    const stored = await saveImage(upload(await photoFromPhone()), 'photo');
 
     const saved = await readFile(`${testEnv.UPLOADS_DIR}/${stored.filename}`);
     const meta = await sharp(saved).metadata();
@@ -144,7 +158,7 @@ describe('сохранение файла', () => {
       .jpeg()
       .toBuffer();
 
-    const stored = await saveImage(upload(small));
+    const stored = await saveImage(upload(small), 'photo');
     const meta = await sharp(
       await readFile(`${testEnv.UPLOADS_DIR}/${stored.filename}`),
     ).metadata();
@@ -154,7 +168,7 @@ describe('сохранение файла', () => {
 
   /** Заявка с фото дороже мегабайтов: не пережалось — кладём очищенный оригинал. */
   it('файл, который не удалось пережать, сохраняется очищенным', async () => {
-    const stored = await saveImage(upload(jpegWithExif()));
+    const stored = await saveImage(upload(jpegWithExif()), 'photo');
 
     const saved = await readFile(`${testEnv.UPLOADS_DIR}/${stored.filename}`);
     expect(saved.subarray(0, 2).toString('hex')).toBe('ffd8');
@@ -162,7 +176,7 @@ describe('сохранение файла', () => {
   });
 
   it('удаление карточки уносит файл с диска', async () => {
-    const stored = await saveImage(upload(jpegWithExif()));
+    const stored = await saveImage(upload(jpegWithExif()), 'photo');
 
     await deleteStoredImage(stored.url);
 

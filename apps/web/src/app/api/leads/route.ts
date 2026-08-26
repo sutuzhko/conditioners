@@ -46,7 +46,7 @@ export async function POST(request: Request): Promise<Response> {
     const tracking = collectTracking(request, body.fields);
 
     const file = body.files.get('photo');
-    const photo = file === undefined ? null : (await saveImage(file)).url;
+    const photo = file === undefined ? null : (await saveImage(file, 'photo')).url;
 
     // 🔴 Заявка и уведомление о ней — одна транзакция (ADR-091): падение между
     // двумя записями оставляло заявку, о которой владелец не узнал бы никогда.

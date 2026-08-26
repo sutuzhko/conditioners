@@ -237,4 +237,47 @@ describe('POST /api/admin/articles/[id]/cover', () => {
     });
     expect(articles.setCover).not.toHaveBeenCalled();
   });
+
+  it('ошибка загрузки называет поле обложки, а не всегда photo', async () => {
+    const file = new File([new Uint8Array(Buffer.from('<?php echo 1; ?>'))], 'cover.jpg', {
+      type: 'image/jpeg',
+    });
+
+    const response = await POST(coverRequest(file), context('a1'));
+
+    // клиент подсвечивает поле по имени из ответа: в форме обложки поля
+    // `photo` нет, и подсветка не нашла бы ничего
+    await expect(response.json()).resolves.toMatchObject({ error: { field: 'cover' } });
+  });
+
+  it('файл, присланный в поле photo, и в ошибке назовётся photo', async () => {
+    const file = new File([new Uint8Array(Buffer.from('<?php echo 1; ?>'))], 'cover.jpg', {
+      type: 'image/jpeg',
+    });
+
+    const response = await POST(coverRequest(file, 'photo'), context('a1'));
+
+    await expect(response.json()).resolves.toMatchObject({ error: { field: 'photo' } });
+  });
+
+  it('упавшая запись в БД не оставляет файл сиротой на диске', async () => {
+    vi.mocked(articles.setCover).mockRejectedValue(new Error('база недоступна'));
+
+    const file = new File([new Uint8Array(jpegBytes())], 'cover.jpg', { type: 'image/jpeg' });
+
+    const response = await POST(coverRequest(file), context('a1'));
+
+    expect(response.status).toBe(500);
+    await expect(storedFiles()).resolves.toEqual([]);
+  });
+
+  it('несуществующая статья — 404 по-русски', async () => {
+    vi.mocked(articles.findById).mockResolvedValue(null);
+
+    const response = await POST(coverRequest(), context('missing'));
+
+    await expect(response.json()).resolves.toMatchObject({
+      error: { message: 'Статья не найдена' },
+    });
+  });
 });
