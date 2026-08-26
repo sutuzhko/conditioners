@@ -307,10 +307,20 @@ model Order {
   leadId String?
   lead   Lead?   @relation(fields: [leadId], references: [id], onDelete: SetNull)
 
+  // Итог работ: что сделали сверх наряда и отчёт монтажника. Заполняется по
+  // факту, поэтому отдельно от плановых полей — плановую сумму итог не правит.
+  extraWork String?
+  report    String?
+  resultAt  DateTime?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  units OrderUnit[]
+  units     OrderUnit[]
+  checklist OrderChecklistItem[]
+  docs      OrderDocument[]
+  photos    OrderPhoto[]
+  history   OrderHistory[]
 
   @@index([status, at])
   @@index([clientId])
@@ -404,6 +414,82 @@ model CrmEvent {
 
   @@index([at])
   @@index([leadId])
+}
+
+// Чеклист выезда: «что взять с собой». Собирается из данных наряда, но
+// хранится записями — монтажник дописывает своё и отмечает при сборах, и
+// пересборка не должна стирать его пометки.
+model OrderChecklistItem {
+  id      String  @id @default(cuid())
+  orderId String
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  text    String
+  done    Boolean @default(false)
+
+  // Пункт добавлен человеком, а не собран из наряда: пересборка его сохраняет.
+  own  Boolean @default(false)
+  sort Int     @default(0)
+
+  @@index([orderId, sort])
+}
+
+enum OrderDocKind {
+  CONTRACT // договор
+  WARRANTY // гарантийный талон
+  ACT // акт выполненных работ
+  INVOICE // счёт
+  MEASURE // замерный лист
+  OTHER
+}
+
+// 🔴 Документы наряда — договоры с персональными данными. Публичный
+// `/api/media/{name}` для них не годится: он открыт. Файл отдаётся маршрутом,
+// который сверяет сессию и принадлежность документа наряду, доступному
+// смотрящему (CRM.md §9).
+model OrderDocument {
+  id        String       @id @default(cuid())
+  orderId   String
+  order     Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  kind      OrderDocKind @default(OTHER)
+  // Имя, показываемое человеку. Имя файла на диске генерирует сервер:
+  // оригинальное не используется никогда (docs/CLAUDE.md, «Безопасность»).
+  name      String
+  url       String
+  sizeBytes Int
+  createdAt DateTime     @default(now())
+
+  @@index([orderId, createdAt])
+}
+
+enum PhotoStage {
+  BEFORE // место установки до выезда: снимает владелец, смотрит монтажник
+  AFTER // выполненные работы: снимает монтажник, остаётся в истории клиента
+}
+
+model OrderPhoto {
+  id      String     @id @default(cuid())
+  orderId String
+  order   Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  stage   PhotoStage
+  url     String
+  sort    Int        @default(0)
+
+  @@index([orderId, stage, sort])
+}
+
+// История наряда: кто и когда менял статус, кого назначили, когда заполнили
+// итог. `SetNull` у автора: уволенный монтажник исчезает, запись остаётся —
+// иначе история наряда теряет смысл ровно тогда, когда в неё смотрят.
+model OrderHistory {
+  id        String     @id @default(cuid())
+  orderId   String
+  order     Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  authorId  String?
+  author    AdminUser? @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  text      String
+  createdAt DateTime   @default(now())
+
+  @@index([orderId, createdAt])
 }
 
 // ---------- Занятость ----------
@@ -547,6 +633,7 @@ model AdminUser {
   orders        Order[]
   blocks        DayBlock[]
   notifications Notification[]
+  orderHistory  OrderHistory[]
 
   @@index([role, active])
 }
