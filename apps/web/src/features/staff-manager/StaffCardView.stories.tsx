@@ -4,9 +4,12 @@ import { StaffCardView } from './StaffCardView';
 import {
   acceptingApi,
   activeInstaller,
+  contractInstaller,
   disabledInstaller,
   failingApi,
   namelessInstaller,
+  staffInstaller,
+  unsetEmploymentInstaller,
 } from './fixtures';
 
 const meta = {
@@ -27,6 +30,27 @@ export const ДоступЗакрыт: Story = {
 /** Имя не заполнено — показываем логин, а не пустое место. */
 export const БезИмени: Story = {
   args: { staff: namelessInstaller },
+};
+
+export const Самозанятый: Story = {
+  args: { staff: activeInstaller },
+};
+
+export const ДоговорГПХ: Story = {
+  args: { staff: contractInstaller },
+};
+
+/** У работника по трудовому договору удержание — внутренняя пометка. */
+export const ТрудовойДоговор: Story = {
+  args: { staff: staffInstaller },
+};
+
+/**
+ * Оформление не заведено: плашка предупреждает, а строка под фактами
+ * объясняет последствие — наряд не уменьшает вознаграждение.
+ */
+export const ОформлениеНеЗаведено: Story = {
+  args: { staff: unsetEmploymentInstaller },
 };
 
 export const ОтказСервера: Story = {

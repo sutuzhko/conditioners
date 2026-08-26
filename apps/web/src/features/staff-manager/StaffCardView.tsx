@@ -7,7 +7,7 @@ import { Badge, Button, Card } from '@/shared/ui';
 
 import { staffManagerContent as texts } from './content';
 import type { StaffApi, StaffCard } from './model';
-import { staffTitle } from './model';
+import { employmentTitle, staffTitle } from './model';
 import styles from './StaffCardView.module.css';
 
 export interface StaffCardViewProps {
@@ -48,6 +48,12 @@ export function StaffCardView({ staff, api, onChanged }: StaffCardViewProps) {
         <Badge variant={staff.active ? 'success' : 'neutral'}>
           {staff.active ? texts.active : texts.inactive}
         </Badge>
+
+        {/* Оформление рядом с доступом: обе плашки отвечают на вопрос «что с
+            этим человеком можно», просто одна про вход, вторая про деньги. */}
+        <Badge variant={staff.employment === null ? 'warning' : 'accent'}>
+          {staff.employment === null ? texts.employmentUnset : employmentTitle(staff.employment)}
+        </Badge>
       </div>
 
       <dl className={styles.facts}>
@@ -64,6 +70,13 @@ export function StaffCardView({ staff, api, onChanged }: StaffCardViewProps) {
           <dd>{texts.lastLogin(staff.lastLoginAt)}</dd>
         </div>
       </dl>
+
+      {/* Пустое оформление — не мелочь оформления карточки: пока его нет,
+          наряд считает, что уменьшать вознаграждение нельзя. Владелец должен
+          прочитать это, не заходя в карточку. */}
+      {staff.employment === null ? (
+        <p className={styles.notice}>{texts.employmentUnsetHint}</p>
+      ) : null}
 
       <div className={styles.actions}>
         <Button

@@ -7,6 +7,8 @@ export const ownerMe: StaffCard = {
   name: 'Алексей',
   phone: '+7 (4872) 00-00-00',
   role: 'owner',
+  /* У владельца оформления нет: наряды ему не назначают. */
+  employment: null,
   active: true,
   createdAt: '2026-01-15T09:00:00.000Z',
   lastLoginAt: '2026-08-25T05:00:00.000Z',
@@ -19,7 +21,11 @@ export const installerMe: StaffCard = {
   name: 'Дмитрий Соколов',
   phone: '+7 (910) 155-24-68',
   role: 'installer',
+  employment: 'self_employed',
 };
+
+/** Оформление ещё не заведено — профиль показывает это, а не пустую строку. */
+export const unsetEmploymentMe: StaffCard = { ...installerMe, employment: null };
 
 export const acceptingApi: ProfileApi = {
   save: async () => ({ ok: true }),

@@ -36,6 +36,13 @@ export const PATCH = withOwner(async (request, context: Context, session) => {
     return apiError('forbidden', 'Себе доступ не отключают');
   }
 
+  /* 🔴 Оформление — условие расчётов по нарядам, а не личная настройка: от
+     него зависит, чем является удержание (CRM.md §9). Себе его не меняют —
+     это тот же класс, что логин и роль в профиле. */
+  if (id === session.userId && parsed.data.employment !== undefined) {
+    return apiError('forbidden', 'Себе оформление не меняют');
+  }
+
   const { password, ...rest } = parsed.data;
 
   return json(

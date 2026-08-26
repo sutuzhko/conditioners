@@ -10,7 +10,10 @@ import {
   disabledInstaller,
   failingApi,
   namelessInstaller,
+  staffInstaller,
+  unsetEmploymentInstaller,
 } from './fixtures';
+import { employmentTitle } from './model';
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh: vi.fn(), push: vi.fn() }) }));
 
@@ -53,6 +56,27 @@ describe('Монтажник в списке команды', () => {
     await user.click(screen.getByRole('button', { name: texts.disable }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent('Такой логин уже занят');
+  });
+
+  it('показывает оформление плашкой: от него зависят деньги в наряде', () => {
+    render(<StaffCardView staff={staffInstaller} api={acceptingApi} />);
+
+    expect(screen.getByText(employmentTitle('staff'))).toBeInTheDocument();
+  });
+
+  it('🔴 незаведённое оформление помечено и объяснено, а не показано пустотой', () => {
+    render(<StaffCardView staff={unsetEmploymentInstaller} api={acceptingApi} />);
+
+    expect(screen.getByText(texts.employmentUnset)).toBeInTheDocument();
+    /* Владелец должен прочитать последствие прямо в списке: пока оформления
+       нет, наряд не уменьшает вознаграждение. */
+    expect(screen.getByText(texts.employmentUnsetHint)).toBeInTheDocument();
+  });
+
+  it('у заведённого оформления предупреждения нет', () => {
+    render(<StaffCardView staff={activeInstaller} api={acceptingApi} />);
+
+    expect(screen.queryByText(texts.employmentUnsetHint)).not.toBeInTheDocument();
   });
 
   it('ведёт в карточку монтажника', () => {

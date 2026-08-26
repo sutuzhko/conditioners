@@ -1,5 +1,6 @@
 /** Подписи раздела профиля. */
 import type { AdminRole } from '@/entities/staff/model';
+import { employmentTitle, type Employment } from '@/shared/lib/employment';
 
 const ROLE_TITLES: Record<AdminRole, string> = {
   owner: 'владелец',
@@ -14,6 +15,13 @@ export const profileFormContent = {
   name: 'Имя',
   login: 'Логин',
   phone: 'Телефон',
+
+  employment: 'Оформление',
+  /* Только на чтение: оформление — условие расчётов по нарядам, а не личная
+     настройка, и заводит его владелец (CRM.md §9). */
+  employmentHint: 'Оформление заводит владелец: от него зависит расчёт по нарядам.',
+  employmentValue: (employment: Employment | null): string =>
+    employment === null ? 'Не заведено' : employmentTitle(employment),
   save: 'Сохранить',
   saving: 'Сохраняем…',
   saved: 'Сохранено',

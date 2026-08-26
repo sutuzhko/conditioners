@@ -7,7 +7,8 @@ export default function TeamMemberLoading() {
   return (
     <div className={styles.page} aria-busy="true">
       <HeadSkeleton />
-      <FieldsSkeleton fields={4} />
+      {/* Пять полей: имя, логин, телефон, пароль и оформление. */}
+      <FieldsSkeleton fields={5} />
       <RowsSkeleton rows={2} height="72px" />
     </div>
   );

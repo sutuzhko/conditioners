@@ -1,44 +1,49 @@
 /** Действия раздела команды — контракт docs/API.md §11. */
+import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
+import { adminRequest, jsonInit } from '@/shared/lib/api';
+
 import { staffManagerContent as texts } from './content';
 import type { StaffApi, StaffDraft, StaffResult } from './model';
 
-async function send(url: string, method: string, body?: unknown): Promise<StaffResult> {
-  try {
-    const response = await fetch(url, {
-      method,
-      ...(body === undefined
-        ? {}
-        : { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }),
-    });
+const REQUEST_TEXTS = {
+  ...ADMIN_API_TEXTS,
+  network: texts.networkError,
+  server: texts.serverError,
+};
 
-    if (response.ok) return { ok: true };
+async function send(url: string, init: RequestInit): Promise<StaffResult> {
+  /* Общий разбор ответа (ADR-030): своя копия здесь не отличала 401 от отказа
+     сервера, и владелец с истёкшей сессией читал «сервер не принял
+     изменения» вместо «войдите заново». Заодно наружу выходит `field` —
+     без него «логин занят» не подсвечивает поле логина. */
+  const result = await adminRequest(url, init, REQUEST_TEXTS);
+  if (result.ok) return { ok: true };
 
-    const payload: unknown = await response.json().catch(() => null);
-    const error = (payload as { error?: { message?: unknown } } | null)?.error;
-
-    return {
-      ok: false,
-      message: typeof error?.message === 'string' ? error.message : texts.serverError,
-    };
-  } catch {
-    return { ok: false, message: texts.networkError };
-  }
+  return {
+    ok: false,
+    message: result.message,
+    ...(result.field === undefined ? {} : { field: result.field }),
+  };
 }
 
 export const staffApi: StaffApi = {
   create: (draft: StaffDraft) =>
-    send('/api/admin/staff', 'POST', {
-      name: draft.name,
-      login: draft.login,
-      phone: draft.phone,
-      password: draft.password,
-    }),
+    send(
+      '/api/admin/staff',
+      jsonInit('POST', {
+        name: draft.name,
+        login: draft.login,
+        phone: draft.phone,
+        employment: draft.employment,
+        password: draft.password,
+      }),
+    ),
 
-  update: (id, patch) => send(`/api/admin/staff/${id}`, 'PATCH', patch),
+  update: (id, patch) => send(`/api/admin/staff/${id}`, jsonInit('PATCH', patch)),
 
-  remove: (id) => send(`/api/admin/staff/${id}`, 'DELETE'),
+  remove: (id) => send(`/api/admin/staff/${id}`, jsonInit('DELETE')),
 
-  addNote: (id, text) => send(`/api/admin/staff/${id}/notes`, 'POST', { text }),
+  addNote: (id, text) => send(`/api/admin/staff/${id}/notes`, jsonInit('POST', { text })),
 
-  removeNote: (id, noteId) => send(`/api/admin/staff/${id}/notes/${noteId}`, 'DELETE'),
+  removeNote: (id, noteId) => send(`/api/admin/staff/${id}/notes/${noteId}`, jsonInit('DELETE')),
 };

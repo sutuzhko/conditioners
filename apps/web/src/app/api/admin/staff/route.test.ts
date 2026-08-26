@@ -40,6 +40,7 @@ const created = {
   name: 'Иван Петров',
   phone: null,
   role: 'installer' as const,
+  employment: null,
   active: true,
   createdAt: '2026-08-25T09:00:00.000Z',
   lastLoginAt: null,
@@ -103,8 +104,34 @@ describe('команда в админке', () => {
       name: 'Иван Петров',
       login: 'petrov',
       phone: null,
+      employment: null,
       passwordHash: 'хеш',
     });
+  });
+
+  it('🔴 без выбора оформление остаётся пустым, а не подставляется', async () => {
+    /* Умолчание здесь решало бы за владельца, можно ли уменьшать человеку
+       вознаграждение. Молчание — не разрешение (CRM.md §9). */
+    await POST(jsonRequest({ ...body, employment: '' }), undefined);
+
+    expect(adminUsers.createInstaller).toHaveBeenCalledWith(
+      expect.objectContaining({ employment: null }),
+    );
+  });
+
+  it('выбранное оформление доходит до базы', async () => {
+    await POST(jsonRequest({ ...body, employment: 'self_employed' }), undefined);
+
+    expect(adminUsers.createInstaller).toHaveBeenCalledWith(
+      expect.objectContaining({ employment: 'self_employed' }),
+    );
+  });
+
+  it('оформление вне словаря не принимается', async () => {
+    const response = await POST(jsonRequest({ ...body, employment: 'подряд' }), undefined);
+
+    expect(response.status).toBe(400);
+    expect(adminUsers.createInstaller).not.toHaveBeenCalled();
   });
 
   it('🔴 пароль наружу не возвращается ни в каком виде', async () => {

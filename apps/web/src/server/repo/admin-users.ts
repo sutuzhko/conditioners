@@ -4,11 +4,12 @@
  * Пароль наружу не отдаётся ни в каком виде — `StaffCard` его не содержит.
  * Из базы `passwordHash` читает только вход.
  */
-import type { AdminRole as DbRole } from '@prisma/client';
+import type { AdminRole as DbRole, Employment as DbEmployment } from '@prisma/client';
 
 import type { AdminRole, InstallerNoteCard, StaffCard } from '@/entities/staff/model';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
+import type { Employment } from '@/shared/lib/employment';
 
 export type AdminUserRecord = {
   id: string;
@@ -21,12 +22,33 @@ export type AdminUserRecord = {
 const ROLE_FROM_DB: Record<DbRole, AdminRole> = { OWNER: 'owner', INSTALLER: 'installer' };
 const ROLE_TO_DB: Record<AdminRole, DbRole> = { owner: 'OWNER', installer: 'INSTALLER' };
 
+/* Значения словаря в базе кричат заглавными, наружу уходят в том виде, в
+   каком их знают домен и контракт. Таблицы вместо `toUpperCase()`: опечатка
+   в ключе — ошибка типов, а не пустое поле в карточке. */
+const EMPLOYMENT_FROM_DB: Record<DbEmployment, Employment> = {
+  SELF_EMPLOYED: 'self_employed',
+  CONTRACT: 'contract',
+  STAFF: 'staff',
+};
+
+const EMPLOYMENT_TO_DB: Record<Employment, DbEmployment> = {
+  self_employed: 'SELF_EMPLOYED',
+  contract: 'CONTRACT',
+  staff: 'STAFF',
+};
+
+/** `null` остаётся `null`: «оформление не заведено» — это ответ, а не пропуск. */
+function employmentToDb(employment: Employment | null): DbEmployment | null {
+  return employment === null ? null : EMPLOYMENT_TO_DB[employment];
+}
+
 type StaffRow = {
   id: string;
   login: string;
   name: string | null;
   phone: string | null;
   role: DbRole;
+  employment: DbEmployment | null;
   active: boolean;
   createdAt: Date;
   lastLoginAt: Date | null;
@@ -38,6 +60,7 @@ const staffSelect = {
   name: true,
   phone: true,
   role: true,
+  employment: true,
   active: true,
   createdAt: true,
   lastLoginAt: true,
@@ -50,6 +73,7 @@ function toCard(row: StaffRow): StaffCard {
     name: row.name,
     phone: row.phone,
     role: ROLE_FROM_DB[row.role],
+    employment: row.employment === null ? null : EMPLOYMENT_FROM_DB[row.employment],
     active: row.active,
     createdAt: row.createdAt.toISOString(),
     lastLoginAt: row.lastLoginAt?.toISOString() ?? null,
@@ -133,6 +157,7 @@ export async function createInstaller(input: {
   name: string;
   login: string;
   phone: string | null;
+  employment: Employment | null;
   passwordHash: string;
 }): Promise<StaffCard> {
   await assertLoginFree(input.login);
@@ -142,6 +167,7 @@ export async function createInstaller(input: {
       login: input.login,
       name: input.name,
       phone: input.phone,
+      employment: employmentToDb(input.employment),
       passwordHash: input.passwordHash,
       role: ROLE_TO_DB.installer,
     },
@@ -157,6 +183,7 @@ export async function update(
     name?: string | undefined;
     login?: string | undefined;
     phone?: string | null | undefined;
+    employment?: Employment | null | undefined;
     passwordHash?: string | undefined;
     active?: boolean | undefined;
   },
@@ -172,6 +199,7 @@ export async function update(
       ...(input.name === undefined ? {} : { name: input.name }),
       ...(input.login === undefined ? {} : { login: input.login }),
       ...(input.phone === undefined ? {} : { phone: input.phone }),
+      ...(input.employment === undefined ? {} : { employment: employmentToDb(input.employment) }),
       ...(input.passwordHash === undefined ? {} : { passwordHash: input.passwordHash }),
       ...(input.active === undefined ? {} : { active: input.active }),
     },

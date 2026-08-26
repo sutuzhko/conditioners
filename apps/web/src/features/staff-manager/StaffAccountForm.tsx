@@ -3,11 +3,13 @@
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Input, PhoneInput } from '@/shared/ui';
+import { Button, Card, Input, PhoneInput, Select, useConfirm } from '@/shared/ui';
+import type { Confirm } from '@/shared/ui';
 
 import { staffManagerContent as texts } from './content';
 import { staffApi } from './lib';
 import {
+  isEmployment,
   staffTitle,
   type StaffAccountDraft,
   type StaffApi,
@@ -19,7 +21,8 @@ import styles from './StaffForm.module.css';
 export interface StaffAccountFormProps {
   readonly staff: StaffCard;
   readonly api?: StaffApi | undefined;
-  readonly confirmRemove?: ((message: string) => boolean) | undefined;
+  /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
+  readonly confirmRemove?: Confirm | undefined;
 }
 
 /**
@@ -28,33 +31,43 @@ export interface StaffAccountFormProps {
  * Пустое поле пароля означает «оставить прежним» — заполнять его при каждой
  * правке телефона было бы приглашением придумать пароль попроще.
  */
-export function StaffAccountForm({
-  staff,
-  api = staffApi,
-  confirmRemove = (message) => window.confirm(message),
-}: StaffAccountFormProps) {
+export function StaffAccountForm({ staff, api = staffApi, confirmRemove }: StaffAccountFormProps) {
+  /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
+     для тестов, чтобы не открывать окно ради проверки удаления. */
+  const { confirm, dialog } = useConfirm();
+  const ask = confirmRemove ?? confirm;
+
   const router = useRouter();
   const [draft, setDraft] = useState<StaffAccountDraft>({
     name: staff.name ?? '',
     login: staff.login,
     phone: staff.phone ?? '',
+    /* `null` из карточки — «не заведено»; в `select` это пустое значение. */
+    employment: staff.employment ?? '',
     password: '',
   });
   const [status, setStatus] = useState<StaffStatus>('idle');
   const [message, setMessage] = useState('');
+  const [fieldError, setFieldError] = useState<{ field: string; message: string } | null>(null);
 
   const sending = status === 'sending';
 
   const set = (patch: Partial<StaffAccountDraft>): void => {
     setDraft((prev) => ({ ...prev, ...patch }));
     setStatus('idle');
+    /* Поправили то самое поле — подсветка уходит, не дожидаясь отправки. */
+    setFieldError((prev) => (prev !== null && prev.field in patch ? null : prev));
   };
 
+  const errorFor = (field: keyof StaffAccountDraft): string | undefined =>
+    fieldError?.field === field ? fieldError.message : undefined;
+
   const run = async (
-    action: () => Promise<{ ok: boolean; message?: string }>,
+    action: () => Promise<{ ok: boolean; message?: string; field?: string }>,
   ): Promise<boolean> => {
     setStatus('sending');
     setMessage('');
+    setFieldError(null);
 
     const result = await action();
 
@@ -65,7 +78,13 @@ export function StaffAccountForm({
     }
 
     setStatus('error');
-    setMessage(result.message ?? texts.serverError);
+    const text = result.message ?? texts.serverError;
+
+    /* Адресный отказ («логин занят») подсвечивает поле: без этого человек
+       читает сообщение и гадает, какое из пяти полей чинить. */
+    if (result.field === undefined) setMessage(text);
+    else setFieldError({ field: result.field, message: text });
+
     return false;
   };
 
@@ -78,6 +97,7 @@ export function StaffAccountForm({
         name: draft.name,
         login: draft.login,
         phone: draft.phone,
+        employment: draft.employment,
         /* Пустое поле — «не менять»: отправлять пустую строку значит стереть
            человеку пароль и запереть его снаружи. */
         ...(draft.password === '' ? {} : { password: draft.password }),
@@ -98,6 +118,7 @@ export function StaffAccountForm({
             label={texts.name}
             value={draft.name}
             disabled={sending}
+            error={errorFor('name')}
             autoComplete="off"
             onChange={(event) => set({ name: event.target.value })}
           />
@@ -106,6 +127,7 @@ export function StaffAccountForm({
             hint={texts.loginHint}
             value={draft.login}
             disabled={sending}
+            error={errorFor('login')}
             autoComplete="off"
             onChange={(event) => set({ login: event.target.value })}
           />
@@ -113,6 +135,7 @@ export function StaffAccountForm({
             label={texts.phone}
             value={draft.phone}
             disabled={sending}
+            error={errorFor('phone')}
             onChange={(phone) => set({ phone })}
           />
           <Input
@@ -121,10 +144,29 @@ export function StaffAccountForm({
             type="password"
             value={draft.password}
             disabled={sending}
+            error={errorFor('password')}
             autoComplete="new-password"
             onChange={(event) => set({ password: event.target.value })}
           />
+
+          {/* Оформление — условие расчётов по нарядам, поэтому подсказка под
+              выбором говорит о деньгах, а не о самом словаре. */}
+          <Select
+            label={texts.employment}
+            options={texts.employmentOptions}
+            value={draft.employment}
+            hint={texts.employmentHint(draft.employment === '' ? null : draft.employment)}
+            disabled={sending}
+            error={errorFor('employment')}
+            wrapperClassName={styles.wide}
+            onChange={(event) => {
+              const value = event.target.value;
+              set({ employment: isEmployment(value) ? value : '' });
+            }}
+          />
         </div>
+
+        <p className={styles.hint}>{texts.employmentNote}</p>
 
         <div className={styles.actions}>
           <Button type="submit" disabled={sending}>
@@ -149,12 +191,14 @@ export function StaffAccountForm({
             size="sm"
             disabled={sending}
             onClick={() => {
-              if (!confirmRemove(texts.removeConfirm(staffTitle(staff)))) return;
-              void run(async () => {
-                const result = await api.remove(staff.id);
-                if (result.ok) router.push('/admin/team');
-                return result;
-              });
+              void (async () => {
+                if (!(await ask(texts.removeConfirm(staffTitle(staff))))) return;
+                await run(async () => {
+                  const result = await api.remove(staff.id);
+                  if (result.ok) router.push('/admin/team');
+                  return result;
+                });
+              })();
             }}
           >
             {texts.remove}
@@ -165,12 +209,16 @@ export function StaffAccountForm({
 
         <p className={styles.hint}>{texts.disableHint}</p>
 
-        {status === 'error' ? (
+        {/* Адресный отказ уже подсвечен на поле — второй красной плашки под
+            формой быть не должно. */}
+        {status === 'error' && message !== '' ? (
           <p className={styles.error} role="alert">
             {message}
           </p>
         ) : null}
       </form>
+
+      {dialog}
     </Card>
   );
 }

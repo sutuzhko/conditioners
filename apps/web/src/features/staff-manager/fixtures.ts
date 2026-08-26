@@ -7,9 +7,41 @@ export const activeInstaller: StaffCard = {
   name: 'Дмитрий Соколов',
   phone: '+7 (910) 155-24-68',
   role: 'installer',
+  employment: 'self_employed',
   active: true,
   createdAt: '2026-04-10T09:00:00.000Z',
   lastLoginAt: '2026-08-24T06:12:00.000Z',
+};
+
+/** Подрядчик по ГПХ: удержание уменьшает вознаграждение, как и у самозанятого. */
+export const contractInstaller: StaffCard = {
+  ...activeInstaller,
+  id: 'u5',
+  login: 'ivanov',
+  name: 'Сергей Иванов',
+  employment: 'contract',
+};
+
+/** Работник по трудовому договору: удержание остаётся внутренней пометкой. */
+export const staffInstaller: StaffCard = {
+  ...activeInstaller,
+  id: 'u6',
+  login: 'orlov',
+  name: 'Павел Орлов',
+  employment: 'staff',
+};
+
+/**
+ * Оформление не заведено. Отдельная фикстура, а не «ещё один монтажник»:
+ * пока значения нет, наряд не уменьшает вознаграждение, и увидеть это
+ * состояние в истории обязательно.
+ */
+export const unsetEmploymentInstaller: StaffCard = {
+  ...activeInstaller,
+  id: 'u7',
+  login: 'kotov',
+  name: 'Роман Котов',
+  employment: null,
 };
 
 export const disabledInstaller: StaffCard = {
@@ -17,6 +49,7 @@ export const disabledInstaller: StaffCard = {
   id: 'u3',
   login: 'belov',
   name: 'Артём Белов',
+  employment: 'contract',
   active: false,
   lastLoginAt: null,
 };
@@ -28,6 +61,7 @@ export const namelessInstaller: StaffCard = {
   login: 'petrov',
   name: null,
   phone: null,
+  employment: null,
 };
 
 export const ownerAccount: StaffCard = {
@@ -36,6 +70,9 @@ export const ownerAccount: StaffCard = {
   name: null,
   phone: null,
   role: 'owner',
+  /* У владельца оформления нет: наряды ему не назначают, и уменьшать
+     вознаграждение самому себе не из чего. */
+  employment: null,
   active: true,
   createdAt: '2026-01-15T09:00:00.000Z',
   lastLoginAt: '2026-08-25T05:00:00.000Z',
@@ -62,6 +99,20 @@ const refused = { ok: false, message: 'Такой логин уже занят' 
 export const failingApi: StaffApi = {
   create: async () => refused,
   update: async () => refused,
+  remove: async () => refused,
+  addNote: async () => refused,
+  removeNote: async () => refused,
+};
+
+/**
+ * Адресный отказ сервера: `field` называет поле, и форма обязана подсветить
+ * именно его, а не показать красную плашку внизу.
+ */
+const refusedField = { ...refused, field: 'login' } as const;
+
+export const fieldRefusingApi: StaffApi = {
+  create: async () => refusedField,
+  update: async () => refusedField,
   remove: async () => refused,
   addNote: async () => refused,
   removeNote: async () => refused,

@@ -1,6 +1,31 @@
 /** Подписи раздела команды. */
 
+import type { ConfirmRequest } from '@/shared/ui';
+import { EMPLOYMENTS, employmentTitle, type Employment } from '@/shared/lib/employment';
 import { formatDateShort, formatDateTime } from '@/shared/lib/format';
+
+/** Пункт «оформления нет»: не значение словаря, а отсутствие выбора. */
+const EMPLOYMENT_EMPTY = 'Не заведено';
+
+/* У самозанятого и подрядчика по ГПХ последствие одно и то же, и текст один:
+   две одинаковые строки разъехались бы на первой же правке формулировки. */
+const REDUCES_FEE =
+  'Удержание по наряду уменьшает вознаграждение. Насколько это допустимо, определяет договор с человеком — за него отвечает владелец.';
+
+/**
+ * Что оформление означает для денег в наряде.
+ *
+ * 🔴 Текст обещает ровно то, что делает система, и ничего сверх: законность
+ * уменьшения вознаграждения определяет договор, а договор — зона владельца.
+ * Слова «штраф» здесь нет намеренно — штрафов как вида взыскания в ТК РФ не
+ * существует (CRM.md §9).
+ */
+const EMPLOYMENT_CONSEQUENCE: Record<Employment, string> = {
+  self_employed: REDUCES_FEE,
+  contract: REDUCES_FEE,
+  staff:
+    'Удержание по наряду вознаграждение не уменьшает: остаётся внутренней пометкой о браке или срыве, из выплаты система ничего не вычитает.',
+};
 
 export const staffManagerContent = {
   title: 'Монтажники',
@@ -26,6 +51,27 @@ export const staffManagerContent = {
   passwordNew: 'Новый пароль',
   passwordKeepHint: 'Пусто — пароль остаётся прежним',
 
+  employment: 'Оформление',
+  employmentEmpty: EMPLOYMENT_EMPTY,
+  employmentUnset: 'Оформление не заведено',
+  employmentUnsetHint:
+    'Пока оформление не заведено, наряд не уменьшает вознаграждение: удержание остаётся пометкой о браке или срыве.',
+  employmentNote:
+    'От оформления зависит, чем является удержание в наряде. Система ведёт учёт; как оформлены отношения с человеком и что записано в договоре — решает владелец.',
+
+  /** Подсказка под выбором: что изменится в наряде от этого значения. */
+  employmentHint: (employment: Employment | null): string =>
+    employment === null
+      ? staffManagerContent.employmentUnsetHint
+      : EMPLOYMENT_CONSEQUENCE[employment],
+
+  /* Первым пунктом идёт «не заведено» — и он выбираем: вернуть карточку в
+     это состояние владельцу нужно ровно так же, как выйти из него. */
+  employmentOptions: [
+    { value: '', label: EMPLOYMENT_EMPTY },
+    ...EMPLOYMENTS.map((value) => ({ value, label: employmentTitle(value) })),
+  ],
+
   accountTitle: 'Аккаунт монтажника',
   accountHint:
     'Логин и пароль выдаёт владелец. Смена пароля закрывает все открытые сессии этого человека.',
@@ -41,8 +87,11 @@ export const staffManagerContent = {
     'Закрытый доступ не пускает в панель и закрывает уже открытые сессии. Выполненные наряды остаются в истории.',
 
   remove: 'Удалить монтажника',
-  removeConfirm: (who: string): string =>
-    `Удалить ${who}? Учётная запись исчезнет, выполненные наряды останутся в истории.`,
+  removeConfirm: (who: string): ConfirmRequest => ({
+    title: `Удалить ${who}?`,
+    description: 'Учётная запись исчезнет, выполненные наряды останутся в истории.',
+    confirmLabel: 'Удалить учётную запись',
+  }),
 
   notesTitle: 'Заметки владельца',
   notesHint: 'Монтажник их не видит.',

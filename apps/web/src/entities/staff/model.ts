@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { EMPLOYMENTS, type Employment } from '@/shared/lib/employment';
+
 /**
  * Люди, которые заходят в панель.
  *
@@ -17,6 +19,32 @@ export const ADMIN_ROLES: readonly AdminRole[] = adminRoleSchema.options;
 export function isAdminRole(value: string): value is AdminRole {
   return ADMIN_ROLES.some((role) => role === value);
 }
+
+/**
+ * Как оформлены отношения с человеком.
+ *
+ * Словарь берётся из `shared/lib/employment` — тот же, что читает наряд.
+ * Своей копии здесь нет намеренно: от значения зависит, чем является
+ * удержание в наряде, и разошедшиеся списки означали бы, что одна и та же
+ * запись в двух разделах панели считается по-разному (CRM.md §9).
+ */
+export const employmentSchema = z.enum(EMPLOYMENTS, {
+  errorMap: () => ({ message: 'Выберите оформление из списка' }),
+});
+
+/**
+ * Оформление в форме: пустое значение `select` — «оформление не заведено».
+ *
+ * 🔴 Умолчания у поля нет и быть не может. Оформление — условие расчётов:
+ * подставив значение за владельца, система решила бы за него, законно ли
+ * уменьшать человеку вознаграждение. Пока владелец не выбрал, поле пустое,
+ * и наряд исходит из того, что уменьшать нельзя (`deductionReducesFee`).
+ */
+const optionalEmployment = z
+  .union([employmentSchema, z.literal('')])
+  .transform((value) => (value === '' ? null : value))
+  .nullable()
+  .default(null);
 
 const LOGIN_REQUIRED = 'Придумайте логин для входа';
 const NAME_REQUIRED = 'Укажите имя и фамилию';
@@ -67,6 +95,10 @@ export const staffCreateSchema = z.object({
   name: nameSchema,
   login: loginSchema,
   phone: optionalText(40),
+  /* Необязательно: человека заводят по телефону, а договор с ним подписывают
+     позже. Заставлять выбирать оформление на этом шаге значит получить
+     выбранное наугад. */
+  employment: optionalEmployment,
   password: passwordSchema,
 });
 
@@ -78,12 +110,16 @@ export type StaffCreate = z.infer<typeof staffCreateSchema>;
  * Роль здесь не меняется: превращение монтажника во владельца — это выдача
  * доступа ко всем деньгам компании, и делаться такое должно осознанно, а не
  * соседним `select` в форме правки телефона.
+ *
+ * Оформление, наоборот, меняется здесь и только здесь: человек переходит с
+ * ГПХ в штат, и запись об этом обязана быть у владельца под рукой.
  */
 export const staffUpdateSchema = z
   .object({
     name: nameSchema.optional(),
     login: loginSchema.optional(),
     phone: optionalText(40).optional(),
+    employment: optionalEmployment.optional(),
     password: passwordSchema.optional(),
     active: z.boolean().optional(),
   })
@@ -92,7 +128,13 @@ export const staffUpdateSchema = z
 
 export type StaffUpdate = z.infer<typeof staffUpdateSchema>;
 
-/** Свой профиль: имя и телефон. Логин и роль себе не меняют. */
+/**
+ * Свой профиль: имя и телефон. Логин, роль и оформление себе не меняют.
+ *
+ * 🔴 Оформления здесь нет намеренно: это условие расчётов по нарядам, а не
+ * личная настройка. Человек, выбирающий себе оформление сам, выбирает, можно
+ * ли уменьшать ему вознаграждение, — заводит его владелец в разделе команды.
+ */
 export const profileUpdateSchema = z
   .object({
     name: nameSchema.optional(),
@@ -146,6 +188,12 @@ export type StaffCard = {
   readonly name: string | null;
   readonly phone: string | null;
   readonly role: AdminRole;
+  /**
+   * `null` — оформление не заведено. Это не «ещё одно значение словаря», а
+   * отсутствие ответа: наряд в таком случае считает, что уменьшать
+   * вознаграждение нельзя (CRM.md §9).
+   */
+  readonly employment: Employment | null;
   readonly active: boolean;
   readonly createdAt: string;
   readonly lastLoginAt: string | null;

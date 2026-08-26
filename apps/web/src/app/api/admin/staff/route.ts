@@ -21,6 +21,9 @@ export const POST = withOwner(async (request) => {
     name: parsed.data.name,
     login: parsed.data.login,
     phone: parsed.data.phone,
+    /* Не выбрали — заводим без оформления. Подставить сюда значение значит
+       решить за владельца, можно ли уменьшать человеку вознаграждение. */
+    employment: parsed.data.employment,
     passwordHash: await hashPassword(parsed.data.password),
   });
 

@@ -58,6 +58,18 @@
   text-decoration: underline;
 }
 
+/* Оформление не заведено. Не ошибка — предупреждение: карточка рабочая,
+   но деньги по наряду считаются осторожнее, чем владелец мог ожидать. */
+.notice {
+  margin: 0 0 14px;
+  padding: 8px 12px;
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-sm);
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  font-size: var(--fs-dense);
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;

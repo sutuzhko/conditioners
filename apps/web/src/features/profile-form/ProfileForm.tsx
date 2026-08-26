@@ -98,6 +98,16 @@ export function ProfileForm({ me, api = profileApi }: ProfileFormProps) {
           {/* Логин на чтение: его выдаёт владелец, и меняется он в разделе команды. */}
           <Input label={texts.login} value={me.login} readOnly className={styles.readonly} />
 
+          {/* Оформление — тоже на чтение: от него зависит расчёт по нарядам,
+              и выбирать его себе человек не может (CRM.md §9). */}
+          <Input
+            label={texts.employment}
+            hint={texts.employmentHint}
+            value={texts.employmentValue(me.employment)}
+            readOnly
+            className={styles.readonly}
+          />
+
           <PhoneInput
             label={texts.phone}
             value={phone}
