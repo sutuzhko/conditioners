@@ -6,7 +6,7 @@ import { Card } from '@/shared/ui';
 
 import { LeadCardView } from './LeadCardView';
 import { leadManagerContent as texts } from './content';
-import { patchLead } from './lib';
+import { leadToClient, patchLead } from './lib';
 import type { LeadCard } from './model';
 import styles from './LeadList.module.css';
 
@@ -36,6 +36,7 @@ export function LeadList({ leads, filtered = false }: LeadListProps) {
           key={lead.id}
           lead={lead}
           update={patchLead}
+          toClient={leadToClient}
           onChanged={() => router.refresh()}
         />
       ))}

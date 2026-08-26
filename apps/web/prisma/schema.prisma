@@ -172,12 +172,50 @@ model Lead {
   status         LeadStatus @default(NEW)
   managerComment String?
 
+  // Клиент, в которого выросло обращение (ADR-105). Связь заводится вручную
+  // из карточки заявки: класть в постоянную базу каждого, кто спросил цену,
+  // — и лишние ПДн, и мусор в списке.
+  //
+  // `SetNull`, а не каскад: удаление карточки клиента по требованию субъекта
+  // не стирает заявку — у неё своё согласие и свой срок хранения.
+  clientId String?
+  client   Client? @relation(fields: [clientId], references: [id], onDelete: SetNull)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   events CrmEvent[]
 
   @@index([status, createdAt])
+  @@index([clientId])
+}
+
+// ---------- Клиенты ----------
+// Заявка отвечает на вопрос «кто обратился», клиент — «с кем мы работаем».
+// Это разные сроки жизни: обращение закрывается, человек остаётся — у него
+// адрес, история работ и техника, которую ему поставили (ADR-105).
+
+model Client {
+  id   String @id @default(cuid())
+  name String
+
+  // Телефон хранится дважды намеренно. `phone` — как его ввели: владелец
+  // узнаёт свою запись и диктует номер в привычном виде. `phoneKey` — только
+  // цифры, приведённые к коду 7: «+7 (910) 155-24-68» и «8 910 155 24 68» —
+  // один и тот же человек, и второй карточки у него быть не должно.
+  phone    String
+  phoneKey String @unique
+
+  address String?
+  note    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  leads Lead[]
+
+  // Список открывают, чтобы найти человека: свежие сверху, поиск по остальным.
+  @@index([createdAt])
 }
 
 // ---------- Календарь работ ----------

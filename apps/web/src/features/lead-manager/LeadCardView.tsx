@@ -13,6 +13,7 @@ import {
   isLeadStatus,
   type LeadCard,
   type LeadStatus,
+  type LeadToClient,
   type LeadUpdate,
 } from './model';
 import styles from './LeadCardView.module.css';
@@ -20,6 +21,8 @@ import styles from './LeadCardView.module.css';
 export interface LeadCardViewProps {
   readonly lead: LeadCard;
   readonly update: LeadUpdate;
+  /** «В клиенты»: заводит карточку человека или находит её по телефону. */
+  readonly toClient: LeadToClient;
   readonly onChanged?: (() => void) | undefined;
 }
 
@@ -41,12 +44,17 @@ type Detail = { readonly label: string; readonly value: string | null };
  * ровно тот же по смыслу запрет, что и на правку текста отзыва. Менеджер
  * управляет статусом и своей заметкой.
  */
-export function LeadCardView({ lead, update, onChanged }: LeadCardViewProps) {
+export function LeadCardView({ lead, update, toClient, onChanged }: LeadCardViewProps) {
   const [status, setStatus] = useState<LeadStatus>(lead.status);
   const [note, setNote] = useState(lead.managerComment ?? '');
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
   const [saved, setSaved] = useState(false);
+  const [clientId, setClientId] = useState<string | null>(lead.clientId);
+  /* Итог действия «В клиенты» держится отдельно от `clientId`: после
+     обновления списка тот придёт уже заполненным с сервера, а сказать, завели
+     карточку или нашли старую, к этому моменту будет нечем. */
+  const [clientOutcome, setClientOutcome] = useState('');
 
   const noteChanged = note !== (lead.managerComment ?? '');
 
@@ -69,6 +77,27 @@ export function LeadCardView({ lead, update, onChanged }: LeadCardViewProps) {
   const changeStatus = async (next: LeadStatus): Promise<void> => {
     setStatus(next);
     await run({ status: next });
+  };
+
+  /**
+   * «В клиенты» — ручное действие, а не следствие приёма заявки: в постоянную
+   * базу с адресами попадают те, с кем действительно работают (ADR-105).
+   */
+  const addToClients = async (): Promise<void> => {
+    setBusy(true);
+    setMessage('');
+    setSaved(false);
+
+    const result = await toClient(lead.id);
+
+    setBusy(false);
+    if (result.ok) {
+      setClientId(result.clientId);
+      setClientOutcome(result.created ? texts.toClientCreated : texts.toClientLinked);
+      onChanged?.();
+      return;
+    }
+    setMessage(result.message);
   };
 
   const details: readonly Detail[] = [
@@ -165,6 +194,35 @@ export function LeadCardView({ lead, update, onChanged }: LeadCardViewProps) {
         >
           {texts.plan}
         </Link>
+
+        {/* Обращение становится карточкой человека в базе клиентов. Действие
+            ручное: складывать туда каждого, кто спросил цену, — и лишние
+            персональные данные, и список, в котором не найти клиента. */}
+        {clientId === null ? (
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            disabled={busy}
+            onClick={() => void addToClients()}
+          >
+            {busy ? texts.toClientBusy : texts.toClient}
+          </Button>
+        ) : (
+          <Link
+            className={styles.plan}
+            href={{ pathname: `/admin/clients/${clientId}` }}
+            prefetch={false}
+          >
+            {texts.inBase}
+          </Link>
+        )}
+
+        {clientOutcome === '' ? null : (
+          <p className={styles.savedNote} role="status">
+            {clientOutcome}
+          </p>
+        )}
 
         {noteChanged ? (
           <Button

@@ -1,0 +1,51 @@
+/* Поиск по базе клиентов. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.field {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+/* Кнопка встаёт на строку поля, а не под подпись: подписи и подсказки у поля
+   занимают две строки над самим вводом. */
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding-top: 26px;
+}
+
+.reset {
+  color: var(--muted);
+  font-size: var(--fs-dense);
+  text-decoration: none;
+}
+
+.reset:hover {
+  color: var(--accent-ink);
+  text-decoration: underline;
+}
+
+.total {
+  margin: 0;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+@media (width < 600px) {
+  .actions {
+    padding-top: 0;
+  }
+}

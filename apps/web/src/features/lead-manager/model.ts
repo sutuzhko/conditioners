@@ -25,6 +25,8 @@ export type LeadCard = {
   readonly sourceUrl: string | null;
   readonly status: LeadStatus;
   readonly managerComment: string | null;
+  /** Клиент, к которому привязано обращение; `null` — в базу его ещё не завели. */
+  readonly clientId: string | null;
   /** ISO: форматируется при показе, чтобы сервер и клиент не разошлись в часовом поясе. */
   readonly createdAt: string;
   readonly consentAt: string;
@@ -38,3 +40,10 @@ export type LeadPatch = {
 export type LeadUpdateResult = { readonly ok: boolean; readonly message?: string };
 
 export type LeadUpdate = (id: string, patch: LeadPatch) => Promise<LeadUpdateResult>;
+
+/** Чем закончилось «В клиенты»: карточку завели или нашли по телефону. */
+export type LeadToClientResult =
+  | { readonly ok: true; readonly clientId: string; readonly created: boolean }
+  | { readonly ok: false; readonly message: string };
+
+export type LeadToClient = (id: string) => Promise<LeadToClientResult>;

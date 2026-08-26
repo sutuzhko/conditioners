@@ -39,6 +39,7 @@ const lead = {
   consentAt: '2026-08-01T10:00:00.000Z',
   status: 'new' as const,
   managerComment: null,
+  clientId: null,
   createdAt: '2026-08-01T10:00:00.000Z',
   updatedAt: '2026-08-01T10:00:00.000Z',
 };

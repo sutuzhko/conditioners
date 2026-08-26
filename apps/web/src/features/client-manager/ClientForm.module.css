@@ -1,0 +1,80 @@
+/* Форма клиента: заведение и правка карточки. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: -6px 0 0;
+  max-width: 64ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+/* Адрес и заметка длиннее имени с телефоном — им нужна вся ширина строки. */
+.wide {
+  grid-column: 1 / -1;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Удаление уходит к правому краю строки действий: разрушающее действие не
+   должно стоять вплотную к «Сохранить».
+
+   Класс удвоен намеренно (ADR-038): цвет кнопки-призрака задан в ките с той
+   же специфичностью, и при равной специфичности выигрывает порядок сборки —
+   обычный `.remove` проигрывал, и разрушающее действие красилось акцентом. */
+.remove.remove {
+  margin-left: auto;
+  color: var(--error-ink);
+}
+
+.removeHint {
+  margin: -4px 0 0;
+  max-width: 64ch;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.ok {
+  color: var(--ok-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.error {
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}
+
+@media (width < 600px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

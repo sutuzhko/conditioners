@@ -13,6 +13,24 @@ export const leadStatusSchema = z.enum(['new', 'in_progress', 'done', 'rejected'
 
 export type LeadStatus = z.infer<typeof leadStatusSchema>;
 
+/**
+ * Как статус называется для человека.
+ *
+ * Живёт в домене, а не в подписях раздела: статус заявки видят и раздел
+ * заявок, и карточка клиента, и вторая копия названий разошлась бы с первой
+ * при первом же переименовании.
+ */
+const STATUS_TITLES: Record<LeadStatus, string> = {
+  new: 'Новая',
+  in_progress: 'В работе',
+  done: 'Завершена',
+  rejected: 'Отказ',
+};
+
+export function leadStatusTitle(status: LeadStatus): string {
+  return STATUS_TITLES[status];
+}
+
 /** Правило одно на проект (`shared/lib/zod`), своя здесь только формулировка. */
 export const phoneSchema = phoneField('Укажите телефон — по нему мы перезвоним');
 

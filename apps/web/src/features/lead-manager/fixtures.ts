@@ -1,5 +1,5 @@
 /** Данные для историй и тестов раздела заявок. */
-import type { LeadCard, LeadUpdate } from './model';
+import type { LeadCard, LeadToClient, LeadUpdate } from './model';
 
 export const newLead: LeadCard = {
   id: 'l1',
@@ -15,6 +15,7 @@ export const newLead: LeadCard = {
   sourceUrl: 'https://example.test/prices',
   status: 'new',
   managerComment: null,
+  clientId: null,
   createdAt: '2026-08-20T09:15:00.000Z',
   consentAt: '2026-08-20T09:15:00.000Z',
 };
@@ -38,9 +39,34 @@ export const workedLead: LeadCard = {
   managerComment: 'Перезвонил, ждёт замер в четверг',
 };
 
+/** Обращение уже заведено в базу клиентов: кнопка сменилась ссылкой на карточку. */
+export const clientLead: LeadCard = {
+  ...newLead,
+  id: 'l4',
+  clientId: 'c1',
+};
+
 export const acceptingUpdate: LeadUpdate = async () => ({ ok: true });
 
 export const failingUpdate: LeadUpdate = async () => ({
+  ok: false,
+  message: 'Сервер не принял изменения. Попробуйте ещё раз',
+});
+
+export const acceptingToClient: LeadToClient = async () => ({
+  ok: true,
+  clientId: 'c1',
+  created: true,
+});
+
+/** Номер уже был в базе: карточка не заводится, обращение к ней привязывается. */
+export const linkingToClient: LeadToClient = async () => ({
+  ok: true,
+  clientId: 'c9',
+  created: false,
+});
+
+export const failingToClient: LeadToClient = async () => ({
   ok: false,
   message: 'Сервер не принял изменения. Попробуйте ещё раз',
 });

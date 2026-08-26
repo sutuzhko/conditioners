@@ -1,0 +1,89 @@
+/* Обращения в карточке клиента. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.empty {
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+}
+
+.line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: center;
+}
+
+.topic {
+  min-width: 0;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.when {
+  margin-left: auto;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.comment {
+  margin: 8px 0 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+  overflow-wrap: anywhere;
+}
+
+.all {
+  align-self: flex-start;
+  color: var(--accent-ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.all:hover {
+  text-decoration: underline;
+}

@@ -59,6 +59,9 @@ export type {
   RatingSize,
 } from './Rating/Rating';
 
+export { Pager } from './Pager/Pager';
+export type { PagerProps } from './Pager/Pager';
+
 export { Table } from './Table/Table';
 export type { TableProps, TableVariant } from './Table/Table';
 

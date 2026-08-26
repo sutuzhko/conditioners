@@ -1,6 +1,6 @@
 import { chipWeatherSchema, type ChipWeather } from './model';
 
-/** Адрес свежей погоды — контракт из docs/API.md §12. */
+/** Адрес свежей погоды — контракт из docs/API.md §13. */
 export const WEATHER_ENDPOINT = '/api/weather';
 
 /**

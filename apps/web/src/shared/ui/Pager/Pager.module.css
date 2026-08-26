@@ -1,0 +1,56 @@
+/* Разбивка списка на страницы. Ссылки, а не кнопки: переход — это адрес. */
+
+.pager {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 0;
+}
+
+.step,
+.stepOff {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 8px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  font-family: var(--font-text);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.step {
+  color: var(--accent-ink);
+  text-decoration: none;
+  transition:
+    border-color var(--dur-fast) ease,
+    background var(--dur-fast) ease;
+}
+
+.step:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+}
+
+.step:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* Край списка: шаг остаётся на месте, чтобы подпись положения не прыгала
+   вбок при переходе на первую и последнюю страницы. */
+.stepOff {
+  border-color: var(--line-soft);
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.position {
+  color: var(--body);
+  font-size: var(--fs-dense);
+  font-variant-numeric: tabular-nums;
+}

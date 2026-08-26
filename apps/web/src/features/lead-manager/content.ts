@@ -1,12 +1,8 @@
 /** Подписи раздела заявок. */
-import type { LeadStatus } from './model';
+import { formatDateTime } from '@/shared/lib/format';
+import { leadStatusTitle } from '@/entities/lead/model';
 
-const STATUS_TITLES: Record<LeadStatus, string> = {
-  new: 'Новая',
-  in_progress: 'В работе',
-  done: 'Завершена',
-  rejected: 'Отказ',
-};
+import type { LeadStatus } from './model';
 
 export const leadManagerContent = {
   title: 'Заявки',
@@ -37,22 +33,21 @@ export const leadManagerContent = {
   status: 'Статус',
   /** Переход в календарь: запланировать звонок или замер по этой заявке. */
   plan: 'В календарь',
+  /** Обращение становится карточкой человека в базе клиентов (ADR-105). */
+  toClient: 'В клиенты',
+  toClientBusy: 'Заводим…',
+  toClientCreated: 'Клиент заведён',
+  toClientLinked: 'Этот номер уже в базе — обращение привязано к карточке',
+  inBase: 'Открыть карточку клиента',
   saveNote: 'Сохранить заметку',
   saving: 'Сохраняем…',
   saved: 'Сохранено',
   serverError: 'Сервер не принял изменения. Попробуйте ещё раз',
   networkError: 'Не удалось связаться с сервером. Изменения не сохранены',
 
-  statusTitle: (status: LeadStatus): string => STATUS_TITLES[status],
+  /** Название статуса — доменное, одно на проект (`entities/lead`). */
+  statusTitle: (status: LeadStatus): string => leadStatusTitle(status),
   /** Дата и время по Москве: заявку обрабатывают из Тулы, а не из браузера клиента. */
-  when: (iso: string): string =>
-    new Date(iso).toLocaleString('ru-RU', {
-      timeZone: 'Europe/Moscow',
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    }),
+  when: (iso: string): string => formatDateTime(iso),
   consentAt: (iso: string): string => `дано ${leadManagerContent.when(iso)}`,
 } as const;

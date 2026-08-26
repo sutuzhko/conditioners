@@ -42,6 +42,8 @@ export type LeadDto = {
   consentAt: string;
   status: LeadStatusApi;
   managerComment: string | null;
+  /** Клиент, в которого выросло обращение; `null` — в базу его ещё не завели. */
+  clientId: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -88,6 +90,21 @@ export async function listCreatedBetween(from: Date, to: Date): Promise<LeadDto[
 export async function findById(id: string): Promise<LeadDto | null> {
   const row = await db.lead.findUnique({ where: { id } });
   return row === null ? null : toDto(row);
+}
+
+/**
+ * Обращения одного клиента — история разговора с человеком в его карточке.
+ *
+ * Связь берётся по `clientId`, а не подбором по телефону: номер клиента
+ * правится, и история, склеенная по совпадению строк, разъехалась бы при
+ * первой же правке (ADR-105).
+ */
+export async function listByClient(clientId: string): Promise<LeadDto[]> {
+  const rows = await db.lead.findMany({
+    where: { clientId },
+    orderBy: { createdAt: 'desc' },
+  });
+  return rows.map(toDto);
 }
 
 /** Менеджер меняет статус и оставляет комментарий; данные клиента не правятся. */
