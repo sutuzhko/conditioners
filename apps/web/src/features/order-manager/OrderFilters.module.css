@@ -1,0 +1,90 @@
+/* Фильтр списка нарядов: стопки, период и поиск. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  color: var(--body);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.chip:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+
+.chip:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+/* Период — фильтр второго порядка: рамка мягче, чтобы стопки читались первыми. */
+.quiet {
+  border-color: transparent;
+  background: var(--bg-soft);
+  color: var(--muted);
+}
+
+.active {
+  border-color: var(--accent-ink);
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.field {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+/* Кнопка встаёт на строку поля, а не под подпись: подписи и подсказки у поля
+   занимают две строки над самим вводом. */
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding-top: 26px;
+}
+
+.reset {
+  color: var(--muted);
+  font-size: var(--fs-dense);
+  text-decoration: none;
+}
+
+.reset:hover {
+  color: var(--accent-ink);
+  text-decoration: underline;
+}
+
+.total {
+  margin: 0;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+@media (width < 600px) {
+  .actions {
+    padding-top: 0;
+  }
+}

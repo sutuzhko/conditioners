@@ -1,0 +1,107 @@
+/* Редактор позиций оборудования внутри формы наряда. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 14px;
+  min-width: 0;
+}
+
+.legend {
+  padding: 0 6px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0;
+  max-width: 64ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.empty {
+  margin: 0;
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  padding: 10px 12px;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-sm);
+  padding: 12px;
+  min-width: 0;
+}
+
+.itemHead {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.itemTitle {
+  color: var(--faint);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Класс удвоен намеренно (ADR-038): цвет кнопки-призрака задан в ките с той
+   же специфичностью, и при равной специфичности выигрывает порядок сборки —
+   обычный `.remove` проигрывал, и разрушающее действие красилось акцентом. */
+.remove.remove {
+  color: var(--error-ink);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+}
+
+.wide {
+  grid-column: span 2;
+  min-width: 0;
+}
+
+/* Флажок ниже подписи поля: без выравнивания он «висит» на середине строки. */
+.check {
+  align-self: end;
+  padding-bottom: 10px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+@media (width < 600px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wide {
+    grid-column: auto;
+  }
+}

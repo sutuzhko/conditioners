@@ -1,0 +1,164 @@
+/* Наряд глазами монтажника: данные на чтение и один переключатель статуса. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+}
+
+.number {
+  margin: 0;
+  margin-right: auto;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px 24px;
+  margin: 0;
+}
+
+.fact {
+  min-width: 0;
+}
+
+.fact dt {
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.fact dd {
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.quiet {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+}
+
+.phone {
+  color: var(--accent-ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.phone:hover {
+  text-decoration: underline;
+}
+
+/* Высотные работы — про безопасность, а не про удобство: строка выделена,
+   чтобы её не пролистали на телефоне по дороге на объект. */
+.height {
+  margin: 0;
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-sm);
+  background: var(--warn-bg);
+  padding: 8px 12px;
+  color: var(--warn-ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.blockTitle {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+}
+
+.units {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  padding: 8px 12px;
+  min-width: 0;
+}
+
+.unitModel {
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.money {
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+}
+
+.comment {
+  margin: 0;
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  padding: 8px 12px;
+  color: var(--body);
+  font-size: var(--fs-dense);
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.statusField {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.ok {
+  color: var(--ok-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.error {
+  margin: 0;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  padding: 8px 12px;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}

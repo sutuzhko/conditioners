@@ -1,0 +1,128 @@
+/* Форма наряда: заведение и правка. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: -8px 0 0;
+  max-width: 64ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+/* Поля собраны в группы по смыслу: «работа», «объект», «деньги»,
+   «комментарии». Наряд длинный, и без групп он читается как анкета. */
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 14px;
+  min-width: 0;
+}
+
+.legend {
+  padding: 0 6px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+/* Клиент, монтажник и основание удержания длиннее даты — им нужно два места. */
+.wide {
+  grid-column: span 2;
+  min-width: 0;
+}
+
+/* Адрес, оплата и комментарии — на всю строку. */
+.full {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.check {
+  align-self: end;
+  padding-bottom: 10px;
+}
+
+.note {
+  margin: 0;
+  max-width: 72ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+}
+
+/* 🔴 Удержание, которое не вычитается из выплаты, — это не подсказка, а
+   предупреждение: владелец должен прочитать его до того, как решит, что
+   система сама уменьшит выплату. */
+.warn {
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-sm);
+  background: var(--warn-bg);
+  padding: 8px 12px;
+  color: var(--warn-ink);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Удаление уходит к правому краю строки действий: разрушающее действие не
+   должно стоять вплотную к «Сохранить».
+
+   Класс удвоен намеренно (ADR-038): цвет кнопки-призрака задан в ките с той
+   же специфичностью, и при равной специфичности выигрывает порядок сборки. */
+.remove.remove {
+  margin-left: auto;
+  color: var(--error-ink);
+}
+
+.ok {
+  color: var(--ok-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.error {
+  margin: 0;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  padding: 8px 12px;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}
+
+@media (width < 600px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wide {
+    grid-column: auto;
+  }
+}

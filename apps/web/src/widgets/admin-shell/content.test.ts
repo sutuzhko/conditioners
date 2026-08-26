@@ -10,9 +10,10 @@ describe('разделы панели по ролям', () => {
     expect(sectionsFor('owner')).toHaveLength(ADMIN_SECTIONS.length);
   });
 
-  it('монтажнику остаются календарь и профиль', () => {
+  it('монтажнику остаются календарь, его наряды и профиль', () => {
     expect(sectionsFor('installer').map((section) => section.href)).toEqual([
       '/admin/crm',
+      '/admin/orders',
       '/admin/profile',
     ]);
   });
@@ -49,6 +50,10 @@ describe('🔴 допуск по адресу', () => {
 
   it('свои разделы монтажнику открыты', () => {
     expect(sectionAllows('/admin/crm', 'installer')).toBe(true);
+    /* Наряды — рабочий экран монтажника: чужие в нём отсекает сервер, а не
+       список разделов (CRM.md §6). */
+    expect(sectionAllows('/admin/orders', 'installer')).toBe(true);
+    expect(sectionAllows('/admin/orders/o1', 'installer')).toBe(true);
     expect(sectionAllows('/admin/profile', 'installer')).toBe(true);
   });
 });

@@ -45,6 +45,13 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     group: 'work',
   },
   {
+    href: '/admin/orders',
+    title: 'Заказы',
+    hint: 'Наряды на монтаж, обслуживание и ремонт: кто едет, когда и за сколько',
+    roles: BOTH,
+    group: 'work',
+  },
+  {
     href: '/admin/leads',
     title: 'Заявки',
     hint: 'Обращения с сайта и их статусы',
