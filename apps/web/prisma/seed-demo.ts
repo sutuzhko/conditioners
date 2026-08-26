@@ -27,7 +27,7 @@ import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { hash as hashPassword } from '@node-rs/argon2';
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import sharp from 'sharp';
 
 const prisma = new PrismaClient();
@@ -1894,7 +1894,10 @@ async function main(): Promise<void> {
         photo,
         sourceUrl: lead.sourceUrl,
         referrer: lead.referrer ?? null,
-        utm: lead.utm ?? undefined,
+        /* Prisma при exactOptionalPropertyTypes не принимает undefined в
+           Json-поле: «метки не пришли» для него — это Prisma.DbNull, а не
+           отсутствие ключа. */
+        utm: lead.utm ?? Prisma.DbNull,
         consentAt: hoursAgo(lead.hoursAgo),
         status: lead.status,
         managerComment: lead.managerComment ?? null,
