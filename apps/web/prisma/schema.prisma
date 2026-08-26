@@ -461,10 +461,25 @@ enum NotificationStatus {
 }
 
 model Notification {
-  id        String             @id @default(cuid())
-  channel   String // «email» | «telegram»
-  kind      String // «lead» | «review» | «to-reminder»
-  payload   Json
+  id      String @id @default(cuid())
+  channel String // «email» | «telegram»
+  kind    String // «lead» | «review» | «to-reminder» | «order-assigned» | …
+  payload Json
+
+  // Кому уходит сообщение. `null` — владельцу компании по общим настройкам:
+  // так уходили все уведомления до появления адресации, и такими остаются
+  // заявка, отзыв и напоминание о ТО. Заполнено — адресату лично.
+  //
+  // `SetNull`: уволенный монтажник исчезает, а журнал доставки остаётся —
+  // по нему разбираются, дошло ли до человека сообщение о наряде.
+  recipientId String?
+  recipient   AdminUser? @relation(fields: [recipientId], references: [id], onDelete: SetNull)
+
+  // Адрес, по которому сообщение ушло на самом деле. Снимок, а не ссылка:
+  // человек меняет чат и почту, и журнал обязан показывать, куда доставляли
+  // тогда, а не куда доставили бы сейчас.
+  address String?
+
   status    NotificationStatus @default(PENDING)
   attempts  Int                @default(0)
   lastError String?
@@ -473,6 +488,7 @@ model Notification {
   sentAt    DateTime?
 
   @@index([status, nextTryAt])
+  @@index([recipientId, createdAt])
 }
 
 // ---------- Админка ----------
@@ -505,6 +521,14 @@ model AdminUser {
   // ещё не заведено. Выдумывать его нельзя — от него зависят деньги.
   employment Employment?
 
+  // Адреса доставки уведомлений — личные. До них адрес был один на компанию,
+  // и разослать «каждому своё» было физически некуда.
+  //
+  // Chat ID телеграма человек не знает и узнать сам не может: его выдаёт
+  // привязка через бота, а не поле для ввода. Почта вводится руками.
+  telegramChatId String?
+  email          String?
+
   // Имя и телефон нужны в наряде и в списке команды. Необязательные: у учётной
   // записи владельца, заведённой сидом, имени может не быть, и выдумывать его
   // нельзя — интерфейс покажет логин.
@@ -518,10 +542,11 @@ model AdminUser {
   createdAt   DateTime  @default(now())
   lastLoginAt DateTime?
 
-  sessions Session[]
-  notes    InstallerNote[]
-  orders   Order[]
-  blocks   DayBlock[]
+  sessions      Session[]
+  notes         InstallerNote[]
+  orders        Order[]
+  blocks        DayBlock[]
+  notifications Notification[]
 
   @@index([role, active])
 }
