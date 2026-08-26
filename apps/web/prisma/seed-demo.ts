@@ -765,7 +765,7 @@ const clients: readonly DemoClient[] = [
   {
     key: 'salon',
     name: 'Салон «Аврора»',
-    phone: '+7 (487) 233-10-77',
+    phone: '+7 (4872) 33-10-77',
     address: 'Тула, ул. Советская, 47, помещение 2',
     note: 'Два канальных блока за потолком, обслуживание по договору дважды в год.',
     createdDaysAgo: 30,
@@ -1463,7 +1463,7 @@ const events: readonly DemoEvent[] = [
     dayDelta: 8,
     time: '12:00',
     clientName: 'Салон «Аврора»',
-    clientPhone: '+7 (487) 233-10-77',
+    clientPhone: '+7 (4872) 33-10-77',
     address: 'Тула, ул. Советская, 47',
     note: 'Плановое ТО по договору, второй раз за год.',
   },

@@ -223,6 +223,15 @@ test.describe('Разделы сайта', () => {
 
     const xml = await response.text();
     expect(xml).toContain('/knowledge');
-    expect(xml).not.toContain('/catalog');
+    // каталог и страницы моделей вернулись своими адресами (ADR-109)
+    expect(xml).toContain('/catalog');
+
+    /* Удалённый кластер посадочных (ADR-049) в карту попасть не может: адрес,
+       которого нет, уводит робота на 404 и тратит краулинговый бюджет.
+       Сравниваем с закрывающим тегом — иначе `/prices` нашёлся бы внутри
+       любого более длинного адреса. */
+    for (const gone of ['/prices', '/installation', '/service', '/contacts']) {
+      expect(xml, gone).not.toContain(`${gone}</loc>`);
+    }
   });
 });
