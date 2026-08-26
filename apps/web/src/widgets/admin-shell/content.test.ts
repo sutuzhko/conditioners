@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
+import { settingKeySchema } from '@/entities/settings/model';
+
 import { ADMIN_SECTIONS, sectionAllows, sectionOf, sectionsFor } from './content';
+import { adminSummaryContent } from './summary-content';
 
 describe('разделы панели по ролям', () => {
   it('владелец видит все разделы', () => {
@@ -47,5 +50,19 @@ describe('🔴 допуск по адресу', () => {
   it('свои разделы монтажнику открыты', () => {
     expect(sectionAllows('/admin/crm', 'installer')).toBe(true);
     expect(sectionAllows('/admin/profile', 'installer')).toBe(true);
+  });
+});
+
+describe('названия групп настроек', () => {
+  /* Запасной вариант `groupTitle` — сам ключ, и молчаливо: группа
+     `notifications` доехала до плашки готовности английским словом среди
+     русских ярлыков. Ключ в базе живёт своей жизнью, ярлык своей, и связать
+     их может только проверка. */
+  it('🔴 ни один ключ настроек не показывается владельцу как есть', () => {
+    for (const key of settingKeySchema.options) {
+      expect(adminSummaryContent.groupTitle(key), `нет русского названия для «${key}»`).not.toBe(
+        key,
+      );
+    }
   });
 });

@@ -16,6 +16,9 @@ const GROUP_TITLES: Record<string, string> = {
   payment: 'Способы оплаты',
   social: 'Соцсети',
   seo: 'Метаданные главной',
+  achievements: 'Цифры первого экрана',
+  specs: 'Справочник характеристик',
+  notifications: 'Каналы уведомлений',
   integrations: 'Счётчики и интеграции',
 };
 
