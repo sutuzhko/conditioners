@@ -28,8 +28,14 @@ model Product {
   saleTo    DateTime?
   saleLabel String?
   link      String?
-  visible   Boolean   @default(true)
-  sort      Int       @default(0)
+
+  // `visible` — модель в продаже и попадает в каталог. `featured` — владелец
+  // вынес её на главную. Это разные вопросы: каталог показывает всё, что есть
+  // в продаже, витрина лендинга — то, что владелец хочет продать сегодня.
+  // Порядок в обоих случаях задаёт `sort`.
+  visible  Boolean @default(true)
+  featured Boolean @default(false)
+  sort     Int     @default(0)
 
   seoTitle       String?
   seoDescription String?
@@ -40,6 +46,7 @@ model Product {
   updatedAt DateTime       @updatedAt
 
   @@index([visible, sort])
+  @@index([featured, sort])
 }
 
 model ProductPhoto {
@@ -120,17 +127,17 @@ enum ReviewStatus {
 }
 
 model Review {
-  id       String       @id @default(cuid())
-  name     String
-  rating   Int
-  text     String // неизменяем: модератор меняет только статус
+  id     String @id @default(cuid())
+  name   String
+  rating Int
+  text   String // неизменяем: модератор меняет только статус
 
   // Два разных снимка, и путать их нельзя: `photo` — место установки (по нему
   // видно и аккуратность бригады, и мусор, если он остался), `avatar` — сам
   // автор отзыва. Оба необязательны: отзыв без фотографий — обычное дело.
-  photo    String?
-  avatar   String?
-  status   ReviewStatus @default(PENDING)
+  photo  String?
+  avatar String?
+  status ReviewStatus @default(PENDING)
 
   // Доказательство согласия на обработку ПДн — по 152-ФЗ нужно так же,
   // как для заявки. Необязательное: у отзывов, заведённых до появления поля,
@@ -185,6 +192,7 @@ model Lead {
   updatedAt DateTime @updatedAt
 
   events CrmEvent[]
+  orders Order[]
 
   @@index([status, createdAt])
   @@index([clientId])
@@ -212,10 +220,142 @@ model Client {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  leads Lead[]
+  leads  Lead[]
+  orders Order[]
 
   // Список открывают, чтобы найти человека: свежие сверху, поиск по остальным.
   @@index([createdAt])
+}
+
+// ---------- Заказы (наряды) ----------
+// Работа с деньгами, датой и исполнителем. Дело в календаре — напоминание
+// без денег; монтаж, ТО и ремонт заводятся нарядом (ADR-093).
+
+enum OrderType {
+  INSTALL // монтаж
+  SERVICE // обслуживание, ТО
+  REPAIR // ремонт
+}
+
+enum OrderStatus {
+  NEW // заведён, исполнитель не назначен
+  ASSIGNED // назначен монтажнику
+  IN_PROGRESS // монтажник в работе
+  DONE // выполнен
+  CANCELLED // отказ
+}
+
+enum PaymentMode {
+  COMPANY // клиент платит компании
+  CASH_TO_INSTALLER // наличными монтажнику на объекте
+}
+
+model Order {
+  id String @id @default(cuid())
+
+  // Владелец видит номер как «№ 1059» и ждёт непрерывности, поэтому счётчик
+  // свой (`Setting.orderSeq`), а не автоинкремент Postgres: тот оставляет
+  // дыры на каждой откатанной транзакции.
+  number Int         @unique
+  type   OrderType
+  status OrderStatus @default(NEW)
+
+  // Клиент обязателен: наряд без человека, к которому едут, — это дело в
+  // календаре, а не работа. `Restrict`: клиента с историей работ не удаляют
+  // молча, сначала разбираются с нарядами.
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id], onDelete: Restrict)
+
+  // Исполнитель. `SetNull`: уволенный монтажник исчезает из учётных записей,
+  // но выполненный им наряд остаётся в истории клиента.
+  installerId String?
+  installer   AdminUser? @relation(fields: [installerId], references: [id], onDelete: SetNull)
+
+  // Момент в UTC, показывается в московском — как у дела календаря (ADR-080).
+  at DateTime
+
+  // Длительность в минутах, а не в часах: полтора часа на ТО — обычное дело,
+  // и загрузка бригад считается по минутам, а не округляется вверх.
+  durationMin Int @default(120)
+
+  // Объект. Адрес отдельно от адреса клиента: ставят и на даче, и в офисе.
+  address     String
+  intercom    String?
+  phone2      String?
+  floor       Int?
+  heightWorks Boolean @default(false)
+
+  // Деньги. Суммы целые: копеек на этом рынке не бывает.
+  payment      PaymentMode @default(COMPANY)
+  price        Int         @default(0)
+  installerFee Int         @default(0)
+
+  // 🔴 Не «штраф»: штрафов как вида взыскания в ТК РФ нет, а уменьшение
+  // вознаграждения по ГПХ законно только когда прописано в договоре
+  // (CRM.md §9). Поле учётное, основание обязательно при ненулевой сумме —
+  // проверяет схема Zod, а не база.
+  deductionSum    Int     @default(0)
+  deductionReason String?
+
+  // Комментарий монтажник видит, заметку владельца — нет. Это разные поля,
+  // а не одно с флагом: «не отдавать наружу» должно решаться выбором поля.
+  comment   String?
+  ownerNote String?
+
+  // Обращение, из которого вырос наряд. `SetNull`: удалённая заявка не
+  // отменяет работу, о которой уже договорились.
+  leadId String?
+  lead   Lead?   @relation(fields: [leadId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  units OrderUnit[]
+
+  @@index([status, at])
+  @@index([clientId])
+  @@index([installerId, at])
+  @@index([at])
+}
+
+enum OrderEquip {
+  CONDITIONER // кондиционер
+  FRIDGE // холодильник
+  COMPRESSOR // компрессор
+  VENTILATION // вентиляция
+  HEAT_CURTAIN // тепловая завеса
+  OTHER // другое
+}
+
+enum UnitSource {
+  OURS // наше оборудование: продажа с монтажом
+  CLIENT // оборудование клиента: только работы
+}
+
+// Позиция оборудования в наряде. Список, а не одно поле: половина заказов —
+// монтаж техники, купленной клиентом, и в одном выезде бывает два блока с
+// разными условиями (CRM.md §3.3).
+model OrderUnit {
+  id      String     @id @default(cuid())
+  orderId String
+  order   Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  equip   OrderEquip @default(CONDITIONER)
+
+  // Модель строкой, а не ссылкой на каталог: ставят и то, что клиент купил
+  // сам, — такой техники в каталоге нет и быть не должно.
+  model String?
+
+  source UnitSource @default(OURS)
+
+  // Трасса в метрах и диаметр — по ним собирается чеклист выезда и считается
+  // смета. Диаметр строкой: пишут «1/4–3/8», а не число.
+  trassaM  Int?
+  diameter String?
+  shtrob   Boolean @default(false)
+
+  sort Int @default(0)
+
+  @@index([orderId, sort])
 }
 
 // ---------- Календарь работ ----------
@@ -299,11 +439,26 @@ enum AdminRole {
   INSTALLER
 }
 
+// Как оформлены отношения с человеком. От этого зависит, чем является
+// удержание в наряде: у самозанятого и подрядчика по ГПХ это законное
+// уменьшение вознаграждения, когда оно прописано в договоре; у работника по
+// трудовому договору штрафов как взыскания в ТК РФ нет вовсе, и запись
+// остаётся внутренней пометкой о браке или срыве (CRM.md §9).
+enum Employment {
+  SELF_EMPLOYED // самозанятый
+  CONTRACT // договор ГПХ
+  STAFF // трудовой договор
+}
+
 model AdminUser {
   id           String    @id @default(cuid())
   login        String    @unique
   passwordHash String
   role         AdminRole @default(OWNER)
+
+  // Необязательно: у владельца оформления нет, а у монтажника оно может быть
+  // ещё не заведено. Выдумывать его нельзя — от него зависят деньги.
+  employment Employment?
 
   // Имя и телефон нужны в наряде и в списке команды. Необязательные: у учётной
   // записи владельца, заведённой сидом, имени может не быть, и выдумывать его
@@ -320,6 +475,7 @@ model AdminUser {
 
   sessions Session[]
   notes    InstallerNote[]
+  orders   Order[]
 
   @@index([role, active])
 }
@@ -351,10 +507,10 @@ model Session {
 // ---------- Антиспам ----------
 
 model RateLimit {
-  id        String   @id @default(cuid())
-  key       String // ip + endpoint
-  windowAt  DateTime
-  hits      Int      @default(1)
+  id       String   @id @default(cuid())
+  key      String // ip + endpoint
+  windowAt DateTime
+  hits     Int      @default(1)
 
   @@unique([key, windowAt])
   // чистка отработавших окон идёт диапазоном по времени — составной
