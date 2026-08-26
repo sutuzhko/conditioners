@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { consentSchema, honeypotSchema } from '@/shared/lib/zod';
+import { consentSchema, honeypotSchema, phoneField } from '@/shared/lib/zod';
 
 /**
  * Заявка — главная ценность сайта.
@@ -13,20 +13,8 @@ export const leadStatusSchema = z.enum(['new', 'in_progress', 'done', 'rejected'
 
 export type LeadStatus = z.infer<typeof leadStatusSchema>;
 
-const PHONE_REQUIRED = 'Укажите телефон — по нему мы перезвоним';
-
-/**
- * Телефон принимается в любом виде, лишь бы в нём было достаточно цифр:
- * человек в жару набирает номер как привык, и терять заявку из-за скобок
- * нельзя. К единому виду его приводит `shared/lib/format`.
- */
-export const phoneSchema = z
-  .string({ required_error: PHONE_REQUIRED, invalid_type_error: PHONE_REQUIRED })
-  .trim()
-  .min(1, { message: PHONE_REQUIRED })
-  .refine((value) => value.replace(/\D/g, '').length >= 10, {
-    message: 'Похоже, в номере не хватает цифр',
-  });
+/** Правило одно на проект (`shared/lib/zod`), своя здесь только формулировка. */
+export const phoneSchema = phoneField('Укажите телефон — по нему мы перезвоним');
 
 /** UTM-метки: произвольный набор ключей, приходит из адресной строки. */
 export const utmSchema = z.record(z.string(), z.string());

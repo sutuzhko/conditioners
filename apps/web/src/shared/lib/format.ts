@@ -1,3 +1,5 @@
+import { phoneKey } from './phone';
+
 /**
  * Форматирование чисел, телефонов и дат.
  *
@@ -65,14 +67,6 @@ export function formatDegrees(value: number): string {
   return `${sign}${Math.abs(rounded)}°`;
 }
 
-/** Только цифры телефона; ведущая «8» приводится к «7». */
-function phoneDigits(phone: string): string {
-  const digits = phone.replace(/\D/g, '');
-  if (digits.length === 11 && digits.startsWith('8')) return `7${digits.slice(1)}`;
-  if (digits.length === 10) return `7${digits}`;
-  return digits;
-}
-
 /**
  * Человеческий вид телефона: `+7 (900) 123-45-67` для мобильного,
  * `+7 (4872) 12-34-56` для городского.
@@ -86,7 +80,7 @@ function phoneDigits(phone: string): string {
  * лучше показать его как есть, чем изуродовать.
  */
 export function formatPhone(phone: string, areaCodeLength?: number): string {
-  const digits = phoneDigits(phone);
+  const digits = phoneKey(phone);
   if (digits.length !== 11 || !digits.startsWith('7')) return phone.trim();
 
   const national = digits.slice(1);
@@ -104,7 +98,7 @@ export function formatPhone(phone: string, areaCodeLength?: number): string {
 
 /** Значение для `href="tel:"`: только плюс и цифры. */
 export function phoneHref(phone: string): string {
-  const digits = phoneDigits(phone);
+  const digits = phoneKey(phone);
   return digits.length > 0 ? `tel:+${digits}` : `tel:${phone.trim()}`;
 }
 

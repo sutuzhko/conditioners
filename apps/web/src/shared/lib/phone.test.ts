@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
-import { caretAfterMask, digitsBefore, isPhoneComplete, maskPhone, phoneBody } from './phone';
+import {
+  caretAfterMask,
+  digitsBefore,
+  isPhoneComplete,
+  maskPhone,
+  phoneBody,
+  phoneKey,
+} from './phone';
 
 describe('maskPhone', () => {
   it('собирает номер по мере набора', () => {
@@ -71,5 +78,27 @@ describe('курсор при правке в середине', () => {
   it('считает цифры слева от курсора без кода страны', () => {
     expect(digitsBefore('+7 (912) 345-67-89', 7)).toBe(3);
     expect(digitsBefore('+7 (', 4)).toBe(0);
+  });
+});
+
+describe('phoneKey — по нему человек опознаётся как один и тот же', () => {
+  it('🔴 разные написания одного номера дают один ключ', () => {
+    const key = '79101552468';
+
+    expect(phoneKey('+7 (910) 155-24-68')).toBe(key);
+    expect(phoneKey('8 910 155 24 68')).toBe(key);
+    expect(phoneKey('9101552468')).toBe(key);
+    expect(phoneKey('7 910 155-24-68')).toBe(key);
+  });
+
+  it('разные номера остаются разными', () => {
+    expect(phoneKey('+7 (910) 155-24-68')).not.toBe(phoneKey('+7 (910) 155-24-69'));
+  });
+
+  it('непохожее на российский номер сохраняется цифрами как есть', () => {
+    // выбросить непонятное значение хуже, чем сохранить его дословно
+    expect(phoneKey('+380 44 123 45 67')).toBe('380441234567');
+    expect(phoneKey('12-34')).toBe('1234');
+    expect(phoneKey('')).toBe('');
   });
 });
