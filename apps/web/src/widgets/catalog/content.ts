@@ -1,3 +1,5 @@
+import { pluralize } from '@/shared/lib/plural';
+
 /**
  * Подписи секции каталога.
  *
@@ -27,7 +29,7 @@ export const catalogText = {
 
   specsSummary: 'Все характеристики',
   specsCount: (count: number): string =>
-    `${count} ${count % 10 === 1 && count % 100 !== 11 ? 'характеристика' : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20) ? 'характеристики' : 'характеристик'}`,
+    pluralize(count, 'характеристика', 'характеристики', 'характеристик'),
 
   compareTitle: 'Сравнение моделей',
   compareSpec: 'Характеристика',
