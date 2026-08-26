@@ -1,8 +1,9 @@
 /**
  * Сессия админки — docs/TECH_DECISIONS §8.
  *
- * Токен живёт в httpOnly + Secure + SameSite=Lax cookie, в базе хранится только
- * его HMAC: дамп базы не даёт возможности войти. При входе токен ротируется,
+ * Токен живёт в httpOnly + Secure + SameSite=Lax cookie (Secure — по схеме
+ * SITE_URL, см. `isSecureSite`), в базе хранится только его HMAC: дамп базы
+ * не даёт возможности войти. При входе токен ротируется,
  * старая сессия аннулируется — иначе заранее подсунутый cookie переживёт вход
  * (session fixation).
  */
@@ -41,13 +42,15 @@ export function isOwner(session: AdminSession): boolean {
   return session.role === 'owner';
 }
 
-export type SessionCookieOptions = {
+type SessionCookieAttrs = {
   httpOnly: true;
-  secure: true;
+  secure: boolean;
   sameSite: 'lax';
   path: string;
-  expires: Date;
 };
+
+export type SessionCookieOptions = SessionCookieAttrs & { expires: Date };
+export type ExpiredSessionCookieOptions = SessionCookieAttrs & { maxAge: 0 };
 
 export function hashToken(token: string): string {
   return createHmac('sha256', env.SESSION_SECRET).update(token).digest('hex');
@@ -57,9 +60,34 @@ function createToken(): string {
   return randomBytes(32).toString('base64url');
 }
 
+/**
+ * Отдаётся ли сайт по https — от этого зависит флаг Secure у cookie (ADR-102).
+ *
+ * Secure-cookie, пришедшую по http, браузер выбрасывает молча: вход отвечал
+ * 204, cookie исчезала, middleware возвращал на форму — снаружи неотличимо от
+ * неверного пароля. Дев-стенд поднят по http и открывается по адресу машины,
+ * поэтому там флага нет. На проде схему https требует Zod-схема ENV, так что
+ * правкой SITE_URL защиту не снять.
+ */
+export function isSecureSite(siteUrl: string): boolean {
+  return new URL(siteUrl).protocol === 'https:';
+}
+
+function sessionCookieAttrs(): SessionCookieAttrs {
+  return { httpOnly: true, secure: isSecureSite(env.SITE_URL), sameSite: 'lax', path: '/' };
+}
+
 export function sessionCookieOptions(expires: Date): SessionCookieOptions {
-  // Secure в деве не мешает: сайт открывается через Caddy по https.
-  return { httpOnly: true, secure: true, sameSite: 'lax', path: '/', expires };
+  return { ...sessionCookieAttrs(), expires };
+}
+
+/**
+ * Гашение cookie при выходе. Атрибуты повторяют выданные из одного источника:
+ * cookie с другим path браузер не заменит, а лишний Secure по http отбросит
+ * саму команду гашения — и сессия останется в браузере.
+ */
+export function expiredSessionCookieOptions(): ExpiredSessionCookieOptions {
+  return { ...sessionCookieAttrs(), maxAge: 0 };
 }
 
 export async function issueSession(

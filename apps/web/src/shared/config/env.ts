@@ -32,7 +32,20 @@ const schema = z.object({
   TELEGRAM_WEBHOOK_SECRET: z.string().optional(),
 });
 
-const parsed = schema.safeParse(process.env);
+/* 🔴 От схемы SITE_URL зависит флаг Secure у cookie сессии (server/auth.ts).
+   В production http означал бы сессию, которую видно в открытом трафике, —
+   поэтому конфигурация с ним не поднимается вовсе. */
+const config = schema.superRefine((value, ctx) => {
+  if (value.NODE_ENV === 'production' && !value.SITE_URL.startsWith('https://')) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['SITE_URL'],
+      message: 'в production сайт обязан отдаваться по https',
+    });
+  }
+});
+
+const parsed = config.safeParse(process.env);
 
 if (!parsed.success) {
   const problems = parsed.error.issues.map((i) => `  ${i.path.join('.')}: ${i.message}`).join('\n');

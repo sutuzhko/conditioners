@@ -32,7 +32,10 @@ import {
   SESSION_COOKIE,
   SESSION_TTL_MS,
   destroySession,
+  expiredSessionCookieOptions,
   getAdminSession,
+  isSecureSite,
+  sessionCookieOptions,
   hashPassword,
   hashToken,
   issueSession,
@@ -212,6 +215,29 @@ describe('выход', () => {
     await destroySession(undefined);
 
     expect(sessions.deleteByTokenHash).not.toHaveBeenCalled();
+  });
+});
+
+describe('cookie сессии', () => {
+  it('Secure — только когда сайт отдаётся по https', () => {
+    expect(isSecureSite('https://tulaklimat.ru')).toBe(true);
+    // дев-стенд открывают по адресу машины: Secure-cookie по http браузер выбросит
+    expect(isSecureSite('http://192.168.1.41:3000')).toBe(false);
+  });
+
+  it('атрибуты гашения повторяют выданные', () => {
+    const issued = sessionCookieOptions(new Date('2026-09-25T10:00:00Z'));
+    const cleared = expiredSessionCookieOptions();
+
+    // разойдись эти наборы — браузер завёл бы вторую cookie вместо замены первой
+    expect(cleared).toMatchObject({
+      httpOnly: issued.httpOnly,
+      secure: issued.secure,
+      sameSite: issued.sameSite,
+      path: issued.path,
+      maxAge: 0,
+    });
+    expect(issued.expires).toEqual(new Date('2026-09-25T10:00:00Z'));
   });
 });
 
