@@ -1,4 +1,5 @@
 /** Подписи раздела клиентов. */
+import type { ConfirmRequest } from '@/shared/ui';
 import { formatDateShort } from '@/shared/lib/format';
 import { plural } from '@/shared/lib/plural';
 
@@ -44,8 +45,11 @@ export const clientManagerContent = {
   saved: 'Сохранено',
 
   remove: 'Удалить клиента',
-  removeConfirm: (who: string): string =>
-    `Удалить карточку «${who}»? Обращения этого человека останутся — у них своё согласие на обработку данных.`,
+  removeConfirm: (who: string): ConfirmRequest => ({
+    title: `Удалить карточку «${who}»?`,
+    description: 'Обращения этого человека останутся — у них своё согласие на обработку данных.',
+    confirmLabel: 'Удалить карточку',
+  }),
   removeHint:
     'Удаление карточки — в том числе по требованию человека (152-ФЗ). Обращения при этом сохраняются.',
 

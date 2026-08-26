@@ -74,12 +74,33 @@ describe('День календаря', () => {
   });
 
   it('удаление спрашивает подтверждение и без него ничего не делает', async () => {
-    vi.stubGlobal('confirm', () => false);
+    const user = userEvent.setup();
+    render(
+      <DayPanel
+        day="2026-08-23"
+        events={[plannedCall]}
+        leads={[]}
+        confirmRemove={async () => false}
+      />,
+    );
+
+    await user.click(screen.getByRole('button', { name: texts.remove }));
+
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('🔴 подтверждение спрашивается окном панели, а не системным confirm', async () => {
     const user = userEvent.setup();
     render(<DayPanel day="2026-08-23" events={[plannedCall]} leads={[]} />);
 
     await user.click(screen.getByRole('button', { name: texts.remove }));
 
+    // системное окно нельзя оформить и в нём нельзя объяснить последствия
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toHaveAccessibleName(texts.removeConfirm.title);
+    expect(
+      screen.getByRole('button', { name: texts.removeConfirm.confirmLabel }),
+    ).toBeInTheDocument();
     expect(fetchMock).not.toHaveBeenCalled();
   });
 

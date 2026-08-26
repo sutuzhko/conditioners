@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -75,7 +75,7 @@ describe('Форма клиента', () => {
         clientId={client.id}
         initial={filled}
         removable
-        confirmRemove={() => true}
+        confirmRemove={async () => true}
       />,
     );
 
@@ -83,6 +83,31 @@ describe('Форма клиента', () => {
 
     expect(remove).toHaveBeenCalledWith(client.id);
     expect(push).toHaveBeenCalledWith('/admin/clients');
+  });
+
+  it('🔴 спрашивает окном панели, а не системным confirm', async () => {
+    const user = userEvent.setup();
+    const remove = vi.fn(async () => ({ ok: true }) as const);
+
+    render(
+      <ClientForm
+        api={{ ...acceptingApi, remove }}
+        clientId={client.id}
+        initial={filled}
+        removable
+      />,
+    );
+    await user.click(screen.getByRole('button', { name: texts.remove }));
+
+    // окно есть в разметке — без него обещание не разрешится и удаление
+    // молча не случится
+    const request = texts.removeConfirm(filled.name);
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toHaveAccessibleName(request.title);
+    expect(remove).not.toHaveBeenCalled();
+
+    await user.click(within(dialog).getByRole('button', { name: request.confirmLabel }));
+    await waitFor(() => expect(remove).toHaveBeenCalledWith(client.id));
   });
 
   it('🔴 отказ от подтверждения ничего не удаляет', async () => {
@@ -95,7 +120,7 @@ describe('Форма клиента', () => {
         clientId={client.id}
         initial={filled}
         removable
-        confirmRemove={() => false}
+        confirmRemove={async () => false}
       />,
     );
 

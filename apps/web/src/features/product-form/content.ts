@@ -1,4 +1,6 @@
 /** Подписи формы модели. */
+import type { ConfirmRequest } from '@/shared/ui';
+
 export const productFormContent = {
   createTitle: 'Новая модель',
   editTitle: 'Правка модели',
@@ -46,8 +48,11 @@ export const productFormContent = {
   remove: 'Удалить модель',
   removing: 'Удаляем…',
   /* Удаление необратимо и уносит фотографии — спрашиваем прямо, а не «вы уверены?». */
-  removeConfirm: (name: string): string =>
-    `Удалить «${name}» вместе с фотографиями и характеристиками? Отменить это будет нельзя.`,
+  removeConfirm: (name: string): ConfirmRequest => ({
+    title: `Удалить «${name}» вместе с фотографиями и характеристиками?`,
+    description: 'Отменить это будет нельзя.',
+    confirmLabel: 'Удалить модель',
+  }),
 
   networkError: 'Не удалось связаться с сервером. Изменения не сохранены',
   serverError: 'Сервер не принял изменения. Попробуйте ещё раз',

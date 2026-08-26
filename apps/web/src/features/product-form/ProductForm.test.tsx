@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -77,7 +77,7 @@ describe('Форма модели каталога', () => {
         values={filledProduct}
         save={vi.fn()}
         remove={remove}
-        confirmRemove={() => false}
+        confirmRemove={async () => false}
       />,
     );
 
@@ -89,7 +89,7 @@ describe('Форма модели каталога', () => {
   it('подтверждённое удаление называет модель по имени', async () => {
     const user = userEvent.setup();
     const remove = vi.fn(async () => ({ ok: true }));
-    const confirmRemove = vi.fn(() => true);
+    const confirmRemove = vi.fn(async () => true);
     render(
       <ProductForm
         values={filledProduct}
@@ -101,8 +101,29 @@ describe('Форма модели каталога', () => {
 
     await user.click(screen.getByRole('button', { name: texts.remove }));
 
-    expect(confirmRemove).toHaveBeenCalledWith(expect.stringContaining(filledProduct.name));
+    expect(confirmRemove).toHaveBeenCalledWith(
+      expect.objectContaining({ title: expect.stringContaining(filledProduct.name) }),
+    );
     expect(remove).toHaveBeenCalled();
+  });
+});
+
+describe('Удаление модели через окно подтверждения', () => {
+  it('🔴 спрашивает окном панели, а не системным confirm', async () => {
+    const user = userEvent.setup();
+    const remove = vi.fn(async () => ({ ok: true }));
+
+    render(<ProductForm values={filledProduct} save={vi.fn()} remove={remove} />);
+    await user.click(screen.getByRole('button', { name: texts.remove }));
+
+    const request = texts.removeConfirm(filledProduct.name);
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toHaveAccessibleName(request.title);
+    expect(remove).not.toHaveBeenCalled();
+
+    // ищем внутри окна: кнопка формы называется тем же словом
+    await user.click(within(dialog).getByRole('button', { name: request.confirmLabel }));
+    await waitFor(() => expect(remove).toHaveBeenCalled());
   });
 });
 

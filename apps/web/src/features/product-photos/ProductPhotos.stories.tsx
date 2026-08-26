@@ -20,5 +20,5 @@ export const Пусто: Story = {
 };
 
 export const ОтказСервера: Story = {
-  args: { api: failingApi, confirmRemove: () => true },
+  args: { api: failingApi, confirmRemove: async () => true },
 };

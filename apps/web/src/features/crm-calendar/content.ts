@@ -1,5 +1,5 @@
 import type { CrmEventKind, CrmEventStatus } from '@/entities/crm/model';
-import type { IconName } from '@/shared/ui';
+import type { IconName, ConfirmRequest } from '@/shared/ui';
 
 /**
  * Тексты календаря работ.
@@ -101,7 +101,11 @@ export const crmContent = {
   markCancelled: 'Отменить',
   edit: 'Изменить',
   remove: 'Удалить',
-  removeConfirm: 'Удалить дело из календаря? Отменить это будет нельзя.',
+  removeConfirm: {
+    title: 'Удалить дело из календаря?',
+    description: 'Отменить это будет нельзя.',
+    confirmLabel: 'Удалить дело',
+  } satisfies ConfirmRequest,
 
   fromLead: 'Из заявки',
   failure: 'Не удалось сохранить. Проверьте связь и попробуйте ещё раз.',

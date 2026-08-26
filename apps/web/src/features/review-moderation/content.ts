@@ -1,4 +1,5 @@
 /** Подписи модерации отзывов. */
+import type { ConfirmRequest } from '@/shared/ui';
 import { formatDateShort } from '@/shared/lib/format';
 import type { ReviewStatus } from './model';
 
@@ -29,8 +30,11 @@ export const reviewModerationContent = {
   restore: 'Вернуть на модерацию',
   remove: 'Удалить',
 
-  removeConfirm:
-    'Удалить отзыв безвозвратно? Отклонение и архив сохраняют его в базе, удаление — нет.',
+  removeConfirm: {
+    title: 'Удалить отзыв безвозвратно?',
+    description: 'Отклонение и архив сохраняют его в базе, удаление — нет.',
+    confirmLabel: 'Удалить отзыв',
+  } satisfies ConfirmRequest,
 
   rating: (value: number): string => `Оценка ${value} из 5`,
   photoAlt: (name: string): string => `Фотография к отзыву: ${name}`,

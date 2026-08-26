@@ -68,6 +68,12 @@ export type { TableProps, TableVariant } from './Table/Table';
 export { Accordion } from './Accordion/Accordion';
 export type { AccordionItem, AccordionProps } from './Accordion/Accordion';
 
+export { ConfirmDialog } from './ConfirmDialog/ConfirmDialog';
+export type { ConfirmDialogProps } from './ConfirmDialog/ConfirmDialog';
+export { useConfirm } from './ConfirmDialog/useConfirm';
+export type { ConfirmControl } from './ConfirmDialog/useConfirm';
+export type { Confirm, ConfirmRequest } from './ConfirmDialog/model';
+
 export { Modal } from './Modal/Modal';
 export type { ModalProps, ModalSize } from './Modal/Modal';
 

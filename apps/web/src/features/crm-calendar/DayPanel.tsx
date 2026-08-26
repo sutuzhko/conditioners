@@ -7,7 +7,8 @@ import { useState } from 'react';
 import type { CrmEventStatus } from '@/entities/crm/model';
 import { formatDate } from '@/shared/lib/format';
 import { type DayKey, dayKeyOf, timeOf } from '@/shared/lib/calendar';
-import { Button, Icon } from '@/shared/ui';
+import { Button, Icon, useConfirm } from '@/shared/ui';
+import type { Confirm } from '@/shared/ui';
 
 import { EventDialog } from './EventDialog';
 import { KIND_LOOK, STATUS_TITLE, crmContent as texts } from './content';
@@ -27,6 +28,8 @@ export interface DayPanelProps {
    * на неё пришли по кнопке «В календарь» из раздела заявок.
    */
   readonly preset?: Partial<CrmEventDraft> | undefined;
+  /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
+  readonly confirmRemove?: Confirm | undefined;
 }
 
 function emptyDraft(day: DayKey, preset?: Partial<CrmEventDraft>): CrmEventDraft {
@@ -64,8 +67,12 @@ function draftOf(event: CrmEventCard): CrmEventDraft {
  * Клиентский компонент — здесь живут действия. Сами данные приходят с сервера
  * пропсами: список дня виден в исходном HTML, а не собирается запросом.
  */
-export function DayPanel({ day, events, leads, preset }: DayPanelProps) {
+export function DayPanel({ day, events, leads, preset, confirmRemove }: DayPanelProps) {
   const router = useRouter();
+  /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом для
+     тестов, чтобы не открывать окно ради проверки удаления. */
+  const { confirm, dialog } = useConfirm();
+  const ask = confirmRemove ?? confirm;
   const [draft, setDraft] = useState<CrmEventDraft | null>(
     preset === undefined ? null : emptyDraft(day, preset),
   );
@@ -109,7 +116,7 @@ export function DayPanel({ day, events, leads, preset }: DayPanelProps) {
   };
 
   const drop = async (id: string): Promise<void> => {
-    if (!window.confirm(texts.removeConfirm)) return;
+    if (!(await ask(texts.removeConfirm))) return;
 
     setBusy(id);
     setFailure(null);
@@ -278,6 +285,8 @@ export function DayPanel({ day, events, leads, preset }: DayPanelProps) {
       {draft === null ? null : (
         <EventDialog open onClose={close} onSaved={saved} draft={draft} id={editing} />
       )}
+
+      {dialog}
     </section>
   );
 }

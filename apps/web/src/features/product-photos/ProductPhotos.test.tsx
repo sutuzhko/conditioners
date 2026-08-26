@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -44,13 +44,30 @@ describe('Фотографии модели', () => {
       <ProductPhotos
         photos={photosFixture}
         api={{ ...acceptingApi, remove }}
-        confirmRemove={() => false}
+        confirmRemove={async () => false}
       />,
     );
 
     await user.click(screen.getByRole('button', { name: texts.removeLabel(1) }));
 
     expect(remove).not.toHaveBeenCalled();
+  });
+
+  it('🔴 спрашивает окном панели, а не системным confirm', async () => {
+    const user = userEvent.setup();
+    const remove = vi.fn(async () => ({ ok: true }));
+
+    render(<ProductPhotos photos={photosFixture} api={{ ...acceptingApi, remove }} />);
+    await user.click(screen.getByRole('button', { name: texts.removeLabel(1) }));
+
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toHaveAccessibleName(texts.removeConfirm.title);
+    expect(remove).not.toHaveBeenCalled();
+
+    await user.click(
+      within(dialog).getByRole('button', { name: texts.removeConfirm.confirmLabel }),
+    );
+    await waitFor(() => expect(remove).toHaveBeenCalled());
   });
 
   it('отказ сервера объясняется и страница не перечитывается', async () => {
@@ -61,7 +78,7 @@ describe('Фотографии модели', () => {
         photos={photosFixture}
         api={failingApi}
         onChanged={onChanged}
-        confirmRemove={() => true}
+        confirmRemove={async () => true}
       />,
     );
 

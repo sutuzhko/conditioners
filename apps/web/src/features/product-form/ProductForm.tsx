@@ -2,7 +2,8 @@
 
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Checkbox, Input, Textarea } from '@/shared/ui';
+import { Button, Card, Checkbox, Input, Textarea, useConfirm } from '@/shared/ui';
+import type { Confirm } from '@/shared/ui';
 
 import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/lib/groupSpecs';
 
@@ -27,7 +28,8 @@ export interface ProductFormProps {
   /** Новая модель: подписи и кнопка называются иначе. */
   readonly isNew?: boolean | undefined;
   /** Подтверждение удаления. Подменяется в тестах — `confirm` в них недоступен. */
-  readonly confirmRemove?: ((message: string) => boolean) | undefined;
+  /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
+  readonly confirmRemove?: Confirm | undefined;
   /** Справочник характеристик: подсказки названий и типовые наборы (ADR-094). */
   readonly specDictionary?: SpecDictionary | undefined;
 }
@@ -49,9 +51,14 @@ export function ProductForm({
   remove,
   onDone,
   isNew = false,
-  confirmRemove = (message) => window.confirm(message),
+  confirmRemove,
   specDictionary = EMPTY_SPEC_DICTIONARY,
 }: ProductFormProps) {
+  /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
+     для тестов, чтобы не открывать окно ради проверки удаления. */
+  const { confirm, dialog } = useConfirm();
+  const ask = confirmRemove ?? confirm;
+
   const [values, setValues] = useState<ProductFormValues>(initial);
   const [status, setStatus] = useState<ProductFormStatus>('idle');
   const [message, setMessage] = useState('');
@@ -96,7 +103,7 @@ export function ProductForm({
 
   const handleRemove = async (): Promise<void> => {
     if (remove === undefined || busy) return;
-    if (!confirmRemove(texts.removeConfirm(values.name))) return;
+    if (!(await ask(texts.removeConfirm(values.name)))) return;
 
     setRemoving(true);
     const result = await remove();
@@ -277,6 +284,8 @@ export function ProductForm({
           </Button>
         )}
       </div>
+
+      {dialog}
     </form>
   );
 }

@@ -2,7 +2,8 @@
 
 import { useState, type FormEvent, type ReactNode } from 'react';
 
-import { Button, Card, Checkbox, Input, Textarea } from '@/shared/ui';
+import { Button, Card, Checkbox, Input, Textarea, useConfirm } from '@/shared/ui';
+import type { Confirm } from '@/shared/ui';
 
 import { articleFormContent as texts } from './content';
 import type { ArticleDelete, ArticleFormStatus, ArticleFormValues, ArticleSave } from './model';
@@ -22,7 +23,8 @@ export interface ArticleFormProps {
    * же, что и страница статьи, — второй разборщик разошёлся бы с первым.
    */
   readonly renderPreview?: ((body: string) => ReactNode) | undefined;
-  readonly confirmRemove?: ((message: string) => boolean) | undefined;
+  /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
+  readonly confirmRemove?: Confirm | undefined;
 }
 
 /** Форма статьи базы знаний. */
@@ -33,8 +35,13 @@ export function ArticleForm({
   onDone,
   isNew = false,
   renderPreview,
-  confirmRemove = (message) => window.confirm(message),
+  confirmRemove,
 }: ArticleFormProps) {
+  /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
+     для тестов, чтобы не открывать окно ради проверки удаления. */
+  const { confirm, dialog } = useConfirm();
+  const ask = confirmRemove ?? confirm;
+
   const [values, setValues] = useState<ArticleFormValues>(initial);
   const [status, setStatus] = useState<ArticleFormStatus>('idle');
   const [message, setMessage] = useState('');
@@ -76,7 +83,7 @@ export function ArticleForm({
 
   const handleRemove = async (): Promise<void> => {
     if (remove === undefined || busy) return;
-    if (!confirmRemove(texts.removeConfirm(values.title))) return;
+    if (!(await ask(texts.removeConfirm(values.title)))) return;
 
     setRemoving(true);
     const result = await remove();
@@ -247,6 +254,8 @@ export function ArticleForm({
           </Button>
         )}
       </div>
+
+      {dialog}
     </form>
   );
 }

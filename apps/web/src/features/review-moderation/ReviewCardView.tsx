@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { Badge, Button, Card, Rating } from '@/shared/ui';
+import { Badge, Button, Card, Rating, useConfirm } from '@/shared/ui';
+import type { Confirm } from '@/shared/ui';
 
 import { reviewModerationContent as texts } from './content';
 import type { ReviewApi, ReviewCard, ReviewStatus } from './model';
@@ -13,7 +14,8 @@ export interface ReviewCardViewProps {
   readonly review: ReviewCard;
   readonly api: ReviewApi;
   readonly onChanged?: (() => void) | undefined;
-  readonly confirmRemove?: ((message: string) => boolean) | undefined;
+  /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
+  readonly confirmRemove?: Confirm | undefined;
 }
 
 const STATUS_VARIANT: Record<ReviewStatus, 'accent' | 'success' | 'neutral' | 'warning'> = {
@@ -29,12 +31,12 @@ const STATUS_VARIANT: Record<ReviewStatus, 'accent' | 'success' | 'neutral' | 'w
  * 🔴 Текст выводится и не правится (инвариант 7). Действия — только статус и
  * удаление; отклонение и архив сохраняют отзыв в базе, удаление стирает.
  */
-export function ReviewCardView({
-  review,
-  api,
-  onChanged,
-  confirmRemove = (message) => window.confirm(message),
-}: ReviewCardViewProps) {
+export function ReviewCardView({ review, api, onChanged, confirmRemove }: ReviewCardViewProps) {
+  /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
+     для тестов, чтобы не открывать окно ради проверки удаления. */
+  const { confirm, dialog } = useConfirm();
+  const ask = confirmRemove ?? confirm;
+
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -136,8 +138,10 @@ export function ReviewCardView({
           className={styles.remove}
           disabled={busy}
           onClick={() => {
-            if (!confirmRemove(texts.removeConfirm)) return;
-            void run(() => api.remove(review.id));
+            void (async () => {
+              if (!(await ask(texts.removeConfirm))) return;
+              await run(() => api.remove(review.id));
+            })();
           }}
         >
           {texts.remove}
@@ -149,6 +153,8 @@ export function ReviewCardView({
           {message}
         </p>
       )}
+
+      {dialog}
     </Card>
   );
 }

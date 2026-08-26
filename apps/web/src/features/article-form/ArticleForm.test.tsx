@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -68,7 +68,7 @@ describe('Форма статьи', () => {
   it('удаление называет статью по заголовку и без подтверждения не идёт', async () => {
     const user = userEvent.setup();
     const remove = vi.fn();
-    const confirmRemove = vi.fn(() => false);
+    const confirmRemove = vi.fn(async () => false);
     render(
       <ArticleForm
         values={filledArticle}
@@ -80,8 +80,31 @@ describe('Форма статьи', () => {
 
     await user.click(screen.getByRole('button', { name: texts.remove }));
 
-    expect(confirmRemove).toHaveBeenCalledWith(expect.stringContaining(filledArticle.title));
+    expect(confirmRemove).toHaveBeenCalledWith(
+      expect.objectContaining({ title: expect.stringContaining(filledArticle.title) }),
+    );
     expect(remove).not.toHaveBeenCalled();
+  });
+});
+
+describe('Удаление статьи через окно подтверждения', () => {
+  it('🔴 спрашивает окном панели, а не системным confirm', async () => {
+    const user = userEvent.setup();
+    const remove = vi.fn(async () => ({ ok: true }));
+
+    render(<ArticleForm values={filledArticle} save={vi.fn()} remove={remove} />);
+    await user.click(screen.getByRole('button', { name: texts.remove }));
+
+    // окно есть в разметке — без него обещание не разрешится и удаление
+    // молча не случится
+    const request = texts.removeConfirm(filledArticle.title);
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toHaveAccessibleName(request.title);
+    expect(remove).not.toHaveBeenCalled();
+
+    // ищем внутри окна: кнопка формы называется тем же словом
+    await user.click(within(dialog).getByRole('button', { name: request.confirmLabel }));
+    await waitFor(() => expect(remove).toHaveBeenCalled());
   });
 });
 

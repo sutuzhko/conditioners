@@ -1,4 +1,6 @@
 /** Подписи формы статьи. */
+import type { ConfirmRequest } from '@/shared/ui';
+
 export const articleFormContent = {
   createTitle: 'Новая статья',
   listTitle: 'База знаний',
@@ -37,8 +39,11 @@ export const articleFormContent = {
 
   remove: 'Удалить статью',
   removing: 'Удаляем…',
-  removeConfirm: (title: string): string =>
-    `Удалить статью «${title}»? Отменить это будет нельзя, а её адрес станет недоступен.`,
+  removeConfirm: (title: string): ConfirmRequest => ({
+    title: `Удалить статью «${title}»?`,
+    description: 'Отменить это будет нельзя, а её адрес станет недоступен.',
+    confirmLabel: 'Удалить статью',
+  }),
 
   networkError: 'Не удалось связаться с сервером. Изменения не сохранены',
   serverError: 'Сервер не принял изменения. Попробуйте ещё раз',

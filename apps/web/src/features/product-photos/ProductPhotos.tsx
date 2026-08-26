@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { Badge, Button, Card, FileInput, Input } from '@/shared/ui';
+import { Badge, Button, Card, FileInput, Input, useConfirm } from '@/shared/ui';
+import type { Confirm } from '@/shared/ui';
 
 import { productPhotosContent as texts } from './content';
 import type { PhotoApi, PhotoItem } from './model';
@@ -14,7 +15,8 @@ export interface ProductPhotosProps {
   readonly api: PhotoApi;
   /** Обновить страницу после успешной правки: список приходит с сервера. */
   readonly onChanged?: (() => void) | undefined;
-  readonly confirmRemove?: ((message: string) => boolean) | undefined;
+  /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
+  readonly confirmRemove?: Confirm | undefined;
 }
 
 /** Размер миниатюры. Задан числом: `next/image` требует ширину и высоту (инвариант 13). */
@@ -27,12 +29,12 @@ const THUMB = 132;
  * перечитывается. Держать локальную копию списка значит расходиться с базой
  * при первой же ошибке.
  */
-export function ProductPhotos({
-  photos,
-  api,
-  onChanged,
-  confirmRemove = (message) => window.confirm(message),
-}: ProductPhotosProps) {
+export function ProductPhotos({ photos, api, onChanged, confirmRemove }: ProductPhotosProps) {
+  /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
+     для тестов, чтобы не открывать окно ради проверки удаления. */
+  const { confirm, dialog } = useConfirm();
+  const ask = confirmRemove ?? confirm;
+
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
   /** Подписи правятся локально: сохраняются они по уходу фокуса, а не по вводу. */
@@ -128,8 +130,10 @@ export function ProductPhotos({
                   disabled={busy}
                   aria-label={texts.removeLabel(index + 1)}
                   onClick={() => {
-                    if (!confirmRemove(texts.removeConfirm)) return;
-                    void run(() => api.remove(photo.id));
+                    void (async () => {
+                      if (!(await ask(texts.removeConfirm))) return;
+                      await run(() => api.remove(photo.id));
+                    })();
                   }}
                 >
                   {texts.remove}
@@ -153,6 +157,8 @@ export function ProductPhotos({
           {message}
         </p>
       )}
+
+      {dialog}
     </Card>
   );
 }

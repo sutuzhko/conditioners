@@ -14,7 +14,7 @@ const filled = {
 const meta = {
   title: 'Админка/Форма клиента',
   component: ClientForm,
-  args: { api: acceptingApi, confirmRemove: () => true },
+  args: { api: acceptingApi, confirmRemove: async () => true },
 } satisfies Meta<typeof ClientForm>;
 
 export default meta;

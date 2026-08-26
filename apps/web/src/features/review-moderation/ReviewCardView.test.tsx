@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -47,7 +47,7 @@ describe('Отзыв в модерации', () => {
 
   it('удаление спрашивает подтверждение и объясняет разницу с отклонением', async () => {
     const user = userEvent.setup();
-    const confirmRemove = vi.fn(() => false);
+    const confirmRemove = vi.fn(async () => false);
     const remove = vi.fn();
     render(
       <ReviewCardView
@@ -61,6 +61,22 @@ describe('Отзыв в модерации', () => {
 
     expect(confirmRemove).toHaveBeenCalledWith(texts.removeConfirm);
     expect(remove).not.toHaveBeenCalled();
+  });
+
+  it('🔴 подтверждение спрашивается окном панели, а не системным confirm', async () => {
+    const user = userEvent.setup();
+    const remove = vi.fn(async () => ({ ok: true }));
+
+    render(<ReviewCardView review={pendingReview} api={{ ...acceptingApi, remove }} />);
+    await user.click(screen.getByRole('button', { name: texts.remove }));
+
+    // окно есть в разметке — без него обещание не разрешится и удаление
+    // молча не случится
+    expect(await screen.findByRole('dialog')).toHaveAccessibleName(texts.removeConfirm.title);
+    expect(remove).not.toHaveBeenCalled();
+
+    await user.click(screen.getByRole('button', { name: texts.removeConfirm.confirmLabel }));
+    await waitFor(() => expect(remove).toHaveBeenCalledWith(pendingReview.id));
   });
 
   it('отказ сервера объясняется и страница не перечитывается', async () => {

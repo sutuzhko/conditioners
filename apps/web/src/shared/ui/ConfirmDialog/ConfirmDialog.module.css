@@ -1,0 +1,12 @@
+/* Класс удвоен намеренно (ADR-038): цвет кнопки-призрака задан в ките с той
+   же специфичностью, и при равной специфичности выигрывает порядок сборки. */
+.danger.danger {
+  color: var(--error-ink);
+  border-color: var(--error-line);
+  background: var(--error-bg);
+}
+
+.danger.danger:hover:not(:disabled) {
+  background: var(--error-line);
+  color: var(--on-accent);
+}

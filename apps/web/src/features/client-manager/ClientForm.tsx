@@ -3,7 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Input, PhoneInput, Textarea } from '@/shared/ui';
+import { Button, Card, Input, PhoneInput, Textarea, useConfirm } from '@/shared/ui';
+import type { Confirm } from '@/shared/ui';
 
 import { clientManagerContent as texts } from './content';
 import { clientApi } from './lib';
@@ -22,7 +23,8 @@ export interface ClientFormProps {
   /** Показывать ли удаление карточки. Только у существующего клиента. */
   readonly removable?: boolean | undefined;
   /** Подтверждение выведено пропом: тесты и истории не зовут окно браузера. */
-  readonly confirmRemove?: ((message: string) => boolean) | undefined;
+  /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
+  readonly confirmRemove?: Confirm | undefined;
 }
 
 /**
@@ -39,8 +41,13 @@ export function ClientForm({
   hint = texts.addHint,
   onSaved,
   removable = false,
-  confirmRemove = (message) => window.confirm(message),
+  confirmRemove,
 }: ClientFormProps) {
+  /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
+     для тестов, чтобы не открывать окно ради проверки удаления. */
+  const { confirm, dialog } = useConfirm();
+  const ask = confirmRemove ?? confirm;
+
   const router = useRouter();
   const [draft, setDraft] = useState<ClientDraft>(initial);
   const [status, setStatus] = useState<ClientStatus>('idle');
@@ -91,7 +98,7 @@ export function ClientForm({
    */
   const handleRemove = async (id: string): Promise<void> => {
     if (busy) return;
-    if (!confirmRemove(texts.removeConfirm(draft.name))) return;
+    if (!(await ask(texts.removeConfirm(draft.name)))) return;
 
     setRemoving(true);
     setMessage('');
@@ -185,6 +192,8 @@ export function ClientForm({
           </p>
         ) : null}
       </form>
+
+      {dialog}
     </Card>
   );
 }
