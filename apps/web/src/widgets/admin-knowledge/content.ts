@@ -1,4 +1,6 @@
 /** Подписи списка статей. */
+import { formatDateShort } from '@/shared/lib/format';
+
 export const adminKnowledgeContent = {
   title: 'База знаний',
   lead: 'Статьи — поисковый актив сайта. Скопированный у конкурента текст не просто не даст трафика, он утянет вниз весь домен.',
@@ -20,11 +22,5 @@ export const adminKnowledgeContent = {
 
   editLabel: (title: string): string => `Править: ${title}`,
   minutes: (value: number): string => `${value} мин`,
-  date: (iso: string): string =>
-    new Date(iso).toLocaleDateString('ru-RU', {
-      timeZone: 'Europe/Moscow',
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    }),
+  date: (iso: string): string => formatDateShort(iso),
 } as const;

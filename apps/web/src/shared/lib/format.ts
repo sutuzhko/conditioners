@@ -133,6 +133,47 @@ export function formatDate(value: Date | string | number, timeZone = DISPLAY_TIM
   return `${take('day')} ${take('month')} ${take('year')}`;
 }
 
+/**
+ * Часовой пояс, в котором работает админка.
+ *
+ * Даты публичных страниц календарные (полночь UTC) и форматируются в UTC —
+ * см. `DISPLAY_TIME_ZONE`. В админке даты другие: это моменты событий —
+ * когда пришла заявка, когда дано согласие, когда оставлен отзыв. Их владелец
+ * сверяет со своим днём в Туле, а не с поясом браузера, из которого смотрит.
+ */
+export const ADMIN_TIME_ZONE = 'Europe/Moscow';
+
+/** Дата колонкой: `12.05.2026`. Списки админки читают глазами по вертикали. */
+export function formatDateShort(value: Date | string | number, timeZone = ADMIN_TIME_ZONE): string {
+  const date = toDate(value);
+  if (Number.isNaN(date.getTime())) return '';
+
+  return new Intl.DateTimeFormat('ru-RU', {
+    timeZone,
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  }).format(date);
+}
+
+/**
+ * Дата с временем: `12.05.2026, 14:30`. Нужна там, где важен не день, а
+ * момент: во сколько пришла заявка и когда именно дано согласие по 152-ФЗ.
+ */
+export function formatDateTime(value: Date | string | number, timeZone = ADMIN_TIME_ZONE): string {
+  const date = toDate(value);
+  if (Number.isNaN(date.getTime())) return '';
+
+  return new Intl.DateTimeFormat('ru-RU', {
+    timeZone,
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
+}
+
 /** Дата для `datetime` и JSON-LD: `2026-05-12`. */
 export function formatDateIso(value: Date | string | number, timeZone = DISPLAY_TIME_ZONE): string {
   const date = toDate(value);

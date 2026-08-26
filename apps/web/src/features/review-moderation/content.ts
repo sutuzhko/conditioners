@@ -1,4 +1,5 @@
 /** Подписи модерации отзывов. */
+import { formatDateShort } from '@/shared/lib/format';
 import type { ReviewStatus } from './model';
 
 const STATUS_TITLES: Record<ReviewStatus, string> = {
@@ -34,13 +35,7 @@ export const reviewModerationContent = {
   rating: (value: number): string => `Оценка ${value} из 5`,
   photoAlt: (name: string): string => `Фотография к отзыву: ${name}`,
   statusTitle: (status: ReviewStatus): string => STATUS_TITLES[status],
-  when: (iso: string): string =>
-    new Date(iso).toLocaleDateString('ru-RU', {
-      timeZone: 'Europe/Moscow',
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    }),
+  when: (iso: string): string => formatDateShort(iso),
 
   serverError: 'Сервер не принял изменения. Попробуйте ещё раз',
   networkError: 'Не удалось связаться с сервером. Изменения не сохранены',

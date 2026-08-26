@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest';
 import {
   formatDegrees,
   formatDate,
+  formatDateShort,
+  formatDateTime,
   formatDateIso,
   formatMoney,
   formatNumber,
@@ -120,5 +122,28 @@ describe('formatDateIso', () => {
   it('даёт значение для datetime и JSON-LD', () => {
     expect(formatDateIso('2026-05-12T21:00:00Z')).toBe('2026-05-12');
     expect(formatDateIso(new Date('2026-12-31T00:00:00Z'))).toBe('2026-12-31');
+  });
+});
+
+describe('formatDateShort и formatDateTime', () => {
+  it('дают колонку админки и момент события', () => {
+    expect(formatDateShort('2026-05-12T09:30:00Z')).toBe('12.05.2026');
+    expect(formatDateTime('2026-05-12T09:30:00Z')).toBe('12.05.2026, 12:30');
+  });
+
+  it('считают по Туле, а не по поясу того, кто смотрит', () => {
+    // 21:30 UTC — это уже следующий день по Москве, и владелец увидит именно его
+    expect(formatDateShort('2026-05-12T21:30:00Z')).toBe('13.05.2026');
+    expect(formatDateTime('2026-05-12T21:30:00Z')).toBe('13.05.2026, 00:30');
+  });
+
+  it('часовой пояс можно задать явно', () => {
+    expect(formatDateShort('2026-05-12T21:30:00Z', 'UTC')).toBe('12.05.2026');
+    expect(formatDateTime('2026-05-12T21:30:00Z', 'UTC')).toBe('12.05.2026, 21:30');
+  });
+
+  it('некорректная дата не роняет страницу', () => {
+    expect(formatDateShort('не дата')).toBe('');
+    expect(formatDateTime('не дата')).toBe('');
   });
 });

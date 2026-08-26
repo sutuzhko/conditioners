@@ -1,5 +1,7 @@
 /** Подписи раздела команды. */
 
+import { formatDateShort, formatDateTime } from '@/shared/lib/format';
+
 export const staffManagerContent = {
   title: 'Монтажники',
   lead: 'Команда: доступ в панель, телефоны и заметки. Монтажник видит только назначенные ему наряды, календарь и свой профиль.',
@@ -59,20 +61,6 @@ export const staffManagerContent = {
   serverError: 'Сервер не принял изменения. Попробуйте ещё раз',
 
   /** Даты — по Москве: команда работает в Туле, а не в поясе того, кто смотрит. */
-  date: (iso: string): string =>
-    new Date(iso).toLocaleDateString('ru-RU', {
-      timeZone: 'Europe/Moscow',
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    }),
-  when: (iso: string): string =>
-    new Date(iso).toLocaleString('ru-RU', {
-      timeZone: 'Europe/Moscow',
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    }),
+  date: (iso: string): string => formatDateShort(iso),
+  when: (iso: string): string => formatDateTime(iso),
 } as const;

@@ -1,4 +1,6 @@
 /** Подписи формы скидки. */
+import { formatMoney } from '@/shared/lib/format';
+
 export const productSaleContent = {
   title: 'Скидка',
 
@@ -24,7 +26,7 @@ export const productSaleContent = {
 
   /** Считаем то же, что покажет сайт, — чтобы владелец увидел это до сохранения. */
   preview: (percent: number, price: number, old: number): string =>
-    `На сайте: −${percent}%, ${price.toLocaleString('ru-RU')} ₽ вместо ${old.toLocaleString('ru-RU')} ₽`,
+    `На сайте: −${percent}%, ${formatMoney(price)} вместо ${formatMoney(old)}`,
   priceTooHigh: 'Цена со скидкой не ниже обычной — на сайте скидка не появится',
   periodBackwards: 'Дата окончания раньше начала — скидка не начнётся',
 
