@@ -9,6 +9,8 @@ import {
 } from '@/features/lead-manager';
 import { requireOwnerPage } from '@/server/guards';
 import { listByStatus } from '@/server/repo/leads';
+import { pageNumber } from '@/shared/lib/paging';
+import { Pager } from '@/shared/ui';
 
 import styles from './page.module.css';
 
@@ -19,20 +21,22 @@ export const dynamic = 'force-dynamic';
 /**
  * Заявки с сайта.
  *
- * Фильтр по статусу — ссылками, а не состоянием на клиенте: адрес выбранного
- * статуса можно сохранить в закладки и вернуться к нему завтра.
+ * Фильтр по статусу и номер страницы — ссылками, а не состоянием на клиенте:
+ * адрес выбранного статуса можно сохранить в закладки и вернуться к нему
+ * завтра. Разбивка рисуется здесь, а не внутри списка: список интерактивен и
+ * едет в браузер, а переход между страницами — обычная навигация по адресу.
  */
 export default async function AdminLeadsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string }>;
+  searchParams: Promise<{ status?: string; page?: string }>;
 }) {
   /* Раздел владельца: проверка до чтения данных (ADR-095). */
   await requireOwnerPage();
 
-  const { status } = await searchParams;
+  const { status, page } = await searchParams;
   const selected = status !== undefined && isLeadStatus(status) ? status : undefined;
-  const leads = await listByStatus(selected);
+  const found = await listByStatus({ status: selected, page: pageNumber(page) });
 
   return (
     <div className={styles.page}>
@@ -64,7 +68,14 @@ export default async function AdminLeadsPage({
         ))}
       </nav>
 
-      <LeadList leads={leads} filtered={selected !== undefined} />
+      <LeadList leads={found.items} filtered={selected !== undefined} />
+
+      <Pager
+        page={found.page}
+        pages={found.pages}
+        basePath="/admin/leads"
+        query={selected === undefined ? undefined : { status: selected }}
+      />
     </div>
   );
 }

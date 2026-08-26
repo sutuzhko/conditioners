@@ -63,7 +63,7 @@ const context = { params: Promise.resolve({ id: 'l1' }) };
 beforeEach(() => {
   vi.clearAllMocks();
   vi.mocked(getAdminSession).mockResolvedValue(session);
-  vi.mocked(leads.listByStatus).mockResolvedValue([lead]);
+  vi.mocked(leads.listByStatus).mockResolvedValue({ items: [lead], total: 1, page: 1, pages: 1 });
   vi.mocked(leads.update).mockResolvedValue({ ...lead, status: 'in_progress' });
 });
 
@@ -81,13 +81,23 @@ describe('список заявок', () => {
     const response = await GET(request('/api/admin/leads?status=in_progress'), undefined);
 
     expect(response.status).toBe(200);
-    expect(leads.listByStatus).toHaveBeenCalledWith('in_progress');
+    expect(leads.listByStatus).toHaveBeenCalledWith({ status: 'in_progress', page: 1 });
+  });
+
+  it('номер страницы читается из адреса, мусор — первая страница', async () => {
+    await GET(request('/api/admin/leads?page=4'), undefined);
+    expect(leads.listByStatus).toHaveBeenCalledWith({ status: undefined, page: 4 });
+
+    // адрес правят руками и присылают друг другу: отказ вместо списка там
+    // ничего не объясняет
+    await GET(request('/api/admin/leads?page=нет'), undefined);
+    expect(leads.listByStatus).toHaveBeenLastCalledWith({ status: undefined, page: 1 });
   });
 
   it('пустой фильтр означает «все»', async () => {
     await GET(request('/api/admin/leads?status='), undefined);
 
-    expect(leads.listByStatus).toHaveBeenCalledWith(undefined);
+    expect(leads.listByStatus).toHaveBeenCalledWith({ status: undefined, page: 1 });
   });
 
   it('неизвестный статус отклоняется', async () => {

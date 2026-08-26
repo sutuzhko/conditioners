@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import type { Page } from '@/shared/lib/paging';
 import { phoneField } from '@/shared/lib/zod';
 
 /**
@@ -59,14 +60,6 @@ export const clientUpdateSchema = z
 
 export type ClientUpdate = z.infer<typeof clientUpdateSchema>;
 
-/**
- * Сколько карточек показывается на странице списка.
- *
- * Восемь — из прототипа CRM. Значение общее для запроса и для разбивки:
- * список, посчитавший страницы по своему числу, показал бы пустую последнюю.
- */
-export const CLIENTS_PAGE_SIZE = 8;
-
 /** Клиент в списке и в карточке. */
 export type ClientCard = {
   readonly id: string;
@@ -81,21 +74,5 @@ export type ClientCard = {
   readonly leadCount: number;
 };
 
-/** Страница списка: сами карточки и всё, что нужно для разбивки. */
-export type ClientPage = {
-  readonly items: readonly ClientCard[];
-  readonly total: number;
-  readonly page: number;
-  readonly pages: number;
-};
-
-/**
- * Номер страницы из адресной строки.
- *
- * Мусор и ноль — это первая страница, а не ошибка: адрес правят руками и
- * присылают друг другу, и отказ вместо списка там ничего не объясняет.
- */
-export function pageNumber(raw: string | undefined): number {
-  const parsed = Number.parseInt(raw ?? '', 10);
-  return Number.isFinite(parsed) && parsed > 1 ? parsed : 1;
-}
+/** Страница списка карточек — разбивка общая для разделов панели. */
+export type ClientPage = Page<ClientCard>;

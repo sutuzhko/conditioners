@@ -3,7 +3,7 @@ import type { LeadStatus } from '@/entities/lead/model';
 
 export type { ClientCard, ClientCreate, ClientPage, ClientUpdate } from '@/entities/client/model';
 
-export { CLIENTS_PAGE_SIZE, pageNumber } from '@/entities/client/model';
+export { ADMIN_PAGE_SIZE, pageNumber } from '@/shared/lib/paging';
 
 export { leadStatusTitle, type LeadStatus } from '@/entities/lead/model';
 

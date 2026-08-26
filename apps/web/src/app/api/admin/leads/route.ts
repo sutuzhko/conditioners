@@ -2,6 +2,7 @@
  * Заявки — docs/API.md §8. Внутренний раздел: на сайте не показывается нигде.
  */
 import { apiError, json, withAdmin } from '@/server/http';
+import { pageNumber } from '@/shared/lib/paging';
 import { listByStatus, type LeadStatusApi } from '@/server/repo/leads';
 
 export const dynamic = 'force-dynamic';
@@ -20,5 +21,7 @@ export const GET = withAdmin(async (request) => {
   }
 
   const status = raw === null || raw === '' ? undefined : raw;
-  return json(await listByStatus(status));
+  const page = pageNumber(request.nextUrl.searchParams.get('page') ?? undefined);
+
+  return json(await listByStatus({ status, page }));
 });

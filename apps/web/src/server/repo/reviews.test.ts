@@ -34,6 +34,7 @@ beforeEach(() => {
   vi.mocked(db.review.findMany).mockResolvedValue([row]);
   vi.mocked(db.review.findUnique).mockResolvedValue(row);
   vi.mocked(db.review.update).mockResolvedValue({ ...row, status: 'APPROVED' });
+  vi.mocked(db.review.count).mockResolvedValue(1);
 });
 
 describe('чтение отзывов', () => {
@@ -46,7 +47,7 @@ describe('чтение отзывов', () => {
   });
 
   it('админка фильтрует по статусу', async () => {
-    await reviews.listByStatus('rejected');
+    await reviews.listByStatus({ status: 'rejected' });
 
     expect(db.review.findMany).toHaveBeenCalledWith(
       expect.objectContaining({ where: { status: 'REJECTED' } }),
@@ -57,6 +58,24 @@ describe('чтение отзывов', () => {
     await reviews.listByStatus();
 
     expect(db.review.findMany).toHaveBeenCalledWith(expect.objectContaining({ where: {} }));
+  });
+
+  it('🔴 список ограничен страницей: архив отзывов только растёт', async () => {
+    vi.mocked(db.review.count).mockResolvedValue(20);
+
+    const page = await reviews.listByStatus({ page: 2 });
+
+    expect(db.review.findMany).toHaveBeenCalledWith(expect.objectContaining({ skip: 8, take: 8 }));
+    expect(page).toMatchObject({ total: 20, page: 2, pages: 3 });
+  });
+
+  it('страница за пределами списка прижимается к последней', async () => {
+    vi.mocked(db.review.count).mockResolvedValue(9);
+
+    const page = await reviews.listByStatus({ page: 99 });
+
+    expect(page).toMatchObject({ page: 2, pages: 2 });
+    expect(db.review.findMany).toHaveBeenCalledWith(expect.objectContaining({ skip: 8 }));
   });
 });
 

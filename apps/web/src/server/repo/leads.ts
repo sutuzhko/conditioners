@@ -8,6 +8,7 @@ import type { LeadStatus, Prisma } from '@prisma/client';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import type { LeadUpdate } from '@/entities/lead/model';
+import { pageWindow, type Page } from '@/shared/lib/paging';
 
 export type LeadStatusApi = 'new' | 'in_progress' | 'done' | 'rejected';
 
@@ -65,12 +66,41 @@ function toDto(row: LeadRow): LeadDto {
   };
 }
 
-export async function listByStatus(status?: LeadStatusApi): Promise<LeadDto[]> {
+function whereStatus(status?: LeadStatusApi): Prisma.LeadWhereInput {
+  return status === undefined ? {} : { status: TO_DB[status] };
+}
+
+/**
+ * Страница списка заявок.
+ *
+ * 🔴 С `take`, а не «все за всё время»: за годы работы список вырастает без
+ * потолка, и запрос без границы однажды кладёт панель вместе с базой. Номер
+ * страницы приходит из адреса и может указывать за пределы списка — тогда он
+ * прижимается к последней существующей (`pageWindow`).
+ */
+export async function listByStatus(
+  params: { status?: LeadStatusApi | undefined; page?: number | undefined } = {},
+): Promise<Page<LeadDto>> {
+  const where = whereStatus(params.status);
+  const total = await db.lead.count({ where });
+  const { page, pages, skip, take } = pageWindow(total, params.page ?? 1);
+
   const rows = await db.lead.findMany({
-    where: status === undefined ? {} : { status: TO_DB[status] },
+    where,
     orderBy: { createdAt: 'desc' },
+    skip,
+    take,
   });
-  return rows.map(toDto);
+
+  return { items: rows.map(toDto), total, page, pages };
+}
+
+/**
+ * Сколько заявок в статусе. Сводка панели показывает число новых, и тянуть
+ * ради него все записи в память незачем.
+ */
+export async function countByStatus(status?: LeadStatusApi): Promise<number> {
+  return db.lead.count({ where: whereStatus(status) });
 }
 
 /**

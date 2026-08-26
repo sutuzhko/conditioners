@@ -2,7 +2,7 @@ import { KIND_LOOK } from '@/features/crm-calendar';
 import { requireOwnerPage } from '@/server/guards';
 import { listAll as listArticles } from '@/server/repo/articles';
 import { listUpcoming } from '@/server/repo/crm';
-import { listByStatus as listLeads } from '@/server/repo/leads';
+import { countByStatus as countLeads } from '@/server/repo/leads';
 import { listAll as listProducts } from '@/server/repo/products';
 import { countPending } from '@/server/repo/reviews';
 import { readiness } from '@/server/repo/settings';
@@ -40,7 +40,7 @@ export default async function AdminHomePage() {
 
   const [report, newLeads, pendingReviews, products, articles, events] = await Promise.all([
     readiness(),
-    listLeads('new'),
+    countLeads('new'),
     countPending(),
     listProducts(),
     listArticles(),
@@ -75,7 +75,7 @@ export default async function AdminHomePage() {
   return (
     <AdminSummary
       counts={{
-        newLeads: newLeads.length,
+        newLeads,
         pendingReviews,
         models: products.length,
         articles: articles.length,

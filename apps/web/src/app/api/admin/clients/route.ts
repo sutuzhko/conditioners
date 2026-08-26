@@ -5,7 +5,8 @@
  * адрес только своего наряда. Проверка роли — в `withOwner`, а не в разметке
  * (ADR-092, ADR-105).
  */
-import { clientCreateSchema, pageNumber } from '@/entities/client/model';
+import { clientCreateSchema } from '@/entities/client/model';
+import { pageNumber } from '@/shared/lib/paging';
 import { json, readJson, validationError, withOwner } from '@/server/http';
 import { create, list } from '@/server/repo/clients';
 

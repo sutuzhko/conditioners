@@ -50,7 +50,12 @@ function context(id: string): { params: Promise<{ id: string }> } {
 beforeEach(() => {
   vi.clearAllMocks();
   vi.mocked(getAdminSession).mockResolvedValue(session);
-  vi.mocked(reviews.listByStatus).mockResolvedValue([stored]);
+  vi.mocked(reviews.listByStatus).mockResolvedValue({
+    items: [stored],
+    total: 1,
+    page: 1,
+    pages: 1,
+  });
   vi.mocked(reviews.setStatus).mockResolvedValue({ ...stored, status: 'approved' });
   vi.mocked(reviews.remove).mockResolvedValue({ photo: null, avatar: null });
 });
@@ -69,13 +74,21 @@ describe('список отзывов', () => {
     const response = await GET(request('/api/admin/reviews?status=pending'), undefined);
 
     expect(response.status).toBe(200);
-    expect(reviews.listByStatus).toHaveBeenCalledWith('pending');
+    expect(reviews.listByStatus).toHaveBeenCalledWith({ status: 'pending', page: 1 });
   });
 
   it('без фильтра отдаёт все', async () => {
     await GET(request('/api/admin/reviews'), undefined);
 
-    expect(reviews.listByStatus).toHaveBeenCalledWith(undefined);
+    expect(reviews.listByStatus).toHaveBeenCalledWith({ status: undefined, page: 1 });
+  });
+
+  it('номер страницы читается из адреса, мусор — первая страница', async () => {
+    await GET(request('/api/admin/reviews?page=3'), undefined);
+    expect(reviews.listByStatus).toHaveBeenCalledWith({ status: undefined, page: 3 });
+
+    await GET(request('/api/admin/reviews?page=нет'), undefined);
+    expect(reviews.listByStatus).toHaveBeenLastCalledWith({ status: undefined, page: 1 });
   });
 
   it('неизвестный статус — ошибка валидации, а не пустой список', async () => {

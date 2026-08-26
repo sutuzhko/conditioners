@@ -6,7 +6,6 @@
 import type { Prisma } from '@prisma/client';
 
 import {
-  CLIENTS_PAGE_SIZE,
   type ClientCard,
   type ClientCreate,
   type ClientPage,
@@ -14,6 +13,7 @@ import {
 } from '@/entities/client/model';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
+import { pageWindow } from '@/shared/lib/paging';
 import { phoneBody, phoneKey } from '@/shared/lib/phone';
 
 const clientSelect = {
@@ -85,15 +85,14 @@ export async function list(params: {
 }): Promise<ClientPage> {
   const where = searchWhere(params.query ?? '');
   const total = await db.client.count({ where });
-  const pages = Math.max(1, Math.ceil(total / CLIENTS_PAGE_SIZE));
-  const page = Math.min(Math.max(1, params.page ?? 1), pages);
+  const { page, pages, skip, take } = pageWindow(total, params.page ?? 1);
 
   const rows = await db.client.findMany({
     where,
     select: clientSelect,
     orderBy: { createdAt: 'desc' },
-    skip: (page - 1) * CLIENTS_PAGE_SIZE,
-    take: CLIENTS_PAGE_SIZE,
+    skip,
+    take,
   });
 
   return { items: rows.map(toCard), total, page, pages };

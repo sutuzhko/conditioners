@@ -30,7 +30,16 @@ const leadSchema = z.object({
   phone: z.string(),
   status: z.string(),
 });
-const leadListSchema = z.array(leadSchema);
+
+/**
+ * Списки админки приходят страницами: `{ items, total, page, pages }`
+ * (docs/API.md §7, §8). Помощнику нужны сами записи — свежие лежат на первой
+ * странице, а тесты ищут только что созданную.
+ */
+const pageOf = <T extends z.ZodTypeAny>(item: T) =>
+  z.object({ items: z.array(item), total: z.number(), page: z.number(), pages: z.number() });
+
+const leadListSchema = pageOf(leadSchema);
 export type AdminLead = z.infer<typeof leadSchema>;
 
 const reviewSchema = z.object({
@@ -38,7 +47,7 @@ const reviewSchema = z.object({
   name: z.string(),
   status: z.string(),
 });
-const reviewListSchema = z.array(reviewSchema);
+const reviewListSchema = pageOf(reviewSchema);
 export type AdminReview = z.infer<typeof reviewSchema>;
 
 const pricesSchema = z.object({
@@ -107,7 +116,7 @@ export class AdminApi {
       headers: { Cookie: this.cookie },
       params: status === undefined ? {} : { status },
     });
-    return leadListSchema.parse(await this.json(response, 'список заявок'));
+    return leadListSchema.parse(await this.json(response, 'список заявок')).items;
   }
 
   /**
@@ -128,7 +137,7 @@ export class AdminApi {
       headers: { Cookie: this.cookie },
       params: status === undefined ? {} : { status },
     });
-    return reviewListSchema.parse(await this.json(response, 'список отзывов'));
+    return reviewListSchema.parse(await this.json(response, 'список отзывов')).items;
   }
 
   async deleteReview(id: string): Promise<void> {

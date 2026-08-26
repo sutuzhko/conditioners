@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { clientCreateSchema, clientUpdateSchema, pageNumber } from './model';
+import { clientCreateSchema, clientUpdateSchema } from './model';
 
 const valid = {
   name: 'Ирина Соколова',
@@ -64,20 +64,5 @@ describe('правка карточки', () => {
 
   it('телефон правится наравне с остальным — люди меняют номера', () => {
     expect(clientUpdateSchema.safeParse({ phone: '+7 910 000-00-00' }).success).toBe(true);
-  });
-});
-
-describe('номер страницы из адреса', () => {
-  it('берётся как есть, начиная со второй', () => {
-    expect(pageNumber('3')).toBe(3);
-  });
-
-  it('🔴 мусор и ноль — это первая страница, а не ошибка', () => {
-    // адрес правят руками и присылают друг другу: отказ вместо списка там
-    // ничего не объясняет
-    expect(pageNumber('нет')).toBe(1);
-    expect(pageNumber('0')).toBe(1);
-    expect(pageNumber('-2')).toBe(1);
-    expect(pageNumber(undefined)).toBe(1);
   });
 });

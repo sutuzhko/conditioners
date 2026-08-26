@@ -8,7 +8,7 @@ export { ClientSearch, type ClientSearchProps } from './ClientSearch';
 export { clientManagerContent } from './content';
 export { clientApi } from './lib';
 export {
-  CLIENTS_PAGE_SIZE,
+  ADMIN_PAGE_SIZE,
   pageNumber,
   type ClientApi,
   type ClientCard,

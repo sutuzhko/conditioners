@@ -5,9 +5,10 @@
  * должно появиться функции, меняющей `text`, `name`, `rating` или `photo`:
  * модератор управляет только статусом. Редактируемый отзыв — не отзыв.
  */
-import type { ReviewStatus } from '@prisma/client';
+import type { Prisma, ReviewStatus } from '@prisma/client';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
+import { pageWindow, type Page } from '@/shared/lib/paging';
 
 export type ReviewStatusApi = 'pending' | 'approved' | 'rejected' | 'archived';
 
@@ -66,12 +67,30 @@ export async function listApproved(): Promise<ReviewDto[]> {
   return rows.map(toDto);
 }
 
-export async function listByStatus(status?: ReviewStatusApi): Promise<ReviewDto[]> {
+/**
+ * Страница списка отзывов.
+ *
+ * 🔴 С `take`, а не «все за всё время»: отклонённые и архивные не удаляются
+ * (инвариант 7), список только растёт, и запрос без границы однажды кладёт
+ * панель вместе с базой.
+ */
+export async function listByStatus(
+  params: { status?: ReviewStatusApi | undefined; page?: number | undefined } = {},
+): Promise<Page<ReviewDto>> {
+  const where: Prisma.ReviewWhereInput =
+    params.status === undefined ? {} : { status: TO_DB[params.status] };
+
+  const total = await db.review.count({ where });
+  const { page, pages, skip, take } = pageWindow(total, params.page ?? 1);
+
   const rows = await db.review.findMany({
-    where: status === undefined ? {} : { status: TO_DB[status] },
+    where,
     orderBy: { createdAt: 'desc' },
+    skip,
+    take,
   });
-  return rows.map(toDto);
+
+  return { items: rows.map(toDto), total, page, pages };
 }
 
 export async function countPending(): Promise<number> {

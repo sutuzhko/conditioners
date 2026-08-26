@@ -9,6 +9,8 @@ import {
 } from '@/features/review-moderation';
 import { requireOwnerPage } from '@/server/guards';
 import { listByStatus } from '@/server/repo/reviews';
+import { pageNumber } from '@/shared/lib/paging';
+import { Pager } from '@/shared/ui';
 
 import styles from '../leads/page.module.css';
 
@@ -20,19 +22,21 @@ export const dynamic = 'force-dynamic';
  * Модерация отзывов.
  *
  * По умолчанию открывается на «На модерации»: именно они требуют решения, а
- * остальные статусы — архив, в который заходят по надобности.
+ * остальные статусы — архив, в который заходят по надобности. Архив только
+ * растёт — отклонённые и архивные не удаляются (инвариант 7), — поэтому
+ * список разбит на страницы.
  */
 export default async function AdminReviewsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string }>;
+  searchParams: Promise<{ status?: string; page?: string }>;
 }) {
   /* Раздел владельца: проверка до чтения данных (ADR-095). */
   await requireOwnerPage();
 
-  const { status } = await searchParams;
+  const { status, page } = await searchParams;
   const selected = status !== undefined && isReviewStatus(status) ? status : undefined;
-  const reviews = await listByStatus(selected);
+  const found = await listByStatus({ status: selected, page: pageNumber(page) });
 
   return (
     <div className={styles.page}>
@@ -64,7 +68,14 @@ export default async function AdminReviewsPage({
         ))}
       </nav>
 
-      <ReviewList reviews={reviews} filtered={selected !== undefined} />
+      <ReviewList reviews={found.items} filtered={selected !== undefined} />
+
+      <Pager
+        page={found.page}
+        pages={found.pages}
+        basePath="/admin/reviews"
+        query={selected === undefined ? undefined : { status: selected }}
+      />
     </div>
   );
 }

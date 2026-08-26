@@ -5,6 +5,7 @@
  * Здесь только чтение списка по статусу.
  */
 import { apiError, json, withAdmin } from '@/server/http';
+import { pageNumber } from '@/shared/lib/paging';
 import { listByStatus, type ReviewStatusApi } from '@/server/repo/reviews';
 
 export const dynamic = 'force-dynamic';
@@ -23,5 +24,7 @@ export const GET = withAdmin(async (request) => {
   }
 
   const status = raw === null || raw === '' ? undefined : raw;
-  return json(await listByStatus(status));
+  const page = pageNumber(request.nextUrl.searchParams.get('page') ?? undefined);
+
+  return json(await listByStatus({ status, page }));
 });
