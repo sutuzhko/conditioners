@@ -98,6 +98,19 @@ export async function list(params: {
   return { items: rows.map(toCard), total, page, pages };
 }
 
+/**
+ * Все клиенты для выбора в наряде.
+ *
+ * Без разбивки намеренно: это не список для чтения, а содержимое одного
+ * `select` — страница, показавшая восемь человек из сорока, сделала бы
+ * остальных недоступными для наряда. Порядок по имени: в выпадающем списке
+ * ищут глазами, а не по дате появления.
+ */
+export async function listAll(): Promise<ClientCard[]> {
+  const rows = await db.client.findMany({ select: clientSelect, orderBy: { name: 'asc' } });
+  return rows.map(toCard);
+}
+
 export async function findById(id: string): Promise<ClientCard | null> {
   const row = await db.client.findUnique({ where: { id }, select: clientSelect });
   return row === null ? null : toCard(row);
