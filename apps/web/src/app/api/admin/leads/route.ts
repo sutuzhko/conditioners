@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 const STATUSES: readonly LeadStatusApi[] = ['new', 'in_progress', 'done', 'rejected'];
 
 function isStatus(value: string): value is LeadStatusApi {
-  return (STATUSES as readonly string[]).includes(value);
+  return STATUSES.some((status) => status === value);
 }
 
 export const GET = withAdmin(async (request) => {

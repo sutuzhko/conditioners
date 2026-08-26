@@ -6,7 +6,12 @@ import type { Prisma } from '@prisma/client';
 import { db } from '@/server/db';
 import { settingSchemas, type SettingKey } from '@/entities/settings/model';
 import type { InstallRates } from '@/entities/price/model';
-import { PLACEHOLDER, REQUIRED_FIELDS, SETTING_KEYS } from '@/server/repo/settings-schemas';
+import {
+  PLACEHOLDER,
+  REQUIRED_FIELDS,
+  SETTING_KEYS,
+  isSettingKey,
+} from '@/server/repo/settings-schemas';
 
 export type SettingsMap = Partial<Record<SettingKey, unknown>>;
 
@@ -19,21 +24,30 @@ export async function getAll(): Promise<SettingsMap> {
   const rows = await db.setting.findMany({ where: { key: { in: [...SETTING_KEYS] } } });
   const result: SettingsMap = {};
   for (const row of rows) {
-    result[row.key as SettingKey] = row.value;
+    // ключ пришёл из базы: выборка ограничена реестром, но проверяет это
+    // запрос, а не тип — сужаем тем же предикатом, что и остальной код
+    if (isSettingKey(row.key)) result[row.key] = row.value;
   }
   return result;
 }
 
-/** Клиент передаётся, когда запись группы — часть чужой транзакции (прайс + ставки). */
+/**
+ * Клиент передаётся, когда запись группы — часть чужой транзакции (прайс + ставки).
+ *
+ * Значение типизировано входным JSON Prisma, а не `unknown`: приводить его к
+ * `never` на каждом из двух полей `upsert` было единственной причиной, по
+ * которой здесь стоял `as` (ADR-108). Сюда приходит разобранный схемой
+ * результат — он и есть JSON.
+ */
 export async function putGroup(
   key: SettingKey,
-  value: unknown,
+  value: Prisma.InputJsonValue,
   client: Prisma.TransactionClient = db,
 ): Promise<void> {
   await client.setting.upsert({
     where: { key },
-    create: { key, value: value as never },
-    update: { value: value as never },
+    create: { key, value },
+    update: { value },
   });
 }
 
@@ -52,6 +66,11 @@ export type ReadinessReport = {
   ready: boolean;
   groups: ReadinessGroup[];
 };
+
+/** Сужение вместо приведения типа: `as` на проекте запрещён (ADR-108). */
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
 
 function isEmpty(value: unknown): boolean {
   if (value === undefined || value === null) return true;
@@ -91,7 +110,7 @@ export function checkReadiness(settings: SettingsMap): ReadinessReport {
       return { key, ready: false, issues };
     }
 
-    const record = typeof value === 'object' ? (value as Record<string, unknown>) : {};
+    const record = isRecord(value) ? value : {};
 
     for (const field of REQUIRED_FIELDS[key]) {
       if (isEmpty(record[field])) issues.push({ field, reason: 'empty' });

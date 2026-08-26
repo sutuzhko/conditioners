@@ -56,7 +56,7 @@ export const servicesContent = {
       text: 'Чистка, диагностика, антибактериальная обработка и ремонт. Сезонное ТО — чтобы техника служила дольше.',
       link: 'Сервис и ремонт',
     },
-  ] as readonly ServiceCard[],
+  ] satisfies readonly ServiceCard[],
 } as const;
 
 export const whyUsContent = {

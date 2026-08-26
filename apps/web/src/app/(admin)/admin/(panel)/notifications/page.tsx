@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { DeliveryLog } from '@/features/delivery-log';
-import { NOTIFICATIONS_GROUP, SettingsForm, type GroupValue } from '@/features/settings-form';
+import { NOTIFICATIONS_GROUP, SettingsForm, toGroupValue } from '@/features/settings-form';
 import { requireOwnerPage } from '@/server/guards';
 import { isEmailConfigured } from '@/server/notifications/channels/email';
 import { isTelegramConfigured } from '@/server/notifications/channels/telegram';
@@ -65,10 +65,7 @@ export default async function AdminNotificationsPage() {
 
   const working = channels.filter((channel) => channel.chosen && channel.configured);
 
-  const value: GroupValue =
-    typeof stored === 'object' && stored !== null && !Array.isArray(stored)
-      ? (stored as GroupValue)
-      : {};
+  const value = toGroupValue(stored);
 
   return (
     <div className={styles.page}>

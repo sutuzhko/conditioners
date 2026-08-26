@@ -25,6 +25,12 @@ export const GET = withRoute(async (_request, context: { params: Promise<{ name:
     const info = await stat(path);
     if (!info.isFile()) return notFound('Файл');
 
+    /* 🔴 Единственное разрешённое приведение типа в проекте (ADR-108).
+       `Readable.toWeb` возвращает `ReadableStream` из `node:stream/web`, а
+       `Response` ждёт одноимённый тип из lib.dom — по структуре они
+       расходятся, хотя в рантайме это один и тот же объект. Альтернативы
+       хуже: читать файл в память нельзя (это фотографии клиентов), а
+       `fs.openAsBlob` в Node всё ещё экспериментальный. */
     const stream = Readable.toWeb(createReadStream(path)) as ReadableStream<Uint8Array>;
 
     return new Response(stream, {

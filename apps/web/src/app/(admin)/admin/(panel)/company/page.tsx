@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { SETTINGS_GROUPS, SettingsForm, type GroupValue } from '@/features/settings-form';
+import { SETTINGS_GROUPS, SettingsForm, toGroupValue } from '@/features/settings-form';
 import { requireOwnerPage } from '@/server/guards';
 import { getAll } from '@/server/repo/settings';
 
@@ -44,11 +44,7 @@ export default async function AdminCompanyPage() {
 
       <div className={styles.groups}>
         {SETTINGS_GROUPS.map((group) => {
-          const stored = settings[group.key];
-          const value: GroupValue =
-            typeof stored === 'object' && stored !== null && !Array.isArray(stored)
-              ? (stored as GroupValue)
-              : {};
+          const value = toGroupValue(settings[group.key]);
 
           return (
             <div id={group.key} key={group.key}>

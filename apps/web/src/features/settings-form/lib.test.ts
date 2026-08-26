@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, afterEach } from 'vitest';
 
-import { putGroup, readPath, writePath } from './lib';
+import { putGroup, readPath, toGroupValue, writePath } from './lib';
 
 describe('Настройки — путь внутри группы', () => {
   it('читает вложенное значение', () => {
@@ -32,6 +32,22 @@ describe('Настройки — путь внутри группы', () => {
     expect(writePath(value, 'messengerButtons.whatsapp', true)).toEqual({
       messengerButtons: { telegram: true, whatsapp: true },
     });
+  });
+});
+
+describe('Настройки — разбор сохранённой группы', () => {
+  it('объект открывается как есть', () => {
+    expect(toGroupValue({ lat: 54.19, lng: 37.61 })).toEqual({ lat: 54.19, lng: 37.61 });
+  });
+
+  it('любой другой JSON означает пустую форму, а не падение', () => {
+    // группа могла не сохраняться ни разу, а могла быть записана до появления
+    // схемы — форма обязана открыться в обоих случаях
+    expect(toGroupValue(null)).toEqual({});
+    expect(toGroupValue(undefined)).toEqual({});
+    expect(toGroupValue([1, 2])).toEqual({});
+    expect(toGroupValue('строка')).toEqual({});
+    expect(toGroupValue(42)).toEqual({});
   });
 });
 

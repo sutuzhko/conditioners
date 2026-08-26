@@ -10,6 +10,18 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 /**
+ * Сохранённая группа настроек из базы — какой угодно JSON.
+ *
+ * Форма открывается на чём угодно: массив, число и `null` из базы означают
+ * ровно то же, что и отсутствие группы, — пустую форму. Страница, которая
+ * приводила значение сама, повторяла эту проверку дважды и заканчивала её
+ * `as` (ADR-108).
+ */
+export function toGroupValue(stored: unknown): GroupValue {
+  return isRecord(stored) && !Array.isArray(stored) ? stored : {};
+}
+
+/**
  * Значение по пути вида `messengerButtons.telegram`.
  *
  * Отсутствующая ветка — это не ошибка: группа могла быть сохранена раньше,

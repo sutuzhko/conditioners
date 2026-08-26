@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 const STATUSES: readonly ReviewStatusApi[] = ['pending', 'approved', 'rejected', 'archived'];
 
 function isStatus(value: string): value is ReviewStatusApi {
-  return (STATUSES as readonly string[]).includes(value);
+  return STATUSES.some((status) => status === value);
 }
 
 export const GET = withAdmin(async (request) => {
