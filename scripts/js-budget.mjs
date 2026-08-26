@@ -34,8 +34,25 @@ const BUDGET = {
   own: 75,
 };
 
-/** Проверяем публичные страницы: панель за авторизацией бюджету не подлежит. */
-const PAGES = ['/page', '/knowledge/page', '/knowledge/[slug]/page', '/privacy/page'];
+/**
+ * Публичные страницы находятся сами, а не перечисляются списком.
+ *
+ * 🔴 Список руками уже подвёл: `/catalog` и `/catalog/[slug]` появились
+ * новыми публичными адресами (ADR-109) и в замер не попали вовсе — молча,
+ * потому что страница, которой нет в списке, просто не считается. Это ровно
+ * та болезнь, от которой заведён сам скрипт: бюджет уплывает шагами, каждый
+ * из которых не выглядит виноватым (ADR-088).
+ *
+ * Публичная — всё, что кончается на `/page` и не лежит под `/admin`: панель
+ * бюджету не подлежит, у неё нет ни выдачи, ни мобильного трафика с 4G.
+ */
+function publicPages(manifest) {
+  const pages = Object.keys(manifest.pages)
+    .map(normalize)
+    .filter((page) => page.endsWith('/page') && !page.startsWith('/admin/'));
+
+  return [...new Set(pages)].sort();
+}
 
 /**
  * В манифесте ключи несут группы маршрутов: `/(site)/page`. Группа — приём
@@ -97,7 +114,7 @@ function measure(page) {
 }
 
 const rows = [];
-for (const page of PAGES) {
+for (const page of publicPages(appManifest)) {
   const measured = measure(page);
   if (measured === null) continue;
   rows.push({ page, ...measured });
@@ -115,7 +132,7 @@ console.log('Бюджет JS (gzip, ADR-088)\n');
 for (const row of rows) {
   const итог = round((row.platform + row.own) / KB);
   console.log(
-    `  ${row.page.padEnd(24)} ${String(round(row.own / KB)).padStart(6)} КБ своих  · ${итог} КБ всего`,
+    `  ${row.page.padEnd(28)} ${String(round(row.own / KB)).padStart(6)} КБ своих  · ${итог} КБ всего`,
   );
 }
 console.log(
