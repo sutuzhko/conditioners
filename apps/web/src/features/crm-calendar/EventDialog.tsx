@@ -2,12 +2,14 @@
 
 import { useState, type FormEvent } from 'react';
 
+import { busyAt, busyOn, minutesOfTime } from '@/entities/crm/lib/busy';
 import { crmEventCreateSchema, isCrmEventKind } from '@/entities/crm/model';
+import { BusyNote } from '@/entities/crm/ui';
 import { Button, Input, Modal, PhoneInput, Select, Textarea } from '@/shared/ui';
 
 import { KIND_LOOK, crmContent as texts } from './content';
 import { createEvent, updateEvent } from './lib';
-import type { CrmEventDraft } from './model';
+import type { CrmEventDraft, DayBlockCard } from './model';
 import styles from './EventDialog.module.css';
 
 const KIND_OPTIONS = Object.entries(KIND_LOOK).map(([value, look]) => ({
@@ -22,6 +24,11 @@ export interface EventDialogProps {
   readonly draft: CrmEventDraft;
   /** Правка, а не создание: у существующего дела известен его номер. */
   readonly id?: string | undefined;
+  /**
+   * Занятость сетки: форма предупреждает о закрытом дне, но не запрещает
+   * сохранить. Срочный ремонт в жару важнее запрета — решает человек.
+   */
+  readonly blocks?: readonly DayBlockCard[] | undefined;
 }
 
 type Errors = Partial<Record<keyof CrmEventDraft, string>>;
@@ -48,7 +55,7 @@ function isDraftField(value: unknown): value is keyof CrmEventDraft {
  * Одно окно на оба случая намеренно — поля те же, а две почти одинаковые
  * формы разъезжаются при первой же правке.
  */
-export function EventDialog({ open, onClose, onSaved, draft, id }: EventDialogProps) {
+export function EventDialog({ open, onClose, onSaved, draft, id, blocks }: EventDialogProps) {
   const [form, setForm] = useState<CrmEventDraft>(draft);
   const [errors, setErrors] = useState<Errors>({});
   const [sending, setSending] = useState(false);
@@ -68,6 +75,15 @@ export function EventDialog({ open, onClose, onSaved, draft, id }: EventDialogPr
     setForm((current) => ({ ...current, [key]: value }));
     setErrors((current) => ({ ...current, [key]: undefined }));
   };
+
+  /* Пересчитывается на каждый ввод: перенос дела на закрытый день должен
+     предупреждать сразу, а не после отправки.
+
+     Закрытый целиком день предупреждает всегда, отлучка на часы — только
+     когда дело в них и попадает: запись к врачу с 14 до 16 не повод мешать
+     заводить звонок на десять утра. */
+  const busy = busyOn(form.day, blocks ?? []);
+  const conflict = busyAt(busy, minutesOfTime(form.time));
 
   const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
@@ -135,6 +151,8 @@ export function EventDialog({ open, onClose, onSaved, draft, id }: EventDialogPr
             required
           />
         </div>
+
+        {conflict ? <BusyNote busy={busy} /> : null}
 
         <div className={styles.row}>
           <Input

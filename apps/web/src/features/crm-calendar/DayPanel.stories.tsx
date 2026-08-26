@@ -1,7 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { DayPanel } from './DayPanel';
-import { cancelledService, dayLead, doneMeasure, plannedCall, plannedInstall } from './fixtures';
+import {
+  cancelledService,
+  dayLead,
+  doneMeasure,
+  foreignBlock,
+  monthBlocks,
+  plannedCall,
+  plannedInstall,
+  viewerId,
+  wholeDayBlock,
+} from './fixtures';
 
 const meta = {
   title: 'Админка/Календарь/День',
@@ -10,6 +20,8 @@ const meta = {
     day: '2026-08-23',
     events: [plannedCall, plannedInstall],
     leads: [dayLead],
+    blocks: [],
+    viewerId,
   },
 } satisfies Meta<typeof DayPanel>;
 
@@ -32,4 +44,24 @@ export const Закрытые: Story = {
 /** Только заявки: день, в который сами ничего не планировали. */
 export const ТолькоЗаявки: Story = {
   args: { events: [], leads: [dayLead] },
+};
+
+/** День закрыт целиком: причина видна рядом, дела всё равно можно завести. */
+export const ЗакрытыйДень: Story = {
+  args: { day: '2026-08-26', events: [], leads: [], blocks: [wholeDayBlock] },
+};
+
+/** Занятость диапазоном: день с записью к врачу остаётся рабочим. */
+export const ЗанятЧасами: Story = {
+  args: { day: '2026-08-24', events: [], leads: [], blocks: monthBlocks },
+};
+
+/** Повторяемый выходной и разовая запись на один четверг. */
+export const НесколькоЗаписей: Story = {
+  args: { day: '2026-08-20', events: [], leads: [], blocks: monthBlocks },
+};
+
+/** Чужая занятость: владелец её видит, но снять не может — кнопок нет. */
+export const ЧужаяЗанятость: Story = {
+  args: { day: '2026-08-23', events: [], leads: [], blocks: [foreignBlock] },
 };

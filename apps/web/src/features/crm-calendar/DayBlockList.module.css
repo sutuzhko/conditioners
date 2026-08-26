@@ -1,0 +1,158 @@
+/* Занятость выбранного дня.
+
+   Оформление предупреждающее, а не запрещающее: занятость не мешает
+   поставить наряд, она сообщает. Закрытый целиком день и отлучка на два часа
+   различаются значком и рамкой, а не только цветом. */
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+}
+
+.failure {
+  margin: 0;
+  border: 1px solid var(--error-line);
+  border-radius: 10px;
+  background: var(--error-bg);
+  padding: 10px 12px;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 116px minmax(0, 1fr);
+  gap: 4px 12px;
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-md);
+  background: var(--warn-bg);
+  padding: 8px 12px;
+}
+
+/* Закрытый целиком день — сплошная рамка слева; отлучка на часы — пунктир:
+   разница видна и на чёрно-белой печати, и без различения цветов. */
+.whole {
+  border-left: 3px solid var(--warn-ink);
+}
+
+.window {
+  border-left: 3px dashed var(--warn-ink);
+}
+
+.when {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: var(--warn-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.who {
+  color: var(--ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.reason {
+  color: var(--body);
+  font-size: var(--fs-caption);
+  line-height: 1.45;
+}
+
+.repeat {
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  grid-column: 1 / -1;
+  margin-top: 4px;
+}
+
+.action {
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--card);
+  padding: 4px 10px;
+  color: var(--ink2);
+  font: inherit;
+  font-size: var(--fs-micro);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.action:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.action:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+.action:hover:not(:disabled) {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+
+.danger:hover:not(:disabled) {
+  border-color: var(--error-line);
+  color: var(--error-ink);
+}
+
+/* Узкий экран: колонка «когда» в 116px съедала треть ширины ради двух слов. */
+@media (width < 560px) {
+  .item {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

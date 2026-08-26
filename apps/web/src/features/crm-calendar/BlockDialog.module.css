@@ -1,0 +1,58 @@
+/* Форма занятости в окне. Полей мало: когда, весь ли день и почему. Ряд
+   складывается в колонку, когда ширины на два поля не хватает. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.row {
+  display: grid;
+  gap: 12px;
+}
+
+@media (width >= 560px) {
+  .row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.success,
+.failure {
+  margin: 0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: var(--fs-dense);
+  line-height: 1.45;
+}
+
+.success {
+  border: 1px solid var(--ok-line);
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.failure {
+  border: 1px solid var(--error-line);
+  background: var(--error-bg);
+  color: var(--error-ink);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+@media (width < 480px) {
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .actions > * {
+    width: 100%;
+  }
+}

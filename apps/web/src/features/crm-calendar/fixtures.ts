@@ -1,5 +1,5 @@
 /** Данные для историй и тестов календаря работ. */
-import type { CalendarLead, CrmEventCard } from './model';
+import type { CalendarLead, CrmEventCard, DayBlockCard } from './model';
 
 /** 23 августа 2026, 10:00 по московскому времени. */
 export const plannedCall: CrmEventCard = {
@@ -67,3 +67,79 @@ export const dayLead: CalendarLead = {
 };
 
 export const monthLeads: readonly CalendarLead[] = [dayLead];
+
+/** Кто смотрит календарь в историях и тестах. */
+export const viewerId = 'u1';
+
+/** Весь день закрыт: 26 августа 2026, среда. */
+export const wholeDayBlock: DayBlockCard = {
+  id: 'b1',
+  userId: viewerId,
+  userName: 'Владелец',
+  repeat: 'once',
+  day: '2026-08-26',
+  weekday: null,
+  fromMin: null,
+  toMin: null,
+  reason: 'Семейные дела',
+};
+
+/** Запись к врачу на два часа 24 августа: день остаётся рабочим. */
+export const doctorBlock: DayBlockCard = {
+  id: 'b2',
+  userId: viewerId,
+  userName: 'Владелец',
+  repeat: 'once',
+  day: '2026-08-24',
+  weekday: null,
+  fromMin: 840,
+  toMin: 960,
+  reason: 'Врач',
+};
+
+/** Постоянный выходной по четвергам: 6, 13, 20 и 27 августа. */
+export const weeklyBlock: DayBlockCard = {
+  id: 'b3',
+  userId: viewerId,
+  userName: 'Владелец',
+  repeat: 'weekly',
+  day: null,
+  weekday: 4,
+  fromMin: null,
+  toMin: null,
+  reason: 'Выходной',
+};
+
+/** Вторая запись на тот же четверг: повторяемая и разовая складываются. */
+export const extraThursdayBlock: DayBlockCard = {
+  id: 'b4',
+  userId: viewerId,
+  userName: 'Владелец',
+  repeat: 'once',
+  day: '2026-08-20',
+  weekday: null,
+  fromMin: 600,
+  toMin: 720,
+  reason: 'Школа',
+};
+
+/** Чужая занятость: владелец её видит, но снять не может. */
+export const foreignBlock: DayBlockCard = {
+  id: 'b5',
+  userId: 'u2',
+  userName: 'Дмитрий',
+  repeat: 'once',
+  day: '2026-08-23',
+  weekday: null,
+  fromMin: 600,
+  toMin: 720,
+  reason: 'Учёба',
+};
+
+export const monthBlocks: readonly DayBlockCard[] = [
+  wholeDayBlock,
+  doctorBlock,
+  weeklyBlock,
+  extraThursdayBlock,
+  foreignBlock,
+];

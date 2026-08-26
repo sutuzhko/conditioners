@@ -1,4 +1,5 @@
-import type { CrmEventKind, CrmEventStatus } from '@/entities/crm/model';
+import type { DayBlockLike } from '@/entities/crm/lib/busy';
+import type { CrmEventKind, CrmEventStatus, DayBlockRepeat } from '@/entities/crm/model';
 
 /**
  * Дело в том виде, в каком его показывают. Момент времени — строкой ISO:
@@ -42,3 +43,28 @@ export type CrmEventDraft = {
 };
 
 export type CrmResult = { readonly ok: boolean; readonly message?: string };
+
+/**
+ * Занятость в том виде, в каком её показывают: разрешение занятости читает у
+ * неё повтор, день и окно, а панель дня — ещё и чья она.
+ */
+export type DayBlockCard = DayBlockLike & {
+  readonly id: string;
+  readonly userId: string;
+  readonly userName: string | null;
+};
+
+/**
+ * Черновик занятости. Форма думает временем и переключателем «весь день», а
+ * не минутами от полуночи: перевод — дело `lib`, а не человека.
+ */
+export type DayBlockDraft = {
+  readonly repeat: DayBlockRepeat;
+  readonly day: string;
+  /** День недели по ISO-8601 у повторяемой занятости. */
+  readonly weekday: number;
+  readonly allDay: boolean;
+  readonly from: string;
+  readonly to: string;
+  readonly reason: string;
+};

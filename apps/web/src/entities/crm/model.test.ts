@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { crmEventCreateSchema, crmEventUpdateSchema, isCrmEventKind } from './model';
+import {
+  crmEventCreateSchema,
+  crmEventUpdateSchema,
+  dayBlockCreateSchema,
+  isCrmEventKind,
+  isDayBlockRepeat,
+} from './model';
 
 const valid = {
   kind: 'measure',
@@ -79,5 +85,95 @@ describe('правка дела', () => {
 
   it('не принимает выдуманный статус', () => {
     expect(crmEventUpdateSchema.safeParse({ status: 'забыто' }).success).toBe(false);
+  });
+});
+
+const onceBlock = {
+  repeat: 'once',
+  day: '2026-08-26',
+  weekday: null,
+  fromMin: null,
+  toMin: null,
+  reason: 'Семейные дела',
+};
+
+const weeklyBlock = {
+  repeat: 'weekly',
+  day: null,
+  weekday: 3,
+  fromMin: null,
+  toMin: null,
+  reason: 'Выходной',
+};
+
+describe('заведение занятости', () => {
+  it('принимает разовую с датой', () => {
+    expect(dayBlockCreateSchema.safeParse(onceBlock).success).toBe(true);
+  });
+
+  it('принимает повторяемую с днём недели', () => {
+    expect(dayBlockCreateSchema.safeParse(weeklyBlock).success).toBe(true);
+  });
+
+  it('принимает окно часов', () => {
+    const parsed = dayBlockCreateSchema.safeParse({ ...onceBlock, fromMin: 840, toMin: 960 });
+
+    expect(parsed.success).toBe(true);
+  });
+
+  it('разовая без даты не заводится', () => {
+    expect(dayBlockCreateSchema.safeParse({ ...onceBlock, day: '' }).success).toBe(false);
+  });
+
+  it('разовая с днём недели не заводится: это уже повторяемая', () => {
+    expect(dayBlockCreateSchema.safeParse({ ...onceBlock, weekday: 3 }).success).toBe(false);
+  });
+
+  it('повторяемая без дня недели не заводится', () => {
+    expect(dayBlockCreateSchema.safeParse({ ...weeklyBlock, weekday: null }).success).toBe(false);
+  });
+
+  it('повторяемая с датой не заводится', () => {
+    const parsed = dayBlockCreateSchema.safeParse({ ...weeklyBlock, day: '2026-08-26' });
+
+    expect(parsed.success).toBe(false);
+  });
+
+  it('половина окна не принимается: «с 14:00» без «до» — это не окно', () => {
+    expect(dayBlockCreateSchema.safeParse({ ...onceBlock, fromMin: 840 }).success).toBe(false);
+    expect(dayBlockCreateSchema.safeParse({ ...onceBlock, toMin: 960 }).success).toBe(false);
+  });
+
+  it('конец окна раньше начала не принимается', () => {
+    const parsed = dayBlockCreateSchema.safeParse({ ...onceBlock, fromMin: 960, toMin: 840 });
+
+    expect(parsed.success).toBe(false);
+    expect(parsed.success ? '' : parsed.error.issues[0]?.path.join('.')).toBe('toMin');
+  });
+
+  it('пустое окно нулевой длины не принимается', () => {
+    const parsed = dayBlockCreateSchema.safeParse({ ...onceBlock, fromMin: 840, toMin: 840 });
+
+    expect(parsed.success).toBe(false);
+  });
+
+  it('несуществующая дата не принимается', () => {
+    expect(dayBlockCreateSchema.safeParse({ ...onceBlock, day: '2026-02-30' }).success).toBe(false);
+  });
+
+  it('день недели вне 1…7 не принимается', () => {
+    expect(dayBlockCreateSchema.safeParse({ ...weeklyBlock, weekday: 0 }).success).toBe(false);
+    expect(dayBlockCreateSchema.safeParse({ ...weeklyBlock, weekday: 8 }).success).toBe(false);
+  });
+
+  it('пустая причина становится «не заполнено», а не пустой строкой', () => {
+    const parsed = dayBlockCreateSchema.safeParse({ ...onceBlock, reason: '   ' });
+
+    expect(parsed.success ? parsed.data.reason : 'не разобрано').toBeNull();
+  });
+
+  it('вид повтора из формы проверяется, а не берётся на веру', () => {
+    expect(isDayBlockRepeat('weekly')).toBe(true);
+    expect(isDayBlockRepeat('каждую среду')).toBe(false);
   });
 });

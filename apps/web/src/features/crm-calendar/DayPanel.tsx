@@ -10,10 +10,11 @@ import { type DayKey, dayKeyOf, timeOf } from '@/shared/lib/calendar';
 import { Button, Icon, useConfirm } from '@/shared/ui';
 import type { Confirm } from '@/shared/ui';
 
+import { DayBlockList } from './DayBlockList';
 import { EventDialog } from './EventDialog';
 import { KIND_LOOK, STATUS_TITLE, crmContent as texts } from './content';
 import { removeEvent, setEventStatus } from './lib';
-import type { CalendarLead, CrmEventCard, CrmEventDraft } from './model';
+import type { CalendarLead, CrmEventCard, CrmEventDraft, DayBlockCard } from './model';
 import styles from './DayPanel.module.css';
 
 /** Время по умолчанию у нового дела: рабочий день начинается с утра. */
@@ -23,6 +24,10 @@ export interface DayPanelProps {
   readonly day: DayKey;
   readonly events: readonly CrmEventCard[];
   readonly leads: readonly CalendarLead[];
+  /** Занятость сетки: чья и на какие часы — решает домен, панель только рисует. */
+  readonly blocks: readonly DayBlockCard[];
+  /** Кто смотрит: свою занятость правит сам, чужую только видит. */
+  readonly viewerId: string;
   /**
    * Заготовка из заявки: панель открывается с уже заполненной формой, когда
    * на неё пришли по кнопке «В календарь» из раздела заявок.
@@ -67,7 +72,15 @@ function draftOf(event: CrmEventCard): CrmEventDraft {
  * Клиентский компонент — здесь живут действия. Сами данные приходят с сервера
  * пропсами: список дня виден в исходном HTML, а не собирается запросом.
  */
-export function DayPanel({ day, events, leads, preset, confirmRemove }: DayPanelProps) {
+export function DayPanel({
+  day,
+  events,
+  leads,
+  blocks,
+  viewerId,
+  preset,
+  confirmRemove,
+}: DayPanelProps) {
   const router = useRouter();
   /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом для
      тестов, чтобы не открывать окно ради проверки удаления. */
@@ -103,6 +116,10 @@ export function DayPanel({ day, events, leads, preset, confirmRemove }: DayPanel
     close();
     router.refresh();
   };
+
+  /* Предупреждение в форме дела — о занятости самого́ смотрящего: дело
+     заводят себе, и чужой выходной ему ничего не запрещает. */
+  const myBlocks = blocks.filter((block) => block.userId === viewerId);
 
   const move = async (id: string, status: CrmEventStatus): Promise<void> => {
     setBusy(id);
@@ -282,8 +299,17 @@ export function DayPanel({ day, events, leads, preset, confirmRemove }: DayPanel
         </section>
       )}
 
+      <DayBlockList day={day} blocks={blocks} viewerId={viewerId} confirmRemove={confirmRemove} />
+
       {draft === null ? null : (
-        <EventDialog open onClose={close} onSaved={saved} draft={draft} id={editing} />
+        <EventDialog
+          open
+          onClose={close}
+          onSaved={saved}
+          draft={draft}
+          id={editing}
+          blocks={myBlocks}
+        />
       )}
 
       {dialog}

@@ -1,0 +1,39 @@
+/* Предупреждение о занятости.
+
+   Оформление предупреждающее, а не запрещающее: занятость не мешает
+   сохранить, она сообщает. Красный цвет ошибки здесь сказал бы неправду. */
+
+.note {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 0;
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-sm);
+  background: var(--warn-bg);
+  padding: 8px 10px;
+  color: var(--warn-ink);
+  font-size: var(--fs-caption);
+  line-height: 1.4;
+}
+
+.icon {
+  flex: none;
+  margin-top: 1px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.hint {
+  color: var(--body);
+  font-size: var(--fs-micro);
+}

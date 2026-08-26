@@ -11,6 +11,7 @@ import {
   parseMonthKey,
   shiftMonth,
   timeOf,
+  weekdayOf,
 } from './calendar';
 
 describe('ключи дня и месяца', () => {
@@ -74,18 +75,11 @@ describe('сетка месяца', () => {
     expect(weeks[0]?.[5]?.inMonth).toBe(true);
   });
 
-  it('помечает субботу и воскресенье выходными', () => {
-    const [week] = monthGrid('2026-08');
+  it('не назначает выходных сама: в монтаже работают и в субботу', () => {
+    const days = monthGrid('2026-08').flat();
 
-    expect(week?.map((day) => day.weekend)).toEqual([
-      false,
-      false,
-      false,
-      false,
-      false,
-      true,
-      true,
-    ]);
+    // единственные признаки дня — его ключ, число и принадлежность месяцу
+    expect(Object.keys(days[0] ?? {}).sort()).toEqual(['day', 'inMonth', 'key']);
   });
 
   it('идёт днями подряд без пропусков', () => {
@@ -95,6 +89,20 @@ describe('сетка месяца', () => {
     expect(
       stamps.every((at, index) => index === 0 || at - (stamps[index - 1] ?? 0) === 86_400_000),
     );
+  });
+});
+
+describe('день недели', () => {
+  it('считает по ISO-8601: понедельник — 1, воскресенье — 7', () => {
+    // 24 августа 2026 — понедельник
+    expect(weekdayOf('2026-08-24')).toBe(1);
+    expect(weekdayOf('2026-08-26')).toBe(3);
+    expect(weekdayOf('2026-08-30')).toBe(7);
+  });
+
+  it('не зависит от пояса машины: ключ дня уже календарная дата', () => {
+    expect(weekdayOf('2026-01-01')).toBe(4);
+    expect(weekdayOf('2028-02-29')).toBe(2);
   });
 });
 

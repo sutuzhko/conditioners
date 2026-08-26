@@ -70,8 +70,53 @@
   line-height: 1.5;
 }
 
-.weekend .number {
-  color: var(--sale-ink);
+/* Занятость: день, в который человека нет.
+
+   🔴 Суббота и воскресенье здесь такие же дни, как остальные — нерабочий
+   день отмечает человек, а не календарь. Закрытый целиком день заштрихован,
+   отлучка на часы оставляет ячейку обычной: день, закрытый на два часа,
+   по-прежнему рабочий. */
+.busyFull {
+  border-color: var(--warn-line);
+  background-image: repeating-linear-gradient(135deg, var(--warn-bg) 0 6px, transparent 6px 12px);
+}
+
+.busyPartial {
+  border-color: var(--warn-line);
+}
+
+.busy {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  border-radius: 6px;
+  background: var(--warn-bg);
+  padding: 2px 5px;
+  color: var(--warn-ink);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.busyWindow {
+  font-family: var(--font-mono);
+}
+
+/* Чужая занятость приглушена: она сообщает, а день смотрящего не закрывает. */
+.busyOthers {
+  background: var(--line-soft);
+  color: var(--ink2);
+  font-weight: 500;
+}
+
+.busyIcon {
+  flex: none;
+}
+
+.busyText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .today {
@@ -197,8 +242,15 @@
 
   .markTime,
   .markName,
-  .more {
+  .more,
+  .busyText {
     display: none;
+  }
+
+  /* Занятость точкой не сворачивается: значок — единственный не-цветовой
+     признак, который остаётся на телефоне, и терять его нельзя. */
+  .busy {
+    padding: 1px 3px;
   }
 
   .mark,

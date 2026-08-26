@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { CalendarGrid } from './CalendarGrid';
-import { monthEvents, monthLeads } from './fixtures';
+import { monthBlocks, monthEvents, monthLeads, viewerId } from './fixtures';
 
 const meta = {
   title: 'Админка/Календарь/Сетка месяца',
@@ -12,6 +12,8 @@ const meta = {
     today: '2026-08-23',
     events: monthEvents,
     leads: monthLeads,
+    blocks: [],
+    viewerId,
   },
 } satisfies Meta<typeof CalendarGrid>;
 
@@ -23,7 +25,17 @@ export const Рабочий: Story = {};
 
 /** Ничего не запланировано — первый месяц после установки панели. */
 export const Пустой: Story = {
-  args: { events: [], leads: [] },
+  args: { events: [], leads: [], blocks: [] },
+};
+
+/** Занятость в сетке: закрытый целиком день, часы, повторяемый выходной и чужая. */
+export const СЗанятостью: Story = {
+  args: { blocks: monthBlocks },
+};
+
+/** 🔴 Суббота и воскресенье ничем не выделены: выходные отмечает человек. */
+export const ВыходныеНеЗашиты: Story = {
+  args: { events: [], leads: [], blocks: [] },
 };
 
 /** Выбран день не из этого месяца: хвост сетки такой же рабочий. */

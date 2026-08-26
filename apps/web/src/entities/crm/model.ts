@@ -91,3 +91,116 @@ export const crmEventUpdateSchema = crmEventCreateSchema
   });
 
 export type CrmEventUpdate = z.infer<typeof crmEventUpdateSchema>;
+
+/**
+ * Занятость: день, в который человека нет.
+ *
+ * Календарь показывал только то, что запланировано, и на обратный вопрос — «а
+ * когда меня нет» — не отвечал. Пустой день выглядит свободным, и в него
+ * ставят выезд.
+ *
+ * 🔴 Занятость личная: у каждого своя. Владелец видит занятость всех,
+ * монтажник — свою. Общий на компанию выходной пришлось бы переделывать, как
+ * только монтажников станет двое.
+ */
+export const dayBlockRepeatSchema = z.enum(['once', 'weekly']);
+
+export type DayBlockRepeat = z.infer<typeof dayBlockRepeatSchema>;
+
+export const DAY_BLOCK_REPEATS: readonly DayBlockRepeat[] = dayBlockRepeatSchema.options;
+
+/** Значение из `select` — строка. Принять её за вид повтора без проверки нельзя. */
+export function isDayBlockRepeat(value: string): value is DayBlockRepeat {
+  return DAY_BLOCK_REPEATS.some((repeat) => repeat === value);
+}
+
+/** Минут в сутках. */
+export const MINUTES_IN_DAY = 24 * 60;
+
+/** Разовая занятость держит дату, повторяемая — пусто. Пустое поле формы приходит строкой. */
+const blockDaySchema = z
+  .string()
+  .trim()
+  .transform((value) => (value === '' ? null : value))
+  .nullable()
+  .default(null)
+  .refine((value) => value === null || parseDayKey(value) !== null, {
+    message: 'Такой даты не существует',
+  });
+
+/** День недели по ISO-8601: 1 — понедельник … 7 — воскресенье. */
+const blockWeekdaySchema = z
+  .number()
+  .int({ message: 'День недели указывается числом от 1 до 7' })
+  .min(1, { message: 'День недели указывается числом от 1 до 7' })
+  .max(7, { message: 'День недели указывается числом от 1 до 7' })
+  .nullable()
+  .default(null);
+
+/**
+ * Граница окна — минуты от полуночи по московскому времени.
+ *
+ * Верхняя граница — 23:59, а не «конец суток»: всё, что приходит и уходит
+ * через `input[type=time]`, обязано в нём же и представляться, иначе поле
+ * получает значение, которое браузер показать не может.
+ */
+const blockMinuteSchema = z
+  .number()
+  .int({ message: 'Время указывается как 14:30' })
+  .min(0, { message: 'Время указывается как 14:30' })
+  .max(MINUTES_IN_DAY - 1, { message: 'Время указывается как 14:30' })
+  .nullable()
+  .default(null);
+
+export const dayBlockCreateSchema = z
+  .object({
+    repeat: dayBlockRepeatSchema,
+    day: blockDaySchema,
+    weekday: blockWeekdaySchema,
+    fromMin: blockMinuteSchema,
+    toMin: blockMinuteSchema,
+    /** Причина показывается рядом с днём: «день закрыт» без причины ничего не решает. */
+    reason: optionalText(200),
+  })
+  .refine((input) => input.repeat !== 'once' || input.day !== null, {
+    message: 'Выберите дату',
+    path: ['day'],
+  })
+  .refine((input) => input.repeat !== 'once' || input.weekday === null, {
+    message: 'У разовой занятости дня недели нет',
+    path: ['weekday'],
+  })
+  .refine((input) => input.repeat !== 'weekly' || input.weekday !== null, {
+    message: 'Выберите день недели',
+    path: ['weekday'],
+  })
+  .refine((input) => input.repeat !== 'weekly' || input.day === null, {
+    message: 'У повторяемой занятости даты нет',
+    path: ['day'],
+  })
+  // окно задаётся целиком: «занят с 14:00» без «до» — это не окно, а весь день
+  .refine((input) => (input.fromMin === null) === (input.toMin === null), {
+    message: 'Укажите и начало, и конец — или оставьте оба пустыми, тогда занят весь день',
+    path: ['toMin'],
+  })
+  .refine(
+    (input) => input.fromMin === null || input.toMin === null || input.toMin > input.fromMin,
+    {
+      message: 'Конец окна должен быть позже начала',
+      path: ['toMin'],
+    },
+  );
+
+export type DayBlockCreate = z.infer<typeof dayBlockCreateSchema>;
+
+/**
+ * Правка занятости — тем же телом, что и заведение.
+ *
+ * Частичной её не делаем: повтор, дата, день недели и окно связаны, и
+ * подмножество полей даёт комбинации, которые нечем истолковать — «сменили
+ * повтор на недельный, дату не прислали, старая осталась». Занятость мелкая,
+ * форма отдаёт её целиком.
+ */
+export const dayBlockUpdateSchema = dayBlockCreateSchema;
+
+export type DayBlockUpdate = DayBlockCreate;

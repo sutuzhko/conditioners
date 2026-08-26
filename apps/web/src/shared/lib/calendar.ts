@@ -25,8 +25,6 @@ export type CalendarDay = {
   readonly day: number;
   /** День принадлежит показываемому месяцу, а не хвосту соседнего. */
   readonly inMonth: boolean;
-  /** Суббота или воскресенье: у выходных своё оформление. */
-  readonly weekend: boolean;
 };
 
 const DAY_MS = 86_400_000;
@@ -162,6 +160,21 @@ export function parseDayKey(value: string): DayKey | null {
   return `${year}-${pad(month)}-${pad(day)}`;
 }
 
+/**
+ * День недели по ISO-8601: 1 — понедельник … 7 — воскресенье.
+ *
+ * 🔴 Считается по самому ключу дня, а не через `getDay()` у `Date`: ключ — это
+ * уже календарная дата в поясе работ, а `getDay()` вернул бы день недели в
+ * поясе машины, и у контейнера в UTC постоянный выходной по средам уезжал бы
+ * на вторник в первые три часа суток (ADR-080).
+ */
+export function weekdayOf(day: DayKey): number {
+  const [year = 0, month = 1, date = 1] = day.split('-').map((part) => Number.parseInt(part, 10));
+  const at = new Date(Date.UTC(year, month - 1, date));
+  // getUTCDay: 0 — воскресенье; ISO-8601 считает с понедельника и с единицы
+  return ((at.getUTCDay() + 6) % 7) + 1;
+}
+
 /** Соседний месяц: `shiftMonth('2026-01', -1) === '2025-12'`. */
 export function shiftMonth(month: MonthKey, delta: number): MonthKey {
   const [year = 0, index = 1] = month.split('-').map((part) => Number.parseInt(part, 10));
@@ -174,6 +187,11 @@ export function shiftMonth(month: MonthKey, delta: number): MonthKey {
  *
  * Хвосты нужны настоящие, а не пустые ячейки: монтаж 1 сентября виден в конце
  * августовской сетки, и это ровно то, ради чего в календарь смотрят.
+ *
+ * 🔴 Сетка не знает нерабочих дней. Суббота и воскресенье здесь такие же дни,
+ * как остальные: у монтажа нормированного графика нет, работа идёт в выходные,
+ * а отдых приходится на будни. Какой день нерабочий, говорит занятость,
+ * заведённая человеком, — календарь этого не решает.
  */
 export function monthGrid(month: MonthKey): readonly (readonly CalendarDay[])[] {
   const [year = 0, index = 1] = month.split('-').map((part) => Number.parseInt(part, 10));
@@ -192,7 +210,6 @@ export function monthGrid(month: MonthKey): readonly (readonly CalendarDay[])[] 
         key: `${at.getUTCFullYear()}-${pad(at.getUTCMonth() + 1)}-${pad(day)}`,
         day,
         inMonth: at.getUTCMonth() === index - 1 && at.getUTCFullYear() === year,
-        weekend: weekday >= 5,
       };
     }),
   );

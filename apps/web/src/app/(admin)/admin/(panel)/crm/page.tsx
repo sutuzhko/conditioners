@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
 import {
   CalendarGrid,
@@ -18,7 +19,9 @@ import {
   parseMonthKey,
   todayKey,
 } from '@/shared/lib/calendar';
+import { getAdminSession } from '@/server/auth';
 import { countOverdue, listRange } from '@/server/repo/crm';
+import { listRange as listBlocks } from '@/server/repo/day-blocks';
 import { findById, listCreatedBetween } from '@/server/repo/leads';
 
 import styles from './page.module.css';
@@ -45,6 +48,12 @@ type Search = {
 export default async function AdminCrmPage({ searchParams }: { searchParams: Promise<Search> }) {
   const { month: monthParam, day: dayParam, lead: leadParam } = await searchParams;
 
+  /* Занятость личная, поэтому страница обязана знать, кто её открыл: владелец
+     видит занятость всех, монтажник — свою. Layout панели сюда без сессии не
+     пускает, проверка здесь — от неожиданностей, а не вместо него. */
+  const session = await getAdminSession();
+  if (session === null) redirect('/admin/login');
+
   const now = new Date();
   const today = todayKey(now);
 
@@ -57,9 +66,12 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
   const grid = gridRange(month);
   const chosen = dayRange(day);
 
-  const [events, leads, overdue, fromLead] = await Promise.all([
+  const viewer = { role: session.role, userId: session.userId };
+
+  const [events, leads, blocks, overdue, fromLead] = await Promise.all([
     listRange(grid.from, grid.to),
     listCreatedBetween(grid.from, grid.to),
+    listBlocks(viewer, grid.from, grid.to),
     countOverdue(dayRange(today).from),
     leadParam === undefined ? Promise.resolve(null) : findById(leadParam),
   ]);
@@ -108,10 +120,19 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
             today={today}
             events={events}
             leads={calendarLeads}
+            blocks={blocks}
+            viewerId={session.userId}
           />
         </div>
 
-        <DayPanel day={day} events={dayEvents} leads={dayLeads} preset={preset} />
+        <DayPanel
+          day={day}
+          events={dayEvents}
+          leads={dayLeads}
+          blocks={blocks}
+          viewerId={session.userId}
+          preset={preset}
+        />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import type { CrmEventKind, CrmEventStatus } from '@/entities/crm/model';
+import type { CrmEventKind, CrmEventStatus, DayBlockRepeat } from '@/entities/crm/model';
 import type { IconName, ConfirmRequest } from '@/shared/ui';
 
 /**
@@ -110,4 +110,51 @@ export const crmContent = {
   fromLead: 'Из заявки',
   failure: 'Не удалось сохранить. Проверьте связь и попробуйте ещё раз.',
   removeFailure: 'Не удалось удалить. Попробуйте ещё раз.',
+
+  // ---------- Занятость ----------
+
+  busyTitle: 'Занятость',
+  busyAdd: 'Отметить занятость',
+  busyAddTitle: 'Новая занятость',
+  busyEditTitle: 'Правка занятости',
+  busyEmpty: 'Этот день никем не закрыт',
+  busySaved: 'Занятость сохранена',
+  busyDrop: 'Снять',
+  busyEdit: 'Изменить',
+  busyMine: 'Моя занятость',
+  busyOthers: (names: string): string => `Занят: ${names}`,
+  busyRepeatNote: 'Повторяется каждую неделю',
+  busyFailure: 'Не удалось сохранить занятость. Проверьте связь и попробуйте ещё раз.',
+  busyRemoveFailure: 'Не удалось снять занятость. Попробуйте ещё раз.',
+  busyRemoveConfirm: {
+    title: 'Снять занятость?',
+    description: 'День снова станет свободным для планирования.',
+    confirmLabel: 'Снять занятость',
+  } satisfies ConfirmRequest,
+
+  fieldRepeat: 'Как часто',
+  fieldWeekday: 'День недели',
+  fieldAllDay: 'Занят весь день',
+  fieldFrom: 'С',
+  fieldTo: 'До',
+  fieldReason: 'Причина',
+  fieldReasonPlaceholder: 'Семейные дела, врач, отпуск',
+  fieldReasonHint: 'Её увидят рядом с днём — «день закрыт» без причины ничего не объясняет',
 } as const;
+
+/** Повтор занятости: разовый день или каждая такая-то неделя. */
+export const REPEAT_TITLE: Record<DayBlockRepeat, string> = {
+  once: 'Один день',
+  weekly: 'Каждую неделю',
+};
+
+/** Дни недели по ISO-8601: 1 — понедельник … 7 — воскресенье. */
+export const WEEKDAY_TITLE: Record<number, string> = {
+  1: 'Понедельник',
+  2: 'Вторник',
+  3: 'Среда',
+  4: 'Четверг',
+  5: 'Пятница',
+  6: 'Суббота',
+  7: 'Воскресенье',
+};

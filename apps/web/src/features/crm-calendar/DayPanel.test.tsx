@@ -4,7 +4,16 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { DayPanel } from './DayPanel';
 import { crmContent as texts } from './content';
-import { dayLead, plannedCall, plannedInstall } from './fixtures';
+import { crmBusyContent } from '@/entities/crm/content';
+
+import {
+  dayLead,
+  doctorBlock,
+  plannedCall,
+  plannedInstall,
+  viewerId,
+  wholeDayBlock,
+} from './fixtures';
 
 const refresh = vi.fn();
 
@@ -27,21 +36,37 @@ afterEach(() => {
 
 describe('День календаря', () => {
   it('пустой день объясняет, что делать, а не молчит', () => {
-    render(<DayPanel day="2026-08-24" events={[]} leads={[]} />);
+    render(<DayPanel blocks={[]} viewerId={viewerId} day="2026-08-24" events={[]} leads={[]} />);
 
     expect(screen.getByText(texts.dayEmpty)).toBeInTheDocument();
     expect(screen.getByText(texts.dayEmptyHint)).toBeInTheDocument();
   });
 
   it('показывает время в московском поясе, а не в UTC', () => {
-    render(<DayPanel day="2026-08-23" events={[plannedCall]} leads={[]} />);
+    render(
+      <DayPanel
+        blocks={[]}
+        viewerId={viewerId}
+        day="2026-08-23"
+        events={[plannedCall]}
+        leads={[]}
+      />,
+    );
 
     // 07:00 UTC — это 10:00 в Туле
     expect(screen.getByText('10:00')).toBeInTheDocument();
   });
 
   it('телефон — ссылка на набор: дела закрывают звонком', () => {
-    render(<DayPanel day="2026-08-23" events={[plannedCall]} leads={[]} />);
+    render(
+      <DayPanel
+        blocks={[]}
+        viewerId={viewerId}
+        day="2026-08-23"
+        events={[plannedCall]}
+        leads={[]}
+      />,
+    );
 
     expect(screen.getByRole('link', { name: plannedCall.clientPhone ?? '' })).toHaveAttribute(
       'href',
@@ -51,7 +76,15 @@ describe('День календаря', () => {
 
   it('«Сделано» закрывает дело одним нажатием, без открытия формы', async () => {
     const user = userEvent.setup();
-    render(<DayPanel day="2026-08-23" events={[plannedCall]} leads={[]} />);
+    render(
+      <DayPanel
+        blocks={[]}
+        viewerId={viewerId}
+        day="2026-08-23"
+        events={[plannedCall]}
+        leads={[]}
+      />,
+    );
 
     await user.click(screen.getByRole('button', { name: texts.markDone }));
 
@@ -65,7 +98,15 @@ describe('День календаря', () => {
   it('неудачу показывает текстом, а не молча теряет нажатие', async () => {
     fetchMock.mockResolvedValue({ ok: false, json: async () => null });
     const user = userEvent.setup();
-    render(<DayPanel day="2026-08-23" events={[plannedCall]} leads={[]} />);
+    render(
+      <DayPanel
+        blocks={[]}
+        viewerId={viewerId}
+        day="2026-08-23"
+        events={[plannedCall]}
+        leads={[]}
+      />,
+    );
 
     await user.click(screen.getByRole('button', { name: texts.markDone }));
 
@@ -77,6 +118,8 @@ describe('День календаря', () => {
     const user = userEvent.setup();
     render(
       <DayPanel
+        blocks={[]}
+        viewerId={viewerId}
         day="2026-08-23"
         events={[plannedCall]}
         leads={[]}
@@ -91,7 +134,15 @@ describe('День календаря', () => {
 
   it('🔴 подтверждение спрашивается окном панели, а не системным confirm', async () => {
     const user = userEvent.setup();
-    render(<DayPanel day="2026-08-23" events={[plannedCall]} leads={[]} />);
+    render(
+      <DayPanel
+        blocks={[]}
+        viewerId={viewerId}
+        day="2026-08-23"
+        events={[plannedCall]}
+        leads={[]}
+      />,
+    );
 
     await user.click(screen.getByRole('button', { name: texts.remove }));
 
@@ -106,7 +157,15 @@ describe('День календаря', () => {
 
   it('форма правки открывается заполненной — данные не набирают заново', async () => {
     const user = userEvent.setup();
-    render(<DayPanel day="2026-08-23" events={[plannedInstall]} leads={[]} />);
+    render(
+      <DayPanel
+        blocks={[]}
+        viewerId={viewerId}
+        day="2026-08-23"
+        events={[plannedInstall]}
+        leads={[]}
+      />,
+    );
 
     await user.click(screen.getByRole('button', { name: texts.edit }));
 
@@ -119,7 +178,9 @@ describe('День календаря', () => {
   });
 
   it('заявки дня показываются отдельно и ведут в свой раздел', () => {
-    render(<DayPanel day="2026-08-23" events={[]} leads={[dayLead]} />);
+    render(
+      <DayPanel blocks={[]} viewerId={viewerId} day="2026-08-23" events={[]} leads={[dayLead]} />,
+    );
 
     expect(screen.getByText(texts.leadsTitle)).toBeInTheDocument();
     expect(screen.getByText(dayLead.name)).toBeInTheDocument();
@@ -132,6 +193,8 @@ describe('День календаря', () => {
   it('дело из заявки открывает форму сразу — за этим по ссылке и приходят', async () => {
     render(
       <DayPanel
+        blocks={[]}
+        viewerId={viewerId}
         day="2026-08-23"
         events={[]}
         leads={[]}
@@ -141,5 +204,81 @@ describe('День календаря', () => {
 
     expect(await screen.findByRole('dialog')).toBeInTheDocument();
     expect(screen.getByLabelText(new RegExp(texts.fieldName))).toHaveValue('Ирина');
+  });
+
+  it('занятость дня показывается в панели рядом с делами', () => {
+    render(
+      <DayPanel
+        blocks={[wholeDayBlock]}
+        viewerId={viewerId}
+        day="2026-08-26"
+        events={[]}
+        leads={[]}
+      />,
+    );
+
+    expect(screen.getByText(texts.busyTitle)).toBeInTheDocument();
+    expect(screen.getByText(wholeDayBlock.reason ?? '')).toBeInTheDocument();
+  });
+
+  it('🔴 форма дела на закрытый день предупреждает, но сохранить даёт', async () => {
+    const user = userEvent.setup();
+    render(
+      <DayPanel
+        blocks={[wholeDayBlock]}
+        viewerId={viewerId}
+        day="2026-08-26"
+        events={[]}
+        leads={[]}
+      />,
+    );
+
+    await user.click(screen.getByRole('button', { name: texts.addShort }));
+
+    const note = await screen.findByRole('status');
+    expect(note).toHaveTextContent('День закрыт: семейные дела');
+    expect(screen.getByText(crmBusyContent.noteHint)).toBeInTheDocument();
+    // кнопка сохранения жива: запрет решает за владельца, а решать должен он
+    expect(screen.getByRole('button', { name: texts.save })).toBeEnabled();
+  });
+
+  it('занятость на два часа не мешает делу в другое время', async () => {
+    const user = userEvent.setup();
+    render(
+      <DayPanel
+        blocks={[doctorBlock]}
+        viewerId={viewerId}
+        day="2026-08-24"
+        events={[]}
+        leads={[]}
+      />,
+    );
+
+    await user.click(screen.getByRole('button', { name: texts.addShort }));
+    await screen.findByRole('dialog');
+
+    // дело по умолчанию заводится на 10:00, врач — с 14:00
+    expect(screen.queryByText(crmBusyContent.noteHint)).not.toBeInTheDocument();
+  });
+
+  it('дело, попавшее в занятые часы, предупреждает о них', async () => {
+    const user = userEvent.setup();
+    render(
+      <DayPanel
+        blocks={[doctorBlock]}
+        viewerId={viewerId}
+        day="2026-08-24"
+        events={[]}
+        leads={[]}
+      />,
+    );
+
+    await user.click(screen.getByRole('button', { name: texts.addShort }));
+    const time = await screen.findByLabelText(new RegExp(texts.fieldTime));
+
+    await user.clear(time);
+    await user.type(time, '14:30');
+
+    expect(await screen.findByRole('status')).toHaveTextContent('Занят 14:00–16:00 — врач');
   });
 });
