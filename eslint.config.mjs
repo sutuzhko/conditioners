@@ -56,7 +56,7 @@ export default [
   },
   {
     // скрипты сборки печатают отчёт в stdout — для них это интерфейс, а не отладка
-    files: ['scripts/**'],
+    files: ['scripts/**', 'apps/web/scripts/**'],
     rules: { 'no-console': 'off' },
   },
   layerRule('shared', ['app', 'widgets', 'features', 'entities', 'server']),

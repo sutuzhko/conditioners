@@ -84,8 +84,16 @@ Host tulaklimat-dev
 docker compose -f docker-compose.dev.yml exec web pnpm prisma migrate dev
 docker compose -f docker-compose.dev.yml exec web pnpm seed
 docker compose -f docker-compose.dev.yml exec web pnpm test
+docker compose -f docker-compose.dev.yml exec web pnpm shot / --theme both
 docker compose -f docker-compose.dev.yml exec db psql -U tk -d tulaklimat
 ```
+
+`pnpm shot` снимает страницы стенда в PNG (`apps/web/.screenshots`, в
+репозиторий не попадают) — это способ увидеть вёрстку, когда браузера под
+рукой нет: работа по SSH, проверка на чужой машине, ревью правки по описанию.
+Ширины и темы задаются списком (`--width 1200,375 --theme both`), `--full`
+снимает страницу целиком, `--admin` входит в панель. Рядом с файлом печатается
+код ответа: снимок страницы с ошибкой выглядит как страница (ADR-103).
 
 Репозиторий — pnpm-воркспейс: приложение живёт в `apps/web`, в корне только инфраструктура и документация (ADR-027). Корневые скрипты пробрасывают команды в приложение, поэтому запускать их можно из `/app`, не переходя в каталог.
 

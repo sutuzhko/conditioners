@@ -50,6 +50,8 @@ coverage/
 .nyc_output/
 playwright-report/
 test-results/
+# снимки для просмотра вёрстки (ADR-103): черновые кадры, а не эталоны
+apps/web/.screenshots/
 blob-report/
 .playwright/
 

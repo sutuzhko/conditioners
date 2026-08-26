@@ -15,6 +15,7 @@
     "storybook": "storybook dev -p 6006 -h 0.0.0.0 --no-open",
     "build-storybook": "storybook build",
     "seed": "tsx prisma/seed.ts",
+    "shot": "tsx scripts/shot.ts",
     "prisma": "prisma"
   },
   "dependencies": {

@@ -286,6 +286,29 @@ ProductCard.tsx`). Требование: раскрытие убрать; вме
 
 ## Закрыто — 26 августа 2026
 
+### ✅ P2 · Дев-стенд отдавал 500 на всех страницах после `git reset`
+
+Сайт и панель отвечали `500`, в логах — `Cannot find module './287.js'` и
+отсутствующий `routes-manifest.json`. Кода это не касалось: `next dev` держит
+`.next` в именованном томе `conditioner-dev_next_cache`, а `git pull` с
+`git reset --hard` сменили исходники под работающим сервером — кеш остался со
+ссылками на чанки, которых больше нет.
+
+**Лечение** (том переживает `docker compose down`, поэтому перезапуска мало):
+
+```bash
+docker compose -f docker-compose.dev.yml stop web
+docker run --rm --entrypoint sh -v conditioner-dev_next_cache:/x conditioner-dev-web -c 'rm -rf /x/* /x/.[!.]*'
+docker compose -f docker-compose.dev.yml start web
+```
+
+Образ берётся локальный: Docker Hub из этой сети недоступен, `alpine:latest`
+не скачивается (для того же в проекте есть аргумент `NODE_IMAGE`).
+
+**Чем ловится дальше:** сквозные тесты падают первым же `smoke.spec.ts`, а
+`pnpm shot` печатает код ответа рядом с файлом (ADR-103). До этого 500 на
+стенде выглядел как «сайт не открывается».
+
 ### ✅ P1 · Вход в панель не работал ни по одному http-адресу стенда
 
 Cookie сессии выдавалась с `Secure` безусловно — с расчётом, что дев-стенд
