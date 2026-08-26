@@ -55,8 +55,9 @@ export default [
     rules: { 'import/no-anonymous-default-export': 'off' },
   },
   {
-    // скрипты сборки печатают отчёт в stdout — для них это интерфейс, а не отладка
-    files: ['scripts/**', 'apps/web/scripts/**'],
+    // скрипты сборки и сиды печатают отчёт в stdout — для них это интерфейс,
+    // а не отладка: их запускают руками и читают вывод
+    files: ['scripts/**', 'apps/web/scripts/**', 'apps/web/prisma/**'],
     rules: { 'no-console': 'off' },
   },
   layerRule('shared', ['app', 'widgets', 'features', 'entities', 'server']),

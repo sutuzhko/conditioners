@@ -13,6 +13,7 @@
     "start": "pnpm --filter web start",
     "worker": "pnpm --filter web worker",
     "seed": "pnpm --filter web seed",
+    "seed:demo": "pnpm --filter web seed:demo",
     "prisma": "pnpm --filter web prisma",
     "storybook": "pnpm --filter web storybook",
     "test": "pnpm --filter web test",
