@@ -4,6 +4,7 @@ import { Card } from '@/shared/ui';
 
 import { buildPageMetadata } from '@/shared/seo';
 import { env } from '@/shared/config/env';
+import { legalTitle } from '@/entities/settings/lib/legal';
 import { loadSettings, type SiteSettings } from '../_lib/settings';
 import { PageIntro } from '../_ui/PageIntro';
 import { policyContent as t, policySections } from './content';
@@ -24,11 +25,16 @@ const PATH = '/privacy';
 
 type Requisite = { readonly label: string; readonly value: string };
 
-/** Наименование оператора для текста: юридическое, затем название компании. */
+/**
+ * Наименование оператора для текста: реквизиты, затем название компании.
+ *
+ * Реквизиты берутся тем же `legalTitle`, которым они напечатаны в футере и
+ * отданы в разметку (ADR-106): оператор персональных данных в политике и
+ * организация в разметке — одно лицо, и называться они обязаны одинаково.
+ */
 function operatorName(settings: SiteSettings): string {
-  const candidates = [settings.legal.name, settings.company.legalName, settings.company.name].map(
-    (value) => value.trim(),
-  );
+  const legal = settings.legal.name.trim() === '' ? '' : legalTitle(settings.legal);
+  const candidates = [legal, settings.company.name.trim()];
 
   return candidates.find((value) => value !== '') ?? t.operatorFallback;
 }

@@ -48,7 +48,7 @@ describe('реестр ключей', () => {
 describe('готовность данных компании', () => {
   it('заглушка из сидов считается незаполненным полем', () => {
     const report = checkReadiness({
-      company: { name: PLACEHOLDER, legalName: 'ООО «Тест»', tagline: 'x', foundedYear: null },
+      company: { name: PLACEHOLDER, tagline: 'x', foundedYear: null },
     });
     const company = report.groups.find((group) => group.key === 'company');
 
@@ -81,7 +81,7 @@ describe('готовность данных компании', () => {
 
   it('заполненные данные проходят проверку', () => {
     const report = checkReadiness({
-      company: { name: 'Компания', legalName: 'ООО «Компания»', tagline: 'Слоган' },
+      company: { name: 'Компания', tagline: 'Слоган' },
       contacts: { phones: ['+79531234567'], email: 'a@b.ru', hours: 'Пн–Вс, 8:00–21:00' },
       address: {
         country: 'RU',

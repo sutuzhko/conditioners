@@ -6,7 +6,7 @@
  * заводятся в админке (инвариант 8).
  */
 export const settingsFixture: Record<string, unknown> = {
-  company: { name: 'Тест-Климат', legalName: 'ООО «Тест-Климат»', tagline: '', foundedYear: null },
+  company: { name: 'Тест-Климат', tagline: '', foundedYear: null },
   contacts: {
     phones: ['+74872000000'],
     email: 'mail@example.test',

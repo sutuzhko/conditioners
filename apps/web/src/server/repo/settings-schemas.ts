@@ -63,7 +63,7 @@ export function isSettingKey(value: string): value is SettingKey {
  * Пустой `office`, второй телефон или соцсети обязательными не считаются.
  */
 export const REQUIRED_FIELDS: Record<SettingKey, readonly string[]> = {
-  company: ['name', 'legalName', 'tagline'],
+  company: ['name', 'tagline'],
   contacts: ['phones', 'email', 'hours'],
   address: ['country', 'region', 'city', 'street', 'building', 'postalCode'],
   geo: ['lat', 'lng'],

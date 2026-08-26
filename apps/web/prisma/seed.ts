@@ -54,7 +54,6 @@ const data = JSON.parse(
 const settings: Record<string, unknown> = {
   company: {
     name: TODO,
-    legalName: TODO,
     tagline: TODO,
     foundedYear: null,
   },

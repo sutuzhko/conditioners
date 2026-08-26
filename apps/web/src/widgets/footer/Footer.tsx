@@ -4,7 +4,9 @@ import type { ButtonLinkHref } from '@/shared/ui';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 import type { Address, Company, Contacts, Legal } from '@/entities/settings/model';
 import { footerContent } from './content';
-import { formatAddress, legalTitle, ogrnLabel } from './lib';
+import { legalTitle } from '@/entities/settings/lib/legal';
+
+import { formatAddress, ogrnLabel } from './lib';
 import type { NavItem } from './model';
 import styles from './Footer.module.css';
 

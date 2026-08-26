@@ -14,6 +14,14 @@ import { absoluteUrl, compact, oneOrMany, text, textList, type JsonLdNode } from
 export type OrganizationParts = {
   readonly siteUrl: string;
   readonly company?: Company | null | undefined;
+  /**
+   * Наименование организации — уже собранная строка, ровно та, что напечатана
+   * в реквизитах футера (`legalTitle` в `entities/settings/lib/legal`).
+   * Собирает её страница: сборщики разметки живут в `shared` и до доменных
+   * функций не дотягиваются, а два независимых поля здесь уже расходились
+   * (ADR-106, инвариант 9).
+   */
+  readonly legalName?: string | null | undefined;
   readonly contacts?: Contacts | null | undefined;
   readonly address?: Address | null | undefined;
   readonly social?: Social | null | undefined;
@@ -89,7 +97,7 @@ export function buildOrganizationJsonLd(parts: OrganizationParts): JsonLdNode | 
     '@type': 'Organization',
     '@id': organizationId(siteUrl),
     name,
-    legalName: text(parts.company?.legalName),
+    legalName: text(parts.legalName),
     slogan: text(parts.company?.tagline),
     foundingDate: typeof foundedYear === 'number' ? String(foundedYear) : undefined,
     url: absoluteUrl(siteUrl),

@@ -23,10 +23,15 @@ export const SITE_URL = 'https://example-klimat.ru';
 
 export const companyFixture: Company = {
   name: 'Пример Климат',
-  legalName: 'ИП Пример Пример Примерович',
   tagline: 'Монтаж под ключ за один день',
   foundedYear: 2015,
 };
+
+/**
+ * Наименование организации приходит в сборщик уже собранным: его печатает
+ * футер, и в разметку уезжает ровно та же строка (ADR-106).
+ */
+export const legalNameFixture = 'ИП Пример Пример Примерович';
 
 export const contactsFixture: Contacts = {
   phones: ['+74872000000', '+79000000000'],
@@ -71,7 +76,7 @@ export const seoFixture: Seo = {
 };
 
 /** Настройки, которых владелец ещё не касался: все группы со значениями по умолчанию. */
-export const emptyCompany: Company = { name: '', legalName: '', tagline: '', foundedYear: null };
+export const emptyCompany: Company = { name: '', tagline: '', foundedYear: null };
 
 export const emptyContacts: Contacts = {
   phones: [],
@@ -100,7 +105,6 @@ export const emptyArea: ServiceArea = { served: '' };
 /** Сиды заполняют группы явной заглушкой — в разметке её быть не должно. */
 export const placeholderCompany: Company = {
   name: SETTING_PLACEHOLDER,
-  legalName: SETTING_PLACEHOLDER,
   tagline: SETTING_PLACEHOLDER,
   foundedYear: null,
 };

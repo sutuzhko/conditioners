@@ -42,7 +42,7 @@ const RATES = {
 
 /** Заполненные настройки: ровно то состояние, в котором сайт уходит в прод. */
 const FILLED = {
-  company: { name: 'Демо-Климат', tagline: 'кондиционеры', legalName: 'ИП Демо' },
+  company: { name: 'Демо-Климат', tagline: 'кондиционеры' },
   contacts: {
     phones: ['+74872000000'],
     email: 'demo@example.test',
@@ -67,7 +67,6 @@ const PLACEHOLDERS = {
   company: {
     name: 'ЗАПОЛНИТЕ В АДМИНКЕ',
     tagline: 'ЗАПОЛНИТЕ В АДМИНКЕ',
-    legalName: 'ЗАПОЛНИТЕ В АДМИНКЕ',
   },
   contacts: { phones: ['ЗАПОЛНИТЕ В АДМИНКЕ'], email: 'ЗАПОЛНИТЕ В АДМИНКЕ' },
   address: { country: 'RU', city: 'Тула', street: 'ЗАПОЛНИТЕ В АДМИНКЕ' },

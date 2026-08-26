@@ -14,12 +14,6 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
     description: 'Как компания называется на сайте и в поисковой выдаче.',
     fields: [
       { path: 'name', label: 'Название', kind: 'text' },
-      {
-        path: 'legalName',
-        label: 'Полное наименование',
-        kind: 'text',
-        hint: 'Как в документах — попадает в реквизиты и в разметку организации',
-      },
       { path: 'tagline', label: 'Короткое описание', kind: 'text' },
       { path: 'foundedYear', label: 'Год основания', kind: 'number' },
     ],
@@ -93,7 +87,12 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
     description: 'Показываются в футере и на странице контактов.',
     fields: [
       { path: 'form', label: 'Форма', kind: 'select', options: ['ИП', 'ООО'] },
-      { path: 'name', label: 'Наименование', kind: 'text' },
+      {
+        path: 'name',
+        label: 'Наименование',
+        kind: 'text',
+        hint: 'Как в документах — печатается в реквизитах и уезжает в разметку организации',
+      },
       { path: 'inn', label: 'ИНН', kind: 'text' },
       {
         path: 'ogrn',

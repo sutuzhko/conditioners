@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { JsonLd, buildOrganizationJsonLd, buildWebSiteJsonLd } from '@/shared/seo';
 import { env } from '@/shared/config/env';
 import { readiness } from '@/server/repo/settings';
+import { legalTitle } from '@/entities/settings/lib/legal';
 import { SkipLink } from '@/shared/ui';
 import { Header } from '@/widgets/header';
 import { Footer } from '@/widgets/footer';
@@ -42,6 +43,8 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   const parts = {
     siteUrl,
     company: settings.company,
+    // в разметку уезжает та же строка, что напечатана в реквизитах футера (ADR-106)
+    legalName: legalTitle(settings.legal),
     contacts: settings.contacts,
     address: settings.address,
     social: settings.social,

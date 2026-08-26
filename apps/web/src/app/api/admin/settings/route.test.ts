@@ -147,7 +147,6 @@ describe('сохранение группы', () => {
     const response = await PUT(
       ...put('company', {
         name: PLACEHOLDER,
-        legalName: '',
         tagline: '',
         foundedYear: null,
       }),

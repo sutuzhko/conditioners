@@ -1,24 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { formatAddress, legalTitle, ogrnLabel } from './lib';
-import { addressEmpty, addressFixture, legalEmpty, legalIp, legalOoo } from './fixtures';
-
-describe('legalTitle', () => {
-  it('подставляет форму собственности перед наименованием', () => {
-    expect(legalTitle(legalIp)).toBe('ИП Демонстрационный Д. Д.');
-    expect(legalTitle(legalOoo)).toBe('ООО «Демонстрация»');
-  });
-
-  it('не дублирует форму, если владелец вписал её в наименование', () => {
-    expect(legalTitle({ ...legalIp, name: 'ИП Демонстрационный Д. Д.' })).toBe(
-      'ИП Демонстрационный Д. Д.',
-    );
-    expect(legalTitle({ ...legalOoo, name: 'ооо «Демонстрация»' })).toBe('ооо «Демонстрация»');
-  });
-
-  it('без наименования остаётся одна форма собственности', () => {
-    expect(legalTitle(legalEmpty)).toBe('ИП');
-  });
-});
+import { formatAddress, ogrnLabel } from './lib';
+import { addressEmpty, addressFixture, legalIp, legalOoo } from './fixtures';
 
 describe('ogrnLabel', () => {
   it('у ИП это ОГРНИП', () => {

@@ -19,7 +19,6 @@ export const navFixture: readonly NavItem[] = [
 
 export const companyFixture: Company = {
   name: 'ТулаКлимат',
-  legalName: 'ИП Демонстрационный Д. Д.',
   tagline: 'кондиционеры в Туле',
   foundedYear: 2014,
 };
@@ -37,7 +36,6 @@ export const contactsFixture: Contacts = {
 /** Реальное состояние проекта: сиды заполнены заметной заглушкой. */
 export const companyPlaceholder: Company = {
   name: SETTING_PLACEHOLDER,
-  legalName: SETTING_PLACEHOLDER,
   tagline: SETTING_PLACEHOLDER,
   foundedYear: null,
 };
@@ -53,7 +51,7 @@ export const contactsPlaceholder: Contacts = {
 };
 
 /** Настройки, которых владелец ещё вообще не касался. */
-export const companyEmpty: Company = { name: '', legalName: '', tagline: '', foundedYear: null };
+export const companyEmpty: Company = { name: '', tagline: '', foundedYear: null };
 
 export const contactsEmpty: Contacts = {
   phones: [],

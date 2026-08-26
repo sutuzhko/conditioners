@@ -68,10 +68,15 @@ const openingHoursSchema = z
 /** Ссылка: либо пусто, либо настоящий адрес — битая ссылка в футере хуже её отсутствия. */
 const optionalUrl = z.union([z.literal(''), z.string().trim().url('Ссылка указана неверно')]);
 
+/**
+ * 🔴 Полного наименования здесь нет намеренно (ADR-106): оно живёт в группе
+ * `legal` — там же, где форма собственности, ИНН и ОГРН, — и печатается в
+ * реквизитах футера. Второе такое поле в этой группе уезжало в разметку, не
+ * показываясь на сайте, и разошлось с видимым текстом (инвариант 9).
+ */
 export const companySchema = z
   .object({
     name: optionalText,
-    legalName: optionalText,
     tagline: optionalText,
     // из формы число приходит строкой — приводим здесь, а не в обработчике
     foundedYear: z.coerce.number().int().min(1900).max(2100).nullable().default(null),

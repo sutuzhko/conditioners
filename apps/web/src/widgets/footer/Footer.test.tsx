@@ -1,4 +1,7 @@
 import { describe, expect, it } from 'vitest';
+
+import { legalTitle } from '@/entities/settings/lib/legal';
+import { buildOrganizationJsonLd } from '@/shared/seo';
 import { render, screen, within } from '@testing-library/react';
 import { Footer } from './Footer';
 import {
@@ -61,6 +64,21 @@ describe('Footer', () => {
     expect(screen.getByText('7100000000')).toBeInTheDocument();
     expect(screen.getByText('1000000000000')).toBeInTheDocument();
     expect(screen.getByText('Юридический адрес')).toBeInTheDocument();
+  });
+
+  it('🔴 наименование в футере — та же строка, что уезжает в разметку', () => {
+    setup({ legal: legalOoo });
+
+    // инвариант 9: видимый текст и `legalName` организации собираются одной
+    // функцией из одного поля настроек (ADR-106) — разойтись им негде
+    expect(screen.getByText(legalTitle(legalOoo))).toBeInTheDocument();
+    expect(
+      buildOrganizationJsonLd({
+        siteUrl: 'https://example.test',
+        company: companyFixture,
+        legalName: legalTitle(legalOoo),
+      }),
+    ).toMatchObject({ legalName: legalTitle(legalOoo) });
   });
 
   it('незаполненные реквизиты не оставляют пустых строк', () => {

@@ -17,7 +17,6 @@ export const policyHrefFixture: ButtonLinkHref = '/privacy';
 
 export const companyFixture: Company = {
   name: 'ТулаКлимат',
-  legalName: 'ИП Демонстрационный Д. Д.',
   tagline: 'Продажа, установка и обслуживание кондиционеров в Туле и области.',
   foundedYear: 2014,
 };
@@ -61,7 +60,6 @@ export const legalOoo: Legal = {
 /** Реальное состояние проекта: сиды заполнены заметной заглушкой. */
 export const companyPlaceholder: Company = {
   name: SETTING_PLACEHOLDER,
-  legalName: SETTING_PLACEHOLDER,
   tagline: SETTING_PLACEHOLDER,
   foundedYear: null,
 };
@@ -95,7 +93,7 @@ export const legalPlaceholder: Legal = {
 };
 
 /** Настройки, которых владелец ещё вообще не касался. */
-export const companyEmpty: Company = { name: '', legalName: '', tagline: '', foundedYear: null };
+export const companyEmpty: Company = { name: '', tagline: '', foundedYear: null };
 
 export const contactsEmpty: Contacts = {
   phones: [],
