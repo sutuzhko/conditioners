@@ -19,10 +19,11 @@ const SALE_TIME_ZONE = 'Europe/Moscow';
 export type ProductJsonLdInput = {
   readonly siteUrl: string;
   /**
-   * Путь карточки: `/catalog/split-09`. Отдельных страниц у моделей нет
-   * (ADR-049), поэтому путь необязателен: без него узел описывает товар
-   * витрины и адреса не заявляет. Ссылка на несуществующую страницу в
-   * разметке — обещание роботу, которое закончится 404.
+   * Путь страницы модели: `/catalog/split-09` (ADR-109).
+   *
+   * Необязателен: скрытая модель своей страницы не имеет, и заявлять её
+   * адрес нельзя — ссылка в разметке это обещание роботу, которое закончится
+   * 404.
    */
   readonly path?: string | undefined;
   readonly product: Product;
@@ -106,6 +107,8 @@ export type CatalogListEntry = {
   readonly product: Product;
   /** Действующая цена этой модели — та же, что нарисована в карточке витрины. */
   readonly price: ActivePrice;
+  /** Путь страницы модели. Без него пункт списка остаётся без адреса. */
+  readonly path?: string | undefined;
 };
 
 export type CatalogListInput = {
@@ -115,16 +118,22 @@ export type CatalogListInput = {
 };
 
 /**
- * `ItemList` витрины: каждый пункт несёт вложенный `Product` с ценой.
+ * `ItemList` витрины и каталога: каждый пункт несёт вложенный `Product` с
+ * ценой и адресом своей страницы (ADR-109).
  *
- * Так, а не ссылками на карточки: отдельных страниц у моделей нет (ADR-049),
- * и `url` в разметке вёл бы на 404. Товар при этом остаётся описанным —
- * Яндекс и Google читают предложение прямо из списка.
+ * Товар описан прямо в списке, а не только ссылкой: Яндекс и Google читают
+ * предложение, не дожидаясь обхода карточки. Адрес при этом обязателен для
+ * товарного сниппета — `Offer` без своего URL остаётся перечислением.
+ * Модель без пути (скрытая) в списке остаётся без адреса, а не получает
+ * выдуманный.
  */
 export function buildCatalogItemListJsonLd(input: CatalogListInput): JsonLdNode | null {
   const products = input.items
-    .map((item) => buildProductJsonLd({ siteUrl: input.siteUrl, ...item }))
-    .filter((node): node is JsonLdNode => node !== null);
+    .map((item) => ({
+      node: buildProductJsonLd({ siteUrl: input.siteUrl, ...item }),
+      url: item.path === undefined ? undefined : productUrl({ ...item, siteUrl: input.siteUrl }),
+    }))
+    .filter((entry): entry is { node: JsonLdNode; url: string | undefined } => entry.node !== null);
 
   if (products.length === 0) return null;
 
@@ -132,10 +141,13 @@ export function buildCatalogItemListJsonLd(input: CatalogListInput): JsonLdNode 
     '@type': 'ItemList',
     name: text(input.name),
     numberOfItems: products.length,
-    itemListElement: products.map((product, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      item: product,
-    })),
+    itemListElement: products.map((entry, index) =>
+      compact({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: entry.url,
+        item: entry.node,
+      }),
+    ),
   });
 }

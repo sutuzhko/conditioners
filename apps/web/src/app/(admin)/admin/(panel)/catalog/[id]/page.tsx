@@ -76,6 +76,7 @@ export default async function AdminProductPage({ params }: { params: Promise<{ i
           slug: product.slug,
           sort: String(product.sort),
           visible: product.visible,
+          featured: product.featured,
           seoTitle: product.seoTitle ?? '',
           seoDescription: product.seoDescription ?? '',
           specs: product.specs.map((spec) => ({ k: spec.k, v: spec.v })),

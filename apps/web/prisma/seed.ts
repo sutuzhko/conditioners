@@ -159,6 +159,9 @@ async function main() {
           tag: m.tag,
           priceNum: m.priceNum,
           visible: true,
+          // сид наполняет и каталог, и витрину: пустая главная при полном
+          // каталоге выглядит поломкой, а не настройкой (ADR-109)
+          featured: true,
           sort: i,
           specs: {
             create: m.specs.map((s, si) => ({ k: s.k, v: s.v, sort: si })),

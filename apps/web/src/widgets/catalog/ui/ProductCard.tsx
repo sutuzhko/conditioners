@@ -1,12 +1,9 @@
 import Image from 'next/image';
+import Link from 'next/link';
+
 import { Badge, ButtonLink, Card } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
-import {
-  EMPTY_SPEC_DICTIONARY,
-  groupSpecs,
-  type SpecDictionary,
-} from '@/entities/product/lib/groupSpecs';
 import { areaLabel, catalogText, photoAlt, powerClassLabel } from '../content';
 import { mainPhoto, type CatalogProduct } from '../model';
 import { ProductPrice } from './ProductPrice';
@@ -25,23 +22,29 @@ export interface ProductCardProps {
   product: CatalogProduct;
   /** Куда ведёт «Заказать» — якорь формы заявки задаёт страница. */
   orderHref: ButtonLinkHref;
+  /** Адрес страницы модели: карточка — вход в неё (ADR-109). */
+  detailsHref: ButtonLinkHref;
   /** Момент расчёта скидки. Задаётся в тестах и снепшотах, в проде — «сейчас». */
   now?: Date | undefined;
-  /** Справочник характеристик: он задаёт группы и их порядок (ADR-094). */
-  specDictionary?: SpecDictionary | undefined;
 }
 
-/** Карточка модели на витрине. Серверная: интерактивности здесь нет. */
-export function ProductCard({
-  product,
-  orderHref,
-  now,
-  specDictionary = EMPTY_SPEC_DICTIONARY,
-}: ProductCardProps) {
+/**
+ * Карточка модели на витрине и в каталоге. Серверная: интерактивности нет.
+ *
+ * 🔴 Полных характеристик в карточке нет (ADR-109): они живут на странице
+ * модели. Один и тот же список в двух местах — внутренний дубль, а сорок
+ * свёрнутых строк в каждой из двенадцати карточек утяжеляли бы HTML каталога
+ * втрое без единого нового слова для поиска.
+ *
+ * Ссылка на модель одна — заголовок; кликабельна при этом вся карточка
+ * (перекрытие в CSS). Второй ссылки с анкором «Подробнее» здесь нет
+ * сознательно: осмысленный анкор — название модели (docs/SEO.md §5), а два
+ * пункта на один адрес в списке ссылок скринридера — шум.
+ */
+export function ProductCard({ product, orderHref, detailsHref, now }: ProductCardProps) {
   const price = getActivePrice(product, now);
   const photo = mainPhoto(product.photos);
   const alt = photo?.alt?.trim();
-  const specGroups = groupSpecs(product.specs, specDictionary);
 
   return (
     <Card as="li" padding="none" radius="ml" elevation="none" interactive className={styles.card}>
@@ -76,7 +79,11 @@ export function ProductCard({
       </div>
 
       <div className={styles.body}>
-        <h3 className={styles.name}>{product.name}</h3>
+        <h3 className={styles.name}>
+          <Link href={detailsHref} className={styles.nameLink}>
+            {product.name}
+          </Link>
+        </h3>
         <p className={styles.area}>{areaLabel(product.areaMax)}</p>
         {product.tag === null ? null : (
           <Badge variant="accent" size="sm" className={styles.tag}>
@@ -88,34 +95,11 @@ export function ProductCard({
           <ProductPrice price={price} />
         </div>
 
-        {specGroups.length === 0 ? null : (
-          /* 🔴 `details`, а не показ по клику на JavaScript: характеристики
-             обязаны быть в HTML всегда, даже когда свёрнуты. Свёрнутый список
-             из сорока строк не ломает сетку витрины, а робот и читатель с
-             отключённым JS видят его целиком — то же правило, что у FAQ. */
-          <details className={styles.specs}>
-            <summary className={styles.specsSummary}>
-              {catalogText.specsSummary}
-              <span className={styles.specsCount}>
-                {catalogText.specsCount(product.specs.length)}
-              </span>
-            </summary>
-
-            {specGroups.map((group) => (
-              <div className={styles.specGroup} key={group.title}>
-                <p className={styles.specGroupTitle}>{group.title}</p>
-                <dl className={styles.specList}>
-                  {group.items.map((item) => (
-                    <div className={styles.specRow} key={item.k}>
-                      <dt>{item.k}</dt>
-                      <dd>{item.v}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            ))}
-          </details>
-        )}
+        {/* Подсказка, что за карточкой есть страница. Не ссылка: ссылка здесь
+            уже есть — заголовок, растянутый на всю карточку. */}
+        <p className={styles.details} aria-hidden="true">
+          {catalogText.more} →
+        </p>
 
         <div className={styles.actions}>
           <ButtonLink href={orderHref} variant="accent" fullWidth className={styles.order}>

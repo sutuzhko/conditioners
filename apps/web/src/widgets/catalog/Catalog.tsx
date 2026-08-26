@@ -3,7 +3,7 @@ import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/l
 import { Card } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { catalogText } from './content';
-import type { CatalogProduct } from './model';
+import type { CatalogProduct, ProductHref } from './model';
 import { CompareTable } from './ui/CompareTable';
 import { ProductCard } from './ui/ProductCard';
 import { ProductCardSkeleton } from './ui/ProductCardSkeleton';
@@ -18,8 +18,15 @@ export interface CatalogProps {
    * страница (docs/ORCHESTRATION.md, «Блок не ходит в базу»). Невидимые
    * модели отсеиваются здесь, чтобы блок нельзя было случайно показать
    * скрытый товар.
+   *
+   * На главной это витрина — то, что владелец вынес флагом `featured`, а не
+   * весь ассортимент (ADR-109).
    */
   products: readonly CatalogProduct[];
+  /** Адрес страницы модели: карта URL принадлежит странице, а не блоку. */
+  productHref: ProductHref;
+  /** Ссылка во весь каталог. Нет — заголовок остаётся без неё. */
+  catalogHref?: ButtonLinkHref | undefined;
   /** Куда ведёт «Заказать» и ссылка «подберём» — якорь формы заявки. */
   orderHref?: ButtonLinkHref | undefined;
   /** Момент расчёта скидки: тесты и снепшоты фиксируют его, прод берёт «сейчас». */
@@ -29,9 +36,9 @@ export interface CatalogProps {
   /** Якорь секции: по нему на неё ведёт навигация в шапке. */
   id?: string | undefined;
   /**
-   * Справочник характеристик из настроек: он группирует характеристики в
-   * карточке и задаёт порядок строк сравнения (ADR-094). Пустой — рабочее
-   * состояние: характеристики просто идут одним списком.
+   * Справочник характеристик из настроек: он задаёт порядок строк сравнения
+   * (ADR-094). Пустой — рабочее состояние: характеристики просто идут одним
+   * списком.
    */
   specDictionary?: SpecDictionary | undefined;
 }
@@ -47,6 +54,8 @@ const HEADING_ID = 'catalog-title';
  */
 export function Catalog({
   products,
+  productHref,
+  catalogHref,
   orderHref = '#lead',
   now,
   loading = false,
@@ -66,9 +75,16 @@ export function Catalog({
             </h2>
             <p className={styles.lead}>{catalogText.lead}</p>
           </div>
-          <Link href={orderHref} className={styles.help}>
-            {catalogText.help}
-          </Link>
+          <div className={styles.headLinks}>
+            {catalogHref === undefined ? null : (
+              <Link href={catalogHref} className={styles.help}>
+                {catalogText.all}
+              </Link>
+            )}
+            <Link href={orderHref} className={styles.help}>
+              {catalogText.help}
+            </Link>
+          </div>
         </header>
 
         {loading ? (
@@ -94,8 +110,8 @@ export function Catalog({
                   key={product.id}
                   product={product}
                   orderHref={orderHref}
+                  detailsHref={productHref(product.slug)}
                   now={now}
-                  specDictionary={specDictionary}
                 />
               ))}
             </ul>

@@ -13,6 +13,7 @@ export const filledProduct: ProductFormValues = {
   slug: 'split-sistema-09',
   sort: '0',
   visible: true,
+  featured: true,
   seoTitle: '',
   seoDescription: '',
   specs: [

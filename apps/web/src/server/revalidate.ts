@@ -9,7 +9,13 @@
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
-import { ARTICLES_PATH, HOME_ROUTE, articlePath } from '@/shared/seo/routes';
+import {
+  ARTICLES_PATH,
+  CATALOG_PATH,
+  HOME_ROUTE,
+  articlePath,
+  productPath,
+} from '@/shared/seo/routes';
 
 /* Адреса берутся из карты сайта, а не повторяются здесь: своя копия уже
    разошлась с ней при переходе на английские адреса (ADR-042), и правки в
@@ -17,12 +23,25 @@ import { ARTICLES_PATH, HOME_ROUTE, articlePath } from '@/shared/seo/routes';
    секции главной, поэтому каталог, цены и отзывы сбрасывают именно её. */
 export const ROUTES = {
   home: HOME_ROUTE.path,
+  catalog: CATALOG_PATH,
   knowledge: ARTICLES_PATH,
 } as const;
 
-/** Витрина и таблица сравнения живут на главной. */
-export function revalidateCatalog(): void {
+/**
+ * Правка модели задевает три места сразу (ADR-109): каталог, страницу самой
+ * модели и витрину главной. Раньше сбрасывалась только главная — тогда
+ * товарных адресов не существовало.
+ *
+ * Слаг необязателен: у создания модели его ещё нет, у удаления он уже не
+ * ведёт никуда — обе операции меняют список, а не карточку.
+ */
+export function revalidateCatalog(slug?: string | null): void {
   revalidatePath(ROUTES.home);
+  revalidatePath(ROUTES.catalog);
+  // карта сайта статична: без сброса новая модель попадала бы в неё с
+  // опозданием до часа — для SEO-проекта это потерянная скорость индексации
+  revalidatePath('/sitemap.xml');
+  if (slug !== undefined && slug !== null) revalidatePath(productPath(slug));
 }
 
 /** Прайс, калькулятор и подписи «от N ₽» — секции главной. */

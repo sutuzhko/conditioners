@@ -24,7 +24,11 @@ export const PUT = withAdmin(async (request, context: Context) => {
   if (before === null) return notFound('Модель', 'f');
 
   const product = await update(id, parsed.data);
-  revalidateCatalog();
+  /* Сбрасываются оба адреса: при смене слага старая страница обязана
+     перестать отдаваться из кеша, иначе модель какое-то время живёт по двум
+     адресам сразу — ровно тот дубль, которого не должно быть. */
+  revalidateCatalog(product.slug);
+  if (before.slug !== product.slug) revalidateCatalog(before.slug);
 
   return json(product);
 });
@@ -38,7 +42,8 @@ export const PATCH = withAdmin(async (request, context: Context) => {
   if (before === null) return notFound('Модель', 'f');
 
   const product = await update(id, parsed.data);
-  revalidateCatalog();
+  revalidateCatalog(product.slug);
+  if (before.slug !== product.slug) revalidateCatalog(before.slug);
 
   return json(product);
 });
@@ -53,7 +58,7 @@ export const DELETE = withAdmin(async (_request, context: Context) => {
   // Файлы удаляются вместе с карточкой: том не должен копить осиротевшие фото.
   await Promise.all(product.photos.map((photo) => deleteStoredImage(photo.url)));
 
-  revalidateCatalog();
+  revalidateCatalog(product.slug);
 
   return noContent();
 });

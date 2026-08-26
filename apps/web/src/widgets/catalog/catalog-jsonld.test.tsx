@@ -160,13 +160,13 @@ describe('Product и Offer', () => {
   });
 });
 
-describe('ItemList витрины — товары без своих страниц', () => {
-  it('несёт вложенный Product с ценой, а не ссылку на несуществующую карточку', () => {
+describe('ItemList витрины и каталога', () => {
+  it('несёт вложенный Product с ценой и ссылку на его страницу', () => {
     const product = makeProduct();
     const node = buildCatalogItemListJsonLd({
       siteUrl: SITE_URL,
       name: 'Каталог',
-      items: [{ product, price: getActivePrice(product, NOW) }],
+      items: [{ product, price: getActivePrice(product, NOW), path: '/catalog/split-09' }],
     });
 
     const list = node as { numberOfItems: number; itemListElement: readonly unknown[] };
@@ -178,12 +178,16 @@ describe('ItemList витрины — товары без своих стран�
       item: { '@type': string; url?: unknown; offers: { price: number; url?: unknown } };
     };
     expect(entry.position).toBe(1);
-    expect(entry.url).toBeUndefined();
+    expect(entry.url).toBe(`${SITE_URL}/catalog/split-09`);
     expect(entry.item['@type']).toBe('Product');
+    expect(entry.item.url).toBe(`${SITE_URL}/catalog/split-09`);
+    // 🔴 адрес нужен и предложению: `Offer` без url для поисковика —
+    // перечисление, а не товар (ADR-109)
+    expect(entry.item.offers.url).toBe(`${SITE_URL}/catalog/split-09`);
     expect(entry.item.offers.price).toBe(product.priceNum);
   });
 
-  it('🔴 без своей страницы адреса в разметке нет — ни у товара, ни у предложения', () => {
+  it('🔴 у модели без своей страницы адреса в разметке нет — ни у товара, ни у предложения', () => {
     const product = makeProduct();
     const node = buildProductJsonLd({
       siteUrl: SITE_URL,

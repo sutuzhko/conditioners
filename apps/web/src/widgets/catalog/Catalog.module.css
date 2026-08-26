@@ -55,6 +55,15 @@
   font-size: 16.5px;
 }
 
+/* Ссылки заголовка: «весь каталог» и «подберём». В колонку на телефоне —
+   в строку они не помещаются уже на 320px. */
+.headLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  align-items: center;
+}
+
 /* тап-зона 44px обязательна и для текстовой ссылки */
 .help {
   display: inline-flex;

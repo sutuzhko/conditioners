@@ -1,0 +1,22 @@
+/* Порядок каталога. На десктопе — строкой справа от счётчика найденного,
+   на телефоне переносится под него. */
+
+.sort {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+}
+
+.label {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+}
+
+.values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

@@ -64,4 +64,30 @@ describe('Метаданные страницы', () => {
 
     expect(meta.robots).toEqual({ index: false, follow: false });
   });
+
+  it('🔴 фильтр каталога закрыт от индекса, но обходится по ссылкам (ADR-109)', () => {
+    const meta = buildPageMetadata({
+      siteUrl: SITE_URL,
+      path: '/catalog',
+      title: 'Каталог',
+      noIndex: true,
+      follow: true,
+    });
+
+    // noindex, follow: вес собирается на чистом адресе, а карточки моделей
+    // робот всё равно находит
+    expect(meta.robots).toEqual({ index: false, follow: true });
+    expect(meta.alternates?.canonical).toBe(`${SITE_URL}/catalog`);
+  });
+
+  it('открытая страница про robots не заявляет ничего', () => {
+    const meta = buildPageMetadata({
+      siteUrl: SITE_URL,
+      path: '/catalog',
+      title: 'Каталог',
+      follow: true,
+    });
+
+    expect(meta).not.toHaveProperty('robots');
+  });
 });

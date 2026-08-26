@@ -1,0 +1,269 @@
+/* Страница модели: заголовок, фото и цена в две колонки, характеристики
+   ниже во всю ширину. На телефоне всё складывается в одну колонку. */
+
+.page {
+  background: var(--bg);
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 28px var(--gutter) var(--section-y);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.title {
+  flex: 1 1 100%;
+  order: 2;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.tag {
+  order: 1;
+}
+
+.lead {
+  flex: 1 1 100%;
+  order: 3;
+  max-width: 640px;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-lead);
+}
+
+.main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
+  gap: 28px;
+  align-items: start;
+  margin-bottom: 44px;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.mainPhoto {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg-soft);
+  object-fit: cover;
+}
+
+.fallback {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: linear-gradient(160deg, var(--accent-bg), var(--bg-soft));
+  aspect-ratio: 4 / 3;
+}
+
+.fallbackClass {
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.fallbackHint {
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.thumb {
+  display: block;
+  width: 120px;
+  height: 90px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  object-fit: cover;
+}
+
+.offer {
+  position: sticky;
+  top: 96px;
+}
+
+.area {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: var(--fs-base);
+}
+
+.cta {
+  margin-top: 18px;
+}
+
+.external {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  text-decoration: none;
+}
+
+.external:hover {
+  color: var(--accent-ink);
+  text-decoration: underline;
+}
+
+.external:focus-visible {
+  outline: none;
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-ring);
+}
+
+.specs {
+  border-top: 1px solid var(--line);
+  padding-top: 28px;
+}
+
+.specsTitle {
+  margin: 0 0 20px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.specsEmpty {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-base);
+}
+
+.specGroups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px 32px;
+}
+
+.specGroup {
+  min-width: 0;
+}
+
+.specGroupTitle {
+  margin: 0 0 8px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.specList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+}
+
+.specRow {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 6px;
+  font-size: var(--fs-dense);
+}
+
+.specRow dt {
+  color: var(--muted);
+}
+
+.specRow dd {
+  margin: 0;
+  color: var(--ink);
+  font-weight: 600;
+  text-align: right;
+}
+
+.back {
+  margin: 36px 0 0;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--accent-ink);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.backLink:focus-visible {
+  outline: none;
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-ring);
+}
+
+@media (width < 900px) {
+  .main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .offer {
+    position: static;
+  }
+}
+
+@media (width < 600px) {
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .lead {
+    font-size: var(--fs-base);
+  }
+
+  .specGroups {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

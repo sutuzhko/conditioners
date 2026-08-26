@@ -40,6 +40,7 @@ export type ProductDto = {
   saleLabel: string | null;
   link: string | null;
   visible: boolean;
+  featured: boolean;
   sort: number;
   seoTitle: string | null;
   seoDescription: string | null;
@@ -84,6 +85,7 @@ export function toDto(row: ProductRow, now: Date = new Date()): ProductDto {
     saleLabel: row.saleLabel,
     link: row.link,
     visible: row.visible,
+    featured: row.featured,
     sort: row.sort,
     seoTitle: row.seoTitle,
     seoDescription: row.seoDescription,
@@ -108,10 +110,27 @@ const order = [
   { createdAt: 'asc' },
 ] satisfies Prisma.ProductOrderByWithRelationInput[];
 
-/** Публичные страницы: только видимое. */
+/** Каталог: всё, что в продаже. */
 export async function listVisible(): Promise<ProductDto[]> {
   const rows = await db.product.findMany({
     where: { visible: true },
+    include: withRelations,
+    orderBy: order,
+  });
+  return rows.map((row) => toDto(row));
+}
+
+/**
+ * Витрина лендинга: то, что владелец вынес на главную (ADR-109).
+ *
+ * 🔴 Вместе с `visible`, а не вместо него: снятая с продажи модель на главной
+ * — это предложение купить то, чего нет. Признак «на главной» отвечает на
+ * другой вопрос — что показать сегодня, — и снимать товар с продажи он не
+ * умеет.
+ */
+export async function listFeatured(): Promise<ProductDto[]> {
+  const rows = await db.product.findMany({
+    where: { visible: true, featured: true },
     include: withRelations,
     orderBy: order,
   });
@@ -174,6 +193,8 @@ async function createOnce(input: ProductInput): Promise<ProductDto> {
       priceNum: input.priceNum,
       link: input.link ?? null,
       visible: input.visible ?? true,
+      // новая модель на главную не выносится сама: витрину собирает владелец
+      featured: input.featured ?? false,
       sort: input.sort ?? 0,
       seoTitle: input.seoTitle ?? null,
       seoDescription: input.seoDescription ?? null,
@@ -224,6 +245,7 @@ async function updateOnce(id: string, input: ProductPatch): Promise<ProductDto> 
         ...(input.priceNum === undefined ? {} : { priceNum: input.priceNum }),
         ...(input.link === undefined ? {} : { link: input.link }),
         ...(input.visible === undefined ? {} : { visible: input.visible }),
+        ...(input.featured === undefined ? {} : { featured: input.featured }),
         ...(input.sort === undefined ? {} : { sort: input.sort }),
         ...(input.seoTitle === undefined ? {} : { seoTitle: input.seoTitle }),
         ...(input.seoDescription === undefined ? {} : { seoDescription: input.seoDescription }),

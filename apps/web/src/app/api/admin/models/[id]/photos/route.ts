@@ -35,7 +35,7 @@ export const POST = withAdmin(async (request, context: { params: Promise<{ id: s
     throw error;
   });
 
-  revalidateCatalog();
+  revalidateCatalog(product.slug);
 
   return json(photo, 201);
 });

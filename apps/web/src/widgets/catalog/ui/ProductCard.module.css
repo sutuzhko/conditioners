@@ -4,6 +4,7 @@
 /* радиус 18px — из макета, он мельче общего радиуса крупных панелей (20px):
    карточка витрины и панель сравнения под ней в макете скруглены по-разному */
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -76,6 +77,35 @@
   letter-spacing: -0.02em;
 }
 
+.nameLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Перекрытие: кликабельна вся карточка, а ссылка в разметке одна — заголовок
+   с осмысленным анкором. Кнопка заказа и ссылка к поставщику поднимаются над
+   перекрытием ниже, иначе карточка «съедала» бы их клик. */
+.nameLink::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: '';
+}
+
+.nameLink:hover {
+  text-decoration: underline;
+}
+
+/* Кольцо фокуса рисуется на всей карточке: цель клика — она целиком,
+   и подсветка одного заголовка обманывала бы клавиатуру (ADR-085). */
+.nameLink:focus-visible {
+  outline: none;
+}
+
+.card:has(.nameLink:focus-visible) {
+  box-shadow: var(--ring-focus-ring);
+}
+
 .area {
   margin: 0;
   color: var(--muted);
@@ -94,7 +124,17 @@
   padding-top: 14px;
 }
 
+/* Подсказка про страницу модели: не ссылка, поэтому и не тап-зона. */
+.details {
+  margin: 10px 0 0;
+  color: var(--accent-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
 .actions {
+  position: relative;
+  z-index: 2;
   display: flex;
   gap: 8px;
   align-items: stretch;
@@ -135,92 +175,4 @@
 
 .external:focus-visible {
   box-shadow: var(--ring-focus);
-}
-
-/* Характеристики модели.
-
-   🔴 Свёрнуты, но всегда в HTML: `details` держит содержимое в разметке и
-   при закрытом состоянии — характеристики это индексируемый контент, и
-   показывать их по клику на JavaScript нельзя (инвариант 1). */
-.specs {
-  margin-top: 14px;
-  border-top: 1px solid var(--line-soft);
-  padding-top: 12px;
-}
-
-.specsSummary {
-  display: flex;
-  gap: 8px;
-  align-items: baseline;
-  color: var(--accent-ink);
-  font-size: var(--fs-caption);
-  font-weight: 600;
-  cursor: pointer;
-  list-style: none;
-}
-
-/* Стрелка своя: у Safari маркер `summary` не убирается общим правилом. */
-.specsSummary::-webkit-details-marker {
-  display: none;
-}
-
-.specsSummary::after {
-  content: '▾';
-  transition: transform var(--dur-fast) ease;
-}
-
-.specs[open] .specsSummary::after {
-  transform: rotate(180deg);
-}
-
-.specsSummary:focus-visible {
-  outline: none;
-  border-radius: var(--r-sm);
-  box-shadow: var(--ring-focus-ring);
-}
-
-.specsCount {
-  margin-left: auto;
-  color: var(--faint);
-  font-weight: 400;
-}
-
-.specGroup {
-  margin-top: 12px;
-}
-
-.specGroupTitle {
-  margin: 0 0 4px;
-  color: var(--faint);
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.specList {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin: 0;
-}
-
-.specRow {
-  display: flex;
-  gap: 8px;
-  align-items: baseline;
-  justify-content: space-between;
-  font-size: var(--fs-caption);
-}
-
-.specRow dt {
-  color: var(--muted);
-}
-
-.specRow dd {
-  margin: 0;
-  color: var(--ink);
-  font-weight: 600;
-  text-align: right;
 }

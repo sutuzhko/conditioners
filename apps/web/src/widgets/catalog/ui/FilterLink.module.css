@@ -1,0 +1,57 @@
+/* Значение фильтра. Геометрия пилюли повторяет Chip из UI Kit (100px,
+   тап-зона 44px), но это ссылка: выбор живёт в адресе, а не в состоянии. */
+
+.link {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 11px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--body);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+.link:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.link:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* Выбранное значение: заливка --brand, как у выбранного чипа. Прототипный
+   #0891B2 даёт с белым 3.5:1 и не проходит AA. */
+.selected {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+.selected:hover {
+  border-color: var(--brand-hover);
+  background: var(--brand-hover);
+  color: var(--on-brand);
+}
+
+@media (width < 600px) {
+  .link {
+    padding: 10px 14px;
+    font-size: var(--fs-caption);
+  }
+}

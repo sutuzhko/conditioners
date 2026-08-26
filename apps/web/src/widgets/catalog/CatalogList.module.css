@@ -1,0 +1,93 @@
+/* Каталог: подбор, счётчик, сетка карточек и разбивка. Контейнер и ритм —
+   те же, что у секций лендинга (docs/DESIGN_BRIEF.md §4). */
+
+.section {
+  background: var(--bg);
+}
+
+/* Отступ сверху свой: вводная часть страницы заканчивается текстом вплотную,
+   и подбор без воздуха читается как её продолжение, а не как новый шаг. */
+.container {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 36px var(--gutter) var(--section-y);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+.found {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-lead);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Ряд, а не жёсткая сетка: число моделей задаёт владелец, и при сетке
+   последний ряд оставался бы полупустым при любом числе, не кратном
+   колонкам. То же решение, что в витрине лендинга. */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  justify-content: center;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.grid > li {
+  flex: 1 1 250px;
+  min-width: 0;
+  max-width: 320px;
+}
+
+.empty {
+  max-width: 620px;
+  margin-bottom: 32px;
+}
+
+.emptyTitle {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.emptyText {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-base);
+}
+
+.emptyAction {
+  margin-top: 16px;
+}
+
+@media (width < 600px) {
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .toolbar {
+    align-items: flex-start;
+  }
+
+  .grid {
+    gap: 16px;
+  }
+}

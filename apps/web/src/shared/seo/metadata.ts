@@ -24,6 +24,15 @@ export type PageMetadataInput = {
   /** Название сайта для Open Graph — из настроек компании. */
   readonly siteName?: string | null | undefined;
   readonly noIndex?: boolean | undefined;
+  /**
+   * Разрешить роботу идти по ссылкам закрытой страницы: `noindex, follow`.
+   *
+   * 🔴 Нужно фильтрам каталога (ADR-109): сам отфильтрованный адрес в индексе
+   * не нужен, но карточки моделей с него обязаны обходиться, иначе модель,
+   * до которой ведёт только фильтр, останется необойдённой. По умолчанию
+   * `false` — закрытая страница закрыта целиком.
+   */
+  readonly follow?: boolean | undefined;
 };
 
 /** Разделитель суффикса — тот же, что в шаблонах docs/SEO.md §3. */
@@ -60,7 +69,7 @@ export function buildPageMetadata(input: PageMetadataInput): Metadata {
     },
     ...(title === undefined ? {} : { title }),
     ...(description === undefined ? {} : { description }),
-    ...(input.noIndex === true ? { robots: { index: false, follow: false } } : {}),
+    ...(input.noIndex === true ? { robots: { index: false, follow: input.follow === true } } : {}),
   };
 
   return metadata;

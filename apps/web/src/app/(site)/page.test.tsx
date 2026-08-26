@@ -13,7 +13,7 @@ const { testEnv, productsMock, reviewsMock, articlesMock, pricesMock, settingsMo
       NOTIFY_DRIVER: 'log',
       TELEGRAM_TRANSPORT: 'off',
     },
-    productsMock: { listVisible: vi.fn() },
+    productsMock: { listVisible: vi.fn(), listFeatured: vi.fn() },
     reviewsMock: { listApproved: vi.fn() },
     articlesMock: { listPublished: vi.fn() },
     pricesMock: { getPrices: vi.fn() },
@@ -88,6 +88,7 @@ function types(container: HTMLElement): readonly string[] {
 beforeEach(() => {
   vi.clearAllMocks();
   productsMock.listVisible.mockResolvedValue([]);
+  productsMock.listFeatured.mockResolvedValue([]);
   reviewsMock.listApproved.mockResolvedValue([]);
   articlesMock.listPublished.mockResolvedValue([]);
   pricesMock.getPrices.mockResolvedValue({
@@ -126,8 +127,8 @@ describe('Лендинг — разметка Schema.org', () => {
     expect(container.innerHTML).not.toContain('"ЗАПОЛНИТЕ В АДМИНКЕ"');
   });
 
-  it('🔴 витрина уходит в ItemList товарами, а не ссылками на несуществующие карточки', async () => {
-    productsMock.listVisible.mockResolvedValue([
+  it('🔴 витрина уходит в ItemList товарами со ссылками на их страницы (ADR-109)', async () => {
+    productsMock.listFeatured.mockResolvedValue([
       {
         id: 'p1',
         slug: 'split-09',
@@ -138,6 +139,7 @@ describe('Лендинг — разметка Schema.org', () => {
         specs: [{ k: 'Мощность охлаждения', v: '2.6 кВт' }],
         photos: [],
         visible: true,
+        featured: true,
       },
     ]);
 
@@ -148,9 +150,33 @@ describe('Лендинг — разметка Schema.org', () => {
     expect(entries).toHaveLength(1);
 
     const entry = entries[0] as { url?: unknown; item?: { name?: unknown; offers?: unknown } };
-    expect(entry.url).toBeUndefined();
+    expect(entry.url).toBe('https://example.test/catalog/split-09');
     expect(entry.item?.name).toBe('Сплит-система 09');
     expect(container.textContent).toContain('Сплит-система 09');
+  });
+
+  it('🔴 на главной только витрина: модель в продаже, но не вынесенная, туда не идёт', async () => {
+    productsMock.listVisible.mockResolvedValue([
+      {
+        id: 'p1',
+        slug: 'split-07',
+        badge: '07',
+        name: 'Сплит-система 07',
+        areaMax: 20,
+        priceNum: 34_900,
+        specs: [],
+        photos: [],
+        visible: true,
+        featured: false,
+      },
+    ]);
+
+    const { container } = render(await HomePage());
+
+    // подбор по площади в первом экране выбирает из всего ассортимента,
+    // а витрина остаётся пустой — карточки в ней нет
+    expect(container.querySelector('#catalog')?.textContent).not.toContain('Сплит-система 07');
+    expect(graph(container).some((node) => node['@type'] === 'ItemList')).toBe(false);
   });
 
   it('🔴 вопросы в FAQPage дословно те же, что на странице (инвариант 9)', async () => {

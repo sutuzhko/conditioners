@@ -1,0 +1,62 @@
+/* Подбор по параметрам. Группы идут колонкой, значения — переносимой строкой:
+   на 320px в ряд помещаются два чипа, и горизонтальной прокрутки быть не
+   должно (docs/SEO.md §5, «Мобильность»). */
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+}
+
+.hint {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.resetRow {
+  margin: 0;
+}
+
+.reset {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--accent-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.reset:hover {
+  text-decoration: underline;
+}
+
+.reset:focus-visible {
+  outline: none;
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-ring);
+}

@@ -53,6 +53,7 @@ const product: ProductDto = {
   saleLabel: null,
   link: null,
   visible: true,
+  featured: true,
   sort: 0,
   seoTitle: null,
   seoDescription: null,

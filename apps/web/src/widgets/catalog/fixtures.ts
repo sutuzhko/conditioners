@@ -45,6 +45,7 @@ function product(overrides: Partial<CatalogProduct> & Pick<CatalogProduct, 'id'>
     saleLabel: null,
     link: null,
     visible: true,
+    sort: 0,
     photos: [],
     specs: [],
     ...overrides,
@@ -58,6 +59,7 @@ function specs(pairs: readonly (readonly [string, string])[]): CatalogProduct['s
 /** Базовая модель: без фото, без скидки — то, как каталог выглядит на старте. */
 export const plainProduct = product({
   id: 'split-07',
+  sort: 0,
   badge: '07',
   name: 'Сплит-система 07',
   areaMax: 20,
@@ -72,6 +74,7 @@ export const plainProduct = product({
 /** Модель с фотографией и действующей скидкой — плашка, старая цена и срок. */
 export const discountedProduct = product({
   id: 'split-09',
+  sort: 1,
   badge: '09',
   name: 'Сплит-система 09',
   tag: 'тихая, для спальни',
@@ -91,6 +94,7 @@ export const discountedProduct = product({
 /** Модель с характеристикой, которой нет ни у кого: таблица растёт на строку. */
 export const uniqueSpecProduct = product({
   id: 'split-12',
+  sort: 2,
   badge: '12',
   name: 'Сплит-система 12',
   areaMax: 35,
@@ -106,6 +110,7 @@ export const uniqueSpecProduct = product({
 /** Скидка с подписью владельца вместо процента и без срока окончания. */
 export const labelledSaleProduct = product({
   id: 'split-18',
+  sort: 3,
   badge: '18',
   name: 'Сплит-система 18',
   areaMax: 50,
@@ -121,6 +126,7 @@ export const labelledSaleProduct = product({
 /** Скидка закончилась вчера: карточка обязана рисоваться как обычная. */
 export const expiredSaleProduct = product({
   id: 'split-24',
+  sort: 4,
   badge: '24',
   name: 'Сплит-система 24',
   areaMax: 70,
@@ -133,9 +139,39 @@ export const expiredSaleProduct = product({
 /** Скрытая модель: в витрину и в сравнение попадать не должна. */
 export const hiddenProduct = product({
   id: 'split-hidden',
+  sort: 5,
   name: 'Снятая с продажи',
   visible: false,
   specs: specs([['Секретная характеристика', 'Нет']]),
+});
+
+/**
+ * Модель с несколькими снимками: страница модели показывает их все сразу,
+ * без переключения по клику.
+ */
+export const galleryProduct = product({
+  id: 'split-gallery',
+  badge: '09',
+  name: 'Сплит-система 09 Pro',
+  areaMax: 27,
+  priceNum: 41_900,
+  sort: 6,
+  photos: [
+    { id: 'gallery-1', url: SAMPLE_PHOTO, alt: null, isMain: true, sort: 0 },
+    { id: 'gallery-2', url: SAMPLE_PHOTO, alt: 'Внутренний блок вблизи', isMain: false, sort: 1 },
+    { id: 'gallery-3', url: SAMPLE_PHOTO, alt: null, isMain: false, sort: 2 },
+  ],
+  specs: specs([
+    ['Компрессор', 'Инверторный'],
+    ['Уровень шума', '19 дБ'],
+    ['Обогрев до', '−22 °C'],
+    ['Wi-Fi управление', 'Есть'],
+  ]),
+});
+
+/** Адрес модели для историй и тестов: в Storybook маршрутизации нет. */
+export const productHrefFixture = (slug: string): { pathname: string } => ({
+  pathname: `/catalog/${slug}`,
 });
 
 export const catalogFixture: readonly CatalogProduct[] = [

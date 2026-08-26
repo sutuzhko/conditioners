@@ -171,11 +171,23 @@ export function ProductForm({
             onChange={(event) => set('tag', event.target.value)}
           />
 
+          {/* Два разных вопроса, поэтому два переключателя (ADR-109):
+              «в продаже» — есть ли модель в каталоге, «на главной» — вынес ли
+              её владелец в витрину лендинга. */}
           <Checkbox
             label={texts.visible}
+            hint={texts.visibleHint}
             checked={values.visible}
             disabled={busy}
             onChange={(event) => set('visible', event.target.checked)}
+          />
+
+          <Checkbox
+            label={texts.featured}
+            hint={texts.featuredHint}
+            checked={values.featured ?? false}
+            disabled={busy}
+            onChange={(event) => set('featured', event.target.checked)}
           />
         </div>
       </Card>

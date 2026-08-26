@@ -1,3 +1,4 @@
+import type { ButtonLinkHref } from '@/shared/ui';
 import type { Product, ProductPhoto } from '@/entities/product/model';
 
 /**
@@ -23,9 +24,21 @@ export type CatalogProduct = Pick<
   | 'saleLabel'
   | 'link'
   | 'visible'
+  // порядок владельца: по нему идёт выдача каталога и собираются значения
+  // фильтров — блоку он нужен затем же, зачем и странице (ADR-109)
+  | 'sort'
   | 'photos'
   | 'specs'
 >;
+
+/**
+ * Адрес страницы модели по её слагу.
+ *
+ * Функцией из страницы, а не строкой внутри блока: карта URL принадлежит
+ * маршрутам (`shared/seo/routes`), а блок обязан рисоваться в Storybook, где
+ * маршрутизации нет вовсе.
+ */
+export type ProductHref = (slug: string) => ButtonLinkHref;
 
 /**
  * Главная фотография: явно отмеченная владельцем, иначе первая по порядку.

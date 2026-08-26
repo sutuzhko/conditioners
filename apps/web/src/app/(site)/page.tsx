@@ -1,4 +1,4 @@
-import { listVisible } from '@/server/repo/products';
+import { listFeatured, listVisible } from '@/server/repo/products';
 import { listApproved } from '@/server/repo/reviews';
 import { listPublished } from '@/server/repo/articles';
 import { getPrices } from '@/server/repo/prices';
@@ -9,10 +9,12 @@ import { priceRowSchema } from '@/entities/price/model';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { env } from '@/shared/config/env';
 import {
+  CATALOG_PATH,
   JsonLd,
   buildCatalogItemListJsonLd,
   buildFaqPageJsonLd,
   buildLocalBusinessJsonLd,
+  productPath,
 } from '@/shared/seo';
 import { catalogText } from '@/widgets/catalog';
 import { Hero } from '@/widgets/hero';
@@ -73,16 +75,22 @@ export default async function HomePage() {
      Часовое окно ISR для истёкшей скидки — осознанный допуск (ADR-101). */
   const now = new Date();
 
-  const [rawProducts, { prices, extras }, settings, reviews, articles] = await Promise.all([
-    listVisible(),
-    getPrices(),
-    loadSettings(),
-    listApproved(),
-    listPublished(),
-  ]);
+  /* Витрина и ассортимент — разные вопросы (ADR-109): на главную идёт то,
+     что владелец вынес флагом `featured`, а подбор по площади в первом экране
+     по-прежнему выбирает из всего, что есть в продаже. */
+  const [rawProducts, rawFeatured, { prices, extras }, settings, reviews, articles] =
+    await Promise.all([
+      listVisible(),
+      listFeatured(),
+      getPrices(),
+      loadSettings(),
+      listApproved(),
+      listPublished(),
+    ]);
 
   // репозитории отдают DTO контракта (даты строками), виджеты ждут доменный тип
   const products = rawProducts.map((dto) => productSchema.parse(dto));
+  const featured = rawFeatured.map((dto) => productSchema.parse(dto));
   const priceRows = prices.map((row) => priceRowSchema.parse(row));
   const approvedReviews = reviews.map((dto) => reviewSchema.parse(dto));
 
@@ -138,12 +146,16 @@ export default async function HomePage() {
 
   /* Витрина в разметке — те же модели и та же действующая цена, что в
      карточках: `getActivePrice` вызывается здесь ровно один раз на модель и
-     уходит и в разметку, и в блок (инвариант 9). */
-  const visibleProducts = products.filter((product) => product.visible);
+     уходит и в разметку, и в блок (инвариант 9). Пункты списка ссылаются на
+     страницы моделей, а не на якорь секции (ADR-109). */
   const catalogList = buildCatalogItemListJsonLd({
     siteUrl: env.SITE_URL,
     name: catalogText.title,
-    items: visibleProducts.map((product) => ({ product, price: getActivePrice(product, now) })),
+    items: featured.map((product) => ({
+      product,
+      price: getActivePrice(product, now),
+      path: productPath(product.slug),
+    })),
   });
 
   return (
@@ -166,7 +178,13 @@ export default async function HomePage() {
         <TrustStrip />
       </Hero>
       <Services />
-      <Catalog products={products} orderHref={LEAD_ANCHOR} specDictionary={settings.specs} />
+      <Catalog
+        products={featured}
+        orderHref={LEAD_ANCHOR}
+        productHref={(slug) => ({ pathname: productPath(slug) })}
+        catalogHref={CATALOG_PATH}
+        specDictionary={settings.specs}
+      />
       <SavingsBlock />
       <StepsTimeline warranty={warranty} />
       <Pricing prices={priceRows} rates={extras} leadHref={LEAD_ANCHOR} />

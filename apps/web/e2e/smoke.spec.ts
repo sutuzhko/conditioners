@@ -188,14 +188,15 @@ test.describe('Поведение лендинга', () => {
 });
 
 test.describe('Разделы сайта', () => {
-  test('База знаний и политика отвечают, удалённые адреса — 404', async ({ page }) => {
-    for (const path of ['/knowledge', '/privacy']) {
+  test('каталог, База знаний и политика отвечают, удалённые адреса — 404', async ({ page }) => {
+    // каталог вернулся вместе со страницами моделей (ADR-109)
+    for (const path of ['/catalog', '/knowledge', '/privacy']) {
       const response = await page.goto(path);
       expect(response?.status(), path).toBe(200);
     }
 
-    // кластер удалён (ADR-049): адреса обязаны честно отдавать 404
-    for (const path of ['/catalog', '/prices', '/installation', '/service', '/contacts']) {
+    // остальной кластер удалён (ADR-049): адреса обязаны честно отдавать 404
+    for (const path of ['/prices', '/installation', '/service', '/contacts']) {
       const response = await page.goto(path);
       expect(response?.status(), path).toBe(404);
     }

@@ -8,13 +8,19 @@ import {
   labelledSaleProduct,
   NOW,
   plainProduct,
+  productHrefFixture,
   uniqueSpecProduct,
 } from './fixtures';
 
 const meta = {
   title: 'Блоки/Каталог',
   component: Catalog,
-  args: { products: catalogFixture, now: NOW },
+  args: {
+    products: catalogFixture,
+    now: NOW,
+    productHref: productHrefFixture,
+    catalogHref: '/catalog',
+  },
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof Catalog>;
 

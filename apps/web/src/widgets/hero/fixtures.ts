@@ -26,6 +26,8 @@ function product(draft: Draft, sort: number): Product {
     name: draft.name,
     brand: null,
     sku: null,
+    // подбор по площади выбирает из всего, что в продаже, а не из витрины
+    featured: false,
     areaMax: draft.areaMax,
     tag: draft.tag,
     priceNum: draft.priceNum,

@@ -23,6 +23,7 @@ export function toFormValues(product: Product): ProductFormValues {
     slug: product.slug,
     sort: text(product.sort),
     visible: product.visible,
+    featured: product.featured,
     seoTitle: text(product.seoTitle),
     seoDescription: text(product.seoDescription),
     specs: product.specs.map((spec) => ({ k: spec.k, v: spec.v })),
@@ -52,6 +53,8 @@ export function toRequestBody(values: ProductFormValues): Record<string, unknown
     link: optional(values.link),
     sort: values.sort === '' ? 0 : values.sort,
     visible: values.visible,
+    // не знает про витрину — не трогает её: см. `featured` в модели формы
+    ...(values.featured === undefined ? {} : { featured: values.featured }),
     seoTitle: optional(values.seoTitle),
     seoDescription: optional(values.seoDescription),
     specs: values.specs

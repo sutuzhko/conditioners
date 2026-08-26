@@ -50,7 +50,10 @@ export const productSchema = z.object({
   saleTo: nullableDate,
   saleLabel: z.string().nullable().default(null),
   link: z.string().nullable().default(null),
+  /** «В продаже»: модель есть в каталоге и её можно заказать. */
   visible: z.boolean().default(true),
+  /** «Вынести на главную»: витрина лендинга — выбор владельца, а не весь ассортимент (ADR-109). */
+  featured: z.boolean().default(false),
   sort: z.number().int().default(0),
   seoTitle: z.string().nullable().default(null),
   seoDescription: z.string().nullable().default(null),
@@ -94,6 +97,14 @@ export const productInputSchema = productSchema
     tag: optionalText,
     priceNum: z.coerce.number().int().positive('Цена должна быть больше нуля'),
     link: z.string().trim().max(500).nullable().default(null),
+    /**
+     * 🔴 Без значения по умолчанию, в отличие от `visible`: не присланное поле
+     * означает «оставить как есть». Редактор, который про витрину не знает,
+     * сохранением карточки не имеет права снять модель с главной — молча
+     * опустевшая витрина ровно тот отказ, от которого ADR-109 защищался
+     * переносом существующих моделей в `featured` миграцией.
+     */
+    featured: z.boolean().optional(),
     sort: z.coerce.number().int().min(0).default(0),
     seoTitle: optionalText,
     seoDescription: z.string().trim().max(500).nullable().default(null),

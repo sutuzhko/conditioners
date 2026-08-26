@@ -62,6 +62,18 @@ describe('Форма модели каталога', () => {
     expect(screen.getByLabelText(new RegExp(texts.name))).toBeDisabled();
   });
 
+  it('🔴 продажа и витрина — разные переключатели (ADR-109)', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({ ok: true, id: 'x' }) as const);
+    render(<ProductForm values={filledProduct} save={save} />);
+
+    // модель остаётся в продаже, но уходит с главной
+    await user.click(screen.getByLabelText(texts.featured));
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    expect(save).toHaveBeenCalledWith(expect.objectContaining({ visible: true, featured: false }));
+  });
+
   it('у новой модели кнопка называется иначе и удалять нечего', () => {
     render(<ProductForm values={emptyProductValues} save={vi.fn()} isNew />);
 

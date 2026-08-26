@@ -17,7 +17,7 @@ export const PATCH = withAdmin(async (request, context: { params: Promise<{ id: 
   if (!parsed.success) return validationError(parsed.error);
 
   const product = await setSale(id, parsed.data);
-  revalidateCatalog();
+  revalidateCatalog(product.slug);
 
   return json(product);
 });

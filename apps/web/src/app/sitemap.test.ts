@@ -5,6 +5,7 @@ const { testEnv, dbMock } = vi.hoisted(() => ({
   testEnv: { SITE_URL: 'https://example.test' },
   dbMock: {
     article: { findMany: vi.fn() },
+    product: { findMany: vi.fn() },
   },
 }));
 
@@ -14,12 +15,14 @@ vi.mock('@/server/db', () => ({ db: dbMock }));
 const { default: sitemap } = await import('./sitemap');
 
 const ARTICLE_UPDATED = new Date('2026-07-15T09:00:00.000Z');
+const PRODUCT_UPDATED = new Date('2026-08-02T12:00:00.000Z');
 
 describe('Карта сайта', () => {
   beforeEach(() => {
     dbMock.article.findMany.mockResolvedValue([
       { slug: 'invertor-ili-on-off', updatedAt: ARTICLE_UPDATED },
     ]);
+    dbMock.product.findMany.mockResolvedValue([{ slug: 'split-09', updatedAt: PRODUCT_UPDATED }]);
   });
 
   it('содержит все статические страницы абсолютными адресами', async () => {
@@ -27,9 +30,27 @@ describe('Карта сайта', () => {
     const urls = entries.map((entry) => entry.url);
 
     expect(urls).toContain('https://example.test/');
+    expect(urls).toContain('https://example.test/catalog');
     expect(urls).toContain('https://example.test/knowledge');
     expect(urls).toContain('https://example.test/privacy');
     expect(urls.every((url) => url.startsWith('https://example.test'))).toBe(true);
+  });
+
+  it('🔴 знает товарные адреса: страницы моделей существуют (ADR-109)', async () => {
+    const entries = await sitemap();
+
+    expect(entries).toContainEqual({
+      url: 'https://example.test/catalog/split-09',
+      lastModified: PRODUCT_UPDATED,
+    });
+  });
+
+  it('🔴 снятые с продажи модели в карту не попадают', async () => {
+    await sitemap();
+
+    expect(dbMock.product.findMany).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { visible: true } }),
+    );
   });
 
   it('добавляет статьи с датой правки из базы', async () => {
@@ -53,7 +74,8 @@ describe('Карта сайта', () => {
     const entries = await sitemap();
     const urls = entries.map((entry) => entry.url);
 
-    for (const gone of ['/catalog', '/prices', '/installation', '/service', '/contacts']) {
+    // каталог из этого списка вернулся (ADR-109), остальные страницы кластера — нет
+    for (const gone of ['/prices', '/installation', '/service', '/contacts']) {
       expect(urls).not.toContain(`https://example.test${gone}`);
     }
   });
@@ -67,9 +89,11 @@ describe('Карта сайта', () => {
 
   it('пустая база оставляет только статические адреса', async () => {
     dbMock.article.findMany.mockResolvedValue([]);
+    dbMock.product.findMany.mockResolvedValue([]);
 
     const entries = await sitemap();
 
     expect(entries.some((entry) => entry.url.includes('/knowledge/'))).toBe(false);
+    expect(entries.some((entry) => entry.url.includes('/catalog/'))).toBe(false);
   });
 });

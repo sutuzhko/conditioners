@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
-import { Catalog } from './Catalog';
+import { Catalog, type CatalogProps } from './Catalog';
 import {
   catalogFixture,
   discountedProduct,
@@ -9,9 +9,15 @@ import {
   labelledSaleProduct,
   NOW,
   plainProduct,
+  productHrefFixture,
   specDictionaryFixture,
   uniqueSpecProduct,
 } from './fixtures';
+
+/** Витрина всегда знает адрес модели — в тестах он один на все истории. */
+function renderCatalog(props: Omit<CatalogProps, 'productHref'>) {
+  return render(<Catalog {...props} productHref={productHrefFixture} />);
+}
 
 /** Строка таблицы по названию характеристики: заголовок строки + её ячейки. */
 function specRow(name: string): readonly string[] {
@@ -25,7 +31,7 @@ function specRow(name: string): readonly string[] {
 
 describe('Каталог — таблица сравнения', () => {
   it('строится как объединение характеристик всех видимых моделей', () => {
-    render(<Catalog products={[plainProduct, uniqueSpecProduct]} now={NOW} />);
+    renderCatalog({ products: [plainProduct, uniqueSpecProduct], now: NOW });
 
     // «Wi-Fi управление» есть только у одной модели — строка обязана появиться
     for (const key of ['Компрессор', 'Уровень шума', 'Обогрев до', 'Wi-Fi управление']) {
@@ -34,21 +40,21 @@ describe('Каталог — таблица сравнения', () => {
   });
 
   it('ставит прочерк там, где характеристика у модели не указана', () => {
-    render(<Catalog products={[plainProduct, uniqueSpecProduct]} now={NOW} />);
+    renderCatalog({ products: [plainProduct, uniqueSpecProduct], now: NOW });
 
     expect(specRow('Wi-Fi управление')).toEqual(['—', 'Есть']);
     expect(specRow('Обогрев до')).toEqual(['−15 °C', '—']);
   });
 
   it('колонки идут в порядке моделей и подписаны их названиями', () => {
-    render(<Catalog products={[plainProduct, uniqueSpecProduct]} now={NOW} />);
+    renderCatalog({ products: [plainProduct, uniqueSpecProduct], now: NOW });
 
     const headers = screen.getAllByRole('columnheader').map((cell) => cell.textContent);
     expect(headers).toEqual(['Характеристика', 'Сплит-система 07', 'Сплит-система 12']);
   });
 
   it('скрытая модель не попадает ни в витрину, ни в сравнение', () => {
-    render(<Catalog products={[plainProduct, hiddenProduct]} now={NOW} />);
+    renderCatalog({ products: [plainProduct, hiddenProduct], now: NOW });
 
     expect(screen.queryByRole('heading', { name: 'Снятая с продажи' })).not.toBeInTheDocument();
     expect(
@@ -57,7 +63,7 @@ describe('Каталог — таблица сравнения', () => {
   });
 
   it('прокручивается внутри своего контейнера, а не растягивает страницу', () => {
-    render(<Catalog products={catalogFixture} now={NOW} />);
+    renderCatalog({ products: catalogFixture, now: NOW });
 
     const region = screen.getByRole('region', { name: /прокручивается по горизонтали/i });
     expect(region).toHaveAttribute('tabindex', '0');
@@ -65,7 +71,7 @@ describe('Каталог — таблица сравнения', () => {
   });
 
   it('замыкается ценой под ключ — той же, что на карточке', () => {
-    render(<Catalog products={[plainProduct, discountedProduct]} now={NOW} />);
+    renderCatalog({ products: [plainProduct, discountedProduct], now: NOW });
 
     const row = screen.getByRole('rowheader', { name: 'Цена под ключ' }).closest('tr');
     if (row === null) throw new Error('Строка цены не найдена');
@@ -76,8 +82,19 @@ describe('Каталог — таблица сравнения', () => {
     expect(within(row).queryByText('38 500 ₽')).not.toBeInTheDocument();
   });
 
+  it('справочник задаёт порядок строк сравнения и подписывает группы', () => {
+    renderCatalog({
+      products: [plainProduct, uniqueSpecProduct],
+      now: NOW,
+      specDictionary: specDictionaryFixture,
+    });
+
+    const groupHeader = screen.getAllByRole('columnheader', { name: 'Основное' });
+    expect(groupHeader.length).toBeGreaterThan(0);
+  });
+
   it('без характеристик таблицы нет — сравнивать нечего', () => {
-    render(<Catalog products={[{ ...plainProduct, specs: [] }]} now={NOW} />);
+    renderCatalog({ products: [{ ...plainProduct, specs: [] }], now: NOW });
 
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Сплит-система 07' })).toBeInTheDocument();
@@ -86,7 +103,7 @@ describe('Каталог — таблица сравнения', () => {
 
 describe('Каталог — скидка', () => {
   it('показывает действующую цену, зачёркнутую старую и вычисленный процент', () => {
-    render(<Catalog products={[discountedProduct]} now={NOW} />);
+    renderCatalog({ products: [discountedProduct], now: NOW });
 
     // цену ищем внутри карточки: та же сумма стоит и в строке сравнения
     const card = within(screen.getByRole('listitem'));
@@ -100,13 +117,13 @@ describe('Каталог — скидка', () => {
   });
 
   it('показывает срок действия микроподписью, когда он задан', () => {
-    render(<Catalog products={[discountedProduct]} now={NOW} />);
+    renderCatalog({ products: [discountedProduct], now: NOW });
 
     expect(screen.getByText('до 31 октября 2026')).toBeInTheDocument();
   });
 
   it('вместо процента печатает подпись владельца, а срока без даты не выдумывает', () => {
-    render(<Catalog products={[labelledSaleProduct]} now={NOW} />);
+    renderCatalog({ products: [labelledSaleProduct], now: NOW });
 
     expect(screen.getByText('Последняя в наличии')).toBeInTheDocument();
     // срок — это дата; «до 50 м²» рядом — площадь, её ловить нельзя
@@ -114,7 +131,7 @@ describe('Каталог — скидка', () => {
   });
 
   it('товар без скидки рисуется без плашки и без перечёркнутой цены', () => {
-    render(<Catalog products={[plainProduct]} now={NOW} />);
+    renderCatalog({ products: [plainProduct], now: NOW });
 
     expect(within(screen.getByRole('listitem')).getByText('34 900 ₽')).toBeInTheDocument();
     expect(document.querySelector('s')).toBeNull();
@@ -122,7 +139,7 @@ describe('Каталог — скидка', () => {
   });
 
   it('закончившаяся скидка не оставляет следов на карточке', () => {
-    render(<Catalog products={[expiredSaleProduct]} now={NOW} />);
+    renderCatalog({ products: [expiredSaleProduct], now: NOW });
 
     expect(within(screen.getByRole('listitem')).getByText('74 500 ₽')).toBeInTheDocument();
     expect(screen.queryByText('69 900 ₽')).not.toBeInTheDocument();
@@ -132,14 +149,14 @@ describe('Каталог — скидка', () => {
 
 describe('Каталог — карточка', () => {
   it('модель без фото получает заглушку с классом мощности, а не битую картинку', () => {
-    render(<Catalog products={[plainProduct]} now={NOW} />);
+    renderCatalog({ products: [plainProduct], now: NOW });
 
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
     expect(screen.getByText('Класс мощности 07')).toBeInTheDocument();
   });
 
   it('фотография подписана осмысленным alt с географией', () => {
-    render(<Catalog products={[discountedProduct]} now={NOW} />);
+    renderCatalog({ products: [discountedProduct], now: NOW });
 
     expect(
       screen.getByAltText('Сплит-система 09 — купить в Туле с установкой'),
@@ -147,13 +164,29 @@ describe('Каталог — карточка', () => {
   });
 
   it('кнопка заказа ведёт на форму заявки', () => {
-    render(<Catalog products={[plainProduct]} now={NOW} orderHref="#lead" />);
+    renderCatalog({ products: [plainProduct], now: NOW, orderHref: '#lead' });
 
     expect(screen.getByRole('link', { name: 'Заказать' })).toHaveAttribute('href', '#lead');
   });
 
+  it('🔴 название модели — ссылка на её страницу, а не текст (ADR-109)', () => {
+    renderCatalog({ products: [plainProduct], now: NOW });
+
+    const link = screen.getByRole('link', { name: 'Сплит-система 07' });
+    expect(link).toHaveAttribute('href', '/catalog/split-07');
+    expect(link.closest('h3')).not.toBeNull();
+  });
+
+  it('🔴 полных характеристик в карточке больше нет — они на странице модели', () => {
+    renderCatalog({ products: [plainProduct], now: NOW });
+
+    const card = screen.getByRole('listitem');
+    expect(within(card).queryByText('Уровень шума')).not.toBeInTheDocument();
+    expect(card.querySelector('details')).toBeNull();
+  });
+
   it('ссылка к поставщику внешняя и не передаёт ему вес', () => {
-    render(<Catalog products={[uniqueSpecProduct]} now={NOW} />);
+    renderCatalog({ products: [uniqueSpecProduct], now: NOW });
 
     const link = screen.getByRole('link', { name: /Страница модели у поставщика/ });
     expect(link).toHaveAttribute('href', 'https://example.com/split-12');
@@ -161,9 +194,23 @@ describe('Каталог — карточка', () => {
   });
 });
 
+describe('Каталог — витрина и ассортимент', () => {
+  it('ведёт во весь каталог, когда страница дала адрес', () => {
+    renderCatalog({ products: catalogFixture, now: NOW, catalogHref: '/catalog' });
+
+    expect(screen.getByRole('link', { name: /Весь каталог/ })).toHaveAttribute('href', '/catalog');
+  });
+
+  it('без адреса каталога ссылки нет — мёртвых ссылок блок не рисует', () => {
+    renderCatalog({ products: catalogFixture, now: NOW });
+
+    expect(screen.queryByRole('link', { name: /Весь каталог/ })).not.toBeInTheDocument();
+  });
+});
+
 describe('Каталог — пустые состояния', () => {
   it('пустой каталог не ломает вёрстку: заголовок на месте, таблицы нет', () => {
-    render(<Catalog products={[]} />);
+    renderCatalog({ products: [] });
 
     expect(
       screen.getByRole('heading', { level: 2, name: 'Купить кондиционер в Туле' }),
@@ -174,50 +221,9 @@ describe('Каталог — пустые состояния', () => {
   });
 
   it('на время загрузки показывает скелетоны вместо прыгающей вёрстки', () => {
-    const { container } = render(<Catalog products={[]} loading />);
+    const { container } = renderCatalog({ products: [], loading: true });
 
     expect(container.querySelector('[aria-busy="true"]')).not.toBeNull();
     expect(screen.queryByText('Каталог пока пуст')).not.toBeInTheDocument();
-  });
-});
-
-describe('Каталог — характеристики в карточке', () => {
-  it('🔴 характеристики есть в разметке, а не подгружаются по клику (инвариант 1)', () => {
-    render(<Catalog products={[plainProduct]} now={NOW} />);
-
-    const card = screen.getByRole('listitem');
-    expect(within(card).getByText('Уровень шума')).toBeInTheDocument();
-    expect(within(card).getByText('Компрессор')).toBeInTheDocument();
-  });
-
-  it('справочник раскладывает характеристики по группам', () => {
-    render(<Catalog products={[plainProduct]} now={NOW} specDictionary={specDictionaryFixture} />);
-
-    const card = screen.getByRole('listitem');
-    expect(within(card).getByText('Основное')).toBeInTheDocument();
-    expect(within(card).getByText('Шум и воздух')).toBeInTheDocument();
-  });
-
-  it('🔴 характеристика вне справочника не исчезает, а уходит в «Прочее»', () => {
-    render(
-      <Catalog products={[uniqueSpecProduct]} now={NOW} specDictionary={specDictionaryFixture} />,
-    );
-
-    const card = screen.getByRole('listitem');
-    expect(within(card).getByText('Прочее')).toBeInTheDocument();
-    expect(within(card).getByText('Wi-Fi управление')).toBeInTheDocument();
-  });
-
-  it('справочник задаёт порядок строк сравнения и подписывает группы', () => {
-    render(
-      <Catalog
-        products={[plainProduct, uniqueSpecProduct]}
-        now={NOW}
-        specDictionary={specDictionaryFixture}
-      />,
-    );
-
-    const groupHeader = screen.getAllByRole('columnheader', { name: 'Основное' });
-    expect(groupHeader.length).toBeGreaterThan(0);
   });
 });

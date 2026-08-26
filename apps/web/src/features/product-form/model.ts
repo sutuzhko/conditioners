@@ -23,7 +23,17 @@ export type ProductFormValues = {
   readonly link: string;
   readonly slug: string;
   readonly sort: string;
+  /** «В продаже»: модель есть в каталоге и её можно заказать. */
   readonly visible: boolean;
+  /**
+   * «Показывать на главной» — витрина лендинга (ADR-109).
+   *
+   * 🔴 Необязательное: `undefined` означает «редактор про витрину не знал»,
+   * и тогда поле не отправляется вовсе, а признак в базе остаётся прежним.
+   * Значение по умолчанию `false` здесь молча снимало бы модели с главной
+   * при сохранении любой карточки.
+   */
+  readonly featured?: boolean | undefined;
   readonly seoTitle: string;
   readonly seoDescription: string;
   /** 🔴 Произвольные пары: фиксированного набора характеристик нет (ADR-015). */
@@ -52,6 +62,7 @@ export const emptyProductValues: ProductFormValues = {
   slug: '',
   sort: '0',
   visible: true,
+  featured: false,
   seoTitle: '',
   seoDescription: '',
   specs: [],
