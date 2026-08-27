@@ -22,6 +22,9 @@ export const NOTIFICATION_AUDIENCE = {
   lead: 'owner',
   review: 'owner',
   'to-reminder': 'owner',
+  /* Порог заказа — вопрос закупок, а он целиком владельческий: монтажнику
+     сообщать, что в гараже кончается трасса, нечего — заказывает не он. */
+  'stock-low': 'owner',
   'order-assigned': 'assignee',
   'order-changed': 'assignee',
   'order-cancelled': 'assignee',

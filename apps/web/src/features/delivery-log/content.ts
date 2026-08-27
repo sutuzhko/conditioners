@@ -20,6 +20,7 @@ export const deliveryLogContent = {
   kindOrderAssigned: 'Назначен наряд',
   kindOrderChanged: 'Изменился наряд',
   kindOrderCancelled: 'Наряд отменён',
+  kindStockLow: 'Пора заказывать',
 
   statusFailed: 'отказ',
   statusRetrying: 'повторяется',
@@ -84,6 +85,7 @@ const KIND_TITLES: Readonly<Record<string, string>> = {
   'order-assigned': deliveryLogContent.kindOrderAssigned,
   'order-changed': deliveryLogContent.kindOrderChanged,
   'order-cancelled': deliveryLogContent.kindOrderCancelled,
+  'stock-low': deliveryLogContent.kindStockLow,
 };
 
 /** Человеческое имя события: `kind` в базе — технический код. */

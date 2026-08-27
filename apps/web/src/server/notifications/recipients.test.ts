@@ -23,11 +23,15 @@ describe('Таблица «роль × вид события»', () => {
     expect(audienceOf('order-cancelled')).toBe('assignee');
   });
 
+  it('🔴 «пора заказывать» — владельцу: заказывает он, а не монтажник', () => {
+    expect(audienceOf('stock-low')).toBe('owner');
+  });
+
   it('таблица описывает каждый вид события ровно один раз', () => {
     const kinds = Object.keys(NOTIFICATION_AUDIENCE);
 
     expect(kinds).toHaveLength(new Set(kinds).size);
-    expect(kinds).toHaveLength(6);
+    expect(kinds).toHaveLength(7);
   });
 });
 

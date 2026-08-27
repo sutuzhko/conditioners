@@ -7,6 +7,7 @@ import {
   paymentModeSchema,
   unitSourceSchema,
 } from '@/entities/order/model';
+import { stockUnitSchema } from '@/entities/stock/model';
 
 /**
  * Полезная нагрузка уведомления — снимок события на момент его наступления.
@@ -146,6 +147,24 @@ const orderCancelledPayloadSchema = z.object({
   reason: orderCancelReasonSchema,
 });
 
+/**
+ * Позиция склада опустилась ниже порога заказа (docs/API.md §14).
+ *
+ * Снимок, а не ссылка на позицию: сообщение отвечает на вопрос «сколько
+ * осталось на тот момент», и остаток, перечитанный воркером через час, ответил
+ * бы на другой. Порог рядом с остатком не для красоты — без него владелец не
+ * поймёт, почему пришло сообщение именно сейчас.
+ */
+const stockLowPayloadSchema = z.object({
+  kind: z.literal('stock-low'),
+  itemId: z.string(),
+  name: z.string(),
+  group: z.string().nullable(),
+  unit: stockUnitSchema,
+  qty: z.number(),
+  minQty: z.number(),
+});
+
 export const notificationPayloadSchema = z.discriminatedUnion('kind', [
   leadPayloadSchema,
   toReminderPayloadSchema,
@@ -153,6 +172,7 @@ export const notificationPayloadSchema = z.discriminatedUnion('kind', [
   orderAssignedPayloadSchema,
   orderChangedPayloadSchema,
   orderCancelledPayloadSchema,
+  stockLowPayloadSchema,
 ]);
 
 export type LeadPayload = z.infer<typeof leadPayloadSchema>;
@@ -162,6 +182,7 @@ export type OrderUnitBrief = z.infer<typeof orderUnitBriefSchema>;
 export type OrderAssignedPayload = z.infer<typeof orderAssignedPayloadSchema>;
 export type OrderChangedPayload = z.infer<typeof orderChangedPayloadSchema>;
 export type OrderCancelledPayload = z.infer<typeof orderCancelledPayloadSchema>;
+export type StockLowPayload = z.infer<typeof stockLowPayloadSchema>;
 export type NotificationPayload = z.infer<typeof notificationPayloadSchema>;
 
 /** Вид события. Он же `Notification.kind` в базе и ключ таблицы адресации. */

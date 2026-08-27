@@ -370,7 +370,37 @@ export type StockOverview = {
   readonly lowCount?: number;
 };
 
+/** Позиция с её журналом: то, что открывают из таблицы остатков. */
+export type StockItemDetails = {
+  readonly item: StockItemCard;
+  readonly movements: readonly StockMovementCard[];
+};
+
 /** Расход наряда: что списали на эту работу. */
 export type OrderConsumption = {
   readonly items: readonly StockMovementCard[];
 };
+
+/**
+ * Списание по наряду: несколько позиций одной формой.
+ *
+ * Наряд приходит адресом маршрута, а не телом: списывают, открыв наряд, и
+ * второй источник его номера означал бы, что они когда-нибудь разойдутся.
+ *
+ * Схема живёт здесь, а не в репозитории: правила ввода одни и для формы
+ * закрытия наряда, и для сервера, и вторая их копия разошлась бы с первой на
+ * первой же правке.
+ */
+export const orderConsumeSchema = z.object({
+  lines: z
+    .array(
+      z.object({
+        itemId: z.string().trim().min(1, { message: 'Выберите позицию' }),
+        qty: quantitySchema,
+        fromZoneId: z.string().trim().min(1, { message: 'Выберите, откуда списываем' }),
+        serials,
+      }),
+    )
+    .min(1, { message: 'Укажите, что списать' }),
+});
+export type OrderConsume = z.infer<typeof orderConsumeSchema>;

@@ -232,3 +232,35 @@ describe('Сообщение владельцу — контекст заявк�
     expect(text.trimEnd()).toBe(text);
   });
 });
+
+describe('Пора заказывать', () => {
+  const low: NotificationPayload = {
+    kind: 'stock-low',
+    itemId: 's1',
+    name: 'Труба медная 1/4″',
+    group: 'Медная труба',
+    unit: 'meter',
+    qty: 12.5,
+    minQty: 30,
+  };
+
+  it('в сообщении есть и остаток, и порог: без порога непонятно, почему оно пришло', () => {
+    const text = notificationText(low);
+
+    expect(text).toContain('📦 Пора заказывать: Труба медная 1/4″');
+    expect(text).toContain('12,5 м');
+    expect(text).toContain('30 м');
+    expect(text).toContain('🗂 Группа: Медная труба');
+  });
+
+  it('позиция без группы не даёт пустой строки', () => {
+    const text = notificationText({ ...low, group: null });
+
+    expect(text).not.toContain('🗂');
+  });
+
+  it('тема письма называет позицию, ссылка ведёт на склад', () => {
+    expect(notificationSubject(low)).toBe('Пора заказывать: Труба медная 1/4″');
+    expect(adminLink(low)).toBe('https://example.test/admin/stock');
+  });
+});

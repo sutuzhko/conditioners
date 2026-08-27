@@ -5,6 +5,7 @@ import {
 } from '@/entities/lead/lib/context';
 import type { LeadContext } from '@/entities/lead/model';
 import type { OrderEquip, OrderType, PaymentMode, UnitSource } from '@/entities/order/model';
+import type { StockUnit } from '@/entities/stock/model';
 import { env } from '@/shared/config/env';
 import { formatDateTime, formatMoney } from '@/shared/lib/format';
 import type {
@@ -34,6 +35,7 @@ const DASH = '—';
 const ADMIN_LEADS_PATH = '/admin/leads';
 const ADMIN_REVIEWS_PATH = '/admin/reviews';
 const ADMIN_ORDERS_PATH = '/admin/orders';
+const ADMIN_STOCK_PATH = '/admin/stock';
 
 /**
  * Словари наряда для сообщения.
@@ -84,6 +86,30 @@ const FIELD_TITLES: Readonly<Record<OrderBriefField, string>> = {
   comment: 'комментарий',
   units: 'состав оборудования',
 };
+
+/**
+ * Сокращения единиц склада: «43,5 м», а не «43,5 метра». Владелец читает это с
+ * телефона между выездами, и полное слово в такой строке — лишний шум.
+ */
+const UNIT_TITLES: Readonly<Record<StockUnit, string>> = {
+  piece: 'шт',
+  meter: 'м',
+  kilogram: 'кг',
+  liter: 'л',
+  pair: 'пар',
+  pack: 'упак',
+  coil: 'бухт',
+  roll: 'мотк',
+  cylinder: 'бал',
+};
+
+/* Остаток дробный: «полбаллона» — нормальное рабочее состояние, и три знака
+   после запятой — предел, которым склад считает. */
+const RU_QUANTITY = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 3 });
+
+function formatQuantity(value: number, unit: StockUnit): string {
+  return `${RU_QUANTITY.format(value)} ${UNIT_TITLES[unit]}`;
+}
 
 const CANCEL_TITLES: Readonly<Record<OrderCancelReason, string>> = {
   cancelled: 'отменён',
@@ -259,6 +285,16 @@ export function notificationText(payload: NotificationPayload): string {
     ].join('\n');
   }
 
+  if (payload.kind === 'stock-low') {
+    return [
+      `📦 Пора заказывать: ${payload.name}`,
+      '',
+      `📉 Осталось: ${formatQuantity(payload.qty, payload.unit)}`,
+      `🎯 Порог заказа: ${formatQuantity(payload.minQty, payload.unit)}`,
+      ...(payload.group === null || payload.group === '' ? [] : [`🗂 Группа: ${payload.group}`]),
+    ].join('\n');
+  }
+
   const who = payload.name;
   return [
     '⭐ Новый отзыв на модерации',
@@ -279,6 +315,7 @@ export function notificationSubject(payload: NotificationPayload): string {
   if (payload.kind === 'order-cancelled') {
     return `Наряд № ${payload.number} ${CANCEL_TITLES[payload.reason]}`;
   }
+  if (payload.kind === 'stock-low') return `Пора заказывать: ${payload.name}`;
   return `Новый отзыв на модерации: ${payload.rating}/5`;
 }
 
@@ -296,6 +333,7 @@ export function adminLink(payload: NotificationPayload): string {
   if (payload.kind === 'lead' || payload.kind === 'to-reminder') {
     return new URL(ADMIN_LEADS_PATH, env.SITE_URL).toString();
   }
+  if (payload.kind === 'stock-low') return new URL(ADMIN_STOCK_PATH, env.SITE_URL).toString();
 
   return new URL(`${ADMIN_ORDERS_PATH}/${payload.orderId}`, env.SITE_URL).toString();
 }
