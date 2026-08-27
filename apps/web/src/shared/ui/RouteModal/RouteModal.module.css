@@ -1,0 +1,27 @@
+/* Вопрос о несохранённом вводе живёт в подвале того же окна: второй диалог
+   поверх первого запер бы клавиатуру между двумя ловушками фокуса. */
+.confirm {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.question {
+  margin: 0;
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+}
+
+.answers {
+  display: flex;
+  gap: 8px;
+}
+
+/* Кит красит «призрака» акцентом одноимённым классом той же специфичности, и
+   при равной побеждает порядок сборки (ADR-038). Отсюда удвоение. */
+.leave.leave {
+  color: var(--error-ink);
+}
