@@ -106,10 +106,21 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
   {
     key: 'warranty',
     title: 'Гарантия',
-    description: 'Условия из блока о гарантии и со страницы установки.',
+    description:
+      'Сроки из блока о гарантии и со страницы установки. Что именно покрывает гарантия — в ответе раздела «Частые вопросы», он собирается сам.',
     fields: [
-      { path: 'installation', label: 'На монтаж', kind: 'longText' },
-      { path: 'equipment', label: 'На оборудование', kind: 'longText' },
+      {
+        path: 'installation',
+        label: 'На монтаж',
+        kind: 'text',
+        hint: 'Только срок: «1 год», «3 года»',
+      },
+      {
+        path: 'equipment',
+        label: 'На оборудование',
+        kind: 'text',
+        hint: 'Только срок: «от 1 до 5 лет»',
+      },
     ],
   },
   {

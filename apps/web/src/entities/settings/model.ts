@@ -162,10 +162,19 @@ export const legalSchema = z
 /** Ставки калькулятора живут в домене цен — там же, где формула. */
 export const extrasSchema = installRatesSchema;
 
+/**
+ * 🔴 Здесь живут **сроки**, а не условия договора: «1 год», «от 1 до 5 лет».
+ *
+ * Так их и показывают оба блока — строкой определения под подписью «На
+ * монтаж» и «На оборудование». Поле было длинным текстом, и владелец честно
+ * писал в него абзац: карточка «Гарантия по договору» раздувалась на пол-экрана
+ * и ломала ряд соседних (ADR-125). Что именно покрывает гарантия, объясняет
+ * ответ в «Частых вопросах» — там для этого есть место.
+ */
 export const warrantySchema = z
   .object({
-    installation: optionalLongText,
-    equipment: optionalLongText,
+    installation: optionalText,
+    equipment: optionalText,
   })
   .strict();
 
