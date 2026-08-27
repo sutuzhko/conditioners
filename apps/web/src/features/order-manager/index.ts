@@ -50,6 +50,7 @@ export {
   type DeductionMode,
   type OrderApi,
   type OrderBlock,
+  type OrderWorkSpan,
   type OrderCard,
   type OrderChecklistCard,
   type OrderClientRef,

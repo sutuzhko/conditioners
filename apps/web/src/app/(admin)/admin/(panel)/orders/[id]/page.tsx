@@ -14,7 +14,7 @@ import { listAll } from '@/server/repo/clients';
 import { findById } from '@/server/repo/orders';
 import { dayKeyOf } from '@/shared/lib/calendar';
 
-import { loadBlocks } from '../blocks';
+import { loadBlocks, loadWork } from '../blocks';
 import { OrderEditor } from '../OrderEditor';
 import { OrderWork } from './OrderWork';
 import styles from '../page.module.css';
@@ -65,10 +65,11 @@ export default async function AdminOrderPage({ params }: PageProps) {
   }
 
   /* Списки нужны только владельцу: монтажник наряд не переназначает. */
-  const [clients, installers, blocks] = await Promise.all([
+  const [clients, installers, blocks, work] = await Promise.all([
     listAll(),
     listInstallers(true),
     loadBlocks(session, dayKeyOf(new Date(order.at))),
+    loadWork(session, dayKeyOf(new Date(order.at)), order.id),
   ]);
 
   return (
@@ -100,6 +101,7 @@ export default async function AdminOrderPage({ params }: PageProps) {
             employment: staff.employment,
           }))}
           blocks={blocks}
+          work={work}
           title={texts.cardTitle}
           hint={texts.cardHint}
           removable

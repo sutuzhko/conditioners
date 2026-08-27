@@ -7,7 +7,7 @@ import { listInstallers } from '@/server/repo/admin-users';
 import { listAll } from '@/server/repo/clients';
 import { todayKey } from '@/shared/lib/calendar';
 
-import { loadBlocks } from '../blocks';
+import { loadBlocks, loadWork } from '../blocks';
 import { OrderEditor } from '../OrderEditor';
 import styles from '../page.module.css';
 
@@ -22,12 +22,13 @@ export default async function AdminOrderNewPage() {
 
   /* Только работающие: назначать наряд человеку, у которого закрыт доступ,
      значит отправить его в пустоту — он не увидит наряд в панели. */
-  const [clients, installers, blocks] = await Promise.all([
+  const [clients, installers, blocks, work] = await Promise.all([
     listAll(),
     listInstallers(true),
     /* Занятость вокруг сегодняшнего дня: наряд заводят, пока клиент на линии,
        и чаще всего на ближайшие дни. */
     loadBlocks(session, todayKey()),
+    loadWork(session, todayKey()),
   ]);
 
   return (
@@ -54,6 +55,7 @@ export default async function AdminOrderNewPage() {
           employment: staff.employment,
         }))}
         blocks={blocks}
+        work={work}
       />
     </div>
   );

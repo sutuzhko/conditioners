@@ -420,6 +420,21 @@ export type OrderApi = {
  */
 export type OrderBlock = DayBlockLike & { readonly userId: string };
 
+/**
+ * Чужой выезд как источник занятости.
+ *
+ * 🔴 Человек занят не только врачом, но и работой (ADR-123). День здесь
+ * отдельным полем, а не выводится из момента: пояс работ считает сервер, и
+ * пересчитывать его в браузере значит однажды разойтись на три часа.
+ */
+export type OrderWorkSpan = {
+  readonly userId: string;
+  readonly day: string;
+  readonly fromMin: number;
+  readonly toMin: number;
+  readonly reason: string | null;
+};
+
 /** Итог работ полями формы: строки, как их вводит человек. */
 export type OrderResultDraft = {
   readonly extraWork: string;

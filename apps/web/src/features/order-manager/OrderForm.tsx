@@ -41,6 +41,7 @@ import {
   orderPayload,
   type OrderApi,
   type OrderBlock,
+  type OrderWorkSpan,
   type OrderClientRef,
   type OrderDraft,
   type OrderField,
@@ -65,6 +66,8 @@ export interface OrderFormProps {
    * (ADR-115). Форма отбирает из них записи выбранного монтажника.
    */
   readonly blocks?: readonly OrderBlock[] | undefined;
+  /** Выезды команды: человек занят не только врачом, но и работой (ADR-123). */
+  readonly work?: readonly OrderWorkSpan[] | undefined;
   readonly title?: string | undefined;
   readonly hint?: string | undefined;
   /** Номер заведённого наряда — по нему страница уходит в его карточку. */
@@ -103,6 +106,7 @@ export function OrderForm({
   clients,
   installers,
   blocks,
+  work,
   title,
   hint,
   onSaved,
@@ -228,9 +232,22 @@ export function OrderForm({
      предупреждает всегда, отлучка на часы — только когда наряд в них
      попадает: запись к врачу с 14 до 16 не повод мешать ставить монтаж на
      девять утра. */
-  const theirs = (blocks ?? []).filter((block) => block.userId === draft.installerId);
-  const busyDay = busyOn(draft.day, theirs);
+  const busyOf = (userId: string): ReturnType<typeof busyOn> =>
+    busyOn(
+      draft.day,
+      (blocks ?? []).filter((block) => block.userId === userId),
+      (work ?? [])
+        .filter((span) => span.userId === userId && span.day === draft.day)
+        .map(({ fromMin, toMin, reason }) => ({ fromMin, toMin, reason })),
+    );
+
+  const busyDay = busyOf(draft.installerId);
   const conflict = chosenInstaller !== null && busyAt(busyDay, minutesOfTime(draft.time));
+
+  /* Занятость видна прямо в списке, а не только после выбора: владелец
+     назначает наряд, глядя в этот список, и «занят» узнанное постфактум
+     стоит ему второго захода. */
+  const chosenMinutes = minutesOfTime(draft.time);
 
   return (
     <Card as="section">
@@ -283,10 +300,16 @@ export function OrderForm({
               label={texts.installer}
               options={[
                 { value: '', label: texts.installerPlaceholder },
-                ...installers.map((installer) => ({
-                  value: installer.id,
-                  label: installerName(installer),
-                })),
+                ...installers.map((installer) => {
+                  const day = busyOf(installer.id);
+
+                  return {
+                    value: installer.id,
+                    label: busyAt(day, chosenMinutes)
+                      ? texts.installerBusy(installerName(installer))
+                      : installerName(installer),
+                  };
+                }),
               ]}
               value={draft.installerId}
               error={errors.installerId}
