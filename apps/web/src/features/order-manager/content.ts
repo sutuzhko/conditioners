@@ -11,7 +11,7 @@ import type {
   UnitSource,
 } from '@/entities/order/model';
 import { timeOf } from '@/shared/lib/calendar';
-import { formatDateShort, formatDateTime, formatMoney } from '@/shared/lib/format';
+import { formatDateShort, formatDateTime, formatMoney, formatQuantity } from '@/shared/lib/format';
 import { plural } from '@/shared/lib/plural';
 import type { BadgeVariant } from '@/shared/ui';
 
@@ -140,21 +140,8 @@ export const STOCK_UNIT_SHORT: Record<StockUnit, string> = {
   cylinder: 'бал.',
 };
 
-/**
- * Количество склада: до трёх знаков после запятой — больше склад не хранит.
- *
- * Форматируется здесь, а не в `shared/lib/format`: там живут деньги и целые
- * числа сайта, а дробный остаток нужен пока одному разделу панели.
- */
-const RU_QTY = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 3 });
-
-/* Разряды в ru-RU разделяются пробелом, чей код зависит от версии ICU.
-   Приводим к неразрывному сами, чтобы «12 000 м» не переносилось по строке. */
+/* Число и единица — одна величина, рвать её переносом нельзя. */
 const QTY_NBSP = '\u00A0';
-
-function formatQty(value: number): string {
-  return RU_QTY.format(value).replace(/\s/gu, QTY_NBSP);
-}
 
 export const orderManagerContent = {
   title: 'Заказы',
@@ -461,5 +448,5 @@ export const orderManagerContent = {
    * числом и единицей рвёт её пополам.
    */
   qty: (value: number, unit: StockUnit): string =>
-    `${formatQty(value)}${QTY_NBSP}${STOCK_UNIT_SHORT[unit]}`,
+    `${formatQuantity(value)}${QTY_NBSP}${STOCK_UNIT_SHORT[unit]}`,
 } as const;

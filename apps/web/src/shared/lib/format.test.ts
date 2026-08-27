@@ -9,6 +9,7 @@ import {
   formatMoney,
   formatNumber,
   formatPhone,
+  formatQuantity,
   formatSuffix,
   phoneHref,
 } from './format';
@@ -145,5 +146,22 @@ describe('formatDateShort и formatDateTime', () => {
   it('некорректная дата не роняет страницу', () => {
     expect(formatDateShort('не дата')).toBe('');
     expect(formatDateTime('не дата')).toBe('');
+  });
+});
+
+describe('formatQuantity', () => {
+  it('дробное количество склада — с запятой и разрядами', () => {
+    expect(formatQuantity(43.5)).toBe('43,5');
+    expect(formatQuantity(12_000)).toBe(`12${NBSP}000`);
+    expect(formatQuantity(0.35)).toBe('0,35');
+  });
+
+  it('🔴 минус типографский: дефис читается как перенос и рвёт число', () => {
+    expect(formatQuantity(-1.5)).toBe('−1,5');
+    expect(formatQuantity(-2)).toBe('−2');
+  });
+
+  it('больше трёх знаков склад не хранит и не показывает', () => {
+    expect(formatQuantity(1.23456)).toBe('1,235');
   });
 });

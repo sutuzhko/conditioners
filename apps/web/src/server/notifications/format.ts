@@ -7,7 +7,7 @@ import type { LeadContext } from '@/entities/lead/model';
 import type { OrderEquip, OrderType, PaymentMode, UnitSource } from '@/entities/order/model';
 import type { StockUnit } from '@/entities/stock/model';
 import { env } from '@/shared/config/env';
-import { formatDateTime, formatMoney } from '@/shared/lib/format';
+import { formatDateTime, formatMoney, formatQuantity } from '@/shared/lib/format';
 import type {
   NotificationPayload,
   OrderBrief,
@@ -103,12 +103,12 @@ const UNIT_TITLES: Readonly<Record<StockUnit, string>> = {
   cylinder: 'бал',
 };
 
-/* Остаток дробный: «полбаллона» — нормальное рабочее состояние, и три знака
-   после запятой — предел, которым склад считает. */
-const RU_QUANTITY = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 3 });
-
-function formatQuantity(value: number, unit: StockUnit): string {
-  return `${RU_QUANTITY.format(value)} ${UNIT_TITLES[unit]}`;
+/* Число форматирует `shared/lib/format` — то же, что показывает панель:
+   владелец читает сообщение и сверяет его с экраном, и «4,3» в письме против
+   «4.3» на странице заставит его усомниться в обоих (инвариант 9 по духу).
+   Свой здесь только словарь единиц: в сообщении они короче, чем в таблице. */
+function quantityText(value: number, unit: StockUnit): string {
+  return `${formatQuantity(value)} ${UNIT_TITLES[unit]}`;
 }
 
 const CANCEL_TITLES: Readonly<Record<OrderCancelReason, string>> = {
@@ -289,8 +289,8 @@ export function notificationText(payload: NotificationPayload): string {
     return [
       `📦 Пора заказывать: ${payload.name}`,
       '',
-      `📉 Осталось: ${formatQuantity(payload.qty, payload.unit)}`,
-      `🎯 Порог заказа: ${formatQuantity(payload.minQty, payload.unit)}`,
+      `📉 Осталось: ${quantityText(payload.qty, payload.unit)}`,
+      `🎯 Порог заказа: ${quantityText(payload.minQty, payload.unit)}`,
       ...(payload.group === null || payload.group === '' ? [] : [`🗂 Группа: ${payload.group}`]),
     ].join('\n');
   }
