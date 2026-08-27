@@ -186,6 +186,18 @@ function moderationButtons(reviewId: string): readonly (readonly InlineButton[])
 }
 
 /**
+ * Готов ли сам транспорт: не выключен и есть токен. Про адресата ничего не
+ * знает — у адресного уведомления получатель личный, и общий чат компании
+ * к его доставке отношения не имеет.
+ */
+function isTelegramReady(): boolean {
+  if (env.TELEGRAM_TRANSPORT === 'off') return false;
+  if (env.NOTIFY_DRIVER === 'log') return true;
+  const token = env.TELEGRAM_BOT_TOKEN;
+  return token !== undefined && token !== '';
+}
+
+/**
  * Технически ли канал готов работать: транспорт не выключен, есть токен и
  * адресат. Это не то же самое, что выбор владельца в админке, — тот
  * приходит в `prefs` и проверяется отдельно.
@@ -193,8 +205,18 @@ function moderationButtons(reviewId: string): readonly (readonly InlineButton[])
 export function isTelegramConfigured(chatId: string | undefined): boolean {
   if (env.TELEGRAM_TRANSPORT === 'off') return false;
   if (env.NOTIFY_DRIVER === 'log') return true;
-  const token = env.TELEGRAM_BOT_TOKEN;
-  return token !== undefined && token !== '' && chatId !== undefined && chatId !== '';
+  return isTelegramReady() && chatId !== undefined && chatId !== '';
+}
+
+/**
+ * Отдельное сообщение в чат мимо очереди: им бот отвечает на привязку.
+ *
+ * В очередь такой ответ не ставится намеренно: он имеет смысл только сразу
+ * после команды человека, а через полчаса ретраев — уже нет.
+ */
+export async function sendChatMessage(chatId: string, text: string): Promise<void> {
+  const transport = env.NOTIFY_DRIVER === 'log' ? logTelegramTransport : httpTelegramTransport;
+  await transport.send({ chatId, text, photoPath: null, buttons: null });
 }
 
 export type TelegramChannelPrefs = {
@@ -210,9 +232,11 @@ export function createTelegramChannel(
 ): NotificationChannel {
   return {
     name: 'telegram',
-    // канал работает, только если владелец его выбрал и доступы на месте
-    isEnabled: () => prefs.enabled && isTelegramConfigured(prefs.chatId),
-    async send(payload: NotificationPayload): Promise<void> {
+    /* Канал работает, только если владелец его выбрал и доступы на месте.
+       Личный адрес перекрывает общий: у адресного уведомления свой чат. */
+    isEnabled: (address?: string | null) =>
+      prefs.enabled && isTelegramConfigured(address ?? prefs.chatId),
+    async send(payload: NotificationPayload, address?: string | null): Promise<void> {
       const chosen =
         transport ?? (env.NOTIFY_DRIVER === 'log' ? logTelegramTransport : httpTelegramTransport);
 
@@ -220,7 +244,7 @@ export function createTelegramChannel(
       const photoPath = photo === null ? null : resolveUploadPath(photo);
 
       await chosen.send({
-        chatId: prefs.chatId ?? '(не задан)',
+        chatId: address ?? prefs.chatId ?? '(не задан)',
         text: notificationText(payload),
         photoPath,
         buttons: payload.kind === 'review' ? moderationButtons(payload.reviewId) : null,

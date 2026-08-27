@@ -1,17 +1,33 @@
 import { NO_STORE, json } from '@/server/http';
-import { answerCallbackQuery, editMessageText } from '@/server/notifications/channels/telegram';
+import {
+  answerCallbackQuery,
+  editMessageText,
+  sendChatMessage,
+} from '@/server/notifications/channels/telegram';
+import {
+  bindingReplies,
+  parseChatCommand,
+  verifyBindingCode,
+} from '@/server/notifications/binding';
 import {
   moderatorName,
   parseModerationCommand,
   telegramUpdateSchema,
+  type TelegramChatMessage,
 } from '@/server/notifications/moderation';
+import {
+  bindTelegramChat,
+  listDeliveryTargets,
+  unbindTelegramChat,
+} from '@/server/repo/admin-users';
 import { setStatus } from '@/server/repo/reviews';
 import { revalidateReviews } from '@/server/revalidate';
 import { env } from '@/shared/config/env';
 import { safeEqual } from '@/server/auth';
 
 /**
- * Приём нажатий на кнопки модерации из Telegram — docs/API.md §7.
+ * Приём обновлений из Telegram: кнопки модерации отзыва (docs/API.md §7) и
+ * команды привязки чата к учётной записи (§10).
  *
  * 🔴 Единственная защита этого адреса — секрет, который Telegram шлёт
  * заголовком `X-Telegram-Bot-Api-Secret-Token`. Он же задаётся при
@@ -60,9 +76,17 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const parsed = telegramUpdateSchema.safeParse(body);
-  const query = parsed.success ? parsed.data.callback_query : undefined;
+  const update = parsed.success ? parsed.data : undefined;
+
+  const chatMessage = update?.message;
+  if (chatMessage !== undefined) {
+    await bindChat(chatMessage);
+    return json({ ok: true }, 200, NO_STORE);
+  }
+
+  const query = update?.callback_query;
   if (query === undefined) {
-    // не наше обновление (сообщение в чат, вступление в группу) — молча принимаем
+    // не наше обновление (вступление в группу, правка сообщения) — молча принимаем
     return json({ ok: true }, 200, NO_STORE);
   }
 
@@ -104,5 +128,53 @@ async function safely(action: () => Promise<void>): Promise<void> {
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
     console.warn(`Ответ в Telegram не отправлен: ${reason}`);
+  }
+}
+
+/**
+ * Привязка чата к учётной записи по коду из панели.
+ *
+ * 🔴 Учётную запись выбирает не человек в чате, а код: чужой код подобрать
+ * нельзя, а свой виден только тому, кто вошёл в панель (`notifications/binding`).
+ * Поэтому проверка идёт перебором учётных записей — их у малого бизнеса
+ * единицы, и это дешевле, чем хранить одноразовые коды в базе.
+ *
+ * Отключённая учётная запись привязки не получает: у неё и входа-то нет.
+ */
+async function bindChat(message: TelegramChatMessage): Promise<void> {
+  const command = parseChatCommand(message.text);
+  if (command === null) return;
+
+  const chatId = String(message.chat.id);
+  const reply = (text: string): Promise<void> => safely(() => sendChatMessage(chatId, text));
+
+  if (command.kind === 'help') {
+    await reply(bindingReplies.help);
+    return;
+  }
+
+  try {
+    if (command.kind === 'unbind') {
+      const names = await unbindTelegramChat(chatId);
+      await reply(names.length === 0 ? bindingReplies.notBound : bindingReplies.unbound);
+      return;
+    }
+
+    const targets = await listDeliveryTargets();
+    const target = targets.find(
+      (candidate) => candidate.active && verifyBindingCode(candidate.id, command.code),
+    );
+
+    if (target === undefined) {
+      await reply(bindingReplies.unknownCode);
+      return;
+    }
+
+    await bindTelegramChat(target.id, chatId);
+    await reply(bindingReplies.bound(target.name));
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    console.error(`Привязка чата Telegram не удалась: ${reason}`);
+    await reply(bindingReplies.unknownCode);
   }
 }

@@ -2,27 +2,65 @@
 
 import { useState } from 'react';
 
-import { formatDate } from '@/shared/lib/format';
+import { formatDate, formatDateTime } from '@/shared/lib/format';
 import { Badge, Button, Card } from '@/shared/ui';
 
 import { deliveryLogContent as texts, kindTitle } from './content';
 import { retryDelivery } from './lib';
-import type { DeliveryFailureView, DeliverySummaryView, RetryApi } from './model';
+import type {
+  DeliveryEntryView,
+  DeliveryFailureView,
+  DeliveryStatus,
+  DeliverySummaryView,
+  RetryApi,
+} from './model';
 import styles from './DeliveryLog.module.css';
 
 export interface DeliveryLogProps {
   readonly summary: readonly DeliverySummaryView[];
   readonly failures: readonly DeliveryFailureView[];
+  /** Адресные уведомления: что и кому ушло. */
+  readonly entries: readonly DeliveryEntryView[];
   /** Повтор доставки; по умолчанию — `POST /api/admin/notifications/{id}/retry`. */
   readonly api?: RetryApi | undefined;
 }
 
+const STATUS_BADGE: Readonly<Record<DeliveryStatus, 'success' | 'warning' | 'sale'>> = {
+  sent: 'success',
+  pending: 'warning',
+  failed: 'sale',
+};
+
+const STATUS_TEXT: Readonly<Record<DeliveryStatus, string>> = {
+  sent: texts.statusSent,
+  pending: texts.statusPending,
+  failed: texts.statusFailed,
+};
+
+/** Кому ушло сообщение: у владельца адрес общий, у человека — свой. */
+function Addressee({ to }: { readonly to: DeliveryFailureView }) {
+  const who = to.recipient ?? texts.recipientOwner;
+  const where = to.address === null || to.address === '' ? '' : ` · ${to.address}`;
+
+  return (
+    <p className={styles.to}>
+      {texts.recipientPrefix} {who}
+      {where}
+    </p>
+  );
+}
+
 /**
- * Журнал доставки: сводка по каналам и разбор того, что не дошло.
+ * Журнал доставки: сводка по каналам, разбор того, что не дошло, и лента
+ * адресных сообщений.
  *
  * 🔴 Причина сбоя показывается дословно, как её вернул канал: «письмо не
  * пришло» перестаёт быть догадкой, а владелец видит, чинить ли ему настройки
  * или звать того, кто держит сервер.
+ *
+ * 🔴 Лента адресных сообщений — единственное место, где владелец видит
+ * переписку с монтажником: копию сообщения он не получает, иначе в сезон это
+ * двойной поток в его телеграм (решение владельца от 26 августа).
  *
  * Повтор отправляет тот же снимок события: заявка давно в базе, дублироваться
  * ей не от чего.
@@ -30,6 +68,7 @@ export interface DeliveryLogProps {
 export function DeliveryLog({
   summary,
   failures,
+  entries,
   api = { retry: retryDelivery },
 }: DeliveryLogProps) {
   const [restored, setRestored] = useState<readonly string[]>([]);
@@ -108,6 +147,8 @@ export function DeliveryLog({
                       </span>
                     </div>
 
+                    <Addressee to={failure} />
+
                     {failure.lastError === null ? null : (
                       <p className={styles.reason}>{failure.lastError}</p>
                     )}
@@ -140,6 +181,40 @@ export function DeliveryLog({
           <p className={styles.error} role="alert">
             {failed}
           </p>
+        )}
+      </section>
+
+      <section aria-labelledby="delivery-feed">
+        <h2 className={styles.title} id="delivery-feed">
+          {texts.feedTitle}
+        </h2>
+        <p className={styles.hint}>{texts.feedHint}</p>
+
+        {entries.length === 0 ? (
+          <p className={styles.empty}>{texts.feedEmpty}</p>
+        ) : (
+          <ul className={styles.failures}>
+            {entries.map((entry) => (
+              <li key={entry.id}>
+                <Card variant="soft" padding="md" className={styles.failure}>
+                  <div className={styles.head}>
+                    <span className={styles.kind}>{entry.title}</span>
+                    <span className={styles.channelTag}>{entry.channel}</span>
+                    <Badge variant={STATUS_BADGE[entry.status]} size="sm">
+                      {STATUS_TEXT[entry.status]}
+                    </Badge>
+                    <span className={styles.meta}>{formatDateTime(entry.createdAt)}</span>
+                  </div>
+
+                  <Addressee to={entry} />
+
+                  {entry.lastError === null ? null : (
+                    <p className={styles.reason}>{entry.lastError}</p>
+                  )}
+                </Card>
+              </li>
+            ))}
+          </ul>
         )}
       </section>
     </div>

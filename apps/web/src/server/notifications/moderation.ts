@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 /**
- * Разбор нажатия кнопки модерации из Telegram — docs/API.md §7.
+ * Разбор обновлений от Telegram — docs/API.md §7 и §10.
  *
  * Вынесено из маршрута, потому что это чистая логика: строка `callback_data`
  * пришла снаружи, и доверять ей нельзя ровно так же, как телу запроса.
@@ -48,17 +48,26 @@ export function parseModerationCommand(data: string | undefined): ModerationComm
  * Тело обновления от Telegram. Описываем только то, что читаем: остальные
  * поля Bot API нам неинтересны и меняются от версии к версии.
  */
+const senderSchema = z.object({
+  first_name: z.string().optional(),
+  username: z.string().optional(),
+});
+
 export const telegramUpdateSchema = z.object({
+  /** Сообщение в чат: им человек привязывает свой телеграм к учётной записи. */
+  message: z
+    .object({
+      message_id: z.number(),
+      text: z.string().optional(),
+      chat: z.object({ id: z.union([z.number(), z.string()]) }),
+      from: senderSchema.optional(),
+    })
+    .optional(),
   callback_query: z
     .object({
       id: z.string(),
       data: z.string().optional(),
-      from: z
-        .object({
-          first_name: z.string().optional(),
-          username: z.string().optional(),
-        })
-        .optional(),
+      from: senderSchema.optional(),
       message: z
         .object({
           message_id: z.number(),
@@ -74,7 +83,10 @@ export const telegramUpdateSchema = z.object({
 export type TelegramUpdate = z.infer<typeof telegramUpdateSchema>;
 
 /** Кто нажал: имя или ник. Не представился — так и пишем. */
-export type TelegramSender = NonNullable<NonNullable<TelegramUpdate['callback_query']>['from']>;
+export type TelegramSender = z.infer<typeof senderSchema>;
+
+/** Сообщение в чат — то, из чего берётся адрес привязки. */
+export type TelegramChatMessage = NonNullable<TelegramUpdate['message']>;
 
 export function moderatorName(from: TelegramSender | undefined): string {
   const name = from?.first_name?.trim();

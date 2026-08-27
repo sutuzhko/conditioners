@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 
-import { DeliveryLog } from '@/features/delivery-log';
+import { DeliveryAddresses, DeliveryLog } from '@/features/delivery-log';
 import { NOTIFICATIONS_GROUP, SettingsForm, toGroupValue } from '@/features/settings-form';
 import { requireOwnerPage } from '@/server/guards';
+import { bindingCode } from '@/server/notifications/binding';
 import { isEmailConfigured } from '@/server/notifications/channels/email';
 import { isTelegramConfigured } from '@/server/notifications/channels/telegram';
 import { loadNotificationPrefs } from '@/server/notifications/prefs';
-import { deliverySummary, recentFailures } from '@/server/repo/notifications';
+import { listDeliveryTargets } from '@/server/repo/admin-users';
+import { deliverySummary, recentFailures, recentPersonal } from '@/server/repo/notifications';
 import { getGroup } from '@/server/repo/settings';
 import { env } from '@/shared/config/env';
 import { Badge, Card } from '@/shared/ui';
@@ -41,12 +43,26 @@ export default async function AdminNotificationsPage() {
   /* Раздел владельца: проверка до чтения данных (ADR-095). */
   await requireOwnerPage();
 
-  const [stored, prefs, summary, failures] = await Promise.all([
+  const [stored, prefs, summary, failures, entries, team] = await Promise.all([
     getGroup('notifications'),
     loadNotificationPrefs(),
     deliverySummary(),
     recentFailures(),
+    recentPersonal(),
+    listDeliveryTargets(),
   ]);
+
+  /* Код привязки считается на сервере при каждом заходе: он живёт получасовое
+     окно и хранить его негде — он выводится из секрета и идентификатора. */
+  const people = team.map((person) => ({
+    id: person.id,
+    name: person.name,
+    role: person.role,
+    active: person.active,
+    telegram: person.telegramChatId !== null,
+    email: person.email,
+    code: bindingCode(person.id),
+  }));
 
   const channels: readonly ChannelState[] = [
     {
@@ -131,9 +147,13 @@ export default async function AdminNotificationsPage() {
 
       <SettingsForm group={NOTIFICATIONS_GROUP} value={value} />
 
+      {/* Адреса людей — под общими настройками: сперва «куда шлём вообще»,
+          потом «кому лично». Наряды уходят по этим адресам и никуда больше. */}
+      <DeliveryAddresses people={people} />
+
       {/* Журнал доставки под настройками: сначала владелец правит, куда слать,
           и только потом разбирается, что не дошло. */}
-      <DeliveryLog summary={summary} failures={failures} />
+      <DeliveryLog summary={summary} failures={failures} entries={entries} />
     </div>
   );
 }

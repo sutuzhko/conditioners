@@ -41,6 +41,9 @@ function queued(overrides: Partial<{ id: string; channel: string; attempts: numb
     nextTryAt: NOW,
     createdAt: NOW,
     sentAt: null,
+    // уведомление владельцу: получателя нет, адрес общий из настроек
+    recipientId: null,
+    address: null,
   };
 }
 
@@ -75,7 +78,8 @@ describe('разбор очереди', () => {
 
     const result = await processDueNotifications({ channels: registry(send), now: NOW });
 
-    expect(send).toHaveBeenCalledWith(LEAD_PAYLOAD);
+    // адрес не передаётся: у владельца он общий и канал берёт его сам
+    expect(send).toHaveBeenCalledWith(LEAD_PAYLOAD, undefined);
     expect(result).toEqual({ sent: 1, retried: 0, failed: 0 });
     expect(dbMock.notification.update.mock.calls[0]?.[0]).toMatchObject({
       where: { id: 'n1' },

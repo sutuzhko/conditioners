@@ -4,7 +4,7 @@
  * Пароль наружу не отдаётся ни в каком виде — `StaffCard` его не содержит.
  * Из базы `passwordHash` читает только вход.
  */
-import type { AdminRole as DbRole, Employment as DbEmployment } from '@prisma/client';
+import type { AdminRole as DbRole, Employment as DbEmployment, Prisma } from '@prisma/client';
 
 import type { AdminRole, InstallerNoteCard, StaffCard } from '@/entities/staff/model';
 import { db } from '@/server/db';
@@ -243,4 +243,113 @@ export async function addNote(userId: string, text: string): Promise<InstallerNo
 export async function removeNote(id: string): Promise<void> {
   const removed = await db.installerNote.deleteMany({ where: { id } });
   if (removed.count === 0) throw new ApiException('not_found', 'Заметка не найдена');
+}
+
+// ---------- Адреса доставки уведомлений ----------
+// До адресации адрес был один на компанию, и разослать «каждому своё» было
+// физически некуда. Здесь читаются и пишутся только два поля учётной записи —
+// чат телеграма и почта; всё остальное про человека правит раздел «Команда».
+
+export type DeliveryTarget = {
+  readonly id: string;
+  /** Имя или логин: в журнале доставки должно быть видно, кому ушло. */
+  readonly name: string;
+  readonly login: string;
+  readonly role: AdminRole;
+  readonly active: boolean;
+  readonly telegramChatId: string | null;
+  readonly email: string | null;
+};
+
+const deliverySelect = {
+  id: true,
+  login: true,
+  name: true,
+  role: true,
+  active: true,
+  telegramChatId: true,
+  email: true,
+} as const;
+
+type DeliveryRow = {
+  id: string;
+  login: string;
+  name: string | null;
+  role: DbRole;
+  active: boolean;
+  telegramChatId: string | null;
+  email: string | null;
+};
+
+function toDeliveryTarget(row: DeliveryRow): DeliveryTarget {
+  return {
+    id: row.id,
+    name: row.name ?? row.login,
+    login: row.login,
+    role: ROLE_FROM_DB[row.role],
+    active: row.active,
+    telegramChatId: row.telegramChatId,
+    email: row.email,
+  };
+}
+
+/**
+ * Адреса одного получателя. Принимает транзакционный клиент: адресное
+ * уведомление ставится в очередь той же транзакцией, что и правка наряда
+ * (ADR-091), и читать адрес мимо неё нельзя.
+ */
+export async function findDeliveryTarget(
+  id: string,
+  client: Prisma.TransactionClient = db,
+): Promise<DeliveryTarget | null> {
+  const row = await client.adminUser.findUnique({ where: { id }, select: deliverySelect });
+  return row === null ? null : toDeliveryTarget(row);
+}
+
+/** Вся команда с адресами: раздел «Уведомления» показывает, кто на связи. */
+export async function listDeliveryTargets(): Promise<readonly DeliveryTarget[]> {
+  const rows = await db.adminUser.findMany({
+    select: deliverySelect,
+    orderBy: [{ role: 'asc' }, { name: 'asc' }, { login: 'asc' }],
+  });
+
+  return rows.map(toDeliveryTarget);
+}
+
+/** Почта для уведомлений. Пустое значение — «адреса нет», а не пустая строка. */
+export async function setDeliveryEmail(id: string, email: string | null): Promise<void> {
+  const trimmed = email?.trim() ?? '';
+  await db.adminUser.update({ where: { id }, data: { email: trimmed === '' ? null : trimmed } });
+}
+
+/**
+ * Привязка чата к учётной записи. Chat ID человек не знает и узнать сам не
+ * может — его приносит сам телеграм, командой боту.
+ */
+export async function bindTelegramChat(id: string, chatId: string): Promise<void> {
+  await db.adminUser.update({ where: { id }, data: { telegramChatId: chatId } });
+}
+
+/**
+ * Отвязка чата: человек написал боту «стоп» или владелец снял привязку.
+ * Возвращает имена тех, у кого чат сняли, — их нужно назвать в ответе.
+ */
+export async function unbindTelegramChat(chatId: string): Promise<readonly string[]> {
+  const rows = await db.adminUser.findMany({
+    where: { telegramChatId: chatId },
+    select: deliverySelect,
+  });
+
+  if (rows.length === 0) return [];
+
+  await db.adminUser.updateMany({
+    where: { telegramChatId: chatId },
+    data: { telegramChatId: null },
+  });
+  return rows.map((row) => toDeliveryTarget(row).name);
+}
+
+/** Снять привязку у конкретной учётной записи — из раздела «Уведомления». */
+export async function unbindTelegramChatOf(id: string): Promise<void> {
+  await db.adminUser.update({ where: { id }, data: { telegramChatId: null } });
 }

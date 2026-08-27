@@ -95,19 +95,26 @@ function smtpTransport(): MailTransport {
 }
 
 /**
- * Технически ли канал готов работать: есть сервер, отправитель и получатель.
- * Выбор владельца в админке проверяется отдельно — это разные вещи.
+ * Готов ли сам транспорт: есть сервер и отправитель. Про получателя ничего
+ * не знает — у адресного уведомления он свой.
  */
-export function isEmailConfigured(to: string | undefined): boolean {
+function isEmailReady(): boolean {
   if (env.NOTIFY_DRIVER === 'log') return true;
   return (
     env.SMTP_HOST !== undefined &&
     env.SMTP_HOST !== '' &&
     env.SMTP_FROM !== undefined &&
-    env.SMTP_FROM !== '' &&
-    to !== undefined &&
-    to !== ''
+    env.SMTP_FROM !== ''
   );
+}
+
+/**
+ * Технически ли канал готов работать: есть сервер, отправитель и получатель.
+ * Выбор владельца в админке проверяется отдельно — это разные вещи.
+ */
+export function isEmailConfigured(to: string | undefined): boolean {
+  if (env.NOTIFY_DRIVER === 'log') return true;
+  return isEmailReady() && to !== undefined && to !== '';
 }
 
 function attachments(payload: NotificationPayload): readonly MailAttachment[] {
@@ -132,15 +139,16 @@ export function createEmailChannel(
 ): NotificationChannel {
   return {
     name: 'email',
-    // канал работает, только если владелец его выбрал и доступы на месте
-    isEnabled: () => prefs.enabled && isEmailConfigured(prefs.to),
-    async send(payload: NotificationPayload): Promise<void> {
+    /* Канал работает, только если владелец его выбрал и доступы на месте.
+       Личный адрес перекрывает общий: у адресного уведомления свой получатель. */
+    isEnabled: (address?: string | null) => prefs.enabled && isEmailConfigured(address ?? prefs.to),
+    async send(payload: NotificationPayload, address?: string | null): Promise<void> {
       const chosen =
         transport ?? (env.NOTIFY_DRIVER === 'log' ? logMailTransport : smtpTransport());
 
       await chosen.sendMail({
         from: orNotSet(env.SMTP_FROM),
-        to: orNotSet(prefs.to),
+        to: orNotSet(address ?? prefs.to),
         subject: notificationSubject(payload),
         text: `${notificationText(payload)}\n\nОткрыть в админке: ${adminLink(payload)}`,
         attachments: attachments(payload),

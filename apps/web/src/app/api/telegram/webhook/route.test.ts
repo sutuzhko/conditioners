@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const { testEnv, reviewsMock, telegramMock, revalidateMock } = vi.hoisted(() => ({
+const { testEnv, reviewsMock, telegramMock, revalidateMock, usersMock } = vi.hoisted(() => ({
   testEnv: {
     NODE_ENV: 'test',
     DATABASE_URL: 'postgresql://user:pass@db:5432/test',
@@ -14,16 +14,27 @@ const { testEnv, reviewsMock, telegramMock, revalidateMock } = vi.hoisted(() => 
     TELEGRAM_WEBHOOK_SECRET: 'secret-token-42',
   } as Record<string, unknown>,
   reviewsMock: { setStatus: vi.fn() },
-  telegramMock: { answerCallbackQuery: vi.fn(), editMessageText: vi.fn() },
+  telegramMock: {
+    answerCallbackQuery: vi.fn(),
+    editMessageText: vi.fn(),
+    sendChatMessage: vi.fn(),
+  },
   revalidateMock: { revalidateReviews: vi.fn() },
+  usersMock: {
+    listDeliveryTargets: vi.fn(),
+    bindTelegramChat: vi.fn(),
+    unbindTelegramChat: vi.fn(),
+  },
 }));
 
 vi.mock('@/shared/config/env', () => ({ env: testEnv }));
 vi.mock('@/server/repo/reviews', () => reviewsMock);
 vi.mock('@/server/notifications/channels/telegram', () => telegramMock);
 vi.mock('@/server/revalidate', () => revalidateMock);
+vi.mock('@/server/repo/admin-users', () => usersMock);
 
 const { POST } = await import('./route');
+const { bindingCode, bindingReplies } = await import('@/server/notifications/binding');
 
 const REVIEW_ID = 'rev-42';
 
@@ -49,12 +60,23 @@ function request(body: unknown, secret: string | null = 'secret-token-42'): Requ
   });
 }
 
+/** Сообщение в чат: им человек привязывает свой телеграм к учётной записи. */
+function chat(text: string): unknown {
+  return { message: { message_id: 5, text, chat: { id: 551234567 } } };
+}
+
+const INSTALLER = { id: 'u2', name: 'Дмитрий Соколов', login: 'sokolov', active: true };
+
 beforeEach(() => {
   vi.clearAllMocks();
   testEnv.TELEGRAM_WEBHOOK_SECRET = 'secret-token-42';
   reviewsMock.setStatus.mockResolvedValue({ id: REVIEW_ID, status: 'approved' });
   telegramMock.answerCallbackQuery.mockResolvedValue(undefined);
   telegramMock.editMessageText.mockResolvedValue(undefined);
+  telegramMock.sendChatMessage.mockResolvedValue(undefined);
+  usersMock.listDeliveryTargets.mockResolvedValue([INSTALLER]);
+  usersMock.bindTelegramChat.mockResolvedValue(undefined);
+  usersMock.unbindTelegramChat.mockResolvedValue([]);
 });
 
 describe('POST /api/telegram/webhook', () => {
@@ -150,5 +172,80 @@ describe('POST /api/telegram/webhook', () => {
 
     expect(response.status).toBe(200);
     expect(reviewsMock.setStatus).toHaveBeenCalledWith(REVIEW_ID, 'approved');
+  });
+});
+
+describe('Привязка чата командой боту', () => {
+  it('верный код привязывает чат к учётной записи и бот это подтверждает', async () => {
+    const response = await POST(request(chat(`/start ${bindingCode(INSTALLER.id)}`)));
+
+    expect(response.status).toBe(200);
+    expect(usersMock.bindTelegramChat).toHaveBeenCalledWith('u2', '551234567');
+    expect(telegramMock.sendChatMessage).toHaveBeenCalledWith(
+      '551234567',
+      expect.stringContaining('Дмитрий Соколов'),
+    );
+  });
+
+  it('🔴 чужим кодом чужую учётную запись не привяжешь', async () => {
+    const response = await POST(request(chat(bindingCode('другой-человек'))));
+
+    expect(response.status).toBe(200);
+    expect(usersMock.bindTelegramChat).not.toHaveBeenCalled();
+    expect(telegramMock.sendChatMessage).toHaveBeenCalledWith(
+      '551234567',
+      bindingReplies.unknownCode,
+    );
+  });
+
+  it('🔴 отключённая учётная запись привязку не получает', async () => {
+    usersMock.listDeliveryTargets.mockResolvedValue([{ ...INSTALLER, active: false }]);
+
+    await POST(request(chat(bindingCode(INSTALLER.id))));
+
+    expect(usersMock.bindTelegramChat).not.toHaveBeenCalled();
+  });
+
+  it('/start без кода объясняет, где код взять', async () => {
+    await POST(request(chat('/start')));
+
+    expect(telegramMock.sendChatMessage).toHaveBeenCalledWith('551234567', bindingReplies.help);
+    expect(usersMock.bindTelegramChat).not.toHaveBeenCalled();
+  });
+
+  it('/stop отписывает чат', async () => {
+    usersMock.unbindTelegramChat.mockResolvedValue(['Дмитрий Соколов']);
+
+    await POST(request(chat('/stop')));
+
+    expect(usersMock.unbindTelegramChat).toHaveBeenCalledWith('551234567');
+    expect(telegramMock.sendChatMessage).toHaveBeenCalledWith('551234567', bindingReplies.unbound);
+  });
+
+  it('обычное сообщение бот не считает командой и в базу не ходит', async () => {
+    const response = await POST(request(chat('а когда приедут?')));
+
+    expect(response.status).toBe(200);
+    expect(usersMock.listDeliveryTargets).not.toHaveBeenCalled();
+    expect(telegramMock.sendChatMessage).not.toHaveBeenCalled();
+  });
+
+  it('🔴 сбой базы при привязке отвечает 200: иначе Telegram шлёт обновление по кругу', async () => {
+    usersMock.listDeliveryTargets.mockRejectedValue(new Error('база недоступна'));
+
+    const response = await POST(request(chat(bindingCode(INSTALLER.id))));
+
+    expect(response.status).toBe(200);
+    expect(telegramMock.sendChatMessage).toHaveBeenCalledWith(
+      '551234567',
+      bindingReplies.unknownCode,
+    );
+  });
+
+  it('🔴 без верного секрета команда привязки не рассматривается вовсе', async () => {
+    const response = await POST(request(chat(bindingCode(INSTALLER.id)), 'wrong-token'));
+
+    expect(response.status).toBe(404);
+    expect(usersMock.bindTelegramChat).not.toHaveBeenCalled();
   });
 });

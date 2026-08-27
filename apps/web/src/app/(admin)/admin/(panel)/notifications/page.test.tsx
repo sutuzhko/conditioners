@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-const { testEnv, settingsMock } = vi.hoisted(() => ({
+const { testEnv, settingsMock, notificationsMock, usersMock } = vi.hoisted(() => ({
   testEnv: {
     NODE_ENV: 'test',
     DATABASE_URL: 'postgresql://user:pass@db:5432/test',
@@ -18,10 +18,21 @@ const { testEnv, settingsMock } = vi.hoisted(() => ({
     NOTIFY_EMAIL_TO: 'owner@example.test',
   } as Record<string, unknown>,
   settingsMock: { getGroup: vi.fn() },
+  notificationsMock: {
+    deliverySummary: vi.fn(),
+    recentFailures: vi.fn(),
+    recentPersonal: vi.fn(),
+  },
+  usersMock: { listDeliveryTargets: vi.fn() },
 }));
 
 vi.mock('@/shared/config/env', () => ({ env: testEnv }));
 vi.mock('@/server/repo/settings', () => settingsMock);
+
+/* Журнал доставки и команда читаются из базы: страница проверяется на своих
+   данных, а не на том, что оказалось в дев-базе в момент прогона. */
+vi.mock('@/server/repo/notifications', () => notificationsMock);
+vi.mock('@/server/repo/admin-users', () => usersMock);
 
 /* Страница вызывает проверку роли первой строкой (ADR-095). Здесь проверяется
    её содержимое, а не доступ: сессии в тестовом окружении нет вовсе. */
@@ -37,12 +48,27 @@ vi.mock('@/server/guards', () => ({
 
 const { default: NotificationsPage } = await import('./page');
 const { notificationsPageContent: texts } = await import('./content');
+const { deliveryLogContent: logTexts } = await import('@/features/delivery-log');
+
+const INSTALLER = {
+  id: 'u2',
+  name: 'Дмитрий Соколов',
+  login: 'sokolov',
+  role: 'installer',
+  active: true,
+  telegramChatId: null,
+  email: null,
+};
 
 beforeEach(() => {
   vi.clearAllMocks();
   testEnv.TELEGRAM_BOT_TOKEN = 'token';
   testEnv.SMTP_HOST = 'smtp.example.test';
   settingsMock.getGroup.mockResolvedValue({ telegram: true, email: true });
+  notificationsMock.deliverySummary.mockResolvedValue([]);
+  notificationsMock.recentFailures.mockResolvedValue([]);
+  notificationsMock.recentPersonal.mockResolvedValue([]);
+  usersMock.listDeliveryTargets.mockResolvedValue([INSTALLER]);
 });
 
 describe('Раздел «Уведомления»', () => {
@@ -108,5 +134,44 @@ describe('Раздел «Уведомления»', () => {
     render(await NotificationsPage());
 
     expect(screen.queryByText(texts.logDriverTitle)).not.toBeInTheDocument();
+  });
+
+  it('🔴 показывает адреса доставки по людям: без них наряд никому не уйдёт', async () => {
+    render(await NotificationsPage());
+
+    expect(screen.getByText(logTexts.addressesTitle)).toBeInTheDocument();
+    expect(screen.getByText('Дмитрий Соколов')).toBeInTheDocument();
+    expect(screen.getByText(logTexts.telegramMissing)).toBeInTheDocument();
+  });
+
+  it('🔴 непривязанному человеку показывается код: сам он chat ID не узнает', async () => {
+    const { container } = render(await NotificationsPage());
+    const code = container.querySelector('code');
+
+    expect(code?.textContent).toMatch(/^[2-9A-HJ-NP-Z]{8}$/);
+  });
+
+  it('🔴 владелец видит ленту того, что ушло людям: копию сообщением он не получает', async () => {
+    notificationsMock.recentPersonal.mockResolvedValue([
+      {
+        id: 'n-1',
+        channel: 'telegram',
+        kind: 'order-assigned',
+        attempts: 1,
+        lastError: null,
+        status: 'sent',
+        createdAt: '2026-08-26T10:00:00.000Z',
+        nextTryAt: '2026-08-26T10:00:00.000Z',
+        sentAt: '2026-08-26T10:00:02.000Z',
+        recipient: 'Дмитрий Соколов',
+        address: '551234567',
+        title: 'Вам назначен наряд № 1059',
+      },
+    ]);
+
+    render(await NotificationsPage());
+
+    expect(screen.getByText('Вам назначен наряд № 1059')).toBeInTheDocument();
+    expect(screen.getByText(logTexts.statusSent)).toBeInTheDocument();
   });
 });

@@ -4,7 +4,12 @@ import userEvent from '@testing-library/user-event';
 
 import { DeliveryLog } from './DeliveryLog';
 import { deliveryLogContent as texts } from './content';
-import type { DeliveryFailureView, DeliverySummaryView, RetryApi } from './model';
+import type {
+  DeliveryEntryView,
+  DeliveryFailureView,
+  DeliverySummaryView,
+  RetryApi,
+} from './model';
 
 const SUMMARY: readonly DeliverySummaryView[] = [
   { channel: 'email', pending: 0, sent: 12, failed: 2 },
@@ -19,6 +24,8 @@ const FAILED: DeliveryFailureView = {
   lastError: 'Почтовый канал не настроен: не задан SMTP_HOST',
   status: 'failed',
   createdAt: '2026-08-22T09:00:00.000Z',
+  recipient: null,
+  address: null,
 };
 
 const RETRYING: DeliveryFailureView = {
@@ -30,11 +37,42 @@ const RETRYING: DeliveryFailureView = {
   lastError: 'Telegram недоступен: сеть не отвечает',
 };
 
+/** Отказ адресного уведомления: адреса у человека нет вовсе. */
+const NO_ADDRESS: DeliveryFailureView = {
+  id: 'n-3',
+  channel: 'telegram',
+  kind: 'order-assigned',
+  attempts: 0,
+  lastError: 'Дмитрий Соколов: не задан адрес доставки.',
+  status: 'failed',
+  createdAt: '2026-08-26T09:00:00.000Z',
+  recipient: 'Дмитрий Соколов',
+  address: null,
+};
+
+const SENT: DeliveryEntryView = {
+  id: 'n-4',
+  channel: 'telegram',
+  kind: 'order-assigned',
+  attempts: 1,
+  lastError: null,
+  status: 'sent',
+  createdAt: '2026-08-26T10:00:00.000Z',
+  sentAt: '2026-08-26T10:00:05.000Z',
+  recipient: 'Дмитрий Соколов',
+  address: '551234567',
+  title: 'Вам назначен наряд № 1059',
+};
+
 function setup(
   failures: readonly DeliveryFailureView[] = [FAILED],
   api: RetryApi = { retry: vi.fn(() => Promise.resolve({ ok: true })) },
+  entries: readonly DeliveryEntryView[] = [],
 ) {
-  return { api, ...render(<DeliveryLog summary={SUMMARY} failures={failures} api={api} />) };
+  return {
+    api,
+    ...render(<DeliveryLog summary={SUMMARY} failures={failures} entries={entries} api={api} />),
+  };
 }
 
 describe('Журнал доставки', () => {
@@ -88,14 +126,46 @@ describe('Журнал доставки', () => {
   });
 
   it('пустой журнал говорит, что сбоев нет', () => {
-    render(<DeliveryLog summary={SUMMARY} failures={[]} />);
+    render(<DeliveryLog summary={SUMMARY} failures={[]} entries={[]} />);
 
     expect(screen.getByText(texts.failuresEmpty)).toBeInTheDocument();
   });
 
   it('без единого уведомления объясняет, почему список пуст', () => {
-    render(<DeliveryLog summary={[]} failures={[]} />);
+    render(<DeliveryLog summary={[]} failures={[]} entries={[]} />);
 
     expect(screen.getByText(texts.summaryEmpty)).toBeInTheDocument();
+  });
+
+  it('уведомление владельца подписано общим адресом компании', () => {
+    setup();
+
+    expect(screen.getByText(texts.recipientOwner, { exact: false })).toBeInTheDocument();
+  });
+
+  it('🔴 у адресного сбоя видно, кому не дошло', () => {
+    setup([NO_ADDRESS]);
+
+    // имя встречается дважды: в строке «кому» и внутри причины отказа
+    expect(
+      screen.getByText(`${texts.recipientPrefix} Дмитрий Соколов`, { exact: false }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(texts.kindOrderAssigned)).toBeInTheDocument();
+  });
+});
+
+describe('Что ушло людям', () => {
+  it('🔴 доставленное монтажнику видно владельцу: копию сообщением он не получает', () => {
+    setup([], { retry: vi.fn() }, [SENT]);
+
+    expect(screen.getByText(SENT.title)).toBeInTheDocument();
+    expect(screen.getByText('Дмитрий Соколов · 551234567', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText(texts.statusSent)).toBeInTheDocument();
+  });
+
+  it('пустая лента объясняет, почему она пуста', () => {
+    setup();
+
+    expect(screen.getByText(texts.feedEmpty)).toBeInTheDocument();
   });
 });

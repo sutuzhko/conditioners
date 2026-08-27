@@ -1,5 +1,7 @@
 import { db } from '@/server/db';
+import { findDeliveryTarget } from '@/server/repo/admin-users';
 import { resolveChannels } from './channels';
+import { addressFor, toDeliveryAddresses } from './recipients';
 import { notificationPayloadSchema } from './types';
 import type { ChannelRegistry } from './types';
 
@@ -32,6 +34,34 @@ export type TickOptions = {
   readonly now?: Date;
   readonly batchSize?: number;
 };
+
+/**
+ * Адрес доставки одной записи.
+ *
+ * 🔴 Снимок в `address` важнее текущего состояния учётной записи: журнал
+ * обязан показывать, куда доставляли тогда. Дочитывать у человека приходится
+ * ровно в одном случае — когда снимка нет вовсе: так выглядит отказ «адрес не
+ * задан», возвращённый в очередь после привязки чата.
+ *
+ * Уведомление владельцу адреса не несёт: у него общий адрес компании из
+ * настроек, и канал берёт его сам.
+ */
+async function deliveryAddress(notification: {
+  readonly recipientId: string | null;
+  readonly address: string | null;
+  readonly channel: string;
+}): Promise<string | null> {
+  const recipientId = notification.recipientId ?? null;
+  if (recipientId === null) return null;
+
+  const snapshot = notification.address ?? null;
+  if (snapshot !== null && snapshot !== '') return snapshot;
+
+  const target = await findDeliveryTarget(recipientId);
+  if (target === null) return null;
+
+  return addressFor(notification.channel, toDeliveryAddresses(target));
+}
 
 function errorText(error: unknown): string {
   const text = error instanceof Error ? error.message : String(error);
@@ -68,20 +98,35 @@ export async function processDueNotifications(options: TickOptions = {}): Promis
     });
     if (claimed.count === 0) continue;
 
+    const personal = (notification.recipientId ?? null) !== null;
+    const address = await deliveryAddress(notification);
+    /* Дочитанный адрес закрепляется снимком: журнал показывает, куда ушло
+       на самом деле, а не куда ушло бы при следующей попытке. */
+    const addressPatch = address === (notification.address ?? null) ? {} : { address };
+
     try {
       const channel = channels[notification.channel];
       if (channel === undefined) {
         throw new Error(`Неизвестный канал доставки «${notification.channel}»`);
       }
-      if (!channel.isEnabled()) {
+      if (personal && address === null) {
+        throw new Error(
+          `Адрес получателя не задан: доставлять «${notification.kind}» некуда. ` +
+            'Привяжите телеграм командой боту или заполните почту в карточке человека.',
+        );
+      }
+      if (!channel.isEnabled(personal ? address : undefined)) {
         throw new Error(`Канал «${notification.channel}» выключен в настройках окружения`);
       }
 
-      await channel.send(notificationPayloadSchema.parse(notification.payload));
+      await channel.send(
+        notificationPayloadSchema.parse(notification.payload),
+        personal ? address : undefined,
+      );
 
       await db.notification.update({
         where: { id: notification.id },
-        data: { status: 'SENT', sentAt: new Date(), lastError: null },
+        data: { status: 'SENT', sentAt: new Date(), lastError: null, ...addressPatch },
       });
       sent += 1;
     } catch (error) {
@@ -89,7 +134,7 @@ export async function processDueNotifications(options: TickOptions = {}): Promis
       if (attempts >= MAX_ATTEMPTS) {
         await db.notification.update({
           where: { id: notification.id },
-          data: { status: 'FAILED', lastError },
+          data: { status: 'FAILED', lastError, ...addressPatch },
         });
         failed += 1;
         console.error(
@@ -98,7 +143,7 @@ export async function processDueNotifications(options: TickOptions = {}): Promis
       } else {
         await db.notification.update({
           where: { id: notification.id },
-          data: { lastError },
+          data: { lastError, ...addressPatch },
         });
         retried += 1;
       }

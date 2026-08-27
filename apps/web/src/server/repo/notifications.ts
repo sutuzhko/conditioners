@@ -1,4 +1,6 @@
 import { db } from '@/server/db';
+import { deliveryTitle } from '@/server/notifications/format';
+import { notificationPayloadSchema } from '@/server/notifications/types';
 
 /**
  * Доставка уведомлений: что ушло, что ждёт очереди, что не дошло.
@@ -6,6 +8,10 @@ import { db } from '@/server/db';
  * 🔴 Раздел нужен ровно затем, чтобы «письмо не пришло» перестало быть
  * догадкой. Причина сбоя пишется в `Notification.lastError` воркером, но пока
  * её никто не показывает, владелец узнаёт о проблеме только по тишине.
+ *
+ * 🔴 С появлением адресации журнал отвечает и на второй вопрос — кому ушло.
+ * Копию адресного сообщения владелец не получает (решение от 26 августа), и
+ * это единственное место, где он видит переписку с монтажником.
  */
 
 export type DeliveryStatus = 'pending' | 'sent' | 'failed';
@@ -28,9 +34,67 @@ export type DeliveryFailure = {
   readonly createdAt: string;
   /** Когда очередь возьмётся за неё снова; у отказов значения нет. */
   readonly nextTryAt: string;
+  /** Кому адресовано; `null` — владельцу по общим настройкам компании. */
+  readonly recipient: string | null;
+  /** Адрес на момент постановки; у владельца его нет — адрес общий. */
+  readonly address: string | null;
+};
+
+/** Строка журнала адресных сообщений: что и кому ушло, дошло ли. */
+export type DeliveryEntry = DeliveryFailure & {
+  /** Событие человеческими словами: «Вам назначен наряд № 1059». */
+  readonly title: string;
+  readonly sentAt: string | null;
 };
 
 const FROM_DB = { PENDING: 'pending', SENT: 'sent', FAILED: 'failed' } as const;
+
+const withRecipient = { recipient: { select: { name: true, login: true } } } as const;
+
+type NotificationRow = {
+  id: string;
+  channel: string;
+  kind: string;
+  payload: unknown;
+  attempts: number;
+  lastError: string | null;
+  status: keyof typeof FROM_DB;
+  createdAt: Date;
+  nextTryAt: Date;
+  sentAt: Date | null;
+  address: string | null;
+  recipient: { name: string | null; login: string } | null;
+};
+
+function toFailure(row: NotificationRow): DeliveryFailure {
+  return {
+    id: row.id,
+    channel: row.channel,
+    kind: row.kind,
+    attempts: row.attempts,
+    lastError: row.lastError,
+    status: FROM_DB[row.status],
+    createdAt: row.createdAt.toISOString(),
+    nextTryAt: row.nextTryAt.toISOString(),
+    recipient: row.recipient === null ? null : (row.recipient.name ?? row.recipient.login),
+    address: row.address,
+  };
+}
+
+/**
+ * Заголовок события собирается из снимка, а не из `kind`: владелец должен
+ * видеть, какой именно наряд ушёл человеку. Снимок старого формата (запись
+ * пережила выкладку) заголовка не даёт — показываем то, что есть.
+ */
+function toEntry(row: NotificationRow): DeliveryEntry {
+  const parsed = notificationPayloadSchema.safeParse(row.payload);
+
+  return {
+    ...toFailure(row),
+    title: parsed.success ? deliveryTitle(parsed.data) : row.kind,
+    sentAt: row.sentAt?.toISOString() ?? null,
+  };
+}
 
 /** Сколько уведомлений в каждом состоянии — по каналам. */
 export async function deliverySummary(): Promise<readonly DeliverySummary[]> {
@@ -63,18 +127,27 @@ export async function recentFailures(limit = 20): Promise<readonly DeliveryFailu
     },
     orderBy: { createdAt: 'desc' },
     take: limit,
+    include: withRecipient,
   });
 
-  return rows.map((row) => ({
-    id: row.id,
-    channel: row.channel,
-    kind: row.kind,
-    attempts: row.attempts,
-    lastError: row.lastError,
-    status: FROM_DB[row.status],
-    createdAt: row.createdAt.toISOString(),
-    nextTryAt: row.nextTryAt.toISOString(),
-  }));
+  return rows.map(toFailure);
+}
+
+/**
+ * Что ушло людям: последние адресные уведомления в любом состоянии.
+ *
+ * В отличие от разбора сбоев здесь видны и удачные доставки — иначе владелец
+ * не знает, дошёл ли до монтажника наряд, а копии сообщения он не получает.
+ */
+export async function recentPersonal(limit = 20): Promise<readonly DeliveryEntry[]> {
+  const rows = await db.notification.findMany({
+    where: { recipientId: { not: null } },
+    orderBy: { createdAt: 'desc' },
+    take: limit,
+    include: withRecipient,
+  });
+
+  return rows.map(toEntry);
 }
 
 /**
