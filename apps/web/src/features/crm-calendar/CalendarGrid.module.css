@@ -43,6 +43,18 @@
   transition:
     border-color var(--dur-fast) var(--ease-out),
     background var(--dur-fast) var(--ease-out);
+
+  /* Клетка меряет саму себя: рядом с панелью дня она вдвое уже, чем без неё,
+     и подпись в полоске монтажника обрезается до одной буквы. */
+  container-type: inline-size;
+}
+
+/* Тесная клетка: от полоски остаются краска и инициалы. Имя целиком никуда не
+   девается — оно в подписи ячейки для скринридера и во всплывающей подсказке. */
+@container (width < 116px) {
+  .person .busyText {
+    display: none;
+  }
 }
 
 .cell:hover {
@@ -165,6 +177,75 @@
   white-space: nowrap;
 }
 
+/* Полоска монтажника в клетке дня — наложение занятости команды (ADR-123).
+   Краска закреплена за человеком, рядом с ней инициалы: цвет не может быть
+   единственным признаком (WCAG 1.4.1). */
+.person {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  min-width: 0;
+  border-radius: 6px;
+  padding: 1px 4px;
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.personWho {
+  flex: none;
+  border: 1px solid currentcolor;
+  border-radius: var(--r-pill);
+  padding: 0 3px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 12px;
+}
+
+.personA {
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.personB {
+  background: var(--info-bg);
+  color: var(--info-ink);
+}
+
+.personC {
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.personD {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.personE {
+  background: var(--sale-bg);
+  color: var(--sale-ink);
+}
+
+.personF {
+  background: var(--star-bg);
+  color: var(--star);
+}
+
+/* 🔴 Наряд в ячейке отличается от дела не только цветом (ADR-093): у него
+   сплошная полоса слева и номер вместо времени. Дальтоник и монохромный
+   экран видят различие так же, как и все. */
+.order {
+  border-left: 3px solid currentcolor;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.repair {
+  background: var(--error-bg);
+  color: var(--error-ink);
+}
+
 /* Сделанное гаснет, отменённое зачёркнуто: в сетке видно, что осталось на
    сегодня, без чтения каждой строки. */
 .markDone {
@@ -247,6 +328,12 @@
     display: none;
   }
 
+  /* Полоска монтажника на телефоне сворачивается до инициалов: имя целиком
+     всё равно есть в подписи ячейки для скринридера. */
+  .person {
+    padding: 1px 2px;
+  }
+
   /* Занятость точкой не сворачивается: значок — единственный не-цветовой
      признак, который остаётся на телефоне, и терять его нельзя. */
   .busy {
@@ -268,6 +355,13 @@
   /* Фон метки бледный по замыслу — точке нужен насыщенный цвет самой метки. */
   .mark {
     background: currentcolor;
+  }
+
+  /* Наряд остаётся отличимым и точкой: у него квадратная метка, у дела —
+     круглая. Цвет тут ничего не решает. */
+  .order {
+    border-left: 0;
+    border-radius: 1px;
   }
 
   .lead {

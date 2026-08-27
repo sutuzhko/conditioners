@@ -47,6 +47,13 @@
     grid-template-columns: minmax(0, 1fr) minmax(340px, 400px);
     align-items: start;
   }
+
+  /* Неделя и колонки монтажников идут во всю ширину, а день уходит под них:
+     семь колонок рядом с панелью дня сжимаются до семидесяти пикселей, и
+     подпись выезда в них перестаёт читаться — сетка становится бесполезной. */
+  .wide {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 /* Телефон боком: экран широкий и низкий — две колонки помещаются, а одна
@@ -60,4 +67,30 @@
   .header {
     display: none;
   }
+}
+
+/* Пустой вид «по монтажникам»: команды ещё нет, и полоса часов ни о чём не
+   говорит — вместо неё объяснение, где заводят людей. */
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-md);
+  padding: 24px;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+.emptyText {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
 }

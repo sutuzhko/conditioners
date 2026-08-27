@@ -264,3 +264,63 @@ export function momentOf(day: DayKey, time: string, timeZone: string = WORK_TIME
 export function todayKey(now: Date = new Date(), timeZone: string = WORK_TIME_ZONE): DayKey {
   return dayKeyOf(now, timeZone);
 }
+
+/** Соседний день: `shiftDay('2026-08-31', 1) === '2026-09-01'`. */
+export function shiftDay(day: DayKey, delta: number): DayKey {
+  const [year = 0, month = 1, date = 1] = day.split('-').map((part) => Number.parseInt(part, 10));
+  const at = new Date(Date.UTC(year, month - 1, date + delta));
+  return `${at.getUTCFullYear()}-${pad(at.getUTCMonth() + 1)}-${pad(at.getUTCDate())}`;
+}
+
+/**
+ * Понедельник недели, которой принадлежит день.
+ *
+ * Считается по ключу дня, а не по `getDay()` момента: ключ — уже календарная
+ * дата в поясе работ, а у контейнера в UTC первые три часа суток отдавали бы
+ * прошлую неделю (ADR-080).
+ */
+export function weekStartOf(day: DayKey): DayKey {
+  return shiftDay(day, -(weekdayOf(day) - 1));
+}
+
+/** Соседняя неделя — то же, что семь дней: `shiftWeek` читается в навигации. */
+export function shiftWeek(day: DayKey, delta: number): DayKey {
+  return shiftDay(day, delta * WEEK_DAYS);
+}
+
+/**
+ * Неделя как строка сетки: семь дней с понедельника.
+ *
+ * `inMonth` считается относительно месяца самого дня: неделя на стыке месяцев
+ * показывает хвост соседнего так же, как сетка месяца, и подпись «1» в конце
+ * августовской недели не должна выглядеть как первое августа.
+ */
+export function weekGrid(day: DayKey): readonly CalendarDay[] {
+  const start = weekStartOf(day);
+  const month = monthOfDay(day);
+
+  return Array.from({ length: WEEK_DAYS }, (_, index) => {
+    const key = shiftDay(start, index);
+    return { key, day: Number.parseInt(key.slice(8), 10), inMonth: monthOfDay(key) === month };
+  });
+}
+
+/** Границы недели моментами времени — по ним отбираются дела и наряды. */
+export function weekRange(
+  day: DayKey,
+  timeZone: string = WORK_TIME_ZONE,
+): { readonly from: Date; readonly to: Date } {
+  const from = momentOf(weekStartOf(day), '00:00', timeZone);
+  return { from, to: new Date(from.getTime() + WEEK_DAYS * DAY_MS) };
+}
+
+/**
+ * Минуты от местной полуночи: 14:30 в Туле — 870.
+ *
+ * 🔴 Через разбор в поясе работ, а не `getHours()`: контейнер живёт в UTC, и
+ * линия «сейчас» в сетке дня уезжала бы на три часа вверх.
+ */
+export function minutesOfDay(at: Date, timeZone: string = WORK_TIME_ZONE): number {
+  const local = partsIn(at, timeZone);
+  return local.hour * 60 + local.minute;
+}

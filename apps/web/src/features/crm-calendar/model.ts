@@ -1,5 +1,37 @@
 import type { DayBlockLike } from '@/entities/crm/lib/busy';
 import type { CrmEventKind, CrmEventStatus, DayBlockRepeat } from '@/entities/crm/model';
+import type { OrderStatus, OrderType } from '@/entities/order/model';
+
+/**
+ * Вид календаря. 🔴 Живёт в адресе (`?view=week`) и по-английски, как месяц и
+ * день: параметры адресуемого не транслитерируются (инвариант 17).
+ *
+ * Вида «по монтажникам» здесь нет намеренно: занятость команды показывается
+ * наложением на ту же сетку по переключателю `?team=on`, а не отдельным видом
+ * с колонкой на человека (ADR-123). Владелец назначает наряд, глядя на всю
+ * команду разом, а не перебирая людей по очереди.
+ */
+export const CALENDAR_VIEWS = ['month', 'week', 'day'] as const;
+
+export type CalendarView = (typeof CALENDAR_VIEWS)[number];
+
+/**
+ * Разбор параметра адреса. Незнакомое значение — месяц, а не ошибка: адрес
+ * календаря правят руками и присылают друг другу, и отказ вместо сетки там
+ * ничего не объясняет (то же правило, что у месяца в `/api/admin/blocks`).
+ */
+export function parseCalendarView(value: string | undefined): CalendarView {
+  return CALENDAR_VIEWS.find((view) => view === value) ?? 'month';
+}
+
+/**
+ * Переключатель «Занятость монтажников» — тоже в адресе и по-английски.
+ * Включённым считается только `on`: любое другое значение — выключено, как и
+ * незнакомый вид (адрес правят руками).
+ */
+export function parseTeamFlag(value: string | undefined): boolean {
+  return value === 'on';
+}
 
 /**
  * Дело в том виде, в каком его показывают. Момент времени — строкой ISO:
@@ -29,6 +61,26 @@ export type CalendarLead = {
   readonly phone: string;
   readonly topic: string;
   readonly at: string;
+};
+
+/**
+ * Наряд в календаре — CRM.md §3.5: у монтажника календарь это его выезды.
+ *
+ * 🔴 Денег в нём нет: наряд и в сетке остаётся нарядом, но сумма, выплата и
+ * удержание живут в своём разделе, где проверяется доступ (ADR-114). Сюда
+ * попадает ровно то, что нужно, чтобы понять, кто куда и когда едет.
+ */
+export type CalendarOrderCard = {
+  readonly id: string;
+  readonly number: number;
+  readonly type: OrderType;
+  readonly status: OrderStatus;
+  readonly at: string;
+  readonly durationMin: number;
+  readonly address: string;
+  readonly clientName: string;
+  readonly installerId: string | null;
+  readonly installerName: string | null;
 };
 
 export type CrmEventDraft = {

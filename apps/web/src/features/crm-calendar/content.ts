@@ -1,5 +1,14 @@
 import type { CrmEventKind, CrmEventStatus, DayBlockRepeat } from '@/entities/crm/model';
+import type { OrderStatus, OrderType } from '@/entities/order/model';
 import type { IconName, ConfirmRequest } from '@/shared/ui';
+
+import type { CalendarView } from './model';
+
+/** Раздел календаря. Адрес по-английски, как и все адресуемое (инвариант 17). */
+export const CRM_PATH = '/admin/crm';
+
+/** Наряд правится в своём разделе: строка календаря ведёт туда, а не сюда. */
+export const ORDERS_PATH = '/admin/orders';
 
 /**
  * Тексты календаря работ.
@@ -12,7 +21,7 @@ export type KindLook = {
   readonly title: string;
   readonly icon: IconName;
   /** Ключ оформления: цвет метки в сетке. Значения — в CSS-модуле. */
-  readonly tone: 'call' | 'measure' | 'install' | 'service' | 'meeting' | 'note';
+  readonly tone: 'call' | 'measure' | 'install' | 'service' | 'meeting' | 'note' | 'repair';
 };
 
 export const KIND_LOOK: Record<CrmEventKind, KindLook> = {
@@ -22,6 +31,28 @@ export const KIND_LOOK: Record<CrmEventKind, KindLook> = {
   service: { title: 'Обслуживание', icon: 'settings', tone: 'service' },
   meeting: { title: 'Встреча', icon: 'chat', tone: 'meeting' },
   note: { title: 'Заметка', icon: 'bill', tone: 'note' },
+};
+
+/**
+ * Наряд в календаре: свой значок и своя краска у каждого типа работ.
+ *
+ * 🔴 Наряд и дело в сетке обязаны различаться не только цветом (ADR-093): у
+ * наряда есть номер, сплошная полоса слева и слово «Наряд» в подписи для
+ * скринридера — в монохромном режиме различие остаётся.
+ */
+export const ORDER_LOOK: Record<OrderType, KindLook> = {
+  install: { title: 'Монтаж', icon: 'wrench', tone: 'install' },
+  service: { title: 'ТО', icon: 'settings', tone: 'service' },
+  repair: { title: 'Ремонт', icon: 'pulse', tone: 'repair' },
+};
+
+/** Статус наряда словами — в подписи строки календаря. */
+export const ORDER_STATUS_TITLE: Record<OrderStatus, string> = {
+  new: 'Новый',
+  assigned: 'Назначен',
+  in_progress: 'В работе',
+  done: 'Выполнен',
+  cancelled: 'Отказ',
 };
 
 export const STATUS_TITLE: Record<CrmEventStatus, string> = {
@@ -60,8 +91,36 @@ export const crmContent = {
 
   prevMonth: 'Предыдущий месяц',
   nextMonth: 'Следующий месяц',
+  prevWeek: 'Предыдущая неделя',
+  nextWeek: 'Следующая неделя',
+  prevDay: 'Предыдущий день',
+  nextDay: 'Следующий день',
   today: 'Сегодня',
   gridLabel: 'Сетка месяца',
+
+  // ---------- Виды ----------
+
+  viewLabel: 'Вид календаря',
+  weekLabel: 'Неделя по часам',
+  dayLabel: 'День по часам',
+  untimed: 'Без времени',
+  hours: 'Часы',
+  columnEmpty: 'Пусто',
+
+  // ---------- Занятость команды (ADR-123) ----------
+
+  team: 'Занятость монтажников',
+  teamOn: 'Показать занятость монтажников',
+  teamOff: 'Скрыть занятость монтажников',
+  teamLegend: 'Кто каким цветом',
+  teamEmpty: 'Монтажников пока нет',
+  teamEmptyHint:
+    'Заведите учётные записи в разделе «Монтажники» — тогда их занятость ляжет на эту сетку.',
+
+  ordersTitle: 'Наряды этого дня',
+  orderMark: (number: number): string => `Наряд № ${number}`,
+  orderOpen: 'Открыть наряд',
+  ordersCount: (count: number): string => `нарядов: ${count}`,
 
   add: 'Добавить дело',
   addShort: 'Добавить',
@@ -141,6 +200,44 @@ export const crmContent = {
   fieldReasonPlaceholder: 'Семейные дела, врач, отпуск',
   fieldReasonHint: 'Её увидят рядом с днём — «день закрыт» без причины ничего не объясняет',
 } as const;
+
+/** Названия видов — подписи переключателя над сеткой. */
+export const VIEW_TITLE: Record<CalendarView, string> = {
+  month: 'Месяц',
+  week: 'Неделя',
+  day: 'День',
+};
+
+/** Месяцы в родительном падеже: «17–23 августа», а не «17–23 август». */
+const MONTHS_OF: readonly string[] = [
+  'января',
+  'февраля',
+  'марта',
+  'апреля',
+  'мая',
+  'июня',
+  'июля',
+  'августа',
+  'сентября',
+  'октября',
+  'ноября',
+  'декабря',
+];
+
+/** «17–23 августа 2026». Месяц пишется один раз, если он один. */
+export function weekTitle(from: string, to: string): string {
+  const [, fromMonth = '01', fromDay = '01'] = from.split('-');
+  const [toYear = '', toMonth = '01', toDay = '01'] = to.split('-');
+
+  const left = Number.parseInt(fromDay, 10);
+  const right = Number.parseInt(toDay, 10);
+  const name = MONTHS_OF[Number.parseInt(toMonth, 10) - 1] ?? '';
+
+  if (fromMonth === toMonth) return `${left}–${right} ${name} ${toYear}`;
+
+  const fromName = MONTHS_OF[Number.parseInt(fromMonth, 10) - 1] ?? '';
+  return `${left} ${fromName} – ${right} ${name} ${toYear}`;
+}
 
 /** Повтор занятости: разовый день или каждая такая-то неделя. */
 export const REPEAT_TITLE: Record<DayBlockRepeat, string> = {

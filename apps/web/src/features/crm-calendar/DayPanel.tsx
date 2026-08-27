@@ -12,9 +12,22 @@ import type { Confirm } from '@/shared/ui';
 
 import { DayBlockList } from './DayBlockList';
 import { EventDialog } from './EventDialog';
-import { KIND_LOOK, STATUS_TITLE, crmContent as texts } from './content';
+import {
+  KIND_LOOK,
+  ORDERS_PATH,
+  ORDER_LOOK,
+  ORDER_STATUS_TITLE,
+  STATUS_TITLE,
+  crmContent as texts,
+} from './content';
 import { removeEvent, setEventStatus } from './lib';
-import type { CalendarLead, CrmEventCard, CrmEventDraft, DayBlockCard } from './model';
+import type {
+  CalendarLead,
+  CalendarOrderCard,
+  CrmEventCard,
+  CrmEventDraft,
+  DayBlockCard,
+} from './model';
 import styles from './DayPanel.module.css';
 
 /** Время по умолчанию у нового дела: рабочий день начинается с утра. */
@@ -23,6 +36,12 @@ const DEFAULT_TIME = '10:00';
 export interface DayPanelProps {
   readonly day: DayKey;
   readonly events: readonly CrmEventCard[];
+  /**
+   * Наряды этого дня. 🔴 Правятся они в своём разделе (ADR-093): панель
+   * показывает выезд и ведёт в карточку, но статусами и деньгами отсюда не
+   * управляет — два места правды об одном наряде хуже, чем один переход.
+   */
+  readonly orders?: readonly CalendarOrderCard[] | undefined;
   readonly leads: readonly CalendarLead[];
   /** Занятость сетки: чья и на какие часы — решает домен, панель только рисует. */
   readonly blocks: readonly DayBlockCard[];
@@ -75,6 +94,7 @@ function draftOf(event: CrmEventCard): CrmEventDraft {
 export function DayPanel({
   day,
   events,
+  orders = [],
   leads,
   blocks,
   viewerId,
@@ -160,7 +180,7 @@ export function DayPanel({
         </p>
       )}
 
-      {events.length === 0 && leads.length === 0 ? (
+      {events.length === 0 && leads.length === 0 && orders.length === 0 ? (
         <div className={styles.empty}>
           <p className={styles.emptyTitle}>{texts.dayEmpty}</p>
           <p className={styles.emptyText}>{texts.dayEmptyHint}</p>
@@ -182,6 +202,7 @@ export function DayPanel({
                 ]
                   .filter(Boolean)
                   .join(' ')}
+                id={`event-${event.id}`}
                 key={event.id}
               >
                 <div className={styles.when}>
@@ -273,6 +294,47 @@ export function DayPanel({
         </ul>
       )}
 
+      {orders.length === 0 ? null : (
+        <section className={styles.orders}>
+          <h3 className={styles.leadsTitle}>{texts.ordersTitle}</h3>
+
+          <ul className={styles.leadList}>
+            {orders.map((order) => {
+              const look = ORDER_LOOK[order.type];
+
+              return (
+                <li className={styles.orderItem} key={order.id}>
+                  <span className={styles.time}>{timeOf(new Date(order.at))}</span>
+
+                  {/* Наряд отличается от дела не только цветом: номер и слово
+                      «Наряд» стоят в строке и читаются в ч/б (ADR-093). */}
+                  <span className={styles.orderMark}>
+                    <Icon name={look.icon} className={styles.kindIcon} />
+                    {texts.orderMark(order.number)}
+                  </span>
+
+                  <span className={styles.leadName}>{order.clientName}</span>
+                  <span className={styles.leadTopic}>{order.address}</span>
+                  <span className={styles.orderStatus}>{ORDER_STATUS_TITLE[order.status]}</span>
+
+                  {order.installerName === null ? null : (
+                    <span className={styles.leadTopic}>{order.installerName}</span>
+                  )}
+
+                  <Link
+                    className={styles.leadLink}
+                    href={{ pathname: `${ORDERS_PATH}/${order.id}` }}
+                    prefetch={false}
+                  >
+                    {texts.orderOpen}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
       {leads.length === 0 ? null : (
         <section className={styles.leads}>
           <h3 className={styles.leadsTitle}>{texts.leadsTitle}</h3>
@@ -309,6 +371,8 @@ export function DayPanel({
           draft={draft}
           id={editing}
           blocks={myBlocks}
+          orders={orders}
+          viewerId={viewerId}
         />
       )}
 

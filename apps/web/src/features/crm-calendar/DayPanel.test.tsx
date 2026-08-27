@@ -7,8 +7,10 @@ import { crmContent as texts } from './content';
 import { crmBusyContent } from '@/entities/crm/content';
 
 import {
+  clashingRepair,
   dayLead,
   doctorBlock,
+  morningInstall,
   plannedCall,
   plannedInstall,
   viewerId,
@@ -35,6 +37,54 @@ afterEach(() => {
 });
 
 describe('День календаря', () => {
+  it('🔴 наряд ведёт в свою карточку: правится он в своём разделе', () => {
+    render(
+      <DayPanel
+        blocks={[]}
+        viewerId={viewerId}
+        day="2026-08-23"
+        events={[]}
+        orders={[morningInstall]}
+        leads={[]}
+      />,
+    );
+
+    expect(screen.getByText(texts.orderMark(morningInstall.number))).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: texts.orderOpen })).toHaveAttribute(
+      'href',
+      `/admin/orders/${morningInstall.id}`,
+    );
+  });
+
+  it('день с одним нарядом не считается пустым', () => {
+    render(
+      <DayPanel
+        blocks={[]}
+        viewerId={viewerId}
+        day="2026-08-23"
+        events={[]}
+        orders={[clashingRepair]}
+        leads={[]}
+      />,
+    );
+
+    expect(screen.queryByText(texts.dayEmpty)).toBeNull();
+  });
+
+  it('у дела есть якорь: из сетки часов по нему открывается сама запись', () => {
+    const { container } = render(
+      <DayPanel
+        blocks={[]}
+        viewerId={viewerId}
+        day="2026-08-23"
+        events={[plannedCall]}
+        leads={[]}
+      />,
+    );
+
+    expect(container.querySelector(`#event-${plannedCall.id}`)).not.toBeNull();
+  });
+
   it('пустой день объясняет, что делать, а не молчит', () => {
     render(<DayPanel blocks={[]} viewerId={viewerId} day="2026-08-24" events={[]} leads={[]} />);
 

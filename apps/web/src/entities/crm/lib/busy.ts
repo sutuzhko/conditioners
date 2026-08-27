@@ -26,6 +26,21 @@ export type DayBlockLike = {
   readonly reason: string | null;
 };
 
+/**
+ * Занятое окно, пришедшее не от отлучки, а от работы: наряд с длительностью.
+ *
+ * 🔴 Наряд — такой же источник занятости, как личная отлучка (ADR-123):
+ * «у Дмитрия в это время монтаж» и «у Дмитрия в это время врач» одинаково
+ * отвечают на вопрос «свободен ли он». Поэтому источник прибавляется к
+ * разрешению занятости, а не заводит второй расчёт рядом.
+ */
+export type WorkSpan = {
+  readonly fromMin: number;
+  readonly toMin: number;
+  /** Чем занят: «Наряд № 1059, Пролетарская 12». */
+  readonly reason: string | null;
+};
+
 /** Промежуток занятости с причинами, которые его дали. */
 export type BusyWindow = {
   readonly fromMin: number;
@@ -118,26 +133,44 @@ function mergeWindows(windows: readonly BusyWindow[]): readonly BusyWindow[] {
 /**
  * Занят ли человек в этот день — и если да, то целиком или в какие часы.
  *
- * Запись без окна закрывает день целиком и перебивает любые часовые: если
+ * 🔴 Источников два и считаются они вместе (ADR-123): личные отлучки
+ * (`blocks`) и работа этого же человека — наряды, развёрнутые в окна по
+ * длительности (`work`). Календарь, знающий про врача и не знающий про
+ * монтаж, отвечает на вопрос «свободен ли Дмитрий в четверг» ровно наполовину.
+ *
+ * Отлучка без окна закрывает день целиком и перебивает любые часовые: если
  * человека нет весь день, уточнение «а с 14 до 16 особенно нет» ничего не
- * меняет.
+ * меняет. Наряд день целиком не закрывает никогда — у него есть конец.
  *
  * 🔴 Записи подаются **одного человека**. Занятость личная, и окна разных
  * людей складывать нельзя: «Дмитрий с 10 до 12» и «Сергей с 11 до 14» — это
  * два занятых человека, а не один занятый с 10 до 14.
  */
-export function busyOn(day: DayKey, blocks: readonly DayBlockLike[]): DayBusy {
+export function busyOn(
+  day: DayKey,
+  blocks: readonly DayBlockLike[],
+  work: readonly WorkSpan[] = [],
+): DayBusy {
   const applied = blocksOn(day, blocks);
-  if (applied.length === 0) return { state: 'free' };
+  const working = work.filter((span) => span.toMin > span.fromMin);
+
+  if (applied.length === 0 && working.length === 0) return { state: 'free' };
 
   const wholeDay = applied.filter((block) => block.fromMin === null || block.toMin === null);
   if (wholeDay.length > 0) return { state: 'full', reasons: reasonsOf(wholeDay) };
 
-  const windows = applied.map((block) => ({
-    fromMin: block.fromMin ?? 0,
-    toMin: block.toMin ?? MINUTES_IN_DAY - 1,
-    reasons: reasonsOf([block]),
-  }));
+  const windows = [
+    ...applied.map((block) => ({
+      fromMin: block.fromMin ?? 0,
+      toMin: block.toMin ?? MINUTES_IN_DAY - 1,
+      reasons: reasonsOf([block]),
+    })),
+    ...working.map((span) => ({
+      fromMin: span.fromMin,
+      toMin: span.toMin,
+      reasons: span.reason === null ? [] : [span.reason],
+    })),
+  ];
 
   return { state: 'partial', windows: mergeWindows(windows) };
 }

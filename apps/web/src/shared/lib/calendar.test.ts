@@ -6,11 +6,17 @@ import {
   gridRange,
   momentOf,
   monthGrid,
+  minutesOfDay,
   monthKeyOf,
   parseDayKey,
   parseMonthKey,
+  shiftDay,
   shiftMonth,
+  shiftWeek,
   timeOf,
+  weekGrid,
+  weekRange,
+  weekStartOf,
   weekdayOf,
 } from './calendar';
 
@@ -142,5 +148,65 @@ describe('местное время → момент', () => {
 
     expect(at.toISOString()).toBe('2026-08-23T13:00:00.000Z');
     expect(timeOf(at, 'America/New_York')).toBe('09:00');
+  });
+});
+
+describe('соседний день', () => {
+  it('переходит через границу месяца и года', () => {
+    expect(shiftDay('2026-08-31', 1)).toBe('2026-09-01');
+    expect(shiftDay('2026-01-01', -1)).toBe('2025-12-31');
+  });
+
+  it('знает про високосный год', () => {
+    expect(shiftDay('2028-02-28', 1)).toBe('2028-02-29');
+  });
+});
+
+describe('неделя', () => {
+  it('начинается с понедельника', () => {
+    // 23 августа 2026 — воскресенье, его неделя начинается 17-го
+    expect(weekStartOf('2026-08-23')).toBe('2026-08-17');
+    expect(weekStartOf('2026-08-17')).toBe('2026-08-17');
+  });
+
+  it('даёт семь дней подряд', () => {
+    const week = weekGrid('2026-08-19');
+
+    expect(week).toHaveLength(7);
+    expect(week[0]?.key).toBe('2026-08-17');
+    expect(week[6]?.key).toBe('2026-08-23');
+    expect(week.map((day) => day.day)).toEqual([17, 18, 19, 20, 21, 22, 23]);
+  });
+
+  it('отмечает хвост соседнего месяца на стыке', () => {
+    // неделя 31 августа — 6 сентября 2026
+    const week = weekGrid('2026-08-31');
+
+    expect(week[0]?.inMonth).toBe(true);
+    expect(week[1]?.key).toBe('2026-09-01');
+    expect(week[1]?.inMonth).toBe(false);
+  });
+
+  it('листается по семь дней', () => {
+    expect(shiftWeek('2026-08-19', 1)).toBe('2026-08-26');
+    expect(shiftWeek('2026-08-19', -1)).toBe('2026-08-12');
+  });
+
+  it('накрывает ровно семь суток от местной полуночи', () => {
+    const { from, to } = weekRange('2026-08-19');
+
+    // понедельник 17 августа 00:00 в Туле — это 16 августа 21:00 UTC
+    expect(from.toISOString()).toBe('2026-08-16T21:00:00.000Z');
+    expect(to.toISOString()).toBe('2026-08-23T21:00:00.000Z');
+  });
+});
+
+describe('минуты от местной полуночи', () => {
+  it('считает в поясе работ, а не в UTC', () => {
+    expect(minutesOfDay(new Date('2026-08-23T11:30:00.000Z'))).toBe(14 * 60 + 30);
+  });
+
+  it('полночь по Москве — ноль, а не 180', () => {
+    expect(minutesOfDay(new Date('2026-08-23T21:00:00.000Z'))).toBe(0);
   });
 });

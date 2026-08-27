@@ -3,10 +3,12 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { DayPanel } from './DayPanel';
 import {
   cancelledService,
+  clashingRepair,
   dayLead,
   doneMeasure,
   foreignBlock,
   monthBlocks,
+  morningInstall,
   plannedCall,
   plannedInstall,
   viewerId,
@@ -19,6 +21,7 @@ const meta = {
   args: {
     day: '2026-08-23',
     events: [plannedCall, plannedInstall],
+    orders: [],
     leads: [dayLead],
     blocks: [],
     viewerId,
@@ -59,6 +62,16 @@ export const ЗанятЧасами: Story = {
 /** Повторяемый выходной и разовая запись на один четверг. */
 export const НесколькоЗаписей: Story = {
   args: { day: '2026-08-20', events: [], leads: [], blocks: monthBlocks },
+};
+
+/** Наряды этого дня: выезд с номером, статусом и переходом в свою карточку. */
+export const СНарядами: Story = {
+  args: { orders: [morningInstall, clashingRepair] },
+};
+
+/** Только наряды: день, в котором ничего, кроме выездов, не запланировано. */
+export const ТолькоНаряды: Story = {
+  args: { events: [], leads: [], orders: [morningInstall] },
 };
 
 /** Чужая занятость: владелец её видит, но снять не может — кнопок нет. */

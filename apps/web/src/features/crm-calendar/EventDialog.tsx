@@ -3,13 +3,16 @@
 import { useState, type FormEvent } from 'react';
 
 import { busyAt, busyOn, minutesOfTime } from '@/entities/crm/lib/busy';
+import { clashesWith, spanOf } from '@/entities/crm/lib/load';
 import { crmEventCreateSchema, isCrmEventKind } from '@/entities/crm/model';
-import { BusyNote } from '@/entities/crm/ui';
+import { BusyNote, ClashNote } from '@/entities/crm/ui';
+import { dayKeyOf, minutesOfDay } from '@/shared/lib/calendar';
 import { Button, Input, Modal, PhoneInput, Select, Textarea } from '@/shared/ui';
 
-import { KIND_LOOK, crmContent as texts } from './content';
+import { KIND_LOOK, ORDER_LOOK, crmContent as texts } from './content';
 import { createEvent, updateEvent } from './lib';
-import type { CrmEventDraft, DayBlockCard } from './model';
+import { EVENT_SLOT_MIN } from './schedule';
+import type { CalendarOrderCard, CrmEventDraft, DayBlockCard } from './model';
 import styles from './EventDialog.module.css';
 
 const KIND_OPTIONS = Object.entries(KIND_LOOK).map(([value, look]) => ({
@@ -29,6 +32,14 @@ export interface EventDialogProps {
    * сохранить. Срочный ремонт в жару важнее запрета — решает человек.
    */
   readonly blocks?: readonly DayBlockCard[] | undefined;
+  /**
+   * Наряды сетки: форма предупреждает и о наложении на свой выезд — владелец
+   * ездит сам (ADR-114), и звонок на десять утра посреди монтажа он должен
+   * увидеть до сохранения, а не в день выезда.
+   */
+  readonly orders?: readonly CalendarOrderCard[] | undefined;
+  /** Кто заводит дело: сравниваются наряды, назначенные ему. */
+  readonly viewerId?: string | undefined;
 }
 
 type Errors = Partial<Record<keyof CrmEventDraft, string>>;
@@ -55,7 +66,16 @@ function isDraftField(value: unknown): value is keyof CrmEventDraft {
  * Одно окно на оба случая намеренно — поля те же, а две почти одинаковые
  * формы разъезжаются при первой же правке.
  */
-export function EventDialog({ open, onClose, onSaved, draft, id, blocks }: EventDialogProps) {
+export function EventDialog({
+  open,
+  onClose,
+  onSaved,
+  draft,
+  id,
+  blocks,
+  orders,
+  viewerId,
+}: EventDialogProps) {
   const [form, setForm] = useState<CrmEventDraft>(draft);
   const [errors, setErrors] = useState<Errors>({});
   const [sending, setSending] = useState(false);
@@ -84,6 +104,34 @@ export function EventDialog({ open, onClose, onSaved, draft, id, blocks }: Event
      заводить звонок на десять утра. */
   const busy = busyOn(form.day, blocks ?? []);
   const conflict = busyAt(busy, minutesOfTime(form.time));
+
+  /* 🔴 Пересечение предупреждает, а не запрещает (ADR-115): дело сохранится,
+     решение за человеком. Сравниваются наряды того же дня и того же человека —
+     чужой выезд его планам не мешает. */
+  const slot = spanOf(minutesOfTime(form.time), EVENT_SLOT_MIN);
+  const sameDay = (orders ?? []).filter((order) => dayKeyOf(new Date(order.at)) === form.day);
+  const clashes = clashesWith(
+    slot,
+    viewerId ?? null,
+    sameDay.map((order) => ({
+      id: order.id,
+      ownerId: order.installerId,
+      ...spanOf(minutesOfDay(new Date(order.at)), order.durationMin),
+    })),
+  );
+
+  const clashTitles = clashes.map((clash) => {
+    const order = sameDay.find((entry) => entry.id === clash.id);
+    const look = order === undefined ? null : ORDER_LOOK[order.type];
+
+    return [
+      texts.orderMark(order?.number ?? 0),
+      look === null ? null : look.title.toLocaleLowerCase('ru-RU'),
+      order?.clientName,
+    ]
+      .filter((part) => part !== null && part !== undefined && part !== '')
+      .join(' · ');
+  });
 
   const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
@@ -153,6 +201,8 @@ export function EventDialog({ open, onClose, onSaved, draft, id, blocks }: Event
         </div>
 
         {conflict ? <BusyNote busy={busy} /> : null}
+
+        <ClashNote items={clashTitles} />
 
         <div className={styles.row}>
           <Input

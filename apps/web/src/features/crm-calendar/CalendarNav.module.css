@@ -1,0 +1,163 @@
+/* Шапка календаря: что показано слева, вид и переходы справа. */
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+/* Переключатель видов: лента ссылок, а не вкладки на клиенте — вид живёт в
+   адресе. На узком экране лента прокручивается, а не переносится: перенос
+   ронял бы кнопки листания на третью строку. */
+.views {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--bg-soft);
+  padding: 2px;
+  scrollbar-width: none;
+}
+
+.view {
+  flex: none;
+  border-radius: var(--r-pill);
+  padding: 5px 12px;
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.view:hover {
+  color: var(--accent-ink);
+}
+
+.view:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* Открытый вид отмечен не только цветом: у него сплошная заливка и `aria-current`. */
+.viewCurrent {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.viewCurrent:hover {
+  color: var(--bg);
+}
+
+/* Переключатель наложения занятости команды. Ссылка, а не кнопка: состояние
+   живёт в адресе и переживает обновление страницы (ADR-080). */
+.team {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--card);
+  padding: 5px 12px;
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.team:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+
+.team:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* Включённое состояние — не только цвет: у ссылки стоит `aria-pressed`, а
+   заливка сплошная, и это видно в монохромном режиме. */
+.teamOn {
+  border-color: var(--accent-ink);
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.teamIcon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+/* Просроченное — ссылка, а не надпись: увидел цифру, нажал, попал в сегодня. */
+.overdue {
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-pill);
+  background: var(--error-bg);
+  padding: 3px 10px;
+  color: var(--error-ink);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.buttons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.step,
+.today {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--card);
+  color: var(--ink2);
+  text-decoration: none;
+}
+
+.today {
+  padding: 0 14px;
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.step:hover,
+.today:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+
+.step:focus-visible,
+.today:focus-visible,
+.overdue:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.step svg {
+  width: 18px;
+  height: 18px;
+}
+
+.back {
+  transform: rotate(180deg);
+}

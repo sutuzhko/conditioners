@@ -281,6 +281,49 @@
   font-size: var(--fs-caption);
 }
 
+/* Наряды этого дня. Оформление то же, что у заявок: список ссылок в свою
+   сущность — правится наряд в своём разделе (ADR-093). */
+.orders {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.orderItem {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
+  border: 1px solid var(--line);
+
+  /* Сплошная полоса слева — та же метка наряда, что и в сетке часов: в ч/б
+     она отличает выезд от напоминания без единого цвета. */
+  border-left: 3px solid var(--ok-ink);
+  border-radius: var(--r-md);
+  padding: 8px 12px;
+}
+
+.orderMark {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  color: var(--ink2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+}
+
+.orderStatus {
+  border-radius: var(--r-pill);
+  background: var(--line-soft);
+  padding: 1px 8px;
+  color: var(--ink2);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+}
+
 /* Узкий экран: время уходит на строку с названием — колонка в 96px съедала
    треть ширины ради двух слов. */
 @media (width < 560px) {

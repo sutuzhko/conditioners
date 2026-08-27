@@ -2,24 +2,27 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { CalendarGrid } from './CalendarGrid';
-import type { DayBlockCard } from './model';
+import type { CalendarOrderCard, DayBlockCard } from './model';
 import {
   doctorBlock,
   foreignBlock,
   monthBlocks,
   monthEvents,
   monthLeads,
+  monthOrders,
+  teamLoad,
   viewerId,
   wholeDayBlock,
 } from './fixtures';
 
-function grid(blocks: readonly DayBlockCard[] = []) {
+function grid(blocks: readonly DayBlockCard[] = [], orders: readonly CalendarOrderCard[] = []) {
   return render(
     <CalendarGrid
       month="2026-08"
       selected="2026-08-23"
       today="2026-08-23"
       events={monthEvents}
+      orders={orders}
       leads={monthLeads}
       blocks={blocks}
       viewerId={viewerId}
@@ -122,6 +125,42 @@ describe('Сетка месяца', () => {
     expect(
       screen.getByRole('link', { name: /23 августа 2026, Занят: Дмитрий/ }),
     ).toBeInTheDocument();
+  });
+
+  it('🔴 наряды попадают в сетку и считаются отдельно от дел', () => {
+    grid([], monthOrders);
+
+    expect(
+      screen.getByRole('link', { name: '23 августа 2026, нарядов: 3, дел: 2, заявок: 1' }),
+    ).toBeInTheDocument();
+  });
+
+  it('наряд в ячейке отличим от дела номером, а не только цветом', () => {
+    grid([], monthOrders);
+
+    expect(screen.getByText('№1059')).toBeInTheDocument();
+    expect(screen.getByText('Ирина Соколова')).toBeInTheDocument();
+  });
+
+  it('🔴 занятость команды в месяце — полоска на человека, а не часы в клетке', () => {
+    render(
+      <CalendarGrid
+        month="2026-08"
+        selected="2026-08-23"
+        today="2026-08-23"
+        events={[]}
+        orders={monthOrders}
+        leads={[]}
+        blocks={[]}
+        viewerId={viewerId}
+        teamLoad={teamLoad}
+      />,
+    );
+
+    expect(
+      screen.getByRole('link', { name: /23 августа 2026, Дмитрий Соколов — занят 10:00–14:00/ }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByText('ДС')[0]).toBeInTheDocument();
   });
 
   it('свободный день о занятости не говорит', () => {

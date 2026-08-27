@@ -166,3 +166,81 @@ describe('попадание времени в занятое окно', () => {
     expect(busyAt(busyOn(WEDNESDAY, []), 720)).toBe(false);
   });
 });
+
+describe('занятость по нарядам и отлучкам вместе', () => {
+  it('🔴 наряд занимает время так же, как отлучка (ADR-123)', () => {
+    const busy = busyOn('2026-08-24', [], [{ fromMin: 600, toMin: 780, reason: 'Наряд № 1059' }]);
+
+    expect(busy).toEqual({
+      state: 'partial',
+      windows: [{ fromMin: 600, toMin: 780, reasons: ['Наряд № 1059'] }],
+    });
+  });
+
+  it('складывает окно врача и окно монтажа в один ответ', () => {
+    const doctor = {
+      repeat: 'once' as const,
+      day: '2026-08-24',
+      weekday: null,
+      fromMin: 840,
+      toMin: 960,
+      reason: 'Врач',
+    };
+
+    const busy = busyOn(
+      '2026-08-24',
+      [doctor],
+      [{ fromMin: 600, toMin: 780, reason: 'Наряд № 1059' }],
+    );
+
+    expect(busy.state).toBe('partial');
+    expect(busy.state === 'partial' ? busy.windows.map((w) => w.fromMin) : []).toEqual([600, 840]);
+  });
+
+  it('соприкасающиеся наряд и отлучка сливаются в один промежуток', () => {
+    const busy = busyOn(
+      '2026-08-24',
+      [
+        {
+          repeat: 'once',
+          day: '2026-08-24',
+          weekday: null,
+          fromMin: 780,
+          toMin: 900,
+          reason: 'Врач',
+        },
+      ],
+      [{ fromMin: 600, toMin: 780, reason: 'Наряд № 1059' }],
+    );
+
+    expect(busy.state === 'partial' ? busy.windows : []).toEqual([
+      { fromMin: 600, toMin: 900, reasons: ['Наряд № 1059', 'Врач'] },
+    ]);
+  });
+
+  it('закрытый целиком день перебивает наряды: человека нет, кто бы что ни назначил', () => {
+    const off = {
+      repeat: 'once' as const,
+      day: '2026-08-24',
+      weekday: null,
+      fromMin: null,
+      toMin: null,
+      reason: 'Отпуск',
+    };
+
+    expect(busyOn('2026-08-24', [off], [{ fromMin: 600, toMin: 780, reason: 'Наряд' }])).toEqual({
+      state: 'full',
+      reasons: ['Отпуск'],
+    });
+  });
+
+  it('наряд нулевой длительности никого не занимает', () => {
+    expect(busyOn('2026-08-24', [], [{ fromMin: 600, toMin: 600, reason: 'Наряд' }])).toEqual({
+      state: 'free',
+    });
+  });
+
+  it('без нарядов ведёт себя как прежде — источник добавился, расчёт не раздвоился', () => {
+    expect(busyOn('2026-08-24', [])).toEqual({ state: 'free' });
+  });
+});

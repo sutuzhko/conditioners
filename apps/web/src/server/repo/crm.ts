@@ -2,7 +2,12 @@
  * Календарь работ. Раздел только для панели: наружу он не отдаётся нигде —
  * это внутренний график владельца с телефонами и адресами клиентов.
  */
-import type { CrmEventKind as DbKind, CrmEventStatus as DbStatus } from '@prisma/client';
+import type {
+  CrmEventKind as DbKind,
+  CrmEventStatus as DbStatus,
+  OrderStatus as DbOrderStatus,
+  OrderType as DbOrderType,
+} from '@prisma/client';
 
 import type {
   CrmEventCreate,
@@ -10,9 +15,25 @@ import type {
   CrmEventStatus,
   CrmEventUpdate,
 } from '@/entities/crm/model';
+import type { OrderStatus, OrderType } from '@/entities/order/model';
 import { momentOf } from '@/shared/lib/calendar';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
+import type { Viewer } from '@/server/repo/day-blocks';
+
+const ORDER_TYPE_FROM_DB: Record<DbOrderType, OrderType> = {
+  INSTALL: 'install',
+  SERVICE: 'service',
+  REPAIR: 'repair',
+};
+
+const ORDER_STATUS_FROM_DB: Record<DbOrderStatus, OrderStatus> = {
+  NEW: 'new',
+  ASSIGNED: 'assigned',
+  IN_PROGRESS: 'in_progress',
+  DONE: 'done',
+  CANCELLED: 'cancelled',
+};
 
 const KIND_TO_DB: Record<CrmEventKind, DbKind> = {
   call: 'CALL',
@@ -178,4 +199,82 @@ export async function remove(id: string): Promise<void> {
   if (exists === null) throw new ApiException('not_found', 'Дело не найдено');
 
   await db.crmEvent.delete({ where: { id } });
+}
+
+// ---------- Наряды в календаре ----------
+
+/**
+ * Наряд в сетке календаря — CRM.md §3.5.
+ *
+ * 🔴 Денег здесь нет вовсе: ни суммы, ни выплаты, ни удержания. Календарь
+ * отвечает на вопрос «кто куда и когда едет», и проекция под роль ему не
+ * нужна — закрытых полей просто не выбирается из базы. Карточка наряда со
+ * всеми деньгами живёт в своём разделе и там же проверяет доступ (ADR-114).
+ */
+export type CalendarOrderDto = {
+  id: string;
+  number: number;
+  type: OrderType;
+  status: OrderStatus;
+  /** ISO. День и время вычисляются при показе — в поясе работ, а не браузера. */
+  at: string;
+  durationMin: number;
+  address: string;
+  clientName: string;
+  installerId: string | null;
+  installerName: string | null;
+};
+
+const ORDER_FIELDS = {
+  id: true,
+  number: true,
+  type: true,
+  status: true,
+  at: true,
+  durationMin: true,
+  address: true,
+  client: { select: { name: true } },
+  installerId: true,
+  installer: { select: { name: true, login: true } },
+} as const;
+
+/**
+ * Наряды, попадающие в сетку календаря.
+ *
+ * 🔴 Монтажник видит только назначенные ему — условием запроса, а не фильтром
+ * после выборки: чужой выезд не должен доезжать до страницы даже для того,
+ * чтобы быть там отброшенным (ADR-114).
+ *
+ * Отказы в календарь не попадают: отменённый выезд не занимает ни день, ни
+ * человека, а место в плотной сетке занимал бы.
+ */
+export async function listOrdersRange(
+  viewer: Viewer,
+  from: Date,
+  to: Date,
+): Promise<CalendarOrderDto[]> {
+  const rows = await db.order.findMany({
+    where: {
+      ...(viewer.role === 'installer' ? { installerId: viewer.userId } : {}),
+      status: { not: 'CANCELLED' },
+      at: { gte: from, lt: to },
+    },
+    orderBy: { at: 'asc' },
+    select: ORDER_FIELDS,
+  });
+
+  return rows.map((row) => ({
+    id: row.id,
+    number: row.number,
+    type: ORDER_TYPE_FROM_DB[row.type],
+    status: ORDER_STATUS_FROM_DB[row.status],
+    at: row.at.toISOString(),
+    durationMin: row.durationMin,
+    address: row.address,
+    clientName: row.client.name,
+    installerId: row.installerId,
+    /* Логин как запасная подпись: у заведённой второпях учётной записи имени
+       может не быть, а колонка без подписи в виде «по монтажникам» бесполезна. */
+    installerName: row.installer === null ? null : (row.installer.name ?? row.installer.login),
+  }));
 }
