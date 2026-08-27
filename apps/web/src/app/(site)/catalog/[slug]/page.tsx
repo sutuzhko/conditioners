@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
+import { LeadContextSnapshot } from '@/features/lead-form';
 import { formatMoney } from '@/shared/lib/format';
 import { env } from '@/shared/config/env';
 import { LEAD_ANCHOR } from '@/shared/config/nav';
@@ -102,6 +103,17 @@ export default async function ProductPage({ params }: { params: Promise<ProductP
 
   return (
     <>
+      {/* Модель, с карточки которой человек уйдёт в форму: снимок цены на
+          момент показа страницы. Считается тем же `getActivePrice`, что
+          рисует цену на экране, — снимок совпадает с ней по построению. */}
+      <LeadContextSnapshot
+        model={{
+          slug: product.slug,
+          name: product.name,
+          price: price.currentPrice,
+          oldPrice: price.oldPrice,
+        }}
+      />
       <JsonLd nodes={[jsonLd]} />
       <Breadcrumbs
         items={[{ name: t.sectionTitle, path: CATALOG_PATH }, { name: product.name }]}

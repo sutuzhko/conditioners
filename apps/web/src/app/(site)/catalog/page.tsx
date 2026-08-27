@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
+import { LeadContextSnapshot } from '@/features/lead-form';
 import {
   CATALOG_PARAMS,
   catalogFacets,
@@ -130,6 +131,20 @@ export default async function CatalogPage({
   return (
     <>
       <JsonLd nodes={[itemList]} />
+      {/* Отмеченные модели уезжают вместе с заявкой: снимок цен на момент
+          показа страницы, а не слаги — по слагу уже не восстановить цену,
+          которую человек видел перед звонком. Компонент ничего не рисует. */}
+      <LeadContextSnapshot
+        liked={compared.map((product) => {
+          const price = getActivePrice(product, now);
+          return {
+            slug: product.slug,
+            name: product.name,
+            price: price.currentPrice,
+            oldPrice: price.oldPrice,
+          };
+        })}
+      />
       <Breadcrumbs items={[{ name: t.sectionTitle }]} siteUrl={env.SITE_URL} />
       <PageIntro kicker={t.kicker} title={t.title} lead={t.lead} />
       <CatalogList
