@@ -17,6 +17,7 @@ import {
   withAdmin,
   withOwner,
 } from '@/server/http';
+import { notifyOrderRemoved, notifyOrderUpdated } from '@/server/notifications/orders';
 import { findById, remove, setStatusByInstaller, update } from '@/server/repo/orders';
 
 export const dynamic = 'force-dynamic';
@@ -46,18 +47,36 @@ export const PATCH = withAdmin(async (request, context: Context, session) => {
     const parsed = orderInstallerUpdateSchema.safeParse(body);
     if (!parsed.success) return validationError(parsed.error);
 
+    /* Смену статуса самим монтажником уведомлением не сопровождаем: он и
+       есть адресат, а писать человеку о том, что он только что сделал, —
+       шум. Владельцу это видно в наряде и в его истории. */
     return json(await setStatusByInstaller(id, session.userId, parsed.data.status));
   }
 
   const parsed = orderUpdateSchema.safeParse(body);
   if (!parsed.success) return validationError(parsed.error);
 
-  return json(await update(id, parsed.data, session.userId));
+  /* 🔴 Снимок «до» — владельческий, во всей полноте: разница, посчитанная по
+     урезанной карточке, молча потеряла бы часть вводных. Кого и о чём
+     уведомить — включая переназначение и отмену — разбирает сама
+     `notifyOrderUpdated` (ADR-119). */
+  const before = await findById(id, { role: 'owner', userId: session.userId });
+
+  const updated = await update(id, parsed.data, session.userId);
+  if (before !== null) await notifyOrderUpdated(before, updated);
+
+  return json(updated);
 });
 
-export const DELETE = withOwner(async (_request, context: Context) => {
+export const DELETE = withOwner(async (_request, context: Context, session) => {
   const { id } = await context.params;
 
+  /* Карточка нужна до удаления: после него сказать монтажнику, какой наряд
+     отменён, будет нечем. */
+  const order = await findById(id, { role: 'owner', userId: session.userId });
+
   await remove(id);
+  if (order !== null) await notifyOrderRemoved(order);
+
   return noContent();
 });

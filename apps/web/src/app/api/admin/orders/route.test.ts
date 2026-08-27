@@ -49,6 +49,15 @@ const fake = vi.hoisted(() => ({
 
 vi.mock('@/server/db', () => ({ db: fake.db }));
 
+/* Постановку уведомлений подменяем целиком: предмет этих проверок — маршрут,
+   а рассылка проверена своими тестами. Без подмены она уходит в подменённую
+   базу, где её таблиц нет, и маршрут отвечает 500. */
+vi.mock('@/server/notifications/orders', () => ({
+  notifyOrderCreated: vi.fn(async () => 0),
+  notifyOrderUpdated: vi.fn(async () => 0),
+  notifyOrderRemoved: vi.fn(async () => 0),
+}));
+
 import { getAdminSession } from '@/server/auth';
 
 import { GET, POST } from './route';

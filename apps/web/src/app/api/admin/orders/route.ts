@@ -9,6 +9,7 @@
  */
 import { isOrderPeriod, isOrderTab, orderCreateSchema } from '@/entities/order/model';
 import { json, readJson, validationError, withAdmin, withOwner } from '@/server/http';
+import { notifyOrderCreated } from '@/server/notifications/orders';
 import { create, list } from '@/server/repo/orders';
 import { pageNumber } from '@/shared/lib/paging';
 
@@ -42,5 +43,13 @@ export const POST = withOwner(async (request, _context, session) => {
 
   /* Автор первой записи истории — тот, кто завёл наряд: «кто и когда» в
      истории наряда важнее, чем в любом другом разделе панели. */
-  return json(await create(parsed.data, session.userId), 201);
+  const created = await create(parsed.data, session.userId);
+
+  /* Уведомление ставится после записи наряда и не может её отменить — тот же
+     порядок, что у заявки (инвариант 2). Монтажник, которому наряд назначили
+     при заведении, узнаёт об этом сразу; без исполнителя адресата нет и
+     функция ничего не ставит. */
+  await notifyOrderCreated(created);
+
+  return json(created, 201);
 });
