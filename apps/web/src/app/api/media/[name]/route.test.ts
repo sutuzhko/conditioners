@@ -124,7 +124,7 @@ describe('GET /api/media/{name}', () => {
     const parsed: unknown = await response.json();
 
     expect(response.status).toBe(404);
-    // конверт из docs/API.md §14, текст по-русски
+    // конверт из docs/API.md §16, текст по-русски
     expect(parsed).toEqual({ error: { code: 'not_found', message: 'Файл не найден' } });
   });
 

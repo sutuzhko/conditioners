@@ -40,10 +40,11 @@ model Product {
   seoTitle       String?
   seoDescription String?
 
-  photos    ProductPhoto[]
-  specs     ProductSpec[]
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
+  photos     ProductPhoto[]
+  specs      ProductSpec[]
+  stockItems StockItem[]
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
 
   @@index([visible, sort])
   @@index([featured, sort])
@@ -353,11 +354,12 @@ model Order {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  units     OrderUnit[]
-  checklist OrderChecklistItem[]
-  docs      OrderDocument[]
-  photos    OrderPhoto[]
-  history   OrderHistory[]
+  units      OrderUnit[]
+  checklist  OrderChecklistItem[]
+  docs       OrderDocument[]
+  photos     OrderPhoto[]
+  history    OrderHistory[]
+  stockMoves StockMovement[]
 
   @@index([status, at])
   @@index([clientId])
@@ -403,6 +405,146 @@ model OrderUnit {
   sort Int @default(0)
 
   @@index([orderId, sort])
+}
+
+// ---------- Склад ----------
+
+// Набор единиц измерения задаётся кодом, сама номенклатура — справочник в
+// базе (инвариант 8): владелец заводит свои позиции сам и не зовёт
+// разработчика ради одиннадцатой группы.
+enum StockUnit {
+  PIECE // штука
+  METER // метр
+  KILOGRAM // килограмм
+  LITER // литр
+  PAIR // пара
+  PACK // упаковка
+  COIL // бухта
+  ROLL // моток
+  CYLINDER // баллон
+}
+
+// Гараж и машины монтажников. «Выдано под наряд» отдельной зоной не стало:
+// до списания материал физически лежит в машине, а не в третьем месте
+// (ADR-134).
+enum StockZoneKind {
+  WAREHOUSE
+  VAN
+}
+
+model StockZone {
+  id   String        @id @default(cuid())
+  kind StockZoneKind
+  name String
+
+  // Машина закреплена за человеком: монтажник видит свою и только свою.
+  // `SetNull` — уволенный человек исчезает, а движения его машины остаются:
+  // без них не ответить, куда делась трасса.
+  userId String?
+  user   AdminUser? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  sort     Int     @default(0)
+  archived Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  movesFrom StockMovement[] @relation("StockMoveFrom")
+  movesTo   StockMovement[] @relation("StockMoveTo")
+
+  @@index([archived, kind, sort])
+  @@index([userId])
+}
+
+model StockItem {
+  id   String @id @default(cuid())
+  name String
+
+  // Группа справочника строкой: «Медная труба», «Крепёж». Список групп
+  // складывается из самих позиций — зашить его в код значит запретить
+  // владельцу завести свою.
+  group String?
+  unit  StockUnit
+
+  // Остаток дробный: фреон меряется килограммами, труба и кабель — метрами,
+  // и «полбаллона» — нормальное рабочее состояние. Целое число здесь неверно
+  // с первого дня.
+  //
+  // Порог «пора заказывать» задаётся на позицию, а не общим числом: пять
+  // кронштейнов и пять метров трассы — разные степени тревоги. Ноль — за
+  // позицией не следим.
+  minQty Decimal @default(0) @db.Decimal(12, 3)
+
+  // Техника ссылается на модель каталога, расходники — нет. Ссылка нужна,
+  // чтобы знать, чей это кондиционер; витрина от остатка не зависит и
+  // моделей из каталога не прячет (ADR-134).
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  note String?
+
+  // Позиция не удаляется, а сдаётся в архив: удаление унесло бы с собой
+  // историю движений, ради которой склад и заводится.
+  archived Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  movements StockMovement[]
+
+  @@index([archived, group, name])
+  @@index([productId])
+}
+
+// Приход, перемещение между зонами, списание в наряд, возврат с объекта,
+// инвентаризация. Больше видов не нужно: остаток — сумма движений, а не
+// редактируемое поле, и правка руками существует как движение с основанием,
+// а не как тихое переписывание значения.
+enum StockMoveKind {
+  INCOME
+  TRANSFER
+  CONSUME
+  RETURN
+  COUNT
+}
+
+model StockMovement {
+  id     String        @id @default(cuid())
+  itemId String
+  item   StockItem     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  kind   StockMoveKind
+
+  // Количество положительное, направление задают зоны. Исключение —
+  // инвентаризация: она и добавляет, и убавляет, поэтому знак у неё свой.
+  qty Decimal @db.Decimal(12, 3)
+
+  fromZoneId String?
+  fromZone   StockZone? @relation("StockMoveFrom", fields: [fromZoneId], references: [id], onDelete: SetNull)
+  toZoneId   String?
+  toZone     StockZone? @relation("StockMoveTo", fields: [toZoneId], references: [id], onDelete: SetNull)
+
+  // Наряд, в который списали или из которого вернули. `SetNull`: удалённый
+  // наряд не отменяет того, что материал ушёл со склада.
+  orderId String?
+  order   Order?  @relation(fields: [orderId], references: [id], onDelete: SetNull)
+
+  // Серийные номера ушедшей техники — строкой, как их пишет человек:
+  // поштучного учёта экземпляров в первой версии нет (ADR-134).
+  serials String?
+
+  // Основание. У инвентаризации обязательно — иначе расхождение остаётся
+  // без объяснения ровно там, где объяснение и нужно.
+  reason String?
+
+  // `SetNull`: журнал переживает увольнение автора движения.
+  authorId String?
+  author   AdminUser? @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  @@index([itemId, createdAt])
+  @@index([orderId])
+  @@index([createdAt])
 }
 
 // ---------- Календарь работ ----------
@@ -671,6 +813,8 @@ model AdminUser {
   blocks        DayBlock[]
   notifications Notification[]
   orderHistory  OrderHistory[]
+  stockZones    StockZone[]
+  stockMoves    StockMovement[]
 
   @@index([role, active])
 }
