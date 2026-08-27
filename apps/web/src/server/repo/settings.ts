@@ -4,7 +4,8 @@
 import type { Prisma } from '@prisma/client';
 
 import { db } from '@/server/db';
-import { settingSchemas, type SettingKey } from '@/entities/settings/model';
+import { scheduleSchema, settingSchemas, type SettingKey } from '@/entities/settings/model';
+import type { WorkWindow } from '@/entities/crm/lib/overtime';
 import type { InstallRates } from '@/entities/price/model';
 import {
   PLACEHOLDER,
@@ -136,6 +137,19 @@ export type Extras = InstallRates;
  * Возвращается null, а не нули: подставить свою цифру вместо незаполненной
  * ставки — это выдумать факт о компании (инвариант 8).
  */
+/**
+ * Рабочее окно компании — минуты от московской полуночи (ADR-128).
+ *
+ * Читается при каждой записи дела или наряда, а не кешируется: правок в день
+ * десятки, а настройка — одна строка в той же базе. Незаполненная группа даёт
+ * умолчание схемы, а не пустой день.
+ */
+export async function workWindow(): Promise<WorkWindow> {
+  const parsed = scheduleSchema.safeParse((await getGroup('schedule')) ?? {});
+
+  return parsed.success ? parsed.data : scheduleSchema.parse({});
+}
+
 export async function getExtras(): Promise<Extras | null> {
   const parsed = settingSchemas.extras.safeParse(await getGroup('extras'));
   return parsed.success ? parsed.data : null;

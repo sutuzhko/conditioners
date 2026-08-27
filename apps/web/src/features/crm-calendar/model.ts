@@ -43,6 +43,10 @@ export type CrmEventCard = {
   readonly kind: CrmEventKind;
   readonly status: CrmEventStatus;
   readonly at: string;
+  /** Сколько дело занимает: на часовой сетке оно отрезок, а не точка. */
+  readonly durationMin: number;
+  /** Минуты за рабочим окном на момент записи. Только на чтение (ADR-138). */
+  readonly overtimeMin: number;
   readonly clientName: string;
   readonly clientPhone: string | null;
   readonly address: string | null;

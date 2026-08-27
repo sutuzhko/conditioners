@@ -57,6 +57,7 @@ import {
   type PhotoStage,
   type UnitSource,
 } from '@/entities/order/model';
+import { overtimeMinutes } from '@/entities/crm/lib/overtime';
 import type { AdminRole } from '@/entities/staff/model';
 import { momentOf, monthKeyOf, shiftMonth, type MonthKey } from '@/shared/lib/calendar';
 import { pageWindow, type Page } from '@/shared/lib/paging';
@@ -64,6 +65,7 @@ import * as clientUnits from '@/server/repo/client-units';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import { employmentFromDb } from '@/server/repo/employment';
+import { workWindow } from '@/server/repo/settings';
 
 // ---------- Словари: база ↔ контракт ----------
 
@@ -841,6 +843,14 @@ async function createRow(
         installerId: input.installerId,
         at: momentOf(input.day, input.time),
         durationMin: input.durationMin,
+        /* Минуты за рабочим окном считаются при записи и хранятся числом:
+           окно владелец меняет, а переработка прошлого выезда измениться не
+           имеет права — на неё смотрят при расчётах с людьми (ADR-138). */
+        overtimeMin: overtimeMinutes(
+          momentOf(input.day, input.time),
+          input.durationMin,
+          await workWindow(),
+        ),
         address: input.address,
         intercom: input.intercom,
         phone2: input.phone2,
@@ -883,6 +893,27 @@ async function createRow(
  * Повтор перечитывает счётчик и берёт следующий. Одного достаточно: наряды
  * заводит один человек, а не толпа.
  */
+/**
+ * Минуты за рабочим окном при переносе наряда. Недостающую половину вводных
+ * берём из самой записи: перенесли время, не тронув длительность, —
+ * длительность осталась прежней (ADR-138).
+ */
+async function recomputedOvertime(
+  id: string,
+  at: Date | undefined,
+  durationMin: number | undefined,
+): Promise<number | null> {
+  if (at === undefined && durationMin === undefined) return null;
+
+  const current = await db.order.findUnique({
+    where: { id },
+    select: { at: true, durationMin: true },
+  });
+  if (current === null) return null;
+
+  return overtimeMinutes(at ?? current.at, durationMin ?? current.durationMin, await workWindow());
+}
+
 export async function create(input: OrderCreate, authorId: string): Promise<OrderCard> {
   const installerName = await assertRefs(input.clientId, input.installerId);
 
@@ -1000,6 +1031,10 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
       ? undefined
       : momentOf(input.day, input.time);
 
+  /* Переработка пересчитывается, только когда двинулось время или
+     длительность: правка адреса к ней отношения не имеет. */
+  const overtime = await recomputedOvertime(id, at, input.durationMin);
+
   const row = await db.$transaction(async (tx) => {
     if (input.units !== undefined) {
       await tx.orderUnit.deleteMany({ where: { orderId: id } });
@@ -1017,6 +1052,7 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
         ...(input.installerId === undefined ? {} : { installerId: input.installerId }),
         ...(at === undefined ? {} : { at }),
         ...(input.durationMin === undefined ? {} : { durationMin: input.durationMin }),
+        ...(overtime === null ? {} : { overtimeMin: overtime }),
         ...(input.address === undefined ? {} : { address: input.address }),
         ...(input.intercom === undefined ? {} : { intercom: input.intercom }),
         ...(input.phone2 === undefined ? {} : { phone2: input.phone2 }),

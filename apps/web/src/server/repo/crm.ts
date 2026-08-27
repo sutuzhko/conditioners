@@ -15,11 +15,13 @@ import type {
   CrmEventStatus,
   CrmEventUpdate,
 } from '@/entities/crm/model';
+import { overtimeMinutes } from '@/entities/crm/lib/overtime';
 import type { OrderStatus, OrderType } from '@/entities/order/model';
 import { momentOf } from '@/shared/lib/calendar';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import type { Viewer } from '@/server/repo/day-blocks';
+import { workWindow } from '@/server/repo/settings';
 
 const ORDER_TYPE_FROM_DB: Record<DbOrderType, OrderType> = {
   INSTALL: 'install',
@@ -71,6 +73,9 @@ export type CrmEventDto = {
   status: CrmEventStatus;
   /** ISO. День и время вычисляются при показе — в поясе работ, а не браузера. */
   at: string;
+  durationMin: number;
+  /** Минуты за рабочим окном на момент записи. Только на чтение (ADR-138). */
+  overtimeMin: number;
   clientName: string;
   clientPhone: string | null;
   address: string | null;
@@ -83,6 +88,8 @@ type CrmEventRow = {
   kind: DbKind;
   status: DbStatus;
   at: Date;
+  durationMin: number;
+  overtimeMin: number;
   clientName: string;
   clientPhone: string | null;
   address: string | null;
@@ -96,6 +103,8 @@ function toDto(row: CrmEventRow): CrmEventDto {
     kind: KIND_FROM_DB[row.kind],
     status: STATUS_FROM_DB[row.status],
     at: row.at.toISOString(),
+    durationMin: row.durationMin,
+    overtimeMin: row.overtimeMin,
     clientName: row.clientName,
     clientPhone: row.clientPhone,
     address: row.address,
@@ -109,12 +118,33 @@ const FIELDS = {
   kind: true,
   status: true,
   at: true,
+  durationMin: true,
+  overtimeMin: true,
   clientName: true,
   clientPhone: true,
   address: true,
   note: true,
   leadId: true,
 } as const;
+
+/**
+ * Пересчёт переработки при переносе. Недостающую половину вводных берём из
+ * самой записи: перенесли время, не тронув длительность, — длительность
+ * осталась прежней, и наоборот.
+ */
+async function recomputeOvertime(
+  id: string,
+  at: Date | null,
+  durationMin: number | undefined,
+): Promise<number | null> {
+  const current = await db.crmEvent.findUnique({
+    where: { id },
+    select: { at: true, durationMin: true },
+  });
+  if (current === null) return null;
+
+  return overtimeMinutes(at ?? current.at, durationMin ?? current.durationMin, await workWindow());
+}
 
 /** Дела за промежуток — им заполняется сетка месяца. */
 export async function listRange(from: Date, to: Date): Promise<CrmEventDto[]> {
@@ -150,10 +180,17 @@ export async function countOverdue(before: Date): Promise<number> {
 }
 
 export async function create(input: CrmEventCreate): Promise<CrmEventDto> {
+  const at = momentOf(input.day, input.time);
+
   const row = await db.crmEvent.create({
     data: {
       kind: KIND_TO_DB[input.kind],
-      at: momentOf(input.day, input.time),
+      at,
+      durationMin: input.durationMin,
+      /* Считаем при записи и храним числом: окно в настройках владелец
+         меняет, а переработка прошлого четверга измениться не имеет права
+         — на неё смотрят при расчётах с людьми (ADR-138). */
+      overtimeMin: overtimeMinutes(at, input.durationMin, await workWindow()),
       clientName: input.clientName,
       clientPhone: input.clientPhone,
       address: input.address,
@@ -169,15 +206,23 @@ export async function update(id: string, input: CrmEventUpdate): Promise<CrmEven
   const exists = await db.crmEvent.findUnique({ where: { id }, select: { id: true } });
   if (exists === null) throw new ApiException('not_found', 'Дело не найдено');
 
+  /* Переработка пересчитывается, только когда двинулось время или
+     длительность: правка телефона клиента к ней отношения не имеет. */
+  const moved =
+    (input.day !== undefined && input.time !== undefined) || input.durationMin !== undefined;
+  const at =
+    input.day === undefined || input.time === undefined ? null : momentOf(input.day, input.time);
+  const recomputed = moved ? await recomputeOvertime(id, at, input.durationMin) : null;
+
   const row = await db.crmEvent.update({
     where: { id },
     data: {
       ...(input.kind === undefined ? {} : { kind: KIND_TO_DB[input.kind] }),
       ...(input.status === undefined ? {} : { status: STATUS_TO_DB[input.status] }),
       // дата и время переносятся только вместе — схема это уже проверила
-      ...(input.day === undefined || input.time === undefined
-        ? {}
-        : { at: momentOf(input.day, input.time) }),
+      ...(at === null ? {} : { at }),
+      ...(input.durationMin === undefined ? {} : { durationMin: input.durationMin }),
+      ...(recomputed === null ? {} : { overtimeMin: recomputed }),
       ...(input.clientName === undefined ? {} : { clientName: input.clientName }),
       ...(input.clientPhone === undefined ? {} : { clientPhone: input.clientPhone }),
       ...(input.address === undefined ? {} : { address: input.address }),

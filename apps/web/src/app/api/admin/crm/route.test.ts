@@ -27,6 +27,8 @@ const event = {
   kind: 'measure' as const,
   status: 'planned' as const,
   at: '2026-08-23T11:30:00.000Z',
+  durationMin: 60,
+  overtimeMin: 0,
   clientName: 'Ирина',
   clientPhone: '+7 (900) 123-45-67',
   address: null,
