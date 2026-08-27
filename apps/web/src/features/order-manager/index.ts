@@ -1,6 +1,8 @@
 /** Публичный API раздела заказов. */
 export { OrderCardView, type OrderCardViewProps } from './OrderCardView';
 export { OrderChecklist, type OrderChecklistProps } from './OrderChecklist';
+export { OrderConsumption, type OrderConsumptionProps } from './OrderConsumption';
+export { OrderConsumptionForm, type OrderConsumptionFormProps } from './OrderConsumptionForm';
 export { OrderDocs, type OrderDocsProps } from './OrderDocs';
 export { OrderHistory, type OrderHistoryProps } from './OrderHistory';
 export { OrderPhotos, type OrderPhotosProps } from './OrderPhotos';
@@ -23,9 +25,10 @@ export {
   ORDER_TYPE_TITLE,
   PAYMENT_TITLE,
   SOURCE_TITLE,
+  STOCK_UNIT_SHORT,
   orderManagerContent,
 } from './content';
-export { orderApi, orderWorkApi } from './lib';
+export { orderApi, orderConsumptionApi, orderWorkApi } from './lib';
 export {
   ADMIN_PAGE_SIZE,
   DEFAULT_ORDER_FILTERS,
@@ -34,11 +37,14 @@ export {
   ORDER_STATUSES,
   ORDER_TABS,
   ORDER_TYPES,
+  consumptionHints,
+  consumptionTotals,
   deductionModeOf,
   emptyOrderDraft,
   filtersApplied,
   installerName,
   isOrderPeriod,
+  negativeBalances,
   isOrderStatus,
   isOrderTab,
   isOrderType,
@@ -47,6 +53,9 @@ export {
   ordersQuery,
   pageNumber,
   resultDraftOf,
+  type ConsumptionHint,
+  type ConsumptionLine,
+  type ConsumptionTotal,
   type DeductionMode,
   type OrderApi,
   type OrderBlock,
@@ -54,6 +63,7 @@ export {
   type OrderCard,
   type OrderChecklistCard,
   type OrderClientRef,
+  type OrderConsumptionApi,
   type OrderDetails,
   type OrderDocCard,
   type OrderDocKind,
@@ -72,4 +82,9 @@ export {
   type OrderUnitDraft,
   type OrderWorkApi,
   type PhotoStage,
+  type StockDirectory,
+  type StockItemCard,
+  type StockMovementCard,
+  type StockUnit,
+  type StockZoneCard,
 } from './model';

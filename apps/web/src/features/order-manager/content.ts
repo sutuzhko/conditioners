@@ -15,7 +15,7 @@ import { formatDateShort, formatDateTime, formatMoney } from '@/shared/lib/forma
 import { plural } from '@/shared/lib/plural';
 import type { BadgeVariant } from '@/shared/ui';
 
-import type { DeductionMode } from './model';
+import type { DeductionMode, StockUnit } from './model';
 
 /**
  * Вид работ. `service` называется «Обслуживанием», а не «ТО»: тем же словом
@@ -120,6 +120,41 @@ export const DEDUCTION_NOTE: Record<DeductionMode, string> = {
     'Оформление монтажника не заведено — считаем пометку внутренней: из выплаты она не вычитается.',
   unassigned: 'Монтажник не назначен — пока это просто пометка по наряду.',
 };
+
+/**
+ * Единицы склада коротко — как их пишут в накладной: «4 м», «2 пар.», «1 бал.».
+ *
+ * Сокращения не склоняются намеренно: «2 пары» и «5 пар» потребовали бы
+ * склонения на каждой строке таблицы, а сокращение с точкой — обычная запись
+ * товароведа и читается одинаково при любом числе.
+ */
+export const STOCK_UNIT_SHORT: Record<StockUnit, string> = {
+  piece: 'шт.',
+  meter: 'м',
+  kilogram: 'кг',
+  liter: 'л',
+  pair: 'пар.',
+  pack: 'уп.',
+  coil: 'бухт.',
+  roll: 'мот.',
+  cylinder: 'бал.',
+};
+
+/**
+ * Количество склада: до трёх знаков после запятой — больше склад не хранит.
+ *
+ * Форматируется здесь, а не в `shared/lib/format`: там живут деньги и целые
+ * числа сайта, а дробный остаток нужен пока одному разделу панели.
+ */
+const RU_QTY = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 3 });
+
+/* Разряды в ru-RU разделяются пробелом, чей код зависит от версии ICU.
+   Приводим к неразрывному сами, чтобы «12 000 м» не переносилось по строке. */
+const QTY_NBSP = '\u00A0';
+
+function formatQty(value: number): string {
+  return RU_QTY.format(value).replace(/\s/gu, QTY_NBSP);
+}
 
 export const orderManagerContent = {
   title: 'Заказы',
@@ -334,4 +369,97 @@ export const orderManagerContent = {
     if (rest === 0) return `${hours} ч`;
     return `${hours} ч ${rest} мин`;
   },
+
+  // ---------- Расход материалов ----------
+
+  consumptionTitle: 'Израсходовано',
+  consumptionHint:
+    'Что ушло на эту работу по факту. Чеклист выезда знает, что нужно взять, склад — есть ли оно; списание сводит одно с другим.',
+  consumptionBusy: 'Загружаем расход материалов',
+  consumptionLoadError: 'Не удалось получить расход материалов и остатки склада.',
+  consumptionRetry: 'Попробовать ещё раз',
+
+  consumptionEmpty: 'По этому наряду ещё ничего не списано',
+  consumptionEmptyText:
+    'Пока материал не списан, он числится на складе — хотя давно в стене у клиента. Спишите израсходованное, и остаток перестанет расходиться с реальностью: именно из этой разницы потом рождается вопрос «куда делись тридцать метров трассы».',
+
+  consumptionColItem: 'Позиция',
+  consumptionColQty: 'Количество',
+  consumptionColZone: 'Откуда',
+  consumptionColWho: 'Кто и когда',
+  consumptionColAction: 'Отмена списания',
+  consumptionTableLabel: 'Движения склада по наряду',
+
+  consumptionReturnMark: 'возврат',
+  consumptionAuthorless: 'Автор удалён из панели',
+  consumptionZoneless: 'Зона не указана',
+  consumptionSerials: (value: string): string => `Серийные номера: ${value}`,
+
+  /**
+   * 🔴 Минус остаётся видимым и после списания: расхождение склада с
+   * реальностью не заканчивается вместе с формой (ADR-134).
+   */
+  consumptionMinusTitle: 'Остаток по этим позициям ушёл в минус',
+  consumptionMinusText:
+    'Списали больше, чем числилось на складе — и это не ошибка формы, а расхождение склада с реальностью. Проведите инвентаризацию: остаток правится движением «инвентаризация» с основанием, а не переписыванием числа.',
+
+  consumptionTotalsTitle: 'Израсходовано по факту',
+  consumptionTotalsHint: 'Списания за вычетом возвратов — столько материала осталось на объекте.',
+
+  /** 🔴 Отмена — возвратом, а не удалением: журнал движений не переписывается. */
+  consumptionReturn: 'Вернуть на склад',
+  consumptionReturnLabel: (name: string): string => `Вернуть на склад: ${name}`,
+  consumptionReturnAsk: 'Вернуть материал на склад?',
+  consumptionReturnText:
+    'Списание не стирается: склад примет материал обратным движением, и в журнале останутся обе записи — сколько списали и сколько вернули. Так видно и ошибку, и её исправление.',
+  consumptionReturnConfirm: 'Вернуть на склад',
+
+  consumeTitle: 'Списать материал',
+  consumeZone: 'Откуда списываем',
+  consumeZonePlaceholder: 'Выберите зону',
+  consumeZoneOnly: (name: string): string => `Откуда списываем: ${name}`,
+  consumeZonesEmpty: 'Списывать неоткуда: ни одной зоны хранения не видно',
+  consumeZonesEmptyText:
+    'Материал уходит из машины или со склада. Попросите владельца завести вашу машину зоной хранения — до этого расход по наряду записать нечем.',
+
+  consumeSearch: 'Поиск позиции',
+  consumeSearchHint: 'Сузьте список, если позиций в справочнике много',
+  consumeSearchPlaceholder: 'труба, кронштейн, фреон',
+  consumeNothingFound: 'По этому запросу позиций нет — очистите поиск.',
+  consumeItemsEmpty: 'Справочник склада пуст: позиции заводит владелец в разделе склада.',
+
+  consumeItem: 'Позиция',
+  consumeItemPlaceholder: 'Выберите позицию',
+  consumeQty: 'Количество',
+  consumeQtyHint: 'Дробное можно: «1,5» и «12 000» разбираются',
+  consumeSerials: 'Серийные номера',
+  consumeSerialsHint: 'Как записаны на блоке — по ним ищут технику в гарантийном случае',
+
+  consumeSubmit: 'Списать',
+  consumeSending: 'Списываем…',
+  consumeDone: 'Списано',
+
+  consumeBalance: (qty: string): string => `На складе в этой зоне: ${qty}`,
+
+  /**
+   * 🔴 Минус предупреждает, а не запрещает (ADR-134). Запрет означал бы, что
+   * монтажник, у которого труба кончилась раньше, чем в системе, впишет
+   * неправду, лишь бы закрыть наряд.
+   */
+  consumeShortfall: (qty: string): string =>
+    `На складе меньше, чем списываете: не хватает ${qty}. Списать всё равно можно — остаток уйдёт в минус. Это значит, что склад разошёлся с реальностью: проведите инвентаризацию.`,
+
+  consumeFromChecklist: 'Из чеклиста выезда',
+  consumeFromChecklistHint:
+    'Пунктам сборов нашлись позиции склада — нажмите, и позиция подставится в форму. Списать можно и без этого, выбрав её руками.',
+  consumeHintLabel: (name: string): string => `Списать позицию: ${name}`,
+
+  /**
+   * Количество с единицей: «4 м», «1,5 кг», «2 пар.».
+   *
+   * Пробел неразрывный: «4» и «м» — одна величина, и перенос строки между
+   * числом и единицей рвёт её пополам.
+   */
+  qty: (value: number, unit: StockUnit): string =>
+    `${formatQty(value)}${QTY_NBSP}${STOCK_UNIT_SHORT[unit]}`,
 } as const;

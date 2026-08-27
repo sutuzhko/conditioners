@@ -1,11 +1,13 @@
 /** Данные для историй и тестов раздела заказов. */
-import { orderDraftOf } from './model';
+import { consumptionHints, orderDraftOf } from './model';
 import type {
+  ConsumptionHint,
   OrderApi,
   OrderBlock,
   OrderCard,
   OrderChecklistCard,
   OrderClientRef,
+  OrderConsumptionApi,
   OrderDetails,
   OrderDocCard,
   OrderDraft,
@@ -13,9 +15,14 @@ import type {
   OrderInstallerRef,
   OrderPage,
   OrderPhotoCard,
+  OrderResult,
   OrderUnitCard,
   OrderUnitDraft,
   OrderWorkApi,
+  StockDirectory,
+  StockItemCard,
+  StockMovementCard,
+  StockZoneCard,
 } from './model';
 
 export const clientRef: OrderClientRef = {
@@ -436,3 +443,262 @@ export const pendingWorkApi: OrderWorkApi = {
   addPhoto: stuck,
   removePhoto: stuck,
 };
+
+// ---------- Расход материалов ----------
+
+export const stockWarehouse: StockZoneCard = {
+  id: 'z1',
+  kind: 'warehouse',
+  name: 'Гараж',
+  userId: null,
+  userName: null,
+  sort: 0,
+  archived: false,
+};
+
+export const stockVan: StockZoneCard = {
+  id: 'z2',
+  kind: 'van',
+  name: 'Газель',
+  userId: selfEmployedInstaller.id,
+  userName: selfEmployedInstaller.name,
+  sort: 1,
+  archived: false,
+};
+
+export const stockZones: readonly StockZoneCard[] = [stockWarehouse, stockVan];
+
+/**
+ * 🔴 Зоны глазами монтажника: только его машина. Гаража здесь нет вовсе — не
+ * скрыт кнопкой, а не прислан сервером (ADR-134).
+ */
+export const installerZones: readonly StockZoneCard[] = [stockVan];
+
+/**
+ * Справочник склада.
+ *
+ * 🔴 Ключей `minQty` и `low` в позициях нет: их не кладут в ответ монтажнику,
+ * и блок расхода их не читает ни у кого — фикстура обязана это показывать.
+ */
+export const stockItems: readonly StockItemCard[] = [
+  {
+    id: 's1',
+    name: 'Труба медная 1/4″',
+    group: 'Медная труба',
+    unit: 'meter',
+    note: null,
+    archived: false,
+    product: null,
+    byZone: { z1: 43.5, z2: 12 },
+    total: 55.5,
+  },
+  {
+    id: 's2',
+    name: 'Кронштейны наружного блока',
+    group: 'Крепёж',
+    unit: 'pair',
+    note: null,
+    archived: false,
+    product: null,
+    byZone: { z1: 6, z2: 2 },
+    total: 8,
+  },
+  {
+    id: 's3',
+    name: 'Фреон R32',
+    group: 'Фреон',
+    unit: 'kilogram',
+    note: 'Баллон 13,6 кг',
+    archived: false,
+    product: null,
+    byZone: { z1: 9.5, z2: 1.2 },
+    total: 10.7,
+  },
+  /* Техника: ссылается на модель каталога — у неё спрашивают серийники. */
+  {
+    id: 's4',
+    name: 'Сплит-система 09',
+    group: 'Техника',
+    unit: 'piece',
+    note: null,
+    archived: false,
+    product: { id: 'p1', name: 'Сплит-система 09', slug: 'split-09' },
+    byZone: { z1: 3, z2: 1 },
+    total: 4,
+  },
+  /* Архивная позиция: в выбор не попадает и подсказок не даёт. */
+  {
+    id: 's5',
+    name: 'Короб ПВХ 60×60',
+    group: 'Короб ПВХ',
+    unit: 'meter',
+    note: null,
+    archived: true,
+    product: null,
+    byZone: { z1: 0, z2: 0 },
+    total: 0,
+  },
+];
+
+/** 🔴 Тот же справочник, но остаток трассы в машине ушёл в минус. */
+export const shortStockItems: readonly StockItemCard[] = stockItems.map((item) =>
+  item.id === 's1' ? { ...item, byZone: { z1: 43.5, z2: -3.5 }, total: 40 } : item,
+);
+
+export const stockDirectory: StockDirectory = { zones: stockZones, items: stockItems };
+
+/** Склад глазами монтажника: одна зона, остаток по ней. */
+export const installerDirectory: StockDirectory = { zones: installerZones, items: stockItems };
+
+export const shortDirectory: StockDirectory = { zones: stockZones, items: shortStockItems };
+
+/** Ни одной зоны: машину монтажнику ещё не завели — списывать неоткуда. */
+export const zonelessDirectory: StockDirectory = { zones: [], items: [] };
+
+const consumeOrder = { id: order.id, number: order.number };
+
+/**
+ * Движения склада по наряду: три списания и один возврат.
+ *
+ * 🔴 Возврат стоит отдельной строкой, а не стирает списание: журнал движений
+ * не переписывается, и в нём видно и ошибку, и её исправление.
+ */
+export const consumptionMoves: readonly StockMovementCard[] = [
+  {
+    id: 'm1',
+    kind: 'consume',
+    qty: 4,
+    item: { id: 's1', name: 'Труба медная 1/4″', unit: 'meter' },
+    fromZone: { id: 'z2', name: 'Газель' },
+    toZone: null,
+    order: consumeOrder,
+    serials: null,
+    reason: null,
+    authorName: 'Дмитрий Соколов',
+    createdAt: '2026-08-28T09:12:00.000Z',
+  },
+  {
+    id: 'm2',
+    kind: 'consume',
+    qty: 1,
+    item: { id: 's4', name: 'Сплит-система 09', unit: 'piece' },
+    fromZone: { id: 'z2', name: 'Газель' },
+    toZone: null,
+    order: consumeOrder,
+    serials: 'SN-4412-8890',
+    reason: null,
+    authorName: 'Дмитрий Соколов',
+    createdAt: '2026-08-28T09:20:00.000Z',
+  },
+  {
+    id: 'm3',
+    kind: 'consume',
+    qty: 2,
+    item: { id: 's2', name: 'Кронштейны наружного блока', unit: 'pair' },
+    fromZone: { id: 'z2', name: 'Газель' },
+    toZone: null,
+    order: consumeOrder,
+    serials: null,
+    reason: null,
+    authorName: null,
+    createdAt: '2026-08-28T09:26:00.000Z',
+  },
+  {
+    id: 'm4',
+    kind: 'return',
+    qty: 1,
+    item: { id: 's2', name: 'Кронштейны наружного блока', unit: 'pair' },
+    fromZone: null,
+    toZone: { id: 'z2', name: 'Газель' },
+    order: consumeOrder,
+    serials: null,
+    reason: 'Ошиблись при списании',
+    authorName: 'Дмитрий Соколов',
+    createdAt: '2026-08-28T09:35:00.000Z',
+  },
+];
+
+/** Чеклист, в котором двум пунктам сборов нашлись позиции склада. */
+export const stockChecklist: readonly OrderChecklistCard[] = [
+  ...checklist,
+  {
+    id: 'ch6',
+    text: 'Кронштейны наружного блока — пара с анкерами',
+    done: false,
+    own: true,
+    sort: 5,
+  },
+];
+
+export const stockHints: readonly ConsumptionHint[] = consumptionHints(stockChecklist, stockItems);
+
+const consumeOk = async (): Promise<OrderResult> => ({ ok: true });
+
+export const acceptingConsumptionApi: OrderConsumptionApi = {
+  load: async () => ({ ok: true, moves: consumptionMoves, stock: stockDirectory }),
+  consume: consumeOk,
+  cancel: consumeOk,
+};
+
+/** Ничего не списано: блок объясняет, зачем списание нужно. */
+export const emptyConsumptionApi: OrderConsumptionApi = {
+  ...acceptingConsumptionApi,
+  load: async () => ({ ok: true, moves: [], stock: stockDirectory }),
+};
+
+/** 🔴 Глазами монтажника: источник один — его машина, выбора зоны нет. */
+export const installerConsumptionApi: OrderConsumptionApi = {
+  ...acceptingConsumptionApi,
+  load: async () => ({ ok: true, moves: consumptionMoves, stock: installerDirectory }),
+};
+
+/** 🔴 Минус на складе: предупреждение остаётся и после списания. */
+export const minusConsumptionApi: OrderConsumptionApi = {
+  ...acceptingConsumptionApi,
+  load: async () => ({ ok: true, moves: consumptionMoves, stock: shortDirectory }),
+};
+
+/** Машину монтажнику ещё не завели: форма не рисуется, а объясняет почему. */
+export const zonelessConsumptionApi: OrderConsumptionApi = {
+  ...acceptingConsumptionApi,
+  load: async () => ({ ok: true, moves: [], stock: zonelessDirectory }),
+};
+
+export const failingConsumptionApi: OrderConsumptionApi = {
+  load: async () => ({ ok: true, moves: consumptionMoves, stock: stockDirectory }),
+  consume: async () => ({
+    ok: false,
+    message: 'Этой позиции нет в справочнике склада',
+    field: 'itemId',
+  }),
+  cancel: async () => ({
+    ok: false,
+    message: 'Наряд закрыт — вернуть материал на склад может только владелец',
+  }),
+};
+
+/** Склад не ответил: блок предлагает повторить, а не показывает пустоту. */
+export const brokenConsumptionApi: OrderConsumptionApi = {
+  ...acceptingConsumptionApi,
+  load: async () => ({
+    ok: false,
+    message: 'Не удалось получить расход материалов и остатки склада.',
+  }),
+};
+
+export const pendingConsumptionApi: OrderConsumptionApi = {
+  load: stuck,
+  consume: stuck,
+  cancel: stuck,
+};
+
+/** Отправка строки списания: успех, отказ и запрос, который не отвечает. */
+export const acceptingConsume = consumeOk;
+
+export const failingConsume = async (): Promise<OrderResult> => ({
+  ok: false,
+  message: 'Количество больше нуля',
+  field: 'qty',
+});
+
+export const pendingConsume = stuck;

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import {
+  OrderConsumption,
   OrderHistory,
   OrderInstallerView,
   orderDraftOf,
@@ -60,6 +61,10 @@ export default async function AdminOrderPage({ params }: PageProps) {
         <OrderWork order={order} forInstaller>
           <OrderInstallerView order={order} />
         </OrderWork>
+
+        {/* Расход монтажнику открыт: он и списывает материал с объекта. Что
+            видно в форме, решает сервер — ему придёт только своя машина. */}
+        <OrderConsumption orderId={order.id} checklist={order.checklist} />
       </div>
     );
   }
@@ -107,6 +112,12 @@ export default async function AdminOrderPage({ params }: PageProps) {
           removable
         />
       </OrderWork>
+
+      {/* 🔴 Блок читает склад сам, с клиента: наряд отдаётся страницей, а
+          остаток меняется прямо здесь — после каждого списания он обязан быть
+          новым, не перезагружая карточку целиком. Через границу уезжают только
+          данные: функция сервер→клиент не переживает сериализацию. */}
+      <OrderConsumption orderId={order.id} checklist={order.checklist} />
 
       <OrderHistory entries={order.history ?? []} />
     </div>

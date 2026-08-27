@@ -1,0 +1,154 @@
+/* Форма списания материала на наряд: откуда, что, сколько. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: 700;
+}
+
+/* Подсказки из чеклиста: ускоритель, поэтому отделены и приглушены — форма
+   работает и без единого совпадения. */
+.hints {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  padding: 10px 12px;
+}
+
+.hintsTitle {
+  margin: 0;
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.hintList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hintItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.hintPoint {
+  max-width: 34ch;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}
+
+/* Класс удвоен намеренно (ADR-038): цвет кнопки-призрака задан в ките с той
+   же специфичностью, и при равной специфичности выигрывает порядок сборки —
+   одиночный `.pick` проигрывал, и подсказка красилась акцентом наравне с
+   основным действием. */
+.pick.pick {
+  border: 1px solid var(--line-strong);
+  color: var(--ink2);
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.wide {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.qty {
+  min-width: 0;
+}
+
+/* Единственная зона — не выбор, а факт: показываем строкой, а не полем. */
+.zone {
+  grid-column: 1 / -1;
+  margin: 0;
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  padding: 8px 12px;
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+}
+
+.note {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.balance {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+}
+
+/* 🔴 Предупреждение, а не отказ: кнопка рядом остаётся рабочей (ADR-134). */
+.warning {
+  margin: 0;
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-sm);
+  background: var(--warn-bg);
+  padding: 8px 12px;
+  color: var(--warn-ink);
+  font-size: var(--fs-dense);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.ok {
+  color: var(--ok-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.error {
+  margin: 0;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  padding: 8px 12px;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}

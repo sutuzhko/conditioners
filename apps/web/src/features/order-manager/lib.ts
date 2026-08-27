@@ -4,13 +4,21 @@ import { adminRequest, createdSchema, jsonInit } from '@/shared/lib/api';
 
 import { orderManagerContent as texts } from './content';
 import {
+  orderConsumptionSchema,
   orderPayload,
+  stockOverviewSchema,
+  type ConsumptionLine,
+  type ConsumptionLoad,
   type OrderApi,
+  type OrderConsumptionApi,
   type OrderDocKind,
   type OrderResult,
   type OrderResultDraft,
   type OrderWorkApi,
   type PhotoStage,
+  type StockItemCard,
+  type StockMovementCard,
+  type StockZoneCard,
 } from './model';
 
 const REQUEST_TEXTS = {
@@ -103,5 +111,109 @@ export function orderWorkApi(orderId: string): OrderWorkApi {
     },
 
     removePhoto: (photoId: string) => send(`${base}/photos/${photoId}`, jsonInit('DELETE')),
+  };
+}
+
+/**
+ * Расход материалов по наряду — docs/API.md §14.
+ *
+ * 🔴 Ответы разбираются схемой, а не приведением типа: остатки склада
+ * приходят снаружи. Владельческих ключей позиции схема не знает вовсе —
+ * монтажнику их не кладут в ответ, и разбор, который их ждёт, однажды
+ * покажет то, чего показывать нельзя (ADR-134).
+ */
+const STOCK_PATH = '/api/admin/stock';
+
+/**
+ * Сколько страниц справочника поднимаем под форму списания.
+ *
+ * Справочник отдаётся по двадцать позиций, а выбирать из него нужно целиком:
+ * искать позицию запросом на каждую букву значит гонять сеть из машины по
+ * мобильному интернету. Потолок существует, чтобы разросшийся справочник не
+ * превратил открытие наряда в двадцать запросов.
+ */
+const MAX_STOCK_PAGES = 10;
+
+type StockPage = {
+  readonly zones: readonly StockZoneCard[];
+  readonly items: readonly StockItemCard[];
+  readonly pages: number;
+};
+
+async function loadStockPage(page: number): Promise<StockPage | null> {
+  const result = await adminRequest(`${STOCK_PATH}?page=${page}`, jsonInit('GET'), REQUEST_TEXTS);
+  if (!result.ok) return null;
+
+  const parsed = stockOverviewSchema.safeParse(result.payload);
+  if (!parsed.success) return null;
+
+  /* Явные типы — сверка с доменным контрактом склада: разъедется схема с
+     `entities/stock` — перестанет компилироваться здесь, а не сломается
+     молча в разметке. */
+  const zones: readonly StockZoneCard[] = parsed.data.zones;
+  const items: readonly StockItemCard[] = parsed.data.items;
+
+  return { zones, items, pages: parsed.data.pages };
+}
+
+async function loadDirectory(): Promise<StockPage | null> {
+  const first = await loadStockPage(1);
+  if (first === null) return null;
+
+  const total = Math.min(first.pages, MAX_STOCK_PAGES);
+  if (total <= 1) return first;
+
+  const rest = await Promise.all(
+    Array.from({ length: total - 1 }, (_, index) => loadStockPage(index + 2)),
+  );
+
+  /* Недостающая страница обрывает справочник: показать половину номенклатуры
+     как всю — значит заставить списать не то, что списали на самом деле. */
+  if (rest.some((page) => page === null)) return null;
+
+  const items = rest.reduce<readonly StockItemCard[]>(
+    (all, page) => (page === null ? all : [...all, ...page.items]),
+    first.items,
+  );
+
+  return { zones: first.zones, items, pages: first.pages };
+}
+
+async function loadMoves(base: string): Promise<readonly StockMovementCard[] | null> {
+  const result = await adminRequest(base, jsonInit('GET'), REQUEST_TEXTS);
+  if (!result.ok) return null;
+
+  const parsed = orderConsumptionSchema.safeParse(result.payload);
+  if (!parsed.success) return null;
+
+  const moves: readonly StockMovementCard[] = parsed.data.items;
+  return moves;
+}
+
+export function orderConsumptionApi(orderId: string): OrderConsumptionApi {
+  const base = `${API_PATH}/${orderId}/consumption`;
+
+  return {
+    /* Движения и справочник поднимаются вместе: без остатка по зоне форма не
+       может предупредить об уходе в минус, а без движений нечего показывать. */
+    load: async (): Promise<ConsumptionLoad> => {
+      const [moves, stock] = await Promise.all([loadMoves(base), loadDirectory()]);
+
+      if (moves === null || stock === null) {
+        return { ok: false, message: texts.consumptionLoadError };
+      }
+
+      return { ok: true, moves, stock: { zones: stock.zones, items: stock.items } };
+    },
+
+    /* Контракт принимает список строк: форма шлёт одну — списывают по одной
+       позиции за раз, и частично принятая пачка объяснялась бы дольше, чем
+       повторное нажатие. */
+    consume: (line: ConsumptionLine) => send(base, jsonInit('POST', { lines: [line] })),
+
+    /* 🔴 Отмена — возвратом в ту же зону, а не удалением записи: журнал
+       движений не переписывается, иначе вопрос «куда делись тридцать метров
+       трассы» снова остаётся без ответа. */
+    cancel: (moveId: string) => send(`${base}/${moveId}`, jsonInit('DELETE')),
   };
 }

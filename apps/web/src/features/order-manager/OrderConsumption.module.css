@@ -1,0 +1,173 @@
+/* Расход материалов по наряду: что списано, сколько и кем. */
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 4px 0 14px;
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+/* Каркас на время загрузки повторяет строки таблицы, а не показывает
+   нейтральный прямоугольник: подставленная не та форма — обещание, которое
+   блок через мгновение нарушит. */
+.skeleton {
+  display: grid;
+  gap: 8px;
+}
+
+.failure {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  padding: 14px 16px;
+}
+
+.emptyTitle {
+  margin: 0;
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+}
+
+.emptyText {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.name {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.serials {
+  flex-basis: 100%;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+}
+
+.qty {
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.when {
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}
+
+/* Класс удвоен намеренно (ADR-038): цвет кнопки-призрака задан в ките с той
+   же специфичностью, и при равной специфичности выигрывает порядок сборки —
+   одиночный `.undo` проигрывал, и отмена списания красилась акцентом наравне
+   с основным действием формы. */
+.undo.undo {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.totals {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 14px;
+}
+
+.totalsTitle {
+  margin: 0;
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+}
+
+.totalsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.total {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+}
+
+.totalQty {
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+/* 🔴 Минус — предупреждение, а не отказ: он объясняет расхождение и зовёт
+   провести инвентаризацию (ADR-134). */
+.minus {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 14px;
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-sm);
+  background: var(--warn-bg);
+  padding: 12px 14px;
+}
+
+.minusTitle {
+  margin: 0;
+  color: var(--warn-ink);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+}
+
+.minusText {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--warn-ink);
+  font-size: var(--fs-caption);
+}
+
+.error {
+  margin: 14px 0 0;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  padding: 8px 12px;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}

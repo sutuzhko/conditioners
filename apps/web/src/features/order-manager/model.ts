@@ -1,4 +1,6 @@
 /** Раздел заказов: типы представления. Доменные схемы — в `entities/order`. */
+import { z } from 'zod';
+
 import type {
   OrderCard,
   OrderChecklistCard,
@@ -17,6 +19,20 @@ import type {
 } from '@/entities/order/model';
 import { ORDER_EQUIPS, PAYMENT_MODES, UNIT_SOURCES } from '@/entities/order/model';
 import type { DayBlockLike } from '@/entities/crm/lib/busy';
+import {
+  orderConsumeSchema,
+  quantitySchema,
+  stockMoveKindSchema,
+  stockUnitSchema,
+  stockZoneKindSchema,
+} from '@/entities/stock/model';
+import type {
+  OrderConsume,
+  StockItemCard,
+  StockMovementCard,
+  StockUnit,
+  StockZoneCard,
+} from '@/entities/stock/model';
 import { dayKeyOf, timeOf, todayKey, type DayKey } from '@/shared/lib/calendar';
 import { deductionReducesFee, type Employment } from '@/shared/lib/employment';
 import type { Page } from '@/shared/lib/paging';
@@ -492,3 +508,347 @@ export function checklistProgress(items: readonly OrderChecklistCard[]): {
 } {
   return { done: items.filter((item) => item.done).length, total: items.length };
 }
+
+// ---------- Расход материалов ----------
+
+/**
+ * Расход наряда — docs/CRM.md §11.6, контракт маршрутов — docs/API.md §14.
+ *
+ * 🔴 Ответы склада приходят снаружи и разбираются схемой, а не приведением
+ * типа. Владельческие ключи позиции (`minQty`, `low`) в схеме отсутствуют
+ * намеренно: монтажнику их не кладут в ответ вовсе (ADR-134), и разбор,
+ * который их ждёт, однажды покажет то, чего показывать нельзя. Zod лишние
+ * ключи молча отбрасывает — интерфейс не знает о пороге заказа ничего.
+ */
+
+const zoneRefSchema = z.object({ id: z.string(), name: z.string() }).nullable();
+
+export const stockMovementCardSchema = z.object({
+  id: z.string(),
+  kind: stockMoveKindSchema,
+  qty: z.number(),
+  item: z.object({ id: z.string(), name: z.string(), unit: stockUnitSchema }),
+  fromZone: zoneRefSchema,
+  toZone: zoneRefSchema,
+  order: z.object({ id: z.string(), number: z.number() }).nullable(),
+  serials: z.string().nullable(),
+  reason: z.string().nullable(),
+  authorName: z.string().nullable(),
+  createdAt: z.string(),
+});
+
+export const orderConsumptionSchema = z.object({ items: z.array(stockMovementCardSchema) });
+
+export const stockZoneCardSchema = z.object({
+  id: z.string(),
+  kind: stockZoneKindSchema,
+  name: z.string(),
+  userId: z.string().nullable(),
+  userName: z.string().nullable(),
+  sort: z.number(),
+  archived: z.boolean(),
+});
+
+export const stockItemCardSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  group: z.string().nullable(),
+  unit: stockUnitSchema,
+  note: z.string().nullable(),
+  archived: z.boolean(),
+  product: z.object({ id: z.string(), name: z.string(), slug: z.string() }).nullable(),
+  /* Остаток по зонам приходит по всем видимым зонам, включая нулевые. */
+  byZone: z.record(z.number()),
+  total: z.number(),
+});
+
+/**
+ * Страница справочника. `pages` объявлено с умолчанием: раздел расхода не
+ * должен отказываться работать из-за необязательной для него подробности.
+ */
+export const stockOverviewSchema = z.object({
+  zones: z.array(stockZoneCardSchema),
+  items: z.array(stockItemCardSchema),
+  pages: z.number().int().min(1).default(1),
+});
+
+/** Справочник в том виде, в каком его читает форма списания. */
+export type StockDirectory = {
+  readonly zones: readonly StockZoneCard[];
+  readonly items: readonly StockItemCard[];
+};
+
+/** Что показывает блок расхода: движения наряда и справочник для формы. */
+export type ConsumptionLoad =
+  | {
+      readonly ok: true;
+      readonly moves: readonly StockMovementCard[];
+      readonly stock: StockDirectory;
+    }
+  | { readonly ok: false; readonly message: string };
+
+/**
+ * Строка списания в том виде, в каком её принимает сервер.
+ *
+ * 🔴 Своей схемы у формы нет: правила ввода живут в `entities/stock`, и вторая
+ * их копия разошлась бы с первой на первой же правке. Оттуда же берётся разбор
+ * количества — «1,5» и «12 000» это то, как пишут по-русски, и второй разбор
+ * в браузере однажды отличился бы от серверного на пробеле.
+ */
+export type ConsumptionLine = OrderConsume['lines'][number];
+
+/** Поля формы списания — строки, как их вводит человек. */
+export type ConsumptionDraft = {
+  readonly itemId: string;
+  readonly fromZoneId: string;
+  readonly qty: string;
+  readonly serials: string;
+};
+
+export function emptyConsumptionDraft(fromZoneId = ''): ConsumptionDraft {
+  return { itemId: '', fromZoneId, qty: '', serials: '' };
+}
+
+const CONSUMPTION_FIELDS = ['itemId', 'fromZoneId', 'qty', 'serials'] as const;
+
+export type ConsumptionField = (typeof CONSUMPTION_FIELDS)[number];
+
+function isConsumptionField(value: unknown): value is ConsumptionField {
+  return typeof value === 'string' && CONSUMPTION_FIELDS.some((field) => field === value);
+}
+
+/**
+ * Поле формы по имени, которое назвал Zod или сервер.
+ *
+ * Строка списания едет в массиве, поэтому путь ошибки выглядит как
+ * `lines.0.qty` — на сервере он собирается через точку (`server/http.ts`).
+ * Подсветить нужно то же поле, что и при местной проверке, поэтому берётся
+ * последнее звено пути, а не строка целиком.
+ */
+export function consumptionFieldOf(value: unknown): ConsumptionField | null {
+  if (typeof value !== 'string') return null;
+
+  const last = value.split('.').at(-1);
+  return isConsumptionField(last) ? last : null;
+}
+
+/**
+ * Черновик формы → строка списания, проверенная доменной схемой склада.
+ *
+ * Проверка идёт тем же объектом, что уедет на сервер: клиентская проверка,
+ * смотрящая на другие данные, — это не проверка, а совпадение.
+ */
+export function parseConsumptionDraft(
+  draft: ConsumptionDraft,
+):
+  | { readonly ok: true; readonly line: ConsumptionLine }
+  | { readonly ok: false; readonly field: ConsumptionField | null; readonly message: string } {
+  const parsed = orderConsumeSchema.safeParse({ lines: [draft] });
+
+  if (parsed.success) {
+    const line = parsed.data.lines[0];
+    if (line !== undefined) return { ok: true, line };
+  }
+
+  const issue = parsed.success ? undefined : parsed.error.issues[0];
+
+  return {
+    ok: false,
+    field: consumptionFieldOf(issue?.path.join('.')),
+    message: issue?.message ?? '',
+  };
+}
+
+/**
+ * Действия расхода вынесены интерфейсом: истории и тесты подставляют свои,
+ * не поднимая сеть.
+ */
+export type OrderConsumptionApi = {
+  readonly load: () => Promise<ConsumptionLoad>;
+  readonly consume: (line: ConsumptionLine) => Promise<OrderResult>;
+  /** 🔴 Отмена — возвратом, а не удалением: журнал движений не переписывается. */
+  readonly cancel: (moveId: string) => Promise<OrderResult>;
+};
+
+/* Три знака после запятой — предел, который хранит склад. Округление здесь
+   существует, чтобы 4 − 4 не давало 0.0000000001 в подписи «итого». */
+const QTY_STEP = 1000;
+
+function rounded(value: number): number {
+  return Math.round(value * QTY_STEP) / QTY_STEP;
+}
+
+/**
+ * Остаток позиции в выбранной зоне.
+ *
+ * 🔴 Ключа зоны может не быть — и это ноль, а не сбой: монтажнику приходят
+ * только его зоны, и спрашивать остаток чужой машины интерфейс не должен
+ * уметь в принципе.
+ */
+export function zoneBalance(item: StockItemCard | undefined, zoneId: string): number {
+  if (item === undefined || zoneId === '') return 0;
+  return item.byZone[zoneId] ?? 0;
+}
+
+/**
+ * Сколько не хватает на складе. Ноль — хватает.
+ *
+ * 🔴 Уход в минус не запрещается, а помечается (ADR-134): монтажник, у
+ * которого труба кончилась раньше, чем в системе, при запрете впишет
+ * неправду, лишь бы закрыть наряд.
+ */
+export function consumptionShortfall(
+  item: StockItemCard | undefined,
+  zoneId: string,
+  qty: number | null,
+): number {
+  if (item === undefined || zoneId === '' || qty === null) return 0;
+
+  const short = qty - zoneBalance(item, zoneId);
+  return short > 0 ? rounded(short) : 0;
+}
+
+/** Количество из поля ввода той же схемой, что уедет на сервер. `null` — мусор. */
+export function consumptionQty(value: string): number | null {
+  const parsed = quantitySchema.safeParse(value);
+  return parsed.success ? parsed.data : null;
+}
+
+/** Техника ссылается на модель каталога, расходники — нет: серийники нужны ей. */
+export function isEquipmentItem(item: StockItemCard | undefined): boolean {
+  return item !== undefined && item.product !== null;
+}
+
+export function findStockItem(
+  items: readonly StockItemCard[],
+  itemId: string,
+): StockItemCard | undefined {
+  return items.find((item) => item.id === itemId);
+}
+
+export type ConsumptionTotal = {
+  readonly itemId: string;
+  readonly name: string;
+  readonly unit: StockUnit;
+  readonly qty: number;
+};
+
+/**
+ * Сколько ушло на наряд по факту: списания минус возвраты.
+ *
+ * 🔴 Возврат не стирает списание, а гасит его встречной записью — поэтому
+ * «сколько израсходовано» считается, а не берётся из последней строки. Ноль
+ * не показывается: списали и вернули — по факту не израсходовано ничего.
+ */
+export function consumptionTotals(
+  moves: readonly StockMovementCard[],
+): readonly ConsumptionTotal[] {
+  const byItem = new Map<string, ConsumptionTotal>();
+
+  for (const move of moves) {
+    if (move.kind !== 'consume' && move.kind !== 'return') continue;
+
+    const previous = byItem.get(move.item.id);
+    const delta = move.kind === 'consume' ? move.qty : -move.qty;
+
+    byItem.set(move.item.id, {
+      itemId: move.item.id,
+      name: move.item.name,
+      unit: move.item.unit,
+      qty: rounded((previous?.qty ?? 0) + delta),
+    });
+  }
+
+  return [...byItem.values()].filter((total) => total.qty !== 0);
+}
+
+/**
+ * Позиции наряда, чей остаток в зоне ушёл в минус.
+ *
+ * 🔴 Предупреждение живёт не только в момент ввода: списали больше, чем
+ * числилось, — и склад разошёлся с реальностью надолго. Форма скажет об этом
+ * тому, кто списывает; блок обязан сказать и тому, кто откроет наряд завтра
+ * (CRM.md §11.6).
+ *
+ * Считается по справочнику, а не по движениям: остаток — сумма всех движений
+ * позиции, а не только тех, что относятся к этому наряду.
+ */
+export function negativeBalances(
+  moves: readonly StockMovementCard[],
+  items: readonly StockItemCard[],
+): readonly ConsumptionTotal[] {
+  const found = new Map<string, ConsumptionTotal>();
+
+  for (const move of moves) {
+    if (move.kind !== 'consume' || move.fromZone === null) continue;
+
+    const item = findStockItem(items, move.item.id);
+    if (item === undefined) continue;
+
+    const rest = zoneBalance(item, move.fromZone.id);
+    if (rest >= 0) continue;
+
+    found.set(`${item.id}:${move.fromZone.id}`, {
+      itemId: `${item.id}:${move.fromZone.id}`,
+      name: `${item.name} · ${move.fromZone.name}`,
+      unit: item.unit,
+      qty: rounded(rest),
+    });
+  }
+
+  return [...found.values()];
+}
+
+/** Подсказка из чеклиста: пункт сборов, которому нашлась позиция склада. */
+export type ConsumptionHint = {
+  readonly itemId: string;
+  readonly itemName: string;
+  /** Текст пункта: человек должен узнать свою строку, а не гадать. */
+  readonly text: string;
+};
+
+/* Пунктуация и кавычки сравнению мешают: в накладной «1/4″», в чеклисте
+   «1/4"». Сводим к словам и пробелам, а не к точному написанию. */
+const PUNCTUATION = /[^\p{L}\p{N}/]+/gu;
+
+function comparable(value: string): string {
+  return value.toLocaleLowerCase('ru-RU').replace(PUNCTUATION, ' ').trim();
+}
+
+/* Название короче трёх букв совпадёт с чем угодно — такие в подсказки не идут. */
+const MIN_NAME = 3;
+
+/**
+ * Связка чеклиста со складом (CRM.md §11.6): чеклист знает, что нужно, склад
+ * отвечает, есть ли.
+ *
+ * 🔴 Это ускоритель, а не единственный путь: форма списания работает и без
+ * единого совпадения. Совпадение ищется по вхождению названия позиции в текст
+ * пункта — точного соответствия между свободным текстом сборов и
+ * номенклатурой поставщика не бывает, и требовать его значит не показать
+ * подсказку никогда.
+ */
+export function consumptionHints(
+  checklist: readonly OrderChecklistCard[],
+  items: readonly StockItemCard[],
+): readonly ConsumptionHint[] {
+  const hints: ConsumptionHint[] = [];
+
+  for (const item of items) {
+    if (item.archived) continue;
+
+    const name = comparable(item.name);
+    if (name.length < MIN_NAME) continue;
+
+    const point = checklist.find((entry) => comparable(entry.text).includes(name));
+    if (point === undefined) continue;
+
+    hints.push({ itemId: item.id, itemName: item.name, text: point.text });
+  }
+
+  return hints;
+}
+
+/* Доменные типы склада переносятся наружу вместе с блоком расхода: страница и
+   истории не должны знать, из какой сущности он их берёт. */
+export type { StockItemCard, StockMovementCard, StockUnit, StockZoneCard };
