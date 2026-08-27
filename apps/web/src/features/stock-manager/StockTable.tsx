@@ -3,17 +3,20 @@ import Link from 'next/link';
 import { Badge, Card, Pager, Table, buttonClassName } from '@/shared/ui';
 
 import { stockManagerContent as texts } from './content';
+import { StockCell } from './StockCell';
+import { StockMoveScope } from './StockMoveScope';
 import {
   DEFAULT_STOCK_FILTERS,
+  STOCK_MOVE_PATH,
   STOCK_PATH,
   STOCK_ZONES_PATH,
   hasShortage,
   stockFiltersApplied,
   stockItemPath,
+  stockMoveQuery,
   stockQuery,
   zoneQty,
   type StockFilterState,
-  type StockItemCard,
   type StockOverview,
   type StockZoneCard,
 } from './model';
@@ -33,12 +36,20 @@ export interface StockTableProps {
 /**
  * Остатки: строки — позиции, колонки — зоны хранения (CRM.md §11.3).
  *
- * Серверный компонент целиком: таблица только показывает данные, а фильтр и
- * страница живут в адресе. Панель не платит за остатки ни байтом JS.
+ * 🔴 Таблица существует ради перемещения между зонами, а не ради созерцания
+ * (ADR-137): остаток перетаскивается мышью в соседнюю зону, а кнопка
+ * «Переместить» в строке делает то же самое пальцем и с клавиатуры. Раздел
+ * полностью работоспособен без единого перетаскивания.
+ *
+ * Разметку по-прежнему рисует сервер: клиентские только сами ячейки-ручки, и
+ * ими же ограничен весь JS раздела. Заголовки, ссылки и разбивка приходят
+ * готовыми.
  *
  * 🔴 Первая колонка залипает (`variant="sticky"`): на четвёртой зоне без неё
  * непонятно, чей это остаток, а на телефоне таблица уезжает вбок целиком.
  * Страница по горизонтали при этом не двигается — прокрутка живёт внутри.
+ * Кнопка «Переместить» стоит в этой же колонке, а не в крайней правой: иначе
+ * до неё с телефона нужно доехать через все зоны.
  *
  * 🔴 Отрицательный остаток помечается, а не запрещается (ADR-134): запрет
  * означал бы, что монтажник впишет неправду, лишь бы закрыть наряд.
@@ -53,68 +64,97 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
   const showMin = items.some((item) => item.minQty !== undefined);
   const shortage = items.some((item) => hasShortage(item, zones));
   const minWidth = `${ITEM_COLUMN_PX + zones.length * ZONE_COLUMN_PX + (showMin ? 2 : 1) * SUMMARY_COLUMN_PX}px`;
+  /* Перемещать некуда, пока зона одна: предлагать операцию, которую сервер
+     отвергнет, честнее не предлагать вовсе. */
+  const movable = zones.filter((zone) => !zone.archived).length > 1;
 
   return (
     <div className={styles.wrap}>
-      <Card as="section" padding="none">
-        <Table variant="sticky" zebra minWidth={minWidth} label={texts.tableLabel}>
-          <thead>
-            <tr>
-              <th scope="col">{texts.colItem}</th>
-              {zones.map((zone) => (
-                <th key={zone.id} scope="col">
-                  <span className={styles.zoneName}>{zone.name}</span>
-                  <ZoneNote zone={zone} />
-                </th>
-              ))}
-              <th scope="col" className={styles.numberHead}>
-                {texts.colTotal}
-              </th>
-              {showMin ? (
-                <th scope="col" className={styles.numberHead}>
-                  {texts.colMin}
-                </th>
-              ) : null}
-            </tr>
-          </thead>
-
-          <tbody>
-            {items.map((item) => (
-              <tr key={item.id}>
-                <th scope="row">
-                  <Link className={styles.name} href={{ pathname: stockItemPath(item.id) }}>
-                    {item.name}
-                  </Link>
-                  <span className={styles.itemNote}>{item.group ?? texts.itemGroupNone}</span>
-                </th>
-
+      <StockMoveScope>
+        <Card as="section" padding="none">
+          <Table variant="sticky" zebra minWidth={minWidth} label={texts.tableLabel}>
+            <thead>
+              <tr>
+                <th scope="col">{texts.colItem}</th>
                 {zones.map((zone) => (
-                  <Qty key={zone.id} value={zoneQty(item, zone.id)} item={item} />
+                  <th key={zone.id} scope="col" className={styles.numberHead}>
+                    <span className={styles.zoneName}>{zone.name}</span>
+                    <ZoneNote zone={zone} />
+                  </th>
                 ))}
-
-                <td className={styles.number}>
-                  <span className={styles.total}>{texts.qty(item.total, item.unit)}</span>
-                  {item.low === true ? (
-                    <Badge variant="warning" size="sm" className={styles.mark}>
-                      {texts.low}
-                    </Badge>
-                  ) : null}
-                </td>
-
+                <th scope="col" className={styles.numberHead}>
+                  {texts.colTotal}
+                </th>
                 {showMin ? (
-                  <td className={styles.number}>
-                    {item.minQty === undefined || item.minQty === 0
-                      ? texts.dash
-                      : texts.qty(item.minQty, item.unit)}
-                  </td>
+                  <th scope="col" className={styles.numberHead}>
+                    {texts.colMin}
+                  </th>
                 ) : null}
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Card>
+            </thead>
+
+            <tbody>
+              {items.map((item, row) => (
+                <tr key={item.id}>
+                  <th scope="row">
+                    <Link className={styles.name} href={{ pathname: stockItemPath(item.id) }}>
+                      {item.name}
+                    </Link>
+                    <span className={styles.itemNote}>{item.group ?? texts.itemGroupNone}</span>
+
+                    {movable ? (
+                      <Link
+                        className={styles.move}
+                        href={{
+                          pathname: STOCK_MOVE_PATH,
+                          query: stockMoveQuery({ item: item.id, kind: 'transfer' }),
+                        }}
+                        aria-label={texts.moveRowTitle(item.name)}
+                      >
+                        {texts.moveRow}
+                      </Link>
+                    ) : null}
+                  </th>
+
+                  {zones.map((zone, column) => (
+                    <StockCell
+                      key={zone.id}
+                      itemId={item.id}
+                      itemName={item.name}
+                      unit={item.unit}
+                      zoneId={zone.id}
+                      zoneName={zone.name}
+                      qty={zoneQty(item, zone.id)}
+                      closed={zone.archived}
+                      first={row === 0 && column === 0}
+                    />
+                  ))}
+
+                  <td className={styles.number}>
+                    <span className={styles.total}>{texts.qty(item.total, item.unit)}</span>
+                    {item.low === true ? (
+                      <Badge variant="warning" size="sm" className={styles.mark}>
+                        {texts.low}
+                      </Badge>
+                    ) : null}
+                  </td>
+
+                  {showMin ? (
+                    <td className={styles.number}>
+                      {item.minQty === undefined || item.minQty === 0
+                        ? texts.dash
+                        : texts.qty(item.minQty, item.unit)}
+                    </td>
+                  ) : null}
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Card>
+      </StockMoveScope>
 
       <p className={styles.hint}>{texts.tableHint}</p>
+      {movable ? <p className={styles.hint}>{texts.dragHint}</p> : null}
       {shortage ? <p className={styles.warning}>{texts.minusNote}</p> : null}
 
       <Pager
@@ -124,25 +164,6 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
         query={stockQuery(filters)}
       />
     </div>
-  );
-}
-
-/** Ячейка остатка. Ноль приглушён, минус помечен предупреждением. */
-function Qty({ value, item }: { readonly value: number; readonly item: StockItemCard }) {
-  if (value < 0) {
-    return (
-      <td className={styles.number}>
-        <span className={styles.minus} title={texts.minusTitle}>
-          {texts.qty(value, item.unit)}
-        </span>
-      </td>
-    );
-  }
-
-  return (
-    <td className={styles.number}>
-      <span className={value === 0 ? styles.zero : undefined}>{texts.qty(value, item.unit)}</span>
-    </td>
   );
 }
 

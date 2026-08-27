@@ -9,12 +9,20 @@
  * Журнал целиком — владельческий: по нему видно, кто, что и куда двигал по
  * всей компании.
  */
-import { stockMovementCreateSchema } from '@/entities/stock/model';
+import {
+  isStockMoveKind,
+  stockMovementCreateSchema,
+  type StockMoveKind,
+} from '@/entities/stock/model';
 import { json, readJson, validationError, withAdmin, withOwner } from '@/server/http';
 import { assertMayMove, move, movements } from '@/server/repo/stock';
 import { pageNumber } from '@/shared/lib/paging';
 
 export const dynamic = 'force-dynamic';
+
+function kindOf(value: string | null): StockMoveKind | undefined {
+  return value !== null && isStockMoveKind(value) ? value : undefined;
+}
 
 export const GET = withOwner(async (request) => {
   const params = request.nextUrl.searchParams;
@@ -22,6 +30,9 @@ export const GET = withOwner(async (request) => {
   return json(
     await movements({
       item: params.get('item') ?? undefined,
+      /* Вид приходит из адреса, а адрес правят руками: неизвестное значение —
+         это «покажи всё», а не отказ. */
+      kind: kindOf(params.get('kind')),
       page: pageNumber(params.get('page') ?? undefined),
     }),
   );

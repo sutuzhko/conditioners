@@ -1,0 +1,78 @@
+/* Ячейка остатка: она же ручка перемещения между зонами (ADR-137). */
+
+.cell {
+  padding: 0;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Кнопка занимает ячейку целиком: цель для пальца — вся клетка, а не число
+   в четыре знака. Отступы повторяют ячейку таблицы из кита, иначе строка
+   сжалась бы ровно на разделе склада. */
+.button {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: right;
+  cursor: grab;
+}
+
+.button:hover {
+  border-color: var(--line);
+  background: var(--bg-soft);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: -2px;
+}
+
+/* Ноль приглушён: «здесь ничего нет» не должно спорить за внимание с остатком.
+   Курсор обычный — брать нечего. */
+.zero {
+  color: var(--faint);
+  cursor: default;
+}
+
+/* 🔴 Минус — предупреждение, а не отказ: склад разошёлся с реальностью
+   (ADR-134). Отсюда тёплый цвет состояния, а не красный цвет ошибки. */
+.minus {
+  color: var(--warn-ink);
+  font-weight: 600;
+  cursor: default;
+}
+
+/* Взятый остаток: видно, что именно несём. */
+.held {
+  border-color: var(--accent-ink);
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+  font-weight: 600;
+  cursor: grabbing;
+}
+
+/* Куда можно положить: пунктир не спорит с содержимым, но виден. */
+.target {
+  border-style: dashed;
+  border-color: var(--accent-line);
+}
+
+/* Под курсором с грузом — заливка: подтверждение, что отпускать можно здесь. */
+.over {
+  border-style: solid;
+  border-color: var(--accent-ink);
+  background: var(--accent-bg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .button {
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease;
+  }
+}

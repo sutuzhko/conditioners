@@ -41,6 +41,21 @@
   font-weight: 400;
 }
 
+/* Кнопка перемещения живёт в залипающей колонке: с телефона до крайней правой
+   пришлось бы доехать через все зоны, а это рядовая операция дня (ADR-137). */
+.move {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--accent-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.move:hover {
+  text-decoration: underline;
+}
+
 .number {
   text-align: right;
   white-space: nowrap;

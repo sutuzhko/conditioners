@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { StockJournal } from './StockJournal';
 import { authorlessMove, countMove, emptyJournal, journal, longJournal } from './fixtures';
-import { stockItemPath } from './model';
+import { STOCK_JOURNAL_PATH, stockItemPath } from './model';
 
 const basePath = stockItemPath('s1');
 
@@ -36,4 +36,12 @@ export const Инвентаризация: Story = {
 /** Автор удалён: журнал переживает увольнение. */
 export const БезАвтора: Story = {
   args: { journal: { ...journal, items: [authorlessMove], total: 1 } },
+};
+
+/**
+ * 🔴 Журнал всего склада (ADR-137): к колонкам добавляется позиция — «что
+ * двигали» первый вопрос к нему. История позиции при этом никуда не девается.
+ */
+export const ЖурналСклада: Story = {
+  args: { basePath: STOCK_JOURNAL_PATH, withItem: true },
 };

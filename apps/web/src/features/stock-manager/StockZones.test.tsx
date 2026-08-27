@@ -69,6 +69,17 @@ describe('Зоны хранения', () => {
     );
   });
 
+  it('🔴 заведение зоны — окно с собственным адресом, а не форма под списком', () => {
+    render(<StockZones zones={zones} people={people} />);
+
+    expect(screen.getByRole('link', { name: texts.zoneAdd })).toHaveAttribute(
+      'href',
+      '/admin/stock/zones/new',
+    );
+    /* Форма не разворачивается на месте: список зон под ней не уезжает. */
+    expect(screen.queryByLabelText(texts.zoneKind)).not.toBeInTheDocument();
+  });
+
   it('правка открывается на месте строки, а не уводит со страницы', async () => {
     const user = userEvent.setup();
     render(<StockZones zones={[van]} people={people} />);

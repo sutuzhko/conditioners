@@ -35,6 +35,20 @@
   font-size: var(--fs-dense);
 }
 
+/* Журнал всего склада шире журнала позиции: прокрутка живёт внутри карточки.
+   Кольцо фокуса рисуем контуром — он не участвует в обрезке по overflow, и
+   радиус у него свой, содержимого не касается (как у таблиц кита). */
+.scroller {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.scroller:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: -2px;
+  border-radius: var(--r-sm);
+}
+
 .qty {
   white-space: nowrap;
   font-weight: 600;
@@ -44,16 +58,48 @@
   color: var(--muted);
 }
 
-.order {
+.order,
+.item {
   color: var(--accent-ink);
   font-weight: 600;
   text-decoration: none;
 }
 
-.order:hover {
+.order:hover,
+.item:hover {
   text-decoration: underline;
 }
 
 .gone {
   color: var(--faint);
+}
+
+/* Фильтр вида движения: ссылки, а не переключатель. Выбранное живёт в адресе,
+   и отфильтрованный журнал можно сохранить и прислать себе. */
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.chip {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px;
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  text-decoration: none;
+}
+
+.chip:hover {
+  border-color: var(--accent-line);
+  color: var(--accent-ink);
+}
+
+.active {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  font-weight: 600;
 }

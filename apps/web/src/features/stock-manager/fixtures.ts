@@ -7,6 +7,7 @@
 import type {
   StockApi,
   StockItemCard,
+  StockMoveDraft,
   StockItemProduct,
   StockItemRef,
   StockMovementCard,
@@ -193,6 +194,20 @@ export const itemRefs: readonly StockItemRef[] = items.map((item) => ({
   name: item.name,
   unit: item.unit,
 }));
+
+/**
+ * Что подставил адрес окна после перетаскивания ячейки: позиция и обе зоны
+ * известны, вводят одно количество (ADR-137).
+ */
+export const moveDraft: StockMoveDraft = {
+  kind: 'transfer',
+  itemId: pipe.id,
+  qty: '',
+  fromZoneId: warehouse.id,
+  toZoneId: van.id,
+  serials: '',
+  reason: '',
+};
 
 export const incomeMove: StockMovementCard = {
   id: 'm1',

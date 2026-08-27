@@ -1,9 +1,10 @@
 import { render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { StockTable } from './StockTable';
 import { stockManagerContent as texts } from './content';
 import {
+  archivedZone,
   bracket,
   emptyOverview,
   freon,
@@ -14,6 +15,9 @@ import {
   pipe,
   warehouse,
 } from './fixtures';
+
+/* Ячейки остатка — клиентские: они же ручки перемещения (ADR-137). */
+vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
 
 /** Testing Library схлопывает неразрывный пробел в обычный — сверяем так же. */
 const flat = (value: string): string => value.replace(/\u00A0/gu, ' ');
@@ -108,6 +112,37 @@ describe('Остатки по зонам', () => {
       'href',
       '/admin/stock?q=%D1%82%D1%80%D1%83%D0%B1%D0%B0&group=%D0%9A%D1%80%D0%B5%D0%BF%D1%91%D0%B6&low=1&page=3',
     );
+  });
+
+  it('🔴 из каждой строки можно переместить, не открывая карточку позиции', () => {
+    render(<StockTable overview={overview} />);
+
+    const row = screen.getByRole('rowheader', { name: new RegExp(pipe.name) });
+    expect(within(row).getByRole('link', { name: texts.moveRowTitle(pipe.name) })).toHaveAttribute(
+      'href',
+      `/admin/stock/move?item=${pipe.id}&kind=transfer`,
+    );
+  });
+
+  it('🔴 перемещать некуда, пока зона одна: операции, которую сервер отвергнет, нет', () => {
+    render(<StockTable overview={{ ...overview, zones: [warehouse], items: [pipe], total: 1 }} />);
+
+    expect(
+      screen.queryByRole('link', { name: texts.moveRowTitle(pipe.name) }),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText(texts.dragHint)).not.toBeInTheDocument();
+  });
+
+  it('архивная зона в счёт не идёт: она колонка истории, а не место хранения', () => {
+    render(
+      <StockTable
+        overview={{ ...overview, zones: [warehouse, archivedZone], items: [pipe], total: 1 }}
+      />,
+    );
+
+    expect(
+      screen.queryByRole('link', { name: texts.moveRowTitle(pipe.name) }),
+    ).not.toBeInTheDocument();
   });
 
   it('на одной странице разбивки нет', () => {

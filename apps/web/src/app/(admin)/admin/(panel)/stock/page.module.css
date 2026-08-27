@@ -28,6 +28,14 @@
   font-weight: 700;
 }
 
+/* Действия раздела уходят на вторую строку на телефоне, а не сжимают
+   заголовок: их три, и все три нужны в один клик. */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .lead {
   margin: 0;
   max-width: 68ch;

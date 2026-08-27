@@ -2,17 +2,16 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import {
+  STOCK_ITEM_NEW_PATH,
+  STOCK_JOURNAL_PATH,
   STOCK_ZONES_PATH,
   StockFilters,
-  StockItemAdd,
   StockTable,
   lowFromParam,
   pageNumber,
   stockManagerContent as texts,
-  type StockItemProduct,
 } from '@/features/stock-manager';
 import { requireOwnerPage } from '@/server/guards';
-import { listAll } from '@/server/repo/products';
 import { overview } from '@/server/repo/stock';
 import { buttonClassName } from '@/shared/ui';
 
@@ -32,6 +31,10 @@ export const dynamic = 'force-dynamic';
  *
  * Поиск, группа, вид списка и страница живут в адресе: отфильтрованные
  * остатки — ссылка, которую можно сохранить и прислать себе.
+ *
+ * 🔴 Заведение позиции ушло в окно (ADR-137): свёрнутая форма над таблицей
+ * уводила её вниз ровно тогда, когда на неё смотрят. Список моделей каталога
+ * читает уже сама форма — странице остатков он не нужен вовсе.
  *
  * Читаем `repo` напрямую, а не своим же запросом к `/api/admin/stock`: страница
  * и так серверная, лишний круг через сеть — лишний способ отказать.
@@ -57,27 +60,16 @@ export default async function AdminStockPage({
     archived: lowFromParam(archived),
   };
 
-  const [found, catalog] = await Promise.all([
-    overview(
-      {
-        query: filters.query,
-        group: filters.group,
-        low: filters.low,
-        archived: filters.archived,
-        page: pageNumber(page),
-      },
-      { role: session.role, userId: session.userId },
-    ),
-    listAll(),
-  ]);
-
-  /* Форме позиции нужны только имя и адрес модели: фотографии, характеристики
-     и цены каталога складу не нужны вовсе. */
-  const products: readonly StockItemProduct[] = catalog.map((product) => ({
-    id: product.id,
-    name: product.name,
-    slug: product.slug,
-  }));
+  const found = await overview(
+    {
+      query: filters.query,
+      group: filters.group,
+      low: filters.low,
+      archived: filters.archived,
+      page: pageNumber(page),
+    },
+    { role: session.role, userId: session.userId },
+  );
 
   return (
     <div className={styles.page}>
@@ -85,12 +77,28 @@ export default async function AdminStockPage({
         <div className={styles.headline}>
           <h1 className={styles.title}>{texts.title}</h1>
 
-          <Link
-            className={buttonClassName({ size: 'sm', variant: 'secondary' })}
-            href={{ pathname: STOCK_ZONES_PATH }}
-          >
-            {texts.zonesOpen}
-          </Link>
+          <div className={styles.actions}>
+            <Link
+              className={buttonClassName({ size: 'sm' })}
+              href={{ pathname: STOCK_ITEM_NEW_PATH }}
+            >
+              {texts.itemAddOpen}
+            </Link>
+
+            <Link
+              className={buttonClassName({ size: 'sm', variant: 'secondary' })}
+              href={{ pathname: STOCK_JOURNAL_PATH }}
+            >
+              {texts.journalOpen}
+            </Link>
+
+            <Link
+              className={buttonClassName({ size: 'sm', variant: 'secondary' })}
+              href={{ pathname: STOCK_ZONES_PATH }}
+            >
+              {texts.zonesOpen}
+            </Link>
+          </div>
         </div>
 
         <p className={styles.lead}>{texts.lead}</p>
@@ -102,8 +110,6 @@ export default async function AdminStockPage({
         total={found.total}
         lowCount={found.lowCount}
       />
-
-      <StockItemAdd products={products} />
 
       <StockTable overview={found} filters={filters} />
     </div>

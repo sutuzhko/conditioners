@@ -692,6 +692,8 @@ function toMovementCard(row: MovementRow): StockMovementCard {
 
 export type StockMovementQuery = {
   readonly item?: string | undefined;
+  /** Вид движения: «покажи только приходы» — обычный вопрос к журналу. */
+  readonly kind?: StockMoveKind | undefined;
   readonly page?: number | undefined;
 };
 
@@ -701,7 +703,10 @@ export type StockMovementQuery = {
  */
 export async function movements(query: StockMovementQuery): Promise<Page<StockMovementCard>> {
   const itemId = query.item?.trim() ?? '';
-  const where: Prisma.StockMovementWhereInput = itemId === '' ? {} : { itemId };
+  const where: Prisma.StockMovementWhereInput = {
+    ...(itemId === '' ? {} : { itemId }),
+    ...(query.kind === undefined ? {} : { kind: MOVE_KIND_TO_DB[query.kind] }),
+  };
 
   const total = await db.stockMovement.count({ where });
   const window = pageWindow(total, query.page ?? 1, STOCK_PAGE_SIZE);

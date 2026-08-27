@@ -5,18 +5,19 @@ import { notFound } from 'next/navigation';
 import {
   StockJournal,
   StockItemForm,
-  StockMoveForm,
+  STOCK_MOVE_PATH,
   STOCK_PATH,
   itemDraftOf,
-  itemRefOf,
   pageNumber,
   stockItemPath,
   stockManagerContent as texts,
+  stockMoveQuery,
   type StockItemProduct,
 } from '@/features/stock-manager';
 import { requireOwnerPage } from '@/server/guards';
 import { listAll } from '@/server/repo/products';
-import { item as findItem, movements, zones as listZones } from '@/server/repo/stock';
+import { item as findItem, movements } from '@/server/repo/stock';
+import { buttonClassName } from '@/shared/ui';
 
 import styles from '../../page.module.css';
 
@@ -36,14 +37,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 /**
- * Карточка позиции: справочные данные, движения и журнал.
+ * Карточка позиции: справочные данные, её журнал и вход в движение.
  *
  * 🔴 Остаток здесь не правится ни одним полем: он сумма движений. Правка руками
  * существует, но как инвентаризация с обязательным основанием (ADR-134).
  *
  * Правка — страницей, а не окном (ADR-117): ссылку на карточку можно прислать,
  * F5 не выбрасывает в список, и рядом с формой живёт журнал движений, ради
- * которого сюда и заходят.
+ * которого сюда и заходят. А вот движение заводится окном (ADR-137) — форма
+ * его больше не занимает половину карточки.
  */
 export default async function AdminStockItemPage({ params, searchParams }: PageProps) {
   /* Раздел владельца: проверка до чтения данных (ADR-095). */
@@ -53,10 +55,9 @@ export default async function AdminStockItemPage({ params, searchParams }: PageP
   const { id } = await params;
   const { page } = await searchParams;
 
-  const [found, journal, zones, catalog] = await Promise.all([
+  const [found, journal, catalog] = await Promise.all([
     findItem(id, viewer),
     movements({ item: id, page: pageNumber(page) }),
-    listZones(viewer),
     listAll(),
   ]);
 
@@ -75,7 +76,20 @@ export default async function AdminStockItemPage({ params, searchParams }: PageP
       </Link>
 
       <header className={styles.header}>
-        <h1 className={styles.title}>{found.item.name}</h1>
+        <div className={styles.headline}>
+          <h1 className={styles.title}>{found.item.name}</h1>
+
+          <Link
+            className={buttonClassName({ size: 'sm' })}
+            href={{
+              pathname: STOCK_MOVE_PATH,
+              query: stockMoveQuery({ item: found.item.id }),
+            }}
+          >
+            {texts.moveOpen}
+          </Link>
+        </div>
+
         <p className={styles.meta}>
           <span>{found.item.group ?? texts.itemGroupNone}</span>
           <span>{texts.qty(found.item.total, found.item.unit)}</span>
@@ -93,9 +107,6 @@ export default async function AdminStockItemPage({ params, searchParams }: PageP
         hint={texts.itemCardHint}
         archivable
       />
-
-      {/* Позиция известна из адреса: списком из одного пункта её не подменяют. */}
-      <StockMoveForm items={[itemRefOf(found.item)]} zones={zones} />
 
       <StockJournal journal={journal} basePath={stockItemPath(found.item.id)} />
     </div>

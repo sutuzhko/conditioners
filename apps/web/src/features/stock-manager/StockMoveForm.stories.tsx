@@ -3,7 +3,15 @@ import { userEvent, within } from 'storybook/test';
 
 import { StockMoveForm } from './StockMoveForm';
 import { STOCK_MOVE_TITLES, stockManagerContent as texts } from './content';
-import { acceptingApi, failingApi, itemRefs, pendingApi, warehouse, zones } from './fixtures';
+import {
+  acceptingApi,
+  failingApi,
+  itemRefs,
+  moveDraft,
+  pendingApi,
+  warehouse,
+  zones,
+} from './fixtures';
 
 const meta = {
   title: 'Админка/Склад · Движение',
@@ -83,4 +91,17 @@ export const ОднаЗона: Story = {
       STOCK_MOVE_TITLES.transfer,
     );
   },
+};
+
+/**
+ * После перетаскивания ячейки: позиция и обе зоны пришли адресом, вводят одно
+ * количество — туда же встаёт курсор (ADR-137).
+ */
+export const ПослеПеретаскивания: Story = {
+  args: { items: itemRefs.slice(0, 1), initial: moveDraft, autoFocusQty: true },
+};
+
+/** В окне формa приходит без своей карточки: рамку и заголовок даёт окно. */
+export const БезРамки: Story = {
+  args: { items: itemRefs.slice(0, 1), initial: moveDraft, surface: 'bare' },
 };

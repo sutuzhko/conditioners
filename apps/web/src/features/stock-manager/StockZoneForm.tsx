@@ -5,6 +5,7 @@ import { useState, type FormEvent } from 'react';
 import { Button, Card, Input, Select } from '@/shared/ui';
 
 import { STOCK_ZONE_KIND_TITLES, stockManagerContent as texts } from './content';
+import type { StockSurface } from './StockFormSurface';
 import { stockApi } from './lib';
 import {
   STOCK_ZONE_KINDS,
@@ -33,6 +34,8 @@ export interface StockZoneFormProps {
   readonly people?: readonly StockZonePerson[] | undefined;
   readonly onSaved?: (() => void) | undefined;
   readonly onCancel?: (() => void) | undefined;
+  /** Своя карточка с заголовком или только поля: см. `StockSurface`. */
+  readonly surface?: StockSurface | undefined;
 }
 
 /**
@@ -50,6 +53,7 @@ export function StockZoneForm({
   people = [],
   onSaved,
   onCancel,
+  surface = 'section',
 }: StockZoneFormProps) {
   const [draft, setDraft] = useState<StockZoneDraft>(initial);
   const [status, setStatus] = useState<StockStatus>('idle');
@@ -107,11 +111,15 @@ export function StockZoneForm({
     else setFieldError({ field: result.field, message: result.message });
   };
 
-  return (
-    <Card as="section" variant="soft">
+  const form = (
+    <>
       <form className={styles.form} onSubmit={submit} noValidate>
-        <h3 className={styles.title}>{editing ? texts.zoneEditTitle : texts.zoneAddTitle}</h3>
-        {editing ? null : <p className={styles.hint}>{texts.zoneAddHint}</p>}
+        {surface === 'section' ? (
+          <>
+            <h3 className={styles.title}>{editing ? texts.zoneEditTitle : texts.zoneAddTitle}</h3>
+            {editing ? null : <p className={styles.hint}>{texts.zoneAddHint}</p>}
+          </>
+        ) : null}
 
         <div className={styles.grid}>
           <Select
@@ -191,6 +199,16 @@ export function StockZoneForm({
           </p>
         ) : null}
       </form>
+    </>
+  );
+
+  /* Правка зоны раскрывается прямо в строке списка — мягкая карточка отделяет
+     форму от соседних зон; окно рамку даёт само. */
+  if (surface === 'bare') return form;
+
+  return (
+    <Card as="section" variant="soft">
+      {form}
     </Card>
   );
 }

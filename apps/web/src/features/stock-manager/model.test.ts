@@ -9,8 +9,11 @@ import {
   hasShortage,
   itemDraftOf,
   moveBody,
+  moveDraftOf,
   qtyInput,
   stockFiltersApplied,
+  stockMovePath,
+  stockMoveQuery,
   stockQuery,
   zoneQty,
 } from './model';
@@ -121,5 +124,51 @@ describe('🔴 зона: машина принадлежит человеку, �
   it('склад с хозяином не проходит', () => {
     expect(checkZone({ ...draft, kind: 'warehouse', userId: 'u2' }, false)?.field).toBe('userId');
     expect(checkZone({ ...draft, kind: 'warehouse', userId: '' }, false)).toBeNull();
+  });
+});
+
+describe('🔴 окно перемещения открывается адресом, а не состоянием', () => {
+  it('пустое в адрес не уезжает: `?from=` ничего не выбирает', () => {
+    expect(stockMoveQuery({})).toEqual({});
+    expect(stockMovePath({})).toBe('/admin/stock/move');
+  });
+
+  it('отпущенная ячейка приносит позицию и обе зоны', () => {
+    expect(stockMovePath({ item: 's1', from: 'z1', to: 'z2' })).toBe(
+      '/admin/stock/move?item=s1&from=z1&to=z2',
+    );
+  });
+
+  it('с зоной-источником это перемещение, без неё — приход', () => {
+    expect(moveDraftOf({ item: 's1', from: 'z1', to: 'z2' })).toEqual({
+      kind: 'transfer',
+      itemId: 's1',
+      qty: '',
+      fromZoneId: 'z1',
+      toZoneId: 'z2',
+      serials: '',
+      reason: '',
+    });
+
+    expect(moveDraftOf({ item: 's1' }).kind).toBe('income');
+  });
+
+  it('вид из адреса сильнее догадки', () => {
+    expect(moveDraftOf({ item: 's1', kind: 'count' }).kind).toBe('count');
+  });
+
+  it('🔴 списание и возврат адресом не заводятся: они живут в карточке наряда', () => {
+    /* Движение без наряда сервер не примет, и предлагать его форме нечего. */
+    expect(moveDraftOf({ item: 's1', kind: 'consume' }).kind).toBe('income');
+    expect(moveDraftOf({ item: 's1', from: 'z1', kind: 'return' }).kind).toBe('transfer');
+  });
+
+  it('мусор в адресе не ломает форму: разбирается как обычный приход', () => {
+    expect(moveDraftOf({ item: 's1', kind: 'что-нибудь' }).kind).toBe('income');
+    expect(moveDraftOf({}).itemId).toBe('');
+  });
+
+  it('зона-источник не переезжает в чужой вид: приход её не ждёт', () => {
+    expect(moveDraftOf({ item: 's1', from: 'z1', to: 'z2', kind: 'income' }).fromZoneId).toBe('');
   });
 });

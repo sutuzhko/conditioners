@@ -1,5 +1,6 @@
 /** Раздел склада: типы представления. Доменные схемы — в `entities/stock`. */
 import {
+  isStockMoveKind,
   stockItemCreateSchema,
   stockItemUpdateSchema,
   stockMovementCreateSchema,
@@ -43,6 +44,24 @@ export const STOCK_ZONES_PATH = '/admin/stock/zones';
 export function stockItemPath(id: string): string {
   return `/admin/stock/items/${id}`;
 }
+
+/**
+ * Адреса окон создания (ADR-137). Окно живёт по собственному адресу, а не в
+ * состоянии компонента: иначе ссылку на форму нельзя прислать, «назад» уводит
+ * из раздела, а обновление страницы теряет ввод (ADR-117).
+ */
+export const STOCK_ITEM_NEW_PATH = '/admin/stock/items/new';
+export const STOCK_ZONE_NEW_PATH = '/admin/stock/zones/new';
+export const STOCK_MOVE_PATH = '/admin/stock/move';
+
+/**
+ * Журнал движений всего склада.
+ *
+ * 🔴 Отдельный экран, а не замена истории позиции (ADR-137): «что было на
+ * складе в четверг» и «куда делась эта труба» — разные вопросы, и второй
+ * перебором позиций не решается.
+ */
+export const STOCK_JOURNAL_PATH = '/admin/stock/journal';
 
 /* ---------- Фильтры остатков ---------- */
 
@@ -237,6 +256,81 @@ export function emptyMoveDraft(itemId = ''): StockMoveDraft {
     qty: '',
     fromZoneId: '',
     toZoneId: '',
+    serials: '',
+    reason: '',
+  };
+}
+
+/**
+ * Что подставлено в форму движения адресом окна.
+ *
+ * 🔴 Именно адрес, а не состояние: отпущенная над зоной ячейка открывает окно
+ * ссылкой, и эту ссылку можно прислать, обновить и закрыть кнопкой «назад»
+ * (ADR-137). Перетаскивание при этом остаётся ускорителем — тот же адрес
+ * открывает кнопка «Переместить» в строке.
+ */
+export type StockMovePreset = {
+  readonly item?: string | undefined;
+  readonly from?: string | undefined;
+  readonly to?: string | undefined;
+  readonly kind?: StockMoveKind | undefined;
+};
+
+/** Параметры адреса окна. Пустое не уезжает: `?from=` ничего не выбирает. */
+export function stockMoveQuery(preset: StockMovePreset = {}): Record<string, string> {
+  const item = preset.item?.trim() ?? '';
+  const from = preset.from?.trim() ?? '';
+  const to = preset.to?.trim() ?? '';
+
+  return {
+    ...(item === '' ? {} : { item }),
+    ...(from === '' ? {} : { from }),
+    ...(to === '' ? {} : { to }),
+    ...(preset.kind === undefined ? {} : { kind: preset.kind }),
+  };
+}
+
+/**
+ * Тот же адрес строкой — для мягкого перехода.
+ *
+ * Тип литеральный, а не `string`: маршруты проекта типизированы, и обычная
+ * строка компилятору ничего не обещает.
+ */
+export type StockMoveHref = typeof STOCK_MOVE_PATH | `${typeof STOCK_MOVE_PATH}?${string}`;
+
+export function stockMovePath(preset: StockMovePreset = {}): StockMoveHref {
+  const query = new URLSearchParams(stockMoveQuery(preset)).toString();
+  return query === '' ? STOCK_MOVE_PATH : `${STOCK_MOVE_PATH}?${query}`;
+}
+
+/**
+ * Поля формы движения из параметров адреса.
+ *
+ * Вид угадывается по тому, что пришло: с зоной-источником это перемещение, без
+ * неё — приход. Явный `kind` в адресе сильнее догадки, но чужие виды не
+ * принимаются: списание и возврат заводятся из наряда, где известна работа
+ * (docs/API.md §14).
+ */
+export function moveDraftOf(params: {
+  readonly item?: string | undefined;
+  readonly from?: string | undefined;
+  readonly to?: string | undefined;
+  readonly kind?: string | undefined;
+}): StockMoveDraft {
+  const from = params.from?.trim() ?? '';
+  const to = params.to?.trim() ?? '';
+  const raw = params.kind?.trim() ?? '';
+  const asked = isStockMoveKind(raw) && STOCK_SECTION_MOVES.includes(raw) ? raw : undefined;
+  const kind: StockMoveKind = asked ?? (from === '' ? 'income' : 'transfer');
+
+  return {
+    kind,
+    itemId: params.item?.trim() ?? '',
+    qty: '',
+    /* Зона-источник есть только у перемещения: у прихода и инвентаризации
+       сервер её не ждёт и разбирать не должен. */
+    fromZoneId: kind === 'transfer' ? from : '',
+    toZoneId: to,
     serials: '',
     reason: '',
   };

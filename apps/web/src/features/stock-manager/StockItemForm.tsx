@@ -3,10 +3,11 @@
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 
-import { Badge, Button, Card, Input, Select, Textarea, useConfirm } from '@/shared/ui';
+import { Badge, Button, Input, Select, Textarea, useConfirm } from '@/shared/ui';
 import type { Confirm } from '@/shared/ui';
 
 import { STOCK_UNIT_FULL, stockManagerContent as texts } from './content';
+import { StockFormSurface, type StockSurface } from './StockFormSurface';
 import { stockApi } from './lib';
 import {
   STOCK_UNITS,
@@ -36,6 +37,8 @@ export interface StockItemFormProps {
   readonly archivable?: boolean | undefined;
   /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
   readonly confirmArchive?: Confirm | undefined;
+  /** Своя карточка с заголовком или только поля: см. `StockSurface`. */
+  readonly surface?: StockSurface | undefined;
 }
 
 /**
@@ -55,6 +58,7 @@ export function StockItemForm({
   onSaved,
   archivable = false,
   confirmArchive,
+  surface = 'section',
 }: StockItemFormProps) {
   const { confirm, dialog } = useConfirm();
   const ask = confirmArchive ?? confirm;
@@ -160,17 +164,21 @@ export function StockItemForm({
   };
 
   return (
-    <Card as="section">
+    <StockFormSurface surface={surface}>
       <form className={styles.form} onSubmit={submit} noValidate>
-        <div className={styles.head}>
-          <h2 className={styles.title}>{title}</h2>
-          {editing && draft.archived ? (
-            <Badge variant="neutral" size="sm">
-              {texts.itemArchived}
-            </Badge>
-          ) : null}
-        </div>
-        <p className={styles.hint}>{hint}</p>
+        {surface === 'section' ? (
+          <>
+            <div className={styles.head}>
+              <h2 className={styles.title}>{title}</h2>
+              {editing && draft.archived ? (
+                <Badge variant="neutral" size="sm">
+                  {texts.itemArchived}
+                </Badge>
+              ) : null}
+            </div>
+            <p className={styles.hint}>{hint}</p>
+          </>
+        ) : null}
 
         <div className={styles.grid}>
           <Input
@@ -293,7 +301,7 @@ export function StockItemForm({
       </form>
 
       {dialog}
-    </Card>
+    </StockFormSurface>
   );
 }
 

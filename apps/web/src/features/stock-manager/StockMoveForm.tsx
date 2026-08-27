@@ -1,11 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 
 import { Button, Card, Input, Select, Textarea } from '@/shared/ui';
 
 import { STOCK_MOVE_TITLES, STOCK_UNIT_TITLES, stockManagerContent as texts } from './content';
+import { StockFormSurface, type StockSurface } from './StockFormSurface';
 import { stockApi } from './lib';
 import {
   STOCK_SECTION_MOVES,
@@ -29,6 +30,15 @@ export interface StockMoveFormProps {
   readonly zones: readonly StockZoneCard[];
   readonly api?: StockApi | undefined;
   readonly onSaved?: (() => void) | undefined;
+  /**
+   * Что уже подставлено адресом окна: позиция и зоны при перетаскивании
+   * известны, вводят только количество (ADR-137).
+   */
+  readonly initial?: StockMoveDraft | undefined;
+  /** Ставить курсор в количество: всё остальное пришло из адреса. */
+  readonly autoFocusQty?: boolean | undefined;
+  /** Своя карточка с заголовком или только поля: см. `StockSurface`. */
+  readonly surface?: StockSurface | undefined;
 }
 
 /**
@@ -41,12 +51,23 @@ export interface StockMoveFormProps {
  * как инвентаризация с обязательным основанием — иначе вопрос «куда делись
  * тридцать метров трассы» остаётся без ответа (ADR-134).
  */
-export function StockMoveForm({ items, zones, api = stockApi, onSaved }: StockMoveFormProps) {
+export function StockMoveForm({
+  items,
+  zones,
+  api = stockApi,
+  onSaved,
+  initial,
+  autoFocusQty = false,
+  surface = 'section',
+}: StockMoveFormProps) {
   const router = useRouter();
   const open = zones.filter((zone) => !zone.archived);
   const single = items.length === 1 ? items[0] : undefined;
 
-  const [draft, setDraft] = useState<StockMoveDraft>(() => emptyMoveDraft(single?.id ?? ''));
+  const qtyRef = useRef<HTMLInputElement>(null);
+  const [draft, setDraft] = useState<StockMoveDraft>(
+    () => initial ?? emptyMoveDraft(single?.id ?? ''),
+  );
   const [status, setStatus] = useState<StockStatus>('idle');
   const [message, setMessage] = useState('');
   const [fieldError, setFieldError] = useState<FieldIssue | null>(null);
@@ -76,6 +97,16 @@ export function StockMoveForm({ items, zones, api = stockApi, onSaved }: StockMo
   const errorFor = (field: keyof StockMoveDraft): string | undefined =>
     fieldError?.field === field ? fieldError.message : undefined;
 
+  /* Окно уводит фокус на «Закрыть» своим эффектом, а эффекты идут снизу вверх —
+     поэтому курсор в количество ставится кадром позже. Перемещение открывают
+     ради одного числа: всё остальное подставил адрес. */
+  useEffect(() => {
+    if (!autoFocusQty) return;
+
+    const frame = requestAnimationFrame(() => qtyRef.current?.focus());
+    return () => cancelAnimationFrame(frame);
+  }, [autoFocusQty]);
+
   const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     if (sending) return;
@@ -99,6 +130,7 @@ export function StockMoveForm({ items, zones, api = stockApi, onSaved }: StockMo
     if (result.ok) {
       /* Вид и позиция остаются: приход заводят подряд по накладной. */
       setDraft((prev) => ({ ...emptyMoveDraft(prev.itemId), kind: prev.kind }));
+      qtyRef.current?.focus();
       setStatus('success');
       onSaved?.();
       router.refresh();
@@ -117,10 +149,14 @@ export function StockMoveForm({ items, zones, api = stockApi, onSaved }: StockMo
   const unitSuffix = selected === undefined ? '' : `, ${STOCK_UNIT_TITLES[selected.unit]}`;
 
   return (
-    <Card as="section">
+    <StockFormSurface surface={surface}>
       <form className={styles.form} onSubmit={submit} noValidate>
-        <h2 className={styles.title}>{texts.moveTitle}</h2>
-        <p className={styles.hint}>{texts.moveHint}</p>
+        {surface === 'section' ? (
+          <>
+            <h2 className={styles.title}>{texts.moveTitle}</h2>
+            <p className={styles.hint}>{texts.moveHint}</p>
+          </>
+        ) : null}
 
         <div className={styles.grid}>
           <Select
@@ -155,6 +191,7 @@ export function StockMoveForm({ items, zones, api = stockApi, onSaved }: StockMo
           )}
 
           <Input
+            ref={qtyRef}
             label={(count ? texts.moveDelta : texts.moveQty) + unitSuffix}
             hint={count ? texts.moveDeltaHint : texts.moveQtyHint}
             value={draft.qty}
@@ -235,7 +272,7 @@ export function StockMoveForm({ items, zones, api = stockApi, onSaved }: StockMo
           </p>
         ) : null}
       </form>
-    </Card>
+    </StockFormSurface>
   );
 }
 

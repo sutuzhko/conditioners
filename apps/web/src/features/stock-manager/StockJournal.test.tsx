@@ -11,7 +11,7 @@ import {
   journal,
   longJournal,
 } from './fixtures';
-import { stockItemPath } from './model';
+import { STOCK_JOURNAL_PATH, stockItemPath } from './model';
 
 const basePath = stockItemPath('s1');
 
@@ -71,6 +71,35 @@ describe('Журнал движений', () => {
       'href',
       `${basePath}?page=3`,
     );
+  });
+
+  it('🔴 журнал всего склада называет позицию: «что двигали» — первый вопрос к нему', () => {
+    render(<StockJournal journal={journal} basePath={STOCK_JOURNAL_PATH} withItem />);
+
+    expect(screen.getByRole('columnheader', { name: texts.colItem })).toBeVisible();
+    expect(screen.getAllByRole('link', { name: consumeMove.item.name })[0]).toHaveAttribute(
+      'href',
+      `/admin/stock/items/${consumeMove.item.id}`,
+    );
+  });
+
+  it('в карточке позиции колонки позиции нет: она там ничего не сообщает', () => {
+    render(<StockJournal journal={journal} basePath={basePath} />);
+
+    expect(screen.queryByRole('columnheader', { name: texts.colItem })).not.toBeInTheDocument();
+  });
+
+  it('пустой журнал склада объясняется своими словами, а не словами позиции', () => {
+    render(
+      <StockJournal
+        journal={emptyJournal}
+        basePath={STOCK_JOURNAL_PATH}
+        withItem
+        emptyText={texts.journalAllEmpty}
+      />,
+    );
+
+    expect(screen.getByText(texts.journalAllEmpty)).toBeVisible();
   });
 
   it('движений не было — объясняем, а не показываем пустую таблицу', () => {

@@ -1,14 +1,21 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { Badge, Button, Card, useConfirm, type Confirm } from '@/shared/ui';
+import { Badge, Button, Card, buttonClassName, useConfirm, type Confirm } from '@/shared/ui';
 
 import { STOCK_ZONE_KIND_TITLES, stockManagerContent as texts } from './content';
 import { StockZoneForm } from './StockZoneForm';
 import { stockApi } from './lib';
-import { zoneDraftOf, type StockApi, type StockZoneCard, type StockZonePerson } from './model';
+import {
+  STOCK_ZONE_NEW_PATH,
+  zoneDraftOf,
+  type StockApi,
+  type StockZoneCard,
+  type StockZonePerson,
+} from './model';
 import styles from './StockZones.module.css';
 
 export interface StockZonesProps {
@@ -40,13 +47,11 @@ export function StockZones({
   const ask = confirmArchive ?? confirm;
 
   const router = useRouter();
-  const [adding, setAdding] = useState(false);
   const [editing, setEditing] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
   const [message, setMessage] = useState('');
 
   const done = (): void => {
-    setAdding(false);
     setEditing(null);
     router.refresh();
   };
@@ -121,15 +126,18 @@ export function StockZones({
         </ul>
       )}
 
-      {adding ? (
-        <StockZoneForm api={api} people={people} onSaved={done} onCancel={() => setAdding(false)} />
-      ) : (
-        <div className={styles.actions}>
-          <Button type="button" variant="secondary" size="sm" onClick={() => setAdding(true)}>
-            {texts.zoneAdd}
-          </Button>
-        </div>
-      )}
+      {/* 🔴 Заведение — окном с собственным адресом (ADR-137): форма, выросшая
+          под списком зон, уводит его вниз ровно тогда, когда на него смотрят.
+          Правка при этом остаётся на месте строки — это короткое действие, и
+          рядом с ней видно, что меняешь. */}
+      <div className={styles.actions}>
+        <Link
+          className={buttonClassName({ variant: 'secondary', size: 'sm' })}
+          href={{ pathname: STOCK_ZONE_NEW_PATH }}
+        >
+          {texts.zoneAdd}
+        </Link>
+      </div>
 
       {message === '' ? null : (
         <p className={styles.error} role="alert">

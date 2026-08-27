@@ -1,10 +1,10 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { StockMoveForm } from './StockMoveForm';
 import { stockManagerContent as texts } from './content';
-import { acceptingApi, archivedZone, itemRefs, van, warehouse, zones } from './fixtures';
+import { acceptingApi, archivedZone, itemRefs, moveDraft, van, warehouse, zones } from './fixtures';
 
 const refresh = vi.fn();
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), refresh }) }));
@@ -171,5 +171,25 @@ describe('Форма движения', () => {
 
     expect(await screen.findByRole('alert')).toHaveTextContent(texts.serverError);
     expect(screen.getByLabelText(qtyField)).toHaveValue('12,5');
+  });
+
+  it('🔴 отпущенная ячейка приносит позицию и обе зоны: вводят одно количество', () => {
+    render(<StockMoveForm items={single} zones={zones} initial={moveDraft} />);
+
+    expect(screen.getByLabelText(texts.moveFrom)).toHaveValue(warehouse.id);
+    expect(screen.getByLabelText(texts.moveTo)).toHaveValue(van.id);
+    expect(screen.getByLabelText(qtyField)).toHaveValue('');
+  });
+
+  it('🔴 курсор встаёт в количество: всё остальное уже подставил адрес', async () => {
+    render(<StockMoveForm items={single} zones={zones} initial={moveDraft} autoFocusQty />);
+
+    await waitFor(() => expect(screen.getByLabelText(qtyField)).toHaveFocus());
+  });
+
+  it('без просьбы фокус никуда не уводится: на странице форма не единственная', () => {
+    render(<StockMoveForm items={single} zones={zones} initial={moveDraft} />);
+
+    expect(screen.getByLabelText(qtyField)).not.toHaveFocus();
   });
 });
