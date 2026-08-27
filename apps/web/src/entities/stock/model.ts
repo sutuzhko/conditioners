@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { STOCK_UNITS, type StockUnit } from '@/shared/config/units';
+
 /**
  * Склад: что лежит, где лежит и куда делось.
  *
@@ -13,20 +15,12 @@ import { z } from 'zod';
  * которое все правят по памяти.
  */
 
-/* Набор единиц задаёт код, номенклатуру — владелец из админки (инвариант 8). */
-export const stockUnitSchema = z.enum([
-  'piece',
-  'meter',
-  'kilogram',
-  'liter',
-  'pair',
-  'pack',
-  'coil',
-  'roll',
-  'cylinder',
-]);
-export type StockUnit = z.infer<typeof stockUnitSchema>;
-export const STOCK_UNITS: readonly StockUnit[] = stockUnitSchema.options;
+/* Набор единиц и их подписи живут в `shared/config/units`: словарь нужен и
+   разделу склада, и карточке наряда, и тексту уведомления, а копия каждому
+   разошлась бы с остальными (инвариант 8 задаёт номенклатуру, не единицы). */
+export const stockUnitSchema = z.enum(STOCK_UNITS);
+export type { StockUnit };
+export { STOCK_UNITS };
 
 export const stockZoneKindSchema = z.enum(['warehouse', 'van']);
 export type StockZoneKind = z.infer<typeof stockZoneKindSchema>;

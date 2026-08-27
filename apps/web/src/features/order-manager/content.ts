@@ -12,6 +12,7 @@ import type {
 } from '@/entities/order/model';
 import { timeOf } from '@/shared/lib/calendar';
 import { formatDateShort, formatDateTime, formatMoney, formatQuantity } from '@/shared/lib/format';
+import { STOCK_UNIT_SHORT } from '@/shared/config/units';
 import { plural } from '@/shared/lib/plural';
 import type { BadgeVariant } from '@/shared/ui';
 
@@ -128,17 +129,9 @@ export const DEDUCTION_NOTE: Record<DeductionMode, string> = {
  * склонения на каждой строке таблицы, а сокращение с точкой — обычная запись
  * товароведа и читается одинаково при любом числе.
  */
-export const STOCK_UNIT_SHORT: Record<StockUnit, string> = {
-  piece: 'шт.',
-  meter: 'м',
-  kilogram: 'кг',
-  liter: 'л',
-  pair: 'пар.',
-  pack: 'уп.',
-  coil: 'бухт.',
-  roll: 'мот.',
-  cylinder: 'бал.',
-};
+/* Подписи единиц общие с разделом склада: одно и то же количество видно и
+   там, и здесь, и расходиться эти два написания не имеют права. */
+export { STOCK_UNIT_SHORT };
 
 /* Число и единица — одна величина, рвать её переносом нельзя. */
 const QTY_NBSP = '\u00A0';

@@ -1,5 +1,6 @@
 /** Подписи раздела склада. */
 import type { StockMoveKind, StockUnit, StockZoneKind } from '@/entities/stock/model';
+import { STOCK_UNIT_SHORT } from '@/shared/config/units';
 import { formatDateTime, formatQuantity } from '@/shared/lib/format';
 import { plural } from '@/shared/lib/plural';
 import type { ConfirmRequest } from '@/shared/ui';
@@ -11,17 +12,12 @@ import type { ConfirmRequest } from '@/shared/ui';
  * Подписи короткие: они стоят в ячейке таблицы рядом с числом, и «килограмм»
  * там занял бы больше места, чем сам остаток.
  */
-export const STOCK_UNIT_TITLES: Readonly<Record<StockUnit, string>> = {
-  piece: 'шт.',
-  meter: 'м',
-  kilogram: 'кг',
-  liter: 'л',
-  pair: 'пара',
-  pack: 'упак.',
-  coil: 'бухта',
-  roll: 'моток',
-  cylinder: 'баллон',
-};
+/**
+ * Подписи единиц — общие для панели и уведомлений (`shared/config/units`).
+ * Своей копии здесь нет: «2 баллон» на экране владельца выглядит поломкой
+ * системы, и починить это в одном из трёх словарей значит починить в одном.
+ */
+export const STOCK_UNIT_TITLES = STOCK_UNIT_SHORT;
 
 /** Полные названия единиц — для выпадающего списка в форме позиции. */
 export const STOCK_UNIT_FULL: Readonly<Record<StockUnit, string>> = {

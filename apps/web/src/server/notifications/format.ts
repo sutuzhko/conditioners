@@ -7,6 +7,7 @@ import type { LeadContext } from '@/entities/lead/model';
 import type { OrderEquip, OrderType, PaymentMode, UnitSource } from '@/entities/order/model';
 import type { StockUnit } from '@/entities/stock/model';
 import { env } from '@/shared/config/env';
+import { STOCK_UNIT_SHORT } from '@/shared/config/units';
 import { formatDateTime, formatMoney, formatQuantity } from '@/shared/lib/format';
 import type {
   NotificationPayload,
@@ -91,24 +92,12 @@ const FIELD_TITLES: Readonly<Record<OrderBriefField, string>> = {
  * Сокращения единиц склада: «43,5 м», а не «43,5 метра». Владелец читает это с
  * телефона между выездами, и полное слово в такой строке — лишний шум.
  */
-const UNIT_TITLES: Readonly<Record<StockUnit, string>> = {
-  piece: 'шт',
-  meter: 'м',
-  kilogram: 'кг',
-  liter: 'л',
-  pair: 'пар',
-  pack: 'упак',
-  coil: 'бухт',
-  roll: 'мотк',
-  cylinder: 'бал',
-};
-
 /* Число форматирует `shared/lib/format` — то же, что показывает панель:
    владелец читает сообщение и сверяет его с экраном, и «4,3» в письме против
    «4.3» на странице заставит его усомниться в обоих (инвариант 9 по духу).
-   Свой здесь только словарь единиц: в сообщении они короче, чем в таблице. */
+   Словарь единиц — тот же, что в панели: владелец сверяет письмо с экраном. */
 function quantityText(value: number, unit: StockUnit): string {
-  return `${formatQuantity(value)} ${UNIT_TITLES[unit]}`;
+  return `${formatQuantity(value)} ${STOCK_UNIT_SHORT[unit]}`;
 }
 
 const CANCEL_TITLES: Readonly<Record<OrderCancelReason, string>> = {
