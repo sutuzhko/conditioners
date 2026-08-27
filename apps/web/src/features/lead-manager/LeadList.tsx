@@ -40,7 +40,7 @@ export function LeadList({ leads, filtered = false }: LeadListProps) {
           toOrder={leadToOrder}
           /* Черновик наряда живёт своей страницей: раздел заявок не знает
              ни полей наряда, ни списка монтажников. */
-          onOrder={(leadId) => router.push(`/admin/leads/${leadId}/order`)}
+          onOrder={(leadId) => router.push(`/admin/orders/new?lead=${leadId}`)}
           onChanged={() => router.refresh()}
         />
       ))}

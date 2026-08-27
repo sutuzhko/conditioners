@@ -47,3 +47,12 @@
 .back:hover {
   text-decoration: underline;
 }
+
+/* Кто и с чем обратился, когда наряд заводят из заявки, — подпись под
+   заголовком, а не часть его. */
+.from {
+  margin: 0;
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
