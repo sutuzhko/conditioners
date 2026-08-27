@@ -178,6 +178,42 @@ export const warrantySchema = z
   })
   .strict();
 
+/**
+ * Рабочее окно компании: с какого и по какой час календарь открывается по
+ * умолчанию.
+ *
+ * 🔴 Структурой, а не строкой. Свободный текст часов работы
+ * (`contacts.hours`, «Пн–Пт 9:00–19:00») для этого не годится: разбирать
+ * строку, которую человек пишет как хочет, — способ однажды показать пустой
+ * день (ADR-128). Эта настройка живёт рядом, но отвечает на другой вопрос:
+ * `contacts.hours` читает посетитель сайта, `schedule` — сетка календаря.
+ *
+ * Окно ограничивает то, что показано по умолчанию, но не то, что можно
+ * завести: монтажник, оставшийся на объекте до девяти вечера, отмечается
+ * обычной записью, а время за границей окна помечается переработкой.
+ */
+export const scheduleSchema = z
+  .object({
+    /** Минуты от полуночи по Москве. Полночь — ноль, девять утра — 540. */
+    fromMin: z.coerce
+      .number()
+      .int()
+      .min(0)
+      .max(1439)
+      .default(9 * 60),
+    toMin: z.coerce
+      .number()
+      .int()
+      .min(1)
+      .max(1440)
+      .default(19 * 60),
+  })
+  .strict()
+  .refine((value) => value.fromMin < value.toMin, {
+    path: ['toMin'],
+    message: 'Конец рабочего дня должен быть позже начала',
+  });
+
 export const paymentSchema = z
   .object({
     methods: z.array(z.string().trim().max(300)).max(20).default([]),
@@ -370,6 +406,7 @@ export const settingSchemas = {
   legal: legalSchema,
   extras: extrasSchema,
   warranty: warrantySchema,
+  schedule: scheduleSchema,
   payment: paymentSchema,
   social: socialSchema,
   seo: seoSchema,
@@ -388,6 +425,7 @@ export const settingKeySchema = z.enum([
   'legal',
   'extras',
   'warranty',
+  'schedule',
   'payment',
   'social',
   'seo',

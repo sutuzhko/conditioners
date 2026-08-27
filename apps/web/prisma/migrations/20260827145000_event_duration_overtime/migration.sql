@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "CrmEvent" ADD COLUMN     "durationMin" INTEGER NOT NULL DEFAULT 60,
+ADD COLUMN     "overtimeMin" INTEGER NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE "Order" ADD COLUMN     "overtimeMin" INTEGER NOT NULL DEFAULT 0;
+

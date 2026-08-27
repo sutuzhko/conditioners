@@ -91,6 +91,10 @@ const settings: Record<string, unknown> = {
      заглушкой он быть не может. Владелец правит его из панели. */
   specs: data.specDictionary,
   warranty: { installation: TODO, equipment: TODO },
+  /* Рабочее окно календаря — с девяти до семи. Не заглушка: у окна есть
+     разумное умолчание, и заставлять владельца заполнять его перед запуском
+     не с чего (ADR-128). Часы работы для сайта живут отдельно, в contacts. */
+  schedule: { fromMin: 9 * 60, toMin: 19 * 60 },
   payment: { methods: [TODO], vat: TODO },
   social: { links: [] as string[] },
   seo: {

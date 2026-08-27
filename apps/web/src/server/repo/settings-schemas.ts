@@ -71,6 +71,9 @@ export const REQUIRED_FIELDS: Record<SettingKey, readonly string[]> = {
   legal: ['form', 'name', 'inn', 'ogrn', 'address'],
   extras: ['trassaPerM', 'shtrobPerM', 'heightWorks'],
   warranty: ['installation', 'equipment'],
+  /* Рабочее окно всегда заполнено умолчанием: пустым оно быть не может, и
+     требовать его перед запуском не с чего. */
+  schedule: [],
   payment: ['methods', 'vat'],
   social: [],
   seo: ['homeTitle', 'homeDescription', 'titleSuffix'],

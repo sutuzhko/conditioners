@@ -35,6 +35,9 @@ export async function loadSettings(): Promise<SiteSettings> {
     area: parseGroup(settingSchemas.area, raw.area),
     legal: parseGroup(settingSchemas.legal, raw.legal),
     warranty: parseGroup(settingSchemas.warranty, raw.warranty),
+    /* Публичным страницам рабочее окно не нужно — оно про сетку календаря в
+       панели, — но `SiteSettings` собирается по всем ключам разом. */
+    schedule: parseGroup(settingSchemas.schedule, raw.schedule),
     payment: parseGroup(settingSchemas.payment, raw.payment),
     social: parseGroup(settingSchemas.social, raw.social),
     seo: parseGroup(settingSchemas.seo, raw.seo),

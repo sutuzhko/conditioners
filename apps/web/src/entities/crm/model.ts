@@ -69,6 +69,20 @@ export const crmEventCreateSchema = z.object({
     .trim()
     .min(1, { message: NAME_REQUIRED })
     .max(120, { message: 'Не длиннее 120 символов' }),
+  /**
+   * Сколько дело занимает. Без длительности его нечем нарисовать на часовой
+   * сетке: «занято с 11 до 20» — это отрезок, а не точка (ADR-128).
+   *
+   * Шаг в пятнадцать минут — тот же, что у наряда: полчаса на звонок и
+   * полтора часа на замер одинаково обычны.
+   */
+  durationMin: z.coerce
+    .number()
+    .int({ message: 'Длительность — целое число минут' })
+    .min(15, { message: 'Не меньше пятнадцати минут' })
+    .max(24 * 60, { message: 'Дело не длиннее суток' })
+    .refine((value) => value % 15 === 0, { message: 'Шаг — пятнадцать минут' })
+    .default(60),
   clientPhone: optionalText(40),
   address: optionalText(200),
   note: optionalText(2000),

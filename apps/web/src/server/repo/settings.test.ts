@@ -96,6 +96,8 @@ describe('готовность данных компании', () => {
       legal: { form: 'ИП', name: 'ИП Иванов', inn: '1', ogrn: '2', address: 'Адрес' },
       extras: { trassaPerM: 700, shtrobPerM: 800, heightWorks: 2000 },
       warranty: { installation: 'год', equipment: 'три года' },
+      // рабочее окно календаря: умолчание есть, но группа обязана быть сохранена
+      schedule: { fromMin: 540, toMin: 1140 },
       payment: { methods: ['карта'], vat: 'без НДС' },
       social: { links: [] },
       seo: { homeTitle: 'Заголовок', homeDescription: 'Описание', titleSuffix: 'Бренд' },
