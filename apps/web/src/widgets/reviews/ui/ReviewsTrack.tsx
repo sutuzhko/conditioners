@@ -18,12 +18,19 @@ export interface ReviewsTrackProps {
 }
 
 /**
- * Лента отзывов: ручная прокрутка плюс медленный ход сам по себе.
+ * Лента отзывов: бесконечный медленный ход, руками не двигается (ADR-124).
  *
- * 🔴 Ход сделан прокруткой, а не анимацией `transform`. Анимация двигала бы
- * дорожку под пальцем: браузер прокручивает контейнер, а анимация возвращает
- * его обратно — жест перестаёт работать. Здесь же лента просто прокручивается
- * сама, и любое действие человека её останавливает.
+ * 🔴 Прокрутка выключена совсем: `overflow-x: hidden` не отдаёт ленту ни
+ * колесу, ни пальцу, ни полосе — двигает её только этот компонент. Лента
+ * замкнута сама на себя дублем карточек: доехав до его начала, прокрутка
+ * переносится на ширину первой копии, и человек этого не видит — под
+ * курсором ровно то же самое. Края у такого содержимого нет: конец и есть
+ * начало.
+ *
+ * 🔴 Ход сделан `scrollLeft`, а не анимацией `transform`. Программной
+ * прокрутке всё равно, что overflow скрыт, зато браузер по-прежнему сам
+ * доводит до видимости карточку, на которую ушёл фокус с клавиатуры —
+ * с `transform` пришлось бы считать это руками.
  *
  * Карточки остаются в серверном HTML: компонент управляет прокруткой, а не
  * рисует содержимое (инвариант 1).
@@ -44,6 +51,51 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
     // скорости лента иначе стоит на месте
     let offset = 0;
 
+    /**
+     * Ширина одной копии ленты: от начала первой карточки до начала её
+     * дубля. Пройдя это расстояние, лента показывает ровно то же самое, что
+     * в начале, — значит, прокрутку можно перенести назад незаметно.
+     *
+     * Меряется каждый раз заново: ширина карточки зависит от ширины окна
+     * (`min(370px, 82vw)`), и запомненное при монтировании значение врало бы
+     * после поворота телефона.
+     */
+    const loopWidth = (): number => {
+      const items = track.children;
+      const half = items.length / 2;
+      const first = items[0];
+      const twin = items[half];
+      if (!(first instanceof HTMLElement) || !(twin instanceof HTMLElement)) return 0;
+
+      return twin.offsetLeft - first.offsetLeft;
+    };
+
+    /**
+     * 🔴 Перенос идёт каждый кадр, а не только пока лента едет сама: до дубля
+     * её доводит и фокус с клавиатуры, который браузер сам подкручивает к
+     * нужной карточке.
+     */
+    const wrap = (): void => {
+      /* Пока фокус внутри ленты, не переносим: браузер сам довёл карточку до
+         видимости, и перенос увёл бы её обратно за край — человек с
+         клавиатурой оказался бы на невидимой кнопке. */
+      if (track.contains(document.activeElement)) return;
+
+      const width = loopWidth();
+
+      if (width > 0 && track.scrollLeft >= width) {
+        track.scrollLeft -= width;
+        return;
+      }
+
+      /* Запасной путь: копия уже экрана — так бывает на очень широком мониторе
+         при небольшом числе отзывов. Переносить нечего, показывать в этот
+         момент нечего тоже, и лента возвращается в начало, как делала раньше.
+         Рывок виден, но он лучше ленты, вставшей у края навсегда. */
+      const limit = track.scrollWidth - track.clientWidth;
+      if (track.scrollLeft >= limit - 1) track.scrollLeft = 0;
+    };
+
     const step = (time: number): void => {
       const delta = last === 0 ? 0 : (time - last) / 1000;
       last = time;
@@ -53,13 +105,11 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
         const whole = Math.floor(offset);
         if (whole > 0) {
           offset -= whole;
-          const limit = track.scrollWidth - track.clientWidth;
-          // дойдя до конца, начинаем сначала: список конечный, и упереться
-          // в край — значит остановиться навсегда
-          track.scrollLeft = track.scrollLeft >= limit - 1 ? 0 : track.scrollLeft + whole;
+          track.scrollLeft += whole;
         }
       }
 
+      wrap();
       frame = requestAnimationFrame(step);
     };
 
@@ -96,7 +146,7 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
     track.addEventListener('pointerleave', resume);
     track.addEventListener('focusin', pause);
     track.addEventListener('focusout', resume);
-    // палец: пока его не убрали, лента принадлежит человеку
+    // палец: пока он на ленте, она стоит — читают, а не смотрят, как едет
     track.addEventListener('touchstart', pause, { passive: true });
     track.addEventListener('touchend', resume, { passive: true });
     calm.addEventListener('change', sync);
@@ -119,9 +169,6 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
       ref={ref}
       className={`${styles.track} ${drift ? styles.live : styles.static}`}
       aria-label={label}
-      /* Фокус нужен только прокручиваемой ленте: у неподвижной он был бы
-         остановкой на элементе, с которым нечего делать. */
-      tabIndex={drift ? 0 : undefined}
     >
       {children}
     </ul>

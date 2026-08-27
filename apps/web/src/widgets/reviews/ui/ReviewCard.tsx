@@ -14,6 +14,15 @@ export interface ReviewCardProps {
   review: ReviewCardData;
   /** Открыть отзыв целиком: в ленте текст обрезан. */
   onOpen?: (() => void) | undefined;
+  /**
+   * Карточка — дубль для бесшовного хода ленты, а не второй отзыв.
+   *
+   * 🔴 Скрыт от читалок и убран из обхода клавиатурой: тот же отзыв уже есть
+   * в ленте настоящей карточкой, и объявлять его дважды значит врать о
+   * количестве. Мышью дубль нажимается как обычная карточка — на глаз он от
+   * неё неотличим, и «мёртвая» карточка под курсором была бы поломкой.
+   */
+  decorative?: boolean | undefined;
 }
 
 /**
@@ -22,9 +31,15 @@ export interface ReviewCardProps {
  *
  * 🔴 Текст выводится как есть и нигде не правится (инвариант 7).
  */
-export function ReviewCard({ review, onOpen }: ReviewCardProps) {
+export function ReviewCard({ review, onOpen, decorative = false }: ReviewCardProps) {
   return (
-    <Card as="li" padding="none" elevation="none" className={styles.card}>
+    <Card
+      as="li"
+      padding="none"
+      elevation="none"
+      className={styles.card}
+      aria-hidden={decorative ? true : undefined}
+    >
       {/* Открывается вся карточка, а не ссылка в углу: цель размером с
           карточку попадается пальцем, а «читать целиком» отдельной строкой
           повторяло бы то, на что и так нажимают. */}
@@ -77,7 +92,14 @@ export function ReviewCard({ review, onOpen }: ReviewCardProps) {
       {onOpen === undefined ? null : (
         /* Кнопка растянута поверх карточки: клавиатура и экранный диктор
            получают обычную кнопку с понятным именем, а мышь — всю площадь. */
-        <button type="button" className={styles.hit} onClick={onOpen}>
+        <button
+          type="button"
+          className={styles.hit}
+          onClick={onOpen}
+          /* Дубль не попадает в обход клавиатурой: с Tab по ленте человек
+             прошёл бы один и тот же отзыв дважды. */
+          tabIndex={decorative ? -1 : undefined}
+        >
           <span className="srOnly">{t.openCard(review.name)}</span>
         </button>
       )}
