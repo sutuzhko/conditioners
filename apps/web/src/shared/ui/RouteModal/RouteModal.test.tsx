@@ -59,6 +59,56 @@ describe('RouteModal', () => {
     expect(replace).toHaveBeenCalledWith('/admin/stock');
   });
 
+  it('🔴 несохранённый ввод не уходит молча: окно спрашивает', async () => {
+    back.mockClear();
+    historyLength(3);
+
+    render(
+      <RouteModal title="Новая позиция" fallbackHref="/admin/stock" dirty>
+        <p>Форма</p>
+      </RouteModal>,
+    );
+    await userEvent.keyboard('{Escape}');
+
+    /* Человек, потерявший заполненную форму случайным нажатием, второй раз
+       её не заполнит — он позвонит. */
+    expect(back).not.toHaveBeenCalled();
+    expect(screen.getByRole('alertdialog')).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Остаться' }));
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
+    expect(back).not.toHaveBeenCalled();
+  });
+
+  it('на второй вопрос «закрыть без сохранения» окно уходит', async () => {
+    back.mockClear();
+    historyLength(3);
+
+    render(
+      <RouteModal title="Новая позиция" fallbackHref="/admin/stock" dirty>
+        <p>Форма</p>
+      </RouteModal>,
+    );
+    await userEvent.keyboard('{Escape}');
+    await userEvent.click(screen.getByRole('button', { name: 'Закрыть без сохранения' }));
+
+    expect(back).toHaveBeenCalledTimes(1);
+  });
+
+  it('пустая форма закрывается сразу — спрашивать не о чем', async () => {
+    back.mockClear();
+    historyLength(3);
+
+    render(
+      <RouteModal title="Новая позиция" fallbackHref="/admin/stock">
+        <p>Форма</p>
+      </RouteModal>,
+    );
+    await userEvent.keyboard('{Escape}');
+
+    expect(back).toHaveBeenCalledTimes(1);
+  });
+
   it('закрывается с клавиатуры', async () => {
     back.mockClear();
     historyLength(3);

@@ -13,6 +13,7 @@ const GROUP_TITLES: Record<string, string> = {
   legal: 'Реквизиты',
   extras: 'Ставки допуслуг',
   warranty: 'Гарантия',
+  schedule: 'Рабочее окно календаря',
   payment: 'Способы оплаты',
   social: 'Соцсети',
   seo: 'Метаданные главной',

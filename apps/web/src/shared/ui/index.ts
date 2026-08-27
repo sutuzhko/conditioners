@@ -76,7 +76,7 @@ export type { Confirm, ConfirmRequest } from './ConfirmDialog/model';
 
 export { Modal } from './Modal/Modal';
 export type { ModalProps, ModalSize } from './Modal/Modal';
-export { RouteModal } from './RouteModal/RouteModal';
+export { RouteModal, useRouteClose } from './RouteModal/RouteModal';
 export type { RouteModalProps } from './RouteModal/RouteModal';
 
 export { Drawer } from './Drawer/Drawer';
