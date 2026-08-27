@@ -1,0 +1,153 @@
+/* Установленная техника в карточке клиента. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.empty {
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.photo {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+}
+
+.body {
+  display: flex;
+  flex: 1 1 240px;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: center;
+}
+
+.model {
+  min-width: 0;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.order {
+  color: var(--accent-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.order:hover {
+  text-decoration: underline;
+}
+
+/* Дата ТО — повод позвонить через год, а не обещание напомнить. */
+.service {
+  margin: 0;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.rowActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-left: auto;
+}
+
+/* Класс удвоен намеренно (ADR-038): цвет кнопки-призрака задан в ките с той
+   же специфичностью, и при равной специфичности выигрывает порядок сборки. */
+.remove.remove {
+  color: var(--error-ink);
+}
+
+.actions {
+  display: flex;
+}
+
+.note {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.error {
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}
+
+@media (width < 600px) {
+  .rowActions {
+    margin-left: 0;
+  }
+}

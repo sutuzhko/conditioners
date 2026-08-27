@@ -60,6 +60,7 @@ import {
 import type { AdminRole } from '@/entities/staff/model';
 import { momentOf, monthKeyOf, shiftMonth, type MonthKey } from '@/shared/lib/calendar';
 import { pageWindow, type Page } from '@/shared/lib/paging';
+import * as clientUnits from '@/server/repo/client-units';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import { employmentFromDb } from '@/server/repo/employment';
@@ -1033,6 +1034,12 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
       select: orderSelect,
     });
 
+    /* 🔴 Выполненный монтаж становится техникой клиента (CRM.md §3.2): той же
+       транзакцией, что и статус, иначе закрытый наряд и пустая карточка
+       клиента расходятся молча. Функция не бросает из-за прикладных отказов —
+       закрытие наряда не может упасть из-за ненаписанной строки о технике. */
+    if (status === 'DONE') await clientUnits.fromCompletedOrder(id, tx);
+
     /* 🔴 История — в той же транзакции, что и правка: откатилась правка —
        откатилась и запись о ней. */
     await writeHistory(tx, id, authorId, updateHistory(current, input, status, installerName));
@@ -1085,11 +1092,17 @@ export async function setStatusByInstaller(
        взял, — ровно та история, ради которой её и заводили. */
     await writeHistory(tx, id, installerId, [orderStatusHistory(status)]);
 
-    return tx.order.update({
+    const updated = await tx.order.update({
       where: { id },
       data: { status: STATUS_TO_DB[status] },
       select: orderSelect,
     });
+
+    /* Монтажник закрывает наряд сам — техника клиента должна появиться и в
+       этом случае, а не только когда владелец закроет его за него. */
+    if (status === 'done') await clientUnits.fromCompletedOrder(id, tx);
+
+    return updated;
   });
 
   return toCard(row, 'installer');

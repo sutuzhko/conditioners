@@ -1,4 +1,6 @@
 /** Раздел клиентов: типы представления. Доменные схемы — в `entities/client`. */
+import { dayOf } from '@/entities/client/lib/units';
+import type { ClientUnitCard } from '@/entities/client/model';
 import type { LeadStatus } from '@/entities/lead/model';
 
 export type { ClientCard, ClientCreate, ClientPage, ClientUpdate } from '@/entities/client/model';
@@ -40,4 +42,44 @@ export type ClientLead = {
   readonly status: LeadStatus;
   readonly comment: string | null;
   readonly createdAt: string;
+};
+
+/* ---------- Техника клиента ---------- */
+
+export type { ClientUnitCard } from '@/entities/client/model';
+
+export {
+  dayOf,
+  serviceDueDay,
+  warrantyOver,
+  SERVICE_PERIOD_MONTHS,
+} from '@/entities/client/lib/units';
+
+/** Поля формы техники — строки, как их вводит человек. Даты — дни, не моменты. */
+export type ClientUnitDraft = {
+  readonly model: string;
+  readonly installedAt: string;
+  readonly warrantyUntil: string;
+};
+
+export const emptyUnitDraft: ClientUnitDraft = { model: '', installedAt: '', warrantyUntil: '' };
+
+/** Запись → поля формы: даты показываются днём в поясе работ. */
+export function unitDraftOf(unit: ClientUnitCard): ClientUnitDraft {
+  return {
+    model: unit.model,
+    installedAt: dayOf(unit.installedAt),
+    warrantyUntil: unit.warrantyUntil === null ? '' : dayOf(unit.warrantyUntil),
+  };
+}
+
+/** Действия с техникой. Вынесены интерфейсом — истории и тесты подставляют свои. */
+export type ClientUnitApi = {
+  readonly create: (clientId: string, draft: ClientUnitDraft) => Promise<ClientResult>;
+  readonly update: (
+    clientId: string,
+    unitId: string,
+    draft: ClientUnitDraft,
+  ) => Promise<ClientResult>;
+  readonly remove: (clientId: string, unitId: string) => Promise<ClientResult>;
 };

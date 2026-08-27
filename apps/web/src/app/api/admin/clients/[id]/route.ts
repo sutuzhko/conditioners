@@ -1,5 +1,6 @@
 import { clientUpdateSchema } from '@/entities/client/model';
 import { json, noContent, notFound, readJson, validationError, withOwner } from '@/server/http';
+import { listByClient as listUnits } from '@/server/repo/client-units';
 import { findById, remove, update } from '@/server/repo/clients';
 import { listByClient } from '@/server/repo/leads';
 
@@ -13,7 +14,11 @@ export const GET = withOwner(async (_request, context: Context) => {
   const client = await findById(id);
   if (client === null) return notFound('Клиент');
 
-  return json({ ...client, leads: await listByClient(id) });
+  /* Обращения и техника — то, ради чего карточку открывают: что человек
+     писал и что у него стоит. Оба списка коротки, читаются одним заходом. */
+  const [leads, units] = await Promise.all([listByClient(id), listUnits(id)]);
+
+  return json({ ...client, leads, units });
 });
 
 export const PATCH = withOwner(async (request, context: Context) => {

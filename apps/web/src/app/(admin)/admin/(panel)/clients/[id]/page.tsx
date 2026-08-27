@@ -5,12 +5,15 @@ import { notFound } from 'next/navigation';
 import {
   ClientForm,
   ClientLeads,
+  ClientUnits,
   clientManagerContent as texts,
   type ClientLead,
 } from '@/features/client-manager';
 import { requireOwnerPage } from '@/server/guards';
+import { listByClient as listUnits } from '@/server/repo/client-units';
 import { findById } from '@/server/repo/clients';
 import { listByClient } from '@/server/repo/leads';
+import { todayKey } from '@/shared/lib/calendar';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 
 import styles from '../page.module.css';
@@ -26,14 +29,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return { title: client === null ? texts.title : client.name };
 }
 
-/** Карточка клиента: данные, правка и обращения этого человека. */
+/** Карточка клиента: данные, техника и обращения этого человека. */
 export default async function AdminClientPage({ params }: PageProps) {
   /* Раздел владельца: проверка до чтения данных (ADR-095). */
   await requireOwnerPage();
 
   const { id } = await params;
 
-  const [client, leads] = await Promise.all([findById(id), listByClient(id)]);
+  const [client, leads, units] = await Promise.all([findById(id), listByClient(id), listUnits(id)]);
   if (client === null) notFound();
 
   /* Заявке в карточке клиента нужно ровно то, чем вспоминают разговор: всё
@@ -75,6 +78,10 @@ export default async function AdminClientPage({ params }: PageProps) {
         hint={texts.cardHint}
         removable
       />
+
+      {/* «Сегодня» считает сервер: истекла гарантия или нет, не должно
+          зависеть от часов на машине смотрящего. */}
+      <ClientUnits clientId={client.id} units={units} today={todayKey()} />
 
       <ClientLeads leads={history} />
     </div>

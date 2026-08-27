@@ -17,6 +17,11 @@ const preview: Preview = {
       },
     },
     backgrounds: { disable: true },
+    /* 🔴 Роутер App Router нужен всему, что зовёт `useRouter`: формы панели
+       после сохранения освежают страницу. Без него история падает с
+       «invariant expected app router to be mounted» — и падала бы у каждой
+       такой истории по отдельности, если ставить параметр на месте. */
+    nextjs: { appDirectory: true },
   },
   decorators: [
     withThemeByDataAttribute({

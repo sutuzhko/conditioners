@@ -3,7 +3,7 @@ import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
 import { adminRequest, jsonInit } from '@/shared/lib/api';
 
 import { clientManagerContent as texts } from './content';
-import type { ClientApi, ClientDraft, ClientResult } from './model';
+import type { ClientApi, ClientDraft, ClientResult, ClientUnitApi, ClientUnitDraft } from './model';
 
 const REQUEST_TEXTS = {
   ...ADMIN_API_TEXTS,
@@ -39,4 +39,24 @@ export const clientApi: ClientApi = {
   update: (id, draft) => send(`/api/admin/clients/${id}`, jsonInit('PATCH', body(draft))),
 
   remove: (id) => send(`/api/admin/clients/${id}`, jsonInit('DELETE')),
+};
+
+/** Пустая дата гарантии — это «не записана», а не сегодняшнее число. */
+function unitBody(draft: ClientUnitDraft): Record<string, string> {
+  return {
+    model: draft.model,
+    installedAt: draft.installedAt,
+    warrantyUntil: draft.warrantyUntil,
+  };
+}
+
+export const clientUnitApi: ClientUnitApi = {
+  create: (clientId, draft) =>
+    send(`/api/admin/clients/${clientId}/units`, jsonInit('POST', unitBody(draft))),
+
+  update: (clientId, unitId, draft) =>
+    send(`/api/admin/clients/${clientId}/units/${unitId}`, jsonInit('PATCH', unitBody(draft))),
+
+  remove: (clientId, unitId) =>
+    send(`/api/admin/clients/${clientId}/units/${unitId}`, jsonInit('DELETE')),
 };
