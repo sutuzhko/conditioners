@@ -1,5 +1,6 @@
 'use client';
 
+import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
 
@@ -16,7 +17,7 @@ export interface RouteModalProps {
    * истории браузера позади ничего нет. Без этого «Закрыть» на такой вкладке
    * не делает ничего — окно остаётся, а человек считает, что кнопка сломана.
    */
-  fallbackHref: string;
+  fallbackHref: Route;
 }
 
 /**
