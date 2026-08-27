@@ -154,12 +154,16 @@ function toZoneCard(row: ZoneRow): StockZoneCard {
  * остаток гаража успевал бы попасть в память приложения по дороге к ответу, а
  * список зон у монтажника зависел бы от порядка строк в базе.
  */
-function zoneWhere(viewer: Viewer): Prisma.StockZoneWhereInput {
+function zoneWhere(viewer: Viewer, archived: boolean): Prisma.StockZoneWhereInput {
   if (viewer.role === 'installer') {
     return { archived: false, kind: 'VAN', userId: viewer.userId };
   }
 
-  return { archived: false };
+  /* 🔴 Владелец видит архивные зоны, когда сам об этом просит: иначе архив
+     становится удалением с лишним шагом — вернуть зону из него нечем, потому
+     что до неё не добраться. Монтажнику архивные не показываются никогда:
+     машины, которой нет, у него в списке быть не должно. */
+  return archived ? {} : { archived: false };
 }
 
 /* Гараж первым, машины следом: колонка основного хранения читается слева, а
@@ -171,9 +175,12 @@ const ZONE_ORDER: Prisma.StockZoneOrderByWithRelationInput[] = [
   { name: 'asc' },
 ];
 
-export async function zones(viewer: Viewer): Promise<readonly StockZoneCard[]> {
+export async function zones(
+  viewer: Viewer,
+  options: { readonly archived?: boolean | undefined } = {},
+): Promise<readonly StockZoneCard[]> {
   const rows = await db.stockZone.findMany({
-    where: zoneWhere(viewer),
+    where: zoneWhere(viewer, options.archived === true),
     select: zoneSelect,
     orderBy: ZONE_ORDER,
   });
@@ -531,6 +538,8 @@ export type StockOverviewQuery = {
   readonly query?: string | undefined;
   readonly group?: string | undefined;
   readonly low?: boolean | undefined;
+  /** Архив — отдельный вид списка, а не примесь к обычному. */
+  readonly archived?: boolean | undefined;
   readonly page?: number | undefined;
 };
 
@@ -539,7 +548,10 @@ function itemWhere(query: StockOverviewQuery): Prisma.StockItemWhereInput {
   const group = query.group?.trim() ?? '';
 
   return {
-    archived: false,
+    /* Архив показывается вместо обычного списка, а не вместе с ним: смешать
+       их значит показать позицию, которой больше не пользуются, там же, где
+       выбирают, что взять на выезд. */
+    archived: query.archived === true,
     ...(text === '' ? {} : { name: { contains: text, mode: 'insensitive' } }),
     ...(group === '' ? {} : { group }),
   };

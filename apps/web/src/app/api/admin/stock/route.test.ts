@@ -181,8 +181,17 @@ describe('Остатки', () => {
     await GET(request('/api/admin/stock?q=труба&group=Крепёж&low=1&page=3'), undefined);
 
     expect(stock.overview).toHaveBeenCalledWith(
-      { query: 'труба', group: 'Крепёж', low: true, page: 3 },
+      { query: 'труба', group: 'Крепёж', low: true, archived: false, page: 3 },
       { role: 'owner', userId: 'u1' },
+    );
+  });
+
+  it('🔴 архив — отдельный вид списка: без него сданную позицию нечем вернуть', async () => {
+    await GET(request('/api/admin/stock?archived=1'), undefined);
+
+    expect(stock.overview).toHaveBeenCalledWith(
+      expect.objectContaining({ archived: true }),
+      expect.anything(),
     );
   });
 
@@ -284,7 +293,16 @@ describe('Зоны хранения', () => {
     const response = await GET_ZONES(request('/api/admin/stock/zones'), undefined);
 
     expect(response.status).toBe(200);
-    expect(stock.zones).toHaveBeenCalledWith({ role: 'installer', userId: 'u2' });
+    expect(stock.zones).toHaveBeenCalledWith(
+      { role: 'installer', userId: 'u2' },
+      { archived: false },
+    );
+  });
+
+  it('🔴 архивные зоны приходят только по прямой просьбе', async () => {
+    await GET_ZONES(request('/api/admin/stock/zones?archived=1'), undefined);
+
+    expect(stock.zones).toHaveBeenCalledWith(expect.anything(), { archived: true });
   });
 
   it('🔴 заводит и правит зоны только владелец', async () => {

@@ -11,8 +11,18 @@ import { createZone, zones } from '@/server/repo/stock';
 
 export const dynamic = 'force-dynamic';
 
-export const GET = withAdmin(async (_request, _context, session) => {
-  return json({ zones: await zones({ role: session.role, userId: session.userId }) });
+/* Архив показывается только по прямой просьбе и только владельцу: без этого
+   сданная в архив зона становится недостижимой, а вместе с ней и кнопка
+   вернуть её обратно. Отбор по роли остаётся в репозитории. */
+export const GET = withAdmin(async (request, _context, session) => {
+  const archived = request.nextUrl.searchParams.get('archived');
+
+  return json({
+    zones: await zones(
+      { role: session.role, userId: session.userId },
+      { archived: archived === '1' || archived === 'true' },
+    ),
+  });
 });
 
 export const POST = withOwner(async (request) => {

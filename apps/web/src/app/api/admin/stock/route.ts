@@ -28,6 +28,7 @@ export const GET = withAdmin(async (request, _context, session) => {
         query: params.get('q') ?? undefined,
         group: params.get('group') ?? undefined,
         low: isOn(params.get('low')),
+        archived: isOn(params.get('archived')),
         page: pageNumber(params.get('page') ?? undefined),
       },
       { role: session.role, userId: session.userId },
