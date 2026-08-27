@@ -1711,6 +1711,451 @@ const blocks: readonly DemoBlock[] = [
   },
 ];
 
+// ---------- Склад ----------
+
+/**
+ * Номенклатура списана с реальных прайсов профильных поставщиков (CRM.md
+ * §11.1). Это демо-данные стенда, а не справочник в коде: владелец заводит
+ * свои позиции сам, и здесь они лежат только чтобы раздел было на чём
+ * смотреть.
+ */
+type DemoZone = {
+  readonly key: string;
+  readonly kind: 'WAREHOUSE' | 'VAN';
+  readonly name: string;
+  readonly staffLogin?: string;
+};
+
+const stockZones: readonly DemoZone[] = [
+  { key: 'garage', kind: 'WAREHOUSE', name: 'Гараж на Оборонной' },
+  { key: 'van-zaharov', kind: 'VAN', name: 'Газель Захарова', staffLogin: 'zaharov' },
+  { key: 'van-mironov', kind: 'VAN', name: 'Кадди Миронова', staffLogin: 'mironov' },
+  { key: 'van-panov', kind: 'VAN', name: 'Ларгус Панова', staffLogin: 'panov' },
+];
+
+type DemoStockItem = {
+  readonly key: string;
+  readonly name: string;
+  readonly group: string;
+  readonly unit:
+    'PIECE' | 'METER' | 'KILOGRAM' | 'LITER' | 'PAIR' | 'PACK' | 'COIL' | 'ROLL' | 'CYLINDER';
+  readonly minQty: number;
+  readonly note?: string;
+  readonly productSlug?: string;
+};
+
+const stockItems: readonly DemoStockItem[] = [
+  {
+    key: 'truba-14',
+    name: 'Труба медная 1/4″ (6,35), отожжённая',
+    group: 'Медная труба',
+    unit: 'METER',
+    minQty: 50,
+  },
+  {
+    key: 'truba-38',
+    name: 'Труба медная 3/8″ (9,52), отожжённая',
+    group: 'Медная труба',
+    unit: 'METER',
+    minQty: 50,
+  },
+  {
+    key: 'truba-12',
+    name: 'Труба медная 1/2″ (12,7), отожжённая',
+    group: 'Медная труба',
+    unit: 'METER',
+    minQty: 20,
+    note: 'Берём только под «восемнадцатые» и канальные.',
+  },
+  {
+    key: 'izol-9',
+    name: 'Теплоизоляция трубок, стенка 9 мм',
+    group: 'Теплоизоляция',
+    unit: 'METER',
+    minQty: 60,
+  },
+  {
+    key: 'drenazh-16',
+    name: 'Дренажный шланг 16 мм',
+    group: 'Дренаж',
+    unit: 'METER',
+    minQty: 40,
+  },
+  {
+    key: 'kabel-4',
+    name: 'Кабель межблочный 4×1,5',
+    group: 'Кабель',
+    unit: 'METER',
+    minQty: 50,
+  },
+  {
+    key: 'kronshteyn',
+    name: 'Кронштейны наружного блока 450×500',
+    group: 'Кронштейны',
+    unit: 'PAIR',
+    minQty: 4,
+  },
+  {
+    key: 'anker',
+    name: 'Анкер клиновой 10×100',
+    group: 'Крепёж',
+    unit: 'PIECE',
+    minQty: 100,
+  },
+  {
+    key: 'korob-60',
+    name: 'Короб ПВХ 60×60',
+    group: 'Короб ПВХ',
+    unit: 'METER',
+    minQty: 20,
+  },
+  {
+    key: 'freon-32',
+    name: 'Фреон R32',
+    group: 'Фреон',
+    unit: 'KILOGRAM',
+    minQty: 5,
+    note: 'Баллон 9,5 кг. Остаток меряем по весам, отсюда дробные числа.',
+  },
+  {
+    key: 'freon-410',
+    name: 'Фреон R410A',
+    group: 'Фреон',
+    unit: 'KILOGRAM',
+    minQty: 5,
+  },
+  {
+    key: 'azot',
+    name: 'Азот для опрессовки',
+    group: 'Газы',
+    unit: 'CYLINDER',
+    minQty: 1,
+  },
+  {
+    key: 'skotch',
+    name: 'Скотч армированный',
+    group: 'Расходная мелочь',
+    unit: 'ROLL',
+    minQty: 5,
+  },
+  {
+    key: 'maslo',
+    name: 'Масло для вакуумного насоса',
+    group: 'Расходная мелочь',
+    unit: 'LITER',
+    minQty: 1,
+  },
+  {
+    /* Техника: позиция ссылается на модель каталога. Витрина от остатка не
+       зависит (ADR-134) — модель продаётся и при нулевом складе. */
+    key: 'split-09-invertor',
+    name: 'Сплит-система 09, инвертор',
+    group: 'Техника',
+    unit: 'PIECE',
+    minQty: 0,
+    productSlug: 'split-sistema-09-invertor',
+  },
+];
+
+/**
+ * Остаток — сумма движений (ADR-134), поэтому на стенде лежат именно движения,
+ * а не проставленные числа. Три состояния показаны нарочно: обычный остаток,
+ * позиция ниже порога заказа и уход в минус — он не запрещён, а помечен.
+ */
+type DemoMove = {
+  readonly itemKey: string;
+  readonly kind: 'INCOME' | 'TRANSFER' | 'CONSUME' | 'RETURN' | 'COUNT';
+  readonly qty: number;
+  readonly fromZoneKey?: string;
+  readonly toZoneKey?: string;
+  readonly orderIndex?: number;
+  readonly serials?: string;
+  readonly reason?: string;
+  readonly authorLogin?: string;
+  readonly daysAgo: number;
+};
+
+const stockMoves: readonly DemoMove[] = [
+  /* Закупка сезона: всё пришло в гараж. */
+  { itemKey: 'truba-14', kind: 'INCOME', qty: 150, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'truba-38', kind: 'INCOME', qty: 150, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'truba-12', kind: 'INCOME', qty: 50, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'izol-9', kind: 'INCOME', qty: 300, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'drenazh-16', kind: 'INCOME', qty: 200, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'kabel-4', kind: 'INCOME', qty: 200, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'kronshteyn', kind: 'INCOME', qty: 20, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'anker', kind: 'INCOME', qty: 400, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'korob-60', kind: 'INCOME', qty: 90, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'freon-32', kind: 'INCOME', qty: 19, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'freon-410', kind: 'INCOME', qty: 9.5, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'azot', kind: 'INCOME', qty: 2, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'skotch', kind: 'INCOME', qty: 24, toZoneKey: 'garage', daysAgo: 60 },
+  { itemKey: 'maslo', kind: 'INCOME', qty: 4, toZoneKey: 'garage', daysAgo: 60 },
+  {
+    itemKey: 'split-09-invertor',
+    kind: 'INCOME',
+    qty: 3,
+    toZoneKey: 'garage',
+    serials: 'JP2401-0071, JP2401-0072, JP2401-0089',
+    daysAgo: 34,
+  },
+
+  /* Утро понедельника: загрузили машины. */
+  {
+    itemKey: 'truba-14',
+    kind: 'TRANSFER',
+    qty: 30,
+    fromZoneKey: 'garage',
+    toZoneKey: 'van-zaharov',
+    daysAgo: 14,
+  },
+  {
+    itemKey: 'truba-38',
+    kind: 'TRANSFER',
+    qty: 30,
+    fromZoneKey: 'garage',
+    toZoneKey: 'van-zaharov',
+    daysAgo: 14,
+  },
+  {
+    itemKey: 'izol-9',
+    kind: 'TRANSFER',
+    qty: 60,
+    fromZoneKey: 'garage',
+    toZoneKey: 'van-zaharov',
+    daysAgo: 14,
+  },
+  {
+    itemKey: 'drenazh-16',
+    kind: 'TRANSFER',
+    qty: 40,
+    fromZoneKey: 'garage',
+    toZoneKey: 'van-zaharov',
+    daysAgo: 14,
+  },
+  {
+    itemKey: 'kronshteyn',
+    kind: 'TRANSFER',
+    qty: 4,
+    fromZoneKey: 'garage',
+    toZoneKey: 'van-zaharov',
+    daysAgo: 14,
+  },
+  {
+    itemKey: 'freon-32',
+    kind: 'TRANSFER',
+    qty: 4.5,
+    fromZoneKey: 'garage',
+    toZoneKey: 'van-zaharov',
+    daysAgo: 14,
+  },
+  {
+    itemKey: 'truba-14',
+    kind: 'TRANSFER',
+    qty: 25,
+    fromZoneKey: 'garage',
+    toZoneKey: 'van-mironov',
+    daysAgo: 13,
+  },
+  {
+    itemKey: 'izol-9',
+    kind: 'TRANSFER',
+    qty: 50,
+    fromZoneKey: 'garage',
+    toZoneKey: 'van-mironov',
+    daysAgo: 13,
+  },
+  {
+    itemKey: 'kabel-4',
+    kind: 'TRANSFER',
+    qty: 40,
+    fromZoneKey: 'garage',
+    toZoneKey: 'van-mironov',
+    daysAgo: 13,
+  },
+  {
+    itemKey: 'anker',
+    kind: 'TRANSFER',
+    qty: 40,
+    fromZoneKey: 'garage',
+    toZoneKey: 'van-panov',
+    daysAgo: 12,
+  },
+  {
+    itemKey: 'korob-60',
+    kind: 'TRANSFER',
+    qty: 20,
+    fromZoneKey: 'garage',
+    toZoneKey: 'van-panov',
+    daysAgo: 12,
+  },
+
+  /* Выполненные наряды списали израсходованное. */
+  {
+    itemKey: 'truba-14',
+    kind: 'CONSUME',
+    qty: 4,
+    fromZoneKey: 'van-zaharov',
+    orderIndex: 4,
+    authorLogin: 'zaharov',
+    daysAgo: 12,
+  },
+  {
+    itemKey: 'truba-38',
+    kind: 'CONSUME',
+    qty: 4,
+    fromZoneKey: 'van-zaharov',
+    orderIndex: 4,
+    authorLogin: 'zaharov',
+    daysAgo: 12,
+  },
+  {
+    itemKey: 'izol-9',
+    kind: 'CONSUME',
+    qty: 8,
+    fromZoneKey: 'van-zaharov',
+    orderIndex: 4,
+    authorLogin: 'zaharov',
+    daysAgo: 12,
+  },
+  {
+    itemKey: 'kronshteyn',
+    kind: 'CONSUME',
+    qty: 1,
+    fromZoneKey: 'van-zaharov',
+    orderIndex: 4,
+    authorLogin: 'zaharov',
+    daysAgo: 12,
+  },
+  {
+    itemKey: 'freon-32',
+    kind: 'CONSUME',
+    qty: 0.35,
+    fromZoneKey: 'van-zaharov',
+    orderIndex: 4,
+    authorLogin: 'zaharov',
+    daysAgo: 12,
+  },
+  {
+    itemKey: 'truba-14',
+    kind: 'CONSUME',
+    qty: 5,
+    fromZoneKey: 'van-mironov',
+    orderIndex: 5,
+    authorLogin: 'mironov',
+    daysAgo: 6,
+  },
+  {
+    itemKey: 'izol-9',
+    kind: 'CONSUME',
+    qty: 10,
+    fromZoneKey: 'van-mironov',
+    orderIndex: 5,
+    authorLogin: 'mironov',
+    daysAgo: 6,
+  },
+  {
+    itemKey: 'kabel-4',
+    kind: 'CONSUME',
+    qty: 6,
+    fromZoneKey: 'van-mironov',
+    orderIndex: 5,
+    authorLogin: 'mironov',
+    daysAgo: 6,
+  },
+  {
+    itemKey: 'korob-60',
+    kind: 'CONSUME',
+    qty: 6,
+    fromZoneKey: 'van-panov',
+    orderIndex: 6,
+    authorLogin: 'panov',
+    daysAgo: 20,
+  },
+  {
+    itemKey: 'anker',
+    kind: 'CONSUME',
+    qty: 8,
+    fromZoneKey: 'van-panov',
+    orderIndex: 6,
+    authorLogin: 'panov',
+    daysAgo: 20,
+  },
+  {
+    itemKey: 'split-09-invertor',
+    kind: 'CONSUME',
+    qty: 1,
+    fromZoneKey: 'garage',
+    orderIndex: 4,
+    serials: 'JP2401-0071',
+    authorLogin: 'zaharov',
+    daysAgo: 12,
+  },
+
+  /* Привезли обратно неизрасходованное. */
+  {
+    itemKey: 'drenazh-16',
+    kind: 'RETURN',
+    qty: 6,
+    toZoneKey: 'garage',
+    orderIndex: 5,
+    reason: 'Остаток с объекта, трасса вышла короче',
+    authorLogin: 'mironov',
+    daysAgo: 6,
+  },
+
+  /* Расход, которого никто не записал: минус в машине Панова. Уход в минус не
+     запрещён — это сигнал «пора провести инвентаризацию» (ADR-134). */
+  {
+    itemKey: 'korob-60',
+    kind: 'CONSUME',
+    qty: 16,
+    fromZoneKey: 'van-panov',
+    orderIndex: 3,
+    authorLogin: 'panov',
+    daysAgo: 1,
+  },
+
+  /* Правка руками — но движением с основанием, а не переписыванием числа. */
+  {
+    itemKey: 'freon-32',
+    kind: 'COUNT',
+    qty: -1.2,
+    toZoneKey: 'garage',
+    reason: 'Пересчитали баллоны по весам: расхождение с прошлой заправки',
+    daysAgo: 4,
+  },
+  {
+    itemKey: 'skotch',
+    kind: 'COUNT',
+    qty: -21,
+    toZoneKey: 'garage',
+    reason: 'Инвентаризация после сезона: часть мотков израсходована без записи',
+    daysAgo: 4,
+  },
+
+  /* R410A ушёл на дозаправку длинных трасс и упал ниже порога заказа:
+     состояние «пора заказывать» обязано быть видно на стенде. */
+  {
+    itemKey: 'freon-410',
+    kind: 'CONSUME',
+    qty: 2.8,
+    fromZoneKey: 'garage',
+    orderIndex: 6,
+    authorLogin: 'panov',
+    daysAgo: 20,
+  },
+  {
+    itemKey: 'freon-410',
+    kind: 'CONSUME',
+    qty: 2.4,
+    fromZoneKey: 'garage',
+    orderIndex: 7,
+    authorLogin: 'zaharov',
+    daysAgo: 27,
+  },
+];
+
 // ---------- Журнал доставки ----------
 
 /**
@@ -1824,6 +2269,10 @@ function daysAgo(days: number): Date {
  * иначе стенд остался бы без входа.
  */
 async function wipe(): Promise<void> {
+  /* Движения первыми: они ссылаются и на позиции, и на зоны, и на наряды. */
+  await prisma.stockMovement.deleteMany();
+  await prisma.stockItem.deleteMany();
+  await prisma.stockZone.deleteMany();
   await prisma.orderUnit.deleteMany();
   await prisma.order.deleteMany();
   await prisma.dayBlock.deleteMany();
@@ -2103,11 +2552,14 @@ async function main(): Promise<void> {
   }
 
   console.log('Наряды…');
+  /* Списание материалов ссылается на наряд по его месту в списке. */
+  const orderIds: string[] = [];
+
   for (const [index, order] of orders.entries()) {
     const clientId = clientIds.get(order.clientKey);
     if (clientId === undefined) throw new Error(`Нет клиента ${order.clientKey} для наряда`);
 
-    await prisma.order.create({
+    const createdOrder = await prisma.order.create({
       data: {
         number: index + 1,
         type: order.type,
@@ -2142,6 +2594,8 @@ async function main(): Promise<void> {
         },
       },
     });
+
+    orderIds.push(createdOrder.id);
   }
 
   /* Счётчик номеров догоняет заведённые наряды: следующий, созданный из
@@ -2151,6 +2605,68 @@ async function main(): Promise<void> {
     create: { key: 'orderSeq', value: orders.length },
     update: { value: orders.length },
   });
+
+  console.log('Склад…');
+  /* Автор движения по умолчанию — владелец: закупку и инвентаризацию делает он. */
+  const owner = await prisma.adminUser.findFirst({ where: { role: 'OWNER' } });
+
+  const zoneIds = new Map<string, string>();
+  for (const [index, zone] of stockZones.entries()) {
+    const userId = zone.staffLogin === undefined ? null : (staffIds.get(zone.staffLogin) ?? null);
+    const created = await prisma.stockZone.create({
+      data: { kind: zone.kind, name: zone.name, userId, sort: index },
+    });
+
+    zoneIds.set(zone.key, created.id);
+  }
+
+  const stockItemIds = new Map<string, string>();
+  for (const item of stockItems) {
+    const productId =
+      item.productSlug === undefined
+        ? null
+        : ((await prisma.product.findUnique({ where: { slug: item.productSlug } }))?.id ?? null);
+
+    const created = await prisma.stockItem.create({
+      data: {
+        name: item.name,
+        group: item.group,
+        unit: item.unit,
+        minQty: item.minQty,
+        note: item.note ?? null,
+        productId,
+      },
+    });
+
+    stockItemIds.set(item.key, created.id);
+  }
+
+  for (const move of stockMoves) {
+    const itemId = stockItemIds.get(move.itemKey);
+    if (itemId === undefined) throw new Error(`Нет позиции склада ${move.itemKey}`);
+
+    const authorId =
+      move.authorLogin === undefined
+        ? (owner?.id ?? null)
+        : (staffIds.get(move.authorLogin) ?? null);
+
+    const orderId = move.orderIndex === undefined ? null : (orderIds[move.orderIndex] ?? null);
+
+    await prisma.stockMovement.create({
+      data: {
+        itemId,
+        kind: move.kind,
+        qty: move.qty,
+        fromZoneId: move.fromZoneKey === undefined ? null : (zoneIds.get(move.fromZoneKey) ?? null),
+        toZoneId: move.toZoneKey === undefined ? null : (zoneIds.get(move.toZoneKey) ?? null),
+        orderId,
+        serials: move.serials ?? null,
+        reason: move.reason ?? null,
+        authorId,
+        createdAt: daysAgo(move.daysAgo),
+      },
+    });
+  }
 
   console.log('Календарь…');
   for (const event of events) {
@@ -2213,6 +2729,9 @@ async function main(): Promise<void> {
   );
   console.log(
     `  наряды — ${orders.length}, дела календаря — ${events.length}, занятость — ${blocks.length}`,
+  );
+  console.log(
+    `  склад — позиции: ${stockItems.length}, зоны: ${stockZones.length}, движения: ${stockMoves.length}`,
   );
   console.log(`  журнал доставки — ${notifications.length} записей`);
 }
