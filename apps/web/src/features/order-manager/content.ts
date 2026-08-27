@@ -136,6 +136,21 @@ export { STOCK_UNIT_SHORT };
 /* Число и единица — одна величина, рвать её переносом нельзя. */
 const QTY_NBSP = '\u00A0';
 
+/**
+ * Минуты словами: «3 ч», «1 ч 30 мин», «45 мин».
+ *
+ * Отдельной функцией, а не только полем подписи: тем же способом читается
+ * переработка, и два написания одной величины в соседних строках карточки
+ * владелец прочитал бы как разные величины.
+ */
+function spanText(minutes: number): string {
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+  if (hours === 0) return `${rest} мин`;
+  if (rest === 0) return `${hours} ч`;
+  return `${hours} ч ${rest} мин`;
+}
+
 export const orderManagerContent = {
   title: 'Заказы',
   lead: 'Наряды на монтаж, обслуживание и ремонт: кто едет, когда, на сколько и за какие деньги.',
@@ -188,7 +203,8 @@ export const orderManagerContent = {
   day: 'Дата',
   time: 'Время',
   durationField: 'Длительность, минут',
-  durationHint: 'Шаг 15 минут: полтора часа на обслуживание — обычное дело',
+  durationHint:
+    'Шаг 15 минут: полтора часа на обслуживание — обычное дело. Время за границей рабочего окна компании пойдёт в переработку — завести наряд оно не мешает',
 
   payment: 'Оплата',
   price: 'Сумма заказа',
@@ -342,13 +358,14 @@ export const orderManagerContent = {
   money: (value: number): string => formatMoney(value),
 
   /** Длительность словами: «3 ч», «1 ч 30 мин», «45 мин». */
-  span: (minutes: number): string => {
-    const hours = Math.floor(minutes / 60);
-    const rest = minutes % 60;
-    if (hours === 0) return `${rest} мин`;
-    if (rest === 0) return `${hours} ч`;
-    return `${hours} ч ${rest} мин`;
-  },
+  span: spanText,
+
+  /**
+   * 🔴 Переработка названа фактом, а не доплатой: пойдёт ли она в деньги,
+   * зависит от оформления монтажника и договора и решается вместе с расчётами
+   * с командой (ADR-138). Интерфейс, пообещавший доплату, обещает за владельца.
+   */
+  overtime: (minutes: number): string => `Переработка: ${spanText(minutes)}`,
 
   // ---------- Расход материалов ----------
 

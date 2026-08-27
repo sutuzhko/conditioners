@@ -95,3 +95,14 @@
   gap: 6px;
   margin-top: 12px;
 }
+
+/* Переработка — факт, а не тревога: она заметна рядом с длительностью, но
+   ничего не обещает по деньгам. Пойдёт ли она в доплату, решается вместе с
+   расчётами с монтажниками (ADR-138). */
+.overtime {
+  display: block;
+  margin-top: 2px;
+  color: var(--warn-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}

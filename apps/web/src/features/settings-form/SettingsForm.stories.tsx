@@ -3,6 +3,7 @@ import { userEvent, within } from 'storybook/test';
 
 import { SettingsForm } from './SettingsForm';
 import { settingsFormContent as texts } from './content';
+import { SCHEDULE_GROUP } from './fields';
 import {
   acceptingSave,
   achievementsGroupFixture,
@@ -10,6 +11,7 @@ import {
   filledAchievements,
   fullAchievements,
   filledContacts,
+  filledSchedule,
   integrationsGroupFixture,
   legalGroupFixture,
   pendingSave,
@@ -84,4 +86,17 @@ export const СписокОбъектов: Story = {
 /** Предел из схемы: четыре цифры, кнопка добавления исчезла. */
 export const СписокНаПределе: Story = {
   args: { group: achievementsGroupFixture, value: fullAchievements },
+};
+
+/**
+ * Рабочее окно календаря. Группа взята настоящая: история показывает ровно тот
+ * текст, которым владельцу объясняют разницу с «Часами работы» (ADR-128).
+ */
+export const РабочееОкно: Story = {
+  args: { group: SCHEDULE_GROUP, value: filledSchedule },
+};
+
+/** Окно ещё не задавали: поля времени пусты, календарь живёт на умолчании. */
+export const РабочееОкноПустое: Story = {
+  args: { group: SCHEDULE_GROUP, value: {} },
 };

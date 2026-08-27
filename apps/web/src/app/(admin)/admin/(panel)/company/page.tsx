@@ -32,7 +32,7 @@ export default async function AdminCompanyPage() {
         <p className={styles.lead}>{texts.lead}</p>
       </header>
 
-      {/* Оглавление: групп двенадцать, и прокручивать их в поисках нужной —
+      {/* Оглавление: групп тринадцать, и прокручивать их в поисках нужной —
           основная работа на этой странице. */}
       <nav className={styles.toc} aria-label={texts.tocLabel}>
         {SETTINGS_GROUPS.map((group) => (

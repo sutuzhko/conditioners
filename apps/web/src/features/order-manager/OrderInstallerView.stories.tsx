@@ -8,6 +8,7 @@ import {
   failingApi,
   installerCompanyOrder,
   installerOrder,
+  installerOvertimeOrder,
   pendingApi,
 } from './fixtures';
 
@@ -73,4 +74,9 @@ export const ДлинныеДанные: Story = {
         'Домофон не работает, звонить на телефон за пятнадцать минут. Пятый этаж без лифта, узкая лестница — блок заносить вдвоём.',
     },
   },
+};
+
+/** 🔴 Свою переработку монтажник видит: это его часы, а не деньги компании. */
+export const СПереработкой: Story = {
+  args: { order: installerOvertimeOrder },
 };

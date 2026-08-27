@@ -4,12 +4,14 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { SettingsForm } from './SettingsForm';
 import { settingsFormContent as texts } from './content';
+import { SCHEDULE_GROUP } from './fields';
 import {
   achievementsGroupFixture,
   contactsGroupFixture,
   filledAchievements,
   fullAchievements,
   filledContacts,
+  filledSchedule,
   integrationsGroupFixture,
   legalGroupFixture,
   pendingSave,
@@ -240,5 +242,60 @@ describe('Цифры первого экрана', () => {
 
     expect(screen.getByText(texts.listEmpty)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Добавить: цифра' })).toBeInTheDocument();
+  });
+});
+
+describe('Рабочее окно', () => {
+  it('минуты показываются владельцу временем', () => {
+    render(<SettingsForm group={SCHEDULE_GROUP} value={filledSchedule} save={vi.fn()} />);
+
+    expect(screen.getByLabelText(/Начало рабочего дня/)).toHaveValue('09:00');
+    expect(screen.getByLabelText(/Конец рабочего дня/)).toHaveValue('19:00');
+  });
+
+  it('🔴 сохраняется число минут, а не строка времени', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({ ok: true }) as const);
+    render(<SettingsForm group={SCHEDULE_GROUP} value={filledSchedule} save={save} />);
+
+    await user.clear(screen.getByLabelText(/Начало рабочего дня/));
+    await user.type(screen.getByLabelText(/Начало рабочего дня/), '08:30');
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    // сетке календаря нужно число: разбирать строку она не должна (ADR-138)
+    expect(save).toHaveBeenCalledWith('schedule', { fromMin: 510, toMin: 19 * 60 });
+  });
+
+  it('🔴 подсказки объясняют разницу с часами работы и цену выхода за окно', () => {
+    render(<SettingsForm group={SCHEDULE_GROUP} value={filledSchedule} save={vi.fn()} />);
+
+    // два поля про часы в соседних группах владелец однажды перепутает
+    expect(screen.getByText(/Часы работы/)).toBeInTheDocument();
+    expect(screen.getByText(/переработкой/)).toBeInTheDocument();
+  });
+
+  it('🔴 после сохранения не обещает изменений на сайте: окно видит только панель', async () => {
+    const user = userEvent.setup();
+    render(
+      <SettingsForm
+        group={SCHEDULE_GROUP}
+        value={filledSchedule}
+        save={async () => ({ ok: true })}
+      />,
+    );
+
+    await user.clear(screen.getByLabelText(/Конец рабочего дня/));
+    await user.type(screen.getByLabelText(/Конец рабочего дня/), '21:00');
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    const done = await screen.findByRole('status');
+    expect(done).toHaveTextContent(SCHEDULE_GROUP.savedNote ?? '');
+    expect(done).not.toHaveTextContent(texts.savedNote);
+  });
+
+  it('незаданное окно открывается пустыми полями, а не полуночью', () => {
+    render(<SettingsForm group={SCHEDULE_GROUP} value={{}} save={vi.fn()} />);
+
+    expect(screen.getByLabelText(/Начало рабочего дня/)).toHaveValue('');
   });
 });

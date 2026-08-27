@@ -162,3 +162,13 @@
   color: var(--error-ink);
   font-size: var(--fs-dense);
 }
+
+/* Свои переработанные часы монтажник видит рядом с длительностью выезда.
+   Обещания доплаты в этих словах нет — только число (ADR-138). */
+.overtime {
+  display: block;
+  margin-top: 2px;
+  color: var(--warn-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}

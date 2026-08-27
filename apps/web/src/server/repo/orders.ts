@@ -180,6 +180,7 @@ const orderSelect = {
   installer: { select: { id: true, name: true, login: true, employment: true } },
   at: true,
   durationMin: true,
+  overtimeMin: true,
   address: true,
   intercom: true,
   phone2: true,
@@ -256,6 +257,7 @@ type OrderRow = {
   } | null;
   at: Date;
   durationMin: number;
+  overtimeMin: number;
   address: string;
   intercom: string | null;
   phone2: string | null;
@@ -350,6 +352,10 @@ function toCard(row: OrderRow, role: AdminRole): OrderCard {
           },
     at: row.at.toISOString(),
     durationMin: row.durationMin,
+    /* Переработка — часы человека, а не деньги компании: она приходит обеим
+       ролям наравне с `installerFee`. Монтажник видит свои минуты, и знать
+       их ему положено (ADR-138). */
+    overtimeMin: row.overtimeMin,
     address: row.address,
     intercom: row.intercom,
     phone2: row.phone2,

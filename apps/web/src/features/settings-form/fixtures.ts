@@ -75,6 +75,12 @@ export const filledContacts = {
   hours: 'Пн–Вс, 8:00–21:00',
 };
 
+/**
+ * Рабочее окно: девять утра — семь вечера. Хранится минутами от московской
+ * полуночи, а не строкой «09:00» — время в поле собирает форма (ADR-138).
+ */
+export const filledSchedule = { fromMin: 9 * 60, toMin: 19 * 60 };
+
 export const acceptingSave: SaveGroup = async () => ({ ok: true });
 
 export const rejectingSave: SaveGroup = async () => ({

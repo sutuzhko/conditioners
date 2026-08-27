@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { OrderCardView } from './OrderCardView';
-import { cancelledOrder, freshOrder, longOrder, order } from './fixtures';
+import { cancelledOrder, freshOrder, longOrder, order, overtimeOrder } from './fixtures';
 
 const meta = {
   title: 'Админка/Заказы/Наряд в списке',
@@ -26,4 +26,12 @@ export const Отказ: Story = {
 /** Длинные адрес и имя не должны рвать карточку. */
 export const ДлинныеДанные: Story = {
   args: { order: longOrder },
+};
+
+/**
+ * Выезд вышел за рабочее окно: переработка стоит рядом с длительностью.
+ * Факт, а не обещание доплаты — она решается вместе с расчётами (ADR-138).
+ */
+export const СПереработкой: Story = {
+  args: { order: overtimeOrder },
 };

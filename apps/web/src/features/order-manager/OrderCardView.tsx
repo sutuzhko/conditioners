@@ -27,6 +27,10 @@ export interface OrderCardViewProps {
  * едет сегодня и во сколько». Остальное открывается в наряде.
  */
 export function OrderCardView({ order }: OrderCardViewProps) {
+  /* Ключа может не быть вовсе: он приходит из проекции наряда под роль
+     (ADR-114). Нет ключа — переработки не показываем, а не показываем ноль. */
+  const overtimeMin = order.overtimeMin ?? 0;
+
   return (
     <Card as="article" className={styles.card}>
       <div className={styles.head}>
@@ -62,6 +66,12 @@ export function OrderCardView({ order }: OrderCardViewProps) {
               {texts.date(order.at)}, {texts.clock(order.at)}
             </time>{' '}
             <span className={styles.span}>{texts.span(order.durationMin)}</span>
+            {/* 🔴 Рядом с длительностью, а не отдельной строкой: переработка —
+                это часть того же отрезка времени, вышедшая за рабочее окно
+                (ADR-138). Обещаний по деньгам здесь нет — только факт. */}
+            {overtimeMin > 0 ? (
+              <span className={styles.overtime}>{texts.overtime(overtimeMin)}</span>
+            ) : null}
           </dd>
         </div>
 

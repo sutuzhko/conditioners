@@ -106,6 +106,7 @@ export const order: OrderCard = {
   installer: selfEmployedInstaller,
   at: '2026-08-28T08:00:00.000Z',
   durationMin: 180,
+  overtimeMin: 0,
   address: 'Тула, Первомайская, 12, кв. 4',
   intercom: '24К',
   phone2: null,
@@ -134,6 +135,7 @@ export const freshOrder: OrderCard = {
   installer: null,
   at: '2026-08-29T06:30:00.000Z',
   durationMin: 90,
+  overtimeMin: 0,
   address: 'Тула, Октябрьская, 3',
   intercom: null,
   floor: null,
@@ -176,6 +178,7 @@ const installerBase = {
   installer: selfEmployedInstaller,
   at: '2026-08-28T08:00:00.000Z',
   durationMin: 180,
+  overtimeMin: 0,
   address: 'Тула, Первомайская, 12, кв. 4',
   intercom: '24К',
   phone2: '+7 (953) 100-20-30',
@@ -199,6 +202,28 @@ export const installerOrder: OrderCard = {
 export const installerCompanyOrder: OrderCard = {
   ...installerBase,
   payment: 'company',
+};
+
+/**
+ * Наряд, вышедший за рабочее окно: выезд на пять с половиной часов от четырёх
+ * дня, а окно закрывается в семь. Два часа с четвертью — переработка, и она
+ * посчитана сервером на момент записи (ADR-138).
+ */
+export const overtimeOrder: OrderCard = {
+  ...order,
+  id: 'o5',
+  number: 1061,
+  at: '2026-08-28T13:00:00.000Z',
+  durationMin: 5 * 60 + 15,
+  overtimeMin: 2 * 60 + 15,
+};
+
+/** Та же переработка глазами монтажника: это его часы, и он их видит. */
+export const installerOvertimeOrder: OrderCard = {
+  ...installerOrder,
+  at: '2026-08-28T13:00:00.000Z',
+  durationMin: 5 * 60 + 15,
+  overtimeMin: 2 * 60 + 15,
 };
 
 export const page: OrderPage = {
@@ -235,6 +260,7 @@ export const longOrder: OrderCard = {
   ownerNote:
     'Клиент постоянный: третий кондиционер за два года. Скидку не даём, но материалы считаем по себестоимости.',
   durationMin: 465,
+  overtimeMin: 0,
 };
 
 export const acceptingApi: OrderApi = {

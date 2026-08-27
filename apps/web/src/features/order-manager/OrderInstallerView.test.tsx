@@ -4,7 +4,14 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { OrderInstallerView } from './OrderInstallerView';
 import { ORDER_STATUS_TITLE, orderManagerContent as texts } from './content';
-import { acceptingApi, failingApi, installerCompanyOrder, installerOrder, order } from './fixtures';
+import {
+  acceptingApi,
+  failingApi,
+  installerCompanyOrder,
+  installerOrder,
+  installerOvertimeOrder,
+  order,
+} from './fixtures';
 
 describe('Наряд у монтажника', () => {
   it('🔴 не показывает заметку владельца и удержание, даже если они пришли', () => {
@@ -31,6 +38,18 @@ describe('Наряд у монтажника', () => {
     render(<OrderInstallerView order={installerCompanyOrder} api={acceptingApi} />);
 
     expect(screen.queryByText(texts.cashToTake)).not.toBeInTheDocument();
+  });
+
+  it('🔴 свою переработку монтажник видит: это его часы, а не деньги компании', () => {
+    render(<OrderInstallerView order={installerOvertimeOrder} api={acceptingApi} />);
+
+    expect(screen.getByText(texts.overtime(2 * 60 + 15))).toBeInTheDocument();
+  });
+
+  it('без переработки строки нет', () => {
+    render(<OrderInstallerView order={installerOrder} api={acceptingApi} />);
+
+    expect(screen.queryByText(/Переработка/)).not.toBeInTheDocument();
   });
 
   it('выплата монтажнику видна всегда: это его деньги', () => {

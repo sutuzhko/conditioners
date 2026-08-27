@@ -52,6 +52,44 @@ export function writePath(value: GroupValue, path: string, next: unknown): Group
   return { ...value, [head]: writePath(base, rest.join('.'), next) };
 }
 
+/** Сутки в минутах: 1440 — полночь следующего дня, предел рабочего окна в схеме. */
+const DAY_MINUTES = 24 * 60;
+
+/**
+ * Минуты от московской полуночи в значение поля времени: 540 → «09:00».
+ *
+ * 🔴 Приведение живёт в форме, а не в схеме: календарю нужно число, чтобы
+ * рисовать сетку, а владельцу — часы, чтобы их набрать (ADR-138). Свободный
+ * текст часов работы для сетки не годится вовсе — его пришлось бы разбирать.
+ *
+ * Конец суток (1440) показывается как «00:00»: поле времени в браузере суток
+ * не знает и «24:00» не принимает, а полночь — это и есть конец дня.
+ */
+export function minutesToTime(minutes: number): string {
+  const inDay = ((Math.trunc(minutes) % DAY_MINUTES) + DAY_MINUTES) % DAY_MINUTES;
+
+  return `${String(Math.floor(inDay / 60)).padStart(2, '0')}:${String(inDay % 60).padStart(2, '0')}`;
+}
+
+/**
+ * Значение поля времени в минуты от полуночи: «09:30» → 570.
+ *
+ * `null` — поле пустое или в нём мусор. Очищенное поле не превращается в
+ * полночь: ключ уйдёт из тела запроса, и сервер подставит умолчание из схемы,
+ * а не откроет календарь с нуля часов.
+ */
+export function timeToMinutes(value: string): number | null {
+  const match = /^(\d{1,2}):(\d{2})$/.exec(value.trim());
+  if (match === null) return null;
+
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
+  if (!Number.isInteger(hours) || !Number.isInteger(minutes)) return null;
+  if (hours > 23 || minutes > 59) return null;
+
+  return hours * 60 + minutes;
+}
+
 /*
  * Формулировки этой формы, включая её собственный текст про сессию. Они жили
  * прямо здесь до общего хелпера — в content.ts не переносятся, чтобы миграция

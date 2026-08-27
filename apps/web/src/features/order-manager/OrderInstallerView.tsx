@@ -96,6 +96,11 @@ export function OrderInstallerView({ order, api = orderApi, onChanged }: OrderIn
 
   const cash = order.payment === 'cash_to_installer' && order.price !== undefined;
 
+  /* 🔴 Свою переработку монтажник видит: это его часы, и ключ приходит ему в
+     проекции наравне с выплатой (ADR-114). Ничего сверх этого он не узнаёт —
+     ни суммы заказа, ни удержания. */
+  const overtimeMin = order.overtimeMin ?? 0;
+
   return (
     <Card as="article" className={styles.card}>
       <header className={styles.head}>
@@ -112,6 +117,9 @@ export function OrderInstallerView({ order, api = orderApi, onChanged }: OrderIn
               {texts.date(order.at)}, {texts.clock(order.at)}
             </time>{' '}
             <span className={styles.quiet}>{texts.span(order.durationMin)}</span>
+            {overtimeMin > 0 ? (
+              <span className={styles.overtime}>{texts.overtime(overtimeMin)}</span>
+            ) : null}
           </dd>
         </div>
 

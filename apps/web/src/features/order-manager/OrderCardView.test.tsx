@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { OrderCardView } from './OrderCardView';
 import { ORDER_STATUS_TITLE, orderManagerContent as texts } from './content';
-import { freshOrder, order } from './fixtures';
+import { freshOrder, order, overtimeOrder } from './fixtures';
 
 describe('Наряд в списке', () => {
   it('показывает номер, статус и время по Москве', () => {
@@ -34,6 +34,24 @@ describe('Наряд в списке', () => {
     render(<OrderCardView order={freshOrder} />);
 
     expect(screen.getByText(texts.installerNone)).toBeInTheDocument();
+  });
+
+  it('переработка стоит рядом с длительностью и названа фактом, а не доплатой', () => {
+    render(<OrderCardView order={overtimeOrder} />);
+
+    expect(screen.getByText(texts.overtime(2 * 60 + 15))).toBeInTheDocument();
+  });
+
+  it('🔴 без переработки о ней не говорится вовсе: ноль — это не «переработки не было»', () => {
+    /* Ключ приходит из проекции под роль и может не прийти совсем (ADR-114):
+       карточка молчит и в этом случае, а не показывает «0 мин». */
+    render(<OrderCardView order={order} />);
+
+    expect(screen.queryByText(/Переработка/)).not.toBeInTheDocument();
+
+    render(<OrderCardView order={{ ...order, overtimeMin: 0 }} />);
+
+    expect(screen.queryByText(/Переработка/)).not.toBeInTheDocument();
   });
 
   it('высотные работы видны уже в списке: от них зависит, кого назначить', () => {

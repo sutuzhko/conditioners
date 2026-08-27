@@ -7,7 +7,7 @@ import { Button, Card, Checkbox, Input, Select, Textarea } from '@/shared/ui';
 import { ListField } from './ListField';
 import { ObjectListField, type ObjectRow } from './ObjectListField';
 import { settingsFormContent as texts } from './content';
-import { putGroup, readPath, writePath } from './lib';
+import { minutesToTime, putGroup, readPath, timeToMinutes, writePath } from './lib';
 import type { FieldDescriptor, GroupDescriptor, GroupValue, SaveGroup, SaveStatus } from './model';
 import styles from './SettingsForm.module.css';
 
@@ -27,6 +27,16 @@ function asText(value: unknown): string {
 
 function asList(value: unknown): readonly string[] {
   return Array.isArray(value) ? value.map(asText) : [];
+}
+
+/**
+ * Минуты дня из значения группы. Всё, что не целым числом минут в сутках, —
+ * пустое поле: рабочее окно могло быть сохранено до появления поля, а
+ * показывать мусор временем нельзя.
+ */
+function asMinutes(value: unknown): number | null {
+  if (typeof value !== 'number' || !Number.isInteger(value)) return null;
+  return value >= 0 && value <= 24 * 60 ? value : null;
 }
 
 /** Строки списка объектов: всё, что не объект, отбрасывается как мусор. */
@@ -141,7 +151,7 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
               чтение формы им не нужно. */}
           {status === 'success' ? (
             <p className={styles.saved} role="status">
-              {texts.saved}. {texts.savedNote}
+              {texts.saved}. {group.savedNote ?? texts.savedNote}
             </p>
           ) : null}
         </div>
@@ -230,6 +240,24 @@ function Field({
         className={styles.wide}
         value={asText(value)}
         onChange={(event) => onChange(event.target.value)}
+      />
+    );
+  }
+
+  if (field.kind === 'time') {
+    const minutes = asMinutes(value);
+
+    return (
+      <Input
+        {...shared}
+        type="time"
+        value={minutes === null ? '' : minutesToTime(minutes)}
+        onChange={(event) => {
+          /* Очищенное поле — не полночь: ключ уходит из тела запроса, и
+             сервер подставляет умолчание из схемы. Ноль означал бы, что
+             владелец сам открыл календарь с нуля часов. */
+          onChange(timeToMinutes(event.target.value) ?? undefined);
+        }}
       />
     );
   }

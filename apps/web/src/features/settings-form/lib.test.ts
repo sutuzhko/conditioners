@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, afterEach } from 'vitest';
 
-import { putGroup, readPath, toGroupValue, writePath } from './lib';
+import { minutesToTime, putGroup, readPath, timeToMinutes, toGroupValue, writePath } from './lib';
 
 describe('Настройки — путь внутри группы', () => {
   it('читает вложенное значение', () => {
@@ -48,6 +48,32 @@ describe('Настройки — разбор сохранённой групп�
     expect(toGroupValue([1, 2])).toEqual({});
     expect(toGroupValue('строка')).toEqual({});
     expect(toGroupValue(42)).toEqual({});
+  });
+});
+
+describe('Настройки — рабочее окно временем и минутами', () => {
+  it('минуты показываются временем с ведущим нулём', () => {
+    expect(minutesToTime(9 * 60)).toBe('09:00');
+    expect(minutesToTime(19 * 60 + 30)).toBe('19:30');
+    expect(minutesToTime(0)).toBe('00:00');
+  });
+
+  it('конец суток показывается полуночью: «24:00» поле времени не принимает', () => {
+    expect(minutesToTime(24 * 60)).toBe('00:00');
+  });
+
+  it('время разбирается в минуты от полуночи', () => {
+    expect(timeToMinutes('09:00')).toBe(9 * 60);
+    expect(timeToMinutes('9:05')).toBe(9 * 60 + 5);
+    expect(timeToMinutes('23:59')).toBe(23 * 60 + 59);
+  });
+
+  it('пустое поле и мусор — не полночь, а «значения нет»', () => {
+    // ноль означал бы, что владелец сам открыл календарь с нуля часов
+    expect(timeToMinutes('')).toBeNull();
+    expect(timeToMinutes('утром')).toBeNull();
+    expect(timeToMinutes('24:00')).toBeNull();
+    expect(timeToMinutes('09:75')).toBeNull();
   });
 });
 

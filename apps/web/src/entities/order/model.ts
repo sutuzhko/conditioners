@@ -290,6 +290,12 @@ export type OrderCard = {
   /** ISO в UTC; в московское время переводит `shared/lib/calendar` при показе. */
   readonly at: string;
   readonly durationMin: number;
+  /**
+   * Минуты за рабочим окном компании на момент записи. Считает сервер, отдаёт
+   * только на чтение: окно в настройках меняется, а переработка прошлого
+   * выезда измениться не имеет права — на неё смотрят при расчётах (ADR-138).
+   */
+  readonly overtimeMin: number;
   readonly address: string;
   readonly intercom: string | null;
   readonly phone2: string | null;

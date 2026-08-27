@@ -20,6 +20,7 @@ const ORDER: OrderCard = {
   installer: { id: 'u2', name: 'Дмитрий Соколов', login: 'sokolov', employment: 'self_employed' },
   at: '2026-08-28T08:00:00.000Z',
   durationMin: 180,
+  overtimeMin: 0,
   address: 'Тула, Первомайская, 12, кв. 4',
   intercom: '24К',
   phone2: null,
