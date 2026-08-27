@@ -1,0 +1,92 @@
+/* Фильтр остатков: группы, порог заказа и поиск. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Ссылка-чип: фильтр — это адрес, а не кнопка с состоянием. */
+.chip {
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  padding: 6px 14px;
+  background: var(--card);
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.chip:hover {
+  border-color: var(--accent-line);
+  color: var(--accent-ink);
+}
+
+.quiet {
+  font-weight: 500;
+}
+
+.active {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.field {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+/* Кнопка встаёт на строку поля, а не под подпись: подпись и подсказка у поля
+   занимают две строки над самим вводом. */
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding-top: 26px;
+}
+
+.reset {
+  color: var(--muted);
+  font-size: var(--fs-dense);
+  text-decoration: none;
+}
+
+.reset:hover {
+  color: var(--accent-ink);
+  text-decoration: underline;
+}
+
+.total {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.lowCount {
+  color: var(--warn-ink);
+  font-weight: 600;
+}
+
+@media (width < 600px) {
+  .actions {
+    padding-top: 0;
+  }
+}

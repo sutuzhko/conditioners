@@ -1,0 +1,118 @@
+/* Остатки по зонам: строки — позиции, колонки — зоны хранения. */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Название зоны и подпись под ним — две строки в одной ячейке шапки. */
+.zoneName {
+  display: block;
+}
+
+.zoneNote {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-text);
+  font-size: var(--fs-caption);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.numberHead {
+  text-align: right;
+}
+
+.name {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.name:hover {
+  color: var(--accent-ink);
+  text-decoration: underline;
+}
+
+.itemNote {
+  display: block;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 400;
+}
+
+.number {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.total {
+  font-weight: 600;
+}
+
+/* Ноль приглушён: «здесь ничего нет» не должно спорить за внимание с остатком. */
+.zero {
+  color: var(--faint);
+}
+
+/* 🔴 Минус — предупреждение, а не отказ: склад разошёлся с реальностью
+   (ADR-134). Отсюда тёплый цвет состояния, а не красный цвет ошибки. */
+.minus {
+  color: var(--warn-ink);
+  font-weight: 600;
+}
+
+.mark {
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.hint {
+  margin: 0;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.warning {
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-sm);
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  font-size: var(--fs-dense);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.emptyText {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.reset {
+  color: var(--accent-ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.reset:hover {
+  text-decoration: underline;
+}

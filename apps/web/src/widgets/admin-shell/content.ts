@@ -73,6 +73,13 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     group: 'work',
   },
   {
+    href: '/admin/stock',
+    title: 'Склад',
+    hint: 'Остатки материалов по зонам, приход и что пора заказывать',
+    roles: OWNER,
+    group: 'work',
+  },
+  {
     href: '/admin/company',
     title: 'Компания',
     hint: 'Контакты, адрес, часы работы, реквизиты',

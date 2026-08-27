@@ -1,0 +1,67 @@
+/* Форма зоны хранения: гараж или машина монтажника. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: 700;
+}
+
+.hint {
+  margin: -6px 0 0;
+  max-width: 60ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+/* Объяснение на месте поля «чья машина»: у склада хозяина не бывает, и пустое
+   место в сетке читалось бы как забытое поле. */
+.note {
+  margin: 0;
+  align-self: center;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.ok {
+  color: var(--ok-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.error {
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}
+
+@media (width < 600px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

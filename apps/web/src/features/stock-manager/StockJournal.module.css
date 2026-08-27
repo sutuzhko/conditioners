@@ -1,0 +1,59 @@
+/* Журнал движений позиции. */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 18px 0;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.empty {
+  margin: 8px 0 0;
+  max-width: 60ch;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.qty {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.reason {
+  color: var(--muted);
+}
+
+.order {
+  color: var(--accent-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.order:hover {
+  text-decoration: underline;
+}
+
+.gone {
+  color: var(--faint);
+}
