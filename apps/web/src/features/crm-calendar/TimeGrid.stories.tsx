@@ -2,23 +2,32 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { crmContent as texts } from './content';
 import {
-  clashingRepair,
+  crowdedOrders,
+  dayNote,
   doctorBlock,
   installers,
+  lateInstall,
+  manyLeads,
   monthBlocks,
   monthEvents,
   monthLeads,
   monthOrders,
-  morningInstall,
-  parallelService,
   viewerId,
   wholeDayBlock,
 } from './fixtures';
-import { dayColumns, marksOf, weekColumns, type ScheduleSource } from './schedule';
+import {
+  DEFAULT_WORK_WINDOW,
+  dayColumns,
+  hourRangeOf,
+  marksOf,
+  weekColumns,
+  type ScheduleSource,
+} from './schedule';
 import { TimeGrid } from './TimeGrid';
 
 /** 23 августа 2026, воскресенье — день, на который заведены фикстуры. */
 const DAY = '2026-08-23';
+const RANGE = hourRangeOf(DEFAULT_WORK_WINDOW);
 
 function source(patch: Partial<ScheduleSource> = {}): ScheduleSource {
   return {
@@ -28,7 +37,6 @@ function source(patch: Partial<ScheduleSource> = {}): ScheduleSource {
     blocks: [],
     viewerId,
     today: DAY,
-    selected: DAY,
     ...patch,
   };
 }
@@ -40,6 +48,7 @@ const meta = {
   args: {
     columns: weekColumns(source(), DAY),
     view: 'week',
+    range: RANGE,
     // 14:20 по московскому времени: линия «сейчас» видна в рабочем окне
     nowMin: 14 * 60 + 20,
     label: texts.weekLabel,
@@ -49,51 +58,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Неделя колонками дней: наряды, дела и заявки вперемешку. */
+/** Неделя колонками дней: наряды, дела и заявки на своих часах. */
 export const Неделя: Story = {};
 
 /** Пустая неделя — первые дни после установки панели. */
 export const НеделяПустая: Story = {
-  args: {
-    columns: weekColumns(source({ events: [], orders: [], leads: [] }), DAY),
-  },
+  args: { columns: weekColumns(source({ events: [], orders: [], leads: [] }), DAY) },
 };
 
 /** Занятость в сетке: закрытый целиком день и запись к врачу на два часа. */
 export const НеделяСЗанятостью: Story = {
-  args: {
-    columns: weekColumns(source({ blocks: monthBlocks }), '2026-08-26'),
-  },
+  args: { columns: weekColumns(source({ blocks: monthBlocks }), '2026-08-26') },
 };
 
 /** День по часам с линией «сейчас» — вид, в котором планируют выезды. */
 export const День: Story = {
-  args: {
-    columns: dayColumns(source(), DAY),
-    view: 'day',
-    label: texts.dayLabel,
-  },
-};
-
-/** Плотный день: шесть выездов подряд, часть внахлёст. */
-export const ДеньПлотный: Story = {
-  args: {
-    columns: dayColumns(
-      source({
-        orders: [
-          morningInstall,
-          clashingRepair,
-          parallelService,
-          { ...morningInstall, id: 'o5', number: 1063, at: '2026-08-23T11:30:00.000Z' },
-          { ...parallelService, id: 'o6', number: 1064, at: '2026-08-23T13:00:00.000Z' },
-          { ...clashingRepair, id: 'o7', number: 1065, at: '2026-08-23T15:00:00.000Z' },
-        ],
-      }),
-      DAY,
-    ),
-    view: 'day',
-    label: texts.dayLabel,
-  },
+  args: { columns: dayColumns(source(), DAY), view: 'day', label: texts.dayLabel },
 };
 
 /** Пустой день: сетка часов на месте, записей нет. */
@@ -105,10 +85,49 @@ export const ДеньПустой: Story = {
   },
 };
 
-/** 🔴 Пересечение: два наряда Дмитрия внахлёст — предупреждение, а не запрет. */
-export const Пересечение: Story = {
+/** Одна запись: короткий звонок держит минимальную высоту, но не врёт о начале. */
+export const ОднаЗапись: Story = {
   args: {
-    columns: dayColumns(source({ orders: [morningInstall, clashingRepair] }), DAY),
+    columns: dayColumns(
+      source({ events: [monthEvents[0] ?? dayNote], orders: [], leads: [] }),
+      DAY,
+    ),
+    view: 'day',
+    label: texts.dayLabel,
+  },
+};
+
+/** 🔴 Пересечение: два наряда Дмитрия внахлёст — предупреждение, а не запрет. */
+export const Наложение: Story = {
+  args: {
+    columns: dayColumns(source({ orders: monthOrders.slice(0, 2), events: [], leads: [] }), DAY),
+    view: 'day',
+    label: texts.dayLabel,
+  },
+};
+
+/** 🔴 Пять выездов на одно время: ширины на всех нет — записи идут лесенкой. */
+export const Лесенка: Story = {
+  args: {
+    columns: dayColumns(source({ orders: crowdedOrders, events: [], leads: [] }), DAY),
+    view: 'day',
+    label: texts.dayLabel,
+  },
+};
+
+/** 🔴 Переработка: монтаж до десяти вечера при рабочем окне до девятнадцати. */
+export const Переработка: Story = {
+  args: {
+    columns: dayColumns(source({ events: [lateInstall], orders: [], leads: [] }), DAY),
+    view: 'day',
+    label: texts.dayLabel,
+  },
+};
+
+/** 🔴 Полоса «весь день» переполнена: восемь заявок сворачиваются в «Ещё N». */
+export const ПолосаПереполнена: Story = {
+  args: {
+    columns: dayColumns(source({ leads: manyLeads, events: [dayNote], orders: [] }), DAY),
     view: 'day',
     label: texts.dayLabel,
   },
@@ -118,13 +137,10 @@ export const Пересечение: Story = {
  * 🔴 Наложение занятости команды (ADR-123): выезды и отлучки всех людей на
  * одной сетке, каждый своей краской, рядом с краской — инициалы.
  */
-export const ЗанятостьКоманды: Story = {
+export const СлойКоманды: Story = {
   args: {
     columns: dayColumns(
-      source({
-        team: installers,
-        blocks: [{ ...doctorBlock, userId: 'u2', day: DAY }],
-      }),
+      source({ team: installers, blocks: [{ ...doctorBlock, userId: 'u2', day: DAY }] }),
       DAY,
     ),
     view: 'day',
@@ -133,26 +149,28 @@ export const ЗанятостьКоманды: Story = {
   },
 };
 
-/** Неделя с наложением: видно, кто и когда занят на всю неделю разом. */
-export const ЗанятостьКомандыЗаНеделю: Story = {
+/** Неделя со слоем: видно, кто и когда занят на всю неделю разом. */
+export const СлойКомандыЗаНеделю: Story = {
   args: {
     columns: weekColumns(source({ team: installers, blocks: monthBlocks }), DAY),
     team: [...marksOf(installers).values()],
   },
 };
 
-/** У человека закрыт весь день: полоса не закрашивает колонку, а идёт меткой. */
-export const ЗакрытыйДеньВНаложении: Story = {
+/** У человека закрыт весь день: полоса не закрашивает колонку, а идёт в «весь день». */
+export const ЗакрытыйДеньВСлое: Story = {
   args: {
     columns: dayColumns(
-      source({
-        team: installers,
-        blocks: [{ ...wholeDayBlock, userId: 'u3', day: DAY }],
-      }),
+      source({ team: installers, blocks: [{ ...wholeDayBlock, userId: 'u3', day: DAY }] }),
       DAY,
     ),
     view: 'day',
     label: texts.dayLabel,
     team: [...marksOf(installers).values()],
   },
+};
+
+/** Сегодня: линия текущего времени с кружком — только в колонке этого дня. */
+export const Сегодня: Story = {
+  args: { columns: weekColumns(source({ today: DAY }), DAY), nowMin: 11 * 60 + 40 },
 };

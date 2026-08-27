@@ -1,38 +1,33 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import { busyTitle } from '@/entities/crm/content';
 import {
   CalendarGrid,
   CalendarNav,
-  DayPanel,
+  CalendarStage,
   TimeGrid,
   crmContent as texts,
   dayColumns,
+  hourRangeOf,
   marksOf,
+  monthColumns,
   parseCalendarView,
   parseTeamFlag,
-  teamDayLoad,
   weekColumns,
   type CalendarLead,
   type CalendarView,
   type CrmEventDraft,
   type ScheduleSource,
-  type TeamDayMark,
 } from '@/features/crm-calendar';
 import { formatPhone } from '@/shared/lib/format';
 import {
-  type DayKey,
-  dayKeyOf,
   dayRange,
   gridRange,
   minutesOfDay,
-  monthGrid,
   monthOfDay,
   parseDayKey,
   parseMonthKey,
   todayKey,
-  weekGrid,
   weekRange,
 } from '@/shared/lib/calendar';
 import { getAdminSession } from '@/server/auth';
@@ -40,6 +35,7 @@ import { listInstallers } from '@/server/repo/admin-users';
 import { countOverdue, listOrdersRange, listRange } from '@/server/repo/crm';
 import { listRange as listBlocks } from '@/server/repo/day-blocks';
 import { findById, listCreatedBetween } from '@/server/repo/leads';
+import { workWindow } from '@/server/repo/settings';
 
 import styles from './page.module.css';
 
@@ -71,22 +67,12 @@ function rangeOf(view: CalendarView, month: string, day: string) {
   return dayRange(day);
 }
 
-/** Дни, по которым в этом виде считается занятость команды. */
-function daysOf(view: CalendarView, month: string, day: string): readonly DayKey[] {
-  if (view === 'month')
-    return monthGrid(month)
-      .flat()
-      .map((cell) => cell.key);
-  if (view === 'week') return weekGrid(day).map((cell) => cell.key);
-  return [day];
-}
-
 /**
- * Календарь работ.
+ * Календарь работ — модель Apple Calendar (ADR-128, CRM §3.5.1).
  *
- * Вид, выбранный день и наложение занятости живут в адресе: страница целиком
- * собирается на сервере, а открытый экран переживает обновление и возврат из
- * закладок. Заявки берутся из своего раздела, наряды — из своего: календарь их
+ * Вид, дата и наложение занятости живут в адресе: страница целиком собирается
+ * на сервере, а открытый экран переживает обновление и возврат из закладок.
+ * Заявки берутся из своего раздела, наряды — из своего: календарь их
  * показывает, а правятся они там, где заведены (ADR-093).
  */
 export default async function AdminCrmPage({ searchParams }: { searchParams: Promise<Search> }) {
@@ -120,11 +106,9 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
     (dayParam === undefined ? monthOfDay(today) : monthOfDay(day));
 
   const range = rangeOf(view, month, day);
-  const chosen = dayRange(day);
-
   const viewer = { role: session.role, userId: session.userId };
 
-  const [events, leads, orders, blocks, overdue, fromLead, installers] = await Promise.all([
+  const [events, leads, orders, blocks, overdue, fromLead, installers, window] = await Promise.all([
     listRange(range.from, range.to),
     listCreatedBetween(range.from, range.to),
     listOrdersRange(viewer, range.from, range.to),
@@ -134,6 +118,10 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
     /* Список команды нужен только включённому наложению: без него это лишний
        запрос на каждое листание месяца. */
     team ? listInstallers(true) : Promise.resolve([]),
+    /* 🔴 Рабочее окно — настройка `schedule` (ADR-138). Оно решает, куда сетка
+       прокручена и какие часы помечены нерабочими, но не то, что можно
+       завести: запись за границей окна создаётся обычным образом. */
+    workWindow(),
   ]);
 
   const calendarLeads: CalendarLead[] = leads.map((lead) => ({
@@ -143,13 +131,6 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
     topic: lead.topic,
     at: lead.createdAt,
   }));
-
-  const dayEvents = events.filter((event) => dayKeyOf(new Date(event.at)) === day);
-  const dayOrders = orders.filter((order) => dayKeyOf(new Date(order.at)) === day);
-  const dayLeads = calendarLeads.filter((lead) => {
-    const at = Date.parse(lead.at);
-    return at >= chosen.from.getTime() && at < chosen.to.getTime();
-  });
 
   // заявка открывает форму уже заполненной: перебивать её данные руками —
   // лишняя работа и лишний повод ошибиться в телефоне
@@ -172,28 +153,11 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
     blocks,
     viewerId: session.userId,
     today,
-    selected: day,
     team: installers,
   };
 
   const legend = [...marksOf(installers).values()];
-
-  /* В месяце часов нет: занятость команды сворачивается в полоску на человека
-     в клетке дня, а не пытается нарисовать там часы (ADR-123). */
-  const teamLoad = new Map<DayKey, readonly TeamDayMark[]>(
-    view !== 'month' || !team
-      ? []
-      : daysOf(view, month, day).map((key) => [
-          key,
-          teamDayLoad(source, key).map((entry) => ({
-            id: entry.person.id,
-            title: entry.person.title,
-            initials: entry.person.initials,
-            tone: entry.person.tone,
-            note: busyTitle(entry.busy),
-          })),
-        ]),
-  );
+  const hours = hourRangeOf(window);
 
   return (
     <div className={styles.page}>
@@ -202,8 +166,15 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
         <p className={styles.lead}>{texts.lead}</p>
       </header>
 
-      <div
-        className={[styles.body, view === 'week' ? styles.wide : null].filter(Boolean).join(' ')}
+      {/* 🔴 Сетка внутри управляющего слоя остаётся серверной: `children`
+          переезжают через границу как разметка, а действия раздаются
+          контекстом — функция границу не переживает. */}
+      <CalendarStage
+        day={day}
+        viewerId={session.userId}
+        blocks={blocks}
+        orders={orders}
+        preset={preset}
       >
         <div className={styles.calendar}>
           <CalendarNav
@@ -223,24 +194,13 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
             </div>
           ) : null}
 
-          {view === 'month' ? (
-            <CalendarGrid
-              month={month}
-              selected={day}
-              today={today}
-              events={events}
-              orders={orders}
-              leads={calendarLeads}
-              blocks={blocks}
-              viewerId={session.userId}
-              teamLoad={teamLoad}
-            />
-          ) : null}
+          {view === 'month' ? <CalendarGrid columns={monthColumns(source, month)} /> : null}
 
           {view === 'week' ? (
             <TimeGrid
               columns={weekColumns(source, day)}
               view={view}
+              range={hours}
               nowMin={minutesOfDay(now)}
               label={texts.weekLabel}
               team={legend}
@@ -251,23 +211,14 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
             <TimeGrid
               columns={dayColumns(source, day)}
               view={view}
+              range={hours}
               nowMin={minutesOfDay(now)}
               label={texts.dayLabel}
               team={legend}
             />
           ) : null}
         </div>
-
-        <DayPanel
-          day={day}
-          events={dayEvents}
-          orders={dayOrders}
-          leads={dayLeads}
-          blocks={blocks}
-          viewerId={session.userId}
-          preset={preset}
-        />
-      </div>
+      </CalendarStage>
     </div>
   );
 }

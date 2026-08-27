@@ -1,172 +1,106 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
 import { CalendarGrid } from './CalendarGrid';
-import type { CalendarOrderCard, DayBlockCard } from './model';
+import { crmContent as texts } from './content';
 import {
+  dmitry,
   doctorBlock,
-  foreignBlock,
-  monthBlocks,
+  installers,
   monthEvents,
   monthLeads,
   monthOrders,
-  teamLoad,
+  morningInstall,
+  plannedCall,
   viewerId,
   wholeDayBlock,
 } from './fixtures';
+import { monthColumns, type ScheduleSource } from './schedule';
 
-function grid(blocks: readonly DayBlockCard[] = [], orders: readonly CalendarOrderCard[] = []) {
-  return render(
-    <CalendarGrid
-      month="2026-08"
-      selected="2026-08-23"
-      today="2026-08-23"
-      events={monthEvents}
-      orders={orders}
-      leads={monthLeads}
-      blocks={blocks}
-      viewerId={viewerId}
-    />,
-  );
+const MONTH = '2026-08';
+const DAY = '2026-08-23';
+
+function source(patch: Partial<ScheduleSource> = {}): ScheduleSource {
+  return {
+    events: monthEvents,
+    orders: monthOrders,
+    leads: monthLeads,
+    blocks: [],
+    viewerId,
+    today: DAY,
+    ...patch,
+  };
+}
+
+function grid(patch: Partial<ScheduleSource> = {}) {
+  return <CalendarGrid columns={monthColumns(source(patch), MONTH)} />;
 }
 
 describe('Сетка месяца', () => {
-  it('показывает шесть недель — сетка не прыгает по высоте между месяцами', () => {
-    grid();
+  it('рисует шесть недель: сетка не имеет права прыгать при листании', () => {
+    render(grid());
 
-    expect(screen.getAllByRole('link')).toHaveLength(42);
+    expect(screen.getAllByRole('link', { name: /открыть день/ })).toHaveLength(42);
   });
 
-  it('день соседнего месяца остаётся ссылкой: дела из хвоста тоже открываются', () => {
-    grid();
+  it('🔴 в строке клетки есть время: капсулы без времени владелец забраковал', () => {
+    render(grid({ leads: [], orders: [], blocks: [] }));
 
-    expect(screen.getByRole('link', { name: /27 июля 2026/ })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /6 сентября 2026/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Звонок, 10:00–10:30/ })).toHaveAccessibleName(
+      expect.stringContaining(plannedCall.clientName),
+    );
   });
 
-  it('ссылка дня несёт и месяц: возврат по ней показывает тот же экран', () => {
-    grid();
+  it('число дня ведёт в день, а не открывает панель рядом', () => {
+    render(grid());
 
-    expect(screen.getByRole('link', { name: /21 августа 2026/ })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /23 августа.*открыть день/ })).toHaveAttribute(
       'href',
-      '/admin/crm?month=2026-08&day=2026-08-21',
+      `/admin/crm?view=day&day=${DAY}`,
     );
   });
 
-  it('называет дату и содержимое дня — числа в ячейке скринридеру ни о чём не говорят', () => {
-    grid();
+  it('лишние записи сворачиваются в «Ещё N», а не режутся молча', () => {
+    render(grid());
 
-    expect(screen.getByRole('link', { name: '23 августа 2026, дел: 2, заявок: 1' })).toBeTruthy();
+    const more = screen.getAllByRole('link', { name: /^Ещё / });
+
+    expect(more.length).toBeGreaterThan(0);
+    expect(more[0]).toHaveAttribute('href', expect.stringContaining('view=day'));
   });
 
-  it('помечает выбранный день', () => {
-    grid();
+  it('🔴 карточка записи открывается прямо из клетки месяца', async () => {
+    const user = userEvent.setup();
+    render(grid({ events: [], leads: [], blocks: [] }));
 
-    expect(screen.getByRole('link', { name: /23 августа 2026/ })).toHaveAttribute(
-      'aria-current',
-      'date',
-    );
+    await user.click(screen.getByRole('button', { name: /Наряд № 1059/ }));
+
+    const card = screen.getByRole('dialog');
+
+    expect(within(card).getByText(morningInstall.clientName)).toBeInTheDocument();
   });
 
-  it('показывает время и клиента в ячейке — день видно, не открывая его', () => {
-    grid();
-
-    expect(screen.getByText('10:00')).toBeInTheDocument();
-    expect(screen.getByText('Ирина')).toBeInTheDocument();
-    expect(screen.getByText('13:30')).toBeInTheDocument();
-  });
-
-  it('считает дела в московском времени, а не в UTC', () => {
-    // 21 августа 06:00 UTC — это 09:00 в Туле, тот же день
-    grid();
-
-    expect(screen.getByRole('link', { name: '21 августа 2026, дел: 1' })).toBeTruthy();
-  });
-
-  it('🔴 не выделяет субботу и воскресенье: выходные отмечает человек, а не календарь', () => {
-    grid();
-
-    // 28, 29 и 30 августа 2026 — пятница, суббота и воскресенье
-    const friday = screen.getByRole('link', { name: '28 августа 2026' });
-    const saturday = screen.getByRole('link', { name: '29 августа 2026' });
-    const sunday = screen.getByRole('link', { name: '30 августа 2026' });
-
-    expect(saturday.className).toBe(friday.className);
-    expect(sunday.className).toBe(friday.className);
-  });
-
-  it('называет закрытый день словами, а не оставляет его цветом рамки', () => {
-    grid([wholeDayBlock]);
+  it('день, закрытый целиком, виден строкой, а не только краской клетки', () => {
+    render(grid({ events: [], orders: [], leads: [], blocks: [wholeDayBlock] }));
 
     expect(
-      screen.getByRole('link', { name: /26 августа 2026, День закрыт: семейные дела/ }),
+      screen.getByRole('button', { name: /Моя занятость, День закрыт, Семейные дела/ }),
     ).toBeInTheDocument();
   });
 
-  it('день, закрытый на два часа, называет часы — он остаётся рабочим', () => {
-    grid([doctorBlock]);
+  it('🔴 занятость команды показана записями со временем, а не инициалами', () => {
+    const away = { ...doctorBlock, userId: dmitry.id };
+    render(grid({ events: [], orders: [], leads: [], blocks: [away], team: installers }));
 
     expect(
-      screen.getByRole('link', { name: /24 августа 2026, Занят 14:00–16:00 — врач/ }),
+      screen.getByRole('button', { name: /Дмитрий Соколов, 14:00–16:00/ }),
     ).toBeInTheDocument();
   });
 
-  it('повторяемая занятость закрывает каждый такой день месяца', () => {
-    grid(monthBlocks);
+  it('сетка называется словами: у области должно быть имя', () => {
+    render(grid());
 
-    for (const day of ['6 августа 2026', '13 августа 2026', '27 августа 2026']) {
-      expect(screen.getByRole('link', { name: new RegExp(`^${day}, День закрыт`) })).toBeTruthy();
-    }
-  });
-
-  it('чужая занятость называется именем: окна разных людей не складываются', () => {
-    grid([foreignBlock]);
-
-    expect(
-      screen.getByRole('link', { name: /23 августа 2026, Занят: Дмитрий/ }),
-    ).toBeInTheDocument();
-  });
-
-  it('🔴 наряды попадают в сетку и считаются отдельно от дел', () => {
-    grid([], monthOrders);
-
-    expect(
-      screen.getByRole('link', { name: '23 августа 2026, нарядов: 3, дел: 2, заявок: 1' }),
-    ).toBeInTheDocument();
-  });
-
-  it('наряд в ячейке отличим от дела номером, а не только цветом', () => {
-    grid([], monthOrders);
-
-    expect(screen.getByText('№1059')).toBeInTheDocument();
-    expect(screen.getByText('Ирина Соколова')).toBeInTheDocument();
-  });
-
-  it('🔴 занятость команды в месяце — полоска на человека, а не часы в клетке', () => {
-    render(
-      <CalendarGrid
-        month="2026-08"
-        selected="2026-08-23"
-        today="2026-08-23"
-        events={[]}
-        orders={monthOrders}
-        leads={[]}
-        blocks={[]}
-        viewerId={viewerId}
-        teamLoad={teamLoad}
-      />,
-    );
-
-    expect(
-      screen.getByRole('link', { name: /23 августа 2026, Дмитрий Соколов — занят 10:00–14:00/ }),
-    ).toBeInTheDocument();
-    expect(screen.getAllByText('ДС')[0]).toBeInTheDocument();
-  });
-
-  it('свободный день о занятости не говорит', () => {
-    grid(monthBlocks);
-
-    // 28 августа 2026 — пятница без дел, заявок и занятости
-    expect(screen.getByRole('link', { name: '28 августа 2026' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: texts.gridLabel })).toBeInTheDocument();
   });
 });

@@ -1,4 +1,5 @@
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
 import { crmContent as texts } from './content';
@@ -7,18 +8,26 @@ import {
   dmitry,
   doctorBlock,
   installers,
+  lateInstall,
   monthBlocks,
   monthEvents,
   monthLeads,
   monthOrders,
   morningInstall,
-  plannedCall,
   viewerId,
 } from './fixtures';
-import { dayColumns, marksOf, weekColumns, type ScheduleSource } from './schedule';
+import {
+  DEFAULT_WORK_WINDOW,
+  dayColumns,
+  hourRangeOf,
+  marksOf,
+  weekColumns,
+  type ScheduleSource,
+} from './schedule';
 import { TimeGrid } from './TimeGrid';
 
 const DAY = '2026-08-23';
+const RANGE = hourRangeOf(DEFAULT_WORK_WINDOW);
 
 function source(patch: Partial<ScheduleSource> = {}): ScheduleSource {
   return {
@@ -28,222 +37,196 @@ function source(patch: Partial<ScheduleSource> = {}): ScheduleSource {
     blocks: [],
     viewerId,
     today: DAY,
-    selected: DAY,
     ...patch,
   };
 }
 
+function day(patch: Partial<ScheduleSource> = {}) {
+  return dayColumns(source(patch), DAY);
+}
+
 describe('Сетка часов', () => {
-  it('🔴 наряд ведёт в свою карточку, дело открывается в панели дня', () => {
+  it('🔴 показывает сутки целиком: ночь доступна прокруткой, а не спрятана', () => {
     render(
-      <TimeGrid
-        columns={dayColumns(source(), DAY)}
-        view="day"
-        nowMin={14 * 60}
-        label={texts.dayLabel}
-      />,
+      <TimeGrid columns={day()} view="day" range={RANGE} nowMin={14 * 60} label={texts.dayLabel} />,
     );
 
-    expect(screen.getByRole('link', { name: /Наряд № 1059/ })).toHaveAttribute(
-      'href',
-      `/admin/orders/${morningInstall.id}`,
-    );
-    expect(screen.getByRole('link', { name: /^Звонок/ }).getAttribute('href')).toContain(
-      `/admin/crm?view=day&day=${DAY}#event-${plannedCall.id}`,
-    );
+    const hours = screen.getByRole('group', { name: texts.hours });
+
+    expect(within(hours).getByText('00:00')).toBeInTheDocument();
+    expect(within(hours).getByText('23:00')).toBeInTheDocument();
   });
 
   it('🔴 называет наряд словом и номером: различие не только в цвете', () => {
     render(
-      <TimeGrid
-        columns={dayColumns(source(), DAY)}
-        view="day"
-        nowMin={14 * 60}
-        label={texts.dayLabel}
-      />,
+      <TimeGrid columns={day()} view="day" range={RANGE} nowMin={14 * 60} label={texts.dayLabel} />,
     );
 
-    const order = screen.getByRole('link', { name: /Наряд № 1060/ });
+    const order = screen.getByRole('button', { name: /Наряд № 1060/ });
 
     expect(order).toHaveAccessibleName(expect.stringContaining('ремонт'));
     expect(order).toHaveAccessibleName(expect.stringContaining('Пётр Лапин'));
   });
 
+  it('🔴 карточка записи открывается у самой записи, а не в колонке справа', async () => {
+    const user = userEvent.setup();
+    render(
+      <TimeGrid columns={day()} view="day" range={RANGE} nowMin={14 * 60} label={texts.dayLabel} />,
+    );
+
+    await user.click(screen.getByRole('button', { name: /Наряд № 1059/ }));
+
+    const card = screen.getByRole('dialog');
+
+    expect(within(card).getByText(morningInstall.clientName)).toBeInTheDocument();
+    expect(within(card).getByRole('link', { name: texts.orderOpen })).toHaveAttribute(
+      'href',
+      `/admin/orders/${morningInstall.id}`,
+    );
+  });
+
+  it('карточка закрывается с клавиатуры и возвращает фокус на запись', async () => {
+    const user = userEvent.setup();
+    render(
+      <TimeGrid columns={day()} view="day" range={RANGE} nowMin={14 * 60} label={texts.dayLabel} />,
+    );
+
+    const chip = screen.getByRole('button', { name: /Наряд № 1059/ });
+    await user.click(chip);
+    await user.keyboard('{Escape}');
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(chip).toHaveFocus();
+  });
+
   it('пересечение называется словами, а не остаётся рамкой', () => {
     render(
+      <TimeGrid columns={day()} view="day" range={RANGE} nowMin={14 * 60} label={texts.dayLabel} />,
+    );
+
+    expect(screen.getByRole('button', { name: /Наряд № 1059/ })).toHaveAccessibleName(
+      expect.stringContaining('Пересечение'),
+    );
+    expect(screen.getByRole('button', { name: /Наряд № 1060/ })).toHaveAccessibleName(
+      expect.stringContaining('Пересечение'),
+    );
+    expect(clashingRepair.installerId).toBe(morningInstall.installerId);
+  });
+
+  it('🔴 полоса «весь день» держит заявку: её никто не назначал на час', () => {
+    render(
+      <TimeGrid columns={day()} view="day" range={RANGE} nowMin={14 * 60} label={texts.dayLabel} />,
+    );
+
+    const bar = screen.getByRole('list', { name: texts.allDay });
+
+    expect(within(bar).getByRole('button', { name: /Заявка с сайта/ })).toBeInTheDocument();
+  });
+
+  it('🔴 пустой час — кнопка: запись заводится и с клавиатуры, и с тача', () => {
+    render(
       <TimeGrid
-        columns={dayColumns(source(), DAY)}
+        columns={day({ events: [], orders: [], leads: [] })}
         view="day"
+        range={RANGE}
         nowMin={14 * 60}
         label={texts.dayLabel}
       />,
     );
 
     expect(
-      screen.getAllByRole('link', { name: new RegExp(`Наряд № ${clashingRepair.number}`) })[0],
-    ).toHaveAccessibleName(expect.stringContaining('Пересечение'));
+      screen.getByRole('button', { name: 'Новое дело: 23 августа, 10:00' }),
+    ).toBeInTheDocument();
   });
 
-  it('сетка называется словами — у области есть подпись', () => {
+  it('🔴 переработка помечена на самой записи, а не только в карточке', () => {
+    render(
+      <TimeGrid
+        columns={day({ events: [lateInstall], orders: [], leads: [] })}
+        view="day"
+        range={RANGE}
+        nowMin={14 * 60}
+        label={texts.dayLabel}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: /Монтаж/ })).toHaveAccessibleName(
+      expect.stringContaining('Переработка: 3 ч'),
+    );
+  });
+
+  it('шапка недели ведёт в день, чтобы посмотреть его крупнее', () => {
     render(
       <TimeGrid
         columns={weekColumns(source(), DAY)}
         view="week"
+        range={RANGE}
         nowMin={14 * 60}
         label={texts.weekLabel}
       />,
     );
 
-    expect(screen.getByRole('region', { name: texts.weekLabel })).toBeInTheDocument();
-  });
-
-  it('шапка дня недели ведёт в вид «день» этого числа', () => {
-    render(
-      <TimeGrid
-        columns={weekColumns(source(), DAY)}
-        view="week"
-        nowMin={14 * 60}
-        label={texts.weekLabel}
-      />,
-    );
-
-    // 17 августа 2026 — понедельник этой недели
-    expect(screen.getAllByRole('link', { name: 'Пн 17' })[0]).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /23 августа/ })).toHaveAttribute(
       'href',
-      '/admin/crm?view=day&day=2026-08-17',
+      `/admin/crm?view=day&day=${DAY}`,
     );
   });
 
-  it('заявка попадает в группу без времени, а не растягивает сетку', () => {
+  it('в дне шапка никуда не ведёт: он уже открыт', () => {
+    render(
+      <TimeGrid columns={day()} view="day" range={RANGE} nowMin={14 * 60} label={texts.dayLabel} />,
+    );
+
+    expect(screen.queryByRole('link', { name: /23 августа/ })).not.toBeInTheDocument();
+  });
+
+  it('🔴 занятость называется словами, а не остаётся краской', () => {
     render(
       <TimeGrid
-        columns={dayColumns(source(), DAY)}
-        view="day"
+        columns={weekColumns(source({ blocks: monthBlocks }), '2026-08-26')}
+        view="week"
+        range={RANGE}
         nowMin={14 * 60}
-        label={texts.dayLabel}
+        label={texts.weekLabel}
       />,
     );
 
-    const spare = screen.getByLabelText(texts.untimed);
-
-    expect(within(spare).getByRole('link', { name: /Сергей/ })).toBeInTheDocument();
+    expect(screen.getAllByTitle(/День закрыт: семейные дела/).length).toBeGreaterThan(0);
   });
 
-  it('загрузка дня подписана часами, а не одной полоской', () => {
+  it('🔴 легенда наложения называет людей: цвет не единственный признак', () => {
     render(
       <TimeGrid
-        columns={dayColumns(source(), DAY)}
+        columns={day({ team: installers })}
         view="day"
-        nowMin={14 * 60}
-        label={texts.dayLabel}
-      />,
-    );
-
-    // 10:00–13:00, 12:00–14:00 и 11:00–12:30 — пять с половиной часов работы
-    expect(screen.getAllByText(/занято/)[0]).toBeInTheDocument();
-  });
-
-  it('🔴 в наложении у каждого своя краска и свои инициалы рядом с ней', () => {
-    const marks = [...marksOf(installers).values()];
-
-    render(
-      <TimeGrid
-        columns={dayColumns(source({ team: installers }), DAY)}
-        view="day"
-        nowMin={14 * 60}
-        label={texts.dayLabel}
-        team={marks}
-      />,
-    );
-
-    const legend = screen.getByRole('list', { name: texts.teamLegend });
-
-    expect(within(legend).getByText(dmitry.name ?? '')).toBeInTheDocument();
-    expect(within(legend).getAllByText('ДС')[0]).toBeInTheDocument();
-  });
-
-  it('чужая отлучка в наложении не ссылка: открывать в ней нечего', () => {
-    const mine = { ...doctorBlock, userId: dmitry.id, day: DAY };
-
-    render(
-      <TimeGrid
-        columns={dayColumns(source({ team: installers, blocks: [mine] }), DAY)}
-        view="day"
+        range={RANGE}
         nowMin={14 * 60}
         label={texts.dayLabel}
         team={[...marksOf(installers).values()]}
       />,
     );
 
-    const away = screen.getByRole('img', { name: /Дмитрий Соколов, 14:00–16:00/ });
+    const legend = screen.getByRole('list', { name: texts.teamLegend });
 
-    expect(away).toBeInTheDocument();
-    expect(away.tagName).toBe('SPAN');
+    expect(within(legend).getByText(dmitry.name ?? '')).toBeInTheDocument();
+    expect(within(legend).getByText('ДС')).toBeInTheDocument();
   });
 
-  it('без наложения легенды нет вовсе', () => {
+  it('чужая отлучка в наложении подписана человеком и часами', () => {
+    const mine = { ...doctorBlock, userId: dmitry.id, day: DAY };
     render(
       <TimeGrid
-        columns={dayColumns(source(), DAY)}
+        columns={day({ team: installers, blocks: [mine] })}
         view="day"
+        range={RANGE}
         nowMin={14 * 60}
         label={texts.dayLabel}
+        team={[...marksOf(installers).values()]}
       />,
     );
 
-    expect(screen.queryByRole('list', { name: texts.teamLegend })).toBeNull();
-  });
-
-  it('занятость колонки называется словом: цвет рамки скринридеру не читается', () => {
-    render(
-      <TimeGrid
-        columns={weekColumns(source({ blocks: monthBlocks }), '2026-08-26')}
-        view="week"
-        nowMin={14 * 60}
-        label={texts.weekLabel}
-      />,
-    );
-
-    expect(screen.getAllByTitle(/День закрыт/)[0]).toBeInTheDocument();
-  });
-
-  it('линии «сейчас» нет там, где сегодняшнего дня в сетке нет', () => {
-    render(
-      <TimeGrid
-        columns={dayColumns(source({ today: '2026-09-01' }), DAY)}
-        view="day"
-        nowMin={14 * 60 + 20}
-        label={texts.dayLabel}
-      />,
-    );
-
-    // 14:20 — не подпись часа: такой текст даёт только линия «сейчас»
-    expect(screen.queryByText('14:20')).toBeNull();
-  });
-
-  it('линия «сейчас» стоит на текущем часе своей колонки', () => {
-    render(
-      <TimeGrid
-        columns={dayColumns(source(), DAY)}
-        view="day"
-        nowMin={14 * 60 + 20}
-        label={texts.dayLabel}
-      />,
-    );
-
-    expect(screen.getByText('14:20')).toBeInTheDocument();
-  });
-
-  it('пустой день не притворяется занятым', () => {
-    render(
-      <TimeGrid
-        columns={weekColumns(source({ events: [], orders: [], leads: [] }), DAY)}
-        view="week"
-        nowMin={14 * 60}
-        label={texts.weekLabel}
-      />,
-    );
-
-    expect(screen.queryByText(/занято/)).toBeNull();
+    expect(
+      screen.getByRole('button', { name: /Дмитрий Соколов, 14:00–16:00/ }),
+    ).toBeInTheDocument();
   });
 });

@@ -12,6 +12,7 @@ import {
 } from '@/shared/lib/calendar';
 import { Icon } from '@/shared/ui';
 
+import { CalendarCreate } from './CalendarCreate';
 import { CRM_PATH, VIEW_TITLE, crmContent as texts, monthTitle, weekTitle } from './content';
 import { CALENDAR_VIEWS, type CalendarView } from './model';
 import styles from './CalendarNav.module.css';
@@ -55,12 +56,7 @@ function stepOf(view: CalendarView, day: DayKey, month: MonthKey, delta: number)
   return { query: { view, day: next }, label: delta < 0 ? texts.prevDay : texts.nextDay };
 }
 
-/**
- * Заголовок называет ровно то, что показано: месяц, неделю или день.
- *
- * Вид «по монтажникам» — это один день колонками людей, и датой он называется
- * так же, как «День»: иначе человек не поймёт, за какое число смотрит загрузку.
- */
+/** Заголовок называет ровно то, что показано: месяц, неделю или день. */
 function titleOf(view: CalendarView, day: DayKey, month: MonthKey): string {
   if (view === 'month') return monthTitle(month);
 
@@ -73,7 +69,10 @@ function titleOf(view: CalendarView, day: DayKey, month: MonthKey): string {
 }
 
 /**
- * Шапка календаря: что показано, чем листается и в каком виде.
+ * Шапка календаря: что показано, чем листается, в каком виде и чем пополняется.
+ *
+ * Порядок — как в эталоне (CRM §3.5.1): стрелки и «Сегодня» слева, вид
+ * посередине, «+» справа.
  *
  * 🔴 Вид, месяц и день живут в адресе (`?view=week&day=2026-08-24`), поэтому
  * переходы — ссылки, а не состояние на клиенте: открытый экран переживает
@@ -95,10 +94,44 @@ export function CalendarNav({
 
   return (
     <div className={styles.nav}>
+      <div className={styles.steps}>
+        <Link
+          className={styles.step}
+          href={{ pathname: CRM_PATH, query: withTeam(back.query, team) }}
+          aria-label={back.label}
+        >
+          <Icon name="arrow-right" className={styles.back} />
+        </Link>
+
+        <Link
+          className={styles.today}
+          href={{
+            pathname: CRM_PATH,
+            query: withTeam(
+              view === 'month' ? { view, month: monthOfDay(today) } : { view, day: today },
+              team,
+            ),
+          }}
+        >
+          {texts.today}
+        </Link>
+
+        <Link
+          className={styles.step}
+          href={{ pathname: CRM_PATH, query: withTeam(forward.query, team) }}
+          aria-label={forward.label}
+        >
+          <Icon name="arrow-right" />
+        </Link>
+      </div>
+
       <h2 className={styles.title}>{titleOf(view, day, month)}</h2>
 
       {overdue === 0 ? null : (
-        <Link className={styles.overdue} href={{ pathname: CRM_PATH, query: { day: today } }}>
+        <Link
+          className={styles.overdue}
+          href={{ pathname: CRM_PATH, query: { view: 'day', day: today } }}
+        >
           {texts.overdue(overdue)}
         </Link>
       )}
@@ -140,35 +173,8 @@ export function CalendarNav({
         </Link>
       ) : null}
 
-      <div className={styles.buttons}>
-        <Link
-          className={styles.step}
-          href={{ pathname: CRM_PATH, query: withTeam(back.query, team) }}
-          aria-label={back.label}
-        >
-          <Icon name="arrow-right" className={styles.back} />
-        </Link>
-
-        <Link
-          className={styles.today}
-          href={{
-            pathname: CRM_PATH,
-            query: withTeam(
-              view === 'month' ? { view, month: monthOfDay(today) } : { view, day: today },
-              team,
-            ),
-          }}
-        >
-          {texts.today}
-        </Link>
-
-        <Link
-          className={styles.step}
-          href={{ pathname: CRM_PATH, query: withTeam(forward.query, team) }}
-          aria-label={forward.label}
-        >
-          <Icon name="arrow-right" />
-        </Link>
+      <div className={styles.actions}>
+        <CalendarCreate day={day} canBlock />
       </div>
     </div>
   );

@@ -1,8 +1,6 @@
 /** Данные для историй и тестов календаря работ. */
-import { personTone } from '@/entities/crm/lib/palette';
 import type { StaffCard } from '@/entities/staff/model';
 
-import type { TeamDayMark } from './CalendarGrid';
 import type { CalendarLead, CalendarOrderCard, CrmEventCard, DayBlockCard } from './model';
 
 /** 23 августа 2026, 10:00 по московскому времени. */
@@ -247,37 +245,53 @@ export const monthOrders: readonly CalendarOrderCard[] = [
   looseOrder,
 ];
 
-/** Занятость команды по дням — то, что даёт включённый переключатель в месяце. */
-export const teamLoad: ReadonlyMap<string, readonly TeamDayMark[]> = new Map([
-  [
-    '2026-08-23',
-    [
-      {
-        id: dmitry.id,
-        title: dmitry.name ?? dmitry.login,
-        initials: 'ДС',
-        tone: personTone(dmitry.id),
-        note: 'Занят 10:00–14:00',
-      },
-      {
-        id: sergey.id,
-        title: sergey.name ?? sergey.login,
-        initials: 'СП',
-        tone: personTone(sergey.id),
-        note: 'Занят 11:00–12:30',
-      },
-    ],
-  ],
-  [
-    '2026-08-26',
-    [
-      {
-        id: dmitry.id,
-        title: dmitry.name ?? dmitry.login,
-        initials: 'ДС',
-        tone: personTone(dmitry.id),
-        note: 'День закрыт: семейные дела',
-      },
-    ],
-  ],
-]);
+/** Заметка «не забыть»: висит на дне, а не на часе, — полоса «весь день». */
+export const dayNote: CrmEventCard = {
+  id: 'e5',
+  kind: 'note',
+  status: 'planned',
+  at: '2026-08-23T06:00:00.000Z',
+  durationMin: 60,
+  overtimeMin: 0,
+  clientName: 'Забрать трассу со склада',
+  clientPhone: null,
+  address: null,
+  note: null,
+  leadId: null,
+};
+
+/**
+ * Вечерний монтаж: с 19:00 до 22:00 при окне до девятнадцати — три часа
+ * переработки. Число готовое, как его отдаёт сервер (ADR-138).
+ */
+export const lateInstall: CrmEventCard = {
+  id: 'e6',
+  kind: 'install',
+  status: 'planned',
+  at: '2026-08-23T16:00:00.000Z',
+  durationMin: 180,
+  overtimeMin: 180,
+  clientName: 'Анна Дьякова',
+  clientPhone: '+7 (920) 000-11-22',
+  address: 'Тула, Октябрьская, 40',
+  note: 'Клиент просил закончить сегодня',
+  leadId: null,
+};
+
+/** Пять выездов на одно время: ширины на всех не хватает — идёт лесенка. */
+export const crowdedOrders: readonly CalendarOrderCard[] = [
+  morningInstall,
+  clashingRepair,
+  parallelService,
+  { ...morningInstall, id: 'o5', number: 1063, at: '2026-08-23T07:30:00.000Z' },
+  { ...parallelService, id: 'o6', number: 1064, at: '2026-08-23T08:15:00.000Z' },
+];
+
+/** Восемь заявок за день: полоса «весь день» сворачивается (CRM §3.5.1). */
+export const manyLeads: readonly CalendarLead[] = Array.from({ length: 8 }, (_, index) => ({
+  id: `l${index + 2}`,
+  name: `Заявка ${index + 1}`,
+  phone: '+79101112233',
+  topic: 'Установка кондиционера',
+  at: `2026-08-23T0${index}:15:00.000Z`,
+}));

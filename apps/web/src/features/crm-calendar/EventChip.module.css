@@ -1,0 +1,373 @@
+/* Запись календаря.
+
+   Три обличья одной сущности: прямоугольник в сетке часов (`slot`), строка в
+   полосе «весь день» (`bar`) и строка в клетке месяца (`row`). Оформление
+   общее нарочно — владелец узнаёт запись по виду, а не по месту. */
+
+.slot {
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  padding: 1px;
+
+  /* Запись меряет саму себя: в неделе на семь колонок дорожка сужается до
+     шестидесяти пикселей, и подпись приходится сокращать — но по ширине
+     записи, а не по ширине экрана. */
+  container-type: inline-size;
+}
+
+.chip {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  cursor: pointer;
+  padding: 2px 5px;
+  color: inherit;
+  font: inherit;
+  font-size: var(--fs-micro);
+  line-height: 1.25;
+  text-align: left;
+}
+
+/* 🔴 Короткая запись получает минимальную читаемую высоту, но не врёт о
+   начале (CRM §3.5.1): растёт вниз, верх остаётся ровно на своём времени. */
+.slot .chip {
+  height: 100%;
+  min-height: 20px;
+}
+
+.chip:hover {
+  border-color: currentcolor;
+}
+
+.chip:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* Открытая карточка держит запись подсвеченной: иначе непонятно, о чём она. */
+.open {
+  border-color: currentcolor;
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* 🔴 Наряд и дело различаются не только цветом (ADR-093): у наряда сплошная
+   полоса слева и номер, у дела — пунктирная и номера нет. */
+.order {
+  border-left: 3px solid currentcolor;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.event {
+  border-left: 3px dotted currentcolor;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+/* Заявка с сайта: она пришла, а не была запланирована — сплошная тонкая
+   полоса и место в «весь день», пока ей не назначили время (ADR-128). */
+.lead {
+  border-left: 3px double currentcolor;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+/* Отлучка: заштрихована и приглушена — это не работа, а отсутствие человека,
+   и путать её с выездом нельзя ни цветом, ни фактурой. */
+.block {
+  border-left: 3px dashed currentcolor;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0 5px,
+    color-mix(in srgb, currentcolor 14%, transparent) 5px 10px
+  );
+}
+
+.head {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  min-width: 0;
+}
+
+.icon {
+  flex: none;
+}
+
+/* Время ужимается первым: в узкой колонке номер наряда важнее — по нему его
+   зовут вслух, а час виден по месту записи в сетке. */
+.time {
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-overflow: ellipsis;
+}
+
+.number {
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.name {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.where {
+  overflow: hidden;
+  opacity: 0.85;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clashMark,
+.overtimeMark {
+  display: inline-flex;
+  flex: none;
+  gap: 3px;
+  align-items: center;
+  margin-top: 1px;
+  font-weight: 700;
+}
+
+/* В строке месяца места на слово нет: остаётся значок, слово живёт в подписи
+   для скринридера и в карточке записи. */
+.row .markWord {
+  display: none;
+}
+
+/* Телефон: клетка месяца шириной в палец, и в строке помещается одно — либо
+   обрезанное «15» вместо часа, либо честное «15:00». Выбираем время: месяц
+   отвечает на вопрос «когда», имя читается в дне, до которого один нажим. */
+@media (width < 560px) {
+  .chip.row {
+    gap: 3px;
+    padding: 0 3px;
+  }
+
+  .chip.row .name,
+  .chip.row .icon {
+    display: none;
+  }
+}
+
+/* Сделанное и отменённое гаснет: видно, что осталось на сегодня. */
+.muted {
+  opacity: 0.55;
+}
+
+/* Пересечение — предупреждение, а не запрет (ADR-115): рамка и слово, но
+   запись остаётся на месте и открывается как любая другая. */
+.clash {
+  border-color: var(--error-line);
+  box-shadow: inset 0 0 0 1px var(--error-line);
+}
+
+/* 🔴 Переработка помечена и на самой записи, а не только в карточке: минуты
+   за рабочим окном — то, ради чего в календарь смотрят при расчётах. */
+.overtime {
+  border-color: var(--warn-line);
+}
+
+.dragging {
+  cursor: grabbing;
+  opacity: 0.9;
+}
+
+/* ---------- Обличья ---------- */
+
+/* Строка полосы «весь день» и клетки месяца: одна строка, время впереди.
+   Полоса слева работает точкой вида и заодно отличает наряд от дела в ч/б.
+
+   🔴 Класс обличья стоит на самой кнопке, а не на обёртке: у `slot` обёртка
+   есть (она держит место в сетке), у строки — нет. Поэтому селектор
+   двухклассовый, а не вложенный. */
+.chip.bar,
+.chip.row {
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  width: 100%;
+
+  /* Высота строки полосы задана точно: по ней считается, на скольких строках
+     полоса «весь день» сворачивается, — иначе вторая строка режется пополам. */
+  height: var(--cal-bar-row, 22px);
+  border-radius: var(--r-pill);
+  padding: 1px 8px 1px 6px;
+}
+
+/* В клетке месяца строк три, и каждая тоньше: радиус меньше, отступы уже. */
+.chip.row {
+  height: auto;
+  border-radius: 5px;
+  padding: 0 5px;
+}
+
+/* В строке ужимается название, а не время: час — это то, ради чего строку и
+   читают, а имя целиком есть в подписи и в карточке записи. */
+.chip.bar .head,
+.chip.row .head {
+  flex: none;
+}
+
+.chip.bar .name,
+.chip.row .name {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Адрес в строку не помещается и не нужен: он есть в карточке записи. */
+.bar .where,
+.row .where {
+  display: none;
+}
+
+/* ---------- Края для растягивания ---------- */
+
+.edge {
+  position: absolute;
+  right: 1px;
+  left: 1px;
+  height: 7px;
+  cursor: ns-resize;
+}
+
+.edgeStart {
+  top: 0;
+}
+
+.edgeEnd {
+  bottom: 0;
+}
+
+/* Указателя нет — тянуть нечем: на тач-экране край в семь пикселей ловится
+   случайно и мешает прокрутке. Правка идёт формой, как и с клавиатуры. */
+@media (hover: none) {
+  .edge {
+    display: none;
+  }
+}
+
+/* ---------- Узкая дорожка ---------- */
+
+/* В узкой дорожке остаётся то, чем запись зовут: у наряда — номер, у дела —
+   время. Значок уходит первым: полоса слева уже говорит, наряд это или дело. */
+@container (width < 92px) {
+  .icon {
+    display: none;
+  }
+
+  .order .time {
+    display: none;
+  }
+}
+
+@container (width < 78px) {
+  .head {
+    flex-wrap: wrap;
+    gap: 0 3px;
+  }
+
+  .slot .where {
+    display: none;
+  }
+}
+
+/* ---------- Краски вида работ ---------- */
+
+.call {
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.measure {
+  background: var(--info-bg);
+  color: var(--info-ink);
+}
+
+.install {
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.service {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.meeting {
+  background: var(--sale-bg);
+  color: var(--sale-ink);
+}
+
+.repair {
+  background: var(--error-bg);
+  color: var(--error-ink);
+}
+
+.note {
+  background: var(--line-soft);
+  color: var(--ink2);
+}
+
+/* ---------- Краски монтажников (ADR-123) ----------
+
+   Цвет закреплён за человеком и вычисляется из номера учётной записи, а не
+   раздаётся по порядку: перекраска при каждом входе сделала бы наложение
+   бесполезным. Рядом с цветом всегда стоят инициалы (WCAG 1.4.1). */
+
+.personA {
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.personB {
+  background: var(--info-bg);
+  color: var(--info-ink);
+}
+
+.personC {
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.personD {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.personE {
+  background: var(--sale-bg);
+  color: var(--sale-ink);
+}
+
+.personF {
+  background: var(--star-bg);
+  color: var(--star);
+}
+
+/* Инициалы человека рядом с его краской: обведены, а не залиты — заливка
+   потребовала бы седьмого токена под текст поверх каждой из шести красок. */
+.who {
+  flex: none;
+  border: 1px solid currentcolor;
+  border-radius: var(--r-pill);
+  padding: 0 4px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 13px;
+}

@@ -1,0 +1,214 @@
+/* Карточка записи — вместо правой колонки дня (ADR-128).
+
+   Встаёт у самой записи, поэтому позиционирование фиксированное: сетка часов
+   прокручивается внутри своего контейнера, и карточка, привязанная к нему,
+   уезжала бы вместе с прокруткой. */
+
+.card {
+  display: flex;
+  position: fixed;
+  z-index: 40;
+  flex-direction: column;
+  gap: 6px;
+  box-sizing: border-box;
+  width: 288px;
+  max-width: calc(100vw - 16px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card);
+  box-shadow: var(--shadow-float);
+  padding: 12px 14px 10px;
+}
+
+/* До первого измерения карточка невидима: иначе она успевает мигнуть в левом
+   верхнем углу и только потом встать у записи. */
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-float), var(--ring-focus-ring);
+}
+
+.head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kind {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  border-radius: var(--r-pill);
+  padding: 2px 8px;
+  font-size: var(--fs-micro);
+  font-weight: 700;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border: none;
+  border-radius: var(--r-sm);
+  background: transparent;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--muted);
+}
+
+.close:hover {
+  color: var(--ink);
+}
+
+.close:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.when,
+.where,
+.phone,
+.overtime {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 0;
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  line-height: 1.4;
+}
+
+.when {
+  font-family: var(--font-mono);
+}
+
+.phone {
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+.phone:hover {
+  text-decoration: underline;
+}
+
+.phone:focus-visible {
+  outline: none;
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* 🔴 Переработка называется словом и числом: «была переработка» не отвечает
+   на вопрос «сколько», а на эти минуты смотрят при расчётах (ADR-138). */
+.overtime {
+  color: var(--warn-ink);
+  font-weight: 600;
+}
+
+.detail,
+.status,
+.person {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: 1.4;
+}
+
+.status {
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 8px;
+}
+
+.action {
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  background: transparent;
+  cursor: pointer;
+  padding: 4px 8px;
+  color: var(--ink2);
+  font: inherit;
+  font-size: var(--fs-caption);
+  text-decoration: none;
+}
+
+.action:hover {
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.action:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.action:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.danger {
+  color: var(--error-ink);
+}
+
+.danger:hover {
+  border-color: var(--error-line);
+  color: var(--error-ink);
+}
+
+/* ---------- Краски вида работ ---------- */
+
+.call {
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+}
+
+.measure {
+  background: var(--info-bg);
+  color: var(--info-ink);
+}
+
+.install {
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.service {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.meeting {
+  background: var(--sale-bg);
+  color: var(--sale-ink);
+}
+
+.repair {
+  background: var(--error-bg);
+  color: var(--error-ink);
+}
+
+.note {
+  background: var(--line-soft);
+  color: var(--ink2);
+}

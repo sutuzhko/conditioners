@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react';
 
 import { busyAt, busyOn, minutesOfTime } from '@/entities/crm/lib/busy';
+import { loadTitle } from '@/entities/crm/content';
 import { clashesWith, spanOf } from '@/entities/crm/lib/load';
 import { crmEventCreateSchema, isCrmEventKind } from '@/entities/crm/model';
 import { BusyNote, ClashNote } from '@/entities/crm/ui';
@@ -11,13 +12,30 @@ import { Button, Input, Modal, PhoneInput, Select, Textarea } from '@/shared/ui'
 
 import { KIND_LOOK, ORDER_LOOK, crmContent as texts } from './content';
 import { createEvent, updateEvent } from './lib';
-import { EVENT_SLOT_MIN } from './schedule';
-import type { CalendarOrderCard, CrmEventDraft, DayBlockCard } from './model';
+import {
+  DURATION_STEP_MIN,
+  MIN_EVENT_MIN,
+  type CalendarOrderCard,
+  type CrmEventDraft,
+  type DayBlockCard,
+} from './model';
 import styles from './EventDialog.module.css';
 
 const KIND_OPTIONS = Object.entries(KIND_LOOK).map(([value, look]) => ({
   value,
   label: look.title,
+}));
+
+/**
+ * Длительность выбором, а не свободным числом.
+ *
+ * Шаг пятнадцать минут — тот же, что у наряда (ADR-138); список кончается
+ * восемью часами: дело длиннее рабочего дня — это уже наряд, а не
+ * напоминание. Часы и минуты называются так, как их называет владелец.
+ */
+const DURATION_OPTIONS = [15, 30, 45, 60, 90, 120, 180, 240, 300, 360, 480].map((minutes) => ({
+  value: String(minutes),
+  label: loadTitle(minutes),
 }));
 
 export interface EventDialogProps {
@@ -48,6 +66,7 @@ const DRAFT_FIELDS = [
   'kind',
   'day',
   'time',
+  'durationMin',
   'clientName',
   'clientPhone',
   'address',
@@ -108,7 +127,7 @@ export function EventDialog({
   /* 🔴 Пересечение предупреждает, а не запрещает (ADR-115): дело сохранится,
      решение за человеком. Сравниваются наряды того же дня и того же человека —
      чужой выезд его планам не мешает. */
-  const slot = spanOf(minutesOfTime(form.time), EVENT_SLOT_MIN);
+  const slot = spanOf(minutesOfTime(form.time), form.durationMin);
   const sameDay = (orders ?? []).filter((order) => dayKeyOf(new Date(order.at)) === form.day);
   const clashes = clashesWith(
     slot,
@@ -197,6 +216,20 @@ export function EventDialog({
             error={errors.time}
             wrapperClassName={styles.time}
             required
+          />
+          {/* 🔴 Длительность — путь к тому же, что делает растягивание края
+              мышью: ускоритель не может быть единственным способом (ADR-128). */}
+          <Select
+            label={texts.fieldDuration}
+            options={DURATION_OPTIONS}
+            value={String(form.durationMin)}
+            onChange={(event) => {
+              const minutes = Number.parseInt(event.target.value, 10);
+              if (Number.isFinite(minutes) && minutes >= MIN_EVENT_MIN) {
+                set('durationMin', minutes - (minutes % DURATION_STEP_MIN));
+              }
+            }}
+            wrapperClassName={styles.time}
           />
         </div>
 

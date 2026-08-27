@@ -1,10 +1,12 @@
 /**
- * Раскладка календаря по часам: неделя и день, с наложением занятости команды.
+ * Раскладка календаря: что показывать в сетке, где это стоит по времени и что
+ * с чем спорит.
  *
- * Здесь данные превращаются в колонки с местами: что показывать в сетке, где
- * оно стоит по времени и что с чем спорит. 🔴 Чистые функции — сетка часов
- * плотная, и проверять её глазами на каждой правке нельзя; всё, что можно
- * посчитать, считается тут и покрывается тестами.
+ * 🔴 Модель — календарь Apple (ADR-128, CRM §3.5.1): позиция и высота записи
+ * задаются строго её временем, записи без времени уходят в отдельную полосу
+ * «весь день», а пересечения делят ширину колонки. Всё это — арифметика, и
+ * считается она здесь, а не в разметке: сетка часов плотная, проверять её
+ * глазами на каждой правке нельзя.
  *
  * 🔴 Занятость команды ложится на ту же сетку наложением, а не колонкой на
  * человека (ADR-123): владелец назначает наряд, глядя на всю команду разом, а
@@ -16,6 +18,7 @@
  */
 import { blocksOn, busyOn, timeOfMinutes, type DayBusy } from '@/entities/crm/lib/busy';
 import { initialsOf, personTone, type PersonTone } from '@/entities/crm/lib/palette';
+import type { WorkWindow } from '@/entities/crm/lib/overtime';
 import {
   clashingIds,
   laneOf,
@@ -30,12 +33,14 @@ import {
   busyWindowTitle,
   crmBusyContent,
   crmClashContent,
+  loadTitle,
 } from '@/entities/crm/content';
 import { staffTitle } from '@/entities/staff/model';
 import {
   type DayKey,
   dayKeyOf,
   minutesOfDay,
+  monthGrid,
   timeOf,
   weekGrid,
   weekdayOf,
@@ -44,30 +49,38 @@ import type { IconName } from '@/shared/ui';
 
 import {
   KIND_LOOK,
+  LEADS_PATH,
+  ORDERS_PATH,
   ORDER_LOOK,
   ORDER_STATUS_TITLE,
   STATUS_TITLE,
   WEEKDAYS,
   crmContent as texts,
+  dayTitle,
 } from './content';
-import type { CalendarLead, CalendarOrderCard, CrmEventCard, DayBlockCard } from './model';
-
-/**
- * Сколько места занимает в сетке дело и заявка.
- *
- * У дела длительности нет: «перезвонить Ирине» — это отметка на часах, а не
- * работа с началом и концом. Получасовой слот выбран как наименьший, в
- * котором подпись ещё читается; в подсчёт загрузки и в поиск пересечений он не
- * идёт — там участвуют только наряды, у которых длительность настоящая.
- */
-export const EVENT_SLOT_MIN = 30;
-
-/** Рабочее окно по умолчанию: сетка начинается с восьми и кончается в восемь. */
-const DEFAULT_FROM_MIN = 8 * 60;
-const DEFAULT_TO_MIN = 20 * 60;
+import type {
+  CalendarLead,
+  CalendarOrderCard,
+  CrmEventCard,
+  CrmEventDraft,
+  DayBlockCard,
+  DayBlockDraft,
+} from './model';
 
 const MINUTES_IN_HOUR = 60;
 const MINUTES_IN_DAY = 24 * 60;
+
+/** Часов в сутках: сетка рисует их все, рабочее окно только подсказывает, куда смотреть. */
+export const HOURS_IN_DAY = 24;
+
+/**
+ * Рабочее окно по умолчанию — 9:00–19:00.
+ *
+ * Совпадает с умолчанием настройки `schedule` (ADR-138). Нужно там, где окно
+ * не передали: истории Storybook и тесты не ходят в базу, а сетка без окна
+ * молча показывала бы переработкой весь день.
+ */
+export const DEFAULT_WORK_WINDOW: WorkWindow = { fromMin: 9 * 60, toMin: 19 * 60 };
 
 export type ScheduleTone =
   'call' | 'measure' | 'install' | 'service' | 'meeting' | 'note' | 'repair';
@@ -84,14 +97,30 @@ export type SchedulePersonMark = {
 };
 
 /**
- * Запись в сетке. 🔴 Наряд и дело — разные сущности с разным смыслом
- * (ADR-093), и `entity` их разводит: у наряда есть номер и своя карточка, дело
- * открывается в панели дня. `block` — чужая отлучка в наложении: открывать в
- * ней нечего, это чужие семейные дела.
+ * Что открывает карточка записи по кнопке «Изменить».
+ *
+ * Дискриминированное объединение, а не два необязательных поля: дело и
+ * занятость правятся разными формами, и «оба пусты» или «оба заполнены» —
+ * состояния, которых быть не должно.
+ */
+export type ScheduleEdit =
+  | { readonly kind: 'event'; readonly id: string; readonly draft: CrmEventDraft }
+  | { readonly kind: 'block'; readonly id: string; readonly draft: DayBlockDraft };
+
+/**
+ * Запись в сетке.
+ *
+ * 🔴 Наряд, дело и заявка — разные сущности с разным смыслом (ADR-093), и
+ * `entity` их разводит: наряд правится в своём разделе, заявка — в своём,
+ * дело — прямо здесь. `block` — отлучка: своя правится, чужая только видна.
+ *
+ * Плоская структура из строк и чисел выбрана намеренно: запись переезжает из
+ * серверного компонента в клиентский лист пропсом, а функции и классы границу
+ * не переживают.
  */
 export type ScheduleItem = {
   readonly id: string;
-  readonly entity: 'event' | 'order' | 'block';
+  readonly entity: 'event' | 'order' | 'lead' | 'block';
   readonly day: DayKey;
   readonly icon: IconName;
   readonly tone: ScheduleTone;
@@ -103,14 +132,20 @@ export type ScheduleItem = {
   readonly title: string;
   /** Адрес объекта — вторая строка, когда место позволяет. */
   readonly note: string | null;
-  /**
-   * Время начала — «10:00». Конец в подписи не пишется: в сетке он виден
-   * высотой записи, а в узкой колонке недели «10:00–13:00» вытесняло бы номер
-   * наряда, по которому его зовут вслух. Промежуток целиком идёт в `label`.
-   */
+  /** Телефон для звонка прямо из карточки записи. */
+  readonly phone: string | null;
+  /** Заметка целиком — она читается в карточке, а не в полоске сетки. */
+  readonly detail: string | null;
+  /** Статус словами: «Сделано», «В работе». У запланированного — пусто. */
+  readonly statusTitle: string | null;
+  /** Время начала — «10:00». Промежуток целиком лежит в `range`. */
   readonly time: string;
+  /** «10:00–13:00» — то, что читается в карточке и в подписи. */
+  readonly range: string;
   readonly fromMin: number;
   readonly toMin: number;
+  /** 🔴 Минуты за рабочим окном на момент записи. Считает сервер (ADR-138). */
+  readonly overtimeMin: number;
   /** Выполненное и отменённое гаснет: видно, что осталось на сегодня. */
   readonly muted: boolean;
   /** Налезает на другой наряд того же человека. */
@@ -118,33 +153,39 @@ export type ScheduleItem = {
   readonly ownerId: string | null;
   /** Чей это выезд или отлучка — при включённом наложении занятости команды. */
   readonly person: SchedulePersonMark | null;
+  /** Куда ведёт «Открыть»: наряд — в свою карточку, заявка — в свой раздел. */
+  readonly href: string | null;
+  /** Подпись кнопки перехода: «Открыть наряд», «Открыть в заявках». */
+  readonly hrefTitle: string | null;
+  /** Чем правится запись. `null` — чужое: наряд, заявка, отлучка соседа. */
+  readonly edit: ScheduleEdit | null;
   /** Подпись для скринридера: цвет и полоса ему ничего не говорят. */
   readonly label: string;
 };
 
-/** Колонка сетки: день недели, один день или человек. */
+/** Колонка сетки: один день. */
 export type ScheduleColumn = {
   readonly key: string;
   readonly day: DayKey;
-  readonly title: string;
-  /** Подзаголовок: дата у дня недели, загрузка у человека. */
-  readonly note: string | null;
+  /** «Чт» — день недели в шапке колонки. */
+  readonly weekday: string;
+  /** Число месяца — крупная цифра шапки, она же подпись клетки месяца. */
+  readonly date: number;
   readonly today: boolean;
-  readonly selected: boolean;
-  /** День вне показываемого месяца — хвост недели на стыке. */
+  /** День вне показываемого месяца — хвост недели или месячной сетки. */
   readonly outside: boolean;
   readonly busy: DayBusy;
   /** Занято минут — ответ на «влезет ли ещё один монтаж» (CRM.md §8.5). */
   readonly loadMin: number;
   readonly clashes: number;
   readonly timed: readonly Placed<ScheduleItem>[];
-  /** События без часа выезда — отдельной группой над сеткой. */
-  readonly untimed: readonly ScheduleItem[];
+  /** 🔴 Полоса «весь день»: записи без часа и заявки с сайта (ADR-128). */
+  readonly allDay: readonly ScheduleItem[];
   readonly label: string;
 };
 
 /**
- * Человек, на которого заводится колонка в виде «по монтажникам».
+ * Человек, на которого ложится слой занятости.
  *
  * Не `StaffCard` целиком: календарю нужны только номер и подпись, а тянуть в
  * него оформление, телефон и дату найма значило бы делать вид, будто они тут
@@ -162,15 +203,13 @@ export type ScheduleSource = {
   readonly orders: readonly CalendarOrderCard[];
   readonly leads: readonly CalendarLead[];
   readonly blocks: readonly DayBlockCard[];
-  /** Кто смотрит: своя занятость закрывает ему день, чужая — сообщается. */
+  /** Кто смотрит: своя занятость правится, чужая только видна. */
   readonly viewerId: string;
   readonly today: DayKey;
-  readonly selected: DayKey;
   /**
    * Наложение занятости команды: список людей, чьи выезды и отлучки ложатся на
-   * ту же сетку (ADR-123). Пустой список — переключатель выключен, и сетка
-   * работает как раньше. Монтажнику он не показывается вовсе: чужая занятость
-   * ему не видна (ADR-095).
+   * ту же сетку (ADR-123). Пустой список — переключатель выключен. Монтажнику
+   * он не показывается вовсе: чужая занятость ему не видна (ADR-095).
    */
   readonly team?: readonly SchedulePerson[] | undefined;
 };
@@ -202,6 +241,11 @@ function timeRange(fromMin: number, toMin: number): string {
   return `${at(fromMin)}–${at(toMin)}`;
 }
 
+/** Слова про переработку — одинаковые в подписи и в карточке (ADR-138). */
+function overtimePart(overtimeMin: number): string | null {
+  return overtimeMin <= 0 ? null : texts.overtimeOf(loadTitle(overtimeMin));
+}
+
 /**
  * Наряд → запись сетки.
  *
@@ -219,6 +263,7 @@ function itemOfOrder(
   const span = spanOf(minutesOfDay(at), order.durationMin);
   const look = ORDER_LOOK[order.type];
   const mark = texts.orderMark(order.number);
+  const range = timeRange(span.fromMin, span.toMin);
 
   return {
     id: order.id,
@@ -230,16 +275,26 @@ function itemOfOrder(
     number: order.number,
     title: order.clientName,
     note: order.address,
+    phone: null,
+    detail: order.installerName,
+    statusTitle: ORDER_STATUS_TITLE[order.status],
     time: timeOf(at),
+    range,
     fromMin: span.fromMin,
     toMin: span.toMin,
+    overtimeMin: 0,
     muted: order.status === 'done' || order.status === 'cancelled',
     clash,
     ownerId: order.installerId,
     person,
+    href: `${ORDERS_PATH}/${order.id}`,
+    hrefTitle: texts.orderOpen,
+    /* 🔴 Наряд правится в своём разделе (ADR-093): деньги, исполнитель и
+       удержание живут там, и вторая точка правки разошлась бы с первой. */
+    edit: null,
     label: [
       `${mark}, ${look.title.toLocaleLowerCase('ru-RU')}`,
-      timeRange(span.fromMin, span.toMin),
+      range,
       order.clientName,
       order.address,
       order.installerName,
@@ -254,47 +309,79 @@ function itemOfOrder(
 /** Дело → запись сетки. Номера у дела нет: это напоминание, а не работа. */
 function itemOfEvent(event: CrmEventCard): ScheduleItem {
   const at = new Date(event.at);
-  const fromMin = minutesOfDay(at);
-  const span = spanOf(fromMin, EVENT_SLOT_MIN);
+  const day = dayKeyOf(at);
+  const time = timeOf(at);
+  const span = spanOf(minutesOfDay(at), event.durationMin);
   const look = KIND_LOOK[event.kind];
+  const range = timeRange(span.fromMin, span.toMin);
 
   return {
     id: event.id,
     entity: 'event',
-    day: dayKeyOf(at),
+    day,
     icon: look.icon,
     tone: look.tone,
     kindTitle: look.title,
     number: null,
     title: event.clientName,
     note: event.address,
-    time: timeOf(at),
+    phone: event.clientPhone,
+    detail: event.note,
+    statusTitle: event.status === 'planned' ? null : STATUS_TITLE[event.status],
+    time,
+    range,
     fromMin: span.fromMin,
     toMin: span.toMin,
+    overtimeMin: event.overtimeMin,
     muted: event.status !== 'planned',
     clash: false,
     ownerId: null,
     person: null,
+    href: null,
+    hrefTitle: null,
+    edit: {
+      kind: 'event',
+      id: event.id,
+      draft: {
+        kind: event.kind,
+        day,
+        time,
+        durationMin: event.durationMin,
+        clientName: event.clientName,
+        clientPhone: event.clientPhone ?? '',
+        address: event.address ?? '',
+        note: event.note ?? '',
+        leadId: event.leadId,
+      },
+    },
     label: [
       look.title,
-      timeOf(at),
+      range,
       event.clientName,
       event.address,
       event.status === 'planned' ? null : STATUS_TITLE[event.status],
+      overtimePart(event.overtimeMin),
     ]
       .filter((part) => part !== null && part !== '')
       .join(', '),
   };
 }
 
-/** Заявка → запись без времени: она пришла, а не была запланирована на час. */
+/**
+ * Заявка → запись полосы «весь день».
+ *
+ * 🔴 Она пришла, а не была назначена на час (ADR-128), и живёт в полосе, пока
+ * ей не поставили время делом или нарядом. Час обращения показан текстом: он
+ * говорит, когда человек написал, но не занимает места в сетке.
+ */
 function itemOfLead(lead: CalendarLead): ScheduleItem {
   const at = new Date(lead.at);
   const fromMin = minutesOfDay(at);
+  const time = timeOf(at);
 
   return {
-    id: lead.id,
-    entity: 'event',
+    id: `lead-${lead.id}`,
+    entity: 'lead',
     day: dayKeyOf(at),
     icon: 'chat',
     tone: 'note',
@@ -302,28 +389,39 @@ function itemOfLead(lead: CalendarLead): ScheduleItem {
     number: null,
     title: lead.name,
     note: lead.topic,
-    time: timeOf(at),
+    phone: lead.phone,
+    detail: null,
+    statusTitle: null,
+    time,
+    range: time,
     fromMin,
     toMin: fromMin,
+    overtimeMin: 0,
     muted: false,
     clash: false,
     ownerId: null,
     person: null,
-    label: [texts.leadsTitle, timeOf(at), lead.name, lead.topic].join(', '),
+    href: LEADS_PATH,
+    hrefTitle: texts.leadLink,
+    edit: null,
+    label: [texts.leadsTitle, time, lead.name, lead.topic].join(', '),
   };
 }
 
 /**
- * Чужая отлучка в наложении занятости команды.
+ * Отлучка → запись сетки.
  *
- * Закрытый целиком день не рисуется полосой во всю сетку: он уходит в группу
- * без времени отдельной меткой — иначе колонка дня оказывается закрашена и
- * прочесть в ней что-то ещё невозможно.
+ * Закрытый целиком день уходит в полосу «весь день»: закрашенная сверху донизу
+ * колонка не даёт прочесть в ней ничего другого. Отлучка на часы остаётся на
+ * своём месте в сетке — «занят с 11 до 20» обязано быть закрашено ровно с 11
+ * до 20 (BUGS, вердикт владельца).
  */
 function itemsOfBlocks(
   day: DayKey,
-  person: SchedulePersonMark,
+  person: SchedulePersonMark | null,
+  who: string,
   blocks: readonly DayBlockCard[],
+  mine: boolean,
 ): readonly ScheduleItem[] {
   return blocksOn(day, blocks).map((block, index) => {
     const whole = block.fromMin === null || block.toMin === null;
@@ -341,28 +439,53 @@ function itemsOfBlocks(
       tone: 'note',
       kindTitle: crmBusyContent.busy,
       number: null,
-      title: person.title,
+      title: who,
       note: block.reason,
+      phone: null,
+      detail: block.repeat === 'weekly' ? texts.busyRepeatNote : null,
+      statusTitle: null,
       time: whole ? crmBusyContent.fullShort : timeOfMinutes(fromMin),
+      range: when,
       fromMin,
       toMin,
+      overtimeMin: 0,
       muted: true,
       clash: false,
-      ownerId: person.id,
+      ownerId: person?.id ?? null,
       person,
-      label: [person.title, when, block.reason].filter((part) => part !== null).join(', '),
+      href: null,
+      hrefTitle: null,
+      /* 🔴 Занятость личная: снять и поправить её может только хозяин —
+         чужой выходной не решение владельца (ADR-115). */
+      edit: mine
+        ? {
+            kind: 'block',
+            id: block.id,
+            draft: {
+              repeat: block.repeat,
+              day: block.day ?? day,
+              weekday: block.weekday ?? weekdayOf(day),
+              allDay: whole,
+              from: timeOfMinutes(fromMin),
+              to: timeOfMinutes(whole ? fromMin + MINUTES_IN_HOUR : toMin),
+              reason: block.reason ?? '',
+            },
+          }
+        : null,
+      label: [who, when, block.reason].filter((part) => part !== null && part !== '').join(', '),
     } satisfies ScheduleItem;
   });
 }
 
 /**
- * Что показывается отдельной группой над сеткой часов.
+ * Что уходит в полосу «весь день».
  *
- * Заявка не назначена на время — она пришла; заметка «не забыть» тоже висит на
- * дне, а не на часе. Оба вида ничего не занимают у человека и не должны
- * растягивать сетку до шести утра из-за времени, которое ничего не значит.
+ * Заявка не назначена на время — она пришла; заметка «не забыть» висит на дне,
+ * а не на часе; закрытый целиком день — это сутки, а не промежуток. Всё
+ * остальное имеет начало и конец и рисуется по ним.
  */
-function isUntimed(item: ScheduleItem): boolean {
+function isAllDay(item: ScheduleItem): boolean {
+  if (item.entity === 'lead') return true;
   if (item.toMin <= item.fromMin) return true;
 
   // заметка «не забыть» висит на дне, а не на часе; отлучка с окном — на часе
@@ -380,85 +503,14 @@ function bookingsOf(orders: readonly CalendarOrderCard[]): readonly Booking[] {
 }
 
 type ColumnInput = {
-  readonly key: string;
   readonly day: DayKey;
-  readonly title: string;
-  readonly note: string | null;
+  readonly date: number;
   readonly outside: boolean;
-  readonly busy: DayBusy;
-  readonly events: readonly CrmEventCard[];
-  readonly orders: readonly CalendarOrderCard[];
-  readonly leads: readonly CalendarLead[];
+  readonly source: ScheduleSource;
   readonly clashing: ReadonlySet<string>;
-  readonly today: DayKey;
-  readonly selected: DayKey;
   /** Наложение занятости команды: пустая карта — переключатель выключен. */
   readonly marks: ReadonlyMap<string, SchedulePersonMark>;
-  readonly blocks: readonly DayBlockCard[];
 };
-
-function columnOf(input: ColumnInput): ScheduleColumn {
-  const markOf = (id: string | null): SchedulePersonMark | null =>
-    id === null ? null : (input.marks.get(id) ?? null);
-
-  /* Отлучки команды ложатся на ту же сетку, что и выезды: занятость — это
-     объединение работы и личных дел, а не два разных ответа (ADR-123). */
-  const away = [...input.marks.values()].flatMap((person) =>
-    /* 🔴 Занятость личная: человеку показываются только его отлучки. Общий
-       список сюда попадает целиком, и без отбора чужой выходной размножился
-       бы по всей команде. */
-    itemsOfBlocks(
-      input.day,
-      person,
-      input.blocks.filter((block) => block.userId === person.id),
-    ),
-  );
-
-  const items = [
-    ...input.orders.map((order) =>
-      itemOfOrder(order, input.clashing.has(order.id), markOf(order.installerId)),
-    ),
-    ...input.events.map(itemOfEvent),
-    ...input.leads.map(itemOfLead),
-    ...away,
-  ];
-
-  const untimed = items.filter(isUntimed);
-  const timed = laneOf(items.filter((item) => !isUntimed(item)));
-
-  /* Загрузка считается по нарядам: у дела длительности нет, и получасовой
-     слот, взятый ради рисования, врал бы в цифре занятости. */
-  const spans: readonly TimeSpan[] = input.orders.map((order) =>
-    spanOf(minutesOfDay(new Date(order.at)), order.durationMin),
-  );
-
-  const clashes = input.orders.filter((order) => input.clashing.has(order.id)).length;
-  const busyPart = input.busy.state === 'free' ? null : busyTitle(input.busy);
-
-  return {
-    key: input.key,
-    day: input.day,
-    title: input.title,
-    note: input.note,
-    today: input.day === input.today,
-    selected: input.day === input.selected,
-    outside: input.outside,
-    busy: input.busy,
-    loadMin: loadMinutes(spans),
-    clashes,
-    timed,
-    untimed,
-    label: [
-      input.title,
-      input.note,
-      busyPart,
-      items.length === 0 ? texts.columnEmpty : null,
-      clashes === 0 ? null : crmClashContent.count(clashes),
-    ]
-      .filter((part) => part !== null && part !== '')
-      .join(', '),
-  };
-}
 
 /** Записи, попадающие на этот день. Момент разбирается в поясе работ. */
 function onDay<Item extends { readonly at: string }>(
@@ -468,12 +520,86 @@ function onDay<Item extends { readonly at: string }>(
   return items.filter((item) => dayKeyOf(new Date(item.at)) === day);
 }
 
-/** Своя занятость: чужая колонку смотрящего не закрывает (ADR-115). */
-function ownBusy(day: DayKey, source: ScheduleSource): DayBusy {
-  return busyOn(
+function columnOf(input: ColumnInput): ScheduleColumn {
+  const { day, source, marks } = input;
+
+  const markOf = (id: string | null): SchedulePersonMark | null =>
+    id === null ? null : (marks.get(id) ?? null);
+
+  const orders = onDay(day, source.orders);
+  const events = onDay(day, source.events);
+  const leads = onDay(day, source.leads);
+
+  /* Своя отлучка показывается всегда: без неё пустая колонка выглядит
+     свободной, и в неё ставят выезд (ADR-115). Чужие приходят слоем. */
+  const own = itemsOfBlocks(
+    day,
+    null,
+    texts.busyMine,
+    source.blocks.filter((block) => block.userId === source.viewerId),
+    true,
+  );
+
+  /* Отлучки команды ложатся на ту же сетку, что и выезды: занятость — это
+     объединение работы и личных дел, а не два разных ответа (ADR-123). */
+  const away = [...marks.values()]
+    .filter((person) => person.id !== source.viewerId)
+    .flatMap((person) =>
+      itemsOfBlocks(
+        day,
+        person,
+        person.title,
+        source.blocks.filter((block) => block.userId === person.id),
+        false,
+      ),
+    );
+
+  const items = [
+    ...orders.map((order) =>
+      itemOfOrder(order, input.clashing.has(order.id), markOf(order.installerId)),
+    ),
+    ...events.map(itemOfEvent),
+    ...leads.map(itemOfLead),
+    ...own,
+    ...away,
+  ];
+
+  const allDay = items.filter(isAllDay).sort((left, right) => left.fromMin - right.fromMin);
+  const timed = laneOf(items.filter((item) => !isAllDay(item)));
+
+  /* Загрузка считается по нарядам: дело — это напоминание, и час, отведённый
+     на звонок, не занимает бригаду. */
+  const spans: readonly TimeSpan[] = orders.map((order) =>
+    spanOf(minutesOfDay(new Date(order.at)), order.durationMin),
+  );
+
+  const clashes = orders.filter((order) => input.clashing.has(order.id)).length;
+  const busy = busyOn(
     day,
     source.blocks.filter((block) => block.userId === source.viewerId),
   );
+
+  return {
+    key: day,
+    day,
+    weekday: WEEKDAYS[weekdayOf(day) - 1] ?? '',
+    date: input.date,
+    today: day === source.today,
+    outside: input.outside,
+    busy,
+    loadMin: loadMinutes(spans),
+    clashes,
+    timed,
+    allDay,
+    label: [
+      dayTitle(day),
+      busy.state === 'free' ? null : busyTitle(busy),
+      items.length === 0 ? texts.columnEmpty : null,
+      clashes === 0 ? null : crmClashContent.count(clashes),
+    ]
+      .filter((part) => part !== null && part !== '')
+      .join(', '),
+  };
 }
 
 /** Неделя: семь колонок с понедельника. */
@@ -481,22 +607,14 @@ export function weekColumns(source: ScheduleSource, day: DayKey): readonly Sched
   const clashing = clashingIds(bookingsOf(source.orders));
   const marks = marksOf(source.team ?? []);
 
-  return weekGrid(day).map((cell, index) =>
+  return weekGrid(day).map((cell) =>
     columnOf({
-      key: cell.key,
       day: cell.key,
-      title: `${WEEKDAYS[index] ?? ''} ${cell.day}`,
-      note: null,
+      date: cell.day,
       outside: !cell.inMonth,
-      busy: ownBusy(cell.key, source),
-      events: onDay(cell.key, source.events),
-      orders: onDay(cell.key, source.orders),
-      leads: onDay(cell.key, source.leads),
+      source,
       clashing,
-      today: source.today,
-      selected: source.selected,
       marks,
-      blocks: source.blocks,
     }),
   );
 }
@@ -508,121 +626,124 @@ export function dayColumns(source: ScheduleSource, day: DayKey): readonly Schedu
 
   return [
     columnOf({
-      key: day,
       day,
-      // подпись та же, что у колонки недели: «Чт 27» читается быстрее даты
-      title: `${WEEKDAYS[weekdayOf(day) - 1] ?? ''} ${Number.parseInt(day.slice(8), 10)}`,
-      note: null,
+      date: Number.parseInt(day.slice(8), 10),
       outside: false,
-      busy: ownBusy(day, source),
-      events: onDay(day, source.events),
-      orders: onDay(day, source.orders),
-      leads: onDay(day, source.leads),
+      source,
       clashing,
-      today: source.today,
-      selected: source.selected,
       marks,
-      blocks: source.blocks,
     }),
   ];
 }
 
 /**
- * Занятость человека за день — объединение отлучек и его же нарядов (ADR-123).
+ * Месяц: сорок две клетки той же выделки, что и колонки недели.
  *
- * Это тот самый ответ на «свободен ли Дмитрий в четверг в десять»: календарь,
- * знающий про врача и не знающий про монтаж, отвечает наполовину. Считает его
- * домен (`busyOn`), здесь только собираются окна нарядов.
+ * Клетка месяца — тот же день, только показан списком строк вместо часовой
+ * сетки (ADR-128). Считать его вторым способом значило бы завести второй
+ * ответ на вопрос «что в этот день»: они разошлись бы на первой же правке.
  */
-export function personBusy(source: ScheduleSource, day: DayKey, personId: string): DayBusy {
-  const work = onDay(day, source.orders)
-    .filter((order) => order.installerId === personId)
-    .map((order) => {
-      const span = spanOf(minutesOfDay(new Date(order.at)), order.durationMin);
-      return { ...span, reason: `${texts.orderMark(order.number)}, ${order.address}` };
-    });
+export function monthColumns(source: ScheduleSource, month: string): readonly ScheduleColumn[] {
+  const clashing = clashingIds(bookingsOf(source.orders));
+  const marks = marksOf(source.team ?? []);
 
-  return busyOn(
-    day,
-    source.blocks.filter((block) => block.userId === personId),
-    work,
-  );
+  return monthGrid(month)
+    .flat()
+    .map((cell) =>
+      columnOf({
+        day: cell.key,
+        date: cell.day,
+        outside: !cell.inMonth,
+        source,
+        clashing,
+        marks,
+      }),
+    );
 }
 
 /**
- * Кто занят в этот день — компактный ответ для клетки месяца (ADR-123).
+ * Строки клетки месяца: сначала «весь день», дальше по времени.
  *
- * В месяце часов нет и рисовать их в клетке дня незачем: переключатель даёт
- * полоски по людям — «в этот день занят Дмитрий и Сергей», и всё.
+ * 🔴 Время показывается всегда (ADR-128): капсулы с инициалами, из которых не
+ * следует, когда человек занят, владелец забраковал прямо.
  */
-export type PersonDayLoad = {
-  readonly person: SchedulePersonMark;
-  readonly busy: DayBusy;
-  readonly loadMin: number;
-};
-
-export function teamDayLoad(source: ScheduleSource, day: DayKey): readonly PersonDayLoad[] {
-  const marks = marksOf(source.team ?? []);
-  const dayOrders = onDay(day, source.orders);
-
-  return [...marks.values()]
-    .map((person) => {
-      const spans = dayOrders
-        .filter((order) => order.installerId === person.id)
-        .map((order) => spanOf(minutesOfDay(new Date(order.at)), order.durationMin));
-
-      return { person, busy: personBusy(source, day, person.id), loadMin: loadMinutes(spans) };
-    })
-    .filter((entry) => entry.busy.state !== 'free');
+export function monthRows(column: ScheduleColumn): readonly ScheduleItem[] {
+  return [...column.allDay, ...[...column.timed].map((placed) => placed.item)];
 }
 
 // ---------- Окно часов ----------
 
 export type HourRange = {
-  readonly fromMin: number;
-  readonly toMin: number;
+  /** Часы, которые рисует сетка: сутки целиком, ночь доступна прокруткой. */
   readonly hours: readonly number[];
+  /** Рабочее окно: к нему сетка прокручена при открытии (ADR-128). */
+  readonly workFromMin: number;
+  readonly workToMin: number;
 };
 
 /**
  * Какие часы показывает сетка.
  *
- * Рабочее окно 8:00–20:00 расширяется ровно настолько, чтобы вместить всё
- * запланированное: сутки целиком дали бы полтора экрана пустоты, а
- * фиксированное окно молча спрятало бы монтаж, назначенный на семь утра.
+ * 🔴 Сутки целиком, а не подобранное под записи окно. Подбор давал сетку, у
+ * которой час стоит то там, то тут: тот же четверг после сдвига одного наряда
+ * выглядел иначе, и глаз переставал доверять положению записи. Рабочее окно
+ * (настройка `schedule`, ADR-138) решает только то, куда сетка прокручена и
+ * какие часы помечены нерабочими; ночь никуда не девается.
  */
-export function hourRangeOf(columns: readonly ScheduleColumn[]): HourRange {
-  let from = DEFAULT_FROM_MIN;
-  let to = DEFAULT_TO_MIN;
+export function hourRangeOf(window: WorkWindow = DEFAULT_WORK_WINDOW): HourRange {
+  const workFromMin = Math.min(Math.max(window.fromMin, 0), MINUTES_IN_DAY);
+  const workToMin = Math.min(Math.max(window.toMin, workFromMin), MINUTES_IN_DAY);
 
-  for (const column of columns) {
-    for (const placed of column.timed) {
-      from = Math.min(from, placed.item.fromMin);
-      to = Math.max(to, placed.item.toMin);
-    }
-  }
+  return {
+    hours: Array.from({ length: HOURS_IN_DAY }, (_, index) => index),
+    workFromMin,
+    workToMin,
+  };
+}
 
-  const fromMin = Math.max(Math.floor(from / MINUTES_IN_HOUR) * MINUTES_IN_HOUR, 0);
-  const toMin = Math.min(Math.ceil(to / MINUTES_IN_HOUR) * MINUTES_IN_HOUR, MINUTES_IN_DAY);
-
-  const hours = Array.from(
-    { length: (toMin - fromMin) / MINUTES_IN_HOUR },
-    (_, index) => fromMin / MINUTES_IN_HOUR + index,
-  );
-
-  return { fromMin, toMin, hours };
+/** Час целиком лежит за рабочим окном — его фон помечает переработку. */
+export function isOffHour(range: HourRange, hour: number): boolean {
+  const from = hour * MINUTES_IN_HOUR;
+  return from + MINUTES_IN_HOUR <= range.workFromMin || from >= range.workToMin;
 }
 
 /**
- * Доля окна, на которой стоит запись, — в процентах.
+ * Доля суток, на которой стоит запись, — в процентах.
  *
- * Считается здесь, а не в разметке: то же число нужно и линии «сейчас», и
- * каждой записи, а расхождение на пиксель в плотной сетке читается как ошибка
- * во времени.
+ * Проценты, а не пиксели: высота часа задаётся в CSS одной переменной, и
+ * позиция записи обязана следовать за ней, не зная её значения. Расхождение
+ * числа в разметке и числа в модуле читалось бы как ошибка во времени.
  */
-export function offsetPercent(range: HourRange, minutes: number): number {
-  const span = range.toMin - range.fromMin;
-  if (span <= 0) return 0;
+export function offsetPercent(minutes: number): number {
+  return (Math.min(Math.max(minutes, 0), MINUTES_IN_DAY) / MINUTES_IN_DAY) * 100;
+}
 
-  return ((Math.min(Math.max(minutes, range.fromMin), range.toMin) - range.fromMin) / span) * 100;
+/**
+ * Место записи по горизонтали внутри колонки.
+ *
+ * До трёх пересекающихся записей делят ширину поровну — так обе читаются
+ * целиком. Дальше делить нечего: четвёртая колонка шириной в палец не
+ * вмещает даже времени, поэтому записи встают лесенкой с наложением, как в
+ * эталоне (CRM §3.5.1). Верхняя перекрывает нижние, и её видно целиком.
+ */
+export const LANES_ABREAST = 3;
+
+export type LanePlace = {
+  readonly leftPercent: number;
+  readonly widthPercent: number;
+  /** Порядок наложения: в лесенке поздняя запись лежит поверх ранних. */
+  readonly depth: number;
+};
+
+export function lanePlace(lane: number, lanes: number): LanePlace {
+  if (lanes <= LANES_ABREAST) {
+    const width = 100 / lanes;
+    return { leftPercent: lane * width, widthPercent: width, depth: lane };
+  }
+
+  /* Шаг лесенки: последняя запись начинается на 70% ширины колонки — того,
+     что осталось, хватает на время и первое слово названия. */
+  const step = 70 / (lanes - 1);
+  const left = lane * step;
+  return { leftPercent: left, widthPercent: 100 - left, depth: lane };
 }

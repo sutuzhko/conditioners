@@ -1,0 +1,67 @@
+/* Пустое место колонки: часы-кнопки и след протяжки.
+
+   Лежит под записями — занятый час открывает запись, свободный форму. */
+
+.canvas {
+  display: flex;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  flex-direction: column;
+}
+
+.hour {
+  flex: 1;
+  border: none;
+  border-top: 1px solid var(--line-soft);
+  background: transparent;
+  cursor: cell;
+  padding: 0;
+}
+
+/* Слабая линия на получас — как в эталоне: она задаёт масштаб, по которому
+   глаз читает получасовую запись, и потому светлее часовой. */
+.hour::after {
+  display: block;
+  position: relative;
+  top: 50%;
+  border-top: 1px dashed var(--line-soft);
+  content: '';
+  opacity: 0.6;
+}
+
+/* 🔴 Часы за рабочим окном помечены фоном (ADR-138): иначе переработку
+   неоткуда увидеть, а рабочее окно ничего не значит на экране.
+
+   Замес от цвета текста, а не `--bg-soft`: в тёмной теме тот почти совпадает
+   с фоном страницы, и пометка пропадала бы ровно там, где нужна. */
+.offHour {
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+
+.hour:hover {
+  background: color-mix(in srgb, var(--accent-bg) 60%, transparent);
+}
+
+.hour:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-inset);
+}
+
+/* След протяжки: видно, какой промежуток получится, ещё до отпускания. */
+.ghost {
+  display: flex;
+  position: absolute;
+  right: 1px;
+  left: 1px;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--accent-line);
+  border-radius: 7px;
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  pointer-events: none;
+}

@@ -7,14 +7,17 @@ import type { CalendarView } from './model';
 /** Раздел календаря. Адрес по-английски, как и все адресуемое (инвариант 17). */
 export const CRM_PATH = '/admin/crm';
 
-/** Наряд правится в своём разделе: строка календаря ведёт туда, а не сюда. */
+/** Наряд правится в своём разделе: запись календаря ведёт туда, а не сюда. */
 export const ORDERS_PATH = '/admin/orders';
+
+/** Заявка правится в своём разделе — календарь только показывает, что она пришла. */
+export const LEADS_PATH = '/admin/leads';
 
 /**
  * Тексты календаря работ.
  *
  * Здесь же — соответствие «вид дела → иконка и цвет»: один список кормит и
- * форму, и метки в сетке, и список дня. Вид дела, которого нет здесь, не
+ * форму, и записи в сетке, и карточку записи. Вид дела, которого нет здесь, не
  * появится нигде.
  */
 export type KindLook = {
@@ -46,7 +49,7 @@ export const ORDER_LOOK: Record<OrderType, KindLook> = {
   repair: { title: 'Ремонт', icon: 'pulse', tone: 'repair' },
 };
 
-/** Статус наряда словами — в подписи строки календаря. */
+/** Статус наряда словами — в подписи записи календаря. */
 export const ORDER_STATUS_TITLE: Record<OrderStatus, string> = {
   new: 'Новый',
   assigned: 'Назначен',
@@ -103,9 +106,11 @@ export const crmContent = {
   viewLabel: 'Вид календаря',
   weekLabel: 'Неделя по часам',
   dayLabel: 'День по часам',
-  untimed: 'Без времени',
+  /** 🔴 Полоса над сеткой часов: записи без времени и заявки с сайта. */
+  allDay: 'Весь день',
   hours: 'Часы',
   columnEmpty: 'Пусто',
+  openDay: (date: string): string => `${date}, открыть день`,
 
   // ---------- Занятость команды (ADR-123) ----------
 
@@ -117,34 +122,40 @@ export const crmContent = {
   teamEmptyHint:
     'Заведите учётные записи в разделе «Монтажники» — тогда их занятость ляжет на эту сетку.',
 
-  ordersTitle: 'Наряды этого дня',
   orderMark: (number: number): string => `Наряд № ${number}`,
   orderOpen: 'Открыть наряд',
-  ordersCount: (count: number): string => `нарядов: ${count}`,
 
-  add: 'Добавить дело',
+  // ---------- Создание и правка ----------
+
+  add: 'Новое дело',
   addShort: 'Добавить',
   addTitle: 'Новое дело',
   editTitle: 'Правка дела',
+  /** Подпись пустого часа: с клавиатуры и с тача запись заводится отсюда. */
+  createAt: (date: string, time: string): string => `Новое дело: ${date}, ${time}`,
 
-  dayEmpty: 'На этот день ничего не запланировано',
-  dayEmptyHint: 'Добавьте звонок, замер или монтаж — он появится в сетке месяца.',
+  /** Заголовок карточки записи — её же читает скринридер при открытии. */
+  cardLabel: 'Запись календаря',
+  close: 'Закрыть',
 
-  leadsTitle: 'Заявки этого дня',
-  /** Свёрнутый хвост дел в ячейке и счётчик заявок за день. */
-  moreEvents: (count: number): string => `ещё ${count}`,
-  leadsCount: (count: number): string => `заявок: ${count}`,
-  eventsCount: (count: number): string => `дел: ${count}`,
+  moreEvents: (count: number): string => `Ещё ${count}`,
+  leadsTitle: 'Заявка с сайта',
   leadLink: 'Открыть в заявках',
 
-  upcomingTitle: 'Ближайшее',
-  upcomingEmpty: 'Запланированных дел нет',
   overdue: (count: number): string => `Просрочено: ${count}`,
-  overdueMark: 'Просрочено',
+
+  // ---------- Переработка (ADR-138) ----------
+
+  /** 🔴 Число приходит с сервера готовым: пересчитывать при показе нельзя. */
+  overtime: 'Переработка',
+  overtimeOf: (title: string): string => `Переработка: ${title}`,
+  /** Часы за рабочим окном помечены фоном — иначе переработку неоткуда увидеть. */
+  offHours: 'Нерабочее время',
 
   fieldKind: 'Что за дело',
   fieldDay: 'Дата',
   fieldTime: 'Время',
+  fieldDuration: 'Длительность',
   fieldName: 'Клиент',
   fieldNamePlaceholder: 'Имя или адрес объекта',
   fieldPhone: 'Телефон',
@@ -166,6 +177,11 @@ export const crmContent = {
     confirmLabel: 'Удалить дело',
   } satisfies ConfirmRequest,
 
+  /** Сохранение и удаление объявляются словами: сетка молча перерисовывается. */
+  savedNote: 'Сохранено',
+  removedNote: 'Дело удалено',
+  movedNote: (time: string): string => `Перенесено на ${time}`,
+
   fromLead: 'Из заявки',
   failure: 'Не удалось сохранить. Проверьте связь и попробуйте ещё раз.',
   removeFailure: 'Не удалось удалить. Попробуйте ещё раз.',
@@ -176,7 +192,6 @@ export const crmContent = {
   busyAdd: 'Отметить занятость',
   busyAddTitle: 'Новая занятость',
   busyEditTitle: 'Правка занятости',
-  busyEmpty: 'Этот день никем не закрыт',
   busySaved: 'Занятость сохранена',
   busyDrop: 'Снять',
   busyEdit: 'Изменить',
@@ -201,7 +216,7 @@ export const crmContent = {
   fieldReasonHint: 'Её увидят рядом с днём — «день закрыт» без причины ничего не объясняет',
 } as const;
 
-/** Названия видов — подписи переключателя над сеткой. */
+/** Названия видов — подписи переключателя в шапке. */
 export const VIEW_TITLE: Record<CalendarView, string> = {
   month: 'Месяц',
   week: 'Неделя',
@@ -237,6 +252,12 @@ export function weekTitle(from: string, to: string): string {
 
   const fromName = MONTHS_OF[Number.parseInt(fromMonth, 10) - 1] ?? '';
   return `${left} ${fromName} – ${right} ${name} ${toYear}`;
+}
+
+/** «27 августа» — подпись дня в карточке записи и в кнопке пустого часа. */
+export function dayTitle(day: string): string {
+  const [, month = '01', date = '01'] = day.split('-');
+  return `${Number.parseInt(date, 10)} ${MONTHS_OF[Number.parseInt(month, 10) - 1] ?? ''}`;
 }
 
 /** Повтор занятости: разовый день или каждая такая-то неделя. */

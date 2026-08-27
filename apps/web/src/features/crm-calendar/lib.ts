@@ -8,11 +8,15 @@ import { crmContent as texts } from './content';
 import type { CrmEventDraft, CrmResult, DayBlockDraft } from './model';
 
 /** Пустое поле формы уходит на сервер пустой строкой — там она станет «не заполнено». */
-function payloadOf(draft: CrmEventDraft): Record<string, string | null> {
+function payloadOf(draft: CrmEventDraft): Record<string, string | number | null> {
   return {
     kind: draft.kind,
     day: draft.day,
     time: draft.time,
+    /* 🔴 Длительность отправляется всегда: без неё запись нечем нарисовать на
+       часовой сетке (ADR-128). Переработку по ней считает сервер (ADR-138) —
+       принимать её от клиента нельзя. */
+    durationMin: draft.durationMin,
     clientName: draft.clientName,
     clientPhone: draft.clientPhone,
     address: draft.address,

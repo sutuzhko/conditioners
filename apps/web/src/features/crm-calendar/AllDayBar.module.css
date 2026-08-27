@@ -1,0 +1,90 @@
+/* Полоса «весь день»: записи без часа над сеткой часов (ADR-128).
+
+   🔴 Колонки те же, что у шапки и у сетки: раскладка приходит одной строкой
+   сверху. Своя сетка внутри давала бы заявку, съехавшую на соседний день. */
+
+.bar {
+  /* Высота строки записи: её же знает свёрнутая полоса и сама запись. */
+  --cal-bar-row: 22px;
+
+  display: grid;
+  gap: 4px;
+  align-items: start;
+  border-bottom: 1px solid var(--line);
+  padding: 4px 0;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-end;
+  padding-right: 6px;
+}
+
+.label {
+  color: var(--faint);
+  font-size: var(--fs-micro);
+  line-height: 1.2;
+  text-align: right;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Свёрнутая полоса показывает ровно две строки: день с восемью заявками не
+   имеет права съесть сетку часов, ради которой календарь и открывают.
+
+   Высота считается по строке записи и зазору — округление «на глаз» резало
+   вторую строку пополам, и полоса выглядела сломанной, а не свёрнутой. */
+.collapsed {
+  overflow: hidden;
+  max-height: calc(2 * var(--cal-bar-row) + 3px);
+}
+
+.item {
+  display: block;
+  min-width: 0;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--card);
+  cursor: pointer;
+  padding: 1px 6px;
+  color: var(--ink2);
+  font: inherit;
+  font-size: var(--fs-micro);
+  line-height: 1.4;
+}
+
+.toggle:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.up {
+  transform: rotate(-90deg);
+}

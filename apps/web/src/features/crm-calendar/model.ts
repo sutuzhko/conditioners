@@ -16,12 +16,17 @@ export const CALENDAR_VIEWS = ['month', 'week', 'day'] as const;
 export type CalendarView = (typeof CALENDAR_VIEWS)[number];
 
 /**
- * Разбор параметра адреса. Незнакомое значение — месяц, а не ошибка: адрес
- * календаря правят руками и присылают друг другу, и отказ вместо сетки там
- * ничего не объясняет (то же правило, что у месяца в `/api/admin/blocks`).
+ * Разбор параметра адреса.
+ *
+ * 🔴 Умолчание — неделя, а не месяц (ADR-128): там видно и время, и загрузку
+ * команды, а месяц отвечает только на вопрос «что вообще на этой неделе».
+ *
+ * Незнакомое значение даёт то же умолчание, а не ошибку: адрес календаря
+ * правят руками и присылают друг другу, и отказ вместо сетки там ничего не
+ * объясняет (то же правило, что у месяца в `/api/admin/blocks`).
  */
 export function parseCalendarView(value: string | undefined): CalendarView {
-  return CALENDAR_VIEWS.find((view) => view === value) ?? 'month';
+  return CALENDAR_VIEWS.find((view) => view === value) ?? 'week';
 }
 
 /**
@@ -91,6 +96,12 @@ export type CrmEventDraft = {
   readonly kind: CrmEventKind;
   readonly day: string;
   readonly time: string;
+  /**
+   * Сколько дело занимает. 🔴 Появилось вместе с часовой сеткой (ADR-128):
+   * без длительности запись нечем нарисовать — «занято с 11 до 20» это
+   * отрезок, а не точка.
+   */
+  readonly durationMin: number;
   readonly clientName: string;
   readonly clientPhone: string;
   readonly address: string;
@@ -124,3 +135,13 @@ export type DayBlockDraft = {
   readonly to: string;
   readonly reason: string;
 };
+
+/**
+ * Длительность дела по умолчанию — час (ADR-138). Шаг — пятнадцать минут, тот
+ * же, что у наряда: полчаса на звонок и полтора часа на замер одинаково обычны.
+ */
+export const DEFAULT_EVENT_MIN = 60;
+export const DURATION_STEP_MIN = 15;
+
+/** Минимальная длительность: меньше четверти часа не задаёт и схема дела. */
+export const MIN_EVENT_MIN = 15;

@@ -1,63 +1,96 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { CalendarGrid } from './CalendarGrid';
-import { monthBlocks, monthEvents, monthLeads, monthOrders, teamLoad, viewerId } from './fixtures';
+import {
+  crowdedOrders,
+  dayNote,
+  installers,
+  manyLeads,
+  monthBlocks,
+  monthEvents,
+  monthLeads,
+  monthOrders,
+  viewerId,
+  wholeDayBlock,
+} from './fixtures';
+import { monthColumns, type ScheduleSource } from './schedule';
+
+const MONTH = '2026-08';
+const DAY = '2026-08-23';
+
+function source(patch: Partial<ScheduleSource> = {}): ScheduleSource {
+  return {
+    events: monthEvents,
+    orders: monthOrders,
+    leads: monthLeads,
+    blocks: [],
+    viewerId,
+    today: DAY,
+    ...patch,
+  };
+}
 
 const meta = {
   title: 'Админка/Календарь/Сетка месяца',
   component: CalendarGrid,
-  args: {
-    month: '2026-08',
-    selected: '2026-08-23',
-    today: '2026-08-23',
-    events: monthEvents,
-    orders: [],
-    leads: monthLeads,
-    blocks: [],
-    viewerId,
-  },
+  parameters: { layout: 'padded' },
+  args: { columns: monthColumns(source(), MONTH) },
 } satisfies Meta<typeof CalendarGrid>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Обычный месяц: звонки, монтажи, сделанное и отменённое. */
-export const Рабочий: Story = {};
+/** Месяц целиком: строка «точка · время · название» вместо капсул. */
+export const Месяц: Story = {};
 
-/** 🔴 Наряды в сетке наравне с делами: у наряда номер и сплошная полоса слева. */
-export const СНарядами: Story = {
-  args: { orders: monthOrders },
+/** Пустой месяц — первые дни после установки панели. */
+export const Пусто: Story = {
+  args: { columns: monthColumns(source({ events: [], orders: [], leads: [] }), MONTH) },
 };
 
-/**
- * 🔴 Занятость команды в месяце (ADR-123): полоска на человека вместо попытки
- * нарисовать часы в клетке дня. Краска закреплена за человеком, рядом инициалы.
- */
-export const ЗанятостьКоманды: Story = {
-  args: { orders: monthOrders, teamLoad },
+/** Одна запись на весь месяц: клетки всё равно одинаковой высоты. */
+export const ОднаЗапись: Story = {
+  args: {
+    columns: monthColumns(
+      source({ events: [monthEvents[0] ?? dayNote], orders: [], leads: [] }),
+      MONTH,
+    ),
+  },
 };
 
-/** Ничего не запланировано — первый месяц после установки панели. */
-export const Пустой: Story = {
-  args: { events: [], orders: [], leads: [], blocks: [] },
+/** 🔴 Переполнение: лишние записи сворачиваются в «Ещё N», а не режутся молча. */
+export const Переполнение: Story = {
+  args: { columns: monthColumns(source({ orders: crowdedOrders, leads: manyLeads }), MONTH) },
 };
 
-/** Занятость в сетке: закрытый целиком день, часы, повторяемый выходной и чужая. */
+/** Наложение по времени: в месяце оно видно как две строки на один час. */
+export const Наложение: Story = {
+  args: {
+    columns: monthColumns(source({ orders: monthOrders.slice(0, 2), leads: [] }), MONTH),
+  },
+};
+
+/** Занятость: закрытый целиком день идёт строкой, а не краской клетки. */
 export const СЗанятостью: Story = {
-  args: { blocks: monthBlocks },
+  args: {
+    columns: monthColumns(source({ blocks: [wholeDayBlock, ...monthBlocks.slice(1)] }), MONTH),
+  },
 };
 
-/** 🔴 Суббота и воскресенье ничем не выделены: выходные отмечает человек. */
-export const ВыходныеНеЗашиты: Story = {
-  args: { events: [], orders: [], leads: [], blocks: [] },
+/** 🔴 Слой команды: отлучки монтажников со временем, а не капсулы с инициалами. */
+export const СлойКоманды: Story = {
+  args: {
+    columns: monthColumns(
+      source({
+        team: installers,
+        blocks: monthBlocks.map((block) => ({ ...block, userId: 'u2' })),
+      }),
+      MONTH,
+    ),
+  },
 };
 
-/** Выбран день не из этого месяца: хвост сетки такой же рабочий. */
-export const ХвостМесяца: Story = {
-  args: { selected: '2026-09-01', today: '2026-08-23' },
-};
-
-/** Сегодня и выбранный день — разные: у них разные пометки. */
-export const ДругойДень: Story = {
-  args: { selected: '2026-08-25', today: '2026-08-23' },
+/** Сегодня: число в кружке и плотная рамка — видно и в монохромном режиме. */
+export const Сегодня: Story = {
+  args: { columns: monthColumns(source({ today: DAY }), MONTH) },
 };

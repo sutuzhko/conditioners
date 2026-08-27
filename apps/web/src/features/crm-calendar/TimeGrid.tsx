@@ -5,14 +5,19 @@ import type { PersonTone } from '@/entities/crm/lib/palette';
 import { busyTitle, crmBusyContent, crmClashContent, loadTitle } from '@/entities/crm/content';
 import { Icon } from '@/shared/ui';
 
-import { CRM_PATH, ORDERS_PATH, crmContent as texts } from './content';
+import { AllDayBar } from './AllDayBar';
+import { ColumnCanvas } from './ColumnCanvas';
+import { CRM_PATH, crmContent as texts } from './content';
+import { EventChip } from './EventChip';
+import { GridScroll } from './GridScroll';
 import type { CalendarView } from './model';
 import {
-  hourRangeOf,
+  HOURS_IN_DAY,
+  isOffHour,
+  lanePlace,
   offsetPercent,
   type HourRange,
   type ScheduleColumn,
-  type ScheduleItem,
   type SchedulePersonMark,
 } from './schedule';
 import styles from './TimeGrid.module.css';
@@ -22,6 +27,8 @@ export interface TimeGridProps {
   readonly columns: readonly ScheduleColumn[];
   /** Вид — он же остаётся в адресе у ссылок внутри сетки. */
   readonly view: CalendarView;
+  /** Часы суток и рабочее окно: к нему сетка прокручена при открытии. */
+  readonly range: HourRange;
   /**
    * Минуты от московской полуночи на момент отрисовки: линия «сейчас».
    * Считает их сервер — у контейнера в UTC своего «сейчас» для Тулы нет.
@@ -37,13 +44,9 @@ export interface TimeGridProps {
   readonly team?: readonly SchedulePersonMark[] | undefined;
 }
 
-/** Ниже этой доли окна подпись в записи уже не читается. */
-const MIN_SPAN_PERCENT = 3;
-
 /**
  * Краска человека → класс модуля. Прямой перевод, а не сборка имени строкой:
- * так линтер видит, что все шесть классов используются, а неизвестная краска
- * не даёт запись без оформления.
+ * так линтер видит, что все шесть классов используются.
  */
 const PERSON_CLASS: Record<PersonTone, string> = {
   a: styles.personA ?? '',
@@ -54,150 +57,39 @@ const PERSON_CLASS: Record<PersonTone, string> = {
   f: styles.personF ?? '',
 };
 
-/**
- * Строка ведёт в свою сущность: наряд — в свою карточку, дело открывается в
- * панели выбранного дня. 🔴 Это второе следствие ADR-093: раз наряд и дело
- * разные сущности, они и правятся в разных местах.
- */
-function hrefOf(item: ScheduleItem, view: CalendarView) {
-  if (item.entity === 'order') return { pathname: `${ORDERS_PATH}/${item.id}` };
-
-  return { pathname: CRM_PATH, query: { view, day: item.day }, hash: `event-${item.id}` };
-}
-
-/** Оформление записи: краска человека перебивает краску вида работ (ADR-123). */
-function chipClass(item: ScheduleItem, compact: boolean): string {
-  return [
-    styles.chip,
-    item.person === null ? styles[item.tone] : PERSON_CLASS[item.person.tone],
-    item.entity === 'order' ? styles.order : null,
-    item.entity === 'event' ? styles.event : null,
-    item.entity === 'block' ? styles.block : null,
-    item.muted ? styles.muted : null,
-    item.clash ? styles.clash : null,
-    compact ? styles.compact : null,
-  ]
-    .filter(Boolean)
-    .join(' ');
-}
-
-/** Содержимое записи — одинаковое у ссылки и у неинтерактивной отлучки. */
-function ChipBody({ item }: { readonly item: ScheduleItem }) {
-  return (
+/** Шапка колонки: день недели, число, занятость и загрузка. */
+function Head({ column, view }: { readonly column: ScheduleColumn; readonly view: CalendarView }) {
+  const title = (
     <>
-      <span className={styles.chipHead} aria-hidden="true">
-        <Icon className={styles.chipIcon} name={item.icon} size={12} />
-        <span className={styles.chipTime}>{item.time}</span>
-        {item.number === null ? null : (
-          <span className={styles.chipNumber}>{`№ ${item.number}`}</span>
-        )}
-        {/* Инициалы рядом с краской: цвет не может быть единственным признаком
-            человека — при дальтонизме и в ч/б от него ничего не остаётся. */}
-        {item.person === null ? null : (
-          <span className={styles.chipWho}>{item.person.initials}</span>
-        )}
-      </span>
-
-      <span className={styles.chipName} aria-hidden="true">
-        {item.title}
-      </span>
-
-      {item.note === null ? null : (
-        <span className={styles.chipNote} aria-hidden="true">
-          {item.note}
-        </span>
-      )}
-
-      {item.clash ? (
-        <span className={styles.chipClash} aria-hidden="true">
-          <Icon name="danger" size={11} />
-          {crmClashContent.mark}
-        </span>
-      ) : null}
+      <span className={styles.headWeekday}>{column.weekday}</span>
+      <span className={styles.headDate}>{column.date}</span>
     </>
   );
-}
-
-/**
- * Запись в сетке.
- *
- * 🔴 Наряд отличается от дела не только цветом: номер в подписи, сплошная
- * полоса слева вместо пунктирной и слово «Наряд» в подписи для скринридера.
- * В монохромном режиме и у дальтоника различие остаётся.
- */
-function Chip({
-  item,
-  view,
-  compact,
-}: {
-  readonly item: ScheduleItem;
-  readonly view: CalendarView;
-  readonly compact: boolean;
-}) {
-  /* Чужая отлучка никуда не ведёт: это чужие семейные дела, открывать в них
-     нечего, и ссылка обещала бы переход, которого нет. */
-  if (item.entity === 'block') {
-    return (
-      <span className={chipClass(item, compact)} role="img" aria-label={item.label}>
-        <ChipBody item={item} />
-      </span>
-    );
-  }
-
-  return (
-    <Link
-      className={chipClass(item, compact)}
-      href={hrefOf(item, view)}
-      aria-label={item.label}
-      prefetch={false}
-    >
-      <ChipBody item={item} />
-    </Link>
-  );
-}
-
-/** Шапка колонки: подпись, занятость и загрузка человека. */
-function Head({
-  column,
-  view,
-  gridColumn,
-}: {
-  readonly column: ScheduleColumn;
-  readonly view: CalendarView;
-  /** Номер колонки в сетке: `.col` раскрыт в `display: contents`. */
-  readonly gridColumn?: number | undefined;
-}) {
-  /* Пометки «сегодня» и «выбранный» имеют смысл только там, где колонки —
-     разные дни. В видах «день» и «по монтажникам» день один и назван в
-     заголовке, а подчёркнутыми оказались бы все колонки разом. */
-  const marks = view === 'week';
-
-  const title =
-    view === 'week' ? (
-      <Link
-        className={styles.headLink}
-        href={{ pathname: CRM_PATH, query: { view: 'day', day: column.day } }}
-        prefetch={false}
-      >
-        {column.title}
-      </Link>
-    ) : (
-      <span className={styles.headTitle}>{column.title}</span>
-    );
 
   return (
     <div
       className={[
         styles.head,
-        marks && column.today ? styles.headToday : null,
-        marks && column.selected ? styles.headSelected : null,
+        column.today ? styles.headToday : null,
         column.outside ? styles.headOutside : null,
       ]
         .filter(Boolean)
         .join(' ')}
-      style={gridColumn === undefined ? undefined : { gridColumn }}
     >
-      {title}
+      {/* В неделе шапка ведёт в день: это привычный способ «показать крупнее».
+          В самом дне вести некуда — он уже открыт. */}
+      {view === 'week' ? (
+        <Link
+          className={styles.headLink}
+          href={{ pathname: CRM_PATH, query: { view: 'day', day: column.day } }}
+          aria-label={texts.openDay(column.label)}
+          prefetch={false}
+        >
+          {title}
+        </Link>
+      ) : (
+        <span className={styles.headTitle}>{title}</span>
+      )}
 
       <span className={styles.headMeta}>
         {column.busy.state === 'free' ? null : (
@@ -224,29 +116,27 @@ function Head({
 }
 
 /**
- * Сетка часов: неделя колонками дней, день одной колонкой, загрузка
- * монтажников колонкой на человека — CRM.md §3.5 и §8.5.
+ * День и неделя — часовая сетка (CRM §3.5.1, ADR-128).
  *
- * Серверный компонент: страница панели приходит готовой, а вид и день живут в
- * адресе, поэтому переходы — ссылки, а не состояние на клиенте (ADR-080).
+ * 🔴 Позиция и высота записи задаются строго её временем: «занято с 11 до 20»
+ * закрашено ровно с 11 до 20. Именно этого владелец в старом календаре и не
+ * нашёл.
  *
- * На узком экране колонок больше одной не помещается ни при какой вёрстке,
- * поэтому там показывается не ужатая сетка, а список по дням: то же
- * содержимое, читаемое без горизонтальной прокрутки. Обе разметки выдаёт
- * сервер, лишнюю прячет CSS — выбор по ширине в JS дал бы расхождение
- * гидратации (ADR-082).
+ * Серверный компонент: страница панели приходит готовой, вид и день живут в
+ * адресе, а интерактивны только листья — сама запись, пустое место колонки и
+ * полоса прокрутки.
  */
-export function TimeGrid({ columns, view, nowMin, label, team = [] }: TimeGridProps) {
-  const range: HourRange = hourRangeOf(columns);
-  const many = columns.length > 1;
-  const hasUntimed = columns.some((column) => column.untimed.length > 0);
-  const firstToday = columns.findIndex((column) => column.today);
+export function TimeGrid({ columns, view, range, nowMin, label, team = [] }: TimeGridProps) {
+  /* Раскладка колонок задаётся числом дней, а не оформлением: тот же шаблон
+     нужен шапке, полосе «весь день» и сетке часов — иначе час в одной колонке
+     перестаёт быть тем же часом в другой. */
+  const template = `var(--cal-rail) repeat(${columns.length}, minmax(0, 1fr))`;
+  const offHours = Array.from({ length: HOURS_IN_DAY }, (_, hour) => hour).filter((hour) =>
+    isOffHour(range, hour),
+  );
 
   return (
-    <section
-      className={[styles.grid, many ? styles.many : styles.single].filter(Boolean).join(' ')}
-      aria-label={label}
-    >
+    <section className={styles.grid} aria-label={label}>
       {team.length === 0 ? null : (
         <ul className={styles.legend} aria-label={texts.teamLegend}>
           {team.map((person) => (
@@ -260,131 +150,78 @@ export function TimeGrid({ columns, view, nowMin, label, team = [] }: TimeGridPr
         </ul>
       )}
 
-      <div className={styles.body}>
-        <span className={styles.railLabel} aria-hidden="true">
-          {texts.hours}
-        </span>
+      <div className={styles.heads} style={{ gridTemplateColumns: template }}>
+        <span className={styles.corner} aria-hidden="true" />
+        {columns.map((column) => (
+          <Head column={column} key={column.key} view={view} />
+        ))}
+      </div>
 
-        {hasUntimed ? (
-          <span className={styles.spareLabel} aria-hidden="true">
-            {texts.untimed}
-          </span>
-        ) : null}
+      <AllDayBar
+        columns={columns.map((column) => ({ key: column.key, items: column.allDay }))}
+        template={template}
+      />
 
-        <div className={styles.rail} aria-hidden="true">
-          {range.hours.map((hour) => (
-            <span className={styles.hour} key={hour}>
-              {timeOfMinutes(hour * 60)}
-            </span>
-          ))}
-        </div>
+      <GridScroll className={styles.scroll} workFromMin={range.workFromMin} label={texts.hours}>
+        <div className={styles.hours} style={{ gridTemplateColumns: template }}>
+          <div className={styles.rail} aria-hidden="true">
+            {range.hours.map((hour) => (
+              <span className={styles.hour} key={hour}>
+                {timeOfMinutes(hour * 60)}
+              </span>
+            ))}
+          </div>
 
-        {columns.map((column, index) => (
-          /* `display: contents`: шапка, группа без времени и полоса часов
-             встают в свои строки общей сетки — иначе колонки разъезжаются по
-             высоте, и час в одной колонке перестаёт быть тем же часом в другой. */
-          <div className={styles.col} key={column.key}>
-            <Head column={column} view={view} gridColumn={index + 2} />
-
-            {hasUntimed ? (
-              /* Список, а не набор ссылок: у группы «без времени» должно быть
-                 имя и счёт — скринридер объявляет «список из двух». */
-              <ul
-                className={styles.spare}
-                aria-label={texts.untimed}
-                style={{ gridColumn: index + 2 }}
-              >
-                {column.untimed.map((item) => (
-                  <li className={styles.spareItem} key={item.id}>
-                    <Chip item={item} view={view} compact />
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-
+          {columns.map((column) => (
             <div
               className={[styles.track, column.outside ? styles.trackOutside : null]
                 .filter(Boolean)
                 .join(' ')}
-              /* Номер колонки — свойство раскладки, а не оформления: он
-                 вычисляется из порядка данных, а цвета остаются в модуле. */
-              style={{ gridColumn: index + 2 }}
+              /* Полоса покрывает ровно сутки: и запись, и линия «сейчас», и
+                 перевод пикселей в минуты при перетаскивании считают по ней. */
+              data-track=""
+              key={column.key}
             >
-              {range.hours.map((hour) => (
-                <span className={styles.line} key={hour} aria-hidden="true" />
-              ))}
+              {/* Клавиатура ходит по часам там, где колонка одна: в неделе
+                  сто шестьдесят восемь остановок до первой записи мешали бы
+                  больше, чем помогали (см. `ColumnCanvas`). */}
+              <ColumnCanvas day={column.day} offHours={offHours} reachable={columns.length === 1} />
 
               {column.timed.map((placed) => {
-                const from = offsetPercent(range, placed.item.fromMin);
-                const span = Math.max(
-                  offsetPercent(range, placed.item.toMin) - from,
-                  MIN_SPAN_PERCENT,
-                );
-                const width = 100 / placed.lanes;
+                const lane = lanePlace(placed.lane, placed.lanes);
 
                 return (
-                  <div
-                    className={styles.slot}
+                  <EventChip
+                    item={placed.item}
                     key={placed.item.id}
-                    style={{
-                      top: `${from}%`,
-                      height: `${span}%`,
-                      left: `${width * placed.lane}%`,
-                      width: `${width}%`,
+                    place={{
+                      topPercent: offsetPercent(placed.item.fromMin),
+                      heightPercent:
+                        offsetPercent(placed.item.toMin) - offsetPercent(placed.item.fromMin),
+                      leftPercent: lane.leftPercent,
+                      widthPercent: lane.widthPercent,
+                      depth: lane.depth,
                     }}
-                  >
-                    <Chip item={placed.item} view={view} compact={false} />
-                  </div>
+                    draggable
+                  />
                 );
               })}
 
-              {column.today && nowMin >= range.fromMin && nowMin <= range.toMin ? (
+              {/* 🔴 Линия «сейчас» — только в колонке сегодняшнего дня
+                  (CRM §3.5.1): в остальных она означала бы неправду. */}
+              {column.today ? (
                 <span
                   className={styles.now}
-                  style={{ top: `${offsetPercent(range, nowMin)}%` }}
+                  style={{ top: `${offsetPercent(nowMin)}%` }}
                   aria-hidden="true"
                 >
-                  {/* Время подписывается один раз: в виде «по монтажникам»
-                      сегодня во всех колонках, и четыре одинаковых значка
-                      только загораживали бы записи. */}
-                  {index === firstToday ? (
-                    <span className={styles.nowTime}>{timeOfMinutes(nowMin)}</span>
-                  ) : null}
+                  <span className={styles.nowDot} />
                 </span>
               ) : null}
             </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Узкий экран: те же записи списком по колонкам. Сетка в семь колонок на
-          375 нечитаема при любой вёрстке, а прятать половину дня нельзя. */}
-      {many ? (
-        <ul className={styles.agenda}>
-          {columns.map((column) => (
-            <li className={styles.agendaDay} key={column.key}>
-              <Head column={column} view={view} />
-
-              {column.untimed.length + column.timed.length === 0 ? (
-                <p className={styles.agendaEmpty}>{texts.columnEmpty}</p>
-              ) : (
-                <ul className={styles.agendaItems}>
-                  {column.untimed.map((item) => (
-                    <li key={item.id}>
-                      <Chip item={item} view={view} compact />
-                    </li>
-                  ))}
-                  {column.timed.map((placed) => (
-                    <li key={placed.item.id}>
-                      <Chip item={placed.item} view={view} compact />
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
           ))}
-        </ul>
-      ) : null}
+        </div>
+      </GridScroll>
     </section>
   );
 }

@@ -1,378 +1,144 @@
-/* Сетка месяца.
+/* Месяц — обзор, а не планировщик (ADR-128).
 
-   Ячейка — ссылка на день. Размер ячейки задаётся высотой, а не пропорцией:
-   в квадратных ячейках подписи дел не помещаются, а календарь без подписей
-   заставляет открывать каждый день, чтобы вспомнить, что в нём. */
+   Клетки одинаковой высоты: сетка не имеет права прыгать при листании, иначе
+   глаз каждый раз заново ищет нужную неделю. */
 
 .grid {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   min-width: 0;
 }
 
-.weekdays,
-.days {
+.weekdays {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 4px;
 }
 
 .weekday {
-  padding: 2px 6px;
+  padding: 0 4px 2px;
   color: var(--muted);
   font-size: var(--fs-micro);
   font-weight: 600;
-  letter-spacing: 0.04em;
-  text-align: left;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-auto-rows: minmax(104px, 1fr);
+  gap: 4px;
 }
 
 .cell {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
+  overflow: hidden;
   box-sizing: border-box;
-  min-height: 96px;
-  border: 1px solid var(--line);
+  min-width: 0;
+  border: 1px solid var(--line-soft);
   border-radius: var(--r-sm);
   background: var(--card);
-  padding: 6px;
-  color: inherit;
+  padding: 4px;
+}
+
+/* Хвост соседнего месяца остаётся настоящим днём: монтаж первого сентября
+   виден в конце августовской сетки — ровно за этим в календарь и смотрят. */
+.outside {
+  background: var(--bg-soft);
+}
+
+/* Сегодня помечено не только цветом: рамка плотнее, число в кружке. */
+.today {
+  border-color: var(--accent-ink);
+}
+
+.number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  min-width: 22px;
+  border-radius: var(--r-pill);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  line-height: 20px;
   text-decoration: none;
-  transition:
-    border-color var(--dur-fast) var(--ease-out),
-    background var(--dur-fast) var(--ease-out);
-
-  /* Клетка меряет саму себя: рядом с панелью дня она вдвое уже, чем без неё,
-     и подпись в полоске монтажника обрезается до одной буквы. */
-  container-type: inline-size;
 }
 
-/* Тесная клетка: от полоски остаются краска и инициалы. Имя целиком никуда не
-   девается — оно в подписи ячейки для скринридера и во всплывающей подсказке. */
-@container (width < 116px) {
-  .person .busyText {
-    display: none;
-  }
+.outside .number {
+  color: var(--faint);
 }
 
-.cell:hover {
-  border-color: var(--line-strong);
+.number:hover {
+  background: var(--accent-bg);
+  color: var(--accent-ink);
 }
 
-.cell:focus-visible {
+.number:focus-visible {
   outline: none;
   box-shadow: var(--ring-focus-ring);
 }
 
-/* Дни соседних месяцев остаются кликабельными: монтаж 1 сентября виден в
-   августовской сетке, и по нему должно открываться то же, что по своим. */
-.outside {
-  background: var(--bg-soft);
-  opacity: 0.72;
-}
-
-.number {
-  align-self: flex-start;
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: var(--fs-caption);
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-/* Занятость: день, в который человека нет.
-
-   🔴 Суббота и воскресенье здесь такие же дни, как остальные — нерабочий
-   день отмечает человек, а не календарь. Закрытый целиком день заштрихован,
-   отлучка на часы оставляет ячейку обычной: день, закрытый на два часа,
-   по-прежнему рабочий. */
-.busyFull {
-  border-color: var(--warn-line);
-  background-image: repeating-linear-gradient(135deg, var(--warn-bg) 0 6px, transparent 6px 12px);
-}
-
-.busyPartial {
-  border-color: var(--warn-line);
-}
-
-.busy {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  border-radius: 6px;
-  background: var(--warn-bg);
-  padding: 2px 5px;
-  color: var(--warn-ink);
-  font-size: var(--fs-micro);
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-.busyWindow {
-  font-family: var(--font-mono);
-}
-
-/* Чужая занятость приглушена: она сообщает, а день смотрящего не закрывает. */
-.busyOthers {
-  background: var(--line-soft);
-  color: var(--ink2);
-  font-weight: 500;
-}
-
-.busyIcon {
-  flex: none;
-}
-
-.busyText {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.today {
-  border-color: var(--accent-line);
-}
-
+/* Число сегодня — в кольце, а не в заливке: `--on-accent` предназначен для
+   текста поверх `--accent-bg`, и белый поверх акцента не проходит контраст в
+   тёмной теме. Кольцо читается в обеих и остаётся видимым в ч/б. */
 .today .number {
-  border-radius: var(--r-pill);
-  background: var(--accent-ink);
-  padding: 0 6px;
-  color: var(--on-brand);
+  box-shadow: inset 0 0 0 2px var(--accent-ink);
+  color: var(--accent-ink);
 }
 
-.selected {
-  border-color: var(--accent-ink);
-  box-shadow: var(--ring-focus);
-}
-
-.marks {
+.rows {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: block;
   min-width: 0;
 }
 
-.mark {
-  display: flex;
-  gap: 5px;
-  align-items: baseline;
-  min-width: 0;
-  border-radius: 6px;
-  padding: 2px 5px;
-  font-size: var(--fs-micro);
-  line-height: 1.35;
-}
-
-.markTime {
-  flex: none;
-  font-family: var(--font-mono);
-  font-weight: 600;
-}
-
-.markName {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* Полоска монтажника в клетке дня — наложение занятости команды (ADR-123).
-   Краска закреплена за человеком, рядом с ней инициалы: цвет не может быть
-   единственным признаком (WCAG 1.4.1). */
-.person {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  min-width: 0;
-  border-radius: 6px;
-  padding: 1px 4px;
-  font-size: var(--fs-micro);
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-.personWho {
-  flex: none;
-  border: 1px solid currentcolor;
-  border-radius: var(--r-pill);
-  padding: 0 3px;
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 12px;
-}
-
-.personA {
-  background: var(--accent-bg);
-  color: var(--accent-ink);
-}
-
-.personB {
-  background: var(--info-bg);
-  color: var(--info-ink);
-}
-
-.personC {
-  background: var(--ok-bg);
-  color: var(--ok-ink);
-}
-
-.personD {
-  background: var(--warn-bg);
-  color: var(--warn-ink);
-}
-
-.personE {
-  background: var(--sale-bg);
-  color: var(--sale-ink);
-}
-
-.personF {
-  background: var(--star-bg);
-  color: var(--star);
-}
-
-/* 🔴 Наряд в ячейке отличается от дела не только цветом (ADR-093): у него
-   сплошная полоса слева и номер вместо времени. Дальтоник и монохромный
-   экран видят различие так же, как и все. */
-.order {
-  border-left: 3px solid currentcolor;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-
-.repair {
-  background: var(--error-bg);
-  color: var(--error-ink);
-}
-
-/* Сделанное гаснет, отменённое зачёркнуто: в сетке видно, что осталось на
-   сегодня, без чтения каждой строки. */
-.markDone {
-  opacity: 0.55;
-}
-
-.markCancelled {
-  opacity: 0.5;
-  text-decoration: line-through;
-}
-
-.call {
-  background: var(--accent-bg);
-  color: var(--accent-ink);
-}
-
-.measure {
-  background: var(--info-bg);
-  color: var(--info-ink);
-}
-
-.install {
-  background: var(--ok-bg);
-  color: var(--ok-ink);
-}
-
-.service {
-  background: var(--warn-bg);
-  color: var(--warn-ink);
-}
-
-.meeting {
-  background: var(--sale-bg);
-  color: var(--sale-ink);
-}
-
-.note {
-  background: var(--bg-soft);
-  color: var(--body);
-}
-
-.more,
-.lead {
-  padding: 0 5px;
+.more {
+  align-self: flex-start;
   color: var(--muted);
   font-size: var(--fs-micro);
-  line-height: 1.35;
+  text-decoration: none;
 }
 
-.lead {
-  border-radius: 6px;
-  background: var(--line-soft);
-  color: var(--ink2);
-  font-weight: 600;
+.more:hover {
+  color: var(--accent-ink);
+  text-decoration: underline;
 }
 
-/* Планшет и телефон: на подписи ширины нет, и дела сворачиваются в точки —
-   ряд точек цветом вида. Что именно в дне, читается в панели дня, а сетке
-   остаётся ответить на один вопрос: в какие дни вообще что-то есть.
+.more:focus-visible {
+  outline: none;
+  border-radius: 4px;
+  box-shadow: var(--ring-focus-ring);
+}
 
-   Точки идут строкой, а не столбцом: столбец растил ячейку под каждое дело,
-   и месяц с работой перестал помещаться на экран. */
-@media (width < 900px) {
+/* Телефон: клетка ниже, и в неё помещается меньше строк — но время в строке
+   остаётся, потому что без него строка ничего не говорит. */
+@media (width < 760px) {
+  .days {
+    grid-auto-rows: minmax(76px, 1fr);
+    gap: 2px;
+  }
+
+  .weekdays {
+    gap: 2px;
+  }
+
   .cell {
-    min-height: 62px;
-    gap: 3px;
-    padding: 4px;
-  }
-
-  .marks {
-    flex-flow: row wrap;
-    gap: 3px;
-    align-items: center;
-  }
-
-  .markTime,
-  .markName,
-  .more,
-  .busyText {
-    display: none;
-  }
-
-  /* Полоска монтажника на телефоне сворачивается до инициалов: имя целиком
-     всё равно есть в подписи ячейки для скринридера. */
-  .person {
-    padding: 1px 2px;
-  }
-
-  /* Занятость точкой не сворачивается: значок — единственный не-цветовой
-     признак, который остаётся на телефоне, и терять его нельзя. */
-  .busy {
-    padding: 1px 3px;
-  }
-
-  .mark,
-  .lead {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    padding: 0;
-
-    /* Текст точки скрыт размером: он всё равно продублирован в `aria-label`
-       ссылки, а сама полоса меток спрятана от скринридера. */
-    font-size: 0;
-  }
-
-  /* Фон метки бледный по замыслу — точке нужен насыщенный цвет самой метки. */
-  .mark {
-    background: currentcolor;
-  }
-
-  /* Наряд остаётся отличимым и точкой: у него квадратная метка, у дела —
-     круглая. Цвет тут ничего не решает. */
-  .order {
-    border-left: 0;
-    border-radius: 1px;
-  }
-
-  .lead {
-    background: var(--line-strong);
-  }
-}
-
-/* Телефон боком: экрана по высоте 350–420px, и сетка в 6 строк по 62px
-   вытесняет список дня за экран. Ячейки ужимаются до опознаваемого минимума. */
-@media (height < 520px) and (orientation: landscape) {
-  .cell {
-    min-height: 40px;
+    padding: 2px;
   }
 }

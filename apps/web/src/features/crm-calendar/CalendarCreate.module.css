@@ -1,0 +1,8 @@
+/* Кнопки заведения в шапке календаря. */
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}

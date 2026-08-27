@@ -2,27 +2,33 @@ import { describe, expect, it } from 'vitest';
 
 import {
   clashingRepair,
+  crowdedOrders,
+  dayNote,
   dmitry,
   doctorBlock,
   installers,
+  lateInstall,
   looseOrder,
   monthBlocks,
   monthEvents,
   monthLeads,
   monthOrders,
   morningInstall,
-  parallelService,
+  plannedCall,
   sergey,
   viewerId,
   wholeDayBlock,
 } from './fixtures';
 import {
+  DEFAULT_WORK_WINDOW,
   dayColumns,
   hourRangeOf,
+  isOffHour,
+  lanePlace,
   marksOf,
+  monthColumns,
+  monthRows,
   offsetPercent,
-  personBusy,
-  teamDayLoad,
   weekColumns,
   type ScheduleSource,
 } from './schedule';
@@ -38,7 +44,6 @@ function source(patch: Partial<ScheduleSource> = {}): ScheduleSource {
     blocks: [],
     viewerId,
     today: SUNDAY,
-    selected: SUNDAY,
     ...patch,
   };
 }
@@ -77,11 +82,20 @@ describe('раскладка недели', () => {
     expect(event?.number).toBeNull();
   });
 
-  it('отмечает сегодняшний и выбранный день', () => {
-    const columns = weekColumns(source({ today: '2026-08-19', selected: SUNDAY }), SUNDAY);
+  it('шапка колонки знает день недели и число', () => {
+    const columns = weekColumns(source(), SUNDAY);
 
-    expect(columns.find((column) => column.today)?.day).toBe('2026-08-19');
-    expect(columns.find((column) => column.selected)?.day).toBe(SUNDAY);
+    expect(columns[0]?.weekday).toBe('Пн');
+    expect(columns[6]?.weekday).toBe('Вс');
+    expect(columns[6]?.date).toBe(23);
+  });
+
+  it('отмечает сегодняшний день', () => {
+    const columns = weekColumns(source({ today: '2026-08-19' }), SUNDAY);
+
+    expect(columns.filter((column) => column.today).map((column) => column.day)).toEqual([
+      '2026-08-19',
+    ]);
   });
 
   it('называет колонку словами: цвет и полоса скринридеру ничего не говорят', () => {
@@ -113,10 +127,27 @@ describe('раскладка дня', () => {
     expect(columns[0]?.day).toBe(SUNDAY);
   });
 
-  it('🔴 заявки уходят в группу без времени: их никто не назначал на час', () => {
+  it('🔴 заявка живёт в полосе «весь день», пока ей не назначили время', () => {
     const column = dayColumns(source(), SUNDAY)[0];
 
-    expect(column?.untimed.map((item) => item.id)).toContain(monthLeads[0]?.id);
+    expect(column?.allDay.map((item) => item.entity)).toContain('lead');
+    expect(column?.timed.some((placed) => placed.item.entity === 'lead')).toBe(false);
+  });
+
+  it('заметка «не забыть» тоже уходит в полосу: она висит на дне, а не на часе', () => {
+    const column = dayColumns(source({ events: [dayNote] }), SUNDAY)[0];
+
+    expect(column?.allDay.map((item) => item.id)).toContain(dayNote.id);
+  });
+
+  it('🔴 дело занимает столько, сколько сказано в его длительности', () => {
+    const column = dayColumns(source({ events: [plannedCall], orders: [], leads: [] }), SUNDAY)[0];
+    const call = column?.timed[0]?.item;
+
+    // звонок в 10:00 на полчаса — это отрезок 600…630, а не точка
+    expect(call?.fromMin).toBe(600);
+    expect(call?.toMin).toBe(630);
+    expect(call?.range).toBe('10:00–10:30');
   });
 
   it('пересекающиеся наряды встают рядом, а не друг на друга', () => {
@@ -132,6 +163,74 @@ describe('раскладка дня', () => {
     const column = dayColumns(source({ blocks: [doctorBlock] }), '2026-08-24')[0];
 
     expect(column?.label).toContain('14:00–16:00');
+  });
+
+  it('🔴 своя отлучка на часы стоит ровно на своих часах, а не «где-то в дне»', () => {
+    const column = dayColumns(source({ blocks: [doctorBlock] }), '2026-08-24')[0];
+    const away = column?.timed.find((placed) => placed.item.entity === 'block')?.item;
+
+    expect(away?.fromMin).toBe(doctorBlock.fromMin);
+    expect(away?.toMin).toBe(doctorBlock.toMin);
+  });
+
+  it('свою занятость можно править прямо из карточки, чужую — нет', () => {
+    const own = dayColumns(source({ blocks: [doctorBlock] }), '2026-08-24')[0];
+    const foreign = { ...doctorBlock, id: 'b9', userId: dmitry.id };
+    const team = dayColumns(source({ blocks: [foreign], team: installers }), '2026-08-24')[0];
+
+    expect(own?.timed.find((placed) => placed.item.entity === 'block')?.item.edit?.kind).toBe(
+      'block',
+    );
+    expect(team?.timed.find((placed) => placed.item.entity === 'block')?.item.edit).toBeNull();
+  });
+
+  it('🔴 наряд из календаря не правится: он живёт в своём разделе (ADR-093)', () => {
+    const column = dayColumns(source(), SUNDAY)[0];
+    const order = column?.timed.find((placed) => placed.item.entity === 'order')?.item;
+
+    expect(order?.edit).toBeNull();
+    expect(order?.href).toBe(`/admin/orders/${morningInstall.id}`);
+  });
+
+  it('🔴 переработка берётся готовой с сервера и попадает в подпись (ADR-138)', () => {
+    const column = dayColumns(source({ events: [lateInstall], orders: [], leads: [] }), SUNDAY)[0];
+    const item = column?.timed[0]?.item;
+
+    expect(item?.overtimeMin).toBe(lateInstall.overtimeMin);
+    expect(item?.label).toContain('Переработка: 3 ч');
+  });
+});
+
+describe('раскладка месяца', () => {
+  it('даёт сорок две клетки — шесть недель, чтобы сетка не прыгала', () => {
+    expect(monthColumns(source(), '2026-08')).toHaveLength(42);
+  });
+
+  it('хвост соседнего месяца остаётся настоящим днём', () => {
+    const columns = monthColumns(source(), '2026-08');
+
+    expect(columns[0]?.day).toBe('2026-07-27');
+    expect(columns[0]?.outside).toBe(true);
+  });
+
+  it('🔴 строки клетки идут по времени, и время есть у каждой', () => {
+    const columns = monthColumns(source({ leads: [], blocks: [] }), '2026-08');
+    const sunday = columns.find((column) => column.day === SUNDAY);
+    const rows = sunday === undefined ? [] : monthRows(sunday);
+
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows.every((item) => item.time !== '')).toBe(true);
+    expect(rows.map((item) => item.fromMin)).toEqual(
+      [...rows.map((item) => item.fromMin)].sort((left, right) => left - right),
+    );
+  });
+
+  it('записи без времени идут первыми: они про день целиком', () => {
+    const columns = monthColumns(source(), '2026-08');
+    const sunday = columns.find((column) => column.day === SUNDAY);
+    const rows = sunday === undefined ? [] : monthRows(sunday);
+
+    expect(rows[0]?.entity).toBe('lead');
   });
 });
 
@@ -174,11 +273,11 @@ describe('наложение занятости команды', () => {
     expect(away?.item.fromMin).toBe(doctorBlock.fromMin);
   });
 
-  it('закрытый целиком день не закрашивает колонку, а уходит в группу без времени', () => {
+  it('закрытый целиком день не закрашивает колонку, а уходит в полосу «весь день»', () => {
     const off = { ...wholeDayBlock, userId: sergey.id, day: SUNDAY };
     const column = dayColumns(source({ team: installers, blocks: [off] }), SUNDAY)[0];
 
-    expect(column?.untimed.some((item) => item.entity === 'block')).toBe(true);
+    expect(column?.allDay.some((item) => item.entity === 'block')).toBe(true);
     expect(column?.timed.some((placed) => placed.item.entity === 'block')).toBe(false);
   });
 
@@ -190,102 +289,61 @@ describe('наложение занятости команды', () => {
   });
 });
 
-describe('занятость человека — наряды и отлучки вместе', () => {
-  it('🔴 наряд занимает человека так же, как отлучка (ADR-123)', () => {
-    const busy = personBusy(source(), SUNDAY, dmitry.id);
+describe('окно часов и места записей', () => {
+  it('🔴 сетка рисует сутки целиком: ночь доступна прокруткой, а не спрятана', () => {
+    const range = hourRangeOf(DEFAULT_WORK_WINDOW);
 
-    expect(busy.state).toBe('partial');
-    // монтаж 10:00–13:00 и ремонт 12:00–14:00 сливаются в одно окно
-    expect(busy.state === 'partial' ? busy.windows : []).toHaveLength(1);
+    expect(range.hours).toHaveLength(24);
+    expect(range.hours[0]).toBe(0);
+    expect(range.hours[23]).toBe(23);
   });
 
-  it('складывает врача и монтаж в один ответ', () => {
-    // врач с 17:00 до 18:00 — отдельно от выездов, они кончаются в 14:00
-    const mine = { ...doctorBlock, userId: dmitry.id, day: SUNDAY, fromMin: 1020, toMin: 1080 };
-    const busy = personBusy(source({ blocks: [mine] }), SUNDAY, dmitry.id);
+  it('рабочее окно приходит настройкой, а не зашито в сетку', () => {
+    const range = hourRangeOf({ fromMin: 8 * 60, toMin: 22 * 60 });
 
-    expect(busy.state === 'partial' ? busy.windows.length : 0).toBe(2);
+    expect(range.workFromMin).toBe(8 * 60);
+    expect(range.workToMin).toBe(22 * 60);
   });
 
-  it('чужие наряды человека не занимают', () => {
-    const busy = personBusy(source({ orders: [parallelService] }), SUNDAY, dmitry.id);
+  it('часы за окном помечены нерабочими — иначе переработку неоткуда увидеть', () => {
+    const range = hourRangeOf(DEFAULT_WORK_WINDOW);
 
-    expect(busy.state).toBe('free');
+    expect(isOffHour(range, 7)).toBe(true);
+    expect(isOffHour(range, 9)).toBe(false);
+    expect(isOffHour(range, 18)).toBe(false);
+    expect(isOffHour(range, 19)).toBe(true);
   });
 
-  it('день без работы и без отлучек — свободен', () => {
-    expect(personBusy(source(), '2026-08-19', dmitry.id).state).toBe('free');
-  });
-});
-
-describe('занятость команды по дням — для клетки месяца', () => {
-  it('называет занятых и молчит о свободных', () => {
-    const load = teamDayLoad(source({ team: installers }), SUNDAY);
-
-    expect(load.map((entry) => entry.person.id)).toEqual([dmitry.id, sergey.id]);
+  it('доля считается от суток: час в сетке всегда на одном месте', () => {
+    expect(offsetPercent(0)).toBe(0);
+    expect(offsetPercent(12 * 60)).toBe(50);
+    expect(offsetPercent(24 * 60)).toBe(100);
   });
 
-  it('считает загрузку по нарядам и не удваивает наложение', () => {
-    const load = teamDayLoad(source({ team: installers }), SUNDAY);
-
-    // 10:00–13:00 и 12:00–14:00 у одного человека — четыре часа, а не пять
-    expect(load[0]?.loadMin).toBe(240);
-    expect(load[1]?.loadMin).toBe(90);
+  it('время вне суток прижимается к границам', () => {
+    expect(offsetPercent(-60)).toBe(0);
+    expect(offsetPercent(30 * 60)).toBe(100);
   });
 
-  it('в свободный день полосок нет вовсе', () => {
-    expect(teamDayLoad(source({ team: installers }), '2026-08-19')).toEqual([]);
+  it('до трёх записей делят ширину поровну', () => {
+    expect(lanePlace(0, 2)).toEqual({ leftPercent: 0, widthPercent: 50, depth: 0 });
+    expect(lanePlace(1, 2)).toEqual({ leftPercent: 50, widthPercent: 50, depth: 1 });
   });
 
-  it('отлучка попадает в полоски наравне с выездом', () => {
-    const off = { ...wholeDayBlock, userId: sergey.id, day: '2026-08-19' };
-    const load = teamDayLoad(source({ team: installers, blocks: [off] }), '2026-08-19');
+  it('🔴 когда записей много, они идут лесенкой с наложением, а не в нитку', () => {
+    const first = lanePlace(0, 5);
+    const last = lanePlace(4, 5);
 
-    expect(load.map((entry) => entry.person.id)).toEqual([sergey.id]);
-    expect(load[0]?.busy.state).toBe('full');
+    expect(first.widthPercent).toBe(100);
+    expect(last.leftPercent).toBe(70);
+    // поздняя запись лежит поверх ранних — её видно целиком
+    expect(last.depth).toBeGreaterThan(first.depth);
   });
 
-  it('без наложения полосок нет: переключатель выключен', () => {
-    expect(teamDayLoad(source(), SUNDAY)).toEqual([]);
-  });
-});
+  it('пять выездов на одно время не сжимаются в невидимые полоски', () => {
+    const column = dayColumns(source({ orders: crowdedOrders, events: [], leads: [] }), SUNDAY)[0];
+    const places = (column?.timed ?? []).map((placed) => lanePlace(placed.lane, placed.lanes));
 
-describe('окно часов', () => {
-  it('по умолчанию рабочий день с восьми до восьми', () => {
-    const columns = dayColumns(source({ events: [], orders: [], leads: [] }), SUNDAY);
-    const range = hourRangeOf(columns);
-
-    expect(range.fromMin).toBe(8 * 60);
-    expect(range.toMin).toBe(20 * 60);
-    expect(range.hours).toHaveLength(12);
-  });
-
-  it('расширяется под ранний выезд, а не прячет его', () => {
-    const early = { ...morningInstall, at: '2026-08-23T03:30:00.000Z' }; // 06:30 в Туле
-    const columns = dayColumns(source({ orders: [early], events: [], leads: [] }), SUNDAY);
-
-    expect(hourRangeOf(columns).fromMin).toBe(6 * 60);
-  });
-
-  it('расширяется под поздний конец работ', () => {
-    const late = { ...morningInstall, at: '2026-08-23T16:00:00.000Z', durationMin: 240 };
-    const columns = dayColumns(source({ orders: [late], events: [], leads: [] }), SUNDAY);
-
-    expect(hourRangeOf(columns).toMin).toBe(23 * 60);
-  });
-
-  it('доля окна считается от его начала, а не от полуночи', () => {
-    const range = { fromMin: 8 * 60, toMin: 20 * 60, hours: [] };
-
-    expect(offsetPercent(range, 8 * 60)).toBe(0);
-    expect(offsetPercent(range, 14 * 60)).toBe(50);
-    expect(offsetPercent(range, 20 * 60)).toBe(100);
-  });
-
-  it('время вне окна прижимается к его границам', () => {
-    const range = { fromMin: 8 * 60, toMin: 20 * 60, hours: [] };
-
-    expect(offsetPercent(range, 0)).toBe(0);
-    expect(offsetPercent(range, 23 * 60)).toBe(100);
+    expect(places.every((place) => place.widthPercent >= 30)).toBe(true);
   });
 });

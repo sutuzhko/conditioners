@@ -135,7 +135,19 @@ describe('Шапка календаря', () => {
 
     expect(screen.getByRole('link', { name: texts.overdue(3) })).toHaveAttribute(
       'href',
-      '/admin/crm?day=2026-08-23',
+      '/admin/crm?view=day&day=2026-08-23',
     );
+  });
+
+  it('🔴 запись заводится из шапки: клик по сетке — ускоритель, а не единственный вход', () => {
+    nav();
+
+    expect(screen.getByRole('button', { name: texts.add })).toBeInTheDocument();
+  });
+
+  it('занятость отмечается оттуда же: своя, на открытый день (ADR-115)', () => {
+    nav();
+
+    expect(screen.getByRole('button', { name: texts.busyAdd })).toBeInTheDocument();
   });
 });
