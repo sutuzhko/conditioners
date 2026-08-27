@@ -41,20 +41,39 @@ export const addressFixture: Address = {
   postalCode: '300000',
 };
 
+/**
+ * Номера с верными контрольными разрядами: они проходят схему реквизитов
+ * (PROJECT §5.2). Придуманные, но арифметически настоящие — «7100000000»
+ * проверяло бы длину строки, а не проверку.
+ */
 export const legalIp: Legal = {
   form: 'ИП',
   name: 'Демонстрационный Д. Д.',
-  inn: '710000000000',
-  ogrn: '300000000000000',
+  inn: '710703123450',
+  ogrn: '314710700012346',
+  regDate: '2015-03-12',
+  regAuthority: 'Межрайонная ИФНС России № 10 по Тульской области',
   address: '300000, Тула, ул. Демонстрационная, 1',
+  bankName: '',
+  bankBik: '',
+  bankAccount: '',
+  bankCorrAccount: '',
 };
 
 export const legalOoo: Legal = {
   form: 'ООО',
   name: '«Демонстрация»',
-  inn: '7100000000',
-  ogrn: '1000000000000',
+  shortName: '«Демо»',
+  inn: '7107023451',
+  kpp: '710701001',
+  ogrn: '1027107001239',
   address: '300000, Тула, ул. Демонстрационная, 1, оф. 5',
+  director: 'Демонстрационный Д. Д.',
+  directorTitle: 'Директор',
+  bankName: '',
+  bankBik: '',
+  bankAccount: '',
+  bankCorrAccount: '',
 };
 
 /** Реальное состояние проекта: сиды заполнены заметной заглушкой. */
@@ -89,7 +108,14 @@ export const legalPlaceholder: Legal = {
   name: SETTING_PLACEHOLDER,
   inn: SETTING_PLACEHOLDER,
   ogrn: SETTING_PLACEHOLDER,
+  /* Заглушка датой быть не может — незаполненная дата честнее пустой. */
+  regDate: '',
+  regAuthority: SETTING_PLACEHOLDER,
   address: SETTING_PLACEHOLDER,
+  bankName: '',
+  bankBik: '',
+  bankAccount: '',
+  bankCorrAccount: '',
 };
 
 /** Настройки, которых владелец ещё вообще не касался. */
@@ -115,4 +141,16 @@ export const addressEmpty: Address = {
   postalCode: '',
 };
 
-export const legalEmpty: Legal = { form: 'ИП', name: '', inn: '', ogrn: '', address: '' };
+export const legalEmpty: Legal = {
+  form: 'ИП',
+  name: '',
+  inn: '',
+  ogrn: '',
+  regDate: '',
+  regAuthority: '',
+  address: '',
+  bankName: '',
+  bankBik: '',
+  bankAccount: '',
+  bankCorrAccount: '',
+};

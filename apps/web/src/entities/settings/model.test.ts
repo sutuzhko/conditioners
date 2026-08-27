@@ -12,6 +12,19 @@ import {
   socialSchema,
 } from './model';
 
+/**
+ * Номера с верными контрольными разрядами. Придуманные, но арифметически
+ * настоящие: тест на «7100000000» проверял бы длину строки, а не проверку.
+ */
+const INN_IP = '710703123450';
+const INN_OOO = '7107023451';
+const OGRNIP = '314710700012346';
+const OGRN = '1027107001239';
+const KPP = '710701001';
+const BIK = '047003608';
+const ACCOUNT = '40702810700000000001';
+const CORR_ACCOUNT = '30101810700000000004';
+
 describe('settingSchemas', () => {
   it('покрывают все ключи из PROJECT §3', () => {
     expect(Object.keys(settingSchemas).sort()).toEqual([...settingKeySchema.options].sort());
@@ -148,7 +161,7 @@ describe('geoSchema', () => {
 });
 
 describe('legalSchema', () => {
-  it('форма собственности — только ИП или ООО', () => {
+  it('форма регистрации — только ИП или ООО', () => {
     expect(legalSchema.parse({ form: 'ООО' }).form).toBe('ООО');
     expect(() => legalSchema.parse({ form: 'ЗАО' })).toThrow();
   });
@@ -157,6 +170,84 @@ describe('legalSchema', () => {
     const parsed = legalSchema.safeParse({ form: 'АО' });
 
     expect(parsed.success).toBe(false);
-    expect(parsed.success === false && parsed.error.issues[0]?.message).toBe('Форма — ИП или ООО');
+    expect(parsed.success === false && parsed.error.issues[0]?.message).toBe(
+      'Форма регистрации — ИП или ООО',
+    );
+  });
+
+  /**
+   * 🔴 Группа без формы осталась в базе с тех пор, когда вариантов не было.
+   * Публичная страница обязана открыться на ней, а не упасть: реквизиты стоят
+   * в футере каждой страницы сайта.
+   */
+  it('старая запись без формы разбирается как ИП', () => {
+    expect(legalSchema.parse({ inn: INN_IP }).form).toBe('ИП');
+  });
+
+  it('поле чужой формы не сохраняется, а отвергается', () => {
+    expect(() => legalSchema.parse({ form: 'ИП', kpp: KPP })).toThrow();
+    expect(() => legalSchema.parse({ form: 'ООО', regAuthority: 'ИФНС' })).toThrow();
+  });
+
+  /**
+   * 🔴 Проверяется арифметика, а не длина строки (PROJECT §5.2): ИНН из
+   * двенадцати цифр с битым контрольным разрядом — самая частая описка, и
+   * длиной её не поймать.
+   */
+  it('ИНН предпринимателя проверяется контрольным разрядом', () => {
+    expect(legalSchema.parse({ form: 'ИП', inn: INN_IP }).inn).toBe(INN_IP);
+    expect(legalSchema.safeParse({ form: 'ИП', inn: '710703123451' }).success).toBe(false);
+    // десять цифр — не описка, а признак того, что выбрана не та форма
+    expect(legalSchema.safeParse({ form: 'ИП', inn: INN_OOO }).success).toBe(false);
+  });
+
+  it('ИНН, ОГРН и КПП организации проверяются контрольным разрядом', () => {
+    const parsed = legalSchema.parse({ form: 'ООО', inn: INN_OOO, ogrn: OGRN, kpp: KPP });
+
+    expect(parsed).toMatchObject({ inn: INN_OOO, ogrn: OGRN, kpp: KPP });
+    expect(legalSchema.safeParse({ form: 'ООО', ogrn: '1027107001238' }).success).toBe(false);
+    expect(legalSchema.safeParse({ form: 'ООО', kpp: '007107001' }).success).toBe(false);
+  });
+
+  it('ОГРНИП с переставленными цифрами не проходит', () => {
+    expect(legalSchema.parse({ form: 'ИП', ogrn: OGRNIP }).ogrn).toBe(OGRNIP);
+    expect(legalSchema.safeParse({ form: 'ИП', ogrn: '314710700012364' }).success).toBe(false);
+  });
+
+  /* Номер копируют из выписки вместе с пробелами — это особенность источника,
+     а не ошибка человека. */
+  it('пробелы внутри номера вычищаются, заглушка сидов остаётся заметной', () => {
+    expect(legalSchema.parse({ form: 'ООО', inn: '710 702 3451' }).inn).toBe(INN_OOO);
+    expect(legalSchema.parse({ form: 'ИП', inn: SETTING_PLACEHOLDER }).inn).toBe(
+      SETTING_PLACEHOLDER,
+    );
+  });
+
+  it('незаполненные реквизиты сохраняются: группу заполняют постепенно', () => {
+    expect(legalSchema.parse({ form: 'ИП' })).toMatchObject({ inn: '', ogrn: '', regDate: '' });
+  });
+
+  it('дата регистрации календарная, а не любая строка из цифр', () => {
+    expect(legalSchema.parse({ form: 'ИП', regDate: '2015-03-12' })).toMatchObject({
+      regDate: '2015-03-12',
+    });
+    expect(legalSchema.safeParse({ form: 'ИП', regDate: '2015-02-30' }).success).toBe(false);
+    expect(legalSchema.safeParse({ form: 'ИП', regDate: '12.03.2015' }).success).toBe(false);
+  });
+
+  /* Ключ счёта считается вместе с БИК: номер, верный в одном банке, в другом
+     неверен — поэтому проверка стоит на группе, а не на поле. */
+  it('счёт сходится с БИК, а без БИК не проверяется вовсе', () => {
+    const bank = { bankBik: BIK, bankAccount: ACCOUNT, bankCorrAccount: CORR_ACCOUNT };
+
+    expect(legalSchema.parse({ form: 'ООО', ...bank })).toMatchObject(bank);
+    expect(
+      legalSchema.safeParse({ form: 'ООО', bankBik: BIK, bankAccount: '40702810700000000002' })
+        .success,
+    ).toBe(false);
+
+    const noBik = legalSchema.safeParse({ form: 'ООО', bankAccount: ACCOUNT });
+    expect(noBik.success).toBe(false);
+    expect(noBik.success === false && noBik.error.issues[0]?.path).toEqual(['bankBik']);
   });
 });

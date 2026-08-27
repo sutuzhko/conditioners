@@ -61,8 +61,8 @@ describe('Footer', () => {
     setup({ legal: legalOoo });
     expect(screen.getByText('ООО «Демонстрация»')).toBeInTheDocument();
     expect(screen.getByText('ИНН')).toBeInTheDocument();
-    expect(screen.getByText('7100000000')).toBeInTheDocument();
-    expect(screen.getByText('1000000000000')).toBeInTheDocument();
+    expect(screen.getByText(legalOoo.inn)).toBeInTheDocument();
+    expect(screen.getByText(legalOoo.ogrn)).toBeInTheDocument();
     expect(screen.getByText('Юридический адрес')).toBeInTheDocument();
   });
 

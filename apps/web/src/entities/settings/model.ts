@@ -1,6 +1,16 @@
 import { z } from 'zod';
 
 import { installRatesSchema } from '@/entities/price/model';
+import {
+  isBankAccount,
+  isBik,
+  isCorrAccount,
+  isInnCompany,
+  isInnPerson,
+  isKpp,
+  isOgrn,
+  isOgrnip,
+} from '@/shared/lib/requisites';
 
 import { SETTING_PLACEHOLDER } from './lib/readiness';
 
@@ -146,18 +156,215 @@ export const areaSchema = z
   })
   .strict();
 
-/** Для `form = "ИП"` подпись поля `ogrn` на сайте — «ОГРНИП», для «ООО» — «ОГРН». */
-export const legalSchema = z
+/**
+ * Реквизиты продавца — ЗоЗПП ст. 9 и Правила продажи (ПП РФ № 2463).
+ *
+ * 🔴 Состав полей задаёт форма регистрации (ADR-112, PROJECT §5.1): у
+ * предпринимателя нет КПП и руководителя, у общества — органа регистрации.
+ * Поэтому здесь размеченное объединение, а не один объект с необязательными
+ * полями: поле чужой формы не прячется, его не существует. Спрятанное
+ * значение всплывает в выгрузке или в разметке ровно тогда, когда его никто
+ * не ждёт, — а `.strict()` не даёт записать его даже запросом мимо формы.
+ *
+ * Самозанятого в списке форм нет: перепродавать чужой товар под НПД нельзя
+ * (ФЗ-422), а продажа техники — суть проекта. Ограничение реализовано
+ * отсутствием пункта, а не проверкой в рантайме: проверять нечего, если
+ * выбрать нельзя.
+ */
+export const LEGAL_FORMS = ['ИП', 'ООО'] as const;
+
+export type LegalForm = (typeof LEGAL_FORMS)[number];
+
+/**
+ * Пробелы из номера вычищаются, заглушка сидов остаётся как есть.
+ *
+ * Владелец копирует реквизит из выписки вместе с пробелами — «7707 083893»
+ * это особенность источника, а не ошибка человека. А вот заглушку трогать
+ * нельзя: без пробелов она перестанет совпадать с собой, и проверка
+ * готовности её не найдёт.
+ */
+function withoutSpaces(value: string): string {
+  return value === SETTING_PLACEHOLDER ? value : value.replace(/\s/g, '');
+}
+
+/**
+ * Реквизит с контрольным разрядом: ИНН, ОГРН, ОГРНИП, КПП, БИК.
+ *
+ * 🔴 Проверяется арифметика, а не длина строки (PROJECT §5.2). Описка в
+ * цифре видна в футере и в политике обработки ПДн, живёт там годами и
+ * всплывает в самый неудачный момент; контрольный разряд ловит и опечатку, и
+ * переставленные цифры.
+ *
+ * Пустое значение проходит: группа заполняется постепенно, и запрещать
+ * сохранение половины формы нельзя — незаполненное показывает проверка
+ * готовности. Заглушка сидов проходит по той же причине, что и в почте: пока
+ * владелец до реквизитов не дошёл, на сайте обязана стоять заметная метка, а
+ * не пустота.
+ */
+function requisite(check: (value: string) => boolean, message: string) {
+  return z
+    .string()
+    .trim()
+    .transform(withoutSpaces)
+    .refine((value) => value === '' || value === SETTING_PLACEHOLDER || check(value), { message })
+    .default('');
+}
+
+/**
+ * Дата регистрации — календарная, `2015-03-12`.
+ *
+ * Строкой в машинном виде, а не свободным текстом: её печатают в реквизитах
+ * рядом с органом регистрации, и «12.03.15» против «12 марта 2015 г.» в двух
+ * местах сайта — это то же расхождение, ради которого телефон приводится к
+ * одному виду. Заглушки сидов здесь нет: датой она быть не может, и
+ * незаполненную дату честнее показать пустой.
+ */
+const registrationDateSchema = z
+  .union(
+    [
+      z.literal(''),
+      z
+        .string()
+        .trim()
+        .regex(/^\d{4}-\d{2}-\d{2}$/)
+        .refine((value) => {
+          // отдельная проверка календаря: `2015-02-30` шаблон проходит, а даты такой нет
+          const parsed = new Date(`${value}T00:00:00.000Z`);
+          return !Number.isNaN(parsed.getTime()) && parsed.toISOString().startsWith(value);
+        }),
+    ],
+    { errorMap: () => ({ message: 'Дата регистрации — как в свидетельстве' }) },
+  )
+  .default('');
+
+/**
+ * Счёт: двадцать цифр. Контрольный ключ считается вместе с БИК, поэтому
+ * сходимость проверяется на группе — полю соседнее значение недоступно.
+ */
+const accountSchema = z
+  .string()
+  .trim()
+  .transform(withoutSpaces)
+  .refine((value) => value === '' || value === SETTING_PLACEHOLDER || /^\d{20}$/.test(value), {
+    message: 'Номер счёта — 20 цифр',
+  })
+  .default('');
+
+/**
+ * Банковские реквизиты одинаковы у обеих форм и на сайт не выводятся никогда:
+ * они нужны счетам, а витрине там делать нечего (PROJECT §5.1).
+ */
+const bankFields = {
+  bankName: optionalText,
+  bankBik: requisite(isBik, 'БИК — девять цифр, начинается с 04'),
+  bankAccount: accountSchema,
+  bankCorrAccount: accountSchema,
+};
+
+/** Индивидуальный предприниматель: ФИО, ОГРНИП, дата и орган регистрации. */
+const entrepreneurLegalSchema = z
   .object({
-    form: z
-      .enum(['ИП', 'ООО'], { errorMap: () => ({ message: 'Форма — ИП или ООО' }) })
-      .default('ИП'),
+    form: z.literal('ИП'),
+    /** ФИО полностью. Форму собственности подставляет показ, а не владелец. */
     name: optionalText,
-    inn: optionalText,
-    ogrn: optionalText,
+    inn: requisite(isInnPerson, 'ИНН предпринимателя — 12 цифр, проверьте номер'),
+    ogrn: requisite(isOgrnip, 'ОГРНИП — 15 цифр, проверьте номер'),
+    regDate: registrationDateSchema,
+    regAuthority: optionalText,
+    /**
+     * 🔴 Адрес регистрации предпринимателя на сайт не выводится: это, как
+     * правило, домашний адрес, то есть персональные данные (PROJECT §5.1).
+     * Хранится он для документов, а посетителю показывается фактический
+     * адрес приёма из группы `address`. За то, что он не уедет на страницу,
+     * отвечает `publicRequisites` в `lib/legal`.
+     */
     address: optionalText,
+    ...bankFields,
   })
   .strict();
+
+/** Общество с ограниченной ответственностью: КПП, руководитель, место нахождения. */
+const companyLegalSchema = z
+  .object({
+    form: z.literal('ООО'),
+    /** Полное фирменное наименование, как в уставе. */
+    name: optionalText,
+    /** Сокращённое: «ООО „Пример“». Им подписан футер. */
+    shortName: optionalText,
+    inn: requisite(isInnCompany, 'ИНН организации — 10 цифр, проверьте номер'),
+    kpp: requisite(isKpp, 'КПП — девять знаков: инспекция, причина постановки и номер'),
+    ogrn: requisite(isOgrn, 'ОГРН — 13 цифр, проверьте номер'),
+    /** Место нахождения — публичное, в отличие от адреса предпринимателя. */
+    address: optionalText,
+    director: optionalText,
+    directorTitle: optionalText,
+    ...bankFields,
+  })
+  .strict();
+
+/**
+ * Сходимость счёта с БИК. Номер, верный в одном банке, в другом неверен,
+ * поэтому проверка стоит на группе: полю соседнее значение недоступно.
+ */
+function checkAccounts(
+  legal: { bankBik: string; bankAccount: string; bankCorrAccount: string },
+  ctx: z.RefinementCtx,
+): void {
+  const filled = (value: string): boolean => value !== '' && value !== SETTING_PLACEHOLDER;
+
+  const accounts = [
+    {
+      path: 'bankAccount',
+      value: legal.bankAccount,
+      check: isBankAccount,
+      message: 'Расчётный счёт не сходится с БИК — проверьте номер',
+    },
+    {
+      path: 'bankCorrAccount',
+      value: legal.bankCorrAccount,
+      check: isCorrAccount,
+      message: 'Корреспондентский счёт не сходится с БИК — проверьте номер',
+    },
+  ] as const;
+
+  for (const account of accounts) {
+    if (!filled(account.value)) continue;
+
+    if (!filled(legal.bankBik)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['bankBik'],
+        message: 'Без БИК контрольный ключ счёта не проверить',
+      });
+      continue;
+    }
+
+    if (!account.check(account.value, legal.bankBik)) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: [account.path], message: account.message });
+    }
+  }
+}
+
+/**
+ * Группа без формы разбирается как «ИП»: так она открывалась до появления
+ * вариантов, и старая запись обязана открыться, а не уронить публичную
+ * страницу. Всё, что объектом не является, проходит мимо и честно
+ * отвергается объединением.
+ */
+function withDefaultForm(value: unknown): unknown {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) return value;
+
+  return 'form' in value ? value : { ...value, form: LEGAL_FORMS[0] };
+}
+
+export const legalSchema = z.preprocess(
+  withDefaultForm,
+  z
+    .discriminatedUnion('form', [entrepreneurLegalSchema, companyLegalSchema], {
+      errorMap: () => ({ message: 'Форма регистрации — ИП или ООО' }),
+    })
+    .superRefine(checkAccounts),
+);
 
 /** Ставки калькулятора живут в домене цен — там же, где формула. */
 export const extrasSchema = installRatesSchema;
@@ -447,6 +654,14 @@ export type Address = Settings['address'];
 export type Geo = Settings['geo'];
 export type ServiceArea = Settings['area'];
 export type Legal = Settings['legal'];
+
+/**
+ * Ветви реквизитов по форме регистрации. Нужны там, где значение заведомо
+ * одной формы: фикстуры, истории и описание полей. В рабочем коде тип
+ * сужается проверкой `legal.form`, а не приведением.
+ */
+export type LegalEntrepreneur = Extract<Legal, { form: 'ИП' }>;
+export type LegalCompany = Extract<Legal, { form: 'ООО' }>;
 export type Warranty = Settings['warranty'];
 export type Payment = Settings['payment'];
 export type Social = Settings['social'];
