@@ -148,3 +148,67 @@
   font-size: 16px;
   line-height: 1.5;
 }
+
+/* Панель «к заявке приложим»: что уедет вместе с телефоном. Оформлена как
+   спокойная подсказка, а не как ошибка — это не предупреждение, а отчёт. */
+.context {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--r-sm);
+  background: var(--accent-bg);
+  padding: 12px 14px;
+}
+
+.contextTitle {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+}
+
+.contextList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+}
+
+.contextRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.contextLabel {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+/* значение переносится по словам: названия моделей длиннее ширины телефона */
+.contextValue {
+  margin: 0;
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.contextHint {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  line-height: 1.45;
+}
+
+/* кнопка отказа прижата влево и не растянута: отказ — не главное действие */
+.contextDrop {
+  align-self: flex-start;
+}
+
+.contextNote {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}

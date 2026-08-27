@@ -1,3 +1,4 @@
+import type { LeadContextEstimate } from '@/entities/lead/model';
 import type {
   InstallRates,
   InstallationEstimate,
@@ -160,4 +161,41 @@ export function buildEstimateText(context: EstimateContext): string {
       : [`${pricingText.textTotal}: ${formatMoney(estimate.total)}`];
 
   return [...conditions, '', ...breakdown, '', ...totals].join('\n');
+}
+
+/**
+ * Расчёт в виде снимка для заявки.
+ *
+ * 🔴 Подписи берутся из тех же функций, что рисуют разбивку на экране
+ * (`lineLabel`, `classOptionLabel`, `floorLabel`): владелец обязан прочитать в
+ * заявке ровно ту смету, которую человек видел, вплоть до формулировки
+ * (красная линия «не врать в цене»). Второй словарь на стороне админки
+ * разошёлся бы с этим при первой же правке подписи.
+ *
+ * Цифры уезжают числами, а не текстом: форматирует их показ, и он один на
+ * проект — иначе в письме и в панели одна и та же сумма выглядела бы по-разному.
+ */
+export function toLeadContextEstimate(context: EstimateContext): LeadContextEstimate {
+  const { cls, area, input, estimate, rates } = context;
+
+  return {
+    params: [
+      { label: pricingText.textClass, value: classOptionLabel(cls, area) },
+      { label: pricingText.textTrassa, value: meters(input.trassaM) },
+      { label: pricingText.textFloor, value: floorLabel(input.floor, rates.heightFloorFrom) },
+      {
+        label: pricingText.textShtrob,
+        value: input.shtroblenie ? pricingText.textYes : pricingText.textNo,
+      },
+      { label: pricingText.textQty, value: formatNumber(input.qty) },
+    ],
+    lines: estimate.lines.map((line) => ({
+      label: lineLabel(line, { cls, heightFloorFrom: rates.heightFloorFrom }),
+      amount: line.amount,
+    })),
+    // цена за один блок имеет смысл только там, где блоков больше одного
+    perUnit: estimate.qty > 1 ? estimate.perUnit : null,
+    qty: estimate.qty,
+    total: estimate.total,
+  };
 }

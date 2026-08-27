@@ -1,5 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen, within } from '@testing-library/react';
+import { forgetLeadContext, readLeadContext } from '@/features/lead-form';
+
 import { Pricing } from './Pricing';
 import { customRates, priceRows, rates } from './fixtures';
 import type { EstimateHandoff } from './model';
@@ -183,5 +185,64 @@ describe('Цены — калькулятор монтажа', () => {
     for (const line of breakdown().filter((item) => !item.label.startsWith('За один блок'))) {
       expect(handoff.text).toContain(line.label);
     }
+  });
+});
+
+afterEach(() => {
+  forgetLeadContext();
+});
+
+describe('Цены — расчёт уезжает с заявкой', () => {
+  it('🔴 в заявку попадает ровно та смета, что на экране', () => {
+    render(<Pricing prices={priceRows} rates={rates} />);
+
+    selectOption('Класс мощности', '12');
+    setTrassa(7);
+    fireEvent.click(screen.getByRole('checkbox'));
+    selectOption('Количество блоков', '2');
+
+    const shown = breakdown();
+    const shownTotal = total();
+
+    fireEvent.click(screen.getByRole('link', { name: /Зафиксировать/ }));
+
+    const estimate = readLeadContext()?.estimate;
+    expect(estimate).toBeDefined();
+    expect(estimate?.total).toBe(shownTotal);
+
+    /* Подписи и суммы сверяются со строками разбивки, а не с литералами:
+       разойтись формулировкой здесь так же плохо, как разойтись цифрой. */
+    for (const line of estimate?.lines ?? []) {
+      expect(shown).toContainEqual({ label: line.label, amount: line.amount });
+    }
+  });
+
+  it('условия расчёта записываются словами из тех же списков', () => {
+    render(<Pricing prices={priceRows} rates={rates} />);
+
+    selectOption('Класс мощности', '09');
+    fireEvent.click(screen.getByRole('link', { name: /Зафиксировать/ }));
+
+    const params = readLeadContext()?.estimate?.params ?? [];
+    expect(params).toContainEqual({ label: 'Класс мощности', value: '09 · до 27 м²' });
+    expect(params.map((param) => param.label)).toContain('Штробление');
+  });
+
+  it('без перехода к форме ничего не запоминается: снимок — это решение человека', () => {
+    render(<Pricing prices={priceRows} rates={rates} />);
+
+    setTrassa(9);
+
+    expect(readLeadContext()).toBeNull();
+  });
+
+  it('колбэк страницы отменяет запись в хранилище — историям она не нужна', () => {
+    const onApplyEstimate = vi.fn<(handoff: EstimateHandoff) => void>();
+    render(<Pricing prices={priceRows} rates={rates} onApplyEstimate={onApplyEstimate} />);
+
+    fireEvent.click(screen.getByRole('link', { name: /Зафиксировать/ }));
+
+    expect(onApplyEstimate).toHaveBeenCalledTimes(1);
+    expect(readLeadContext()).toBeNull();
   });
 });

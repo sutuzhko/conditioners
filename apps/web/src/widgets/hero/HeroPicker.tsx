@@ -3,9 +3,11 @@
 import Image from 'next/image';
 import { useId, useState } from 'react';
 
+import type { LeadContextModel } from '@/entities/lead/model';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { pickByArea } from '@/entities/product/lib/pickByArea';
 import type { Product } from '@/entities/product/model';
+import { rememberLeadContext } from '@/features/lead-form';
 import { formatDate, formatMoney } from '@/shared/lib/format';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { Badge, ButtonLink, Card, Chip, RangeSlider } from '@/shared/ui';
@@ -110,7 +112,13 @@ export function HeroPicker({ products, leadHref, now }: HeroPickerProps) {
             </div>
           </div>
 
-          <Recommendation product={recommended} leadHref={leadHref} now={now} />
+          <Recommendation
+            product={recommended}
+            leadHref={leadHref}
+            now={now}
+            area={area}
+            place={place}
+          />
         </>
       )}
     </Card>
@@ -121,11 +129,23 @@ type RecommendationProps = {
   readonly product: Product;
   readonly leadHref: ButtonLinkHref;
   readonly now?: Date | undefined;
+  /** Что человек задал в подборе — уезжает вместе с заявкой. */
+  readonly area: number;
+  readonly place: PlaceType;
 };
 
-function Recommendation({ product, leadHref, now }: RecommendationProps) {
+function Recommendation({ product, leadHref, now, area, place }: RecommendationProps) {
   const price = now === undefined ? getActivePrice(product) : getActivePrice(product, now);
   const photo = mainPhoto(product);
+
+  /* 🔴 Цена в снимке — та, что стоит строкой ниже, и перечёркнутая только
+     тогда, когда она действительно показана (инвариант 14, ADR-011). */
+  const model: LeadContextModel = {
+    slug: product.slug,
+    name: product.name,
+    price: price.currentPrice,
+    oldPrice: price.oldPrice,
+  };
 
   return (
     <Card variant="panel" padding="md" className={styles.result} aria-live="polite">
@@ -182,7 +202,16 @@ function Recommendation({ product, leadHref, now }: RecommendationProps) {
         <p className={styles.saleUntil}>{t.saleUntil(formatDate(price.saleTo))}</p>
       )}
 
-      <ButtonLink href={leadHref} size="lg" fullWidth className={styles.orderCta}>
+      {/* Подбор фиксируется в момент перехода к форме, а не на каждое
+          движение ползунка: в заявку обязано попасть то, с чем человек пошёл
+          оставлять телефон, а не то, мимо чего он проехал. */}
+      <ButtonLink
+        href={leadHref}
+        size="lg"
+        fullWidth
+        className={styles.orderCta}
+        onClick={() => rememberLeadContext({ pick: { area, place, model } })}
+      >
         {t.order}
       </ButtonLink>
       <p className={styles.disclaimer}>{t.disclaimer}</p>

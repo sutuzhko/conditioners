@@ -1,0 +1,106 @@
+/* Контекст заявки в карточке: чем человек занимался до формы. Оформлен
+   отдельной панелью — это не поле заявки, а справка к разговору. */
+
+.context {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-soft);
+  padding: 12px 14px;
+  margin: 0 0 14px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-base);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  line-height: 1.45;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.blockTitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.params {
+  margin: 0;
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+}
+
+.line {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.lineLabel {
+  color: var(--body);
+  font-size: var(--fs-caption);
+  overflow-wrap: anywhere;
+}
+
+/* суммы моношрифтом и с табличными цифрами: столбец обязан читаться колонкой */
+.lineAmount {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.total {
+  border-top: 1px solid var(--line);
+  padding-top: 4px;
+  font-weight: 700;
+}
+
+.total .lineLabel,
+.total .lineAmount {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.models {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.model {
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  overflow-wrap: anywhere;
+}

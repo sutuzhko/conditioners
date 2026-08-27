@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { leadContextSchema } from '@/entities/lead/model';
 import {
   orderEquipSchema,
   orderTypeSchema,
@@ -27,6 +28,18 @@ const leadPayloadSchema = z.object({
   comment: z.string().nullable(),
   photo: z.string().nullable(),
   sourceUrl: z.string().nullable(),
+  /**
+   * Что человек делал на сайте до отправки: расчёт монтажа, подбор по площади,
+   * модель у кнопки «Заказать», отмеченные модели. Снимок, а не ссылки — по той
+   * же причине, по которой самодостаточна вся нагрузка: владелец читает
+   * сообщение, чтобы перезвонить, и цена в нём обязана совпасть с той, что
+   * человек видел на экране.
+   *
+   * Необязателен: в очереди лежат записи, поставленные версией, которая о
+   * контексте не знала, и воркер обязан разобрать их так же спокойно, как
+   * сегодняшние.
+   */
+  context: leadContextSchema.nullable().optional(),
 });
 
 const toReminderPayloadSchema = z.object({

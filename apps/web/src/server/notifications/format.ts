@@ -1,3 +1,9 @@
+import {
+  leadContextModelText,
+  leadContextParamsText,
+  leadContextPickText,
+} from '@/entities/lead/lib/context';
+import type { LeadContext } from '@/entities/lead/model';
 import type { OrderEquip, OrderType, PaymentMode, UnitSource } from '@/entities/order/model';
 import { env } from '@/shared/config/env';
 import { formatDateTime, formatMoney } from '@/shared/lib/format';
@@ -96,6 +102,45 @@ function orDash(value: string | null): string {
   return value === null || value === '' ? DASH : value;
 }
 
+/**
+ * Что человек делал на сайте до отправки — коротко.
+ *
+ * 🔴 Именно коротко: владелец читает это с телефона, часто в жару и между
+ * выездами. Разбивка сметы и полный список отметок остаются в карточке заявки,
+ * сюда попадает то, с чего начинается разговор: сколько человек насчитал, что
+ * ему подобралось и какие модели он отметил. Ссылка на админку в письме уже
+ * есть — за подробностями идут по ней.
+ */
+function leadContextLines(context: LeadContext | null | undefined): readonly string[] {
+  if (context === null || context === undefined) return [];
+
+  const lines: string[] = [];
+
+  if (context.estimate !== null) {
+    lines.push(`🧮 Расчёт монтажа: ${formatMoney(context.estimate.total)}`);
+    const params = leadContextParamsText(context.estimate.params);
+    if (params !== '') lines.push(params);
+  }
+
+  if (context.pick !== null) {
+    const picked = context.pick.model;
+    lines.push(
+      `🎯 Подбор по площади: ${leadContextPickText(context.pick)}` +
+        (picked === null ? '' : ` → ${leadContextModelText(picked)}`),
+    );
+  }
+
+  if (context.model !== null) {
+    lines.push(`🛒 Заказ с карточки: ${leadContextModelText(context.model)}`);
+  }
+
+  if (context.liked.length > 0) {
+    lines.push(`👍 Отмечено: ${context.liked.map(leadContextModelText).join(', ')}`);
+  }
+
+  return lines.length === 0 ? [] : ['', ...lines];
+}
+
 /** Длительность словами: `1 ч 30 мин`. Часы и минуты, а не «180 минут». */
 export function formatDuration(minutes: number): string {
   const hours = Math.floor(minutes / 60);
@@ -177,6 +222,7 @@ export function notificationText(payload: NotificationPayload): string {
       `❄️ Кол-во кондиционеров: ${orDash(payload.qty)}`,
       `⏰ Удобное время звонка: ${orDash(payload.callTime)}`,
       `💬 Комментарий: ${orDash(payload.comment)}`,
+      ...leadContextLines(payload.context),
     ].join('\n');
   }
 

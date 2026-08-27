@@ -3,7 +3,14 @@ import { expect, userEvent, within } from 'storybook/test';
 
 import { LeadForm } from './LeadForm';
 import { leadFormContent as texts } from './content';
-import { descriptionFixture, phoneFixture, policyHrefFixture, titleFixture } from './fixtures';
+import { forgetLeadContext, rememberLeadContext } from './context';
+import {
+  descriptionFixture,
+  leadContextFixture,
+  phoneFixture,
+  policyHrefFixture,
+  titleFixture,
+} from './fixtures';
 import type { LeadSubmit } from './model';
 
 /** Заявка «уходит» мгновенно: историю смотрят глазами, а не секундомером. */
@@ -45,6 +52,19 @@ type Story = StoryObj<typeof meta>;
 
 export const Empty: Story = {
   name: 'Пустая форма',
+};
+
+/**
+ * Человек пришёл с расчётом и отметками. Контекст живёт в клиентском
+ * хранилище, а не в пропсах, поэтому история наполняет его перед показом и
+ * прибирает за собой — соседние истории обязаны остаться чистыми.
+ */
+export const WithContext: Story = {
+  name: 'С контекстом со страницы',
+  beforeEach: () => {
+    rememberLeadContext(leadContextFixture);
+    return () => forgetLeadContext();
+  },
 };
 
 export const Prefilled: Story = {

@@ -7,6 +7,7 @@ import {
   acceptingUpdate,
   bareLead,
   clientLead,
+  contextLead,
   failingToOrder,
   failingUpdate,
   linkingToClient,
@@ -29,6 +30,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Новая: Story = {};
+
+/**
+ * Заявка со следом: расчёт калькулятора, подбор по площади и отмеченные
+ * модели — то, ради чего заводился `Lead.context`.
+ */
+export const СКонтекстом: Story = {
+  args: { lead: contextLead },
+};
 
 /** Только обязательные поля: пустые не показываются вовсе. */
 export const БезПодробностей: Story = {

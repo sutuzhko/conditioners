@@ -37,6 +37,132 @@ export const phoneSchema = phoneField('Укажите телефон — по н
 /** UTM-метки: произвольный набор ключей, приходит из адресной строки. */
 export const utmSchema = z.record(z.string(), z.string());
 
+/**
+ * Контекст заявки: границы снимка. Всё, что приходит из браузера, обязано
+ * иметь потолок — иначе поле `context` становится дырой в базу.
+ */
+
+/** Длина слага модели. */
+const CONTEXT_SLUG_MAX = 120;
+/** Название модели и значение параметра — то, что помещается в строку карточки. */
+const CONTEXT_NAME_MAX = 120;
+/** Подпись параметра или слагаемого сметы. */
+const CONTEXT_LABEL_MAX = 120;
+/** Потолок суммы: цена монтажа и цена модели в рублях. */
+const CONTEXT_MONEY_MAX = 100_000_000;
+/** Сколько условий расчёта и слагаемых сметы переносится в заявку. */
+const CONTEXT_PARAMS_MAX = 12;
+/** Сколько блоков считает калькулятор — граница интерфейса, не сметы. */
+const CONTEXT_QTY_MAX = 99;
+/** Площадь помещения из подбора, м². */
+const CONTEXT_AREA_MAX = 1000;
+/**
+ * Сколько отмеченных моделей уезжает с заявкой. Лимита на сравнение в
+ * каталоге нет намеренно (решение владельца 26 августа), но заявка — не
+ * таблица: список из полусотни названий владелец читать не станет, а поле
+ * `context` не место для выгрузки каталога.
+ */
+export const LEAD_CONTEXT_LIKED_MAX = 12;
+
+/**
+ * Текст снимка подрезается, а не отвергается: длинное название модели —
+ * это норма, которую задал владелец в админке, и терять из-за него весь
+ * контекст заявки нельзя.
+ */
+function contextText(max: number) {
+  return z
+    .string()
+    .trim()
+    .min(1)
+    .transform((value) => value.slice(0, max));
+}
+
+/** Список подрезается по той же причине: отметить два десятка моделей — право человека. */
+function contextList<T extends z.ZodTypeAny>(item: T, max: number) {
+  return z.array(item).transform((items) => items.slice(0, max));
+}
+
+/**
+ * Сумма снимка. Не целое: ставка допработ приходит из админки и вправе быть
+ * дробной, а округляет уже показ (`formatMoney`) — и в карточке заявки, и в
+ * уведомлении он тот же самый, поэтому владелец видит ровно ту цифру, что
+ * стояла на экране у клиента.
+ */
+const contextMoney = z.number().finite().min(0).max(CONTEXT_MONEY_MAX);
+
+/** Модель так, как она стояла на экране: название и цена на момент отправки. */
+export const leadContextModelSchema = z.object({
+  slug: contextText(CONTEXT_SLUG_MAX),
+  name: contextText(CONTEXT_NAME_MAX),
+  /** Действующая цена. `null` — цена рядом с моделью не показывалась. */
+  price: contextMoney.nullable().default(null),
+  /** 🔴 Перечёркнутая цена — только та, что действительно стояла рядом (ADR-011). */
+  oldPrice: contextMoney.nullable().default(null),
+});
+
+/** Условие расчёта: подпись и значение теми же словами, что на экране. */
+export const leadContextLineSchema = z.object({
+  label: contextText(CONTEXT_LABEL_MAX),
+  value: contextText(CONTEXT_NAME_MAX),
+});
+
+/** Слагаемое сметы: подпись разбивки и сумма. */
+export const leadContextAmountSchema = z.object({
+  label: contextText(CONTEXT_LABEL_MAX),
+  amount: contextMoney,
+});
+
+/** Расчёт калькулятора: что человек ввёл и что ему показали. */
+export const leadContextEstimateSchema = z.object({
+  params: contextList(leadContextLineSchema, CONTEXT_PARAMS_MAX),
+  lines: contextList(leadContextAmountSchema, CONTEXT_PARAMS_MAX),
+  /** Сумма за один блок — только когда блоков больше одного. */
+  perUnit: contextMoney.nullable().default(null),
+  qty: z.number().int().min(1).max(CONTEXT_QTY_MAX),
+  total: contextMoney,
+});
+
+/** Подбор по площади из первого экрана. */
+export const leadContextPickSchema = z.object({
+  area: z.number().int().min(1).max(CONTEXT_AREA_MAX),
+  place: contextText(CONTEXT_NAME_MAX),
+  /** Что подобралось. `null` — каталог пуст, подбирать было не из чего. */
+  model: leadContextModelSchema.nullable().default(null),
+});
+
+/**
+ * 🔴 Контекст заявки — снимок того, что человек видел на экране перед
+ * отправкой: расчёт калькулятора, подбор по площади, модель у кнопки
+ * «Заказать» и отмеченные модели.
+ *
+ * Именно снимок, а не ссылки на модели и строки прайса: цены и каталог
+ * правятся из админки, и заявка, показывающая сегодняшнюю цену вместо
+ * вчерашней, — это разговор, в котором клиент прав, а владелец выглядит
+ * обманщиком. Красная линия «не врать в цене» работает в обе стороны.
+ *
+ * Контекст приходит из браузера, то есть это внешние данные: неизвестные
+ * ключи отбрасываются (обычный, не `strict`, разбор), тексты подрезаются,
+ * числа проверяются границами. Персональных данных здесь нет и быть не
+ * может — только параметры расчёта, названия и цены моделей.
+ *
+ * Всё необязательно: человек вправе открыть форму и просто написать.
+ */
+export const leadContextSchema = z.object({
+  estimate: leadContextEstimateSchema.nullable().default(null),
+  pick: leadContextPickSchema.nullable().default(null),
+  /** Модель, с карточки которой нажали «Заказать». */
+  model: leadContextModelSchema.nullable().default(null),
+  /** Отмеченные модели: явное «мне интересны вот эти», а не пассивный след. */
+  liked: contextList(leadContextModelSchema, LEAD_CONTEXT_LIKED_MAX).default([]),
+});
+
+export type LeadContext = z.infer<typeof leadContextSchema>;
+export type LeadContextModel = z.infer<typeof leadContextModelSchema>;
+export type LeadContextLine = z.infer<typeof leadContextLineSchema>;
+export type LeadContextAmount = z.infer<typeof leadContextAmountSchema>;
+export type LeadContextEstimate = z.infer<typeof leadContextEstimateSchema>;
+export type LeadContextPick = z.infer<typeof leadContextPickSchema>;
+
 export const leadSchema = z.object({
   id: z.string().min(1),
   name: z.string().trim().min(1),
@@ -51,6 +177,7 @@ export const leadSchema = z.object({
   sourceUrl: z.string().nullable().default(null),
   referrer: z.string().nullable().default(null),
   utm: utmSchema.nullable().default(null),
+  context: leadContextSchema.nullable().default(null),
   consentAt: z.coerce.date(),
   status: leadStatusSchema.default('new'),
   managerComment: z.string().nullable().default(null),

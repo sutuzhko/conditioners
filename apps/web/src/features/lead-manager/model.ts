@@ -1,3 +1,5 @@
+import type { LeadContext } from '@/entities/lead/model';
+
 /** Заявка в админке — контракт docs/API.md §8. */
 export type LeadStatus = 'new' | 'in_progress' | 'done' | 'rejected';
 
@@ -23,6 +25,12 @@ export type LeadCard = {
   readonly comment: string | null;
   readonly photo: string | null;
   readonly sourceUrl: string | null;
+  /**
+   * Что человек делал на сайте до отправки: расчёт, подбор, модели. Снимок на
+   * момент отправки — цены в нём те, что стояли на экране, и переспрашивать у
+   * каталога сегодняшние нельзя (иначе разговор начнётся со спора о цене).
+   */
+  readonly context: LeadContext | null;
   readonly status: LeadStatus;
   readonly managerComment: string | null;
   /** Клиент, к которому привязано обращение; `null` — в базу его ещё не завели. */

@@ -1,4 +1,7 @@
+import { leadContextModelText, leadContextPickText } from '@/entities/lead/lib/context';
+import type { LeadContext } from '@/entities/lead/model';
 import { apiErrorSchema, createdSchema } from '@/shared/lib/api';
+import { formatMoney } from '@/shared/lib/format';
 
 import { leadFormContent } from './content';
 import {
@@ -14,6 +17,9 @@ export const LEAD_ENDPOINT = '/api/leads';
 
 /** Поле-ловушка. Имя совпадает с тем, что ждёт сервер (`server/intake/body.ts`). */
 export const HONEYPOT_FIELD = 'hp';
+
+/** Поле контекста: снимок действий человека одной JSON-строкой (docs/API.md §8). */
+export const CONTEXT_FIELD = 'context';
 
 /** Необязательные текстовые поля: пустые значения до схемы не доходят. */
 const OPTIONAL_FIELDS = ['topic', 'place', 'qty', 'callTime', 'address', 'comment'] as const;
@@ -87,6 +93,7 @@ export function buildLeadFormData(
   values: LeadFormValues,
   photo: File | null,
   honeypot: string,
+  context: LeadContext | null = null,
 ): FormData {
   const data = new FormData();
   data.append('name', values.name.trim());
@@ -98,6 +105,10 @@ export function buildLeadFormData(
   }
 
   if (photo !== null) data.append('photo', photo);
+  /* Контекст уходит JSON-строкой: `multipart/form-data` знает только строки и
+     файлы, а разбирать его всё равно серверной схеме — доверия к телу формы
+     не больше, чем к любому другому полю. */
+  if (context !== null) data.append(CONTEXT_FIELD, JSON.stringify(context));
   // 🔴 согласие уходит явным полем: сервер пишет его время в `Lead.consentAt` (152-ФЗ)
   data.append('consent', String(values.consent));
   data.append(HONEYPOT_FIELD, honeypot);
@@ -140,4 +151,54 @@ export async function postLead(
   if (!envelope.success) return { ok: false, message: fallbackMessage(response.status) };
 
   return { ok: false, message: envelope.data.error.message, field: envelope.data.error.field };
+}
+
+/** Строка списка «к заявке приложено»: что это и что именно приложено. */
+export type LeadContextEntry = { readonly label: string; readonly value: string };
+
+/**
+ * Что человек увидит в форме перед отправкой.
+ *
+ * 🔴 Прикреплённое показывается, а не собирается тайком: человек вправе знать,
+ * что уедет вместе с его телефоном, и вправе это снять. Персональных данных в
+ * контексте нет, но незаметный сбор — плохая привычка независимо от 152-ФЗ.
+ */
+export function describeLeadContext(context: LeadContext | null): readonly LeadContextEntry[] {
+  if (context === null) return [];
+
+  const entries: LeadContextEntry[] = [];
+
+  if (context.estimate !== null) {
+    entries.push({
+      label: leadFormContent.contextEstimate,
+      value: formatMoney(context.estimate.total),
+    });
+  }
+
+  if (context.pick !== null) {
+    const picked = context.pick.model;
+    entries.push({
+      label: leadFormContent.contextPick,
+      value:
+        picked === null
+          ? leadContextPickText(context.pick)
+          : `${leadContextPickText(context.pick)} → ${leadContextModelText(picked)}`,
+    });
+  }
+
+  if (context.model !== null) {
+    entries.push({
+      label: leadFormContent.contextModel,
+      value: leadContextModelText(context.model),
+    });
+  }
+
+  if (context.liked.length > 0) {
+    entries.push({
+      label: leadFormContent.contextLiked,
+      value: context.liked.map(leadContextModelText).join(', '),
+    });
+  }
+
+  return entries;
 }

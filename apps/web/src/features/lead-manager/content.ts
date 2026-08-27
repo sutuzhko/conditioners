@@ -1,5 +1,5 @@
 /** Подписи раздела заявок. */
-import { formatDateTime } from '@/shared/lib/format';
+import { formatDateTime, formatNumber } from '@/shared/lib/format';
 import { leadStatusTitle } from '@/entities/lead/model';
 
 import type { LeadStatus } from './model';
@@ -26,6 +26,21 @@ export const leadManagerContent = {
   photo: 'Фотография',
   source: 'Страница-источник',
   consent: 'Согласие на обработку данных',
+
+  /**
+   * Контекст заявки. 🔴 Подсказка про снимок обязательна: без неё менеджер
+   * решит, что видит текущую цену каталога, назовёт по телефону другую — и
+   * окажется неправ перед клиентом, который смотрел на экран час назад.
+   */
+  contextTitle: 'Что человек делал на сайте',
+  contextHint:
+    'Снимок на момент отправки: цены здесь те, что человек видел на экране, даже если в каталоге они уже другие.',
+  contextEstimate: 'Расчёт монтажа',
+  contextTotal: 'Итого за монтаж',
+  contextPerUnit: (qty: number): string => `За один блок × ${formatNumber(qty)}`,
+  contextPick: 'Подбор по площади',
+  contextModel: 'Заказ с карточки модели',
+  contextLiked: 'Отмеченные модели',
 
   managerComment: 'Заметка менеджера',
   managerCommentHint: 'Видна только в админке. Клиенту не показывается',

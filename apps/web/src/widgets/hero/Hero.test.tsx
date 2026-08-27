@@ -4,6 +4,8 @@ import userEvent from '@testing-library/user-event';
 
 import { formatMoney, formatNumber } from '@/shared/lib/format';
 
+import { forgetLeadContext, readLeadContext } from '@/features/lead-form';
+
 import { Hero } from './Hero';
 import { discountedModels, heroModels, heroStats, saleNow, singleModel } from './fixtures';
 
@@ -183,5 +185,46 @@ describe('Первый экран', () => {
 
     expect(text).toContain('−3°');
     expect(text).not.toContain('-7');
+  });
+});
+
+describe('Первый экран — подбор уезжает с заявкой', () => {
+  /* Снимок стирается до теста: хранилище живёт модулем и переживает рендер. */
+  beforeEach(() => {
+    forgetLeadContext();
+  });
+
+  it('🔴 запоминает площадь, помещение и подобранную модель', async () => {
+    const user = userEvent.setup();
+    render(<Hero products={heroModels} />);
+
+    fireEvent.change(screen.getByRole('slider'), { target: { value: '40' } });
+    await user.click(screen.getByRole('button', { name: 'Офис' }));
+    await user.click(screen.getByRole('link', { name: /Получить смету/ }));
+
+    const pick = readLeadContext()?.pick;
+    expect(pick?.area).toBe(40);
+    expect(pick?.place).toBe('Офис');
+    expect(pick?.model?.name).toBe(recommendation().textContent);
+  });
+
+  it('🔴 в снимок уходит цена со скидкой и та, что была перечёркнута', async () => {
+    const user = userEvent.setup();
+    render(<Hero products={discountedModels} now={saleNow} />);
+
+    await user.click(screen.getByRole('link', { name: /Получить смету/ }));
+
+    const model = readLeadContext()?.pick?.model;
+    expect(model?.price).toBeDefined();
+    expect(model?.oldPrice).not.toBeNull();
+    expect(Number(model?.oldPrice)).toBeGreaterThan(Number(model?.price));
+  });
+
+  it('без перехода к форме подбор не запоминается', () => {
+    render(<Hero products={heroModels} />);
+
+    fireEvent.change(screen.getByRole('slider'), { target: { value: '30' } });
+
+    expect(readLeadContext()).toBeNull();
   });
 });

@@ -227,3 +227,86 @@ describe('POST /api/leads', () => {
     });
   });
 });
+
+/** Снимок с сайта: расчёт, подбор и отметка. */
+const CONTEXT = {
+  estimate: {
+    params: [{ label: 'Класс мощности', value: '09 · до 27 м²' }],
+    lines: [{ label: 'Базовый монтаж, класс 09', amount: 6000 }],
+    perUnit: null,
+    qty: 1,
+    total: 6000,
+  },
+  pick: {
+    area: 25,
+    place: 'Квартира',
+    model: { slug: 'split-09', name: 'Сплит-система 09', price: 34900, oldPrice: 39900 },
+  },
+  liked: [{ slug: 'split-07', name: 'Сплит-система 07', price: 28900 }],
+};
+
+function withContext(context: unknown): Fields {
+  return { ...VALID, context: typeof context === 'string' ? context : JSON.stringify(context) };
+}
+
+describe('POST /api/leads — контекст', () => {
+  it('пишет снимок в заявку и кладёт его в уведомление', async () => {
+    const response = await POST(leadRequest(withContext(CONTEXT)));
+    expect(response.status).toBe(201);
+
+    const [created] = dbMock.lead.create.mock.calls;
+    expect(created?.[0].data.context).toMatchObject({
+      estimate: { total: 6000 },
+      pick: { area: 25, place: 'Квартира' },
+      liked: [{ slug: 'split-07' }],
+    });
+
+    const [queued] = dbMock.notification.createMany.mock.calls;
+    expect(queued?.[0].data[0].payload).toMatchObject({ context: { estimate: { total: 6000 } } });
+  });
+
+  it('без контекста колонка остаётся пустой, а не пустым объектом', async () => {
+    await POST(leadRequest(VALID));
+
+    const [created] = dbMock.lead.create.mock.calls;
+    expect(created?.[0].data).not.toHaveProperty('context');
+  });
+
+  it('🔴 подделанный контекст исчезает, а заявка доходит', async () => {
+    const response = await POST(leadRequest(withContext({ estimate: { total: 'даром' } })));
+
+    expect(response.status).toBe(201);
+    const [created] = dbMock.lead.create.mock.calls;
+    expect(created?.[0].data).not.toHaveProperty('context');
+    expect(created?.[0].data.name).toBe('Игорь');
+  });
+
+  it('🔴 не-JSON в поле контекста не стоит клиенту заявки', async () => {
+    const response = await POST(leadRequest(withContext('{битая строка')));
+
+    expect(response.status).toBe(201);
+    expect(dbMock.lead.create).toHaveBeenCalledTimes(1);
+  });
+
+  it('🔴 раздутый контекст отбрасывается по потолку, заявка остаётся', async () => {
+    const huge = {
+      liked: Array.from({ length: 500 }, (_, index) => ({
+        slug: `split-${index}`,
+        name: `Очень длинное название модели номер ${index}`,
+      })),
+    };
+
+    const response = await POST(leadRequest(withContext(huge)));
+
+    expect(response.status).toBe(201);
+    const [created] = dbMock.lead.create.mock.calls;
+    expect(created?.[0].data).not.toHaveProperty('context');
+  });
+
+  it('лишние ключи в снимке отбрасываются, а не сохраняются', async () => {
+    await POST(leadRequest(withContext({ ...CONTEXT, tracker: 'чужое поле' })));
+
+    const [created] = dbMock.lead.create.mock.calls;
+    expect(Object.keys(created?.[0].data.context)).toEqual(['estimate', 'pick', 'model', 'liked']);
+  });
+});

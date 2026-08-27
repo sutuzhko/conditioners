@@ -13,6 +13,7 @@ import {
   compactFormFields,
   leadFormSchema,
   normalizePhone,
+  readLeadContext,
 } from '@/server/intake/schemas';
 import { collectTracking } from '@/server/intake/tracking';
 import { deleteStoredImage, saveImage } from '@/server/uploads/store';
@@ -44,6 +45,10 @@ export async function POST(request: Request): Promise<Response> {
 
     const input = leadFormSchema.parse(compactFormFields(body.fields));
     const tracking = collectTracking(request, body.fields);
+    /* Что человек делал на странице до формы: расчёт, подбор, модели. Приходит
+       из браузера, поэтому разбирается схемой, а не принимается на веру, и
+       никогда не мешает заявке дойти (docs/API.md §8). */
+    const context = readLeadContext(body.fields.context);
 
     const file = body.files.get('photo');
     const photo = file === undefined ? null : (await saveImage(file, 'photo')).url;
@@ -69,6 +74,8 @@ export async function POST(request: Request): Promise<Response> {
             referrer: tracking.referrer,
             // без меток поле остаётся NULL, а не пустым объектом — в админке это разные вещи
             ...(tracking.utm === null ? {} : { utm: tracking.utm }),
+            // то же правило и для снимка: пустого контекста не бывает, бывает его отсутствие
+            ...(context === null ? {} : { context }),
             // 🔴 доказательство согласия по 152-ФЗ: фиксируем момент отправки формы
             consentAt: new Date(),
           },
@@ -88,6 +95,10 @@ export async function POST(request: Request): Promise<Response> {
             comment: created.comment,
             photo: created.photo,
             sourceUrl: created.sourceUrl,
+            /* Снимок уходит в уведомление из разобранного значения, а не из
+               колонки: полезная нагрузка самодостаточна по построению, и
+               `Prisma.JsonValue` в ней означал бы «разбирайся сам». */
+            context,
           },
           tx,
         );

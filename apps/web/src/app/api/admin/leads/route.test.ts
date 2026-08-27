@@ -54,6 +54,7 @@ const lead = {
   sourceUrl: null,
   referrer: null,
   utm: null,
+  context: null,
   consentAt: '2026-08-01T10:00:00.000Z',
   status: 'new' as const,
   managerComment: null,

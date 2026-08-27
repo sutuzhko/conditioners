@@ -1,9 +1,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { leadFormContent as texts } from './content';
+import type { LeadContext } from '@/entities/lead/model';
+
 import {
+  CONTEXT_FIELD,
   LEAD_ENDPOINT,
   buildLeadFormData,
+  describeLeadContext,
   emptyLeadValues,
   postLead,
   validateLeadValues,
@@ -115,5 +119,59 @@ describe('postLead', () => {
       ok: false,
       message: texts.errorNetwork,
     });
+  });
+});
+
+/** Человек посчитал смету, подобрал модель и отметил ещё одну. */
+const context: LeadContext = {
+  estimate: {
+    params: [{ label: 'Класс мощности', value: '09 · до 27 м²' }],
+    lines: [{ label: 'Базовый монтаж, класс 09', amount: 6000 }],
+    perUnit: null,
+    qty: 1,
+    total: 6000,
+  },
+  pick: {
+    area: 25,
+    place: 'Квартира',
+    model: { slug: 'split-09', name: 'Сплит-система 09', price: 34_900, oldPrice: 39_900 },
+  },
+  model: null,
+  liked: [{ slug: 'split-07', name: 'Сплит-система 07', price: 28_900, oldPrice: null }],
+};
+
+describe('контекст в теле формы', () => {
+  it('уходит отдельным полем и только когда он есть', () => {
+    expect(buildLeadFormData(filled, null, '').get(CONTEXT_FIELD)).toBeNull();
+
+    const raw = buildLeadFormData(filled, null, '', context).get(CONTEXT_FIELD);
+    expect(typeof raw).toBe('string');
+    expect(JSON.parse(String(raw))).toMatchObject({ estimate: { total: 6000 } });
+  });
+
+  it('человек видит, что именно уедет вместе с телефоном', () => {
+    const shown = describeLeadContext(context);
+
+    expect(shown.map((entry) => entry.label)).toEqual([
+      texts.contextEstimate,
+      texts.contextPick,
+      texts.contextLiked,
+    ]);
+    expect(shown[0]?.value).toContain('6');
+    // подбор показывается вместе с тем, что подобралось
+    expect(shown[1]?.value).toContain('Сплит-система 09');
+    expect(shown[1]?.value).toContain('25');
+  });
+
+  it('перечёркнутая цена показывается только там, где она была', () => {
+    const [, pick] = describeLeadContext(context);
+    expect(pick?.value).toContain('вместо');
+
+    const [liked] = describeLeadContext({ ...context, estimate: null, pick: null });
+    expect(liked?.value).not.toContain('вместо');
+  });
+
+  it('без контекста показывать нечего', () => {
+    expect(describeLeadContext(null)).toEqual([]);
   });
 });

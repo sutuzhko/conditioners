@@ -26,9 +26,11 @@ import {
   leadFormContent as texts,
   type LeadTopic,
 } from './content';
+import { forgetLeadContext, useLeadContext } from './context';
 import {
   HONEYPOT_FIELD,
   buildLeadFormData,
+  describeLeadContext,
   emptyLeadValues,
   postLead,
   validateLeadValues,
@@ -95,12 +97,22 @@ export function LeadForm({
   const [status, setStatus] = useState<LeadFormStatus>('idle');
   const [failure, setFailure] = useState<string | undefined>(undefined);
   const [greeting, setGreeting] = useState('');
+  /* Контекст сняли руками: панель исчезла, и без этой отметки исчезновение
+     выглядело бы сбоем, а не ответом на нажатие. */
+  const [contextDropped, setContextDropped] = useState(false);
+
+  /* Что человек успел посчитать и отметить до формы. Приходит из лёгкого
+     клиентского хранилища (`./context`), а не пропсом: калькулятор и подбор
+     живут в других секциях страницы, и общего родителя у них нет. */
+  const context = useLeadContext();
+  const contextEntries = describeLeadContext(context);
 
   const formRef = useRef<HTMLFormElement>(null);
   const successHeadingRef = useRef<HTMLHeadingElement>(null);
   const restarted = useRef(false);
   const headingId = useId();
   const honeypotId = useId();
+  const contextId = useId();
 
   const Heading = HEADINGS[headingLevel];
   const SuccessHeading = HEADINGS[title === undefined ? headingLevel : NESTED[headingLevel]];
@@ -134,6 +146,12 @@ export function LeadForm({
       delete next[field];
       return next;
     });
+  }
+
+  /** «Не прикреплять»: снимок уходит из вкладки целиком, а не прячется. */
+  function dropContext(): void {
+    forgetLeadContext();
+    setContextDropped(true);
   }
 
   function restart(): void {
@@ -172,11 +190,14 @@ export function LeadForm({
     setErrors({});
     setStatus('sending');
 
-    const result = await submit(buildLeadFormData(values, photo, honeypot));
+    const result = await submit(buildLeadFormData(values, photo, honeypot, context));
 
     if (result.ok) {
       setGreeting(values.name.trim());
       setStatus('success');
+      /* Снимок уехал с заявкой и своё отработал. Оставить его во вкладке —
+         значит приложить вчерашний расчёт к завтрашнему обращению. */
+      forgetLeadContext();
       onSuccess?.(result.id);
       return;
     }
@@ -365,6 +386,39 @@ export function LeadForm({
               </>
             }
           />
+
+          {/* Группа, а не landmark: это небольшая справка внутри формы, а
+              ориентир страницы — сама форма. Подпись связана явно, чтобы
+              кнопка отказа читалась вместе с тем, от чего отказываются. */}
+          {contextEntries.length > 0 ? (
+            <div className={styles.context} role="group" aria-labelledby={contextId}>
+              <p className={styles.contextTitle} id={contextId}>
+                {texts.contextTitle}
+              </p>
+              <dl className={styles.contextList}>
+                {contextEntries.map((entry) => (
+                  <div className={styles.contextRow} key={entry.label}>
+                    <dt className={styles.contextLabel}>{entry.label}</dt>
+                    <dd className={styles.contextValue}>{entry.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className={styles.contextHint}>{texts.contextHint}</p>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className={styles.contextDrop}
+                onClick={dropContext}
+              >
+                {texts.contextDrop}
+              </Button>
+            </div>
+          ) : contextDropped ? (
+            <p className={styles.contextNote} role="status">
+              {texts.contextDropped}
+            </p>
+          ) : null}
 
           {/* Поле-ловушка: человек его не видит и не может на него попасть —
               ни мышью, ни табуляцией, ни скринридером. Робот заполняет всё */}

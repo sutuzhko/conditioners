@@ -154,3 +154,81 @@ describe('Сообщения владельцу', () => {
     expect(text).toContain('📍 Адрес: —');
   });
 });
+
+describe('Сообщение владельцу — контекст заявки', () => {
+  /** Заявка без контекста: базой для обеих проверок служит одна и та же. */
+  const lead: NotificationPayload = {
+    kind: 'lead',
+    leadId: 'l-1',
+    name: 'Игорь',
+    phone: '+79001234567',
+    topic: 'Монтаж и установка',
+    place: null,
+    qty: null,
+    callTime: null,
+    address: null,
+    comment: null,
+    photo: null,
+    sourceUrl: null,
+  };
+
+  it('расчёт, подбор и отметки уезжают вместе с заявкой', () => {
+    const text = notificationText({
+      ...lead,
+      context: {
+        estimate: {
+          params: [{ label: 'Класс мощности', value: '09 · до 27 м²' }],
+          lines: [{ label: 'Базовый монтаж, класс 09', amount: 6000 }],
+          perUnit: null,
+          qty: 1,
+          total: 6000,
+        },
+        pick: {
+          area: 25,
+          place: 'Квартира',
+          model: { slug: 'split-09', name: 'Сплит-система 09', price: 34_900, oldPrice: null },
+        },
+        model: null,
+        liked: [{ slug: 'split-07', name: 'Сплит-система 07', price: 28_900, oldPrice: null }],
+      },
+    });
+
+    expect(text).toContain('🧮 Расчёт монтажа');
+    expect(text).toContain('Класс мощности: 09 · до 27 м²');
+    expect(text).toContain('🎯 Подбор по площади');
+    expect(text).toContain('Сплит-система 09');
+    expect(text).toContain('👍 Отмечено: Сплит-система 07');
+  });
+
+  it('🔴 сообщение остаётся коротким: разбивка сметы в него не лезет', () => {
+    const text = notificationText({
+      ...lead,
+      context: {
+        estimate: {
+          params: [],
+          lines: [
+            { label: 'Базовый монтаж, класс 09', amount: 6000 },
+            { label: 'Трасса сверх включённой', amount: 2800 },
+          ],
+          perUnit: null,
+          qty: 1,
+          total: 8800,
+        },
+        pick: null,
+        model: null,
+        liked: [],
+      },
+    });
+
+    // владелец читает это с телефона: итог — да, слагаемые — в карточке заявки
+    expect(text).not.toContain('Трасса сверх включённой');
+    expect(text).toContain('🧮 Расчёт монтажа');
+  });
+
+  it('без контекста в сообщении не появляется ни одной лишней строки', () => {
+    const text = notificationText(lead);
+
+    expect(text).not.toContain('🧮');
+    expect(text.trimEnd()).toBe(text);
+  });
+});

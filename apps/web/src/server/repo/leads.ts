@@ -7,7 +7,8 @@
 import type { LeadStatus, Prisma } from '@prisma/client';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
-import type { LeadUpdate } from '@/entities/lead/model';
+import { parseLeadContext } from '@/entities/lead/lib/context';
+import type { LeadContext, LeadUpdate } from '@/entities/lead/model';
 import { pageWindow, type Page } from '@/shared/lib/paging';
 
 export type LeadStatusApi = 'new' | 'in_progress' | 'done' | 'rejected';
@@ -40,6 +41,12 @@ export type LeadDto = {
   sourceUrl: string | null;
   referrer: string | null;
   utm: Prisma.JsonValue;
+  /**
+   * Что человек делал на сайте до отправки. Уже разобранный снимок, а не сырой
+   * `Json`: колонка ничем не типизирована, и разбирать её заново в каждой
+   * карточке значило бы завести три копии одних и тех же правил.
+   */
+  context: LeadContext | null;
   consentAt: string;
   status: LeadStatusApi;
   managerComment: string | null;
@@ -49,8 +56,9 @@ export type LeadDto = {
   updatedAt: string;
 };
 
-type LeadRow = Omit<LeadDto, 'status' | 'consentAt' | 'createdAt' | 'updatedAt'> & {
+type LeadRow = Omit<LeadDto, 'status' | 'context' | 'consentAt' | 'createdAt' | 'updatedAt'> & {
   status: LeadStatus;
+  context: Prisma.JsonValue;
   consentAt: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -60,6 +68,10 @@ function toDto(row: LeadRow): LeadDto {
   return {
     ...row,
     status: FROM_DB[row.status],
+    /* Снимок разбирается на выходе из базы: в колонке лежит то, что записали
+       вчерашней версией схемы, и доверять ей на слово нельзя. Не разобралось —
+       контекста нет, заявка от этого не перестаёт быть заявкой. */
+    context: parseLeadContext(row.context),
     consentAt: row.consentAt.toISOString(),
     createdAt: row.createdAt.toISOString(),
     updatedAt: row.updatedAt.toISOString(),

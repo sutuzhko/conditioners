@@ -1,5 +1,42 @@
 /** Данные для историй и тестов раздела заявок. */
+import type { LeadContext } from '@/entities/lead/model';
+
 import type { LeadCard, LeadToClient, LeadToOrder, LeadUpdate } from './model';
+
+/**
+ * Контекст заявки: человек посчитал смету, подобрал модель по площади и
+ * отметил две. Цифры демонстрационные — настоящие приходят из прайса и
+ * каталога (инвариант 8).
+ */
+export const leadContextFixture: LeadContext = {
+  estimate: {
+    params: [
+      { label: 'Класс мощности', value: '09 · до 27 м²' },
+      { label: 'Длина трассы', value: '7 м' },
+      { label: 'Этаж', value: '1–9' },
+      { label: 'Штробление', value: 'да' },
+      { label: 'Количество блоков', value: '2' },
+    ],
+    lines: [
+      { label: 'Базовый монтаж, класс 09', amount: 6000 },
+      { label: 'Трасса сверх включённой, 4 м × 700 ₽/м', amount: 2800 },
+      { label: 'Штробление, 7 м × 900 ₽/м', amount: 6300 },
+    ],
+    perUnit: 15100,
+    qty: 2,
+    total: 30200,
+  },
+  pick: {
+    area: 25,
+    place: 'Квартира',
+    model: { slug: 'split-09', name: 'Сплит-система 09', price: 34900, oldPrice: 39900 },
+  },
+  model: null,
+  liked: [
+    { slug: 'split-07', name: 'Сплит-система 07', price: 28900, oldPrice: null },
+    { slug: 'split-12', name: 'Сплит-система 12', price: 41900, oldPrice: null },
+  ],
+};
 
 export const newLead: LeadCard = {
   id: 'l1',
@@ -13,11 +50,19 @@ export const newLead: LeadCard = {
   comment: 'Второй этаж, окна во двор. Нужен тихий вариант для спальни.',
   photo: null,
   sourceUrl: 'https://example.test/prices',
+  context: null,
   status: 'new',
   managerComment: null,
   clientId: null,
   createdAt: '2026-08-20T09:15:00.000Z',
   consentAt: '2026-08-20T09:15:00.000Z',
+};
+
+/** Заявка со следом: смета, подбор и отметки уехали вместе с телефоном. */
+export const contextLead: LeadCard = {
+  ...newLead,
+  id: 'l5',
+  context: leadContextFixture,
 };
 
 /** Минимальная заявка: только обязательные поля. */

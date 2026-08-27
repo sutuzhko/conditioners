@@ -1,8 +1,9 @@
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { LeadForm } from './LeadForm';
+import { forgetLeadContext, rememberLeadContext } from './context';
 import { leadFormContent as texts } from './content';
 import { phoneFixture, policyHrefFixture } from './fixtures';
 import type { LeadSubmit } from './model';
@@ -223,5 +224,86 @@ describe('LeadForm', () => {
       'href',
       '/privacy',
     );
+  });
+});
+
+/** Расчёт, подбор и отметка: то, что человек сделал до формы. */
+const estimate = {
+  params: [{ label: 'Класс мощности', value: '09 · до 27 м²' }],
+  lines: [{ label: 'Базовый монтаж, класс 09', amount: 6000 }],
+  perUnit: null,
+  qty: 1,
+  total: 6000,
+};
+
+const liked = { slug: 'split-07', name: 'Сплит-система 07', price: 28_900, oldPrice: null };
+
+/* Снимок стирается до теста, а не после: подписчики хранилища живут в
+   смонтированной форме, и оповещение после теста пришлось бы на компонент,
+   который React уже готовится размонтировать. */
+beforeEach(() => {
+  forgetLeadContext();
+});
+
+describe('LeadForm — контекст с других секций страницы', () => {
+  it('показывает, что уедет вместе с заявкой', async () => {
+    rememberLeadContext({ estimate, liked: [liked] });
+    setup();
+
+    expect(await screen.findByText(texts.contextTitle)).toBeInTheDocument();
+    expect(screen.getByText(texts.contextEstimate)).toBeInTheDocument();
+    expect(screen.getByText(/Сплит-система 07/)).toBeInTheDocument();
+  });
+
+  it('без контекста не показывает ничего лишнего', () => {
+    setup();
+
+    expect(screen.queryByText(texts.contextTitle)).not.toBeInTheDocument();
+  });
+
+  it('отправляет снимок вместе с заявкой и забывает его после успеха', async () => {
+    const user = userEvent.setup();
+    rememberLeadContext({ estimate });
+    const { submit } = setup();
+
+    await fillRequired(user);
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    await waitFor(() => expect(submit).toHaveBeenCalled());
+    const body = submit.mock.calls[0]?.[0];
+    expect(JSON.parse(String(body?.get('context')))).toMatchObject({ estimate: { total: 6000 } });
+
+    // снимок отработал: следующая заявка из этой вкладки уедет чистой
+    await waitFor(() => expect(screen.getByText(texts.successTitle)).toBeInTheDocument());
+    expect(sessionStorage.getItem('tk-lead-context')).toBeNull();
+  });
+
+  it('🔴 «не прикреплять» снимает снимок — сбор виден и обратим', async () => {
+    const user = userEvent.setup();
+    rememberLeadContext({ estimate });
+    const { submit } = setup();
+
+    await user.click(await screen.findByRole('button', { name: texts.contextDrop }));
+    expect(screen.getByText(texts.contextDropped)).toBeInTheDocument();
+
+    await fillRequired(user);
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    await waitFor(() => expect(submit).toHaveBeenCalled());
+    expect(submit.mock.calls[0]?.[0].get('context')).toBeNull();
+  });
+
+  it('заявка уходит и без всякого контекста — он не условие отправки', async () => {
+    const user = userEvent.setup();
+    const { submit } = setup();
+
+    await fillRequired(user);
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    await waitFor(() => expect(submit).toHaveBeenCalled());
+    expect(submit.mock.calls[0]?.[0].get('name')).toBe('Ирина');
   });
 });

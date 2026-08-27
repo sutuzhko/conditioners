@@ -2,12 +2,13 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 import { Badge, Button, Card, Select, Textarea } from '@/shared/ui';
 
 import { leadManagerContent as texts } from './content';
+import { LeadContextView } from './LeadContextView';
 import {
   LEAD_STATUSES,
   isLeadStatus,
@@ -74,6 +75,7 @@ export function LeadCardView({
      карточка остаётся на экране, и кнопка обязана объяснять, что она уже
      нажата, — иначе её нажмут второй раз. */
   const [starting, setStarting] = useState(false);
+  const contextId = useId();
 
   const noteChanged = note !== (lead.managerComment ?? '');
   /** Карточка занята любым из действий: два разом ломают порядок статусов. */
@@ -205,6 +207,12 @@ export function LeadCardView({
           width={220}
           height={220}
         />
+      )}
+
+      {/* Чем человек занимался до формы: расчёт, подбор, отмеченные модели.
+          Стоит после того, что он написал сам, — сначала слова, потом следы. */}
+      {lead.context === null ? null : (
+        <LeadContextView context={lead.context} headingId={contextId} />
       )}
 
       <div className={styles.actions}>

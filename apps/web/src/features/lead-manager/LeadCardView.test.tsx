@@ -1,6 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+
+import { formatMoney } from '@/shared/lib/format';
 
 import { LeadCardView } from './LeadCardView';
 import { leadManagerContent as texts } from './content';
@@ -10,6 +12,7 @@ import {
   acceptingUpdate,
   bareLead,
   clientLead,
+  contextLead,
   failingToOrder,
   failingUpdate,
   linkingToClient,
@@ -338,5 +341,101 @@ describe('Карточка заявки', () => {
     expect(await screen.findByRole('alert')).toBeInTheDocument();
     expect(onOrder).not.toHaveBeenCalled();
     expect(screen.getByRole('button', { name: texts.toOrder })).toBeEnabled();
+  });
+});
+
+/** Карточка с контекстом: остальные пропсы к делу не относятся. */
+function renderContextCard(lead = contextLead) {
+  return render(
+    <LeadCardView
+      lead={lead}
+      update={acceptingUpdate}
+      toClient={acceptingToClient}
+      toOrder={acceptingToOrder}
+    />,
+  );
+}
+
+/**
+ * Раздел контекста целиком. Запросы идут внутри него: «Квартира» встречается и
+ * в полях заявки, и в подборе, и глобальный поиск нашёл бы обе.
+ */
+function contextRegion() {
+  return within(screen.getByRole('region', { name: texts.contextTitle }));
+}
+
+/**
+ * Сумма так, как её видит поиск по тексту: Testing Library схлопывает
+ * неразрывные пробелы разметки в обычные, а строку-образец оставляет как есть.
+ */
+function money(value: number): string {
+  return formatMoney(value).replace(/\s/g, ' ');
+}
+
+describe('Карточка заявки — что человек делал на сайте', () => {
+  it('показывает расчёт разбивкой, а не одной суммой', () => {
+    renderContextCard();
+    const context = contextRegion();
+
+    expect(context.getByText(texts.contextEstimate)).toBeInTheDocument();
+    expect(context.getByText('Базовый монтаж, класс 09')).toBeInTheDocument();
+    expect(context.getByText(texts.contextTotal)).toBeInTheDocument();
+    expect(context.getByText(money(30_200))).toBeInTheDocument();
+  });
+
+  it('показывает цену за блок, когда блоков больше одного', () => {
+    renderContextCard();
+
+    expect(contextRegion().getByText(texts.contextPerUnit(2))).toBeInTheDocument();
+  });
+
+  it('условия расчёта показаны теми же словами, что были на экране', () => {
+    renderContextCard();
+
+    expect(contextRegion().getByText(/Класс мощности: 09/)).toBeInTheDocument();
+  });
+
+  it('подбор читается площадью, помещением и моделью', () => {
+    renderContextCard();
+
+    const pick = contextRegion().getByText(/Сплит-система 09/);
+    expect(pick.textContent).toContain('25');
+    expect(pick.textContent).toContain('Квартира');
+    // 🔴 перечёркнутая цена — та, что стояла на экране (ADR-011)
+    expect(pick.textContent).toContain('вместо');
+  });
+
+  it('отмеченные модели показываются названием и ценой, а не слагом', () => {
+    renderContextCard();
+    const context = contextRegion();
+
+    expect(context.getByText(texts.contextLiked)).toBeInTheDocument();
+    expect(context.getByText(/Сплит-система 07/)).toBeInTheDocument();
+    expect(context.queryByText(/split-07/)).not.toBeInTheDocument();
+  });
+
+  it('🔴 предупреждает, что цены в снимке — вчерашние', () => {
+    renderContextCard();
+
+    expect(contextRegion().getByText(texts.contextHint)).toBeInTheDocument();
+  });
+
+  it('заявка без контекста раздела не показывает', () => {
+    renderContextCard(bareLead);
+
+    expect(screen.queryByText(texts.contextTitle)).not.toBeInTheDocument();
+  });
+
+  it('показывает только те части, что действительно были', () => {
+    const liked = contextLead.context?.liked[0] ?? null;
+    renderContextCard({
+      ...contextLead,
+      context: { estimate: null, pick: null, model: liked, liked: [] },
+    });
+    const context = contextRegion();
+
+    expect(context.getByText(texts.contextModel)).toBeInTheDocument();
+    expect(context.queryByText(texts.contextEstimate)).not.toBeInTheDocument();
+    expect(context.queryByText(texts.contextPick)).not.toBeInTheDocument();
   });
 });

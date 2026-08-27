@@ -3,6 +3,7 @@
 import { useId, useState } from 'react';
 import { calculateInstallation } from '@/entities/price/lib/calculateInstallation';
 import type { InstallRates, PriceRow } from '@/entities/price/model';
+import { rememberLeadContext } from '@/features/lead-form';
 import { formatMoney } from '@/shared/lib/format';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { ButtonLink, Card, Checkbox, RangeSlider, Select } from '@/shared/ui';
@@ -16,6 +17,7 @@ import {
   normalizeFloor,
   qtyOptions,
   sortedRows,
+  toLeadContextEstimate,
   trassaRange,
 } from '../model';
 import styles from './Calculator.module.css';
@@ -31,8 +33,12 @@ export type CalculatorProps = {
    */
   readonly leadHref: ButtonLinkHref;
   /**
-   * Готовый расчёт наружу. Вызывается в момент перехода к форме — форму
-   * заполняет тот, кто ею владеет.
+   * Готовый расчёт наружу. Вызывается в момент перехода к форме.
+   *
+   * По умолчанию расчёт уходит в хранилище контекста заявки: страница —
+   * серверный компонент и колбэк сюда передать не может, а форма стоит
+   * секцией ниже и подхватывает снимок сама. Пропс остаётся ради историй и
+   * тестов, где переход никуда не ведёт.
    */
   readonly onApply?: ((handoff: EstimateHandoff) => void) | undefined;
   /** Предел ползунка трассы и списка количества — границы интерфейса. */
@@ -85,6 +91,17 @@ export function Calculator({
   const estimate = calculateInstallation(input, rates);
   const context = { cls: row.cls, area: row.area, input, estimate, rates };
   const handoff: EstimateHandoff = { ...context, text: buildEstimateText(context) };
+
+  /* 🔴 Снимок пишется в момент перехода к форме, а не на каждое движение
+     ползунка: в заявку обязана попасть та смета, которую человек решил
+     зафиксировать, а не та, мимо которой он проехал. */
+  const apply = (): void => {
+    if (onApply !== undefined) {
+      onApply(handoff);
+      return;
+    }
+    rememberLeadContext({ estimate: toLeadContextEstimate(context) });
+  };
 
   return (
     <Card padding="xl" radius="xl" className={styles.card}>
@@ -176,12 +193,7 @@ export function Calculator({
                 {formatMoney(estimate.total)}
               </output>
             </div>
-            <ButtonLink
-              href={leadHref}
-              size="lg"
-              className={styles.apply}
-              onClick={() => onApply?.(handoff)}
-            >
+            <ButtonLink href={leadHref} size="lg" className={styles.apply} onClick={apply}>
               {pricingText.apply}
             </ButtonLink>
           </div>

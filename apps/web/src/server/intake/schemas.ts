@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { leadInputSchema, toReminderSchema } from '@/entities/lead/model';
+import { parseLeadContext } from '@/entities/lead/lib/context';
+import { leadInputSchema, toReminderSchema, type LeadContext } from '@/entities/lead/model';
 import { reviewInputSchema } from '@/entities/review/model';
 
 /**
@@ -46,6 +47,32 @@ export function normalizePhone(raw: string): string {
   if (digits.length === 11 && digits.startsWith('8')) return `+7${digits.slice(1)}`;
   if (digits.length === 10) return `+7${digits}`;
   return `+${digits}`;
+}
+
+/**
+ * Потолок снимка в теле формы. Своя граница, помимо общей границы тела:
+ * контекст собирает наш же интерфейс, и десяток строк с подписями в него
+ * укладывается с запасом, а всё, что больше, — это уже не снимок экрана.
+ */
+export const LEAD_CONTEXT_MAX_CHARS = 8_000;
+
+/**
+ * Контекст заявки из тела формы.
+ *
+ * 🔴 Ничего не бросает и никогда не отвергает заявку целиком. Снимок — это
+ * подспорье менеджеру, а заявка — деньги владельца (инвариант 2): подделанный,
+ * распухший или просто испорченный контекст обязан молча исчезнуть, а имя и
+ * телефон — дойти.
+ */
+export function readLeadContext(raw: string | undefined): LeadContext | null {
+  if (raw === undefined || raw === '') return null;
+  if (raw.length > LEAD_CONTEXT_MAX_CHARS) return null;
+
+  try {
+    return parseLeadContext(JSON.parse(raw));
+  } catch {
+    return null;
+  }
 }
 
 /**
