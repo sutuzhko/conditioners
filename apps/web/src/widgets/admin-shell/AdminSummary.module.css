@@ -46,8 +46,10 @@
   display: grid;
 
   /* Плитки сами решают, сколько их в ряду: колонок ровно столько, сколько
-     помещается по 200px, — и последний ряд не остаётся полупустым. */
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+     помещается по 158px. Порог подобран под пять плиток: при 200px они
+     ложились на широком экране как «четыре и хвост», а хвост читается как
+     недогруженный блок, а не как пятая цифра. */
+  grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
   gap: 12px;
 }
 
@@ -107,10 +109,6 @@
 }
 
 .event {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 10px;
-  align-items: baseline;
   border-bottom: 1px solid var(--line-soft);
   padding-bottom: 8px;
 }
@@ -118,6 +116,29 @@
 .event:last-child {
   border-bottom: 0;
   padding-bottom: 0;
+}
+
+/* Строка целиком — переход: наряд ведёт в свою карточку, дело в календарь.
+   Кликается вся строка, а не слово в ней: попасть по ней с телефона проще.
+   Цвет имени наследуется от ссылки — так наведение подсвечивает строку одним
+   правилом, без селектора через потомка. */
+.eventLink {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
+  border-radius: var(--r-sm);
+  color: var(--ink2);
+  text-decoration: none;
+}
+
+.eventLink:hover {
+  color: var(--accent-ink);
+}
+
+.eventLink:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
 }
 
 .eventWhen {
@@ -135,7 +156,7 @@
 }
 
 .eventName {
-  color: var(--ink2);
+  color: inherit;
   font-size: var(--fs-dense);
   font-weight: 600;
 }

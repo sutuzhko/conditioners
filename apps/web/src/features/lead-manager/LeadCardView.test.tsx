@@ -6,9 +6,11 @@ import { LeadCardView } from './LeadCardView';
 import { leadManagerContent as texts } from './content';
 import {
   acceptingToClient,
+  acceptingToOrder,
   acceptingUpdate,
   bareLead,
   clientLead,
+  failingToOrder,
   failingUpdate,
   linkingToClient,
   newLead,
@@ -17,7 +19,14 @@ import {
 
 describe('Карточка заявки', () => {
   it('🔴 данные клиента не редактируются — их полей ввода нет', () => {
-    render(<LeadCardView lead={newLead} update={acceptingUpdate} toClient={acceptingToClient} />);
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
 
     expect(screen.queryByLabelText(new RegExp(texts.phone))).not.toBeInTheDocument();
     expect(screen.queryByDisplayValue(newLead.name)).not.toBeInTheDocument();
@@ -25,19 +34,40 @@ describe('Карточка заявки', () => {
   });
 
   it('телефон — ссылка для звонка', () => {
-    render(<LeadCardView lead={newLead} update={acceptingUpdate} toClient={acceptingToClient} />);
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
 
     expect(screen.getByRole('link', { name: /900/ })).toHaveAttribute('href', 'tel:+79001234567');
   });
 
   it('🔴 факт согласия показывается всегда: его нужно уметь предъявить', () => {
-    render(<LeadCardView lead={newLead} update={acceptingUpdate} toClient={acceptingToClient} />);
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
 
     expect(screen.getByText(texts.consent)).toBeInTheDocument();
   });
 
   it('незаполненные поля не показываются пустыми строками', () => {
-    render(<LeadCardView lead={bareLead} update={acceptingUpdate} toClient={acceptingToClient} />);
+    render(
+      <LeadCardView
+        lead={bareLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
 
     expect(screen.queryByText(texts.place)).not.toBeInTheDocument();
     expect(screen.queryByText(texts.callTime)).not.toBeInTheDocument();
@@ -47,7 +77,14 @@ describe('Карточка заявки', () => {
   it('смена статуса уходит на сервер сразу', async () => {
     const user = userEvent.setup();
     const update = vi.fn(async () => ({ ok: true }));
-    render(<LeadCardView lead={newLead} update={update} toClient={acceptingToClient} />);
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={update}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
 
     await user.selectOptions(screen.getByLabelText(texts.status), texts.statusTitle('in_progress'));
 
@@ -57,7 +94,14 @@ describe('Карточка заявки', () => {
   it('заметка сохраняется отдельной кнопкой, а не на каждую букву', async () => {
     const user = userEvent.setup();
     const update = vi.fn(async () => ({ ok: true }));
-    render(<LeadCardView lead={newLead} update={update} toClient={acceptingToClient} />);
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={update}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
 
     await user.type(screen.getByLabelText(new RegExp(texts.managerComment)), 'Позвонить утром');
     expect(update).not.toHaveBeenCalled();
@@ -70,7 +114,14 @@ describe('Карточка заявки', () => {
   it('очищенная заметка уходит как null, а не пустой строкой', async () => {
     const user = userEvent.setup();
     const update = vi.fn(async () => ({ ok: true }));
-    render(<LeadCardView lead={workedLead} update={update} toClient={acceptingToClient} />);
+    render(
+      <LeadCardView
+        lead={workedLead}
+        update={update}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
 
     await user.clear(screen.getByLabelText(new RegExp(texts.managerComment)));
     await user.click(screen.getByRole('button', { name: texts.saveNote }));
@@ -80,7 +131,12 @@ describe('Карточка заявки', () => {
 
   it('пока заметка не изменена, сохранять нечего', () => {
     render(
-      <LeadCardView lead={workedLead} update={acceptingUpdate} toClient={acceptingToClient} />,
+      <LeadCardView
+        lead={workedLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
     );
 
     expect(screen.queryByRole('button', { name: texts.saveNote })).not.toBeInTheDocument();
@@ -94,6 +150,7 @@ describe('Карточка заявки', () => {
         lead={newLead}
         update={failingUpdate}
         toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
         onChanged={onChanged}
       />,
     );
@@ -107,7 +164,14 @@ describe('Карточка заявки', () => {
     const user = userEvent.setup();
     const toClient = vi.fn(async () => ({ ok: true, clientId: 'c1', created: true }) as const);
 
-    render(<LeadCardView lead={newLead} update={acceptingUpdate} toClient={toClient} />);
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={toClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
 
     await user.click(screen.getByRole('button', { name: texts.toClient }));
 
@@ -118,7 +182,14 @@ describe('Карточка заявки', () => {
   it('🔴 знакомый номер не заводит второго человека — об этом говорят прямо', async () => {
     const user = userEvent.setup();
 
-    render(<LeadCardView lead={newLead} update={acceptingUpdate} toClient={linkingToClient} />);
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={linkingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
 
     await user.click(screen.getByRole('button', { name: texts.toClient }));
 
@@ -128,7 +199,14 @@ describe('Карточка заявки', () => {
   it('после заведения ведёт в карточку клиента, а не предлагает завести снова', async () => {
     const user = userEvent.setup();
 
-    render(<LeadCardView lead={newLead} update={acceptingUpdate} toClient={acceptingToClient} />);
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
 
     await user.click(screen.getByRole('button', { name: texts.toClient }));
 
@@ -141,7 +219,12 @@ describe('Карточка заявки', () => {
 
   it('уже заведённое обращение сразу показывает переход в карточку', () => {
     render(
-      <LeadCardView lead={clientLead} update={acceptingUpdate} toClient={acceptingToClient} />,
+      <LeadCardView
+        lead={clientLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
     );
 
     expect(screen.getByRole('link', { name: texts.inBase })).toHaveAttribute(
@@ -156,10 +239,104 @@ describe('Карточка заявки', () => {
       async () => ({ ok: false, message: 'В обращении нет телефона' }) as const,
     );
 
-    render(<LeadCardView lead={newLead} update={acceptingUpdate} toClient={toClient} />);
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={toClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
 
     await user.click(screen.getByRole('button', { name: texts.toClient }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent('В обращении нет телефона');
+  });
+  it('«Создать заказ» заводит клиента, переводит обращение в работу и уводит к наряду', async () => {
+    const user = userEvent.setup();
+    const toOrder = vi.fn(
+      async () => ({ ok: true, clientId: 'c1', status: 'in_progress' }) as const,
+    );
+    const onOrder = vi.fn();
+    const onChanged = vi.fn();
+
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={toOrder}
+        onOrder={onOrder}
+        onChanged={onChanged}
+      />,
+    );
+
+    await user.click(screen.getByRole('button', { name: texts.toOrder }));
+
+    expect(toOrder).toHaveBeenCalledWith(newLead.id);
+    /* Куда идти за черновиком, решает страница: карточка не знает ни полей
+       наряда, ни того, из какого раздела её открыли. */
+    expect(onOrder).toHaveBeenCalledWith(newLead.id);
+    expect(onChanged).toHaveBeenCalled();
+  });
+
+  it('после «Создать заказ» статус в карточке уже «В работе»', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
+
+    await user.click(screen.getByRole('button', { name: texts.toOrder }));
+
+    expect(await screen.findByLabelText(texts.status)).toHaveValue('in_progress');
+  });
+
+  it('пока наряд готовится, кнопка объясняет это и второго нажатия не принимает', async () => {
+    const user = userEvent.setup();
+    /* Обещание, которое не разрешается: так выглядит секунда между ответом
+       сервера и переходом на страницу черновика. */
+    const toOrder = vi.fn(() => new Promise<never>(() => {}));
+
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={toOrder}
+      />,
+    );
+
+    await user.click(screen.getByRole('button', { name: texts.toOrder }));
+
+    const button = await screen.findByRole('button', { name: texts.toOrderBusy });
+    expect(button).toBeDisabled();
+    expect(toOrder).toHaveBeenCalledTimes(1);
+  });
+
+  it('отказ на «Создать заказ» объясняется и никуда не уводит', async () => {
+    const user = userEvent.setup();
+    const onOrder = vi.fn();
+
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={failingToOrder}
+        onOrder={onOrder}
+      />,
+    );
+
+    await user.click(screen.getByRole('button', { name: texts.toOrder }));
+
+    expect(await screen.findByRole('alert')).toBeInTheDocument();
+    expect(onOrder).not.toHaveBeenCalled();
+    expect(screen.getByRole('button', { name: texts.toOrder })).toBeEnabled();
   });
 });

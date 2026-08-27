@@ -5,13 +5,25 @@ import { Badge, Card } from '@/shared/ui';
 import { adminSummaryContent as texts } from './summary-content';
 import styles from './AdminSummary.module.css';
 
+/**
+ * Цифры сводки — про работу компании, а не про содержимое сайта (CRM.md §3.8).
+ *
+ * Владелец заходит в панель утром за пятью вопросами: кто написал, что сегодня
+ * везём, сколько людей в базе, кто из монтажников на связи и не ждёт ли ответа
+ * отзыв. Сколько статей в Базе знаний — вопрос вечера пятницы, и на входном
+ * экране он занимал место молча.
+ */
 export type SummaryCounts = {
   /** Заявок в статусе «новая» — то, ради чего владелец заходит в панель. */
   readonly newLeads: number;
+  /** Наряды в работе: назначенные и те, где монтажник уже на объекте. */
+  readonly activeOrders: number;
+  /** Людей в базе клиентов. */
+  readonly clients: number;
+  /** Монтажников с открытым доступом в панель. */
+  readonly installers: number;
   /** Отзывов на модерации. */
   readonly pendingReviews: number;
-  readonly models: number;
-  readonly articles: number;
 };
 
 export type ReadinessSummary = {
@@ -21,89 +33,81 @@ export type ReadinessSummary = {
 };
 
 /**
- * Дело из календаря в том виде, в каком его показывает сводка.
- *
- * Название вида и день приходят готовыми строками: сводка не знает ни видов
- * дел, ни часового пояса работ — за них отвечает календарь.
+ * 🔴 Наряд и дело — разные сущности с разным смыслом (ADR-093): наряд это
+ * работа с деньгами и исполнителем, дело — напоминание позвонить. В общем
+ * списке они идут вперемешку по времени, но помечены по-разному: сводка, в
+ * которой одно неотличимо от другого, врёт о том, что предстоит сделать.
  */
-export type UpcomingEvent = {
+export type UpcomingNature = 'order' | 'event';
+
+/**
+ * Строка «Ближайших дел» в том виде, в каком её показывает сводка.
+ *
+ * Все подписи приходят готовыми: сводка не знает ни видов дел, ни типов
+ * нарядов, ни часового пояса работ — за них отвечают их разделы.
+ */
+export type UpcomingItem = {
   readonly id: string;
+  readonly nature: UpcomingNature;
+  /** «сегодня 18:00», «завтра 10:00», «14 июля, 09:00». */
   readonly when: string;
+  /** Что это: «Монтаж», «Звонок». */
   readonly kind: string;
   readonly clientName: string;
+  /** Куда ведёт строка: наряд — в свою карточку, дело — в календарь. */
+  readonly href: string;
   readonly overdue: boolean;
 };
 
 export interface AdminSummaryProps {
   readonly counts: SummaryCounts;
   readonly readiness: ReadinessSummary;
-  readonly upcoming?: readonly UpcomingEvent[] | undefined;
+  readonly upcoming?: readonly UpcomingItem[] | undefined;
 }
 
 /**
  * Сводка на входе в панель: что требует внимания прямо сейчас.
  *
- * Порядок блоков — по срочности, а не по алфавиту разделов: заявка ждёт
- * человека, незаполненные данные компании держат запуск, остальное терпит.
+ * Порядок блоков — по срочности. Пока данные компании не заполнены, сайт
+ * публиковать нельзя, и готовность стоит первой; как только заполнены, она
+ * уходит вниз тихой строкой — держать наверху зелёную галочку значит каждый
+ * день отодвигать ею работу.
  */
 export function AdminSummary({ counts, readiness, upcoming = [] }: AdminSummaryProps) {
-  return (
-    <div className={styles.summary}>
-      <Card
-        as="section"
-        variant={readiness.ready ? 'soft' : 'accent'}
-        className={styles.readiness}
-        aria-labelledby="readiness-title"
-      >
-        <h2 className={styles.cardTitle} id="readiness-title">
-          {texts.readinessTitle}
-        </h2>
+  const readinessCard = (
+    <Card
+      as="section"
+      variant={readiness.ready ? 'soft' : 'accent'}
+      className={styles.readiness}
+      aria-labelledby="readiness-title"
+    >
+      <h2 className={styles.cardTitle} id="readiness-title">
+        {texts.readinessTitle}
+      </h2>
 
-        {readiness.ready ? (
-          <p className={styles.text}>{texts.readinessDone}</p>
-        ) : (
-          <>
-            <p className={styles.text}>{texts.readinessPending}</p>
-            <ul className={styles.groups}>
-              {readiness.unfinished.map((group) => (
-                <li key={group}>
-                  <Badge variant="warning">{texts.groupTitle(group)}</Badge>
-                </li>
-              ))}
-            </ul>
-            <Link className={styles.link} href={{ pathname: '/admin/company' }}>
-              {texts.readinessCta}
-            </Link>
-          </>
-        )}
-      </Card>
-
-      {/* Что делать сегодня — выше того, сколько чего заведено: за цифрами
-          каталога в панель не заходят, а за «кому позвонить» — да. */}
-      <Card as="section" className={styles.upcoming} aria-labelledby="upcoming-title">
-        <h2 className={styles.cardTitle} id="upcoming-title">
-          {texts.upcomingTitle}
-        </h2>
-
-        {upcoming.length === 0 ? (
-          <p className={styles.text}>{texts.upcomingEmpty}</p>
-        ) : (
-          <ul className={styles.events}>
-            {upcoming.map((event) => (
-              <li className={styles.event} key={event.id}>
-                <span className={styles.eventWhen}>{event.when}</span>
-                <span className={styles.eventKind}>{event.kind}</span>
-                <span className={styles.eventName}>{event.clientName}</span>
-                {event.overdue ? <Badge variant="warning">{texts.upcomingOverdue}</Badge> : null}
+      {readiness.ready ? (
+        <p className={styles.text}>{texts.readinessDone}</p>
+      ) : (
+        <>
+          <p className={styles.text}>{texts.readinessPending}</p>
+          <ul className={styles.groups}>
+            {readiness.unfinished.map((group) => (
+              <li key={group}>
+                <Badge variant="warning">{texts.groupTitle(group)}</Badge>
               </li>
             ))}
           </ul>
-        )}
+          <Link className={styles.link} href={{ pathname: '/admin/company' }}>
+            {texts.readinessCta}
+          </Link>
+        </>
+      )}
+    </Card>
+  );
 
-        <Link className={styles.link} href={{ pathname: '/admin/crm' }}>
-          {texts.upcomingCta}
-        </Link>
-      </Card>
+  return (
+    <div className={styles.summary}>
+      {readiness.ready ? null : readinessCard}
 
       <div className={styles.tiles}>
         <SummaryTile
@@ -114,25 +118,69 @@ export function AdminSummary({ counts, readiness, upcoming = [] }: AdminSummaryP
           urgent={counts.newLeads > 0}
         />
         <SummaryTile
+          href="/admin/orders"
+          title={texts.orders}
+          value={counts.activeOrders}
+          note={texts.ordersNote}
+        />
+        <SummaryTile
+          href="/admin/clients"
+          title={texts.clients}
+          value={counts.clients}
+          note={texts.clientsNote}
+        />
+        <SummaryTile
+          href="/admin/team"
+          title={texts.installers}
+          value={counts.installers}
+          note={texts.installersNote}
+        />
+        <SummaryTile
           href="/admin/reviews"
           title={texts.reviews}
           value={counts.pendingReviews}
           note={texts.reviewsNote}
           urgent={counts.pendingReviews > 0}
         />
-        <SummaryTile
-          href="/admin/catalog"
-          title={texts.models}
-          value={counts.models}
-          note={texts.modelsNote}
-        />
-        <SummaryTile
-          href="/admin/knowledge"
-          title={texts.articles}
-          value={counts.articles}
-          note={texts.articlesNote}
-        />
       </div>
+
+      {/* Что делать сегодня — ниже цифр, но выше всего остального: за «кому
+          ехать и кому звонить» в панель заходят каждый день. */}
+      <Card as="section" className={styles.upcoming} aria-labelledby="upcoming-title">
+        <h2 className={styles.cardTitle} id="upcoming-title">
+          {texts.upcomingTitle}
+        </h2>
+        <p className={styles.text}>{texts.upcomingNote}</p>
+
+        {upcoming.length === 0 ? (
+          <p className={styles.text}>{texts.upcomingEmpty}</p>
+        ) : (
+          <ul className={styles.events}>
+            {upcoming.map((item) => (
+              <li className={styles.event} key={`${item.nature}-${item.id}`}>
+                <Link className={styles.eventLink} href={{ pathname: item.href }}>
+                  <span className={styles.eventWhen}>{item.when}</span>
+                  {/* Природа записи — словом и плашкой, а не одним цветом:
+                      наряд и дело различаются деньгами, и путать их нельзя
+                      даже в монохромном режиме. */}
+                  <Badge size="sm" variant={item.nature === 'order' ? 'accent' : 'neutral'}>
+                    {texts.natureTitle(item.nature)}
+                  </Badge>
+                  <span className={styles.eventKind}>{item.kind}</span>
+                  <span className={styles.eventName}>{item.clientName}</span>
+                  {item.overdue ? <Badge variant="warning">{texts.upcomingOverdue}</Badge> : null}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <Link className={styles.link} href={{ pathname: '/admin/crm' }}>
+          {texts.upcomingCta}
+        </Link>
+      </Card>
+
+      {readiness.ready ? readinessCard : null}
     </div>
   );
 }

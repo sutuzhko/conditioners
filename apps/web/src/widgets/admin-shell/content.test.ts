@@ -42,6 +42,9 @@ describe('🔴 допуск по адресу', () => {
     expect(sectionAllows('/admin/catalog/42', 'installer')).toBe(false);
     expect(sectionAllows('/admin/team/u2', 'installer')).toBe(false);
     expect(sectionAllows('/admin/leads', 'installer')).toBe(false);
+    /* Черновик наряда по обращению живёт в разделе заявок и закрыт вместе с
+       ним: клиентов и обращений монтажник не видит вовсе (CRM.md §6). */
+    expect(sectionAllows('/admin/leads/l1/order', 'installer')).toBe(false);
   });
 
   it('сводка монтажнику не адресована: она про готовность сайта и модерацию', () => {

@@ -15,7 +15,8 @@ export {
   type AdminSummaryProps,
   type ReadinessSummary,
   type SummaryCounts,
-  type UpcomingEvent,
+  type UpcomingItem,
+  type UpcomingNature,
 } from './AdminSummary';
 export { adminSummaryContent } from './summary-content';
 export { NAV_COOKIE } from './navCookie';

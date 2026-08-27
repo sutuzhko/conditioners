@@ -14,6 +14,7 @@ import {
   type LeadCard,
   type LeadStatus,
   type LeadToClient,
+  type LeadToOrder,
   type LeadUpdate,
 } from './model';
 import styles from './LeadCardView.module.css';
@@ -23,6 +24,13 @@ export interface LeadCardViewProps {
   readonly update: LeadUpdate;
   /** «В клиенты»: заводит карточку человека или находит её по телефону. */
   readonly toClient: LeadToClient;
+  /** «Создать заказ»: клиент плюс перевод обращения в работу (CRM.md §3.4). */
+  readonly toOrder: LeadToOrder;
+  /**
+   * Куда уходить за черновиком наряда, знает страница: карточка не решает,
+   * из какого раздела её открыли, и в Storybook никуда не переходит.
+   */
+  readonly onOrder?: ((leadId: string) => void) | undefined;
   readonly onChanged?: (() => void) | undefined;
 }
 
@@ -44,7 +52,14 @@ type Detail = { readonly label: string; readonly value: string | null };
  * ровно тот же по смыслу запрет, что и на правку текста отзыва. Менеджер
  * управляет статусом и своей заметкой.
  */
-export function LeadCardView({ lead, update, toClient, onChanged }: LeadCardViewProps) {
+export function LeadCardView({
+  lead,
+  update,
+  toClient,
+  toOrder,
+  onOrder,
+  onChanged,
+}: LeadCardViewProps) {
   const [status, setStatus] = useState<LeadStatus>(lead.status);
   const [note, setNote] = useState(lead.managerComment ?? '');
   const [busy, setBusy] = useState(false);
@@ -55,8 +70,14 @@ export function LeadCardView({ lead, update, toClient, onChanged }: LeadCardView
      обновления списка тот придёт уже заполненным с сервера, а сказать, завели
      карточку или нашли старую, к этому моменту будет нечем. */
   const [clientOutcome, setClientOutcome] = useState('');
+  /* Отдельно от общего `busy`: пока страница открывает черновик наряда,
+     карточка остаётся на экране, и кнопка обязана объяснять, что она уже
+     нажата, — иначе её нажмут второй раз. */
+  const [starting, setStarting] = useState(false);
 
   const noteChanged = note !== (lead.managerComment ?? '');
+  /** Карточка занята любым из действий: два разом ломают порядок статусов. */
+  const locked = busy || starting;
 
   const run = async (patch: Parameters<LeadUpdate>[1]): Promise<void> => {
     setBusy(true);
@@ -98,6 +119,33 @@ export function LeadCardView({ lead, update, toClient, onChanged }: LeadCardView
       return;
     }
     setMessage(result.message);
+  };
+
+  /**
+   * «Создать заказ» — второй мостик из обращения (CRM.md §3.4): клиент
+   * заводится или находится по телефону, обращение уходит в работу, а форма
+   * наряда открывается уже с адресом, комментарием и угаданным типом работ.
+   *
+   * Наряд на этом шаге ещё не создан: номер наряда сквозной, и тратить его на
+   * промах мимо кнопки нельзя (ADR-114).
+   */
+  const startOrder = async (): Promise<void> => {
+    setStarting(true);
+    setMessage('');
+    setSaved(false);
+
+    const result = await toOrder(lead.id);
+
+    if (!result.ok) {
+      setStarting(false);
+      setMessage(result.message);
+      return;
+    }
+
+    setClientId(result.clientId);
+    setStatus(result.status);
+    onChanged?.();
+    onOrder?.(lead.id);
   };
 
   const details: readonly Detail[] = [
@@ -164,7 +212,7 @@ export function LeadCardView({ lead, update, toClient, onChanged }: LeadCardView
           label={texts.status}
           options={LEAD_STATUSES.map((value) => ({ value, label: texts.statusTitle(value) }))}
           value={status}
-          disabled={busy}
+          disabled={locked}
           wrapperClassName={styles.statusSelect}
           onChange={(event) => {
             const next = event.target.value;
@@ -177,13 +225,20 @@ export function LeadCardView({ lead, update, toClient, onChanged }: LeadCardView
           hint={texts.managerCommentHint}
           rows={2}
           value={note}
-          disabled={busy}
+          disabled={locked}
           className={styles.note}
           onChange={(event) => setNote(event.target.value)}
         />
       </div>
 
       <div className={styles.footer}>
+        {/* 🔴 Главное действие раздела: обращение становится работой. Стоит
+            первым и выглядит основной кнопкой — остальные два мостика ведут в
+            картотеку и в напоминания, а деньги приносит наряд. */}
+        <Button type="button" size="sm" disabled={locked} onClick={() => void startOrder()}>
+          {starting ? texts.toOrderBusy : texts.toOrder}
+        </Button>
+
         {/* Из заявки в календарь одним переходом: форма дела открывается уже
             заполненной именем, телефоном и адресом — перебивать их руками
             значит однажды ошибиться в цифре телефона. */}
@@ -203,7 +258,7 @@ export function LeadCardView({ lead, update, toClient, onChanged }: LeadCardView
             type="button"
             variant="secondary"
             size="sm"
-            disabled={busy}
+            disabled={locked}
             onClick={() => void addToClients()}
           >
             {busy ? texts.toClientBusy : texts.toClient}
@@ -229,6 +284,7 @@ export function LeadCardView({ lead, update, toClient, onChanged }: LeadCardView
             type="button"
             size="sm"
             loading={busy}
+            disabled={locked}
             onClick={() => void run({ managerComment: note.trim() === '' ? null : note.trim() })}
           >
             {busy ? texts.saving : texts.saveNote}

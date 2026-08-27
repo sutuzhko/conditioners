@@ -4,10 +4,11 @@ import { AdminSummary } from './AdminSummary';
 import {
   busyCounts,
   emptyCounts,
+  overdueItems,
   quietCounts,
   readyReadiness,
   unfinishedReadiness,
-  upcomingEvents,
+  upcomingItems,
 } from './fixtures';
 
 const meta = {
@@ -19,19 +20,30 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** Обычное утро: работа идёт, отвечать прямо сейчас никому не нужно. */
 export const ВсёСпокойно: Story = {};
 
-/** Заявки и отзывы ждут ответа — цифры выделены. */
+/** Обращения и отзывы ждут ответа — цифры выделены. */
 export const ТребуетВнимания: Story = {
   args: { counts: busyCounts },
 };
 
-/** Первый заход после установки: данные компании ещё заглушки. */
+/** Первый заход после установки: ни клиентов, ни заказов, данные — заглушки. */
 export const ПустойСайт: Story = {
   args: { counts: emptyCounts, readiness: unfinishedReadiness },
 };
 
-/** Календарь не пуст: дела на ближайшие дни и одно просроченное. */
+/** Всё заполнено: готовность уходит вниз тихой строкой и не отодвигает работу. */
+export const ВсёЗаполнено: Story = {
+  args: { counts: busyCounts, upcoming: upcomingItems },
+};
+
+/** Наряды и дела вперемешку по времени — и различимы между собой. */
 export const СДелами: Story = {
-  args: { upcoming: upcomingEvents },
+  args: { upcoming: upcomingItems },
+};
+
+/** До недели не дошли руки: просроченное мозолит глаза, а не исчезает. */
+export const ЕстьПросроченное: Story = {
+  args: { upcoming: overdueItems },
 };

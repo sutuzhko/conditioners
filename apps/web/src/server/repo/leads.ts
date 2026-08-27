@@ -137,6 +137,23 @@ export async function listByClient(clientId: string): Promise<LeadDto[]> {
   return rows.map(toDto);
 }
 
+/**
+ * Обращение уходит в работу: по нему заводят наряд (CRM.md §3.4).
+ *
+ * 🔴 Двигается только новая заявка. Завершённую или отклонённую заказ в работу
+ * не возвращает: статус — решение менеджера, и молча переписывать его действие
+ * значит врать ему о том, что он видел вчера. Отсюда же идемпотентность —
+ * второе нажатие ничего не меняет.
+ */
+export async function startWork(id: string): Promise<LeadDto> {
+  const lead = await db.lead.findUnique({ where: { id } });
+  if (lead === null) throw new ApiException('not_found', 'Заявка не найдена');
+
+  if (lead.status !== 'NEW') return toDto(lead);
+
+  return toDto(await db.lead.update({ where: { id }, data: { status: 'IN_PROGRESS' } }));
+}
+
 /** Менеджер меняет статус и оставляет комментарий; данные клиента не правятся. */
 export async function update(id: string, input: LeadUpdate): Promise<LeadDto> {
   const exists = await db.lead.findUnique({ where: { id }, select: { id: true } });

@@ -1,5 +1,5 @@
 /** Данные для историй и тестов раздела заявок. */
-import type { LeadCard, LeadToClient, LeadUpdate } from './model';
+import type { LeadCard, LeadToClient, LeadToOrder, LeadUpdate } from './model';
 
 export const newLead: LeadCard = {
   id: 'l1',
@@ -67,6 +67,17 @@ export const linkingToClient: LeadToClient = async () => ({
 });
 
 export const failingToClient: LeadToClient = async () => ({
+  ok: false,
+  message: 'Сервер не принял изменения. Попробуйте ещё раз',
+});
+
+export const acceptingToOrder: LeadToOrder = async () => ({
+  ok: true,
+  clientId: 'c1',
+  status: 'in_progress',
+});
+
+export const failingToOrder: LeadToOrder = async () => ({
   ok: false,
   message: 'Сервер не принял изменения. Попробуйте ещё раз',
 });

@@ -1,14 +1,15 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { AdminSummary } from './AdminSummary';
 import {
   busyCounts,
   emptyCounts,
+  overdueItems,
   quietCounts,
   readyReadiness,
   unfinishedReadiness,
-  upcomingEvents,
+  upcomingItems,
 } from './fixtures';
 import { adminSummaryContent as texts } from './summary-content';
 
@@ -37,50 +38,102 @@ describe('Сводка панели управления', () => {
     expect(screen.queryByRole('link', { name: texts.readinessCta })).not.toBeInTheDocument();
   });
 
-  it('каждая плитка ведёт в свой раздел', () => {
-    render(<AdminSummary counts={busyCounts} readiness={readyReadiness} />);
+  it('незаполненная готовность стоит выше плиток, заполненная — ниже', () => {
+    /* Сайт с заглушками публиковать нельзя, и напоминание об этом обязано
+       быть первым. Зелёная галочка, наоборот, не вправе каждый день
+       отодвигать вниз работу. */
+    const blocking = render(<AdminSummary counts={emptyCounts} readiness={unfinishedReadiness} />);
+    const first = blocking.container.querySelector('[class*="summary"] > *');
+    expect(first?.textContent).toContain(texts.readinessTitle);
 
-    expect(screen.getByRole('link', { name: /Новые заявки/ })).toHaveAttribute(
-      'href',
-      '/admin/leads',
-    );
-    expect(screen.getByRole('link', { name: /Отзывы на модерации/ })).toHaveAttribute(
-      'href',
-      '/admin/reviews',
-    );
+    blocking.unmount();
+
+    const done = render(<AdminSummary counts={quietCounts} readiness={readyReadiness} />);
+    const children = done.container.querySelectorAll('[class*="summary"] > *');
+    expect(children[children.length - 1]?.textContent).toContain(texts.readinessTitle);
   });
 
-  it('ноль заявок не выделяется — выделение значит «нужно действие»', () => {
+  it('плитки — про работу компании, а не про содержимое сайта', () => {
+    render(<AdminSummary counts={busyCounts} readiness={readyReadiness} />);
+
+    const tiles: readonly (readonly [string, string, number])[] = [
+      [texts.leads, '/admin/leads', busyCounts.newLeads],
+      [texts.orders, '/admin/orders', busyCounts.activeOrders],
+      [texts.clients, '/admin/clients', busyCounts.clients],
+      [texts.installers, '/admin/team', busyCounts.installers],
+      [texts.reviews, '/admin/reviews', busyCounts.pendingReviews],
+    ];
+
+    for (const [title, href, value] of tiles) {
+      const tile = screen.getByRole('link', { name: new RegExp(title) });
+      expect(tile).toHaveAttribute('href', href);
+      expect(within(tile).getByText(String(value))).toBeInTheDocument();
+    }
+  });
+
+  it('плиток про каталог и статьи на сводке больше нет', () => {
+    render(<AdminSummary counts={busyCounts} readiness={readyReadiness} />);
+
+    expect(screen.queryByRole('link', { name: /каталоге/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /Статей/ })).not.toBeInTheDocument();
+  });
+
+  it('ноль обращений не выделяется — выделение значит «нужно действие»', () => {
     const { container } = render(<AdminSummary counts={emptyCounts} readiness={readyReadiness} />);
 
     expect(container.querySelectorAll('[class*="urgent"]')).toHaveLength(0);
   });
 
-  it('ожидающие заявки и отзывы выделены', () => {
+  it('ожидающие обращения и отзывы выделены, а число заказов — нет', () => {
     const { container } = render(<AdminSummary counts={busyCounts} readiness={readyReadiness} />);
 
+    /* Семь заказов в работе — это норма сезона, а не повод для тревоги:
+       подсвеченным должно быть только то, что ждёт ответа человека. */
     expect(container.querySelectorAll('[class*="urgent"]')).toHaveLength(2);
   });
 
   it('показывает ближайшие дела: за ними в панель и заходят', () => {
     render(
-      <AdminSummary counts={quietCounts} readiness={readyReadiness} upcoming={upcomingEvents} />,
+      <AdminSummary counts={quietCounts} readiness={readyReadiness} upcoming={upcomingItems} />,
     );
 
     expect(screen.getByText('сегодня 18:00')).toBeInTheDocument();
-    expect(screen.getByText('Ирина')).toBeInTheDocument();
     expect(screen.getByText('Замер')).toBeInTheDocument();
+    expect(screen.getByText('Ирина Соколова')).toBeInTheDocument();
+  });
+
+  it('наряд и дело в одном списке различимы словом, а не только цветом', () => {
+    render(
+      <AdminSummary counts={quietCounts} readiness={readyReadiness} upcoming={upcomingItems} />,
+    );
+
+    /* ADR-093: наряд — работа с деньгами, дело — напоминание. Списка, в
+       котором одно неотличимо от другого, быть не должно. */
+    expect(screen.getAllByText(texts.natureTitle('order'))).toHaveLength(2);
+    expect(screen.getAllByText(texts.natureTitle('event'))).toHaveLength(2);
+  });
+
+  it('каждая строка ведёт в свою сущность: наряд — в карточку, дело — в календарь', () => {
+    render(
+      <AdminSummary counts={quietCounts} readiness={readyReadiness} upcoming={upcomingItems} />,
+    );
+
+    expect(screen.getByRole('link', { name: /Ирина Соколова/ })).toHaveAttribute(
+      'href',
+      '/admin/orders/o1',
+    );
+    expect(screen.getByRole('link', { name: /Сергей/ })).toHaveAttribute('href', '/admin/crm');
   });
 
   it('просроченное дело помечено словом, а не одним цветом', () => {
     render(
-      <AdminSummary counts={quietCounts} readiness={readyReadiness} upcoming={upcomingEvents} />,
+      <AdminSummary counts={quietCounts} readiness={readyReadiness} upcoming={overdueItems} />,
     );
 
     expect(screen.getByText(texts.upcomingOverdue)).toBeInTheDocument();
   });
 
-  it('пустой календарь объясняет пустоту, а не молчит', () => {
+  it('пустой список объясняет пустоту, а не молчит', () => {
     render(<AdminSummary counts={quietCounts} readiness={readyReadiness} />);
 
     expect(screen.getByText(texts.upcomingEmpty)).toBeInTheDocument();

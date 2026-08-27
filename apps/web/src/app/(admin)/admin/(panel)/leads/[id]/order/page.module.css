@@ -1,0 +1,48 @@
+/* Черновик наряда по обращению. */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.back {
+  align-self: flex-start;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--accent-ink);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+}
+
+/* Кто и с чем обратился — подпись под заголовком, а не часть его. */
+.from {
+  margin: 0;
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+.lead {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}

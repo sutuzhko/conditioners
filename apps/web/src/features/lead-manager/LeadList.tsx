@@ -6,7 +6,7 @@ import { Card } from '@/shared/ui';
 
 import { LeadCardView } from './LeadCardView';
 import { leadManagerContent as texts } from './content';
-import { leadToClient, patchLead } from './lib';
+import { leadToClient, leadToOrder, patchLead } from './lib';
 import type { LeadCard } from './model';
 import styles from './LeadList.module.css';
 
@@ -37,6 +37,10 @@ export function LeadList({ leads, filtered = false }: LeadListProps) {
           lead={lead}
           update={patchLead}
           toClient={leadToClient}
+          toOrder={leadToOrder}
+          /* Черновик наряда живёт своей страницей: раздел заявок не знает
+             ни полей наряда, ни списка монтажников. */
+          onOrder={(leadId) => router.push(`/admin/leads/${leadId}/order`)}
           onChanged={() => router.refresh()}
         />
       ))}

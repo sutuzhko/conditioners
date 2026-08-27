@@ -1,11 +1,12 @@
 /** Правка заявки — контракт docs/API.md §8, §12. */
 import { z } from 'zod';
 
+import { leadStatusSchema } from '@/entities/lead/model';
 import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
 import { adminRequest, jsonInit } from '@/shared/lib/api';
 
 import { leadManagerContent as texts } from './content';
-import type { LeadPatch, LeadToClientResult, LeadUpdateResult } from './model';
+import type { LeadPatch, LeadToClientResult, LeadToOrderResult, LeadUpdateResult } from './model';
 
 const REQUEST_TEXTS = {
   ...ADMIN_API_TEXTS,
@@ -45,4 +46,30 @@ export async function leadToClient(id: string): Promise<LeadToClientResult> {
   if (!parsed.success) return { ok: false, message: texts.serverError };
 
   return { ok: true, clientId: parsed.data.client.id, created: parsed.data.created };
+}
+
+/** Ответ «Создать заказ»: клиент для наряда и новый статус обращения. */
+const orderStartSchema = z.object({
+  client: z.object({ id: z.string().min(1) }),
+  lead: z.object({ status: leadStatusSchema }),
+});
+
+/**
+ * «Создать заказ»: клиент заводится или находится по телефону, обращение
+ * уходит в работу. Черновик наряда открывает страница — сам наряд ещё не
+ * создан, и номер на промах мимо кнопки не тратится.
+ */
+export async function leadToOrder(id: string): Promise<LeadToOrderResult> {
+  const result = await adminRequest(
+    `/api/admin/leads/${id}/order`,
+    jsonInit('POST'),
+    REQUEST_TEXTS,
+  );
+
+  if (!result.ok) return { ok: false, message: result.message };
+
+  const parsed = orderStartSchema.safeParse(result.payload);
+  if (!parsed.success) return { ok: false, message: texts.serverError };
+
+  return { ok: true, clientId: parsed.data.client.id, status: parsed.data.lead.status };
 }

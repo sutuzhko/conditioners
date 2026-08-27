@@ -2,7 +2,8 @@
 export { LeadCardView, type LeadCardViewProps } from './LeadCardView';
 export { LeadList, type LeadListProps } from './LeadList';
 export { leadManagerContent } from './content';
-export { leadToClient, patchLead } from './lib';
+export { leadToClient, leadToOrder, patchLead } from './lib';
+export { guessOrderType } from './order-type';
 export {
   LEAD_STATUSES,
   isLeadStatus,
@@ -11,5 +12,7 @@ export {
   type LeadStatus,
   type LeadToClient,
   type LeadToClientResult,
+  type LeadToOrder,
+  type LeadToOrderResult,
   type LeadUpdate,
 } from './model';

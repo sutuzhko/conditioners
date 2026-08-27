@@ -47,3 +47,13 @@ export type LeadToClientResult =
   | { readonly ok: false; readonly message: string };
 
 export type LeadToClient = (id: string) => Promise<LeadToClientResult>;
+
+/**
+ * Чем закончилось «Создать заказ»: клиент заведён (или найден), обращение
+ * переведено в работу. Сам наряд ещё черновик — его открывает форма.
+ */
+export type LeadToOrderResult =
+  | { readonly ok: true; readonly clientId: string; readonly status: LeadStatus }
+  | { readonly ok: false; readonly message: string };
+
+export type LeadToOrder = (id: string) => Promise<LeadToOrderResult>;

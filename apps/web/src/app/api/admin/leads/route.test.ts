@@ -2,17 +2,35 @@
 import { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('@/server/auth', () => ({ getAdminSession: vi.fn() }));
+import type * as AuthModuleTypes from '@/server/auth';
+
+/* Частичная подмена: `isOwner` берём настоящий — проверяется разграничение,
+   а не сама функция сравнения роли. */
+vi.mock('@/server/auth', async (importOriginal) => ({
+  ...(await importOriginal<typeof AuthModuleTypes>()),
+  getAdminSession: vi.fn(),
+}));
+
+/* 🔴 Подмена репозитория команды нужна не маршруту, а разрыву цикла импортов:
+   `auth` тянет `repo/admin-users`, тот — `http` ради `ApiException`, а `http` —
+   обратно `auth`. На полпути этого круга `http` получает настоящий
+   `getAdminSession` мимо подмены, и проверка доступа уходит в `cookies()` вне
+   запроса. */
+vi.mock('@/server/repo/admin-users', () => ({}));
 vi.mock('@/server/repo/leads', () => ({
   listByStatus: vi.fn(),
   findById: vi.fn(),
+  startWork: vi.fn(),
   update: vi.fn(),
 }));
+vi.mock('@/server/repo/clients', () => ({ fromLead: vi.fn() }));
 
 import { getAdminSession } from '@/server/auth';
+import * as clients from '@/server/repo/clients';
 import * as leads from '@/server/repo/leads';
 import { GET } from './route';
 import { PATCH } from './[id]/route';
+import { POST as startOrder } from './[id]/order/route';
 
 const session = {
   userId: 'u1',
@@ -58,13 +76,29 @@ function patch(body: unknown): NextRequest {
   });
 }
 
+const client = {
+  id: 'c1',
+  name: 'Пётр',
+  phone: '+7 (953) 123-45-67',
+  address: null,
+  note: null,
+  createdAt: '2026-08-01T10:00:00.000Z',
+  leadCount: 1,
+};
+
 const context = { params: Promise.resolve({ id: 'l1' }) };
+
+function post(): NextRequest {
+  return request('/api/admin/leads/l1/order', { method: 'POST' });
+}
 
 beforeEach(() => {
   vi.clearAllMocks();
   vi.mocked(getAdminSession).mockResolvedValue(session);
   vi.mocked(leads.listByStatus).mockResolvedValue({ items: [lead], total: 1, page: 1, pages: 1 });
   vi.mocked(leads.update).mockResolvedValue({ ...lead, status: 'in_progress' });
+  vi.mocked(leads.startWork).mockResolvedValue({ ...lead, status: 'in_progress' });
+  vi.mocked(clients.fromLead).mockResolvedValue({ client: client, created: true });
 });
 
 describe('список заявок', () => {
@@ -141,5 +175,48 @@ describe('обработка заявки', () => {
 
     expect(response.status).toBe(401);
     expect(leads.update).not.toHaveBeenCalled();
+  });
+});
+
+describe('«Создать заказ» из обращения', () => {
+  it('заводит клиента и переводит обращение в работу одним запросом', async () => {
+    const response = await startOrder(post(), context);
+
+    expect(response.status).toBe(200);
+    expect(clients.fromLead).toHaveBeenCalledWith('l1');
+    expect(leads.startWork).toHaveBeenCalledWith('l1');
+
+    const body: unknown = await response.json();
+    expect(body).toMatchObject({
+      client: { id: 'c1' },
+      created: true,
+      lead: { status: 'in_progress' },
+    });
+  });
+
+  it('🔴 наряд здесь не создаётся: номер не тратится на промах мимо кнопки', async () => {
+    const response = await startOrder(post(), context);
+    const body: unknown = await response.json();
+
+    expect(body).not.toHaveProperty('order');
+  });
+
+  it('без сессии не заводит ни клиента, ни работу', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(null);
+
+    const response = await startOrder(post(), context);
+
+    expect(response.status).toBe(401);
+    expect(clients.fromLead).not.toHaveBeenCalled();
+    expect(leads.startWork).not.toHaveBeenCalled();
+  });
+
+  it('🔴 монтажнику обращения не адресованы вовсе', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue({ ...session, role: 'installer' });
+
+    const response = await startOrder(post(), context);
+
+    expect(response.status).toBe(403);
+    expect(clients.fromLead).not.toHaveBeenCalled();
   });
 });

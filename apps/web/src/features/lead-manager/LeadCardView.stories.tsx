@@ -3,9 +3,11 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { LeadCardView } from './LeadCardView';
 import {
   acceptingToClient,
+  acceptingToOrder,
   acceptingUpdate,
   bareLead,
   clientLead,
+  failingToOrder,
   failingUpdate,
   linkingToClient,
   newLead,
@@ -15,7 +17,12 @@ import {
 const meta = {
   title: 'Админка/Заявка',
   component: LeadCardView,
-  args: { lead: newLead, update: acceptingUpdate, toClient: acceptingToClient },
+  args: {
+    lead: newLead,
+    update: acceptingUpdate,
+    toClient: acceptingToClient,
+    toOrder: acceptingToOrder,
+  },
 } satisfies Meta<typeof LeadCardView>;
 
 export default meta;
@@ -44,4 +51,9 @@ export const УжеВБазе: Story = {
 /** Номер узнан: второй карточки на человека не заводится. */
 export const ПовторноеОбращение: Story = {
   args: { toClient: linkingToClient },
+};
+
+/** Заказ по обращению завести не удалось: телефона в заявке нет. */
+export const ЗаказНеЗавёлся: Story = {
+  args: { toOrder: failingToOrder },
 };
