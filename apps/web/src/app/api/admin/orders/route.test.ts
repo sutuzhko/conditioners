@@ -36,6 +36,13 @@ const fake = vi.hoisted(() => ({
     adminUser: { findUnique: vi.fn() },
     setting: { findUnique: vi.fn(), upsert: vi.fn() },
     orderUnit: { deleteMany: vi.fn(), createMany: vi.fn() },
+    orderHistory: { createMany: vi.fn() },
+    orderChecklistItem: {
+      findMany: vi.fn(),
+      deleteMany: vi.fn(),
+      createMany: vi.fn(),
+      update: vi.fn(),
+    },
     $transaction: vi.fn(),
   },
 }));
@@ -91,7 +98,14 @@ const orderRow = {
   comment: 'Домофон не работает, звонить на телефон',
   ownerNote: 'Клиент постоянный, скидку не даём',
   leadId: null,
+  extraWork: null,
+  report: null,
+  resultAt: null,
   units: [unitRow],
+  checklist: [],
+  docs: [],
+  photos: [],
+  history: [],
   createdAt: new Date('2026-08-26T14:00:00.000Z'),
 };
 
@@ -160,11 +174,20 @@ beforeEach(() => {
   fake.db.order.update.mockResolvedValue(orderRow);
   fake.db.order.deleteMany.mockResolvedValue({ count: 1 });
   fake.db.client.findUnique.mockResolvedValue({ id: 'c1' });
-  fake.db.adminUser.findUnique.mockResolvedValue({ id: 'u2' });
+  fake.db.adminUser.findUnique.mockResolvedValue({
+    id: 'u2',
+    name: 'Дмитрий Соколов',
+    login: 'sokolov',
+  });
   fake.db.setting.findUnique.mockResolvedValue({ key: 'orderSeq', value: 1059 });
   fake.db.setting.upsert.mockResolvedValue({ key: 'orderSeq', value: 1060 });
   fake.db.orderUnit.deleteMany.mockResolvedValue({ count: 0 });
   fake.db.orderUnit.createMany.mockResolvedValue({ count: 1 });
+  fake.db.orderHistory.createMany.mockResolvedValue({ count: 1 });
+  fake.db.orderChecklistItem.findMany.mockResolvedValue([]);
+  fake.db.orderChecklistItem.deleteMany.mockResolvedValue({ count: 0 });
+  fake.db.orderChecklistItem.createMany.mockResolvedValue({ count: 0 });
+  fake.db.orderChecklistItem.update.mockResolvedValue({});
 });
 
 afterEach(() => {

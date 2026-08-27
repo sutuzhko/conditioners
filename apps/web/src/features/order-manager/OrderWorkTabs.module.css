@@ -1,0 +1,61 @@
+/* Три вкладки наряда: работа, сборы, бумаги. */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+
+.tab {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  background: none;
+  cursor: pointer;
+  padding: 8px 14px;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+.tab:hover {
+  color: var(--ink);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.current {
+  border-bottom-color: var(--accent);
+  color: var(--ink);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* Панель фокусируема, чтобы Tab с ленты вкладок попадал в содержимое; рамку
+   вокруг всей панели при этом рисовать незачем — она только мешает читать. */
+.panel:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.panel[hidden] {
+  display: none;
+}

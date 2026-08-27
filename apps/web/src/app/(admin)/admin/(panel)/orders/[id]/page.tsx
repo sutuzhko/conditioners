@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import {
+  OrderHistory,
   OrderInstallerView,
   orderDraftOf,
   orderManagerContent as texts,
@@ -11,8 +12,11 @@ import { requirePage } from '@/server/guards';
 import { listInstallers } from '@/server/repo/admin-users';
 import { listAll } from '@/server/repo/clients';
 import { findById } from '@/server/repo/orders';
+import { dayKeyOf } from '@/shared/lib/calendar';
 
+import { loadBlocks } from '../blocks';
 import { OrderEditor } from '../OrderEditor';
+import { OrderWork } from './OrderWork';
 import styles from '../page.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -31,9 +35,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
  * Карточка наряда.
  *
  * 🔴 Роль решает не только оформление, но и данные: `findById` получает
- * смотрящего и отдаёт монтажнику только его наряд — без заметки владельца и
- * удержания (ADR-114). Чужой наряд приходит как `null` и становится 404:
- * отказ подтвердил бы, что наряд существует.
+ * смотрящего и отдаёт монтажнику только его наряд — без заметки владельца,
+ * удержания и истории (ADR-114). Чужой наряд приходит как `null` и становится
+ * 404: отказ подтвердил бы, что наряд существует.
+ *
+ * Работа с нарядом разложена по трём вкладкам (CRM.md §3.3): сам наряд с
+ * итогом работ, чеклист выезда, документы и фотографии.
  */
 export default async function AdminOrderPage({ params }: PageProps) {
   const session = await requirePage();
@@ -49,13 +56,20 @@ export default async function AdminOrderPage({ params }: PageProps) {
           {texts.back}
         </Link>
 
-        <OrderInstallerView order={order} />
+        {/* 🔴 История монтажнику не приходит вовсе — её нет и в разметке. */}
+        <OrderWork order={order} forInstaller>
+          <OrderInstallerView order={order} />
+        </OrderWork>
       </div>
     );
   }
 
   /* Списки нужны только владельцу: монтажник наряд не переназначает. */
-  const [clients, installers] = await Promise.all([listAll(), listInstallers(true)]);
+  const [clients, installers, blocks] = await Promise.all([
+    listAll(),
+    listInstallers(true),
+    loadBlocks(session, dayKeyOf(new Date(order.at))),
+  ]);
 
   return (
     <div className={styles.page}>
@@ -69,25 +83,30 @@ export default async function AdminOrderPage({ params }: PageProps) {
         <h1 className={styles.title}>{texts.number(order.number)}</h1>
       </header>
 
-      <OrderEditor
-        orderId={order.id}
-        orderNumber={order.number}
-        initial={orderDraftOf(order)}
-        clients={clients.map((client) => ({
-          id: client.id,
-          name: client.name,
-          phone: client.phone,
-        }))}
-        installers={installers.map((staff) => ({
-          id: staff.id,
-          name: staff.name,
-          login: staff.login,
-          employment: staff.employment,
-        }))}
-        title={texts.cardTitle}
-        hint={texts.cardHint}
-        removable
-      />
+      <OrderWork order={order}>
+        <OrderEditor
+          orderId={order.id}
+          orderNumber={order.number}
+          initial={orderDraftOf(order)}
+          clients={clients.map((client) => ({
+            id: client.id,
+            name: client.name,
+            phone: client.phone,
+          }))}
+          installers={installers.map((staff) => ({
+            id: staff.id,
+            name: staff.name,
+            login: staff.login,
+            employment: staff.employment,
+          }))}
+          blocks={blocks}
+          title={texts.cardTitle}
+          hint={texts.cardHint}
+          removable
+        />
+      </OrderWork>
+
+      <OrderHistory entries={order.history ?? []} />
     </div>
   );
 }

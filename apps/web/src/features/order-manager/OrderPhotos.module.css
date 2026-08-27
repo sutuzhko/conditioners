@@ -1,0 +1,84 @@
+/* Фотографии наряда: место установки и выполненные работы. */
+
+.title {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0 0 14px;
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.stages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.stageTitle {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+}
+
+.empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  min-width: 0;
+}
+
+.thumb {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  object-fit: cover;
+}
+
+.remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+.error {
+  margin: 12px 0 0;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  padding: 8px 12px;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}

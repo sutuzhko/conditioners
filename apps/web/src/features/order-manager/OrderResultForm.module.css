@@ -1,0 +1,75 @@
+/* Итог работ: две записи по факту выезда. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: baseline;
+}
+
+.title {
+  margin: 0;
+  margin-right: auto;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.when {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.hint {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.ok {
+  color: var(--ok-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.quiet {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.error {
+  margin: 0;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  padding: 8px 12px;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}

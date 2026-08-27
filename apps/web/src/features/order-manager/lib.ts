@@ -3,7 +3,15 @@ import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
 import { adminRequest, createdSchema, jsonInit } from '@/shared/lib/api';
 
 import { orderManagerContent as texts } from './content';
-import { orderPayload, type OrderApi, type OrderResult } from './model';
+import {
+  orderPayload,
+  type OrderApi,
+  type OrderDocKind,
+  type OrderResult,
+  type OrderResultDraft,
+  type OrderWorkApi,
+  type PhotoStage,
+} from './model';
 
 const REQUEST_TEXTS = {
   ...ADMIN_API_TEXTS,
@@ -44,3 +52,56 @@ export const orderApi: OrderApi = {
 
   setStatus: (id, status) => send(`${API_PATH}/${id}`, jsonInit('PATCH', { status })),
 };
+
+/**
+ * Действия наряда в работе — docs/API.md §13.
+ *
+ * Свой набор на каждый наряд: номер наряда не тащится в каждый вызов
+ * компонента, а адреса собираются в одном месте.
+ *
+ * Загрузки уходят формой, а не JSON: сервер сам проверяет настоящий тип
+ * файла и сам придумывает ему имя на диске.
+ */
+export function orderWorkApi(orderId: string): OrderWorkApi {
+  const base = `${API_PATH}/${orderId}`;
+
+  const upload = async (url: string, data: FormData): Promise<OrderResult> =>
+    send(url, { method: 'POST', body: data });
+
+  return {
+    saveResult: (draft: OrderResultDraft) =>
+      send(
+        `${base}/result`,
+        jsonInit('PATCH', { extraWork: draft.extraWork, report: draft.report }),
+      ),
+
+    addItem: (text: string) => send(`${base}/checklist`, jsonInit('POST', { text })),
+
+    setItemDone: (itemId: string, done: boolean) =>
+      send(`${base}/checklist/${itemId}`, jsonInit('PATCH', { done })),
+
+    removeItem: (itemId: string) => send(`${base}/checklist/${itemId}`, jsonInit('DELETE')),
+
+    /* Пересборка приводит чеклист к тому, что говорит наряд, — это замена
+       коллекции, а не новое событие, поэтому PUT. */
+    rebuildChecklist: () => send(`${base}/checklist`, jsonInit('PUT')),
+
+    addDoc: (kind: OrderDocKind, file: File) => {
+      const data = new FormData();
+      data.append('file', file);
+      data.append('kind', kind);
+      return upload(`${base}/docs`, data);
+    },
+
+    removeDoc: (docId: string) => send(`${base}/docs/${docId}`, jsonInit('DELETE')),
+
+    addPhoto: (stage: PhotoStage, file: File) => {
+      const data = new FormData();
+      data.append('photo', file);
+      data.append('stage', stage);
+      return upload(`${base}/photos`, data);
+    },
+
+    removePhoto: (photoId: string) => send(`${base}/photos/${photoId}`, jsonInit('DELETE')),
+  };
+}

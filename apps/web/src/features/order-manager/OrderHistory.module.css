@@ -1,0 +1,71 @@
+/* История наряда: лента событий сверху вниз, свежие первыми. */
+
+.title {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0 0 14px;
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+  gap: 2px 14px;
+  border-left: 2px solid var(--line);
+  padding: 6px 0 6px 12px;
+  min-width: 0;
+}
+
+.when {
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  white-space: nowrap;
+}
+
+.text {
+  color: var(--body);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.author {
+  grid-column: 2;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  overflow-wrap: anywhere;
+}
+
+@media (width < 520px) {
+  .entry {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .author {
+    grid-column: 1;
+  }
+}

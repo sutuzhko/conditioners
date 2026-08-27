@@ -2,13 +2,20 @@
 import { orderDraftOf } from './model';
 import type {
   OrderApi,
+  OrderBlock,
   OrderCard,
+  OrderChecklistCard,
   OrderClientRef,
+  OrderDetails,
+  OrderDocCard,
   OrderDraft,
+  OrderHistoryEntry,
   OrderInstallerRef,
   OrderPage,
+  OrderPhotoCard,
   OrderUnitCard,
   OrderUnitDraft,
+  OrderWorkApi,
 } from './model';
 
 export const clientRef: OrderClientRef = {
@@ -78,8 +85,12 @@ export const units: readonly OrderUnitCard[] = [
   },
 ];
 
+/** Пустой итог — наряд, по которому ещё не отчитывались. */
+const noResult = { extraWork: null, report: null, resultAt: null } as const;
+
 /** Наряд глазами владельца: с заметкой, удержанием и суммой заказа. */
 export const order: OrderCard = {
+  ...noResult,
   id: 'o1',
   number: 1059,
   type: 'install',
@@ -149,6 +160,7 @@ export const cancelledOrder: OrderCard = {
  * не положено знать даже этого (docs/API.md §13).
  */
 const installerBase = {
+  ...noResult,
   id: 'o1',
   number: 1059,
   type: 'install',
@@ -259,3 +271,168 @@ export const staffDraft: OrderDraft = { ...draft, installerId: staffInstaller.id
 export const unassignedDraft: OrderDraft = { ...draft, installerId: '' };
 
 export const unitDrafts: readonly OrderUnitDraft[] = draft.units;
+
+// ---------- Наряд в работе ----------
+
+/**
+ * Чеклист: собранные из наряда пункты и один дописанный.
+ *
+ * 🔴 Свой пункт в фикстуре не для красоты: именно он не должен исчезать при
+ * пересборке, и история обязана его показывать.
+ */
+export const checklist: readonly OrderChecklistCard[] = [
+  {
+    id: 'ch1',
+    text: 'Забрать со склада — Позиция 1, Сплит-система 09',
+    done: true,
+    own: false,
+    sort: 0,
+  },
+  {
+    id: 'ch2',
+    text: 'Позиция 1, Сплит-система 09: медная трасса 4 м, диаметр 1/4–3/8',
+    done: true,
+    own: false,
+    sort: 1,
+  },
+  { id: 'ch3', text: 'Перфоратор с бурами и удлинителем', done: false, own: false, sort: 2 },
+  {
+    id: 'ch4',
+    text: 'Страховочная система и каска: работы на высоте',
+    done: false,
+    own: false,
+    sort: 3,
+  },
+  { id: 'ch5', text: 'Чехлы на мебель и пылесос', done: false, own: true, sort: 4 },
+];
+
+export const docs: readonly OrderDocCard[] = [
+  {
+    id: 'd1',
+    kind: 'contract',
+    name: 'Договор 1059.pdf',
+    url: '/api/admin/orders/o1/docs/d1/file',
+    sizeBytes: 184_320,
+    createdAt: '2026-08-26T15:00:00.000Z',
+  },
+  {
+    id: 'd2',
+    kind: 'measure',
+    name: 'Замерный лист.jpg',
+    url: '/api/admin/orders/o1/docs/d2/file',
+    sizeBytes: 921_600,
+    createdAt: '2026-08-27T09:10:00.000Z',
+  },
+];
+
+export const photos: readonly OrderPhotoCard[] = [
+  { id: 'p1', stage: 'before', url: '/api/media/before-1.jpg', sort: 0 },
+  { id: 'p2', stage: 'after', url: '/api/media/after-1.jpg', sort: 0 },
+  { id: 'p3', stage: 'after', url: '/api/media/after-2.jpg', sort: 1 },
+];
+
+export const history: readonly OrderHistoryEntry[] = [
+  {
+    id: 'h3',
+    text: 'Выполнен',
+    author: 'Дмитрий Соколов',
+    createdAt: '2026-08-28T12:40:00.000Z',
+  },
+  {
+    id: 'h2',
+    text: 'Взят в работу',
+    author: 'Дмитрий Соколов',
+    createdAt: '2026-08-28T08:05:00.000Z',
+  },
+  { id: 'h1', text: 'Наряд заведён', author: null, createdAt: '2026-08-26T14:00:00.000Z' },
+];
+
+/** Наряд со всей работой: чеклист, бумаги, снимки и история. */
+export const orderDetails: OrderDetails = {
+  ...order,
+  extraWork: 'Два метра трассы сверх сметы, кронштейн усиленный',
+  report: 'Блок повешен, вакуумирование 20 минут, проверен на охлаждение. Клиенту показан пульт.',
+  resultAt: '2026-08-28T12:35:00.000Z',
+  checklist,
+  docs,
+  photos,
+  history,
+};
+
+/** 🔴 То же глазами монтажника: ни заметки владельца, ни истории наряда. */
+export const installerDetails: OrderDetails = {
+  ...installerOrder,
+  extraWork: null,
+  report: null,
+  resultAt: null,
+  checklist,
+  docs,
+  photos,
+};
+
+/** Занятость: день закрыт целиком и отдельное окно у второго монтажника. */
+export const blocks: readonly OrderBlock[] = [
+  {
+    userId: selfEmployedInstaller.id,
+    repeat: 'once',
+    day: '2026-08-28',
+    weekday: null,
+    fromMin: null,
+    toMin: null,
+    reason: 'Семейные дела',
+  },
+  {
+    userId: staffInstaller.id,
+    repeat: 'once',
+    day: '2026-08-28',
+    weekday: null,
+    fromMin: 14 * 60,
+    toMin: 16 * 60,
+    reason: 'Врач',
+  },
+];
+
+export const acceptingWorkApi: OrderWorkApi = {
+  saveResult: async () => ({ ok: true }),
+  addItem: async () => ({ ok: true }),
+  setItemDone: async () => ({ ok: true }),
+  removeItem: async () => ({ ok: true }),
+  rebuildChecklist: async () => ({ ok: true }),
+  addDoc: async () => ({ ok: true }),
+  removeDoc: async () => ({ ok: true }),
+  addPhoto: async () => ({ ok: true }),
+  removePhoto: async () => ({ ok: true }),
+};
+
+const refused = { ok: false, message: 'Сервер не принял изменения. Попробуйте ещё раз' } as const;
+
+export const failingWorkApi: OrderWorkApi = {
+  saveResult: async () => refused,
+  addItem: async () => ({ ok: false, message: 'Напишите, что взять', field: 'text' }),
+  setItemDone: async () => refused,
+  removeItem: async () => ({
+    ok: false,
+    message: 'Этот пункт собран из наряда — уберите его правкой наряда, а не из списка',
+  }),
+  rebuildChecklist: async () => refused,
+  addDoc: async () => ({
+    ok: false,
+    message: 'Документ принимается в PDF или снимком в JPEG, PNG и WebP',
+    field: 'file',
+  }),
+  removeDoc: async () => refused,
+  addPhoto: async () => ({ ok: false, message: 'Фото места установки загружает владелец' }),
+  removePhoto: async () => refused,
+};
+
+export const pendingWorkApi: OrderWorkApi = {
+  saveResult: stuck,
+  addItem: stuck,
+  setItemDone: stuck,
+  removeItem: stuck,
+  rebuildChecklist: stuck,
+  addDoc: stuck,
+  removeDoc: stuck,
+  addPhoto: stuck,
+  removePhoto: stuck,
+};

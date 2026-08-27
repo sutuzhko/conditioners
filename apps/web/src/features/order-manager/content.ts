@@ -1,15 +1,17 @@
 /** Подписи раздела заказов. */
 import type {
+  OrderDocKind,
   OrderEquip,
   OrderPeriod,
   OrderStatus,
   OrderTab,
   OrderType,
   PaymentMode,
+  PhotoStage,
   UnitSource,
 } from '@/entities/order/model';
 import { timeOf } from '@/shared/lib/calendar';
-import { formatDateShort, formatMoney } from '@/shared/lib/format';
+import { formatDateShort, formatDateTime, formatMoney } from '@/shared/lib/format';
 import { plural } from '@/shared/lib/plural';
 import type { BadgeVariant } from '@/shared/ui';
 
@@ -76,6 +78,24 @@ export const SOURCE_TITLE: Record<UnitSource, string> = {
 export const SOURCE_SHORT: Record<UnitSource, string> = {
   ours: 'наше',
   client: 'клиента',
+};
+
+export const ORDER_DOC_KIND_TITLE: Record<OrderDocKind, string> = {
+  contract: 'Договор',
+  warranty: 'Гарантийный талон',
+  act: 'Акт выполненных работ',
+  invoice: 'Счёт',
+  measure: 'Замерный лист',
+  other: 'Другое',
+};
+
+/**
+ * Этап съёмки назван работой, а не временем: «до» и «после» сами по себе
+ * ничего не говорят человеку, который открыл наряд впервые.
+ */
+export const PHOTO_STAGE_TITLE: Record<PhotoStage, string> = {
+  before: 'Место установки',
+  after: 'Выполненные работы',
 };
 
 export const PAYMENT_TITLE: Record<PaymentMode, string> = {
@@ -225,9 +245,82 @@ export const orderManagerContent = {
   serverError: 'Сервер не принял изменения. Попробуйте ещё раз',
   invalid: 'Проверьте подсвеченные поля',
 
+  // ---------- Наряд в работе ----------
+
+  workTabsLabel: 'Работа с нарядом',
+  tabOrder: 'Наряд',
+  tabChecklist: 'Чеклист выезда',
+  tabFiles: 'Документы и фото',
+
+  resultTitle: 'Итог работ',
+  resultHint:
+    'Что сделали по факту. Плановую сумму итог не меняет — её решает владелец в карточке наряда.',
+  extraWork: 'Доп. работы и материалы',
+  extraWorkHint: 'Что добавилось на объекте: лишние метры трассы, кронштейн, помпа',
+  report: 'Отчёт о выезде',
+  reportHint: 'Что сделано, что проверено, о чём предупредили клиента',
+  resultAt: (iso: string): string => `Заполнен ${formatDateShort(iso)}`,
+  resultEmpty: 'Итог ещё не заполняли',
+  resultSave: 'Сохранить итог',
+  resultSaving: 'Сохраняем…',
+  resultSaved: 'Итог сохранён',
+
+  checklistTitle: 'Чеклист выезда',
+  checklistHint:
+    'Собран из наряда: тип работ, позиции, штробление, высотные работы и оплата наличными. Отметьте при сборах, недостающее допишите.',
+  checklistEmpty: 'Чеклист пуст. Соберите его из наряда — или допишите свои пункты.',
+  checklistProgress: (done: number, total: number): string => `Собрано ${done} из ${total}`,
+  checklistAdd: 'Добавить свой пункт',
+  checklistAddLabel: 'Что ещё взять',
+  checklistAddPlaceholder: 'Чехлы на мебель',
+  checklistRebuild: 'Пересобрать из наряда',
+  checklistRebuilding: 'Пересобираем…',
+  checklistRebuildHint: 'Отметки и дописанные пункты сохранятся.',
+  checklistOwn: 'свой пункт',
+  checklistRemove: (text: string): string => `Удалить пункт «${text}»`,
+
+  docsTitle: 'Документы',
+  docsHint: 'Договор, акт, гарантийный талон, счёт и замерный лист. Открываются только из панели.',
+  docsEmpty: 'Документов пока нет.',
+  docsEmptyInstaller: 'Документов по этому наряду пока нет.',
+  docKind: 'Вид документа',
+  docFile: 'Файл',
+  docFileHint: 'PDF или снимок в JPEG, PNG, WebP',
+  docAdd: 'Приложить документ',
+  docAdding: 'Загружаем…',
+  docRemove: (name: string): string => `Удалить документ «${name}»`,
+  docRemoveAsk: 'Удалить документ?',
+  docRemoveText: 'Файл удалится вместе с записью. Восстановить его будет нечем.',
+  docRemoveConfirm: 'Удалить',
+  docOpen: (name: string): string => `Открыть «${name}»`,
+  docSize: (bytes: number): string => `${Math.max(Math.round(bytes / 1024), 1)} КБ`,
+
+  photosTitle: 'Фотографии',
+  photosHintOwner:
+    'Фото места установки грузите до выезда — монтажник увидит его у себя. Фото работ приходят с объекта.',
+  photosHintInstaller: 'Место установки — от владельца. Выполненные работы снимаете и грузите вы.',
+  photoAdd: (stage: string): string => `Добавить фото: ${stage.toLocaleLowerCase('ru-RU')}`,
+  photoAdding: 'Загружаем…',
+  photoEmpty: 'Снимков нет',
+  photoAlt: (stage: string, index: number): string => `${stage}, снимок ${index}`,
+  photoRemove: (stage: string, index: number): string =>
+    `Удалить снимок ${index}: ${stage.toLocaleLowerCase('ru-RU')}`,
+  photoRemoveAsk: 'Удалить снимок?',
+  photoRemoveText: 'Фотография удалится вместе с файлом.',
+  photoRemoveConfirm: 'Удалить',
+
+  historyTitle: 'История наряда',
+  historyHint: 'Кто и когда менял статус, кого назначили, когда заполнили итог.',
+  historyEmpty: 'Записей пока нет.',
+  historyAuthorless: 'Автор удалён из панели',
+
+  /** 🔴 Занятость предупреждает, а не запрещает (ADR-115). */
+  busyLabel: 'Монтажник занят',
+
   /** Даты и время — по Москве: работы идут в Туле, а не в поясе того, кто смотрит. */
   date: (iso: string): string => formatDateShort(iso),
   clock: (iso: string): string => timeOf(new Date(iso)),
+  stamp: (iso: string): string => formatDateTime(iso),
   money: (value: number): string => formatMoney(value),
 
   /** Длительность словами: «3 ч», «1 ч 30 мин», «45 мин». */

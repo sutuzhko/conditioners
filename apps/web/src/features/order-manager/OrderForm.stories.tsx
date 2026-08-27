@@ -5,6 +5,7 @@ import { OrderForm } from './OrderForm';
 import { orderManagerContent as texts } from './content';
 import {
   acceptingApi,
+  blocks,
   clients,
   draft,
   failingApi,
@@ -12,6 +13,7 @@ import {
   order,
   pendingApi,
   staffDraft,
+  staffInstaller,
   unassignedDraft,
 } from './fixtures';
 
@@ -94,4 +96,20 @@ export const Сохранено: Story = {
 /** Базы ещё нет: клиента выбрать не из кого — наряд не заведёшь. */
 export const БезКлиентов: Story = {
   args: { clients: [], installers: [] },
+};
+
+/**
+ * 🔴 Занятость предупреждает, а не запрещает (ADR-115). День монтажника
+ * закрыт целиком — кнопка «Завести наряд» при этом остаётся рабочей.
+ */
+export const МонтажникЗанятВесьДень: Story = {
+  args: { blocks, initial: draft },
+};
+
+/** Отлучка на часы: предупреждение появляется, только когда наряд в неё попадает. */
+export const МонтажникЗанятЧасы: Story = {
+  args: {
+    blocks,
+    initial: { ...draft, installerId: staffInstaller.id, time: '14:30' },
+  },
 };

@@ -1,45 +1,62 @@
 /** Раздел заказов: типы представления. Доменные схемы — в `entities/order`. */
 import type {
   OrderCard,
+  OrderChecklistCard,
+  OrderDocCard,
+  OrderDocKind,
   OrderEquip,
   OrderInstallerRef,
   OrderPeriod,
+  OrderPhotoCard,
   OrderStatus,
   OrderTab,
   OrderType,
   PaymentMode,
+  PhotoStage,
   UnitSource,
 } from '@/entities/order/model';
 import { ORDER_EQUIPS, PAYMENT_MODES, UNIT_SOURCES } from '@/entities/order/model';
+import type { DayBlockLike } from '@/entities/crm/lib/busy';
 import { dayKeyOf, timeOf, todayKey, type DayKey } from '@/shared/lib/calendar';
 import { deductionReducesFee, type Employment } from '@/shared/lib/employment';
 import type { Page } from '@/shared/lib/paging';
 
 export type {
   OrderCard,
+  OrderChecklistCard,
   OrderClientRef,
+  OrderDetails,
+  OrderDocCard,
+  OrderDocKind,
   OrderEquip,
+  OrderHistoryEntry,
   OrderInstallerRef,
   OrderPeriod,
+  OrderPhotoCard,
   OrderStatus,
   OrderTab,
   OrderType,
   OrderUnitCard,
   OrderUnitInput,
   PaymentMode,
+  PhotoStage,
   UnitSource,
 } from '@/entities/order/model';
 
 export {
   INSTALLER_STATUSES,
+  ORDER_DOC_KINDS,
   ORDER_EQUIPS,
   ORDER_PERIODS,
   ORDER_STATUSES,
   ORDER_TABS,
   ORDER_TYPES,
   PAYMENT_MODES,
+  PHOTO_STAGES,
   UNIT_SOURCES,
+  checklistItemCreateSchema,
   installerMaySetStatus,
+  isOrderDocKind,
   isOrderPeriod,
   isOrderStatus,
   isOrderTab,
@@ -391,3 +408,72 @@ export type OrderApi = {
   /** Отдельным действием: монтажнику доступен только статус, и только он. */
   readonly setStatus: (id: string, status: OrderStatus) => Promise<OrderResult>;
 };
+
+// ---------- Наряд в работе ----------
+
+/**
+ * Занятость монтажника в том виде, в каком её читает форма наряда.
+ *
+ * `userId` рядом с записью обязателен: занятость личная, и складывать окна
+ * разных людей нельзя — «Дмитрий с 10 до 12» и «Сергей с 11 до 14» это два
+ * занятых человека, а не один занятый с 10 до 14 (ADR-115).
+ */
+export type OrderBlock = DayBlockLike & { readonly userId: string };
+
+/** Итог работ полями формы: строки, как их вводит человек. */
+export type OrderResultDraft = {
+  readonly extraWork: string;
+  readonly report: string;
+};
+
+export function resultDraftOf(order: {
+  readonly extraWork: string | null;
+  readonly report: string | null;
+}): OrderResultDraft {
+  return { extraWork: order.extraWork ?? '', report: order.report ?? '' };
+}
+
+/** Заполнен ли итог: по этому же признаку сервер ставит и снимает время. */
+export function resultFilled(draft: OrderResultDraft): boolean {
+  return draft.extraWork.trim() !== '' || draft.report.trim() !== '';
+}
+
+/**
+ * Действия наряда в работе. Вынесены интерфейсом: истории и тесты подставляют
+ * свои, не поднимая сеть.
+ */
+export type OrderWorkApi = {
+  readonly saveResult: (draft: OrderResultDraft) => Promise<OrderResult>;
+  readonly addItem: (text: string) => Promise<OrderResult>;
+  readonly setItemDone: (itemId: string, done: boolean) => Promise<OrderResult>;
+  readonly removeItem: (itemId: string) => Promise<OrderResult>;
+  readonly rebuildChecklist: () => Promise<OrderResult>;
+  readonly addDoc: (kind: OrderDocKind, file: File) => Promise<OrderResult>;
+  readonly removeDoc: (docId: string) => Promise<OrderResult>;
+  readonly addPhoto: (stage: PhotoStage, file: File) => Promise<OrderResult>;
+  readonly removePhoto: (photoId: string) => Promise<OrderResult>;
+};
+
+/** Фотографии, разложенные по этапам: «до» и «после» — разные колонки. */
+export function photosOfStage(
+  photos: readonly OrderPhotoCard[],
+  stage: PhotoStage,
+): readonly OrderPhotoCard[] {
+  return photos.filter((photo) => photo.stage === stage);
+}
+
+/** Документы одного вида идут вместе: договоров бывает несколько. */
+export function docsOfKind(
+  docs: readonly OrderDocCard[],
+  kind: OrderDocKind,
+): readonly OrderDocCard[] {
+  return docs.filter((doc) => doc.kind === kind);
+}
+
+/** Сколько пунктов чеклиста собрано: подпись «7 из 12» считается один раз. */
+export function checklistProgress(items: readonly OrderChecklistCard[]): {
+  readonly done: number;
+  readonly total: number;
+} {
+  return { done: items.filter((item) => item.done).length, total: items.length };
+}

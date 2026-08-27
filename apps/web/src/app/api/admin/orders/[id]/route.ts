@@ -52,7 +52,7 @@ export const PATCH = withAdmin(async (request, context: Context, session) => {
   const parsed = orderUpdateSchema.safeParse(body);
   if (!parsed.success) return validationError(parsed.error);
 
-  return json(await update(id, parsed.data));
+  return json(await update(id, parsed.data, session.userId));
 });
 
 export const DELETE = withOwner(async (_request, context: Context) => {

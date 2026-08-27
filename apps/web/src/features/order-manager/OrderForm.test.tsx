@@ -6,6 +6,7 @@ import { OrderForm } from './OrderForm';
 import { DEDUCTION_NOTE, orderManagerContent as texts } from './content';
 import {
   acceptingApi,
+  blocks,
   clients,
   draft,
   failingApi,
@@ -13,6 +14,7 @@ import {
   order,
   pendingApi,
   staffDraft,
+  staffInstaller,
   unassignedDraft,
 } from './fixtures';
 
@@ -219,5 +221,73 @@ describe('Форма наряда', () => {
       order.id,
       expect.objectContaining({ units: [expect.objectContaining({ equip: 'conditioner' })] }),
     );
+  });
+});
+
+/**
+ * 🔴 Занятость предупреждает, а не запрещает (ADR-115): срочный ремонт в
+ * июльскую жару важнее запрета, и решение остаётся за владельцем.
+ */
+describe('Форма наряда: занятость монтажника', () => {
+  it('предупреждает, когда день выбранного монтажника закрыт целиком', () => {
+    render(<OrderForm {...lists} blocks={blocks} initial={draft} api={acceptingApi} />);
+
+    /* Наряд назначен на 28 августа самозанятому — у него на этот день
+       заведена занятость без окна, то есть весь день. */
+    expect(screen.getByText(/Дмитрий Соколов —/)).toBeInTheDocument();
+  });
+
+  it('🔴 не запрещает: кнопка отправки остаётся рабочей', async () => {
+    const user = userEvent.setup();
+    const create = vi.fn(async () => ({ ok: true, id: 'o9' }) as const);
+
+    render(
+      <OrderForm {...lists} blocks={blocks} initial={draft} api={{ ...acceptingApi, create }} />,
+    );
+
+    expect(screen.getByRole('button', { name: texts.add })).toBeEnabled();
+
+    await user.click(screen.getByRole('button', { name: texts.add }));
+
+    expect(create).toHaveBeenCalled();
+  });
+
+  it('🔴 занятость личная: чужой закрытый день о выбранном монтажнике не говорит', async () => {
+    const user = userEvent.setup();
+
+    render(<OrderForm {...lists} blocks={blocks} initial={draft} api={acceptingApi} />);
+
+    /* Второй монтажник занят с 14 до 16, а наряд стоит на 11:00 — окно и
+       наряд не пересекаются, предупреждать не о чем. */
+    await user.selectOptions(screen.getByLabelText(texts.installer), staffInstaller.id);
+
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
+
+  it('предупреждает, когда наряд попадает в занятое окно по часам', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <OrderForm
+        {...lists}
+        blocks={blocks}
+        initial={{ ...draft, installerId: staffInstaller.id, time: '14:30' }}
+        api={acceptingApi}
+      />,
+    );
+
+    expect(screen.getByText(/Артём Белов —/)).toBeInTheDocument();
+
+    /* Сдвинули за границу окна — предупреждение уходит само. */
+    await user.clear(screen.getByLabelText(texts.time));
+    await user.type(screen.getByLabelText(texts.time), '17:00');
+
+    expect(screen.queryByText(/Артём Белов —/)).not.toBeInTheDocument();
+  });
+
+  it('без назначенного монтажника занятость не показывается: некого предупреждать', () => {
+    render(<OrderForm {...lists} blocks={blocks} initial={unassignedDraft} api={acceptingApi} />);
+
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
 });

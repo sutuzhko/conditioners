@@ -1,0 +1,102 @@
+/* Чеклист выезда: список сборов, отметки и свои пункты. */
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: baseline;
+}
+
+.title {
+  margin: 0;
+  margin-right: auto;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.progress {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+}
+
+.hint {
+  margin: 4px 0 14px;
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.empty {
+  margin: 0 0 14px;
+  color: var(--warn-ink);
+  font-size: var(--fs-caption);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  border-radius: var(--r-sm);
+  padding: 4px 8px;
+  min-width: 0;
+}
+
+.item:nth-child(odd) {
+  background: var(--bg-soft);
+}
+
+.check {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.addField {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.quiet {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.error {
+  margin: 12px 0 0;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  padding: 8px 12px;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}

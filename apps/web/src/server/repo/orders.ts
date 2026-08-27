@@ -12,21 +12,41 @@
 import { Prisma } from '@prisma/client';
 import type {
   Employment as DbEmployment,
+  OrderDocKind as DbDocKind,
   OrderEquip as DbEquip,
   OrderStatus as DbStatus,
   OrderType as DbType,
   PaymentMode as DbPayment,
+  PhotoStage as DbStage,
   UnitSource as DbSource,
 } from '@prisma/client';
 import { z } from 'zod';
 
 import {
+  buildChecklist,
+  planChecklist,
+  type ChecklistSource,
+} from '@/entities/order/lib/checklist';
+import {
+  ORDER_HISTORY_TEXT,
+  orderAssignHistory,
+  orderResultHistory,
+  orderStatusHistory,
+} from '@/entities/order/lib/history';
+import {
   installerMaySetStatus,
   TAB_STATUSES,
   type OrderCard,
+  type OrderChecklistCard,
   type OrderCreate,
+  type OrderDetails,
+  type OrderDocCard,
+  type OrderDocKind,
   type OrderEquip,
+  type OrderHistoryEntry,
   type OrderPeriod,
+  type OrderPhotoCard,
+  type OrderResultInput,
   type OrderStatus,
   type OrderTab,
   type OrderType,
@@ -34,6 +54,7 @@ import {
   type OrderUnitInput,
   type OrderUpdate,
   type PaymentMode,
+  type PhotoStage,
   type UnitSource,
 } from '@/entities/order/model';
 import type { AdminRole } from '@/entities/staff/model';
@@ -105,6 +126,30 @@ const SOURCE_TO_DB: Record<UnitSource, DbSource> = { ours: 'OURS', client: 'CLIE
 
 const SOURCE_FROM_DB: Record<DbSource, UnitSource> = { OURS: 'ours', CLIENT: 'client' };
 
+/* Словари документа и этапа съёмки экспортируются ради `repo/order-files`:
+   разворачивает их в базу он, но источник правды один. */
+export const DOC_KIND_TO_DB: Record<OrderDocKind, DbDocKind> = {
+  contract: 'CONTRACT',
+  warranty: 'WARRANTY',
+  act: 'ACT',
+  invoice: 'INVOICE',
+  measure: 'MEASURE',
+  other: 'OTHER',
+};
+
+const DOC_KIND_FROM_DB: Record<DbDocKind, OrderDocKind> = {
+  CONTRACT: 'contract',
+  WARRANTY: 'warranty',
+  ACT: 'act',
+  INVOICE: 'invoice',
+  MEASURE: 'measure',
+  OTHER: 'other',
+};
+
+export const STAGE_TO_DB: Record<PhotoStage, DbStage> = { before: 'BEFORE', after: 'AFTER' };
+
+export const STAGE_FROM_DB: Record<DbStage, PhotoStage> = { BEFORE: 'before', AFTER: 'after' };
+
 // ---------- Чтение ----------
 
 const unitSelect = {
@@ -145,8 +190,42 @@ const orderSelect = {
   comment: true,
   ownerNote: true,
   leadId: true,
+  extraWork: true,
+  report: true,
+  resultAt: true,
   units: { select: unitSelect, orderBy: { sort: 'asc' } },
   createdAt: true,
+} as const;
+
+/**
+ * Карточка наряда — то же плюс всё, что нажито работой.
+ *
+ * Отдельно от списка: восемь нарядов с историей, чеклистом и документами
+ * тянули бы за собой пять таблиц ради страницы, на которой ничего этого не
+ * видно.
+ */
+const detailsSelect = {
+  ...orderSelect,
+  checklist: {
+    select: { id: true, text: true, done: true, own: true, sort: true },
+    orderBy: { sort: 'asc' },
+  },
+  docs: {
+    select: { id: true, kind: true, name: true, url: true, sizeBytes: true, createdAt: true },
+    orderBy: { createdAt: 'asc' },
+  },
+  /* Порядок один на оба этапа: «до» и «после» разводит по колонкам карточка,
+     а сортировка двумя ключами здесь стоила бы кортежа в `as const`. */
+  photos: { select: { id: true, stage: true, url: true, sort: true }, orderBy: { sort: 'asc' } },
+  history: {
+    select: {
+      id: true,
+      text: true,
+      createdAt: true,
+      author: { select: { name: true, login: true } },
+    },
+    orderBy: { createdAt: 'desc' },
+  },
 } as const;
 
 type OrderUnitRow = {
@@ -187,8 +266,44 @@ type OrderRow = {
   comment: string | null;
   ownerNote: string | null;
   leadId: string | null;
+  extraWork: string | null;
+  report: string | null;
+  resultAt: Date | null;
   units: readonly OrderUnitRow[];
   createdAt: Date;
+};
+
+type ChecklistRow = {
+  id: string;
+  text: string;
+  done: boolean;
+  own: boolean;
+  sort: number;
+};
+
+type DocRow = {
+  id: string;
+  kind: DbDocKind;
+  name: string;
+  url: string;
+  sizeBytes: number;
+  createdAt: Date;
+};
+
+type PhotoRow = { id: string; stage: DbStage; url: string; sort: number };
+
+type HistoryRow = {
+  id: string;
+  text: string;
+  createdAt: Date;
+  author: { name: string | null; login: string } | null;
+};
+
+type OrderDetailsRow = OrderRow & {
+  checklist: readonly ChecklistRow[];
+  docs: readonly DocRow[];
+  photos: readonly PhotoRow[];
+  history: readonly HistoryRow[];
 };
 
 function toUnitCard(row: OrderUnitRow): OrderUnitCard {
@@ -241,6 +356,11 @@ function toCard(row: OrderRow, role: AdminRole): OrderCard {
     installerFee: row.installerFee,
     comment: row.comment,
     leadId: row.leadId,
+    /* Итог приходит обеим ролям: это отчёт монтажника о выезде, и он же его
+       заполняет — прятать от него собственный текст незачем. */
+    extraWork: row.extraWork,
+    report: row.report,
+    resultAt: row.resultAt === null ? null : row.resultAt.toISOString(),
     units: row.units.map(toUnitCard),
     createdAt: row.createdAt.toISOString(),
   };
@@ -256,6 +376,68 @@ function toCard(row: OrderRow, role: AdminRole): OrderCard {
   }
 
   return { ...shared, ...(payment === 'cash_to_installer' ? { price: row.price } : {}) };
+}
+
+/**
+ * 🔴 Адрес документа — закрытый маршрут панели, а не файл в томе загрузок.
+ *
+ * Договоры и акты — персональные данные клиента. Публичный `/api/media/{name}`
+ * отдаёт файл всякому, кто знает имя, и для них не годится: выдача обязана
+ * сверять сессию и принадлежность документа наряду (docs/CRM.md §9).
+ */
+export function orderDocUrl(orderId: string, docId: string): string {
+  return `/api/admin/orders/${orderId}/docs/${docId}/file`;
+}
+
+export function toChecklistCard(row: ChecklistRow): OrderChecklistCard {
+  return { id: row.id, text: row.text, done: row.done, own: row.own, sort: row.sort };
+}
+
+export function toDocCard(orderId: string, row: DocRow): OrderDocCard {
+  return {
+    id: row.id,
+    kind: DOC_KIND_FROM_DB[row.kind],
+    name: row.name,
+    url: orderDocUrl(orderId, row.id),
+    sizeBytes: row.sizeBytes,
+    createdAt: row.createdAt.toISOString(),
+  };
+}
+
+export function toPhotoCard(row: PhotoRow): OrderPhotoCard {
+  return { id: row.id, stage: STAGE_FROM_DB[row.stage], url: row.url, sort: row.sort };
+}
+
+function toHistoryEntry(row: HistoryRow): OrderHistoryEntry {
+  return {
+    id: row.id,
+    text: row.text,
+    /* Логин как запасная подпись: у заведённой второпях учётной записи имени
+       может не быть, а запись без автора читается как сделанная системой. */
+    author: row.author === null ? null : (row.author.name ?? row.author.login),
+    createdAt: row.createdAt.toISOString(),
+  };
+}
+
+/**
+ * 🔴 Карточка наряда под роль смотрящего.
+ *
+ * Чеклист, документы и фото приходят обеим ролям: это рабочий экран выезда.
+ * История — только владельцу: в ней лежат переназначения, то есть разговор
+ * владельца с людьми, а не работа монтажника (docs/CRM.md §6). Ключа `history`
+ * в ответе монтажника нет вовсе — как и у заметки владельца.
+ */
+function toDetails(row: OrderDetailsRow, role: AdminRole): OrderDetails {
+  const shared = {
+    ...toCard(row, role),
+    checklist: row.checklist.map(toChecklistCard),
+    docs: row.docs.map((doc) => toDocCard(row.id, doc)),
+    photos: row.photos.map(toPhotoCard),
+  };
+
+  if (role === 'owner') return { ...shared, history: row.history.map(toHistoryEntry) };
+
+  return shared;
 }
 
 // ---------- Список ----------
@@ -388,13 +570,38 @@ export async function list(params: OrderListParams, viewer: Viewer): Promise<Pag
  * из которого маршрут делает `404`. `403` подтвердил бы, что наряд с таким
  * адресом существует (docs/API.md §13).
  */
-export async function findById(id: string, viewer: Viewer): Promise<OrderCard | null> {
+export async function findById(id: string, viewer: Viewer): Promise<OrderDetails | null> {
   const row = await db.order.findFirst({
     where: { id, ...viewerWhere(viewer) },
-    select: orderSelect,
+    select: detailsSelect,
   });
 
-  return row === null ? null : toCard(row, viewer.role);
+  return row === null ? null : toDetails(row, viewer.role);
+}
+
+/**
+ * 🔴 Наряд, доступный смотрящему, — общая проверка для всего, что к наряду
+ * прикладывается: чеклиста, документов и фотографий.
+ *
+ * Тот же фильтр по исполнителю в самом запросе, что и у карточки: чужой наряд
+ * не отдаёт ни своих файлов, ни своего чеклиста, и отвечает `404`, а не
+ * `403`, — существование чужого наряда монтажника не касается (ADR-114).
+ */
+export type OrderAccess = {
+  readonly id: string;
+  readonly installerId: string | null;
+  readonly status: DbStatus;
+};
+
+export async function requireAccess(id: string, viewer: Viewer): Promise<OrderAccess> {
+  const row = await db.order.findFirst({
+    where: { id, ...viewerWhere(viewer) },
+    select: { id: true, installerId: true, status: true },
+  });
+
+  if (row === null) throw new ApiException('not_found', 'Наряд не найден');
+
+  return row;
 }
 
 /** Сколько работ в работе — цифра сводки панели. */
@@ -415,7 +622,7 @@ export async function countActive(): Promise<number> {
 async function assertRefs(
   clientId: string | undefined,
   installerId: string | null | undefined,
-): Promise<void> {
+): Promise<string | null> {
   if (clientId !== undefined) {
     const client = await db.client.findUnique({ where: { id: clientId }, select: { id: true } });
     if (client === null) {
@@ -423,15 +630,20 @@ async function assertRefs(
     }
   }
 
-  if (installerId !== undefined && installerId !== null) {
-    const installer = await db.adminUser.findUnique({
-      where: { id: installerId },
-      select: { id: true },
-    });
-    if (installer === null) {
-      throw new ApiException('validation_error', 'Такого монтажника нет в базе', 'installerId');
-    }
+  if (installerId === undefined || installerId === null) return null;
+
+  const installer = await db.adminUser.findUnique({
+    where: { id: installerId },
+    select: { id: true, name: true, login: true },
+  });
+  if (installer === null) {
+    throw new ApiException('validation_error', 'Такого монтажника нет в базе', 'installerId');
   }
+
+  /* Имя возвращается наверх, а не читается второй раз при записи истории:
+     «Назначен: Дмитрий Соколов» и проверка «такой монтажник есть» — один и
+     тот же поход в базу. */
+  return installer.name ?? installer.login;
 }
 
 function unitData(unit: OrderUnitInput, index: number): Prisma.OrderUnitCreateWithoutOrderInput {
@@ -445,6 +657,129 @@ function unitData(unit: OrderUnitInput, index: number): Prisma.OrderUnitCreateWi
     // Порядок задаёт форма: позиции перетаскивают, а не нумеруют руками.
     sort: index,
   };
+}
+
+// ---------- История и чеклист ----------
+
+/**
+ * 🔴 История пишется тем же кодом, который меняет наряд, и в той же
+ * транзакции.
+ *
+ * История, которую можно не записать, — это не история: наряд, сменивший
+ * статус при упавшей вставке записи, через месяц выглядит так, будто им никто
+ * не занимался (docs/CRM.md §3.3).
+ */
+async function writeHistory(
+  tx: Prisma.TransactionClient,
+  orderId: string,
+  authorId: string,
+  lines: readonly string[],
+): Promise<void> {
+  if (lines.length === 0) return;
+
+  await tx.orderHistory.createMany({
+    data: lines.map((text) => ({ orderId, authorId, text })),
+  });
+}
+
+/**
+ * Наряд глазами сборки чеклиста: ровно те поля, из которых он собирается.
+ *
+ * Тип структурный, а не `OrderRow`: пересборке кнопкой незачем поднимать из
+ * базы клиента, деньги и заметки — ей нужны позиции и четыре поля наряда.
+ */
+export type ChecklistOrderRow = {
+  readonly id: string;
+  readonly type: DbType;
+  readonly heightWorks: boolean;
+  readonly payment: DbPayment;
+  readonly price: number;
+  readonly units: readonly {
+    readonly equip: DbEquip;
+    readonly model: string | null;
+    readonly source: DbSource;
+    readonly trassaM: number | null;
+    readonly diameter: string | null;
+    readonly shtrob: boolean;
+  }[];
+};
+
+/** Словари базы разворачиваются в домен: считает список чистая функция. */
+function checklistSourceOf(row: ChecklistOrderRow): ChecklistSource {
+  return {
+    type: TYPE_FROM_DB[row.type],
+    heightWorks: row.heightWorks,
+    payment: PAYMENT_FROM_DB[row.payment],
+    price: row.price,
+    units: row.units.map((unit) => ({
+      equip: EQUIP_FROM_DB[unit.equip],
+      model: unit.model,
+      source: SOURCE_FROM_DB[unit.source],
+      trassaM: unit.trassaM,
+      diameter: unit.diameter,
+      shtrob: unit.shtrob,
+    })),
+  };
+}
+
+/**
+ * Пересборка чеклиста по данным наряда.
+ *
+ * 🔴 Экспортируется ради `repo/order-files`: пересобрать чеклист можно и
+ * кнопкой, и правкой наряда, и обе дороги обязаны вести к одному расчёту.
+ * Что именно сохраняется, а что заводится заново, решает чистая функция
+ * домена — здесь только применение её плана.
+ *
+ * Работает на уже прочитанной записи, а не перечитывает наряд: и заведение, и
+ * правка возвращают её из той же транзакции, и лишний запрос в базу ради
+ * данных, которые уже в руках, был бы просто лишним.
+ */
+export async function applyChecklist(
+  tx: Prisma.TransactionClient,
+  order: ChecklistOrderRow,
+): Promise<void> {
+  const existing = await tx.orderChecklistItem.findMany({
+    where: { orderId: order.id },
+    orderBy: { sort: 'asc' },
+    select: { id: true, text: true, own: true },
+  });
+
+  const plan = planChecklist(buildChecklist(checklistSourceOf(order)), existing);
+
+  if (plan.remove.length > 0) {
+    await tx.orderChecklistItem.deleteMany({ where: { id: { in: [...plan.remove] } } });
+  }
+
+  /* Порядок правится по одному: `updateMany` умеет ставить одно значение
+     всем сразу, а здесь у каждого пункта своё место в списке. */
+  for (const item of plan.keep) {
+    await tx.orderChecklistItem.update({ where: { id: item.id }, data: { sort: item.sort } });
+  }
+
+  if (plan.create.length > 0) {
+    await tx.orderChecklistItem.createMany({
+      data: plan.create.map((item) => ({ orderId: order.id, text: item.text, sort: item.sort })),
+    });
+  }
+}
+
+/**
+ * Правка задела чеклист: тип работ, высотные работы, оплата, сумма или
+ * позиции. Всё остальное на список сборов не влияет, и трогать его незачем.
+ *
+ * Пересборка идёт сама, а не кнопкой: наряд, в который добавили вторую
+ * позицию, обязан дать вторую трассу в чеклисте — иначе монтажник уедет с
+ * материалами на один блок и узнает об этом на объекте. Отметки и дописанные
+ * пункты при этом сохраняются (`planChecklist`).
+ */
+function touchesChecklist(input: OrderUpdate): boolean {
+  return (
+    input.type !== undefined ||
+    input.heightWorks !== undefined ||
+    input.payment !== undefined ||
+    input.price !== undefined ||
+    input.units !== undefined
+  );
 }
 
 /** Ключ счётчика номеров в `Setting` — docs/API.md §13, CRM.md §4. */
@@ -485,11 +820,15 @@ async function nextNumber(tx: Prisma.TransactionClient): Promise<number> {
  * транзакции, а владелец диктует номер клиенту по телефону и ждёт от
  * нумерации непрерывности (CRM.md §4).
  */
-async function createRow(input: OrderCreate): Promise<OrderRow> {
+async function createRow(
+  input: OrderCreate,
+  authorId: string,
+  installerName: string | null,
+): Promise<OrderRow> {
   return db.$transaction(async (tx) => {
     const number = await nextNumber(tx);
 
-    return tx.order.create({
+    const row = await tx.order.create({
       data: {
         number,
         type: TYPE_TO_DB[input.type],
@@ -518,6 +857,19 @@ async function createRow(input: OrderCreate): Promise<OrderRow> {
       },
       select: orderSelect,
     });
+
+    /* Первая запись истории — та же транзакция, что и сам наряд: заведение
+       без автора и времени через полгода не отличить от чужой правки. */
+    await writeHistory(tx, row.id, authorId, [
+      ORDER_HISTORY_TEXT.created,
+      ...(input.installerId === null ? [] : [orderAssignHistory(installerName)]),
+    ]);
+
+    /* Чеклист собирается сразу: наряд, заведённый вечером, монтажник
+       открывает утром — и список сборов должен быть там уже готовым. */
+    await applyChecklist(tx, row);
+
+    return row;
   });
 }
 
@@ -530,17 +882,17 @@ async function createRow(input: OrderCreate): Promise<OrderRow> {
  * Повтор перечитывает счётчик и берёт следующий. Одного достаточно: наряды
  * заводит один человек, а не толпа.
  */
-export async function create(input: OrderCreate): Promise<OrderCard> {
-  await assertRefs(input.clientId, input.installerId);
+export async function create(input: OrderCreate, authorId: string): Promise<OrderCard> {
+  const installerName = await assertRefs(input.clientId, input.installerId);
 
   try {
-    return toCard(await createRow(input), 'owner');
+    return toCard(await createRow(input, authorId, installerName), 'owner');
   } catch (error) {
     const numberRace =
       error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002';
     if (!numberRace) throw error;
 
-    return toCard(await createRow(input), 'owner');
+    return toCard(await createRow(input, authorId, installerName), 'owner');
   }
 }
 
@@ -585,6 +937,42 @@ function nextStatus(
   return undefined;
 }
 
+/** Состояние наряда до правки: из него выводятся и статус, и записи истории. */
+type CurrentOrder = {
+  readonly status: DbStatus;
+  readonly installerId: string | null;
+  readonly deductionSum: number;
+  readonly deductionReason: string | null;
+};
+
+/**
+ * Что записать в историю по итогам правки.
+ *
+ * Назначение и снятие исполнителя — своя запись; смена статуса — своя. Но
+ * когда статус подтянулся за исполнителем сам (`assigned` при назначении),
+ * второй строки не будет: «Назначен: Дмитрий Соколов» и «Назначен» подряд
+ * читаются как сбой, а не как две новости.
+ */
+function updateHistory(
+  current: CurrentOrder,
+  input: OrderUpdate,
+  status: DbStatus | undefined,
+  installerName: string | null,
+): readonly string[] {
+  const lines: string[] = [];
+
+  if (input.installerId !== undefined && input.installerId !== current.installerId) {
+    lines.push(orderAssignHistory(input.installerId === null ? null : installerName));
+  }
+
+  const statusChanged = status !== undefined && status !== current.status;
+  if (statusChanged && input.status !== undefined) {
+    lines.push(orderStatusHistory(input.status));
+  }
+
+  return lines;
+}
+
 /**
  * Правка наряда владельцем. Любое подмножество полей; непереданное не
  * затирается.
@@ -593,14 +981,14 @@ function nextStatus(
  * (docs/API.md §4): отдельных маршрутов у позиции нет, и «дописать одну»
  * означало бы вторую модель редактирования того же списка.
  */
-export async function update(id: string, input: OrderUpdate): Promise<OrderCard> {
+export async function update(id: string, input: OrderUpdate, authorId: string): Promise<OrderCard> {
   const current = await db.order.findUnique({
     where: { id },
-    select: { status: true, deductionSum: true, deductionReason: true },
+    select: { status: true, installerId: true, deductionSum: true, deductionReason: true },
   });
   if (current === null) throw new ApiException('not_found', 'Наряд не найден');
 
-  await assertRefs(input.clientId, input.installerId);
+  const installerName = await assertRefs(input.clientId, input.installerId);
   assertDeduction(current, input);
 
   const status = nextStatus(current, input);
@@ -619,7 +1007,7 @@ export async function update(id: string, input: OrderUpdate): Promise<OrderCard>
       });
     }
 
-    return tx.order.update({
+    const updated = await tx.order.update({
       where: { id },
       data: {
         ...(input.type === undefined ? {} : { type: TYPE_TO_DB[input.type] }),
@@ -644,6 +1032,14 @@ export async function update(id: string, input: OrderUpdate): Promise<OrderCard>
       },
       select: orderSelect,
     });
+
+    /* 🔴 История — в той же транзакции, что и правка: откатилась правка —
+       откатилась и запись о ней. */
+    await writeHistory(tx, id, authorId, updateHistory(current, input, status, installerName));
+
+    if (touchesChecklist(input)) await applyChecklist(tx, updated);
+
+    return updated;
   });
 
   return toCard(row, 'owner');
@@ -684,13 +1080,57 @@ export async function setStatusByInstaller(
     );
   }
 
-  const row = await db.order.update({
-    where: { id },
-    data: { status: STATUS_TO_DB[status] },
-    select: orderSelect,
+  const row = await db.$transaction(async (tx) => {
+    /* 🔴 Та же транзакция: «взял в работу» без записи о том, кто и когда его
+       взял, — ровно та история, ради которой её и заводили. */
+    await writeHistory(tx, id, installerId, [orderStatusHistory(status)]);
+
+    return tx.order.update({
+      where: { id },
+      data: { status: STATUS_TO_DB[status] },
+      select: orderSelect,
+    });
   });
 
   return toCard(row, 'installer');
+}
+
+/**
+ * 🔴 Итог работ: что сделали сверх наряда и отчёт о выезде.
+ *
+ * Заполняет и владелец, и монтажник — это его отчёт. Плановых полей итог не
+ * трогает вовсе: сколько взять с клиента, решает владелец (docs/CRM.md §3.3),
+ * и «дописал два метра трассы» не должно превращаться в другую цену заказа.
+ *
+ * Чужой наряд монтажнику недоступен и здесь — `requireAccess` не найдёт его и
+ * ответит `404`, как и карточка.
+ */
+export async function setResult(
+  id: string,
+  input: OrderResultInput,
+  viewer: Viewer,
+): Promise<OrderDetails> {
+  await requireAccess(id, viewer);
+
+  const filled = input.extraWork !== null || input.report !== null;
+
+  const row = await db.$transaction(async (tx) => {
+    await writeHistory(tx, id, viewer.userId, [orderResultHistory(filled)]);
+
+    return tx.order.update({
+      where: { id },
+      data: {
+        extraWork: input.extraWork,
+        report: input.report,
+        /* Время итога ставит сервер: «когда заполнен» — это факт, а не поле
+           формы, и часы на телефоне монтажника к нему отношения не имеют. */
+        resultAt: filled ? new Date() : null,
+      },
+      select: detailsSelect,
+    });
+  });
+
+  return toDetails(row, viewer.role);
 }
 
 /** Удаление наряда. Позиции уходят каскадом — своей жизни у них нет. */

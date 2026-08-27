@@ -117,6 +117,12 @@
   font-size: var(--fs-dense);
 }
 
+/* Предупреждение о занятости стоит под датой и временем — там, где решают,
+   назначать ли выезд, а не в конце формы. */
+.busy {
+  margin-top: 12px;
+}
+
 @media (width < 600px) {
   .grid {
     grid-template-columns: minmax(0, 1fr);

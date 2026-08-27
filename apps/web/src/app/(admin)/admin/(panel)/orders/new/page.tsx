@@ -5,7 +5,9 @@ import { orderManagerContent as texts } from '@/features/order-manager';
 import { requireOwnerPage } from '@/server/guards';
 import { listInstallers } from '@/server/repo/admin-users';
 import { listAll } from '@/server/repo/clients';
+import { todayKey } from '@/shared/lib/calendar';
 
+import { loadBlocks } from '../blocks';
 import { OrderEditor } from '../OrderEditor';
 import styles from '../page.module.css';
 
@@ -16,11 +18,17 @@ export const dynamic = 'force-dynamic';
 /** Заведение наряда. Только владелец: монтажник наряды себе не выписывает. */
 export default async function AdminOrderNewPage() {
   /* Раздел владельца: проверка до чтения данных (ADR-095). */
-  await requireOwnerPage();
+  const session = await requireOwnerPage();
 
   /* Только работающие: назначать наряд человеку, у которого закрыт доступ,
      значит отправить его в пустоту — он не увидит наряд в панели. */
-  const [clients, installers] = await Promise.all([listAll(), listInstallers(true)]);
+  const [clients, installers, blocks] = await Promise.all([
+    listAll(),
+    listInstallers(true),
+    /* Занятость вокруг сегодняшнего дня: наряд заводят, пока клиент на линии,
+       и чаще всего на ближайшие дни. */
+    loadBlocks(session, todayKey()),
+  ]);
 
   return (
     <div className={styles.page}>
@@ -45,6 +53,7 @@ export default async function AdminOrderNewPage() {
           login: staff.login,
           employment: staff.employment,
         }))}
+        blocks={blocks}
       />
     </div>
   );

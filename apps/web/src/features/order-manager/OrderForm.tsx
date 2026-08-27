@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent } from 'react';
 
+import { busyAt, busyOn, minutesOfTime } from '@/entities/crm/lib/busy';
+import { BusyNote } from '@/entities/crm/ui';
 import { formatPhone } from '@/shared/lib/format';
 import {
   Button,
@@ -38,6 +40,7 @@ import {
   orderCreateSchema,
   orderPayload,
   type OrderApi,
+  type OrderBlock,
   type OrderClientRef,
   type OrderDraft,
   type OrderField,
@@ -57,6 +60,11 @@ export interface OrderFormProps {
   /** Списки приходят пропсами: форма ничего не запрашивает сама. */
   readonly clients: readonly OrderClientRef[];
   readonly installers: readonly OrderInstallerRef[];
+  /**
+   * Занятость всех, кого можно назначить: свои дни человек заводит себе сам
+   * (ADR-115). Форма отбирает из них записи выбранного монтажника.
+   */
+  readonly blocks?: readonly OrderBlock[] | undefined;
   readonly title?: string | undefined;
   readonly hint?: string | undefined;
   /** Номер заведённого наряда — по нему страница уходит в его карточку. */
@@ -94,6 +102,7 @@ export function OrderForm({
   initial,
   clients,
   installers,
+  blocks,
   title,
   hint,
   onSaved,
@@ -210,6 +219,19 @@ export function OrderForm({
     installers.find((installer) => installer.id === draft.installerId) ?? null;
   const deduction = deductionModeOf(chosenInstaller);
 
+  /* 🔴 Занятость личная: складывать окна разных людей нельзя — «Дмитрий с 10
+     до 12» и «Сергей с 11 до 14» это два занятых человека, а не один занятый
+     с 10 до 14 (ADR-115). Поэтому сначала отбор по выбранному монтажнику.
+
+     Пересчитывается на каждый ввод: назначение на закрытый день должно
+     предупреждать сразу, а не после отправки. Закрытый целиком день
+     предупреждает всегда, отлучка на часы — только когда наряд в них
+     попадает: запись к врачу с 14 до 16 не повод мешать ставить монтаж на
+     девять утра. */
+  const theirs = (blocks ?? []).filter((block) => block.userId === draft.installerId);
+  const busyDay = busyOn(draft.day, theirs);
+  const conflict = chosenInstaller !== null && busyAt(busyDay, minutesOfTime(draft.time));
+
   return (
     <Card as="section">
       <form className={styles.form} onSubmit={submit} noValidate>
@@ -301,6 +323,12 @@ export function OrderForm({
               onChange={(event) => set('durationMin', event.target.value)}
             />
           </div>
+
+          {/* 🔴 Предупреждает, но не запрещает: срочный ремонт в июльскую жару
+              важнее запрета, и решение остаётся за владельцем (ADR-115). */}
+          {conflict && chosenInstaller !== null ? (
+            <BusyNote busy={busyDay} who={installerName(chosenInstaller)} className={styles.busy} />
+          ) : null}
         </fieldset>
 
         <fieldset className={styles.group} disabled={busy}>

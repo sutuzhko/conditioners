@@ -305,6 +305,16 @@ export type OrderCard = {
   readonly ownerNote?: string | null;
   readonly leadId: string | null;
   readonly units: readonly OrderUnitCard[];
+
+  /**
+   * Итог работ: что сделали сверх наряда и отчёт о выезде. Приходит обеим
+   * ролям — это отчёт монтажника, и он же его заполняет (docs/CRM.md §3.3).
+   */
+  readonly extraWork: string | null;
+  readonly report: string | null;
+  /** ISO в UTC; `null` — итог ещё не заполняли. */
+  readonly resultAt: string | null;
+
   readonly createdAt: string;
 };
 
@@ -332,4 +342,122 @@ export const TAB_STATUSES: Readonly<Record<Exclude<OrderTab, 'all'>, readonly Or
   new: ['new'],
   history: ['done'],
   cancelled: ['cancelled'],
+};
+
+// ---------- Наряд в работе: итог, чеклист, документы, фото, история ----------
+
+/**
+ * Итог работ — docs/CRM.md §3.3.
+ *
+ * 🔴 Плановую сумму итог не правит. Что сделали сверх наряда, записывается
+ * словами; сколько за это взять с клиента, решает владелец в полях денег.
+ * Иначе монтажник, дописавший «плюс два метра трассы», менял бы цену заказа
+ * с объекта — а цену на этом сайте не меняют задним числом (инвариант 14).
+ */
+export const orderResultSchema = z
+  .object({
+    extraWork: optionalText(4000),
+    report: optionalText(4000),
+  })
+  .strict();
+
+export type OrderResultInput = z.infer<typeof orderResultSchema>;
+
+/** Свой пункт чеклиста: то, что человек дописал к собранному списку. */
+export const checklistItemCreateSchema = z
+  .object({
+    text: z
+      .string({ required_error: 'Напишите, что взять' })
+      .trim()
+      .min(2, { message: 'Напишите, что взять' })
+      .max(200, { message: 'Пункт длиннее 200 символов не читают' }),
+  })
+  .strict();
+
+export type ChecklistItemCreate = z.infer<typeof checklistItemCreateSchema>;
+
+/** Отметка при сборах. Текст собранного пункта не правится — он из наряда. */
+export const checklistItemUpdateSchema = z.object({ done: z.boolean() }).strict();
+
+export type ChecklistItemUpdate = z.infer<typeof checklistItemUpdateSchema>;
+
+export const orderDocKindSchema = z.enum([
+  'contract',
+  'warranty',
+  'act',
+  'invoice',
+  'measure',
+  'other',
+]);
+export type OrderDocKind = z.infer<typeof orderDocKindSchema>;
+export const ORDER_DOC_KINDS: readonly OrderDocKind[] = orderDocKindSchema.options;
+
+export function isOrderDocKind(value: string): value is OrderDocKind {
+  return ORDER_DOC_KINDS.some((kind) => kind === value);
+}
+
+/**
+ * Этап съёмки. `before` — место установки: снимает владелец, смотрит
+ * монтажник. `after` — выполненные работы: снимает монтажник, снимок остаётся
+ * в истории клиента (docs/CRM.md §3.3).
+ */
+export const photoStageSchema = z.enum(['before', 'after']);
+export type PhotoStage = z.infer<typeof photoStageSchema>;
+export const PHOTO_STAGES: readonly PhotoStage[] = photoStageSchema.options;
+
+export function isPhotoStage(value: string): value is PhotoStage {
+  return PHOTO_STAGES.some((stage) => stage === value);
+}
+
+export type OrderChecklistCard = {
+  readonly id: string;
+  readonly text: string;
+  readonly done: boolean;
+  /** Дописан человеком: пересборка такой пункт сохраняет, а удалить его можно. */
+  readonly own: boolean;
+  readonly sort: number;
+};
+
+/**
+ * 🔴 `url` документа — адрес закрытого маршрута выдачи, а не путь к файлу на
+ * диске. Договоры — персональные данные, и публичный `/api/media/{name}` для
+ * них не годится: он открыт (docs/CRM.md §9).
+ */
+export type OrderDocCard = {
+  readonly id: string;
+  readonly kind: OrderDocKind;
+  readonly name: string;
+  readonly url: string;
+  readonly sizeBytes: number;
+  readonly createdAt: string;
+};
+
+export type OrderPhotoCard = {
+  readonly id: string;
+  readonly stage: PhotoStage;
+  readonly url: string;
+  readonly sort: number;
+};
+
+export type OrderHistoryEntry = {
+  readonly id: string;
+  readonly text: string;
+  /** Автор мог быть удалён из панели — запись остаётся, подпись пропадает. */
+  readonly author: string | null;
+  readonly createdAt: string;
+};
+
+/**
+ * Карточка наряда целиком: список нарядов такого не возит.
+ *
+ * 🔴 `history` необязательна намеренно — монтажнику она не кладётся вовсе.
+ * История хранит и переназначения: кого сняли с наряда и кого поставили
+ * вместо него, — а это разговор владельца с людьми, а не рабочий экран
+ * монтажника (docs/CRM.md §6).
+ */
+export type OrderDetails = OrderCard & {
+  readonly checklist: readonly OrderChecklistCard[];
+  readonly docs: readonly OrderDocCard[];
+  readonly photos: readonly OrderPhotoCard[];
+  readonly history?: readonly OrderHistoryEntry[];
 };

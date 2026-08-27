@@ -36,9 +36,11 @@ export const GET = withAdmin(async (request, _context, session) => {
   );
 });
 
-export const POST = withOwner(async (request) => {
+export const POST = withOwner(async (request, _context, session) => {
   const parsed = orderCreateSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
 
-  return json(await create(parsed.data), 201);
+  /* Автор первой записи истории — тот, кто завёл наряд: «кто и когда» в
+     истории наряда важнее, чем в любом другом разделе панели. */
+  return json(await create(parsed.data, session.userId), 201);
 });

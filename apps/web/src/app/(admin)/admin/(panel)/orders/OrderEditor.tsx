@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import {
   OrderForm,
+  type OrderBlock,
   type OrderClientRef,
   type OrderDraft,
   type OrderInstallerRef,
@@ -12,6 +13,8 @@ import {
 export interface OrderEditorProps {
   readonly clients: readonly OrderClientRef[];
   readonly installers: readonly OrderInstallerRef[];
+  /** Занятость: форма предупреждает о ней, но назначать не мешает (ADR-115). */
+  readonly blocks?: readonly OrderBlock[] | undefined;
   readonly orderId?: string | undefined;
   readonly orderNumber?: number | undefined;
   readonly initial?: OrderDraft | undefined;
@@ -31,6 +34,7 @@ export interface OrderEditorProps {
 export function OrderEditor({
   clients,
   installers,
+  blocks,
   orderId,
   orderNumber,
   initial,
@@ -44,6 +48,7 @@ export function OrderEditor({
     <OrderForm
       clients={clients}
       installers={installers}
+      blocks={blocks}
       orderId={orderId}
       orderNumber={orderNumber}
       initial={initial}
