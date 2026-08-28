@@ -19,11 +19,34 @@ const ONLY_DIGITS = /^\d+$/;
  * Разряды числа, если строка — ровно `length` цифр. Иначе `null`: длина и
  * состав проверяются один раз здесь, чтобы каждая функция не повторяла это
  * перед своей арифметикой.
+ *
+ * 🔴 Номер из одних нулей отвергается отдельно. Арифметически он честен —
+ * остаток нуля по любому модулю равен нулю, поэтому контрольный разряд у
+ * «0000000000» сходится, — но это не номер, а прочерк, набранный цифрами.
+ * Пройдя проверку, он лёг бы в базу, напечатался в футере и в политике
+ * обработки персональных данных как проверенный реквизит, а готовность
+ * объявила бы настройки готовыми к публикации. Ровно тот класс ошибки, ради
+ * которого проверка и заводилась.
  */
 function toDigits(value: string, length: number): readonly number[] | null {
   if (value.length !== length || !ONLY_DIGITS.test(value)) return null;
 
-  return Array.from(value, (char) => Number(char));
+  const digits = Array.from(value, (char) => Number(char));
+
+  return digits.every((digit) => digit === 0) ? null : digits;
+}
+
+/**
+ * Код субъекта РФ в первых двух разрядах. Нулевого субъекта не существует, а
+ * значит «00…» — не номер с опечаткой, а строка не оттуда.
+ *
+ * Ограничение того же рода, что уже стоит у КПП, и намеренно не идёт дальше:
+ * справочник действующих кодов регионов в коде держать нельзя (он меняется, а
+ * инвариант 8 запрещает данные в коде), а ошибочно отвергнутый настоящий номер
+ * владельца дороже описки, которую и так ловит контрольный разряд (ADR-143).
+ */
+function hasRegion(value: string): boolean {
+  return value.slice(0, 2) !== '00';
 }
 
 /**
@@ -75,6 +98,8 @@ export function isInnPerson(value: string): boolean {
   const digits = toDigits(value, 12);
   if (digits === null) return false;
 
+  if (!hasRegion(value)) return false;
+
   const eleventh = innControlDigit(weightedSum(digits, INN_PERSON_WEIGHTS_ELEVENTH));
   const twelfth = innControlDigit(weightedSum(digits, INN_PERSON_WEIGHTS_TWELFTH));
 
@@ -85,6 +110,8 @@ export function isInnPerson(value: string): boolean {
 export function isInnCompany(value: string): boolean {
   const digits = toDigits(value, 10);
   if (digits === null) return false;
+
+  if (!hasRegion(value)) return false;
 
   return digits.at(9) === innControlDigit(weightedSum(digits, INN_COMPANY_WEIGHTS));
 }
@@ -129,8 +156,7 @@ const KPP_PATTERN = /^\d{4}[0-9A-Z]{2}\d{3}$/;
 export function isKpp(value: string): boolean {
   if (!KPP_PATTERN.test(value)) return false;
 
-  // первые две цифры — код субъекта РФ, нулевого субъекта не существует
-  return value.slice(0, 2) !== '00';
+  return hasRegion(value);
 }
 
 /** БИК банка — 9 цифр. */
