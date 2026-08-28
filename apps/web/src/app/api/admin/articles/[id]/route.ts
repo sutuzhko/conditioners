@@ -1,4 +1,4 @@
-import { json, noContent, notFound, readJson, validationError, withAdmin } from '@/server/http';
+import { json, noContent, notFound, readJson, validationError, withOwner } from '@/server/http';
 import { findById, remove, update } from '@/server/repo/articles';
 import { articleInputSchema, articlePatchSchema } from '@/entities/article/model';
 import { deleteStoredImage } from '@/server/uploads/store';
@@ -8,13 +8,13 @@ export const dynamic = 'force-dynamic';
 
 type Context = { params: Promise<{ id: string }> };
 
-export const GET = withAdmin(async (_request, context: Context) => {
+export const GET = withOwner(async (_request, context: Context) => {
   const { id } = await context.params;
   const article = await findById(id);
   return article === null ? notFound('Статья', 'f') : json(article);
 });
 
-export const PUT = withAdmin(async (request, context: Context) => {
+export const PUT = withOwner(async (request, context: Context) => {
   const { id } = await context.params;
   const parsed = articleInputSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
@@ -29,7 +29,7 @@ export const PUT = withAdmin(async (request, context: Context) => {
   return json(article);
 });
 
-export const PATCH = withAdmin(async (request, context: Context) => {
+export const PATCH = withOwner(async (request, context: Context) => {
   const { id } = await context.params;
   const parsed = articlePatchSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
@@ -44,7 +44,7 @@ export const PATCH = withAdmin(async (request, context: Context) => {
   return json(article);
 });
 
-export const DELETE = withAdmin(async (_request, context: Context) => {
+export const DELETE = withOwner(async (_request, context: Context) => {
   const { id } = await context.params;
 
   const article = await findById(id);

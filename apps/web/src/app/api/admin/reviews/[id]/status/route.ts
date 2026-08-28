@@ -5,14 +5,14 @@
  * попытка передать `text`, `name` или `rating` заканчивается 400, а не молчаливым
  * игнорированием. Редактируемый отзыв — не отзыв (инвариант 7).
  */
-import { json, readJson, validationError, withAdmin } from '@/server/http';
+import { json, readJson, validationError, withOwner } from '@/server/http';
 import { setStatus } from '@/server/repo/reviews';
 import { reviewModerationSchema } from '@/entities/review/model';
 import { revalidateReviews } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';
 
-export const PATCH = withAdmin(async (request, context: { params: Promise<{ id: string }> }) => {
+export const PATCH = withOwner(async (request, context: { params: Promise<{ id: string }> }) => {
   const { id } = await context.params;
 
   const parsed = reviewModerationSchema.safeParse(await readJson(request));

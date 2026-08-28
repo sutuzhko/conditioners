@@ -1,4 +1,4 @@
-import { json, noContent, notFound, readJson, validationError, withAdmin } from '@/server/http';
+import { json, noContent, notFound, readJson, validationError, withOwner } from '@/server/http';
 import { findById, removePhoto, updatePhoto } from '@/server/repo/products';
 import { photoUpdateSchema } from '@/entities/product/model';
 import { deleteStoredImage } from '@/server/uploads/store';
@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 type Context = { params: Promise<{ id: string; photoId: string }> };
 
-export const PATCH = withAdmin(async (request, context: Context) => {
+export const PATCH = withOwner(async (request, context: Context) => {
   const { id, photoId } = await context.params;
 
   const product = await findById(id);
@@ -23,7 +23,7 @@ export const PATCH = withAdmin(async (request, context: Context) => {
   return json(photo);
 });
 
-export const DELETE = withAdmin(async (_request, context: Context) => {
+export const DELETE = withOwner(async (_request, context: Context) => {
   const { id, photoId } = await context.params;
 
   const product = await findById(id);

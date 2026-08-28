@@ -1,4 +1,4 @@
-import { json, notFound, withAdmin } from '@/server/http';
+import { json, notFound, withOwner } from '@/server/http';
 import { retryDelivery } from '@/server/repo/notifications';
 
 /**
@@ -10,7 +10,7 @@ import { retryDelivery } from '@/server/repo/notifications';
  */
 export const dynamic = 'force-dynamic';
 
-export const POST = withAdmin(async (_request, context: { params: Promise<{ id: string }> }) => {
+export const POST = withOwner(async (_request, context: { params: Promise<{ id: string }> }) => {
   const { id } = await context.params;
 
   // повторяем только отказы: у ждущего очереди уведомления попытки ещё есть

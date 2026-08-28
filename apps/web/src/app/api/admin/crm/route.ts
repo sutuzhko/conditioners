@@ -1,5 +1,5 @@
 import { crmEventCreateSchema } from '@/entities/crm/model';
-import { json, readJson, validationError, withAdmin } from '@/server/http';
+import { json, readJson, validationError, withOwner } from '@/server/http';
 import { create } from '@/server/repo/crm';
 
 export const dynamic = 'force-dynamic';
@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
  * Ревалидации нет и не будет: календарь работ нигде на сайте не показывается —
  * это внутренний график с телефонами и адресами клиентов.
  */
-export const POST = withAdmin(async (request) => {
+export const POST = withOwner(async (request) => {
   const parsed = crmEventCreateSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
 

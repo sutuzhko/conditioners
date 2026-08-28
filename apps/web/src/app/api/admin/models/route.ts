@@ -1,16 +1,16 @@
 /**
  * Каталог в админке — docs/API.md §3.
  */
-import { json, readJson, validationError, withAdmin } from '@/server/http';
+import { json, readJson, validationError, withOwner } from '@/server/http';
 import { create, listAll } from '@/server/repo/products';
 import { productInputSchema } from '@/entities/product/model';
 import { revalidateCatalog } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';
 
-export const GET = withAdmin(async () => json(await listAll()));
+export const GET = withOwner(async () => json(await listAll()));
 
-export const POST = withAdmin(async (request) => {
+export const POST = withOwner(async (request) => {
   const parsed = productInputSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
 

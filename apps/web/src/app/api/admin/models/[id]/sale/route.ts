@@ -4,14 +4,14 @@
  * 🔴 Задаётся конечной ценой и периодом. Процент вычисляется, а «старой ценой»
  * может быть только та, по которой товар действительно продавался.
  */
-import { json, readJson, validationError, withAdmin } from '@/server/http';
+import { json, readJson, validationError, withOwner } from '@/server/http';
 import { setSale } from '@/server/repo/products';
 import { saleInputSchema } from '@/entities/product/model';
 import { revalidateCatalog } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';
 
-export const PATCH = withAdmin(async (request, context: { params: Promise<{ id: string }> }) => {
+export const PATCH = withOwner(async (request, context: { params: Promise<{ id: string }> }) => {
   const { id } = await context.params;
   const parsed = saleInputSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);

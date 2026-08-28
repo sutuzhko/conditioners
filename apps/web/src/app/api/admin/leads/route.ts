@@ -1,7 +1,7 @@
 /**
  * Заявки — docs/API.md §8. Внутренний раздел: на сайте не показывается нигде.
  */
-import { apiError, json, withAdmin } from '@/server/http';
+import { apiError, json, withOwner } from '@/server/http';
 import { pageNumber } from '@/shared/lib/paging';
 import { listByStatus, type LeadStatusApi } from '@/server/repo/leads';
 
@@ -13,7 +13,7 @@ function isStatus(value: string): value is LeadStatusApi {
   return STATUSES.some((status) => status === value);
 }
 
-export const GET = withAdmin(async (request) => {
+export const GET = withOwner(async (request) => {
   const raw = request.nextUrl.searchParams.get('status');
 
   if (raw !== null && raw !== '' && !isStatus(raw)) {

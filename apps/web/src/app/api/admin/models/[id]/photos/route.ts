@@ -1,14 +1,14 @@
 /**
  * Загрузка фотографии модели — docs/API.md §3.
  */
-import { apiError, json, notFound, withAdmin } from '@/server/http';
+import { apiError, json, notFound, withOwner } from '@/server/http';
 import { addPhoto, findById } from '@/server/repo/products';
 import { deleteStoredImage, saveImage } from '@/server/uploads/store';
 import { revalidateCatalog } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';
 
-export const POST = withAdmin(async (request, context: { params: Promise<{ id: string }> }) => {
+export const POST = withOwner(async (request, context: { params: Promise<{ id: string }> }) => {
   const { id } = await context.params;
 
   const product = await findById(id);

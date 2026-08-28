@@ -2,7 +2,21 @@
 import { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('@/server/auth', () => ({ getAdminSession: vi.fn() }));
+import type * as AuthModuleTypes from '@/server/auth';
+
+/* Частичная подмена: `isOwner` берём настоящий — раздел владельческий,
+   и проверяется разграничение, а не сама функция сравнения роли. */
+vi.mock('@/server/auth', async (importOriginal) => ({
+  ...(await importOriginal<typeof AuthModuleTypes>()),
+  getAdminSession: vi.fn(),
+}));
+
+/* 🔴 Подмена репозитория команды нужна не маршруту, а разрыву цикла импортов:
+   `auth` тянет `repo/admin-users`, тот — `http` ради `ApiException`, а `http` —
+   обратно `auth`. На полпути этого круга `http` получает настоящий
+   `getAdminSession` мимо подмены, и проверка доступа уходит в `cookies()` вне
+   запроса. Без этой строки падают все проверки файла. */
+vi.mock('@/server/repo/admin-users', () => ({}));
 vi.mock('next/cache', () => ({ revalidatePath: vi.fn() }));
 vi.mock('@/server/repo/reviews', () => ({
   listByStatus: vi.fn(),

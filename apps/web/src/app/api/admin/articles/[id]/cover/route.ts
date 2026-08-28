@@ -1,14 +1,14 @@
 /**
  * Обложка статьи — docs/API.md §6.
  */
-import { apiError, json, notFound, withAdmin } from '@/server/http';
+import { apiError, json, notFound, withOwner } from '@/server/http';
 import { findById, setCover } from '@/server/repo/articles';
 import { deleteStoredImage, saveImage } from '@/server/uploads/store';
 import { revalidateArticles } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';
 
-export const POST = withAdmin(async (request, context: { params: Promise<{ id: string }> }) => {
+export const POST = withOwner(async (request, context: { params: Promise<{ id: string }> }) => {
   const { id } = await context.params;
 
   const article = await findById(id);
