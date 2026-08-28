@@ -291,7 +291,7 @@
 
 .call {
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .measure {
@@ -332,7 +332,7 @@
 
 .personA {
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .personB {

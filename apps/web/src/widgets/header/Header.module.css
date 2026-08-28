@@ -104,7 +104,7 @@
 }
 
 .navLink:hover {
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .navLink:focus-visible {
@@ -112,7 +112,7 @@
 }
 
 .navLink[aria-current='page'] {
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 /* ---- действия ---- */

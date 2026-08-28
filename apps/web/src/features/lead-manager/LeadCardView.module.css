@@ -22,7 +22,7 @@
 }
 
 .phone {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-base);
   font-weight: 600;
   text-decoration: none;
@@ -119,7 +119,7 @@
   border: 1px solid var(--line);
   border-radius: var(--r-pill);
   padding: 5px 12px;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-caption);
   font-weight: 600;
   text-decoration: none;

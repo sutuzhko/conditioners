@@ -73,7 +73,7 @@
 }
 
 .price {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-family: var(--font-display);
   font-size: var(--fs-base);
   font-weight: 700;

@@ -28,7 +28,7 @@
 .dragging {
   border-color: var(--accent-ink);
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .invalid {
@@ -50,7 +50,7 @@
 
 .icon {
   flex-shrink: 0;
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .texts {

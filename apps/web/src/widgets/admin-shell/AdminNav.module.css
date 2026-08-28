@@ -45,7 +45,7 @@
 
 .active {
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 /* 🔴 Кольцо фокуса рисуется внутрь. Наружное обводило пункт за его

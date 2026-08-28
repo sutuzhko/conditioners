@@ -7,7 +7,7 @@
 
 .title {
   margin: 0;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   letter-spacing: 0.08em;
@@ -35,5 +35,5 @@
 .tick {
   flex-shrink: 0;
   margin-top: 2px;
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }

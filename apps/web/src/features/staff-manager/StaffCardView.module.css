@@ -50,7 +50,7 @@
 }
 
 .fact a {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   text-decoration: none;
 }
 
@@ -78,7 +78,7 @@
 }
 
 .open {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-dense);
   font-weight: 600;
   text-decoration: none;

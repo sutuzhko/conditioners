@@ -45,7 +45,7 @@
 }
 
 .fallbackClass {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-family: var(--font-mono);
   font-size: 34px;
   line-height: 1;
@@ -139,7 +139,7 @@
 /* Подсказка про страницу модели: не ссылка, поэтому и не тап-зона. */
 .details {
   margin: 0;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-caption);
   font-weight: 600;
 }
@@ -238,7 +238,7 @@
 
 .external:hover {
   border-color: var(--accent-ink);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .external:focus-visible {

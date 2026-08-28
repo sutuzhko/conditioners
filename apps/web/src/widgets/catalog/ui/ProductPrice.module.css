@@ -41,11 +41,16 @@
   align-self: center;
 }
 
+/* Строка срока акции. Высота задана явно, потому что у карточки без скидки
+   эта строка пустая и держит место (проп `reserveNote`): 12px микроподписи
+   при общем line-height 1.55 из global.css. Без неё цена модели со скидкой
+   стоит в ряду на строку выше соседних. */
 .note {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   align-items: baseline;
+  min-height: calc(var(--fs-micro) * 1.55);
   margin: 0;
   color: var(--faint);
   font-size: var(--fs-caption);

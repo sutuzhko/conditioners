@@ -21,7 +21,7 @@
 
 .kicker {
   margin: 0 0 12px;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
   letter-spacing: 0.14em;
@@ -149,7 +149,7 @@
   padding: 10px 12px;
   margin: 6px 0 -10px -12px;
   border-radius: var(--r-sm);
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-base);
   font-weight: 600;
   text-decoration: none;

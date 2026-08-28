@@ -30,7 +30,7 @@
 }
 
 .name:hover {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   text-decoration: underline;
 }
 
@@ -46,7 +46,7 @@
 .move {
   display: inline-block;
   margin-top: 6px;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-caption);
   font-weight: 600;
   text-decoration: none;
@@ -122,7 +122,7 @@
 }
 
 .reset {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-dense);
   font-weight: 600;
   text-decoration: none;

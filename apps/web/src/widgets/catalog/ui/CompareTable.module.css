@@ -29,7 +29,7 @@
 
 /* строка цены закрывает таблицу — в макете она выделена акцентом */
 .priceRow td {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-family: var(--font-display);
   font-weight: 700;
   white-space: nowrap;

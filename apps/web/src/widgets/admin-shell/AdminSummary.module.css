@@ -32,7 +32,7 @@
 .link {
   display: inline-block;
   margin-top: 14px;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-dense);
   font-weight: 600;
   text-decoration: none;
@@ -84,7 +84,7 @@
 }
 
 .urgent {
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .tileNote {
@@ -133,7 +133,7 @@
 }
 
 .eventLink:hover {
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .eventLink:focus-visible {

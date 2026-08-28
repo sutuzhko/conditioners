@@ -57,7 +57,7 @@ export function Footer({
   const hasLegal = legalName !== legal.form || requisites.length > 0;
 
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} data-ground="panel">
       <div className={styles.inner}>
         <div className={styles.about}>
           <div className={styles.brand}>

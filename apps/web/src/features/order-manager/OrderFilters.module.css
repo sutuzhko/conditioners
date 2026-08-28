@@ -24,7 +24,7 @@
 
 .chip:hover {
   border-color: var(--accent-ink);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .chip:focus-visible {
@@ -42,7 +42,7 @@
 .active {
   border-color: var(--accent-ink);
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .form {
@@ -73,7 +73,7 @@
 }
 
 .reset:hover {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   text-decoration: underline;
 }
 

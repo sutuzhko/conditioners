@@ -45,11 +45,17 @@
   font-size: var(--fs-lead);
 }
 
+/* 🔴 Характеристики стоят в той же сетке, что и галерея, — левой колонкой
+   под ней (BUGS, аудит 28 августа). До этого панель цены висела в правой
+   колонке одна, `align-items: start` не давал ей никуда двигаться, и под ней
+   зияло шестьсот пикселей пустоты. Теперь правая колонка тянется на обе
+   строки, и залипание панели наконец работает: цена и кнопка едут вместе с
+   читателем до конца характеристик. */
 .main {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
+  grid-template-rows: auto 1fr;
   gap: 28px;
-  align-items: start;
   margin-bottom: 44px;
 }
 
@@ -57,6 +63,14 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.aside {
+  grid-column: 2;
+  grid-row: 1 / span 2;
   min-width: 0;
 }
 
@@ -83,7 +97,7 @@
 }
 
 .fallbackClass {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-family: var(--font-mono);
   font-size: 44px;
   line-height: 1;
@@ -116,6 +130,14 @@
   object-fit: cover;
 }
 
+/* Миниатюра снимка, открытого наверху. Отмечена рамкой, а не только порядком:
+   без неё полоса читается как переключатель без текущего положения. Читалке
+   то же самое говорит `aria-current` и скрытая подпись. */
+.thumbCurrent .thumb {
+  border-color: var(--accent-line);
+  box-shadow: var(--ring-focus-inset);
+}
+
 .offer {
   position: sticky;
   top: 96px;
@@ -131,6 +153,48 @@
   margin-top: 18px;
 }
 
+/* Отметка сравнения — вторичное действие под главной кнопкой, поэтому
+   контурная и во всю ширину панели: рядом с ней в столбце нет соседа, с
+   которым её стоило бы делить строку. Пара --accent-bg / --on-accent берёт AA
+   в обеих темах — та же, что у отметки на карточке витрины. */
+.compare {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--body);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+.compare:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+  color: var(--on-accent);
+}
+
+.compare:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.compareMark {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  line-height: 1;
+}
+
 .external {
   display: inline-flex;
   align-items: center;
@@ -141,7 +205,7 @@
 }
 
 .external:hover {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   text-decoration: underline;
 }
 
@@ -152,6 +216,9 @@
 }
 
 .specs {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
   border-top: 1px solid var(--line);
   padding-top: 28px;
 }
@@ -171,9 +238,25 @@
   font-size: var(--fs-base);
 }
 
+/* Заглушки перехода (`ProductDetailsSkeleton`): те же пропорции, что у живой
+   страницы, — иначе скелетон сам даёт прыжок в момент подстановки данных. */
+.photoSkeleton {
+  height: auto;
+  border-radius: var(--r-lg);
+  aspect-ratio: 4 / 3;
+}
+
+.specsSkeleton {
+  margin-top: 20px;
+}
+
+/* 🔴 `auto-fit`, а не `auto-fill` (BUGS, аудит 28 августа): при `auto-fill`
+   единственная группа «Прочее» вставала в первую колонку, а вторая и третья
+   оставались пустыми. `auto-fit` схлопывает незанятые дорожки, и одна группа
+   раскладывается по всей ширине. */
 .specGroups {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px 32px;
 }
 
@@ -219,33 +302,19 @@
   text-align: right;
 }
 
-.back {
-  margin: 36px 0 0;
-}
-
-.backLink {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap);
-  color: var(--accent-ink);
-  font-size: var(--fs-base);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.backLink:hover {
-  text-decoration: underline;
-}
-
-.backLink:focus-visible {
-  outline: none;
-  border-radius: var(--r-sm);
-  box-shadow: var(--ring-focus-ring);
-}
-
 @media (width < 900px) {
+  /* Одна колонка: галерея, панель цены, характеристики — в том же порядке,
+     в каком они лежат в разметке. */
   .main {
     grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
+
+  .gallery,
+  .aside,
+  .specs {
+    grid-column: 1;
+    grid-row: auto;
   }
 
   .offer {

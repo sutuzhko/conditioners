@@ -11,13 +11,17 @@ export interface FieldProps {
   required?: boolean | undefined;
   className?: string | undefined;
   children: ReactNode;
-  /** подпись ведёт не к одному контролу, а к группе — тогда она legend */
-  labelAs?: 'label' | 'legend' | undefined;
 }
 
 /**
  * Внутренняя обвязка поля. Из UI Kit наружу не экспортируется: снаружи
  * используются готовые Input, Textarea, Select, FileInput, RangeSlider.
+ *
+ * 🔴 Подпись — всегда `<label>` (ADR-159). Раньше проп `labelAs` умел
+ * отрисовать `<legend>`, но рисовал его внутри `<div>`: это невалидный HTML,
+ * и группирующей семантики он не даёт — читалка такой «legend» не связывает
+ * ни с чем. Проп при этом не звал никто: компонент, которому нужна группа,
+ * обходится настоящим `<fieldset>`.
  */
 export function Field({
   fieldId,
@@ -29,7 +33,6 @@ export function Field({
   required = false,
   className,
   children,
-  labelAs = 'label',
 }: FieldProps) {
   const labelContent = (
     <>
@@ -44,9 +47,7 @@ export function Field({
 
   return (
     <div className={[styles.field, className].filter(Boolean).join(' ')}>
-      {label === undefined ? null : labelAs === 'legend' ? (
-        <legend className={styles.label}>{labelContent}</legend>
-      ) : (
+      {label === undefined ? null : (
         <label htmlFor={fieldId} className={styles.label}>
           {labelContent}
         </label>

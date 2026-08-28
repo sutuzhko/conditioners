@@ -21,7 +21,7 @@
 
 .kicker {
   margin: 0 0 12px;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
   letter-spacing: 0.14em;
@@ -69,7 +69,7 @@
   margin-bottom: 20px;
   border-radius: var(--r-md);
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .cardTitle {
@@ -95,7 +95,7 @@
   align-items: center;
   min-height: var(--tap);
   margin-top: auto;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-dense);
   font-weight: 600;
   text-decoration: none;

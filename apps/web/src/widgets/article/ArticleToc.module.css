@@ -43,14 +43,14 @@
 .link::before {
   display: inline-block;
   min-width: 22px;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
   content: counter(toc) '.';
 }
 
 .link:hover {
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .item + .item {

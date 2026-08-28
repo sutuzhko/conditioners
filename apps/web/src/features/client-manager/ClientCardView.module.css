@@ -30,7 +30,7 @@
 }
 
 .link:hover {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   text-decoration: underline;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .phone {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   text-decoration: none;
 }
 

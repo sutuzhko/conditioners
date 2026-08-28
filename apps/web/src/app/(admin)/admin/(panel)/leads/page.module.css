@@ -45,11 +45,11 @@
 
 .filter:hover {
   border-color: var(--accent-ink);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .active {
   border-color: var(--accent-ink);
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }

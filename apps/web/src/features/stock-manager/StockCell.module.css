@@ -51,7 +51,7 @@
 .held {
   border-color: var(--accent-ink);
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-weight: 600;
   cursor: grabbing;
 }

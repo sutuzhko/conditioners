@@ -60,7 +60,7 @@
 
 .order,
 .item {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-weight: 600;
   text-decoration: none;
 }
@@ -94,12 +94,12 @@
 
 .chip:hover {
   border-color: var(--accent-line);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .active {
   border-color: var(--accent-line);
   background: var(--accent-soft);
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-weight: 600;
 }

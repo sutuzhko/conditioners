@@ -28,9 +28,15 @@ export function IconButton({
     .filter(Boolean)
     .join(' ');
 
+  /* 🔴 Имя одно (ADR-159). `aria-label` и `title` с одинаковым текстом часть
+     читалок объявляет дважды — «Удалить, Удалить». Имя даёт `aria-label`;
+     `title` остаётся ради всплывающей подсказки мыши и потому спрятан от
+     дерева доступности вместе с иконкой. */
   return (
-    <button {...rest} type={type} className={classes} aria-label={label} title={label}>
-      <span aria-hidden="true">{icon}</span>
+    <button {...rest} type={type} className={classes} aria-label={label}>
+      <span aria-hidden="true" title={label}>
+        {icon}
+      </span>
     </button>
   );
 }

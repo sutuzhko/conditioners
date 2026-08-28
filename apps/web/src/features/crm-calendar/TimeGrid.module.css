@@ -72,7 +72,7 @@
 
 .headToday .headDate,
 .headToday .headWeekday {
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .headOutside .headDate,
@@ -81,7 +81,7 @@
 }
 
 .headLink:hover .headDate {
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .headLink:focus-visible {
@@ -235,7 +235,7 @@
 
 .personA {
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .personB {

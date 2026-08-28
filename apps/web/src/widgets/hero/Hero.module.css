@@ -151,7 +151,7 @@
 @media (forced-colors: active) {
   .accent {
     background-image: none;
-    color: var(--accent-ink);
+    color: var(--accent-text);
     forced-color-adjust: none;
   }
 }

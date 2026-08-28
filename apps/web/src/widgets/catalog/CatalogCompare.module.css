@@ -85,7 +85,7 @@
   display: inline-flex;
   align-items: center;
   min-height: var(--tap);
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-caption);
   font-weight: 700;
   text-decoration: none;

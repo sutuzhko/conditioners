@@ -27,7 +27,7 @@
 
 .link:hover {
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 /* Тело выдвижного меню прокручивается, а прокрутка обрезает внешнюю обводку
@@ -39,7 +39,7 @@
 
 .link[aria-current='page'] {
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .theme {

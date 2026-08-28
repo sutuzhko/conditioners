@@ -42,7 +42,7 @@
 }
 
 .view:hover {
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .view:focus-visible {
@@ -79,7 +79,7 @@
 
 .team:hover {
   border-color: var(--accent-ink);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .team:focus-visible {
@@ -92,7 +92,7 @@
 .teamOn {
   border-color: var(--accent-ink);
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .teamIcon {
@@ -150,7 +150,7 @@
 .step:hover,
 .today:hover {
   border-color: var(--accent-ink);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .step:focus-visible,

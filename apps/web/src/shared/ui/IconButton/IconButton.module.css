@@ -75,7 +75,7 @@
 .outline:hover:not(:disabled) {
   border-color: var(--accent-line);
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .ghost {
@@ -84,7 +84,7 @@
 
 .ghost:hover:not(:disabled) {
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 /* 🔴 Иконка блоком, а не строкой: у строчного `svg` есть базовая линия, и

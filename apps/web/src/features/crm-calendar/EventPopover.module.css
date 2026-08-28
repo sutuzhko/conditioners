@@ -97,7 +97,7 @@
 }
 
 .phone {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   text-decoration: none;
 }
 
@@ -180,7 +180,7 @@
 
 .call {
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .measure {

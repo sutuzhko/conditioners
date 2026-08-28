@@ -73,7 +73,7 @@
 
 .tocLink:hover {
   border-color: var(--accent-ink);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 /* Оглавление на телефоне прокручивается — кольцо внутрь, иначе край области

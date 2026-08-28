@@ -59,7 +59,7 @@
   border: 1px dashed var(--accent-line);
   border-radius: 7px;
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   font-weight: 700;

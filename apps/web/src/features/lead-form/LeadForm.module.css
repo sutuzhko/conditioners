@@ -67,7 +67,7 @@
 }
 
 .policy {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   text-underline-offset: 2px;
 }
 
@@ -130,7 +130,7 @@
   height: 76px;
   border-radius: 50%;
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .successTitle {

@@ -27,7 +27,7 @@
 
 .kicker {
   margin: 0 0 12px;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
   letter-spacing: 0.14em;
@@ -66,7 +66,7 @@
   height: var(--tap);
   border-radius: 12px;
   background: color-mix(in srgb, var(--brand) 8%, transparent);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .rowBody {
@@ -109,7 +109,7 @@
 }
 
 .phone:hover {
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .phone:focus-visible {
@@ -184,7 +184,7 @@
 
 .mapTitle {
   margin: 0 0 10px;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
   letter-spacing: 0.1em;
@@ -223,7 +223,7 @@
 
 .mapLink:hover {
   border-color: var(--accent-ink);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .mapLink:focus-visible {

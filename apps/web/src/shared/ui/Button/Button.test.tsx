@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -41,6 +44,22 @@ describe('Button', () => {
   it('подпись остаётся в разметке при загрузке — ширина кнопки не скачет', () => {
     render(<Button loading>Отправляем</Button>);
     expect(screen.getByRole('button', { name: 'Отправляем' })).toBeInTheDocument();
+  });
+
+  /* 🔴 Этот тест проверяет CSS, а не разметку, и это не причуда (ADR-159).
+     Содержимое пряталось `visibility: hidden`, а он убирает поддерево и из
+     дерева доступности: в браузере у кнопки на время отправки не оставалось
+     имени вовсе — читалка объявляла безымянную «кнопку, занято» ровно в
+     момент отправки заявки. Тест выше при этом был зелёным: jsdom не
+     применяет CSS-модули и подмены не видел. Поэтому проверяется сам
+     источник — правило в файле стилей. */
+  it('🔴 содержимое при загрузке прячется прозрачностью, а не visibility', () => {
+    const css = readFileSync(join(__dirname, 'Button.module.css'), 'utf8');
+    const loadingContent = css.slice(css.indexOf('.loading .content'));
+    const rule = loadingContent.slice(0, loadingContent.indexOf('}'));
+
+    expect(rule).toContain('opacity: 0');
+    expect(rule).not.toContain('visibility');
   });
 
   it('отключённая кнопка не реагирует на клик', async () => {

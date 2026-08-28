@@ -129,18 +129,45 @@ export function useDialog({ open, onClose, containerRef }: DialogOptions): Dialo
       const container = containerRef.current;
       if (container === null) return;
 
-      const focusable = [...container.querySelectorAll<HTMLElement>(FOCUSABLE)];
+      /* 🔴 Скрытое отсеивается (ADR-159). Селектор находит и то, что спрятано
+         `display: none`, `visibility: hidden` или атрибутом `hidden`, — а
+         первым и последним в ловушке оказывался элемент, на который браузер
+         фокус не ставит вовсе, и ловушка молча переставала держать.
+
+         Проверяется вычисленный стиль, а не `getClientRects()`: jsdom не
+         считает раскладку и отдаёт пустой список прямоугольников для всего
+         подряд — по нему в тестах отсеялось бы вообще всё, и ловушка
+         «починилась» бы в собственный отказ. */
+      const focusable = [...container.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(
+        (element) => {
+          if (element.hidden || element.closest('[hidden]') !== null) return false;
+
+          const style = getComputedStyle(element);
+          return style.display !== 'none' && style.visibility !== 'hidden';
+        },
+      );
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
       if (first === undefined || last === undefined) return;
 
-      if (event.shiftKey && document.activeElement === first) {
+      /* 🔴 Фокус мог оказаться вне окна: клик по подложке уводит его на
+         `body`, и тогда Tab шёл дальше по странице под окном. Прежняя ловушка
+         срабатывала, только когда фокус стоял ровно на первом или последнем
+         элементе, — то есть в самом частом случае не срабатывала. */
+      const active = document.activeElement;
+      if (!(active instanceof HTMLElement) || !container.contains(active)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+        return;
+      }
+
+      if (event.shiftKey && active === first) {
         event.preventDefault();
         last.focus();
         return;
       }
 
-      if (!event.shiftKey && document.activeElement === last) {
+      if (!event.shiftKey && active === last) {
         event.preventDefault();
         first.focus();
       }

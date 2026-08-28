@@ -134,6 +134,49 @@ describe('Modal', () => {
     page.remove();
   });
 
+  /* 🔴 Клик по подложке уводит фокус на `body`, и прежняя ловушка в этот
+     момент переставала держать: она срабатывала, только когда фокус стоял
+     ровно на первом или последнем элементе окна. То есть в самом частом
+     случае Tab уходил гулять по странице под окном (ADR-159). */
+  it('🔴 Tab возвращает фокус в окно, даже когда он оказался снаружи', async () => {
+    const user = userEvent.setup();
+    open();
+
+    const dialog = screen.getByRole('dialog');
+
+    /* Окно уводит фокус внутрь при открытии, поэтому «снаружи» приходится
+       воспроизвести: снятый фокус уходит на body — ровно так же, как после
+       клика по подложке. */
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+    expect(dialog.contains(document.activeElement)).toBe(false);
+
+    await user.tab();
+
+    expect(dialog.contains(document.activeElement)).toBe(true);
+  });
+
+  /* Скрытое в ловушку не попадает: браузер не ставит на него фокус, и
+     «последним» элементом оказывалось то, чего на экране нет. */
+  it('🔴 спрятанные элементы не считаются границами ловушки', async () => {
+    const user = userEvent.setup();
+    render(
+      <Modal open onClose={() => {}} title="Заявка принята">
+        <button type="button">Первая</button>
+        <button type="button" hidden>
+          Спрятанная
+        </button>
+      </Modal>,
+    );
+
+    const visible = screen.getByRole('button', { name: 'Первая' });
+    visible.focus();
+
+    await user.tab();
+
+    expect(screen.getByRole('dialog').contains(document.activeElement)).toBe(true);
+    expect(document.activeElement).not.toHaveTextContent('Спрятанная');
+  });
+
   it('чужой inert закрытие не трогает: снимается только своя пометка', () => {
     const parked = document.createElement('div');
     parked.setAttribute('inert', '');

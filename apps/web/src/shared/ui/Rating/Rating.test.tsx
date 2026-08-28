@@ -14,6 +14,19 @@ describe('Rating — вывод', () => {
     expect(screen.getByRole('img', { name: 'Оценка 7 из 10' })).toBeInTheDocument();
   });
 
+  /* 🔴 Подпись несёт количество отзывов, а видимая её копия скрыта от читалки,
+     чтобы звёзды не читались дважды. Без неё в имени оставалась голая оценка —
+     то есть число без того, на чём оно посчитано (ADR-159). */
+  it('🔴 имя оценки называет число отзывов и произносится по-русски', () => {
+    render(<Rating value={4.8} caption="4,8 · 37 отзывов" />);
+
+    const name = screen.getByLabelText(/Оценка/).getAttribute('aria-label') ?? '';
+
+    expect(name).toContain('4,8');
+    expect(name).not.toContain('4.8');
+    expect(name).toContain('37 отзывов');
+  });
+
   it('нулевая оценка не ломает вывод', () => {
     render(<Rating value={0} />);
     expect(screen.getByRole('img', { name: 'Оценка 0 из 5' })).toBeInTheDocument();

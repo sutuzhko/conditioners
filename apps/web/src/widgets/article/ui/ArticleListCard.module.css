@@ -114,7 +114,7 @@
   display: inline-flex;
   gap: 6px;
   align-items: center;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-dense);
   font-weight: 600;
 }

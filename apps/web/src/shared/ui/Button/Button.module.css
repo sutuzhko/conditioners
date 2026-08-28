@@ -85,7 +85,7 @@
 .secondary:hover:not(:disabled) {
   border-color: var(--accent-line);
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 /* Акцентная кнопка — «Заказать» в карточке каталога. 🔴 Цвет текста не
@@ -108,7 +108,7 @@
 
 .ghost {
   background: transparent;
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .ghost:hover:not(:disabled) {
@@ -134,8 +134,13 @@
   cursor: progress;
 }
 
+/* 🔴 Прозрачность, а не `visibility: hidden` (ADR-159). `visibility` убирает
+   поддерево не только с экрана, но и из дерева доступности: пока шла
+   отправка, у кнопки не оставалось ни текста, ни имени, и читалка объявляла
+   безымянную «кнопку, занято» — ровно в момент отправки заявки, на самом
+   дорогом шаге сайта. Ширина при `opacity` держится так же. */
 .loading .content {
-  visibility: hidden;
+  opacity: 0;
 }
 
 .label {

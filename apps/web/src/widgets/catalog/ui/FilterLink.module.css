@@ -27,7 +27,7 @@
 .link:hover {
   border-color: var(--accent-line);
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 .link:focus-visible {

@@ -69,8 +69,11 @@ export function Card({
     .filter(Boolean)
     .join(' ');
 
+  /* 🔴 Тёмный вариант объявляет грунт (ADR-158): приглушённые уровни,
+     подобранные под белый фон, на нём не читаются. Атрибут ставит сам
+     компонент — вызывающему помнить про это незачем. */
   return (
-    <Tag {...rest} className={classes}>
+    <Tag {...rest} className={classes} {...(variant === 'panel' ? { 'data-ground': 'panel' } : {})}>
       {children}
     </Tag>
   );

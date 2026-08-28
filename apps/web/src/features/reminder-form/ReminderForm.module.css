@@ -39,7 +39,7 @@
 }
 
 .policy {
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 /* Ошибка на тёмной панели: заливка и рамка из макета, текст светлее
@@ -58,7 +58,7 @@
 }
 
 .errorCall {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-weight: 600;
 }
 
@@ -107,7 +107,7 @@
   padding: 0;
   border: 0;
   background: none;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font: inherit;
   font-size: 14px;
   font-weight: 600;

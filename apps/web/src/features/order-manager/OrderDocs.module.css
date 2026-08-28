@@ -51,7 +51,7 @@
 
 .link {
   flex: 1 1 200px;
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-dense);
   font-weight: 600;
   text-decoration: none;

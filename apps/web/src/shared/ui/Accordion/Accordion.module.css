@@ -46,7 +46,7 @@
 }
 
 .trigger:hover {
-  color: var(--accent-ink);
+  color: var(--accent-text);
 }
 
 /* У элемента списка стоит overflow: hidden — он обрезает и обводку,
@@ -69,7 +69,7 @@
   height: 28px;
   border-radius: var(--r-pill);
   background: var(--accent-bg);
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: 19px;
   font-weight: 600;
   line-height: 1;

@@ -116,7 +116,7 @@
   padding: 10px 12px;
   margin-left: -12px;
   border-radius: var(--r-sm);
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-dense);
   font-weight: 600;
   text-decoration: none;
@@ -140,7 +140,7 @@
   padding: 10px 12px;
   margin-left: -12px;
   border-radius: var(--r-sm);
-  color: var(--accent-ink);
+  color: var(--accent-text);
   font-size: var(--fs-base);
   font-weight: 600;
   text-decoration: none;

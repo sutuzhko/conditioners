@@ -87,7 +87,7 @@ export function Diagnostics({
           /* Тёмная панель под разбором — вторая точка сбора заявки из макета:
              человек, у которого кондиционер уже стоит, приходит сюда не за
              монтажом, а за обслуживанием. */
-          <div className={styles.reminder}>
+          <div className={styles.reminder} data-ground="panel">
             <span className={styles.reminderGlow} aria-hidden="true" />
             <div className={styles.reminderCopy}>
               <h3 className={styles.reminderTitle}>{t.reminderTitle}</h3>

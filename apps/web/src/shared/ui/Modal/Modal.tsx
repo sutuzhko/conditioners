@@ -10,6 +10,14 @@ import { Icon } from '../Icon';
 
 export type ModalSize = 'sm' | 'md' | 'lg';
 
+/**
+ * Уровень заголовка окна — пропом, как у `Accordion` и `FormSection`
+ * (ADR-159). Жёсткий `h2` перескакивал уровень там, где окно открывается
+ * из раздела с собственным `h2`, а заголовки без пропусков уровней — это
+ * инвариант 4, а не пожелание.
+ */
+const HEADINGS = { 2: 'h2', 3: 'h3' } as const;
+
 export interface ModalProps {
   open: boolean;
   onClose: () => void;
@@ -20,6 +28,7 @@ export interface ModalProps {
   size?: ModalSize | undefined;
   closeLabel?: string | undefined;
   className?: string | undefined;
+  headingLevel?: 2 | 3 | undefined;
 }
 
 export function Modal({
@@ -32,7 +41,9 @@ export function Modal({
   size = 'md',
   closeLabel = 'Закрыть',
   className,
+  headingLevel = 2,
 }: ModalProps) {
+  const Heading = HEADINGS[headingLevel];
   const windowRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const descriptionId = useId();
@@ -60,9 +71,9 @@ export function Modal({
         >
           <div className={styles.head}>
             <div>
-              <h2 id={titleId} className={styles.title}>
+              <Heading id={titleId} className={styles.title}>
                 {title}
-              </h2>
+              </Heading>
               {description === undefined ? null : (
                 <p id={descriptionId} className={styles.description}>
                   {description}

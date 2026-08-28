@@ -51,8 +51,20 @@ function Star({ filled }: { filled: boolean }) {
 }
 
 /** «Оценка 4 из 5» — то, что услышит скринридер вместо пяти одинаковых значков. */
-function ratingLabel(value: number, max: number): string {
-  return `Оценка ${value} из ${max}`;
+/**
+ * Имя для читалки.
+ *
+ * 🔴 Число печатается по-русски, с запятой: `4.8` читалка произносит
+ * «четыре точка восемь» по-английски. И 🔴 подпись входит в имя целиком —
+ * она несёт количество отзывов («4,8 · 37 отзывов»), а видимая подпись
+ * скрыта `aria-hidden`, чтобы звёзды не читались дважды. Без этого средняя
+ * оценка звучала без того единственного, что делает её осмысленной, —
+ * без числа отзывов, на которых она посчитана (ADR-159).
+ */
+function ratingLabel(value: number, max: number, caption?: string | undefined): string {
+  const shown = value.toLocaleString('ru-RU');
+  const base = `Оценка ${shown} из ${max}`;
+  return caption === undefined || caption.trim() === '' ? base : `${base}. ${caption}`;
 }
 
 function positionsOf(max: number): number[] {
@@ -64,7 +76,7 @@ function RatingDisplay({ value, caption, max = 5, size = 'md', className }: Rati
     <span
       className={[styles.stars, styles[size], className].filter(Boolean).join(' ')}
       role="img"
-      aria-label={ratingLabel(value, max)}
+      aria-label={ratingLabel(value, max, caption)}
     >
       {positionsOf(max).map((position) => (
         <Star key={position} filled={position <= value} />

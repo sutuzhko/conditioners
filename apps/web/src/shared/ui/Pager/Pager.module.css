@@ -25,7 +25,7 @@
 }
 
 .step {
-  color: var(--accent-ink);
+  color: var(--accent-text);
   text-decoration: none;
   transition:
     border-color var(--dur-fast) ease,
