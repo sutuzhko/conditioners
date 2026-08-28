@@ -83,6 +83,21 @@ function whereStatus(status?: LeadStatusApi): Prisma.LeadWhereInput {
 }
 
 /**
+ * Запись нового обращения — заявки с сайта или напоминания о ТО.
+ *
+ * Клиент транзакции параметром, потому что в одиночку обращение не пишется
+ * никогда: вместе с ним в очередь встаёт уведомление, и обе записи живут или
+ * падают вместе (инвариант 2, ADR-091). Порядок и состав полей — забота слоя
+ * сервисов (`services/leads`), здесь только доступ к данным.
+ */
+export async function create(
+  data: Prisma.LeadCreateInput,
+  client: Prisma.TransactionClient = db,
+): Promise<LeadDto> {
+  return toDto(await client.lead.create({ data }));
+}
+
+/**
  * Страница списка заявок.
  *
  * 🔴 С `take`, а не «все за всё время»: за годы работы список вырастает без

@@ -43,7 +43,17 @@ beforeEach(() => {
   vi.clearAllMocks();
   dbMock.rateLimit.upsert.mockResolvedValue({ hits: 1 });
   dbMock.notification.createMany.mockResolvedValue({ count: 1 });
-  dbMock.lead.create.mockImplementation(async ({ data }) => ({ id: 'lead-9', ...data }));
+  /* Возвращаем строку целиком, как её отдаёт Postgres: заявка уходит наверх
+     разобранной (`repo/leads.toDto`), и урезанный двойник врал бы о базе. */
+  dbMock.lead.create.mockImplementation(async ({ data }) => ({
+    id: 'lead-9',
+    status: 'NEW',
+    managerComment: null,
+    clientId: null,
+    createdAt: new Date('2026-08-28T09:00:00Z'),
+    updatedAt: new Date('2026-08-28T09:00:00Z'),
+    ...data,
+  }));
   // пустая группа настроек → каналы по умолчанию: email включён (driver=log)
   dbMock.setting.findUnique.mockResolvedValue({ value: {} });
   // транзакция в моке прозрачна: настоящую атомарность обеспечивает Prisma
