@@ -75,6 +75,31 @@ export function dropPath(value: GroupValue, path: string): GroupValue {
 }
 
 /**
+ * Значение группы с проставленным переключателем состава.
+ *
+ * 🔴 Группа, сохранённая до появления вариантов, лежит в базе без него. Схема
+ * такую запись разбирает по первому варианту (`withDefaultForm`), и проверка
+ * готовности считает её так же — форма обязана читать её тем же способом.
+ *
+ * Пока не читала, ломалось молча и дважды. Владелец видел почти пустую форму:
+ * поля обоих вариантов скрыты условием, потому что сравнивать не с чем, — а
+ * заполненные значения при этом в базе есть. И переключение варианта не
+ * спрашивало подтверждения: заполненных **видимых** полей нет, терять как
+ * будто нечего, — после чего первое же сохранение затирало группу. Ровно тот
+ * молча очищенный футер, против которого заводилось подтверждение (ADR-112).
+ */
+export function withGroupDefaults(group: GroupDescriptor, value: GroupValue): GroupValue {
+  return group.fields.reduce((result, field) => {
+    const [first] = field.options ?? [];
+    if (field.resetsGroup !== true || first === undefined) return result;
+
+    return typeof readPath(result, field.path) === 'string'
+      ? result
+      : writePath(result, field.path, first);
+  }, value);
+}
+
+/**
  * Показывается ли поле при таком значении группы.
  *
  * Условие сравнивается со строкой: переключатель состава отдаёт строку, а
@@ -123,9 +148,23 @@ export function filledFieldLabels(
   value: GroupValue,
   exceptPath: string,
 ): readonly string[] {
-  return visibleFields(group, value)
-    .filter((field) => field.path !== exceptPath && isFilled(readPath(value, field.path)))
-    .map((field) => field.label);
+  /* 🔴 Считается по всей группе, а не по видимым полям: стирается группа
+     целиком, и промолчать о значении, которое сейчас скрыто условием, значит
+     не назвать то, что исчезнет. Путь берётся один раз — у вариантов есть
+     одноимённые поля («Наименование» у обоих), и владельцу незачем читать про
+     одно значение дважды; подпись берётся у того поля, которое сейчас на
+     экране. */
+  const seen = new Set<string>();
+  const labels: string[] = [];
+
+  for (const field of [...visibleFields(group, value), ...group.fields]) {
+    if (field.path === exceptPath || seen.has(field.path)) continue;
+    seen.add(field.path);
+
+    if (isFilled(readPath(value, field.path))) labels.push(field.label);
+  }
+
+  return labels;
 }
 
 /**

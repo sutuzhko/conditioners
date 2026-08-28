@@ -15,6 +15,7 @@ import {
   timeToMinutes,
   toDateValue,
   visibleFields,
+  withGroupDefaults,
   withoutHiddenFields,
   writePath,
 } from './lib';
@@ -79,7 +80,10 @@ function fieldKey(field: FieldDescriptor): string {
  */
 export function SettingsForm({ group, value, save = putGroup }: SettingsFormProps) {
   const titleId = useId();
-  const [draft, setDraft] = useState<GroupValue>(value);
+  /* Переключатель состава проставляется сразу: группа, сохранённая до его
+     появления, лежит в базе без него, и без этого форма открылась бы пустой
+     на непустых данных (см. `withGroupDefaults`). */
+  const [draft, setDraft] = useState<GroupValue>(() => withGroupDefaults(group, value));
   const [status, setStatus] = useState<SaveStatus>('idle');
   const [message, setMessage] = useState('');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -93,8 +97,12 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
      рисуются и не уходят на сервер. */
   const fields = visibleFields(group, draft);
   /* Сравнение по JSON, а не по ссылкам: значения — простые деревья из строк,
-     чисел и флажков, и глубокого сравнения руками они не стоят. */
-  const dirty = JSON.stringify(draft) !== JSON.stringify(value);
+     чисел и флажков, и глубокого сравнения руками они не стоят.
+
+     Сравнивается с тем же приведённым значением, что легло в черновик: иначе
+     проставленный переключатель сам по себе выглядел бы правкой владельца, и
+     форма предлагала бы сохранить то, чего он не трогал. */
+  const dirty = JSON.stringify(draft) !== JSON.stringify(withGroupDefaults(group, value));
 
   const set = (path: string, next: unknown): void => {
     setDraft((prev) => writePath(prev, path, next));
@@ -204,7 +212,7 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
               variant="ghost"
               disabled={sending}
               onClick={() => {
-                setDraft(value);
+                setDraft(withGroupDefaults(group, value));
                 setStatus('idle');
                 setMessage('');
                 setFieldErrors({});

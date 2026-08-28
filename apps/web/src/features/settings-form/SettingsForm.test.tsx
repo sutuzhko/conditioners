@@ -17,6 +17,7 @@ import {
   filledEntrepreneur,
   filledSchedule,
   integrationsGroupFixture,
+  legacyWithoutForm,
   legalGroupFixture,
   pendingSave,
   rejectingSave,
@@ -346,6 +347,40 @@ describe('Реквизиты: состав зависит от формы рег
     // «данные будут удалены» владельцу не говорит ничего — перечисляем поля
     expect(dialog).toHaveAccessibleDescription(/ФИО полностью/);
     expect(dialog).toHaveAccessibleDescription(/ОГРНИП/);
+  });
+
+  /**
+   * 🔴 Запись, сохранённая до появления вариантов, лежит в базе без
+   * переключателя. Ломалось молча и дважды: форма открывалась пустой на
+   * непустых данных, а смена варианта не спрашивала подтверждения — терять как
+   * будто нечего, — и первое же сохранение затирало группу.
+   */
+  it('🔴 запись без переключателя открывается заполненной и не теряется', async () => {
+    const user = userEvent.setup();
+    render(<SettingsForm group={legalGroupFixture} value={legacyWithoutForm} save={vi.fn()} />);
+
+    // разбирается по первому варианту — так же, как её читают схема и готовность
+    expect(screen.getByLabelText(/Форма/)).toHaveValue('ИП');
+    expect(screen.getByLabelText(/ФИО полностью/)).toHaveValue('Иванов Иван Иванович');
+    expect(screen.getByLabelText(/ИНН/)).toHaveValue('710703123450');
+
+    await user.selectOptions(screen.getByLabelText(/Форма/), 'ООО');
+
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toHaveAccessibleDescription(/ФИО полностью/);
+  });
+
+  /* Скрытое условием значение тоже исчезнет — значит окно обязано его назвать. */
+  it('подтверждение называет и то, что сейчас не на экране', async () => {
+    const user = userEvent.setup();
+    const hidden = { ...filledEntrepreneur, kpp: '710701001' };
+    render(<SettingsForm group={legalGroupFixture} value={hidden} save={vi.fn()} />);
+
+    expect(screen.queryByLabelText(/КПП/)).not.toBeInTheDocument();
+
+    await user.selectOptions(screen.getByLabelText(/Форма/), 'ООО');
+
+    expect(await screen.findByRole('dialog')).toHaveAccessibleDescription(/КПП/);
   });
 
   it('🔴 отказ не меняет ничего: ни переключателя, ни полей', async () => {
