@@ -156,7 +156,7 @@ export function ArticleForm({
             value={values.excerpt}
             error={errorFor('excerpt')}
             disabled={busy}
-            className={styles.wide}
+            wrapperClassName={styles.wide}
             onChange={(event) => set('excerpt', event.target.value)}
           />
 
@@ -222,7 +222,7 @@ export function ArticleForm({
             rows={3}
             value={values.seoDescription}
             disabled={busy}
-            className={styles.wide}
+            wrapperClassName={styles.wide}
             onChange={(event) => set('seoDescription', event.target.value)}
           />
         </div>
