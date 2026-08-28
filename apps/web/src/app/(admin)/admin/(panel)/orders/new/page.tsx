@@ -1,20 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
 
-import { guessOrderType, leadManagerContent as leadTexts } from '@/features/lead-manager';
-import {
-  emptyOrderDraft,
-  orderManagerContent as texts,
-  type OrderDraft,
-} from '@/features/order-manager';
-import { requireOwnerPage } from '@/server/guards';
-import { listInstallers } from '@/server/repo/admin-users';
-import { listAll } from '@/server/repo/clients';
-import { findById as findLead } from '@/server/repo/leads';
-import { todayKey } from '@/shared/lib/calendar';
+import { leadManagerContent as leadTexts } from '@/features/lead-manager';
+import { ORDERS_PATH, orderManagerContent as texts } from '@/features/order-manager';
+import { Card } from '@/shared/ui';
 
-import { loadBlocks, loadWork } from '../blocks';
+import { orderFormData } from '../data';
 import { OrderEditor } from '../OrderEditor';
 import styles from '../page.module.css';
 
@@ -25,85 +16,63 @@ export const dynamic = 'force-dynamic';
 type PageProps = { searchParams: Promise<{ lead?: string }> };
 
 /**
- * Заведение наряда. Только владелец: монтажник наряды себе не выписывает.
+ * Та же форма страницей.
  *
- * 🔴 Наряд из обращения заводится здесь же, параметром `?lead=`, а не отдельной
- * страницей в разделе заявок: форма и правила у наряда одни, и второй их копии
- * быть не должно — она разошлась бы с первой на первой же правке. Обращение
- * задаёт черновик, а не свой экран.
+ * 🔴 Прямой заход по адресу окна обязан отдавать полноценную страницу: иначе
+ * ссылка на форму заведения ведёт в пустоту, а обновление теряет ввод
+ * (ADR-117). Перехват работает только на переходе внутри раздела, и это ровно
+ * то, чего от него ждут.
  *
- * Клиента и статус обращения к этому моменту уже перевёл
- * `POST /api/admin/leads/{id}/order` — страница только читает: переход по
- * ссылке не должен ничего менять в базе. Если адрес открыли напрямую, минуя
- * действие, клиент останется невыбранным: форма спросит его сама, а
- * придумывать за неё нечего.
+ * Правка наряда окном не открывается и здесь ни при чём: карточка — это работа,
+ * расход, фото и история, и прокрутка внутри прокрутки ей не подходит.
+ *
+ * Заголовок, подпись и путь назад даёт страница — форма приносит только поля,
+ * как и в окне.
  */
 export default async function AdminOrderNewPage({ searchParams }: PageProps) {
-  /* Раздел владельца: проверка до чтения данных (ADR-095). */
-  const session = await requireOwnerPage();
-
-  const { lead: leadId } = await searchParams;
-  const lead = leadId === undefined ? null : await findLead(leadId);
-  if (leadId !== undefined && lead === null) notFound();
-
-  /* Только работающие: назначать наряд человеку, у которого закрыт доступ,
-     значит отправить его в пустоту — он не увидит наряд в панели. */
-  const [clients, installers, blocks, work] = await Promise.all([
-    listAll(),
-    listInstallers(true),
-    /* Занятость вокруг сегодняшнего дня: наряд заводят, пока клиент на линии,
-       и чаще всего на ближайшие дни. */
-    loadBlocks(session, todayKey()),
-    loadWork(session, todayKey()),
-  ]);
-
-  const draft: OrderDraft | undefined =
-    lead === null
-      ? undefined
-      : {
-          ...emptyOrderDraft(),
-          type: guessOrderType(lead.topic),
-          clientId: lead.clientId ?? '',
-          address: lead.address ?? '',
-          comment: lead.comment ?? '',
-          leadId: lead.id,
-        };
+  const { clients, installers, blocks, work, lead } = await orderFormData(await searchParams);
 
   return (
     <div className={styles.page}>
       <Link
         className={styles.back}
-        href={{ pathname: lead === null ? '/admin/orders' : '/admin/leads' }}
+        href={{ pathname: lead === null ? ORDERS_PATH : '/admin/leads' }}
       >
         {lead === null ? texts.back : leadTexts.orderBack}
       </Link>
 
       <header className={styles.header}>
         <h1 className={styles.title}>{lead === null ? texts.addTitle : leadTexts.orderTitle}</h1>
-        {lead !== null && (
-          <p className={styles.from}>{leadTexts.orderFrom(lead.name, lead.topic)}</p>
-        )}
+        {lead !== null && <p className={styles.from}>{lead.from}</p>}
         <p className={styles.lead}>{lead === null ? texts.addHint : leadTexts.orderLead}</p>
       </header>
 
-      <OrderEditor
-        clients={clients.map((client) => ({
-          id: client.id,
-          name: client.name,
-          phone: client.phone,
-        }))}
-        installers={installers.map((staff) => ({
-          id: staff.id,
-          name: staff.name,
-          login: staff.login,
-          employment: staff.employment,
-        }))}
-        blocks={blocks}
-        work={work}
-        {...(draft === undefined
-          ? {}
-          : { initial: draft, title: leadTexts.orderFormTitle, hint: leadTexts.orderFormHint })}
-      />
+      {/* Наряд с нуля: заголовок даёт страница, форма приносит только поля —
+          иначе «Новый наряд» и подсказка стояли бы на экране дважды подряд.
+          Наряд по обращению — случай другой: заголовок страницы говорит,
+          откуда он взялся, а заголовок формы — что перед человеком ещё
+          черновик, который никуда не записан. */}
+      {lead === null ? (
+        <Card as="section">
+          <OrderEditor
+            clients={clients}
+            installers={installers}
+            blocks={blocks}
+            work={work}
+            surface="bare"
+          />
+        </Card>
+      ) : (
+        <OrderEditor
+          clients={clients}
+          installers={installers}
+          blocks={blocks}
+          work={work}
+          initial={lead.draft}
+          title={leadTexts.orderFormTitle}
+          hint={leadTexts.orderFormHint}
+        />
+      )}
     </div>
   );
 }

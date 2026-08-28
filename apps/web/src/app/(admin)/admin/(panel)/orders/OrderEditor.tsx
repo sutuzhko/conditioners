@@ -8,6 +8,7 @@ import {
   type OrderWorkSpan,
   type OrderClientRef,
   type OrderDraft,
+  type OrderFormSurface,
   type OrderInstallerRef,
 } from '@/features/order-manager';
 
@@ -23,6 +24,8 @@ export interface OrderEditorProps {
   readonly title?: string | undefined;
   readonly hint?: string | undefined;
   readonly removable?: boolean | undefined;
+  /** Своя карточка с заголовком или только поля: заголовок даёт страница. */
+  readonly surface?: OrderFormSurface | undefined;
 }
 
 /**
@@ -44,6 +47,7 @@ export function OrderEditor({
   title,
   hint,
   removable,
+  surface,
 }: OrderEditorProps) {
   const router = useRouter();
 
@@ -59,6 +63,7 @@ export function OrderEditor({
       title={title}
       hint={hint}
       removable={removable}
+      surface={surface}
       onSaved={(id) => {
         /* Заведение уводит в созданный наряд, правка остаётся на месте и
            только освежает данные: человек продолжает смотреть тот же экран. */

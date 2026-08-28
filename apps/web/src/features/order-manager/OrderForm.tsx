@@ -50,6 +50,20 @@ import {
 } from './model';
 import styles from './OrderForm.module.css';
 
+/**
+ * Во что одета форма.
+ *
+ * `section` — сама себе карточка с заголовком: так она стоит в содержимом
+ * страницы. `bare` — только поля: рамку и заголовок даёт тот, кто её вставил,
+ * то есть окно создания.
+ *
+ * 🔴 Форма при этом одна и та же: заведение открывается окном, а прямой заход
+ * по тому же адресу отдаёт страницу (ADR-117). Две формы для одного действия
+ * разошлись бы на первой же новой строке в наряде, а карточка внутри окна была
+ * бы панелью в панели со вторым таким же заголовком.
+ */
+export type OrderFormSurface = 'section' | 'bare';
+
 export interface OrderFormProps {
   /** Действия раздела. Подменяются в историях и тестах, чтобы не поднимать сеть. */
   readonly api?: OrderApi | undefined;
@@ -80,6 +94,8 @@ export interface OrderFormProps {
   readonly onRemoved?: (() => void) | undefined;
   /** Подтверждение выведено пропом: тесты и истории не открывают окно. */
   readonly confirm?: Confirm | undefined;
+  /** Своя карточка с заголовком или только поля: см. `OrderFormSurface`. */
+  readonly surface?: OrderFormSurface | undefined;
 }
 
 type Errors = Partial<Record<OrderField, string>>;
@@ -113,6 +129,7 @@ export function OrderForm({
   removable = false,
   onRemoved,
   confirm,
+  surface = 'section',
 }: OrderFormProps) {
   const { confirm: ask, dialog } = useConfirm();
   const [draft, setDraft] = useState<OrderDraft>(() => initial ?? emptyOrderDraft());
@@ -249,11 +266,19 @@ export function OrderForm({
      стоит ему второго захода. */
   const chosenMinutes = minutesOfTime(draft.time);
 
-  return (
-    <Card as="section">
+  const body = (
+    <>
       <form className={styles.form} onSubmit={submit} noValidate>
-        <h2 className={styles.title}>{title ?? (editing ? texts.cardTitle : texts.addTitle)}</h2>
-        <p className={styles.hint}>{hint ?? (editing ? texts.cardHint : texts.addHint)}</p>
+        {/* Заголовок и подсказку внутри окна даёт само окно: второй такой же
+            здесь читалка объявила бы дважды. */}
+        {surface === 'section' ? (
+          <>
+            <h2 className={styles.title}>
+              {title ?? (editing ? texts.cardTitle : texts.addTitle)}
+            </h2>
+            <p className={styles.hint}>{hint ?? (editing ? texts.cardHint : texts.addHint)}</p>
+          </>
+        ) : null}
 
         <fieldset className={styles.group} disabled={busy}>
           <legend className={styles.legend}>{texts.mainTitle}</legend>
@@ -541,8 +566,12 @@ export function OrderForm({
       </form>
 
       {dialog}
-    </Card>
+    </>
   );
+
+  if (surface === 'bare') return body;
+
+  return <Card as="section">{body}</Card>;
 }
 
 function idleLabel(editing: boolean): string {
