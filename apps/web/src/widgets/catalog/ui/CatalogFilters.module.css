@@ -1,12 +1,46 @@
 /* Подбор по параметрам. Группы идут колонкой, значения — переносимой строкой:
    на 320px в ряд помещаются два чипа, и горизонтальной прокрутки быть не
-   должно (docs/SEO.md §5, «Мобильность»). */
+   должно (docs/SEO.md §5, «Мобильность»).
+
+   🔴 Свёрнутое состояние — родное `<details>`: на узкой ширине подбор занимает
+   одну строку, и первый экран каталога достаётся товару (ADR-121). */
 
 .filters {
+  min-width: 0;
+}
+
+.box {
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-soft);
+}
+
+.summary {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 11px 16px;
+  color: var(--ink);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.summary:focus-visible {
+  outline: none;
+  border-radius: var(--r-md);
+  box-shadow: var(--ring-focus-ring);
+}
+
+.panel {
   display: flex;
   flex-direction: column;
   gap: 18px;
-  margin-bottom: 28px;
+  border-top: 1px solid var(--line);
+  padding: 16px;
 }
 
 .group {
@@ -37,26 +71,53 @@
   gap: 8px;
 }
 
-.resetRow {
-  margin: 0;
+/* Широкая ширина: подбор — боковая колонка рядом с выдачей, а не полоса над
+   ней. Раскрывается без нажатия: разметка одна на все ширины, поэтому
+   «открыто» здесь задаётся стилем, а не атрибутом (ADR-121). */
+@media (width >= 1000px) {
+  /* Липкая колонка: подбор остаётся под рукой, пока человек листает выдачу.
+     Ограничение по высоте — не украшение: значения фильтров приходят из
+     моделей, и на большом каталоге колонка перерастает экран, а у липкого
+     блока нижний край в таком случае недостижим. */
+  .box {
+    position: sticky;
+    top: calc(var(--header-h) + 16px);
+    max-height: calc(100dvh - var(--header-h) - 32px);
+    overflow-y: auto;
+  }
+
+  .box::details-content {
+    content-visibility: visible;
+  }
+
+  .summary {
+    font-family: var(--font-display);
+    font-size: var(--fs-h3);
+    letter-spacing: -0.02em;
+  }
+
+  .panel {
+    /* группы у колонки уже, чем во всю ширину: воздуха между ними нужно
+       меньше, иначе подбор вытягивается ниже первого ряда карточек */
+    gap: 16px;
+  }
 }
 
-.reset {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap);
-  color: var(--accent-ink);
-  font-size: var(--fs-caption);
-  font-weight: 600;
-  text-decoration: none;
-}
+/* Переключатель убирается только там, где раскрытие действительно сработало:
+   в движке без `::details-content` подбор остаётся обычным `<details>`, и
+   отнять у него единственный способ раскрыться значит оставить человека без
+   подбора вовсе. Убирается целиком, а не гасится нажатием: свёрнутая кнопка
+   над развёрнутым содержимым — это переключатель, который ничего не
+   переключает, и скринридеру он сообщает неправду о состоянии. Имя колонки
+   при этом не теряется — оно на секции. */
+@supports selector(::details-content) {
+  @media (width >= 1000px) {
+    .summary {
+      display: none;
+    }
 
-.reset:hover {
-  text-decoration: underline;
-}
-
-.reset:focus-visible {
-  outline: none;
-  border-radius: var(--r-sm);
-  box-shadow: var(--ring-focus-ring);
+    .panel {
+      border-top: none;
+    }
+  }
 }

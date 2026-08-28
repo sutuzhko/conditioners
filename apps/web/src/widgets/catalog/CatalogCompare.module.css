@@ -1,0 +1,167 @@
+/* Содержимое страницы сравнения: список отмеченного, таблица и путь обратно
+   в каталог (ADR-121). Контейнер и ритм — те же, что у остальных страниц
+   кластера (docs/DESIGN_BRIEF.md §4). */
+
+.compare {
+  background: var(--bg);
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 28px var(--gutter) var(--section-y);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.chosen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Отмеченная модель пилюлей: тем же жестом, что и отметка на карточке, её
+   можно снять — не прокручивая таблицу вбок до нужной колонки. */
+.chip {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 9px 14px;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--r-pill);
+  background: var(--accent-bg);
+  color: var(--on-accent);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+.chip:hover {
+  border-color: var(--brand);
+  background: var(--bg-soft);
+}
+
+.chip:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.remove {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.chip:hover .remove {
+  color: var(--on-accent);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  align-items: center;
+  margin: 0;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--accent-ink);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+.back:focus-visible {
+  outline: none;
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-ring);
+}
+
+.clear {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.clear:hover {
+  color: var(--ink);
+}
+
+.clear:focus-visible {
+  outline: none;
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* Объяснение вырожденного состояния — подсказка, а не ошибка: красить её
+   тревожным цветом не за что. */
+.hint {
+  max-width: 70ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-base);
+}
+
+.empty {
+  max-width: 620px;
+}
+
+.emptyTitle {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.emptyText {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-base);
+}
+
+.emptyAction {
+  margin-top: 16px;
+}
+
+/* Заявка — то, ради чего сравнение вообще существует (миссия проекта):
+   человек сравнил и должен иметь возможность позвать нас, не возвращаясь. */
+.order {
+  margin: 28px 0 0;
+}
+
+@media (width < 600px) {
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+}

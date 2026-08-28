@@ -1,0 +1,62 @@
+/* Строка сравнения в каталоге. Одна строка вместо развернувшейся таблицы:
+   отметка больше не сдвигает витрину вниз (ADR-121).
+
+   Отступ прокрутки — шапка сайта липкая и прозрачная, и без него переход по
+   якорю приземлял бы строку ровно под неё. */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: center;
+  margin-bottom: 20px;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--r-md);
+  padding: 10px 16px;
+  background: var(--accent-bg);
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+.count {
+  flex: 1 1 auto;
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-base);
+  font-weight: 700;
+}
+
+.open {
+  flex: 0 0 auto;
+}
+
+.clear {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.clear:hover {
+  color: var(--ink);
+}
+
+.clear:focus-visible {
+  outline: none;
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-ring);
+}
+
+@media (width < 600px) {
+  .bar {
+    gap: 10px 12px;
+    padding: 10px 14px;
+  }
+
+  /* Счётчик занимает строку целиком: иначе «Очистить» уезжает под него в
+     одиночку и строка вырастает в три уровня вместо двух. */
+  .count {
+    flex: 1 1 100%;
+  }
+}

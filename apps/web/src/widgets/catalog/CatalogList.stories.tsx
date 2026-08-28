@@ -15,7 +15,6 @@ import {
   NOW,
   plainProduct,
   productHrefFixture,
-  specDictionaryFixture,
 } from './fixtures';
 import type { CatalogProduct } from './model';
 
@@ -47,12 +46,12 @@ function argsFor(
     page: selectCatalogPage(products, query, NOW),
     facets: catalogFacets(products),
     query,
-    compared: selectCatalogCompare(products, query.compare),
+    compared: selectCatalogCompare(products, query.compare).map((product) => product.slug),
     basePath: '/catalog',
+    comparePath: '/compare',
     productHref: productHrefFixture,
     orderHref: '/#lead',
     now: NOW,
-    specDictionary: specDictionaryFixture,
   };
 }
 
@@ -71,6 +70,11 @@ export const Basic: Story = { name: 'Весь каталог' };
 export const Filtered: Story = {
   name: 'Выбран класс мощности',
   args: argsFor(catalog, { class: '09' }),
+};
+
+export const Narrowed: Story = {
+  name: 'Выбрано несколько параметров — чипы у счётчика',
+  args: argsFor(catalog, { class: '09', area: '25', sale: '1' }),
 };
 
 export const OnSale: Story = {
@@ -99,21 +103,16 @@ export const Empty: Story = {
 };
 
 export const CompareTwo: Story = {
-  name: 'Сравнение: отмечены две модели',
+  name: 'Отмечены две модели — строка сравнения',
   args: argsFor(catalog, { compare: 'split-07,split-12' }),
 };
 
 export const CompareOne: Story = {
-  name: 'Сравнение: отмечена одна модель',
+  name: 'Отмечена одна модель',
   args: argsFor(catalog, { compare: 'split-07' }),
 };
 
-export const CompareAll: Story = {
-  name: 'Сравнение: отмечены все модели',
-  args: argsFor(catalog, { compare: catalog.map((product) => product.slug).join(',') }),
-};
-
 export const CompareWithFilter: Story = {
-  name: 'Сравнение переживает подбор',
+  name: 'Отметки переживают подбор',
   args: argsFor(catalog, { class: '09', compare: 'split-07,split-12' }),
 };

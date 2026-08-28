@@ -29,6 +29,17 @@ export const CATALOG_PATH = '/catalog';
 export const ARTICLES_PATH = '/knowledge';
 export const PRIVACY_PATH = '/privacy';
 
+/**
+ * Сравнение моделей (ADR-121).
+ *
+ * 🔴 В `SITE_ROUTES` его нет намеренно, и добавлять нельзя: список идёт в
+ * карту сайта и в хлебные крошки, а `/compare` закрыт от индекса. Без
+ * параметров у страницы нет содержимого, с параметрами это состояние
+ * интерфейса, а не страница. Константа же нужна и ссылкам каталога, и
+ * правилу `Clean-param` в `robots.txt`.
+ */
+export const COMPARE_PATH = '/compare';
+
 export const SITE_ROUTES: readonly SiteRoute[] = [
   HOME_ROUTE,
   { path: CATALOG_PATH, title: 'Каталог' },

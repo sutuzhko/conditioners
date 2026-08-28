@@ -1,5 +1,8 @@
 import type { ButtonLinkHref } from '@/shared/ui';
+import type { CatalogFilter, CatalogQuery } from '@/entities/product/lib/catalogQuery';
 import type { Product, ProductPhoto } from '@/entities/product/model';
+
+import { activeFilterLabel } from './content';
 
 /**
  * Что каталогу нужно от товара.
@@ -32,14 +35,65 @@ export type CatalogProduct = Pick<
 >;
 
 /**
- * Якорь секции сравнения на странице каталога.
+ * Якорь строки сравнения на странице каталога.
  *
  * Отметка «Сравнить» ведёт именно сюда: клик по карточке в середине списка —
  * это переход по ссылке, и без якоря человек оказывался бы в начале страницы,
- * не увидев, что его выбор куда-то попал. По-английски, как все адресуемое
+ * не увидев, что его выбор куда-то попал. По-английски, как всё адресуемое
  * (инвариант 17).
+ *
+ * 🔴 Сама таблица уехала на `/compare` (ADR-121), и якорь теперь приземляет
+ * на строку «отмечено N · Сравнить · Очистить» — она стоит вплотную над
+ * сеткой, поэтому сразу под ней виден товар, а не развернувшаяся таблица.
  */
 export const COMPARE_ANCHOR = 'compare';
+
+/**
+ * Выбранное в подборе — списком, пригодным для показа чипами.
+ *
+ * 🔴 Существует затем, что подбор сворачивается (ADR-121): свёрнутая панель
+ * оставляла бы человека наедине с тремя моделями и без объяснения, куда
+ * делись остальные. Чипы отвечают на этот вопрос рядом со счётчиком
+ * найденного и в свёрнутом состоянии тоже.
+ *
+ * Порядок групп повторяет порядок самого подбора — класс, площадь,
+ * предложения: чип и группа, из которой он взялся, обязаны читаться как одно.
+ * Сортировка сюда не входит: у неё есть свой видимый переключатель, и
+ * «сбросить порядок» — это не «сбросить подбор».
+ */
+export type ActiveCatalogFilter = {
+  /** Ключ параметра — он же ключ списка в разметке. */
+  readonly key: 'class' | 'area' | 'sale';
+  readonly label: string;
+  /** Патч, снимающий именно этот параметр и не трогающий соседние. */
+  readonly clear: Partial<CatalogFilter>;
+};
+
+export function activeCatalogFilters(query: CatalogQuery): readonly ActiveCatalogFilter[] {
+  const active: ActiveCatalogFilter[] = [];
+
+  if (query.filter.powerClass !== null) {
+    active.push({
+      key: 'class',
+      label: activeFilterLabel.powerClass(query.filter.powerClass),
+      clear: { powerClass: null },
+    });
+  }
+
+  if (query.filter.area !== null) {
+    active.push({
+      key: 'area',
+      label: activeFilterLabel.area(query.filter.area),
+      clear: { area: null },
+    });
+  }
+
+  if (query.filter.sale) {
+    active.push({ key: 'sale', label: activeFilterLabel.sale, clear: { sale: false } });
+  }
+
+  return active;
+}
 
 /**
  * Адрес страницы модели по её слагу.

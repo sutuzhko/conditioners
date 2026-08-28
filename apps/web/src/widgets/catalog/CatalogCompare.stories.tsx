@@ -6,21 +6,23 @@ import {
   type CatalogQuery,
 } from '@/entities/product/lib/catalogQuery';
 
-import { catalogFixture, expiredSaleProduct, NOW, specDictionaryFixture } from '../fixtures';
-import type { CatalogProduct } from '../model';
 import { CatalogCompare, type CatalogCompareProps } from './CatalogCompare';
+import { catalogFixture, expiredSaleProduct, NOW, specDictionaryFixture } from './fixtures';
+import type { CatalogProduct } from './model';
 
 /** Каталог целиком: из него истории и отмечают то одну модель, то все. */
 const catalog: readonly CatalogProduct[] = [...catalogFixture, expiredSaleProduct];
 
-/** Секция в том виде, в каком её собирает страница по заданному адресу. */
+/** Страница в том виде, в каком её собирает маршрут по заданному адресу. */
 function argsFor(raw: Record<string, string> = {}): CatalogCompareProps {
   const query: CatalogQuery = parseCatalogQuery(raw);
 
   return {
     products: selectCatalogCompare(catalog, query.compare),
     query,
-    basePath: '/catalog',
+    basePath: '/compare',
+    catalogPath: '/catalog',
+    orderHref: '/#lead',
     now: NOW,
     specDictionary: specDictionaryFixture,
   };
@@ -30,7 +32,7 @@ const meta = {
   title: 'Блоки/Каталог — сравнение',
   component: CatalogCompare,
   args: argsFor({ compare: 'split-07,split-12' }),
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof CatalogCompare>;
 
 export default meta;
@@ -39,7 +41,7 @@ type Story = StoryObj<typeof meta>;
 export const Two: Story = { name: 'Отмечены две модели' };
 
 export const Empty: Story = {
-  name: 'Ничего не отмечено',
+  name: 'Ничего не отмечено — приглашение и дорога в каталог',
   args: argsFor(),
 };
 
@@ -56,6 +58,11 @@ export const All: Story = {
 export const Reordered: Story = {
   name: 'Порядок колонок — порядок адреса',
   args: argsFor({ compare: 'split-12,split-07' }),
+};
+
+export const WithFilter: Story = {
+  name: 'Возврат несёт подбор обратно в каталог',
+  args: argsFor({ class: '07', sort: 'price-asc', compare: 'split-07,split-12' }),
 };
 
 export const WithoutDictionary: Story = {

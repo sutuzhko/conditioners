@@ -14,15 +14,25 @@
   padding: 36px var(--gutter) var(--section-y);
 }
 
+/* Одна колонка на телефоне, две на десктопе. Подбор идёт в разметке первым:
+   свёрнутым он занимает строку, а на широкой ширине встаёт слева от сетки —
+   именно поэтому колонки задаёт сетка, а не порядок в разметке (ADR-121). */
+.layout {
+  display: grid;
+  gap: 20px;
+}
+
+.results {
+  min-width: 0;
+}
+
 .toolbar {
   display: flex;
   flex-wrap: wrap;
   gap: 12px 24px;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 22px;
-  border-top: 1px solid var(--line);
-  padding-top: 18px;
+  margin-bottom: 18px;
 }
 
 .found {
@@ -77,10 +87,36 @@
   margin-top: 16px;
 }
 
+@media (width >= 1000px) {
+  .layout {
+    /* колонка подбора фиксированной ширины: она перечисляет короткие чипы, и
+       резиновая ширина забирала бы место у карточек без пользы */
+    grid-template-columns: 264px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* Карточки в правой колонке уже не растягиваются на всю страницу: ряд из
+     трёх и так заполняет её, а выравнивание по левому краю держит сетку на
+     одной вертикали с подбором. */
+  .grid {
+    justify-content: flex-start;
+  }
+
+  /* Пустому каталогу подбирать нечего, и подбора там нет вовсе: без этого
+     выдача осталась бы в узкой колонке слева, а справа зияла бы пустота. */
+  .results:only-child {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (width < 600px) {
+  /* Воздуха сверху меньше: каждый пиксель до первой карточки на телефоне
+     оплачивается товаром, ушедшим за край экрана (ADR-121). */
   .container {
     padding-right: 16px;
     padding-left: 16px;
+    padding-top: 22px;
   }
 
   .toolbar {

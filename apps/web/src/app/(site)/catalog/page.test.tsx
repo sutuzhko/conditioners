@@ -22,6 +22,7 @@ vi.mock('@/server/repo/settings', () => settingsMock);
 
 const { default: CatalogPage, generateMetadata } = await import('./page');
 const { catalogPageContent } = await import('./content');
+const { catalogListText } = await import('@/widgets/catalog');
 
 /** Модель в том виде, в каком её отдаёт репозиторий: даты строками. */
 function model(overrides: Record<string, unknown> = {}) {
@@ -95,20 +96,26 @@ describe('Каталог — страница', () => {
     expect(screen.getByRole('heading', { name: 'Сплит-система 07' })).toBeInTheDocument();
   });
 
-  it('🔴 сравнение собирается на сервере: таблица приходит в HTML (инвариант 1)', async () => {
+  it('🔴 таблицы сравнения в каталоге нет: она уехала на свою страницу (ADR-121)', async () => {
     await renderPage({ compare: 'split-09,split-07' });
 
-    const headers = screen.getAllByRole('columnheader').map((cell) => cell.textContent);
-    expect(headers).toEqual(['Характеристика', 'Сплит-система 09', 'Сплит-система 07']);
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
+    expect(screen.getByText(catalogListText.compareCount(2))).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: catalogListText.compareOpen })).toHaveAttribute(
+      'href',
+      '/compare?compare=split-09%2Csplit-07',
+    );
   });
 
-  it('🔴 отмеченная модель остаётся в сравнении, даже когда подбор её отсеял', async () => {
+  it('🔴 отмеченная модель остаётся в отметках, даже когда подбор её отсеял', async () => {
     await renderPage({ class: '07', compare: 'split-09' });
 
     expect(screen.queryByRole('heading', { name: 'Сплит-система 09' })).not.toBeInTheDocument();
-    expect(
-      screen.getByRole('link', { name: /Сплит-система 09 — убрать из сравнения/ }),
-    ).toBeInTheDocument();
+    expect(screen.getByText(catalogListText.compareCount(1))).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: catalogListText.compareOpen })).toHaveAttribute(
+      'href',
+      '/compare?class=07&compare=split-09',
+    );
   });
 
   it('фильтр из адреса отрабатывает на сервере', async () => {

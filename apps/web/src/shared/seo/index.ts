@@ -54,6 +54,7 @@ export type { PageMetadataInput } from './metadata';
 export {
   ARTICLES_PATH,
   CATALOG_PATH,
+  COMPARE_PATH,
   HOME_ROUTE,
   PRIVACY_PATH,
   SITE_ROUTES,

@@ -10,14 +10,18 @@ import {
 } from '@/entities/product/lib/catalogQuery';
 
 import { CatalogList } from './CatalogList';
-import { catalogListText as t, catalogText, compareChipLabel, compareMarkLabel } from './content';
+import {
+  activeFilterChipLabel,
+  catalogListText as t,
+  catalogText,
+  compareMarkLabel,
+} from './content';
 import {
   catalogFixture,
   expiredSaleProduct,
   NOW,
   plainProduct,
   productHrefFixture,
-  specDictionaryFixture,
 } from './fixtures';
 import type { CatalogProduct } from './model';
 
@@ -35,37 +39,23 @@ function renderList(
       page={selectCatalogPage(products, query, NOW)}
       facets={catalogFacets(products)}
       query={query}
-      compared={selectCatalogCompare(products, query.compare)}
+      compared={selectCatalogCompare(products, query.compare).map((product) => product.slug)}
       basePath="/catalog"
+      comparePath="/compare"
       productHref={productHrefFixture}
       orderHref="/#lead"
       now={NOW}
-      specDictionary={specDictionaryFixture}
     />,
   );
 }
 
-/** Строка сравнения по названию характеристики: заголовок строки + её ячейки. */
-function specRow(name: string): readonly string[] {
-  const header = screen.getByRole('rowheader', { name });
-  const row = header.closest('tr');
-  if (row === null) throw new Error(`Строка «${name}» не найдена`);
-  return within(row)
-    .getAllByRole('cell')
-    .map((cell) => cell.textContent ?? '');
-}
-
 /**
- * Подписи колонок таблицы сравнения. Берутся из первой строки: заголовки
- * групп характеристик — тоже `columnheader`, и общий поиск смешал бы их
- * с названиями моделей.
+ * Карточки выдачи. Считаются по заголовкам моделей, а не по `listitem`:
+ * чипы выбранного — тоже элементы списка, и общий счёт смешал бы их с
+ * товаром.
  */
-function columnHeaders(): readonly (string | null)[] {
-  const [head] = screen.getAllByRole('row');
-  if (head === undefined) throw new Error('Шапка таблицы не найдена');
-  return within(head)
-    .getAllByRole('columnheader')
-    .map((cell) => cell.textContent);
+function cards(): readonly string[] {
+  return screen.queryAllByRole('heading', { level: 3 }).map((heading) => heading.textContent ?? '');
 }
 
 /** Адрес ссылки фильтра по её подписи. */
@@ -80,6 +70,16 @@ describe('Каталог — подбор', () => {
     expect(hrefOf('09')).toBe('/catalog?class=09');
     expect(hrefOf('25 м²')).toBe('/catalog?area=25');
     expect(hrefOf(t.filterSaleOn)).toBe('/catalog?sale=1');
+  });
+
+  it('🔴 подбор сворачивается родным <details>, а не состоянием на клиенте (ADR-121)', () => {
+    const { container } = renderList();
+
+    const box = container.querySelector('details');
+    expect(box).not.toBeNull();
+    // содержимое всегда в HTML, как у FAQ: свёрнуто — не значит «нет»
+    expect(within(box as HTMLElement).getByRole('link', { name: '09' })).toBeInTheDocument();
+    expect(box?.hasAttribute('open')).toBe(false);
   });
 
   it('🔴 значения фильтров берутся из моделей, а не из списка в коде', () => {
@@ -129,6 +129,50 @@ describe('Каталог — подбор', () => {
   });
 });
 
+describe('Каталог — выбранное видно всегда (ADR-121)', () => {
+  it('🔴 чипы показывают выбранное: свёрнутый подбор не прячет, чем сужена выдача', () => {
+    renderList(catalog, { class: '09', area: '25', sale: '1' });
+
+    const chosen = within(screen.getByRole('list', { name: t.activeTitle }));
+    expect(
+      chosen.getAllByRole('listitem').map((item) => item.textContent?.replace('×', '').trim()),
+    ).toEqual(['Класс 09', 'Площадь 25 м²', t.filterSaleOn]);
+  });
+
+  it('🔴 чип снимает свой параметр и не трогает соседние', () => {
+    renderList(catalog, { class: '09', area: '25' });
+
+    expect(hrefOf(activeFilterChipLabel('Класс 09'))).toBe('/catalog?area=25');
+    expect(hrefOf(activeFilterChipLabel('Площадь 25 м²'))).toBe('/catalog?class=09');
+  });
+
+  it('чип называет и параметр, и значение: «09» в отрыве от группы не читается', () => {
+    renderList(catalog, { class: '09' });
+
+    const chip = screen.getByRole('link', { name: activeFilterChipLabel('Класс 09') });
+    expect(chip).toHaveTextContent('Класс 09');
+    expect(chip).toHaveAccessibleName(expect.stringContaining(t.activeRemove));
+  });
+
+  it('чипы не забирают с собой отметки сравнения', () => {
+    renderList(catalog, { class: '09', compare: 'split-07' });
+
+    expect(hrefOf(activeFilterChipLabel('Класс 09'))).toBe('/catalog?compare=split-07');
+  });
+
+  it('ничего не выбрано — чипов нет', () => {
+    renderList();
+
+    expect(screen.queryByRole('list', { name: t.activeTitle })).not.toBeInTheDocument();
+  });
+
+  it('порядок не считается подбором: свой переключатель у него уже есть', () => {
+    renderList(catalog, { sort: 'price-asc' });
+
+    expect(screen.queryByRole('list', { name: t.activeTitle })).not.toBeInTheDocument();
+  });
+});
+
 describe('Каталог — порядок', () => {
   it('порядок задаётся адресом и подсвечивает выбранное', () => {
     renderList(catalog, { sort: 'price-asc' });
@@ -152,25 +196,20 @@ describe('Каталог — выдача', () => {
     renderList(catalog, { class: '09' });
 
     expect(screen.getByText(t.found(1))).toBeInTheDocument();
-    expect(screen.getAllByRole('listitem')).toHaveLength(1);
-    expect(screen.getByRole('heading', { name: 'Сплит-система 09' })).toBeInTheDocument();
+    expect(cards()).toEqual(['Сплит-система 09']);
   });
 
   it('карточка ведёт на страницу модели', () => {
     renderList([plainProduct]);
 
-    const card = within(screen.getByRole('listitem'));
-    expect(card.getByRole('link', { name: 'Сплит-система 07' })).toHaveAttribute(
-      'href',
-      '/catalog/split-07',
-    );
+    expect(hrefOf('Сплит-система 07')).toBe('/catalog/split-07');
   });
 
   it('пустая выдача объясняет, что делать, и оставляет путь к заявке', () => {
     renderList(catalog, { class: '09', area: '70' });
 
     expect(screen.getByText(t.nothingTitle)).toBeInTheDocument();
-    expect(screen.queryByRole('listitem')).not.toBeInTheDocument();
+    expect(cards()).toEqual([]);
     expect(screen.getByRole('link', { name: 'Заказать' })).toHaveAttribute('href', '/#lead');
   });
 });
@@ -184,7 +223,7 @@ describe('Каталог — разбивка', () => {
   it('длинный каталог режется на страницы, ссылка «дальше» ведёт на вторую', () => {
     renderList(many);
 
-    expect(screen.getAllByRole('listitem')).toHaveLength(CATALOG_PAGE_SIZE);
+    expect(cards()).toHaveLength(CATALOG_PAGE_SIZE);
     expect(hrefOf(/Дальше/)).toBe('/catalog?page=2');
   });
 
@@ -201,13 +240,45 @@ describe('Каталог — разбивка', () => {
   });
 });
 
-describe('Каталог — сравнение по выбору (ADR-109)', () => {
+describe('Каталог — строка сравнения (ADR-121)', () => {
   it('🔴 отметка — ссылка, добавляющая слаг в адрес, а не состояние на клиенте', () => {
     renderList();
 
     expect(hrefOf(compareMarkLabel('Сплит-система 07', false))).toBe(
       '/catalog?compare=split-07#compare',
     );
+  });
+
+  it('🔴 отметка ничего не разворачивает: таблицы в каталоге нет вовсе', () => {
+    renderList(catalog, { compare: 'split-07,split-12' });
+
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  });
+
+  it('🔴 строка называет число отмеченного и уводит на страницу сравнения', () => {
+    renderList(catalog, { compare: 'split-07,split-12' });
+
+    expect(screen.getByText(t.compareCount(2))).toBeInTheDocument();
+    expect(hrefOf(t.compareOpen)).toBe('/compare?compare=split-07%2Csplit-12');
+  });
+
+  it('🔴 переход к сравнению несёт с собой подбор: возврат откроет ту же выдачу', () => {
+    renderList(catalog, { class: '07', sort: 'price-asc', compare: 'split-07' });
+
+    expect(hrefOf(t.compareOpen)).toBe('/compare?class=07&sort=price-asc&compare=split-07');
+  });
+
+  it('очистка снимает отметки, оставляя подбор на месте', () => {
+    renderList(catalog, { class: '09', compare: 'split-09' });
+
+    expect(hrefOf(t.compareClearFull)).toBe('/catalog?class=09');
+  });
+
+  it('ничего не отмечено — строки нет: пустой счётчик над витриной это шум', () => {
+    renderList();
+
+    expect(screen.queryByRole('link', { name: t.compareOpen })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: t.compareClearFull })).not.toBeInTheDocument();
   });
 
   it('🔴 повторное нажатие убирает слаг: подпись и адрес меняются вместе', () => {
@@ -221,7 +292,6 @@ describe('Каталог — сравнение по выбору (ADR-109)', ()
   it('🔴 состояние отметки читается подписью, а не одним цветом', () => {
     renderList(catalog, { compare: 'split-07' });
 
-    // подпись отмеченной модели сообщает и состояние, и что нажатие его снимет
     const picked = screen.getByRole('link', { name: compareMarkLabel('Сплит-система 07', true) });
     expect(picked).toHaveTextContent(catalogText.compareOn);
     expect(picked).toHaveAccessibleName(expect.stringContaining(catalogText.compareRemove));
@@ -272,101 +342,10 @@ describe('Каталог — сравнение по выбору (ADR-109)', ()
     expect(hrefOf(/Дальше/)).toBe('/catalog?compare=p0&page=2');
   });
 
-  it('🔴 порядок колонок — порядок слагов в адресе, а не порядок каталога', () => {
-    renderList(catalog, { compare: 'split-12,split-07' });
-
-    expect(columnHeaders()).toEqual(['Характеристика', 'Сплит-система 12', 'Сплит-система 07']);
-  });
-
-  it('🔴 строки — объединение ключей отмеченных моделей, прочерк вместо пустого (инвариант 6)', () => {
-    renderList(catalog, { compare: 'split-07,split-12' });
-
-    // «Wi-Fi управление» есть только у одной модели — строка обязана появиться
-    expect(specRow('Wi-Fi управление')).toEqual(['—', 'Есть']);
-    expect(specRow('Обогрев до')).toEqual(['−15 °C', '—']);
-  });
-
-  it('🔴 неотмеченная модель в таблицу не попадает, даже если она в выдаче', () => {
-    renderList(catalog, { compare: 'split-07,split-12' });
-
-    expect(columnHeaders()).not.toContain('Сплит-система 18');
-  });
-
-  it('замыкается ценой под ключ — той же, что на карточке', () => {
-    renderList(catalog, { compare: 'split-07,split-09' });
-
-    const row = screen.getByRole('rowheader', { name: catalogText.comparePrice }).closest('tr');
-    if (row === null) throw new Error('Строка цены не найдена');
-
-    expect(within(row).getByText('34 900 ₽')).toBeInTheDocument();
-    // у модели со скидкой в сравнении стоит действующая цена, а не перечёркнутая
-    expect(within(row).getByText('33 900 ₽')).toBeInTheDocument();
-  });
-
-  it('справочник задаёт порядок строк и подписывает группы (ADR-094)', () => {
-    renderList(catalog, { compare: 'split-07,split-12' });
-
-    expect(screen.getAllByRole('columnheader', { name: 'Основное' }).length).toBeGreaterThan(0);
-  });
-
-  it('прокручивается внутри своего контейнера, а не растягивает страницу', () => {
-    renderList(catalog, { compare: 'split-07,split-12' });
-
-    const region = screen.getByRole('region', { name: /прокручивается по горизонтали/i });
-    expect(region).toHaveAttribute('tabindex', '0');
-    expect(region).toContainElement(screen.getByRole('table'));
-  });
-
   it('🔴 незнакомый слаг молча выпадает и не тащится дальше по ссылкам', () => {
     renderList(catalog, { compare: 'нет-такой,split-07' });
 
-    expect(
-      screen.getByRole('link', { name: compareMarkLabel('Сплит-система 07', true) }),
-    ).toBeInTheDocument();
+    expect(screen.getByText(t.compareCount(1))).toBeInTheDocument();
     expect(hrefOf('09')).toBe('/catalog?class=09&compare=split-07');
-  });
-
-  it('очистка снимает сравнение, оставляя подбор на месте', () => {
-    renderList(catalog, { class: '09', compare: 'split-09' });
-
-    expect(hrefOf(t.compareClear)).toBe('/catalog?class=09');
-  });
-});
-
-describe('Каталог — сравнение, вырожденные состояния', () => {
-  it('ничего не отмечено — приглашение вместо пустой таблицы', () => {
-    renderList();
-
-    expect(screen.getByText(t.compareHint)).toBeInTheDocument();
-    expect(screen.queryByRole('table')).not.toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: t.compareClear })).not.toBeInTheDocument();
-  });
-
-  it('🔴 отмечена одна — выбор виден, но таблицы нет: сравнивать не с чем', () => {
-    renderList(catalog, { compare: 'split-07' });
-
-    expect(screen.getByText(t.compareAlone)).toBeInTheDocument();
-    expect(screen.queryByRole('table')).not.toBeInTheDocument();
-    expect(
-      within(screen.getByRole('list', { name: t.compareChosen })).getByRole('link', {
-        name: compareChipLabel('Сплит-система 07'),
-      }),
-    ).toHaveAttribute('href', '/catalog#compare');
-  });
-
-  it('отмечены все — таблица со всеми колонками и цена в каждой', () => {
-    const slugs = catalog.map((product) => product.slug).join(',');
-    renderList(catalog, { compare: slugs });
-
-    expect(columnHeaders()).toHaveLength(catalog.length + 1);
-  });
-
-  it('у отмеченных моделей нет характеристик — остаётся цена и честная сноска', () => {
-    const bare: readonly CatalogProduct[] = catalog.map((product) => ({ ...product, specs: [] }));
-    renderList(bare, { compare: 'split-07,split-09' });
-
-    expect(screen.getByRole('table')).toBeInTheDocument();
-    expect(screen.getByRole('rowheader', { name: catalogText.comparePrice })).toBeInTheDocument();
-    expect(screen.getByText(catalogText.compareNoSpecs)).toBeInTheDocument();
   });
 });

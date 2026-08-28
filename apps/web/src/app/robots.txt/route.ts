@@ -1,6 +1,6 @@
-import { CATALOG_NARROWING_PARAMS } from '@/entities/product/lib/catalogQuery';
+import { CATALOG_NARROWING_PARAMS, CATALOG_PARAMS } from '@/entities/product/lib/catalogQuery';
 import { env } from '@/shared/config/env';
-import { CATALOG_PATH, absoluteUrl } from '@/shared/seo';
+import { CATALOG_PATH, COMPARE_PATH, absoluteUrl } from '@/shared/seo';
 
 /**
  * `robots.txt` (docs/SEO.md §5).
@@ -34,6 +34,11 @@ function robotsTxt(siteUrl: string): string {
     ...DISALLOW.map((path) => `Disallow: ${path}`),
     '',
     `Clean-param: ${CATALOG_NARROWING_PARAMS.join('&')} ${CATALOG_PATH}`,
+    /* Отметки живут и на странице сравнения (ADR-121). Для робота её адрес с
+       параметрами — состояние интерфейса, а не страница: сама она закрыта
+       `noindex` и в карту сайта не попадает, но ссылки на неё с каталога
+       робот увидит, и склейка избавляет его от обхода сотни одинаковых. */
+    `Clean-param: ${CATALOG_PARAMS.compare} ${COMPARE_PATH}`,
     '',
     `Sitemap: ${absoluteUrl(siteUrl, '/sitemap.xml')}`,
   ];

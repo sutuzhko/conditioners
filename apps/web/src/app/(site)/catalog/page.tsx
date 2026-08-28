@@ -15,6 +15,7 @@ import { env } from '@/shared/config/env';
 import { LEAD_ANCHOR } from '@/shared/config/nav';
 import {
   CATALOG_PATH,
+  COMPARE_PATH,
   JsonLd,
   buildCatalogItemListJsonLd,
   buildPageMetadata,
@@ -96,21 +97,18 @@ export default async function CatalogPage({
      скидкой» и в разметке считается от одной точки (ADR-101). */
   const now = new Date();
 
-  /* Из настроек нужен только справочник характеристик: он задаёт порядок и
-     группы строк сравнения (ADR-094). Остального о компании карточки каталога
-     не рассказывают, а шапку и футер собирает layout. */
-  const [raw, settings, products] = await Promise.all([
-    searchParams,
-    loadSettings(),
-    loadCatalog(),
-  ]);
+  /* 🔴 Настройки странице больше не нужны: справочник характеристик уехал
+     вместе с таблицей сравнения на `/compare` (ADR-121), а ни одного другого
+     факта о компании карточки каталога не рассказывают — шапку и футер
+     собирает layout. Город для описания читает `generateMetadata`. */
+  const [raw, products] = await Promise.all([searchParams, loadCatalog()]);
 
   const query = parseCatalogQuery(raw);
   const page = selectCatalogPage(products, query, now);
 
   /* 🔴 Сравнение отбирается по всему каталогу, а не по текущей странице
      выдачи: модель, отмеченную на второй странице, ни фильтр, ни листание не
-     имеют права выкинуть из таблицы (ADR-109). Незнакомый слаг отсеивается
+     имеют права выкинуть из отметок (ADR-109). Незнакомый слаг отсеивается
      здесь же — молча, адрес правят руками. */
   const compared = selectCatalogCompare(products, query.compare);
 
@@ -151,12 +149,12 @@ export default async function CatalogPage({
         page={page}
         facets={catalogFacets(products)}
         query={query}
-        compared={compared}
+        compared={compared.map((product) => product.slug)}
         basePath={CATALOG_PATH}
+        comparePath={COMPARE_PATH}
         productHref={productHref}
         orderHref={`/${LEAD_ANCHOR}`}
         now={now}
-        specDictionary={settings.specs}
       />
     </>
   );
