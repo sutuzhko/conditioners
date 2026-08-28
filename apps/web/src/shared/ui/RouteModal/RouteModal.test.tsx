@@ -122,4 +122,33 @@ describe('RouteModal', () => {
 
     expect(back).toHaveBeenCalledTimes(1);
   });
+
+  /**
+   * 🔴 Два Escape подряд — это и есть то случайное нажатие, ради которого
+   * вопрос заведён. Пока он показан, Escape означает «остаться»: уйти можно
+   * только назвав это словом.
+   */
+  it('второй Escape при открытом вопросе не теряет введённое', async () => {
+    back.mockClear();
+    historyLength(3);
+
+    render(
+      <RouteModal title="Новая позиция" fallbackHref="/admin/stock" dirty>
+        <p>Форма</p>
+      </RouteModal>,
+    );
+
+    await userEvent.keyboard('{Escape}');
+    expect(screen.getByRole('alertdialog')).toBeInTheDocument();
+
+    await userEvent.keyboard('{Escape}');
+    expect(back).not.toHaveBeenCalled();
+    // вопрос убран — человек снова в форме, а не за её пределами
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
+
+    // уйти по-прежнему можно — но только назвав это словом
+    await userEvent.keyboard('{Escape}');
+    await userEvent.click(screen.getByRole('button', { name: 'Закрыть без сохранения' }));
+    expect(back).toHaveBeenCalledTimes(1);
+  });
 });

@@ -268,7 +268,7 @@ export function ProductForm({
             rows={3}
             value={values.seoDescription}
             disabled={busy}
-            className={styles.wide}
+            wrapperClassName={styles.wide}
             onChange={(event) => set('seoDescription', event.target.value)}
           />
         </div>

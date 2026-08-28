@@ -316,7 +316,7 @@ function Field({
       <Textarea
         {...shared}
         rows={4}
-        className={styles.wide}
+        wrapperClassName={styles.wide}
         value={asText(value)}
         onChange={(event) => onChange(event.target.value)}
       />

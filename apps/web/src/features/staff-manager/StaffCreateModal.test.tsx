@@ -11,9 +11,14 @@ const replace = vi.fn();
 const refresh = vi.fn();
 const push = vi.fn();
 
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({ back, replace, refresh, push }),
-}));
+/* 🔴 Ссылка на роутер стабильна — как и в самом Next. Двойник, отдающий новый
+   объект на каждый рендер, менял зависимость эффекта в `useRouteClose` и
+   запускал его уборку сам собой: проверка обновления списка проходила бы даже
+   на сломанном коде, потому что `refresh()` вызывался бы не закрытием окна, а
+   перерисовкой. */
+const router = { back, replace, refresh, push };
+
+vi.mock('next/navigation', () => ({ useRouter: () => router }));
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -69,14 +74,31 @@ describe('Окно заведения монтажника', () => {
     expect(back).toHaveBeenCalledTimes(1);
   });
 
-  it('завели — окно уходит само, список под ним обновляется', async () => {
+  /**
+   * 🔴 Обновление списка откладывается до ухода с адреса окна: «назад» — это
+   * переход, и запрос, начатый до него, роутер отбрасывает. Проверка смотрит
+   * на обе половины: до размонтирования обновления быть не должно, после —
+   * ровно одно.
+   */
+  it('завели — окно уходит само, список под ним обновляется на выходе', async () => {
     const user = userEvent.setup();
-    render(<StaffCreateModal api={acceptingApi} />);
+    const { unmount } = render(<StaffCreateModal api={acceptingApi} />);
 
     await user.type(screen.getByLabelText(texts.login), 'sokolov');
     await user.click(screen.getByRole('button', { name: texts.add }));
 
-    expect(refresh).toHaveBeenCalledTimes(1);
     expect(back).toHaveBeenCalledTimes(1);
+    expect(refresh).not.toHaveBeenCalled();
+
+    unmount();
+    expect(refresh).toHaveBeenCalledTimes(1);
+  });
+
+  /* Ушли, ничего не заведя, — обновлять список незачем. */
+  it('закрытие без сохранения список не трогает', async () => {
+    const { unmount } = render(<StaffCreateModal api={acceptingApi} />);
+
+    unmount();
+    expect(refresh).not.toHaveBeenCalled();
   });
 });

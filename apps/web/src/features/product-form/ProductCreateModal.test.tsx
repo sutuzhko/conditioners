@@ -59,12 +59,15 @@ describe('Окно создания модели каталога', () => {
     // открывает пустую форму создания заново
     await waitFor(() => expect(replace).toHaveBeenCalledWith('/admin/catalog/demo'));
     expect(back).not.toHaveBeenCalled();
-    expect(refresh).toHaveBeenCalled();
+    /* Обновления списка здесь нет и быть не должно: уходим в карточку, за её
+       данными роутер сходит сам. Прежнее ожидание закрепляло `refresh()` рядом
+       с переходом — вызов, который переход и отбрасывает. */
+    expect(refresh).not.toHaveBeenCalled();
   });
 
   /* Сервер принял модель, но идентификатора не назвал — вести некуда, и окно
-     закрывается обычным образом, а не ломается на пустом адресе. */
-  it('без идентификатора в ответе окно просто закрывается', async () => {
+     закрывается в список, попросив его обновить. */
+  it('без идентификатора в ответе окно закрывается в список', async () => {
     const user = userEvent.setup();
     const saveWithoutId: typeof acceptingSave = async () => ({ ok: true, id: '' });
 
