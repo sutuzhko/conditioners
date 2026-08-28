@@ -14,6 +14,21 @@
   font-weight: 700;
 }
 
+/* Часть формы внутри окна создания: без карточки — она была бы панелью
+   в панели, — но с разделителем, иначе десять полей идут сплошняком. */
+.bare + .bare {
+  border-top: 1px solid var(--line-soft);
+  padding-top: 14px;
+}
+
+.subtitle {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+}
+
 .fields {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -90,6 +105,16 @@
   border-top: 1px solid var(--line);
   background: var(--card);
   padding: 12px 0 2px;
+}
+
+/* Форма внутри окна создания: липкая строка встаёт на 20px ниже — ровно на
+   собственный отступ тела окна. Без сдвига под кнопкой остаётся полоса, в
+   которой видно уезжающий текст, и она читается поломкой, а не подсказкой
+   «ниже есть ещё». Тот же отступ возвращается padding'ом, иначе кнопка
+   прижималась бы к самому краю окна. */
+.inWindow .actions {
+  bottom: -20px;
+  padding-bottom: 22px;
 }
 
 /* Класс удвоен намеренно (ADR-038): цвет кнопки-призрака задан в ките с той

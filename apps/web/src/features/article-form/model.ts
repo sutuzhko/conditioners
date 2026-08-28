@@ -1,4 +1,15 @@
 /** Правка статьи базы знаний — контракт docs/API.md §6. */
+import type { Route } from 'next';
+
+/**
+ * Адрес раздела: запасной выход окна создания.
+ *
+ * Типизирован маршрутом Next, а не строкой (ADR-141): опечатка всплывёт на
+ * сборке, а не у человека, нажавшего «Закрыть» во вкладке, открытой прямо на
+ * адресе окна.
+ */
+export const KNOWLEDGE_PATH: Route = '/admin/knowledge';
+
 export type ArticleFormValues = {
   readonly title: string;
   readonly category: string;

@@ -2,9 +2,10 @@
 
 import { useState, type FormEvent, type ReactNode } from 'react';
 
-import { Button, Card, Checkbox, Input, Textarea, useConfirm } from '@/shared/ui';
+import { Button, Checkbox, Input, Textarea, useConfirm } from '@/shared/ui';
 import type { Confirm } from '@/shared/ui';
 
+import { ArticleFormSection, type ArticleSurface } from './ArticleFormSection';
 import { articleFormContent as texts } from './content';
 import type { ArticleDelete, ArticleFormStatus, ArticleFormValues, ArticleSave } from './model';
 import styles from './ArticleForm.module.css';
@@ -25,6 +26,8 @@ export interface ArticleFormProps {
   readonly renderPreview?: ((body: string) => ReactNode) | undefined;
   /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
   readonly confirmRemove?: Confirm | undefined;
+  /** Свои карточки с заголовками или только поля: см. `ArticleSurface`. */
+  readonly surface?: ArticleSurface | undefined;
 }
 
 /** Форма статьи базы знаний. */
@@ -36,6 +39,7 @@ export function ArticleForm({
   isNew = false,
   renderPreview,
   confirmRemove,
+  surface = 'section',
 }: ArticleFormProps) {
   /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
      для тестов, чтобы не открывать окно ради проверки удаления. */
@@ -99,10 +103,14 @@ export function ArticleForm({
   };
 
   return (
-    <form className={styles.form} onSubmit={submit} noValidate>
-      <Card as="section">
-        <h2 className={styles.title}>{texts.sectionMain}</h2>
-
+    <form
+      className={[styles.form, surface === 'bare' ? styles.inWindow : null]
+        .filter(Boolean)
+        .join(' ')}
+      onSubmit={submit}
+      noValidate
+    >
+      <ArticleFormSection surface={surface} title={texts.sectionMain}>
         <div className={styles.fields}>
           <Input
             label={texts.title}
@@ -160,11 +168,9 @@ export function ArticleForm({
             onChange={(event) => set('published', event.target.checked)}
           />
         </div>
-      </Card>
+      </ArticleFormSection>
 
-      <Card as="section">
-        <h2 className={styles.title}>{texts.sectionBody}</h2>
-
+      <ArticleFormSection surface={surface} title={texts.sectionBody}>
         <div className={styles.editor}>
           <Textarea
             label={texts.body}
@@ -191,11 +197,9 @@ export function ArticleForm({
             </section>
           )}
         </div>
-      </Card>
+      </ArticleFormSection>
 
-      <Card as="section">
-        <h2 className={styles.title}>{texts.sectionSeo}</h2>
-
+      <ArticleFormSection surface={surface} title={texts.sectionSeo}>
         <div className={styles.fields}>
           <Input
             label={texts.slug}
@@ -222,7 +226,7 @@ export function ArticleForm({
             onChange={(event) => set('seoDescription', event.target.value)}
           />
         </div>
-      </Card>
+      </ArticleFormSection>
 
       {message === '' ? null : (
         <p className={styles.error} role="alert">
