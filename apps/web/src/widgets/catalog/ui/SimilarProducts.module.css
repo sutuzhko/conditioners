@@ -1,0 +1,93 @@
+/* Похожие модели: три строки, а не сетка карточек. Блок вторичный и не
+   должен спорить с витриной каталога за внимание. */
+
+.similar {
+  margin-top: 44px;
+}
+
+.title {
+  margin: 0 0 16px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Строка: название и класс слева, цена справа. Перекрытие ссылки растягивает
+   клик на всю строку, поэтому строке нужен свой контекст позиционирования. */
+.row {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.name {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Кликабельна вся строка, а ссылка в разметке одна — название модели: тот же
+   приём, что в карточке витрины, и та же причина (осмысленный анкор). */
+.link::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+}
+
+.link:focus-visible {
+  outline: none;
+}
+
+.row:has(.link:focus-visible) {
+  box-shadow: var(--ring-focus-ring);
+}
+
+.meta {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.price {
+  flex: none;
+}
+
+@media (width < 600px) {
+  .similar {
+    margin-top: 32px;
+  }
+
+  /* На телефоне цена уходит под название: в строку они не помещаются, а
+     перенос по центру рвал бы связь «модель — её цена». */
+  .row {
+    align-items: flex-start;
+  }
+}

@@ -2,15 +2,18 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { ProductDetails } from './ProductDetails';
 import {
+  catalogFixture,
   discountedProduct,
   expiredSaleProduct,
   galleryProduct,
   labelledSaleProduct,
   NOW,
   plainProduct,
+  productHrefFixture,
   specDictionaryFixture,
   uniqueSpecProduct,
 } from './fixtures';
+import { similarProducts } from './model';
 
 const meta = {
   title: 'Блоки/Страница модели',
@@ -18,6 +21,9 @@ const meta = {
   args: {
     product: discountedProduct,
     catalogHref: '/catalog',
+    compareHref: { pathname: '/catalog', query: { compare: 'split-09' }, hash: 'compare' },
+    similar: similarProducts(catalogFixture, discountedProduct),
+    productHref: productHrefFixture,
     now: NOW,
     specDictionary: specDictionaryFixture,
   },
@@ -57,4 +63,14 @@ export const WithoutSpecs: Story = {
 export const ManyPhotos: Story = {
   name: 'Несколько фотографий',
   args: { product: galleryProduct },
+};
+
+export const WithoutSimilar: Story = {
+  name: 'Похожих моделей нет',
+  args: { similar: [] },
+};
+
+export const WithoutCompare: Story = {
+  name: 'Без отметки сравнения',
+  args: { compareHref: undefined },
 };

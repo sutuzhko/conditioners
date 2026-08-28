@@ -2,6 +2,11 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
+import {
+  DEFAULT_CATALOG_QUERY,
+  catalogSearchParams,
+  withCatalogCompare,
+} from '@/entities/product/lib/catalogQuery';
 import { LeadContextSnapshot } from '@/features/lead-form';
 import { formatMoney } from '@/shared/lib/format';
 import { env } from '@/shared/config/env';
@@ -13,7 +18,7 @@ import {
   productPath,
 } from '@/shared/seo';
 import { Breadcrumbs } from '@/widgets/breadcrumbs';
-import { ProductDetails } from '@/widgets/catalog';
+import { COMPARE_ANCHOR, ProductDetails, similarProducts } from '@/widgets/catalog';
 
 import { inCity } from '../../_lib/city';
 import { loadSettings } from '../../_lib/settings';
@@ -29,6 +34,9 @@ import { catalogPageContent as t } from '../content';
 export const revalidate = 3600;
 
 type ProductParams = { readonly slug: string };
+
+/** Ссылка на страницу другой модели — карту URL знает страница, а не блок. */
+const productHref = (slug: string): { pathname: string } => ({ pathname: productPath(slug) });
 
 /** Статические адреса — по моделям в продаже; новая соберётся по запросу. */
 export async function generateStaticParams(): Promise<ProductParams[]> {
@@ -82,7 +90,16 @@ export default async function ProductPage({ params }: { params: Promise<ProductP
   const now = new Date();
 
   const { slug } = await params;
-  const [product, settings] = await Promise.all([loadProduct(slug), loadSettings()]);
+  /* 🔴 Каталог грузится тем же кешированным `loadCatalog`, которым собираются
+     статические адреса раздела: похожие модели отбираются из уже прочитанного
+     списка, а не отдельным запросом «покажи соседей». Страница ISR, и лишний
+     поход в базу здесь стоил бы одного запроса на каждую пересборку каждой
+     модели. */
+  const [product, settings, catalog] = await Promise.all([
+    loadProduct(slug),
+    loadSettings(),
+    loadCatalog(),
+  ]);
 
   /* Скрытая модель страницы не имеет: адрес мог остаться в закладке или в
      индексе, и 404 честнее карточки товара, которого нет в продаже. */
@@ -121,6 +138,16 @@ export default async function ProductPage({ params }: { params: Promise<ProductP
       <ProductDetails
         product={product}
         catalogHref={CATALOG_PATH}
+        /* Отметка ведёт в каталог с уже поставленной галочкой и приземляет на
+           строку отметок: сравнивать одну модель не с чем, второй выбор
+           человек делает там же (ADR-109, ADR-121). */
+        compareHref={{
+          pathname: CATALOG_PATH,
+          query: catalogSearchParams(withCatalogCompare(DEFAULT_CATALOG_QUERY, product.slug)),
+          hash: COMPARE_ANCHOR,
+        }}
+        similar={similarProducts(catalog, product)}
+        productHref={productHref}
         now={now}
         specDictionary={settings.specs}
       />

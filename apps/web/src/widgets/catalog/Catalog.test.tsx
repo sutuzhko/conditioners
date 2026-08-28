@@ -181,11 +181,4 @@ describe('Каталог — пустые состояния', () => {
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
     expect(screen.queryByRole('listitem')).not.toBeInTheDocument();
   });
-
-  it('на время загрузки показывает скелетоны вместо прыгающей вёрстки', () => {
-    const { container } = renderCatalog({ products: [], loading: true });
-
-    expect(container.querySelector('[aria-busy="true"]')).not.toBeNull();
-    expect(screen.queryByText('Каталог пока пуст')).not.toBeInTheDocument();
-  });
 });

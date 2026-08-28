@@ -104,8 +104,11 @@ export function ProductCard({
           </Badge>
         )}
 
+        {/* 🔴 Резерв под строку срока акции обязателен именно здесь: карточки
+            стоят в ряду, и цена — главная цифра каждой — обязана быть у всех
+            на одной линии (BUGS, аудит 28 августа). */}
         <div className={styles.price}>
-          <ProductPrice price={price} />
+          <ProductPrice price={price} reserveNote />
         </div>
 
         <div className={styles.meta}>

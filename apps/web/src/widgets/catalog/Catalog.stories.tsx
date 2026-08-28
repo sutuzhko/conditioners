@@ -69,6 +69,4 @@ export const NoSpecs: Story = {
   args: { products: [{ ...plainProduct, specs: [] }] },
 };
 
-export const Loading: Story = { name: 'Загрузка', args: { loading: true, products: [] } };
-
 export const Empty: Story = { name: 'Пустой каталог', args: { products: [] } };

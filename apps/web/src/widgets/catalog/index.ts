@@ -15,5 +15,13 @@ export type { CatalogProps } from './Catalog';
 export type { CatalogCompareProps } from './CatalogCompare';
 export type { CatalogListProps } from './CatalogList';
 export type { ProductDetailsProps } from './ProductDetails';
-export { COMPARE_ANCHOR } from './model';
+export { COMPARE_ANCHOR, similarProducts } from './model';
 export type { CatalogProduct, ProductHref } from './model';
+
+/**
+ * Скелетоны перехода. Отдельно от блоков: их зовёт `loading.tsx` маршрута, а
+ * не страница, и данных они не принимают вовсе.
+ */
+export { CatalogCompareSkeleton } from './CatalogCompareSkeleton';
+export { CatalogListSkeleton } from './CatalogListSkeleton';
+export { ProductDetailsSkeleton } from './ProductDetailsSkeleton';

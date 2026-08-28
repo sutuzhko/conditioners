@@ -104,6 +104,41 @@ export function activeCatalogFilters(query: CatalogQuery): readonly ActiveCatalo
  */
 export type ProductHref = (slug: string) => ButtonLinkHref;
 
+/** Сколько похожих моделей показывать под характеристиками. */
+export const SIMILAR_LIMIT = 3;
+
+/**
+ * Похожие модели для страницы товара.
+ *
+ * 🔴 Чистая функция над уже загруженным каталогом: страница модели
+ * пререндерится с `revalidate = 3600`, и отдельный запрос «похожее» стоил бы
+ * второго похода в базу на каждую пересборку. Список приходит из того же
+ * `loadCatalog`, которым собираются статические адреса раздела.
+ *
+ * Отбор идёт по классу мощности — это единственный признак, по которому две
+ * модели действительно взаимозаменяемы: класс задаёт и площадь, и цену.
+ * Внутри класса ближе тот, у кого площадь ближе к текущей. Когда моделей
+ * класса не хватает, список добирается остальными по той же близости
+ * площади: пустой раздел «похожие» на странице единственной канальной модели
+ * был бы честнее, но бесполезнее — человеку всё равно нужно куда-то пойти.
+ */
+export function similarProducts(
+  catalog: readonly CatalogProduct[],
+  current: CatalogProduct,
+  limit: number = SIMILAR_LIMIT,
+): readonly CatalogProduct[] {
+  const byArea = (a: CatalogProduct, b: CatalogProduct): number => {
+    const diff = Math.abs(a.areaMax - current.areaMax) - Math.abs(b.areaMax - current.areaMax);
+    return diff === 0 ? a.sort - b.sort : diff;
+  };
+
+  const others = catalog.filter((product) => product.visible && product.slug !== current.slug);
+  const sameClass = others.filter((product) => product.badge === current.badge).sort(byArea);
+  const rest = others.filter((product) => product.badge !== current.badge).sort(byArea);
+
+  return [...sameClass, ...rest].slice(0, limit);
+}
+
 /**
  * Главная фотография: явно отмеченная владельцем, иначе первая по порядку.
  * `null` — фото нет, и карточка рисует заглушку с классом мощности

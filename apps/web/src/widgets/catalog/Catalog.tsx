@@ -4,11 +4,7 @@ import type { ButtonLinkHref } from '@/shared/ui';
 import { catalogText } from './content';
 import type { CatalogProduct, ProductHref } from './model';
 import { ProductCard } from './ui/ProductCard';
-import { ProductCardSkeleton } from './ui/ProductCardSkeleton';
 import styles from './Catalog.module.css';
-
-/** Сколько карточек-заглушек показать, пока каталог едет. Ровно один ряд. */
-const SKELETON_COUNT = 4;
 
 export interface CatalogProps {
   /**
@@ -44,8 +40,6 @@ export interface CatalogProps {
   orderHref?: ButtonLinkHref | undefined;
   /** Момент расчёта скидки: тесты и снепшоты фиксируют его, прод берёт «сейчас». */
   now?: Date | undefined;
-  /** Данные ещё едут — вместо карточек скелетоны. */
-  loading?: boolean | undefined;
   /** Якорь секции: по нему на неё ведёт навигация в шапке. */
   id?: string | undefined;
 }
@@ -72,7 +66,6 @@ export function Catalog({
   catalogHref,
   orderHref = '#lead',
   now,
-  loading = false,
   id = 'catalog',
 }: CatalogProps) {
   const visible = products.filter((product) => product.visible);
@@ -100,22 +93,12 @@ export function Catalog({
           </div>
         </header>
 
-        {loading ? (
-          <ul className={styles.grid} aria-busy="true">
-            {Array.from({ length: SKELETON_COUNT }, (_, index) => (
-              <ProductCardSkeleton key={index} />
-            ))}
-          </ul>
-        ) : null}
-
-        {!loading && visible.length === 0 ? (
+        {visible.length === 0 ? (
           <Card variant="soft" padding="lg" className={styles.empty}>
             <p className={styles.emptyTitle}>{catalogText.emptyTitle}</p>
             <p className={styles.emptyText}>{catalogText.emptyText}</p>
           </Card>
-        ) : null}
-
-        {!loading && visible.length > 0 ? (
+        ) : (
           <ul className={styles.grid}>
             {visible.map((product) => (
               <ProductCard
@@ -127,7 +110,7 @@ export function Catalog({
               />
             ))}
           </ul>
-        ) : null}
+        )}
       </div>
     </section>
   );

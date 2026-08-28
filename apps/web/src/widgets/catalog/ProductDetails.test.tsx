@@ -2,23 +2,41 @@ import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import { ProductDetails } from './ProductDetails';
-import { productPageText as t } from './content';
+import { catalogText, productPageText as t } from './content';
 import {
+  catalogFixture,
   discountedProduct,
   expiredSaleProduct,
   galleryProduct,
   NOW,
   plainProduct,
+  productHrefFixture,
   specDictionaryFixture,
   uniqueSpecProduct,
 } from './fixtures';
 import type { CatalogProduct } from './model';
+import { similarProducts } from './model';
 
 function renderDetails(product: CatalogProduct = discountedProduct) {
   return render(
     <ProductDetails
       product={product}
       catalogHref="/catalog"
+      now={NOW}
+      specDictionary={specDictionaryFixture}
+    />,
+  );
+}
+
+/** Страница со всеми дорогами: отметка сравнения и похожие модели. */
+function renderFullDetails(product: CatalogProduct = discountedProduct) {
+  return render(
+    <ProductDetails
+      product={product}
+      catalogHref="/catalog"
+      compareHref={{ pathname: '/catalog', query: { compare: product.slug }, hash: 'compare' }}
+      similar={similarProducts(catalogFixture, product)}
+      productHref={productHrefFixture}
       now={NOW}
       specDictionary={specDictionaryFixture}
     />,
@@ -62,7 +80,7 @@ describe('Страница модели — заголовок и цена', () 
   it('ссылка возврата ведёт в каталог', () => {
     renderDetails();
 
-    expect(screen.getByRole('link', { name: t.backToCatalog })).toHaveAttribute('href', '/catalog');
+    expect(screen.getByRole('link', { name: catalogText.all })).toHaveAttribute('href', '/catalog');
   });
 
   it('класс и площадь названы текстом, а не только меткой на фото', () => {
@@ -108,8 +126,25 @@ describe('Страница модели — фотографии', () => {
   it('🔴 все снимки лежат в разметке сразу, а не подгружаются по клику', () => {
     renderDetails(galleryProduct);
 
-    expect(screen.getAllByRole('img')).toHaveLength(galleryProduct.photos.length);
+    // большой снимок плюс полоса миниатюр, в которой он тоже есть
+    expect(screen.getAllByRole('img')).toHaveLength(galleryProduct.photos.length + 1);
     expect(screen.getByAltText('Внутренний блок вблизи')).toBeInTheDocument();
+  });
+
+  it('🔴 в полосе миниатюр есть открытый сейчас снимок и он отмечен', () => {
+    const { container } = renderDetails(galleryProduct);
+
+    const thumbs = container.querySelectorAll('ul li');
+    expect(thumbs).toHaveLength(galleryProduct.photos.length);
+    expect(thumbs[0]).toHaveAttribute('aria-current', 'true');
+    expect(screen.getByText(t.currentPhoto)).toBeInTheDocument();
+  });
+
+  it('единственный снимок полосу миниатюр не заводит', () => {
+    const { container } = renderDetails(discountedProduct);
+
+    expect(container.querySelectorAll('ul li')).toHaveLength(0);
+    expect(screen.getAllByRole('img')).toHaveLength(1);
   });
 
   it('модель без фото получает заглушку с классом мощности', () => {
@@ -125,5 +160,85 @@ describe('Страница модели — фотографии', () => {
     const link = screen.getByRole('link', { name: /Страница модели у поставщика/ });
     expect(link).toHaveAttribute('href', 'https://example.com/split-12');
     expect(link).toHaveAttribute('rel', expect.stringContaining('nofollow'));
+  });
+});
+
+describe('Страница модели — дороги дальше', () => {
+  it('🔴 под характеристиками есть второй путь к заявке — с темой вопроса', () => {
+    renderFullDetails(plainProduct);
+
+    expect(screen.getByRole('link', { name: t.ctaAction })).toHaveAttribute(
+      'href',
+      '/?model=split-07&topic=consult#lead',
+    );
+    expect(screen.getByText(t.ctaTitle)).toBeInTheDocument();
+  });
+
+  it('🔴 отметка сравнения ведёт в каталог с этой моделью (ADR-109)', () => {
+    renderFullDetails(plainProduct);
+
+    expect(
+      screen.getByRole('link', { name: `${catalogText.compareAdd}: ${plainProduct.name}` }),
+    ).toHaveAttribute('href', '/catalog?compare=split-07#compare');
+  });
+
+  it('без адреса сравнения отметки на странице нет', () => {
+    renderDetails(plainProduct);
+
+    expect(screen.queryByRole('link', { name: /Сравнить/ })).not.toBeInTheDocument();
+  });
+
+  it('похожие модели названы и ведут на свои страницы', () => {
+    renderFullDetails(plainProduct);
+
+    expect(screen.getByRole('heading', { name: t.similarTitle })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Сплит-система 09' })).toHaveAttribute(
+      'href',
+      '/catalog/split-09',
+    );
+  });
+
+  it('похожих нет — раздела нет', () => {
+    render(
+      <ProductDetails
+        product={plainProduct}
+        catalogHref="/catalog"
+        similar={[]}
+        productHref={productHrefFixture}
+        now={NOW}
+        specDictionary={specDictionaryFixture}
+      />,
+    );
+
+    expect(screen.queryByRole('heading', { name: t.similarTitle })).not.toBeInTheDocument();
+  });
+});
+
+describe('Похожие модели — отбор', () => {
+  it('🔴 сначала свой класс мощности, потом ближайшие по площади', () => {
+    const picked = similarProducts(catalogFixture, discountedProduct);
+
+    // в фикстуре класс 09 один — сам товар, поэтому список добирается
+    // соседями по площади: от 25 м² ближе всего 20, потом 35, потом 50
+    expect(picked.map((product) => product.slug)).toEqual(['split-07', 'split-12', 'split-18']);
+  });
+
+  it('сама модель в похожие не попадает', () => {
+    const picked = similarProducts(catalogFixture, plainProduct);
+
+    expect(picked.map((product) => product.slug)).not.toContain(plainProduct.slug);
+  });
+
+  it('скрытая модель в похожие не попадает', () => {
+    const picked = similarProducts(
+      [...catalogFixture, { ...uniqueSpecProduct, id: 'hidden-12', visible: false }],
+      plainProduct,
+    );
+
+    expect(picked.map((product) => product.id)).not.toContain('hidden-12');
+  });
+
+  it('длина списка ограничена', () => {
+    expect(similarProducts(catalogFixture, plainProduct, 2)).toHaveLength(2);
   });
 });

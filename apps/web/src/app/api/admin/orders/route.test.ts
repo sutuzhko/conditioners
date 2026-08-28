@@ -183,10 +183,14 @@ beforeEach(() => {
   fake.db.order.update.mockResolvedValue(orderRow);
   fake.db.order.deleteMany.mockResolvedValue({ count: 1 });
   fake.db.client.findUnique.mockResolvedValue({ id: 'c1' });
+  /* `active` двойник обязан отдавать: строка `AdminUser` его всегда имеет, а
+     `assertRefs` по нему отличает действующего монтажника от отключённого —
+     назначить работу на отключённого значит назначить её в никуда. */
   fake.db.adminUser.findUnique.mockResolvedValue({
     id: 'u2',
     name: 'Дмитрий Соколов',
     login: 'sokolov',
+    active: true,
   });
   fake.db.setting.findUnique.mockResolvedValue({ key: 'orderSeq', value: 1059 });
   fake.db.setting.upsert.mockResolvedValue({ key: 'orderSeq', value: 1060 });
