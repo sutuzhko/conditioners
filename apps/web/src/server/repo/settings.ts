@@ -9,9 +9,9 @@ import type { WorkWindow } from '@/entities/crm/lib/overtime';
 import type { InstallRates } from '@/entities/price/model';
 import {
   PLACEHOLDER,
-  REQUIRED_FIELDS,
   SETTING_KEYS,
   isSettingKey,
+  requiredFields,
 } from '@/server/repo/settings-schemas';
 
 export type SettingsMap = Partial<Record<SettingKey, unknown>>;
@@ -113,7 +113,9 @@ export function checkReadiness(settings: SettingsMap): ReadinessReport {
 
     const record = isRecord(value) ? value : {};
 
-    for (const field of REQUIRED_FIELDS[key]) {
+    /* Набор обязательного берётся с оглядкой на саму группу: у реквизитов он
+       зависит от формы регистрации (ADR-112). */
+    for (const field of requiredFields(key, value)) {
       if (isEmpty(record[field])) issues.push({ field, reason: 'empty' });
     }
 

@@ -1,14 +1,48 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
-import { settingSchemas } from '@/entities/settings/model';
+import { LEGAL_FORMS, legalSchema, settingSchemas } from '@/entities/settings/model';
 import { checkReadiness } from '@/server/repo/settings';
 import {
   PLACEHOLDER,
   PUBLIC_SETTING_KEYS,
+  REQUIRED_FIELDS,
   SETTING_KEYS,
   isSettingKey,
   normalizePhone,
 } from '@/server/repo/settings-schemas';
+
+/**
+ * Реквизиты предпринимателя с верными контрольными разрядами: схема проверяет
+ * арифметику, а не длину строки (PROJECT §5.2), и правдоподобный набор цифр
+ * она бы отвергла.
+ */
+const entrepreneur = {
+  form: 'ИП',
+  name: 'Ковалёв Сергей Николаевич',
+  inn: '710703123450',
+  ogrn: '314710700012346',
+  regDate: '2015-03-12',
+  regAuthority: 'Межрайонная ИФНС России № 10 по Тульской области',
+  address: '300026, Тульская область, г. Тула, ул. Рязанская, д. 24, кв. 71',
+};
+
+const company = {
+  form: 'ООО',
+  name: 'Общество с ограниченной ответственностью «Пример»',
+  shortName: 'ООО «Пример»',
+  inn: '7107023451',
+  kpp: '710701001',
+  ogrn: '1027107001239',
+  address: '300041, Тульская область, г. Тула, проспект Ленина, д. 108',
+};
+
+/** Что не заполнено в группе реквизитов по мнению проверки готовности. */
+function legalIssues(legal: unknown): readonly string[] {
+  const report = checkReadiness({ legal });
+  const group = report.groups.find((item) => item.key === 'legal');
+
+  return (group?.issues ?? []).map((issue) => issue.field);
+}
 
 /**
  * Номер хранится машинным `+7XXXXXXXXXX`, а человеку его показывает
@@ -42,6 +76,72 @@ describe('реестр ключей', () => {
 
   it('выдуманного раздела настроек не существует', () => {
     expect(isSettingKey('выдумка')).toBe(false);
+  });
+});
+
+/**
+ * 🔴 Состав обязательного задаёт форма регистрации (ADR-112, PROJECT §5.1).
+ * Один список на обе формы требовал бы от предпринимателя места нахождения
+ * общества, а от общества — органа регистрации, которого у него не бывает.
+ */
+describe('готовность реквизитов считается по форме регистрации', () => {
+  it('у предпринимателя дата и орган регистрации обязательны', () => {
+    expect(legalIssues({ ...entrepreneur, regDate: '', regAuthority: '' })).toEqual([
+      'regDate',
+      'regAuthority',
+    ]);
+  });
+
+  it('у предпринимателя не требуются КПП, банк и адрес регистрации', () => {
+    // адрес предпринимателя — как правило домашний, на сайт он не выводится
+    expect(legalIssues({ ...entrepreneur, address: '' })).toEqual([]);
+    expect(REQUIRED_FIELDS.legal['ИП']).not.toContain('kpp');
+    expect(REQUIRED_FIELDS.legal['ИП']).not.toContain('bankAccount');
+  });
+
+  it('у общества обязательны сокращённое наименование и место нахождения', () => {
+    expect(legalIssues({ ...company, shortName: '', address: '' })).toEqual([
+      'shortName',
+      'address',
+    ]);
+  });
+
+  it('у общества органа регистрации в списке нет вовсе', () => {
+    expect(REQUIRED_FIELDS.legal['ООО']).not.toContain('regAuthority');
+    expect(REQUIRED_FIELDS.legal['ООО']).not.toContain('regDate');
+    // КПП есть у общества, но счетам, а не витрине — обязательным не считается
+    expect(legalIssues({ ...company, kpp: '' })).toEqual([]);
+  });
+
+  it('группа без формы считается по набору предпринимателя', () => {
+    const { form, ...withoutForm } = entrepreneur;
+    // фикстура заведомо предпринимательская — иначе проверка ничего не значит
+    expect(form).toBe('ИП');
+
+    /* Так же группу разбирает схема (`withDefaultForm`): спрошен орган
+       регистрации, которого у общества не бывает, а сокращённого
+       наименования в отчёте нет. Сама незаполненная форма — тоже пробел:
+       владелец обязан выбрать её явно. */
+    expect(legalIssues({ ...withoutForm, regAuthority: '' })).toEqual(['form', 'regAuthority']);
+  });
+
+  it('заглушка в реквизитах находится по-прежнему', () => {
+    expect(legalIssues({ ...entrepreneur, inn: PLACEHOLDER })).toEqual(['inn']);
+    const report = checkReadiness({ legal: { ...entrepreneur, inn: PLACEHOLDER } });
+    const group = report.groups.find((item) => item.key === 'legal');
+
+    expect(group?.issues).toContainEqual({ field: 'inn', reason: 'placeholder' });
+  });
+
+  /**
+   * Опечатка в имени обязательного поля не видна глазом: поле, которого в
+   * группе нет, навсегда осталось бы «незаполненным», и владелец не смог бы
+   * довести настройки до готовности никаким заполнением.
+   */
+  it.each(LEGAL_FORMS)('обязательные поля формы %s существуют в схеме', (form) => {
+    const parsed = legalSchema.parse({ form });
+
+    expect(Object.keys(parsed)).toEqual(expect.arrayContaining([...REQUIRED_FIELDS.legal[form]]));
   });
 });
 
@@ -93,7 +193,7 @@ describe('готовность данных компании', () => {
       },
       geo: { lat: 54.19, lng: 37.61 },
       area: { served: 'Город и область' },
-      legal: { form: 'ИП', name: 'ИП Иванов', inn: '1', ogrn: '2', address: 'Адрес' },
+      legal: entrepreneur,
       extras: { trassaPerM: 700, shtrobPerM: 800, heightWorks: 2000 },
       warranty: { installation: 'год', equipment: 'три года' },
       // рабочее окно календаря: умолчание есть, но группа обязана быть сохранена

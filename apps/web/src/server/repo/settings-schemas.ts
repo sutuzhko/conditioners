@@ -12,9 +12,11 @@
  * обязано быть заполнено перед запуском.
  */
 import {
+  LEGAL_FORMS,
   normalizeSettingPhone,
   settingKeySchema,
   settingSchemas,
+  type LegalForm,
   type SettingKey,
 } from '@/entities/settings/model';
 import { SETTING_PLACEHOLDER } from '@/entities/settings/lib/readiness';
@@ -59,16 +61,44 @@ export function isSettingKey(value: string): value is SettingKey {
 }
 
 /**
+ * Обязательные поля группы `legal` — свои у каждой формы регистрации
+ * (ADR-112, PROJECT §5.1). У предпринимателя нет КПП, у общества нет органа
+ * регистрации: один список на обе формы требовал бы полей, которых в группе
+ * не бывает.
+ */
+type LegalRequiredFields = Readonly<Record<LegalForm, readonly string[]>>;
+
+type RequiredFieldsMap = Readonly<Record<Exclude<SettingKey, 'legal'>, readonly string[]>> & {
+  readonly legal: LegalRequiredFields;
+};
+
+/**
  * Поля, без которых сайт врёт посетителю или теряет данные в разметке.
  * Пустой `office`, второй телефон или соцсети обязательными не считаются.
+ *
+ * 🔴 Список один на проект: вторая копия рядом разошлась бы с этой на первой
+ * же правке состава реквизитов.
  */
-export const REQUIRED_FIELDS: Record<SettingKey, readonly string[]> = {
+export const REQUIRED_FIELDS: RequiredFieldsMap = {
   company: ['name', 'tagline'],
   contacts: ['phones', 'email', 'hours'],
   address: ['country', 'region', 'city', 'street', 'building', 'postalCode'],
   geo: ['lat', 'lng'],
   area: ['served'],
-  legal: ['form', 'name', 'inn', 'ogrn', 'address'],
+  /* 🔴 Обязательно то, без чего сайт врёт посетителю: ЗоЗПП ст. 9 и Правила
+     продажи (ПП РФ № 2463) требуют наименование продавца, сведения о
+     регистрации и адрес. У предпринимателя закон прямо требует дату и орган
+     регистрации; у общества — сокращённое наименование, которым подписан
+     футер, и место нахождения.
+
+     Чего здесь нет и быть не должно: КПП, руководителя, банковских
+     реквизитов и адреса регистрации предпринимателя. На витрину они не
+     выводятся (адрес ИП — как правило домашний, то есть ПДн), нужны счетам и
+     договорам, и требовать их перед запуском не с чего. */
+  legal: {
+    ИП: ['form', 'name', 'inn', 'ogrn', 'regDate', 'regAuthority'],
+    ООО: ['form', 'name', 'shortName', 'inn', 'ogrn', 'address'],
+  },
   extras: ['trassaPerM', 'shtrobPerM', 'heightWorks'],
   warranty: ['installation', 'equipment'],
   /* Рабочее окно всегда заполнено умолчанием: пустым оно быть не может, и
@@ -87,3 +117,30 @@ export const REQUIRED_FIELDS: Record<SettingKey, readonly string[]> = {
   notifications: [],
   integrations: [],
 };
+
+/**
+ * Форма регистрации сохранённой группы.
+ *
+ * 🔴 Группа без формы читается как «ИП» — ровно так её разбирает схема
+ * (`withDefaultForm` в `entities/settings/model`). Разойтись проверке с
+ * разбором нельзя: отчёт бы требовал полей, которых в разобранной группе
+ * не существует.
+ */
+function legalFormOf(group: unknown): LegalForm {
+  if (typeof group !== 'object' || group === null || !('form' in group)) return LEGAL_FORMS[0];
+
+  const stored = group.form;
+  if (typeof stored !== 'string') return LEGAL_FORMS[0];
+
+  return LEGAL_FORMS.find((form) => form === stored) ?? LEGAL_FORMS[0];
+}
+
+/**
+ * Обязательные поля группы. У всех групп набор постоянный, у `legal` его
+ * задаёт сохранённая форма регистрации.
+ */
+export function requiredFields(key: SettingKey, group: unknown): readonly string[] {
+  if (key === 'legal') return REQUIRED_FIELDS.legal[legalFormOf(group)];
+
+  return REQUIRED_FIELDS[key];
+}
