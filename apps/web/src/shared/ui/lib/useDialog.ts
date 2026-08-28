@@ -1,7 +1,7 @@
 'use client';
 
 import type { KeyboardEvent, RefObject } from 'react';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 const FOCUSABLE = [
   'a[href]',
@@ -29,19 +29,22 @@ export interface DialogHandlers {
  * Modal и Drawer — две реализации разошлись бы уже на третьей правке.
  */
 export function useDialog({ open, onClose, containerRef }: DialogOptions): DialogHandlers {
-  // фокус уводим внутрь окна, а после закрытия возвращаем туда, где он был:
-  // иначе человек с клавиатуры окажется в начале страницы
+  /*
+   * Куда вернуть фокус после закрытия. Хранится в ref, потому что запоминает
+   * его один эффект, а возвращает другой — последний в файле (см. ниже).
+   */
+  const opener = useRef<HTMLElement | null>(null);
+
+  // фокус уводим внутрь окна: иначе человек с клавиатуры остаётся снаружи
   useEffect(() => {
     if (!open) return;
 
     const previous = document.activeElement;
+    opener.current = previous instanceof HTMLElement ? previous : null;
+
     const container = containerRef.current;
     const first = container?.querySelector<HTMLElement>(FOCUSABLE);
     (first ?? container)?.focus();
-
-    return () => {
-      if (previous instanceof HTMLElement) previous.focus();
-    };
   }, [open, containerRef]);
 
   useEffect(() => {
@@ -92,6 +95,30 @@ export function useDialog({ open, onClose, containerRef }: DialogOptions): Dialo
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = overflow;
+    };
+  }, [open]);
+
+  /*
+   * 🔴 Возврат фокуса стоит последним эффектом сознательно, и переставлять его
+   * выше нельзя.
+   *
+   * React выполняет очистки в порядке объявления эффектов. Пока возврат жил в
+   * первом, он срабатывал раньше, чем снималось `inert` с фона, — а `focus()`
+   * на элементе внутри `inert`-поддерева браузер молча игнорирует. Окно
+   * закрывалось без ошибок, но фокус уходил на `body`, и человек с клавиатуры
+   * шёл табом от начала страницы до кнопки, которую только что нажимал. Ловило
+   * это только в настоящем браузере: jsdom `inert` не реализует.
+   *
+   * Запоминание осталось в первом эффекте: он выполняется до того, как фон
+   * получает `inert`, а пометка снимает фокус с активного элемента — после неё
+   * запоминать было бы уже нечего.
+   */
+  useEffect(() => {
+    if (!open) return;
+
+    return () => {
+      opener.current?.focus();
+      opener.current = null;
     };
   }, [open]);
 

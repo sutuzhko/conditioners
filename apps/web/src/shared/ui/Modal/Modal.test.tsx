@@ -66,6 +66,39 @@ describe('Modal', () => {
     expect(screen.getByRole('dialog').contains(document.activeElement)).toBe(true);
   });
 
+  /**
+   * 🔴 Человек с клавиатуры, закрыв окно, обязан вернуться туда, откуда его
+   * открыл. Иначе он оказывается в начале страницы и заново идёт табом до
+   * нужной кнопки — а на странице панели их десятки.
+   *
+   * Ломалось порядком очисток: возврат фокуса стоял в эффекте выше снятия
+   * `inert` с фона, а `focus()` внутри `inert`-поддерева браузер игнорирует.
+   * Молча: окно закрывалось, ошибок не было, фокус просто уходил на `body`.
+   */
+  it('после закрытия фокус возвращается на открывшую кнопку', async () => {
+    const opener = document.createElement('button');
+    opener.textContent = 'Открыть';
+    document.body.append(opener);
+    opener.focus();
+
+    const view = render(
+      <Modal open onClose={() => {}} title="Заявка принята">
+        <p>Текст</p>
+      </Modal>,
+    );
+
+    expect(screen.getByRole('dialog').contains(document.activeElement)).toBe(true);
+
+    view.rerender(
+      <Modal open={false} onClose={() => {}} title="Заявка принята">
+        <p>Текст</p>
+      </Modal>,
+    );
+
+    expect(document.activeElement).toBe(opener);
+    opener.remove();
+  });
+
   it('Tab не уводит фокус за пределы окна', async () => {
     const user = userEvent.setup();
     open();
