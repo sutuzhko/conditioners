@@ -1,5 +1,11 @@
 import { SETTING_PLACEHOLDER } from '@/entities/settings/lib/readiness';
-import type { Address, Company, Contacts, Legal } from '@/entities/settings/model';
+import type {
+  Address,
+  Company,
+  Contacts,
+  LegalCompany,
+  LegalEntrepreneur,
+} from '@/entities/settings/model';
 import type { ButtonLinkHref } from '@/shared/ui';
 import type { NavItem } from './model';
 
@@ -46,7 +52,10 @@ export const addressFixture: Address = {
  * (PROJECT §5.2). Придуманные, но арифметически настоящие — «7100000000»
  * проверяло бы длину строки, а не проверку.
  */
-export const legalIp: Legal = {
+/* Тип ветви, а не общий `Legal`: истории и тесты читают у фикстуры поля
+   заведомо одной формы, и объединение заставляло бы сужать её на каждой
+   строчке проверки. */
+export const legalIp: LegalEntrepreneur = {
   form: 'ИП',
   name: 'Демонстрационный Д. Д.',
   inn: '710703123450',
@@ -60,14 +69,17 @@ export const legalIp: Legal = {
   bankCorrAccount: '',
 };
 
-export const legalOoo: Legal = {
+export const legalOoo: LegalCompany = {
   form: 'ООО',
   name: '«Демонстрация»',
   shortName: '«Демо»',
   inn: '7107023451',
   kpp: '710701001',
   ogrn: '1027107001239',
-  address: '300000, Тула, ул. Демонстрационная, 1, оф. 5',
+  /* Место нахождения нарочно отличается от адреса приёма из группы `address`:
+     у общества это разные адреса, и фикстура, где они совпадают, скрыла бы
+     путаницу между колонкой контактов и колонкой реквизитов. */
+  address: '300026, Тула, Одоевское шоссе, 71, оф. 4',
   director: 'Демонстрационный Д. Д.',
   directorTitle: 'Директор',
   bankName: '',
@@ -103,7 +115,7 @@ export const addressPlaceholder: Address = {
   postalCode: SETTING_PLACEHOLDER,
 };
 
-export const legalPlaceholder: Legal = {
+export const legalPlaceholder: LegalEntrepreneur = {
   form: 'ИП',
   name: SETTING_PLACEHOLDER,
   inn: SETTING_PLACEHOLDER,
@@ -141,7 +153,7 @@ export const addressEmpty: Address = {
   postalCode: '',
 };
 
-export const legalEmpty: Legal = {
+export const legalEmpty: LegalEntrepreneur = {
   form: 'ИП',
   name: '',
   inn: '',

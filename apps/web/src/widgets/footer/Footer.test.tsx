@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { legalTitle } from '@/entities/settings/lib/legal';
+import { legalShortTitle, legalTitle } from '@/entities/settings/lib/legal';
 import { buildOrganizationJsonLd } from '@/shared/seo';
 import { render, screen, within } from '@testing-library/react';
 import { Footer } from './Footer';
@@ -45,33 +45,62 @@ describe('Footer', () => {
     expect(screen.getByRole('heading', { name: 'Реквизиты' })).toBeInTheDocument();
   });
 
-  it('у ИП номер регистрации подписан «ОГРНИП»', () => {
+  it('у ИП печатаются ОГРНИП, дата и орган регистрации', () => {
     setup({ legal: legalIp });
+
+    expect(screen.getByText('ИП Демонстрационный Д. Д.')).toBeInTheDocument();
+    expect(screen.getByText('ИНН')).toBeInTheDocument();
+    expect(screen.getByText(legalIp.inn)).toBeInTheDocument();
     expect(screen.getByText('ОГРНИП')).toBeInTheDocument();
+    expect(screen.getByText(legalIp.ogrn)).toBeInTheDocument();
+    expect(screen.getByText('Дата регистрации')).toBeInTheDocument();
+    expect(screen.getByText('12 марта 2015')).toBeInTheDocument();
+    expect(screen.getByText('Орган регистрации')).toBeInTheDocument();
+    expect(screen.getByText(legalIp.regAuthority)).toBeInTheDocument();
     expect(screen.queryByText('ОГРН')).not.toBeInTheDocument();
   });
 
-  it('у ООО номер регистрации подписан «ОГРН»', () => {
-    setup({ legal: legalOoo });
-    expect(screen.getByText('ОГРН')).toBeInTheDocument();
-    expect(screen.queryByText('ОГРНИП')).not.toBeInTheDocument();
+  it('🔴 адрес регистрации предпринимателя на сайт не выводится', () => {
+    setup({ legal: legalIp });
+
+    // это, как правило, домашний адрес — персональные данные (PROJECT §5.1);
+    // посетителю показан фактический адрес приёма из группы `address`
+    expect(screen.queryByText('Юридический адрес')).not.toBeInTheDocument();
+    expect(screen.queryByText(legalIp.address)).not.toBeInTheDocument();
   });
 
-  it('реквизиты показаны целиком: наименование, ИНН, номер и юридический адрес', () => {
+  it('у ООО печатаются ОГРН и место нахождения, а КПП и руководитель — нет', () => {
     setup({ legal: legalOoo });
-    expect(screen.getByText('ООО «Демонстрация»')).toBeInTheDocument();
+
+    expect(screen.getByText('ОГРН')).toBeInTheDocument();
+    expect(screen.getByText(legalOoo.ogrn)).toBeInTheDocument();
     expect(screen.getByText('ИНН')).toBeInTheDocument();
     expect(screen.getByText(legalOoo.inn)).toBeInTheDocument();
-    expect(screen.getByText(legalOoo.ogrn)).toBeInTheDocument();
     expect(screen.getByText('Юридический адрес')).toBeInTheDocument();
+    expect(screen.getByText(legalOoo.address)).toBeInTheDocument();
+    expect(screen.queryByText('ОГРНИП')).not.toBeInTheDocument();
+    expect(screen.queryByText(legalOoo.kpp)).not.toBeInTheDocument();
+    expect(screen.queryByText(legalOoo.director)).not.toBeInTheDocument();
   });
 
-  it('🔴 наименование в футере — та же строка, что уезжает в разметку', () => {
+  it('у ООО в футере стоит сокращённое наименование', () => {
     setup({ legal: legalOoo });
 
-    // инвариант 9: видимый текст и `legalName` организации собираются одной
-    // функцией из одного поля настроек (ADR-106) — разойтись им негде
-    expect(screen.getByText(legalTitle(legalOoo))).toBeInTheDocument();
+    // полное фирменное наименование в три строки футер не читает; в документе
+    // (политика ПДн) и в разметке остаётся полное — см. проверку ниже
+    expect(screen.getByText('ООО «Демо»')).toBeInTheDocument();
+    expect(screen.queryByText('ООО «Демонстрация»')).not.toBeInTheDocument();
+  });
+
+  it('🔴 наименование в футере и в разметке собираются одной функцией', () => {
+    setup({ legal: legalOoo });
+
+    // инвариант 9: и видимый текст, и `legalName` организации выводятся из
+    // одного поля настроек (ADR-106). В разметку уходит полное наименование —
+    // это официальное название лица, — а в футере стоит его сокращённая
+    // форма, зарегистрированная тем же уставом; разными данными они стать
+    // не могут, потому что поле одно.
+    expect(screen.getByText(legalShortTitle(legalOoo))).toBeInTheDocument();
     expect(
       buildOrganizationJsonLd({
         siteUrl: 'https://example.test',
@@ -81,10 +110,12 @@ describe('Footer', () => {
     ).toMatchObject({ legalName: legalTitle(legalOoo) });
   });
 
-  it('незаполненные реквизиты не оставляют пустых строк', () => {
+  it('незаполненные реквизиты не оставляют ни пустых строк, ни пустого раздела', () => {
     setup({ legal: legalEmpty });
     expect(screen.queryByText('ИНН')).not.toBeInTheDocument();
     expect(screen.queryByText('ОГРНИП')).not.toBeInTheDocument();
+    // заголовок без единой строки под ним — это дефект, а не «пустое состояние»
+    expect(screen.queryByRole('heading', { name: 'Реквизиты' })).not.toBeInTheDocument();
   });
 
   it('телефон — ссылка tel:, почта — mailto:', () => {

@@ -1,16 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { formatAddress, ogrnLabel } from './lib';
-import { addressEmpty, addressFixture, legalIp, legalOoo } from './fixtures';
-
-describe('ogrnLabel', () => {
-  it('у ИП это ОГРНИП', () => {
-    expect(ogrnLabel(legalIp)).toBe('ОГРНИП');
-  });
-
-  it('у ООО это ОГРН', () => {
-    expect(ogrnLabel(legalOoo)).toBe('ОГРН');
-  });
-});
+import { formatAddress } from './lib';
+import { addressEmpty, addressFixture } from './fixtures';
 
 describe('formatAddress', () => {
   it('собирает строку из частей адреса', () => {

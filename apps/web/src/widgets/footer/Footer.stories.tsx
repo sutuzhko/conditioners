@@ -37,9 +37,23 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Ip: Story = { name: 'ИП — подпись ОГРНИП' };
+/**
+ * Состав реквизитов задаёт форма регистрации (ADR-112): у предпринимателя это
+ * ОГРНИП с датой и органом регистрации, у общества — ОГРН и место нахождения.
+ * Обе истории нужны, потому что и число строк, и длина значений у форм разные.
+ */
+export const Ip: Story = { name: 'ИП — ОГРНИП, дата и орган регистрации' };
 
-export const Ooo: Story = { name: 'ООО — подпись ОГРН', args: { legal: legalOoo } };
+export const Ooo: Story = {
+  name: 'ООО — сокращённое наименование и место нахождения',
+  args: { legal: legalOoo },
+};
+
+/** Самая длинная строка реквизитов на 320px: название инспекции переносится. */
+export const IpNarrow: Story = {
+  name: 'ИП на 320 — орган регистрации переносится',
+  globals: { viewport: { value: 'xs' } },
+};
 
 export const Tablet: Story = { name: 'Планшет 768', globals: { viewport: { value: 'md' } } };
 
@@ -57,6 +71,7 @@ export const Placeholders: Story = {
   },
 };
 
+/** Реквизитов нет ни одного — раздела «Реквизиты» в футере тоже нет. */
 export const Empty: Story = {
   name: 'Настройки пустые',
   args: {

@@ -4,9 +4,9 @@ import type { ButtonLinkHref } from '@/shared/ui';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 import type { Address, Company, Contacts, Legal } from '@/entities/settings/model';
 import { footerContent } from './content';
-import { legalTitle } from '@/entities/settings/lib/legal';
+import { legalShortTitle, publicRequisites } from '@/entities/settings/lib/legal';
 
-import { formatAddress, ogrnLabel } from './lib';
+import { formatAddress } from './lib';
 import type { NavItem } from './model';
 import styles from './Footer.module.css';
 
@@ -23,17 +23,6 @@ export interface FooterProps {
   policyHref: ButtonLinkHref;
   /** год в копирайте; по умолчанию текущий — параметр нужен снепшотам и историям */
   year?: number | undefined;
-}
-
-/** Строка реквизитов, если значение заполнено. */
-function LegalRow({ label, value }: { label: string; value: string }) {
-  if (value.trim() === '') return null;
-  return (
-    <div className={styles.legalRow}>
-      <dt className={styles.legalTerm}>{label}</dt>
-      <dd className={styles.legalValue}>{value}</dd>
-    </div>
-  );
 }
 
 /**
@@ -55,6 +44,17 @@ export function Footer({
   const email = contacts.email.trim();
   const hours = contacts.hours.trim();
   const postal = formatAddress(address);
+
+  /* 🔴 Состав реквизитов задаёт форма регистрации, и решает это один
+     `publicRequisites` — тот же, что печатает политика обработки ПДн
+     (PROJECT §5.3, ADR-112). Подписи приходят вместе со значением, пустые
+     строки отфильтрованы, адрес регистрации предпринимателя не приходит
+     вовсе: это персональные данные. */
+  const requisites = publicRequisites(legal);
+  /* Наименование, сведённое к одной форме собственности, — это ещё не
+     наименование: печатать в футере одинокое «ИП» незачем. */
+  const legalName = legalShortTitle(legal);
+  const hasLegal = legalName !== legal.form || requisites.length > 0;
 
   return (
     <footer className={styles.footer}>
@@ -117,15 +117,22 @@ export function Footer({
             </ul>
           </section>
 
-          <section className={[styles.column, styles.legal].join(' ')}>
-            <h2 className={styles.columnTitle}>{footerContent.legalTitle}</h2>
-            <p className={styles.legalName}>{legalTitle(legal)}</p>
-            <dl className={styles.legalList}>
-              <LegalRow label={footerContent.innLabel} value={legal.inn} />
-              <LegalRow label={ogrnLabel(legal)} value={legal.ogrn} />
-              <LegalRow label={footerContent.legalAddressLabel} value={legal.address} />
-            </dl>
-          </section>
+          {hasLegal ? (
+            <section className={[styles.column, styles.legal].join(' ')}>
+              <h2 className={styles.columnTitle}>{footerContent.legalTitle}</h2>
+              {legalName === legal.form ? null : <p className={styles.legalName}>{legalName}</p>}
+              {requisites.length === 0 ? null : (
+                <dl className={styles.legalList}>
+                  {requisites.map((row) => (
+                    <div key={row.key} className={styles.legalRow}>
+                      <dt className={styles.legalTerm}>{row.label}</dt>
+                      <dd className={styles.legalValue}>{row.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+            </section>
+          ) : null}
         </div>
       </div>
 
