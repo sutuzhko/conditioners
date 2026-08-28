@@ -33,9 +33,21 @@ describe('политика обработки персональных данн�
     render(await PolicyPage());
 
     expect(screen.getAllByText(/ИП Тестов Тест Тестович/).length).toBeGreaterThan(0);
-    expect(screen.getByText('710000000000')).toBeInTheDocument();
+    expect(screen.getByText('710703123450')).toBeInTheDocument();
     // у предпринимателя номер называется ОГРНИП, а не ОГРН
     expect(screen.getByText('ОГРНИП')).toBeInTheDocument();
+    expect(screen.getByText('Орган регистрации')).toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Оператор персональных данных в политике и продавец в футере — одно
+   * лицо, и состав реквизитов у них общий (PROJECT §5.3). Адрес регистрации
+   * предпринимателя не публикуется ни там, ни здесь: это домашний адрес.
+   */
+  it('адрес регистрации предпринимателя в политику не попадает', async () => {
+    render(await PolicyPage());
+
+    expect(screen.queryByText('300000, Тула, проспект Ленина, 1')).not.toBeInTheDocument();
   });
 
   it('локализация баз данных в России названа прямо — этого требует 152-ФЗ', async () => {

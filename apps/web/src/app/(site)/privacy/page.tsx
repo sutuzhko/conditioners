@@ -4,7 +4,7 @@ import { Card } from '@/shared/ui';
 
 import { buildPageMetadata } from '@/shared/seo';
 import { env } from '@/shared/config/env';
-import { legalTitle } from '@/entities/settings/lib/legal';
+import { legalTitle, publicRequisites, type Requisite } from '@/entities/settings/lib/legal';
 import { loadSettings, type SiteSettings } from '../_lib/settings';
 import { PageIntro } from '../_ui/PageIntro';
 import { policyContent as t, policySections } from './content';
@@ -23,8 +23,6 @@ export const revalidate = 3600;
 
 const PATH = '/privacy';
 
-type Requisite = { readonly label: string; readonly value: string };
-
 /**
  * Наименование оператора для текста: реквизиты, затем название компании.
  *
@@ -39,17 +37,24 @@ function operatorName(settings: SiteSettings): string {
   return candidates.find((value) => value !== '') ?? t.operatorFallback;
 }
 
+/**
+ * Реквизиты оператора — те же, что напечатаны в футере.
+ *
+ * 🔴 Состав и подписи приходят из `publicRequisites` (PROJECT §5.3): оператор
+ * персональных данных в политике не имеет права отличаться от продавца в
+ * футере, это одно лицо. Свой список здесь разошёлся бы с футером на первой
+ * же правке состава — и именно в документе, где расхождение дороже всего.
+ *
+ * Почта дописывается отдельно: она из группы контактов, а не из реквизитов,
+ * и нужна здесь как адрес для обращений субъекта персональных данных.
+ */
 function requisites(settings: SiteSettings): readonly Requisite[] {
-  const { legal, contacts } = settings;
-  // подпись зависит от формы: у предпринимателя номер называется ОГРНИП
-  const ogrnLabel = legal.form === 'ИП' ? t.labelOgrnIp : t.labelOgrn;
+  const email = settings.contacts.email.trim();
 
   return [
-    { label: t.labelInn, value: legal.inn.trim() },
-    { label: ogrnLabel, value: legal.ogrn.trim() },
-    { label: t.labelAddress, value: legal.address.trim() },
-    { label: t.labelEmail, value: contacts.email.trim() },
-  ].filter((item) => item.value !== '');
+    ...publicRequisites(settings.legal),
+    ...(email === '' ? [] : [{ key: 'email', label: t.labelEmail, value: email }]),
+  ];
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -107,7 +112,7 @@ export default async function PolicyPage() {
               <Card padding="lg" variant="soft">
                 <dl className={styles.requisites}>
                   {rows.map((row) => (
-                    <div key={row.label} className={styles.requisite}>
+                    <div key={row.key} className={styles.requisite}>
                       <dt className={styles.requisiteLabel}>{row.label}</dt>
                       <dd className={styles.requisiteValue}>{row.value}</dd>
                     </div>
