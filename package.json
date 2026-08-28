@@ -47,7 +47,7 @@
       "prettier --check"
     ],
     "apps/web/src/**/*.{ts,tsx}": [
-      "pnpm --filter web exec vitest related --run"
+      "scripts/test-related.sh"
     ],
     "*.css": [
       "stylelint",
