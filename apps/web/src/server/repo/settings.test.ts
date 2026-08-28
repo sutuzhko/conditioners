@@ -125,6 +125,32 @@ describe('готовность реквизитов считается по фо
     expect(legalIssues({ ...withoutForm, regAuthority: '' })).toEqual(['form', 'regAuthority']);
   });
 
+  /**
+   * 🔴 Группа, которую не принимает её собственная схема, не может считаться
+   * готовой. Публичная страница разбирает её той же схемой и при отказе
+   * берёт умолчания — реквизиты исчезают из футера целиком, а не одним
+   * полем. Панель, отвечающая «заполнено», отправила бы владельца
+   * публиковать сайт с пустыми реквизитами.
+   *
+   * Завести такую запись через админку больше нельзя: маршрут настроек
+   * валидирует тело той же схемой. Она бывает только сохранённой до того,
+   * как поле стало проверяться.
+   */
+  it('битый реквизит виден в отчёте, хотя поле заполнено', () => {
+    const typo = { ...entrepreneur, inn: '710512345678' };
+
+    expect(legalIssues(typo)).toEqual(['inn']);
+
+    const group = checkReadiness({ legal: typo }).groups.find((item) => item.key === 'legal');
+    expect(group?.ready).toBe(false);
+    expect(group?.issues).toContainEqual({ field: 'inn', reason: 'invalid' });
+  });
+
+  it('верные реквизиты отчёт не тревожат', () => {
+    expect(legalIssues(entrepreneur)).toEqual([]);
+    expect(legalIssues(company)).toEqual([]);
+  });
+
   it('заглушка в реквизитах находится по-прежнему', () => {
     expect(legalIssues({ ...entrepreneur, inn: PLACEHOLDER })).toEqual(['inn']);
     const report = checkReadiness({ legal: { ...entrepreneur, inn: PLACEHOLDER } });

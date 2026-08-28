@@ -54,7 +54,15 @@ export async function putGroup(
 
 export type ReadinessIssue = {
   field: string;
-  reason: 'missing' | 'empty' | 'placeholder';
+  /**
+   * `invalid` — группа не проходит собственную схему.
+   *
+   * 🔴 Отдельная причина, а не «пусто»: значение в базе есть, владелец его
+   * видит в форме, но публичная страница разбирает группу с умолчаниями и не
+   * показывает ничего. Без этой проверки панель отвечала «заполнено», а футер
+   * стоял пустым — ровно тот молча очищенный футер, которого боится ADR-112.
+   */
+  reason: 'missing' | 'empty' | 'placeholder' | 'invalid';
 };
 
 export type ReadinessGroup = {
@@ -98,6 +106,33 @@ function findPlaceholders(value: unknown, path: string, into: ReadinessIssue[]):
 }
 
 /**
+ * Поля, которые группа заполнила, но её собственная схема не приняла.
+ *
+ * 🔴 Публичные страницы разбирают группу той же схемой и при отказе берут
+ * умолчания (`loadSettings`): битая запись не имеет права уронить сайт. Цена
+ * этой терпимости — молчание: реквизиты с опиской в ИНН исчезают из футера
+ * целиком, а не одним полем. Готовность обязана означать «сайт это покажет»,
+ * поэтому отказ схемы попадает в отчёт наравне с пустым полем.
+ *
+ * Такая запись появляется одним способом — она сохранена до того, как поле
+ * стало проверяться. Через админку её больше не завести: маршрут настроек
+ * валидирует тело той же схемой.
+ */
+function collectInvalid(key: SettingKey, value: unknown, into: ReadinessIssue[]): void {
+  const parsed = settingSchemas[key].safeParse(value);
+  if (parsed.success) return;
+
+  for (const issue of parsed.error.issues) {
+    const field = issue.path.join('.');
+    /* Пустое и заглушку уже назвали проверки выше — второй строкой об одном
+       и том же поле отчёт только запутает владельца. */
+    if (into.some((existing) => existing.field === field)) continue;
+
+    into.push({ field, reason: 'invalid' });
+  }
+}
+
+/**
  * Что осталось незаполненным перед запуском — docs/API.md §5.
  * Сохранять неполные данные можно, уезжать с ними в прод — нет.
  */
@@ -120,6 +155,7 @@ export function checkReadiness(settings: SettingsMap): ReadinessReport {
     }
 
     findPlaceholders(value, '', issues);
+    collectInvalid(key, value, issues);
 
     return { key, ready: issues.length === 0, issues };
   });
