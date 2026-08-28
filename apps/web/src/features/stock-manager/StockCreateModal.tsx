@@ -1,9 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { RouteModal, useRouteClose } from '@/shared/ui';
+import { RouteModal, useRouteClose, type RouteClose } from '@/shared/ui';
 
 import { stockManagerContent as texts } from './content';
 import { StockItemForm } from './StockItemForm';
@@ -51,7 +50,6 @@ export interface StockCreateModalProps {
 export function StockCreateModal({ creation, api }: StockCreateModalProps) {
   const closeStock = useRouteClose(STOCK_PATH);
   const closeZones = useRouteClose(STOCK_ZONES_PATH);
-  const router = useRouter();
 
   /**
    * 🔴 Несохранённый ввод — это любое нажатие в форме. Признак снимается
@@ -62,11 +60,16 @@ export function StockCreateModal({ creation, api }: StockCreateModalProps) {
    */
   const [dirty, setDirty] = useState(false);
 
-  /** Сохранили — окно уходит само, а список под ним обновляется. */
-  const done = (close: () => void): void => {
+  /**
+   * Сохранили — окно уходит само, а список под ним обновляется.
+   *
+   * 🔴 Обновление просится у самого закрытия, а не зовётся `router.refresh()`
+   * рядом: «назад» это переход, и запрос, начатый до него, роутер отбрасывает.
+   * Так здесь и было — позиция заводилась, а строк в таблице не прибавлялось.
+   */
+  const done = (close: RouteClose): void => {
     setDirty(false);
-    router.refresh();
-    close();
+    close({ refresh: true });
   };
 
   if (creation.kind === 'item') {

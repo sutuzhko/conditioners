@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { RouteModal, useRouteClose } from '@/shared/ui';
@@ -27,7 +26,6 @@ export interface StaffCreateModalProps {
  */
 export function StaffCreateModal({ api }: StaffCreateModalProps) {
   const close = useRouteClose(TEAM_PATH);
-  const router = useRouter();
 
   /**
    * 🔴 Несохранённый ввод — это любое изменение в форме, а не разбор её полей
@@ -39,8 +37,7 @@ export function StaffCreateModal({ api }: StaffCreateModalProps) {
   /** Завели — окно уходит само, а список под ним обновляется. */
   const done = (): void => {
     setDirty(false);
-    router.refresh();
-    close();
+    close({ refresh: true });
   };
 
   return (

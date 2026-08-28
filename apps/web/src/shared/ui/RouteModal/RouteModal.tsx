@@ -2,22 +2,53 @@
 
 import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
-import { useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 
 import { Button } from '../Button/Button';
 import { Modal, type ModalSize } from '../Modal/Modal';
 import styles from './RouteModal.module.css';
+
+export type RouteCloseOptions = {
+  /**
+   * Обновить список, к которому уходим. Нужно после удачного сохранения:
+   * заведённая запись иначе не появится под окном.
+   */
+  readonly refresh?: boolean;
+};
 
 /**
  * Уход с адреса окна.
  *
  * Вынесен хуком, потому что закрыть окно нужно и самой форме — после удачного
  * сохранения. Копия правила в разделе разошлась бы с китом на первой правке.
+ *
+ * 🔴 **Обновление списка умеет только этот хук, и звать `router.refresh()`
+ * рядом с закрытием бесполезно.** «Назад» — это переход, и запрос, начатый до
+ * него, роутер отбрасывает: разделы честно вызывали `refresh()` перед
+ * `close()`, окно уходило, а заведённой строки в списке не было — ни на
+ * складе, ни в клиентах, ни в команде. Замерено в браузере: монтажник
+ * создавался, список оставался прежним.
+ *
+ * Поэтому обновление откладывается до уборки эффекта: к этому моменту новый
+ * адрес уже применён, и `refresh()` попадает в список, а не в исчезающее окно.
  */
-export function useRouteClose(fallbackHref: Route): () => void {
-  const router = useRouter();
+/** Закрытие окна: уводит с его адреса и, если попросили, обновляет список. */
+export type RouteClose = (options?: RouteCloseOptions) => void;
 
-  return () => {
+export function useRouteClose(fallbackHref: Route): RouteClose {
+  const router = useRouter();
+  const pendingRefresh = useRef(false);
+
+  useEffect(
+    () => () => {
+      if (pendingRefresh.current) router.refresh();
+    },
+    [router],
+  );
+
+  return (options) => {
+    pendingRefresh.current = options?.refresh === true;
+
     /* Закрытие — шаг назад по истории: адрес окна из неё уходит, и повторное
        «вперёд» открывает его снова. Замена адреса вместо шага назад стёрла бы
        список, с которого окно открыли.
@@ -117,7 +148,7 @@ export function RouteModal({
               <Button variant="ghost" onClick={() => setAsking(false)}>
                 {confirmStay}
               </Button>
-              <Button className={styles.leave} variant="ghost" onClick={leave}>
+              <Button className={styles.leave} variant="ghost" onClick={() => leave()}>
                 {confirmLeave}
               </Button>
             </div>
