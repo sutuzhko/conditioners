@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { EMPLOYMENTS, type Employment } from '@/shared/lib/employment';
+import { isInnPerson } from '@/shared/lib/requisites';
 
 /**
  * Люди, которые заходят в панель.
@@ -42,6 +43,31 @@ export const employmentSchema = z.enum(EMPLOYMENTS, {
  */
 const optionalEmployment = z
   .union([employmentSchema, z.literal('')])
+  .transform((value) => (value === '' ? null : value))
+  .nullable()
+  .default(null);
+
+/**
+ * ИНН монтажника — двенадцать цифр физического лица или предпринимателя.
+ *
+ * 🔴 Пустое значение проходит. Человека заводят по телефону в тот день, когда
+ * он вышел на первый выезд, а ИНН узнают позже; запрет на сохранение без него
+ * закрыл бы дорогу самому заведению (PROJECT §5.4).
+ *
+ * Заполненный проверяется контрольными разрядами, а не длиной строки: у ФНС
+ * ИНН с опиской выглядит как «плательщик не найден», и выяснится это в день
+ * выплаты, когда проверять статус уже поздно.
+ *
+ * Пробелы вычищаются — реквизит копируют из документа вместе с ними, и это
+ * особенность источника, а не ошибка человека.
+ */
+const innSchema = z
+  .string()
+  .trim()
+  .transform((value) => value.replace(/\s/g, ''))
+  .refine((value) => value === '' || isInnPerson(value), {
+    message: 'ИНН — 12 цифр, проверьте номер',
+  })
   .transform((value) => (value === '' ? null : value))
   .nullable()
   .default(null);
@@ -99,6 +125,9 @@ export const staffCreateSchema = z.object({
      позже. Заставлять выбирать оформление на этом шаге значит получить
      выбранное наугад. */
   employment: optionalEmployment,
+  /* ИНН тоже необязателен и по той же причине: он нужен, чтобы проверять
+     статус самозанятого, а до выплаты этот день ещё не настал. */
+  inn: innSchema,
   password: passwordSchema,
 });
 
@@ -120,6 +149,7 @@ export const staffUpdateSchema = z
     login: loginSchema.optional(),
     phone: optionalText(40).optional(),
     employment: optionalEmployment.optional(),
+    inn: innSchema.optional(),
     password: passwordSchema.optional(),
     active: z.boolean().optional(),
   })
@@ -198,6 +228,41 @@ export type StaffCard = {
   readonly createdAt: string;
   readonly lastLoginAt: string | null;
 };
+
+/**
+ * Карточка вместе с ИНН — то, что о человеке видит владелец в «Монтажниках».
+ *
+ * 🔴 Отдельный тип, а не поле в `StaffCard`. ИНН — персональные данные
+ * работника (PROJECT §5.5), и нужен он ровно двум экранам владельца: списку
+ * команды и карточке человека. Проекция под роль живёт в слое данных
+ * (ADR-114), а типом она держится надёжнее договорённости: календарь,
+ * назначение наряда и свой профиль работают со `StaffCard`, и положить в них
+ * ИНН просто нечем.
+ */
+export type StaffDetails = StaffCard & {
+  /** `null` — ИНН не заведён. У самозанятого это повод предупредить владельца. */
+  readonly inn: string | null;
+};
+
+/**
+ * Самозанятый, у которого ИНН не заведён.
+ *
+ * 🔴 Это предупреждение, а не запрет. Статус самозанятого утрачивается при
+ * превышении лимита дохода или снятии с учёта, и на дату выплаты он может
+ * быть уже не тот; проверяется он по ИНН, то есть без ИНН не проверяется
+ * вовсе. Слетевший статус — это НДФЛ и взносы, доначисленные компании
+ * (PROJECT §5.4). Но запрещать сохранение нельзя: историю отношений с
+ * человеком знает владелец, а не система.
+ *
+ * Принимает и заведённое значение (`null`), и черновик формы (пустая
+ * строка) — предупреждение обязано быть видно ещё до сохранения.
+ */
+export function isSelfEmployedWithoutInn(
+  employment: Employment | null,
+  inn: string | null,
+): boolean {
+  return employment === 'self_employed' && (inn === null || inn.trim() === '');
+}
 
 /** Как показывать человека, у которого имя ещё не заполнено. */
 export function staffTitle(staff: Pick<StaffCard, 'name' | 'login'>): string {

@@ -8,6 +8,7 @@ import { staffManagerContent as texts } from './content';
 import {
   emptyStaffDraft,
   isEmployment,
+  isSelfEmployedWithoutInn,
   type StaffApi,
   type StaffDraft,
   type StaffStatus,
@@ -108,6 +109,18 @@ export function StaffCreateForm({ api, onCreated }: StaffCreateFormProps) {
             onChange={(event) => set({ password: event.target.value })}
           />
 
+          {/* Цифровая клавиатура на телефоне: ИНН диктуют, а вводят с него. */}
+          <Input
+            label={texts.inn}
+            hint={texts.innHint}
+            value={draft.inn}
+            disabled={sending}
+            error={errorFor('inn')}
+            inputMode="numeric"
+            autoComplete="off"
+            onChange={(event) => set({ inn: event.target.value })}
+          />
+
           <Select
             label={texts.employment}
             options={texts.employmentOptions}
@@ -122,6 +135,13 @@ export function StaffCreateForm({ api, onCreated }: StaffCreateFormProps) {
             }}
           />
         </div>
+
+        {/* 🔴 Предупреждение, а не запрет: сохранение не блокируется. Без ИНН
+            статус самозанятого не проверить, а слетевший статус означает
+            доначисления владельцу (PROJECT §5.4). */}
+        {isSelfEmployedWithoutInn(draft.employment === '' ? null : draft.employment, draft.inn) ? (
+          <p className={styles.notice}>{texts.innMissing}</p>
+        ) : null}
 
         <div className={styles.actions}>
           <Button type="submit" disabled={sending}>

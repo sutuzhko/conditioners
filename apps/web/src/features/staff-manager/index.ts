@@ -12,5 +12,6 @@ export {
   type InstallerNoteCard,
   type StaffApi,
   type StaffCard,
+  type StaffDetails,
   type StaffResult,
 } from './model';

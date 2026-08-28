@@ -6,12 +6,12 @@ import { useState } from 'react';
 import { Badge, Button, Card } from '@/shared/ui';
 
 import { staffManagerContent as texts } from './content';
-import type { StaffApi, StaffCard } from './model';
-import { employmentTitle, staffTitle } from './model';
+import type { StaffApi, StaffDetails } from './model';
+import { employmentTitle, isSelfEmployedWithoutInn, staffTitle } from './model';
 import styles from './StaffCardView.module.css';
 
 export interface StaffCardViewProps {
-  readonly staff: StaffCard;
+  readonly staff: StaffDetails;
   readonly api: StaffApi;
   readonly onChanged?: (() => void) | undefined;
 }
@@ -76,6 +76,13 @@ export function StaffCardView({ staff, api, onChanged }: StaffCardViewProps) {
           прочитать это, не заходя в карточку. */}
       {staff.employment === null ? (
         <p className={styles.notice}>{texts.employmentUnsetHint}</p>
+      ) : null}
+
+      {/* 🔴 Самозанятый без ИНН: статус на дату выплаты проверить нечем, а
+          слетевший статус оплачивает компания (PROJECT §5.4). Предупреждение
+          видно из списка — иначе владелец узнает об этом в день выплаты. */}
+      {isSelfEmployedWithoutInn(staff.employment, staff.inn) ? (
+        <p className={styles.notice}>{texts.innMissing}</p>
       ) : null}
 
       <div className={styles.actions}>

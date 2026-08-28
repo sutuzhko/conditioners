@@ -35,6 +35,7 @@ export const staffApi: StaffApi = {
         login: draft.login,
         phone: draft.phone,
         employment: draft.employment,
+        inn: draft.inn,
         password: draft.password,
       }),
     ),

@@ -9,11 +9,11 @@ import { StaffCardView } from './StaffCardView';
 import { StaffCreateForm } from './StaffCreateForm';
 import { staffManagerContent as texts } from './content';
 import { staffApi } from './lib';
-import type { StaffApi, StaffCard } from './model';
+import type { StaffApi, StaffDetails } from './model';
 import styles from './StaffList.module.css';
 
 export interface StaffListProps {
-  readonly staff: readonly StaffCard[];
+  readonly staff: readonly StaffDetails[];
   readonly api?: StaffApi | undefined;
 }
 

@@ -24,6 +24,9 @@ export const POST = withOwner(async (request) => {
     /* Не выбрали — заводим без оформления. Подставить сюда значение значит
        решить за владельца, можно ли уменьшать человеку вознаграждение. */
     employment: parsed.data.employment,
+    /* Пустой ИНН — обычное дело: человека заводят по телефону, а реквизит
+       узнают к первой выплате. Заполненный уже проверен схемой. */
+    inn: parsed.data.inn,
     passwordHash: await hashPassword(parsed.data.password),
   });
 

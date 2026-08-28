@@ -9,7 +9,7 @@ import {
   staffTitle,
 } from '@/features/staff-manager';
 import { requireOwnerPage } from '@/server/guards';
-import { findById, listNotes } from '@/server/repo/admin-users';
+import { findById, findDetails, listNotes } from '@/server/repo/admin-users';
 
 import styles from '../page.module.css';
 
@@ -31,7 +31,9 @@ export default async function AdminTeamMemberPage({ params }: PageProps) {
 
   const { id } = await params;
 
-  const [staff, notes] = await Promise.all([findById(id), listNotes(id)]);
+  /* Карточка с ИНН: реквизит правит владелец, и раздел закрыт `requireOwnerPage`
+     выше по коду. Заголовку вкладки достаточно `findById` — там ИНН незачем. */
+  const [staff, notes] = await Promise.all([findDetails(id), listNotes(id)]);
   if (staff === null) notFound();
 
   return (

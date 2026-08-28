@@ -6,10 +6,16 @@ export type {
   InstallerNoteCard,
   StaffCard,
   StaffCreate,
+  StaffDetails,
   StaffUpdate,
 } from '@/entities/staff/model';
 
-export { ADMIN_ROLES, isAdminRole, staffTitle } from '@/entities/staff/model';
+export {
+  ADMIN_ROLES,
+  isAdminRole,
+  isSelfEmployedWithoutInn,
+  staffTitle,
+} from '@/entities/staff/model';
 
 /**
  * Словарь оформления берём из `shared/lib/employment` — тот же, что читает
@@ -44,6 +50,8 @@ export type StaffDraft = {
   readonly login: string;
   readonly phone: string;
   readonly employment: EmploymentChoice;
+  /** Пустая строка — «ИНН не заведён»: реквизит узнают позже. */
+  readonly inn: string;
   readonly password: string;
 };
 
@@ -52,6 +60,7 @@ export const emptyStaffDraft: StaffDraft = {
   login: '',
   phone: '',
   employment: '',
+  inn: '',
   password: '',
 };
 
@@ -61,6 +70,7 @@ export type StaffAccountDraft = {
   readonly login: string;
   readonly phone: string;
   readonly employment: EmploymentChoice;
+  readonly inn: string;
   readonly password: string;
 };
 
@@ -78,6 +88,8 @@ export type StaffApi = {
       phone: string | null;
       /** Пустая строка — «оформление не заведено»: `select` отдаёт строку. */
       employment: EmploymentChoice;
+      /** Пустая строка — «ИНН не заведён»: поле отдаёт строку. */
+      inn: string;
       password: string;
       active: boolean;
     }>,

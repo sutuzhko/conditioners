@@ -10,19 +10,27 @@ import { staffManagerContent as texts } from './content';
 import { staffApi } from './lib';
 import {
   isEmployment,
+  isSelfEmployedWithoutInn,
   staffTitle,
   type StaffAccountDraft,
   type StaffApi,
-  type StaffCard,
+  type StaffDetails,
   type StaffStatus,
 } from './model';
 import styles from './StaffForm.module.css';
 
 export interface StaffAccountFormProps {
-  readonly staff: StaffCard;
+  readonly staff: StaffDetails;
   readonly api?: StaffApi | undefined;
   /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
   readonly confirmRemove?: Confirm | undefined;
+  /**
+   * Второй шов того же диалога — подтверждение перевода на самозанятость.
+   *
+   * Отдельным пропом, а не одним на форму: тест удаления не должен молча
+   * отвечать за перевод оформления, и наоборот.
+   */
+  readonly confirmEmployment?: Confirm | undefined;
 }
 
 /**
@@ -31,11 +39,17 @@ export interface StaffAccountFormProps {
  * Пустое поле пароля означает «оставить прежним» — заполнять его при каждой
  * правке телефона было бы приглашением придумать пароль попроще.
  */
-export function StaffAccountForm({ staff, api = staffApi, confirmRemove }: StaffAccountFormProps) {
-  /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
+export function StaffAccountForm({
+  staff,
+  api = staffApi,
+  confirmRemove,
+  confirmEmployment,
+}: StaffAccountFormProps) {
+  /* Подтверждение — общий диалог кита (ADR-113); пропы остаются швом
      для тестов, чтобы не открывать окно ради проверки удаления. */
   const { confirm, dialog } = useConfirm();
   const ask = confirmRemove ?? confirm;
+  const askEmployment = confirmEmployment ?? confirm;
 
   const router = useRouter();
   const [draft, setDraft] = useState<StaffAccountDraft>({
@@ -44,6 +58,7 @@ export function StaffAccountForm({ staff, api = staffApi, confirmRemove }: Staff
     phone: staff.phone ?? '',
     /* `null` из карточки — «не заведено»; в `select` это пустое значение. */
     employment: staff.employment ?? '',
+    inn: staff.inn ?? '',
     password: '',
   });
   const [status, setStatus] = useState<StaffStatus>('idle');
@@ -92,12 +107,22 @@ export function StaffAccountForm({ staff, api = staffApi, confirmRemove }: Staff
     event.preventDefault();
     if (sending) return;
 
+    /* 🔴 Перевод с трудового договора на самозанятость — не правка поля:
+       услуги бывшему работодателю под НПД закрыты на два года (ФЗ-422,
+       ADR-112). Спрашиваем и называем причину; решает всё равно владелец —
+       давность увольнения известна ему, а не системе. */
+    if (staff.employment === 'staff' && draft.employment === 'self_employed') {
+      const confirmed = await askEmployment(texts.employmentSwitchConfirm(staffTitle(staff)));
+      if (!confirmed) return;
+    }
+
     const saved = await run(() =>
       api.update(staff.id, {
         name: draft.name,
         login: draft.login,
         phone: draft.phone,
         employment: draft.employment,
+        inn: draft.inn,
         /* Пустое поле — «не менять»: отправлять пустую строку значит стереть
            человеку пароль и запереть его снаружи. */
         ...(draft.password === '' ? {} : { password: draft.password }),
@@ -149,6 +174,18 @@ export function StaffAccountForm({ staff, api = staffApi, confirmRemove }: Staff
             onChange={(event) => set({ password: event.target.value })}
           />
 
+          {/* Цифровая клавиатура на телефоне: ИНН диктуют, а вводят с него. */}
+          <Input
+            label={texts.inn}
+            hint={texts.innHint}
+            value={draft.inn}
+            disabled={sending}
+            error={errorFor('inn')}
+            inputMode="numeric"
+            autoComplete="off"
+            onChange={(event) => set({ inn: event.target.value })}
+          />
+
           {/* Оформление — условие расчётов по нарядам, поэтому подсказка под
               выбором говорит о деньгах, а не о самом словаре. */}
           <Select
@@ -167,6 +204,13 @@ export function StaffAccountForm({ staff, api = staffApi, confirmRemove }: Staff
         </div>
 
         <p className={styles.hint}>{texts.employmentNote}</p>
+
+        {/* 🔴 Предупреждение, а не запрет: сохранение не блокируется. Без ИНН
+            статус самозанятого не проверить, а слетевший статус означает
+            доначисления владельцу (PROJECT §5.4). */}
+        {isSelfEmployedWithoutInn(draft.employment === '' ? null : draft.employment, draft.inn) ? (
+          <p className={styles.notice}>{texts.innMissing}</p>
+        ) : null}
 
         <div className={styles.actions}>
           <Button type="submit" disabled={sending}>

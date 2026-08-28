@@ -6,7 +6,7 @@
  */
 import type { AdminRole as DbRole, Employment as DbEmployment, Prisma } from '@prisma/client';
 
-import type { AdminRole, InstallerNoteCard, StaffCard } from '@/entities/staff/model';
+import type { AdminRole, InstallerNoteCard, StaffCard, StaffDetails } from '@/entities/staff/model';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import { employmentFromDb, employmentToDb } from '@/server/repo/employment';
@@ -30,6 +30,7 @@ type StaffRow = {
   phone: string | null;
   role: DbRole;
   employment: DbEmployment | null;
+  inn: string | null;
   active: boolean;
   createdAt: Date;
   lastLoginAt: Date | null;
@@ -42,11 +43,20 @@ const staffSelect = {
   phone: true,
   role: true,
   employment: true,
+  inn: true,
   active: true,
   createdAt: true,
   lastLoginAt: true,
 } as const;
 
+/**
+ * Карточка без ИНН — то, что о человеке видно любому экрану панели.
+ *
+ * 🔴 Проекция под роль идёт здесь, а не в разметке (ADR-114). ИНН —
+ * персональные данные работника (PROJECT §5.5), и нужен он только владельцу в
+ * разделе «Монтажники»; календарь, назначение наряда и свой профиль читают
+ * эту функцию и физически не могут его показать.
+ */
 function toCard(row: StaffRow): StaffCard {
   return {
     id: row.id,
@@ -59,6 +69,11 @@ function toCard(row: StaffRow): StaffCard {
     createdAt: row.createdAt.toISOString(),
     lastLoginAt: row.lastLoginAt?.toISOString() ?? null,
   };
+}
+
+/** Та же карточка с ИНН — только для экранов владельца. */
+function toDetails(row: StaffRow): StaffDetails {
+  return { ...toCard(row), inn: row.inn };
 }
 
 export async function findByLogin(login: string): Promise<AdminUserRecord | null> {
@@ -93,14 +108,21 @@ export async function markLogin(id: string, at: Date = new Date()): Promise<void
   await db.adminUser.update({ where: { id }, data: { lastLoginAt: at } });
 }
 
-/** Вся команда: сначала владельцы, дальше монтажники по имени. */
-export async function list(): Promise<StaffCard[]> {
+/**
+ * Вся команда: сначала владельцы, дальше монтажники по имени.
+ *
+ * Отдаёт карточки с ИНН: список читают только экраны владельца — раздел
+ * «Монтажники», зоны склада и `GET /api/admin/staff` под `withOwner`. Список
+ * должен показать, у кого из самозанятых ИНН не заведён, не заходя в карточку
+ * каждого.
+ */
+export async function list(): Promise<StaffDetails[]> {
   const rows = await db.adminUser.findMany({
     select: staffSelect,
     orderBy: [{ role: 'asc' }, { name: 'asc' }, { login: 'asc' }],
   });
 
-  return rows.map(toCard);
+  return rows.map(toDetails);
 }
 
 export async function listInstallers(onlyActive = false): Promise<StaffCard[]> {
@@ -117,9 +139,22 @@ export async function countActiveInstallers(): Promise<number> {
   return db.adminUser.count({ where: { role: 'INSTALLER', active: true } });
 }
 
+/**
+ * Карточка для любого экрана панели, включая свой профиль: ИНН в ней нет.
+ *
+ * 🔴 Профиль доступен обеим ролям, и лишний реквизит в его ответе — лишняя
+ * дорога к персональным данным. Владельцу, которому ИНН нужен, отвечает
+ * `findDetails`.
+ */
 export async function findById(id: string): Promise<StaffCard | null> {
   const row = await db.adminUser.findUnique({ where: { id }, select: staffSelect });
   return row === null ? null : toCard(row);
+}
+
+/** Карточка с ИНН — раздел «Монтажники», закрытый `withOwner` и `requireOwnerPage`. */
+export async function findDetails(id: string): Promise<StaffDetails | null> {
+  const row = await db.adminUser.findUnique({ where: { id }, select: staffSelect });
+  return row === null ? null : toDetails(row);
 }
 
 /**
@@ -139,6 +174,7 @@ export async function createInstaller(input: {
   login: string;
   phone: string | null;
   employment: Employment | null;
+  inn: string | null;
   passwordHash: string;
 }): Promise<StaffCard> {
   await assertLoginFree(input.login);
@@ -149,6 +185,7 @@ export async function createInstaller(input: {
       name: input.name,
       phone: input.phone,
       employment: employmentToDb(input.employment),
+      inn: input.inn,
       passwordHash: input.passwordHash,
       role: ROLE_TO_DB.installer,
     },
@@ -158,6 +195,13 @@ export async function createInstaller(input: {
   return toCard(row);
 }
 
+/**
+ * Правка учётной записи.
+ *
+ * Отвечает карточкой без ИНН: ту же функцию зовёт свой профиль, доступный
+ * обеим ролям. Владелец видит сохранённый ИНН чтением карточки — форма после
+ * успеха и так перечитывает страницу.
+ */
 export async function update(
   id: string,
   input: {
@@ -165,6 +209,7 @@ export async function update(
     login?: string | undefined;
     phone?: string | null | undefined;
     employment?: Employment | null | undefined;
+    inn?: string | null | undefined;
     passwordHash?: string | undefined;
     active?: boolean | undefined;
   },
@@ -181,6 +226,7 @@ export async function update(
       ...(input.login === undefined ? {} : { login: input.login }),
       ...(input.phone === undefined ? {} : { phone: input.phone }),
       ...(input.employment === undefined ? {} : { employment: employmentToDb(input.employment) }),
+      ...(input.inn === undefined ? {} : { inn: input.inn }),
       ...(input.passwordHash === undefined ? {} : { passwordHash: input.passwordHash }),
       ...(input.active === undefined ? {} : { active: input.active }),
     },

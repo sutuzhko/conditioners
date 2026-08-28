@@ -9,7 +9,7 @@ import {
   validationError,
   withOwner,
 } from '@/server/http';
-import { findById, listNotes, remove, update } from '@/server/repo/admin-users';
+import { findDetails, listNotes, remove, update } from '@/server/repo/admin-users';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,7 +18,10 @@ type Context = { params: Promise<{ id: string }> };
 export const GET = withOwner(async (_request, context: Context) => {
   const { id } = await context.params;
 
-  const staff = await findById(id);
+  /* Раздел владельца: карточка приходит вместе с ИНН — он нужен, чтобы
+     проверять статус самозанятого на дату выплаты (PROJECT §5.4). Своему
+     профилю его отдаёт не этот маршрут и не отдаёт вовсе. */
+  const staff = await findDetails(id);
   if (staff === null) return notFound('Сотрудник');
 
   return json({ ...staff, notes: await listNotes(id) });

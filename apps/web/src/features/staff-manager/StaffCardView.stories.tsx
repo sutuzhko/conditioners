@@ -8,6 +8,7 @@ import {
   disabledInstaller,
   failingApi,
   namelessInstaller,
+  selfEmployedNoInn,
   staffInstaller,
   unsetEmploymentInstaller,
 } from './fixtures';
@@ -34,6 +35,14 @@ export const БезИмени: Story = {
 
 export const Самозанятый: Story = {
   args: { staff: activeInstaller },
+};
+
+/**
+ * 🔴 Самозанятый без ИНН: оформление заведено, но проверить его статус на дату
+ * выплаты нечем — карточка говорит об этом прямо в списке.
+ */
+export const СамозанятыйБезИНН: Story = {
+  args: { staff: selfEmployedNoInn },
 };
 
 export const ДоговорГПХ: Story = {

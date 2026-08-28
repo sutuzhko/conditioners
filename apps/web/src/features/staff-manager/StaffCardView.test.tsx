@@ -7,9 +7,11 @@ import { staffManagerContent as texts } from './content';
 import {
   acceptingApi,
   activeInstaller,
+  contractInstaller,
   disabledInstaller,
   failingApi,
   namelessInstaller,
+  selfEmployedNoInn,
   staffInstaller,
   unsetEmploymentInstaller,
 } from './fixtures';
@@ -77,6 +79,26 @@ describe('Монтажник в списке команды', () => {
     render(<StaffCardView staff={activeInstaller} api={acceptingApi} />);
 
     expect(screen.queryByText(texts.employmentUnsetHint)).not.toBeInTheDocument();
+  });
+
+  it('🔴 самозанятый без ИНН помечен прямо в списке', () => {
+    render(<StaffCardView staff={selfEmployedNoInn} api={acceptingApi} />);
+
+    /* Статус самозанятого проверяется по ИНН и на дату выплаты. Узнать о
+       пропущенном номере в день выплаты — это доначисления компании. */
+    expect(screen.getByText(texts.innMissing)).toBeInTheDocument();
+  });
+
+  it('с заведённым ИНН предупреждения нет', () => {
+    render(<StaffCardView staff={activeInstaller} api={acceptingApi} />);
+
+    expect(screen.queryByText(texts.innMissing)).not.toBeInTheDocument();
+  });
+
+  it('у подрядчика по ГПХ без ИНН предупреждения нет: его статус не проверяют', () => {
+    render(<StaffCardView staff={{ ...contractInstaller, inn: null }} api={acceptingApi} />);
+
+    expect(screen.queryByText(texts.innMissing)).not.toBeInTheDocument();
   });
 
   it('ведёт в карточку монтажника', () => {

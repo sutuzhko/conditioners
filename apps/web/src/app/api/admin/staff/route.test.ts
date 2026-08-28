@@ -41,6 +41,7 @@ const created = {
   phone: null,
   role: 'installer' as const,
   employment: null,
+  inn: null,
   active: true,
   createdAt: '2026-08-25T09:00:00.000Z',
   lastLoginAt: null,
@@ -105,6 +106,7 @@ describe('команда в админке', () => {
       login: 'petrov',
       phone: null,
       employment: null,
+      inn: null,
       passwordHash: 'хеш',
     });
   });
@@ -151,6 +153,52 @@ describe('команда в админке', () => {
 
   it('логин кириллицей отклоняется — его диктуют по телефону', async () => {
     const response = await POST(jsonRequest({ ...body, login: 'петров' }), undefined);
+
+    expect(response.status).toBe(400);
+    expect(adminUsers.createInstaller).not.toHaveBeenCalled();
+  });
+});
+
+describe('ИНН при заведении монтажника', () => {
+  it('🔴 пустой ИНН заводить не мешает: человека берут по телефону', async () => {
+    const response = await POST(jsonRequest({ ...body, inn: '' }), undefined);
+
+    expect(response.status).toBe(201);
+    expect(adminUsers.createInstaller).toHaveBeenCalledWith(expect.objectContaining({ inn: null }));
+  });
+
+  it('поля нет в теле вовсе — тот же случай, что пустая строка', async () => {
+    const response = await POST(jsonRequest(body), undefined);
+
+    expect(response.status).toBe(201);
+    expect(adminUsers.createInstaller).toHaveBeenCalledWith(expect.objectContaining({ inn: null }));
+  });
+
+  it('верный ИНН доходит до базы', async () => {
+    await POST(jsonRequest({ ...body, inn: '710703123450' }), undefined);
+
+    expect(adminUsers.createInstaller).toHaveBeenCalledWith(
+      expect.objectContaining({ inn: '710703123450' }),
+    );
+  });
+
+  it('пробелы из выписки вычищаются, а не ложатся в базу', async () => {
+    await POST(jsonRequest({ ...body, inn: '7107 0312 3450' }), undefined);
+
+    expect(adminUsers.createInstaller).toHaveBeenCalledWith(
+      expect.objectContaining({ inn: '710703123450' }),
+    );
+  });
+
+  it('🔴 ИНН с опиской отвергается: у ФНС он выглядит как несуществующий', async () => {
+    const response = await POST(jsonRequest({ ...body, inn: '710512345678' }), undefined);
+
+    expect(response.status).toBe(400);
+    expect(adminUsers.createInstaller).not.toHaveBeenCalled();
+  });
+
+  it('десять цифр — это ИНН организации, а не человека', async () => {
+    const response = await POST(jsonRequest({ ...body, inn: '7107083893' }), undefined);
 
     expect(response.status).toBe(400);
     expect(adminUsers.createInstaller).not.toHaveBeenCalled();
