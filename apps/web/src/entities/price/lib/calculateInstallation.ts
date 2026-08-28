@@ -3,7 +3,6 @@ import type {
   InstallationEstimate,
   InstallationInput,
   InstallationLine,
-  PriceRow,
 } from '../model';
 
 /**
@@ -57,13 +56,4 @@ export function calculateInstallation(
     qty: input.qty,
     total: perUnit * input.qty,
   };
-}
-
-/**
- * Цена монтажа для класса мощности. `null`, если строки нет: показывать вместо
- * неё ноль нельзя — это была бы выдуманная цена.
- */
-export function basePriceForClass(rows: readonly PriceRow[], cls: string): number | null {
-  const row = rows.find((r) => r.cls === cls);
-  return row ? row.price : null;
 }

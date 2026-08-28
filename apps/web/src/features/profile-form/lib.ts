@@ -1,30 +1,29 @@
 /** Правка своего профиля — контракт docs/API.md §11. */
+import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
+import { adminRequest, jsonInit } from '@/shared/lib/api';
+
 import { profileFormContent as texts } from './content';
 import type { ProfileApi, ProfileResult } from './model';
 
-async function send(url: string, method: string, body: unknown): Promise<ProfileResult> {
-  try {
-    const response = await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
+const REQUEST_TEXTS = {
+  ...ADMIN_API_TEXTS,
+  network: texts.networkError,
+  server: texts.serverError,
+};
 
-    if (response.ok) return { ok: true };
+async function send(url: string, init: RequestInit): Promise<ProfileResult> {
+  /* 🔴 Общий разбор ответа (ADR-030), а не своя копия с приведением типа.
+     Копия не отличала 401 от отказа сервера, и владелец с истёкшей сессией
+     читал «сервер не принял изменения» вместо «войдите заново» — на экране
+     смены пароля это худшая из возможных подмен: человек начнёт подбирать
+     пароль вместо того, чтобы войти заново. */
+  const result = await adminRequest(url, init, REQUEST_TEXTS);
+  if (result.ok) return { ok: true };
 
-    const payload: unknown = await response.json().catch(() => null);
-    const error = (payload as { error?: { message?: unknown } } | null)?.error;
-
-    return {
-      ok: false,
-      message: typeof error?.message === 'string' ? error.message : texts.serverError,
-    };
-  } catch {
-    return { ok: false, message: texts.networkError };
-  }
+  return { ok: false, message: result.message };
 }
 
 export const profileApi: ProfileApi = {
-  save: (patch) => send('/api/admin/profile', 'PATCH', patch),
-  changePassword: (input) => send('/api/admin/profile/password', 'POST', input),
+  save: (patch) => send('/api/admin/profile', jsonInit('PATCH', patch)),
+  changePassword: (input) => send('/api/admin/profile/password', jsonInit('POST', input)),
 };

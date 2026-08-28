@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import { EMPLOYMENTS, type Employment } from '@/shared/lib/employment';
 import { isInnPerson } from '@/shared/lib/requisites';
+import { optionalPhoneField } from '@/shared/lib/zod';
 
 /**
  * Люди, которые заходят в панель.
@@ -106,21 +107,17 @@ const nameSchema = z
   .min(2, { message: NAME_REQUIRED })
   .max(120, { message: 'Не длиннее 120 символов' });
 
-/** Пустое необязательное поле формы приходит пустой строкой — это «не заполнено». */
-const optionalText = (max: number) =>
-  z
-    .string()
-    .trim()
-    .max(max, { message: `Не длиннее ${max} символов` })
-    .transform((value) => (value === '' ? null : value))
-    .nullable()
-    .default(null);
+/**
+ * Телефон человека в команде — по общему правилу проекта (`shared/lib/zod`).
+ * По этому номеру владелец звонит из карточки, и «asdf» доезжает до `tel:`.
+ */
+const phoneSchema = optionalPhoneField(40);
 
 /** Заведение монтажника владельцем: временный пароль он меняет сам в профиле. */
 export const staffCreateSchema = z.object({
   name: nameSchema,
   login: loginSchema,
-  phone: optionalText(40),
+  phone: phoneSchema,
   /* Необязательно: человека заводят по телефону, а договор с ним подписывают
      позже. Заставлять выбирать оформление на этом шаге значит получить
      выбранное наугад. */
@@ -147,7 +144,7 @@ export const staffUpdateSchema = z
   .object({
     name: nameSchema.optional(),
     login: loginSchema.optional(),
-    phone: optionalText(40).optional(),
+    phone: phoneSchema.optional(),
     employment: optionalEmployment.optional(),
     inn: innSchema.optional(),
     password: passwordSchema.optional(),
@@ -168,7 +165,7 @@ export type StaffUpdate = z.infer<typeof staffUpdateSchema>;
 export const profileUpdateSchema = z
   .object({
     name: nameSchema.optional(),
-    phone: optionalText(40).optional(),
+    phone: phoneSchema.optional(),
   })
   .strict()
   .refine((value) => Object.keys(value).length > 0, 'Нечего сохранять');

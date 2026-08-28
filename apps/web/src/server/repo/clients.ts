@@ -3,7 +3,9 @@
  * (ADR-105). Здесь адреса и телефоны людей: это ПДн, и доступ к ним есть
  * только у владельца.
  */
-import type { Prisma } from '@prisma/client';
+/* `Prisma` берётся значением: `PrismaClientKnownRequestError` — класс, по
+   нему отличается гонка на уникальном ключе от любого другого сбоя. */
+import { Prisma } from '@prisma/client';
 
 import {
   type ClientCard,
@@ -233,29 +235,44 @@ export async function fromLead(leadId: string): Promise<ClientFromLead> {
     );
   }
 
-  /* Поиск и запись — одной транзакцией: два обращения с одного номера,
-     обработанные подряд, иначе разошлись бы в гонке на уникальном ключе. */
-  const row = await db.$transaction(async (tx) => {
-    const existing = await tx.client.findUnique({
-      where: { phoneKey: key },
-      select: { id: true },
+  /* Транзакция держит связку «карточка плюс привязка обращения»: не бывает
+     заведённого клиента, к которому обращение не привязалось. Сериализации
+     она не даёт — при READ COMMITTED два обращения с одного номера не найдут
+     карточку оба, и второе упрётся в `phoneKey @unique`. Эту гонку разбирает
+     повтор ниже. */
+  const link = async (): Promise<{ id: string; created: boolean }> =>
+    db.$transaction(async (tx) => {
+      const existing = await tx.client.findUnique({
+        where: { phoneKey: key },
+        select: { id: true },
+      });
+
+      const client =
+        existing ??
+        (await tx.client.create({
+          data: {
+            name: lead.name,
+            phone: lead.phone,
+            phoneKey: key,
+            address: lead.address,
+          },
+          select: { id: true },
+        }));
+
+      await tx.lead.update({ where: { id: lead.id }, data: { clientId: client.id } });
+
+      return { id: client.id, created: existing === null };
     });
 
-    const client =
-      existing ??
-      (await tx.client.create({
-        data: {
-          name: lead.name,
-          phone: lead.phone,
-          phoneKey: key,
-          address: lead.address,
-        },
-        select: { id: true },
-      }));
+  /* Повтор при `P2002` — тот же приём, что у подбора адреса (`slug-retry`):
+     второй заход находит только что заведённую карточку и привязывает
+     обращение к ней. Одного достаточно — вставки во второй раз уже не будет,
+     а невнятная пятисотка вместо карточки клиента стоит дороже. */
+  const row = await link().catch((error: unknown) => {
+    const race = error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002';
+    if (!race) throw error;
 
-    await tx.lead.update({ where: { id: lead.id }, data: { clientId: client.id } });
-
-    return { id: client.id, created: existing === null };
+    return link();
   });
 
   const card = await findById(row.id);

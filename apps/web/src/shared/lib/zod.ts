@@ -48,6 +48,42 @@ export function phoneField(required: string): z.ZodEffects<z.ZodString, string, 
 }
 
 /**
+ * Необязательный телефон: второй номер в наряде, номер в карточке дела, номер
+ * монтажника.
+ *
+ * 🔴 Правило то же, что у обязательного: пустое поле — это «не заполнено», а
+ * заполненное обязано быть номером. В панели номер — не подпись, а кнопка
+ * «позвонить»: строка «asdf» доезжает до `tel:` и обнаруживается в тот
+ * момент, когда по ней пытаются дозвониться.
+ *
+ * Ограничение длины остаётся: колонка в базе не резиновая, а сорок символов
+ * хватает и на «+7 (900) 000-11-22 доб. 105».
+ */
+export function optionalPhoneField(
+  max = 40,
+): z.ZodDefault<z.ZodEffects<z.ZodNullable<z.ZodString>, string | null, string | null>> {
+  return z
+    .string()
+    .trim()
+    .max(max, { message: `Не длиннее ${max} символов` })
+    .nullable()
+    .transform((value, ctx) => {
+      if (value === null || value === '') return null;
+
+      if (value.replace(/\D/g, '').length < 10) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Похоже, в номере не хватает цифр',
+        });
+        return z.NEVER;
+      }
+
+      return value;
+    })
+    .default(null);
+}
+
+/**
  * Honeypot: поле скрыто от человека, но видно роботу. Любое заполнение —
  * признак бота.
  */

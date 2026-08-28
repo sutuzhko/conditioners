@@ -1,6 +1,8 @@
 // @vitest-environment node
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { Prisma } from '@prisma/client';
+
 import type { StockItemCard, StockMovementCreate } from '@/entities/stock/model';
 
 /**
@@ -97,6 +99,8 @@ const {
   consumptionOf,
   move,
   overview,
+  updateItem,
+  updateZone,
   zones,
 } = await import('./stock');
 
@@ -656,6 +660,86 @@ describe('Пора заказывать', () => {
   });
 });
 
+// ---------- Правка справочника ----------
+
+describe('🔴 правка позиции пишет только присланное', () => {
+  beforeEach(() => {
+    dbMock.stockItem.update.mockResolvedValue({ ...TUBE });
+  });
+
+  it('переименование не трогает ни порог заказа, ни архив', async () => {
+    await updateItem('s1', { name: 'Труба медная 3/8″' }, owner);
+
+    expect(dbMock.stockItem.update).toHaveBeenCalledWith({
+      where: { id: 's1' },
+      data: { name: 'Труба медная 3/8″' },
+      select: expect.anything(),
+    });
+  });
+
+  it('присланное пустым очищает поле — это другое действие, и оно доходит', async () => {
+    await updateItem('s1', { group: null, note: null }, owner);
+
+    expect(dbMock.stockItem.update).toHaveBeenCalledWith(
+      expect.objectContaining({ data: { group: null, note: null } }),
+    );
+  });
+
+  it('🔴 единицу измерения не сменить, пока по позиции есть движения', async () => {
+    dbMock.stockMovement.count.mockResolvedValue(3);
+
+    await expect(updateItem('s1', { unit: 'piece' }, owner)).rejects.toThrow(/движения/i);
+    expect(dbMock.stockItem.update).not.toHaveBeenCalled();
+  });
+
+  it('позиция без единого движения единицу сменить может', async () => {
+    dbMock.stockMovement.count.mockResolvedValue(0);
+
+    await updateItem('s1', { unit: 'piece' }, owner);
+
+    expect(dbMock.stockItem.update).toHaveBeenCalledWith(
+      expect.objectContaining({ data: { unit: 'PIECE' } }),
+    );
+  });
+
+  it('та же единица, что и была, движений не касается', async () => {
+    dbMock.stockMovement.count.mockResolvedValue(9);
+
+    await updateItem('s1', { unit: 'meter', name: 'Труба' }, owner);
+
+    expect(dbMock.stockItem.update).toHaveBeenCalled();
+  });
+});
+
+describe('🔴 правка зоны пишет только присланное', () => {
+  it('переименование не обнуляет порядок колонок и не поднимает из архива', async () => {
+    await updateZone('z1', { name: 'Гараж на Мира' });
+
+    expect(dbMock.stockZone.update).toHaveBeenCalledWith({
+      where: { id: 'z1' },
+      data: { name: 'Гараж на Мира' },
+      select: expect.anything(),
+    });
+  });
+
+  it('🔴 склад не станет машиной, пока у него не появится хозяин', async () => {
+    await expect(updateZone('z1', { kind: 'van' })).rejects.toThrow(/чья это машина/i);
+    expect(dbMock.stockZone.update).not.toHaveBeenCalled();
+  });
+
+  it('🔴 хозяина складу не приписать: пару досматривает итоговое состояние', async () => {
+    await expect(updateZone('z1', { userId: 'u2' })).rejects.toThrow(/не принадлежит/i);
+  });
+
+  it('машина остаётся машиной, когда меняют только название', async () => {
+    await updateZone('z2', { name: 'Газель белая' });
+
+    expect(dbMock.stockZone.update).toHaveBeenCalledWith(
+      expect.objectContaining({ data: { name: 'Газель белая' } }),
+    );
+  });
+});
+
 // ---------- Расход наряда ----------
 
 describe('Расход наряда', () => {
@@ -720,6 +804,40 @@ describe('Расход наряда', () => {
           ? { id: 'm7', itemId: 's1', qty: dec(4), fromZoneId: 'z2', authorId: 'u2' }
           : { id: 'm8' },
       ),
+    );
+
+    await expect(cancelConsumption('o1', 'm7', installer)).rejects.toThrow(/уже отменено/i);
+  });
+
+  it('🔴 сбой базы не выдаётся за «уже отменено»', async () => {
+    dbMock.stockMovement.findFirst.mockImplementation((args: { where?: { kind?: string } }) =>
+      Promise.resolve(
+        args.where?.kind === 'CONSUME'
+          ? { id: 'm7', itemId: 's1', qty: dec(4), fromZoneId: 'z2', authorId: 'u2' }
+          : null,
+      ),
+    );
+    /* Обрыв соединения, таймаут, чужое ограничение — что угодно, кроме
+       нарушения уникальности `cancelsId`. Ответ «возврат уже был» отправляет
+       монтажника искать несуществующую запись в журнале. */
+    dbMock.stockMovement.create.mockRejectedValue(new Error('соединение потеряно'));
+
+    await expect(cancelConsumption('o1', 'm7', installer)).rejects.toThrow(/соединение потеряно/i);
+  });
+
+  it('нарушение уникальности `cancelsId` — и только оно — значит «уже отменено»', async () => {
+    dbMock.stockMovement.findFirst.mockImplementation((args: { where?: { kind?: string } }) =>
+      Promise.resolve(
+        args.where?.kind === 'CONSUME'
+          ? { id: 'm7', itemId: 's1', qty: dec(4), fromZoneId: 'z2', authorId: 'u2' }
+          : null,
+      ),
+    );
+    dbMock.stockMovement.create.mockRejectedValue(
+      new Prisma.PrismaClientKnownRequestError('duplicate', {
+        code: 'P2002',
+        clientVersion: 'test',
+      }),
     );
 
     await expect(cancelConsumption('o1', 'm7', installer)).rejects.toThrow(/уже отменено/i);

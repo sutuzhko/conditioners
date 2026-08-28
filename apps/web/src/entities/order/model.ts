@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import { parseDayKey } from '@/shared/lib/calendar';
 import type { Employment } from '@/shared/lib/employment';
+import { optionalPhoneField } from '@/shared/lib/zod';
 
 /**
  * Наряд — работа с деньгами, датой и исполнителем.
@@ -60,6 +61,48 @@ export const INSTALLER_STATUSES: readonly OrderStatus[] = ['in_progress', 'done'
 
 export function installerMaySetStatus(status: OrderStatus): boolean {
   return INSTALLER_STATUSES.some((allowed) => allowed === status);
+}
+
+/**
+ * 🔴 Статус и исполнитель — одна пара, а не два независимых поля.
+ *
+ * «Новый» по смыслу и означает «исполнитель не назначен»: именно так статус
+ * выставляется при заведении наряда (`repo/orders.ts`), и именно на этом
+ * стоят вкладки списка. Пары, которых не бывает, ровно две — и обе оставляют
+ * наряд в состоянии, из которого он сам не выйдет: наряд с монтажником,
+ * навсегда повисший во вкладке «Новые», и наряд «в работе» без исполнителя,
+ * к которому монтажник потерял доступ.
+ *
+ * Правило живёт здесь одно на всех: его спрашивает схема правки (когда оба
+ * поля пришли вместе), репозиторий (на уже собранной записи — схема не видит
+ * сохранённого состояния) и форма наряда, которая по нему решает, слать
+ * статус или дать серверу вывести его за исполнителем.
+ *
+ * `done` и `cancelled` не ограничены: работу мог закрыть и сам владелец, а
+ * отменённый наряд бывает и не назначенным.
+ */
+export type OrderPairIssue = {
+  /** Какое из двух полей подсвечивать: то, которое человек менял последним. */
+  readonly field: 'status' | 'installerId';
+  readonly message: string;
+};
+
+export function orderPairIssue(status: OrderStatus, hasInstaller: boolean): OrderPairIssue | null {
+  if (status === 'new' && hasInstaller) {
+    return {
+      field: 'status',
+      message: 'У наряда есть исполнитель — «Новым» он уже не бывает',
+    };
+  }
+
+  if ((status === 'assigned' || status === 'in_progress') && !hasInstaller) {
+    return {
+      field: 'installerId',
+      message: 'Выберите исполнителя или верните наряд в «Новые»',
+    };
+  }
+
+  return null;
 }
 
 /**
@@ -142,7 +185,9 @@ const baseOrderFields = {
     .min(3, { message: ADDRESS_REQUIRED })
     .max(200, { message: 'Адрес длиннее 200 символов не поместится' }),
   intercom: optionalText(40),
-  phone2: optionalText(40),
+  /* Второй номер объекта — по общему правилу проекта: в наряде он кнопка
+     «позвонить», и мусор в нём обнаруживается на объекте. */
+  phone2: optionalPhoneField(40),
   floor: z
     .number()
     .int({ message: 'Этаж — целое число' })
@@ -236,6 +281,21 @@ export const orderUpdateSchema = z
           code: z.ZodIssueCode.custom,
           message: 'Укажите основание удержания',
           path: ['deductionReason'],
+        });
+      }
+    }
+
+    /* Пара «статус + исполнитель» проверяется, только когда пришли оба поля:
+       второе схема не знает — его досматривает репозиторий на сохранённой
+       записи. Здесь ловится противоречие, присланное одним запросом. */
+    if (value.status !== undefined && value.installerId !== undefined) {
+      const issue = orderPairIssue(value.status, value.installerId !== null);
+
+      if (issue !== null) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: issue.message,
+          path: [issue.field],
         });
       }
     }

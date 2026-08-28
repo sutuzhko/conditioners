@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { parseDayKey } from '@/shared/lib/calendar';
+import { optionalPhoneField } from '@/shared/lib/zod';
 
 /**
  * Дело в календаре: звонок, замер, монтаж, обслуживание.
@@ -83,7 +84,8 @@ export const crmEventCreateSchema = z.object({
     .max(24 * 60, { message: 'Дело не длиннее суток' })
     .refine((value) => value % 15 === 0, { message: 'Шаг — пятнадцать минут' })
     .default(60),
-  clientPhone: optionalText(40),
+  /* Номер по общему правилу проекта: в календаре он — кнопка «позвонить». */
+  clientPhone: optionalPhoneField(40),
   address: optionalText(200),
   note: optionalText(2000),
   /** Заявка, из которой выросло дело. Дел без заявки будет больше, чем с ней. */

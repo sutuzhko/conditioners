@@ -1,3 +1,5 @@
+import { formatNumber } from './format';
+
 /**
  * Русское склонение существительного после числа.
  *
@@ -19,7 +21,13 @@ export function plural(count: number, one: string, few: string, many: string): s
   return many;
 }
 
-/** Число вместе со склонённым словом: «12 характеристик». */
+/**
+ * Число вместе со склонённым словом: «12 характеристик», «1 200 установок».
+ *
+ * Число проходит через общее форматирование: «1200 установок» в тексте на
+ * витрине читается как опечатка, а второй способ печатать числа на сайте
+ * разошёлся бы с первым.
+ */
 export function pluralize(count: number, one: string, few: string, many: string): string {
-  return `${count} ${plural(count, one, few, many)}`;
+  return `${formatNumber(count)} ${plural(count, one, few, many)}`;
 }

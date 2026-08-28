@@ -41,6 +41,22 @@ describe('getActivePrice', () => {
     );
   });
 
+  it('🔴 скидка, округляющаяся в ноль процентов, процентом не показывается', () => {
+    // 1 − 38400/38500 = 0.0026 → 0%. Сотня рублей — это сумма, а не процент,
+    // и плашка «−0%» запрещена дословно (DESIGN_BRIEF §10)
+    const result = getActivePrice(product({ salePrice: 38_400 }));
+
+    expect(result.saleActive).toBe(true);
+    expect(result.currentPrice).toBe(38_400);
+    expect(result.oldPrice).toBe(38_500);
+    expect(result.discountPercent).toBeNull();
+  });
+
+  it('половина процента округляется вверх и процентом остаётся', () => {
+    // 1 − 38300/38500 = 0.0052 → 1%
+    expect(getActivePrice(product({ salePrice: 38_300 })).discountPercent).toBe(1);
+  });
+
   const withPeriod = product({
     salePrice: 34_900,
     saleFrom: at('2026-09-01T00:00:00+03:00'),

@@ -1,4 +1,5 @@
 /** Действия раздела заказов — контракт docs/API.md §13. */
+import { orderPairIssue } from '@/entities/order/model';
 import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
 import { adminRequest, createdSchema, jsonInit } from '@/shared/lib/api';
 
@@ -52,9 +53,25 @@ export const orderApi: OrderApi = {
 
   /* Статус приезжает вместе с остальными полями: правка наряда и перевод его
      в работу — одно действие владельца, а не два запроса подряд. При
-     заведении статус не отправляется вовсе — его назначает сервер. */
-  update: (id, draft) =>
-    send(`${API_PATH}/${id}`, jsonInit('PATCH', { ...orderPayload(draft), status: draft.status })),
+     заведении статус не отправляется вовсе — его назначает сервер.
+
+     🔴 Кроме одного случая: когда статус в форме спорит с исполнителем. Так
+     выглядит обычное действие владельца — открыть наряд «Новый», выбрать
+     монтажника и сохранить: `select` статуса он не трогал, и прислать
+     оттуда «Новый» значило бы попросить сервер оставить наряд «Новым» с
+     исполнителем. Такую пару сервер отвергает, поэтому статус в этом случае
+     не отправляется вовсе, и его выводит за исполнителем репозиторий. */
+  update: (id, draft) => {
+    const conflicts = orderPairIssue(draft.status, draft.installerId.trim() !== '') !== null;
+
+    return send(
+      `${API_PATH}/${id}`,
+      jsonInit('PATCH', {
+        ...orderPayload(draft),
+        ...(conflicts ? {} : { status: draft.status }),
+      }),
+    );
+  },
 
   remove: (id) => send(`${API_PATH}/${id}`, jsonInit('DELETE')),
 

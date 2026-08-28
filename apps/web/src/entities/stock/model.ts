@@ -62,10 +62,7 @@ const STEP = 1000;
 const QTY_MAX = 1_000_000;
 
 function hasThreeDecimals(value: number): boolean {
-  return (
-    Number.isInteger(Math.round(value * STEP)) &&
-    Math.abs(value * STEP - Math.round(value * STEP)) < 1e-6
-  );
+  return Math.abs(value * STEP - Math.round(value * STEP)) < 1e-6;
 }
 
 /** Количество движения: строго больше нуля, направление задают зоны. */
@@ -136,10 +133,33 @@ export const stockItemCreateSchema = z.object({
 });
 export type StockItemCreate = z.infer<typeof stockItemCreateSchema>;
 
-export const stockItemUpdateSchema = stockItemCreateSchema.extend({
-  /* Позиция не удаляется, а сдаётся в архив: удаление унесло бы историю. */
-  archived: z.boolean().default(false),
-});
+/**
+ * 🔴 Правка позиции — частичная, поле за полем.
+ *
+ * Схема заведения на `PATCH` работала полной заменой: не приславший `minQty`
+ * терял порог заказа, не приславший `archived` возвращал позицию из архива, а
+ * `group`, `note` и `productId` затирались в `null`. Спасало только то, что
+ * форма всегда отдавала объект целиком, — то есть защиты не было, было
+ * совпадение.
+ *
+ * Разделение явное, как в `orderUpdateSchema`: ключа нет — поле не трогаем,
+ * ключ пришёл пустым — очистили. Единица измерения проверяется отдельно в
+ * репозитории: сменить её у позиции с движениями значит переписать смысл
+ * всего журнала разом.
+ */
+export const stockItemUpdateSchema = z
+  .object({
+    name: stockItemCreateSchema.shape.name.optional(),
+    group: stockItemCreateSchema.shape.group.optional(),
+    unit: stockUnitSchema.optional(),
+    minQty: thresholdSchema.optional(),
+    productId: stockItemCreateSchema.shape.productId.optional(),
+    note: stockItemCreateSchema.shape.note.optional(),
+    /* Позиция не удаляется, а сдаётся в архив: удаление унесло бы историю. */
+    archived: z.boolean().optional(),
+  })
+  .strict()
+  .refine((value) => Object.keys(value).length > 0, 'Нечего сохранять');
 export type StockItemUpdate = z.infer<typeof stockItemUpdateSchema>;
 
 // ---------- Зона хранения ----------
@@ -147,66 +167,69 @@ export type StockItemUpdate = z.infer<typeof stockItemUpdateSchema>;
 /**
  * 🔴 Машина принадлежит человеку, гараж — никому. Зона-машина без хозяина
  * бессмысленна: монтажник видит свою по этой самой связи, а не по названию.
+ *
+ * Правило одно на заведение, правку и репозиторий: правка присылает вид и
+ * хозяина порознь, и итоговую пару видит только тот, кто прочитал зону из
+ * базы.
  */
+export function zoneOwnerIssue(kind: StockZoneKind, userId: string | null): string | null {
+  if (kind === 'van' && userId === null) return 'Выберите, чья это машина';
+  if (kind === 'warehouse' && userId !== null) return 'Склад не принадлежит человеку';
+  return null;
+}
+
+/* `| undefined` у необязательных полей — не украшение: при
+   `exactOptionalPropertyTypes` тип, выведенный схемой, без него не подходит. */
+function refineZoneOwner(
+  value: {
+    readonly kind?: StockZoneKind | undefined;
+    readonly userId?: string | null | undefined;
+  },
+  ctx: z.RefinementCtx,
+): void {
+  /* Пришло одно поле из пары — вторую половину знает только база. */
+  if (value.kind === undefined || value.userId === undefined) return;
+
+  const message = zoneOwnerIssue(value.kind, value.userId);
+  if (message !== null) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['userId'], message });
+  }
+}
+
+const zoneName = z
+  .string({ required_error: 'Укажите название зоны' })
+  .trim()
+  .min(1, { message: 'Укажите название зоны' })
+  .max(80, { message: 'Название длиннее 80 символов' });
+
+const zoneSort = z.coerce.number().int().min(0).max(9999);
+
 export const stockZoneCreateSchema = z
   .object({
     kind: stockZoneKindSchema,
-    name: z
-      .string({ required_error: 'Укажите название зоны' })
-      .trim()
-      .min(1, { message: 'Укажите название зоны' })
-      .max(80, { message: 'Название длиннее 80 символов' }),
+    name: zoneName,
     userId: optionalId,
-    sort: z.coerce.number().int().min(0).max(9999).default(0),
+    sort: zoneSort.default(0),
   })
-  .superRefine((value, ctx) => {
-    if (value.kind === 'van' && value.userId === null) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ['userId'],
-        message: 'Выберите, чья это машина',
-      });
-    }
-
-    if (value.kind === 'warehouse' && value.userId !== null) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ['userId'],
-        message: 'Склад не принадлежит человеку',
-      });
-    }
-  });
+  .superRefine(refineZoneOwner);
 export type StockZoneCreate = z.infer<typeof stockZoneCreateSchema>;
 
+/**
+ * 🔴 Правка зоны — частичная, по той же причине, что и правка позиции:
+ * опущенный `sort` обнулялся и перетасовывал колонки таблицы остатков, а
+ * опущенный `archived` возвращал зону из архива.
+ */
 export const stockZoneUpdateSchema = z
   .object({
-    kind: stockZoneKindSchema,
-    name: z
-      .string({ required_error: 'Укажите название зоны' })
-      .trim()
-      .min(1, { message: 'Укажите название зоны' })
-      .max(80, { message: 'Название длиннее 80 символов' }),
-    userId: optionalId,
-    sort: z.coerce.number().int().min(0).max(9999).default(0),
-    archived: z.boolean().default(false),
+    kind: stockZoneKindSchema.optional(),
+    name: zoneName.optional(),
+    userId: optionalId.optional(),
+    sort: zoneSort.optional(),
+    archived: z.boolean().optional(),
   })
-  .superRefine((value, ctx) => {
-    if (value.kind === 'van' && value.userId === null) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ['userId'],
-        message: 'Выберите, чья это машина',
-      });
-    }
-
-    if (value.kind === 'warehouse' && value.userId !== null) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ['userId'],
-        message: 'Склад не принадлежит человеку',
-      });
-    }
-  });
+  .strict()
+  .refine((value) => Object.keys(value).length > 0, 'Нечего сохранять')
+  .superRefine(refineZoneOwner);
 export type StockZoneUpdate = z.infer<typeof stockZoneUpdateSchema>;
 
 // ---------- Движение ----------
@@ -395,6 +418,12 @@ export const orderConsumeSchema = z.object({
         serials,
       }),
     )
-    .min(1, { message: 'Укажите, что списать' }),
+    .min(1, { message: 'Укажите, что списать' })
+    /* 🔴 Потолок такой же, как у позиций наряда и у контекста заявки: на
+       каждую строку репозиторий делает два-три запроса, а потом открывает
+       транзакцию из N вставок. Список без потолка означает, что любой
+       монтажник одним запросом кладёт базу. Пятидесяти позиций на выезд
+       хватает с запасом. */
+    .max(50, { message: 'Не больше пятидесяти позиций за раз' }),
 });
 export type OrderConsume = z.infer<typeof orderConsumeSchema>;

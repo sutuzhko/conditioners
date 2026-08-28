@@ -64,10 +64,18 @@ export function getActivePrice(product: SalePricing, now: Date = new Date()): Ac
   if (salePrice === null || salePrice <= 0 || salePrice >= priceNum) return NO_SALE(product);
   if (!withinPeriod(now, product.saleFrom, product.saleTo)) return NO_SALE(product);
 
+  const percent = Math.round((1 - salePrice / priceNum) * 100);
+
   return {
     currentPrice: salePrice,
     oldPrice: priceNum,
-    discountPercent: Math.round((1 - salePrice / priceNum) * 100),
+    /* 🔴 Процент, округлившийся в ноль, процентом не является: сотня рублей со
+       ста тысяч — это сумма, и рисовать её нечем. `null` вместо нуля гасит
+       плашку по той же проверке, которой она гасится без скидки, — иначе
+       «−0%» пришлось бы отлавливать в каждом месте показа
+       (DESIGN_BRIEF §10 запрещает такую плашку дословно). Сама скидка
+       остаётся: перечёркнутая цена и подпись владельца на месте. */
+    discountPercent: percent === 0 ? null : percent,
     saleActive: true,
     saleLabel: product.saleLabel,
     saleTo: product.saleTo,

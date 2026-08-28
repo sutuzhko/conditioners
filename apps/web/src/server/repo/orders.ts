@@ -35,6 +35,7 @@ import {
 } from '@/entities/order/lib/history';
 import {
   installerMaySetStatus,
+  orderPairIssue,
   TAB_STATUSES,
   type OrderCard,
   type OrderChecklistCard,
@@ -622,31 +623,65 @@ export async function countActive(): Promise<number> {
 
 // ---------- Запись ----------
 
+/** Ссылки наряда на чужие сущности: все три проверяются одинаково. */
+type OrderRefs = {
+  readonly clientId?: string | undefined;
+  readonly installerId?: string | null | undefined;
+  readonly leadId?: string | null | undefined;
+};
+
 /**
- * Несуществующий клиент или монтажник — ошибка ввода, а не сбой.
+ * Несуществующий клиент, монтажник или обращение — ошибка ввода, а не сбой.
  *
- * Без проверки Prisma отвечает нарушением внешнего ключа, и человек видит
- * «не получилось обработать запрос» вместо подсказки, какое поле исправить.
+ * Без проверки Prisma отвечает нарушением внешнего ключа (`P2003`), а
+ * `handleRouteError` превращает его в 500 «не получилось обработать запрос»:
+ * человек видит отказ сервера вместо подсказки, какое поле исправить.
+ *
+ * `keepInstaller` — исполнитель, уже стоящий в наряде. Он не перепроверяется
+ * на активность: человек уволился, но со своих прошлых нарядов не исчез, и
+ * правка адреса такого наряда не должна упираться в его увольнение.
  */
 async function assertRefs(
-  clientId: string | undefined,
-  installerId: string | null | undefined,
+  refs: OrderRefs,
+  keepInstaller: string | null = null,
 ): Promise<string | null> {
-  if (clientId !== undefined) {
-    const client = await db.client.findUnique({ where: { id: clientId }, select: { id: true } });
+  if (refs.clientId !== undefined) {
+    const client = await db.client.findUnique({
+      where: { id: refs.clientId },
+      select: { id: true },
+    });
     if (client === null) {
       throw new ApiException('validation_error', 'Такого клиента нет в базе', 'clientId');
     }
   }
 
+  if (refs.leadId !== undefined && refs.leadId !== null) {
+    const lead = await db.lead.findUnique({ where: { id: refs.leadId }, select: { id: true } });
+    if (lead === null) {
+      throw new ApiException('validation_error', 'Такого обращения нет в базе', 'leadId');
+    }
+  }
+
+  const installerId = refs.installerId;
   if (installerId === undefined || installerId === null) return null;
 
   const installer = await db.adminUser.findUnique({
     where: { id: installerId },
-    select: { id: true, name: true, login: true },
+    select: { id: true, name: true, login: true, active: true },
   });
   if (installer === null) {
     throw new ApiException('validation_error', 'Такого монтажника нет в базе', 'installerId');
+  }
+
+  /* 🔴 Отключённая учётная запись в панель не заходит, а значит не увидит и
+     наряда: назначить на неё работу — это назначить её в никуда. Форма
+     предлагает только активных, но маршрут открыт и мимо формы. */
+  if (!installer.active && installerId !== keepInstaller) {
+    throw new ApiException(
+      'validation_error',
+      'Эта учётная запись отключена: выберите другого исполнителя',
+      'installerId',
+    );
   }
 
   /* Имя возвращается наверх, а не читается второй раз при записи истории:
@@ -921,7 +956,7 @@ async function recomputedOvertime(
 }
 
 export async function create(input: OrderCreate, authorId: string): Promise<OrderCard> {
-  const installerName = await assertRefs(input.clientId, input.installerId);
+  const installerName = await assertRefs(input);
 
   try {
     return toCard(await createRow(input, authorId, installerName), 'owner');
@@ -984,6 +1019,27 @@ type CurrentOrder = {
 };
 
 /**
+ * 🔴 Досмотр пары «статус + исполнитель» на уже собранной записи.
+ *
+ * Схема правки видит только присланные поля и поэтому пропускает половину
+ * случаев: статус без исполнителя и исполнителя без статуса. Без этой
+ * проверки наряд «Новый», которому назначили монтажника, оставался «Новым» —
+ * навсегда во вкладке «Новые», хотя человек уже получил уведомление, — а
+ * снятие исполнителя с наряда в работе оставляло `IN_PROGRESS` без
+ * исполнителя, к которому у монтажника больше нет доступа.
+ */
+function assertStatusPair(
+  current: CurrentOrder,
+  input: OrderUpdate,
+  status: DbStatus | undefined,
+): void {
+  const installerId = input.installerId === undefined ? current.installerId : input.installerId;
+  const issue = orderPairIssue(STATUS_FROM_DB[status ?? current.status], installerId !== null);
+
+  if (issue !== null) throw new ApiException('validation_error', issue.message, issue.field);
+}
+
+/**
  * Что записать в историю по итогам правки.
  *
  * Назначение и снятие исполнителя — своя запись; смена статуса — своя. Но
@@ -1026,10 +1082,11 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
   });
   if (current === null) throw new ApiException('not_found', 'Наряд не найден');
 
-  const installerName = await assertRefs(input.clientId, input.installerId);
+  const installerName = await assertRefs(input, current.installerId);
   assertDeduction(current, input);
 
   const status = nextStatus(current, input);
+  assertStatusPair(current, input, status);
   /* Схема гарантирует, что день и время приходят только вместе: перенести
      работу на другой день, не сказав на какое время, нельзя. */
   const at =

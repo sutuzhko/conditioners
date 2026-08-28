@@ -11,13 +11,16 @@
  * (ADR-134). Ключ не приводится к `null`, а отсутствует вовсе: `null` сообщал
  * бы, что порог есть и он пустой, — а знать не положено даже этого.
  */
+/* `Prisma` берётся значением, а не типом: `PrismaClientKnownRequestError` —
+   класс, по нему отличается нарушение уникальности от любого другого сбоя. */
+import { Prisma } from '@prisma/client';
 import type {
-  Prisma,
   StockMoveKind as DbMoveKind,
   StockUnit as DbUnit,
   StockZoneKind as DbZoneKind,
 } from '@prisma/client';
 import {
+  zoneOwnerIssue,
   type OrderConsume,
   type OrderConsumption,
   type StockItemCard,
@@ -225,20 +228,35 @@ export async function createZone(input: StockZoneCreate): Promise<StockZoneCard>
 }
 
 export async function updateZone(id: string, input: StockZoneUpdate): Promise<StockZoneCard> {
-  const found = await db.stockZone.findUnique({ where: { id }, select: { archived: true } });
+  const found = await db.stockZone.findUnique({
+    where: { id },
+    select: { archived: true, kind: true, userId: true },
+  });
   if (found === null) throw new ApiException('not_found', 'Зона не найдена');
 
-  await assertZoneUser(input.userId);
-  if (input.archived && !found.archived) await assertZoneEmpty(id);
+  await assertZoneUser(input.userId ?? null);
+
+  /* 🔴 Пара «вид зоны + хозяин» досматривается на итоговом состоянии: правка
+     присылает половину пары, и вторую знает только база. Схема ловит
+     противоречие, присланное одним запросом, а «сделать машину складом, не
+     тронув хозяина» видно только здесь. */
+  const kind = input.kind ?? ZONE_KIND_FROM_DB[found.kind];
+  const userId = input.userId === undefined ? found.userId : input.userId;
+  const message = zoneOwnerIssue(kind, userId);
+  if (message !== null) throw new ApiException('validation_error', message, 'userId');
+
+  if (input.archived === true && !found.archived) await assertZoneEmpty(id);
 
   const row = await db.stockZone.update({
     where: { id },
+    /* Пишется только присланное: опущенный `sort` обнулялся и перетасовывал
+       колонки таблицы остатков, опущенный `archived` возвращал зону из архива. */
     data: {
-      kind: ZONE_KIND_TO_DB[input.kind],
-      name: input.name,
-      userId: input.userId,
-      sort: input.sort,
-      archived: input.archived,
+      ...(input.kind === undefined ? {} : { kind: ZONE_KIND_TO_DB[input.kind] }),
+      ...(input.name === undefined ? {} : { name: input.name }),
+      ...(input.userId === undefined ? {} : { userId: input.userId }),
+      ...(input.sort === undefined ? {} : { sort: input.sort }),
+      ...(input.archived === undefined ? {} : { archived: input.archived }),
     },
     select: zoneSelect,
   });
@@ -445,27 +463,59 @@ export async function updateItem(
   input: StockItemUpdate,
   viewer: Viewer,
 ): Promise<StockItemCard> {
-  const found = await db.stockItem.findUnique({ where: { id }, select: { archived: true } });
+  const found = await db.stockItem.findUnique({
+    where: { id },
+    select: { archived: true, unit: true },
+  });
   if (found === null) throw new ApiException('not_found', 'Позиция не найдена', 'id');
 
-  await assertProduct(input.productId);
-  if (input.archived && !found.archived) await assertItemEmpty(id);
+  await assertProduct(input.productId ?? null);
+  if (input.archived === true && !found.archived) await assertItemEmpty(id);
+  if (input.unit !== undefined && UNIT_TO_DB[input.unit] !== found.unit) {
+    await assertNoMovements(id);
+  }
 
   const row = await db.stockItem.update({
     where: { id },
+    /* 🔴 Пишется только присланное. Схема заведения на `PATCH` работала полной
+       заменой: опущенный `minQty` обнулял порог заказа, опущенный `archived`
+       возвращал позицию из архива, а `group`, `note` и `productId` затирались
+       в `null`. */
     data: {
-      name: input.name,
-      group: input.group,
-      unit: UNIT_TO_DB[input.unit],
-      minQty: input.minQty,
-      productId: input.productId,
-      note: input.note,
-      archived: input.archived,
+      ...(input.name === undefined ? {} : { name: input.name }),
+      ...(input.group === undefined ? {} : { group: input.group }),
+      ...(input.unit === undefined ? {} : { unit: UNIT_TO_DB[input.unit] }),
+      ...(input.minQty === undefined ? {} : { minQty: input.minQty }),
+      ...(input.productId === undefined ? {} : { productId: input.productId }),
+      ...(input.note === undefined ? {} : { note: input.note }),
+      ...(input.archived === undefined ? {} : { archived: input.archived }),
     },
     select: itemSelect,
   });
 
   return itemCardOf(row, viewer);
+}
+
+/**
+ * 🔴 Единица измерения не меняется у позиции с журналом.
+ *
+ * Смена «метра» на «штуку» переписывает смысл всех прошлых движений разом:
+ * 43,5 метра трубы становятся 43,5 штуками, и подсказка раздела «правка
+ * названия и порога не трогает движений» перестаёт быть правдой. Нужна другая
+ * единица — заводится другая позиция, а старая уходит в архив.
+ *
+ * Смотрим на движения, а не на остаток: нулевой остаток при десятке приходов
+ * и расходов — это полный журнал, который так же нельзя переписывать.
+ */
+async function assertNoMovements(itemId: string): Promise<void> {
+  const count = await db.stockMovement.count({ where: { itemId } });
+  if (count > 0) {
+    throw new ApiException(
+      'validation_error',
+      'По позиции уже есть движения: единицу измерения им не сменить. Заведите новую позицию с нужной единицей',
+      'unit',
+    );
+  }
 }
 
 /** Позиция сдаётся в архив, а не удаляется: журнал её движений остаётся. */
@@ -1152,7 +1202,16 @@ export async function cancelConsumption(
       data: { ...data, cancelsId: moveId, authorId: viewer.userId },
       select: movementSelect,
     })
-    .catch(() => {
+    .catch((error: unknown) => {
+      /* 🔴 «Уже отменено» говорит только нарушение уникальности `cancelsId`.
+         Всё остальное — обрыв соединения, таймаут, чужое ограничение —
+         пробрасывается как есть: монтажник, которому на сбой базы ответили
+         «возврат уже был», ищет несуществующий возврат в журнале и повторяет
+         списание. Так же поступает `slug-retry.ts` рядом. */
+      const duplicate =
+        error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002';
+      if (!duplicate) throw error;
+
       throw new ApiException('validation_error', 'Это списание уже отменено возвратом');
     });
 

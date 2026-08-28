@@ -41,7 +41,9 @@ export function shiftDayByMonths(day: DayKey, months: number): DayKey {
 
   const shifted = year * 12 + (month - 1) + months;
   const targetYear = Math.floor(shifted / 12);
-  const targetMonth = (shifted % 12) + 1;
+  /* Остаток в JS отрицателен на отрицательном делимом, и «минус три месяца от
+     января» давало бы нулевой месяц. Приводим его к диапазону 0–11. */
+  const targetMonth = (((shifted % 12) + 12) % 12) + 1;
   const targetDay = Math.min(date, daysInMonth(targetYear, targetMonth));
 
   const pad = (value: number): string => String(value).padStart(2, '0');

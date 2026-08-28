@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
-import { isSelfEmployedWithoutInn, staffCreateSchema, staffUpdateSchema } from './model';
+import {
+  isSelfEmployedWithoutInn,
+  passwordChangeSchema,
+  profileUpdateSchema,
+  staffCreateSchema,
+  staffUpdateSchema,
+  staffTitle,
+} from './model';
 
 /** Настоящий ИНН физлица: контрольные разряды сходятся. */
 const VALID_INN = '710703123450';
@@ -110,5 +117,113 @@ describe('Самозанятый без ИНН', () => {
 
   it('оформление не заведено — предупреждение не про ИНН, а про само оформление', () => {
     expect(isSelfEmployedWithoutInn(null, null)).toBe(false);
+  });
+});
+
+describe('логин для входа', () => {
+  it('латиница, цифры и три знака — и ничего больше', () => {
+    for (const login of ['petrov', 'petrov.d', 'petrov_d', 'petrov-2026', 'p2026']) {
+      expect(staffCreateSchema.safeParse({ ...base, login }).success).toBe(true);
+    }
+  });
+
+  it('🔴 кириллица не проходит: логин диктуют по телефону и набирают на чужом телефоне', () => {
+    expect(staffCreateSchema.safeParse({ ...base, login: 'петров' }).success).toBe(false);
+  });
+
+  it('пробелы, собака и слэш — не логин', () => {
+    for (const login of ['иван петров', 'petrov@mail', 'petrov/2', 'ПЕТРОВ']) {
+      expect(staffCreateSchema.safeParse({ ...base, login }).success).toBe(false);
+    }
+  });
+
+  it('начинается с буквы или цифры, а не со знака', () => {
+    expect(staffCreateSchema.safeParse({ ...base, login: '.petrov' }).success).toBe(false);
+    expect(staffCreateSchema.safeParse({ ...base, login: '-petrov' }).success).toBe(false);
+    expect(staffCreateSchema.safeParse({ ...base, login: '_petrov' }).success).toBe(false);
+  });
+
+  it('границы длины — три и тридцать два символа', () => {
+    expect(staffCreateSchema.safeParse({ ...base, login: 'ab' }).success).toBe(false);
+    expect(staffCreateSchema.safeParse({ ...base, login: 'abc' }).success).toBe(true);
+    expect(staffCreateSchema.safeParse({ ...base, login: 'a'.repeat(32) }).success).toBe(true);
+    expect(staffCreateSchema.safeParse({ ...base, login: 'a'.repeat(33) }).success).toBe(false);
+  });
+});
+
+describe('пароль', () => {
+  it('границы — восемь и двести символов', () => {
+    expect(staffCreateSchema.safeParse({ ...base, password: 'a'.repeat(7) }).success).toBe(false);
+    expect(staffCreateSchema.safeParse({ ...base, password: 'a'.repeat(8) }).success).toBe(true);
+    expect(staffCreateSchema.safeParse({ ...base, password: 'a'.repeat(200) }).success).toBe(true);
+    expect(staffCreateSchema.safeParse({ ...base, password: 'a'.repeat(201) }).success).toBe(false);
+  });
+
+  it('🔴 пробелы в пароле значимы: он не обрезается', () => {
+    const parsed = staffCreateSchema.safeParse({ ...base, password: '  пароль  ' });
+
+    expect(parsed.success && parsed.data.password).toBe('  пароль  ');
+  });
+});
+
+describe('смена своего пароля', () => {
+  it('текущий пароль обязателен: сессия могла остаться на чужом компьютере', () => {
+    expect(passwordChangeSchema.safeParse({ next: 'новый-пароль' }).success).toBe(false);
+    expect(passwordChangeSchema.safeParse({ current: '', next: 'новый-пароль' }).success).toBe(
+      false,
+    );
+  });
+
+  it('🔴 новый пароль, совпадающий со старым, — это не смена пароля', () => {
+    const parsed = passwordChangeSchema.safeParse({ current: 'пароль-1', next: 'пароль-1' });
+
+    expect(parsed.success).toBe(false);
+    expect(!parsed.success && parsed.error.issues[0]?.path).toEqual(['next']);
+  });
+
+  it('новый пароль проходит те же границы, что и при заведении', () => {
+    expect(passwordChangeSchema.safeParse({ current: 'пароль-1', next: 'корот' }).success).toBe(
+      false,
+    );
+    expect(passwordChangeSchema.safeParse({ current: 'пароль-1', next: 'пароль-2' }).success).toBe(
+      true,
+    );
+  });
+});
+
+describe('свой профиль', () => {
+  it('меняются имя и телефон', () => {
+    expect(profileUpdateSchema.safeParse({ name: 'Иван Петров' }).success).toBe(true);
+    expect(profileUpdateSchema.safeParse({ phone: '+7 (910) 155-24-68' }).success).toBe(true);
+  });
+
+  it('🔴 ни роли, ни логина, ни оформления себе не меняют', () => {
+    expect(profileUpdateSchema.safeParse({ role: 'owner' }).success).toBe(false);
+    expect(profileUpdateSchema.safeParse({ login: 'owner' }).success).toBe(false);
+    expect(profileUpdateSchema.safeParse({ employment: 'staff' }).success).toBe(false);
+    expect(profileUpdateSchema.safeParse({ active: true }).success).toBe(false);
+    expect(profileUpdateSchema.safeParse({ password: 'новый-пароль' }).success).toBe(false);
+  });
+
+  it('пустое тело отвергается: сохранять нечего', () => {
+    expect(profileUpdateSchema.safeParse({}).success).toBe(false);
+  });
+});
+
+describe('телефон человека в команде', () => {
+  it('пустое поле — «не заполнено»', () => {
+    expect(staffCreateSchema.parse({ ...base, phone: '' }).phone).toBeNull();
+  });
+
+  it('🔴 мусор не проходит: из карточки по этому номеру звонят', () => {
+    expect(staffCreateSchema.safeParse({ ...base, phone: 'asdf' }).success).toBe(false);
+    expect(profileUpdateSchema.safeParse({ phone: '+7 (910)' }).success).toBe(false);
+  });
+});
+
+describe('подпись человека', () => {
+  it('имя, пока оно есть, иначе логин', () => {
+    expect(staffTitle({ name: 'Иван Петров', login: 'petrov' })).toBe('Иван Петров');
+    expect(staffTitle({ name: null, login: 'petrov' })).toBe('petrov');
   });
 });

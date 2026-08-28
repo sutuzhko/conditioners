@@ -32,6 +32,17 @@ export const EMPTY_SPEC_DICTIONARY: SpecDictionary = { groups: [] };
 type Positioned = { group: number; field: number };
 
 /**
+ * Индекс справочника, посчитанный один раз на справочник.
+ *
+ * 🔴 Без него таблица сравнения работала за «строки × размер справочника»:
+ * `specGroupTitle` зовётся на каждой строке и каждый раз пересобирал весь
+ * индекс заново. Справочник — неизменяемые данные из настроек, поэтому
+ * ответ на нём кешируется целиком; слабая ссылка не держит его в памяти
+ * дольше самого справочника.
+ */
+const indexes = new WeakMap<SpecDictionary, Map<string, Positioned>>();
+
+/**
  * Позиция каждого известного названия: номер группы и номер поля внутри неё.
  *
  * Название, встреченное в справочнике дважды, остаётся за первым вхождением:
@@ -39,6 +50,9 @@ type Positioned = { group: number; field: number };
  * из-за опечатки — хуже, чем оставить её на месте.
  */
 function positions(dictionary: SpecDictionary): Map<string, Positioned> {
+  const cached = indexes.get(dictionary);
+  if (cached !== undefined) return cached;
+
   const map = new Map<string, Positioned>();
 
   dictionary.groups.forEach((group, groupIndex) => {
@@ -48,6 +62,7 @@ function positions(dictionary: SpecDictionary): Map<string, Positioned> {
     });
   });
 
+  indexes.set(dictionary, map);
   return map;
 }
 
@@ -69,9 +84,11 @@ export function groupSpecs(
   const known = positions(dictionary);
   const ordered = specs.slice().sort((a, b) => a.sort - b.sort);
 
-  const buckets = dictionary.groups.map((group) => ({
+  type Bucket = { title: string; items: { k: string; v: string; at: number }[] };
+
+  const buckets: Bucket[] = dictionary.groups.map((group) => ({
     title: group.title,
-    items: [] as { k: string; v: string; at: number }[],
+    items: [],
   }));
   const other: { k: string; v: string }[] = [];
 

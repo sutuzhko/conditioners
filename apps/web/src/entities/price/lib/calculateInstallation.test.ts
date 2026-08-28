@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { installRatesSchema, type PriceRow } from '../model';
-import { basePriceForClass, calculateInstallation } from './calculateInstallation';
+import { installRatesSchema } from '../model';
+import { calculateInstallation } from './calculateInstallation';
 
 /** Ставки как в сидах — но приходят аргументом, а не из кода. */
 const rates = installRatesSchema.parse({ trassaPerM: 700, shtrobPerM: 800, heightWorks: 2000 });
@@ -95,21 +95,5 @@ describe('calculateInstallation', () => {
 
     expect(calculateInstallation({ ...base, trassaM: 5 }, custom).total).toBe(6000);
     expect(calculateInstallation({ ...base, floor: 6 }, custom).total).toBe(8000);
-  });
-});
-
-describe('basePriceForClass', () => {
-  const rows: PriceRow[] = [
-    { cls: '07', power: '2.0 кВт', area: 'до 20 м²', price: 5500, term: '3–4 часа', sort: 0 },
-    { cls: '09', power: '2.6 кВт', area: 'до 27 м²', price: 6000, term: '3–4 часа', sort: 1 },
-  ];
-
-  it('находит цену по классу', () => {
-    expect(basePriceForClass(rows, '09')).toBe(6000);
-  });
-
-  it('неизвестный класс даёт null, а не ноль', () => {
-    expect(basePriceForClass(rows, '24')).toBeNull();
-    expect(basePriceForClass([], '07')).toBeNull();
   });
 });
