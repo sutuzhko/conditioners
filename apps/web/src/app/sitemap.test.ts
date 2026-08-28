@@ -1,16 +1,18 @@
 // @vitest-environment node
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const { testEnv, dbMock } = vi.hoisted(() => ({
+const { testEnv, dbMock, settingsMock } = vi.hoisted(() => ({
   testEnv: { SITE_URL: 'https://example.test' },
   dbMock: {
     article: { findMany: vi.fn() },
     product: { findMany: vi.fn() },
   },
+  settingsMock: { readiness: vi.fn() },
 }));
 
 vi.mock('@/shared/config/env', () => ({ env: testEnv }));
 vi.mock('@/server/db', () => ({ db: dbMock }));
+vi.mock('@/server/repo/settings', () => settingsMock);
 
 const { default: sitemap } = await import('./sitemap');
 
@@ -23,6 +25,20 @@ describe('Карта сайта', () => {
       { slug: 'invertor-ili-on-off', updatedAt: ARTICLE_UPDATED },
     ]);
     dbMock.product.findMany.mockResolvedValue([{ slug: 'split-09', updatedAt: PRODUCT_UPDATED }]);
+    settingsMock.readiness.mockResolvedValue({ ready: true, groups: [] });
+  });
+
+  /* 🔴 Пока обязательные настройки не заполнены, публичная часть отдаёт
+     `noindex` — карта из таких адресов спорит сама с собой (ADR-153). */
+  it('🔴 при незаполненных настройках карта пуста: все страницы под noindex', async () => {
+    settingsMock.readiness.mockResolvedValue({
+      ready: false,
+      groups: [{ key: 'company', ready: false, issues: [{ field: '', reason: 'missing' }] }],
+    });
+
+    expect(await sitemap()).toEqual([]);
+    expect(dbMock.article.findMany).not.toHaveBeenCalled();
+    expect(dbMock.product.findMany).not.toHaveBeenCalled();
   });
 
   it('содержит все статические страницы абсолютными адресами', async () => {

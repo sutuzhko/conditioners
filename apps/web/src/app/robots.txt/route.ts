@@ -1,7 +1,14 @@
 import { CATALOG_NARROWING_PARAMS, CATALOG_PARAMS } from '@/entities/product/lib/catalogQuery';
 import { env } from '@/shared/config/env';
 import { LEAD_PARAMS } from '@/shared/config/lead';
-import { CATALOG_PATH, COMPARE_PATH, HOME_ROUTE, absoluteUrl } from '@/shared/seo';
+import {
+  ARTICLES_CATEGORY_PARAM,
+  ARTICLES_PATH,
+  CATALOG_PATH,
+  COMPARE_PATH,
+  HOME_ROUTE,
+  absoluteUrl,
+} from '@/shared/seo';
 
 /**
  * `robots.txt` (docs/SEO.md §5).
@@ -49,6 +56,11 @@ function robotsTxt(siteUrl: string): string {
        больше нигде не используются, а случайно приехавший параметр — такой же
        дубль, где бы он ни оказался. */
     `Clean-param: ${LEAD_SUBJECT_PARAMS.join('&')} ${HOME_ROUTE.path}`,
+    /* Рубрики Базы знаний — тот же класс адресов, что фильтры каталога
+       (ADR-152): то же содержимое под другим углом, тот же заголовок и то же
+       описание. Каноникал на чистый `/knowledge` страница уже отдаёт, но он
+       рекомендация; склейка снимает дубли до обхода. */
+    `Clean-param: ${ARTICLES_CATEGORY_PARAM} ${ARTICLES_PATH}`,
     '',
     `Sitemap: ${absoluteUrl(siteUrl, '/sitemap.xml')}`,
   ];

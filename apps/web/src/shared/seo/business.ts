@@ -7,12 +7,7 @@ import {
   organizationId,
   type OrganizationParts,
 } from './organization';
-import {
-  buildAggregateRatingJsonLd,
-  buildReviewsJsonLd,
-  type AggregateRatingOptions,
-  type ReviewForSchema,
-} from './reviews';
+import { buildReviewsJsonLd, type ReviewForSchema } from './reviews';
 
 /**
  * `HVACBusiness` — главная и контакты (docs/SEO.md §4): адрес по частям,
@@ -30,7 +25,6 @@ export type LocalBusinessParts = OrganizationParts & {
   readonly payment?: Payment | null | undefined;
   /** 🔴 Только настоящие одобренные отзывы — те же, что видны на странице. */
   readonly reviews?: readonly ReviewForSchema[] | null | undefined;
-  readonly rating?: AggregateRatingOptions | undefined;
 };
 
 export function localBusinessId(siteUrl: string): string {
@@ -80,7 +74,6 @@ export function buildLocalBusinessJsonLd(parts: LocalBusinessParts): JsonLdNode 
     paymentAccepted: oneOrMany(textList(parts.payment?.methods)),
     sameAs: buildSameAs(parts.social),
     parentOrganization: { '@id': organizationId(siteUrl) },
-    aggregateRating: buildAggregateRatingJsonLd(parts.reviews, parts.rating ?? {}) ?? undefined,
     review: buildReviewsJsonLd(parts.reviews),
   });
 }

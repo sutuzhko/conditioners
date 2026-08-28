@@ -3,11 +3,16 @@ import { RATING_MAX, RATING_MIN } from '@/entities/review/model';
 import { compact, num, text, type JsonLdNode } from './schema';
 
 /**
- * `Review` и `AggregateRating` (docs/SEO.md §4).
+ * Узлы `Review` (docs/SEO.md §4).
  *
  * 🔴 Только из настоящих одобренных отзывов (инвариант 10). Пока их нет —
  * разметки нет вовсе: нарисованный рейтинг это и обман поисковика, и нарушение
  * ФЗ «О рекламе». Раздел стартует пустым и это нормальное состояние (ADR-012).
+ *
+ * 🔴 Средней оценки здесь нет и быть не должно (ADR-151). Собранный на
+ * собственном сайте о самом себе `AggregateRating` Google у `LocalBusiness`
+ * не поддерживает, и это основание для ручных санкций — худший исход для
+ * проекта, который живёт органикой.
  */
 
 /** Минимум, который нужен разметке отзыва. Совпадает с доменным типом `Review`. */
@@ -58,40 +63,4 @@ export function buildReviewsJsonLd(
 ): readonly JsonLdNode[] {
   if (!Array.isArray(reviews)) return [];
   return reviews.map(buildReviewJsonLd).filter((node): node is JsonLdNode => node !== null);
-}
-
-export type AggregateRatingOptions = {
-  /**
-   * Сколько отзывов считать достаточным. Порог задаёт вызывающий код: цифра
-   * «достаточно» (docs/SEO.md §4) — продуктовое решение, а не свойство разметки.
-   */
-  readonly minCount?: number;
-};
-
-/**
- * Средняя оценка. Считается по тем же отзывам, что видны на странице, —
- * иначе число в разметке разойдётся с видимым текстом (инвариант 9).
- */
-export function buildAggregateRatingJsonLd(
-  reviews: readonly ReviewForSchema[] | null | undefined,
-  options: AggregateRatingOptions = {},
-): JsonLdNode | null {
-  if (!Array.isArray(reviews)) return null;
-
-  const ratings = reviews
-    .map((review) => ratingValue(review.rating))
-    .filter((rating): rating is number => rating !== undefined);
-
-  const minCount = Math.max(1, options.minCount ?? 1);
-  if (ratings.length < minCount) return null;
-
-  const sum = ratings.reduce((total, rating) => total + rating, 0);
-
-  return {
-    '@type': 'AggregateRating',
-    ratingValue: Math.round((sum / ratings.length) * 10) / 10,
-    reviewCount: ratings.length,
-    bestRating: RATING_MAX,
-    worstRating: RATING_MIN,
-  };
 }

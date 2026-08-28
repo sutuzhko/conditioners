@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 import { db } from '@/server/db';
+import { readiness } from '@/server/repo/settings';
 import { env } from '@/shared/config/env';
 import { SITE_ROUTES, absoluteUrl, articlePath, productPath } from '@/shared/seo';
 
@@ -19,6 +20,11 @@ import { SITE_ROUTES, absoluteUrl, articlePath, productPath } from '@/shared/seo
  * отдаёт `noindex, follow` — обещать её роботу картой сайта значит спорить с
  * собственным заголовком. По той же причине её нет и в `SITE_ROUTES`.
  *
+ * 🔴 Пока обязательные настройки не заполнены, карта пуста (ADR-153). Публичная часть в
+ * этом состоянии отдаёт `noindex` (см. `(site)/layout.tsx`), и карта из
+ * адресов, каждый из которых просит себя не индексировать, — это спор с самим
+ * собой в двух документах сразу.
+ *
  * Запросы идут в базу напрямую, а не через репозиторий: карте нужны только
  * слаг и дата правки, а тянуть ради списка адресов карточки целиком — лишняя
  * работа на каждой ревалидации.
@@ -26,6 +32,9 @@ import { SITE_ROUTES, absoluteUrl, articlePath, productPath } from '@/shared/seo
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const report = await readiness();
+  if (!report.ready) return [];
+
   const [articles, products] = await Promise.all([
     db.article.findMany({
       where: { published: true },

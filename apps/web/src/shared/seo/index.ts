@@ -45,13 +45,14 @@ export type { ArticleJsonLdInput } from './article';
 export { buildFaqPageJsonLd } from './faq';
 export type { FaqQuestion } from './faq';
 
-export { buildAggregateRatingJsonLd, buildReviewJsonLd, buildReviewsJsonLd } from './reviews';
-export type { AggregateRatingOptions, ReviewForSchema } from './reviews';
+export { buildReviewJsonLd, buildReviewsJsonLd } from './reviews';
+export type { ReviewForSchema } from './reviews';
 
 export { buildPageMetadata, buildTitle } from './metadata';
 export type { PageMetadataInput } from './metadata';
 
 export {
+  ARTICLES_CATEGORY_PARAM,
   ARTICLES_PATH,
   CATALOG_PATH,
   COMPARE_PATH,

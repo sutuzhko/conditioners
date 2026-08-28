@@ -27,6 +27,15 @@ export const HOME_ROUTE: SiteRoute = { path: '/', title: 'Главная' };
    кеш несуществующих страниц, то есть не сбрасывали ничего. */
 export const CATALOG_PATH = '/catalog';
 export const ARTICLES_PATH = '/knowledge';
+
+/**
+ * Параметр рубрики листинга Базы знаний: `/knowledge?category=vybor`.
+ *
+ * 🔴 Живёт здесь, а не в странице: имя параметра — часть карты URL, и его
+ * обязаны знать и страница (каноникал), и `robots.txt` (`Clean-param`).
+ * Разъехавшись, они дали бы ровно тот дубль, который снимают.
+ */
+export const ARTICLES_CATEGORY_PARAM = 'category';
 export const PRIVACY_PATH = '/privacy';
 
 /**

@@ -88,40 +88,32 @@ describe('HVACBusiness', () => {
     });
   });
 
-  it('🔴 без отзывов нет ни рейтинга, ни отзывов в разметке', () => {
+  it('🔴 без отзывов нет ни одного узла отзыва в разметке', () => {
     const node = buildLocalBusinessJsonLd({ siteUrl: SITE_URL, company: companyFixture });
 
-    expect(node?.aggregateRating).toBeUndefined();
     expect(node?.review).toBeUndefined();
   });
 
-  it('настоящие отзывы дают рейтинг, посчитанный по ним же', () => {
+  it('настоящие отзывы уезжают в разметку узлами Review', () => {
     const node = buildLocalBusinessJsonLd({
       siteUrl: SITE_URL,
       company: companyFixture,
       reviews,
     });
 
-    expect(node?.aggregateRating).toEqual({
-      '@type': 'AggregateRating',
-      ratingValue: 4.5,
-      reviewCount: 2,
-      bestRating: 5,
-      worstRating: 1,
-    });
     expect(Array.isArray(node?.review) ? node?.review.length : 0).toBe(2);
   });
 
-  it('порог «достаточно отзывов» задаёт вызывающий код', () => {
+  /* 🔴 ADR-151: средней оценки о самом себе в разметке нет ни при каком числе
+     отзывов. Google её у LocalBusiness не поддерживает, а видимого агрегата на
+     странице нет — число в разметке было бы не подтверждено контентом. */
+  it('🔴 средней оценки в узле бизнеса нет ни при каком числе отзывов', () => {
     const node = buildLocalBusinessJsonLd({
       siteUrl: SITE_URL,
       company: companyFixture,
       reviews,
-      rating: { minCount: 5 },
     });
 
     expect(node?.aggregateRating).toBeUndefined();
-    // сами отзывы при этом остаются: они настоящие
-    expect(Array.isArray(node?.review) ? node?.review.length : 0).toBe(2);
   });
 });

@@ -98,9 +98,21 @@ describe('Листинг Базы знаний', () => {
   });
 
   it('🔴 каноникал листинга не зависит от фильтра — раздел один', async () => {
-    const meta = await generateMetadata();
+    const meta = await generateMetadata({ searchParams: Promise.resolve({}) });
 
     expect(meta.alternates?.canonical).toBe('https://example.test/knowledge');
     expect(meta.description).toContain('в Туле');
+  });
+
+  /* 🔴 ADR-152: рубрика — тот же раздел под другим углом. Каноникала мало,
+     он рекомендация: отфильтрованный адрес обязан ещё и просить себя не
+     индексировать, как это делают фильтры каталога. */
+  it('🔴 отфильтрованная рубрика закрыта от индекса, но проходима по ссылкам', async () => {
+    const meta = await generateMetadata({
+      searchParams: Promise.resolve({ category: 'uhod' }),
+    });
+
+    expect(meta.alternates?.canonical).toBe('https://example.test/knowledge');
+    expect(meta.robots).toMatchObject({ index: false, follow: true });
   });
 });
