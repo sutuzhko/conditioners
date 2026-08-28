@@ -1,11 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { LeadForm } from './LeadForm';
 import { forgetLeadContext, rememberLeadContext } from './context';
 import { leadFormContent as texts } from './content';
-import { phoneFixture, policyHrefFixture } from './fixtures';
+import { modelsFixture, phoneFixture, policyHrefFixture } from './fixtures';
+import { forgetLeadSubject, rememberLeadSubject } from './subject';
 import type { LeadSubmit } from './model';
 
 function setup(props: Partial<Parameters<typeof LeadForm>[0]> = {}) {
@@ -305,5 +306,97 @@ describe('LeadForm — контекст с других секций стран�
 
     await waitFor(() => expect(submit).toHaveBeenCalled());
     expect(submit.mock.calls[0]?.[0].get('name')).toBe('Ирина');
+  });
+});
+
+describe('LeadForm · предмет обращения из адреса', () => {
+  beforeEach(() => {
+    forgetLeadSubject();
+  });
+
+  const modelField = () => screen.getByLabelText(texts.modelLabel);
+
+  it('слаг из адреса приходит в поле названием модели, а тема — подписью', async () => {
+    rememberLeadSubject({ model: 'split-09', topic: 'install' });
+    setup({ models: modelsFixture });
+
+    await waitFor(() => expect(modelField()).toHaveValue('Сплит-система 09'));
+    expect(screen.getByLabelText(/Тема обращения/)).toHaveValue('Монтаж и установка');
+  });
+
+  it('🔴 неизвестный слаг молча даёт пустое поле: форма открывается обычной', async () => {
+    rememberLeadSubject({ model: 'net-takoy-modeli' });
+    setup({ models: modelsFixture });
+
+    await waitFor(() => expect(modelField()).toHaveValue(''));
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  });
+
+  it('неизвестный ключ темы оставляет тему по умолчанию', async () => {
+    rememberLeadSubject({ topic: 'montazh' });
+    setup({ models: modelsFixture, defaultTopic: 'Сервис и ремонт' });
+
+    await waitFor(() =>
+      expect(screen.getByLabelText(/Тема обращения/)).toHaveValue('Сервис и ремонт'),
+    );
+  });
+
+  it('🔴 подстановка — подсказка, а не замок: правку человека форма не затирает', async () => {
+    const user = userEvent.setup();
+    rememberLeadSubject({ model: 'split-09' });
+    setup({ models: modelsFixture });
+
+    await waitFor(() => expect(modelField()).toHaveValue('Сплит-система 09'));
+
+    await user.clear(modelField());
+    await user.type(modelField(), 'что-нибудь потише');
+    // перерисовка формы от соседнего поля не должна вернуть подставленное
+    await user.type(screen.getByLabelText(/Имя/), 'Ирина');
+
+    expect(modelField()).toHaveValue('что-нибудь потише');
+  });
+
+  it('новая кнопка — новое намерение: другой предмет в адресе подстановку меняет', async () => {
+    const user = userEvent.setup();
+    rememberLeadSubject({ model: 'split-09' });
+    setup({ models: modelsFixture });
+
+    await waitFor(() => expect(modelField()).toHaveValue('Сплит-система 09'));
+    await user.clear(modelField());
+
+    // прямая запись в хранилище — то же, что смена адреса в браузере:
+    // React обязан узнать о ней внутри act, иначе предупреждает о гонке
+    act(() => rememberLeadSubject({ model: 'split-12' }));
+
+    await waitFor(() => expect(modelField()).toHaveValue('Сплит-система 12'));
+  });
+
+  it('модель уезжает с заявкой: владелец видит предмет разговора', async () => {
+    const user = userEvent.setup();
+    rememberLeadSubject({ model: 'split-09' });
+    const { submit } = setup({ models: modelsFixture });
+
+    await waitFor(() => expect(modelField()).toHaveValue('Сплит-система 09'));
+
+    await fillRequired(user);
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    await waitFor(() => expect(submit).toHaveBeenCalled());
+    expect(submit.mock.calls[0]?.[0].get('model')).toBe('Сплит-система 09');
+  });
+
+  it('без предмета в адресе поле остаётся пустым и не мешает отправке', async () => {
+    const user = userEvent.setup();
+    const { submit } = setup({ models: modelsFixture });
+
+    expect(modelField()).toHaveValue('');
+
+    await fillRequired(user);
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    await waitFor(() => expect(submit).toHaveBeenCalled());
+    expect(submit.mock.calls[0]?.[0].has('model')).toBe(false);
   });
 });

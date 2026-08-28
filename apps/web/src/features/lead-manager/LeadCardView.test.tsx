@@ -16,6 +16,7 @@ import {
   failingToOrder,
   failingUpdate,
   linkingToClient,
+  modelLead,
   newLead,
   workedLead,
 } from './fixtures';
@@ -74,7 +75,40 @@ describe('Карточка заявки', () => {
 
     expect(screen.queryByText(texts.place)).not.toBeInTheDocument();
     expect(screen.queryByText(texts.callTime)).not.toBeInTheDocument();
+    // 🔴 у незаполненной модели строки нет вовсе, а не прочерк ради симметрии
+    expect(screen.queryByText(texts.model)).not.toBeInTheDocument();
     expect(screen.getByText(texts.topic)).toBeInTheDocument();
+  });
+
+  it('🔴 модель показывается отдельной строкой рядом с темой (ADR-129)', () => {
+    render(
+      <LeadCardView
+        lead={modelLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
+
+    expect(screen.getByText(texts.model)).toBeInTheDocument();
+    expect(screen.getByText('Сплит-система 09')).toBeInTheDocument();
+  });
+
+  it('🔴 подтверждённое поле и снимок контекста подписаны по-разному', () => {
+    render(
+      <LeadCardView
+        lead={modelLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
+
+    /* Название одно и то же — это норма (ADR-129). Различать их обязаны
+       подписи: иначе владелец решит, что панель показывает дубль. */
+    expect(texts.model).not.toBe(texts.contextModel);
+    expect(screen.getByText(texts.model)).toBeInTheDocument();
+    expect(screen.getByText(texts.contextModel)).toBeInTheDocument();
   });
 
   it('смена статуса уходит на сервер сразу', async () => {

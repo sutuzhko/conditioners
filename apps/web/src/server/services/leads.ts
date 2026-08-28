@@ -94,6 +94,10 @@ export async function createLead(input: CreateLeadInput): Promise<LeadDto> {
         phone: normalizePhone(form.phone),
         // форма темы может не спрашивать — тогда это обращение за консультацией
         topic: form.topic ?? DEFAULT_LEAD_TOPIC,
+        /* 🔴 То, что человек видел в поле «Модель» и подтвердил (ADR-129).
+           Снимок контекста заполняется отдельно и может назвать ту же модель:
+           одно — что человек делал, другое — что он подтвердил. */
+        model: form.model ?? null,
         place: form.place ?? null,
         qty: form.qty ?? null,
         callTime: form.callTime ?? null,
@@ -110,6 +114,7 @@ export async function createLead(input: CreateLeadInput): Promise<LeadDto> {
         name: lead.name,
         phone: lead.phone,
         topic: lead.topic,
+        model: lead.model,
         place: lead.place,
         qty: lead.qty,
         callTime: lead.callTime,

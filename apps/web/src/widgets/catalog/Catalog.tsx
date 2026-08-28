@@ -34,7 +34,13 @@ export interface CatalogProps {
   compareHref?: ProductHref | undefined;
   /** Ссылка во весь каталог. Нет — заголовок остаётся без неё. */
   catalogHref?: ButtonLinkHref | undefined;
-  /** Куда ведёт «Заказать» и ссылка «подберём» — якорь формы заявки. */
+  /**
+   * Куда ведёт ссылка «подберём» в шапке секции — якорь формы заявки.
+   *
+   * 🔴 Кнопки «Заказать» на карточках сюда не смотрят: у каждой свой предмет,
+   * и адрес с ним считает сама карточка (ADR-129). Здесь остаётся общая
+   * ссылка, у которой предмета нет.
+   */
   orderHref?: ButtonLinkHref | undefined;
   /** Момент расчёта скидки: тесты и снепшоты фиксируют его, прод берёт «сейчас». */
   now?: Date | undefined;
@@ -115,7 +121,6 @@ export function Catalog({
               <ProductCard
                 key={product.id}
                 product={product}
-                orderHref={orderHref}
                 detailsHref={productHref(product.slug)}
                 compareHref={compareHref === undefined ? undefined : compareHref(product.slug)}
                 now={now}

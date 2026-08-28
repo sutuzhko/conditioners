@@ -228,6 +228,7 @@ describe('POST /api/leads', () => {
 
     expect(dbMock.lead.create.mock.calls[0]?.[0].data).toMatchObject({
       topic: 'Консультация',
+      model: null,
       place: null,
       qty: null,
       callTime: null,
@@ -235,6 +236,50 @@ describe('POST /api/leads', () => {
       comment: null,
       photo: null,
     });
+  });
+});
+
+/**
+ * Модель из видимого поля формы (ADR-129). Проверяется отдельно от контекста:
+ * это разные вещи, и потерять поле по дороге здесь уже случалось — на
+ * расхождении имён `time`/`callTime` (docs/API.md §8).
+ */
+describe('POST /api/leads — модель', () => {
+  it('🔴 подтверждённая человеком модель доезжает до базы и до уведомления', async () => {
+    const response = await POST(leadRequest({ ...VALID, model: 'Сплит-система 09' }));
+
+    expect(response.status).toBe(201);
+    expect(dbMock.lead.create.mock.calls[0]?.[0].data).toMatchObject({
+      model: 'Сплит-система 09',
+    });
+    expect(dbMock.notification.createMany.mock.calls[0]?.[0].data[0].payload).toMatchObject({
+      model: 'Сплит-система 09',
+    });
+  });
+
+  it('модель длиннее 120 символов отвергается с указанием поля', async () => {
+    const response = await POST(leadRequest({ ...VALID, model: 'я'.repeat(121) }));
+    const body = await readBody(response);
+
+    expect(response.status).toBe(400);
+    expect(body.error).toMatchObject({ code: 'validation_error', field: 'model' });
+    expect(dbMock.lead.create).not.toHaveBeenCalled();
+  });
+
+  it('модель и снимок контекста живут порознь: одно поле не подменяет другое', async () => {
+    await POST(
+      leadRequest({
+        ...VALID,
+        model: 'Сплит-система 12',
+        context: JSON.stringify({
+          model: { slug: 'split-09', name: 'Сплит-система 09', price: 34900 },
+        }),
+      }),
+    );
+
+    const [created] = dbMock.lead.create.mock.calls;
+    expect(created?.[0].data.model).toBe('Сплит-система 12');
+    expect(created?.[0].data.context).toMatchObject({ model: { slug: 'split-09' } });
   });
 });
 

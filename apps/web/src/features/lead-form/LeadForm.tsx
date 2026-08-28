@@ -29,6 +29,7 @@ import {
 import { forgetLeadContext, useLeadContext } from './context';
 import {
   HONEYPOT_FIELD,
+  applyLeadSubject,
   buildLeadFormData,
   describeLeadContext,
   emptyLeadValues,
@@ -40,14 +41,20 @@ import {
   type LeadFieldErrors,
   type LeadFormStatus,
   type LeadFormValues,
+  type LeadModelOption,
   type LeadSubmit,
 } from './model';
+import { useLeadSubject, type LeadSubjectParams } from './subject';
 import styles from './LeadForm.module.css';
 
 const HEADINGS = { 2: 'h2', 3: 'h3', 4: 'h4' } as const;
 
 /** Следующий уровень заголовка: подтверждение вложено в форму, а не равно ей. */
 const NESTED: Record<2 | 3 | 4, 2 | 3 | 4> = { 2: 3, 3: 4, 4: 4 };
+
+/* Стабильная ссылка на пустой список: литерал в сигнатуре создавал бы новый
+   массив на каждом рендере, а список моделей участвует в подстановке. */
+const EMPTY_MODELS: readonly LeadModelOption[] = [];
 
 export interface LeadFormProps {
   /**
@@ -68,6 +75,12 @@ export interface LeadFormProps {
   headingLevel?: 2 | 3 | 4 | undefined;
   /** Тема обращения, выбранная заранее: на странице ремонта это «Сервис и ремонт». */
   defaultTopic?: LeadTopic | undefined;
+  /**
+   * Видимые модели каталога: по слагу из адреса форма подставляет название
+   * (ADR-129). Без списка подстановка молчит — так же, как при неизвестном
+   * слаге: форма открывается обычной, а не с ошибкой.
+   */
+  models?: readonly LeadModelOption[] | undefined;
   className?: string | undefined;
   /** Отправка. Подменяется в историях и тестах; по умолчанию — `POST /api/leads`. */
   submit?: LeadSubmit | undefined;
@@ -86,6 +99,7 @@ export function LeadForm({
   description,
   headingLevel = 2,
   defaultTopic = DEFAULT_LEAD_TOPIC,
+  models = EMPTY_MODELS,
   className,
   submit = postLead,
   onSuccess,
@@ -107,6 +121,12 @@ export function LeadForm({
   const context = useLeadContext();
   const contextEntries = describeLeadContext(context);
 
+  /* Предмет, ради которого нажали кнопку: модель и тема приезжают в адресе
+     (ADR-129). Его кладёт в хранилище `LeadSubjectSync` — клиентский лист,
+     который стоит рядом с формой внутри `<Suspense>`. */
+  const subject = useLeadSubject();
+  const [appliedSubject, setAppliedSubject] = useState<LeadSubjectParams | null>(null);
+
   const formRef = useRef<HTMLFormElement>(null);
   const successHeadingRef = useRef<HTMLHeadingElement>(null);
   const restarted = useRef(false);
@@ -117,6 +137,17 @@ export function LeadForm({
   const Heading = HEADINGS[headingLevel];
   const SuccessHeading = HEADINGS[title === undefined ? headingLevel : NESTED[headingLevel]];
   const readablePhone = formatPhone(phone);
+
+  /* 🔴 Подстановка — подсказка, а не замок. Пересчёт идёт прямо в рендере, а не
+     эффектом: React доигрывает его до показа, и человек не видит, как поле
+     сначала пустое, а через кадр заполненное. Срабатывает он только на смене
+     предмета: ссылка меняется, когда человек вернулся и нажал другую кнопку, —
+     это новое намерение, и оно сильнее прежней подстановки. Правку руками
+     между этими событиями форма не трогает. */
+  if (subject !== null && subject !== appliedSubject) {
+    setAppliedSubject(subject);
+    setValues((previous) => applyLeadSubject(previous, subject, models, defaultTopic));
+  }
 
   // после «Отправить ещё одну» фокус возвращается в первое поле:
   // иначе он остаётся на исчезнувшей кнопке и уезжает в начало страницы
@@ -300,15 +331,29 @@ export function LeadForm({
             />
           </div>
 
+          <Select
+            name="topic"
+            label={texts.topicLabel}
+            options={LEAD_TOPICS}
+            value={values.topic}
+            error={errors.topic}
+            onChange={(event) => changeValue({ topic: event.target.value }, 'topic')}
+          />
+
+          {/* 🔴 Модель стоит сразу за темой и во всю ширину, а не половиной пары:
+              название модели длиннее половины колонки и обрезалось бы прямо на
+              экране. Человек обязан видеть целиком то, что уедет с его заявкой
+              (ADR-129), — ради этого поле и сделано видимым. */}
+          <Input
+            name="model"
+            label={texts.modelLabel}
+            placeholder={texts.modelPlaceholder}
+            value={values.model}
+            error={errors.model}
+            onChange={(event) => changeValue({ model: event.target.value }, 'model')}
+          />
+
           <div className={styles.pair}>
-            <Select
-              name="topic"
-              label={texts.topicLabel}
-              options={LEAD_TOPICS}
-              value={values.topic}
-              error={errors.topic}
-              onChange={(event) => changeValue({ topic: event.target.value }, 'topic')}
-            />
             <Select
               name="place"
               label={texts.placeLabel}
@@ -316,6 +361,14 @@ export function LeadForm({
               value={values.place}
               error={errors.place}
               onChange={(event) => changeValue({ place: event.target.value }, 'place')}
+            />
+            <Select
+              name="qty"
+              label={texts.qtyLabel}
+              options={QTY_OPTIONS}
+              value={values.qty}
+              error={errors.qty}
+              onChange={(event) => changeValue({ qty: event.target.value }, 'qty')}
             />
           </div>
 
@@ -329,24 +382,14 @@ export function LeadForm({
             onChange={(event) => changeValue({ address: event.target.value }, 'address')}
           />
 
-          <div className={styles.pair}>
-            <Select
-              name="qty"
-              label={texts.qtyLabel}
-              options={QTY_OPTIONS}
-              value={values.qty}
-              error={errors.qty}
-              onChange={(event) => changeValue({ qty: event.target.value }, 'qty')}
-            />
-            <Select
-              name="callTime"
-              label={texts.callTimeLabel}
-              options={CALL_TIME_OPTIONS}
-              value={values.callTime}
-              error={errors.callTime}
-              onChange={(event) => changeValue({ callTime: event.target.value }, 'callTime')}
-            />
-          </div>
+          <Select
+            name="callTime"
+            label={texts.callTimeLabel}
+            options={CALL_TIME_OPTIONS}
+            value={values.callTime}
+            error={errors.callTime}
+            onChange={(event) => changeValue({ callTime: event.target.value }, 'callTime')}
+          />
 
           <Textarea
             name="comment"

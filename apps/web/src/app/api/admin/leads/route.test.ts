@@ -45,6 +45,7 @@ const lead = {
   name: 'Пётр',
   phone: '+7 (953) 123-45-67',
   topic: 'Установка',
+  model: null,
   place: null,
   qty: null,
   callTime: null,

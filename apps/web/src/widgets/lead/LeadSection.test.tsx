@@ -1,12 +1,35 @@
-import { describe, expect, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
+
+import { forgetLeadSubject } from '@/features/lead-form';
 
 import { LeadSection } from './LeadSection';
 import { leadSectionContent as t } from './content';
-import { phoneFixture, policyHrefFixture, responseTimeFixture } from './fixtures';
+import { modelsFixture, phoneFixture, policyHrefFixture, responseTimeFixture } from './fixtures';
+
+/* Адрес секция читает не сама: этим занят клиентский лист `LeadSubjectSync`
+   внутри её `<Suspense>`. Подменяем ему источник — так же, как это делает
+   браузер на `/?model=...#lead`. */
+let search = '';
+
+vi.mock('next/navigation', () => ({
+  useSearchParams: () => new URLSearchParams(search),
+}));
+
+afterEach(() => {
+  search = '';
+  forgetLeadSubject();
+});
 
 function renderSection(props: Partial<Parameters<typeof LeadSection>[0]> = {}) {
-  return render(<LeadSection phone={phoneFixture} policyHref={policyHrefFixture} {...props} />);
+  return render(
+    <LeadSection
+      phone={phoneFixture}
+      policyHref={policyHrefFixture}
+      models={modelsFixture}
+      {...props}
+    />,
+  );
 }
 
 describe('Блок «Заявка»', () => {
@@ -58,6 +81,15 @@ describe('Блок «Заявка»', () => {
     renderSection({ responseTime: responseTimeFixture });
 
     expect(screen.getByText(t.responseNote(responseTimeFixture), { exact: false })).toBeVisible();
+  });
+
+  it('🔴 предмет из адреса доезжает до формы: секция ставит рядом читающий лист', async () => {
+    search = `model=${modelsFixture[0].slug}&topic=install`;
+    renderSection();
+
+    // лист читает адрес эффектом, и форма обновляется следом за ним
+    await waitFor(() => expect(screen.getByLabelText('Модель')).toHaveValue(modelsFixture[0].name));
+    expect(screen.getByLabelText(/Тема обращения/)).toHaveValue('Монтаж и установка');
   });
 
   it('🔴 без настройки секция срока не обещает: цифр в её собственном тексте нет', () => {

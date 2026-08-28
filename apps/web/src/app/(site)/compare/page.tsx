@@ -8,7 +8,6 @@ import {
 } from '@/entities/product/lib/catalogQuery';
 import { LeadContextSnapshot } from '@/features/lead-form';
 import { env } from '@/shared/config/env';
-import { LEAD_ANCHOR } from '@/shared/config/nav';
 import { CATALOG_PATH, COMPARE_PATH, buildPageMetadata } from '@/shared/seo';
 import { Breadcrumbs } from '@/widgets/breadcrumbs';
 import { CatalogCompare } from '@/widgets/catalog';
@@ -110,7 +109,6 @@ export default async function ComparePage({
         query={query}
         basePath={COMPARE_PATH}
         catalogPath={CATALOG_PATH}
-        orderHref={`/${LEAD_ANCHOR}`}
         now={now}
         specDictionary={settings.specs}
       />

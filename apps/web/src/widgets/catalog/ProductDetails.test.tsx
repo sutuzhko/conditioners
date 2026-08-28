@@ -18,13 +18,23 @@ function renderDetails(product: CatalogProduct = discountedProduct) {
   return render(
     <ProductDetails
       product={product}
-      orderHref="/#lead"
       catalogHref="/catalog"
       now={NOW}
       specDictionary={specDictionaryFixture}
     />,
   );
 }
+
+describe('Страница модели — кнопка заявки', () => {
+  it('🔴 кнопка несёт к форме слаг этой модели и тему монтажа (ADR-129)', () => {
+    renderDetails(plainProduct);
+
+    expect(screen.getByRole('link', { name: t.order })).toHaveAttribute(
+      'href',
+      '/?model=split-07&topic=install#lead',
+    );
+  });
+});
 
 describe('Страница модели — заголовок и цена', () => {
   it('🔴 единственный h1 — название модели (инвариант 4)', () => {
@@ -49,10 +59,9 @@ describe('Страница модели — заголовок и цена', () 
     expect(document.querySelector('s')).toBeNull();
   });
 
-  it('кнопка заявки ведёт на форму, ссылка возврата — в каталог', () => {
+  it('ссылка возврата ведёт в каталог', () => {
     renderDetails();
 
-    expect(screen.getByRole('link', { name: t.order })).toHaveAttribute('href', '/#lead');
     expect(screen.getByRole('link', { name: t.backToCatalog })).toHaveAttribute('href', '/catalog');
   });
 

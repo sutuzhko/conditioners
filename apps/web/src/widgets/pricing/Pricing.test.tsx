@@ -236,6 +236,15 @@ describe('Цены — расчёт уезжает с заявкой', () => {
     expect(readLeadContext()).toBeNull();
   });
 
+  it('🔴 кнопка расчёта приносит к форме тему монтажа, но не модель (ADR-129)', () => {
+    render(<Pricing prices={priceRows} rates={rates} />);
+
+    expect(screen.getByRole('link', { name: /Зафиксировать/ })).toHaveAttribute(
+      'href',
+      '/?topic=install#lead',
+    );
+  });
+
   it('колбэк страницы отменяет запись в хранилище — историям она не нужна', () => {
     const onApplyEstimate = vi.fn<(handoff: EstimateHandoff) => void>();
     render(<Pricing prices={priceRows} rates={rates} onApplyEstimate={onApplyEstimate} />);

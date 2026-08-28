@@ -8,6 +8,7 @@ import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { pickByArea } from '@/entities/product/lib/pickByArea';
 import type { Product } from '@/entities/product/model';
 import { rememberLeadContext } from '@/features/lead-form';
+import { leadHref as leadHrefFor } from '@/shared/config/lead';
 import { formatDate, formatMoney } from '@/shared/lib/format';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { Badge, ButtonLink, Card, Chip, RangeSlider } from '@/shared/ui';
@@ -19,7 +20,11 @@ import styles from './HeroPicker.module.css';
 export type HeroPickerProps = {
   /** Видимые модели каталога. Пустой список — рабочее состояние проекта. */
   readonly products: readonly Product[];
-  /** Куда ведут кнопки «получить смету» и «подобрать по телефону». */
+  /**
+   * Куда ведёт «подобрать по телефону» — общая кнопка первого экрана, у
+   * которой предмета нет. 🔴 Кнопка у рекомендованной модели сюда не смотрит:
+   * её адрес несёт слаг этой модели и считается на месте (ADR-129).
+   */
   readonly leadHref: ButtonLinkHref;
   /** Момент расчёта скидки. Задаётся в тестах и историях, чтобы цена не «плыла». */
   readonly now?: Date | undefined;
@@ -112,13 +117,7 @@ export function HeroPicker({ products, leadHref, now }: HeroPickerProps) {
             </div>
           </div>
 
-          <Recommendation
-            product={recommended}
-            leadHref={leadHref}
-            now={now}
-            area={area}
-            place={place}
-          />
+          <Recommendation product={recommended} now={now} area={area} place={place} />
         </>
       )}
     </Card>
@@ -127,14 +126,13 @@ export function HeroPicker({ products, leadHref, now }: HeroPickerProps) {
 
 type RecommendationProps = {
   readonly product: Product;
-  readonly leadHref: ButtonLinkHref;
   readonly now?: Date | undefined;
   /** Что человек задал в подборе — уезжает вместе с заявкой. */
   readonly area: number;
   readonly place: PlaceType;
 };
 
-function Recommendation({ product, leadHref, now, area, place }: RecommendationProps) {
+function Recommendation({ product, now, area, place }: RecommendationProps) {
   const price = now === undefined ? getActivePrice(product) : getActivePrice(product, now);
   const photo = mainPhoto(product);
 
@@ -202,11 +200,14 @@ function Recommendation({ product, leadHref, now, area, place }: RecommendationP
         <p className={styles.saleUntil}>{t.saleUntil(formatDate(price.saleTo))}</p>
       )}
 
-      {/* Подбор фиксируется в момент перехода к форме, а не на каждое
+      {/* 🔴 Две разные вещи, и обе нужны (ADR-129, ADR-133). Адрес несёт
+          видимый предмет — модель и тему, — и переживает пересылку ссылки;
+          снимок подбора невидим и остаётся снимком того, что человек делал.
+          Подбор фиксируется в момент перехода к форме, а не на каждое
           движение ползунка: в заявку обязано попасть то, с чем человек пошёл
           оставлять телефон, а не то, мимо чего он проехал. */}
       <ButtonLink
-        href={leadHref}
+        href={leadHrefFor({ model: product.slug, topic: 'install' })}
         size="lg"
         fullWidth
         className={styles.orderCta}

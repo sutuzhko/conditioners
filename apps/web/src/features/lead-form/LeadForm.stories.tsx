@@ -7,11 +7,13 @@ import { forgetLeadContext, rememberLeadContext } from './context';
 import {
   descriptionFixture,
   leadContextFixture,
+  modelsFixture,
   phoneFixture,
   policyHrefFixture,
   titleFixture,
 } from './fixtures';
 import type { LeadSubmit } from './model';
+import { forgetLeadSubject, rememberLeadSubject } from './subject';
 
 /** Заявка «уходит» мгновенно: историю смотрят глазами, а не секундомером. */
 const acceptingSubmit: LeadSubmit = () => Promise.resolve({ ok: true, id: 'demo' });
@@ -43,6 +45,7 @@ const meta = {
     policyHref: policyHrefFixture,
     title: titleFixture,
     description: descriptionFixture,
+    models: modelsFixture,
   },
   parameters: { layout: 'padded' },
 } satisfies Meta<typeof LeadForm>;
@@ -64,6 +67,34 @@ export const WithContext: Story = {
   beforeEach: () => {
     rememberLeadContext(leadContextFixture);
     return () => forgetLeadContext();
+  },
+};
+
+/**
+ * Человек нажал «Заказать» у модели: адрес принёс слаг и тему, форма открылась
+ * заполненной (ADR-129). Предмет живёт в клиентском хранилище — в историю его
+ * кладёт `beforeEach`, а на сайте туда его пишет `LeadSubjectSync`.
+ *
+ * 🔴 Поле правится и стирается: это подсказка, а не замок.
+ */
+export const WithSubject: Story = {
+  name: 'Модель пришла из адреса',
+  beforeEach: () => {
+    rememberLeadSubject({ model: modelsFixture[0].slug, topic: 'install' });
+    return () => forgetLeadSubject();
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByLabelText(texts.modelLabel)).toHaveValue(modelsFixture[0].name);
+  },
+};
+
+/** Слаг из адреса не нашёлся — форма открывается обычной, без единого упрёка. */
+export const WithUnknownSubject: Story = {
+  name: 'Модель из адреса не найдена',
+  beforeEach: () => {
+    rememberLeadSubject({ model: 'net-takoy-modeli' });
+    return () => forgetLeadSubject();
   },
 };
 

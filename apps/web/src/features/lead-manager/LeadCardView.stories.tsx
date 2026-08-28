@@ -11,6 +11,7 @@ import {
   failingToOrder,
   failingUpdate,
   linkingToClient,
+  modelLead,
   newLead,
   workedLead,
 } from './fixtures';
@@ -37,6 +38,15 @@ export const Новая: Story = {};
  */
 export const СКонтекстом: Story = {
   args: { lead: contextLead },
+};
+
+/**
+ * Заявка от кнопки у модели: строка «Модель в заявке» — то, что человек видел в
+ * поле и подтвердил, а «Заказ с карточки модели» ниже — снимок того, откуда он
+ * пришёл. Названия совпадают, подписи — нет (ADR-129).
+ */
+export const СМоделью: Story = {
+  args: { lead: modelLead },
 };
 
 /** Только обязательные поля: пустые не показываются вовсе. */

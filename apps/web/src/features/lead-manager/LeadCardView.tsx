@@ -152,6 +152,7 @@ export function LeadCardView({
 
   const details: readonly Detail[] = [
     { label: texts.topic, value: lead.topic },
+    { label: texts.model, value: lead.model },
     { label: texts.place, value: lead.place },
     { label: texts.qty, value: lead.qty },
     { label: texts.callTime, value: lead.callTime },

@@ -7,8 +7,8 @@ import {
   type CatalogQuery,
 } from '@/entities/product/lib/catalogQuery';
 import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/lib/groupSpecs';
+import { leadHref } from '@/shared/config/lead';
 import { ButtonLink, Card } from '@/shared/ui';
-import type { ButtonLinkHref } from '@/shared/ui';
 
 import { catalogListText as t, compareChipLabel, productPageText } from './content';
 import type { CatalogProduct } from './model';
@@ -30,8 +30,6 @@ export interface CatalogCompareProps {
   readonly basePath: string;
   /** Адрес каталога: возврат к выбору и единственный выход из пустого экрана. */
   readonly catalogPath: string;
-  /** Куда ведёт «Оставить заявку» — якорь формы задаёт страница. */
-  readonly orderHref?: ButtonLinkHref | undefined;
   /** Момент расчёта скидки — тот же, что у разметки страницы (ADR-101). */
   readonly now?: Date | undefined;
   /** Справочник задаёт порядок строк и группы (ADR-094). */
@@ -70,7 +68,6 @@ export function CatalogCompare({
   query,
   basePath,
   catalogPath,
-  orderHref,
   now,
   specDictionary = EMPTY_SPEC_DICTIONARY,
 }: CatalogCompareProps) {
@@ -162,13 +159,22 @@ export function CatalogCompare({
           <CompareTable products={products} now={now} specDictionary={specDictionary} />
         )}
 
-        {orderHref === undefined ? null : (
-          <p className={styles.order}>
-            <ButtonLink href={orderHref} variant="accent" size="lg">
-              {productPageText.order}
-            </ButtonLink>
-          </p>
-        )}
+        {/* 🔴 Предмет кнопки — тема, а не модель (ADR-129): под таблицей их
+            несколько, и подставить в форму одну из них значит выбрать за
+            человека. Исключение — единственная отмеченная модель: сравнивать
+            нечего, и это тот же разговор об одном товаре. */}
+        <p className={styles.order}>
+          <ButtonLink
+            href={leadHref({
+              model: products.length === 1 ? products[0]?.slug : undefined,
+              topic: 'install',
+            })}
+            variant="accent"
+            size="lg"
+          >
+            {productPageText.order}
+          </ButtonLink>
+        </p>
       </div>
     </section>
   );

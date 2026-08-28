@@ -12,6 +12,15 @@ export const phoneFixture = '+74872000000';
 /** Страница политики появится в волне 2 — до тех пор адрес объектом, не литералом. */
 export const policyHrefFixture: ButtonLinkHref = { pathname: '/privacy' };
 
+/**
+ * Видимые модели каталога для подстановки по слагу из адреса (ADR-129).
+ * Названия демонстрационные: настоящие приходят из каталога (инвариант 8).
+ */
+export const modelsFixture = [
+  { slug: 'split-09', name: 'Сплит-система 09' },
+  { slug: 'split-12', name: 'Сплит-система 12' },
+] as const;
+
 export const titleFixture = 'Оставьте заявку — поможем с выбором';
 
 export const descriptionFixture =

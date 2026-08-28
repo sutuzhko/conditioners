@@ -22,7 +22,6 @@ function argsFor(raw: Record<string, string> = {}): CatalogCompareProps {
     query,
     basePath: '/compare',
     catalogPath: '/catalog',
-    orderHref: '/#lead',
     now: NOW,
     specDictionary: specDictionaryFixture,
   };

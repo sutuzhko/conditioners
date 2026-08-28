@@ -1,6 +1,7 @@
 import { CATALOG_NARROWING_PARAMS, CATALOG_PARAMS } from '@/entities/product/lib/catalogQuery';
 import { env } from '@/shared/config/env';
-import { CATALOG_PATH, COMPARE_PATH, absoluteUrl } from '@/shared/seo';
+import { LEAD_PARAMS } from '@/shared/config/lead';
+import { CATALOG_PATH, COMPARE_PATH, HOME_ROUTE, absoluteUrl } from '@/shared/seo';
 
 /**
  * `robots.txt` (docs/SEO.md §5).
@@ -27,6 +28,9 @@ export const dynamic = 'force-static';
 const ALLOW: readonly string[] = ['/', '/api/media/'];
 const DISALLOW: readonly string[] = ['/admin', '/api'];
 
+/** Параметры предмета заявки: имена — из одного места с формой (`shared/config/lead`). */
+const LEAD_SUBJECT_PARAMS: readonly string[] = [LEAD_PARAMS.model, LEAD_PARAMS.topic];
+
 function robotsTxt(siteUrl: string): string {
   const lines = [
     'User-agent: *',
@@ -39,6 +43,12 @@ function robotsTxt(siteUrl: string): string {
        `noindex` и в карту сайта не попадает, но ссылки на неё с каталога
        робот увидит, и склейка избавляет его от обхода сотни одинаковых. */
     `Clean-param: ${CATALOG_PARAMS.compare} ${COMPARE_PATH}`,
+    /* Предмет кнопки, ведущей к форме заявки (ADR-129). Содержимое главной он
+       не меняет — это угол зрения на ту же страницу, и каноникал остаётся
+       чистым. Путь `/` для Яндекса означает весь сайт: имена `model` и `topic`
+       больше нигде не используются, а случайно приехавший параметр — такой же
+       дубль, где бы он ни оказался. */
+    `Clean-param: ${LEAD_SUBJECT_PARAMS.join('&')} ${HOME_ROUTE.path}`,
     '',
     `Sitemap: ${absoluteUrl(siteUrl, '/sitemap.xml')}`,
   ];

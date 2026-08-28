@@ -23,7 +23,6 @@ function renderCompare(
       query={query}
       basePath="/compare"
       catalogPath="/catalog"
-      orderHref="/#lead"
       now={NOW}
       specDictionary={specDictionaryFixture}
     />,
@@ -137,10 +136,16 @@ describe('Сравнение — управление отметками', () =>
     expect(hrefOf(t.compareBack)).toBe('/catalog?compare=split-07');
   });
 
-  it('сравнение замыкается заявкой — тем, ради чего оно и открывается', () => {
+  it('🔴 при нескольких моделях кнопка несёт только тему: выбирать за человека нельзя', () => {
     renderCompare({ compare: 'split-07,split-12' });
 
-    expect(hrefOf(productPageText.order)).toBe('/#lead');
+    expect(hrefOf(productPageText.order)).toBe('/?topic=install#lead');
+  });
+
+  it('🔴 отмечена ровно одна модель — её слаг уезжает с кнопкой (ADR-129)', () => {
+    renderCompare({ compare: 'split-07' });
+
+    expect(hrefOf(productPageText.order)).toBe('/?model=split-07&topic=install#lead');
   });
 });
 

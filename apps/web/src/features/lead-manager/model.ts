@@ -18,6 +18,12 @@ export type LeadCard = {
   readonly name: string;
   readonly phone: string;
   readonly topic: string;
+  /**
+   * Модель, которую человек видел в поле формы и подтвердил (ADR-129). Не то же
+   * самое, что `context.model`: там снимок карточки, с которой он пришёл, — и
+   * подписи в карточке заявки эти две вещи различают.
+   */
+  readonly model: string | null;
   readonly place: string | null;
   readonly qty: string | null;
   readonly callTime: string | null;

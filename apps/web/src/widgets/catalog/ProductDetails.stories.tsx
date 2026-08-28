@@ -17,7 +17,6 @@ const meta = {
   component: ProductDetails,
   args: {
     product: discountedProduct,
-    orderHref: '/#lead',
     catalogHref: '/catalog',
     now: NOW,
     specDictionary: specDictionaryFixture,

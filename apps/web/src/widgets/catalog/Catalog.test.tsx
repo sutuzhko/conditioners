@@ -107,10 +107,21 @@ describe('Каталог — карточка', () => {
     ).toBeInTheDocument();
   });
 
-  it('кнопка заказа ведёт на форму заявки', () => {
-    renderCatalog({ products: [plainProduct], now: NOW, orderHref: '#lead' });
+  it('🔴 кнопка заказа несёт к форме слаг своей модели и тему (ADR-129)', () => {
+    renderCatalog({ products: [plainProduct], now: NOW });
 
-    expect(screen.getByRole('link', { name: 'Заказать' })).toHaveAttribute('href', '#lead');
+    expect(screen.getByRole('link', { name: 'Заказать' })).toHaveAttribute(
+      'href',
+      '/?model=split-07&topic=install#lead',
+    );
+  });
+
+  it('🔴 у каждой карточки свой предмет: две модели — два разных адреса', () => {
+    renderCatalog({ products: [plainProduct, discountedProduct], now: NOW });
+
+    expect(
+      screen.getAllByRole('link', { name: 'Заказать' }).map((link) => link.getAttribute('href')),
+    ).toEqual(['/?model=split-07&topic=install#lead', '/?model=split-09&topic=install#lead']);
   });
 
   it('🔴 название модели — ссылка на её страницу, а не текст (ADR-109)', () => {

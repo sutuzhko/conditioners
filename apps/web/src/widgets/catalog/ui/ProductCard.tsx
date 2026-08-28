@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { Badge, ButtonLink, Card } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
+import { leadHref } from '@/shared/config/lead';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { areaLabel, catalogText, compareMarkLabel, photoAlt, powerClassLabel } from '../content';
 import { mainPhoto, type CatalogProduct } from '../model';
@@ -20,8 +21,6 @@ const PHOTO_SIZES = '(max-width: 599px) 100vw, (max-width: 1199px) 50vw, 300px';
 
 export interface ProductCardProps {
   product: CatalogProduct;
-  /** Куда ведёт «Заказать» — якорь формы заявки задаёт страница. */
-  orderHref: ButtonLinkHref;
   /** Адрес страницы модели: карточка — вход в неё (ADR-109). */
   detailsHref: ButtonLinkHref;
   /**
@@ -51,7 +50,6 @@ export interface ProductCardProps {
  */
 export function ProductCard({
   product,
-  orderHref,
   detailsHref,
   compareHref,
   compared = false,
@@ -141,7 +139,16 @@ export function ProductCard({
         </div>
 
         <div className={styles.actions}>
-          <ButtonLink href={orderHref} variant="accent" fullWidth className={styles.order}>
+          {/* 🔴 Адрес считает сама карточка (ADR-129): предмет кнопки — та
+              модель, у которой она стоит, и знает его только карточка.
+              Страница передавала бы всем карточкам один и тот же якорь, а
+              форма открывалась бы пустой. */}
+          <ButtonLink
+            href={leadHref({ model: product.slug, topic: 'install' })}
+            variant="accent"
+            fullWidth
+            className={styles.order}
+          >
             {catalogText.order}
           </ButtonLink>
           {product.link === null ? null : (

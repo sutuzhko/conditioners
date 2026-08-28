@@ -7,6 +7,7 @@ import {
   groupSpecs,
   type SpecDictionary,
 } from '@/entities/product/lib/groupSpecs';
+import { leadHref } from '@/shared/config/lead';
 import { Badge, ButtonLink, Card } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 
@@ -29,8 +30,6 @@ const THUMB_SIZES = '120px';
 
 export interface ProductDetailsProps {
   readonly product: CatalogProduct;
-  /** Кнопка заявки: форма живёт секцией лендинга, сюда приходит её адрес. */
-  readonly orderHref: ButtonLinkHref;
   /** Возврат в каталог. */
   readonly catalogHref: ButtonLinkHref;
   /** 🔴 Момент расчёта скидки — тот же, что ушёл в разметку (ADR-101). */
@@ -51,7 +50,6 @@ export interface ProductDetailsProps {
  */
 export function ProductDetails({
   product,
-  orderHref,
   catalogHref,
   now,
   specDictionary = EMPTY_SPEC_DICTIONARY,
@@ -129,8 +127,17 @@ export function ProductDetails({
             <ProductPrice price={price} />
             {/* Главное действие страницы — заливкой брендом, а не акцентной
                 пилюлей карточки: на витрине «Заказать» одна из четырёх кнопок
-                в ряду, здесь она единственная. */}
-            <ButtonLink href={orderHref} size="lg" fullWidth className={styles.cta}>
+                в ряду, здесь она единственная.
+
+                🔴 Кнопка уводит к форме вместе со своим предметом (ADR-129):
+                модель здесь ровно одна, и заставлять человека печатать её
+                название заново — потерянная заявка. */}
+            <ButtonLink
+              href={leadHref({ model: product.slug, topic: 'install' })}
+              size="lg"
+              fullWidth
+              className={styles.cta}
+            >
               {t.order}
             </ButtonLink>
             {product.link === null ? null : (

@@ -5,7 +5,6 @@ import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { LeadContextSnapshot } from '@/features/lead-form';
 import { formatMoney } from '@/shared/lib/format';
 import { env } from '@/shared/config/env';
-import { LEAD_ANCHOR } from '@/shared/config/nav';
 import {
   CATALOG_PATH,
   JsonLd,
@@ -121,7 +120,6 @@ export default async function ProductPage({ params }: { params: Promise<ProductP
       />
       <ProductDetails
         product={product}
-        orderHref={`/${LEAD_ANCHOR}`}
         catalogHref={CATALOG_PATH}
         now={now}
         specDictionary={settings.specs}

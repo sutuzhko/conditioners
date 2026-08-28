@@ -40,6 +40,11 @@ export interface CatalogListProps {
   /** Адрес страницы сравнения: туда ведёт «Сравнить» из строки отметок. */
   readonly comparePath: string;
   readonly productHref: ProductHref;
+  /**
+   * Куда ведёт кнопка из пустой выдачи. 🔴 Кнопки «Заказать» на карточках
+   * сюда не смотрят: предмет каждой из них — своя модель, и адрес с ним
+   * карточка считает сама (ADR-129). У «ничего не нашлось» предмета нет.
+   */
   readonly orderHref?: ButtonLinkHref | undefined;
   /** Момент расчёта скидки — один на страницу (ADR-101). */
   readonly now?: Date | undefined;
@@ -137,7 +142,6 @@ export function CatalogList({
                   <ProductCard
                     key={product.id}
                     product={product}
-                    orderHref={orderHref}
                     detailsHref={productHref(product.slug)}
                     compareHref={compareHref(product.slug)}
                     compared={inCompare.has(product.slug)}

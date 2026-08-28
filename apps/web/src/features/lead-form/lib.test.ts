@@ -6,12 +6,14 @@ import type { LeadContext } from '@/entities/lead/model';
 import {
   CONTEXT_FIELD,
   LEAD_ENDPOINT,
+  applyLeadSubject,
   buildLeadFormData,
   describeLeadContext,
   emptyLeadValues,
   postLead,
   validateLeadValues,
 } from './lib';
+import { modelsFixture } from './fixtures';
 
 const filled = {
   ...emptyLeadValues('Монтаж и установка'),
@@ -51,6 +53,16 @@ describe('validateLeadValues', () => {
 });
 
 describe('buildLeadFormData', () => {
+  it('🔴 модель уезжает с заявкой отдельным полем: владелец знает предмет разговора', () => {
+    const data = buildLeadFormData({ ...filled, model: 'Сплит-система 09' }, null, '');
+
+    expect(data.get('model')).toBe('Сплит-система 09');
+  });
+
+  it('стёртое человеком поле модели не уходит вовсе, а не уходит пустым', () => {
+    expect(buildLeadFormData({ ...filled, model: '   ' }, null, '').has('model')).toBe(false);
+  });
+
   it('не отправляет пустые поля и шлёт время звонка каноническим именем', () => {
     const data = buildLeadFormData({ ...filled, callTime: 'Утром (9:00–12:00)' }, null, '');
 
@@ -173,5 +185,46 @@ describe('контекст в теле формы', () => {
 
   it('без контекста показывать нечего', () => {
     expect(describeLeadContext(null)).toEqual([]);
+  });
+});
+
+describe('applyLeadSubject', () => {
+  const values = emptyLeadValues('Консультация');
+
+  it('слаг из адреса становится названием модели: человеку виден товар, а не слаг', () => {
+    const next = applyLeadSubject(values, { model: 'split-09' }, modelsFixture, 'Консультация');
+
+    expect(next.model).toBe('Сплит-система 09');
+  });
+
+  it('🔴 неизвестный слаг молча даёт пустое поле, а не отказ: адрес правят руками', () => {
+    const next = applyLeadSubject(
+      { ...values, model: 'Сплит-система 12' },
+      { model: 'snyata-s-prodazhi' },
+      modelsFixture,
+      'Консультация',
+    );
+
+    expect(next.model).toBe('');
+  });
+
+  it('ключ темы из адреса разворачивается в подпись из общего списка', () => {
+    const next = applyLeadSubject(values, { topic: 'install' }, modelsFixture, 'Консультация');
+
+    expect(next.topic).toBe('Монтаж и установка');
+  });
+
+  it('неизвестный ключ темы даёт тему по умолчанию, а не пустой список', () => {
+    const next = applyLeadSubject(values, { topic: 'montazh' }, modelsFixture, 'Сервис и ремонт');
+
+    expect(next.topic).toBe('Сервис и ремонт');
+  });
+
+  it('параметр, которого в адресе нет, поля не трогает', () => {
+    const typed = { ...values, model: 'что-нибудь на 20 метров', topic: 'ТО и чистка' };
+    const next = applyLeadSubject(typed, { topic: 'install' }, modelsFixture, 'Консультация');
+
+    expect(next.model).toBe('что-нибудь на 20 метров');
+    expect(next.topic).toBe('Монтаж и установка');
   });
 });

@@ -21,6 +21,14 @@ const { testEnv, productsMock, reviewsMock, articlesMock, pricesMock, settingsMo
   }),
 );
 
+/**
+ * Лист, читающий предмет заявки из адреса (ADR-129), — клиентский, и в jsdom
+ * контекста маршрутизатора у него нет: без подмены `useSearchParams()` вернёт
+ * `null` и уронит всю страницу. Пустой набор параметров — это ровно то, что
+ * видит человек, пришедший на главную по чистому адресу.
+ */
+vi.mock('next/navigation', () => ({ useSearchParams: () => new URLSearchParams() }));
+
 vi.mock('@/shared/config/env', () => ({ env: testEnv }));
 vi.mock('@/server/repo/products', () => productsMock);
 vi.mock('@/server/repo/reviews', () => reviewsMock);

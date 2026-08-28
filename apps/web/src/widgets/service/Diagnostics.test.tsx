@@ -134,12 +134,21 @@ describe('Сервис — стоимость работ', () => {
 });
 
 describe('Сервис — вызов мастера', () => {
-  it('кнопка ведёт на адрес формы из пропса', () => {
-    render(<Diagnostics leadHref="#lead-service" />);
+  it('🔴 кнопка приносит к форме тему сервиса, а не монтажа (ADR-129)', () => {
+    render(<Diagnostics />);
 
     expect(screen.getByRole('link', { name: diagnosticsText.cta })).toHaveAttribute(
       'href',
-      '#lead-service',
+      '/?topic=service#lead',
+    );
+  });
+
+  it('🔴 та же тема уезжает и из пустого состояния: выхода без предмета нет', () => {
+    render(<Diagnostics symptoms={[]} />);
+
+    expect(screen.getByRole('link', { name: diagnosticsText.cta })).toHaveAttribute(
+      'href',
+      '/?topic=service#lead',
     );
   });
 

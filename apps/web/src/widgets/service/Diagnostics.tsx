@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import type { ButtonLinkHref } from '@/shared/ui';
+import { leadHref } from '@/shared/config/lead';
 import { ButtonLink, Card } from '@/shared/ui';
 
 import { defaultSymptoms, diagnosticsText as t } from './content';
@@ -20,8 +20,6 @@ export interface DiagnosticsProps {
   symptoms?: readonly Symptom[] | undefined;
   /** С какого симптома открыть блок: ссылка из статьи ведёт на нужный разбор. */
   defaultSymptom?: string | undefined;
-  /** Куда ведёт «Вызвать мастера» — якорь формы заявки. */
-  leadHref?: ButtonLinkHref | undefined;
   /**
    * Панель напоминания о сезонном ТО — слот под формой из макета. Слотом, а
    * не импортом: форма это отдельная точка сбора заявки, и что стоит под
@@ -39,11 +37,14 @@ const HEADING_ID = 'diagnostics-title';
  *
  * Серверный компонент — заголовок, подводка и все шесть разборов приходят
  * в HTML готовыми (инвариант 1). Интерактивен только выбор симптома.
+ *
+ * 🔴 «Вызвать мастера» приносит к форме свою тему (ADR-129): сюда приходит
+ * человек с уже стоящим кондиционером, и монтаж ему не нужен. Модели у кнопки
+ * нет — симптом это не товар, и подставлять её было бы не с чего.
  */
 export function Diagnostics({
   symptoms = defaultSymptoms,
   defaultSymptom,
-  leadHref = '#lead',
   reminder,
   id = 'service',
 }: DiagnosticsProps) {
@@ -62,7 +63,7 @@ export function Diagnostics({
           <Card variant="soft" padding="lg" className={styles.empty}>
             <p className={styles.emptyTitle}>{t.emptyTitle}</p>
             <p className={styles.emptyText}>{t.emptyText}</p>
-            <ButtonLink href={leadHref} className={styles.cta}>
+            <ButtonLink href={leadHref({ topic: 'service' })} className={styles.cta}>
               {t.cta}
             </ButtonLink>
           </Card>
@@ -74,7 +75,7 @@ export function Diagnostics({
               symptoms={symptoms}
               defaultSymptom={defaultSymptom}
               action={
-                <ButtonLink href={leadHref} className={styles.cta}>
+                <ButtonLink href={leadHref({ topic: 'service' })} className={styles.cta}>
                   {t.cta}
                 </ButtonLink>
               }

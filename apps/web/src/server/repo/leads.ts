@@ -32,6 +32,12 @@ export type LeadDto = {
   name: string;
   phone: string;
   topic: string;
+  /**
+   * Модель, ради которой человек нажал кнопку, — то, что он видел в поле формы
+   * и подтвердил (ADR-129). Не путать с `context.model`: там снимок того, с
+   * какой карточки пришли, здесь — подтверждённое человеком значение.
+   */
+  model: string | null;
   place: string | null;
   qty: string | null;
   callTime: string | null;

@@ -1,3 +1,4 @@
+import { LEAD_TOPICS as TOPICS } from '@/shared/config/lead';
 import type { SelectOption } from '@/shared/ui';
 
 /**
@@ -8,20 +9,24 @@ import type { SelectOption } from '@/shared/ui';
  * переезжает туда целиком — как и `widgets/footer/content.ts`.
  */
 
-/** Темы обращения. Совпадают с темами, которые ждёт админка и уведомления. */
-export const LEAD_TOPICS = [
-  { value: 'Монтаж и установка', label: 'Монтаж и установка' },
-  { value: 'Сервис и ремонт', label: 'Сервис и ремонт' },
-  { value: 'ТО и чистка', label: 'ТО и чистка' },
-  { value: 'Консультация', label: 'Консультация' },
-] as const satisfies readonly SelectOption[];
+/**
+ * Темы обращения. Совпадают с темами, которые ждёт админка и уведомления.
+ *
+ * 🔴 Сам список живёт в `shared/config/lead`: подпись темы нужна теперь и
+ * адресу кнопки (`/?topic=install#lead`, ADR-129), и форме, а `shared` из
+ * `features` импортировать нельзя — правило зависимостей слоёв. Здесь остаётся
+ * только перевод пар «ключ → подпись» в вид, который понимает `Select`:
+ * значением поля едет подпись, ключ существует ради адресной строки.
+ */
+export const LEAD_TOPICS: readonly SelectOption[] = TOPICS.map((topic) => ({
+  value: topic.title,
+  label: topic.title,
+}));
 
-export type LeadTopic = (typeof LEAD_TOPICS)[number]['value'];
-
-/** Тема по умолчанию — самая общая из списка: человек ещё ничего не выбирал,
-    и форма не вправе догадываться за него о виде работ. Тип сверяет её со
-    списком: уйдёт тема — сборка укажет сюда, а не промолчит. */
-export const DEFAULT_LEAD_TOPIC: LeadTopic = 'Консультация';
+/* Тип и значение по умолчанию переезжают тем же движением и реэкспортируются:
+   импорты формы, блока и страниц кластера ссылаются сюда с волны 2. */
+export { DEFAULT_LEAD_TOPIC } from '@/shared/config/lead';
+export type { LeadTopic } from '@/shared/config/lead';
 
 /**
  * У необязательных списков первый вариант пустой: человек вправе не отвечать,
@@ -60,6 +65,11 @@ export const leadFormContent = {
   phoneLabel: 'Телефон',
   phonePlaceholder: '+7 (___) ___-__-__',
   topicLabel: 'Тема обращения',
+  /* 🔴 Поле видимое, а не скрытое (ADR-129): человек обязан видеть, что уедет
+     вместе с его телефоном. В плейсхолдере нет ни одного названия модели —
+     любой пример был бы фактом о товаре, зашитым в код (инвариант 8). */
+  modelLabel: 'Модель',
+  modelPlaceholder: 'Если модель уже присмотрели',
   placeLabel: 'Тип помещения',
   addressLabel: 'Адрес',
   addressPlaceholder: 'напр. ул. Оборонная, 12, кв. 34',

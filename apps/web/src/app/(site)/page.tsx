@@ -203,17 +203,17 @@ export default async function HomePage() {
       />
       <SavingsBlock />
       <StepsTimeline warranty={warranty} />
-      <Pricing prices={priceRows} rates={extras} leadHref={LEAD_ANCHOR} />
+      <Pricing prices={priceRows} rates={extras} />
       <HonestPricing installFrom={installFrom} />
-      <Diagnostics
-        leadHref={LEAD_ANCHOR}
-        reminder={<ReminderForm policyHref={POLICY_HREF} phone={phone} />}
-      />
+      <Diagnostics reminder={<ReminderForm policyHref={POLICY_HREF} phone={phone} />} />
       <WhyUs warranty={warranty} />
       <Reviews reviews={approvedReviews} policyHref={POLICY_HREF} />
       <LeadSection
         phone={phone}
         policyHref={POLICY_HREF}
+        // слаг → название: по слагу из адреса форма подставляет в поле
+        // «Модель» название, которое человек видел в каталоге (ADR-129)
+        models={products.map((product) => ({ slug: product.slug, name: product.name }))}
         {...(contacts.responseTime === '' ? {} : { responseTime: contacts.responseTime })}
       />
       <KnowledgeTeaser

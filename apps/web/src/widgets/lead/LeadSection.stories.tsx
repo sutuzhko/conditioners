@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { LeadSection } from './LeadSection';
-import { phoneFixture, policyHrefFixture, responseTimeFixture } from './fixtures';
+import { modelsFixture, phoneFixture, policyHrefFixture, responseTimeFixture } from './fixtures';
 
 /**
  * Секция заявки целиком: слева — что будет после отправки, справа — форма.
@@ -17,6 +17,7 @@ const meta = {
     phone: phoneFixture,
     policyHref: policyHrefFixture,
     responseTime: responseTimeFixture,
+    models: modelsFixture,
   },
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof LeadSection>;
@@ -41,6 +42,21 @@ export const WithoutSettings: Story = {
 export const Prefilled: Story = {
   name: 'Тема выбрана заранее',
   args: { defaultTopic: 'Сервис и ремонт' },
+};
+
+/**
+ * Человек пришёл по кнопке «Заказать» у модели: `/?model=...&topic=install#lead`.
+ * Параметры читает `LeadSubjectSync` внутри секции — история задаёт их адресом,
+ * как это происходит на сайте (ADR-129).
+ */
+export const WithSubject: Story = {
+  name: 'Пришли с кнопки у модели',
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: { pathname: '/', query: { model: modelsFixture[0].slug, topic: 'install' } },
+    },
+  },
 };
 
 export const Tablet: Story = { name: 'Планшет 768', globals: { viewport: { value: 'md' } } };

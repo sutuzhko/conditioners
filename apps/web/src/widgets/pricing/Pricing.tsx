@@ -1,5 +1,4 @@
 import type { InstallRates, PriceRow } from '@/entities/price/model';
-import type { ButtonLinkHref } from '@/shared/ui';
 import { Card } from '@/shared/ui';
 import { pricingText, ratesNote } from './content';
 import type { CalculatorDefaults, EstimateHandoff } from './model';
@@ -19,8 +18,6 @@ export interface PricingProps {
    * не показывается. Считать смету по выдуманным коэффициентам нельзя.
    */
   rates?: InstallRates | null | undefined;
-  /** Якорь формы заявки, куда ведёт кнопка расчёта. */
-  leadHref?: ButtonLinkHref | undefined;
   /**
    * Готовый расчёт наружу — форму заполняет её владелец, блок только отдаёт
    * текст сметы и параметры, по которым она получилась.
@@ -47,7 +44,6 @@ const HEADING_ID = 'pricing-title';
 export function Pricing({
   prices,
   rates,
-  leadHref = '#lead',
   onApplyEstimate,
   trassaMaxM = TRASSA_MAX_M,
   qtyMax = QTY_MAX,
@@ -90,7 +86,6 @@ export function Pricing({
             <Calculator
               rows={prices}
               rates={rates}
-              leadHref={leadHref}
               onApply={onApplyEstimate}
               trassaMaxM={trassaMaxM}
               qtyMax={qtyMax}

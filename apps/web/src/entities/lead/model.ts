@@ -168,6 +168,8 @@ export const leadSchema = z.object({
   name: z.string().trim().min(1),
   phone: phoneSchema,
   topic: z.string().trim().min(1),
+  /** Модель, ради которой нажали кнопку. Видимое поле формы (ADR-129). */
+  model: z.string().nullable().default(null),
   place: z.string().nullable().default(null),
   qty: z.string().nullable().default(null),
   callTime: z.string().nullable().default(null),
@@ -206,6 +208,17 @@ export const leadInputSchema = z.object({
     .string()
     .trim()
     .max(80, { message: 'Тема длиннее 80 символов не поместится' })
+    .optional(),
+  /**
+   * Модель, ради которой нажали кнопку (ADR-129). Свободный текст, а не слаг:
+   * поле видимое и правится человеком — он вправе написать «что-нибудь на
+   * 20 метров» вместо подставленного названия. Слаг остаётся в адресе, и по
+   * нему форма подставляет название; уезжает же то, что человек подтвердил.
+   */
+  model: z
+    .string()
+    .trim()
+    .max(120, { message: 'Название модели длиннее 120 символов не поместится' })
     .optional(),
   place: z
     .string()

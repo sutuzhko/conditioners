@@ -4,8 +4,8 @@ import { useId, useState } from 'react';
 import { calculateInstallation } from '@/entities/price/lib/calculateInstallation';
 import type { InstallRates, PriceRow } from '@/entities/price/model';
 import { rememberLeadContext } from '@/features/lead-form';
+import { leadHref } from '@/shared/config/lead';
 import { formatMoney } from '@/shared/lib/format';
-import type { ButtonLinkHref } from '@/shared/ui';
 import { ButtonLink, Card, Checkbox, RangeSlider, Select } from '@/shared/ui';
 import { floorHint, lineLabel, meters, pricingText, qtyMultiplier, shtrobLabel } from '../content';
 import type { CalculatorDefaults, EstimateHandoff } from '../model';
@@ -27,11 +27,6 @@ export type CalculatorProps = {
   readonly rows: readonly PriceRow[];
   /** Ставки допработ. Ни одного коэффициента внутри компонента нет. */
   readonly rates: InstallRates;
-  /**
-   * Куда ведёт «Зафиксировать в заявке» — якорь формы. Форма живёт в другой
-   * зоне владения, блок только доводит человека до неё.
-   */
-  readonly leadHref: ButtonLinkHref;
   /**
    * Готовый расчёт наружу. Вызывается в момент перехода к форме.
    *
@@ -60,7 +55,6 @@ export type CalculatorProps = {
 export function Calculator({
   rows,
   rates,
-  leadHref,
   onApply,
   trassaMaxM,
   qtyMax,
@@ -193,7 +187,17 @@ export function Calculator({
                 {formatMoney(estimate.total)}
               </output>
             </div>
-            <ButtonLink href={leadHref} size="lg" className={styles.apply} onClick={apply}>
+            {/* 🔴 Кнопка приносит к форме свою тему (ADR-129): человек считал
+                смету на монтаж, и спрашивать его об этом ещё раз незачем.
+                Модели у сметы нет — расчёт идёт по классу мощности, а не по
+                конкретному товару. Снимок расчёта остаётся снимком: он
+                невидим и отвечает за другое (ADR-133). */}
+            <ButtonLink
+              href={leadHref({ topic: 'install' })}
+              size="lg"
+              className={styles.apply}
+              onClick={apply}
+            >
               {pricingText.apply}
             </ButtonLink>
           </div>

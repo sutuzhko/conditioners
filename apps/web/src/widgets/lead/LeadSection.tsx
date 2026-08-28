@@ -1,4 +1,11 @@
-import { LeadForm, type LeadTopic } from '@/features/lead-form';
+import { Suspense } from 'react';
+
+import {
+  LeadForm,
+  LeadSubjectSync,
+  type LeadModelOption,
+  type LeadTopic,
+} from '@/features/lead-form';
 import { Icon, type ButtonLinkHref } from '@/shared/ui';
 
 import { leadSectionContent as t } from './content';
@@ -27,6 +34,13 @@ export interface LeadSectionProps {
   responseTime?: string | undefined;
   /** Тема обращения, выбранная заранее: на странице ремонта — «Сервис и ремонт». */
   defaultTopic?: LeadTopic | undefined;
+  /**
+   * Видимые модели каталога: слаг → название. Кнопки у моделей ведут на
+   * `/?model=<слаг>&topic=install#lead`, и по этому списку форма подставляет
+   * в поле «Модель» название, а не слаг (ADR-129). Пустой список — рабочее
+   * состояние: каталог пуст, подставлять нечего.
+   */
+  models: readonly LeadModelOption[];
   /** Якорь секции: на него ведут кнопки заявки со всей страницы. */
   id?: string | undefined;
 }
@@ -43,6 +57,7 @@ export function LeadSection({
   policyHref,
   responseTime,
   defaultTopic,
+  models,
   id = 'lead',
 }: LeadSectionProps) {
   return (
@@ -71,9 +86,21 @@ export function LeadSection({
         </div>
 
         <div className={styles.form}>
+          {/* 🔴 Предмет обращения приезжает в адресе (`?model=`, `?topic=`), но
+              читает его отдельный клиентский лист внутри `<Suspense>`, а не
+              страница. Главная статическая с `revalidate = 3600`: прочитай
+              `searchParams` сама страница — Next перевёл бы её в динамический
+              рендер, и она ходила бы в базу на каждый запрос, потеряв
+              пререндер и бюджет LCP. Граница ограничивает клиентский рендер
+              этим листом: форма остаётся в серверном HTML (инвариант 1).
+              Показывать на время границы нечего — лист ничего не рисует. */}
+          <Suspense fallback={null}>
+            <LeadSubjectSync />
+          </Suspense>
           <LeadForm
             phone={phone}
             policyHref={policyHref}
+            models={models}
             {...(defaultTopic === undefined ? {} : { defaultTopic })}
           />
         </div>

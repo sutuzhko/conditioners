@@ -1,5 +1,6 @@
 import { leadContextModelText, leadContextPickText } from '@/entities/lead/lib/context';
 import type { LeadContext } from '@/entities/lead/model';
+import { leadTopicByKey } from '@/shared/config/lead';
 import { apiErrorSchema, createdSchema } from '@/shared/lib/api';
 import { formatMoney } from '@/shared/lib/format';
 
@@ -9,8 +10,10 @@ import {
   LEAD_FIELD_ORDER,
   type LeadFieldErrors,
   type LeadFormValues,
+  type LeadModelOption,
   type LeadSubmitResult,
 } from './model';
+import type { LeadSubjectParams } from './subject';
 
 /** Адрес приёма заявки — docs/API.md §8. */
 export const LEAD_ENDPOINT = '/api/leads';
@@ -22,13 +25,22 @@ export const HONEYPOT_FIELD = 'hp';
 export const CONTEXT_FIELD = 'context';
 
 /** Необязательные текстовые поля: пустые значения до схемы не доходят. */
-const OPTIONAL_FIELDS = ['topic', 'place', 'qty', 'callTime', 'address', 'comment'] as const;
+const OPTIONAL_FIELDS = [
+  'topic',
+  'model',
+  'place',
+  'qty',
+  'callTime',
+  'address',
+  'comment',
+] as const;
 
 export function emptyLeadValues(topic: string): LeadFormValues {
   return {
     name: '',
     phone: '',
     topic,
+    model: '',
     place: '',
     qty: '',
     callTime: '',
@@ -114,6 +126,35 @@ export function buildLeadFormData(
   data.append(HONEYPOT_FIELD, honeypot);
 
   return data;
+}
+
+/**
+ * Предмет из адреса ложится в поля формы (ADR-129).
+ *
+ * 🔴 Подстановка — подсказка, а не замок: функция чистая и вызывается только
+ * при смене предмета, поэтому правку человека она не затирает. Параметр,
+ * которого в адресе нет, поля не трогает: кнопка без модели не должна стирать
+ * то, что человек уже написал сам.
+ *
+ * Неизвестный слаг молча даёт пустое поле, неизвестный ключ темы — тему по
+ * умолчанию: адрес правят руками и присылают друг другу, и опечатка в нём —
+ * повод открыть обычную форму, а не показать отказ.
+ */
+export function applyLeadSubject(
+  values: LeadFormValues,
+  subject: LeadSubjectParams,
+  models: readonly LeadModelOption[],
+  defaultTopic: string,
+): LeadFormValues {
+  const model =
+    subject.model === undefined
+      ? values.model
+      : (models.find((option) => option.slug === subject.model)?.name ?? '');
+
+  const topic =
+    subject.topic === undefined ? values.topic : (leadTopicByKey(subject.topic) ?? defaultTopic);
+
+  return { ...values, model, topic };
 }
 
 /** Ответ без понятного текста — подставляем свой, по коду состояния. */

@@ -7,6 +7,7 @@ import { formatMoney, formatNumber } from '@/shared/lib/format';
 import { forgetLeadContext, readLeadContext } from '@/features/lead-form';
 
 import { Hero } from './Hero';
+import { heroContent, pickerContent } from './content';
 import { discountedModels, heroModels, heroStats, saleNow, singleModel } from './fixtures';
 
 /**
@@ -185,6 +186,26 @@ describe('Первый экран', () => {
 
     expect(text).toContain('−3°');
     expect(text).not.toContain('-7');
+  });
+});
+
+describe('Первый экран — кнопка приносит свой предмет (ADR-129)', () => {
+  it('🔴 кнопка у рекомендации ведёт к форме со слагом этой модели и темой монтажа', () => {
+    render(<Hero products={singleModel} />);
+
+    expect(screen.getByRole('link', { name: pickerContent.order })).toHaveAttribute(
+      'href',
+      '/?model=split-sistema-09&topic=install#lead',
+    );
+  });
+
+  it('🔴 общая кнопка первого экрана предмета не имеет и остаётся на своём адресе', () => {
+    render(<Hero products={singleModel} leadHref="/#lead" />);
+
+    expect(screen.getByRole('link', { name: heroContent.primaryCta })).toHaveAttribute(
+      'href',
+      '/#lead',
+    );
   });
 });
 

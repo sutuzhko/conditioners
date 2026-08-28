@@ -13,3 +13,12 @@ export const policyHrefFixture: ButtonLinkHref = { pathname: '/privacy' };
 
 /** Срок из макета. В истории он показывает вёрстку, на сайте придёт из настроек. */
 export const responseTimeFixture = '15 минут';
+
+/**
+ * Модели каталога для подстановки по слагу из адреса (ADR-129). Названия
+ * демонстрационные: настоящие приходят из каталога (инвариант 8).
+ */
+export const modelsFixture = [
+  { slug: 'split-09', name: 'Сплит-система 09' },
+  { slug: 'split-12', name: 'Сплит-система 12' },
+] as const;

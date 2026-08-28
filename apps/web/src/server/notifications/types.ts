@@ -22,6 +22,13 @@ const leadPayloadSchema = z.object({
   name: z.string(),
   phone: z.string(),
   topic: z.string(),
+  /**
+   * Модель, которую человек видел в поле формы и подтвердил (ADR-129).
+   * Необязательна по той же причине, что и контекст: в очереди лежат записи,
+   * поставленные версией, которая о поле не знала, и воркер обязан разобрать
+   * их так же спокойно, как сегодняшние.
+   */
+  model: z.string().nullable().optional(),
   place: z.string().nullable(),
   qty: z.string().nullable(),
   callTime: z.string().nullable(),

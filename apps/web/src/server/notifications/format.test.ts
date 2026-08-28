@@ -152,6 +152,59 @@ describe('Сообщения владельцу', () => {
     expect(text).toContain('🆕 Новая заявка с сайта');
     expect(text).toContain('🧭 Тема: Монтаж и установка');
     expect(text).toContain('📍 Адрес: —');
+    // поле формы осталось пустым — прочерк, как у соседних строк
+    expect(text).toContain('🏷 Модель: —');
+  });
+
+  it('🔴 модель из заявки владелец видит рядом с темой (ADR-129)', () => {
+    const text = notificationText({
+      kind: 'lead',
+      leadId: 'l-1',
+      name: 'Игорь',
+      phone: '+79001234567',
+      topic: 'Монтаж и установка',
+      model: 'Сплит-система 09',
+      place: null,
+      qty: null,
+      callTime: null,
+      address: null,
+      comment: null,
+      photo: null,
+      sourceUrl: null,
+    });
+
+    const lines = text.split('\n');
+    expect(lines.indexOf('🏷 Модель: Сплит-система 09')).toBe(
+      lines.indexOf('🧭 Тема: Монтаж и установка') + 1,
+    );
+  });
+
+  it('🔴 подтверждённое поле и снимок контекста подписаны по-разному', () => {
+    const text = notificationText({
+      kind: 'lead',
+      leadId: 'l-1',
+      name: 'Игорь',
+      phone: '+79001234567',
+      topic: 'Монтаж и установка',
+      model: 'Сплит-система 09',
+      place: null,
+      qty: null,
+      callTime: null,
+      address: null,
+      comment: null,
+      photo: null,
+      sourceUrl: null,
+      context: {
+        estimate: null,
+        pick: null,
+        model: { slug: 'split-09', name: 'Сплит-система 09', price: 34_900, oldPrice: null },
+        liked: [],
+      },
+    });
+
+    // одно и то же название дважды — это норма; неразличимые подписи — нет
+    expect(text).toContain('🏷 Модель: Сплит-система 09');
+    expect(text).toContain('🛒 Заказ с карточки: Сплит-система 09 — ');
   });
 });
 

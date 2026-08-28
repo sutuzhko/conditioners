@@ -43,6 +43,10 @@ describe('robots.txt', () => {
     expect(line).not.toContain('page');
   });
 
+  it('🔴 предмет кнопки заявки склеивается с чистой главной (ADR-129)', async () => {
+    expect(await robots()).toContain('Clean-param: model&topic /');
+  });
+
   it('отдаётся текстом в UTF-8, а не как HTML', () => {
     expect(GET().headers.get('content-type')).toBe('text/plain; charset=utf-8');
   });

@@ -43,6 +43,7 @@ export const newLead: LeadCard = {
   name: 'Ирина',
   phone: '+79001234567',
   topic: 'Установка кондиционера',
+  model: null,
   place: 'Квартира',
   qty: '1',
   callTime: 'После 18:00',
@@ -65,11 +66,29 @@ export const contextLead: LeadCard = {
   context: leadContextFixture,
 };
 
+/**
+ * Заявка от кнопки у модели: человек видел название в поле формы и подтвердил
+ * его (ADR-129). Контекст рядом называет ту же модель — так и бывает, и
+ * подписи в карточке обязаны различать подтверждённое поле и снимок.
+ */
+export const modelLead: LeadCard = {
+  ...newLead,
+  id: 'l6',
+  model: 'Сплит-система 09',
+  context: {
+    estimate: null,
+    pick: null,
+    model: { slug: 'split-09', name: 'Сплит-система 09', price: 34900, oldPrice: 39900 },
+    liked: [],
+  },
+};
+
 /** Минимальная заявка: только обязательные поля. */
 export const bareLead: LeadCard = {
   ...newLead,
   id: 'l2',
   topic: 'Консультация',
+  model: null,
   place: null,
   qty: null,
   callTime: null,
