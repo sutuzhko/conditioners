@@ -78,7 +78,7 @@ export function StockCreateModal({ creation, api }: StockCreateModalProps) {
         fallbackHref={STOCK_PATH}
         dirty={dirty}
       >
-        <div onInput={() => setDirty(true)}>
+        <div onChange={() => setDirty(true)}>
           <StockItemForm
             api={api}
             products={creation.products}
@@ -98,7 +98,7 @@ export function StockCreateModal({ creation, api }: StockCreateModalProps) {
         fallbackHref={STOCK_ZONES_PATH}
         dirty={dirty}
       >
-        <div onInput={() => setDirty(true)}>
+        <div onChange={() => setDirty(true)}>
           <StockZoneForm
             api={api}
             people={creation.people}
@@ -118,7 +118,7 @@ export function StockCreateModal({ creation, api }: StockCreateModalProps) {
       fallbackHref={STOCK_PATH}
       dirty={dirty}
     >
-      <div onInput={() => setDirty(true)}>
+      <div onChange={() => setDirty(true)}>
         <StockMoveForm
           api={api}
           items={creation.items}
