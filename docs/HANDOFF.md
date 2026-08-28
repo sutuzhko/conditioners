@@ -402,10 +402,26 @@ docker compose -f docker-compose.dev.yml exec -T web pnpm check
   перетаскивание — проверяется одноразовым сценарием Playwright из
   контейнера: `npx tsx <файл>.mts` рядом с `apps/web`, вход берётся из
   `e2e/support/admin-ui`, контексту нужен `baseURL: BASE_URL`.
-- 🔴 **`next build` нельзя запускать при живом дев-сервере:** они делят том
-  `.next`, и сборка падает на пререндере 404 с невнятным «Cannot find module
-  for page: /_document». Собирать одноразовым контейнером:
+- 🔴 **`next build` и дев-сервер делят том `.next`, и это ломает обоих.**
+  Сборка при живом сервере падает на пререндере 404 с невнятным «Cannot find
+  module for page: /_document». Собирать одноразовым контейнером:
   `docker compose -f docker-compose.dev.yml run --rm --no-deps -e SITE_URL=https://build.invalid web sh -c "cd /app/apps/web && pnpm build"`.
+
+  🔴 **Вторая половина, без которой первая бесполезна: после любой боевой
+  сборки стенд нужно восстановить.** Сборка затирает дев-артефакты, и сайт
+  начинает отдавать HTML со ссылками на несуществующие стили — страница
+  открывается голой, статус 200, в логах пусто, а CSS-файлы дают 404. Симптом
+  выглядит как «сломали вёрстку», хотя код цел.
+
+  ```
+  docker compose -f docker-compose.dev.yml exec -T web sh -c "cd /app/apps/web && rm -rf .next/*"
+  docker compose -f docker-compose.dev.yml restart web
+  ```
+
+  Снаружи том занят (`Resource busy`) — чистить только изнутри контейнера.
+  Проверять не глазами на одной странице, а отдачей самих файлов:
+  `curl -s http://localhost:3000/catalog | grep -o '/_next/static/css/[^"?]*' | sort -u` и каждый адрес curl'ом — они обязаны давать 200, а не 404.
+
 - 🔴 **Новый слот `@modal` в существующем разделе не подхватывается Fast
   Refresh.** До `docker compose -f docker-compose.dev.yml restart web` клик
   уходит обычным переходом: 200 и страница вместо окна — ровно тот ложный
