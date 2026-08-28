@@ -2358,6 +2358,29 @@ function phoneKeyOf(input: string): string {
   return digits;
 }
 
+/**
+ * Вход в панель после наполнения стенда.
+ *
+ * 🔴 Демо-сид заводит только монтажников: владельца создаёт базовый `seed.ts`
+ * из `ADMIN_LOGIN` и `ADMIN_PASSWORD_HASH`, а `migrate reset` его стирает.
+ * Последовательность «reset → seed:demo» оставляет стенд без единого входа в
+ * панель, и молчала она до самой страницы логина: каталог, наряды и склад на
+ * месте, войти некем (ADR-154).
+ *
+ * Проверка идёт последней, а не первой: на чистой базе владельца нет
+ * законно, и отказываться работать здесь не за что — сказать нужно ровно
+ * тогда, когда человек читает итог.
+ */
+async function warnIfNoOwner(): Promise<void> {
+  if ((await prisma.adminUser.count({ where: { role: 'OWNER' } })) > 0) return;
+
+  console.error('');
+  console.error('🔴 Владельца в базе нет — войти в панель сейчас невозможно.');
+  console.error('   Демо-сид заводит только монтажников. Владельца создаёт базовый сид:');
+  console.error('     docker compose -f docker-compose.dev.yml exec -T web pnpm --filter web seed');
+  console.error('   Порядок после сброса базы: migrate reset → seed → seed:demo.');
+}
+
 async function main(): Promise<void> {
   assertNotProduction();
 
@@ -2753,6 +2776,8 @@ async function main(): Promise<void> {
     `  склад — позиции: ${stockItems.length}, зоны: ${stockZones.length}, движения: ${stockMoves.length}`,
   );
   console.log(`  журнал доставки — ${notifications.length} записей`);
+
+  await warnIfNoOwner();
 }
 
 main()

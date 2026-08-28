@@ -88,6 +88,21 @@ docker compose -f docker-compose.dev.yml exec web pnpm shot / --theme both
 docker compose -f docker-compose.dev.yml exec db psql -U tk -d tulaklimat
 ```
 
+🔴 **После `prisma migrate reset` владельца в базе нет.** Его заводит базовый
+`pnpm seed` из `ADMIN_LOGIN` и `ADMIN_PASSWORD_HASH`; `pnpm seed:demo`
+создаёт только монтажников. Порядок обязателен, и средний шаг пропускать
+нельзя:
+
+```bash
+docker compose -f docker-compose.dev.yml exec web pnpm prisma migrate reset
+docker compose -f docker-compose.dev.yml exec web pnpm seed
+docker compose -f docker-compose.dev.yml exec web pnpm seed:demo
+```
+
+Пропуск `seed` оставляет наполненный стенд без единого входа в панель, и
+обнаруживается это на странице логина. Демо-сид с версии ADR-154 говорит об
+этом сам, последней строкой вывода.
+
 `pnpm shot` снимает страницы стенда в PNG (`apps/web/.screenshots`, в
 репозиторий не попадают) — это способ увидеть вёрстку, когда браузера под
 рукой нет: работа по SSH, проверка на чужой машине, ревью правки по описанию.
