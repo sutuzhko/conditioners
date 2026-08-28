@@ -37,8 +37,16 @@ export function ArticleListCard({ article, href }: ArticleListCardProps) {
 
   return (
     <Card as="li" padding="none" interactive className={styles.card}>
-      {cover === '' ? null : (
-        <div className={styles.media}>
+      {/* Место обложки занято всегда: без файла карточки в сетке выходили
+          разной высоты и разного строения (ADR-127). Плашка декоративна —
+          рубрику над заголовком озвучит бейдж, поэтому от читалки она
+          скрыта. */}
+      <div className={styles.media}>
+        {cover === '' ? (
+          <span className={styles.placeholder} aria-hidden="true">
+            {category === '' ? t.coverFallbackLabel : category}
+          </span>
+        ) : (
           <Image
             className={styles.cover}
             src={cover}
@@ -47,8 +55,8 @@ export function ArticleListCard({ article, href }: ArticleListCardProps) {
             height={COVER_HEIGHT}
             sizes={COVER_SIZES}
           />
-        </div>
-      )}
+        )}
+      </div>
 
       <div className={styles.body}>
         <p className={styles.meta}>

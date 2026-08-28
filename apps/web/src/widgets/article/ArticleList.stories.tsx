@@ -26,7 +26,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Empty: Story = { name: 'Статей ещё нет' };
 
-export const WithArticles: Story = { name: 'Три статьи', args: { articles: teasersFixture } };
+/**
+ * Обложка есть у одной статьи из трёх: у остальных её место занимает
+ * типографская плашка с рубрикой (ADR-127) — карточки в сетке остаются
+ * одной высоты.
+ */
+export const WithArticles: Story = {
+  name: 'Три статьи: с обложкой и без',
+  args: { articles: teasersFixture },
+};
 
 export const Filtered: Story = {
   name: 'Выбрана рубрика',

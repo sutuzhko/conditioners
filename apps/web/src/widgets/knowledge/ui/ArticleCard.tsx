@@ -31,21 +31,29 @@ export interface ArticleCardProps {
 export function ArticleCard({ article, href }: ArticleCardProps) {
   const excerpt = article.excerpt.trim();
   const category = article.category.trim();
+  const cover = article.cover === null ? '' : article.cover.trim();
 
   return (
     <Card as="li" padding="none" elevation="none" interactive className={styles.card}>
-      {article.cover === null || article.cover.trim() === '' ? null : (
-        <div className={styles.media}>
+      {/* Место обложки занято всегда: без файла карточки в сетке выходили
+          разной высоты и разного строения (ADR-127). Плашка декоративна —
+          рубрику под ней озвучит бейдж, поэтому от читалки она скрыта. */}
+      <div className={styles.media}>
+        {cover === '' ? (
+          <span className={styles.placeholder} aria-hidden="true">
+            {category === '' ? t.coverFallbackLabel : category}
+          </span>
+        ) : (
           <Image
             className={styles.cover}
-            src={article.cover}
+            src={cover}
             alt={t.coverAlt(article.title)}
             width={COVER_WIDTH}
             height={COVER_HEIGHT}
             sizes={COVER_SIZES}
           />
-        </div>
-      )}
+        )}
+      </div>
 
       <div className={styles.body}>
         {category === '' ? null : (

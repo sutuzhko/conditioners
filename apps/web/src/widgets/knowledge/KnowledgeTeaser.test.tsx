@@ -47,7 +47,11 @@ describe('Тизер Базы знаний', () => {
     expect(first).toBeDefined();
     if (first === undefined) return;
 
-    expect(screen.getByText(first.category)).toBeInTheDocument();
+    // рубрика стоит и бейджем, и подписью плашки на месте обложки (ADR-127):
+    // читалке её называет только бейдж
+    expect(
+      screen.getByText(first.category, { ignore: '[aria-hidden="true"]' }),
+    ).toBeInTheDocument();
     expect(screen.getByText(first.excerpt)).toBeInTheDocument();
     expect(screen.getByText('14 июня 2026')).toBeInTheDocument();
     expect(screen.getByText(t.minutesLabel(first.minutes))).toBeInTheDocument();
@@ -74,7 +78,7 @@ describe('Тизер Базы знаний', () => {
     expect(time).toHaveAttribute('dateTime', '2026-06-14');
   });
 
-  it('обложка рисуется, только если она загружена', () => {
+  it('🔴 без обложки её место занимает плашка с рубрикой, а не пустота (ADR-127)', () => {
     const { rerender } = renderSection([articleWithCoverFixture]);
     expect(screen.getByAltText(t.coverAlt(articleWithCoverFixture.title))).toBeInTheDocument();
 
@@ -86,6 +90,19 @@ describe('Тизер Базы знаний', () => {
       />,
     );
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
+
+    // рубрика видна дважды: бейджем в теле карточки и подписью плашки
+    const [first] = articlesFixture;
+    if (first === undefined) throw new Error('фикстура пуста');
+    expect(screen.getAllByText(first.category)).toHaveLength(2);
+  });
+
+  it('плашка скрыта от читалки: рубрику она уже озвучила бейджем', () => {
+    renderSection(articlesFixture);
+
+    const [first] = articlesFixture;
+    if (first === undefined) throw new Error('фикстура пуста');
+    expect(screen.getAllByText(first.category, { ignore: '[aria-hidden="true"]' })).toHaveLength(1);
   });
 
   it('у секции один заголовок второго уровня — h1 принадлежит странице', () => {

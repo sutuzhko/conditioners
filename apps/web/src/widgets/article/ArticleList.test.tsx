@@ -93,9 +93,29 @@ describe('Листинг Базы знаний', () => {
     expect(screen.queryByRole('list', { name: t.listLabel })).not.toBeInTheDocument();
   });
 
-  it('статья без обложки рисуется без картинки, с обложкой — с ней', () => {
-    const { container } = renderList(teasersFixture);
+  it('🔴 без обложки её место занимает плашка с рубрикой, а не пустота (ADR-127)', () => {
+    renderList(teasersFixture);
 
-    expect(container.querySelectorAll('img')).toHaveLength(1);
+    const list = screen.getByRole('list', { name: t.listLabel });
+    const items = within(list).getAllByRole('listitem');
+
+    for (const [index, item] of items.entries()) {
+      const article = teasersFixture[index];
+      if (article === undefined) throw new Error('фикстура пуста');
+
+      if (article.cover === null) {
+        expect(within(item).queryByRole('img')).toBeNull();
+
+        // плашка на месте обложки: рубрика написана и скрыта от читалки —
+        // ей ту же рубрику уже назвал бейдж над заголовком
+        const plaques = within(item)
+          .getAllByText(article.category)
+          .filter((node) => node.getAttribute('aria-hidden') === 'true');
+        expect(plaques).toHaveLength(1);
+        continue;
+      }
+
+      expect(within(item).getByAltText(t.coverAlt(article.title))).toBeInTheDocument();
+    }
   });
 });

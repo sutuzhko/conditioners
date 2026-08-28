@@ -20,7 +20,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Обложки нет — в списке статья покажется без картинки. */
+/** Обложки нет: в списке её место займёт плашка с рубрикой (ADR-127). */
 export const БезОбложки: Story = {};
 
 export const СОбложкой: Story = {

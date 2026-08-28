@@ -21,6 +21,32 @@
   object-fit: cover;
 }
 
+/* Плашка на месте обложки, когда файла нет (ADR-127). Это оформление, а не
+   подменённый контент: стоковая картинка нарушила бы «не публиковать чужое»,
+   типографика на фоне из токенов — нет. Размер и пропорции задаёт `.media`,
+   поэтому карточка выходит одной высоты с любой соседкой. */
+.placeholder {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  inset: 0;
+  background-color: var(--bg-soft);
+  background-image: linear-gradient(135deg, transparent 40%, var(--accent-bg) 100%);
+  color: var(--ink2);
+  font-family: var(--font-display);
+
+  /* Плашка занимает крупный блок 16:9, и фиксированный кегль теряется в нём на
+     широком экране: подпись растёт вместе с карточкой, но не мельче 19px. */
+  font-size: clamp(19px, 2.6vw, 27px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-wrap: balance;
+}
+
 .body {
   display: flex;
   flex: 1;
