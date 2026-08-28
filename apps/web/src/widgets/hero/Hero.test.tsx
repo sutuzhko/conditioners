@@ -8,7 +8,14 @@ import { forgetLeadContext, readLeadContext } from '@/features/lead-form';
 
 import { Hero } from './Hero';
 import { heroContent, pickerContent } from './content';
-import { discountedModels, heroModels, heroStats, saleNow, singleModel } from './fixtures';
+import {
+  discountedModels,
+  heroModels,
+  heroStats,
+  heroStatsFour,
+  saleNow,
+  singleModel,
+} from './fixtures';
 
 /**
  * jsdom не реализует matchMedia. Отвечаем «пользователь просил меньше
@@ -92,6 +99,29 @@ describe('Первый экран', () => {
     expect(document.querySelector('s')).toBeNull();
   });
 
+  /**
+   * 🔴 ADR-126. Ползунок площади меняет модель, а с ней — состав блока цены.
+   * Строка срока действия стоит в разметке и без скидки: там она пустая и
+   * держит свою высоту, иначе кнопка «Получить смету» уезжает из-под курсора
+   * ровно тогда, когда в неё целятся. Высоту видно только браузером — здесь
+   * проверяется то, чем она держится: элемент есть в обоих состояниях.
+   */
+  it('🔴 место под скидку занято и тогда, когда скидки нет', () => {
+    /* Строка срока — соседка кнопки сверху: резерв стоит именно там, где
+       иначе схлопывался бы блок цены. */
+    const saleLine = (): Element | null =>
+      screen.getByRole('link', { name: /Получить смету/ }).previousElementSibling;
+
+    const { unmount } = render(<Hero products={discountedModels} now={saleNow} />);
+    expect(saleLine()?.tagName).toBe('P');
+    expect(saleLine()?.textContent).toMatch(/^Цена действует до/);
+    unmount();
+
+    render(<Hero products={heroModels} />);
+    expect(saleLine()?.tagName).toBe('P');
+    expect(saleLine()?.textContent).toBe('');
+  });
+
   it('пустой каталог: вместо подбора — приглашение позвонить', () => {
     render(<Hero products={[]} />);
 
@@ -137,6 +167,28 @@ describe('Первый экран', () => {
 
     rerender(<Hero products={[]} />);
     expect(screen.queryByText('установок в Туле')).not.toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 ADR-126. Четвёртая цифра не помещается в ряд и переносится во вторую
+   * строку, ломая ритм экрана. Это ограничение макета, а не данных: владелец
+   * заводит сколько нужно, первый экран берёт первые три.
+   */
+  it('🔴 полоса показывает первые три цифры, даже когда заведено четыре', () => {
+    render(<Hero products={[]} stats={heroStatsFour} />);
+
+    expect(document.querySelectorAll('dt')).toHaveLength(3);
+    expect(screen.getByText('установок в Туле')).toBeInTheDocument();
+    expect(screen.queryByText('среднее время ответа')).not.toBeInTheDocument();
+  });
+
+  /* 🔴 Инвариант 8: текст капсулы приходит из настроек, а его длину задаёт
+     владелец. Обрезать его нечем — плашка переносит строку (ADR-126). */
+  it('плашка первого экрана рисует текст настроек целиком', () => {
+    const promise = 'Тула и область — выезд в день обращения, замер бесплатно';
+    render(<Hero products={[]} note={promise} />);
+
+    expect(screen.getByText(promise)).toBeInTheDocument();
   });
 
   it('чип погоды показывает среднесуточную и пиковую температуру', () => {

@@ -57,6 +57,7 @@ export const geoFixture: Geo = { lat: 54.193, lng: 37.617 };
 
 export const areaFixture: ServiceArea = {
   served: 'Тула и Тульская область',
+  promise: 'Тула и область — выезд в день обращения',
 };
 
 export const paymentFixture: Payment = {
@@ -100,7 +101,7 @@ export const emptyAddress: Address = {
 
 export const emptyGeo: Geo = { lat: null, lng: null };
 
-export const emptyArea: ServiceArea = { served: '' };
+export const emptyArea: ServiceArea = { served: '', promise: '' };
 
 /** Сиды заполняют группы явной заглушкой — в разметке её быть не должно. */
 export const placeholderCompany: Company = {

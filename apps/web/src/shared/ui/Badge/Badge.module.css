@@ -22,6 +22,13 @@
   font-size: 11px;
 }
 
+/* Плашка с текстом из настроек: длину задаёт владелец, и обрезать её нечем —
+   переносим. Идёт после .badge, поэтому перебивает nowrap порядком в файле,
+   а не весом селектора. */
+.wrap {
+  white-space: normal;
+}
+
 .neutral {
   border-color: var(--line);
   background: var(--bg-soft);

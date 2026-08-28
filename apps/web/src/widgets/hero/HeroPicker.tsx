@@ -184,7 +184,7 @@ function Recommendation({ product, now, area, place }: RecommendationProps) {
           <s className={styles.oldPrice}>{formatMoney(price.oldPrice)}</s>
         )}
         {price.saleActive ? (
-          <Badge variant="accent" size="sm">
+          <Badge variant="accent" size="sm" className={styles.saleBadge}>
             {price.saleLabel ?? `−${price.discountPercent}%`}
           </Badge>
         ) : null}
@@ -196,9 +196,14 @@ function Recommendation({ product, now, area, place }: RecommendationProps) {
         )}
       </div>
 
-      {price.saleTo === null ? null : (
-        <p className={styles.saleUntil}>{t.saleUntil(formatDate(price.saleTo))}</p>
-      )}
+      {/* 🔴 Строка срока занимает свою высоту и без скидки (ADR-126). Ползунок
+          площади меняет рекомендованную модель, у соседней скидки может не
+          быть — и без резерва кнопка «Получить смету» уезжает вверх ровно
+          тогда, когда в неё целятся. CLS этого не ловит: сдвиг в пределах
+          500 мс после действия человека не засчитывается. */}
+      <p className={styles.saleUntil}>
+        {price.saleTo === null ? '' : t.saleUntil(formatDate(price.saleTo))}
+      </p>
 
       {/* 🔴 Две разные вещи, и обе нужны (ADR-129, ADR-133). Адрес несёт
           видимый предмет — модель и тему, — и переживает пересылку ссылки;

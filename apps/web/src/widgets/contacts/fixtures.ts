@@ -36,6 +36,7 @@ export const addressFixture: Address = {
 
 export const areaFixture: ServiceArea = {
   served: 'Тула и Тульская область',
+  promise: 'Тула и область — выезд в день обращения',
 };
 
 export const geoFixture: Geo = { lat: 54.193122, lng: 37.617348 };
@@ -82,6 +83,6 @@ export const addressEmpty: Address = {
   postalCode: '',
 };
 
-export const areaEmpty: ServiceArea = { served: '' };
+export const areaEmpty: ServiceArea = { served: '', promise: '' };
 
 export const geoEmpty: Geo = { lat: null, lng: null };

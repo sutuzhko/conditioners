@@ -56,7 +56,7 @@ describe('Блок контактов', () => {
   it('🔴 строку, которой нет в настройках, блок не рисует', () => {
     renderSection({
       contacts: { ...contactsFixture, hours: '' },
-      area: { served: areaFixture.served },
+      area: { served: areaFixture.served, promise: areaFixture.promise },
     });
 
     expect(screen.queryByText(t.hoursLabel)).not.toBeInTheDocument();

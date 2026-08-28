@@ -13,6 +13,18 @@ describe('Badge', () => {
     expect(screen.getByText('−12%')).toBeVisible();
   });
 
+  /* 🔴 По умолчанию плашка не переносится: «Класс 09», сломанный пополам,
+     читается как ошибка вёрстки. Но там, где текст приходит из настроек, длину
+     задаёт владелец, и плашка обязана переносить строку (ADR-126). */
+  it('плашка с текстом из настроек переносит строку, обычная — нет', () => {
+    const { container: plain } = render(<Badge>Тула и область — выезд в день обращения</Badge>);
+    const { container: wrapped } = render(
+      <Badge wrap>Тула и область — выезд в день обращения</Badge>,
+    );
+
+    expect(wrapped.firstElementChild?.className).not.toBe(plain.firstElementChild?.className);
+  });
+
   it('пробрасывает атрибуты доступности', () => {
     render(
       <Badge role="status" aria-label="Скидка двенадцать процентов">

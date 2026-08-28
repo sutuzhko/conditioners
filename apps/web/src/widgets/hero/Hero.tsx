@@ -7,7 +7,7 @@ import { Badge, ButtonLink, StatList } from '@/shared/ui';
 import { heroContent as t } from './content';
 import { HeroParticles } from './HeroParticles';
 import { HeroPicker } from './HeroPicker';
-import type { HeroStat, HeroWeather } from './model';
+import { HERO_STATS_MAX, type HeroStat, type HeroWeather } from './model';
 import styles from './Hero.module.css';
 
 export type HeroProps = {
@@ -19,7 +19,12 @@ export type HeroProps = {
   readonly products: readonly Product[];
   /** Цифры полосы преимуществ. По умолчанию полосы нет: выдумывать их нельзя. */
   readonly stats?: readonly HeroStat[] | undefined;
-  /** Плашка над заголовком, например география работ. Приходит из настроек. */
+  /**
+   * Плашка над заголовком: город и срок выезда. Приходит из настроек, и её
+   * длину задаёт владелец — поэтому плашка переносит строку, а перечисление
+   * городов области в неё не идёт вовсе (ADR-126): полный список живёт в
+   * контактах и в разметке зоны обслуживания.
+   */
   readonly note?: string | undefined;
   /**
    * Погода в городе. Запрос делает сервер страницы: чип из макета в прототипе
@@ -70,7 +75,7 @@ export function Hero({
       <div className={styles.inner}>
         <div className={styles.copy}>
           {note === undefined || note === '' ? null : (
-            <Badge variant="accent" className={styles.note}>
+            <Badge variant="accent" wrap className={styles.note}>
               <span className={styles.noteDot} aria-hidden="true" />
               {note}
             </Badge>
@@ -103,7 +108,10 @@ export function Hero({
             </div>
           ) : null}
 
-          <StatList items={stats} className={styles.stats} />
+          {/* Первые три цифры: четвёртая переносится во вторую строку и ломает
+              ритм экрана (ADR-126). Лишние не рисуются, но и не пропадают из
+              настроек — они остаются данными владельца. */}
+          <StatList items={stats.slice(0, HERO_STATS_MAX)} className={styles.stats} />
         </div>
 
         <HeroPicker products={products} leadHref={leadHref} now={now} />

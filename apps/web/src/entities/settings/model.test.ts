@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { SETTING_PLACEHOLDER } from './lib/readiness';
 import {
+  areaSchema,
   companySchema,
   contactsSchema,
   geoSchema,
@@ -249,5 +250,43 @@ describe('legalSchema', () => {
     const noBik = legalSchema.safeParse({ form: 'ООО', bankAccount: ACCOUNT });
     expect(noBik.success).toBe(false);
     expect(noBik.success === false && noBik.error.issues[0]?.path).toEqual(['bankBik']);
+  });
+});
+
+/**
+ * Зона обслуживания. Полей два, и они про разное: список городов работает на
+ * поиск, короткая строка — на посетителя первого экрана (ADR-126).
+ */
+describe('areaSchema', () => {
+  it('строка первого экрана хранится отдельно от списка городов', () => {
+    expect(
+      areaSchema.parse({
+        served: 'Тула и область: Щёкино, Новомосковск, Алексин',
+        promise: 'Тула и область — выезд в день обращения',
+      }),
+    ).toEqual({
+      served: 'Тула и область: Щёкино, Новомосковск, Алексин',
+      promise: 'Тула и область — выезд в день обращения',
+    });
+  });
+
+  /* 🔴 Группа заполняется постепенно, и настройки, сохранённые до появления
+     поля, обязаны читаться: иначе первый экран ломается не на новых данных, а
+     на старых. Пусто — плашки на экране просто нет. */
+  it('незаполненная строка первого экрана не ломает группу', () => {
+    expect(areaSchema.parse({ served: 'Тула и Тульская область' })).toEqual({
+      served: 'Тула и Тульская область',
+      promise: '',
+    });
+  });
+
+  it('строка капсулы ограничена по длине: это пометка, а не абзац', () => {
+    expect(areaSchema.safeParse({ promise: 'Тула'.repeat(30) }).success).toBe(false);
+  });
+
+  it('пробелы по краям снимаются: из формы они приходят вместе с текстом', () => {
+    expect(areaSchema.parse({ promise: '  Тула — выезд в день обращения  ' }).promise).toBe(
+      'Тула — выезд в день обращения',
+    );
   });
 });
