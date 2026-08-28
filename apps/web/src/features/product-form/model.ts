@@ -12,6 +12,12 @@
  */
 export type SpecPair = { readonly k: string; readonly v: string };
 
+/**
+ * Список моделей: адрес окна создания живёт под ним, и туда же окно
+ * возвращается, если возвращаться по истории некуда.
+ */
+export const CATALOG_PATH = '/admin/catalog';
+
 export type ProductFormValues = {
   readonly name: string;
   readonly badge: string;

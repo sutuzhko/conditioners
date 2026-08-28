@@ -2,11 +2,12 @@
 
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Checkbox, Input, Textarea, useConfirm } from '@/shared/ui';
+import { Button, Checkbox, Input, Textarea, useConfirm } from '@/shared/ui';
 import type { Confirm } from '@/shared/ui';
 
 import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/lib/groupSpecs';
 
+import { ProductFormSection, type ProductSurface } from './ProductFormSurface';
 import { SpecsEditor } from './SpecsEditor';
 import { productFormContent as texts } from './content';
 import type {
@@ -32,6 +33,8 @@ export interface ProductFormProps {
   readonly confirmRemove?: Confirm | undefined;
   /** Справочник характеристик: подсказки названий и типовые наборы (ADR-094). */
   readonly specDictionary?: SpecDictionary | undefined;
+  /** Своя карточка у каждой секции или только поля: см. `ProductSurface`. */
+  readonly surface?: ProductSurface | undefined;
 }
 
 /**
@@ -53,6 +56,7 @@ export function ProductForm({
   isNew = false,
   confirmRemove,
   specDictionary = EMPTY_SPEC_DICTIONARY,
+  surface = 'section',
 }: ProductFormProps) {
   /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
      для тестов, чтобы не открывать окно ради проверки удаления. */
@@ -119,8 +123,12 @@ export function ProductForm({
   };
 
   return (
-    <form className={styles.form} onSubmit={submit} noValidate>
-      <Card as="section" className={styles.section}>
+    <form
+      className={surface === 'bare' ? `${styles.form} ${styles.bareForm}` : styles.form}
+      onSubmit={submit}
+      noValidate
+    >
+      <ProductFormSection surface={surface}>
         <h2 className={styles.title}>{texts.sectionMain}</h2>
 
         <div className={styles.fields}>
@@ -190,18 +198,18 @@ export function ProductForm({
             onChange={(event) => set('featured', event.target.checked)}
           />
         </div>
-      </Card>
+      </ProductFormSection>
 
-      <Card as="section" className={styles.section}>
+      <ProductFormSection surface={surface}>
         <SpecsEditor
           specs={values.specs}
           disabled={busy}
           dictionary={specDictionary}
           onChange={(specs: readonly SpecPair[]) => set('specs', specs)}
         />
-      </Card>
+      </ProductFormSection>
 
-      <Card as="section" className={styles.section}>
+      <ProductFormSection surface={surface}>
         <h2 className={styles.title}>{texts.sectionExtra}</h2>
 
         <div className={styles.fields}>
@@ -242,9 +250,9 @@ export function ProductForm({
             onChange={(event) => set('link', event.target.value)}
           />
         </div>
-      </Card>
+      </ProductFormSection>
 
-      <Card as="section" className={styles.section}>
+      <ProductFormSection surface={surface}>
         <h2 className={styles.title}>{texts.sectionSeo}</h2>
 
         <div className={styles.fields}>
@@ -264,7 +272,7 @@ export function ProductForm({
             onChange={(event) => set('seoDescription', event.target.value)}
           />
         </div>
-      </Card>
+      </ProductFormSection>
 
       {message === '' ? null : (
         <p className={styles.error} role="alert">
