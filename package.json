@@ -46,6 +46,9 @@
       "eslint --max-warnings 0",
       "prettier --check"
     ],
+    "apps/web/src/**/*.{ts,tsx}": [
+      "pnpm --filter web exec vitest related --run"
+    ],
     "*.css": [
       "stylelint",
       "prettier --check"
