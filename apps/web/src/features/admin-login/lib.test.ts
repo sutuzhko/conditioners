@@ -1,7 +1,7 @@
 import { describe, expect, it, vi, afterEach } from 'vitest';
 
 import { adminLoginContent as texts } from './content';
-import { emptyLoginValues, postLogin, validateLoginValues } from './lib';
+import { emptyLoginValues, postLogin, safeRedirectTo, validateLoginValues } from './lib';
 
 describe('Вход в админку — проверка полей', () => {
   it('пустая форма даёт ошибку у обоих полей', () => {
@@ -75,5 +75,66 @@ describe('Вход в админку — разбор ответа сервер�
 
     expect(result).toEqual({ ok: false, message: texts.network });
     expect(texts.network).not.toBe(texts.failed);
+  });
+});
+
+describe('Вход в админку — адрес возврата', () => {
+  it('внутренний путь проходит как есть', () => {
+    expect(safeRedirectTo('/admin/leads')).toBe('/admin/leads');
+    expect(safeRedirectTo('/admin/orders?tab=new')).toBe('/admin/orders?tab=new');
+  });
+
+  it('запрос и якорь доезжают целиком: адрес возврата — это весь адрес', () => {
+    expect(safeRedirectTo('/admin/leads?status=new#top')).toBe('/admin/leads?status=new#top');
+  });
+
+  it('🔴 «//чужой-сайт» браузер считает абсолютным адресом — не пропускаем', () => {
+    expect(safeRedirectTo('//evil.example')).toBe('/admin');
+    expect(safeRedirectTo('//evil.example/admin')).toBe('/admin');
+  });
+
+  it('🔴 обратный слэш равносилен прямому: «/\\чужой-сайт» уводит с сайта', () => {
+    expect(new URL('/\\evil.example', 'https://site.ru').host).toBe('evil.example');
+
+    expect(safeRedirectTo('/\\evil.example')).toBe('/admin');
+    expect(safeRedirectTo('/\\/evil.example')).toBe('/admin');
+    expect(safeRedirectTo('/\\evil.example/admin')).toBe('/admin');
+  });
+
+  /* 🔴 Пробельные управляющие символы парсер выбрасывает до разбора, поэтому
+     «/⇥/злодей.example» превращается в «//злодей.example». Проверка строки
+     этого не видит — отсюда и разбор парсером. */
+  it.each([
+    ['табуляция', '/\t/evil.example'],
+    ['перевод строки', '/\n/evil.example'],
+    ['возврат каретки', '/\r/evil.example'],
+  ])('🔴 %s внутри пути собирает адрес, относительный протоколу', (_name, next) => {
+    expect(new URL(next, 'https://site.ru').host).toBe('evil.example');
+
+    expect(safeRedirectTo(next)).toBe('/admin');
+  });
+
+  it('одиночная табуляция чужого адреса не даёт — и путь остаётся своим', () => {
+    expect(safeRedirectTo('/\tevil.example')).toBe('/evil.example');
+  });
+
+  it('кодированный обратный слэш остаётся частью пути, а не вторым слэшем', () => {
+    expect(safeRedirectTo('/%5Cevil.example')).toBe('/%5Cevil.example');
+  });
+
+  it('внешний адрес и пустое значение уводят на свой раздел', () => {
+    expect(safeRedirectTo('https://evil.example')).toBe('/admin');
+    expect(safeRedirectTo('http://evil.example/admin')).toBe('/admin');
+    expect(safeRedirectTo('')).toBe('/admin');
+    expect(safeRedirectTo('/')).toBe('/admin');
+    expect(safeRedirectTo(undefined)).toBe('/admin');
+  });
+
+  /* Путь без ведущего слэша парсер приводит к своему корню — с сайта это не
+     уводит, поэтому и отбрасывать его незачем: наружу уходит уже нормализованный
+     адрес, а не сырая строка запроса. */
+  it('относительный путь нормализуется, а не отбрасывается', () => {
+    expect(safeRedirectTo('admin/leads')).toBe('/admin/leads');
+    expect(safeRedirectTo('/admin/./orders/../leads')).toBe('/admin/leads');
   });
 });

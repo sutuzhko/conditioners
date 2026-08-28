@@ -30,7 +30,7 @@ import {
   todayKey,
   weekRange,
 } from '@/shared/lib/calendar';
-import { getAdminSession } from '@/server/auth';
+import { getAdminSession, isOwner } from '@/server/auth';
 import { listInstallers } from '@/server/repo/admin-users';
 import { countOverdue, listOrdersRange, listRange } from '@/server/repo/crm';
 import { listRange as listBlocks } from '@/server/repo/day-blocks';
@@ -94,10 +94,11 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
   const today = todayKey(now);
   const view = parseCalendarView(viewParam);
 
-  /* 🔴 Наложение занятости команды доступно только владельцу: чужая занятость
-     монтажнику не видна (ADR-095), и переключатель ему не показывается. */
-  const canTeam = session.role === 'owner';
-  const team = canTeam && parseTeamFlag(teamParam);
+  /* 🔴 Право владельца — одно на весь экран: наложение занятости команды
+     (ADR-095, переключатель монтажнику не показывается), дела, заявки и
+     заготовка дела из заявки. Две проверки одного и того же разошлись бы. */
+  const owner = isOwner(session);
+  const team = owner && parseTeamFlag(teamParam);
 
   // день главнее месяца: пришли по ссылке на день — показываем его месяц
   const day = (dayParam === undefined ? null : parseDayKey(dayParam)) ?? today;
@@ -108,13 +109,18 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
   const range = rangeOf(view, month, day);
   const viewer = { role: session.role, userId: session.userId };
 
+  /* 🔴 Дела и заявки в календарь монтажника не попадают вовсе (CRM §6): у
+     `CrmEvent` исполнителя нет, а заявка везёт имя, телефон и адрес клиента.
+     Разграничение стоит в самих выборках — сюда роль приезжает `viewer`, и
+     обойти её, забыв условие на странице, нельзя. Заготовка из заявки закрыта
+     здесь: за `?lead=` идёт чтение по номеру, роли не знающее. */
   const [events, leads, orders, blocks, overdue, fromLead, installers, window] = await Promise.all([
-    listRange(range.from, range.to),
-    listCreatedBetween(range.from, range.to),
+    listRange(viewer, range.from, range.to),
+    listCreatedBetween(viewer, range.from, range.to),
     listOrdersRange(viewer, range.from, range.to),
     listBlocks(viewer, range.from, range.to),
-    countOverdue(dayRange(today).from),
-    leadParam === undefined ? Promise.resolve(null) : findById(leadParam),
+    countOverdue(viewer, dayRange(today).from),
+    leadParam === undefined || !owner ? Promise.resolve(null) : findById(leadParam),
     /* Список команды нужен только включённому наложению: без него это лишний
        запрос на каждое листание месяца. */
     team ? listInstallers(true) : Promise.resolve([]),
@@ -184,7 +190,7 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
             today={today}
             overdue={overdue}
             team={team}
-            canTeam={canTeam}
+            canTeam={owner}
           />
 
           {team && installers.length === 0 ? (

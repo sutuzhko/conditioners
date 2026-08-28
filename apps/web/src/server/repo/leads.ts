@@ -7,6 +7,7 @@
 import type { LeadStatus, Prisma } from '@prisma/client';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
+import type { Viewer } from '@/server/repo/day-blocks';
 import { parseLeadContext } from '@/entities/lead/lib/context';
 import type { LeadContext, LeadUpdate } from '@/entities/lead/model';
 import { pageWindow, type Page } from '@/shared/lib/paging';
@@ -141,8 +142,14 @@ export async function countByStatus(status?: LeadStatusApi): Promise<number> {
  *
  * Отдельно от `listByStatus`: календарю нужен месяц, а не весь список, и
  * тянуть в память все заявки за годы ради одной сетки незачем.
+ *
+ * 🔴 Обращения монтажнику закрыты целиком (CRM.md §6), поэтому в его календарь
+ * они не попадают вовсе — и запрос за ними не уходит: заявка везёт имя,
+ * телефон и тему, и отбрасывать её уже после выборки поздно.
  */
-export async function listCreatedBetween(from: Date, to: Date): Promise<LeadDto[]> {
+export async function listCreatedBetween(viewer: Viewer, from: Date, to: Date): Promise<LeadDto[]> {
+  if (viewer.role === 'installer') return [];
+
   const rows = await db.lead.findMany({
     where: { createdAt: { gte: from, lt: to } },
     orderBy: { createdAt: 'asc' },

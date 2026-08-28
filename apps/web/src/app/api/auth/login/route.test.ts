@@ -192,6 +192,32 @@ describe('POST /api/auth/login', () => {
     expect(cookieToken(response)).not.toBe(stale);
   });
 
+  it('🔴 вход с чужого сайта отклоняется: иначе владельца заводят в клон панели', async () => {
+    const response = await post(
+      loginRequest(
+        { login: 'owner', password: PASSWORD },
+        { origin: 'https://evil.example', host: 'example.test' },
+      ),
+    );
+
+    expect(response.status).toBe(403);
+    expect((await readBody(response)).error).toMatchObject({ code: 'forbidden' });
+    // до пароля дело не доходит вовсе, и cookie не ставится
+    expect(dbMock.adminUser.findUnique).not.toHaveBeenCalled();
+    expect(response.headers.get('set-cookie')).toBeNull();
+  });
+
+  it('свой origin проходит: обычный вход со стенда не ломается', async () => {
+    const response = await post(
+      loginRequest(
+        { login: 'owner', password: PASSWORD },
+        { origin: 'https://example.test', host: 'example.test' },
+      ),
+    );
+
+    expect(response.status).toBe(204);
+  });
+
   it('отключённый доступ с верным паролем — 403, сессия не создаётся', async () => {
     dbMock.adminUser.findUnique.mockResolvedValue({ ...OWNER_ROW, active: false });
 

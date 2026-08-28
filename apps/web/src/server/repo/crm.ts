@@ -146,8 +146,18 @@ async function recomputeOvertime(
   return overtimeMinutes(at ?? current.at, durationMin ?? current.durationMin, await workWindow());
 }
 
-/** Дела за промежуток — им заполняется сетка месяца. */
-export async function listRange(from: Date, to: Date): Promise<CrmEventDto[]> {
+/**
+ * Дела за промежуток — ими заполняется сетка календаря.
+ *
+ * 🔴 Дело — раздел владельца: у `CrmEvent` исполнителя нет, это график самого
+ * владельца с именами, телефонами и адресами клиентов, а монтажнику клиенты и
+ * обращения закрыты целиком (CRM.md §6). Поэтому у монтажника выборка не
+ * фильтруется, а не выполняется вовсе: чужое дело не должно покидать базу
+ * даже для того, чтобы быть там отброшенным (ADR-114).
+ */
+export async function listRange(viewer: Viewer, from: Date, to: Date): Promise<CrmEventDto[]> {
+  if (viewer.role === 'installer') return [];
+
   const rows = await db.crmEvent.findMany({
     where: { at: { gte: from, lt: to } },
     orderBy: { at: 'asc' },
@@ -157,7 +167,11 @@ export async function listRange(from: Date, to: Date): Promise<CrmEventDto[]> {
 }
 
 /**
- * Ближайшие незакрытые дела — список рядом с календарём и на главной панели.
+ * Ближайшие незакрытые дела — список на главной панели.
+ *
+ * 🔴 Как и `listRange`, это данные владельца: сводка вызывает её из раздела,
+ * закрытого `requireOwnerPage`. Появится второй вызывающий — он обязан
+ * проверить роль до вызова или получить `Viewer`, как соседи по файлу.
  *
  * Просроченные попадают сюда наравне с будущими: дело, до которого не дошли
  * руки, обязано мозолить глаза, а не исчезать вместе со вчерашним днём.
@@ -174,8 +188,14 @@ export async function listUpcoming(from: Date, limit: number): Promise<CrmEventD
   return rows.map(toDto);
 }
 
-/** Сколько дел просрочено — цифра рядом с заголовком, чтобы её нельзя было не заметить. */
-export async function countOverdue(before: Date): Promise<number> {
+/**
+ * Сколько дел просрочено — цифра рядом с заголовком, чтобы её нельзя было не
+ * заметить. У монтажника дел нет вовсе, поэтому и просрочки нет: счётчик
+ * чужих незакрытых дел — та же закрытая от него сводка, только числом.
+ */
+export async function countOverdue(viewer: Viewer, before: Date): Promise<number> {
+  if (viewer.role === 'installer') return 0;
+
   return db.crmEvent.count({ where: { status: 'PLANNED', at: { lt: before } } });
 }
 

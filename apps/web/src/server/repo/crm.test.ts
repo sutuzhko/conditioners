@@ -5,16 +5,20 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
    клиента: наряд выбирается с `select` и со связями, а тип модели Prisma
    требует все поля таблицы — заготовка из двадцати полей ради двух проверок
    ничего не объясняла бы. */
-const mocks = vi.hoisted(() => ({ findMany: vi.fn() }));
+const mocks = vi.hoisted(() => ({
+  findMany: vi.fn(),
+  eventFindMany: vi.fn(),
+  eventCount: vi.fn(),
+}));
 
 vi.mock('@/server/db', () => ({
   db: {
-    crmEvent: { findMany: vi.fn() },
+    crmEvent: { findMany: mocks.eventFindMany, count: mocks.eventCount },
     order: { findMany: mocks.findMany },
   },
 }));
 
-import { listOrdersRange } from '@/server/repo/crm';
+import { countOverdue, listOrdersRange, listRange } from '@/server/repo/crm';
 
 type FindManyArgs = {
   readonly where?: Record<string, unknown>;
@@ -43,9 +47,14 @@ const row = {
 const from = new Date('2026-08-23T21:00:00.000Z');
 const to = new Date('2026-08-24T21:00:00.000Z');
 
+const OWNER = { role: 'owner', userId: 'u1' } as const;
+const INSTALLER = { role: 'installer', userId: 'u2' } as const;
+
 beforeEach(() => {
   vi.clearAllMocks();
   mocks.findMany.mockResolvedValue([row]);
+  mocks.eventFindMany.mockResolvedValue([]);
+  mocks.eventCount.mockResolvedValue(3);
 });
 
 describe('наряды в календаре', () => {
@@ -111,5 +120,51 @@ describe('наряды в календаре', () => {
 
     expect(order?.installerId).toBeNull();
     expect(order?.installerName).toBeNull();
+  });
+});
+
+describe('дела в календаре', () => {
+  it('🔴 монтажнику дел не отдаётся вовсе — и запрос за ними не уходит', async () => {
+    await expect(listRange(INSTALLER, from, to)).resolves.toEqual([]);
+
+    expect(mocks.eventFindMany).not.toHaveBeenCalled();
+  });
+
+  it('владелец получает дела промежутка как раньше', async () => {
+    mocks.eventFindMany.mockResolvedValue([
+      {
+        id: 'e1',
+        kind: 'CALL',
+        status: 'PLANNED',
+        at: new Date('2026-08-24T07:00:00.000Z'),
+        durationMin: 30,
+        overtimeMin: 0,
+        clientName: 'Ирина Соколова',
+        clientPhone: '+7 (910) 155-24-68',
+        address: 'Тула, Первомайская, 12',
+        note: 'перезвонить после обеда',
+        leadId: null,
+      },
+    ]);
+
+    const events = await listRange(OWNER, from, to);
+
+    expect(events).toHaveLength(1);
+    expect(events[0]).toMatchObject({ id: 'e1', kind: 'call', clientName: 'Ирина Соколова' });
+    expect(mocks.eventFindMany.mock.calls[0]?.[0]?.where).toMatchObject({
+      at: { gte: from, lt: to },
+    });
+  });
+
+  it('🔴 просрочка чужих дел монтажнику не считается: у него их нет', async () => {
+    await expect(countOverdue(INSTALLER, from)).resolves.toBe(0);
+
+    expect(mocks.eventCount).not.toHaveBeenCalled();
+  });
+
+  it('владельцу просрочка считается по-прежнему', async () => {
+    await expect(countOverdue(OWNER, from)).resolves.toBe(3);
+
+    expect(mocks.eventCount).toHaveBeenCalled();
   });
 });

@@ -5,7 +5,7 @@
  */
 export { LoginForm, type LoginFormProps } from './LoginForm';
 export { adminLoginContent } from './content';
-export { emptyLoginValues, postLogin, validateLoginValues } from './lib';
+export { emptyLoginValues, postLogin, safeRedirectTo, validateLoginValues } from './lib';
 export {
   loginSchema,
   type LoginFieldErrors,

@@ -12,7 +12,7 @@ import {
   login as authenticate,
   sessionCookieOptions,
 } from '@/server/auth';
-import { apiError, readJson, validationError, withRoute } from '@/server/http';
+import { apiError, readJson, validationError, withSessionRoute } from '@/server/http';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,7 +23,7 @@ const schema = z
   })
   .strict();
 
-export const POST = withRoute(async (request) => {
+export const POST = withSessionRoute(async (request) => {
   const parsed = schema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
 

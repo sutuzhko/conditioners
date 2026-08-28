@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { LoginForm } from '@/features/admin-login';
+import { LoginForm, safeRedirectTo } from '@/features/admin-login';
 
 import styles from './page.module.css';
 
@@ -25,11 +25,12 @@ export default async function AdminLoginPage({
 }) {
   const { next } = await searchParams;
 
-  /* 🔴 Адрес возврата приходит из запроса, то есть от кого угодно. Берём
-     только внутренние пути: «//злодей.example» браузер считает абсолютным
-     адресом, и открытый редирект уводил бы с сайта после успешного входа. */
-  const redirectTo =
-    next !== undefined && next.startsWith('/') && !next.startsWith('//') ? next : '/admin';
+  /* 🔴 Адрес возврата приходит из запроса, то есть от кого угодно. Разбор —
+     чистой функцией рядом с формой: она проверяет значение тем же парсером
+     URL, который его потом исполнит, и отдаёт нормализованный путь. Перечислять
+     запрещённые написания строкой бесполезно — парсер чистит адрес до разбора,
+     и проверка строки всегда отстаёт на одно написание. */
+  const redirectTo = safeRedirectTo(next);
 
   return (
     <div className={styles.page}>

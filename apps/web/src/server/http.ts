@@ -166,13 +166,15 @@ function isCrossSiteMutation(request: NextRequest): boolean {
   return new URL(origin).host !== host;
 }
 
+const CROSS_SITE_REFUSAL = 'Запрос пришёл с чужого сайта и отклонён';
+
 /** Маршрут админки: без сессии — 401, исключения не утекают наружу стектрейсом. */
 export function withAdmin<Ctx>(
   handler: (request: NextRequest, context: Ctx, session: AdminSession) => Promise<Response>,
 ): RouteHandler<Ctx> {
   return async (request: NextRequest, context: Ctx): Promise<Response> => {
     if (isCrossSiteMutation(request)) {
-      return apiError('forbidden', 'Запрос пришёл с чужого сайта и отклонён');
+      return apiError('forbidden', CROSS_SITE_REFUSAL);
     }
     const session = await getAdminSession();
     if (session === null) return unauthorized();
@@ -215,6 +217,26 @@ export function withRoute<Ctx>(
 }
 
 /**
+ * Маршрут, который сам ставит или гасит сессию: вход и выход.
+ *
+ * 🔴 Сессии он не требует — и именно поэтому нуждается в проверке
+ * кросс-сайтовости не меньше, чем закрытые разделы. `SameSite=Lax` здесь не
+ * защищает: cookie для запроса не нужна, она приходит ответом. Без проверки
+ * чужой сайт выкидывает владельца из панели или заводит его в подставную
+ * учётную запись, и дальше он правит цены не у себя.
+ */
+export function withSessionRoute<Ctx>(
+  handler: (request: NextRequest, context: Ctx) => Promise<Response>,
+): RouteHandler<Ctx> {
+  return withRoute(async (request, context: Ctx) => {
+    if (isCrossSiteMutation(request)) {
+      return apiError('forbidden', CROSS_SITE_REFUSAL);
+    }
+    return handler(request, context);
+  });
+}
+
+/**
  * Ограничение частоты обращений к публичным формам (docs/TECH_DECISIONS §10).
  *
  * Сам счётчик живёт в слое доступа к данным (`repo/rate-limit`), здесь —
@@ -231,6 +253,15 @@ export const LEAD_RATE_LIMIT: RateLimitRule = { limit: 5, windowMs: 10 * 60_000 
 
 /** Отзыв человек пишет один раз, частые повторы с одного адреса — почти всегда бот. */
 export const REVIEW_RATE_LIMIT: RateLimitRule = { limit: 3, windowMs: 60 * 60_000 };
+
+/**
+ * Смена своего пароля: те же десять попыток за четверть часа, что и у входа.
+ *
+ * 🔴 Текущий пароль здесь проверяется ровно так же, как на входе, — значит и
+ * перебирается так же, только уже из-под открытой сессии. Считать его попытки
+ * мягче, чем попытки входа, было бы разницей без причины.
+ */
+export const PASSWORD_CHANGE_RATE_LIMIT: RateLimitRule = { limit: 10, windowMs: 15 * 60_000 };
 
 /* Общая реализация переехала в server/client-ip (аудит: две копии разошлись
    в порядке доверия заголовкам); реэкспорт сохраняет привычный адрес. */
