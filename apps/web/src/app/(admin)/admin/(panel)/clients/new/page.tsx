@@ -36,7 +36,7 @@ export default async function AdminClientNewPage() {
         <p className={styles.lead}>{texts.addHint}</p>
       </header>
 
-      <Card as="section">
+      <Card>
         <ClientForm surface="bare" />
       </Card>
     </div>

@@ -20,18 +20,6 @@ export const CLIENTS_PATH = '/admin/clients';
  */
 export const CLIENT_NEW_PATH = '/admin/clients/new';
 
-/**
- * Во что одета форма.
- *
- * `section` — сама себе карточка с заголовком: так она стоит в карточке
- * клиента. `bare` — только поля: рамку и заголовок даёт тот, кто её вставил,
- * будь то окно создания или страница за ним.
- *
- * 🔴 Форма при этом одна и та же: две формы для одного действия разошлись бы
- * на первой правке, а карточка внутри окна была бы панелью в панели.
- */
-export type ClientSurface = 'section' | 'bare';
-
 /** Ответ действия: успех либо готовый к показу текст ошибки. */
 export type ClientResult =
   { readonly ok: true } | { readonly ok: false; readonly message: string; readonly field?: string };

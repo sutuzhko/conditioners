@@ -6,7 +6,6 @@ export {
   type StockCreation,
 } from './StockCreateModal';
 export { StockFilters, type StockFiltersProps } from './StockFilters';
-export { StockFormSurface, type StockSurface } from './StockFormSurface';
 export { StockItemForm, type StockItemFormProps } from './StockItemForm';
 export { StockJournal, type StockJournalProps } from './StockJournal';
 export { StockMoveForm, type StockMoveFormProps } from './StockMoveForm';

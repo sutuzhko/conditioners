@@ -6,28 +6,6 @@
   gap: 12px;
 }
 
-.head {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-}
-
-.title {
-  margin: 0;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  font-weight: 700;
-}
-
-.hint {
-  margin: -6px 0 0;
-  max-width: 64ch;
-  color: var(--muted);
-  font-size: var(--fs-caption);
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

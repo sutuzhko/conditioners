@@ -37,7 +37,7 @@ export default async function AdminStockMovePage({ searchParams }: PageProps) {
         <p className={styles.lead}>{texts.moveHint}</p>
       </header>
 
-      <Card as="section">
+      <Card>
         <StockMoveForm items={items} zones={zones} initial={initial} surface="bare" />
       </Card>
     </div>

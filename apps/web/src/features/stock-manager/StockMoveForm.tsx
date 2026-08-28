@@ -3,10 +3,9 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 
-import { Button, Card, Input, Select, Textarea } from '@/shared/ui';
+import { Button, FormSection, Input, Select, Textarea, type FormSurface } from '@/shared/ui';
 
 import { STOCK_MOVE_TITLES, STOCK_UNIT_TITLES, stockManagerContent as texts } from './content';
-import { StockFormSurface, type StockSurface } from './StockFormSurface';
 import { stockApi } from './lib';
 import {
   STOCK_SECTION_MOVES,
@@ -37,8 +36,8 @@ export interface StockMoveFormProps {
   readonly initial?: StockMoveDraft | undefined;
   /** Ставить курсор в количество: всё остальное пришло из адреса. */
   readonly autoFocusQty?: boolean | undefined;
-  /** Своя карточка с заголовком или только поля: см. `StockSurface`. */
-  readonly surface?: StockSurface | undefined;
+  /** Своя карточка с заголовком или только поля: см. `FormSurface`. */
+  readonly surface?: FormSurface | undefined;
 }
 
 /**
@@ -58,7 +57,7 @@ export function StockMoveForm({
   onSaved,
   initial,
   autoFocusQty = false,
-  surface = 'section',
+  surface = 'card',
 }: StockMoveFormProps) {
   const router = useRouter();
   const open = zones.filter((zone) => !zone.archived);
@@ -142,22 +141,26 @@ export function StockMoveForm({
     else setFieldError({ field: result.field, message: result.message });
   };
 
-  if (open.length === 0) return <Note text={texts.moveNoZones} />;
-  if (items.length === 0) return <Note text={texts.moveNoItems} />;
+  /* Без карточки форма стоит внутри окна или страницы движения, и название
+     уже написано над ней. Второй раз оно не показывается, но остаётся именем
+     раздела: безымянная секция для читалки не существует. */
+  const titleHidden = surface === 'bare';
+
+  if (open.length === 0) return <Note surface={surface} text={texts.moveNoZones} />;
+  if (items.length === 0) return <Note surface={surface} text={texts.moveNoItems} />;
 
   const zoneOptions = open.map((zone) => ({ value: zone.id, label: zone.name }));
   const unitSuffix = selected === undefined ? '' : `, ${STOCK_UNIT_TITLES[selected.unit]}`;
 
   return (
-    <StockFormSurface surface={surface}>
+    <FormSection
+      surface={surface}
+      title={texts.moveTitle}
+      hint={texts.moveHint}
+      titleHidden={titleHidden}
+      gap="sm"
+    >
       <form className={styles.form} onSubmit={submit} noValidate>
-        {surface === 'section' ? (
-          <>
-            <h2 className={styles.title}>{texts.moveTitle}</h2>
-            <p className={styles.hint}>{texts.moveHint}</p>
-          </>
-        ) : null}
-
         <div className={styles.grid}>
           <Select
             label={texts.moveKind}
@@ -272,16 +275,20 @@ export function StockMoveForm({
           </p>
         ) : null}
       </form>
-    </StockFormSurface>
+    </FormSection>
   );
 }
 
 /** Проводить движение не из чего: раздел объясняет, чего не хватает. */
-function Note({ text }: { readonly text: string }) {
+function Note({ surface, text }: { readonly surface: FormSurface; readonly text: string }) {
   return (
-    <Card as="section">
-      <h2 className={styles.title}>{texts.moveTitle}</h2>
+    <FormSection
+      surface={surface}
+      title={texts.moveTitle}
+      titleHidden={surface === 'bare'}
+      gap="sm"
+    >
       <p className={styles.empty}>{text}</p>
-    </Card>
+    </FormSection>
   );
 }

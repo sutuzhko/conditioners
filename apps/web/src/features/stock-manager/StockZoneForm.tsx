@@ -2,10 +2,9 @@
 
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Input, Select } from '@/shared/ui';
+import { Button, FormSection, Input, Select, type FormSurface } from '@/shared/ui';
 
 import { STOCK_ZONE_KIND_TITLES, stockManagerContent as texts } from './content';
-import type { StockSurface } from './StockFormSurface';
 import { stockApi } from './lib';
 import {
   STOCK_ZONE_KINDS,
@@ -34,8 +33,8 @@ export interface StockZoneFormProps {
   readonly people?: readonly StockZonePerson[] | undefined;
   readonly onSaved?: (() => void) | undefined;
   readonly onCancel?: (() => void) | undefined;
-  /** Своя карточка с заголовком или только поля: см. `StockSurface`. */
-  readonly surface?: StockSurface | undefined;
+  /** Своя карточка с заголовком или только поля: см. `FormSurface`. */
+  readonly surface?: FormSurface | undefined;
 }
 
 /**
@@ -53,7 +52,7 @@ export function StockZoneForm({
   people = [],
   onSaved,
   onCancel,
-  surface = 'section',
+  surface = 'card',
 }: StockZoneFormProps) {
   const [draft, setDraft] = useState<StockZoneDraft>(initial);
   const [status, setStatus] = useState<StockStatus>('idle');
@@ -111,16 +110,26 @@ export function StockZoneForm({
     else setFieldError({ field: result.field, message: result.message });
   };
 
-  const form = (
-    <>
-      <form className={styles.form} onSubmit={submit} noValidate>
-        {surface === 'section' ? (
-          <>
-            <h3 className={styles.title}>{editing ? texts.zoneEditTitle : texts.zoneAddTitle}</h3>
-            {editing ? null : <p className={styles.hint}>{texts.zoneAddHint}</p>}
-          </>
-        ) : null}
+  /* Без карточки форма стоит внутри окна или страницы заведения, и название
+     уже написано над ней. Второй раз оно не показывается, но остаётся именем
+     раздела: безымянная секция для читалки не существует. */
+  const titleHidden = surface === 'bare';
 
+  return (
+    /* 🔴 Третий уровень и мягкая карточка: правка зоны раскрывается прямо в
+       строке списка, под его собственным `h2`, — заголовок раздела обязан
+       уйти ниже (инвариант 4), а мягкая карточка отделяет форму от соседних
+       зон. Окно рамку даёт само. */
+    <FormSection
+      surface={surface}
+      tone="soft"
+      headingLevel={3}
+      title={editing ? texts.zoneEditTitle : texts.zoneAddTitle}
+      hint={editing ? undefined : texts.zoneAddHint}
+      titleHidden={titleHidden}
+      gap="sm"
+    >
+      <form className={styles.form} onSubmit={submit} noValidate>
         <div className={styles.grid}>
           <Select
             label={texts.zoneKind}
@@ -199,17 +208,7 @@ export function StockZoneForm({
           </p>
         ) : null}
       </form>
-    </>
-  );
-
-  /* Правка зоны раскрывается прямо в строке списка — мягкая карточка отделяет
-     форму от соседних зон; окно рамку даёт само. */
-  if (surface === 'bare') return form;
-
-  return (
-    <Card as="section" variant="soft">
-      {form}
-    </Card>
+    </FormSection>
   );
 }
 

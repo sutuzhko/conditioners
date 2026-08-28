@@ -10,7 +10,7 @@ export { OrderPhotos, type OrderPhotosProps } from './OrderPhotos';
 export { OrderResultForm, type OrderResultFormProps } from './OrderResultForm';
 export { OrderWorkTabs, type OrderWorkTabsProps } from './OrderWorkTabs';
 export { OrderFilters, type OrderFiltersProps } from './OrderFilters';
-export { OrderForm, type OrderFormProps, type OrderFormSurface } from './OrderForm';
+export { OrderForm, type OrderFormProps } from './OrderForm';
 export { OrderInstallerView, type OrderInstallerViewProps } from './OrderInstallerView';
 export { OrderList, type OrderListProps } from './OrderList';
 export { OrderUnits, type OrderUnitsProps } from './OrderUnits';

@@ -35,7 +35,7 @@ export default async function AdminStockItemNewPage() {
         <p className={styles.lead}>{texts.itemAddHint}</p>
       </header>
 
-      <Card as="section">
+      <Card>
         <StockItemForm products={products} surface="bare" />
       </Card>
     </div>

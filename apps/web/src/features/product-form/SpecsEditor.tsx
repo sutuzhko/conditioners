@@ -3,7 +3,7 @@
 import { useId } from 'react';
 
 import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/lib/groupSpecs';
-import { Button, Input, Select } from '@/shared/ui';
+import { Button, Input, Select, type FormSectionLevel } from '@/shared/ui';
 
 import { productFormContent as texts } from './content';
 import type { SpecPair } from './model';
@@ -21,6 +21,12 @@ export interface SpecsEditorProps {
    * характеристика заводится ровно как раньше (инвариант 6).
    */
   readonly dictionary?: SpecDictionary | undefined;
+  /**
+   * Вес легенды: она стоит вместо заголовка раздела и обязана весить столько
+   * же, сколько соседние заголовки, — иначе внутри окна «Характеристики»
+   * кричат громче «Основного» (см. `FormSectionLevel`).
+   */
+  readonly titleLevel?: FormSectionLevel | undefined;
 }
 
 /**
@@ -36,6 +42,7 @@ export function SpecsEditor({
   disabled,
   onChange,
   dictionary = EMPTY_SPEC_DICTIONARY,
+  titleLevel = 2,
 }: SpecsEditorProps) {
   const listId = useId();
 
@@ -69,7 +76,9 @@ export function SpecsEditor({
 
   return (
     <fieldset className={styles.specs} disabled={disabled}>
-      <legend className={styles.legend}>{texts.sectionSpecs}</legend>
+      <legend className={titleLevel === 3 ? `${styles.legend} ${styles.legendSub}` : styles.legend}>
+        {texts.sectionSpecs}
+      </legend>
       <p className={styles.hint}>{texts.specsHint}</p>
 
       {specs.length === 0 ? <p className={styles.empty}>{texts.specsEmpty}</p> : null}

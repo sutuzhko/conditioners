@@ -3,8 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Input, PhoneInput, Textarea, useConfirm } from '@/shared/ui';
-import type { Confirm } from '@/shared/ui';
+import { Button, FormSection, Input, PhoneInput, Textarea, useConfirm } from '@/shared/ui';
+import type { Confirm, FormSurface } from '@/shared/ui';
 
 import { clientManagerContent as texts } from './content';
 import { clientApi } from './lib';
@@ -14,7 +14,6 @@ import {
   type ClientApi,
   type ClientDraft,
   type ClientStatus,
-  type ClientSurface,
 } from './model';
 import styles from './ClientForm.module.css';
 
@@ -32,8 +31,8 @@ export interface ClientFormProps {
   /** Подтверждение выведено пропом: тесты и истории не зовут окно браузера. */
   /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
   readonly confirmRemove?: Confirm | undefined;
-  /** Своя карточка с заголовком или только поля: см. `ClientSurface`. */
-  readonly surface?: ClientSurface | undefined;
+  /** Своя карточка с заголовком или только поля: см. `FormSurface`. */
+  readonly surface?: FormSurface | undefined;
 }
 
 /**
@@ -51,7 +50,7 @@ export function ClientForm({
   onSaved,
   removable = false,
   confirmRemove,
-  surface = 'section',
+  surface = 'card',
 }: ClientFormProps) {
   /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
      для тестов, чтобы не открывать окно ради проверки удаления. */
@@ -125,18 +124,15 @@ export function ClientForm({
     setMessage(result.message);
   };
 
-  const form = (
-    <>
-      <form className={styles.form} onSubmit={submit} noValidate>
-        {/* Заголовок и пояснение даёт окно (или заголовок страницы) — второй
-            раз повторять их внутри формы незачем. */}
-        {surface === 'section' ? (
-          <>
-            <h2 className={styles.title}>{title}</h2>
-            <p className={styles.hint}>{hint}</p>
-          </>
-        ) : null}
+  /* Без карточки форма стоит внутри окна или страницы создания, и название
+     уже написано над ней — окном или заголовком страницы. Второй раз оно не
+     показывается, но остаётся именем раздела: безымянная секция для читалки
+     не существует. */
+  const titleHidden = surface === 'bare';
 
+  return (
+    <FormSection surface={surface} title={title} hint={hint} titleHidden={titleHidden} gap="sm">
+      <form className={styles.form} onSubmit={submit} noValidate>
         <div className={styles.grid}>
           <Input
             label={texts.name}
@@ -210,12 +206,8 @@ export function ClientForm({
       </form>
 
       {dialog}
-    </>
+    </FormSection>
   );
-
-  if (surface === 'bare') return form;
-
-  return <Card as="section">{form}</Card>;
 }
 
 function idleLabel(editing: boolean): string {

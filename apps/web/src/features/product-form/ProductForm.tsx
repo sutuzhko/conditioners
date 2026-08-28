@@ -2,12 +2,11 @@
 
 import { useState, type FormEvent } from 'react';
 
-import { Button, Checkbox, Input, Textarea, useConfirm } from '@/shared/ui';
-import type { Confirm } from '@/shared/ui';
+import { Button, Checkbox, FormSection, Input, Textarea, useConfirm } from '@/shared/ui';
+import type { Confirm, FormSectionLevel, FormSurface } from '@/shared/ui';
 
 import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/lib/groupSpecs';
 
-import { ProductFormSection, type ProductSurface } from './ProductFormSurface';
 import { SpecsEditor } from './SpecsEditor';
 import { productFormContent as texts } from './content';
 import type {
@@ -33,8 +32,10 @@ export interface ProductFormProps {
   readonly confirmRemove?: Confirm | undefined;
   /** Справочник характеристик: подсказки названий и типовые наборы (ADR-094). */
   readonly specDictionary?: SpecDictionary | undefined;
-  /** Своя карточка у каждой секции или только поля: см. `ProductSurface`. */
-  readonly surface?: ProductSurface | undefined;
+  /** Своя карточка у каждого раздела или только поля: см. `FormSurface`. */
+  readonly surface?: FormSurface | undefined;
+  /** Уровень заголовков разделов: на странице 2, внутри окна 3. */
+  readonly headingLevel?: FormSectionLevel | undefined;
 }
 
 /**
@@ -56,7 +57,8 @@ export function ProductForm({
   isNew = false,
   confirmRemove,
   specDictionary = EMPTY_SPEC_DICTIONARY,
-  surface = 'section',
+  surface = 'card',
+  headingLevel = 2,
 }: ProductFormProps) {
   /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
      для тестов, чтобы не открывать окно ради проверки удаления. */
@@ -128,9 +130,7 @@ export function ProductForm({
       onSubmit={submit}
       noValidate
     >
-      <ProductFormSection surface={surface}>
-        <h2 className={styles.title}>{texts.sectionMain}</h2>
-
+      <FormSection surface={surface} headingLevel={headingLevel} title={texts.sectionMain}>
         <div className={styles.fields}>
           <Input
             label={texts.name}
@@ -198,20 +198,27 @@ export function ProductForm({
             onChange={(event) => set('featured', event.target.checked)}
           />
         </div>
-      </ProductFormSection>
+      </FormSection>
 
-      <ProductFormSection surface={surface}>
+      {/* Заголовок здесь рисует сам редактор — легендой набора полей, а не
+          вторым заголовком над ней. Разделу он всё равно нужен именем:
+          безымянная секция для читалки не существует. */}
+      <FormSection
+        surface={surface}
+        headingLevel={headingLevel}
+        title={texts.sectionSpecs}
+        titleHidden
+      >
         <SpecsEditor
           specs={values.specs}
           disabled={busy}
           dictionary={specDictionary}
+          titleLevel={headingLevel}
           onChange={(specs: readonly SpecPair[]) => set('specs', specs)}
         />
-      </ProductFormSection>
+      </FormSection>
 
-      <ProductFormSection surface={surface}>
-        <h2 className={styles.title}>{texts.sectionExtra}</h2>
-
+      <FormSection surface={surface} headingLevel={headingLevel} title={texts.sectionExtra}>
         <div className={styles.fields}>
           <Input
             label={texts.brand}
@@ -250,11 +257,9 @@ export function ProductForm({
             onChange={(event) => set('link', event.target.value)}
           />
         </div>
-      </ProductFormSection>
+      </FormSection>
 
-      <ProductFormSection surface={surface}>
-        <h2 className={styles.title}>{texts.sectionSeo}</h2>
-
+      <FormSection surface={surface} headingLevel={headingLevel} title={texts.sectionSeo}>
         <div className={styles.fields}>
           <Input
             label={texts.seoTitle}
@@ -272,7 +277,7 @@ export function ProductForm({
             onChange={(event) => set('seoDescription', event.target.value)}
           />
         </div>
-      </ProductFormSection>
+      </FormSection>
 
       {message === '' ? null : (
         <p className={styles.error} role="alert">

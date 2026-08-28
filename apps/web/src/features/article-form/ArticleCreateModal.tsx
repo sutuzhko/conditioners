@@ -60,11 +60,14 @@ export function ArticleCreateModal({
       confirmText={texts.createConfirm}
     >
       <div onChange={() => setDirty(true)}>
+        {/* Разделы формы уходят на третий уровень: второй занят названием
+            окна, и заголовки без пропусков — инвариант 4. */}
         <ArticleForm
           values={emptyArticleValues}
           isNew
           save={save}
           surface="bare"
+          headingLevel={3}
           {...(renderPreview === undefined ? {} : { renderPreview })}
           onDone={() => {
             /* Сохранили — окно уходит само и просит обновить список: звать

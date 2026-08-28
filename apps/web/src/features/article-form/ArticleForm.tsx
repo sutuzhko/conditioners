@@ -2,10 +2,9 @@
 
 import { useState, type FormEvent, type ReactNode } from 'react';
 
-import { Button, Checkbox, Input, Textarea, useConfirm } from '@/shared/ui';
-import type { Confirm } from '@/shared/ui';
+import { Button, Checkbox, FormSection, Input, Textarea, useConfirm } from '@/shared/ui';
+import type { Confirm, FormSectionLevel, FormSurface } from '@/shared/ui';
 
-import { ArticleFormSection, type ArticleSurface } from './ArticleFormSection';
 import { articleFormContent as texts } from './content';
 import type { ArticleDelete, ArticleFormStatus, ArticleFormValues, ArticleSave } from './model';
 import styles from './ArticleForm.module.css';
@@ -26,8 +25,10 @@ export interface ArticleFormProps {
   readonly renderPreview?: ((body: string) => ReactNode) | undefined;
   /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
   readonly confirmRemove?: Confirm | undefined;
-  /** Свои карточки с заголовками или только поля: см. `ArticleSurface`. */
-  readonly surface?: ArticleSurface | undefined;
+  /** Свои карточки с заголовками или только поля: см. `FormSurface`. */
+  readonly surface?: FormSurface | undefined;
+  /** Уровень заголовков разделов: на странице 2, внутри окна 3. */
+  readonly headingLevel?: FormSectionLevel | undefined;
 }
 
 /** Форма статьи базы знаний. */
@@ -39,7 +40,8 @@ export function ArticleForm({
   isNew = false,
   renderPreview,
   confirmRemove,
-  surface = 'section',
+  surface = 'card',
+  headingLevel = 2,
 }: ArticleFormProps) {
   /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
      для тестов, чтобы не открывать окно ради проверки удаления. */
@@ -110,7 +112,7 @@ export function ArticleForm({
       onSubmit={submit}
       noValidate
     >
-      <ArticleFormSection surface={surface} title={texts.sectionMain}>
+      <FormSection surface={surface} headingLevel={headingLevel} title={texts.sectionMain}>
         <div className={styles.fields}>
           <Input
             label={texts.title}
@@ -168,9 +170,9 @@ export function ArticleForm({
             onChange={(event) => set('published', event.target.checked)}
           />
         </div>
-      </ArticleFormSection>
+      </FormSection>
 
-      <ArticleFormSection surface={surface} title={texts.sectionBody}>
+      <FormSection surface={surface} headingLevel={headingLevel} title={texts.sectionBody}>
         <div className={styles.editor}>
           <Textarea
             label={texts.body}
@@ -197,9 +199,9 @@ export function ArticleForm({
             </section>
           )}
         </div>
-      </ArticleFormSection>
+      </FormSection>
 
-      <ArticleFormSection surface={surface} title={texts.sectionSeo}>
+      <FormSection surface={surface} headingLevel={headingLevel} title={texts.sectionSeo}>
         <div className={styles.fields}>
           <Input
             label={texts.slug}
@@ -226,7 +228,7 @@ export function ArticleForm({
             onChange={(event) => set('seoDescription', event.target.value)}
           />
         </div>
-      </ArticleFormSection>
+      </FormSection>
 
       {message === '' ? null : (
         <p className={styles.error} role="alert">

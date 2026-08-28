@@ -60,7 +60,7 @@ export function StaffCreateModal({ api }: StaffCreateModalProps) {
           выбор человека пропадал молча. Проверено в браузере на выборе
           оформления монтажника (ADR-144). */}
       <div onChange={() => setDirty(true)}>
-        <StaffCreateForm api={api} onCreated={done} />
+        <StaffCreateForm api={api} surface="bare" onCreated={done} />
       </div>
     </RouteModal>
   );

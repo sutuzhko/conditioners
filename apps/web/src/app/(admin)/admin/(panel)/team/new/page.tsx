@@ -36,8 +36,8 @@ export default async function AdminTeamNewPage() {
         <p className={styles.lead}>{texts.addHint}</p>
       </header>
 
-      <Card as="section">
-        <StaffCreateForm />
+      <Card>
+        <StaffCreateForm surface="bare" />
       </Card>
     </div>
   );

@@ -20,7 +20,6 @@ export {
   type ClientLead,
   type ClientPage,
   type ClientResult,
-  type ClientSurface,
   type ClientUnitApi,
   type ClientUnitCard,
   type ClientUnitDraft,

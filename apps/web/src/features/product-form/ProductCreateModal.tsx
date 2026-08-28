@@ -58,10 +58,13 @@ export function ProductCreateModal({
       dirty={dirty}
     >
       <div onChange={() => setDirty(true)}>
+        {/* Разделы формы уходят на третий уровень: второй занят названием
+            окна, и заголовки без пропусков — инвариант 4. */}
         <ProductForm
           values={emptyProductValues}
           isNew
           surface="bare"
+          headingLevel={3}
           specDictionary={specDictionary}
           save={save}
           onDone={(id) => {

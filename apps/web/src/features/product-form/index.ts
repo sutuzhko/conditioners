@@ -1,7 +1,6 @@
 /** Публичный API формы модели каталога. */
 export { ProductCreateModal, type ProductCreateModalProps } from './ProductCreateModal';
 export { ProductForm, type ProductFormProps } from './ProductForm';
-export { type ProductSurface } from './ProductFormSurface';
 export { SpecsEditor, type SpecsEditorProps } from './SpecsEditor';
 export { productFormContent } from './content';
 export {

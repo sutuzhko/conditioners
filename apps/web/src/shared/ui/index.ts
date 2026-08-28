@@ -25,6 +25,14 @@ export type { BadgeProps, BadgeVariant } from './Badge/Badge';
 export { Card } from './Card/Card';
 export type { CardElevation, CardPadding, CardProps, CardRadius, CardVariant } from './Card/Card';
 
+export { FormSection } from './FormSection/FormSection';
+export type {
+  FormSectionGap,
+  FormSectionLevel,
+  FormSectionProps,
+  FormSurface,
+} from './FormSection/FormSection';
+
 export { StatList } from './Stat/Stat';
 export type { StatItem, StatListProps, StatTone } from './Stat/Stat';
 

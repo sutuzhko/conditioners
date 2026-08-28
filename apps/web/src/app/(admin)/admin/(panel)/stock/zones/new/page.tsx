@@ -35,7 +35,7 @@ export default async function AdminStockZoneNewPage() {
         <p className={styles.lead}>{texts.zoneAddHint}</p>
       </header>
 
-      <Card as="section">
+      <Card>
         <StockZoneForm people={people} surface="bare" />
       </Card>
     </div>

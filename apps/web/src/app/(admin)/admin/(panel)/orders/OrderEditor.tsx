@@ -8,9 +8,9 @@ import {
   type OrderWorkSpan,
   type OrderClientRef,
   type OrderDraft,
-  type OrderFormSurface,
   type OrderInstallerRef,
 } from '@/features/order-manager';
+import type { FormSurface } from '@/shared/ui';
 
 export interface OrderEditorProps {
   readonly clients: readonly OrderClientRef[];
@@ -25,7 +25,7 @@ export interface OrderEditorProps {
   readonly hint?: string | undefined;
   readonly removable?: boolean | undefined;
   /** Своя карточка с заголовком или только поля: заголовок даёт страница. */
-  readonly surface?: OrderFormSurface | undefined;
+  readonly surface?: FormSurface | undefined;
 }
 
 /**

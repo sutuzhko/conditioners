@@ -3,11 +3,10 @@
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 
-import { Badge, Button, Input, Select, Textarea, useConfirm } from '@/shared/ui';
-import type { Confirm } from '@/shared/ui';
+import { Badge, Button, FormSection, Input, Select, Textarea, useConfirm } from '@/shared/ui';
+import type { Confirm, FormSurface } from '@/shared/ui';
 
 import { STOCK_UNIT_FULL, stockManagerContent as texts } from './content';
-import { StockFormSurface, type StockSurface } from './StockFormSurface';
 import { stockApi } from './lib';
 import {
   STOCK_UNITS,
@@ -37,8 +36,8 @@ export interface StockItemFormProps {
   readonly archivable?: boolean | undefined;
   /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
   readonly confirmArchive?: Confirm | undefined;
-  /** Своя карточка с заголовком или только поля: см. `StockSurface`. */
-  readonly surface?: StockSurface | undefined;
+  /** Своя карточка с заголовком или только поля: см. `FormSurface`. */
+  readonly surface?: FormSurface | undefined;
 }
 
 /**
@@ -58,7 +57,7 @@ export function StockItemForm({
   onSaved,
   archivable = false,
   confirmArchive,
-  surface = 'section',
+  surface = 'card',
 }: StockItemFormProps) {
   const { confirm, dialog } = useConfirm();
   const ask = confirmArchive ?? confirm;
@@ -163,23 +162,27 @@ export function StockItemForm({
     setMessage(result.message);
   };
 
-  return (
-    <StockFormSurface surface={surface}>
-      <form className={styles.form} onSubmit={submit} noValidate>
-        {surface === 'section' ? (
-          <>
-            <div className={styles.head}>
-              <h2 className={styles.title}>{title}</h2>
-              {editing && draft.archived ? (
-                <Badge variant="neutral" size="sm">
-                  {texts.itemArchived}
-                </Badge>
-              ) : null}
-            </div>
-            <p className={styles.hint}>{hint}</p>
-          </>
-        ) : null}
+  /* Без карточки форма стоит внутри окна или страницы заведения, и название
+     уже написано над ней. Второй раз оно не показывается, но остаётся именем
+     раздела: безымянная секция для читалки не существует. */
+  const titleHidden = surface === 'bare';
 
+  return (
+    <FormSection
+      surface={surface}
+      title={title}
+      hint={hint}
+      titleHidden={titleHidden}
+      gap="sm"
+      titleAside={
+        editing && draft.archived ? (
+          <Badge variant="neutral" size="sm">
+            {texts.itemArchived}
+          </Badge>
+        ) : null
+      }
+    >
+      <form className={styles.form} onSubmit={submit} noValidate>
         <div className={styles.grid}>
           <Input
             label={texts.itemName}
@@ -301,7 +304,7 @@ export function StockItemForm({
       </form>
 
       {dialog}
-    </StockFormSurface>
+    </FormSection>
   );
 }
 

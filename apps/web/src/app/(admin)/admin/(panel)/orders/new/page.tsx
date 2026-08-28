@@ -53,7 +53,7 @@ export default async function AdminOrderNewPage({ searchParams }: PageProps) {
           откуда он взялся, а заголовок формы — что перед человеком ещё
           черновик, который никуда не записан. */}
       {lead === null ? (
-        <Card as="section">
+        <Card>
           <OrderEditor
             clients={clients}
             installers={installers}
