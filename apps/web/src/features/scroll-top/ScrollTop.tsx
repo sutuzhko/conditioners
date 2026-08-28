@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import { LEAD_ANCHOR } from '@/shared/config/nav';
+
 import { scrollTopContent as t } from './content';
 import styles from './ScrollTop.module.css';
 
@@ -12,11 +14,39 @@ import styles from './ScrollTop.module.css';
 const SHOW_AFTER_SCREENS = 2;
 
 /**
+ * Видна ли сейчас секция заявки.
+ *
+ * 🔴 Кнопка плавающая, и на телефоне под ней проходит вся колонка содержимого:
+ * поля формы заявки идут во всю ширину, и правый нижний угол приходится прямо
+ * на «Тему обращения». Перекрыть контрол формы — значит потерять заявку, а
+ * заявка и есть продукт (docs/CLAUDE.md, «Миссия проекта»).
+ *
+ * Отступ или другой угол этого не решают: угол всё равно остаётся над
+ * колонкой. Решает то, что кнопке в этот момент нечего предложить — форма уже
+ * на экране, и возвращаться к ней не нужно.
+ *
+ * Прямоугольник читается в том же обработчике прокрутки, что и положение
+ * страницы: одно чтение раскладки на событие, без записи — перекомпоновки не
+ * возникает. IntersectionObserver дал бы второй источник правды о видимости
+ * при той же пользе.
+ */
+function leadFormOnScreen(): boolean {
+  const lead = document.querySelector(LEAD_ANCHOR);
+  if (lead === null) return false;
+
+  const rect = lead.getBoundingClientRect();
+  return rect.top < window.innerHeight && rect.bottom > 0;
+}
+
+/**
  * Кнопка возврата к началу лендинга.
  *
  * 🔴 Появляется только на длинной прокрутке и только тогда, когда наверху ещё
  * что-то есть. Лендинг длинный, и человек, дочитавший до контактов, иначе
  * возвращается к форме заявки колесом через семь секций.
+ *
+ * 🔴 И пропадает, пока форма заявки на экране: там кнопка приходилась на поле
+ * «Тема обращения», а перекрывать контрол формы ей нельзя ничем.
  *
  * Кнопки нет в серверном HTML: она ничего не значит для робота и не должна
  * появляться в разметке страницы до того, как её есть куда нажимать.
@@ -26,7 +56,8 @@ export function ScrollTop() {
 
   useEffect(() => {
     const update = (): void => {
-      setVisible(window.scrollY > window.innerHeight * SHOW_AFTER_SCREENS);
+      const scrolledFar = window.scrollY > window.innerHeight * SHOW_AFTER_SCREENS;
+      setVisible(scrolledFar && !leadFormOnScreen());
     };
 
     update();

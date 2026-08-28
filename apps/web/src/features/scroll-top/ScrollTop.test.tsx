@@ -101,6 +101,28 @@ describe('Кнопка «Наверх»', () => {
     expect(screen.getByRole('button', { name: 'Тулаклимат' })).toHaveFocus();
   });
 
+  it('🔴 уходит с экрана, пока видна форма заявки: там под ней поля', () => {
+    render(
+      <>
+        {/* прямоугольник секции задаётся вручную: в jsdom раскладки нет */}
+        <section id="lead" />
+        <ScrollTop />
+      </>,
+    );
+    const lead = document.getElementById('lead');
+    if (lead === null) throw new Error('секция заявки не отрисовалась');
+
+    // DOMRect(x, y, ширина, высота): секция начинается в середине окна
+    lead.getBoundingClientRect = () => new DOMRect(0, 400, 320, 800);
+    scrollBy(2000);
+    expect(button()).not.toBeInTheDocument();
+
+    // форма ушла выше окна — кнопке снова есть что делать
+    lead.getBoundingClientRect = () => new DOMRect(0, -900, 320, 800);
+    scrollBy(2100);
+    expect(button()).toBeInTheDocument();
+  });
+
   it('снова прячется, когда человек вернулся наверх', () => {
     render(<ScrollTop />);
 
