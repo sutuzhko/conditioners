@@ -20,8 +20,8 @@ export const clientManagerContent = {
   found: (total: number): string => `Найдено: ${total}`,
   totalCount: (total: number): string => `Всего в базе: ${total}`,
 
+  /** Подпись ссылки на окно создания: адрес у окна свой (ADR-117). */
   addOpen: 'Добавить клиента',
-  addClose: 'Свернуть форму',
   addTitle: 'Новый клиент',
   addHint: 'Телефон — ключ: по нему клиент опознаётся при следующем обращении.',
   add: 'Добавить',

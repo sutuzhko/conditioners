@@ -12,6 +12,16 @@
   gap: 6px;
 }
 
+/* Действие раздела стоит рядом с заголовком и уходит на вторую строку на
+   телефоне, а не сжимает его. */
+.headline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .title {
   margin: 0;
   color: var(--ink);

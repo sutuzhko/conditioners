@@ -8,7 +8,14 @@ import type { Confirm } from '@/shared/ui';
 
 import { clientManagerContent as texts } from './content';
 import { clientApi } from './lib';
-import { emptyClientDraft, type ClientApi, type ClientDraft, type ClientStatus } from './model';
+import {
+  CLIENTS_PATH,
+  emptyClientDraft,
+  type ClientApi,
+  type ClientDraft,
+  type ClientStatus,
+  type ClientSurface,
+} from './model';
 import styles from './ClientForm.module.css';
 
 export interface ClientFormProps {
@@ -25,6 +32,8 @@ export interface ClientFormProps {
   /** Подтверждение выведено пропом: тесты и истории не зовут окно браузера. */
   /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
   readonly confirmRemove?: Confirm | undefined;
+  /** Своя карточка с заголовком или только поля: см. `ClientSurface`. */
+  readonly surface?: ClientSurface | undefined;
 }
 
 /**
@@ -42,6 +51,7 @@ export function ClientForm({
   onSaved,
   removable = false,
   confirmRemove,
+  surface = 'section',
 }: ClientFormProps) {
   /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
      для тестов, чтобы не открывать окно ради проверки удаления. */
@@ -106,7 +116,7 @@ export function ClientForm({
     const result = await api.remove(id);
 
     if (result.ok) {
-      router.push('/admin/clients');
+      router.push(CLIENTS_PATH);
       return;
     }
 
@@ -115,11 +125,17 @@ export function ClientForm({
     setMessage(result.message);
   };
 
-  return (
-    <Card as="section">
+  const form = (
+    <>
       <form className={styles.form} onSubmit={submit} noValidate>
-        <h2 className={styles.title}>{title}</h2>
-        <p className={styles.hint}>{hint}</p>
+        {/* Заголовок и пояснение даёт окно (или заголовок страницы) — второй
+            раз повторять их внутри формы незачем. */}
+        {surface === 'section' ? (
+          <>
+            <h2 className={styles.title}>{title}</h2>
+            <p className={styles.hint}>{hint}</p>
+          </>
+        ) : null}
 
         <div className={styles.grid}>
           <Input
@@ -194,8 +210,12 @@ export function ClientForm({
       </form>
 
       {dialog}
-    </Card>
+    </>
   );
+
+  if (surface === 'bare') return form;
+
+  return <Card as="section">{form}</Card>;
 }
 
 function idleLabel(editing: boolean): string {

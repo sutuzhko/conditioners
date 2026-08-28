@@ -2,7 +2,7 @@ import { Card, Pager } from '@/shared/ui';
 
 import { ClientCardView } from './ClientCardView';
 import { clientManagerContent as texts } from './content';
-import type { ClientPage } from './model';
+import { CLIENTS_PATH, type ClientPage } from './model';
 import styles from './ClientList.module.css';
 
 export interface ClientListProps {
@@ -37,7 +37,7 @@ export function ClientList({ page, query = '' }: ClientListProps) {
       <Pager
         page={page.page}
         pages={page.pages}
-        basePath="/admin/clients"
+        basePath={CLIENTS_PATH}
         query={query === '' ? undefined : { q: query }}
       />
     </div>

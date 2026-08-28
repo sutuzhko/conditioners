@@ -9,6 +9,29 @@ export { ADMIN_PAGE_SIZE, pageNumber } from '@/shared/lib/paging';
 
 export { leadStatusTitle, type LeadStatus } from '@/entities/lead/model';
 
+/* ---------- Адреса раздела ---------- */
+
+export const CLIENTS_PATH = '/admin/clients';
+
+/**
+ * Адрес окна создания (ADR-117). Окно живёт по собственному адресу, а не в
+ * состоянии компонента: иначе ссылку на форму нельзя прислать, «назад» уводит
+ * из раздела, а обновление страницы теряет ввод.
+ */
+export const CLIENT_NEW_PATH = '/admin/clients/new';
+
+/**
+ * Во что одета форма.
+ *
+ * `section` — сама себе карточка с заголовком: так она стоит в карточке
+ * клиента. `bare` — только поля: рамку и заголовок даёт тот, кто её вставил,
+ * будь то окно создания или страница за ним.
+ *
+ * 🔴 Форма при этом одна и та же: две формы для одного действия разошлись бы
+ * на первой правке, а карточка внутри окна была бы панелью в панели.
+ */
+export type ClientSurface = 'section' | 'bare';
+
 /** Ответ действия: успех либо готовый к показу текст ошибки. */
 export type ClientResult =
   { readonly ok: true } | { readonly ok: false; readonly message: string; readonly field?: string };

@@ -25,6 +25,17 @@ export {
 export { EMPLOYMENTS, employmentTitle, isEmployment } from '@/shared/lib/employment';
 export type { Employment } from '@/shared/lib/employment';
 
+/* ---------- Адреса раздела ---------- */
+
+export const TEAM_PATH = '/admin/team';
+
+/**
+ * Адрес окна создания (ADR-117). Окно живёт по собственному адресу, а не в
+ * состоянии компонента: иначе ссылку на форму нельзя прислать, «назад» уводит
+ * из раздела, а обновление страницы теряет ввод.
+ */
+export const TEAM_NEW_PATH = '/admin/team/new';
+
 /**
  * Ответ действия: успех либо готовый к показу текст ошибки.
  *
