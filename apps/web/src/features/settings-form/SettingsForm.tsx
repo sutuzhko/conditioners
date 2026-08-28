@@ -2,12 +2,22 @@
 
 import { useId, useState, type FormEvent } from 'react';
 
-import { Button, Card, Checkbox, Input, Select, Textarea } from '@/shared/ui';
+import { Button, Card, Checkbox, Input, Select, Textarea, useConfirm } from '@/shared/ui';
 
 import { ListField } from './ListField';
 import { ObjectListField, type ObjectRow } from './ObjectListField';
 import { settingsFormContent as texts } from './content';
-import { minutesToTime, putGroup, readPath, timeToMinutes, writePath } from './lib';
+import {
+  filledFieldLabels,
+  minutesToTime,
+  putGroup,
+  readPath,
+  timeToMinutes,
+  toDateValue,
+  visibleFields,
+  withoutHiddenFields,
+  writePath,
+} from './lib';
 import type { FieldDescriptor, GroupDescriptor, GroupValue, SaveGroup, SaveStatus } from './model';
 import styles from './SettingsForm.module.css';
 
@@ -48,6 +58,16 @@ function asObjectList(value: unknown): readonly ObjectRow[] {
 }
 
 /**
+ * Ключ строки формы. Путь повторяется у полей разных вариантов состава
+ * («Наименование» у предпринимателя и у общества), поэтому в ключ входит и
+ * условие показа: одновременно видно только одно из таких полей, но ключ
+ * обязан быть своим у каждого.
+ */
+function fieldKey(field: FieldDescriptor): string {
+  return field.when === undefined ? field.path : `${field.path}@${field.when.equals.join('|')}`;
+}
+
+/**
  * Форма одной группы настроек.
  *
  * Группа сохраняется целиком и отдельно от соседних: контракт — `PUT` на
@@ -63,8 +83,15 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
   const [status, setStatus] = useState<SaveStatus>('idle');
   const [message, setMessage] = useState('');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  /* Подтверждение необратимой правки — общий диалог кита, а не окно
+     браузера: системное окно нельзя объяснить (ADR-113). */
+  const { confirm, dialog } = useConfirm();
 
   const sending = status === 'sending';
+  /* Состав группы зависит от её собственного значения: у предпринимателя и у
+     общества разные реквизиты (ADR-112). Поля вне текущего состава не
+     рисуются и не уходят на сервер. */
+  const fields = visibleFields(group, draft);
   /* Сравнение по JSON, а не по ссылкам: значения — простые деревья из строк,
      чисел и флажков, и глубокого сравнения руками они не стоят. */
   const dirty = JSON.stringify(draft) !== JSON.stringify(value);
@@ -75,6 +102,37 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
     setFieldErrors((prev) => (prev[path] === undefined ? prev : { ...prev, [path]: '' }));
   };
 
+  /**
+   * Смена значения, от которого зависит состав группы.
+   *
+   * 🔴 Стирается вся группа, а не только ушедшие с экрана поля: одноимённые
+   * поля у разных вариантов означают разное, и молчаливый перенос значения
+   * опубликовал бы не то, что владелец вводил (ADR-112). Очистка происходит
+   * сразу — что показано на экране, то и уйдёт на сервер.
+   */
+  const switchGroup = async (field: FieldDescriptor, next: unknown): Promise<void> => {
+    const losing = filledFieldLabels(group, draft, field.path);
+
+    // терять нечего — вопрос был бы лишним
+    if (losing.length > 0) {
+      const confirmed = await confirm({
+        title: texts.resetTitle(group.title),
+        description: texts.resetDescription(losing),
+        confirmLabel: texts.resetConfirm,
+        cancelLabel: texts.resetCancel,
+      });
+
+      /* Отказ не меняет ничего: черновик не тронут, и переключатель
+         возвращается на прежнее значение сам — он управляемый. */
+      if (!confirmed) return;
+    }
+
+    setDraft(writePath({}, field.path, next));
+    setStatus('idle');
+    setMessage('');
+    setFieldErrors({});
+  };
+
   const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     if (sending) return;
@@ -83,7 +141,7 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
     setMessage('');
     setFieldErrors({});
 
-    const result = await save(group.key, draft);
+    const result = await save(group.key, withoutHiddenFields(group, draft));
 
     if (result.ok) {
       setStatus('success');
@@ -104,14 +162,23 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
 
       <form className={styles.form} onSubmit={submit} noValidate>
         <div className={styles.fields}>
-          {group.fields.map((field) => (
+          {fields.map((field) => (
             <Field
-              key={field.path}
+              key={fieldKey(field)}
               field={field}
               value={readPath(draft, field.path)}
               error={fieldErrors[field.path]}
               disabled={sending}
-              onChange={(next) => set(field.path, next)}
+              onChange={(next) => {
+                /* Поле, задающее состав группы, меняется не как остальные:
+                   сначала вопрос, потом очистка. */
+                if (field.resetsGroup === true) {
+                  void switchGroup(field, next);
+                  return;
+                }
+
+                set(field.path, next);
+              }}
             />
           ))}
         </div>
@@ -156,6 +223,10 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
           ) : null}
         </div>
       </form>
+
+      {/* Окно живёт вне формы: кнопки подтверждения не имеют отношения к
+          отправке группы. */}
+      {dialog}
     </Card>
   );
 }
@@ -257,6 +328,21 @@ function Field({
              сервер подставляет умолчание из схемы. Ноль означал бы, что
              владелец сам открыл календарь с нуля часов. */
           onChange(timeToMinutes(event.target.value) ?? undefined);
+        }}
+      />
+    );
+  }
+
+  if (field.kind === 'date') {
+    return (
+      <Input
+        {...shared}
+        type="date"
+        value={toDateValue(value)}
+        onChange={(event) => {
+          /* Очищенное поле — не «первое января»: ключ уходит из тела запроса,
+             и сервер подставляет умолчание схемы (ADR-139). */
+          onChange(event.target.value === '' ? undefined : event.target.value);
         }}
       />
     );

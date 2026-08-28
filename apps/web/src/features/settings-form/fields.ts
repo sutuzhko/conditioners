@@ -5,7 +5,9 @@
  * живут в базе (инвариант 8); подсказка вида «например, +7 4872 …» тоже не
  * пишется: пример телефона рядом с полем телефона владелец однажды сохранит.
  */
-import type { GroupDescriptor } from './model';
+import { LEGAL_FORMS } from '@/entities/settings/model';
+
+import type { FieldCondition, GroupDescriptor } from './model';
 
 /**
  * Рабочее окно календаря работ.
@@ -38,6 +40,132 @@ export const SCHEDULE_GROUP: GroupDescriptor = {
       kind: 'time',
       hint: 'Окно ограничивает показанное по умолчанию, но не то, что можно завести: выезд до девяти вечера записывается обычной записью, а время за границей окна помечается переработкой',
     },
+  ],
+};
+
+/** Формы регистрации из схемы: список один на проект (ADR-112). */
+const [ENTREPRENEUR, COMPANY] = LEGAL_FORMS;
+
+const FOR_ENTREPRENEUR: FieldCondition = { path: 'form', equals: [ENTREPRENEUR] };
+const FOR_COMPANY: FieldCondition = { path: 'form', equals: [COMPANY] };
+
+/**
+ * 🔴 Подсказка обязана сказать, что поле на сайт не идёт. Иначе владелец
+ * решит, что публикует то, что вводит, — а для адреса регистрации
+ * предпринимателя это домашний адрес, то есть персональные данные (PROJECT §5.1).
+ */
+const NOT_PUBLISHED = 'На сайт не выводится: нужно для счетов и договоров';
+
+/**
+ * Реквизиты продавца.
+ *
+ * 🔴 Состав полей задаёт форма регистрации (ADR-112, PROJECT §5.1): у
+ * предпринимателя нет КПП и руководителя, у общества — органа регистрации, а
+ * ИНН у них разной длины и с разной контрольной суммой. Одноимённые поля
+ * разведены условием, а не одной подписью на обе формы: «Наименование» — это
+ * ФИО человека у одного и фирменное наименование у другого.
+ */
+export const LEGAL_GROUP: GroupDescriptor = {
+  key: 'legal',
+  title: 'Реквизиты',
+  /* Прежнее описание врало дважды: страницы контактов нет, а половина полей
+     на сайт не выводится вовсе. */
+  description:
+    'Наименование, ИНН и сведения о регистрации печатаются в футере и в политике обработки данных: продавец и оператор персональных данных — одно лицо, и расходиться им нельзя. КПП, руководитель, банк и адрес регистрации предпринимателя хранятся для счетов и договоров и на сайт не выводятся.',
+  fields: [
+    {
+      path: 'form',
+      label: 'Форма',
+      kind: 'select',
+      options: LEGAL_FORMS,
+      resetsGroup: true,
+      hint: 'От неё зависят и состав полей, и проверка номеров: ИНН предпринимателя — 12 цифр, организации — 10',
+    },
+
+    /* Индивидуальный предприниматель. */
+    {
+      path: 'name',
+      label: 'ФИО полностью',
+      kind: 'text',
+      when: FOR_ENTREPRENEUR,
+      hint: 'Как в свидетельстве. Печатается в футере и в политике обработки данных',
+    },
+    { path: 'inn', label: 'ИНН', kind: 'text', when: FOR_ENTREPRENEUR },
+    { path: 'ogrn', label: 'ОГРНИП', kind: 'text', when: FOR_ENTREPRENEUR },
+    {
+      path: 'regDate',
+      label: 'Дата регистрации',
+      kind: 'date',
+      when: FOR_ENTREPRENEUR,
+      hint: 'Как в свидетельстве. Закон требует показывать её вместе с органом регистрации',
+    },
+    {
+      path: 'regAuthority',
+      label: 'Орган регистрации',
+      kind: 'text',
+      when: FOR_ENTREPRENEUR,
+      hint: 'Кто выдал свидетельство — целиком, как в документе',
+    },
+    {
+      path: 'address',
+      label: 'Адрес регистрации',
+      kind: 'text',
+      when: FOR_ENTREPRENEUR,
+      /* 🔴 Домашний адрес — персональные данные, и публиковать его не
+         требуется: посетителю показывают фактический адрес приёма. */
+      hint: 'На сайт не выводится: у предпринимателя это, как правило, домашний адрес. Посетитель видит адрес приёма из группы «Адрес»',
+    },
+
+    /* Общество с ограниченной ответственностью. */
+    {
+      path: 'name',
+      label: 'Полное наименование',
+      kind: 'text',
+      when: FOR_COMPANY,
+      hint: 'Как в уставе, вместе с организационно-правовой формой',
+    },
+    {
+      path: 'shortName',
+      label: 'Сокращённое наименование',
+      kind: 'text',
+      when: FOR_COMPANY,
+      hint: 'Им подписан футер и разметка организации',
+    },
+    { path: 'inn', label: 'ИНН', kind: 'text', when: FOR_COMPANY },
+    { path: 'kpp', label: 'КПП', kind: 'text', when: FOR_COMPANY, hint: NOT_PUBLISHED },
+    { path: 'ogrn', label: 'ОГРН', kind: 'text', when: FOR_COMPANY },
+    {
+      path: 'address',
+      label: 'Место нахождения',
+      kind: 'text',
+      when: FOR_COMPANY,
+      hint: 'Адрес организации из реестра. Показывается на сайте',
+    },
+    {
+      path: 'director',
+      label: 'Руководитель',
+      kind: 'text',
+      when: FOR_COMPANY,
+      hint: NOT_PUBLISHED,
+    },
+    {
+      path: 'directorTitle',
+      label: 'Должность руководителя',
+      kind: 'text',
+      when: FOR_COMPANY,
+      hint: NOT_PUBLISHED,
+    },
+
+    /* Банк — у обеих форм и никогда не на сайте. */
+    { path: 'bankName', label: 'Банк', kind: 'text', hint: NOT_PUBLISHED },
+    { path: 'bankBik', label: 'БИК', kind: 'text', hint: NOT_PUBLISHED },
+    {
+      path: 'bankAccount',
+      label: 'Расчётный счёт',
+      kind: 'text',
+      hint: 'На сайт не выводится. Контрольный ключ счёта проверяется вместе с БИК',
+    },
+    { path: 'bankCorrAccount', label: 'Корреспондентский счёт', kind: 'text', hint: NOT_PUBLISHED },
   ],
 };
 
@@ -115,28 +243,7 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
     description: 'Куда выезжаете. Попадает в разметку зоны обслуживания.',
     fields: [{ path: 'served', label: 'Зона обслуживания', kind: 'text' }],
   },
-  {
-    key: 'legal',
-    title: 'Реквизиты',
-    description: 'Показываются в футере и на странице контактов.',
-    fields: [
-      { path: 'form', label: 'Форма', kind: 'select', options: ['ИП', 'ООО'] },
-      {
-        path: 'name',
-        label: 'Наименование',
-        kind: 'text',
-        hint: 'Как в документах — печатается в реквизитах и уезжает в разметку организации',
-      },
-      { path: 'inn', label: 'ИНН', kind: 'text' },
-      {
-        path: 'ogrn',
-        label: 'ОГРН / ОГРНИП',
-        kind: 'text',
-        hint: 'Подпись на сайте подставляется по выбранной форме',
-      },
-      { path: 'address', label: 'Юридический адрес', kind: 'text' },
-    ],
-  },
+  LEGAL_GROUP,
   {
     key: 'warranty',
     title: 'Гарантия',

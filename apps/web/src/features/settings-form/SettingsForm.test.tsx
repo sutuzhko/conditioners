@@ -1,16 +1,20 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { SettingsForm } from './SettingsForm';
+import type { SaveGroup } from './model';
 import { settingsFormContent as texts } from './content';
 import { SCHEDULE_GROUP } from './fields';
 import {
   achievementsGroupFixture,
   contactsGroupFixture,
+  emptyEntrepreneur,
   filledAchievements,
   fullAchievements,
+  filledCompany,
   filledContacts,
+  filledEntrepreneur,
   filledSchedule,
   integrationsGroupFixture,
   legalGroupFixture,
@@ -162,12 +166,12 @@ describe('Форма группы настроек', () => {
   it('выбор из списка сохраняет выбранное значение', async () => {
     const user = userEvent.setup();
     const save = vi.fn(async () => ({ ok: true }) as const);
-    render(<SettingsForm group={legalGroupFixture} value={{ form: 'ИП', inn: '' }} save={save} />);
+    render(<SettingsForm group={legalGroupFixture} value={emptyEntrepreneur} save={save} />);
 
     await user.selectOptions(screen.getByLabelText(/Форма/), 'ООО');
     await user.click(screen.getByRole('button', { name: texts.save }));
 
-    expect(save).toHaveBeenCalledWith('legal', { form: 'ООО', inn: '' });
+    expect(save).toHaveBeenCalledWith('legal', { form: 'ООО' });
   });
 
   it('пустая группа открывается, а не падает', () => {
@@ -297,5 +301,142 @@ describe('Рабочее окно', () => {
     render(<SettingsForm group={SCHEDULE_GROUP} value={{}} save={vi.fn()} />);
 
     expect(screen.getByLabelText(/Начало рабочего дня/)).toHaveValue('');
+  });
+});
+
+describe('Реквизиты: состав зависит от формы регистрации', () => {
+  it('🔴 поля чужой формы не отрисованы, а не спрятаны', () => {
+    render(<SettingsForm group={legalGroupFixture} value={filledEntrepreneur} save={vi.fn()} />);
+
+    expect(screen.getByLabelText(/ФИО полностью/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/ОГРНИП/)).toBeInTheDocument();
+    // у предпринимателя их не бывает — значит их нет и в форме
+    expect(screen.queryByLabelText(/КПП/)).not.toBeInTheDocument();
+    expect(screen.queryByLabelText(/Руководитель/)).not.toBeInTheDocument();
+    expect(screen.queryByLabelText(/Сокращённое наименование/)).not.toBeInTheDocument();
+  });
+
+  it('у общества свои поля и нет органа регистрации', () => {
+    render(<SettingsForm group={legalGroupFixture} value={filledCompany} save={vi.fn()} />);
+
+    expect(screen.getByLabelText(/Сокращённое наименование/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/КПП/)).toBeInTheDocument();
+    expect(screen.queryByLabelText(/Орган регистрации/)).not.toBeInTheDocument();
+    expect(screen.queryByLabelText(/Дата регистрации/)).not.toBeInTheDocument();
+  });
+
+  it('🔴 непубликуемые поля названы непубликуемыми', () => {
+    render(<SettingsForm group={legalGroupFixture} value={filledEntrepreneur} save={vi.fn()} />);
+
+    // иначе владелец решит, что публикует домашний адрес
+    expect(screen.getByLabelText(/Адрес регистрации/)).toHaveAccessibleDescription(
+      /На сайт не выводится/,
+    );
+    expect(screen.getByLabelText(/^БИК/)).toHaveAccessibleDescription(/На сайт не выводится/);
+  });
+
+  it('🔴 смена формы спрашивает и называет исчезающее словами', async () => {
+    const user = userEvent.setup();
+    render(<SettingsForm group={legalGroupFixture} value={filledEntrepreneur} save={vi.fn()} />);
+
+    await user.selectOptions(screen.getByLabelText(/Форма/), 'ООО');
+
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toHaveAccessibleName(texts.resetTitle(legalGroupFixture.title));
+    // «данные будут удалены» владельцу не говорит ничего — перечисляем поля
+    expect(dialog).toHaveAccessibleDescription(/ФИО полностью/);
+    expect(dialog).toHaveAccessibleDescription(/ОГРНИП/);
+  });
+
+  it('🔴 отказ не меняет ничего: ни переключателя, ни полей', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({ ok: true }) as const);
+    render(<SettingsForm group={legalGroupFixture} value={filledEntrepreneur} save={save} />);
+
+    await user.selectOptions(screen.getByLabelText(/Форма/), 'ООО');
+    await user.click(await screen.findByRole('button', { name: texts.resetCancel }));
+
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+    expect(screen.getByLabelText(/Форма/)).toHaveValue('ИП');
+    expect(screen.getByLabelText(/ФИО полностью/)).toHaveValue(filledEntrepreneur.name);
+    // сохранять нечего: черновик не тронут
+    expect(screen.getByRole('button', { name: texts.save })).toBeDisabled();
+  });
+
+  it('🔴 согласие очищает группу целиком, а не только поля чужой формы', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({ ok: true }) as const);
+    render(<SettingsForm group={legalGroupFixture} value={filledEntrepreneur} save={save} />);
+
+    await user.selectOptions(screen.getByLabelText(/Форма/), 'ООО');
+    await user.click(await screen.findByRole('button', { name: texts.resetConfirm }));
+
+    /* Одноимённые поля означают разное: ФИО предпринимателя на месте
+       фирменного наименования — это молча опубликованные персональные данные. */
+    expect(await screen.findByLabelText(/Полное наименование/)).toHaveValue('');
+    expect(screen.getByLabelText(/Место нахождения/)).toHaveValue('');
+    expect(screen.getByLabelText(/^Банк/)).toHaveValue('');
+
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    // что показано на экране, то и уходит на сервер
+    expect(save).toHaveBeenCalledWith('legal', { form: 'ООО' });
+  });
+
+  it('пустую группу менять не страшно — вопрос лишний', async () => {
+    const user = userEvent.setup();
+    render(<SettingsForm group={legalGroupFixture} value={emptyEntrepreneur} save={vi.fn()} />);
+
+    await user.selectOptions(screen.getByLabelText(/Форма/), 'ООО');
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/КПП/)).toBeInTheDocument();
+  });
+
+  it('дата регистрации уходит машинной строкой', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({ ok: true }) as const);
+    render(<SettingsForm group={legalGroupFixture} value={emptyEntrepreneur} save={save} />);
+
+    await user.type(screen.getByLabelText(/Дата регистрации/), '2015-03-12');
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    expect(save).toHaveBeenCalledWith('legal', { form: 'ИП', regDate: '2015-03-12' });
+  });
+
+  it('🔴 очищенная дата уходит из тела запроса, а не становится умолчанием', async () => {
+    const user = userEvent.setup();
+    let sent: unknown = null;
+    const save: SaveGroup = async (...args) => {
+      sent = args[1];
+      return { ok: true };
+    };
+    render(<SettingsForm group={legalGroupFixture} value={filledEntrepreneur} save={save} />);
+
+    await user.clear(screen.getByLabelText(/Дата регистрации/));
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    // ключ уходит из тела запроса: пустое поле — это «не задавал» (ADR-139)
+    await waitFor(() => expect(JSON.stringify(sent)).not.toContain('regDate'));
+  });
+
+  it('сообщение сервера о битом ИНН встаёт под полем ИНН', async () => {
+    const user = userEvent.setup();
+    const message = 'ИНН предпринимателя — 12 цифр, проверьте номер';
+    render(
+      <SettingsForm
+        group={legalGroupFixture}
+        value={filledEntrepreneur}
+        save={async () => ({ ok: false, message, fieldErrors: { inn: message } })}
+      />,
+    );
+
+    await user.type(screen.getByLabelText(/^ИНН/), '0');
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    const inn = await screen.findByLabelText(/^ИНН/);
+    expect(inn).toHaveAttribute('aria-invalid', 'true');
+    expect(inn).toHaveAccessibleDescription(new RegExp(message));
+    expect(screen.getAllByRole('alert')).toHaveLength(1);
   });
 });

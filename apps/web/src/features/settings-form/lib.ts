@@ -2,7 +2,7 @@
 import type { SettingKey } from '@/entities/settings/model';
 import { adminRequest, jsonInit } from '@/shared/lib/api';
 
-import type { GroupValue, SaveResult } from './model';
+import type { FieldDescriptor, GroupDescriptor, GroupValue, SaveResult } from './model';
 
 /** Сужение вместо приведения типа: `as` на проекте запрещён. */
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -50,6 +50,104 @@ export function writePath(value: GroupValue, path: string, next: unknown): Group
   const base: GroupValue = isRecord(nested) ? { ...nested } : {};
 
   return { ...value, [head]: writePath(base, rest.join('.'), next) };
+}
+
+/**
+ * Копия группы без значения по пути. Ключ именно убирается, а не обнуляется:
+ * пустая строка на месте убранного поля — это «владелец очистил», а форма
+ * говорит «поля здесь нет».
+ */
+export function dropPath(value: GroupValue, path: string): GroupValue {
+  const [head, ...rest] = path.split('.');
+  if (head === undefined || !Object.hasOwn(value, head)) return value;
+
+  if (rest.length > 0) {
+    const nested = value[head];
+    return isRecord(nested) ? { ...value, [head]: dropPath(nested, rest.join('.')) } : value;
+  }
+
+  const next: GroupValue = {};
+  for (const [key, entry] of Object.entries(value)) {
+    if (key !== head) next[key] = entry;
+  }
+
+  return next;
+}
+
+/**
+ * Показывается ли поле при таком значении группы.
+ *
+ * Условие сравнивается со строкой: переключатель состава отдаёт строку, а
+ * число или флажок в этой роли не встречались (ADR-112).
+ */
+export function isFieldVisible(field: FieldDescriptor, value: GroupValue): boolean {
+  if (field.when === undefined) return true;
+
+  const current = readPath(value, field.when.path);
+
+  return typeof current === 'string' && field.when.equals.includes(current);
+}
+
+/** Поля, подходящие под текущее значение группы, в порядке описания. */
+export function visibleFields(
+  group: GroupDescriptor,
+  value: GroupValue,
+): readonly FieldDescriptor[] {
+  return group.fields.filter((field) => isFieldVisible(field, value));
+}
+
+/**
+ * Заполнено ли значение — с точки зрения владельца, а не типа.
+ *
+ * Ноль и `false` разделены сознательно: «0» в числовом поле владелец видит и
+ * потеряет, а снятый флажок терять нечего.
+ */
+function isFilled(value: unknown): boolean {
+  if (value === undefined || value === null) return false;
+  if (typeof value === 'string') return value.trim() !== '';
+  if (typeof value === 'boolean') return value;
+  if (Array.isArray(value)) return value.length > 0;
+
+  return true;
+}
+
+/**
+ * Подписи заполненных полей группы, кроме поля `exceptPath`.
+ *
+ * Нужны подтверждению смены состава: окно обязано назвать исчезающее словами,
+ * а «данные будут удалены» владельцу не говорит ничего (ADR-112, ADR-113).
+ * Пустой список означает, что терять нечего и спрашивать не о чем.
+ */
+export function filledFieldLabels(
+  group: GroupDescriptor,
+  value: GroupValue,
+  exceptPath: string,
+): readonly string[] {
+  return visibleFields(group, value)
+    .filter((field) => field.path !== exceptPath && isFilled(readPath(value, field.path)))
+    .map((field) => field.label);
+}
+
+/**
+ * Значение без полей, скрытых условием: на сервер уходит ровно то, что видно
+ * на экране.
+ *
+ * Спрятанное значение всплывает в выгрузке или в разметке тогда, когда его
+ * никто не ждёт (ADR-112), — а `.strict()` в схеме такое тело просто отвергнет.
+ */
+export function withoutHiddenFields(group: GroupDescriptor, value: GroupValue): GroupValue {
+  return group.fields.reduce(
+    (result, field) => (isFieldVisible(field, value) ? result : dropPath(result, field.path)),
+    value,
+  );
+}
+
+/**
+ * Машинная дата `2015-03-12` для поля ввода. Всё остальное — пустое поле:
+ * группу могли сохранить до появления поля, а показывать мусор датой нельзя.
+ */
+export function toDateValue(value: unknown): string {
+  return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value.trim()) ? value.trim() : '';
 }
 
 /** Сутки в минутах: 1440 — полночь следующего дня, предел рабочего окна в схеме. */

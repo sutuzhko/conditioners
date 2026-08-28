@@ -1,4 +1,5 @@
 /** Данные для историй и тестов форм настроек. */
+import { LEGAL_GROUP } from './fields';
 import type { GroupDescriptor, SaveGroup, SaveResult } from './model';
 
 export const contactsGroupFixture: GroupDescriptor = {
@@ -12,15 +13,52 @@ export const contactsGroupFixture: GroupDescriptor = {
   ],
 };
 
-export const legalGroupFixture: GroupDescriptor = {
-  key: 'legal',
-  title: 'Реквизиты',
-  description: 'Показываются в футере и на странице контактов.',
-  fields: [
-    { path: 'form', label: 'Форма', kind: 'select', options: ['ИП', 'ООО'] },
-    { path: 'inn', label: 'ИНН', kind: 'text' },
-  ],
+/**
+ * Реквизиты берутся настоящей группой, а не упрощённой копией: истории и тесты
+ * показывают ровно тот состав полей и те подсказки, которые увидит владелец
+ * (ADR-112). Копия разошлась бы с описанием на первой же правке подписи.
+ */
+export const legalGroupFixture: GroupDescriptor = LEGAL_GROUP;
+
+/**
+ * Реквизиты предпринимателя.
+ *
+ * 🔴 Номера настоящие по контрольному разряду: схема проверяет арифметику, а
+ * не длину (PROJECT §5.2), и выдуманный номер историю бы не прошёл.
+ */
+export const filledEntrepreneur = {
+  form: 'ИП',
+  name: 'Иванов Иван Иванович',
+  inn: '710703123450',
+  ogrn: '314710700012346',
+  regDate: '2015-03-12',
+  regAuthority: 'Межрайонная ИФНС России № 10 по Тульской области',
+  address: 'г. Тула, ул. Замочная, д. 1, кв. 2',
+  bankName: 'Тульское отделение № 8604 ПАО Сбербанк',
+  bankBik: '047003608',
+  bankAccount: '40702810700000000001',
+  bankCorrAccount: '30101810700000000004',
 };
+
+/** Реквизиты общества: те же поля значат другое, плюс КПП и руководитель. */
+export const filledCompany = {
+  form: 'ООО',
+  name: 'Общество с ограниченной ответственностью «Пример»',
+  shortName: 'ООО «Пример»',
+  inn: '7107023451',
+  kpp: '710701001',
+  ogrn: '1027107001239',
+  address: 'г. Тула, пр-т Ленина, д. 1, офис 3',
+  director: 'Иванов Иван Иванович',
+  directorTitle: 'Генеральный директор',
+  bankName: 'Тульское отделение № 8604 ПАО Сбербанк',
+  bankBik: '047003608',
+  bankAccount: '40702810700000000001',
+  bankCorrAccount: '30101810700000000004',
+};
+
+/** Группа ещё не заполнена: смена формы тут ничего не отнимает. */
+export const emptyEntrepreneur = { form: 'ИП' };
 
 export const integrationsGroupFixture: GroupDescriptor = {
   key: 'integrations',

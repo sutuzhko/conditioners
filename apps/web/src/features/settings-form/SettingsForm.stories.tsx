@@ -8,9 +8,12 @@ import {
   acceptingSave,
   achievementsGroupFixture,
   contactsGroupFixture,
+  emptyEntrepreneur,
   filledAchievements,
   fullAchievements,
+  filledCompany,
   filledContacts,
+  filledEntrepreneur,
   filledSchedule,
   integrationsGroupFixture,
   legalGroupFixture,
@@ -69,9 +72,35 @@ export const ОшибкаПоля: Story = {
   },
 };
 
-/** Выбор из списка: форма собственности задаёт подпись ОГРН на сайте. */
-export const СВыбором: Story = {
-  args: { group: legalGroupFixture, value: { form: 'ИП', inn: '' } },
+/**
+ * Реквизиты предпринимателя: ФИО, ОГРНИП, дата и орган регистрации.
+ *
+ * Группа взята настоящая — история показывает ровно те подсказки, которыми
+ * владельцу объясняют, что на сайт выводится, а что нет (ADR-112).
+ */
+export const РеквизитыПредпринимателя: Story = {
+  args: { group: legalGroupFixture, value: filledEntrepreneur },
+};
+
+/** Реквизиты общества: сокращённое наименование, КПП, руководитель. */
+export const РеквизитыОбщества: Story = {
+  args: { group: legalGroupFixture, value: filledCompany },
+};
+
+/** Группа ещё не заполнена: менять форму не страшно, вопроса не будет. */
+export const РеквизитыПустые: Story = {
+  args: { group: legalGroupFixture, value: emptyEntrepreneur },
+};
+
+/**
+ * Смена формы регистрации: окно называет исчезающее поимённо, отказ —
+ * действие по умолчанию (ADR-112, ADR-113).
+ */
+export const СменаФормыРеквизитов: Story = {
+  args: { group: legalGroupFixture, value: filledEntrepreneur },
+  play: async ({ canvasElement }) => {
+    await userEvent.selectOptions(within(canvasElement).getByLabelText(/Форма/), 'ООО');
+  },
 };
 
 export const СФлажками: Story = {

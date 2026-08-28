@@ -2,11 +2,23 @@
 export { SettingsForm, type SettingsFormProps } from './SettingsForm';
 export { ListField, type ListFieldProps } from './ListField';
 export { ObjectListField, type ObjectListFieldProps, type ObjectRow } from './ObjectListField';
-export { NOTIFICATIONS_GROUP, SCHEDULE_GROUP, SETTINGS_GROUPS } from './fields';
+export { LEGAL_GROUP, NOTIFICATIONS_GROUP, SCHEDULE_GROUP, SETTINGS_GROUPS } from './fields';
 export { settingsFormContent } from './content';
-export { minutesToTime, putGroup, readPath, timeToMinutes, toGroupValue, writePath } from './lib';
+export {
+  filledFieldLabels,
+  minutesToTime,
+  putGroup,
+  readPath,
+  timeToMinutes,
+  toDateValue,
+  toGroupValue,
+  visibleFields,
+  withoutHiddenFields,
+  writePath,
+} from './lib';
 export type {
   ColumnDescriptor,
+  FieldCondition,
   FieldDescriptor,
   FieldKind,
   GroupDescriptor,

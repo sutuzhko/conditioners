@@ -1,6 +1,20 @@
 import { describe, expect, it, vi, afterEach } from 'vitest';
 
-import { minutesToTime, putGroup, readPath, timeToMinutes, toGroupValue, writePath } from './lib';
+import { LEGAL_GROUP } from './fields';
+import {
+  dropPath,
+  filledFieldLabels,
+  minutesToTime,
+  putGroup,
+  readPath,
+  timeToMinutes,
+  toDateValue,
+  toGroupValue,
+  visibleFields,
+  withoutHiddenFields,
+  writePath,
+} from './lib';
+import type { GroupDescriptor } from './model';
 
 describe('Настройки — путь внутри группы', () => {
   it('читает вложенное значение', () => {
@@ -151,5 +165,125 @@ describe('Настройки — сохранение группы', () => {
       ok: false,
       message: 'Не удалось связаться с сервером. Изменения не сохранены',
     });
+  });
+});
+
+/** Две формы с одинаковым путём: ровно тот случай, ради которого есть условие. */
+const conditioned: GroupDescriptor = {
+  key: 'legal',
+  title: 'Реквизиты',
+  description: 'Проверочная группа.',
+  fields: [
+    { path: 'form', label: 'Форма', kind: 'select', options: ['ИП', 'ООО'], resetsGroup: true },
+    { path: 'name', label: 'ФИО полностью', kind: 'text', when: { path: 'form', equals: ['ИП'] } },
+    {
+      path: 'kpp',
+      label: 'КПП',
+      kind: 'text',
+      when: { path: 'form', equals: ['ООО'] },
+    },
+    { path: 'bankBik', label: 'БИК', kind: 'text' },
+  ],
+};
+
+describe('Настройки — состав группы по значению', () => {
+  it('поле без условия видно всегда, поле с условием — по значению', () => {
+    expect(visibleFields(conditioned, { form: 'ИП' }).map((field) => field.path)).toEqual([
+      'form',
+      'name',
+      'bankBik',
+    ]);
+    expect(visibleFields(conditioned, { form: 'ООО' }).map((field) => field.path)).toEqual([
+      'form',
+      'kpp',
+      'bankBik',
+    ]);
+  });
+
+  it('незаполненный переключатель не показывает поля ни одной из форм', () => {
+    expect(visibleFields(conditioned, {}).map((field) => field.path)).toEqual(['form', 'bankBik']);
+  });
+
+  it('🔴 скрытое поле уходит из тела запроса, а не прячется в нём', () => {
+    // спрятанное значение всплывает в выгрузке тогда, когда его никто не ждёт
+    expect(
+      withoutHiddenFields(conditioned, { form: 'ООО', name: 'Иванов', kpp: '710701001' }),
+    ).toEqual({ form: 'ООО', kpp: '710701001' });
+  });
+
+  it('видимое значение остаётся тем же объектом: лишней перерисовки нет', () => {
+    const value = { form: 'ИП', name: 'Иванов' };
+
+    expect(withoutHiddenFields(conditioned, value)).toBe(value);
+  });
+
+  it('ключ убирается, а не обнуляется', () => {
+    expect(dropPath({ form: 'ИП', name: 'Иванов' }, 'name')).toEqual({ form: 'ИП' });
+    expect(dropPath({ callback: { enabled: true, note: 'x' } }, 'callback.enabled')).toEqual({
+      callback: { note: 'x' },
+    });
+    expect(dropPath({ form: 'ИП' }, 'kpp')).toEqual({ form: 'ИП' });
+  });
+
+  it('подтверждению перечисляются подписи заполненных полей, кроме самого переключателя', () => {
+    expect(
+      filledFieldLabels(conditioned, { form: 'ИП', name: 'Иванов', bankBik: '' }, 'form'),
+    ).toEqual(['ФИО полностью']);
+  });
+
+  it('пустая группа терять нечего — список пуст, и спрашивать не о чем', () => {
+    expect(filledFieldLabels(conditioned, { form: 'ИП', name: '   ' }, 'form')).toEqual([]);
+    expect(filledFieldLabels(conditioned, {}, 'form')).toEqual([]);
+  });
+});
+
+describe('Настройки — реквизиты по формам регистрации', () => {
+  it('🔴 у предпринимателя нет КПП и руководителя, у общества — органа регистрации', () => {
+    const entrepreneur = visibleFields(LEGAL_GROUP, { form: 'ИП' }).map((field) => field.path);
+    const company = visibleFields(LEGAL_GROUP, { form: 'ООО' }).map((field) => field.path);
+
+    expect(entrepreneur).toContain('regAuthority');
+    expect(entrepreneur).not.toContain('kpp');
+    expect(entrepreneur).not.toContain('director');
+    expect(company).toContain('kpp');
+    expect(company).toContain('shortName');
+    expect(company).not.toContain('regDate');
+  });
+
+  it('🔴 непубликуемое поле сказано подсказкой: иначе владелец опубликует домашний адрес', () => {
+    const hint = (form: string, path: string): string | undefined =>
+      visibleFields(LEGAL_GROUP, { form }).find((field) => field.path === path)?.hint;
+
+    expect(hint('ИП', 'address')).toMatch(/не выводится/);
+    expect(hint('ООО', 'kpp')).toMatch(/не выводится/);
+    expect(hint('ООО', 'director')).toMatch(/не выводится/);
+    expect(hint('ИП', 'bankAccount')).toMatch(/не выводится/);
+  });
+
+  it('одноимённые поля разведены подписью: ФИО человека и фирменное наименование', () => {
+    const label = (form: string, path: string): string | undefined =>
+      visibleFields(LEGAL_GROUP, { form }).find((field) => field.path === path)?.label;
+
+    expect(label('ИП', 'name')).not.toBe(label('ООО', 'name'));
+    expect(label('ИП', 'ogrn')).toBe('ОГРНИП');
+    expect(label('ООО', 'ogrn')).toBe('ОГРН');
+  });
+
+  it('🔴 условие сериализуемо: описание переживает границу сервер→клиент', () => {
+    // функция в описании роняет рендер всей страницы (docs/HANDOFF.md)
+    expect(JSON.parse(JSON.stringify(LEGAL_GROUP))).toEqual(LEGAL_GROUP);
+  });
+});
+
+describe('Настройки — дата регистрации', () => {
+  it('машинная дата показывается как есть', () => {
+    expect(toDateValue('2015-03-12')).toBe('2015-03-12');
+  });
+
+  it('всё, что датой не является, — пустое поле, а не мусор в календаре', () => {
+    expect(toDateValue('')).toBe('');
+    expect(toDateValue('12.03.2015')).toBe('');
+    expect(toDateValue(undefined)).toBe('');
+    expect(toDateValue(20150312)).toBe('');
   });
 });
