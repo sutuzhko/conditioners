@@ -168,6 +168,24 @@ export class AdminApi {
     await this.json(response, 'запись прайса');
   }
 
+  /** Группа настроек как есть — снимок для восстановления после теста. */
+  async getSetting(key: string): Promise<unknown> {
+    const response = await this.context.get(`/api/admin/settings/${key}`, {
+      headers: { Cookie: this.cookie },
+    });
+    return this.json(response, `настройки «${key}»`);
+  }
+
+  async putSetting(key: string, value: unknown): Promise<void> {
+    const response = await this.context.put(`/api/admin/settings/${key}`, {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: value,
+    });
+    if (response.status() !== 200) {
+      throw new Error(`Сохранение настроек «${key}» вернуло код ${response.status()}`);
+    }
+  }
+
   private async json(response: APIResponse, what: string): Promise<unknown> {
     if (response.status() !== 200) {
       throw new Error(`Запрос «${what}» вернул код ${response.status()}`);
