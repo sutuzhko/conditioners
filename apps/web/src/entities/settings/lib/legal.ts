@@ -87,3 +87,30 @@ export function publicRequisites(legal: Legal): readonly Requisite[] {
 
   return rows.filter((row) => row.value.trim() !== '');
 }
+
+/**
+ * Реквизиты в том виде, в каком их можно отдать наружу.
+ *
+ * 🔴 Существует потому, что у группы `legal` **две двери**: страницы сайта и
+ * публичный маршрут `GET /api/settings/legal`. Пока дверей было две, а
+ * распорядитель публикации один, маршрут отдавал всё подряд — включая адрес
+ * регистрации предпринимателя (домашний, то есть персональные данные) и
+ * банковские реквизиты. Проверять запрет глазами при каждой правке нельзя:
+ * теперь наружу уходит то, что собрала эта функция, и ничего сверх.
+ *
+ * Форма остаётся: по ней потребитель понимает, чьи это реквизиты, — но она
+ * не факт о человеке, а признак записи.
+ */
+export type PublicLegal = {
+  readonly form: LegalForm;
+  readonly title: string;
+  readonly requisites: readonly Requisite[];
+};
+
+export function publicLegal(legal: Legal): PublicLegal {
+  return {
+    form: legal.form,
+    title: legalShortTitle(legal),
+    requisites: publicRequisites(legal),
+  };
+}

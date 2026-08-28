@@ -20,6 +20,7 @@ import {
   type SettingKey,
 } from '@/entities/settings/model';
 import { SETTING_PLACEHOLDER } from '@/entities/settings/lib/readiness';
+import { publicLegal } from '@/entities/settings/lib/legal';
 
 export type { SettingKey };
 
@@ -143,4 +144,26 @@ export function requiredFields(key: SettingKey, group: unknown): readonly string
   if (key === 'legal') return REQUIRED_FIELDS.legal[legalFormOf(group)];
 
   return REQUIRED_FIELDS[key];
+}
+
+/**
+ * Значение группы в том виде, в каком его можно отдать наружу.
+ *
+ * 🔴 У реквизитов есть непубликуемая часть: адрес регистрации предпринимателя
+ * (как правило домашний, то есть персональные данные) и банковские
+ * реквизиты — они нужны счетам, а не витрине (PROJECT §5.1). До появления этой
+ * функции публичный маршрут отдавал группу как есть, и запрет держался лишь
+ * тем, что страницы сайта ходят через `publicRequisites`. Дверей было две.
+ *
+ * Остальные группы публикуются целиком: в них нет ничего, чего нет на
+ * странице.
+ */
+export function publicValue(key: SettingKey, value: unknown): unknown {
+  if (key !== 'legal') return value;
+
+  /* Битую или старую запись наружу не отдаём вовсе: разобрать её мы не можем,
+     а «отдать как есть» — это ровно то, что здесь и чинится. */
+  const parsed = settingSchemas.legal.safeParse(value);
+
+  return parsed.success ? publicLegal(parsed.data) : null;
 }
