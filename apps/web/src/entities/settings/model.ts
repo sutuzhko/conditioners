@@ -327,15 +327,23 @@ function checkAccounts(
     },
   ] as const;
 
+  /* Про незаполненный БИК говорится один раз, даже когда без ключа осталось
+     два счёта: замечание про одно и то же поле, повторённое дважды, в отчёте
+     готовности читается как две разные недоделки. */
+  let bikReported = false;
+
   for (const account of accounts) {
     if (!filled(account.value)) continue;
 
     if (!filled(legal.bankBik)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ['bankBik'],
-        message: 'Без БИК контрольный ключ счёта не проверить',
-      });
+      if (!bikReported) {
+        bikReported = true;
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['bankBik'],
+          message: 'Без БИК контрольный ключ счёта не проверить',
+        });
+      }
       continue;
     }
 
