@@ -30,20 +30,27 @@ import { hash as hashPassword } from '@node-rs/argon2';
 import { Prisma, PrismaClient } from '@prisma/client';
 import sharp from 'sharp';
 
+import { overtimeMinutes } from '@/entities/crm/lib/overtime';
+import { env } from '@/shared/config/env';
+
+import { productionReasons } from './guard';
+
 const prisma = new PrismaClient();
 
 /**
  * Предохранитель. Демо-данные — это выдуманная компания, выдуманные отзывы и
  * персональные данные несуществующих людей: на боевой базе им нечего делать
  * ни при каких обстоятельствах.
+ *
+ * Сами признаки живут в `guard.ts` — отдельным модулем, чтобы их можно было
+ * покрыть тестом, не запуская сид.
  */
 function assertNotProduction(): void {
-  const reasons: string[] = [];
-
-  if (process.env.NODE_ENV === 'production') reasons.push('NODE_ENV=production');
-  if ((process.env.SITE_URL ?? '').startsWith('https://')) {
-    reasons.push(`SITE_URL=${process.env.SITE_URL} — боевой сайт отдаётся по https`);
-  }
+  const reasons = productionReasons({
+    nodeEnv: env.NODE_ENV,
+    siteUrl: env.SITE_URL,
+    databaseUrl: env.DATABASE_URL,
+  });
 
   if (reasons.length > 0) {
     console.error('Демо-данные на боевом окружении не заводятся:');
@@ -85,6 +92,23 @@ function at(delta: number, time: string): Date {
   return msk(daysFromToday(delta), time);
 }
 
+/**
+ * Рабочее окно компании — с девяти до семи. Живёт одной константой, потому что
+ * его читают двое: группа настроек `schedule` (ADR-128) и расчёт переработки у
+ * нарядов и дел. Разъедься они — стенд показал бы переработку, не совпадающую
+ * с собственной настройкой.
+ */
+const WORK_WINDOW = { fromMin: 9 * 60, toMin: 19 * 60 } as const;
+
+/**
+ * Переработка записи — тем же расчётом, что и в панели (`entities/crm/lib`), а
+ * не проставленным числом: наряд в 08:30 и звонок в 19:00 выходят за окно, и
+ * стенд обязан показывать это так же, как показал бы после правки руками.
+ */
+function overtimeFor(when: Date, durationMin: number): number {
+  return overtimeMinutes(when, durationMin, WORK_WINDOW);
+}
+
 // ---------- Изображения ----------
 
 /**
@@ -98,8 +122,11 @@ function at(delta: number, time: string): Date {
  * Имя файла подчиняется тому же правилу, что и у загруженных через админку
  * (`isSafeFilename`): uuid плюс расширение, иначе `/api/media` их не отдаст.
  */
-const UPLOADS_DIR = process.env.UPLOADS_DIR ?? '/data/uploads';
+const UPLOADS_DIR = env.UPLOADS_DIR;
 const MEDIA_PREFIX = '/api/media';
+/* Приложения к наряду лежат отдельной папкой и наружу отдаются только закрытым
+   маршрутом — там же, где их держит админка (`server/repo/order-files`). */
+const DOCS_SUBDIR = 'orders';
 
 async function makeImage(params: {
   readonly title: string;
@@ -140,25 +167,78 @@ async function makeImage(params: {
   return `${MEDIA_PREFIX}/${filename}`;
 }
 
+/**
+ * «Скан» приложения к наряду. Отличается от снимка местом на диске: документы
+ * лежат в подкаталоге и наружу выходят только закрытым маршрутом, поэтому в
+ * базе хранится имя файла, а не адрес (`server/repo/order-files`).
+ */
+async function makeDocument(
+  title: string,
+  subtitle: string,
+): Promise<{
+  readonly filename: string;
+  readonly sizeBytes: number;
+}> {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1754">
+    <rect width="1240" height="1754" fill="#f8fafc"/>
+    <text x="50%" y="18%" text-anchor="middle" font-family="serif" font-size="64" fill="#0f172a">${title}</text>
+    <text x="50%" y="24%" text-anchor="middle" font-family="serif" font-size="34" fill="#334155">${subtitle}</text>
+    <text x="50%" y="52%" text-anchor="middle" font-family="sans-serif" font-size="40" fill="#94a3b8">демо-данные стенда</text>
+  </svg>`;
+
+  const filename = `${randomUUID()}.jpg`;
+  const body = await sharp(Buffer.from(svg)).jpeg({ quality: 70 }).toBuffer();
+
+  const dir = join(UPLOADS_DIR, DOCS_SUBDIR);
+  await mkdir(dir, { recursive: true });
+  await writeFile(join(dir, filename), body);
+
+  return { filename, sizeBytes: body.length };
+}
+
 // ---------- Данные компании ----------
+
+/* Адресаты уведомлений. Вынесены константами, потому что их читают двое:
+   группа настроек `notifications` и снимок адреса в журнале доставки
+   (ADR-061). Разъедься они — журнал показывал бы доставку туда, куда
+   настройки никогда не слали. */
+const NOTIFY_TELEGRAM_TO = '@tulaklimat_demo';
+const NOTIFY_EMAIL_TO = 'zakaz@tulaklimat.example';
 
 /**
  * Заполнено так, как заполнял бы владелец: без единой заглушки, чтобы стенд
- * показывал разметку, метаданные и футер в рабочем виде. Компания выдумана
- * целиком — реквизиты правдоподобны по формату (ИНН предпринимателя из 12
- * цифр, ОГРНИП из 15), но не принадлежат никому.
+ * показывал разметку, метаданные и футер в рабочем виде.
+ *
+ * 🔴 При этом данные обязаны быть **заведомо демонстрационными**, а не просто
+ * выдуманными. Правдоподобный набор цифр со сходящимся контрольным разрядом
+ * неотличим от настоящего, и ИНН физлица с верным разрядом может совпасть с
+ * чужим — «мы это придумали» здесь непроверяемо. Отсюда три приёма:
+ *
+ *  · телефоны — из заведомо фиктивных наборов (`000-…`), у компании и у
+ *    клиентов разные серии: совпадение телефона компании с телефоном
+ *    демо-клиентки выглядело так, будто владелец оставил заявку сам себе;
+ *  · почта и ссылки — на домене `.example`, зарезервированном RFC 2606;
+ *  · реквизиты — с телом из нулей и с прямым словом «демо» в тех полях,
+ *    которые схема не считает (ФИО, орган регистрации, банк, адрес).
+ *
+ * 🔴 Сами номера остаются вычислительно верными: ИНН, ОГРНИП, БИК и счета
+ * проверяются контрольным разрядом (ADR-143), и на неверных стенд просто не
+ * поднимется — готовность настроек станет красной, а публичный сайт уйдёт под
+ * `noindex`. Сделать номер структурно невозможным нельзя: единственный
+ * запрещённый код региона — `00`, и его отвергает та же проверка.
  */
-const settings: Record<string, unknown> = {
+const settings: Record<string, Prisma.InputJsonValue> = {
   company: {
     name: 'ТулаКлимат',
     tagline: 'Кондиционеры с монтажом под ключ за один день',
     foundedYear: 2015,
   },
   contacts: {
-    phones: ['+7 (4872) 79-25-40', '+7 (910) 155-24-68'],
+    // серия 00-00-xx — только у компании: телефон клиента с ней не совпадёт
+    phones: ['+7 (4872) 00-00-10', '+7 (900) 000-00-20'],
     email: 'zakaz@tulaklimat.example',
     telegram: 'https://t.me/tulaklimat_demo',
-    whatsapp: 'https://wa.me/79101552468',
+    whatsapp: 'https://wa.me/79000000020',
     hours: 'Пн–Вс, 8:00–21:00',
     responseTime: '15 минут',
     openingHours: ['Mo-Su 08:00-21:00'],
@@ -181,9 +261,16 @@ const settings: Record<string, unknown> = {
     served: 'Тула и область: Щёкино, Новомосковск, Алексин, Ясногорск, Венёв',
     promise: 'Тула и область — выезд в день обращения',
   },
-  /* Полный состав формы «ИП» (ADR-112, PROJECT §5.1). Номера выдуманные, но с
-     верными контрольными разрядами: схема проверяет арифметику, а не длину, и
-     правдоподобный набор цифр она бы отвергла (PROJECT §5.2).
+  /* Полный состав формы «ИП» (ADR-112, PROJECT §5.1).
+
+     🔴 Тело каждого номера — нули: `710000000077`, `314710000000002`,
+     `047000000`. Контрольные разряды при этом сходятся, иначе стенд не
+     поднимется (ADR-143), но такой номер невозможно принять за чей-то
+     настоящий — в отличие от прежнего правдоподобного набора цифр.
+
+     ФИО, орган регистрации и банк схема не считает, поэтому демонстрационность
+     сказана в них прямым словом: именно они печатаются в футере и в политике
+     обработки персональных данных.
 
      Адрес — регистрации, то есть домашний: на стенде он показывает ровно то,
      чего на сайте быть не должно, — в футер и в политику уходит фактический
@@ -193,16 +280,16 @@ const settings: Record<string, unknown> = {
      что поля для счетов есть и где они. */
   legal: {
     form: 'ИП',
-    name: 'Ковалёв Сергей Николаевич',
-    inn: '710703123450',
-    ogrn: '314710700012346',
+    name: 'Демонстрационный Стенд Демонстрационович',
+    inn: '710000000077',
+    ogrn: '314710000000002',
     regDate: '2015-03-12',
-    regAuthority: 'Межрайонная ИФНС России № 10 по Тульской области',
-    address: '300026, Тульская область, г. Тула, ул. Рязанская, д. 24, кв. 71',
-    bankName: 'Тульское отделение № 8604 ПАО Сбербанк',
-    bankBik: '047003608',
-    bankAccount: '40702810700000000001',
-    bankCorrAccount: '30101810700000000004',
+    regAuthority: 'Демо-данные стенда: органа регистрации не существует',
+    address: '300000, Тульская область, г. Тула, ул. Демонстрационная, д. 0 (демо-данные)',
+    bankName: 'Демо-банк стенда (реквизиты выдуманы)',
+    bankBik: '047000000',
+    bankAccount: '40802810500000000000',
+    bankCorrAccount: '30101810800000000000',
   },
   extras: {
     trassaPerM: 700,
@@ -260,8 +347,73 @@ const settings: Record<string, unknown> = {
   notifications: {
     telegram: true,
     email: true,
-    telegramChatId: '@tulaklimat_demo',
-    emailTo: 'zakaz@tulaklimat.example',
+    telegramChatId: NOTIFY_TELEGRAM_TO,
+    emailTo: NOTIFY_EMAIL_TO,
+  },
+  /**
+   * Рабочее окно календаря — с девяти до семи (ADR-128). Группа обязательна:
+   * без неё `checkReadiness` отдаёт `ready: false`, а `layout` публичного
+   * сайта при неготовности вешает `robots: { index: false }` — стенд,
+   * наполненный только `seed:demo`, оставался бы под `noindex` целиком.
+   *
+   * Часы работы для посетителя живут отдельно, в `contacts.hours`: это разные
+   * вопросы, и разбирать свободный текст ради сетки календаря нельзя.
+   */
+  schedule: { fromMin: WORK_WINDOW.fromMin, toMin: WORK_WINDOW.toMin },
+  /**
+   * Справочник характеристик (ADR-094). Вторая группа, без которой стенд
+   * оставался под `noindex`, а карточка товара показывала характеристики
+   * плоским списком в порядке заполнения.
+   *
+   * 🔴 Это подсказка и порядок, а не список допустимых характеристик
+   * (инвариант 6). «Тип», «Напор вентилятора» и «Монтаж» у канального и
+   * мобильного блоков сюда сознательно не внесены: их место в группе «Прочее»
+   * — на стенде должно быть видно, что характеристика вне справочника
+   * работает как прежде.
+   */
+  specs: {
+    groups: [
+      {
+        title: 'Основное',
+        fields: [
+          {
+            k: 'Рекомендуемая площадь',
+            unit: 'м²',
+            hint: 'До скольких квадратов модель тянет без запаса',
+          },
+          { k: 'Мощность охлаждения', unit: 'кВт', hint: 'Сколько тепла отводит из помещения' },
+          { k: 'Мощность обогрева', unit: 'кВт', hint: '' },
+          { k: 'Тип компрессора', unit: '', hint: 'Инверторный или обычный (on/off)' },
+        ],
+      },
+      {
+        title: 'Энергоэффективность',
+        fields: [{ k: 'Класс энергоэффективности', unit: '', hint: 'От A до G' }],
+      },
+      {
+        title: 'Шум и температуры',
+        fields: [
+          {
+            k: 'Уровень шума внутреннего блока',
+            unit: 'дБ',
+            hint: 'Ночной режим — 19–23 дБ, обычный — 30–35 дБ',
+          },
+          {
+            k: 'Обогрев при температуре снаружи',
+            unit: '°C',
+            hint: 'Ниже этой границы обогрев не работает',
+          },
+        ],
+      },
+      {
+        title: 'Возможности',
+        fields: [
+          { k: 'Wi-Fi управление', unit: '', hint: '' },
+          { k: 'Самоочистка', unit: '', hint: '' },
+          { k: 'Гарантия производителя', unit: '', hint: 'Срок от завода, отдельно от монтажа' },
+        ],
+      },
+    ],
   },
   integrations: {
     metrikaId: '',
@@ -665,7 +817,7 @@ const staff: readonly DemoStaff[] = [
   {
     login: 'zaharov',
     name: 'Захаров Илья',
-    phone: '+7 (910) 700-14-22',
+    phone: '+7 (900) 000-02-01',
     employment: 'SELF_EMPLOYED',
     active: true,
     notes: [
@@ -676,7 +828,7 @@ const staff: readonly DemoStaff[] = [
   {
     login: 'mironov',
     name: 'Миронов Артём',
-    phone: '+7 (953) 420-88-01',
+    phone: '+7 (900) 000-02-02',
     employment: 'CONTRACT',
     active: true,
     notes: ['Аккуратный, но медленный: на типовой монтаж закладывать 4 часа, а не 3.'],
@@ -684,7 +836,7 @@ const staff: readonly DemoStaff[] = [
   {
     login: 'panov',
     name: 'Панов Дмитрий',
-    phone: '+7 (920) 311-45-90',
+    phone: '+7 (900) 000-02-03',
     employment: 'STAFF',
     active: true,
     notes: [],
@@ -692,7 +844,7 @@ const staff: readonly DemoStaff[] = [
   {
     login: 'gusev',
     name: 'Гусев Роман',
-    phone: '+7 (960) 602-73-15',
+    phone: '+7 (900) 000-02-04',
     // оформление не заведено: у наряда такого монтажника удержание остаётся
     // пометкой и вознаграждение не уменьшает — состояние должно быть на стенде
     employment: null,
@@ -713,15 +865,16 @@ type DemoClient = {
 };
 
 /**
- * Телефоны выдуманы, но в разных записях: владелец диктует номер как привык, и
- * дедупликация обязана свести «+7 (910) …», «8 910 …» и «9 10…» к одному
- * ключу (ADR-105). Здесь нарочно смешаны три способа записи.
+ * Телефоны заведомо фиктивные (серия `000-01-xx`) и записаны по-разному:
+ * владелец диктует номер как привык, и дедупликация обязана свести
+ * «+7 (900) …», «8 900 …» и «9 00…» к одному ключу (ADR-105). Здесь нарочно
+ * смешаны три способа записи.
  */
 const clients: readonly DemoClient[] = [
   {
     key: 'orlova',
     name: 'Орлова Наталья Викторовна',
-    phone: '+7 (910) 155-24-68',
+    phone: '+7 (900) 000-01-01',
     address: 'Тула, ул. Первомайская, 27, кв. 45',
     note: 'Две сплит-системы: спальня и гостиная. Просит звонить после 18:00.',
     createdDaysAgo: 310,
@@ -729,7 +882,7 @@ const clients: readonly DemoClient[] = [
   {
     key: 'sergeev',
     name: 'Сергеев Павел',
-    phone: '8 953 811 40 26',
+    phone: '8 900 000 01 02',
     address: 'Тула, ул. Октябрьская, 91, кв. 12',
     note: 'ТО раз в год, весной. Кондиционер Ballu 09, поставлен нами в 2023.',
     createdDaysAgo: 240,
@@ -737,7 +890,7 @@ const clients: readonly DemoClient[] = [
   {
     key: 'kuznecova',
     name: 'Кузнецова Ирина',
-    phone: '9206114488',
+    phone: '9000000103',
     address: 'Щёкино, ул. Советская, 14',
     note: null,
     createdDaysAgo: 188,
@@ -745,7 +898,7 @@ const clients: readonly DemoClient[] = [
   {
     key: 'romashka',
     name: 'ООО «Ромашка», офис на Ленина',
-    phone: '+7 (4872) 25-19-03',
+    phone: '+7 (4872) 00-01-04',
     address: 'Тула, проспект Ленина, 85, 4 этаж',
     note: 'Юрлицо, оплата по счёту. Контактное лицо — Марина, завхоз.',
     createdDaysAgo: 165,
@@ -753,7 +906,7 @@ const clients: readonly DemoClient[] = [
   {
     key: 'demin',
     name: 'Дёмин Алексей Юрьевич',
-    phone: '+7 (915) 902-77-31',
+    phone: '+7 (900) 000-01-05',
     address: 'Тула, ул. Металлургов, 62, кв. 118',
     note: '12 этаж, нужна автовышка. В прошлый раз согласовывали с управляющей компанией.',
     createdDaysAgo: 120,
@@ -761,7 +914,7 @@ const clients: readonly DemoClient[] = [
   {
     key: 'belyaeva',
     name: 'Беляева Ольга',
-    phone: '+7 (910) 088-52-14',
+    phone: '+7 (900) 000-01-06',
     address: 'Тула, ул. Пузакова, 5, кв. 3',
     note: null,
     createdDaysAgo: 96,
@@ -769,7 +922,7 @@ const clients: readonly DemoClient[] = [
   {
     key: 'novikov',
     name: 'Новиков Станислав',
-    phone: '+7 (930) 745-16-08',
+    phone: '+7 (900) 000-01-07',
     address: 'Новомосковск, ул. Комсомольская, 40, кв. 77',
     note: 'Дача под Новомосковском, выезд согласовывать заранее.',
     createdDaysAgo: 71,
@@ -777,7 +930,7 @@ const clients: readonly DemoClient[] = [
   {
     key: 'fedotova',
     name: 'Федотова Лидия Ивановна',
-    phone: '+7 (906) 530-92-44',
+    phone: '+7 (900) 000-01-08',
     address: 'Тула, ул. Кирова, 12, кв. 9',
     note: 'Пенсионерка, просит подробно объяснять по телефону.',
     createdDaysAgo: 45,
@@ -785,7 +938,7 @@ const clients: readonly DemoClient[] = [
   {
     key: 'salon',
     name: 'Салон «Аврора»',
-    phone: '+7 (4872) 33-10-77',
+    phone: '+7 (4872) 00-01-09',
     address: 'Тула, ул. Советская, 47, помещение 2',
     note: 'Два канальных блока за потолком, обслуживание по договору дважды в год.',
     createdDaysAgo: 30,
@@ -793,7 +946,7 @@ const clients: readonly DemoClient[] = [
   {
     key: 'zhukov',
     name: 'Жуков Кирилл',
-    phone: '+7 (952) 187-63-40',
+    phone: '+7 (900) 000-01-10',
     address: 'Тула, ул. Токарева, 88, кв. 204',
     note: null,
     createdDaysAgo: 9,
@@ -830,7 +983,7 @@ type DemoLead = {
 const leads: readonly DemoLead[] = [
   {
     name: 'Жуков Кирилл',
-    phone: '+7 (952) 187-63-40',
+    phone: '+7 (900) 000-01-10',
     topic: 'Установка кондиционера',
     place: 'Квартира',
     qty: '1',
@@ -846,7 +999,7 @@ const leads: readonly DemoLead[] = [
   },
   {
     name: 'Марина',
-    phone: '+7 (4872) 25-19-03',
+    phone: '+7 (4872) 00-01-04',
     topic: 'Обслуживание',
     place: 'Офис',
     qty: '4',
@@ -860,7 +1013,7 @@ const leads: readonly DemoLead[] = [
   },
   {
     name: 'Антон',
-    phone: '+7 (910) 244-05-77',
+    phone: '+7 (900) 000-03-01',
     topic: 'Консультация',
     comment: 'Сколько будет стоить, если трасса 7 метров и штробить бетон?',
     status: 'NEW',
@@ -871,7 +1024,7 @@ const leads: readonly DemoLead[] = [
   },
   {
     name: 'Федотова Лидия Ивановна',
-    phone: '+7 (906) 530-92-44',
+    phone: '+7 (900) 000-01-08',
     topic: 'Установка кондиционера',
     place: 'Квартира',
     qty: '1',
@@ -887,7 +1040,7 @@ const leads: readonly DemoLead[] = [
   },
   {
     name: 'Новиков Станислав',
-    phone: '+7 (930) 745-16-08',
+    phone: '+7 (900) 000-01-07',
     topic: 'Установка кондиционера',
     place: 'Дом',
     qty: '2',
@@ -902,7 +1055,7 @@ const leads: readonly DemoLead[] = [
   },
   {
     name: 'Дёмин Алексей',
-    phone: '+7 (915) 902-77-31',
+    phone: '+7 (900) 000-01-05',
     topic: 'Установка кондиционера',
     place: 'Квартира',
     qty: '1',
@@ -917,7 +1070,7 @@ const leads: readonly DemoLead[] = [
   },
   {
     name: 'Беляева Ольга',
-    phone: '+7 (910) 088-52-14',
+    phone: '+7 (900) 000-01-06',
     topic: 'Ремонт',
     place: 'Квартира',
     address: 'Тула, ул. Пузакова, 5, кв. 3',
@@ -930,7 +1083,7 @@ const leads: readonly DemoLead[] = [
   },
   {
     name: 'Сергеев Павел',
-    phone: '8 953 811 40 26',
+    phone: '8 900 000 01 02',
     topic: 'Обслуживание',
     place: 'Квартира',
     qty: '1',
@@ -944,7 +1097,7 @@ const leads: readonly DemoLead[] = [
   },
   {
     name: 'Кузнецова Ирина',
-    phone: '9206114488',
+    phone: '9000000103',
     topic: 'Установка кондиционера',
     place: 'Квартира',
     address: 'Щёкино, ул. Советская, 14',
@@ -976,7 +1129,7 @@ const leads: readonly DemoLead[] = [
   },
   {
     name: 'Орлова Наталья',
-    phone: '+7 (910) 155-24-68',
+    phone: '+7 (900) 000-01-01',
     topic: 'Установка кондиционера',
     place: 'Квартира',
     qty: '2',
@@ -1027,22 +1180,25 @@ const reviews: readonly DemoReview[] = [
     rating: 5,
     text: 'Двенадцатый этаж, думал никто не возьмётся. Приехали с вышкой, согласовали с управляющей компанией сами. Работает тихо, спасибо.',
     status: 'APPROVED',
-    daysAgo: 25,
+    // наряд был 12 дней назад: отзыв не может быть старше работы
+    daysAgo: 10,
     photo: true,
   },
   {
     name: 'Павел',
     rating: 4,
-    text: 'Всё сделали хорошо, но приехали на час позже, чем договаривались. Позвонили, предупредили — и на том спасибо.',
+    // ТО было 20 дней назад; опоздание — то же, за которое в наряде удержание
+    text: 'Всё сделали хорошо, но приехали на два часа позже, чем договаривались. Позвонили только когда я сам набрал.',
     status: 'APPROVED',
-    daysAgo: 31,
+    daysAgo: 18,
   },
   {
     name: 'Беляева Ольга',
     rating: 5,
     text: 'Вызывала из-за течи, оказался забитый дренаж. Промыли, заодно почистили — и денег взяли как за обычную чистку.',
     status: 'APPROVED',
-    daysAgo: 18,
+    // ремонт был 6 дней назад
+    daysAgo: 4,
     avatar: true,
   },
   {
@@ -1053,9 +1209,11 @@ const reviews: readonly DemoReview[] = [
     daysAgo: 2,
   },
   {
-    name: 'Станислав',
+    /* Не Новиков: его наряд ещё впереди, и отзыв о несделанной работе выглядел
+       бы поломкой стенда. Здесь другой человек и другой объект. */
+    name: 'Вячеслав',
     rating: 4,
-    text: 'Ставили на даче под Новомосковском. Ехать далеко, но за выезд не накинули. Единственное — пришлось подождать неделю из-за дождей.',
+    text: 'Ставили на даче под Тулой. Ехать далеко, но за выезд не накинули. Единственное — пришлось подождать неделю из-за дождей.',
     status: 'PENDING',
     daysAgo: 1,
     photo: true,
@@ -1313,7 +1471,7 @@ const orders: readonly DemoOrder[] = [
     time: '09:00',
     durationMin: 240,
     address: 'Тула, ул. Кирова, 12, кв. 9',
-    phone2: '+7 (906) 530-92-44',
+    phone2: '+7 (900) 000-01-08',
     floor: 2,
     payment: 'CASH_TO_INSTALLER',
     price: 37400,
@@ -1371,7 +1529,7 @@ const orders: readonly DemoOrder[] = [
     time: '13:00',
     durationMin: 180,
     address: 'Тула, проспект Ленина, 85, 4 этаж',
-    phone2: '+7 (4872) 25-19-03',
+    phone2: '+7 (4872) 00-01-04',
     floor: 4,
     payment: 'COMPANY',
     price: 9600,
@@ -1402,8 +1560,11 @@ const orders: readonly DemoOrder[] = [
     ownerNote: 'Вышка своя, в смету заложены только высотные работы.',
     units: [
       {
+        /* Модель совпадает с той, что списана со склада в этот же наряд
+           (`split-09-invertor`): в наряде стоял Haier, а списывался Electrolux,
+           и стенд выглядел так, будто учёт техники ни к чему не привязан. */
         equip: 'CONDITIONER',
-        model: 'Haier AS12TL4HRA',
+        model: 'Electrolux EACS/I-09HAT',
         source: 'OURS',
         trassaM: 6,
         diameter: '1/4–3/8',
@@ -1498,6 +1659,34 @@ const orders: readonly DemoOrder[] = [
     ],
   },
   {
+    /* Первый монтаж, о котором говорят и комментарий менеджера в заявке, и
+       отзыв: без него у клиентки был единственный наряд `CANCELLED`, а
+       менеджер в заявке писал «поставили, клиент доволен». */
+    type: 'INSTALL',
+    status: 'DONE',
+    clientKey: 'kuznecova',
+    installerLogin: 'panov',
+    dayDelta: -46,
+    time: '10:00',
+    durationMin: 300,
+    address: 'Щёкино, ул. Советская, 14',
+    floor: 3,
+    payment: 'CASH_TO_INSTALLER',
+    price: 41200,
+    installerFee: 7500,
+    comment: 'Штробление по бетону, трасса 5 метров. Первый блок, в гостиную.',
+    units: [
+      {
+        equip: 'CONDITIONER',
+        model: 'Hisense AS-09HR4SYDDJ',
+        source: 'OURS',
+        trassaM: 5,
+        diameter: '1/4–3/8',
+        shtrob: true,
+      },
+    ],
+  },
+  {
     type: 'INSTALL',
     status: 'CANCELLED',
     clientKey: 'kuznecova',
@@ -1521,6 +1710,11 @@ type DemoEvent = {
   readonly status: 'PLANNED' | 'DONE' | 'CANCELLED';
   readonly dayDelta: number;
   readonly time: string;
+  /* 🔴 Задаётся у каждого дела, а не берётся из умолчания схемы: без своей
+     длительности монтаж на весь день рисуется часовой полоской, и часовая
+     сетка календаря на стенде показывает не то, что на ней проверяют
+     (ADR-128). */
+  readonly durationMin: number;
   readonly clientName: string;
   readonly clientPhone?: string;
   readonly address?: string;
@@ -1539,8 +1733,9 @@ const events: readonly DemoEvent[] = [
     status: 'PLANNED',
     dayDelta: -2,
     time: '11:00',
+    durationMin: 30,
     clientName: 'Антон',
-    clientPhone: '+7 (910) 244-05-77',
+    clientPhone: '+7 (900) 000-03-01',
     note: 'Спрашивал про трассу 7 метров и штробление. Просрочено — перезвонить.',
     leadIndex: 2,
   },
@@ -1549,8 +1744,9 @@ const events: readonly DemoEvent[] = [
     status: 'DONE',
     dayDelta: -1,
     time: '18:30',
+    durationMin: 30,
     clientName: 'Федотова Лидия Ивановна',
-    clientPhone: '+7 (906) 530-92-44',
+    clientPhone: '+7 (900) 000-01-08',
     note: 'Согласовали замер на завтра, 10:00.',
     leadIndex: 3,
   },
@@ -1559,8 +1755,9 @@ const events: readonly DemoEvent[] = [
     status: 'PLANNED',
     dayDelta: 0,
     time: '13:00',
+    durationMin: 180,
     clientName: 'ООО «Ромашка»',
-    clientPhone: '+7 (4872) 25-19-03',
+    clientPhone: '+7 (4872) 00-01-04',
     address: 'Тула, проспект Ленина, 85, 4 этаж',
     note: 'Чистка четырёх блоков, пропуск на Марину.',
     leadIndex: 1,
@@ -1570,8 +1767,9 @@ const events: readonly DemoEvent[] = [
     status: 'PLANNED',
     dayDelta: 0,
     time: '19:00',
+    durationMin: 30,
     clientName: 'Жуков Кирилл',
-    clientPhone: '+7 (952) 187-63-40',
+    clientPhone: '+7 (900) 000-01-10',
     note: 'Новая заявка с сайта, просил звонить после 18:00.',
     leadIndex: 0,
   },
@@ -1580,8 +1778,9 @@ const events: readonly DemoEvent[] = [
     status: 'PLANNED',
     dayDelta: 1,
     time: '10:00',
+    durationMin: 60,
     clientName: 'Федотова Лидия Ивановна',
-    clientPhone: '+7 (906) 530-92-44',
+    clientPhone: '+7 (900) 000-01-08',
     address: 'Тула, ул. Кирова, 12, кв. 9',
     note: 'Второй этаж, балкон. Посмотреть, куда вешать наружный блок.',
     leadIndex: 3,
@@ -1591,6 +1790,7 @@ const events: readonly DemoEvent[] = [
     status: 'PLANNED',
     dayDelta: 1,
     time: '09:00',
+    durationMin: 240,
     clientName: 'Федотова Лидия Ивановна',
     address: 'Тула, ул. Кирова, 12, кв. 9',
     note: 'Монтаж сразу после замера, если всё сойдётся.',
@@ -1600,8 +1800,9 @@ const events: readonly DemoEvent[] = [
     status: 'PLANNED',
     dayDelta: 2,
     time: '15:00',
+    durationMin: 60,
     clientName: 'Поставщик, склад на Одоевском',
-    clientPhone: '+7 (4872) 70-11-05',
+    clientPhone: '+7 (4872) 00-03-02',
     address: 'Тула, Одоевское шоссе, 83',
     note: 'Забрать четыре внутренних блока и кронштейны.',
   },
@@ -1610,8 +1811,9 @@ const events: readonly DemoEvent[] = [
     status: 'PLANNED',
     dayDelta: 3,
     time: '10:00',
+    durationMin: 240,
     clientName: 'Жуков Кирилл',
-    clientPhone: '+7 (952) 187-63-40',
+    clientPhone: '+7 (900) 000-01-10',
     address: 'Тула, ул. Токарева, 88, кв. 204',
     leadIndex: 0,
   },
@@ -1620,6 +1822,7 @@ const events: readonly DemoEvent[] = [
     status: 'PLANNED',
     dayDelta: 4,
     time: '09:00',
+    durationMin: 15,
     clientName: 'Внутреннее',
     note: 'Заказать фреон R32, остался один баллон.',
   },
@@ -1628,8 +1831,9 @@ const events: readonly DemoEvent[] = [
     status: 'PLANNED',
     dayDelta: 5,
     time: '11:00',
+    durationMin: 420,
     clientName: 'Новиков Станислав',
-    clientPhone: '+7 (930) 745-16-08',
+    clientPhone: '+7 (900) 000-01-07',
     address: 'Новомосковск, ул. Комсомольская, 40',
     note: 'Два блока, выезд на весь день.',
     leadIndex: 4,
@@ -1639,8 +1843,9 @@ const events: readonly DemoEvent[] = [
     status: 'PLANNED',
     dayDelta: 8,
     time: '12:00',
+    durationMin: 180,
     clientName: 'Салон «Аврора»',
-    clientPhone: '+7 (4872) 33-10-77',
+    clientPhone: '+7 (4872) 00-01-09',
     address: 'Тула, ул. Советская, 47',
     note: 'Плановое ТО по договору, второй раз за год.',
   },
@@ -1649,8 +1854,9 @@ const events: readonly DemoEvent[] = [
     status: 'PLANNED',
     dayDelta: 12,
     time: '10:00',
+    durationMin: 30,
     clientName: 'Сергеев Павел',
-    clientPhone: '8 953 811 40 26',
+    clientPhone: '8 900 000 01 02',
     note: 'Напомнить про ТО следующей весной — договаривались заранее.',
   },
   {
@@ -1658,6 +1864,7 @@ const events: readonly DemoEvent[] = [
     status: 'DONE',
     dayDelta: -12,
     time: '09:00',
+    durationMin: 360,
     clientName: 'Дёмин Алексей',
     address: 'Тула, ул. Металлургов, 62, кв. 118',
     note: 'Высотные работы, автовышка.',
@@ -1668,8 +1875,9 @@ const events: readonly DemoEvent[] = [
     status: 'CANCELLED',
     dayDelta: -4,
     time: '16:00',
+    durationMin: 60,
     clientName: 'Кузнецова Ирина',
-    clientPhone: '9206114488',
+    clientPhone: '9000000103',
     address: 'Щёкино, ул. Советская, 14',
     note: 'Отменили: клиент отложил второй блок до следующего лета.',
     leadIndex: 8,
@@ -1679,6 +1887,7 @@ const events: readonly DemoEvent[] = [
     status: 'DONE',
     dayDelta: -6,
     time: '15:00',
+    durationMin: 90,
     clientName: 'Беляева Ольга',
     address: 'Тула, ул. Пузакова, 5, кв. 3',
     note: 'Течь, промывка дренажа.',
@@ -2175,6 +2384,187 @@ const stockMoves: readonly DemoMove[] = [
   },
 ];
 
+// ---------- Техника у клиентов ----------
+
+/**
+ * Что у человека уже стоит. Раздел живёт с первого дня, но пустым на стенде
+ * его нельзя было ни посмотреть, ни принять.
+ *
+ * 🔴 Гарантия хранится датой, а не сроком: сроки в настройках владелец меняет,
+ * а обещание конкретному человеку меняться не имеет права (schema.prisma).
+ * Отсюда три состояния на стенде: гарантия действует, гарантия кончилась и
+ * гарантии нет вовсе — техника поставлена не нами.
+ */
+type DemoClientUnit = {
+  readonly clientKey: string;
+  readonly model: string;
+  readonly installedDaysAgo: number;
+  /** Дней гарантии от установки. `null` — ставили не мы, гарантии нет. */
+  readonly warrantyDays: number | null;
+  /** Наряд, из которого выросла техника, по месту в списке нарядов. */
+  readonly orderIndex?: number;
+  readonly photo?: boolean;
+};
+
+const clientUnits: readonly DemoClientUnit[] = [
+  {
+    clientKey: 'orlova',
+    model: 'Electrolux EACS/I-09HAT',
+    installedDaysAgo: 55,
+    warrantyDays: 1095,
+    orderIndex: 8,
+    photo: true,
+  },
+  {
+    clientKey: 'orlova',
+    model: 'Haier AS12TL4HRA',
+    installedDaysAgo: 55,
+    warrantyDays: 1095,
+    orderIndex: 8,
+  },
+  {
+    clientKey: 'demin',
+    model: 'Electrolux EACS/I-09HAT',
+    installedDaysAgo: 12,
+    warrantyDays: 1095,
+    orderIndex: 4,
+    photo: true,
+  },
+  {
+    clientKey: 'kuznecova',
+    model: 'Hisense AS-09HR4SYDDJ',
+    installedDaysAgo: 46,
+    warrantyDays: 1095,
+    orderIndex: 9,
+  },
+  {
+    // гарантия кончилась: ставили в 2023-м, на стенде должно быть видно и это
+    clientKey: 'sergeev',
+    model: 'Ballu BSWI-09HN8',
+    installedDaysAgo: 940,
+    warrantyDays: 365,
+  },
+  {
+    clientKey: 'salon',
+    model: 'Канальный блок Tosot T24H',
+    installedDaysAgo: 430,
+    warrantyDays: 1095,
+  },
+  {
+    clientKey: 'salon',
+    model: 'Канальный блок Tosot T24H',
+    installedDaysAgo: 430,
+    warrantyDays: 1095,
+  },
+  {
+    // техника клиента: ставили не мы, гарантии нет — только ремонт по счёту
+    clientKey: 'belyaeva',
+    model: 'Zanussi ZACS-09',
+    installedDaysAgo: 870,
+    warrantyDays: null,
+  },
+];
+
+// ---------- Выезд: чеклист, снимки, документы, история ----------
+
+/**
+ * Чеклист выезда. Часть пунктов собрана из позиций наряда (`own: false`),
+ * часть дописана человеком (`own: true`) — пересборка сохраняет только
+ * вторые, и разница обязана быть видна на стенде.
+ */
+type DemoChecklistItem = {
+  readonly orderIndex: number;
+  readonly text: string;
+  readonly done: boolean;
+  readonly own: boolean;
+};
+
+const checklist: readonly DemoChecklistItem[] = [
+  {
+    orderIndex: 1,
+    text: 'Кондиционер Ballu BSWI-07HN8 — внутренний блок',
+    done: false,
+    own: false,
+  },
+  { orderIndex: 1, text: 'Трасса 3 м, 1/4–3/8', done: false, own: false },
+  { orderIndex: 1, text: 'Показать пульт и режимы, клиент пожилой', done: false, own: true },
+  { orderIndex: 3, text: 'Блок 1 — чистка теплообменника', done: true, own: false },
+  { orderIndex: 3, text: 'Блок 2 — чистка теплообменника', done: true, own: false },
+  { orderIndex: 3, text: 'Блок 3 — чистка теплообменника', done: false, own: false },
+  { orderIndex: 3, text: 'Блок 4 — чистка теплообменника', done: false, own: false },
+  { orderIndex: 3, text: 'Забрать пропуск на вахте у Марины', done: true, own: true },
+];
+
+/** Снимки объекта: «до» ставит владелец, «после» — монтажник (CRM.md §9). */
+type DemoOrderPhoto = {
+  readonly orderIndex: number;
+  readonly stage: 'BEFORE' | 'AFTER';
+  readonly title: string;
+};
+
+const orderPhotos: readonly DemoOrderPhoto[] = [
+  { orderIndex: 1, stage: 'BEFORE', title: 'место установки' },
+  { orderIndex: 4, stage: 'BEFORE', title: 'фасад до монтажа' },
+  { orderIndex: 4, stage: 'AFTER', title: 'наружный блок' },
+  { orderIndex: 4, stage: 'AFTER', title: 'внутренний блок' },
+  { orderIndex: 5, stage: 'AFTER', title: 'дренаж после промывки' },
+];
+
+/**
+ * Приложения к наряду. В отличие от снимков, документы отдаются закрытым
+ * маршрутом со сверкой сессии: это договоры с персональными данными клиента.
+ */
+type DemoOrderDoc = {
+  readonly orderIndex: number;
+  readonly kind: 'CONTRACT' | 'WARRANTY' | 'ACT' | 'INVOICE' | 'MEASURE' | 'OTHER';
+  readonly name: string;
+};
+
+const orderDocs: readonly DemoOrderDoc[] = [
+  { orderIndex: 4, kind: 'CONTRACT', name: 'Договор № 5 от 14 числа.jpg' },
+  { orderIndex: 4, kind: 'ACT', name: 'Акт выполненных работ.jpg' },
+  { orderIndex: 6, kind: 'ACT', name: 'Акт ТО.jpg' },
+  { orderIndex: 3, kind: 'INVOICE', name: 'Счёт на оплату для ООО «Ромашка».jpg' },
+];
+
+/**
+ * История наряда: кто и когда менял статус. Автор — учётная запись, поэтому
+ * запись переживает увольнение монтажника (`SetNull` в схеме).
+ */
+type DemoOrderHistory = {
+  readonly orderIndex: number;
+  readonly authorLogin?: string;
+  readonly text: string;
+  readonly hoursAgo: number;
+};
+
+const orderHistory: readonly DemoOrderHistory[] = [
+  { orderIndex: 0, text: 'Наряд заведён из обращения с сайта', hoursAgo: 3 },
+  { orderIndex: 1, text: 'Наряд заведён', hoursAgo: 50 },
+  { orderIndex: 1, text: 'Назначен исполнитель: Миронов Артём', hoursAgo: 48 },
+  { orderIndex: 3, text: 'Назначен исполнитель: Панов Дмитрий', hoursAgo: 30 },
+  { orderIndex: 3, authorLogin: 'panov', text: 'Взят в работу', hoursAgo: 2 },
+  { orderIndex: 4, text: 'Назначен исполнитель: Захаров Илья', hoursAgo: 15 * 24 },
+  { orderIndex: 4, authorLogin: 'zaharov', text: 'Взят в работу', hoursAgo: 12 * 24 },
+  {
+    orderIndex: 4,
+    authorLogin: 'zaharov',
+    text: 'Выполнен, оплата наличными принята',
+    hoursAgo: 12 * 24 - 6,
+  },
+  { orderIndex: 6, authorLogin: 'panov', text: 'Выполнен', hoursAgo: 20 * 24 },
+  {
+    orderIndex: 6,
+    text: 'Удержание 500 ₽: опоздание на два часа без предупреждения',
+    hoursAgo: 19 * 24,
+  },
+  {
+    orderIndex: 10,
+    text: 'Отменён: клиент отложил второй блок до следующего лета',
+    hoursAgo: 3 * 24,
+  },
+];
+
 // ---------- Журнал доставки ----------
 
 /**
@@ -2192,12 +2582,17 @@ type DemoNotification = {
   readonly hoursAgo: number;
   readonly attempts: number;
   readonly lastError?: string;
-  readonly payload: Record<string, unknown>;
+  /* Значение типизировано входным JSON Prisma, а не `Record<string, unknown>`:
+     ровно этот приём убрал приведения `as never` в repo/settings.ts (ADR-108). */
+  readonly payload: Prisma.InputJsonObject;
+  /** Снимок адреса, по которому сообщение ушло на самом деле (ADR-061). */
+  readonly address: string;
 };
 
 const notifications: readonly DemoNotification[] = [
   {
     channel: 'telegram',
+    address: NOTIFY_TELEGRAM_TO,
     kind: 'lead',
     status: 'SENT',
     hoursAgo: 3,
@@ -2205,12 +2600,13 @@ const notifications: readonly DemoNotification[] = [
     payload: {
       kind: 'lead',
       name: 'Жуков Кирилл',
-      phone: '+7 (952) 187-63-40',
+      phone: '+7 (900) 000-01-10',
       topic: 'Установка кондиционера',
     },
   },
   {
     channel: 'email',
+    address: NOTIFY_EMAIL_TO,
     kind: 'lead',
     status: 'SENT',
     hoursAgo: 3,
@@ -2218,29 +2614,32 @@ const notifications: readonly DemoNotification[] = [
     payload: {
       kind: 'lead',
       name: 'Жуков Кирилл',
-      phone: '+7 (952) 187-63-40',
+      phone: '+7 (900) 000-01-10',
       topic: 'Установка кондиционера',
     },
   },
   {
     channel: 'telegram',
+    address: NOTIFY_TELEGRAM_TO,
     kind: 'lead',
     status: 'SENT',
     hoursAgo: 9,
     attempts: 2,
-    payload: { kind: 'lead', name: 'Марина', phone: '+7 (4872) 25-19-03', topic: 'Обслуживание' },
+    payload: { kind: 'lead', name: 'Марина', phone: '+7 (4872) 00-01-04', topic: 'Обслуживание' },
   },
   {
     channel: 'email',
+    address: NOTIFY_EMAIL_TO,
     kind: 'lead',
     status: 'FAILED',
     hoursAgo: 9,
     attempts: 5,
     lastError: 'SMTP 421: соединение закрыто сервером после трёх попыток подряд',
-    payload: { kind: 'lead', name: 'Марина', phone: '+7 (4872) 25-19-03', topic: 'Обслуживание' },
+    payload: { kind: 'lead', name: 'Марина', phone: '+7 (4872) 00-01-04', topic: 'Обслуживание' },
   },
   {
     channel: 'telegram',
+    address: NOTIFY_TELEGRAM_TO,
     kind: 'review',
     status: 'SENT',
     hoursAgo: 26,
@@ -2249,14 +2648,16 @@ const notifications: readonly DemoNotification[] = [
   },
   {
     channel: 'telegram',
+    address: NOTIFY_TELEGRAM_TO,
     kind: 'to-reminder',
     status: 'SENT',
     hoursAgo: 50,
     attempts: 1,
-    payload: { kind: 'to-reminder', phone: '8 953 811 40 26', when: 'Весной' },
+    payload: { kind: 'to-reminder', phone: '8 900 000 01 02', when: 'Весной' },
   },
   {
     channel: 'telegram',
+    address: NOTIFY_TELEGRAM_TO,
     kind: 'lead',
     status: 'FAILED',
     hoursAgo: 120,
@@ -2292,6 +2693,10 @@ async function wipe(): Promise<void> {
   await prisma.stockMovement.deleteMany();
   await prisma.stockItem.deleteMany();
   await prisma.stockZone.deleteMany();
+  await prisma.orderChecklistItem.deleteMany();
+  await prisma.orderPhoto.deleteMany();
+  await prisma.orderDocument.deleteMany();
+  await prisma.orderHistory.deleteMany();
   await prisma.orderUnit.deleteMany();
   await prisma.order.deleteMany();
   await prisma.dayBlock.deleteMany();
@@ -2300,6 +2705,7 @@ async function wipe(): Promise<void> {
   await prisma.notification.deleteMany();
   await prisma.review.deleteMany();
   await prisma.lead.deleteMany();
+  await prisma.clientUnit.deleteMany();
   await prisma.client.deleteMany();
   await prisma.productSpec.deleteMany();
   await prisma.productPhoto.deleteMany();
@@ -2334,6 +2740,8 @@ async function sweepOrphans(): Promise<void> {
     take(row.avatar);
   }
   for (const row of await prisma.lead.findMany({ select: { photo: true } })) take(row.photo);
+  for (const row of await prisma.orderPhoto.findMany({ select: { url: true } })) take(row.url);
+  for (const row of await prisma.clientUnit.findMany({ select: { photo: true } })) take(row.photo);
 
   const names = await readdir(UPLOADS_DIR).catch(() => [] as string[]);
   // трогаем только файлы с именем, которое выдаёт сервер: чужое в этом
@@ -2347,7 +2755,22 @@ async function sweepOrphans(): Promise<void> {
     removed += 1;
   }
 
-  if (removed > 0) console.log(`  снимков без карточек убрано: ${removed}`);
+  /* Приложения к нарядам лежат отдельной папкой, и в базе у них имя файла, а
+     не адрес: без своего прохода каждый прогон оставлял бы там прежний
+     комплект договоров. */
+  const docsDir = join(UPLOADS_DIR, DOCS_SUBDIR);
+  const docNames = await readdir(docsDir).catch(() => [] as string[]);
+  const docsReferenced = new Set(
+    (await prisma.orderDocument.findMany({ select: { url: true } })).map((row) => row.url),
+  );
+
+  for (const name of docNames) {
+    if (!generated.test(name) || docsReferenced.has(name)) continue;
+    await rm(join(docsDir, name), { force: true });
+    removed += 1;
+  }
+
+  if (removed > 0) console.error(`  файлов без карточек убрано: ${removed}`);
 }
 
 /** Приведение телефона к ключу дедупликации — та же логика, что в `shared/lib/phone`. */
@@ -2384,25 +2807,25 @@ async function warnIfNoOwner(): Promise<void> {
 async function main(): Promise<void> {
   assertNotProduction();
 
-  console.log('Чищу прежние демо-данные…');
+  console.error('Чищу прежние демо-данные…');
   await wipe();
   await sweepOrphans();
 
-  console.log('Настройки компании…');
+  console.error('Настройки компании…');
   for (const [key, value] of Object.entries(settings)) {
     await prisma.setting.upsert({
       where: { key },
-      create: { key, value: value as never },
-      update: { value: value as never },
+      create: { key, value },
+      update: { value },
     });
   }
 
-  console.log('Прайс на монтаж…');
+  console.error('Прайс на монтаж…');
   for (const [index, row] of prices.entries()) {
     await prisma.priceRow.create({ data: { ...row, sort: index } });
   }
 
-  console.log('Каталог…');
+  console.error('Каталог…');
   for (const [index, product] of products.entries()) {
     const [from, to] = product.colors;
     const main = await makeImage({
@@ -2452,7 +2875,7 @@ async function main(): Promise<void> {
     });
   }
 
-  console.log('Статьи…');
+  console.error('Статьи…');
   for (const article of articles) {
     const cover = article.cover
       ? await makeImage({
@@ -2480,7 +2903,7 @@ async function main(): Promise<void> {
     });
   }
 
-  console.log('Команда…');
+  console.error('Команда…');
   const passwordHash = await hashPassword(DEMO_PASSWORD);
   const staffIds = new Map<string, string>();
   for (const person of staff) {
@@ -2499,7 +2922,7 @@ async function main(): Promise<void> {
     staffIds.set(person.login, created.id);
   }
 
-  console.log('Клиенты…');
+  console.error('Клиенты…');
   const clientIds = new Map<string, string>();
   for (const client of clients) {
     const created = await prisma.client.create({
@@ -2515,7 +2938,7 @@ async function main(): Promise<void> {
     clientIds.set(client.key, created.id);
   }
 
-  console.log('Обращения…');
+  console.error('Обращения…');
   const leadIds: string[] = [];
   for (const lead of leads) {
     const photo =
@@ -2557,7 +2980,7 @@ async function main(): Promise<void> {
     leadIds.push(created.id);
   }
 
-  console.log('Отзывы…');
+  console.error('Отзывы…');
   for (const review of reviews) {
     await prisma.review.create({
       data: {
@@ -2593,7 +3016,7 @@ async function main(): Promise<void> {
     });
   }
 
-  console.log('Наряды…');
+  console.error('Наряды…');
   /* Списание материалов ссылается на наряд по его месту в списке. */
   const orderIds: string[] = [];
 
@@ -2611,6 +3034,8 @@ async function main(): Promise<void> {
           order.installerLogin === undefined ? null : (staffIds.get(order.installerLogin) ?? null),
         at: at(order.dayDelta, order.time),
         durationMin: order.durationMin,
+        // считаем тем же расчётом, что панель при сохранении (ADR-128, ADR-138)
+        overtimeMin: overtimeFor(at(order.dayDelta, order.time), order.durationMin),
         address: order.address,
         intercom: order.intercom ?? null,
         phone2: order.phone2 ?? null,
@@ -2648,10 +3073,105 @@ async function main(): Promise<void> {
     update: { value: orders.length },
   });
 
-  console.log('Склад…');
-  /* Автор движения по умолчанию — владелец: закупку и инвентаризацию делает он. */
+  /* Автор записи по умолчанию — владелец: закупку, инвентаризацию и правки
+     наряда из панели делает он. */
   const owner = await prisma.adminUser.findFirst({ where: { role: 'OWNER' } });
 
+  console.error('Техника у клиентов…');
+  for (const unit of clientUnits) {
+    const clientId = clientIds.get(unit.clientKey);
+    if (clientId === undefined) throw new Error(`Нет клиента ${unit.clientKey} для техники`);
+
+    await prisma.clientUnit.create({
+      data: {
+        clientId,
+        model: unit.model,
+        installedAt: daysAgo(unit.installedDaysAgo),
+        warrantyUntil:
+          unit.warrantyDays === null ? null : daysAgo(unit.installedDaysAgo - unit.warrantyDays),
+        photo:
+          unit.photo === true
+            ? await makeImage({
+                title: 'техника клиента',
+                subtitle: unit.model,
+                from: '#0369a1',
+                to: '#0f172a',
+                width: 1000,
+                height: 750,
+              })
+            : null,
+        orderId: unit.orderIndex === undefined ? null : (orderIds[unit.orderIndex] ?? null),
+      },
+    });
+  }
+
+  console.error('Выезд: чеклист, снимки, документы, история…');
+  for (const [index, item] of checklist.entries()) {
+    const orderId = orderIds[item.orderIndex];
+    if (orderId === undefined) throw new Error(`Нет наряда ${item.orderIndex} для чеклиста`);
+
+    await prisma.orderChecklistItem.create({
+      data: { orderId, text: item.text, done: item.done, own: item.own, sort: index },
+    });
+  }
+
+  for (const [index, photo] of orderPhotos.entries()) {
+    const orderId = orderIds[photo.orderIndex];
+    if (orderId === undefined) throw new Error(`Нет наряда ${photo.orderIndex} для снимка`);
+
+    await prisma.orderPhoto.create({
+      data: {
+        orderId,
+        stage: photo.stage,
+        url: await makeImage({
+          title: photo.title,
+          subtitle: photo.stage === 'BEFORE' ? 'до выезда' : 'после работ',
+          from: photo.stage === 'BEFORE' ? '#475569' : '#0f766e',
+          to: '#0f172a',
+          width: 1000,
+          height: 750,
+        }),
+        sort: index,
+      },
+    });
+  }
+
+  for (const doc of orderDocs) {
+    const orderId = orderIds[doc.orderIndex];
+    if (orderId === undefined) throw new Error(`Нет наряда ${doc.orderIndex} для документа`);
+
+    const file = await makeDocument(doc.name.replace(/\.[a-z]+$/, ''), 'ТулаКлимат');
+    await prisma.orderDocument.create({
+      data: {
+        orderId,
+        kind: doc.kind,
+        name: doc.name,
+        // в `url` лежит имя файла на диске, а не адрес: наружу документ
+        // выходит только закрытым маршрутом
+        url: file.filename,
+        sizeBytes: file.sizeBytes,
+      },
+    });
+  }
+
+  for (const entry of orderHistory) {
+    const orderId = orderIds[entry.orderIndex];
+    if (orderId === undefined) throw new Error(`Нет наряда ${entry.orderIndex} для истории`);
+
+    await prisma.orderHistory.create({
+      data: {
+        orderId,
+        authorId:
+          entry.authorLogin === undefined
+            ? (owner?.id ?? null)
+            : (staffIds.get(entry.authorLogin) ?? null),
+        text: entry.text,
+        createdAt: hoursAgo(entry.hoursAgo),
+      },
+    });
+  }
+
+  console.error('Склад…');
   const zoneIds = new Map<string, string>();
   for (const [index, zone] of stockZones.entries()) {
     const userId = zone.staffLogin === undefined ? null : (staffIds.get(zone.staffLogin) ?? null);
@@ -2710,13 +3230,15 @@ async function main(): Promise<void> {
     });
   }
 
-  console.log('Календарь…');
+  console.error('Календарь…');
   for (const event of events) {
     await prisma.crmEvent.create({
       data: {
         kind: event.kind,
         status: event.status,
         at: at(event.dayDelta, event.time),
+        durationMin: event.durationMin,
+        overtimeMin: overtimeFor(at(event.dayDelta, event.time), event.durationMin),
         clientName: event.clientName,
         clientPhone: event.clientPhone ?? null,
         address: event.address ?? null,
@@ -2726,7 +3248,7 @@ async function main(): Promise<void> {
     });
   }
 
-  console.log('Занятость…');
+  console.error('Занятость…');
   for (const block of blocks) {
     const userId = staffIds.get(block.login);
     if (userId === undefined) throw new Error(`Нет монтажника ${block.login} для занятости`);
@@ -2744,13 +3266,15 @@ async function main(): Promise<void> {
     });
   }
 
-  console.log('Журнал доставки…');
+  console.error('Журнал доставки…');
   for (const item of notifications) {
     await prisma.notification.create({
       data: {
         channel: item.channel,
         kind: item.kind,
-        payload: item.payload as never,
+        payload: item.payload,
+        // куда сообщение ушло на самом деле — снимок, а не ссылка (ADR-061)
+        address: item.address,
         status: item.status,
         attempts: item.attempts,
         lastError: item.lastError ?? null,
@@ -2761,21 +3285,27 @@ async function main(): Promise<void> {
     });
   }
 
-  console.log('');
-  console.log('Готово. На стенде теперь:');
-  console.log(`  каталог — ${products.length} моделей, прайс — ${prices.length} строк`);
-  console.log(`  статьи — ${articles.length} (одна черновиком)`);
-  console.log(`  команда — ${staff.length} монтажников, пароль у всех: ${DEMO_PASSWORD}`);
-  console.log(
+  console.error('');
+  console.error('Готово. На стенде теперь:');
+  console.error(`  каталог — ${products.length} моделей, прайс — ${prices.length} строк`);
+  console.error(`  статьи — ${articles.length} (одна черновиком)`);
+  console.error(`  команда — ${staff.length} монтажников, пароль у всех: ${DEMO_PASSWORD}`);
+  console.error(
     `  клиенты — ${clients.length}, обращения — ${leads.length}, отзывы — ${reviews.length}`,
   );
-  console.log(
+  console.error(
     `  наряды — ${orders.length}, дела календаря — ${events.length}, занятость — ${blocks.length}`,
   );
-  console.log(
+  console.error(
     `  склад — позиции: ${stockItems.length}, зоны: ${stockZones.length}, движения: ${stockMoves.length}`,
   );
-  console.log(`  журнал доставки — ${notifications.length} записей`);
+  console.error(
+    `  техника у клиентов — ${clientUnits.length}, чеклист — ${checklist.length} пунктов`,
+  );
+  console.error(
+    `  приложения нарядов — снимков ${orderPhotos.length}, документов ${orderDocs.length}, записей истории ${orderHistory.length}`,
+  );
+  console.error(`  журнал доставки — ${notifications.length} записей`);
 
   await warnIfNoOwner();
 }

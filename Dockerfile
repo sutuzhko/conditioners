@@ -56,11 +56,18 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ARG DATABASE_URL="postgresql://build:build@127.0.0.1:5432/build?schema=public"
 ARG SITE_URL="https://build.invalid"
 ARG SESSION_SECRET="build-time-only-not-a-secret"
-ENV DATABASE_URL=$DATABASE_URL SITE_URL=$SITE_URL SESSION_SECRET=$SESSION_SECRET
+# 🔴 DATABASE_URL сознательно НЕ становится `ENV`. `ENV` попадает в конфиг
+# образа, и `docker inspect` показывал бы боевой пароль базы: compose передаёт
+# сюда настоящий BUILD_DATABASE_URL. Сборке адрес нужен ровно на время
+# `next build`, поэтому он подставляется переменной одной команды и в слоях не
+# остаётся. SITE_URL публичен, а SESSION_SECRET заведомо фиктивный — этим в
+# метаданных быть можно.
+ENV SITE_URL=$SITE_URL SESSION_SECRET=$SESSION_SECRET
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
 COPY . .
-RUN pnpm --filter web exec prisma generate && pnpm --filter web build
+RUN pnpm --filter web exec prisma generate \
+ && DATABASE_URL="$DATABASE_URL" pnpm --filter web build
 
 # ---------- runner ----------
 FROM base AS runner
@@ -80,20 +87,35 @@ EXPOSE 3000
 CMD ["node", "apps/web/server.js"]
 
 # ---------- worker ----------
-# Воркер очереди идёт из полной сборки, а не из standalone: там нужны
-# Prisma CLI и tsx, которых в боевом образе веба нет и быть не должно.
-# Тот же исходник, что в деве, — расхождения поведения очереди между средами
-# взяться неоткуда (ADR-062).
-FROM build AS worker
+# Воркер очереди работает с исходником, а не со standalone: там нужны tsx и
+# Prisma CLI, которых в боевом образе веба нет и быть не должно. Тот же
+# исходник, что в деве, — расхождения поведения очереди между средами взяться
+# неоткуда (ADR-062).
+#
+# 🔴 Растёт из `deps`, а не из `build`. Из `build` образ наследовал `.next`
+# целиком и — что хуже — его переменные окружения: строка подключения с боевым
+# паролем оставалась в конфиге долгоживущего образа и показывалась
+# `docker inspect` (ревью кода 28 августа). Здесь наследовать нечего.
+FROM deps AS worker
 ENV NODE_ENV=production COREPACK_HOME=/pnpm/corepack
+COPY . .
 # Воркер ходит во внешнюю сеть и пишет в том загрузок — root ему ни к чему.
 # Кеш corepack наполняется заранее под root и открывается на чтение: иначе
-# запуск pnpm под nextjs полез бы в сеть за самим pnpm при старте контейнера.
+# запуск pnpm под nextjs полез бы в сеть за самим pnpm.
 RUN corepack prepare && chmod -R a+rX /pnpm/corepack \
  && addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001 \
  && mkdir -p /data/uploads && chown -R nextjs:nodejs /data
 USER nextjs
-CMD ["pnpm", "--filter", "web", "worker"]
+# 🔴 Рабочий каталог — пакет, а не корень воркспейса. tsx ищет tsconfig с
+# путями `@/*` относительно cwd, и из /app воркер падает на первом же импорте
+# `@/server/db`. Раньше каталог задавал `pnpm --filter web`; теперь его задаём
+# сами — проверено запуском собранного образа.
+WORKDIR /app/apps/web
+# 🔴 Напрямую tsx, а не через `pnpm --filter web worker`. Обработчик SIGTERM
+# живёт в worker.ts, и между ним и сигналом от Docker не должно быть
+# посредника: если pnpm сигнал не пробросит, `stop_grace_period` закончится
+# SIGKILL посреди отправки уведомления.
+CMD ["node_modules/.bin/tsx", "src/server/notifications/worker.ts"]
 
 # ---------- migrate ----------
 # Накатывание схемы не может зависеть от сборки сайта: стадия `build`

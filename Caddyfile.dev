@@ -12,6 +12,7 @@ http://tulaklimat.localhost, https://tulaklimat.localhost, http://localhost {
 	encode zstd gzip
 
 	import security_headers
+	import request_limits
 
 	# Storybook отдельным хостом, чтобы не пересекаться с маршрутами приложения
 	handle /_next/webpack-hmr {

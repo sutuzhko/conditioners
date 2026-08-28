@@ -1,6 +1,11 @@
 .git
 .github
+# 🔴 `node_modules` без `**` исключает только корневой каталог, а
+# `apps/web/node_modules` на машине разработчика уезжал в контекст и затирал
+# собранные под linux зависимости при `COPY . .` (ADR-028 — ровно та же
+# причина, по которой в деве они лежат в томах)
 node_modules
+**/node_modules
 **/.next
 **/storybook-static
 coverage
@@ -9,6 +14,19 @@ test-results
 design
 docs
 *.md
+
+# Рабочее окружение разработчика и инструменты ИИ: в образе им делать нечего,
+# а контекст сборки они раздувают на каждый `docker build`
+.idea
+.vscode
+.agents
+.claude
+.orca
+.playwright-mcp
+apps/web/.screenshots
+# исходники логотипа: в сборку не входят, приложение их не читает
+assets
+
 .env
 .env.*
 !.env.example

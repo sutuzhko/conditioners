@@ -54,6 +54,8 @@ test-results/
 apps/web/.screenshots/
 blob-report/
 .playwright/
+# снимки Playwright MCP: рабочие кадры сессии, а не артефакт проекта
+.playwright-mcp/
 
 # ===== Логи =====
 *.log

@@ -16,6 +16,7 @@
     "seed:demo": "pnpm --filter web seed:demo",
     "prisma": "pnpm --filter web prisma",
     "storybook": "pnpm --filter web storybook",
+    "storybook:build": "pnpm --filter web build-storybook",
     "test": "pnpm --filter web test",
     "e2e": "pnpm --filter web e2e",
     "vr": "pnpm --filter web vr",

@@ -9,7 +9,7 @@
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, type Prisma } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -50,8 +50,14 @@ const data = JSON.parse(
   readFileSync(join(process.cwd(), 'prisma', 'seed-data.json'), 'utf-8'),
 ) as SeedData;
 
-/** Настройки компании. Всё, что в прототипе было выдумано и зашито в разметку. */
-const settings: Record<string, unknown> = {
+/**
+ * Настройки компании. Всё, что в прототипе было выдумано и зашито в разметку.
+ *
+ * Значения типизированы входным JSON Prisma, а не `unknown`: приведение к
+ * `never` на полях `upsert` было единственной причиной, по которой здесь стоял
+ * `as` — тот же приём, что в `repo/settings.ts` (ADR-108).
+ */
+const settings: Record<string, Prisma.InputJsonValue> = {
   company: {
     name: TODO,
     tagline: TODO,
@@ -145,7 +151,7 @@ async function main() {
     await prisma.setting.upsert({
       where: { key },
       update: {},
-      create: { key, value: value as never },
+      create: { key, value },
     });
   }
 

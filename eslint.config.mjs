@@ -8,6 +8,13 @@ const compat = new FlatCompat({ baseDirectory: dirname(fileURLToPath(import.meta
  * Правило зависимостей слоёв проверяется линтером, а не на словах:
  * app → widgets → features → entities → shared. Импорт «вверх» запрещён.
  * Это важно при параллельной работе нескольких агентов — см. docs/ORCHESTRATION.md
+ *
+ * 🔴 `@/server` входит в список запретов каждого слоя, а не задаётся отдельным
+ * блоком на те же файлы. В плоском конфиге опции одноимённого правила
+ * **заменяются**, а не сливаются: второй объект с `no-restricted-imports`
+ * стирал все четыре `layerRule`, и правило слоёв полгода не проверялось ничем
+ * (ревью кода 28 августа). У каждой группы файлов должна быть ровно одна
+ * конфигурация этого правила — регресс держит `scripts/eslint-layers.test.ts`.
  */
 const layerRule = (layer, forbidden) => ({
   files: [`apps/*/src/${layer}/**/*.{ts,tsx}`],
@@ -60,10 +67,67 @@ export default [
     files: ['scripts/**', 'apps/web/scripts/**', 'apps/web/prisma/**'],
     rules: { 'no-console': 'off' },
   },
+  {
+    /**
+     * Запреты TypeScript из docs/CLAUDE.md — машиной, а не на словах.
+     *
+     * 🔴 `as` не ловил никто, и это уже регрессировало: ADR-108 разбирал
+     * одиннадцать накопившихся приведений руками, потому что искать их было
+     * нечем. `assertionStyle: 'never'` запрещает и `x as T`, и `<T>x`;
+     * `as const` рулём не считается и остаётся разрешённым.
+     *
+     * `ban-ts-comment` по умолчанию пропускает `@ts-expect-error` с описанием
+     * — CLAUDE.md запрещает его без оговорок.
+     */
+    files: ['apps/*/src/**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
+      '@typescript-eslint/ban-ts-comment': [
+        'error',
+        {
+          'ts-expect-error': true,
+          'ts-ignore': true,
+          'ts-nocheck': true,
+          'ts-check': false,
+        },
+      ],
+    },
+  },
+  {
+    /**
+     * Единственное узаконенное приведение типа (ADR-108): `Readable.toWeb`
+     * отдаёт `ReadableStream` из `node:stream/web`, а `Response` ждёт
+     * одноимённый тип из lib.dom — в рантайме это один объект, по структуре
+     * типы расходятся. Читать файл в память нельзя: это фотографии объектов и
+     * договоры клиентов. Обход без приведения существует только через `any`,
+     * то есть хуже.
+     *
+     * Исключение точечное — по двум файлам отдачи, а не по каталогу: любое
+     * третье приведение обязано снова упереться в правило.
+     */
+    // квадратные скобки в шаблоне — это класс символов minimatch, а не имя
+    // сегмента маршрута, поэтому динамические участки записаны звёздочкой
+    files: [
+      'apps/*/src/app/api/media/*/route.ts',
+      'apps/*/src/app/api/admin/orders/*/docs/*/file/route.ts',
+    ],
+    rules: { '@typescript-eslint/consistent-type-assertions': 'off' },
+  },
+  {
+    /* В тестах и историях `as` — приём сборки двойника: заглушка репозитория
+       или фикстура намеренно неполна, и приведение здесь описывает замысел, а
+       не прячет ошибку типизации. */
+    files: [
+      'apps/*/src/**/*.{test,spec}.{ts,tsx}',
+      'apps/*/src/**/*.stories.{ts,tsx}',
+      'apps/*/src/**/__mocks__/**/*.{ts,tsx}',
+    ],
+    rules: { '@typescript-eslint/consistent-type-assertions': 'off' },
+  },
   layerRule('shared', ['app', 'widgets', 'features', 'entities', 'server']),
-  layerRule('entities', ['app', 'widgets', 'features']),
-  layerRule('features', ['app', 'widgets']),
-  layerRule('widgets', ['app']),
+  layerRule('entities', ['app', 'widgets', 'features', 'server']),
+  layerRule('features', ['app', 'widgets', 'server']),
+  layerRule('widgets', ['app', 'server']),
   {
     // Единственное узаконенное исключение из правила слоёв (ADR-096):
     // сборщики разметки обязаны видеть доменные типы и константы — второй
@@ -79,16 +143,6 @@ export default [
             message: `Слой shared не может импортировать из ${f} — исключение ADR-096 касается только entities`,
           })),
         },
-      ],
-    },
-  },
-  {
-    // серверный код не должен утекать в клиентские слои — секреты живут только тут
-    files: ['apps/*/src/{shared,entities,features,widgets}/**/*.{ts,tsx}'],
-    rules: {
-      'no-restricted-imports': [
-        'error',
-        { patterns: [{ group: ['@/server', '@/server/**'], message: 'Доступ к серверному слою — только из app/ и route handlers' }] },
       ],
     },
   },
