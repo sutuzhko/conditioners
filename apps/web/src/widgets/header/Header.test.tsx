@@ -126,6 +126,27 @@ describe('Header', () => {
     setup({ company: companyPlaceholder, contacts: contactsPlaceholder });
     expect(screen.getByRole('link', { name: /Позвонить/ })).toBeInTheDocument();
   });
+
+  /* 🔴 Название компании печатается видимым текстом, а не только уезжает в
+     `aria-label` ссылки: раньше ниже 600px оно скрывалось оформлением, и на
+     телефоне от бренда оставался один знак. Яндекс сверяет NAP-данные с
+     Яндекс.Бизнесом (инвариант 8), а с телефона приходит большая часть
+     трафика. */
+  it('название компании есть в разметке видимым текстом', () => {
+    setup();
+    const banner = screen.getByRole('banner');
+    expect(within(banner).getByText('ТулаКлимат')).toBeInTheDocument();
+  });
+
+  it('подпись кнопки заявки есть в разметке в обоих вариантах: длина выбирается стилями', () => {
+    setup();
+    const cta = screen.getByRole('link', { name: 'Оставить заявку' });
+
+    // 🔴 обе подписи приходят от сервера: выбор по ширине делает CSS, и ни
+    // одна из них не зависит от того, доехал ли JS (инвариант 1)
+    expect(cta.textContent).toContain('Оставить заявку');
+    expect(cta.textContent).toContain('Заявка');
+  });
 });
 
 describe('Header — выдвижное меню', () => {

@@ -43,21 +43,28 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Desktop: Story = { name: 'Десктоп 1200' };
+export const Desktop: Story = { name: 'Десктоп 1200 — полная навигация и замок' };
 
 export const Tablet: Story = {
-  name: 'Планшет 768 — навигация в бургере',
+  name: 'Планшет 768 — телефон, заявка и бургер',
   globals: { viewport: { value: 'md' } },
 };
 
 export const Phone: Story = {
-  name: 'Телефон 375',
+  name: 'Телефон 375 — бренд и кнопка меню',
   globals: { viewport: { value: 'sm' } },
 };
 
 export const Narrow: Story = {
-  name: 'Минимум 320',
+  name: 'Минимум 320 — название не обрезано',
   globals: { viewport: { value: 'xs' } },
+};
+
+/** Самое длинное название, какое владелец может завести из админки. */
+export const LongName: Story = {
+  name: 'Длинное название на 320',
+  globals: { viewport: { value: 'xs' } },
+  args: { company: { ...companyFixture, name: 'ТулаКлимат Сервис Групп' } },
 };
 
 export const Placeholders: Story = {
