@@ -217,6 +217,29 @@ export const crmContent = {
 } as const;
 
 /** Названия видов — подписи переключателя в шапке. */
+/**
+ * Подсказка по клавишам. Буквы названы латиницей — это позиции клавиш, а не
+ * набираемые символы: на русской раскладке та же клавиша даёт «в», «ц», «ь»,
+ * «е», и календарь слушается её так же.
+ */
+export const CALENDAR_KEYS: readonly { readonly keys: string; readonly what: string }[] = [
+  { keys: 'D', what: 'День' },
+  { keys: 'W', what: 'Неделя' },
+  { keys: 'M', what: 'Месяц' },
+  { keys: 'T', what: 'Сегодня' },
+  { keys: '← →', what: 'Предыдущий и следующий период' },
+  { keys: '?', what: 'Эта подсказка' },
+];
+
+export const calendarKeysContent = {
+  title: 'Клавиши календаря',
+  description:
+    'Работают, когда курсор не в поле ввода. Раскладка не важна: клавиши читаются по месту на клавиатуре, а не по букве.',
+  open: 'Клавиши',
+  openLabel: 'Показать клавиши календаря',
+  close: 'Понятно',
+} as const;
+
 export const VIEW_TITLE: Record<CalendarView, string> = {
   month: 'Месяц',
   week: 'Неделя',

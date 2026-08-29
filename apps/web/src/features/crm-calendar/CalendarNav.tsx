@@ -1,18 +1,12 @@
 import Link from 'next/link';
 
 import { formatDate } from '@/shared/lib/format';
-import {
-  type DayKey,
-  type MonthKey,
-  monthOfDay,
-  shiftDay,
-  shiftMonth,
-  shiftWeek,
-  weekGrid,
-} from '@/shared/lib/calendar';
+import { type DayKey, type MonthKey, weekGrid } from '@/shared/lib/calendar';
 import { Icon } from '@/shared/ui';
 
 import { CalendarCreate } from './CalendarCreate';
+import { CalendarKeyboard } from './CalendarKeyboard';
+import { stepQuery, todayQuery, viewQuery, withTeam, type CalendarPlace } from './navigation';
 import { CRM_PATH, VIEW_TITLE, crmContent as texts, monthTitle, weekTitle } from './content';
 import { CALENDAR_VIEWS, type CalendarView } from './model';
 import styles from './CalendarNav.module.css';
@@ -33,27 +27,16 @@ export interface CalendarNavProps {
   readonly canTeam?: boolean | undefined;
 }
 
-/** Наложение занятости остаётся включённым при любом переходе внутри раздела. */
-const TEAM_ON = 'on';
+/* 🔴 Сами адреса собирает `navigation`: те же переходы делает клавиатура, и
+   разойтись им нельзя — иначе одно и то же действие ведёт в два разных места.
+   Здесь остаётся только подпись, которую слышит скринридер. */
 
-function withTeam(query: Record<string, string>, team: boolean): Record<string, string> {
-  return team ? { ...query, team: TEAM_ON } : query;
-}
+/** Подпись шага зависит от вида: месяц листается месяцами, неделя — неделями. */
+function stepLabel(view: CalendarView, delta: number): string {
+  if (view === 'month') return delta < 0 ? texts.prevMonth : texts.nextMonth;
+  if (view === 'week') return delta < 0 ? texts.prevWeek : texts.nextWeek;
 
-/** Шаг листания зависит от вида: месяц листается месяцами, неделя — неделями. */
-function stepOf(view: CalendarView, day: DayKey, month: MonthKey, delta: number) {
-  if (view === 'month') {
-    const next = shiftMonth(month, delta);
-    return { query: { view, month: next }, label: delta < 0 ? texts.prevMonth : texts.nextMonth };
-  }
-
-  if (view === 'week') {
-    const next = shiftWeek(day, delta);
-    return { query: { view, day: next }, label: delta < 0 ? texts.prevWeek : texts.nextWeek };
-  }
-
-  const next = shiftDay(day, delta);
-  return { query: { view, day: next }, label: delta < 0 ? texts.prevDay : texts.nextDay };
+  return delta < 0 ? texts.prevDay : texts.nextDay;
 }
 
 /** Заголовок называет ровно то, что показано: месяц, неделю или день. */
@@ -88,8 +71,7 @@ export function CalendarNav({
   team = false,
   canTeam = false,
 }: CalendarNavProps) {
-  const back = stepOf(view, day, month, -1);
-  const forward = stepOf(view, day, month, 1);
+  const place: CalendarPlace = { view, month, day, today, team };
   const here = view === 'month' ? { view, month } : { view, day };
 
   return (
@@ -97,29 +79,20 @@ export function CalendarNav({
       <div className={styles.steps}>
         <Link
           className={styles.step}
-          href={{ pathname: CRM_PATH, query: withTeam(back.query, team) }}
-          aria-label={back.label}
+          href={{ pathname: CRM_PATH, query: stepQuery(place, -1) }}
+          aria-label={stepLabel(view, -1)}
         >
           <Icon name="arrow-right" className={styles.back} />
         </Link>
 
-        <Link
-          className={styles.today}
-          href={{
-            pathname: CRM_PATH,
-            query: withTeam(
-              view === 'month' ? { view, month: monthOfDay(today) } : { view, day: today },
-              team,
-            ),
-          }}
-        >
+        <Link className={styles.today} href={{ pathname: CRM_PATH, query: todayQuery(place) }}>
           {texts.today}
         </Link>
 
         <Link
           className={styles.step}
-          href={{ pathname: CRM_PATH, query: withTeam(forward.query, team) }}
-          aria-label={forward.label}
+          href={{ pathname: CRM_PATH, query: stepQuery(place, 1) }}
+          aria-label={stepLabel(view, 1)}
         >
           <Icon name="arrow-right" />
         </Link>
@@ -143,20 +116,16 @@ export function CalendarNav({
               .filter(Boolean)
               .join(' ')}
             key={entry}
-            href={{
-              pathname: CRM_PATH,
-              // месяц и день переносятся между видами: смена вида не меняет дату
-              query: withTeam(
-                entry === 'month' ? { view: entry, month } : { view: entry, day },
-                team,
-              ),
-            }}
+            // месяц и день переносятся между видами: смена вида не меняет дату
+            href={{ pathname: CRM_PATH, query: viewQuery(place, entry) }}
             aria-current={entry === view ? 'page' : undefined}
           >
             {VIEW_TITLE[entry]}
           </Link>
         ))}
       </nav>
+
+      <CalendarKeyboard {...place} />
 
       {canTeam ? (
         /* 🔴 Переключатель, а не фильтр «чей календарь»: занятость всей
