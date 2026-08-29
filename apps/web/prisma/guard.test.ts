@@ -1,6 +1,11 @@
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
 import { productionReasons } from './guard';
+
+import { settingKeySchema } from '../src/entities/settings/model';
 
 /** Рабочее окружение стенда: дев-контейнер, http, база — сервис compose. */
 const DEV = {
@@ -72,5 +77,50 @@ describe('предохранитель демо-сида', () => {
       databaseUrl: 'postgresql://tk:parol@10.0.0.5:5432/tulaklimat',
     });
     expect(reasons).toHaveLength(3);
+  });
+});
+
+/**
+ * Демо-сид обязан заводить **все** группы настроек.
+ *
+ * 🔴 Шапка `seed-demo.ts` обещает работу «в том числе на пустой базе после
+ * `prisma migrate reset`». Обещание держится только пока в сиде есть каждая
+ * группа из реестра: `checkReadiness` на отсутствующей даёт `ready: false`, а
+ * публичный layout при неготовности вешает `robots: { index: false }` — то
+ * есть весь сайт остаётся под `noindex`, и заметить это можно только по
+ * выдаче через неделю (issue #101).
+ *
+ * Проверяется текст сида, а не запуск: сид пишет в базу, а вопрос здесь —
+ * какие ключи он вообще знает.
+ */
+describe('демо-сид и реестр настроек', () => {
+  it('🔴 заводит каждую группу настроек — иначе стенд остаётся под noindex', () => {
+    const source = readFileSync(
+      resolve(dirname(fileURLToPath(import.meta.url)), 'seed-demo.ts'),
+      'utf8',
+    );
+
+    const start = source.indexOf('const settings: Record<string, Prisma.InputJsonValue> = {');
+    expect(start).toBeGreaterThan(-1);
+
+    /* Границу объекта ищем по балансу скобок: внутри лежат вложенные объекты
+       и массивы, и первая же `}` — не его конец. */
+    let depth = 0;
+    let end = source.indexOf('{', start);
+    for (let i = end; i < source.length; i += 1) {
+      if (source[i] === '{') depth += 1;
+      if (source[i] === '}') {
+        depth -= 1;
+        if (depth === 0) {
+          end = i;
+          break;
+        }
+      }
+    }
+
+    const body = source.slice(source.indexOf('{', start) + 1, end);
+    const seeded = [...body.matchAll(/^ {2}([a-zA-Z]+):/gm)].map(([, key]) => key);
+
+    expect([...settingKeySchema.options].sort()).toEqual([...seeded].sort());
   });
 });
