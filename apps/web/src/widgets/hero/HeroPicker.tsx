@@ -33,6 +33,14 @@ export type HeroPickerProps = {
 /** Размер миниатюры модели в панели рекомендации — из макета. */
 const PHOTO_SIZE = 104;
 
+/**
+ * 🔴 Размер на экране, а не размер файла. Миниатюра фиксирована вёрсткой —
+ * 62px на всех ширинах, — а без подсказки `next/image` считает картинку
+ * растянутой во всю ширину окна и тянет вариант `w=256`. Это первый экран,
+ * то есть ровно то место, где считается LCP (BUGS §2528).
+ */
+const PHOTO_SIZES = '62px';
+
 /** Сколько характеристик выносим в строку под названием: длиннее — не читается. */
 const SPECS_IN_LINE = 2;
 
@@ -163,6 +171,7 @@ function Recommendation({ product, now, area, place }: RecommendationProps) {
             alt={photo.alt ?? t.photoAlt(product.name)}
             width={PHOTO_SIZE}
             height={PHOTO_SIZE}
+            sizes={PHOTO_SIZES}
           />
         )}
 
