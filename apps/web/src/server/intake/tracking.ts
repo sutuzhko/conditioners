@@ -30,11 +30,16 @@ function trimmedOrNull(value: string | undefined | null, max: number): string | 
   return text.slice(0, max);
 }
 
-/** Метки могут прийти отдельными полями формы либо остаться в адресе страницы-источника. */
-function collectUtm(
-  fields: Readonly<Record<string, string>>,
-  sourceUrl: string | null,
-): Readonly<Record<string, string>> | null {
+/**
+ * Метки берутся из адреса страницы-источника и только оттуда.
+ *
+ * 🔴 Раньше они принимались ещё и полями формы, причём поля имели приоритет.
+ * Контракт [API §8](../../../../docs/API.md) требует обратного дословно, и не
+ * ради чистоты: атрибуция решает, куда владелец тратит рекламный бюджет, а
+ * поле в теле публичного `POST` принимается без сессии кем угодно. Приписать
+ * себе чужие заявки было делом одного запроса.
+ */
+function collectUtm(sourceUrl: string | null): Readonly<Record<string, string>> | null {
   const collected: Record<string, string> = {};
 
   if (sourceUrl !== null) {
@@ -45,25 +50,29 @@ function collectUtm(
         if (value !== null) collected[key] = value;
       }
     } catch {
-      // адрес пришёл от клиента и может быть каким угодно — просто нечего разбирать
+      // заголовок ставит браузер, но испорченный адрес — не повод падать
     }
-  }
-
-  for (const key of UTM_KEYS) {
-    const value = trimmedOrNull(fields[key], MAX_VALUE_LENGTH);
-    if (value !== null) collected[key] = value;
   }
 
   return Object.keys(collected).length === 0 ? null : collected;
 }
 
-export function collectTracking(
-  request: Request,
-  fields: Readonly<Record<string, string>>,
-): Tracking {
-  const header = request.headers.get('referer');
-  const sourceUrl = trimmedOrNull(fields.sourceUrl ?? header, MAX_URL_LENGTH);
-  const referrer = trimmedOrNull(fields.referrer, MAX_URL_LENGTH);
+/**
+ * 🔴 Происхождение собирается из заголовков запроса, а не из его тела.
+ *
+ * Тело публичного `POST` — это то, что прислал кто угодно. Пока `sourceUrl` и
+ * метки читались оттуда, приписать заявку чужой кампании можно было одним
+ * запросом, и владелец увидел бы это в отчёте как настоящий канал.
+ *
+ * 🔴 `referrer` остаётся пустым сознательно. Внешний реферер — это то, откуда
+ * человек пришёл на сайт, и в заголовках запроса на отправку формы его нет:
+ * там лежит адрес самой страницы с формой. Раньше он читался из тела, то есть
+ * был не данными, а заявлением отправителя. Настоящая внешняя атрибуция
+ * требует своего механизма и отдельного решения (issue #73); до него честнее
+ * пустая колонка, чем заполненная тем, что прислали.
+ */
+export function collectTracking(request: Request): Tracking {
+  const sourceUrl = trimmedOrNull(request.headers.get('referer'), MAX_URL_LENGTH);
 
-  return { sourceUrl, referrer, utm: collectUtm(fields, sourceUrl) };
+  return { sourceUrl, referrer: null, utm: collectUtm(sourceUrl) };
 }

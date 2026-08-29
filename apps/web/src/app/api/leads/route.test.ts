@@ -203,24 +203,64 @@ describe('POST /api/leads', () => {
     expect(body.error).toMatchObject({ code: 'payload_too_large' });
   });
 
-  it('запоминает страницу-источник, реферер и utm-метки', async () => {
+  it('запоминает страницу-источник и utm-метки из заголовка', async () => {
     const response = await POST(
-      leadRequest(
-        {
-          ...VALID,
-          sourceUrl: 'https://example.test/prices?utm_source=yandex&utm_campaign=leto',
-          referrer: 'https://yandex.ru/search/',
-        },
-        { referer: 'https://example.test/other' },
-      ),
+      leadRequest(VALID, {
+        referer: 'https://example.test/prices?utm_source=yandex&utm_campaign=leto',
+      }),
     );
 
     expect(response.status).toBe(201);
     expect(dbMock.lead.create.mock.calls[0]?.[0].data).toMatchObject({
       sourceUrl: 'https://example.test/prices?utm_source=yandex&utm_campaign=leto',
-      referrer: 'https://yandex.ru/search/',
       utm: { utm_source: 'yandex', utm_campaign: 'leto' },
     });
+  });
+
+  /**
+   * 🔴 Проверка родилась из дефекта, который прежний тест закреплял: поля
+   * происхождения читались из тела и **имели приоритет** над заголовком.
+   * Тело публичного `POST` присылает кто угодно, а атрибуция решает, куда
+   * владелец тратит рекламный бюджет — приписать заявку чужой кампании было
+   * делом одного запроса. Контракт (API §8) требует заголовков дословно.
+   */
+  it('🔴 происхождение из тела игнорируется — верят только заголовку', async () => {
+    const response = await POST(
+      leadRequest(
+        {
+          ...VALID,
+          sourceUrl: 'https://злодей.example/подделка?utm_source=подставной',
+          referrer: 'https://злодей.example/',
+          utm_source: 'подставной',
+          utm_campaign: 'чужая',
+        },
+        { referer: 'https://example.test/prices?utm_source=yandex' },
+      ),
+    );
+
+    expect(response.status).toBe(201);
+    const data = dbMock.lead.create.mock.calls[0]?.[0].data;
+
+    expect(data).toMatchObject({
+      sourceUrl: 'https://example.test/prices?utm_source=yandex',
+      utm: { utm_source: 'yandex' },
+    });
+    expect(JSON.stringify(data)).not.toContain('подставной');
+    expect(JSON.stringify(data)).not.toContain('злодей');
+  });
+
+  it('🔴 реферер не берётся из тела и остаётся пустым', async () => {
+    await POST(
+      leadRequest(
+        { ...VALID, referrer: 'https://yandex.ru/search/' },
+        { referer: 'https://example.test/prices' },
+      ),
+    );
+
+    /* Внешнего реферера в заголовках запроса на отправку формы нет — там
+       адрес самой страницы. Пустая колонка честнее заполненной тем, что
+       прислал отправитель. */
+    expect(dbMock.lead.create.mock.calls[0]?.[0].data).toMatchObject({ referrer: null });
   });
 
   it('без темы подставляет консультацию, а пустые поля пишет как null', async () => {
