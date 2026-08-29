@@ -282,6 +282,13 @@ describe('Форма наряда: занятость монтажника', () 
     await user.clear(screen.getByLabelText(texts.time));
     await user.type(screen.getByLabelText(texts.time), '17:00');
 
+    /* Сначала — что время вообще введено, и только потом что предупреждения
+       нет. `minutesOfTime('')` возвращает 0, а ноль минут в окно 14:00–16:00
+       не попадает: перестань ввод в поле времени работать вовсе — поле
+       осталось бы пустым, предупреждение всё равно исчезло бы, и проверка
+       ниже зеленела бы, не проверив ничего. */
+    expect(screen.getByLabelText(texts.time)).toHaveValue('17:00');
+
     expect(screen.queryByText(/Артём Белов —/)).not.toBeInTheDocument();
   });
 
