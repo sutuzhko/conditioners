@@ -22,7 +22,7 @@ import {
   productPath,
 } from '@/shared/seo';
 import { catalogText } from '@/widgets/catalog';
-import { Hero } from '@/widgets/hero';
+import { Hero, toPickerProduct } from '@/widgets/hero';
 import { TrustStrip, Services, WhyUs } from '@/widgets/trust';
 import { COMPARE_ANCHOR, Catalog } from '@/widgets/catalog';
 import { SavingsBlock, StepsTimeline } from '@/widgets/installation';
@@ -95,6 +95,10 @@ export default async function HomePage() {
 
   // репозитории отдают DTO контракта (даты строками), виджеты ждут доменный тип
   const products = rawProducts.map((dto) => productSchema.parse(dto));
+  /* 🔴 Первому экрану уезжает проекция, а не каталог целиком: `HeroPicker`
+     клиентский, и всё, что ему передано, сериализуется в HTML — то есть ровно
+     туда, где считается LCP (BUGS, issue #87). */
+  const pickerProducts = products.map(toPickerProduct);
   const featured = rawFeatured.map((dto) => productSchema.parse(dto));
   const priceRows = prices.map((row) => priceRowSchema.parse(row));
   const approvedReviews = reviews.map((dto) => reviewSchema.parse(dto));
@@ -186,7 +190,7 @@ export default async function HomePage() {
       <AnchorSync />
       <ScrollTop />
       <Hero
-        products={products}
+        products={pickerProducts}
         now={now}
         weather={weather}
         city={settings.address.city}

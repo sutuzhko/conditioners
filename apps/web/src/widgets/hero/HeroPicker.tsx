@@ -6,7 +6,7 @@ import { useId, useState } from 'react';
 import type { LeadContextModel } from '@/entities/lead/model';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { pickByArea } from '@/entities/product/lib/pickByArea';
-import type { Product } from '@/entities/product/model';
+import type { PickerProduct } from './model';
 import { rememberLeadContext } from '@/features/lead-form';
 import { leadHref as leadHrefFor } from '@/shared/config/lead';
 import { formatDate, formatMoney } from '@/shared/lib/format';
@@ -19,7 +19,7 @@ import styles from './HeroPicker.module.css';
 
 export type HeroPickerProps = {
   /** Видимые модели каталога. Пустой список — рабочее состояние проекта. */
-  readonly products: readonly Product[];
+  readonly products: readonly PickerProduct[];
   /**
    * Куда ведёт «подобрать по телефону» — общая кнопка первого экрана, у
    * которой предмета нет. 🔴 Кнопка у рекомендованной модели сюда не смотрит:
@@ -34,29 +34,11 @@ export type HeroPickerProps = {
 const PHOTO_SIZE = 104;
 
 /** Сколько характеристик выносим в строку под названием: длиннее — не читается. */
-const SPECS_IN_LINE = 2;
-
 /**
  * «21 дБ · 0.7 кВт · до 27 м²» — набор характеристик произвольный (инвариант 6),
  * поэтому берём первые по порядку владельца. Площадь выводим из `areaMax`, а
  * одноимённую характеристику отбрасываем: в сидах она дублирует то же значение.
  */
-function specsLine(product: Product): string {
-  const area = t.areaUpTo(product.areaMax);
-  const specs = product.specs
-    .slice()
-    .sort((a, b) => a.sort - b.sort)
-    .map((spec) => spec.v)
-    .filter((value) => value !== area)
-    .slice(0, SPECS_IN_LINE);
-
-  return [...specs, area].join(' · ');
-}
-
-function mainPhoto(product: Product) {
-  return product.photos.find((photo) => photo.isMain) ?? product.photos[0];
-}
-
 /**
  * Подбор кондиционера по площади — единственная интерактивная часть первого
  * экрана, поэтому `'use client'` стоит здесь, а не на секции: заголовок и лид
@@ -125,7 +107,7 @@ export function HeroPicker({ products, leadHref, now }: HeroPickerProps) {
 }
 
 type RecommendationProps = {
-  readonly product: Product;
+  readonly product: PickerProduct;
   readonly now?: Date | undefined;
   /** Что человек задал в подборе — уезжает вместе с заявкой. */
   readonly area: number;
@@ -134,7 +116,7 @@ type RecommendationProps = {
 
 function Recommendation({ product, now, area, place }: RecommendationProps) {
   const price = now === undefined ? getActivePrice(product) : getActivePrice(product, now);
-  const photo = mainPhoto(product);
+  const photo = product.photo;
 
   /* 🔴 Цена в снимке — та, что стоит строкой ниже, и перечёркнутая только
      тогда, когда она действительно показана (инвариант 14, ADR-011). */
@@ -151,7 +133,7 @@ function Recommendation({ product, now, area, place }: RecommendationProps) {
       <span className={styles.resultEyebrow}>{t.recommendation}</span>
 
       <div className={styles.model}>
-        {photo === undefined ? (
+        {photo === null ? (
           // заглушка с классом мощности вместо битой картинки (docs/DESIGN_BRIEF.md §8)
           <span className={styles.photoStub} aria-hidden="true">
             {product.badge}
@@ -173,7 +155,7 @@ function Recommendation({ product, now, area, place }: RecommendationProps) {
             </Badge>
             <h3 className={styles.modelName}>{product.name}</h3>
           </div>
-          <p className={styles.specs}>{specsLine(product)}</p>
+          <p className={styles.specs}>{product.specsLine}</p>
           {product.tag === null ? null : <p className={styles.tag}>{product.tag}</p>}
         </div>
       </div>

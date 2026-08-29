@@ -1,6 +1,6 @@
 import type { Product, ProductSpec } from '@/entities/product/model';
 
-import type { HeroStat } from './model';
+import { toPickerProduct, type HeroStat, type PickerProduct } from './model';
 
 /**
  * Фикстуры блока: они же документируют, какие данные первый экран ждёт от
@@ -139,3 +139,15 @@ export const heroStatsFour: readonly HeroStat[] = [
  * пережить и следующий длинный текст.
  */
 export const longNote = 'Тула и область — выезд в день обращения, замер и расчёт сметы бесплатно';
+
+/**
+ * Те же модели в том виде, в каком их получает первый экран, — проекцией
+ * (issue #87). Полные модели остаются рядом: их берут фикстуры других фич,
+ * которым нужен весь товар.
+ */
+export const heroPickerModels: readonly PickerProduct[] = heroModels.map(toPickerProduct);
+
+export const singlePickerModel: readonly PickerProduct[] = singleModel.map(toPickerProduct);
+
+export const discountedPickerModels: readonly PickerProduct[] =
+  discountedModels.map(toPickerProduct);

@@ -9,12 +9,12 @@ import { forgetLeadContext, readLeadContext } from '@/features/lead-form';
 import { Hero } from './Hero';
 import { heroContent, pickerContent } from './content';
 import {
-  discountedModels,
-  heroModels,
+  discountedPickerModels,
+  heroPickerModels,
   heroStats,
   heroStatsFour,
   saleNow,
-  singleModel,
+  singlePickerModel,
 } from './fixtures';
 
 /**
@@ -61,7 +61,7 @@ describe('Первый экран', () => {
   });
 
   it('подбирает модель по площади и меняет рекомендацию вслед за ползунком', () => {
-    render(<Hero products={heroModels} />);
+    render(<Hero products={heroPickerModels} />);
     expect(recommendation()).toHaveTextContent('Сплит-система 09');
 
     fireEvent.change(screen.getByRole('slider'), { target: { value: '40' } });
@@ -73,7 +73,7 @@ describe('Первый экран', () => {
 
   it('«Офис» сдвигает подбор на класс выше: техника и люди греют помещение', async () => {
     const user = userEvent.setup();
-    render(<Hero products={heroModels} />);
+    render(<Hero products={heroPickerModels} />);
     expect(recommendation()).toHaveTextContent('Сплит-система 09');
 
     await user.click(screen.getByRole('button', { name: 'Офис' }));
@@ -83,7 +83,7 @@ describe('Первый экран', () => {
   });
 
   it('показывает цену со скидкой, перечёркнутую старую и вычисленный процент', () => {
-    render(<Hero products={discountedModels} now={saleNow} />);
+    render(<Hero products={discountedPickerModels} now={saleNow} />);
 
     expect(screen.getByText(visible(formatMoney(34900)))).toBeInTheDocument();
 
@@ -93,7 +93,7 @@ describe('Первый экран', () => {
   });
 
   it('без скидки перечёркнутой цены нет', () => {
-    render(<Hero products={heroModels} />);
+    render(<Hero products={heroPickerModels} />);
 
     expect(screen.getByText(visible(formatMoney(38500)))).toBeInTheDocument();
     expect(document.querySelector('s')).toBeNull();
@@ -112,12 +112,12 @@ describe('Первый экран', () => {
     const saleLine = (): Element | null =>
       screen.getByRole('link', { name: /Получить смету/ }).previousElementSibling;
 
-    const { unmount } = render(<Hero products={discountedModels} now={saleNow} />);
+    const { unmount } = render(<Hero products={discountedPickerModels} now={saleNow} />);
     expect(saleLine()?.tagName).toBe('P');
     expect(saleLine()?.textContent).toMatch(/^Цена действует до/);
     unmount();
 
-    render(<Hero products={heroModels} />);
+    render(<Hero products={heroPickerModels} />);
     expect(saleLine()?.tagName).toBe('P');
     expect(saleLine()?.textContent).toBe('');
   });
@@ -131,7 +131,7 @@ describe('Первый экран', () => {
   });
 
   it('одна модель в каталоге подбирается при любой площади', () => {
-    render(<Hero products={singleModel} />);
+    render(<Hero products={singlePickerModel} />);
     expect(recommendation()).toHaveTextContent('Сплит-система 09');
 
     fireEvent.change(screen.getByRole('slider'), { target: { value: '60' } });
@@ -139,18 +139,17 @@ describe('Первый экран', () => {
   });
 
   it('модель без фото получает заглушку с классом мощности, а не битую картинку', () => {
-    render(<Hero products={heroModels} />);
+    render(<Hero products={heroPickerModels} />);
 
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
   });
 
   it('фото модели выводится с осмысленным alt', () => {
-    const [first] = heroModels;
+    const [first] = heroPickerModels;
     if (first === undefined) throw new Error('нужна хотя бы одна модель');
-    const withPhoto = {
-      ...first,
-      photos: [{ id: 'p1', url: '/api/media/split-07.jpg', alt: null, isMain: true, sort: 0 }],
-    };
+    /* Подпись у фотографии не задана — её обязан подставить блок: пустой alt
+       у картинки товара это дыра и в доступности, и в выдаче по картинкам. */
+    const withPhoto = { ...first, photo: { url: '/api/media/split-07.jpg', alt: null } };
 
     render(<Hero products={[withPhoto]} />);
 
@@ -243,7 +242,7 @@ describe('Первый экран', () => {
 
 describe('Первый экран — кнопка приносит свой предмет (ADR-129)', () => {
   it('🔴 кнопка у рекомендации ведёт к форме со слагом этой модели и темой монтажа', () => {
-    render(<Hero products={singleModel} />);
+    render(<Hero products={singlePickerModel} />);
 
     expect(screen.getByRole('link', { name: pickerContent.order })).toHaveAttribute(
       'href',
@@ -252,7 +251,7 @@ describe('Первый экран — кнопка приносит свой п�
   });
 
   it('🔴 общая кнопка первого экрана предмета не имеет и остаётся на своём адресе', () => {
-    render(<Hero products={singleModel} leadHref="/#lead" />);
+    render(<Hero products={singlePickerModel} leadHref="/#lead" />);
 
     expect(screen.getByRole('link', { name: heroContent.primaryCta })).toHaveAttribute(
       'href',
@@ -269,7 +268,7 @@ describe('Первый экран — подбор уезжает с заявк�
 
   it('🔴 запоминает площадь, помещение и подобранную модель', async () => {
     const user = userEvent.setup();
-    render(<Hero products={heroModels} />);
+    render(<Hero products={heroPickerModels} />);
 
     fireEvent.change(screen.getByRole('slider'), { target: { value: '40' } });
     await user.click(screen.getByRole('button', { name: 'Офис' }));
@@ -283,7 +282,7 @@ describe('Первый экран — подбор уезжает с заявк�
 
   it('🔴 в снимок уходит цена со скидкой и та, что была перечёркнута', async () => {
     const user = userEvent.setup();
-    render(<Hero products={discountedModels} now={saleNow} />);
+    render(<Hero products={discountedPickerModels} now={saleNow} />);
 
     await user.click(screen.getByRole('link', { name: /Получить смету/ }));
 
@@ -294,7 +293,7 @@ describe('Первый экран — подбор уезжает с заявк�
   });
 
   it('без перехода к форме подбор не запоминается', () => {
-    render(<Hero products={heroModels} />);
+    render(<Hero products={heroPickerModels} />);
 
     fireEvent.change(screen.getByRole('slider'), { target: { value: '30' } });
 
