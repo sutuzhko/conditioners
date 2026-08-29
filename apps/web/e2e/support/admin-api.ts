@@ -24,6 +24,10 @@ export const ADMIN_PASSWORD = process.env.E2E_ADMIN_PASSWORD ?? 'admin';
 /* Схемы ответов: тесту нужны только поля, по которым он находит и убирает
    свои записи, — остальное Zod отбрасывает. */
 
+const crmEventSchema = z.object({ id: z.string() });
+
+const searchSchema = z.object({ items: z.array(z.object({ id: z.string() })) });
+
 const leadSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -184,6 +188,32 @@ export class AdminApi {
     if (response.status() !== 200) {
       throw new Error(`Сохранение настроек «${key}» вернуло код ${response.status()}`);
     }
+  }
+
+  /** Дело календаря — заводится ради проверки и удаляется в `finally`. */
+  async createCrmEvent(input: Record<string, unknown>): Promise<{ id: string }> {
+    const response = await this.context.post('/api/admin/crm', {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: input,
+    });
+    if (response.status() !== 201) {
+      throw new Error(`Создание дела вернуло код ${response.status()}`);
+    }
+    return crmEventSchema.parse(await response.json());
+  }
+
+  async deleteCrmEvent(id: string): Promise<void> {
+    await this.context.delete(`/api/admin/crm/${id}`, { headers: { Cookie: this.cookie } });
+  }
+
+  /** Находки поиска. Разбираем только `id`: остальное проверяют юниты. */
+  async searchCrm(query: string): Promise<{ id: string }[]> {
+    const response = await this.context.get(
+      `/api/admin/crm/search?q=${encodeURIComponent(query)}`,
+      { headers: { Cookie: this.cookie } },
+    );
+    const body = searchSchema.parse(await this.json(response, 'поиск по календарю'));
+    return body.items;
   }
 
   private async json(response: APIResponse, what: string): Promise<unknown> {
