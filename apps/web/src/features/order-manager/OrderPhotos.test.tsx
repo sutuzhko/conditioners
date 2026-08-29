@@ -12,6 +12,20 @@ const before = PHOTO_STAGE_TITLE.before;
 const after = PHOTO_STAGE_TITLE.after;
 
 describe('Фотографии наряда', () => {
+  /**
+   * 🔴 Та же проверка, что у документов рядом (`OrderDocs.test.tsx`): снимок
+   * «до/после» — интерьер квартиры клиента, и отдаётся он только по сессии
+   * (ADR-171). Без этого утверждения возврат к публичному `/api/media/{name}`
+   * прошёл бы молча — именно так асимметрия и держалась до 29 августа.
+   */
+  it('🔴 снимок берётся с закрытого маршрута панели, а не из общего тома загрузок', () => {
+    render(<OrderPhotos api={acceptingWorkApi} photos={photos} />);
+
+    const shot = screen.getByRole('img', { name: texts.photoAlt(before, 1) });
+    expect(shot).toHaveAttribute('src', '/api/admin/orders/o1/photos/p1/file');
+    expect(shot.getAttribute('src')).not.toContain('/api/media/');
+  });
+
   it('этапы разведены по колонкам и названы работой, а не временем', () => {
     render(<OrderPhotos api={acceptingWorkApi} photos={photos} />);
 
