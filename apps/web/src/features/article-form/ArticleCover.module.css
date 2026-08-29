@@ -45,3 +45,12 @@
   color: var(--error-ink);
   font-size: var(--fs-dense);
 }
+
+/* Отказ, а не акцент: действие разрушающее, и красить его в цвет действия
+   значит звать на него (BUGS, «Разрушающее действие красилось акцентом»).
+   Удвоенный селектор — чтобы перебить вариант кнопки, а не `!important`. */
+.remove.remove {
+  align-self: flex-start;
+  margin-top: 12px;
+  color: var(--error-ink);
+}

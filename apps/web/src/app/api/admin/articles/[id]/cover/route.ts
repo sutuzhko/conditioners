@@ -42,3 +42,31 @@ export const POST = withOwner(async (request, context: { params: Promise<{ id: s
 
   return json({ cover: updated.cover });
 });
+
+/**
+ * Снятие обложки.
+ *
+ * 🔴 Отдельным методом, а не полем в `PATCH` статьи: обложка приходит файлом,
+ * и схема правки поле `cover` не принимает намеренно. До этой ручки убрать
+ * обложку было нечем вовсе — только правкой в базе (issue #234).
+ */
+export const DELETE = withOwner(async (_request, context: { params: Promise<{ id: string }> }) => {
+  const { id } = await context.params;
+
+  const article = await findById(id);
+  if (article === null) return notFound('Статья', 'f');
+
+  // Обложки нет — снимать нечего. Повтор запроса отвечает тем же, а не 404:
+  // результат один и тот же, и клиенту незачем различать эти два случая.
+  if (article.cover === null) return json({ cover: null });
+
+  /* 🔴 Порядок обратен загрузке: сначала запись, потом файл. Упадёт запись —
+     статья останется с целой обложкой; упадёт удаление файла — на диске
+     останется никому не нужный файл. Битая картинка в статье хуже сироты на
+     диске, поэтому риск сдвинут в сторону сироты. */
+  const updated = await setCover(id, null);
+  await deleteStoredImage(article.cover);
+  revalidateArticles(updated.slug);
+
+  return json({ cover: updated.cover });
+});

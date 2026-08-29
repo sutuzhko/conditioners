@@ -10,6 +10,7 @@ import {
   deleteArticle,
   emptyArticleValues,
   updateArticle,
+  removeCover,
   uploadCover,
   type ArticleFormValues,
 } from '@/features/article-form';
@@ -46,6 +47,7 @@ export function ArticleEditor({
         <ArticleCover
           cover={cover}
           upload={(file) => uploadCover(id, file)}
+          remove={() => removeCover(id)}
           onChanged={() => router.refresh()}
         />
       )}
