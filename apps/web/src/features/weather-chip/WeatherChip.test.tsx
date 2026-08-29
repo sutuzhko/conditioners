@@ -8,7 +8,9 @@ import type { ChipWeather } from './model';
 const INITIAL: ChipWeather = { mean: 19, max: 22 };
 
 /** Значения приходят в текст с типографским минусом и градусом — ищем по числу. */
-const chipText = (): string => screen.getByText(/сегодня/).textContent ?? '';
+const line = (): HTMLElement => screen.getByText(/Сегодня/);
+
+const chipText = (): string => line().textContent ?? '';
 
 beforeEach(() => {
   vi.useFakeTimers();
@@ -22,22 +24,31 @@ afterEach(() => {
 
 describe('Чип погоды', () => {
   it('🔴 показывает серверные цифры сразу: они и стоят в HTML', () => {
-    render(<WeatherChip city="Тула" weather={INITIAL} api={{ load: vi.fn() }} />);
+    render(<WeatherChip weather={INITIAL} api={{ load: vi.fn() }} />);
 
-    expect(chipText()).toContain('Тула сегодня');
     expect(chipText()).toContain('19');
     expect(chipText()).toContain('22');
   });
 
   it('называет пик месячным: иначе цифра выглядит ошибкой в прохладный день', () => {
-    render(<WeatherChip city="Тула" weather={INITIAL} api={{ load: vi.fn() }} />);
+    render(<WeatherChip weather={INITIAL} api={{ load: vi.fn() }} />);
 
     expect(chipText()).toContain(texts.peak);
   });
 
+  /**
+   * 🔴 issue #253, закрывает #15. В первом экране город назван в плашке охвата
+   * и в заголовке; третье повторение в погоде не несёт ничего нового.
+   */
+  it('🔴 города в подписи нет: в первом экране он уже назван дважды', () => {
+    render(<WeatherChip weather={INITIAL} api={{ load: vi.fn() }} />);
+
+    expect(chipText()).toMatch(/^Сегодня/);
+  });
+
   it('🔴 обновляет цифры, пока вкладку держат открытой', async () => {
     const load = vi.fn(() => Promise.resolve({ mean: 24, max: 31 }));
-    render(<WeatherChip city="Тула" weather={INITIAL} api={{ load }} />);
+    render(<WeatherChip weather={INITIAL} api={{ load }} />);
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(15 * 60_000);
@@ -50,7 +61,7 @@ describe('Чип погоды', () => {
 
   it('🔴 молчание сервиса оставляет прежние цифры, а не прочерк', async () => {
     const load = vi.fn(() => Promise.resolve(null));
-    render(<WeatherChip city="Тула" weather={INITIAL} api={{ load }} />);
+    render(<WeatherChip weather={INITIAL} api={{ load }} />);
 
     await act(async () => {
       await vi.advanceTimersByTimeAsync(15 * 60_000);
@@ -63,7 +74,7 @@ describe('Чип погоды', () => {
     const load = vi.fn(() => Promise.resolve(INITIAL));
     vi.spyOn(document, 'visibilityState', 'get').mockReturnValue('hidden');
 
-    render(<WeatherChip city="Тула" weather={INITIAL} api={{ load }} />);
+    render(<WeatherChip weather={INITIAL} api={{ load }} />);
     await act(async () => {
       await vi.advanceTimersByTimeAsync(15 * 60_000);
     });
@@ -73,7 +84,7 @@ describe('Чип погоды', () => {
 
   it('возвращение к вкладке обновляет цифры, не дожидаясь таймера', async () => {
     const load = vi.fn(() => Promise.resolve({ mean: 26, max: 33 }));
-    render(<WeatherChip city="Тула" weather={INITIAL} api={{ load }} />);
+    render(<WeatherChip weather={INITIAL} api={{ load }} />);
 
     await act(async () => {
       document.dispatchEvent(new Event('visibilitychange'));
@@ -85,7 +96,7 @@ describe('Чип погоды', () => {
 
   it('заметка меняется вместе с пиком: жара — повод не тянуть', async () => {
     const load = vi.fn(() => Promise.resolve({ mean: 27, max: 34 }));
-    render(<WeatherChip city="Тула" weather={INITIAL} api={{ load }} />);
+    render(<WeatherChip weather={INITIAL} api={{ load }} />);
 
     expect(chipText()).toContain(texts.note(22));
 

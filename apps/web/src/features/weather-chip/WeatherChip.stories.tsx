@@ -6,12 +6,14 @@ import { WeatherChip } from './WeatherChip';
  * Чип погоды первого экрана. Цифры приходят с сервера, а сам чип освежает их,
  * пока вкладку держат открытой; в историях обновление отключено — иначе
  * снимок зависел бы от чужого сервиса.
+ *
+ * Города в подписи нет: в первом экране Тула названа в плашке охвата и в
+ * заголовке, третье повторение ничего не добавляет (issue #253).
  */
 const meta = {
   title: 'Блоки/Чип погоды',
   component: WeatherChip,
   args: {
-    city: 'Тула',
     api: { load: () => Promise.resolve(null) },
   },
 } satisfies Meta<typeof WeatherChip>;
@@ -41,10 +43,4 @@ export const Cool: Story = {
 export const Frost: Story = {
   name: 'Минус на улице',
   args: { weather: { mean: -12, max: -3 } },
-};
-
-/** Длинное название города проверяет перенос внутри капсулы. */
-export const LongCity: Story = {
-  name: 'Длинное название города',
-  args: { city: 'Петропавловск-Камчатский', weather: { mean: 8, max: 21 } },
 };

@@ -80,10 +80,28 @@ export const WithoutStats: Story = {
 
 export const WithWeather: Story = {
   name: 'С погодой в городе',
-  args: { weather: { mean: 27, max: 31 }, city: 'Тула' },
+  args: { weather: { mean: 27, max: 31 } },
 };
 
 export const WeatherCold: Story = {
   name: 'Погода до сезона',
-  args: { weather: { mean: 8, max: 12 }, city: 'Тула' },
+  args: { weather: { mean: 8, max: 12 } },
+};
+
+/**
+ * 🔴 Оффер телефона (issue #253): один призыв, каталог текстовой ссылкой.
+ * Ширина здесь — часть состояния, поэтому история задаёт её глобалью:
+ * медиа-запрос смотрит на окно, а не на контейнер.
+ */
+export const Phone: Story = {
+  name: 'Телефон 375 — один призыв',
+  globals: { viewport: { value: 'sm' } },
+  args: { weather: { mean: 15, max: 34 } },
+};
+
+/** Нижняя граница поддержки: заголовок не оставляет одинокого слова. */
+export const Narrow: Story = {
+  name: 'Минимум 320 — заголовок без хвоста',
+  globals: { viewport: { value: 'xs' } },
+  args: { weather: { mean: 15, max: 34 } },
 };

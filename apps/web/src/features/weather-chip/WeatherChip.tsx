@@ -13,8 +13,6 @@ import styles from './WeatherChip.module.css';
 const REFRESH_MS = 15 * 60_000;
 
 export interface WeatherChipProps {
-  /** Город из настроек компании: в коде его нет (инвариант 8). */
-  readonly city: string;
   /** Значения из серверного рендера — они и стоят в HTML. */
   readonly weather: ChipWeather;
   readonly api?: WeatherApi | undefined;
@@ -31,7 +29,7 @@ export interface WeatherChipProps {
  * Обновляем раз в четверть часа и при возвращении к вкладке: пока её не
  * смотрят, ходить в сеть незачем.
  */
-export function WeatherChip({ city, weather, api = { load: loadWeather } }: WeatherChipProps) {
+export function WeatherChip({ weather, api = { load: loadWeather } }: WeatherChipProps) {
   const [current, setCurrent] = useState(weather);
 
   // серверные данные новее клиентских, если страницу пересобрали
@@ -65,7 +63,7 @@ export function WeatherChip({ city, weather, api = { load: loadWeather } }: Weat
     <p className={styles.chip}>
       <span className={styles.dot} aria-hidden="true" />
       <span className={styles.text}>
-        {`${t.prefix(city)} ${t.mean} `}
+        {`${t.today} ${t.mean} `}
         <b className={styles.mean}>{formatDegrees(current.mean)}</b>
         {` · ${t.peak} `}
         <b className={styles.max}>{formatDegrees(current.max)}</b>

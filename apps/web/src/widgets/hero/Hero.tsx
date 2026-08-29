@@ -7,7 +7,13 @@ import { Badge, ButtonLink, StatList } from '@/shared/ui';
 import { heroContent as t } from './content';
 import { HeroParticles } from './HeroParticles';
 import { HeroPicker } from './HeroPicker';
-import { HERO_STATS_MAX, type HeroStat, type HeroWeather, type PickerProduct } from './model';
+import {
+  HERO_STATS_MAX,
+  PICKER_ANCHOR_ID,
+  type HeroStat,
+  type HeroWeather,
+  type PickerProduct,
+} from './model';
 import styles from './Hero.module.css';
 
 export type HeroProps = {
@@ -33,9 +39,7 @@ export type HeroProps = {
    * чип, пока вкладку держат открытой.
    */
   readonly weather?: HeroWeather | null | undefined;
-  /** Город для подписи чипа — из настроек компании, а не из кода. */
-  readonly city?: string | undefined;
-  /** Якорь или адрес формы заявки. */
+  /** Якорь или адрес формы заявки: его берёт карточка подбора. */
   readonly leadHref?: ButtonLinkHref | undefined;
   /**
    * Полоса под первым экраном. Секция занимает не меньше высоты окна и кладёт
@@ -61,7 +65,6 @@ export function Hero({
   stats = [],
   note,
   weather,
-  city,
   leadHref = '#lead',
   catalogHref = '#catalog',
   now,
@@ -81,30 +84,45 @@ export function Hero({
             </Badge>
           )}
 
+          {/* Второй перенос — только на телефоне: без него «за один день»
+              уходит в третью строку целиком лишь по случайности ширины, а на
+              390–414 висит в ней одним словом. С 600 заголовок укладывается в
+              две строки сам, и принудительный перенос убирается (issue #253). */}
           <h1 className={styles.title}>
             {t.title.before}
             <br />
-            {t.title.middle}
+            {t.title.middle} <br className={styles.titleBreak} />
             <span className={styles.accent}>{t.title.accent}</span>
           </h1>
 
           <p className={styles.lead}>{t.lead}</p>
 
+          {/* 🔴 Призыв один: он ведёт к подбору — инструменту, ради которого
+              первый экран и существует. Каталог остаётся ссылкой и до 600
+              теряет кнопочную оболочку: две одинаковые по весу кнопки в
+              столбец заставляют выбирать там, где выбор не нужен. */}
           <div className={styles.actions}>
-            <ButtonLink href={leadHref} size="lg">
+            <ButtonLink href={`#${PICKER_ANCHOR_ID}`} size="lg" className={styles.primary}>
               {t.primaryCta}
             </ButtonLink>
-            <ButtonLink href={catalogHref} size="lg" variant="secondary">
+            <ButtonLink
+              href={catalogHref}
+              size="lg"
+              variant="secondary"
+              className={styles.catalog}
+              iconEnd={<span aria-hidden="true">{t.secondaryCtaArrow}</span>}
+            >
               {t.secondaryCta}
             </ButtonLink>
           </div>
 
-          {/* Чип погоды из макета: среднесуточная, пик и заметка про спрос.
-              Без города в настройках подписи не будет — придумывать его код
-              не вправе (инвариант 8), поэтому чип просто не рисуется. */}
-          {weather && city !== undefined && city !== '' ? (
+          {/* Чип погоды: среднесуточная, пик и заметка про спрос. Города в
+              нём нет — в первом экране он и без того назван дважды, в плашке
+              охвата и в заголовке (issue #253, закрывает #15). Нет данных —
+              нет и чипа: пустое место под него не резервируется. */}
+          {weather ? (
             <div className={styles.weather}>
-              <WeatherChip city={city} weather={weather} />
+              <WeatherChip weather={weather} />
             </div>
           ) : null}
 
@@ -114,7 +132,9 @@ export function Hero({
           <StatList items={stats.slice(0, HERO_STATS_MAX)} className={styles.stats} />
         </div>
 
-        <HeroPicker products={products} leadHref={leadHref} now={now} />
+        <div id={PICKER_ANCHOR_ID} className={styles.picker}>
+          <HeroPicker products={products} leadHref={leadHref} now={now} />
+        </div>
       </div>
 
       {children}

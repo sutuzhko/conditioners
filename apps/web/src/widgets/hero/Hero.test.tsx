@@ -8,6 +8,7 @@ import { forgetLeadContext, readLeadContext } from '@/features/lead-form';
 
 import { Hero } from './Hero';
 import { heroContent, pickerContent } from './content';
+import { PICKER_ANCHOR_ID } from './model';
 import {
   discountedPickerModels,
   heroPickerModels,
@@ -57,7 +58,19 @@ describe('Первый экран', () => {
     expect(title).toHaveTextContent(/Кондиционеры в Туле/);
     expect(title).toHaveTextContent(/с установкой/);
     expect(title.textContent).toContain('за\u00A0один\u00A0день');
-    expect(screen.getByText(/Продажа, монтаж и обслуживание/)).toBeInTheDocument();
+    expect(screen.getByText(/Продажа, монтаж и сервис/)).toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 issue #253. Переносы в заголовке принудительные: без них последняя
+   * строка на телефоне остаётся с одним словом. Второй перенос до 600 —
+   * стилевой, поэтому здесь проверяется, что он вообще есть в разметке:
+   * скрыть можно только то, что отрендерено сервером (инвариант 1).
+   */
+  it('🔴 заголовок ломается по строкам сам, а не по случайной ширине', () => {
+    render(<Hero products={[]} />);
+
+    expect(screen.getByRole('heading', { level: 1 }).querySelectorAll('br')).toHaveLength(2);
   });
 
   it('подбирает модель по площади и меняет рекомендацию вслед за ползунком', () => {
@@ -191,27 +204,38 @@ describe('Первый экран', () => {
   });
 
   it('чип погоды показывает среднесуточную и пиковую температуру', () => {
-    render(<Hero products={[]} weather={{ mean: 27, max: 31 }} city="Тула" />);
+    render(<Hero products={[]} weather={{ mean: 27, max: 31 }} />);
 
     // последний совпавший узел — самый глубокий, то есть сам чип, а не секция
     const chip = screen.getAllByText((text) => visible(text).includes('+27°')).at(-1);
     const text = visible(chip?.parentElement?.textContent ?? '');
 
-    expect(text).toContain('Тула сегодня');
+    expect(text).toContain('Сегодня');
     expect(text).toContain('ср/сут');
     expect(text).toContain('+31°');
   });
 
-  it('🔴 без города чипа нет: подпись «сегодня» без места ничего не значит', () => {
-    const { container } = render(<Hero products={[]} weather={{ mean: 27, max: 31 }} />);
+  /**
+   * 🔴 issue #253, закрывает #15. Город назывался трижды: в плашке охвата, в
+   * заголовке и в погоде. Первые два несут разное — охват выезда и основной
+   * поисковый запрос, — а третье было повтором, и его убрали.
+   */
+  it('🔴 город в первом экране назван ровно дважды: плашка охвата и заголовок', () => {
+    const { container } = render(
+      <Hero
+        products={[]}
+        weather={{ mean: 27, max: 31 }}
+        note="Тула и область — выезд в день обращения"
+      />,
+    );
 
-    expect(container.textContent).not.toContain('°');
+    expect(container.textContent?.match(/Тул/g)).toHaveLength(2);
   });
 
   it('заметка в чипе зависит от пиковой температуры, а не от календаря', () => {
     const note = (max: number): string => {
       const { container, unmount } = render(
-        <Hero products={[]} weather={{ mean: max - 4, max }} city="Тула" />,
+        <Hero products={[]} weather={{ mean: max - 4, max }} />,
       );
       const text = container.textContent ?? '';
       unmount();
@@ -230,7 +254,7 @@ describe('Первый экран', () => {
   });
 
   it('отрицательная температура выводится с минусом, а не с дефисом', () => {
-    render(<Hero products={[]} weather={{ mean: -7, max: -3 }} city="Тула" />);
+    render(<Hero products={[]} weather={{ mean: -7, max: -3 }} />);
 
     const chip = screen.getAllByText((text) => visible(text).includes('−7°')).at(-1);
     const text = visible(chip?.parentElement?.textContent ?? '');
@@ -250,13 +274,33 @@ describe('Первый экран — кнопка приносит свой п�
     );
   });
 
-  it('🔴 общая кнопка первого экрана предмета не имеет и остаётся на своём адресе', () => {
+  /**
+   * 🔴 issue #253. Единственный призыв первого экрана ведёт к подбору, а не к
+   * форме: инструмент, ради которого экран существует, лежал ниже сгиба, и
+   * человек до него не доходил. Предмета у кнопки по-прежнему нет — слаг
+   * модели несёт только кнопка у рекомендации (ADR-129).
+   */
+  it('🔴 общий призыв ведёт к карточке подбора, а не к форме', () => {
     render(<Hero products={singlePickerModel} leadHref="/#lead" />);
 
     expect(screen.getByRole('link', { name: heroContent.primaryCta })).toHaveAttribute(
       'href',
-      '/#lead',
+      `#${PICKER_ANCHOR_ID}`,
     );
+  });
+
+  it('🔴 якорь подбора существует: призыв не имеет права вести в пустоту', () => {
+    const { container } = render(<Hero products={singlePickerModel} />);
+
+    expect(container.querySelector(`#${PICKER_ANCHOR_ID}`)).not.toBeNull();
+  });
+
+  it('ссылка на каталог ведёт на переданный адрес и остаётся ссылкой', () => {
+    render(<Hero products={[]} catalogHref="/catalog" />);
+
+    expect(
+      screen.getByRole('link', { name: new RegExp(heroContent.secondaryCta) }),
+    ).toHaveAttribute('href', '/catalog');
   });
 });
 
