@@ -1,0 +1,21 @@
+/* Разбор узла: цены, калькулятор, подбор */
+.page{width:1320px;background:var(--bg-soft);padding:36px}
+.h2{font-size:28px;line-height:1.1;font-weight:800}
+.h3{font-size:17px;font-weight:700}
+.band{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-card);padding:26px;margin-top:22px}
+.devlab{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--muted);
+  margin-bottom:8px;display:block}
+/* рамка экрана с фиксированной высотой: липкие узлы видно на месте */
+.screen{position:relative;border:1px solid var(--line-strong);border-radius:var(--r-md);
+  overflow:hidden;background:var(--bg);flex-shrink:0}
+.fade{position:absolute;left:0;right:0;height:56px;pointer-events:none}
+.fade.top{top:0;background:linear-gradient(180deg,var(--bg),transparent)}
+.pinned{position:absolute;left:0;right:0;bottom:0}
+.prow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card)}
+.bar{display:flex;gap:10px;padding:10px 16px 14px;border-top:1px solid var(--line);background:var(--card)}
+.bar .btn{flex:1 1 0;min-width:0}
+.skel{border-radius:8px;background:linear-gradient(90deg,var(--line-soft),var(--line),var(--line-soft));
+  background-size:200% 100%}
+.note2{font-size:14px;line-height:1.55;color:var(--ink2)}

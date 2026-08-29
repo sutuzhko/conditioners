@@ -1,0 +1,36 @@
+/* Разбор шасси: шапка, меню, панель действий */
+.page{width:1320px;background:var(--bg-soft);padding:36px}
+.h2{font-size:28px;line-height:1.1;font-weight:800}
+.h3{font-size:17px;font-weight:700}
+.band{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-card);padding:26px;margin-top:22px}
+.dev{border:1px solid var(--line-strong);border-radius:var(--r-md);overflow:hidden;
+  background:var(--bg);flex-shrink:0}
+.dev.dark{background:#0b1220}
+.devlab{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--muted);
+  margin-bottom:8px;display:block}
+.hdr{padding:8px 12px;background:var(--hero-grad)}
+.hdrbar{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:6px 6px 6px 10px;border:1px solid var(--line);border-radius:var(--r-md);
+  background:var(--card);box-shadow:var(--shadow-header)}
+.hdr.w768,.hdr.w1200{padding:12px 24px}
+.hdr.w768 .hdrbar,.hdr.w1200 .hdrbar{padding:8px 8px 8px 14px;border-radius:var(--r-ml);gap:14px}
+.mark{width:32px;height:32px;border-radius:9px;background:var(--brand-mark);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mark.lg{width:36px;height:36px;border-radius:10px}
+.brand{font-family:var(--font-display);font-size:16.5px;font-weight:700;
+  letter-spacing:-0.02em;color:var(--ink);white-space:nowrap}
+.brand.lg{font-size:18px}
+.iconbtn{width:44px;height:44px;border-radius:var(--r-sm);border:1px solid var(--line-strong);
+  background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.navlink{color:var(--ink2);font-size:14px;font-weight:600;white-space:nowrap}
+.bar{display:flex;gap:10px;padding:10px 16px 14px;border-top:1px solid var(--line);
+  background:var(--card)}
+.bar .btn{flex:1 1 0;min-width:0}
+.rule{width:100%;border-collapse:collapse;font-size:13.5px}
+.rule th{text-align:left;padding:9px 12px;font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--line-strong);font-weight:400}
+.rule td{padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink2);line-height:1.45}
+.mitem{display:flex;align-items:center;justify-content:space-between;min-height:52px;
+  color:var(--ink);font-size:16px;font-weight:600;border-bottom:1px solid var(--line-soft)}

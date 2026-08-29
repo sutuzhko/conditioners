@@ -1,0 +1,14 @@
+.board{width:1664px;display:flex;gap:56px;align-items:flex-start;padding:36px;background:var(--bg-soft)}
+.dev{width:768px;border:1px solid var(--line-strong);border-radius:var(--r-md);overflow:hidden;
+  background:var(--bg);flex-shrink:0;box-shadow:var(--sh-md)}
+.devlab{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;
+  color:var(--muted);margin-bottom:10px}
+/* колонка разделов сворачивается в полосу значков */
+.rail{width:var(--rail);display:flex;flex-direction:column;background:var(--card);
+  border-right:1px solid var(--line)}
+.rail .brand{justify-content:center;padding:0}
+.rail .nav{padding:8px 10px;gap:4px}
+.rail .nv{justify-content:center;padding:0;height:40px;position:relative}
+.rail .nv .cnt{position:absolute;top:4px;right:8px;margin:0;min-width:16px;height:16px;font-size:10px}
+.rail .navgrp{text-align:center;padding:8px 0 2px;font-size:9px;letter-spacing:.06em}
+.rail .asfoot{display:flex;justify-content:center;padding:10px}

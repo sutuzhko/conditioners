@@ -1,0 +1,188 @@
+. ./_parts.sh
+cat <<EOF
+<div class="sheet">
+
+  <div>
+    <span class="note">— Кит панели —</span>
+    <h2 style="font-size:26px;font-weight:800;margin-top:8px">Компоненты по практикам HeroUI</h2>
+    <p style="margin-top:8px;font-size:14px;color:var(--muted);max-width:820px">Устройство узлов скопировано с эталона: карточка разделена на шапку, тело и подвал; подпись поля живёт внутри поля; статус — плоский чип; у таблицы верхняя панель, липкая шапка и пагинация снизу. Цвета остались нашими — палитра с эталона не берётся (ADR-169).</p>
+  </div>
+
+  <!-- ═══ КНОПКИ ═══ -->
+  <div class="sec">
+    <div class="sh">Кнопки</div>
+    <div class="sd">Пять вариантов вместо нынешних трёх. <b>flat</b> — фирменная манера эталона: заливка акцентом низкой плотности, читается как действие, но не спорит с основным. Высоты 32 / 40 / 48; на сенсорном экране 40 поднимается до 44.</div>
+    <div class="rowlab"><span class="rl">Варианты</span><div class="wrap">
+      <span class="btn solid">Сохранить</span>
+      <span class="btn flat">В работу</span>
+      <span class="btn bord">Отмена</span>
+      <span class="btn light">Сбросить фильтры</span>
+      <span class="btn danger">Удалить</span>
+    </div></div>
+    <div class="rowlab"><span class="rl">Размеры</span><div class="wrap">
+      <span class="btn solid sm">32 · sm</span>
+      <span class="btn solid">40 · md</span>
+      <span class="btn solid lg">48 · lg</span>
+      <span class="btn bord icon">$I_MORE</span>
+      <span class="btn bord icon sm">$I_PLUS</span>
+    </div></div>
+    <div class="rowlab"><span class="rl">Состояния</span><div class="wrap">
+      <span class="btn solid">Покой</span>
+      <span class="btn solid" style="background:var(--brand-hover);border-color:var(--brand-hover)">Наведение</span>
+      <span class="btn solid focus">Фокус</span>
+      <span class="btn solid dis">Отключена</span>
+      <span class="btn solid" style="opacity:.85"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9" opacity=".9"/></svg>Отправляем…</span>
+    </div></div>
+    <div class="rowlab"><span class="rl">С иконкой</span><div class="wrap">
+      <span class="btn solid">$I_PLUS Новый заказ</span>
+      <span class="btn flat">$I_CHECK Выполнен</span>
+      <span class="btn bord">$I_FILT Фильтры <span class="chip c-primary" style="height:18px;padding:0 6px">2</span></span>
+    </div></div>
+  </div>
+
+  <!-- ═══ ПОЛЯ ═══ -->
+  <div class="sec">
+    <div class="sh">Поля</div>
+    <div class="sd">Подпись живёт внутри поля, а не над ним: в плотной форме панели это экономит строку на каждом поле и не даёт подписи оторваться от своего контрола. Второй вариант — с обводкой, для таблиц-форм, где поля стоят вплотную.</div>
+    <div class="grid" style="grid-template-columns:repeat(4,minmax(0,1fr));gap:16px">
+      <div class="swatch"><span class="cap">покой</span><div class="inp flat col"><span class="lab">Клиент</span><span class="val">Дмитрий Лапшин</span></div></div>
+      <div class="swatch"><span class="cap">наведение</span><div class="inp flat col" style="background:var(--stripe-a)"><span class="lab">Клиент</span><span class="val">Дмитрий Лапшин</span></div></div>
+      <div class="swatch"><span class="cap">фокус</span><div class="inp flat col foc"><span class="lab">Клиент</span><span class="val">Дмитрий Лапшин<span style="color:var(--accent-ink)">|</span></span></div></div>
+      <div class="swatch"><span class="cap">ошибка</span><div class="inp flat col err"><span class="lab">Телефон</span><span class="val mono">+7 (910) 155-24</span></div><span class="hint err">Не хватает двух цифр</span></div>
+      <div class="swatch"><span class="cap">пустое</span><div class="inp flat col"><span class="lab">Адрес объекта</span><span class="val ph">Город, улица, дом, квартира</span></div></div>
+      <div class="swatch"><span class="cap">отключено</span><div class="inp flat col" style="opacity:.5"><span class="lab">Логин</span><span class="val mono">admin</span></div><span class="hint">Логин меняет владелец</span></div>
+      <div class="swatch"><span class="cap">список</span><div class="inp flat" style="justify-content:space-between"><span class="stack" style="gap:1px"><span class="lab">Тип работ</span><span class="val">Монтаж</span></span>$I_DOWN</div></div>
+      <div class="swatch"><span class="cap">с обводкой</span><div class="inp bordered col"><span class="lab">Сумма заказа</span><span class="val mono">34 900 ₽</span></div></div>
+    </div>
+    <div class="grid" style="grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px;margin-top:16px">
+      <div class="swatch"><span class="cap">многострочное</span><div class="inp flat col tall"><span class="lab">Комментарий монтажнику</span><span class="val" style="margin-top:4px">Домофон 34К, звонить за 20 минут. На объекте есть собака.</span></div></div>
+      <div class="swatch"><span class="cap">переключатели</span>
+        <div class="stack" style="gap:12px;padding-top:6px">
+          <span class="row" style="gap:10px"><span class="sw on"><i></i></span><span class="t-lbl" style="color:var(--ink)">Монтажник активен</span></span>
+          <span class="row" style="gap:10px"><span class="sw"><i></i></span><span class="t-lbl mut">Показывать на сайте</span></span>
+          <span class="row" style="gap:10px"><span class="cbx on">$I_CHECK</span><span class="t-lbl" style="color:var(--ink)">Высотные работы</span></span>
+          <span class="row" style="gap:10px"><span class="cbx"></span><span class="t-lbl mut">Штробление</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ СЛОВАРЬ СТАТУСОВ ═══ -->
+  <div class="sec">
+    <div class="sh">Словарь статусов — один на всю панель</div>
+    <div class="sd"><b>Главная поломка</b> нынешней панели: три вида плашек в одной строке заказа, «Просрочено» янтарное на сводке и красное в календаре. Ниже — закрытый словарь. Статус не подбирается по месту: у каждого значения одна краска, и она одна и та же в списке, в карточке, в календаре и в уведомлении.</div>
+    <div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+      <div>
+        <span class="cap">Заказ</span>
+        <div class="stack" style="gap:8px">
+          <span class="row" style="gap:10px"><span class="chip c-default" style="width:104px"><span class="dot"></span>Новый</span><span class="t-tiny fnt">создан, исполнитель не назначен</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-warn" style="width:104px"><span class="dot"></span>Назначен</span><span class="t-tiny fnt">есть монтажник и время</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-primary" style="width:104px"><span class="dot"></span>В работе</span><span class="t-tiny fnt">монтажник на объекте</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-success" style="width:104px"><span class="dot"></span>Выполнен</span><span class="t-tiny fnt">итог заполнен</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-danger" style="width:104px"><span class="dot"></span>Отказ</span><span class="t-tiny fnt">клиент отказался</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-danger" style="width:104px"><span class="dot"></span>Просрочен</span><span class="t-tiny fnt">время прошло, статус не сменился</span></span>
+        </div>
+      </div>
+      <div>
+        <span class="cap">Заявка и отзыв</span>
+        <div class="stack" style="gap:8px">
+          <span class="row" style="gap:10px"><span class="chip c-warn" style="width:104px"><span class="dot"></span>Новая</span><span class="t-tiny fnt">ждёт ответа</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-primary" style="width:104px"><span class="dot"></span>В работе</span><span class="t-tiny fnt">менеджер взял</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-success" style="width:104px"><span class="dot"></span>Закрыта</span><span class="t-tiny fnt">заказ создан или не нужен</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-default" style="width:104px"><span class="dot"></span>На модерации</span><span class="t-tiny fnt">отзыв ждёт решения</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-success" style="width:104px"><span class="dot"></span>Опубликован</span><span class="t-tiny fnt">виден на сайте</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-default" style="width:104px"><span class="dot"></span>Снят</span><span class="t-tiny fnt">не публикуется</span></span>
+        </div>
+      </div>
+      <div>
+        <span class="cap">Склад и доставка уведомлений</span>
+        <div class="stack" style="gap:8px">
+          <span class="row" style="gap:10px"><span class="chip c-success" style="width:104px"><span class="dot"></span>В наличии</span><span class="t-tiny fnt">выше порога</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-warn" style="width:104px"><span class="dot"></span>На исходе</span><span class="t-tiny fnt">подходит к порогу</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-danger" style="width:104px"><span class="dot"></span>Пора заказать</span><span class="t-tiny fnt">ниже порога позиции</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-success" style="width:104px"><span class="dot"></span>Доставлено</span><span class="t-tiny fnt">канал ответил успехом</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-danger" style="width:104px"><span class="dot"></span>Отказ</span><span class="t-tiny fnt">с причиной и повтором</span></span>
+          <span class="row" style="gap:10px"><span class="chip c-info" style="width:104px"><span class="dot"></span>В очереди</span><span class="t-tiny fnt">ждёт отправки</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="gap:10px;margin-top:18px;padding:12px 14px;border-radius:var(--r-sm);background:var(--accent-bg)">
+      <span style="color:var(--accent-text);flex-shrink:0">$I_WARN</span>
+      <span class="t-lbl" style="color:var(--accent-text)">Шесть красок на всю панель: серая, янтарная, бирюзовая, зелёная, красная, индиго. Седьмой не заводится — вместо неё уточняется подпись.</span>
+    </div>
+  </div>
+
+  <div style="margin-top:52px">
+    <span class="note">— Разметка —</span>
+    <h2 style="font-family:var(--font-display);font-size:24px;font-weight:600;margin-top:8px;color:var(--ink)">Что обязано быть в HTML</h2>
+    <p style="margin-top:8px;font-size:14px;color:var(--muted)">Требования, которые на макете не видны, но без которых компонент не проходит ревью. Выписаны здесь, чтобы не выясняться на этапе приёмки.</p>
+
+    <div class="stack" style="gap:12px;margin-top:18px">
+
+      <div class="card"><div class="bd grid" style="grid-template-columns:230px minmax(0,1fr);gap:18px;align-items:center">
+        <div class="row" style="gap:8px">
+          <span class="iconbtn">$I_MORE</span><span class="iconbtn">$I_BELL</span><span class="iconbtn">$I_SEARCH</span>
+        </div>
+        <div class="stack" style="gap:6px">
+          <span class="strong">Кнопка без подписи — с <span class="mono">aria-label</span></span>
+          <span class="t-lbl mut">В панели их 67: «назад», «ещё», «уведомления», «поиск», три круглых действия в строке таблицы. Иконка внутри — <span class="mono">aria-hidden="true"</span>, имя даёт кнопка. Читалка иначе объявляет «кнопка», и список действий строки превращается в три одинаковые кнопки.</span>
+          <span class="snip">&lt;button aria-label="Действия по заказу № 128"&gt;&lt;svg aria-hidden="true"&gt;…&lt;/svg&gt;&lt;/button&gt;</span>
+        </div>
+      </div></div>
+
+      <div class="card"><div class="bd grid" style="grid-template-columns:230px minmax(0,1fr);gap:18px;align-items:center">
+        <div class="tabs"><span class="tab on">Наряд</span><span class="tab">Расход</span><span class="tab">Чеклист</span></div>
+        <div class="stack" style="gap:6px">
+          <span class="strong">Вкладка живёт в адресе</span>
+          <span class="t-lbl mut">Двадцать семь вкладок — двадцать семь адресов. Модератор отправляет коллеге ссылку на «Отзывы · На модерации», владелец возвращается кнопкой «назад» на ту вкладку, где был, а не на первую. Ключ и значения — по-английски (инвариант 17), русскими остаются только подписи.</span>
+          <span class="snip">/admin/orders/128?tab=materials · ?tab=checklist · /admin/reviews?tab=pending</span>
+        </div>
+      </div></div>
+
+      <div class="card"><div class="bd grid" style="grid-template-columns:230px minmax(0,1fr);gap:18px;align-items:center">
+        <div class="stack" style="gap:6px">
+          <span class="btn solid is-focus" style="align-self:flex-start">Сохранить</span>
+          <span class="btn bord" style="align-self:flex-start">Отмена</span>
+        </div>
+        <div class="stack" style="gap:6px">
+          <span class="strong">Порядок обхода равен порядку на экране</span>
+          <span class="t-lbl mut">Между брейкпоинтами блоки меняются местами — но переставлять их <span class="mono">order</span>'ом во flex нельзя: обход клавиатурой пойдёт по исходному порядку, а глаз по видимому, и они разойдутся. Порядок меняется в разметке либо не меняется вовсе.</span>
+          <span class="snip">никаких tabindex&gt;0 · фокус виден всегда · Esc закрывает, Enter подтверждает</span>
+        </div>
+      </div></div>
+
+      <div class="card"><div class="bd grid" style="grid-template-columns:230px minmax(0,1fr);gap:18px;align-items:center">
+        <div class="row" style="gap:8px"><span class="chip c-warn"><span class="dot"></span>На модерации</span><span class="bdg" style="position:static">7</span></div>
+        <div class="stack" style="gap:6px">
+          <span class="strong">Статус не только цветом</span>
+          <span class="t-lbl mut">У каждого чипа есть слово, а не только краска: шесть красок панели различает не всякий глаз, а на чёрно-белой печати наряда они совпадают все. Счётчик, который меняется без перезагрузки, — в <span class="mono">aria-live="polite"</span>.</span>
+          <span class="snip">&lt;span class="chip c-warn"&gt;&lt;span class="dot" aria-hidden="true"&gt;&lt;/span&gt;На модерации&lt;/span&gt;</span>
+        </div>
+      </div></div>
+
+      <div class="card"><div class="bd grid" style="grid-template-columns:230px minmax(0,1fr);gap:18px;align-items:center">
+        <div class="card flat" style="border-color:var(--line)"><div class="bd" style="padding:0"><table class="tbl">
+          <thead><tr><th>Заказ</th><th class="rt">Сумма</th></tr></thead>
+          <tbody><tr><td class="mono">№ 128</td><td class="rt mono">34 900 ₽</td></tr></tbody></table></div></div>
+        <div class="stack" style="gap:6px">
+          <span class="strong">Таблица остаётся таблицей</span>
+          <span class="t-lbl mut">На узком экране она превращается в карточки визуально, но в разметке остаётся <span class="mono">&lt;table&gt;</span> с <span class="mono">&lt;th scope="col"&gt;</span>: иначе читалка перестаёт связывать «34 900 ₽» со словом «Сумма». Липкая шапка — <span class="mono">position: sticky</span>, а не отдельная таблица-двойник.</span>
+          <span class="snip">&lt;caption class="sr-only"&gt;Заказы за август&lt;/caption&gt;</span>
+        </div>
+      </div></div>
+
+      <div class="card"><div class="bd grid" style="grid-template-columns:230px minmax(0,1fr);gap:18px;align-items:center">
+        <div class="stack" style="gap:8px">
+          <span class="inp bordered col err"><span class="lab">Каноникал</span><span class="val ph">Не задан</span></span>
+        </div>
+        <div class="stack" style="gap:6px">
+          <span class="strong">Ошибка рядом с полем и в тексте</span>
+          <span class="t-lbl mut">Сообщение стоит под своим полем, связано через <span class="mono">aria-describedby</span>, а поле помечено <span class="mono">aria-invalid</span>. Красной рамки мало: она не читается ни голосом, ни при дальтонизме. Сводка ошибок сверху — в дополнение, а не вместо.</span>
+          <span class="snip">&lt;input aria-invalid="true" aria-describedby="canonical-err"&gt;</span>
+        </div>
+      </div></div>
+
+    </div>
+  </div>
+</div>
+EOF

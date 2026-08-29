@@ -1,0 +1,40 @@
+/* Токены сняты из apps/web/src/shared/styles/tokens.css и ui-tokens.css — один в один */
+:root{
+  --bg:#fff; --bg-soft:#f8fafc; --card:#fff;
+  --header-bg:rgb(255 255 255 / 82%);
+  --hero-grad:linear-gradient(180deg,#f0f9fb 0%,#fff 100%);
+  --ink:#0f172a; --ink2:#334155; --body:#475569; --muted:#556173; --faint:#5b6a7d;
+  --line:#e2e8f0; --line-strong:#cbd5e1; --line-soft:#eef2f6;
+  --accent-ink:#0891b2; --accent-text:#0e7490; --accent-bg:#ecfeff; --accent-line:#a5f3fc;
+  --panel:#0f172a; --stripe-a:#edf2f6; --stripe-b:#f5f8fa; --field:#fff;
+  --brand:#0e7490; --brand-hover:#155e75; --brand-mark:#0891b2; --brand-mark-dark:#22d3ee;
+  --on-brand:#fff; --on-panel:#fff; --on-accent:var(--accent-text);
+  --sale-ink:rgb(190 18 60); --sale-bg:rgb(190 18 60 / 8%); --sale-line:rgb(190 18 60 / 28%);
+  --star:rgb(217 119 6); --ok-ink:rgb(21 128 61); --ok-bg:rgb(21 128 61 / 8%);
+  --lead-grad:linear-gradient(180deg,rgb(15 23 42) 0%,rgb(11 37 48) 100%);
+  --shadow-header:0 12px 34px -16px rgb(15 23 42 / 22%);
+  --shadow-card:0 20px 44px -28px rgb(15 23 42 / 20%);
+  --shadow-brand:0 10px 24px rgb(14 116 144 / 30%);
+  --shadow-raised:0 36px 80px -32px rgb(8 66 84 / 45%);
+  --ring:0 0 0 2px var(--bg),0 0 0 4px var(--accent-ink);
+  --r-sm:11px; --r-md:14px; --r-ml:18px; --r-lg:20px; --r-xl:22px; --r-xxl:24px; --r-pill:100px;
+  --font-display:'Onest',system-ui,sans-serif;
+  --font-text:'Manrope',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+[data-theme='dark']{
+  --bg:#0b1220; --bg-soft:#0e1729; --card:#121d31;
+  --header-bg:rgb(11 18 32 / 80%);
+  --hero-grad:linear-gradient(180deg,#0c1628 0%,#0b1220 100%);
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --line:#1e2b41; --line-strong:#2c3d59; --line-soft:#182338;
+  --accent-ink:#22d3ee; --accent-text:#22d3ee; --accent-bg:rgb(34 211 238 / 10%); --accent-line:rgb(34 211 238 / 35%);
+  --panel:#111d34; --stripe-a:#16223a; --stripe-b:#121d31; --field:#0b1424;
+  --sale-ink:rgb(251 113 133); --sale-bg:rgb(251 113 133 / 12%); --sale-line:rgb(251 113 133 / 32%);
+  --star:rgb(251 191 36); --ok-ink:rgb(74 222 128); --ok-bg:rgb(74 222 128 / 12%);
+}
+/* Тёмный остров внутри светлой темы (ADR-158) */
+[data-ground='panel']{
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --accent-text:#22d3ee;
+}

@@ -1,0 +1,41 @@
+/* Доска вкладок: строка на вкладку, три ширины в ряд */
+.board{width:2790px;display:flex;flex-direction:column;gap:40px;padding:36px;background:var(--bg-soft)}
+.tsec{display:flex;flex-direction:column;gap:12px}
+.ttl2{display:flex;align-items:baseline;gap:12px}
+.tnum{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--accent-text)}
+.tname{font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--ink)}
+.tdesc{font-size:13px;color:var(--muted);max-width:1100px;line-height:1.5}
+.row3{display:flex;gap:56px;align-items:flex-start}
+.col{display:flex;flex-direction:column;gap:8px}
+.devlab{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.devcap{font-size:11.5px;color:var(--faint);line-height:1.45}
+.frame{border:1px solid var(--line-strong);border-radius:var(--r-app);overflow:hidden;
+  background:var(--card);flex-shrink:0}
+.frame.ph{border-radius:26px;width:390px;display:flex;flex-direction:column;background:var(--bg-soft)}
+.frame.tb{width:768px}
+.frame.dk{width:1440px}
+.tabsrow{display:flex;gap:22px;padding:0 20px;border-bottom:1px solid var(--line);
+  background:var(--card);overflow:hidden}
+.tabsrow.sm{gap:16px;padding:0 16px}
+.tabsrow.xs{gap:16px;padding:0 14px;
+  -webkit-mask-image:linear-gradient(90deg,#000,#000 calc(100% - 28px),transparent);
+  mask-image:linear-gradient(90deg,#000,#000 calc(100% - 28px),transparent)}
+.bd20{padding:16px 20px 20px;background:var(--bg-soft)}
+.bd16{padding:14px 16px 16px;background:var(--bg-soft)}
+.mbody{flex:1;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--bg-soft)}
+.mbar{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:56px;
+  padding:0 14px;background:var(--card);border-bottom:1px solid var(--line);flex-shrink:0}
+.mtitle{font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--ink)}
+.sticky-act{padding:12px 14px 16px;background:var(--card);border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.chk{display:flex;align-items:center;gap:12px;min-height:56px;padding:0 14px;
+  border-bottom:1px solid var(--line)}
+.chk .box{width:24px;height:24px;border-radius:7px;border:1.8px solid var(--line-ui);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;color:transparent}
+.chk.done .box{background:var(--brand);border-color:var(--brand);color:#fff}
+.chk.done .txt{color:var(--muted);text-decoration:line-through}
+.chk .txt{font-size:14.5px;color:var(--ink)}
+/* контейнер с горизонтальной прокруткой не должен растягивать предков */
+.frame .card,.frame .bd,.frame .bd16,.frame .bd20{min-width:0}
+.frame [style*="overflow-x"]{max-width:100%}
+.frame .card{overflow:hidden}

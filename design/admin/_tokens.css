@@ -1,0 +1,123 @@
+/* Токены сняты из apps/web/src/shared/styles/tokens.css и ui-tokens.css — один в один */
+:root{
+  --bg:#fff; --bg-soft:#f8fafc; --card:#fff;
+  --header-bg:rgb(255 255 255 / 82%);
+  --hero-grad:linear-gradient(180deg,#f0f9fb 0%,#fff 100%);
+  --ink:#0f172a; --ink2:#334155; --body:#475569; --muted:#556173; --faint:#5b6a7d;
+  --line:#e2e8f0; --line-strong:#cbd5e1; --line-soft:#eef2f6;
+  --accent-ink:#0891b2; --accent-text:#0e7490; --accent-bg:#ecfeff; --accent-line:#a5f3fc;
+  --panel:#0f172a; --stripe-a:#edf2f6; --stripe-b:#f5f8fa; --field:#fff;
+  --brand:#0e7490; --brand-hover:#155e75; --brand-mark:#0891b2; --brand-mark-dark:#22d3ee;
+  --on-brand:#fff; --on-panel:#fff; --on-accent:var(--accent-text);
+  --sale-ink:rgb(190 18 60); --sale-bg:rgb(190 18 60 / 8%); --sale-line:rgb(190 18 60 / 28%);
+  --star:rgb(217 119 6); --ok-ink:rgb(22 101 52); --ok-bg:rgb(21 128 61 / 8%);
+  --lead-grad:linear-gradient(180deg,rgb(15 23 42) 0%,rgb(11 37 48) 100%);
+  --shadow-header:0 12px 34px -16px rgb(15 23 42 / 22%);
+  --shadow-card:0 20px 44px -28px rgb(15 23 42 / 20%);
+  --shadow-brand:0 10px 24px rgb(14 116 144 / 30%);
+  --shadow-raised:0 36px 80px -32px rgb(8 66 84 / 45%);
+  --r-sm:11px; --r-md:14px; --r-ml:18px; --r-lg:20px; --r-xl:22px; --r-xxl:24px; --r-pill:100px;
+  --font-display:'Onest',system-ui,sans-serif;
+  --font-text:'Manrope',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+[data-theme='dark']{
+  --bg:#0b1220; --bg-soft:#0e1729; --card:#121d31;
+  --header-bg:rgb(11 18 32 / 80%);
+  --hero-grad:linear-gradient(180deg,#0c1628 0%,#0b1220 100%);
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --line:#1e2b41; --line-strong:#2c3d59; --line-soft:#182338;
+  --accent-ink:#22d3ee; --accent-text:#22d3ee; --accent-bg:rgb(34 211 238 / 10%); --accent-line:rgb(34 211 238 / 35%);
+  --panel:#111d34; --stripe-a:#16223a; --stripe-b:#121d31; --field:#0b1424;
+  --sale-ink:rgb(251 113 133); --sale-bg:rgb(251 113 133 / 12%); --sale-line:rgb(251 113 133 / 32%);
+  --star:rgb(251 191 36); --ok-ink:rgb(74 222 128); --ok-bg:rgb(74 222 128 / 12%);
+}
+/* Тёмный остров внутри светлой темы (ADR-158) */
+[data-ground='panel']{
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --accent-text:#22d3ee;
+}
+
+/* ——— Плотность панели. Взята с HeroUI: шаг 4px, высоты контролов
+   sm 32 / md 40 / lg 48, внутренние поля карточки 12 и 16, зазор групп 12.
+   Панель плотнее сайта: там пол тап-зоны 44px, здесь мышь (DESIGN_BRIEF §9).
+   На сенсорном экране высоты поднимаются до 44 — правило ниже. ——— */
+:root{
+  --h-sm:32px; --h-md:40px; --h-lg:48px;
+  --pad-card:16px; --pad-card-sm:12px;
+  --gap-1:4px; --gap-2:8px; --gap-3:12px; --gap-4:16px; --gap-6:24px; --gap-8:32px;
+  --rail:72px;          /* свёрнутая колонка разделов */
+  --aside:264px;        /* развёрнутая */
+  --navbar:56px;        /* верхняя полоса */
+  --fs-label:13px; --fs-body:14px; --fs-tiny:12px;
+  /* тени HeroUI: small и medium, нейтральные и очень мягкие */
+  --sh-sm:0 0 5px 0 rgb(15 23 42 / 3%), 0 2px 10px 0 rgb(15 23 42 / 6%);
+  --sh-md:0 0 15px 0 rgb(15 23 42 / 4%), 0 2px 30px 0 rgb(15 23 42 / 8%);
+  --sh-lg:0 0 30px 0 rgb(15 23 42 / 6%), 0 30px 60px 0 rgb(15 23 42 / 12%);
+}
+[data-theme='dark']{
+  --sh-sm:0 0 5px 0 rgb(0 0 0 / 20%), 0 2px 10px 0 rgb(0 0 0 / 28%);
+  --sh-md:0 0 15px 0 rgb(0 0 0 / 24%), 0 2px 30px 0 rgb(0 0 0 / 34%);
+  --sh-lg:0 0 30px 0 rgb(0 0 0 / 34%), 0 30px 60px 0 rgb(0 0 0 / 46%);
+}
+
+/* ——— Семантические краски: перенесены из apps/web/src/shared/styles/ui-tokens.css
+   один в один. Шесть различимых пар на всю панель. ——— */
+:root{
+  /* Ступень темнее, чем в ui-tokens.css: там краска считалась на чистой
+     карточке, а в панели чип ложится на тинт своей же строки или ячейки
+     календаря — двойной слой опускал её до 4,0:1. Замерено. */
+  --warn-ink:rgb(146 64 14); --warn-bg:rgb(180 83 9 / 8%); --warn-line:rgb(180 83 9 / 28%);
+  --info-ink:rgb(67 56 202); --info-bg:rgb(67 56 202 / 8%); --info-line:rgb(67 56 202 / 28%);
+  --ok-line:rgb(21 128 61 / 28%);
+  --error-ink:rgb(190 18 60); --error-bg:rgb(190 18 60 / 8%);
+  --on-error:#fff; --on-ok:#fff;
+  --error-line:rgb(190 18 60 / 45%);
+  --overlay:rgb(15 23 42 / 45%);
+  --star-bg:rgb(217 119 6 / 12%);
+
+  /* Кольцо фокуса двухслойное: сначала отбивка цветом фона, потом контур.
+     Так оно читается и на светлой карточке, и на тёмной панели. Заливка с
+     прозрачностью на тёмном фоне не видна вовсе — отсюда два слоя. */
+  --ring-focus-ring:0 0 0 2px var(--bg), 0 0 0 4px var(--accent-ink);
+  --ring-focus-inset:inset 0 0 0 2px var(--accent-ink);
+}
+[data-theme='dark']{
+  --warn-ink:rgb(251 191 36); --warn-bg:rgb(251 191 36 / 12%); --warn-line:rgb(251 191 36 / 32%);
+  --info-ink:rgb(165 180 252); --info-bg:rgb(165 180 252 / 12%); --info-line:rgb(165 180 252 / 32%);
+  --ok-line:rgb(74 222 128 / 32%);
+  --star-bg:rgb(251 191 36 / 14%);
+  --error-ink:rgb(251 113 133); --error-bg:rgb(251 113 133 / 12%);
+  /* В тёмной теме краски состояний уходят на светлую сторону палитры,
+     и белый текст на них даёт 2,7:1. Поверх заливки — фон страницы. */
+  --on-error:var(--bg); --on-ok:var(--bg);
+  --error-line:rgb(251 113 133 / 50%);
+  --overlay:rgb(2 6 16 / 68%);
+}
+
+/* ——— 🔴 Новый токен: граница контрола.
+   `--line-strong` (#cbd5e1) на белом даёт 1,48:1, а WCAG 1.4.11 требует 3:1
+   для границ, которые СЛУЖАТ границей компонента. Декоративные разделители
+   остаются на `--line`; на `--line-ui` переходят только те места, где линия и
+   есть аффорданс: обводка поля, рамка невыбранного чекбокса, дорожка
+   выключенного переключателя. Значения подобраны расчётом, не на глаз. ——— */
+:root{ --line-ui:#7e8fa6; }               /* 3,30:1 на белом · 3,15:1 на --bg-soft */
+[data-theme='dark']{ --line-ui:#566d95; } /* 3,22:1 на --card */
+
+/* ——— Геометрия эталона (heroui.com/themes, шаблон dashboard):
+   Radius M для компонентов, Radius Form L для полей — на практике кнопки и
+   поля идут пилюлей, карточки 14, пункт навигации 12. ——— */
+:root{
+  --r-btn:999px;      /* кнопка и поле — пилюля */
+  --r-card:14px;      /* карточка */
+  --r-nav:12px;       /* пункт навигации */
+  --r-app:20px;       /* внешний контейнер панели */
+  --h-nav:44px;
+  /* Серии графиков. Пара разведена по тону (циан и янтарь), но не по
+     светлоте: 1,36:1 в светлой теме и 1,08:1 в тёмной. Одного цвета мало —
+     при дальтонизме и на чёрно-белой печати наряда серии сольются, поэтому
+     вторая линия идёт штрихом, а у каждой стоит подпись значения на конце.
+     Третьей серии не заводится: две — предел, который читается без легенды. */
+  --s1:#0891b2; --s2:#b45309;
+}
+[data-theme='dark']{ --s1:#22d3ee; --s2:#fbbf24; }

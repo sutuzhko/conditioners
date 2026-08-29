@@ -1,0 +1,951 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+/* Токены сняты из apps/web/src/shared/styles/tokens.css и ui-tokens.css — один в один */
+:root{
+  --bg:#fff; --bg-soft:#f8fafc; --card:#fff;
+  --header-bg:rgb(255 255 255 / 82%);
+  --hero-grad:linear-gradient(180deg,#f0f9fb 0%,#fff 100%);
+  --ink:#0f172a; --ink2:#334155; --body:#475569; --muted:#556173; --faint:#5b6a7d;
+  --line:#e2e8f0; --line-strong:#cbd5e1; --line-soft:#eef2f6;
+  --accent-ink:#0891b2; --accent-text:#0e7490; --accent-bg:#ecfeff; --accent-line:#a5f3fc;
+  --panel:#0f172a; --stripe-a:#edf2f6; --stripe-b:#f5f8fa; --field:#fff;
+  --brand:#0e7490; --brand-hover:#155e75; --brand-mark:#0891b2; --brand-mark-dark:#22d3ee;
+  --on-brand:#fff; --on-panel:#fff; --on-accent:var(--accent-text);
+  --sale-ink:rgb(190 18 60); --sale-bg:rgb(190 18 60 / 8%); --sale-line:rgb(190 18 60 / 28%);
+  --star:rgb(217 119 6); --ok-ink:rgb(22 101 52); --ok-bg:rgb(21 128 61 / 8%);
+  --lead-grad:linear-gradient(180deg,rgb(15 23 42) 0%,rgb(11 37 48) 100%);
+  --shadow-header:0 12px 34px -16px rgb(15 23 42 / 22%);
+  --shadow-card:0 20px 44px -28px rgb(15 23 42 / 20%);
+  --shadow-brand:0 10px 24px rgb(14 116 144 / 30%);
+  --shadow-raised:0 36px 80px -32px rgb(8 66 84 / 45%);
+  --r-sm:11px; --r-md:14px; --r-ml:18px; --r-lg:20px; --r-xl:22px; --r-xxl:24px; --r-pill:100px;
+  --font-display:'Onest',system-ui,sans-serif;
+  --font-text:'Manrope',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+[data-theme='dark']{
+  --bg:#0b1220; --bg-soft:#0e1729; --card:#121d31;
+  --header-bg:rgb(11 18 32 / 80%);
+  --hero-grad:linear-gradient(180deg,#0c1628 0%,#0b1220 100%);
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --line:#1e2b41; --line-strong:#2c3d59; --line-soft:#182338;
+  --accent-ink:#22d3ee; --accent-text:#22d3ee; --accent-bg:rgb(34 211 238 / 10%); --accent-line:rgb(34 211 238 / 35%);
+  --panel:#111d34; --stripe-a:#16223a; --stripe-b:#121d31; --field:#0b1424;
+  --sale-ink:rgb(251 113 133); --sale-bg:rgb(251 113 133 / 12%); --sale-line:rgb(251 113 133 / 32%);
+  --star:rgb(251 191 36); --ok-ink:rgb(74 222 128); --ok-bg:rgb(74 222 128 / 12%);
+}
+/* Тёмный остров внутри светлой темы (ADR-158) */
+[data-ground='panel']{
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --accent-text:#22d3ee;
+}
+
+/* ——— Плотность панели. Взята с HeroUI: шаг 4px, высоты контролов
+   sm 32 / md 40 / lg 48, внутренние поля карточки 12 и 16, зазор групп 12.
+   Панель плотнее сайта: там пол тап-зоны 44px, здесь мышь (DESIGN_BRIEF §9).
+   На сенсорном экране высоты поднимаются до 44 — правило ниже. ——— */
+:root{
+  --h-sm:32px; --h-md:40px; --h-lg:48px;
+  --pad-card:16px; --pad-card-sm:12px;
+  --gap-1:4px; --gap-2:8px; --gap-3:12px; --gap-4:16px; --gap-6:24px; --gap-8:32px;
+  --rail:72px;          /* свёрнутая колонка разделов */
+  --aside:264px;        /* развёрнутая */
+  --navbar:56px;        /* верхняя полоса */
+  --fs-label:13px; --fs-body:14px; --fs-tiny:12px;
+  /* тени HeroUI: small и medium, нейтральные и очень мягкие */
+  --sh-sm:0 0 5px 0 rgb(15 23 42 / 3%), 0 2px 10px 0 rgb(15 23 42 / 6%);
+  --sh-md:0 0 15px 0 rgb(15 23 42 / 4%), 0 2px 30px 0 rgb(15 23 42 / 8%);
+  --sh-lg:0 0 30px 0 rgb(15 23 42 / 6%), 0 30px 60px 0 rgb(15 23 42 / 12%);
+}
+[data-theme='dark']{
+  --sh-sm:0 0 5px 0 rgb(0 0 0 / 20%), 0 2px 10px 0 rgb(0 0 0 / 28%);
+  --sh-md:0 0 15px 0 rgb(0 0 0 / 24%), 0 2px 30px 0 rgb(0 0 0 / 34%);
+  --sh-lg:0 0 30px 0 rgb(0 0 0 / 34%), 0 30px 60px 0 rgb(0 0 0 / 46%);
+}
+
+/* ——— Семантические краски: перенесены из apps/web/src/shared/styles/ui-tokens.css
+   один в один. Шесть различимых пар на всю панель. ——— */
+:root{
+  /* Ступень темнее, чем в ui-tokens.css: там краска считалась на чистой
+     карточке, а в панели чип ложится на тинт своей же строки или ячейки
+     календаря — двойной слой опускал её до 4,0:1. Замерено. */
+  --warn-ink:rgb(146 64 14); --warn-bg:rgb(180 83 9 / 8%); --warn-line:rgb(180 83 9 / 28%);
+  --info-ink:rgb(67 56 202); --info-bg:rgb(67 56 202 / 8%); --info-line:rgb(67 56 202 / 28%);
+  --ok-line:rgb(21 128 61 / 28%);
+  --error-ink:rgb(190 18 60); --error-bg:rgb(190 18 60 / 8%);
+  --on-error:#fff; --on-ok:#fff;
+  --error-line:rgb(190 18 60 / 45%);
+  --overlay:rgb(15 23 42 / 45%);
+  --star-bg:rgb(217 119 6 / 12%);
+
+  /* Кольцо фокуса двухслойное: сначала отбивка цветом фона, потом контур.
+     Так оно читается и на светлой карточке, и на тёмной панели. Заливка с
+     прозрачностью на тёмном фоне не видна вовсе — отсюда два слоя. */
+  --ring-focus-ring:0 0 0 2px var(--bg), 0 0 0 4px var(--accent-ink);
+  --ring-focus-inset:inset 0 0 0 2px var(--accent-ink);
+}
+[data-theme='dark']{
+  --warn-ink:rgb(251 191 36); --warn-bg:rgb(251 191 36 / 12%); --warn-line:rgb(251 191 36 / 32%);
+  --info-ink:rgb(165 180 252); --info-bg:rgb(165 180 252 / 12%); --info-line:rgb(165 180 252 / 32%);
+  --ok-line:rgb(74 222 128 / 32%);
+  --star-bg:rgb(251 191 36 / 14%);
+  --error-ink:rgb(251 113 133); --error-bg:rgb(251 113 133 / 12%);
+  /* В тёмной теме краски состояний уходят на светлую сторону палитры,
+     и белый текст на них даёт 2,7:1. Поверх заливки — фон страницы. */
+  --on-error:var(--bg); --on-ok:var(--bg);
+  --error-line:rgb(251 113 133 / 50%);
+  --overlay:rgb(2 6 16 / 68%);
+}
+
+/* ——— 🔴 Новый токен: граница контрола.
+   `--line-strong` (#cbd5e1) на белом даёт 1,48:1, а WCAG 1.4.11 требует 3:1
+   для границ, которые СЛУЖАТ границей компонента. Декоративные разделители
+   остаются на `--line`; на `--line-ui` переходят только те места, где линия и
+   есть аффорданс: обводка поля, рамка невыбранного чекбокса, дорожка
+   выключенного переключателя. Значения подобраны расчётом, не на глаз. ——— */
+:root{ --line-ui:#7e8fa6; }               /* 3,30:1 на белом · 3,15:1 на --bg-soft */
+[data-theme='dark']{ --line-ui:#566d95; } /* 3,22:1 на --card */
+
+/* ——— Геометрия эталона (heroui.com/themes, шаблон dashboard):
+   Radius M для компонентов, Radius Form L для полей — на практике кнопки и
+   поля идут пилюлей, карточки 14, пункт навигации 12. ——— */
+:root{
+  --r-btn:999px;      /* кнопка и поле — пилюля */
+  --r-card:14px;      /* карточка */
+  --r-nav:12px;       /* пункт навигации */
+  --r-app:20px;       /* внешний контейнер панели */
+  --h-nav:44px;
+  /* Серии графиков. Пара разведена по тону (циан и янтарь), но не по
+     светлоте: 1,36:1 в светлой теме и 1,08:1 в тёмной. Одного цвета мало —
+     при дальтонизме и на чёрно-белой печати наряда серии сольются, поэтому
+     вторая линия идёт штрихом, а у каждой стоит подпись значения на конце.
+     Третьей серии не заводится: две — предел, который читается без легенды. */
+  --s1:#0891b2; --s2:#b45309;
+}
+[data-theme='dark']{ --s1:#22d3ee; --s2:#fbbf24; }
+/* ═══ Кит панели ТулаКлимат ═══
+   Устройство узлов скопировано с HeroUI: варианты полей flat/bordered/faded/
+   underlined, подпись внутри поля, чип шестью вариантами, карточка тремя
+   поясами, таблица с верхним и нижним блоком, вкладки четырьмя видами.
+   Цвета наши (ADR-169): с эталона берётся геометрия и порядок, не палитра. */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink2);
+  font-family:var(--font-text);font-size:var(--fs-body);line-height:1.45;
+  -webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:var(--accent-text);text-decoration:none}
+a:hover{color:var(--brand-hover)}
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);color:var(--ink);
+  letter-spacing:-0.02em;font-weight:700}
+p{margin:0} ul,ol{margin:0;padding:0;list-style:none}
+table{border-collapse:separate;border-spacing:0}
+.row{display:flex;align-items:center}
+.stack{display:flex;flex-direction:column}
+.grid{display:grid}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.num{font-family:var(--font-display);font-weight:700;font-variant-numeric:tabular-nums;
+  letter-spacing:-0.02em;color:var(--ink)}
+.mut{color:var(--muted)} .fnt{color:var(--faint)} .ink{color:var(--ink)}
+.t-tiny{font-size:var(--fs-tiny)} .t-lbl{font-size:var(--fs-label)}
+.clip{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hr{height:1px;background:var(--line);border:0;flex-shrink:0}
+.hr.v{width:1px;height:auto;align-self:stretch}
+
+/* ─── Button ─── */
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;
+  height:var(--h-md);padding:0 18px;border:1px solid transparent;border-radius:var(--r-btn);
+  font-family:var(--font-text);font-size:var(--fs-body);font-weight:600;line-height:1;
+  white-space:nowrap;cursor:pointer;text-decoration:none;
+  transition:background .15s ease,border-color .15s ease,color .15s ease,box-shadow .15s ease,transform .1s ease}
+.btn:active{transform:scale(.97)}
+.btn.sm{height:var(--h-sm);padding:0 14px;font-size:var(--fs-label)}
+.btn.lg{height:var(--h-lg);padding:0 22px;font-size:15px}
+.btn.icon{width:var(--h-md);padding:0;border-radius:var(--r-pill)} .btn.icon.sm{width:var(--h-sm)} .btn.icon.lg{width:var(--h-lg)}
+.btn.solid{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.solid:hover{background:var(--brand-hover);border-color:var(--brand-hover)}
+.btn.flat{background:var(--accent-bg);color:var(--on-accent)}
+.btn.flat:hover{background:var(--brand);color:var(--on-brand)}
+.btn.bord{background:transparent;border-color:var(--line-ui);color:var(--ink)}
+.btn.bord:hover{border-color:var(--accent-ink);color:var(--accent-text)}
+.btn.faded{background:var(--bg-soft);border-color:var(--line);color:var(--ink)}
+.btn.faded:hover{border-color:var(--line-ui)}
+.btn.light{background:transparent;color:var(--ink2)}
+.btn.light:hover{background:var(--bg-soft);color:var(--ink)}
+.btn.ghost{background:transparent;border-color:var(--brand);color:var(--accent-text)}
+.btn.ghost:hover{background:var(--brand);color:var(--on-brand)}
+.btn.danger{background:var(--error-bg);border-color:var(--error-line);color:var(--error-ink)}
+.btn.danger:hover{background:var(--error-ink);border-color:var(--error-ink);color:var(--on-error)}
+.btn.dis{opacity:.5;cursor:not-allowed;transform:none}
+.btn.focus{box-shadow:var(--ring-focus-ring)}
+/* группа кнопок: общая рамка, скруглены только края */
+.bgrp{display:inline-flex}
+.bgrp .btn{border-radius:0;margin-left:-1px}
+.bgrp .btn:first-child{border-radius:var(--r-btn) 0 0 var(--r-btn);margin-left:0}
+.bgrp .btn:last-child{border-radius:0 var(--r-btn) var(--r-btn) 0}
+
+/* ─── Input ─── подпись внутри, начальное и конечное содержимое */
+.inp{display:flex;align-items:center;gap:8px;width:100%;min-height:var(--h-lg);
+  padding:0 14px;border:1px solid var(--line-ui);border-radius:var(--r-btn);
+  background:var(--bg-soft);cursor:text;
+  transition:background .15s ease,border-color .15s ease,box-shadow .15s ease}
+.inp .body{display:flex;flex-direction:column;justify-content:center;flex:1;min-width:0;
+  padding:6px 0}
+.inp .lab{font-size:11px;font-weight:600;color:var(--muted);line-height:1.15}
+.inp .val{font-size:var(--fs-body);color:var(--ink);line-height:1.25}
+.inp .ph{color:var(--faint)}
+.inp .ico{display:flex;align-items:center;color:var(--muted);flex-shrink:0}
+.inp.solo .body{padding:0}
+.inp.sm{min-height:var(--h-sm);padding:0 10px} .inp.md{min-height:var(--h-md)}
+.inp.tall{min-height:96px;align-items:flex-start;padding-top:10px;padding-bottom:10px;border-radius:var(--r-card)}
+.inp.tall > .body{padding:0}
+/* варианты эталона */
+.inp.flat{background:var(--bg-soft)}
+.inp.flat:hover{background:var(--stripe-a)}
+.inp.bordered{background:transparent;border-color:var(--line-ui)}
+.inp.bordered:hover{border-color:var(--ink2)}
+.inp.faded{background:var(--bg-soft);border-color:var(--line)}
+.inp.faded:hover{border-color:var(--line-ui)}
+.inp.under{background:transparent;border-radius:0;border:0;border-bottom:1px solid var(--line-ui);padding-inline:2px}
+.inp.under:hover{border-bottom-color:var(--ink2)}
+/* состояния */
+.inp.foc{background:var(--card);border-color:var(--accent-ink);box-shadow:var(--ring-focus-ring)}
+.inp.foc.under{background:transparent;box-shadow:none;border-bottom-color:var(--accent-ink)}
+.inp.err{background:var(--error-bg);border-color:var(--error-ink)}
+.inp.err .lab{color:var(--error-ink)}
+.inp.dis{opacity:.5;cursor:not-allowed}
+.hint{margin-top:5px;font-size:11.5px;color:var(--faint);display:flex;gap:5px;align-items:flex-start}
+.hint.bad{color:var(--error-ink)}
+/* подпись снаружи — второй способ размещения */
+.lab-out{display:block;margin-bottom:6px;font-size:var(--fs-label);font-weight:600;color:var(--ink2)}
+
+/* ─── Checkbox · Radio · Switch ─── */
+.cbx{width:20px;height:20px;border-radius:7px;border:1.5px solid var(--line-ui);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:transparent}
+.cbx.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.cbx.ind{background:var(--brand);border-color:var(--brand);color:#fff}
+.rdo{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-ui);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center}
+.rdo.on{border-color:var(--brand)}
+.rdo.on::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--brand)}
+.sw{display:inline-block;width:44px;height:26px;border-radius:var(--r-pill);background:var(--card);
+  border:1.5px solid var(--line-ui);position:relative;flex-shrink:0;transition:.15s}
+.sw i{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;
+  background:var(--line-ui);transition:.15s}
+.sw.on{background:var(--brand);border-color:var(--brand)}
+.sw.on i{left:20px;background:#fff}
+.opt{display:flex;align-items:center;gap:10px;min-height:36px;cursor:pointer}
+.opt .txt{font-size:var(--fs-body);color:var(--ink)}
+.opt .sub{font-size:11.5px;color:var(--muted)}
+
+/* ─── Chip — шесть вариантов эталона ─── */
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;
+  border:1px solid transparent;border-radius:var(--r-pill);font-size:var(--fs-tiny);
+  font-weight:600;line-height:1;white-space:nowrap}
+.chip.lg{height:28px;padding:0 11px;font-size:var(--fs-label)}
+.chip.sq{border-radius:8px}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:currentcolor;flex-shrink:0}
+.chip .x{display:flex;opacity:.6;margin-left:1px}
+.c-default{background:var(--bg-soft);color:var(--muted);border-color:var(--line)}
+.c-primary{background:var(--accent-bg);color:var(--on-accent)}
+.c-success{background:var(--ok-bg);color:var(--ok-ink)}
+.c-warn{background:var(--warn-bg);color:var(--warn-ink)}
+.c-danger{background:var(--error-bg);color:var(--error-ink)}
+.c-info{background:var(--info-bg);color:var(--info-ink)}
+.v-solid.c-primary{background:var(--brand);color:var(--on-brand)}
+.v-solid.c-success{background:var(--ok-ink);color:var(--on-ok)}
+.v-solid.c-danger{background:var(--error-ink);color:var(--on-error)}
+.v-bord{background:transparent}
+.v-bord.c-primary{border-color:var(--brand);color:var(--accent-text)}
+.v-bord.c-danger{border-color:var(--error-ink);color:var(--error-ink)}
+.v-light{background:transparent;border-color:transparent}
+.v-faded.c-primary{background:var(--bg-soft);border-color:var(--line);color:var(--accent-text)}
+
+/* ─── Card ─── */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);
+  box-shadow:none}
+.card.flat{box-shadow:none}
+.card.hov{transition:box-shadow .18s ease,border-color .18s ease,transform .18s ease}
+.card.hov:hover{box-shadow:var(--sh-md);border-color:var(--line-strong);transform:translateY(-1px)}
+.card.sel{border-color:var(--accent-ink);box-shadow:var(--ring-focus-ring)}
+.card > .hd{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:var(--pad-card-sm) var(--pad-card)}
+.card > .bd{padding:var(--pad-card)}
+.card > .ft{padding:var(--pad-card-sm) var(--pad-card)}
+.card > .hd + .bd,.card > .bd + .ft{border-top:1px solid var(--line)}
+.ttl{font-size:15px;font-weight:700;color:var(--ink);font-family:var(--font-display)}
+
+/* ─── Table ─── */
+.tbl{width:100%;font-size:var(--fs-body)}
+.tbl th{position:sticky;top:0;z-index:1;text-align:left;padding:10px 12px;
+  background:var(--bg-soft);color:var(--muted);font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+  border-bottom:1px solid var(--line)}
+.tbl td{padding:12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:middle}
+.tbl tbody tr:hover td{background:var(--bg-soft)}
+.tbl tbody tr:last-child td{border-bottom:none}
+.tbl.zebra tbody tr:nth-child(even) td{background:var(--stripe-b)}
+.tbl .rt{text-align:right}
+.tbl .strong{color:var(--ink);font-weight:600}
+
+/* ─── Tabs — четыре вида ─── */
+.tabs{display:flex;gap:22px;border-bottom:1px solid var(--line)}
+.tab{position:relative;padding:10px 0;font-size:var(--fs-body);font-weight:600;
+  color:var(--muted);white-space:nowrap;cursor:pointer}
+.tab.on{color:var(--ink)}
+.tab.on::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  border-radius:2px;background:var(--brand)}
+.seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--bg-soft);gap:2px}
+.seg span{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:8px;
+  font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.seg span.on{background:var(--card);color:var(--ink);box-shadow:var(--sh-sm)}
+.seg.bord{background:transparent;border:2px solid var(--line);padding:2px}
+.seg.bord span.on{background:var(--accent-bg);color:var(--on-accent);box-shadow:none}
+
+/* ─── Avatar · User · Badge ─── */
+.ava{display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:32px;height:32px;border-radius:var(--r-pill);background:var(--accent-bg);
+  color:var(--on-accent);font-family:var(--font-display);font-weight:700;font-size:12px}
+.ava.xs{width:24px;height:24px;font-size:10px}
+.ava.lg{width:40px;height:40px;font-size:14px}
+.ava.sq{border-radius:10px}
+.avagrp{display:flex}
+.avagrp .ava{border:2px solid var(--card);margin-left:-8px}
+.avagrp .ava:first-child{margin-left:0}
+.usr{display:flex;align-items:center;gap:10px;min-width:0}
+.usr .nm{font-size:13.5px;font-weight:600;color:var(--ink)}
+.usr .ds{font-size:11.5px;color:var(--muted)}
+.bdg{position:absolute;top:-3px;right:-3px;min-width:16px;height:16px;padding:0 4px;
+  border-radius:var(--r-pill);background:var(--error-ink);color:var(--on-error);font-size:10px;
+  font-weight:700;display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--card)}
+.bdg.dot{min-width:10px;height:10px;padding:0}
+
+/* ─── Progress · Spinner ─── */
+.bar{height:6px;border-radius:var(--r-pill);background:var(--line);overflow:hidden}
+.bar > i{display:block;height:100%;border-radius:var(--r-pill);background:var(--brand)}
+.bar.sm{height:4px}
+.spin{width:20px;height:20px;border-radius:50%;border:2.5px solid var(--line);
+  border-top-color:var(--brand)}
+
+/* ─── Skeleton ─── */
+.sk{display:inline-block;border-radius:8px;
+  background:linear-gradient(90deg,var(--line-soft),var(--line),var(--line-soft));
+  background-size:200% 100%}
+
+/* Строка списка на узком экране. Живёт в ките, а не в стилях доски:
+   её просят и экраны, и вкладки, и матрица состояний. */
+.mrow{display:flex;flex-direction:column;gap:8px;padding:14px}
+
+/* ─── Alert ─── */
+.alert{display:flex;gap:12px;padding:12px 14px;border-radius:var(--r-sm);
+  border:1px solid transparent}
+.alert .ai{flex-shrink:0;margin-top:1px}
+.alert .at{font-size:13.5px;font-weight:700}
+.alert .ad{margin-top:2px;font-size:12.5px;line-height:1.45;opacity:.92}
+.a-primary{background:var(--accent-bg);border-color:var(--accent-line);color:var(--accent-text)}
+.a-success{background:var(--ok-bg);border-color:var(--ok-line);color:var(--ok-ink)}
+.a-warn{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn-ink)}
+.a-danger{background:var(--error-bg);border-color:var(--error-line);color:var(--error-ink)}
+
+/* ─── Snippet · Kbd ─── */
+.snip{display:flex;align-items:center;gap:10px;padding:0 10px;height:var(--h-md);
+  border-radius:9px;background:var(--bg-soft);border:1px solid var(--line);
+  font-family:var(--font-mono);font-size:12.5px;color:var(--ink2)}
+.kbd{padding:2px 6px;border-radius:5px;background:var(--card);border:1px solid var(--line-ui);
+  font-family:var(--font-mono);font-size:10.5px;color:var(--muted);line-height:1.3}
+
+/* ─── Listbox · Dropdown · Popover ─── */
+.pop{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);
+  box-shadow:var(--sh-lg);padding:6px;min-width:200px}
+.item{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:8px;
+  font-size:13.5px;color:var(--ink2);cursor:pointer}
+.item:hover{background:var(--bg-soft);color:var(--ink)}
+.item.on{background:var(--accent-bg);color:var(--on-accent)}
+.item.bad{color:var(--error-ink)}
+.item.bad:hover{background:var(--error-bg)}
+.item .k{margin-left:auto}
+.grp{padding:8px 10px 4px;font-size:10.5px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--faint)}
+.tip{padding:6px 10px;border-radius:8px;background:var(--panel);color:#fff;
+  font-size:12px;box-shadow:var(--sh-md)}
+
+/* ─── Pagination ─── */
+.pg{display:flex;gap:4px}
+.pg span{display:flex;align-items:center;justify-content:center;min-width:32px;height:32px;
+  border-radius:8px;font-size:var(--fs-label);color:var(--ink2);cursor:pointer}
+.pg span:hover{background:var(--bg-soft)}
+.pg span.on{background:var(--brand);color:var(--on-brand);font-weight:600}
+.pg span.dis{color:var(--faint);cursor:not-allowed}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px var(--pad-card)}
+
+/* ─── Accordion ─── */
+.acc{border-bottom:1px solid var(--line)}
+.acc .head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  min-height:52px;padding:0 4px;cursor:pointer}
+.acc .body{padding:0 4px 14px;font-size:13.5px;color:var(--muted);line-height:1.5}
+
+/* ─── подписи макета (не интерфейс) ─── */
+.note{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--accent-text)}
+.cap{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  color:var(--muted);margin-bottom:8px}
+
+/* ═══ Каркас панели ═══
+   Эталон: вся панель — один скруглённый белый контейнер на светло-сером поле.
+   Колонка разделов отделена линией, не собственным фоном. */
+.page{width:1440px;background:var(--bg-soft);padding:28px}
+.app{display:grid;grid-template-columns:var(--aside) minmax(0,1fr);
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-app);
+  overflow:hidden}
+.app.rail{grid-template-columns:var(--rail) minmax(0,1fr)}
+.aside{display:flex;flex-direction:column;border-right:1px solid var(--line);min-height:0}
+/* Верх колонки — кто вошёл. Низ прибит: настройки, профиль, выход (BUGS §1837) */
+.who{display:flex;align-items:center;gap:11px;padding:16px 14px 12px}
+.who .nm{font-size:14px;font-weight:600;color:var(--ink);line-height:1.2}
+.who .rl{font-size:12px;color:var(--muted);line-height:1.2}
+.nav{display:flex;flex-direction:column;gap:3px;padding:4px 12px 12px;flex:1;
+  overflow-y:auto;min-height:0}
+.navgrp{padding:14px 10px 5px;font-size:11px;font-weight:600;letter-spacing:.04em;
+  color:var(--faint)}
+.nv{display:flex;align-items:center;gap:12px;min-height:var(--h-nav);padding:0 12px;
+  border-radius:var(--r-nav);color:var(--ink2);font-size:14px;font-weight:500;
+  white-space:nowrap;position:relative;transition:background .14s ease,color .14s ease}
+.nv svg{flex-shrink:0;color:var(--muted)}
+.nv:hover{background:var(--bg-soft);color:var(--ink)}
+/* 🔴 Активный различается тремя признаками сразу: заливка, вес и полоса —
+   не только цветом */
+.nv.on{background:var(--bg-soft);color:var(--ink);font-weight:600}
+.nv.on svg{color:var(--accent-text)}
+.nv.on::before{content:'';position:absolute;left:0;top:11px;bottom:11px;width:3px;
+  border-radius:0 3px 3px 0;background:var(--brand)}
+.nv .cnt{margin-left:auto;min-width:22px;height:20px;padding:0 7px;border-radius:var(--r-pill);
+  background:var(--accent-bg);color:var(--on-accent);font-size:11.5px;font-weight:700;
+  display:flex;align-items:center;justify-content:center}
+.nv.on .cnt{background:var(--brand);color:var(--on-brand)}
+.asfoot{margin-top:auto;padding:10px 12px 14px;border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:3px;flex-shrink:0}
+
+/* Верхняя строка контента: заголовок слева, действия справа */
+.chead{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:20px 24px 0}
+.h1{font-size:24px;font-weight:600;letter-spacing:-0.02em;color:var(--ink);
+  font-family:var(--font-display)}
+.sub{margin-top:4px;font-size:13.5px;color:var(--muted)}
+.iconbtn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;
+  border-radius:var(--r-pill);color:var(--muted);position:relative;cursor:pointer}
+.iconbtn:hover{background:var(--bg-soft);color:var(--ink)}
+.main{padding:18px 24px 24px;display:flex;flex-direction:column;gap:18px;min-width:0}
+
+/* Плитка показателя по эталону: подпись сверху, крупное число, чип изменения справа */
+.stat{padding:18px 20px}
+.stat .l{font-size:14px;color:var(--muted)}
+.stat .v{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
+.stat .n{font-family:var(--font-display);font-size:28px;font-weight:600;
+  letter-spacing:-0.02em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1}
+.trend{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 9px;
+  border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.t-up{background:var(--ok-bg);color:var(--ok-ink)}
+.t-down{background:var(--error-bg);color:var(--error-ink)}
+.t-flat{background:var(--bg-soft);color:var(--muted)}
+
+/* Панель над таблицей: слева пилюли-фильтры, справа поиск */
+.tbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.acts{display:flex;gap:6px}
+.actbtn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;
+  border-radius:var(--r-pill);cursor:pointer}
+.a-view{background:var(--bg-soft);color:var(--ink2)}
+.a-edit{background:var(--accent-bg);color:var(--on-accent)}
+.a-del{background:var(--error-bg);color:var(--error-ink)}
+
+/* нижняя панель вкладок на телефоне */
+.tabbar{display:flex;align-items:stretch;background:var(--card);border-top:1px solid var(--line);
+  flex-shrink:0}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  min-height:56px;color:var(--muted);font-size:10.5px;font-weight:600}
+.tb.on{color:var(--accent-text)}
+.tb.on svg{color:var(--accent-text)}
+/* 🔴 Тап-зона поднимается только в сенсорных кадрах — телефонном и
+   планшетном. Раньше правило висело на всей доске: на кадре 1440 малая
+   кнопка вырастала с 32 до 44px и переставала отличаться от средней, а
+   .actbtn рядом оставался 32px — плотность экрана расходилась с токенами,
+   и снятые с кадра числа врали. Замерено: .btn.sm 44px против токена 32. */
+.frame.ph .btn,.frame.tb .btn{height:44px}
+.frame.ph .btn.sm,.frame.tb .btn.sm{height:44px}
+.frame.ph .btn.lg,.frame.tb .btn.lg{height:52px}
+.frame.ph .inp,.frame.tb .inp{min-height:52px}
+.frame.ph .item,.frame.tb .item{height:44px}
+.frame.ph .nv,.frame.tb .nv{min-height:48px}
+.frame.ph .cbx,.frame.ph .rdo,.frame.tb .cbx,.frame.tb .rdo{width:24px;height:24px}
+.frame.ph .chip,.frame.tb .chip{min-height:32px}
+.frame.ph .seg .sg,.frame.tb .seg .sg{min-height:36px}
+.frame.ph .actbtn,.frame.tb .actbtn{width:40px;height:40px}
+
+/* график: тонкие метки, скруглённые концы, утопленная сетка */
+.chart .gl{stroke:var(--line);stroke-width:1}
+.chart .ax{font-family:var(--font-mono);font-size:10px;fill:var(--faint)}
+.legend{display:flex;gap:14px;align-items:center}
+.legend span{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.legend i{width:9px;height:9px;border-radius:3px;display:block}
+/* колоночная раскладка поля: подпись над значением прямыми детьми */
+.inp.col{flex-direction:column;justify-content:center;align-items:stretch;gap:2px}
+.inp.col > .lab{width:100%}
+.inp.col.tall{justify-content:flex-start}
+
+/* Оценка отзыва. Звёзды — текст, а не иконки: их пять, они не кликабельны
+   в панели и в вёрстке ведут себя как цифра рядом с именем. */
+.stars{display:inline-flex;gap:1px;font-size:13px;line-height:1;letter-spacing:0.5px}
+.stars .s{color:var(--line-ui)}
+.stars .s.on{color:var(--star)}
+
+/* В телефонном кадре иконка-кнопка растёт до тап-зоны. Правило привязано к
+   кадру, а не к .touch: на доске .touch стоит на всём борде, включая
+   десктопные кадры, где 36px — верная плотность HeroUI. */
+.frame.ph .iconbtn{width:44px;height:44px}
+
+/* 🔴 Подсвеченная строка таблицы или списка — «просрочен», «требует внимания».
+   На ней тинт складывается дважды: подложка строки плюс подложка чипа, и
+   красный на красном опускается до 4,4:1 в тёмной теме. Поэтому внутри такой
+   строки приглушённый текст поднимается на ступень, а мягкий чип становится
+   обведённым: его собственная заливка здесь уже не нужна — строка и так
+   выделена. Замерено, а не на глаз. */
+.rowbad{background:var(--error-bg)}
+.rowwarn{background:var(--warn-bg)}
+.rowbad .mut,.rowwarn .mut,.rowbad .t-tiny,.rowwarn .t-tiny{color:var(--body)}
+.rowbad .chip.c-danger,.rowwarn .chip.c-warn{background:var(--card);
+  border:1px solid var(--error-line)}
+.rowwarn .chip.c-warn{border-color:var(--warn-line)}
+
+/* Поле в ошибке залито тинтом, и подсказка с плейсхолдером на нём теряют
+   четверть контраста: 4,46:1 вместо 4,5. Внутри такого поля ink на ступень
+   выше — та же поправка, что у подсвеченной строки. */
+.inp.err .ph,.inp.err .hint{color:var(--body)}
+/* Доска вкладок: строка на вкладку, три ширины в ряд */
+.board{width:2790px;display:flex;flex-direction:column;gap:40px;padding:36px;background:var(--bg-soft)}
+.tsec{display:flex;flex-direction:column;gap:12px}
+.ttl2{display:flex;align-items:baseline;gap:12px}
+.tnum{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--accent-text)}
+.tname{font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--ink)}
+.tdesc{font-size:13px;color:var(--muted);max-width:1100px;line-height:1.5}
+.row3{display:flex;gap:56px;align-items:flex-start}
+.col{display:flex;flex-direction:column;gap:8px}
+.devlab{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.devcap{font-size:11.5px;color:var(--faint);line-height:1.45}
+.frame{border:1px solid var(--line-strong);border-radius:var(--r-app);overflow:hidden;
+  background:var(--card);flex-shrink:0}
+.frame.ph{border-radius:26px;width:390px;display:flex;flex-direction:column;background:var(--bg-soft)}
+.frame.tb{width:768px}
+.frame.dk{width:1440px}
+.tabsrow{display:flex;gap:22px;padding:0 20px;border-bottom:1px solid var(--line);
+  background:var(--card);overflow:hidden}
+.tabsrow.sm{gap:16px;padding:0 16px}
+.tabsrow.xs{gap:16px;padding:0 14px;
+  -webkit-mask-image:linear-gradient(90deg,#000,#000 calc(100% - 28px),transparent);
+  mask-image:linear-gradient(90deg,#000,#000 calc(100% - 28px),transparent)}
+.bd20{padding:16px 20px 20px;background:var(--bg-soft)}
+.bd16{padding:14px 16px 16px;background:var(--bg-soft)}
+.mbody{flex:1;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--bg-soft)}
+.mbar{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:56px;
+  padding:0 14px;background:var(--card);border-bottom:1px solid var(--line);flex-shrink:0}
+.mtitle{font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--ink)}
+.sticky-act{padding:12px 14px 16px;background:var(--card);border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.chk{display:flex;align-items:center;gap:12px;min-height:56px;padding:0 14px;
+  border-bottom:1px solid var(--line)}
+.chk .box{width:24px;height:24px;border-radius:7px;border:1.8px solid var(--line-ui);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;color:transparent}
+.chk.done .box{background:var(--brand);border-color:var(--brand);color:#fff}
+.chk.done .txt{color:var(--muted);text-decoration:line-through}
+.chk .txt{font-size:14.5px;color:var(--ink)}
+/* контейнер с горизонтальной прокруткой не должен растягивать предков */
+.frame .card,.frame .bd,.frame .bd16,.frame .bd20{min-width:0}
+.frame [style*="overflow-x"]{max-width:100%}
+.frame .card{overflow:hidden}
+  </style>
+</helmet>
+<div class="board touch">
+  <div>
+    <span class="note">— Наряд № 128 —</span>
+    <h2 style="font-family:var(--font-display);font-size:26px;font-weight:600;margin-top:8px;color:var(--ink)">Пять вкладок на трёх ширинах</h2>
+    <p style="margin-top:8px;font-size:14px;color:var(--muted);max-width:1100px">Каждая вкладка нарисована на 1440, 768 и 390. Правило перехода одно на все: колонки, которые нельзя сжать честно, уходят в подпись строки или в меню; таблица на 390 становится карточками; действие прижимается к низу экрана.</p>
+  </div>
+
+  <!-- ══ 1. НАРЯД ══ -->
+  <div class="tsec">
+<div class="ttl2"><span class="tnum">Вкладка 1</span><span class="tname">Наряд</span></div>
+<p class="tdesc">Данные выезда: объект, оборудование списком позиций, итог работ. Для владельца в правке, для монтажника на чтение.</p>
+    <div class="row3">
+      <div class="col"><span class="devlab">1440</span>
+        <div class="frame dk">
+<div class="tabsrow "><span class="tab on">Наряд</span><span class="tab">Расход</span><span class="tab">Чеклист</span><span class="tab">Документы</span><span class="tab">История</span></div>
+          <div class="bd20 grid" style="grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start">
+            <div class="stack" style="gap:12px">
+              <div class="card"><div class="hd"><span class="ttl">Объект</span><span class="btn light sm">На карте <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></span></div>
+                <div class="bd grid" style="grid-template-columns:2fr 1fr 1fr;gap:10px">
+                  <div class="inp bordered col"><span class="lab">Адрес</span><span class="val">Тула, Оборонная 12, кв. 34</span></div>
+                  <div class="inp bordered col"><span class="lab">Подъезд · домофон</span><span class="val mono">2 · 34К</span></div>
+                  <div class="inp bordered col"><span class="lab">Этаж</span><span class="val">5 из 9</span></div>
+                </div></div>
+              <div class="card"><div class="hd"><span class="ttl">Оборудование</span><span class="btn flat sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Позиция</span></div>
+                <div class="bd" style="padding:0"><table class="tbl">
+                  <thead><tr><th>Тип и модель</th><th style="width:100px">Чьё</th><th style="width:90px">Трасса</th><th style="width:110px">Диаметр</th><th style="width:110px">Штробление</th></tr></thead>
+                  <tbody>
+                    <tr><td class="strong">Сплит-система 09, инверторная</td><td><span class="chip c-primary">Наше</span></td><td class="mono">4,5 м</td><td class="mono">1/4″+3/8″</td><td><span class="chip c-warn">Есть · 2 м</span></td></tr>
+                    <tr><td class="strong">Ballu BSW-07HN1</td><td><span class="chip c-default">Клиента</span></td><td class="mono">3 м</td><td class="mono">1/4″</td><td><span class="chip c-default">Нет</span></td></tr>
+                  </tbody></table></div></div>
+              <div class="card"><div class="hd"><span class="ttl">Итог работ</span><span class="chip c-warn">Заполняет монтажник</span></div>
+                <div class="bd"><div class="inp flat col tall"><span class="lab">Доп. работы и материалы по факту</span><span class="val ph" style="margin-top:4px">Появится, когда монтажник закроет выезд</span></div></div></div>
+            </div>
+            <div class="stack" style="gap:12px">
+              <div class="card"><div class="hd"><span class="ttl">Когда и кто</span></div>
+                <div class="bd stack" style="gap:10px">
+                  <div class="inp flat col"><span class="lab">Дата и время</span><span class="val mono">29 августа, 14:00 · 3 ч</span></div>
+                  <div class="inp flat" style="justify-content:space-between"><span class="row" style="gap:10px"><span class="ava">ПК</span><span class="body"><span class="lab">Монтажник</span><span class="val">Пётр Кузнецов</span></span></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div>
+                </div></div>
+              <div class="card"><div class="hd"><span class="ttl">Деньги</span><span class="chip c-default">Скрыто</span></div>
+                <div class="bd stack" style="gap:8px">
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Сумма</span><span class="num" style="font-size:18px">34 900 ₽</span></div>
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Выплата</span><span class="mono strong">6 000 ₽</span></div>
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl strong">Остаётся</span><span class="num" style="font-size:16px;color:var(--ok-ink)">28 900 ₽</span></div>
+                </div></div>
+            </div>
+          </div>
+        </div></div>
+      <div class="col"><span class="devlab">768</span>
+        <div class="frame tb">
+<div class="tabsrow sm"><span class="tab on">Наряд</span><span class="tab">Расход</span><span class="tab">Чеклист</span><span class="tab">Документы</span><span class="tab">История</span></div>
+          <div class="bd16 stack" style="gap:12px">
+            <div class="card"><div class="hd"><span class="ttl">Объект</span></div>
+              <div class="bd grid" style="grid-template-columns:1fr 1fr;gap:10px">
+                <div class="inp bordered col" style="grid-column:span 2"><span class="lab">Адрес</span><span class="val">Тула, Оборонная 12, кв. 34</span></div>
+                <div class="inp bordered col"><span class="lab">Подъезд · домофон</span><span class="val mono">2 · 34К</span></div>
+                <div class="inp bordered col"><span class="lab">Этаж</span><span class="val">5 из 9</span></div>
+              </div></div>
+            <div class="card"><div class="hd"><span class="ttl">Оборудование</span><span class="btn flat sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></div>
+              <div class="bd stack" style="gap:8px">
+                <div class="card flat" style="border-color:var(--line)"><div class="bd stack" style="gap:6px;padding:11px"><span class="strong">Сплит-система 09, инверторная</span><span class="row" style="gap:6px;flex-wrap:wrap"><span class="chip c-primary">Наше</span><span class="chip c-default">4,5 м</span><span class="chip c-warn">Штроба 2 м</span></span></div></div>
+                <div class="card flat" style="border-color:var(--line)"><div class="bd stack" style="gap:6px;padding:11px"><span class="strong">Ballu BSW-07HN1</span><span class="row" style="gap:6px;flex-wrap:wrap"><span class="chip c-default">Клиента</span><span class="chip c-default">3 м</span></span></div></div>
+              </div></div>
+            <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px;align-items:start">
+              <div class="card"><div class="hd"><span class="ttl">Когда и кто</span></div><div class="bd stack" style="gap:8px"><span class="mono t-lbl strong">29 авг, 14:00 · 3 ч</span><span class="usr"><span class="ava xs">ПК</span><span class="nm" style="font-size:13px">Пётр Кузнецов</span></span></div></div>
+              <div class="card"><div class="hd"><span class="ttl">Деньги</span></div><div class="bd stack" style="gap:6px"><span class="row" style="justify-content:space-between"><span class="t-lbl mut">Сумма</span><span class="mono strong">34 900 ₽</span></span><span class="row" style="justify-content:space-between"><span class="t-lbl strong">Остаётся</span><span class="mono strong" style="color:var(--ok-ink)">28 900 ₽</span></span></div></div>
+            </div>
+          </div>
+        </div></div>
+      <div class="col"><span class="devlab">390</span>
+        <div class="frame ph" style="min-height:700px">
+          <div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Заказ № 128</span></span><span class="chip c-primary"><span class="dot"></span>В работе</span></div>
+<div class="tabsrow xs"><span class="tab on">Наряд</span><span class="tab">Расход</span><span class="tab">Чеклист</span><span class="tab">Документы</span><span class="tab">История</span></div>
+          <div class="mbody">
+            <div class="card"><div class="mrow" style="gap:8px"><span class="cap" style="margin:0">Объект</span><span class="strong">Тула, Оборонная 12, кв. 34</span><span class="row" style="gap:12px"><span class="t-tiny mut">Подъезд <b class="mono ink">2</b></span><span class="t-tiny mut">Домофон <b class="mono ink">34К</b></span><span class="t-tiny mut">Этаж <b class="mono ink">5</b></span></span><div class="row" style="gap:8px"><span class="btn flat" style="flex:1">Маршрут</span><span class="btn flat" style="flex:1">Позвонить</span></div></div></div>
+            <div class="card"><div class="mrow" style="gap:8px"><span class="cap" style="margin:0">Что ставим</span>
+              <span class="strong">Сплит-система 09, инверторная</span><span class="row" style="gap:6px;flex-wrap:wrap"><span class="chip c-primary">Наше</span><span class="chip c-default">4,5 м</span><span class="chip c-warn">Штроба</span></span>
+              <hr class="hr"><span class="strong">Ballu BSW-07HN1</span><span class="row" style="gap:6px"><span class="chip c-default">Клиента</span><span class="chip c-default">3 м</span></span></div></div>
+            <div class="card"><div class="mrow" style="gap:6px"><span class="row" style="justify-content:space-between"><span class="t-lbl mut">Сумма заказа</span><span class="num" style="font-size:18px">34 900 ₽</span></span><span class="row" style="justify-content:space-between"><span class="t-lbl strong">Остаётся</span><span class="mono strong" style="color:var(--ok-ink)">28 900 ₽</span></span></div></div>
+          </div>
+          <div class="sticky-act"><span class="btn solid lg" style="width:100%"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Отметить выполненным</span></div>
+        </div></div>
+    </div>
+    <span class="devcap">768 — правая колонка уезжает вниз двумя карточками, оборудование становится карточками. 390 — вкладки лентой с затуханием, три блока подряд, действие внизу.</span>
+  </div>
+
+  <!-- ══ 2. РАСХОД ══ -->
+  <div class="tsec">
+<div class="ttl2"><span class="tnum">Вкладка 2 · новая</span><span class="tname">Расход материалов</span></div>
+<p class="tdesc">Этого в панели нет вовсе, а без него не считается ни склад, ни маржа. План подставляется из наряда, факт вписывает монтажник, закрытие списывает по факту. Уход в минус помечается, а не запрещается (CRM §11.6).</p>
+    <div class="row3">
+      <div class="col"><span class="devlab">1440</span>
+        <div class="frame dk">
+<div class="tabsrow "><span class="tab">Наряд</span><span class="tab on">Расход</span><span class="tab">Чеклист</span><span class="tab">Документы</span><span class="tab">История</span></div>
+          <div class="bd20 grid" style="grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start">
+            <div class="stack" style="gap:12px">
+              <div class="card"><div class="hd"><span class="ttl">Материалы</span><div class="row" style="gap:8px"><span class="btn light sm">Пересобрать план</span><span class="btn flat sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Позиция</span></div></div>
+                <div class="bd" style="padding:0"><table class="tbl">
+                  <thead><tr><th>Позиция</th><th style="width:64px">Ед.</th><th class="rt" style="width:76px">План</th><th class="rt" style="width:104px">Факт</th><th class="rt" style="width:96px">Отклонение</th><th style="width:132px">Списать из зоны</th><th class="rt" style="width:96px">Закупка</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="strong">Медная труба 1/4″</div><div class="t-tiny mut">из трассы поз. 1 и 2</div></td><td class="mut">метр</td><td class="rt mono">7,5</td><td class="rt"><span class="inp bordered sm solo" style="width:72px"><span class="body"><span class="val mono">9</span></span></span></td><td class="rt"><span class="chip c-warn">+1,5</span></td><td><span class="row" style="gap:6px"><span class="ava xs">ПК</span><span class="t-lbl">Машина</span></span></td><td class="rt mono">1 350 ₽</td></tr>
+                    <tr><td><div class="strong">Медная труба 3/8″</div><div class="t-tiny mut">из трассы поз. 1</div></td><td class="mut">метр</td><td class="rt mono">4,5</td><td class="rt"><span class="inp bordered sm solo" style="width:72px"><span class="body"><span class="val mono">4,5</span></span></span></td><td class="rt mut">—</td><td><span class="row" style="gap:6px"><span class="ava xs">ПК</span><span class="t-lbl">Машина</span></span></td><td class="rt mono">1 080 ₽</td></tr>
+                    <tr class="rowbad"><td><div class="strong">Кронштейны 450</div><div class="t-tiny" style="color:var(--error-ink)">в машине была 1 пара</div></td><td class="mut">пара</td><td class="rt mono">1</td><td class="rt"><span class="inp bordered sm solo err" style="width:72px"><span class="body"><span class="val mono">2</span></span></span></td><td class="rt"><span class="chip c-danger">+1</span></td><td><span class="row" style="gap:6px"><span class="ava xs">ПК</span><span class="t-lbl">Машина</span></span></td><td class="rt mono">1 400 ₽</td></tr>
+                    <tr><td><div class="strong">Короб ПВХ 60×60</div><div class="t-tiny mut">добавил монтажник</div></td><td class="mut">метр</td><td class="rt mut">—</td><td class="rt"><span class="inp bordered sm solo" style="width:72px"><span class="body"><span class="val mono">2</span></span></span></td><td class="rt"><span class="chip c-primary">сверх плана</span></td><td><span class="row" style="gap:6px"><span class="ava xs">ПК</span><span class="t-lbl">Машина</span></span></td><td class="rt mono">520 ₽</td></tr>
+                  </tbody></table></div></div>
+              <div class="alert a-danger"><span class="ai"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4.5 21 19.5H3z"/><path d="M12 10v4M12 17h.01"/></svg></span><div><div class="at">Списание уводит зону в минус — разрешено и помечено</div><div class="ad">Запрет означал бы, что монтажник впишет неправду, лишь бы закрыть наряд. Минус — сигнал «склад разошёлся с реальностью, нужна инвентаризация».</div></div></div>
+            </div>
+            <div class="stack" style="gap:12px">
+              <div class="card"><div class="hd"><span class="ttl">Себестоимость</span><span class="chip c-default">Скрыто</span></div>
+                <div class="bd stack" style="gap:8px">
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Техника закупкой</span><span class="mono strong">18 400 ₽</span></div>
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Материалы по факту</span><span class="mono strong">4 350 ₽</span></div>
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Выплата монтажнику</span><span class="mono strong">6 000 ₽</span></div>
+                  <hr class="hr">
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl strong">Себестоимость</span><span class="num" style="font-size:17px">28 750 ₽</span></div>
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl strong">Остаётся</span><span class="num" style="font-size:19px;color:var(--ok-ink)">6 150 ₽</span></div>
+                </div></div>
+              <div class="card"><div class="hd"><span class="ttl">Когда списывается</span></div>
+                <div class="bd stack" style="gap:8px">
+                  <label class="opt"><span class="rdo on"></span><span class="txt">При закрытии наряда</span></label>
+                  <label class="opt"><span class="rdo"></span><span class="txt">Сразу при сохранении</span></label>
+                </div>
+                <div class="ft"><span class="btn solid" style="width:100%">Списать со склада</span></div></div>
+            </div>
+          </div>
+        </div></div>
+      <div class="col"><span class="devlab">768</span>
+        <div class="frame tb">
+<div class="tabsrow sm"><span class="tab">Наряд</span><span class="tab on">Расход</span><span class="tab">Чеклист</span><span class="tab">Документы</span><span class="tab">История</span></div>
+          <div class="bd16 stack" style="gap:12px">
+            <div class="card"><div class="hd"><span class="ttl">Материалы</span><span class="btn flat sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></div>
+              <div class="bd" style="padding:0"><table class="tbl">
+                <thead><tr><th>Позиция</th><th class="rt" style="width:64px">План</th><th class="rt" style="width:96px">Факт</th><th class="rt" style="width:92px">Отклонение</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="strong">Медная труба 1/4″</div><div class="t-tiny mut">метр · из машины Петра К.</div></td><td class="rt mono">7,5</td><td class="rt"><span class="inp bordered sm solo" style="width:70px"><span class="body"><span class="val mono">9</span></span></span></td><td class="rt"><span class="chip c-warn">+1,5</span></td></tr>
+                  <tr><td><div class="strong">Медная труба 3/8″</div><div class="t-tiny mut">метр · из машины Петра К.</div></td><td class="rt mono">4,5</td><td class="rt"><span class="inp bordered sm solo" style="width:70px"><span class="body"><span class="val mono">4,5</span></span></span></td><td class="rt mut">—</td></tr>
+                  <tr class="rowbad"><td><div class="strong">Кронштейны 450</div><div class="t-tiny" style="color:var(--error-ink)">пара · в машине была 1</div></td><td class="rt mono">1</td><td class="rt"><span class="inp bordered sm solo err" style="width:70px"><span class="body"><span class="val mono">2</span></span></span></td><td class="rt"><span class="chip c-danger">+1</span></td></tr>
+                </tbody></table></div></div>
+            <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px;align-items:start">
+              <div class="card"><div class="hd"><span class="ttl">Себестоимость</span></div><div class="bd stack" style="gap:6px">
+                <span class="row" style="justify-content:space-between"><span class="t-lbl mut">Материалы</span><span class="mono strong">4 350 ₽</span></span>
+                <span class="row" style="justify-content:space-between"><span class="t-lbl strong">Остаётся</span><span class="mono strong" style="color:var(--ok-ink)">6 150 ₽</span></span></div></div>
+              <div class="card"><div class="bd"><span class="btn solid" style="width:100%">Списать со склада</span></div></div>
+            </div>
+          </div>
+        </div></div>
+      <div class="col"><span class="devlab">390 · монтажник</span>
+        <div class="frame ph" style="min-height:700px">
+          <div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Расход</span></span><span class="chip c-warn lg">4 позиции</span></div>
+<div class="tabsrow xs"><span class="tab">Наряд</span><span class="tab on">Расход</span><span class="tab">Чеклист</span><span class="tab">Документы</span><span class="tab">История</span></div>
+          <div class="mbody">
+            <div class="alert a-primary"><span class="ai"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4.5 21 19.5H3z"/><path d="M12 10v4M12 17h.01"/></svg></span><div><div class="at">План собран из наряда</div><div class="ad">Впишите, сколько ушло на самом деле</div></div></div>
+            <div class="card"><div class="mrow" style="gap:8px"><span class="row" style="justify-content:space-between"><span class="strong">Медная труба 1/4″</span><span class="t-tiny fnt">метр</span></span>
+              <div class="row" style="gap:10px"><span class="inp bordered col" style="flex:1"><span class="lab">План</span><span class="val mono mut">7,5</span></span><span class="inp bordered col foc" style="flex:1"><span class="lab">Факт</span><span class="val mono">9</span></span></div>
+              <span class="chip c-warn" style="align-self:flex-start">Больше плана на 1,5 м</span></div></div>
+            <div class="card" style="border-color:var(--error-line)"><div class="mrow" style="gap:8px"><span class="row" style="justify-content:space-between"><span class="strong">Кронштейны 450</span><span class="t-tiny fnt">пара</span></span>
+              <div class="row" style="gap:10px"><span class="inp bordered col" style="flex:1"><span class="lab">План</span><span class="val mono mut">1</span></span><span class="inp bordered col err" style="flex:1"><span class="lab">Факт</span><span class="val mono">2</span></span></div>
+              <span class="hint bad"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4.5 21 19.5H3z"/><path d="M12 10v4M12 17h.01"/></svg> В машине была 1 пара. Склад уйдёт в минус — это нормально, важнее записать правду.</span></div></div>
+            <span class="btn light" style="width:100%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Добавить свою позицию</span>
+          </div>
+          <div class="sticky-act"><span class="btn solid lg" style="width:100%"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Сохранить расход</span><span class="t-tiny fnt" style="text-align:center">Списание уйдёт на склад при закрытии</span></div>
+        </div></div>
+    </div>
+    <span class="devcap">768 — колонки «Списать из зоны» и «Закупка» уходят в подпись строки, себестоимость сжимается до двух чисел. 390 — версия монтажника: план, факт, своя позиция; закупочных цен и маржи он не видит (CRM §6).</span>
+  </div>
+
+  <!-- ══ 3. ЧЕКЛИСТ ══ -->
+  <div class="tsec">
+<div class="ttl2"><span class="tnum">Вкладка 3</span><span class="tname">Чеклист выезда</span></div>
+<p class="tdesc">«Что взять с собой». Собирается из наряда: тип работ даёт инструмент, позиция — свою трассу, штробление — штроборез, оплата наличными — строку «принять N ₽». Склад отвечает, есть ли нужное, прямо здесь — чтобы нехватка выяснилась до выезда.</p>
+    <div class="row3">
+      <div class="col"><span class="devlab">1440</span>
+        <div class="frame dk">
+<div class="tabsrow "><span class="tab">Наряд</span><span class="tab">Расход</span><span class="tab on">Чеклист</span><span class="tab">Документы</span><span class="tab">История</span></div>
+          <div class="bd20 grid" style="grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start">
+            <div class="card"><div class="hd"><span class="row" style="gap:12px"><span class="ttl">Собрано 4 из 9</span><span class="bar" style="width:130px"><i style="width:44%"></i></span></span><div class="row" style="gap:8px"><span class="btn light sm">Пересобрать</span><span class="btn flat sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Свой пункт</span></div></div>
+              <div class="bd" style="padding:0"><table class="tbl">
+                <thead><tr><th style="width:42px"></th><th>Что взять</th><th style="width:140px">Откуда пункт</th><th style="width:126px">На складе</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="cbx on"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td><td class="strong" style="color:var(--muted);text-decoration:line-through">Труба 1/4″ — 5 м</td><td><span class="chip c-default">трасса поз. 1</span></td><td><span class="chip c-danger">12 м</span></td></tr>
+                  <tr><td><span class="cbx on"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td><td class="strong" style="color:var(--muted);text-decoration:line-through">Труба 3/8″ — 5 м</td><td><span class="chip c-default">трасса поз. 1</span></td><td><span class="chip c-success">115 м</span></td></tr>
+                  <tr><td><span class="cbx on"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td><td class="strong" style="color:var(--muted);text-decoration:line-through">Теплоизоляция 9 мм — 10 м</td><td><span class="chip c-default">по трассам</span></td><td><span class="chip c-success">170 м</span></td></tr>
+                  <tr><td><span class="cbx on"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td><td class="strong" style="color:var(--muted);text-decoration:line-through">Кабель 4×1,5 — 6 м</td><td><span class="chip c-default">тип работ</span></td><td><span class="chip c-success">310 м</span></td></tr>
+                  <tr><td><span class="cbx"></span></td><td class="strong">Кронштейны 450 — 1 пара</td><td><span class="chip c-default">наружный блок</span></td><td><span class="chip c-danger">2 пары</span></td></tr>
+                  <tr><td><span class="cbx"></span></td><td class="strong">Штроборез и пылесос</td><td><span class="chip c-warn">штробление</span></td><td class="mut t-lbl">инструмент</td></tr>
+                  <tr><td><span class="cbx"></span></td><td class="strong">Вакуумный насос</td><td><span class="chip c-default">тип работ</span></td><td class="mut t-lbl">инструмент</td></tr>
+                  <tr><td><span class="cbx"></span></td><td class="strong">Перфоратор, бур 45</td><td><span class="chip c-default">тип работ</span></td><td class="mut t-lbl">инструмент</td></tr>
+                  <tr><td><span class="cbx"></span></td><td class="strong">Плёнка и мусорные мешки</td><td><span class="chip c-primary">свой пункт</span></td><td class="mut t-lbl">расходник</td></tr>
+                </tbody></table></div></div>
+            <div class="stack" style="gap:12px">
+              <div class="card"><div class="hd"><span class="ttl">Откуда взялись пункты</span></div>
+                <div class="bd stack" style="gap:8px">
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Тип работ «Монтаж»</span><span class="chip c-default">4</span></div>
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Позиция 1 · трасса 4,5 м</span><span class="chip c-default">2</span></div>
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Позиция 2 · трасса 3 м</span><span class="chip c-default">1</span></div>
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Штробление 2 м</span><span class="chip c-warn">1</span></div>
+                  <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Добавил монтажник</span><span class="chip c-primary">1</span></div>
+                </div>
+                <div class="ft"><span class="hint">«Пересобрать» соберёт список заново из наряда. Свои пункты сохраняются — иначе их перестанут добавлять.</span></div></div>
+              <div class="alert a-warn"><span class="ai"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4.5 21 19.5H3z"/><path d="M12 10v4M12 17h.01"/></svg></span><div><div class="at">Кронштейнов не хватает</div><div class="ad">Нужна 1 пара, на складе 2 и обе ниже порога.</div></div></div>
+            </div>
+          </div>
+        </div></div>
+      <div class="col"><span class="devlab">768</span>
+        <div class="frame tb">
+<div class="tabsrow sm"><span class="tab">Наряд</span><span class="tab">Расход</span><span class="tab on">Чеклист</span><span class="tab">Документы</span><span class="tab">История</span></div>
+          <div class="bd16 stack" style="gap:12px">
+            <div class="card"><div class="hd"><span class="row" style="gap:10px"><span class="ttl">Собрано 4 из 9</span><span class="bar" style="width:100px"><i style="width:44%"></i></span></span><span class="btn light sm">Пересобрать</span></div>
+              <div class="bd" style="padding:0"><table class="tbl">
+                <thead><tr><th style="width:42px"></th><th>Что взять</th><th style="width:120px">На складе</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="cbx on"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td><td><div class="strong" style="color:var(--muted);text-decoration:line-through">Труба 1/4″ — 5 м</div><div class="t-tiny mut">трасса поз. 1</div></td><td><span class="chip c-danger">12 м</span></td></tr>
+                  <tr><td><span class="cbx on"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td><td><div class="strong" style="color:var(--muted);text-decoration:line-through">Труба 3/8″ — 5 м</div><div class="t-tiny mut">трасса поз. 1</div></td><td><span class="chip c-success">115 м</span></td></tr>
+                  <tr><td><span class="cbx"></span></td><td><div class="strong">Кронштейны 450 — 1 пара</div><div class="t-tiny mut">наружный блок</div></td><td><span class="chip c-danger">2 пары</span></td></tr>
+                  <tr><td><span class="cbx"></span></td><td><div class="strong">Штроборез и пылесос</div><div class="t-tiny" style="color:var(--warn-ink)">штробление 2 м</div></td><td class="mut t-lbl">инструмент</td></tr>
+                  <tr><td><span class="cbx"></span></td><td><div class="strong">Плёнка и мусорные мешки</div><div class="t-tiny" style="color:var(--accent-text)">свой пункт</div></td><td class="mut t-lbl">расходник</td></tr>
+                </tbody></table></div>
+              <div class="ft"><span class="btn flat sm" style="width:100%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Свой пункт</span></div></div>
+          </div>
+        </div></div>
+      <div class="col"><span class="devlab">390 · монтажник</span>
+        <div class="frame ph" style="min-height:700px">
+          <div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Чеклист</span></span><span class="chip c-warn lg">4 из 9</span></div>
+<div class="tabsrow xs"><span class="tab">Наряд</span><span class="tab">Расход</span><span class="tab on">Чеклист</span><span class="tab">Документы</span><span class="tab">История</span></div>
+          <div class="mbody" style="gap:0;padding:0">
+            <div style="padding:14px 14px 10px"><span class="bar"><i style="width:44%"></i></span></div>
+            <div class="card" style="margin:0 14px 12px;overflow:hidden"><div class="bd" style="padding:0">
+              <div class="chk done"><span class="box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="txt">Труба 1/4″ — 5 м</span></div>
+              <div class="chk done"><span class="box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="txt">Труба 3/8″ — 5 м</span></div>
+              <div class="chk done"><span class="box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="txt">Теплоизоляция 9 мм</span></div>
+              <div class="chk done"><span class="box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="txt">Кабель 4×1,5 — 6 м</span></div>
+              <div class="chk"><span class="box"></span><span class="txt">Кронштейны 450</span><span class="chip c-danger" style="margin-left:auto">2 пары</span></div>
+              <div class="chk"><span class="box"></span><span class="txt">Штроборез и пылесос</span><span class="chip c-warn" style="margin-left:auto">штроба</span></div>
+              <div class="chk" style="border-bottom:none"><span class="box"></span><span class="txt">Вакуумный насос</span></div>
+            </div></div>
+            <div style="padding:0 14px"><span class="btn light" style="width:100%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Добавить свой пункт</span></div>
+          </div>
+          <div class="sticky-act"><div class="row" style="gap:8px"><span class="btn bord" style="flex:1">Пересобрать</span><span class="btn solid" style="flex:1.6">Всё собрано</span></div></div>
+        </div></div>
+    </div>
+    <span class="devcap">768 — колонка «Откуда пункт» уходит в подпись под названием, правая колонка исчезает. 390 — строка 56px и галочка 24px: чеклист отмечают в машине и в перчатках.</span>
+  </div>
+
+  <!-- ══ 4. ДОКУМЕНТЫ ══ -->
+  <div class="tsec">
+<div class="ttl2"><span class="tnum">Вкладка 4</span><span class="tname">Документы и фото</span></div>
+<p class="tdesc">Договор, гарантийный талон, акт, счёт, замерный лист; фото места установки (до выезда) и выполненных работ (загружает монтажник). Снимки клиента уходят закрытым маршрутом со сверкой сессии, а не публичным адресом (ADR-171).</p>
+    <div class="row3">
+      <div class="col"><span class="devlab">1440</span>
+        <div class="frame dk">
+<div class="tabsrow "><span class="tab">Наряд</span><span class="tab">Расход</span><span class="tab">Чеклист</span><span class="tab on">Документы</span><span class="tab">История</span></div>
+          <div class="bd20 stack" style="gap:14px">
+            <div class="card"><div class="hd"><span class="ttl">Документы</span><span class="btn flat sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Загрузить</span></div>
+              <div class="bd" style="padding:0"><table class="tbl">
+                <thead><tr><th>Документ</th><th style="width:130px">Тип</th><th style="width:120px">Загружен</th><th style="width:96px">Размер</th><th style="width:126px">Действия</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="row" style="gap:10px"><span style="width:30px;height:30px;border-radius:8px;background:var(--accent-bg);color:var(--on-accent);display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2 2 0 0 1 6 4h5v16H6a2 2 0 0 0-2 1.5z"/><path d="M20 5.5A2 2 0 0 0 18 4h-5v16h5a2 2 0 0 1 2 1.5z"/></svg></span><span class="strong">Договор № 128 от 27.08.2026</span></span></td><td><span class="chip c-primary">Договор</span></td><td class="mono t-lbl">27 авг</td><td class="mono t-lbl">248 КБ</td><td><span class="acts"><span class="actbtn a-view"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg></span><span class="actbtn a-edit"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4l10-10a2.5 2.5 0 0 0-3.5-3.5L4.5 16.5z"/></svg></span><span class="actbtn a-del"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l1 13h9l1-13"/></svg></span></span></td></tr>
+                  <tr><td><span class="row" style="gap:10px"><span style="width:30px;height:30px;border-radius:8px;background:var(--accent-bg);color:var(--on-accent);display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2 2 0 0 1 6 4h5v16H6a2 2 0 0 0-2 1.5z"/><path d="M20 5.5A2 2 0 0 0 18 4h-5v16h5a2 2 0 0 1 2 1.5z"/></svg></span><span class="strong">Замерный лист</span></span></td><td><span class="chip c-default">Замер</span></td><td class="mono t-lbl">27 авг</td><td class="mono t-lbl">96 КБ</td><td><span class="acts"><span class="actbtn a-view"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg></span><span class="actbtn a-edit"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4l10-10a2.5 2.5 0 0 0-3.5-3.5L4.5 16.5z"/></svg></span><span class="actbtn a-del"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l1 13h9l1-13"/></svg></span></span></td></tr>
+                  <tr style="opacity:.62"><td><span class="row" style="gap:10px"><span style="width:30px;height:30px;border-radius:8px;background:var(--bg-soft);color:var(--faint);display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2 2 0 0 1 6 4h5v16H6a2 2 0 0 0-2 1.5z"/><path d="M20 5.5A2 2 0 0 0 18 4h-5v16h5a2 2 0 0 1 2 1.5z"/></svg></span><span class="strong">Акт выполненных работ</span></span></td><td><span class="chip c-default">Акт</span></td><td class="mut t-lbl">при закрытии</td><td class="mut t-lbl">—</td><td><span class="btn light sm">Собрать</span></td></tr>
+                </tbody></table></div></div>
+            <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px">
+              <div class="card"><div class="hd"><span class="ttl">Фото места установки</span><span class="chip c-default">до выезда · 2</span></div>
+                <div class="bd grid" style="grid-template-columns:1fr 1fr 1fr;gap:10px">
+                  <span style="aspect-ratio:4/3;border-radius:10px;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;color:var(--faint)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="8" rx="2"/><path d="M7 18c1.6 0 1.6-2.2 3.2-2.2M14 18c1.6 0 1.6-2.2 3.2-2.2"/><path d="M6.5 9.5h9"/></svg></span>
+                  <span style="aspect-ratio:4/3;border-radius:10px;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;color:var(--faint)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="8" rx="2"/><path d="M7 18c1.6 0 1.6-2.2 3.2-2.2M14 18c1.6 0 1.6-2.2 3.2-2.2"/><path d="M6.5 9.5h9"/></svg></span>
+                  <span style="aspect-ratio:4/3;border-radius:10px;border:1.5px dashed var(--line-ui);display:flex;align-items:center;justify-content:center;color:var(--faint)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                </div></div>
+              <div class="card"><div class="hd"><span class="ttl">Фото выполненных работ</span><span class="chip c-warn">нужно 2 · есть 1</span></div>
+                <div class="bd grid" style="grid-template-columns:1fr 1fr 1fr;gap:10px">
+                  <span style="aspect-ratio:4/3;border-radius:10px;background:var(--stripe-a);display:flex;align-items:center;justify-content:center;color:var(--muted)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="8" rx="2"/><path d="M7 18c1.6 0 1.6-2.2 3.2-2.2M14 18c1.6 0 1.6-2.2 3.2-2.2"/><path d="M6.5 9.5h9"/></svg></span>
+                  <span style="aspect-ratio:4/3;border-radius:10px;border:1.5px dashed var(--line-ui);display:flex;align-items:center;justify-content:center;color:var(--faint)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                  <span style="aspect-ratio:4/3;border-radius:10px;border:1.5px dashed var(--line-ui);display:flex;align-items:center;justify-content:center;color:var(--faint)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                </div></div>
+            </div>
+          </div>
+        </div></div>
+      <div class="col"><span class="devlab">768</span>
+        <div class="frame tb">
+<div class="tabsrow sm"><span class="tab">Наряд</span><span class="tab">Расход</span><span class="tab">Чеклист</span><span class="tab on">Документы</span><span class="tab">История</span></div>
+          <div class="bd16 stack" style="gap:12px">
+            <div class="card"><div class="hd"><span class="ttl">Документы</span><span class="btn flat sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></div>
+              <div class="bd" style="padding:0"><table class="tbl">
+                <thead><tr><th>Документ</th><th style="width:110px">Загружен</th><th style="width:100px">Действия</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="strong">Договор № 128</div><div class="t-tiny mut">Договор · 248 КБ</div></td><td class="mono t-lbl">27 авг</td><td><span class="acts"><span class="actbtn a-view"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg></span><span class="actbtn a-del"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l1 13h9l1-13"/></svg></span></span></td></tr>
+                  <tr><td><div class="strong">Замерный лист</div><div class="t-tiny mut">Замер · 96 КБ</div></td><td class="mono t-lbl">27 авг</td><td><span class="acts"><span class="actbtn a-view"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg></span><span class="actbtn a-del"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l1 13h9l1-13"/></svg></span></span></td></tr>
+                </tbody></table></div></div>
+            <div class="card"><div class="hd"><span class="ttl">Фото места установки</span><span class="chip c-default">2</span></div>
+              <div class="bd grid" style="grid-template-columns:repeat(3,1fr);gap:10px">
+                <span style="aspect-ratio:4/3;border-radius:10px;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;color:var(--faint)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="8" rx="2"/><path d="M7 18c1.6 0 1.6-2.2 3.2-2.2M14 18c1.6 0 1.6-2.2 3.2-2.2"/><path d="M6.5 9.5h9"/></svg></span>
+                <span style="aspect-ratio:4/3;border-radius:10px;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;color:var(--faint)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="8" rx="2"/><path d="M7 18c1.6 0 1.6-2.2 3.2-2.2M14 18c1.6 0 1.6-2.2 3.2-2.2"/><path d="M6.5 9.5h9"/></svg></span>
+                <span style="aspect-ratio:4/3;border-radius:10px;border:1.5px dashed var(--line-ui);display:flex;align-items:center;justify-content:center;color:var(--faint)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+              </div></div>
+            <div class="card"><div class="hd"><span class="ttl">Фото выполненных работ</span><span class="chip c-warn">1 из 2</span></div>
+              <div class="bd grid" style="grid-template-columns:repeat(3,1fr);gap:10px">
+                <span style="aspect-ratio:4/3;border-radius:10px;background:var(--stripe-a);display:flex;align-items:center;justify-content:center;color:var(--muted)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="8" rx="2"/><path d="M7 18c1.6 0 1.6-2.2 3.2-2.2M14 18c1.6 0 1.6-2.2 3.2-2.2"/><path d="M6.5 9.5h9"/></svg></span>
+                <span style="aspect-ratio:4/3;border-radius:10px;border:1.5px dashed var(--line-ui);display:flex;align-items:center;justify-content:center;color:var(--faint)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                <span style="aspect-ratio:4/3;border-radius:10px;border:1.5px dashed var(--line-ui);display:flex;align-items:center;justify-content:center;color:var(--faint)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+              </div></div>
+          </div>
+        </div></div>
+      <div class="col"><span class="devlab">390 · монтажник</span>
+        <div class="frame ph" style="min-height:700px">
+          <div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Фото</span></span><span class="chip c-warn lg">нужно 2</span></div>
+<div class="tabsrow xs"><span class="tab">Наряд</span><span class="tab">Расход</span><span class="tab">Чеклист</span><span class="tab on">Документы</span><span class="tab">История</span></div>
+          <div class="mbody">
+            <div class="card"><div class="hd" style="padding:12px 14px"><span class="ttl">Место установки</span><span class="chip c-default">до выезда</span></div>
+              <div class="bd grid" style="grid-template-columns:1fr 1fr;gap:8px;padding:14px">
+                <span style="aspect-ratio:4/3;border-radius:10px;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;color:var(--faint)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="8" rx="2"/><path d="M7 18c1.6 0 1.6-2.2 3.2-2.2M14 18c1.6 0 1.6-2.2 3.2-2.2"/><path d="M6.5 9.5h9"/></svg></span>
+                <span style="aspect-ratio:4/3;border-radius:10px;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;color:var(--faint)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="8" rx="2"/><path d="M7 18c1.6 0 1.6-2.2 3.2-2.2M14 18c1.6 0 1.6-2.2 3.2-2.2"/><path d="M6.5 9.5h9"/></svg></span>
+              </div></div>
+            <div class="card"><div class="hd" style="padding:12px 14px"><span class="ttl">Выполненные работы</span><span class="chip c-warn">1 из 2</span></div>
+              <div class="bd grid" style="grid-template-columns:1fr 1fr;gap:8px;padding:14px">
+                <span style="aspect-ratio:4/3;border-radius:10px;background:var(--stripe-a);display:flex;align-items:center;justify-content:center;color:var(--muted)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="8" rx="2"/><path d="M7 18c1.6 0 1.6-2.2 3.2-2.2M14 18c1.6 0 1.6-2.2 3.2-2.2"/><path d="M6.5 9.5h9"/></svg></span>
+                <span style="aspect-ratio:4/3;border-radius:10px;border:1.5px dashed var(--line-ui);display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center;color:var(--faint)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8h3l1.5-2h7L17 8h3a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 20 19H4a1.5 1.5 0 0 1-1.5-1.5v-8A1.5 1.5 0 0 1 4 8z"/><circle cx="12" cy="13" r="3.4"/></svg><span class="t-tiny">Снять</span></span>
+              </div></div>
+            <span class="hint">Документы монтажник смотрит, но не загружает: договор и акт собирает владелец.</span>
+          </div>
+          <div class="sticky-act"><span class="btn solid lg" style="width:100%">Сохранить фото</span></div>
+        </div></div>
+    </div>
+    <span class="devcap">768 — таблица документов теряет «Тип» и «Размер», они уходят в подпись; фотоблоки друг под другом. 390 — по два снимка в ряд, съёмка камерой прямо из карточки, документы только на чтение.</span>
+  </div>
+
+  <!-- ══ 5. ИСТОРИЯ ══ -->
+  <div class="tsec">
+<div class="ttl2"><span class="tnum">Вкладка 5</span><span class="tname">История</span></div>
+<p class="tdesc">Кто и когда менял статус, кого назначили, когда заполнили итог. Записи не правятся и не удаляются: это журнал, а не заметки.</p>
+    <div class="row3">
+      <div class="col"><span class="devlab">1440</span>
+        <div class="frame dk">
+<div class="tabsrow "><span class="tab">Наряд</span><span class="tab">Расход</span><span class="tab">Чеклист</span><span class="tab">Документы</span><span class="tab on">История</span></div>
+          <div class="bd20"><div class="card"><div class="bd" style="padding:0"><table class="tbl">
+            <thead><tr><th style="width:160px">Когда</th><th style="width:200px">Кто</th><th>Что произошло</th></tr></thead>
+            <tbody>
+              <tr><td class="mono t-lbl">29 авг, 17:22</td><td><span class="usr"><span class="ava xs">ПК</span><span class="nm" style="font-size:13px">Пётр Кузнецов</span></span></td><td class="t-lbl">Расход сохранён: 4 позиции, списание уводит зону в минус на 1 пару кронштейнов</td></tr>
+              <tr><td class="mono t-lbl">29 авг, 14:06</td><td><span class="usr"><span class="ava xs">ПК</span><span class="nm" style="font-size:13px">Пётр Кузнецов</span></span></td><td><span class="row" style="gap:8px"><span class="chip c-primary"><span class="dot"></span>В работе</span><span class="t-lbl mut">статус сменён на объекте</span></span></td></tr>
+              <tr><td class="mono t-lbl">29 авг, 13:48</td><td><span class="usr"><span class="ava xs">ПК</span><span class="nm" style="font-size:13px">Пётр Кузнецов</span></span></td><td class="t-lbl">Чеклист: отмечено 4 пункта из 9</td></tr>
+              <tr><td class="mono t-lbl">28 авг, 10:22</td><td><span class="usr"><span class="ava xs" style="background:var(--bg-soft);color:var(--muted)">СД</span><span class="nm" style="font-size:13px">Сергей Демидов</span></span></td><td class="t-lbl">Комментарий монтажнику: «Домофон 34К, звонить за 20 минут»</td></tr>
+              <tr><td class="mono t-lbl">27 авг, 16:40</td><td><span class="usr"><span class="ava xs" style="background:var(--bg-soft);color:var(--muted)">СД</span><span class="nm" style="font-size:13px">Сергей Демидов</span></span></td><td><span class="row" style="gap:8px"><span class="chip c-warn"><span class="dot"></span>Назначен</span><span class="t-lbl mut">Пётр Кузнецов, 29 августа 14:00</span></span></td></tr>
+              <tr><td class="mono t-lbl">27 авг, 16:28</td><td><span class="usr"><span class="ava xs" style="background:var(--bg-soft);color:var(--muted)">СД</span><span class="nm" style="font-size:13px">Сергей Демидов</span></span></td><td><span class="row" style="gap:8px"><span class="chip c-default"><span class="dot"></span>Новый</span><span class="t-lbl mut">создан из заявки № 41</span></span></td></tr>
+            </tbody></table></div></div></div>
+        </div></div>
+      <div class="col"><span class="devlab">768</span>
+        <div class="frame tb">
+<div class="tabsrow sm"><span class="tab">Наряд</span><span class="tab">Расход</span><span class="tab">Чеклист</span><span class="tab">Документы</span><span class="tab on">История</span></div>
+          <div class="bd16"><div class="card"><div class="bd" style="padding:0"><table class="tbl">
+            <thead><tr><th style="width:140px">Когда</th><th>Что произошло</th></tr></thead>
+            <tbody>
+              <tr><td class="mono t-lbl">29 авг, 17:22</td><td><div class="t-lbl">Расход сохранён: 4 позиции</div><div class="t-tiny mut">Пётр Кузнецов</div></td></tr>
+              <tr><td class="mono t-lbl">29 авг, 14:06</td><td><div class="row" style="gap:8px"><span class="chip c-primary"><span class="dot"></span>В работе</span></div><div class="t-tiny mut">Пётр Кузнецов · на объекте</div></td></tr>
+              <tr><td class="mono t-lbl">28 авг, 10:22</td><td><div class="t-lbl">Комментарий монтажнику</div><div class="t-tiny mut">Сергей Демидов</div></td></tr>
+              <tr><td class="mono t-lbl">27 авг, 16:40</td><td><div class="row" style="gap:8px"><span class="chip c-warn"><span class="dot"></span>Назначен</span></div><div class="t-tiny mut">Сергей Демидов · Пётр К., 29 авг 14:00</div></td></tr>
+            </tbody></table></div></div></div>
+        </div></div>
+      <div class="col"><span class="devlab">390</span>
+        <div class="frame ph" style="min-height:700px">
+          <div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">История</span></span></div>
+<div class="tabsrow xs"><span class="tab">Наряд</span><span class="tab">Расход</span><span class="tab">Чеклист</span><span class="tab">Документы</span><span class="tab on">История</span></div>
+          <div class="mbody">
+            <div class="card"><div class="bd" style="padding:0">
+              <div class="mrow" style="gap:5px;border-bottom:1px solid var(--line)"><span class="mono t-tiny fnt">29 августа, 17:22</span><span class="t-lbl">Расход сохранён: 4 позиции</span><span class="usr"><span class="ava xs">ПК</span><span class="t-tiny">Пётр Кузнецов</span></span></div>
+              <div class="mrow" style="gap:5px;border-bottom:1px solid var(--line)"><span class="mono t-tiny fnt">29 августа, 14:06</span><span class="chip c-primary" style="align-self:flex-start"><span class="dot"></span>В работе</span><span class="usr"><span class="ava xs">ПК</span><span class="t-tiny">Пётр Кузнецов</span></span></div>
+              <div class="mrow" style="gap:5px;border-bottom:1px solid var(--line)"><span class="mono t-tiny fnt">28 августа, 10:22</span><span class="t-lbl">Комментарий монтажнику</span><span class="usr"><span class="ava xs" style="background:var(--bg-soft);color:var(--muted)">СД</span><span class="t-tiny">Сергей Демидов</span></span></div>
+              <div class="mrow" style="gap:5px"><span class="mono t-tiny fnt">27 августа, 16:40</span><span class="chip c-warn" style="align-self:flex-start"><span class="dot"></span>Назначен</span><span class="usr"><span class="ava xs" style="background:var(--bg-soft);color:var(--muted)">СД</span><span class="t-tiny">Сергей Демидов</span></span></div>
+            </div></div>
+          </div>
+        </div></div>
+    </div>
+    <span class="devcap">768 — колонка «Кто» уходит в подпись под событием. 390 — лента карточками, время моноширинным сверху.</span>
+  </div>
+</div>
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":2790,"height":4611}}'>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

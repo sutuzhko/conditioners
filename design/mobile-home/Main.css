@@ -1,0 +1,77 @@
+/* ——— Мобильная главная, 375. Раскладка спроектирована нами: в прототипе
+   мобильной версии нет (DESIGN_BRIEF §6). ——— */
+.page{width:375px;background:var(--bg);position:relative;overflow:hidden}
+.sec{padding:48px 16px}
+.sec.alt{background:var(--bg-soft)}
+.h2{font-size:24px;line-height:1.14;font-weight:800}
+.h3{font-size:17px;line-height:1.25;font-weight:700}
+.head{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+
+/* шапка: 56px вместо 80px, справа одна кнопка */
+.hdr{position:sticky;top:0;z-index:50;padding:8px 12px}
+.hdrbar{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:6px 6px 6px 10px;border:1px solid var(--line);border-radius:var(--r-md);
+  background:var(--header-bg);box-shadow:var(--shadow-header);backdrop-filter:blur(16px)}
+.mark{width:32px;height:32px;border-radius:9px;background:var(--brand-mark);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand{font-family:var(--font-display);font-size:16.5px;font-weight:700;
+  letter-spacing:-0.02em;color:var(--ink);white-space:nowrap}
+.iconbtn{width:44px;height:44px;border-radius:var(--r-sm);border:1px solid var(--line-strong);
+  background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* липкая панель действий */
+.bar{position:sticky;bottom:0;z-index:60;display:flex;gap:10px;
+  padding:10px 16px 14px;border-top:1px solid var(--line);
+  background:var(--header-bg);backdrop-filter:blur(16px)}
+.bar .btn{flex:1 1 0;min-width:0}
+
+/* бегущая строка доверия */
+.ticker{display:flex;gap:26px;padding:14px 16px;overflow:hidden;
+  border-block:1px solid var(--line-soft);background:var(--bg);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+.ticker li{display:flex;gap:8px;align-items:center;white-space:nowrap;
+  color:var(--ink2);font-size:13px;font-weight:600}
+
+/* карточка каталога */
+.pcard{overflow:hidden;border-radius:var(--r-ml)}
+.pshot{position:relative;aspect-ratio:16/10;background:
+  linear-gradient(135deg,#eef6f8 0%,#f8fafc 60%,#e8f4f7 100%)}
+[data-theme='dark'] .pshot{background:linear-gradient(135deg,#16273b 0%,#0e1729 60%,#132a3a 100%)}
+.pshot .cap{position:absolute;left:12px;top:12px;padding:4px 10px;border-radius:var(--r-pill);
+  background:var(--panel);color:#fff;font-family:var(--font-mono);font-size:11px;font-weight:500}
+.cmp{position:absolute;right:10px;top:10px;width:44px;height:44px;border-radius:var(--r-pill);
+  border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center}
+.pbody{padding:16px}
+
+/* ярлык скидки */
+.sale{display:inline-flex;align-items:center;line-height:1.2;gap:6px;padding:3px 9px;border-radius:var(--r-pill);
+  border:1px solid var(--sale-line);background:var(--sale-bg);color:var(--sale-ink);
+  font-size:12px;font-weight:700}
+.was{color:var(--faint);font-size:14px;text-decoration:line-through;font-variant-numeric:tabular-nums}
+
+/* шаги монтажа */
+.step{display:grid;grid-template-columns:32px 1fr;gap:12px}
+.stepno{width:32px;height:32px;border-radius:var(--r-pill);background:var(--brand);
+  color:#fff;font-family:var(--font-display);font-weight:700;font-size:14px;
+  display:flex;align-items:center;justify-content:center}
+
+/* строка прайса */
+.prow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card)}
+
+/* аккордеон */
+.acc{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card)}
+.plus{width:28px;height:28px;border-radius:9px;background:var(--accent-bg);color:var(--accent-text);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;font-weight:700}
+
+/* отзыв */
+.stars{display:flex;gap:3px}
+.who{display:flex;gap:10px;align-items:center;padding-top:12px;border-top:1px solid var(--line-soft)}
+.ava{width:36px;height:36px;border-radius:var(--r-pill);background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-display);
+  font-weight:700;font-size:14px}
+/* слот под фотографию модели */
+.pshot .slot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  color:var(--line-strong);opacity:.75}

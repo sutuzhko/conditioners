@@ -1,0 +1,26 @@
+<svg class="chart" width="100%" height="190" preserveAspectRatio="xMidYMid meet" viewBox="0 0 570 190" role="img" aria-label="Выручка и выплаты монтажникам по месяцам, две линии">
+<line class="gl" x1="42" y1="164.0" x2="502" y2="164.0"/>
+<text class="ax" x="34" y="167.5" text-anchor="end">0</text>
+<line class="gl" x1="42" y1="126.0" x2="502" y2="126.0"/>
+<text class="ax" x="34" y="129.5" text-anchor="end">200</text>
+<line class="gl" x1="42" y1="88.0" x2="502" y2="88.0"/>
+<text class="ax" x="34" y="91.5" text-anchor="end">400</text>
+<line class="gl" x1="42" y1="50.0" x2="502" y2="50.0"/>
+<text class="ax" x="34" y="53.5" text-anchor="end">600</text>
+<line class="gl" x1="42" y1="12.0" x2="502" y2="12.0"/>
+<text class="ax" x="34" y="15.5" text-anchor="end">800</text>
+<text class="ax" x="42.0" y="182" text-anchor="middle">янв</text>
+<text class="ax" x="107.7" y="182" text-anchor="middle">фев</text>
+<text class="ax" x="173.4" y="182" text-anchor="middle">мар</text>
+<text class="ax" x="239.1" y="182" text-anchor="middle">апр</text>
+<text class="ax" x="304.9" y="182" text-anchor="middle">май</text>
+<text class="ax" x="370.6" y="182" text-anchor="middle">июн</text>
+<text class="ax" x="436.3" y="182" text-anchor="middle">июл</text>
+<text class="ax" x="502.0" y="182" text-anchor="middle">авг</text>
+<polyline points="42.0,86.1 107.7,77.5 173.4,89.9 239.1,65.2 304.9,48.1 370.6,31.0 436.3,19.6 502.0,32.9" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="502.0" cy="32.9" r="4" fill="var(--s1)" stroke="var(--card)" stroke-width="2"/>
+<polyline points="42.0,145.8 107.7,144.2 173.4,146.9 239.1,141.2 304.9,137.0 370.6,133.6 436.3,130.6 502.0,134.0" fill="none" stroke="var(--s2)" stroke-width="2" stroke-dasharray="7 5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="502.0" cy="134.0" r="4" fill="var(--s2)" stroke="var(--card)" stroke-width="2"/>
+<text class="ax" x="511.0" y="36.9" font-size="11" fill="var(--ink2)">690 тыс</text>
+<text class="ax" x="511.0" y="138.0" font-size="11" fill="var(--ink2)">158 тыс</text>
+</svg>

@@ -1,0 +1,831 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+/* Токены сняты из apps/web/src/shared/styles/tokens.css и ui-tokens.css — один в один */
+:root{
+  --bg:#fff; --bg-soft:#f8fafc; --card:#fff;
+  --header-bg:rgb(255 255 255 / 82%);
+  --hero-grad:linear-gradient(180deg,#f0f9fb 0%,#fff 100%);
+  --ink:#0f172a; --ink2:#334155; --body:#475569; --muted:#556173; --faint:#5b6a7d;
+  --line:#e2e8f0; --line-strong:#cbd5e1; --line-soft:#eef2f6;
+  --accent-ink:#0891b2; --accent-text:#0e7490; --accent-bg:#ecfeff; --accent-line:#a5f3fc;
+  --panel:#0f172a; --stripe-a:#edf2f6; --stripe-b:#f5f8fa; --field:#fff;
+  --brand:#0e7490; --brand-hover:#155e75; --brand-mark:#0891b2; --brand-mark-dark:#22d3ee;
+  --on-brand:#fff; --on-panel:#fff; --on-accent:var(--accent-text);
+  --sale-ink:rgb(190 18 60); --sale-bg:rgb(190 18 60 / 8%); --sale-line:rgb(190 18 60 / 28%);
+  --star:rgb(217 119 6); --ok-ink:rgb(22 101 52); --ok-bg:rgb(21 128 61 / 8%);
+  --lead-grad:linear-gradient(180deg,rgb(15 23 42) 0%,rgb(11 37 48) 100%);
+  --shadow-header:0 12px 34px -16px rgb(15 23 42 / 22%);
+  --shadow-card:0 20px 44px -28px rgb(15 23 42 / 20%);
+  --shadow-brand:0 10px 24px rgb(14 116 144 / 30%);
+  --shadow-raised:0 36px 80px -32px rgb(8 66 84 / 45%);
+  --r-sm:11px; --r-md:14px; --r-ml:18px; --r-lg:20px; --r-xl:22px; --r-xxl:24px; --r-pill:100px;
+  --font-display:'Onest',system-ui,sans-serif;
+  --font-text:'Manrope',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+[data-theme='dark']{
+  --bg:#0b1220; --bg-soft:#0e1729; --card:#121d31;
+  --header-bg:rgb(11 18 32 / 80%);
+  --hero-grad:linear-gradient(180deg,#0c1628 0%,#0b1220 100%);
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --line:#1e2b41; --line-strong:#2c3d59; --line-soft:#182338;
+  --accent-ink:#22d3ee; --accent-text:#22d3ee; --accent-bg:rgb(34 211 238 / 10%); --accent-line:rgb(34 211 238 / 35%);
+  --panel:#111d34; --stripe-a:#16223a; --stripe-b:#121d31; --field:#0b1424;
+  --sale-ink:rgb(251 113 133); --sale-bg:rgb(251 113 133 / 12%); --sale-line:rgb(251 113 133 / 32%);
+  --star:rgb(251 191 36); --ok-ink:rgb(74 222 128); --ok-bg:rgb(74 222 128 / 12%);
+}
+/* Тёмный остров внутри светлой темы (ADR-158) */
+[data-ground='panel']{
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --accent-text:#22d3ee;
+}
+
+/* ——— Плотность панели. Взята с HeroUI: шаг 4px, высоты контролов
+   sm 32 / md 40 / lg 48, внутренние поля карточки 12 и 16, зазор групп 12.
+   Панель плотнее сайта: там пол тап-зоны 44px, здесь мышь (DESIGN_BRIEF §9).
+   На сенсорном экране высоты поднимаются до 44 — правило ниже. ——— */
+:root{
+  --h-sm:32px; --h-md:40px; --h-lg:48px;
+  --pad-card:16px; --pad-card-sm:12px;
+  --gap-1:4px; --gap-2:8px; --gap-3:12px; --gap-4:16px; --gap-6:24px; --gap-8:32px;
+  --rail:72px;          /* свёрнутая колонка разделов */
+  --aside:264px;        /* развёрнутая */
+  --navbar:56px;        /* верхняя полоса */
+  --fs-label:13px; --fs-body:14px; --fs-tiny:12px;
+  /* тени HeroUI: small и medium, нейтральные и очень мягкие */
+  --sh-sm:0 0 5px 0 rgb(15 23 42 / 3%), 0 2px 10px 0 rgb(15 23 42 / 6%);
+  --sh-md:0 0 15px 0 rgb(15 23 42 / 4%), 0 2px 30px 0 rgb(15 23 42 / 8%);
+  --sh-lg:0 0 30px 0 rgb(15 23 42 / 6%), 0 30px 60px 0 rgb(15 23 42 / 12%);
+}
+[data-theme='dark']{
+  --sh-sm:0 0 5px 0 rgb(0 0 0 / 20%), 0 2px 10px 0 rgb(0 0 0 / 28%);
+  --sh-md:0 0 15px 0 rgb(0 0 0 / 24%), 0 2px 30px 0 rgb(0 0 0 / 34%);
+  --sh-lg:0 0 30px 0 rgb(0 0 0 / 34%), 0 30px 60px 0 rgb(0 0 0 / 46%);
+}
+
+/* ——— Семантические краски: перенесены из apps/web/src/shared/styles/ui-tokens.css
+   один в один. Шесть различимых пар на всю панель. ——— */
+:root{
+  /* Ступень темнее, чем в ui-tokens.css: там краска считалась на чистой
+     карточке, а в панели чип ложится на тинт своей же строки или ячейки
+     календаря — двойной слой опускал её до 4,0:1. Замерено. */
+  --warn-ink:rgb(146 64 14); --warn-bg:rgb(180 83 9 / 8%); --warn-line:rgb(180 83 9 / 28%);
+  --info-ink:rgb(67 56 202); --info-bg:rgb(67 56 202 / 8%); --info-line:rgb(67 56 202 / 28%);
+  --ok-line:rgb(21 128 61 / 28%);
+  --error-ink:rgb(190 18 60); --error-bg:rgb(190 18 60 / 8%);
+  --on-error:#fff; --on-ok:#fff;
+  --error-line:rgb(190 18 60 / 45%);
+  --overlay:rgb(15 23 42 / 45%);
+  --star-bg:rgb(217 119 6 / 12%);
+
+  /* Кольцо фокуса двухслойное: сначала отбивка цветом фона, потом контур.
+     Так оно читается и на светлой карточке, и на тёмной панели. Заливка с
+     прозрачностью на тёмном фоне не видна вовсе — отсюда два слоя. */
+  --ring-focus-ring:0 0 0 2px var(--bg), 0 0 0 4px var(--accent-ink);
+  --ring-focus-inset:inset 0 0 0 2px var(--accent-ink);
+}
+[data-theme='dark']{
+  --warn-ink:rgb(251 191 36); --warn-bg:rgb(251 191 36 / 12%); --warn-line:rgb(251 191 36 / 32%);
+  --info-ink:rgb(165 180 252); --info-bg:rgb(165 180 252 / 12%); --info-line:rgb(165 180 252 / 32%);
+  --ok-line:rgb(74 222 128 / 32%);
+  --star-bg:rgb(251 191 36 / 14%);
+  --error-ink:rgb(251 113 133); --error-bg:rgb(251 113 133 / 12%);
+  /* В тёмной теме краски состояний уходят на светлую сторону палитры,
+     и белый текст на них даёт 2,7:1. Поверх заливки — фон страницы. */
+  --on-error:var(--bg); --on-ok:var(--bg);
+  --error-line:rgb(251 113 133 / 50%);
+  --overlay:rgb(2 6 16 / 68%);
+}
+
+/* ——— 🔴 Новый токен: граница контрола.
+   `--line-strong` (#cbd5e1) на белом даёт 1,48:1, а WCAG 1.4.11 требует 3:1
+   для границ, которые СЛУЖАТ границей компонента. Декоративные разделители
+   остаются на `--line`; на `--line-ui` переходят только те места, где линия и
+   есть аффорданс: обводка поля, рамка невыбранного чекбокса, дорожка
+   выключенного переключателя. Значения подобраны расчётом, не на глаз. ——— */
+:root{ --line-ui:#7e8fa6; }               /* 3,30:1 на белом · 3,15:1 на --bg-soft */
+[data-theme='dark']{ --line-ui:#566d95; } /* 3,22:1 на --card */
+
+/* ——— Геометрия эталона (heroui.com/themes, шаблон dashboard):
+   Radius M для компонентов, Radius Form L для полей — на практике кнопки и
+   поля идут пилюлей, карточки 14, пункт навигации 12. ——— */
+:root{
+  --r-btn:999px;      /* кнопка и поле — пилюля */
+  --r-card:14px;      /* карточка */
+  --r-nav:12px;       /* пункт навигации */
+  --r-app:20px;       /* внешний контейнер панели */
+  --h-nav:44px;
+  /* Серии графиков. Пара разведена по тону (циан и янтарь), но не по
+     светлоте: 1,36:1 в светлой теме и 1,08:1 в тёмной. Одного цвета мало —
+     при дальтонизме и на чёрно-белой печати наряда серии сольются, поэтому
+     вторая линия идёт штрихом, а у каждой стоит подпись значения на конце.
+     Третьей серии не заводится: две — предел, который читается без легенды. */
+  --s1:#0891b2; --s2:#b45309;
+}
+[data-theme='dark']{ --s1:#22d3ee; --s2:#fbbf24; }
+/* ═══ Кит панели ТулаКлимат ═══
+   Устройство узлов скопировано с HeroUI: варианты полей flat/bordered/faded/
+   underlined, подпись внутри поля, чип шестью вариантами, карточка тремя
+   поясами, таблица с верхним и нижним блоком, вкладки четырьмя видами.
+   Цвета наши (ADR-169): с эталона берётся геометрия и порядок, не палитра. */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink2);
+  font-family:var(--font-text);font-size:var(--fs-body);line-height:1.45;
+  -webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:var(--accent-text);text-decoration:none}
+a:hover{color:var(--brand-hover)}
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);color:var(--ink);
+  letter-spacing:-0.02em;font-weight:700}
+p{margin:0} ul,ol{margin:0;padding:0;list-style:none}
+table{border-collapse:separate;border-spacing:0}
+.row{display:flex;align-items:center}
+.stack{display:flex;flex-direction:column}
+.grid{display:grid}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.num{font-family:var(--font-display);font-weight:700;font-variant-numeric:tabular-nums;
+  letter-spacing:-0.02em;color:var(--ink)}
+.mut{color:var(--muted)} .fnt{color:var(--faint)} .ink{color:var(--ink)}
+.t-tiny{font-size:var(--fs-tiny)} .t-lbl{font-size:var(--fs-label)}
+.clip{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hr{height:1px;background:var(--line);border:0;flex-shrink:0}
+.hr.v{width:1px;height:auto;align-self:stretch}
+
+/* ─── Button ─── */
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;
+  height:var(--h-md);padding:0 18px;border:1px solid transparent;border-radius:var(--r-btn);
+  font-family:var(--font-text);font-size:var(--fs-body);font-weight:600;line-height:1;
+  white-space:nowrap;cursor:pointer;text-decoration:none;
+  transition:background .15s ease,border-color .15s ease,color .15s ease,box-shadow .15s ease,transform .1s ease}
+.btn:active{transform:scale(.97)}
+.btn.sm{height:var(--h-sm);padding:0 14px;font-size:var(--fs-label)}
+.btn.lg{height:var(--h-lg);padding:0 22px;font-size:15px}
+.btn.icon{width:var(--h-md);padding:0;border-radius:var(--r-pill)} .btn.icon.sm{width:var(--h-sm)} .btn.icon.lg{width:var(--h-lg)}
+.btn.solid{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.solid:hover{background:var(--brand-hover);border-color:var(--brand-hover)}
+.btn.flat{background:var(--accent-bg);color:var(--on-accent)}
+.btn.flat:hover{background:var(--brand);color:var(--on-brand)}
+.btn.bord{background:transparent;border-color:var(--line-ui);color:var(--ink)}
+.btn.bord:hover{border-color:var(--accent-ink);color:var(--accent-text)}
+.btn.faded{background:var(--bg-soft);border-color:var(--line);color:var(--ink)}
+.btn.faded:hover{border-color:var(--line-ui)}
+.btn.light{background:transparent;color:var(--ink2)}
+.btn.light:hover{background:var(--bg-soft);color:var(--ink)}
+.btn.ghost{background:transparent;border-color:var(--brand);color:var(--accent-text)}
+.btn.ghost:hover{background:var(--brand);color:var(--on-brand)}
+.btn.danger{background:var(--error-bg);border-color:var(--error-line);color:var(--error-ink)}
+.btn.danger:hover{background:var(--error-ink);border-color:var(--error-ink);color:var(--on-error)}
+.btn.dis{opacity:.5;cursor:not-allowed;transform:none}
+.btn.focus{box-shadow:var(--ring-focus-ring)}
+/* группа кнопок: общая рамка, скруглены только края */
+.bgrp{display:inline-flex}
+.bgrp .btn{border-radius:0;margin-left:-1px}
+.bgrp .btn:first-child{border-radius:var(--r-btn) 0 0 var(--r-btn);margin-left:0}
+.bgrp .btn:last-child{border-radius:0 var(--r-btn) var(--r-btn) 0}
+
+/* ─── Input ─── подпись внутри, начальное и конечное содержимое */
+.inp{display:flex;align-items:center;gap:8px;width:100%;min-height:var(--h-lg);
+  padding:0 14px;border:1px solid var(--line-ui);border-radius:var(--r-btn);
+  background:var(--bg-soft);cursor:text;
+  transition:background .15s ease,border-color .15s ease,box-shadow .15s ease}
+.inp .body{display:flex;flex-direction:column;justify-content:center;flex:1;min-width:0;
+  padding:6px 0}
+.inp .lab{font-size:11px;font-weight:600;color:var(--muted);line-height:1.15}
+.inp .val{font-size:var(--fs-body);color:var(--ink);line-height:1.25}
+.inp .ph{color:var(--faint)}
+.inp .ico{display:flex;align-items:center;color:var(--muted);flex-shrink:0}
+.inp.solo .body{padding:0}
+.inp.sm{min-height:var(--h-sm);padding:0 10px} .inp.md{min-height:var(--h-md)}
+.inp.tall{min-height:96px;align-items:flex-start;padding-top:10px;padding-bottom:10px;border-radius:var(--r-card)}
+.inp.tall > .body{padding:0}
+/* варианты эталона */
+.inp.flat{background:var(--bg-soft)}
+.inp.flat:hover{background:var(--stripe-a)}
+.inp.bordered{background:transparent;border-color:var(--line-ui)}
+.inp.bordered:hover{border-color:var(--ink2)}
+.inp.faded{background:var(--bg-soft);border-color:var(--line)}
+.inp.faded:hover{border-color:var(--line-ui)}
+.inp.under{background:transparent;border-radius:0;border:0;border-bottom:1px solid var(--line-ui);padding-inline:2px}
+.inp.under:hover{border-bottom-color:var(--ink2)}
+/* состояния */
+.inp.foc{background:var(--card);border-color:var(--accent-ink);box-shadow:var(--ring-focus-ring)}
+.inp.foc.under{background:transparent;box-shadow:none;border-bottom-color:var(--accent-ink)}
+.inp.err{background:var(--error-bg);border-color:var(--error-ink)}
+.inp.err .lab{color:var(--error-ink)}
+.inp.dis{opacity:.5;cursor:not-allowed}
+.hint{margin-top:5px;font-size:11.5px;color:var(--faint);display:flex;gap:5px;align-items:flex-start}
+.hint.bad{color:var(--error-ink)}
+/* подпись снаружи — второй способ размещения */
+.lab-out{display:block;margin-bottom:6px;font-size:var(--fs-label);font-weight:600;color:var(--ink2)}
+
+/* ─── Checkbox · Radio · Switch ─── */
+.cbx{width:20px;height:20px;border-radius:7px;border:1.5px solid var(--line-ui);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:transparent}
+.cbx.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.cbx.ind{background:var(--brand);border-color:var(--brand);color:#fff}
+.rdo{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-ui);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center}
+.rdo.on{border-color:var(--brand)}
+.rdo.on::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--brand)}
+.sw{display:inline-block;width:44px;height:26px;border-radius:var(--r-pill);background:var(--card);
+  border:1.5px solid var(--line-ui);position:relative;flex-shrink:0;transition:.15s}
+.sw i{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;
+  background:var(--line-ui);transition:.15s}
+.sw.on{background:var(--brand);border-color:var(--brand)}
+.sw.on i{left:20px;background:#fff}
+.opt{display:flex;align-items:center;gap:10px;min-height:36px;cursor:pointer}
+.opt .txt{font-size:var(--fs-body);color:var(--ink)}
+.opt .sub{font-size:11.5px;color:var(--muted)}
+
+/* ─── Chip — шесть вариантов эталона ─── */
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;
+  border:1px solid transparent;border-radius:var(--r-pill);font-size:var(--fs-tiny);
+  font-weight:600;line-height:1;white-space:nowrap}
+.chip.lg{height:28px;padding:0 11px;font-size:var(--fs-label)}
+.chip.sq{border-radius:8px}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:currentcolor;flex-shrink:0}
+.chip .x{display:flex;opacity:.6;margin-left:1px}
+.c-default{background:var(--bg-soft);color:var(--muted);border-color:var(--line)}
+.c-primary{background:var(--accent-bg);color:var(--on-accent)}
+.c-success{background:var(--ok-bg);color:var(--ok-ink)}
+.c-warn{background:var(--warn-bg);color:var(--warn-ink)}
+.c-danger{background:var(--error-bg);color:var(--error-ink)}
+.c-info{background:var(--info-bg);color:var(--info-ink)}
+.v-solid.c-primary{background:var(--brand);color:var(--on-brand)}
+.v-solid.c-success{background:var(--ok-ink);color:var(--on-ok)}
+.v-solid.c-danger{background:var(--error-ink);color:var(--on-error)}
+.v-bord{background:transparent}
+.v-bord.c-primary{border-color:var(--brand);color:var(--accent-text)}
+.v-bord.c-danger{border-color:var(--error-ink);color:var(--error-ink)}
+.v-light{background:transparent;border-color:transparent}
+.v-faded.c-primary{background:var(--bg-soft);border-color:var(--line);color:var(--accent-text)}
+
+/* ─── Card ─── */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);
+  box-shadow:none}
+.card.flat{box-shadow:none}
+.card.hov{transition:box-shadow .18s ease,border-color .18s ease,transform .18s ease}
+.card.hov:hover{box-shadow:var(--sh-md);border-color:var(--line-strong);transform:translateY(-1px)}
+.card.sel{border-color:var(--accent-ink);box-shadow:var(--ring-focus-ring)}
+.card > .hd{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:var(--pad-card-sm) var(--pad-card)}
+.card > .bd{padding:var(--pad-card)}
+.card > .ft{padding:var(--pad-card-sm) var(--pad-card)}
+.card > .hd + .bd,.card > .bd + .ft{border-top:1px solid var(--line)}
+.ttl{font-size:15px;font-weight:700;color:var(--ink);font-family:var(--font-display)}
+
+/* ─── Table ─── */
+.tbl{width:100%;font-size:var(--fs-body)}
+.tbl th{position:sticky;top:0;z-index:1;text-align:left;padding:10px 12px;
+  background:var(--bg-soft);color:var(--muted);font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+  border-bottom:1px solid var(--line)}
+.tbl td{padding:12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:middle}
+.tbl tbody tr:hover td{background:var(--bg-soft)}
+.tbl tbody tr:last-child td{border-bottom:none}
+.tbl.zebra tbody tr:nth-child(even) td{background:var(--stripe-b)}
+.tbl .rt{text-align:right}
+.tbl .strong{color:var(--ink);font-weight:600}
+
+/* ─── Tabs — четыре вида ─── */
+.tabs{display:flex;gap:22px;border-bottom:1px solid var(--line)}
+.tab{position:relative;padding:10px 0;font-size:var(--fs-body);font-weight:600;
+  color:var(--muted);white-space:nowrap;cursor:pointer}
+.tab.on{color:var(--ink)}
+.tab.on::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  border-radius:2px;background:var(--brand)}
+.seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--bg-soft);gap:2px}
+.seg span{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:8px;
+  font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.seg span.on{background:var(--card);color:var(--ink);box-shadow:var(--sh-sm)}
+.seg.bord{background:transparent;border:2px solid var(--line);padding:2px}
+.seg.bord span.on{background:var(--accent-bg);color:var(--on-accent);box-shadow:none}
+
+/* ─── Avatar · User · Badge ─── */
+.ava{display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:32px;height:32px;border-radius:var(--r-pill);background:var(--accent-bg);
+  color:var(--on-accent);font-family:var(--font-display);font-weight:700;font-size:12px}
+.ava.xs{width:24px;height:24px;font-size:10px}
+.ava.lg{width:40px;height:40px;font-size:14px}
+.ava.sq{border-radius:10px}
+.avagrp{display:flex}
+.avagrp .ava{border:2px solid var(--card);margin-left:-8px}
+.avagrp .ava:first-child{margin-left:0}
+.usr{display:flex;align-items:center;gap:10px;min-width:0}
+.usr .nm{font-size:13.5px;font-weight:600;color:var(--ink)}
+.usr .ds{font-size:11.5px;color:var(--muted)}
+.bdg{position:absolute;top:-3px;right:-3px;min-width:16px;height:16px;padding:0 4px;
+  border-radius:var(--r-pill);background:var(--error-ink);color:var(--on-error);font-size:10px;
+  font-weight:700;display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--card)}
+.bdg.dot{min-width:10px;height:10px;padding:0}
+
+/* ─── Progress · Spinner ─── */
+.bar{height:6px;border-radius:var(--r-pill);background:var(--line);overflow:hidden}
+.bar > i{display:block;height:100%;border-radius:var(--r-pill);background:var(--brand)}
+.bar.sm{height:4px}
+.spin{width:20px;height:20px;border-radius:50%;border:2.5px solid var(--line);
+  border-top-color:var(--brand)}
+
+/* ─── Skeleton ─── */
+.sk{display:inline-block;border-radius:8px;
+  background:linear-gradient(90deg,var(--line-soft),var(--line),var(--line-soft));
+  background-size:200% 100%}
+
+/* Строка списка на узком экране. Живёт в ките, а не в стилях доски:
+   её просят и экраны, и вкладки, и матрица состояний. */
+.mrow{display:flex;flex-direction:column;gap:8px;padding:14px}
+
+/* ─── Alert ─── */
+.alert{display:flex;gap:12px;padding:12px 14px;border-radius:var(--r-sm);
+  border:1px solid transparent}
+.alert .ai{flex-shrink:0;margin-top:1px}
+.alert .at{font-size:13.5px;font-weight:700}
+.alert .ad{margin-top:2px;font-size:12.5px;line-height:1.45;opacity:.92}
+.a-primary{background:var(--accent-bg);border-color:var(--accent-line);color:var(--accent-text)}
+.a-success{background:var(--ok-bg);border-color:var(--ok-line);color:var(--ok-ink)}
+.a-warn{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn-ink)}
+.a-danger{background:var(--error-bg);border-color:var(--error-line);color:var(--error-ink)}
+
+/* ─── Snippet · Kbd ─── */
+.snip{display:flex;align-items:center;gap:10px;padding:0 10px;height:var(--h-md);
+  border-radius:9px;background:var(--bg-soft);border:1px solid var(--line);
+  font-family:var(--font-mono);font-size:12.5px;color:var(--ink2)}
+.kbd{padding:2px 6px;border-radius:5px;background:var(--card);border:1px solid var(--line-ui);
+  font-family:var(--font-mono);font-size:10.5px;color:var(--muted);line-height:1.3}
+
+/* ─── Listbox · Dropdown · Popover ─── */
+.pop{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);
+  box-shadow:var(--sh-lg);padding:6px;min-width:200px}
+.item{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:8px;
+  font-size:13.5px;color:var(--ink2);cursor:pointer}
+.item:hover{background:var(--bg-soft);color:var(--ink)}
+.item.on{background:var(--accent-bg);color:var(--on-accent)}
+.item.bad{color:var(--error-ink)}
+.item.bad:hover{background:var(--error-bg)}
+.item .k{margin-left:auto}
+.grp{padding:8px 10px 4px;font-size:10.5px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--faint)}
+.tip{padding:6px 10px;border-radius:8px;background:var(--panel);color:#fff;
+  font-size:12px;box-shadow:var(--sh-md)}
+
+/* ─── Pagination ─── */
+.pg{display:flex;gap:4px}
+.pg span{display:flex;align-items:center;justify-content:center;min-width:32px;height:32px;
+  border-radius:8px;font-size:var(--fs-label);color:var(--ink2);cursor:pointer}
+.pg span:hover{background:var(--bg-soft)}
+.pg span.on{background:var(--brand);color:var(--on-brand);font-weight:600}
+.pg span.dis{color:var(--faint);cursor:not-allowed}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px var(--pad-card)}
+
+/* ─── Accordion ─── */
+.acc{border-bottom:1px solid var(--line)}
+.acc .head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  min-height:52px;padding:0 4px;cursor:pointer}
+.acc .body{padding:0 4px 14px;font-size:13.5px;color:var(--muted);line-height:1.5}
+
+/* ─── подписи макета (не интерфейс) ─── */
+.note{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--accent-text)}
+.cap{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  color:var(--muted);margin-bottom:8px}
+
+/* ═══ Каркас панели ═══
+   Эталон: вся панель — один скруглённый белый контейнер на светло-сером поле.
+   Колонка разделов отделена линией, не собственным фоном. */
+.page{width:1440px;background:var(--bg-soft);padding:28px}
+.app{display:grid;grid-template-columns:var(--aside) minmax(0,1fr);
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-app);
+  overflow:hidden}
+.app.rail{grid-template-columns:var(--rail) minmax(0,1fr)}
+.aside{display:flex;flex-direction:column;border-right:1px solid var(--line);min-height:0}
+/* Верх колонки — кто вошёл. Низ прибит: настройки, профиль, выход (BUGS §1837) */
+.who{display:flex;align-items:center;gap:11px;padding:16px 14px 12px}
+.who .nm{font-size:14px;font-weight:600;color:var(--ink);line-height:1.2}
+.who .rl{font-size:12px;color:var(--muted);line-height:1.2}
+.nav{display:flex;flex-direction:column;gap:3px;padding:4px 12px 12px;flex:1;
+  overflow-y:auto;min-height:0}
+.navgrp{padding:14px 10px 5px;font-size:11px;font-weight:600;letter-spacing:.04em;
+  color:var(--faint)}
+.nv{display:flex;align-items:center;gap:12px;min-height:var(--h-nav);padding:0 12px;
+  border-radius:var(--r-nav);color:var(--ink2);font-size:14px;font-weight:500;
+  white-space:nowrap;position:relative;transition:background .14s ease,color .14s ease}
+.nv svg{flex-shrink:0;color:var(--muted)}
+.nv:hover{background:var(--bg-soft);color:var(--ink)}
+/* 🔴 Активный различается тремя признаками сразу: заливка, вес и полоса —
+   не только цветом */
+.nv.on{background:var(--bg-soft);color:var(--ink);font-weight:600}
+.nv.on svg{color:var(--accent-text)}
+.nv.on::before{content:'';position:absolute;left:0;top:11px;bottom:11px;width:3px;
+  border-radius:0 3px 3px 0;background:var(--brand)}
+.nv .cnt{margin-left:auto;min-width:22px;height:20px;padding:0 7px;border-radius:var(--r-pill);
+  background:var(--accent-bg);color:var(--on-accent);font-size:11.5px;font-weight:700;
+  display:flex;align-items:center;justify-content:center}
+.nv.on .cnt{background:var(--brand);color:var(--on-brand)}
+.asfoot{margin-top:auto;padding:10px 12px 14px;border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:3px;flex-shrink:0}
+
+/* Верхняя строка контента: заголовок слева, действия справа */
+.chead{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:20px 24px 0}
+.h1{font-size:24px;font-weight:600;letter-spacing:-0.02em;color:var(--ink);
+  font-family:var(--font-display)}
+.sub{margin-top:4px;font-size:13.5px;color:var(--muted)}
+.iconbtn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;
+  border-radius:var(--r-pill);color:var(--muted);position:relative;cursor:pointer}
+.iconbtn:hover{background:var(--bg-soft);color:var(--ink)}
+.main{padding:18px 24px 24px;display:flex;flex-direction:column;gap:18px;min-width:0}
+
+/* Плитка показателя по эталону: подпись сверху, крупное число, чип изменения справа */
+.stat{padding:18px 20px}
+.stat .l{font-size:14px;color:var(--muted)}
+.stat .v{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
+.stat .n{font-family:var(--font-display);font-size:28px;font-weight:600;
+  letter-spacing:-0.02em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1}
+.trend{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 9px;
+  border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.t-up{background:var(--ok-bg);color:var(--ok-ink)}
+.t-down{background:var(--error-bg);color:var(--error-ink)}
+.t-flat{background:var(--bg-soft);color:var(--muted)}
+
+/* Панель над таблицей: слева пилюли-фильтры, справа поиск */
+.tbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.acts{display:flex;gap:6px}
+.actbtn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;
+  border-radius:var(--r-pill);cursor:pointer}
+.a-view{background:var(--bg-soft);color:var(--ink2)}
+.a-edit{background:var(--accent-bg);color:var(--on-accent)}
+.a-del{background:var(--error-bg);color:var(--error-ink)}
+
+/* нижняя панель вкладок на телефоне */
+.tabbar{display:flex;align-items:stretch;background:var(--card);border-top:1px solid var(--line);
+  flex-shrink:0}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  min-height:56px;color:var(--muted);font-size:10.5px;font-weight:600}
+.tb.on{color:var(--accent-text)}
+.tb.on svg{color:var(--accent-text)}
+/* 🔴 Тап-зона поднимается только в сенсорных кадрах — телефонном и
+   планшетном. Раньше правило висело на всей доске: на кадре 1440 малая
+   кнопка вырастала с 32 до 44px и переставала отличаться от средней, а
+   .actbtn рядом оставался 32px — плотность экрана расходилась с токенами,
+   и снятые с кадра числа врали. Замерено: .btn.sm 44px против токена 32. */
+.frame.ph .btn,.frame.tb .btn{height:44px}
+.frame.ph .btn.sm,.frame.tb .btn.sm{height:44px}
+.frame.ph .btn.lg,.frame.tb .btn.lg{height:52px}
+.frame.ph .inp,.frame.tb .inp{min-height:52px}
+.frame.ph .item,.frame.tb .item{height:44px}
+.frame.ph .nv,.frame.tb .nv{min-height:48px}
+.frame.ph .cbx,.frame.ph .rdo,.frame.tb .cbx,.frame.tb .rdo{width:24px;height:24px}
+.frame.ph .chip,.frame.tb .chip{min-height:32px}
+.frame.ph .seg .sg,.frame.tb .seg .sg{min-height:36px}
+.frame.ph .actbtn,.frame.tb .actbtn{width:40px;height:40px}
+
+/* график: тонкие метки, скруглённые концы, утопленная сетка */
+.chart .gl{stroke:var(--line);stroke-width:1}
+.chart .ax{font-family:var(--font-mono);font-size:10px;fill:var(--faint)}
+.legend{display:flex;gap:14px;align-items:center}
+.legend span{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.legend i{width:9px;height:9px;border-radius:3px;display:block}
+/* колоночная раскладка поля: подпись над значением прямыми детьми */
+.inp.col{flex-direction:column;justify-content:center;align-items:stretch;gap:2px}
+.inp.col > .lab{width:100%}
+.inp.col.tall{justify-content:flex-start}
+
+/* Оценка отзыва. Звёзды — текст, а не иконки: их пять, они не кликабельны
+   в панели и в вёрстке ведут себя как цифра рядом с именем. */
+.stars{display:inline-flex;gap:1px;font-size:13px;line-height:1;letter-spacing:0.5px}
+.stars .s{color:var(--line-ui)}
+.stars .s.on{color:var(--star)}
+
+/* В телефонном кадре иконка-кнопка растёт до тап-зоны. Правило привязано к
+   кадру, а не к .touch: на доске .touch стоит на всём борде, включая
+   десктопные кадры, где 36px — верная плотность HeroUI. */
+.frame.ph .iconbtn{width:44px;height:44px}
+
+/* 🔴 Подсвеченная строка таблицы или списка — «просрочен», «требует внимания».
+   На ней тинт складывается дважды: подложка строки плюс подложка чипа, и
+   красный на красном опускается до 4,4:1 в тёмной теме. Поэтому внутри такой
+   строки приглушённый текст поднимается на ступень, а мягкий чип становится
+   обведённым: его собственная заливка здесь уже не нужна — строка и так
+   выделена. Замерено, а не на глаз. */
+.rowbad{background:var(--error-bg)}
+.rowwarn{background:var(--warn-bg)}
+.rowbad .mut,.rowwarn .mut,.rowbad .t-tiny,.rowwarn .t-tiny{color:var(--body)}
+.rowbad .chip.c-danger,.rowwarn .chip.c-warn{background:var(--card);
+  border:1px solid var(--error-line)}
+.rowwarn .chip.c-warn{border-color:var(--warn-line)}
+
+/* Поле в ошибке залито тинтом, и подсказка с плейсхолдером на нём теряют
+   четверть контраста: 4,46:1 вместо 4,5. Внутри такого поля ink на ступень
+   выше — та же поправка, что у подсвеченной строки. */
+.inp.err .ph,.inp.err .hint{color:var(--body)}
+.sheet{width:1400px;background:var(--bg-soft);padding:32px;display:flex;flex-direction:column;gap:22px}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px}
+.sh{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px;font-family:var(--font-display)}
+.sd{font-size:13px;color:var(--muted);margin-bottom:16px;max-width:840px;line-height:1.5}
+/* тёмная половина живёт своим грунтом: значения берутся из [data-theme=dark] */
+.half{border-radius:var(--r-md);padding:18px;border:1px solid var(--line)}
+.half.lt{background:#fff}
+.half.dk{background:#0b1220;border-color:#1e2b41}
+.tk{display:grid;grid-template-columns:22px 1fr auto auto;gap:10px;align-items:center;
+  padding:7px 0;border-top:1px solid var(--line)}
+.tk:first-of-type{border-top:0}
+.dk .tk{border-top-color:#1e2b41}
+.sw{width:22px;height:22px;border-radius:6px;border:1px solid rgb(127 127 127 / 30%)}
+.tn{font-family:var(--font-mono);font-size:11.5px}
+.lt .tn{color:#334155} .dk .tn{color:#c9d5e2}
+.hx{font-family:var(--font-mono);font-size:11px}
+.lt .hx{color:#5b6a7d} .dk .hx{color:#7e92a7}
+.cr{font-family:var(--font-mono);font-size:11.5px;font-weight:600;min-width:52px;text-align:right}
+.pass{color:#15803d} .dk .pass{color:#4ade80}
+.fail{color:#be123c} .dk .fail{color:#fb7185}
+.halfh{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:12px}
+.lt .halfh{color:#556173} .dk .halfh{color:#8598ac}
+.scale{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
+.sbox{display:flex;flex-direction:column;gap:6px;align-items:center}
+.sbox b{font-family:var(--font-mono);font-size:10.5px;color:var(--faint);font-weight:400}
+.ramp{display:grid;grid-template-columns:repeat(auto-fill,minmax(126px,1fr));gap:10px}
+.chipc{border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.chipc .sw2{height:56px;display:block}
+.chipc .meta{padding:8px 9px;background:var(--card)}
+.chipc .nm2{font-family:var(--font-mono);font-size:11px;color:var(--ink);display:block;line-height:1.3}
+.chipc .hx2{font-family:var(--font-mono);font-size:10.5px;color:var(--faint);display:block}
+.chipc .use{display:block;margin-top:3px;font-size:10.5px;color:var(--muted);line-height:1.3}
+.dkwrap{background:#0b1220;border:1px solid #1e2b41;border-radius:var(--r-md);padding:18px}
+.dkwrap .chipc{border-color:#1e2b41}
+.dkwrap .chipc .meta{background:#121d31}
+.dkwrap .chipc .nm2{color:#eaf1f8}
+.dkwrap .chipc .hx2{color:#7e92a7}
+.dkwrap .chipc .use{color:#8598ac}
+  </style>
+</helmet>
+<div class="sheet">
+  <div>
+    <span class="note">— Токены —</span>
+    <h2 style="font-size:26px;font-weight:800;margin-top:8px;font-family:var(--font-display)">Палитра, плотность и геометрия панели</h2>
+    <p style="margin-top:8px;font-size:14px;color:var(--muted);max-width:880px">Цвета не выбраны заново: это действующие токены из <span class="mono">shared/styles/tokens.css</span> и <span class="mono">ui-tokens.css</span>. Контраст каждой пары посчитан по WCAG 2.1, а не оценён на глаз — норма 4,5:1 для текста и 3:1 для границ, которые служат границей компонента.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sh">Текст на карточке</div>
+    <div class="sd">Пять уровней текста плюс шесть семантических красок. Обе темы проверены отдельно: значения светлой на тёмной не работают, и наоборот.</div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:20px">
+      <div class="half lt">
+        <div class="halfh">Светлая · фон #FFFFFF</div>
+        <div class="tk"><span class="sw" style="background:#0f172a"></span><span><span class="tn">--ink</span> <span class="hx">#0f172a</span><br><span class="hx">заголовки</span></span><span class="cr pass">17.85:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#334155"></span><span><span class="tn">--ink2</span> <span class="hx">#334155</span><br><span class="hx">акцентный текст</span></span><span class="cr pass">10.35:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#475569"></span><span><span class="tn">--body</span> <span class="hx">#475569</span><br><span class="hx">основной текст</span></span><span class="cr pass">7.58:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#556173"></span><span><span class="tn">--muted</span> <span class="hx">#556173</span><br><span class="hx">подписи</span></span><span class="cr pass">6.28:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#5b6a7d"></span><span><span class="tn">--faint</span> <span class="hx">#5b6a7d</span><br><span class="hx">прочерки, плейсхолдеры</span></span><span class="cr pass">5.52:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#0e7490"></span><span><span class="tn">--accent-text</span> <span class="hx">#0e7490</span><br><span class="hx">акцент и ссылки</span></span><span class="cr pass">5.36:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#15803d"></span><span><span class="tn">--ok-ink</span> <span class="hx">#15803d</span><br><span class="hx">успех</span></span><span class="cr pass">5.02:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#b45309"></span><span><span class="tn">--warn-ink</span> <span class="hx">#b45309</span><br><span class="hx">внимание</span></span><span class="cr pass">5.02:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#be123c"></span><span><span class="tn">--error-ink</span> <span class="hx">#be123c</span><br><span class="hx">ошибка и отказ</span></span><span class="cr pass">6.29:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#4338ca"></span><span><span class="tn">--info-ink</span> <span class="hx">#4338ca</span><br><span class="hx">шестая краска</span></span><span class="cr pass">7.90:1</span><span class="hx pass">AA</span></div>
+      </div>
+      <div class="half dk">
+        <div class="halfh">Тёмная · фон #121D31</div>
+        <div class="tk"><span class="sw" style="background:#eaf1f8"></span><span><span class="tn">--ink</span> <span class="hx">#eaf1f8</span><br><span class="hx">заголовки</span></span><span class="cr pass">14.80:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#c9d5e2"></span><span><span class="tn">--ink2</span> <span class="hx">#c9d5e2</span><br><span class="hx">акцентный текст</span></span><span class="cr pass">11.32:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#a8b6c6"></span><span><span class="tn">--body</span> <span class="hx">#a8b6c6</span><br><span class="hx">основной текст</span></span><span class="cr pass">8.16:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#8598ac"></span><span><span class="tn">--muted</span> <span class="hx">#8598ac</span><br><span class="hx">подписи</span></span><span class="cr pass">5.69:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#7e92a7"></span><span><span class="tn">--faint</span> <span class="hx">#7e92a7</span><br><span class="hx">прочерки, плейсхолдеры</span></span><span class="cr pass">5.26:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#22d3ee"></span><span><span class="tn">--accent-text</span> <span class="hx">#22d3ee</span><br><span class="hx">акцент и ссылки</span></span><span class="cr pass">9.33:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#4ade80"></span><span><span class="tn">--ok-ink</span> <span class="hx">#4ade80</span><br><span class="hx">успех</span></span><span class="cr pass">9.67:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#fbbf24"></span><span><span class="tn">--warn-ink</span> <span class="hx">#fbbf24</span><br><span class="hx">внимание</span></span><span class="cr pass">10.10:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#fb7185"></span><span><span class="tn">--error-ink</span> <span class="hx">#fb7185</span><br><span class="hx">ошибка и отказ</span></span><span class="cr pass">6.26:1</span><span class="hx pass">AA</span></div><div class="tk"><span class="sw" style="background:#a5b4fc"></span><span><span class="tn">--info-ink</span> <span class="hx">#a5b4fc</span><br><span class="hx">шестая краска</span></span><span class="cr pass">8.46:1</span><span class="hx pass">AA</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sh">Линии — и находка</div>
+    <div class="sd">Разделители контраста не требуют: они декоративны. Но там, где линия <b>и есть</b> граница компонента — обводка поля, рамка невыбранного чекбокса, дорожка выключенного переключателя — WCAG 1.4.11 требует 3:1, и действующий <span class="mono">--line-strong</span> его не держит ни в одной теме.</div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:20px">
+      <div class="half lt"><div class="halfh">Светлая</div><div class="tk"><span class="sw" style="background:#e2e8f0"></span><span><span class="tn">--line</span> <span class="hx">#e2e8f0</span><br><span class="hx">разделитель</span></span><span class="cr fail">1.23:1</span><span class="hx fail">ниже нормы</span></div><div class="tk"><span class="sw" style="background:#cbd5e1"></span><span><span class="tn">--line-strong</span> <span class="hx">#cbd5e1</span><br><span class="hx">рамка карточки</span></span><span class="cr fail">1.48:1</span><span class="hx fail">ниже нормы</span></div><div class="tk"><span class="sw" style="background:#7e8fa6"></span><span><span class="tn">--line-ui</span> <span class="hx">#7e8fa6</span><br><span class="hx">граница контрола</span></span><span class="cr pass">3.30:1</span><span class="hx pass">AA</span></div></div>
+      <div class="half dk"><div class="halfh">Тёмная</div><div class="tk"><span class="sw" style="background:#1e2b41"></span><span><span class="tn">--line</span> <span class="hx">#1e2b41</span><br><span class="hx">разделитель</span></span><span class="cr fail">1.19:1</span><span class="hx fail">ниже нормы</span></div><div class="tk"><span class="sw" style="background:#2c3d59"></span><span><span class="tn">--line-strong</span> <span class="hx">#2c3d59</span><br><span class="hx">рамка карточки</span></span><span class="cr fail">1.54:1</span><span class="hx fail">ниже нормы</span></div><div class="tk"><span class="sw" style="background:#566d95"></span><span><span class="tn">--line-ui</span> <span class="hx">#566d95</span><br><span class="hx">граница контрола</span></span><span class="cr pass">3.22:1</span><span class="hx pass">AA</span></div></div>
+    </div>
+    <div class="alert a-warn" style="margin-top:18px">
+      <span class="ai"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4.5 21 19.5H3z"/><path d="M12 10v4M12 17h.01"/></svg></span>
+      <div><div class="at">Предлагается новый токен <span class="mono">--line-ui</span></div>
+      <div class="ad">Значения подобраны расчётом: #7E8FA6 даёт 3,30:1 на белом и 3,15:1 на <span class="mono">--bg-soft</span>; #566D95 — 3,22:1 на карточке тёмной темы. На него переходят только границы-аффордансы. Декоративные разделители остаются на <span class="mono">--line</span>, рамки карточек — на <span class="mono">--line-strong</span>: карточку держит ещё и тень, линия там не единственный признак.</div></div>
+    </div>
+    <div class="alert a-primary" style="margin-top:10px">
+      <span class="ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      <div><div class="at">Заливка вместо обводки — умолчание панели</div>
+      <div class="ad">Поле по умолчанию идёт вариантом <span class="mono">flat</span>: границу несёт заливка <span class="mono">--bg-soft</span>, а не линия. Так устроен эталон, и это же снимает половину вопроса с контрастом границ.</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sh">Плотность и геометрия</div>
+    <div class="sd">Панель плотнее сайта: там пол тап-зоны 44px, здесь мышь (DESIGN_BRIEF §9). На сенсорном экране высоты поднимаются до 44 и 52 правилом <span class="mono">.touch</span>.</div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:24px">
+      <div>
+        <span class="cap">высоты контролов</span>
+        <div class="scale">
+          <div class="sbox"><span class="btn solid sm">sm</span><b>32</b></div>
+          <div class="sbox"><span class="btn solid">md</span><b>40</b></div>
+          <div class="sbox"><span class="btn solid lg">lg</span><b>48</b></div>
+          <div class="sbox"><span class="btn solid" style="height:44px">сенсор md</span><b>44</b></div>
+          <div class="sbox"><span class="btn solid" style="height:52px">сенсор lg</span><b>52</b></div>
+        </div>
+        <span class="cap" style="margin-top:20px">радиусы</span>
+        <div class="scale">
+          <div class="sbox"><span style="width:44px;height:44px;background:var(--accent-bg);border-radius:9px;display:block"></span><b>9</b></div>
+          <div class="sbox"><span style="width:44px;height:44px;background:var(--accent-bg);border-radius:11px;display:block"></span><b>11</b></div>
+          <div class="sbox"><span style="width:44px;height:44px;background:var(--accent-bg);border-radius:14px;display:block"></span><b>14</b></div>
+          <div class="sbox"><span style="width:44px;height:44px;background:var(--accent-bg);border-radius:18px;display:block"></span><b>18</b></div>
+          <div class="sbox"><span style="width:44px;height:44px;background:var(--accent-bg);border-radius:20px;display:block"></span><b>20</b></div>
+          <div class="sbox"><span style="width:44px;height:44px;background:var(--accent-bg);border-radius:100px;display:block"></span><b>pill</b></div>
+        </div>
+      </div>
+      <div>
+        <span class="cap">шаг сетки — 4px</span>
+        <div class="scale" style="align-items:flex-end">
+          <div class="sbox"><span style="width:26px;height:4px;background:var(--brand);display:block"></span><b>4</b></div>
+          <div class="sbox"><span style="width:26px;height:8px;background:var(--brand);display:block"></span><b>8</b></div>
+          <div class="sbox"><span style="width:26px;height:12px;background:var(--brand);display:block"></span><b>12</b></div>
+          <div class="sbox"><span style="width:26px;height:16px;background:var(--brand);display:block"></span><b>16</b></div>
+          <div class="sbox"><span style="width:26px;height:24px;background:var(--brand);display:block"></span><b>24</b></div>
+          <div class="sbox"><span style="width:26px;height:32px;background:var(--brand);display:block"></span><b>32</b></div>
+        </div>
+        <span class="cap" style="margin-top:20px">тени</span>
+        <div class="scale">
+          <div class="sbox"><span style="width:70px;height:44px;background:var(--card);border-radius:11px;box-shadow:var(--sh-sm);display:block"></span><b>small</b></div>
+          <div class="sbox"><span style="width:70px;height:44px;background:var(--card);border-radius:11px;box-shadow:var(--sh-md);display:block"></span><b>medium</b></div>
+          <div class="sbox"><span style="width:70px;height:44px;background:var(--card);border-radius:11px;box-shadow:var(--sh-lg);display:block"></span><b>large</b></div>
+          <div class="sbox"><span style="width:70px;height:44px;background:var(--card);border-radius:11px;box-shadow:var(--ring-focus-ring);display:block"></span><b>фокус</b></div>
+        </div>
+        <span class="cap" style="margin-top:20px">кегли</span>
+        <div class="stack" style="gap:5px">
+          <span style="font-size:22px;font-weight:800;font-family:var(--font-display);color:var(--ink)">22 · заголовок страницы</span>
+          <span style="font-size:15px;font-weight:700;font-family:var(--font-display);color:var(--ink)">15 · заголовок карточки</span>
+          <span style="font-size:14px;color:var(--ink2)">14 · основной текст и контролы</span>
+          <span style="font-size:13px;color:var(--muted)">13 · подписи и вторичное</span>
+          <span style="font-size:12px;color:var(--faint)">12 · служебное, минимум панели</span>
+          <span class="mono" style="font-size:11px;color:var(--faint)">11 · моно: капитель шапки таблицы, цифры</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sh">Шесть красок и что каждая значит</div>
+    <div class="sd">Закрытый словарь. Седьмая не заводится — вместо неё уточняется подпись. Одно значение — одна краска везде: в списке, в карточке, в календаре, в уведомлении.</div>
+    <div class="grid" style="grid-template-columns:repeat(6,minmax(0,1fr));gap:14px">
+      <div class="stack" style="gap:8px"><span class="chip c-default lg" style="justify-content:center">Серая</span><span class="t-tiny mut">нейтральное: черновик, снято, не назначено</span></div>
+      <div class="stack" style="gap:8px"><span class="chip c-primary lg" style="justify-content:center">Бирюзовая</span><span class="t-tiny mut">идёт сейчас: в работе, выбрано, активно</span></div>
+      <div class="stack" style="gap:8px"><span class="chip c-success lg" style="justify-content:center">Зелёная</span><span class="t-tiny mut">завершено хорошо: выполнен, доставлено, в наличии</span></div>
+      <div class="stack" style="gap:8px"><span class="chip c-warn lg" style="justify-content:center">Янтарная</span><span class="t-tiny mut">требует внимания: назначен, на исходе, новая заявка</span></div>
+      <div class="stack" style="gap:8px"><span class="chip c-danger lg" style="justify-content:center">Красная</span><span class="t-tiny mut">сорвалось: отказ, просрочен, ниже порога</span></div>
+      <div class="stack" style="gap:8px"><span class="chip c-info lg" style="justify-content:center">Индиго</span><span class="t-tiny mut">шестая различимая: очередь, второй монтажник в календаре</span></div>
+    </div>
+    <div class="alert a-primary" style="margin-top:18px">
+      <span class="ai"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4.5 21 19.5H3z"/><path d="M12 10v4M12 17h.01"/></svg></span>
+      <div><div class="at">Цвет не единственный признак</div>
+      <div class="ad">У каждого чипа есть точка и подпись словом. Статус читается без цвета — это условие, а не украшение: при нарушениях цветовосприятия янтарный и зелёный различаются плохо, а «Назначен» и «Выполнен» — это разные вещи.</div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sh">Поверхности</div>
+    <div class="sd">На чём всё лежит. Панель — белый скруглённый контейнер на светло-сером поле; карточки внутри отличаются от него только границей, а не заливкой: иначе получается три оттенка серого друг на друге.</div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:20px">
+      <div>
+        <span class="cap">светлая</span>
+        <div class="ramp">
+<div class="chipc"><span class="sw2" style="background:#ffffff"></span><span class="meta"><span class="nm2">--bg</span><span class="hx2">#ffffff</span><span class="use">фон панели и карточек</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#f8fafc"></span><span class="meta"><span class="nm2">--bg-soft</span><span class="hx2">#f8fafc</span><span class="use">поле под панелью, заливка поля ввода</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#edf2f6"></span><span class="meta"><span class="nm2">--stripe-a</span><span class="hx2">#edf2f6</span><span class="use">наведение на поле</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#f5f8fa"></span><span class="meta"><span class="nm2">--stripe-b</span><span class="hx2">#f5f8fa</span><span class="use">чётная строка таблицы</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#0f172a"></span><span class="meta"><span class="nm2">--panel</span><span class="hx2">#0f172a</span><span class="use">тёмная врезка</span></span></div>
+        </div>
+      </div>
+      <div>
+        <span class="cap">тёмная</span>
+        <div class="dkwrap"><div class="ramp">
+<div class="chipc"><span class="sw2" style="background:#0b1220"></span><span class="meta"><span class="nm2">--bg</span><span class="hx2">#0b1220</span><span class="use">поле под панелью</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#121d31"></span><span class="meta"><span class="nm2">--card</span><span class="hx2">#121d31</span><span class="use">панель и карточки</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#0e1729"></span><span class="meta"><span class="nm2">--bg-soft</span><span class="hx2">#0e1729</span><span class="use">заливка поля ввода</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#121d31"></span><span class="meta"><span class="nm2">--stripe-b</span><span class="hx2">#121d31</span><span class="use">чётная строка</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#0b1424"></span><span class="meta"><span class="nm2">--field</span><span class="hx2">#0b1424</span><span class="use">фон поля</span></span></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sh">Чернила и линии</div>
+    <div class="sd">Пять уровней текста от заголовка до плейсхолдера — ниже опускаться некуда, каждый следующий не прошёл бы AA. Линий четыре, и они делают разное: <span class="mono">--line</span> разделяет, <span class="mono">--line-strong</span> обводит карточку, <span class="mono">--line-ui</span> служит границей контрола и потому обязан держать 3:1.</div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:20px">
+      <div>
+        <span class="cap">светлая · чернила</span>
+        <div class="ramp">
+<div class="chipc"><span class="sw2" style="background:#0f172a"></span><span class="meta"><span class="nm2">--ink</span><span class="hx2">#0f172a</span><span class="use">заголовки, цифры</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#334155"></span><span class="meta"><span class="nm2">--ink2</span><span class="hx2">#334155</span><span class="use">основной в панели</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#475569"></span><span class="meta"><span class="nm2">--body</span><span class="hx2">#475569</span><span class="use">текст на сайте</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#556173"></span><span class="meta"><span class="nm2">--muted</span><span class="hx2">#556173</span><span class="use">подписи полей</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#5b6a7d"></span><span class="meta"><span class="nm2">--faint</span><span class="hx2">#5b6a7d</span><span class="use">плейсхолдер, прочерк</span></span></div>
+        </div>
+        <span class="cap" style="margin-top:16px">светлая · линии</span>
+        <div class="ramp">
+<div class="chipc"><span class="sw2" style="background:#eef2f6"></span><span class="meta"><span class="nm2">--line-soft</span><span class="hx2">#eef2f6</span><span class="use">разделитель строк</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#e2e8f0"></span><span class="meta"><span class="nm2">--line</span><span class="hx2">#e2e8f0</span><span class="use">разделитель и рамка</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#cbd5e1"></span><span class="meta"><span class="nm2">--line-strong</span><span class="hx2">#cbd5e1</span><span class="use">рамка карточки</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#7e8fa6"></span><span class="meta"><span class="nm2">--line-ui</span><span class="hx2">#7e8fa6</span><span class="use">граница контрола · 3,30:1</span></span></div>
+        </div>
+      </div>
+      <div>
+        <span class="cap">тёмная · чернила</span>
+        <div class="dkwrap"><div class="ramp">
+<div class="chipc"><span class="sw2" style="background:#eaf1f8"></span><span class="meta"><span class="nm2">--ink</span><span class="hx2">#eaf1f8</span><span class="use">заголовки, цифры</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#c9d5e2"></span><span class="meta"><span class="nm2">--ink2</span><span class="hx2">#c9d5e2</span><span class="use">основной в панели</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#a8b6c6"></span><span class="meta"><span class="nm2">--body</span><span class="hx2">#a8b6c6</span><span class="use">текст на сайте</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#8598ac"></span><span class="meta"><span class="nm2">--muted</span><span class="hx2">#8598ac</span><span class="use">подписи полей</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#7e92a7"></span><span class="meta"><span class="nm2">--faint</span><span class="hx2">#7e92a7</span><span class="use">плейсхолдер, прочерк</span></span></div>
+        </div>
+        <span class="cap" style="margin-top:16px;color:#8598ac">тёмная · линии</span>
+        <div class="ramp">
+<div class="chipc"><span class="sw2" style="background:#182338"></span><span class="meta"><span class="nm2">--line-soft</span><span class="hx2">#182338</span><span class="use">разделитель строк</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#1e2b41"></span><span class="meta"><span class="nm2">--line</span><span class="hx2">#1e2b41</span><span class="use">разделитель и рамка</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#2c3d59"></span><span class="meta"><span class="nm2">--line-strong</span><span class="hx2">#2c3d59</span><span class="use">рамка карточки</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#566d95"></span><span class="meta"><span class="nm2">--line-ui</span><span class="hx2">#566d95</span><span class="use">граница контрола · 3,22:1</span></span></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sh">Фирменный акцент</div>
+    <div class="sd">Четыре константы одинаковы в обеих темах — это бренд, он не перекрашивается. Производные от него разводятся по темам: на белом нужен тёмный акцент, на почти чёрном — светлый.</div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:20px">
+      <div>
+        <span class="cap">константы бренда · обе темы</span>
+        <div class="ramp">
+<div class="chipc"><span class="sw2" style="background:#0e7490"></span><span class="meta"><span class="nm2">--brand</span><span class="hx2">#0e7490</span><span class="use">главная кнопка, активный слой</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#155e75"></span><span class="meta"><span class="nm2">--brand-hover</span><span class="hx2">#155e75</span><span class="use">наведение на главную кнопку</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#0891b2"></span><span class="meta"><span class="nm2">--brand-mark</span><span class="hx2">#0891b2</span><span class="use">знак бренда, серия графика</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#22d3ee"></span><span class="meta"><span class="nm2">--brand-mark-dark</span><span class="hx2">#22d3ee</span><span class="use">знак в тёмной теме</span></span></div>
+        </div>
+      </div>
+      <div>
+        <span class="cap">производные · светлая</span>
+        <div class="ramp">
+<div class="chipc"><span class="sw2" style="background:#0891b2"></span><span class="meta"><span class="nm2">--accent-ink</span><span class="hx2">#0891b2</span><span class="use">обводка фокуса</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#0e7490"></span><span class="meta"><span class="nm2">--accent-text</span><span class="hx2">#0e7490</span><span class="use">акцентный текст, ссылки</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#ecfeff"></span><span class="meta"><span class="nm2">--accent-bg</span><span class="hx2">#ecfeff</span><span class="use">подложка flat-кнопки и чипа</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#a5f3fc"></span><span class="meta"><span class="nm2">--accent-line</span><span class="hx2">#a5f3fc</span><span class="use">граница акцентной плашки</span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sh">Шесть семантических красок</div>
+    <div class="sd">Закрытый набор. У каждой три ступени: <span class="mono">-ink</span> для текста и значка, <span class="mono">-bg</span> для подложки чипа, <span class="mono">-line</span> для его границы. Седьмая не заводится — вместо неё уточняется подпись.</div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:20px">
+      <div>
+        <span class="cap">светлая</span>
+        <div class="ramp">
+<div class="chipc"><span class="sw2" style="background:#15803d"></span><span class="meta"><span class="nm2">--ok-ink</span><span class="hx2">#15803d</span><span class="use">выполнен, доставлено, в наличии</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#b45309"></span><span class="meta"><span class="nm2">--warn-ink</span><span class="hx2">#b45309</span><span class="use">назначен, на исходе, новая заявка</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#be123c"></span><span class="meta"><span class="nm2">--error-ink</span><span class="hx2">#be123c</span><span class="use">отказ, просрочен, ниже порога</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#4338ca"></span><span class="meta"><span class="nm2">--info-ink</span><span class="hx2">#4338ca</span><span class="use">очередь, второй монтажник</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#d97706"></span><span class="meta"><span class="nm2">--star</span><span class="hx2">#d97706</span><span class="use">звёзды рейтинга</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#be123c"></span><span class="meta"><span class="nm2">--sale-ink</span><span class="hx2">#be123c</span><span class="use">скидка на витрине</span></span></div>
+        </div>
+      </div>
+      <div>
+        <span class="cap">тёмная</span>
+        <div class="dkwrap"><div class="ramp">
+<div class="chipc"><span class="sw2" style="background:#4ade80"></span><span class="meta"><span class="nm2">--ok-ink</span><span class="hx2">#4ade80</span><span class="use">выполнен, доставлено, в наличии</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#fbbf24"></span><span class="meta"><span class="nm2">--warn-ink</span><span class="hx2">#fbbf24</span><span class="use">назначен, на исходе, новая заявка</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#fb7185"></span><span class="meta"><span class="nm2">--error-ink</span><span class="hx2">#fb7185</span><span class="use">отказ, просрочен, ниже порога</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#a5b4fc"></span><span class="meta"><span class="nm2">--info-ink</span><span class="hx2">#a5b4fc</span><span class="use">очередь, второй монтажник</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#fbbf24"></span><span class="meta"><span class="nm2">--star</span><span class="hx2">#fbbf24</span><span class="use">звёзды рейтинга</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#fb7185"></span><span class="meta"><span class="nm2">--sale-ink</span><span class="hx2">#fb7185</span><span class="use">скидка на витрине</span></span></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sh">Серии графиков</div>
+    <div class="sd">Отдельная пара: цвет метки данных должен быть насыщеннее, чем цвет текста. Фирменный <span class="mono">--brand</span> (#0E7490) как метка проваливает проверку насыщенности — читается серым. Пара ниже прошла все шесть проверок валидатора: полоса светлоты, порог насыщенности, различимость при дальтонизме (ΔE 20,0 дейтан · 28,8 тритан), нормальное зрение (ΔE 26,1) и контраст к поверхности.</div>
+    <div class="row" style="gap:24px;align-items:flex-start;flex-wrap:wrap">
+      <div class="ramp" style="width:400px">
+<div class="chipc"><span class="sw2" style="background:#0891b2"></span><span class="meta"><span class="nm2">--s1</span><span class="hx2">#0891b2</span><span class="use">первая серия · светлая</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#b45309"></span><span class="meta"><span class="nm2">--s2</span><span class="hx2">#b45309</span><span class="use">вторая серия · светлая</span></span></div>
+      </div>
+      <div class="dkwrap" style="width:400px"><div class="ramp">
+<div class="chipc"><span class="sw2" style="background:#22d3ee"></span><span class="meta"><span class="nm2">--s1</span><span class="hx2">#22d3ee</span><span class="use">первая серия · тёмная</span></span></div>
+<div class="chipc"><span class="sw2" style="background:#fbbf24"></span><span class="meta"><span class="nm2">--s2</span><span class="hx2">#fbbf24</span><span class="use">вторая серия · тёмная</span></span></div>
+      </div></div>
+      <div class="alert a-warn" style="flex:1;min-width:320px">
+        <span class="ai"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4.5 21 19.5H3z"/><path d="M12 10v4M12 17h.01"/></svg></span>
+        <div><div class="at">В тёмной теме пара выходит за полосу светлоты</div>
+        <div class="ad">Валидатор помечает это как несоответствие: обе метки светлее верхней границы. Контраст к поверхности при этом проходит. Опознание там не держится на цвете — у графика есть легенда и прямые подписи концов линий, и это именно та подстраховка, которую правило требует взамен.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":1400,"height":4921}}'>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+/* Токены сняты из apps/web/src/shared/styles/tokens.css и ui-tokens.css — один в один */
+:root{
+  --bg:#fff; --bg-soft:#f8fafc; --card:#fff;
+  --header-bg:rgb(255 255 255 / 82%);
+  --hero-grad:linear-gradient(180deg,#f0f9fb 0%,#fff 100%);
+  --ink:#0f172a; --ink2:#334155; --body:#475569; --muted:#556173; --faint:#5b6a7d;
+  --line:#e2e8f0; --line-strong:#cbd5e1; --line-soft:#eef2f6;
+  --accent-ink:#0891b2; --accent-text:#0e7490; --accent-bg:#ecfeff; --accent-line:#a5f3fc;
+  --panel:#0f172a; --stripe-a:#edf2f6; --stripe-b:#f5f8fa; --field:#fff;
+  --brand:#0e7490; --brand-hover:#155e75; --brand-mark:#0891b2; --brand-mark-dark:#22d3ee;
+  --on-brand:#fff; --on-panel:#fff; --on-accent:var(--accent-text);
+  --sale-ink:rgb(190 18 60); --sale-bg:rgb(190 18 60 / 8%); --sale-line:rgb(190 18 60 / 28%);
+  --star:rgb(217 119 6); --ok-ink:rgb(21 128 61); --ok-bg:rgb(21 128 61 / 8%);
+  --lead-grad:linear-gradient(180deg,rgb(15 23 42) 0%,rgb(11 37 48) 100%);
+  --shadow-header:0 12px 34px -16px rgb(15 23 42 / 22%);
+  --shadow-card:0 20px 44px -28px rgb(15 23 42 / 20%);
+  --shadow-brand:0 10px 24px rgb(14 116 144 / 30%);
+  --shadow-raised:0 36px 80px -32px rgb(8 66 84 / 45%);
+  --ring:0 0 0 2px var(--bg),0 0 0 4px var(--accent-ink);
+  --r-sm:11px; --r-md:14px; --r-ml:18px; --r-lg:20px; --r-xl:22px; --r-xxl:24px; --r-pill:100px;
+  --font-display:'Onest',system-ui,sans-serif;
+  --font-text:'Manrope',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+[data-theme='dark']{
+  --bg:#0b1220; --bg-soft:#0e1729; --card:#121d31;
+  --header-bg:rgb(11 18 32 / 80%);
+  --hero-grad:linear-gradient(180deg,#0c1628 0%,#0b1220 100%);
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --line:#1e2b41; --line-strong:#2c3d59; --line-soft:#182338;
+  --accent-ink:#22d3ee; --accent-text:#22d3ee; --accent-bg:rgb(34 211 238 / 10%); --accent-line:rgb(34 211 238 / 35%);
+  --panel:#111d34; --stripe-a:#16223a; --stripe-b:#121d31; --field:#0b1424;
+  --sale-ink:rgb(251 113 133); --sale-bg:rgb(251 113 133 / 12%); --sale-line:rgb(251 113 133 / 32%);
+  --star:rgb(251 191 36); --ok-ink:rgb(74 222 128); --ok-bg:rgb(74 222 128 / 12%);
+}
+/* Тёмный остров внутри светлой темы (ADR-158) */
+[data-ground='panel']{
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --accent-text:#22d3ee;
+}
+/* Компоненты кита — геометрия скопирована из shared/ui/*.module.css.
+   Плотность и шаг сетки (4px, внутренние поля карточек, зазоры групп) —
+   с эталона HeroUI, как требует ADR-170. */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);
+  font-family:var(--font-text);font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:var(--accent-text);text-decoration:none}
+a:hover{color:var(--brand-hover)}
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);color:var(--ink);
+  letter-spacing:-0.02em;font-weight:700;text-wrap:balance}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+
+/* ——— кнопки: Button.module.css ——— */
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;
+  border:1px solid transparent;border-radius:var(--r-sm);
+  font-family:var(--font-text);font-weight:600;line-height:1.2;
+  white-space:nowrap;cursor:pointer;text-decoration:none}
+.btn.lg{min-height:52px;padding:15px 28px;border-radius:12px;font-size:16px}
+.btn.md{min-height:44px;padding:11px 18px;font-size:14.5px}
+.btn.sm{min-height:44px;padding:8px 14px;border-radius:9px;font-size:13px}
+.btn.primary{border-color:var(--brand);background:var(--brand);color:var(--on-brand);
+  box-shadow:var(--shadow-brand)}
+.btn.secondary{border-color:var(--line-strong);background:var(--card);color:var(--ink)}
+.btn.accent{background:var(--accent-bg);color:var(--on-accent)}
+.btn.ghost{background:transparent;color:var(--accent-text)}
+.btn.full{width:100%}
+
+/* ——— чип: Chip.module.css ——— */
+.chip{display:inline-flex;gap:6px;align-items:center;justify-content:center;
+  min-height:44px;padding:11px 16px;border:1px solid var(--line-strong);
+  border-radius:var(--r-pill);background:transparent;color:var(--body);
+  font-size:14.5px;font-weight:600;line-height:1.2;white-space:nowrap;cursor:pointer}
+.chip.on{border-color:var(--brand);background:var(--brand);color:var(--on-brand)}
+.chip.sm{min-height:36px;padding:7px 13px;font-size:13px}
+
+/* ——— карточка: Card.module.css ——— */
+.card{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);
+  box-shadow:var(--shadow-card)}
+.card.soft{border-color:var(--line-soft);background:var(--bg-soft);box-shadow:none}
+.card.acc{border-color:var(--accent-line);background:var(--accent-bg);box-shadow:none}
+.card.panel{border-color:var(--panel);background:var(--panel);color:#a8b6c6}
+.card.flat{box-shadow:none}
+
+/* ——— поле: internal/control.module.css ——— */
+.ctl{display:flex;align-items:center;width:100%;min-height:44px;padding:13px 14px;
+  border:1px solid var(--line-strong);border-radius:var(--r-sm);
+  background:var(--field);color:var(--ink);font-size:16px;line-height:1.4}
+.ctl.ph{color:var(--faint)}
+.lab{display:block;margin-bottom:7px;color:var(--ink2);font-size:13px;font-weight:600}
+
+/* ——— типографика страницы ——— */
+.kicker{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-text)}
+.mono{font-family:var(--font-mono)}
+.lead{color:var(--body);font-size:15.5px;line-height:1.5}
+.mut{color:var(--muted);font-size:13px}
+.fnt{color:var(--faint);font-size:12px}
+.price{font-family:var(--font-display);font-weight:800;color:var(--ink);
+  letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.stack{display:flex;flex-direction:column}
+.row{display:flex;align-items:center}
+.grid{display:grid}
+.clamp2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.clamp3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.clamp4{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ——— подписи макета (не часть интерфейса) ——— */
+.note{font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;
+  color:var(--accent-text);text-transform:uppercase}
+.spec{font-family:var(--font-mono);font-size:11px;color:#5b6a7d}
+/* Слот под ярлык скидки. Занимает место и у карточки без скидки — иначе
+   цена и кнопка «Заказать» стоят в ряду на разной высоте (ADR к issue #42). */
+.saleslot{display:flex;align-items:center;gap:8px;margin-top:8px;min-height:24px}
+/* Лист аудита — не интерфейс сайта, а спецификация к нему */
+.page{width:920px;background:var(--bg-soft);padding:36px}
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-card);padding:32px}
+.h2{font-size:30px;line-height:1.1;font-weight:800}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.metric{border:1px solid var(--line);border-radius:var(--r-md);padding:14px;background:var(--bg-soft)}
+.big{font-family:var(--font-display);font-weight:800;font-size:27px;letter-spacing:-0.02em;
+  color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1}
+.was2{font-family:var(--font-mono);font-size:12px;color:var(--faint)}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{text-align:left;padding:9px 12px;font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--line-strong);font-weight:400}
+.tbl td{padding:11px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top;
+  color:var(--ink2);line-height:1.45}
+.tbl tr:nth-child(even) td{background:var(--stripe-b)}
+.tag{display:inline-flex;align-items:center;line-height:1.2;padding:3px 9px;border-radius:var(--r-pill);
+  font-family:var(--font-mono);font-size:11px;white-space:nowrap}
+.t-cut{border:1px solid var(--sale-line);background:var(--sale-bg);color:var(--sale-ink)}
+.t-len{border:1px solid rgb(180 83 9 / 28%);background:rgb(180 83 9 / 8%);color:rgb(180 83 9)}
+.t-ux{border:1px solid var(--line-strong);background:var(--bg-soft);color:var(--muted)}
+.fix{color:var(--accent-text);font-weight:600}
+  </style>
+</helmet>
+<div class="page">
+  <div class="sheet">
+    <span class="kicker">— Точка отсчёта · 29 августа 2026 —</span>
+    <h2 class="h2" style="margin-top:10px">Что сейчас происходит с главной на телефоне</h2>
+    <p class="lead" style="margin-top:10px;max-width:720px">Снято в браузере с рабочего стенда: замеры высоты страницы, выходов за край
+      и расположения элементов на 320, 375, 768 и 1200. Это не впечатление — каждая строка ниже соответствует числу, которое можно перепроверить.</p>
+
+    <div class="metrics" style="margin-top:24px">
+      <div class="metric"><span class="was2">Высота страницы · 375</span><div class="big" style="margin-top:6px">21 769 px</div><span class="fnt">26,8 экрана</span></div>
+      <div class="metric"><span class="was2">Высота страницы · 320</span><div class="big" style="margin-top:6px">23 081 px</div><span class="fnt">нижняя граница поддержки</span></div>
+      <div class="metric"><span class="was2">Высота страницы · 768</span><div class="big" style="margin-top:6px">16 707 px</div><span class="fnt">16,3 экрана</span></div>
+      <div class="metric" style="border-color:var(--accent-line);background:var(--accent-bg)"><span class="was2" style="color:var(--accent-text)">Десктоп · 1200</span><div class="big" style="margin-top:6px;color:var(--accent-text)">12 535 px</div><span class="fnt" style="color:var(--accent-text)">13,9 экрана</span></div>
+    </div>
+    <p class="mut" style="margin-top:12px;font-size:13.5px">Телефону достаётся вдвое больше прокрутки, чем десктопу, — при том что с телефона в этой нише приходит основная часть трафика.</p>
+
+    <h3 class="h3" style="margin-top:32px;font-size:19px">Выходы за край — контент, который посетитель не увидит</h3>
+    <table class="tbl" style="margin-top:12px">
+      <thead><tr><th style="width:200px">Где</th><th>Что происходит</th><th style="width:250px">Решение в макете</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag t-cut">обрезка</span><br><span style="display:block;margin-top:6px">Карточка каталога</span></td>
+          <td>Кнопка «+ Сравнить» вылезает за правый край карточки: на 375 видно «+ Сравнит».</td>
+          <td class="fix">Сравнение стало кнопкой-иконкой 44×44 в углу фотографии; в теле карточки осталось одно действие.</td></tr>
+        <tr><td><span class="tag t-cut">обрезка</span><br><span style="display:block;margin-top:6px">Таймлайн «День монтажа»</span></td>
+          <td>Описания шагов режутся правым краем: «анкеры по…», «выставлен по уровн…».</td>
+          <td class="fix">Метка времени вынесена в отдельную строку над заголовком, колонка получила <span class="mono">min-width: 0</span>.</td></tr>
+        <tr><td><span class="tag t-cut">обрезка</span><br><span style="display:block;margin-top:6px">Симптомы в сервисе</span></td>
+          <td>Лента чипов уходит за правый край без затухания и без признака, что её можно листать.</td>
+          <td class="fix">Сетка 2×3 на телефоне: ничего не прячется и листать не нужно.</td></tr>
+        <tr><td><span class="tag t-cut">обрезка</span><br><span style="display:block;margin-top:6px">Лента отзывов</span></td>
+          <td>Карточки срезаны с обеих сторон, текст рвётся посреди слова. На телефоне читается как поломка вёрстки, а не как лента.</td>
+          <td class="fix">Одна колонка целиком на телефоне, две на планшете; обрыв текста — многоточием по слову.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="h3" style="margin-top:28px;font-size:19px">Длина — куда уходят 26 экранов</h3>
+    <table class="tbl" style="margin-top:12px">
+      <thead><tr><th style="width:200px">Секция</th><th style="width:110px">Было · 375</th><th style="width:110px">Стало</th><th>Что изменилось</th></tr></thead>
+      <tbody>
+        <tr><td>Первый экран</td><td class="mono">1 656 px</td><td class="mono fix">997 px</td><td>Лид короче, один призыв вместо двух кнопок, погода в одну строку, показатели в один ряд. Подбор начинается на 560 px вместо 700 — инструмент виден до прокрутки.</td></tr>
+        <tr><td>Каталог</td><td class="mono">2 667 px</td><td class="mono fix">1 685 px</td><td>Карточка 400 px вместо 670: фото 16:10, одно действие, сравнение — иконкой. Показаны три модели, остальные раскрываются.</td></tr>
+        <tr><td>Монтаж</td><td class="mono">2 222 px</td><td class="mono fix">639 px</td><td>Два таймлайна подряд рассказывали одно и то же. «День по часам» свёрнут — содержимое остаётся в HTML и индексируется.</td></tr>
+        <tr><td>Цены</td><td class="mono">2 170 px</td><td class="mono fix">1 343 px</td><td>Строки прайса плотнее, калькулятор компактнее, итог прижат ко дну карточки.</td></tr>
+        <tr><td>Заявка</td><td class="mono">1 845 px</td><td class="mono fix">954 px</td><td>Открыты обязательные поля, восемь необязательных — в раскрывающемся блоке.</td></tr>
+        <tr><td>База знаний</td><td class="mono">1 745 px</td><td class="mono fix">736 px</td><td>Карточка без обложки во всю ширину, текст в две строки, дата и время чтения в подпись.</td></tr>
+        <tr><td style="font-weight:700;color:var(--ink)">Вся страница</td><td class="mono" style="font-weight:700">21 769 px</td><td class="mono fix" style="font-weight:700">12 819 px</td><td style="font-weight:600;color:var(--ink)">−41 %: 15,8 экрана вместо 26,8. На 768 — 9 893 px вместо 16 707.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="h3" style="margin-top:28px;font-size:19px">Шасси и приоритеты</h3>
+    <table class="tbl" style="margin-top:12px">
+      <thead><tr><th style="width:200px">Узел</th><th>Что не работает</th><th style="width:250px">Решение в макете</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag t-ux">иерархия</span><br><span style="display:block;margin-top:6px">Шапка</span></td>
+          <td>Четыре управляющих элемента в 343 px: значок телефона, тема, «Заявка», бургер. Название компании обрезано до «ТулаКл…», а на 359 px и уже исчезает совсем — бренд пропадает.</td>
+          <td class="fix">56 px, бренд и одна кнопка меню. Телефон и заявка переезжают вниз, в липкую панель; тема — в меню.</td></tr>
+        <tr><td><span class="tag t-ux">конверсия</span><br><span style="display:block;margin-top:6px">Призыв к действию</span></td>
+          <td>На странице в 26 экранов позвонить и оставить заявку можно только из шапки — и там телефон сжат до безымянного значка.</td>
+          <td class="fix">Липкая панель внизу: «Позвонить» и «Оставить заявку» под большим пальцем, всегда.</td></tr>
+        <tr><td><span class="tag t-ux">перекрытие</span><br><span style="display:block;margin-top:6px">Кнопка «наверх»</span></td>
+          <td>Плавающая кнопка в правом нижнем углу закрывает «Заказать» в карточке каталога и подпись «от заявки до запуска».</td>
+          <td class="fix">Уходит: её роль берёт панель действий, а над панелью остаётся место под тап.</td></tr>
+        <tr><td><span class="tag t-len">ритм</span><br><span style="display:block;margin-top:6px">Показатели в первом экране</span></td>
+          <td>Сетка 2×2 на три значения: третье висит одно и попадает под плавающую кнопку.</td>
+          <td class="fix">Три колонки в один ряд, цифра 19 px, подпись в две строки.</td></tr>
+      </tbody>
+    </table>
+
+    <p class="fnt" style="margin-top:24px;line-height:1.5">Замеры сняты на локальном стенде с демонстрационными данными: телефоны, реквизиты и цены — из тестовой базы, не боевые.</p>
+  </div>
+</div>
+
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":920,"height":2170}}'>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

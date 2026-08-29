@@ -1,0 +1,70 @@
+<div class="page">
+  <div class="sheet">
+    <span class="kicker">— Точка отсчёта · 29 августа 2026 —</span>
+    <h2 class="h2" style="margin-top:10px">Что сейчас происходит с главной на телефоне</h2>
+    <p class="lead" style="margin-top:10px;max-width:720px">Снято в браузере с рабочего стенда: замеры высоты страницы, выходов за край
+      и расположения элементов на 320, 375, 768 и 1200. Это не впечатление — каждая строка ниже соответствует числу, которое можно перепроверить.</p>
+
+    <div class="metrics" style="margin-top:24px">
+      <div class="metric"><span class="was2">Высота страницы · 375</span><div class="big" style="margin-top:6px">21 769 px</div><span class="fnt">26,8 экрана</span></div>
+      <div class="metric"><span class="was2">Высота страницы · 320</span><div class="big" style="margin-top:6px">23 081 px</div><span class="fnt">нижняя граница поддержки</span></div>
+      <div class="metric"><span class="was2">Высота страницы · 768</span><div class="big" style="margin-top:6px">16 707 px</div><span class="fnt">16,3 экрана</span></div>
+      <div class="metric" style="border-color:var(--accent-line);background:var(--accent-bg)"><span class="was2" style="color:var(--accent-text)">Десктоп · 1200</span><div class="big" style="margin-top:6px;color:var(--accent-text)">12 535 px</div><span class="fnt" style="color:var(--accent-text)">13,9 экрана</span></div>
+    </div>
+    <p class="mut" style="margin-top:12px;font-size:13.5px">Телефону достаётся вдвое больше прокрутки, чем десктопу, — при том что с телефона в этой нише приходит основная часть трафика.</p>
+
+    <h3 class="h3" style="margin-top:32px;font-size:19px">Выходы за край — контент, который посетитель не увидит</h3>
+    <table class="tbl" style="margin-top:12px">
+      <thead><tr><th style="width:200px">Где</th><th>Что происходит</th><th style="width:250px">Решение в макете</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag t-cut">обрезка</span><br><span style="display:block;margin-top:6px">Карточка каталога</span></td>
+          <td>Кнопка «+ Сравнить» вылезает за правый край карточки: на 375 видно «+ Сравнит».</td>
+          <td class="fix">Сравнение стало кнопкой-иконкой 44×44 в углу фотографии; в теле карточки осталось одно действие.</td></tr>
+        <tr><td><span class="tag t-cut">обрезка</span><br><span style="display:block;margin-top:6px">Таймлайн «День монтажа»</span></td>
+          <td>Описания шагов режутся правым краем: «анкеры по…», «выставлен по уровн…».</td>
+          <td class="fix">Метка времени вынесена в отдельную строку над заголовком, колонка получила <span class="mono">min-width: 0</span>.</td></tr>
+        <tr><td><span class="tag t-cut">обрезка</span><br><span style="display:block;margin-top:6px">Симптомы в сервисе</span></td>
+          <td>Лента чипов уходит за правый край без затухания и без признака, что её можно листать.</td>
+          <td class="fix">Сетка 2×3 на телефоне: ничего не прячется и листать не нужно.</td></tr>
+        <tr><td><span class="tag t-cut">обрезка</span><br><span style="display:block;margin-top:6px">Лента отзывов</span></td>
+          <td>Карточки срезаны с обеих сторон, текст рвётся посреди слова. На телефоне читается как поломка вёрстки, а не как лента.</td>
+          <td class="fix">Одна колонка целиком на телефоне, две на планшете; обрыв текста — многоточием по слову.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="h3" style="margin-top:28px;font-size:19px">Длина — куда уходят 26 экранов</h3>
+    <table class="tbl" style="margin-top:12px">
+      <thead><tr><th style="width:200px">Секция</th><th style="width:110px">Было · 375</th><th style="width:110px">Стало</th><th>Что изменилось</th></tr></thead>
+      <tbody>
+        <tr><td>Первый экран</td><td class="mono">1 656 px</td><td class="mono fix">997 px</td><td>Лид короче, один призыв вместо двух кнопок, погода в одну строку, показатели в один ряд. Подбор начинается на 560 px вместо 700 — инструмент виден до прокрутки.</td></tr>
+        <tr><td>Каталог</td><td class="mono">2 667 px</td><td class="mono fix">1 685 px</td><td>Карточка 400 px вместо 670: фото 16:10, одно действие, сравнение — иконкой. Показаны три модели, остальные раскрываются.</td></tr>
+        <tr><td>Монтаж</td><td class="mono">2 222 px</td><td class="mono fix">639 px</td><td>Два таймлайна подряд рассказывали одно и то же. «День по часам» свёрнут — содержимое остаётся в HTML и индексируется.</td></tr>
+        <tr><td>Цены</td><td class="mono">2 170 px</td><td class="mono fix">1 343 px</td><td>Строки прайса плотнее, калькулятор компактнее, итог прижат ко дну карточки.</td></tr>
+        <tr><td>Заявка</td><td class="mono">1 845 px</td><td class="mono fix">954 px</td><td>Открыты обязательные поля, восемь необязательных — в раскрывающемся блоке.</td></tr>
+        <tr><td>База знаний</td><td class="mono">1 745 px</td><td class="mono fix">736 px</td><td>Карточка без обложки во всю ширину, текст в две строки, дата и время чтения в подпись.</td></tr>
+        <tr><td style="font-weight:700;color:var(--ink)">Вся страница</td><td class="mono" style="font-weight:700">21 769 px</td><td class="mono fix" style="font-weight:700">12 819 px</td><td style="font-weight:600;color:var(--ink)">−41 %: 15,8 экрана вместо 26,8. На 768 — 9 893 px вместо 16 707.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="h3" style="margin-top:28px;font-size:19px">Шасси и приоритеты</h3>
+    <table class="tbl" style="margin-top:12px">
+      <thead><tr><th style="width:200px">Узел</th><th>Что не работает</th><th style="width:250px">Решение в макете</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag t-ux">иерархия</span><br><span style="display:block;margin-top:6px">Шапка</span></td>
+          <td>Четыре управляющих элемента в 343 px: значок телефона, тема, «Заявка», бургер. Название компании обрезано до «ТулаКл…», а на 359 px и уже исчезает совсем — бренд пропадает.</td>
+          <td class="fix">56 px, бренд и одна кнопка меню. Телефон и заявка переезжают вниз, в липкую панель; тема — в меню.</td></tr>
+        <tr><td><span class="tag t-ux">конверсия</span><br><span style="display:block;margin-top:6px">Призыв к действию</span></td>
+          <td>На странице в 26 экранов позвонить и оставить заявку можно только из шапки — и там телефон сжат до безымянного значка.</td>
+          <td class="fix">Липкая панель внизу: «Позвонить» и «Оставить заявку» под большим пальцем, всегда.</td></tr>
+        <tr><td><span class="tag t-ux">перекрытие</span><br><span style="display:block;margin-top:6px">Кнопка «наверх»</span></td>
+          <td>Плавающая кнопка в правом нижнем углу закрывает «Заказать» в карточке каталога и подпись «от заявки до запуска».</td>
+          <td class="fix">Уходит: её роль берёт панель действий, а над панелью остаётся место под тап.</td></tr>
+        <tr><td><span class="tag t-len">ритм</span><br><span style="display:block;margin-top:6px">Показатели в первом экране</span></td>
+          <td>Сетка 2×2 на три значения: третье висит одно и попадает под плавающую кнопку.</td>
+          <td class="fix">Три колонки в один ряд, цифра 19 px, подпись в две строки.</td></tr>
+      </tbody>
+    </table>
+
+    <p class="fnt" style="margin-top:24px;line-height:1.5">Замеры сняты на локальном стенде с демонстрационными данными: телефоны, реквизиты и цены — из тестовой базы, не боевые.</p>
+  </div>
+</div>

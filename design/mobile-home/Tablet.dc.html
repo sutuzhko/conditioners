@@ -1,0 +1,748 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+/* Токены сняты из apps/web/src/shared/styles/tokens.css и ui-tokens.css — один в один */
+:root{
+  --bg:#fff; --bg-soft:#f8fafc; --card:#fff;
+  --header-bg:rgb(255 255 255 / 82%);
+  --hero-grad:linear-gradient(180deg,#f0f9fb 0%,#fff 100%);
+  --ink:#0f172a; --ink2:#334155; --body:#475569; --muted:#556173; --faint:#5b6a7d;
+  --line:#e2e8f0; --line-strong:#cbd5e1; --line-soft:#eef2f6;
+  --accent-ink:#0891b2; --accent-text:#0e7490; --accent-bg:#ecfeff; --accent-line:#a5f3fc;
+  --panel:#0f172a; --stripe-a:#edf2f6; --stripe-b:#f5f8fa; --field:#fff;
+  --brand:#0e7490; --brand-hover:#155e75; --brand-mark:#0891b2; --brand-mark-dark:#22d3ee;
+  --on-brand:#fff; --on-panel:#fff; --on-accent:var(--accent-text);
+  --sale-ink:rgb(190 18 60); --sale-bg:rgb(190 18 60 / 8%); --sale-line:rgb(190 18 60 / 28%);
+  --star:rgb(217 119 6); --ok-ink:rgb(21 128 61); --ok-bg:rgb(21 128 61 / 8%);
+  --lead-grad:linear-gradient(180deg,rgb(15 23 42) 0%,rgb(11 37 48) 100%);
+  --shadow-header:0 12px 34px -16px rgb(15 23 42 / 22%);
+  --shadow-card:0 20px 44px -28px rgb(15 23 42 / 20%);
+  --shadow-brand:0 10px 24px rgb(14 116 144 / 30%);
+  --shadow-raised:0 36px 80px -32px rgb(8 66 84 / 45%);
+  --ring:0 0 0 2px var(--bg),0 0 0 4px var(--accent-ink);
+  --r-sm:11px; --r-md:14px; --r-ml:18px; --r-lg:20px; --r-xl:22px; --r-xxl:24px; --r-pill:100px;
+  --font-display:'Onest',system-ui,sans-serif;
+  --font-text:'Manrope',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+[data-theme='dark']{
+  --bg:#0b1220; --bg-soft:#0e1729; --card:#121d31;
+  --header-bg:rgb(11 18 32 / 80%);
+  --hero-grad:linear-gradient(180deg,#0c1628 0%,#0b1220 100%);
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --line:#1e2b41; --line-strong:#2c3d59; --line-soft:#182338;
+  --accent-ink:#22d3ee; --accent-text:#22d3ee; --accent-bg:rgb(34 211 238 / 10%); --accent-line:rgb(34 211 238 / 35%);
+  --panel:#111d34; --stripe-a:#16223a; --stripe-b:#121d31; --field:#0b1424;
+  --sale-ink:rgb(251 113 133); --sale-bg:rgb(251 113 133 / 12%); --sale-line:rgb(251 113 133 / 32%);
+  --star:rgb(251 191 36); --ok-ink:rgb(74 222 128); --ok-bg:rgb(74 222 128 / 12%);
+}
+/* Тёмный остров внутри светлой темы (ADR-158) */
+[data-ground='panel']{
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --accent-text:#22d3ee;
+}
+/* Компоненты кита — геометрия скопирована из shared/ui/*.module.css.
+   Плотность и шаг сетки (4px, внутренние поля карточек, зазоры групп) —
+   с эталона HeroUI, как требует ADR-170. */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);
+  font-family:var(--font-text);font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:var(--accent-text);text-decoration:none}
+a:hover{color:var(--brand-hover)}
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);color:var(--ink);
+  letter-spacing:-0.02em;font-weight:700;text-wrap:balance}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+
+/* ——— кнопки: Button.module.css ——— */
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;
+  border:1px solid transparent;border-radius:var(--r-sm);
+  font-family:var(--font-text);font-weight:600;line-height:1.2;
+  white-space:nowrap;cursor:pointer;text-decoration:none}
+.btn.lg{min-height:52px;padding:15px 28px;border-radius:12px;font-size:16px}
+.btn.md{min-height:44px;padding:11px 18px;font-size:14.5px}
+.btn.sm{min-height:44px;padding:8px 14px;border-radius:9px;font-size:13px}
+.btn.primary{border-color:var(--brand);background:var(--brand);color:var(--on-brand);
+  box-shadow:var(--shadow-brand)}
+.btn.secondary{border-color:var(--line-strong);background:var(--card);color:var(--ink)}
+.btn.accent{background:var(--accent-bg);color:var(--on-accent)}
+.btn.ghost{background:transparent;color:var(--accent-text)}
+.btn.full{width:100%}
+
+/* ——— чип: Chip.module.css ——— */
+.chip{display:inline-flex;gap:6px;align-items:center;justify-content:center;
+  min-height:44px;padding:11px 16px;border:1px solid var(--line-strong);
+  border-radius:var(--r-pill);background:transparent;color:var(--body);
+  font-size:14.5px;font-weight:600;line-height:1.2;white-space:nowrap;cursor:pointer}
+.chip.on{border-color:var(--brand);background:var(--brand);color:var(--on-brand)}
+.chip.sm{min-height:36px;padding:7px 13px;font-size:13px}
+
+/* ——— карточка: Card.module.css ——— */
+.card{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);
+  box-shadow:var(--shadow-card)}
+.card.soft{border-color:var(--line-soft);background:var(--bg-soft);box-shadow:none}
+.card.acc{border-color:var(--accent-line);background:var(--accent-bg);box-shadow:none}
+.card.panel{border-color:var(--panel);background:var(--panel);color:#a8b6c6}
+.card.flat{box-shadow:none}
+
+/* ——— поле: internal/control.module.css ——— */
+.ctl{display:flex;align-items:center;width:100%;min-height:44px;padding:13px 14px;
+  border:1px solid var(--line-strong);border-radius:var(--r-sm);
+  background:var(--field);color:var(--ink);font-size:16px;line-height:1.4}
+.ctl.ph{color:var(--faint)}
+.lab{display:block;margin-bottom:7px;color:var(--ink2);font-size:13px;font-weight:600}
+
+/* ——— типографика страницы ——— */
+.kicker{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-text)}
+.mono{font-family:var(--font-mono)}
+.lead{color:var(--body);font-size:15.5px;line-height:1.5}
+.mut{color:var(--muted);font-size:13px}
+.fnt{color:var(--faint);font-size:12px}
+.price{font-family:var(--font-display);font-weight:800;color:var(--ink);
+  letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.stack{display:flex;flex-direction:column}
+.row{display:flex;align-items:center}
+.grid{display:grid}
+.clamp2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.clamp3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.clamp4{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ——— подписи макета (не часть интерфейса) ——— */
+.note{font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;
+  color:var(--accent-text);text-transform:uppercase}
+.spec{font-family:var(--font-mono);font-size:11px;color:#5b6a7d}
+/* Слот под ярлык скидки. Занимает место и у карточки без скидки — иначе
+   цена и кнопка «Заказать» стоят в ряду на разной высоте (ADR к issue #42). */
+.saleslot{display:flex;align-items:center;gap:8px;margin-top:8px;min-height:24px}
+/* ——— Планшет 768. Контейнер 720 = 768 − 2×24 (боковые отступы из брифа §4).
+   Правило шапки: 600–999 — бренд, телефон, заявка и бургер; липкой панели
+   действий здесь нет, потому что призыв уже стоит в шапке ——— */
+.page{width:768px;background:var(--bg);position:relative;overflow:hidden}
+.wrap{max-width:720px;margin:0 auto}
+.sec{padding:64px 24px}
+.sec.alt{background:var(--bg-soft)}
+.h2{font-size:30px;line-height:1.12;font-weight:800}
+.h3{font-size:18px;line-height:1.25;font-weight:700}
+.head{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;max-width:620px}
+.head.mid{margin-inline:auto;text-align:center;align-items:center}
+.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+
+.hdr{position:sticky;top:0;z-index:50;padding:12px 24px}
+.hdrbar{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  max-width:720px;margin:0 auto;padding:8px 8px 8px 14px;border:1px solid var(--line);
+  border-radius:var(--r-ml);background:var(--header-bg);box-shadow:var(--shadow-header);
+  backdrop-filter:blur(16px)}
+.mark{width:36px;height:36px;border-radius:10px;background:var(--brand-mark);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand{font-family:var(--font-display);font-size:18px;font-weight:700;
+  letter-spacing:-0.02em;color:var(--ink);white-space:nowrap}
+.iconbtn{width:44px;height:44px;border-radius:var(--r-sm);border:1px solid var(--line-strong);
+  background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+.ticker{display:flex;gap:32px;justify-content:center;padding:16px 24px;overflow:hidden;
+  border-block:1px solid var(--line-soft)}
+.ticker li{display:flex;gap:8px;align-items:center;white-space:nowrap;
+  color:var(--ink2);font-size:14px;font-weight:600}
+
+.pcard{overflow:hidden;border-radius:var(--r-ml);display:flex;flex-direction:column}
+.pshot{position:relative;aspect-ratio:16/10;background:
+  linear-gradient(135deg,#eef6f8 0%,#f8fafc 60%,#e8f4f7 100%)}
+[data-theme='dark'] .pshot{background:linear-gradient(135deg,#16273b 0%,#0e1729 60%,#132a3a 100%)}
+.pshot .slot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  color:var(--line-strong);opacity:.75}
+.pshot .cap{position:absolute;left:12px;top:12px;padding:4px 10px;border-radius:var(--r-pill);
+  background:var(--panel);color:#fff;font-family:var(--font-mono);font-size:11px}
+.cmp{position:absolute;right:10px;top:10px;width:44px;height:44px;border-radius:var(--r-pill);
+  border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center}
+.pbody{padding:16px;display:flex;flex-direction:column;flex:1}
+
+.sale{display:inline-flex;align-items:center;line-height:1.2;padding:3px 9px;border-radius:var(--r-pill);
+  border:1px solid var(--sale-line);background:var(--sale-bg);color:var(--sale-ink);
+  font-size:12px;font-weight:700}
+.was{color:var(--faint);font-size:14px;text-decoration:line-through;font-variant-numeric:tabular-nums}
+.step{display:grid;grid-template-columns:34px 1fr;gap:14px}
+.stepno{width:34px;height:34px;border-radius:var(--r-pill);background:var(--brand);color:#fff;
+  font-family:var(--font-display);font-weight:700;font-size:15px;
+  display:flex;align-items:center;justify-content:center}
+.prow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card)}
+.acc{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:16px 18px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card)}
+.plus{width:28px;height:28px;border-radius:9px;background:var(--accent-bg);color:var(--accent-text);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;font-weight:700}
+.stars{display:flex;gap:3px}
+.who{display:flex;gap:10px;align-items:center;padding-top:12px;border-top:1px solid var(--line-soft);margin-top:auto}
+.ava{width:36px;height:36px;border-radius:var(--r-pill);background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:14px}
+  </style>
+</helmet>
+<div class="page" data-theme="{{theme}}">
+
+  <!-- ═══ ШАПКА 600–999: телефон и заявка помещаются, поэтому липкой панели
+       действий на планшете нет — призыв уже в поле зрения ═══ -->
+  <header class="hdr">
+    <div class="hdrbar">
+      <div class="row" style="gap:12px;min-width:0">
+        <span class="mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M3 8c2.5-2 4.5 2 7 0s4.5 2 7 0"/><path d="M3 13c2.5-2 4.5 2 7 0s4.5 2 7 0"/><path d="M3 18c2.5-2 4.5 2 7 0s4.5 2 7 0"/></svg></span>
+        <span class="brand">ТулаКлимат</span>
+      </div>
+      <div class="row" style="gap:10px">
+        <a class="btn secondary md mono" style="font-size:13.5px;gap:8px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="2"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>
+          +7 (4872) 00-00-10
+        </a>
+        <a class="btn primary md">Оставить заявку</a>
+        <button class="iconbtn" aria-label="Меню"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ ПЕРВЫЙ ЭКРАН: оффер во всю ширину, подбор — в две колонки ═══ -->
+  <section style="background:var(--hero-grad);padding:28px 24px 52px">
+    <div class="wrap">
+      <div class="stack" style="gap:16px;max-width:620px">
+        <span class="row" style="gap:8px;align-self:flex-start;padding:7px 14px;border:1px solid var(--accent-line);border-radius:var(--r-pill);background:var(--accent-bg);color:var(--accent-text);font-size:13px;font-weight:600">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--accent-ink)"></span>
+          Тула и область — выезд в день обращения
+        </span>
+        <h1 style="font-size:44px;line-height:1.06;font-weight:800;letter-spacing:-0.03em">
+          Кондиционеры в Туле<br>с установкой
+          <span style="background:linear-gradient(90deg,var(--brand),var(--brand-mark));-webkit-background-clip:text;background-clip:text;color:transparent">за один день</span>
+        </h1>
+        <p class="lead" style="font-size:17.5px">Продажа, монтаж и обслуживание кондиционеров в Туле и области. Подбор по площади, установка с вакуумацией и смета без скрытых доплат.</p>
+        <div class="row" style="gap:12px;margin-top:4px">
+          <a class="btn primary lg">Подобрать за 30 секунд</a>
+          <a class="btn secondary lg">Смотреть каталог</a>
+        </div>
+        <div class="row mono" style="gap:9px;align-self:flex-start;padding:9px 14px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--card);font-size:12.5px;color:var(--muted)">
+          <span style="width:6px;height:6px;border-radius:50%;background:#ea580c"></span>
+          Тула сегодня: ср/сут +15° · пик за месяц +34° — бронируйте монтаж заранее
+        </div>
+        <ul class="row" style="gap:44px;margin-top:8px">
+          <li class="stack" style="gap:2px"><span class="price" style="font-size:26px">1 200+</span><span class="fnt">установок в Туле и области</span></li>
+          <li class="stack" style="gap:2px"><span class="price" style="font-size:26px">3 года</span><span class="fnt">гарантия на монтаж</span></li>
+          <li class="stack" style="gap:2px"><span class="price" style="font-size:26px">1 день</span><span class="fnt">от заявки до запуска</span></li>
+        </ul>
+      </div>
+
+      <!-- подбор: слева параметры, справа результат — на 720 обе колонки
+           дышат, и результат виден одновременно с ползунком -->
+      <div class="card" style="margin-top:28px;border-radius:var(--r-xxl);box-shadow:var(--shadow-raised);padding:20px">
+        <div class="row" style="justify-content:space-between">
+          <span class="kicker">Подбор за 30 секунд</span>
+          <span class="row mut" style="gap:6px;font-size:12.5px"><span style="width:6px;height:6px;border-radius:50%;background:var(--ok-ink)"></span>онлайн-расчёт</span>
+        </div>
+        <div class="grid" style="grid-template-columns:1fr 320px;gap:24px;margin-top:16px;align-items:start">
+          <div>
+            <div class="row" style="justify-content:space-between">
+              <span class="h3">Площадь помещения</span>
+              <span class="price" style="font-size:21px;color:var(--accent-text)">25 м²</span>
+            </div>
+            <div style="position:relative;height:24px;margin-top:10px">
+              <div style="position:absolute;top:10px;left:0;right:0;height:4px;border-radius:var(--r-pill);background:var(--line)"></div>
+              <div style="position:absolute;top:10px;left:0;width:30%;height:4px;border-radius:var(--r-pill);background:var(--brand)"></div>
+              <div style="position:absolute;top:0;left:calc(30% - 12px);width:24px;height:24px;border-radius:50%;background:var(--brand);box-shadow:0 2px 8px rgb(14 116 144 / 40%)"></div>
+            </div>
+            <div class="row mono" style="justify-content:space-between;font-size:11.5px;color:var(--faint)"><span>10 м²</span><span>60 м²</span></div>
+            <span class="lab" style="margin:18px 0 8px">Тип помещения</span>
+            <div class="row" style="gap:8px">
+              <button class="chip sm on" style="min-height:44px">Квартира</button>
+              <button class="chip sm" style="min-height:44px">Частный дом</button>
+              <button class="chip sm" style="min-height:44px">Офис</button>
+            </div>
+          </div>
+          <div class="card panel" data-ground="panel" style="border-radius:var(--r-ml);padding:16px;box-shadow:none">
+            <div class="row" style="justify-content:space-between">
+              <span class="kicker">Рекомендуем вам</span>
+              <span class="mono" style="padding:2px 9px;border-radius:var(--r-pill);background:rgb(34 211 238 / 14%);color:#22d3ee;font-size:11px">09</span>
+            </div>
+            <div class="h3" style="margin-top:10px;color:#eaf1f8">Сплит-система 09, базовая</div>
+            <div class="mono" style="margin-top:4px;color:#8598ac;font-size:12px">2.6 кВт · 26 дБ · до 25 м²</div>
+            <div class="row" style="gap:8px;align-items:baseline;margin-top:12px">
+              <span class="price" style="font-size:27px;color:#fff">27 400 ₽</span>
+            </div>
+            <span style="color:#8598ac;font-size:12px">под ключ с монтажом</span>
+            <a class="btn primary md full" style="margin-top:14px">Смета на эту модель</a>
+            <p style="margin-top:10px;font-size:11.5px;color:#7e92a7;text-align:center">Финальную цену подтвердит специалист</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ul class="ticker">
+    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Монтаж за один выезд</li>
+    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Вакуумация на каждом монтаже</li>
+    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Обслуживаем любые бренды</li>
+  </ul>
+
+  <!-- ═══ УСЛУГИ: три колонки ═══ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head mid">
+        <span class="kicker">— Что мы делаем —</span>
+        <h2 class="h2">Полный цикл: от подбора до сервиса</h2>
+        <p class="lead">Одна команда закрывает весь путь — вам не нужно искать отдельно «где купить» и «кто поставит».</p>
+      </div>
+      <ul class="cols3">
+        <li class="card flat" style="padding:18px">
+          <span style="width:44px;height:44px;border-radius:var(--r-sm);background:var(--accent-bg);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="6" width="18" height="8" rx="2"/><path d="M7 18c1.5 0 1.5-2 3-2M14 18c1.5 0 1.5-2 3-2"/></svg></span>
+          <h3 class="h3" style="margin-top:14px">Продажа</h3>
+          <p class="mut" style="margin-top:8px;font-size:14px;line-height:1.5">Подберём модель под площадь, бюджет и уровень шума. Только проверенные бренды с гарантией производителя.</p>
+          <a class="row" style="gap:6px;margin-top:12px;font-size:14px;font-weight:600">В каталог <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+        </li>
+        <li class="card flat" style="padding:18px">
+          <span style="width:44px;height:44px;border-radius:var(--r-sm);background:var(--accent-bg);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="1.9" stroke-linecap="round"><path d="M14.7 6.3a4 4 0 0 1-5 5L5 16v3h3l4.7-4.7a4 4 0 0 1 5-5l-2-2 2-2 2 2z"/></svg></span>
+          <h3 class="h3" style="margin-top:14px">Монтаж</h3>
+          <p class="mut" style="margin-top:8px;font-size:14px;line-height:1.5">Аккуратная установка «под ключ»: штробление, трассы, вакуумация. Убираем за собой и запускаем при вас.</p>
+          <a class="row" style="gap:6px;margin-top:12px;font-size:14px;font-weight:600">Как это проходит <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+        </li>
+        <li class="card flat" style="padding:18px">
+          <span style="width:44px;height:44px;border-radius:var(--r-sm);background:var(--accent-bg);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="1.9" stroke-linecap="round"><path d="M12 3v3M12 18v3M4.2 7.2l2.1 2.1M17.7 14.7l2.1 2.1M3 12h3M18 12h3M4.2 16.8l2.1-2.1M17.7 9.3l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg></span>
+          <h3 class="h3" style="margin-top:14px">Сервис</h3>
+          <p class="mut" style="margin-top:8px;font-size:14px;line-height:1.5">Чистка, дозаправка и ремонт любых брендов — не только тех, что ставили мы. Выезд в день обращения.</p>
+          <a class="row" style="gap:6px;margin-top:12px;font-size:14px;font-weight:600">К сервису <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ КАТАЛОГ: две колонки, карточки равной высоты ═══ -->
+  <section class="sec alt">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker">— Каталог —</span>
+        <h2 class="h2">Купить кондиционер в Туле</h2>
+        <p class="lead">Цена указана «под ключ» — вместе с базовым монтажом. Подберём модель по площади помещения и объясним, за что вы платите.</p>
+      </div>
+      <div class="row" style="gap:8px;margin-bottom:20px;flex-wrap:wrap">
+        <button class="chip sm on">Все</button>
+        <button class="chip sm">до 20 м²</button>
+        <button class="chip sm">до 27 м²</button>
+        <button class="chip sm">до 35 м²</button>
+        <button class="chip sm">до 50 м²</button>
+      </div>
+      <ul class="cols2">
+        <li class="card pcard">
+          <div class="pshot"><svg class="slot" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="8.5" rx="2"/><path d="M6.5 18.5c1.6 0 1.6-2.2 3.2-2.2M14.3 18.5c1.6 0 1.6-2.2 3.2-2.2"/><path d="M5.5 9.5h9"/></svg><span class="cap">07</span><button class="cmp" aria-label="Сравнить"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="10" rx="1.5"/></svg></button></div>
+          <div class="pbody">
+            <h3 class="h3">Сплит-система 07, тихая серия</h3>
+            <div class="row" style="gap:8px;margin-top:6px"><span class="mut">до 20 м²</span><span class="chip sm" style="min-height:24px;padding:2px 9px;font-size:11.5px;border-color:var(--accent-line);background:var(--accent-bg);color:var(--accent-text)">тихая, для спальни</span></div>
+            <div class="row" style="gap:8px;align-items:baseline;margin-top:12px"><span class="price" style="font-size:24px">31 900 ₽</span><span class="fnt">под ключ</span></div>
+            <div class="saleslot"></div>
+            <a class="btn accent md full" style="margin-top:12px">Заказать</a>
+          </div>
+        </li>
+        <li class="card pcard">
+          <div class="pshot"><svg class="slot" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="8.5" rx="2"/><path d="M6.5 18.5c1.6 0 1.6-2.2 3.2-2.2M14.3 18.5c1.6 0 1.6-2.2 3.2-2.2"/><path d="M5.5 9.5h9"/></svg><span class="cap">09</span><button class="cmp" aria-label="Сравнить"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="10" rx="1.5"/></svg></button></div>
+          <div class="pbody">
+            <h3 class="h3">Сплит-система 09, инверторная</h3>
+            <div class="row" style="gap:8px;margin-top:6px"><span class="mut">до 27 м²</span><span class="chip sm" style="min-height:24px;padding:2px 9px;font-size:11.5px;border-color:var(--accent-line);background:var(--accent-bg);color:var(--accent-text)">самая ходовая</span></div>
+            <div class="row" style="gap:8px;align-items:baseline;margin-top:12px"><span class="price" style="font-size:24px">34 900 ₽</span><span class="was">38 500 ₽</span></div>
+            <div class="saleslot"><span class="sale">−9%</span><span class="fnt">Летняя цена до 10 сентября</span></div>
+            <a class="btn accent md full" style="margin-top:12px">Заказать</a>
+          </div>
+        </li>
+        <li class="card pcard">
+          <div class="pshot"><svg class="slot" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="8.5" rx="2"/><path d="M6.5 18.5c1.6 0 1.6-2.2 3.2-2.2M14.3 18.5c1.6 0 1.6-2.2 3.2-2.2"/><path d="M5.5 9.5h9"/></svg><span class="cap">09</span><button class="cmp" aria-label="Сравнить"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="10" rx="1.5"/></svg></button></div>
+          <div class="pbody">
+            <h3 class="h3">Сплит-система 09, базовая</h3>
+            <div class="row" style="gap:8px;margin-top:6px"><span class="mut">до 25 м²</span><span class="chip sm" style="min-height:24px;padding:2px 9px;font-size:11.5px;border-color:var(--accent-line);background:var(--accent-bg);color:var(--accent-text)">дешевле всех</span></div>
+            <div class="row" style="gap:8px;align-items:baseline;margin-top:12px"><span class="price" style="font-size:24px">27 400 ₽</span><span class="fnt">под ключ</span></div>
+            <div class="saleslot"></div>
+            <a class="btn accent md full" style="margin-top:12px">Заказать</a>
+          </div>
+        </li>
+        <li class="card pcard">
+          <div class="pshot"><svg class="slot" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="8.5" rx="2"/><path d="M6.5 18.5c1.6 0 1.6-2.2 3.2-2.2M14.3 18.5c1.6 0 1.6-2.2 3.2-2.2"/><path d="M5.5 9.5h9"/></svg><span class="cap">12</span><button class="cmp" aria-label="Сравнить"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="10" rx="1.5"/></svg></button></div>
+          <div class="pbody">
+            <h3 class="h3">Сплит-система 12, инверторная</h3>
+            <div class="row" style="gap:8px;margin-top:6px"><span class="mut">до 35 м²</span><span class="chip sm" style="min-height:24px;padding:2px 9px;font-size:11.5px;border-color:var(--accent-line);background:var(--accent-bg);color:var(--accent-text)">на гостиную</span></div>
+            <div class="row" style="gap:8px;align-items:baseline;margin-top:12px"><span class="price" style="font-size:24px">46 900 ₽</span><span class="fnt">под ключ</span></div>
+            <div class="saleslot"></div>
+            <a class="btn accent md full" style="margin-top:12px">Заказать</a>
+          </div>
+        </li>
+      </ul>
+      <div class="row" style="gap:12px;justify-content:center;margin-top:20px">
+        <a class="btn secondary md">Ещё 4 модели</a>
+        <a class="btn ghost md">Не нашли модель? Подберём</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ЭКОНОМИЯ: сетка суток слева, итог справа ═══ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head mid">
+        <span class="kicker">— Помощь в выборе —</span>
+        <h2 class="h2">Инверторный кондиционер окупает себя</h2>
+        <p class="lead">Посчитайте, сколько вы сэкономите на электричестве по сравнению с обычной on/off-моделью.</p>
+      </div>
+      <div class="card" style="padding:20px">
+        <div class="grid" style="grid-template-columns:1fr 300px;gap:28px;align-items:start">
+          <div>
+            <div class="row" style="justify-content:space-between"><span class="h3">Когда работает кондиционер</span><span class="price" style="font-size:21px;color:var(--accent-text)">8 ч</span></div>
+            <div class="grid" style="grid-template-columns:24px repeat(12,minmax(0,1fr));gap:5px;margin-top:14px">
+              <span class="mono fnt" style="align-self:center">00</span>
+              <span style="height:24px;border-radius:6px;background:var(--line)"></span><span style="height:24px;border-radius:6px;background:var(--line)"></span><span style="height:24px;border-radius:6px;background:var(--line)"></span><span style="height:24px;border-radius:6px;background:var(--line)"></span><span style="height:24px;border-radius:6px;background:var(--line)"></span><span style="height:24px;border-radius:6px;background:var(--line)"></span><span style="height:24px;border-radius:6px;background:var(--line-soft)"></span><span style="height:24px;border-radius:6px;background:var(--line-soft)"></span><span style="height:24px;border-radius:6px;background:var(--line-soft)"></span><span style="height:24px;border-radius:6px;background:var(--line-soft)"></span><span style="height:24px;border-radius:6px;background:var(--line-soft)"></span><span style="height:24px;border-radius:6px;background:var(--line-soft)"></span>
+              <span class="mono fnt" style="align-self:center">12</span>
+              <span style="height:24px;border-radius:6px;background:var(--brand-mark)"></span><span style="height:24px;border-radius:6px;background:var(--brand-mark)"></span><span style="height:24px;border-radius:6px;background:var(--brand-mark)"></span><span style="height:24px;border-radius:6px;background:var(--brand-mark)"></span><span style="height:24px;border-radius:6px;background:var(--brand-mark)"></span><span style="height:24px;border-radius:6px;background:var(--brand-mark)"></span><span style="height:24px;border-radius:6px;background:var(--brand-mark)"></span><span style="height:24px;border-radius:6px;background:var(--brand-mark)"></span><span style="height:24px;border-radius:6px;background:var(--line-soft)"></span><span style="height:24px;border-radius:6px;background:var(--line-soft)"></span><span style="height:24px;border-radius:6px;background:var(--line-soft)"></span><span style="height:24px;border-radius:6px;background:var(--line)"></span>
+            </div>
+            <div class="row" style="justify-content:space-between;gap:12px;margin-top:20px">
+              <span class="lab" style="margin:0">Тариф</span>
+              <div class="row" style="padding:3px;border:1px solid var(--line);border-radius:var(--r-pill);background:var(--bg-soft)">
+                <span class="chip sm on" style="min-height:34px;border:none">Единый</span>
+                <span class="chip sm" style="min-height:34px;border:none;background:transparent">День / ночь</span>
+              </div>
+            </div>
+            <div class="row" style="justify-content:space-between;margin-top:16px"><span style="font-size:14px">Единый тариф</span><span class="price mono" style="font-size:15px;color:var(--accent-text)">6,5 ₽/кВт·ч</span></div>
+            <div style="position:relative;height:24px;margin-top:6px">
+              <div style="position:absolute;top:10px;left:0;right:0;height:4px;border-radius:var(--r-pill);background:var(--line)"></div>
+              <div style="position:absolute;top:10px;left:0;width:52%;height:4px;border-radius:var(--r-pill);background:var(--brand)"></div>
+              <div style="position:absolute;top:0;left:calc(52% - 12px);width:24px;height:24px;border-radius:50%;background:var(--brand)"></div>
+            </div>
+          </div>
+          <div class="card soft" style="padding:18px;border-radius:var(--r-ml)">
+            <span class="kicker">Расход за сезон</span>
+            <div class="stack" style="gap:8px;margin-top:14px">
+              <div class="row" style="justify-content:space-between"><span class="mut" style="font-size:13.5px">Обычный on/off</span><span class="price" style="font-size:17px">≈ 4 680 ₽</span></div>
+              <div style="height:8px;border-radius:var(--r-pill);background:linear-gradient(90deg,rgb(249 115 22),rgb(239 68 68))"></div>
+              <div class="row" style="justify-content:space-between;margin-top:8px"><span class="mut" style="font-size:13.5px">Инверторный</span><span class="price" style="font-size:17px;color:var(--accent-text)">≈ 2 810 ₽</span></div>
+              <div style="height:8px;width:60%;border-radius:var(--r-pill);background:linear-gradient(90deg,rgb(6 182 212),var(--brand))"></div>
+            </div>
+            <div class="card acc" style="margin-top:16px;padding:12px 14px;border-radius:var(--r-sm)"><span style="color:var(--accent-text);font-size:14px;font-weight:600">Экономия ≈ 1 870 ₽ за сезон</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ МОНТАЖ: четыре шага в две колонки, «день по часам» свёрнут ═══ -->
+  <section class="sec alt">
+    <div class="wrap">
+      <div class="head mid">
+        <span class="kicker">— Как проходит монтаж —</span>
+        <h2 class="h2">Четыре шага до прохлады</h2>
+        <p class="lead">Прозрачный процесс — вы понимаете, что происходит на каждом этапе.</p>
+      </div>
+      <ul class="cols2" style="gap:22px 32px">
+        <li class="step"><span class="stepno">1</span><div class="stack" style="gap:4px"><span class="h3">Заявка и консультация</span><p class="mut" style="font-size:14px;line-height:1.5">Специалист помогает выбрать модель и отвечает на любые вопросы.</p></div></li>
+        <li class="step"><span class="stepno">2</span><div class="stack" style="gap:4px"><span class="h3">Расчёт и договор</span><p class="mut" style="font-size:14px;line-height:1.5">Согласуем модель, стоимость и удобную дату монтажа, фиксируем в договоре.</p></div></li>
+        <li class="step"><span class="stepno">3</span><div class="stack" style="gap:4px"><span class="h3">Монтаж под ключ</span><p class="mut" style="font-size:14px;line-height:1.5">Устанавливаем блоки, прокладываем трассу, вакуумируем — за один выезд.</p></div></li>
+        <li class="step"><span class="stepno">4</span><div class="stack" style="gap:4px"><span class="h3">Запуск и гарантия</span><p class="mut" style="font-size:14px;line-height:1.5">Проверяем работу при вас, выдаём договор и гарантийный талон.</p></div></li>
+      </ul>
+      <div class="acc" style="margin-top:24px"><span class="h3" style="font-size:16px">День монтажа по часам — что происходит на объекте</span><span class="plus">+</span></div>
+    </div>
+  </section>
+
+  <!-- ═══ ЦЕНЫ: прайс слева, калькулятор справа и залипает при прокрутке ═══ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker">— Цены —</span>
+        <h2 class="h2">Стоимость установки кондиционера</h2>
+        <p class="lead">Базовый монтаж — кронштейны, медная трасса, вакуумация и запуск под ключ. Смета фиксируется до начала работ.</p>
+      </div>
+      <div class="grid" style="grid-template-columns:1fr 320px;gap:24px;align-items:start">
+        <div>
+          <ul class="stack" style="gap:10px">
+            <li class="prow"><div class="stack" style="gap:2px"><span class="h3" style="font-size:15.5px">2.0 кВт · до 20 м²</span><span class="mono fnt">3–4 часа</span></div><span class="price" style="font-size:20px;color:var(--accent-text)">от 5 500 ₽</span></li>
+            <li class="prow"><div class="stack" style="gap:2px"><span class="h3" style="font-size:15.5px">2.6 кВт · до 27 м²</span><span class="mono fnt">3–4 часа</span></div><span class="price" style="font-size:20px;color:var(--accent-text)">от 6 000 ₽</span></li>
+            <li class="prow"><div class="stack" style="gap:2px"><span class="h3" style="font-size:15.5px">3.5 кВт · до 35 м²</span><span class="mono fnt">4 часа</span></div><span class="price" style="font-size:20px;color:var(--accent-text)">от 6 500 ₽</span></li>
+            <li class="prow"><div class="stack" style="gap:2px"><span class="h3" style="font-size:15.5px">5.3 кВт · до 50 м²</span><span class="mono fnt">4–6 часов</span></div><span class="price" style="font-size:20px;color:var(--accent-text)">от 8 000 ₽</span></li>
+            <li class="prow"><div class="stack" style="gap:2px"><span class="h3" style="font-size:15.5px">7.0 кВт · до 70 м²</span><span class="mono fnt">1–2 дня</span></div><span class="price" style="font-size:20px;color:var(--accent-text)">от 12 000 ₽</span></li>
+          </ul>
+          <p class="mut" style="margin-top:16px;font-size:13.5px;line-height:1.5">Трасса до 3 м — в базовой цене · Дополнительная трасса — 700 ₽/м · Штробление — 800 ₽/м · Высотные работы с 10 этажа — 2 000 ₽. Точную стоимость подтвердит специалист по телефону.</p>
+        </div>
+        <div class="card" style="border-radius:var(--r-xl);overflow:hidden">
+          <div style="padding:18px 18px 0"><h3 class="h3" style="font-size:19px">Калькулятор монтажа</h3><span class="kicker">Онлайн-расчёт</span></div>
+          <div class="stack" style="gap:14px;padding:18px">
+            <div><span class="lab">Класс мощности</span><div class="ctl"><span style="flex:1">07 · до 20 м²</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div></div>
+            <div><div class="row" style="justify-content:space-between"><span class="lab" style="margin:0">Длина трассы</span><span class="price" style="font-size:15px;color:var(--accent-text)">3 м</span></div>
+              <div style="position:relative;height:24px;margin-top:8px"><div style="position:absolute;top:10px;left:0;right:0;height:4px;border-radius:var(--r-pill);background:var(--line)"></div><div style="position:absolute;top:0;left:0;width:24px;height:24px;border-radius:50%;background:var(--brand)"></div></div></div>
+            <div><span class="lab">Этаж</span><div class="ctl"><span style="flex:1">1–9</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div></div>
+            <div><span class="lab">Количество блоков</span><div class="ctl"><span style="flex:1">1 блок</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div></div>
+          </div>
+          <div style="padding:16px 18px;border-top:1px solid var(--line);background:var(--bg-soft)">
+            <div class="row" style="justify-content:space-between;align-items:baseline"><span class="mut" style="font-size:13.5px">Монтаж под ключ</span><span class="price" style="font-size:26px;color:var(--accent-text)">5 500 ₽</span></div>
+            <a class="btn primary md full" style="margin-top:12px">Вызвать замерщика</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ЧЕСТНО О ЦЕНЕ: две сметы рядом — сравнение читается за один взгляд ═══ -->
+  <section class="sec alt">
+    <div class="wrap">
+      <div class="head mid">
+        <span class="kicker">— Честно о цене —</span>
+        <h2 class="h2">Из чего складывается монтаж за 5 500 ₽</h2>
+        <p class="lead">Разница — в том, чего не видно после установки. И что решает, сколько проживёт ваш кондиционер.</p>
+      </div>
+      <div class="cols2" style="align-items:start">
+        <div class="card" style="border-color:var(--accent-ink);border-width:2px;padding:18px">
+          <div class="row" style="justify-content:space-between;gap:10px"><span class="h3" style="font-size:19px">Наш монтаж</span><span class="chip sm" style="min-height:28px;padding:4px 12px;border-color:var(--accent-line);background:var(--accent-bg);color:var(--accent-text);font-size:12.5px">от 5 500 ₽</span></div>
+          <ul class="stack" style="gap:12px;margin-top:16px">
+            <li class="row" style="gap:10px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6" stroke-linecap="round"/></svg><span style="font-size:14px;line-height:1.5">Вакуумация трассы 20 минут — влага и воздух не убьют компрессор</span></li>
+            <li class="row" style="gap:10px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6" stroke-linecap="round"/></svg><span style="font-size:14px;line-height:1.5">Фреон заправлен на заводе до 5–7 м — «дозаправку» не продаём</span></li>
+            <li class="row" style="gap:10px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6" stroke-linecap="round"/></svg><span style="font-size:14px;line-height:1.5">Медная трасса нужного сечения, развальцовка калиброванным инструментом</span></li>
+            <li class="row" style="gap:10px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6" stroke-linecap="round"/></svg><span style="font-size:14px;line-height:1.5">Кронштейны с виброгасителями, дренаж с уклоном — без луж и гула</span></li>
+            <li class="row" style="gap:10px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6" stroke-linecap="round"/></svg><span style="font-size:14px;line-height:1.5">Договор, чек и гарантийный талон — по гарантии приезжаем бесплатно</span></li>
+          </ul>
+        </div>
+        <div class="card soft" style="padding:18px">
+          <div class="row" style="justify-content:space-between;gap:10px"><span class="h3" style="font-size:19px">Монтаж «за 3 000 ₽»</span><span class="chip sm" style="min-height:28px;padding:4px 12px;border-color:var(--line-strong);font-size:12.5px">что урезают</span></div>
+          <ul class="stack" style="gap:12px;margin-top:16px">
+            <li class="row" style="gap:10px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6" stroke-linecap="round"/></svg><span style="font-size:14px;line-height:1.5">Продувка фреоном вместо вакуумации — влага остаётся в контуре</span></li>
+            <li class="row" style="gap:10px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6" stroke-linecap="round"/></svg><span style="font-size:14px;line-height:1.5">«Дозаправка» за отдельные деньги там, где она не нужна</span></li>
+            <li class="row" style="gap:10px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6" stroke-linecap="round"/></svg><span style="font-size:14px;line-height:1.5">Трасса тоньше по сечению — компрессор работает на износ</span></li>
+            <li class="row" style="gap:10px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6" stroke-linecap="round"/></svg><span style="font-size:14px;line-height:1.5">Кронштейны без виброгасителей — гул по стене у соседей</span></li>
+            <li class="row" style="gap:10px;align-items:flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6" stroke-linecap="round"/></svg><span style="font-size:14px;line-height:1.5">Договора нет — по гарантии обращаться некуда</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ СЕРВИС: симптомы одной строкой, ответ в две колонки ═══ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head mid">
+        <span class="kicker">— Сервис и ремонт —</span>
+        <h2 class="h2">Что случилось с кондиционером?</h2>
+        <p class="lead">Выберите симптом — покажем вероятную причину и что будем делать. Ремонтируем любые бренды, не только установленные нами.</p>
+      </div>
+      <div class="card" style="padding:20px">
+        <span class="kicker">Выберите симптом</span>
+        <div class="row" style="gap:8px;margin-top:12px;flex-wrap:wrap">
+          <button class="chip sm on">Не холодит</button>
+          <button class="chip sm">Капает вода</button>
+          <button class="chip sm">Неприятный запах</button>
+          <button class="chip sm">Шумит или вибрирует</button>
+          <button class="chip sm">Не включается</button>
+          <button class="chip sm">Обледенел</button>
+        </div>
+        <div class="grid" style="grid-template-columns:1fr 240px;gap:28px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line-soft);align-items:start">
+          <div class="stack" style="gap:14px">
+            <h3 class="h3" style="font-size:19px">Кондиционер работает, но не холодит</h3>
+            <div><span class="kicker">Вероятная причина</span><p style="margin-top:4px;font-size:14.5px;color:var(--ink2)">Утечка фреона, забиты фильтры или теплообменник</p></div>
+            <div><span class="kicker">Что сделаем</span><p style="margin-top:4px;font-size:14.5px;color:var(--ink2)">Диагностика, чистка, дозаправка</p></div>
+            <div><span class="kicker">Стоимость</span><p style="margin-top:4px;font-size:14.5px;color:var(--ink2)">Рассчитаем после диагностики</p></div>
+          </div>
+          <a class="btn primary md full">Вызвать мастера</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ НАПОМИНАНИЕ ═══ -->
+  <section style="padding:0 24px 64px">
+    <div class="wrap">
+      <div class="card panel" style="border-radius:var(--r-xl);padding:24px">
+        <div class="grid" style="grid-template-columns:1fr 300px;gap:28px;align-items:center">
+          <div data-ground="panel">
+            <h2 class="h2" style="font-size:26px;color:#eaf1f8">Кондиционер уже стоит? Напомним про чистку</h2>
+            <p style="margin-top:10px;font-size:14.5px;line-height:1.5;color:#a8b6c6">Оставьте номер — за неделю до сезонного ТО напомним и запишем без очереди. Бесплатно и без спама: одно сообщение в год.</p>
+          </div>
+          <div class="stack" style="gap:12px">
+            <div><span class="lab" style="color:#c9d5e2">Телефон<span style="color:#fb7185">*</span></span><div class="ctl mono" style="background:rgb(255 255 255 / 6%);border-color:#2c3d59"><span style="color:#7e92a7">+7 (___) ___-__-__</span></div></div>
+            <div><span class="lab" style="color:#c9d5e2">Когда установили</span><div class="ctl" style="background:rgb(255 255 255 / 6%);border-color:#2c3d59;color:#eaf1f8"><span style="flex:1">Установили этим летом</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8598ac" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div></div>
+            <a class="btn primary md full">Напомнить о чистке</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ОТЗЫВЫ: сетка в две колонки. Лента с обрезкой по краям заменена
+       карточками равной высоты — текст обрывается многоточием по слову,
+       а не границей экрана ═══ -->
+  <section class="sec alt">
+    <div class="wrap">
+      <div class="head mid">
+        <span class="kicker">— Отзывы —</span>
+        <h2 class="h2">Что говорят клиенты в Туле</h2>
+        <p class="lead">Публикуем отзывы после модерации — в том числе неудобные для нас.</p>
+      </div>
+      <ul class="cols2" style="gap:16px">
+        <li class="card flat" style="padding:18px;display:flex;flex-direction:column">
+          <div class="stars"><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg></div>
+          <p class="clamp4" style="margin:10px 0 14px;font-size:14.5px;line-height:1.55;color:var(--ink2)">«Брали второй кондиционер у этих ребят. Первый работает четвёртый год без единой поломки, поэтому и вернулся.»</p>
+          <div class="who"><span class="ava">Д</span><div class="stack" style="gap:1px"><span style="font-size:14px;font-weight:700;color:var(--ink)">Дмитрий Лапшин</span><span class="fnt">31 июля 2026</span></div></div>
+        </li>
+        <li class="card flat" style="padding:18px;display:flex;flex-direction:column">
+          <div class="stars"><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--line-strong)" stroke-width="1.6"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--line-strong)" stroke-width="1.6"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg></div>
+          <p class="clamp4" style="margin:10px 0 14px;font-size:14.5px;line-height:1.55;color:var(--ink2)">«Работу сделали, но мусор оставили на лестничной клетке — пришлось выносить самому. В остальном нормально.»</p>
+          <div class="who"><span class="ava">Н</span><div class="stack" style="gap:1px"><span style="font-size:14px;font-weight:700;color:var(--ink)">Николай</span><span class="fnt">23 июля 2026</span></div></div>
+        </li>
+        <li class="card flat" style="padding:18px;display:flex;flex-direction:column">
+          <div class="stars"><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg></div>
+          <p class="clamp4" style="margin:10px 0 14px;font-size:14.5px;line-height:1.55;color:var(--ink2)">«Спасибо, что подробно объяснили по пульту. Я человек немолодой, с техникой на вы — мастер сам всё настроил и показал дважды.»</p>
+          <div class="who"><span class="ava">А</span><div class="stack" style="gap:1px"><span style="font-size:14px;font-weight:700;color:var(--ink)">Алла Викторовна</span><span class="fnt">26 июля 2026</span></div></div>
+        </li>
+        <li class="card flat" style="padding:18px;display:flex;flex-direction:column">
+          <div class="stars"><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--star)"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg></div>
+          <p class="clamp4" style="margin:10px 0 14px;font-size:14.5px;line-height:1.55;color:var(--ink2)">«Штробили бетон под трассу. Боялся, что разнесут полстены — вышло аккуратно, штробу зашпаклевали ровно.»</p>
+          <div class="who"><span class="ava">В</span><div class="stack" style="gap:1px"><span style="font-size:14px;font-weight:700;color:var(--ink)">Владислав Гринёв</span><span class="fnt">19 июля 2026</span></div></div>
+        </li>
+      </ul>
+      <div class="row" style="gap:12px;justify-content:center;margin-top:20px">
+        <a class="btn secondary md">Все отзывы</a>
+        <a class="btn secondary md">Оставить отзыв</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ЗАЯВКА: обещания слева, форма справа. Грунт стоит только на тёмных
+       частях — белая карточка формы не наследует цвета тёмной темы ═══ -->
+  <section style="background:var(--lead-grad);padding:64px 24px">
+    <div class="wrap">
+      <div class="grid" style="grid-template-columns:1fr 360px;gap:36px;align-items:start">
+        <div data-ground="panel">
+          <span class="kicker" style="color:#22d3ee">— Заявка —</span>
+          <h2 class="h2" style="margin-top:10px;color:#eaf1f8">Оставьте заявку — поможем с выбором</h2>
+          <p style="margin-top:12px;font-size:15.5px;line-height:1.5;color:#a8b6c6">Заполните форму — специалист перезвонит, поможет с выбором и ответит на любые вопросы по кондиционированию. Отвечаем в течение 15 минут в рабочее время.</p>
+          <ul class="stack" style="gap:12px;margin-top:22px">
+            <li class="row" style="gap:10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" style="flex-shrink:0"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6" stroke-linecap="round"/></svg><span style="font-size:14.5px;color:#c9d5e2">Поможем подобрать модель под площадь и бюджет</span></li>
+            <li class="row" style="gap:10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" style="flex-shrink:0"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6" stroke-linecap="round"/></svg><span style="font-size:14.5px;color:#c9d5e2">По фото места установки сориентируем по трассе заранее</span></li>
+            <li class="row" style="gap:10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" style="flex-shrink:0"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6" stroke-linecap="round"/></svg><span style="font-size:14.5px;color:#c9d5e2">Честная смета фиксируется в договоре</span></li>
+          </ul>
+          <div class="row" style="gap:10px;margin-top:26px;padding-top:20px;border-top:1px solid #1e2b41">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>
+            <span class="mono" style="font-size:15px;color:#eaf1f8">+7 (4872) 00-00-10</span>
+          </div>
+        </div>
+        <div class="card" style="border-radius:var(--r-xl);padding:20px;box-shadow:0 40px 80px -30px rgb(0 0 0 / 50%)">
+          <p class="fnt" style="margin-bottom:16px">Звёздочкой отмечены обязательные поля</p>
+          <div class="stack" style="gap:14px">
+            <div><span class="lab">Имя <span style="color:var(--sale-ink)">*</span></span><div class="ctl ph">Как к вам обращаться</div></div>
+            <div><span class="lab">Телефон <span style="color:var(--sale-ink)">*</span></span><div class="ctl ph mono">+7 (___) ___-__-__</div></div>
+            <div><span class="lab">Тема обращения</span><div class="ctl"><span style="flex:1">Консультация</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div></div>
+            <div class="acc" style="padding:14px 16px"><span style="font-size:14.5px;font-weight:600;color:var(--ink)">Модель, адрес, фото — по желанию</span><span class="plus">+</span></div>
+            <label class="row" style="gap:10px;align-items:flex-start"><span style="width:22px;height:22px;border:1px solid var(--line-strong);border-radius:6px;flex-shrink:0;margin-top:1px"></span><span style="font-size:13px;line-height:1.45;color:var(--body)">Согласен на обработку персональных данных — <a style="text-decoration:underline">Политика</a> <span style="color:var(--sale-ink)">*</span></span></label>
+            <a class="btn primary lg full">Отправить заявку</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ БАЗА ЗНАНИЙ + ВОПРОСЫ ═══ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker">— База знаний —</span>
+        <h2 class="h2">Разбираемся в кондиционерах</h2>
+        <p class="lead">Честные статьи без продающей воды: как выбрать, как не дать себя обмануть, как ухаживать.</p>
+      </div>
+      <ul class="cols2">
+        <li class="card flat" style="padding:18px">
+          <span class="chip sm mono" style="min-height:24px;padding:2px 9px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-color:var(--accent-line);background:var(--accent-bg);color:var(--accent-text)">Эксплуатация</span>
+          <h3 class="h3" style="margin-top:12px">Можно ли включать кондиционер на обогрев зимой</h3>
+          <p class="mut clamp3" style="margin-top:8px;font-size:14px;line-height:1.5">Можно, если у модели есть зимний комплект и заявленный диапазон обогрева. Без них компрессор запускается на густом масле и живёт недолго.</p>
+          <span class="mono fnt" style="display:block;margin-top:12px">20 августа 2026 · 4 мин чтения</span>
+        </li>
+        <li class="card flat" style="padding:18px">
+          <span class="chip sm mono" style="min-height:24px;padding:2px 9px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-color:var(--accent-line);background:var(--accent-bg);color:var(--accent-text)">Выбор</span>
+          <h3 class="h3" style="margin-top:12px">Как считать мощность по площади и не переплатить</h3>
+          <p class="mut clamp3" style="margin-top:8px;font-size:14px;line-height:1.5">Формула «100 Вт на квадрат» врёт для угловых комнат и последних этажей. Разбираем поправки, которые действительно важны.</p>
+          <span class="mono fnt" style="display:block;margin-top:12px">14 августа 2026 · 6 мин чтения</span>
+        </li>
+      </ul>
+      <div class="row" style="justify-content:center;margin-top:20px"><a class="btn secondary md">Все статьи</a></div>
+    </div>
+  </section>
+
+  <section class="sec alt">
+    <div class="wrap">
+      <div class="head mid"><span class="kicker">— Вопросы —</span><h2 class="h2">Частые вопросы</h2></div>
+      <ul class="stack" style="gap:8px;max-width:680px;margin:0 auto">
+        <li class="acc"><span style="font-size:15px;font-weight:600;color:var(--ink)">Сколько стоит установить кондиционер в типовой квартире?</span><span class="plus">+</span></li>
+        <li class="acc"><span style="font-size:15px;font-weight:600;color:var(--ink)">Сколько времени занимает установка?</span><span class="plus">+</span></li>
+        <li class="acc"><span style="font-size:15px;font-weight:600;color:var(--ink)">Нужно ли согласовывать наружный блок с управляющей компанией?</span><span class="plus">+</span></li>
+        <li class="acc"><span style="font-size:15px;font-weight:600;color:var(--ink)">Можно ли устанавливать кондиционер зимой?</span><span class="plus">+</span></li>
+        <li class="acc"><span style="font-size:15px;font-weight:600;color:var(--ink)">Нужна ли дозаправка фреона при установке?</span><span class="plus">+</span></li>
+        <li class="acc"><span style="font-size:15px;font-weight:600;color:var(--ink)">Как часто нужно чистить кондиционер?</span><span class="plus">+</span></li>
+        <li class="acc"><span style="font-size:15px;font-weight:600;color:var(--ink)">Что входит в гарантию?</span><span class="plus">+</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ КОНТАКТЫ ═══ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker">— Контакты —</span>
+        <h2 class="h2">Тула и область</h2>
+        <p class="lead">Щёкино, Новомосковск, Алексин, Ясногорск, Венёв.</p>
+      </div>
+      <div class="grid" style="grid-template-columns:1fr 300px;gap:28px;align-items:start">
+        <ul class="stack" style="gap:18px">
+          <li class="row" style="gap:14px;align-items:flex-start"><span style="width:40px;height:40px;border-radius:var(--r-sm);background:var(--accent-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="1.9"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div class="stack" style="gap:2px"><span class="fnt">Адрес</span><span style="font-size:15.5px;color:var(--ink);font-weight:500">Тула, проспект Ленина, 108, офис 312</span></div></li>
+          <li class="row" style="gap:14px;align-items:flex-start"><span style="width:40px;height:40px;border-radius:var(--r-sm);background:var(--accent-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="1.9"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg></span><div class="stack" style="gap:2px"><span class="fnt">Телефон</span><a class="mono" style="font-size:15.5px;color:var(--ink);font-weight:500">+7 (4872) 00-00-10</a><a class="mono" style="font-size:15.5px;color:var(--ink);font-weight:500">+7 (900) 000-00-20</a></div></li>
+          <li class="row" style="gap:14px;align-items:flex-start"><span style="width:40px;height:40px;border-radius:var(--r-sm);background:var(--accent-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg></span><div class="stack" style="gap:2px"><span class="fnt">Часы работы</span><span class="mono" style="font-size:15.5px;color:var(--ink);font-weight:500">Пн–Вс, 8:00–21:00</span></div></li>
+        </ul>
+        <div class="card soft" style="padding:18px;text-align:center">
+          <span class="kicker">Как нас найти</span>
+          <p style="margin-top:10px;font-size:14px;color:var(--ink2)">Тула, проспект Ленина, 108, офис 312</p>
+          <a class="btn secondary md full" style="margin-top:14px">Открыть в Яндекс.Картах</a>
+          <p class="fnt" style="margin-top:10px;line-height:1.45">Карта откроется в Яндекс.Картах: страница грузится быстрее и не ставит чужих cookie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ПОДВАЛ: три колонки ═══ -->
+  <footer data-ground="panel" style="background:var(--panel);padding:48px 24px 32px">
+    <div class="wrap">
+      <div class="grid" style="grid-template-columns:1.4fr 1fr 1.2fr;gap:32px">
+        <div>
+          <div class="row" style="gap:12px"><span class="mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M3 8c2.5-2 4.5 2 7 0s4.5 2 7 0"/><path d="M3 13c2.5-2 4.5 2 7 0s4.5 2 7 0"/><path d="M3 18c2.5-2 4.5 2 7 0s4.5 2 7 0"/></svg></span><span class="brand" style="color:#eaf1f8">ТулаКлимат</span></div>
+          <p style="margin-top:12px;font-size:14px;color:#a8b6c6">Кондиционеры с монтажом под ключ за один день.</p>
+          <div class="stack" style="gap:6px;margin-top:18px">
+            <a class="mono" style="color:#eaf1f8;font-size:14px">+7 (4872) 00-00-10</a>
+            <a class="mono" style="color:#eaf1f8;font-size:14px">zakaz@tulaklimat.example</a>
+            <span class="mono" style="color:#8598ac;font-size:13px">Пн–Вс, 8:00–21:00</span>
+          </div>
+        </div>
+        <div class="stack" style="gap:4px">
+          <a style="color:#c9d5e2;font-size:14px;padding:5px 0">Каталог</a><a style="color:#c9d5e2;font-size:14px;padding:5px 0">Монтаж</a><a style="color:#c9d5e2;font-size:14px;padding:5px 0">Цены</a><a style="color:#c9d5e2;font-size:14px;padding:5px 0">Сервис</a><a style="color:#c9d5e2;font-size:14px;padding:5px 0">Отзывы</a><a style="color:#c9d5e2;font-size:14px;padding:5px 0">База знаний</a><a style="color:#c9d5e2;font-size:14px;padding:5px 0">Контакты</a>
+        </div>
+        <div>
+          <span style="color:#c9d5e2;font-size:13.5px;font-weight:700">ИП Демонстрационный Стенд Демонстрационович</span>
+          <div class="grid" style="grid-template-columns:auto 1fr;gap:6px 12px;margin-top:12px">
+            <span class="mono" style="color:#7e92a7;font-size:11.5px">ИНН</span><span class="mono" style="color:#a8b6c6;font-size:12px">710000000077</span>
+            <span class="mono" style="color:#7e92a7;font-size:11.5px">ОГРНИП</span><span class="mono" style="color:#a8b6c6;font-size:12px">314710000000002</span>
+            <span class="mono" style="color:#7e92a7;font-size:11.5px">Дата</span><span class="mono" style="color:#a8b6c6;font-size:12px">12 марта 2015</span>
+          </div>
+          <span style="display:block;margin-top:12px;font-size:12.5px;color:#8598ac">300041, Тула, проспект Ленина, 108, офис 312</span>
+          <a style="display:inline-block;margin-top:12px;color:#8598ac;font-size:12.5px;text-decoration:underline">Политика обработки персональных данных</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Тема"},"$preview":{"width":768,"height":9930}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { theme: this.props.theme ?? 'light' };
+  }
+}
+</script>
+</body>
+</html>

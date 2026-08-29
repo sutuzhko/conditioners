@@ -1,0 +1,27 @@
+/* Доска раздела: десктоп, планшет и телефон в ряд */
+.board{display:flex;gap:56px;align-items:flex-start;padding:36px;background:var(--bg-soft)}
+.col{display:flex;flex-direction:column;gap:10px}
+.devlab{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.devcap{font-size:11.5px;color:var(--faint);line-height:1.45;max-width:100%}
+.frame{border:1px solid var(--line-strong);border-radius:var(--r-app);overflow:hidden;
+  background:var(--bg);flex-shrink:0}
+.frame.ph{border-radius:26px;width:390px;display:flex;flex-direction:column}
+/* планшет: колонка разделов сворачивается в полосу значков */
+.rail .who{justify-content:center;padding:14px 0 10px}
+.rail .nav{padding:4px 10px;gap:4px}
+.rail .nv{justify-content:center;padding:0;min-height:42px}
+.rail .nv .cnt{position:absolute;top:3px;right:6px;margin:0;min-width:17px;height:17px;
+  padding:0 4px;font-size:10px}
+.rail .navgrp{text-align:center;padding:10px 0 4px;font-size:9.5px}
+.rail .asfoot{padding:8px 10px 12px}
+/* телефон */
+.mbar{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:56px;
+  padding:0 14px;background:var(--card);border-bottom:1px solid var(--line);flex-shrink:0}
+.mtitle{font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--ink);
+  letter-spacing:-0.02em}
+.mbody{flex:1;padding:14px;display:flex;flex-direction:column;gap:12px;
+  background:var(--bg-soft);overflow:hidden}
+.mrow{display:flex;flex-direction:column;gap:8px;padding:14px}
+.sticky-act{padding:12px 14px 16px;background:var(--card);border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.board{width:2790px}

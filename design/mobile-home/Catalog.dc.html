@@ -1,0 +1,376 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+/* Токены сняты из apps/web/src/shared/styles/tokens.css и ui-tokens.css — один в один */
+:root{
+  --bg:#fff; --bg-soft:#f8fafc; --card:#fff;
+  --header-bg:rgb(255 255 255 / 82%);
+  --hero-grad:linear-gradient(180deg,#f0f9fb 0%,#fff 100%);
+  --ink:#0f172a; --ink2:#334155; --body:#475569; --muted:#556173; --faint:#5b6a7d;
+  --line:#e2e8f0; --line-strong:#cbd5e1; --line-soft:#eef2f6;
+  --accent-ink:#0891b2; --accent-text:#0e7490; --accent-bg:#ecfeff; --accent-line:#a5f3fc;
+  --panel:#0f172a; --stripe-a:#edf2f6; --stripe-b:#f5f8fa; --field:#fff;
+  --brand:#0e7490; --brand-hover:#155e75; --brand-mark:#0891b2; --brand-mark-dark:#22d3ee;
+  --on-brand:#fff; --on-panel:#fff; --on-accent:var(--accent-text);
+  --sale-ink:rgb(190 18 60); --sale-bg:rgb(190 18 60 / 8%); --sale-line:rgb(190 18 60 / 28%);
+  --star:rgb(217 119 6); --ok-ink:rgb(21 128 61); --ok-bg:rgb(21 128 61 / 8%);
+  --lead-grad:linear-gradient(180deg,rgb(15 23 42) 0%,rgb(11 37 48) 100%);
+  --shadow-header:0 12px 34px -16px rgb(15 23 42 / 22%);
+  --shadow-card:0 20px 44px -28px rgb(15 23 42 / 20%);
+  --shadow-brand:0 10px 24px rgb(14 116 144 / 30%);
+  --shadow-raised:0 36px 80px -32px rgb(8 66 84 / 45%);
+  --ring:0 0 0 2px var(--bg),0 0 0 4px var(--accent-ink);
+  --r-sm:11px; --r-md:14px; --r-ml:18px; --r-lg:20px; --r-xl:22px; --r-xxl:24px; --r-pill:100px;
+  --font-display:'Onest',system-ui,sans-serif;
+  --font-text:'Manrope',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+[data-theme='dark']{
+  --bg:#0b1220; --bg-soft:#0e1729; --card:#121d31;
+  --header-bg:rgb(11 18 32 / 80%);
+  --hero-grad:linear-gradient(180deg,#0c1628 0%,#0b1220 100%);
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --line:#1e2b41; --line-strong:#2c3d59; --line-soft:#182338;
+  --accent-ink:#22d3ee; --accent-text:#22d3ee; --accent-bg:rgb(34 211 238 / 10%); --accent-line:rgb(34 211 238 / 35%);
+  --panel:#111d34; --stripe-a:#16223a; --stripe-b:#121d31; --field:#0b1424;
+  --sale-ink:rgb(251 113 133); --sale-bg:rgb(251 113 133 / 12%); --sale-line:rgb(251 113 133 / 32%);
+  --star:rgb(251 191 36); --ok-ink:rgb(74 222 128); --ok-bg:rgb(74 222 128 / 12%);
+}
+/* Тёмный остров внутри светлой темы (ADR-158) */
+[data-ground='panel']{
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --accent-text:#22d3ee;
+}
+/* Компоненты кита — геометрия скопирована из shared/ui/*.module.css.
+   Плотность и шаг сетки (4px, внутренние поля карточек, зазоры групп) —
+   с эталона HeroUI, как требует ADR-170. */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);
+  font-family:var(--font-text);font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:var(--accent-text);text-decoration:none}
+a:hover{color:var(--brand-hover)}
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);color:var(--ink);
+  letter-spacing:-0.02em;font-weight:700;text-wrap:balance}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+
+/* ——— кнопки: Button.module.css ——— */
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;
+  border:1px solid transparent;border-radius:var(--r-sm);
+  font-family:var(--font-text);font-weight:600;line-height:1.2;
+  white-space:nowrap;cursor:pointer;text-decoration:none}
+.btn.lg{min-height:52px;padding:15px 28px;border-radius:12px;font-size:16px}
+.btn.md{min-height:44px;padding:11px 18px;font-size:14.5px}
+.btn.sm{min-height:44px;padding:8px 14px;border-radius:9px;font-size:13px}
+.btn.primary{border-color:var(--brand);background:var(--brand);color:var(--on-brand);
+  box-shadow:var(--shadow-brand)}
+.btn.secondary{border-color:var(--line-strong);background:var(--card);color:var(--ink)}
+.btn.accent{background:var(--accent-bg);color:var(--on-accent)}
+.btn.ghost{background:transparent;color:var(--accent-text)}
+.btn.full{width:100%}
+
+/* ——— чип: Chip.module.css ——— */
+.chip{display:inline-flex;gap:6px;align-items:center;justify-content:center;
+  min-height:44px;padding:11px 16px;border:1px solid var(--line-strong);
+  border-radius:var(--r-pill);background:transparent;color:var(--body);
+  font-size:14.5px;font-weight:600;line-height:1.2;white-space:nowrap;cursor:pointer}
+.chip.on{border-color:var(--brand);background:var(--brand);color:var(--on-brand)}
+.chip.sm{min-height:36px;padding:7px 13px;font-size:13px}
+
+/* ——— карточка: Card.module.css ——— */
+.card{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);
+  box-shadow:var(--shadow-card)}
+.card.soft{border-color:var(--line-soft);background:var(--bg-soft);box-shadow:none}
+.card.acc{border-color:var(--accent-line);background:var(--accent-bg);box-shadow:none}
+.card.panel{border-color:var(--panel);background:var(--panel);color:#a8b6c6}
+.card.flat{box-shadow:none}
+
+/* ——— поле: internal/control.module.css ——— */
+.ctl{display:flex;align-items:center;width:100%;min-height:44px;padding:13px 14px;
+  border:1px solid var(--line-strong);border-radius:var(--r-sm);
+  background:var(--field);color:var(--ink);font-size:16px;line-height:1.4}
+.ctl.ph{color:var(--faint)}
+.lab{display:block;margin-bottom:7px;color:var(--ink2);font-size:13px;font-weight:600}
+
+/* ——— типографика страницы ——— */
+.kicker{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-text)}
+.mono{font-family:var(--font-mono)}
+.lead{color:var(--body);font-size:15.5px;line-height:1.5}
+.mut{color:var(--muted);font-size:13px}
+.fnt{color:var(--faint);font-size:12px}
+.price{font-family:var(--font-display);font-weight:800;color:var(--ink);
+  letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.stack{display:flex;flex-direction:column}
+.row{display:flex;align-items:center}
+.grid{display:grid}
+.clamp2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.clamp3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.clamp4{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ——— подписи макета (не часть интерфейса) ——— */
+.note{font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;
+  color:var(--accent-text);text-transform:uppercase}
+.spec{font-family:var(--font-mono);font-size:11px;color:#5b6a7d}
+/* Слот под ярлык скидки. Занимает место и у карточки без скидки — иначе
+   цена и кнопка «Заказать» стоят в ряду на разной высоте (ADR к issue #42). */
+.saleslot{display:flex;align-items:center;gap:8px;margin-top:8px;min-height:24px}
+/* Разбор узла: карточка каталога и сравнение */
+.page{width:1320px;background:var(--bg-soft);padding:36px}
+.h2{font-size:28px;line-height:1.1;font-weight:800}
+.h3{font-size:17px;font-weight:700}
+.band{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-card);padding:26px;margin-top:22px}
+.devlab{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--muted);
+  margin-bottom:8px;display:block}
+.pcard{overflow:hidden;border-radius:var(--r-ml);display:flex;flex-direction:column;background:var(--card)}
+.pshot{position:relative;aspect-ratio:16/10;background:
+  linear-gradient(135deg,#eef6f8 0%,#f8fafc 60%,#e8f4f7 100%)}
+[data-theme='dark'] .pshot{background:linear-gradient(135deg,#16273b 0%,#0e1729 60%,#132a3a 100%)}
+.pshot .slot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  color:var(--line-strong);opacity:.75}
+.pshot .cap{position:absolute;left:12px;top:12px;padding:4px 10px;border-radius:var(--r-pill);
+  background:var(--panel);color:#fff;font-family:var(--font-mono);font-size:11px}
+.cmp{position:absolute;right:10px;top:10px;width:44px;height:44px;border-radius:var(--r-pill);
+  border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center}
+.cmp.on{border-color:var(--brand);background:var(--brand)}
+.pbody{padding:16px;display:flex;flex-direction:column;flex:1}
+.sale{display:inline-flex;align-items:center;line-height:1.2;padding:3px 9px;border-radius:var(--r-pill);
+  border:1px solid var(--sale-line);background:var(--sale-bg);color:var(--sale-ink);font-size:12px;font-weight:700}
+.was{color:var(--faint);font-size:14px;text-decoration:line-through;font-variant-numeric:tabular-nums}
+.tagx{display:inline-flex;align-items:center;min-height:24px;padding:2px 9px;font-size:11.5px;
+  border-radius:var(--r-pill);border:1px solid var(--accent-line);background:var(--accent-bg);
+  color:var(--accent-text);font-weight:600;line-height:1.2}
+/* Таблица сравнения: скролл живёт внутри контейнера, страница не едет */
+.cmpwrap{border:1px solid var(--line);border-radius:var(--r-ml);overflow:hidden;background:var(--card)}
+.cmpscroll{overflow-x:auto}
+.cmptbl{border-collapse:separate;border-spacing:0;font-size:13.5px;min-width:620px}
+.cmptbl th,.cmptbl td{padding:11px 14px;border-bottom:1px solid var(--line-soft);
+  text-align:left;white-space:nowrap;color:var(--ink2)}
+.cmptbl thead th{background:var(--bg-soft);font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
+/* первая колонка липнет — только она, и только внутри своего контейнера */
+.cmptbl .sticky{position:sticky;left:0;z-index:2;background:var(--card);
+  box-shadow:1px 0 0 var(--line);font-weight:600;color:var(--ink);white-space:normal;min-width:132px}
+.cmptbl thead .sticky{background:var(--bg-soft)}
+.cmptbl tbody tr:nth-child(even) td{background:var(--stripe-b)}
+.cmptbl tbody tr:nth-child(even) .sticky{background:var(--stripe-b)}
+.edge{height:6px;background:linear-gradient(90deg,transparent 60%,rgb(15 23 42 / 7%))}
+.note2{font-size:14px;line-height:1.55;color:var(--ink2)}
+  </style>
+</helmet>
+<div class="page">
+  <span class="kicker">— Разбор узла —</span>
+  <h2 class="h2" style="margin-top:8px">Карточка каталога и сравнение</h2>
+  <p class="lead" style="margin-top:8px;max-width:800px">Карточка была самой высокой на странице — 670 px — и единственной, где кнопка выходила
+    за собственный край. Три решения: фотография в пропорции 16:10 вместо квадрата, одно явное действие вместо трёх, сравнение — иконкой в углу снимка.</p>
+
+  <div class="band">
+    <h3 class="h3">Карточка по ширинам</h3>
+    <p class="mut" style="margin-top:6px;font-size:13.5px">Одна вёрстка на все ширины: меняется только ширина колонки — 343 px на телефоне, 344 на планшете, 288 на десктопе. Ярлык скидки занимает своё место и у карточки без скидки, поэтому цена и кнопка стоят в ряду на одной высоте.</p>
+    <div class="row" style="gap:24px;align-items:flex-start;margin-top:20px;flex-wrap:wrap">
+
+      <div>
+        <span class="devlab">375 · колонка 343</span>
+        <div class="card pcard" style="width:343px">
+          <div class="pshot"><svg class="slot" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="8.5" rx="2"/><path d="M6.5 18.5c1.6 0 1.6-2.2 3.2-2.2M14.3 18.5c1.6 0 1.6-2.2 3.2-2.2"/><path d="M5.5 9.5h9"/></svg><span class="cap">07</span><button class="cmp"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="10" rx="1.5"/></svg></button></div>
+          <div class="pbody">
+            <h3 class="h3">Сплит-система 07, тихая серия</h3>
+            <div class="row" style="gap:8px;margin-top:6px"><span class="mut">до 20 м²</span><span class="tagx">тихая, для спальни</span></div>
+            <div class="row" style="gap:8px;align-items:baseline;margin-top:12px"><span class="price" style="font-size:24px">31 900 ₽</span><span class="fnt">под ключ</span></div>
+            <div class="saleslot"></div>
+            <a class="btn accent md full" style="margin-top:12px">Заказать</a>
+          </div>
+        </div>
+        <span class="fnt" style="display:block;margin-top:8px">Резерв под ярлык — 24 px</span>
+      </div>
+
+      <div>
+        <span class="devlab">375 · со скидкой</span>
+        <div class="card pcard" style="width:343px">
+          <div class="pshot"><svg class="slot" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="8.5" rx="2"/><path d="M6.5 18.5c1.6 0 1.6-2.2 3.2-2.2M14.3 18.5c1.6 0 1.6-2.2 3.2-2.2"/><path d="M5.5 9.5h9"/></svg><span class="cap">09</span><button class="cmp"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="10" rx="1.5"/></svg></button></div>
+          <div class="pbody">
+            <h3 class="h3">Сплит-система 09, инверторная</h3>
+            <div class="row" style="gap:8px;margin-top:6px"><span class="mut">до 27 м²</span><span class="tagx">самая ходовая</span></div>
+            <div class="row" style="gap:8px;align-items:baseline;margin-top:12px"><span class="price" style="font-size:24px">34 900 ₽</span><span class="was">38 500 ₽</span></div>
+            <div class="saleslot"><span class="sale">−9%</span><span class="fnt">до 10 сентября</span></div>
+            <a class="btn accent md full" style="margin-top:12px">Заказать</a>
+          </div>
+        </div>
+        <span class="fnt" style="display:block;margin-top:8px">Процент считается, а не пишется: цена и срок из базы</span>
+      </div>
+
+      <div>
+        <span class="devlab">375 · отмечена к сравнению</span>
+        <div class="card pcard" style="width:343px;border-color:var(--accent-ink)">
+          <div class="pshot"><svg class="slot" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="8.5" rx="2"/><path d="M6.5 18.5c1.6 0 1.6-2.2 3.2-2.2M14.3 18.5c1.6 0 1.6-2.2 3.2-2.2"/><path d="M5.5 9.5h9"/></svg><span class="cap">12</span><button class="cmp on"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="10" rx="1.5"/></svg></button></div>
+          <div class="pbody">
+            <h3 class="h3">Сплит-система 12, инверторная</h3>
+            <div class="row" style="gap:8px;margin-top:6px"><span class="mut">до 35 м²</span><span class="tagx">на гостиную</span></div>
+            <div class="row" style="gap:8px;align-items:baseline;margin-top:12px"><span class="price" style="font-size:24px">46 900 ₽</span><span class="fnt">под ключ</span></div>
+            <div class="saleslot"></div>
+            <a class="btn accent md full" style="margin-top:12px">Заказать</a>
+          </div>
+        </div>
+        <span class="fnt" style="display:block;margin-top:8px">Счётчик отмеченных уходит в липкую панель внизу</span>
+      </div>
+
+      <div>
+        <span class="devlab">375 · тёмная тема</span>
+        <div class="card pcard" data-theme="dark" style="width:343px;border:1px solid var(--line)">
+          <div class="pshot"><svg class="slot" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="8.5" rx="2"/><path d="M6.5 18.5c1.6 0 1.6-2.2 3.2-2.2M14.3 18.5c1.6 0 1.6-2.2 3.2-2.2"/><path d="M5.5 9.5h9"/></svg><span class="cap">09</span><button class="cmp"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="10" rx="1.5"/></svg></button></div>
+          <div class="pbody">
+            <h3 class="h3">Сплит-система 09, базовая</h3>
+            <div class="row" style="gap:8px;margin-top:6px"><span class="mut">до 25 м²</span><span class="tagx">дешевле всех</span></div>
+            <div class="row" style="gap:8px;align-items:baseline;margin-top:12px"><span class="price" style="font-size:24px">27 400 ₽</span><span class="fnt">под ключ</span></div>
+            <div class="saleslot"></div>
+            <a class="btn accent md full" style="margin-top:12px">Заказать</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="gap:32px;align-items:flex-start;margin-top:28px;flex-wrap:wrap">
+      <div>
+        <span class="devlab">768 · две колонки по 344</span>
+        <div class="row" style="gap:20px">
+          <div class="card pcard" style="width:344px">
+            <div class="pshot"><svg class="slot" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="8.5" rx="2"/><path d="M6.5 18.5c1.6 0 1.6-2.2 3.2-2.2M14.3 18.5c1.6 0 1.6-2.2 3.2-2.2"/><path d="M5.5 9.5h9"/></svg><span class="cap">07</span><button class="cmp"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="10" rx="1.5"/></svg></button></div>
+            <div class="pbody">
+              <h3 class="h3">Сплит-система 07, тихая серия</h3>
+              <div class="row" style="gap:8px;margin-top:6px"><span class="mut">до 20 м²</span><span class="tagx">тихая, для спальни</span></div>
+              <div class="row" style="gap:8px;align-items:baseline;margin-top:12px"><span class="price" style="font-size:24px">31 900 ₽</span><span class="fnt">под ключ</span></div>
+              <div class="saleslot"></div>
+              <a class="btn accent md full" style="margin-top:12px">Заказать</a>
+            </div>
+          </div>
+          <div class="card pcard" style="width:344px">
+            <div class="pshot"><svg class="slot" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="8.5" rx="2"/><path d="M6.5 18.5c1.6 0 1.6-2.2 3.2-2.2M14.3 18.5c1.6 0 1.6-2.2 3.2-2.2"/><path d="M5.5 9.5h9"/></svg><span class="cap">09</span><button class="cmp"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="10" rx="1.5"/></svg></button></div>
+            <div class="pbody">
+              <h3 class="h3">Сплит-система 09, инверторная</h3>
+              <div class="row" style="gap:8px;margin-top:6px"><span class="mut">до 27 м²</span><span class="tagx">самая ходовая</span></div>
+              <div class="row" style="gap:8px;align-items:baseline;margin-top:12px"><span class="price" style="font-size:24px">34 900 ₽</span><span class="was">38 500 ₽</span></div>
+              <div class="saleslot"><span class="sale">−9%</span><span class="fnt">Летняя цена до 10 сентября</span></div>
+              <a class="btn accent md full" style="margin-top:12px">Заказать</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="devlab">1200 · четыре колонки по 288 — как сейчас</span>
+        <div class="row" style="gap:16px">
+          <div class="card pcard" style="width:288px">
+            <div class="pshot"><svg class="slot" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="8.5" rx="2"/><path d="M6.5 18.5c1.6 0 1.6-2.2 3.2-2.2M14.3 18.5c1.6 0 1.6-2.2 3.2-2.2"/><path d="M5.5 9.5h9"/></svg><span class="cap">09</span><button class="cmp"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="10" rx="1.5"/></svg></button></div>
+            <div class="pbody">
+              <h3 class="h3" style="font-size:16.5px">Сплит-система 09, базовая</h3>
+              <div class="row" style="gap:8px;margin-top:6px"><span class="mut">до 25 м²</span><span class="tagx">дешевле всех</span></div>
+              <div class="row" style="gap:8px;align-items:baseline;margin-top:12px"><span class="price" style="font-size:22px">27 400 ₽</span><span class="fnt">под ключ</span></div>
+              <div class="saleslot"></div>
+              <a class="btn accent md full" style="margin-top:12px">Заказать</a>
+            </div>
+          </div>
+          <div class="card pcard" style="width:288px">
+            <div class="pshot"><svg class="slot" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="8.5" rx="2"/><path d="M6.5 18.5c1.6 0 1.6-2.2 3.2-2.2M14.3 18.5c1.6 0 1.6-2.2 3.2-2.2"/><path d="M5.5 9.5h9"/></svg><span class="cap">12</span><button class="cmp"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="1.9" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="10" rx="1.5"/></svg></button></div>
+            <div class="pbody">
+              <h3 class="h3" style="font-size:16.5px">Сплит-система 12, инверторная</h3>
+              <div class="row" style="gap:8px;margin-top:6px"><span class="mut">до 35 м²</span><span class="tagx">на гостиную</span></div>
+              <div class="row" style="gap:8px;align-items:baseline;margin-top:12px"><span class="price" style="font-size:22px">46 900 ₽</span><span class="fnt">под ключ</span></div>
+              <div class="saleslot"></div>
+              <a class="btn accent md full" style="margin-top:12px">Заказать</a>
+            </div>
+          </div>
+        </div>
+        <span class="fnt" style="display:block;margin-top:8px">На десктопе меняется только ширина колонки: правки мобильной не ломают уже сделанное</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <h3 class="h3">Таблица сравнения на телефоне</h3>
+    <p class="mut" style="margin-top:6px;font-size:13.5px">Требование брифа §6: горизонтальный скролл живёт внутри своего контейнера, первая колонка залипает, страница по горизонтали не едет никогда. Набор строк — объединение ключей <span class="mono">specs</span> отмеченных моделей: список характеристик нигде не зашит (инвариант 6).</p>
+    <div class="row" style="gap:28px;align-items:flex-start;margin-top:20px">
+      <div>
+        <span class="devlab">375 · контейнер 343, содержимое 620</span>
+        <div style="width:375px;border:1px solid var(--line-strong);border-radius:var(--r-md);padding:16px;background:var(--bg)">
+          <div class="row" style="justify-content:space-between;margin-bottom:12px">
+            <span class="h3" style="font-size:16px">Сравнение</span>
+            <span class="tagx">3 модели</span>
+          </div>
+          <div class="cmpwrap">
+            <div class="cmpscroll">
+              <table class="cmptbl">
+                <thead><tr>
+                  <th class="sticky">Характеристика</th>
+                  <th>07, тихая</th><th>09, инверторная</th><th>12, инверторная</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td class="sticky">Цена под ключ</td><td class="price mono" style="font-size:15px;color:var(--accent-text)">31 900 ₽</td><td class="price mono" style="font-size:15px;color:var(--accent-text)">34 900 ₽</td><td class="price mono" style="font-size:15px;color:var(--accent-text)">46 900 ₽</td></tr>
+                  <tr><td class="sticky">Площадь</td><td>до 20 м²</td><td>до 27 м²</td><td>до 35 м²</td></tr>
+                  <tr><td class="sticky">Мощность</td><td>2.0 кВт</td><td>2.6 кВт</td><td>3.5 кВт</td></tr>
+                  <tr><td class="sticky">Уровень шума</td><td>19 дБ</td><td>22 дБ</td><td>24 дБ</td></tr>
+                  <tr><td class="sticky">Инвертор</td><td class="fnt">—</td><td>есть</td><td>есть</td></tr>
+                  <tr><td class="sticky">Обогрев зимой</td><td>до −7°</td><td>до −15°</td><td>до −15°</td></tr>
+                  <tr><td class="sticky">Гарантия</td><td>3 года</td><td>5 лет</td><td>5 лет</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="edge"></div>
+          </div>
+          <p class="fnt" style="margin-top:10px">Проведите по таблице вбок, чтобы увидеть остальные модели</p>
+        </div>
+      </div>
+      <div class="stack" style="gap:16px;flex:1">
+        <div class="card soft" style="padding:18px">
+          <span class="kicker">Что залипает</span>
+          <p class="note2" style="margin-top:8px">Только первая колонка и только внутри контейнера: <span class="mono">position: sticky; left: 0</span> плюс тень-разделитель справа. Без тени залипшая колонка при прокрутке наезжает на данные и выглядит как склейка.</p>
+        </div>
+        <div class="card soft" style="padding:18px">
+          <span class="kicker">Чего колонка характеристик не делает</span>
+          <p class="note2" style="margin-top:8px">Не переносит строки в одну букву: ширина 132 px и перенос по словам. Остальные колонки, наоборот, не переносятся вовсе — цифры в них должны читаться одной строкой.</p>
+        </div>
+        <div class="card soft" style="padding:18px">
+          <span class="kicker">Край экрана</span>
+          <p class="note2" style="margin-top:8px">Полоска затухания у правого края — единственный признак, что таблица шире контейнера. Она же отличает «здесь есть продолжение» от «здесь что-то сломалось»: сейчас у обрезанных лент такого признака нет ни одного.</p>
+        </div>
+        <div class="card acc" style="padding:18px">
+          <span class="kicker">Проверка</span>
+          <p class="note2" style="margin-top:8px;color:var(--accent-text)">Готовность узла проверяется одним числом: <span class="mono">document.documentElement.scrollWidth</span> равен ширине окна на 320, 375 и 768. Если больше — таблица утащила за собой страницу.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <h3 class="h3">Что изменилось в карточке</h3>
+    <table class="rule" style="margin-top:14px;width:100%;border-collapse:collapse;font-size:13.5px">
+      <thead><tr>
+        <th style="width:220px;text-align:left;padding:9px 12px;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line-strong);font-weight:400">Элемент</th>
+        <th style="text-align:left;padding:9px 12px;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line-strong);font-weight:400">Было</th>
+        <th style="text-align:left;padding:9px 12px;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line-strong);font-weight:400">Стало</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink);font-weight:600">Фотография</td><td style="padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink2)">Почти квадрат, около 250 px высоты на 375</td><td style="padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--accent-text);font-weight:600">16:10 — 214 px. Пропорция задана, значит места под неё резервируется ровно столько, сколько нужно (CLS)</td></tr>
+        <tr style="background:var(--stripe-b)"><td style="padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink);font-weight:600">Сравнение</td><td style="padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink2)">Текстовая кнопка «+ Сравнить» в ряду с «Подробнее» — вылезала за правый край</td><td style="padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--accent-text);font-weight:600">Кнопка-иконка 44×44 в углу снимка, с подписью для скринридера</td></tr>
+        <tr><td style="padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink);font-weight:600">Действия</td><td style="padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink2)">Три: «Подробнее», «Сравнить», «Заказать»</td><td style="padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--accent-text);font-weight:600">Одно явное — «Заказать». Заголовок ведёт на страницу модели, сравнение — иконка</td></tr>
+        <tr style="background:var(--stripe-b)"><td style="padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink);font-weight:600">Ярлык скидки</td><td style="padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink2)">Появляется только у скидочной модели и сдвигает кнопку на 34 px вниз</td><td style="padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--accent-text);font-weight:600">Слот высотой 24 px есть у всех карточек: замерено — «Заказать» стоит на 375 px во всех трёх</td></tr>
+        <tr><td style="padding:11px 12px;color:var(--ink);font-weight:600">Высота карточки</td><td style="padding:11px 12px;color:var(--ink2)">около 670 px</td><td style="padding:11px 12px;color:var(--accent-text);font-weight:600">около 400 px — секция каталога сократилась с 2 667 до 1 685 px</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":1320,"height":3530}}'>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

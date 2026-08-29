@@ -1,0 +1,396 @@
+/* ═══ Кит панели ТулаКлимат ═══
+   Устройство узлов скопировано с HeroUI: варианты полей flat/bordered/faded/
+   underlined, подпись внутри поля, чип шестью вариантами, карточка тремя
+   поясами, таблица с верхним и нижним блоком, вкладки четырьмя видами.
+   Цвета наши (ADR-169): с эталона берётся геометрия и порядок, не палитра. */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink2);
+  font-family:var(--font-text);font-size:var(--fs-body);line-height:1.45;
+  -webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:var(--accent-text);text-decoration:none}
+a:hover{color:var(--brand-hover)}
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);color:var(--ink);
+  letter-spacing:-0.02em;font-weight:700}
+p{margin:0} ul,ol{margin:0;padding:0;list-style:none}
+table{border-collapse:separate;border-spacing:0}
+.row{display:flex;align-items:center}
+.stack{display:flex;flex-direction:column}
+.grid{display:grid}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.num{font-family:var(--font-display);font-weight:700;font-variant-numeric:tabular-nums;
+  letter-spacing:-0.02em;color:var(--ink)}
+.mut{color:var(--muted)} .fnt{color:var(--faint)} .ink{color:var(--ink)}
+.t-tiny{font-size:var(--fs-tiny)} .t-lbl{font-size:var(--fs-label)}
+.clip{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hr{height:1px;background:var(--line);border:0;flex-shrink:0}
+.hr.v{width:1px;height:auto;align-self:stretch}
+
+/* ─── Button ─── */
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;
+  height:var(--h-md);padding:0 18px;border:1px solid transparent;border-radius:var(--r-btn);
+  font-family:var(--font-text);font-size:var(--fs-body);font-weight:600;line-height:1;
+  white-space:nowrap;cursor:pointer;text-decoration:none;
+  transition:background .15s ease,border-color .15s ease,color .15s ease,box-shadow .15s ease,transform .1s ease}
+.btn:active{transform:scale(.97)}
+.btn.sm{height:var(--h-sm);padding:0 14px;font-size:var(--fs-label)}
+.btn.lg{height:var(--h-lg);padding:0 22px;font-size:15px}
+.btn.icon{width:var(--h-md);padding:0;border-radius:var(--r-pill)} .btn.icon.sm{width:var(--h-sm)} .btn.icon.lg{width:var(--h-lg)}
+.btn.solid{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.solid:hover{background:var(--brand-hover);border-color:var(--brand-hover)}
+.btn.flat{background:var(--accent-bg);color:var(--on-accent)}
+.btn.flat:hover{background:var(--brand);color:var(--on-brand)}
+.btn.bord{background:transparent;border-color:var(--line-ui);color:var(--ink)}
+.btn.bord:hover{border-color:var(--accent-ink);color:var(--accent-text)}
+.btn.faded{background:var(--bg-soft);border-color:var(--line);color:var(--ink)}
+.btn.faded:hover{border-color:var(--line-ui)}
+.btn.light{background:transparent;color:var(--ink2)}
+.btn.light:hover{background:var(--bg-soft);color:var(--ink)}
+.btn.ghost{background:transparent;border-color:var(--brand);color:var(--accent-text)}
+.btn.ghost:hover{background:var(--brand);color:var(--on-brand)}
+.btn.danger{background:var(--error-bg);border-color:var(--error-line);color:var(--error-ink)}
+.btn.danger:hover{background:var(--error-ink);border-color:var(--error-ink);color:var(--on-error)}
+.btn.dis{opacity:.5;cursor:not-allowed;transform:none}
+.btn.focus{box-shadow:var(--ring-focus-ring)}
+/* группа кнопок: общая рамка, скруглены только края */
+.bgrp{display:inline-flex}
+.bgrp .btn{border-radius:0;margin-left:-1px}
+.bgrp .btn:first-child{border-radius:var(--r-btn) 0 0 var(--r-btn);margin-left:0}
+.bgrp .btn:last-child{border-radius:0 var(--r-btn) var(--r-btn) 0}
+
+/* ─── Input ─── подпись внутри, начальное и конечное содержимое */
+.inp{display:flex;align-items:center;gap:8px;width:100%;min-height:var(--h-lg);
+  padding:0 14px;border:1px solid var(--line-ui);border-radius:var(--r-btn);
+  background:var(--bg-soft);cursor:text;
+  transition:background .15s ease,border-color .15s ease,box-shadow .15s ease}
+.inp .body{display:flex;flex-direction:column;justify-content:center;flex:1;min-width:0;
+  padding:6px 0}
+.inp .lab{font-size:11px;font-weight:600;color:var(--muted);line-height:1.15}
+.inp .val{font-size:var(--fs-body);color:var(--ink);line-height:1.25}
+.inp .ph{color:var(--faint)}
+.inp .ico{display:flex;align-items:center;color:var(--muted);flex-shrink:0}
+.inp.solo .body{padding:0}
+.inp.sm{min-height:var(--h-sm);padding:0 10px} .inp.md{min-height:var(--h-md)}
+.inp.tall{min-height:96px;align-items:flex-start;padding-top:10px;padding-bottom:10px;border-radius:var(--r-card)}
+.inp.tall > .body{padding:0}
+/* варианты эталона */
+.inp.flat{background:var(--bg-soft)}
+.inp.flat:hover{background:var(--stripe-a)}
+.inp.bordered{background:transparent;border-color:var(--line-ui)}
+.inp.bordered:hover{border-color:var(--ink2)}
+.inp.faded{background:var(--bg-soft);border-color:var(--line)}
+.inp.faded:hover{border-color:var(--line-ui)}
+.inp.under{background:transparent;border-radius:0;border:0;border-bottom:1px solid var(--line-ui);padding-inline:2px}
+.inp.under:hover{border-bottom-color:var(--ink2)}
+/* состояния */
+.inp.foc{background:var(--card);border-color:var(--accent-ink);box-shadow:var(--ring-focus-ring)}
+.inp.foc.under{background:transparent;box-shadow:none;border-bottom-color:var(--accent-ink)}
+.inp.err{background:var(--error-bg);border-color:var(--error-ink)}
+.inp.err .lab{color:var(--error-ink)}
+.inp.dis{opacity:.5;cursor:not-allowed}
+.hint{margin-top:5px;font-size:11.5px;color:var(--faint);display:flex;gap:5px;align-items:flex-start}
+.hint.bad{color:var(--error-ink)}
+/* подпись снаружи — второй способ размещения */
+.lab-out{display:block;margin-bottom:6px;font-size:var(--fs-label);font-weight:600;color:var(--ink2)}
+
+/* ─── Checkbox · Radio · Switch ─── */
+.cbx{width:20px;height:20px;border-radius:7px;border:1.5px solid var(--line-ui);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:transparent}
+.cbx.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.cbx.ind{background:var(--brand);border-color:var(--brand);color:#fff}
+.rdo{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-ui);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center}
+.rdo.on{border-color:var(--brand)}
+.rdo.on::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--brand)}
+.sw{display:inline-block;width:44px;height:26px;border-radius:var(--r-pill);background:var(--card);
+  border:1.5px solid var(--line-ui);position:relative;flex-shrink:0;transition:.15s}
+.sw i{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;
+  background:var(--line-ui);transition:.15s}
+.sw.on{background:var(--brand);border-color:var(--brand)}
+.sw.on i{left:20px;background:#fff}
+.opt{display:flex;align-items:center;gap:10px;min-height:36px;cursor:pointer}
+.opt .txt{font-size:var(--fs-body);color:var(--ink)}
+.opt .sub{font-size:11.5px;color:var(--muted)}
+
+/* ─── Chip — шесть вариантов эталона ─── */
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;
+  border:1px solid transparent;border-radius:var(--r-pill);font-size:var(--fs-tiny);
+  font-weight:600;line-height:1;white-space:nowrap}
+.chip.lg{height:28px;padding:0 11px;font-size:var(--fs-label)}
+.chip.sq{border-radius:8px}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:currentcolor;flex-shrink:0}
+.chip .x{display:flex;opacity:.6;margin-left:1px}
+.c-default{background:var(--bg-soft);color:var(--muted);border-color:var(--line)}
+.c-primary{background:var(--accent-bg);color:var(--on-accent)}
+.c-success{background:var(--ok-bg);color:var(--ok-ink)}
+.c-warn{background:var(--warn-bg);color:var(--warn-ink)}
+.c-danger{background:var(--error-bg);color:var(--error-ink)}
+.c-info{background:var(--info-bg);color:var(--info-ink)}
+.v-solid.c-primary{background:var(--brand);color:var(--on-brand)}
+.v-solid.c-success{background:var(--ok-ink);color:var(--on-ok)}
+.v-solid.c-danger{background:var(--error-ink);color:var(--on-error)}
+.v-bord{background:transparent}
+.v-bord.c-primary{border-color:var(--brand);color:var(--accent-text)}
+.v-bord.c-danger{border-color:var(--error-ink);color:var(--error-ink)}
+.v-light{background:transparent;border-color:transparent}
+.v-faded.c-primary{background:var(--bg-soft);border-color:var(--line);color:var(--accent-text)}
+
+/* ─── Card ─── */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);
+  box-shadow:none}
+.card.flat{box-shadow:none}
+.card.hov{transition:box-shadow .18s ease,border-color .18s ease,transform .18s ease}
+.card.hov:hover{box-shadow:var(--sh-md);border-color:var(--line-strong);transform:translateY(-1px)}
+.card.sel{border-color:var(--accent-ink);box-shadow:var(--ring-focus-ring)}
+.card > .hd{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:var(--pad-card-sm) var(--pad-card)}
+.card > .bd{padding:var(--pad-card)}
+.card > .ft{padding:var(--pad-card-sm) var(--pad-card)}
+.card > .hd + .bd,.card > .bd + .ft{border-top:1px solid var(--line)}
+.ttl{font-size:15px;font-weight:700;color:var(--ink);font-family:var(--font-display)}
+
+/* ─── Table ─── */
+.tbl{width:100%;font-size:var(--fs-body)}
+.tbl th{position:sticky;top:0;z-index:1;text-align:left;padding:10px 12px;
+  background:var(--bg-soft);color:var(--muted);font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+  border-bottom:1px solid var(--line)}
+.tbl td{padding:12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:middle}
+.tbl tbody tr:hover td{background:var(--bg-soft)}
+.tbl tbody tr:last-child td{border-bottom:none}
+.tbl.zebra tbody tr:nth-child(even) td{background:var(--stripe-b)}
+.tbl .rt{text-align:right}
+.tbl .strong{color:var(--ink);font-weight:600}
+
+/* ─── Tabs — четыре вида ─── */
+.tabs{display:flex;gap:22px;border-bottom:1px solid var(--line)}
+.tab{position:relative;padding:10px 0;font-size:var(--fs-body);font-weight:600;
+  color:var(--muted);white-space:nowrap;cursor:pointer}
+.tab.on{color:var(--ink)}
+.tab.on::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  border-radius:2px;background:var(--brand)}
+.seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--bg-soft);gap:2px}
+.seg span{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:8px;
+  font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.seg span.on{background:var(--card);color:var(--ink);box-shadow:var(--sh-sm)}
+.seg.bord{background:transparent;border:2px solid var(--line);padding:2px}
+.seg.bord span.on{background:var(--accent-bg);color:var(--on-accent);box-shadow:none}
+
+/* ─── Avatar · User · Badge ─── */
+.ava{display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:32px;height:32px;border-radius:var(--r-pill);background:var(--accent-bg);
+  color:var(--on-accent);font-family:var(--font-display);font-weight:700;font-size:12px}
+.ava.xs{width:24px;height:24px;font-size:10px}
+.ava.lg{width:40px;height:40px;font-size:14px}
+.ava.sq{border-radius:10px}
+.avagrp{display:flex}
+.avagrp .ava{border:2px solid var(--card);margin-left:-8px}
+.avagrp .ava:first-child{margin-left:0}
+.usr{display:flex;align-items:center;gap:10px;min-width:0}
+.usr .nm{font-size:13.5px;font-weight:600;color:var(--ink)}
+.usr .ds{font-size:11.5px;color:var(--muted)}
+.bdg{position:absolute;top:-3px;right:-3px;min-width:16px;height:16px;padding:0 4px;
+  border-radius:var(--r-pill);background:var(--error-ink);color:var(--on-error);font-size:10px;
+  font-weight:700;display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--card)}
+.bdg.dot{min-width:10px;height:10px;padding:0}
+
+/* ─── Progress · Spinner ─── */
+.bar{height:6px;border-radius:var(--r-pill);background:var(--line);overflow:hidden}
+.bar > i{display:block;height:100%;border-radius:var(--r-pill);background:var(--brand)}
+.bar.sm{height:4px}
+.spin{width:20px;height:20px;border-radius:50%;border:2.5px solid var(--line);
+  border-top-color:var(--brand)}
+
+/* ─── Skeleton ─── */
+.sk{display:inline-block;border-radius:8px;
+  background:linear-gradient(90deg,var(--line-soft),var(--line),var(--line-soft));
+  background-size:200% 100%}
+
+/* Строка списка на узком экране. Живёт в ките, а не в стилях доски:
+   её просят и экраны, и вкладки, и матрица состояний. */
+.mrow{display:flex;flex-direction:column;gap:8px;padding:14px}
+
+/* ─── Alert ─── */
+.alert{display:flex;gap:12px;padding:12px 14px;border-radius:var(--r-sm);
+  border:1px solid transparent}
+.alert .ai{flex-shrink:0;margin-top:1px}
+.alert .at{font-size:13.5px;font-weight:700}
+.alert .ad{margin-top:2px;font-size:12.5px;line-height:1.45;opacity:.92}
+.a-primary{background:var(--accent-bg);border-color:var(--accent-line);color:var(--accent-text)}
+.a-success{background:var(--ok-bg);border-color:var(--ok-line);color:var(--ok-ink)}
+.a-warn{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn-ink)}
+.a-danger{background:var(--error-bg);border-color:var(--error-line);color:var(--error-ink)}
+
+/* ─── Snippet · Kbd ─── */
+.snip{display:flex;align-items:center;gap:10px;padding:0 10px;height:var(--h-md);
+  border-radius:9px;background:var(--bg-soft);border:1px solid var(--line);
+  font-family:var(--font-mono);font-size:12.5px;color:var(--ink2)}
+.kbd{padding:2px 6px;border-radius:5px;background:var(--card);border:1px solid var(--line-ui);
+  font-family:var(--font-mono);font-size:10.5px;color:var(--muted);line-height:1.3}
+
+/* ─── Listbox · Dropdown · Popover ─── */
+.pop{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);
+  box-shadow:var(--sh-lg);padding:6px;min-width:200px}
+.item{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:8px;
+  font-size:13.5px;color:var(--ink2);cursor:pointer}
+.item:hover{background:var(--bg-soft);color:var(--ink)}
+.item.on{background:var(--accent-bg);color:var(--on-accent)}
+.item.bad{color:var(--error-ink)}
+.item.bad:hover{background:var(--error-bg)}
+.item .k{margin-left:auto}
+.grp{padding:8px 10px 4px;font-size:10.5px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--faint)}
+.tip{padding:6px 10px;border-radius:8px;background:var(--panel);color:#fff;
+  font-size:12px;box-shadow:var(--sh-md)}
+
+/* ─── Pagination ─── */
+.pg{display:flex;gap:4px}
+.pg span{display:flex;align-items:center;justify-content:center;min-width:32px;height:32px;
+  border-radius:8px;font-size:var(--fs-label);color:var(--ink2);cursor:pointer}
+.pg span:hover{background:var(--bg-soft)}
+.pg span.on{background:var(--brand);color:var(--on-brand);font-weight:600}
+.pg span.dis{color:var(--faint);cursor:not-allowed}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px var(--pad-card)}
+
+/* ─── Accordion ─── */
+.acc{border-bottom:1px solid var(--line)}
+.acc .head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  min-height:52px;padding:0 4px;cursor:pointer}
+.acc .body{padding:0 4px 14px;font-size:13.5px;color:var(--muted);line-height:1.5}
+
+/* ─── подписи макета (не интерфейс) ─── */
+.note{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--accent-text)}
+.cap{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  color:var(--muted);margin-bottom:8px}
+
+/* ═══ Каркас панели ═══
+   Эталон: вся панель — один скруглённый белый контейнер на светло-сером поле.
+   Колонка разделов отделена линией, не собственным фоном. */
+.page{width:1440px;background:var(--bg-soft);padding:28px}
+.app{display:grid;grid-template-columns:var(--aside) minmax(0,1fr);
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-app);
+  overflow:hidden}
+.app.rail{grid-template-columns:var(--rail) minmax(0,1fr)}
+.aside{display:flex;flex-direction:column;border-right:1px solid var(--line);min-height:0}
+/* Верх колонки — кто вошёл. Низ прибит: настройки, профиль, выход (BUGS §1837) */
+.who{display:flex;align-items:center;gap:11px;padding:16px 14px 12px}
+.who .nm{font-size:14px;font-weight:600;color:var(--ink);line-height:1.2}
+.who .rl{font-size:12px;color:var(--muted);line-height:1.2}
+.nav{display:flex;flex-direction:column;gap:3px;padding:4px 12px 12px;flex:1;
+  overflow-y:auto;min-height:0}
+.navgrp{padding:14px 10px 5px;font-size:11px;font-weight:600;letter-spacing:.04em;
+  color:var(--faint)}
+.nv{display:flex;align-items:center;gap:12px;min-height:var(--h-nav);padding:0 12px;
+  border-radius:var(--r-nav);color:var(--ink2);font-size:14px;font-weight:500;
+  white-space:nowrap;position:relative;transition:background .14s ease,color .14s ease}
+.nv svg{flex-shrink:0;color:var(--muted)}
+.nv:hover{background:var(--bg-soft);color:var(--ink)}
+/* 🔴 Активный различается тремя признаками сразу: заливка, вес и полоса —
+   не только цветом */
+.nv.on{background:var(--bg-soft);color:var(--ink);font-weight:600}
+.nv.on svg{color:var(--accent-text)}
+.nv.on::before{content:'';position:absolute;left:0;top:11px;bottom:11px;width:3px;
+  border-radius:0 3px 3px 0;background:var(--brand)}
+.nv .cnt{margin-left:auto;min-width:22px;height:20px;padding:0 7px;border-radius:var(--r-pill);
+  background:var(--accent-bg);color:var(--on-accent);font-size:11.5px;font-weight:700;
+  display:flex;align-items:center;justify-content:center}
+.nv.on .cnt{background:var(--brand);color:var(--on-brand)}
+.asfoot{margin-top:auto;padding:10px 12px 14px;border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:3px;flex-shrink:0}
+
+/* Верхняя строка контента: заголовок слева, действия справа */
+.chead{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:20px 24px 0}
+.h1{font-size:24px;font-weight:600;letter-spacing:-0.02em;color:var(--ink);
+  font-family:var(--font-display)}
+.sub{margin-top:4px;font-size:13.5px;color:var(--muted)}
+.iconbtn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;
+  border-radius:var(--r-pill);color:var(--muted);position:relative;cursor:pointer}
+.iconbtn:hover{background:var(--bg-soft);color:var(--ink)}
+.main{padding:18px 24px 24px;display:flex;flex-direction:column;gap:18px;min-width:0}
+
+/* Плитка показателя по эталону: подпись сверху, крупное число, чип изменения справа */
+.stat{padding:18px 20px}
+.stat .l{font-size:14px;color:var(--muted)}
+.stat .v{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
+.stat .n{font-family:var(--font-display);font-size:28px;font-weight:600;
+  letter-spacing:-0.02em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1}
+.trend{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 9px;
+  border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.t-up{background:var(--ok-bg);color:var(--ok-ink)}
+.t-down{background:var(--error-bg);color:var(--error-ink)}
+.t-flat{background:var(--bg-soft);color:var(--muted)}
+
+/* Панель над таблицей: слева пилюли-фильтры, справа поиск */
+.tbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.acts{display:flex;gap:6px}
+.actbtn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;
+  border-radius:var(--r-pill);cursor:pointer}
+.a-view{background:var(--bg-soft);color:var(--ink2)}
+.a-edit{background:var(--accent-bg);color:var(--on-accent)}
+.a-del{background:var(--error-bg);color:var(--error-ink)}
+
+/* нижняя панель вкладок на телефоне */
+.tabbar{display:flex;align-items:stretch;background:var(--card);border-top:1px solid var(--line);
+  flex-shrink:0}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  min-height:56px;color:var(--muted);font-size:10.5px;font-weight:600}
+.tb.on{color:var(--accent-text)}
+.tb.on svg{color:var(--accent-text)}
+/* 🔴 Тап-зона поднимается только в сенсорных кадрах — телефонном и
+   планшетном. Раньше правило висело на всей доске: на кадре 1440 малая
+   кнопка вырастала с 32 до 44px и переставала отличаться от средней, а
+   .actbtn рядом оставался 32px — плотность экрана расходилась с токенами,
+   и снятые с кадра числа врали. Замерено: .btn.sm 44px против токена 32. */
+.frame.ph .btn,.frame.tb .btn{height:44px}
+.frame.ph .btn.sm,.frame.tb .btn.sm{height:44px}
+.frame.ph .btn.lg,.frame.tb .btn.lg{height:52px}
+.frame.ph .inp,.frame.tb .inp{min-height:52px}
+.frame.ph .item,.frame.tb .item{height:44px}
+.frame.ph .nv,.frame.tb .nv{min-height:48px}
+.frame.ph .cbx,.frame.ph .rdo,.frame.tb .cbx,.frame.tb .rdo{width:24px;height:24px}
+.frame.ph .chip,.frame.tb .chip{min-height:32px}
+.frame.ph .seg .sg,.frame.tb .seg .sg{min-height:36px}
+.frame.ph .actbtn,.frame.tb .actbtn{width:40px;height:40px}
+
+/* график: тонкие метки, скруглённые концы, утопленная сетка */
+.chart .gl{stroke:var(--line);stroke-width:1}
+.chart .ax{font-family:var(--font-mono);font-size:10px;fill:var(--faint)}
+.legend{display:flex;gap:14px;align-items:center}
+.legend span{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.legend i{width:9px;height:9px;border-radius:3px;display:block}
+/* колоночная раскладка поля: подпись над значением прямыми детьми */
+.inp.col{flex-direction:column;justify-content:center;align-items:stretch;gap:2px}
+.inp.col > .lab{width:100%}
+.inp.col.tall{justify-content:flex-start}
+
+/* Оценка отзыва. Звёзды — текст, а не иконки: их пять, они не кликабельны
+   в панели и в вёрстке ведут себя как цифра рядом с именем. */
+.stars{display:inline-flex;gap:1px;font-size:13px;line-height:1;letter-spacing:0.5px}
+.stars .s{color:var(--line-ui)}
+.stars .s.on{color:var(--star)}
+
+/* В телефонном кадре иконка-кнопка растёт до тап-зоны. Правило привязано к
+   кадру, а не к .touch: на доске .touch стоит на всём борде, включая
+   десктопные кадры, где 36px — верная плотность HeroUI. */
+.frame.ph .iconbtn{width:44px;height:44px}
+
+/* 🔴 Подсвеченная строка таблицы или списка — «просрочен», «требует внимания».
+   На ней тинт складывается дважды: подложка строки плюс подложка чипа, и
+   красный на красном опускается до 4,4:1 в тёмной теме. Поэтому внутри такой
+   строки приглушённый текст поднимается на ступень, а мягкий чип становится
+   обведённым: его собственная заливка здесь уже не нужна — строка и так
+   выделена. Замерено, а не на глаз. */
+.rowbad{background:var(--error-bg)}
+.rowwarn{background:var(--warn-bg)}
+.rowbad .mut,.rowwarn .mut,.rowbad .t-tiny,.rowwarn .t-tiny{color:var(--body)}
+.rowbad .chip.c-danger,.rowwarn .chip.c-warn{background:var(--card);
+  border:1px solid var(--error-line)}
+.rowwarn .chip.c-warn{border-color:var(--warn-line)}
+
+/* Поле в ошибке залито тинтом, и подсказка с плейсхолдером на нём теряют
+   четверть контраста: 4,46:1 вместо 4,5. Внутри такого поля ink на ступень
+   выше — та же поправка, что у подсвеченной строки. */
+.inp.err .ph,.inp.err .hint{color:var(--body)}

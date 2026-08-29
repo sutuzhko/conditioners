@@ -1,0 +1,42 @@
+/* Разбор узла: карточка каталога и сравнение */
+.page{width:1320px;background:var(--bg-soft);padding:36px}
+.h2{font-size:28px;line-height:1.1;font-weight:800}
+.h3{font-size:17px;font-weight:700}
+.band{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-card);padding:26px;margin-top:22px}
+.devlab{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--muted);
+  margin-bottom:8px;display:block}
+.pcard{overflow:hidden;border-radius:var(--r-ml);display:flex;flex-direction:column;background:var(--card)}
+.pshot{position:relative;aspect-ratio:16/10;background:
+  linear-gradient(135deg,#eef6f8 0%,#f8fafc 60%,#e8f4f7 100%)}
+[data-theme='dark'] .pshot{background:linear-gradient(135deg,#16273b 0%,#0e1729 60%,#132a3a 100%)}
+.pshot .slot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  color:var(--line-strong);opacity:.75}
+.pshot .cap{position:absolute;left:12px;top:12px;padding:4px 10px;border-radius:var(--r-pill);
+  background:var(--panel);color:#fff;font-family:var(--font-mono);font-size:11px}
+.cmp{position:absolute;right:10px;top:10px;width:44px;height:44px;border-radius:var(--r-pill);
+  border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center}
+.cmp.on{border-color:var(--brand);background:var(--brand)}
+.pbody{padding:16px;display:flex;flex-direction:column;flex:1}
+.sale{display:inline-flex;align-items:center;line-height:1.2;padding:3px 9px;border-radius:var(--r-pill);
+  border:1px solid var(--sale-line);background:var(--sale-bg);color:var(--sale-ink);font-size:12px;font-weight:700}
+.was{color:var(--faint);font-size:14px;text-decoration:line-through;font-variant-numeric:tabular-nums}
+.tagx{display:inline-flex;align-items:center;min-height:24px;padding:2px 9px;font-size:11.5px;
+  border-radius:var(--r-pill);border:1px solid var(--accent-line);background:var(--accent-bg);
+  color:var(--accent-text);font-weight:600;line-height:1.2}
+/* Таблица сравнения: скролл живёт внутри контейнера, страница не едет */
+.cmpwrap{border:1px solid var(--line);border-radius:var(--r-ml);overflow:hidden;background:var(--card)}
+.cmpscroll{overflow-x:auto}
+.cmptbl{border-collapse:separate;border-spacing:0;font-size:13.5px;min-width:620px}
+.cmptbl th,.cmptbl td{padding:11px 14px;border-bottom:1px solid var(--line-soft);
+  text-align:left;white-space:nowrap;color:var(--ink2)}
+.cmptbl thead th{background:var(--bg-soft);font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
+/* первая колонка липнет — только она, и только внутри своего контейнера */
+.cmptbl .sticky{position:sticky;left:0;z-index:2;background:var(--card);
+  box-shadow:1px 0 0 var(--line);font-weight:600;color:var(--ink);white-space:normal;min-width:132px}
+.cmptbl thead .sticky{background:var(--bg-soft)}
+.cmptbl tbody tr:nth-child(even) td{background:var(--stripe-b)}
+.cmptbl tbody tr:nth-child(even) .sticky{background:var(--stripe-b)}
+.edge{height:6px;background:linear-gradient(90deg,transparent 60%,rgb(15 23 42 / 7%))}
+.note2{font-size:14px;line-height:1.55;color:var(--ink2)}

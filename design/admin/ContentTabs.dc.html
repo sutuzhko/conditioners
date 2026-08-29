@@ -1,0 +1,963 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+/* Токены сняты из apps/web/src/shared/styles/tokens.css и ui-tokens.css — один в один */
+:root{
+  --bg:#fff; --bg-soft:#f8fafc; --card:#fff;
+  --header-bg:rgb(255 255 255 / 82%);
+  --hero-grad:linear-gradient(180deg,#f0f9fb 0%,#fff 100%);
+  --ink:#0f172a; --ink2:#334155; --body:#475569; --muted:#556173; --faint:#5b6a7d;
+  --line:#e2e8f0; --line-strong:#cbd5e1; --line-soft:#eef2f6;
+  --accent-ink:#0891b2; --accent-text:#0e7490; --accent-bg:#ecfeff; --accent-line:#a5f3fc;
+  --panel:#0f172a; --stripe-a:#edf2f6; --stripe-b:#f5f8fa; --field:#fff;
+  --brand:#0e7490; --brand-hover:#155e75; --brand-mark:#0891b2; --brand-mark-dark:#22d3ee;
+  --on-brand:#fff; --on-panel:#fff; --on-accent:var(--accent-text);
+  --sale-ink:rgb(190 18 60); --sale-bg:rgb(190 18 60 / 8%); --sale-line:rgb(190 18 60 / 28%);
+  --star:rgb(217 119 6); --ok-ink:rgb(22 101 52); --ok-bg:rgb(21 128 61 / 8%);
+  --lead-grad:linear-gradient(180deg,rgb(15 23 42) 0%,rgb(11 37 48) 100%);
+  --shadow-header:0 12px 34px -16px rgb(15 23 42 / 22%);
+  --shadow-card:0 20px 44px -28px rgb(15 23 42 / 20%);
+  --shadow-brand:0 10px 24px rgb(14 116 144 / 30%);
+  --shadow-raised:0 36px 80px -32px rgb(8 66 84 / 45%);
+  --r-sm:11px; --r-md:14px; --r-ml:18px; --r-lg:20px; --r-xl:22px; --r-xxl:24px; --r-pill:100px;
+  --font-display:'Onest',system-ui,sans-serif;
+  --font-text:'Manrope',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+[data-theme='dark']{
+  --bg:#0b1220; --bg-soft:#0e1729; --card:#121d31;
+  --header-bg:rgb(11 18 32 / 80%);
+  --hero-grad:linear-gradient(180deg,#0c1628 0%,#0b1220 100%);
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --line:#1e2b41; --line-strong:#2c3d59; --line-soft:#182338;
+  --accent-ink:#22d3ee; --accent-text:#22d3ee; --accent-bg:rgb(34 211 238 / 10%); --accent-line:rgb(34 211 238 / 35%);
+  --panel:#111d34; --stripe-a:#16223a; --stripe-b:#121d31; --field:#0b1424;
+  --sale-ink:rgb(251 113 133); --sale-bg:rgb(251 113 133 / 12%); --sale-line:rgb(251 113 133 / 32%);
+  --star:rgb(251 191 36); --ok-ink:rgb(74 222 128); --ok-bg:rgb(74 222 128 / 12%);
+}
+/* Тёмный остров внутри светлой темы (ADR-158) */
+[data-ground='panel']{
+  --ink:#eaf1f8; --ink2:#c9d5e2; --body:#a8b6c6; --muted:#8598ac; --faint:#7e92a7;
+  --accent-text:#22d3ee;
+}
+
+/* ——— Плотность панели. Взята с HeroUI: шаг 4px, высоты контролов
+   sm 32 / md 40 / lg 48, внутренние поля карточки 12 и 16, зазор групп 12.
+   Панель плотнее сайта: там пол тап-зоны 44px, здесь мышь (DESIGN_BRIEF §9).
+   На сенсорном экране высоты поднимаются до 44 — правило ниже. ——— */
+:root{
+  --h-sm:32px; --h-md:40px; --h-lg:48px;
+  --pad-card:16px; --pad-card-sm:12px;
+  --gap-1:4px; --gap-2:8px; --gap-3:12px; --gap-4:16px; --gap-6:24px; --gap-8:32px;
+  --rail:72px;          /* свёрнутая колонка разделов */
+  --aside:264px;        /* развёрнутая */
+  --navbar:56px;        /* верхняя полоса */
+  --fs-label:13px; --fs-body:14px; --fs-tiny:12px;
+  /* тени HeroUI: small и medium, нейтральные и очень мягкие */
+  --sh-sm:0 0 5px 0 rgb(15 23 42 / 3%), 0 2px 10px 0 rgb(15 23 42 / 6%);
+  --sh-md:0 0 15px 0 rgb(15 23 42 / 4%), 0 2px 30px 0 rgb(15 23 42 / 8%);
+  --sh-lg:0 0 30px 0 rgb(15 23 42 / 6%), 0 30px 60px 0 rgb(15 23 42 / 12%);
+}
+[data-theme='dark']{
+  --sh-sm:0 0 5px 0 rgb(0 0 0 / 20%), 0 2px 10px 0 rgb(0 0 0 / 28%);
+  --sh-md:0 0 15px 0 rgb(0 0 0 / 24%), 0 2px 30px 0 rgb(0 0 0 / 34%);
+  --sh-lg:0 0 30px 0 rgb(0 0 0 / 34%), 0 30px 60px 0 rgb(0 0 0 / 46%);
+}
+
+/* ——— Семантические краски: перенесены из apps/web/src/shared/styles/ui-tokens.css
+   один в один. Шесть различимых пар на всю панель. ——— */
+:root{
+  /* Ступень темнее, чем в ui-tokens.css: там краска считалась на чистой
+     карточке, а в панели чип ложится на тинт своей же строки или ячейки
+     календаря — двойной слой опускал её до 4,0:1. Замерено. */
+  --warn-ink:rgb(146 64 14); --warn-bg:rgb(180 83 9 / 8%); --warn-line:rgb(180 83 9 / 28%);
+  --info-ink:rgb(67 56 202); --info-bg:rgb(67 56 202 / 8%); --info-line:rgb(67 56 202 / 28%);
+  --ok-line:rgb(21 128 61 / 28%);
+  --error-ink:rgb(190 18 60); --error-bg:rgb(190 18 60 / 8%);
+  --on-error:#fff; --on-ok:#fff;
+  --error-line:rgb(190 18 60 / 45%);
+  --overlay:rgb(15 23 42 / 45%);
+  --star-bg:rgb(217 119 6 / 12%);
+
+  /* Кольцо фокуса двухслойное: сначала отбивка цветом фона, потом контур.
+     Так оно читается и на светлой карточке, и на тёмной панели. Заливка с
+     прозрачностью на тёмном фоне не видна вовсе — отсюда два слоя. */
+  --ring-focus-ring:0 0 0 2px var(--bg), 0 0 0 4px var(--accent-ink);
+  --ring-focus-inset:inset 0 0 0 2px var(--accent-ink);
+}
+[data-theme='dark']{
+  --warn-ink:rgb(251 191 36); --warn-bg:rgb(251 191 36 / 12%); --warn-line:rgb(251 191 36 / 32%);
+  --info-ink:rgb(165 180 252); --info-bg:rgb(165 180 252 / 12%); --info-line:rgb(165 180 252 / 32%);
+  --ok-line:rgb(74 222 128 / 32%);
+  --star-bg:rgb(251 191 36 / 14%);
+  --error-ink:rgb(251 113 133); --error-bg:rgb(251 113 133 / 12%);
+  /* В тёмной теме краски состояний уходят на светлую сторону палитры,
+     и белый текст на них даёт 2,7:1. Поверх заливки — фон страницы. */
+  --on-error:var(--bg); --on-ok:var(--bg);
+  --error-line:rgb(251 113 133 / 50%);
+  --overlay:rgb(2 6 16 / 68%);
+}
+
+/* ——— 🔴 Новый токен: граница контрола.
+   `--line-strong` (#cbd5e1) на белом даёт 1,48:1, а WCAG 1.4.11 требует 3:1
+   для границ, которые СЛУЖАТ границей компонента. Декоративные разделители
+   остаются на `--line`; на `--line-ui` переходят только те места, где линия и
+   есть аффорданс: обводка поля, рамка невыбранного чекбокса, дорожка
+   выключенного переключателя. Значения подобраны расчётом, не на глаз. ——— */
+:root{ --line-ui:#7e8fa6; }               /* 3,30:1 на белом · 3,15:1 на --bg-soft */
+[data-theme='dark']{ --line-ui:#566d95; } /* 3,22:1 на --card */
+
+/* ——— Геометрия эталона (heroui.com/themes, шаблон dashboard):
+   Radius M для компонентов, Radius Form L для полей — на практике кнопки и
+   поля идут пилюлей, карточки 14, пункт навигации 12. ——— */
+:root{
+  --r-btn:999px;      /* кнопка и поле — пилюля */
+  --r-card:14px;      /* карточка */
+  --r-nav:12px;       /* пункт навигации */
+  --r-app:20px;       /* внешний контейнер панели */
+  --h-nav:44px;
+  /* Серии графиков. Пара разведена по тону (циан и янтарь), но не по
+     светлоте: 1,36:1 в светлой теме и 1,08:1 в тёмной. Одного цвета мало —
+     при дальтонизме и на чёрно-белой печати наряда серии сольются, поэтому
+     вторая линия идёт штрихом, а у каждой стоит подпись значения на конце.
+     Третьей серии не заводится: две — предел, который читается без легенды. */
+  --s1:#0891b2; --s2:#b45309;
+}
+[data-theme='dark']{ --s1:#22d3ee; --s2:#fbbf24; }
+/* ═══ Кит панели ТулаКлимат ═══
+   Устройство узлов скопировано с HeroUI: варианты полей flat/bordered/faded/
+   underlined, подпись внутри поля, чип шестью вариантами, карточка тремя
+   поясами, таблица с верхним и нижним блоком, вкладки четырьмя видами.
+   Цвета наши (ADR-169): с эталона берётся геометрия и порядок, не палитра. */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink2);
+  font-family:var(--font-text);font-size:var(--fs-body);line-height:1.45;
+  -webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:var(--accent-text);text-decoration:none}
+a:hover{color:var(--brand-hover)}
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);color:var(--ink);
+  letter-spacing:-0.02em;font-weight:700}
+p{margin:0} ul,ol{margin:0;padding:0;list-style:none}
+table{border-collapse:separate;border-spacing:0}
+.row{display:flex;align-items:center}
+.stack{display:flex;flex-direction:column}
+.grid{display:grid}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.num{font-family:var(--font-display);font-weight:700;font-variant-numeric:tabular-nums;
+  letter-spacing:-0.02em;color:var(--ink)}
+.mut{color:var(--muted)} .fnt{color:var(--faint)} .ink{color:var(--ink)}
+.t-tiny{font-size:var(--fs-tiny)} .t-lbl{font-size:var(--fs-label)}
+.clip{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hr{height:1px;background:var(--line);border:0;flex-shrink:0}
+.hr.v{width:1px;height:auto;align-self:stretch}
+
+/* ─── Button ─── */
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;
+  height:var(--h-md);padding:0 18px;border:1px solid transparent;border-radius:var(--r-btn);
+  font-family:var(--font-text);font-size:var(--fs-body);font-weight:600;line-height:1;
+  white-space:nowrap;cursor:pointer;text-decoration:none;
+  transition:background .15s ease,border-color .15s ease,color .15s ease,box-shadow .15s ease,transform .1s ease}
+.btn:active{transform:scale(.97)}
+.btn.sm{height:var(--h-sm);padding:0 14px;font-size:var(--fs-label)}
+.btn.lg{height:var(--h-lg);padding:0 22px;font-size:15px}
+.btn.icon{width:var(--h-md);padding:0;border-radius:var(--r-pill)} .btn.icon.sm{width:var(--h-sm)} .btn.icon.lg{width:var(--h-lg)}
+.btn.solid{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.solid:hover{background:var(--brand-hover);border-color:var(--brand-hover)}
+.btn.flat{background:var(--accent-bg);color:var(--on-accent)}
+.btn.flat:hover{background:var(--brand);color:var(--on-brand)}
+.btn.bord{background:transparent;border-color:var(--line-ui);color:var(--ink)}
+.btn.bord:hover{border-color:var(--accent-ink);color:var(--accent-text)}
+.btn.faded{background:var(--bg-soft);border-color:var(--line);color:var(--ink)}
+.btn.faded:hover{border-color:var(--line-ui)}
+.btn.light{background:transparent;color:var(--ink2)}
+.btn.light:hover{background:var(--bg-soft);color:var(--ink)}
+.btn.ghost{background:transparent;border-color:var(--brand);color:var(--accent-text)}
+.btn.ghost:hover{background:var(--brand);color:var(--on-brand)}
+.btn.danger{background:var(--error-bg);border-color:var(--error-line);color:var(--error-ink)}
+.btn.danger:hover{background:var(--error-ink);border-color:var(--error-ink);color:var(--on-error)}
+.btn.dis{opacity:.5;cursor:not-allowed;transform:none}
+.btn.focus{box-shadow:var(--ring-focus-ring)}
+/* группа кнопок: общая рамка, скруглены только края */
+.bgrp{display:inline-flex}
+.bgrp .btn{border-radius:0;margin-left:-1px}
+.bgrp .btn:first-child{border-radius:var(--r-btn) 0 0 var(--r-btn);margin-left:0}
+.bgrp .btn:last-child{border-radius:0 var(--r-btn) var(--r-btn) 0}
+
+/* ─── Input ─── подпись внутри, начальное и конечное содержимое */
+.inp{display:flex;align-items:center;gap:8px;width:100%;min-height:var(--h-lg);
+  padding:0 14px;border:1px solid var(--line-ui);border-radius:var(--r-btn);
+  background:var(--bg-soft);cursor:text;
+  transition:background .15s ease,border-color .15s ease,box-shadow .15s ease}
+.inp .body{display:flex;flex-direction:column;justify-content:center;flex:1;min-width:0;
+  padding:6px 0}
+.inp .lab{font-size:11px;font-weight:600;color:var(--muted);line-height:1.15}
+.inp .val{font-size:var(--fs-body);color:var(--ink);line-height:1.25}
+.inp .ph{color:var(--faint)}
+.inp .ico{display:flex;align-items:center;color:var(--muted);flex-shrink:0}
+.inp.solo .body{padding:0}
+.inp.sm{min-height:var(--h-sm);padding:0 10px} .inp.md{min-height:var(--h-md)}
+.inp.tall{min-height:96px;align-items:flex-start;padding-top:10px;padding-bottom:10px;border-radius:var(--r-card)}
+.inp.tall > .body{padding:0}
+/* варианты эталона */
+.inp.flat{background:var(--bg-soft)}
+.inp.flat:hover{background:var(--stripe-a)}
+.inp.bordered{background:transparent;border-color:var(--line-ui)}
+.inp.bordered:hover{border-color:var(--ink2)}
+.inp.faded{background:var(--bg-soft);border-color:var(--line)}
+.inp.faded:hover{border-color:var(--line-ui)}
+.inp.under{background:transparent;border-radius:0;border:0;border-bottom:1px solid var(--line-ui);padding-inline:2px}
+.inp.under:hover{border-bottom-color:var(--ink2)}
+/* состояния */
+.inp.foc{background:var(--card);border-color:var(--accent-ink);box-shadow:var(--ring-focus-ring)}
+.inp.foc.under{background:transparent;box-shadow:none;border-bottom-color:var(--accent-ink)}
+.inp.err{background:var(--error-bg);border-color:var(--error-ink)}
+.inp.err .lab{color:var(--error-ink)}
+.inp.dis{opacity:.5;cursor:not-allowed}
+.hint{margin-top:5px;font-size:11.5px;color:var(--faint);display:flex;gap:5px;align-items:flex-start}
+.hint.bad{color:var(--error-ink)}
+/* подпись снаружи — второй способ размещения */
+.lab-out{display:block;margin-bottom:6px;font-size:var(--fs-label);font-weight:600;color:var(--ink2)}
+
+/* ─── Checkbox · Radio · Switch ─── */
+.cbx{width:20px;height:20px;border-radius:7px;border:1.5px solid var(--line-ui);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:transparent}
+.cbx.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.cbx.ind{background:var(--brand);border-color:var(--brand);color:#fff}
+.rdo{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-ui);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center}
+.rdo.on{border-color:var(--brand)}
+.rdo.on::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--brand)}
+.sw{display:inline-block;width:44px;height:26px;border-radius:var(--r-pill);background:var(--card);
+  border:1.5px solid var(--line-ui);position:relative;flex-shrink:0;transition:.15s}
+.sw i{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;
+  background:var(--line-ui);transition:.15s}
+.sw.on{background:var(--brand);border-color:var(--brand)}
+.sw.on i{left:20px;background:#fff}
+.opt{display:flex;align-items:center;gap:10px;min-height:36px;cursor:pointer}
+.opt .txt{font-size:var(--fs-body);color:var(--ink)}
+.opt .sub{font-size:11.5px;color:var(--muted)}
+
+/* ─── Chip — шесть вариантов эталона ─── */
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;
+  border:1px solid transparent;border-radius:var(--r-pill);font-size:var(--fs-tiny);
+  font-weight:600;line-height:1;white-space:nowrap}
+.chip.lg{height:28px;padding:0 11px;font-size:var(--fs-label)}
+.chip.sq{border-radius:8px}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:currentcolor;flex-shrink:0}
+.chip .x{display:flex;opacity:.6;margin-left:1px}
+.c-default{background:var(--bg-soft);color:var(--muted);border-color:var(--line)}
+.c-primary{background:var(--accent-bg);color:var(--on-accent)}
+.c-success{background:var(--ok-bg);color:var(--ok-ink)}
+.c-warn{background:var(--warn-bg);color:var(--warn-ink)}
+.c-danger{background:var(--error-bg);color:var(--error-ink)}
+.c-info{background:var(--info-bg);color:var(--info-ink)}
+.v-solid.c-primary{background:var(--brand);color:var(--on-brand)}
+.v-solid.c-success{background:var(--ok-ink);color:var(--on-ok)}
+.v-solid.c-danger{background:var(--error-ink);color:var(--on-error)}
+.v-bord{background:transparent}
+.v-bord.c-primary{border-color:var(--brand);color:var(--accent-text)}
+.v-bord.c-danger{border-color:var(--error-ink);color:var(--error-ink)}
+.v-light{background:transparent;border-color:transparent}
+.v-faded.c-primary{background:var(--bg-soft);border-color:var(--line);color:var(--accent-text)}
+
+/* ─── Card ─── */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);
+  box-shadow:none}
+.card.flat{box-shadow:none}
+.card.hov{transition:box-shadow .18s ease,border-color .18s ease,transform .18s ease}
+.card.hov:hover{box-shadow:var(--sh-md);border-color:var(--line-strong);transform:translateY(-1px)}
+.card.sel{border-color:var(--accent-ink);box-shadow:var(--ring-focus-ring)}
+.card > .hd{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:var(--pad-card-sm) var(--pad-card)}
+.card > .bd{padding:var(--pad-card)}
+.card > .ft{padding:var(--pad-card-sm) var(--pad-card)}
+.card > .hd + .bd,.card > .bd + .ft{border-top:1px solid var(--line)}
+.ttl{font-size:15px;font-weight:700;color:var(--ink);font-family:var(--font-display)}
+
+/* ─── Table ─── */
+.tbl{width:100%;font-size:var(--fs-body)}
+.tbl th{position:sticky;top:0;z-index:1;text-align:left;padding:10px 12px;
+  background:var(--bg-soft);color:var(--muted);font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+  border-bottom:1px solid var(--line)}
+.tbl td{padding:12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:middle}
+.tbl tbody tr:hover td{background:var(--bg-soft)}
+.tbl tbody tr:last-child td{border-bottom:none}
+.tbl.zebra tbody tr:nth-child(even) td{background:var(--stripe-b)}
+.tbl .rt{text-align:right}
+.tbl .strong{color:var(--ink);font-weight:600}
+
+/* ─── Tabs — четыре вида ─── */
+.tabs{display:flex;gap:22px;border-bottom:1px solid var(--line)}
+.tab{position:relative;padding:10px 0;font-size:var(--fs-body);font-weight:600;
+  color:var(--muted);white-space:nowrap;cursor:pointer}
+.tab.on{color:var(--ink)}
+.tab.on::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  border-radius:2px;background:var(--brand)}
+.seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--bg-soft);gap:2px}
+.seg span{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:8px;
+  font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.seg span.on{background:var(--card);color:var(--ink);box-shadow:var(--sh-sm)}
+.seg.bord{background:transparent;border:2px solid var(--line);padding:2px}
+.seg.bord span.on{background:var(--accent-bg);color:var(--on-accent);box-shadow:none}
+
+/* ─── Avatar · User · Badge ─── */
+.ava{display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:32px;height:32px;border-radius:var(--r-pill);background:var(--accent-bg);
+  color:var(--on-accent);font-family:var(--font-display);font-weight:700;font-size:12px}
+.ava.xs{width:24px;height:24px;font-size:10px}
+.ava.lg{width:40px;height:40px;font-size:14px}
+.ava.sq{border-radius:10px}
+.avagrp{display:flex}
+.avagrp .ava{border:2px solid var(--card);margin-left:-8px}
+.avagrp .ava:first-child{margin-left:0}
+.usr{display:flex;align-items:center;gap:10px;min-width:0}
+.usr .nm{font-size:13.5px;font-weight:600;color:var(--ink)}
+.usr .ds{font-size:11.5px;color:var(--muted)}
+.bdg{position:absolute;top:-3px;right:-3px;min-width:16px;height:16px;padding:0 4px;
+  border-radius:var(--r-pill);background:var(--error-ink);color:var(--on-error);font-size:10px;
+  font-weight:700;display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--card)}
+.bdg.dot{min-width:10px;height:10px;padding:0}
+
+/* ─── Progress · Spinner ─── */
+.bar{height:6px;border-radius:var(--r-pill);background:var(--line);overflow:hidden}
+.bar > i{display:block;height:100%;border-radius:var(--r-pill);background:var(--brand)}
+.bar.sm{height:4px}
+.spin{width:20px;height:20px;border-radius:50%;border:2.5px solid var(--line);
+  border-top-color:var(--brand)}
+
+/* ─── Skeleton ─── */
+.sk{display:inline-block;border-radius:8px;
+  background:linear-gradient(90deg,var(--line-soft),var(--line),var(--line-soft));
+  background-size:200% 100%}
+
+/* Строка списка на узком экране. Живёт в ките, а не в стилях доски:
+   её просят и экраны, и вкладки, и матрица состояний. */
+.mrow{display:flex;flex-direction:column;gap:8px;padding:14px}
+
+/* ─── Alert ─── */
+.alert{display:flex;gap:12px;padding:12px 14px;border-radius:var(--r-sm);
+  border:1px solid transparent}
+.alert .ai{flex-shrink:0;margin-top:1px}
+.alert .at{font-size:13.5px;font-weight:700}
+.alert .ad{margin-top:2px;font-size:12.5px;line-height:1.45;opacity:.92}
+.a-primary{background:var(--accent-bg);border-color:var(--accent-line);color:var(--accent-text)}
+.a-success{background:var(--ok-bg);border-color:var(--ok-line);color:var(--ok-ink)}
+.a-warn{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn-ink)}
+.a-danger{background:var(--error-bg);border-color:var(--error-line);color:var(--error-ink)}
+
+/* ─── Snippet · Kbd ─── */
+.snip{display:flex;align-items:center;gap:10px;padding:0 10px;height:var(--h-md);
+  border-radius:9px;background:var(--bg-soft);border:1px solid var(--line);
+  font-family:var(--font-mono);font-size:12.5px;color:var(--ink2)}
+.kbd{padding:2px 6px;border-radius:5px;background:var(--card);border:1px solid var(--line-ui);
+  font-family:var(--font-mono);font-size:10.5px;color:var(--muted);line-height:1.3}
+
+/* ─── Listbox · Dropdown · Popover ─── */
+.pop{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);
+  box-shadow:var(--sh-lg);padding:6px;min-width:200px}
+.item{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:8px;
+  font-size:13.5px;color:var(--ink2);cursor:pointer}
+.item:hover{background:var(--bg-soft);color:var(--ink)}
+.item.on{background:var(--accent-bg);color:var(--on-accent)}
+.item.bad{color:var(--error-ink)}
+.item.bad:hover{background:var(--error-bg)}
+.item .k{margin-left:auto}
+.grp{padding:8px 10px 4px;font-size:10.5px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--faint)}
+.tip{padding:6px 10px;border-radius:8px;background:var(--panel);color:#fff;
+  font-size:12px;box-shadow:var(--sh-md)}
+
+/* ─── Pagination ─── */
+.pg{display:flex;gap:4px}
+.pg span{display:flex;align-items:center;justify-content:center;min-width:32px;height:32px;
+  border-radius:8px;font-size:var(--fs-label);color:var(--ink2);cursor:pointer}
+.pg span:hover{background:var(--bg-soft)}
+.pg span.on{background:var(--brand);color:var(--on-brand);font-weight:600}
+.pg span.dis{color:var(--faint);cursor:not-allowed}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px var(--pad-card)}
+
+/* ─── Accordion ─── */
+.acc{border-bottom:1px solid var(--line)}
+.acc .head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  min-height:52px;padding:0 4px;cursor:pointer}
+.acc .body{padding:0 4px 14px;font-size:13.5px;color:var(--muted);line-height:1.5}
+
+/* ─── подписи макета (не интерфейс) ─── */
+.note{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--accent-text)}
+.cap{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  color:var(--muted);margin-bottom:8px}
+
+/* ═══ Каркас панели ═══
+   Эталон: вся панель — один скруглённый белый контейнер на светло-сером поле.
+   Колонка разделов отделена линией, не собственным фоном. */
+.page{width:1440px;background:var(--bg-soft);padding:28px}
+.app{display:grid;grid-template-columns:var(--aside) minmax(0,1fr);
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-app);
+  overflow:hidden}
+.app.rail{grid-template-columns:var(--rail) minmax(0,1fr)}
+.aside{display:flex;flex-direction:column;border-right:1px solid var(--line);min-height:0}
+/* Верх колонки — кто вошёл. Низ прибит: настройки, профиль, выход (BUGS §1837) */
+.who{display:flex;align-items:center;gap:11px;padding:16px 14px 12px}
+.who .nm{font-size:14px;font-weight:600;color:var(--ink);line-height:1.2}
+.who .rl{font-size:12px;color:var(--muted);line-height:1.2}
+.nav{display:flex;flex-direction:column;gap:3px;padding:4px 12px 12px;flex:1;
+  overflow-y:auto;min-height:0}
+.navgrp{padding:14px 10px 5px;font-size:11px;font-weight:600;letter-spacing:.04em;
+  color:var(--faint)}
+.nv{display:flex;align-items:center;gap:12px;min-height:var(--h-nav);padding:0 12px;
+  border-radius:var(--r-nav);color:var(--ink2);font-size:14px;font-weight:500;
+  white-space:nowrap;position:relative;transition:background .14s ease,color .14s ease}
+.nv svg{flex-shrink:0;color:var(--muted)}
+.nv:hover{background:var(--bg-soft);color:var(--ink)}
+/* 🔴 Активный различается тремя признаками сразу: заливка, вес и полоса —
+   не только цветом */
+.nv.on{background:var(--bg-soft);color:var(--ink);font-weight:600}
+.nv.on svg{color:var(--accent-text)}
+.nv.on::before{content:'';position:absolute;left:0;top:11px;bottom:11px;width:3px;
+  border-radius:0 3px 3px 0;background:var(--brand)}
+.nv .cnt{margin-left:auto;min-width:22px;height:20px;padding:0 7px;border-radius:var(--r-pill);
+  background:var(--accent-bg);color:var(--on-accent);font-size:11.5px;font-weight:700;
+  display:flex;align-items:center;justify-content:center}
+.nv.on .cnt{background:var(--brand);color:var(--on-brand)}
+.asfoot{margin-top:auto;padding:10px 12px 14px;border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:3px;flex-shrink:0}
+
+/* Верхняя строка контента: заголовок слева, действия справа */
+.chead{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:20px 24px 0}
+.h1{font-size:24px;font-weight:600;letter-spacing:-0.02em;color:var(--ink);
+  font-family:var(--font-display)}
+.sub{margin-top:4px;font-size:13.5px;color:var(--muted)}
+.iconbtn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;
+  border-radius:var(--r-pill);color:var(--muted);position:relative;cursor:pointer}
+.iconbtn:hover{background:var(--bg-soft);color:var(--ink)}
+.main{padding:18px 24px 24px;display:flex;flex-direction:column;gap:18px;min-width:0}
+
+/* Плитка показателя по эталону: подпись сверху, крупное число, чип изменения справа */
+.stat{padding:18px 20px}
+.stat .l{font-size:14px;color:var(--muted)}
+.stat .v{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
+.stat .n{font-family:var(--font-display);font-size:28px;font-weight:600;
+  letter-spacing:-0.02em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1}
+.trend{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 9px;
+  border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.t-up{background:var(--ok-bg);color:var(--ok-ink)}
+.t-down{background:var(--error-bg);color:var(--error-ink)}
+.t-flat{background:var(--bg-soft);color:var(--muted)}
+
+/* Панель над таблицей: слева пилюли-фильтры, справа поиск */
+.tbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.acts{display:flex;gap:6px}
+.actbtn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;
+  border-radius:var(--r-pill);cursor:pointer}
+.a-view{background:var(--bg-soft);color:var(--ink2)}
+.a-edit{background:var(--accent-bg);color:var(--on-accent)}
+.a-del{background:var(--error-bg);color:var(--error-ink)}
+
+/* нижняя панель вкладок на телефоне */
+.tabbar{display:flex;align-items:stretch;background:var(--card);border-top:1px solid var(--line);
+  flex-shrink:0}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  min-height:56px;color:var(--muted);font-size:10.5px;font-weight:600}
+.tb.on{color:var(--accent-text)}
+.tb.on svg{color:var(--accent-text)}
+/* 🔴 Тап-зона поднимается только в сенсорных кадрах — телефонном и
+   планшетном. Раньше правило висело на всей доске: на кадре 1440 малая
+   кнопка вырастала с 32 до 44px и переставала отличаться от средней, а
+   .actbtn рядом оставался 32px — плотность экрана расходилась с токенами,
+   и снятые с кадра числа врали. Замерено: .btn.sm 44px против токена 32. */
+.frame.ph .btn,.frame.tb .btn{height:44px}
+.frame.ph .btn.sm,.frame.tb .btn.sm{height:44px}
+.frame.ph .btn.lg,.frame.tb .btn.lg{height:52px}
+.frame.ph .inp,.frame.tb .inp{min-height:52px}
+.frame.ph .item,.frame.tb .item{height:44px}
+.frame.ph .nv,.frame.tb .nv{min-height:48px}
+.frame.ph .cbx,.frame.ph .rdo,.frame.tb .cbx,.frame.tb .rdo{width:24px;height:24px}
+.frame.ph .chip,.frame.tb .chip{min-height:32px}
+.frame.ph .seg .sg,.frame.tb .seg .sg{min-height:36px}
+.frame.ph .actbtn,.frame.tb .actbtn{width:40px;height:40px}
+
+/* график: тонкие метки, скруглённые концы, утопленная сетка */
+.chart .gl{stroke:var(--line);stroke-width:1}
+.chart .ax{font-family:var(--font-mono);font-size:10px;fill:var(--faint)}
+.legend{display:flex;gap:14px;align-items:center}
+.legend span{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.legend i{width:9px;height:9px;border-radius:3px;display:block}
+/* колоночная раскладка поля: подпись над значением прямыми детьми */
+.inp.col{flex-direction:column;justify-content:center;align-items:stretch;gap:2px}
+.inp.col > .lab{width:100%}
+.inp.col.tall{justify-content:flex-start}
+
+/* Оценка отзыва. Звёзды — текст, а не иконки: их пять, они не кликабельны
+   в панели и в вёрстке ведут себя как цифра рядом с именем. */
+.stars{display:inline-flex;gap:1px;font-size:13px;line-height:1;letter-spacing:0.5px}
+.stars .s{color:var(--line-ui)}
+.stars .s.on{color:var(--star)}
+
+/* В телефонном кадре иконка-кнопка растёт до тап-зоны. Правило привязано к
+   кадру, а не к .touch: на доске .touch стоит на всём борде, включая
+   десктопные кадры, где 36px — верная плотность HeroUI. */
+.frame.ph .iconbtn{width:44px;height:44px}
+
+/* 🔴 Подсвеченная строка таблицы или списка — «просрочен», «требует внимания».
+   На ней тинт складывается дважды: подложка строки плюс подложка чипа, и
+   красный на красном опускается до 4,4:1 в тёмной теме. Поэтому внутри такой
+   строки приглушённый текст поднимается на ступень, а мягкий чип становится
+   обведённым: его собственная заливка здесь уже не нужна — строка и так
+   выделена. Замерено, а не на глаз. */
+.rowbad{background:var(--error-bg)}
+.rowwarn{background:var(--warn-bg)}
+.rowbad .mut,.rowwarn .mut,.rowbad .t-tiny,.rowwarn .t-tiny{color:var(--body)}
+.rowbad .chip.c-danger,.rowwarn .chip.c-warn{background:var(--card);
+  border:1px solid var(--error-line)}
+.rowwarn .chip.c-warn{border-color:var(--warn-line)}
+
+/* Поле в ошибке залито тинтом, и подсказка с плейсхолдером на нём теряют
+   четверть контраста: 4,46:1 вместо 4,5. Внутри такого поля ink на ступень
+   выше — та же поправка, что у подсвеченной строки. */
+.inp.err .ph,.inp.err .hint{color:var(--body)}
+/* Доска вкладок: строка на вкладку, три ширины в ряд */
+.board{width:2790px;display:flex;flex-direction:column;gap:40px;padding:36px;background:var(--bg-soft)}
+.tsec{display:flex;flex-direction:column;gap:12px}
+.ttl2{display:flex;align-items:baseline;gap:12px}
+.tnum{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--accent-text)}
+.tname{font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--ink)}
+.tdesc{font-size:13px;color:var(--muted);max-width:1100px;line-height:1.5}
+.row3{display:flex;gap:56px;align-items:flex-start}
+.col{display:flex;flex-direction:column;gap:8px}
+.devlab{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.devcap{font-size:11.5px;color:var(--faint);line-height:1.45}
+.frame{border:1px solid var(--line-strong);border-radius:var(--r-app);overflow:hidden;
+  background:var(--card);flex-shrink:0}
+.frame.ph{border-radius:26px;width:390px;display:flex;flex-direction:column;background:var(--bg-soft)}
+.frame.tb{width:768px}
+.frame.dk{width:1440px}
+.tabsrow{display:flex;gap:22px;padding:0 20px;border-bottom:1px solid var(--line);
+  background:var(--card);overflow:hidden}
+.tabsrow.sm{gap:16px;padding:0 16px}
+.tabsrow.xs{gap:16px;padding:0 14px;
+  -webkit-mask-image:linear-gradient(90deg,#000,#000 calc(100% - 28px),transparent);
+  mask-image:linear-gradient(90deg,#000,#000 calc(100% - 28px),transparent)}
+.bd20{padding:16px 20px 20px;background:var(--bg-soft)}
+.bd16{padding:14px 16px 16px;background:var(--bg-soft)}
+.mbody{flex:1;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--bg-soft)}
+.mbar{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:56px;
+  padding:0 14px;background:var(--card);border-bottom:1px solid var(--line);flex-shrink:0}
+.mtitle{font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--ink)}
+.sticky-act{padding:12px 14px 16px;background:var(--card);border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.chk{display:flex;align-items:center;gap:12px;min-height:56px;padding:0 14px;
+  border-bottom:1px solid var(--line)}
+.chk .box{width:24px;height:24px;border-radius:7px;border:1.8px solid var(--line-ui);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;color:transparent}
+.chk.done .box{background:var(--brand);border-color:var(--brand);color:#fff}
+.chk.done .txt{color:var(--muted);text-decoration:line-through}
+.chk .txt{font-size:14.5px;color:var(--ink)}
+/* контейнер с горизонтальной прокруткой не должен растягивать предков */
+.frame .card,.frame .bd,.frame .bd16,.frame .bd20{min-width:0}
+.frame [style*="overflow-x"]{max-width:100%}
+.frame .card{overflow:hidden}
+  </style>
+</helmet>
+<div class="board touch">
+  <div>
+    <span class="note">— Отзывы и статья —</span>
+    <h2 style="font-family:var(--font-display);font-size:26px;font-weight:600;margin-top:8px;color:var(--ink)">Семь вкладок на трёх ширинах</h2>
+    <p style="margin-top:8px;font-size:14px;color:var(--muted);max-width:1100px">Текст отзыва нигде не редактируется — ни на одной вкладке нет поля ввода поверх него: модератор меняет только статус (инвариант 7). Поэтому действие тут всегда пара кнопок, а не форма.</p>
+  </div>
+
+  <div class="tsec">
+<div class="ttl2"><span class="tnum">Отзывы · вкладка 1</span><span class="tname">На модерации</span></div>
+<p class="tdesc">Очередь, ради которой заходят. Текст целиком, без «показать ещё»: решение принимают по нему, а не по первой строке.</p>
+    <div class="row3">
+<div class="col"><span class="devlab">1440</span>
+        <div class="frame dk">
+<div class="tabsrow "><span class="tab on">На модерации 7</span><span class="tab">Опубликованные</span><span class="tab">Отклонённые</span><span class="tab">Все</span></div>
+          <div class="bd20 stack" style="gap:12px">
+            <div class="card"><div class="bd stack" style="gap:10px">
+              <div class="row" style="gap:12px;align-items:flex-start">
+                <span class="ava lg">ЕС</span>
+                <span class="stack" style="gap:4px;flex:1;min-width:0">
+                  <span class="row" style="gap:10px"><span class="strong" style="font-size:15px">Екатерина С.</span><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span><span class="chip c-warn">На модерации</span></span>
+                  <span class="mono t-tiny fnt">29 августа 2026, 10:12 · заказ № 124 · Пролетарский район</span>
+                </span>
+                <span class="row" style="gap:8px"><span class="btn bord sm">Отклонить</span><span class="btn solid sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Опубликовать</span></span>
+              </div>
+              <p style="font-size:14.5px;line-height:1.6;color:var(--ink)">Приехали в назначенный день, без переносов. Смету назвали до начала работ и она не выросла ни на рубль. Мусор увезли с собой, стену за собой протёрли. Отдельное спасибо за то, что объяснили, как чистить фильтры самому.</p>
+            </div></div>
+            <div class="card"><div class="bd stack" style="gap:10px">
+              <div class="row" style="gap:12px;align-items:flex-start">
+                <span class="ava lg">ВМ</span>
+                <span class="stack" style="gap:4px;flex:1;min-width:0">
+                  <span class="row" style="gap:10px"><span class="strong" style="font-size:15px">Владимир М.</span><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s">★</span><span class="s">★</span></span><span class="chip c-warn">На модерации</span></span>
+                  <span class="mono t-tiny fnt">28 августа 2026, 19:40 · заказ № 121 · Зареченский район</span>
+                </span>
+                <span class="row" style="gap:8px"><span class="btn bord sm">Отклонить</span><span class="btn solid sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Опубликовать</span></span>
+              </div>
+              <p style="font-size:14.5px;line-height:1.6;color:var(--ink)">Работу сделали нормально, но приехали на два часа позже, чем договаривались, и никто не позвонил предупредить. Пришлось отпрашиваться с работы второй раз.</p>
+              <div class="alert a-warn"><span class="ai"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4.5 21 19.5H3z"/><path d="M12 10v4M12 17h.01"/></svg></span><div><div class="at">Тройка — это тоже отзыв</div><div class="ad">Отклонять его за оценку нельзя: причина отказа выбирается из списка и видна владельцу.</div></div></div>
+            </div></div>
+          </div>
+        </div></div>
+<div class="col"><span class="devlab">768</span>
+        <div class="frame tb">
+<div class="tabsrow sm"><span class="tab on">На модерации 7</span><span class="tab">Опубликованные</span><span class="tab">Отклонённые</span><span class="tab">Все</span></div>
+          <div class="bd16 stack" style="gap:12px">
+            <div class="card"><div class="bd stack" style="gap:10px">
+              <div class="row" style="gap:10px"><span class="ava">ЕС</span><span class="stack" style="gap:3px;flex:1;min-width:0"><span class="strong">Екатерина С.</span><span class="mono t-tiny fnt">29 авг · заказ № 124</span></span><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span></div>
+              <p style="font-size:14px;line-height:1.6;color:var(--ink)">Приехали в назначенный день, без переносов. Смету назвали до начала работ и она не выросла ни на рубль. Мусор увезли с собой.</p>
+              <div class="row" style="gap:8px"><span class="btn bord sm" style="flex:1">Отклонить</span><span class="btn solid sm" style="flex:1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Опубликовать</span></div>
+            </div></div>
+            <div class="card"><div class="bd stack" style="gap:10px">
+              <div class="row" style="gap:10px"><span class="ava">ВМ</span><span class="stack" style="gap:3px;flex:1;min-width:0"><span class="strong">Владимир М.</span><span class="mono t-tiny fnt">28 авг · заказ № 121</span></span><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s">★</span><span class="s">★</span></span></div>
+              <p style="font-size:14px;line-height:1.6;color:var(--ink)">Работу сделали нормально, но приехали на два часа позже и никто не позвонил предупредить.</p>
+              <div class="row" style="gap:8px"><span class="btn bord sm" style="flex:1">Отклонить</span><span class="btn solid sm" style="flex:1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Опубликовать</span></div>
+            </div></div>
+          </div>
+        </div></div>
+<div class="col"><span class="devlab">390</span>
+        <div class="frame ph" style="min-height:640px">
+<div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Отзывы</span></span><span class="chip c-warn">7</span></div>
+<div class="tabsrow xs"><span class="tab on">На модерации 7</span><span class="tab">Опубликованные</span><span class="tab">Отклонённые</span><span class="tab">Все</span></div>
+          <div class="mbody">
+            <div class="card"><div class="mrow" style="gap:10px">
+              <div class="row" style="gap:10px"><span class="ava">ЕС</span><span class="stack" style="gap:2px;flex:1;min-width:0"><span class="strong">Екатерина С.</span><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span></span></div>
+              <p style="font-size:14px;line-height:1.6;color:var(--ink)">Приехали в назначенный день, без переносов. Смету назвали до начала работ и она не выросла ни на рубль.</p>
+              <span class="mono t-tiny fnt">29 августа · заказ № 124</span>
+              <div class="row" style="gap:8px"><span class="btn bord sm" style="flex:1">Отклонить</span><span class="btn solid sm" style="flex:1">Опубликовать</span></div>
+            </div></div>
+            <div class="card"><div class="mrow" style="gap:10px">
+              <div class="row" style="gap:10px"><span class="ava">ВМ</span><span class="stack" style="gap:2px;flex:1;min-width:0"><span class="strong">Владимир М.</span><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s">★</span><span class="s">★</span></span></span></div>
+              <p style="font-size:14px;line-height:1.6;color:var(--ink)">Работу сделали нормально, но приехали на два часа позже и никто не позвонил предупредить.</p>
+              <span class="mono t-tiny fnt">28 августа · заказ № 121</span>
+              <div class="row" style="gap:8px"><span class="btn bord sm" style="flex:1">Отклонить</span><span class="btn solid sm" style="flex:1">Опубликовать</span></div>
+            </div></div>
+          </div>
+        </div></div>
+    </div>
+    <span class="devcap">1440 — действия справа в шапке отзыва. 768 и 390 — уходят вниз в ряд по половине ширины: на узком две кнопки в строке дают тап-зону 44px без переноса.</span>
+  </div>
+
+  <div class="tsec">
+<div class="ttl2"><span class="tnum">Отзывы · вкладка 2</span><span class="tname">Опубликованные</span></div>
+<p class="tdesc">Снять с публикации можно, отредактировать — нет. Кнопка одна, и она про статус.</p>
+    <div class="row3">
+<div class="col"><span class="devlab">1440</span>
+        <div class="frame dk">
+<div class="tabsrow "><span class="tab">На модерации 7</span><span class="tab on">Опубликованные</span><span class="tab">Отклонённые</span><span class="tab">Все</span></div>
+          <div class="bd20"><div class="card"><div class="bd" style="padding:0"><table class="tbl">
+            <thead><tr><th style="width:190px">Автор</th><th style="width:110px">Оценка</th><th>Отзыв</th><th style="width:130px">Опубликован</th><th style="width:140px">Действие</th></tr></thead>
+            <tbody>
+              <tr><td><span class="usr"><span class="ava xs">ИГ</span><span class="nm">Ирина Г.</span></span></td><td><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span></td><td class="t-lbl">Второй кондиционер у них ставим, всё как в первый раз — точно и без сюрпризов…</td><td class="mono t-lbl">14 авг 2026</td><td><span class="btn flat sm">Снять</span></td></tr>
+              <tr><td><span class="usr"><span class="ava xs">АП</span><span class="nm">Алексей П.</span></span></td><td><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s">★</span></span></td><td class="t-lbl">Поставили быстро, цена совпала со сметой. Единственное — приехали к концу окна…</td><td class="mono t-lbl">2 авг 2026</td><td><span class="btn flat sm">Снять</span></td></tr>
+              <tr><td><span class="usr"><span class="ava xs">МК</span><span class="nm">Марина К.</span></span></td><td><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span></td><td class="t-lbl">Сделали в жару за один день, когда все отказывались браться раньше сентября…</td><td class="mono t-lbl">21 июл 2026</td><td><span class="btn flat sm">Снять</span></td></tr>
+            </tbody></table></div></div></div>
+        </div></div>
+<div class="col"><span class="devlab">768</span>
+        <div class="frame tb">
+<div class="tabsrow sm"><span class="tab">На модерации 7</span><span class="tab on">Опубликованные</span><span class="tab">Отклонённые</span><span class="tab">Все</span></div>
+          <div class="bd16"><div class="card"><div class="bd" style="padding:0"><table class="tbl">
+            <thead><tr><th style="width:150px">Автор</th><th>Отзыв</th><th style="width:90px">Действие</th></tr></thead>
+            <tbody>
+              <tr><td><span class="usr"><span class="ava xs">ИГ</span><span class="nm">Ирина Г.</span></span><div><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span></div></td><td class="t-lbl">Второй кондиционер у них ставим, всё точно и без сюрпризов…<div class="mono t-tiny fnt">14 авг 2026</div></td><td><span class="btn flat sm">Снять</span></td></tr>
+              <tr><td><span class="usr"><span class="ava xs">АП</span><span class="nm">Алексей П.</span></span><div><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s">★</span></span></div></td><td class="t-lbl">Поставили быстро, цена совпала со сметой…<div class="mono t-tiny fnt">2 авг 2026</div></td><td><span class="btn flat sm">Снять</span></td></tr>
+            </tbody></table></div></div></div>
+        </div></div>
+<div class="col"><span class="devlab">390</span>
+        <div class="frame ph" style="min-height:640px">
+<div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Отзывы</span></span></div>
+<div class="tabsrow xs"><span class="tab">На модерации 7</span><span class="tab on">Опубликованные</span><span class="tab">Отклонённые</span><span class="tab">Все</span></div>
+          <div class="mbody">
+            <div class="card"><div class="mrow" style="gap:8px"><div class="row" style="gap:10px"><span class="ava">ИГ</span><span class="stack" style="gap:2px;flex:1;min-width:0"><span class="strong">Ирина Г.</span><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span></span><span class="chip c-success">На сайте</span></div><p style="font-size:14px;line-height:1.6;color:var(--ink)">Второй кондиционер у них ставим, всё как в первый раз — точно и без сюрпризов.</p><div class="row" style="justify-content:space-between"><span class="mono t-tiny fnt">14 августа</span><span class="btn flat sm">Снять</span></div></div></div>
+            <div class="card"><div class="mrow" style="gap:8px"><div class="row" style="gap:10px"><span class="ava">АП</span><span class="stack" style="gap:2px;flex:1;min-width:0"><span class="strong">Алексей П.</span><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s">★</span></span></span><span class="chip c-success">На сайте</span></div><p style="font-size:14px;line-height:1.6;color:var(--ink)">Поставили быстро, цена совпала со сметой.</p><div class="row" style="justify-content:space-between"><span class="mono t-tiny fnt">2 августа</span><span class="btn flat sm">Снять</span></div></div></div>
+          </div>
+        </div></div>
+    </div>
+    <span class="devcap">768 — оценка переезжает под имя, дата в подпись отзыва. 390 — таблица разбирается в карточки, статус чипом справа.</span>
+  </div>
+
+  <div class="tsec">
+<div class="ttl2"><span class="tnum">Отзывы · вкладка 3</span><span class="tname">Отклонённые</span></div>
+<p class="tdesc">Причина отказа хранится и видна: без неё через месяц не понять, почему отзыв не на сайте, и решение выглядит произволом.</p>
+    <div class="row3">
+<div class="col"><span class="devlab">1440</span>
+        <div class="frame dk">
+<div class="tabsrow "><span class="tab">На модерации 7</span><span class="tab">Опубликованные</span><span class="tab on">Отклонённые</span><span class="tab">Все</span></div>
+          <div class="bd20"><div class="card"><div class="bd" style="padding:0"><table class="tbl">
+            <thead><tr><th style="width:190px">Автор</th><th>Отзыв</th><th style="width:210px">Причина отказа</th><th style="width:150px">Кто и когда</th><th style="width:120px">Действие</th></tr></thead>
+            <tbody>
+              <tr><td><span class="usr"><span class="ava xs" style="background:var(--bg-soft);color:var(--muted)">—</span><span class="nm">Аноним</span></span></td><td class="t-lbl">Текст рекламы стороннего магазина со ссылкой…</td><td><span class="chip c-danger">Спам</span></td><td class="t-lbl">Сергей Д.<div class="mono t-tiny fnt">27 авг 2026</div></td><td><span class="btn flat sm">Вернуть</span></td></tr>
+              <tr><td><span class="usr"><span class="ava xs">НН</span><span class="nm">Н. Николаев</span></span></td><td class="t-lbl">Отзыв о работе другой компании, заказа у нас не было…</td><td><span class="chip c-warn">Не наш заказ</span></td><td class="t-lbl">Сергей Д.<div class="mono t-tiny fnt">19 авг 2026</div></td><td><span class="btn flat sm">Вернуть</span></td></tr>
+            </tbody></table></div></div></div>
+        </div></div>
+<div class="col"><span class="devlab">768</span>
+        <div class="frame tb">
+<div class="tabsrow sm"><span class="tab">На модерации 7</span><span class="tab">Опубликованные</span><span class="tab on">Отклонённые</span><span class="tab">Все</span></div>
+          <div class="bd16"><div class="card"><div class="bd" style="padding:0"><table class="tbl">
+            <thead><tr><th>Отзыв</th><th style="width:160px">Причина</th><th style="width:90px">Действие</th></tr></thead>
+            <tbody>
+              <tr><td><span class="strong">Аноним</span><div class="t-lbl">Реклама стороннего магазина…</div></td><td><span class="chip c-danger">Спам</span><div class="mono t-tiny fnt">27 авг</div></td><td><span class="btn flat sm">Вернуть</span></td></tr>
+              <tr><td><span class="strong">Н. Николаев</span><div class="t-lbl">Отзыв о работе другой компании…</div></td><td><span class="chip c-warn">Не наш заказ</span><div class="mono t-tiny fnt">19 авг</div></td><td><span class="btn flat sm">Вернуть</span></td></tr>
+            </tbody></table></div></div></div>
+        </div></div>
+<div class="col"><span class="devlab">390</span>
+        <div class="frame ph" style="min-height:640px">
+<div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Отзывы</span></span></div>
+<div class="tabsrow xs"><span class="tab">На модерации 7</span><span class="tab">Опубликованные</span><span class="tab on">Отклонённые</span><span class="tab">Все</span></div>
+          <div class="mbody">
+            <div class="card"><div class="mrow" style="gap:8px"><div class="row" style="justify-content:space-between"><span class="strong">Аноним</span><span class="chip c-danger">Спам</span></div><p style="font-size:14px;line-height:1.6;color:var(--muted)">Текст рекламы стороннего магазина со ссылкой.</p><div class="row" style="justify-content:space-between"><span class="mono t-tiny fnt">Сергей Д. · 27 авг</span><span class="btn flat sm">Вернуть</span></div></div></div>
+            <div class="card"><div class="mrow" style="gap:8px"><div class="row" style="justify-content:space-between"><span class="strong">Н. Николаев</span><span class="chip c-warn">Не наш заказ</span></div><p style="font-size:14px;line-height:1.6;color:var(--muted)">Отзыв о работе другой компании, заказа у нас не было.</p><div class="row" style="justify-content:space-between"><span class="mono t-tiny fnt">Сергей Д. · 19 авг</span><span class="btn flat sm">Вернуть</span></div></div></div>
+          </div>
+        </div></div>
+    </div>
+    <span class="devcap">768 — автор уходит в первую строку ячейки отзыва, кто отклонил — в подпись причины. 390 — причина чипом в шапке карточки.</span>
+  </div>
+
+  <div class="tsec">
+<div class="ttl2"><span class="tnum">Отзывы · вкладка 4</span><span class="tname">Все</span></div>
+<p class="tdesc">Один список со сквозным фильтром по статусу. Нужна, когда ищут конкретный отзыв и не помнят, где он лежит.</p>
+    <div class="row3">
+<div class="col"><span class="devlab">1440</span>
+        <div class="frame dk">
+<div class="tabsrow "><span class="tab">На модерации 7</span><span class="tab">Опубликованные</span><span class="tab">Отклонённые</span><span class="tab on">Все</span></div>
+          <div class="bd20">
+            <div class="row" style="gap:10px;margin-bottom:12px">
+              <span class="inp flat solo" style="max-width:300px"><span class="ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></span><span class="val ph">Автор, текст или номер заказа</span></span>
+              <span class="btn bord sm"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg> Статус: любой <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></span>
+              <span class="btn bord sm">Оценка: любая <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></span>
+              <span class="btn light sm" style="margin-left:auto">Сбросить</span>
+            </div>
+            <div class="card"><div class="bd" style="padding:0"><table class="tbl">
+              <thead><tr><th style="width:180px">Автор</th><th style="width:100px">Оценка</th><th>Отзыв</th><th style="width:150px">Статус</th><th style="width:120px">Дата</th></tr></thead>
+              <tbody>
+                <tr><td><span class="usr"><span class="ava xs">ЕС</span><span class="nm">Екатерина С.</span></span></td><td><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span></td><td class="t-lbl">Приехали в назначенный день, без переносов…</td><td><span class="chip c-warn"><span class="dot"></span>На модерации</span></td><td class="mono t-lbl">29 авг</td></tr>
+                <tr><td><span class="usr"><span class="ava xs">ИГ</span><span class="nm">Ирина Г.</span></span></td><td><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span></td><td class="t-lbl">Второй кондиционер у них ставим…</td><td><span class="chip c-success"><span class="dot"></span>На сайте</span></td><td class="mono t-lbl">14 авг</td></tr>
+                <tr><td><span class="usr"><span class="ava xs" style="background:var(--bg-soft);color:var(--muted)">—</span><span class="nm">Аноним</span></span></td><td class="mut">—</td><td class="t-lbl">Реклама стороннего магазина…</td><td><span class="chip c-danger"><span class="dot"></span>Отклонён</span></td><td class="mono t-lbl">27 авг</td></tr>
+              </tbody></table></div></div>
+          </div>
+        </div></div>
+<div class="col"><span class="devlab">768</span>
+        <div class="frame tb">
+<div class="tabsrow sm"><span class="tab">На модерации 7</span><span class="tab">Опубликованные</span><span class="tab">Отклонённые</span><span class="tab on">Все</span></div>
+          <div class="bd16">
+            <div class="row" style="gap:8px;margin-bottom:10px"><span class="inp flat solo" style="flex:1"><span class="ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></span><span class="val ph">Поиск по отзывам</span></span><span class="btn bord sm"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg></span></div>
+            <div class="card"><div class="bd" style="padding:0"><table class="tbl">
+              <thead><tr><th style="width:140px">Автор</th><th>Отзыв</th><th style="width:130px">Статус</th></tr></thead>
+              <tbody>
+                <tr><td><span class="strong">Екатерина С.</span><div><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span></div></td><td class="t-lbl">Приехали в назначенный день…<div class="mono t-tiny fnt">29 авг</div></td><td><span class="chip c-warn"><span class="dot"></span>Модерация</span></td></tr>
+                <tr><td><span class="strong">Ирина Г.</span><div><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span></div></td><td class="t-lbl">Второй кондиционер у них ставим…<div class="mono t-tiny fnt">14 авг</div></td><td><span class="chip c-success"><span class="dot"></span>На сайте</span></td></tr>
+              </tbody></table></div></div>
+          </div>
+        </div></div>
+<div class="col"><span class="devlab">390</span>
+        <div class="frame ph" style="min-height:640px">
+<div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Отзывы</span></span><span class="iconbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></span></div>
+<div class="tabsrow xs"><span class="tab">На модерации 7</span><span class="tab">Опубликованные</span><span class="tab">Отклонённые</span><span class="tab on">Все</span></div>
+          <div class="mbody">
+            <div class="row" style="gap:8px"><span class="btn bord sm"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg> Статус <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></span><span class="btn bord sm">Оценка <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></span></div>
+            <div class="card"><div class="mrow" style="gap:6px"><div class="row" style="justify-content:space-between"><span class="strong">Екатерина С.</span><span class="chip c-warn">Модерация</span></div><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span><p style="font-size:14px;line-height:1.6;color:var(--muted)">Приехали в назначенный день, без переносов.</p><span class="mono t-tiny fnt">29 августа</span></div></div>
+            <div class="card"><div class="mrow" style="gap:6px"><div class="row" style="justify-content:space-between"><span class="strong">Ирина Г.</span><span class="chip c-success">На сайте</span></div><span class="stars"><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span><span class="s on">★</span></span><p style="font-size:14px;line-height:1.6;color:var(--muted)">Второй кондиционер у них ставим.</p><span class="mono t-tiny fnt">14 августа</span></div></div>
+            <div class="card"><div class="mrow" style="gap:6px"><div class="row" style="justify-content:space-between"><span class="strong">Аноним</span><span class="chip c-danger">Отклонён</span></div><p style="font-size:14px;line-height:1.6;color:var(--muted)">Реклама стороннего магазина.</p><span class="mono t-tiny fnt">27 августа</span></div></div>
+          </div>
+        </div></div>
+    </div>
+    <span class="devcap">1440 — четыре фильтра в строку. 768 — поиск во всю ширину плюс кнопка фильтров. 390 — поиск уезжает в шапку иконкой, фильтры двумя капсулами.</span>
+  </div>
+
+  <div class="tsec">
+<div class="ttl2"><span class="tnum">Статья · вкладка 1</span><span class="tname">Текст</span></div>
+<p class="tdesc">Редактор во всю доступную ширину: колонка набора ограничена 68ch, потому что читают её потом на сайте, а не здесь.</p>
+    <div class="row3">
+<div class="col"><span class="devlab">1440</span>
+        <div class="frame dk">
+<div class="tabsrow "><span class="tab on">Текст</span><span class="tab">SEO</span><span class="tab">Публикация</span></div>
+          <div class="bd20 grid" style="grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:start">
+            <div class="card"><div class="hd" style="gap:6px"><span class="btn light sm">H2</span><span class="btn light sm">H3</span><span class="btn light sm" style="font-weight:700">Ж</span><span class="btn light sm" style="font-style:italic">К</span><span class="btn light sm">Список</span><span class="btn light sm">Ссылка</span><span class="btn light sm">Картинка</span><span class="btn light sm">Таблица</span></div>
+              <div class="bd stack" style="gap:12px">
+                <div class="inp flat col"><span class="lab">Заголовок статьи</span><span class="val" style="font-family:var(--font-display);font-size:19px;font-weight:600">Почему монтаж стоит 6 000 ₽, а не 3 000 ₽</span></div>
+                <div style="max-width:68ch;font-size:15px;line-height:1.7;color:var(--ink)">
+                  <p style="margin-bottom:12px">Объявление «установка кондиционера 3 000 ₽» — не цена работы, а цена входа в квартиру. Дальше начинается смета, о которой не говорили по телефону.</p>
+                  <p style="font-family:var(--font-display);font-size:17px;font-weight:600;margin:16px 0 8px">Что входит в наши 6 000 ₽</p>
+                  <p style="margin-bottom:12px">Штробление, трасса до трёх метров, вакуумирование магистрали, кронштейны, пуско-наладка и вывоз мусора. Ничего из этого не считается отдельно.</p>
+                </div>
+              </div></div>
+            <div class="stack" style="gap:12px">
+              <div class="card"><div class="hd"><span class="ttl">Состояние</span></div><div class="bd stack" style="gap:10px">
+                <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Статус</span><span class="chip c-warn">Черновик</span></div>
+                <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Знаков</span><span class="mono strong">4 812</span></div>
+                <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Сохранено</span><span class="mono strong">14:02</span></div>
+              </div><div class="ft"><span class="btn solid" style="width:100%">Опубликовать</span></div></div>
+              <div class="card"><div class="hd"><span class="ttl">Обложка</span></div><div class="bd"><div style="height:110px;border-radius:var(--r-nav);background:var(--bg-soft);border:1px dashed var(--line-ui);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px">Перетащите или выберите</div></div></div>
+            </div>
+          </div>
+        </div></div>
+<div class="col"><span class="devlab">768</span>
+        <div class="frame tb">
+<div class="tabsrow sm"><span class="tab on">Текст</span><span class="tab">SEO</span><span class="tab">Публикация</span></div>
+          <div class="bd16 stack" style="gap:12px">
+            <div class="card"><div class="hd" style="gap:6px"><span class="btn light sm">H2</span><span class="btn light sm">H3</span><span class="btn light sm" style="font-weight:700">Ж</span><span class="btn light sm" style="font-style:italic">К</span><span class="btn light sm">Список</span><span class="btn light sm">Ссылка</span><span class="chip c-warn" style="margin-left:auto">Черновик</span></div>
+              <div class="bd stack" style="gap:12px">
+                <div class="inp flat col"><span class="lab">Заголовок</span><span class="val" style="font-family:var(--font-display);font-size:17px;font-weight:600">Почему монтаж стоит 6 000 ₽, а не 3 000 ₽</span></div>
+                <div style="font-size:14.5px;line-height:1.7;color:var(--ink)">
+                  <p style="margin-bottom:10px">Объявление «установка кондиционера 3 000 ₽» — не цена работы, а цена входа в квартиру.</p>
+                  <p style="font-family:var(--font-display);font-size:16px;font-weight:600;margin:14px 0 8px">Что входит в наши 6 000 ₽</p>
+                  <p>Штробление, трасса до трёх метров, вакуумирование, кронштейны и вывоз мусора.</p>
+                </div>
+              </div></div>
+          </div>
+        </div></div>
+<div class="col"><span class="devlab">390</span>
+        <div class="frame ph" style="min-height:640px">
+<div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Статья</span></span><span class="chip c-warn">Черновик</span></div>
+<div class="tabsrow xs"><span class="tab on">Текст</span><span class="tab">SEO</span><span class="tab">Публикация</span></div>
+          <div class="mbody">
+            <div class="card"><div class="mrow" style="gap:10px">
+              <div class="inp flat col"><span class="lab">Заголовок</span><span class="val" style="font-family:var(--font-display);font-size:16px;font-weight:600">Почему монтаж стоит 6 000 ₽</span></div>
+              <div class="row" style="gap:6px;overflow-x:auto"><span class="btn light sm">H2</span><span class="btn light sm">H3</span><span class="btn light sm" style="font-weight:700">Ж</span><span class="btn light sm" style="font-style:italic">К</span><span class="btn light sm">Список</span></div>
+              <div style="font-size:14.5px;line-height:1.7;color:var(--ink)"><p>Объявление «установка кондиционера 3 000 ₽» — не цена работы, а цена входа в квартиру. Дальше начинается смета, о которой не говорили по телефону.</p></div>
+            </div></div>
+          </div>
+          <div class="sticky-act"><span class="btn solid lg" style="width:100%">Сохранить черновик</span></div>
+        </div></div>
+    </div>
+    <span class="devcap">768 — боковая колонка уходит: статус переезжает в панель инструментов, обложка на вкладку «Публикация». 390 — панель инструментов горизонтально прокручивается, сохранение прибито внизу.</span>
+  </div>
+
+  <div class="tsec">
+<div class="ttl2"><span class="tnum">Статья · вкладка 2</span><span class="tname">SEO</span></div>
+<p class="tdesc">Живое превью выдачи. Длину меряет счётчик, а не глазомер: обрезанный в поиске заголовок стоит кликов.</p>
+    <div class="row3">
+<div class="col"><span class="devlab">1440</span>
+        <div class="frame dk">
+<div class="tabsrow "><span class="tab">Текст</span><span class="tab on">SEO</span><span class="tab">Публикация</span></div>
+          <div class="bd20 grid" style="grid-template-columns:minmax(0,1fr) 380px;gap:14px;align-items:start">
+            <div class="card"><div class="hd"><span class="ttl">Мета-данные</span></div><div class="bd stack" style="gap:12px">
+              <div class="inp bordered col"><span class="lab">Title <span class="mut mono">58 / 60</span></span><span class="val">Монтаж кондиционера в Туле: почему 6 000 ₽, а не 3 000 ₽</span></div>
+              <div class="inp bordered col tall"><span class="lab">Description <span class="mut mono">147 / 160</span></span><span class="val" style="margin-top:4px;font-size:13.5px;line-height:1.5">Разбираем смету монтажа по пунктам: что входит в работу, за что доплачивают отдельно и почему объявления за 3 000 ₽ заканчиваются другой суммой.</span></div>
+              <div class="inp bordered col"><span class="lab">Слаг <span class="mut mono">адрес статьи</span></span><span class="val mono">/knowledge/pochemu-montazh-6000</span></div>
+              <div class="inp bordered col err"><span class="lab">Каноникал</span><span class="val ph">Не задан</span><span class="hint err">Обязателен: без него дубль в выдаче считается конкурентом самой страницы</span></div>
+            </div></div>
+            <div class="card"><div class="hd"><span class="ttl">Как увидят в поиске</span></div><div class="bd">
+              <div style="padding:12px;border:1px solid var(--line);border-radius:var(--r-nav);background:var(--bg)">
+                <div class="mono t-tiny" style="color:var(--ok-ink)">tulaklimat.ru › knowledge › pochemu-montazh-6000</div>
+                <div style="font-family:var(--font-display);font-size:16px;color:var(--accent-text);margin-top:4px">Монтаж кондиционера в Туле: почему 6 000 ₽, а не 3 000 ₽</div>
+                <div style="font-size:13px;line-height:1.5;color:var(--muted);margin-top:4px">Разбираем смету монтажа по пунктам: что входит в работу, за что доплачивают отдельно и почему объявления за 3 000 ₽…</div>
+              </div>
+              <div class="alert a-warn" style="margin-top:12px"><span class="ai"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4.5 21 19.5H3z"/><path d="M12 10v4M12 17h.01"/></svg></span><div><div class="at">Числа обязаны совпасть</div><div class="ad">6 000 ₽ в описании — то же число, что в тексте и в разметке. Расхождение — ручные санкции (инвариант 9).</div></div></div>
+            </div></div>
+          </div>
+        </div></div>
+<div class="col"><span class="devlab">768</span>
+        <div class="frame tb">
+<div class="tabsrow sm"><span class="tab">Текст</span><span class="tab on">SEO</span><span class="tab">Публикация</span></div>
+          <div class="bd16 stack" style="gap:12px">
+            <div class="card"><div class="hd"><span class="ttl">Как увидят в поиске</span></div><div class="bd"><div style="padding:12px;border:1px solid var(--line);border-radius:var(--r-nav);background:var(--bg)">
+              <div class="mono t-tiny" style="color:var(--ok-ink)">tulaklimat.ru › knowledge › pochemu-montazh-6000</div>
+              <div style="font-family:var(--font-display);font-size:15px;color:var(--accent-text);margin-top:4px">Монтаж кондиционера в Туле: почему 6 000 ₽, а не 3 000 ₽</div>
+              <div style="font-size:13px;line-height:1.5;color:var(--muted);margin-top:4px">Разбираем смету монтажа по пунктам: что входит в работу и за что доплачивают отдельно…</div>
+            </div></div></div>
+            <div class="card"><div class="bd stack" style="gap:10px">
+              <div class="inp bordered col"><span class="lab">Title <span class="mut mono">58 / 60</span></span><span class="val">Монтаж кондиционера в Туле: почему 6 000 ₽…</span></div>
+              <div class="inp bordered col tall"><span class="lab">Description <span class="mut mono">147 / 160</span></span><span class="val" style="margin-top:4px;font-size:13px;line-height:1.5">Разбираем смету монтажа по пунктам: что входит в работу.</span></div>
+              <div class="inp bordered col err"><span class="lab">Каноникал</span><span class="val ph">Не задан</span><span class="hint err">Обязателен</span></div>
+            </div></div>
+          </div>
+        </div></div>
+<div class="col"><span class="devlab">390</span>
+        <div class="frame ph" style="min-height:640px">
+<div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Статья</span></span></div>
+<div class="tabsrow xs"><span class="tab">Текст</span><span class="tab on">SEO</span><span class="tab">Публикация</span></div>
+          <div class="mbody">
+            <div class="card"><div class="mrow"><div style="padding:10px;border:1px solid var(--line);border-radius:var(--r-nav);background:var(--bg)">
+              <div class="mono t-tiny" style="color:var(--ok-ink)">tulaklimat.ru › knowledge › …</div>
+              <div style="font-family:var(--font-display);font-size:14.5px;color:var(--accent-text);margin-top:4px;line-height:1.35">Монтаж кондиционера в Туле: почему 6 000 ₽, а не 3 000 ₽</div>
+              <div style="font-size:12.5px;line-height:1.5;color:var(--muted);margin-top:4px">Разбираем смету монтажа по пунктам…</div>
+            </div></div></div>
+            <div class="card"><div class="mrow" style="gap:10px">
+              <div class="inp bordered col"><span class="lab">Title <span class="mut mono">58 / 60</span></span><span class="val" style="font-size:14px">Монтаж кондиционера в Туле…</span></div>
+              <div class="inp bordered col err"><span class="lab">Каноникал</span><span class="val ph">Не задан</span><span class="hint err">Обязателен</span></div>
+            </div></div>
+          </div>
+        </div></div>
+    </div>
+    <span class="devcap">768 и 390 — превью выдачи поднимается над полями: правят title, глядя на него, а не наоборот. Счётчик длины остаётся в подписи поля на всех ширинах.</span>
+  </div>
+
+  <div class="tsec">
+<div class="ttl2"><span class="tnum">Статья · вкладка 3</span><span class="tname">Публикация</span></div>
+<p class="tdesc">Дата, автор, обложка и связанные материалы. Отсюда же снимают с сайта.</p>
+    <div class="row3">
+<div class="col"><span class="devlab">1440</span>
+        <div class="frame dk">
+<div class="tabsrow "><span class="tab">Текст</span><span class="tab">SEO</span><span class="tab on">Публикация</span></div>
+          <div class="bd20 grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start">
+            <div class="card"><div class="hd"><span class="ttl">Публикация</span></div><div class="bd stack" style="gap:12px">
+              <div class="row" style="gap:12px"><span class="sw on"></span><span class="stack" style="gap:2px"><span class="strong">Опубликовать на сайте</span><span class="t-tiny mut">Появится в разделе «База знаний» и в карте сайта</span></span></div>
+              <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+                <div class="inp bordered col"><span class="lab">Дата публикации</span><span class="val mono">29.08.2026</span></div>
+                <div class="inp bordered col"><span class="lab">Автор</span><span class="val">Сергей Демидов</span></div>
+              </div>
+              <div class="inp bordered col"><span class="lab">Раздел</span><span class="val">Как обманывают при установке <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></span></div>
+              <div class="row" style="gap:12px"><span class="sw"></span><span class="stack" style="gap:2px"><span class="strong">Закрепить в разделе</span><span class="t-tiny mut">Первой в списке, независимо от даты</span></span></div>
+            </div></div>
+            <div class="stack" style="gap:12px">
+              <div class="card"><div class="hd"><span class="ttl">Обложка</span><span class="btn flat sm">Заменить</span></div><div class="bd"><div style="height:130px;border-radius:var(--r-nav);background:linear-gradient(135deg,var(--accent-bg),var(--bg-soft));border:1px solid var(--line)"></div><div class="inp flat col" style="margin-top:10px"><span class="lab">Alt-текст</span><span class="val">Монтажник вакуумирует магистраль перед пуском</span></div></div></div>
+              <div class="card"><div class="hd"><span class="ttl">Связанные статьи</span></div><div class="bd stack" style="gap:8px">
+                <div class="row" style="gap:8px"><span class="chip c-default">Как обманывают при установке</span><span class="chip c-default">Что входит в смету</span></div>
+                <span class="btn flat sm" style="align-self:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Добавить</span>
+              </div></div>
+            </div>
+          </div>
+        </div></div>
+<div class="col"><span class="devlab">768</span>
+        <div class="frame tb">
+<div class="tabsrow sm"><span class="tab">Текст</span><span class="tab">SEO</span><span class="tab on">Публикация</span></div>
+          <div class="bd16 stack" style="gap:12px">
+            <div class="card"><div class="bd stack" style="gap:12px">
+              <div class="row" style="gap:12px"><span class="sw on"></span><span class="stack" style="gap:2px"><span class="strong">Опубликовать на сайте</span><span class="t-tiny mut">Появится в «Базе знаний»</span></span></div>
+              <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
+                <div class="inp bordered col"><span class="lab">Дата</span><span class="val mono">29.08.2026</span></div>
+                <div class="inp bordered col"><span class="lab">Автор</span><span class="val">Сергей Демидов</span></div>
+              </div>
+              <div class="inp bordered col"><span class="lab">Раздел</span><span class="val">Как обманывают при установке <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></span></div>
+            </div></div>
+            <div class="card"><div class="hd"><span class="ttl">Обложка</span><span class="btn flat sm">Заменить</span></div><div class="bd"><div style="height:110px;border-radius:var(--r-nav);background:linear-gradient(135deg,var(--accent-bg),var(--bg-soft));border:1px solid var(--line)"></div></div></div>
+          </div>
+        </div></div>
+<div class="col"><span class="devlab">390</span>
+        <div class="frame ph" style="min-height:640px">
+<div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Статья</span></span></div>
+<div class="tabsrow xs"><span class="tab">Текст</span><span class="tab">SEO</span><span class="tab on">Публикация</span></div>
+          <div class="mbody">
+            <div class="card"><div class="mrow" style="gap:12px">
+              <div class="row" style="gap:12px"><span class="sw on"></span><span class="stack" style="gap:2px"><span class="strong">Опубликовать</span><span class="t-tiny mut">Появится в «Базе знаний»</span></span></div>
+              <div class="inp bordered col"><span class="lab">Дата</span><span class="val mono">29.08.2026</span></div>
+              <div class="inp bordered col"><span class="lab">Раздел</span><span class="val">Как обманывают <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></span></div>
+            </div></div>
+            <div class="card"><div class="mrow"><div style="height:100px;border-radius:var(--r-nav);background:linear-gradient(135deg,var(--accent-bg),var(--bg-soft));border:1px solid var(--line)"></div><span class="btn flat sm" style="align-self:flex-start">Заменить обложку</span></div></div>
+          </div>
+          <div class="sticky-act"><span class="btn solid lg" style="width:100%">Опубликовать статью</span></div>
+        </div></div>
+    </div>
+    <span class="devcap">768 — две колонки становятся одной, связанные статьи уходят под обложку. 390 — переключатель первым: это главное действие вкладки, и оно же дублируется прибитой кнопкой.</span>
+  </div>
+</div>
+
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":2790,"height":5860}}'>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

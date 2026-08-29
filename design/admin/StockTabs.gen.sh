@@ -1,0 +1,154 @@
+. ./_tabs.sh
+T="Остатки по зонам|Журнал движений|Зоны хранения"
+h3() { printf '<div class="col"><span class="devlab">%s</span>' "$1"; }
+cat <<EOF
+<div class="board touch">
+  <div>
+    <span class="note">— Склад —</span>
+    <h2 style="font-family:var(--font-display);font-size:26px;font-weight:600;margin-top:8px;color:var(--ink)">Три вкладки на трёх ширинах</h2>
+    <p style="margin-top:8px;font-size:14px;color:var(--muted);max-width:1100px">Остаток — сумма движений, а не редактируемое поле. Поэтому журнал не приложение к разделу, а его вторая половина: без него вопрос «куда делись тридцать метров трассы» остаётся без ответа (CRM §11.5).</p>
+  </div>
+
+  <div class="tsec">
+$(tsec "Вкладка 1" "Остатки по зонам" "Строки — позиции, колонки — зоны, справа итог. Ниже порога подсвечено: это и есть список «пора заказывать» без отдельного экрана (CRM §11.3).")
+    <div class="row3">
+$(h3 1440)
+        <div class="frame dk">
+$(trow "$T" 1)
+          <div class="bd20">
+            <div class="tbar" style="margin-bottom:12px"><div class="row" style="gap:8px"><span class="btn faded sm">$I_FILT Группа</span><span class="btn faded sm">Только ниже порога <span class="chip c-danger" style="height:17px;padding:0 5px">3</span></span></div><span class="inp faded md solo" style="width:240px"><span class="ico">$I_SEARCH</span><span class="body"><span class="val ph clip">Название или группа</span></span></span></div>
+            <div class="card"><div class="bd" style="padding:0"><table class="tbl">
+              <thead><tr><th style="width:250px">Позиция</th><th style="width:70px">Ед.</th><th class="rt" style="width:96px">Склад</th><th class="rt" style="width:130px">Пётр К.</th><th class="rt" style="width:130px">Артём М.</th><th class="rt" style="width:130px">Иван С.</th><th class="rt" style="width:104px">Итого</th><th class="rt" style="width:86px">Порог</th></tr></thead>
+              <tbody>
+                <tr class="rowbad"><td><div class="strong">Медная труба 1/4″</div><div class="t-tiny mut">Медная труба</div></td><td class="mut">метр</td><td class="rt mono">4</td><td class="rt mono">6</td><td class="rt mono">2</td><td class="rt mono fnt">0</td><td class="rt"><span class="chip c-danger">12</span></td><td class="rt mono mut">40</td></tr>
+                <tr class="rowbad"><td><div class="strong">Кронштейны 450</div><div class="t-tiny mut">Кронштейны</div></td><td class="mut">пара</td><td class="rt mono">1</td><td class="rt mono">1</td><td class="rt mono fnt">0</td><td class="rt mono fnt">0</td><td class="rt"><span class="chip c-danger">2</span></td><td class="rt mono mut">5</td></tr>
+                <tr class="rowwarn"><td><div class="strong">Фреон R32</div><div class="t-tiny mut">Фреон</div></td><td class="mut">кг</td><td class="rt mono">5,4</td><td class="rt mono fnt">0</td><td class="rt mono fnt">0</td><td class="rt mono fnt">0</td><td class="rt"><span class="chip c-warn">5,4</span></td><td class="rt mono mut">6</td></tr>
+                <tr><td><div class="strong">Медная труба 3/8″</div><div class="t-tiny mut">Медная труба</div></td><td class="mut">метр</td><td class="rt mono">85</td><td class="rt mono">14</td><td class="rt mono">10</td><td class="rt mono">6</td><td class="rt"><span class="chip c-success">115</span></td><td class="rt mono mut">40</td></tr>
+                <tr><td><div class="strong">Кабель 4×1,5</div><div class="t-tiny mut">Межблочный кабель</div></td><td class="mut">метр</td><td class="rt mono">240</td><td class="rt mono">30</td><td class="rt mono">25</td><td class="rt mono">15</td><td class="rt"><span class="chip c-success">310</span></td><td class="rt mono mut">80</td></tr>
+              </tbody></table></div></div>
+          </div>
+        </div></div>
+$(h3 768)
+        <div class="frame tb">
+$(trow "$T" 1 sm)
+          <div class="bd16">
+            <div class="card"><div class="bd" style="padding:0">
+              <div style="overflow-x:auto;max-width:734px"><table class="tbl" style="min-width:820px">
+                <thead><tr><th style="width:220px">Позиция</th><th class="rt" style="width:96px">Склад</th><th class="rt" style="width:126px">Пётр К.</th><th class="rt" style="width:126px">Артём М.</th><th class="rt" style="width:126px">Иван С.</th><th class="rt" style="width:96px">Итого</th></tr></thead>
+                <tbody>
+                  <tr class="rowbad"><td><div class="strong">Медная труба 1/4″</div><div class="t-tiny mut">метр · порог 40</div></td><td class="rt mono">4</td><td class="rt mono">6</td><td class="rt mono">2</td><td class="rt mono fnt">0</td><td class="rt"><span class="chip c-danger">12</span></td></tr>
+                  <tr class="rowbad"><td><div class="strong">Кронштейны 450</div><div class="t-tiny mut">пара · порог 5</div></td><td class="rt mono">1</td><td class="rt mono">1</td><td class="rt mono fnt">0</td><td class="rt mono fnt">0</td><td class="rt"><span class="chip c-danger">2</span></td></tr>
+                  <tr><td><div class="strong">Медная труба 3/8″</div><div class="t-tiny mut">метр · порог 40</div></td><td class="rt mono">85</td><td class="rt mono">14</td><td class="rt mono">10</td><td class="rt mono">6</td><td class="rt"><span class="chip c-success">115</span></td></tr>
+                </tbody></table></div>
+              <div style="height:6px;background:linear-gradient(90deg,transparent 60%,rgb(15 23 42 / 7%))"></div>
+            </div></div>
+            <span class="hint" style="margin-top:8px">Прокрутка живёт внутри контейнера таблицы: страница по горизонтали не едет. Затухание у края — единственный признак, что колонок больше.</span>
+          </div>
+        </div></div>
+$(h3 390)
+        <div class="frame ph" style="min-height:660px">
+          <div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span><span class="mtitle">Склад</span></span><span class="btn solid sm icon">$I_PLUS</span></div>
+$(trow "$T" 1 xs)
+          <div class="mbody">
+            <div class="row" style="gap:8px"><span class="chip c-danger lg">Ниже порога 3</span><span class="chip c-default lg">Все 42</span></div>
+            <div class="card" style="border-color:var(--error-line)"><div class="mrow" style="gap:8px"><div class="row" style="justify-content:space-between"><span class="strong">Медная труба 1/4″</span><span class="chip c-danger">12 м</span></div><span class="t-tiny mut">Порог 40 м · не хватает 28</span><div class="row" style="gap:6px;flex-wrap:wrap"><span class="chip c-default">Склад 4</span><span class="chip c-default">Пётр К. 6</span><span class="chip c-default">Артём М. 2</span></div></div></div>
+            <div class="card" style="border-color:var(--error-line)"><div class="mrow" style="gap:8px"><div class="row" style="justify-content:space-between"><span class="strong">Кронштейны 450</span><span class="chip c-danger">2 пары</span></div><span class="t-tiny mut">Порог 5 пар · не хватает 3</span><div class="row" style="gap:6px"><span class="chip c-default">Склад 1</span><span class="chip c-default">Пётр К. 1</span></div></div></div>
+            <div class="card"><div class="mrow" style="gap:8px"><div class="row" style="justify-content:space-between"><span class="strong">Медная труба 3/8″</span><span class="chip c-success">115 м</span></div><span class="t-tiny mut">Порог 40 м</span></div></div>
+          </div>
+          <div class="sticky-act"><div class="row" style="gap:8px"><span class="btn bord" style="flex:1">Переместить</span><span class="btn solid" style="flex:1.3">Списать в наряд</span></div></div>
+        </div></div>
+    </div>
+    <span class="devcap">768 — прокрутка внутри контейнера с затуханием, порог уходит в подпись. 390 — каждая позиция карточкой: остаток крупно, зоны чипами, «не хватает» словами.</span>
+  </div>
+
+  <div class="tsec">
+$(tsec "Вкладка 2" "Журнал движений" "Пять видов движения: приход, списание в наряд, перемещение между зонами, возврат, инвентаризация. Правка остатка руками существует — но как движение с обязательной причиной, а не как тихое переписывание.")
+    <div class="row3">
+$(h3 1440)
+        <div class="frame dk">
+$(trow "$T" 2)
+          <div class="bd20">
+            <div class="tbar" style="margin-bottom:12px"><div class="row" style="gap:8px"><span class="btn faded sm">$I_FILT Вид движения</span><span class="btn faded sm">$I_CAL Период</span><span class="chip c-primary lg">Август <span class="x">×</span></span></div><span class="inp faded md solo" style="width:230px"><span class="ico">$I_SEARCH</span><span class="body"><span class="val ph clip">Позиция или наряд</span></span></span></div>
+            <div class="card"><div class="bd" style="padding:0"><table class="tbl">
+              <thead><tr><th style="width:130px">Когда</th><th style="width:140px">Вид</th><th>Позиция</th><th class="rt" style="width:100px">Сколько</th><th style="width:150px">Откуда</th><th style="width:150px">Куда</th><th style="width:130px">Основание</th></tr></thead>
+              <tbody>
+                <tr><td class="mono t-lbl">29 авг, 17:22</td><td><span class="chip c-danger">Списание</span></td><td class="strong">Кронштейны 450</td><td class="rt mono strong">−2 пары</td><td class="t-lbl">Машина · Пётр К.</td><td class="mut t-lbl">—</td><td><span class="chip c-default">наряд № 128</span></td></tr>
+                <tr><td class="mono t-lbl">29 авг, 17:22</td><td><span class="chip c-danger">Списание</span></td><td class="strong">Медная труба 1/4″</td><td class="rt mono strong">−9 м</td><td class="t-lbl">Машина · Пётр К.</td><td class="mut t-lbl">—</td><td><span class="chip c-default">наряд № 128</span></td></tr>
+                <tr><td class="mono t-lbl">28 авг, 09:05</td><td><span class="chip c-info">Перемещение</span></td><td class="strong">Медная труба 3/8″</td><td class="rt mono strong">30 м</td><td class="t-lbl">Склад</td><td class="t-lbl">Машина · Пётр К.</td><td class="mut t-lbl">—</td></tr>
+                <tr><td class="mono t-lbl">26 авг, 14:30</td><td><span class="chip c-success">Приход</span></td><td class="strong">Теплоизоляция 9 мм</td><td class="rt mono strong">+200 м</td><td class="mut t-lbl">—</td><td class="t-lbl">Склад</td><td><span class="chip c-default">накладная 4471</span></td></tr>
+                <tr class="rowwarn"><td class="mono t-lbl">25 авг, 11:00</td><td><span class="chip c-warn">Инвентаризация</span></td><td class="strong">Фреон R32</td><td class="rt mono strong">−1,2 кг</td><td class="t-lbl">Склад</td><td class="mut t-lbl">—</td><td class="t-lbl">Расхождение при пересчёте</td></tr>
+              </tbody></table></div></div>
+          </div>
+        </div></div>
+$(h3 768)
+        <div class="frame tb">
+$(trow "$T" 2 sm)
+          <div class="bd16">
+            <div class="tbar" style="margin-bottom:10px"><span class="btn faded sm">$I_FILT Вид</span><span class="btn faded sm">$I_CAL Август</span></div>
+            <div class="card"><div class="bd" style="padding:0"><table class="tbl">
+              <thead><tr><th style="width:120px">Когда</th><th>Что произошло</th><th class="rt" style="width:100px">Сколько</th></tr></thead>
+              <tbody>
+                <tr><td class="mono t-lbl">29 авг<br><span class="t-tiny fnt">17:22</span></td><td><div class="row" style="gap:8px"><span class="chip c-danger">Списание</span><span class="strong">Кронштейны 450</span></div><div class="t-tiny mut">Машина Петра К. · наряд № 128</div></td><td class="rt mono strong">−2 пары</td></tr>
+                <tr><td class="mono t-lbl">28 авг<br><span class="t-tiny fnt">09:05</span></td><td><div class="row" style="gap:8px"><span class="chip c-info">Перемещение</span><span class="strong">Труба 3/8″</span></div><div class="t-tiny mut">Склад → Машина Петра К.</div></td><td class="rt mono strong">30 м</td></tr>
+                <tr class="rowwarn"><td class="mono t-lbl">25 авг<br><span class="t-tiny fnt">11:00</span></td><td><div class="row" style="gap:8px"><span class="chip c-warn">Инвентаризация</span><span class="strong">Фреон R32</span></div><div class="t-tiny mut">Расхождение при пересчёте</div></td><td class="rt mono strong">−1,2 кг</td></tr>
+              </tbody></table></div></div>
+          </div>
+        </div></div>
+$(h3 390)
+        <div class="frame ph" style="min-height:660px">
+          <div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span><span class="mtitle">Склад</span></span></div>
+$(trow "$T" 2 xs)
+          <div class="mbody">
+            <div class="row" style="gap:8px"><span class="btn faded sm">$I_FILT Вид</span><span class="chip c-primary lg">Август <span class="x">×</span></span></div>
+            <div class="card"><div class="bd" style="padding:0">
+              <div class="mrow" style="gap:5px;border-bottom:1px solid var(--line)"><div class="row" style="justify-content:space-between"><span class="chip c-danger">Списание</span><span class="mono strong">−2 пары</span></div><span class="strong">Кронштейны 450</span><span class="t-tiny mut">Машина Петра К. · наряд № 128</span><span class="mono t-tiny fnt">29 августа, 17:22</span></div>
+              <div class="mrow" style="gap:5px;border-bottom:1px solid var(--line)"><div class="row" style="justify-content:space-between"><span class="chip c-info">Перемещение</span><span class="mono strong">30 м</span></div><span class="strong">Медная труба 3/8″</span><span class="t-tiny mut">Склад → Машина Петра К.</span><span class="mono t-tiny fnt">28 августа, 09:05</span></div>
+              <div class="mrow" style="gap:5px"><div class="row" style="justify-content:space-between"><span class="chip c-warn">Инвентаризация</span><span class="mono strong">−1,2 кг</span></div><span class="strong">Фреон R32</span><span class="t-tiny mut">Расхождение при пересчёте</span><span class="mono t-tiny fnt">25 августа, 11:00</span></div>
+            </div></div>
+          </div>
+        </div></div>
+    </div>
+    <span class="devcap">768 — «Откуда» и «Куда» сливаются в подпись со стрелкой. 390 — карточки: вид движения чипом слева, количество справа, основание подписью.</span>
+  </div>
+
+  <div class="tsec">
+$(tsec "Вкладка 3" "Зоны хранения" "Зон ровно столько, сколько кто-то реально ведёт: склад и машина каждого монтажника. Третья зона потребовала бы, чтобы кто-то отмечал «выдал» — в реальный рабочий день этого не делает никто.")
+    <div class="row3">
+$(h3 1440)
+        <div class="frame dk">
+$(trow "$T" 3)
+          <div class="bd20 grid" style="grid-template-columns:repeat(4,minmax(0,1fr));gap:14px">
+            <div class="card"><div class="bd stack" style="gap:8px;padding:16px"><span class="row" style="justify-content:space-between"><span class="ttl" style="font-size:14px">Склад</span><span class="chip c-default">основная</span></span><span class="t-lbl mut">Тула, пр. Ленина 108, подсобное помещение</span><span class="row" style="justify-content:space-between;margin-top:4px"><span class="t-lbl mut">Позиций</span><span class="mono strong">38</span></span><span class="row" style="justify-content:space-between"><span class="t-lbl mut">Ниже порога</span><span class="chip c-danger">3</span></span></div></div>
+            <div class="card"><div class="bd stack" style="gap:8px;padding:16px"><span class="row" style="justify-content:space-between"><span class="ttl" style="font-size:14px">Машина · Пётр К.</span><span class="ava xs">ПК</span></span><span class="t-lbl mut">Личная зона монтажника</span><span class="row" style="justify-content:space-between;margin-top:4px"><span class="t-lbl mut">Позиций</span><span class="mono strong">14</span></span><span class="row" style="justify-content:space-between"><span class="t-lbl mut">В минусе</span><span class="chip c-danger">1</span></span></div></div>
+            <div class="card"><div class="bd stack" style="gap:8px;padding:16px"><span class="row" style="justify-content:space-between"><span class="ttl" style="font-size:14px">Машина · Артём М.</span><span class="ava xs" style="background:var(--info-bg);color:var(--info-ink)">АМ</span></span><span class="t-lbl mut">Личная зона монтажника</span><span class="row" style="justify-content:space-between;margin-top:4px"><span class="t-lbl mut">Позиций</span><span class="mono strong">11</span></span><span class="row" style="justify-content:space-between"><span class="t-lbl mut">В минусе</span><span class="mut">нет</span></span></div></div>
+            <div class="card" style="border-style:dashed"><div class="bd stack" style="gap:10px;padding:16px;align-items:center;justify-content:center;min-height:140px"><span class="btn light sm">$I_PLUS Зона</span><span class="t-tiny fnt" style="text-align:center">Заводится вместе с монтажником</span></div></div>
+          </div>
+        </div></div>
+$(h3 768)
+        <div class="frame tb">
+$(trow "$T" 3 sm)
+          <div class="bd16 grid" style="grid-template-columns:1fr 1fr;gap:12px">
+            <div class="card"><div class="bd stack" style="gap:8px;padding:14px"><span class="row" style="justify-content:space-between"><span class="ttl" style="font-size:14px">Склад</span><span class="chip c-default">основная</span></span><span class="t-lbl mut">пр. Ленина 108</span><span class="row" style="justify-content:space-between"><span class="t-lbl mut">Позиций</span><span class="mono strong">38</span></span></div></div>
+            <div class="card"><div class="bd stack" style="gap:8px;padding:14px"><span class="row" style="justify-content:space-between"><span class="ttl" style="font-size:14px">Машина · Пётр К.</span><span class="ava xs">ПК</span></span><span class="t-lbl mut">Личная зона</span><span class="row" style="justify-content:space-between"><span class="t-lbl mut">Позиций</span><span class="mono strong">14</span></span></div></div>
+            <div class="card"><div class="bd stack" style="gap:8px;padding:14px"><span class="row" style="justify-content:space-between"><span class="ttl" style="font-size:14px">Машина · Артём М.</span><span class="ava xs" style="background:var(--info-bg);color:var(--info-ink)">АМ</span></span><span class="t-lbl mut">Личная зона</span><span class="row" style="justify-content:space-between"><span class="t-lbl mut">Позиций</span><span class="mono strong">11</span></span></div></div>
+            <div class="card" style="border-style:dashed"><div class="bd" style="display:flex;align-items:center;justify-content:center;min-height:100px"><span class="btn light sm">$I_PLUS Зона</span></div></div>
+          </div>
+        </div></div>
+$(h3 390)
+        <div class="frame ph" style="min-height:660px">
+          <div class="mbar"><span class="row" style="gap:10px"><span class="iconbtn"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span><span class="mtitle">Склад</span></span></div>
+$(trow "$T" 3 xs)
+          <div class="mbody">
+            <div class="card"><div class="bd" style="padding:0">
+              <a class="item" style="height:auto;padding:14px;border-radius:0;border-bottom:1px solid var(--line)"><span style="width:36px;height:36px;border-radius:11px;background:var(--accent-bg);color:var(--on-accent);display:flex;align-items:center;justify-content:center;flex-shrink:0">$I_STOCK</span><span class="stack" style="gap:2px;min-width:0"><span class="strong">Склад</span><span class="t-tiny mut clip">38 позиций · 3 ниже порога</span></span><span class="k">$I_CHEV</span></a>
+              <a class="item" style="height:auto;padding:14px;border-radius:0;border-bottom:1px solid var(--line)"><span class="ava">ПК</span><span class="stack" style="gap:2px;min-width:0"><span class="strong">Машина · Пётр К.</span><span class="t-tiny mut clip">14 позиций · 1 в минусе</span></span><span class="k">$I_CHEV</span></a>
+              <a class="item" style="height:auto;padding:14px;border-radius:0"><span class="ava" style="background:var(--info-bg);color:var(--info-ink)">АМ</span><span class="stack" style="gap:2px;min-width:0"><span class="strong">Машина · Артём М.</span><span class="t-tiny mut clip">11 позиций</span></span><span class="k">$I_CHEV</span></a>
+            </div></div>
+            <span class="btn light" style="width:100%">$I_PLUS Добавить зону</span>
+          </div>
+        </div></div>
+    </div>
+    <span class="devcap">768 — четыре карточки в две колонки. 390 — список строками: зон мало и они однотипны, карточки здесь только тратят высоту.</span>
+  </div>
+</div>
+EOF

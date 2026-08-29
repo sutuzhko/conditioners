@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Админ-панель — ТулаКлимат</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Space+Mono&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); }
+  :root {
+    --bg:#F1F5F9; --bg-soft:#F8FAFC; --card:#FFFFFF; --sidebar:#0F172A;
+    --ink:#0F172A; --ink2:#334155; --body:#475569; --muted:#64748B; --faint:#94A3B8;
+    --line:#E2E8F0; --line-strong:#CBD5E1; --line-soft:#EEF2F6;
+    --accent-ink:#0891B2; --accent-bg:#ECFEFF; --accent-line:#A5F3FC;
+    --panel:#0F172A; --field:#FFFFFF; --stripe-a:#EDF2F6; --stripe-b:#F5F8FA;
+  }
+  html[data-theme="dark"] {
+    --bg:#0B1220; --bg-soft:#0E1729; --card:#121D31; --sidebar:#0D1626;
+    --ink:#EAF1F8; --ink2:#C9D5E2; --body:#A8B6C6; --muted:#8598AC; --faint:#7E92A7;
+    --line:#1E2B41; --line-strong:#2C3D59; --line-soft:#182338;
+    --accent-ink:#22D3EE; --accent-bg:rgba(34,211,238,0.10); --accent-line:rgba(34,211,238,0.35);
+    --panel:#111D34; --field:#0B1424; --stripe-a:#16223A; --stripe-b:#121D31;
+  }
+  ::selection { background: #22D3EE; color: #0F172A; }
+  input, select, textarea, button { font-family: inherit; }
+  input[type="file"] { color: var(--muted); font-size: 13px; }
+  input[type="file"]::file-selector-button { border:1px solid var(--line-strong); background:var(--bg-soft); color:var(--ink2); font-family:inherit; font-weight:600; font-size:13px; padding:7px 12px; border-radius:8px; cursor:pointer; margin-right:10px; }
+  @keyframes floatUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+<script>
+(function () {
+  try {
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    var apply = function () {
+      var t = localStorage.getItem('tk-theme') || (mq.matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    };
+    apply();
+    mq.addEventListener('change', function () { if (!localStorage.getItem('tk-theme')) apply(); });
+  } catch (e) {}
+})();
+</script>
+</helmet>
+
+<div style="font-family:'Manrope',system-ui,sans-serif;color:var(--ink);min-height:100vh;">
+
+  <!-- ============ ЭКРАН ВХОДА ============ -->
+  <sc-if value="{{ showLogin }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Экран входа" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(160deg,#0F172A 0%,#0B2530 100%);">
+      <div style="width:400px;max-width:100%;background:var(--card);border-radius:22px;padding:38px;box-shadow:0 40px 90px -30px rgba(0,0,0,0.55);animation:floatUp .5s ease both;">
+        <div style="display:flex;align-items:center;gap:13px;margin-bottom:28px;">
+          <div style="width:44px;height:44px;border-radius:13px;background:#0E7490;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(14,116,144,0.35);">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M3 8h18M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z" stroke="#fff" stroke-width="1.6"></path><path d="M7 18c0 1.2-.6 2-1.5 2M12 18c0 1.4-.7 2.4-1.8 2.4M17 18c0 1.2-.6 2-1.5 2" stroke="#67E8F9" stroke-width="1.6" stroke-linecap="round"></path></svg>
+          </div>
+          <div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;letter-spacing:-0.02em;">ТулаКлимат</div>
+            <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.12em;color:var(--accent-ink);text-transform:uppercase;">Админ-панель</div>
+          </div>
+        </div>
+        <form onSubmit="{{ onLogin }}" style="display:flex;flex-direction:column;gap:15px;">
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <label style="font-size:13px;font-weight:600;color:var(--ink2);">Логин</label>
+            <input name="login" placeholder="admin" autoComplete="username" style="border:1px solid var(--line-strong);border-radius:11px;padding:13px 14px;font-size:15px;color:var(--ink);outline:none;background:var(--field);" style-focus="border-color:var(--accent-ink);box-shadow:0 0 0 3px rgba(8,145,178,0.12);">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <label style="font-size:13px;font-weight:600;color:var(--ink2);">Пароль</label>
+            <input name="password" type="password" placeholder="••••••••" autoComplete="current-password" style="border:1px solid var(--line-strong);border-radius:11px;padding:13px 14px;font-size:15px;color:var(--ink);outline:none;background:var(--field);" style-focus="border-color:var(--accent-ink);box-shadow:0 0 0 3px rgba(8,145,178,0.12);">
+          </div>
+          <sc-if value="{{ loginError }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C;font-size:13.5px;padding:10px 13px;border-radius:10px;">Введите логин и пароль.</div>
+          </sc-if>
+          <button type="submit" style="background:#0E7490;color:#fff;font-weight:700;font-size:15.5px;padding:14px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 10px 24px rgba(14,116,144,0.35);" style-hover="background:#155E75;">Войти</button>
+          <p style="font-size:12px;color:var(--faint);text-align:center;margin:0;">Макет: подойдут любые логин и пароль. В бою — POST /api/auth/login.</p>
+        </form>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ КАРКАС АДМИНКИ ============ -->
+  <sc-if value="{{ showAdmin }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid;grid-template-columns:248px 1fr;min-height:100vh;">
+
+      <!-- Сайдбар -->
+      <aside data-screen-label="Боковая навигация" style="background:var(--sidebar);display:flex;flex-direction:column;padding:22px 14px;position:sticky;top:0;height:100vh;">
+        <div style="display:flex;align-items:center;gap:11px;padding:4px 10px 20px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:16px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:#0E7490;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M3 8h18M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z" stroke="#fff" stroke-width="1.6"></path></svg>
+          </div>
+          <div style="line-height:1.15;">
+            <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15.5px;color:#fff;">ТулаКлимат</div>
+            <div style="font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:0.12em;color:#22D3EE;text-transform:uppercase;">админ-панель</div>
+          </div>
+        </div>
+        <nav style="display:flex;flex-direction:column;gap:4px;flex:1;">
+          <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="6">
+            <button onClick="{{ n.onClick }}" style="{{ n.style }}">
+              <span style="flex:1;text-align:left;">{{ n.label }}</span>
+              <sc-if value="{{ n.hasBadge }}" hint-placeholder-val="{{ false }}">
+                <span style="background:#F59E0B;color:#0F172A;font-size:11px;font-weight:800;padding:2px 8px;border-radius:100px;">{{ n.badge }}</span>
+              </sc-if>
+            </button>
+          </sc-for>
+        </nav>
+        <div style="display:flex;flex-direction:column;gap:4px;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;">
+          <a href="Кондиционеры Тула.dc.html" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:11px;text-decoration:none;color:#94A3B8;font-size:14px;font-weight:600;" style-hover="background:rgba(255,255,255,0.06);color:#fff;">↗ Открыть сайт</a>
+          <button onClick="{{ onLogout }}" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:11px;border:none;background:transparent;color:#94A3B8;font-size:14px;font-weight:600;cursor:pointer;text-align:left;" style-hover="background:rgba(239,68,68,0.12);color:#FCA5A5;">← Выйти</button>
+        </div>
+      </aside>
+
+      <!-- Контент -->
+      <main style="padding:34px 40px 60px;max-width:1060px;">
+
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px;flex-wrap:wrap;">
+          <div>
+            <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:28px;letter-spacing:-0.02em;margin:0 0 4px;">{{ sectionTitle }}</h1>
+            <p style="font-size:14px;color:var(--muted);margin:0;">{{ sectionHint }}</p>
+          </div>
+          <sc-if value="{{ savedFlash }}" hint-placeholder-val="{{ false }}">
+            <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.35);color:#16A34A;font-weight:700;font-size:13.5px;padding:9px 16px;border-radius:100px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#16A34A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              Сохранено — сайт обновлён
+            </span>
+          </sc-if>
+        </div>
+
+        <!-- ======== ЦЕНЫ ======== -->
+        <sc-if value="{{ secPrices }}" hint-placeholder-val="{{ true }}">
+          <div data-screen-label="Раздел Цены" style="display:flex;flex-direction:column;gap:22px;animation:floatUp .4s ease both;">
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;">
+              <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;background:var(--panel);color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;">
+                <div style="padding:14px 22px;">Класс / площадь</div>
+                <div style="padding:14px 22px;">Монтаж под ключ, ₽</div>
+                <div style="padding:14px 22px;">Срок работ</div>
+              </div>
+              <sc-for list="{{ priceRows }}" as="p" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;border-top:1px solid var(--line-soft);align-items:center;">
+                  <div style="padding:14px 22px;font-size:14.5px;"><span style="font-weight:700;">{{ p.cls }}</span><span style="color:var(--faint);"> · {{ p.power }} · {{ p.area }}</span></div>
+                  <div style="padding:10px 22px;"><input type="number" value="{{ p.price }}" onInput="{{ p.onPrice }}" style="width:100%;border:1px solid var(--line-strong);border-radius:9px;padding:9px 12px;font-size:14.5px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);"></div>
+                  <div style="padding:10px 22px;"><input value="{{ p.term }}" onInput="{{ p.onTerm }}" style="width:100%;border:1px solid var(--line-strong);border-radius:9px;padding:9px 12px;font-size:14.5px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);"></div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;">
+              <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;margin:0 0 18px;">Дополнительные услуги</h3>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:var(--ink2);">Трасса сверх 3 м, ₽/м</label>
+                  <input type="number" value="{{ exTrassa }}" onInput="{{ onExTrassa }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:var(--ink2);">Штробление, ₽/м</label>
+                  <input type="number" value="{{ exShtrob }}" onInput="{{ onExShtrob }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:var(--ink2);">Высотные работы (10+ этаж), ₽</label>
+                  <input type="number" value="{{ exHeight }}" onInput="{{ onExHeight }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                </div>
+              </div>
+            </div>
+            <div><button onClick="{{ onSavePrices }}" style="background:#0E7490;color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border:none;border-radius:11px;cursor:pointer;box-shadow:0 8px 20px rgba(14,116,144,0.35);" style-hover="background:#155E75;">Сохранить цены</button></div>
+          </div>
+        </sc-if>
+
+        <!-- ======== МОДЕЛИ ======== -->
+        <sc-if value="{{ secModels }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Раздел Модели" style="display:flex;flex-direction:column;gap:22px;animation:floatUp .4s ease both;">
+            <div style="display:flex;justify-content:flex-end;">
+              <button onClick="{{ onAddModel }}" style="background:#0E7490;color:#fff;font-weight:700;font-size:14.5px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer;box-shadow:0 8px 20px rgba(14,116,144,0.35);" style-hover="background:#155E75;">+ Добавить модель</button>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;">
+              <div style="display:grid;grid-template-columns:64px 1.5fr 0.8fr 0.8fr 0.9fr 130px;background:var(--panel);color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;align-items:center;">
+                <div style="padding:13px 0 13px 20px;">Фото</div>
+                <div style="padding:13px 16px;">Модель</div>
+                <div style="padding:13px 16px;">Площадь</div>
+                <div style="padding:13px 16px;">Цена</div>
+                <div style="padding:13px 16px;">На сайте</div>
+                <div style="padding:13px 16px;"></div>
+              </div>
+              <sc-for list="{{ modelRows }}" as="m" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:64px 1.5fr 0.8fr 0.8fr 0.9fr 130px;border-top:1px solid var(--line-soft);align-items:center;font-size:14.5px;">
+                  <div style="padding:10px 0 10px 20px;">
+                    <sc-if value="{{ m.hasPhoto }}" hint-placeholder-val="{{ false }}">
+                      <img src="{{ m.photo }}" alt="{{ m.name }}" style="width:44px;height:44px;object-fit:cover;border-radius:9px;border:1px solid var(--line);display:block;background:#fff;">
+                    </sc-if>
+                    <sc-if value="{{ m.noPhoto }}" hint-placeholder-val="{{ true }}">
+                      <div style="width:44px;height:44px;border-radius:9px;border:1px dashed var(--line-strong);background:repeating-linear-gradient(45deg,var(--stripe-a),var(--stripe-a) 6px,var(--stripe-b) 6px,var(--stripe-b) 12px);"></div>
+                    </sc-if>
+                  </div>
+                  <div style="padding:14px 16px;"><span style="font-weight:700;">{{ m.name }}</span><span style="color:var(--faint);"> · {{ m.badge }}</span></div>
+                  <div style="padding:14px 16px;color:var(--muted);">до {{ m.areaMax }} м²</div>
+                  <div style="padding:14px 16px;font-weight:700;color:var(--accent-ink);white-space:nowrap;">{{ m.price }}</div>
+                  <div style="padding:14px 16px;"><button onClick="{{ m.onToggle }}" style="{{ m.visStyle }}">{{ m.visLabel }}</button></div>
+                  <div style="padding:14px 16px;display:flex;gap:8px;justify-content:flex-end;">
+                    <button onClick="{{ m.onEdit }}" title="Редактировать" style="border:1px solid var(--line-strong);background:var(--bg-soft);color:var(--ink2);font-weight:600;font-size:13px;padding:8px 13px;border-radius:9px;cursor:pointer;" style-hover="border-color:var(--accent-ink);color:var(--accent-ink);">Изменить</button>
+                    <button onClick="{{ m.onDelete }}" title="Удалить" style="border:1px solid var(--line-strong);background:transparent;color:var(--muted);font-size:13px;padding:8px 11px;border-radius:9px;cursor:pointer;" style-hover="border-color:#EF4444;color:#EF4444;">✕</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <sc-if value="{{ showModelEditor }}" hint-placeholder-val="{{ false }}">
+              <div style="background:var(--card);border:2px solid var(--accent-line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;">
+                  <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;margin:0;">{{ modelEditorTitle }}</h3>
+                  <span style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.12em;color:var(--accent-ink);">РЕДАКТОР МОДЕЛИ</span>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+                  <div style="display:flex;flex-direction:column;gap:7px;grid-column:span 2;">
+                    <label style="font-size:13px;font-weight:600;color:var(--ink2);">Название</label>
+                    <input value="{{ mdName }}" onInput="{{ onMdName }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:7px;">
+                    <label style="font-size:13px;font-weight:600;color:var(--ink2);">Класс (бейдж)</label>
+                    <input value="{{ mdBadge }}" onInput="{{ onMdBadge }}" placeholder="09" style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:7px;">
+                    <label style="font-size:13px;font-weight:600;color:var(--ink2);">Площадь до, м²</label>
+                    <input type="number" value="{{ mdArea }}" onInput="{{ onMdArea }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:7px;">
+                    <label style="font-size:13px;font-weight:600;color:var(--ink2);">Цена под ключ, ₽</label>
+                    <input type="number" value="{{ mdPrice }}" onInput="{{ onMdPrice }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:7px;">
+                    <label style="font-size:13px;font-weight:600;color:var(--ink2);">Короткий тег</label>
+                    <input value="{{ mdTag }}" onInput="{{ onMdTag }}" placeholder="инвертор" style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:7px;grid-column:span 2;">
+                    <label style="font-size:13px;font-weight:600;color:var(--ink2);">Ссылка на товар <span style="color:var(--faint);font-weight:400;">(необязательно)</span></label>
+                    <input value="{{ mdLink }}" onInput="{{ onMdLink }}" placeholder="https://..." style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+                  <sc-if value="{{ mdHasPhoto }}" hint-placeholder-val="{{ false }}">
+                    <img src="{{ mdPhoto }}" alt="Фото модели" style="width:84px;height:84px;object-fit:cover;border-radius:12px;border:1px solid var(--line);background:#fff;">
+                  </sc-if>
+                  <div style="display:flex;flex-direction:column;gap:7px;flex:1;min-width:260px;">
+                    <label style="font-size:13px;font-weight:600;color:var(--ink2);">Фото товара <span style="color:var(--faint);font-weight:400;">(загрузка файлом, в бою — multipart)</span></label>
+                    <input type="file" accept="image/*" onChange="{{ onMdPhoto }}" style="border:1px dashed var(--line-strong);border-radius:10px;padding:9px 11px;background:var(--field);">
+                  </div>
+                  <sc-if value="{{ mdHasPhoto }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ onMdPhotoClear }}" style="border:1px solid var(--line-strong);background:transparent;color:var(--muted);font-size:13px;padding:9px 14px;border-radius:9px;cursor:pointer;" style-hover="border-color:#EF4444;color:#EF4444;">Убрать фото</button>
+                  </sc-if>
+                </div>
+                <div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;">
+                    <label style="font-size:13px;font-weight:600;color:var(--ink2);">Характеристики <span style="color:var(--faint);font-weight:400;">(для таблицы сравнения на сайте)</span></label>
+                    <button onClick="{{ onMdSpecAdd }}" style="border:1px solid var(--accent-line);background:var(--accent-bg);color:var(--accent-ink);font-weight:600;font-size:13px;padding:7px 13px;border-radius:9px;cursor:pointer;">+ характеристика</button>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <sc-for list="{{ mdSpecs }}" as="sp" hint-placeholder-count="3">
+                      <div style="display:grid;grid-template-columns:1fr 1fr 40px;gap:8px;align-items:center;">
+                        <input value="{{ sp.k }}" onInput="{{ sp.onK }}" placeholder="Название (напр. Уровень шума)" style="border:1px solid var(--line-strong);border-radius:9px;padding:9px 12px;font-size:14px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                        <input value="{{ sp.v }}" onInput="{{ sp.onV }}" placeholder="Значение (напр. 21 дБ)" style="border:1px solid var(--line-strong);border-radius:9px;padding:9px 12px;font-size:14px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                        <button onClick="{{ sp.onDel }}" style="border:1px solid var(--line-strong);background:transparent;color:var(--muted);font-size:13px;height:38px;border-radius:9px;cursor:pointer;" style-hover="border-color:#EF4444;color:#EF4444;">✕</button>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                <label style="display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--ink2);cursor:pointer;">
+                  <input type="checkbox" checked="{{ mdVisible }}" onChange="{{ onMdVisible }}" style="width:18px;height:18px;accent-color:#0891B2;cursor:pointer;">
+                  Показывать на сайте (каталог, подбор, сравнение)
+                </label>
+                <div style="display:flex;gap:10px;">
+                  <button onClick="{{ onMdSave }}" style="background:#0E7490;color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border:none;border-radius:11px;cursor:pointer;box-shadow:0 8px 20px rgba(14,116,144,0.35);" style-hover="background:#155E75;">Сохранить модель</button>
+                  <button onClick="{{ onMdCancel }}" style="background:transparent;color:var(--muted);font-weight:600;font-size:15px;padding:13px 22px;border:1px solid var(--line-strong);border-radius:11px;cursor:pointer;">Отмена</button>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ======== КОНТАКТЫ ======== -->
+        <sc-if value="{{ secContacts }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Раздел Контакты" style="background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px;max-width:640px;animation:floatUp .4s ease both;">
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <label style="font-size:13px;font-weight:600;color:var(--ink2);">Телефон</label>
+              <input value="{{ ctPhone }}" onInput="{{ onCtPhone }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <label style="font-size:13px;font-weight:600;color:var(--ink2);">Адрес офиса</label>
+              <input value="{{ ctAddress }}" onInput="{{ onCtAddress }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <label style="font-size:13px;font-weight:600;color:var(--ink2);">Часы работы</label>
+              <input value="{{ ctHours }}" onInput="{{ onCtHours }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+            </div>
+            <div><button onClick="{{ onSaveContacts }}" style="background:#0E7490;color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border:none;border-radius:11px;cursor:pointer;box-shadow:0 8px 20px rgba(14,116,144,0.35);" style-hover="background:#155E75;">Сохранить контакты</button></div>
+          </div>
+        </sc-if>
+
+        <!-- ======== ЮРЛИЦО ======== -->
+        <sc-if value="{{ secLegal }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Раздел Юрлицо" style="background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px;max-width:640px;animation:floatUp .4s ease both;">
+            <div style="display:grid;grid-template-columns:120px 1fr;gap:16px;">
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:var(--ink2);">Форма</label>
+                <select value="{{ lgForm }}" onChange="{{ onLgForm }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:12px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;cursor:pointer;">
+                  <option>ИП</option>
+                  <option>ООО</option>
+                </select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:var(--ink2);">Наименование / ФИО</label>
+                <input value="{{ lgName }}" onInput="{{ onLgName }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:var(--ink2);">ИНН</label>
+                <input value="{{ lgInn }}" onInput="{{ onLgInn }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:var(--ink2);">{{ lgOgrnLabel }}</label>
+                <input value="{{ lgOgrn }}" onInput="{{ onLgOgrn }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <label style="font-size:13px;font-weight:600;color:var(--ink2);">Юридический адрес</label>
+              <input value="{{ lgAddress }}" onInput="{{ onLgAddress }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+            </div>
+            <p style="font-size:12.5px;color:var(--faint);margin:0;">Эти данные показываются в футере сайта — блок «Реквизиты».</p>
+            <div><button onClick="{{ onSaveLegal }}" style="background:#0E7490;color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border:none;border-radius:11px;cursor:pointer;box-shadow:0 8px 20px rgba(14,116,144,0.35);" style-hover="background:#155E75;">Сохранить реквизиты</button></div>
+          </div>
+        </sc-if>
+
+        <!-- ======== БАЗА ЗНАНИЙ ======== -->
+        <sc-if value="{{ secArticles }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Раздел База знаний" style="display:flex;flex-direction:column;gap:22px;animation:floatUp .4s ease both;">
+            <div style="display:flex;justify-content:flex-end;">
+              <button onClick="{{ onAddArticle }}" style="background:#0E7490;color:#fff;font-weight:700;font-size:14.5px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer;box-shadow:0 8px 20px rgba(14,116,144,0.35);" style-hover="background:#155E75;">+ Новая статья</button>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;">
+              <sc-for list="{{ articleRows }}" as="a" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:1.8fr 0.7fr 0.7fr 0.9fr 130px;border-top:1px solid var(--line-soft);align-items:center;font-size:14.5px;">
+                  <div style="padding:15px 20px;"><div style="font-weight:700;">{{ a.title }}</div><div style="font-size:12.5px;color:var(--faint);">/{{ a.slug }}</div></div>
+                  <div style="padding:15px 16px;"><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent-ink);background:var(--accent-bg);border:1px solid var(--accent-line);padding:3px 9px;border-radius:100px;">{{ a.category }}</span></div>
+                  <div style="padding:15px 16px;color:var(--muted);font-size:13.5px;">{{ a.date }}</div>
+                  <div style="padding:15px 16px;"><button onClick="{{ a.onToggle }}" style="{{ a.pubStyle }}">{{ a.pubLabel }}</button></div>
+                  <div style="padding:15px 16px;display:flex;gap:8px;justify-content:flex-end;">
+                    <button onClick="{{ a.onEdit }}" style="border:1px solid var(--line-strong);background:var(--bg-soft);color:var(--ink2);font-weight:600;font-size:13px;padding:8px 13px;border-radius:9px;cursor:pointer;" style-hover="border-color:var(--accent-ink);color:var(--accent-ink);">Изменить</button>
+                    <button onClick="{{ a.onDelete }}" style="border:1px solid var(--line-strong);background:transparent;color:var(--muted);font-size:13px;padding:8px 11px;border-radius:9px;cursor:pointer;" style-hover="border-color:#EF4444;color:#EF4444;">✕</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <sc-if value="{{ showArticleEditor }}" hint-placeholder-val="{{ false }}">
+              <div style="background:var(--card);border:2px solid var(--accent-line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;">
+                  <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;margin:0;">{{ articleEditorTitle }}</h3>
+                  <span style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.12em;color:var(--accent-ink);">РЕДАКТОР СТАТЬИ</span>
+                </div>
+                <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;">
+                  <div style="display:flex;flex-direction:column;gap:7px;">
+                    <label style="font-size:13px;font-weight:600;color:var(--ink2);">Заголовок</label>
+                    <input value="{{ adTitle }}" onInput="{{ onAdTitle }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:7px;">
+                    <label style="font-size:13px;font-weight:600;color:var(--ink2);">Категория</label>
+                    <input value="{{ adCategory }}" onInput="{{ onAdCategory }}" placeholder="Выбор / Монтаж / Уход" style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:7px;">
+                    <label style="font-size:13px;font-weight:600;color:var(--ink2);">Минут чтения</label>
+                    <input type="number" value="{{ adMinutes }}" onInput="{{ onAdMinutes }}" style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:15px;color:var(--ink);background:var(--field);outline:none;" style-focus="border-color:var(--accent-ink);">
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:var(--ink2);">Анонс <span style="color:var(--faint);font-weight:400;">(показывается в списке и на главной)</span></label>
+                  <textarea value="{{ adExcerpt }}" onInput="{{ onAdExcerpt }}" rows="2" style="border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;font-size:14.5px;color:var(--ink);background:var(--field);outline:none;resize:vertical;font-family:inherit;" style-focus="border-color:var(--accent-ink);"></textarea>
+                </div>
+                <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+                  <sc-if value="{{ adHasCover }}" hint-placeholder-val="{{ false }}">
+                    <img src="{{ adCover }}" alt="Обложка" style="width:130px;height:74px;object-fit:cover;border-radius:10px;border:1px solid var(--line);">
+                  </sc-if>
+                  <div style="display:flex;flex-direction:column;gap:7px;flex:1;min-width:260px;">
+                    <label style="font-size:13px;font-weight:600;color:var(--ink2);">Обложка <span style="color:var(--faint);font-weight:400;">(необязательно)</span></label>
+                    <input type="file" accept="image/*" onChange="{{ onAdCover }}" style="border:1px dashed var(--line-strong);border-radius:10px;padding:9px 11px;background:var(--field);">
+                  </div>
+                  <sc-if value="{{ adHasCover }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ onAdCoverClear }}" style="border:1px solid var(--line-strong);background:transparent;color:var(--muted);font-size:13px;padding:9px 14px;border-radius:9px;cursor:pointer;" style-hover="border-color:#EF4444;color:#EF4444;">Убрать</button>
+                  </sc-if>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:var(--ink2);">Текст статьи <span style="color:var(--faint);font-weight:400;">(разметка: ## заголовок · - список · > врезка · **жирный**)</span></label>
+                  <textarea value="{{ adBody }}" onInput="{{ onAdBody }}" rows="14" style="border:1px solid var(--line-strong);border-radius:10px;padding:13px 15px;font-size:14px;line-height:1.6;color:var(--ink);background:var(--field);outline:none;resize:vertical;font-family:'Space Mono',monospace;" style-focus="border-color:var(--accent-ink);"></textarea>
+                </div>
+                <label style="display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--ink2);cursor:pointer;">
+                  <input type="checkbox" checked="{{ adPublished }}" onChange="{{ onAdPublished }}" style="width:18px;height:18px;accent-color:#0891B2;cursor:pointer;">
+                  Опубликована (видна в Базе знаний и на главной)
+                </label>
+                <div style="display:flex;gap:10px;">
+                  <button onClick="{{ onAdSave }}" style="background:#0E7490;color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border:none;border-radius:11px;cursor:pointer;box-shadow:0 8px 20px rgba(14,116,144,0.35);" style-hover="background:#155E75;">Сохранить статью</button>
+                  <button onClick="{{ onAdCancel }}" style="background:transparent;color:var(--muted);font-weight:600;font-size:15px;padding:13px 22px;border:1px solid var(--line-strong);border-radius:11px;cursor:pointer;">Отмена</button>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ======== ОТЗЫВЫ ======== -->
+        <sc-if value="{{ secReviews }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Раздел Отзывы" style="display:flex;flex-direction:column;gap:20px;animation:floatUp .4s ease both;">
+            <div style="background:var(--accent-bg);border:1px solid var(--accent-line);border-radius:14px;padding:14px 20px;font-size:13.5px;color:var(--ink2);">
+              Модерация доступна и из Telegram: бэкенд присылает уведомление о новом отзыве с кнопками «Одобрить / Запретить / Архив» — см. <b>API-контракт.md</b>.
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <sc-for list="{{ revTabs }}" as="t" hint-placeholder-count="4">
+                <button onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }} <span style="opacity:0.65;">{{ t.count }}</span></button>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <sc-for list="{{ revCards }}" as="r" hint-placeholder-count="3">
+                <div style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;display:flex;gap:20px;align-items:flex-start;">
+                  <sc-if value="{{ r.hasPhoto }}" hint-placeholder-val="{{ false }}">
+                    <img src="{{ r.photo }}" alt="Фото из отзыва" style="width:76px;height:76px;object-fit:cover;border-radius:12px;border:1px solid var(--line);flex-shrink:0;">
+                  </sc-if>
+                  <div style="flex:1;min-width:0;">
+                    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:7px;">
+                      <span style="font-weight:700;font-size:15.5px;">{{ r.name }}</span>
+                      <span style="font-size:13px;color:var(--faint);">{{ r.district }} · {{ r.date }}</span>
+                      <span style="font-size:14px;letter-spacing:1.5px;"><span style="color:#F59E0B;">{{ r.stars }}</span><span style="color:var(--line-strong);">{{ r.starsEmpty }}</span></span>
+                      <span style="{{ r.statusStyle }}">{{ r.statusLabel }}</span>
+                    </div>
+                    <p style="font-size:14.5px;color:var(--ink2);margin:0;">{{ r.text }}</p>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:7px;flex-shrink:0;">
+                    <sc-if value="{{ r.canApprove }}" hint-placeholder-val="{{ true }}">
+                      <button onClick="{{ r.onApprove }}" style="border:1px solid rgba(34,197,94,0.4);background:rgba(34,197,94,0.1);color:#16A34A;font-weight:700;font-size:13px;padding:8px 16px;border-radius:9px;cursor:pointer;white-space:nowrap;">Одобрить</button>
+                    </sc-if>
+                    <sc-if value="{{ r.canReject }}" hint-placeholder-val="{{ true }}">
+                      <button onClick="{{ r.onReject }}" style="border:1px solid rgba(239,68,68,0.35);background:transparent;color:#EF4444;font-weight:600;font-size:13px;padding:8px 16px;border-radius:9px;cursor:pointer;white-space:nowrap;">Запретить</button>
+                    </sc-if>
+                    <sc-if value="{{ r.canArchive }}" hint-placeholder-val="{{ true }}">
+                      <button onClick="{{ r.onArchive }}" style="border:1px solid var(--line-strong);background:transparent;color:var(--muted);font-weight:600;font-size:13px;padding:8px 16px;border-radius:9px;cursor:pointer;white-space:nowrap;">В архив</button>
+                    </sc-if>
+                    <button onClick="{{ r.onDelete }}" style="border:none;background:transparent;color:var(--faint);font-size:12.5px;padding:6px 16px;cursor:pointer;white-space:nowrap;" style-hover="color:#EF4444;">Удалить</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ revEmpty }}" hint-placeholder-val="{{ false }}">
+              <div style="text-align:center;padding:44px;border:1px dashed var(--line-strong);border-radius:16px;color:var(--faint);font-size:14.5px;">В этой вкладке пока пусто.</div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+      </main>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    authed: false, loginError: false,
+    section: 'prices', savedFlash: false,
+    revTab: 'pending',
+    editModelId: null, editArticleId: null,
+    dbTick: 0,
+  };
+
+  componentDidMount() {
+    try { if (sessionStorage.getItem('tk-admin-auth') === '1') this.setState({ authed: true }); } catch (e) {}
+    import('./data.js').then((mod) => {
+      this.mod = mod;
+      this.db = mod.loadData();
+      this.initDrafts();
+      this.setState({ dbTick: this.state.dbTick + 1 });
+    }).catch((e) => console.error('data.js:', e));
+    this._onStorage = (e) => {
+      if (this.mod && e.key === this.mod.STORAGE_KEY) {
+        this.db = this.mod.loadData();
+        this.initDrafts();
+        this.setState({ dbTick: this.state.dbTick + 1 });
+      }
+    };
+    window.addEventListener('storage', this._onStorage);
+  }
+
+  componentWillUnmount() {
+    if (this._onStorage) window.removeEventListener('storage', this._onStorage);
+    if (this._flashT) clearTimeout(this._flashT);
+  }
+
+  // Рабочие копии для форм (черновики)
+  initDrafts() {
+    const db = this.db;
+    this.pricesDraft = JSON.parse(JSON.stringify(db.prices));
+    this.extrasDraft = JSON.parse(JSON.stringify(db.extras));
+    this.contactsDraft = JSON.parse(JSON.stringify(db.contacts));
+    this.legalDraft = JSON.parse(JSON.stringify(db.legal));
+  }
+
+  save() {
+    if (!this.mod) return;
+    this.mod.saveData(this.db);
+    this.setState({ savedFlash: true });
+    if (this._flashT) clearTimeout(this._flashT);
+    this._flashT = setTimeout(() => this.setState({ savedFlash: false }), 2600);
+  }
+
+  fileToJpeg(file, maxSide) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        const k = Math.min(1, (maxSide || 900) / Math.max(img.width, img.height));
+        const cv = document.createElement('canvas');
+        cv.width = Math.round(img.width * k);
+        cv.height = Math.round(img.height * k);
+        cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+        URL.revokeObjectURL(url);
+        resolve(cv.toDataURL('image/jpeg', 0.82));
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('bad image')); };
+      img.src = url;
+    });
+  }
+
+  translit(s) {
+    const map = { а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'c',ч:'ch',ш:'sh',щ:'sch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya' };
+    return String(s || '').toLowerCase().split('').map((c) => map[c] !== undefined ? map[c] : c).join('')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'statya';
+  }
+
+  renderVals() {
+    const st = this.state;
+    const db = this.db || { models: [], prices: [], reviews: [], articles: [], extras: {}, contacts: {}, legal: {} };
+    const mod = this.mod;
+    const fmt = (n) => Math.round(+n || 0).toLocaleString('ru-RU');
+    const fmtD = mod ? mod.fmtDate : (x) => x;
+    const upd = () => this.setState({ dbTick: st.dbTick + 1 });
+
+    // ---- Вход ----
+    const onLogin = (e) => {
+      e.preventDefault();
+      const f = e.target;
+      if (!(f.login.value || '').trim() || !(f.password.value || '').trim()) {
+        this.setState({ loginError: true });
+        return;
+      }
+      try { sessionStorage.setItem('tk-admin-auth', '1'); } catch (err) {}
+      this.setState({ authed: true, loginError: false });
+    };
+    const onLogout = () => {
+      try { sessionStorage.removeItem('tk-admin-auth'); } catch (err) {}
+      this.setState({ authed: false });
+    };
+
+    // ---- Навигация ----
+    const pendingCount = (db.reviews || []).filter((r) => r.status === 'pending').length;
+    const sections = [
+      { id: 'prices', label: 'Цены' },
+      { id: 'models', label: 'Модели' },
+      { id: 'contacts', label: 'Контакты' },
+      { id: 'legal', label: 'Юрлицо' },
+      { id: 'articles', label: 'База знаний' },
+      { id: 'reviews', label: 'Отзывы' },
+    ];
+    const navBase = 'display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:11px;border:none;font-size:14.5px;font-weight:600;cursor:pointer;transition:.15s;width:100%;';
+    const navItems = sections.map((sec) => ({
+      label: sec.label,
+      hasBadge: sec.id === 'reviews' && pendingCount > 0,
+      badge: pendingCount,
+      onClick: () => this.setState({ section: sec.id }),
+      style: st.section === sec.id
+        ? navBase + 'background:rgba(34,211,238,0.14);color:#22D3EE;'
+        : navBase + 'background:transparent;color:#94A3B8;',
+    }));
+    const titles = {
+      prices: ['Цены на монтаж', 'Стоимость по классам мощности и ставки доп-услуг. Используются в таблице цен и калькуляторе на сайте.'],
+      models: ['Модели кондиционеров', 'Каталог, виджет подбора и таблица сравнения на сайте собираются из этого списка.'],
+      contacts: ['Контакты', 'Телефон, адрес и часы работы — показываются в контактах и футере сайта.'],
+      legal: ['Юридическое лицо', 'Реквизиты для футера сайта.'],
+      articles: ['База знаний', 'Статьи для раздела «База знаний». Опубликованные видны на сайте.'],
+      reviews: ['Отзывы — модерация', 'Новые отзывы попадают сюда со статусом «на модерации». На сайте видны только одобренные.'],
+    };
+
+    // ---- Цены ----
+    const pd = this.pricesDraft || [];
+    const priceRows = pd.map((p, i) => ({
+      cls: p.cls, power: p.power, area: p.area, price: p.price, term: p.term,
+      onPrice: (e) => { pd[i].price = +e.target.value || 0; upd(); },
+      onTerm: (e) => { pd[i].term = e.target.value; upd(); },
+    }));
+    const ex = this.extrasDraft || {};
+
+    // ---- Модели ----
+    const visBase = 'font-weight:700;font-size:12.5px;padding:6px 13px;border-radius:100px;cursor:pointer;transition:.15s;';
+    const modelRows = (db.models || []).map((m) => ({
+      name: m.name, badge: m.badge, areaMax: m.areaMax, price: fmt(m.priceNum) + ' ₽',
+      photo: m.photo || '', hasPhoto: !!m.photo, noPhoto: !m.photo,
+      visLabel: m.visible !== false ? 'Виден' : 'Скрыт',
+      visStyle: m.visible !== false
+        ? visBase + 'border:1px solid rgba(34,197,94,0.4);background:rgba(34,197,94,0.1);color:#16A34A;'
+        : visBase + 'border:1px solid var(--line-strong);background:transparent;color:var(--faint);',
+      onToggle: () => { m.visible = m.visible === false; this.save(); upd(); },
+      onEdit: () => { this.modelDraft = JSON.parse(JSON.stringify(m)); this.setState({ editModelId: m.id }); },
+      onDelete: () => {
+        db.models = db.models.filter((x) => x.id !== m.id);
+        if (st.editModelId === m.id) this.setState({ editModelId: null });
+        this.save(); upd();
+      },
+    }));
+    const md = this.modelDraft || {};
+    const mdSpecs = (md.specs || []).map((sp, i) => ({
+      k: sp.k, v: sp.v,
+      onK: (e) => { md.specs[i].k = e.target.value; upd(); },
+      onV: (e) => { md.specs[i].v = e.target.value; upd(); },
+      onDel: () => { md.specs.splice(i, 1); upd(); },
+    }));
+
+    // ---- Статьи ----
+    const pubBase = 'font-weight:700;font-size:12.5px;padding:6px 13px;border-radius:100px;cursor:pointer;transition:.15s;';
+    const articleRows = (db.articles || []).map((a) => ({
+      title: a.title, slug: a.slug, category: a.category, date: fmtD(a.date),
+      pubLabel: a.published ? 'Опубликована' : 'Черновик',
+      pubStyle: a.published
+        ? pubBase + 'border:1px solid rgba(34,197,94,0.4);background:rgba(34,197,94,0.1);color:#16A34A;'
+        : pubBase + 'border:1px solid var(--line-strong);background:transparent;color:var(--faint);',
+      onToggle: () => { a.published = !a.published; this.save(); upd(); },
+      onEdit: () => { this.articleDraft = JSON.parse(JSON.stringify(a)); this.setState({ editArticleId: a.id }); },
+      onDelete: () => {
+        db.articles = db.articles.filter((x) => x.id !== a.id);
+        if (st.editArticleId === a.id) this.setState({ editArticleId: null });
+        this.save(); upd();
+      },
+    }));
+    const ad = this.articleDraft || {};
+
+    // ---- Отзывы ----
+    const statuses = [
+      { id: 'pending', label: 'На модерации' },
+      { id: 'approved', label: 'Опубликованные' },
+      { id: 'archived', label: 'Архив' },
+      { id: 'rejected', label: 'Невалидные' },
+    ];
+    const tabBase = 'padding:10px 18px;border-radius:100px;font-weight:600;font-size:14px;cursor:pointer;transition:.15s;';
+    const revTabs = statuses.map((t) => ({
+      label: t.label,
+      count: (db.reviews || []).filter((r) => r.status === t.id).length,
+      onClick: () => this.setState({ revTab: t.id }),
+      style: st.revTab === t.id
+        ? tabBase + 'border:1px solid #0891B2;background:#0891B2;color:#fff;'
+        : tabBase + 'border:1px solid var(--line-strong);background:transparent;color:var(--body);',
+    }));
+    const statusMeta = {
+      pending: ['на модерации', 'background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.4);color:#D97706;'],
+      approved: ['опубликован', 'background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.35);color:#16A34A;'],
+      archived: ['в архиве', 'background:var(--bg-soft);border:1px solid var(--line-strong);color:var(--muted);'],
+      rejected: ['невалидный', 'background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);color:#EF4444;'],
+    };
+    const setStatus = (r, status) => { r.status = status; this.save(); upd(); };
+    const filtered = (db.reviews || []).filter((r) => r.status === st.revTab);
+    const revCards = filtered.map((r) => ({
+      name: r.name, district: r.district, text: r.text, date: fmtD(r.date),
+      stars: '★'.repeat(r.rating || 0), starsEmpty: '★'.repeat(5 - (r.rating || 0)),
+      photo: r.photo || '', hasPhoto: !!r.photo,
+      statusLabel: statusMeta[r.status][0],
+      statusStyle: 'font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:100px;' + statusMeta[r.status][1],
+      canApprove: r.status !== 'approved',
+      canReject: r.status !== 'rejected',
+      canArchive: r.status !== 'archived',
+      onApprove: () => setStatus(r, 'approved'),
+      onReject: () => setStatus(r, 'rejected'),
+      onArchive: () => setStatus(r, 'archived'),
+      onDelete: () => { db.reviews = db.reviews.filter((x) => x.id !== r.id); this.save(); upd(); },
+    }));
+
+    const ct = this.contactsDraft || {};
+    const lg = this.legalDraft || {};
+
+    return {
+      // вход/каркас
+      showLogin: !st.authed,
+      showAdmin: st.authed,
+      onLogin, onLogout,
+      loginError: st.loginError,
+      navItems,
+      sectionTitle: titles[st.section][0],
+      sectionHint: titles[st.section][1],
+      savedFlash: st.savedFlash,
+      secPrices: st.section === 'prices',
+      secModels: st.section === 'models',
+      secContacts: st.section === 'contacts',
+      secLegal: st.section === 'legal',
+      secArticles: st.section === 'articles',
+      secReviews: st.section === 'reviews',
+
+      // цены
+      priceRows,
+      exTrassa: ex.trassaPerM, exShtrob: ex.shtrobPerM, exHeight: ex.heightWorks,
+      onExTrassa: (e) => { ex.trassaPerM = +e.target.value || 0; upd(); },
+      onExShtrob: (e) => { ex.shtrobPerM = +e.target.value || 0; upd(); },
+      onExHeight: (e) => { ex.heightWorks = +e.target.value || 0; upd(); },
+      onSavePrices: () => { db.prices = JSON.parse(JSON.stringify(pd)); db.extras = JSON.parse(JSON.stringify(ex)); this.save(); },
+
+      // модели
+      modelRows,
+      showModelEditor: !!st.editModelId,
+      modelEditorTitle: st.editModelId === 'new' ? 'Новая модель' : 'Редактирование: ' + (md.name || ''),
+      onAddModel: () => {
+        this.modelDraft = { id: 'new', badge: '', name: '', areaMax: 25, tag: '', priceNum: 0, photo: '', link: '', visible: true, specs: [{ k: 'Площадь', v: '' }] };
+        this.setState({ editModelId: 'new' });
+      },
+      mdName: md.name, mdBadge: md.badge, mdArea: md.areaMax, mdTag: md.tag, mdPrice: md.priceNum, mdLink: md.link,
+      mdPhoto: md.photo || '', mdHasPhoto: !!md.photo, mdVisible: md.visible !== false,
+      mdSpecs,
+      onMdName: (e) => { md.name = e.target.value; upd(); },
+      onMdBadge: (e) => { md.badge = e.target.value; upd(); },
+      onMdArea: (e) => { md.areaMax = +e.target.value || 0; upd(); },
+      onMdTag: (e) => { md.tag = e.target.value; upd(); },
+      onMdPrice: (e) => { md.priceNum = +e.target.value || 0; upd(); },
+      onMdLink: (e) => { md.link = e.target.value; upd(); },
+      onMdVisible: (e) => { md.visible = e.target.checked; upd(); },
+      onMdPhoto: async (e) => {
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+        try { md.photo = await this.fileToJpeg(f, 900); upd(); } catch (err) { console.error(err); }
+      },
+      onMdPhotoClear: () => { md.photo = ''; upd(); },
+      onMdSpecAdd: () => { md.specs = md.specs || []; md.specs.push({ k: '', v: '' }); upd(); },
+      onMdSave: () => {
+        if (!md.name) return;
+        md.specs = (md.specs || []).filter((sp) => sp.k && sp.v);
+        if (st.editModelId === 'new') {
+          md.id = mod ? mod.uid('m') : 'm' + Date.now();
+          db.models.push(md);
+        } else {
+          const i = db.models.findIndex((x) => x.id === st.editModelId);
+          if (i > -1) db.models[i] = md;
+        }
+        this.modelDraft = null;
+        this.setState({ editModelId: null });
+        this.save();
+      },
+      onMdCancel: () => { this.modelDraft = null; this.setState({ editModelId: null }); },
+
+      // контакты
+      ctPhone: ct.phone, ctAddress: ct.address, ctHours: ct.hours,
+      onCtPhone: (e) => { ct.phone = e.target.value; upd(); },
+      onCtAddress: (e) => { ct.address = e.target.value; upd(); },
+      onCtHours: (e) => { ct.hours = e.target.value; upd(); },
+      onSaveContacts: () => { db.contacts = JSON.parse(JSON.stringify(ct)); this.save(); },
+
+      // юрлицо
+      lgForm: lg.form, lgName: lg.name, lgInn: lg.inn, lgOgrn: lg.ogrn, lgAddress: lg.address,
+      lgOgrnLabel: lg.form === 'ИП' ? 'ОГРНИП' : 'ОГРН',
+      onLgForm: (e) => { lg.form = e.target.value; upd(); },
+      onLgName: (e) => { lg.name = e.target.value; upd(); },
+      onLgInn: (e) => { lg.inn = e.target.value; upd(); },
+      onLgOgrn: (e) => { lg.ogrn = e.target.value; upd(); },
+      onLgAddress: (e) => { lg.address = e.target.value; upd(); },
+      onSaveLegal: () => { db.legal = JSON.parse(JSON.stringify(lg)); this.save(); },
+
+      // статьи
+      articleRows,
+      showArticleEditor: !!st.editArticleId,
+      articleEditorTitle: st.editArticleId === 'new' ? 'Новая статья' : 'Редактирование статьи',
+      onAddArticle: () => {
+        this.articleDraft = { id: 'new', slug: '', title: '', category: 'Выбор', date: mod ? mod.today() : '', minutes: 5, cover: '', excerpt: '', body: '', published: false };
+        this.setState({ editArticleId: 'new' });
+      },
+      adTitle: ad.title, adCategory: ad.category, adMinutes: ad.minutes,
+      adExcerpt: ad.excerpt, adBody: ad.body,
+      adCover: ad.cover || '', adHasCover: !!ad.cover, adPublished: !!ad.published,
+      onAdTitle: (e) => { ad.title = e.target.value; upd(); },
+      onAdCategory: (e) => { ad.category = e.target.value; upd(); },
+      onAdMinutes: (e) => { ad.minutes = +e.target.value || 1; upd(); },
+      onAdExcerpt: (e) => { ad.excerpt = e.target.value; upd(); },
+      onAdBody: (e) => { ad.body = e.target.value; upd(); },
+      onAdPublished: (e) => { ad.published = e.target.checked; upd(); },
+      onAdCover: async (e) => {
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+        try { ad.cover = await this.fileToJpeg(f, 1200); upd(); } catch (err) { console.error(err); }
+      },
+      onAdCoverClear: () => { ad.cover = ''; upd(); },
+      onAdSave: () => {
+        if (!ad.title) return;
+        if (!ad.slug) ad.slug = this.translit(ad.title);
+        if (st.editArticleId === 'new') {
+          ad.id = mod ? mod.uid('a') : 'a' + Date.now();
+          db.articles.unshift(ad);
+        } else {
+          const i = db.articles.findIndex((x) => x.id === st.editArticleId);
+          if (i > -1) db.articles[i] = ad;
+        }
+        this.articleDraft = null;
+        this.setState({ editArticleId: null });
+        this.save();
+      },
+      onAdCancel: () => { this.articleDraft = null; this.setState({ editArticleId: null }); },
+
+      // отзывы
+      revTabs, revCards,
+      revEmpty: filtered.length === 0,
+    };
+  }
+}
+</script>
+</body>
+</html>

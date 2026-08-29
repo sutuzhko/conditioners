@@ -1,0 +1,61 @@
+/* ——— Планшет 768. Контейнер 720 = 768 − 2×24 (боковые отступы из брифа §4).
+   Правило шапки: 600–999 — бренд, телефон, заявка и бургер; липкой панели
+   действий здесь нет, потому что призыв уже стоит в шапке ——— */
+.page{width:768px;background:var(--bg);position:relative;overflow:hidden}
+.wrap{max-width:720px;margin:0 auto}
+.sec{padding:64px 24px}
+.sec.alt{background:var(--bg-soft)}
+.h2{font-size:30px;line-height:1.12;font-weight:800}
+.h3{font-size:18px;line-height:1.25;font-weight:700}
+.head{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;max-width:620px}
+.head.mid{margin-inline:auto;text-align:center;align-items:center}
+.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+
+.hdr{position:sticky;top:0;z-index:50;padding:12px 24px}
+.hdrbar{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  max-width:720px;margin:0 auto;padding:8px 8px 8px 14px;border:1px solid var(--line);
+  border-radius:var(--r-ml);background:var(--header-bg);box-shadow:var(--shadow-header);
+  backdrop-filter:blur(16px)}
+.mark{width:36px;height:36px;border-radius:10px;background:var(--brand-mark);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand{font-family:var(--font-display);font-size:18px;font-weight:700;
+  letter-spacing:-0.02em;color:var(--ink);white-space:nowrap}
+.iconbtn{width:44px;height:44px;border-radius:var(--r-sm);border:1px solid var(--line-strong);
+  background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+.ticker{display:flex;gap:32px;justify-content:center;padding:16px 24px;overflow:hidden;
+  border-block:1px solid var(--line-soft)}
+.ticker li{display:flex;gap:8px;align-items:center;white-space:nowrap;
+  color:var(--ink2);font-size:14px;font-weight:600}
+
+.pcard{overflow:hidden;border-radius:var(--r-ml);display:flex;flex-direction:column}
+.pshot{position:relative;aspect-ratio:16/10;background:
+  linear-gradient(135deg,#eef6f8 0%,#f8fafc 60%,#e8f4f7 100%)}
+[data-theme='dark'] .pshot{background:linear-gradient(135deg,#16273b 0%,#0e1729 60%,#132a3a 100%)}
+.pshot .slot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  color:var(--line-strong);opacity:.75}
+.pshot .cap{position:absolute;left:12px;top:12px;padding:4px 10px;border-radius:var(--r-pill);
+  background:var(--panel);color:#fff;font-family:var(--font-mono);font-size:11px}
+.cmp{position:absolute;right:10px;top:10px;width:44px;height:44px;border-radius:var(--r-pill);
+  border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center}
+.pbody{padding:16px;display:flex;flex-direction:column;flex:1}
+
+.sale{display:inline-flex;align-items:center;line-height:1.2;padding:3px 9px;border-radius:var(--r-pill);
+  border:1px solid var(--sale-line);background:var(--sale-bg);color:var(--sale-ink);
+  font-size:12px;font-weight:700}
+.was{color:var(--faint);font-size:14px;text-decoration:line-through;font-variant-numeric:tabular-nums}
+.step{display:grid;grid-template-columns:34px 1fr;gap:14px}
+.stepno{width:34px;height:34px;border-radius:var(--r-pill);background:var(--brand);color:#fff;
+  font-family:var(--font-display);font-weight:700;font-size:15px;
+  display:flex;align-items:center;justify-content:center}
+.prow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card)}
+.acc{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:16px 18px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card)}
+.plus{width:28px;height:28px;border-radius:9px;background:var(--accent-bg);color:var(--accent-text);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;font-weight:700}
+.stars{display:flex;gap:3px}
+.who{display:flex;gap:10px;align-items:center;padding-top:12px;border-top:1px solid var(--line-soft);margin-top:auto}
+.ava{width:36px;height:36px;border-radius:var(--r-pill);background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:14px}

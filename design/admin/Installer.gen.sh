@@ -1,0 +1,184 @@
+. ./_parts.sh
+itab() {
+  a="$1"; on() { [ "$1" = "$a" ] && printf ' on'; }
+  cat <<EOF
+<div class="tabbar">
+  <a class="tb$(on ord)">$I_ORD Мои заказы</a>
+  <a class="tb$(on cal)">$I_CAL Календарь</a>
+  <a class="tb$(on me)">$I_USER Профиль</a>
+</div>
+EOF
+}
+I_NAV='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-8-8 18-2-8z"/></svg>'
+I_PHONE='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></svg>'
+I_CAM='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8h3l1.5-2h7L17 8h3a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 20 19H4a1.5 1.5 0 0 1-1.5-1.5v-8A1.5 1.5 0 0 1 4 8z"/><circle cx="12" cy="13" r="3.4"/></svg>'
+cat <<EOF
+<div class="board touch">
+
+  <div>
+    <span class="devlab">390 · монтажник — мои заказы</span>
+    <div class="dev" style="min-height:844px">
+      <div class="mbar">
+        <span class="row" style="gap:10px"><span class="ava" style="width:30px;height:30px">ПК</span><span class="stack" style="gap:0"><span class="mtitle" style="font-size:15px">Пётр Кузнецов</span><span class="t-tiny fnt">Сегодня 3 выезда · 8 ч</span></span></span>
+        <span class="iconbtn">$I_BELL<span class="badge">2</span></span>
+      </div>
+      <div class="mbody" style="gap:10px">
+        <div class="row" style="gap:8px"><span class="chip c-primary lg">Сегодня</span><span class="chip c-default lg">Завтра</span><span class="chip c-default lg">Неделя</span></div>
+
+        <div class="card" style="border-color:var(--accent-ink);border-width:2px"><div class="orow" style="gap:10px">
+          <div class="row" style="justify-content:space-between;gap:10px">
+            <span class="mono strong">14:00 — 17:00</span>
+            <span class="chip c-primary"><span class="dot"></span>В работе</span>
+          </div>
+          <div style="font-size:16px;font-weight:700;color:var(--ink)">Монтаж 09 инвертор</div>
+          <div class="row" style="gap:8px;color:var(--ink2)"><span style="color:var(--muted);flex-shrink:0">$I_NAV</span><span style="font-size:13.5px">Тула, Оборонная 12, кв. 34 · 5 этаж</span></div>
+          <div class="row" style="gap:8px;flex-wrap:wrap">
+            <span class="chip c-warn">Штробление 2 м</span><span class="chip c-default">2 блока</span>
+          </div>
+          <div class="row" style="gap:8px;margin-top:2px">
+            <a class="btn flat big" style="flex:1">$I_PHONE Клиент</a>
+            <a class="btn flat big" style="flex:1">$I_NAV Маршрут</a>
+          </div>
+          <a class="btn solid big" style="width:100%">Открыть наряд</a>
+        </div></div>
+
+        <div class="card"><div class="orow" style="gap:8px">
+          <div class="row" style="justify-content:space-between;gap:10px"><span class="mono strong">18:00 — 19:00</span><span class="chip c-warn"><span class="dot"></span>Назначен</span></div>
+          <div style="font-size:15px;font-weight:700;color:var(--ink)">ТО и чистка</div>
+          <div class="t-tiny mut">Тула, пр. Ленина 108, офис 312</div>
+          <span class="chip c-success" style="align-self:flex-start">Оплата наличными · 3 200 ₽</span>
+        </div></div>
+
+        <div class="card"><div class="orow" style="gap:8px">
+          <div class="row" style="justify-content:space-between;gap:10px"><span class="mono strong">завтра, 10:00</span><span class="chip c-warn"><span class="dot"></span>Назначен</span></div>
+          <div style="font-size:15px;font-weight:700;color:var(--ink)">Монтаж 12, два блока</div>
+          <div class="t-tiny mut">Щёкино, Пионерская 4</div>
+          <span class="chip c-danger" style="align-self:flex-start">Высотные работы</span>
+        </div></div>
+      </div>
+$(itab ord)
+    </div>
+    <span class="devcap">Монтажник видит только свои наряды и не видит сумму заказа — кроме оплаты наличными, где сумма нужна, чтобы её принять (CRM §6).</span>
+  </div>
+
+  <div>
+    <span class="devlab">390 · монтажник — наряд</span>
+    <div class="dev" style="min-height:844px">
+      <div class="mbar">
+        <span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Наряд № 128</span></span>
+        <span class="chip c-primary"><span class="dot"></span>В работе</span>
+      </div>
+      <div style="padding:0 14px;background:var(--card);border-bottom:1px solid var(--line)">
+        <div class="tabs" style="gap:20px;border:0"><span class="tab on">Наряд</span><span class="tab">Чеклист</span><span class="tab">Фото</span></div>
+      </div>
+      <div class="mbody" style="gap:12px">
+        <div class="card"><div class="bd stack" style="gap:10px;padding:14px">
+          <span class="cap" style="margin:0">Объект</span>
+          <span style="font-size:15px;font-weight:600;color:var(--ink)">Тула, ул. Оборонная, 12, кв. 34</span>
+          <div class="row" style="gap:14px"><span class="t-lbl mut">Подъезд <b class="mono" style="color:var(--ink)">2</b></span><span class="t-lbl mut">Домофон <b class="mono" style="color:var(--ink)">34К</b></span><span class="t-lbl mut">Этаж <b class="mono" style="color:var(--ink)">5</b></span></div>
+          <div class="row" style="gap:8px;margin-top:2px">
+            <a class="btn flat big" style="flex:1">$I_NAV Маршрут</a>
+            <a class="btn flat big" style="flex:1">$I_PHONE Позвонить</a>
+          </div>
+        </div></div>
+
+        <div class="card"><div class="hd" style="padding:12px 14px"><span class="ttl">Что ставим</span><span class="chip c-default">2 позиции</span></div>
+          <div class="bd" style="padding:0">
+            <div class="orow" style="gap:4px;border-bottom:1px solid var(--line-soft)">
+              <div class="strong">Сплит-система 09, инверторная</div>
+              <div class="row" style="gap:8px;flex-wrap:wrap"><span class="chip c-primary">Наше</span><span class="chip c-default">Трасса 4,5 м</span><span class="chip c-default">1/4″ + 3/8″</span><span class="chip c-warn">Штроба 2 м</span></div>
+            </div>
+            <div class="orow" style="gap:4px">
+              <div class="strong">Ballu BSW-07HN1</div>
+              <div class="row" style="gap:8px;flex-wrap:wrap"><span class="chip c-default">Клиента</span><span class="chip c-default">Трасса 3 м</span><span class="chip c-default">1/4″</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="background:var(--accent-bg);border-color:var(--accent-line)"><div class="bd row" style="gap:10px;padding:12px 14px">
+          <span style="color:var(--accent-text);flex-shrink:0">$I_WARN</span>
+          <span class="t-lbl" style="color:var(--accent-text)">Домофон 34К, звонить за 20 минут. На объекте собака.</span>
+        </div></div>
+      </div>
+      <div class="sticky-act">
+        <a class="btn solid lg" style="width:100%">$I_CHECK Работа выполнена</a>
+        <span class="t-tiny fnt" style="text-align:center">Откроется сдача: фото и итог работ</span>
+      </div>
+    </div>
+    <span class="devcap">Монтажнику доступны два перехода статуса — «В работе» и «Выполнен». Правка данных наряда ему закрыта: он их читает.</span>
+  </div>
+
+  <div>
+    <span class="devlab">390 · монтажник — чеклист выезда</span>
+    <div class="dev" style="min-height:844px">
+      <div class="mbar">
+        <span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Чеклист выезда</span></span>
+        <span class="chip c-warn">4 из 9</span>
+      </div>
+      <div class="mbody" style="gap:12px;padding:14px 14px 0">
+        <div class="bar"><i style="width:44%"></i></div>
+        <span class="t-tiny fnt">Собран автоматически из наряда: тип работ, трассы позиций, штробление и оплата наличными</span>
+      </div>
+      <div style="flex:1;overflow:hidden">
+        <div class="card" style="margin:12px 14px;overflow:hidden">
+          <div class="bd" style="padding:0">
+            <div class="chk done"><span class="box">$I_CHECK</span><span class="txt">Труба 1/4″ — 5 м</span></div>
+            <div class="chk done"><span class="box">$I_CHECK</span><span class="txt">Труба 3/8″ — 5 м</span></div>
+            <div class="chk done"><span class="box">$I_CHECK</span><span class="txt">Теплоизоляция 9 мм — 10 м</span></div>
+            <div class="chk done"><span class="box">$I_CHECK</span><span class="txt">Кабель 4×1,5 — 6 м</span></div>
+            <div class="chk"><span class="box"></span><span class="txt">Кронштейны 450 — 1 пара</span></div>
+            <div class="chk"><span class="box"></span><span class="txt">Штроборез и пылесос</span><span class="chip c-warn" style="margin-left:auto">штроба</span></div>
+            <div class="chk"><span class="box"></span><span class="txt">Вакуумный насос</span></div>
+            <div class="chk"><span class="box"></span><span class="txt">Перфоратор, бур 45</span></div>
+            <div class="chk" style="border-bottom:none"><span class="box"></span><span class="txt">Плёнка и мусорные мешки</span></div>
+          </div>
+        </div>
+        <div style="padding:0 14px"><a class="btn light big" style="width:100%">$I_PLUS Добавить свой пункт</a></div>
+      </div>
+      <div class="sticky-act">
+        <div class="row" style="gap:8px">
+          <a class="btn bord big" style="flex:1">Пересобрать</a>
+          <a class="btn solid big" style="flex:1.6">Всё собрано</a>
+        </div>
+      </div>
+    </div>
+    <span class="devcap">Пункт — цель 56px: чеклист отмечают в машине и в перчатках. Свои пункты дописываются, чеклист пересобирается из наряда заново.</span>
+  </div>
+
+  <div>
+    <span class="devlab">390 · монтажник — сдача работы</span>
+    <div class="dev" style="min-height:844px">
+      <div class="mbar">
+        <span class="row" style="gap:10px"><span class="iconbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="mtitle">Сдача работы</span></span>
+        <span class="t-tiny fnt">Наряд № 128</span>
+      </div>
+      <div class="mbody" style="gap:12px">
+        <div class="card"><div class="hd" style="padding:12px 14px"><span class="ttl">Фото выполненных работ</span><span class="chip c-warn">нужно 2</span></div>
+          <div class="bd grid" style="grid-template-columns:1fr 1fr 1fr;gap:8px;padding:14px">
+            <span class="slot" style="border-style:solid;background:var(--stripe-a);color:var(--muted)">$I_CAT</span>
+            <span class="slot">$I_CAM</span>
+            <span class="slot">$I_CAM</span>
+          </div>
+        </div>
+        <div class="card"><div class="bd stack" style="gap:12px;padding:14px">
+          <div class="inp flat col tall"><span class="lab">Что сделали сверх наряда</span><span class="val" style="margin-top:4px;font-size:13.5px">Доп. трасса 1,5 м, короб 60×60 — 2 м</span></div>
+          <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
+            <div class="inp flat col"><span class="lab">Доп. трасса</span><span class="val mono">1,5 м</span></div>
+            <div class="inp flat col"><span class="lab">Короб</span><span class="val mono">2 м</span></div>
+          </div>
+        </div></div>
+        <div class="card" style="border-color:var(--ok-line)"><div class="bd stack" style="gap:8px;padding:14px">
+          <span class="cap" style="margin:0">Оплата</span>
+          <div class="row" style="justify-content:space-between"><span class="t-lbl mut">Клиент платит компании</span><span class="chip c-success">не принимать</span></div>
+          <span class="t-tiny fnt">Сумма заказа монтажнику не показывается — принимать наличные по этому наряду не нужно</span>
+        </div></div>
+      </div>
+      <div class="sticky-act">
+        <a class="btn solid lg" style="width:100%">$I_CHECK Сдать работу</a>
+        <a class="btn light big" style="width:100%">Сохранить черновик</a>
+      </div>
+    </div>
+    <span class="devcap">Фото «после» грузит монтажник, они остаются в истории клиента. Итог работ заполняет он же — владелец потом правит.</span>
+  </div>
+</div>
+EOF

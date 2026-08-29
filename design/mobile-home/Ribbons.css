@@ -1,0 +1,31 @@
+/* Разбор узла: всё, что на телефоне уезжает за край */
+.page{width:1320px;background:var(--bg-soft);padding:36px}
+.h2{font-size:28px;line-height:1.1;font-weight:800}
+.h3{font-size:17px;font-weight:700}
+.band{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-card);padding:26px;margin-top:22px}
+.devlab{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--muted);
+  margin-bottom:8px;display:block}
+.devlab.bad{color:var(--sale-ink)}
+.frame{border:1px solid var(--line-strong);border-radius:var(--r-md);overflow:hidden;
+  background:var(--bg);flex-shrink:0}
+.frame.bad{border-color:var(--sale-line);box-shadow:0 0 0 3px var(--sale-bg)}
+.frame.good{border-color:var(--accent-line);box-shadow:0 0 0 3px var(--accent-bg)}
+.stars{display:flex;gap:3px}
+.who{display:flex;gap:10px;align-items:center;padding-top:12px;border-top:1px solid var(--line-soft);margin-top:auto}
+.ava{width:36px;height:36px;border-radius:var(--r-pill);background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:14px}
+.rev{display:flex;flex-direction:column;padding:16px;border:1px solid var(--line);
+  border-radius:var(--r-lg);background:var(--card)}
+/* лента с полями и затуханием у краёв */
+.ribbon{overflow:hidden;padding-inline:16px;
+  -webkit-mask-image:linear-gradient(90deg,#000,#000 calc(100% - 32px),transparent);
+  mask-image:linear-gradient(90deg,#000,#000 calc(100% - 32px),transparent)}
+.ribbon.both{-webkit-mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+.note2{font-size:14px;line-height:1.55;color:var(--ink2)}
+.rule{width:100%;border-collapse:collapse;font-size:13.5px}
+.rule th{text-align:left;padding:9px 12px;font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--line-strong);font-weight:400}
+.rule td{padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--ink2);line-height:1.45}

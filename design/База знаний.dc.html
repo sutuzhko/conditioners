@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>База знаний о кондиционерах — как выбрать, установить и обслуживать | ТулаКлимат</title>
+<meta name="description" content="Честные статьи о кондиционерах от монтажников ТулаКлимат: как выбрать кондиционер в Туле, как обманывают при установке, уход и чистка, инвертор против on/off, обогрев зимой.">
+<meta name="keywords" content="как выбрать кондиционер, установка кондиционера в Туле, обман при установке кондиционера, чистка кондиционера Тула, инвертор или on/off, кондиционеры в Туле">
+<meta property="og:title" content="База знаний о кондиционерах | ТулаКлимат">
+<meta property="og:description" content="Как выбрать кондиционер, как не дать себя обмануть при установке, уход и обслуживание — статьи от практиков.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tulaklimat.ru/baza-znaniy">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Space+Mono&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); }
+  :root {
+    --bg:#FFFFFF; --bg-soft:#F8FAFC; --card:#FFFFFF; --header-bg:rgba(255,255,255,0.82);
+    --hero-grad:linear-gradient(180deg,#F0F9FB 0%,#FFFFFF 100%);
+    --ink:#0F172A; --ink2:#334155; --body:#475569; --muted:#64748B; --faint:#94A3B8;
+    --line:#E2E8F0; --line-strong:#CBD5E1; --line-soft:#EEF2F6;
+    --accent-ink:#0891B2; --accent-bg:#ECFEFF; --accent-line:#A5F3FC;
+    --panel:#0F172A; --stripe-a:#EDF2F6; --stripe-b:#F5F8FA; --field:#FFFFFF;
+  }
+  html[data-theme="dark"] {
+    --bg:#0B1220; --bg-soft:#0E1729; --card:#121D31; --header-bg:rgba(11,18,32,0.8);
+    --hero-grad:linear-gradient(180deg,#0C1628 0%,#0B1220 100%);
+    --ink:#EAF1F8; --ink2:#C9D5E2; --body:#A8B6C6; --muted:#8598AC; --faint:#7E92A7;
+    --line:#1E2B41; --line-strong:#2C3D59; --line-soft:#182338;
+    --accent-ink:#22D3EE; --accent-bg:rgba(34,211,238,0.10); --accent-line:rgba(34,211,238,0.35);
+    --panel:#111D34; --stripe-a:#16223A; --stripe-b:#121D31; --field:#0B1424;
+  }
+  ::selection { background: #22D3EE; color: #0F172A; }
+  @keyframes floatUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+<script>
+(function () {
+  try {
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    var apply = function () {
+      var t = localStorage.getItem('tk-theme') || (mq.matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    };
+    apply();
+    mq.addEventListener('change', function () { if (!localStorage.getItem('tk-theme')) apply(); });
+  } catch (e) {}
+})();
+</script>
+</helmet>
+
+<div style="font-family:'Manrope',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;">
+
+  <!-- ============ HEADER ============ -->
+  <header data-screen-label="Шапка Базы знаний" style="position:sticky;top:0;z-index:50;padding:14px 16px;">
+    <div style="max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--header-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 34px -16px rgba(15,23,42,0.22);padding:9px 10px 9px 15px;">
+      <a href="Кондиционеры Тула.dc.html" style="display:flex;align-items:center;gap:11px;text-decoration:none;min-width:0;">
+        <div style="width:38px;height:38px;border-radius:11px;background:#0E7490;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 16px rgba(14,116,144,0.35);">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M3 8h18M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z" stroke="#fff" stroke-width="1.6"></path><path d="M7 18c0 1.2-.6 2-1.5 2M12 18c0 1.4-.7 2.4-1.8 2.4M17 18c0 1.2-.6 2-1.5 2" stroke="#67E8F9" stroke-width="1.6" stroke-linecap="round"></path></svg>
+        </div>
+        <div style="display:flex;flex-direction:column;line-height:1.12;min-width:0;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:-0.02em;color:var(--ink);">ТулаКлимат</span>
+          <span style="font-size:10.5px;color:var(--muted);letter-spacing:0.05em;white-space:nowrap;">база знаний</span>
+        </div>
+      </a>
+      <nav style="display:flex;align-items:center;gap:22px;">
+        <a href="Кондиционеры Тула.dc.html" style="text-decoration:none;color:var(--ink2);font-weight:600;font-size:14px;white-space:nowrap;" style-hover="color:var(--accent-ink);">← На главную</a>
+        <a href="Кондиционеры Тула.dc.html#catalog" style="text-decoration:none;color:var(--ink2);font-weight:600;font-size:14px;white-space:nowrap;" style-hover="color:var(--accent-ink);">Каталог</a>
+        <a href="Кондиционеры Тула.dc.html#ceny" style="text-decoration:none;color:var(--ink2);font-weight:600;font-size:14px;white-space:nowrap;" style-hover="color:var(--accent-ink);">Цены</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+        <button id="themeToggle" aria-label="Переключить тему" style="width:40px;height:40px;border-radius:11px;border:1px solid var(--line);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;flex-shrink:0;color:var(--ink);transition:.15s;" style-hover="border-color:var(--accent-ink);color:var(--accent-ink);">
+          <span id="iconSun" style="display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg></span>
+          <span id="iconMoon" style="display:none;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 13A8 8 0 1 1 11 4a6.5 6.5 0 0 0 9 9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path></svg></span>
+        </button>
+        <a href="Кондиционеры Тула.dc.html#zayavka" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:#0E7490;color:#fff;font-weight:600;font-size:14.5px;padding:11px 18px;border-radius:11px;white-space:nowrap;box-shadow:0 8px 20px -6px rgba(14,116,144,0.55);transition:.15s;" style-hover="background:#155E75;">Оставить заявку</a>
+      </div>
+    </div>
+  </header>
+
+  <div style="flex:1;">
+
+    <!-- ============ СПИСОК СТАТЕЙ ============ -->
+    <sc-if value="{{ showList }}" hint-placeholder-val="{{ true }}">
+      <section data-screen-label="Список статей" style="max-width:1080px;margin:0 auto;padding:56px 24px 88px;animation:floatUp .5s ease both;">
+        <div style="max-width:680px;margin-bottom:40px;">
+          <div style="font-family:'Space Mono',monospace;font-size:13px;color:var(--accent-ink);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:12px;">— База знаний —</div>
+          <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:44px;letter-spacing:-0.03em;margin:0 0 14px;line-height:1.08;">Разбираемся в кондиционерах</h1>
+          <p style="font-size:17px;color:var(--muted);margin:0;">Пишут монтажники, а не маркетологи: как выбрать кондиционер, как не дать себя обмануть при установке и как ухаживать за техникой. Статьи добавляются через админ-панель.</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;">
+          <sc-for list="{{ catChips }}" as="c" hint-placeholder-count="4">
+            <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
+          <sc-for list="{{ list }}" as="a" hint-placeholder-count="4">
+            <a href="{{ a.href }}" style="text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:.2s;" style-hover="box-shadow:0 22px 44px -24px rgba(15,23,42,0.3);transform:translateY(-4px);border-color:#67E8F9;">
+              <sc-if value="{{ a.hasCover }}" hint-placeholder-val="{{ false }}">
+                <div style="aspect-ratio:16/7;overflow:hidden;border-bottom:1px solid var(--line-soft);">
+                  <img src="{{ a.cover }}" alt="{{ a.title }}" style="width:100%;height:100%;object-fit:cover;display:block;">
+                </div>
+              </sc-if>
+              <div style="padding:26px;display:flex;flex-direction:column;gap:12px;flex:1;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--accent-ink);background:var(--accent-bg);border:1px solid var(--accent-line);padding:4px 10px;border-radius:100px;text-transform:uppercase;">{{ a.category }}</span>
+                  <span style="font-size:12.5px;color:var(--faint);">{{ a.meta }}</span>
+                </div>
+                <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:21px;color:var(--ink);margin:0;line-height:1.3;">{{ a.title }}</h2>
+                <p style="font-size:14.5px;color:var(--muted);margin:0;flex:1;">{{ a.excerpt }}</p>
+                <span style="color:var(--accent-ink);font-weight:600;font-size:14.5px;">Читать →</span>
+              </div>
+            </a>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- ============ СТАТЬЯ ============ -->
+    <sc-if value="{{ showArticle }}" hint-placeholder-val="{{ false }}">
+      <article data-screen-label="Статья" style="max-width:760px;margin:0 auto;padding:48px 24px 88px;animation:floatUp .5s ease both;">
+        <nav style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--faint);margin-bottom:28px;flex-wrap:wrap;">
+          <a href="Кондиционеры Тула.dc.html" style="color:var(--muted);text-decoration:none;" style-hover="color:var(--accent-ink);">Главная</a>
+          <span>/</span>
+          <a href="#" onClick="{{ onBackToList }}" style="color:var(--muted);text-decoration:none;" style-hover="color:var(--accent-ink);">База знаний</a>
+          <span>/</span>
+          <span style="color:var(--ink2);">{{ artCategory }}</span>
+        </nav>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+          <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--accent-ink);background:var(--accent-bg);border:1px solid var(--accent-line);padding:4px 10px;border-radius:100px;text-transform:uppercase;">{{ artCategory }}</span>
+          <span style="font-size:13px;color:var(--faint);">{{ artMeta }}</span>
+        </div>
+        <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:38px;letter-spacing:-0.03em;margin:0 0 24px;line-height:1.12;">{{ artTitle }}</h1>
+        <sc-if value="{{ artHasCover }}" hint-placeholder-val="{{ false }}">
+          <img src="{{ artCover }}" alt="{{ artTitle }}" style="width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:18px;border:1px solid var(--line);margin-bottom:30px;display:block;">
+        </sc-if>
+        <div style="font-size:16.5px;color:var(--body);">{{ artBody }}</div>
+        <div style="margin-top:44px;background:var(--panel);border-radius:20px;padding:32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+          <div style="max-width:400px;">
+            <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:#fff;margin-bottom:6px;">Остались вопросы?</div>
+            <p style="font-size:14px;color:#94A3B8;margin:0;">Специалист бесплатно проконсультирует и поможет подобрать модель под вашу квартиру.</p>
+          </div>
+          <a href="Кондиционеры Тула.dc.html#zayavka" style="text-decoration:none;background:#0891B2;color:#fff;font-weight:700;font-size:15px;padding:14px 26px;border-radius:12px;white-space:nowrap;box-shadow:0 10px 24px rgba(8,145,178,0.4);" style-hover="background:#0E7490;">Оставить заявку</a>
+        </div>
+        <div style="margin-top:28px;">
+          <a href="#" onClick="{{ onBackToList }}" style="text-decoration:none;color:var(--accent-ink);font-weight:600;font-size:15px;">← Все статьи</a>
+        </div>
+      </article>
+    </sc-if>
+
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer data-screen-label="Футер" style="background:var(--panel);color:var(--faint);">
+    <div style="max-width:1080px;margin:0 auto;padding:26px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:13.5px;">
+      <span>© 2026 ТулаКлимат — кондиционеры в Туле</span>
+      <div style="display:flex;gap:22px;">
+        <a href="Кондиционеры Тула.dc.html" style="color:var(--faint);text-decoration:none;" style-hover="color:#fff;">Главная</a>
+        <a href="Кондиционеры Тула.dc.html#catalog" style="color:var(--faint);text-decoration:none;" style-hover="color:#fff;">Каталог</a>
+        <a href="Кондиционеры Тула.dc.html#kontakty" style="color:var(--faint);text-decoration:none;" style-hover="color:#fff;">Контакты</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { slug: '', cat: 'Все', dbTick: 0 };
+
+  componentDidMount() {
+    import('./data.js').then((mod) => {
+      this.mod = mod;
+      this.db = mod.loadData();
+      this.setState({ dbTick: this.state.dbTick + 1 });
+    }).catch((e) => console.error('data.js:', e));
+    this._onStorage = (e) => {
+      if (this.mod && e.key === this.mod.STORAGE_KEY) {
+        this.db = this.mod.loadData();
+        this.setState({ dbTick: this.state.dbTick + 1 });
+      }
+    };
+    window.addEventListener('storage', this._onStorage);
+    // Хэш-роутинг: #slug открывает статью, пустой хэш — список
+    const readHash = () => {
+      const h = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+      this.setState({ slug: h });
+      window.scrollTo({ top: 0 });
+    };
+    this._onHash = readHash;
+    window.addEventListener('hashchange', readHash);
+    readHash();
+    this.initTheme();
+  }
+
+  componentWillUnmount() {
+    if (this._onStorage) window.removeEventListener('storage', this._onStorage);
+    if (this._onHash) window.removeEventListener('hashchange', this._onHash);
+  }
+
+  initTheme() {
+    const btn = document.getElementById('themeToggle');
+    const sun = document.getElementById('iconSun');
+    const moon = document.getElementById('iconMoon');
+    const sync = () => {
+      const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (sun) sun.style.display = dark ? 'none' : 'flex';
+      if (moon) moon.style.display = dark ? 'flex' : 'none';
+    };
+    sync();
+    if (btn) btn.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem('tk-theme', next); } catch (e) {}
+      document.documentElement.setAttribute('data-theme', next);
+      sync();
+    });
+  }
+
+  // ---- Мини-рендер markdown-подобного текста статьи ----
+  // Поддержка: ## заголовок, ### подзаголовок, - список, > врезка, **жирный**
+  renderBody(body) {
+    const h = React.createElement;
+    const inline = (text, keyBase) => {
+      const parts = String(text).split(/\*\*([^*]+)\*\*/g);
+      return parts.map((p, i) => (i % 2 === 1 ? h('b', { key: keyBase + '-' + i, style: { color: 'var(--ink)' } }, p) : p));
+    };
+    const blocks = String(body || '').split(/\n\s*\n/);
+    const out = [];
+    blocks.forEach((raw, bi) => {
+      const b = raw.trim();
+      if (!b) return;
+      if (b.indexOf('### ') === 0) {
+        out.push(h('h3', { key: bi, style: { fontFamily: "'Space Grotesk',sans-serif", fontWeight: 600, fontSize: '20px', color: 'var(--ink)', margin: '30px 0 10px', letterSpacing: '-0.01em' } }, inline(b.slice(4), bi)));
+      } else if (b.indexOf('## ') === 0) {
+        out.push(h('h2', { key: bi, style: { fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: '25px', color: 'var(--ink)', margin: '38px 0 12px', letterSpacing: '-0.02em' } }, inline(b.slice(3), bi)));
+      } else if (b.indexOf('> ') === 0) {
+        out.push(h('div', { key: bi, style: { background: 'var(--accent-bg)', border: '1px solid var(--accent-line)', borderRadius: '14px', padding: '18px 22px', margin: '22px 0', fontSize: '15.5px', color: 'var(--ink2)' } }, inline(b.replace(/^>\s?/gm, ''), bi)));
+      } else if (/^- /m.test(b) && b.split('\n').every((l) => l.trim().indexOf('- ') === 0 || !l.trim())) {
+        const items = b.split('\n').filter((l) => l.trim()).map((l, li) =>
+          h('li', { key: li, style: { margin: '7px 0' } }, inline(l.trim().slice(2), bi + '-' + li)));
+        out.push(h('ul', { key: bi, style: { margin: '14px 0', paddingLeft: '24px' } }, items));
+      } else {
+        out.push(h('p', { key: bi, style: { margin: '14px 0' } }, inline(b, bi)));
+      }
+    });
+    return out;
+  }
+
+  renderVals() {
+    const st = this.state;
+    const db = this.db || { articles: [] };
+    const fmtD = this.mod ? this.mod.fmtDate : (x) => x;
+    const pub = (db.articles || []).filter((a) => a.published);
+    const art = pub.find((a) => a.slug === st.slug) || null;
+
+    // Категории
+    const cats = ['Все'];
+    pub.forEach((a) => { if (cats.indexOf(a.category) === -1) cats.push(a.category); });
+    const chipBase = 'padding:10px 18px;border-radius:100px;font-weight:600;font-size:14px;cursor:pointer;transition:.15s;';
+    const catChips = cats.map((label) => ({
+      label,
+      onClick: () => this.setState({ cat: label }),
+      style: label === st.cat
+        ? chipBase + 'border:1px solid #0891B2;background:#0891B2;color:#fff;'
+        : chipBase + 'border:1px solid var(--line-strong);background:transparent;color:var(--body);',
+    }));
+
+    const list = pub
+      .filter((a) => st.cat === 'Все' || a.category === st.cat)
+      .map((a) => ({
+        title: a.title, excerpt: a.excerpt, category: a.category,
+        meta: fmtD(a.date) + ' · ' + a.minutes + ' мин',
+        href: '#' + a.slug,
+        cover: a.cover || '', hasCover: !!a.cover,
+      }));
+
+    return {
+      showList: !art,
+      showArticle: !!art,
+      catChips,
+      list,
+      artTitle: art ? art.title : '',
+      artCategory: art ? art.category : '',
+      artMeta: art ? fmtD(art.date) + ' · ' + art.minutes + ' мин чтения' : '',
+      artCover: art ? (art.cover || '') : '',
+      artHasCover: !!(art && art.cover),
+      artBody: art ? this.renderBody(art.body) : null,
+      onBackToList: (e) => { e.preventDefault(); location.hash = ''; },
+    };
+  }
+}
+</script>
+</body>
+</html>

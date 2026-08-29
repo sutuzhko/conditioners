@@ -11,7 +11,16 @@ export default {
     'custom-property-empty-line-before': null,
     'selector-class-pattern': '^[a-z][a-zA-Z0-9]+$',
   },
-  ignoreFiles: ['**/node_modules/**', '**/.next/**', '**/storybook-static/**'],
+  // Макеты переехали в репозиторий (ADR-185), но их CSS — не продуктовый код:
+  // это статические доски, где цвета стоят числами в самой палитре, а классы
+  // названы по-макетному. Правила модулей к ним не применяются — ровно как
+  // prettier уже пропускает `design` через .prettierignore.
+  ignoreFiles: [
+    '**/node_modules/**',
+    '**/.next/**',
+    '**/storybook-static/**',
+    'design/**',
+  ],
   overrides: [
     {
       // единственное место, где хекс разрешён — определение самих токенов

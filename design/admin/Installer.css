@@ -1,0 +1,25 @@
+.board{width:1764px;display:flex;gap:44px;align-items:flex-start;padding:36px;background:var(--bg-soft)}
+.dev{width:390px;border:1px solid var(--line-strong);border-radius:22px;overflow:hidden;
+  background:var(--bg);flex-shrink:0;box-shadow:var(--sh-md);display:flex;flex-direction:column}
+.devlab{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;
+  color:var(--muted);margin-bottom:10px}
+.devcap{display:block;margin-top:10px;font-size:11.5px;color:var(--faint);max-width:390px;line-height:1.45}
+.mbar{display:flex;align-items:center;justify-content:space-between;gap:10px;height:56px;
+  padding:0 14px;background:var(--card);border-bottom:1px solid var(--line);flex-shrink:0}
+.mtitle{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--ink)}
+.mbody{flex:1;padding:14px;display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.orow{display:flex;flex-direction:column;gap:8px;padding:14px}
+/* Экран монтажника: одна рука, объект, перчатки. Цели крупнее, чем у владельца. */
+.big{min-height:56px}
+.chk{display:flex;align-items:center;gap:12px;min-height:56px;padding:0 14px;
+  border-bottom:1px solid var(--line-soft)}
+.chk .box{width:24px;height:24px;border-radius:7px;border:1.8px solid var(--line-strong);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chk.done .box{background:var(--brand);border-color:var(--brand);color:#fff}
+.chk.done .txt{color:var(--muted);text-decoration:line-through}
+.txt{font-size:14.5px;color:var(--ink)}
+.sticky-act{position:sticky;bottom:0;padding:12px 14px 16px;background:var(--card);
+  border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.slot{aspect-ratio:1;border-radius:12px;background:var(--bg-soft);display:flex;
+  align-items:center;justify-content:center;color:var(--faint);
+  border:1.5px dashed var(--line-strong)}
