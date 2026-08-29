@@ -13,6 +13,12 @@ export interface CalendarGridProps {
   readonly columns: readonly ScheduleColumn[];
   /** Подпись сетки: у неё роль области, и называться она обязана словами. */
   readonly label?: string | undefined;
+  /**
+   * Найденная поиском запись — её подсвечивают, чтобы глаз нашёл её в сетке
+   * (issue #132). Признак идёт с адреса и передаётся вниз пропом: чип не
+   * должен знать про маршрутизацию.
+   */
+  readonly focusId?: string | undefined;
 }
 
 /**
@@ -26,7 +32,7 @@ export interface CalendarGridProps {
  *
  * Серверный компонент: клетки приходят готовыми, интерактивна только запись.
  */
-export function CalendarGrid({ columns, label = texts.gridLabel }: CalendarGridProps) {
+export function CalendarGrid({ columns, label = texts.gridLabel, focusId }: CalendarGridProps) {
   return (
     <section className={styles.grid} aria-label={label}>
       <div className={styles.weekdays} aria-hidden="true">
@@ -69,7 +75,7 @@ export function CalendarGrid({ columns, label = texts.gridLabel }: CalendarGridP
                 <ul className={styles.rows}>
                   {shown.map((item) => (
                     <li className={styles.row} key={item.id}>
-                      <EventChip item={item} variant="row" />
+                      <EventChip item={item} variant="row" focused={item.id === focusId} />
                     </li>
                   ))}
                 </ul>

@@ -220,3 +220,31 @@ export type DayBlockCreate = z.infer<typeof dayBlockCreateSchema>;
 export const dayBlockUpdateSchema = dayBlockCreateSchema;
 
 export type DayBlockUpdate = DayBlockCreate;
+
+/* ---------- Поиск по календарю (docs/API.md §9) ---------- */
+
+/**
+ * Находка поиска. Схема живёт здесь, а не в репозитории: ответ разбирает
+ * клиент, а он серверного кода не видит и видеть не должен.
+ *
+ * 🔴 Дискриминированное объединение, а не общее поле `title`: называть находку
+ * по-русски — дело интерфейса. Сервер отдаёт номер наряда, вид дела и тему
+ * обращения, то есть то, что знает сам.
+ */
+const searchHitBase = {
+  id: z.string(),
+  clientName: z.string(),
+  address: z.string().nullable(),
+  /** ISO. У заявки это момент обращения: своей даты работ у неё ещё нет. */
+  at: z.string(),
+};
+
+export const crmSearchHitSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('event'), eventKind: crmEventKindSchema, ...searchHitBase }),
+  z.object({ kind: z.literal('order'), number: z.number().int(), ...searchHitBase }),
+  z.object({ kind: z.literal('lead'), topic: z.string(), ...searchHitBase }),
+]);
+
+export type CrmSearchHit = z.infer<typeof crmSearchHitSchema>;
+
+export const crmSearchResultSchema = z.object({ items: z.array(crmSearchHitSchema) });

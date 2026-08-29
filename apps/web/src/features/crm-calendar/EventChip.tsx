@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { createPortal } from 'react-dom';
 
 import { timeOfMinutes } from '@/entities/crm/lib/busy';
@@ -40,6 +40,13 @@ export interface EventChipProps {
   readonly place?: ChipPlace | undefined;
   /** Можно ли двигать запись мышью. Ускоритель, а не единственный путь. */
   readonly draggable?: boolean | undefined;
+  /**
+   * Запись найдена поиском — её подсвечивают, чтобы глаз нашёл её в сетке
+   * (issue #132). Признак приходит пропом, а не читается из адреса: чип
+   * рисуется в трёх видах и в полосе «весь день», и знание о маршрутизации в
+   * листе сделало бы его непроверяемым без роутера.
+   */
+  readonly focused?: boolean | undefined;
 }
 
 const MINUTES_IN_DAY = 24 * 60;
@@ -57,6 +64,9 @@ const PERSON_CLASS: Record<PersonTone, string> = {
   e: styles.personE ?? '',
   f: styles.personF ?? '',
 };
+
+/** Сколько держится подсветка находки. */
+const FOUND_MS = 5000;
 
 /** Ниже этого сдвига движение считается кликом, а не перетаскиванием. */
 const DRAG_THRESHOLD_PX = 4;
@@ -86,7 +96,13 @@ function snap(minutes: number): number {
  * «Изменить» в карточке записи, а карточка открывается Enter и Space, потому
  * что запись — обычная кнопка.
  */
-export function EventChip({ item, variant = 'slot', place, draggable = false }: EventChipProps) {
+export function EventChip({
+  item,
+  variant = 'slot',
+  place,
+  draggable = false,
+  focused = false,
+}: EventChipProps) {
   const actions = useCalendarActions();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dragRef = useRef<Drag | null>(null);
@@ -194,6 +210,17 @@ export function EventChip({ item, variant = 'slot', place, draggable = false }: 
     show();
   };
 
+  /* Подсветка снимается, как только на запись посмотрели: иначе она висит,
+     пока человек не сотрёт параметр из адреса руками. Пять секунд — столько
+     нужно, чтобы глаз нашёл её в сетке. */
+  const [faded, setFaded] = useState(false);
+  useEffect(() => {
+    if (!focused) return;
+
+    const timer = setTimeout(() => setFaded(true), FOUND_MS);
+    return () => clearTimeout(timer);
+  }, [focused]);
+
   /* 🔴 Краска человека перебивает краску вида работ (ADR-123): в наложении
      важнее, чей это выезд, чем монтаж это или ТО. */
   const classes = [
@@ -206,6 +233,7 @@ export function EventChip({ item, variant = 'slot', place, draggable = false }: 
     item.overtimeMin > 0 ? styles.overtime : null,
     shift === null ? null : styles.dragging,
     open ? styles.open : null,
+    focused && !faded ? styles.found : null,
   ]
     .filter(Boolean)
     .join(' ');

@@ -106,3 +106,6 @@ export type { CalendarHelpProps } from './CalendarHelp';
 
 export { CalendarKeys } from './CalendarKeys';
 export type { CalendarKeysProps } from './CalendarKeys';
+
+export { CalendarSearch } from './CalendarSearch';
+export type { CalendarSearchProps } from './CalendarSearch';
