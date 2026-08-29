@@ -29,8 +29,14 @@ vi.mock('@/server/repo/clients', () => ({
 
 vi.mock('@/server/repo/leads', () => ({ listByClient: vi.fn() }));
 
+/* 🔴 Техника клиента подменяется наравне с обращениями: карточку собирают оба
+   репозитория. Без этой подмены тест уходил в живую базу и был зелёным лишь
+   там, где таблицы уже созданы, — в CI он падал пятисоткой (ADR-167). */
+vi.mock('@/server/repo/client-units', () => ({ listByClient: vi.fn() }));
+
 import { getAdminSession } from '@/server/auth';
 import * as clients from '@/server/repo/clients';
+import * as units from '@/server/repo/client-units';
 import * as leads from '@/server/repo/leads';
 
 import { GET, POST } from './route';
@@ -58,6 +64,15 @@ const client = {
 };
 
 const page = { items: [client], total: 1, page: 1, pages: 1 };
+
+const unit = {
+  id: 'u-1',
+  model: 'Fujitsu ASYG09',
+  installedAt: '2026-07-14T00:00:00.000Z',
+  warrantyUntil: '2029-07-14T00:00:00.000Z',
+  photo: null,
+  order: { id: 'o-1', number: 42 },
+};
 
 const body = {
   name: 'Ирина Соколова',
@@ -89,6 +104,7 @@ beforeEach(() => {
   vi.mocked(clients.remove).mockResolvedValue(undefined);
   vi.mocked(clients.fromLead).mockResolvedValue({ client, created: true });
   vi.mocked(leads.listByClient).mockResolvedValue([]);
+  vi.mocked(units.listByClient).mockResolvedValue([unit]);
 });
 
 describe('база клиентов', () => {
@@ -154,11 +170,14 @@ describe('база клиентов', () => {
     expect(clients.create).not.toHaveBeenCalled();
   });
 
-  it('карточка отдаётся вместе с обращениями этого человека', async () => {
+  it('карточка отдаётся вместе с обращениями и техникой этого человека', async () => {
     const response = await GET_ONE(request('/api/admin/clients/c1'), context);
 
     expect(response.status).toBe(200);
     expect(leads.listByClient).toHaveBeenCalledWith('c1');
+    expect(units.listByClient).toHaveBeenCalledWith('c1');
+    /* Оба списка обязаны доехать до ответа: карточку открывают ради них. */
+    await expect(response.json()).resolves.toMatchObject({ leads: [], units: [unit] });
   });
 
   it('пустая правка отклоняется: молча ничего не менять хуже, чем отказать', async () => {
