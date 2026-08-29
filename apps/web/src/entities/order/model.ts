@@ -242,6 +242,13 @@ export type OrderCreate = z.infer<typeof orderCreateSchema>;
  */
 export const orderUpdateSchema = z
   .object({
+    /**
+     * 🔴 Версия карточки, полученная при загрузке. Необязательна: старый
+     * клиент и точечные действия (смена статуса кнопкой) её не шлют и работают
+     * как раньше. Когда прислана — сервер пишет только если за это время
+     * карточку никто не менял, иначе отвечает 409.
+     */
+    updatedAt: z.string().datetime().optional(),
     type: orderTypeSchema.optional(),
     status: orderStatusSchema.optional(),
     clientId: baseOrderFields.clientId.optional(),
@@ -382,6 +389,13 @@ export type OrderCard = {
   readonly resultAt: string | null;
 
   readonly createdAt: string;
+  /**
+   * 🔴 Версия карточки, а не справочная дата. Клиент возвращает её при
+   * сохранении, и сервер отказывает, если за это время карточку изменил
+   * кто-то другой (BUGS §1864). Без неё правка коллеги затиралась молча:
+   * форма шлёт все поля разом в том виде, в каком их загрузили.
+   */
+  readonly updatedAt: string;
 };
 
 /** Вкладки списка нарядов. Без параметра открываются «Активные». */

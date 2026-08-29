@@ -122,6 +122,7 @@ export const order: OrderCard = {
   leadId: null,
   units,
   createdAt: '2026-08-26T14:00:00.000Z',
+  updatedAt: '2026-08-28T12:00:00.000Z',
 };
 
 /** Только заведён: ни монтажника, ни позиций — что везти, выяснится на замере. */
@@ -189,6 +190,7 @@ const installerBase = {
   leadId: null,
   units,
   createdAt: '2026-08-26T14:00:00.000Z',
+  updatedAt: '2026-08-28T12:00:00.000Z',
 } as const;
 
 /** Оплата наличными: сумму заказа монтажник видит — её нужно принять. */

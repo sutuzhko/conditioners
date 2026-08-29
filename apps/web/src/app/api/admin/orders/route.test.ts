@@ -116,6 +116,7 @@ const orderRow = {
   photos: [],
   history: [],
   createdAt: new Date('2026-08-26T14:00:00.000Z'),
+  updatedAt: new Date('2026-08-28T12:00:00.000Z'),
 };
 
 const createBody = {

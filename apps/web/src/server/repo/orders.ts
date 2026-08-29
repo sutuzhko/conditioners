@@ -200,6 +200,7 @@ const orderSelect = {
   resultAt: true,
   units: { select: unitSelect, orderBy: { sort: 'asc' } },
   createdAt: true,
+  updatedAt: true,
 } as const;
 
 /**
@@ -277,6 +278,7 @@ type OrderRow = {
   resultAt: Date | null;
   units: readonly OrderUnitRow[];
   createdAt: Date;
+  updatedAt: Date;
 };
 
 type ChecklistRow = {
@@ -373,6 +375,7 @@ function toCard(row: OrderRow, role: AdminRole): OrderCard {
     resultAt: row.resultAt === null ? null : row.resultAt.toISOString(),
     units: row.units.map(toUnitCard),
     createdAt: row.createdAt.toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
   };
 
   if (role === 'owner') {
@@ -1122,32 +1125,53 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
       });
     }
 
-    const updated = await tx.order.update({
-      where: { id },
-      data: {
-        ...(input.type === undefined ? {} : { type: TYPE_TO_DB[input.type] }),
-        ...(status === undefined ? {} : { status }),
-        ...(input.clientId === undefined ? {} : { clientId: input.clientId }),
-        ...(input.installerId === undefined ? {} : { installerId: input.installerId }),
-        ...(at === undefined ? {} : { at }),
-        ...(input.durationMin === undefined ? {} : { durationMin: input.durationMin }),
-        ...(overtime === null ? {} : { overtimeMin: overtime }),
-        ...(input.address === undefined ? {} : { address: input.address }),
-        ...(input.intercom === undefined ? {} : { intercom: input.intercom }),
-        ...(input.phone2 === undefined ? {} : { phone2: input.phone2 }),
-        ...(input.floor === undefined ? {} : { floor: input.floor }),
-        ...(input.heightWorks === undefined ? {} : { heightWorks: input.heightWorks }),
-        ...(input.payment === undefined ? {} : { payment: PAYMENT_TO_DB[input.payment] }),
-        ...(input.price === undefined ? {} : { price: input.price }),
-        ...(input.installerFee === undefined ? {} : { installerFee: input.installerFee }),
-        ...(input.deductionSum === undefined ? {} : { deductionSum: input.deductionSum }),
-        ...(input.deductionReason === undefined ? {} : { deductionReason: input.deductionReason }),
-        ...(input.comment === undefined ? {} : { comment: input.comment }),
-        ...(input.ownerNote === undefined ? {} : { ownerNote: input.ownerNote }),
-        ...(input.leadId === undefined ? {} : { leadId: input.leadId }),
-      },
-      select: orderSelect,
-    });
+    /* 🔴 Запись под версию: `updateMany` с `updatedAt` в условии — это
+       сравнение-и-запись одним запросом. Обычный `update` писал бы поверх
+       чужой правки, а прочитать версию отдельным запросом и потом писать
+       значит оставить между ними ту же щель, ради которой всё и затевалось.
+
+       Приём в проекте не новый: так же захватывается попытка отправки
+       уведомления (`notifications/runner.ts`) — условный `updateMany` плюс
+       проверка счётчика. */
+    const expected = input.updatedAt === undefined ? undefined : new Date(input.updatedAt);
+
+    const data = {
+      ...(input.type === undefined ? {} : { type: TYPE_TO_DB[input.type] }),
+      ...(status === undefined ? {} : { status }),
+      ...(input.clientId === undefined ? {} : { clientId: input.clientId }),
+      ...(input.installerId === undefined ? {} : { installerId: input.installerId }),
+      ...(at === undefined ? {} : { at }),
+      ...(input.durationMin === undefined ? {} : { durationMin: input.durationMin }),
+      ...(overtime === null ? {} : { overtimeMin: overtime }),
+      ...(input.address === undefined ? {} : { address: input.address }),
+      ...(input.intercom === undefined ? {} : { intercom: input.intercom }),
+      ...(input.phone2 === undefined ? {} : { phone2: input.phone2 }),
+      ...(input.floor === undefined ? {} : { floor: input.floor }),
+      ...(input.heightWorks === undefined ? {} : { heightWorks: input.heightWorks }),
+      ...(input.payment === undefined ? {} : { payment: PAYMENT_TO_DB[input.payment] }),
+      ...(input.price === undefined ? {} : { price: input.price }),
+      ...(input.installerFee === undefined ? {} : { installerFee: input.installerFee }),
+      ...(input.deductionSum === undefined ? {} : { deductionSum: input.deductionSum }),
+      ...(input.deductionReason === undefined ? {} : { deductionReason: input.deductionReason }),
+      ...(input.comment === undefined ? {} : { comment: input.comment }),
+      ...(input.ownerNote === undefined ? {} : { ownerNote: input.ownerNote }),
+      ...(input.leadId === undefined ? {} : { leadId: input.leadId }),
+    };
+
+    if (expected !== undefined) {
+      const written = await tx.order.updateMany({ where: { id, updatedAt: expected }, data });
+
+      if (written.count === 0) {
+        throw new ApiException(
+          'conflict',
+          'Наряд за это время изменил кто-то другой. Обновите страницу и повторите правку',
+        );
+      }
+    } else {
+      await tx.order.update({ where: { id }, data });
+    }
+
+    const updated = await tx.order.findUniqueOrThrow({ where: { id }, select: orderSelect });
 
     /* 🔴 Выполненный монтаж становится техникой клиента (CRM.md §3.2): той же
        транзакцией, что и статус, иначе закрытый наряд и пустая карточка
