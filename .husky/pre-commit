@@ -13,8 +13,41 @@
 # даёт ложные ошибки, потому что типы типизированных маршрутов Next
 # генерируются в `.next`, а он живёт в томе контейнера. Типы проверяет
 # `pnpm check` в контейнере и CI.
+set -u
+
+# 🔴 Замок. Два коммита в одном репозитории одновременно ломают друг друга:
+# lint-staged прячет непроиндексированные правки через рабочее дерево, и
+# соседний прогон увидит чужое промежуточное состояние. Ждём чужой коммит,
+# а не лезем поверх (ADR-163).
+LOCK="$(git rev-parse --git-dir)/lint-staged.lock"
+
+# Замок старше пятнадцати минут — след убитого прогона, а не работа.
+if [ -d "$LOCK" ] && [ -n "$(find "$LOCK" -maxdepth 0 -mmin +15 2>/dev/null)" ]; then
+  echo "Замок хука старше пятнадцати минут — считаю его брошенным и снимаю."
+  rmdir "$LOCK" 2>/dev/null || true
+fi
+
+waited=0
+until mkdir "$LOCK" 2>/dev/null; do
+  [ "$waited" -eq 0 ] && echo "В репозитории идёт другой коммит — жду, пока он закончится."
+  waited=$((waited + 1))
+  if [ "$waited" -gt 120 ]; then
+    echo "Прошло две минуты, чужой коммит всё ещё идёт. Повторите свой позже."
+    exit 1
+  fi
+  sleep 1
+done
+trap 'rmdir "$LOCK" 2>/dev/null || true' EXIT INT TERM
+
+# 🔴 `--concurrent false`: при параллельных задачах упавшая убивает соседние,
+# и в выводе остаётся «KILLED» вместо причины. Ложный след уже стоил сессии
+# разбора — виноват был prettier, а искали eslint (ADR-163).
+#
+# Стеша здесь нет в отрицании — то есть он включён: без него lint-staged
+# перестаёт прятать непроиндексированные правки и коммитит частично
+# проиндексированный файл целиком. Нативно стеш стоит сотые доли секунды.
 if [ -x node_modules/.bin/lint-staged ]; then
-  node_modules/.bin/lint-staged --no-stash
+  node_modules/.bin/lint-staged --concurrent false
   exit $?
 fi
 
@@ -23,4 +56,27 @@ if [ -z "$(docker compose -f docker-compose.dev.yml ps -q web 2>/dev/null)" ]; t
   echo "Либо pnpm install, либо docker compose -f docker-compose.dev.yml up -d"
   exit 1
 fi
-docker compose -f docker-compose.dev.yml exec -T web pnpm lint-staged --no-stash
+
+# 🔴 В контейнере `.git` лежит на бинд-маунте, и git там на порядок дороже
+# (0,85 с против 0,08 с на пустой операции). Стеш остаётся выключенным, а
+# вместе с ним выключается и скрытие частично проиндексированных файлов —
+# поэтому такой коммит здесь запрещён вовсе, а не молча съедается.
+staged_list="$(mktemp)"
+unstaged_list="$(mktemp)"
+git diff --cached --name-only | sort -u >"$staged_list"
+git diff --name-only | sort -u >"$unstaged_list"
+partially_staged="$(comm -12 "$staged_list" "$unstaged_list")"
+rm -f "$staged_list" "$unstaged_list"
+
+if [ -n "$partially_staged" ]; then
+  echo "Эти файлы проиндексированы частично:"
+  echo "$partially_staged" | sed 's/^/  /'
+  echo
+  echo "Проверки идут в контейнере, там стеш выключен — такой файл уедет в"
+  echo "коммит целиком, вместе с тем, что вы в индекс не клали."
+  echo "Либо проиндексируйте файл целиком, либо поставьте зависимости на"
+  echo "хост (pnpm install) — тогда сработает нативная ветка со стешем."
+  exit 1
+fi
+
+docker compose -f docker-compose.dev.yml exec -T web pnpm lint-staged --no-stash --concurrent false
