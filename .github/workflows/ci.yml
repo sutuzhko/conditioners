@@ -176,3 +176,129 @@ jobs:
       - name: Журнал витрины
         if: failure()
         run: docker logs vr-storybook | tail -50
+
+  # 🔴 Сквозные сценарии — три из них перечислены в CLAUDE.md как обязательные:
+  # заявка доходит до базы, отзыв доезжает до модерации, правка цены видна на
+  # сайте. До этой работы их не гонял никто: 971 строка сценариев лежала в
+  # репозитории и не запускалась ни разу за прогон.
+  #
+  # Полторы минуты на оба профиля — это шаг, а не повод для отдельной долгой
+  # работы. Но идёт он в дев-образе, а не на голом раннере: там уже стоит
+  # системный chromium и задан CHROMIUM_PATH (ADR-021), а ставить браузеры
+  # заново — минуты на каждый прогон.
+  e2e:
+    runs-on: ubuntu-latest
+    needs: check
+
+    env:
+      # 🔴 Адрес тот же, по которому сценарии стучатся в приложение: из него
+      # собираются канонические ссылки и карта сайта, и расхождение дало бы
+      # падение не по делу. Схема http сознательно: на ней cookie сессии идёт
+      # без флага Secure, иначе браузер её выбросит и вход не сработает
+      # (ADR-102).
+      SITE_URL: http://web:3000
+      SESSION_SECRET: ci-secret-not-used-anywhere
+      NEXT_TELEMETRY_DISABLED: '1'
+      ADMIN_LOGIN: admin
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Дев-образ
+        run: docker build --target dev -t tulaklimat-dev:ci .
+
+      - name: База под сценарии
+        run: |
+          docker network create e2e
+          docker run -d --name e2e-db --network e2e --network-alias db \
+            -e POSTGRES_USER=tk -e POSTGRES_PASSWORD=ci -e POSTGRES_DB=tulaklimat \
+            postgres:16-alpine
+
+          # готовность — по pg_isready, а не по паузе: контейнер слушает порт
+          # раньше, чем база принимает подключения
+          for i in $(seq 1 60); do
+            docker exec e2e-db pg_isready -U tk -d tulaklimat >/dev/null 2>&1 && break
+            sleep 2
+          done
+
+      # 🔴 Сид обязателен, и это не украшение. Без него в базе нет ни
+      # администратора, ни ставок допработ, ни группы настроек `legal` — три
+      # сценария из пяти падают на первом же шаге. Хеш пароля считается здесь, а
+      # не лежит в файле: пароль тестовый, но хешу в репозитории не место.
+      - name: Схема и наполнение
+        run: |
+          # каталог приложения: пакет argon2 живёт в apps/web/node_modules,
+          # из корня воркспейса он не разрешается
+          hash=$(docker run --rm -w /app/apps/web tulaklimat-dev:ci \
+            node -e "require('@node-rs/argon2').hash('admin').then((h) => process.stdout.write(h))")
+
+          docker run --rm --network e2e -e DATABASE_URL="$DB_URL" \
+            -e SITE_URL -e SESSION_SECRET tulaklimat-dev:ci \
+            pnpm --filter web exec prisma migrate deploy
+
+          docker run --rm --network e2e -e DATABASE_URL="$DB_URL" \
+            -e SITE_URL -e SESSION_SECRET -e ADMIN_LOGIN \
+            -e ADMIN_PASSWORD_HASH="$hash" tulaklimat-dev:ci \
+            pnpm --filter web seed
+
+          # 🔴 Демо-сид обязателен, и порядок тот же, что в DEPLOY §2. Базовый
+          # сид оставляет настройки компании заполненными заглушками, а при
+          # незаполненных настройках публичная часть отдаёт `noindex` и карта
+          # сайта пуста (ADR-153) — сценарий «карта содержит существующие
+          # адреса» падал на пустом `<urlset>`. Предохранитель демо-сида на
+          # хост `db` не срабатывает: он считает боевыми только внешние адреса.
+          docker run --rm --network e2e -e DATABASE_URL="$DB_URL" \
+            -e SITE_URL -e SESSION_SECRET tulaklimat-dev:ci \
+            pnpm --filter web seed:demo
+        env:
+          DB_URL: postgresql://tk:ci@db:5432/tulaklimat?schema=public
+
+      - name: Приложение под сценарии
+        run: |
+          docker run -d --name e2e-web --network e2e --network-alias web \
+            -e DATABASE_URL="$DB_URL" -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web dev
+
+          # готовность — по ответу самой страницы: порт слушается раньше, чем
+          # Next соберёт первую страницу, и первый же сценарий упал бы на пустом
+          docker exec e2e-web node -e "
+            (async () => {
+              for (let i = 0; i < 90; i += 1) {
+                try {
+                  const r = await fetch('http://localhost:3000/');
+                  if (r.ok) { console.log('приложение готово'); return; }
+                } catch {}
+                await new Promise((done) => setTimeout(done, 2000));
+              }
+              console.error('приложение не поднялось за три минуты');
+              process.exit(1);
+            })()"
+        env:
+          DB_URL: postgresql://tk:ci@db:5432/tulaklimat?schema=public
+
+      - name: Сквозные сценарии
+        run: |
+          docker run --name e2e-run --network e2e \
+            -e DATABASE_URL="$DB_URL" -e SITE_URL -e SESSION_SECRET \
+            -e E2E_BASE_URL=http://web:3000 \
+            -e E2E_ADMIN_LOGIN=admin -e E2E_ADMIN_PASSWORD=admin \
+            -e CI=1 tulaklimat-dev:ci pnpm --filter web e2e
+        env:
+          DB_URL: postgresql://tk:ci@db:5432/tulaklimat?schema=public
+
+      # Трассы Playwright уже пишутся при первом ретрае: без них «сценарий
+      # упал» не говорит, на каком шаге и что было на экране
+      - name: Трассы упавших сценариев
+        if: failure()
+        run: docker cp e2e-run:/app/apps/web/test-results ./e2e-results || true
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: e2e-trace
+          path: e2e-results
+          retention-days: 7
+
+      - name: Журнал приложения
+        if: failure()
+        run: docker logs e2e-web | tail -80
