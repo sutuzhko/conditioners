@@ -213,12 +213,13 @@
 
 Объект `Article` — как в исходном контракте, плюс `seoTitle`, `seoDescription`, `updatedAt`.
 
-| Метод                | Путь                                               |
-| -------------------- | -------------------------------------------------- |
-| GET                  | `/api/admin/articles`                              |
-| POST                 | `/api/admin/articles` → `201`                      |
-| PUT / PATCH / DELETE | `/api/admin/articles/{id}`                         |
-| POST                 | `/api/admin/articles/{id}/cover` → `200 { cover }` |
+| Метод                | Путь                                                                                                                            |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| GET                  | `/api/admin/articles`                                                                                                           |
+| POST                 | `/api/admin/articles` → `201`                                                                                                   |
+| PUT / PATCH / DELETE | `/api/admin/articles/{id}`                                                                                                      |
+| POST                 | `/api/admin/articles/{id}/cover` → `200 { cover }`                                                                              |
+| DELETE               | `/api/admin/articles/{id}/cover` → `200 { cover: null }` — снимает обложку и стирает файл. У статьи без обложки отвечает тем же |
 
 `body` — плоский текст с разметкой `##`, `###`, `- `, `> `, `**жирный**`, блоки разделены пустой строкой. Рендер — чистая функция с тестами.
 

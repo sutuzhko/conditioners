@@ -169,7 +169,8 @@ async function updateOnce(id: string, input: ArticlePatch): Promise<ArticleDto> 
   return toDto(row);
 }
 
-export async function setCover(id: string, cover: string): Promise<ArticleDto> {
+/** `null` снимает обложку: ручка одна, потому что и запись в базе одна. */
+export async function setCover(id: string, cover: string | null): Promise<ArticleDto> {
   const exists = await db.article.findUnique({ where: { id }, select: { id: true } });
   if (exists === null) throw new ApiException('not_found', 'Статья не найдена');
 

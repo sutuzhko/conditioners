@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { ArticleCover, type CoverUpload } from './ArticleCover';
+import { ArticleCover, type CoverRemove, type CoverUpload } from './ArticleCover';
 
 /* Тип объявлен явно: иначе `satisfies` выведет из общих аргументов
    `{ ok: true }` и история с отказом перестанет ему соответствовать. */
 const acceptingUpload: CoverUpload = async () => ({ ok: true });
+
+const acceptingRemove: CoverRemove = async () => ({ ok: true });
 
 const failingUpload: CoverUpload = async () => ({
   ok: false,
@@ -29,4 +31,9 @@ export const СОбложкой: Story = {
 
 export const ОтказСервера: Story = {
   args: { upload: failingUpload },
+};
+
+/** Обложка есть, и её можно убрать: вопрос задаётся настоящим окном. */
+export const СОбложкойИСнятием: Story = {
+  args: { cover: '/media/demo-cover.jpg', remove: acceptingRemove },
 };

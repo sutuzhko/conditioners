@@ -86,3 +86,18 @@ export async function uploadCover(
 
   return result.ok ? { ok: true } : { ok: false, message: result.message };
 }
+
+/** Снятие обложки — та же ручка, другой метод: обложка живёт вне тела формы. */
+export async function removeCover(id: string): Promise<{ ok: boolean; message?: string }> {
+  const result = await adminRequest(
+    `/api/admin/articles/${id}/cover`,
+    { method: 'DELETE' },
+    {
+      ...ADMIN_API_TEXTS,
+      network: articleCoverContent.networkError,
+      server: articleCoverContent.serverError,
+    },
+  );
+
+  return result.ok ? { ok: true } : { ok: false, message: result.message };
+}

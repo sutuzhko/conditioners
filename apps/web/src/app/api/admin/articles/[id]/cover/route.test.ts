@@ -41,7 +41,7 @@ import { revalidatePath } from 'next/cache';
 import { getAdminSession, type AdminSession } from '@/server/auth';
 import * as articles from '@/server/repo/articles';
 import type { ArticleDto } from '@/server/repo/articles';
-import { POST } from './route';
+import { DELETE, POST } from './route';
 
 const session: AdminSession = {
   userId: 'u1',
@@ -290,6 +290,88 @@ describe('POST /api/admin/articles/[id]/cover', () => {
 
     const response = await POST(coverRequest(), context('missing'));
 
+    await expect(response.json()).resolves.toMatchObject({
+      error: { message: 'Статья не найдена' },
+    });
+  });
+});
+
+/**
+ * Снятие обложки. Ручка нужна отдельная: `PATCH` статьи поле `cover`
+ * намеренно не принимает — обложка приходит файлом, а не в JSON, — и до этой
+ * ручки убрать её было нечем вовсе, только правкой в базе (issue #234).
+ */
+describe('DELETE /api/admin/articles/[id]/cover', () => {
+  /* Имя настоящее: `isSafeFilename` пропускает к диску только те имена, что
+     сервер сам и выдал, — тридцать шесть знаков UUID и знакомое расширение. */
+  const OLD_FILE = '8f14e45f-ceea-467a-9c6a-1d0f1b2c3d4e.jpg';
+  const OLD_COVER = `/api/media/${OLD_FILE}`;
+
+  const removeRequest = (): NextRequest =>
+    new NextRequest(new URL('/api/admin/articles/a1/cover', 'http://tulaklimat.localhost'), {
+      method: 'DELETE',
+    });
+
+  it('без сессии отвечает 401 и до статьи не доходит', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(null);
+
+    const response = await DELETE(removeRequest(), context('a1'));
+
+    expect(response.status).toBe(401);
+    expect(articles.findById).not.toHaveBeenCalled();
+  });
+
+  it('монтажнику отказывает: раздел владельческий', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue({ ...session, role: 'installer' });
+
+    const response = await DELETE(removeRequest(), context('a1'));
+
+    expect(response.status).toBe(403);
+    expect(articles.setCover).not.toHaveBeenCalled();
+  });
+
+  it('снимает обложку у статьи и стирает файл с диска', async () => {
+    await mkdir(testEnv.UPLOADS_DIR, { recursive: true });
+    await writeFile(join(testEnv.UPLOADS_DIR, OLD_FILE), 'старая обложка');
+    vi.mocked(articles.findById).mockResolvedValue({ ...article, cover: OLD_COVER });
+
+    const response = await DELETE(removeRequest(), context('a1'));
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ cover: null });
+    expect(articles.setCover).toHaveBeenCalledWith('a1', null);
+    await expect(storedFiles()).resolves.toEqual([]);
+  });
+
+  it('🔴 сначала запись, потом файл: упавшая запись оставляет обложку на месте', async () => {
+    await mkdir(testEnv.UPLOADS_DIR, { recursive: true });
+    await writeFile(join(testEnv.UPLOADS_DIR, OLD_FILE), 'старая обложка');
+    vi.mocked(articles.findById).mockResolvedValue({ ...article, cover: OLD_COVER });
+    vi.mocked(articles.setCover).mockRejectedValue(new Error('база недоступна'));
+
+    const response = await DELETE(removeRequest(), context('a1'));
+
+    expect(response.status).toBe(500);
+    /* Файл цел: иначе статья осталась бы со ссылкой на стёртую картинку —
+       битая обложка хуже ненужного файла на диске. */
+    await expect(storedFiles()).resolves.toEqual([OLD_FILE]);
+  });
+
+  it('у статьи без обложки ничего не делает и отвечает тем же', async () => {
+    const response = await DELETE(removeRequest(), context('a1'));
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ cover: null });
+    expect(articles.setCover).not.toHaveBeenCalled();
+    expect(revalidatePath).not.toHaveBeenCalled();
+  });
+
+  it('несуществующая статья — 404 по-русски', async () => {
+    vi.mocked(articles.findById).mockResolvedValue(null);
+
+    const response = await DELETE(removeRequest(), context('missing'));
+
+    expect(response.status).toBe(404);
     await expect(response.json()).resolves.toMatchObject({
       error: { message: 'Статья не найдена' },
     });
