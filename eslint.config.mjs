@@ -1,4 +1,4 @@
-import { dirname } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { FlatCompat } from '@eslint/eslintrc';
 
@@ -36,6 +36,13 @@ const layerRule = (layer, forbidden) => ({
 
 export default [
   ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
+  {
+    /* 🔴 Плагин Next ищет каталог приложения относительно места запуска. Из
+       корня монорепозитория он его не находит, и правила, знающие про
+       страницы, молча выключаются: `pnpm lint` был зелёным, а `next build`
+       падал на том же коде через три минуты и в самом дорогом шаге. */
+    settings: { next: { rootDir: join(dirname(fileURLToPath(import.meta.url)), 'apps/web') } },
+  },
   {
     ignores: [
       '**/.next/**',
@@ -122,7 +129,12 @@ export default [
       'apps/*/src/**/*.stories.{ts,tsx}',
       'apps/*/src/**/__mocks__/**/*.{ts,tsx}',
     ],
-    rules: { '@typescript-eslint/consistent-type-assertions': 'off' },
+    rules: {
+      '@typescript-eslint/consistent-type-assertions': 'off',
+      /* Ссылка в фикстуре — не навигация приложения, а содержимое, которое
+         подсовывают компоненту, чтобы проверить его поведение. */
+      '@next/next/no-html-link-for-pages': 'off',
+    },
   },
   layerRule('shared', ['app', 'widgets', 'features', 'entities', 'server']),
   layerRule('entities', ['app', 'widgets', 'features', 'server']),
