@@ -2788,6 +2788,13 @@ async function sweepOrphans(): Promise<void> {
     take(row.avatar);
   }
   for (const row of await prisma.clientUnit.findMany({ select: { photo: true } })) take(row.photo);
+  /* Снимки клиента с ADR-171 лежат в своей папке и значатся именем файла, но на
+     базе, не прошедшей `move-protected-media`, у них ещё старый адрес и файл в
+     общем каталоге. `take` берёт только значения с публичным префиксом, поэтому
+     эти два прохода на переехавшей базе ничего не добавляют, а на
+     непереехавшей — спасают снимок от уборки как сироты. */
+  for (const row of await prisma.lead.findMany({ select: { photo: true } })) take(row.photo);
+  for (const row of await prisma.orderPhoto.findMany({ select: { url: true } })) take(row.url);
 
   const names = await readdir(UPLOADS_DIR).catch(() => [] as string[]);
   // трогаем только файлы с именем, которое выдаёт сервер: чужое в этом
