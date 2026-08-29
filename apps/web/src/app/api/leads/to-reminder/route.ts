@@ -33,7 +33,7 @@ export async function POST(request: Request): Promise<Response> {
 
     const lead = await createToReminder({
       form: toReminderFormSchema.parse(compactFormFields(body.fields)),
-      tracking: collectTracking(request, body.fields),
+      tracking: collectTracking(request),
     });
 
     return json({ id: lead.id }, 201, NO_STORE);

@@ -36,7 +36,7 @@ export async function POST(request: Request): Promise<Response> {
 
     const lead = await createLead({
       form: leadFormSchema.parse(compactFormFields(body.fields)),
-      tracking: collectTracking(request, body.fields),
+      tracking: collectTracking(request),
       /* Что человек делал на странице до формы: расчёт, подбор, модели.
          Приходит из браузера, поэтому разбирается схемой, а не принимается на
          веру, и никогда не мешает заявке дойти (docs/API.md §8). */
