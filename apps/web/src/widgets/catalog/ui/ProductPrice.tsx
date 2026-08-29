@@ -7,16 +7,6 @@ import styles from './ProductPrice.module.css';
 export interface ProductPriceProps {
   /** Результат `getActivePrice` — единственный источник правды о скидке. */
   price: ActivePrice;
-  /**
-   * 🔴 Держать место под строку срока акции, даже когда скидки нет.
-   *
-   * Включается там, где цены стоят рядом в ряду: у модели со скидкой блок
-   * занимает две строки, у соседей одну — и главная цифра карточки оказывается
-   * на строку выше соседних (BUGS, аудит 28 августа). Резерв ставит их на
-   * общую базовую линию. Вне ряда — на странице модели — он не нужен: сравнивать
-   * там не с чем, а пустая строка под ценой была бы дырой.
-   */
-  reserveNote?: boolean | undefined;
 }
 
 /**
@@ -27,7 +17,7 @@ export interface ProductPriceProps {
  * когда её вернул `getActivePrice`, то есть когда товар действительно
  * продавался по ней (инвариант 14).
  */
-export function ProductPrice({ price, reserveNote = false }: ProductPriceProps) {
+export function ProductPrice({ price }: ProductPriceProps) {
   const label =
     price.saleLabel ??
     (price.discountPercent === null ? null : discountLabel(price.discountPercent));
@@ -51,13 +41,7 @@ export function ProductPrice({ price, reserveNote = false }: ProductPriceProps) 
           </Badge>
         )}
       </p>
-      {price.saleTo === null ? (
-        /* Пустая строка того же размера — резерв, а не содержимое: читалке её
-           не видно, а ряд карточек получает общую базовую линию цены. */
-        reserveNote ? (
-          <p className={styles.note} aria-hidden="true" />
-        ) : null
-      ) : (
+      {price.saleTo === null ? null : (
         <p className={styles.note}>
           <span className={styles.until}>{saleUntilLabel(formatDate(price.saleTo))}</span>
         </p>
