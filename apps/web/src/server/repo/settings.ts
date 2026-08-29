@@ -1,6 +1,8 @@
 /**
  * Настройки компании. Читаются публичными страницами, пишутся только из админки.
  */
+import { cache } from 'react';
+
 import type { Prisma } from '@prisma/client';
 
 import { db } from '@/server/db';
@@ -21,7 +23,23 @@ export async function getGroup(key: SettingKey): Promise<unknown | null> {
   return row?.value ?? null;
 }
 
-export async function getAll(): Promise<SettingsMap> {
+/**
+ * Все группы настроек разом — один раз на запрос.
+ *
+ * 🔴 `cache` из React обязателен: Prisma, в отличие от `fetch`, Next не
+ * дедуплицирует, а настройки читают несколько участников одного прохода
+ * рендера — `layout.generateMetadata` через `readiness()`, сам `SiteLayout` и
+ * метаданные страницы. Замерено на стенде: два обращения к таблице на каждый
+ * запрос `/catalog`, после кеша — одно.
+ *
+ * Усугублялось тем, что `/catalog`, `/compare` и `/knowledge` читают
+ * `searchParams` и потому рендерятся на каждый запрос, а не отдаются из ISR:
+ * это лишний поход в базу на каждое нажатие фильтра, а не раз в час.
+ *
+ * Кеш живёт ровно один запрос, поэтому правка настроек в панели видна сразу:
+ * запись идёт другим запросом, чем чтение.
+ */
+export const getAll = cache(async (): Promise<SettingsMap> => {
   const rows = await db.setting.findMany({ where: { key: { in: [...SETTING_KEYS] } } });
   const result: SettingsMap = {};
   for (const row of rows) {
@@ -30,7 +48,7 @@ export async function getAll(): Promise<SettingsMap> {
     if (isSettingKey(row.key)) result[row.key] = row.value;
   }
   return result;
-}
+});
 
 /**
  * Клиент передаётся, когда запись группы — часть чужой транзакции (прайс + ставки).
