@@ -42,14 +42,20 @@ export function Header({
   return (
     <header className={styles.header}>
       <div className={styles.bar}>
+        {/* 🔴 Имя ссылки задано всегда, а не только когда названия нет.
+            Знак бренда `aria-hidden`, а название до 600px скрыто оформлением —
+            вместе это давало первую ссылку страницы вовсе без имени, и читалка
+            объявляла «ссылка» (WCAG 2.4.4 и 4.1.2, уровень A). Название
+            компании остаётся видимым текстом там, где помещается, но опираться
+            на его видимость нельзя. */}
         <Link
           href={homeHref}
           className={styles.logo}
-          aria-label={name === '' ? headerContent.homeLabel : undefined}
+          aria-label={name === '' ? headerContent.homeLabel : name}
         >
           <BrandMark size={38} />
           {name === '' ? null : (
-            <span className={styles.lockup}>
+            <span className={styles.lockup} aria-hidden="true">
               <span className={styles.name}>{name}</span>
               {tagline === '' ? null : <span className={styles.tagline}>{tagline}</span>}
             </span>

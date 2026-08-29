@@ -30,6 +30,9 @@ const EXCEPTIONS = new Map([
   [1000, 'полная навигация в шапке: семь пунктов, бренд, телефон и кнопка'],
 ]);
 
+/** Медиа-запрос считает `em` от корневого кегля браузера, а не страницы. */
+const ROOT_FONT_PX = 16;
+
 const allowed = new Set([
   ...SET,
   ...SET.map((w) => w - 1),
@@ -64,13 +67,19 @@ describe('пороги адаптива', () => {
         .forEach((line, index) => {
           if (!line.includes('@media') || !line.includes('width')) return;
 
-          /* Только ширина: `height < 520px` в альбомной ориентации — про
-             высоту экрана, и к набору порогов раскладки отношения не имеет. */
-          for (const [, value] of line.matchAll(/width[^)]*?(\d+)px/g)) {
-            const width = Number(value);
-            if (allowed.has(width)) continue;
+          /* 🔴 Разбирается запрос целиком, а не «число после слова width».
+             Двусторонний диапазон `(640px <= width < 900px)` держит первую
+             границу **перед** словом, и прежняя проверка её не видела вовсе —
+             а именно этим синтаксисом написан весь проект (ревью #303). */
+          for (const [query] of line.matchAll(/\([^)]*\bwidth\b[^)]*\)/g)) {
+            for (const [, value, unit] of query.matchAll(/(\d+(?:\.\d+)?)(px|em|rem)/g)) {
+              /* `em` и `rem` в медиа-запросе считаются от 16px корня — и это
+                 единственный полностью бесшумный способ завести свой порог. */
+              const width = unit === 'px' ? Number(value) : Number(value) * ROOT_FONT_PX;
+              if (allowed.has(width)) continue;
 
-            strays.push(`${where}:${index + 1} — ${width}px`);
+              strays.push(`${where}:${index + 1} — ${value}${unit}`);
+            }
           }
         });
     }
