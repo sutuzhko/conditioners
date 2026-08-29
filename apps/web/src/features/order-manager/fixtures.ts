@@ -358,10 +358,13 @@ export const docs: readonly OrderDocCard[] = [
   },
 ];
 
+/* 🔴 Адрес закрытый, как у документов рядом (ADR-171): снимок «до/после» —
+   интерьер квартиры клиента, и публичной отдачи у него нет. Фикстура — это то,
+   по чему следующая сессия узнаёт форму данных, и врать ей нельзя. */
 export const photos: readonly OrderPhotoCard[] = [
-  { id: 'p1', stage: 'before', url: '/api/media/before-1.jpg', sort: 0 },
-  { id: 'p2', stage: 'after', url: '/api/media/after-1.jpg', sort: 0 },
-  { id: 'p3', stage: 'after', url: '/api/media/after-2.jpg', sort: 1 },
+  { id: 'p1', stage: 'before', url: '/api/admin/orders/o1/photos/p1/file', sort: 0 },
+  { id: 'p2', stage: 'after', url: '/api/admin/orders/o1/photos/p2/file', sort: 0 },
+  { id: 'p3', stage: 'after', url: '/api/admin/orders/o1/photos/p3/file', sort: 1 },
 ];
 
 export const history: readonly OrderHistoryEntry[] = [
