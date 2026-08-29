@@ -7,7 +7,7 @@ import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
 import { PricesForm } from './PricesForm';
 import { pricesFormContent as texts } from './content';
 import { emptyExtras, emptyPrices, failingSave, filledPrices, pendingSave } from './fixtures';
-import { putPrices, toRequestBody } from './lib';
+import { putPrices, rowOfField, rowsWithoutClass, toRequestBody } from './lib';
 
 describe('Прайс — тело запроса', () => {
   it('уходит целиком: контракт заменяет таблицу, а не правит строку', () => {
@@ -17,13 +17,54 @@ describe('Прайс — тело запроса', () => {
     expect(body.extras).toEqual(filledPrices.extras);
   });
 
-  it('строка без класса отбрасывается: на сайте это ряд прайса без цены', () => {
+  it('совсем пустой ряд отбрасывается: его добавила кнопка, а заполнить передумали', () => {
     const body = toRequestBody({
       ...filledPrices,
       prices: [...filledPrices.prices, { cls: '  ', power: '', area: '', price: '', term: '' }],
     });
 
     expect(body.prices).toHaveLength(2);
+  });
+
+  /**
+   * 🔴 Раньше эти два случая были одним: фильтр по `cls` отбрасывал и пустой
+   * ряд, и ряд с данными. Второй — потеря работы владельца, и молчаливая.
+   */
+  it('🔴 ряд с данными, но без класса, до тела запроса не доходит — его ловит форма', () => {
+    const values = {
+      ...filledPrices,
+      prices: [...filledPrices.prices, { cls: '', power: '', area: '25', price: '6000', term: '' }],
+    };
+
+    expect(rowsWithoutClass(values)).toEqual([2]);
+  });
+
+  it('заполненный класс претензий не вызывает', () => {
+    expect(rowsWithoutClass(filledPrices)).toEqual([]);
+  });
+
+  it('пробелы классом не считаются', () => {
+    const values = {
+      ...filledPrices,
+      prices: [{ cls: '   ', power: '2.6 кВт', area: '25', price: '5500', term: '1 день' }],
+    };
+
+    expect(rowsWithoutClass(values)).toEqual([0]);
+  });
+});
+
+describe('Прайс — адрес отказа сервера', () => {
+  it('строка прайса вычленяется из поля контракта', () => {
+    expect(rowOfField('prices.3.cls')).toBe(3);
+    expect(rowOfField('prices.0.price')).toBe(0);
+  });
+
+  it('отказ не про строку прайса адреса не даёт', () => {
+    expect(rowOfField('extras.trassaPerM')).toBeNull();
+    expect(rowOfField(undefined)).toBeNull();
+    expect(rowOfField('')).toBeNull();
+    // «prices» без номера — общий отказ по таблице, а не по строке
+    expect(rowOfField('prices')).toBeNull();
   });
 
   it('цены уходят строками — приводит их схема на сервере, и только она', () => {
@@ -157,5 +198,74 @@ describe('Форма цен', () => {
     await user.click(screen.getByRole('button', { name: texts.save }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent('хотя бы одна строка');
+  });
+
+  /**
+   * 🔴 Главная проверка задачи. Раньше такая строка молча не доезжала до
+   * сервера, форма отвечала «Сохранено», и владелец уходил в уверенности, что
+   * прайс полон.
+   */
+  it('🔴 строка без класса останавливает отправку, а не теряется', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({ ok: true }));
+    const values = {
+      ...filledPrices,
+      prices: [
+        ...filledPrices.prices,
+        { cls: '', power: '', area: 'до 35 м²', price: '6500', term: '' },
+      ],
+    };
+
+    render(<PricesForm values={values} save={save} />);
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    expect(save).not.toHaveBeenCalled();
+    /* По тексту, а не по роли: `alert` здесь два — общая плашка и ошибка у
+       ячейки. Это и задумано: сводка объясняет отказ, ячейка показывает, где. */
+    expect(await screen.findByText(texts.rowsWithoutClass)).toBeInTheDocument();
+    // ошибка стоит у своей ячейки, а не одной плашкой на всю таблицу
+    expect(screen.getByLabelText(`${texts.cls} 3`)).toHaveAccessibleDescription(
+      texts.rowWithoutClass,
+    );
+  });
+
+  it('заполненный класс снимает отметку и пропускает отправку', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({ ok: true }));
+    const values = {
+      ...filledPrices,
+      prices: [
+        ...filledPrices.prices,
+        { cls: '', power: '', area: 'до 35 м²', price: '6500', term: '' },
+      ],
+    };
+
+    render(<PricesForm values={values} save={save} />);
+    await user.click(screen.getByRole('button', { name: texts.save }));
+    await user.type(screen.getByLabelText(`${texts.cls} 3`), '12');
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    expect(save).toHaveBeenCalledTimes(1);
+  });
+
+  it('🔴 отказ сервера по строке подсвечивает эту строку', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({
+      ok: false,
+      message: 'Класс уже есть в прайсе',
+      field: 'prices.1.cls',
+    }));
+
+    render(<PricesForm values={filledPrices} save={save} />);
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    expect(await screen.findByText('Класс уже есть в прайсе')).toBeInTheDocument();
+    expect(screen.getByLabelText(`${texts.cls} 2`)).toHaveAccessibleDescription(
+      texts.rowWithoutClass,
+    );
+    // соседняя строка чистая: отказ адресный, а не общий
+    expect(screen.getByLabelText(`${texts.cls} 1`)).not.toHaveAccessibleDescription(
+      texts.rowWithoutClass,
+    );
   });
 });
