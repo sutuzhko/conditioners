@@ -15,6 +15,15 @@ const PHOTO_HEIGHT = 800;
 /** Тот же кружок, что в ленте: 40px, исходник вдвое больше ради ретины. */
 const AVATAR_SIZE = 80;
 
+/**
+ * 🔴 Размер на экране, а не размер файла. Без `sizes` `next/image` считает,
+ * что картинка растянута во всю ширину окна, и тянет вариант `w=256` ради
+ * кружка в сорок пикселей: на отзывах это десяток лишних запросов на первом
+ * экране отзывов (BUGS §2528). Кружок фиксирован вёрсткой — значит и подсказка
+ * фиксированная, а удвоение под ретину даёт `AVATAR_SIZE`.
+ */
+const AVATAR_SIZES = '40px';
+
 export interface ReviewDialogProps {
   readonly reviews: readonly ReviewCardData[];
   /** Какой отзыв открыт; `null` — окно закрыто. */
@@ -59,6 +68,7 @@ export function ReviewDialog({ reviews, at, onClose, onMove }: ReviewDialogProps
                 alt={t.avatarAlt(review.name)}
                 width={AVATAR_SIZE}
                 height={AVATAR_SIZE}
+                sizes={AVATAR_SIZES}
               />
             )}
 

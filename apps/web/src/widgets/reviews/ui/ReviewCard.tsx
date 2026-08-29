@@ -10,6 +10,15 @@ import styles from './ReviewCard.module.css';
 /** Кружок автора — 40px в макете; исходник вдвое больше ради ретины. */
 const AVATAR_SIZE = 80;
 
+/**
+ * 🔴 Размер на экране, а не размер файла. Без `sizes` `next/image` считает,
+ * что картинка растянута во всю ширину окна, и тянет вариант `w=256` ради
+ * кружка в сорок пикселей: на отзывах это десяток лишних запросов на первом
+ * экране отзывов (BUGS §2528). Кружок фиксирован вёрсткой — значит и подсказка
+ * фиксированная, а удвоение под ретину даёт `AVATAR_SIZE`.
+ */
+const AVATAR_SIZES = '40px';
+
 export interface ReviewCardProps {
   review: ReviewCardData;
   /** Открыть отзыв целиком: в ленте текст обрезан. */
@@ -78,6 +87,7 @@ export function ReviewCard({ review, onOpen, decorative = false }: ReviewCardPro
               alt={t.avatarAlt(review.name)}
               width={AVATAR_SIZE}
               height={AVATAR_SIZE}
+              sizes={AVATAR_SIZES}
             />
           )}
           <span className={styles.who}>
