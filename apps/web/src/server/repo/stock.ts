@@ -30,6 +30,7 @@ import {
   type StockMovementCard,
   type StockMovementCreate,
   type StockMoveKind,
+  type StockDirectory,
   type StockOverview,
   type StockUnit,
   type StockZoneCard,
@@ -584,6 +585,15 @@ async function assertZoneEmpty(zoneId: string): Promise<void> {
 /** Позиций на странице остатков — двадцать: это таблица, а не список карточек. */
 export const STOCK_PAGE_SIZE = 20;
 
+/**
+ * Сколько страниц справочника отдаётся форме списания за раз. Потолок
+ * унаследован от клиентской сборки, которую он заменил (issue #88): он там
+ * существовал затем, чтобы разросшийся справочник не превратил открытие наряда
+ * в двадцать запросов. Теперь запрос один, но ограничение осталось — уже ради
+ * веса разметки.
+ */
+const MAX_DIRECTORY_PAGES = 10;
+
 export type StockOverviewQuery = {
   readonly query?: string | undefined;
   readonly group?: string | undefined;
@@ -692,6 +702,44 @@ export async function overview(query: StockOverviewQuery, viewer: Viewer): Promi
   };
 
   return owner ? { ...shared, lowCount: low.length } : shared;
+}
+
+/**
+ * 🔴 Справочник целиком — для формы списания на карточке наряда.
+ *
+ * Отдельно от `overview` и без страниц: форме нужен полный список позиций,
+ * чтобы монтажник нашёл нужную, а не первые двадцать. Раньше клиент собирал
+ * его сам — первая страница, затем до девяти параллельных запросов, — и
+ * открытие наряда стоило одиннадцати походов по сети у того человека, у
+ * которого сеть хуже всего (issue #88).
+ *
+ * Потолок остаётся: справочник на тысячу позиций не должен превращать
+ * страницу наряда в мегабайт разметки. Он тот же, что был у клиента, — десять
+ * страниц по двадцать.
+ *
+ * Ролевая проекция не меняется: `zones` и `toItemCard` сами решают, что видит
+ * монтажник, и владельческие ключи (`minQty`, `low`) в его ответ не попадают
+ * вовсе, а не приходят пустыми (ADR-134).
+ */
+export async function directory(viewer: Viewer): Promise<StockDirectory> {
+  const visible = await zones(viewer);
+  const zoneIds = visible.map((zone) => zone.id);
+
+  const rows = await db.stockItem.findMany({
+    select: itemSelect,
+    orderBy: [{ group: 'asc' }, { name: 'asc' }],
+    take: STOCK_PAGE_SIZE * MAX_DIRECTORY_PAGES,
+  });
+
+  const balances = await balancesOf(
+    rows.map((row) => row.id),
+    zoneIds,
+  );
+
+  return {
+    zones: visible,
+    items: rows.map((row) => toItemCard(row, visible, balances, viewer.role)),
+  };
 }
 
 // ---------- Журнал движений ----------

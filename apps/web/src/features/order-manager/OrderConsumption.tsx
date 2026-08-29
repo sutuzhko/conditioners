@@ -11,6 +11,7 @@ import {
   consumptionTotals,
   negativeBalances,
   type ConsumptionLine,
+  type ConsumptionLoad,
   type OrderChecklistCard,
   type OrderConsumptionApi,
   type OrderResult,
@@ -22,6 +23,18 @@ import styles from './OrderConsumption.module.css';
 
 export interface OrderConsumptionProps {
   readonly orderId: string;
+  /**
+   * 🔴 Начальные данные приходят со страницей, а не запрашиваются с клиента.
+   *
+   * Раньше открытие наряда стоило до одиннадцати запросов: движения плюс
+   * справочник склада по страницам, до девяти параллельных. Платил за это
+   * ровно тот человек, у которого сеть хуже всего, — монтажник у машины
+   * (issue #88).
+   *
+   * Перечитывание с клиента осталось: после списания и возврата остаток
+   * обязан быть новым, и перезагружать карточку целиком ради этого незачем.
+   */
+  readonly initial?: ConsumptionLoad | undefined;
   /** Чеклист выезда: из него собираются подсказки к форме списания. */
   readonly checklist?: readonly OrderChecklistCard[] | undefined;
   /** Запросы вынесены пропом: истории и тесты подставляют свои. */
@@ -59,8 +72,15 @@ function zoneName(move: StockMovementCard): string {
  * прямо здесь, и после каждого списания страница должна показывать новый
  * остаток, не перезагружая наряд целиком.
  */
+/** Состояние на первом рендере: с данными со страницы скелетона уже не нужно. */
+function initialState(initial: ConsumptionLoad | undefined): LoadState {
+  if (initial === undefined) return 'loading';
+  return initial.ok ? 'ready' : 'error';
+}
+
 export function OrderConsumption({
   orderId,
+  initial,
   checklist = [],
   api,
   confirmReturn,
@@ -73,15 +93,24 @@ export function OrderConsumption({
   const fallback = useMemo(() => orderConsumptionApi(orderId), [orderId]);
   const client = api ?? fallback;
 
-  const [state, setState] = useState<LoadState>('loading');
-  const [moves, setMoves] = useState<readonly StockMovementCard[]>([]);
-  const [stock, setStock] = useState<StockDirectory>(EMPTY_STOCK);
-  const [message, setMessage] = useState('');
+  const [state, setState] = useState<LoadState>(initialState(initial));
+  const [moves, setMoves] = useState<readonly StockMovementCard[]>(
+    initial?.ok === true ? initial.moves : [],
+  );
+  const [stock, setStock] = useState<StockDirectory>(
+    initial?.ok === true ? initial.stock : EMPTY_STOCK,
+  );
+  const [message, setMessage] = useState(initial?.ok === false ? initial.message : '');
   const [busy, setBusy] = useState<string | null>(null);
   /* Счётчик перечитываний: списание и возврат меняют и движения, и остаток. */
   const [reloads, setReloads] = useState(0);
 
   useEffect(() => {
+    /* Первый проход пропускается, когда данные уже пришли со страницей: ходить
+       за тем же самым по сети — это и есть тот водопад, ради которого задача
+       заводилась. Перечитывание после списания идёт следующими проходами. */
+    if (initial !== undefined && reloads === 0) return;
+
     let alive = true;
 
     void (async () => {
@@ -105,6 +134,8 @@ export function OrderConsumption({
     return () => {
       alive = false;
     };
+    // `initial` в зависимостях не нужен: он читается только на первом проходе
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client, reloads]);
 
   const refresh = (): void => setReloads((count) => count + 1);

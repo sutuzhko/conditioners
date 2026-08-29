@@ -387,6 +387,18 @@ export type StockOverview = {
   readonly lowCount?: number;
 };
 
+/**
+ * Справочник целиком — то, из чего форма списания предлагает позиции.
+ *
+ * Отдельно от `StockOverview`: там страница таблицы с разбивкой и счётчиками,
+ * здесь — весь список без пагинации. Форме нужен полный набор, чтобы монтажник
+ * нашёл нужную позицию, а не первые двадцать.
+ */
+export type StockDirectory = {
+  readonly zones: readonly StockZoneCard[];
+  readonly items: readonly StockItemCard[];
+};
+
 /** Позиция с её журналом: то, что открывают из таблицы остатков. */
 export type StockItemDetails = {
   readonly item: StockItemCard;

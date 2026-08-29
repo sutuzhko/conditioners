@@ -56,6 +56,7 @@ export {
   resultDraftOf,
   type ConsumptionHint,
   type ConsumptionLine,
+  type ConsumptionLoad,
   type ConsumptionTotal,
   type DeductionMode,
   type OrderApi,
