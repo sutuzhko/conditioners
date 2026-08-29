@@ -5,6 +5,7 @@ import { LeadContextSnapshot } from '@/features/lead-form';
 import {
   CATALOG_PARAMS,
   catalogFacets,
+  catalogSearchParams,
   isCatalogViewState,
   parseCatalogQuery,
   selectCatalogCompare,
@@ -21,6 +22,7 @@ import {
   buildPageMetadata,
   productPath,
 } from '@/shared/seo';
+import { CompareOfferSource } from '@/widgets/action-bar';
 import { Breadcrumbs } from '@/widgets/breadcrumbs';
 import { CatalogList } from '@/widgets/catalog';
 
@@ -111,6 +113,14 @@ export default async function CatalogPage({
      имеют права выкинуть из отметок (ADR-109). Незнакомый слаг отсеивается
      здесь же — молча, адрес правят руками. */
   const compared = selectCatalogCompare(products, query.compare);
+  const comparedSlugs = compared.map((product) => product.slug);
+
+  /* Строка отметок и панель действий ведут в одно место и с одним счётчиком:
+     адрес собирается по разобранному выбору, а не по сырому параметру. */
+  const compareHref = {
+    pathname: COMPARE_PATH,
+    query: catalogSearchParams({ ...query, compare: comparedSlugs }),
+  };
 
   /* Разметка списка — те же модели и та же цена, что нарисованы карточками:
      `getActivePrice` считается один раз на модель и уходит и в разметку, и в
@@ -143,13 +153,19 @@ export default async function CatalogPage({
           };
         })}
       />
+      {/* 🔴 Счётчик отмеченного — панели действий в каркасе: она стоит в
+          layout, а параметры адреса до layout не доходят. Число считает
+          страница, а не панель по строке адреса: адрес мог принести слаг
+          снятой с продажи модели, и панель обещала бы сравнить три там, где
+          сравнение покажет две (ADR-109). Компонент ничего не рисует. */}
+      <CompareOfferSource count={comparedSlugs.length} href={compareHref} />
       <Breadcrumbs items={[{ name: t.sectionTitle }]} siteUrl={env.SITE_URL} />
       <PageIntro kicker={t.kicker} title={t.title} lead={t.lead} />
       <CatalogList
         page={page}
         facets={catalogFacets(products)}
         query={query}
-        compared={compared.map((product) => product.slug)}
+        compared={comparedSlugs}
         basePath={CATALOG_PATH}
         comparePath={COMPARE_PATH}
         productHref={productHref}
