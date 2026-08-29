@@ -1,10 +1,23 @@
 import { defineConfig } from 'vitest/config';
+import { loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
   plugins: [react()],
   test: {
+    /* 🔴 Переменные окружения тестам даёт среда, а не тест.
+       В контейнере их кладёт Compose из `.env.dev`, и полтора десятка файлов
+       на этом молча держатся: они импортируют серверный модуль, а тот читает
+       `env` на импорте и падает без него ещё до первой проверки. На хосте
+       Compose нет — и те же файлы не собирались вовсе, с «Некорректная
+       конфигурация окружения: DATABASE_URL Required».
+
+       `loadEnv` читает `.env.local` рядом с приложением — тот самый файл,
+       которым живёт хостовый запуск (docs/DEPLOY.md §2). В контейнере файла
+       нет, `loadEnv` возвращает пусто, и прогон остаётся ровно таким, каким
+       был. */
+    env: loadEnv('test', fileURLToPath(new URL('.', import.meta.url)), ''),
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./vitest.setup.ts'],
