@@ -88,7 +88,9 @@ Analyze the diff to determine:
 
 - **Type**: What kind of change is this?
 - **Scope**: What area/module is affected?
-- **Description**: One-line summary of what changed (present tense, imperative mood, <72 chars)
+- **Description**: what the change does, in third-person present (<72 chars).
+  🔴 This project overrides the Conventional Commits default: the subject answers
+  "what does it do?", not "do this". Russian: «записывает», not «запиши».
 
 ### 4. Execute Commit
 
@@ -110,8 +112,12 @@ EOF
 ## Best Practices
 
 - One logical change per commit
-- Present tense: "add" not "added"
-- Imperative mood: "fix bug" not "fixes bug"
+- Present tense: "adds" not "added"
+- 🔴 **Indicative, not imperative** — this project's rule, and it overrides the
+  Conventional Commits default: `fixes bug`, not `fix bug`. The log is read when
+  someone looks for where something changed, so it must read as a list of what
+  each commit does to the system, not as orders to nobody in particular.
+  In Russian that means «ставит», «перестаёт», «не принимает» — never «поставь».
 - Reference issues: `Closes #123`, `Refs #456`
 - Keep description under 72 characters
 
