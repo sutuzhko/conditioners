@@ -59,15 +59,20 @@ export function WeatherChip({ weather, api = { load: loadWeather } }: WeatherChi
     };
   }, [api]);
 
+  /* 🔴 Уточнение и заметка стоят в разметке всегда, а до 600 скрыты стилем:
+     подставлять разный текст по ширине окна умеет только клиент, а первый
+     экран приходит готовым HTML (инвариант 1). `display: none` убирает их и
+     из дерева доступности — читалка получает ровно то, что видно. */
   return (
     <p className={styles.chip}>
       <span className={styles.dot} aria-hidden="true" />
       <span className={styles.text}>
-        {`${t.today} ${t.mean} `}
+        {t.today}
+        <span className={styles.full}>{t.mean}</span>{' '}
         <b className={styles.mean}>{formatDegrees(current.mean)}</b>
         {` · ${t.peak} `}
         <b className={styles.max}>{formatDegrees(current.max)}</b>
-        {` — ${t.note(current.max)}`}
+        <span className={styles.full}>{` — ${t.note(current.max)}`}</span>
       </span>
     </p>
   );

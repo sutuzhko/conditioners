@@ -12,6 +12,21 @@ const line = (): HTMLElement => screen.getByText(/Сегодня/);
 
 const chipText = (): string => line().textContent ?? '';
 
+/**
+ * Что от строки остаётся на телефоне.
+ *
+ * 🔴 Контракт разметки (issue #254): до 600 чип обязан уложиться в одну
+ * строку, поэтому уточнение «ср/сут» и сезонная заметка вынесены в отдельные
+ * `span` и скрыты стилем. Всё, что видно на любой ширине, — прямой текст
+ * строки и сами цифры в `b`. Медиа-запрос в jsdom не работает, а структура
+ * разметки проверяется здесь.
+ */
+const phoneText = (): string =>
+  [...line().childNodes]
+    .filter((node) => !(node instanceof HTMLElement) || node.tagName === 'B')
+    .map((node) => node.textContent ?? '')
+    .join('');
+
 beforeEach(() => {
   vi.useFakeTimers();
 });
@@ -44,6 +59,18 @@ describe('Чип погоды', () => {
     render(<WeatherChip weather={INITIAL} api={{ load: vi.fn() }} />);
 
     expect(chipText()).toMatch(/^Сегодня/);
+  });
+
+  it('🔴 на телефоне остаются только цифры и подпись пика — строка обязана быть одной', () => {
+    render(<WeatherChip weather={{ mean: 15, max: 34 }} api={{ load: vi.fn() }} />);
+
+    expect(phoneText()).toBe('Сегодня +15° · пик за месяц +34°');
+  });
+
+  it('с 600 к строке возвращаются уточнение и сезонная заметка', () => {
+    render(<WeatherChip weather={{ mean: 15, max: 34 }} api={{ load: vi.fn() }} />);
+
+    expect(chipText()).toBe(`Сегодня: ср/сут +15° · пик за месяц +34° — ${texts.note(34)}`);
   });
 
   it('🔴 обновляет цифры, пока вкладку держат открытой', async () => {
