@@ -36,7 +36,7 @@ describe('профиль: разбор ответа', () => {
   it('🔴 истёкшая сессия объясняется общим текстом панели, а не отказом сервера', async () => {
     respondWith(401);
 
-    await expect(profileApi.save({ name: 'Алексей', phone: null })).resolves.toEqual({
+    await expect(profileApi.save({ name: 'Алексей', phone: '+79001234567' })).resolves.toEqual({
       ok: false,
       message: ADMIN_API_TEXTS.session,
     });
@@ -53,7 +53,7 @@ describe('профиль: разбор ответа', () => {
   it('отказ сервера остаётся отказом сервера', async () => {
     respondWith(500);
 
-    await expect(profileApi.save({ name: 'Алексей', phone: null })).resolves.toEqual({
+    await expect(profileApi.save({ name: 'Алексей', phone: '+79001234567' })).resolves.toEqual({
       ok: false,
       message: texts.serverError,
     });
@@ -75,7 +75,7 @@ describe('профиль: разбор ответа', () => {
       }),
     );
 
-    await expect(profileApi.save({ name: 'Алексей', phone: null })).resolves.toEqual({
+    await expect(profileApi.save({ name: 'Алексей', phone: '+79001234567' })).resolves.toEqual({
       ok: false,
       message: texts.networkError,
     });
