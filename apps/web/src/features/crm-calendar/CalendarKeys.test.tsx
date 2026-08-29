@@ -21,7 +21,9 @@ const place: CalendarPlace = {
  * в user-event — это `code`, фигурные были бы `key`. Календарь слушает
  * позицию, и проверка обязана спрашивать его о том же.
  */
-const press = (code: string): Promise<void> => userEvent.keyboard(`[${code}]`);
+const press = async (code: string): Promise<void> => {
+  await userEvent.keyboard(`[${code}]`);
+};
 
 beforeEach(() => {
   push.mockClear();
