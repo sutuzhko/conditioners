@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { photoUpdateSchema, productInputSchema, saleInputSchema } from './model';
+import { photoUpdateSchema, productInputSchema } from './model';
+import { saleInputSchema } from './sale';
 
 const VALID = {
   badge: '09',

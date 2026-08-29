@@ -10,7 +10,8 @@ import { withSlugRetry } from '@/server/repo/slug-retry';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { pageSlug, uniqueSlug } from '@/shared/lib/slug';
 import { ApiException } from '@/server/http';
-import type { PhotoUpdate, ProductInput, ProductPatch, SaleInput } from '@/entities/product/model';
+import type { PhotoUpdate, ProductInput, ProductPatch } from '@/entities/product/model';
+import type { SaleInput } from '@/entities/product/sale';
 
 const MSK_SHIFT_MS = 3 * 60 * 60 * 1000;
 
