@@ -44,15 +44,18 @@ export function middleware(request: NextRequest): NextResponse {
     return redirect;
   }
 
-  if (authenticated && isLoginPage) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/admin';
-    url.search = '';
+  /* 🔴 Разворота «уже вошёл — иди в панель» здесь нет, и это не упущение.
+     Middleware видит только наличие cookie, а не её действительность. Пока
+     разворот стоял тут, человек с истёкшей или чужой cookie не мог дойти до
+     формы входа вовсе: middleware гнал его с `/admin/login` на `/admin`,
+     настоящая проверка сессии гнала обратно — `ERR_TOO_MANY_REDIRECTS`.
 
-    const redirect = NextResponse.redirect(url);
-    redirect.headers.set('X-Robots-Tag', NOINDEX);
-    return redirect;
-  }
+     Случай не выдуманный: так ломается вход после смены `SESSION_SECRET`, то
+     есть ровно тогда, когда секрет ротируют, — и лечить это пришлось бы
+     чисткой cookie у каждого, кто уже не может войти.
+
+     Решает страница входа: она вызывает настоящую проверку и уводит в панель
+     только того, у кого сессия действительно есть. */
 
   /* Адрес запроса уходит вниз заголовком: разграничение по ролям обязано
      сработать во внешнем layout панели, до того как страница начнёт
