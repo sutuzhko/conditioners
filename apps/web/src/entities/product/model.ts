@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-import { moscowDate } from '@/shared/lib/zod';
 import { SLUG_MAX_LENGTH } from '@/shared/lib/slug';
 
 /**
@@ -64,7 +63,9 @@ export const productSchema = z.object({
 export type Product = z.infer<typeof productSchema>;
 
 /** Строка, которую можно не заполнять; пустое значение хранится как NULL. */
-const optionalText = z.string().trim().max(300).nullable().default(null);
+/* Экспортируется ради `sale.ts`: правило одно на весь домен товара, а
+   вынесенная схема скидки не должна заводить своё. */
+export const optionalText = z.string().trim().max(300).nullable().default(null);
 
 /**
  * Тело создания и правки модели в админке.
@@ -121,25 +122,6 @@ export type ProductInput = z.infer<typeof productInputSchema>;
 export const productPatchSchema = productInputSchema.partial();
 
 export type ProductPatch = z.infer<typeof productPatchSchema>;
-
-/**
- * Скидка задаётся конечной ценой и периодом (ADR-011). `salePrice: null`
- * снимает скидку.
- *
- * 🔴 Процента в схеме нет: он вычисляется из цен. Возможность прислать
- * «скидку 40%» — это возможность нарисовать её (инвариант 14).
- */
-export const saleInputSchema = z
-  .object({
-    salePrice: z.coerce.number().int().positive().nullable(),
-    // граница «до» — конец дня по Туле, иначе скидка пропадёт утром последнего дня
-    saleFrom: moscowDate('start').optional(),
-    saleTo: moscowDate('end').optional(),
-    saleLabel: optionalText,
-  })
-  .strict();
-
-export type SaleInput = z.infer<typeof saleInputSchema>;
 
 /** Правка фотографии: подпись, признак главной и порядок. Файл заменяется загрузкой новой. */
 export const photoUpdateSchema = z

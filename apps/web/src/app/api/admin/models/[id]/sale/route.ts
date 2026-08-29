@@ -6,7 +6,7 @@
  */
 import { json, readJson, validationError, withOwner } from '@/server/http';
 import { setSale } from '@/server/repo/products';
-import { saleInputSchema } from '@/entities/product/model';
+import { saleInputSchema } from '@/entities/product/sale';
 import { revalidateCatalog } from '@/server/revalidate';
 
 export const dynamic = 'force-dynamic';

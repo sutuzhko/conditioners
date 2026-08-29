@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { photoUpdateSchema, productInputSchema, saleInputSchema } from './model';
+import { photoUpdateSchema, productInputSchema } from './model';
+import { saleInputSchema } from './sale';
 
 const VALID = {
   badge: '09',
@@ -83,6 +84,39 @@ describe('период скидки', () => {
 
     expect(result.success).toBe(false);
     expect(result.error?.issues[0]?.message).not.toMatch(/[A-Za-z]/);
+  });
+
+  /**
+   * 🔴 Перевёрнутый период сервер принимал молча, а скидка после этого не
+   * включалась никогда: `withinPeriod` при `from > to` не пропускает ни одного
+   * мгновения. В панели скидка значилась заданной, на витрине её не было.
+   */
+  it('🔴 конец акции раньше начала — отказ, а не молчаливое сохранение', () => {
+    const result = saleInputSchema.safeParse({
+      salePrice: 34_900,
+      saleFrom: '2026-10-31',
+      saleTo: '2026-09-01',
+    });
+
+    expect(result.success).toBe(false);
+    // ошибка вешается на «до»: это поле человек правит последним
+    expect(result.error?.issues[0]?.path).toEqual(['saleTo']);
+    expect(result.error?.issues[0]?.message).toBe('Конец акции раньше её начала');
+  });
+
+  it('акция на один день проходит: начало и конец в одну дату — не перевёрнутый период', () => {
+    const result = saleInputSchema.safeParse({
+      salePrice: 34_900,
+      saleFrom: '2026-09-01',
+      saleTo: '2026-09-01',
+    });
+
+    expect(result.success).toBe(true);
+  });
+
+  it('одна граница без второй сравнивать не с чем — проходит', () => {
+    expect(saleInputSchema.safeParse({ salePrice: 1, saleFrom: '2026-10-31' }).success).toBe(true);
+    expect(saleInputSchema.safeParse({ salePrice: 1, saleTo: '2026-09-01' }).success).toBe(true);
   });
 
   /** 🔴 Инвариант 14: процент вычисляется из цен, задать его нельзя. */

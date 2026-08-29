@@ -196,6 +196,20 @@ describe('скидка', () => {
     expect(vi.mocked(products.setSale).mock.calls[0]?.[1].salePrice).toBeNull();
   });
 
+  it('🔴 перевёрнутый период — 400 и ни одной записи в базу', async () => {
+    const response = await PATCH_SALE(
+      jsonRequest('/api/admin/models/p1/sale', 'PATCH', {
+        salePrice: 34_900,
+        saleFrom: '2026-10-31',
+        saleTo: '2026-09-01',
+      }),
+      { params: Promise.resolve({ id: 'p1' }) },
+    );
+
+    expect(response.status).toBe(400);
+    expect(products.setSale).not.toHaveBeenCalled();
+  });
+
   it('процент скидки задать нельзя — только цену', async () => {
     const response = await PATCH_SALE(
       jsonRequest('/api/admin/models/p1/sale', 'PATCH', { discountPercent: 15 }),
