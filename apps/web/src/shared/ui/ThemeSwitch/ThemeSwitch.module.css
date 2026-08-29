@@ -1,0 +1,77 @@
+/* Сегментированный переключатель темы: пилюля 38px, сегмент внутри — 30px
+   (docs/DESIGN_BRIEF.md §6, issue #248). Высота считается по внешнему краю:
+   3px отступа + 30px сегмента + 3px отступа + две границы по 1px = 38px. */
+
+.switch {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 2px;
+  align-items: center;
+  box-sizing: border-box;
+  height: 38px;
+  padding: 3px 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-soft);
+}
+
+.segment {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+/* 🔴 Пилюля ниже минимальной тап-зоны, и это осознанно: подвал шторки не
+   резиновый. Промах по ней исключён тем же приёмом, что у кнопки-иконки, —
+   прозрачная область добирает 44px, не трогая плотность. Соседние сегменты не
+   перекрываются: по горизонтали область не растёт, а поджимается до 44px. */
+.segment::after {
+  position: absolute;
+  inset: calc((var(--tap) - 100%) / -2);
+  min-width: var(--tap);
+  min-height: var(--tap);
+  content: '';
+}
+
+.text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 30px;
+
+  /* Отступы поджаты сознательно: на 320px пилюля делит строку подвала с
+     часами работы, и при 10px по бокам часы обрезались на «8:00–2…». Тап-зону
+     это не трогает — её добирает область ниже. */
+  padding: 0 6px;
+
+  /* граница есть всегда, невыбранная — прозрачная: иначе выбор добавлял бы
+     сегменту два пикселя ширины, и пилюля дёргалась бы при переключении */
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--muted);
+  font-family: var(--font-text);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.segment:hover .text {
+  color: var(--ink2);
+}
+
+/* Выбранный сегмент отличается не только цветом: под ним появляется своя
+   подложка со светлой границей — состояние читается и в высококонтрастном
+   режиме, и при нарушениях цветовосприятия. */
+.input:checked + .text {
+  border-color: var(--line);
+  background: var(--card);
+  color: var(--ink);
+}
+
+.input:focus-visible + .text {
+  box-shadow: var(--ring-focus-ring);
+}
