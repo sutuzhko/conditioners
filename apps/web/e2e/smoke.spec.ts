@@ -141,6 +141,46 @@ test.describe('Поведение лендинга', () => {
     expect(await page.evaluate(() => history.length)).toBe(before);
   });
 
+  /**
+   * 🔴 Дефект #180: кнопка «наверх» доводила страницу до липкой шапки и
+   * вставала. Юнит-тест был зелёным — он проверял, что `scrollTo` вызван, а
+   * уехала ли страница, jsdom не знает. Проверять здесь надо координату, и
+   * только координату.
+   */
+  test('🔴 кнопка «наверх» доводит страницу до самого начала', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#catalog').waitFor();
+
+    const button = page.getByRole('button', { name: 'Наверх' });
+
+    /* Прокрутка повторяется до появления кнопки — тем же приёмом, что и вход в
+       панель (`support/admin-ui`). Прокрутка, сделанная до гидрации, ничего не
+       даёт: обработчик ещё не навешен, а Next возвращает страницу в начало.
+       Ждать «сеть успокоится» здесь нельзя — дев-сервер держит открытым
+       соединение горячей перезагрузки. */
+    await expect(async () => {
+      // до конца страницы: там формы заявки на экране нет и кнопка показывается
+      await page.evaluate(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+      await expect(button).toBeVisible({ timeout: 2_000 });
+    }).toPass({ timeout: 45_000 });
+
+    expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(1000);
+
+    await button.click();
+
+    // плавная прокрутка длится доли секунды — ждём её конца, а не гадаем
+    await expect
+      .poll(async () => page.evaluate(() => Math.round(window.scrollY)), { timeout: 10_000 })
+      .toBe(0);
+
+    /* Фокус обязан переехать в шапку: кнопка исчезает, и без переноса фокус
+       провалился бы в никуда. Одно другому не мешает — в этом и была ошибка. */
+    const focused = await page.evaluate(() => document.activeElement?.closest('header') !== null);
+    expect(focused).toBe(true);
+  });
+
   test('🔴 протяжка по часам заканчивается вместе с кнопкой мыши', async ({ page }) => {
     await page.goto('/');
     const cells = page.locator('[class*="HoursGrid_grid"] button');
