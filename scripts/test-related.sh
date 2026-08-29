@@ -19,10 +19,32 @@
 root=$(git rev-parse --show-toplevel)
 compose="docker compose -f $root/docker-compose.dev.yml"
 
-if [ -z "$($compose ps -q web 2>/dev/null)" ]; then
-  echo "Контейнер web не поднят — тесты прогнать негде."
-  echo "docker compose -f docker-compose.dev.yml up -d"
+# 🔴 Два режима разработки, и хук обязан работать в обоих (docs/DEPLOY.md §2).
+#
+# Контейнер поднят — прогон в нём, как и раньше: это среда, повторяющая прод.
+# Контейнер выключен — прогон на хосте, если там установлены зависимости. Так
+# работает хостовый режим, ради которого дев-состав и разбирали: отказ хука там
+# означал бы, что коммит невозможен вовсе, а правило «хук не обходят» —
+# невыполнимо.
+#
+# Ни того, ни другого нет — отказ с обоими способами исправить, а не с одним.
+if [ -n "$($compose ps -q web 2>/dev/null)" ]; then
+  runner=container
+elif [ -d "$root/apps/web/node_modules/.bin" ]; then
+  runner=host
+else
+  echo "Тесты прогнать негде: контейнер web не поднят, зависимостей на хосте нет."
+  echo
+  echo "  в Docker: docker compose -f docker-compose.dev.yml up -d"
+  echo "  на хосте: pnpm install   (см. docs/DEPLOY.md §2)"
   exit 1
+fi
+
+if [ "$runner" = host ]; then
+  # Пути приходят абсолютными от корня хоста — здесь они и нужны как есть.
+  cd "$root/apps/web" || exit 1
+  # shellcheck disable=SC2086 -- список путей обязан разбиться на аргументы
+  exec pnpm exec vitest related --run "$@"
 fi
 
 # Абсолютными: `pnpm --filter web` уводит cwd в /app/apps/web, и путь от корня
