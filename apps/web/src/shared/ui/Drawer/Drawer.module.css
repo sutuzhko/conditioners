@@ -1,6 +1,6 @@
-/* Выдвижная панель. В прототипе мобильной навигации нет вообще — шапка на
-   узком экране обязана прятать меню сюда, оставляя телефон и заявку видимыми
-   (docs/DESIGN_BRIEF.md §6). */
+/* Выдвижная панель. В прототипе мобильной навигации нет вообще — раскладка
+   спроектирована нами (docs/DESIGN_BRIEF.md §6, issue #248): пояс шапки,
+   пояс пунктов и закреплённый снизу подвал с действиями. */
 
 .overlay {
   position: fixed;
@@ -19,11 +19,17 @@
   justify-content: flex-end;
 }
 
+/* 🔴 Боковое поле объявлено переменной, а не числом в трёх правилах: содержимое
+   панели выравнивается по нему же, а пункт меню обязан быть шире полей — его
+   подсветка и тап-зона идут во всю ширину панели. Без общего имени эти 16px
+   пришлось бы повторить отрицательным отступом наугад. */
 .panel {
+  --drawer-pad-inline: 16px;
+
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  width: min(360px, 88vw);
+  width: min(380px, 86vw);
   height: 100%;
   background: var(--card);
   box-shadow: var(--shadow-card);
@@ -48,12 +54,17 @@
   animation: drawer-in-right var(--dur-base) var(--ease-out);
 }
 
+/* 56px — ровно высота шапки страницы на телефоне: при открытии шторки полоса
+   сверху не дёргается. Число считается по внешнему краю, вместе с границей,
+   поэтому задано минимальной высотой, а не отступами. */
 .head {
   display: flex;
   gap: 12px;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px;
+  box-sizing: border-box;
+  min-height: 56px;
+  padding: 0 var(--drawer-pad-inline);
   border-bottom: 1px solid var(--line-soft);
 }
 
@@ -61,24 +72,46 @@
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: -0.02em;
+}
+
+/* Двухклассовый селектор обязателен: у `.close` и у `.iconButton` из кита
+   одинаковая специфичность, и победил бы тот файл, что подключён позже. */
+.head .close {
+  border-color: var(--accent-line);
+  border-radius: 50%;
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+.head .close:hover:not(:disabled) {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
 }
 
 .body {
   flex: 1;
   overflow-y: auto;
-  padding: 14px 16px;
+  padding: 14px var(--drawer-pad-inline);
   color: var(--body);
 }
 
+/* Подвал прижат к низу и отделён поверхностью, а не только линией: на высоком
+   экране свободное место собирается над ним, и без своей подложки он читался
+   бы как продолжение списка. */
 .footer {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 14px 16px;
-  border-top: 1px solid var(--line-soft);
+  padding: 14px var(--drawer-pad-inline);
+
+  /* на телефоне панель занимает экран целиком, и подвал упирается в системную
+     полосу жестов — отступ снизу отдаёт ей своё место */
+  padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--line);
+  background: var(--bg-soft);
 }
 
 @keyframes drawer-fade {

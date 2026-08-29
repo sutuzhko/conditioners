@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { formatPhone } from '@/shared/lib/format';
 import { Header } from './Header';
@@ -125,5 +125,112 @@ describe('Header', () => {
   it('заглушка телефона не ломает шапку', () => {
     setup({ company: companyPlaceholder, contacts: contactsPlaceholder });
     expect(screen.getByRole('link', { name: /Позвонить/ })).toBeInTheDocument();
+  });
+});
+
+describe('Header — выдвижное меню', () => {
+  const openMenu = async (user: ReturnType<typeof userEvent.setup>): Promise<HTMLElement> => {
+    await user.click(screen.getByRole('button', { name: 'Открыть меню' }));
+    return screen.getByRole('dialog');
+  };
+
+  it('пункты идут в том же порядке, что и в навигации шапки', async () => {
+    const user = userEvent.setup();
+    setup();
+    const dialog = await openMenu(user);
+
+    const labels = within(dialog)
+      .getAllByRole('link')
+      .map((link) => link.textContent)
+      .filter((text) => navFixture.some((item) => item.label === text));
+
+    expect(labels).toEqual(navFixture.map((item) => item.label));
+  });
+
+  it('в подвале шторки есть часы, выбор темы, телефон и заявка', async () => {
+    const user = userEvent.setup();
+    setup();
+    const dialog = await openMenu(user);
+
+    expect(within(dialog).getByText(contactsFixture.hours)).toBeInTheDocument();
+    expect(within(dialog).getByRole('radiogroup', { name: 'Тема' })).toBeInTheDocument();
+    expect(within(dialog).getByRole('link', { name: /Позвонить/ })).toHaveAttribute(
+      'href',
+      'tel:+74872900000',
+    );
+    expect(within(dialog).getByRole('link', { name: 'Оставить заявку' })).toHaveAttribute(
+      'href',
+      '#lead',
+    );
+  });
+
+  it('без часов работы подвал не ломается', async () => {
+    const user = userEvent.setup();
+    setup({ contacts: { ...contactsFixture, hours: '' } });
+    const dialog = await openMenu(user);
+
+    expect(within(dialog).getByRole('radiogroup', { name: 'Тема' })).toBeInTheDocument();
+  });
+
+  it('тема переключается из шторки, и кнопка в шапке говорит то же самое', async () => {
+    const user = userEvent.setup();
+    setup();
+    const dialog = await openMenu(user);
+
+    await user.click(within(dialog).getByRole('radio', { name: 'Тёмная' }));
+
+    expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
+    // 🔴 переключателей на странице два, и разъезжаться им нельзя
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Переключить тему' })).toHaveAttribute(
+        'aria-pressed',
+        'true',
+      ),
+    );
+  });
+
+  it('после закрытия фокус возвращается на кнопку меню', async () => {
+    const user = userEvent.setup();
+    setup();
+    const burger = screen.getByRole('button', { name: 'Открыть меню' });
+
+    await user.click(burger);
+    await user.keyboard('{Escape}');
+
+    expect(burger).toHaveFocus();
+  });
+
+  it('обход с клавиатуры не выходит за пределы открытой шторки', async () => {
+    const user = userEvent.setup();
+    setup();
+    const dialog = await openMenu(user);
+
+    /* Шагов заведомо больше, чем элементов внутри: ловушка обязана замкнуть
+       обход в круг, а не отпустить фокус на страницу под шторкой. */
+    for (let step = 0; step < 16; step += 1) {
+      await user.tab();
+      expect(dialog.contains(document.activeElement)).toBe(true);
+    }
+  });
+
+  it('переход по пункту закрывает шторку', async () => {
+    const user = userEvent.setup();
+    setup();
+    const dialog = await openMenu(user);
+
+    await user.click(within(dialog).getByRole('link', { name: 'Каталог' }));
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('текущий раздел помечен в меню так же, как в шапке', async () => {
+    const user = userEvent.setup();
+    setup();
+    const dialog = await openMenu(user);
+
+    expect(within(dialog).getByRole('link', { name: 'Монтаж' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
   });
 });
