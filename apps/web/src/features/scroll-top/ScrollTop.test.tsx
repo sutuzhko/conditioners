@@ -63,6 +63,33 @@ describe('Кнопка «Наверх»', () => {
     expect(scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
   });
 
+  /**
+   * 🔴 Проверка родилась из дефекта, который эти тесты пропустили целиком
+   * (#180). Фокус в шапку без `preventScroll` заставляет браузер подтянуть
+   * элемент в видимую область — и этим отменяет только что запущенную плавную
+   * прокрутку. На стенде страница уезжала с 11682 до 11309 и вставала.
+   *
+   * jsdom прокрутку не считает, поэтому здесь проверяется ровно та строка,
+   * которая ломалась; настоящую координату меряет сквозной сценарий.
+   */
+  it('🔴 фокус в шапку не отменяет прокрутку: preventScroll обязателен', async () => {
+    const user = userEvent.setup();
+    const link = document.createElement('a');
+    link.href = '#';
+    const header = document.createElement('header');
+    header.append(link);
+    document.body.append(header);
+    const focus = vi.spyOn(link, 'focus');
+
+    render(<ScrollTop />);
+    scrollBy(2000);
+
+    await user.click(screen.getByRole('button', { name: texts.label }));
+
+    expect(focus).toHaveBeenCalledWith({ preventScroll: true });
+    header.remove();
+  });
+
   it('🔴 просили меньше движения — прокрутка мгновенная', async () => {
     vi.stubGlobal(
       'matchMedia',
