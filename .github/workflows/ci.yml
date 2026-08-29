@@ -97,3 +97,82 @@ jobs:
           docker cp "$id:/app/apps/web/.next" ./next-build
           docker rm "$id"
           node scripts/js-budget.mjs ./next-build --strict
+
+  # 🔴 Снимки историй — отдельной работой, а не шагом в `check`.
+  #
+  # Прогон идёт около получаса: 171 история на четырёх ширинах в двух темах,
+  # воркер один. Шагом внутри `check` он растянул бы на полчаса и вердикт по
+  # линту с типами — а дешёвая проверка обязана отвечать первой. Отдельной
+  # работой её ответ приходит через несколько минут и не ждёт снимков.
+  #
+  # `needs: check` — сознательно: гонять полчаса снимки при красных типах значит
+  # жечь минуты раннера ради заведомо бесполезного вердикта.
+  vr:
+    runs-on: ubuntu-latest
+    # Красный VR при красных типах — шум: сначала пусть починят то, что дешевле
+    needs: check
+
+    env:
+      # Значения только для проверки: истории данных из базы не читают, но
+      # схема окружения обязана сойтись — её тянут импорты компонентов
+      DATABASE_URL: postgresql://tk:ci@127.0.0.1:5432/tulaklimat?schema=public
+      SITE_URL: https://ci.invalid
+      SESSION_SECRET: ci-secret-not-used-anywhere
+      NEXT_TELEMETRY_DISABLED: '1'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # 🔴 Тем же образом, которым сняты эталоны (ADR-168). Шрифты на
+      # ubuntu-раннере и в alpine-образе отрисовываются по-разному, и снимок,
+      # снятый мимо образа, не совпадёт с эталоном ни разу — красный VR стал бы
+      # фоновым шумом, каким три дня был красный пайплайн (ADR-167).
+      - name: Дев-образ
+        run: docker build --target dev -t tulaklimat-dev:ci .
+
+      - name: Витрина под снимки
+        run: |
+          docker network create vr
+          docker run -d --name vr-storybook --network vr --network-alias storybook \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web storybook
+
+          # Готовность — по индексу историй, а не по открытому порту: порт
+          # слушается раньше, чем Vite соберёт истории, и первый снимок вышел бы
+          # пустым, а не упавшим
+          docker exec vr-storybook node -e "
+            (async () => {
+              for (let i = 0; i < 90; i += 1) {
+                try {
+                  const r = await fetch('http://localhost:6006/index.json');
+                  if (r.ok) { console.log('витрина готова'); return; }
+                } catch {}
+                await new Promise((done) => setTimeout(done, 2000));
+              }
+              console.error('витрина не поднялась за три минуты');
+              process.exit(1);
+            })()"
+
+      - name: Снимки историй
+        run: |
+          docker run --name vr-run --network vr \
+            -e VR_BASE_URL=http://storybook:6006 \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web vr
+
+      # Разницу видно только глазами: без картинок «снимок не совпал» не
+      # говорит, уехала кнопка на пиксель или пропал целый блок
+      - name: Расхождения снимков
+        if: failure()
+        run: docker cp vr-run:/app/apps/web/test-results ./vr-results || true
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: vr-diff
+          path: vr-results
+          retention-days: 7
+
+      - name: Журнал витрины
+        if: failure()
+        run: docker logs vr-storybook | tail -50
