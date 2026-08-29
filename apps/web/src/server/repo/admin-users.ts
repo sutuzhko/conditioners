@@ -286,8 +286,17 @@ export async function addNote(userId: string, text: string): Promise<InstallerNo
   return { id: row.id, text: row.text, createdAt: row.createdAt.toISOString() };
 }
 
-export async function removeNote(id: string): Promise<void> {
-  const removed = await db.installerNote.deleteMany({ where: { id } });
+/**
+ * 🔴 Заметка удаляется внутри своего сотрудника, а не по одному номеру.
+ *
+ * Номера заметок у всех сотрудников из одного пространства, и удаление по
+ * `noteId` в отрыве от `userId` означало бы, что адрес врёт о проверке:
+ * раздел владельческий, привилегий это не повышает, но `setChecklistDone`
+ * рядом сверяет принадлежность именно затем, чтобы «номер из адреса» не
+ * работал сам по себе.
+ */
+export async function removeNote(userId: string, id: string): Promise<void> {
+  const removed = await db.installerNote.deleteMany({ where: { id, userId } });
   if (removed.count === 0) throw new ApiException('not_found', 'Заметка не найдена');
 }
 

@@ -6,7 +6,8 @@ export const dynamic = 'force-dynamic';
 type Context = { params: Promise<{ id: string; noteId: string }> };
 
 export const DELETE = withOwner(async (_request, context: Context) => {
-  const { noteId } = await context.params;
-  await removeNote(noteId);
+  const { id, noteId } = await context.params;
+  // оба номера из адреса: заметка ищется внутри своего сотрудника
+  await removeNote(id, noteId);
   return noContent();
 });

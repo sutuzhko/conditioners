@@ -22,9 +22,21 @@ export type PricesDto = {
   extras: Extras | null;
 };
 
+/* Ответ собирается проекцией, а не строкой Prisma целиком: иначе наружу
+   уезжают `id`, `createdAt` и `updatedAt`, которых нет в примере API §4.
+   Вреда от них нет, но контракт — это то, что описано, а не то, что вышло. */
+const priceSelect = {
+  cls: true,
+  power: true,
+  area: true,
+  price: true,
+  term: true,
+  sort: true,
+} as const;
+
 export async function getPrices(): Promise<PricesDto> {
   const [rows, extras] = await Promise.all([
-    db.priceRow.findMany({ orderBy: [{ sort: 'asc' }, { cls: 'asc' }] }),
+    db.priceRow.findMany({ select: priceSelect, orderBy: [{ sort: 'asc' }, { cls: 'asc' }] }),
     getExtras(),
   ]);
 
