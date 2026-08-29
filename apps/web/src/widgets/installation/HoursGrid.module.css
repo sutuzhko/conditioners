@@ -28,7 +28,7 @@
   padding-right: 4px;
   color: var(--faint);
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: var(--fs-micro);
   font-variant-numeric: tabular-nums;
 }
 
@@ -95,7 +95,7 @@
   margin: 6px 0 0;
   color: var(--faint);
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: var(--fs-micro);
   font-variant-numeric: tabular-nums;
 }
 

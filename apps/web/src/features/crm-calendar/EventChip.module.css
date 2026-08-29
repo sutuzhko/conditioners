@@ -367,7 +367,7 @@
   border: 1px solid currentcolor;
   border-radius: var(--r-pill);
   padding: 0 4px;
-  font-size: 10px;
+  font-size: var(--fs-micro);
   font-weight: 700;
   line-height: 13px;
 }

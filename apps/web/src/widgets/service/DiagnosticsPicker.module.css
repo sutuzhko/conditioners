@@ -107,7 +107,7 @@
   margin: 0 0 7px;
   color: var(--faint);
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: var(--fs-micro);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }

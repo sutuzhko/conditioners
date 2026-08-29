@@ -106,7 +106,7 @@
 .size {
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--fs-micro);
 }
 
 /* на самых узких экранах превью встаёт в колонку: 320px не держит
