@@ -98,17 +98,23 @@ export function ProductCard({
           </Link>
         </h3>
         <p className={styles.area}>{areaLabel(product.areaMax)}</p>
-        {product.tag === null ? null : (
-          <Badge variant="accent" size="sm" className={styles.tag}>
-            {product.tag}
-          </Badge>
-        )}
+        {/* Строка метки есть всегда, даже пустая: у модели без метки цена
+            иначе поднимается выше соседей по ряду (issue #182). */}
+        <div className={styles.tagRow}>
+          {product.tag === null ? null : (
+            <Badge variant="accent" size="sm" className={styles.tag}>
+              {product.tag}
+            </Badge>
+          )}
+        </div>
 
-        {/* 🔴 Резерв под строку срока акции обязателен именно здесь: карточки
-            стоят в ряду, и цена — главная цифра каждой — обязана быть у всех
-            на одной линии (BUGS, аудит 28 августа). */}
+        {/* 🔴 Цена — главная цифра карточки, и в ряду она обязана стоять у всех
+            на одной линии. Держит её раскладка: всё, что выше цены, имеет
+            постоянную высоту, а свободное место копится ниже (issue #182).
+            Резерва пустой строкой здесь больше нет — он оставлял дыру под
+            ценой у моделей без скидки. */}
         <div className={styles.price}>
-          <ProductPrice price={price} reserveNote />
+          <ProductPrice price={price} />
         </div>
 
         <div className={styles.meta}>
