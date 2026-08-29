@@ -269,8 +269,23 @@ export async function remove(id: string): Promise<{ slug: string }> {
  * `salePrice: null` снимает скидку вместе с подписью и периодом.
  */
 export async function setSale(id: string, input: SaleInput): Promise<ProductDto> {
-  const exists = await db.product.findUnique({ where: { id }, select: { id: true } });
+  const exists = await db.product.findUnique({ where: { id }, select: { priceNum: true } });
   if (exists === null) throw new ApiException('not_found', 'Модель не найдена');
+
+  /* 🔴 Цена по акции обязана быть ниже обычной, и проверить это может только
+     тот, кто знает обычную: в теле запроса её нет и быть не должно (ADR-011).
+
+     До этой проверки сервер принимал любую цену молча. Скидка «за 45 000
+     вместо 40 000» сохранялась, в панели значилась заданной, а на витрине не
+     показывалась вовсе — `getActivePrice` такую отбрасывает. Разошлись не цифры
+     на сайте, а форма и её результат, и узнать об этом было неоткуда. */
+  if (input.salePrice !== null && input.salePrice >= exists.priceNum) {
+    throw new ApiException(
+      'validation_error',
+      `Цена по акции должна быть ниже обычной — ${exists.priceNum} ₽`,
+      'salePrice',
+    );
+  }
 
   const cleared = input.salePrice === null;
 
