@@ -9,16 +9,18 @@ const mocks = vi.hoisted(() => ({
   findMany: vi.fn(),
   eventFindMany: vi.fn(),
   eventCount: vi.fn(),
+  leadFindMany: vi.fn(),
 }));
 
 vi.mock('@/server/db', () => ({
   db: {
     crmEvent: { findMany: mocks.eventFindMany, count: mocks.eventCount },
     order: { findMany: mocks.findMany },
+    lead: { findMany: mocks.leadFindMany },
   },
 }));
 
-import { countOverdue, listOrdersRange, listRange } from '@/server/repo/crm';
+import { countOverdue, listOrdersRange, listRange, search } from '@/server/repo/crm';
 
 type FindManyArgs = {
   readonly where?: Record<string, unknown>;
@@ -166,5 +168,109 @@ describe('дела в календаре', () => {
     await expect(countOverdue(OWNER, from)).resolves.toBe(3);
 
     expect(mocks.eventCount).toHaveBeenCalled();
+  });
+});
+
+/**
+ * Поиск по календарю — issue #126–#129.
+ *
+ * 🔴 Проверяется здесь не «нашлось ли», а **что ушло в запрос**: разграничение
+ * по роли живёт в условии, а не в фильтре после выборки. Чужая запись не
+ * должна покидать базу даже для того, чтобы быть отброшенной (ADR-114).
+ */
+describe('поиск по календарю', () => {
+  beforeEach(() => {
+    mocks.eventFindMany.mockResolvedValue([]);
+    mocks.findMany.mockResolvedValue([]);
+    mocks.leadFindMany.mockResolvedValue([]);
+  });
+
+  it('🔴 монтажник ищет только среди своих нарядов, а дел и заявок не касается', async () => {
+    await search(INSTALLER, 'Первомайская');
+
+    expect(mocks.eventFindMany).not.toHaveBeenCalled();
+    expect(mocks.leadFindMany).not.toHaveBeenCalled();
+
+    const where = mocks.findMany.mock.calls[0]?.[0]?.where as Record<string, unknown>;
+    expect(where).toMatchObject({ installerId: INSTALLER.userId });
+  });
+
+  it('владелец ищет по всем трём видам записей', async () => {
+    await search(OWNER, 'Первомайская');
+
+    expect(mocks.eventFindMany).toHaveBeenCalled();
+    expect(mocks.findMany).toHaveBeenCalled();
+    expect(mocks.leadFindMany).toHaveBeenCalled();
+
+    const where = mocks.findMany.mock.calls[0]?.[0]?.where as Record<string, unknown>;
+    expect(where).not.toHaveProperty('installerId');
+  });
+
+  it('🔴 поиск не ограничен видимым периодом: в условии нет ни одной границы по дате', async () => {
+    await search(OWNER, 'Соколова');
+
+    for (const call of [mocks.eventFindMany, mocks.findMany, mocks.leadFindMany]) {
+      const where = JSON.stringify(call.mock.calls[0]?.[0]?.where ?? {});
+      expect(where).not.toContain('"at"');
+      expect(where).not.toContain('createdAt');
+    }
+  });
+
+  it('пустой запрос до базы не доходит', async () => {
+    await expect(search(OWNER, '   ')).resolves.toEqual([]);
+
+    expect(mocks.eventFindMany).not.toHaveBeenCalled();
+    expect(mocks.findMany).not.toHaveBeenCalled();
+    expect(mocks.leadFindMany).not.toHaveBeenCalled();
+  });
+
+  it('находки складываются в один список, свежие первыми', async () => {
+    mocks.eventFindMany.mockResolvedValue([
+      {
+        id: 'e1',
+        kind: 'CALL',
+        status: 'PLANNED',
+        at: new Date('2026-08-20T09:00:00Z'),
+        durationMin: 60,
+        overtimeMin: 0,
+        clientName: 'Ирина Соколова',
+        clientPhone: null,
+        address: 'Тула, Первомайская, 12',
+        note: null,
+        leadId: null,
+      },
+    ]);
+    mocks.findMany.mockResolvedValue([
+      {
+        id: 'o1',
+        number: 1059,
+        type: 'INSTALL',
+        status: 'NEW',
+        at: new Date('2026-09-01T07:00:00Z'),
+        durationMin: 120,
+        address: 'Тула, Первомайская, 12',
+        client: { name: 'Пётр Соколов' },
+        installerId: null,
+        installer: null,
+      },
+    ]);
+    mocks.leadFindMany.mockResolvedValue([
+      {
+        id: 'l1',
+        name: 'Ирина Соколова',
+        phone: '+7 (910) 155-24-68',
+        topic: 'install',
+        address: 'Тула, Первомайская, 12',
+        comment: null,
+        createdAt: new Date('2026-08-15T10:00:00Z'),
+      },
+    ]);
+
+    const found = await search(OWNER, 'Соколов');
+
+    expect(found.map((hit) => hit.kind)).toEqual(['order', 'event', 'lead']);
+    expect(found[0]).toMatchObject({ kind: 'order', number: 1059 });
+    expect(found[1]).toMatchObject({ kind: 'event', clientName: 'Ирина Соколова' });
+    expect(found[2]).toMatchObject({ kind: 'lead', topic: 'install' });
   });
 });

@@ -343,3 +343,137 @@ export async function listOrdersRange(
     installerName: row.installer === null ? null : (row.installer.name ?? row.installer.login),
   }));
 }
+
+/* ---------- Поиск по календарю (CRM §3.5.1, issue #126) ---------- */
+
+/**
+ * Что нашлось. Дискриминированное объединение, а не общая строка `title`:
+ * называть находку — дело интерфейса. Сервер отдаёт то, что знает сам —
+ * номер наряда, вид дела, тему обращения, — а как это подписать по-русски,
+ * решает слой, которому принадлежат тексты (docs/CLAUDE.md, «Контент»).
+ */
+export type CrmSearchHit =
+  | {
+      readonly kind: 'event';
+      readonly id: string;
+      readonly eventKind: CrmEventKind;
+      readonly clientName: string;
+      readonly address: string | null;
+      readonly at: string;
+    }
+  | {
+      readonly kind: 'order';
+      readonly id: string;
+      readonly number: number;
+      readonly clientName: string;
+      readonly address: string | null;
+      readonly at: string;
+    }
+  | {
+      readonly kind: 'lead';
+      readonly id: string;
+      readonly topic: string;
+      readonly clientName: string;
+      readonly address: string | null;
+      /** Момент обращения: своей даты работ у заявки ещё нет. */
+      readonly at: string;
+    };
+
+/**
+ * Сколько находок одного вида отдаём. Поиск в календаре — способ прыгнуть к
+ * записи, а не отчёт: список длиннее двух десятков всё равно не читают, а
+ * запрос по трём таблицам без потолка растёт вместе с базой.
+ */
+const SEARCH_LIMIT = 8;
+
+const LEAD_SEARCH_FIELDS = {
+  id: true,
+  name: true,
+  topic: true,
+  address: true,
+  createdAt: true,
+} as const;
+
+/**
+ * Поиск по клиенту, адресу и заметке среди дел, нарядов и заявок.
+ *
+ * 🔴 **Период не ограничивает выдачу.** Человек ищет «Первомайская» именно
+ * тогда, когда не помнит, в каком месяце был выезд: поиск, ограниченный
+ * видимой неделей, отвечал бы «ничего нет» ровно в том случае, ради которого
+ * его и открыли (issue #126).
+ *
+ * 🔴 **Роль ограничивает, и ограничивает условием запроса.** Монтажнику дела
+ * и обращения закрыты целиком (CRM §6), а наряды — только свои: его запрос
+ * идёт с `installerId`, а чужие дела и заявки не запрашиваются вовсе.
+ * Отбрасывать их после выборки нельзя — они не должны покидать базу (ADR-114).
+ */
+export async function search(viewer: Viewer, query: string): Promise<CrmSearchHit[]> {
+  const needle = query.trim();
+  if (needle === '') return [];
+
+  const like = { contains: needle, mode: 'insensitive' } as const;
+  const isInstaller = viewer.role === 'installer';
+
+  const orders = db.order.findMany({
+    where: {
+      ...(isInstaller ? { installerId: viewer.userId } : {}),
+      OR: [{ address: like }, { client: { name: like } }, { client: { phone: like } }],
+    },
+    orderBy: { at: 'desc' },
+    take: SEARCH_LIMIT,
+    select: ORDER_FIELDS,
+  });
+
+  /* Дела и обращения — раздел владельца. У монтажника запрос даже не
+     создаётся: в журнале его запросов этих таблиц нет вовсе. */
+  const events = isInstaller
+    ? []
+    : await db.crmEvent.findMany({
+        where: {
+          OR: [{ clientName: like }, { clientPhone: like }, { address: like }, { note: like }],
+        },
+        orderBy: { at: 'desc' },
+        take: SEARCH_LIMIT,
+        select: FIELDS,
+      });
+
+  const leads = isInstaller
+    ? []
+    : await db.lead.findMany({
+        where: { OR: [{ name: like }, { phone: like }, { address: like }, { comment: like }] },
+        orderBy: { createdAt: 'desc' },
+        take: SEARCH_LIMIT,
+        select: LEAD_SEARCH_FIELDS,
+      });
+
+  const hits: CrmSearchHit[] = [
+    ...(await orders).map((row) => ({
+      kind: 'order' as const,
+      id: row.id,
+      number: row.number,
+      clientName: row.client.name,
+      address: row.address,
+      at: row.at.toISOString(),
+    })),
+    ...events.map((row) => ({
+      kind: 'event' as const,
+      id: row.id,
+      eventKind: KIND_FROM_DB[row.kind],
+      clientName: row.clientName,
+      address: row.address,
+      at: row.at.toISOString(),
+    })),
+    ...leads.map((row) => ({
+      kind: 'lead' as const,
+      id: row.id,
+      topic: row.topic,
+      clientName: row.name,
+      address: row.address,
+      at: row.createdAt.toISOString(),
+    })),
+  ];
+
+  /* Свежие первыми: выезд на той же улице в прошлом году ищут реже, чем
+     назначенный на следующей неделе. */
+  return hits.sort((a, b) => b.at.localeCompare(a.at)).slice(0, SEARCH_LIMIT * 2);
+}
