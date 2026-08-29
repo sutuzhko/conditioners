@@ -34,7 +34,12 @@ const fake = vi.hoisted(() => ({
     $transaction: vi.fn(),
   },
   files: { mkdir: vi.fn(), writeFile: vi.fn(), rm: vi.fn(), stat: vi.fn() },
-  uploads: { saveImage: vi.fn(), deleteStoredImage: vi.fn() },
+  uploads: {
+    saveProtectedImage: vi.fn(),
+    deleteProtectedImage: vi.fn(),
+    resolveProtectedPath: vi.fn(),
+    mimeFor: vi.fn(),
+  },
   streams: { createReadStream: vi.fn() },
 }));
 
@@ -50,8 +55,10 @@ vi.mock('node:fs/promises', () => ({
 vi.mock('node:fs', () => ({ createReadStream: fake.streams.createReadStream }));
 
 vi.mock('@/server/uploads/store', () => ({
-  saveImage: fake.uploads.saveImage,
-  deleteStoredImage: fake.uploads.deleteStoredImage,
+  saveProtectedImage: fake.uploads.saveProtectedImage,
+  deleteProtectedImage: fake.uploads.deleteProtectedImage,
+  resolveProtectedPath: fake.uploads.resolveProtectedPath,
+  mimeFor: fake.uploads.mimeFor,
 }));
 
 import { getAdminSession } from '@/server/auth';
@@ -64,6 +71,10 @@ import { DELETE as REMOVE_DOC } from './[id]/docs/[docId]/route';
 import { GET as GET_FILE } from './[id]/docs/[docId]/file/route';
 import { POST as ADD_PHOTO } from './[id]/photos/route';
 import { DELETE as REMOVE_PHOTO } from './[id]/photos/[photoId]/route';
+import { GET as GET_PHOTO_FILE } from './[id]/photos/[photoId]/file/route';
+
+/** Имя файла закрытого снимка: в базе у него имя, а не адрес (ADR-171). */
+const PHOTO_FILE = '0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg';
 
 const owner = {
   userId: 'u1',
@@ -188,14 +199,12 @@ beforeEach(() => {
   fake.db.orderPhoto.create.mockResolvedValue({
     id: 'p1',
     stage: 'AFTER',
-    url: '/api/media/aaa.jpg',
+    url: PHOTO_FILE,
     sort: 0,
   });
-  fake.uploads.saveImage.mockResolvedValue({
-    url: '/api/media/aaa.jpg',
-    filename: 'aaa.jpg',
-    mime: 'image/jpeg',
-  });
+  fake.uploads.saveProtectedImage.mockResolvedValue({ filename: PHOTO_FILE, mime: 'image/jpeg' });
+  fake.uploads.resolveProtectedPath.mockReturnValue(`/data/uploads/protected/${PHOTO_FILE}`);
+  fake.uploads.mimeFor.mockReturnValue('image/jpeg');
   fake.files.stat.mockResolvedValue({ isFile: () => true, size: 11 });
   fake.streams.createReadStream.mockReturnValue(Readable.from([Buffer.from('%PDF-1.7\n…')]));
 });
@@ -523,6 +532,60 @@ describe('документы наряда', () => {
   });
 });
 
+/**
+ * 🔴 ADR-171: снимок «до/после» — интерьер квартиры клиента, такие же
+ * персональные данные, как договор рядом. Проверки те же, что у документа:
+ * иначе асимметрия, из-за которой снимок отдавался всякому, кто знает имя
+ * файла, вернётся первой же правкой.
+ */
+describe('🔴 выдача снимка наряда', () => {
+  const photoFileCtx = { params: Promise.resolve({ id: 'o1', photoId: 'p1' }) };
+  const photoFileUrl = '/api/admin/orders/o1/photos/p1/file';
+
+  beforeEach(() => {
+    fake.db.orderPhoto.findFirst.mockResolvedValue({ id: 'p1', stage: 'AFTER', url: PHOTO_FILE });
+  });
+
+  it('без сессии снимок не отдаётся', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(null);
+
+    const response = await GET_PHOTO_FILE(request(photoFileUrl), photoFileCtx);
+
+    expect(response.status).toBe(401);
+    expect(fake.streams.createReadStream).not.toHaveBeenCalled();
+  });
+
+  it('монтажник получает снимок своего наряда, и снимок не оседает в кеше', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(installer);
+
+    const response = await GET_PHOTO_FILE(request(photoFileUrl), photoFileCtx);
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('Content-Type')).toBe('image/jpeg');
+    // между панелью и браузером стоит Caddy: снимок в общем кеше — та же утечка
+    expect(response.headers.get('Cache-Control')).toBe('private, no-store');
+  });
+
+  it('🔴 из чужого наряда снимок не выдаётся — 404 и ни одного чтения с диска', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(installer);
+    fake.db.order.findFirst.mockResolvedValue(null);
+
+    const response = await GET_PHOTO_FILE(request(photoFileUrl), photoFileCtx);
+
+    expect(response.status).toBe(404);
+    expect(fake.streams.createReadStream).not.toHaveBeenCalled();
+  });
+
+  it('🔴 снимок ищется внутри наряда: чужой номер по своему наряду не откроется', async () => {
+    fake.db.orderPhoto.findFirst.mockResolvedValue(null);
+
+    const response = await GET_PHOTO_FILE(request(photoFileUrl), photoFileCtx);
+
+    expect(response.status).toBe(404);
+    expect(fake.streams.createReadStream).not.toHaveBeenCalled();
+  });
+});
+
 describe('🔴 выдача файла документа', () => {
   it('без сессии файл не отдаётся: это договор с персональными данными', async () => {
     vi.mocked(getAdminSession).mockResolvedValue(null);
@@ -584,7 +647,7 @@ describe('фотографии наряда', () => {
     const response = await ADD_PHOTO(form('/api/admin/orders/o1/photos', data), ctx);
 
     expect(response.status).toBe(201);
-    expect(fake.uploads.saveImage).toHaveBeenCalled();
+    expect(fake.uploads.saveProtectedImage).toHaveBeenCalled();
   });
 
   it('🔴 фото места установки грузит владелец, а не монтажник', async () => {
@@ -597,7 +660,7 @@ describe('фотографии наряда', () => {
     const response = await ADD_PHOTO(form('/api/admin/orders/o1/photos', data), ctx);
 
     expect(response.status).toBe(403);
-    expect(fake.uploads.saveImage).not.toHaveBeenCalled();
+    expect(fake.uploads.saveProtectedImage).not.toHaveBeenCalled();
   });
 
   it('🔴 фото «до» монтажник и не удаляет', async () => {
@@ -605,7 +668,7 @@ describe('фотографии наряда', () => {
     fake.db.orderPhoto.findFirst.mockResolvedValue({
       id: 'p1',
       stage: 'BEFORE',
-      url: '/api/media/aaa.jpg',
+      url: PHOTO_FILE,
     });
 
     const response = await REMOVE_PHOTO(
@@ -622,7 +685,7 @@ describe('фотографии наряда', () => {
     fake.db.orderPhoto.findFirst.mockResolvedValue({
       id: 'p1',
       stage: 'AFTER',
-      url: '/api/media/aaa.jpg',
+      url: PHOTO_FILE,
     });
 
     const response = await REMOVE_PHOTO(
@@ -631,7 +694,7 @@ describe('фотографии наряда', () => {
     );
 
     expect(response.status).toBe(204);
-    expect(fake.uploads.deleteStoredImage).toHaveBeenCalledWith('/api/media/aaa.jpg');
+    expect(fake.uploads.deleteProtectedImage).toHaveBeenCalledWith(PHOTO_FILE);
   });
 
   it('неизвестный этап — отказ с названным полем', async () => {

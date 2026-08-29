@@ -109,12 +109,17 @@ export function OrderPhotos({
                 <ul className={styles.grid}>
                   {shots.map((photo, index) => (
                     <li className={styles.item} key={photo.id}>
+                      {/* 🔴 `unoptimized` — снимок отдаётся по сессии (ADR-171),
+                          а оптимизатор ходит за картинкой сам, своим запросом с
+                          сервера и без cookie панели: получает 401 и отдаёт
+                          вместо снимка ошибку. */}
                       <Image
                         className={styles.thumb}
                         src={photo.url}
                         alt={texts.photoAlt(stageTitle, index + 1)}
                         width={THUMB}
                         height={THUMB}
+                        unoptimized
                       />
 
                       {mayEdit(stage) ? (

@@ -414,8 +414,24 @@ export function toDocCard(orderId: string, row: DocRow): OrderDocCard {
   };
 }
 
-export function toPhotoCard(row: PhotoRow): OrderPhotoCard {
-  return { id: row.id, stage: STAGE_FROM_DB[row.stage], url: row.url, sort: row.sort };
+/**
+ * 🔴 Адрес снимка наряда — тоже закрытый.
+ *
+ * Снимки «до/после» — это интерьер квартиры клиента, такие же персональные
+ * данные, как договор рядом. Асимметрия, при которой договор ходил через
+ * сессию, а снимок отдавался всякому, кто знает имя файла, снята (ADR-171).
+ */
+export function orderPhotoUrl(orderId: string, photoId: string): string {
+  return `/api/admin/orders/${orderId}/photos/${photoId}/file`;
+}
+
+export function toPhotoCard(orderId: string, row: PhotoRow): OrderPhotoCard {
+  return {
+    id: row.id,
+    stage: STAGE_FROM_DB[row.stage],
+    url: orderPhotoUrl(orderId, row.id),
+    sort: row.sort,
+  };
 }
 
 function toHistoryEntry(row: HistoryRow): OrderHistoryEntry {
@@ -442,7 +458,7 @@ function toDetails(row: OrderDetailsRow, role: AdminRole): OrderDetails {
     ...toCard(row, role),
     checklist: row.checklist.map(toChecklistCard),
     docs: row.docs.map((doc) => toDocCard(row.id, doc)),
-    photos: row.photos.map(toPhotoCard),
+    photos: row.photos.map((photo) => toPhotoCard(row.id, photo)),
   };
 
   if (role === 'owner') return { ...shared, history: row.history.map(toHistoryEntry) };

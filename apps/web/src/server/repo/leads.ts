@@ -11,6 +11,7 @@ import type { Viewer } from '@/server/repo/day-blocks';
 import { parseLeadContext } from '@/entities/lead/lib/context';
 import type { LeadContext, LeadUpdate } from '@/entities/lead/model';
 import { pageWindow, type Page } from '@/shared/lib/paging';
+import { mimeFor, resolveProtectedPath } from '@/server/uploads/store';
 
 export type LeadStatusApi = 'new' | 'in_progress' | 'done' | 'rejected';
 
@@ -44,6 +45,11 @@ export type LeadDto = {
   callTime: string | null;
   address: string | null;
   comment: string | null;
+  /**
+   * 🔴 Адрес закрытой выдачи снимка, а не имя файла на диске (ADR-171).
+   * Снимок при заявке — это интерьер квартиры клиента, и отдаётся он только
+   * по сессии владельца.
+   */
   photo: string | null;
   sourceUrl: string | null;
   referrer: string | null;
@@ -71,9 +77,20 @@ type LeadRow = Omit<LeadDto, 'status' | 'context' | 'consentAt' | 'createdAt' | 
   updatedAt: Date;
 };
 
+/**
+ * 🔴 Адрес снимка заявки — закрытый, по образцу документов наряда.
+ *
+ * В колонке лежит имя файла: снимок хранится в закрытом подкаталоге, куда
+ * публичный `/api/media/{name}` не дотягивается (ADR-171).
+ */
+export function leadPhotoUrl(leadId: string): string {
+  return `/api/admin/leads/${leadId}/photo`;
+}
+
 function toDto(row: LeadRow): LeadDto {
   return {
     ...row,
+    photo: row.photo === null ? null : leadPhotoUrl(row.id),
     status: FROM_DB[row.status],
     /* Снимок разбирается на выходе из базы: в колонке лежит то, что записали
        вчерашней версией схемы, и доверять ей на слово нельзя. Не разобралось —
@@ -160,6 +177,26 @@ export async function listCreatedBetween(viewer: Viewer, from: Date, to: Date): 
 export async function findById(id: string): Promise<LeadDto | null> {
   const row = await db.lead.findUnique({ where: { id } });
   return row === null ? null : toDto(row);
+}
+
+export type LeadPhotoFile = { readonly path: string; readonly mime: string };
+
+/**
+ * 🔴 Выдача снимка заявки: путь собирается здесь, а не в обработчике.
+ *
+ * В колонке лежит имя файла, сгенерированное сервером; `resolveProtectedPath`
+ * пропускает только такое имя, поэтому выйти за закрытый подкаталог по нему
+ * нельзя. Сессию проверяет `withOwner` на маршруте — заявки видит только
+ * владелец.
+ */
+export async function findPhotoFile(id: string): Promise<LeadPhotoFile> {
+  const row = await db.lead.findUnique({ where: { id }, select: { photo: true } });
+  if (row === null || row.photo === null) throw new ApiException('not_found', 'Фото не найдено');
+
+  const path = resolveProtectedPath(row.photo);
+  if (path === null) throw new ApiException('not_found', 'Фото не найдено');
+
+  return { path, mime: mimeFor(row.photo) };
 }
 
 /**

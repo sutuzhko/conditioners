@@ -27,6 +27,9 @@ vi.mock('nodemailer', () => ({ createTransport: createTransportMock }));
 
 const { createEmailChannel, logMailTransport } = await import('./email');
 
+/** Имя файла, какое выдаёт хранилище: uuid и расширение. */
+const PHOTO = '0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg';
+
 const LEAD: NotificationPayload = {
   kind: 'lead',
   leadId: 'lead-1',
@@ -107,25 +110,51 @@ describe('письмо владельцу', () => {
     expect(letters[0]?.text).toContain('https://example.test/admin/reviews');
   });
 
-  it('прикладывает фото, если файл лежит на диске', async () => {
+  /**
+   * 🔴 Хранилища у двух снимков разные (ADR-171): фото при заявке лежит в
+   * закрытом подкаталоге и в базе значится именем файла, снимок при отзыве
+   * публикуется на сайте и остаётся адресом. Воркер обязан найти оба.
+   */
+  it('прикладывает фото заявки из закрытого хранилища', async () => {
+    await mkdir('/tmp/tk-test-uploads-email/protected', { recursive: true });
+    await writeFile(`/tmp/tk-test-uploads-email/protected/${PHOTO}`, Buffer.from([0xff, 0xd8]));
+
+    const { transport, letters } = recorder();
+    await createEmailChannel(transport).send({ ...LEAD, photo: PHOTO });
+
+    expect(letters[0]?.attachments).toEqual([
+      { filename: PHOTO, path: `/tmp/tk-test-uploads-email/protected/${PHOTO}` },
+    ]);
+  });
+
+  it('прикладывает фото отзыва из открытого каталога', async () => {
     await mkdir('/tmp/tk-test-uploads-email', { recursive: true });
-    await writeFile(
-      '/tmp/tk-test-uploads-email/0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg',
-      Buffer.from([0xff, 0xd8]),
-    );
+    await writeFile(`/tmp/tk-test-uploads-email/${PHOTO}`, Buffer.from([0xff, 0xd8]));
 
     const { transport, letters } = recorder();
     await createEmailChannel(transport).send({
-      ...LEAD,
-      photo: '/api/media/0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg',
+      kind: 'review',
+      reviewId: 'r5',
+      name: 'Игорь П.',
+      rating: 4,
+      text: 'Работой доволен, приехали вовремя.',
+      photo: `/api/media/${PHOTO}`,
     });
 
     expect(letters[0]?.attachments).toEqual([
-      {
-        filename: '0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg',
-        path: '/tmp/tk-test-uploads-email/0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg',
-      },
+      { filename: PHOTO, path: `/tmp/tk-test-uploads-email/${PHOTO}` },
     ]);
+  });
+
+  it('🔴 фото заявки не ищется в открытом каталоге: адрес там ничего не значит', async () => {
+    await mkdir('/tmp/tk-test-uploads-email', { recursive: true });
+    await writeFile(`/tmp/tk-test-uploads-email/${PHOTO}`, Buffer.from([0xff, 0xd8]));
+
+    const { transport, letters } = recorder();
+    await createEmailChannel(transport).send({ ...LEAD, photo: `/api/media/${PHOTO}` });
+
+    // письмо важнее вложения: заявка доходит и без снимка
+    expect(letters[0]?.attachments).toEqual([]);
   });
 
   it('не срывает отправку, если файла на диске уже нет', async () => {

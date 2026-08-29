@@ -7,6 +7,7 @@ import type { LeadContext } from '@/entities/lead/model';
 import type { OrderEquip, OrderType, PaymentMode, UnitSource } from '@/entities/order/model';
 import type { StockUnit } from '@/entities/stock/model';
 import { env } from '@/shared/config/env';
+import { resolveProtectedPath, resolveUploadPath } from '@/server/uploads/store';
 import { STOCK_UNIT_SHORT } from '@/shared/config/units';
 import { formatDateTime, formatMoney, formatQuantity } from '@/shared/lib/format';
 import type {
@@ -333,8 +334,46 @@ export function adminLink(payload: NotificationPayload): string {
   return new URL(`${ADMIN_ORDERS_PATH}/${payload.orderId}`, env.SITE_URL).toString();
 }
 
-/** Фото, приложенное к обращению; у остальных событий его не бывает. */
-export function attachedPhoto(payload: NotificationPayload): string | null {
-  if (payload.kind === 'lead' || payload.kind === 'review') return payload.photo;
+/**
+ * Фото, приложенное к обращению; у остальных событий его не бывает.
+ *
+ * 🔴 Хранилище у двух снимков разное, и канал обязан это различать (ADR-171).
+ * Снимок при отзыве публикуется на сайте и лежит в открытом каталоге, снимок
+ * при заявке — комната клиента, он в закрытом. Разбирать это по виду строки
+ * значило бы гадать; вид события известен точно.
+ */
+export type AttachedPhoto = {
+  readonly storage: 'public' | 'protected';
+  /** Публичный адрес отдачи либо имя файла в закрытом хранилище. */
+  readonly value: string;
+};
+
+export function attachedPhoto(payload: NotificationPayload): AttachedPhoto | null {
+  if (payload.kind === 'review') {
+    return payload.photo === null ? null : { storage: 'public', value: payload.photo };
+  }
+  if (payload.kind === 'lead') {
+    return payload.photo === null ? null : { storage: 'protected', value: payload.photo };
+  }
+
   return null;
+}
+
+/**
+ * Файл снимка на диске: то, что каналу нужно приложить к письму или отправить
+ * в Telegram. `null` — снимка нет либо значение не похоже на выданное нами имя.
+ */
+export function attachedPhotoFile(
+  payload: NotificationPayload,
+): { readonly path: string; readonly filename: string } | null {
+  const photo = attachedPhoto(payload);
+  if (photo === null) return null;
+
+  const path =
+    photo.storage === 'protected'
+      ? resolveProtectedPath(photo.value)
+      : resolveUploadPath(photo.value);
+  if (path === null) return null;
+
+  return { path, filename: photo.value.slice(photo.value.lastIndexOf('/') + 1) };
 }

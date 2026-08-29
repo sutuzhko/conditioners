@@ -90,6 +90,8 @@ const EXPECTED: Readonly<Record<string, Role>> = {
   'leads/[id] PATCH': 'owner',
   'leads/[id]/client POST': 'owner',
   'leads/[id]/order POST': 'owner',
+  // снимок при заявке — персональные данные клиента, как и сама заявка (ADR-171)
+  'leads/[id]/photo GET': 'owner',
   'staff GET': 'owner',
   'staff POST': 'owner',
   'staff/[id] GET': 'owner',
@@ -130,6 +132,9 @@ const EXPECTED: Readonly<Record<string, Role>> = {
   'orders/[id]/consumption/[move] DELETE': 'admin',
   'orders/[id]/photos POST': 'admin',
   'orders/[id]/photos/[photoId] DELETE': 'admin',
+  /* Выдача снимка наряда — тот же страж, что у документа: монтажник получает
+     файлы только своего наряда, принадлежность проверяет репозиторий. */
+  'orders/[id]/photos/[photoId]/file GET': 'admin',
   'orders/[id]/docs POST': 'owner',
   'orders/[id]/docs/[docId] DELETE': 'owner',
   /* 🔴 Выдача файла документа общая, а его загрузка и удаление —

@@ -9,8 +9,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const mocks = vi.hoisted(() => ({
   leadCreate: vi.fn(),
   enqueue: vi.fn(),
-  saveImage: vi.fn(),
-  deleteStoredImage: vi.fn(),
+  saveProtectedImage: vi.fn(),
+  deleteProtectedImage: vi.fn(),
   /** Идёт ли прямо сейчас транзакция — этим проверяется неразделимость. */
   inTransaction: false,
 }));
@@ -36,8 +36,8 @@ vi.mock('@/server/db', () => {
 vi.mock('@/server/notifications/queue', () => ({ enqueueNotification: mocks.enqueue }));
 
 vi.mock('@/server/uploads/store', () => ({
-  saveImage: mocks.saveImage,
-  deleteStoredImage: mocks.deleteStoredImage,
+  saveProtectedImage: mocks.saveProtectedImage,
+  deleteProtectedImage: mocks.deleteProtectedImage,
 }));
 
 import { createLead, createToReminder } from '@/server/services/leads';
@@ -46,6 +46,9 @@ import type { Tracking } from '@/server/intake/tracking';
 import type { LeadContext } from '@/entities/lead/model';
 
 const NO_TRACKING: Tracking = { sourceUrl: null, referrer: null, utm: null };
+
+/** Имя, какое выдаёт хранилище: uuid и расширение, без всякого адреса. */
+const PHOTO_FILENAME = '0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.webp';
 
 /* Согласие обязательно в самой схеме формы (152-ФЗ): без него заявка не
    доходит до сервиса вовсе, поэтому фикстура всегда с ним. */
@@ -93,12 +96,8 @@ beforeEach(() => {
     enqueuedInTransaction = mocks.inTransaction;
     return 1;
   });
-  mocks.saveImage.mockResolvedValue({
-    url: '/uploads/a1.webp',
-    filename: 'a1.webp',
-    mime: 'image/webp',
-  });
-  mocks.deleteStoredImage.mockResolvedValue(undefined);
+  mocks.saveProtectedImage.mockResolvedValue({ filename: PHOTO_FILENAME, mime: 'image/webp' });
+  mocks.deleteProtectedImage.mockResolvedValue(undefined);
 });
 
 describe('приём заявки', () => {
@@ -215,7 +214,7 @@ describe('приём заявки', () => {
 });
 
 describe('фотография к заявке', () => {
-  it('сохраняется до записи и попадает в неё ссылкой', async () => {
+  it('🔴 уходит в закрытое хранилище, и в базу попадает имя файла, а не адрес', async () => {
     await createLead({
       form: leadForm({ phone: '+79101234567' }),
       tracking: NO_TRACKING,
@@ -223,9 +222,11 @@ describe('фотография к заявке', () => {
       photo: new File(['x'], 'room.jpg', { type: 'image/jpeg' }),
     });
 
-    expect(mocks.saveImage).toHaveBeenCalledTimes(1);
+    expect(mocks.saveProtectedImage).toHaveBeenCalledTimes(1);
     const { data } = mocks.leadCreate.mock.calls[0]?.[0] ?? {};
-    expect(data.photo).toBe('/uploads/a1.webp');
+    /* Имя файла, а не `/api/media/…`: публичной отдачи у снимка комнаты
+       клиента нет вовсе (ADR-171). */
+    expect(data.photo).toBe(PHOTO_FILENAME);
   });
 
   it('🔴 упавшая запись не оставляет файл сиротой на диске', async () => {
@@ -240,7 +241,7 @@ describe('фотография к заявке', () => {
       }),
     ).rejects.toThrow('база недоступна');
 
-    expect(mocks.deleteStoredImage).toHaveBeenCalledWith('/uploads/a1.webp');
+    expect(mocks.deleteProtectedImage).toHaveBeenCalledWith(PHOTO_FILENAME);
   });
 
   it('заявка без фотографии ничего не сохраняет и ничего не удаляет', async () => {
@@ -251,8 +252,8 @@ describe('фотография к заявке', () => {
       photo: null,
     });
 
-    expect(mocks.saveImage).not.toHaveBeenCalled();
-    expect(mocks.deleteStoredImage).not.toHaveBeenCalled();
+    expect(mocks.saveProtectedImage).not.toHaveBeenCalled();
+    expect(mocks.deleteProtectedImage).not.toHaveBeenCalled();
   });
 });
 

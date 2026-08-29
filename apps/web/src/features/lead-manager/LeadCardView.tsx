@@ -201,12 +201,19 @@ export function LeadCardView({
       {lead.comment === null ? null : <p className={styles.comment}>{lead.comment}</p>}
 
       {lead.photo === null ? null : (
+        /* 🔴 `unoptimized` — не забывчивость. Снимок отдаётся по сессии
+           (ADR-171), а оптимизатор `next/image` ходит за картинкой сам, своим
+           запросом с сервера и без cookie панели: получает 401 и отвечает
+           «The requested resource isn't a valid image». Размеры и сам компонент
+           остаются — инвариант 13 про сдвиг вёрстки, а не про перекодировку;
+           файл уже пережат при загрузке до 1200px. */
         <Image
           className={styles.photo}
           src={lead.photo}
           alt={texts.photo}
           width={220}
           height={220}
+          unoptimized
         />
       )}
 

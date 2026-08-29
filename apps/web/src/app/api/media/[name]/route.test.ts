@@ -35,6 +35,9 @@ const WEBP_NAME = '0f8fad5a-d9cb-469f-a165-70867728950c.webp';
 const SVG_NAME = '0f8fad5a-d9cb-469f-a165-70867728950b.svg';
 const MISSING_NAME = '0f8fad5a-d9cb-469f-a165-70867728950a.jpg';
 const DIR_NAME = '0f8fad5a-d9cb-469f-a165-708677289509.jpg';
+const PROTECTED_NAME = '0f8fad5a-d9cb-469f-a165-708677289508.jpg';
+
+const PROTECTED_BYTES = Buffer.from('снимок комнаты клиента');
 
 const JPEG_BYTES = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0xff, 0xd9]);
 
@@ -56,6 +59,9 @@ beforeEach(async () => {
   // «свой» файл с чужим расширением: маска обязана не подпустить его к отдаче
   await writeFile(join(testEnv.UPLOADS_DIR, SVG_NAME), '<svg onload="alert(1)"></svg>');
   await mkdir(join(testEnv.UPLOADS_DIR, DIR_NAME));
+  // закрытое хранилище рядом: снимок комнаты клиента, который отдавать нельзя
+  await mkdir(join(testEnv.UPLOADS_DIR, 'protected'), { recursive: true });
+  await writeFile(join(testEnv.UPLOADS_DIR, 'protected', PROTECTED_NAME), PROTECTED_BYTES);
 });
 
 afterEach(async () => {
@@ -117,6 +123,27 @@ describe('GET /api/media/{name}', () => {
     // человеческое имя файла сервер не генерирует — значит, не отдаёт
     const human = await GET(...mediaRequest('photo.jpg'));
     expect(human.status).toBe(404);
+  });
+
+  /**
+   * 🔴 ADR-171: снимки клиента лежат в подкаталоге `protected` и публичной
+   * отдачи не имеют вовсе. Проверка структурная, а не на честное слово: имя по
+   * маске не содержит косой черты, а имя с чертой маску не проходит — значит
+   * из этого маршрута до подкаталога не дотянуться ни одним запросом.
+   */
+  it('🔴 не отдаёт закрытые снимки клиента ни под каким именем', async () => {
+    const attempts: readonly string[] = [
+      PROTECTED_NAME,
+      `protected/${PROTECTED_NAME}`,
+      `protected%2F${PROTECTED_NAME}`,
+      `./protected/${PROTECTED_NAME}`,
+    ];
+
+    for (const name of attempts) {
+      const response = await GET(...mediaRequest(name));
+      expect(response.status).toBe(404);
+      expect(await response.text()).not.toContain(PROTECTED_BYTES.toString());
+    }
   });
 
   it('валидное имя без файла на диске — 404 в конверте ошибок', async () => {

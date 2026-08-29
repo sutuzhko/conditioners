@@ -26,7 +26,7 @@ import { enqueueNotification } from '@/server/notifications/queue';
 import type { NotificationPayload } from '@/server/notifications/types';
 import * as leads from '@/server/repo/leads';
 import type { LeadDto } from '@/server/repo/leads';
-import { deleteStoredImage, saveImage } from '@/server/uploads/store';
+import { deleteProtectedImage, saveProtectedImage } from '@/server/uploads/store';
 
 /** Имя в списке заявок: форма напоминания его не спрашивает, а колонка не должна быть пустой. */
 const TO_REMINDER_NAME = 'Напоминание о ТО';
@@ -85,7 +85,9 @@ async function record(
  */
 export async function createLead(input: CreateLeadInput): Promise<LeadDto> {
   const { form, tracking, context, photo } = input;
-  const storedPhoto = photo === null ? null : (await saveImage(photo, 'photo')).url;
+  /* 🔴 Снимок комнаты клиента уходит в закрытое хранилище: публичной
+     отдачи у него нет, панель забирает его по сессии (ADR-171). */
+  const storedPhoto = photo === null ? null : (await saveProtectedImage(photo, 'photo')).filename;
 
   try {
     return await record(
@@ -120,7 +122,10 @@ export async function createLead(input: CreateLeadInput): Promise<LeadDto> {
         callTime: lead.callTime,
         address: lead.address,
         comment: lead.comment,
-        photo: lead.photo,
+        /* 🔴 В уведомление едет имя файла, а не адрес карточки: воркер читает
+           снимок с диска, чтобы приложить к письму, и адрес закрытой выдачи
+           ему бесполезен — он и есть тот, кому её не откроют. */
+        photo: storedPhoto,
         sourceUrl: lead.sourceUrl,
         /* Снимок уходит в уведомление из разобранного значения, а не из
            колонки: полезная нагрузка самодостаточна по построению, и
@@ -129,7 +134,7 @@ export async function createLead(input: CreateLeadInput): Promise<LeadDto> {
       }),
     );
   } catch (error) {
-    if (storedPhoto !== null) await deleteStoredImage(storedPhoto);
+    if (storedPhoto !== null) await deleteProtectedImage(storedPhoto);
     throw error;
   }
 }
