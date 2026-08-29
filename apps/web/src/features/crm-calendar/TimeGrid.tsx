@@ -42,6 +42,12 @@ export interface TimeGridProps {
    * записях стоят инициалы, а в подписи — имя целиком.
    */
   readonly team?: readonly SchedulePersonMark[] | undefined;
+  /**
+   * Найденная поиском запись — её подсвечивают, чтобы глаз нашёл её в сетке
+   * (issue #132). Признак идёт с адреса и передаётся вниз пропом: чип не
+   * должен знать про маршрутизацию.
+   */
+  readonly focusId?: string | undefined;
 }
 
 /**
@@ -126,7 +132,15 @@ function Head({ column, view }: { readonly column: ScheduleColumn; readonly view
  * адресе, а интерактивны только листья — сама запись, пустое место колонки и
  * полоса прокрутки.
  */
-export function TimeGrid({ columns, view, range, nowMin, label, team = [] }: TimeGridProps) {
+export function TimeGrid({
+  columns,
+  view,
+  range,
+  nowMin,
+  label,
+  team = [],
+  focusId,
+}: TimeGridProps) {
   /* Раскладка колонок задаётся числом дней, а не оформлением: тот же шаблон
      нужен шапке, полосе «весь день» и сетке часов — иначе час в одной колонке
      перестаёт быть тем же часом в другой. */
@@ -160,6 +174,7 @@ export function TimeGrid({ columns, view, range, nowMin, label, team = [] }: Tim
       <AllDayBar
         columns={columns.map((column) => ({ key: column.key, items: column.allDay }))}
         template={template}
+        focusId={focusId}
       />
 
       <GridScroll className={styles.scroll} workFromMin={range.workFromMin} label={texts.hours}>
@@ -194,6 +209,7 @@ export function TimeGrid({ columns, view, range, nowMin, label, team = [] }: Tim
                   <EventChip
                     item={placed.item}
                     key={placed.item.id}
+                    focused={placed.item.id === focusId}
                     place={{
                       topPercent: offsetPercent(placed.item.fromMin),
                       heightPercent:

@@ -52,6 +52,8 @@ type Search = {
   team?: string;
   /** Заявка, из которой заводят дело: приходит из раздела заявок. */
   lead?: string;
+  /** Найденная поиском запись: её подсвечивают в сетке (issue #132). */
+  focus?: string;
 };
 
 /**
@@ -82,6 +84,7 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
     view: viewParam,
     team: teamParam,
     lead: leadParam,
+    focus: focusParam,
   } = await searchParams;
 
   /* Занятость и наряды личные, поэтому страница обязана знать, кто её открыл:
@@ -200,7 +203,9 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
             </div>
           ) : null}
 
-          {view === 'month' ? <CalendarGrid columns={monthColumns(source, month)} /> : null}
+          {view === 'month' ? (
+            <CalendarGrid columns={monthColumns(source, month)} focusId={focusParam} />
+          ) : null}
 
           {view === 'week' ? (
             <TimeGrid
@@ -210,6 +215,7 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
               nowMin={minutesOfDay(now)}
               label={texts.weekLabel}
               team={legend}
+              focusId={focusParam}
             />
           ) : null}
 
@@ -221,6 +227,7 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
               nowMin={minutesOfDay(now)}
               label={texts.dayLabel}
               team={legend}
+              focusId={focusParam}
             />
           ) : null}
         </div>

@@ -23,6 +23,12 @@ export interface AllDayBarProps {
    * это неправда о том, когда человек обратился.
    */
   readonly template: string;
+  /**
+   * Найденная поиском запись — её подсвечивают, чтобы глаз нашёл её в сетке
+   * (issue #132). Признак идёт с адреса и передаётся вниз пропом: чип не
+   * должен знать про маршрутизацию.
+   */
+  readonly focusId?: string | undefined;
 }
 
 /** Сколько строк видно, пока полоса свёрнута. */
@@ -38,7 +44,7 @@ const COLLAPSED_ROWS = 2;
  * Полоса растёт и сворачивается: день с восемью заявками не имеет права
  * съесть сетку часов, ради которой календарь и открывают.
  */
-export function AllDayBar({ columns, template }: AllDayBarProps) {
+export function AllDayBar({ columns, template, focusId }: AllDayBarProps) {
   const [open, setOpen] = useState(false);
 
   const rows = columns.reduce((max, column) => Math.max(max, column.items.length), 0);
@@ -82,7 +88,7 @@ export function AllDayBar({ columns, template }: AllDayBarProps) {
         >
           {column.items.map((item) => (
             <li className={styles.item} key={item.id}>
-              <EventChip item={item} variant="bar" />
+              <EventChip item={item} variant="bar" focused={item.id === focusId} />
             </li>
           ))}
         </ul>

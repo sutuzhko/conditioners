@@ -1,0 +1,130 @@
+/* Поиск в шапке календаря — эталон CRM §3.5.1. */
+
+.box {
+  position: relative;
+  min-width: 0;
+}
+
+.glass {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: var(--faint);
+  pointer-events: none;
+}
+
+.field {
+  box-sizing: border-box;
+  width: 190px;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--card);
+  padding: 7px 10px 7px 32px;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: var(--fs-dense);
+}
+
+.field::placeholder {
+  color: var(--faint);
+}
+
+.field:focus-visible {
+  outline: none;
+  border-color: var(--accent-ink);
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* Выпадающий список. Поверх сетки, но под окнами: календарь под ним остаётся
+   виден, и понятно, куда переход приведёт. */
+.drop {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 280px;
+  max-width: min(420px, 90vw);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card);
+  box-shadow: var(--shadow-float);
+  overflow: hidden;
+}
+
+.status {
+  margin: 0;
+  padding: 10px 12px;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.list {
+  max-height: 320px;
+  margin: 0;
+  padding: 4px;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.hit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 10px;
+  box-sizing: border-box;
+  width: 100%;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: none;
+  padding: 8px 10px;
+  color: var(--ink);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Подсветка одна на наведение и на клавиатуру: иначе в списке видно две
+   «текущие» строки — та, что под курсором, и та, что выбрана стрелками. */
+.hitActive {
+  background: var(--bg-soft);
+}
+
+.hitKind {
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}
+
+.hitWhen {
+  color: var(--faint);
+  font-size: var(--fs-micro);
+  grid-row: 1;
+  white-space: nowrap;
+  grid-column: 2;
+}
+
+.hitClient {
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  grid-column: 1 / -1;
+}
+
+.hitAddress {
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  grid-column: 1 / -1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* На телефоне поле занимает всю ширину строки: в шапке ему соседей нет. */
+@media (width < 600px) {
+  .box {
+    flex: 1 1 100%;
+  }
+
+  .field {
+    width: 100%;
+  }
+}

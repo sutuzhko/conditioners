@@ -6,6 +6,7 @@ import { Icon } from '@/shared/ui';
 
 import { CalendarCreate } from './CalendarCreate';
 import { CalendarKeyboard } from './CalendarKeyboard';
+import { CalendarSearch } from './CalendarSearch';
 import { stepQuery, todayQuery, viewQuery, withTeam, type CalendarPlace } from './navigation';
 import { CRM_PATH, VIEW_TITLE, crmContent as texts, monthTitle, weekTitle } from './content';
 import { CALENDAR_VIEWS, type CalendarView } from './model';
@@ -124,6 +125,8 @@ export function CalendarNav({
           </Link>
         ))}
       </nav>
+
+      <CalendarSearch team={team} />
 
       <CalendarKeyboard {...place} />
 

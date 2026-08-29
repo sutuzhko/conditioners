@@ -14,6 +14,7 @@ import type {
   CrmEventKind,
   CrmEventStatus,
   CrmEventUpdate,
+  CrmSearchHit,
 } from '@/entities/crm/model';
 import { overtimeMinutes } from '@/entities/crm/lib/overtime';
 import type { OrderStatus, OrderType } from '@/entities/order/model';
@@ -345,39 +346,6 @@ export async function listOrdersRange(
 }
 
 /* ---------- Поиск по календарю (CRM §3.5.1, issue #126) ---------- */
-
-/**
- * Что нашлось. Дискриминированное объединение, а не общая строка `title`:
- * называть находку — дело интерфейса. Сервер отдаёт то, что знает сам —
- * номер наряда, вид дела, тему обращения, — а как это подписать по-русски,
- * решает слой, которому принадлежат тексты (docs/CLAUDE.md, «Контент»).
- */
-export type CrmSearchHit =
-  | {
-      readonly kind: 'event';
-      readonly id: string;
-      readonly eventKind: CrmEventKind;
-      readonly clientName: string;
-      readonly address: string | null;
-      readonly at: string;
-    }
-  | {
-      readonly kind: 'order';
-      readonly id: string;
-      readonly number: number;
-      readonly clientName: string;
-      readonly address: string | null;
-      readonly at: string;
-    }
-  | {
-      readonly kind: 'lead';
-      readonly id: string;
-      readonly topic: string;
-      readonly clientName: string;
-      readonly address: string | null;
-      /** Момент обращения: своей даты работ у заявки ещё нет. */
-      readonly at: string;
-    };
 
 /**
  * Сколько находок одного вида отдаём. Поиск в календаре — способ прыгнуть к

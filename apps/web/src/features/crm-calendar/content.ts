@@ -240,6 +240,21 @@ export const calendarKeysContent = {
   close: 'Понятно',
 } as const;
 
+/** Поиск по календарю — issue #130–#133. */
+export const calendarSearchContent = {
+  label: 'Поиск по календарю',
+  placeholder: 'Клиент, адрес, заметка',
+  /* Не «ничего не найдено»: человек ищет по обрывку памяти, и подсказать
+     стоит, чем ещё можно искать, а не просто развести руками. */
+  empty: 'Ничего не нашлось. Попробуйте фамилию, улицу или телефон',
+  failed: 'Не получилось поискать. Проверьте связь и повторите',
+  searching: 'Ищем…',
+  clear: 'Очистить поиск',
+  /** Что за запись нашлась. Номер наряда подставляется, вид дела — из KIND. */
+  order: (number: number): string => `Наряд № ${number}`,
+  lead: 'Обращение',
+} as const;
+
 export const VIEW_TITLE: Record<CalendarView, string> = {
   month: 'Месяц',
   week: 'Неделя',
