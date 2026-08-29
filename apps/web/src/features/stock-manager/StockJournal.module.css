@@ -99,7 +99,7 @@
 
 .active {
   border-color: var(--accent-line);
-  background: var(--accent-soft);
+  background: var(--accent-bg);
   color: var(--accent-text);
   font-weight: 600;
 }
