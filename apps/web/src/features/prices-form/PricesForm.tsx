@@ -5,7 +5,7 @@ import { useState, type FormEvent } from 'react';
 import { Button, Card, Input } from '@/shared/ui';
 
 import { pricesFormContent as texts } from './content';
-import { putPrices } from './lib';
+import { putPrices, rowOfField, rowsWithoutClass } from './lib';
 import {
   emptyPriceRow,
   type ExtrasValues,
@@ -45,6 +45,10 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
   const [values, setValues] = useState<PricesFormValues>(initial);
   const [status, setStatus] = useState<PricesStatus>('idle');
   const [message, setMessage] = useState('');
+  /* Строки, у которых не заполнен класс. Множество, а не одна: владелец правит
+     таблицу целиком, и назвать ему только первую ошибку — заставить нажимать
+     «Сохранить» столько раз, сколько строк он забыл. */
+  const [badRows, setBadRows] = useState<readonly number[]>([]);
 
   const sending = status === 'sending';
 
@@ -54,6 +58,8 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
       prices: prev.prices.map((row, at) => (at === index ? { ...row, ...patch } : row)),
     }));
     setStatus('idle');
+    // правка снимает отметку со своей строки, а не со всей таблицы
+    setBadRows((prev) => prev.filter((at) => at !== index));
   };
 
   const setExtra = (key: keyof ExtrasValues, value: string): void => {
@@ -65,8 +71,19 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
     event.preventDefault();
     if (sending) return;
 
+    /* 🔴 Проверка до отправки, а не после. Строка без класса раньше молча
+       отбрасывалась на пути к серверу, и человек видел «Сохранено». */
+    const incomplete = rowsWithoutClass(values);
+    if (incomplete.length > 0) {
+      setStatus('error');
+      setBadRows(incomplete);
+      setMessage(texts.rowsWithoutClass);
+      return;
+    }
+
     setStatus('sending');
     setMessage('');
+    setBadRows([]);
 
     const result = await save(values);
 
@@ -78,6 +95,11 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
 
     setStatus('error');
     setMessage(result.message ?? texts.serverError);
+
+    /* Отказ сервера тоже адресуется строке, если он про неё: контракт отдаёт
+       `field` вида `prices.3.cls`, и разбирать его в вёрстке незачем. */
+    const row = rowOfField(result.field);
+    setBadRows(row === null ? [] : [row]);
   };
 
   return (
@@ -112,6 +134,7 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
                   wrapperClassName={styles.cell}
                   value={row.cls}
                   disabled={sending}
+                  error={badRows.includes(index) ? texts.rowWithoutClass : undefined}
                   onChange={(event) => setRow(index, { cls: event.target.value })}
                 />
                 <Input
