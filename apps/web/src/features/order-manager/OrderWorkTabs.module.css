@@ -33,12 +33,12 @@
 }
 
 .tab:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-ink);
   outline-offset: -2px;
 }
 
 .current {
-  border-bottom-color: var(--accent);
+  border-bottom-color: var(--accent-ink);
   color: var(--ink);
 }
 
@@ -52,7 +52,7 @@
 /* Панель фокусируема, чтобы Tab с ленты вкладок попадал в содержимое; рамку
    вокруг всей панели при этом рисовать незачем — она только мешает читать. */
 .panel:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-ink);
   outline-offset: 4px;
 }
 
