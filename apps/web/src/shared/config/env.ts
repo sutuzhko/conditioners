@@ -35,12 +35,46 @@ const schema = z.object({
 /* 🔴 От схемы SITE_URL зависит флаг Secure у cookie сессии (server/auth.ts).
    В production http означал бы сессию, которую видно в открытом трафике, —
    поэтому конфигурация с ним не поднимается вовсе. */
+/** Заполнено ли поле: пустая строка в ENV означает «не задано», а не «задано пустым». */
+function filled(value: string | undefined): boolean {
+  return value !== undefined && value !== '';
+}
+
 const config = schema.superRefine((value, ctx) => {
   if (value.NODE_ENV === 'production' && !value.SITE_URL.startsWith('https://')) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       path: ['SITE_URL'],
       message: 'в production сайт обязан отдаваться по https',
+    });
+  }
+
+  /* 🔴 Режим обязан приходить со своими полями, иначе приложение поднимается и
+     молча ничего не отправляет. Заявка при этом доходит до базы (инвариант 2),
+     но владелец о ней не узнаёт — а это и есть потерянная заявка, только
+     обнаруженная через неделю. Чек-лист запуска предупреждает об этом отдельным
+     пунктом; предупреждение в документе слабее отказа старта. */
+  if (value.NOTIFY_DRIVER === 'live') {
+    // те же условия, по которым каналы считают себя готовыми к работе
+    const email = filled(value.SMTP_HOST) && filled(value.SMTP_FROM);
+    const telegram = value.TELEGRAM_TRANSPORT !== 'off' && filled(value.TELEGRAM_BOT_TOKEN);
+
+    if (!email && !telegram) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['NOTIFY_DRIVER'],
+        message:
+          'live без единого настроенного канала: нужен SMTP_HOST и SMTP_FROM ' +
+          'либо TELEGRAM_BOT_TOKEN с транспортом не off',
+      });
+    }
+  }
+
+  if (value.TELEGRAM_TRANSPORT === 'proxy' && !filled(value.TELEGRAM_PROXY_URL)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['TELEGRAM_PROXY_URL'],
+      message: 'транспорт proxy требует адреса прокси',
     });
   }
 });

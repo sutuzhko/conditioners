@@ -45,8 +45,9 @@ export async function readIntakeBody(request: Request, maxBytes: number): Promis
 
   if (contentType.includes('application/json')) {
     /* Через text(), а не json(): chunked-запрос приходит без Content-Length,
-       и проверка заголовка выше его не ловит — размер сверяется по факту,
-       до разбора и раздачи строк дальше (аудит, BUGS). */
+       и проверка заголовка выше его не ловит — размер сверяется по факту, до
+       разбора. Тело к этому моменту уже в памяти целиком; предел на неё ставит
+       Caddy, здесь же отсекается лишняя работа дальше (аудит, BUGS). */
     const raw = await request.text().catch(() => {
       throw UNREADABLE;
     });
@@ -72,7 +73,12 @@ export async function readIntakeBody(request: Request, maxBytes: number): Promis
 
   /* Считаются и файлы, и строки: гигантское «текстовое поле» в chunked-запросе
      без Content-Length иначе проходило досмотр и резалось только Zod-ом много
-     позже (аудит, BUGS). */
+     позже (аудит, BUGS).
+
+     🔴 Защитой памяти этот подсчёт не является и не может ею быть:
+     `request.formData()` выше уже прочитал тело целиком. Он отсекает лишнее до
+     разбора, до записи файла на диск и до похода в базу, а потолок самого тела
+     ставит Caddy (`request_body max_size`) — там ему и место. */
   let received = 0;
   for (const [key, value] of form.entries()) {
     if (typeof value === 'string') {

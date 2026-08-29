@@ -50,6 +50,16 @@ const MAX_SIDE_PX = 1200;
 const QUALITY = 82;
 
 /**
+ * 🔴 Потолок разрешения на входе. Умолчание sharp — 268 Мп, и 5 МБ хорошо
+ * сжатого файла при таком разрешении разворачиваются в гигабайты памяти уже
+ * на публичном маршруте: заявку с фотографией принимает кто угодно.
+ *
+ * 50 Мп — это 8660×5773, вдвое больше любой камеры телефона; настоящий снимок
+ * в этот предел укладывается с запасом, а «бомба» до него не доходит.
+ */
+const MAX_INPUT_PIXELS = 50_000_000;
+
+/**
  * Пережатие после чистки метаданных.
  *
  * 🔴 Порядок важен: sharp по умолчанию **не** переносит метаданные исходника
@@ -61,7 +71,7 @@ const QUALITY = 82;
  * дороже, чем положить на диск лишние мегабайты (инвариант 2).
  */
 async function shrink(cleaned: Buffer, kind: ImageKind): Promise<Buffer> {
-  const resized = sharp(cleaned).resize({
+  const resized = sharp(cleaned, { limitInputPixels: MAX_INPUT_PIXELS }).resize({
     width: MAX_SIDE_PX,
     height: MAX_SIDE_PX,
     fit: 'inside',
