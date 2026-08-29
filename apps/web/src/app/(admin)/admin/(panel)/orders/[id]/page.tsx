@@ -8,11 +8,13 @@ import {
   OrderInstallerView,
   orderDraftOf,
   orderManagerContent as texts,
+  type ConsumptionLoad,
 } from '@/features/order-manager';
 import { requirePage } from '@/server/guards';
 import { listInstallers } from '@/server/repo/admin-users';
 import { listAll } from '@/server/repo/clients';
-import { findById } from '@/server/repo/orders';
+import { findById, type Viewer } from '@/server/repo/orders';
+import { consumptionOf, directory } from '@/server/repo/stock';
 import { dayKeyOf } from '@/shared/lib/calendar';
 
 import { loadBlocks, loadWork } from '../blocks';
@@ -43,12 +45,38 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
  * Работа с нарядом разложена по трём вкладкам (CRM.md §3.3): сам наряд с
  * итогом работ, чеклист выезда, документы и фотографии.
  */
+/**
+ * 🔴 Начальные данные расхода читаются здесь, а не запрашиваются с клиента.
+ *
+ * Открытие наряда стоило до одиннадцати запросов: движения плюс справочник
+ * склада по страницам. Платил за это монтажник у машины — тот, у кого сеть
+ * хуже всего (issue #88).
+ *
+ * Сбой чтения не роняет страницу целиком: блок расхода умеет показывать свою
+ * ошибку, а наряд, чеклист и документы к складу отношения не имеют.
+ */
+async function loadConsumption(orderId: string, viewer: Viewer): Promise<ConsumptionLoad> {
+  try {
+    const [consumption, stock] = await Promise.all([
+      consumptionOf(orderId, viewer),
+      directory(viewer),
+    ]);
+
+    return { ok: true, moves: consumption.items, stock };
+  } catch {
+    return { ok: false, message: texts.consumptionLoadError };
+  }
+}
+
 export default async function AdminOrderPage({ params }: PageProps) {
   const session = await requirePage();
   const { id } = await params;
 
-  const order = await findById(id, { role: session.role, userId: session.userId });
+  const viewer = { role: session.role, userId: session.userId };
+  const order = await findById(id, viewer);
   if (order === null) notFound();
+
+  const consumption = await loadConsumption(order.id, viewer);
 
   if (session.role !== 'owner') {
     return (
@@ -64,7 +92,7 @@ export default async function AdminOrderPage({ params }: PageProps) {
 
         {/* Расход монтажнику открыт: он и списывает материал с объекта. Что
             видно в форме, решает сервер — ему придёт только своя машина. */}
-        <OrderConsumption orderId={order.id} checklist={order.checklist} />
+        <OrderConsumption orderId={order.id} initial={consumption} checklist={order.checklist} />
       </div>
     );
   }
@@ -117,7 +145,7 @@ export default async function AdminOrderPage({ params }: PageProps) {
           остаток меняется прямо здесь — после каждого списания он обязан быть
           новым, не перезагружая карточку целиком. Через границу уезжают только
           данные: функция сервер→клиент не переживает сериализацию. */}
-      <OrderConsumption orderId={order.id} checklist={order.checklist} />
+      <OrderConsumption orderId={order.id} initial={consumption} checklist={order.checklist} />
 
       <OrderHistory entries={order.history ?? []} />
     </div>

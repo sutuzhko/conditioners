@@ -28,6 +28,7 @@ import {
 } from '@/entities/stock/model';
 import type {
   OrderConsume,
+  StockDirectory,
   StockItemCard,
   StockMovementCard,
   StockUnit,
@@ -573,10 +574,9 @@ export const stockOverviewSchema = z.object({
 });
 
 /** Справочник в том виде, в каком его читает форма списания. */
-export type StockDirectory = {
-  readonly zones: readonly StockZoneCard[];
-  readonly items: readonly StockItemCard[];
-};
+/* Тип переехал в домен: тем же справочником теперь отвечает сервер, а два
+   описания одной формы данных разъехались бы на первой правке (issue #88). */
+export type { StockDirectory };
 
 /** Что показывает блок расхода: движения наряда и справочник для формы. */
 export type ConsumptionLoad =
