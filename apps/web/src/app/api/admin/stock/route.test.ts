@@ -448,6 +448,43 @@ describe('Расход наряда', () => {
     expect(stock.consume).not.toHaveBeenCalled();
   });
 
+  /**
+   * 🔴 Предел длины списка — предохранитель, а не косметика: на каждую строку
+   * приходится несколько запросов к базе, и список на тысячу позиций положил бы
+   * склад одним нажатием. Отказ обязан приходить от маршрута, до репозитория.
+   */
+  it('🔴 списание сверх предела в пятьдесят строк — 400 и ни одного похода в базу', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(installer);
+
+    const line = { itemId: 's1', qty: 1, fromZoneId: 'z2' };
+    const response = await CONSUME(
+      request('/api/admin/orders/o1/consumption', {
+        method: 'POST',
+        body: { lines: Array.from({ length: 51 }, () => line) },
+      }),
+      orderContext,
+    );
+
+    expect(response.status).toBe(400);
+    expect(stock.consume).not.toHaveBeenCalled();
+  });
+
+  it('ровно пятьдесят строк проходят: предел не отсекает разрешённое', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(installer);
+
+    const line = { itemId: 's1', qty: 1, fromZoneId: 'z2' };
+    const response = await CONSUME(
+      request('/api/admin/orders/o1/consumption', {
+        method: 'POST',
+        body: { lines: Array.from({ length: 50 }, () => line) },
+      }),
+      orderContext,
+    );
+
+    expect(response.status).toBe(201);
+    expect(stock.consume).toHaveBeenCalled();
+  });
+
   it('🔴 отмена ошибочного списания отдаёт возврат, а не пустой ответ', async () => {
     vi.mocked(getAdminSession).mockResolvedValue(installer);
 
