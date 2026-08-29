@@ -50,6 +50,13 @@ export function DiagnosticsPicker({ symptoms, defaultSymptom, action }: Diagnost
         {t.chipsLabel}
       </p>
 
+      {/* 🔴 Лента прокручивается по горизонтали (`.chips`, overflow-x: auto),
+          но собственного `tabIndex` не получает: внутри неё только кнопки, и
+          браузер сам подводит ленту к той, что взяла фокус, — прокрутка едет
+          за Tab. Остановка на самом контейнере добавила бы седьмой Tab перед
+          шестью чипами и ничего бы не дала. `tabIndex={0}` нужен другому
+          случаю: прокручиваемой области, внутри которой фокусироваться не на
+          чем, — там она иначе недостижима с клавиатуры вовсе. */}
       <div className={styles.chips} role="group" aria-labelledby={labelId}>
         {symptoms.map((symptom) => (
           <Chip
