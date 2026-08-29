@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -126,6 +126,50 @@ describe('Карточка заявки', () => {
     await user.selectOptions(screen.getByLabelText(texts.status), texts.statusTitle('in_progress'));
 
     expect(update).toHaveBeenCalledWith('l1', { status: 'in_progress' });
+  });
+
+  /**
+   * 🔴 Главная проверка задачи. Без отката на экране оставалось «В работе», а в
+   * базе — «Новая»: владелец закрывал сообщение об отказе, селектор показывал
+   * новое значение, и заявка оставалась необработанной. Заявка — это деньги.
+   */
+  it('🔴 сервер не принял статус — селектор возвращается к прежнему', async () => {
+    const user = userEvent.setup();
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={failingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
+
+    const select = screen.getByLabelText(texts.status);
+    await user.selectOptions(select, texts.statusTitle('in_progress'));
+
+    expect(await screen.findByRole('alert')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(select).toHaveValue('new');
+    });
+  });
+
+  it('сервер принял статус — новое значение остаётся', async () => {
+    const user = userEvent.setup();
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+      />,
+    );
+
+    const select = screen.getByLabelText(texts.status);
+    await user.selectOptions(select, texts.statusTitle('in_progress'));
+
+    await waitFor(() => {
+      expect(select).toHaveValue('in_progress');
+    });
   });
 
   it('заметка сохраняется отдельной кнопкой, а не на каждую букву', async () => {

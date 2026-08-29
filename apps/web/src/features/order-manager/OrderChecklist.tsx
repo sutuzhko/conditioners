@@ -41,22 +41,52 @@ export function OrderChecklist({ api, items, disabled = false, onChanged }: Orde
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
   const [rebuilding, setRebuilding] = useState(false);
+  /**
+   * 🔴 Пункты, по которым запрос ещё в пути. Ключ — номер пункта, а не общий
+   * флаг: монтажник отмечает список подряд, и запрещать вторую галочку, пока
+   * летит первая, значит мешать работе.
+   *
+   * Нужны они против гонки: два быстрых нажатия по одной галочке давали два
+   * `PATCH`, и если первый отвечал отказом позже второго, откат записывал
+   * значение от устаревшего ответа. Экран показывал не то, что в базе.
+   */
+  const [flying, setFlying] = useState<Record<string, boolean>>({});
 
   const shown = items.map((item) => ({ ...item, done: marks[item.id] ?? item.done }));
   const progress = checklistProgress(shown);
   const locked = disabled || busy || rebuilding;
 
   const toggle = async (item: OrderChecklistCard, done: boolean): Promise<void> => {
+    // список занят целиком (пересборка, добавление) — или этот пункт уже в пути
+    if (locked || flying[item.id] === true) return;
+
+    setFlying((current) => ({ ...current, [item.id]: true }));
     setMarks((current) => ({ ...current, [item.id]: done }));
     setMessage('');
 
     const result = await api.setItemDone(item.id, done);
+    // снимаем признак значением, а не удалением ключа: пунктов десяток, и
+    // читать «false» проще, чем разбирать деструктуризацию с отбрасыванием
+    setFlying((current) => ({ ...current, [item.id]: false }));
+
     if (result.ok) return;
 
     /* Сервер отказал — галочка возвращается: показывать собранным то, что
        сервер таким не считает, значит соврать монтажнику. */
     setMarks((current) => ({ ...current, [item.id]: !done }));
     setMessage(result.message);
+  };
+
+  /**
+   * Список перестроился на сервере — местные отметки отпускаются.
+   *
+   * 🔴 Без этого они переживали и добавление пункта, и удаление: список
+   * приходил с сервера свежим, а `marks` продолжали перекрывать его значения
+   * — по номерам пунктов, которых в новом списке могло уже не быть.
+   */
+  const refreshed = (): void => {
+    setMarks({});
+    onChanged?.();
   };
 
   const add = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -79,7 +109,7 @@ export function OrderChecklist({ api, items, disabled = false, onChanged }: Orde
 
     if (result.ok) {
       setText('');
-      onChanged?.();
+      refreshed();
       return;
     }
 
@@ -97,7 +127,7 @@ export function OrderChecklist({ api, items, disabled = false, onChanged }: Orde
     setBusy(false);
 
     if (result.ok) {
-      onChanged?.();
+      refreshed();
       return;
     }
     setMessage(result.message);
@@ -113,10 +143,8 @@ export function OrderChecklist({ api, items, disabled = false, onChanged }: Orde
     setRebuilding(false);
 
     if (result.ok) {
-      /* Отметки приедут с сервера — местную копию нужно отпустить, иначе она
-         перекроет то, что вернула пересборка. */
-      setMarks({});
-      onChanged?.();
+      // отметки приедут с сервера — местную копию отпускаем
+      refreshed();
       return;
     }
     setMessage(result.message);

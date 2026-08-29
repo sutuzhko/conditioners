@@ -81,7 +81,8 @@ export function LeadCardView({
   /** Карточка занята любым из действий: два разом ломают порядок статусов. */
   const locked = busy || starting;
 
-  const run = async (patch: Parameters<LeadUpdate>[1]): Promise<void> => {
+  /** Исход возвращается наружу: без него оптимистичную отметку нечем откатить. */
+  const run = async (patch: Parameters<LeadUpdate>[1]): Promise<boolean> => {
     setBusy(true);
     setMessage('');
     setSaved(false);
@@ -92,14 +93,30 @@ export function LeadCardView({
     if (result.ok) {
       setSaved(true);
       onChanged?.();
-      return;
+      return true;
     }
     setMessage(result.message ?? texts.serverError);
+    return false;
   };
 
+  /**
+   * 🔴 Статус ставится сразу, но возвращается назад, если сервер не принял.
+   *
+   * Без отката на экране оставалось «В работе», а в базе — «Новая»: сообщение
+   * об отказе владелец закрывал, селектор показывал новое значение, и заявка
+   * оставалась необработанной. Заявка — это деньги владельца (docs/CLAUDE.md,
+   * «Миссия проекта»), и потерять её молча дороже, чем показать задержку.
+   *
+   * Прежнее значение берётся из состояния, а не из `lead.status`: до
+   * обновления списка проп остаётся тем, каким пришёл, и откат вернул бы не
+   * туда, если статус меняли дважды подряд.
+   */
   const changeStatus = async (next: LeadStatus): Promise<void> => {
+    const previous = status;
     setStatus(next);
-    await run({ status: next });
+
+    const ok = await run({ status: next });
+    if (!ok) setStatus(previous);
   };
 
   /**

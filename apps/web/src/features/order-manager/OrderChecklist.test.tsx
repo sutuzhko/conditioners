@@ -108,6 +108,56 @@ describe('Чеклист выезда', () => {
     expect(screen.getByText(texts.checklistRebuildHint)).toBeInTheDocument();
   });
 
+  /**
+   * 🔴 Два быстрых нажатия по одной галочке давали два `PATCH`. Если первый
+   * отвечал отказом позже второго, откат записывал значение от устаревшего
+   * ответа: на экране одно, в базе другое. Монтажник тычет в список у машины,
+   * где сеть как раз и подводит.
+   */
+  it('🔴 второе нажатие по тому же пункту не уходит, пока первое в пути', async () => {
+    // заглушка вместо null: иначе сужение типа не даёт вызвать её ниже
+    let release: () => void = () => undefined;
+    const setItemDone = vi.fn(
+      async () =>
+        new Promise<{ ok: true }>((resolve) => {
+          release = () => {
+            resolve({ ok: true });
+          };
+        }),
+    );
+
+    render(<OrderChecklist api={{ ...acceptingWorkApi, setItemDone }} items={checklist} />);
+
+    const box = screen.getByLabelText('Перфоратор с бурами и удлинителем');
+    await userEvent.click(box);
+    await userEvent.click(box);
+
+    expect(setItemDone).toHaveBeenCalledTimes(1);
+
+    release();
+    await waitFor(() => expect(box).toBeChecked());
+  });
+
+  it('соседний пункт отмечается, пока первый в пути: список идут подряд', async () => {
+    const pending = new Set<() => void>();
+    const setItemDone = vi.fn(
+      async () =>
+        new Promise<{ ok: true }>((resolve) => {
+          pending.add(() => {
+            resolve({ ok: true });
+          });
+        }),
+    );
+
+    render(<OrderChecklist api={{ ...acceptingWorkApi, setItemDone }} items={checklist} />);
+
+    await userEvent.click(screen.getByLabelText('Перфоратор с бурами и удлинителем'));
+    await userEvent.click(screen.getByLabelText(checklist[0]?.text ?? ''));
+
+    expect(setItemDone).toHaveBeenCalledTimes(2);
+    for (const done of pending) done();
+  });
+
   it('отключённый чеклист не отправляет отметок', async () => {
     const api = { ...acceptingWorkApi, setItemDone: vi.fn(async () => ({ ok: true as const })) };
 
