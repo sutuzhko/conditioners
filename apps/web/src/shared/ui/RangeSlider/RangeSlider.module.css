@@ -39,6 +39,11 @@
 }
 
 .slider {
+  /* Тень бегунка вынесена в переменную, потому что кольцо фокуса ей и
+     переключается — см. правило :focus-visible ниже. В покое это фирменная
+     тень из макета. */
+  --thumb-shadow: var(--shadow-brand);
+
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -80,7 +85,7 @@
   border: 2px solid var(--card);
   border-radius: var(--r-pill);
   background: var(--brand);
-  box-shadow: var(--shadow-brand);
+  box-shadow: var(--thumb-shadow);
   appearance: none;
 }
 
@@ -90,7 +95,7 @@
   border: 2px solid var(--card);
   border-radius: var(--r-pill);
   background: var(--brand);
-  box-shadow: var(--shadow-brand);
+  box-shadow: var(--thumb-shadow);
 }
 
 /* Компактный бегунок — 18px вместо 24px. Высота контрола остаётся тап-зоной:
@@ -106,17 +111,22 @@
   height: 18px;
 }
 
-/* Общая обводка обводила бы всю дорожку — фокус принадлежит бегунку */
+/* Общая обводка обводила бы всю дорожку — фокус принадлежит бегунку.
+
+   🔴 Кольцо назначается переменной на самом input, а не правилом
+   `.slider:focus-visible::-webkit-slider-thumb`. Такое правило не срабатывает
+   никогда: Blink не пропускает :focus-visible внутрь UA-тени, где живёт
+   бегунок, хотя сам input :focus-visible сопоставляется. Вместе со снятой
+   обводкой это оставляло четыре ползунка вообще без признака фокуса.
+   Кастомные свойства в теневой псевдоэлемент наследуются — поэтому бегунок
+   читает --thumb-shadow безусловно, а переключается она здесь.
+
+   Форму кольцо берёт от бегунка (ADR-085): тень со спредом повторяет
+   его --r-pill и остаётся кругом, а не прямоугольником поверх дорожки. */
 .slider:focus-visible {
+  --thumb-shadow: var(--ring-focus-ring);
+
   outline: none;
-}
-
-.slider:focus-visible::-webkit-slider-thumb {
-  box-shadow: var(--ring-focus-ring);
-}
-
-.slider:focus-visible::-moz-range-thumb {
-  box-shadow: var(--ring-focus-ring);
 }
 
 .scale {
