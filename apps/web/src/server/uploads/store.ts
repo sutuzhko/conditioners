@@ -22,7 +22,21 @@ import { assertSupportedImage, stripMetadata, type ImageKind } from '@/server/up
  */
 export const MEDIA_URL_PREFIX = '/api/media';
 
-export type StoredFile = { url: string; filename: string; mime: string };
+/**
+ * Подкаталог для изображений, закрытых сессией. Имя такое же короткое, как
+ * `orders` у документов наряда: оба лежат внутри тома загрузок и оба
+ * недостижимы публичным маршрутом (docs/TECH_DECISIONS §9).
+ */
+const PROTECTED_SUBDIR = 'protected';
+
+function protectedDir(): string {
+  return join(env.UPLOADS_DIR, PROTECTED_SUBDIR);
+}
+
+/** Что кладётся в базу для закрытого изображения: имя файла, а не адрес. */
+export type StoredImage = { filename: string; mime: string };
+
+export type StoredFile = StoredImage & { url: string };
 
 /**
  * Длинная сторона сохраняемого изображения. Больше нигде на сайте не
@@ -70,7 +84,7 @@ function megabytes(bytes: number): string {
 }
 
 /**
- * Сохраняет изображение из формы.
+ * Приём файла: проверка, чистка, пережатие и запись под сгенерированным именем.
  *
  * Имя файла генерируется: оригинальное имя приходит от пользователя и
  * доверять ему нельзя — ни как имени на диске, ни как части URL.
@@ -79,7 +93,7 @@ function megabytes(bytes: number): string {
  * подставляется по умолчанию: форма обложки статьи ждёт `cover`, форма
  * отзыва — `photo` и `avatar`, и клиент подсвечивает поле по этому имени.
  */
-export async function saveImage(file: File, field: string): Promise<StoredFile> {
+async function store(file: File, field: string, dir: string): Promise<StoredImage> {
   if (file.size === 0) {
     throw new ApiException('validation_error', 'Файл пустой', field);
   }
@@ -96,10 +110,33 @@ export async function saveImage(file: File, field: string): Promise<StoredFile> 
   const cleaned = await shrink(stripMetadata(original, kind.format, field), kind);
 
   const filename = `${randomUUID()}.${kind.ext}`;
-  await mkdir(env.UPLOADS_DIR, { recursive: true });
-  await writeFile(join(env.UPLOADS_DIR, filename), cleaned);
+  await mkdir(dir, { recursive: true });
+  await writeFile(join(dir, filename), cleaned);
 
-  return { url: `${MEDIA_URL_PREFIX}/${filename}`, filename, mime: kind.mime };
+  return { filename, mime: kind.mime };
+}
+
+/**
+ * Сохраняет изображение, которое сайт показывает всем: фото модели, обложку
+ * статьи, снимок при отзыве. Возвращает публичный адрес отдачи.
+ */
+export async function saveImage(file: File, field: string): Promise<StoredFile> {
+  const stored = await store(file, field, env.UPLOADS_DIR);
+
+  return { url: `${MEDIA_URL_PREFIX}/${stored.filename}`, ...stored };
+}
+
+/**
+ * 🔴 Сохраняет изображение, которое видно только по сессии: интерьер квартиры
+ * клиента при заявке и снимки наряда «до/после».
+ *
+ * Файл кладётся в отдельный подкаталог, а наружу отдаётся только имя. Публичный
+ * `/api/media/{name}` собирает путь из `UPLOADS_DIR` и имени, в котором по
+ * `isSafeFilename` не может быть косой черты, — то есть до этого подкаталога он
+ * не дотягивается по построению, а не по недосмотру проверяющего (ADR-171).
+ */
+export async function saveProtectedImage(file: File, field: string): Promise<StoredImage> {
+  return await store(file, field, protectedDir());
 }
 
 /** Имя файла всегда сгенерировано нами — всё остальное к диску не подпускаем. */
@@ -128,11 +165,30 @@ export function resolveUploadPath(url: string): string | null {
 }
 
 /**
+ * Путь к закрытому изображению по имени из базы. Имя проверяется той же
+ * маской, что и у публичной отдачи: косой черты в нём быть не может, значит
+ * выйти этим путём за подкаталог нельзя.
+ */
+export function resolveProtectedPath(filename: string): string | null {
+  if (!isSafeFilename(filename)) return null;
+
+  return join(protectedDir(), filename);
+}
+
+/**
  * Удаляет файл вместе с записью о нём: иначе том постепенно наполняется
  * фотографиями удалённых карточек, а их никто уже не найдёт.
  */
 export async function deleteStoredImage(url: string): Promise<void> {
   const path = resolveUploadPath(url);
+  if (path === null) return;
+
+  await rm(path, { force: true });
+}
+
+/** То же для закрытых изображений: на входе имя файла, а не адрес. */
+export async function deleteProtectedImage(filename: string): Promise<void> {
+  const path = resolveProtectedPath(filename);
   if (path === null) return;
 
   await rm(path, { force: true });

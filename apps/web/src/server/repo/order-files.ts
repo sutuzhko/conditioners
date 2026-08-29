@@ -30,7 +30,12 @@ import { env } from '@/shared/config/env';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import { detectImage, stripMetadata } from '@/server/uploads/image';
-import { deleteStoredImage, saveImage } from '@/server/uploads/store';
+import {
+  deleteProtectedImage,
+  mimeFor,
+  resolveProtectedPath,
+  saveProtectedImage,
+} from '@/server/uploads/store';
 import {
   applyChecklist,
   DOC_KIND_TO_DB,
@@ -402,25 +407,29 @@ export async function addPhoto(
   });
 
   /* Общий приём изображений: имя генерируется, тип проверяется по сигнатуре,
-     метаданные вырезаются, снимок с телефона пережимается (ADR-091). */
-  const stored = await saveImage(file, 'photo');
+     метаданные вырезаются, снимок с телефона пережимается (ADR-091).
+
+     🔴 Снимок уходит в закрытое хранилище: это интерьер квартиры клиента, и
+     публичному `/api/media/{name}` он недоступен по построению (ADR-171). */
+  const stored = await saveProtectedImage(file, 'photo');
 
   const row = await db.orderPhoto
     .create({
       data: {
         orderId,
         stage: STAGE_TO_DB[stage],
-        url: stored.url,
+        // в колонке лежит имя файла, а не адрес: адрес собирает карточка
+        url: stored.filename,
         sort: (last?.sort ?? -1) + 1,
       },
       select: photoSelect,
     })
     .catch(async (error: unknown) => {
-      await deleteStoredImage(stored.url);
+      await deleteProtectedImage(stored.filename);
       throw error;
     });
 
-  return toPhotoCard(row);
+  return toPhotoCard(orderId, row);
 }
 
 export async function removePhoto(orderId: string, photoId: string, viewer: Viewer): Promise<void> {
@@ -435,5 +444,33 @@ export async function removePhoto(orderId: string, photoId: string, viewer: View
   assertStageAllowed(STAGE_FROM_DB[row.stage], viewer);
 
   await db.orderPhoto.delete({ where: { id: row.id } });
-  await deleteStoredImage(row.url);
+  await deleteProtectedImage(row.url);
+}
+
+export type PhotoFile = { readonly path: string; readonly mime: string };
+
+/**
+ * 🔴 Выдача снимка наряда: сессия и принадлежность наряду проверяются здесь.
+ *
+ * Проверка ровно та же, что у документа: `requireAccess` сужает наряд до
+ * доступного смотрящему, а снимок ищется внутри этого наряда — иначе чужой
+ * интерьер открывался бы по прямой ссылке (docs/CRM.md §9).
+ */
+export async function findPhotoFile(
+  orderId: string,
+  photoId: string,
+  viewer: Viewer,
+): Promise<PhotoFile> {
+  await requireAccess(orderId, viewer);
+
+  const row = await db.orderPhoto.findFirst({
+    where: { id: photoId, orderId },
+    select: { url: true },
+  });
+  if (row === null) throw new ApiException('not_found', 'Фото не найдено');
+
+  const path = resolveProtectedPath(row.url);
+  if (path === null) throw new ApiException('not_found', 'Фото не найдено');
+
+  return { path, mime: mimeFor(row.url) };
 }

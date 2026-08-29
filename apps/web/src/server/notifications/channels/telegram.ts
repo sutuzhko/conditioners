@@ -2,8 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { FormData as UndiciFormData, ProxyAgent, fetch as undiciFetch } from 'undici';
 import { z } from 'zod';
 import { env } from '@/shared/config/env';
-import { resolveUploadPath } from '@/server/uploads/store';
-import { attachedPhoto, notificationText } from '../format';
+import { attachedPhotoFile, notificationText } from '../format';
 import type { NotificationChannel, NotificationPayload } from '../types';
 
 /**
@@ -240,8 +239,7 @@ export function createTelegramChannel(
       const chosen =
         transport ?? (env.NOTIFY_DRIVER === 'log' ? logTelegramTransport : httpTelegramTransport);
 
-      const photo = attachedPhoto(payload);
-      const photoPath = photo === null ? null : resolveUploadPath(photo);
+      const photoPath = attachedPhotoFile(payload)?.path ?? null;
 
       await chosen.send({
         chatId: address ?? prefs.chatId ?? '(не задан)',

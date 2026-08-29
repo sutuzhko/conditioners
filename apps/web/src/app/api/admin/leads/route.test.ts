@@ -1,4 +1,5 @@
 // @vitest-environment node
+import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -20,6 +21,7 @@ vi.mock('@/server/repo/admin-users', () => ({}));
 vi.mock('@/server/repo/leads', () => ({
   listByStatus: vi.fn(),
   findById: vi.fn(),
+  findPhotoFile: vi.fn(),
   startWork: vi.fn(),
   update: vi.fn(),
 }));
@@ -31,6 +33,7 @@ import * as leads from '@/server/repo/leads';
 import { GET } from './route';
 import { PATCH } from './[id]/route';
 import { POST as startOrder } from './[id]/order/route';
+import { GET as getPhoto } from './[id]/photo/route';
 
 const session = {
   userId: 'u1',
@@ -220,5 +223,69 @@ describe('«Создать заказ» из обращения', () => {
 
     expect(response.status).toBe(403);
     expect(clients.fromLead).not.toHaveBeenCalled();
+  });
+});
+
+/**
+ * 🔴 ADR-171: к форме человек прикладывает фотографию своей комнаты. Это
+ * персональные данные ровно в той же мере, что и адрес в той же заявке, и до
+ * ADR-171 снимок отдавался публичным `/api/media/{name}` любому, кто знает имя
+ * файла.
+ */
+describe('🔴 выдача снимка при заявке', () => {
+  const PHOTO_PATH = '/tmp/tk-test-lead-photo/0f9c1f4e-6f3a-4c69-9c1a-8a5b6d7e8f90.jpg';
+  const JPEG_BYTES = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0xff, 0xd9]);
+
+  const context = { params: Promise.resolve({ id: 'l1' }) };
+
+  function get(): NextRequest {
+    return new NextRequest(new URL('/api/admin/leads/l1/photo', 'https://tulaklimat.ru'));
+  }
+
+  beforeEach(() => {
+    vi.mocked(leads.findPhotoFile).mockResolvedValue({ path: PHOTO_PATH, mime: 'image/jpeg' });
+  });
+
+  it('без сессии снимок не отдаётся', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(null);
+
+    const response = await getPhoto(get(), context);
+
+    expect(response.status).toBe(401);
+    expect(leads.findPhotoFile).not.toHaveBeenCalled();
+  });
+
+  it('🔴 монтажнику обращения не адресованы — снимок тоже', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue({ ...session, role: 'installer' });
+
+    const response = await getPhoto(get(), context);
+
+    expect(response.status).toBe(403);
+    expect(leads.findPhotoFile).not.toHaveBeenCalled();
+  });
+
+  it('владелец получает снимок, и снимок не оседает в кеше', async () => {
+    await mkdir('/tmp/tk-test-lead-photo', { recursive: true });
+    await writeFile(PHOTO_PATH, JPEG_BYTES);
+
+    const response = await getPhoto(get(), context);
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('Content-Type')).toBe('image/jpeg');
+    // между панелью и браузером стоит Caddy: снимок в общем кеше — та же утечка
+    expect(response.headers.get('Cache-Control')).toBe('private, no-store');
+
+    const body = Buffer.from(await response.arrayBuffer());
+    expect(body.equals(JPEG_BYTES)).toBe(true);
+
+    await rm('/tmp/tk-test-lead-photo', { recursive: true, force: true });
+  });
+
+  it('файла нет на диске — 404, а не пустой ответ с кодом 200', async () => {
+    await rm('/tmp/tk-test-lead-photo', { recursive: true, force: true });
+
+    const response = await getPhoto(get(), context);
+
+    expect(response.status).toBe(404);
   });
 });

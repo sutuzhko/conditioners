@@ -23,7 +23,7 @@
  * числе на пустой базе после `prisma migrate reset`.
  */
 import { randomUUID } from 'node:crypto';
-import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, rename, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { hash as hashPassword } from '@node-rs/argon2';
@@ -127,6 +127,9 @@ const MEDIA_PREFIX = '/api/media';
 /* Приложения к наряду лежат отдельной папкой и наружу отдаются только закрытым
    маршрутом — там же, где их держит админка (`server/repo/order-files`). */
 const DOCS_SUBDIR = 'orders';
+/* Снимки клиента — интерьер его квартиры — лежат в своей папке и тоже наружу
+   не выходят: панель забирает их по сессии (ADR-171). */
+const PROTECTED_SUBDIR = 'protected';
 
 async function makeImage(params: {
   readonly title: string;
@@ -165,6 +168,29 @@ async function makeImage(params: {
   await writeFile(join(UPLOADS_DIR, filename), body);
 
   return `${MEDIA_PREFIX}/${filename}`;
+}
+
+/**
+ * Снимок, закрытый сессией: фото при заявке и снимки наряда «до/после». Лежит в
+ * своём подкаталоге, и в базе от него остаётся имя файла, а не адрес — публичной
+ * отдачи у него нет вовсе (ADR-171).
+ */
+async function makeProtectedImage(params: {
+  readonly title: string;
+  readonly subtitle: string;
+  readonly from: string;
+  readonly to: string;
+  readonly width?: number;
+  readonly height?: number;
+}): Promise<string> {
+  const url = await makeImage(params);
+  const filename = url.slice(MEDIA_PREFIX.length + 1);
+
+  const dir = join(UPLOADS_DIR, PROTECTED_SUBDIR);
+  await mkdir(dir, { recursive: true });
+  await rename(join(UPLOADS_DIR, filename), join(dir, filename));
+
+  return filename;
 }
 
 /**
@@ -2725,6 +2751,28 @@ async function wipe(): Promise<void> {
  * так же уборка работает и для того, что залили руками через админку, а потом
  * удалили вместе с карточкой.
  */
+/**
+ * Уборка папки, где в базе хранится имя файла, а не адрес: документы наряда и
+ * закрытые снимки. Возвращает, сколько убрано.
+ */
+async function sweepByName(
+  dir: string,
+  referenced: readonly string[],
+  generated: RegExp,
+): Promise<number> {
+  const keep = new Set(referenced);
+  const names = await readdir(dir).catch(() => [] as string[]);
+
+  let removed = 0;
+  for (const name of names) {
+    if (!generated.test(name) || keep.has(name)) continue;
+    await rm(join(dir, name), { force: true });
+    removed += 1;
+  }
+
+  return removed;
+}
+
 async function sweepOrphans(): Promise<void> {
   const referenced = new Set<string>();
   const take = (url: string | null): void => {
@@ -2739,9 +2787,14 @@ async function sweepOrphans(): Promise<void> {
     take(row.photo);
     take(row.avatar);
   }
+  for (const row of await prisma.clientUnit.findMany({ select: { photo: true } })) take(row.photo);
+  /* Снимки клиента с ADR-171 лежат в своей папке и значатся именем файла, но на
+     базе, не прошедшей `move-protected-media`, у них ещё старый адрес и файл в
+     общем каталоге. `take` берёт только значения с публичным префиксом, поэтому
+     эти два прохода на переехавшей базе ничего не добавляют, а на
+     непереехавшей — спасают снимок от уборки как сироты. */
   for (const row of await prisma.lead.findMany({ select: { photo: true } })) take(row.photo);
   for (const row of await prisma.orderPhoto.findMany({ select: { url: true } })) take(row.url);
-  for (const row of await prisma.clientUnit.findMany({ select: { photo: true } })) take(row.photo);
 
   const names = await readdir(UPLOADS_DIR).catch(() => [] as string[]);
   // трогаем только файлы с именем, которое выдаёт сервер: чужое в этом
@@ -2755,20 +2808,22 @@ async function sweepOrphans(): Promise<void> {
     removed += 1;
   }
 
-  /* Приложения к нарядам лежат отдельной папкой, и в базе у них имя файла, а
-     не адрес: без своего прохода каждый прогон оставлял бы там прежний
-     комплект договоров. */
-  const docsDir = join(UPLOADS_DIR, DOCS_SUBDIR);
-  const docNames = await readdir(docsDir).catch(() => [] as string[]);
-  const docsReferenced = new Set(
+  /* Приложения к нарядам и закрытые снимки лежат отдельными папками, и в базе
+     у них имя файла, а не адрес: без своего прохода каждый прогон оставлял бы
+     там прежний комплект. */
+  removed += await sweepByName(
+    join(UPLOADS_DIR, DOCS_SUBDIR),
     (await prisma.orderDocument.findMany({ select: { url: true } })).map((row) => row.url),
+    generated,
   );
 
-  for (const name of docNames) {
-    if (!generated.test(name) || docsReferenced.has(name)) continue;
-    await rm(join(docsDir, name), { force: true });
-    removed += 1;
-  }
+  const protectedNames = [
+    ...(await prisma.orderPhoto.findMany({ select: { url: true } })).map((row) => row.url),
+    ...(await prisma.lead.findMany({ where: { photo: { not: null } }, select: { photo: true } }))
+      .map((row) => row.photo)
+      .filter((name): name is string => name !== null),
+  ];
+  removed += await sweepByName(join(UPLOADS_DIR, PROTECTED_SUBDIR), protectedNames, generated);
 
   if (removed > 0) console.error(`  файлов без карточек убрано: ${removed}`);
 }
@@ -2943,7 +2998,7 @@ async function main(): Promise<void> {
   for (const lead of leads) {
     const photo =
       lead.photo === true
-        ? await makeImage({
+        ? await makeProtectedImage({
             title: 'фото к заявке',
             subtitle: lead.address ?? lead.name,
             from: '#334155',
@@ -3123,7 +3178,7 @@ async function main(): Promise<void> {
       data: {
         orderId,
         stage: photo.stage,
-        url: await makeImage({
+        url: await makeProtectedImage({
           title: photo.title,
           subtitle: photo.stage === 'BEFORE' ? 'до выезда' : 'после работ',
           from: photo.stage === 'BEFORE' ? '#475569' : '#0f766e',

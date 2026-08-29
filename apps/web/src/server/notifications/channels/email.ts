@@ -1,8 +1,7 @@
 import { existsSync } from 'node:fs';
 import { createTransport } from 'nodemailer';
 import { env } from '@/shared/config/env';
-import { resolveUploadPath } from '@/server/uploads/store';
-import { adminLink, attachedPhoto, notificationSubject, notificationText } from '../format';
+import { adminLink, attachedPhotoFile, notificationSubject, notificationText } from '../format';
 import type { NotificationChannel, NotificationPayload } from '../types';
 
 /**
@@ -118,12 +117,11 @@ export function isEmailConfigured(to: string | undefined): boolean {
 }
 
 function attachments(payload: NotificationPayload): readonly MailAttachment[] {
-  const photo = attachedPhoto(payload);
-  if (photo === null) return [];
-  const path = resolveUploadPath(photo);
+  const photo = attachedPhotoFile(payload);
   // файл могли удалить или volume не смонтирован — письмо важнее вложения
-  if (path === null || !existsSync(path)) return [];
-  return [{ filename: photo.slice(photo.lastIndexOf('/') + 1), path }];
+  if (photo === null || !existsSync(photo.path)) return [];
+
+  return [{ filename: photo.filename, path: photo.path }];
 }
 
 export type EmailChannelPrefs = {
