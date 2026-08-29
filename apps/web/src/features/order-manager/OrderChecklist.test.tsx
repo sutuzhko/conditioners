@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -151,11 +151,23 @@ describe('Чеклист выезда', () => {
 
     render(<OrderChecklist api={{ ...acceptingWorkApi, setItemDone }} items={checklist} />);
 
-    await userEvent.click(screen.getByLabelText('Перфоратор с бурами и удлинителем'));
-    await userEvent.click(screen.getByLabelText(checklist[0]?.text ?? ''));
+    const tool = screen.getByLabelText('Перфоратор с бурами и удлинителем');
+    const step = screen.getByLabelText(checklist[0]?.text ?? '');
+
+    await userEvent.click(tool);
+    await userEvent.click(step);
 
     expect(setItemDone).toHaveBeenCalledTimes(2);
-    for (const done of pending) done();
+
+    /* 🔴 Ответы разрешаются внутри `act`, а не «где-то потом». Оба вызова
+       ставят состояние, и без обёртки оно приземлялось уже после того, как тест
+       вернулся: RTL успевал размонтировать дерево, и React печатал «update was
+       not wrapped in act». Под нагрузкой — постоянно, на свободной машине почти
+       никогда, то есть ровно тот мигающий вид, который дороже всего искать
+       (issue #237). */
+    await act(async () => {
+      for (const done of pending) done();
+    });
   });
 
   it('отключённый чеклист не отправляет отметок', async () => {

@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { formatPhone } from '@/shared/lib/format';
@@ -18,13 +18,12 @@ const setup = (props: Partial<Parameters<typeof Header>[0]> = {}) =>
     <Header company={companyFixture} contacts={contactsFixture} nav={navFixture} {...props} />,
   );
 
+/* 🔴 Тема готовится до отрисовки и не убирается после: уборка снимала атрибут
+   раньше, чем размонтировался шапочный переключатель, и его наблюдатель ставил
+   состояние вне `act` — предупреждение на каждый тест файла (issue #237). */
 beforeEach(() => {
   document.documentElement.setAttribute('data-theme', 'light');
   localStorage.clear();
-});
-
-afterEach(() => {
-  document.documentElement.removeAttribute('data-theme');
 });
 
 describe('Header', () => {
