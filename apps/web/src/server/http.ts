@@ -15,6 +15,7 @@ export type ApiErrorCode =
   | 'unauthorized'
   | 'forbidden'
   | 'not_found'
+  | 'conflict'
   | 'payload_too_large'
   | 'rate_limited'
   | 'internal_error';
@@ -24,6 +25,9 @@ const STATUS: Record<ApiErrorCode, number> = {
   unauthorized: 401,
   forbidden: 403,
   not_found: 404,
+  /* 409 — «за это время карточку изменил кто-то другой». Отличается от 400:
+     тело запроса верное, изменилось состояние на сервере. */
+  conflict: 409,
   payload_too_large: 413,
   rate_limited: 429,
   internal_error: 500,

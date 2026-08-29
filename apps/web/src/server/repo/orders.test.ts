@@ -181,3 +181,113 @@ describe('наряда нет', () => {
     await expect(update('нет', { address: 'Тула' }, 'u1')).rejects.toThrow(/не найден/i);
   });
 });
+
+/**
+ * 🔴 Двое в панели. Владелец открыл наряд в 14:00, коллега назначил монтажника
+ * в 14:02, владелец сохранил комментарий в 14:05 — и назначение отменилось,
+ * потому что форма шлёт все поля разом в том виде, в каком их загрузили
+ * (BUGS §1864). Никто об этом не узнавал: `notifyOrderUpdated` честно
+ * рассылал уведомление о результате затирания.
+ */
+describe('🔴 версия карточки: сохранение не затирает чужую правку', () => {
+  /* Строка в том виде, в каком её читает `toCard`: тонкой заглушкой не
+     обойтись — карточка собирается из неё целиком. */
+  const CARD = {
+    id: 'o1',
+    number: 1059,
+    type: 'INSTALL',
+    status: 'NEW',
+    client: { id: 'c1', name: 'Ирина', phone: '+79101552468' },
+    installer: null,
+    at: new Date('2026-08-28T08:00:00.000Z'),
+    durationMin: 180,
+    overtimeMin: 0,
+    address: 'Тула, Первомайская, 12',
+    intercom: null,
+    phone2: null,
+    floor: null,
+    heightWorks: false,
+    payment: 'COMPANY',
+    price: 38_500,
+    installerFee: 9000,
+    deductionSum: 0,
+    deductionReason: null,
+    comment: null,
+    ownerNote: null,
+    leadId: null,
+    extraWork: null,
+    report: null,
+    resultAt: null,
+    units: [],
+    createdAt: new Date('2026-08-26T14:00:00.000Z'),
+    updatedAt: new Date('2026-08-28T11:00:00.000Z'),
+  };
+  const OPENED_AT = '2026-08-28T11:00:00.000Z';
+
+  /** Транзакция выполняется по-настоящему: проверяется именно запись. */
+  function runTransaction(tx: Record<string, unknown>): void {
+    dbMock.$transaction.mockImplementation(async (run: (client: unknown) => Promise<unknown>) =>
+      run(tx),
+    );
+  }
+
+  function txWith(written: number): Record<string, unknown> {
+    return {
+      orderUnit: { deleteMany: vi.fn(), createMany: vi.fn() },
+      orderHistory: { createMany: vi.fn() },
+      order: {
+        updateMany: vi.fn().mockResolvedValue({ count: written }),
+        update: vi.fn().mockResolvedValue(CARD),
+        findUniqueOrThrow: vi.fn().mockResolvedValue(CARD),
+      },
+    };
+  }
+
+  it('версия совпала — правка записывается', async () => {
+    const tx = txWith(1);
+    runTransaction(tx);
+
+    await update('o1', { comment: 'Позвонить за час', updatedAt: OPENED_AT }, 'u1');
+
+    const order = tx.order as { updateMany: ReturnType<typeof vi.fn> };
+    expect(order.updateMany).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { id: 'o1', updatedAt: new Date(OPENED_AT) } }),
+    );
+  });
+
+  it('🔴 версия разошлась — отказ, а не запись поверх чужой правки', async () => {
+    const tx = txWith(0);
+    runTransaction(tx);
+
+    await expect(
+      update('o1', { comment: 'Позвонить за час', updatedAt: OPENED_AT }, 'u1'),
+    ).rejects.toMatchObject({ code: 'conflict' });
+  });
+
+  it('отказ объясняет, что делать: обновить и повторить', async () => {
+    runTransaction(txWith(0));
+
+    await expect(
+      update('o1', { comment: 'Позвонить за час', updatedAt: OPENED_AT }, 'u1'),
+    ).rejects.toThrow(/обновите страницу/i);
+  });
+
+  /**
+   * Версия необязательна: точечные действия вроде кнопки смены статуса шлют
+   * одно поле и ничего не затирают по построению. Требовать её от них значило
+   * бы сломать их ради защиты, которая им не нужна.
+   */
+  it('без версии пишется как раньше — обычным update', async () => {
+    const tx = txWith(1);
+    runTransaction(tx);
+
+    await update('o1', { comment: 'Позвонить за час' }, 'u1');
+
+    const order = tx.order as {
+      update: ReturnType<typeof vi.fn>;
+      updateMany: ReturnType<typeof vi.fn>;
+    };
+    expect(order.update).toHaveBeenCalled();
+    expect(order.updateMany).not.toHaveBeenCalled();
+  });
+});

@@ -136,6 +136,13 @@ export function emptyUnitDraft(): OrderUnitDraft {
 
 /** Поля наряда в форме — строки и флаги, как их вводит человек. */
 export type OrderDraft = {
+  /**
+   * 🔴 Версия карточки, с которой её открыли, — не для показа, а для сохранения.
+   * Уходит обратно на сервер, и тот отказывает, если за это время карточку
+   * изменил кто-то другой (BUGS §1864). Пустая строка — у нового наряда,
+   * версии у него ещё нет.
+   */
+  readonly updatedAt: string;
   readonly type: OrderType;
   /**
    * Статус правится только у заведённого наряда: у нового его назначает
@@ -189,6 +196,7 @@ export function emptyOrderDraft(day: DayKey = todayKey()): OrderDraft {
     deductionReason: '',
     comment: '',
     ownerNote: '',
+    updatedAt: '',
     leadId: null,
     units: [],
   };
@@ -232,6 +240,7 @@ export function orderDraftOf(order: OrderCard, timeZone?: string): OrderDraft {
     deductionReason: text(order.deductionReason),
     comment: text(order.comment),
     ownerNote: text(order.ownerNote),
+    updatedAt: order.updatedAt,
     leadId: order.leadId,
     units: order.units.map((unit) => ({
       key: unit.id,

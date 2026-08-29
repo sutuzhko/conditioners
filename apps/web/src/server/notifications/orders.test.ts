@@ -50,6 +50,7 @@ const ORDER: OrderCard = {
     },
   ],
   createdAt: '2026-08-26T14:00:00.000Z',
+  updatedAt: '2026-08-28T12:00:00.000Z',
 };
 
 function payloadOf(call: number): Record<string, unknown> {

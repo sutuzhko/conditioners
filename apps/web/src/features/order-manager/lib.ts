@@ -67,6 +67,11 @@ export const orderApi: OrderApi = {
     return send(
       `${API_PATH}/${id}`,
       jsonInit('PATCH', {
+        /* 🔴 Версия карточки, с которой её открыли. Сервер сравнит её с тем,
+           что в базе, и откажет, если за это время карточку изменил кто-то
+           другой (BUGS §1864). Без этого поля форма шлёт все поля разом в том
+           виде, в каком их загрузили, и стирает чужую правку молча. */
+        ...(draft.updatedAt === '' ? {} : { updatedAt: draft.updatedAt }),
         ...orderPayload(draft),
         ...(conflicts ? {} : { status: draft.status }),
       }),
