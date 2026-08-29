@@ -97,3 +97,12 @@ export type {
   DayBlockCard,
   DayBlockDraft,
 } from './model';
+
+export { CalendarKeyboard } from './CalendarKeyboard';
+export type { CalendarKeyboardProps } from './CalendarKeyboard';
+
+export { CalendarHelp } from './CalendarHelp';
+export type { CalendarHelpProps } from './CalendarHelp';
+
+export { CalendarKeys } from './CalendarKeys';
+export type { CalendarKeysProps } from './CalendarKeys';

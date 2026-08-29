@@ -1,5 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+/* В шапке живёт клавиатура календаря, а она берёт роутер. Вне приложения его
+   нет, и без подмены падает вся проверка шапки, а не клавиатуры. */
+vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn() }) }));
 
 import { CalendarNav } from './CalendarNav';
 import { crmContent as texts } from './content';
