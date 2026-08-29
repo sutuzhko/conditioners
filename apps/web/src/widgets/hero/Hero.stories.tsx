@@ -3,13 +3,13 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Hero } from './Hero';
 import { HeroPicker } from './HeroPicker';
 import {
-  discountedModels,
-  heroModels,
+  discountedPickerModels,
+  heroPickerModels,
   heroStats,
   heroStatsFour,
   longNote,
   saleNow,
-  singleModel,
+  singlePickerModel,
 } from './fixtures';
 
 /**
@@ -21,7 +21,7 @@ const meta = {
   component: Hero,
   parameters: { layout: 'fullscreen' },
   args: {
-    products: heroModels,
+    products: heroPickerModels,
     stats: heroStats,
     note: 'Работаем по всей Туле и области',
   },
@@ -34,7 +34,7 @@ export const Basic: Story = { name: 'Несколько моделей' };
 
 export const Single: Story = {
   name: 'Одна модель',
-  args: { products: singleModel },
+  args: { products: singlePickerModel },
 };
 
 export const Empty: Story = {
@@ -44,7 +44,7 @@ export const Empty: Story = {
 
 export const Discounted: Story = {
   name: 'Модель со скидкой',
-  args: { products: discountedModels, now: saleNow },
+  args: { products: discountedPickerModels, now: saleNow },
 };
 
 /**
@@ -57,7 +57,7 @@ export const PriceReserve: Story = {
   name: 'Подбор: со скидкой и без — рядом',
   render: (args) => (
     <div style={{ display: 'grid', gap: 20, gridTemplateColumns: '1fr 1fr', padding: 20 }}>
-      <HeroPicker products={discountedModels} leadHref="#lead" now={saleNow} />
+      <HeroPicker products={discountedPickerModels} leadHref="#lead" now={saleNow} />
       <HeroPicker products={args.products} leadHref="#lead" now={saleNow} />
     </div>
   ),

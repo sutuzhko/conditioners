@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { Product } from '@/entities/product/model';
+
 import { WeatherChip } from '@/features/weather-chip';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { Badge, ButtonLink, StatList } from '@/shared/ui';
@@ -7,7 +7,7 @@ import { Badge, ButtonLink, StatList } from '@/shared/ui';
 import { heroContent as t } from './content';
 import { HeroParticles } from './HeroParticles';
 import { HeroPicker } from './HeroPicker';
-import { HERO_STATS_MAX, type HeroStat, type HeroWeather } from './model';
+import { HERO_STATS_MAX, type HeroStat, type HeroWeather, type PickerProduct } from './model';
 import styles from './Hero.module.css';
 
 export type HeroProps = {
@@ -16,7 +16,7 @@ export type HeroProps = {
    * приносит страница (docs/ORCHESTRATION.md). Пустой список — рабочее
    * состояние: каталог ещё не заполнен.
    */
-  readonly products: readonly Product[];
+  readonly products: readonly PickerProduct[];
   /** Цифры полосы преимуществ. По умолчанию полосы нет: выдумывать их нельзя. */
   readonly stats?: readonly HeroStat[] | undefined;
   /**
