@@ -101,20 +101,21 @@ describe('Первый экран', () => {
 
   /**
    * 🔴 ADR-126. Ползунок площади меняет модель, а с ней — состав блока цены.
-   * Строка срока действия стоит в разметке и без скидки: там она пустая и
-   * держит свою высоту, иначе кнопка «Получить смету» уезжает из-под курсора
-   * ровно тогда, когда в неё целятся. Высоту видно только браузером — здесь
-   * проверяется то, чем она держится: элемент есть в обоих состояниях.
+   * Строка скидки — плашка процента и срок — стоит в разметке и без скидки:
+   * там она пустая и держит свою высоту, иначе кнопка «Смета на эту модель»
+   * уезжает из-под курсора ровно тогда, когда в неё целятся. Высоту видно
+   * только браузером — здесь проверяется то, чем она держится: элемент есть в
+   * обоих состояниях.
    */
   it('🔴 место под скидку занято и тогда, когда скидки нет', () => {
-    /* Строка срока — соседка кнопки сверху: резерв стоит именно там, где
+    /* Строка скидки — соседка кнопки сверху: резерв стоит именно там, где
        иначе схлопывался бы блок цены. */
     const saleLine = (): Element | null =>
-      screen.getByRole('link', { name: /Получить смету/ }).previousElementSibling;
+      screen.getByRole('link', { name: /Смета на эту модель/ }).previousElementSibling;
 
     const { unmount } = render(<Hero products={discountedPickerModels} now={saleNow} />);
     expect(saleLine()?.tagName).toBe('P');
-    expect(saleLine()?.textContent).toMatch(/^Цена действует до/);
+    expect(saleLine()?.textContent).toContain('Цена действует до');
     unmount();
 
     render(<Hero products={heroPickerModels} />);
@@ -130,12 +131,18 @@ describe('Первый экран', () => {
     expect(screen.getByRole('link', { name: 'Подобрать по телефону' })).toBeInTheDocument();
   });
 
-  it('одна модель в каталоге подбирается при любой площади', () => {
+  /**
+   * 🔴 Единственная модель каталога подбирается, пока закрывает площадь. Выше
+   * `pickByArea` честно отдаёт её же — самую мощную из имеющихся, — но
+   * показывать её с ценой было бы обещанием, которого не подтвердят по
+   * телефону: панель переходит в состояние «нужен отдельный расчёт» (#256).
+   */
+  it('одна модель подбирается, пока закрывает площадь', () => {
     render(<Hero products={singlePickerModel} />);
     expect(recommendation()).toHaveTextContent('Сплит-система 09');
 
     fireEvent.change(screen.getByRole('slider'), { target: { value: '60' } });
-    expect(recommendation()).toHaveTextContent('Сплит-система 09');
+    expect(recommendation()).toHaveTextContent(pickerContent.noFitTitle(60));
   });
 
   it('модель без фото получает заглушку с классом мощности, а не битую картинку', () => {
@@ -145,16 +152,18 @@ describe('Первый экран', () => {
   });
 
   it('фото модели выводится с осмысленным alt', () => {
-    const [first] = heroPickerModels;
-    if (first === undefined) throw new Error('нужна хотя бы одна модель');
+    /* Модель берётся та, что подбирается по умолчанию: у неподходящей по
+       площади панель показывает не рекомендацию, а приглашение к расчёту. */
+    const [, second] = heroPickerModels;
+    if (second === undefined) throw new Error('нужна подбираемая модель');
     /* Подпись у фотографии не задана — её обязан подставить блок: пустой alt
        у картинки товара это дыра и в доступности, и в выдаче по картинкам. */
-    const withPhoto = { ...first, photo: { url: '/api/media/split-07.jpg', alt: null } };
+    const withPhoto = { ...second, photo: { url: '/api/media/split-09.jpg', alt: null } };
 
     render(<Hero products={[withPhoto]} />);
 
     expect(
-      screen.getByRole('img', { name: 'Сплит-система 07 — купить в Туле с установкой' }),
+      screen.getByRole('img', { name: 'Сплит-система 09 — купить в Туле с установкой' }),
     ).toBeInTheDocument();
   });
 
@@ -272,7 +281,7 @@ describe('Первый экран — подбор уезжает с заявк�
 
     fireEvent.change(screen.getByRole('slider'), { target: { value: '40' } });
     await user.click(screen.getByRole('button', { name: 'Офис' }));
-    await user.click(screen.getByRole('link', { name: /Получить смету/ }));
+    await user.click(screen.getByRole('link', { name: /Смета на эту модель/ }));
 
     const pick = readLeadContext()?.pick;
     expect(pick?.area).toBe(40);
@@ -284,7 +293,7 @@ describe('Первый экран — подбор уезжает с заявк�
     const user = userEvent.setup();
     render(<Hero products={discountedPickerModels} now={saleNow} />);
 
-    await user.click(screen.getByRole('link', { name: /Получить смету/ }));
+    await user.click(screen.getByRole('link', { name: /Смета на эту модель/ }));
 
     const model = readLeadContext()?.pick?.model;
     expect(model?.price).toBeDefined();
