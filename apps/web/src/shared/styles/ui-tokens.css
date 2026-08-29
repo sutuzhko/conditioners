@@ -186,7 +186,7 @@
   }
 }
 
-@media (width < 620px) {
+@media (width < 600px) {
   :root {
     --admin-header-h: 60px;
   }

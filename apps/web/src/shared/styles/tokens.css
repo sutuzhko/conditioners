@@ -46,11 +46,16 @@
   --font-text: 'Manrope', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  /* шкала из макета */
-  --fs-h1: clamp(30px, 8.5vw, 49px);
-  --fs-h2: clamp(24px, 6vw, 38px);
-  --fs-h3: 19px;
-  --fs-lead: 17.5px;
+  /* 🔴 Шкала из макета, натянутая на весь промежуток 320→1440.
+     Прежние `clamp(30px, 8.5vw, 49px)` и `clamp(24px, 6vw, 38px)` упирались в
+     потолок уже на 576 и 633 — то есть от планшета до широкого десктопа кегль
+     не менялся вовсе, а между 320 и 576 менялся втрое быстрее нужного. Форма
+     `Avw + Bpx` даёт постоянную скорость на всём диапазоне и, в отличие от
+     чистых `vw`, сохраняет отклик на масштаб страницы (DESIGN_BRIEF §6). */
+  --fs-h1: clamp(30px, 1.7vw + 24.57px, 49px);
+  --fs-h2: clamp(24px, 1.25vw + 20px, 38px);
+  --fs-h3: clamp(17px, 0.18vw + 16.43px, 19px);
+  --fs-lead: clamp(16px, 0.22vw + 15.29px, 18.5px);
   --fs-base: 15px;
   --fs-dense: 14.5px;
   --fs-caption: 13px;
@@ -64,8 +69,12 @@
   --r-pill: 100px;
 
   --container: 1200px;
-  --gutter: 24px;
-  --section-y: clamp(48px, 9vw, 88px);
+
+  /* Боковое поле и вертикальный ритм секции — тоже непрерывные функции ширины.
+     Поле росло ступенькой в каждом блоке по-своему; теперь оно одно и тянется
+     от 16px на 320 до 24px на 1200. Ритм секции упирался в потолок на 978. */
+  --gutter: clamp(16px, 0.91vw + 13.09px, 24px);
+  --section-y: clamp(48px, 4.55vw + 33.45px, 88px);
 
   --shadow-header: 0 12px 34px -16px rgb(15 23 42 / 22%);
   --shadow-card: 0 20px 44px -28px rgb(15 23 42 / 20%);

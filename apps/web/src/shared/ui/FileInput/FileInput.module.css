@@ -66,8 +66,13 @@
   font-weight: 600;
 }
 
+/* 🔴 Ряд переносится сам, а не по порогу. Миниатюра, имя файла и кнопка
+   удаления не помещаются в строку около 360px — но «около» зависит от длины
+   имени, а не от ширины экрана. Перенос решает оба случая разом и не заводит
+   восемнадцатого порога (DESIGN_BRIEF §6). */
 .preview {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   align-items: center;
   box-sizing: border-box;
@@ -107,18 +112,4 @@
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
-}
-
-/* на самых узких экранах превью встаёт в колонку: 320px не держит
-   миниатюру, имя файла и кнопку удаления в один ряд */
-@media (width <= 359px) {
-  .preview {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .thumb {
-    width: 100%;
-    height: 120px;
-  }
 }
