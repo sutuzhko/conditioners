@@ -64,7 +64,13 @@ export function Chip({
       {chip}
       <button
         type="button"
-        className={[styles.remove, size === 'sm' ? styles.sm : null].filter(Boolean).join(' ')}
+        className={[
+          styles.remove,
+          size === 'sm' ? styles.sm : null,
+          selected ? styles.removeSelected : null,
+        ]
+          .filter(Boolean)
+          .join(' ')}
         aria-label={removeLabel}
         onClick={onRemove}
       >
