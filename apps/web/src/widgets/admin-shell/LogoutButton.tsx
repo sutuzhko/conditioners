@@ -40,7 +40,7 @@ export function LogoutButton({
   return (
     <Button
       type="button"
-      variant="ghost"
+      variant="light"
       size="sm"
       className={className}
       loading={leaving}

@@ -127,7 +127,7 @@ export function ClientUnitForm({
         </Button>
 
         {onCancel === undefined ? null : (
-          <Button type="button" variant="ghost" size="sm" disabled={sending} onClick={onCancel}>
+          <Button type="button" variant="light" size="sm" disabled={sending} onClick={onCancel}>
             {texts.unitCancel}
           </Button>
         )}

@@ -250,7 +250,7 @@ export function ArticleForm({
         {remove === undefined ? null : (
           <Button
             type="button"
-            variant="ghost"
+            variant="light"
             className={styles.remove}
             loading={removing}
             disabled={sending}

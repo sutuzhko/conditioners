@@ -45,7 +45,7 @@ export const СФормой: Story = {
     ),
     footer: (
       <>
-        <Button variant="ghost">Отмена</Button>
+        <Button variant="light">Отмена</Button>
         <Button>Завести</Button>
       </>
     ),

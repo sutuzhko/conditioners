@@ -93,7 +93,7 @@ export function CatalogCompare({
             <p className={styles.emptyText}>{t.compareHint}</p>
             <ButtonLink
               href={{ pathname: catalogPath }}
-              variant="accent"
+              variant="flat"
               className={styles.emptyAction}
             >
               {t.compareToCatalog}
@@ -169,7 +169,7 @@ export function CatalogCompare({
               model: products.length === 1 ? products[0]?.slug : undefined,
               topic: 'install',
             })}
-            variant="accent"
+            variant="flat"
             size="lg"
           >
             {productPageText.order}

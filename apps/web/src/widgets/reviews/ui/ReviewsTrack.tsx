@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 
+import { reviewsContent as t } from '../content';
 import styles from './ReviewsTrack.module.css';
 
 /** Пикселей в секунду: медленнее чтения, чтобы строку можно было дочитать. */
@@ -20,12 +21,24 @@ export interface ReviewsTrackProps {
 /**
  * Лента отзывов: бесконечный медленный ход, руками не двигается (ADR-124).
  *
- * 🔴 Прокрутка выключена совсем: `overflow-x: hidden` не отдаёт ленту ни
- * колесу, ни пальцу, ни полосе — двигает её только этот компонент. Лента
+ * 🔴 Пока лента едет, прокрутка выключена: `overflow-x: hidden` не отдаёт её
+ * ни колесу, ни пальцу, ни полосе — двигает её только этот компонент. Лента
  * замкнута сама на себя дублем карточек: доехав до его начала, прокрутка
  * переносится на ширину первой копии, и человек этого не видит — под
  * курсором ровно то же самое. Края у такого содержимого нет: конец и есть
  * начало.
+ *
+ * 🔴 Как только лента встала — своей кнопкой или по `prefers-reduced-motion`,
+ * — прокрутка возвращается, и это не удобство, а условие доступности.
+ * Скрытый overflow у остановленной ленты означал, что отзывы правее первого
+ * экрана недостижимы вовсе: в HTML они есть и робот их видит, а прочитать их
+ * человек, попросивший меньше движения, не может ничем.
+ *
+ * 🔴 Кнопка паузы — требование WCAG 2.2.2 «Pause, Stop, Hide»: содержимое,
+ * которое стартует само и движется дольше пяти секунд, обязано иметь
+ * механизм остановки. Остановка по наведению и касанию (ниже) им не
+ * считается: у человека с телефона указателя нет, а удерживать палец на
+ * ленте, чтобы читать, — это не механизм, а неудобство.
  *
  * 🔴 Ход сделан `scrollLeft`, а не анимацией `transform`. Программной
  * прокрутке всё равно, что overflow скрыт, зато браузер по-прежнему сам
@@ -38,11 +51,34 @@ export interface ReviewsTrackProps {
 export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProps) {
   const ref = useRef<HTMLUListElement>(null);
 
+  /**
+   * Остановлена ли лента решением человека. Отдельно от паузы по наведению:
+   * та живёт внутри эффекта и снимается сама, а эта держится до второго
+   * нажатия и меняет саму природу ленты — из едущей в листаемую.
+   *
+   * 🔴 Экономию движения сюда не сводим. `prefers-reduced-motion` — это
+   * настройка системы, и её состояние читается у системы, а не хранится
+   * копией: человек включает её и выключает, не уходя со страницы.
+   */
+  const [stopped, setStopped] = useState(false);
+
+  /**
+   * Попросил ли меньше движения сам человек — настройкой системы.
+   *
+   * 🔴 Отдельно от `stopped`, потому что от этого зависит, нужна ли кнопка
+   * вовсе: WCAG 2.2.2 требует механизм остановки у **движущегося**
+   * содержимого. Лента, которую уже остановила система, не движется — и
+   * кнопка «Остановить ленту» рядом с ней не делает ничего. Пустой контрол
+   * в разделе хуже отсутствующего: по нему нажимают и не понимают, что
+   * произошло.
+   */
+  const [calm, setCalm] = useState(false);
+
   useEffect(() => {
     const track = ref.current;
     if (track === null || !drift) return;
 
-    const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const calmQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     let paused = false;
     let frame = 0;
@@ -128,11 +164,17 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
       frame = 0;
     };
 
-    // экономию движения включают и не уходя со страницы (та же панель ОС):
-    // подписка останавливает ленту сразу, а не при следующем маунте
+    /**
+     * Экономию движения включают и не уходя со страницы (та же панель ОС):
+     * подписка останавливает ленту сразу, а не при следующем маунте.
+     *
+     * Ход прекращают обе причины — и настройка системы, и кнопка, — но
+     * наружу отдаётся только первая: от неё зависит, нужна ли кнопка вовсе.
+     */
     const sync = (): void => {
-      if (calm.matches) stop();
+      if (calmQuery.matches || stopped) stop();
       else start();
+      setCalm(calmQuery.matches);
     };
 
     const pause = (): void => {
@@ -149,12 +191,12 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
     // палец: пока он на ленте, она стоит — читают, а не смотрят, как едет
     track.addEventListener('touchstart', pause, { passive: true });
     track.addEventListener('touchend', resume, { passive: true });
-    calm.addEventListener('change', sync);
+    calmQuery.addEventListener('change', sync);
     sync();
 
     return () => {
       stop();
-      calm.removeEventListener('change', sync);
+      calmQuery.removeEventListener('change', sync);
       track.removeEventListener('pointerenter', pause);
       track.removeEventListener('pointerleave', resume);
       track.removeEventListener('focusin', pause);
@@ -162,15 +204,59 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
       track.removeEventListener('touchstart', pause);
       track.removeEventListener('touchend', resume);
     };
-  }, [drift]);
+  }, [drift, stopped]);
+
+  /* Лента, которой не за чем ехать, кнопки не получает: там нечего
+     останавливать, а лишний контрол в разделе — это лишний повод в него
+     нажать. Такая лента и без того листается: `.static` прокрутку не
+     запрещает. */
+  if (!drift) {
+    return (
+      <ul ref={ref} className={`${styles.track} ${styles.static}`} aria-label={label}>
+        {children}
+      </ul>
+    );
+  }
+
+  /* Лента стоит по любой из двух причин, и от этого зависит одно: отдана ли
+     прокрутка человеку. Кто именно её остановил, разметке безразлично. */
+  const still = calm || stopped;
 
   return (
-    <ul
-      ref={ref}
-      className={`${styles.track} ${drift ? styles.live : styles.static}`}
-      aria-label={label}
-    >
-      {children}
-    </ul>
+    <div className={styles.wrap}>
+      {/* 🔴 Кнопки нет, когда движения и так нет: система уже попросила покоя,
+          лента стоит, и «Остановить ленту» рядом с ней не делает ничего.
+          Кнопка стоит над лентой, а не поверх неё: лента идёт от края до края,
+          и накрыть ею карточку — значит закрыть отзыв ради кнопки. */}
+      {calm ? null : (
+        <button
+          type="button"
+          className={styles.switch}
+          onClick={() => setStopped((was) => !was)}
+          /* Состояние объявляется голосом: `aria-pressed` говорит, нажата ли
+             кнопка, а подпись — что случится при следующем нажатии. */
+          aria-pressed={stopped}
+        >
+          {stopped ? t.resumeTrack : t.pauseTrack}
+        </button>
+      )}
+
+      <ul
+        ref={ref}
+        className={[styles.track, styles.live, still ? styles.scrollable : null]
+          .filter(Boolean)
+          .join(' ')}
+        aria-label={label}
+      >
+        {children}
+      </ul>
+
+      {/* 🔴 Смена природы ленты объявляется, а не только показывается полосой
+          прокрутки: человек, который остановил ленту с клавиатуры, полосы не
+          видит. `role="status"` доносит это без перехвата фокуса. */}
+      <p className={styles.hint} role="status">
+        {still ? t.pausedHint : ''}
+      </p>
+    </div>
   );
 }

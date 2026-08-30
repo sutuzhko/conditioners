@@ -158,7 +158,7 @@ export function ProductCard({
               форма открывалась бы пустой. */}
           <ButtonLink
             href={leadHref({ model: product.slug, topic: 'install' })}
-            variant="accent"
+            variant="flat"
             fullWidth
             className={styles.order}
           >

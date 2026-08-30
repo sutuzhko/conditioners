@@ -90,7 +90,7 @@ export function ObjectListField({
 
           <Button
             type="button"
-            variant="ghost"
+            variant="light"
             size="sm"
             className={styles.remove}
             aria-label={texts.removeItem(itemLabel, index + 1)}
@@ -106,7 +106,7 @@ export function ObjectListField({
       ) : (
         <Button
           type="button"
-          variant="secondary"
+          variant="bordered"
           size="sm"
           onClick={() => onChange([...values, blankRow])}
         >

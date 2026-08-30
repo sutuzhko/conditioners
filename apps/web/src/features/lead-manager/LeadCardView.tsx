@@ -289,7 +289,7 @@ export function LeadCardView({
         {clientId === null ? (
           <Button
             type="button"
-            variant="secondary"
+            variant="bordered"
             size="sm"
             disabled={locked}
             onClick={() => void addToClients()}

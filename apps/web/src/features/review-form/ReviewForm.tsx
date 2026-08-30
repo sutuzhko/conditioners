@@ -252,7 +252,7 @@ export function ReviewForm({
           </SuccessHeading>
           <p className={styles.successText}>{texts.successThanks(greeting)}</p>
           <p className={styles.successText}>{texts.successModeration}</p>
-          <Button variant="secondary" size="md" onClick={restart}>
+          <Button variant="bordered" size="md" onClick={restart}>
             {texts.successAgain}
           </Button>
         </div>

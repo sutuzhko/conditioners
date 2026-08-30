@@ -361,7 +361,7 @@ function Recalculating() {
 
       <p className={styles.saleUntil} />
 
-      <Button variant="primary" size="md" fullWidth className={styles.cta} disabled>
+      <Button variant="solid" size="md" fullWidth className={styles.cta} disabled>
         {t.order}
       </Button>
 

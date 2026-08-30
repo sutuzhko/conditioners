@@ -102,7 +102,7 @@ export function DeliveryAddresses({ people, api = addressApi }: DeliveryAddresse
                     <div className={styles.row}>
                       <Button
                         type="button"
-                        variant="ghost"
+                        variant="light"
                         size="sm"
                         disabled={telegramBusy}
                         onClick={() => {
@@ -143,7 +143,7 @@ export function DeliveryAddresses({ people, api = addressApi }: DeliveryAddresse
                         setSaved((previous) => previous.filter((id) => id !== person.id));
                       }}
                     />
-                    <Button type="submit" variant="secondary" size="sm" disabled={emailBusy}>
+                    <Button type="submit" variant="bordered" size="sm" disabled={emailBusy}>
                       {emailBusy ? texts.emailSaving : texts.emailSave}
                     </Button>
                   </form>

@@ -60,7 +60,7 @@ export function OrderUnits({ units, onChange, disabled = false }: OrderUnitsProp
                 <span className={styles.itemTitle}>{texts.unitTitle(index + 1)}</span>
                 <Button
                   type="button"
-                  variant="ghost"
+                  variant="light"
                   size="sm"
                   className={styles.remove}
                   onClick={() => remove(unit.key)}
@@ -131,7 +131,7 @@ export function OrderUnits({ units, onChange, disabled = false }: OrderUnitsProp
       )}
 
       <div className={styles.actions}>
-        <Button type="button" variant="secondary" size="sm" onClick={add}>
+        <Button type="button" variant="bordered" size="sm" onClick={add}>
           {texts.unitAdd}
         </Button>
       </div>

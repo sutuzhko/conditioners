@@ -98,7 +98,7 @@ export function ReviewCardView({ review, api, onChanged, confirmRemove }: Review
         {review.status === 'rejected' ? null : (
           <Button
             type="button"
-            variant="secondary"
+            variant="bordered"
             size="sm"
             disabled={busy}
             onClick={() => setStatus('rejected')}
@@ -110,7 +110,7 @@ export function ReviewCardView({ review, api, onChanged, confirmRemove }: Review
         {review.status === 'archived' ? null : (
           <Button
             type="button"
-            variant="ghost"
+            variant="light"
             size="sm"
             disabled={busy}
             onClick={() => setStatus('archived')}
@@ -122,7 +122,7 @@ export function ReviewCardView({ review, api, onChanged, confirmRemove }: Review
         {review.status === 'pending' ? null : (
           <Button
             type="button"
-            variant="ghost"
+            variant="light"
             size="sm"
             disabled={busy}
             onClick={() => setStatus('pending')}
@@ -133,7 +133,7 @@ export function ReviewCardView({ review, api, onChanged, confirmRemove }: Review
 
         <Button
           type="button"
-          variant="ghost"
+          variant="light"
           size="sm"
           className={styles.remove}
           disabled={busy}

@@ -32,7 +32,7 @@ export default async function AdminCatalogPage() {
           {/* Справочник открывают редко, но искать его в «Компании» никто не
               станет: он про товар и живёт рядом с каталогом (ADR-094). */}
           <Link
-            className={buttonClassName({ size: 'sm', variant: 'secondary' })}
+            className={buttonClassName({ size: 'sm', variant: 'bordered' })}
             href={{ pathname: CATALOG_SPECS_PATH }}
           >
             {texts.specsDictionary}

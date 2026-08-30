@@ -170,7 +170,7 @@ export function OrderConsumptionForm({
                 <Button
                   type="button"
                   size="sm"
-                  variant="ghost"
+                  variant="light"
                   className={styles.pick}
                   disabled={sending}
                   aria-label={texts.consumeHintLabel(hint.itemName)}

@@ -1,5 +1,15 @@
-/* Кнопка. Геометрия и тени сняты с прототипа (docs/DESIGN_BRIEF.md §4):
-   радиус 11–12px, тень основной кнопки цветная, а не серая. */
+/* Кнопка. Один компонент на витрину и на панель — его зовут 179 файлов.
+
+   🔴 Развилка геометрии живёт в подстановке по умолчанию у `var()`, а не во
+   втором наборе классов и не в панельном варианте (ADR-187). Панельные
+   значения объявлены на контейнере панели: внутри неё `var(--r-btn, 9px)`
+   даёт пилюлю, снаружи переменной нет — и подставляется число прототипа.
+   Так у кнопки остаётся один набор классов, а лендинг сохраняет свои
+   радиусы 9 / 11 / 12 и высоты 40 / 44 / 52 (DESIGN_BRIEF §4).
+
+   Устройство вариантов и состояний снято с эталона HeroUI (ADR-169, ADR-170,
+   `design/admin/_base.css`): семь заливок, нажатие масштабом, наведение
+   только под указателем. Цвета остались нашими. */
 
 .button {
   display: inline-flex;
@@ -8,7 +18,6 @@
   justify-content: center;
   box-sizing: border-box;
   border: 1px solid transparent;
-  border-radius: var(--r-sm);
   font-family: var(--font-text);
   font-weight: 600;
   line-height: 1.2;
@@ -20,99 +29,178 @@
     background var(--dur-fast) ease,
     color var(--dur-fast) ease,
     border-color var(--dur-fast) ease,
-    box-shadow var(--dur-fast) ease;
+    box-shadow var(--dur-fast) ease,
+    transform var(--dur-fast) ease;
 }
 
 .button:focus-visible {
   box-shadow: var(--ring-focus-ring);
 }
 
-.button:disabled {
+/* Отключённая кнопка — половина непрозрачности эталона. `aria-disabled`
+   ставит сам компонент: у «мягко отключённой» кнопки нативного `disabled`
+   нет, иначе до причины отказа не добраться с клавиатуры. */
+.button:disabled,
+.button[aria-disabled='true'] {
   cursor: not-allowed;
-  opacity: 0.55;
+  opacity: 0.5;
   box-shadow: none;
 }
 
-/* размеры: sm — плотные панели админки, md — основной, lg — призыв на первом экране */
-.sm {
-  min-height: 40px;
-  padding: 8px 14px;
-  border-radius: 9px;
-  font-size: var(--fs-caption);
+/* Нажатие — масштабом, а не изменением отступов: отступы двигают соседей по
+   ряду, и на нажатие отзывается вся строка действий, а не одна кнопка. */
+.button:active:not(:disabled, [aria-disabled='true']) {
+  transform: scale(0.97);
 }
 
-.md {
-  min-height: var(--tap);
-  padding: 11px 18px;
-  font-size: var(--fs-dense);
-}
-
-.lg {
-  min-height: 52px;
-  padding: 15px 28px;
-
-  /* 12px по макету: крупные кнопки первого экрана скруглены слабее,
-     чем карточки, — иначе они выглядят «мягче» соседних элементов */
-  border-radius: 12px;
-  font-size: 16px;
-}
-
-/* на сенсорных экранах даже мелкая кнопка обязана держать тап-зону 44px */
-@media (pointer: coarse) {
-  .sm {
-    min-height: var(--tap);
+@media (prefers-reduced-motion: reduce) {
+  .button:active {
+    transform: none;
   }
 }
 
-.primary {
+/* Размеры. Высота задаётся `min-height`, а не `height`: содержимое кнопки
+   приходит снаружи, и жёсткая высота обрезала бы иконку крупнее подписи. */
+.sm {
+  min-height: var(--h-sm, 40px);
+  padding: 0 14px;
+  border-radius: var(--r-btn, 9px);
+  font-size: var(--fs-label, var(--fs-caption));
+}
+
+.md {
+  min-height: var(--h-md, var(--tap));
+  padding: 0 18px;
+  border-radius: var(--r-btn, var(--r-sm));
+  font-size: var(--fs-body, var(--fs-dense));
+}
+
+.lg {
+  min-height: var(--h-lg, 52px);
+  padding: 0 28px;
+
+  /* 12px по макету: крупные кнопки первого экрана скруглены слабее,
+     чем карточки, — иначе они выглядят «мягче» соседних элементов */
+  border-radius: var(--r-btn, 12px);
+  font-size: 16px;
+}
+
+/* 🔴 Тап-зона поднимается по порогу раскладки, а не по `pointer: coarse`
+   (ADR-183). Признак указателя врёт на сенсорном ноутбуке: там мышь, а
+   малая кнопка вырастала до размера средней, и шкала плотности схлопывалась
+   в одну высоту. В панели то же самое делают её токены. */
+@media (width < 900px) {
+  .sm {
+    min-height: var(--h-sm, var(--tap));
+  }
+}
+
+.solid {
   border-color: var(--brand);
   background: var(--brand);
   color: var(--on-brand);
-  box-shadow: var(--shadow-brand);
+  box-shadow: var(--shadow-btn, var(--shadow-brand));
 }
 
-.primary:hover:not(:disabled) {
-  border-color: var(--brand-hover);
-  background: var(--brand-hover);
-}
+/* Фирменная манера эталона: заливка акцентом низкой плотности. Читается как
+   действие, но не спорит с основной кнопкой в том же ряду. Это же оформление
+   у кнопки «Заказать» в карточке каталога.
 
-.secondary {
-  border-color: var(--line-strong);
-  background: var(--card);
-  color: var(--ink);
-}
-
-.secondary:hover:not(:disabled) {
-  border-color: var(--accent-line);
-  background: var(--accent-bg);
-  color: var(--accent-text);
-}
-
-/* Акцентная кнопка — «Заказать» в карточке каталога. 🔴 Цвет текста не
-   --accent-ink: в макете пара #0891B2 на #ECFEFF даёт 3.54:1 и не проходит
-   AA. Фирменный --brand на той же подложке — 5.15:1. В тёмной теме подложка
-   почти чёрная, и там AA берёт --accent-ink (7.64:1). Разводку по темам
-   держит токен --on-accent. Наведение из макета: заливка --brand, текст
-   белый (5.36:1). */
-.accent {
+   🔴 Цвет текста не --accent-ink: в макете пара #0891B2 на #ECFEFF даёт
+   3.54:1 и не проходит AA. Фирменный --brand на той же подложке — 5.15:1. В
+   тёмной теме подложка почти чёрная, и там AA берёт --accent-ink (7.64:1).
+   Разводку по темам держит токен --on-accent. */
+.flat {
   border-color: transparent;
   background: var(--accent-bg);
   color: var(--on-accent);
 }
 
-.accent:hover:not(:disabled) {
-  border-color: var(--brand);
-  background: var(--brand);
-  color: var(--on-brand);
+/* 🔴 Граница — `--line-ui`, а не `--line-strong` (ADR-181). Здесь линия и
+   есть граница компонента, а `--line-strong` даёт на белом 1,48:1 при норме
+   WCAG 1.4.11 в 3:1. */
+.bordered {
+  border-color: var(--line-ui);
+  background: var(--card);
+  color: var(--ink);
 }
 
-.ghost {
+/* Приглушённая кнопка: заливка есть, но она фоновая. Нужна там, где действий
+   в ряду много и выделять нечего — «Сбросить», «Копировать», «Показать все».
+
+   🔴 Граница `--line-ui`, а не `--line` из макета. Заливка `--bg-soft` даёт
+   на белой карточке 1,05:1, и вся видимая граница кнопки — эта линия; с
+   `--line` (1,14:1) кнопка на карточке пропадала бы целиком. Тот же довод,
+   по которому ADR-181 увёл границы контролов с `--line-strong`. */
+.faded {
+  border-color: var(--line-ui);
+  background: var(--bg-soft);
+  color: var(--ink);
+}
+
+.light {
   background: transparent;
   color: var(--accent-text);
 }
 
-.ghost:hover:not(:disabled) {
-  background: var(--accent-bg);
+/* Обведённая фирменной линией и пустая внутри: второе действие рядом с
+   основным, когда оба равноправны. */
+.ghost {
+  border-color: var(--brand);
+  background: transparent;
+  color: var(--accent-text);
+}
+
+/* Разрушающее действие. Не сплошная заливка: сплошной красный в ряду кнопок
+   притягивает нажатие раньше, чем человек дочитал подпись. Заливка приходит
+   на наведении — когда выбор уже сделан. */
+.danger {
+  border-color: var(--error-line);
+  background: var(--error-bg);
+  color: var(--error-ink);
+}
+
+/* 🔴 Наведение — только под указателем. На сенсорном экране «наведение»
+   залипает после нажатия: кнопка остаётся в состоянии наведения, пока не
+   тронут соседнюю, и человек видит подсвеченной не ту цель, на которую
+   смотрит. */
+@media (hover: hover) {
+  .solid:hover:not(:disabled, [aria-disabled='true']) {
+    border-color: var(--brand-hover);
+    background: var(--brand-hover);
+  }
+
+  .flat:hover:not(:disabled, [aria-disabled='true']) {
+    border-color: var(--brand);
+    background: var(--brand);
+    color: var(--on-brand);
+  }
+
+  .bordered:hover:not(:disabled, [aria-disabled='true']) {
+    border-color: var(--accent-ink);
+    background: var(--accent-bg);
+    color: var(--accent-text);
+  }
+
+  .faded:hover:not(:disabled, [aria-disabled='true']) {
+    border-color: var(--ink2);
+  }
+
+  .light:hover:not(:disabled, [aria-disabled='true']) {
+    background: var(--accent-bg);
+  }
+
+  .ghost:hover:not(:disabled, [aria-disabled='true']) {
+    border-color: var(--brand);
+    background: var(--brand);
+    color: var(--on-brand);
+  }
+
+  .danger:hover:not(:disabled, [aria-disabled='true']) {
+    border-color: var(--error-ink);
+    background: var(--error-ink);
+    color: var(--on-error);
+  }
 }
 
 .fullWidth {
@@ -146,6 +234,17 @@
 .label {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* Причина отказа: строка уходит в имя кнопки и читается озвучкой, а на
+   экране её место — подпись под кнопкой, которую ставит вызывающий код. */
+.reason {
+  position: absolute;
+  overflow: hidden;
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
 }
 
 .spinner {

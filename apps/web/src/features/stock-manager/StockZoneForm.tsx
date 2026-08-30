@@ -190,7 +190,7 @@ export function StockZoneForm({
           </Button>
 
           {onCancel === undefined ? null : (
-            <Button type="button" size="sm" variant="ghost" disabled={sending} onClick={onCancel}>
+            <Button type="button" size="sm" variant="light" disabled={sending} onClick={onCancel}>
               {texts.zoneCancel}
             </Button>
           )}

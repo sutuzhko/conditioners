@@ -219,7 +219,7 @@ export function StaffAccountForm({
 
           <Button
             type="button"
-            variant="secondary"
+            variant="bordered"
             size="sm"
             disabled={sending}
             onClick={() => void run(() => api.update(staff.id, { active: !staff.active }))}
@@ -231,7 +231,7 @@ export function StaffAccountForm({
 
           <Button
             type="button"
-            variant="ghost"
+            variant="light"
             size="sm"
             disabled={sending}
             onClick={() => {

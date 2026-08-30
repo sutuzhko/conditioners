@@ -141,7 +141,7 @@ export function ProductSaleForm({
           {values.salePrice.trim() === '' ? null : (
             <Button
               type="button"
-              variant="ghost"
+              variant="light"
               disabled={sending}
               onClick={() => {
                 setValues(emptySaleValues);
