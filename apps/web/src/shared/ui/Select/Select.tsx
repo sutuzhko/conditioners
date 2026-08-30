@@ -1,9 +1,9 @@
 'use client';
 
 import type { SelectHTMLAttributes } from 'react';
-import { Field } from '../internal/Field';
+import { Field, type FieldVariant } from '../internal/Field';
 import { useFieldIds } from '../internal/useFieldIds';
-import control from '../internal/control.module.css';
+import { controlClassName } from '../internal/controlClass';
 import styles from './Select.module.css';
 import { Icon } from '../Icon';
 
@@ -20,6 +20,7 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
   error?: string | undefined;
   /** первый неактивный пункт: «Выберите вариант» */
   placeholder?: string | undefined;
+  variant?: FieldVariant | undefined;
   wrapperClassName?: string | undefined;
 }
 
@@ -29,6 +30,7 @@ export function Select({
   hint,
   error,
   placeholder,
+  variant,
   id,
   required,
   className,
@@ -46,6 +48,8 @@ export function Select({
       error={error}
       errorId={errorId}
       required={required}
+      labelInside
+      variant={variant}
       className={wrapperClassName}
     >
       <span className={styles.wrapper}>
@@ -55,9 +59,12 @@ export function Select({
           required={required}
           aria-invalid={invalid || undefined}
           aria-describedby={describedBy}
-          className={[control.control, styles.select, invalid ? control.invalid : null, className]
-            .filter(Boolean)
-            .join(' ')}
+          className={controlClassName({
+            variant,
+            invalid,
+            labelled: label !== undefined,
+            own: [styles.select, className],
+          })}
         >
           {placeholder === undefined ? null : (
             <option value="" disabled>

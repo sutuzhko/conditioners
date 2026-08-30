@@ -1,15 +1,16 @@
 'use client';
 
 import type { TextareaHTMLAttributes } from 'react';
-import { Field } from '../internal/Field';
+import { Field, type FieldVariant } from '../internal/Field';
 import { useFieldIds } from '../internal/useFieldIds';
-import control from '../internal/control.module.css';
+import { controlClassName } from '../internal/controlClass';
 import styles from './Textarea.module.css';
 
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string | undefined;
   hint?: string | undefined;
   error?: string | undefined;
+  variant?: FieldVariant | undefined;
   wrapperClassName?: string | undefined;
 }
 
@@ -17,6 +18,7 @@ export function Textarea({
   label,
   hint,
   error,
+  variant,
   id,
   required,
   rows = 4,
@@ -35,6 +37,8 @@ export function Textarea({
       error={error}
       errorId={errorId}
       required={required}
+      labelInside
+      variant={variant}
       className={wrapperClassName}
     >
       <textarea
@@ -44,9 +48,12 @@ export function Textarea({
         required={required}
         aria-invalid={invalid || undefined}
         aria-describedby={describedBy}
-        className={[control.control, styles.textarea, invalid ? control.invalid : null, className]
-          .filter(Boolean)
-          .join(' ')}
+        className={controlClassName({
+          variant,
+          invalid,
+          labelled: label !== undefined,
+          own: [styles.textarea, className],
+        })}
       />
     </Field>
   );

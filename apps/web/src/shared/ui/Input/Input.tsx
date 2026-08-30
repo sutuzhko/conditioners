@@ -1,15 +1,17 @@
 'use client';
 
 import type { InputHTMLAttributes, Ref } from 'react';
-import { Field } from '../internal/Field';
+import { Field, type FieldVariant } from '../internal/Field';
 import { useFieldIds } from '../internal/useFieldIds';
-import control from '../internal/control.module.css';
+import { controlClassName } from '../internal/controlClass';
 
 export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string | undefined;
   hint?: string | undefined;
   /** текст ошибки: и подсвечивает поле, и озвучивается скринридером */
   error?: string | undefined;
+  /** вид поля; умолчание — `flat`: заливка и обводка */
+  variant?: FieldVariant | undefined;
   /** класс на обёртку, а не на само поле — им управляет раскладка формы */
   wrapperClassName?: string | undefined;
   /** Ссылка на само поле: нужна маске телефона, чтобы вернуть курсор на место. */
@@ -20,6 +22,7 @@ export function Input({
   label,
   hint,
   error,
+  variant,
   id,
   required,
   className,
@@ -37,6 +40,8 @@ export function Input({
       error={error}
       errorId={errorId}
       required={required}
+      labelInside
+      variant={variant}
       className={wrapperClassName}
     >
       <input
@@ -45,9 +50,12 @@ export function Input({
         required={required}
         aria-invalid={invalid || undefined}
         aria-describedby={describedBy}
-        className={[control.control, invalid ? control.invalid : null, className]
-          .filter(Boolean)
-          .join(' ')}
+        className={controlClassName({
+          variant,
+          invalid,
+          labelled: label !== undefined,
+          own: [className],
+        })}
       />
     </Field>
   );
