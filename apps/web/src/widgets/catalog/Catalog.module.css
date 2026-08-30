@@ -79,24 +79,12 @@
   text-decoration: underline;
 }
 
-/* Ряд, а не грид: число моделей задаёт владелец из админки, и при жёсткой
-   сетке остаток от деления оставлял бы последний ряд полупустым при любом
-   числе, не кратном числу колонок. Здесь последний ряд центрируется, а
-   `max-width` не даёт одинокой карточке растянуться на всю полосу. */
-.grid {
+/* Сетка карточек живёт в ui/grid.module.css — она одна на витрину и каталог
+   (issue #260). Здесь остаётся только ряд со ссылкой под ней. */
+.helpRow {
   display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
   justify-content: center;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.grid > li {
-  flex: 1 1 250px;
-  min-width: 0;
-  max-width: 320px;
+  margin: 12px 0 0;
 }
 
 .empty {
@@ -136,9 +124,5 @@
 
   .help {
     white-space: normal;
-  }
-
-  .grid {
-    gap: 16px;
   }
 }

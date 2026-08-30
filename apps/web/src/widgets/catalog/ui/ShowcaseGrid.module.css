@@ -1,0 +1,45 @@
+/* Ряд под витриной: раскрытие остальных моделей (issue #260). */
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Кнопка контурная, а не акцентная: главное действие витрины — «Заказать» на
+   карточке, и вторая заливка рядом спорила бы с ним за внимание. */
+.more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 11px 22px;
+  border: 1px solid var(--line-ui);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+.more:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+.more:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}

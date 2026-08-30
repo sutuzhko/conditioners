@@ -104,6 +104,16 @@ export function activeCatalogFilters(query: CatalogQuery): readonly ActiveCatalo
  */
 export type ProductHref = (slug: string) => ButtonLinkHref;
 
+/**
+ * Сколько моделей витрина показывает сразу (issue #260). Остальные лежат в
+ * HTML и раскрываются кнопкой.
+ *
+ * 🔴 Число связано с правилом `.clipped > li:nth-child(n + 4)` в
+ * `ui/grid.module.css`: `nth-child` не умеет читать переменную, поэтому связь
+ * держит тест, а не язык.
+ */
+export const SHOWCASE_LIMIT = 3;
+
 /** Сколько похожих моделей показывать под характеристиками. */
 export const SIMILAR_LIMIT = 3;
 

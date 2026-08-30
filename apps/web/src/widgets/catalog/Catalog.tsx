@@ -2,8 +2,9 @@ import Link from 'next/link';
 import { Card } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { catalogText } from './content';
-import type { CatalogProduct, ProductHref } from './model';
+import { SHOWCASE_LIMIT, type CatalogProduct, type ProductHref } from './model';
 import { ProductCard } from './ui/ProductCard';
+import { ShowcaseGrid } from './ui/ShowcaseGrid';
 import styles from './Catalog.module.css';
 
 export interface CatalogProps {
@@ -81,16 +82,13 @@ export function Catalog({
             </h2>
             <p className={styles.lead}>{catalogText.lead}</p>
           </div>
-          <div className={styles.headLinks}>
-            {catalogHref === undefined ? null : (
+          {catalogHref === undefined ? null : (
+            <div className={styles.headLinks}>
               <Link href={catalogHref} className={styles.help}>
                 {catalogText.all}
               </Link>
-            )}
-            <Link href={orderHref} className={styles.help}>
-              {catalogText.help}
-            </Link>
-          </div>
+            </div>
+          )}
         </header>
 
         {visible.length === 0 ? (
@@ -99,7 +97,10 @@ export function Catalog({
             <p className={styles.emptyText}>{catalogText.emptyText}</p>
           </Card>
         ) : (
-          <ul className={styles.grid}>
+          <ShowcaseGrid
+            hiddenCount={visible.length - SHOWCASE_LIMIT}
+            label={catalogText.showcaseLabel}
+          >
             {visible.map((product) => (
               <ProductCard
                 key={product.id}
@@ -109,8 +110,17 @@ export function Catalog({
                 now={now}
               />
             ))}
-          </ul>
+          </ShowcaseGrid>
         )}
+
+        {/* Выход для того, кому витрина не подошла. Стоит под сеткой, а не в
+            шапке секции: до раскрытия человек видит три карточки, и вопрос
+            «а если нужной нет?» возникает именно здесь. */}
+        <p className={styles.helpRow}>
+          <Link href={orderHref} className={styles.help}>
+            {catalogText.help}
+          </Link>
+        </p>
       </div>
     </section>
   );
