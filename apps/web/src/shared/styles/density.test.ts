@@ -40,6 +40,9 @@ const PANEL = block(TOKENS, "[data-ui='panel']");
 /** Тот же контейнер внутри сенсорного порога: до 900px высоты идут по пальцу. */
 const TOUCH = block(TOKENS, "[data-ui='panel']", TOKENS.indexOf('@media (width < 900px)'));
 
+/** Тени тёмной темы: они не наследуются, их переопределяют отдельно. */
+const DARK_PANEL = block(TOKENS, ":root[data-theme='dark'] [data-ui='panel']");
+
 const TAP = block(UI_TOKENS, ':root {')['tap'];
 
 function pixels(value: string | undefined): number {
@@ -83,6 +86,19 @@ describe('Плотность панели', () => {
     expect(TOUCH['h-sm']).toBe('var(--tap)');
     expect(TOUCH['h-md']).toBe('var(--tap)');
     expect(pixels(TOUCH['h-lg'])).toBeGreaterThanOrEqual(pixels(PANEL['h-lg']));
+  });
+
+  it('оболочка объявлена, и свёрнутая колонка уже развёрнутой', () => {
+    expect(pixels(PANEL['navbar'])).toBeGreaterThan(0);
+    expect(pixels(PANEL['rail'])).toBeLessThan(pixels(PANEL['aside']));
+  });
+
+  /* 🔴 Забыть тень в тёмной теме дешевле всего: светлая полупрозрачная тень
+     на почти чёрном фоне не видна вовсе, и слой перестаёт отделяться — а на
+     светлом снимке всё выглядит верно. */
+  it.each(['sh-sm', 'sh-md', 'sh-lg'])('тень «%s» задана в обеих темах', (token) => {
+    expect(PANEL[token], `--${token} не объявлен в блоке панели`).toBeDefined();
+    expect(DARK_PANEL[token], `--${token} не переопределён в тёмной теме`).toBeDefined();
   });
 
   it('кнопка и поле идут пилюлей, а контейнеры — прямее (ADR-187)', () => {
