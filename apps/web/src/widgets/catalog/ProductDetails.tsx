@@ -27,14 +27,24 @@ import styles from './ProductDetails.module.css';
 
 /**
  * Главное фото — LCP-элемент страницы, поэтому оно с `priority` и в размере
- * своего места: 4:3, 720px по длинной стороне хватает колонке в 560px с
+ * своего места: 16:10, 720px по длинной стороне хватает колонке в 560px с
  * запасом на ретину. Остальные снимки — миниатюрами.
+ *
+ * 🔴 Пропорция та же, что у карточки витрины (issue #259): человек приходит
+ * сюда с карточки, и снимок не должен менять форму по дороге.
  */
 const MAIN_WIDTH = 720;
-const MAIN_HEIGHT = 540;
-const MAIN_SIZES = '(max-width: 899px) 100vw, 560px';
+const MAIN_HEIGHT = 450;
+
+/**
+ * 🔴 Границы совпадают с раскладкой страницы: до 600 снимок занимает ширину
+ * контейнера, с 600 рядом встаёт колонка цены и забирает свои 280–360px,
+ * с 1200 контейнер упирается в 1200 и колонка перестаёт расти.
+ */
+const MAIN_SIZES =
+  '(max-width: 599px) calc(100vw - 32px), (max-width: 1199px) calc(100vw - 340px), 800px';
 const THUMB_WIDTH = 200;
-const THUMB_HEIGHT = 150;
+const THUMB_HEIGHT = 125;
 const THUMB_SIZES = '120px';
 
 export interface ProductDetailsProps {

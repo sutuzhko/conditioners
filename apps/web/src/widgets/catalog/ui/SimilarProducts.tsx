@@ -6,6 +6,7 @@ import { Card } from '@/shared/ui';
 import { areaLabel, powerClassLabel, productPageText as t } from '../content';
 import type { CatalogProduct, ProductHref } from '../model';
 import { ProductPrice } from './ProductPrice';
+import gridStyles from './grid.module.css';
 import styles from './SimilarProducts.module.css';
 
 const TITLE_ID = 'product-similar';
@@ -38,7 +39,7 @@ export function SimilarProducts({ products, productHref, now }: SimilarProductsP
         {t.similarTitle}
       </h2>
 
-      <ul className={styles.list} aria-label={t.similarLabel}>
+      <ul className={`${gridStyles.grid} ${styles.list}`} aria-label={t.similarLabel}>
         {products.map((product) => (
           <Card
             as="li"
