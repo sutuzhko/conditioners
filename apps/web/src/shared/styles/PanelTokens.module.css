@@ -1,0 +1,198 @@
+/* Витрина токенов панели. Собственных значений здесь нет: всё, что видно на
+   экране, приходит из tokens.css и ui-tokens.css — иначе витрина показывала
+   бы саму себя, а не палитру. */
+
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter);
+  box-sizing: border-box;
+  padding: var(--pad-card);
+  border-radius: var(--r-app);
+  background: var(--bg-soft);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--fs-body);
+}
+
+.section {
+  padding: var(--pad-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--card);
+  box-shadow: var(--sh-sm);
+}
+
+.caption {
+  display: block;
+  margin-bottom: var(--pad-card-sm);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-tiny);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.note {
+  margin: 0 0 var(--pad-card-sm);
+  max-width: 78ch;
+  color: var(--body);
+  font-size: var(--fs-label);
+  line-height: 1.5;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+  gap: var(--pad-card-sm);
+}
+
+.item {
+  display: flex;
+  gap: var(--pad-card-sm);
+  align-items: center;
+  min-width: 0;
+}
+
+.swatch {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--h-md);
+  height: var(--h-md);
+  border: 1px solid var(--line-ui);
+  border-radius: var(--r-nav);
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-tiny);
+  overflow-wrap: anywhere;
+}
+
+.value {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-tiny);
+  overflow-wrap: anywhere;
+}
+
+.ratio {
+  color: var(--body);
+  font-size: var(--fs-tiny);
+}
+
+.low {
+  color: var(--error-ink);
+  font-weight: 600;
+}
+
+/* Образец текста на карточке: сам образец и есть проверка читаемости. */
+.ink {
+  font-size: var(--fs-body);
+  font-weight: 600;
+}
+
+.line {
+  flex-shrink: 0;
+  width: var(--h-lg);
+  height: 2px;
+  border-radius: var(--r-pill);
+}
+
+.chip {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  box-sizing: border-box;
+  height: 24px;
+  padding: 0 10px;
+  border: 1px solid;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-tiny);
+  font-weight: 600;
+}
+
+.solid {
+  border-color: transparent;
+}
+
+/* 🔴 Ряды образцов переносятся: на 320–375 четыре образца геометрии давали
+   453px при экране 375 — страница уезжала вбок, чего не должно случаться
+   нигде (DESIGN_BRIEF §6). */
+.bar {
+  display: flex;
+  gap: var(--pad-card-sm);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 18px;
+  border: 1px solid var(--line-ui);
+  border-radius: var(--r-btn);
+  background: var(--bg-soft);
+  color: var(--ink);
+  font-size: var(--fs-body);
+  font-weight: 600;
+}
+
+.radius {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.box {
+  box-sizing: border-box;
+  width: 96px;
+  height: 56px;
+  border: 1px solid var(--line-ui);
+  background: var(--bg-soft);
+}
+
+.shadow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 72px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--card);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-tiny);
+}
+
+.chart {
+  display: flex;
+  gap: var(--pad-card);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--body);
+  font-size: var(--fs-tiny);
+}
+
+.legendItem {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

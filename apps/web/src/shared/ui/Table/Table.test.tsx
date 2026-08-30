@@ -49,11 +49,21 @@ describe('Table', () => {
     expect(screen.getByRole('rowheader', { name: 'Класс 09' })).toBeInTheDocument();
   });
 
-  it('карточный режим не заворачивает таблицу в прокручиваемую область', () => {
-    render(<Table variant="cards">{body}</Table>);
+  it('карточный режим заворачивает таблицу в прокручиваемую область', () => {
+    render(
+      <Table variant="cards" label="Каталог">
+        {body}
+      </Table>,
+    );
 
-    // прокрутки нет: строки на узком экране раскладываются карточками
-    expect(screen.queryByRole('region')).not.toBeInTheDocument();
+    /* 🔴 Карточками строки лежат только на узком экране. Выше порога это
+       обычная таблица, и без своего контейнера прокрутки она уезжала за край
+       документа — каталог панели вставал правым краем на 997 при ширине 900
+       (issue #302). Область именована и доступна с клавиатуры: прокрутить её
+       вбок должно быть можно не только пальцем. */
+    const region = screen.getByRole('region', { name: 'Каталог' });
+    expect(region).toHaveAttribute('tabindex', '0');
+    expect(region).toContainElement(screen.getByRole('table'));
   });
 
   it('карточный режим сохраняет роль таблицы — её снимает display: block', () => {

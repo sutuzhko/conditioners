@@ -1,0 +1,75 @@
+/* Страница-указатель «Настройки»: три страницы конфигурации карточками. */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+}
+
+.lead {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-sizing: border-box;
+  height: 100%;
+  padding: var(--pad-card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--card);
+  text-decoration: none;
+  transition:
+    border-color var(--dur-fast) ease,
+    box-shadow var(--dur-fast) ease;
+}
+
+.card:hover {
+  border-color: var(--line-ui);
+  box-shadow: var(--sh-sm);
+}
+
+.card:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.cardTitle {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.cardHint {
+  color: var(--body);
+  font-size: var(--fs-caption);
+}

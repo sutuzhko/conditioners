@@ -1,4 +1,6 @@
 /** Раздел клиентов: типы представления. Доменные схемы — в `entities/client`. */
+import type { Route } from 'next';
+
 import { dayOf } from '@/entities/client/lib/units';
 import type { ClientUnitCard } from '@/entities/client/model';
 import type { LeadStatus } from '@/entities/lead/model';
@@ -11,14 +13,17 @@ export { leadStatusTitle, type LeadStatus } from '@/entities/lead/model';
 
 /* ---------- Адреса раздела ---------- */
 
-export const CLIENTS_PATH = '/admin/clients';
+export const CLIENTS_PATH = '/admin/clients' satisfies Route;
 
 /**
  * Адрес окна создания (ADR-117). Окно живёт по собственному адресу, а не в
  * состоянии компонента: иначе ссылку на форму нельзя прислать, «назад» уводит
  * из раздела, а обновление страницы теряет ввод.
+ *
+ * Проверен маршрутом через `satisfies` — как и остальные адреса разделов, см.
+ * `article-form/model.ts`.
  */
-export const CLIENT_NEW_PATH = '/admin/clients/new';
+export const CLIENT_NEW_PATH = '/admin/clients/new' satisfies Route;
 
 /** Ответ действия: успех либо готовый к показу текст ошибки. */
 export type ClientResult =
