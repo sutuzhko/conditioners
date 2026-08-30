@@ -18,6 +18,7 @@ import { describe, expect, it } from 'vitest';
  */
 const TOKENS = readFileSync(join(__dirname, 'tokens.css'), 'utf8');
 const UI_TOKENS = readFileSync(join(__dirname, 'ui-tokens.css'), 'utf8');
+const GLOBAL = readFileSync(join(__dirname, 'global.css'), 'utf8');
 
 /** Объявления одного блока: от селектора до его закрывающей скобки. */
 function block(css: string, selector: string, from = 0): Record<string, string> {
@@ -99,6 +100,19 @@ describe('Плотность панели', () => {
   it.each(['sh-sm', 'sh-md', 'sh-lg'])('тень «%s» задана в обеих темах', (token) => {
     expect(PANEL[token], `--${token} не объявлен в блоке панели`).toBeDefined();
     expect(DARK_PANEL[token], `--${token} не переопределён в тёмной теме`).toBeDefined();
+  });
+
+  /* 🔴 Липкая панель вкладок лежит поверх содержимого, и отступ прокрутки под
+     неё живёт в глобальных стилях: токен объявлен на контейнере панели, а
+     прокручивается документ. Число там повторено — пусть расхождение ловит
+     проверка, а не человек, у которого фокус уехал под панель. */
+  it('отступ прокрутки под липкой панелью равен её высоте с отбивкой', () => {
+    const rule = /html:has\(\[data-ui='panel'\]\)\s*\{[^}]*scroll-padding-bottom:\s*(\d+)px/.exec(
+      GLOBAL,
+    );
+
+    expect(rule, 'правило отступа прокрутки не найдено в global.css').not.toBeNull();
+    expect(Number(rule?.[1])).toBeGreaterThanOrEqual(pixels(PANEL['navbar']));
   });
 
   it('кнопка и поле идут пилюлей, а контейнеры — прямее (ADR-187)', () => {

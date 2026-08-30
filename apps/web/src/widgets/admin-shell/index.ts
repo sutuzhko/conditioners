@@ -1,10 +1,12 @@
 /** Публичный API оболочки панели управления. */
 export { AdminShell, type AdminShellProps } from './AdminShell';
+export { AdminTabs, type AdminTabsProps } from './AdminTabs';
 export {
   ADMIN_GROUP_TITLES,
   ADMIN_ROLE_TITLES,
   ADMIN_SECTIONS,
   ADMIN_SETTINGS_PATH,
+  ADMIN_TABS,
   adminShellContent,
   bottomSectionsFor,
   columnSectionsFor,

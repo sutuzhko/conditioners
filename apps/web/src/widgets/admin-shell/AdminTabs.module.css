@@ -1,0 +1,174 @@
+/* Нижняя панель вкладок: навигация панели на телефоне. */
+
+.tabbar {
+  display: none;
+}
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+}
+
+.sheetList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sheetFoot {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.caption {
+  padding: 14px 12px 5px;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sheetLink {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 12px;
+  border-radius: var(--r-nav);
+  color: var(--body);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sheetLink:hover {
+  background: var(--accent-bg);
+  color: var(--ink);
+}
+
+.sheetActive {
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+.sheetIcon {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.sheetActive .sheetIcon {
+  color: var(--accent-text);
+}
+
+/* Селектор из двух классов: кнопка кита центрирует подпись у себя и по
+   порядку в бандле выигрывает у одноклассового правила — «Выйти» вставало
+   посередине строки, а ссылки рядом шли от левого края. */
+.sheetFoot .sheetLogout {
+  justify-content: flex-start;
+  width: 100%;
+  min-height: var(--tap);
+  padding: 0 12px;
+  border-radius: var(--r-nav);
+  font-size: var(--fs-dense);
+}
+
+@media (width < 900px) {
+  /* 🔴 Панель прижата к низу окна и лежит поверх содержимого: на телефоне
+     навигация обязана быть под большим пальцем, а не в начале страницы, куда
+     нужно прокрутить обратно. Отступ снизу под неё добавляет оболочка, а
+     `scroll-padding-bottom` документа не даёт ей накрыть фокус. */
+  .tabbar {
+    display: block;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+    border-top: 1px solid var(--line);
+    background: var(--card);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Отбивка в четыре пикселя по кругу. Заливка активной вкладки идёт
+     скруглённой — той же, что у пункта колонки, — и без неё прямоугольник
+     упирался в угол экрана. В эти же четыре пикселя помещается обводка
+     фокуса: она рисуется со сдвигом 2px и на краю окна обрезалась. */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin: 0;
+    padding: 4px;
+    list-style: none;
+  }
+
+  .cell {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  /* Ячейка целиком — цель: 48px по высоте и пятая часть экрана по ширине,
+     то есть 59px даже на 320. Полоса при этом остаётся ровно `--navbar`:
+     48 плюс отбивка списка. */
+  .tab {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: calc(var(--navbar) - 8px);
+
+    /* 🔴 По горизонтали отступа нет: на 320 пятая часть экрана — 59px, и
+       «Календарь» в макетные 10.5px влезает туда только целиком, без полей.
+       Обрезанное слово во вкладке читается как другое, а кегль ниже
+       макетного делает подпись нечитаемой на солнце. Соседние подписи всё
+       равно разведены отбивкой списка. */
+    padding: 5px 0;
+    border: 0;
+    border-radius: var(--r-nav);
+    background: none;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 10.5px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* Наведение — только там, где есть указатель: на телефоне подсветка
+     залипает после касания, и вкладка остаётся отмеченной, хотя раздел
+     давно другой. */
+  @media (hover: hover) {
+    .tab:hover {
+      background: var(--accent-bg);
+      color: var(--ink);
+    }
+  }
+
+  .tabActive {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+  }
+
+  /* Подпись ужимается, но не переносится: вторая строка подняла бы панель и
+     съела строку работы.
+
+     🔴 Высота строки задана явно. Наследованная — 1.5 от корня у ссылки и
+     `normal` у кнопки: вкладки выходили 51px, «Ещё» 49px, и полоса вставала
+     на три пикселя выше `--navbar`, под который отбит низ содержимого. */
+  .tabLabel {
+    max-width: 100%;
+    overflow: hidden;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
