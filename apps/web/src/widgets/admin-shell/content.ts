@@ -23,6 +23,13 @@ export type AdminSection = {
   /** Значок: на планшете колонка сворачивается в рельс, и подписи там нет. */
   readonly icon: IconName;
   /**
+   * Короткая подпись для нижней панели телефона.
+   *
+   * Ячейка там — пятая часть экрана: «Календарь работ» обрезается многоточием
+   * на любой ширине, и от подписи остаётся «Календарь …».
+   */
+  readonly short?: string | undefined;
+  /**
    * Раздел без вложенных страниц.
    *
    * 🔴 Нужен ровно «Обзору»: его адрес `/admin` — начало каждого адреса
@@ -83,6 +90,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
   {
     href: '/admin/crm',
     title: 'Календарь работ',
+    short: 'Календарь',
     hint: 'Замеры, монтажи, звонки и заявки по дням',
     icon: 'calendar',
     roles: BOTH,
@@ -213,6 +221,15 @@ export function sectionsFor(role: AdminRole): readonly AdminSection[] {
   return ADMIN_SECTIONS.filter((section) => section.roles.includes(role));
 }
 
+/**
+ * Сколько разделов помещается в нижнюю панель телефона.
+ *
+ * 🔴 Пять целей — предел: шестая делает подписи нечитаемыми, а ширина цели на
+ * экране 320 уходит ниже 44px. Пятая ячейка отдана «Ещё», поэтому разделов
+ * здесь четыре.
+ */
+export const ADMIN_TABS = 4;
+
 /** Прокручиваемый список колонки: работа и сайт. */
 export function columnSectionsFor(role: AdminRole): readonly AdminSection[] {
   return sectionsFor(role).filter((section) => section.place === 'main');
@@ -291,6 +308,10 @@ export const adminShellContent = {
   navLabel: 'Разделы панели управления',
   /** Второй `<nav>` колонки: без своего имени читалка не отличит его от первого. */
   accountLabel: 'Настройки и профиль',
+  /** Нижняя панель телефона: четыре раздела и «Ещё». */
+  tabsLabel: 'Основные разделы',
+  more: 'Ещё',
+  moreTitle: 'Все разделы',
   settingsTitle: 'Настройки',
   settingsLead: 'Три страницы конфигурации: заполняются однажды и правятся редко',
   /** Кнопка колонки разделов: подпись меняется по состоянию. */
