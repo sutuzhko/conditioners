@@ -147,3 +147,35 @@ describe('Button', () => {
     expect(panel?.className).toBe(plain?.className);
   });
 });
+
+/* 🔴 Кнопку зовут из серверных компонентов — карточка каталога, шапка,
+   страница 404. Функция в пропсах серверного компонента не сериализуется:
+   React отвечает «Event handlers cannot be passed to Client Component props»
+   и роняет страницу целиком. Так и случилось на разделе заказов панели.
+
+   Проверяется сам элемент, а не отрисовка: в jsdom серверного рендера нет, а
+   вопрос ровно один — оказалась ли функция в пропсах там, где её не давали. */
+describe('Кнопка из серверного компонента', () => {
+  it('🔴 без обработчика клика не подставляет свой', () => {
+    const element = Button({ children: 'Заказать' });
+    expect(element.props.onClick).toBeUndefined();
+  });
+
+  it('с обработчиком клика оборачивает его', () => {
+    const element = Button({ children: 'Заказать', onClick: () => undefined });
+    expect(typeof element.props.onClick).toBe('function');
+  });
+
+  /* Отказ снимает отправку формы: «мягко отключённая» кнопка нативного
+     `disabled` не имеет, и `submit` без подмены типа ушёл бы по Enter. */
+  it('отказ с причиной перестаёт быть кнопкой отправки', () => {
+    const element = Button({
+      children: 'Сохранить',
+      type: 'submit',
+      disabled: true,
+      disabledReason: 'Нет прав',
+    });
+
+    expect(element.props.type).toBe('button');
+  });
+});

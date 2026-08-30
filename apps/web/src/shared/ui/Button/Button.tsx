@@ -86,19 +86,30 @@ export function Button({
     .filter(Boolean)
     .join(' ');
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    if (soft) {
-      // и клик, и Enter приходят сюда: отмена гасит заодно отправку формы
-      event.preventDefault();
-      return;
-    }
-    onClick?.(event);
-  };
+  /* 🔴 Обработчик подставляется только там, где он был.
+     Функция в пропсах серверного компонента не сериализуется: React отвечает
+     «Event handlers cannot be passed to Client Component props» и роняет
+     страницу целиком — а кнопку без обработчика зовут карточка каталога,
+     шапка и все разделы панели. Гасить при этом нечего: кнопка, которой
+     ничего не передали, по нажатию и так ничего не делает. */
+  const handleClick =
+    onClick === undefined
+      ? undefined
+      : (event: MouseEvent<HTMLButtonElement>) => {
+          if (soft) {
+            // и клик, и Enter приходят сюда: отмена гасит заодно отправку формы
+            event.preventDefault();
+            return;
+          }
+          onClick(event);
+        };
 
   return (
     <button
       {...rest}
-      type={type}
+      /* Отказ снимает отправку формы: «мягко отключённая» кнопка нативного
+         `disabled` не имеет, и `submit` без этой подмены ушёл бы по Enter. */
+      type={soft ? 'button' : type}
       className={classes}
       onClick={handleClick}
       disabled={off && !soft}
