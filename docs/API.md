@@ -48,7 +48,7 @@
 | GET   | `/api/public/articles/{slug}` | Статья целиком                                                                                                                                        |
 | GET   | `/api/public/models/{slug}`   | Модель целиком                                                                                                                                        |
 
-Отдельные публичные чтения, которые **есть** и работают: `/api/settings/{key}` (§5), `/api/prices` (§4), `/api/weather` и `/api/health` (§13).
+Отдельные публичные чтения, которые **есть** и работают: `/api/settings/{key}` (§5), `/api/prices` (§4), `/api/weather` и `/api/health` (§15).
 
 ---
 
@@ -227,12 +227,12 @@
 
 ## 7. Отзывы
 
-| Метод  | Путь                               | Описание                                                                                                                                                                                                 |
-| ------ | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| POST   | `/api/reviews`                     | **Публичный.** `multipart/form-data`: `name`_, `district`, `rating`_ (1–5), `text`* (≥ 10 символов), `photo` (≤ 5 МБ), `consent`*, `hp` (honeypot). Создаётся `pending` → `201 { id }`. Rate-limit по IP |
-| GET    | `/api/admin/reviews?status=&page=` | Страница списка по статусу: `{ items, total, page, pages }`. По 8 записей, свежие первыми                                                                                                                |
-| PATCH  | `/api/admin/reviews/{id}/status`   | `{ status: "approved" \| "rejected" \| "archived" }`                                                                                                                                                     |
-| DELETE | `/api/admin/reviews/{id}`          | Безвозвратно                                                                                                                                                                                             |
+| Метод  | Путь                               | Описание                                                                                                                                                                                     |
+| ------ | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| POST   | `/api/reviews`                     | **Публичный.** `multipart/form-data`: `name`_, `rating`_ (1–5), `text`* (≥ 10 символов), `photo` (≤ 5 МБ), `consent`*, `hp` (honeypot). Создаётся `pending` → `201 { id }`. Rate-limit по IP |
+| GET    | `/api/admin/reviews?status=&page=` | Страница списка по статусу: `{ items, total, page, pages }`. По 8 записей, свежие первыми                                                                                                    |
+| PATCH  | `/api/admin/reviews/{id}/status`   | `{ status: "approved" \| "rejected" \| "archived" }`                                                                                                                                         |
+| DELETE | `/api/admin/reviews/{id}`          | Безвозвратно                                                                                                                                                                                 |
 
 🔴 Текст отзыва не редактируется ни одним эндпоинтом. Модератор меняет только статус.
 

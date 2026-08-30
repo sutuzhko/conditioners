@@ -1,7 +1,87 @@
-/* Боковая навигация панели. */
+/* Боковая навигация панели. Три яруса: кто вошёл, разделы, прибитый низ. */
 
-.nav {
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  /* 🔴 Ширину нужно задать явно: колонка — flex-элемент внутри `aside`, и по
+     умолчанию она сжимается до ширины самого длинного слова. Заливка
+     активного пункта тогда обрывается там, где кончается подпись, а не там,
+     где кончается колонка. */
+  width: 100%;
+
+  /* Колонка занимает всю высоту отведённого ей места: без этого прибитый низ
+     прижимается не к низу экрана, а к последнему пункту списка. */
+  height: 100%;
+  min-height: 0;
+}
+
+/* Карточка «кто вошёл»: имя и роль. Стоит первой, потому что панель у
+   монтажника и у владельца выглядит по-разному, и первый вопрос при взгляде
+   на чужой экран — «под кем вошли». */
+.who {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 4px 10px 12px;
   min-width: 0;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-pill);
+  background: var(--accent-bg);
+  color: var(--on-accent);
+  font-family: var(--font-display);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+}
+
+.whoText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.whoName {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.whoRole {
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  line-height: 1.25;
+}
+
+/* 🔴 Прокручивается только список разделов. Если отдать прокрутку самой
+   колонке, прибитый низ уедет вместе с ней — и «прибитый» останется только
+   на словах. */
+.nav {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+.foot {
+  flex-shrink: 0;
+  margin-top: auto;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
 }
 
 .list {
@@ -13,8 +93,8 @@
   list-style: none;
 }
 
-/* Заголовок группы разделов. Разделов десять, и без «Настройки · сайт»
-   каталог с ценами читаются как продолжение работы с заказами. */
+/* Заголовок группы разделов. Отделяет содержимое сайта от ежедневной работы:
+   каталог и отзывы правят не тогда же, когда смотрят наряды. */
 .caption {
   display: block;
   padding: 16px 12px 5px;
@@ -26,9 +106,11 @@
 }
 
 .link {
-  display: block;
+  display: flex;
+  gap: 12px;
+  align-items: center;
   padding: 9px 12px;
-  border-radius: var(--r-sm);
+  border-radius: var(--r-nav);
   color: var(--body);
   font-size: var(--fs-dense);
   font-weight: 600;
@@ -48,6 +130,36 @@
   color: var(--accent-text);
 }
 
+.icon {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.active .icon {
+  color: var(--accent-text);
+}
+
+.label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Выход стоит в одном ряду со ссылками и обязан выглядеть так же.
+
+   🔴 Селектор из двух классов не для красоты: кнопка кита центрирует подпись
+   у себя, и одноклассовое правило проигрывало ей по порядку в бандле —
+   рамка вставала на место, а слово «Выйти» оставалось посередине строки,
+   в сорока пикселях правее «Настроек». */
+.foot .logout {
+  justify-content: flex-start;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: var(--r-nav);
+  font-size: var(--fs-dense);
+}
+
 /* 🔴 Кольцо фокуса рисуется внутрь. Наружное обводило пункт за его
    границами: в ленте на телефоне левый край гасится маской, и кольцо первого
    раздела пропадало наполовину, а в колонке на десктопе оно вылезало за край
@@ -57,16 +169,98 @@
   box-shadow: var(--ring-focus-inset);
 }
 
-/* На узком экране разделы ложатся в прокручиваемую ленту: колонка из шести
+/* ——— Планшет: колонка сворачивается в иконочный рельс.
+
+   Колонка 264px съедает треть экрана 900–1199, и содержимому — таблицам с
+   нарядами — остаётся меньше, чем навигации. В рельсе от пункта остаётся
+   значок в ячейке 44×44: тап-зона целиком, а подпись уходит из виду, но не
+   из разметки — читалка называет пункт по-прежнему, а указателю подпись
+   показывает `title`. ——— */
+@media (900px <= width < 1200px) {
+  .who {
+    justify-content: center;
+    padding: 4px 0 12px;
+  }
+
+  .whoText {
+    display: none;
+  }
+
+  /* Пункт занимает ширину рельса целиком, а по центру стоит только значок:
+     так планка активного рисуется у самого края колонки, а тап-зона выходит
+     шире обязательных 44px, а не ужимается до них. */
+  .link {
+    position: relative;
+    justify-content: center;
+    box-sizing: border-box;
+    height: var(--h-nav);
+    padding: 0;
+  }
+
+  /* 🔴 Подпись уходит из виду, оставаясь для читалки: `display: none` убрал
+     бы её из дерева доступности, и рельс стал бы полосой безымянных ссылок. */
+  .label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* Активный различается тремя признаками сразу: заливкой, цветом значка и
+     планкой у края — не одним только цветом. */
+  .active::before {
+    content: '';
+    position: absolute;
+    top: 11px;
+    bottom: 11px;
+    left: 0;
+    width: 3px;
+    border-radius: 0 3px 3px 0;
+    background: var(--brand);
+  }
+
+  /* Выход в рельсе — такая же ячейка, как пункт: кнопка кита ниже на
+     пиксель, и тап-зона не дотягивала до 44. */
+  .foot .logout {
+    justify-content: center;
+    height: var(--h-nav);
+    padding: 0;
+  }
+
+  /* Заголовок группы превращается в разделительную линию: слово в рельс не
+     помещается, а граница между работой и содержимым сайта нужна. */
+  .caption {
+    height: 1px;
+    margin: 10px 8px;
+    padding: 0;
+    overflow: hidden;
+    background: var(--line);
+    text-indent: -200px;
+  }
+}
+
+/* На узком экране разделы ложатся в прокручиваемую ленту: колонка из десяти
    пунктов над содержимым отодвинула бы работу за пределы экрана.
 
    Лента растянута до краёв экрана и гасит их маской: обрезанный по прямой
    пункт читается как «здесь всё», и до половины разделов никто не долистает.
-   Открытый раздел подводит к середине сам компонент. */
+   Открытый раздел подводит к середине сам компонент.
+
+   Карточка «кто вошёл» здесь не показывается: на телефоне каждая строка
+   на счету, а под кем вошли — видно в профиле. */
 @media (width < 900px) {
-  .list {
+  /* 🔴 Прокручивается вся лента целиком, а не список внутри неё. Прибитого
+     низа на телефоне нет: настройки и профиль идут последними в той же
+     ленте (ADR-188). Пока прокрутка стояла на списке разделов, три пункта
+     низа занимали две трети ширины экрана, и от разделов оставался огрызок
+     в полтора слова. */
+  .column {
     flex-direction: row;
-    gap: 6px;
+    align-items: center;
+    gap: 8px;
+    height: auto;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scrollbar-width: none;
@@ -84,8 +278,31 @@
     scroll-padding-inline: 14px;
   }
 
-  .list::-webkit-scrollbar {
+  .column::-webkit-scrollbar {
     display: none;
+  }
+
+  .who {
+    display: none;
+  }
+
+  .nav,
+  .foot {
+    flex-shrink: 0;
+    overflow: visible;
+  }
+
+  .foot {
+    margin-top: 0;
+    padding-top: 0;
+    padding-left: 8px;
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
+
+  .list {
+    flex-direction: row;
+    gap: 6px;
   }
 
   /* Тап-зона по высоте (DESIGN_BRIEF §6): в ленте это единственная навигация. */

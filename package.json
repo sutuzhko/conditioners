@@ -19,6 +19,7 @@
     "storybook:build": "pnpm --filter web build-storybook",
     "test": "pnpm --filter web test",
     "e2e": "pnpm --filter web e2e",
+    "e2e:stand": "node scripts/e2e-stand.mjs",
     "vr": "pnpm --filter web vr",
     "shot": "pnpm --filter web shot",
     "typecheck": "pnpm -r typecheck",

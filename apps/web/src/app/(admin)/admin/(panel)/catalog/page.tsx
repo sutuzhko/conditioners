@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import { CATALOG_NEW_PATH, CATALOG_SPECS_PATH } from '@/features/product-form';
 import { requireOwnerPage } from '@/server/guards';
 import { listAll } from '@/server/repo/products';
 import { AdminCatalogList, adminCatalogContent as texts } from '@/widgets/admin-catalog';
@@ -32,14 +33,11 @@ export default async function AdminCatalogPage() {
               станет: он про товар и живёт рядом с каталогом (ADR-094). */}
           <Link
             className={buttonClassName({ size: 'sm', variant: 'secondary' })}
-            href={{ pathname: '/admin/catalog/specs' }}
+            href={{ pathname: CATALOG_SPECS_PATH }}
           >
             {texts.specsDictionary}
           </Link>
-          <Link
-            className={buttonClassName({ size: 'sm' })}
-            href={{ pathname: '/admin/catalog/new' }}
-          >
+          <Link className={buttonClassName({ size: 'sm' })} href={{ pathname: CATALOG_NEW_PATH }}>
             {texts.add}
           </Link>
         </div>

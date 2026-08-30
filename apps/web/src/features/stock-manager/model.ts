@@ -1,4 +1,6 @@
 /** Раздел склада: типы представления. Доменные схемы — в `entities/stock`. */
+import type { Route } from 'next';
+
 import {
   isStockMoveKind,
   stockItemCreateSchema,
@@ -38,8 +40,8 @@ export { ADMIN_PAGE_SIZE, pageNumber } from '@/shared/lib/paging';
 
 /* ---------- Адреса раздела ---------- */
 
-export const STOCK_PATH = '/admin/stock';
-export const STOCK_ZONES_PATH = '/admin/stock/zones';
+export const STOCK_PATH = '/admin/stock' satisfies Route;
+export const STOCK_ZONES_PATH = '/admin/stock/zones' satisfies Route;
 
 export function stockItemPath(id: string): string {
   return `/admin/stock/items/${id}`;
@@ -50,9 +52,9 @@ export function stockItemPath(id: string): string {
  * состоянии компонента: иначе ссылку на форму нельзя прислать, «назад» уводит
  * из раздела, а обновление страницы теряет ввод (ADR-117).
  */
-export const STOCK_ITEM_NEW_PATH = '/admin/stock/items/new';
-export const STOCK_ZONE_NEW_PATH = '/admin/stock/zones/new';
-export const STOCK_MOVE_PATH = '/admin/stock/move';
+export const STOCK_ITEM_NEW_PATH = '/admin/stock/items/new' satisfies Route;
+export const STOCK_ZONE_NEW_PATH = '/admin/stock/zones/new' satisfies Route;
+export const STOCK_MOVE_PATH = '/admin/stock/move' satisfies Route;
 
 /**
  * Журнал движений всего склада.
@@ -61,7 +63,7 @@ export const STOCK_MOVE_PATH = '/admin/stock/move';
  * складе в четверг» и «куда делась эта труба» — разные вопросы, и второй
  * перебором позиций не решается.
  */
-export const STOCK_JOURNAL_PATH = '/admin/stock/journal';
+export const STOCK_JOURNAL_PATH = '/admin/stock/journal' satisfies Route;
 
 /* ---------- Фильтры остатков ---------- */
 

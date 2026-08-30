@@ -24,6 +24,11 @@ const GROUP_TITLES: Record<string, string> = {
 };
 
 export const adminSummaryContent = {
+  /* Заголовок страницы. Совпадает с названием пункта навигации: человек
+     нажал «Обзор» и обязан увидеть «Обзор», а не «Панель управления». */
+  title: 'Обзор',
+  lead: 'Что требует внимания прямо сейчас',
+
   readinessTitle: 'Готовность к запуску',
   readinessDone: 'Все данные о компании заполнены. Сайт можно публиковать.',
   readinessPending:

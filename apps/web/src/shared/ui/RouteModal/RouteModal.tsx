@@ -2,7 +2,7 @@
 
 import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 
 import { Button } from '../Button/Button';
 import { Modal, type ModalSize } from '../Modal/Modal';
@@ -119,6 +119,11 @@ export function RouteModal({
   const leave = useRouteClose(fallbackHref);
   const [asking, setAsking] = useState(false);
 
+  /* Имя вопроса берётся у самого вопроса, а не дублируется в `aria-label`:
+     иначе читалка произносит текст дважды — сначала как имя окна, потом как
+     его содержимое. */
+  const questionId = useId();
+
   /**
    * Вопрос задаётся внутри того же окна, а не вторым диалогом поверх первого:
    * две ловушки фокуса стопкой — надёжный способ запереть человека с
@@ -153,8 +158,10 @@ export function RouteModal({
       {...(description === undefined ? {} : { description })}
       footer={
         asking ? (
-          <div className={styles.confirm} role="alertdialog" aria-label={confirmText}>
-            <p className={styles.question}>{confirmText}</p>
+          <div className={styles.confirm} role="alertdialog" aria-labelledby={questionId}>
+            <p className={styles.question} id={questionId}>
+              {confirmText}
+            </p>
             <div className={styles.answers}>
               <Button variant="ghost" onClick={() => setAsking(false)}>
                 {confirmStay}
