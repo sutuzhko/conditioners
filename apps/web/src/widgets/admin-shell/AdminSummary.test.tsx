@@ -14,6 +14,17 @@ import {
 import { adminSummaryContent as texts } from './summary-content';
 
 describe('Сводка панели управления', () => {
+  it('🔴 заголовок экрана ровно один и он первого уровня (инвариант 4)', () => {
+    render(<AdminSummary counts={busyCounts} readiness={readyReadiness} upcoming={upcomingItems} />);
+
+    /* Проверяется не наличие текста, а уровень и число: `h1` был пропущен
+       вовсе, и дерево заголовков начиналось со второго уровня — заголовков
+       карточек. Пересчёт ловит и обратную ошибку, когда карточка однажды
+       поднимется до первого уровня «чтобы выглядело крупнее». */
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(texts.title);
+  });
+
   it('незаполненные группы названы по-человечески, а не ключами базы', () => {
     render(<AdminSummary counts={emptyCounts} readiness={unfinishedReadiness} />);
 
@@ -42,13 +53,29 @@ describe('Сводка панели управления', () => {
     /* Сайт с заглушками публиковать нельзя, и напоминание об этом обязано
        быть первым. Зелёная галочка, наоборот, не вправе каждый день
        отодвигать вниз работу. */
+    /* Порядок меряется относительно плиток, а не по номеру ребёнка: первым в
+       колонке стоит заголовок экрана, и «готовность выше плиток» — это про
+       плитки, а не про то, что выше неё нет вообще ничего. */
+    const orderOf = (container: HTMLElement): readonly number[] => {
+      const children = [...container.querySelectorAll('[class*="summary"] > *')];
+      return [
+        children.findIndex((node) => node.textContent?.includes(texts.readinessTitle) === true),
+        children.findIndex((node) => node.className.includes('tiles')),
+      ];
+    };
+
     const blocking = render(<AdminSummary counts={emptyCounts} readiness={unfinishedReadiness} />);
-    const first = blocking.container.querySelector('[class*="summary"] > *');
-    expect(first?.textContent).toContain(texts.readinessTitle);
+    const [blockingReadiness, blockingTiles] = orderOf(blocking.container);
+    expect(blockingReadiness).toBeGreaterThanOrEqual(0);
+    expect(blockingReadiness).toBeLessThan(blockingTiles);
 
     blocking.unmount();
 
     const done = render(<AdminSummary counts={quietCounts} readiness={readyReadiness} />);
+    const [doneReadiness, doneTiles] = orderOf(done.container);
+    expect(doneReadiness).toBeGreaterThan(doneTiles);
+
+    // и заполненная готовность по-прежнему замыкает колонку
     const children = done.container.querySelectorAll('[class*="summary"] > *');
     expect(children[children.length - 1]?.textContent).toContain(texts.readinessTitle);
   });

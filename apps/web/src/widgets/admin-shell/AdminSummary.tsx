@@ -107,6 +107,15 @@ export function AdminSummary({ counts, readiness, upcoming = [] }: AdminSummaryP
 
   return (
     <div className={styles.summary}>
+      {/* 🔴 Заголовок экрана, а не карточки. Без него вход в панель был
+          единственной страницей без `h1` (инвариант 4): дерево заголовков
+          начиналось сразу со второго уровня, и обход по заголовкам оставлял
+          человека без ответа на вопрос, куда он попал. */}
+      <header className={styles.header}>
+        <h1 className={styles.title}>{texts.title}</h1>
+        <p className={styles.lead}>{texts.lead}</p>
+      </header>
+
       {readiness.ready ? null : readinessCard}
 
       <div className={styles.tiles}>
