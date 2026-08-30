@@ -5,24 +5,52 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
 import type { AdminRole } from '@/entities/staff/model';
+import { Icon } from '@/shared/ui';
 
-import { ADMIN_GROUP_TITLES, adminShellContent as texts, sectionsFor } from './content';
+import { LogoutButton } from './LogoutButton';
+import {
+  ADMIN_GROUP_TITLES,
+  ADMIN_ROLE_TITLES,
+  adminShellContent as texts,
+  bottomSectionsFor,
+  columnSectionsFor,
+  navHrefOf,
+} from './content';
 import styles from './AdminNav.module.css';
 
 export type AdminNavProps = {
-  /** Монтажник видит три раздела из десяти — список собирается по роли. */
+  /** Монтажник видит три раздела из пятнадцати — список собирается по роли. */
   readonly role: AdminRole;
+  /** Кто вошёл: имя из профиля, иначе логин. */
+  readonly userName: string;
 };
+
+/** Инициалы для кружка: две первых буквы имени и фамилии, иначе одна. */
+function initialsOf(name: string): string {
+  const parts = name.trim().split(/\s+/).slice(0, 2);
+
+  return parts.map((part) => part.slice(0, 1).toUpperCase()).join('');
+}
 
 /**
  * Боковая навигация панели.
  *
+ * Колонка устроена в три яруса (ADR-188): сверху карточка «кто вошёл», в
+ * середине прокручиваемый список разделов, внизу прибитое редкое — настройки,
+ * профиль и выход. Прокручивается только середина: прибитый низ на то и
+ * прибитый, чтобы за ним не нужно было листать.
+ *
+ * 🔴 На планшете колонка сворачивается в рельс, и подпись пункта уходит из
+ * виду — но не из разметки: она остаётся для читалки, а не заменяется
+ * `aria-label`. Имя, написанное дважды, расходится с видимым на первой же
+ * правке, и читалка начинает называть пункт не так, как он подписан.
+ *
  * Клиентский компонент ровно из-за одного: текущий раздел подсвечивается по
  * адресу. Всё остальное в оболочке остаётся серверным.
  */
-export function AdminNav({ role }: AdminNavProps) {
+export function AdminNav({ role, userName }: AdminNavProps) {
   const pathname = usePathname();
-  const list = useRef<HTMLUListElement>(null);
+  const track = useRef<HTMLDivElement>(null);
   const active = useRef<HTMLAnchorElement>(null);
 
   /**
@@ -36,48 +64,109 @@ export function AdminNav({ role }: AdminNavProps) {
    * открывался прокрученным вниз.
    */
   useEffect(() => {
-    const track = list.current;
+    const ribbon = track.current;
     const link = active.current;
-    if (track === null || link === null) return;
-    if (track.scrollWidth <= track.clientWidth) return;
+    if (ribbon === null || link === null) return;
+    if (ribbon.scrollWidth <= ribbon.clientWidth) return;
 
-    track.scrollLeft = link.offsetLeft - (track.clientWidth - link.offsetWidth) / 2;
+    /* Смещение считается по экранным координатам, а не по `offsetLeft`: тот
+       меряет от позиционированного предка, а прокручивается здесь колонка,
+       и на разных страницах предок оказывался разным. */
+    const shift = link.getBoundingClientRect().left - ribbon.getBoundingClientRect().left;
+    ribbon.scrollLeft += shift - (ribbon.clientWidth - link.offsetWidth) / 2;
   }, [pathname]);
 
-  const sections = sectionsFor(role);
+  const sections = columnSectionsFor(role);
+  const bottom = bottomSectionsFor(role);
+
+  /* Подсветку определяет пункт колонки, а не раздел: на `/admin/company`
+     горят «Настройки», через которые в него и заходят. */
+  const activeHref = navHrefOf(pathname);
 
   return (
-    <nav className={styles.nav} aria-label={texts.navLabel}>
-      <ul className={styles.list} ref={list}>
-        {sections.map((section, index) => {
-          /* Раздел активен и на своих вложенных страницах: со страницы правки
-             модели подсвеченным должен остаться «Каталог». */
-          const current = pathname === section.href || pathname.startsWith(`${section.href}/`);
+    <div className={styles.column} ref={track}>
+      {/* Карточка «кто вошёл». Не ссылка и не меню: действия, которые открыл
+          бы шеврон макета, стоят прибитыми в том же столбце ниже — дублировать
+          их в выпадающем списке значит спрашивать «а эти два «Выйти» разные?». */}
+      <div className={styles.who}>
+        <span className={styles.avatar} aria-hidden="true">
+          {initialsOf(userName)}
+        </span>
+        <span className={styles.whoText}>
+          <span className={styles.whoName}>{userName}</span>
+          <span className={styles.whoRole}>{ADMIN_ROLE_TITLES[role]}</span>
+        </span>
+      </div>
 
-          /* Заголовок группы рисуется перед её первым разделом. Он декоративный:
-             список ссылок и без него полный, поэтому от озвучки скрыт. */
-          const caption =
-            sections[index - 1]?.group === section.group ? null : ADMIN_GROUP_TITLES[section.group];
+      <nav className={styles.nav} aria-label={texts.navLabel}>
+        <ul className={styles.list}>
+          {sections.map((section, index) => {
+            const current = section.href === activeHref;
 
-          return (
-            <li key={section.href}>
-              {caption === null ? null : (
-                <span className={styles.caption} aria-hidden="true">
-                  {caption}
-                </span>
-              )}
-              <Link
-                className={[styles.link, current ? styles.active : null].filter(Boolean).join(' ')}
-                href={{ pathname: section.href }}
-                aria-current={current ? 'page' : undefined}
-                ref={current ? active : undefined}
-              >
-                {section.title}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+            /* Заголовок группы рисуется перед её первым разделом. Он
+               декоративный: список ссылок и без него полный, поэтому от
+               озвучки скрыт. */
+            const group = section.group;
+            const caption =
+              group === undefined || sections[index - 1]?.group === group
+                ? null
+                : ADMIN_GROUP_TITLES[group];
+
+            return (
+              <li key={section.href}>
+                {caption === null ? null : (
+                  <span className={styles.caption} aria-hidden="true">
+                    {caption}
+                  </span>
+                )}
+                <Link
+                  className={[styles.link, current ? styles.active : null]
+                    .filter(Boolean)
+                    .join(' ')}
+                  href={{ pathname: section.href }}
+                  aria-current={current ? 'page' : undefined}
+                  title={section.title}
+                  ref={current ? active : undefined}
+                >
+                  <Icon className={styles.icon} name={section.icon} />
+                  <span className={styles.label}>{section.title}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+      <nav className={styles.foot} aria-label={texts.accountLabel}>
+        <ul className={styles.list}>
+          {bottom.map((section) => {
+            const current = section.href === activeHref;
+
+            return (
+              <li key={section.href}>
+                <Link
+                  className={[styles.link, current ? styles.active : null]
+                    .filter(Boolean)
+                    .join(' ')}
+                  href={{ pathname: section.href }}
+                  aria-current={current ? 'page' : undefined}
+                  title={section.title}
+                >
+                  <Icon className={styles.icon} name={section.icon} />
+                  <span className={styles.label}>{section.title}</span>
+                </Link>
+              </li>
+            );
+          })}
+
+          {/* Выход — кнопка, а не ссылка: он меняет состояние на сервере.
+              Стоит последним по цене промаха: любой другой отменяется кнопкой
+              «назад», этот стоит повторного входа. */}
+          <li>
+            <LogoutButton className={styles.logout} labelClassName={styles.label} />
+          </li>
+        </ul>
+      </nav>
+    </div>
   );
 }

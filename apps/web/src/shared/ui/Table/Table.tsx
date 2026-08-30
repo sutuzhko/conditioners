@@ -38,7 +38,18 @@ export function Table({
   className,
 }: TableProps) {
   const cards = variant === 'cards';
-  const scrolls = variant === 'scroll' || variant === 'sticky';
+
+  /* 🔴 `cards` прокручивается наравне с `scroll` и `sticky`. Карточками
+     строки лежат только на узком экране; выше порога это обычная таблица из
+     шести колонок, и своего контейнера прокрутки у неё не было — каталог
+     панели уезжал правым краем на 997 при документе 900, потому что колонку
+     разделов никто из бюджета ширины не вычитал (issue #302).
+
+     Контейнер получает фокус и в карточном режиме, где прокручивать нечего.
+     Это осознанная плата: `tabIndex` живёт в разметке, а режим — в
+     медиа-запросе, и выбор стоит между лишней остановкой табуляции на
+     телефоне и таблицей, которую с клавиатуры не прокрутить вовсе. */
+  const scrolls = variant === 'scroll' || variant === 'sticky' || cards;
 
   const table = (
     <table
@@ -67,7 +78,9 @@ export function Table({
   // и с клавиатуры, а не только пальцем
   return (
     <div
-      className={[styles.viewport, styles.scrollable].join(' ')}
+      className={[styles.viewport, styles.scrollable, cards ? styles.cardsScroll : null]
+        .filter(Boolean)
+        .join(' ')}
       role="region"
       aria-label={label}
       tabIndex={0}

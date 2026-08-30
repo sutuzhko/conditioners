@@ -1,4 +1,6 @@
 /** Раздел команды: типы представления. Доменные схемы — в `entities/staff`. */
+import type { Route } from 'next';
+
 import type { Employment } from '@/shared/lib/employment';
 
 export type {
@@ -27,14 +29,17 @@ export type { Employment } from '@/shared/lib/employment';
 
 /* ---------- Адреса раздела ---------- */
 
-export const TEAM_PATH = '/admin/team';
+export const TEAM_PATH = '/admin/team' satisfies Route;
 
 /**
  * Адрес окна создания (ADR-117). Окно живёт по собственному адресу, а не в
  * состоянии компонента: иначе ссылку на форму нельзя прислать, «назад» уводит
  * из раздела, а обновление страницы теряет ввод.
+ *
+ * Проверен маршрутом через `satisfies` — как и остальные адреса разделов, см.
+ * `article-form/model.ts`.
  */
-export const TEAM_NEW_PATH = '/admin/team/new';
+export const TEAM_NEW_PATH = '/admin/team/new' satisfies Route;
 
 /**
  * Ответ действия: успех либо готовый к показу текст ошибки.

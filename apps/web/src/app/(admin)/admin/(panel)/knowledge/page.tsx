@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import { KNOWLEDGE_NEW_PATH } from '@/features/article-form';
 import { buttonClassName } from '@/shared/ui';
 import { requireOwnerPage } from '@/server/guards';
 import { listAll } from '@/server/repo/articles';
@@ -27,10 +28,7 @@ export default async function AdminKnowledgePage() {
           <p className={styles.lead}>{texts.lead}</p>
         </div>
 
-        <Link
-          className={buttonClassName({ size: 'sm' })}
-          href={{ pathname: '/admin/knowledge/new' }}
-        >
+        <Link className={buttonClassName({ size: 'sm' })} href={{ pathname: KNOWLEDGE_NEW_PATH }}>
           {texts.add}
         </Link>
       </header>

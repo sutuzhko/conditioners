@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { Button } from '@/shared/ui';
+import { Button, Icon } from '@/shared/ui';
 
 import { adminShellContent as texts } from './content';
 
@@ -13,7 +13,14 @@ import { adminShellContent as texts } from './content';
  * Кнопка, а не ссылка: выход меняет состояние на сервере, и ссылку на него
  * не должен уметь дёрнуть чужой сайт картинкой или предзагрузкой.
  */
-export function LogoutButton({ className }: { className?: string | undefined }) {
+export function LogoutButton({
+  className,
+  labelClassName,
+}: {
+  className?: string | undefined;
+  /** Класс подписи: в рельсе она уходит из виду, оставаясь для читалки. */
+  labelClassName?: string | undefined;
+}) {
   const router = useRouter();
   const [leaving, setLeaving] = useState(false);
 
@@ -39,7 +46,9 @@ export function LogoutButton({ className }: { className?: string | undefined }) 
       loading={leaving}
       onClick={logout}
     >
-      {texts.logout}
+      {/* Без подписи иконка считается украшением и скрывается от чтения сама. */}
+      <Icon name="exit" />
+      <span className={labelClassName}>{texts.logout}</span>
     </Button>
   );
 }

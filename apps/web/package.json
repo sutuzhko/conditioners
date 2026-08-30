@@ -8,6 +8,7 @@
     "start": "next start",
     "worker": "tsx src/server/notifications/worker.ts",
     "typecheck": "tsc --noEmit",
+    "check": "pnpm -w run check",
     "test": "vitest run",
     "test:watch": "vitest",
     "e2e": "playwright test",
