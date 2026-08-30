@@ -263,7 +263,7 @@
   font-size: 13.5px;
 }
 
-@media (width < 1000px) {
+@media (width < 900px) {
   .steps,
   .day {
     grid-template-columns: repeat(2, minmax(0, 1fr));
