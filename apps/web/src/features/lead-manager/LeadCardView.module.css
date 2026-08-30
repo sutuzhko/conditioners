@@ -150,7 +150,7 @@
   font-size: var(--fs-dense);
 }
 
-@media (width < 700px) {
+@media (width < 900px) {
   .actions {
     grid-template-columns: minmax(0, 1fr);
   }

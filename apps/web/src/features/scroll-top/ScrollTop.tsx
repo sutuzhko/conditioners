@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
+import { WIDE_SCREEN_QUERY } from '@/shared/config/breakpoints';
 import { LEAD_ANCHOR } from '@/shared/config/nav';
+import { useMediaQuery } from '@/shared/lib/useMediaQuery';
 
 import { scrollTopContent as t } from './content';
 import styles from './ScrollTop.module.css';
@@ -50,11 +52,23 @@ function leadFormOnScreen(): boolean {
  *
  * Кнопки нет в серверном HTML: она ничего не значит для робота и не должна
  * появляться в разметке страницы до того, как её есть куда нажимать.
+ *
+ * 🔴 Ниже 600 кнопки нет вовсе. На 375 она накрывала «Заказать» в карточке
+ * каталога и подпись первого экрана, а её место у нижнего края заняла липкая
+ * панель действий: две плавающие штуки в одном углу спорят за один палец.
+ * Возврат наверх на телефоне делают жестом по строке состояния и ссылками
+ * подвала — привычка обоих телефонных семейств.
  */
 export function ScrollTop() {
+  const wide = useMediaQuery(WIDE_SCREEN_QUERY);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    /* На телефоне слушателя нет совсем: прятать кнопку оформлением значило бы
+       считать положение страницы на каждый кадр прокрутки ради элемента,
+       которого на экране нет. */
+    if (!wide) return;
+
     const update = (): void => {
       const scrolledFar = window.scrollY > window.innerHeight * SHOW_AFTER_SCREENS;
       setVisible(scrolledFar && !leadFormOnScreen());
@@ -63,7 +77,7 @@ export function ScrollTop() {
     update();
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
-  }, []);
+  }, [wide]);
 
   const toTop = (): void => {
     /* Плавность — только если её не просили выключить: `scroll-behavior` в
@@ -85,7 +99,7 @@ export function ScrollTop() {
     first?.focus({ preventScroll: true });
   };
 
-  if (!visible) return null;
+  if (!wide || !visible) return null;
 
   return (
     <button type="button" className={styles.button} onClick={toTop} title={t.label}>
