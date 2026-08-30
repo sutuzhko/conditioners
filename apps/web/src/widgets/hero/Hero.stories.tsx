@@ -80,10 +80,29 @@ export const WithoutStats: Story = {
 
 export const WithWeather: Story = {
   name: 'С погодой в городе',
-  args: { weather: { mean: 27, max: 31 }, city: 'Тула' },
+  args: { weather: { mean: 27, max: 31 } },
 };
 
 export const WeatherCold: Story = {
   name: 'Погода до сезона',
-  args: { weather: { mean: 8, max: 12 }, city: 'Тула' },
+  args: { weather: { mean: 8, max: 12 } },
+};
+
+/**
+ * 🔴 Оффер телефона (issue #253, #254): один призыв, каталог текстовой
+ * ссылкой, чип погоды в строку, показатели рядом из трёх. Ширина здесь —
+ * часть состояния, поэтому история задаёт её глобалью: медиа-запрос смотрит
+ * на окно, а не на контейнер.
+ */
+export const Phone: Story = {
+  name: 'Телефон 375 — один призыв',
+  globals: { viewport: { value: 'sm' } },
+  args: { weather: { mean: 15, max: 34 } },
+};
+
+/** Нижняя граница поддержки: ряд из трёх цифр обязан остаться рядом. */
+export const Narrow: Story = {
+  name: 'Минимум 320 — ряд из трёх',
+  globals: { viewport: { value: 'xs' } },
+  args: { weather: { mean: 15, max: 34 } },
 };
