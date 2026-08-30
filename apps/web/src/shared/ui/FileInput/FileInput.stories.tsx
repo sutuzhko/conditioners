@@ -53,3 +53,13 @@ export const Empty: Story = {
   name: 'Без подписи',
   render: () => <ControlledFileInput label={undefined} />,
 };
+
+/** Зона загрузки в панели: заливка и радиус приходят её переменными (ADR-187). */
+export const InPanel: Story = {
+  name: 'В панели',
+  render: () => (
+    <div data-ui="panel">
+      <ControlledFileInput hint="JPEG, PNG или WebP" />
+    </div>
+  ),
+};

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
+import { REVIEW_STATUS_VARIANT } from '@/entities/review/model';
 import { Badge, Button, Card, Rating, useConfirm } from '@/shared/ui';
 import type { Confirm } from '@/shared/ui';
 
@@ -17,13 +18,6 @@ export interface ReviewCardViewProps {
   /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
   readonly confirmRemove?: Confirm | undefined;
 }
-
-const STATUS_VARIANT: Record<ReviewStatus, 'accent' | 'success' | 'neutral' | 'warning'> = {
-  pending: 'warning',
-  approved: 'success',
-  rejected: 'neutral',
-  archived: 'neutral',
-};
 
 /**
  * Отзыв в модерации.
@@ -66,7 +60,9 @@ export function ReviewCardView({ review, api, onChanged, confirmRemove }: Review
         </div>
 
         <div className={styles.headerRight}>
-          <Badge variant={STATUS_VARIANT[review.status]}>{texts.statusTitle(review.status)}</Badge>
+          <Badge variant={REVIEW_STATUS_VARIANT[review.status]}>
+            {texts.statusTitle(review.status)}
+          </Badge>
           <time className={styles.when} dateTime={review.createdAt}>
             {texts.when(review.createdAt)}
           </time>

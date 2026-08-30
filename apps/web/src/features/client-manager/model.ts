@@ -9,7 +9,7 @@ export type { ClientCard, ClientCreate, ClientPage, ClientUpdate } from '@/entit
 
 export { ADMIN_PAGE_SIZE, pageNumber } from '@/shared/lib/paging';
 
-export { leadStatusTitle, type LeadStatus } from '@/entities/lead/model';
+export { LEAD_STATUS_VARIANT, leadStatusTitle, type LeadStatus } from '@/entities/lead/model';
 
 /* ---------- Адреса раздела ---------- */
 

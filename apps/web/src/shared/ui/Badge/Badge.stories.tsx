@@ -8,7 +8,17 @@ const meta = {
   argTypes: {
     variant: {
       control: 'inline-radio',
-      options: ['neutral', 'accent', 'dark', 'sale', 'success', 'warning'],
+      options: [
+        'neutral',
+        'accent',
+        'success',
+        'warning',
+        'danger',
+        'info',
+        'dark',
+        'onPanel',
+        'sale',
+      ],
     },
   },
 } satisfies Meta<typeof Badge>;
@@ -59,10 +69,13 @@ export const Sizes: Story = {
   render: (args) => (
     <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
       <Badge {...args} size="sm" variant="accent">
-        Мелкая
+        24 · sm
       </Badge>
       <Badge {...args} size="md" variant="accent">
-        Средняя
+        28 · md
+      </Badge>
+      <Badge {...args} size="lg" variant="accent">
+        28 · lg, кегль на ступень выше
       </Badge>
     </div>
   ),
@@ -88,6 +101,52 @@ export const Wrapped: Story = {
   render: (args) => (
     <div style={{ maxWidth: 260 }}>
       <Badge {...args} />
+    </div>
+  ),
+};
+
+/**
+ * 🔴 Шесть красок панели и ни одной седьмой. У каждой плашки есть слово:
+ * шесть красок различает не всякий глаз, а на чёрно-белой печати наряда они
+ * совпадают все. Точка усиливает краску, но подписи не заменяет.
+ */
+export const StatusDictionary: Story = {
+  name: 'Словарь статусов',
+  render: (args) => (
+    <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+      <Badge {...args} variant="neutral" dot>
+        Новый
+      </Badge>
+      <Badge {...args} variant="warning" dot>
+        Назначен
+      </Badge>
+      <Badge {...args} variant="accent" dot>
+        В работе
+      </Badge>
+      <Badge {...args} variant="success" dot>
+        Выполнен
+      </Badge>
+      <Badge {...args} variant="danger" dot>
+        Отказ
+      </Badge>
+      <Badge {...args} variant="info" dot>
+        В очереди
+      </Badge>
+    </div>
+  ),
+};
+
+/** Снятый фильтр над таблицей: крестик — настоящая кнопка со своим именем. */
+export const Removable: Story = {
+  name: 'Со снятием',
+  render: (args) => (
+    <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+      <Badge {...args} variant="accent" onRemove={() => undefined}>
+        Монтаж
+      </Badge>
+      <Badge {...args} variant="neutral" size="lg" onRemove={() => undefined}>
+        Этот месяц
+      </Badge>
     </div>
   ),
 };

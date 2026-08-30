@@ -43,3 +43,18 @@ export const Typing: Story = {
 };
 
 export const Empty: Story = { name: 'Без подписи', args: { label: undefined } };
+
+/**
+ * Многострочное поле в панели: подпись внутри, радиус карточки — пилюля на
+ * высоте 96px превратила бы поле в капсулу (ADR-187).
+ */
+export const InPanel: Story = {
+  name: 'В панели',
+  render: (args) => (
+    <div data-ui="panel" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Textarea {...args} variant="flat" label="flat" />
+      <Textarea {...args} variant="bordered" label="bordered" defaultValue="Домофон 34К" />
+      <Textarea {...args} variant="faded" label="faded" error="Слишком короткое описание" />
+    </div>
+  ),
+};

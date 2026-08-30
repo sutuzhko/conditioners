@@ -61,3 +61,22 @@ export const Choosing: Story = {
     await expect(select).toHaveValue('zarechenskiy');
   },
 };
+
+/**
+ * Четыре вида поля внутри панели: `data-ui="panel"` включает её геометрию
+ * (ADR-187) — пилюля, высота 48 и подпись внутри поля.
+ */
+export const InPanel: Story = {
+  name: 'В панели',
+  render: (args) => (
+    <div
+      data-ui="panel"
+      style={{ display: 'grid', gap: 16, gridTemplateColumns: 'repeat(2, minmax(200px, 1fr))' }}
+    >
+      <Select {...args} variant="flat" label="flat" />
+      <Select {...args} variant="bordered" label="bordered" />
+      <Select {...args} variant="faded" label="faded" />
+      <Select {...args} variant="underlined" label="underlined" />
+    </div>
+  ),
+};

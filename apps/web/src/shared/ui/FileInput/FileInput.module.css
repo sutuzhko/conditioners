@@ -1,6 +1,14 @@
 /* Загрузка фото: место установки в заявке, фото работы в отзыве.
    Прототип обходился нативным input[type=file] без превью — но человек с
-   телефона должен видеть, что именно он приложил, до отправки. */
+   телефона должен видеть, что именно он приложил, до отправки.
+
+   🔴 Четырёх видов поля (`internal/control.module.css`) у зоны загрузки нет:
+   различать их нечем — внутри не строка значения, а приглашение с иконкой.
+   Общими с полями остаются заливка, граница и ошибка; заливка и радиус
+   приходят переменными панели, снаружи подставляется число прототипа.
+
+   🔴 Граница — `--line-ui`, а не `--line-strong` (ADR-181): пунктир и есть
+   единственный признак зоны, а `--line-strong` даёт на белом 1,48:1. */
 
 .dropzone {
   display: flex;
@@ -9,9 +17,9 @@
   box-sizing: border-box;
   min-height: 64px;
   padding: 12px 14px;
-  border: 1px dashed var(--line-strong);
-  border-radius: var(--r-sm);
-  background: var(--field);
+  border: 1px dashed var(--line-ui);
+  border-radius: var(--r-card, var(--r-sm));
+  background: var(--field-bg, var(--field));
   color: var(--muted);
   font-size: var(--fs-caption);
   cursor: pointer;
@@ -20,9 +28,13 @@
     background var(--dur-fast) ease;
 }
 
-.dropzone:hover {
-  border-color: var(--accent-ink);
-  background: var(--accent-bg);
+/* Наведение — только под указателем: на сенсорном экране состояние залипает
+   после касания. */
+@media (hover: hover) {
+  .dropzone:hover {
+    border-color: var(--accent-ink);
+    background: var(--accent-bg);
+  }
 }
 
 .dragging {
@@ -31,8 +43,10 @@
   color: var(--accent-text);
 }
 
+/* Ошибка — тинт и граница, как у поля ввода: одной красной рамки мало. */
 .invalid {
   border-color: var(--error-ink);
+  background: var(--error-bg);
 }
 
 .disabled {

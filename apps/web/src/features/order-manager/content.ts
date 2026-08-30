@@ -14,7 +14,6 @@ import { timeOf } from '@/shared/lib/calendar';
 import { formatDateShort, formatDateTime, formatMoney, formatQuantity } from '@/shared/lib/format';
 import { STOCK_UNIT_SHORT } from '@/shared/config/units';
 import { plural } from '@/shared/lib/plural';
-import type { BadgeVariant } from '@/shared/ui';
 
 import type { DeductionMode, StockUnit } from './model';
 
@@ -29,21 +28,14 @@ export const ORDER_TYPE_TITLE: Record<OrderType, string> = {
   repair: 'Ремонт',
 };
 
+export { ORDER_STATUS_VARIANT } from '@/entities/order/model';
+
 export const ORDER_STATUS_TITLE: Record<OrderStatus, string> = {
   new: 'Новый',
   assigned: 'Назначен',
   in_progress: 'В работе',
   done: 'Выполнен',
   cancelled: 'Отказ',
-};
-
-/** Оттенок плашки: новый наряд требует действия, отказ — уже нет. */
-export const ORDER_STATUS_VARIANT: Record<OrderStatus, BadgeVariant> = {
-  new: 'accent',
-  assigned: 'dark',
-  in_progress: 'warning',
-  done: 'success',
-  cancelled: 'neutral',
 };
 
 export const ORDER_TAB_TITLE: Record<OrderTab, string> = {

@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import type { BadgeVariant } from '@/shared/ui';
+
 import { parseDayKey } from '@/shared/lib/calendar';
 import type { Employment } from '@/shared/lib/employment';
 import { optionalPhoneField } from '@/shared/lib/zod';
@@ -21,6 +23,22 @@ export const ORDER_TYPES: readonly OrderType[] = orderTypeSchema.options;
 export const orderStatusSchema = z.enum(['new', 'assigned', 'in_progress', 'done', 'cancelled']);
 export type OrderStatus = z.infer<typeof orderStatusSchema>;
 export const ORDER_STATUSES: readonly OrderStatus[] = orderStatusSchema.options;
+
+/**
+ * 🔴 Краска плашки — из общего словаря статусов панели
+ * (`design/admin/Kit.body.html`, issue #326). Прежний набор был собран по
+ * месту и спорил с соседними разделами: «Назначен» шёл тёмной плашкой, какой
+ * в словаре вообще нет, «В работе» — янтарной, а янтарь означает ожидание
+ * действия, тогда как наряд в работе как раз не ждёт. Отказ был серым и
+ * терялся среди новых.
+ */
+export const ORDER_STATUS_VARIANT: Record<OrderStatus, BadgeVariant> = {
+  new: 'neutral',
+  assigned: 'warning',
+  in_progress: 'accent',
+  done: 'success',
+  cancelled: 'danger',
+};
 
 export const paymentModeSchema = z.enum(['company', 'cash_to_installer']);
 export type PaymentMode = z.infer<typeof paymentModeSchema>;

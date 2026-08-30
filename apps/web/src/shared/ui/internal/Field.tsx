@@ -1,6 +1,16 @@
 import type { ReactNode } from 'react';
 import styles from './Field.module.css';
 
+/**
+ * Четыре вида поля с эталона (ADR-170, `design/admin/_base.css`):
+ *
+ * - `flat` — заливка и обводка, умолчание: в панели серая, на витрине белая;
+ * - `bordered` — только обводка, для таблиц-форм с полями вплотную;
+ * - `faded` — серая заливка независимо от контура;
+ * - `underlined` — одна линия снизу, для поля внутри строки таблицы.
+ */
+export type FieldVariant = 'flat' | 'bordered' | 'faded' | 'underlined';
+
 export interface FieldProps {
   fieldId: string;
   label?: ReactNode | undefined;
@@ -9,6 +19,20 @@ export interface FieldProps {
   error?: string | undefined;
   errorId?: string | undefined;
   required?: boolean | undefined;
+  /**
+   * Подпись ложится внутрь контрола — но только там, где контрол её вмещает:
+   * у поля ввода, списка и многострочного. Галочка, ползунок и оценка зовут
+   * ту же обвязку, и подпись у них остаётся снаружи.
+   *
+   * Проп решает, можно ли переносить; переносит — раскладка панели
+   * (`Field.module.css`). На витрине подпись стоит над полем в обоих случаях.
+   */
+  labelInside?: boolean | undefined;
+  /**
+   * Вид поля — нужен только подписи внутри: у `underlined` боковых полей нет,
+   * и подпись, отбитая на 15px, встала бы уступом над значением.
+   */
+  variant?: FieldVariant | undefined;
   className?: string | undefined;
   children: ReactNode;
 }
@@ -31,6 +55,8 @@ export function Field({
   error,
   errorId,
   required = false,
+  labelInside = false,
+  variant = 'flat',
   className,
   children,
 }: FieldProps) {
@@ -45,10 +71,19 @@ export function Field({
     </>
   );
 
+  const labelClass = [
+    styles.label,
+    labelInside ? styles.labelInside : null,
+    labelInside && variant === 'underlined' ? styles.labelFlush : null,
+    error === undefined ? null : styles.labelInvalid,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <div className={[styles.field, className].filter(Boolean).join(' ')}>
       {label === undefined ? null : (
-        <label htmlFor={fieldId} className={styles.label}>
+        <label htmlFor={fieldId} className={labelClass}>
           {labelContent}
         </label>
       )}

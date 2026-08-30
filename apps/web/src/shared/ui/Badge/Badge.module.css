@@ -1,5 +1,6 @@
-/* Плашка. Пилюля 100px из макета; вариант sale — единственное место,
-   где на сайте допустим тёплый акцент (docs/DESIGN_BRIEF.md §10). */
+/* Плашка статуса. Только показывает — на неё не нажимают: интерактивная
+   плашка это `Chip` (issue #326). Пилюля 100px из макета; вариант sale —
+   единственное место, где на сайте допустим тёплый акцент (§10 брифа). */
 
 .badge {
   display: inline-flex;
@@ -7,11 +8,9 @@
   align-items: center;
   box-sizing: border-box;
   max-width: 100%;
-  padding: 5px 12px;
   border: 1px solid transparent;
   border-radius: var(--r-pill);
   font-family: var(--font-text);
-  font-size: var(--fs-micro);
   font-weight: 600;
   line-height: 1.35;
   white-space: nowrap;
@@ -23,8 +22,24 @@
    вовсе. Контраст починен токенами; кегль подтянут до нижней границы шкалы,
    чтобы вторую половину пары не пришлось разбирать заново. */
 .sm {
+  min-height: 24px;
   padding: 3px 9px;
   font-size: var(--fs-micro);
+}
+
+.md {
+  min-height: 28px;
+  padding: 5px 12px;
+  font-size: var(--fs-micro);
+}
+
+/* Крупная плашка эталона: та же высота, что у `md`, но кегль на ступень выше.
+   Нужна там, где плашка стоит в строке текста 14px и на 12px проваливается —
+   заголовок карточки заказа, шапка окна. */
+.lg {
+  min-height: 28px;
+  padding: 4px 11px;
+  font-size: var(--fs-label, var(--fs-caption));
 }
 
 /* Плашка с текстом из настроек: длину задаёт владелец, и обрезать её нечем —
@@ -32,6 +47,43 @@
    а не весом селектора. */
 .wrap {
   white-space: normal;
+}
+
+/* Точка декоративна и от озвучки скрыта: смысл несёт подпись рядом. */
+.dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: currentcolor;
+}
+
+/* Крестик снятия. Тап-зона расширена невидимым полем: сама метка 12×12, а
+   пальцем в неё не попасть — 🔴 WCAG 2.2 SC 2.5.8 требует 24×24. */
+.remove {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin: -6px -8px -6px -2px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.remove:hover,
+.remove:focus-visible {
+  opacity: 1;
+}
+
+.remove:focus-visible {
+  box-shadow: var(--ring-focus-ring);
 }
 
 .neutral {
@@ -75,6 +127,23 @@
   border-color: var(--warn-line);
   background: var(--warn-bg);
   color: var(--warn-ink);
+}
+
+/* Отказ, провал, просрочка. Отдельная краска, а не `sale`: тот красный
+   принадлежит скидке на витрине, и «Отказ» в панели, набранный цветом акции,
+   читается предложением, а не проблемой. */
+.danger {
+  border-color: var(--error-line);
+  background: var(--error-bg);
+  color: var(--error-ink);
+}
+
+/* Шестая различимая краска — ожидание системы: «В очереди». Индиго
+   достаточно далёк от циана, чтобы метки не путались (ADR-081). */
+.info {
+  border-color: var(--info-line);
+  background: var(--info-bg);
+  color: var(--info-ink);
 }
 
 /* технические метки таймлайна и схем обмана: моноширинный, разрядка из макета.
