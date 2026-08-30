@@ -289,15 +289,20 @@ describe('Каталог — строка сравнения (ADR-121)', () => {
     expect(mark).toHaveAttribute('aria-current', 'true');
   });
 
-  it('🔴 состояние отметки читается подписью, а не одним цветом', () => {
+  it('🔴 у отметки-иконки состояние читается именем, а не одним цветом', () => {
     renderList(catalog, { compare: 'split-07' });
 
+    /* Подписи у отметки больше нет: она кнопка-иконка в углу снимка
+       (issue #259). Значит имя обязано нести всё — и модель, и то, что
+       повторное нажатие снимет отметку. */
     const picked = screen.getByRole('link', { name: compareMarkLabel('Сплит-система 07', true) });
-    expect(picked).toHaveTextContent(catalogText.compareOn);
+    expect(picked).toHaveAccessibleName(expect.stringContaining(catalogText.compareOn));
     expect(picked).toHaveAccessibleName(expect.stringContaining(catalogText.compareRemove));
+    expect(picked).toHaveAttribute('aria-current', 'true');
 
     const free = screen.getByRole('link', { name: compareMarkLabel('Сплит-система 09', false) });
-    expect(free).toHaveTextContent(catalogText.compareAdd);
+    expect(free).toHaveAccessibleName(expect.stringContaining(catalogText.compareAdd));
+    expect(free).not.toHaveAttribute('aria-current');
   });
 
   it('🔴 отметка не сбрасывает подбор: снятие возвращает тот же отфильтрованный адрес', () => {

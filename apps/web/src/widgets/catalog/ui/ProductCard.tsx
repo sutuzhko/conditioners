@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Badge, ButtonLink, Card } from '@/shared/ui';
+import { Badge, ButtonLink, Card, Icon } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { leadHref } from '@/shared/config/lead';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
@@ -12,12 +12,24 @@ import styles from './ProductCard.module.css';
 
 /**
  * Ширина исходника карточки. Фото хранится с длинной стороной 1200px, витрине
- * столько не нужно: 480×360 при соотношении 4:3 покрывает десктопную карточку
- * с запасом на ретину, а `sizes` даёт браузеру выбрать меньший вариант.
+ * столько не нужно: 480×300 при соотношении 16:10 покрывает десктопную
+ * карточку с запасом на ретину, а `sizes` даёт браузеру выбрать меньший
+ * вариант.
  */
 const PHOTO_WIDTH = 480;
-const PHOTO_HEIGHT = 360;
-const PHOTO_SIZES = '(max-width: 599px) 100vw, (max-width: 1199px) 50vw, 300px';
+const PHOTO_HEIGHT = 300;
+
+/**
+ * 🔴 Границы совпадают с числом колонок сетки (issue #260), а не с ширинами
+ * «на глаз»: до 600 колонка одна и снимок занимает почти всю ширину окна, с
+ * 600 их две, с 900 три, с 1200 сетка упирается в контейнер и колонка
+ * перестаёт расти. Ошибка здесь стоит лишнего мегабайта на первом экране.
+ */
+const PHOTO_SIZES =
+  '(max-width: 599px) calc(100vw - 32px), (max-width: 899px) 45vw, (max-width: 1199px) 30vw, 288px';
+
+/** Размер значка в заглушке снимка: он занимает место картинки, а не строки. */
+const FALLBACK_ICON = 44;
 
 export interface ProductCardProps {
   product: CatalogProduct;
@@ -43,10 +55,13 @@ export interface ProductCardProps {
  * свёрнутых строк в каждой из двенадцати карточек утяжеляли бы HTML каталога
  * втрое без единого нового слова для поиска.
  *
- * Ссылка на модель одна — заголовок; кликабельна при этом вся карточка
- * (перекрытие в CSS). Второй ссылки с анкором «Подробнее» здесь нет
- * сознательно: осмысленный анкор — название модели (docs/SEO.md §5), а два
- * пункта на один адрес в списке ссылок скринридера — шум.
+ * 🔴 Явное действие ровно одно — «Заказать» (issue #259). До этого их было
+ * три: текстовая ссылка «Подробнее», текстовая кнопка «+ Сравнить» и заказ.
+ * «Подробнее» дублировало ссылку заголовка — два пункта на один адрес в
+ * списке ссылок скринридера, — а «Сравнить» не помещалась в свою строку и на
+ * 375 обрезалась до «+ Сравнит». Теперь на страницу модели ведёт название,
+ * сравнение стало кнопкой-иконкой в углу снимка, а «Заказать» осталась
+ * единственной кнопкой во всю ширину.
  */
 export function ProductCard({
   product,
@@ -63,31 +78,55 @@ export function ProductCard({
     <Card as="li" padding="none" radius="ml" elevation="none" interactive className={styles.card}>
       <div className={styles.media}>
         {photo === null ? (
-          // заглушка вместо битой картинки: у моделей из сидов фото ещё нет
+          /* 🔴 Заглушка рисует градиент и значок, а не пустой прямоугольник:
+             пустое место на месте снимка читается как битая картинка, а не
+             как «фото ещё не завели». Состояние рабочее — в сидах фото нет
+             ни у одной модели. */
           <div className={styles.fallback}>
-            <span className={styles.fallbackClass}>{product.badge}</span>
+            <Icon name="conditioner" size={FALLBACK_ICON} />
             <span className={styles.fallbackHint}>{catalogText.noPhoto}</span>
-            <span className="srOnly">{powerClassLabel(product.badge)}</span>
           </div>
         ) : (
-          <>
-            <Image
-              className={styles.image}
-              src={photo.url}
-              alt={alt === undefined || alt === '' ? photoAlt(product.name) : alt}
-              width={PHOTO_WIDTH}
-              height={PHOTO_HEIGHT}
-              sizes={PHOTO_SIZES}
-            />
-            <Badge
-              variant="dark"
-              size="sm"
-              className={styles.class}
-              title={powerClassLabel(product.badge)}
-            >
-              {product.badge}
-            </Badge>
-          </>
+          <Image
+            className={styles.image}
+            src={photo.url}
+            alt={alt === undefined || alt === '' ? photoAlt(product.name) : alt}
+            width={PHOTO_WIDTH}
+            height={PHOTO_HEIGHT}
+            sizes={PHOTO_SIZES}
+          />
+        )}
+
+        {/* Класс мощности стоит поверх снимка и поверх заглушки одинаково:
+            это признак модели, а не украшение картинки.
+
+            🔴 Вслух читается расшифровка, а не маркировка: «07» в отрыве от
+            слова «класс» не значит ничего. Имя даёт скрытая подпись, а не
+            `title`, — два источника имени часть читалок объявляет дважды
+            (ADR-159). */}
+        <Badge variant="dark" size="sm" mono className={styles.class}>
+          <span aria-hidden="true">{product.badge}</span>
+          <span className="srOnly">{powerClassLabel(product.badge)}</span>
+        </Badge>
+
+        {compareHref === undefined ? null : (
+          /* 🔴 Отметка сравнения — ссылка, а не чекбокс: выбор живёт в
+             адресе (ADR-109). Ссылкой он переживает обновление страницы,
+             открывается на другом устройстве и не стоит ни килобайта в
+             бюджете JS (ADR-088).
+
+             Подписи у кнопки нет, поэтому `aria-label` обязателен, а
+             состояние читается не одним цветом: значок меняется с плюса на
+             галочку, и скринридер получает имя модели вместе с тем, что
+             повторное нажатие снимает отметку. */
+          <Link
+            href={compareHref}
+            className={compared ? `${styles.compare} ${styles.comparePicked}` : styles.compare}
+            aria-label={compareMarkLabel(product.name, compared)}
+            aria-current={compared ? 'true' : undefined}
+          >
+            <Icon name={compared ? 'check' : 'plus'} size={20} />
+          </Link>
         )}
       </div>
 
@@ -97,10 +136,12 @@ export function ProductCard({
             {product.name}
           </Link>
         </h3>
-        <p className={styles.area}>{areaLabel(product.areaMax)}</p>
-        {/* Строка метки есть всегда, даже пустая: у модели без метки цена
-            иначе поднимается выше соседей по ряду (issue #182). */}
-        <div className={styles.tagRow}>
+
+        {/* Площадь и ярлык-подсказка — одной строкой. Строка держит место и
+            когда ярлыка нет: без неё цена у модели без ярлыка поднималась бы
+            выше соседей по ряду. */}
+        <div className={styles.meta}>
+          <span className={styles.area}>{areaLabel(product.areaMax)}</span>
           {product.tag === null ? null : (
             <Badge variant="accent" size="sm" className={styles.tag}>
               {product.tag}
@@ -108,44 +149,7 @@ export function ProductCard({
           )}
         </div>
 
-        {/* 🔴 Цена — главная цифра карточки, и в ряду она обязана стоять у всех
-            на одной линии. Держит её раскладка: всё, что выше цены, имеет
-            постоянную высоту, а свободное место копится ниже (issue #182).
-            Резерва пустой строкой здесь больше нет — он оставлял дыру под
-            ценой у моделей без скидки. */}
-        <div className={styles.price}>
-          <ProductPrice price={price} />
-        </div>
-
-        <div className={styles.meta}>
-          {/* Подсказка, что за карточкой есть страница. Не ссылка: ссылка здесь
-              уже есть — заголовок, растянутый на всю карточку. */}
-          <p className={styles.details} aria-hidden="true">
-            {catalogText.more} →
-          </p>
-
-          {compareHref === undefined ? null : (
-            /* 🔴 Отметка сравнения — ссылка, а не чекбокс: выбор живёт в
-               адресе (ADR-109). Ссылкой он переживает обновление страницы,
-               открывается на другом устройстве и не стоит ни килобайта в
-               бюджете JS (ADR-088).
-
-               Состояние читается не только цветом: меняется подпись, рядом
-               стоит знак, а скринридер получает имя модели и то, что
-               повторное нажатие снимает отметку. */
-            <Link
-              href={compareHref}
-              className={compared ? `${styles.compare} ${styles.comparePicked}` : styles.compare}
-              aria-label={compareMarkLabel(product.name, compared)}
-              aria-current={compared ? 'true' : undefined}
-            >
-              <span className={styles.compareMark} aria-hidden="true">
-                {compared ? '✓' : '+'}
-              </span>
-              {compared ? catalogText.compareOn : catalogText.compareAdd}
-            </Link>
-          )}
-        </div>
+        <ProductPrice price={price} />
 
         <div className={styles.actions}>
           {/* 🔴 Адрес считает сама карточка (ADR-129): предмет кнопки — та
@@ -160,19 +164,6 @@ export function ProductCard({
           >
             {catalogText.order}
           </ButtonLink>
-          {product.link === null ? null : (
-            // ссылка к поставщику: внешняя и чужая, поэтому обычный <a>,
-            // без предзагрузки Next и без передачи веса домену
-            <a
-              className={styles.external}
-              href={product.link}
-              target="_blank"
-              rel="noopener nofollow"
-              aria-label={`${catalogText.external}: ${product.name}`}
-            >
-              <span aria-hidden="true">↗</span>
-            </a>
-          )}
         </div>
       </div>
     </Card>
