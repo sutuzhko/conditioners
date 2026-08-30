@@ -51,7 +51,10 @@ export function NavState({ initialOpen, children }: NavStateProps) {
 
   return (
     <context.Provider value={value}>
-      <div className={styles.shell} data-nav={open ? 'on' : 'off'}>
+      {/* 🔴 `data-ui="panel"` включает плотность и геометрию панели
+          (tokens.css, ADR-187): за пределами этого контейнера панельных
+          переменных нет, и витрина остаётся на своей геометрии. */}
+      <div className={styles.shell} data-ui="panel" data-nav={open ? 'on' : 'off'}>
         {children}
       </div>
     </context.Provider>
