@@ -298,6 +298,22 @@ describe.each(THEMES)('Семантические токены — %s тема',
     }
   });
 
+  /* 🔴 Метка данных обязана отделяться от поверхности: график читают по
+     линии, а не по подписи. Различимость самих серий между собой цветом не
+     обеспечивается вовсе (1,36:1 и 1,08:1) — за неё отвечают штрих и подписи
+     концов, и проверяются они на историях, а не здесь. */
+  it.each(['s1', 's2'] as const)('серия «%s» отделяется от поверхности', (series) => {
+    const mark = color(palette, series);
+
+    for (const ground of GROUNDS) {
+      const value = ratio(mark, color(palette, ground));
+      expect(
+        value,
+        `--${series} на --${ground} даёт ${value.toFixed(2)}:1 при норме ${AA_LARGE}:1`,
+      ).toBeGreaterThanOrEqual(AA_LARGE);
+    }
+  });
+
   it.each(['error', 'ok'] as const)('текст поверх сплошной заливки «%s» читается', (state) => {
     const fill = color(palette, `${state}-ink`);
     const text = color(palette, `on-${state}`);
