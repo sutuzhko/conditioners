@@ -43,21 +43,28 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Desktop: Story = { name: 'Десктоп 1200' };
+export const Desktop: Story = { name: 'Десктоп 1200 — полная навигация и замок' };
 
 export const Tablet: Story = {
-  name: 'Планшет 768 — навигация в бургере',
+  name: 'Планшет 768 — телефон, заявка и бургер',
   globals: { viewport: { value: 'md' } },
 };
 
 export const Phone: Story = {
-  name: 'Телефон 375',
+  name: 'Телефон 375 — бренд и кнопка меню',
   globals: { viewport: { value: 'sm' } },
 };
 
 export const Narrow: Story = {
-  name: 'Минимум 320',
+  name: 'Минимум 320 — название не обрезано',
   globals: { viewport: { value: 'xs' } },
+};
+
+/** Самое длинное название, какое владелец может завести из админки. */
+export const LongName: Story = {
+  name: 'Длинное название на 320',
+  globals: { viewport: { value: 'xs' } },
+  args: { company: { ...companyFixture, name: 'ТулаКлимат Сервис Групп' } },
 };
 
 export const Placeholders: Story = {
@@ -76,7 +83,7 @@ export const WithoutNav: Story = {
 };
 
 export const MenuOpen: Story = {
-  name: 'Открытие и закрытие меню',
+  name: 'Меню на телефоне — действия в подвале',
   globals: { viewport: { value: 'sm' } },
   play: async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Открыть меню' }));
@@ -86,5 +93,18 @@ export const MenuOpen: Story = {
       'aria-current',
       'page',
     );
+    await expect(within(dialog).getByRole('link', { name: 'Оставить заявку' })).toBeVisible();
+  },
+};
+
+/** С 600px телефон и заявка уже видны в шапке — в подвале шторки их нет. */
+export const MenuOpenTablet: Story = {
+  name: 'Меню на планшете — в подвале только часы и тема',
+  globals: { viewport: { value: 'md' } },
+  play: async ({ canvasElement }) => {
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Открыть меню' }));
+    const dialog = await within(document.body).findByRole('dialog');
+    await expect(within(dialog).getByRole('radiogroup', { name: 'Тема' })).toBeVisible();
+    await expect(within(dialog).getByRole('link', { name: 'Оставить заявку' })).not.toBeVisible();
   },
 };
