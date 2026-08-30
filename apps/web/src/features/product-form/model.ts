@@ -5,6 +5,8 @@
  * `productInputSchema` приводит их сама (`z.coerce`). Приводить здесь ещё
  * раз — значит завести второе место, где рождается цена.
  */
+import type { Route } from 'next';
+
 /**
  * Пара характеристики без `sort`: порядок задаётся положением в списке, и
  * присылать его отдельно — значит иметь два источника одного порядка. Ровно
@@ -13,10 +15,16 @@
 export type SpecPair = { readonly k: string; readonly v: string };
 
 /**
- * Список моделей: адрес окна создания живёт под ним, и туда же окно
- * возвращается, если возвращаться по истории некуда.
+ * Адреса раздела, окна создания и справочника характеристик.
+ *
+ * Проверены маршрутом через `satisfies`, а не аннотацией `: Route`: аннотация
+ * расширила бы тип до объединения всех маршрутов, и `${CATALOG_PATH}/${id}`
+ * перестал бы быть адресом карточки модели. Подробнее — в
+ * `article-form/model.ts`.
  */
-export const CATALOG_PATH = '/admin/catalog';
+export const CATALOG_PATH = '/admin/catalog' satisfies Route;
+export const CATALOG_NEW_PATH = '/admin/catalog/new' satisfies Route;
+export const CATALOG_SPECS_PATH = '/admin/catalog/specs' satisfies Route;
 
 export type ProductFormValues = {
   readonly name: string;
