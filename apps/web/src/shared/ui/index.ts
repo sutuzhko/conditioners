@@ -92,6 +92,10 @@ export type { DrawerProps } from './Drawer/Drawer';
 
 export { ThemeToggle } from './ThemeToggle/ThemeToggle';
 export type { ThemeToggleProps } from './ThemeToggle/ThemeToggle';
+export { ThemeSwitch } from './ThemeSwitch/ThemeSwitch';
+export type { ThemeSwitchProps } from './ThemeSwitch/ThemeSwitch';
+export { useTheme } from './lib/useTheme';
+export type { Theme, ThemeControl } from './lib/useTheme';
 
 export { SkipLink } from './SkipLink/SkipLink';
 export type { SkipLinkProps } from './SkipLink/SkipLink';

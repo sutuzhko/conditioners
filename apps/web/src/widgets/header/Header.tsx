@@ -22,6 +22,12 @@ export interface HeaderProps {
  * Стеклянная sticky-шапка. Серверный компонент: навигация и телефон обязаны
  * быть в HTML до всякого JS (инвариант 1). Клиентская только одна деталь —
  * бургер с выдвижным меню.
+ *
+ * 🔴 Что видно на какой ширине, решает CSS, а не JS (issue #247). Разметка
+ * одна на все ширины: она приходит от сервера целиком, и на телефоне лишнее
+ * не удаляется, а скрывается. Ниже 600 в полосе остаются ровно два
+ * интерактивных элемента — бренд и кнопка меню: телефон и заявка уезжают в
+ * липкую панель действий, тема — в шторку.
  */
 export function Header({
   company,
@@ -43,17 +49,17 @@ export function Header({
     <header className={styles.header}>
       <div className={styles.bar}>
         {/* 🔴 Имя ссылки задано всегда, а не только когда названия нет.
-            Знак бренда `aria-hidden`, а название до 600px скрыто оформлением —
-            вместе это давало первую ссылку страницы вовсе без имени, и читалка
-            объявляла «ссылка» (WCAG 2.4.4 и 4.1.2, уровень A). Название
-            компании остаётся видимым текстом там, где помещается, но опираться
-            на его видимость нельзя. */}
+            Знак бренда `aria-hidden`, а название скрыто от чтения как
+            оформление — вместе это давало первую ссылку страницы вовсе без
+            имени, и читалка объявляла «ссылка» (WCAG 2.4.4 и 4.1.2, уровень
+            A). Название компании видно на любой ширине, но опираться на его
+            видимость нельзя. */}
         <Link
           href={homeHref}
           className={styles.logo}
           aria-label={name === '' ? headerContent.homeLabel : name}
         >
-          <BrandMark size={38} />
+          <BrandMark size={36} className={styles.mark} />
           {name === '' ? null : (
             <span className={styles.lockup} aria-hidden="true">
               <span className={styles.name}>{name}</span>
@@ -90,7 +96,7 @@ export function Header({
               aria-label={`${headerContent.callLabel} ${phone.text}`}
             >
               <Icon name="phone" />
-              <span className={styles.phoneText}>{phone.text}</span>
+              {phone.text}
             </a>
           )}
 
@@ -106,11 +112,7 @@ export function Header({
             size="md"
             className={styles.cta}
             aria-label={headerContent.ctaLabel}
-            iconEnd={
-              <span className={styles.ctaArrow}>
-                <Icon name="arrow-right" />
-              </span>
-            }
+            iconEnd={<Icon name="arrow-right" />}
           >
             <span className={styles.ctaLong}>{headerContent.ctaLabel}</span>
             <span className={styles.ctaShort}>{headerContent.ctaLabelShort}</span>
