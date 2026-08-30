@@ -1,21 +1,30 @@
-/* Карточка модели. Пропорции и отступы сняты с прототипа: фото 4:3,
-   тело 20px, действие прижато к низу — карточки в ряду одной высоты. */
+/* Карточка модели (issue #259). Устройство одно на все ширины: снимок 16:10,
+   тело с полем --card-pad, слот под ярлык скидки и одно действие. Меняется
+   только ширина колонки — её задаёт сетка каталога, а не карточка. */
 
-/* радиус 18px — из макета, он мельче общего радиуса крупных панелей (20px):
-   карточка витрины и панель сравнения под ней в макете скруглены по-разному */
+/* Радиус 18px — из макета, он мельче общего радиуса крупных панелей (20px):
+   карточка витрины и панель сравнения под ней в макете скруглены по-разному. */
 .card {
+  /* 🔴 Карточка объявлена контейнером запроса: кегль цены считается от
+     ширины колонки, а не окна (tokens.css, --fs-card-price). Колонка на
+     десктопе уже, чем на телефоне, и шкала окна дала бы ровно наоборот. */
+  container-type: inline-size;
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: var(--r-ml);
 }
 
+/* 🔴 16:10, а не 4:3 (issue #259). Пропорция задана, значит место под снимок
+   зарезервировано до его загрузки — это прямо в CLS. Заодно карточка на 375
+   становится ниже на 35px: три с лишним экрана подряд из одинаковых карточек
+   были главной причиной её высоты. */
 .media {
   position: relative;
   border-bottom: 1px solid var(--line-soft);
   background: var(--bg-soft);
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
 }
 
 .image {
@@ -25,7 +34,10 @@
   object-fit: cover;
 }
 
-/* класс мощности поверх фото; у карточки без фото его несёт сама заглушка */
+/* Класс мощности — пилюля в левом верхнем углу снимка.
+   🔴 Кегль плашки остаётся 12px, а не 11px из макета: 11px были разобраны
+   сплошным аудитом контраста и подняты до нижней границы шкалы (ADR-158).
+   Отступление записано в docs/PIXEL_SPEC.md. */
 .class {
   position: absolute;
   top: 12px;
@@ -33,23 +45,18 @@
   z-index: 2;
 }
 
+/* Заглушка снимка: градиент и значок посередине. Пустой прямоугольник на
+   этом месте читается как битая картинка, а не как «фото ещё не завели». */
 .fallback {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  background: linear-gradient(160deg, var(--accent-bg), var(--bg-soft));
-}
-
-.fallbackClass {
   color: var(--accent-text);
-  font-family: var(--font-mono);
-  font-size: 34px;
-  line-height: 1;
-  letter-spacing: 0.04em;
+  background: linear-gradient(160deg, var(--accent-bg), var(--bg-soft));
 }
 
 .fallbackHint {
@@ -59,22 +66,83 @@
   text-transform: uppercase;
 }
 
+/* 🔴 Отметка сравнения — кнопка-иконка 44×44 в углу снимка (issue #259).
+   Текстовой кнопкой она делила строку с подсказкой «Подробнее» и на 375 не
+   помещалась: подпись обрезалась до «+ Сравнит». В углу снимка ей не с кем
+   делить ширину, а тап-зона равна минимуму из DESIGN_BRIEF §6.
+
+   Поднята над перекрытием карточки (z-index), иначе клик забирала бы
+   растянутая на карточку ссылка заголовка. */
+.compare {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--tap);
+  height: var(--tap);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--card);
+  color: var(--body);
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+.compare:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+  color: var(--on-accent);
+}
+
+/* Кольцо рисуется внутрь: карточка обрезает по overflow, и внешняя тень
+   у отметки была бы срезана её краем. */
+.compare:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-inset);
+}
+
+/* Отмеченная модель: заливка брендом и белый значок. 🔴 Состояние читается
+   не только цветом — плюс меняется на галочку, а `aria-label` называет и
+   модель, и то, что повторное нажатие снимет отметку. */
+.comparePicked {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+.comparePicked:hover {
+  border-color: var(--brand-hover);
+  background: var(--brand-hover);
+  color: var(--on-brand);
+}
+
 .body {
   /* Высота двух строк заголовка. Её держат двое — сам заголовок и скелетон,
      который обязан повторять геометрию карточки, иначе подстановка товаров
      двигает вёрстку. Значение одно на обоих. */
-  --name-reserve: calc(17px * 1.25 * 2);
+  --name-reserve: calc(var(--fs-h3) * 1.25 * 2);
 
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 4px;
-  padding: 20px;
+
+  /* Внутренний ритм карточки выведен из одного её поля, а не набран
+     отдельными числами: тогда всё внутри тянется вместе с ним, и на 375
+     карточка укладывается в 420px, а на десктопе не выглядит поджатой. */
+  gap: calc(var(--card-pad) - 10px);
+  padding: var(--card-pad);
 }
 
-/* 🔴 Длиннее двух строк название подрезается: иначе третья строка сдвигает всё,
-   что ниже, и главная цифра карточки уезжает относительно соседей по ряду
-   (issue #182). В разметке и на странице модели название остаётся целым. */
+/* 🔴 Длиннее двух строк название подрезается: иначе третья строка сдвигает
+   всё, что ниже, и главная цифра карточки уезжает относительно соседей по
+   ряду (issue #182). В разметке и на странице модели название остаётся целым. */
 .name {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -84,8 +152,8 @@
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 600;
+  font-size: var(--fs-h3);
+  font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.02em;
 }
@@ -96,8 +164,8 @@
 }
 
 /* Перекрытие: кликабельна вся карточка, а ссылка в разметке одна — заголовок
-   с осмысленным анкором. Кнопка заказа и ссылка к поставщику поднимаются над
-   перекрытием ниже, иначе карточка «съедала» бы их клик. */
+   с осмысленным анкором. Кнопка заказа и отметка сравнения поднимаются над
+   перекрытием, иначе карточка «съедала» бы их клик. */
 .nameLink::after {
   position: absolute;
   z-index: 1;
@@ -120,123 +188,36 @@
   box-shadow: var(--ring-focus-ring);
 }
 
-.area {
-  margin: 0;
-  color: var(--muted);
-  font-size: 13.5px;
+/* Площадь и ярлык-подсказка одной строкой. Минимальная высота — высота
+   пилюли: строка держит место и у модели без ярлыка, иначе цена соседа по
+   ряду поднимается на 24px выше. */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: center;
+  min-height: 24px;
 }
 
-/* Строка метки держит место и когда метки нет: без неё цена у модели без
-   метки поднималась бы на 30px выше соседей по ряду. */
-.tagRow {
-  display: flex;
-  align-items: flex-start;
-  min-height: 30px;
-  margin-top: 6px;
+.area {
+  color: var(--muted);
+  font-size: var(--fs-caption);
 }
 
 .tag {
-  align-self: flex-start;
+  min-width: 0;
 }
 
-/* 🔴 Цена стоит по потоку, а не прижата к низу.
-   Пока блок цены прижимался `margin-top: auto`, у него была закреплена нижняя
-   граница: стоило плашке скидки перенестись на вторую строку — а её текст
-   задаёт владелец, и «Летняя цена» шире плашки «−9%», — блок рос вверх и
-   уводил главную цифру на 38px выше соседей по ряду (issue #182).
-   Теперь всё, что выше цены, имеет постоянную высоту, и цена начинается на
-   одной линии у всех карточек ряда; растёт блок скидки вниз. */
-.price {
-  padding-top: 14px;
-}
-
-/* Ряд под ценой: подсказка про страницу модели слева, отметка сравнения
-   справа. Одной строкой, а не двумя: карточки стоят в ряду и обязаны быть
-   одной высоты, а лишний ряд действий уводил бы кнопку заказа за экран.
-
-   auto прижимает весь нижний блок — ряд и кнопки — к низу карточки. Свободное
-   место копится между ценой и этим рядом, то есть там, где его не видно, а не
-   под ценой отдельной пустой строкой. */
-.meta {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: auto;
-  padding-top: 8px;
-}
-
-/* Подсказка про страницу модели: не ссылка, поэтому и не тап-зона. */
-.details {
-  margin: 0;
-  color: var(--accent-text);
-  font-size: var(--fs-caption);
-  font-weight: 600;
-}
-
-/* Отметка сравнения. Поднята над перекрытием карточки (z-index), иначе клик
-   забирала бы растянутая на карточку ссылка заголовка — как у кнопки заказа
-   и ссылки к поставщику. */
-.compare {
-  position: relative;
-  z-index: 2;
-  display: inline-flex;
-  flex: none;
-  gap: 6px;
-  align-items: center;
-  box-sizing: border-box;
-  min-height: var(--tap);
-  padding: 8px 12px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  color: var(--body);
-  font-size: var(--fs-caption);
-  font-weight: 600;
-  line-height: 1.2;
-  white-space: nowrap;
-  text-decoration: none;
-  transition:
-    background var(--dur-fast) ease,
-    color var(--dur-fast) ease,
-    border-color var(--dur-fast) ease;
-}
-
-.compare:hover {
-  border-color: var(--accent-line);
-  background: var(--accent-bg);
-  color: var(--on-accent);
-}
-
-/* Кольцо рисуется внутрь: карточка обрезает по overflow, и внешняя тень
-   у отметки была бы срезана её краем. */
-.compare:focus-visible {
-  outline: none;
-  box-shadow: var(--ring-focus-inset);
-}
-
-/* Отмеченная модель. 🔴 Не только заливка: подпись меняется с «Сравнить» на
-   «В сравнении», иначе состояние не читается ни без цвета, ни вслух. Пара
-   --accent-bg / --on-accent берёт AA в обеих темах, в отличие от
-   прототипной --accent-ink на той же подложке. */
-.comparePicked {
-  border-color: var(--accent-line);
-  background: var(--accent-bg);
-  color: var(--on-accent);
-}
-
-.compareMark {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  line-height: 1;
-}
-
+/* 🔴 Действие прижато к низу карточки. В ряду карточки одной высоты
+   (issue #260), поэтому расстояние от верха карточки до кнопки одинаково у
+   всех — включая модель со скидкой. Свободное место копится между ценой и
+   кнопкой, то есть там, где его не видно. */
 .actions {
   position: relative;
   z-index: 2;
   display: flex;
-  gap: 8px;
-  align-items: stretch;
-  margin-top: 14px;
+  margin-top: auto;
+  padding-top: calc(var(--card-pad) - 6px);
 }
 
 /* Радиус 10px — из макета. Заливку макета (--accent-bg с текстом --accent-ink)
@@ -249,36 +230,11 @@
   border-radius: 10px;
 }
 
-.external {
-  display: inline-flex;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  width: var(--tap);
-  min-height: var(--tap);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  color: var(--muted);
-  font-size: 15px;
-  text-decoration: none;
-  transition:
-    color var(--dur-fast) ease,
-    border-color var(--dur-fast) ease;
-}
-
-.external:hover {
-  border-color: var(--accent-ink);
-  color: var(--accent-text);
-}
-
-.external:focus-visible {
-  box-shadow: var(--ring-focus);
-}
-
 /* 🔴 Две строки заголовка резервируются только там, где карточки стоят рядом:
    в ряду короткое название иначе поднимает цену соседа на строку выше (issue
    #182). В один столбец сравнивать не с чем, и резерв был бы пустым местом
-   под заголовком. Порог тот же, на котором ряд становится рядом. */
+   под заголовком — на телефоне он стоит 21px высоты карточки. Порог тот же,
+   на котором ряд становится рядом. */
 @media (width >= 600px) {
   .name,
   .nameReserve {
