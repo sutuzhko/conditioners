@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { ButtonLink, Drawer, Icon, IconButton, ThemeToggle, buttonClassName } from '@/shared/ui';
+import { ButtonLink, Drawer, Icon, IconButton, ThemeSwitch, buttonClassName } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { headerContent } from './content';
 import type { NavItem } from './model';
@@ -20,6 +20,10 @@ export interface HeaderMenuProps {
 /**
  * Бургер и выдвижное меню. Единственная клиентская часть шапки: сама шапка
  * остаётся серверной, чтобы навигация попадала в HTML для робота.
+ *
+ * Подвал шторки держит служебное и действия (issue #248). Телефон и заявка
+ * дублируют шапку и липкую панель, поэтому с 600px из подвала уходят: там они
+ * уже видны, и второй раз предлагать то же самое незачем.
  */
 export function HeaderMenu({ nav, ctaHref, phone, hours, className }: HeaderMenuProps) {
   const [open, setOpen] = useState(false);
@@ -30,7 +34,7 @@ export function HeaderMenu({ nav, ctaHref, phone, hours, className }: HeaderMenu
       <IconButton
         label={headerContent.openMenu}
         variant="outline"
-        size="sm"
+        size="md"
         className={className}
         aria-expanded={open}
         aria-haspopup="dialog"
@@ -44,27 +48,36 @@ export function HeaderMenu({ nav, ctaHref, phone, hours, className }: HeaderMenu
         closeLabel={headerContent.closeMenu}
         footer={
           <>
-            <ButtonLink href={ctaHref} size="md" fullWidth onClick={close}>
-              {headerContent.ctaLabel}
-            </ButtonLink>
-            {phone === undefined ? null : (
-              <a
-                href={phone.href}
-                className={buttonClassName({ variant: 'secondary', size: 'md', fullWidth: true })}
-                aria-label={`${headerContent.callLabel} ${phone.text}`}
-                onClick={close}
-              >
-                <Icon name="phone" />
-                {phone.text}
-              </a>
-            )}
-            <div className={styles.theme}>
+            <div className={styles.service}>
+              {/* пустой узел держит место: без него переключатель уезжал бы
+                  влево, когда владелец не заполнил часы работы */}
               {hours === undefined || hours === '' ? (
                 <span />
               ) : (
                 <span className={styles.hours}>{hours}</span>
               )}
-              <ThemeToggle label={headerContent.themeLabel} size="sm" variant="outline" />
+              <ThemeSwitch label={headerContent.themeGroupLabel} />
+            </div>
+
+            <div className={styles.actions}>
+              {phone === undefined ? null : (
+                <a
+                  href={phone.href}
+                  className={buttonClassName({
+                    variant: 'secondary',
+                    size: 'md',
+                    fullWidth: true,
+                  })}
+                  aria-label={`${headerContent.callLabel} ${phone.text}`}
+                  onClick={close}
+                >
+                  <Icon name="phone" />
+                  {phone.text}
+                </a>
+              )}
+              <ButtonLink href={ctaHref} size="md" fullWidth onClick={close}>
+                {headerContent.ctaLabel}
+              </ButtonLink>
             </div>
           </>
         }
@@ -72,14 +85,15 @@ export function HeaderMenu({ nav, ctaHref, phone, hours, className }: HeaderMenu
         <nav aria-label={headerContent.menuNavLabel}>
           <ul className={styles.list}>
             {nav.map((item) => (
-              <li key={item.label}>
+              <li key={item.label} className={styles.item}>
                 <Link
                   href={item.href}
                   className={styles.link}
                   aria-current={item.current === true ? 'page' : undefined}
                   onClick={close}
                 >
-                  {item.label}
+                  <span className={styles.label}>{item.label}</span>
+                  <Icon name="chevron-right" size={16} className={styles.chevron} />
                 </Link>
               </li>
             ))}
