@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import type { BadgeVariant } from '@/shared/ui';
+
 import { consentSchema, honeypotSchema, phoneField } from '@/shared/lib/zod';
 
 /**
@@ -30,6 +32,23 @@ const STATUS_TITLES: Record<LeadStatus, string> = {
 export function leadStatusTitle(status: LeadStatus): string {
   return STATUS_TITLES[status];
 }
+
+/**
+ * 🔴 Краска плашки — из общего словаря статусов панели
+ * (`design/admin/Kit.body.html`, issue #326). Живёт в домене по той же
+ * причине, что и название: статус видят раздел заявок и карточка клиента, а
+ * вторая копия расходится с первой при первой же правке — так уже было,
+ * «Новая» была бирюзовой в одном разделе и янтарной в другом.
+ *
+ * `new` — янтарный: заявка ждёт ответа, и это единственный статус, который
+ * стоит денег. `rejected` — серый: действий больше не требует.
+ */
+export const LEAD_STATUS_VARIANT: Record<LeadStatus, BadgeVariant> = {
+  new: 'warning',
+  in_progress: 'accent',
+  done: 'success',
+  rejected: 'neutral',
+};
 
 /** Правило одно на проект (`shared/lib/zod`), своя здесь только формулировка. */
 export const phoneSchema = phoneField('Укажите телефон — по нему мы перезвоним');

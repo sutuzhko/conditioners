@@ -40,3 +40,29 @@ describe('Chip', () => {
     expect(onClick).not.toHaveBeenCalled();
   });
 });
+
+describe('Сброс чипа', () => {
+  /* 🔴 «Выбрать» и «сбросить» — разные действия. Кнопка в кнопке невалидна,
+     поэтому крестик стоит соседом, а не внутри чипа: иначе промах по крестику
+     снимал бы фильтр целиком, а озвучка объявляла бы одну цель вместо двух. */
+  it('крестик — отдельная кнопка со своим именем, чип по нему не выбирается', async () => {
+    const onClick = vi.fn();
+    const onRemove = vi.fn();
+    const user = userEvent.setup();
+    render(
+      <Chip selected onClick={onClick} onRemove={onRemove} removeLabel="Сбросить: квартира">
+        Квартира
+      </Chip>,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Сбросить: квартира' }));
+
+    expect(onRemove).toHaveBeenCalledTimes(1);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it('без обработчика сброса чип остаётся одной кнопкой', () => {
+    render(<Chip>Офис</Chip>);
+    expect(screen.getAllByRole('button')).toHaveLength(1);
+  });
+});

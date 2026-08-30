@@ -3,20 +3,12 @@ import Link from 'next/link';
 import { Badge, Card } from '@/shared/ui';
 
 import { clientManagerContent as texts } from './content';
-import { leadStatusTitle, type ClientLead, type LeadStatus } from './model';
+import { LEAD_STATUS_VARIANT, leadStatusTitle, type ClientLead } from './model';
 import styles from './ClientLeads.module.css';
 
 export interface ClientLeadsProps {
   readonly leads: readonly ClientLead[];
 }
-
-/** Оттенок плашки: тот же смысл, что и в разделе заявок. */
-const STATUS_VARIANT: Record<LeadStatus, 'accent' | 'neutral' | 'success' | 'warning'> = {
-  new: 'accent',
-  in_progress: 'warning',
-  done: 'success',
-  rejected: 'neutral',
-};
 
 /**
  * Обращения этого человека.
@@ -41,7 +33,7 @@ export function ClientLeads({ leads }: ClientLeadsProps) {
             <li className={styles.item} key={lead.id}>
               <div className={styles.line}>
                 <span className={styles.topic}>{lead.topic}</span>
-                <Badge variant={STATUS_VARIANT[lead.status]} size="sm">
+                <Badge variant={LEAD_STATUS_VARIANT[lead.status]} size="sm">
                   {leadStatusTitle(lead.status)}
                 </Badge>
                 <time className={styles.when} dateTime={lead.createdAt}>

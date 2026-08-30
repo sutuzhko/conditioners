@@ -1,6 +1,13 @@
 /* Чип выбора: «Квартира / Частный дом / Офис» в подборе и фильтры каталога.
+   По нему нажимают — плашка, которую только показывают, это `Badge`
+   (issue #326).
+
    Пилюля 100px из макета. Выбранный фон — --brand, а не прототипный #0891B2:
-   белый текст на нём даёт 3.5:1 и не проходит AA. */
+   белый текст на нём даёт 3.5:1 и не проходит AA.
+
+   🔴 Граница — `--line-ui`, а не `--line-strong` (ADR-181): у невыбранного
+   чипа линия и есть его граница, а `--line-strong` даёт на белом 1,48:1 при
+   норме WCAG 1.4.11 в 3:1. */
 
 .chip {
   display: inline-flex;
@@ -10,7 +17,7 @@
   box-sizing: border-box;
   min-height: var(--tap);
   padding: 11px 18px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--line-ui);
   border-radius: var(--r-pill);
   background: transparent;
   color: var(--body);
@@ -36,10 +43,24 @@
   opacity: 0.5;
 }
 
-.chip:hover:not(:disabled) {
-  border-color: var(--accent-line);
-  background: var(--accent-bg);
-  color: var(--accent-text);
+/* 🔴 Наведение — только под указателем: на сенсорном экране оно залипает
+   после нажатия, и подсвеченным остаётся чип, с которого палец уже ушёл. */
+@media (hover: hover) {
+  .chip:hover:not(:disabled) {
+    border-color: var(--accent-line);
+    background: var(--accent-bg);
+    color: var(--accent-text);
+  }
+
+  .selected:hover:not(:disabled) {
+    border-color: var(--brand-hover);
+    background: var(--brand-hover);
+    color: var(--on-brand);
+  }
+
+  .remove:hover {
+    color: var(--ink);
+  }
 }
 
 .sm {
@@ -48,7 +69,10 @@
   font-size: var(--fs-caption);
 }
 
-@media (pointer: coarse) {
+/* 🔴 Тап-зона поднимается по порогу раскладки, а не по `pointer: coarse`
+   (ADR-183): признак указателя врёт на сенсорном ноутбуке и схлопывает
+   шкалу — малый чип там переставал отличаться от обычного. */
+@media (width < 900px) {
   .sm {
     min-height: var(--tap);
   }
@@ -60,15 +84,42 @@
   color: var(--on-brand);
 }
 
-.selected:hover:not(:disabled) {
-  border-color: var(--brand-hover);
-  background: var(--brand-hover);
-  color: var(--on-brand);
-}
-
 .count {
   color: inherit;
   font-family: var(--font-display);
   font-weight: 700;
   opacity: 0.75;
+}
+
+/* Чип со сбросом: сам чип и крестик — два соседних действия, а не одно.
+   Кнопка внутри кнопки невалидна, поэтому крестик стоит рядом, а общий вид
+   пилюли держит группа: у чипа скругляется левый край, у крестика правый. */
+.group {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.removable {
+  border-right-width: 0;
+  border-radius: var(--r-pill) 0 0 var(--r-pill);
+  padding-right: 10px;
+}
+
+.remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 0 14px 0 4px;
+  border: 1px solid var(--line-ui);
+  border-left-width: 0;
+  border-radius: 0 var(--r-pill) var(--r-pill) 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.remove:focus-visible {
+  box-shadow: var(--ring-focus-ring);
 }

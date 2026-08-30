@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import type { BadgeVariant } from '@/shared/ui';
+
 import { consentSchema, honeypotSchema } from '@/shared/lib/zod';
 
 /**
@@ -11,6 +13,19 @@ import { consentSchema, honeypotSchema } from '@/shared/lib/zod';
 export const reviewStatusSchema = z.enum(['pending', 'approved', 'rejected', 'archived']);
 
 export type ReviewStatus = z.infer<typeof reviewStatusSchema>;
+
+/**
+ * 🔴 Краска плашки — из общего словаря статусов панели
+ * (`design/admin/Kit.body.html`, issue #326). «На модерации» серая, а не
+ * янтарная: янтарь в словаре означает «ждёт ответа и это деньги», и отзыв,
+ * набранный им же, спорит по срочности с новой заявкой в соседнем разделе.
+ */
+export const REVIEW_STATUS_VARIANT: Record<ReviewStatus, BadgeVariant> = {
+  pending: 'neutral',
+  approved: 'success',
+  rejected: 'neutral',
+  archived: 'neutral',
+};
 
 /**
  * Модератор переводит отзыв в один из трёх конечных статусов.

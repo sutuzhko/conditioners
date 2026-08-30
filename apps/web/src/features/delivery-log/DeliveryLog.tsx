@@ -25,10 +25,17 @@ export interface DeliveryLogProps {
   readonly api?: RetryApi | undefined;
 }
 
-const STATUS_BADGE: Readonly<Record<DeliveryStatus, 'success' | 'warning' | 'sale'>> = {
+/**
+ * 🔴 Краска плашки — из общего словаря статусов панели
+ * (`design/admin/Kit.body.html`, issue #326). Отказ шёл краской `sale` —
+ * той, что на витрине означает скидку: «Отказ», набранный цветом акции,
+ * читается предложением, а не проблемой. Ожидание в очереди — индиго: это
+ * ждёт система, а не человек, и янтарь здесь звал бы к действию впустую.
+ */
+const STATUS_BADGE: Readonly<Record<DeliveryStatus, 'success' | 'info' | 'danger'>> = {
   sent: 'success',
-  pending: 'warning',
-  failed: 'sale',
+  pending: 'info',
+  failed: 'danger',
 };
 
 const STATUS_TEXT: Readonly<Record<DeliveryStatus, string>> = {
@@ -139,7 +146,7 @@ export function DeliveryLog({
                     <div className={styles.head}>
                       <span className={styles.kind}>{kindTitle(failure.kind)}</span>
                       <span className={styles.channelTag}>{failure.channel}</span>
-                      <Badge variant={failure.status === 'failed' ? 'sale' : 'warning'} size="sm">
+                      <Badge variant={failure.status === 'failed' ? 'danger' : 'info'} size="sm">
                         {failure.status === 'failed' ? texts.statusFailed : texts.statusRetrying}
                       </Badge>
                       <span className={styles.meta}>

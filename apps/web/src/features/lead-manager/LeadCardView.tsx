@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useId, useState } from 'react';
 
+import { LEAD_STATUS_VARIANT } from '@/entities/lead/model';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 import { Badge, Button, Card, Select, Textarea } from '@/shared/ui';
 
@@ -34,14 +35,6 @@ export interface LeadCardViewProps {
   readonly onOrder?: ((leadId: string) => void) | undefined;
   readonly onChanged?: (() => void) | undefined;
 }
-
-/** Оттенок плашки статуса: новая требует действия, отказ — нет. */
-const STATUS_VARIANT: Record<LeadStatus, 'accent' | 'neutral' | 'success' | 'warning'> = {
-  new: 'accent',
-  in_progress: 'warning',
-  done: 'success',
-  rejected: 'neutral',
-};
 
 /** Поля заявки, которые показываются, только когда заполнены. */
 type Detail = { readonly label: string; readonly value: string | null };
@@ -190,7 +183,7 @@ export function LeadCardView({
         </div>
 
         <div className={styles.headerRight}>
-          <Badge variant={STATUS_VARIANT[status]}>{texts.statusTitle(status)}</Badge>
+          <Badge variant={LEAD_STATUS_VARIANT[status]}>{texts.statusTitle(status)}</Badge>
           <time className={styles.when} dateTime={lead.createdAt}>
             {texts.when(lead.createdAt)}
           </time>

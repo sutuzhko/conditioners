@@ -75,3 +75,22 @@ export const Empty: Story = {
   name: 'Пустая группа',
   render: () => <div style={{ color: 'var(--muted)' }}>Фильтры не заданы</div>,
 };
+
+/**
+ * Чип со сбросом. Крестик — отдельная кнопка рядом, а не второй смысл того же
+ * нажатия: «выбрать» и «сбросить» — разные действия, и промах по крестику не
+ * должен снимать фильтр целиком.
+ */
+export const Removable: Story = {
+  name: 'Со сбросом',
+  render: (args) => (
+    <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+      <Chip {...args} selected onRemove={() => undefined}>
+        Квартира
+      </Chip>
+      <Chip {...args} onRemove={() => undefined}>
+        Офис
+      </Chip>
+    </div>
+  ),
+};
