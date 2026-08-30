@@ -7,6 +7,7 @@ import { legalTitle } from '@/entities/settings/lib/legal';
 import { SkipLink } from '@/shared/ui';
 import { Header } from '@/widgets/header';
 import { Footer } from '@/widgets/footer';
+import { ActionBar } from '@/widgets/action-bar';
 import { SITE_NAV, LEAD_ANCHOR, POLICY_HREF, SKIP_LINK } from '@/shared/config/nav';
 
 import { loadSettings } from './_lib/settings';
@@ -72,6 +73,14 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         nav={SITE_NAV}
         policyHref={POLICY_HREF}
       />
+      {/* 🔴 Панель действий стоит в каркасе, а не на страницах: она нужна на
+          каждой из них, и монтировать её семь раз значит однажды забыть.
+          Телефон приходит из тех же настроек, что и телефон шапки, — второй
+          источник разошёлся бы с первым (инвариант 8, ADR-009).
+
+          Адрес заявки абсолютный: формы нет на каталоге, в статьях и в
+          политике, и голый якорь вёл бы там в никуда. */}
+      <ActionBar contacts={settings.contacts} leadHref={`/${LEAD_ANCHOR}`} />
     </>
   );
 }
