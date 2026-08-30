@@ -140,4 +140,63 @@ describe('getActivePrice', () => {
     expect(result.saleLabel).toBe('Осенняя цена');
     expect(result.saleTo).toEqual(at('2026-10-31T23:59:59.999+03:00'));
   });
+
+  /**
+   * 🔴 «−0%» запрещён не примером, а перебором.
+   *
+   * Отдельный пример проверяет одну пару чисел и молчит обо всех остальных, а
+   * ноль рождается округлением — то есть на границе, которую пример выбирает
+   * наугад. Здесь перебираются все цены со скидкой в опасной зоне (там, где
+   * процент меньше полутора) и вся шкала целиком с крупным шагом: ни одна
+   * комбинация не имеет права дать плашку «−0%» (DESIGN_BRIEF §10).
+   *
+   * Проверка мутационная по построению: убери `percent === 0 ? null : percent`
+   * из `getActivePrice`, и она падает на первой же паре.
+   */
+  it('🔴 ни одна комбинация цены и скидки не даёт «−0%»', () => {
+    const prices = [999, 6_000, 38_500, 100_000, 250_000] as const;
+    const seen = { rounded: 0, kept: 0 };
+
+    for (const priceNum of prices) {
+      /* Опасная зона: разница меньше полутора процентов. Именно здесь
+         `Math.round` даёт ноль, и именно её пример обычно не покрывает. */
+      const danger = Math.ceil(priceNum * 0.015);
+      const samples = new Set<number>();
+
+      for (let back = 1; back <= danger; back += 1) samples.add(priceNum - back);
+      // и вся шкала целиком, чтобы «нигде» означало нигде, а не «около границы»
+      for (let sale = 1; sale < priceNum; sale += Math.ceil(priceNum / 200)) samples.add(sale);
+
+      for (const salePrice of samples) {
+        const result = getActivePrice(product({ priceNum, salePrice }), at('2026-09-15T12:00:00Z'));
+
+        expect(result.saleActive, `${priceNum} → ${salePrice}`).toBe(true);
+        expect(result.discountPercent, `${priceNum} → ${salePrice}`).not.toBe(0);
+
+        if (result.discountPercent === null) seen.rounded += 1;
+        else {
+          seen.kept += 1;
+          // раз процент показан, он обязан быть настоящим, а не «почти нулём»
+          expect(result.discountPercent, `${priceNum} → ${salePrice}`).toBeGreaterThanOrEqual(1);
+        }
+      }
+    }
+
+    /* Обе ветки обязаны быть пройдены. Без этого перебор, случайно
+       разошедшийся с реальностью — например, если опасная зона перестанет
+       попадать в округление, — остался бы зелёным, ничего не проверив. */
+    expect(seen.rounded).toBeGreaterThan(0);
+    expect(seen.kept).toBeGreaterThan(0);
+  });
+
+  /**
+   * Граница округления названа числом, а не описана словами: скидка в
+   * полпроцента — это первая, которую владелец видит плашкой.
+   */
+  it('граница между «процента нет» и «процент есть» проходит по половине', () => {
+    // 38 500 → 38 308 это 0,4988% — округляется в ноль, плашки нет
+    expect(getActivePrice(product({ salePrice: 38_308 })).discountPercent).toBeNull();
+    // 38 500 → 38 307 это 0,5013% — округляется в единицу, плашка появляется
+    expect(getActivePrice(product({ salePrice: 38_307 })).discountPercent).toBe(1);
+  });
 });

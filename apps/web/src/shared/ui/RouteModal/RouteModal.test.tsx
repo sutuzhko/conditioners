@@ -80,6 +80,30 @@ describe('RouteModal', () => {
     expect(back).not.toHaveBeenCalled();
   });
 
+  it('вопрос о несохранённом вводе объявляется один раз, а не дважды', async () => {
+    historyLength(3);
+
+    render(
+      <RouteModal title="Новая позиция" fallbackHref="/admin/stock" dirty>
+        <p>Форма</p>
+      </RouteModal>,
+    );
+    await userEvent.keyboard('{Escape}');
+
+    const question = 'Введённое не сохранено. Закрыть и потерять его?';
+    const dialog = screen.getByRole('alertdialog');
+
+    /* 🔴 Имя окна должно приходить от видимого абзаца, а не от собственного
+       `aria-label` с тем же текстом: при двух источниках читалка произносит
+       вопрос дважды — сначала как имя, потом как содержимое. */
+    expect(dialog).toHaveAccessibleName(question);
+    expect(dialog).not.toHaveAttribute('aria-label');
+    expect(dialog).toHaveAttribute('aria-labelledby');
+
+    const labelledBy = dialog.getAttribute('aria-labelledby');
+    expect(document.getElementById(labelledBy ?? '')).toHaveTextContent(question);
+  });
+
   it('на второй вопрос «закрыть без сохранения» окно уходит', async () => {
     back.mockClear();
     historyLength(3);

@@ -3,6 +3,8 @@ import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
+import { blend, contrastRatio, formatRatio, parseColor, type Color } from '@/shared/lib/color';
+
 /**
  * Контраст пар «цвет текста × фон» по токенам — машиной, а не глазом.
  *
@@ -17,6 +19,7 @@ import { describe, expect, it } from 'vitest';
  */
 
 const TOKENS = readFileSync(join(__dirname, 'tokens.css'), 'utf8');
+const UI_TOKENS = readFileSync(join(__dirname, 'ui-tokens.css'), 'utf8');
 
 /** Порог AA для обычного текста. Крупный текст и границы — 3:1, см. LARGE. */
 const AA_TEXT = 4.5;
@@ -35,9 +38,10 @@ const BLOCK_START: Record<Theme, string> = {
   panel: "[data-ground='panel']",
 };
 
-function readTheme(theme: Theme): Record<string, string> {
-  const start = TOKENS.indexOf(BLOCK_START[theme]);
-  const body = TOKENS.slice(start, TOKENS.indexOf('}', start));
+/** Объявления одного блока: от селектора до его закрывающей скобки. */
+function readBlock(css: string, selector: string): Record<string, string> {
+  const start = css.indexOf(selector);
+  const body = css.slice(start, css.indexOf('}', start));
 
   const values: Record<string, string> = {};
   for (const match of body.matchAll(/--([\w-]+):\s*([^;]+);/g)) {
@@ -46,6 +50,10 @@ function readTheme(theme: Theme): Record<string, string> {
     values[name] = value.trim();
   }
   return values;
+}
+
+function readTheme(theme: Theme): Record<string, string> {
+  return readBlock(TOKENS, BLOCK_START[theme]);
 }
 
 const LIGHT = readTheme('light');
@@ -60,33 +68,6 @@ const DARK = { ...LIGHT, ...readTheme('dark') };
  * подвал стал хуже, чем был, — нашлось только замером в браузере.
  */
 const PANEL = { ...LIGHT, ...readTheme('panel'), bg: LIGHT.panel ?? '#0f172a' };
-
-/** Относительная яркость по WCAG 2.1. */
-function luminance(hex: string): number {
-  const value = hex.replace('#', '');
-  const full =
-    value.length === 3
-      ? value
-          .split('')
-          .map((c) => c + c)
-          .join('')
-      : value;
-
-  const channel = (from: number): number => {
-    const c = Number.parseInt(full.slice(from, from + 2), 16) / 255;
-    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-  };
-
-  return 0.2126 * channel(0) + 0.7152 * channel(2) + 0.0722 * channel(4);
-}
-
-function contrast(a: string, b: string): number {
-  const first = luminance(a);
-  const second = luminance(b);
-  const high = Math.max(first, second);
-  const low = Math.min(first, second);
-  return (high + 0.05) / (low + 0.05);
-}
 
 /**
  * Фоны, на которых стоит текст. Полупрозрачные и градиентные подложки в
@@ -110,10 +91,13 @@ function backgroundsFor(theme: Theme): readonly string[] {
   return theme === 'panel' ? ['bg'] : BACKGROUNDS;
 }
 
-/** Только сплошные цвета: rgb() с прозрачностью проверяется в браузере, не здесь. */
-function solid(colors: Record<string, string>, name: string): string | null {
+/** Только непрозрачные цвета: полупрозрачные кладутся на подложку отдельно. */
+function solid(colors: Record<string, string>, name: string): Color | null {
   const value = colors[name];
-  return value !== undefined && value.startsWith('#') ? value : null;
+  if (value === undefined) return null;
+
+  const parsed = parseColor(value);
+  return parsed !== null && parsed.alpha === 1 ? parsed : null;
 }
 
 describe.each<Theme>(['light', 'dark', 'panel'])('Контраст токенов — %s', (theme) => {
@@ -129,10 +113,10 @@ describe.each<Theme>(['light', 'dark', 'panel'])('Контраст токено�
       const bg = solid(colors, bgToken);
       if (bg === null) continue;
 
-      const ratio = contrast(ink, bg);
+      const ratio = contrastRatio(ink, bg);
       expect(
         ratio,
-        `--${token} на --${bgToken} даёт ${ratio.toFixed(2)}:1 при норме ${AA_TEXT}:1`,
+        `--${token} на --${bgToken} даёт ${formatRatio(ratio)}:1 при норме ${AA_TEXT}:1`,
       ).toBeGreaterThanOrEqual(AA_TEXT);
     }
   });
@@ -146,10 +130,10 @@ describe.each<Theme>(['light', 'dark', 'panel'])('Контраст токено�
       const bg = solid(colors, bgToken);
       if (bg === null) continue;
 
-      const ratio = contrast(line, bg);
+      const ratio = contrastRatio(line, bg);
       expect(
         ratio,
-        `--${token} на --${bgToken} даёт ${ratio.toFixed(2)}:1 при норме ${AA_LARGE}:1`,
+        `--${token} на --${bgToken} даёт ${formatRatio(ratio)}:1 при норме ${AA_LARGE}:1`,
       ).toBeGreaterThanOrEqual(AA_LARGE);
     }
   });
@@ -164,8 +148,8 @@ describe.each<Theme>(['light', 'dark', 'panel'])('Контраст токено�
 
     const steps = ['ink', 'ink2', 'body', 'muted', 'faint']
       .map((token) => solid(colors, token))
-      .filter((value): value is string => value !== null)
-      .map((value) => contrast(value, bg));
+      .filter((value): value is Color => value !== null)
+      .map((value) => contrastRatio(value, bg));
 
     for (let i = 1; i < steps.length; i += 1) {
       const previous = steps[i - 1];
@@ -174,5 +158,109 @@ describe.each<Theme>(['light', 'dark', 'panel'])('Контраст токено�
 
       expect(current, `уровень ${i} не светлее предыдущего`).toBeLessThan(previous);
     }
+  });
+});
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Семантические токены: граница контрола, краски состояний, текст поверх
+   заливки.
+
+   🔴 Считаются со смешиванием слоёв, а не по номиналу. Половина поверхностей
+   панели тонирована, и краска ложится на подложку, произведённую от неё же:
+   именно так «5,5:1 по токену» превращалось в 4,5:1 на экране, а порог AA
+   выглядел взятым (ADR-181). Прозрачность здесь раскладывается ровно так же,
+   как её раскладывает браузер.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+const UI_LIGHT = { ...LIGHT, ...readBlock(UI_TOKENS, ':root {') };
+const UI_DARK = { ...UI_LIGHT, ...DARK, ...readBlock(UI_TOKENS, ":root[data-theme='dark']") };
+
+/** `var(--x)` в значении токена — ссылка на соседний токен той же темы. */
+function resolve(palette: Record<string, string>, token: string): string {
+  const raw = palette[token] ?? '';
+  const link = /^var\(\s*--([\w-]+)\s*\)$/.exec(raw);
+
+  return link?.[1] === undefined ? raw : (palette[link[1]] ?? '');
+}
+
+function color(palette: Record<string, string>, token: string): Color {
+  const value = parseColor(resolve(palette, token));
+  expect(value, `--${token} не разобран`).not.toBeNull();
+
+  return value ?? { channels: [0, 0, 0], alpha: 1 };
+}
+
+function ratio(ink: Color, ground: Color): number {
+  return contrastRatio(ink, ground);
+}
+
+/** Поверхности, на которых стоят чипы и поля панели. */
+const GROUNDS = ['card', 'bg-soft'] as const;
+
+/** Краски состояний: чип с текстом, подложка чипа произведена от той же краски. */
+const STATES = ['ok', 'warn', 'error', 'info'] as const;
+
+const THEMES: ReadonlyArray<readonly [string, Record<string, string>]> = [
+  ['светлая', UI_LIGHT],
+  ['тёмная', UI_DARK],
+];
+
+describe.each(THEMES)('Семантические токены — %s тема', (_name, palette) => {
+  it.each(GROUNDS)('граница контрола различима на «%s»', (ground) => {
+    const line = color(palette, 'line-ui');
+    const surface = color(palette, ground);
+    const value = ratio(line, surface);
+
+    expect(
+      value,
+      `--line-ui на --${ground} даёт ${formatRatio(value)}:1 при норме ${AA_LARGE}:1`,
+    ).toBeGreaterThanOrEqual(AA_LARGE);
+  });
+
+  it.each(STATES)('краска «%s» читается и на чистой поверхности, и на своём тинте', (state) => {
+    const ink = color(palette, `${state}-ink`);
+    const tint = color(palette, `${state}-bg`);
+
+    for (const ground of GROUNDS) {
+      const surface = color(palette, ground);
+      const tinted = blend(tint, surface);
+
+      for (const [where, value] of [
+        [`--${ground}`, ratio(ink, surface)],
+        [`тинте на --${ground}`, ratio(ink, tinted)],
+      ] as const) {
+        expect(
+          value,
+          `--${state}-ink на ${where} даёт ${formatRatio(value)}:1 при норме ${AA_TEXT}:1`,
+        ).toBeGreaterThanOrEqual(AA_TEXT);
+      }
+    }
+  });
+
+  /* 🔴 Метка данных обязана отделяться от поверхности: график читают по
+     линии, а не по подписи. Различимость самих серий между собой цветом не
+     обеспечивается вовсе (1,36:1 и 1,08:1) — за неё отвечают штрих и подписи
+     концов, и проверяются они на историях, а не здесь. */
+  it.each(['s1', 's2'] as const)('серия «%s» отделяется от поверхности', (series) => {
+    const mark = color(palette, series);
+
+    for (const ground of GROUNDS) {
+      const value = ratio(mark, color(palette, ground));
+      expect(
+        value,
+        `--${series} на --${ground} даёт ${formatRatio(value)}:1 при норме ${AA_LARGE}:1`,
+      ).toBeGreaterThanOrEqual(AA_LARGE);
+    }
+  });
+
+  it.each(['error', 'ok'] as const)('текст поверх сплошной заливки «%s» читается', (state) => {
+    const fill = color(palette, `${state}-ink`);
+    const text = color(palette, `on-${state}`);
+    const value = ratio(text, fill);
+
+    expect(
+      value,
+      `--on-${state} на --${state}-ink даёт ${formatRatio(value)}:1 при норме ${AA_TEXT}:1`,
+    ).toBeGreaterThanOrEqual(AA_TEXT);
   });
 });

@@ -42,15 +42,35 @@ describe('Сводка панели управления', () => {
     /* Сайт с заглушками публиковать нельзя, и напоминание об этом обязано
        быть первым. Зелёная галочка, наоборот, не вправе каждый день
        отодвигать вниз работу. */
+    /* Проверяется порядок блоков между собой, а не номер в списке: сверху
+       стоит ещё и заголовок страницы, и привязка к индексу ломалась бы от
+       любой правки шапки, ничего не говоря о самом требовании. */
+    const orderOf = (container: HTMLElement): { readiness: number; tiles: number } => {
+      const blocks = [...container.querySelectorAll('[class*="summary"] > *')];
+      return {
+        readiness: blocks.findIndex((el) => el.textContent?.includes(texts.readinessTitle)),
+        tiles: blocks.findIndex((el) => el.textContent?.includes(texts.leads)),
+      };
+    };
+
     const blocking = render(<AdminSummary counts={emptyCounts} readiness={unfinishedReadiness} />);
-    const first = blocking.container.querySelector('[class*="summary"] > *');
-    expect(first?.textContent).toContain(texts.readinessTitle);
+    const above = orderOf(blocking.container);
+    expect(above.readiness).toBeGreaterThanOrEqual(0);
+    expect(above.readiness).toBeLessThan(above.tiles);
 
     blocking.unmount();
 
     const done = render(<AdminSummary counts={quietCounts} readiness={readyReadiness} />);
-    const children = done.container.querySelectorAll('[class*="summary"] > *');
-    expect(children[children.length - 1]?.textContent).toContain(texts.readinessTitle);
+    const below = orderOf(done.container);
+    expect(below.readiness).toBeGreaterThan(below.tiles);
+  });
+
+  /* 🔴 Вход в панель был единственной страницей без `h1`: заголовки плиток —
+     второй уровень, и читалка объявляла экран безымянным (инвариант 4). */
+  it('у сводки есть единственный заголовок первого уровня', () => {
+    render(<AdminSummary counts={quietCounts} readiness={readyReadiness} />);
+
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(texts.title);
   });
 
   it('плитки — про работу компании, а не про содержимое сайта', () => {

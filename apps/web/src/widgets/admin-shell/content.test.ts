@@ -2,7 +2,16 @@ import { describe, expect, it } from 'vitest';
 
 import { settingKeySchema } from '@/entities/settings/model';
 
-import { ADMIN_SECTIONS, sectionAllows, sectionOf, sectionsFor } from './content';
+import {
+  ADMIN_SECTIONS,
+  bottomSectionsFor,
+  columnSectionsFor,
+  navHrefOf,
+  sectionAllows,
+  sectionOf,
+  sectionsFor,
+  settingsSectionsFor,
+} from './content';
 import { adminSummaryContent } from './summary-content';
 
 describe('разделы панели по ролям', () => {
@@ -26,6 +35,45 @@ describe('разделы панели по ролям', () => {
   it('похожее начало адреса чужой раздел не забирает', () => {
     expect(sectionOf('/admin/crm')?.href).toBe('/admin/crm');
     expect(sectionOf('/admin/crm-something')).toBeUndefined();
+  });
+
+  /* 🔴 Адрес «Обзора» — начало каждого адреса панели, и по общему правилу он
+     забрал бы себе весь раздел вместе с ролями. */
+  it('«Обзор» владеет только сводкой, а не всей панелью', () => {
+    expect(sectionOf('/admin')?.href).toBe('/admin');
+    expect(sectionOf('/admin/stock')?.href).toBe('/admin/stock');
+    expect(sectionOf('/admin/catalog/42')?.href).toBe('/admin/catalog');
+  });
+
+  /* Разделы конфигурации в колонке не стоят, и подсветка на них пропала бы
+     вовсе — вместо них горит пункт, через который в них заходят (ADR-188). */
+  it('страницы настроек подсвечивают пункт «Настройки»', () => {
+    expect(navHrefOf('/admin/company')).toBe('/admin/settings');
+    expect(navHrefOf('/admin/prices')).toBe('/admin/settings');
+    expect(navHrefOf('/admin/notifications')).toBe('/admin/settings');
+    expect(navHrefOf('/admin/catalog/42')).toBe('/admin/catalog');
+    expect(navHrefOf('/admin/nothing-here')).toBeUndefined();
+  });
+
+  it('колонка, прибитый низ и настройки не пересекаются', () => {
+    const column = columnSectionsFor('owner').map((section) => section.href);
+    const bottom = bottomSectionsFor('owner').map((section) => section.href);
+    const settings = settingsSectionsFor('owner').map((section) => section.href);
+
+    expect(column).toContain('/admin/catalog');
+    expect(bottom).toEqual(['/admin/settings', '/admin/profile']);
+    expect(settings).toEqual(['/admin/company', '/admin/prices', '/admin/notifications']);
+
+    for (const href of [...bottom, ...settings]) {
+      expect(column).not.toContain(href);
+    }
+  });
+
+  /* 🔴 Новый раздел заводится с ролью владельца: `sectionAllows` — настоящая
+     проверка, по ней раскладка разворачивает монтажника. */
+  it('монтажника не пускает в настройки', () => {
+    expect(sectionAllows('/admin/settings', 'installer')).toBe(false);
+    expect(sectionAllows('/admin/settings', 'owner')).toBe(true);
   });
 });
 

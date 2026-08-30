@@ -145,4 +145,37 @@ describe('ставки монтажа через админ-API', () => {
     expect(response.status).toBe(401);
     expect(db.setting.upsert).not.toHaveBeenCalled();
   });
+
+  /**
+   * 🔴 Строка без класса — потерянная строка, а не пустой ряд. Форма её
+   * останавливает и подсвечивает, но правило обязано жить на сервере: мимо
+   * панели прайс правится любым запросом, а прайс с безымянной строкой — это
+   * цена, которой калькулятор не найдёт.
+   *
+   * Проверяется не только отказ, но и адрес поля: по нему форма подсвечивает
+   * свою ячейку (`rowOfField` в `features/prices-form/lib.ts`), и в таблице из
+   * десяти классов одна плашка внизу не говорит, какая строка не прошла.
+   */
+  it('🔴 строка прайса без класса не сохраняется, и отказ называет её номер', async () => {
+    const response = await PUT(
+      put({ prices: [priceRow, { ...priceRow, cls: '   ' }], extras }),
+      undefined,
+    );
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toMatchObject({
+      error: { code: 'validation_error', field: 'prices.1.cls' },
+    });
+
+    // 🔴 Прайс заменяется целиком: сохранись он частично, пропала бы вся таблица
+    expect(db.priceRow.deleteMany).not.toHaveBeenCalled();
+    expect(db.priceRow.upsert).not.toHaveBeenCalled();
+  });
+
+  it('🔴 пустой прайс не принимается: калькулятору не по чему считать', async () => {
+    const response = await PUT(put({ prices: [], extras }), undefined);
+
+    expect(response.status).toBe(400);
+    expect(db.priceRow.deleteMany).not.toHaveBeenCalled();
+  });
 });

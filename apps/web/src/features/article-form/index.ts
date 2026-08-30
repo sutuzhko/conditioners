@@ -12,6 +12,7 @@ export {
   uploadCover,
 } from './lib';
 export {
+  KNOWLEDGE_NEW_PATH,
   KNOWLEDGE_PATH,
   emptyArticleValues,
   type ArticleDelete,

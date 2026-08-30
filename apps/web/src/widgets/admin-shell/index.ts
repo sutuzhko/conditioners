@@ -2,13 +2,20 @@
 export { AdminShell, type AdminShellProps } from './AdminShell';
 export {
   ADMIN_GROUP_TITLES,
+  ADMIN_ROLE_TITLES,
   ADMIN_SECTIONS,
+  ADMIN_SETTINGS_PATH,
   adminShellContent,
+  bottomSectionsFor,
+  columnSectionsFor,
+  navHrefOf,
   sectionAllows,
   sectionOf,
   sectionsFor,
+  settingsSectionsFor,
   type AdminSection,
   type AdminSectionGroup,
+  type AdminSectionPlace,
 } from './content';
 export {
   AdminSummary,

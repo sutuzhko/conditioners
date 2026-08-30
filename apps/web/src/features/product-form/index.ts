@@ -11,7 +11,7 @@ export {
   toRequestBody,
   updateProduct,
 } from './lib';
-export { CATALOG_PATH } from './model';
+export { CATALOG_NEW_PATH, CATALOG_PATH, CATALOG_SPECS_PATH } from './model';
 export type {
   ProductDelete,
   ProductFormStatus,
