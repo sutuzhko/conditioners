@@ -5,14 +5,37 @@
    данным, а не оформлению. Общими остаются только токены — цвета, радиусы и
    шрифты те же, чтобы панель не выглядела чужой программой. */
 
-.shell {
+/* 🔴 Панель — скруглённый контейнер на сером поле, а не страница во всю
+   ширину окна (ADR-169, DESIGN_BRIEF §14). Поле задаёт границу рабочей
+   области: содержимое кончается там, где кончается контейнер, и таблица
+   больше не упирается в край стекла. */
+.page {
   /* Ширина колонки разделов: значение нужно и сетке, и её отмене. */
   --aside-w: 232px;
 
+  /* Серое поле вокруг контейнера. Переменная, а не число в трёх местах: от
+     неё же считаются высота контейнера и высота липкой колонки. */
+  --pad-page: 28px;
+
+  box-sizing: border-box;
+  min-height: 100dvh;
+  padding: var(--pad-page);
+  background: var(--bg-soft);
+}
+
+/* 🔴 `clip`, а не `hidden`. Скругление обязано обрезать шапку и колонку, но
+   `overflow: hidden` делает контейнер областью прокрутки, и липкая шапка
+   перестаёт липнуть к окну: она прилипает к невидимому краю контейнера.
+   `clip` обрезает, области прокрутки не создаёт. */
+.app {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
-  background: var(--bg);
+  box-sizing: border-box;
+  min-height: calc(100dvh - 2 * var(--pad-page));
+  overflow: clip;
+  border: 1px solid var(--line);
+  border-radius: var(--r-app);
+  background: var(--card);
 }
 
 .header {
@@ -27,7 +50,7 @@
   min-height: var(--admin-header-h);
   padding: 12px var(--gutter);
   border-bottom: 1px solid var(--line);
-  background: var(--bg);
+  background: var(--card);
 }
 
 /* Подписи по ширине экрана: полная и короткая. Показывается ровно одна —
@@ -84,23 +107,25 @@
    🔴 Вместе с колонкой убирается и её место в сетке. Скрытый элемент выпадает
    из раскладки, и содержимое съезжало в первую колонку — ту самую, ширины у
    которой уже не было: страница схлопывалась в четверть экрана. */
-.shell[data-nav='off'] .body {
+.page[data-nav='off'] .body {
   grid-template-columns: minmax(0, 1fr);
 }
 
 .aside {
-  /* Навигация остаётся на виду при длинном списке моделей. */
+  /* Навигация остаётся на виду при длинном списке моделей. Высота считается
+     от окна за вычетом шапки и нижнего поля: иначе прибитый низ колонки
+     оказывается ниже видимой части и до него нужно доскроллить. */
   position: sticky;
   top: var(--admin-header-h);
   align-self: start;
   box-sizing: border-box;
-  height: calc(100dvh - var(--admin-header-h));
+  height: calc(100dvh - var(--admin-header-h) - var(--pad-page));
   overflow-y: auto;
   border-right: 1px solid var(--line);
   padding: 16px 12px;
 }
 
-.shell[data-nav='off'] .aside {
+.page[data-nav='off'] .aside {
   display: none;
 }
 
@@ -116,7 +141,7 @@
   /* Шире сайтовой сетки: в панели таблицы, а не текст — им нужна ширина. */
   max-width: 1320px;
   margin: 0 auto;
-  padding: 20px var(--gutter) 48px;
+  padding: 18px var(--gutter) 24px;
 }
 
 .headerLeft {
@@ -127,6 +152,17 @@
 }
 
 @media (width < 900px) {
+  /* 🔴 До 900px поля и скругления нет: на телефоне восемь пикселей серого по
+     краям — это восемь пикселей, отнятых у таблицы, а рамка вокруг всего
+     экрана читается как обрезанная страница. */
+  .app {
+    min-height: 100dvh;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 0;
+  }
+
   .body {
     grid-template-columns: minmax(0, 1fr);
     gap: 16px;
@@ -153,6 +189,19 @@
 
   .login {
     display: none;
+  }
+}
+
+/* Планшет: поле сужается — контейнеру нужна ширина, а не воздух по краям. */
+@media (900px <= width < 1200px) {
+  .page {
+    --pad-page: 16px;
+  }
+}
+
+@media (width < 900px) {
+  .page {
+    --pad-page: 0;
   }
 }
 

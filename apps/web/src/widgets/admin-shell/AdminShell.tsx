@@ -39,39 +39,41 @@ export interface AdminShellProps {
 export function AdminShell({ children, login, name, role, navOpen = true }: AdminShellProps) {
   return (
     <NavState initialOpen={navOpen}>
-      <header className={styles.header}>
-        <div className={styles.headerLeft}>
-          <NavToggle />
+      <div className={styles.app}>
+        <header className={styles.header}>
+          <div className={styles.headerLeft}>
+            <NavToggle />
 
-          {/* 🔴 Две подписи вместо одной: на телефоне полные названия уводили
+            {/* 🔴 Две подписи вместо одной: на телефоне полные названия уводили
               шапку на вторую строку — сотня пикселей из восьмисот уходила на
               то, что и так понятно. Переключает их CSS, а не JS: выбор в JS
               дал бы либо расхождение гидратации, либо мигание после загрузки. */}
-          <Link className={styles.brand} href={{ pathname: '/admin' }}>
-            <span className={styles.wide}>{texts.brand}</span>
-            <span className={styles.narrow}>{texts.brandShort}</span>
-          </Link>
-        </div>
+            <Link className={styles.brand} href={{ pathname: '/admin' }}>
+              <span className={styles.wide}>{texts.brand}</span>
+              <span className={styles.narrow}>{texts.brandShort}</span>
+            </Link>
+          </div>
 
-        <div className={styles.actions}>
-          <span className={styles.login}>{name ?? login}</span>
-          {/* Ссылка на сайт открывается в новой вкладке: правку хочется
+          <div className={styles.actions}>
+            <span className={styles.login}>{name ?? login}</span>
+            {/* Ссылка на сайт открывается в новой вкладке: правку хочется
               сверить, не теряя место в панели. */}
-          <Link className={styles.site} href={{ pathname: '/' }} target="_blank" rel="noreferrer">
-            <span className={styles.wide}>{texts.site}</span>
-            <span className={styles.narrow}>{texts.siteShort}</span>
-          </Link>
-          <ThemeToggle />
-          <LogoutButton />
+            <Link className={styles.site} href={{ pathname: '/' }} target="_blank" rel="noreferrer">
+              <span className={styles.wide}>{texts.site}</span>
+              <span className={styles.narrow}>{texts.siteShort}</span>
+            </Link>
+            <ThemeToggle />
+            <LogoutButton />
+          </div>
+        </header>
+
+        <div className={styles.body}>
+          <aside className={styles.aside}>
+            <AdminNav role={role} />
+          </aside>
+
+          <main className={styles.content}>{children}</main>
         </div>
-      </header>
-
-      <div className={styles.body}>
-        <aside className={styles.aside}>
-          <AdminNav role={role} />
-        </aside>
-
-        <main className={styles.content}>{children}</main>
       </div>
     </NavState>
   );
