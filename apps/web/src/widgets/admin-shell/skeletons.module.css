@@ -17,7 +17,7 @@
   gap: 16px;
 }
 
-@media (width >= 720px) {
+@media (width >= 900px) {
   .fields {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
