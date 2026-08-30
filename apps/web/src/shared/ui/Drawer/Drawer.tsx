@@ -72,8 +72,9 @@ export function Drawer({
             )}
             <IconButton
               label={closeLabel}
-              variant="ghost"
+              variant="outline"
               size="md"
+              className={styles.close}
               onClick={onClose}
               icon={<Icon name="close" size={20} />}
             />
