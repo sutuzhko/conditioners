@@ -54,7 +54,7 @@ export function NavState({ initialOpen, children }: NavStateProps) {
       {/* 🔴 `data-ui="panel"` включает плотность и геометрию панели
           (tokens.css, ADR-187): за пределами этого контейнера панельных
           переменных нет, и витрина остаётся на своей геометрии. */}
-      <div className={styles.shell} data-ui="panel" data-nav={open ? 'on' : 'off'}>
+      <div className={styles.page} data-ui="panel" data-nav={open ? 'on' : 'off'}>
         {children}
       </div>
     </context.Provider>
