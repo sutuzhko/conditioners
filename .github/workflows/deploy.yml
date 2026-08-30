@@ -1,0 +1,137 @@
+# Выкладка на боевой сервер — issue #170.
+#
+# 🔴 Задание заготовлено и выключено. VPS ещё нет, значит нет ни адреса, ни
+# ключа доступа: без переменной `DEPLOY_HOST` задание не запускается ни по
+# merge, ни руками. Заготовка лежит в репозитории не «на будущее», а потому
+# что порядок шагов выкладки уже проверен на своей машине (issue #114) и
+# описан в DEPLOY §3–§4 — восстанавливать его по памяти в день запуска
+# означает восстанавливать его неправильно.
+#
+# 🔴 Выкладка по merge остаётся выключенной и после появления VPS. Автодеплой
+# с каждого пуша на проекте одного разработчика создаёт больше рисков, чем
+# экономит времени (DEPLOY §4), поэтому обычный путь — запуск руками, а ветка
+# «по merge» включается отдельной переменной и осознанно (ADR-206).
+#
+# Что нужно завести перед первым запуском:
+#   переменная DEPLOY_HOST        — `пользователь@адрес` боевого сервера
+#   переменная DEPLOY_KNOWN_HOSTS — вывод `ssh-keyscan <адрес>`
+#   переменная SITE_DOMAIN        — канонический домен для проверки после
+#   секрет    DEPLOY_SSH_KEY      — закрытый ключ, которым ходим на сервер
+#   переменная DEPLOY_ON_MERGE    — `true`, если выкладка по merge всё-таки нужна
+name: Выкладка
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+# Две выкладки разом означают две сборки на одной машине и гонку миграций.
+# Второй запуск ждёт первого, а не отменяет его: отменённая на середине
+# выкладка оставляет состав в неизвестном состоянии.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    # Пока адреса сервера нет — задание не делает ничего и не краснеет.
+    if: >-
+      vars.DEPLOY_HOST != '' &&
+      (github.event_name == 'workflow_dispatch' || vars.DEPLOY_ON_MERGE == 'true')
+
+    runs-on: ubuntu-latest
+
+    # Окружение даёт владельцу подтверждение перед выкладкой, если он включит
+    # его в настройках репозитория, и хранит адрес сайта в одном месте.
+    environment:
+      name: production
+      url: https://${{ vars.SITE_DOMAIN }}
+
+    steps:
+      # 🔴 Ошибка «нет ключа» обязана прозвучать до того, как задание начнёт
+      # ходить на сервер: молчаливый отказ ssh выглядит как недоступный сервер,
+      # и разбирать его будут не там, где он есть.
+      - name: Проверка доступов
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          missing=""
+          [ -n "${SSH_KEY}" ] || missing="${missing} секрет DEPLOY_SSH_KEY"
+          [ -n "${{ vars.DEPLOY_KNOWN_HOSTS }}" ] || missing="${missing} переменная DEPLOY_KNOWN_HOSTS"
+          [ -n "${{ vars.SITE_DOMAIN }}" ] || missing="${missing} переменная SITE_DOMAIN"
+          if [ -n "${missing}" ]; then
+            echo "🔴 выкладка не настроена, не хватает:${missing}" >&2
+            exit 1
+          fi
+
+      # Ключ известного хоста берётся из переменной, а не из `ssh-keyscan` на
+      # ходу: второе принимает любой ключ, который ответит, то есть не
+      # проверяет ничего.
+      - name: Ключ доступа
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "${SSH_KEY}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          printf '%s\n' "${{ vars.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      # 🔴 Сервер обновляется только перемоткой. `git pull --ff-only` падает,
+      # если на сервере оказались свои коммиты, — и это правильный исход:
+      # молча затереть правку, сделанную на проде руками, значит потерять
+      # единственный её след.
+      #
+      # Всю остальную работу делает `infra/deploy.sh`: база, дамп перед
+      # миграциями, миграции, сборка, запуск. Порядок шагов там не случаен
+      # (ADR-062), и дублировать его здесь нельзя — разъедется.
+      - name: Выкладка
+        run: |
+          ssh -i ~/.ssh/id_deploy -o BatchMode=yes "${{ vars.DEPLOY_HOST }}" '
+            set -euo pipefail
+            cd /opt/tulaklimat
+            git fetch --prune origin
+            git checkout main
+            git pull --ff-only
+            infra/deploy.sh
+          '
+
+      # Проверка после выкладки — та же, что в DEPLOY §8, и в том же порядке.
+      # Смысл её не в «сайт отвечает», а в том, что отвечает он готовым HTML:
+      # робот, не дождавшийся JS, обязан увидеть цены (инвариант 1).
+      - name: Проверка после выкладки
+        run: |
+          domain="${{ vars.SITE_DOMAIN }}"
+
+          health="$(curl -fsS "https://${domain}/api/health")"
+          echo "${health}" | grep -q '"ok":true' || {
+            echo "🔴 /api/health ответил не тем: ${health}" >&2
+            exit 1
+          }
+
+          prices="$(curl -fsS "https://${domain}/" | grep -c '₽' || true)"
+          [ "${prices}" -gt 0 ] || {
+            echo "🔴 в HTML главной нет ни одной цены — страница собралась без данных" >&2
+            exit 1
+          }
+
+          curl -fsSI "https://${domain}/admin" | grep -iq 'x-robots-tag' || {
+            echo "🔴 /admin отдаётся без noindex" >&2
+            exit 1
+          }
+
+          echo "✅ выкладка прошла: health зелёный, цены в HTML (${prices}), /admin закрыт"
+
+      # Заявки — деньги владельца, и молчаливо упавшая выкладка хуже упавшей
+      # громко. Сообщение уходит тем же ботом, которым ходят уведомления.
+      - name: Сообщить о провале
+        if: failure() && vars.DEPLOY_ALERT_CHAT_ID != ''
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          [ -n "${TOKEN}" ] || exit 0
+          text="🔴 Выкладка упала: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -fsS -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${{ vars.DEPLOY_ALERT_CHAT_ID }}" \
+            --data-urlencode "text=${text}" > /dev/null
