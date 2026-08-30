@@ -1,28 +1,63 @@
 /* Мобильная навигация. В макете её нет вообще — раскладка спроектирована нами
-   по правилу деградации из docs/DESIGN_BRIEF.md §6. */
+   по правилу деградации из docs/DESIGN_BRIEF.md §6 (issue #248). */
 
+/* 🔴 Список выходит за боковые поля тела шторки: подсветка и тап-зона пункта
+   идут во всю ширину панели, а текст остаётся на общей линии за счёт
+   собственного отступа. Ширину полей задаёт сам Drawer — здесь она берётся
+   переменной, а не повторяется числом. */
 .list {
   display: grid;
-  gap: 2px;
-  margin: 0;
+  margin: 0 calc(var(--drawer-pad-inline) * -1);
   padding: 0;
   list-style: none;
 }
 
+/* Разделитель нужен не для красоты: он показывает границу тап-зоны, и промах
+   по соседнему пункту становится заметен. Линия рисуется поверх пункта, а не
+   границей: граница добавила бы ряду пиксель высоты, и «пункт 52px» перестал
+   бы быть правдой при замере. */
+.item {
+  position: relative;
+}
+
+.item + .item::before {
+  position: absolute;
+  top: 0;
+  right: var(--drawer-pad-inline);
+  left: var(--drawer-pad-inline);
+  border-top: 1px solid var(--line-soft);
+  content: '';
+}
+
+/* 52px при минимуме 44 из §6: это главная цель для пальца на телефоне, и
+   промахиваться по ней человек не должен. */
 .link {
   display: flex;
+  gap: 12px;
   align-items: center;
-  min-height: var(--tap);
-  padding: 10px;
-  border-radius: var(--r-sm);
-  color: var(--ink2);
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-height: 52px;
+  padding: 0 var(--drawer-pad-inline);
+  color: var(--ink);
   font-family: var(--font-text);
-  font-size: var(--fs-base);
+  font-size: 16px;
   font-weight: 600;
   text-decoration: none;
   transition:
     background var(--dur-fast) var(--ease-out),
     color var(--dur-fast) var(--ease-out);
+}
+
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--faint);
 }
 
 .link:hover {
@@ -37,12 +72,23 @@
   box-shadow: var(--ring-focus-inset);
 }
 
+/* 🔴 Текущий раздел отличается не только цветом: у него подложка и жирная
+   отбивка слева. Одного цвета мало при нарушениях цветовосприятия и в
+   высококонтрастном режиме, где фон и текст переопределяет система. */
 .link[aria-current='page'] {
+  border-left: 3px solid var(--accent-text);
+  padding-left: calc(var(--drawer-pad-inline) - 3px);
   background: var(--accent-bg);
   color: var(--accent-text);
 }
 
-.theme {
+.link[aria-current='page'] .chevron {
+  color: var(--accent-text);
+}
+
+/* ---- подвал шторки ---- */
+
+.service {
   display: flex;
   gap: 10px;
   align-items: center;
@@ -50,8 +96,28 @@
   min-height: var(--tap);
 }
 
+/* Часы уступают место пилюле: на 320px строка «Пн–Вс, 8:00–21:00» и
+   переключатель делят 288px, и сжиматься должна надпись, а не тап-зона. */
 .hours {
+  overflow: hidden;
+  min-width: 0;
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: var(--fs-micro);
+  font-size: var(--fs-caption);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* С 600px телефон и кнопка заявки видны в самой шапке. Второй раз предлагать
+   то же самое незачем — в подвале остаются часы и выбор темы. */
+@media (width >= 600px) {
+  .actions {
+    display: none;
+  }
 }

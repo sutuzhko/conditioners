@@ -14,19 +14,28 @@ function scrollBy(pixels: number): void {
   });
 }
 
-beforeEach(() => {
-  Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true });
-  Object.defineProperty(window, 'scrollY', { value: 0, configurable: true });
-  vi.stubGlobal('scrollTo', scrollTo);
+/**
+ * Кнопка спрашивает браузер о двух разных вещах: о ширине окна (с 600 она
+ * есть, ниже — нет) и о желании поменьше движения. Подмена отвечает на каждый
+ * запрос отдельно — общий ответ «нет» прятал бы кнопку вместе с анимацией.
+ */
+function stubMatchMedia({ wide = true, reduced = false } = {}): void {
   vi.stubGlobal(
     'matchMedia',
     vi.fn().mockImplementation((query: string) => ({
-      matches: false,
+      matches: query.includes('min-width') ? wide : reduced,
       media: query,
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),
     })),
   );
+}
+
+beforeEach(() => {
+  Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true });
+  Object.defineProperty(window, 'scrollY', { value: 0, configurable: true });
+  vi.stubGlobal('scrollTo', scrollTo);
+  stubMatchMedia();
 });
 
 afterEach(() => {
@@ -91,15 +100,7 @@ describe('Кнопка «Наверх»', () => {
   });
 
   it('🔴 просили меньше движения — прокрутка мгновенная', async () => {
-    vi.stubGlobal(
-      'matchMedia',
-      vi.fn().mockImplementation((query: string) => ({
-        matches: true,
-        media: query,
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-      })),
-    );
+    stubMatchMedia({ reduced: true });
     const user = userEvent.setup();
     render(<ScrollTop />);
     scrollBy(2000);
@@ -148,6 +149,15 @@ describe('Кнопка «Наверх»', () => {
     lead.getBoundingClientRect = () => new DOMRect(0, -900, 320, 800);
     scrollBy(2100);
     expect(button()).toBeInTheDocument();
+  });
+
+  it('🔴 ниже 600 кнопки нет: её место занимает панель действий', () => {
+    stubMatchMedia({ wide: false });
+    render(<ScrollTop />);
+
+    scrollBy(2000);
+
+    expect(button()).not.toBeInTheDocument();
   });
 
   it('снова прячется, когда человек вернулся наверх', () => {
