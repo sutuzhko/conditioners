@@ -194,7 +194,7 @@ export function BlockDialog({ open, onClose, onSaved, draft, id }: BlockDialogPr
         )}
 
         <div className={styles.actions}>
-          <Button type="button" variant="ghost" onClick={onClose} disabled={status === 'sending'}>
+          <Button type="button" variant="light" onClick={onClose} disabled={status === 'sending'}>
             {texts.cancel}
           </Button>
           <Button type="submit" loading={status === 'sending'}>

@@ -163,10 +163,10 @@ export function RouteModal({
               {confirmText}
             </p>
             <div className={styles.answers}>
-              <Button variant="ghost" onClick={() => setAsking(false)}>
+              <Button variant="light" onClick={() => setAsking(false)}>
                 {confirmStay}
               </Button>
-              <Button className={styles.leave} variant="ghost" onClick={() => leave()}>
+              <Button variant="danger" onClick={() => leave()}>
                 {confirmLeave}
               </Button>
             </div>

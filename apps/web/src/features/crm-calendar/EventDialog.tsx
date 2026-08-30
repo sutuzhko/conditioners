@@ -279,7 +279,7 @@ export function EventDialog({
         )}
 
         <div className={styles.actions}>
-          <Button type="button" variant="ghost" onClick={onClose} disabled={sending}>
+          <Button type="button" variant="light" onClick={onClose} disabled={sending}>
             {texts.cancel}
           </Button>
           <Button type="submit" loading={sending}>

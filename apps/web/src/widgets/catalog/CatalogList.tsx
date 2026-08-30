@@ -132,7 +132,7 @@ export function CatalogList({
               <Card variant="soft" padding="lg" className={styles.empty}>
                 <p className={styles.emptyTitle}>{t.nothingTitle}</p>
                 <p className={styles.emptyText}>{t.nothingText}</p>
-                <ButtonLink href={orderHref} variant="accent" className={styles.emptyAction}>
+                <ButtonLink href={orderHref} variant="flat" className={styles.emptyAction}>
                   {catalogText.order}
                 </ButtonLink>
               </Card>

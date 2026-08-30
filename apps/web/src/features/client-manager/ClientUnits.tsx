@@ -133,7 +133,7 @@ export function ClientUnits({
         />
       ) : (
         <div className={styles.actions}>
-          <Button type="button" variant="secondary" size="sm" onClick={() => setAdding(true)}>
+          <Button type="button" variant="bordered" size="sm" onClick={() => setAdding(true)}>
             {texts.unitAdd}
           </Button>
         </div>
@@ -197,12 +197,12 @@ function UnitRow({ unit, today, busy, onEdit, onRemove }: UnitRowProps) {
       </div>
 
       <div className={styles.rowActions}>
-        <Button type="button" variant="ghost" size="sm" disabled={busy} onClick={onEdit}>
+        <Button type="button" variant="light" size="sm" disabled={busy} onClick={onEdit}>
           {texts.unitEdit}
         </Button>
         <Button
           type="button"
-          variant="ghost"
+          variant="light"
           size="sm"
           className={styles.remove}
           loading={busy}

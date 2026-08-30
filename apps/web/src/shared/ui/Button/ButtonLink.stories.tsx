@@ -16,11 +16,11 @@ export const Variants: Story = {
   name: 'Варианты',
   render: (args) => (
     <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-      <ButtonLink {...args} variant="primary" />
-      <ButtonLink {...args} variant="secondary">
+      <ButtonLink {...args} variant="solid" />
+      <ButtonLink {...args} variant="bordered">
         Смотреть цены
       </ButtonLink>
-      <ButtonLink {...args} variant="ghost">
+      <ButtonLink {...args} variant="light">
         База знаний
       </ButtonLink>
     </div>
@@ -29,7 +29,7 @@ export const Variants: Story = {
 
 export const Phone: Story = {
   name: 'Телефон в шапке',
-  args: { href: 'tel:+70000000000', variant: 'secondary', size: 'sm', children: 'Позвонить' },
+  args: { href: 'tel:+70000000000', variant: 'bordered', size: 'sm', children: 'Позвонить' },
 };
 
 export const FullWidth: Story = { name: 'Во всю ширину', args: { fullWidth: true } };

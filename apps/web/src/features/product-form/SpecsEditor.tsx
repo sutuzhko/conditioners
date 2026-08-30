@@ -104,7 +104,7 @@ export function SpecsEditor({
           />
           <Button
             type="button"
-            variant="ghost"
+            variant="light"
             size="sm"
             aria-label={texts.specRemove(index + 1)}
             onClick={() => onChange(specs.filter((_, at) => at !== index))}
@@ -129,7 +129,7 @@ export function SpecsEditor({
       <div className={styles.specActions}>
         <Button
           type="button"
-          variant="secondary"
+          variant="bordered"
           size="sm"
           onClick={() => onChange([...specs, { k: '', v: '' }])}
         >

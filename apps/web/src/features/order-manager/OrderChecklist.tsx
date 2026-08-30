@@ -219,7 +219,7 @@ export function OrderChecklist({ api, items, disabled = false, onChanged }: Orde
           }}
         />
 
-        <Button type="submit" size="sm" variant="secondary" disabled={locked} loading={busy}>
+        <Button type="submit" size="sm" variant="bordered" disabled={locked} loading={busy}>
           {texts.checklistAdd}
         </Button>
       </form>
@@ -228,7 +228,7 @@ export function OrderChecklist({ api, items, disabled = false, onChanged }: Orde
         <Button
           type="button"
           size="sm"
-          variant="ghost"
+          variant="light"
           disabled={locked}
           loading={rebuilding}
           onClick={() => void rebuild()}

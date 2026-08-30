@@ -193,7 +193,7 @@ export function OrderConsumption({
           <p className={styles.error} role="alert">
             {message === '' ? texts.consumptionLoadError : message}
           </p>
-          <Button type="button" size="sm" variant="secondary" onClick={refresh}>
+          <Button type="button" size="sm" variant="bordered" onClick={refresh}>
             {texts.consumptionRetry}
           </Button>
         </div>
@@ -259,7 +259,7 @@ export function OrderConsumption({
                           <Button
                             type="button"
                             size="sm"
-                            variant="ghost"
+                            variant="light"
                             className={styles.undo}
                             disabled={busy !== null}
                             loading={busy === move.id}

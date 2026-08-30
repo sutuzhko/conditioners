@@ -31,7 +31,7 @@ export function CalendarKeyboard(place: CalendarKeyboardProps) {
 
       <Button
         type="button"
-        variant="ghost"
+        variant="light"
         size="sm"
         className={styles.button}
         aria-label={texts.openLabel}

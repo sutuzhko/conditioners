@@ -268,7 +268,7 @@ export function StockItemForm({
             draft.archived ? (
               <Button
                 type="button"
-                variant="secondary"
+                variant="bordered"
                 loading={archiving}
                 disabled={sending}
                 onClick={() => void restore(itemId)}
@@ -278,7 +278,7 @@ export function StockItemForm({
             ) : (
               <Button
                 type="button"
-                variant="ghost"
+                variant="light"
                 className={styles.archive}
                 loading={archiving}
                 disabled={sending}

@@ -41,7 +41,7 @@ export function ProductCta({ leadHref, catalogHref }: ProductCtaProps) {
         {/* 🔴 Тема здесь «консультация», а не «монтаж»: кнопка в панели цены
             уже зовёт на монтаж, и две одинаковые кнопки на одной странице
             спорили бы друг с другом, а в заявке терялся бы вопрос человека. */}
-        <ButtonLink href={leadHref} variant="accent" size="lg">
+        <ButtonLink href={leadHref} variant="flat" size="lg">
           {t.ctaAction}
         </ButtonLink>
         <Link href={catalogHref} className={styles.link}>

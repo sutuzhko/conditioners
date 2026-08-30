@@ -108,7 +108,7 @@ export function Hero({
             <ButtonLink
               href={catalogHref}
               size="lg"
-              variant="secondary"
+              variant="bordered"
               className={styles.catalog}
               iconEnd={<span aria-hidden="true">{t.secondaryCtaArrow}</span>}
             >

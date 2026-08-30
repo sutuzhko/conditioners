@@ -163,7 +163,7 @@ export function ProfileForm({ me, api = profileApi }: ProfileFormProps) {
             />
 
             <div className={styles.actions}>
-              <Button type="submit" variant="secondary" disabled={changing}>
+              <Button type="submit" variant="bordered" disabled={changing}>
                 {changing ? texts.passwordSending : texts.passwordSubmit}
               </Button>
               {passStatus === 'success' ? (

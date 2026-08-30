@@ -90,7 +90,7 @@ export function Header({
           {phone === undefined ? null : (
             <a
               href={phone.href}
-              className={[buttonClassName({ variant: 'secondary', size: 'md' }), styles.phone].join(
+              className={[buttonClassName({ variant: 'bordered', size: 'md' }), styles.phone].join(
                 ' ',
               )}
               aria-label={`${headerContent.callLabel} ${phone.text}`}

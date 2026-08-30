@@ -44,7 +44,7 @@ export function ReviewModal({ renderForm, label = t.open, className }: ReviewMod
 
   return (
     <>
-      <Button type="button" variant="secondary" className={className} onClick={() => setOpen(true)}>
+      <Button type="button" variant="bordered" className={className} onClick={() => setOpen(true)}>
         {label}
       </Button>
 

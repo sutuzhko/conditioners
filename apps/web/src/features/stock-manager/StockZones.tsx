@@ -132,7 +132,7 @@ export function StockZones({
           рядом с ней видно, что меняешь. */}
       <div className={styles.actions}>
         <Link
-          className={buttonClassName({ variant: 'secondary', size: 'sm' })}
+          className={buttonClassName({ variant: 'bordered', size: 'sm' })}
           href={{ pathname: STOCK_ZONE_NEW_PATH }}
         >
           {texts.zoneAdd}
@@ -189,18 +189,18 @@ function ZoneRow({ zone, busy, onEdit, onArchive, onRestore }: ZoneRowProps) {
       </div>
 
       <div className={styles.rowActions}>
-        <Button type="button" variant="ghost" size="sm" disabled={busy} onClick={onEdit}>
+        <Button type="button" variant="light" size="sm" disabled={busy} onClick={onEdit}>
           {texts.zoneEdit}
         </Button>
 
         {zone.archived ? (
-          <Button type="button" variant="ghost" size="sm" loading={busy} onClick={onRestore}>
+          <Button type="button" variant="light" size="sm" loading={busy} onClick={onRestore}>
             {texts.zoneRestore}
           </Button>
         ) : (
           <Button
             type="button"
-            variant="ghost"
+            variant="light"
             size="sm"
             className={styles.archive}
             loading={busy}
