@@ -71,4 +71,30 @@ describe('Table', () => {
 
     expect(screen.getByRole('table')).toHaveAttribute('role', 'table');
   });
+
+  /* 🔴 Липкая шапка без предела высоты не липнет ни к чему: контейнер
+     горизонтальной прокрутки становится скроллером по обеим осям, а прокручивать
+     в нём по вертикали нечего, пока его высота равна высоте таблицы. Поэтому
+     `stickyHead` обязан заводить свою прокручиваемую область (issue #329). */
+  it('липкая шапка заводит прокручиваемую область с пределом высоты', () => {
+    render(
+      <Table stickyHead label="Наряды">
+        {body}
+      </Table>,
+    );
+
+    const region = screen.getByRole('region', { name: 'Наряды' });
+    expect(region).toHaveAttribute('tabindex', '0');
+    expect(region).toContainElement(screen.getByRole('table'));
+  });
+
+  it('предел высоты области переопределяется снаружи', () => {
+    render(
+      <Table stickyHead maxHeight="420px" label="Наряды">
+        {body}
+      </Table>,
+    );
+
+    expect(screen.getByRole('region', { name: 'Наряды' })).toHaveStyle({ maxBlockSize: '420px' });
+  });
 });

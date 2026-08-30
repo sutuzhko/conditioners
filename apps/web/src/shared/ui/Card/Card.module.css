@@ -11,11 +11,17 @@
    только у default. Карточка стоит во всех блоках — смена умолчания
    поехала бы везде. */
 
+/* 🔴 Развилка панели и витрины — подстановкой по умолчанию у `var()`
+   (ADR-187), а не вторым набором классов. `--r-card` и `--sh-sm` объявлены
+   на контейнере панели: внутри неё карточка идёт радиусом 14px и нейтральной
+   тенью эталона, снаружи переменных нет — и остаются 20px и цветная тень
+   макета (§4 брифа). Классы у карточки витрины и карточки панели совпадают
+   до символа. */
 .card {
   position: relative;
   box-sizing: border-box;
   border: 1px solid var(--line);
-  border-radius: var(--r-lg);
+  border-radius: var(--r-card, var(--r-lg));
   color: var(--body);
   transition:
     border-color var(--dur-base) var(--ease-out),
@@ -25,7 +31,7 @@
 
 .default {
   background: var(--card);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--sh-sm, var(--shadow-card));
 }
 
 .soft {
@@ -100,8 +106,12 @@
   box-shadow: none;
 }
 
+/* «Обычная тень карточки» — та же развилка, что у умолчания: в панели
+   нейтральная `--sh-sm`, на витрине цветная `--shadow-card`. Иначе карточка,
+   которой тень выставили явно, оказывалась в панели с цветной тенью витрины,
+   а соседняя без пропа — с нейтральной. */
 .elevCard {
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--sh-sm, var(--shadow-card));
 }
 
 .elevRaised {

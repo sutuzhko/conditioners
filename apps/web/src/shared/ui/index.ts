@@ -24,6 +24,14 @@ export type { BadgeProps, BadgeVariant } from './Badge/Badge';
 
 export { Card } from './Card/Card';
 export type { CardElevation, CardPadding, CardProps, CardRadius, CardVariant } from './Card/Card';
+export { CardBody, CardFooter, CardHeader } from './Card/CardBelt';
+export type {
+  CardBodyProps,
+  CardFooterAlign,
+  CardFooterProps,
+  CardHeaderProps,
+  CardHeadingLevel,
+} from './Card/CardBelt';
 
 export { FormSection } from './FormSection/FormSection';
 export type {
@@ -35,6 +43,14 @@ export type {
 
 export { StatList } from './Stat/Stat';
 export type { StatItem, StatListProps, StatTone } from './Stat/Stat';
+export { StatTile, StatTiles } from './Stat/StatTile';
+export type {
+  StatDelta,
+  StatDeltaTone,
+  StatTileProps,
+  StatTilesProps,
+  StatTrend,
+} from './Stat/StatTile';
 
 export { Skeleton } from './Skeleton/Skeleton';
 export type { SkeletonProps, SkeletonVariant } from './Skeleton/Skeleton';
@@ -73,6 +89,8 @@ export type { PagerProps } from './Pager/Pager';
 
 export { Table } from './Table/Table';
 export type { TableProps, TableVariant } from './Table/Table';
+export { TableActions } from './Table/TableActions';
+export type { TableActionsProps } from './Table/TableActions';
 
 export { Accordion } from './Accordion/Accordion';
 export type { AccordionItem, AccordionProps } from './Accordion/Accordion';

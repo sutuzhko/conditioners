@@ -25,6 +25,24 @@ export interface TableProps {
   label?: string | undefined;
   /** минимальная ширина таблицы, ниже которой включается скролл: «720px» */
   minWidth?: string | undefined;
+  /**
+   * Липкая шапка: строка заголовков остаётся на виду, пока список
+   * прокручивается (issue #329).
+   *
+   * 🔴 Липкость требует ограниченной высоты. `position: sticky` считается от
+   * ближайшего предка-скроллера, а им становится контейнер горизонтальной
+   * прокрутки: у него `overflow-x: auto`, и по спецификации `overflow-y`
+   * тоже принимает значение `auto`. Пока высота контейнера равна высоте
+   * таблицы, прокручивать в нём по вертикали нечего — шапка «липнет» к
+   * началу таблицы и не делает ничего. Поэтому область получает предел
+   * высоты и прокручивается сама.
+   *
+   * 🔴 И потому же карточка вокруг таблицы не должна обрезать содержимое:
+   * `overflow: hidden` у предка отменяет липкость целиком.
+   */
+  stickyHead?: boolean | undefined;
+  /** Предел высоты области с липкой шапкой; умолчание — `70dvh`. */
+  maxHeight?: string | undefined;
   className?: string | undefined;
 }
 
@@ -35,6 +53,8 @@ export function Table({
   caption,
   label,
   minWidth,
+  stickyHead = false,
+  maxHeight,
   className,
 }: TableProps) {
   const cards = variant === 'cards';
@@ -49,7 +69,7 @@ export function Table({
      Это осознанная плата: `tabIndex` живёт в разметке, а режим — в
      медиа-запросе, и выбор стоит между лишней остановкой табуляции на
      телефоне и таблицей, которую с клавиатуры не прокрутить вовсе. */
-  const scrolls = variant === 'scroll' || variant === 'sticky' || cards;
+  const scrolls = variant === 'scroll' || variant === 'sticky' || cards || stickyHead;
 
   const table = (
     <table
@@ -57,6 +77,7 @@ export function Table({
         styles.table,
         zebra ? styles.zebra : null,
         variant === 'sticky' ? styles.sticky : null,
+        stickyHead ? styles.stickyHead : null,
         cards ? styles.cards : null,
         className,
       ]
@@ -78,12 +99,18 @@ export function Table({
   // и с клавиатуры, а не только пальцем
   return (
     <div
-      className={[styles.viewport, styles.scrollable, cards ? styles.cardsScroll : null]
+      className={[
+        styles.viewport,
+        styles.scrollable,
+        stickyHead ? styles.bounded : null,
+        cards ? styles.cardsScroll : null,
+      ]
         .filter(Boolean)
         .join(' ')}
       role="region"
       aria-label={label}
       tabIndex={0}
+      style={maxHeight === undefined ? undefined : { maxBlockSize: maxHeight }}
     >
       {table}
     </div>
