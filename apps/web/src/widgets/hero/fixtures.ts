@@ -100,6 +100,13 @@ export const heroModels: readonly Product[] = [
 /** Одна модель: подбор возвращает её при любой площади. */
 export const singleModel: readonly Product[] = heroModels.slice(1, 2);
 
+/**
+ * Каталог, который не закрывает шкалу целиком: самая мощная модель — до 20 м².
+ * При площади по умолчанию (25 м²) подобрать нечего, и подбор обязан сказать
+ * это прямо, а не выдать модель послабее за подходящую.
+ */
+export const weakModels: readonly Product[] = heroModels.slice(0, 1);
+
 /** Момент, относительно которого считается скидка в историях и тестах. */
 export const saleNow = new Date('2026-07-15T09:00:00.000Z');
 
@@ -148,6 +155,8 @@ export const longNote = 'Тула и область — выезд в день �
 export const heroPickerModels: readonly PickerProduct[] = heroModels.map(toPickerProduct);
 
 export const singlePickerModel: readonly PickerProduct[] = singleModel.map(toPickerProduct);
+
+export const weakPickerModels: readonly PickerProduct[] = weakModels.map(toPickerProduct);
 
 export const discountedPickerModels: readonly PickerProduct[] =
   discountedModels.map(toPickerProduct);
