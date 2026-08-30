@@ -85,7 +85,7 @@
 
 /* На телефоне строка поля не помещается в ряд: название сверху, единица и
    подсказка под ним, крестик — сбоку от всей строки. */
-@media (width < 760px) {
+@media (width < 900px) {
   .fieldRow {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
