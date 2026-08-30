@@ -1,6 +1,7 @@
 import { Skeleton } from '@/shared/ui';
 
 import { ProductCardSkeleton } from './ui/ProductCardSkeleton';
+import gridStyles from './ui/grid.module.css';
 import styles from './CatalogList.module.css';
 
 /**
@@ -40,7 +41,7 @@ export function CatalogListSkeleton() {
               <Skeleton variant="block" width="200px" height="40px" />
             </div>
 
-            <ul className={styles.grid}>
+            <ul className={`${gridStyles.grid} ${styles.grid}`}>
               {Array.from({ length: SKELETON_COUNT }, (_, index) => (
                 <ProductCardSkeleton key={index} />
               ))}

@@ -16,6 +16,7 @@ import { CatalogFilters } from './ui/CatalogFilters';
 import { CatalogSort } from './ui/CatalogSort';
 import { CompareBar } from './ui/CompareBar';
 import { ProductCard } from './ui/ProductCard';
+import gridStyles from './ui/grid.module.css';
 import styles from './CatalogList.module.css';
 
 const RESULTS_ID = 'catalog-results';
@@ -137,7 +138,7 @@ export function CatalogList({
                 </ButtonLink>
               </Card>
             ) : (
-              <ul className={styles.grid}>
+              <ul className={`${gridStyles.grid} ${styles.grid}`}>
                 {page.items.map((product) => (
                   <ProductCard
                     key={product.id}

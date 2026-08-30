@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { Catalog, type CatalogProps } from './Catalog';
 import { catalogText } from './content';
+import { SHOWCASE_LIMIT } from './model';
 import {
   catalogFixture,
   discountedProduct,
@@ -25,6 +26,7 @@ import {
  */
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cardCss = readFileSync(join(HERE, 'ui', 'ProductCard.module.css'), 'utf8');
+const gridCss = readFileSync(join(HERE, 'ui', 'grid.module.css'), 'utf8');
 const priceCss = readFileSync(join(HERE, 'ui', 'ProductPrice.module.css'), 'utf8');
 const tokensCss = readFileSync(join(HERE, '..', '..', 'shared', 'styles', 'tokens.css'), 'utf8');
 
@@ -255,5 +257,56 @@ describe('Карточка — общая базовая линия цены и 
     expect(screen.queryByText(/−\d+%/)).not.toBeInTheDocument();
     expect(screen.getByRole('listitem').querySelector('s')).toBeNull();
     expect(screen.getByText('под ключ')).toBeInTheDocument();
+  });
+});
+
+
+describe('Витрина — сетка и раскрытие остальных моделей (issue #260)', () => {
+  /** Витрина из шести моделей: три показываются, три ждут раскрытия. */
+  const six = [
+    plainProduct,
+    discountedProduct,
+    uniqueSpecProduct,
+    labelledSaleProduct,
+    { ...plainProduct, id: 'split-24', slug: 'split-24', name: 'Сплит-система 24' },
+    { ...plainProduct, id: 'split-30', slug: 'split-30', name: 'Сплит-система 30' },
+  ];
+
+  it('🔴 все модели лежат в HTML сразу, а не догружаются нажатием (инвариант 1)', () => {
+    renderCatalog({ products: six, now: NOW });
+
+    expect(screen.getAllByRole('listitem')).toHaveLength(six.length);
+    expect(screen.getByRole('heading', { name: 'Сплит-система 30' })).toBeInTheDocument();
+  });
+
+  it('кнопка раскрытия называет реальное число оставшихся моделей', () => {
+    renderCatalog({ products: six, now: NOW });
+
+    const more = screen.getByRole('button', { name: catalogText.moreModels(3) });
+    expect(more).toHaveAttribute('aria-expanded', 'false');
+    expect(more).toHaveAttribute('aria-controls', 'showcase-models');
+  });
+
+  it('витрина короче предела раскрывать нечем — кнопки нет', () => {
+    renderCatalog({ products: six.slice(0, SHOWCASE_LIMIT), now: NOW });
+
+    expect(screen.queryByRole('button', { name: /Ещё/ })).not.toBeInTheDocument();
+  });
+
+  it('🔴 скрытые карточки гасит CSS, и предел в нём совпадает с SHOWCASE_LIMIT', () => {
+    /* `nth-child` не умеет читать переменную, поэтому связь числа в стиле с
+       константой в коде держит этот тест, а не язык. */
+    expect(SHOWCASE_LIMIT).toBe(3);
+    expect(gridCss).toMatch(
+      new RegExp(`\\.clipped > li:nth-child\\(n \\+ ${SHOWCASE_LIMIT + 1}\\)`),
+    );
+    expect(gridCss).toMatch(/display:\s*none/);
+  });
+
+  it('🔴 колонок 1 / 2 / 3 / 4 на порогах 600, 900 и 1200', () => {
+    expect(gridCss).toMatch(/\.grid\s*\{[^}]*repeat\(1,\s*minmax\(0,\s*1fr\)\)/);
+    expect(gridCss).toMatch(/@media \(width >= 600px\)[^@]*repeat\(2,\s*minmax\(0,\s*1fr\)\)/);
+    expect(gridCss).toMatch(/@media \(width >= 900px\)[^@]*repeat\(3,\s*minmax\(0,\s*1fr\)\)/);
+    expect(gridCss).toMatch(/@media \(width >= 1200px\)[^@]*repeat\(4,\s*minmax\(0,\s*1fr\)\)/);
   });
 });
