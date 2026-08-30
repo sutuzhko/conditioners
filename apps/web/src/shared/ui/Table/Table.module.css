@@ -134,7 +134,7 @@
 
    Семантику снимает `display: block`, поэтому разметка несёт явные роли
    (см. комментарий в Table.tsx). */
-@media (width < 720px) {
+@media (width < 900px) {
   .cards,
   .cards tbody,
   .cards tr,
