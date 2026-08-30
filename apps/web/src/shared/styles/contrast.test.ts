@@ -3,6 +3,8 @@ import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
+import { blend, contrastRatio, formatRatio, parseColor, type Color } from '@/shared/lib/color';
+
 /**
  * Контраст пар «цвет текста × фон» по токенам — машиной, а не глазом.
  *
@@ -67,33 +69,6 @@ const DARK = { ...LIGHT, ...readTheme('dark') };
  */
 const PANEL = { ...LIGHT, ...readTheme('panel'), bg: LIGHT.panel ?? '#0f172a' };
 
-/** Относительная яркость по WCAG 2.1. */
-function luminance(hex: string): number {
-  const value = hex.replace('#', '');
-  const full =
-    value.length === 3
-      ? value
-          .split('')
-          .map((c) => c + c)
-          .join('')
-      : value;
-
-  const channel = (from: number): number => {
-    const c = Number.parseInt(full.slice(from, from + 2), 16) / 255;
-    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-  };
-
-  return 0.2126 * channel(0) + 0.7152 * channel(2) + 0.0722 * channel(4);
-}
-
-function contrast(a: string, b: string): number {
-  const first = luminance(a);
-  const second = luminance(b);
-  const high = Math.max(first, second);
-  const low = Math.min(first, second);
-  return (high + 0.05) / (low + 0.05);
-}
-
 /**
  * Фоны, на которых стоит текст. Полупрозрачные и градиентные подложки в
  * список не входят: у них нет одного значения, и мерить их надо в браузере.
@@ -116,10 +91,13 @@ function backgroundsFor(theme: Theme): readonly string[] {
   return theme === 'panel' ? ['bg'] : BACKGROUNDS;
 }
 
-/** Только сплошные цвета: rgb() с прозрачностью проверяется в браузере, не здесь. */
-function solid(colors: Record<string, string>, name: string): string | null {
+/** Только непрозрачные цвета: полупрозрачные кладутся на подложку отдельно. */
+function solid(colors: Record<string, string>, name: string): Color | null {
   const value = colors[name];
-  return value !== undefined && value.startsWith('#') ? value : null;
+  if (value === undefined) return null;
+
+  const parsed = parseColor(value);
+  return parsed !== null && parsed.alpha === 1 ? parsed : null;
 }
 
 describe.each<Theme>(['light', 'dark', 'panel'])('Контраст токенов — %s', (theme) => {
@@ -135,10 +113,10 @@ describe.each<Theme>(['light', 'dark', 'panel'])('Контраст токено�
       const bg = solid(colors, bgToken);
       if (bg === null) continue;
 
-      const ratio = contrast(ink, bg);
+      const ratio = contrastRatio(ink, bg);
       expect(
         ratio,
-        `--${token} на --${bgToken} даёт ${ratio.toFixed(2)}:1 при норме ${AA_TEXT}:1`,
+        `--${token} на --${bgToken} даёт ${formatRatio(ratio)}:1 при норме ${AA_TEXT}:1`,
       ).toBeGreaterThanOrEqual(AA_TEXT);
     }
   });
@@ -152,10 +130,10 @@ describe.each<Theme>(['light', 'dark', 'panel'])('Контраст токено�
       const bg = solid(colors, bgToken);
       if (bg === null) continue;
 
-      const ratio = contrast(line, bg);
+      const ratio = contrastRatio(line, bg);
       expect(
         ratio,
-        `--${token} на --${bgToken} даёт ${ratio.toFixed(2)}:1 при норме ${AA_LARGE}:1`,
+        `--${token} на --${bgToken} даёт ${formatRatio(ratio)}:1 при норме ${AA_LARGE}:1`,
       ).toBeGreaterThanOrEqual(AA_LARGE);
     }
   });
@@ -170,8 +148,8 @@ describe.each<Theme>(['light', 'dark', 'panel'])('Контраст токено�
 
     const steps = ['ink', 'ink2', 'body', 'muted', 'faint']
       .map((token) => solid(colors, token))
-      .filter((value): value is string => value !== null)
-      .map((value) => contrast(value, bg));
+      .filter((value): value is Color => value !== null)
+      .map((value) => contrastRatio(value, bg));
 
     for (let i = 1; i < steps.length; i += 1) {
       const previous = steps[i - 1];
@@ -194,65 +172,26 @@ describe.each<Theme>(['light', 'dark', 'panel'])('Контраст токено�
    как её раскладывает браузер.
    ─────────────────────────────────────────────────────────────────────────── */
 
-type Color = { readonly channels: readonly [number, number, number]; readonly alpha: number };
-
 const UI_LIGHT = { ...LIGHT, ...readBlock(UI_TOKENS, ':root {') };
 const UI_DARK = { ...UI_LIGHT, ...DARK, ...readBlock(UI_TOKENS, ":root[data-theme='dark']") };
 
-/** `#rrggbb`, `rgb(r g b)` и `rgb(r g b / N%)`; `var(--x)` разворачивается один раз. */
-function parse(raw: string | undefined, palette: Record<string, string>): Color | null {
-  if (raw === undefined) return null;
+/** `var(--x)` в значении токена — ссылка на соседний токен той же темы. */
+function resolve(palette: Record<string, string>, token: string): string {
+  const raw = palette[token] ?? '';
+  const link = /^var\(\s*--([\w-]+)\s*\)$/.exec(raw);
 
-  const link = /^var\(\s*--([\w-]+)\s*\)$/.exec(raw.trim());
-  const value = link?.[1] === undefined ? raw.trim() : (palette[link[1]] ?? '');
-
-  if (value.startsWith('#')) {
-    const hex = value.slice(1);
-    const full =
-      hex.length === 3
-        ? hex
-            .split('')
-            .map((c) => c + c)
-            .join('')
-        : hex;
-    const channel = (from: number): number => Number.parseInt(full.slice(from, from + 2), 16);
-    return { channels: [channel(0), channel(2), channel(4)], alpha: 1 };
-  }
-
-  const rgb = /^rgb\(\s*(\d+)\s+(\d+)\s+(\d+)\s*(?:\/\s*(\d+(?:\.\d+)?)%\s*)?\)$/.exec(value);
-  if (rgb === null) return null;
-
-  const [, r, g, b, percent] = rgb;
-  if (r === undefined || g === undefined || b === undefined) return null;
-
-  return {
-    channels: [Number(r), Number(g), Number(b)],
-    alpha: percent === undefined ? 1 : Number(percent) / 100,
-  };
-}
-
-/** Цвет с прозрачностью поверх непрозрачной подложки — так же, как в браузере. */
-function blend(top: Color, bottom: Color): Color {
-  const mix = (index: 0 | 1 | 2): number =>
-    top.channels[index] * top.alpha + bottom.channels[index] * (1 - top.alpha);
-
-  return { channels: [mix(0), mix(1), mix(2)], alpha: 1 };
-}
-
-function hex(color: Color): string {
-  const pair = (value: number): string => Math.round(value).toString(16).padStart(2, '0');
-
-  return `#${pair(color.channels[0])}${pair(color.channels[1])}${pair(color.channels[2])}`;
-}
-
-function ratio(ink: Color, ground: Color): number {
-  return contrast(hex(ink), hex(ground));
+  return link?.[1] === undefined ? raw : (palette[link[1]] ?? '');
 }
 
 function color(palette: Record<string, string>, token: string): Color {
-  const value = parse(palette[token], palette);
+  const value = parseColor(resolve(palette, token));
   expect(value, `--${token} не разобран`).not.toBeNull();
+
   return value ?? { channels: [0, 0, 0], alpha: 1 };
+}
+
+function ratio(ink: Color, ground: Color): number {
+  return contrastRatio(ink, ground);
 }
 
 /** Поверхности, на которых стоят чипы и поля панели. */
@@ -274,7 +213,7 @@ describe.each(THEMES)('Семантические токены — %s тема',
 
     expect(
       value,
-      `--line-ui на --${ground} даёт ${value.toFixed(2)}:1 при норме ${AA_LARGE}:1`,
+      `--line-ui на --${ground} даёт ${formatRatio(value)}:1 при норме ${AA_LARGE}:1`,
     ).toBeGreaterThanOrEqual(AA_LARGE);
   });
 
@@ -292,7 +231,7 @@ describe.each(THEMES)('Семантические токены — %s тема',
       ] as const) {
         expect(
           value,
-          `--${state}-ink на ${where} даёт ${value.toFixed(2)}:1 при норме ${AA_TEXT}:1`,
+          `--${state}-ink на ${where} даёт ${formatRatio(value)}:1 при норме ${AA_TEXT}:1`,
         ).toBeGreaterThanOrEqual(AA_TEXT);
       }
     }
@@ -309,7 +248,7 @@ describe.each(THEMES)('Семантические токены — %s тема',
       const value = ratio(mark, color(palette, ground));
       expect(
         value,
-        `--${series} на --${ground} даёт ${value.toFixed(2)}:1 при норме ${AA_LARGE}:1`,
+        `--${series} на --${ground} даёт ${formatRatio(value)}:1 при норме ${AA_LARGE}:1`,
       ).toBeGreaterThanOrEqual(AA_LARGE);
     }
   });
@@ -321,7 +260,7 @@ describe.each(THEMES)('Семантические токены — %s тема',
 
     expect(
       value,
-      `--on-${state} на --${state}-ink даёт ${value.toFixed(2)}:1 при норме ${AA_TEXT}:1`,
+      `--on-${state} на --${state}-ink даёт ${formatRatio(value)}:1 при норме ${AA_TEXT}:1`,
     ).toBeGreaterThanOrEqual(AA_TEXT);
   });
 });
