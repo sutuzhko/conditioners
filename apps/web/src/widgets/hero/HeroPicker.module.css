@@ -1,16 +1,24 @@
 /* Подбор кондиционера. Карточка и тёмная панель рекомендации — из макета
-   (секция HERO + ПОДБОР). Радиусы и отступы взяты у Card из UI Kit:
-   свой примитив ради 24px вместо 20px блок не заводит. */
+   (артборды «Главная · 375» и «Главная · 768»). Радиусы и отступы взяты у
+   Card из UI Kit: свой примитив ради 24px вместо 20px блок не заводит. */
 
 /* Отступы и зазоры ниже карточных: высота первого экрана — не вкусовая
    величина, а требование (полоса доверия под ним должна быть видна без
    прокрутки на ноутбучном экране). Класс удвоен, чтобы перебить вариант
-   Card независимо от порядка подключения модулей. */
+   Card независимо от порядка подключения модулей.
+
+   🔴 `container-type` — не украшение. Результат встаёт рядом с ползунком,
+   когда для двух колонок хватает ширины **карточки**, а не окна: до 900px
+   первый экран идёт одной колонкой и карточка занимает всю ширину, а с 900px
+   она уезжает в правую колонку и становится вдвое уже. Порога окна, на
+   котором две колонки внутри карточки помещались бы всегда, не существует —
+   и придумывать его значит ломать раскладку то на 768, то на 900. */
 .card.card {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: clamp(18px, 3.4vw, 22px);
+  gap: 12px;
+  padding: clamp(16px, 3vw, 22px);
+  container: hero-picker / inline-size;
 }
 
 .head {
@@ -65,6 +73,32 @@
   }
 }
 
+/* ——— раскладка карточки ——— */
+
+.body {
+  display: grid;
+  gap: 14px;
+}
+
+.controls {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-width: 0;
+}
+
+/* 🔴 Порог — ширина содержимого карточки, а не окна (см. `container` выше).
+   620px — это 300 на левую колонку (подпись ползунка со значением в строку),
+   24 на зазор и 280 на правую: меньше правой колонки цена в 26px рядом с
+   «под ключ с монтажом» не помещается. */
+@container hero-picker (width >= 620px) {
+  .body {
+    grid-template-columns: minmax(0, 1fr) clamp(280px, 26vw, 340px);
+    gap: 24px;
+    align-items: start;
+  }
+}
+
 /* ——— пустой каталог ——— */
 
 .empty {
@@ -90,21 +124,16 @@
 
 /* ——— тип помещения ——— */
 
-/* Подпись и чипы в одну строку: вертикальная раскладка стоила первому экрану
-   лишнего ряда, а группа из трёх коротких чипов рядом с подписью помещается.
-   На узком экране строка переносится сама — wrap, а не media query.
+/* Подпись над чипами, а не рядом с ними: три чипа занимают строку целиком —
+   иначе «Офис» уезжает во второй ряд один (issue #255).
 
-   🔴 Чипы идут сразу за подписью, а не прижимаются к правому краю. Строку
-   заводили ради высоты экрана, и вместе с ней приехали `space-between` и
-   `margin-left: auto` — от них группа переключателя уезжала к правому краю
-   карточки, хотя до этого стояла слева под подписью. Владелец показал это как
-   поломку 29 августа (#181): выигранная строка не стоит того, чтобы элемент
-   управления менял сторону. */
+   🔴 Чипы остаются у левого края. Когда подпись и чипы стояли одной строкой,
+   вместе с ней приехали `space-between` и `margin-left: auto`, и группа
+   переключателя уезжала к правому краю карточки. Владелец показал это как
+   поломку 29 августа (#181). */
 .places {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-  align-items: center;
+  display: grid;
+  gap: 8px;
 }
 
 /* Подпись группы чипов равна подписи ползунка над ней (макет: 15px, 700) —
@@ -118,7 +147,38 @@
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 9px;
+  gap: 8px;
+}
+
+/* Тап-зона 44px держится и без сенсорного экрана: чип — основной способ
+   задать тип помещения, и мельче кита он здесь быть не вправе. Поля по бокам
+   тянутся: на 320px треть карточки — 78px, и «Квартира» в 13px помещается в
+   неё только с полями по 8. */
+.placeChip.placeChip {
+  min-width: 0;
+  min-height: var(--tap);
+  padding-inline: clamp(8px, 2.6vw, 13px);
+}
+
+.placeShort {
+  display: none;
+}
+
+@media (width < 600px) {
+  /* Три чипа одним рядом равными долями — на телефоне это половина смысла
+     блока: перенос «Офиса» во второй ряд растит первый экран. */
+  .chips {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .placeFull {
+    display: none;
+  }
+
+  .placeShort {
+    display: inline;
+  }
 }
 
 /* ——— рекомендация ——— */
@@ -131,9 +191,9 @@
   --panel-line: color-mix(in srgb, var(--on-panel) 18%, transparent);
 
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 10px;
+  align-content: start;
   overflow: hidden;
 }
 
@@ -141,7 +201,7 @@
    порядок подключения модулей. Без рамки в тёмной теме панель сливается с
    карточкой: --panel и --card там почти одного тона. */
 .result.result {
-  padding: clamp(18px, 3.4vw, 22px);
+  padding: clamp(14px, 2.6vw, 18px);
   border-color: var(--panel-line);
 }
 
@@ -160,8 +220,45 @@
   pointer-events: none;
 }
 
-.resultEyebrow {
+/* 🔴 Три состояния — модель подобрана, идёт пересчёт, подходящей модели нет —
+   лежат в одной ячейке грида (issue #256). Высоту панели задаёт самое высокое
+   из них, и она не зависит от того, какое показано. `min-height` числом здесь
+   не годится: высота меняется и с шириной, и с длиной названия модели. */
+.states {
+  display: grid;
+}
+
+.state {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  grid-area: 1 / 1;
+}
+
+/* 🔴 `visibility`, а не `display: none`: спрятанное состояние обязано занимать
+   своё место — на этом и держится равная высота. Взаимодействие снимает
+   `inert`, дерево доступности — `aria-hidden`; оба ставит компонент. */
+.state[data-hidden] {
+  visibility: hidden;
+}
+
+/* 🔴 Кнопка прижата к низу во всех трёх состояниях. Отсюда и берётся
+   требование issue #256: высота ячейки одна, высота кнопки одна — значит и
+   координата её верха одна, чем бы состояние ни отличалось выше. */
+.cta.cta {
+  margin-top: auto;
+}
+
+.resultHead {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.resultEyebrow {
   color: var(--brand-mark-dark);
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
@@ -170,9 +267,8 @@
 }
 
 .model {
-  position: relative;
   display: flex;
-  gap: 14px;
+  gap: 12px;
   align-items: flex-start;
 }
 
@@ -190,10 +286,8 @@
 }
 
 .photoStub {
-  display: flex;
+  display: block;
   flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
 
   /* Миниатюра меньше макетной: первый экран должен помещаться так, чтобы
      полоса доверия под ним была видна без прокрутки. */
@@ -201,9 +295,6 @@
   height: 62px;
   border: 1px dashed var(--panel-line);
   border-radius: 13px;
-  color: var(--panel-faint);
-  font-family: var(--font-mono);
-  font-size: 19px;
 }
 
 .modelInfo {
@@ -211,13 +302,6 @@
   flex-direction: column;
   gap: 4px;
   min-width: 0;
-}
-
-.modelHead {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
 }
 
 .modelName {
@@ -232,7 +316,8 @@
 .specs {
   margin: 0;
   color: var(--panel-faint);
-  font-size: var(--fs-caption);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
 }
 
 .tag {
@@ -241,22 +326,38 @@
   font-size: 13.5px;
 }
 
-/* Ряд «цена · старая цена · плашка». Высота ряда со скидкой и без обязана
-   совпадать (ADR-126): ползунок площади меняет модель, а с ней — состав ряда.
-   На широкой карточке ряд помещается в строку с плашкой и без неё, поэтому
-   резерв нужен только узкой — он ниже, в блоке 600px. */
+/* Ряд цены. 🔴 Число строк в нём не зависит ни от ширины, ни от длины цены:
+   подпись «под ключ с монтажом» всегда уходит на свою строку, а плашка скидки
+   вынесена из ряда в собственную строку с резервом (ниже).
+
+   Прежде подпись стояла в строке с ценой и переносилась сама. Разница в две
+   точки между «38 500 ₽» и «58 700 ₽» решала, поместится ли она, — и панель
+   меняла высоту на целую строку при движении ползунка. Замерено на 768:
+   65,56px против 38,19px в колонке шириной 242. */
 .priceRow {
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   align-items: baseline;
 }
 
+/* Резерв под скидку — ровно высота плашки: её кегль, межстрочный интервал,
+   поля 3+3 и рамка 1+1 (Badge size="sm"). Держится формулой, а не числом,
+   чтобы не разъехаться со шкалой кеглей. */
+.saleRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: center;
+  min-height: calc(1.35em + 10px);
+  margin: 0;
+  font-size: var(--fs-micro);
+}
+
 .price {
   color: var(--on-panel);
   font-family: var(--font-display);
-  font-size: clamp(22px, 5vw, 26px);
+  font-size: clamp(24px, 1.3rem + 0.5vw, 28px);
   font-weight: 700;
 }
 
@@ -267,7 +368,9 @@
   font-weight: 600;
 }
 
+/* Подпись цены всегда на своей строке — см. комментарий у .priceRow */
 .priceNote {
+  flex-basis: 100%;
   color: var(--panel-faint);
   font-size: 12.5px;
 }
@@ -280,23 +383,60 @@
   white-space: nowrap;
 }
 
-/* 🔴 Строка срока действия занимает свою высоту всегда, даже пустая
-   (ADR-126). Резерв — ровно одна строка своим кеглем: line-height задан
-   здесь же, чтобы высота пустой строки не зависела от наследования. */
 .saleUntil {
-  position: relative;
-  min-height: 1.6em;
-  margin: -6px 0 0;
   color: var(--panel-faint);
-  font-size: 12px;
-  line-height: 1.6;
 }
 
-/* Длинный призыв не помещается в 320px одной строкой, а Button по умолчанию
-   обрезает подпись многоточием. Перенос разрешаем точечно, только здесь.
-   Класс удвоен, чтобы не зависеть от порядка подключения модулей. */
-.orderCta.orderCta {
-  white-space: normal;
+/* ——— подходящей модели нет ——— */
+
+.noFitTitle {
+  margin: 0;
+  color: var(--on-panel);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.noFitText {
+  margin: 0;
+  color: var(--panel-dim);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+/* ——— идёт пересчёт ——— */
+
+/* Полосы скелетона выводятся из цвета текста панели, а не из --line-soft:
+   уровни линий подобраны под светлый фон и на тёмной панели светятся.
+   Класс удвоен, чтобы перебить фон самого кита. */
+.skel.skel {
+  max-width: 100%;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--on-panel) 14%, transparent);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--on-panel) 24%, transparent) 50%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+}
+
+/* Скелетон миниатюры повторяет её геометрию: 62px и радиус 13 (см. .photo) */
+.skelPhoto.skelPhoto {
+  flex-shrink: 0;
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--on-panel) 14%, transparent);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--on-panel) 24%, transparent) 50%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
 }
 
 .disclaimer {
@@ -308,39 +448,6 @@
 }
 
 @media (width < 600px) {
-  /* 🔴 Резерв под скидку в узкой карточке (ADR-126). Подпирается ряд, а не
-     карточка целиком: имена и характеристики моделей тоже разной длины, и
-     подпор снизу поймал бы ту же беду с другой стороны.
-
-     Плашка скидки уводится на свою строку принудительно. Иначе состав ряда
-     зависит от ширины: на 375px «34 900 ₽ · 38 500 ₽ · Летняя цена» умещается
-     в строку, а на 320px плашка переносится сама — и один резерв не подходит
-     обеим ширинам. С принудительным переносом ряд со скидкой везде занимает
-     три строки, и резерв — одно число, а не таблица по брейкпойнтам. */
-  .saleBadge {
-    /* Строку занимает, ширину — нет: `flex-basis` уводит плашку на новую
-       строку, `max-width` возвращает ей размер по содержимому. Без второго
-       свойства пилюля растягивалась во всю карточку и переставала читаться
-       как пилюля. */
-    flex-basis: 100%;
-    max-width: max-content;
-  }
-
-  .priceRow {
-    min-height: 92px;
-    align-content: flex-start;
-  }
-
-  .model {
-    gap: 12px;
-  }
-
-  .photo,
-  .photoStub {
-    width: 62px;
-    height: 62px;
-  }
-
   .modelLink {
     margin-left: 0;
   }
