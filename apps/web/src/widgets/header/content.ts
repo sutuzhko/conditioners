@@ -12,6 +12,8 @@ export const headerContent = {
   openMenu: 'Открыть меню',
   closeMenu: 'Закрыть меню',
   themeLabel: 'Переключить тему',
+  /** имя радиогруппы в подвале шторки: там выбирают тему, а не переключают */
+  themeGroupLabel: 'Тема',
   homeLabel: 'На главную',
   callLabel: 'Позвонить',
   ctaLabel: 'Оставить заявку',
