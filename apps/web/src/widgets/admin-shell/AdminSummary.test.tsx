@@ -56,24 +56,26 @@ describe('Сводка панели управления', () => {
     /* Порядок меряется относительно плиток, а не по номеру ребёнка: первым в
        колонке стоит заголовок экрана, и «готовность выше плиток» — это про
        плитки, а не про то, что выше неё нет вообще ничего. */
-    const orderOf = (container: HTMLElement): readonly number[] => {
+    const orderOf = (container: HTMLElement): { readiness: number; tiles: number } => {
       const children = [...container.querySelectorAll('[class*="summary"] > *')];
-      return [
-        children.findIndex((node) => node.textContent?.includes(texts.readinessTitle) === true),
-        children.findIndex((node) => node.className.includes('tiles')),
-      ];
+      return {
+        readiness: children.findIndex(
+          (node) => node.textContent?.includes(texts.readinessTitle) === true,
+        ),
+        tiles: children.findIndex((node) => node.className.includes('tiles')),
+      };
     };
 
     const blocking = render(<AdminSummary counts={emptyCounts} readiness={unfinishedReadiness} />);
-    const [blockingReadiness, blockingTiles] = orderOf(blocking.container);
-    expect(blockingReadiness).toBeGreaterThanOrEqual(0);
-    expect(blockingReadiness).toBeLessThan(blockingTiles);
+    const blockingOrder = orderOf(blocking.container);
+    expect(blockingOrder.readiness).toBeGreaterThanOrEqual(0);
+    expect(blockingOrder.readiness).toBeLessThan(blockingOrder.tiles);
 
     blocking.unmount();
 
     const done = render(<AdminSummary counts={quietCounts} readiness={readyReadiness} />);
-    const [doneReadiness, doneTiles] = orderOf(done.container);
-    expect(doneReadiness).toBeGreaterThan(doneTiles);
+    const doneOrder = orderOf(done.container);
+    expect(doneOrder.readiness).toBeGreaterThan(doneOrder.tiles);
 
     // и заполненная готовность по-прежнему замыкает колонку
     const children = done.container.querySelectorAll('[class*="summary"] > *');
