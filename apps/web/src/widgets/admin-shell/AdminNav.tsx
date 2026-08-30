@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
 import type { AdminRole } from '@/entities/staff/model';
+import { Icon } from '@/shared/ui';
 
 import { LogoutButton } from './LogoutButton';
 import {
@@ -38,6 +39,11 @@ function initialsOf(name: string): string {
  * середине прокручиваемый список разделов, внизу прибитое редкое — настройки,
  * профиль и выход. Прокручивается только середина: прибитый низ на то и
  * прибитый, чтобы за ним не нужно было листать.
+ *
+ * 🔴 На планшете колонка сворачивается в рельс, и подпись пункта уходит из
+ * виду — но не из разметки: она остаётся для читалки, а не заменяется
+ * `aria-label`. Имя, написанное дважды, расходится с видимым на первой же
+ * правке, и читалка начинает называть пункт не так, как он подписан.
  *
  * Клиентский компонент ровно из-за одного: текущий раздел подсвечивается по
  * адресу. Всё остальное в оболочке остаётся серверным.
@@ -119,9 +125,11 @@ export function AdminNav({ role, userName }: AdminNavProps) {
                     .join(' ')}
                   href={{ pathname: section.href }}
                   aria-current={current ? 'page' : undefined}
+                  title={section.title}
                   ref={current ? active : undefined}
                 >
-                  {section.title}
+                  <Icon className={styles.icon} name={section.icon} />
+                  <span className={styles.label}>{section.title}</span>
                 </Link>
               </li>
             );
@@ -142,8 +150,10 @@ export function AdminNav({ role, userName }: AdminNavProps) {
                     .join(' ')}
                   href={{ pathname: section.href }}
                   aria-current={current ? 'page' : undefined}
+                  title={section.title}
                 >
-                  {section.title}
+                  <Icon className={styles.icon} name={section.icon} />
+                  <span className={styles.label}>{section.title}</span>
                 </Link>
               </li>
             );
@@ -153,7 +163,7 @@ export function AdminNav({ role, userName }: AdminNavProps) {
               Стоит последним по цене промаха: любой другой отменяется кнопкой
               «назад», этот стоит повторного входа. */}
           <li>
-            <LogoutButton className={styles.logout} />
+            <LogoutButton className={styles.logout} labelClassName={styles.label} />
           </li>
         </ul>
       </nav>

@@ -1,4 +1,5 @@
 import type { AdminRole } from '@/entities/staff/model';
+import type { IconName } from '@/shared/ui';
 
 /**
  * Разделы панели управления.
@@ -19,6 +20,8 @@ export type AdminSection = {
   readonly roles: readonly AdminRole[];
   /** Где стоит пункт: в списке, в прибитом низу или внутри «Настроек». */
   readonly place: AdminSectionPlace;
+  /** Значок: на планшете колонка сворачивается в рельс, и подписи там нет. */
+  readonly icon: IconName;
   /**
    * Раздел без вложенных страниц.
    *
@@ -71,6 +74,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin',
     title: 'Обзор',
     hint: 'Что требует внимания прямо сейчас',
+    icon: 'overview',
     roles: OWNER,
     place: 'main',
     group: 'work',
@@ -80,6 +84,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/crm',
     title: 'Календарь работ',
     hint: 'Замеры, монтажи, звонки и заявки по дням',
+    icon: 'calendar',
     roles: BOTH,
     place: 'main',
     group: 'work',
@@ -88,6 +93,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/orders',
     title: 'Заказы',
     hint: 'Наряды на монтаж, обслуживание и ремонт: кто едет, когда и за сколько',
+    icon: 'orders',
     roles: BOTH,
     place: 'main',
     group: 'work',
@@ -96,6 +102,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/leads',
     title: 'Заявки',
     hint: 'Обращения с сайта и их статусы',
+    icon: 'leads',
     roles: OWNER,
     place: 'main',
     group: 'work',
@@ -104,6 +111,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/clients',
     title: 'Клиенты',
     hint: 'База людей: телефоны, адреса и история обращений',
+    icon: 'clients',
     roles: OWNER,
     place: 'main',
     group: 'work',
@@ -112,6 +120,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/team',
     title: 'Монтажники',
     hint: 'Команда: доступ в панель, телефоны, заметки',
+    icon: 'team',
     roles: OWNER,
     place: 'main',
     group: 'work',
@@ -120,6 +129,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/stock',
     title: 'Склад',
     hint: 'Остатки материалов по зонам, приход и что пора заказывать',
+    icon: 'stock',
     roles: OWNER,
     place: 'main',
     group: 'work',
@@ -128,6 +138,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/catalog',
     title: 'Каталог',
     hint: 'Модели, цены, фотографии, скидки',
+    icon: 'conditioner',
     roles: OWNER,
     place: 'main',
     group: 'site',
@@ -136,6 +147,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/knowledge',
     title: 'База знаний',
     hint: 'Статьи и их публикация',
+    icon: 'knowledge',
     roles: OWNER,
     place: 'main',
     group: 'site',
@@ -144,6 +156,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/reviews',
     title: 'Отзывы',
     hint: 'Модерация: публикация и отклонение',
+    icon: 'star',
     roles: OWNER,
     place: 'main',
     group: 'site',
@@ -155,6 +168,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/company',
     title: 'Компания',
     hint: 'Контакты, адрес, часы работы, реквизиты',
+    icon: 'clients',
     roles: OWNER,
     place: 'settings',
   },
@@ -162,6 +176,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/prices',
     title: 'Цены на монтаж',
     hint: 'Прайс по классам и ставки допуслуг',
+    icon: 'bill',
     roles: OWNER,
     place: 'settings',
   },
@@ -169,6 +184,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/notifications',
     title: 'Уведомления',
     hint: 'Куда уходит сообщение о новой заявке',
+    icon: 'chat',
     roles: OWNER,
     place: 'settings',
   },
@@ -179,6 +195,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: ADMIN_SETTINGS_PATH,
     title: 'Настройки',
     hint: 'Компания, цены на монтаж и уведомления',
+    icon: 'settings',
     roles: OWNER,
     place: 'bottom',
   },
@@ -186,6 +203,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     href: '/admin/profile',
     title: 'Профиль',
     hint: 'Имя, телефон, пароль и тема интерфейса',
+    icon: 'profile',
     roles: BOTH,
     place: 'bottom',
   },
