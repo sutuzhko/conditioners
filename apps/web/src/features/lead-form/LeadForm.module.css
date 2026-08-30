@@ -60,7 +60,7 @@
   gap: 16px;
 }
 
-@media (width >= 560px) {
+@media (width >= 600px) {
   .pair {
     grid-template-columns: 1fr 1fr;
   }
