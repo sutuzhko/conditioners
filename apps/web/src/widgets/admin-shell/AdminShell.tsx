@@ -5,7 +5,6 @@ import type { AdminRole } from '@/entities/staff/model';
 import { ThemeToggle } from '@/shared/ui';
 
 import { AdminNav } from './AdminNav';
-import { LogoutButton } from './LogoutButton';
 import { NavState } from './NavState';
 import { NavToggle } from './NavToggle';
 import { adminShellContent as texts } from './content';
@@ -55,7 +54,6 @@ export function AdminShell({ children, login, name, role, navOpen = true }: Admi
           </div>
 
           <div className={styles.actions}>
-            <span className={styles.login}>{name ?? login}</span>
             {/* Ссылка на сайт открывается в новой вкладке: правку хочется
               сверить, не теряя место в панели. */}
             <Link className={styles.site} href={{ pathname: '/' }} target="_blank" rel="noreferrer">
@@ -63,13 +61,12 @@ export function AdminShell({ children, login, name, role, navOpen = true }: Admi
               <span className={styles.narrow}>{texts.siteShort}</span>
             </Link>
             <ThemeToggle />
-            <LogoutButton />
           </div>
         </header>
 
         <div className={styles.body}>
           <aside className={styles.aside}>
-            <AdminNav role={role} />
+            <AdminNav role={role} userName={name ?? login} />
           </aside>
 
           <main className={styles.content}>{children}</main>
