@@ -206,6 +206,10 @@ export const iconRegistry = {
   'chevron-down': {
     node: <path d="M19 9L12 15L5 9" />,
   },
+  /** Переход вглубь: пункт списка, ведущий на свой раздел. */
+  'chevron-right': {
+    node: <path d="M9 5L15 12L9 19" />,
+  },
   /** Светлая тема. */
   sun: {
     node: (

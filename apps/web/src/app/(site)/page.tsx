@@ -193,7 +193,6 @@ export default async function HomePage() {
         products={pickerProducts}
         now={now}
         weather={weather}
-        city={settings.address.city}
         stats={settings.achievements.items}
         note={heroNote}
         leadHref={LEAD_ANCHOR}

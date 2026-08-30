@@ -60,7 +60,7 @@
   overflow-wrap: anywhere;
 }
 
-@media (width < 520px) {
+@media (width < 600px) {
   .entry {
     grid-template-columns: minmax(0, 1fr);
   }
