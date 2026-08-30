@@ -40,7 +40,7 @@ export default function RenderError({
           <Button size="lg" onClick={reset}>
             {t.retry}
           </Button>
-          <ButtonLink href="/" size="lg" variant="secondary">
+          <ButtonLink href="/" size="lg" variant="bordered">
             {t.homeLink}
           </ButtonLink>
         </div>

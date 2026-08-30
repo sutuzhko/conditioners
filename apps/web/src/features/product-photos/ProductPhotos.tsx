@@ -112,7 +112,7 @@ export function ProductPhotos({ photos, api, onChanged, confirmRemove }: Product
                 {photo.isMain ? null : (
                   <Button
                     type="button"
-                    variant="ghost"
+                    variant="light"
                     size="sm"
                     disabled={busy}
                     aria-label={texts.makeMainLabel(index + 1)}
@@ -124,7 +124,7 @@ export function ProductPhotos({ photos, api, onChanged, confirmRemove }: Product
 
                 <Button
                   type="button"
-                  variant="ghost"
+                  variant="light"
                   size="sm"
                   className={styles.remove}
                   disabled={busy}

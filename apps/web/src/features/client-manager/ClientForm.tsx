@@ -185,7 +185,7 @@ export function ClientForm({
           {removable && editing ? (
             <Button
               type="button"
-              variant="ghost"
+              variant="light"
               className={styles.remove}
               loading={removing}
               disabled={sending}

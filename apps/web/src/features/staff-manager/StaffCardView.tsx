@@ -88,7 +88,7 @@ export function StaffCardView({ staff, api, onChanged }: StaffCardViewProps) {
       <div className={styles.actions}>
         <Button
           type="button"
-          variant="secondary"
+          variant="bordered"
           size="sm"
           disabled={busy}
           onClick={() => void toggle()}

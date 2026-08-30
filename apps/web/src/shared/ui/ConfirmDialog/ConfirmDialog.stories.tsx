@@ -13,7 +13,7 @@ function Example({ request, open: initial = false }: { request: ConfirmRequest; 
 
   return (
     <>
-      <Button variant="secondary" onClick={() => setOpen(true)}>
+      <Button variant="bordered" onClick={() => setOpen(true)}>
         {request.confirmLabel}
       </Button>
       <ConfirmDialog
@@ -85,7 +85,7 @@ function HookExample() {
   return (
     <>
       <Button
-        variant="secondary"
+        variant="bordered"
         onClick={() => {
           void confirm(removeArticle).then((ok) => setAnswer(ok ? 'Подтверждено' : 'Отменено'));
         }}

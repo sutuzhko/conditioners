@@ -172,7 +172,7 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
                 />
                 <Button
                   type="button"
-                  variant="ghost"
+                  variant="light"
                   size="sm"
                   disabled={sending}
                   aria-label={texts.rowRemove(index + 1)}
@@ -192,7 +192,7 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
 
         <Button
           type="button"
-          variant="secondary"
+          variant="bordered"
           size="sm"
           disabled={sending}
           onClick={() =>

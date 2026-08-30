@@ -69,7 +69,7 @@ export function ListField({
               диктор читает список одинаковых «Удалить» без всякой пользы. */}
           <Button
             type="button"
-            variant="ghost"
+            variant="light"
             size="sm"
             className={styles.remove}
             aria-label={texts.removeItem(itemLabel, index + 1)}
@@ -80,7 +80,7 @@ export function ListField({
         </div>
       ))}
 
-      <Button type="button" variant="secondary" size="sm" onClick={() => onChange([...values, ''])}>
+      <Button type="button" variant="bordered" size="sm" onClick={() => onChange([...values, ''])}>
         {texts.addItem(itemLabel)}
       </Button>
     </fieldset>

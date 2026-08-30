@@ -37,7 +37,7 @@ export function CompareBar({ count, compareHref, clearHref }: CompareBarProps) {
     <div id={COMPARE_ANCHOR} className={styles.bar}>
       <p className={styles.count}>{t.compareCount(count)}</p>
 
-      <ButtonLink href={compareHref} variant="secondary" size="sm" className={styles.open}>
+      <ButtonLink href={compareHref} variant="bordered" size="sm" className={styles.open}>
         {t.compareOpen}
       </ButtonLink>
 

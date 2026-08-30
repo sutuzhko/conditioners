@@ -111,7 +111,7 @@ export function ArticleCover({
       {cover === null || remove === undefined ? null : (
         <Button
           type="button"
-          variant="ghost"
+          variant="light"
           className={styles.remove}
           loading={removing}
           disabled={busy}

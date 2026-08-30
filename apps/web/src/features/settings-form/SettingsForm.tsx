@@ -209,7 +209,7 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
           {dirty ? (
             <Button
               type="button"
-              variant="ghost"
+              variant="light"
               disabled={sending}
               onClick={() => {
                 setDraft(withGroupDefaults(group, value));

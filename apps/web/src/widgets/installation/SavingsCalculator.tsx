@@ -96,7 +96,7 @@ export function SavingsCalculator({
             <span className={styles.modes} role="group" aria-label={t.tariffLabelFull}>
               <Button
                 size="sm"
-                variant={dual ? 'ghost' : 'primary'}
+                variant={dual ? 'light' : 'solid'}
                 aria-pressed={!dual}
                 onClick={() => setMode('single')}
               >
@@ -104,7 +104,7 @@ export function SavingsCalculator({
               </Button>
               <Button
                 size="sm"
-                variant={dual ? 'primary' : 'ghost'}
+                variant={dual ? 'solid' : 'light'}
                 aria-pressed={dual}
                 onClick={() => setMode('dual')}
               >

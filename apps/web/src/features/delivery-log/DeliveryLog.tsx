@@ -159,7 +159,7 @@ export function DeliveryLog({
                       ) : (
                         <Button
                           type="button"
-                          variant="secondary"
+                          variant="bordered"
                           size="sm"
                           disabled={busy === failure.id}
                           onClick={() => {

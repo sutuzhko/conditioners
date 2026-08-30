@@ -39,7 +39,7 @@ export function ActionBarView({ contacts, leadHref, compare }: ActionBarViewProp
       {phone === undefined ? null : (
         <a
           href={phone.href}
-          className={[buttonClassName({ variant: 'secondary', size: 'md' }), styles.action].join(
+          className={[buttonClassName({ variant: 'bordered', size: 'md' }), styles.action].join(
             ' ',
           )}
           aria-label={t.callAria(phone.text)}

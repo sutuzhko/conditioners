@@ -46,7 +46,7 @@ export const WithFooter: Story = {
       description="Действие нельзя отменить"
       footer={
         <>
-          <Button variant="secondary">Отмена</Button>
+          <Button variant="bordered">Отмена</Button>
           <Button>Удалить</Button>
         </>
       }

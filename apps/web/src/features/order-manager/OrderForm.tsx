@@ -533,7 +533,7 @@ export function OrderForm({
           {removable && editing && !removed ? (
             <Button
               type="button"
-              variant="ghost"
+              variant="light"
               className={styles.remove}
               loading={removing}
               disabled={sending}

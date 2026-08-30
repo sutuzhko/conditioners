@@ -64,7 +64,7 @@ export function HeaderMenu({ nav, ctaHref, phone, hours, className }: HeaderMenu
                 <a
                   href={phone.href}
                   className={buttonClassName({
-                    variant: 'secondary',
+                    variant: 'bordered',
                     size: 'md',
                     fullWidth: true,
                   })}

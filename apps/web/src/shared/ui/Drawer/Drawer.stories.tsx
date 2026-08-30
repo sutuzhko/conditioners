@@ -81,7 +81,7 @@ export const WithFooter: Story = {
       footer={
         <>
           <Button fullWidth>Оставить заявку</Button>
-          <Button variant="secondary" fullWidth>
+          <Button variant="bordered" fullWidth>
             Позвонить
           </Button>
         </>

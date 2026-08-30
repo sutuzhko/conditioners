@@ -31,7 +31,7 @@ export function CalendarCreate({ day, canBlock = false }: CalendarCreateProps) {
       {canBlock ? (
         <Button
           size="sm"
-          variant="ghost"
+          variant="light"
           onClick={() => actions.block(day)}
           iconStart={<Icon name="clock" size={16} />}
         >

@@ -83,7 +83,7 @@ export function InstallerNotes({ staffId, notes, api = staffApi }: InstallerNote
               <p className={styles.text}>{note.text}</p>
               <Button
                 type="button"
-                variant="ghost"
+                variant="light"
                 size="sm"
                 aria-label={texts.noteRemove}
                 disabled={busy}

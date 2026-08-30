@@ -292,7 +292,7 @@ export function LeadForm({
           </SuccessHeading>
           <p className={styles.successText}>{texts.successThanks(greeting)}</p>
           <p className={styles.successText}>{texts.successNext}</p>
-          <Button variant="secondary" size="md" onClick={restart}>
+          <Button variant="bordered" size="md" onClick={restart}>
             {texts.successAgain}
           </Button>
         </div>
@@ -449,7 +449,7 @@ export function LeadForm({
               <p className={styles.contextHint}>{texts.contextHint}</p>
               <Button
                 type="button"
-                variant="ghost"
+                variant="light"
                 size="sm"
                 className={styles.contextDrop}
                 onClick={dropContext}

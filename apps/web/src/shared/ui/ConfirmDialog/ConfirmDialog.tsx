@@ -3,7 +3,6 @@
 import { Button } from '../Button/Button';
 import { Modal } from '../Modal/Modal';
 import type { ConfirmRequest } from './model';
-import styles from './ConfirmDialog.module.css';
 
 export interface ConfirmDialogProps {
   readonly open: boolean;
@@ -42,10 +41,10 @@ export function ConfirmDialog({ open, request, onResolve }: ConfirmDialogProps) 
       size="sm"
       footer={
         <>
-          <Button variant="secondary" onClick={() => onResolve(false)}>
+          <Button variant="bordered" onClick={() => onResolve(false)}>
             {request.cancelLabel ?? 'Отмена'}
           </Button>
-          <Button variant="ghost" className={styles.danger} onClick={() => onResolve(true)}>
+          <Button variant="danger" onClick={() => onResolve(true)}>
             {request.confirmLabel}
           </Button>
         </>

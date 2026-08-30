@@ -86,14 +86,14 @@ export default async function AdminStockPage({
             </Link>
 
             <Link
-              className={buttonClassName({ size: 'sm', variant: 'secondary' })}
+              className={buttonClassName({ size: 'sm', variant: 'bordered' })}
               href={{ pathname: STOCK_JOURNAL_PATH }}
             >
               {texts.journalOpen}
             </Link>
 
             <Link
-              className={buttonClassName({ size: 'sm', variant: 'secondary' })}
+              className={buttonClassName({ size: 'sm', variant: 'bordered' })}
               href={{ pathname: STOCK_ZONES_PATH }}
             >
               {texts.zonesOpen}

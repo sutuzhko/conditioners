@@ -95,7 +95,7 @@ export function SpecsDictionaryForm({ value: initial, save = putSpecs }: SpecsDi
             />
             <Button
               type="button"
-              variant="ghost"
+              variant="light"
               size="sm"
               disabled={sending}
               aria-label={texts.groupRemove(groupIndex + 1)}
@@ -140,7 +140,7 @@ export function SpecsDictionaryForm({ value: initial, save = putSpecs }: SpecsDi
                 />
                 <Button
                   type="button"
-                  variant="ghost"
+                  variant="light"
                   size="sm"
                   disabled={sending}
                   aria-label={texts.fieldRemove(fieldIndex + 1)}
@@ -158,7 +158,7 @@ export function SpecsDictionaryForm({ value: initial, save = putSpecs }: SpecsDi
 
           <Button
             type="button"
-            variant="secondary"
+            variant="bordered"
             size="sm"
             disabled={sending}
             onClick={() => patchGroup(groupIndex, { fields: [...group.fields, emptyField] })}
@@ -171,7 +171,7 @@ export function SpecsDictionaryForm({ value: initial, save = putSpecs }: SpecsDi
       <div className={styles.actions}>
         <Button
           type="button"
-          variant="secondary"
+          variant="bordered"
           disabled={sending}
           onClick={() => setGroups([...value.groups, emptyGroup])}
         >

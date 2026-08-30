@@ -1,7 +1,20 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, MouseEvent, ReactNode } from 'react';
 import styles from './Button.module.css';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'ghost';
+/**
+ * Семь заливок эталона (ADR-170, `design/admin/_base.css`). Порядок — от
+ * самой громкой к самой тихой, плюс разрушающая:
+ *
+ * - `solid` — основное действие экрана, оно на экране одно;
+ * - `flat` — действие рядом с основным: заливка акцентом низкой плотности;
+ * - `bordered` — равноправная альтернатива, обведённая линией контрола;
+ * - `faded` — служебное действие в плотном ряду;
+ * - `light` — действие без формы: ссылка, притворяющаяся кнопкой;
+ * - `ghost` — обведённая фирменной линией и пустая внутри;
+ * - `danger` — удаление и отказ.
+ */
+export type ButtonVariant = 'solid' | 'flat' | 'bordered' | 'faded' | 'light' | 'ghost' | 'danger';
+
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonAppearance {
@@ -14,13 +27,30 @@ export interface ButtonAppearance {
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, ButtonAppearance {
   /** состояние отправки: кнопка блокируется, подпись подменяется индикатором */
   loading?: boolean | undefined;
+  /**
+   * Почему кнопка недоступна. Названная причина меняет способ отключения:
+   * вместо нативного `disabled` кнопка получает `aria-disabled` и остаётся в
+   * обходе с клавиатуры.
+   *
+   * 🔴 Иначе до причины не добраться. Нативный `disabled` убирает кнопку из
+   * фокуса и из дерева доступности — человек, который не видит экрана,
+   * упирается в действие, которого просто нет, и объяснения не получает.
+   * Работает только вместе с `disabled`: причина без отказа — это подсказка,
+   * а не состояние.
+   *
+   * Причина уходит в имя кнопки скрытой строкой, а не в `aria-describedby`:
+   * идентификатор потребовал бы `useId`, а с хуком компонент перестал бы
+   * рисоваться из серверного — сейчас так его зовут карточка каталога, шапка
+   * и страница 404.
+   */
+  disabledReason?: string | undefined;
   iconStart?: ReactNode | undefined;
   iconEnd?: ReactNode | undefined;
 }
 
 /** Собирает набор классов, общий для кнопки и ссылки-кнопки. */
 export function buttonClassName({
-  variant = 'primary',
+  variant = 'solid',
   size = 'md',
   fullWidth = false,
 }: ButtonAppearance): string {
@@ -34,14 +64,20 @@ export function Button({
   size,
   fullWidth,
   loading = false,
+  disabledReason,
   iconStart,
   iconEnd,
   disabled,
+  onClick,
   className,
   children,
   type = 'button',
   ...rest
 }: ButtonProps) {
+  const off = disabled === true || loading;
+  // отказ с объяснением: фокус сохраняется, нажатие гасится обработчиком
+  const soft = disabled === true && !loading && disabledReason !== undefined;
+
   const classes = [
     buttonClassName({ variant, size, fullWidth }),
     loading ? styles.loading : null,
@@ -50,12 +86,23 @@ export function Button({
     .filter(Boolean)
     .join(' ');
 
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    if (soft) {
+      // и клик, и Enter приходят сюда: отмена гасит заодно отправку формы
+      event.preventDefault();
+      return;
+    }
+    onClick?.(event);
+  };
+
   return (
     <button
       {...rest}
       type={type}
       className={classes}
-      disabled={disabled === true || loading}
+      onClick={handleClick}
+      disabled={off && !soft}
+      aria-disabled={off || undefined}
       aria-busy={loading || undefined}
     >
       <span className={styles.content}>
@@ -63,6 +110,7 @@ export function Button({
         <span className={styles.label}>{children}</span>
         {iconEnd}
       </span>
+      {soft ? <span className={styles.reason}>{disabledReason}</span> : null}
       {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}
     </button>
   );

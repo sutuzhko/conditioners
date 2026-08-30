@@ -123,7 +123,7 @@
 
 ## 5. Инвентарь компонентов
 
-**`shared/ui`:** Button (primary / secondary / ghost, 3 размера) · IconButton · Chip (выбор, с активным состоянием) · Input · Textarea · Select · Checkbox · RangeSlider · FileInput · Card · Badge · Table · Accordion · Modal · Skeleton · Rating (звёзды, ввод и вывод) · ThemeToggle.
+**`shared/ui`:** Button (solid / flat / bordered / faded / light / ghost / danger, 3 размера) · IconButton · Chip (выбор, с активным состоянием) · Input · Textarea · Select · Checkbox · RangeSlider · FileInput · Card · Badge · Table · Accordion · Modal · Skeleton · Rating (звёзды, ввод и вывод) · ThemeToggle.
 
 **`widgets`:** Header (стеклянная шапка, sticky) · Hero с подбором · TrustStrip · ServicesGrid · CatalogGrid · CompareTable · SavingsBlock · StepsTimeline · PriceTable · Calculator · HonestPricing · ScamAccordion · DiagnosticsPicker · WhyUs · Reviews + ReviewForm · LeadForm · KnowledgeTeaser · Faq · Contacts · Footer.
 
@@ -396,6 +396,10 @@
 
 🔴 **Пилюля за контур панели не выходит** (ADR-187). Публичная часть остаётся на радиусах §4 — 9 / 11 / 12px у кнопок и `--r-pill` 100px у чипов; панельные значения переопределяются на контейнере панели, а не на `:root`. Кит при этом один: разные значения одной шкалы, а не два эталона.
 
+🔴 **Развилка живёт в подстановке по умолчанию у `var()`**, а не во втором наборе классов: `border-radius: var(--r-btn, 9px)` внутри панели даёт пилюлю, а снаружи переменной нет — и подставляется число прототипа. Классы у кнопки витрины и кнопки панели совпадают до символа; это стережёт тест `Button.test.tsx`.
+
+🔴 **До портала значения доезжают через `body:has([data-ui='panel'])`** (ADR-193): `Portal` рендерит в `document.body`, то есть мимо контейнера панели, и без второго селектора модальное окно панели осталось бы на геометрии витрины. Обратная сторона: внутри документа с панелью её геометрию получает всё — панель и витрина не встают рядом в одной истории Storybook.
+
 ### Внутренние отступы и кегль
 
 | Токен           | Значение | Где применяется                                     | Откуда снято                     |
@@ -419,6 +423,8 @@
 | `--sh-lg` | `0 0 30px 0 rgb(15 23 42 / 6%), 0 30px 60px 0 rgb(15 23 42 / 12%)` | `0 0 30px 0 rgb(0 0 0 / 34%), 0 30px 60px 0 rgb(0 0 0 / 46%)` | выпадающее меню, модальное окно       |
 
 Все три — тени `small`, `medium` и `large` эталона.
+
+🔴 **У кнопки панели тени нет вовсе** — `--shadow-btn: none` (ADR-193). На витрине под основной кнопкой лежит цветная `--shadow-brand` (§4): она поднимает призыв над длинной страницей. В панели кнопка стоит внутри карточки, которая сама плоская, и приподнятая кнопка внутри плоской карточки читается ошибкой слоя. Кнопка берёт `var(--shadow-btn, var(--shadow-brand))` — тем же способом, что и остальную панельную геометрию.
 
 ### Оболочка
 

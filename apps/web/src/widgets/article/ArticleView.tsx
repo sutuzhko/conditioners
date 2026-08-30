@@ -108,7 +108,7 @@ export function ArticleView({
           <p className={styles.ctaLead}>{t.ctaText}</p>
         </div>
         <div className={styles.ctaActions}>
-          <ButtonLink href={leadHref} variant="accent" size="lg">
+          <ButtonLink href={leadHref} variant="flat" size="lg">
             {t.ctaLead}
           </ButtonLink>
           {links.length === 0 ? null : (
