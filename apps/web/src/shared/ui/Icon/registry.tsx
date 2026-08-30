@@ -269,6 +269,108 @@ export const iconRegistry = {
     viewBox: '0 0 32 32',
     strokeWidth: 2,
   },
+  /* ——— Навигация панели. Глифы сняты с макета редизайна
+     (design/admin/_icons.sh) один в один: набор рисовался под колонку и рельс,
+     и своя толщина 1.7 у него ради посадки в ячейку 44×44. ——— */
+
+  /** Обзор: вход в панель. */
+  overview: {
+    node: <path d="m3 10 9-7 9 7v9a2 2 0 0 1-2 2h-4v-6H9v6H5a2 2 0 0 1-2-2z" />,
+    strokeWidth: 1.7,
+  },
+  /** Календарь работ. */
+  calendar: {
+    node: (
+      <>
+        <rect x="3" y="5" width="18" height="16" rx="2.5" />
+        <path d="M3 10h18M8 3v4M16 3v4" />
+      </>
+    ),
+    strokeWidth: 1.7,
+  },
+  /** Наряды: заказы на монтаж и обслуживание. */
+  orders: {
+    node: (
+      <>
+        <rect x="4" y="3" width="16" height="18" rx="2.5" />
+        <path d="M9 8h6M9 12h6M9 16h4" />
+      </>
+    ),
+    strokeWidth: 1.7,
+  },
+  /** Обращения с сайта. */
+  leads: {
+    node: (
+      <>
+        <path d="M3 8.5 12 14l9-5.5" />
+        <rect x="3" y="5" width="18" height="14" rx="2.5" />
+      </>
+    ),
+    strokeWidth: 1.7,
+  },
+  /** Клиенты: база людей. */
+  clients: {
+    node: (
+      <>
+        <circle cx="9" cy="8" r="3.2" />
+        <path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5" />
+        <path d="M16 6.5a3 3 0 0 1 0 5.6M18 19.5c0-2.4-1-4-2.6-4.9" />
+      </>
+    ),
+    strokeWidth: 1.7,
+  },
+  /** Монтажники: каска. */
+  team: {
+    node: (
+      <>
+        <path d="M4 14a8 8 0 0 1 16 0" />
+        <path d="M2.5 14h19" />
+        <path d="M12 6V4M9 6.4 8 4.6M15 6.4 16 4.6" />
+        <path d="M8 18h8" />
+      </>
+    ),
+    strokeWidth: 1.7,
+  },
+  /** Склад материалов. */
+  stock: {
+    node: (
+      <>
+        <path d="M3 8.5 12 4l9 4.5v7L12 20l-9-4.5z" />
+        <path d="M3 8.5 12 13l9-4.5M12 13v7" />
+      </>
+    ),
+    strokeWidth: 1.7,
+  },
+  /** База знаний: статьи. */
+  knowledge: {
+    node: (
+      <>
+        <path d="M4 5.5A2 2 0 0 1 6 4h5v16H6a2 2 0 0 0-2 1.5z" />
+        <path d="M20 5.5A2 2 0 0 0 18 4h-5v16h5a2 2 0 0 1 2 1.5z" />
+      </>
+    ),
+    strokeWidth: 1.7,
+  },
+  /** Профиль вошедшего. */
+  profile: {
+    node: (
+      <>
+        <circle cx="12" cy="8" r="3.4" />
+        <path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" />
+      </>
+    ),
+    strokeWidth: 1.7,
+  },
+  /** Выход из панели. */
+  exit: {
+    node: (
+      <>
+        <path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3" />
+        <path d="m15 8 4 4-4 4M19 12H9" />
+      </>
+    ),
+    strokeWidth: 1.7,
+  },
 } as const satisfies Record<string, IconDef>;
 
 export type IconName = keyof typeof iconRegistry;

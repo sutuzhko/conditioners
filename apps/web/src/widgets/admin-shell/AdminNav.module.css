@@ -5,6 +5,12 @@
   flex-direction: column;
   gap: 4px;
 
+  /* 🔴 Ширину нужно задать явно: колонка — flex-элемент внутри `aside`, и по
+     умолчанию она сжимается до ширины самого длинного слова. Заливка
+     активного пункта тогда обрывается там, где кончается подпись, а не там,
+     где кончается колонка. */
+  width: 100%;
+
   /* Колонка занимает всю высоту отведённого ей места: без этого прибитый низ
      прижимается не к низу экрана, а к последнему пункту списка. */
   height: 100%;
@@ -100,7 +106,9 @@
 }
 
 .link {
-  display: block;
+  display: flex;
+  gap: 12px;
+  align-items: center;
   padding: 9px 12px;
   border-radius: var(--r-nav);
   color: var(--body);
@@ -120,6 +128,22 @@
 .active {
   background: var(--accent-bg);
   color: var(--accent-text);
+}
+
+.icon {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.active .icon {
+  color: var(--accent-text);
+}
+
+.label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Выход стоит в одном ряду со ссылками и обязан выглядеть так же.
@@ -143,6 +167,78 @@
 .link:focus-visible {
   outline: none;
   box-shadow: var(--ring-focus-inset);
+}
+
+/* ——— Планшет: колонка сворачивается в иконочный рельс.
+
+   Колонка 264px съедает треть экрана 900–1199, и содержимому — таблицам с
+   нарядами — остаётся меньше, чем навигации. В рельсе от пункта остаётся
+   значок в ячейке 44×44: тап-зона целиком, а подпись уходит из виду, но не
+   из разметки — читалка называет пункт по-прежнему, а указателю подпись
+   показывает `title`. ——— */
+@media (900px <= width < 1200px) {
+  .who {
+    justify-content: center;
+    padding: 4px 0 12px;
+  }
+
+  .whoText {
+    display: none;
+  }
+
+  /* Пункт занимает ширину рельса целиком, а по центру стоит только значок:
+     так планка активного рисуется у самого края колонки, а тап-зона выходит
+     шире обязательных 44px, а не ужимается до них. */
+  .link {
+    position: relative;
+    justify-content: center;
+    box-sizing: border-box;
+    height: var(--h-nav);
+    padding: 0;
+  }
+
+  /* 🔴 Подпись уходит из виду, оставаясь для читалки: `display: none` убрал
+     бы её из дерева доступности, и рельс стал бы полосой безымянных ссылок. */
+  .label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* Активный различается тремя признаками сразу: заливкой, цветом значка и
+     планкой у края — не одним только цветом. */
+  .active::before {
+    content: '';
+    position: absolute;
+    top: 11px;
+    bottom: 11px;
+    left: 0;
+    width: 3px;
+    border-radius: 0 3px 3px 0;
+    background: var(--brand);
+  }
+
+  /* Выход в рельсе — такая же ячейка, как пункт: кнопка кита ниже на
+     пиксель, и тап-зона не дотягивала до 44. */
+  .foot .logout {
+    justify-content: center;
+    height: var(--h-nav);
+    padding: 0;
+  }
+
+  /* Заголовок группы превращается в разделительную линию: слово в рельс не
+     помещается, а граница между работой и содержимым сайта нужна. */
+  .caption {
+    height: 1px;
+    margin: 10px 8px;
+    padding: 0;
+    overflow: hidden;
+    background: var(--line);
+    text-indent: -200px;
+  }
 }
 
 /* На узком экране разделы ложатся в прокручиваемую ленту: колонка из десяти
