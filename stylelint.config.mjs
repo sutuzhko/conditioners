@@ -20,6 +20,9 @@ export default {
     '**/.next/**',
     '**/storybook-static/**',
     'design/**',
+    // рабочие копии репозитория из `github-flow` — тот же код в другой ветке,
+    // проверять его дважды незачем (issue #417)
+    '.claude/worktrees/**',
   ],
   overrides: [
     {
