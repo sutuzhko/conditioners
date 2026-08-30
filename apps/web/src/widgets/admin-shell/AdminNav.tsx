@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useRef } from 'react';
 
 import type { AdminRole } from '@/entities/staff/model';
 import { Icon } from '@/shared/ui';
@@ -50,31 +49,6 @@ function initialsOf(name: string): string {
  */
 export function AdminNav({ role, userName }: AdminNavProps) {
   const pathname = usePathname();
-  const track = useRef<HTMLDivElement>(null);
-  const active = useRef<HTMLAnchorElement>(null);
-
-  /**
-   * На телефоне разделы лежат прокручиваемой лентой, и открытый раздел
-   * оказывается за её правым краем — со стороны это выглядит так, будто
-   * подсветки нет вовсе. Подводим его к середине.
-   *
-   * 🔴 Прокрутка задаётся ленте напрямую, а не через `scrollIntoView`: тот
-   * ищет ближайшего прокручиваемого предка и на широком экране, где лента
-   * не прокручивается вовсе, двигал вместо неё саму страницу — раздел
-   * открывался прокрученным вниз.
-   */
-  useEffect(() => {
-    const ribbon = track.current;
-    const link = active.current;
-    if (ribbon === null || link === null) return;
-    if (ribbon.scrollWidth <= ribbon.clientWidth) return;
-
-    /* Смещение считается по экранным координатам, а не по `offsetLeft`: тот
-       меряет от позиционированного предка, а прокручивается здесь колонка,
-       и на разных страницах предок оказывался разным. */
-    const shift = link.getBoundingClientRect().left - ribbon.getBoundingClientRect().left;
-    ribbon.scrollLeft += shift - (ribbon.clientWidth - link.offsetWidth) / 2;
-  }, [pathname]);
 
   const sections = columnSectionsFor(role);
   const bottom = bottomSectionsFor(role);
@@ -84,7 +58,7 @@ export function AdminNav({ role, userName }: AdminNavProps) {
   const activeHref = navHrefOf(pathname);
 
   return (
-    <div className={styles.column} ref={track}>
+    <div className={styles.column}>
       {/* Карточка «кто вошёл». Не ссылка и не меню: действия, которые открыл
           бы шеврон макета, стоят прибитыми в том же столбце ниже — дублировать
           их в выпадающем списке значит спрашивать «а эти два «Выйти» разные?». */}
@@ -126,7 +100,6 @@ export function AdminNav({ role, userName }: AdminNavProps) {
                   href={{ pathname: section.href }}
                   aria-current={current ? 'page' : undefined}
                   title={section.title}
-                  ref={current ? active : undefined}
                 >
                   <Icon className={styles.icon} name={section.icon} />
                   <span className={styles.label}>{section.title}</span>

@@ -5,6 +5,7 @@ import type { AdminRole } from '@/entities/staff/model';
 import { ThemeToggle } from '@/shared/ui';
 
 import { AdminNav } from './AdminNav';
+import { AdminTabs } from './AdminTabs';
 import { NavState } from './NavState';
 import { NavToggle } from './NavToggle';
 import { adminShellContent as texts } from './content';
@@ -72,6 +73,10 @@ export function AdminShell({ children, login, name, role, navOpen = true }: Admi
           <main className={styles.content}>{children}</main>
         </div>
       </div>
+
+      {/* До 900px навигация уходит вниз экрана: колонка там не показывается
+          вовсе, а лента из тринадцати пунктов листалась вслепую. */}
+      <AdminTabs role={role} />
     </NavState>
   );
 }

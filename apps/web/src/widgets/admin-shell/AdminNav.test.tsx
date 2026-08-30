@@ -105,16 +105,6 @@ describe('Навигация панели', () => {
     expect(within(foot).getByRole('button', { name: texts.logout })).toBeInTheDocument();
   });
 
-  it('страницу не прокручивает: лента разделов двигается сама, а не тянет за собой экран', () => {
-    const scrolled = vi.spyOn(window, 'scrollTo');
-    render(<AdminNav role="owner" userName="Сергей Демидов" />);
-
-    expect(scrolled).not.toHaveBeenCalled();
-    // в jsdom лента не прокручивается (нулевые размеры) — и трогать её нечем
-    const sections = screen.getByRole('navigation', { name: texts.navLabel });
-    expect(sections.parentElement?.scrollLeft).toBe(0);
-  });
-
   it('монтажник видит только свои разделы: ни каталога, ни заявок', () => {
     pathname.mockReturnValue('/admin/crm');
     render(<AdminNav role="installer" userName="Пётр Кузнецов" />);
