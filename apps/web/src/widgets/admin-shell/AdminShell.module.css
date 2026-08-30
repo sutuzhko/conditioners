@@ -10,9 +10,6 @@
    области: содержимое кончается там, где кончается контейнер, и таблица
    больше не упирается в край стекла. */
 .page {
-  /* Ширина колонки разделов: значение нужно и сетке, и её отмене. */
-  --aside-w: 232px;
-
   /* Серое поле вокруг контейнера. Переменная, а не число в трёх местах: от
      неё же считаются высота контейнера и высота липкой колонки. */
   --pad-page: 28px;
@@ -73,12 +70,6 @@
   align-items: center;
 }
 
-.login {
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: var(--fs-caption);
-}
-
 .site {
   color: var(--accent-text);
   font-size: var(--fs-dense);
@@ -95,7 +86,7 @@
    дотянулась до края». Содержимое центрируется в том, что осталось. */
 .body {
   display: grid;
-  grid-template-columns: var(--aside-w) minmax(0, 1fr);
+  grid-template-columns: var(--aside) minmax(0, 1fr);
   box-sizing: border-box;
   width: 100%;
 }
@@ -115,12 +106,16 @@
   /* Навигация остаётся на виду при длинном списке моделей. Высота считается
      от окна за вычетом шапки и нижнего поля: иначе прибитый низ колонки
      оказывается ниже видимой части и до него нужно доскроллить. */
+  display: flex;
   position: sticky;
   top: var(--admin-header-h);
   align-self: start;
   box-sizing: border-box;
   height: calc(100dvh - var(--admin-header-h) - var(--pad-page));
-  overflow-y: auto;
+
+  /* 🔴 Прокрутка уехала внутрь, на список разделов (AdminNav): пока она была
+     здесь, прибитый низ колонки прокручивался вместе со всем остальным. */
+  overflow: hidden;
   border-right: 1px solid var(--line);
   padding: 16px 12px;
 }
@@ -176,6 +171,7 @@
   }
 
   .aside {
+    display: block;
     position: static;
     height: auto;
     overflow: visible;
@@ -185,10 +181,6 @@
 
   .content {
     padding: 0;
-  }
-
-  .login {
-    display: none;
   }
 }
 
