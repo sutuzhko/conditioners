@@ -102,8 +102,39 @@ services:
       timeout: 5s
       retries: 10
 
+  # 🔴 База под сквозные сценарии — отдельная, со своим томом.
+  #
+  # Сценарии заводят заявки, отзывы и наряды и убирают за собой сами, но
+  # уборка — это код, который тоже может отказать. В дев-базе лежат настоящие
+  # обращения владельца, и цена одной ошибки уборки там — потерянная заявка,
+  # то есть деньги. Вторая база стоит 43 МБ.
+  #
+  # Профиль `test` держит её выключенной по умолчанию: обычному `up` она не
+  # нужна, а машина, ради которой заведён ADR-173, считает каждый контейнер.
+  # Поднимает её `pnpm e2e:stand`, он же накатывает схему и сиды.
+  db-test:
+    profiles: [test]
+    image: ${POSTGRES_IMAGE:-postgres:16-alpine}
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-tk}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devpass}
+      POSTGRES_DB: ${POSTGRES_DB:-tulaklimat}
+    ports:
+      # 5433, а не 5432: обе базы живут одновременно, и порт — единственное,
+      # чем они различаются снаружи. Спутать их адреса — это ровно тот случай,
+      # ради которого вторая база и заводится
+      - '127.0.0.1:5433:5432'
+    volumes:
+      - pgdata_test:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-tk} -d ${POSTGRES_DB:-tulaklimat}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
 volumes:
   pgdata:
+  pgdata_test:
   node_modules:
   web_node_modules:
   pnpm_store:

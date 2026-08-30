@@ -107,6 +107,14 @@ export function AdminSummary({ counts, readiness, upcoming = [] }: AdminSummaryP
 
   return (
     <div className={styles.summary}>
+      {/* 🔴 Заголовок страницы. Сводка была единственной страницей панели без
+          `h1`: у остальных тринадцати он есть, а вход в панель обходился
+          подписями плиток — читалка объявляла экран безымянным (инвариант 4). */}
+      <header className={styles.header}>
+        <h1 className={styles.title}>{texts.title}</h1>
+        <p className={styles.lead}>{texts.lead}</p>
+      </header>
+
       {readiness.ready ? null : readinessCard}
 
       <div className={styles.tiles}>
