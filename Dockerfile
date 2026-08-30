@@ -71,7 +71,13 @@ RUN pnpm --filter web exec prisma generate \
 
 # ---------- runner ----------
 FROM base AS runner
-ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1
+# 🔴 HOSTNAME=0.0.0.0 обязателен. `server.js` из standalone слушает адрес из
+# `process.env.HOSTNAME`, а Docker кладёт туда идентификатор контейнера —
+# приложение поднималось только на собственном IP контейнера, и healthcheck по
+# 127.0.0.1 отвечал «Connection refused» вечно. Следствие тяжелее, чем красный
+# статус: `caddy` ждёт `web` здоровым, значит сайт не поднимался вовсе.
+# В деве этого не видно: `next dev` слушает 0.0.0.0 и HOSTNAME не читает.
+ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 HOSTNAME=0.0.0.0
 RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
 # standalone в воркспейсе раскладывается по тем же путям, что в исходниках
 COPY --from=build --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
