@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 
 import { VR_PANEL_WIDTHS, VR_THEMES } from '../../playwright.vr.config';
-import { loadStories, pinnedWidths } from './story-index';
-import { waitForStoryReady, watchPlayFailures } from './story-ready';
+import { snapshotStories } from './snapshot-run';
+import { loadStories } from './story-index';
 
 /**
  * Визуальная регрессия панели управления (issue #404).
@@ -16,21 +16,18 @@ import { waitForStoryReady, watchPlayFailures } from './story-ready';
  * Снимая панель на 375 и 1200, мы не увидели бы ни телефонной раскладки, ни
  * десктопной, ни границы 900.
  *
- * **Объём.** Публичный прогон идёт 24 минуты на 188 историях в четырёх ширинах
- * и двух темах — 1504 снимка, около секунды на снимок. Кит панели это 302
- * истории; на трёх ширинах в двух темах выходит 1812 снимков, то есть примерно
- * полчаса. Добавить их в публичную работу значило бы удвоить её время; своей
- * работой они идут параллельно, и общее время пайплайна не меняется.
+ * **Объём.** Кит панели — 302 истории; на трёх ширинах в двух темах это 1812
+ * кадров, столько же, сколько у публичной части. В одной работе они удвоили бы
+ * её время; своей работой идут параллельно.
  *
  * **Данные.** Снимается **кит**, а не разделы. Истории кита несут свои данные
  * прямо в файле и от базы не зависят вовсе. Разделы `Админка/` — ещё 382
- * истории, 2292 снимка и час прогона — рисуются из БД, и без фикстур их снимок
- * меняется от содержимого базы: эталон не сойдётся ни разу. Они войдут сюда
- * вместе с фикстурами, отдельным issue.
+ * истории — рисуются из БД, и без фикстур их кадр меняется от содержимого базы.
+ * Они войдут сюда вместе с фикстурами, отдельным issue.
  *
- * 🔴 Эталоны, как и у публичного раннера, снимаются заданием пайплайна
- * «Эталоны снимков», а не на машине: на macOS шрифты рисуются иначе, и снимок
- * с хоста не сойдётся с эталоном ни разу (ADR-168).
+ * 🔴 Эталон, как и у публичного раннера, не лежит в репозитории (ADR-230):
+ * это кадры `merge-base`, снятые той же работой пайплайна. Как это устроено —
+ * в `snapshot-run.ts`.
  */
 
 /**
@@ -40,51 +37,19 @@ import { waitForStoryReady, watchPlayFailures } from './story-ready';
  */
 const PANEL_SECTIONS = ['UI Kit/', 'Кит/'];
 
-/**
- * «Сейчас» для снимков — то же, что у публичного раннера. Значение произвольно,
- * но обязано быть постоянным: от него зависит всё, что считается от даты.
- */
-const FROZEN_NOW = new Date('2026-08-29T09:00:00.000Z');
-
 for (const width of VR_PANEL_WIDTHS) {
   for (const theme of VR_THEMES) {
     test(`истории кита на ${width}px, тема ${theme}`, async ({ page, request }) => {
       const stories = await loadStories(request, PANEL_SECTIONS);
       expect(stories.length).toBeGreaterThan(0);
 
-      /* Подписка на отказы сценариев ставится до первого перехода: она
-         работает через `addInitScript`, то есть на будущие загрузки. */
-      await watchPlayFailures(page);
-
-      await page.setViewportSize({ width, height: 900 });
-
-      /* Снимок обязан быть неподвижным. CSS-анимации гасит сам Playwright, а
-         то, что рисуется скриптом, слушает `prefers-reduced-motion`. */
-      await page.emulateMedia({ reducedMotion: 'reduce' });
-
-      /* Время замораживается, иначе эталоны протухают сами по себе: всё, что
-         считается от «сейчас», разойдётся с эталоном без единой правки кода. */
-      await page.clock.setFixedTime(FROZEN_NOW);
-
-      for (const story of stories) {
-        if (!pinnedWidths(story, VR_PANEL_WIDTHS).includes(width)) continue;
-
-        /* Ждём разбор разметки, а не событие `load`: Storybook держит открытое
-           соединение горячей перезагрузки, и ни `load`, ни `networkidle` в деве
-           не наступают. */
-        await page.goto(`/iframe.html?id=${story.id}&viewMode=story&globals=theme:${theme}`, {
-          waitUntil: 'domcontentloaded',
-        });
-
-        await waitForStoryReady(page);
-
-        /* Проверка мягкая — одна разошедшаяся история не должна прятать
-           остальные, иначе прогон показывает только первую поломку. */
-        await expect.soft(page).toHaveScreenshot(`${story.id}--${width}-${theme}.png`, {
-          animations: 'disabled',
-          caret: 'hide',
-        });
-      }
+      await snapshotStories(page, {
+        project: 'panel',
+        stories,
+        width,
+        widths: VR_PANEL_WIDTHS,
+        theme,
+      });
     });
   }
 }
