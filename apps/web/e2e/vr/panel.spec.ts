@@ -1,0 +1,111 @@
+import { expect, test, type APIRequestContext } from '@playwright/test';
+
+import { VR_PANEL_WIDTHS, VR_THEMES } from '../../playwright.vr.config';
+
+/**
+ * Визуальная регрессия панели управления (issue #404).
+ *
+ * 🔴 Заведена отдельной работой, а не добавлением разделов в публичный раннер,
+ * и на то три причины, каждая из которых решалась, а не настраивалась.
+ *
+ * **Ширины.** У панели свои пороги. Публичные 320 / 375 / 768 / 1200 не
+ * проверяют у неё ничего важного: оболочка переключается по 900 и 1200 и живёт
+ * на 390 / 768 / 1440, а высоты контролов растут по кадру ниже 900 (ADR-183).
+ * Снимая панель на 375 и 1200, мы не увидели бы ни телефонной раскладки, ни
+ * десктопной, ни границы 900.
+ *
+ * **Объём.** Публичный прогон идёт 24 минуты на 188 историях в четырёх ширинах
+ * и двух темах — 1504 снимка, около секунды на снимок. Кит панели это 302
+ * истории; на трёх ширинах в двух темах выходит 1812 снимков, то есть примерно
+ * полчаса. Добавить их в публичную работу значило бы удвоить её время; своей
+ * работой они идут параллельно, и общее время пайплайна не меняется.
+ *
+ * **Данные.** Снимается **кит**, а не разделы. Истории кита несут свои данные
+ * прямо в файле и от базы не зависят вовсе. Разделы `Админка/` — ещё 382
+ * истории, 2292 снимка и час прогона — рисуются из БД, и без фикстур их снимок
+ * меняется от содержимого базы: эталон не сойдётся ни разу. Они войдут сюда
+ * вместе с фикстурами, отдельным issue.
+ *
+ * 🔴 Эталоны, как и у публичного раннера, снимаются заданием пайплайна
+ * «Эталоны снимков», а не на машине: на macOS шрифты рисуются иначе, и снимок
+ * с хоста не сойдётся с эталоном ни разу (ADR-168).
+ */
+
+/**
+ * Разделы, которые снимаются. Кит и его панельные состояния: `UI Kit/` —
+ * основной раздел кита, `Кит/` — два компонента, заведённые под этим именем
+ * раньше (Icon и PhoneInput).
+ */
+const PANEL_SECTIONS = ['UI Kit/', 'Кит/'];
+
+/**
+ * «Сейчас» для снимков — то же, что у публичного раннера. Значение произвольно,
+ * но обязано быть постоянным: от него зависит всё, что считается от даты.
+ */
+const FROZEN_NOW = new Date('2026-08-29T09:00:00.000Z');
+
+type StoryEntry = {
+  readonly id: string;
+  readonly type: string;
+  readonly title: string;
+  readonly name: string;
+};
+
+async function loadStories(request: APIRequestContext): Promise<readonly StoryEntry[]> {
+  const response = await request.get('/index.json');
+  expect(response.status(), 'Storybook не отвечает — поднимите контейнер storybook').toBe(200);
+
+  const index: unknown = await response.json();
+  const entries = (index as { entries?: Record<string, StoryEntry> }).entries ?? {};
+
+  return Object.values(entries).filter(
+    (entry) =>
+      entry.type === 'story' && PANEL_SECTIONS.some((section) => entry.title.startsWith(section)),
+  );
+}
+
+for (const width of VR_PANEL_WIDTHS) {
+  for (const theme of VR_THEMES) {
+    test(`истории кита на ${width}px, тема ${theme}`, async ({ page, request }) => {
+      const stories = await loadStories(request);
+      expect(stories.length).toBeGreaterThan(0);
+
+      await page.setViewportSize({ width, height: 900 });
+
+      /* Снимок обязан быть неподвижным. CSS-анимации гасит сам Playwright, а
+         то, что рисуется скриптом, слушает `prefers-reduced-motion`. */
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+
+      /* Время замораживается, иначе эталоны протухают сами по себе: всё, что
+         считается от «сейчас», разойдётся с эталоном без единой правки кода. */
+      await page.clock.setFixedTime(FROZEN_NOW);
+
+      for (const story of stories) {
+        /* Ждём разбор разметки, а не событие `load`: Storybook держит открытое
+           соединение горячей перезагрузки, и ни `load`, ни `networkidle` в деве
+           не наступают. */
+        await page.goto(`/iframe.html?id=${story.id}&viewMode=story&globals=theme:${theme}`, {
+          waitUntil: 'domcontentloaded',
+        });
+
+        /* Готовность объявляет сам Storybook: `sb-show-main` появляется, когда
+           история отрисована, `sb-show-preparing-story` уходит, когда она
+           доготовилась. Ждать видимости `#storybook-root` нельзя — у историй с
+           пустым состоянием он честно нулевой высоты. */
+        await page.waitForFunction(() => {
+          const { classList } = document.body;
+          return (
+            classList.contains('sb-show-main') && !classList.contains('sb-show-preparing-story')
+          );
+        });
+
+        /* Проверка мягкая — одна разошедшаяся история не должна прятать
+           остальные, иначе прогон показывает только первую поломку. */
+        await expect.soft(page).toHaveScreenshot(`${story.id}--${width}-${theme}.png`, {
+          animations: 'disabled',
+          caret: 'hide',
+        });
+      }
+    });
+  }
+}
