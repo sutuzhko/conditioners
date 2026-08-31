@@ -1,9 +1,14 @@
 /* Расчёт экономии: слева сетка часов и тариф, справа результат.
-   С 900px — одна колонка. */
+   Ниже 900px — одна колонка.
+
+   🔴 Правая колонка задана `clamp()`, а не долей (issue #267): доля растягивала
+   сравнение расхода на половину экрана, и две полосы по 8px терялись в пустом
+   поле. Ширина тянется от 280 до 320 и дальше не растёт — читать там нечего,
+   кроме двух сумм и двух полос. */
 
 .grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 26vw, 320px);
   gap: 28px;
   align-items: stretch;
 }
@@ -48,7 +53,13 @@
   line-height: 1.5;
 }
 
-/* Переключатель тарифа: две кнопки в одной группе. */
+/* Переключатель тарифа: две кнопки в одной группе.
+
+   🔴 До 900px сегмент поднимается до тап-зоны. Высота приходит переменной
+   контейнера, а не вторым размером кнопки (ADR-187): у кита один набор
+   классов, а пилюля вправе объявить, каким пальцем её нажимают. 34px из
+   макета — размер для мыши, и на телефоне он ниже минимума
+   docs/DESIGN_BRIEF.md §6. */
 .modes {
   display: inline-flex;
   flex-wrap: wrap;
@@ -91,31 +102,45 @@
   margin-top: 22px;
 }
 
+/* 🔴 Суммы стоят по общей правой линии и набраны табличными цифрами:
+   сравнение читается по разнице чисел, а не по длине полос — полосы рисуют
+   ту же разницу второй раз, а не вместо неё.
+
+   🔴 Переносится строка целиком, а не подпись внутри себя. В колонке
+   900–1199 карточка сравнения всего 280px, и подпись с суммой в одну строку
+   не встают: сетка с колонкой `auto` роняла сумму поверх подписи, а флексы
+   без `nowrap` рвали «Обычный on/off» пополам и подставляли сумму в разрыв.
+   Неразрывная подпись переводит сумму на свою строку, а `margin-left: auto`
+   держит её у правого края в обоих случаях — общая правая линия остаётся
+   общей и там, где строка одна, и там, где их две. */
 .rowHead {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 12px;
   align-items: baseline;
-  justify-content: space-between;
   margin: 0 0 8px;
 }
 
 .rowLabel {
   color: var(--muted);
   font-size: var(--fs-dense);
+  white-space: nowrap;
 }
 
 .rowValue {
+  margin-left: auto;
   color: var(--ink);
   font-family: var(--font-display);
   font-size: 17px;
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .bar {
   display: block;
   overflow: hidden;
-  height: 14px;
+  height: 8px;
   border-radius: var(--r-pill);
   background: var(--stripe-a);
 }
@@ -136,28 +161,37 @@
 }
 
 .total {
+  margin-top: 22px;
+}
+
+.totalLine {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 10px;
   align-items: baseline;
-  margin: 22px 0 0;
-  padding-top: 20px;
-  border-top: 1px solid var(--line-soft);
+  margin: 0;
 }
 
 .totalLabel {
   color: var(--muted);
   font-size: var(--fs-base);
+  white-space: nowrap;
 }
 
+/* Потолок кегля берётся на 1200 — выше карточка не растёт (DESIGN_BRIEF §6).
+   Прежние 5vw упирались в него уже на 560. */
 .totalValue {
+  margin-left: auto;
   color: var(--accent-text);
   font-family: var(--font-display);
-  font-size: clamp(22px, 5vw, 28px);
+  font-size: clamp(22px, 0.682vw + 19.82px, 28px);
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .totalHorizon {
+  margin: 4px 0 0;
   color: var(--faint);
   font-size: var(--fs-dense);
 }
@@ -175,11 +209,31 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 20px;
   }
+
+  .modes {
+    --h-sm: var(--tap);
+  }
 }
 
+/* Телефон: заголовок и переключатель в одну строку не встают — «День / ночь»
+   рядом с «Единый» и подписью съедают всю ширину. Пилюля уходит под подпись
+   и занимает её целиком: два сегмента делят строку поровну. */
 @media (width < 600px) {
   .sliders {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tariffHead {
+    flex-wrap: wrap;
+  }
+
+  .modes {
+    display: flex;
+    width: 100%;
+  }
+
+  .modes > * {
+    flex: 1 1 0;
   }
 }
 

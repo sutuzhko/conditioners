@@ -3,7 +3,8 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import { forgetLeadContext, readLeadContext } from '@/features/lead-form';
 
 import { Pricing } from './Pricing';
-import { customRates, priceRows, rates } from './fixtures';
+import { pricingText } from './content';
+import { customRates, priceRows, rates, singleRow } from './fixtures';
 import type { EstimateHandoff } from './model';
 
 /** Цифры из отформатированной суммы: «6 000 ₽» → 6000. */
@@ -23,7 +24,7 @@ function breakdown(): readonly { label: string; amount: number }[] {
 }
 
 function total(): number {
-  return money(screen.getByRole('status', { name: 'Итого за монтаж' }).textContent);
+  return money(screen.getByRole('status', { name: pricingText.totalLabel }).textContent);
 }
 
 function selectOption(name: string, value: string): void {
@@ -55,12 +56,37 @@ describe('Цены — таблица монтажа', () => {
     expect(cells[1]).toContain('3–4 часа');
   });
 
+  it('🔴 подпись колонки живёт в самой ячейке: в карточках шапка таблицы скрыта', () => {
+    render(<Pricing prices={priceRows} rates={rates} />);
+
+    const row = screen.getByRole('rowheader', { name: /2\.6 кВт/ }).closest('tr');
+    expect(row).not.toBeNull();
+    if (row === null) return;
+
+    /* До 1200 строка прайса — карточка, и `<thead>` скрыт целиком. Имя ячейке
+       даёт только эта подпись: без неё срок читается безымянным числом. */
+    const cells = within(row).getAllByRole('cell');
+    expect(cells[0]?.textContent).toContain(pricingText.colPrice);
+    expect(cells[1]?.textContent).toContain(pricingText.colTerm);
+  });
+
   it('условия сметы под таблицей берутся из ставок, а не из вёрстки', () => {
     render(<Pricing prices={priceRows} rates={customRates} />);
 
     const note = screen.getByText(/Точную стоимость подтвердит/);
     expect(note.textContent).toContain('Трасса до 5 м');
     expect(note.textContent).toContain('Высотные работы с 6 этажа');
+  });
+
+  it('карточек ровно столько, сколько строк в прайсе', () => {
+    /* Пустая карточка «на всякий случай» в прайсе означала бы цену, которой
+       владелец не заводил. Строк столько, сколько их в базе. */
+    const { unmount } = render(<Pricing prices={singleRow} rates={rates} />);
+    expect(screen.getAllByRole('rowheader')).toHaveLength(1);
+    unmount();
+
+    render(<Pricing prices={priceRows} rates={rates} />);
+    expect(screen.getAllByRole('rowheader')).toHaveLength(priceRows.length);
   });
 
   it('пустой прайс не превращается в нули: показывает пустое состояние', () => {
@@ -169,7 +195,7 @@ describe('Цены — калькулятор монтажа', () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole('link', { name: 'Зафиксировать в заявке' }));
+    fireEvent.click(screen.getByRole('link', { name: pricingText.apply }));
 
     expect(onApplyEstimate).toHaveBeenCalledTimes(1);
     const handoff = onApplyEstimate.mock.calls[0]?.[0];
@@ -185,6 +211,60 @@ describe('Цены — калькулятор монтажа', () => {
     for (const line of breakdown().filter((item) => !item.label.startsWith('За один блок'))) {
       expect(handoff.text).toContain(line.label);
     }
+  });
+});
+
+describe('Цены — калькулятор при неполном прайсе', () => {
+  it('класс из настроек, которого нет в прайсе, не оставляет список пустым', () => {
+    /* Владелец мог удалить класс из прайса, а ссылка из каталога — привести
+       с ним. Считаем по первой строке и показываем в списке её же: пустой
+       список рядом с суммой означал бы цену неизвестно за что. */
+    render(<Pricing prices={priceRows} rates={rates} calcDefaults={{ cls: '99' }} />);
+
+    const select = screen.getByRole('combobox', { name: 'Класс мощности' });
+    expect(select).toHaveValue('07');
+    expect(total()).toBe(5_500);
+  });
+});
+
+describe('Цены — граница честного расчёта', () => {
+  it('🔴 на верхнем делении шкалы трассы итог не называет числа', () => {
+    render(<Pricing prices={priceRows} rates={rates} calcDefaults={{ cls: '09', trassaM: 15 }} />);
+
+    const bar = screen.getByRole('status', { name: pricingText.totalLabel });
+    expect(bar.textContent).toBe(pricingText.onSite);
+    /* Разбивка тоже уходит: слагаемые с цифрами рядом со словами «считаем на
+       выезде» читались бы обещанием суммы, которого мы не давали. */
+    expect(screen.queryAllByRole('term')).toHaveLength(0);
+    expect(screen.getByText(pricingText.onSiteText)).toBeInTheDocument();
+  });
+
+  it('🔴 предельное количество блоков уводит расчёт на выезд', () => {
+    render(<Pricing prices={priceRows} rates={rates} calcDefaults={{ cls: '09', qty: 4 }} />);
+
+    expect(screen.getByRole('status', { name: pricingText.totalLabel }).textContent).toBe(
+      pricingText.onSite,
+    );
+
+    // вернулись в пределы шкалы — вернулась и сумма
+    selectOption('Количество блоков', '2');
+    expect(total()).toBe(12_000);
+  });
+
+  it('границу задают пределы шкал, а не число внутри блока', () => {
+    /* Тот же расчёт с более широкими шкалами считается по формуле: порогов
+       внутри компонента нет, они приходят пропсами. */
+    render(
+      <Pricing
+        prices={priceRows}
+        rates={rates}
+        trassaMaxM={20}
+        qtyMax={6}
+        calcDefaults={{ cls: '09', trassaM: 15, qty: 4 }}
+      />,
+    );
+
+    expect(total()).toBe((6_000 + 12 * rates.trassaPerM) * 4);
   });
 });
 
@@ -204,7 +284,7 @@ describe('Цены — расчёт уезжает с заявкой', () => {
     const shown = breakdown();
     const shownTotal = total();
 
-    fireEvent.click(screen.getByRole('link', { name: /Зафиксировать/ }));
+    fireEvent.click(screen.getByRole('link', { name: pricingText.apply }));
 
     const estimate = readLeadContext()?.estimate;
     expect(estimate).toBeDefined();
@@ -221,7 +301,7 @@ describe('Цены — расчёт уезжает с заявкой', () => {
     render(<Pricing prices={priceRows} rates={rates} />);
 
     selectOption('Класс мощности', '09');
-    fireEvent.click(screen.getByRole('link', { name: /Зафиксировать/ }));
+    fireEvent.click(screen.getByRole('link', { name: pricingText.apply }));
 
     const params = readLeadContext()?.estimate?.params ?? [];
     expect(params).toContainEqual({ label: 'Класс мощности', value: '09 · до 27 м²' });
@@ -239,7 +319,7 @@ describe('Цены — расчёт уезжает с заявкой', () => {
   it('🔴 кнопка расчёта приносит к форме тему монтажа, но не модель (ADR-129)', () => {
     render(<Pricing prices={priceRows} rates={rates} />);
 
-    expect(screen.getByRole('link', { name: /Зафиксировать/ })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: pricingText.apply })).toHaveAttribute(
       'href',
       '/?topic=install#lead',
     );
@@ -249,7 +329,7 @@ describe('Цены — расчёт уезжает с заявкой', () => {
     const onApplyEstimate = vi.fn<(handoff: EstimateHandoff) => void>();
     render(<Pricing prices={priceRows} rates={rates} onApplyEstimate={onApplyEstimate} />);
 
-    fireEvent.click(screen.getByRole('link', { name: /Зафиксировать/ }));
+    fireEvent.click(screen.getByRole('link', { name: pricingText.apply }));
 
     expect(onApplyEstimate).toHaveBeenCalledTimes(1);
     expect(readLeadContext()).toBeNull();
