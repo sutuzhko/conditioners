@@ -25,8 +25,9 @@
     "typecheck": "pnpm -r typecheck",
     "lint": "eslint . --max-warnings 0",
     "lint:css": "stylelint \"apps/**/*.css\"",
+    "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "check": "pnpm lint && pnpm lint:css && pnpm typecheck && pnpm test",
+    "check": "pnpm format:check && pnpm lint && pnpm lint:css && pnpm typecheck && pnpm test",
     "prepare": "husky"
   },
   "devDependencies": {
