@@ -6,7 +6,13 @@ name: CI
 on:
   push:
     branches: [main]
+  # 🔴 Ярлык на PR сам проверок не перезапускает — поэтому работа слушает
+  # `labeled` и `unlabeled`: так автор принимает разошедшиеся кадры ярлыком
+  # `vr:accepted` (ADR-230), и вердикт пересчитывается без пустого коммита.
+  # Перезапускаются все работы, а не только снимки: пропущенная работа и
+  # зелёная считаются защитой `main` по-разному (ADR-221), а минуты бесплатны.
   pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
 
 # 🔴 Отмена только на ветках, но не на `main` — и добивается этого **группа**,
 # а не выражение в `cancel-in-progress`.
@@ -136,19 +142,34 @@ jobs:
       SITE_URL: https://ci.invalid
       SESSION_SECRET: ci-secret-not-used-anywhere
       NEXT_TELEMETRY_DISABLED: '1'
+      # 🔴 Всё, чем эта работа отличается от соседней, — здесь. Шаги ниже у
+      # `vr` и `vr-panel` одинаковы текстом, и расхождение между работами видно
+      # диффом, а не вычитыванием: две копии одной последовательности в проекте
+      # уже разъезжались (комментарий в e2e/vr/story-ready.ts).
+      VR_PROJECT: public
+      VR_SCRIPT: vr
+      VR_NET: vr
+      # итогов раннера — по одному на пару «ширина + тема»: 4 ширины × 2 темы
+      VR_EXPECTED: '8'
+      VR_ARTIFACT: vr-diff
 
     steps:
+      # Глубина два: второй коммит — первый родитель merge-коммита PR, то есть
+      # вершина `main`, в которую он вливается. Это и есть база сравнения.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       # 🔴 Снимки не переснимаются там, где пиксели измениться не могли
-      # (ADR-221). Работа идёт 18 минут на 1504 кадрах, и после включения
-      # защиты `main` её ждёт каждый PR — включая правку одной строки в
-      # документации. Проверка при этом остаётся обязательной: работа не
-      # пропускается, а заканчивается за секунды с зелёным вердиктом.
+      # (ADR-221). После включения защиты `main` работу ждёт каждый PR —
+      # включая правку одной строки в документации. Проверка при этом остаётся
+      # обязательной: работа не пропускается, а заканчивается за секунды с
+      # зелёным вердиктом.
       #
-      # Список путей — то, что физически способно сдвинуть кадр: исходники,
-      # настройка витрины, сам раннер, зависимости, образ и этот файл. Всё
-      # остальное — документация, задания выкладки, журналы — кадр не двигает.
+      # Список путей — то, что физически способно сдвинуть кадр или вердикт:
+      # исходники, настройка витрины, сам раннер, сводка, зависимости, образ и
+      # этот файл. Всё остальное — документация, задания выкладки, журналы —
+      # кадр не двигает.
       - name: Затрагивает ли правка пиксели
         id: scope
         env:
@@ -163,7 +184,7 @@ jobs:
           changed=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
             --paginate --jq '.[].filename')
 
-          if printf '%s\n' "$changed" | grep -qE '^(apps/web/src/|apps/web/\.storybook/|apps/web/e2e/vr/|apps/web/playwright\.vr\.config\.ts|apps/web/package\.json|pnpm-lock\.yaml|Dockerfile|\.github/workflows/ci\.yml)'; then
+          if printf '%s\n' "$changed" | grep -qE '^(apps/web/src/|apps/web/\.storybook/|apps/web/e2e/vr/|apps/web/playwright\.vr\.config\.ts|apps/web/package\.json|pnpm-lock\.yaml|Dockerfile|scripts/vr-summary\.mjs|\.github/workflows/ci\.yml)'; then
             echo "pixels=true" >> "$GITHUB_OUTPUT"
           else
             echo "pixels=false" >> "$GITHUB_OUTPUT"
@@ -171,10 +192,50 @@ jobs:
             printf '  %s\n' $changed
           fi
 
-      # 🔴 Тем же образом, которым сняты эталоны (ADR-168). Шрифты на
-      # ubuntu-раннере и в alpine-образе отрисовываются по-разному, и снимок,
-      # снятый мимо образа, не совпадёт с эталоном ни разу — красный VR стал бы
-      # фоновым шумом, каким три дня был красный пайплайн (ADR-167).
+      # 🔴 Эталон кадра — кадр базы сравнения, снятый в этой же работе тем же
+      # образом и тем же раннером (ADR-230). В репозитории эталонов нет. На PR
+      # база — вершина `main`, в которую он вливается: первый родитель
+      # merge-коммита, а не `pull_request.base.sha` — тот снят в момент события
+      # и бывает устаревшим. На `main` сравнивать нечего: работа записывает
+      # кадры в кеш для следующих PR.
+      #
+      # Ключ кеша — база и версия отрисовщика: образ, зависимости, конфигурация
+      # и код раннера — то, что меняет кадры при неизменной витрине. Настройка
+      # витрины (`.storybook/`) в ключ не входит намеренно: её правка — настоящее
+      # визуальное изменение, оно должно быть видно в сравнении, а не обходить
+      # кеш.
+      - name: База сравнения
+        id: base
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            mode=compare
+            base=$(git rev-parse HEAD^1)
+          else
+            mode=record
+            base=${{ github.sha }}
+          fi
+          renderer=${{ hashFiles('Dockerfile', 'pnpm-lock.yaml', 'apps/web/playwright.vr.config.ts', 'apps/web/e2e/vr/**/*.ts') }}
+          {
+            echo "mode=$mode"
+            echo "base=$base"
+            echo "key=vr-frames-$VR_PROJECT-$base-$renderer"
+          } >> "$GITHUB_OUTPUT"
+          echo "Режим: $mode, база: $base"
+          mkdir -p vr-frames vr-outcome vr-results
+
+      - name: Кадры базы из кеша
+        id: cache
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare'
+        uses: actions/cache/restore@v4
+        with:
+          path: vr-frames
+          key: ${{ steps.base.outputs.key }}
+
+      # 🔴 Обе стороны сравнения снимаются одним образом: шрифты на
+      # ubuntu-раннере и в alpine-образе отрисовываются по-разному, и кадр,
+      # снятый мимо образа, не совпадёт ни с чем — красный VR стал бы фоновым
+      # шумом, каким три дня был красный пайплайн (ADR-167).
       - name: Дев-образ
         if: steps.scope.outputs.pixels == 'true'
         run: docker build --target dev -t tulaklimat-dev:ci .
@@ -189,22 +250,81 @@ jobs:
       - name: Сборка витрины
         if: steps.scope.outputs.pixels == 'true'
         run: |
-          docker run --name vr-storybook-build \
+          docker run --name "$VR_NET-storybook-build" \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web build-storybook --test --quiet
-          docker cp vr-storybook-build:/app/apps/web/storybook-static ./storybook-static
+          docker cp "$VR_NET-storybook-build":/app/apps/web/storybook-static ./storybook-static
+
+      # 🔴 Промах кеша — штатный путь, а не ошибка: кеш живёт неделю без
+      # обращений и общий только с `main`. База выкладывается рабочей копией и
+      # собирается тем же образом; её кадры снимает раннер HEAD — различаться
+      # между сторонами должна витрина, а не код, который её снимает.
+      - name: Витрина базы
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
+        run: |
+          git worktree add ../vr-base "${{ steps.base.outputs.base }}"
+          docker build --target dev -t tulaklimat-dev:base ../vr-base
+          docker run --name "$VR_NET-base-build" \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:base pnpm --filter web build-storybook --test --quiet
+          docker cp "$VR_NET-base-build":/app/apps/web/storybook-static ./storybook-base
+
+      # Код возврата здесь не показателен: с `--update-snapshots` Playwright
+      # сообщает о записанных кадрах ненулевым кодом. Отказы сценариев базы
+      # читает сводка из её итогов — и только предупреждает: чужая поломка не
+      # красит этот PR. Индекс историй базы ложится рядом с кадрами — по нему
+      # раннер отличает новые истории, которым сравниваться не с чем.
+      - name: Кадры базы
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
+        run: |
+          docker network create "$VR_NET-base"
+          docker run -d --name "$VR_NET-base-storybook" --network "$VR_NET-base" --network-alias storybook \
+            -v "$PWD/storybook-base:/srv:ro" \
+            caddy:2.8-alpine caddy file-server --root /srv --listen :6006
+
+          docker run --rm --network "$VR_NET-base" tulaklimat-dev:ci node -e "
+            (async () => {
+              for (let i = 0; i < 30; i += 1) {
+                try {
+                  const r = await fetch('http://storybook:6006/index.json');
+                  if (r.ok) { console.log('витрина базы готова'); return; }
+                } catch {}
+                await new Promise((done) => setTimeout(done, 1000));
+              }
+              console.error('витрина базы не поднялась за полминуты');
+              process.exit(1);
+            })()"
+
+          docker run --name "$VR_NET-base-run" --network "$VR_NET-base" \
+            -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome-base:/vr/outcome" \
+            -e VR_FRAMES_DIR=/vr/frames -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT" --update-snapshots || true
+          cp storybook-base/index.json vr-frames/index.json
+          docker rm -f "$VR_NET-base-storybook"
+
+      # 🔴 Кадры базы уходят в кеш ДО сравнения. Там, где эталона не нашлось,
+      # Playwright дописывает кадр ветки в тот же каталог — и он выдал бы себя
+      # за кадр базы при следующем прогоне.
+      - name: Кадры базы в кеш
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: vr-frames
+          key: ${{ steps.base.outputs.key }}
 
       - name: Витрина под снимки
         if: steps.scope.outputs.pixels == 'true'
         run: |
-          docker network create vr
-          docker run -d --name vr-storybook --network vr --network-alias storybook \
+          docker network create "$VR_NET"
+          docker run -d --name "$VR_NET-storybook" --network "$VR_NET" --network-alias storybook \
             -v "$PWD/storybook-static:/srv:ro" \
             caddy:2.8-alpine caddy file-server --root /srv --listen :6006
 
           # Готовность — по индексу историй. Статика отдаёт его сразу, но
           # проверка остаётся: контейнер мог не подняться вовсе
-          docker run --rm --network vr tulaklimat-dev:ci node -e "
+          docker run --rm --network "$VR_NET" tulaklimat-dev:ci node -e "
             (async () => {
               for (let i = 0; i < 30; i += 1) {
                 try {
@@ -217,46 +337,82 @@ jobs:
               process.exit(1);
             })()"
 
-      - name: Снимки историй
-        if: steps.scope.outputs.pixels == 'true'
+      # `main`: только запись. Кадры и индекс историй уходят в кеш под ключом
+      # этого коммита — следующий PR возьмёт их без пересъёмки базы. Красит
+      # здесь только отказ сценария или отсутствие итога — их читает сводка.
+      - name: Запись кадров
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'record'
         run: |
-          docker run --name vr-run --network vr \
-            -e VR_BASE_URL=http://storybook:6006 \
-            -e CI=true -e VR_WORKERS=4 \
+          docker run --name "$VR_NET-run" --network "$VR_NET" \
+            -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome:/vr/outcome" \
+            -e VR_FRAMES_DIR=/vr/frames -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
-            tulaklimat-dev:ci pnpm --filter web vr
+            tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT" --update-snapshots || true
+          cp storybook-static/index.json vr-frames/index.json
 
-      # Разницу видно только глазами: без картинок «снимок не совпал» не
-      # говорит, уехала кнопка на пиксель или пропал целый блок
-      - name: Расхождения снимков
-        if: failure() && steps.scope.outputs.pixels == 'true'
-        run: docker cp vr-run:/app/apps/web/test-results ./vr-results || true
-
-      - uses: actions/upload-artifact@v4
-        if: failure() && steps.scope.outputs.pixels == 'true'
+      - name: Кадры main в кеш
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'record'
+        uses: actions/cache/save@v4
         with:
-          name: vr-diff
+          path: vr-frames
+          key: ${{ steps.base.outputs.key }}
+
+      # 🔴 Вердикт выносит сводка, а не код возврата Playwright: разошедшийся
+      # кадр — не обязательно поломка, и решает это автор ярлыком. Поэтому шаг
+      # работу не роняет. Истории, которых в базе нет, раннер снимает без
+      # сравнения — по индексу базы (`VR_BASE_INDEX`). Переменные раннеру
+      # передаются явно: `docker run` окружения шага не наследует (ADR-222).
+      - name: Сравнение кадров
+        id: shots
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare'
+        continue-on-error: true
+        run: |
+          docker run --name "$VR_NET-run" --network "$VR_NET" \
+            -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome:/vr/outcome" \
+            -e VR_FRAMES_DIR=/vr/frames -e VR_BASE_INDEX=/vr/frames/index.json \
+            -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT"
+
+      # Картинки разницы забираются копией, а не монтированием: Playwright
+      # перед прогоном сносит каталог результатов целиком, а точку монтирования
+      # изнутри контейнера снести нельзя.
+      - name: Расхождения снимков
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' }}
+        run: docker cp "$VR_NET-run":/app/apps/web/test-results/. ./vr-results/ || true
+
+      # 🔴 Шлюз — ярлык `vr:accepted` на PR: задуманное изменение внешнего вида
+      # автор принимает явным действием, и оно остаётся видно в PR (ADR-230).
+      # Ярлык действует только на разошедшиеся кадры: отказ сценария, падение
+      # раннера и отсутствие итога красят работу всегда.
+      - name: Сводка и вердикт снимков
+        if: steps.scope.outputs.pixels == 'true'
+        env:
+          VR_ACCEPTED: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'vr:accepted') }}
+        run: |
+          node scripts/vr-summary.mjs \
+            --project "$VR_PROJECT" --mode "${{ steps.base.outputs.mode }}" \
+            --base "${{ steps.base.outputs.base }}" \
+            --cache "${{ steps.cache.outputs.cache-hit == 'true' && 'hit' || 'miss' }}" \
+            --outcome vr-outcome --base-outcome vr-outcome-base \
+            --expected "$VR_EXPECTED" --accepted "$VR_ACCEPTED" \
+            --runner "${{ steps.shots.outcome }}" --artifact "$VR_ARTIFACT"
+
+      # Разницу видно только глазами: без картинок «кадр разошёлся» не говорит,
+      # уехала кнопка на пиксель или пропал целый блок. Артефакт выгружается,
+      # когда есть что смотреть, — и при красной сводке тоже.
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' && hashFiles('vr-results/**') != '' }}
+        with:
+          name: ${{ env.VR_ARTIFACT }}
           path: vr-results
           retention-days: 7
 
       - name: Журнал витрины
         if: failure() && steps.scope.outputs.pixels == 'true'
-        run: docker logs vr-storybook | tail -50
-
-      # 🔴 Панель снимается своей работой, а не разделами в работе `vr` (issue #404).
-      #
-      # Ширины у неё свои: оболочка переключается по порогам 900 и 1200 и живёт на
-      # 390 / 768 / 1440, а высоты контролов растут по кадру ниже 900 (ADR-183).
-      # На публичных 375 и 1200 не проверяется ни телефонная раскладка, ни
-      # десктопная, ни граница 900.
-      #
-      # Объём назван числом, а не прикинут: публичный прогон идёт 24 минуты на 1504
-      # снимках — около секунды на снимок. Кит панели даёт 302 истории × 3 ширины ×
-      # 2 темы = 1812 снимков, то есть примерно полчаса. Отдельной работой они идут
-      # параллельно публичным, и общее время пайплайна не растёт.
-      #
-      # Снимается кит, а не разделы: истории кита несут свои данные в файле, а
-      # разделы `Админка/` рисуются из БД и без фикстур меняются от её содержимого.
+        run: docker logs "$VR_NET-storybook" | tail -50
 
       # 🔴 Работа, у которой шлюз не отработал, обязана краснеть, а не молчать.
       # Пропущенные шаги дают зелёный вердикт: так `e2e` однажды отчитался
@@ -265,33 +421,63 @@ jobs:
       - name: Вердикт работы
         run: |
           case "${{ steps.scope.outputs.pixels }}" in
-            true)  echo "Пиксели задеты — снимки сняты." ;;
+            true)  echo "Пиксели задеты — снимки сняты, вердикт вынесла сводка." ;;
             false) echo "Пиксели не задеты — снимки пропущены осознанно." ;;
             *)     echo "::error::Шлюз не отработал: снимки не сняты, причина неизвестна."
                    exit 1 ;;
           esac
 
+  # 🔴 Панель снимается своей работой, а не разделами в работе `vr` (issue #404).
+  #
+  # Ширины у неё свои: оболочка переключается по порогам 900 и 1200 и живёт на
+  # 390 / 768 / 1440, а высоты контролов растут по кадру ниже 900 (ADR-183).
+  # На публичных 375 и 1200 не проверяется ни телефонная раскладка, ни
+  # десктопная, ни граница 900.
+  #
+  # Объём назван числом, а не прикинут: 302 истории × 3 ширины × 2 темы =
+  # 1812 кадров. Отдельной работой они идут параллельно публичным, и общее время
+  # пайплайна не растёт.
+  #
+  # Снимается кит, а не разделы: истории кита несут свои данные в файле, а
+  # разделы `Админка/` рисуются из БД и без фикстур меняются от её содержимого.
   vr-panel:
     runs-on: ubuntu-latest
 
     env:
+      # Значения только для проверки: истории данных из базы не читают, но
+      # схема окружения обязана сойтись — её тянут импорты компонентов
       DATABASE_URL: postgresql://tk:ci@127.0.0.1:5432/tulaklimat?schema=public
       SITE_URL: https://ci.invalid
       SESSION_SECRET: ci-secret-not-used-anywhere
       NEXT_TELEMETRY_DISABLED: '1'
+      # 🔴 Всё, чем эта работа отличается от соседней, — здесь. Шаги ниже у
+      # `vr` и `vr-panel` одинаковы текстом, и расхождение между работами видно
+      # диффом, а не вычитыванием: две копии одной последовательности в проекте
+      # уже разъезжались (комментарий в e2e/vr/story-ready.ts).
+      VR_PROJECT: panel
+      VR_SCRIPT: vr:panel
+      VR_NET: vr-panel
+      # итогов раннера — по одному на пару «ширина + тема»: 3 ширины × 2 темы
+      VR_EXPECTED: '6'
+      VR_ARTIFACT: vr-panel-diff
 
     steps:
+      # Глубина два: второй коммит — первый родитель merge-коммита PR, то есть
+      # вершина `main`, в которую он вливается. Это и есть база сравнения.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       # 🔴 Снимки не переснимаются там, где пиксели измениться не могли
-      # (ADR-221). Работа идёт 18 минут на 1504 кадрах, и после включения
-      # защиты `main` её ждёт каждый PR — включая правку одной строки в
-      # документации. Проверка при этом остаётся обязательной: работа не
-      # пропускается, а заканчивается за секунды с зелёным вердиктом.
+      # (ADR-221). После включения защиты `main` работу ждёт каждый PR —
+      # включая правку одной строки в документации. Проверка при этом остаётся
+      # обязательной: работа не пропускается, а заканчивается за секунды с
+      # зелёным вердиктом.
       #
-      # Список путей — то, что физически способно сдвинуть кадр: исходники,
-      # настройка витрины, сам раннер, зависимости, образ и этот файл. Всё
-      # остальное — документация, задания выкладки, журналы — кадр не двигает.
+      # Список путей — то, что физически способно сдвинуть кадр или вердикт:
+      # исходники, настройка витрины, сам раннер, сводка, зависимости, образ и
+      # этот файл. Всё остальное — документация, задания выкладки, журналы —
+      # кадр не двигает.
       - name: Затрагивает ли правка пиксели
         id: scope
         env:
@@ -306,7 +492,7 @@ jobs:
           changed=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
             --paginate --jq '.[].filename')
 
-          if printf '%s\n' "$changed" | grep -qE '^(apps/web/src/|apps/web/\.storybook/|apps/web/e2e/vr/|apps/web/playwright\.vr\.config\.ts|apps/web/package\.json|pnpm-lock\.yaml|Dockerfile|\.github/workflows/ci\.yml)'; then
+          if printf '%s\n' "$changed" | grep -qE '^(apps/web/src/|apps/web/\.storybook/|apps/web/e2e/vr/|apps/web/playwright\.vr\.config\.ts|apps/web/package\.json|pnpm-lock\.yaml|Dockerfile|scripts/vr-summary\.mjs|\.github/workflows/ci\.yml)'; then
             echo "pixels=true" >> "$GITHUB_OUTPUT"
           else
             echo "pixels=false" >> "$GITHUB_OUTPUT"
@@ -314,6 +500,50 @@ jobs:
             printf '  %s\n' $changed
           fi
 
+      # 🔴 Эталон кадра — кадр базы сравнения, снятый в этой же работе тем же
+      # образом и тем же раннером (ADR-230). В репозитории эталонов нет. На PR
+      # база — вершина `main`, в которую он вливается: первый родитель
+      # merge-коммита, а не `pull_request.base.sha` — тот снят в момент события
+      # и бывает устаревшим. На `main` сравнивать нечего: работа записывает
+      # кадры в кеш для следующих PR.
+      #
+      # Ключ кеша — база и версия отрисовщика: образ, зависимости, конфигурация
+      # и код раннера — то, что меняет кадры при неизменной витрине. Настройка
+      # витрины (`.storybook/`) в ключ не входит намеренно: её правка — настоящее
+      # визуальное изменение, оно должно быть видно в сравнении, а не обходить
+      # кеш.
+      - name: База сравнения
+        id: base
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            mode=compare
+            base=$(git rev-parse HEAD^1)
+          else
+            mode=record
+            base=${{ github.sha }}
+          fi
+          renderer=${{ hashFiles('Dockerfile', 'pnpm-lock.yaml', 'apps/web/playwright.vr.config.ts', 'apps/web/e2e/vr/**/*.ts') }}
+          {
+            echo "mode=$mode"
+            echo "base=$base"
+            echo "key=vr-frames-$VR_PROJECT-$base-$renderer"
+          } >> "$GITHUB_OUTPUT"
+          echo "Режим: $mode, база: $base"
+          mkdir -p vr-frames vr-outcome vr-results
+
+      - name: Кадры базы из кеша
+        id: cache
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare'
+        uses: actions/cache/restore@v4
+        with:
+          path: vr-frames
+          key: ${{ steps.base.outputs.key }}
+
+      # 🔴 Обе стороны сравнения снимаются одним образом: шрифты на
+      # ubuntu-раннере и в alpine-образе отрисовываются по-разному, и кадр,
+      # снятый мимо образа, не совпадёт ни с чем — красный VR стал бы фоновым
+      # шумом, каким три дня был красный пайплайн (ADR-167).
       - name: Дев-образ
         if: steps.scope.outputs.pixels == 'true'
         run: docker build --target dev -t tulaklimat-dev:ci .
@@ -328,22 +558,81 @@ jobs:
       - name: Сборка витрины
         if: steps.scope.outputs.pixels == 'true'
         run: |
-          docker run --name vr-panel-storybook-build \
+          docker run --name "$VR_NET-storybook-build" \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web build-storybook --test --quiet
-          docker cp vr-panel-storybook-build:/app/apps/web/storybook-static ./storybook-static
+          docker cp "$VR_NET-storybook-build":/app/apps/web/storybook-static ./storybook-static
+
+      # 🔴 Промах кеша — штатный путь, а не ошибка: кеш живёт неделю без
+      # обращений и общий только с `main`. База выкладывается рабочей копией и
+      # собирается тем же образом; её кадры снимает раннер HEAD — различаться
+      # между сторонами должна витрина, а не код, который её снимает.
+      - name: Витрина базы
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
+        run: |
+          git worktree add ../vr-base "${{ steps.base.outputs.base }}"
+          docker build --target dev -t tulaklimat-dev:base ../vr-base
+          docker run --name "$VR_NET-base-build" \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:base pnpm --filter web build-storybook --test --quiet
+          docker cp "$VR_NET-base-build":/app/apps/web/storybook-static ./storybook-base
+
+      # Код возврата здесь не показателен: с `--update-snapshots` Playwright
+      # сообщает о записанных кадрах ненулевым кодом. Отказы сценариев базы
+      # читает сводка из её итогов — и только предупреждает: чужая поломка не
+      # красит этот PR. Индекс историй базы ложится рядом с кадрами — по нему
+      # раннер отличает новые истории, которым сравниваться не с чем.
+      - name: Кадры базы
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
+        run: |
+          docker network create "$VR_NET-base"
+          docker run -d --name "$VR_NET-base-storybook" --network "$VR_NET-base" --network-alias storybook \
+            -v "$PWD/storybook-base:/srv:ro" \
+            caddy:2.8-alpine caddy file-server --root /srv --listen :6006
+
+          docker run --rm --network "$VR_NET-base" tulaklimat-dev:ci node -e "
+            (async () => {
+              for (let i = 0; i < 30; i += 1) {
+                try {
+                  const r = await fetch('http://storybook:6006/index.json');
+                  if (r.ok) { console.log('витрина базы готова'); return; }
+                } catch {}
+                await new Promise((done) => setTimeout(done, 1000));
+              }
+              console.error('витрина базы не поднялась за полминуты');
+              process.exit(1);
+            })()"
+
+          docker run --name "$VR_NET-base-run" --network "$VR_NET-base" \
+            -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome-base:/vr/outcome" \
+            -e VR_FRAMES_DIR=/vr/frames -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT" --update-snapshots || true
+          cp storybook-base/index.json vr-frames/index.json
+          docker rm -f "$VR_NET-base-storybook"
+
+      # 🔴 Кадры базы уходят в кеш ДО сравнения. Там, где эталона не нашлось,
+      # Playwright дописывает кадр ветки в тот же каталог — и он выдал бы себя
+      # за кадр базы при следующем прогоне.
+      - name: Кадры базы в кеш
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: vr-frames
+          key: ${{ steps.base.outputs.key }}
 
       - name: Витрина под снимки
         if: steps.scope.outputs.pixels == 'true'
         run: |
-          docker network create vr-panel
-          docker run -d --name vr-panel-storybook --network vr-panel --network-alias storybook \
+          docker network create "$VR_NET"
+          docker run -d --name "$VR_NET-storybook" --network "$VR_NET" --network-alias storybook \
             -v "$PWD/storybook-static:/srv:ro" \
             caddy:2.8-alpine caddy file-server --root /srv --listen :6006
 
           # Готовность — по индексу историй. Статика отдаёт его сразу, но
           # проверка остаётся: контейнер мог не подняться вовсе
-          docker run --rm --network vr-panel tulaklimat-dev:ci node -e "
+          docker run --rm --network "$VR_NET" tulaklimat-dev:ci node -e "
             (async () => {
               for (let i = 0; i < 30; i += 1) {
                 try {
@@ -356,39 +645,82 @@ jobs:
               process.exit(1);
             })()"
 
-      - name: Снимки кита панели
-        if: steps.scope.outputs.pixels == 'true'
+      # `main`: только запись. Кадры и индекс историй уходят в кеш под ключом
+      # этого коммита — следующий PR возьмёт их без пересъёмки базы. Красит
+      # здесь только отказ сценария или отсутствие итога — их читает сводка.
+      - name: Запись кадров
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'record'
         run: |
-          docker run --name vr-panel-run --network vr-panel \
-            -e VR_BASE_URL=http://storybook:6006 \
-            -e CI=true -e VR_WORKERS=4 \
+          docker run --name "$VR_NET-run" --network "$VR_NET" \
+            -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome:/vr/outcome" \
+            -e VR_FRAMES_DIR=/vr/frames -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
-            tulaklimat-dev:ci pnpm --filter web vr:panel
+            tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT" --update-snapshots || true
+          cp storybook-static/index.json vr-frames/index.json
 
-      - name: Расхождения снимков
-        if: failure() && steps.scope.outputs.pixels == 'true'
-        run: docker cp vr-panel-run:/app/apps/web/test-results ./vr-panel-results || true
-
-      - uses: actions/upload-artifact@v4
-        if: failure() && steps.scope.outputs.pixels == 'true'
+      - name: Кадры main в кеш
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'record'
+        uses: actions/cache/save@v4
         with:
-          name: vr-panel-diff
-          path: vr-panel-results
+          path: vr-frames
+          key: ${{ steps.base.outputs.key }}
+
+      # 🔴 Вердикт выносит сводка, а не код возврата Playwright: разошедшийся
+      # кадр — не обязательно поломка, и решает это автор ярлыком. Поэтому шаг
+      # работу не роняет. Истории, которых в базе нет, раннер снимает без
+      # сравнения — по индексу базы (`VR_BASE_INDEX`). Переменные раннеру
+      # передаются явно: `docker run` окружения шага не наследует (ADR-222).
+      - name: Сравнение кадров
+        id: shots
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare'
+        continue-on-error: true
+        run: |
+          docker run --name "$VR_NET-run" --network "$VR_NET" \
+            -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome:/vr/outcome" \
+            -e VR_FRAMES_DIR=/vr/frames -e VR_BASE_INDEX=/vr/frames/index.json \
+            -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT"
+
+      # Картинки разницы забираются копией, а не монтированием: Playwright
+      # перед прогоном сносит каталог результатов целиком, а точку монтирования
+      # изнутри контейнера снести нельзя.
+      - name: Расхождения снимков
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' }}
+        run: docker cp "$VR_NET-run":/app/apps/web/test-results/. ./vr-results/ || true
+
+      # 🔴 Шлюз — ярлык `vr:accepted` на PR: задуманное изменение внешнего вида
+      # автор принимает явным действием, и оно остаётся видно в PR (ADR-230).
+      # Ярлык действует только на разошедшиеся кадры: отказ сценария, падение
+      # раннера и отсутствие итога красят работу всегда.
+      - name: Сводка и вердикт снимков
+        if: steps.scope.outputs.pixels == 'true'
+        env:
+          VR_ACCEPTED: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'vr:accepted') }}
+        run: |
+          node scripts/vr-summary.mjs \
+            --project "$VR_PROJECT" --mode "${{ steps.base.outputs.mode }}" \
+            --base "${{ steps.base.outputs.base }}" \
+            --cache "${{ steps.cache.outputs.cache-hit == 'true' && 'hit' || 'miss' }}" \
+            --outcome vr-outcome --base-outcome vr-outcome-base \
+            --expected "$VR_EXPECTED" --accepted "$VR_ACCEPTED" \
+            --runner "${{ steps.shots.outcome }}" --artifact "$VR_ARTIFACT"
+
+      # Разницу видно только глазами: без картинок «кадр разошёлся» не говорит,
+      # уехала кнопка на пиксель или пропал целый блок. Артефакт выгружается,
+      # когда есть что смотреть, — и при красной сводке тоже.
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' && hashFiles('vr-results/**') != '' }}
+        with:
+          name: ${{ env.VR_ARTIFACT }}
+          path: vr-results
           retention-days: 7
 
       - name: Журнал витрины
         if: failure() && steps.scope.outputs.pixels == 'true'
-        run: docker logs vr-panel-storybook | tail -50
-
-      # 🔴 Сквозные сценарии — три из них перечислены в CLAUDE.md как обязательные:
-      # заявка доходит до базы, отзыв доезжает до модерации, правка цены видна на
-      # сайте. До этой работы их не гонял никто: 971 строка сценариев лежала в
-      # репозитории и не запускалась ни разу за прогон.
-      #
-      # Полторы минуты на оба профиля — это шаг, а не повод для отдельной долгой
-      # работы. Но идёт он в дев-образе, а не на голом раннере: там уже стоит
-      # системный chromium и задан CHROMIUM_PATH (ADR-021), а ставить браузеры
-      # заново — минуты на каждый прогон.
+        run: docker logs "$VR_NET-storybook" | tail -50
 
       # 🔴 Работа, у которой шлюз не отработал, обязана краснеть, а не молчать.
       # Пропущенные шаги дают зелёный вердикт: так `e2e` однажды отчитался
@@ -397,12 +729,21 @@ jobs:
       - name: Вердикт работы
         run: |
           case "${{ steps.scope.outputs.pixels }}" in
-            true)  echo "Пиксели задеты — снимки сняты." ;;
+            true)  echo "Пиксели задеты — снимки сняты, вердикт вынесла сводка." ;;
             false) echo "Пиксели не задеты — снимки пропущены осознанно." ;;
             *)     echo "::error::Шлюз не отработал: снимки не сняты, причина неизвестна."
                    exit 1 ;;
           esac
 
+  # 🔴 Сквозные сценарии — три из них перечислены в CLAUDE.md как обязательные:
+  # заявка доходит до базы, отзыв доезжает до модерации, правка цены видна на
+  # сайте. До этой работы их не гонял никто: 971 строка сценариев лежала в
+  # репозитории и не запускалась ни разу за прогон.
+  #
+  # Полторы минуты на оба профиля — это шаг, а не повод для отдельной долгой
+  # работы. Но идёт он в дев-образе, а не на голом раннере: там уже стоит
+  # системный chromium и задан CHROMIUM_PATH (ADR-021), а ставить браузеры
+  # заново — минуты на каждый прогон.
   e2e:
     runs-on: ubuntu-latest
 
