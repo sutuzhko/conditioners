@@ -14,7 +14,10 @@ export const leadManagerContent = {
   emptyTitle: 'Заявок пока нет',
   emptyText:
     'Здесь появятся обращения с сайта: из формы заявки, из калькулятора и с карточек моделей.',
+  emptyAction: 'Проверить уведомления',
   emptyFiltered: 'В этом статусе заявок нет',
+  emptyFilteredText: 'Заявки в разделе есть — их скрыл выбранный статус.',
+  emptyFilteredAction: 'Показать все заявки',
 
   phone: 'Телефон',
   topic: 'Тема',

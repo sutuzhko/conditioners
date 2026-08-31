@@ -22,7 +22,10 @@ export const reviewModerationContent = {
   emptyTitle: 'Отзывов пока нет',
   emptyText:
     'Раздел отзывов на сайте показывает пустое состояние. Выдумывать отзывы нельзя — они появятся, когда их оставят клиенты.',
+  emptyAction: 'Открыть раздел на сайте',
   emptyFiltered: 'В этом статусе отзывов нет',
+  emptyFilteredText: 'Отзывы в разделе есть — их скрыл выбранный статус.',
+  emptyFilteredAction: 'Показать все отзывы',
 
   approve: 'Опубликовать',
   reject: 'Отклонить',
