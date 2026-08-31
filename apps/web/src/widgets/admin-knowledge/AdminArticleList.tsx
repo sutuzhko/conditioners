@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Badge, Card, Table } from '@/shared/ui';
+import { Badge, Card, EmptyState, Table } from '@/shared/ui';
 
 import { adminKnowledgeContent as texts } from './content';
 import styles from './AdminArticleList.module.css';
@@ -25,9 +25,10 @@ export interface AdminArticleListProps {
 export function AdminArticleList({ articles }: AdminArticleListProps) {
   if (articles.length === 0) {
     return (
-      <Card as="section" className={styles.empty}>
-        <h2 className={styles.emptyTitle}>{texts.emptyTitle}</h2>
-        <p className={styles.emptyText}>{texts.emptyText}</p>
+      <Card as="section">
+        <EmptyState icon="knowledge" title={texts.emptyTitle}>
+          {texts.emptyText}
+        </EmptyState>
       </Card>
     );
   }

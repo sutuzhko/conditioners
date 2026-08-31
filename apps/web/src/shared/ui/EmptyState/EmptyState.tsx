@@ -41,7 +41,10 @@ export function EmptyState({ icon, title, children, action, className }: EmptySt
         <Icon name={icon} />
       </span>
 
-      <p className={styles.title}>{title}</p>
+      {/* 🔴 Заголовок, а не абзац: читалка ходит по заголовкам, и пустое
+          состояние обязано быть остановкой в этом обходе — иначе человек,
+          листающий разделы озвучкой, не узнает, что раздел пуст. */}
+      <h2 className={styles.title}>{title}</h2>
       <p className={styles.text}>{children}</p>
 
       {action === undefined ? null : <div className={styles.action}>{action}</div>}

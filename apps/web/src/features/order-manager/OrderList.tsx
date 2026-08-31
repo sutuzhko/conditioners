@@ -1,4 +1,5 @@
-import { Card, Pager } from '@/shared/ui';
+import { ButtonLink, Card, EmptyState, Pager } from '@/shared/ui';
+import type { IconName } from '@/shared/ui';
 
 import { OrderCardView } from './OrderCardView';
 import { orderManagerContent as texts } from './content';
@@ -24,12 +25,14 @@ function emptyText(
   filtered: boolean,
   forInstaller: boolean,
 ): {
+  readonly icon: IconName;
   readonly title: string;
   readonly text: string;
 } {
-  if (filtered) return { title: texts.emptyFound, text: texts.emptyFoundText };
-  if (forInstaller) return { title: texts.emptyInstaller, text: texts.emptyInstallerText };
-  return { title: texts.emptyTitle, text: texts.emptyText };
+  if (filtered) return { icon: 'search', title: texts.emptyFound, text: texts.emptyFoundText };
+  if (forInstaller)
+    return { icon: 'orders', title: texts.emptyInstaller, text: texts.emptyInstallerText };
+  return { icon: 'orders', title: texts.emptyTitle, text: texts.emptyText };
 }
 
 /**
@@ -46,9 +49,20 @@ export function OrderList({ page, filters = {}, forInstaller = false }: OrderLis
     const empty = emptyText(filtersApplied(filters), forInstaller);
 
     return (
-      <Card as="section" className={styles.empty}>
-        <h2 className={styles.emptyTitle}>{empty.title}</h2>
-        <p className={styles.emptyText}>{empty.text}</p>
+      <Card as="section">
+        <EmptyState
+          icon={empty.icon}
+          title={empty.title}
+          action={
+            filtersApplied(filters) ? (
+              <ButtonLink href="/admin/orders" size="sm" variant="bordered">
+                {texts.emptyFoundAction}
+              </ButtonLink>
+            ) : undefined
+          }
+        >
+          {empty.text}
+        </EmptyState>
       </Card>
     );
   }

@@ -11,7 +11,7 @@ describe('EmptyState', () => {
       </EmptyState>,
     );
 
-    expect(screen.getByText('Заявок пока нет')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Заявок пока нет' })).toBeInTheDocument();
     expect(screen.getByText(/появятся здесь/)).toBeInTheDocument();
   });
 

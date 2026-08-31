@@ -24,6 +24,7 @@
 
 .title {
   margin: 0 0 4px;
+  font-family: var(--font-display);
   color: var(--ink);
   font-size: var(--fs-body, var(--fs-dense));
   font-weight: 700;
