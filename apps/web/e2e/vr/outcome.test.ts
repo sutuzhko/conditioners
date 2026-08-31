@@ -4,7 +4,14 @@ import { join } from 'node:path';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { classifyError, emptyTally, outcomeFileName, recordErrors, writeOutcome } from './outcome';
+import {
+  classifyError,
+  emptyTally,
+  firstLines,
+  outcomeFileName,
+  recordErrors,
+  writeOutcome,
+} from './outcome';
 
 const dirs: string[] = [];
 
@@ -54,6 +61,16 @@ describe('recordErrors', () => {
     expect(tally.failed).toEqual([
       { story: 'блоки-цены--broken', reason: 'page.goto: Timeout 30000ms exceeded. at … at …' },
     ]);
+  });
+});
+
+describe('firstLines', () => {
+  it('снимает раскраску терминала и обрезает стек', () => {
+    const coloured =
+      'сценарий истории отказал \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m)\u001b[22m\n\n    at step (file.ts:1:1)\n    at run\n    at more';
+    expect(firstLines(coloured)).toBe(
+      'сценарий истории отказал expect(received) at step (file.ts:1:1)',
+    );
   });
 });
 
