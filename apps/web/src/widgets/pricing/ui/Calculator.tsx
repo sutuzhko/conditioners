@@ -103,10 +103,17 @@ export function Calculator({
     setForm((current) => ({ ...current, ...next }));
   };
 
-  // класс мог исчезнуть из прайса между рендерами — тогда считаем по первому,
-  // но никогда не по нулю: выдуманная цена хуже отсутствующей
+  // прайс может остаться без строк — считать тогда нечего и рисовать нечего
+  if (first === undefined) return null;
+
+  /* Класс мог исчезнуть из прайса между рендерами — тогда считаем по первому,
+     но никогда не по нулю: выдуманная цена хуже отсутствующей.
+
+     Строк здесь две: `row` — та, по которой посчитана смета, `selected` — та,
+     что стоит в списке. Они расходятся ровно на время пересчёта: контрол
+     обязан показывать выбор сразу, иначе список «отскакивает» назад на кадр. */
   const row = ordered.find((item) => item.cls === shown.cls) ?? first;
-  if (row === undefined) return null;
+  const selected = ordered.find((item) => item.cls === form.cls) ?? first;
 
   const input = {
     basePrice: row.price,
@@ -155,7 +162,7 @@ export function Calculator({
             <Select
               label={pricingText.fieldClass}
               options={classOptions(ordered)}
-              value={form.cls}
+              value={selected.cls}
               onChange={(event) => patch({ cls: event.target.value })}
               wrapperClassName={styles.field}
             />
