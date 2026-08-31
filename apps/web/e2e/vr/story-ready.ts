@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
 
 /**
  * Готовность истории Storybook к снимку — общая для публичного раннера и
@@ -13,6 +13,9 @@ import type { Page } from '@playwright/test';
 
 declare global {
   interface Window {
+    /** Отказы сценариев, собранные подпиской из `watchPlayFailures`. */
+    readonly __vrОтказыСценария?: string[];
+
     /**
      * Внутренний объект витрины. Публичного признака «история доготовилась»
      * Storybook не отдаёт, а `storyFinished` приходит событием — его нельзя
@@ -20,12 +23,56 @@ declare global {
      */
     readonly __STORYBOOK_PREVIEW__?: {
       readonly currentRender?: { readonly phase?: string };
+      readonly channel?: { emit: (name: string, ...rest: readonly unknown[]) => unknown };
+    };
+    readonly __STORYBOOK_ADDONS_CHANNEL__?: {
+      emit: (name: string, ...rest: readonly unknown[]) => unknown;
     };
   }
 }
 
 /** Состояния, после которых история больше не меняется сама. */
 const SETTLED_PHASES = ['finished', 'errored', 'aborted'];
+
+/**
+ * 🔴 Подписка на отказы сценариев — ставится один раз на страницу, до первого
+ * перехода (issue #436, ADR-220).
+ *
+ * Исключение внутри `play` витрина проглатывает: шлёт `playFunctionThrewException`,
+ * ставит фазу `finished` и идёт дальше. Снимок делается с того состояния, на
+ * котором сценарий оборвался, и прогон остаётся зелёным. Так четыре истории из
+ * тридцати двух падали молча — в том числе «Лента остановлена», чья лента не
+ * останавливалась вовсе.
+ */
+export async function watchPlayFailures(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    const failures: string[] = [];
+    Object.defineProperty(window, '__vrОтказыСценария', { value: failures });
+
+    const subscribe = (): void => {
+      const channel = window.__STORYBOOK_ADDONS_CHANNEL__ ?? window.__STORYBOOK_PREVIEW__?.channel;
+      if (channel === undefined) {
+        setTimeout(subscribe, 20);
+        return;
+      }
+
+      const emit = channel.emit.bind(channel);
+      channel.emit = (name: string, ...rest: readonly unknown[]): unknown => {
+        if (name === 'playFunctionThrewException') {
+          const reason = rest[0];
+          const message =
+            reason instanceof Error
+              ? reason.message
+              : String((reason as { message?: string })?.message ?? reason);
+          failures.push(message.split('\n').slice(0, 3).join(' '));
+        }
+        return emit(name, ...rest);
+      };
+    };
+
+    subscribe();
+  });
+}
 
 export async function waitForStoryReady(page: Page): Promise<void> {
   /* Готовность разметки объявляет сам Storybook: `sb-show-main` появляется,
@@ -69,4 +116,10 @@ export async function waitForStoryReady(page: Page): Promise<void> {
       return timing?.iterations === Infinity || animation.playState !== 'running';
     }),
   );
+
+  /* 🔴 Отказ сценария роняет снимок, а не прячется за зелёным прогоном
+     (issue #436). Проверка стоит после ожиданий: сценарий к этой секунде уже
+     закончился, чем бы он ни закончился. */
+  const failures = await page.evaluate(() => window.__vrОтказыСценария ?? []);
+  expect(failures, 'сценарий истории отказал — снимок сделан не с того состояния').toEqual([]);
 }

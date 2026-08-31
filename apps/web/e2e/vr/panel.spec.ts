@@ -1,7 +1,8 @@
-import { expect, test, type APIRequestContext } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 import { VR_PANEL_WIDTHS, VR_THEMES } from '../../playwright.vr.config';
-import { waitForStoryReady } from './story-ready';
+import { loadStories, pinnedWidths } from './story-index';
+import { waitForStoryReady, watchPlayFailures } from './story-ready';
 
 /**
  * Визуальная регрессия панели управления (issue #404).
@@ -45,31 +46,15 @@ const PANEL_SECTIONS = ['UI Kit/', 'Кит/'];
  */
 const FROZEN_NOW = new Date('2026-08-29T09:00:00.000Z');
 
-type StoryEntry = {
-  readonly id: string;
-  readonly type: string;
-  readonly title: string;
-  readonly name: string;
-};
-
-async function loadStories(request: APIRequestContext): Promise<readonly StoryEntry[]> {
-  const response = await request.get('/index.json');
-  expect(response.status(), 'Storybook не отвечает — поднимите контейнер storybook').toBe(200);
-
-  const index: unknown = await response.json();
-  const entries = (index as { entries?: Record<string, StoryEntry> }).entries ?? {};
-
-  return Object.values(entries).filter(
-    (entry) =>
-      entry.type === 'story' && PANEL_SECTIONS.some((section) => entry.title.startsWith(section)),
-  );
-}
-
 for (const width of VR_PANEL_WIDTHS) {
   for (const theme of VR_THEMES) {
     test(`истории кита на ${width}px, тема ${theme}`, async ({ page, request }) => {
-      const stories = await loadStories(request);
+      const stories = await loadStories(request, PANEL_SECTIONS);
       expect(stories.length).toBeGreaterThan(0);
+
+      /* Подписка на отказы сценариев ставится до первого перехода: она
+         работает через `addInitScript`, то есть на будущие загрузки. */
+      await watchPlayFailures(page);
 
       await page.setViewportSize({ width, height: 900 });
 
@@ -82,6 +67,8 @@ for (const width of VR_PANEL_WIDTHS) {
       await page.clock.setFixedTime(FROZEN_NOW);
 
       for (const story of stories) {
+        if (!pinnedWidths(story, VR_PANEL_WIDTHS).includes(width)) continue;
+
         /* Ждём разбор разметки, а не событие `load`: Storybook держит открытое
            соединение горячей перезагрузки, и ни `load`, ни `networkidle` в деве
            не наступают. */
