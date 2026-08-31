@@ -151,7 +151,13 @@ export function summarize({
     );
   }
 
-  if (runner === 'failure' && total.changed.size === 0 && total.failed.length === 0) {
+  /* Новая история тоже объясняет красный код раннера: Playwright считает
+     отсутствующий эталон ошибкой и пишет кадр ветки как actual. Так было на
+     первом же прогоне против merge-base: у базы отказал сценарий одной
+     истории, её кадра в базе не оказалось, и восемь «doesn't exist» без этой
+     оговорки читались как необъяснённое падение. */
+  const explained = total.changed.size > 0 || total.new.size > 0 || total.failed.length > 0;
+  if (runner === 'failure' && !explained) {
     reasons.push('раннер завершился ошибкой, которую итог не объясняет — смотрите журнал шага');
   }
 

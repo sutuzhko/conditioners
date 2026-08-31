@@ -170,6 +170,20 @@ describe('вердикт', () => {
     expect(result.reasons[0]).toMatch(/не приняты/);
   });
 
+  it('раннер упал из-за новой истории — эталона не было, и это объяснено', () => {
+    /* Так было на первом прогоне против merge-base: у базы отказал сценарий,
+       кадра истории в базе не оказалось, Playwright счёл отсутствующий эталон
+       ошибкой — и красный код раннера читался как необъяснённое падение. */
+    const result = compare(
+      fullSet((w) => (w === 320 ? { new: ['блоки-отзывы--paused'] } : {})),
+      {
+        runner: 'failure',
+      },
+    );
+    expect(result.ok).toBe(true);
+    expect(result.reasons).toEqual([]);
+  });
+
   it('отказы базы — предупреждение, а не красный', () => {
     const result = compare(fullSet(), {
       cache: 'miss',
