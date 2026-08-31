@@ -187,10 +187,15 @@ describe('вердикт', () => {
   it('отказы базы — предупреждение, а не красный', () => {
     const result = compare(fullSet(), {
       cache: 'miss',
-      baseOutcomes: [outcome(375, 'dark', { failed: [{ story: 'x--y', reason: 'таймаут' }] })],
+      baseOutcomes: [
+        outcome(375, 'dark', { failed: [{ story: 'x--y', reason: 'таймаут' }] }),
+        outcome(375, 'light', { failed: [{ story: 'x--y', reason: 'таймаут' }] }),
+      ],
     });
     expect(result.ok).toBe(true);
-    expect(result.markdown).toMatch(/⚠️ У базы `abcdef0` отказали сценарии \(1\)/);
+    expect(result.markdown).toMatch(/⚠️ У базы `abcdef0` отказали сценарии \(2\)/);
+    // одна история — одна строка со всеми её кадрами, а не строка на кадр
+    expect(result.markdown).toMatch(/- `x--y` — 375\/dark, 375\/light: таймаут/);
     expect(result.markdown).toMatch(/сняты в работе — промах кеша/);
   });
 

@@ -226,8 +226,12 @@ export function summarize({
       `⚠️ У базы \`${short(base)}\` отказали сценарии (${baseFailed.length}) — это её поломка, а не этого PR; кадры таких историй в базе сняты не с того состояния:`,
       '',
     );
-    for (const item of baseFailed)
-      lines.push(`- \`${item.story}\` — ${item.frame}: ${cell(item.reason)}`);
+    /* По историям, а не по кадрам: отказ сценария повторяется на каждой паре
+       «ширина + тема», и восемь строк про одну историю читаются хуже одной. */
+    for (const [story, items] of groupByStory(baseFailed)) {
+      const frames = items.map((item) => item.frame).join(', ');
+      lines.push(`- \`${story}\` — ${frames}: ${cell(items[0].reason)}`);
+    }
     lines.push('');
   }
 
@@ -249,6 +253,13 @@ export function summarize({
 const short = (sha) => (sha.length > 7 ? sha.slice(0, 7) : sha || '—');
 const cell = (text) => text.replace(/\|/g, '\\|').replace(/\s+/g, ' ').slice(0, 200);
 const sortedEntries = (map) => [...map.entries()].sort(([a], [b]) => a.localeCompare(b, 'ru'));
+const groupByStory = (items) =>
+  sortedEntries(
+    items.reduce(
+      (map, item) => map.set(item.story, [...(map.get(item.story) ?? []), item]),
+      new Map(),
+    ),
+  );
 
 function main() {
   const { values } = parseArgs({
