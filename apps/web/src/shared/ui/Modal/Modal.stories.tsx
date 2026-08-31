@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useState } from 'react';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Button } from '../Button/Button';
 import { Modal } from './Modal';
 import type { ModalProps } from './Modal';
@@ -85,8 +85,16 @@ export const Opening: Story = {
   play: async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Открыть окно' }));
     const dialog = await within(document.body).findByRole('dialog');
-    await expect(dialog).toBeVisible();
+
+    /* 🔴 `waitFor`, а не голый `expect` (issue #435). Окно появляется в
+       разметке раньше, чем становится видимым, и проверка без повтора падала
+       на открытии — молча: исключение сценария не красит ни один прогон. */
+    await waitFor(() => expect(dialog).toBeVisible());
     await userEvent.keyboard('{Escape}');
+
+    /* Сценарий кончается проверкой: до сих пор нажатие Escape было, а
+       проверки, что окно от него закрылось, не было ни одной. */
+    await waitFor(() => expect(dialog).not.toBeVisible());
   },
 };
 
