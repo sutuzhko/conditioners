@@ -2,12 +2,15 @@
    итогом и кнопкой. Полями в один ряд и сметой снизу блок прыгал по высоте
    каждый раз, когда в смете появлялась строка (BUGS, P2). Теперь высоту
    карточки задаёт колонка параметров, а смета растёт внутри своей.
-   Деградация до одной колонки — docs/DESIGN_BRIEF.md §6. */
 
-/* поля карточки в макете — 32px, шире общего шага Card на крупных экранах */
+   🔴 Две колонки живут только от 1200 (issue #265). Ниже калькулятор идёт
+   одной колонкой с полями в столбец: на планшете он сам стоит правой
+   колонкой рядом с прайсом и шире 340px не бывает. */
+
+/* поля карточки в макете — 32px на десктопе; между порогами тянутся */
 .card {
   border-radius: var(--r-xl);
-  padding: clamp(20px, 4vw, 32px);
+  padding: clamp(20px, 1.364vw + 15.64px, 32px);
 }
 
 .head {
@@ -32,15 +35,15 @@
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: clamp(19px, 0.568vw + 17.18px, 24px);
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .body {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: 26px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
   align-items: stretch;
 }
 
@@ -48,10 +51,13 @@
   min-width: 0;
 }
 
+/* 🔴 Поля в столбец. Два поля в ряд на 375 дают контрол шириной 150px, в
+   котором «09 · до 27 м²» не помещается, а на планшете колонка калькулятора
+   и так узкая (docs/DESIGN_BRIEF.md §6, «Калькулятор»). */
 .fields {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
   align-items: start;
 }
 
@@ -66,12 +72,14 @@
 /* Смета — панель на общем фоне карточки: у неё своя рамка, поэтому при
    пустом прайсе колонка не выглядит оборванным куском. */
 .summary {
+  --summary-pad: clamp(16px, 0.455vw + 14.55px, 20px);
+
   display: flex;
   flex-direction: column;
   gap: 18px;
   box-sizing: border-box;
   min-width: 0;
-  padding: 20px;
+  padding: var(--summary-pad);
   border: 1px solid var(--line-soft);
   border-radius: var(--r-lg);
   background: var(--bg-soft);
@@ -95,8 +103,13 @@
    блоки. Без резерва карточка меняла высоту на каждой галочке — человек
    переключал этаж, а под курсором оказывалась уже другая строка, и цена
    «прыгала» вместе со страницей. Смету читают, сравнивая варианты: она обязана
-   стоять на месте. */
-.lines {
+   стоять на месте.
+
+   Тот же резерв держит и объяснение «считаем на выезде», которое встаёт на
+   место разбивки: иначе кнопка уезжала бы вверх при переходе к третьему
+   состоянию итога. */
+.lines,
+.onSiteText {
   --estimate-rows: 5;
   --estimate-gap: 8px;
 
@@ -106,14 +119,24 @@
      пять пикселей меньше, и смета подрагивала на последней позиции. */
   --estimate-row: 24px;
 
+  min-height: calc(
+    var(--estimate-rows) * var(--estimate-row) + (var(--estimate-rows) - 1) * var(--estimate-gap)
+  );
+}
+
+.lines {
   display: grid;
   gap: var(--estimate-gap);
   margin: 0;
   font-size: var(--fs-dense);
   line-height: 1.55;
-  min-height: calc(
-    var(--estimate-rows) * var(--estimate-row) + (var(--estimate-rows) - 1) * var(--estimate-gap)
-  );
+}
+
+.onSiteText {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+  line-height: 1.55;
 }
 
 .line {
@@ -137,75 +160,59 @@
   white-space: nowrap;
 }
 
-/* Итог прижат к низу колонки: пока смета короче параметров, кнопка стоит на
+/* Причал полосы итога. Отдельный элемент, а не класс на самой полосе: липкость
+   и вылет за поля сметы — свойство места, а геометрия строки значения и кнопки
+   принадлежит полосе, и делить одно свойство между двумя модулями нельзя.
+
+   Итог прижат к низу колонки: пока смета короче параметров, кнопка стоит на
    месте и не ездит от каждой галочки. */
-.total {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  align-items: center;
-  justify-content: space-between;
+.totalDock {
   margin-top: auto;
-  padding-top: 16px;
-  border-top: 1px solid var(--line-soft);
 }
 
-.totalValue {
-  min-width: 0;
-}
-
-.totalLabel {
-  display: block;
-  color: var(--faint);
-  font-size: var(--fs-micro);
-}
-
-.totalAmount {
-  color: var(--accent-text);
-  font-family: var(--font-display);
-  font-size: 30px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.apply {
-  flex: 0 1 auto;
-}
-
-/* Двум колонкам нужна ширина: ниже 900px смета встаёт под параметрами. */
+/* 🔴 Смета встала под параметрами, и итог уезжает из виду, пока крутят поля.
+   Полоса липнет к низу экрана, оставаясь внутри карточки калькулятора:
+   уехала карточка — уехал и итог, он не мешает остальной странице.
+   Фиксированная плашка перекрыла бы страницу целиком. */
 @media (width < 900px) {
-  .body {
-    grid-template-columns: 1fr;
-    gap: 22px;
+  .totalDock {
+    position: sticky;
+    z-index: 1;
+
+    /* 🔴 В отступ входит собственное отрицательное поле причала. Липкое
+       смещение отмеряется от внешнего края блока, а тот поднят над видимым
+       краем полосы ровно на величину выпуска — без добавки полоса наезжала
+       на панель действий, максимум 53,56px по четырнадцати положениям
+       прокрутки на главной. С добавкой пересечение нулевое во всех.
+       Жестовая полоса системы принадлежит не нам: без `env()` нижнюю кнопку
+       нечем нажать. */
+    bottom: calc(env(safe-area-inset-bottom) + var(--summary-pad));
+    margin: auto calc(var(--summary-pad) * -1) calc(var(--summary-pad) * -1);
+    padding: 0 var(--summary-pad) var(--summary-pad);
+    border-radius: 0 0 var(--r-lg) var(--r-lg);
+    background: var(--bg-soft);
+    box-shadow: var(--shadow-sticky-up);
   }
 }
 
+/* Телефон: у нижнего края висит панель действий (ADR-174), и полоса итога
+   встаёт над ней, а не под ней. Высота панели — токен, потому что измерить
+   чужую высоту в CSS нечем. */
 @media (width < 600px) {
+  .totalDock {
+    bottom: calc(var(--action-bar-h) + env(safe-area-inset-bottom) + var(--summary-pad));
+  }
+}
+
+/* Десктоп: ширины хватает на две колонки и на поля в два ряда — как в макете. */
+@media (width >= 1200px) {
+  .body {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 26px;
+  }
+
   .fields {
-    grid-template-columns: 1fr;
-  }
-
-  .summary {
-    padding: 16px;
-  }
-
-  /* Смета встала под параметрами, и итог уезжает из виду, пока крутят поля.
-     Липнет к низу экрана, оставаясь внутри сметы: фиксированная плашка
-     перекрыла бы страницу. */
-  .total {
-    position: sticky;
-    bottom: 0;
-    gap: 12px;
-    margin: 0 -16px -16px;
-    padding: 12px 16px;
-    background: var(--bg-soft);
-  }
-
-  .totalAmount {
-    font-size: 26px;
-  }
-
-  .apply {
-    flex: 1 1 auto;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
   }
 }

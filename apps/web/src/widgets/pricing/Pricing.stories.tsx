@@ -21,6 +21,13 @@ export const CustomEstimate: Story = {
   },
 };
 
+export const OnSiteEstimate: Story = {
+  name: 'Расчёт по телефону: трасса на пределе шкалы и четыре блока',
+  args: {
+    calcDefaults: { cls: '18', trassaM: 15, floor: 12, shtroblenie: true, qty: 4 },
+  },
+};
+
 export const OtherRates: Story = {
   name: 'Другие условия сметы: пять метров в базе, порог шестого этажа',
   args: { rates: customRates },

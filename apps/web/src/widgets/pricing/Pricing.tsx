@@ -64,42 +64,48 @@ export function Pricing({
           <p className={styles.lead}>{pricingText.lead}</p>
         </header>
 
-        {hasPrices ? (
-          <>
-            <PriceTable rows={prices} />
-            {rates ? (
-              <p className={styles.note}>
-                {note.length > 0 ? `${note.join(' · ')}. ` : ''}
-                {pricingText.ratesNoteTail}
-              </p>
-            ) : null}
-          </>
-        ) : (
-          <Card variant="soft" padding="lg" className={styles.empty}>
-            <p className={styles.emptyTitle}>{pricingText.emptyTitle}</p>
-            <p className={styles.emptyText}>{pricingText.emptyText}</p>
-          </Card>
-        )}
-
-        {hasPrices && rates ? (
-          <div className={styles.calc}>
-            <Calculator
-              rows={prices}
-              rates={rates}
-              onApply={onApplyEstimate}
-              trassaMaxM={trassaMaxM}
-              qtyMax={qtyMax}
-              defaults={calcDefaults}
-            />
+        {/* Прайс и калькулятор — соседи по одной обёртке: на планшете они
+            встают в две колонки, и раскладку задаёт общий родитель. */}
+        <div className={styles.money}>
+          <div className={styles.prices}>
+            {hasPrices ? (
+              <>
+                <PriceTable rows={prices} />
+                {rates ? (
+                  <p className={styles.note}>
+                    {note.length > 0 ? `${note.join(' · ')}. ` : ''}
+                    {pricingText.ratesNoteTail}
+                  </p>
+                ) : null}
+              </>
+            ) : (
+              <Card variant="soft" padding="lg" className={styles.empty}>
+                <p className={styles.emptyTitle}>{pricingText.emptyTitle}</p>
+                <p className={styles.emptyText}>{pricingText.emptyText}</p>
+              </Card>
+            )}
           </div>
-        ) : null}
 
-        {hasPrices && !rates ? (
-          <Card variant="soft" padding="lg" className={styles.calcOff}>
-            <p className={styles.emptyTitle}>{pricingText.calcOffTitle}</p>
-            <p className={styles.emptyText}>{pricingText.calcOffText}</p>
-          </Card>
-        ) : null}
+          {hasPrices && rates ? (
+            <div className={styles.calc}>
+              <Calculator
+                rows={prices}
+                rates={rates}
+                onApply={onApplyEstimate}
+                trassaMaxM={trassaMaxM}
+                qtyMax={qtyMax}
+                defaults={calcDefaults}
+              />
+            </div>
+          ) : null}
+
+          {hasPrices && !rates ? (
+            <Card variant="soft" padding="lg" className={styles.calcOff}>
+              <p className={styles.emptyTitle}>{pricingText.calcOffTitle}</p>
+              <p className={styles.emptyText}>{pricingText.calcOffText}</p>
+            </Card>
+          ) : null}
+        </div>
       </div>
     </section>
   );
