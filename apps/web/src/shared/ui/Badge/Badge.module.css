@@ -1,6 +1,14 @@
 /* Плашка статуса. Только показывает — на неё не нажимают: интерактивная
    плашка это `Chip` (issue #326). Пилюля 100px из макета; вариант sale —
-   единственное место, где на сайте допустим тёплый акцент (§10 брифа). */
+   единственное место, где на сайте допустим тёплый акцент (§10 брифа).
+
+   🔴 Заливка каждой краски идёт через `--badge-fill` (issue #329). Это
+   контракт для окружения, а не настройка плашки: на подсвеченной строке
+   таблицы тинт складывается дважды — подложка строки плюс подложка плашки, —
+   и красное на красном даёт 4,4:1 при норме 4,5. Строка ставит
+   `--badge-fill: transparent`, и мягкая плашка становится обведённой:
+   собственная заливка ей там не нужна. Обратиться к классам плашки строка не
+   может — CSS-модули этого не позволяют, и это правильно. */
 
 .badge {
   display: inline-flex;
@@ -88,13 +96,13 @@
 
 .neutral {
   border-color: var(--line);
-  background: var(--bg-soft);
+  background: var(--badge-fill, var(--bg-soft));
   color: var(--muted);
 }
 
 .accent {
   border-color: var(--accent-line);
-  background: var(--accent-bg);
+  background: var(--badge-fill, var(--accent-bg));
   color: var(--accent-text);
 }
 
@@ -113,19 +121,19 @@
 
 .sale {
   border-color: var(--sale-line);
-  background: var(--sale-bg);
+  background: var(--badge-fill, var(--sale-bg));
   color: var(--sale-ink);
 }
 
 .success {
   border-color: var(--ok-line);
-  background: var(--ok-bg);
+  background: var(--badge-fill, var(--ok-bg));
   color: var(--ok-ink);
 }
 
 .warning {
   border-color: var(--warn-line);
-  background: var(--warn-bg);
+  background: var(--badge-fill, var(--warn-bg));
   color: var(--warn-ink);
 }
 
@@ -134,7 +142,7 @@
    читается предложением, а не проблемой. */
 .danger {
   border-color: var(--error-line);
-  background: var(--error-bg);
+  background: var(--badge-fill, var(--error-bg));
   color: var(--error-ink);
 }
 
@@ -142,7 +150,7 @@
    достаточно далёк от циана, чтобы метки не путались (ADR-081). */
 .info {
   border-color: var(--info-line);
-  background: var(--info-bg);
+  background: var(--badge-fill, var(--info-bg));
   color: var(--info-ink);
 }
 

@@ -1,0 +1,80 @@
+/* Копируемая строка (issue #332). Значение в рамке плюс кнопка копирования.
+
+   Геометрия — от поля: та же высота и тот же радиус, потому что строка стоит
+   в форме рядом с полями и обязана держать их ряд. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label {
+  color: var(--ink2);
+  font-size: var(--fs-label, var(--fs-caption));
+  font-weight: 600;
+}
+
+.row {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: var(--h-lg, var(--tap));
+  border: 1px solid var(--line-ui);
+  border-radius: var(--r-btn, var(--r-sm));
+  background: var(--field-bg, var(--field));
+  padding: 4px 4px 4px 14px;
+}
+
+/* 🔴 Значение обрезается многоточием, а не переносится: адрес статьи бывает
+   длиннее строки, а перенос по середине слова делает его нечитаемым. Полное
+   значение при этом остаётся выделяемым мышью и попадает в буфер целиком —
+   обрезка чисто визуальная. */
+.value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-size: var(--fs-body, var(--fs-dense));
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: all;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-tiny, var(--fs-micro));
+}
+
+.button {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--h-sm, 36px);
+  height: var(--h-sm, 36px);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease;
+}
+
+@media (hover: hover) {
+  .button:hover {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+  }
+}
+
+.button:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}

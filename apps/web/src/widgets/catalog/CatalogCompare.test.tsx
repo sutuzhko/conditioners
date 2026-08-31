@@ -225,7 +225,9 @@ describe('Сравнение — прокрутка внутри контейн�
 
   it('🔴 залипшая ячейка берёт фон своей строки — иначе она просвечивает', () => {
     expect(kitCss).toMatch(/\.sticky th:first-child[\s\S]*?background:\s*inherit/);
-    expect(kitCss).toMatch(/\.zebra tbody tr:nth-child\(even\)\s*\{[^}]*background:\s*var\(--stripe-a\)/);
+    expect(kitCss).toMatch(
+      /\.zebra tbody tr:nth-child\(even\)\s*\{[^}]*background:\s*var\(--stripe-a\)/,
+    );
   });
 
   it('названия характеристик переносятся, значения — нет', () => {

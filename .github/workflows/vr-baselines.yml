@@ -112,7 +112,7 @@ jobs:
           docker run --name vr-update --network vr \
             -e VR_BASE_URL=http://storybook:6006 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
-            tulaklimat-dev:ci pnpm --filter web vr --update-snapshots || true
+            tulaklimat-dev:ci pnpm --filter web vr:all --update-snapshots || true
 
       - name: Забрать эталоны из контейнера
         run: |
