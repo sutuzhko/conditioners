@@ -179,9 +179,14 @@
     position: sticky;
     z-index: 1;
 
-    /* Жестовая полоса системы принадлежит не нам: без добавки полоса итога
-       оказывается под ней, и кнопку нечем нажать. */
-    bottom: env(safe-area-inset-bottom);
+    /* 🔴 В отступ входит собственное отрицательное поле причала. Липкое
+       смещение отмеряется от внешнего края блока, а тот поднят над видимым
+       краем полосы ровно на величину выпуска — без добавки полоса наезжала
+       на панель действий, максимум 53,56px по четырнадцати положениям
+       прокрутки на главной. С добавкой пересечение нулевое во всех.
+       Жестовая полоса системы принадлежит не нам: без `env()` нижнюю кнопку
+       нечем нажать. */
+    bottom: calc(env(safe-area-inset-bottom) + var(--summary-pad));
     margin: auto calc(var(--summary-pad) * -1) calc(var(--summary-pad) * -1);
     padding: 0 var(--summary-pad) var(--summary-pad);
     border-radius: 0 0 var(--r-lg) var(--r-lg);
@@ -195,7 +200,7 @@
    чужую высоту в CSS нечем. */
 @media (width < 600px) {
   .totalDock {
-    bottom: calc(var(--action-bar-h) + env(safe-area-inset-bottom));
+    bottom: calc(var(--action-bar-h) + env(safe-area-inset-bottom) + var(--summary-pad));
   }
 }
 

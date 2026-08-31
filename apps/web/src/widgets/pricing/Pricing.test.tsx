@@ -4,7 +4,7 @@ import { forgetLeadContext, readLeadContext } from '@/features/lead-form';
 
 import { Pricing } from './Pricing';
 import { pricingText } from './content';
-import { customRates, priceRows, rates } from './fixtures';
+import { customRates, priceRows, rates, singleRow } from './fixtures';
 import type { EstimateHandoff } from './model';
 
 /** Цифры из отформатированной суммы: «6 000 ₽» → 6000. */
@@ -76,6 +76,17 @@ describe('Цены — таблица монтажа', () => {
     const note = screen.getByText(/Точную стоимость подтвердит/);
     expect(note.textContent).toContain('Трасса до 5 м');
     expect(note.textContent).toContain('Высотные работы с 6 этажа');
+  });
+
+  it('карточек ровно столько, сколько строк в прайсе', () => {
+    /* Пустая карточка «на всякий случай» в прайсе означала бы цену, которой
+       владелец не заводил. Строк столько, сколько их в базе. */
+    const { unmount } = render(<Pricing prices={singleRow} rates={rates} />);
+    expect(screen.getAllByRole('rowheader')).toHaveLength(1);
+    unmount();
+
+    render(<Pricing prices={priceRows} rates={rates} />);
+    expect(screen.getAllByRole('rowheader')).toHaveLength(priceRows.length);
   });
 
   it('пустой прайс не превращается в нули: показывает пустое состояние', () => {
