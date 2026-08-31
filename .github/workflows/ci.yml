@@ -179,27 +179,41 @@ jobs:
         if: steps.scope.outputs.pixels == 'true'
         run: docker build --target dev -t tulaklimat-dev:ci .
 
+      # 🔴 Витрина под снимки — статическая сборка, а не дев-сервер (ADR-231).
+      # `storybook dev` был общим однопоточным ресурсом на четыре браузера:
+      # каждый переход на историю тянул сотни несобранных модулей через
+      # трансформ Vite, и четыре потока (ADR-222) дали 1,87× вместо 4×.
+      # Собранную витрину раздаёт `caddy` — образ, который уже стоит в составе
+      # разработки, новых зависимостей это не добавляет. `--test` не собирает
+      # документацию и карты кода: снимкам нужны только истории.
+      - name: Сборка витрины
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          docker run --name vr-storybook-build \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web build-storybook --test --quiet
+          docker cp vr-storybook-build:/app/apps/web/storybook-static ./storybook-static
+
       - name: Витрина под снимки
         if: steps.scope.outputs.pixels == 'true'
         run: |
           docker network create vr
           docker run -d --name vr-storybook --network vr --network-alias storybook \
-            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
-            tulaklimat-dev:ci pnpm --filter web storybook
+            -v "$PWD/storybook-static:/srv:ro" \
+            caddy:2.8-alpine caddy file-server --root /srv --listen :6006
 
-          # Готовность — по индексу историй, а не по открытому порту: порт
-          # слушается раньше, чем Vite соберёт истории, и первый снимок вышел бы
-          # пустым, а не упавшим
-          docker exec vr-storybook node -e "
+          # Готовность — по индексу историй. Статика отдаёт его сразу, но
+          # проверка остаётся: контейнер мог не подняться вовсе
+          docker run --rm --network vr tulaklimat-dev:ci node -e "
             (async () => {
-              for (let i = 0; i < 90; i += 1) {
+              for (let i = 0; i < 30; i += 1) {
                 try {
-                  const r = await fetch('http://localhost:6006/index.json');
+                  const r = await fetch('http://storybook:6006/index.json');
                   if (r.ok) { console.log('витрина готова'); return; }
                 } catch {}
-                await new Promise((done) => setTimeout(done, 2000));
+                await new Promise((done) => setTimeout(done, 1000));
               }
-              console.error('витрина не поднялась за три минуты');
+              console.error('витрина не поднялась за полминуты');
               process.exit(1);
             })()"
 
@@ -304,24 +318,41 @@ jobs:
         if: steps.scope.outputs.pixels == 'true'
         run: docker build --target dev -t tulaklimat-dev:ci .
 
+      # 🔴 Витрина под снимки — статическая сборка, а не дев-сервер (ADR-231).
+      # `storybook dev` был общим однопоточным ресурсом на четыре браузера:
+      # каждый переход на историю тянул сотни несобранных модулей через
+      # трансформ Vite, и четыре потока (ADR-222) дали 1,87× вместо 4×.
+      # Собранную витрину раздаёт `caddy` — образ, который уже стоит в составе
+      # разработки, новых зависимостей это не добавляет. `--test` не собирает
+      # документацию и карты кода: снимкам нужны только истории.
+      - name: Сборка витрины
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          docker run --name vr-panel-storybook-build \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web build-storybook --test --quiet
+          docker cp vr-panel-storybook-build:/app/apps/web/storybook-static ./storybook-static
+
       - name: Витрина под снимки
         if: steps.scope.outputs.pixels == 'true'
         run: |
           docker network create vr-panel
           docker run -d --name vr-panel-storybook --network vr-panel --network-alias storybook \
-            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
-            tulaklimat-dev:ci pnpm --filter web storybook
+            -v "$PWD/storybook-static:/srv:ro" \
+            caddy:2.8-alpine caddy file-server --root /srv --listen :6006
 
-          docker exec vr-panel-storybook node -e "
+          # Готовность — по индексу историй. Статика отдаёт его сразу, но
+          # проверка остаётся: контейнер мог не подняться вовсе
+          docker run --rm --network vr-panel tulaklimat-dev:ci node -e "
             (async () => {
-              for (let i = 0; i < 90; i += 1) {
+              for (let i = 0; i < 30; i += 1) {
                 try {
-                  const r = await fetch('http://localhost:6006/index.json');
+                  const r = await fetch('http://storybook:6006/index.json');
                   if (r.ok) { console.log('витрина готова'); return; }
                 } catch {}
-                await new Promise((done) => setTimeout(done, 2000));
+                await new Promise((done) => setTimeout(done, 1000));
               }
-              console.error('витрина не поднялась за три минуты');
+              console.error('витрина не поднялась за полминуты');
               process.exit(1);
             })()"
 
