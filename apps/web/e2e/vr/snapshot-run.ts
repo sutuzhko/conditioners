@@ -1,6 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 
 import { emptyTally, firstLines, recordErrors, writeOutcome, type RunOutcome } from './outcome';
+import { shardFromEnv, shardSlice } from './shard';
 import { loadBaseStoryIds, pinnedWidths, type StoryEntry } from './story-index';
 import { waitForStoryReady, watchPlayFailures } from './story-ready';
 
@@ -19,6 +20,10 @@ import { waitForStoryReady, watchPlayFailures } from './story-ready';
  * ожидание готовности, но кадр с эталоном не сверяется. Итог прогона по
  * категориям уходит в `VR_OUTCOME_DIR`: по нему работа решает, красить ли PR
  * (расхождение кадра принимает ярлык, отказ сценария — ничто).
+ *
+ * `VR_SHARD=k/n` отдаёт прогону долю списка историй: работа пайплайна снимает
+ * доли параллельными работами, а принадлежность истории доле считает
+ * устойчивый хеш id — почему именно хеш, объяснено в `shard.ts`.
  *
  * Без этих переменных раннер сравнивает все истории с кадрами в каталоге
  * рядом со спеками — так идёт локальный прогон. Каталог в репозиторий не
@@ -45,6 +50,8 @@ export type SnapshotRun = {
 
 export async function snapshotStories(page: Page, run: SnapshotRun): Promise<void> {
   const baseIds = loadBaseStoryIds();
+  const shard = shardFromEnv();
+  const stories = shard === null ? run.stories : shardSlice(run.stories, shard);
   const tally = emptyTally();
 
   /* Подписка на отказы сценариев ставится до первого перехода: она
@@ -64,7 +71,7 @@ export async function snapshotStories(page: Page, run: SnapshotRun): Promise<voi
   await page.clock.setFixedTime(FROZEN_NOW);
 
   try {
-    for (const story of run.stories) {
+    for (const story of stories) {
       if (!pinnedWidths(story, run.widths).includes(run.width)) continue;
 
       /* 🔴 Отказ одной истории не обрывает обход. Раньше первый же отказ
@@ -111,15 +118,19 @@ export async function snapshotStories(page: Page, run: SnapshotRun): Promise<voi
     /* Итог пишется и когда тест красный: работе он нужен именно тогда. */
     const outcomeDir = process.env.VR_OUTCOME_DIR;
     if (outcomeDir !== undefined && outcomeDir.length > 0) {
-      writeOutcome(outcomeDir, {
-        project: run.project,
-        width: run.width,
-        theme: run.theme,
-        compared: tally.compared,
-        changed: tally.changed,
-        new: tally.new,
-        failed: tally.failed,
-      });
+      writeOutcome(
+        outcomeDir,
+        {
+          project: run.project,
+          width: run.width,
+          theme: run.theme,
+          compared: tally.compared,
+          changed: tally.changed,
+          new: tally.new,
+          failed: tally.failed,
+        },
+        shard ?? undefined,
+      );
     }
   }
 

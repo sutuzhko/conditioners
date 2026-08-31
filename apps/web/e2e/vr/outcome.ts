@@ -1,6 +1,8 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+import type { Shard } from './shard';
+
 /**
  * Машинный итог прогона снимков — то, по чему работа пайплайна решает, красить
  * PR или нет (ADR-230).
@@ -125,14 +127,19 @@ export function outcomeFileName(
   project: RunOutcome['project'],
   width: number,
   theme: string,
+  shard?: Shard,
 ): string {
-  return `outcome-${project}-${width}-${theme}.json`;
+  /* Шард — часть имени, а не поле итога: работа пайплайна сливает каталоги
+     итогов всех шардов в один, и совпадающие имена перезаписали бы друг
+     друга — сводка молча потеряла бы целые пары «ширина + тема». */
+  const part = shard === undefined ? '' : `-s${shard.index}of${shard.total}`;
+  return `outcome-${project}${part}-${width}-${theme}.json`;
 }
 
 /** Пишет итог в каталог; возвращает путь к файлу. Каталог создаётся сам. */
-export function writeOutcome(dir: string, outcome: RunOutcome): string {
+export function writeOutcome(dir: string, outcome: RunOutcome, shard?: Shard): string {
   mkdirSync(dir, { recursive: true });
-  const path = join(dir, outcomeFileName(outcome.project, outcome.width, outcome.theme));
+  const path = join(dir, outcomeFileName(outcome.project, outcome.width, outcome.theme, shard));
   writeFileSync(path, `${JSON.stringify(outcome, null, 2)}\n`, 'utf8');
   return path;
 }
