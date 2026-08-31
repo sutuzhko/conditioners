@@ -48,3 +48,44 @@ export const CardPlaceholder: Story = {
     </div>
   ),
 };
+
+/**
+ * 🔴 Скелетон обязан иметь `display`: `span` по природе строчный, и строчный
+ * элемент игнорирует заданные ширину и высоту целиком — заготовка
+ * схлопывалась в ничто вместе с резервом места, ради которого она и стоит.
+ * История показывает все три вида с явно заданными размерами: если `display`
+ * пропадёт, они станут нулевыми и это будет видно сразу.
+ */
+export const Sizes: Story = {
+  name: 'Заданные размеры',
+  render: () => (
+    <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+      <Skeleton variant="circle" width="44px" />
+      <Skeleton variant="block" width="160px" height="44px" />
+      <Skeleton variant="text" width="200px" />
+    </div>
+  ),
+};
+
+/**
+ * Блочное состояние загрузки: скелетон повторяет будущую раскладку строка
+ * в строку, а не показывает три полосы наугад. Иначе содержимое, приехав,
+ * сдвинет вёрстку — а это ровно то, ради чего скелетон и рисуют.
+ */
+export const RowsLoading: Story = {
+  name: 'Загрузка списка',
+  render: () => (
+    <div data-ui="panel" style={{ background: 'var(--bg-soft)', padding: 16 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {[0, 1, 2, 3].map((row) => (
+          <div key={row} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            <Skeleton variant="circle" width="32px" />
+            <Skeleton variant="text" width="22%" />
+            <Skeleton variant="text" width="34%" />
+            <Skeleton variant="block" width="88px" height="24px" />
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
+};
