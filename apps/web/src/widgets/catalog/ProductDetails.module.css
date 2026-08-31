@@ -36,26 +36,23 @@
   order: 1;
 }
 
+/* Длина строки ограничена: читаемая строка — 65–75 знаков, а во всю ширину
+    контейнера 1200 их выходит вдвое больше. */
 .lead {
   flex: 1 1 100%;
   order: 3;
-  max-width: 640px;
+  width: min(100%, 680px);
   margin: 0;
   color: var(--muted);
   font-size: var(--fs-lead);
 }
 
-/* 🔴 Характеристики стоят в той же сетке, что и галерея, — левой колонкой
-   под ней (BUGS, аудит 28 августа). До этого панель цены висела в правой
-   колонке одна, `align-items: start` не давал ей никуда двигаться, и под ней
-   зияло шестьсот пикселей пустоты. Теперь правая колонка тянется на обе
-   строки, и залипание панели наконец работает: цена и кнопка едут вместе с
-   читателем до конца характеристик. */
+/* Телефон: одна колонка, порядок сверху вниз — снимок, цена с кнопкой,
+   характеристики. Две колонки появляются с 600 (issue #262). */
 .main {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
-  grid-template-rows: auto 1fr;
-  gap: 28px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
   margin-bottom: 44px;
 }
 
@@ -63,17 +60,17 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  grid-column: 1;
-  grid-row: 1;
   min-width: 0;
 }
 
 .aside {
-  grid-column: 2;
-  grid-row: 1 / span 2;
   min-width: 0;
 }
 
+/* 🔴 Пропорция задана, а не выведена из файла: место под снимок
+   зарезервировано до его загрузки, и подстановка картинки не двигает
+   страницу. Та же форма, что у карточки витрины, — человек приходит сюда с
+   неё, и снимок не должен менять пропорцию по дороге. */
 .mainPhoto {
   display: block;
   width: 100%;
@@ -82,6 +79,7 @@
   border-radius: var(--r-lg);
   background: var(--bg-soft);
   object-fit: cover;
+  aspect-ratio: 16 / 10;
 }
 
 .fallback {
@@ -93,7 +91,7 @@
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
   background: linear-gradient(160deg, var(--accent-bg), var(--bg-soft));
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
 }
 
 .fallbackClass {
@@ -123,7 +121,7 @@
 .thumb {
   display: block;
   width: 120px;
-  height: 90px;
+  height: 75px;
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
   background: var(--bg-soft);
@@ -138,9 +136,10 @@
   box-shadow: var(--ring-focus-inset);
 }
 
+/* На телефоне и на «крупном» панель цены просто стоит в потоке: липнуть ей
+   некуда, колонка одна. Липкой она становится с 900 — правило ниже. */
 .offer {
-  position: sticky;
-  top: 96px;
+  position: static;
 }
 
 .area {
@@ -216,8 +215,6 @@
 }
 
 .specs {
-  grid-column: 1;
-  grid-row: 2;
   min-width: 0;
   border-top: 1px solid var(--line);
   padding-top: 28px;
@@ -243,7 +240,7 @@
 .photoSkeleton {
   height: auto;
   border-radius: var(--r-lg);
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
 }
 
 .specsSkeleton {
@@ -281,11 +278,15 @@
   margin: 0;
 }
 
+/* 🔴 Определения в две колонки `auto 1fr`, а не таблица (issue #262): таблица
+   из двух колонок на 343px — это таблица с горизонтальной прокруткой без
+   нужды. `auto` меряет самое длинное название на всю группу, поэтому значения
+   встают одной колонкой и сравниваются взглядом, а не поиском. */
 .specRow {
-  display: flex;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  gap: 4px 12px;
   align-items: baseline;
-  justify-content: space-between;
   border-bottom: 1px solid var(--line-soft);
   padding-bottom: 6px;
   font-size: var(--fs-dense);
@@ -293,32 +294,71 @@
 
 .specRow dt {
   color: var(--muted);
+  font-size: var(--fs-caption);
+  overflow-wrap: anywhere;
 }
 
 .specRow dd {
   margin: 0;
   color: var(--ink);
   font-weight: 600;
-  text-align: right;
+  overflow-wrap: anywhere;
 }
 
-@media (width < 900px) {
-  /* Одна колонка: галерея, панель цены, характеристики — в том же порядке,
-     в каком они лежат в разметке. */
+/* Крупный экран и узкий планшет: снимок и цена встают в две колонки, а
+   характеристики остаются во всю ширину — им нужна длина строки, а не
+   соседство с ценой. Ширина правой колонки тянется от 280 до 360px
+   непрерывно: скачка на пороге у неё нет. */
+@media (width >= 600px) {
   .main {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: none;
+    grid-template-columns: minmax(0, 1fr) clamp(280px, 26vw, 360px);
+    gap: 24px 28px;
+    align-items: start;
   }
 
-  .gallery,
-  .aside,
+  .gallery {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .aside {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .specs {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+/* 🔴 Характеристики уходят под галерею, в ту же левую колонку, а правая
+   тянется на обе строки — только тогда залипание панели цены работает: цена и
+   кнопка едут вместе с читателем до конца характеристик (BUGS, аудит 28
+   августа). */
+@media (width >= 900px) {
+  .main {
+    grid-template-rows: auto 1fr;
+  }
+
+  .aside {
+    grid-row: 1 / span 2;
+  }
+
   .specs {
     grid-column: 1;
-    grid-row: auto;
+    grid-row: 2;
   }
 
+  /* Смещение считается от высоты шапки, а не числом: шапка липкая и меняет
+     высоту на пороге, а разъехавшись, эти два значения дают либо щель, либо
+     наезд. Потолок высоты — не украшение: панель выше окна не липнет, а просто
+     стоит, и её нижний край становится недостижим. */
   .offer {
-    position: static;
+    position: sticky;
+    top: calc(var(--header-h) + 16px);
+    max-height: calc(100dvh - var(--header-h) - 32px);
+    overflow-y: auto;
   }
 }
 
@@ -334,5 +374,20 @@
 
   .specGroups {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Миниатюры едут лентой, а не переносятся: на 343px в ряд помещаются две,
+     и полоса из шести снимков занимала три строки над ценой. */
+  .thumbs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .thumbs > li {
+    flex: none;
+    scroll-snap-align: start;
   }
 }

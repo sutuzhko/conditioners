@@ -43,6 +43,12 @@ export interface TableProps {
   stickyHead?: boolean | undefined;
   /** Предел высоты области с липкой шапкой; умолчание — `70dvh`. */
   maxHeight?: string | undefined;
+  /**
+   * Полоска затухания у правого края — признак, что таблица шире контейнера
+   * (issue #263). Она не обязательна: у таблицы бывает и подпись под ней, и
+   * видимая полоса прокрутки, — поэтому проп, а не поведение варианта.
+   */
+  fade?: boolean | undefined;
   className?: string | undefined;
 }
 
@@ -55,6 +61,7 @@ export function Table({
   minWidth,
   stickyHead = false,
   maxHeight,
+  fade = false,
   className,
 }: TableProps) {
   const cards = variant === 'cards';
@@ -103,6 +110,7 @@ export function Table({
         styles.viewport,
         styles.scrollable,
         stickyHead ? styles.bounded : null,
+        fade ? styles.faded : null,
         cards ? styles.cardsScroll : null,
       ]
         .filter(Boolean)

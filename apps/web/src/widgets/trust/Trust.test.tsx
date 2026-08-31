@@ -1,3 +1,7 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 
@@ -166,5 +170,29 @@ describe('Почему нас выбирают', () => {
     expect(
       screen.queryByRole('heading', { level: 3, name: 'Гарантия по договору' }),
     ).not.toBeInTheDocument();
+  });
+});
+
+/**
+ * 🔴 Признаки ленты держат правила CSS, а jsdom их не применяет — проверяем
+ * источник (тот же приём, что в HeroPicker.test).
+ */
+describe('Полоса доверия — лента с признаками продолжения (issue #261)', () => {
+  const css = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), 'TrustStrip.module.css'),
+    'utf8',
+  );
+
+  it('🔴 затухает с двух сторон: строка едет сама и обрывается с обеих', () => {
+    expect(css).toMatch(/\.viewport\s*\{[^}]*mask-image:\s*var\(--fade-inline-both\)/);
+  });
+
+  it('при просьбе меньше движения строка стоит и просто листается', () => {
+    expect(css).toMatch(
+      /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.track\s*\{[^}]*animation:\s*none/,
+    );
+    expect(css).toMatch(
+      /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.viewport\s*\{[^}]*overflow-x:\s*auto/,
+    );
   });
 });

@@ -1,5 +1,5 @@
-/* Панель сравнения. Скролл живёт внутри Table (вариант sticky), здесь только
-   обвязка панели: шапка, поля крайних колонок и сноска про прочерк.
+/* Панель сравнения. Прокрутка живёт внутри Table (вариант sticky), здесь
+   обвязка панели: ширины крайних колонок, залипание первой и сноски.
    🔴 Страница по горизонтали не скроллится никогда — docs/DESIGN_BRIEF.md §6. */
 
 .panel {
@@ -15,9 +15,12 @@
 
 /* Заголовок группы характеристик: строк в сравнении стало под сорок, и без
    разбивки читатель не находит нужную. Группы приходят из справочника в
-   настройках (ADR-094). */
+   настройках (ADR-094). Разделителя у этой строки нет: делить в ней нечего —
+   она одна ячейка во всю ширину. */
 .groupRow th {
   padding-top: 18px;
+  padding-left: 0;
+  box-shadow: none;
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
@@ -27,48 +30,84 @@
   text-transform: uppercase;
 }
 
-/* строка цены закрывает таблицу — в макете она выделена акцентом */
+/* Поле переехало на саму подпись: липкой она обязана быть вместе со своим
+   отступом, иначе при прокрутке название группы прижимается к краю. */
+.groupLabel {
+  position: sticky;
+  left: 0;
+  display: inline-block;
+  padding-left: var(--gutter);
+}
+
+/* 🔴 Цена открывает таблицу — в макете она выделена акцентом.
+   `tabular-nums` ставит цифры соседних моделей в колонку: сравнивают именно
+   их, и разная ширина знаков заставляет читать каждое число заново. */
 .priceRow td {
   color: var(--accent-text);
   font-family: var(--font-display);
   font-weight: 700;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
-/* поля крайних колонок выравнивают таблицу с шапкой и сноской панели */
+/* 🔴 Колонка характеристик — единственная, что переносится: её содержимое
+   текст, а не число. Ширина тянется от 132px на телефоне до 200px на
+   десктопе одной непрерывной функцией, без порога: 132px здесь — не красота,
+   а остаток от 343px экрана после трёх колонок значений.
+
+   🔴 `anywhere`, а не `break-word`, и разница здесь не косметическая.
+   Рисуют они одинаково — слово разрывается, только если само не помещается,
+   — но `break-word` **не участвует** в расчёте минимальной ширины, и
+   автоматическая раскладка таблицы отдавала колонке ширину самого длинного
+   слова: замерено 196px вместо 132 на экране 320, то есть две трети видимой
+   части занимал залипший заголовок. */
 .table thead th:first-child,
-.table tbody th:first-child {
-  width: 200px;
-  min-width: 150px;
-  padding-left: 28px;
+.table tbody th[scope='row'] {
+  width: clamp(132px, 8vw + 106px, 200px);
+  padding-left: var(--gutter);
+  overflow-wrap: anywhere;
+}
+
+/* Значения не переносятся: цифры обязаны читаться одной строкой. Рвётся
+   расстояние между колонками — то есть таблица едет, — а не подпись. */
+.table tbody td,
+.table thead th:not(:first-child) {
+  white-space: nowrap;
+}
+
+/* 🔴 Разделитель залипшей колонки — тень, а не граница. При
+   `border-collapse: collapse` граница залипшей ячейки принадлежит сетке
+   таблицы и уезжает вместе с ней; тень рисуется поверх и остаётся на месте.
+   Без разделителя колонка при прокрутке наезжает на данные и читается как
+   склейка двух таблиц. Фон ячейка берёт у своей строки (`background: inherit`
+   в Table) — иначе на чётных строках сквозь неё просвечивает уезжающее. */
+.table thead th:first-child,
+.table tbody th[scope='row'],
+.table tbody td:first-child {
+  border-right: 0;
+  box-shadow: 1px 0 0 var(--line);
 }
 
 .table thead th:last-child,
 .table tbody td:last-child {
-  padding-right: 28px;
+  padding-right: var(--gutter);
+}
+
+.notes {
+  border-top: 1px solid var(--line-soft);
+  padding: 14px var(--gutter) 18px;
+}
+
+/* Подсказка про жест: полосы прокрутки на телефоне не видно, а затухание края
+   работает не на каждом движке. */
+.swipe {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: var(--fs-caption);
 }
 
 .note {
   margin: 0;
-  padding: 14px 28px 18px;
-  border-top: 1px solid var(--line-soft);
   color: var(--faint);
-  font-size: 12.5px;
-}
-
-@media (width < 600px) {
-  .table thead th:first-child,
-  .table tbody th:first-child {
-    width: 150px;
-    padding-left: 16px;
-  }
-
-  .table thead th:last-child,
-  .table tbody td:last-child {
-    padding-right: 16px;
-  }
-
-  .note {
-    padding: 14px 16px 16px;
-  }
+  font-size: var(--fs-micro);
 }

@@ -1,5 +1,6 @@
 import { Card, Skeleton } from '@/shared/ui';
 import styles from './ProductCard.module.css';
+import priceStyles from './ProductPrice.module.css';
 
 /**
  * Карточка на время загрузки данных. Повторяет геометрию настоящей — иначе
@@ -8,7 +9,7 @@ import styles from './ProductCard.module.css';
  */
 export function ProductCardSkeleton() {
   return (
-    <Card as="li" padding="none" className={styles.card}>
+    <Card as="li" padding="none" radius="ml" elevation="none" className={styles.card}>
       <div className={styles.media}>
         <Skeleton variant="block" width="100%" height="100%" />
       </div>
@@ -16,16 +17,16 @@ export function ProductCardSkeleton() {
         <div className={styles.nameReserve}>
           <Skeleton variant="text" width="70%" />
         </div>
-        <Skeleton variant="text" width="45%" />
-        <div className={styles.tagRow}>
-          <Skeleton variant="text" width="40%" height="18px" />
+        <div className={styles.meta}>
+          <Skeleton variant="text" width="45%" height="16px" />
         </div>
-        <div className={styles.price}>
-          <Skeleton variant="text" width="55%" height="22px" />
+        <div className={priceStyles.price}>
+          <Skeleton variant="text" width="55%" height="24px" />
+          {/* Слот под ярлык скидки: пустой, но своей высоты — у настоящей
+              карточки он есть всегда, и без него кнопка скелетона встала бы
+              выше подставляемой. */}
+          <div className={priceStyles.slot} />
         </div>
-        {/* Пустой ряд под ценой: он несёт `margin-top: auto` настоящей
-            карточки, и без него кнопка скелетона не встаёт к низу. */}
-        <div className={styles.meta} />
         <div className={styles.actions}>
           <Skeleton variant="block" width="100%" height="var(--tap)" />
         </div>
