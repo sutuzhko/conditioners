@@ -1,3 +1,7 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
@@ -240,5 +244,54 @@ describe('Похожие модели — отбор', () => {
 
   it('длина списка ограничена', () => {
     expect(similarProducts(catalogFixture, plainProduct, 2)).toHaveLength(2);
+  });
+});
+
+/**
+ * 🔴 Раскладку страницы держат правила CSS, а jsdom их не применяет.
+ * Проверяем источник; поведение в браузере снято замером (issue #262).
+ */
+describe('Страница модели — раскладка по ширинам (issue #262)', () => {
+  const here = dirname(fileURLToPath(import.meta.url));
+  const css = readFileSync(join(here, 'ProductDetails.module.css'), 'utf8');
+  const priceCss = readFileSync(join(here, 'ui', 'ProductPrice.module.css'), 'utf8');
+
+  it('на телефоне одна колонка, две — с 600', () => {
+    expect(css).toMatch(/\.main\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/);
+    expect(css).toMatch(
+      /@media \(width >= 600px\)[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1fr\) clamp\(280px, 26vw, 360px\)/,
+    );
+  });
+
+  it('🔴 с 900 блок цены липнет и считает смещение от высоты шапки', () => {
+    const wide = css.slice(css.indexOf('@media (width >= 900px)'));
+    expect(wide).toMatch(/position:\s*sticky/);
+    expect(wide).toMatch(/top:\s*calc\(var\(--header-h\) \+ 16px\)/);
+    /* Потолок высоты обязателен: панель выше окна не липнет, а просто стоит,
+       и её нижний край становится недостижим. */
+    expect(wide).toMatch(/max-height:\s*calc\(100dvh - var\(--header-h\) - 32px\)/);
+  });
+
+  it('снимок держит своё место пропорцией, а не размером файла', () => {
+    expect(css).toMatch(/\.mainPhoto\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*10/);
+    expect(css).toMatch(/\.fallback\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*10/);
+  });
+
+  it('характеристики — определения в две колонки, а не таблица', () => {
+    expect(css).toMatch(
+      /\.specRow\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*auto\) minmax\(0,\s*1fr\)/,
+    );
+  });
+
+  it('длина строки текста ограничена', () => {
+    expect(css).toMatch(/\.lead\s*\{[^}]*width:\s*min\(100%,\s*680px\)/);
+  });
+
+  it('🔴 междустрочный интервал строки цены — множитель, а не пиксели', () => {
+    /* В пикселях сравнивались коробки, но не выносные элементы: у мелкой
+       приписки «под ключ» полуинтервал больше, и строка без скидки выходила
+       на 1–2px выше — кнопка «Заказать» стояла не на одной высоте с той же
+       кнопкой у модели со скидкой. Замерено в браузере. */
+    expect(priceCss).toMatch(/\.main > \*\s*\{[^}]*line-height:\s*1\.15/);
   });
 });

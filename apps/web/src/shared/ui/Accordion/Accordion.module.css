@@ -1,7 +1,12 @@
 /* Аккордеон FAQ и разбора схем обмана.
    🔴 Содержимое ответа остаётся в DOM всегда, даже свёрнутым: это часть
    индексируемого контента и разметки FAQPage (docs/CLAUDE.md). Сворачивание —
-   чисто визуальное, через сетку 0fr → 1fr. */
+   чисто визуальное, через сетку 0fr → 1fr.
+
+   🔴 Высота пункта — `--h-nav` (issue #330). В панели это 44px, и аккордеон
+   встаёт в один ряд с пунктами навигации и полями формы; на витрине
+   переменной нет, и пункт остаётся высоким разделом FAQ, каким его рисует
+   макет. Развилка — подстановкой по умолчанию у `var()` (ADR-187). */
 
 .list {
   display: flex;
@@ -12,7 +17,7 @@
 .item {
   /* Радиус объявлен переменной: его повторяет кольцо фокуса у заголовка, а
      два одинаковых числа в разных правилах однажды разъезжаются. */
-  --item-radius: 16px;
+  --item-radius: var(--r-card, 16px);
 
   overflow: hidden;
   border: 1px solid var(--line);
@@ -32,7 +37,7 @@
   justify-content: space-between;
   box-sizing: border-box;
   width: 100%;
-  min-height: var(--tap);
+  min-height: var(--h-nav, var(--tap));
   padding: 17px 18px;
   border: 0;
   background: transparent;
@@ -60,20 +65,38 @@
   box-shadow: var(--ring-focus-inset);
 }
 
+/* 🔴 Шеврон, а не плюс (issue #330). Плюс, повёрнутый на 45°, показывает
+   «закрыть», а не «свернуть»: это знак снятия, и в списке разделов он читался
+   как крестик удаления. Шеврон поворачивается на 180° и всё время указывает
+   туда, куда пункт откроется. Сам знак рисуется границами квадрата — иконка
+   ради одной галки не заводится, а шрифтовая стрелка рисуется по-разному в
+   разных гарнитурах. */
 .icon {
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   width: 28px;
   height: 28px;
   border-radius: var(--r-pill);
   background: var(--accent-bg);
   color: var(--accent-text);
-  font-size: 19px;
-  font-weight: 600;
-  line-height: 1;
   transition: transform var(--dur-base) var(--ease-out);
+}
+
+.icon::before {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+
+  /* Квадрат повёрнут на 45°: остаются видимыми только правая и нижняя
+     границы — это и есть галка, смотрящая вниз. Смещение вверх на 2px
+     возвращает её оптический центр в центр круга: у повёрнутого квадрата
+     геометрический центр ниже видимого. */
+  transform: translateY(-2px) rotate(45deg);
+  content: '';
 }
 
 .panel {
@@ -93,11 +116,37 @@
 }
 
 .open .icon {
-  transform: rotate(45deg);
+  transform: rotate(180deg);
 }
 
 .open .panel {
   grid-template-rows: 1fr;
+}
+
+/* 🔴 В панели пункт обязан РЕАЛЬНО быть высотой `--h-nav`, а не просто иметь
+   такой минимум: с полем 17px и кеглем 16,5px он вырастал до 57px, и
+   `min-height` не срабатывал ни разу. Поле и кегль приводятся к плотности
+   панели, и высота становится ровно 44px — замерено в браузере.
+
+   Признак — `body:has([data-ui='panel'])`, а не сам контейнер: тем же
+   приёмом переносится подпись поля (ADR-193). */
+body:has([data-ui='panel']) .trigger {
+  padding: 10px var(--pad-card, 18px);
+  font-size: var(--fs-body);
+}
+
+/* 🔴 Круг шеврона в панели — 24px, а не 28px. Замер показал 48px у пункта при
+   `--h-nav` в 44: высоту задавал не текст и не `min-height`, а самый высокий
+   ребёнок флекс-строки — круг 28px плюс поля 2 × 10. Уменьшение круга на 4px
+   ставит пункт ровно на 44px. */
+body:has([data-ui='panel']) .icon {
+  width: 24px;
+  height: 24px;
+}
+
+body:has([data-ui='panel']) .content {
+  padding: 0 var(--pad-card, 18px) var(--pad-card, 18px);
+  font-size: var(--fs-body);
 }
 
 @media (width >= 600px) {

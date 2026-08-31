@@ -263,4 +263,82 @@ describe.each(THEMES)('Семантические токены — %s тема',
       `--on-${state} на --${state}-ink даёт ${formatRatio(value)}:1 при норме ${AA_TEXT}:1`,
     ).toBeGreaterThanOrEqual(AA_TEXT);
   });
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     🔴 Подсвеченная строка таблицы — просроченный наряд, отказ, «пора
+     заказать» (issue #329).
+
+     Здесь тинт складывается со своей подложкой: строка залита `--error-bg`
+     поверх карточки или полосы зебры, и запас, которого хватало на чистой
+     поверхности, уходит в минус. Отсюда два правила самой строки, и оба
+     проверяются ниже, а не берутся на слово:
+
+     - приглушённый текст поднимается на ступень: `--muted` на этом тинте
+       даёт 4,4:1 при норме 4,5, поэтому строка переопределяет его на `--body`;
+     - мягкая плашка становится обведённой (`--badge-fill: transparent`),
+       иначе её собственный тинт ложится вторым слоем и красное на красном
+       даёт те же 4,4:1.
+     ───────────────────────────────────────────────────────────────────────── */
+  describe('подсвеченная строка срыва', () => {
+    /** Подложки, на которых строка может стоять: карточка и обе полосы зебры. */
+    const ROW_GROUNDS = ['card', 'stripe-a', 'stripe-b'] as const;
+
+    /** Грунт самой строки: тинт ошибки поверх её подложки. */
+    const rowGround = (ground: string): Color =>
+      blend(color(palette, 'error-bg'), color(palette, ground));
+
+    it.each(ROW_GROUNDS)('текст строки читается на тинте поверх «%s»', (ground) => {
+      const surface = rowGround(ground);
+
+      /* `--muted` в списке нет намеренно: строка его и переопределяет.
+         Проверяются те уровни, которые на ней действительно остаются. */
+      for (const token of ['ink', 'ink2', 'body']) {
+        const value = ratio(color(palette, token), surface);
+        expect(
+          value,
+          `--${token} на строке срыва поверх --${ground} даёт ${formatRatio(value)}:1 ` +
+            `при норме ${AA_TEXT}:1`,
+        ).toBeGreaterThanOrEqual(AA_TEXT);
+      }
+    });
+
+    it.each(ROW_GROUNDS)('обведённая плашка читается на строке поверх «%s»', (ground) => {
+      const surface = rowGround(ground);
+
+      /* Плашка на такой строке лишена собственной заливки, поэтому её краска
+         ложится прямо на тинт строки — один слой, а не два. */
+      for (const state of ['ok', 'warn', 'error', 'info'] as const) {
+        const value = ratio(color(palette, `${state}-ink`), surface);
+        expect(
+          value,
+          `--${state}-ink на строке срыва поверх --${ground} даёт ${formatRatio(value)}:1 ` +
+            `при норме ${AA_TEXT}:1`,
+        ).toBeGreaterThanOrEqual(AA_TEXT);
+      }
+    });
+
+    /* 🔴 Граница контрола на такой строке — не `--line-ui`, а краска самой
+       строки. Найдено здесь же: обычная `--line-ui` даёт на её тинте от
+       2,56:1 до 2,88:1 при норме 1.4.11 в 3:1, то есть подчёркнутое поле в
+       строке срыва оставалось без видимой границы. Строка переопределяет
+       `--line-ui` на `--error-ink` (Table.module.css), и проверяется то,
+       что она ставит на самом деле. */
+    it.each(ROW_GROUNDS)('граница контрола различима на строке поверх «%s»', (ground) => {
+      const surface = rowGround(ground);
+      const weak = ratio(color(palette, 'line-ui'), surface);
+      const value = ratio(color(palette, 'error-ink'), surface);
+
+      expect(
+        weak,
+        `--line-ui внезапно проходит на строке срыва поверх --${ground} ` +
+          `(${formatRatio(weak)}:1) — переопределение в Table.module.css больше не нужно`,
+      ).toBeLessThan(AA_LARGE);
+
+      expect(
+        value,
+        `--error-ink как граница контрола на строке срыва поверх --${ground} даёт ` +
+          `${formatRatio(value)}:1 при норме ${AA_LARGE}:1`,
+      ).toBeGreaterThanOrEqual(AA_LARGE);
+    });
+  });
 });

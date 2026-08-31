@@ -1,0 +1,166 @@
+/* Переключатель (issue #331). Дорожка и бегунок — с эталона HeroUI: дорожка
+   пилюлей, бегунок кругом со сдвигом на всю свободную ширину.
+
+   🔴 Дорожка обязана иметь `display`. Она рисуется на `<label>`, а `label` по
+   природе строчный: без `display` он игнорирует заданные ширину и высоту, и
+   переключатель схлопывается в полоску высотой в строку текста — тот самый
+   случай, ради которого в issue стоит красный пункт.
+
+   🔴 Граница дорожки — `--line-ui`, а не `--line-strong` (ADR-181). У
+   выключенного переключателя линия и есть граница компонента: без неё серая
+   дорожка на светлой карточке неотличима от фона, а `--line-strong` даёт на
+   белом 1,48:1 при норме WCAG 1.4.11 в 3:1. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Подпись слева от дорожки — так стоят флаги настроек в эталоне. Порядок
+   меняется раскладкой, а не перестановкой узлов: в разметке ввод обязан идти
+   до подписи, иначе `htmlFor` связывает их «назад» и часть озвучек теряет
+   связь. */
+.rowReversed {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.track {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px solid var(--line-ui);
+  border-radius: var(--r-pill);
+  background: var(--bg-soft);
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+/* 🔴 Тап-зона добирается невидимым полем, а не размером дорожки: 44×44
+   (DESIGN_BRIEF §6). Сама дорожка остаётся плотной, как в эталоне, — иначе
+   ряд флагов в настройках расползается вдвое. */
+.track::after {
+  position: absolute;
+  inset: calc((var(--tap) - 100%) / -2);
+  min-width: var(--tap);
+  min-height: var(--tap);
+  content: '';
+}
+
+.thumb {
+  display: block;
+  border-radius: var(--r-pill);
+  background: var(--card);
+  box-shadow: var(--sh-sm, 0 1px 3px rgb(15 23 42 / 24%));
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+/* Три размера эталона. Ширина дорожки — удвоенная высота плюс поля: бегунок
+   проходит ровно свою ширину, и «включено» читается по положению, а не по
+   оттенку. */
+.sm {
+  width: 34px;
+  height: 20px;
+  padding: 2px;
+}
+
+.md {
+  width: 44px;
+  height: 26px;
+  padding: 3px;
+}
+
+.lg {
+  width: 54px;
+  height: 32px;
+  padding: 4px;
+}
+
+.sm .thumb {
+  width: 14px;
+  height: 14px;
+}
+
+.md .thumb {
+  width: 18px;
+  height: 18px;
+}
+
+.lg .thumb {
+  width: 22px;
+  height: 22px;
+}
+
+.label {
+  color: var(--ink2);
+  font-size: var(--fs-body, var(--fs-dense));
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+/* Ввод спрятан утилитой `.srOnly` и остаётся в потоке: фокус приходит на
+   настоящий элемент, а кольцо рисуется на дорожке соседним селектором. */
+.input {
+  margin: 0;
+}
+
+.input:checked + .label {
+  color: var(--ink);
+}
+
+/* 🔴 Состояния читаются с дорожки, но живут на вводе: `:checked`, `:focus` и
+   `:disabled` знает только он. Дорожка стоит ПЕРЕД вводом в разметке, поэтому
+   соседним селектором её не достать — правила висят на строке. */
+.row:has(.input:checked) .track {
+  border-color: var(--brand);
+  background: var(--brand);
+}
+
+.row:has(.input:checked) .thumb {
+  transform: translateX(calc(100% + 2px));
+}
+
+.row:has(.input:focus-visible) .track {
+  box-shadow: var(--ring-focus-ring);
+}
+
+@media (hover: hover) {
+  .row:has(.input:not(:disabled)) .track:hover {
+    border-color: var(--ink2);
+  }
+
+  .row:has(.input:checked:not(:disabled)) .track:hover {
+    border-color: var(--brand-hover);
+    background: var(--brand-hover);
+  }
+}
+
+.row:has(.input:disabled) .track {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.row:has(.input:disabled) .label {
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+/* Ошибка: красная дорожка плюс сообщение под ней. Одной краски мало — её не
+   читает ни озвучка, ни глаз при нарушениях цветовосприятия, поэтому
+   сообщение обязательно и связывается через `aria-describedby`. */
+.invalid {
+  border-color: var(--error-ink);
+  background: var(--error-bg);
+}

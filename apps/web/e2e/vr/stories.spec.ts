@@ -1,6 +1,7 @@
 import { expect, test, type APIRequestContext } from '@playwright/test';
 
 import { VR_THEMES, VR_WIDTHS } from '../../playwright.vr.config';
+import { waitForStoryReady } from './story-ready';
 
 /**
  * Визуальная регрессия историй Storybook (ADR-021): свой раннер, без Chromatic.
@@ -89,17 +90,7 @@ for (const width of VR_WIDTHS) {
           waitUntil: 'domcontentloaded',
         });
 
-        /* Готовность объявляет сам Storybook: `sb-show-main` появляется, когда
-           история отрисована, `sb-show-preparing-story` уходит, когда она
-           доготовилась. Ждать видимости `#storybook-root` нельзя — у историй
-           с пустым состоянием («Главная — следа нет») он честно нулевой
-           высоты, и ожидание не кончается никогда (docs/BUGS.md). */
-        await page.waitForFunction(() => {
-          const { classList } = document.body;
-          return (
-            classList.contains('sb-show-main') && !classList.contains('sb-show-preparing-story')
-          );
-        });
+        await waitForStoryReady(page);
 
         /* Снимается область просмотра, а не контейнер истории: у пустых
            историй его не снять, а регрессия «блок исчез» как раз и видна на

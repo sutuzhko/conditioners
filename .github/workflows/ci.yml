@@ -193,6 +193,78 @@ jobs:
         if: failure()
         run: docker logs vr-storybook | tail -50
 
+  # 🔴 Панель снимается своей работой, а не разделами в работе `vr` (issue #404).
+  #
+  # Ширины у неё свои: оболочка переключается по порогам 900 и 1200 и живёт на
+  # 390 / 768 / 1440, а высоты контролов растут по кадру ниже 900 (ADR-183).
+  # На публичных 375 и 1200 не проверяется ни телефонная раскладка, ни
+  # десктопная, ни граница 900.
+  #
+  # Объём назван числом, а не прикинут: публичный прогон идёт 24 минуты на 1504
+  # снимках — около секунды на снимок. Кит панели даёт 302 истории × 3 ширины ×
+  # 2 темы = 1812 снимков, то есть примерно полчаса. Отдельной работой они идут
+  # параллельно публичным, и общее время пайплайна не растёт.
+  #
+  # Снимается кит, а не разделы: истории кита несут свои данные в файле, а
+  # разделы `Админка/` рисуются из БД и без фикстур меняются от её содержимого.
+  vr-panel:
+    runs-on: ubuntu-latest
+    needs: check
+
+    env:
+      DATABASE_URL: postgresql://tk:ci@127.0.0.1:5432/tulaklimat?schema=public
+      SITE_URL: https://ci.invalid
+      SESSION_SECRET: ci-secret-not-used-anywhere
+      NEXT_TELEMETRY_DISABLED: '1'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Дев-образ
+        run: docker build --target dev -t tulaklimat-dev:ci .
+
+      - name: Витрина под снимки
+        run: |
+          docker network create vr-panel
+          docker run -d --name vr-panel-storybook --network vr-panel --network-alias storybook \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web storybook
+
+          docker exec vr-panel-storybook node -e "
+            (async () => {
+              for (let i = 0; i < 90; i += 1) {
+                try {
+                  const r = await fetch('http://localhost:6006/index.json');
+                  if (r.ok) { console.log('витрина готова'); return; }
+                } catch {}
+                await new Promise((done) => setTimeout(done, 2000));
+              }
+              console.error('витрина не поднялась за три минуты');
+              process.exit(1);
+            })()"
+
+      - name: Снимки кита панели
+        run: |
+          docker run --name vr-panel-run --network vr-panel \
+            -e VR_BASE_URL=http://storybook:6006 \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web vr:panel
+
+      - name: Расхождения снимков
+        if: failure()
+        run: docker cp vr-panel-run:/app/apps/web/test-results ./vr-panel-results || true
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: vr-panel-diff
+          path: vr-panel-results
+          retention-days: 7
+
+      - name: Журнал витрины
+        if: failure()
+        run: docker logs vr-panel-storybook | tail -50
+
   # 🔴 Сквозные сценарии — три из них перечислены в CLAUDE.md как обязательные:
   # заявка доходит до базы, отзыв доезжает до модерации, правка цены видна на
   # сайте. До этой работы их не гонял никто: 971 строка сценариев лежала в

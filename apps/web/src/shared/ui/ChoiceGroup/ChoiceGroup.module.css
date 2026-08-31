@@ -1,0 +1,162 @@
+/* Группы выбора: радио и галочки (issue #331). Один модуль на оба — у них
+   совпадает всё, кроме формы отметки и правил выбора, а два одинаковых файла
+   разъезжаются с первой правкой.
+
+   🔴 Рамка `fieldset` снята намеренно. Браузерная рамка группы рисуется поверх
+   `legend` и в макете её нет; группу отделяет подпись и зазор, а не контур. */
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.legend {
+  padding: 0;
+  color: var(--ink2);
+  font-size: var(--fs-label, var(--fs-caption));
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.list {
+  display: flex;
+  gap: 8px;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+/* Горизонтальный ряд переносится: способов оплаты бывает четыре, и на
+   телефоне они не встают в строку. */
+.horizontal {
+  flex-flow: row wrap;
+  column-gap: 20px;
+}
+
+/* 🔴 Строка целиком — тап-зона: сама отметка 18×18, и пальцем в неё не
+   попасть. Псевдоэлементом её не добрать — `::before` и `::after` на `input`
+   не рисуются вовсе, и замер показывал зону 0×0. Поэтому строка это `<label>`
+   высотой `--tap`: попадание в любую её точку переключает отметку. */
+.item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: var(--tap);
+  cursor: pointer;
+}
+
+/* 🔴 Отметка рисуется нативным контролом с `appearance: none`, а не
+   собственным `span`: так остаются бесплатными фокус, пробел, стрелки внутри
+   группы радио и участие в отправке формы. Своя картинка поверх спрятанного
+   ввода — лишний слой, который однажды разъедется с состоянием. */
+.control {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border: 1px solid var(--line-ui);
+  background: var(--field-bg, var(--field));
+  cursor: pointer;
+  appearance: none;
+  transition:
+    border-color var(--dur-fast) ease,
+    background var(--dur-fast) ease;
+}
+
+.radio {
+  border-radius: var(--r-pill);
+}
+
+.checkbox {
+  border-radius: 5px;
+}
+
+.control:checked {
+  border-color: var(--brand);
+  background-color: var(--brand);
+}
+
+/* Точка внутри радио — радиальный градиент, а не вложенный элемент: у
+   `input` нет детей, и псевдоэлемент здесь занят тап-зоной. */
+.radio:checked {
+  background-image: radial-gradient(
+    circle,
+    var(--on-brand) 0,
+    var(--on-brand) 3.5px,
+    transparent 4px
+  );
+}
+
+/* Галка внутри — рисунок в data-URI: единственный способ положить фигуру
+   внутрь `input`, у которого нет содержимого. Цвет зашит белым, потому что
+   `--on-brand` одинаков в обеих темах (ui-tokens.css). */
+.checkbox:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='m3.5 8.5 3 3 6-7' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: center;
+  background-size: 14px 14px;
+}
+
+.control:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+@media (hover: hover) {
+  .control:hover:not(:disabled) {
+    border-color: var(--ink2);
+  }
+
+  .control:checked:hover:not(:disabled) {
+    border-color: var(--brand-hover);
+    background-color: var(--brand-hover);
+  }
+}
+
+.control:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Ошибка красит рамку отметки. Сообщение под группой обязательно — одной
+   краски не читает ни озвучка, ни глаз при нарушениях цветовосприятия. */
+.controlInvalid {
+  border-color: var(--error-ink);
+}
+
+.itemLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  color: var(--ink2);
+  font-size: var(--fs-body, var(--fs-dense));
+  line-height: 1.35;
+}
+
+.itemTitle {
+  min-width: 0;
+}
+
+.itemNote {
+  color: var(--muted);
+  font-size: var(--fs-tiny, var(--fs-micro));
+  line-height: 1.3;
+}
+
+.control:disabled + .itemLabel {
+  color: var(--muted);
+}
+
+/* Строка с отключённой отметкой не должна выглядеть нажимаемой. */
+.item:has(.control:disabled) {
+  cursor: not-allowed;
+}

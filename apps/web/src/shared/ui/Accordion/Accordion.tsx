@@ -62,9 +62,11 @@ export function Accordion({
                 onClick={() => toggle(item.id)}
               >
                 <span>{item.title}</span>
-                <span className={styles.icon} aria-hidden="true">
-                  +
-                </span>
+                {/* Шеврон рисуется границами в CSS: иконка ради одной галки не
+                    заводится, а шрифтовая стрелка выглядит по-разному в разных
+                    гарнитурах. Знак декоративен — состояние несёт
+                    `aria-expanded` на самой кнопке. */}
+                <span className={styles.icon} aria-hidden="true" />
               </button>
             </Heading>
             {/* панель не размонтируется: свёрнутый ответ обязан остаться
