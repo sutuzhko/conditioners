@@ -3,6 +3,7 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import { forgetLeadContext, readLeadContext } from '@/features/lead-form';
 
 import { Pricing } from './Pricing';
+import { pricingText } from './content';
 import { customRates, priceRows, rates } from './fixtures';
 import type { EstimateHandoff } from './model';
 
@@ -53,6 +54,20 @@ describe('Цены — таблица монтажа', () => {
     expect(cells[0]).toContain('6');
     expect(cells[0]).toContain('000');
     expect(cells[1]).toContain('3–4 часа');
+  });
+
+  it('🔴 подпись колонки живёт в самой ячейке: в карточках шапка таблицы скрыта', () => {
+    render(<Pricing prices={priceRows} rates={rates} />);
+
+    const row = screen.getByRole('rowheader', { name: /2\.6 кВт/ }).closest('tr');
+    expect(row).not.toBeNull();
+    if (row === null) return;
+
+    /* До 1200 строка прайса — карточка, и `<thead>` скрыт целиком. Имя ячейке
+       даёт только эта подпись: без неё срок читается безымянным числом. */
+    const cells = within(row).getAllByRole('cell');
+    expect(cells[0]?.textContent).toContain(pricingText.colPrice);
+    expect(cells[1]?.textContent).toContain(pricingText.colTerm);
   });
 
   it('условия сметы под таблицей берутся из ставок, а не из вёрстки', () => {
