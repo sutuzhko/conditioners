@@ -121,12 +121,13 @@ jobs:
   # линту с типами — а дешёвая проверка обязана отвечать первой. Отдельной
   # работой её ответ приходит через несколько минут и не ждёт снимков.
   #
-  # `needs: check` — сознательно: гонять полчаса снимки при красных типах значит
-  # жечь минуты раннера ради заведомо бесполезного вердикта.
+  # 🔴 `needs: check` снят (ADR-222). Он экономил минуты раннера при красных
+  # типах, но раннер здесь бесплатный — репозиторий публичный, — а платил за
+  # эту экономию **каждый зелёный прогон**: шесть минут `check` стояли в
+  # критическом пути перед снимками. Зелёный прогон — обычный случай, красные
+  # типы — редкий, и оптимизировать надо обычный.
   vr:
     runs-on: ubuntu-latest
-    # Красный VR при красных типах — шум: сначала пусть починят то, что дешевле
-    needs: check
 
     env:
       # Значения только для проверки: истории данных из базы не читают, но
@@ -139,14 +140,47 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 🔴 Снимки не переснимаются там, где пиксели измениться не могли
+      # (ADR-221). Работа идёт 18 минут на 1504 кадрах, и после включения
+      # защиты `main` её ждёт каждый PR — включая правку одной строки в
+      # документации. Проверка при этом остаётся обязательной: работа не
+      # пропускается, а заканчивается за секунды с зелёным вердиктом.
+      #
+      # Список путей — то, что физически способно сдвинуть кадр: исходники,
+      # настройка витрины, сам раннер, зависимости, образ и этот файл. Всё
+      # остальное — документация, задания выкладки, журналы — кадр не двигает.
+      - name: Затрагивает ли правка пиксели
+        id: scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "Не pull request — снимаем всё."
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          changed=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+            --paginate --jq '.[].filename')
+
+          if printf '%s\n' "$changed" | grep -qE '^(apps/web/src/|apps/web/\.storybook/|apps/web/e2e/vr/|apps/web/playwright\.vr\.config\.ts|apps/web/package\.json|pnpm-lock\.yaml|Dockerfile|\.github/workflows/ci\.yml)'; then
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pixels=false" >> "$GITHUB_OUTPUT"
+            echo "Пиксели не задеты, снимки пропускаются. Изменено:"
+            printf '  %s\n' $changed
+          fi
+
       # 🔴 Тем же образом, которым сняты эталоны (ADR-168). Шрифты на
       # ubuntu-раннере и в alpine-образе отрисовываются по-разному, и снимок,
       # снятый мимо образа, не совпадёт с эталоном ни разу — красный VR стал бы
       # фоновым шумом, каким три дня был красный пайплайн (ADR-167).
       - name: Дев-образ
+        if: steps.scope.outputs.pixels == 'true'
         run: docker build --target dev -t tulaklimat-dev:ci .
 
       - name: Витрина под снимки
+        if: steps.scope.outputs.pixels == 'true'
         run: |
           docker network create vr
           docker run -d --name vr-storybook --network vr --network-alias storybook \
@@ -170,46 +204,61 @@ jobs:
             })()"
 
       - name: Снимки историй
+        if: steps.scope.outputs.pixels == 'true'
         run: |
           docker run --name vr-run --network vr \
             -e VR_BASE_URL=http://storybook:6006 \
+            -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web vr
 
       # Разницу видно только глазами: без картинок «снимок не совпал» не
       # говорит, уехала кнопка на пиксель или пропал целый блок
       - name: Расхождения снимков
-        if: failure()
+        if: failure() && steps.scope.outputs.pixels == 'true'
         run: docker cp vr-run:/app/apps/web/test-results ./vr-results || true
 
       - uses: actions/upload-artifact@v4
-        if: failure()
+        if: failure() && steps.scope.outputs.pixels == 'true'
         with:
           name: vr-diff
           path: vr-results
           retention-days: 7
 
       - name: Журнал витрины
-        if: failure()
+        if: failure() && steps.scope.outputs.pixels == 'true'
         run: docker logs vr-storybook | tail -50
 
-  # 🔴 Панель снимается своей работой, а не разделами в работе `vr` (issue #404).
-  #
-  # Ширины у неё свои: оболочка переключается по порогам 900 и 1200 и живёт на
-  # 390 / 768 / 1440, а высоты контролов растут по кадру ниже 900 (ADR-183).
-  # На публичных 375 и 1200 не проверяется ни телефонная раскладка, ни
-  # десктопная, ни граница 900.
-  #
-  # Объём назван числом, а не прикинут: публичный прогон идёт 24 минуты на 1504
-  # снимках — около секунды на снимок. Кит панели даёт 302 истории × 3 ширины ×
-  # 2 темы = 1812 снимков, то есть примерно полчаса. Отдельной работой они идут
-  # параллельно публичным, и общее время пайплайна не растёт.
-  #
-  # Снимается кит, а не разделы: истории кита несут свои данные в файле, а
-  # разделы `Админка/` рисуются из БД и без фикстур меняются от её содержимого.
+      # 🔴 Панель снимается своей работой, а не разделами в работе `vr` (issue #404).
+      #
+      # Ширины у неё свои: оболочка переключается по порогам 900 и 1200 и живёт на
+      # 390 / 768 / 1440, а высоты контролов растут по кадру ниже 900 (ADR-183).
+      # На публичных 375 и 1200 не проверяется ни телефонная раскладка, ни
+      # десктопная, ни граница 900.
+      #
+      # Объём назван числом, а не прикинут: публичный прогон идёт 24 минуты на 1504
+      # снимках — около секунды на снимок. Кит панели даёт 302 истории × 3 ширины ×
+      # 2 темы = 1812 снимков, то есть примерно полчаса. Отдельной работой они идут
+      # параллельно публичным, и общее время пайплайна не растёт.
+      #
+      # Снимается кит, а не разделы: истории кита несут свои данные в файле, а
+      # разделы `Админка/` рисуются из БД и без фикстур меняются от её содержимого.
+
+      # 🔴 Работа, у которой шлюз не отработал, обязана краснеть, а не молчать.
+      # Пропущенные шаги дают зелёный вердикт: так `e2e` однажды отчитался
+      # успехом, не запустив ни одного сценария. Проверка стоит без условия и
+      # ловит именно этот случай — «снимков нет, и причина неизвестна».
+      - name: Вердикт работы
+        run: |
+          case "${{ steps.scope.outputs.pixels }}" in
+            true)  echo "Пиксели задеты — снимки сняты." ;;
+            false) echo "Пиксели не задеты — снимки пропущены осознанно." ;;
+            *)     echo "::error::Шлюз не отработал: снимки не сняты, причина неизвестна."
+                   exit 1 ;;
+          esac
+
   vr-panel:
     runs-on: ubuntu-latest
-    needs: check
 
     env:
       DATABASE_URL: postgresql://tk:ci@127.0.0.1:5432/tulaklimat?schema=public
@@ -220,10 +269,43 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 🔴 Снимки не переснимаются там, где пиксели измениться не могли
+      # (ADR-221). Работа идёт 18 минут на 1504 кадрах, и после включения
+      # защиты `main` её ждёт каждый PR — включая правку одной строки в
+      # документации. Проверка при этом остаётся обязательной: работа не
+      # пропускается, а заканчивается за секунды с зелёным вердиктом.
+      #
+      # Список путей — то, что физически способно сдвинуть кадр: исходники,
+      # настройка витрины, сам раннер, зависимости, образ и этот файл. Всё
+      # остальное — документация, задания выкладки, журналы — кадр не двигает.
+      - name: Затрагивает ли правка пиксели
+        id: scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "Не pull request — снимаем всё."
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          changed=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+            --paginate --jq '.[].filename')
+
+          if printf '%s\n' "$changed" | grep -qE '^(apps/web/src/|apps/web/\.storybook/|apps/web/e2e/vr/|apps/web/playwright\.vr\.config\.ts|apps/web/package\.json|pnpm-lock\.yaml|Dockerfile|\.github/workflows/ci\.yml)'; then
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pixels=false" >> "$GITHUB_OUTPUT"
+            echo "Пиксели не задеты, снимки пропускаются. Изменено:"
+            printf '  %s\n' $changed
+          fi
+
       - name: Дев-образ
+        if: steps.scope.outputs.pixels == 'true'
         run: docker build --target dev -t tulaklimat-dev:ci .
 
       - name: Витрина под снимки
+        if: steps.scope.outputs.pixels == 'true'
         run: |
           docker network create vr-panel
           docker run -d --name vr-panel-storybook --network vr-panel --network-alias storybook \
@@ -244,39 +326,54 @@ jobs:
             })()"
 
       - name: Снимки кита панели
+        if: steps.scope.outputs.pixels == 'true'
         run: |
           docker run --name vr-panel-run --network vr-panel \
             -e VR_BASE_URL=http://storybook:6006 \
+            -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web vr:panel
 
       - name: Расхождения снимков
-        if: failure()
+        if: failure() && steps.scope.outputs.pixels == 'true'
         run: docker cp vr-panel-run:/app/apps/web/test-results ./vr-panel-results || true
 
       - uses: actions/upload-artifact@v4
-        if: failure()
+        if: failure() && steps.scope.outputs.pixels == 'true'
         with:
           name: vr-panel-diff
           path: vr-panel-results
           retention-days: 7
 
       - name: Журнал витрины
-        if: failure()
+        if: failure() && steps.scope.outputs.pixels == 'true'
         run: docker logs vr-panel-storybook | tail -50
 
-  # 🔴 Сквозные сценарии — три из них перечислены в CLAUDE.md как обязательные:
-  # заявка доходит до базы, отзыв доезжает до модерации, правка цены видна на
-  # сайте. До этой работы их не гонял никто: 971 строка сценариев лежала в
-  # репозитории и не запускалась ни разу за прогон.
-  #
-  # Полторы минуты на оба профиля — это шаг, а не повод для отдельной долгой
-  # работы. Но идёт он в дев-образе, а не на голом раннере: там уже стоит
-  # системный chromium и задан CHROMIUM_PATH (ADR-021), а ставить браузеры
-  # заново — минуты на каждый прогон.
+      # 🔴 Сквозные сценарии — три из них перечислены в CLAUDE.md как обязательные:
+      # заявка доходит до базы, отзыв доезжает до модерации, правка цены видна на
+      # сайте. До этой работы их не гонял никто: 971 строка сценариев лежала в
+      # репозитории и не запускалась ни разу за прогон.
+      #
+      # Полторы минуты на оба профиля — это шаг, а не повод для отдельной долгой
+      # работы. Но идёт он в дев-образе, а не на голом раннере: там уже стоит
+      # системный chromium и задан CHROMIUM_PATH (ADR-021), а ставить браузеры
+      # заново — минуты на каждый прогон.
+
+      # 🔴 Работа, у которой шлюз не отработал, обязана краснеть, а не молчать.
+      # Пропущенные шаги дают зелёный вердикт: так `e2e` однажды отчитался
+      # успехом, не запустив ни одного сценария. Проверка стоит без условия и
+      # ловит именно этот случай — «снимков нет, и причина неизвестна».
+      - name: Вердикт работы
+        run: |
+          case "${{ steps.scope.outputs.pixels }}" in
+            true)  echo "Пиксели задеты — снимки сняты." ;;
+            false) echo "Пиксели не задеты — снимки пропущены осознанно." ;;
+            *)     echo "::error::Шлюз не отработал: снимки не сняты, причина неизвестна."
+                   exit 1 ;;
+          esac
+
   e2e:
     runs-on: ubuntu-latest
-    needs: check
 
     env:
       # 🔴 Адрес тот же, по которому сценарии стучатся в приложение: из него

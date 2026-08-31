@@ -111,6 +111,7 @@ jobs:
         run: |
           docker run --name vr-update --network vr \
             -e VR_BASE_URL=http://storybook:6006 \
+            -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web vr:all --update-snapshots || true
 
