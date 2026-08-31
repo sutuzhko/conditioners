@@ -12,6 +12,9 @@ COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.prod.yml}"
 ENV_FILE="${ENV_FILE:-.env.prod}"
 PROJECT="${COMPOSE_PROJECT_NAME:-tulaklimat}"
 BACKUP_DIR="${BACKUP_DIR:-/var/backups/tulaklimat}"
+# Каталог метки — отдельный и маленький: он единственный, что монтируется
+# в контейнер `web`, и монтируется только на чтение (ADR-191).
+BACKUP_MARK_DIR="${BACKUP_MARK_DIR:-/var/lib/tulaklimat/backup}"
 KEEP_DAYS="${KEEP_DAYS:-30}"
 
 # Compose интерполирует обязательные переменные файла при любой команде —
@@ -47,6 +50,16 @@ if [ ! -s "${db_file}" ]; then
 	echo "🔴 дамп базы пуст — бэкап не состоялся" >&2
 	exit 1
 fi
+
+# 🔴 Метка ставится здесь, а не в конце: после проверки «дамп не пуст» и до
+# чистки. Отметить удачу раньше проверки значит соврать монитору, а позже
+# чистки — потерять отметку, если чистка споткнётся о права на каталоге.
+#
+# Файл пустой: значение несёт время его правки, и читает его `/api/health`
+# из тома, подключённого только на чтение (ADR-191).
+mkdir -p "${BACKUP_MARK_DIR}"
+: >"${BACKUP_MARK_DIR}/last-success"
+echo "[$(date +%H:%M:%S)] метка удачи → ${BACKUP_MARK_DIR}/last-success"
 
 echo "[$(date +%H:%M:%S)] чистка старше ${KEEP_DAYS} дней"
 find "${BACKUP_DIR}" -maxdepth 1 -name 'db_*.dump' -mtime "+${KEEP_DAYS}" -delete
