@@ -98,7 +98,18 @@ async function waitForDatabase() {
   while (Date.now() < until) {
     const probe = spawnSync(
       'docker',
-      ['compose', ...compose, 'exec', '-T', 'db-test', 'pg_isready', '-U', 'tk', '-d', 'tulaklimat'],
+      [
+        'compose',
+        ...compose,
+        'exec',
+        '-T',
+        'db-test',
+        'pg_isready',
+        '-U',
+        'tk',
+        '-d',
+        'tulaklimat',
+      ],
       { cwd: root, stdio: 'ignore' },
     );
     if (probe.status === 0) return;
