@@ -1,0 +1,101 @@
+/* Алерт (issue #332). Тинт краски, граница той же краски, значок слева.
+
+   🔴 Тинт полупрозрачный и ложится на подложку раздела — краска текста
+   считается против сложенного слоя, а не против чистой карточки. Пары
+   «краска на своём тинте» проверяет `shared/styles/contrast.test.ts`. */
+
+.alert {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: var(--r-card, var(--r-md));
+  padding: var(--pad-card-sm, 12px) var(--pad-card, 14px);
+  color: var(--ink2);
+  font-size: var(--fs-body, var(--fs-dense));
+  line-height: 1.4;
+}
+
+.icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+
+  /* Оптическая привязка к первой строке заголовка, а не к верху коробки:
+     значок 18px в строке 1.35 × 14px садится на 1px выше центра строки. */
+  height: calc(var(--fs-body, var(--fs-dense)) * 1.4);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.text {
+  color: var(--ink2);
+}
+
+/* Действие не сжимается и не переносится: кнопка, ужатая до половины слова,
+   перестаёт быть кнопкой. Сжимается текст — он для этого и переносится. */
+.action {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+}
+
+.info {
+  border-color: var(--info-line);
+  background: var(--info-bg);
+  color: var(--info-ink);
+}
+
+.success {
+  border-color: var(--ok-line);
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.warning {
+  border-color: var(--warn-line);
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.danger {
+  border-color: var(--error-line);
+  background: var(--error-bg);
+  color: var(--error-ink);
+}
+
+/* Пояснение под заголовком набирается той же краской: приглушённый уровень
+   на тинте теряет четверть контраста и уходит ниже AA (ADR-181). */
+.info .text,
+.success .text,
+.warning .text,
+.danger .text {
+  color: inherit;
+}
+
+/* Телефон: действие уходит под текст. В строке шириной 320px кнопка
+   «Повторить» рядом с двумя строками текста оставляла тексту 40% ширины. */
+@media (width < 600px) {
+  .alert {
+    flex-wrap: wrap;
+  }
+
+  .action {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

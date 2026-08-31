@@ -1,0 +1,109 @@
+/* Линейный график (issue #332). Инлайновый SVG, отрисованный на сервере:
+   клиентского JS ноль.
+
+   🔴 Цвета — только переменные `--s1` и `--s2`, как и везде в проекте. Пара
+   разведена по тону, но не по светлоте (1,36:1 и 1,08:1), поэтому цвет не
+   работает в одиночку: вторую линию отличает штрих. */
+
+.figure {
+  margin: 0;
+  min-width: 0;
+}
+
+/* Легенда стоит над графиком и присутствует всегда, когда серий две. Это не
+   украшение: без неё две линии придётся сверять с текстом рядом. */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: var(--fs-tiny, var(--fs-micro));
+  font-weight: 600;
+}
+
+.legendItem {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* Метка легенды повторяет штрих своей линии: у второй серии она пунктирная,
+   и легенда остаётся различимой на чёрно-белой печати наряда. */
+.swatch {
+  display: block;
+  width: 18px;
+  height: 0;
+  border-top-width: 2px;
+  border-top-style: solid;
+}
+
+.swatch1 {
+  border-top-color: var(--s1);
+}
+
+.swatch2 {
+  border-top-color: var(--s2);
+  border-top-style: dashed;
+}
+
+/* 🔴 Ширина по контейнеру, высота из `viewBox`: график тянется по карточке и
+   никогда за неё не выходит, а место под него известно до отрисовки — вёрстка
+   не прыгает, когда данные приезжают. */
+.canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.grid {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.tick {
+  fill: var(--muted);
+  font-family: var(--font-text);
+  font-size: 11px;
+}
+
+.line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.line1 {
+  stroke: var(--s1);
+}
+
+/* 🔴 Штрих — не оформление, а единственный признак, который переживает и
+   дальтонизм, и чёрно-белую печать. Снимать его нельзя. */
+.line2 {
+  stroke: var(--s2);
+  stroke-dasharray: 6 4;
+}
+
+.dot1 {
+  fill: var(--s1);
+}
+
+.dot2 {
+  fill: var(--s2);
+}
+
+.value {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.value1 {
+  fill: var(--s1);
+}
+
+.value2 {
+  fill: var(--s2);
+}

@@ -1,12 +1,27 @@
 /* Скелетон вместо текста «Загрузка…»: у каждого асинхронного блока свой
    каркас, иначе вёрстка прыгает и рушится CLS (docs/CLAUDE.md).
-   Анимация гасится глобальным правилом prefers-reduced-motion. */
+   Анимация гасится глобальным правилом prefers-reduced-motion.
 
+   Радиус 8px и заливка `--line-soft → --line → --line-soft` — с эталона
+   (issue #330). Прежняя заливка шла от прозрачного, и на цветной подложке
+   бегущий блик подкрашивался ею: на тёмной карточке полоса выглядела
+   пробоиной, а не заготовкой строки. */
+
+/* 🔴 `display` обязателен и стоит первым. `span` по природе строчный, и
+   строчный элемент игнорирует заданные ширину и высоту целиком — скелетон
+   схлопывался в ничто, а вместе с ним пропадал и резерв места, ради которого
+   он и стоит. */
 .skeleton {
   display: block;
   overflow: hidden;
+  border-radius: 8px;
   background: var(--line-soft);
-  background-image: linear-gradient(90deg, transparent 0%, var(--line) 50%, transparent 100%);
+  background-image: linear-gradient(
+    90deg,
+    var(--line-soft) 0%,
+    var(--line) 50%,
+    var(--line-soft) 100%
+  );
   background-repeat: no-repeat;
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.4s ease-in-out infinite;
@@ -14,14 +29,13 @@
 
 .text {
   height: 1em;
-  border-radius: 6px;
 }
 
 .block {
   height: 100%;
-  border-radius: var(--r-sm);
 }
 
+/* Круглая заготовка — аватар и круглое действие строки: у них радиус свой. */
 .circle {
   border-radius: var(--r-pill);
   aspect-ratio: 1;

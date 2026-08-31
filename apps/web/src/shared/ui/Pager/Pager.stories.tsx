@@ -34,3 +34,28 @@ export const WithQuery: Story = {
   name: 'С сохранённым поиском',
   args: { query: { q: 'Соколов' } },
 };
+
+/**
+ * Разбивка в панели (issue #330): шаги — пилюли высотой `--h-sm`, текущее
+ * положение залито. Полосы номеров у компонента нет намеренно — восемь
+ * записей на страницу дают десятки страниц уже на второй сотне клиентов.
+ */
+export const InPanel: Story = {
+  name: 'В панели',
+  render: (args) => (
+    <div data-ui="panel" style={{ background: 'var(--bg-soft)', padding: 16 }}>
+      <Pager {...args} />
+    </div>
+  ),
+};
+
+/** Край списка: шаг остаётся на месте, чтобы положение не прыгало вбок. */
+export const InPanelLast: Story = {
+  name: 'В панели — последняя',
+  args: { page: 7 },
+  render: (args) => (
+    <div data-ui="panel" style={{ background: 'var(--bg-soft)', padding: 16 }}>
+      <Pager {...args} />
+    </div>
+  ),
+};

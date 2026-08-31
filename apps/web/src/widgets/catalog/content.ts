@@ -31,8 +31,7 @@ export const catalogText = {
    * Раскрытие витрины (issue #260). Число приходит из данных: моделей
    * столько, сколько владелец вынес на витрину флагом `featured` (ADR-109).
    */
-  moreModels: (count: number): string =>
-    `Ещё ${pluralize(count, 'модель', 'модели', 'моделей')}`,
+  moreModels: (count: number): string => `Ещё ${pluralize(count, 'модель', 'модели', 'моделей')}`,
   collapse: 'Свернуть',
   /** Имя списка карточек для скринридера: без него это список ниоткуда. */
   showcaseLabel: 'Модели на витрине',

@@ -89,3 +89,57 @@ export const Opening: Story = {
     await userEvent.keyboard('{Escape}');
   },
 };
+
+/**
+ * Окно панели (issue #330): радиус `--r-card`, тень `--sh-lg`, шапка и подвал
+ * теми же поясами, что у карточки.
+ *
+ * 🔴 Панельные переменные доезжают до окна через `body:has([data-ui='panel'])`
+ * (ADR-193): `Portal` рендерит в `document.body`, то есть мимо контейнера
+ * панели, и без второго селектора окно осталось бы на геометрии витрины.
+ * Обратная сторона приёма — витрина и панель не встают рядом в одной истории.
+ */
+export const InPanel: Story = {
+  name: 'В панели',
+  render: () => (
+    <div data-ui="panel" style={{ background: 'var(--bg-soft)', padding: 16 }}>
+      <ModalExample
+        title="Отменить наряд № 1059?"
+        description="Монтажник получит уведомление"
+        footer={
+          <>
+            <Button variant="bordered">Оставить</Button>
+            <Button>Отменить наряд</Button>
+          </>
+        }
+      />
+    </div>
+  ),
+};
+
+/** Открытое окно панели — состояние, ради которого компонент и существует. */
+export const InPanelOpen: Story = {
+  name: 'В панели — открыто',
+  render: function Render() {
+    return (
+      <div data-ui="panel" style={{ background: 'var(--bg-soft)', padding: 16 }}>
+        <Modal
+          open
+          onClose={() => {}}
+          title="Отменить наряд № 1059?"
+          description="Монтажник получит уведомление"
+          footer={
+            <>
+              <Button variant="bordered">Оставить</Button>
+              <Button>Отменить наряд</Button>
+            </>
+          }
+        >
+          <p style={{ margin: 0 }}>
+            Наряд уйдёт в отказ, а время в календаре освободится. Клиенту ничего не отправляется.
+          </p>
+        </Modal>
+      </div>
+    );
+  },
+};

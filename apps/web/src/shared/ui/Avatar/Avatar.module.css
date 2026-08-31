@@ -1,0 +1,86 @@
+/* Аватар и ряд аватаров (issue #332). Круг с инициалами или фотографией.
+
+   🔴 Размеры заданы числами и продублированы в TSX (`PIXELS`): `next/image`
+   требует ширину и высоту числом, а CSS-переменную он не читает. Числа обязаны
+   совпадать — иначе картинка отрисуется в одном размере, а коробка займёт
+   другой, и это именно тот сдвиг вёрстки, ради которого инвариант 13 и
+   написан. */
+
+.avatar {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid var(--card);
+  border-radius: var(--r-pill);
+  background: var(--accent-bg);
+  color: var(--accent-text);
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+}
+
+.sm {
+  width: 28px;
+  height: 28px;
+  font-size: 11px;
+}
+
+.md {
+  width: 36px;
+  height: 36px;
+  font-size: 13px;
+}
+
+.lg {
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+}
+
+.initials {
+  letter-spacing: 0.02em;
+}
+
+/* Фотография заполняет круг без искажения: пропорции у людей разные, а
+   растянутое лицо в списке монтажников выглядит поломкой. */
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Ряд внахлёст: каждый следующий аватар накрывает предыдущего. Порядок
+   наложения даёт сам поток — поздний брат рисуется поверх раннего, — и
+   `z-index` тут не нужен ни одному элементу.
+
+   Нахлёст задан отрицательным полем, а не сдвигом: сдвиг оставил бы за рядом
+   пустое место в ширину нахлёста, и соседний столбец таблицы отодвинулся бы
+   на пустоту. */
+.group {
+  display: inline-flex;
+  align-items: center;
+}
+
+.group > * + * {
+  margin-left: -8px;
+}
+
+.groupSm > * + * {
+  margin-left: -6px;
+}
+
+.groupLg > * + * {
+  margin-left: -12px;
+}
+
+/* Плитка остатка: «+3». Нейтральная, а не акцентная — это счётчик, а не
+   человек, и одинаковая с аватарами краска сбивала счёт. */
+.overflow {
+  background: var(--bg-soft);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}

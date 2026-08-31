@@ -17,6 +17,11 @@ const schema = z.object({
   // предел один на проект: клиентская проверка берёт его из того же файла
   UPLOAD_MAX_BYTES: z.coerce.number().int().positive().default(UPLOAD_MAX_BYTES),
 
+  /* Файл-метка, которую `infra/backup.sh` трогает после удачного дампа.
+     Сам каталог дампов в контейнер `web` не монтируется: дыра в приложении не
+     должна отдавать наружу всю историю персональных данных (ADR-191). */
+  BACKUP_MARK_PATH: z.string().optional(),
+
   NOTIFY_DRIVER: z.enum(['log', 'live']).default('log'),
   SMTP_HOST: z.string().optional(),
   SMTP_PORT: z.coerce.number().int().optional(),

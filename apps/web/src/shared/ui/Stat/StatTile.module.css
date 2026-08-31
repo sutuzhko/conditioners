@@ -1,0 +1,157 @@
+/* Плитка показателя панели (issue #329). Геометрия — с эталона HeroUI
+   (DESIGN_BRIEF §14): радиус `--r-card`, поле `--pad-card`, тень `--sh-sm`.
+   Как и у остальных панельных компонентов, значения приходят подстановкой по
+   умолчанию у `var()` (ADR-187): в панели токен, снаружи число прототипа. */
+
+.tiles {
+  display: grid;
+  gap: 12px;
+
+  /* 🔴 Две колонки — умолчание, а не мобильный случай. Четыре плитки в ряд
+     на 900–1199 ужимаются до нечитаемых: подпись «Средний чек за неделю»
+     встаёт в три строки, и ряд плиток перестаёт читаться с одного взгляда. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (width >= 1200px) {
+  .tiles {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+.tile {
+  /* 🔴 Плитка — контейнер запроса, и кегль числа считается от её ширины, а не
+     от ширины экрана (ниже). Ширина плитки зависит от числа колонок, а число
+     колонок — от ширины окна: на 320 в ряду из двух под содержимое остаётся
+     100px, а «1 248 500 ₽» кеглем 26px требует 160px. Порогом это не чинится —
+     набор порогов проекта закрыт (scripts/css-breakpoints.test.mjs), да и
+     ступенька здесь хуже непрерывной функции (DESIGN_BRIEF §6). */
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  box-sizing: border-box;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card, var(--r-md));
+  background: var(--card);
+  box-shadow: var(--sh-sm, var(--shadow-card));
+  padding: var(--pad-card, 16px);
+}
+
+.label {
+  color: var(--muted);
+  font-size: var(--fs-tiny, var(--fs-micro));
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* 🔴 Ряд числа держит собственную высоту независимо от того, есть ли чип.
+   Без неё плитка с изменением оказывалась на 8px выше соседней, и ряд из
+   четырёх стоял ступенькой. 34px — высота строки числа (26 × 1.3), она же
+   больше чипа (24px), поэтому чип в ряд вписывается, а не растит его. */
+.value {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 34px;
+  margin: 0;
+
+  /* 🔴 Перенос, а не обрезка. «1 248 500 ₽» рядом с чипом не помещается в
+     половину экрана 320px: числу нельзя переносить разряды, поэтому на
+     ступень уходит чип. Число при этом остаётся на своём месте — переносится
+     то, что стоит после него, а не оно само. Обрезка многоточием здесь
+     недопустима вовсе: недописанная цифра выручки хуже, чем две строки. */
+  flex-wrap: wrap;
+}
+
+/* Число — крупный кегль плитки. Табличные цифры: показатель обновляется, и
+   при пропорциональных цифрах его ширина скачет на каждом разряде.
+
+   🔴 Кегль — непрерывная функция ширины самой плитки, а не ступенька по
+   ширине окна. 26px достигаются, когда под содержимое есть 238px (плитка в
+   ряду из четырёх на 1200 и шире); на узкой плитке кегль опускается ровно
+   настолько, чтобы разряды помещались, а не обрезались многоточием: срезанная
+   цифра выручки — это неверное число на экране, а не мелкая неаккуратность.
+   Нижняя граница 16px — тот кегль, при котором семизначное число с рублём
+   помещается в 100px, остающиеся плитке на минимальной ширине 320. */
+.number {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(16px, 11cqi, 26px);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.suffix {
+  margin-left: 3px;
+  color: var(--muted);
+  font-size: var(--fs-label, var(--fs-caption));
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+/* 🔴 Чип отжат вправо, а не поставлен вплотную к числу. Его ширина меняется
+   вместе со значением («+4» против «+128»), и стоя вплотную он сдвигал бы
+   правый край строки; отжатый — двигается сам, а число остаётся на месте.
+   Левый край числа не зависит от чипа ни при каком его содержимом. */
+.delta {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 4px;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 24px;
+  margin-left: auto;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  padding: 3px 9px;
+  font-family: var(--font-text);
+  font-size: var(--fs-tiny, var(--fs-micro));
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.success {
+  border-color: var(--ok-line);
+  background: var(--badge-fill, var(--ok-bg));
+  color: var(--ok-ink);
+}
+
+.danger {
+  border-color: var(--error-line);
+  background: var(--badge-fill, var(--error-bg));
+  color: var(--error-ink);
+}
+
+.neutral {
+  border-color: var(--line);
+  background: var(--badge-fill, var(--bg-soft));
+  color: var(--muted);
+}
+
+.note {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-tiny, var(--fs-micro));
+  line-height: 1.35;
+}
+
+/* Телефон: поля плитки и зазор ряда — плотный ряд эталона. Кегль числа сюда
+   не входит: он следует за шириной плитки сам. */
+@media (width < 600px) {
+  .tiles {
+    gap: 8px;
+  }
+
+  .tile {
+    padding: var(--pad-card-sm, 12px);
+  }
+}

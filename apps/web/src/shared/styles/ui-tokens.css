@@ -143,12 +143,7 @@
 
      Один край — у ленты, которую листают пальцем: слева она упирается в своё
      начало. Оба — у бегущей строки: она едет сама и обрывается с двух сторон. */
-  --fade-inline-end: linear-gradient(
-    90deg,
-    rgb(0 0 0),
-    rgb(0 0 0) calc(100% - 32px),
-    transparent
-  );
+  --fade-inline-end: linear-gradient(90deg, rgb(0 0 0), rgb(0 0 0) calc(100% - 32px), transparent);
   --fade-inline-both: linear-gradient(
     90deg,
     transparent,
