@@ -120,20 +120,33 @@ jobs:
           docker rm "$id"
           node scripts/js-budget.mjs ./next-build --strict
 
-  # 🔴 Снимки историй — отдельной работой, а не шагом в `check`.
+  # 🔴 Снимки историй — отдельными работами, а не шагом в `check`.
   #
-  # Прогон идёт около получаса: 171 история на четырёх ширинах в двух темах,
-  # воркер один. Шагом внутри `check` он растянул бы на полчаса и вердикт по
-  # линту с типами — а дешёвая проверка обязана отвечать первой. Отдельной
-  # работой её ответ приходит через несколько минут и не ждёт снимков.
-  #
-  # 🔴 `needs: check` снят (ADR-222). Он экономил минуты раннера при красных
+  # Дешёвая проверка обязана отвечать первой: линт и типы не ждут кадров.
+  # `needs: check` снят (ADR-222): он экономил минуты раннера при красных
   # типах, но раннер здесь бесплатный — репозиторий публичный, — а платил за
-  # эту экономию **каждый зелёный прогон**: шесть минут `check` стояли в
-  # критическом пути перед снимками. Зелёный прогон — обычный случай, красные
-  # типы — редкий, и оптимизировать надо обычный.
-  vr:
+  # эту экономию каждый зелёный прогон.
+  #
+  # 🔴 Кадры идут четырьмя шардами (ADR-231). Одним куском публичные кадры
+  # снимались 4:07, кита панели — 6:30; бюджет фазы — критический путь снимков
+  # не длиннее пяти минут при попадании в кеш, и делить дальше почти нечего:
+  # ниже долей лежит накладная цена самого шарда — чекаут, образ, сборка
+  # витрины.
+  #
+  # 🔴 Принадлежность истории доле считает раннер устойчивым хешем id
+  # (`VR_SHARD=k/4`), а не порядковым номером в списке. Порядковый номер
+  # переезжает при любом изменении состава историй — и кадр базы оказывался бы
+  # в кеше чужого шарда, а история ложно становилась «новой». Хеш id один и
+  # тот же у базы и ветки при любом составе.
+  vr-shard:
     runs-on: ubuntu-latest
+
+    # 🔴 Упавший шард не отменяет соседние: сводному вердикту нужны итоги всех
+    # долей — иначе «итогов меньше ожидаемого» прячет настоящую причину.
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
 
     env:
       # Значения только для проверки: истории данных из базы не читают, но
@@ -143,14 +156,12 @@ jobs:
       SESSION_SECRET: ci-secret-not-used-anywhere
       NEXT_TELEMETRY_DISABLED: '1'
       # 🔴 Всё, чем эта работа отличается от соседней, — здесь. Шаги ниже у
-      # `vr` и `vr-panel` одинаковы текстом, и расхождение между работами видно
-      # диффом, а не вычитыванием: две копии одной последовательности в проекте
-      # уже разъезжались (комментарий в e2e/vr/story-ready.ts).
+      # шардов public и panel одинаковы текстом, и расхождение между работами
+      # видно диффом, а не вычитыванием: две копии одной последовательности в
+      # проекте уже разъезжались (комментарий в e2e/vr/story-ready.ts).
       VR_PROJECT: public
       VR_SCRIPT: vr
       VR_NET: vr
-      # итогов раннера — по одному на пару «ширина + тема»: 4 ширины × 2 темы
-      VR_EXPECTED: '8'
       VR_ARTIFACT: vr-diff
 
     steps:
@@ -199,11 +210,12 @@ jobs:
       # и бывает устаревшим. На `main` сравнивать нечего: работа записывает
       # кадры в кеш для следующих PR.
       #
-      # Ключ кеша — база и версия отрисовщика: образ, зависимости, конфигурация
-      # и код раннера — то, что меняет кадры при неизменной витрине. Настройка
-      # витрины (`.storybook/`) в ключ не входит намеренно: её правка — настоящее
-      # визуальное изменение, оно должно быть видно в сравнении, а не обходить
-      # кеш.
+      # Ключ кеша — доля, база и версия отрисовщика: образ, зависимости,
+      # конфигурация и код раннера — то, что меняет кадры при неизменной
+      # витрине. Доля в ключе обязательна: у каждого шарда свои кадры, и общий
+      # ключ подсунул бы кадры чужой доли. Настройка витрины (`.storybook/`) в
+      # ключ не входит намеренно: её правка — настоящее визуальное изменение,
+      # оно должно быть видно в сравнении, а не обходить кеш.
       - name: База сравнения
         id: base
         if: steps.scope.outputs.pixels == 'true'
@@ -219,9 +231,9 @@ jobs:
           {
             echo "mode=$mode"
             echo "base=$base"
-            echo "key=vr-frames-$VR_PROJECT-$base-$renderer"
+            echo "key=vr-frames-$VR_PROJECT-s${{ matrix.shard }}of4-$base-$renderer"
           } >> "$GITHUB_OUTPUT"
-          echo "Режим: $mode, база: $base"
+          echo "Режим: $mode, база: $base, доля: ${{ matrix.shard }}/4"
           mkdir -p vr-frames vr-outcome vr-results
 
       - name: Кадры базы из кеша
@@ -273,7 +285,9 @@ jobs:
       # сообщает о записанных кадрах ненулевым кодом. Отказы сценариев базы
       # читает сводка из её итогов — и только предупреждает: чужая поломка не
       # красит этот PR. Индекс историй базы ложится рядом с кадрами — по нему
-      # раннер отличает новые истории, которым сравниваться не с чем.
+      # раннер отличает новые истории, которым сравниваться не с чем. База
+      # снимается той же долей `VR_SHARD`, что и ветка: раннер делит истории
+      # устойчивым хешем id, и доля не зависит от состава историй.
       - name: Кадры базы
         if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
         run: |
@@ -298,6 +312,7 @@ jobs:
           docker run --name "$VR_NET-base-run" --network "$VR_NET-base" \
             -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome-base:/vr/outcome" \
             -e VR_FRAMES_DIR=/vr/frames -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_SHARD=${{ matrix.shard }}/4 \
             -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT" --update-snapshots || true
@@ -338,14 +353,16 @@ jobs:
             })()"
 
       # `main`: только запись. Кадры и индекс историй уходят в кеш под ключом
-      # этого коммита — следующий PR возьмёт их без пересъёмки базы. Красит
-      # здесь только отказ сценария или отсутствие итога — их читает сводка.
+      # этого коммита и доли — следующий PR возьмёт их без пересъёмки базы.
+      # Красит здесь только отказ сценария или отсутствие итога — их читает
+      # сводная работа.
       - name: Запись кадров
         if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'record'
         run: |
           docker run --name "$VR_NET-run" --network "$VR_NET" \
             -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome:/vr/outcome" \
             -e VR_FRAMES_DIR=/vr/frames -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_SHARD=${{ matrix.shard }}/4 \
             -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT" --update-snapshots || true
@@ -358,11 +375,11 @@ jobs:
           path: vr-frames
           key: ${{ steps.base.outputs.key }}
 
-      # 🔴 Вердикт выносит сводка, а не код возврата Playwright: разошедшийся
-      # кадр — не обязательно поломка, и решает это автор ярлыком. Поэтому шаг
-      # работу не роняет. Истории, которых в базе нет, раннер снимает без
-      # сравнения — по индексу базы (`VR_BASE_INDEX`). Переменные раннеру
-      # передаются явно: `docker run` окружения шага не наследует (ADR-222).
+      # 🔴 Шаг работу не роняет: вердикт по кадрам выносит сводная работа — ей
+      # нужны итоги всех шардов разом. Истории, которых в базе нет, раннер
+      # снимает без сравнения — по индексу базы (`VR_BASE_INDEX`). Переменные
+      # раннеру передаются явно: `docker run` окружения шага не наследует
+      # (ADR-222).
       - name: Сравнение кадров
         id: shots
         if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare'
@@ -372,9 +389,18 @@ jobs:
             -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome:/vr/outcome" \
             -e VR_FRAMES_DIR=/vr/frames -e VR_BASE_INDEX=/vr/frames/index.json \
             -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_SHARD=${{ matrix.shard }}/4 \
             -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT"
+
+      # Исход раннера — маркером рядом с итогами: сводной работе он нужен,
+      # чтобы отличить «раннер упал, а итог этого не объясняет» от чистого
+      # прогона. Регексп сводки читает только `outcome-*.json`, маркер ей не
+      # мешает.
+      - name: Маркер исхода раннера
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' }}
+        run: echo "${{ steps.shots.outcome }}" > "vr-outcome/runner-s${{ matrix.shard }}"
 
       # Картинки разницы забираются копией, а не монтированием: Playwright
       # перед прогоном сносит каталог результатов целиком, а точку монтирования
@@ -383,22 +409,23 @@ jobs:
         if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' }}
         run: docker cp "$VR_NET-run":/app/apps/web/test-results/. ./vr-results/ || true
 
-      # 🔴 Шлюз — ярлык `vr:accepted` на PR: задуманное изменение внешнего вида
-      # автор принимает явным действием, и оно остаётся видно в PR (ADR-230).
-      # Ярлык действует только на разошедшиеся кадры: отказ сценария, падение
-      # раннера и отсутствие итога красят работу всегда.
-      - name: Сводка и вердикт снимков
-        if: steps.scope.outputs.pixels == 'true'
-        env:
-          VR_ACCEPTED: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'vr:accepted') }}
-        run: |
-          node scripts/vr-summary.mjs \
-            --project "$VR_PROJECT" --mode "${{ steps.base.outputs.mode }}" \
-            --base "${{ steps.base.outputs.base }}" \
-            --cache "${{ steps.cache.outputs.cache-hit == 'true' && 'hit' || 'miss' }}" \
-            --outcome vr-outcome --base-outcome vr-outcome-base \
-            --expected "$VR_EXPECTED" --accepted "$VR_ACCEPTED" \
-            --runner "${{ steps.shots.outcome }}" --artifact "$VR_ARTIFACT"
+      # Итоги — сводной работе. Выгружаются и при красном шарде: сводка обязана
+      # видеть всё, что раннер успел записать.
+      - name: Итоги — сводной работе
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: vr-outcome-${{ env.VR_PROJECT }}-${{ matrix.shard }}
+          path: vr-outcome
+          retention-days: 7
+
+      - name: Итоги базы — сводной работе
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' && hashFiles('vr-outcome-base/**') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: vr-outcome-base-${{ env.VR_PROJECT }}-${{ matrix.shard }}
+          path: vr-outcome-base
+          retention-days: 7
 
       # Разницу видно только глазами: без картинок «кадр разошёлся» не говорит,
       # уехала кнопка на пиксель или пропал целый блок. Артефакт выгружается,
@@ -406,7 +433,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' && hashFiles('vr-results/**') != '' }}
         with:
-          name: ${{ env.VR_ARTIFACT }}
+          name: ${{ env.VR_ARTIFACT }}-s${{ matrix.shard }}
           path: vr-results
           retention-days: 7
 
@@ -421,13 +448,158 @@ jobs:
       - name: Вердикт работы
         run: |
           case "${{ steps.scope.outputs.pixels }}" in
-            true)  echo "Пиксели задеты — снимки сняты, вердикт вынесла сводка." ;;
+            true)  echo "Пиксели задеты — доля снята, вердикт выносит сводная работа." ;;
             false) echo "Пиксели не задеты — снимки пропущены осознанно." ;;
             *)     echo "::error::Шлюз не отработал: снимки не сняты, причина неизвестна."
                    exit 1 ;;
           esac
 
-  # 🔴 Панель снимается своей работой, а не разделами в работе `vr` (issue #404).
+  # 🔴 Сводный вердикт по кадрам public. Имя `vr` — обязательная проверка
+  # защиты `main`, и оно не меняется: шарды пришли и ушли бы из требуемых
+  # проверок только правкой защиты руками. `if: !cancelled()` обязателен:
+  # без него красный шард пропускает сводку, а пропущенная обязательная
+  # проверка блокирует merge молча — и наоборот, зелёная сводка обязана
+  # состояться только после всех шардов.
+  vr:
+    runs-on: ubuntu-latest
+    needs: vr-shard
+    if: ${{ !cancelled() }}
+
+    env:
+      # 🔴 Всё, чем эта работа отличается от соседней, — здесь; шаги одинаковы
+      # текстом (см. комментарий у шардов).
+      VR_PROJECT: public
+      VR_ARTIFACT: vr-diff-s1…s4
+      # итогов раннеров со всех шардов: 4 шарда × 4 ширины × 2 темы
+      VR_EXPECTED: '32'
+
+    steps:
+      # Глубина два: сводке нужен первый родитель merge-коммита — база
+      # сравнения для заголовка, — и `scripts/vr-summary.mjs` из чекаута.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      # 🔴 Снимки не переснимаются там, где пиксели измениться не могли
+      # (ADR-221). После включения защиты `main` работу ждёт каждый PR —
+      # включая правку одной строки в документации. Проверка при этом остаётся
+      # обязательной: работа не пропускается, а заканчивается за секунды с
+      # зелёным вердиктом.
+      #
+      # Список путей — то, что физически способно сдвинуть кадр или вердикт:
+      # исходники, настройка витрины, сам раннер, сводка, зависимости, образ и
+      # этот файл. Всё остальное — документация, задания выкладки, журналы —
+      # кадр не двигает.
+      - name: Затрагивает ли правка пиксели
+        id: scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "Не pull request — снимаем всё."
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          changed=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+            --paginate --jq '.[].filename')
+
+          if printf '%s\n' "$changed" | grep -qE '^(apps/web/src/|apps/web/\.storybook/|apps/web/e2e/vr/|apps/web/playwright\.vr\.config\.ts|apps/web/package\.json|pnpm-lock\.yaml|Dockerfile|scripts/vr-summary\.mjs|\.github/workflows/ci\.yml)'; then
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pixels=false" >> "$GITHUB_OUTPUT"
+            echo "Пиксели не задеты, снимки пропускаются. Изменено:"
+            printf '  %s\n' $changed
+          fi
+
+      - name: База сравнения
+        id: base
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            mode=compare
+            base=$(git rev-parse HEAD^1)
+          else
+            mode=record
+            base=${{ github.sha }}
+          fi
+          {
+            echo "mode=$mode"
+            echo "base=$base"
+          } >> "$GITHUB_OUTPUT"
+          echo "Режим: $mode, база: $base"
+
+      # Отсутствие части артефактов — не ошибка шага, а факт для сводки:
+      # итогов меньше ожидаемого она красит сама и называет число. Итоги базы
+      # есть только у шардов, снимавших базу в работе, — при попадании в кеш их
+      # нет, и это норма.
+      - name: Итоги шардов
+        if: steps.scope.outputs.pixels == 'true'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: vr-outcome-${{ env.VR_PROJECT }}-*
+          merge-multiple: true
+          path: vr-outcome
+
+      - name: Итоги базы
+        if: steps.scope.outputs.pixels == 'true'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: vr-outcome-base-${{ env.VR_PROJECT }}-*
+          merge-multiple: true
+          path: vr-outcome-base
+
+      # Флаг раннера для сводки: красный, если упал хоть один шард как работа
+      # или хоть один раннер внутри шарда (маркер `runner-s*`). `join(needs.*)`
+      # вместо имени работы — шаги сводных работ одинаковы текстом, различия
+      # только в `env` (см. комментарий там).
+      - name: Флаг раннера
+        id: runner
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          flag=success
+          [ "${{ join(needs.*.result, '') }}" = "success" ] || flag=failure
+          if grep -qs failure vr-outcome/runner-s*; then flag=failure; fi
+          echo "flag=$flag" >> "$GITHUB_OUTPUT"
+          echo "Шарды: ${{ join(needs.*.result, '') }}, раннеры: $flag"
+
+      # 🔴 Шлюз — ярлык `vr:accepted` на PR: задуманное изменение внешнего вида
+      # автор принимает явным действием, и оно остаётся видно в PR (ADR-230).
+      # Ярлык действует только на разошедшиеся кадры: отказ сценария, падение
+      # раннера или шарда и отсутствие итога красят работу всегда. Кадры базы
+      # «из кеша», когда база не снималась ни в одном шарде: итоги базы пишет
+      # только пересъёмка.
+      - name: Сводка и вердикт снимков
+        if: steps.scope.outputs.pixels == 'true'
+        env:
+          VR_ACCEPTED: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'vr:accepted') }}
+        run: |
+          if [ -n "$(ls -A vr-outcome-base 2>/dev/null)" ]; then cache=miss; else cache=hit; fi
+          node scripts/vr-summary.mjs \
+            --project "$VR_PROJECT" --mode "${{ steps.base.outputs.mode }}" \
+            --base "${{ steps.base.outputs.base }}" \
+            --cache "$cache" \
+            --outcome vr-outcome --base-outcome vr-outcome-base \
+            --expected "$VR_EXPECTED" --accepted "$VR_ACCEPTED" \
+            --runner "${{ steps.runner.outputs.flag }}" --artifact "$VR_ARTIFACT"
+
+      # 🔴 Работа, у которой шлюз не отработал, обязана краснеть, а не молчать.
+      # Пропущенные шаги дают зелёный вердикт: так `e2e` однажды отчитался
+      # успехом, не запустив ни одного сценария. Проверка стоит без условия и
+      # ловит именно этот случай — «снимков нет, и причина неизвестна».
+      - name: Вердикт работы
+        run: |
+          case "${{ steps.scope.outputs.pixels }}" in
+            true)  echo "Пиксели задеты — вердикт вынесла сводка по итогам шардов." ;;
+            false) echo "Пиксели не задеты — снимки пропущены осознанно." ;;
+            *)     echo "::error::Шлюз не отработал: снимки не сняты, причина неизвестна."
+                   exit 1 ;;
+          esac
+
+  # 🔴 Панель снимается своими работами, а не разделами в работах public
+  # (issue #404).
   #
   # Ширины у неё свои: оболочка переключается по порогам 900 и 1200 и живёт на
   # 390 / 768 / 1440, а высоты контролов растут по кадру ниже 900 (ADR-183).
@@ -435,13 +607,20 @@ jobs:
   # десктопная, ни граница 900.
   #
   # Объём назван числом, а не прикинут: 302 истории × 3 ширины × 2 темы =
-  # 1812 кадров. Отдельной работой они идут параллельно публичным, и общее время
+  # 1812 кадров. Своими работами они идут параллельно публичным, и общее время
   # пайплайна не растёт.
   #
   # Снимается кит, а не разделы: истории кита несут свои данные в файле, а
   # разделы `Админка/` рисуются из БД и без фикстур меняются от её содержимого.
-  vr-panel:
+  vr-panel-shard:
     runs-on: ubuntu-latest
+
+    # 🔴 Упавший шард не отменяет соседние: сводному вердикту нужны итоги всех
+    # долей — иначе «итогов меньше ожидаемого» прячет настоящую причину.
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
 
     env:
       # Значения только для проверки: истории данных из базы не читают, но
@@ -451,14 +630,12 @@ jobs:
       SESSION_SECRET: ci-secret-not-used-anywhere
       NEXT_TELEMETRY_DISABLED: '1'
       # 🔴 Всё, чем эта работа отличается от соседней, — здесь. Шаги ниже у
-      # `vr` и `vr-panel` одинаковы текстом, и расхождение между работами видно
-      # диффом, а не вычитыванием: две копии одной последовательности в проекте
-      # уже разъезжались (комментарий в e2e/vr/story-ready.ts).
+      # шардов public и panel одинаковы текстом, и расхождение между работами
+      # видно диффом, а не вычитыванием: две копии одной последовательности в
+      # проекте уже разъезжались (комментарий в e2e/vr/story-ready.ts).
       VR_PROJECT: panel
       VR_SCRIPT: vr:panel
       VR_NET: vr-panel
-      # итогов раннера — по одному на пару «ширина + тема»: 3 ширины × 2 темы
-      VR_EXPECTED: '6'
       VR_ARTIFACT: vr-panel-diff
 
     steps:
@@ -507,11 +684,12 @@ jobs:
       # и бывает устаревшим. На `main` сравнивать нечего: работа записывает
       # кадры в кеш для следующих PR.
       #
-      # Ключ кеша — база и версия отрисовщика: образ, зависимости, конфигурация
-      # и код раннера — то, что меняет кадры при неизменной витрине. Настройка
-      # витрины (`.storybook/`) в ключ не входит намеренно: её правка — настоящее
-      # визуальное изменение, оно должно быть видно в сравнении, а не обходить
-      # кеш.
+      # Ключ кеша — доля, база и версия отрисовщика: образ, зависимости,
+      # конфигурация и код раннера — то, что меняет кадры при неизменной
+      # витрине. Доля в ключе обязательна: у каждого шарда свои кадры, и общий
+      # ключ подсунул бы кадры чужой доли. Настройка витрины (`.storybook/`) в
+      # ключ не входит намеренно: её правка — настоящее визуальное изменение,
+      # оно должно быть видно в сравнении, а не обходить кеш.
       - name: База сравнения
         id: base
         if: steps.scope.outputs.pixels == 'true'
@@ -527,9 +705,9 @@ jobs:
           {
             echo "mode=$mode"
             echo "base=$base"
-            echo "key=vr-frames-$VR_PROJECT-$base-$renderer"
+            echo "key=vr-frames-$VR_PROJECT-s${{ matrix.shard }}of4-$base-$renderer"
           } >> "$GITHUB_OUTPUT"
-          echo "Режим: $mode, база: $base"
+          echo "Режим: $mode, база: $base, доля: ${{ matrix.shard }}/4"
           mkdir -p vr-frames vr-outcome vr-results
 
       - name: Кадры базы из кеша
@@ -581,7 +759,9 @@ jobs:
       # сообщает о записанных кадрах ненулевым кодом. Отказы сценариев базы
       # читает сводка из её итогов — и только предупреждает: чужая поломка не
       # красит этот PR. Индекс историй базы ложится рядом с кадрами — по нему
-      # раннер отличает новые истории, которым сравниваться не с чем.
+      # раннер отличает новые истории, которым сравниваться не с чем. База
+      # снимается той же долей `VR_SHARD`, что и ветка: раннер делит истории
+      # устойчивым хешем id, и доля не зависит от состава историй.
       - name: Кадры базы
         if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
         run: |
@@ -606,6 +786,7 @@ jobs:
           docker run --name "$VR_NET-base-run" --network "$VR_NET-base" \
             -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome-base:/vr/outcome" \
             -e VR_FRAMES_DIR=/vr/frames -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_SHARD=${{ matrix.shard }}/4 \
             -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT" --update-snapshots || true
@@ -646,14 +827,16 @@ jobs:
             })()"
 
       # `main`: только запись. Кадры и индекс историй уходят в кеш под ключом
-      # этого коммита — следующий PR возьмёт их без пересъёмки базы. Красит
-      # здесь только отказ сценария или отсутствие итога — их читает сводка.
+      # этого коммита и доли — следующий PR возьмёт их без пересъёмки базы.
+      # Красит здесь только отказ сценария или отсутствие итога — их читает
+      # сводная работа.
       - name: Запись кадров
         if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'record'
         run: |
           docker run --name "$VR_NET-run" --network "$VR_NET" \
             -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome:/vr/outcome" \
             -e VR_FRAMES_DIR=/vr/frames -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_SHARD=${{ matrix.shard }}/4 \
             -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT" --update-snapshots || true
@@ -666,11 +849,11 @@ jobs:
           path: vr-frames
           key: ${{ steps.base.outputs.key }}
 
-      # 🔴 Вердикт выносит сводка, а не код возврата Playwright: разошедшийся
-      # кадр — не обязательно поломка, и решает это автор ярлыком. Поэтому шаг
-      # работу не роняет. Истории, которых в базе нет, раннер снимает без
-      # сравнения — по индексу базы (`VR_BASE_INDEX`). Переменные раннеру
-      # передаются явно: `docker run` окружения шага не наследует (ADR-222).
+      # 🔴 Шаг работу не роняет: вердикт по кадрам выносит сводная работа — ей
+      # нужны итоги всех шардов разом. Истории, которых в базе нет, раннер
+      # снимает без сравнения — по индексу базы (`VR_BASE_INDEX`). Переменные
+      # раннеру передаются явно: `docker run` окружения шага не наследует
+      # (ADR-222).
       - name: Сравнение кадров
         id: shots
         if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare'
@@ -680,9 +863,18 @@ jobs:
             -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome:/vr/outcome" \
             -e VR_FRAMES_DIR=/vr/frames -e VR_BASE_INDEX=/vr/frames/index.json \
             -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_SHARD=${{ matrix.shard }}/4 \
             -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT"
+
+      # Исход раннера — маркером рядом с итогами: сводной работе он нужен,
+      # чтобы отличить «раннер упал, а итог этого не объясняет» от чистого
+      # прогона. Регексп сводки читает только `outcome-*.json`, маркер ей не
+      # мешает.
+      - name: Маркер исхода раннера
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' }}
+        run: echo "${{ steps.shots.outcome }}" > "vr-outcome/runner-s${{ matrix.shard }}"
 
       # Картинки разницы забираются копией, а не монтированием: Playwright
       # перед прогоном сносит каталог результатов целиком, а точку монтирования
@@ -691,22 +883,23 @@ jobs:
         if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' }}
         run: docker cp "$VR_NET-run":/app/apps/web/test-results/. ./vr-results/ || true
 
-      # 🔴 Шлюз — ярлык `vr:accepted` на PR: задуманное изменение внешнего вида
-      # автор принимает явным действием, и оно остаётся видно в PR (ADR-230).
-      # Ярлык действует только на разошедшиеся кадры: отказ сценария, падение
-      # раннера и отсутствие итога красят работу всегда.
-      - name: Сводка и вердикт снимков
-        if: steps.scope.outputs.pixels == 'true'
-        env:
-          VR_ACCEPTED: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'vr:accepted') }}
-        run: |
-          node scripts/vr-summary.mjs \
-            --project "$VR_PROJECT" --mode "${{ steps.base.outputs.mode }}" \
-            --base "${{ steps.base.outputs.base }}" \
-            --cache "${{ steps.cache.outputs.cache-hit == 'true' && 'hit' || 'miss' }}" \
-            --outcome vr-outcome --base-outcome vr-outcome-base \
-            --expected "$VR_EXPECTED" --accepted "$VR_ACCEPTED" \
-            --runner "${{ steps.shots.outcome }}" --artifact "$VR_ARTIFACT"
+      # Итоги — сводной работе. Выгружаются и при красном шарде: сводка обязана
+      # видеть всё, что раннер успел записать.
+      - name: Итоги — сводной работе
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: vr-outcome-${{ env.VR_PROJECT }}-${{ matrix.shard }}
+          path: vr-outcome
+          retention-days: 7
+
+      - name: Итоги базы — сводной работе
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' && hashFiles('vr-outcome-base/**') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: vr-outcome-base-${{ env.VR_PROJECT }}-${{ matrix.shard }}
+          path: vr-outcome-base
+          retention-days: 7
 
       # Разницу видно только глазами: без картинок «кадр разошёлся» не говорит,
       # уехала кнопка на пиксель или пропал целый блок. Артефакт выгружается,
@@ -714,7 +907,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' && hashFiles('vr-results/**') != '' }}
         with:
-          name: ${{ env.VR_ARTIFACT }}
+          name: ${{ env.VR_ARTIFACT }}-s${{ matrix.shard }}
           path: vr-results
           retention-days: 7
 
@@ -729,7 +922,147 @@ jobs:
       - name: Вердикт работы
         run: |
           case "${{ steps.scope.outputs.pixels }}" in
-            true)  echo "Пиксели задеты — снимки сняты, вердикт вынесла сводка." ;;
+            true)  echo "Пиксели задеты — доля снята, вердикт выносит сводная работа." ;;
+            false) echo "Пиксели не задеты — снимки пропущены осознанно." ;;
+            *)     echo "::error::Шлюз не отработал: снимки не сняты, причина неизвестна."
+                   exit 1 ;;
+          esac
+
+  # Сводный вердикт по кадрам кита панели — имя `vr-panel` тоже зашито в
+  # защиту `main`; устройство то же, что у `vr`.
+  vr-panel:
+    runs-on: ubuntu-latest
+    needs: vr-panel-shard
+    if: ${{ !cancelled() }}
+
+    env:
+      # 🔴 Всё, чем эта работа отличается от соседней, — здесь; шаги одинаковы
+      # текстом (см. комментарий у шардов).
+      VR_PROJECT: panel
+      VR_ARTIFACT: vr-panel-diff-s1…s4
+      # итогов раннеров со всех шардов: 4 шарда × 3 ширины × 2 темы
+      VR_EXPECTED: '24'
+
+    steps:
+      # Глубина два: сводке нужен первый родитель merge-коммита — база
+      # сравнения для заголовка, — и `scripts/vr-summary.mjs` из чекаута.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      # 🔴 Снимки не переснимаются там, где пиксели измениться не могли
+      # (ADR-221). После включения защиты `main` работу ждёт каждый PR —
+      # включая правку одной строки в документации. Проверка при этом остаётся
+      # обязательной: работа не пропускается, а заканчивается за секунды с
+      # зелёным вердиктом.
+      #
+      # Список путей — то, что физически способно сдвинуть кадр или вердикт:
+      # исходники, настройка витрины, сам раннер, сводка, зависимости, образ и
+      # этот файл. Всё остальное — документация, задания выкладки, журналы —
+      # кадр не двигает.
+      - name: Затрагивает ли правка пиксели
+        id: scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "Не pull request — снимаем всё."
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          changed=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+            --paginate --jq '.[].filename')
+
+          if printf '%s\n' "$changed" | grep -qE '^(apps/web/src/|apps/web/\.storybook/|apps/web/e2e/vr/|apps/web/playwright\.vr\.config\.ts|apps/web/package\.json|pnpm-lock\.yaml|Dockerfile|scripts/vr-summary\.mjs|\.github/workflows/ci\.yml)'; then
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pixels=false" >> "$GITHUB_OUTPUT"
+            echo "Пиксели не задеты, снимки пропускаются. Изменено:"
+            printf '  %s\n' $changed
+          fi
+
+      - name: База сравнения
+        id: base
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            mode=compare
+            base=$(git rev-parse HEAD^1)
+          else
+            mode=record
+            base=${{ github.sha }}
+          fi
+          {
+            echo "mode=$mode"
+            echo "base=$base"
+          } >> "$GITHUB_OUTPUT"
+          echo "Режим: $mode, база: $base"
+
+      # Отсутствие части артефактов — не ошибка шага, а факт для сводки:
+      # итогов меньше ожидаемого она красит сама и называет число. Итоги базы
+      # есть только у шардов, снимавших базу в работе, — при попадании в кеш их
+      # нет, и это норма.
+      - name: Итоги шардов
+        if: steps.scope.outputs.pixels == 'true'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: vr-outcome-${{ env.VR_PROJECT }}-*
+          merge-multiple: true
+          path: vr-outcome
+
+      - name: Итоги базы
+        if: steps.scope.outputs.pixels == 'true'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: vr-outcome-base-${{ env.VR_PROJECT }}-*
+          merge-multiple: true
+          path: vr-outcome-base
+
+      # Флаг раннера для сводки: красный, если упал хоть один шард как работа
+      # или хоть один раннер внутри шарда (маркер `runner-s*`). `join(needs.*)`
+      # вместо имени работы — шаги сводных работ одинаковы текстом, различия
+      # только в `env` (см. комментарий там).
+      - name: Флаг раннера
+        id: runner
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          flag=success
+          [ "${{ join(needs.*.result, '') }}" = "success" ] || flag=failure
+          if grep -qs failure vr-outcome/runner-s*; then flag=failure; fi
+          echo "flag=$flag" >> "$GITHUB_OUTPUT"
+          echo "Шарды: ${{ join(needs.*.result, '') }}, раннеры: $flag"
+
+      # 🔴 Шлюз — ярлык `vr:accepted` на PR: задуманное изменение внешнего вида
+      # автор принимает явным действием, и оно остаётся видно в PR (ADR-230).
+      # Ярлык действует только на разошедшиеся кадры: отказ сценария, падение
+      # раннера или шарда и отсутствие итога красят работу всегда. Кадры базы
+      # «из кеша», когда база не снималась ни в одном шарде: итоги базы пишет
+      # только пересъёмка.
+      - name: Сводка и вердикт снимков
+        if: steps.scope.outputs.pixels == 'true'
+        env:
+          VR_ACCEPTED: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'vr:accepted') }}
+        run: |
+          if [ -n "$(ls -A vr-outcome-base 2>/dev/null)" ]; then cache=miss; else cache=hit; fi
+          node scripts/vr-summary.mjs \
+            --project "$VR_PROJECT" --mode "${{ steps.base.outputs.mode }}" \
+            --base "${{ steps.base.outputs.base }}" \
+            --cache "$cache" \
+            --outcome vr-outcome --base-outcome vr-outcome-base \
+            --expected "$VR_EXPECTED" --accepted "$VR_ACCEPTED" \
+            --runner "${{ steps.runner.outputs.flag }}" --artifact "$VR_ARTIFACT"
+
+      # 🔴 Работа, у которой шлюз не отработал, обязана краснеть, а не молчать.
+      # Пропущенные шаги дают зелёный вердикт: так `e2e` однажды отчитался
+      # успехом, не запустив ни одного сценария. Проверка стоит без условия и
+      # ловит именно этот случай — «снимков нет, и причина неизвестна».
+      - name: Вердикт работы
+        run: |
+          case "${{ steps.scope.outputs.pixels }}" in
+            true)  echo "Пиксели задеты — вердикт вынесла сводка по итогам шардов." ;;
             false) echo "Пиксели не задеты — снимки пропущены осознанно." ;;
             *)     echo "::error::Шлюз не отработал: снимки не сняты, причина неизвестна."
                    exit 1 ;;
