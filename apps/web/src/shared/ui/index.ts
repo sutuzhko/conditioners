@@ -70,6 +70,23 @@ export type { SelectOption, SelectProps } from './Select/Select';
 export { Checkbox } from './Checkbox/Checkbox';
 export type { CheckboxProps } from './Checkbox/Checkbox';
 
+export { RadioGroup } from './ChoiceGroup/RadioGroup';
+export type { ChoiceOption, ChoiceOrientation, RadioGroupProps } from './ChoiceGroup/RadioGroup';
+export { CheckboxGroup } from './ChoiceGroup/CheckboxGroup';
+export type { CheckboxGroupProps } from './ChoiceGroup/CheckboxGroup';
+
+export { Switch } from './Switch/Switch';
+export type { SwitchProps, SwitchSize } from './Switch/Switch';
+
+export { NumberInput } from './NumberInput/NumberInput';
+export type { NumberInputProps } from './NumberInput/NumberInput';
+
+export { DateField, EMPTY_DATE } from './DateField/DateField';
+export type { DateFieldProps, DateSegmentKey, DateSegments } from './DateField/DateField';
+
+export { Autocomplete } from './Autocomplete/Autocomplete';
+export type { AutocompleteOption, AutocompleteProps } from './Autocomplete/Autocomplete';
+
 export { RangeSlider } from './RangeSlider/RangeSlider';
 export type { RangeSliderProps } from './RangeSlider/RangeSlider';
 
