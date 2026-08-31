@@ -177,13 +177,17 @@ export function SavingsCalculator({
           </span>
         </div>
 
-        <p className={styles.total}>
-          <span className={styles.totalLabel}>{t.saving}</span>
-          <span className={styles.totalValue}>{t.perSeason(formatMoney(estimate.saved))}</span>
-          <span className={styles.totalHorizon}>
+        {/* Итог экономии — карточка акцентом: это вывод всего блока, и он
+            обязан читаться отдельно от двух строк расхода над ним. */}
+        <Card variant="accent" padding="md" radius="lg" className={styles.total}>
+          <p className={styles.totalLine}>
+            <span className={styles.totalLabel}>{t.saving}</span>
+            <span className={styles.totalValue}>{t.perSeason(formatMoney(estimate.saved))}</span>
+          </p>
+          <p className={styles.totalHorizon}>
             {t.perHorizon(formatMoney(estimate.savedOverHorizon), SAVINGS_MODEL.horizonYears)}
-          </span>
-        </p>
+          </p>
+        </Card>
 
         {empty ? <p className={styles.empty}>{t.empty}</p> : null}
       </Card>

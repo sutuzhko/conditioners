@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useState } from 'react';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Button } from '../Button/Button';
 import { IconButton } from '../IconButton/IconButton';
 import { Drawer } from './Drawer';
@@ -110,7 +110,18 @@ export const Opening: Story = {
   play: async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Открыть меню' }));
     const dialog = await within(document.body).findByRole('dialog');
-    await expect(dialog).toBeVisible();
+
+    /* 🔴 `waitFor`, а не голый `expect` (issue #435). Панель появляется в
+       разметке раньше, чем становится видимой, и проверка без повтора падала
+       на открытии — молча: исключение сценария не красит ни один прогон, а
+       история после отказа замирала с открытой панелью. Отсюда и брались
+       разные снимки на неизменном коде. */
+    await waitFor(() => expect(dialog).toBeVisible());
     await userEvent.click(within(dialog).getByRole('button', { name: 'Закрыть меню' }));
+
+    /* Сценарий кончается проверкой, а не действием: иначе история объявляется
+       готовой, пока панель ещё закрывается, и снимок ловит её то с
+       затемнением, то без. */
+    await waitFor(() => expect(dialog).not.toBeVisible());
   },
 };
