@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import type { FieldVariant } from '../internal/Field';
 import { Autocomplete, type AutocompleteOption } from './Autocomplete';
@@ -133,7 +134,10 @@ export const OpenList: Story = {
   name: 'Список открыт',
   render: (args) => <Controlled {...args} initial="Ива" />,
   play: async ({ canvasElement }) => {
-    const field = canvasElement.querySelector('input');
-    field?.focus();
+    /* Список открывает фокус в поле. 🔴 Дальше — ожидание самого списка, а не
+       возврат из `focus()` (issue #435): история называется «Список открыт», и
+       снимок обязан застать его открытым, а не в момент открытия. */
+    await userEvent.click(within(canvasElement).getByRole('combobox'));
+    await waitFor(() => expect(within(canvasElement).getByRole('listbox')).toBeVisible());
   },
 };
