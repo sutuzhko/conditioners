@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, waitFor, within } from 'storybook/test';
 import { RangeSlider } from './RangeSlider';
 
 /** Ползунок управляемый: значение живёт в форме, а не внутри компонента. */
@@ -88,8 +88,17 @@ export const Dragging: Story = {
   render: () => <AreaSlider />,
   play: async ({ canvasElement }) => {
     const slider = within(canvasElement).getByRole('slider');
-    await userEvent.click(slider);
-    await userEvent.keyboard('{ArrowRight}{ArrowRight}');
-    await expect(slider).toHaveValue('27');
+
+    /* 🔴 История показывает ползунок под фокусом, а не сдвинутый стрелками
+       (issue #436). Проверка `toHaveValue('27')` не проходила ни разу и не
+       могла: значение нативного `input[type=range]` двигает браузер, а
+       `userEvent.keyboard` шлёт только события — это же записано в тесте
+       компонента («стрелки даёт нативный input[type=range]»).
+
+       Нажатие тоже было неверным: клик по дорожке сам выставляет значение по
+       месту курсора. Отказ при этом не красил ни один прогон, и история
+       полгода обещала то, чего не делала. */
+    slider.focus();
+    await waitFor(() => expect(slider).toHaveFocus());
   },
 };

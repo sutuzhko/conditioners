@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Header } from './Header';
 import {
   companyEmpty,
@@ -85,10 +85,17 @@ export const WithoutNav: Story = {
 export const MenuOpen: Story = {
   name: 'Меню на телефоне — действия в подвале',
   globals: { viewport: { value: 'sm' } },
+  /* 🔴 Снимается только на телефонных ширинах (ADR-219). Выше порога 900
+     бургера нет вовсе, сценарий там падал, а снимок повторял «Базовое
+     состояние» на той же ширине. */
+  tags: ['vr-320', 'vr-375'],
   play: async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Открыть меню' }));
     const dialog = await within(document.body).findByRole('dialog');
-    await expect(dialog).toBeVisible();
+
+    /* 🔴 `waitFor`, а не голый `expect` (issue #436): меню попадает в разметку
+       раньше, чем становится видимым, и проверка без повтора падала — молча. */
+    await waitFor(() => expect(dialog).toBeVisible());
     await expect(within(dialog).getByRole('link', { name: 'Монтаж' })).toHaveAttribute(
       'aria-current',
       'page',
@@ -101,10 +108,20 @@ export const MenuOpen: Story = {
 export const MenuOpenTablet: Story = {
   name: 'Меню на планшете — в подвале только часы и тема',
   globals: { viewport: { value: 'md' } },
+  /* Планшетная раскладка подвала меню проверяется на своей ширине: на
+     телефоне в подвале лежит ещё и «Оставить заявку», и проверка
+     «её там нет» была бы неверной (ADR-219). */
+  tags: ['vr-768'],
   play: async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Открыть меню' }));
     const dialog = await within(document.body).findByRole('dialog');
-    await expect(within(dialog).getByRole('radiogroup', { name: 'Тема' })).toBeVisible();
-    await expect(within(dialog).getByRole('link', { name: 'Оставить заявку' })).not.toBeVisible();
+    await waitFor(() =>
+      expect(within(dialog).getByRole('radiogroup', { name: 'Тема' })).toBeVisible(),
+    );
+    /* 🔴 `queryByRole` и `toBeNull`, а не `getByRole(...).not.toBeVisible()`
+       (issue #436): на планшете ссылки в подвале меню нет вовсе, и `getByRole`
+       падал раньше проверки — молча. Отсутствие проверяют запросом, который
+       умеет ничего не найти. */
+    expect(within(dialog).queryByRole('link', { name: 'Оставить заявку' })).toBeNull();
   },
 };
