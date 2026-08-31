@@ -1,0 +1,76 @@
+/* Автодополнение (issue #331). Поле — общая шкура из
+   `internal/control.module.css`, поэтому все четыре вида оформления работают
+   здесь без единой своей строки. Модуль добавляет только выпадающий список. */
+
+.shell {
+  position: relative;
+  min-width: 0;
+}
+
+.input {
+  width: 100%;
+}
+
+/* 🔴 Список лежит в потоке страницы, а не уходит порталом. Портал понадобился
+   бы, если бы список обрезался предком с `overflow: hidden`, — но тогда
+   пришлось бы считать его положение скриптом и пересчитывать при прокрутке.
+   Пока автодополнение стоит в форме наряда, а форма ничего не обрезает,
+   абсолютного позиционирования достаточно. */
+.list {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  right: 0;
+  left: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card, var(--r-md));
+  background: var(--card);
+  box-shadow: var(--sh-lg, var(--shadow-card));
+  padding: 4px;
+  list-style: none;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  box-sizing: border-box;
+  min-height: var(--h-nav, var(--tap));
+  justify-content: center;
+  border-radius: var(--r-nav, var(--r-sm));
+  padding: 6px 10px;
+  color: var(--ink2);
+  font-size: var(--fs-body, var(--fs-dense));
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+/* 🔴 Подсветка одна и та же для стрелок и для мыши: `:hover` тоже ставит
+   `active` через обработчик, поэтому отдельного правила наведения нет. Два
+   независимых признака подсветки давали два подсвеченных пункта разом —
+   один под курсором, другой под стрелкой, — и Enter выбирал не тот. */
+.active {
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+.optionLabel {
+  font-weight: 600;
+}
+
+.optionNote {
+  color: var(--muted);
+  font-size: var(--fs-tiny, var(--fs-micro));
+}
+
+/* Пустой ответ объясняется словами. Пустой список молча читается как
+   поломка, и человек начинает стирать буквы, проверяя, работает ли поиск. */
+.empty {
+  padding: 10px;
+  color: var(--muted);
+  font-size: var(--fs-body, var(--fs-dense));
+  text-align: center;
+}

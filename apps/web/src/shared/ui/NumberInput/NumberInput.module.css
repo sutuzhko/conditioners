@@ -1,0 +1,147 @@
+/* Числовое поле с шагом (issue #331). Шкура поля общая с `Input` — она
+   приходит из `internal/control.module.css`, и все четыре вида оформления
+   работают здесь без единой своей строки. Модуль добавляет только то, чего у
+   обычного поля нет: место под кнопки шага и единицу измерения. */
+
+.shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+/* 🔴 Правое поле освобождает место под кнопки шага и единицу. Без него длинное
+   число уезжало под кнопки: у поля `overflow` не бывает, и текст просто лежит
+   поверх. Значение считается от ширины кнопок (2 × 26px) и зазоров.
+
+   Табличные цифры: количество правят стрелками, и при пропорциональных цифрах
+   поле дёргается по ширине на каждом разряде. */
+.input {
+  padding-right: 66px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Нативные стрелки убираются: их заменяют кнопки со своими именами. С
+   клавиатуры шаг остаётся — его даёт сам тип поля, а не эти стрелки. */
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.input[type='number'] {
+  appearance: textfield;
+}
+
+/* Единица стоит справа от числа, но левее кнопок, и кликам не мешает: нажатие
+   на неё должно попадать в поле. */
+.unit {
+  position: absolute;
+  right: 62px;
+  color: var(--muted);
+  font-size: var(--fs-tiny, var(--fs-micro));
+  pointer-events: none;
+}
+
+.steps {
+  position: absolute;
+  right: 6px;
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.step {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--card);
+  color: var(--ink2);
+  font-family: var(--font-text);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) ease,
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease;
+}
+
+@media (hover: hover) {
+  .step:hover:not(:disabled) {
+    border-color: var(--accent-line);
+    background: var(--accent-bg);
+    color: var(--accent-text);
+  }
+}
+
+/* Кнопки не участвуют в табуляции, но кольцо фокуса им всё равно нужно:
+   `tabIndex={-1}` не мешает получить фокус мышью, и без кольца непонятно,
+   что нажато. */
+.step:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* На краю диапазона кнопка гаснет, а не исчезает: пропавшая кнопка сдвигает
+   соседнюю, и палец попадает не туда, куда целился. */
+.step:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* 🔴 Ниже 900px панель сенсорная (ADR-183), и кнопки шага обязаны быть целью
+   44×44. Внутри поля их такими не сделать: две зоны по 44px в капсуле
+   высотой 48 налезают друг на друга, а перекрывающиеся цели хуже мелких —
+   срабатывает не та кнопка, в которую целились.
+
+   Поэтому на сенсорных ширинах кнопки выходят из поля и встают по бокам:
+   «−  [ 12 ]  +». Это обычная раскладка счётчика на телефоне, и обе цели
+   получают полный размер, не мешая друг другу. Замер: 26×26 внутри поля
+   против 44×44 по бокам. */
+@media (width < 900px) {
+  .shell {
+    gap: 6px;
+  }
+
+  /* Правое поле больше не нужно: под кнопки место не резервируется. */
+  .input {
+    order: 2;
+    padding-right: 14px;
+    text-align: center;
+  }
+
+  .unit {
+    position: static;
+    order: 3;
+    color: var(--muted);
+  }
+
+  .steps {
+    position: static;
+    display: contents;
+  }
+
+  .step {
+    width: var(--tap);
+    height: var(--tap);
+    font-size: 19px;
+  }
+
+  /* Порядок в строке: минус слева, поле, единица, плюс справа. Задаётся
+     `order`, а не перестановкой узлов, — разметка обязана оставаться такой,
+     чтобы подпись поля и его ошибка стояли рядом с ним. */
+  .step:first-child {
+    order: 1;
+  }
+
+  .step:last-child {
+    order: 4;
+  }
+}

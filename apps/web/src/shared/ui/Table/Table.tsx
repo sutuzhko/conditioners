@@ -26,6 +26,24 @@ export interface TableProps {
   /** минимальная ширина таблицы, ниже которой включается скролл: «720px» */
   minWidth?: string | undefined;
   /**
+   * Липкая шапка: строка заголовков остаётся на виду, пока список
+   * прокручивается (issue #329).
+   *
+   * 🔴 Липкость требует ограниченной высоты. `position: sticky` считается от
+   * ближайшего предка-скроллера, а им становится контейнер горизонтальной
+   * прокрутки: у него `overflow-x: auto`, и по спецификации `overflow-y`
+   * тоже принимает значение `auto`. Пока высота контейнера равна высоте
+   * таблицы, прокручивать в нём по вертикали нечего — шапка «липнет» к
+   * началу таблицы и не делает ничего. Поэтому область получает предел
+   * высоты и прокручивается сама.
+   *
+   * 🔴 И потому же карточка вокруг таблицы не должна обрезать содержимое:
+   * `overflow: hidden` у предка отменяет липкость целиком.
+   */
+  stickyHead?: boolean | undefined;
+  /** Предел высоты области с липкой шапкой; умолчание — `70dvh`. */
+  maxHeight?: string | undefined;
+  /**
    * Полоска затухания у правого края — признак, что таблица шире контейнера
    * (issue #263). Она не обязательна: у таблицы бывает и подпись под ней, и
    * видимая полоса прокрутки, — поэтому проп, а не поведение варианта.
@@ -41,6 +59,8 @@ export function Table({
   caption,
   label,
   minWidth,
+  stickyHead = false,
+  maxHeight,
   fade = false,
   className,
 }: TableProps) {
@@ -56,7 +76,7 @@ export function Table({
      Это осознанная плата: `tabIndex` живёт в разметке, а режим — в
      медиа-запросе, и выбор стоит между лишней остановкой табуляции на
      телефоне и таблицей, которую с клавиатуры не прокрутить вовсе. */
-  const scrolls = variant === 'scroll' || variant === 'sticky' || cards;
+  const scrolls = variant === 'scroll' || variant === 'sticky' || cards || stickyHead;
 
   const table = (
     <table
@@ -64,6 +84,7 @@ export function Table({
         styles.table,
         zebra ? styles.zebra : null,
         variant === 'sticky' ? styles.sticky : null,
+        stickyHead ? styles.stickyHead : null,
         cards ? styles.cards : null,
         className,
       ]
@@ -88,6 +109,7 @@ export function Table({
       className={[
         styles.viewport,
         styles.scrollable,
+        stickyHead ? styles.bounded : null,
         fade ? styles.faded : null,
         cards ? styles.cardsScroll : null,
       ]
@@ -96,6 +118,7 @@ export function Table({
       role="region"
       aria-label={label}
       tabIndex={0}
+      style={maxHeight === undefined ? undefined : { maxBlockSize: maxHeight }}
     >
       {table}
     </div>
