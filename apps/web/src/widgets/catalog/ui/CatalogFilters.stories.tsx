@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import { catalogFacets, parseCatalogQuery } from '@/entities/product/lib/catalogQuery';
 
@@ -46,6 +46,11 @@ export const Expanded: Story = {
     await userEvent.click(
       within(canvasElement).getByText(catalogListText.filtersTitle, { selector: 'summary' }),
     );
+
+    /* 🔴 Сценарий обязан кончаться проверкой, а не действием (issue #435):
+       иначе история объявляется готовой в момент раскрытия, и снимок ловит
+       подбор то развёрнутым, то нет. */
+    await waitFor(() => expect(canvasElement.querySelector('details')).toHaveAttribute('open'));
   },
 };
 
