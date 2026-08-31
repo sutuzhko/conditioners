@@ -22,6 +22,24 @@ export type { BrandMarkProps, BrandMarkTone } from './BrandMark/BrandMark';
 export { Badge } from './Badge/Badge';
 export type { BadgeProps, BadgeVariant } from './Badge/Badge';
 
+export { Alert } from './Alert/Alert';
+export type { AlertProps, AlertTone } from './Alert/Alert';
+
+export { Avatar, AvatarGroup } from './Avatar/Avatar';
+export type { AvatarGroupProps, AvatarProps, AvatarSize } from './Avatar/Avatar';
+
+export { Tooltip } from './Tooltip/Tooltip';
+export type { TooltipPlacement, TooltipProps } from './Tooltip/Tooltip';
+
+export { RowMenu } from './RowMenu/RowMenu';
+export type { RowMenuItem, RowMenuProps } from './RowMenu/RowMenu';
+
+export { CopyField } from './CopyField/CopyField';
+export type { CopyFieldProps } from './CopyField/CopyField';
+
+export { Chart } from './Chart/Chart';
+export type { ChartProps, ChartSeries } from './Chart/Chart';
+
 export { Card } from './Card/Card';
 export type { CardElevation, CardPadding, CardProps, CardRadius, CardVariant } from './Card/Card';
 export { CardBody, CardFooter, CardHeader } from './Card/CardBelt';

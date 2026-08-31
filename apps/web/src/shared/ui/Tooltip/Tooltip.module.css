@@ -1,0 +1,71 @@
+/* Подсказка (issue #332). Тёмный пузырёк с хвостиком, тень `--sh-md`.
+
+   🔴 Пузырёк лежит в потоке страницы, а не уходит порталом. Порталу пришлось
+   бы считать положение скриптом и пересчитывать при прокрутке; пока подсказка
+   стоит на значке рельса и в ячейке таблицы, абсолютного позиционирования
+   достаточно. Ограничение честное: внутри предка с `overflow: hidden`
+   подсказка обрежется. */
+
+.wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.anchor {
+  display: inline-flex;
+}
+
+.bubble {
+  position: absolute;
+  z-index: 30;
+  width: max-content;
+  max-width: 240px;
+  border-radius: var(--r-nav, var(--r-sm));
+  background: var(--panel);
+  box-shadow: var(--sh-md, var(--shadow-card));
+  padding: 6px 10px;
+  color: var(--on-panel);
+  font-family: var(--font-text);
+  font-size: var(--fs-tiny, var(--fs-micro));
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+
+  /* Подсказка не перехватывает указатель: наведённая на неё самое, она бы
+     держала себя открытой и мешала нажать то, что под ней. */
+  pointer-events: none;
+}
+
+.top {
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.right {
+  top: 50%;
+  left: calc(100% + 8px);
+  transform: translateY(-50%);
+}
+
+.left {
+  top: 50%;
+  right: calc(100% + 8px);
+  transform: translateY(-50%);
+}
+
+/* 🔴 На сенсорном экране наведения не бывает, и подсказка там не появляется
+   вовсе. Это не деградация: содержимое, доступное только по наведению, для
+   половины способов ввода не существует, поэтому смысл всегда продублирован
+   именем самого элемента (см. комментарий в Tooltip.tsx). */
+@media (hover: none) {
+  .bubble {
+    display: none;
+  }
+}
