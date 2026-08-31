@@ -21,11 +21,30 @@ afterEach(() => {
 
 describe('classifyError', () => {
   it('расхождение кадра с эталоном — changed: его принимает ярлык', () => {
+    /* Сообщение снято с настоящего прогона 33403324410, а не сочинено:
+       первая редакция теста проверяла выдуманную строку и пропустила то,
+       что признак `Screenshot comparison failed` не совпадает ни разу. */
     expect(
       classifyError(
-        'Error: expect(page).toHaveScreenshot(expected)\n\n  6 pixels (ratio 0.01 of all image pixels) are different.\nScreenshot comparison failed:',
+        'Error: expect(page).toHaveScreenshot(expected) failed\n\n  4371 pixels (ratio 0.01 of all image pixels) are different.',
       ),
     ).toBe('changed');
+    // разный размер кадра — тоже расхождение, а не отказ
+    expect(
+      classifyError(
+        'Error: … failed\n\nExpected an image 375px by 900px, received 375px by 899px.',
+      ),
+    ).toBe('changed');
+    // прежний формат сообщения других версий Playwright
+    expect(classifyError('Screenshot comparison failed:')).toBe('changed');
+  });
+
+  it('таймаут устойчивого кадра — failed: это флейк, а не принятое изменение', () => {
+    expect(
+      classifyError(
+        'Error: expect(page).toHaveScreenshot(expected) failed\n\nTimeout 20000ms exceeded.',
+      ),
+    ).toBe('failed');
   });
 
   it('отсутствующий эталон — new: истории не с чем сравниваться', () => {

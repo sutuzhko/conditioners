@@ -63,8 +63,26 @@ export function emptyTally(): OutcomeTally {
  * которой в базе не снимали.
  */
 export function classifyError(message: string): ErrorKind {
-  if (message.includes('Screenshot comparison failed')) return 'changed';
   if (message.includes("A snapshot doesn't exist")) return 'new';
+
+  /* 🔴 Признаки взяты из настоящих сообщений, а не из исходников Playwright.
+     Первая редакция искала `Screenshot comparison failed` — строку из
+     matchers/expect.js — и не совпала ни разу: прогон 33403324410 показал,
+     что сообщение начинается с `expect(page).toHaveScreenshot(expected)
+     failed`, а различие описывают строки `… pixels … are different` (разные
+     точки) и `Expected an image …` (разный размер кадра). Сорок настоящих
+     расхождений легли в «Отказы», и ярлык принятия на них не действовал.
+     Старый признак оставлен: у других версий Playwright сообщение прежнее.
+     Таймаут ожидания устойчивого кадра ни под один признак не попадает и
+     честно остаётся отказом. */
+  if (
+    message.includes('Screenshot comparison failed') ||
+    message.includes('are different') ||
+    message.includes('Expected an image')
+  ) {
+    return 'changed';
+  }
+
   return 'failed';
 }
 
