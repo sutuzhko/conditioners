@@ -1,6 +1,12 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { describe, expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { Catalog, type CatalogProps } from './Catalog';
+import { catalogText } from './content';
+import { SHOWCASE_LIMIT } from './model';
 import {
   catalogFixture,
   discountedProduct,
@@ -12,6 +18,17 @@ import {
   productHrefFixture,
   uniqueSpecProduct,
 } from './fixtures';
+
+/**
+ * 🔴 Общую линию цены и кнопки держат правила CSS, а jsdom их не применяет
+ * (тот же приём, что в HeroPicker.test: тест, который не может упасть, хуже
+ * отсутствующего). Проверяем источник правил.
+ */
+const HERE = dirname(fileURLToPath(import.meta.url));
+const cardCss = readFileSync(join(HERE, 'ui', 'ProductCard.module.css'), 'utf8');
+const gridCss = readFileSync(join(HERE, 'ui', 'grid.module.css'), 'utf8');
+const priceCss = readFileSync(join(HERE, 'ui', 'ProductPrice.module.css'), 'utf8');
+const tokensCss = readFileSync(join(HERE, '..', '..', 'shared', 'styles', 'tokens.css'), 'utf8');
 
 /** Витрина всегда знает адрес модели — в тестах он один на все истории. */
 function renderCatalog(props: Omit<CatalogProps, 'productHref'>) {
@@ -92,11 +109,18 @@ describe('Каталог — скидка', () => {
 });
 
 describe('Каталог — карточка', () => {
-  it('модель без фото получает заглушку с классом мощности, а не битую картинку', () => {
+  it('модель без фото получает заглушку, а не битую картинку', () => {
     renderCatalog({ products: [plainProduct], now: NOW });
 
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    expect(screen.getByText(catalogText.noPhoto)).toBeInTheDocument();
+  });
+
+  it('🔴 класс мощности читается вслух расшифровкой и со снимком, и без него', () => {
+    renderCatalog({ products: [plainProduct, discountedProduct], now: NOW });
+
     expect(screen.getByText('Класс мощности 07')).toBeInTheDocument();
+    expect(screen.getByText('Класс мощности 09')).toBeInTheDocument();
   });
 
   it('фотография подписана осмысленным alt с географией', () => {
@@ -140,12 +164,19 @@ describe('Каталог — карточка', () => {
     expect(card.querySelector('details')).toBeNull();
   });
 
-  it('ссылка к поставщику внешняя и не передаёт ему вес', () => {
+  it('🔴 явное действие в карточке ровно одно — «Заказать» (issue #259)', () => {
     renderCatalog({ products: [uniqueSpecProduct], now: NOW });
 
-    const link = screen.getByRole('link', { name: /Страница модели у поставщика/ });
-    expect(link).toHaveAttribute('href', 'https://example.com/split-12');
-    expect(link).toHaveAttribute('rel', expect.stringContaining('nofollow'));
+    const card = screen.getByRole('listitem');
+    /* Ссылок в карточке две — название модели и кнопка заказа. Подсказки
+       «Подробнее» на тот же адрес больше нет: она дублировала заголовок
+       вторым пунктом в списке ссылок скринридера. Ссылка к поставщику ушла
+       на страницу модели — там её проверяет ProductDetails.test. */
+    expect(within(card).getAllByRole('link')).toHaveLength(2);
+    expect(
+      within(card).queryByRole('link', { name: /Страница модели у поставщика/ }),
+    ).not.toBeInTheDocument();
+    expect(within(card).queryByText(/Подробнее/)).not.toBeInTheDocument();
   });
 });
 
@@ -180,5 +211,102 @@ describe('Каталог — пустые состояния', () => {
     expect(screen.getByText('Каталог пока пуст')).toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
     expect(screen.queryByRole('listitem')).not.toBeInTheDocument();
+  });
+});
+
+describe('Карточка — общая базовая линия цены и действия (issue #182, #259)', () => {
+  it('🔴 слот под ярлык скидки есть и у модели без скидки', () => {
+    renderCatalog({ products: [plainProduct, discountedProduct], now: NOW });
+
+    /* Блок цены рисует ровно два абзаца — строку цены и слот, — и делает это
+       одинаково в обоих состояниях. Разное число абзацев и означало бы, что
+       у карточки без скидки слота нет, а кнопка соседа поехала. */
+    const paragraphs = screen
+      .getAllByRole('listitem')
+      .map((card) => card.querySelectorAll('p').length);
+
+    expect(paragraphs).toEqual([2, 2]);
+  });
+
+  it('🔴 слот постоянной высоты и обрезает, а не переносит', () => {
+    expect(tokensCss).toMatch(/--sale-slot-h:\s*24px/);
+    expect(priceCss).toMatch(/\.slot\s*\{[^}]*height:\s*var\(--sale-slot-h\)/);
+    expect(priceCss).toMatch(/\.slot\s*\{[^}]*overflow:\s*hidden/);
+  });
+
+  it('🔴 действие прижато к низу карточки, а снимок держит своё место', () => {
+    expect(cardCss).toMatch(/\.actions\s*\{[^}]*margin-top:\s*auto/);
+    expect(cardCss).toMatch(/\.media\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*10/);
+  });
+
+  it('🔴 тап-зона отметки сравнения — не меньше 44×44', () => {
+    expect(cardCss).toMatch(/\.compare\s*\{[^}]*width:\s*var\(--tap\)/);
+    expect(cardCss).toMatch(/\.compare\s*\{[^}]*height:\s*var\(--tap\)/);
+  });
+
+  it('процент скидки вычисляется из цен, а не берётся из данных', () => {
+    renderCatalog({ products: [discountedProduct], now: NOW });
+
+    // 38 500 → 33 900 даёт ровно −12%: ни в фикстуре, ни в коде этого числа нет
+    expect(screen.getByText('−12%')).toBeInTheDocument();
+  });
+
+  it('🔴 у модели без скидки нет ни перечёркнутой цены, ни плашки', () => {
+    renderCatalog({ products: [plainProduct], now: NOW });
+
+    expect(screen.queryByText(/−\d+%/)).not.toBeInTheDocument();
+    expect(screen.getByRole('listitem').querySelector('s')).toBeNull();
+    expect(screen.getByText('под ключ')).toBeInTheDocument();
+  });
+});
+
+
+describe('Витрина — сетка и раскрытие остальных моделей (issue #260)', () => {
+  /** Витрина из шести моделей: три показываются, три ждут раскрытия. */
+  const six = [
+    plainProduct,
+    discountedProduct,
+    uniqueSpecProduct,
+    labelledSaleProduct,
+    { ...plainProduct, id: 'split-24', slug: 'split-24', name: 'Сплит-система 24' },
+    { ...plainProduct, id: 'split-30', slug: 'split-30', name: 'Сплит-система 30' },
+  ];
+
+  it('🔴 все модели лежат в HTML сразу, а не догружаются нажатием (инвариант 1)', () => {
+    renderCatalog({ products: six, now: NOW });
+
+    expect(screen.getAllByRole('listitem')).toHaveLength(six.length);
+    expect(screen.getByRole('heading', { name: 'Сплит-система 30' })).toBeInTheDocument();
+  });
+
+  it('кнопка раскрытия называет реальное число оставшихся моделей', () => {
+    renderCatalog({ products: six, now: NOW });
+
+    const more = screen.getByRole('button', { name: catalogText.moreModels(3) });
+    expect(more).toHaveAttribute('aria-expanded', 'false');
+    expect(more).toHaveAttribute('aria-controls', 'showcase-models');
+  });
+
+  it('витрина короче предела раскрывать нечем — кнопки нет', () => {
+    renderCatalog({ products: six.slice(0, SHOWCASE_LIMIT), now: NOW });
+
+    expect(screen.queryByRole('button', { name: /Ещё/ })).not.toBeInTheDocument();
+  });
+
+  it('🔴 скрытые карточки гасит CSS, и предел в нём совпадает с SHOWCASE_LIMIT', () => {
+    /* `nth-child` не умеет читать переменную, поэтому связь числа в стиле с
+       константой в коде держит этот тест, а не язык. */
+    expect(SHOWCASE_LIMIT).toBe(3);
+    expect(gridCss).toMatch(
+      new RegExp(`\\.clipped > li:nth-child\\(n \\+ ${SHOWCASE_LIMIT + 1}\\)`),
+    );
+    expect(gridCss).toMatch(/display:\s*none/);
+  });
+
+  it('🔴 колонок 1 / 2 / 3 / 4 на порогах 600, 900 и 1200', () => {
+    expect(gridCss).toMatch(/\.grid\s*\{[^}]*repeat\(1,\s*minmax\(0,\s*1fr\)\)/);
+    expect(gridCss).toMatch(/@media \(width >= 600px\)[^@]*repeat\(2,\s*minmax\(0,\s*1fr\)\)/);
+    expect(gridCss).toMatch(/@media \(width >= 900px\)[^@]*repeat\(3,\s*minmax\(0,\s*1fr\)\)/);
+    expect(gridCss).toMatch(/@media \(width >= 1200px\)[^@]*repeat\(4,\s*minmax\(0,\s*1fr\)\)/);
   });
 });

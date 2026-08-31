@@ -25,6 +25,12 @@ export interface TableProps {
   label?: string | undefined;
   /** минимальная ширина таблицы, ниже которой включается скролл: «720px» */
   minWidth?: string | undefined;
+  /**
+   * Полоска затухания у правого края — признак, что таблица шире контейнера
+   * (issue #263). Она не обязательна: у таблицы бывает и подпись под ней, и
+   * видимая полоса прокрутки, — поэтому проп, а не поведение варианта.
+   */
+  fade?: boolean | undefined;
   className?: string | undefined;
 }
 
@@ -35,6 +41,7 @@ export function Table({
   caption,
   label,
   minWidth,
+  fade = false,
   className,
 }: TableProps) {
   const cards = variant === 'cards';
@@ -78,7 +85,12 @@ export function Table({
   // и с клавиатуры, а не только пальцем
   return (
     <div
-      className={[styles.viewport, styles.scrollable, cards ? styles.cardsScroll : null]
+      className={[
+        styles.viewport,
+        styles.scrollable,
+        fade ? styles.faded : null,
+        cards ? styles.cardsScroll : null,
+      ]
         .filter(Boolean)
         .join(' ')}
       role="region"

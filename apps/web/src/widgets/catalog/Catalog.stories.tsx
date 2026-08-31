@@ -69,4 +69,23 @@ export const NoSpecs: Story = {
   args: { products: [{ ...plainProduct, specs: [] }] },
 };
 
+/**
+ * Раскрытие остальных моделей (issue #260). Витрина показывает три карточки,
+ * остальные лежат в HTML и раскрываются кнопкой — история нужна, чтобы это
+ * состояние можно было увидеть, не собирая приложение.
+ */
+export const Collapsed: Story = {
+  name: 'Витрина свёрнута: три модели и «Ещё N»',
+  args: {
+    products: [
+      plainProduct,
+      discountedProduct,
+      uniqueSpecProduct,
+      labelledSaleProduct,
+      { ...plainProduct, id: 'split-24', slug: 'split-24', name: 'Сплит-система 24' },
+      { ...plainProduct, id: 'split-30', slug: 'split-30', name: 'Сплит-система 30' },
+    ],
+  },
+};
+
 export const Empty: Story = { name: 'Пустой каталог', args: { products: [] } };

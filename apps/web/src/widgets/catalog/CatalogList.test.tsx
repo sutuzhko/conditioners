@@ -1,3 +1,7 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { describe, expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 
@@ -289,15 +293,20 @@ describe('Каталог — строка сравнения (ADR-121)', () => {
     expect(mark).toHaveAttribute('aria-current', 'true');
   });
 
-  it('🔴 состояние отметки читается подписью, а не одним цветом', () => {
+  it('🔴 у отметки-иконки состояние читается именем, а не одним цветом', () => {
     renderList(catalog, { compare: 'split-07' });
 
+    /* Подписи у отметки больше нет: она кнопка-иконка в углу снимка
+       (issue #259). Значит имя обязано нести всё — и модель, и то, что
+       повторное нажатие снимет отметку. */
     const picked = screen.getByRole('link', { name: compareMarkLabel('Сплит-система 07', true) });
-    expect(picked).toHaveTextContent(catalogText.compareOn);
+    expect(picked).toHaveAccessibleName(expect.stringContaining(catalogText.compareOn));
     expect(picked).toHaveAccessibleName(expect.stringContaining(catalogText.compareRemove));
+    expect(picked).toHaveAttribute('aria-current', 'true');
 
     const free = screen.getByRole('link', { name: compareMarkLabel('Сплит-система 09', false) });
-    expect(free).toHaveTextContent(catalogText.compareAdd);
+    expect(free).toHaveAccessibleName(expect.stringContaining(catalogText.compareAdd));
+    expect(free).not.toHaveAttribute('aria-current');
   });
 
   it('🔴 отметка не сбрасывает подбор: снятие возвращает тот же отфильтрованный адрес', () => {
@@ -347,5 +356,41 @@ describe('Каталог — строка сравнения (ADR-121)', () => {
 
     expect(screen.getByText(t.compareCount(1))).toBeInTheDocument();
     expect(hrefOf('09')).toBe('/catalog?class=09&compare=split-07');
+  });
+});
+
+/**
+ * 🔴 Лента фильтров: её признаки — это правила CSS, и jsdom их не применяет.
+ * Проверяем источник; поведение в браузере снято замером (issue #261).
+ */
+describe('Подбор — лента фильтров (issue #261)', () => {
+  const css = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), 'ui', 'CatalogFilters.module.css'),
+    'utf8',
+  );
+
+  const ribbon = css.slice(css.indexOf('@media (width < 900px)'));
+
+  it('🔴 ниже 900 у ленты есть поля, затухание и снап', () => {
+    expect(ribbon).toMatch(/flex-wrap:\s*nowrap/);
+    expect(ribbon).toMatch(/overflow-x:\s*auto/);
+    expect(ribbon).toMatch(/scroll-snap-type:\s*x proximity/);
+    expect(ribbon).toMatch(/mask-image:\s*var\(--fade-inline-end\)/);
+    // поля: лента выходит за поле панели и возвращает отступ содержимому
+    expect(ribbon).toMatch(/margin-inline:\s*-16px/);
+    expect(ribbon).toMatch(/padding-inline:\s*16px/);
+  });
+
+  it('🔴 место под кольцо фокуса зарезервировано по вертикали', () => {
+    /* `overflow-x: auto` обрезает по обеим осям, и внешняя тень кольца у чипа
+       срезалась бы сверху и снизу. */
+    expect(ribbon).toMatch(/padding-block:\s*5px/);
+    expect(ribbon).toMatch(/margin-block:\s*-5px/);
+  });
+
+  it('с 900 ленты нет — чипы переносятся по строкам', () => {
+    const base = css.slice(0, css.indexOf('@media (width < 900px)'));
+    expect(base).toMatch(/\.values\s*\{[^}]*flex-wrap:\s*wrap/);
+    expect(base).not.toMatch(/\.values\s*\{[^}]*overflow-x/);
   });
 });

@@ -1,3 +1,7 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { describe, expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 
@@ -77,7 +81,7 @@ describe('Сравнение — таблица (ADR-109)', () => {
     expect(columnHeaders()).not.toContain('Сплит-система 18');
   });
 
-  it('замыкается ценой под ключ — той же, что на карточке', () => {
+  it('открывается ценой под ключ — той же, что на карточке', () => {
     renderCompare({ compare: 'split-07,split-09' });
 
     const row = screen.getByRole('rowheader', { name: catalogText.comparePrice }).closest('tr');
@@ -86,6 +90,15 @@ describe('Сравнение — таблица (ADR-109)', () => {
     expect(within(row).getByText('34 900 ₽')).toBeInTheDocument();
     // у модели со скидкой в сравнении стоит действующая цена, а не перечёркнутая
     expect(within(row).getByText('33 900 ₽')).toBeInTheDocument();
+  });
+
+  it('🔴 цена идёт первой строкой: ради неё таблицу и открывают (issue #263)', () => {
+    renderCompare({ compare: 'split-07,split-09' });
+
+    const body = screen.getByRole('table').querySelector('tbody');
+    if (body === null) throw new Error('Тела таблицы нет');
+
+    expect(body.rows[0]?.querySelector('th')?.textContent).toBe(catalogText.comparePrice);
   });
 
   it('справочник задаёт порядок строк и подписывает группы (ADR-094)', () => {
@@ -184,5 +197,49 @@ describe('Сравнение — вырожденные состояния (ADR-
     expect(screen.getByRole('table')).toBeInTheDocument();
     expect(screen.getByRole('rowheader', { name: catalogText.comparePrice })).toBeInTheDocument();
     expect(screen.getByText(catalogText.compareNoSpecs)).toBeInTheDocument();
+  });
+});
+
+/**
+ * 🔴 Устройство прокрутки держат правила CSS, а jsdom их не применяет.
+ * Проверяем источник; поведение в браузере снято замером (issue #263).
+ */
+describe('Сравнение — прокрутка внутри контейнера (issue #263)', () => {
+  const here = dirname(fileURLToPath(import.meta.url));
+  const tableCss = readFileSync(join(here, 'ui', 'CompareTable.module.css'), 'utf8');
+  const kitCss = readFileSync(
+    join(here, '..', '..', 'shared', 'ui', 'Table', 'Table.module.css'),
+    'utf8',
+  );
+  /* Комментарии выброшены: они объясняют в том числе отвергнутые варианты, и
+     проверка «такого правила в файле нет» ловила бы упоминание, а не правило. */
+  const kitRules = kitCss.replace(/\/\*[\s\S]*?\*\//g, '');
+
+  it('🔴 первая колонка залипает и отделена тенью, а не границей', () => {
+    /* При `border-collapse: collapse` граница залипшей ячейки принадлежит
+       сетке таблицы и уезжает вместе с ней. */
+    expect(kitCss).toMatch(/\.sticky th:first-child[\s\S]*?position:\s*sticky/);
+    expect(tableCss).toMatch(/box-shadow:\s*1px 0 0 var\(--line\)/);
+    expect(tableCss).toMatch(/border-right:\s*0/);
+  });
+
+  it('🔴 залипшая ячейка берёт фон своей строки — иначе она просвечивает', () => {
+    expect(kitCss).toMatch(/\.sticky th:first-child[\s\S]*?background:\s*inherit/);
+    expect(kitCss).toMatch(/\.zebra tbody tr:nth-child\(even\)\s*\{[^}]*background:\s*var\(--stripe-a\)/);
+  });
+
+  it('названия характеристик переносятся, значения — нет', () => {
+    expect(tableCss).toMatch(/overflow-wrap:\s*anywhere/);
+    expect(tableCss).toMatch(/white-space:\s*nowrap/);
+    expect(tableCss).toMatch(/width:\s*clamp\(132px/);
+  });
+
+  it('🔴 затухание края статично, а не привязано к прокрутке', () => {
+    /* Вариант со шкалой прокрутки гасил бы полоску там, где прокручивать
+       нечего, но оказался недетерминированным: снимок расходился с эталоном
+       на 96–100% пикселей, каждый раз на разном наборе историй тёмной темы
+       (ADR-197). Прокруточной шкале здесь не место — проверяем, что её нет. */
+    expect(kitCss).toMatch(/\.faded\s*\{[^}]*mask-image:\s*linear-gradient/);
+    expect(kitRules).not.toMatch(/animation-timeline/);
   });
 });
