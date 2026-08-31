@@ -1,0 +1,95 @@
+/* Пояса карточки: шапка, тело, подвал (issue #329).
+
+   Отступы сняты с эталона HeroUI (DESIGN_BRIEF §14): боковое поле карточки
+   `--pad-card` — 16px, вертикальное поле плотного ряда `--pad-card-sm` — 12px.
+   Переменные объявлены на контейнере панели, поэтому у `var()` стоит
+   подстановка по умолчанию — тем же приёмом, что у кнопки и поля (ADR-187):
+   внутри панели значение приходит токеном, снаружи подставляется число. */
+
+.header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: var(--pad-card-sm, 12px) var(--pad-card, 16px);
+}
+
+/* Линия отделяет пояс от тела. `--line` — декоративный разделитель, ему
+   довольно быть видимым; границу самой карточки держит `--line-strong`
+   вместе с тенью (DESIGN_BRIEF §14). */
+.divided {
+  border-bottom: 1px solid var(--line);
+}
+
+/* Колонка заголовка обязана уметь сжиматься: без `min-width: 0` длинное
+   слово в заголовке распирает флекс-строку, и действие уезжает за край
+   карточки. */
+.headText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-tiny, var(--fs-micro));
+  line-height: 1.35;
+}
+
+/* Действие не сжимается и не переносится: кнопка, ужатая до половины слова,
+   перестаёт быть кнопкой. Сжимается заголовок — он для этого и обрезается. */
+.action {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+  align-items: center;
+}
+
+.body {
+  padding: var(--pad-card, 16px);
+  color: var(--body);
+  font-size: var(--fs-body, var(--fs-base));
+}
+
+/* Тело, целиком занятое таблицей: поля приносят ячейки. */
+.flush {
+  padding: 0;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  box-sizing: border-box;
+  padding: var(--pad-card-sm, 12px) var(--pad-card, 16px);
+}
+
+.dividedTop {
+  border-top: 1px solid var(--line);
+}
+
+.end {
+  justify-content: flex-end;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.start {
+  justify-content: flex-start;
+}

@@ -58,3 +58,29 @@ export const Toggling: Story = {
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
   },
 };
+
+/**
+ * Тот же аккордеон в панели (issue #330). Пункт становится ровно `--h-nav`
+ * высотой, шеврон поворачивается на 180° и всё время указывает туда, куда
+ * пункт откроется. Содержимое остаётся в HTML и свёрнутым — это инвариант,
+ * а не оформление.
+ */
+export const InPanel: Story = {
+  name: 'В панели',
+  render: (args) => (
+    <div data-ui="panel" style={{ background: 'var(--bg-soft)', padding: 16 }}>
+      <Accordion {...args} />
+    </div>
+  ),
+};
+
+/** Открытый пункт в панели: шеврон развёрнут, содержимое раскрыто. */
+export const InPanelOpen: Story = {
+  name: 'В панели — открыт',
+  args: { defaultOpen: ['srok'] },
+  render: (args) => (
+    <div data-ui="panel" style={{ background: 'var(--bg-soft)', padding: 16 }}>
+      <Accordion {...args} />
+    </div>
+  ),
+};
