@@ -1,6 +1,7 @@
 import { expect, test, type APIRequestContext } from '@playwright/test';
 
 import { VR_THEMES, VR_WIDTHS } from '../../playwright.vr.config';
+import { waitForStoryReady } from './story-ready';
 
 /**
  * Визуальная регрессия историй Storybook (ADR-021): свой раннер, без Chromatic.
@@ -89,37 +90,7 @@ for (const width of VR_WIDTHS) {
           waitUntil: 'domcontentloaded',
         });
 
-        /* Готовность объявляет сам Storybook: `sb-show-main` появляется, когда
-           история отрисована, `sb-show-preparing-story` уходит, когда она
-           доготовилась. Ждать видимости `#storybook-root` нельзя — у историй
-           с пустым состоянием («Главная — следа нет») он честно нулевой
-           высоты, и ожидание не кончается никогда (docs/BUGS.md). */
-        await page.waitForFunction(() => {
-          const { classList } = document.body;
-          return (
-            classList.contains('sb-show-main') && !classList.contains('sb-show-preparing-story')
-          );
-        });
-
-        /* 🔴 Ждём, пока в документе не останется идущих конечных анимаций и
-           переходов (issue #424). `animations: 'disabled'` у снимка гасит
-           только то, что уже началось к моменту вызова: история, которая
-           открывает окно или выдвигает панель, к этой секунде ещё едет, и в
-           кадр попадает случайный её момент.
-
-           Так мигали шесть снимков `--opening` у окна и выдвижной панели и
-           восемь снимков ленты отзывов — расхождение в те же 306–308 пикселей
-           на рамке кнопки, то падая, то проходя на неизменном коде. Пересчёт
-           эталонов такое не лечит: он записывает случайный кадр.
-
-           Бесконечные анимации пропускаются намеренно — мерцание скелетона не
-           закончится никогда, и его гасит сам Playwright. */
-        await page.waitForFunction(() =>
-          document.getAnimations().every((animation) => {
-            const timing = animation.effect?.getComputedTiming();
-            return timing?.iterations === Infinity || animation.playState !== 'running';
-          }),
-        );
+        await waitForStoryReady(page);
 
         /* Снимается область просмотра, а не контейнер истории: у пустых
            историй его не снять, а регрессия «блок исчез» как раз и видна на
