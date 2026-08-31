@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import { reviewsContent as t } from './content';
 import { Reviews } from './Reviews';
@@ -72,12 +72,25 @@ export const Paused: Story = {
   args: { reviews: drifting },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: t.pauseTrack }));
 
-    await expect(canvas.getByRole('button', { name: t.resumeTrack })).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    );
+    /* 🔴 Кнопки остановки нет, когда покоя попросила система (issue #436):
+       компонент её не рисует намеренно — WCAG 2.2.2 требует механизм
+       остановки у **движущегося** содержимого, а остановленную системой ленту
+       останавливать нечем. Раннер снимков как раз просит покоя, и сценарий
+       искал кнопку, которой там нет, — падая молча на всех четырёх ширинах.
+
+       Проверяется поэтому итог, а не путь: лента стоит и отдана человеку.
+       Кнопка проверяется там, где она есть. */
+    const pause = canvas.queryByRole('button', { name: t.pauseTrack });
+    if (pause !== null) {
+      await userEvent.click(pause);
+      await waitFor(() =>
+        expect(canvas.getByRole('button', { name: t.resumeTrack })).toHaveAttribute(
+          'aria-pressed',
+          'true',
+        ),
+      );
+    }
     // прокрутка вернулась не «по классу», а по вычисленному стилю
     await expect(canvas.getByRole('list', { name: t.listLabel })).toHaveStyle({
       overflowX: 'auto',
