@@ -97,10 +97,41 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
 
   /* ---------- помощники ---------- */
 
+  const INTERACTIVE = [
+    'a[href]',
+    'button',
+    'input:not([type="hidden"])',
+    'select',
+    'textarea',
+    'summary',
+    '[role="button"]',
+    '[role="link"]',
+    '[role="checkbox"]',
+    '[role="radio"]',
+    '[role="switch"]',
+    '[role="tab"]',
+    '[role="menuitem"]',
+    '[role="option"]',
+    '[tabindex]:not([tabindex="-1"])',
+  ].join(', ');
+
   const text = (value: string | null | undefined): string =>
     (value ?? '').replace(/\s+/g, ' ').trim();
 
+  const ownText = (el: Element): string =>
+    text(
+      Array.from(el.childNodes)
+        .filter((node) => node.nodeType === Node.TEXT_NODE)
+        .map((node) => node.textContent ?? '')
+        .join(' '),
+    );
+
+  /* Имя контейнера не собирается из текста потомков: у `html` оно выходило
+     «@font-face {…» — весь стиль страницы одной строкой (разведка, прогон
+     33468735089). Текст потомков берётся только у самих целей — кнопка со
+     `<span>` внутри иначе осталась бы безымянной. */
   const accessibleName = (el: Element): string => {
+    if (el === document.documentElement || el === document.body) return '';
     const label = text(el.getAttribute('aria-label'));
     if (label.length > 0) return label;
     if (
@@ -115,7 +146,9 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
       if (placeholder.length > 0) return placeholder;
     }
     if (el instanceof HTMLImageElement) return text(el.getAttribute('alt'));
-    return text(el.textContent);
+    const own = ownText(el);
+    if (own.length > 0) return own;
+    return el.matches(INTERACTIVE) ? text(el.textContent) : '';
   };
 
   const describe = (el: Element | null): string => {
@@ -141,43 +174,30 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     return true;
   };
 
-  /* Шаблон sr-only: элемент есть в дереве и в доступности, но глазами его
-     нет — `position: absolute`, точка в один пиксель, обрезка. Такой элемент
-     не «видимая цель» по WCAG 2.5.8: нажимают на его подпись или он
-     показывается только по фокусу. */
-  const isScreenReaderOnly = (el: Element, style: CSSStyleDeclaration): boolean => {
+  /* Шаблон визуального скрытия (sr-only): элемент есть в дереве и в
+     доступности, но глазами его нет — точка в один пиксель, `clip`, `clip-path`,
+     обрезка. Такой элемент не «видимая цель» по WCAG 2.5.8 — нажимают на его
+     подпись, — и не «обрезанный текст»: на разведке 4884 срабатывания
+     `clipped-text` почти целиком были `span.srOnly` и `h2.srOnly`. */
+  const isVisuallyHidden = (el: Element, style: CSSStyleDeclaration): boolean => {
     const rect = el.getBoundingClientRect();
     const tiny = rect.width <= 1 && rect.height <= 1;
-    const clipped =
-      style.overflow === 'hidden' ||
-      style.clip !== 'auto' ||
-      (style.clipPath !== 'none' && style.clipPath !== '');
-    return style.position === 'absolute' && tiny && clipped;
+    if (style.position === 'absolute' && tiny) return true;
+    if (/^rect\(\s*0(?:px)?[ ,]+0(?:px)?[ ,]+0(?:px)?[ ,]+0(?:px)?\s*\)$/.test(style.clip)) {
+      return true;
+    }
+    if (/^inset\(\s*50%\s*\)$/.test(style.clipPath)) return true;
+    /* Точка в потоке с `overflow: hidden`, но без `position: absolute` — не
+       шаблон скрытия, а схлопнувшийся контрол: тап-зона 0×0 выглядела ровно
+       так, и её обязано ловить `target-size`. */
+    return false;
   };
-
-  const INTERACTIVE = [
-    'a[href]',
-    'button',
-    'input:not([type="hidden"])',
-    'select',
-    'textarea',
-    'summary',
-    '[role="button"]',
-    '[role="link"]',
-    '[role="checkbox"]',
-    '[role="radio"]',
-    '[role="switch"]',
-    '[role="tab"]',
-    '[role="menuitem"]',
-    '[role="option"]',
-    '[tabindex]:not([tabindex="-1"])',
-  ].join(', ');
 
   const targets = Array.from(document.querySelectorAll(INTERACTIVE)).filter((el) => {
     if (!isVisible(el)) return false;
     const style = getComputedStyle(el);
     if (style.pointerEvents === 'none') return false;
-    if (isScreenReaderOnly(el, style)) return false;
+    if (isVisuallyHidden(el, style)) return false;
     /* Ссылка в потоке текста исключена самим WCAG 2.5.8: её размер задаёт
        строка, а не дизайн. */
     if (el instanceof HTMLAnchorElement && style.display === 'inline') return false;
@@ -207,15 +227,73 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
   /* ---------- 2. у цели есть площадь ---------- */
 
   const minimum = input.touch ? 44 : 24;
-  for (const el of targets) {
-    const rect = el.getBoundingClientRect();
-    if (rect.width < minimum || rect.height < minimum) {
-      report(
-        'target-size',
-        describe(el),
-        `${size(rect.width)}×${size(rect.height)} при минимуме ${minimum}`,
-      );
+
+  /* Цель поля с подписью — вся подпись вместе с полем (WCAG 2.5.8: цель —
+     то, по чему нажимают, а по `<label>` нажимают). На разведке ~770
+     срабатываний были чекбоксы 20×20 внутри подписей шириной в строку. */
+  const unite = (a: DOMRect, b: DOMRect): DOMRect =>
+    new DOMRect(
+      Math.min(a.left, b.left),
+      Math.min(a.top, b.top),
+      Math.max(a.right, b.right) - Math.min(a.left, b.left),
+      Math.max(a.bottom, b.bottom) - Math.min(a.top, b.top),
+    );
+  const targetRect = (el: Element): DOMRect => {
+    let rect = el.getBoundingClientRect();
+    if (
+      el instanceof HTMLInputElement ||
+      el instanceof HTMLSelectElement ||
+      el instanceof HTMLTextAreaElement
+    ) {
+      for (const label of Array.from(el.labels ?? [])) {
+        if (isVisible(label)) rect = unite(rect, label.getBoundingClientRect());
+      }
     }
+    return rect;
+  };
+
+  const rects = new Map<Element, DOMRect>(targets.map((el) => [el, targetRect(el)]));
+  const undersized = (rect: DOMRect): boolean => rect.width < minimum || rect.height < minimum;
+
+  /* Исключение WCAG 2.5.8 «Spacing»: цель меньше 24×24 допустима, если
+     окружность диаметром 24 с центром в её рамке не пересекает ни другую цель,
+     ни окружность другой недоразмерной цели — по ней не промахнёшься в соседа.
+     На разведке так выглядели номера страниц 22×20 с воздухом вокруг.
+     🔴 Для порога 44 исключения нет: 44×44 в сенсорной раскладке — политика
+     проекта (DESIGN_BRIEF §9, ADR-183), а не норма WCAG. */
+  const distanceToRect = (cx: number, cy: number, rect: DOMRect): number => {
+    const dx = Math.max(rect.left - cx, 0, cx - rect.right);
+    const dy = Math.max(rect.top - cy, 0, cy - rect.bottom);
+    return Math.hypot(dx, dy);
+  };
+  const spacedApart = (el: Element, rect: DOMRect): boolean => {
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    for (const [other, otherRect] of rects) {
+      if (other === el || el.contains(other) || other.contains(el)) continue;
+      if (undersized(otherRect)) {
+        const ox = otherRect.left + otherRect.width / 2;
+        const oy = otherRect.top + otherRect.height / 2;
+        if (Math.hypot(cx - ox, cy - oy) < 24) return false;
+      } else if (distanceToRect(cx, cy, otherRect) < 12) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  for (const [el, rect] of rects) {
+    if (!undersized(rect)) continue;
+    /* Цель без площади нельзя нажать вовсе — воздух вокруг ей не поможет:
+       так ловилась тап-зона 0×0. Исключение «Spacing» — только для целей,
+       по которым в принципе можно попасть. */
+    const flat = rect.width === 0 || rect.height === 0;
+    if (!flat && !input.touch && spacedApart(el, rect)) continue;
+    report(
+      'target-size',
+      describe(el),
+      `${size(rect.width)}×${size(rect.height)} при минимуме ${minimum}`,
+    );
   }
 
   /* ---------- 3. тема покрашена своей краской ---------- */
@@ -289,8 +367,9 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     if (!hasOwnText(el) || !isVisible(el)) continue;
     const style = getComputedStyle(el);
     /* У строчных элементов `clientWidth` равен нулю по спецификации — там
-       мерить нечего. */
+       мерить нечего. Визуально скрытый текст обрезан по замыслу. */
     if (style.display === 'inline' || el.clientWidth === 0) continue;
+    if (isVisuallyHidden(el, style)) continue;
 
     if (
       hides(style.overflowX) &&
@@ -321,70 +400,126 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
   /* ---------- 5. поверх цели никто не лежит ---------- */
 
   const modal = document.querySelector('[aria-modal="true"]');
-  const scrollX0 = window.scrollX;
-  const scrollY0 = window.scrollY;
 
   const controls = (hit: Element, el: Element): boolean =>
     hit instanceof HTMLLabelElement && hit.control === el;
 
+  const scrolls = (overflow: string): boolean => overflow === 'auto' || overflow === 'scroll';
+  const scrollableAncestors = (el: Element): HTMLElement[] => {
+    const list: HTMLElement[] = [];
+    for (let node = el.parentElement; node !== null; node = node.parentElement) {
+      const style = getComputedStyle(node);
+      if (scrolls(style.overflowX) || scrolls(style.overflowY)) list.push(node);
+    }
+    return list;
+  };
+
+  /* Цель, чей центр вырезан предком с `overflow: hidden|clip` (не
+     прокручиваемым), недостижима и без нас — это предмет другого правила, а
+     не «накрытия». */
+  const clippedByAncestor = (el: Element, cx: number, cy: number): boolean => {
+    for (let node = el.parentElement; node !== null; node = node.parentElement) {
+      const style = getComputedStyle(node);
+      const hidesX = hides(style.overflowX) && !scrolls(style.overflowX);
+      const hidesY = hides(style.overflowY) && !scrolls(style.overflowY);
+      if (!hidesX && !hidesY) continue;
+      const box = node.getBoundingClientRect();
+      if (
+        (hidesX && (cx < box.left || cx > box.right)) ||
+        (hidesY && (cy < box.top || cy > box.bottom))
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  type Sight = {
+    readonly ok: boolean;
+    readonly hit: Element | null;
+    readonly cx: number;
+    readonly cy: number;
+  };
+  const lookAt = (el: Element): Sight | null => {
+    const rect = el.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    if (cx < 0 || cy < 0 || cx > viewportWidth || cy > window.innerHeight) return null;
+    const hit = document.elementFromPoint(cx, cy);
+    const ok = hit !== null && (hit === el || el.contains(hit) || controls(hit, el));
+    return { ok, hit, cx, cy };
+  };
+
+  /* 🔴 Две ступени. Сначала цель смотрится там, где стоит; если накрыта или
+     под ней пусто — подводится к центру окна (`scrollIntoView` двигает и
+     окно, и все прокручиваемые предки) и смотрится снова, а прокрутка
+     возвращается. Нарушение — только то, что накрыто и после прокрутки.
+
+     Почему так, а не «на месте»: липкая полоса поверх верха страницы ловится
+     всё равно — вверх прокрутить нельзя, цель остаётся под полосой; нижняя
+     закреплённая панель поверх последнего содержимого — тоже, вниз
+     прокрутить нельзя (ради этого в токенах есть `--bottom-reserve`). А чип,
+     уехавший за край ряда с `overflow-x: auto`, и поле под липким подвалом
+     окна до прокрутки — не нарушения: до них дотягиваются прокруткой. На
+     разведке (прогон 33468735089) из 2938 срабатываний почти все были именно
+     такими — в точке оказывался `html`. */
   for (const el of targets) {
     /* Открытое модальное окно накрывает страницу по замыслу: цели под ним
        недоступны законно, проверяются только цели внутри. */
     if (modal !== null && !modal.contains(el)) continue;
 
-    let rect = el.getBoundingClientRect();
+    const rect = el.getBoundingClientRect();
     if (rect.width === 0 || rect.height === 0) continue; // это уже `target-size`
 
-    /* Цель в первом экране проверяется там, где стоит: липкая полоса
-       накрывает именно верх страницы, и прокрутка к центру спрятала бы этот
-       случай. Цель ниже — подводится к центру окна. */
-    const inViewport =
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <= window.innerHeight &&
-      rect.right <= viewportWidth;
-    if (!inViewport) {
-      el.scrollIntoView({ block: 'center', inline: 'center' });
-      rect = el.getBoundingClientRect();
-    }
+    const inPlace = lookAt(el);
+    if (inPlace !== null && inPlace.ok) continue;
+    if (clippedByAncestor(el, rect.left + rect.width / 2, rect.top + rect.height / 2)) continue;
 
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    if (cx < 0 || cy < 0 || cx > viewportWidth || cy > window.innerHeight) continue;
+    const ancestors = scrollableAncestors(el);
+    const saved: ReadonlyArray<readonly [number, number]> = ancestors.map(
+      (node): readonly [number, number] => [node.scrollLeft, node.scrollTop],
+    );
+    const windowX = window.scrollX;
+    const windowY = window.scrollY;
 
-    const hit = document.elementFromPoint(cx, cy);
-    const ok = hit !== null && (hit === el || el.contains(hit) || controls(hit, el));
-    if (!ok) {
-      report(
-        'occlusion',
-        describe(el),
-        `в точке (${Math.round(cx)}, ${Math.round(cy)}) сверху ${describe(hit)}`,
-      );
-    }
+    el.scrollIntoView({ block: 'center', inline: 'center' });
+    const centred = lookAt(el);
+
+    ancestors.forEach((node, index) => {
+      const [left, top] = saved[index] ?? [0, 0];
+      node.scrollLeft = left;
+      node.scrollTop = top;
+    });
+    window.scrollTo(windowX, windowY);
+
+    if (centred === null || centred.ok) continue;
+    report(
+      'occlusion',
+      describe(el),
+      `в точке (${Math.round(centred.cx)}, ${Math.round(centred.cy)}) сверху ${describe(centred.hit)}`,
+    );
   }
-
-  window.scrollTo(scrollX0, scrollY0);
 
   /* ---------- 6. шрифты загрузились ---------- */
 
   await document.fonts.ready;
 
-  const declaredFamilies = new Set<string>();
-  const faces: FontFace[] = [];
+  const facesByFamily = new Map<string, FontFace[]>();
   document.fonts.forEach((face) => {
-    faces.push(face);
-  });
-  for (const face of faces) {
     const family = face.family.replace(/^["']|["']$/g, '');
-    declaredFamilies.add(family);
+    facesByFamily.set(family, [...(facesByFamily.get(family) ?? []), face]);
     if (face.status === 'error') {
       report('fonts', '', `${family} ${face.weight} ${face.style}: файл не загрузился`);
     }
-  }
+  });
 
-  /* Проверяются только семейства, объявленные через @font-face: системные
-     шрифты в `document.fonts` не значатся, и для них `check` ничего не
-     означает. */
+  /* Проверяется семейство, а не начертание: браузер подменяет вес внутри
+     семейства сам (нет 600 — возьмёт 700), и это не подмена шрифта. На
+     разведке «Manrope 600 не загружен» стояло при объявленной грани 600 —
+     проверка по весу лгала. Подмена — это когда ни одна грань семейства,
+     объявленного `@font-face` и встреченного в тексте, не загрузилась после
+     `document.fonts.ready`. Системные шрифты в `document.fonts` не значатся —
+     для них проверки нет. */
   const checkedFamilies = new Set<string>();
   for (const el of Array.from(document.body.querySelectorAll('*'))) {
     if (!hasOwnText(el) || !isVisible(el)) continue;
@@ -394,17 +529,11 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
         .split(',')[0]
         ?.trim()
         .replace(/^["']|["']$/g, '') ?? '';
-    if (first.length === 0 || !declaredFamilies.has(first)) continue;
-    const key = `${style.fontWeight} ${style.fontStyle} ${first}`;
-    if (checkedFamilies.has(key)) continue;
-    checkedFamilies.add(key);
-    const loaded = document.fonts.check(`${style.fontStyle} ${style.fontWeight} 16px "${first}"`);
-    if (!loaded) {
-      report(
-        'fonts',
-        describe(el),
-        `${first} ${style.fontWeight} ${style.fontStyle}: не загружен, рисуется подмена`,
-      );
+    const faces = facesByFamily.get(first);
+    if (faces === undefined || checkedFamilies.has(first)) continue;
+    checkedFamilies.add(first);
+    if (!faces.some((face) => face.status === 'loaded')) {
+      report('fonts', describe(el), `${first}: ни одна грань не загружена, рисуется подмена`);
     }
   }
 

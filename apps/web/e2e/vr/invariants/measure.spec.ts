@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
 import { expect, test, type Page } from '@playwright/test';
 
 import {
@@ -66,14 +69,62 @@ test.describe('overflow-x', () => {
 });
 
 test.describe('target-size', () => {
-  test('цель меньше 24×24 без сенсора — нарушение', async ({ page: p }) => {
+  test('цель меньше 24×24 вплотную к соседу — нарушение', async ({ page: p }) => {
     const found = await measure(
       p,
-      page('<button aria-label="Закрыть" style="width:18px;height:18px;padding:0"></button>'),
+      page(
+        `<button aria-label="Закрыть" style="width:18px;height:18px;padding:0;vertical-align:top"></button><button style="width:48px;height:48px">Ок</button>`,
+      ),
     );
     expect(rulesOf(found)).toEqual(['target-size']);
     expect(found[0]?.element).toBe('button «Закрыть»');
     expect(found[0]?.detail).toBe('18×18 при минимуме 24');
+  });
+
+  test('WCAG «Spacing»: малая цель с воздухом ≥ 24px вокруг допустима без сенсора', async ({
+    page: p,
+  }) => {
+    const found = await measure(
+      p,
+      page(
+        `<a href="#" style="display:inline-block;width:20px;height:20px;margin-right:60px">1</a><a href="#" style="display:inline-block;width:20px;height:20px">2</a>`,
+      ),
+    );
+    expect(rulesOf(found)).toEqual([]);
+  });
+
+  test('две малые цели вплотную — нарушение у обеих', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<a href="#" style="display:inline-block;width:20px;height:20px">1</a><a href="#" style="display:inline-block;width:20px;height:20px">2</a>`,
+      ),
+    );
+    expect(found.filter((item) => item.rule === 'target-size')).toHaveLength(2);
+  });
+
+  test('🔴 в сенсорной раскладке воздух не спасает: 44×44 — политика проекта', async ({
+    page: p,
+  }) => {
+    const found = await measure(
+      p,
+      page(
+        `<a href="#" style="display:inline-block;width:20px;height:20px;margin-right:60px">1</a><a href="#" style="display:inline-block;width:20px;height:20px">2</a>`,
+      ),
+      { theme: 'light', touch: true },
+    );
+    expect(found.filter((item) => item.rule === 'target-size')).toHaveLength(2);
+  });
+
+  test('чекбокс 20×20 внутри подписи 200×44 — цель это подпись', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<label style="display:inline-block;width:200px;height:44px;line-height:44px"><input type="checkbox" style="width:20px;height:20px;margin:0 8px 0 0;vertical-align:middle">Согласен с условиями</label>`,
+      ),
+      { theme: 'light', touch: true },
+    );
+    expect(rulesOf(found)).toEqual([]);
   });
 
   test('🔴 видимая цель 0×0 — нарушение, а не «скрыта»', async ({ page: p }) => {
@@ -187,6 +238,19 @@ test.describe('clipped-text', () => {
   });
 });
 
+test.describe('clipped-text: визуально скрытое', () => {
+  test('sr-only текст обрезан по замыслу — тишина', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<button style="width:48px;height:48px"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">Открыть меню разделов и настроек</span>≡</button>
+         <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">Заголовок только для озвучки</h2>`,
+      ),
+    );
+    expect(found.filter((item) => item.rule === 'clipped-text')).toEqual([]);
+  });
+});
+
 test.describe('occlusion', () => {
   test('фиксированная полоса поверх кнопки — нарушение с именем полосы', async ({ page: p }) => {
     const found = await measure(
@@ -214,6 +278,63 @@ test.describe('occlusion', () => {
     expect(rulesOf(found)).toEqual([]);
   });
 
+  test('чип, уехавший за край ряда с overflow-x: auto, — не накрыт: до него дотягиваются прокруткой', async ({
+    page: p,
+  }) => {
+    const chips = Array.from(
+      { length: 12 },
+      (_, i) =>
+        `<a href="#" style="display:inline-block;width:80px;height:44px;margin-right:8px">Чип ${i}</a>`,
+    ).join('');
+    const found = await measure(
+      p,
+      page(`<div style="width:300px;overflow-x:auto;white-space:nowrap">${chips}</div>`),
+    );
+    expect(found.filter((item) => item.rule === 'occlusion')).toEqual([]);
+  });
+
+  test('поле под липким подвалом прокручиваемого блока — не накрыто', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="height:300px;overflow-y:auto;position:relative">
+           <div style="height:800px;padding-top:250px"><input aria-label="Адрес" style="width:200px;height:44px"></div>
+           <div class="footer" style="position:sticky;bottom:0;height:80px;background:#ddd"></div>
+         </div>`,
+      ),
+    );
+    expect(found.filter((item) => item.rule === 'occlusion')).toEqual([]);
+  });
+
+  test('кнопка в самом низу длинной страницы под закреплённой нижней панелью — нарушение', async ({
+    page: p,
+  }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="height:1500px"></div>
+         <button style="width:48px;height:48px;display:block">Отправить</button>
+         <div class="bottom-bar" style="position:fixed;bottom:0;left:0;right:0;height:120px;background:rgba(0,0,0,.1)"></div>`,
+      ),
+    );
+    expect(rulesOf(found)).toEqual(['occlusion']);
+    expect(found[0]?.detail).toMatch(/сверху div\.bottom-bar/);
+  });
+
+  test('имя у html пустое — в сводке не всплывает текст стилей', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="width:200px;height:60px;overflow:hidden;position:relative">
+           <button style="position:absolute;left:400px;top:0;width:48px;height:48px">За краем</button>
+         </div>`,
+      ),
+    );
+    /* Цель вырезана предком с overflow: hidden — недостижима и без нас, это не «накрытие». */
+    expect(found.filter((item) => item.rule === 'occlusion')).toEqual([]);
+    expect(found.every((item) => !item.detail.includes('@font-face'))).toBe(true);
+  });
+
   test('цель ниже первого экрана подводится к центру и проверяется там', async ({ page: p }) => {
     const found = await measure(
       p,
@@ -237,6 +358,28 @@ test.describe('fonts', () => {
     );
     expect(rulesOf(found)).toEqual(['fonts']);
     expect(found.map((item) => item.detail).join('\n')).toMatch(/Призрак/);
+  });
+
+  test('семейство с двумя гранями, из которых нужна одна, — не подмена', async ({ page: p }) => {
+    /* Настоящий файл шрифта из public/: раннер запускается из apps/web, и
+       путь считается от него — так же, как `staticDirs` витрины. */
+    const woff2 = readFileSync(resolve('public/fonts/Manrope-400-latin.woff2'));
+    await p.route('http://fonts.invalid/**', (route) =>
+      route.fulfill({ body: woff2, contentType: 'font/woff2' }),
+    );
+    const found = await measure(
+      p,
+      page(
+        '<p style="font-family:Probe;font-weight:600">Text in a weight without its own face</p>',
+        {
+          head: `<style>
+          @font-face { font-family: Probe; font-weight: 400; src: url(http://fonts.invalid/a.woff2) format('woff2'); }
+          @font-face { font-family: Probe; font-weight: 700; src: url(http://fonts.invalid/b.woff2) format('woff2'); }
+        </style>`,
+        },
+      ),
+    );
+    expect(found.filter((item) => item.rule === 'fonts')).toEqual([]);
   });
 
   test('системный шрифт без @font-face — тишина', async ({ page: p }) => {
