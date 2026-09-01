@@ -1,0 +1,102 @@
+# админка-вход--незаполненнаяформа · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×464 @16,218  r20  b1
+  h1.LoginForm__title  316×60 @21,21  Onest 700 25/30  ls-1  lines=2  «Вход в панель управления»
+  p.LoginForm__description  316×45 @21,87  Manrope 400 15/22  lines=2  «Раздел закрыт. Доступ — только у владель»
+  form.LoginForm__form  316×289 @21,154
+    div.Field__field  316×103 @0,0
+      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+        span.Field__required  9×18 @39,1  Manrope 600 13/20  lines=1  «*»
+      input  316×49 @0,27  r11  b1
+      p.Field__error  316×19 @0,83  Manrope 600 13/19  lines=1  «Введите логин»
+    div.Field__field#2  316×103 @0,119
+      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Пароль»
+        span.Field__required#2  9×18 @47,1  Manrope 600 13/20  lines=1  «*»
+      input  316×49 @0,27  r11  b1
+      p.Field__error  316×19 @0,83  Manrope 600 13/19  lines=1  «Введите пароль»
+    button.Button__button  316×52 @0,237  r12  b1
+      span.Button__content  47×19 @134,16
+        span.Button__label  47×19 @0,0  Manrope 600 16/19  lines=1  «Войти»
+
+[геометрия 768]
+section.Card__card  420×456 @174,222  r20  b1
+  h1.LoginForm__title  378×75 @21,21  Onest 700 31/37  ls-1  lines=2  «Вход в панель управления»
+  p.LoginForm__description  378×22 @21,102  Manrope 400 15/22  lines=1  «Раздел закрыт. Доступ — только у владель»
+  form.LoginForm__form  378×289 @21,146
+    div.Field__field  378×103 @0,0
+      label.Field__label  378×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+        span.Field__required  9×18 @39,1  Manrope 600 13/20  lines=1  «*»
+      input  378×49 @0,27  r11  b1
+      p.Field__error  378×19 @0,83  Manrope 600 13/19  lines=1  «Введите логин»
+    div.Field__field#2  378×103 @0,119
+      label.Field__label  378×20 @0,0  Manrope 600 13/20  lines=1  «Пароль»
+        span.Field__required#2  9×18 @47,1  Manrope 600 13/20  lines=1  «*»
+      input  378×49 @0,27  r11  b1
+      p.Field__error  378×19 @0,83  Manrope 600 13/19  lines=1  «Введите пароль»
+    button.Button__button  378×52 @0,237  r12  b1
+      span.Button__content  47×19 @165,16
+        span.Button__label  47×19 @0,0  Manrope 600 16/19  lines=1  «Войти»
+
+[геометрия 1440]
+section.Card__card  420×473 @510,214  r20  b1
+  h1.LoginForm__title  378×91 @21,21  Onest 700 38/46  ls-1  lines=2  «Вход в панель управления»
+  p.LoginForm__description  378×22 @21,118  Manrope 400 15/22  lines=1  «Раздел закрыт. Доступ — только у владель»
+  form.LoginForm__form  378×289 @21,163
+    div.Field__field  378×103 @0,0
+      label.Field__label  378×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+        span.Field__required  9×18 @39,1  Manrope 600 13/20  lines=1  «*»
+      input  378×49 @0,27  r11  b1
+      p.Field__error  378×19 @0,83  Manrope 600 13/19  lines=1  «Введите логин»
+    div.Field__field#2  378×103 @0,119
+      label.Field__label  378×20 @0,0  Manrope 600 13/20  lines=1  «Пароль»
+        span.Field__required#2  9×18 @47,1  Manrope 600 13/20  lines=1  «*»
+      input  378×49 @0,27  r11  b1
+      p.Field__error  378×19 @0,83  Manrope 600 13/19  lines=1  «Введите пароль»
+    button.Button__button  378×52 @0,237  r12  b1
+      span.Button__content  47×19 @165,16
+        span.Button__label  47×19 @0,0  Manrope 600 16/19  lines=1  «Войти»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #08425473 0px 36px 80px -32px
+  h1.LoginForm__title  color #0f172a
+  p.LoginForm__description  color #556173
+  form.LoginForm__form
+    div.Field__field
+      label.Field__label  color #334155
+        span.Field__required  color #0e7490
+      input  bg #be123c14  border #be123c  shadow #be123c14 0px 0px 0px 3px  outline #0891b2
+      p.Field__error  color #be123c
+    div.Field__field#2
+      label.Field__label  color #334155
+        span.Field__required#2  color #0e7490
+      input  bg #be123c14  border #be123c
+      p.Field__error  color #be123c
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #08425473 0px 36px 80px -32px
+  h1.LoginForm__title  color #eaf1f8
+  p.LoginForm__description  color #8598ac
+  form.LoginForm__form
+    div.Field__field
+      label.Field__label  color #c9d5e2
+        span.Field__required  color #22d3ee
+      input  bg #fb71851f  border #fb7185  shadow #fb71851f 0px 0px 0px 3px  outline #22d3ee
+      p.Field__error  color #fb7185
+    div.Field__field#2
+      label.Field__label  color #c9d5e2
+        span.Field__required#2  color #22d3ee
+      input  bg #fb71851f  border #fb7185
+      p.Field__error  color #fb7185
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff

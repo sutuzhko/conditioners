@@ -1,0 +1,102 @@
+# админка-заказы-чеклист-выезда--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×447 @16,16  r20  b1
+  div.OrderChecklist__head  316×21 @21,21
+    h2.OrderChecklist__title  132×21 @0,0  Onest 700 17/21  ls0  lines=1  «Чеклист выезда»
+  p.OrderChecklist__hint  316×81 @21,46  Manrope 400 13/20  lines=4  «Собран из наряда: тип работ, позиции, шт»
+  p.OrderChecklist__empty  316×40 @21,140  Manrope 400 13/20  lines=2  «Чеклист пуст. Соберите его из наряда — и»
+  form.OrderChecklist__add  316×147 @21,194  b1 0 0 0
+    div.Field__field  316×76 @0,15
+      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Что ещё взять»
+      input  316×49 @0,27  r11  b1
+    button.Button__button  164×44 @0,103  r9  b1
+      span.Button__content  134×16 @15,14
+        span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Добавить свой пункт»
+  div.OrderChecklist__actions  316×72 @21,354
+    button.Button__button  181×44 @0,0  r9  b1
+      span.Button__content#2  151×16 @15,14
+        span.Button__label  151×16 @0,0  Manrope 600 13/16  lines=1  «Пересобрать из наряда»
+    span.OrderChecklist__quiet  266×20 @0,52  Manrope 400 13/20  lines=1  «Отметки и дописанные пункты сохранятся.»
+
+[геометрия 768]
+section.Card__card  736×303 @16,16  r20  b1
+  div.OrderChecklist__head  694×22 @21,21
+    h2.OrderChecklist__title  138×22 @0,0  Onest 700 18/22  ls0  lines=1  «Чеклист выезда»
+  p.OrderChecklist__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Собран из наряда: тип работ, позиции, шт»
+  p.OrderChecklist__empty  694×20 @21,101  Manrope 400 13/20  lines=1  «Чеклист пуст. Соберите его из наряда — и»
+  form.OrderChecklist__add  694×91 @21,135  b1 0 0 0
+    div.Field__field  518×76 @0,15
+      label.Field__label  518×20 @0,0  Manrope 600 13/20  lines=1  «Что ещё взять»
+      input  518×49 @0,27  r11  b1
+    button.Button__button  164×44 @530,47  r9  b1
+      span.Button__content  134×16 @15,14
+        span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Добавить свой пункт»
+  div.OrderChecklist__actions  694×44 @21,238
+    button.Button__button  181×44 @0,0  r9  b1
+      span.Button__content#2  151×16 @15,14
+        span.Button__label  151×16 @0,0  Manrope 600 13/16  lines=1  «Пересобрать из наряда»
+    span.OrderChecklist__quiet  266×20 @193,12  Manrope 400 13/20  lines=1  «Отметки и дописанные пункты сохранятся.»
+
+[геометрия 1440]
+section.Card__card  1408×300 @16,16  r20  b1
+  div.OrderChecklist__head  1366×23 @21,21
+    h2.OrderChecklist__title  146×23 @0,0  Onest 700 19/23  ls0  lines=1  «Чеклист выезда»
+  p.OrderChecklist__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Собран из наряда: тип работ, позиции, шт»
+  p.OrderChecklist__empty  1366×20 @21,102  Manrope 400 13/20  lines=1  «Чеклист пуст. Соберите его из наряда — и»
+  form.OrderChecklist__add  1366×91 @21,136  b1 0 0 0
+    div.Field__field  1190×76 @0,15
+      label.Field__label  1190×20 @0,0  Manrope 600 13/20  lines=1  «Что ещё взять»
+      input  1190×49 @0,27  r11  b1
+    button.Button__button  164×40 @1202,51  r9  b1
+      span.Button__content  134×16 @15,12
+        span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Добавить свой пункт»
+  div.OrderChecklist__actions  1366×40 @21,239
+    button.Button__button  181×40 @0,0  r9  b1
+      span.Button__content#2  151×16 @15,12
+        span.Button__label  151×16 @0,0  Manrope 600 13/16  lines=1  «Пересобрать из наряда»
+    span.OrderChecklist__quiet  266×20 @193,10  Manrope 400 13/20  lines=1  «Отметки и дописанные пункты сохранятся.»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.OrderChecklist__head
+    h2.OrderChecklist__title  color #0f172a
+  p.OrderChecklist__hint  color #556173
+  p.OrderChecklist__empty  color #92400e
+  form.OrderChecklist__add  border #e2e8f0 #475569 #475569 #475569
+    div.Field__field
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+    button.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label  color #0f172a
+  div.OrderChecklist__actions
+    button.Button__button  border transparent
+      span.Button__content#2
+        span.Button__label  color #0e7490
+    span.OrderChecklist__quiet  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.OrderChecklist__head
+    h2.OrderChecklist__title  color #eaf1f8
+  p.OrderChecklist__hint  color #8598ac
+  p.OrderChecklist__empty  color #fbbf24
+  form.OrderChecklist__add  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+    button.Button__button  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label  color #eaf1f8
+  div.OrderChecklist__actions
+    button.Button__button  border transparent
+      span.Button__content#2
+        span.Button__label  color #22d3ee
+    span.OrderChecklist__quiet  color #8598ac

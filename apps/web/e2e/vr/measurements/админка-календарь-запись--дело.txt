@@ -1,0 +1,42 @@
+# админка-календарь-запись--дело · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.EventChip__chip  358×22 @16,16  r100  b1 1 1 3
+  span.EventChip__head  52×15 @9,4
+    svg.EventChip__icon  12×12 @0,2
+    span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+  span.EventChip__name  283×15 @66,4  Manrope 600 12/15  lines=1  «Ирина»
+
+[геометрия 768]
+button.EventChip__chip  736×22 @16,16  r100  b1 1 1 3
+  span.EventChip__head  52×15 @9,4
+    svg.EventChip__icon  12×12 @0,2
+    span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+  span.EventChip__name  661×15 @66,4  Manrope 600 12/15  lines=1  «Ирина»
+
+[геометрия 1440]
+button.EventChip__chip  1408×22 @16,16  r100  b1 1 1 3
+  span.EventChip__head  52×15 @9,4
+    svg.EventChip__icon  12×12 @0,2
+    span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+  span.EventChip__name  1333×15 @66,4  Manrope 600 12/15  lines=1  «Ирина»
+
+[палитра light]
+button.EventChip__chip  bg #ecfeff  border transparent transparent transparent #0e7490
+  span.EventChip__head
+    svg.EventChip__icon
+    span.EventChip__time  color #0e7490
+  span.EventChip__name  color #0e7490
+
+[палитра dark]
+button.EventChip__chip  bg #22d3ee1a  border transparent transparent transparent #22d3ee
+  span.EventChip__head
+    svg.EventChip__icon
+    span.EventChip__time  color #22d3ee
+  span.EventChip__name  color #22d3ee

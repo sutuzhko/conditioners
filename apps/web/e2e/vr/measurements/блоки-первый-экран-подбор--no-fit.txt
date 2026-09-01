@@ -1,0 +1,252 @@
+# блоки-первый-экран-подбор--no-fit · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+div.Card__card  288×671 @16,16  r24  b1
+  div.HeroPicker__head  254×43 @17,17
+    h2.HeroPicker__eyebrow  169×17 @0,0  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+    span.HeroPicker__live  101×19 @0,25  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+      span.HeroPicker__dot  7×7 @0,6  r100
+  div.HeroPicker__body  254×582 @17,72
+    div.HeroPicker__controls  254×191 @0,0
+      div.Field__field  254×101 @0,0
+        span.RangeSlider__head  254×25 @0,0
+          label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+          output.RangeSlider__value  41×25 @213,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider  254×44 @0,32
+        span.RangeSlider__scale  254×19 @0,83
+          span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+          span#2  36×19 @218,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  254×75 @0,115
+        span.HeroPicker__placesLabel  254×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips  254×44 @0,31
+          button.Chip__chip  79×44 @0,0  r100  b1
+            span.HeroPicker__placeShort  61×16 @9,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  79×44 @87,0  r100  b1
+            span.HeroPicker__placeShort  27×16 @26,14  Manrope 600 13/16  lines=1  «Дом»
+          button.Chip__chip#3  79×44 @175,0  r100  b1
+            span.HeroPicker__placeShort  34×16 @22,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card  254×377 @0,205  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @93,-49  r50
+      div.HeroPicker__states  224×300 @15,15
+        div.HeroPicker__state  224×300 @0,0
+          div.HeroPicker__resultHead  224×19 @0,0
+            span.HeroPicker__resultEyebrow  53×19 @0,0  JetBrains Mono 400 12/19  ls2  lines=1  «Подбор»
+          h3.HeroPicker__noFitTitle  224×43 @0,27  Onest 700 18/22  ls0  lines=2  «На 25 м² нужен отдельный расчёт»
+          p.HeroPicker__noFitText  224×101 @0,78  Manrope 400 14/20  lines=5  «Одной моделью из каталога такую площадь»
+          a.Button__button  224×44 @0,256  r11  b1
+            span.Button__content  162×17 @31,13
+              span.Button__label  162×17 @0,0  Manrope 600 15/17  lines=1  «Обсудить по телефону»
+      p.HeroPicker__disclaimer  224×37 @15,325  Manrope 400 12/19  lines=2  «финальную цену подтвердит специалист пос»
+
+[геометрия 375]
+div.Card__card  343×606 @16,16  r24  b1
+  div.HeroPicker__head  309×19 @17,17
+    h2.HeroPicker__eyebrow  169×17 @0,1  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+    span.HeroPicker__live  101×19 @208,0  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+      span.HeroPicker__dot  7×7 @0,6  r100
+  div.HeroPicker__body  309×542 @17,48
+    div.HeroPicker__controls  309×191 @0,0
+      div.Field__field  309×101 @0,0
+        span.RangeSlider__head  309×25 @0,0
+          label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+          output.RangeSlider__value  41×25 @268,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider  309×44 @0,32
+        span.RangeSlider__scale  309×19 @0,83
+          span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+          span#2  36×19 @273,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  309×75 @0,115
+        span.HeroPicker__placesLabel  309×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips  309×44 @0,31
+          button.Chip__chip  98×44 @0,0  r100  b1
+            span.HeroPicker__placeShort  61×16 @19,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  98×44 @106,0  r100  b1
+            span.HeroPicker__placeShort  27×16 @35,14  Manrope 600 13/16  lines=1  «Дом»
+          button.Chip__chip#3  98×44 @211,0  r100  b1
+            span.HeroPicker__placeShort  34×16 @32,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card  309×337 @0,205  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @148,-49  r50
+      div.HeroPicker__states  279×260 @15,15
+        div.HeroPicker__state  279×260 @0,0
+          div.HeroPicker__resultHead  279×19 @0,0
+            span.HeroPicker__resultEyebrow  53×19 @0,0  JetBrains Mono 400 12/19  ls2  lines=1  «Подбор»
+          h3.HeroPicker__noFitTitle  279×43 @0,27  Onest 700 18/22  ls0  lines=2  «На 25 м² нужен отдельный расчёт»
+          p.HeroPicker__noFitText  279×81 @0,78  Manrope 400 14/20  lines=4  «Одной моделью из каталога такую площадь»
+          a.Button__button  279×44 @0,216  r11  b1
+            span.Button__content  162×17 @59,13
+              span.Button__label  162×17 @0,0  Manrope 600 15/17  lines=1  «Обсудить по телефону»
+      p.HeroPicker__disclaimer  279×37 @15,285  Manrope 400 12/19  lines=2  «финальную цену подтвердит специалист пос»
+
+[геометрия 768]
+div.Card__card  736×441 @16,16  r24  b1
+  div.HeroPicker__head  690×19 @23,23
+    h2.HeroPicker__eyebrow  169×17 @0,1  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+    span.HeroPicker__live  101×19 @589,0  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+      span.HeroPicker__dot  7×7 @0,6  r100
+  div.HeroPicker__body  690×365 @23,54
+    div.HeroPicker__controls  386×191 @0,0
+      div.Field__field  386×101 @0,0
+        span.RangeSlider__head  386×25 @0,0
+          label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+          output.RangeSlider__value  41×25 @345,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider  386×44 @0,32
+        span.RangeSlider__scale  386×19 @0,83
+          span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+          span#2  36×19 @350,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  386×75 @0,115
+        span.HeroPicker__placesLabel  386×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips  386×44 @0,31
+          button.Chip__chip  89×44 @0,0  r100  b1
+            span.HeroPicker__placeFull  61×16 @14,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  111×44 @97,0  r100  b1
+            span.HeroPicker__placeFull  83×16 @14,14  Manrope 600 13/16  lines=1  «Частный дом»
+          button.Chip__chip#3  62×44 @216,0  r100  b1
+            span.HeroPicker__placeFull  34×16 @14,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card  280×365 @410,0  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @119,-49  r50
+      div.HeroPicker__states  242×280 @19,19
+        div.HeroPicker__state  242×280 @0,0
+          div.HeroPicker__resultHead  242×19 @0,0
+            span.HeroPicker__resultEyebrow  53×19 @0,0  JetBrains Mono 400 12/19  ls2  lines=1  «Подбор»
+          h3.HeroPicker__noFitTitle  242×43 @0,27  Onest 700 18/22  ls0  lines=2  «На 25 м² нужен отдельный расчёт»
+          p.HeroPicker__noFitText  242×81 @0,78  Manrope 400 14/20  lines=4  «Одной моделью из каталога такую площадь»
+          a.Button__button  242×44 @0,236  r11  b1
+            span.Button__content  162×17 @40,13
+              span.Button__label  162×17 @0,0  Manrope 600 15/17  lines=1  «Обсудить по телефону»
+      p.HeroPicker__disclaimer  242×37 @19,309  Manrope 400 12/19  lines=2  «финальную цену подтвердит специалист пос»
+
+[геометрия 1200]
+div.Card__card  1168×426 @16,16  r24  b1
+  div.HeroPicker__head  1122×19 @23,23
+    h2.HeroPicker__eyebrow  169×17 @0,1  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+    span.HeroPicker__live  101×19 @1021,0  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+      span.HeroPicker__dot  7×7 @0,6  r100
+  div.HeroPicker__body  1122×350 @23,54
+    div.HeroPicker__controls  786×191 @0,0
+      div.Field__field  786×101 @0,0
+        span.RangeSlider__head  786×25 @0,0
+          label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+          output.RangeSlider__value  41×25 @745,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider  786×44 @0,32
+        span.RangeSlider__scale  786×19 @0,83
+          span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+          span#2  36×19 @750,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  786×75 @0,115
+        span.HeroPicker__placesLabel  786×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips  786×44 @0,31
+          button.Chip__chip  89×44 @0,0  r100  b1
+            span.HeroPicker__placeFull  61×16 @14,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  111×44 @97,0  r100  b1
+            span.HeroPicker__placeFull  83×16 @14,14  Manrope 600 13/16  lines=1  «Частный дом»
+          button.Chip__chip#3  62×44 @216,0  r100  b1
+            span.HeroPicker__placeFull  34×16 @14,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card  312×350 @810,0  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @151,-49  r50
+      div.HeroPicker__states  274×264 @19,19
+        div.HeroPicker__state  274×264 @0,0
+          div.HeroPicker__resultHead  274×19 @0,0
+            span.HeroPicker__resultEyebrow  53×19 @0,0  JetBrains Mono 400 12/19  ls2  lines=1  «Подбор»
+          h3.HeroPicker__noFitTitle  274×43 @0,27  Onest 700 18/22  ls0  lines=2  «На 25 м² нужен отдельный расчёт»
+          p.HeroPicker__noFitText  274×81 @0,78  Manrope 400 14/20  lines=4  «Одной моделью из каталога такую площадь»
+          a.Button__button  274×44 @0,220  r11  b1
+            span.Button__content  162×17 @56,13
+              span.Button__label  162×17 @0,0  Manrope 600 15/17  lines=1  «Обсудить по телефону»
+      p.HeroPicker__disclaimer  274×37 @19,293  Manrope 400 12/19  lines=2  «финальную цену подтвердит специалист пос»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #08425473 0px 36px 80px -32px
+  div.HeroPicker__head
+    h2.HeroPicker__eyebrow  color #0e7490
+    span.HeroPicker__live  color #556173
+      span.HeroPicker__dot  bg #166534
+  div.HeroPicker__body
+    div.HeroPicker__controls
+      div.Field__field
+        span.RangeSlider__head
+          label  color #0f172a
+          output.RangeSlider__value  color #0e7490
+        input.RangeSlider__slider
+        span.RangeSlider__scale
+          span  color #5b6a7d
+          span#2  color #5b6a7d
+      div.HeroPicker__places
+        span.HeroPicker__placesLabel  color #0f172a
+        div.HeroPicker__chips
+          button.Chip__chip  bg #0e7490  border #0e7490
+            span.HeroPicker__placeFull  color #ffffff
+          button.Chip__chip#2  border #7e8fa6
+            span.HeroPicker__placeFull  color #475569
+          button.Chip__chip#3  border #7e8fa6
+            span.HeroPicker__placeFull  color #475569
+    div.Card__card  bg #0f172a  border color(srgb 1 1 1 / 0.18)
+      span.HeroPicker__glow  gradient radial-gradient(circle, color(srgb 0.133333 0.827451 0.933333 / 0.16), transparent 70%)
+      div.HeroPicker__states
+        div.HeroPicker__state
+          div.HeroPicker__resultHead
+            span.HeroPicker__resultEyebrow  color #22d3ee
+          h3.HeroPicker__noFitTitle  color #ffffff
+          p.HeroPicker__noFitText  color color(srgb 1 1 1 / 0.72)
+          a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content
+              span.Button__label  color #ffffff
+      p.HeroPicker__disclaimer  color color(srgb 1 1 1 / 0.58)
+[палитра light @320]
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip > span.HeroPicker__placeShort  color #ffffff
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#2 > span.HeroPicker__placeShort  color #475569
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#3 > span.HeroPicker__placeShort  color #475569
+[палитра light @375]
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip > span.HeroPicker__placeShort  color #ffffff
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#2 > span.HeroPicker__placeShort  color #475569
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#3 > span.HeroPicker__placeShort  color #475569
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #08425473 0px 36px 80px -32px
+  div.HeroPicker__head
+    h2.HeroPicker__eyebrow  color #22d3ee
+    span.HeroPicker__live  color #8598ac
+      span.HeroPicker__dot  bg #4ade80
+  div.HeroPicker__body
+    div.HeroPicker__controls
+      div.Field__field
+        span.RangeSlider__head
+          label  color #eaf1f8
+          output.RangeSlider__value  color #22d3ee
+        input.RangeSlider__slider
+        span.RangeSlider__scale
+          span  color #7e92a7
+          span#2  color #7e92a7
+      div.HeroPicker__places
+        span.HeroPicker__placesLabel  color #eaf1f8
+        div.HeroPicker__chips
+          button.Chip__chip  bg #0e7490  border #0e7490
+            span.HeroPicker__placeFull  color #ffffff
+          button.Chip__chip#2  border #566d95
+            span.HeroPicker__placeFull  color #a8b6c6
+          button.Chip__chip#3  border #566d95
+            span.HeroPicker__placeFull  color #a8b6c6
+    div.Card__card  bg #111d34  border color(srgb 1 1 1 / 0.18)
+      span.HeroPicker__glow  gradient radial-gradient(circle, color(srgb 0.133333 0.827451 0.933333 / 0.16), transparent 70%)
+      div.HeroPicker__states
+        div.HeroPicker__state
+          div.HeroPicker__resultHead
+            span.HeroPicker__resultEyebrow  color #22d3ee
+          h3.HeroPicker__noFitTitle  color #ffffff
+          p.HeroPicker__noFitText  color color(srgb 1 1 1 / 0.72)
+          a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content
+              span.Button__label  color #ffffff
+      p.HeroPicker__disclaimer  color color(srgb 1 1 1 / 0.58)
+[палитра dark @320]
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip > span.HeroPicker__placeShort  color #ffffff
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#2 > span.HeroPicker__placeShort  color #a8b6c6
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#3 > span.HeroPicker__placeShort  color #a8b6c6
+[палитра dark @375]
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip > span.HeroPicker__placeShort  color #ffffff
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#2 > span.HeroPicker__placeShort  color #a8b6c6
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#3 > span.HeroPicker__placeShort  color #a8b6c6

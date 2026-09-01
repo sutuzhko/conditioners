@@ -1,0 +1,132 @@
+# админка-склад-·-фильтры--поиск · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 500, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×403 @16,16  r20  b1
+  nav.StockFilters__row  316×76 @21,21
+    a.StockFilters__chip  102×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все группы»
+    a.StockFilters__chip#2  79×34 @110,0  Manrope 600 13/20  r100  b1  lines=1  «Крепёж»
+    a.StockFilters__chip#3  119×34 @196,0  Manrope 600 13/20  r100  b1  lines=1  «Медная труба»
+    a.StockFilters__chip#4  71×34 @0,42  Manrope 600 13/20  r100  b1  lines=1  «Фреон»
+  nav.StockFilters__row#2  316×76 @21,107
+    a.StockFilters__chip  108×34 @0,0  Manrope 500 13/20  r100  b1  lines=1  «Все позиции»
+    a.StockFilters__chip#2  127×34 @116,0  Manrope 500 13/20  r100  b1  lines=1  «Только к заказу»
+    a.StockFilters__chip#3  85×34 @0,42  Manrope 500 13/20  r100  b1  lines=1  «В архиве»
+  form.StockFilters__form  316×159 @21,194
+    div.Field__field  316×103 @0,0
+      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
+      input  316×49 @0,27  r11  b1
+      p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Название или его кусок»
+    div.StockFilters__actions  212×44 @0,115
+      button.Button__button  69×44 @0,0  r9  b1
+        span.Button__content  39×16 @15,14
+          span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
+      a.StockFilters__reset  131×22 @81,11  Manrope 400 15/22  lines=1  «Сбросить фильтры»
+  p.StockFilters__total  316×20 @21,362
+    span  68×20 @0,0  Manrope 400 13/20  lines=1  «Найдено: 2»
+    span.StockFilters__lowCount  195×20 @82,0  Manrope 600 13/20  lines=1  «Ниже порога заказа: 1 позиция»
+
+[геометрия 768]
+section.Card__card  736×263 @16,16  r20  b1
+  nav.StockFilters__row  694×34 @21,21
+    a.StockFilters__chip  102×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все группы»
+    a.StockFilters__chip#2  79×34 @110,0  Manrope 600 13/20  r100  b1  lines=1  «Крепёж»
+    a.StockFilters__chip#3  119×34 @196,0  Manrope 600 13/20  r100  b1  lines=1  «Медная труба»
+    a.StockFilters__chip#4  71×34 @323,0  Manrope 600 13/20  r100  b1  lines=1  «Фреон»
+  nav.StockFilters__row#2  694×34 @21,65
+    a.StockFilters__chip  108×34 @0,0  Manrope 500 13/20  r100  b1  lines=1  «Все позиции»
+    a.StockFilters__chip#2  127×34 @116,0  Manrope 500 13/20  r100  b1  lines=1  «Только к заказу»
+    a.StockFilters__chip#3  85×34 @251,0  Manrope 500 13/20  r100  b1  lines=1  «В архиве»
+  form.StockFilters__form  694×103 @21,109
+    div.Field__field  470×103 @0,0
+      label.Field__label  470×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
+      input  470×49 @0,27  r11  b1
+      p.Field__hint  470×19 @0,83  Manrope 400 13/19  lines=1  «Название или его кусок»
+    div.StockFilters__actions  212×70 @482,0
+      button.Button__button  69×44 @0,26  r9  b1
+        span.Button__content  39×16 @15,14
+          span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
+      a.StockFilters__reset  131×22 @81,37  Manrope 400 15/22  lines=1  «Сбросить фильтры»
+  p.StockFilters__total  694×20 @21,222
+    span  68×20 @0,0  Manrope 400 13/20  lines=1  «Найдено: 2»
+    span.StockFilters__lowCount  195×20 @82,0  Manrope 600 13/20  lines=1  «Ниже порога заказа: 1 позиция»
+
+[геометрия 1440]
+section.Card__card  1408×263 @16,16  r20  b1
+  nav.StockFilters__row  1366×34 @21,21
+    a.StockFilters__chip  102×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все группы»
+    a.StockFilters__chip#2  79×34 @110,0  Manrope 600 13/20  r100  b1  lines=1  «Крепёж»
+    a.StockFilters__chip#3  119×34 @196,0  Manrope 600 13/20  r100  b1  lines=1  «Медная труба»
+    a.StockFilters__chip#4  71×34 @323,0  Manrope 600 13/20  r100  b1  lines=1  «Фреон»
+  nav.StockFilters__row#2  1366×34 @21,65
+    a.StockFilters__chip  108×34 @0,0  Manrope 500 13/20  r100  b1  lines=1  «Все позиции»
+    a.StockFilters__chip#2  127×34 @116,0  Manrope 500 13/20  r100  b1  lines=1  «Только к заказу»
+    a.StockFilters__chip#3  85×34 @251,0  Manrope 500 13/20  r100  b1  lines=1  «В архиве»
+  form.StockFilters__form  1366×103 @21,109
+    div.Field__field  1142×103 @0,0
+      label.Field__label  1142×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
+      input  1142×49 @0,27  r11  b1
+      p.Field__hint  1142×19 @0,83  Manrope 400 13/19  lines=1  «Название или его кусок»
+    div.StockFilters__actions  212×66 @1154,0
+      button.Button__button  69×40 @0,26  r9  b1
+        span.Button__content  39×16 @15,12
+          span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
+      a.StockFilters__reset  131×22 @81,35  Manrope 400 15/22  lines=1  «Сбросить фильтры»
+  p.StockFilters__total  1366×20 @21,222
+    span  68×20 @0,0  Manrope 400 13/20  lines=1  «Найдено: 2»
+    span.StockFilters__lowCount  195×20 @82,0  Manrope 600 13/20  lines=1  «Ниже порога заказа: 1 позиция»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  nav.StockFilters__row
+    a.StockFilters__chip  color #0e7490  bg #ecfeff  border #a5f3fc
+    a.StockFilters__chip#2  color #334155  bg #ffffff  border #e2e8f0
+    a.StockFilters__chip#3  color #334155  bg #ffffff  border #e2e8f0
+    a.StockFilters__chip#4  color #334155  bg #ffffff  border #e2e8f0
+  nav.StockFilters__row#2
+    a.StockFilters__chip  color #0e7490  bg #ecfeff  border #a5f3fc
+    a.StockFilters__chip#2  color #334155  bg #ffffff  border #e2e8f0
+    a.StockFilters__chip#3  color #334155  bg #ffffff  border #e2e8f0
+  form.StockFilters__form
+    div.Field__field
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+      p.Field__hint  color #556173
+    div.StockFilters__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+      a.StockFilters__reset  color #556173
+  p.StockFilters__total
+    span  color #5b6a7d
+    span.StockFilters__lowCount  color #92400e
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  nav.StockFilters__row
+    a.StockFilters__chip  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+    a.StockFilters__chip#2  color #c9d5e2  bg #121d31  border #1e2b41
+    a.StockFilters__chip#3  color #c9d5e2  bg #121d31  border #1e2b41
+    a.StockFilters__chip#4  color #c9d5e2  bg #121d31  border #1e2b41
+  nav.StockFilters__row#2
+    a.StockFilters__chip  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+    a.StockFilters__chip#2  color #c9d5e2  bg #121d31  border #1e2b41
+    a.StockFilters__chip#3  color #c9d5e2  bg #121d31  border #1e2b41
+  form.StockFilters__form
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+      p.Field__hint  color #8598ac
+    div.StockFilters__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+      a.StockFilters__reset  color #8598ac
+  p.StockFilters__total
+    span  color #7e92a7
+    span.StockFilters__lowCount  color #fbbf24

@@ -1,0 +1,97 @@
+# ui-kit-radiogroup--checkboxes-error · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+fieldset.ChoiceGroup__group  326×191 @32,32
+  legend.ChoiceGroup__legend  101×17 @0,0  Manrope 600 13/17  lines=1  «Чеклист выезда»
+  div.ChoiceGroup__list  326×148 @0,17
+    label.ChoiceGroup__item  326×44 @0,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  156×19 @28,13
+        span.ChoiceGroup__itemTitle  156×19 @0,0  Manrope 400 14/19  lines=1  «Вакуумация выполнена»
+    label.ChoiceGroup__item#2  326×44 @0,52
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  107×19 @28,13
+        span.ChoiceGroup__itemTitle#2  107×19 @0,0  Manrope 400 14/19  lines=1  «Пробный запуск»
+    label.ChoiceGroup__item#3  326×44 @0,104
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  102×19 @28,13
+        span.ChoiceGroup__itemTitle#3  102×19 @0,0  Manrope 400 14/19  lines=1  «Мусор вывезен»
+  p.Field__error  326×19 @0,172  Manrope 600 13/19  lines=1  «Отметьте все пункты — без этого наряд не»
+
+[геометрия 768]
+fieldset.ChoiceGroup__group  704×191 @32,32
+  legend.ChoiceGroup__legend  101×17 @0,0  Manrope 600 13/17  lines=1  «Чеклист выезда»
+  div.ChoiceGroup__list  704×148 @0,17
+    label.ChoiceGroup__item  704×44 @0,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  156×19 @28,13
+        span.ChoiceGroup__itemTitle  156×19 @0,0  Manrope 400 14/19  lines=1  «Вакуумация выполнена»
+    label.ChoiceGroup__item#2  704×44 @0,52
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  107×19 @28,13
+        span.ChoiceGroup__itemTitle#2  107×19 @0,0  Manrope 400 14/19  lines=1  «Пробный запуск»
+    label.ChoiceGroup__item#3  704×44 @0,104
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  102×19 @28,13
+        span.ChoiceGroup__itemTitle#3  102×19 @0,0  Manrope 400 14/19  lines=1  «Мусор вывезен»
+  p.Field__error  704×19 @0,172  Manrope 600 13/19  lines=1  «Отметьте все пункты — без этого наряд не»
+
+[геометрия 1440]
+fieldset.ChoiceGroup__group  1376×191 @32,32
+  legend.ChoiceGroup__legend  101×17 @0,0  Manrope 600 13/17  lines=1  «Чеклист выезда»
+  div.ChoiceGroup__list  1376×148 @0,17
+    label.ChoiceGroup__item  1376×44 @0,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  156×19 @28,13
+        span.ChoiceGroup__itemTitle  156×19 @0,0  Manrope 400 14/19  lines=1  «Вакуумация выполнена»
+    label.ChoiceGroup__item#2  1376×44 @0,52
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  107×19 @28,13
+        span.ChoiceGroup__itemTitle#2  107×19 @0,0  Manrope 400 14/19  lines=1  «Пробный запуск»
+    label.ChoiceGroup__item#3  1376×44 @0,104
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  102×19 @28,13
+        span.ChoiceGroup__itemTitle#3  102×19 @0,0  Manrope 400 14/19  lines=1  «Мусор вывезен»
+  p.Field__error  1376×19 @0,172  Manrope 600 13/19  lines=1  «Отметьте все пункты — без этого наряд не»
+
+[палитра light]
+fieldset.ChoiceGroup__group
+  legend.ChoiceGroup__legend  color #334155
+  div.ChoiceGroup__list
+    label.ChoiceGroup__item
+      input.ChoiceGroup__control  bg #f8fafc  border #be123c
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle  color #334155
+    label.ChoiceGroup__item#2
+      input.ChoiceGroup__control  bg #f8fafc  border #be123c
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#2  color #334155
+    label.ChoiceGroup__item#3
+      input.ChoiceGroup__control  bg #f8fafc  border #be123c
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#3  color #334155
+  p.Field__error  color #be123c
+
+[палитра dark]
+fieldset.ChoiceGroup__group
+  legend.ChoiceGroup__legend  color #c9d5e2
+  div.ChoiceGroup__list
+    label.ChoiceGroup__item
+      input.ChoiceGroup__control  bg #0e1729  border #fb7185
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle  color #c9d5e2
+    label.ChoiceGroup__item#2
+      input.ChoiceGroup__control  bg #0e1729  border #fb7185
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#2  color #c9d5e2
+    label.ChoiceGroup__item#3
+      input.ChoiceGroup__control  bg #0e1729  border #fb7185
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#3  color #c9d5e2
+  p.Field__error  color #fb7185

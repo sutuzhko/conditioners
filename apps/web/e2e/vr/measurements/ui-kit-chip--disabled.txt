@@ -1,0 +1,22 @@
+# ui-kit-chip--disabled · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.Chip__chip  106×44 @16,16  Manrope 600 15/17  r100  b1  lines=1  «Квартира»
+
+[геометрия 768]
+button.Chip__chip  106×44 @16,16  Manrope 600 15/17  r100  b1  lines=1  «Квартира»
+
+[геометрия 1440]
+button.Chip__chip  106×44 @16,16  Manrope 600 15/17  r100  b1  lines=1  «Квартира»
+
+[палитра light]
+button.Chip__chip  color #475569  border #7e8fa6
+
+[палитра dark]
+button.Chip__chip  color #a8b6c6  border #566d95

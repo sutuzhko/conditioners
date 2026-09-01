@@ -1,0 +1,164 @@
+# страницы-база-знаний-листинг--single-category · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 600, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.ArticleList__section  320×722 @0,0
+  div.ArticleList__container  320×722 @0,0
+    header.ArticleList__head  288×204 @16,48
+      p.ArticleList__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+      h1.ArticleList__title  288×65 @0,32  Onest 700 30/32  ls-1  lines=2  «Разбираемся в кондиционерах»
+      p.ArticleList__lead  288×93 @0,111  Manrope 400 15/23  lines=4  «Пишут монтажники, а не маркетологи: как»
+    ul.ArticleList__grid  288×442 @16,280
+      li.Card__card  288×442 @0,0  r20  b1
+        div.ArticleListCard__media  286×161 @1,1  b0 0 1 0
+          span.ArticleListCard__placeholder  286×160 @0,0  Onest 600 19/23  ls0  lines=1  «Выбор»
+        div.ArticleListCard__body  286×279 @1,162
+          p.ArticleListCard__meta  246×24 @20,20
+            span.Badge__badge  62×24 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
+              span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+            span.ArticleListCard__dates  164×19 @72,2
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Опубликовано:»
+              time  78×17 @0,1  Manrope 400 13/19  lines=1  «14 июня 2026»
+              span#2  8×17 @78,1  Manrope 400 13/19  lines=1  «·»
+              span#3  78×17 @86,1  Manrope 400 13/19  lines=1  «6 мин чтения»
+          h2.ArticleListCard__title  246×66 @20,56
+            a.ArticleListCard__link  245×65 @0,0  Onest 600 17/22  ls0  lines=3  «Как выбрать кондиционер для квартиры: пл»
+          p.ArticleListCard__excerpt  246×90 @20,134  Manrope 400 15/22  lines=4  «Разбираем по шагам: сколько киловатт нуж»
+          span.ArticleListCard__more  246×22 @20,236  Manrope 600 15/22  lines=1  «Читать»
+            svg  15×15 @56,4
+
+[геометрия 375]
+section.ArticleList__section  375×758 @0,0
+  div.ArticleList__container  375×758 @0,0
+    header.ArticleList__head  343×206 @16,51
+      p.ArticleList__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+      h1.ArticleList__title  343×67 @0,32  Onest 700 31/34  ls-1  lines=2  «Разбираемся в кондиционерах»
+      p.ArticleList__lead  343×93 @0,113  Manrope 400 15/23  lines=4  «Пишут монтажники, а не маркетологи: как»
+    ul.ArticleList__grid  343×473 @16,285
+      li.Card__card  343×473 @0,0  r20  b1
+        div.ArticleListCard__media  341×192 @1,1  b0 0 1 0
+          span.ArticleListCard__placeholder  341×191 @0,0  Onest 600 19/23  ls0  lines=1  «Выбор»
+        div.ArticleListCard__body  341×279 @1,193
+          p.ArticleListCard__meta  301×24 @20,20
+            span.Badge__badge  62×24 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
+              span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+            span.ArticleListCard__dates  164×19 @72,2
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Опубликовано:»
+              time  78×17 @0,1  Manrope 400 13/19  lines=1  «14 июня 2026»
+              span#2  8×17 @78,1  Manrope 400 13/19  lines=1  «·»
+              span#3  78×17 @86,1  Manrope 400 13/19  lines=1  «6 мин чтения»
+          h2.ArticleListCard__title  301×67 @20,56
+            a.ArticleListCard__link  252×67 @0,0  Onest 600 17/22  ls0  lines=3  «Как выбрать кондиционер для квартиры: пл»
+          p.ArticleListCard__excerpt  301×90 @20,135  Manrope 400 15/22  lines=4  «Разбираем по шагам: сколько киловатт нуж»
+          span.ArticleListCard__more  301×22 @20,237  Manrope 600 15/22  lines=1  «Читать»
+            svg  15×15 @56,4
+
+[геометрия 768]
+section.ArticleList__section  768×883 @0,0
+  div.ArticleList__container  768×883 @0,0
+    header.ArticleList__head  680×142 @20,68
+      p.ArticleList__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+      h1.ArticleList__title  680×43 @0,32  Onest 700 40/43  ls-1  lines=1  «Разбираемся в кондиционерах»
+      p.ArticleList__lead  680×54 @0,89  Manrope 400 17/27  lines=2  «Пишут монтажники, а не маркетологи: как»
+    ul.ArticleList__grid  728×644 @20,239
+      li.Card__card  728×644 @0,0  r20  b1
+        div.ArticleListCard__media  726×408 @1,1  b0 0 1 0
+          span.ArticleListCard__placeholder  726×407 @0,0  Onest 600 20/24  ls0  lines=1  «Выбор»
+        div.ArticleListCard__body  726×234 @1,409
+          p.ArticleListCard__meta  674×24 @26,26
+            span.Badge__badge  62×24 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
+              span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+            span.ArticleListCard__dates  164×19 @72,2
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Опубликовано:»
+              time  78×17 @0,1  Manrope 400 13/19  lines=1  «14 июня 2026»
+              span#2  8×17 @78,1  Manrope 400 13/19  lines=1  «·»
+              span#3  78×17 @86,1  Manrope 400 13/19  lines=1  «6 мин чтения»
+          h2.ArticleListCard__title  674×55 @26,62
+            a.ArticleListCard__link  617×53 @0,0  Onest 600 21/27  ls0  lines=2  «Как выбрать кондиционер для квартиры: пл»
+          p.ArticleListCard__excerpt  674×45 @26,129  Manrope 400 15/22  lines=2  «Разбираем по шагам: сколько киловатт нуж»
+          span.ArticleListCard__more  674×22 @26,186  Manrope 600 15/22  lines=1  «Читать»
+            svg  15×15 @56,4
+
+[геометрия 1200]
+section.ArticleList__section  1200×886 @0,0
+  div.ArticleList__container  1200×886 @0,0
+    header.ArticleList__head  680×209 @24,88
+      p.ArticleList__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+      h1.ArticleList__title  680×106 @0,32  Onest 700 49/53  ls-1  lines=2  «Разбираемся в кондиционерах»
+      p.ArticleList__lead  680×57 @0,152  Manrope 400 18/29  lines=2  «Пишут монтажники, а не маркетологи: как»
+    ul.ArticleList__grid  1152×552 @24,333
+      li.Card__card  564×552 @0,0  r20  b1
+        div.ArticleListCard__media  562×316 @1,1  b0 0 1 0
+          span.ArticleListCard__placeholder  562×315 @0,0  Onest 600 27/32  ls0  lines=1  «Выбор»
+        div.ArticleListCard__body  562×234 @1,317
+          p.ArticleListCard__meta  510×24 @26,26
+            span.Badge__badge  62×24 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
+              span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+            span.ArticleListCard__dates  164×19 @72,2
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Опубликовано:»
+              time  78×17 @0,1  Manrope 400 13/19  lines=1  «14 июня 2026»
+              span#2  8×17 @78,1  Manrope 400 13/19  lines=1  «·»
+              span#3  78×17 @86,1  Manrope 400 13/19  lines=1  «6 мин чтения»
+          h2.ArticleListCard__title  510×55 @26,62
+            a.ArticleListCard__link  507×53 @0,0  Onest 600 21/27  ls0  lines=2  «Как выбрать кондиционер для квартиры: пл»
+          p.ArticleListCard__excerpt  510×45 @26,129  Manrope 400 15/22  lines=2  «Разбираем по шагам: сколько киловатт нуж»
+          span.ArticleListCard__more  510×22 @26,186  Manrope 600 15/22  lines=1  «Читать»
+            svg  15×15 @56,4
+
+[палитра light]
+section.ArticleList__section  bg #ffffff
+  div.ArticleList__container
+    header.ArticleList__head
+      p.ArticleList__kicker  color #0e7490
+      h1.ArticleList__title  color #0f172a
+      p.ArticleList__lead  color #556173
+    ul.ArticleList__grid
+      li.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        div.ArticleListCard__media  bg #f8fafc  border #475569 #475569 #eef2f6 #475569
+          span.ArticleListCard__placeholder  color #334155  bg #f8fafc  gradient linear-gradient(135deg, transparent 40%, #ecfeff 100%)
+        div.ArticleListCard__body
+          p.ArticleListCard__meta
+            span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+              span  color #0e7490
+            span.ArticleListCard__dates
+              span  color #5b6a7d
+              time  color #5b6a7d
+              span#2  color #5b6a7d
+              span#3  color #5b6a7d
+          h2.ArticleListCard__title
+            a.ArticleListCard__link  color #0f172a
+          p.ArticleListCard__excerpt  color #556173
+          span.ArticleListCard__more  color #0e7490
+            svg
+
+[палитра dark]
+section.ArticleList__section  bg #0b1220
+  div.ArticleList__container
+    header.ArticleList__head
+      p.ArticleList__kicker  color #22d3ee
+      h1.ArticleList__title  color #eaf1f8
+      p.ArticleList__lead  color #8598ac
+    ul.ArticleList__grid
+      li.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        div.ArticleListCard__media  bg #0e1729  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+          span.ArticleListCard__placeholder  color #c9d5e2  bg #0e1729  gradient linear-gradient(135deg, transparent 40%, #22d3ee1a 100%)
+        div.ArticleListCard__body
+          p.ArticleListCard__meta
+            span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+              span  color #22d3ee
+            span.ArticleListCard__dates
+              span  color #7e92a7
+              time  color #7e92a7
+              span#2  color #7e92a7
+              span#3  color #7e92a7
+          h2.ArticleListCard__title
+            a.ArticleListCard__link  color #eaf1f8
+          p.ArticleListCard__excerpt  color #8598ac
+          span.ArticleListCard__more  color #22d3ee
+            svg

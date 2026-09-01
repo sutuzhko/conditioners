@@ -1,0 +1,194 @@
+# блоки-каталог-сравнение--without-specs · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.CatalogCompare__compare  320×571 @0,0
+  div.CatalogCompare__container  320×571 @0,0
+    h2  1×1 @15,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.CatalogCompare__head  288×152 @16,28
+      ul.CatalogCompare__chosen  288×96 @0,0
+        a.CatalogCompare__chip  162×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 07»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#2  160×44 @0,52  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 12»
+          span.CatalogCompare__remove  8×15 @137,15  Manrope 600 15/15  lines=1  «×»
+      p.CatalogCompare__actions  226×44 @0,108
+        a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
+        a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
+    div.Card__card  288×245 @16,198  r20  b1
+      div.Table__viewport  286×108 @1,1
+        table.Table__table  620×108 @0,0
+          th  156×56 @17,199  Onest 700 15/23  b0 0 1 0  lines=1  fixed  «Характеристика»
+          th#2  236×56 @156,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 07»
+          th#3  229×56 @391,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 12»
+          tr.CompareTable__priceRow  620×51 @0,56
+            th  156×51 @17,255  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Цена под ключ»
+            td  236×51 @156,0  Onest 700 15/22  lines=1  «34 900 ₽»
+            td#2  229×51 @391,0  Onest 700 15/22  lines=1  «45 200 ₽»
+      div.CompareTable__notes  286×135 @1,109  b1 0 0 0
+        p.CompareTable__swipe  254×40 @16,15  Manrope 400 13/20  lines=2  «Проведите по таблице вбок, чтобы увидеть»
+        p.CompareTable__note  254×56 @16,61  Manrope 400 12/19  lines=3  «У отмеченных моделей характеристики пока»
+    p.CatalogCompare__order  288×52 @16,471
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+
+[геометрия 375]
+section.CatalogCompare__compare  375×503 @0,0
+  div.CatalogCompare__container  375×503 @0,0
+    h2  1×1 @15,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.CatalogCompare__head  343×100 @16,28
+      ul.CatalogCompare__chosen  329×44 @0,0
+        a.CatalogCompare__chip  162×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 07»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#2  160×44 @170,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 12»
+          span.CatalogCompare__remove  8×15 @137,15  Manrope 600 15/15  lines=1  «×»
+      p.CatalogCompare__actions  226×44 @0,56
+        a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
+        a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
+    div.Card__card  343×226 @16,146  r20  b1
+      div.Table__viewport  341×108 @1,1
+        table.Table__table  620×108 @0,0
+          th  156×56 @17,147  Onest 700 15/23  b0 0 1 0  lines=1  fixed  «Характеристика»
+          th#2  235×56 @156,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 07»
+          th#3  229×56 @391,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 12»
+          tr.CompareTable__priceRow  620×51 @0,56
+            th  156×51 @17,203  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Цена под ключ»
+            td  235×51 @156,0  Onest 700 15/22  lines=1  «34 900 ₽»
+            td#2  229×51 @391,0  Onest 700 15/22  lines=1  «45 200 ₽»
+      div.CompareTable__notes  341×116 @1,109  b1 0 0 0
+        p.CompareTable__swipe  308×40 @17,15  Manrope 400 13/20  lines=2  «Проведите по таблице вбок, чтобы увидеть»
+        p.CompareTable__note  308×37 @17,61  Manrope 400 12/19  lines=2  «У отмеченных моделей характеристики пока»
+    p.CatalogCompare__order  343×52 @16,400
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+
+[геометрия 768]
+section.CatalogCompare__compare  768×426 @0,0
+  div.CatalogCompare__container  768×426 @0,0
+    h2  1×1 @19,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.CatalogCompare__head  728×44 @20,28
+      ul.CatalogCompare__chosen  329×44 @0,0
+        a.CatalogCompare__chip  162×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 07»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#2  160×44 @170,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 12»
+          span.CatalogCompare__remove  8×15 @137,15  Manrope 600 15/15  lines=1  «×»
+      p.CatalogCompare__actions  226×44 @501,0
+        a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
+        a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
+    div.Card__card  728×187 @20,90  r20  b1
+      div.Table__viewport  726×108 @1,1
+        table.Table__table  726×108 @0,0
+          th  167×56 @21,91  Onest 700 15/23  b0 0 1 0  lines=1  fixed  «Характеристика»
+          th#2  280×56 @167,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 07»
+          th#3  278×56 @448,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 12»
+          tr.CompareTable__priceRow  726×51 @0,56
+            th  167×51 @21,147  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Цена под ключ»
+            td  280×51 @167,0  Onest 700 15/22  lines=1  «34 900 ₽»
+            td#2  278×51 @448,0  Onest 700 15/22  lines=1  «45 200 ₽»
+      div.CompareTable__notes  726×78 @1,109  b1 0 0 0
+        p.CompareTable__swipe  686×20 @20,15  Manrope 400 13/20  lines=1  «Проведите по таблице вбок, чтобы увидеть»
+        p.CompareTable__note  686×19 @20,41  Manrope 400 12/19  lines=1  «У отмеченных моделей характеристики пока»
+    p.CatalogCompare__order  728×52 @20,305
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+
+[геометрия 1200]
+section.CatalogCompare__compare  1200×445 @0,0
+  div.CatalogCompare__container  1200×445 @0,0
+    h2  1×1 @23,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.CatalogCompare__head  1152×44 @24,28
+      ul.CatalogCompare__chosen  329×44 @0,0
+        a.CatalogCompare__chip  162×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 07»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#2  160×44 @170,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 12»
+          span.CatalogCompare__remove  8×15 @137,15  Manrope 600 15/15  lines=1  «×»
+      p.CatalogCompare__actions  226×44 @926,0
+        a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
+        a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
+    div.Card__card  1152×187 @24,90  r20  b1
+      div.Table__viewport  1150×108 @1,1
+        table.Table__table  1150×108 @0,0
+          th  200×56 @25,91  Onest 700 15/23  b0 0 1 0  lines=1  fixed  «Характеристика»
+          th#2  471×56 @200,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 07»
+          th#3  479×56 @671,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 12»
+          tr.CompareTable__priceRow  1150×51 @0,56
+            th  200×51 @25,147  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Цена под ключ»
+            td  471×51 @200,0  Onest 700 15/22  lines=1  «34 900 ₽»
+            td#2  479×51 @671,0  Onest 700 15/22  lines=1  «45 200 ₽»
+      div.CompareTable__notes  1150×78 @1,109  b1 0 0 0
+        p.CompareTable__swipe  1102×20 @24,15  Manrope 400 13/20  lines=1  «Проведите по таблице вбок, чтобы увидеть»
+        p.CompareTable__note  1102×19 @24,41  Manrope 400 12/19  lines=1  «У отмеченных моделей характеристики пока»
+    p.CatalogCompare__order  1152×52 @24,305
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+
+[палитра light]
+section.CatalogCompare__compare  bg #ffffff
+  div.CatalogCompare__container
+    h2  color #0f172a
+    div.CatalogCompare__head
+      ul.CatalogCompare__chosen
+        a.CatalogCompare__chip  color #0e7490  bg #ecfeff  border #a5f3fc
+          span.CatalogCompare__remove  color #556173
+        a.CatalogCompare__chip#2  color #0e7490  bg #ecfeff  border #a5f3fc
+          span.CatalogCompare__remove  color #556173
+      p.CatalogCompare__actions
+        a.CatalogCompare__back  color #0e7490
+        a.CatalogCompare__clear  color #556173
+    div.Card__card  bg #ffffff  border #e2e8f0
+      div.Table__viewport
+        table.Table__table
+          th  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a  shadow #e2e8f0 1px 0px 0px 0px
+          th#2  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+          th#3  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+          tr.CompareTable__priceRow  bg #f5f8fa
+            th  color #0f172a  bg #f5f8fa  border #0f172a #0f172a #e2e8f0 #0f172a  shadow #e2e8f0 1px 0px 0px 0px
+            td  color #0e7490
+            td#2  color #0e7490
+      div.CompareTable__notes  border #eef2f6 #475569 #475569 #475569
+        p.CompareTable__swipe  color #556173
+        p.CompareTable__note  color #5b6a7d
+    p.CatalogCompare__order
+      a.Button__button  bg #ecfeff  border transparent
+        span.Button__content
+          span.Button__label  color #0e7490
+
+[палитра dark]
+section.CatalogCompare__compare  bg #0b1220
+  div.CatalogCompare__container
+    h2  color #eaf1f8
+    div.CatalogCompare__head
+      ul.CatalogCompare__chosen
+        a.CatalogCompare__chip  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          span.CatalogCompare__remove  color #8598ac
+        a.CatalogCompare__chip#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          span.CatalogCompare__remove  color #8598ac
+      p.CatalogCompare__actions
+        a.CatalogCompare__back  color #22d3ee
+        a.CatalogCompare__clear  color #8598ac
+    div.Card__card  bg #121d31  border #1e2b41
+      div.Table__viewport
+        table.Table__table
+          th  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8  shadow #1e2b41 1px 0px 0px 0px
+          th#2  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th#3  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          tr.CompareTable__priceRow  bg #121d31
+            th  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8  shadow #1e2b41 1px 0px 0px 0px
+            td  color #22d3ee
+            td#2  color #22d3ee
+      div.CompareTable__notes  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+        p.CompareTable__swipe  color #8598ac
+        p.CompareTable__note  color #7e92a7
+    p.CatalogCompare__order
+      a.Button__button  bg #22d3ee1a  border transparent
+        span.Button__content
+          span.Button__label  color #22d3ee

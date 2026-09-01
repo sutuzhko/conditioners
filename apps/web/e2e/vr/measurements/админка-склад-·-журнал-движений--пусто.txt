@@ -1,0 +1,32 @@
+# админка-склад-·-журнал-движений--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×116 @16,16  r20  b1
+  h2.StockJournal__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Журнал движений»
+  p.StockJournal__empty  316×45 @21,50  Manrope 400 15/22  lines=2  «Движений не было: остаток появится после»
+
+[геометрия 768]
+section.Card__card  736×94 @16,16  r20  b1
+  h2.StockJournal__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Журнал движений»
+  p.StockJournal__empty  531×22 @21,51  Manrope 400 15/22  lines=1  «Движений не было: остаток появится после»
+
+[геометрия 1440]
+section.Card__card  1408×95 @16,16  r20  b1
+  h2.StockJournal__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Журнал движений»
+  p.StockJournal__empty  531×22 @21,52  Manrope 400 15/22  lines=1  «Движений не было: остаток появится после»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.StockJournal__title  color #0f172a
+  p.StockJournal__empty  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.StockJournal__title  color #eaf1f8
+  p.StockJournal__empty  color #8598ac

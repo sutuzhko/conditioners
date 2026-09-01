@@ -1,0 +1,112 @@
+# админка-заказы-итог-работ--заполнен · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×549 @16,16  r20  b1
+  form.OrderResultForm__form  316×507 @21,21
+    div.OrderResultForm__head  316×21 @0,0
+      h2.OrderResultForm__title  90×21 @0,0  Onest 700 17/21  ls0  lines=1  «Итог работ»
+      p.OrderResultForm__when  131×20 @185,1  Manrope 400 13/20  lines=1  «Заполнен 28.08.2026»
+    p.OrderResultForm__hint  316×40 @0,33  Manrope 400 13/20  lines=2  «Что сделали по факту. Плановую сумму ито»
+    fieldset.OrderResultForm__group  316×366 @0,85
+      div.Field__field  316×169 @0,0
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Доп. работы и материалы»
+        textarea.Textarea__textarea  316×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Два метра трассы сверх сметы, кронштейн»
+        p.Field__hint  316×39 @0,130  Manrope 400 13/19  lines=2  «Что добавилось на объекте: лишние метры»
+      div.Field__field#2  316×185 @0,181
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
+        textarea.Textarea__textarea  316×112 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Блок повешен, вакуумирование 20 минут, п»
+        p.Field__hint  316×39 @0,146  Manrope 400 13/19  lines=2  «Что сделано, что проверено, о чём предуп»
+    div.OrderResultForm__actions  316×44 @0,463
+      button.Button__button  150×44 @0,0  r11  b1
+        span.Button__content  112×17 @19,13
+          span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить итог»
+
+[геометрия 768]
+section.Card__card  736×511 @16,16  r20  b1
+  form.OrderResultForm__form  694×469 @21,21
+    div.OrderResultForm__head  694×22 @0,0
+      h2.OrderResultForm__title  95×22 @0,0  Onest 700 18/22  ls0  lines=1  «Итог работ»
+      p.OrderResultForm__when  131×20 @563,1  Manrope 400 13/20  lines=1  «Заполнен 28.08.2026»
+    p.OrderResultForm__hint  539×40 @0,34  Manrope 400 13/20  lines=2  «Что сделали по факту. Плановую сумму ито»
+    fieldset.OrderResultForm__group  694×327 @0,86
+      div.Field__field  694×150 @0,0
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Доп. работы и материалы»
+        textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Два метра трассы сверх сметы, кронштейн»
+        p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Что добавилось на объекте: лишние метры»
+      div.Field__field#2  694×166 @0,162
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
+        textarea.Textarea__textarea  694×112 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Блок повешен, вакуумирование 20 минут, п»
+        p.Field__hint  694×19 @0,146  Manrope 400 13/19  lines=1  «Что сделано, что проверено, о чём предуп»
+    div.OrderResultForm__actions  694×44 @0,425
+      button.Button__button  150×44 @0,0  r11  b1
+        span.Button__content  112×17 @19,13
+          span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить итог»
+
+[геометрия 1440]
+section.Card__card  1408×512 @16,16  r20  b1
+  form.OrderResultForm__form  1366×470 @21,21
+    div.OrderResultForm__head  1366×23 @0,0
+      h2.OrderResultForm__title  100×23 @0,0  Onest 700 19/23  ls0  lines=1  «Итог работ»
+      p.OrderResultForm__when  131×20 @1235,2  Manrope 400 13/20  lines=1  «Заполнен 28.08.2026»
+    p.OrderResultForm__hint  539×40 @0,35  Manrope 400 13/20  lines=2  «Что сделали по факту. Плановую сумму ито»
+    fieldset.OrderResultForm__group  1366×327 @0,87
+      div.Field__field  1366×150 @0,0
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Доп. работы и материалы»
+        textarea.Textarea__textarea  1366×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Два метра трассы сверх сметы, кронштейн»
+        p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «Что добавилось на объекте: лишние метры»
+      div.Field__field#2  1366×166 @0,162
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
+        textarea.Textarea__textarea  1366×112 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Блок повешен, вакуумирование 20 минут, п»
+        p.Field__hint  1366×19 @0,146  Manrope 400 13/19  lines=1  «Что сделано, что проверено, о чём предуп»
+    div.OrderResultForm__actions  1366×44 @0,426
+      button.Button__button  150×44 @0,0  r11  b1
+        span.Button__content  112×17 @19,13
+          span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить итог»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  form.OrderResultForm__form
+    div.OrderResultForm__head
+      h2.OrderResultForm__title  color #0f172a
+      p.OrderResultForm__when  color #556173
+    p.OrderResultForm__hint  color #556173
+    fieldset.OrderResultForm__group
+      div.Field__field
+        label.Field__label  color #334155
+        textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#2
+        label.Field__label  color #334155
+        textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+    div.OrderResultForm__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  form.OrderResultForm__form
+    div.OrderResultForm__head
+      h2.OrderResultForm__title  color #eaf1f8
+      p.OrderResultForm__when  color #8598ac
+    p.OrderResultForm__hint  color #8598ac
+    fieldset.OrderResultForm__group
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+        textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+    div.OrderResultForm__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff

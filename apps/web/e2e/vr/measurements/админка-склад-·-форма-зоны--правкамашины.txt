@@ -1,0 +1,202 @@
+# админка-склад-·-форма-зоны--правкамашины · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×586 @16,16  r20  b1
+  div.FormSection__head  316×18 @21,21
+    div.FormSection__titleRow  316×18 @0,0
+      h3.FormSection__title  92×18 @0,0  Onest 700 15/18  ls0  lines=1  «Правка зоны»
+  form.StockZoneForm__form  316×514 @21,51
+    div.StockZoneForm__grid  316×458 @0,0
+      div.Field__field  316×76 @0,0
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Что это»
+        span.Select__wrapper  316×49 @0,27
+          select.Select__select  316×49 @0,0  r11  b1
+            option  0×0 @-37,-94  Manrope 400 15/21  lines=0  «Склад»
+            option#2  0×0 @-37,-94  Manrope 400 15/21  lines=0  «Машина монтажника»
+          svg.Select__chevron  14×14 @288,18
+      div.Field__field#2  316×122 @0,88
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Как называете сами — это название встане»
+      div.Field__field#3  316×103 @0,222
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Чья машина»
+        span.Select__wrapper  316×49 @0,27
+          select.Select__select#2  316×49 @0,0  r11  b1
+            option  0×0 @-37,-316  Manrope 400 15/21  lines=0  «Выберите человека»
+            option#2  0×0 @-37,-316  Manrope 400 15/21  lines=0  «Дмитрий Соколов»
+            option#3  0×0 @-37,-316  Manrope 400 15/21  lines=0  «Сергей Панин»
+          svg.Select__chevron#2  14×14 @288,18
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Монтажник видит свою машину по этой связ»
+      div.Field__field#4  316×122 @0,337
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Порядок»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Чем меньше число, тем левее колонка в та»
+    div.StockZoneForm__actions  316×44 @0,470
+      button.Button__button  99×44 @0,0  r9  b1
+        span.Button__content  69×16 @15,14
+          span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Сохранить»
+      button.Button__button#2  79×44 @111,0  r9  b1
+        span.Button__content  49×16 @15,14
+          span.Button__label#2  49×16 @0,0  Manrope 600 13/16  lines=1  «Отмена»
+
+[геометрия 768]
+section.Card__card  736×384 @16,16  r20  b1
+  div.FormSection__head  694×18 @21,21
+    div.FormSection__titleRow  694×18 @0,0
+      h3.FormSection__title  92×18 @0,0  Onest 700 15/18  ls0  lines=1  «Правка зоны»
+  form.StockZoneForm__form  694×312 @21,51
+    div.StockZoneForm__grid  694×256 @0,0
+      div.Field__field  223×76 @0,0
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Что это»
+        span.Select__wrapper  223×49 @0,27
+          select.Select__select  223×49 @0,0  r11  b1
+            option  0×0 @-37,-94  Manrope 400 15/21  lines=0  «Склад»
+            option#2  0×0 @-37,-94  Manrope 400 15/21  lines=0  «Машина монтажника»
+          svg.Select__chevron  14×14 @195,18
+      div.Field__field#2  223×122 @235,0
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+        input  223×49 @0,27  r11  b1
+        p.Field__hint  223×39 @0,83  Manrope 400 13/19  lines=2  «Как называете сами — это название встане»
+      div.Field__field#3  223×122 @471,0
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Чья машина»
+        span.Select__wrapper  223×49 @0,27
+          select.Select__select#2  223×49 @0,0  r11  b1
+            option  0×0 @-508,-94  Manrope 400 15/21  lines=0  «Выберите человека»
+            option#2  0×0 @-508,-94  Manrope 400 15/21  lines=0  «Дмитрий Соколов»
+            option#3  0×0 @-508,-94  Manrope 400 15/21  lines=0  «Сергей Панин»
+          svg.Select__chevron#2  14×14 @195,18
+        p.Field__hint  223×39 @0,83  Manrope 400 13/19  lines=2  «Монтажник видит свою машину по этой связ»
+      div.Field__field#4  223×122 @0,134
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Порядок»
+        input  223×49 @0,27  r11  b1
+        p.Field__hint  223×39 @0,83  Manrope 400 13/19  lines=2  «Чем меньше число, тем левее колонка в та»
+    div.StockZoneForm__actions  694×44 @0,268
+      button.Button__button  99×44 @0,0  r9  b1
+        span.Button__content  69×16 @15,14
+          span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Сохранить»
+      button.Button__button#2  79×44 @111,0  r9  b1
+        span.Button__content  49×16 @15,14
+          span.Button__label#2  49×16 @0,0  Manrope 600 13/16  lines=1  «Отмена»
+
+[геометрия 1440]
+section.Card__card  1408×246 @16,16  r20  b1
+  div.FormSection__head  1366×18 @21,21
+    div.FormSection__titleRow  1366×18 @0,0
+      h3.FormSection__title  92×18 @0,0  Onest 700 15/18  ls0  lines=1  «Правка зоны»
+  form.StockZoneForm__form  1366×174 @21,51
+    div.StockZoneForm__grid  1366×122 @0,0
+      div.Field__field  333×76 @0,0
+        label.Field__label  333×20 @0,0  Manrope 600 13/20  lines=1  «Что это»
+        span.Select__wrapper  333×49 @0,27
+          select.Select__select  333×49 @0,0  r11  b1
+            option  0×0 @-37,-94  Manrope 400 15/21  lines=0  «Склад»
+            option#2  0×0 @-37,-94  Manrope 400 15/21  lines=0  «Машина монтажника»
+          svg.Select__chevron  14×14 @305,18
+      div.Field__field#2  333×122 @345,0
+        label.Field__label  333×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+        input  333×49 @0,27  r11  b1
+        p.Field__hint  333×39 @0,83  Manrope 400 13/19  lines=2  «Как называете сами — это название встане»
+      div.Field__field#3  333×103 @689,0
+        label.Field__label  333×20 @0,0  Manrope 600 13/20  lines=1  «Чья машина»
+        span.Select__wrapper  333×49 @0,27
+          select.Select__select#2  333×49 @0,0  r11  b1
+            option  0×0 @-726,-94  Manrope 400 15/21  lines=0  «Выберите человека»
+            option#2  0×0 @-726,-94  Manrope 400 15/21  lines=0  «Дмитрий Соколов»
+            option#3  0×0 @-726,-94  Manrope 400 15/21  lines=0  «Сергей Панин»
+          svg.Select__chevron#2  14×14 @305,18
+        p.Field__hint  333×19 @0,83  Manrope 400 13/19  lines=1  «Монтажник видит свою машину по этой связ»
+      div.Field__field#4  333×122 @1034,0
+        label.Field__label  333×20 @0,0  Manrope 600 13/20  lines=1  «Порядок»
+        input  333×49 @0,27  r11  b1
+        p.Field__hint  333×39 @0,83  Manrope 400 13/19  lines=2  «Чем меньше число, тем левее колонка в та»
+    div.StockZoneForm__actions  1366×40 @0,134
+      button.Button__button  99×40 @0,0  r9  b1
+        span.Button__content  69×16 @15,12
+          span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Сохранить»
+      button.Button__button#2  79×40 @111,0  r9  b1
+        span.Button__content  49×16 @15,12
+          span.Button__label#2  49×16 @0,0  Manrope 600 13/16  lines=1  «Отмена»
+
+[палитра light]
+section.Card__card  bg #f8fafc  border #eef2f6
+  div.FormSection__head
+    div.FormSection__titleRow
+      h3.FormSection__title  color #0f172a
+  form.StockZoneForm__form
+    div.StockZoneForm__grid
+      div.Field__field
+        label.Field__label  color #334155
+        span.Select__wrapper
+          select.Select__select  bg #ffffff  border #7e8fa6
+            option  color #0f172a
+            option#2  color #0f172a
+          svg.Select__chevron
+      div.Field__field#2
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#3
+        label.Field__label  color #334155
+        span.Select__wrapper
+          select.Select__select#2  bg #ffffff  border #7e8fa6
+            option  color #0f172a
+            option#2  color #0f172a
+            option#3  color #0f172a
+          svg.Select__chevron#2
+        p.Field__hint  color #556173
+      div.Field__field#4
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+    div.StockZoneForm__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+      button.Button__button#2  border transparent
+        span.Button__content
+          span.Button__label#2  color #0e7490
+
+[палитра dark]
+section.Card__card  bg #0e1729  border #182338
+  div.FormSection__head
+    div.FormSection__titleRow
+      h3.FormSection__title  color #eaf1f8
+  form.StockZoneForm__form
+    div.StockZoneForm__grid
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        span.Select__wrapper
+          select.Select__select  bg #0b1424  border #566d95
+            option  color #eaf1f8
+            option#2  color #eaf1f8
+          svg.Select__chevron
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#3
+        label.Field__label  color #c9d5e2
+        span.Select__wrapper
+          select.Select__select#2  bg #0b1424  border #566d95
+            option  color #eaf1f8
+            option#2  color #eaf1f8
+            option#3  color #eaf1f8
+          svg.Select__chevron#2
+        p.Field__hint  color #8598ac
+      div.Field__field#4
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+    div.StockZoneForm__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+      button.Button__button#2  border transparent
+        span.Button__content
+          span.Button__label#2  color #22d3ee

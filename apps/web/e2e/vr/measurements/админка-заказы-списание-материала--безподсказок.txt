@@ -1,0 +1,182 @@
+# админка-заказы-списание-материала--безподсказок · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+form.OrderConsumptionForm__form  358×496 @16,16  b1 0 0 0
+  h3.OrderConsumptionForm__title  358×18 @0,17  Onest 700 15/18  ls0  lines=1  «Списать материал»
+  fieldset.OrderConsumptionForm__fields  358×393 @0,47
+    div.Field__field  358×76 @0,0
+      label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Откуда списываем»
+      span.Select__wrapper  358×49 @0,27
+        select.Select__select  358×49 @0,0  r11  b1
+          option  0×0 @-16,-90  Manrope 400 15/21  lines=0  «Выберите зону»
+          option#2  0×0 @-16,-90  Manrope 400 15/21  lines=0  «Гараж»
+          option#3  0×0 @-16,-90  Manrope 400 15/21  lines=0  «Газель»
+        svg.Select__chevron  14×14 @330,18
+    div.Field__field#2  358×103 @0,88
+      label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
+      input  358×49 @0,27  r11  b1
+      p.Field__hint  358×19 @0,83  Manrope 400 13/19  lines=1  «Сузьте список, если позиций в справочник»
+    div.Field__field#3  358×76 @0,203
+      label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Позиция»
+      span.Select__wrapper  358×49 @0,27
+        select.Select__select#2  358×49 @0,0  r11  b1
+          option  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Выберите позицию»
+          option#2  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Труба медная 1/4″»
+          option#3  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Кронштейны наружного блока»
+          option#4  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Фреон R32»
+          option#5  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Сплит-система 09»
+        svg.Select__chevron#2  14×14 @330,18
+    div.Field__field#4  358×103 @0,291
+      label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Количество»
+      input  358×49 @0,27  r11  b1
+      p.Field__hint  358×19 @0,83  Manrope 400 13/19  lines=1  «Дробное можно: «1,5" и «12 000" разбираю»
+  div.OrderConsumptionForm__actions  358×44 @0,452
+    button.Button__button  84×44 @0,0  r9  b1
+      span.Button__content  54×16 @15,14
+        span.Button__label  54×16 @0,0  Manrope 600 13/16  lines=1  «Списать»
+
+[геометрия 768]
+form.OrderConsumptionForm__form  736×516 @16,16  b1 0 0 0
+  h3.OrderConsumptionForm__title  736×18 @0,17  Onest 700 15/18  ls0  lines=1  «Списать материал»
+  fieldset.OrderConsumptionForm__fields  736×413 @0,47
+    div.Field__field  736×76 @0,0
+      label.Field__label  736×20 @0,0  Manrope 600 13/20  lines=1  «Откуда списываем»
+      span.Select__wrapper  736×49 @0,27
+        select.Select__select  736×49 @0,0  r11  b1
+          option  0×0 @-16,-90  Manrope 400 15/21  lines=0  «Выберите зону»
+          option#2  0×0 @-16,-90  Manrope 400 15/21  lines=0  «Гараж»
+          option#3  0×0 @-16,-90  Manrope 400 15/21  lines=0  «Газель»
+        svg.Select__chevron  14×14 @708,18
+    div.Field__field#2  736×103 @0,88
+      label.Field__label  736×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
+      input  736×49 @0,27  r11  b1
+      p.Field__hint  736×19 @0,83  Manrope 400 13/19  lines=1  «Сузьте список, если позиций в справочник»
+    div.Field__field#3  736×76 @0,203
+      label.Field__label  736×20 @0,0  Manrope 600 13/20  lines=1  «Позиция»
+      span.Select__wrapper  736×49 @0,27
+        select.Select__select#2  736×49 @0,0  r11  b1
+          option  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Выберите позицию»
+          option#2  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Труба медная 1/4″»
+          option#3  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Кронштейны наружного блока»
+          option#4  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Фреон R32»
+          option#5  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Сплит-система 09»
+        svg.Select__chevron#2  14×14 @708,18
+    div.Field__field#4  237×122 @0,291
+      label.Field__label  237×20 @0,0  Manrope 600 13/20  lines=1  «Количество»
+      input  237×49 @0,27  r11  b1
+      p.Field__hint  237×39 @0,83  Manrope 400 13/19  lines=2  «Дробное можно: «1,5" и «12 000" разбираю»
+  div.OrderConsumptionForm__actions  736×44 @0,472
+    button.Button__button  84×44 @0,0  r9  b1
+      span.Button__content  54×16 @15,14
+        span.Button__label  54×16 @0,0  Manrope 600 13/16  lines=1  «Списать»
+
+[геометрия 1440]
+form.OrderConsumptionForm__form  1408×512 @16,16  b1 0 0 0
+  h3.OrderConsumptionForm__title  1408×18 @0,17  Onest 700 15/18  ls0  lines=1  «Списать материал»
+  fieldset.OrderConsumptionForm__fields  1408×413 @0,47
+    div.Field__field  1408×76 @0,0
+      label.Field__label  1408×20 @0,0  Manrope 600 13/20  lines=1  «Откуда списываем»
+      span.Select__wrapper  1408×49 @0,27
+        select.Select__select  1408×49 @0,0  r11  b1
+          option  0×0 @-16,-90  Manrope 400 15/21  lines=0  «Выберите зону»
+          option#2  0×0 @-16,-90  Manrope 400 15/21  lines=0  «Гараж»
+          option#3  0×0 @-16,-90  Manrope 400 15/21  lines=0  «Газель»
+        svg.Select__chevron  14×14 @1380,18
+    div.Field__field#2  1408×103 @0,88
+      label.Field__label  1408×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
+      input  1408×49 @0,27  r11  b1
+      p.Field__hint  1408×19 @0,83  Manrope 400 13/19  lines=1  «Сузьте список, если позиций в справочник»
+    div.Field__field#3  1408×76 @0,203
+      label.Field__label  1408×20 @0,0  Manrope 600 13/20  lines=1  «Позиция»
+      span.Select__wrapper  1408×49 @0,27
+        select.Select__select#2  1408×49 @0,0  r11  b1
+          option  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Выберите позицию»
+          option#2  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Труба медная 1/4″»
+          option#3  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Кронштейны наружного блока»
+          option#4  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Фреон R32»
+          option#5  0×0 @-16,-293  Manrope 400 15/21  lines=0  «Сплит-система 09»
+        svg.Select__chevron#2  14×14 @1380,18
+    div.Field__field#4  191×122 @0,291
+      label.Field__label  191×20 @0,0  Manrope 600 13/20  lines=1  «Количество»
+      input  191×49 @0,27  r11  b1
+      p.Field__hint  191×39 @0,83  Manrope 400 13/19  lines=2  «Дробное можно: «1,5" и «12 000" разбираю»
+  div.OrderConsumptionForm__actions  1408×40 @0,472
+    button.Button__button  84×40 @0,0  r9  b1
+      span.Button__content  54×16 @15,12
+        span.Button__label  54×16 @0,0  Manrope 600 13/16  lines=1  «Списать»
+
+[палитра light]
+form.OrderConsumptionForm__form  border #e2e8f0 #0f172a #0f172a #0f172a
+  h3.OrderConsumptionForm__title  color #0f172a
+  fieldset.OrderConsumptionForm__fields
+    div.Field__field
+      label.Field__label  color #334155
+      span.Select__wrapper
+        select.Select__select  bg #ffffff  border #7e8fa6
+          option  color #0f172a
+          option#2  color #0f172a
+          option#3  color #0f172a
+        svg.Select__chevron
+    div.Field__field#2
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+      p.Field__hint  color #556173
+    div.Field__field#3
+      label.Field__label  color #334155
+      span.Select__wrapper
+        select.Select__select#2  bg #ffffff  border #7e8fa6
+          option  color #0f172a
+          option#2  color #0f172a
+          option#3  color #0f172a
+          option#4  color #0f172a
+          option#5  color #0f172a
+        svg.Select__chevron#2
+    div.Field__field#4
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+      p.Field__hint  color #556173
+  div.OrderConsumptionForm__actions
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff
+
+[палитра dark]
+form.OrderConsumptionForm__form  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+  h3.OrderConsumptionForm__title  color #eaf1f8
+  fieldset.OrderConsumptionForm__fields
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      span.Select__wrapper
+        select.Select__select  bg #0b1424  border #566d95
+          option  color #eaf1f8
+          option#2  color #eaf1f8
+          option#3  color #eaf1f8
+        svg.Select__chevron
+    div.Field__field#2
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+      p.Field__hint  color #8598ac
+    div.Field__field#3
+      label.Field__label  color #c9d5e2
+      span.Select__wrapper
+        select.Select__select#2  bg #0b1424  border #566d95
+          option  color #eaf1f8
+          option#2  color #eaf1f8
+          option#3  color #eaf1f8
+          option#4  color #eaf1f8
+          option#5  color #eaf1f8
+        svg.Select__chevron#2
+    div.Field__field#4
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+      p.Field__hint  color #8598ac
+  div.OrderConsumptionForm__actions
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff

@@ -1,0 +1,200 @@
+# страницы-база-знаний-статья--short · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+320 → 320×954
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+article.ArticleView__article  320×954 @0,0
+  header.ArticleView__head  288×166 @16,48
+    p.ArticleView__meta  288×54 @0,0
+      span.Badge__badge  121×24 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Эксплуатация»
+        span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+      span.ArticleView__dates  169×20 @0,34
+        span  1×1 @-1,-1  Manrope 400 13/20  lines=1  clipped  «Опубликовано:»
+        time  81×18 @0,1  Manrope 400 13/20  lines=1  «14 июня 2026»
+        span#2  8×18 @81,1  Manrope 400 13/20  lines=1  «·»
+        span#3  80×18 @89,1  Manrope 400 13/20  lines=1  «3 мин чтения»
+    h1.ArticleView__title  288×94 @0,72  Onest 700 28/31  ls-1  lines=3  «Можно ли греться кондиционером зимой»
+  div.ArticleBody__body  288×178 @16,238
+    p.ArticleBody__paragraph  288×26 @0,0  Manrope 400 17/26  lines=1  «Коротко: можно, но не всяким.»
+    h2.ArticleBody__h2  288×55 @0,58  Onest 700 22/28  ls0  lines=2  «Что смотреть в характеристиках»
+    p.ArticleBody__paragraph#2  288×51 @0,127  Manrope 400 17/26  lines=2  «Нижний предел температуры наружного блок»
+  aside.ArticleView__cta  288×374 @16,460  r20
+    div.ArticleView__ctaText  248×104 @20,24
+      p.ArticleView__ctaTitle  248×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы?»
+      p.ArticleView__ctaLead  248×67 @0,37  Manrope 400 15/22  lines=3  «Расскажем, что подойдёт именно вашей ква»
+    div.ArticleView__ctaActions  248×198 @20,152
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+      ul.ArticleView__ctaLinks  248×132 @0,66
+        a.ArticleView__ctaLink  260×65 @-12,0  Manrope 600 15/22  r11  lines=2  «Каталог кондиционеров с ценами»
+          svg  13×15 @235,25
+        a.ArticleView__ctaLink#2  260×65 @-12,67  Manrope 600 15/22  r11  lines=2  «Установка кондиционеров под ключ»
+          svg  13×15 @235,25
+  p.ArticleView__back  288×44 @16,862
+    a.ArticleView__backLink  198×44 @-12,0  Manrope 600 15/23  r11  lines=1  «Все статьи Базы знаний»
+
+[геометрия 375]
+article.ArticleView__article  375×854 @0,0
+  header.ArticleView__head  343×105 @16,48
+    p.ArticleView__meta  343×24 @0,0
+      span.Badge__badge  121×24 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Эксплуатация»
+        span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+      span.ArticleView__dates  169×20 @131,2
+        span  1×1 @-1,-1  Manrope 400 13/20  lines=1  clipped  «Опубликовано:»
+        time  81×18 @0,1  Manrope 400 13/20  lines=1  «14 июня 2026»
+        span#2  8×18 @81,1  Manrope 400 13/20  lines=1  «·»
+        span#3  80×18 @89,1  Manrope 400 13/20  lines=1  «3 мин чтения»
+    h1.ArticleView__title  343×63 @0,42  Onest 700 28/31  ls-1  lines=2  «Можно ли греться кондиционером зимой»
+  div.ArticleBody__body  343×178 @16,177
+    p.ArticleBody__paragraph  343×26 @0,0  Manrope 400 17/26  lines=1  «Коротко: можно, но не всяким.»
+    h2.ArticleBody__h2  343×55 @0,58  Onest 700 22/28  ls0  lines=2  «Что смотреть в характеристиках»
+    p.ArticleBody__paragraph#2  343×51 @0,127  Manrope 400 17/26  lines=2  «Нижний предел температуры наружного блок»
+  aside.ArticleView__cta  343×332 @16,399  r20
+    div.ArticleView__ctaText  303×104 @20,24
+      p.ArticleView__ctaTitle  303×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы?»
+      p.ArticleView__ctaLead  303×67 @0,37  Manrope 400 15/22  lines=3  «Расскажем, что подойдёт именно вашей ква»
+    div.ArticleView__ctaActions  293×156 @20,152
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+      ul.ArticleView__ctaLinks  293×90 @0,66
+        a.ArticleView__ctaLink  288×44 @-12,0  Manrope 600 15/22  r11  lines=1  «Каталог кондиционеров с ценами»
+          svg  15×15 @261,15
+        a.ArticleView__ctaLink#2  305×44 @-12,46  Manrope 600 15/22  r11  lines=1  «Установка кондиционеров под ключ»
+          svg  15×15 @278,15
+  p.ArticleView__back  343×44 @16,759
+    a.ArticleView__backLink  198×44 @-12,0  Manrope 600 15/23  r11  lines=1  «Все статьи Базы знаний»
+
+[геометрия 768]
+article.ArticleView__article  660×844 @54,0
+  header.ArticleView__head  620×127 @20,48
+    p.ArticleView__meta  620×24 @0,0
+      span.Badge__badge  121×24 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Эксплуатация»
+        span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+      span.ArticleView__dates  169×20 @131,2
+        span  1×1 @-1,-1  Manrope 400 13/20  lines=1  clipped  «Опубликовано:»
+        time  81×18 @0,1  Manrope 400 13/20  lines=1  «14 июня 2026»
+        span#2  8×18 @81,1  Manrope 400 13/20  lines=1  «·»
+        span#3  80×18 @89,1  Manrope 400 13/20  lines=1  «3 мин чтения»
+    h1.ArticleView__title  620×85 @0,42  Onest 700 38/43  ls-1  lines=2  «Можно ли греться кондиционером зимой»
+  div.ArticleBody__body  620×134 @20,199
+    p.ArticleBody__paragraph  620×26 @0,0  Manrope 400 17/26  lines=1  «Коротко: можно, но не всяким.»
+    h2.ArticleBody__h2  620×31 @0,64  Onest 700 25/31  ls0  lines=1  «Что смотреть в характеристиках»
+    p.ArticleBody__paragraph#2  620×26 @0,109  Manrope 400 17/26  lines=1  «Нижний предел температуры наружного блок»
+  aside.ArticleView__cta  620×326 @20,378  r20
+    div.ArticleView__ctaText  556×82 @32,32
+      p.ArticleView__ctaTitle  556×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы?»
+      p.ArticleView__ctaLead  556×45 @0,37  Manrope 400 15/22  lines=2  «Расскажем, что подойдёт именно вашей ква»
+    div.ArticleView__ctaActions  293×156 @32,138
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+      ul.ArticleView__ctaLinks  293×90 @0,66
+        a.ArticleView__ctaLink  288×44 @-12,0  Manrope 600 15/22  r11  lines=1  «Каталог кондиционеров с ценами»
+          svg  15×15 @261,15
+        a.ArticleView__ctaLink#2  305×44 @-12,46  Manrope 600 15/22  r11  lines=1  «Установка кондиционеров под ключ»
+          svg  15×15 @278,15
+  p.ArticleView__back  620×44 @20,732
+    a.ArticleView__backLink  198×44 @-12,0  Manrope 600 15/23  r11  lines=1  «Все статьи Базы знаний»
+
+[геометрия 1200]
+article.ArticleView__article  668×864 @266,0
+  header.ArticleView__head  620×127 @24,48
+    p.ArticleView__meta  620×24 @0,0
+      span.Badge__badge  121×24 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Эксплуатация»
+        span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+      span.ArticleView__dates  169×20 @131,2
+        span  1×1 @-1,-1  Manrope 400 13/20  lines=1  clipped  «Опубликовано:»
+        time  81×18 @0,1  Manrope 400 13/20  lines=1  «14 июня 2026»
+        span#2  8×18 @81,1  Manrope 400 13/20  lines=1  «·»
+        span#3  80×18 @89,1  Manrope 400 13/20  lines=1  «3 мин чтения»
+    h1.ArticleView__title  620×85 @0,42  Onest 700 38/43  ls-1  lines=2  «Можно ли греться кондиционером зимой»
+  div.ArticleBody__body  620×134 @24,199
+    p.ArticleBody__paragraph  620×26 @0,0  Manrope 400 17/26  lines=1  «Коротко: можно, но не всяким.»
+    h2.ArticleBody__h2  620×31 @0,64  Onest 700 25/31  ls0  lines=1  «Что смотреть в характеристиках»
+    p.ArticleBody__paragraph#2  620×26 @0,109  Manrope 400 17/26  lines=1  «Нижний предел температуры наружного блок»
+  aside.ArticleView__cta  620×326 @24,378  r20
+    div.ArticleView__ctaText  556×82 @32,32
+      p.ArticleView__ctaTitle  556×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы?»
+      p.ArticleView__ctaLead  556×45 @0,37  Manrope 400 15/22  lines=2  «Расскажем, что подойдёт именно вашей ква»
+    div.ArticleView__ctaActions  293×156 @32,138
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+      ul.ArticleView__ctaLinks  293×90 @0,66
+        a.ArticleView__ctaLink  288×44 @-12,0  Manrope 600 15/22  r11  lines=1  «Каталог кондиционеров с ценами»
+          svg  15×15 @261,15
+        a.ArticleView__ctaLink#2  305×44 @-12,46  Manrope 600 15/22  r11  lines=1  «Установка кондиционеров под ключ»
+          svg  15×15 @278,15
+  p.ArticleView__back  620×44 @24,732
+    a.ArticleView__backLink  198×44 @-12,0  Manrope 600 15/23  r11  lines=1  «Все статьи Базы знаний»
+
+[палитра light]
+article.ArticleView__article
+  header.ArticleView__head
+    p.ArticleView__meta
+      span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+        span  color #0e7490
+      span.ArticleView__dates
+        span  color #5b6a7d
+        time  color #5b6a7d
+        span#2  color #5b6a7d
+        span#3  color #5b6a7d
+    h1.ArticleView__title  color #0f172a
+  div.ArticleBody__body
+    p.ArticleBody__paragraph  color #475569
+    h2.ArticleBody__h2  color #0f172a
+    p.ArticleBody__paragraph#2  color #475569
+  aside.ArticleView__cta  bg #0f172a
+    div.ArticleView__ctaText
+      p.ArticleView__ctaTitle  color #ffffff
+      p.ArticleView__ctaLead  color #5b6a7d
+    div.ArticleView__ctaActions
+      a.Button__button  bg #ecfeff  border transparent
+        span.Button__content
+          span.Button__label  color #0e7490
+      ul.ArticleView__ctaLinks
+        a.ArticleView__ctaLink  color #0e7490
+          svg
+        a.ArticleView__ctaLink#2  color #0e7490
+          svg
+  p.ArticleView__back
+    a.ArticleView__backLink  color #0e7490
+
+[палитра dark]
+article.ArticleView__article
+  header.ArticleView__head
+    p.ArticleView__meta
+      span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+        span  color #22d3ee
+      span.ArticleView__dates
+        span  color #7e92a7
+        time  color #7e92a7
+        span#2  color #7e92a7
+        span#3  color #7e92a7
+    h1.ArticleView__title  color #eaf1f8
+  div.ArticleBody__body
+    p.ArticleBody__paragraph  color #a8b6c6
+    h2.ArticleBody__h2  color #eaf1f8
+    p.ArticleBody__paragraph#2  color #a8b6c6
+  aside.ArticleView__cta  bg #111d34
+    div.ArticleView__ctaText
+      p.ArticleView__ctaTitle  color #ffffff
+      p.ArticleView__ctaLead  color #7e92a7
+    div.ArticleView__ctaActions
+      a.Button__button  bg #22d3ee1a  border transparent
+        span.Button__content
+          span.Button__label  color #22d3ee
+      ul.ArticleView__ctaLinks
+        a.ArticleView__ctaLink  color #22d3ee
+          svg
+        a.ArticleView__ctaLink#2  color #22d3ee
+          svg
+  p.ArticleView__back
+    a.ArticleView__backLink  color #22d3ee

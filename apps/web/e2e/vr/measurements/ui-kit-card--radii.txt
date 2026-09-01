@@ -1,0 +1,107 @@
+# ui-kit-card--radii · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Card__card  358×117 @16,16  r11  b1
+  h3  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
+  p  316×47 @21,50  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#2  358×117 @16,149  r14  b1
+  h3  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
+  p  316×47 @21,50  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#3  358×117 @16,282  r18  b1
+  h3  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
+  p  316×47 @21,50  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#4  358×117 @16,415  r20  b1
+  h3  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
+  p  316×47 @21,50  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#5  358×117 @16,548  r22  b1
+  h3  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
+  p  316×47 @21,50  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#6  358×117 @16,681  r24  b1
+  h3  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
+  p  316×47 @21,50  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+
+[геометрия 768]
+div.Card__card  235×141 @16,16  r11  b1
+  h3  193×22 @21,21  Onest 700 18/22  ls0  lines=1  «Монтаж под ключ»
+  p  193×70 @21,51  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#2  235×141 @267,16  r14  b1
+  h3  193×22 @21,21  Onest 700 18/22  ls0  lines=1  «Монтаж под ключ»
+  p  193×70 @21,51  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#3  235×141 @517,16  r18  b1
+  h3  193×22 @21,21  Onest 700 18/22  ls0  lines=1  «Монтаж под ключ»
+  p  193×70 @21,51  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#4  235×141 @16,173  r20  b1
+  h3  193×22 @21,21  Onest 700 18/22  ls0  lines=1  «Монтаж под ключ»
+  p  193×70 @21,51  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#5  235×141 @267,173  r22  b1
+  h3  193×22 @21,21  Onest 700 18/22  ls0  lines=1  «Монтаж под ключ»
+  p  193×70 @21,51  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#6  235×141 @517,173  r24  b1
+  h3  193×22 @21,21  Onest 700 18/22  ls0  lines=1  «Монтаж под ключ»
+  p  193×70 @21,51  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+
+[геометрия 1440]
+div.Card__card  221×143 @16,16  r11  b1
+  h3  179×23 @21,21  Onest 700 19/23  ls0  lines=1  «Монтаж под ключ»
+  p  179×70 @21,52  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#2  221×143 @253,16  r14  b1
+  h3  179×23 @21,21  Onest 700 19/23  ls0  lines=1  «Монтаж под ключ»
+  p  179×70 @21,52  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#3  221×143 @491,16  r18  b1
+  h3  179×23 @21,21  Onest 700 19/23  ls0  lines=1  «Монтаж под ключ»
+  p  179×70 @21,52  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#4  221×143 @728,16  r20  b1
+  h3  179×23 @21,21  Onest 700 19/23  ls0  lines=1  «Монтаж под ключ»
+  p  179×70 @21,52  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#5  221×143 @965,16  r22  b1
+  h3  179×23 @21,21  Onest 700 19/23  ls0  lines=1  «Монтаж под ключ»
+  p  179×70 @21,52  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#6  221×143 @1203,16  r24  b1
+  h3  179×23 @21,21  Onest 700 19/23  ls0  lines=1  «Монтаж под ключ»
+  p  179×70 @21,52  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #0f172a
+  p  color #475569
+div.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #0f172a
+  p  color #475569
+div.Card__card#3  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #0f172a
+  p  color #475569
+div.Card__card#4  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #0f172a
+  p  color #475569
+div.Card__card#5  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #0f172a
+  p  color #475569
+div.Card__card#6  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #0f172a
+  p  color #475569
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #eaf1f8
+  p  color #a8b6c6
+div.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #eaf1f8
+  p  color #a8b6c6
+div.Card__card#3  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #eaf1f8
+  p  color #a8b6c6
+div.Card__card#4  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #eaf1f8
+  p  color #a8b6c6
+div.Card__card#5  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #eaf1f8
+  p  color #a8b6c6
+div.Card__card#6  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #eaf1f8
+  p  color #a8b6c6

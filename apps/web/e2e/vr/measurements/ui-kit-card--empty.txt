@@ -1,0 +1,27 @@
+# ui-kit-card--empty · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Card__card  358×65 @16,16  r20  b1
+  p  316×23 @21,21  Manrope 400 15/23  lines=1  «Пока нет ни одной модели»
+
+[геометрия 768]
+div.Card__card  736×81 @16,16  r20  b1
+  p  678×23 @29,29  Manrope 400 15/23  lines=1  «Пока нет ни одной модели»
+
+[геометрия 1440]
+div.Card__card  1408×81 @16,16  r20  b1
+  p  1350×23 @29,29  Manrope 400 15/23  lines=1  «Пока нет ни одной модели»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  p  color #556173
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  p  color #8598ac

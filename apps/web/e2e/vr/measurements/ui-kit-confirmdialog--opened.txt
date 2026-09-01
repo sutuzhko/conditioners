@@ -1,0 +1,32 @@
+# ui-kit-confirmdialog--opened · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.Button__button  150×44 @16,16  r11  b1
+  span.Button__content  112×17 @19,13
+    span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Удалить статью»
+
+[геометрия 768]
+button.Button__button  150×44 @16,16  r11  b1
+  span.Button__content  112×17 @19,13
+    span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Удалить статью»
+
+[геометрия 1440]
+button.Button__button  150×44 @16,16  r11  b1
+  span.Button__content  112×17 @19,13
+    span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Удалить статью»
+
+[палитра light]
+button.Button__button  bg #ffffff  border #7e8fa6
+  span.Button__content
+    span.Button__label  color #0f172a
+
+[палитра dark]
+button.Button__button  bg #121d31  border #566d95
+  span.Button__content
+    span.Button__label  color #eaf1f8

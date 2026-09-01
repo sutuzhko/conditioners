@@ -1,0 +1,37 @@
+# ui-kit-button--disabled-with-reason · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.Button__button  96×44 @16,16  r11  b1
+  span.Button__content  58×17 @19,13
+    span.Button__label  58×17 @0,0  Manrope 600 15/17  lines=1  «Удалить»
+  span.Button__reason  1×1 @48,22  Manrope 600 15/17  lines=1  clipped  «Нельзя удалить последнего администратора»
+
+[геометрия 768]
+button.Button__button  96×44 @16,16  r11  b1
+  span.Button__content  58×17 @19,13
+    span.Button__label  58×17 @0,0  Manrope 600 15/17  lines=1  «Удалить»
+  span.Button__reason  1×1 @48,22  Manrope 600 15/17  lines=1  clipped  «Нельзя удалить последнего администратора»
+
+[геометрия 1440]
+button.Button__button  96×44 @16,16  r11  b1
+  span.Button__content  58×17 @19,13
+    span.Button__label  58×17 @0,0  Manrope 600 15/17  lines=1  «Удалить»
+  span.Button__reason  1×1 @48,22  Manrope 600 15/17  lines=1  clipped  «Нельзя удалить последнего администратора»
+
+[палитра light]
+button.Button__button  bg #be123c14  border #be123c73
+  span.Button__content
+    span.Button__label  color #be123c
+  span.Button__reason  color #be123c
+
+[палитра dark]
+button.Button__button  bg #fb71851f  border #fb718580
+  span.Button__content
+    span.Button__label  color #fb7185
+  span.Button__reason  color #fb7185

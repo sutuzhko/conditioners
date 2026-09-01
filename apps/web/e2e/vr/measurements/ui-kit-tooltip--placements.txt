@@ -1,0 +1,97 @@
+# ui-kit-tooltip--placements · ширины 390 768 1440 · темы light dark
+шрифты: —
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Tooltip__wrap  44×44 @121,376
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+span.Tooltip__wrap#2  44×44 @225,376
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton#2  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+span.Tooltip__wrap#3  44×44 @121,480
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton#3  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+span.Tooltip__wrap#4  44×44 @225,480
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton#4  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+
+[геометрия 768]
+span.Tooltip__wrap  44×44 @310,376
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+span.Tooltip__wrap#2  44×44 @414,376
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton#2  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+span.Tooltip__wrap#3  44×44 @310,480
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton#3  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+span.Tooltip__wrap#4  44×44 @414,480
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton#4  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+
+[геометрия 1440]
+span.Tooltip__wrap  44×44 @646,376
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+span.Tooltip__wrap#2  44×44 @750,376
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton#2  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+span.Tooltip__wrap#3  44×44 @646,480
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton#3  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+span.Tooltip__wrap#4  44×44 @750,480
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton#4  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+
+[палитра light]
+span.Tooltip__wrap
+  span.Tooltip__anchor
+    button.IconButton__iconButton  border transparent
+      svg
+span.Tooltip__wrap#2
+  span.Tooltip__anchor
+    button.IconButton__iconButton#2  border transparent
+      svg
+span.Tooltip__wrap#3
+  span.Tooltip__anchor
+    button.IconButton__iconButton#3  border transparent
+      svg
+span.Tooltip__wrap#4
+  span.Tooltip__anchor
+    button.IconButton__iconButton#4  border transparent
+      svg
+
+[палитра dark]
+span.Tooltip__wrap
+  span.Tooltip__anchor
+    button.IconButton__iconButton  border transparent
+      svg
+span.Tooltip__wrap#2
+  span.Tooltip__anchor
+    button.IconButton__iconButton#2  border transparent
+      svg
+span.Tooltip__wrap#3
+  span.Tooltip__anchor
+    button.IconButton__iconButton#3  border transparent
+      svg
+span.Tooltip__wrap#4
+  span.Tooltip__anchor
+    button.IconButton__iconButton#4  border transparent
+      svg

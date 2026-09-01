@@ -1,0 +1,47 @@
+# ui-kit-badge--variants · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Badge__badge  104×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «Нейтральная»
+span.Badge__badge#2  90×28 @130,16  Manrope 600 12/16  r100  b1  lines=1  «Акцентная»
+span.Badge__badge#3  78×28 @230,16  Manrope 600 12/16  r100  b1  lines=1  «Класс 09»
+span.Badge__badge#4  104×28 @16,54  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
+span.Badge__badge#5  110×28 @130,54  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
+span.Badge__badge#6  55×28 @251,54  Manrope 600 12/16  r100  b1  lines=1  «−12%»
+
+[геометрия 768]
+span.Badge__badge  104×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «Нейтральная»
+span.Badge__badge#2  90×28 @130,16  Manrope 600 12/16  r100  b1  lines=1  «Акцентная»
+span.Badge__badge#3  78×28 @230,16  Manrope 600 12/16  r100  b1  lines=1  «Класс 09»
+span.Badge__badge#4  104×28 @318,16  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
+span.Badge__badge#5  110×28 @432,16  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
+span.Badge__badge#6  55×28 @552,16  Manrope 600 12/16  r100  b1  lines=1  «−12%»
+
+[геометрия 1440]
+span.Badge__badge  104×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «Нейтральная»
+span.Badge__badge#2  90×28 @130,16  Manrope 600 12/16  r100  b1  lines=1  «Акцентная»
+span.Badge__badge#3  78×28 @230,16  Manrope 600 12/16  r100  b1  lines=1  «Класс 09»
+span.Badge__badge#4  104×28 @318,16  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
+span.Badge__badge#5  110×28 @432,16  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
+span.Badge__badge#6  55×28 @552,16  Manrope 600 12/16  r100  b1  lines=1  «−12%»
+
+[палитра light]
+span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+span.Badge__badge#2  color #0e7490  bg #ecfeff  border #a5f3fc
+span.Badge__badge#3  color #ffffff  bg #0f172a  border #0f172a
+span.Badge__badge#4  color #166534  bg #15803d14  border #15803d47
+span.Badge__badge#5  color #92400e  bg #b4530914  border #b4530947
+span.Badge__badge#6  color #be123c  bg #be123c14  border #be123c47
+
+[палитра dark]
+span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+span.Badge__badge#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+span.Badge__badge#3  color #ffffff  bg #111d34  border #111d34
+span.Badge__badge#4  color #4ade80  bg #4ade801f  border #4ade8052
+span.Badge__badge#5  color #fbbf24  bg #fbbf241f  border #fbbf2452
+span.Badge__badge#6  color #fb7185  bg #fb71851f  border #fb718552

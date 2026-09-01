@@ -1,0 +1,122 @@
+# ui-kit-button--variants · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.Button__button  71×44 @16,16  r11  b1
+  span.Button__content  33×17 @19,13
+    span.Button__label  33×17 @0,0  Manrope 600 15/17  lines=1  «solid»
+button.Button__button#2  62×44 @99,16  r11  b1
+  span.Button__content  24×17 @19,13
+    span.Button__label#2  24×17 @0,0  Manrope 600 15/17  lines=1  «flat»
+button.Button__button#3  102×44 @173,16  r11  b1
+  span.Button__content  64×17 @19,13
+    span.Button__label#3  64×17 @0,0  Manrope 600 15/17  lines=1  «bordered»
+button.Button__button#4  78×44 @287,16  r11  b1
+  span.Button__content  40×17 @19,13
+    span.Button__label#4  40×17 @0,0  Manrope 600 15/17  lines=1  «faded»
+button.Button__button#5  70×44 @16,72  r11  b1
+  span.Button__content  32×17 @19,13
+    span.Button__label#5  32×17 @0,0  Manrope 600 15/17  lines=1  «light»
+button.Button__button#6  78×44 @98,72  r11  b1
+  span.Button__content  40×17 @19,13
+    span.Button__label#6  40×17 @0,0  Manrope 600 15/17  lines=1  «ghost»
+button.Button__button#7  87×44 @188,72  r11  b1
+  span.Button__content  49×17 @19,13
+    span.Button__label#7  49×17 @0,0  Manrope 600 15/17  lines=1  «danger»
+
+[геометрия 768]
+button.Button__button  71×44 @16,16  r11  b1
+  span.Button__content  33×17 @19,13
+    span.Button__label  33×17 @0,0  Manrope 600 15/17  lines=1  «solid»
+button.Button__button#2  62×44 @99,16  r11  b1
+  span.Button__content  24×17 @19,13
+    span.Button__label#2  24×17 @0,0  Manrope 600 15/17  lines=1  «flat»
+button.Button__button#3  102×44 @173,16  r11  b1
+  span.Button__content  64×17 @19,13
+    span.Button__label#3  64×17 @0,0  Manrope 600 15/17  lines=1  «bordered»
+button.Button__button#4  78×44 @287,16  r11  b1
+  span.Button__content  40×17 @19,13
+    span.Button__label#4  40×17 @0,0  Manrope 600 15/17  lines=1  «faded»
+button.Button__button#5  70×44 @376,16  r11  b1
+  span.Button__content  32×17 @19,13
+    span.Button__label#5  32×17 @0,0  Manrope 600 15/17  lines=1  «light»
+button.Button__button#6  78×44 @458,16  r11  b1
+  span.Button__content  40×17 @19,13
+    span.Button__label#6  40×17 @0,0  Manrope 600 15/17  lines=1  «ghost»
+button.Button__button#7  87×44 @548,16  r11  b1
+  span.Button__content  49×17 @19,13
+    span.Button__label#7  49×17 @0,0  Manrope 600 15/17  lines=1  «danger»
+
+[геометрия 1440]
+button.Button__button  71×44 @16,16  r11  b1
+  span.Button__content  33×17 @19,13
+    span.Button__label  33×17 @0,0  Manrope 600 15/17  lines=1  «solid»
+button.Button__button#2  62×44 @99,16  r11  b1
+  span.Button__content  24×17 @19,13
+    span.Button__label#2  24×17 @0,0  Manrope 600 15/17  lines=1  «flat»
+button.Button__button#3  102×44 @173,16  r11  b1
+  span.Button__content  64×17 @19,13
+    span.Button__label#3  64×17 @0,0  Manrope 600 15/17  lines=1  «bordered»
+button.Button__button#4  78×44 @287,16  r11  b1
+  span.Button__content  40×17 @19,13
+    span.Button__label#4  40×17 @0,0  Manrope 600 15/17  lines=1  «faded»
+button.Button__button#5  70×44 @376,16  r11  b1
+  span.Button__content  32×17 @19,13
+    span.Button__label#5  32×17 @0,0  Manrope 600 15/17  lines=1  «light»
+button.Button__button#6  78×44 @458,16  r11  b1
+  span.Button__content  40×17 @19,13
+    span.Button__label#6  40×17 @0,0  Manrope 600 15/17  lines=1  «ghost»
+button.Button__button#7  87×44 @548,16  r11  b1
+  span.Button__content  49×17 @19,13
+    span.Button__label#7  49×17 @0,0  Manrope 600 15/17  lines=1  «danger»
+
+[палитра light]
+button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  span.Button__content
+    span.Button__label  color #ffffff
+button.Button__button#2  bg #ecfeff  border transparent
+  span.Button__content
+    span.Button__label#2  color #0e7490
+button.Button__button#3  bg #ffffff  border #7e8fa6
+  span.Button__content
+    span.Button__label#3  color #0f172a
+button.Button__button#4  bg #f8fafc  border #7e8fa6
+  span.Button__content
+    span.Button__label#4  color #0f172a
+button.Button__button#5  border transparent
+  span.Button__content
+    span.Button__label#5  color #0e7490
+button.Button__button#6  border #0e7490
+  span.Button__content
+    span.Button__label#6  color #0e7490
+button.Button__button#7  bg #be123c14  border #be123c73
+  span.Button__content
+    span.Button__label#7  color #be123c
+
+[палитра dark]
+button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  span.Button__content
+    span.Button__label  color #ffffff
+button.Button__button#2  bg #22d3ee1a  border transparent
+  span.Button__content
+    span.Button__label#2  color #22d3ee
+button.Button__button#3  bg #121d31  border #566d95
+  span.Button__content
+    span.Button__label#3  color #eaf1f8
+button.Button__button#4  bg #0e1729  border #566d95
+  span.Button__content
+    span.Button__label#4  color #eaf1f8
+button.Button__button#5  border transparent
+  span.Button__content
+    span.Button__label#5  color #22d3ee
+button.Button__button#6  border #0e7490
+  span.Button__content
+    span.Button__label#6  color #22d3ee
+button.Button__button#7  bg #fb71851f  border #fb718580
+  span.Button__content
+    span.Button__label#7  color #fb7185

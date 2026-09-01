@@ -1,0 +1,58 @@
+# блоки-чип-погоды--cool · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+p.WeatherChip__chip  273×37 @16,16  r11  b1
+  span.WeatherChip__dot  6×6 @14,16  r100
+  span.WeatherChip__text  230×17 @29,10  JetBrains Mono 400 12/17  lines=1  «Сегодня · пик за месяц»
+    b.WeatherChip__mean  29×16 @58,0  JetBrains Mono 700 12/17  lines=1  «+11°»
+    b.WeatherChip__max  29×16 @202,0  JetBrains Mono 700 12/17  lines=1  «+16°»
+
+[геометрия 375]
+p.WeatherChip__chip  273×37 @16,16  r11  b1
+  span.WeatherChip__dot  6×6 @14,16  r100
+  span.WeatherChip__text  230×17 @29,10  JetBrains Mono 400 12/17  lines=1  «Сегодня · пик за месяц»
+    b.WeatherChip__mean  29×16 @58,0  JetBrains Mono 700 12/17  lines=1  «+11°»
+    b.WeatherChip__max  29×16 @202,0  JetBrains Mono 700 12/17  lines=1  «+16°»
+
+[геометрия 768]
+p.WeatherChip__chip  648×37 @16,16  r11  b1
+  span.WeatherChip__dot  6×6 @14,16  r100
+  span.WeatherChip__text  605×17 @29,10  JetBrains Mono 400 12/17  lines=1  «Сегодня · пик за месяц»
+    span.WeatherChip__full  58×16 @50,0  JetBrains Mono 400 12/17  lines=1  «: ср/сут»
+    b.WeatherChip__mean  29×16 @115,0  JetBrains Mono 700 12/17  lines=1  «+11°»
+    b.WeatherChip__max  29×16 @259,0  JetBrains Mono 700 12/17  lines=1  «+16°»
+    span.WeatherChip__full#2  317×16 @288,0  JetBrains Mono 400 12/17  lines=1  «— до жары — свободные даты и спокойные ц»
+
+[геометрия 1200]
+p.WeatherChip__chip  648×37 @16,16  r11  b1
+  span.WeatherChip__dot  6×6 @14,16  r100
+  span.WeatherChip__text  605×17 @29,10  JetBrains Mono 400 12/17  lines=1  «Сегодня · пик за месяц»
+    span.WeatherChip__full  58×16 @50,0  JetBrains Mono 400 12/17  lines=1  «: ср/сут»
+    b.WeatherChip__mean  29×16 @115,0  JetBrains Mono 700 12/17  lines=1  «+11°»
+    b.WeatherChip__max  29×16 @259,0  JetBrains Mono 700 12/17  lines=1  «+16°»
+    span.WeatherChip__full#2  317×16 @288,0  JetBrains Mono 400 12/17  lines=1  «— до жары — свободные даты и спокойные ц»
+
+[палитра light]
+p.WeatherChip__chip  bg #ffffff  border #e2e8f0
+  span.WeatherChip__dot  bg #92400e
+  span.WeatherChip__text  color #556173
+    span.WeatherChip__full  color #556173
+    b.WeatherChip__mean  color #0e7490
+    b.WeatherChip__max  color #92400e
+    span.WeatherChip__full#2  color #556173
+
+[палитра dark]
+p.WeatherChip__chip  bg #121d31  border #1e2b41
+  span.WeatherChip__dot  bg #fbbf24
+  span.WeatherChip__text  color #8598ac
+    span.WeatherChip__full  color #8598ac
+    b.WeatherChip__mean  color #22d3ee
+    b.WeatherChip__max  color #fbbf24
+    span.WeatherChip__full#2  color #8598ac

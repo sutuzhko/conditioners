@@ -1,0 +1,37 @@
+# админка-склад-·-остатки--беззон · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×235 @16,16  r20  b1
+  h2.StockTable__emptyTitle  272×21 @43,21  Onest 700 17/21  ls0  lines=1  «Сначала заведите зону хранения»
+  p.StockTable__emptyText  316×112 @21,50  Manrope 400 15/22  lines=5  «Остаток без ответа «где лежит" бесполезе»
+  a.Button__button  127×44 @115,170  Manrope 600 13/16  r9  b1  lines=1  «Зоны хранения»
+
+[геометрия 768]
+section.Card__card  736×191 @16,16  r20  b1
+  h2.StockTable__emptyTitle  286×22 @225,21  Onest 700 18/22  ls0  lines=1  «Сначала заведите зону хранения»
+  p.StockTable__emptyText  531×67 @103,51  Manrope 400 15/22  lines=3  «Остаток без ответа «где лежит" бесполезе»
+  a.Button__button  127×44 @304,126  Manrope 600 13/16  r9  b1  lines=1  «Зоны хранения»
+
+[геометрия 1440]
+section.Card__card  1408×188 @16,16  r20  b1
+  h2.StockTable__emptyTitle  302×23 @553,21  Onest 700 19/23  ls0  lines=1  «Сначала заведите зону хранения»
+  p.StockTable__emptyText  531×67 @439,52  Manrope 400 15/22  lines=3  «Остаток без ответа «где лежит" бесполезе»
+  a.Button__button  127×40 @640,127  Manrope 600 13/16  r9  b1  lines=1  «Зоны хранения»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.StockTable__emptyTitle  color #0f172a
+  p.StockTable__emptyText  color #556173
+  a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.StockTable__emptyTitle  color #eaf1f8
+  p.StockTable__emptyText  color #8598ac
+  a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px

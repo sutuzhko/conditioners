@@ -1,0 +1,67 @@
+# админка-календарь-запись--слойкоманды · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 600, Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.EventChip__chip  358×22 @16,16  r100  b1 1 1 3
+  span.EventChip__head  131×15 @9,4
+    svg.EventChip__icon  12×12 @0,2
+    span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+    span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1059»
+    span.EventChip__who  28×15 @103,0  Manrope 700 12/13  r100  b1  lines=1  «ДС»
+  span.EventChip__name  104×15 @145,4  Manrope 600 12/15  lines=1  «Ирина Соколова»
+  span.EventChip__clashMark  95×15 @254,4
+    svg  11×11 @0,2
+    span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+
+[геометрия 768]
+button.EventChip__chip  736×22 @16,16  r100  b1 1 1 3
+  span.EventChip__head  131×15 @9,4
+    svg.EventChip__icon  12×12 @0,2
+    span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+    span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1059»
+    span.EventChip__who  28×15 @103,0  Manrope 700 12/13  r100  b1  lines=1  «ДС»
+  span.EventChip__name  482×15 @145,4  Manrope 600 12/15  lines=1  «Ирина Соколова»
+  span.EventChip__clashMark  95×15 @632,4
+    svg  11×11 @0,2
+    span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+
+[геометрия 1440]
+button.EventChip__chip  1408×22 @16,16  r100  b1 1 1 3
+  span.EventChip__head  131×15 @9,4
+    svg.EventChip__icon  12×12 @0,2
+    span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+    span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1059»
+    span.EventChip__who  28×15 @103,0  Manrope 700 12/13  r100  b1  lines=1  «ДС»
+  span.EventChip__name  1154×15 @145,4  Manrope 600 12/15  lines=1  «Ирина Соколова»
+  span.EventChip__clashMark  95×15 @1304,4
+    svg  11×11 @0,2
+    span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+
+[палитра light]
+button.EventChip__chip  bg #d977061f  border #be123c73  shadow #be123c73 0px 0px 0px 1px inset
+  span.EventChip__head
+    svg.EventChip__icon
+    span.EventChip__time  color #d97706
+    span.EventChip__number  color #d97706
+    span.EventChip__who  color #d97706  border #d97706
+  span.EventChip__name  color #d97706
+  span.EventChip__clashMark
+    svg
+    span.EventChip__markWord  color #d97706
+
+[палитра dark]
+button.EventChip__chip  bg #fbbf2424  border #fb718580  shadow #fb718580 0px 0px 0px 1px inset
+  span.EventChip__head
+    svg.EventChip__icon
+    span.EventChip__time  color #fbbf24
+    span.EventChip__number  color #fbbf24
+    span.EventChip__who  color #fbbf24  border #fbbf24
+  span.EventChip__name  color #fbbf24
+  span.EventChip__clashMark
+    svg
+    span.EventChip__markWord  color #fbbf24

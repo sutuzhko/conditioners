@@ -1,0 +1,102 @@
+# админка-форма-настроек--рабочееокно · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×621 @16,16  r20  b1
+  h2.SettingsForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Рабочее окно»
+  p.SettingsForm__description  316×157 @21,46  Manrope 400 15/22  lines=7  «С какого и по какой час открывается кале»
+  form.SettingsForm__form  316×379 @21,221
+    div.SettingsForm__fields  316×317 @0,0
+      div.Field__field  316×142 @0,0
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Начало рабочего дня»
+        input  316×50 @0,27  r11  b1
+        p.Field__hint  316×58 @0,84  Manrope 400 13/19  lines=3  «С этого часа начинается сетка календаря.»
+      div.Field__field#2  316×161 @0,156
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Конец рабочего дня»
+        input  316×50 @0,27  r11  b1
+        p.Field__hint  316×78 @0,84  Manrope 400 13/19  lines=4  «Окно ограничивает показанное по умолчани»
+    div.SettingsForm__actions  316×44 @0,335
+      button.Button__button  115×44 @0,0  r11  b1
+        span.Button__content  77×17 @19,13
+          span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[геометрия 768]
+section.Card__card  736×376 @16,16  r20  b1
+  h2.SettingsForm__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Рабочее окно»
+  p.SettingsForm__description  694×67 @21,47  Manrope 400 15/22  lines=3  «С какого и по какой час открывается кале»
+  form.SettingsForm__form  694×223 @21,132
+    div.SettingsForm__fields  694×161 @0,0
+      div.Field__field  339×142 @0,0
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Начало рабочего дня»
+        input  339×50 @0,27  r11  b1
+        p.Field__hint  339×58 @0,84  Manrope 400 13/19  lines=3  «С этого часа начинается сетка календаря.»
+      div.Field__field#2  339×161 @355,0
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Конец рабочего дня»
+        input  339×50 @0,27  r11  b1
+        p.Field__hint  339×78 @0,84  Manrope 400 13/19  lines=4  «Окно ограничивает показанное по умолчани»
+    div.SettingsForm__actions  694×44 @0,179
+      button.Button__button  115×44 @0,0  r11  b1
+        span.Button__content  77×17 @19,13
+          span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[геометрия 1440]
+section.Card__card  1408×316 @16,16  r20  b1
+  h2.SettingsForm__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Рабочее окно»
+  p.SettingsForm__description  1366×45 @21,48  Manrope 400 15/22  lines=2  «С какого и по какой час открывается кале»
+  form.SettingsForm__form  1366×185 @21,111
+    div.SettingsForm__fields  1366×123 @0,0
+      div.Field__field  675×123 @0,0
+        label.Field__label  675×20 @0,0  Manrope 600 13/20  lines=1  «Начало рабочего дня»
+        input  675×50 @0,27  r11  b1
+        p.Field__hint  675×39 @0,84  Manrope 400 13/19  lines=2  «С этого часа начинается сетка календаря.»
+      div.Field__field#2  675×123 @691,0
+        label.Field__label  675×20 @0,0  Manrope 600 13/20  lines=1  «Конец рабочего дня»
+        input  675×50 @0,27  r11  b1
+        p.Field__hint  675×39 @0,84  Manrope 400 13/19  lines=2  «Окно ограничивает показанное по умолчани»
+    div.SettingsForm__actions  1366×44 @0,141
+      button.Button__button  115×44 @0,0  r11  b1
+        span.Button__content  77×17 @19,13
+          span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.SettingsForm__title  color #0f172a
+  p.SettingsForm__description  color #556173
+  form.SettingsForm__form
+    div.SettingsForm__fields
+      div.Field__field
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#2
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+    div.SettingsForm__actions
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label  color #ffffff
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.SettingsForm__title  color #eaf1f8
+  p.SettingsForm__description  color #8598ac
+  form.SettingsForm__form
+    div.SettingsForm__fields
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+    div.SettingsForm__actions
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label  color #ffffff

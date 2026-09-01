@@ -1,0 +1,278 @@
+# блоки-футер--narrow · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+footer.Footer__footer  320×898 @0,0
+  div.Footer__inner  320×822 @0,0
+    div.Footer__about  288×95 @16,36
+      div.Footer__brand  288×38 @0,0
+        svg.BrandMark__mark  38×38 @0,0
+        span.Footer__brandName  104×28 @50,5  Onest 700 18/28  ls0  lines=1  «ТулаКлимат»
+      p.Footer__tagline  288×43 @0,52  Manrope 400 14/22  lines=2  «Продажа, установка и обслуживание кондиц»
+    div.Footer__columns  288×634 @16,159
+      nav.Footer__column  288×200 @0,0
+        h2.Footer__columnTitle  288×18 @0,0  Manrope 600 15/18  lines=1  «Разделы»
+        ul.Footer__list  288×168 @0,32
+          a.Footer__link  54×26 @0,0  Manrope 400 14/22  r6  lines=1  «Каталог»
+          a.Footer__link#2  108×26 @0,36  Manrope 400 14/22  r6  lines=1  «Цены на монтаж»
+          a.Footer__link#3  96×26 @0,71  Manrope 400 14/22  r6  lines=1  «Честно о цене»
+          a.Footer__link#4  51×26 @0,107  Manrope 400 14/22  r6  lines=1  «Отзывы»
+          a.Footer__link#5  81×26 @0,143  Manrope 400 14/22  r6  lines=1  «База знаний»
+      section.Footer__column  288×186 @0,224
+        h2.Footer__columnTitle  288×18 @0,0  Manrope 600 15/18  lines=1  «Контакты»
+        ul.Footer__list  288×154 @0,32
+          a.Footer__link#6  146×25 @0,0  JetBrains Mono 400 14/21  r6  lines=1  «+7 (4872) 90-00-00»
+          a.Footer__link#7  134×26 @0,35  Manrope 400 14/22  r6  lines=1  «demo@example.com»
+          li.Footer__text  288×47 @0,71  Manrope 400 14/22  lines=2  «300000, Тула, ул. Демонстрационная, 1, о»
+          li.Footer__text#2  288×26 @0,128  Manrope 400 14/22  lines=1  «Пн–Вс, 8:00–21:00»
+      section.Footer__column#2  288×200 @0,434
+        h2.Footer__columnTitle  288×18 @0,0  Manrope 600 15/18  lines=1  «Реквизиты»
+        p.Footer__legalName  288×21 @0,32  Manrope 600 14/21  lines=1  «ИП Демонстрационный Д. Д.»
+        dl.Footer__legalList  288×137 @0,63
+          div.Footer__legalRow  288×20 @0,0
+            dt.Footer__legalTerm  22×20 @0,0  JetBrains Mono 400 12/18  lines=1  «ИНН»
+            dd.Footer__legalValue  87×20 @28,0  Manrope 400 14/20  lines=1  «710703123450»
+          div.Footer__legalRow#2  288×20 @0,24
+            dt.Footer__legalTerm  43×20 @0,0  JetBrains Mono 400 12/18  lines=1  «ОГРНИП»
+            dd.Footer__legalValue  109×20 @49,0  Manrope 400 14/20  lines=1  «314710700012346»
+          div.Footer__legalRow#3  288×20 @0,49
+            dt.Footer__legalTerm  115×20 @0,0  JetBrains Mono 400 12/18  lines=1  «Дата регистрации»
+            dd.Footer__legalValue  86×20 @121,0  Manrope 400 14/20  lines=1  «12 марта 2015»
+          div.Footer__legalRow#4  288×65 @0,73
+            dt.Footer__legalTerm  122×18 @0,0  JetBrains Mono 400 12/18  lines=1  «Орган регистрации»
+            dd.Footer__legalValue  288×41 @0,24  Manrope 400 14/20  lines=2  «Межрайонная ИФНС России № 10 по Тульской»
+  div.Footer__bottom  320×77 @0,822  b1 0 0 0
+    div.Footer__bottomInner  320×76 @0,1
+      span.Footer__copy  288×20 @16,16  Manrope 400 13/20  lines=1  «© 2026 ТулаКлимат. Все права защищены.»
+      a.Footer__policy  288×19 @16,40  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
+
+[геометрия 375]
+footer.Footer__footer  375×876 @0,0
+  div.Footer__inner  375×800 @0,0
+    div.Footer__about  343×95 @16,36
+      div.Footer__brand  343×38 @0,0
+        svg.BrandMark__mark  38×38 @0,0
+        span.Footer__brandName  104×28 @50,5  Onest 700 18/28  ls0  lines=1  «ТулаКлимат»
+      p.Footer__tagline  343×43 @0,52  Manrope 400 14/22  lines=2  «Продажа, установка и обслуживание кондиц»
+    div.Footer__columns  343×613 @16,159
+      nav.Footer__column  343×200 @0,0
+        h2.Footer__columnTitle  343×18 @0,0  Manrope 600 15/18  lines=1  «Разделы»
+        ul.Footer__list  343×168 @0,32
+          a.Footer__link  54×26 @0,0  Manrope 400 14/22  r6  lines=1  «Каталог»
+          a.Footer__link#2  108×26 @0,36  Manrope 400 14/22  r6  lines=1  «Цены на монтаж»
+          a.Footer__link#3  96×26 @0,71  Manrope 400 14/22  r6  lines=1  «Честно о цене»
+          a.Footer__link#4  51×26 @0,107  Manrope 400 14/22  r6  lines=1  «Отзывы»
+          a.Footer__link#5  81×26 @0,143  Manrope 400 14/22  r6  lines=1  «База знаний»
+      section.Footer__column  343×164 @0,224
+        h2.Footer__columnTitle  343×18 @0,0  Manrope 600 15/18  lines=1  «Контакты»
+        ul.Footer__list  343×132 @0,32
+          a.Footer__link#6  146×25 @0,0  JetBrains Mono 400 14/21  r6  lines=1  «+7 (4872) 90-00-00»
+          a.Footer__link#7  134×26 @0,35  Manrope 400 14/22  r6  lines=1  «demo@example.com»
+          li.Footer__text  343×26 @0,71  Manrope 400 14/22  lines=1  «300000, Тула, ул. Демонстрационная, 1, о»
+          li.Footer__text#2  343×26 @0,106  Manrope 400 14/22  lines=1  «Пн–Вс, 8:00–21:00»
+      section.Footer__column#2  343×200 @0,412
+        h2.Footer__columnTitle  343×18 @0,0  Manrope 600 15/18  lines=1  «Реквизиты»
+        p.Footer__legalName  343×21 @0,32  Manrope 600 14/21  lines=1  «ИП Демонстрационный Д. Д.»
+        dl.Footer__legalList  343×137 @0,63
+          div.Footer__legalRow  343×20 @0,0
+            dt.Footer__legalTerm  22×20 @0,0  JetBrains Mono 400 12/18  lines=1  «ИНН»
+            dd.Footer__legalValue  87×20 @28,0  Manrope 400 14/20  lines=1  «710703123450»
+          div.Footer__legalRow#2  343×20 @0,24
+            dt.Footer__legalTerm  43×20 @0,0  JetBrains Mono 400 12/18  lines=1  «ОГРНИП»
+            dd.Footer__legalValue  109×20 @49,0  Manrope 400 14/20  lines=1  «314710700012346»
+          div.Footer__legalRow#3  343×20 @0,49
+            dt.Footer__legalTerm  115×20 @0,0  JetBrains Mono 400 12/18  lines=1  «Дата регистрации»
+            dd.Footer__legalValue  86×20 @121,0  Manrope 400 14/20  lines=1  «12 марта 2015»
+          div.Footer__legalRow#4  343×65 @0,73
+            dt.Footer__legalTerm  122×18 @0,0  JetBrains Mono 400 12/18  lines=1  «Орган регистрации»
+            dd.Footer__legalValue  343×41 @0,24  Manrope 400 14/20  lines=2  «Межрайонная ИФНС России № 10 по Тульской»
+  div.Footer__bottom  375×77 @0,800  b1 0 0 0
+    div.Footer__bottomInner  375×76 @0,1
+      span.Footer__copy  343×20 @16,16  Manrope 400 13/20  lines=1  «© 2026 ТулаКлимат. Все права защищены.»
+      a.Footer__policy  343×19 @16,40  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
+
+[геометрия 768]
+footer.Footer__footer  768×697 @0,0
+  div.Footer__inner  768×640 @0,0
+    div.Footer__about  300×95 @20,48
+      div.Footer__brand  300×38 @0,0
+        svg.BrandMark__mark  38×38 @0,0
+        span.Footer__brandName  104×28 @50,5  Onest 700 18/28  ls0  lines=1  «ТулаКлимат»
+      p.Footer__tagline  300×43 @0,52  Manrope 400 14/22  lines=2  «Продажа, установка и обслуживание кондиц»
+    div.Footer__columns  728×429 @20,175
+      nav.Footer__column  108×200 @0,0
+        h2.Footer__columnTitle  108×18 @0,0  Manrope 600 15/18  lines=1  «Разделы»
+        ul.Footer__list  108×168 @0,32
+          a.Footer__link  54×26 @0,0  Manrope 400 14/22  r6  lines=1  «Каталог»
+          a.Footer__link#2  108×26 @0,36  Manrope 400 14/22  r6  lines=1  «Цены на монтаж»
+          a.Footer__link#3  96×26 @0,71  Manrope 400 14/22  r6  lines=1  «Честно о цене»
+          a.Footer__link#4  51×26 @0,107  Manrope 400 14/22  r6  lines=1  «Отзывы»
+          a.Footer__link#5  81×26 @0,143  Manrope 400 14/22  r6  lines=1  «База знаний»
+      section.Footer__column  298×200 @148,0
+        h2.Footer__columnTitle  298×18 @0,0  Manrope 600 15/18  lines=1  «Контакты»
+        ul.Footer__list  298×132 @0,32
+          a.Footer__link#6  146×25 @0,0  JetBrains Mono 400 14/21  r6  lines=1  «+7 (4872) 90-00-00»
+          a.Footer__link#7  134×26 @0,35  Manrope 400 14/22  r6  lines=1  «demo@example.com»
+          li.Footer__text  298×26 @0,71  Manrope 400 14/22  lines=1  «300000, Тула, ул. Демонстрационная, 1, о»
+          li.Footer__text#2  298×26 @0,106  Manrope 400 14/22  lines=1  «Пн–Вс, 8:00–21:00»
+      section.Footer__column#2  260×200 @0,228
+        h2.Footer__columnTitle  260×18 @0,0  Manrope 600 15/18  lines=1  «Реквизиты»
+        p.Footer__legalName  260×21 @0,32  Manrope 600 14/21  lines=1  «ИП Демонстрационный Д. Д.»
+        dl.Footer__legalList  260×137 @0,63
+          div.Footer__legalRow  260×20 @0,0
+            dt.Footer__legalTerm  22×20 @0,0  JetBrains Mono 400 12/18  lines=1  «ИНН»
+            dd.Footer__legalValue  87×20 @28,0  Manrope 400 14/20  lines=1  «710703123450»
+          div.Footer__legalRow#2  260×20 @0,24
+            dt.Footer__legalTerm  43×20 @0,0  JetBrains Mono 400 12/18  lines=1  «ОГРНИП»
+            dd.Footer__legalValue  109×20 @49,0  Manrope 400 14/20  lines=1  «314710700012346»
+          div.Footer__legalRow#3  260×20 @0,49
+            dt.Footer__legalTerm  115×20 @0,0  JetBrains Mono 400 12/18  lines=1  «Дата регистрации»
+            dd.Footer__legalValue  86×20 @121,0  Manrope 400 14/20  lines=1  «12 марта 2015»
+          div.Footer__legalRow#4  260×65 @0,73
+            dt.Footer__legalTerm  122×18 @0,0  JetBrains Mono 400 12/18  lines=1  «Орган регистрации»
+            dd.Footer__legalValue  260×41 @0,24  Manrope 400 14/20  lines=2  «Межрайонная ИФНС России № 10 по Тульской»
+  div.Footer__bottom  768×57 @0,640  b1 0 0 0
+    div.Footer__bottomInner  768×56 @0,1
+      span.Footer__copy  258×20 @20,18  Manrope 400 13/20  lines=1  «© 2026 ТулаКлимат. Все права защищены.»
+      a.Footer__policy  258×20 @490,18  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
+
+[геометрия 1200]
+footer.Footer__footer  1200×342 @0,0
+  div.Footer__inner  1200×284 @0,0
+    div.Footer__about  300×200 @24,48
+      div.Footer__brand  300×38 @0,0
+        svg.BrandMark__mark  38×38 @0,0
+        span.Footer__brandName  104×28 @50,5  Onest 700 18/28  ls0  lines=1  «ТулаКлимат»
+      p.Footer__tagline  300×43 @0,52  Manrope 400 14/22  lines=2  «Продажа, установка и обслуживание кондиц»
+    div.Footer__columns  770×200 @406,48
+      nav.Footer__column  108×200 @0,0
+        h2.Footer__columnTitle  108×18 @0,0  Manrope 600 15/18  lines=1  «Разделы»
+        ul.Footer__list  108×168 @0,32
+          a.Footer__link  54×26 @0,0  Manrope 400 14/22  r6  lines=1  «Каталог»
+          a.Footer__link#2  108×26 @0,36  Manrope 400 14/22  r6  lines=1  «Цены на монтаж»
+          a.Footer__link#3  96×26 @0,71  Manrope 400 14/22  r6  lines=1  «Честно о цене»
+          a.Footer__link#4  51×26 @0,107  Manrope 400 14/22  r6  lines=1  «Отзывы»
+          a.Footer__link#5  81×26 @0,143  Manrope 400 14/22  r6  lines=1  «База знаний»
+      section.Footer__column  298×200 @160,0
+        h2.Footer__columnTitle  298×18 @0,0  Manrope 600 15/18  lines=1  «Контакты»
+        ul.Footer__list  298×132 @0,32
+          a.Footer__link#6  146×25 @0,0  JetBrains Mono 400 14/21  r6  lines=1  «+7 (4872) 90-00-00»
+          a.Footer__link#7  134×26 @0,35  Manrope 400 14/22  r6  lines=1  «demo@example.com»
+          li.Footer__text  298×26 @0,71  Manrope 400 14/22  lines=1  «300000, Тула, ул. Демонстрационная, 1, о»
+          li.Footer__text#2  298×26 @0,106  Manrope 400 14/22  lines=1  «Пн–Вс, 8:00–21:00»
+      section.Footer__column#2  260×200 @510,0
+        h2.Footer__columnTitle  260×18 @0,0  Manrope 600 15/18  lines=1  «Реквизиты»
+        p.Footer__legalName  260×21 @0,32  Manrope 600 14/21  lines=1  «ИП Демонстрационный Д. Д.»
+        dl.Footer__legalList  260×137 @0,63
+          div.Footer__legalRow  260×20 @0,0
+            dt.Footer__legalTerm  22×20 @0,0  JetBrains Mono 400 12/18  lines=1  «ИНН»
+            dd.Footer__legalValue  87×20 @28,0  Manrope 400 14/20  lines=1  «710703123450»
+          div.Footer__legalRow#2  260×20 @0,24
+            dt.Footer__legalTerm  43×20 @0,0  JetBrains Mono 400 12/18  lines=1  «ОГРНИП»
+            dd.Footer__legalValue  109×20 @49,0  Manrope 400 14/20  lines=1  «314710700012346»
+          div.Footer__legalRow#3  260×20 @0,49
+            dt.Footer__legalTerm  115×20 @0,0  JetBrains Mono 400 12/18  lines=1  «Дата регистрации»
+            dd.Footer__legalValue  86×20 @121,0  Manrope 400 14/20  lines=1  «12 марта 2015»
+          div.Footer__legalRow#4  260×65 @0,73
+            dt.Footer__legalTerm  122×18 @0,0  JetBrains Mono 400 12/18  lines=1  «Орган регистрации»
+            dd.Footer__legalValue  260×41 @0,24  Manrope 400 14/20  lines=2  «Межрайонная ИФНС России № 10 по Тульской»
+  div.Footer__bottom  1200×57 @0,284  b1 0 0 0
+    div.Footer__bottomInner  1200×56 @0,1
+      span.Footer__copy  258×20 @24,18  Manrope 400 13/20  lines=1  «© 2026 ТулаКлимат. Все права защищены.»
+      a.Footer__policy  258×20 @918,18  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
+
+[палитра light]
+footer.Footer__footer  bg #0f172a
+  div.Footer__inner
+    div.Footer__about
+      div.Footer__brand
+        svg.BrandMark__mark
+        span.Footer__brandName  color #ffffff
+      p.Footer__tagline  color #7e92a7
+    div.Footer__columns
+      nav.Footer__column
+        h2.Footer__columnTitle  color #ffffff
+        ul.Footer__list
+          a.Footer__link  color #7e92a7
+          a.Footer__link#2  color #7e92a7
+          a.Footer__link#3  color #7e92a7
+          a.Footer__link#4  color #7e92a7
+          a.Footer__link#5  color #7e92a7
+      section.Footer__column
+        h2.Footer__columnTitle  color #ffffff
+        ul.Footer__list
+          a.Footer__link#6  color #7e92a7
+          a.Footer__link#7  color #7e92a7
+          li.Footer__text  color #7e92a7
+          li.Footer__text#2  color #7e92a7
+      section.Footer__column#2
+        h2.Footer__columnTitle  color #ffffff
+        p.Footer__legalName  color #ffffff
+        dl.Footer__legalList
+          div.Footer__legalRow
+            dt.Footer__legalTerm  color #7e92a7
+            dd.Footer__legalValue  color #7e92a7
+          div.Footer__legalRow#2
+            dt.Footer__legalTerm  color #7e92a7
+            dd.Footer__legalValue  color #7e92a7
+          div.Footer__legalRow#3
+            dt.Footer__legalTerm  color #7e92a7
+            dd.Footer__legalValue  color #7e92a7
+          div.Footer__legalRow#4
+            dt.Footer__legalTerm  color #7e92a7
+            dd.Footer__legalValue  color #7e92a7
+  div.Footer__bottom  border color(srgb 1 1 1 / 0.12) #7e92a7 #7e92a7 #7e92a7
+    div.Footer__bottomInner
+      span.Footer__copy  color #7e92a7
+      a.Footer__policy  color #7e92a7
+
+[палитра dark]
+footer.Footer__footer  bg #111d34
+  div.Footer__inner
+    div.Footer__about
+      div.Footer__brand
+        svg.BrandMark__mark
+        span.Footer__brandName  color #ffffff
+      p.Footer__tagline  color #7e92a7
+    div.Footer__columns
+      nav.Footer__column
+        h2.Footer__columnTitle  color #ffffff
+        ul.Footer__list
+          a.Footer__link  color #7e92a7
+          a.Footer__link#2  color #7e92a7
+          a.Footer__link#3  color #7e92a7
+          a.Footer__link#4  color #7e92a7
+          a.Footer__link#5  color #7e92a7
+      section.Footer__column
+        h2.Footer__columnTitle  color #ffffff
+        ul.Footer__list
+          a.Footer__link#6  color #7e92a7
+          a.Footer__link#7  color #7e92a7
+          li.Footer__text  color #7e92a7
+          li.Footer__text#2  color #7e92a7
+      section.Footer__column#2
+        h2.Footer__columnTitle  color #ffffff
+        p.Footer__legalName  color #ffffff
+        dl.Footer__legalList
+          div.Footer__legalRow
+            dt.Footer__legalTerm  color #7e92a7
+            dd.Footer__legalValue  color #7e92a7
+          div.Footer__legalRow#2
+            dt.Footer__legalTerm  color #7e92a7
+            dd.Footer__legalValue  color #7e92a7
+          div.Footer__legalRow#3
+            dt.Footer__legalTerm  color #7e92a7
+            dd.Footer__legalValue  color #7e92a7
+          div.Footer__legalRow#4
+            dt.Footer__legalTerm  color #7e92a7
+            dd.Footer__legalValue  color #7e92a7
+  div.Footer__bottom  border color(srgb 1 1 1 / 0.12) #7e92a7 #7e92a7 #7e92a7
+    div.Footer__bottomInner
+      span.Footer__copy  color #7e92a7
+      a.Footer__policy  color #7e92a7

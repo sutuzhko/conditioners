@@ -1,0 +1,352 @@
+# админка-журнал-доставки--отказиповтор · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+390 → 390×1245
+768 → 768×954
+1440 → 1440×954
+
+[геометрия 390]
+div.DeliveryLog__log  358×1213 @16,16
+  h2.DeliveryLog__title  358×21 @0,0  Onest 700 17/21  ls0  lines=1  «Доставка уведомлений»
+  ul.DeliveryLog__summary  358×159 @0,27
+    li.DeliveryLog__channel  358×76 @0,0  r14  b1
+      span.DeliveryLog__channelName  92×23 @15,11  Manrope 600 15/23  lines=1  «email»
+      span.DeliveryLog__counts  317×22 @15,42
+        span  115×22 @0,0  Manrope 400 15/22  lines=1  «Доставлено:»
+          b  24×19 @91,1  Manrope 700 15/22  lines=1  «128»
+        span#2  88×22 @131,0  Manrope 400 15/22  lines=1  «В очереди:»
+          b  10×19 @78,1  Manrope 700 15/22  lines=1  «0»
+        span.DeliveryLog__bad  82×22 @235,0  Manrope 400 15/22  lines=1  «Не дошло:»
+          b  9×19 @74,1  Manrope 700 15/22  lines=1  «2»
+    li.DeliveryLog__channel#2  358×76 @0,84  r14  b1
+      span.DeliveryLog__channelName  92×23 @15,11  Manrope 600 15/23  lines=1  «telegram»
+      span.DeliveryLog__counts  314×22 @15,42
+        span#3  115×22 @0,0  Manrope 400 15/22  lines=1  «Доставлено:»
+          b  24×19 @91,1  Manrope 700 15/22  lines=1  «341»
+        span#4  84×22 @131,0  Manrope 400 15/22  lines=1  «В очереди:»
+          b  6×19 @78,1  Manrope 700 15/22  lines=1  «1»
+        span#5  83×22 @231,0  Manrope 400 15/22  lines=1  «Не дошло:»
+          b  10×19 @74,1  Manrope 700 15/22  lines=1  «0»
+  h2.DeliveryLog__title#2  358×21 @0,204  Onest 700 17/21  ls0  lines=1  «Что не дошло»
+  p.DeliveryLog__hint  358×90 @0,231  Manrope 400 15/22  lines=4  «Причина приходит от самого канала. Испра»
+  ul.DeliveryLog__failures  358×373 @0,330
+    div.Card__card  358×218 @0,0  r20  b1
+      div.DeliveryLog__head  316×51 @21,21
+        span.DeliveryLog__kind  51×23 @0,0  Manrope 600 15/23  lines=1  «Заявка»
+        span.DeliveryLog__channelTag  36×19 @59,3  JetBrains Mono 400 12/19  lines=1  «email»
+        span.Badge__badge  53×24 @103,0  Manrope 600 12/16  r100  b1  lines=1  «отказ»
+        span.DeliveryLog__meta  160×19 @0,32  Manrope 400 12/19  lines=1  «26 августа 2026 · попыток: 6»
+      p.DeliveryLog__to  228×19 @21,80  Manrope 400 12/19  lines=1  «Кому: Владелец, общий адрес компании»
+      p.DeliveryLog__reason  316×39 @21,106  JetBrains Mono 400 13/19  lines=2  «Почтовый канал не настроен: не задан SMT»
+      button.Button__button  99×44 @21,153  r9  b1
+        span.Button__content  69×16 @15,14
+          span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+    div.Card__card#2  358×147 @0,226  r20  b1
+      div.DeliveryLog__head  316×51 @21,21
+        span.DeliveryLog__kind#2  46×23 @0,0  Manrope 600 15/23  lines=1  «Отзыв»
+        span.DeliveryLog__channelTag#2  58×19 @54,3  JetBrains Mono 400 12/19  lines=1  «telegram»
+        span.Badge__badge#2  96×24 @119,0  Manrope 600 12/16  r100  b1  lines=1  «повторяется»
+        span.DeliveryLog__meta#2  159×19 @0,32  Manrope 400 12/19  lines=1  «26 августа 2026 · попыток: 2»
+      p.DeliveryLog__to  228×19 @21,80  Manrope 400 12/19  lines=1  «Кому: Владелец, общий адрес компании»
+      p.DeliveryLog__reason  278×19 @21,106  JetBrains Mono 400 13/19  lines=1  «Telegram недоступен: сеть не отвечает»
+  h2.DeliveryLog__title#3  358×21 @0,721  Onest 700 17/21  ls0  lines=1  «Что ушло людям»
+  p.DeliveryLog__hint#2  358×67 @0,748  Manrope 400 15/22  lines=3  «Копию сообщения монтажнику владелец не п»
+  ul.DeliveryLog__failures#2  358×388 @0,825
+    div.Card__card  358×124 @0,0  r20  b1
+      div.DeliveryLog__head#2  316×55 @21,21
+        span.DeliveryLog__kind  171×23 @0,0  Manrope 600 15/23  lines=1  «Наряд № 1060 отменён»
+        span.DeliveryLog__channelTag  58×19 @179,2  JetBrains Mono 400 12/19  lines=1  «telegram»
+        span.Badge__badge  79×24 @0,31  Manrope 600 12/16  r100  b1  lines=1  «в очереди»
+        span.DeliveryLog__meta  96×19 @87,34  Manrope 400 12/19  lines=1  «26.08.2026, 16:10»
+      p.DeliveryLog__to#2  204×19 @21,84  Manrope 400 12/19  lines=1  «Кому: Дмитрий Соколов · 551234567»
+    div.Card__card#2  358×124 @0,132  r20  b1
+      div.DeliveryLog__head#2  316×55 @21,21
+        span.DeliveryLog__kind#2  187×23 @0,0  Manrope 600 15/23  lines=1  «Изменился наряд № 1059»
+        span.DeliveryLog__channelTag#2  36×19 @195,2  JetBrains Mono 400 12/19  lines=1  «email»
+        span.Badge__badge#2  90×24 @0,31  Manrope 600 12/16  r100  b1  lines=1  «доставлено»
+        span.DeliveryLog__meta#2  98×19 @98,34  Manrope 400 12/19  lines=1  «26.08.2026, 15:40»
+      p.DeliveryLog__to#2  269×19 @21,84  Manrope 400 12/19  lines=1  «Кому: Дмитрий Соколов · sokolov@example.»
+    div.Card__card#3  358×124 @0,264  r20  b1
+      div.DeliveryLog__head  316×55 @21,21
+        span.DeliveryLog__kind#3  206×23 @0,0  Manrope 600 15/23  lines=1  «Вам назначен наряд № 1059»
+        span.DeliveryLog__channelTag#3  58×19 @214,2  JetBrains Mono 400 12/19  lines=1  «telegram»
+        span.Badge__badge#3  90×24 @0,31  Manrope 600 12/16  r100  b1  lines=1  «доставлено»
+        span.DeliveryLog__meta#3  98×19 @98,34  Manrope 400 12/19  lines=1  «26.08.2026, 13:05»
+      p.DeliveryLog__to  204×19 @21,84  Manrope 400 12/19  lines=1  «Кому: Дмитрий Соколов · 551234567»
+
+[геометрия 768]
+div.DeliveryLog__log  736×922 @16,16
+  h2.DeliveryLog__title  736×22 @0,0  Onest 700 18/22  ls0  lines=1  «Доставка уведомлений»
+  ul.DeliveryLog__summary  736×99 @0,28
+    li.DeliveryLog__channel  736×45 @0,0  r14  b1
+      span.DeliveryLog__channelName  92×23 @15,11  Manrope 600 15/23  lines=1  «email»
+      span.DeliveryLog__counts  317×22 @123,12
+        span  115×22 @0,0  Manrope 400 15/22  lines=1  «Доставлено:»
+          b  24×19 @91,1  Manrope 700 15/22  lines=1  «128»
+        span#2  88×22 @131,0  Manrope 400 15/22  lines=1  «В очереди:»
+          b  10×19 @78,1  Manrope 700 15/22  lines=1  «0»
+        span.DeliveryLog__bad  82×22 @235,0  Manrope 400 15/22  lines=1  «Не дошло:»
+          b  9×19 @74,1  Manrope 700 15/22  lines=1  «2»
+    li.DeliveryLog__channel#2  736×45 @0,53  r14  b1
+      span.DeliveryLog__channelName  92×23 @15,11  Manrope 600 15/23  lines=1  «telegram»
+      span.DeliveryLog__counts  314×22 @123,12
+        span#3  115×22 @0,0  Manrope 400 15/22  lines=1  «Доставлено:»
+          b  24×19 @91,1  Manrope 700 15/22  lines=1  «341»
+        span#4  84×22 @131,0  Manrope 400 15/22  lines=1  «В очереди:»
+          b  6×19 @78,1  Manrope 700 15/22  lines=1  «1»
+        span#5  83×22 @231,0  Manrope 400 15/22  lines=1  «Не дошло:»
+          b  10×19 @74,1  Manrope 700 15/22  lines=1  «0»
+  h2.DeliveryLog__title#2  736×22 @0,145  Onest 700 18/22  ls0  lines=1  «Что не дошло»
+  p.DeliveryLog__hint  637×45 @0,172  Manrope 400 15/22  lines=2  «Причина приходит от самого канала. Испра»
+  ul.DeliveryLog__failures  736×300 @0,227
+    div.Card__card  736×172 @0,0  r20  b1
+      div.DeliveryLog__head  324×24 @21,21
+        span.DeliveryLog__kind  51×23 @0,0  Manrope 600 15/23  lines=1  «Заявка»
+        span.DeliveryLog__channelTag  36×19 @59,3  JetBrains Mono 400 12/19  lines=1  «email»
+        span.Badge__badge  53×24 @103,0  Manrope 600 12/16  r100  b1  lines=1  «отказ»
+        span.DeliveryLog__meta  160×19 @164,3  Manrope 400 12/19  lines=1  «26 августа 2026 · попыток: 6»
+      p.DeliveryLog__to  228×19 @21,53  Manrope 400 12/19  lines=1  «Кому: Владелец, общий адрес компании»
+      p.DeliveryLog__reason  345×19 @21,80  JetBrains Mono 400 13/19  lines=1  «Почтовый канал не настроен: не задан SMT»
+      button.Button__button  99×44 @21,107  r9  b1
+        span.Button__content  69×16 @15,14
+          span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+    div.Card__card#2  736×120 @0,180  r20  b1
+      div.DeliveryLog__head  382×24 @21,21
+        span.DeliveryLog__kind#2  46×23 @0,0  Manrope 600 15/23  lines=1  «Отзыв»
+        span.DeliveryLog__channelTag#2  58×19 @54,3  JetBrains Mono 400 12/19  lines=1  «telegram»
+        span.Badge__badge#2  96×24 @119,0  Manrope 600 12/16  r100  b1  lines=1  «повторяется»
+        span.DeliveryLog__meta#2  159×19 @223,3  Manrope 400 12/19  lines=1  «26 августа 2026 · попыток: 2»
+      p.DeliveryLog__to  228×19 @21,53  Manrope 400 12/19  lines=1  «Кому: Владелец, общий адрес компании»
+      p.DeliveryLog__reason  278×19 @21,80  JetBrains Mono 400 13/19  lines=1  «Telegram недоступен: сеть не отвечает»
+  h2.DeliveryLog__title#3  736×22 @0,545  Onest 700 18/22  ls0  lines=1  «Что ушло людям»
+  p.DeliveryLog__hint#2  637×45 @0,573  Manrope 400 15/22  lines=2  «Копию сообщения монтажнику владелец не п»
+  ul.DeliveryLog__failures#2  736×294 @0,628
+    div.Card__card  736×93 @0,0  r20  b1
+      div.DeliveryLog__head#2  428×24 @21,21
+        span.DeliveryLog__kind  171×23 @0,0  Manrope 600 15/23  lines=1  «Наряд № 1060 отменён»
+        span.DeliveryLog__channelTag  58×19 @179,3  JetBrains Mono 400 12/19  lines=1  «telegram»
+        span.Badge__badge  79×24 @244,0  Manrope 600 12/16  r100  b1  lines=1  «в очереди»
+        span.DeliveryLog__meta  96×19 @332,3  Manrope 400 12/19  lines=1  «26.08.2026, 16:10»
+      p.DeliveryLog__to#2  204×19 @21,53  Manrope 400 12/19  lines=1  «Кому: Дмитрий Соколов · 551234567»
+    div.Card__card#2  736×93 @0,101  r20  b1
+      div.DeliveryLog__head#2  435×24 @21,21
+        span.DeliveryLog__kind#2  187×23 @0,0  Manrope 600 15/23  lines=1  «Изменился наряд № 1059»
+        span.DeliveryLog__channelTag#2  36×19 @195,3  JetBrains Mono 400 12/19  lines=1  «email»
+        span.Badge__badge#2  90×24 @239,0  Manrope 600 12/16  r100  b1  lines=1  «доставлено»
+        span.DeliveryLog__meta#2  98×19 @337,3  Manrope 400 12/19  lines=1  «26.08.2026, 15:40»
+      p.DeliveryLog__to#2  269×19 @21,53  Manrope 400 12/19  lines=1  «Кому: Дмитрий Соколов · sokolov@example.»
+    div.Card__card#3  736×93 @0,202  r20  b1
+      div.DeliveryLog__head  476×24 @21,21
+        span.DeliveryLog__kind#3  206×23 @0,0  Manrope 600 15/23  lines=1  «Вам назначен наряд № 1059»
+        span.DeliveryLog__channelTag#3  58×19 @214,3  JetBrains Mono 400 12/19  lines=1  «telegram»
+        span.Badge__badge#3  90×24 @280,0  Manrope 600 12/16  r100  b1  lines=1  «доставлено»
+        span.DeliveryLog__meta#3  98×19 @378,3  Manrope 400 12/19  lines=1  «26.08.2026, 13:05»
+      p.DeliveryLog__to  204×19 @21,53  Manrope 400 12/19  lines=1  «Кому: Дмитрий Соколов · 551234567»
+
+[геометрия 1440]
+div.DeliveryLog__log  1408×922 @16,16
+  h2.DeliveryLog__title  1408×23 @0,0  Onest 700 19/23  ls0  lines=1  «Доставка уведомлений»
+  ul.DeliveryLog__summary  1408×99 @0,29
+    li.DeliveryLog__channel  1408×45 @0,0  r14  b1
+      span.DeliveryLog__channelName  92×23 @15,11  Manrope 600 15/23  lines=1  «email»
+      span.DeliveryLog__counts  317×22 @123,12
+        span  115×22 @0,0  Manrope 400 15/22  lines=1  «Доставлено:»
+          b  24×19 @91,1  Manrope 700 15/22  lines=1  «128»
+        span#2  88×22 @131,0  Manrope 400 15/22  lines=1  «В очереди:»
+          b  10×19 @78,1  Manrope 700 15/22  lines=1  «0»
+        span.DeliveryLog__bad  82×22 @235,0  Manrope 400 15/22  lines=1  «Не дошло:»
+          b  9×19 @74,1  Manrope 700 15/22  lines=1  «2»
+    li.DeliveryLog__channel#2  1408×45 @0,53  r14  b1
+      span.DeliveryLog__channelName  92×23 @15,11  Manrope 600 15/23  lines=1  «telegram»
+      span.DeliveryLog__counts  314×22 @123,12
+        span#3  115×22 @0,0  Manrope 400 15/22  lines=1  «Доставлено:»
+          b  24×19 @91,1  Manrope 700 15/22  lines=1  «341»
+        span#4  84×22 @131,0  Manrope 400 15/22  lines=1  «В очереди:»
+          b  6×19 @78,1  Manrope 700 15/22  lines=1  «1»
+        span#5  83×22 @231,0  Manrope 400 15/22  lines=1  «Не дошло:»
+          b  10×19 @74,1  Manrope 700 15/22  lines=1  «0»
+  h2.DeliveryLog__title#2  1408×23 @0,146  Onest 700 19/23  ls0  lines=1  «Что не дошло»
+  p.DeliveryLog__hint  637×45 @0,175  Manrope 400 15/22  lines=2  «Причина приходит от самого канала. Испра»
+  ul.DeliveryLog__failures  1408×296 @0,229
+    div.Card__card  1408×168 @0,0  r20  b1
+      div.DeliveryLog__head  324×24 @21,21
+        span.DeliveryLog__kind  51×23 @0,0  Manrope 600 15/23  lines=1  «Заявка»
+        span.DeliveryLog__channelTag  36×19 @59,3  JetBrains Mono 400 12/19  lines=1  «email»
+        span.Badge__badge  53×24 @103,0  Manrope 600 12/16  r100  b1  lines=1  «отказ»
+        span.DeliveryLog__meta  160×19 @164,3  Manrope 400 12/19  lines=1  «26 августа 2026 · попыток: 6»
+      p.DeliveryLog__to  228×19 @21,53  Manrope 400 12/19  lines=1  «Кому: Владелец, общий адрес компании»
+      p.DeliveryLog__reason  345×19 @21,80  JetBrains Mono 400 13/19  lines=1  «Почтовый канал не настроен: не задан SMT»
+      button.Button__button  99×40 @21,107  r9  b1
+        span.Button__content  69×16 @15,12
+          span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+    div.Card__card#2  1408×120 @0,176  r20  b1
+      div.DeliveryLog__head  382×24 @21,21
+        span.DeliveryLog__kind#2  46×23 @0,0  Manrope 600 15/23  lines=1  «Отзыв»
+        span.DeliveryLog__channelTag#2  58×19 @54,3  JetBrains Mono 400 12/19  lines=1  «telegram»
+        span.Badge__badge#2  96×24 @119,0  Manrope 600 12/16  r100  b1  lines=1  «повторяется»
+        span.DeliveryLog__meta#2  159×19 @223,3  Manrope 400 12/19  lines=1  «26 августа 2026 · попыток: 2»
+      p.DeliveryLog__to  228×19 @21,53  Manrope 400 12/19  lines=1  «Кому: Владелец, общий адрес компании»
+      p.DeliveryLog__reason  278×19 @21,80  JetBrains Mono 400 13/19  lines=1  «Telegram недоступен: сеть не отвечает»
+  h2.DeliveryLog__title#3  1408×23 @0,544  Onest 700 19/23  ls0  lines=1  «Что ушло людям»
+  p.DeliveryLog__hint#2  637×45 @0,573  Manrope 400 15/22  lines=2  «Копию сообщения монтажнику владелец не п»
+  ul.DeliveryLog__failures#2  1408×294 @0,628
+    div.Card__card  1408×93 @0,0  r20  b1
+      div.DeliveryLog__head#2  428×24 @21,21
+        span.DeliveryLog__kind  171×23 @0,0  Manrope 600 15/23  lines=1  «Наряд № 1060 отменён»
+        span.DeliveryLog__channelTag  58×19 @179,3  JetBrains Mono 400 12/19  lines=1  «telegram»
+        span.Badge__badge  79×24 @244,0  Manrope 600 12/16  r100  b1  lines=1  «в очереди»
+        span.DeliveryLog__meta  96×19 @332,3  Manrope 400 12/19  lines=1  «26.08.2026, 16:10»
+      p.DeliveryLog__to#2  204×19 @21,53  Manrope 400 12/19  lines=1  «Кому: Дмитрий Соколов · 551234567»
+    div.Card__card#2  1408×93 @0,101  r20  b1
+      div.DeliveryLog__head#2  435×24 @21,21
+        span.DeliveryLog__kind#2  187×23 @0,0  Manrope 600 15/23  lines=1  «Изменился наряд № 1059»
+        span.DeliveryLog__channelTag#2  36×19 @195,3  JetBrains Mono 400 12/19  lines=1  «email»
+        span.Badge__badge#2  90×24 @239,0  Manrope 600 12/16  r100  b1  lines=1  «доставлено»
+        span.DeliveryLog__meta#2  98×19 @337,3  Manrope 400 12/19  lines=1  «26.08.2026, 15:40»
+      p.DeliveryLog__to#2  269×19 @21,53  Manrope 400 12/19  lines=1  «Кому: Дмитрий Соколов · sokolov@example.»
+    div.Card__card#3  1408×93 @0,202  r20  b1
+      div.DeliveryLog__head  476×24 @21,21
+        span.DeliveryLog__kind#3  206×23 @0,0  Manrope 600 15/23  lines=1  «Вам назначен наряд № 1059»
+        span.DeliveryLog__channelTag#3  58×19 @214,3  JetBrains Mono 400 12/19  lines=1  «telegram»
+        span.Badge__badge#3  90×24 @280,0  Manrope 600 12/16  r100  b1  lines=1  «доставлено»
+        span.DeliveryLog__meta#3  98×19 @378,3  Manrope 400 12/19  lines=1  «26.08.2026, 13:05»
+      p.DeliveryLog__to  204×19 @21,53  Manrope 400 12/19  lines=1  «Кому: Дмитрий Соколов · 551234567»
+
+[палитра light]
+div.DeliveryLog__log
+  h2.DeliveryLog__title  color #0f172a
+  ul.DeliveryLog__summary
+    li.DeliveryLog__channel  border #e2e8f0
+      span.DeliveryLog__channelName  color #0f172a
+      span.DeliveryLog__counts
+        span  color #556173
+          b  color #556173
+        span#2  color #556173
+          b  color #556173
+        span.DeliveryLog__bad  color #be123c
+          b  color #be123c
+    li.DeliveryLog__channel#2  border #e2e8f0
+      span.DeliveryLog__channelName  color #0f172a
+      span.DeliveryLog__counts
+        span#3  color #556173
+          b  color #556173
+        span#4  color #556173
+          b  color #556173
+        span#5  color #556173
+          b  color #556173
+  h2.DeliveryLog__title#2  color #0f172a
+  p.DeliveryLog__hint  color #556173
+  ul.DeliveryLog__failures
+    div.Card__card  bg #f8fafc  border #eef2f6
+      div.DeliveryLog__head
+        span.DeliveryLog__kind  color #0f172a
+        span.DeliveryLog__channelTag  color #556173
+        span.Badge__badge  color #be123c  bg #be123c14  border #be123c73
+        span.DeliveryLog__meta  color #5b6a7d
+      p.DeliveryLog__to  color #556173
+      p.DeliveryLog__reason  color #475569
+      button.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content
+          span.Button__label  color #0f172a
+    div.Card__card#2  bg #f8fafc  border #eef2f6
+      div.DeliveryLog__head
+        span.DeliveryLog__kind#2  color #0f172a
+        span.DeliveryLog__channelTag#2  color #556173
+        span.Badge__badge#2  color #4338ca  bg #4338ca14  border #4338ca47
+        span.DeliveryLog__meta#2  color #5b6a7d
+      p.DeliveryLog__to  color #556173
+      p.DeliveryLog__reason  color #475569
+  h2.DeliveryLog__title#3  color #0f172a
+  p.DeliveryLog__hint#2  color #556173
+  ul.DeliveryLog__failures#2
+    div.Card__card  bg #f8fafc  border #eef2f6
+      div.DeliveryLog__head#2
+        span.DeliveryLog__kind  color #0f172a
+        span.DeliveryLog__channelTag  color #556173
+        span.Badge__badge  color #4338ca  bg #4338ca14  border #4338ca47
+        span.DeliveryLog__meta  color #5b6a7d
+      p.DeliveryLog__to#2  color #556173
+    div.Card__card#2  bg #f8fafc  border #eef2f6
+      div.DeliveryLog__head#2
+        span.DeliveryLog__kind#2  color #0f172a
+        span.DeliveryLog__channelTag#2  color #556173
+        span.Badge__badge#2  color #166534  bg #15803d14  border #15803d47
+        span.DeliveryLog__meta#2  color #5b6a7d
+      p.DeliveryLog__to#2  color #556173
+    div.Card__card#3  bg #f8fafc  border #eef2f6
+      div.DeliveryLog__head
+        span.DeliveryLog__kind#3  color #0f172a
+        span.DeliveryLog__channelTag#3  color #556173
+        span.Badge__badge#3  color #166534  bg #15803d14  border #15803d47
+        span.DeliveryLog__meta#3  color #5b6a7d
+      p.DeliveryLog__to  color #556173
+
+[палитра dark]
+div.DeliveryLog__log
+  h2.DeliveryLog__title  color #eaf1f8
+  ul.DeliveryLog__summary
+    li.DeliveryLog__channel  border #1e2b41
+      span.DeliveryLog__channelName  color #eaf1f8
+      span.DeliveryLog__counts
+        span  color #8598ac
+          b  color #8598ac
+        span#2  color #8598ac
+          b  color #8598ac
+        span.DeliveryLog__bad  color #fb7185
+          b  color #fb7185
+    li.DeliveryLog__channel#2  border #1e2b41
+      span.DeliveryLog__channelName  color #eaf1f8
+      span.DeliveryLog__counts
+        span#3  color #8598ac
+          b  color #8598ac
+        span#4  color #8598ac
+          b  color #8598ac
+        span#5  color #8598ac
+          b  color #8598ac
+  h2.DeliveryLog__title#2  color #eaf1f8
+  p.DeliveryLog__hint  color #8598ac
+  ul.DeliveryLog__failures
+    div.Card__card  bg #0e1729  border #182338
+      div.DeliveryLog__head
+        span.DeliveryLog__kind  color #eaf1f8
+        span.DeliveryLog__channelTag  color #8598ac
+        span.Badge__badge  color #fb7185  bg #fb71851f  border #fb718580
+        span.DeliveryLog__meta  color #7e92a7
+      p.DeliveryLog__to  color #8598ac
+      p.DeliveryLog__reason  color #a8b6c6
+      button.Button__button  bg #121d31  border #566d95
+        span.Button__content
+          span.Button__label  color #eaf1f8
+    div.Card__card#2  bg #0e1729  border #182338
+      div.DeliveryLog__head
+        span.DeliveryLog__kind#2  color #eaf1f8
+        span.DeliveryLog__channelTag#2  color #8598ac
+        span.Badge__badge#2  color #a5b4fc  bg #a5b4fc1f  border #a5b4fc52
+        span.DeliveryLog__meta#2  color #7e92a7
+      p.DeliveryLog__to  color #8598ac
+      p.DeliveryLog__reason  color #a8b6c6
+  h2.DeliveryLog__title#3  color #eaf1f8
+  p.DeliveryLog__hint#2  color #8598ac
+  ul.DeliveryLog__failures#2
+    div.Card__card  bg #0e1729  border #182338
+      div.DeliveryLog__head#2
+        span.DeliveryLog__kind  color #eaf1f8
+        span.DeliveryLog__channelTag  color #8598ac
+        span.Badge__badge  color #a5b4fc  bg #a5b4fc1f  border #a5b4fc52
+        span.DeliveryLog__meta  color #7e92a7
+      p.DeliveryLog__to#2  color #8598ac
+    div.Card__card#2  bg #0e1729  border #182338
+      div.DeliveryLog__head#2
+        span.DeliveryLog__kind#2  color #eaf1f8
+        span.DeliveryLog__channelTag#2  color #8598ac
+        span.Badge__badge#2  color #4ade80  bg #4ade801f  border #4ade8052
+        span.DeliveryLog__meta#2  color #7e92a7
+      p.DeliveryLog__to#2  color #8598ac
+    div.Card__card#3  bg #0e1729  border #182338
+      div.DeliveryLog__head
+        span.DeliveryLog__kind#3  color #eaf1f8
+        span.DeliveryLog__channelTag#3  color #8598ac
+        span.Badge__badge#3  color #4ade80  bg #4ade801f  border #4ade8052
+        span.DeliveryLog__meta#3  color #7e92a7
+      p.DeliveryLog__to  color #8598ac

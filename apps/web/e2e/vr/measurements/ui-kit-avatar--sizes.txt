@@ -1,0 +1,62 @@
+# ui-kit-avatar--sizes · ширины 390 768 1440 · темы light dark
+шрифты: Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Avatar__avatar  28×28 @32,42  r100  b1
+  span.Avatar__initials  17×11 @5,9  Onest 700 11/11  ls0  lines=1  «ИИ»
+  span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Иванов Иван»
+span.Avatar__avatar#2  36×36 @72,38  r100  b1
+  span.Avatar__initials  20×13 @8,12  Onest 700 13/13  ls0  lines=1  «ИИ»
+  span  1×1 @18,18  Onest 700 13/13  lines=1  clipped  «Иванов Иван»
+span.Avatar__avatar#3  48×48 @120,32  r100  b1
+  span.Avatar__initials  25×16 @12,16  Onest 700 16/16  ls0  lines=1  «ИИ»
+  span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Иванов Иван»
+
+[геометрия 768]
+span.Avatar__avatar  28×28 @32,42  r100  b1
+  span.Avatar__initials  17×11 @5,9  Onest 700 11/11  ls0  lines=1  «ИИ»
+  span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Иванов Иван»
+span.Avatar__avatar#2  36×36 @72,38  r100  b1
+  span.Avatar__initials  20×13 @8,12  Onest 700 13/13  ls0  lines=1  «ИИ»
+  span  1×1 @18,18  Onest 700 13/13  lines=1  clipped  «Иванов Иван»
+span.Avatar__avatar#3  48×48 @120,32  r100  b1
+  span.Avatar__initials  25×16 @12,16  Onest 700 16/16  ls0  lines=1  «ИИ»
+  span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Иванов Иван»
+
+[геометрия 1440]
+span.Avatar__avatar  28×28 @32,42  r100  b1
+  span.Avatar__initials  17×11 @5,9  Onest 700 11/11  ls0  lines=1  «ИИ»
+  span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Иванов Иван»
+span.Avatar__avatar#2  36×36 @72,38  r100  b1
+  span.Avatar__initials  20×13 @8,12  Onest 700 13/13  ls0  lines=1  «ИИ»
+  span  1×1 @18,18  Onest 700 13/13  lines=1  clipped  «Иванов Иван»
+span.Avatar__avatar#3  48×48 @120,32  r100  b1
+  span.Avatar__initials  25×16 @12,16  Onest 700 16/16  ls0  lines=1  «ИИ»
+  span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Иванов Иван»
+
+[палитра light]
+span.Avatar__avatar  bg #ecfeff  border #ffffff
+  span.Avatar__initials  color #0e7490
+  span  color #0e7490
+span.Avatar__avatar#2  bg #ecfeff  border #ffffff
+  span.Avatar__initials  color #0e7490
+  span  color #0e7490
+span.Avatar__avatar#3  bg #ecfeff  border #ffffff
+  span.Avatar__initials  color #0e7490
+  span  color #0e7490
+
+[палитра dark]
+span.Avatar__avatar  bg #22d3ee1a  border #121d31
+  span.Avatar__initials  color #22d3ee
+  span  color #22d3ee
+span.Avatar__avatar#2  bg #22d3ee1a  border #121d31
+  span.Avatar__initials  color #22d3ee
+  span  color #22d3ee
+span.Avatar__avatar#3  bg #22d3ee1a  border #121d31
+  span.Avatar__initials  color #22d3ee
+  span  color #22d3ee

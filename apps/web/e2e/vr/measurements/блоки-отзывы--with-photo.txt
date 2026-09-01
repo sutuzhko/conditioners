@@ -1,0 +1,1142 @@
+# блоки-отзывы--with-photo · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.Reviews__section  320×741 @0,0
+  div.Reviews__container  320×268 @0,0
+    header.Reviews__head  288×220 @16,48
+      p.Reviews__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Отзывы —»
+      h2.Reviews__title  288×58 @0,32  Onest 700 24/29  ls0  lines=2  «Что говорят клиенты в Туле»
+      p.Reviews__lead  288×47 @0,104  Manrope 400 15/23  lines=2  «Публикуем отзывы после модерации — в том»
+      button.Button__button  150×44 @69,176  r11  b1
+        span.Button__content  112×17 @19,13
+          span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Оставить отзыв»
+  ul.ReviewsTrack__track  320×445 @0,296  clipped
+    li.Card__card  262×206 @-767,4  r20  b1
+      div.ReviewSlot__body  260×204 @1,1
+        span.Skeleton__skeleton  96×18 @18,18  r8
+        span.Skeleton__lines  224×63 @18,50
+          span.Skeleton__skeleton  224×15 @0,0  r8
+          span.Skeleton__skeleton#2  224×15 @0,24  r8
+          span.Skeleton__skeleton#3  139×15 @0,48  r8
+        div.ReviewSlot__footer  224×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton  88×14 @0,0  r8
+            span.Skeleton__skeleton#2  64×12 @0,20  r8
+    li.Card__card#2  262×206 @-646,230  r20  b1
+      div.ReviewSlot__body  260×204 @1,1
+        span.Skeleton__skeleton#2  96×18 @18,18  r8
+        span.Skeleton__lines#2  224×63 @18,50
+          span.Skeleton__skeleton  224×15 @0,0  r8
+          span.Skeleton__skeleton#2  224×15 @0,24  r8
+          span.Skeleton__skeleton#3  139×15 @0,48  r8
+        div.ReviewSlot__footer#2  224×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#3  88×14 @0,0  r8
+            span.Skeleton__skeleton#4  64×12 @0,20  r8
+    li.Card__card#3  262×206 @-485,4  r20  b1
+      div.ReviewSlot__body  260×204 @1,1
+        span.Skeleton__skeleton#3  96×18 @18,18  r8
+        span.Skeleton__lines#3  224×63 @18,50
+          span.Skeleton__skeleton  224×15 @0,0  r8
+          span.Skeleton__skeleton#2  224×15 @0,24  r8
+          span.Skeleton__skeleton#3  139×15 @0,48  r8
+        div.ReviewSlot__footer#3  224×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#5  88×14 @0,0  r8
+            span.Skeleton__skeleton#6  64×12 @0,20  r8
+    li.Card__card#4  262×206 @-364,230  r20  b1
+      div.ReviewSlot__body  260×204 @1,1
+        span.Skeleton__skeleton#4  96×18 @18,18  r8
+        span.Skeleton__lines#4  224×63 @18,50
+          span.Skeleton__skeleton  224×15 @0,0  r8
+          span.Skeleton__skeleton#2  224×15 @0,24  r8
+          span.Skeleton__skeleton#3  139×15 @0,48  r8
+        div.ReviewSlot__footer#4  224×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#7  88×14 @0,0  r8
+            span.Skeleton__skeleton#8  64×12 @0,20  r8
+    li.Card__card#5  262×206 @-202,4  r20  b1
+      article.ReviewCard__body  260×204 @1,1
+        div.ReviewCard__top  224×16 @18,18
+          span.Rating__stars  99×15 @0,1
+            svg.Rating__star  15×15 @0,0
+            svg.Rating__star#2  15×15 @21,0
+            svg.Rating__star#3  15×15 @42,0
+            svg.Rating__star#4  15×15 @63,0
+            svg.Rating__star#5  15×15 @84,0
+          span.ReviewCard__attach  16×16 @208,0
+            svg  16×16 @0,0
+            span  1×1 @-1,8  Manrope 400 15/23  lines=1  clipped  «К отзыву приложена фотография»
+        blockquote.ReviewCard__quote  224×67 @18,48
+          p.ReviewCard__text  224×67 @0,0  Manrope 400 15/22  lines=3  «Аккуратно вывели трассу по фасаду — прик»
+            p.ReviewCard__text::before  0×0 @0,0
+            p.ReviewCard__text::after  0×0 @0,0
+        footer.ReviewCard__footer  224×57 @18,129  b1 0 0 0
+          span.ReviewCard__avatar  40×40 @0,16  Onest 700 15/23  r50  lines=1  «Д»
+          span.ReviewCard__who  78×42 @52,15
+            span.ReviewCard__name  78×22 @0,0  Manrope 600 15/22  lines=1  «Дмитрий»
+            span.ReviewCard__meta  78×19 @0,22
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Дата отзыва:»
+              time  78×17 @0,1  Manrope 400 13/19  lines=1  «18 июня 2026»
+      button.ReviewCard__hit  260×204 @1,1  r20
+        span  1×1 @129,101  Arial 400 13/normal  lines=1  clipped  «Открыть отзыв: Дмитрий»
+    li.Card__card#6  262×206 @-82,230  r20  b1
+      article.ReviewCard__body  260×204 @1,1
+        div.ReviewCard__top#2  224×15 @18,18
+          span.Rating__stars  99×15 @0,0
+            svg.Rating__star#6  15×15 @0,0
+            svg.Rating__star#7  15×15 @21,0
+            svg.Rating__star#8  15×15 @42,0
+            svg.Rating__star#9  15×15 @63,0
+            svg.Rating__star#10  15×15 @84,0
+        blockquote.ReviewCard__quote#2  224×68 @18,47
+          p.ReviewCard__text  224×67 @0,0  Manrope 400 15/22  lines=5  clipped  «Ставили сплит в спальню: приехали в назн»
+            p.ReviewCard__text::before  0×0 @0,0
+            p.ReviewCard__text::after  0×0 @0,0
+        footer.ReviewCard__footer#2  224×57 @18,129  b1 0 0 0
+          span.ReviewCard__avatar  40×40 @0,16  Onest 700 15/23  r50  lines=1  «И»
+          span.ReviewCard__who  78×42 @52,15
+            span.ReviewCard__name#2  78×22 @0,0  Manrope 600 15/22  lines=1  «Ирина»
+            span.ReviewCard__meta#2  78×19 @0,22
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Дата отзыва:»
+              time  78×17 @0,1  Manrope 400 13/19  lines=1  «14 июня 2026»
+      button.ReviewCard__hit  260×204 @1,1  r20
+        span#2  1×1 @129,101  Arial 400 13/normal  lines=1  clipped  «Открыть отзыв: Ирина»
+    li.Card__card#7  262×206 @80,4  r20  b1
+      article.ReviewCard__body  260×204 @1,1
+        div.ReviewCard__top#3  224×15 @18,18
+          span.Rating__stars  99×15 @0,0
+            svg.Rating__star#11  15×15 @0,0
+            svg.Rating__star#12  15×15 @21,0
+            svg.Rating__star#13  15×15 @42,0
+            svg.Rating__star#14  15×15 @63,0
+            svg.Rating__star#15  15×15 @84,0
+        blockquote.ReviewCard__quote#3  224×68 @18,47
+          p.ReviewCard__text  224×67 @0,0  Manrope 400 15/22  lines=5  clipped  «Второй кондиционер у этих ребят. В этот»
+            p.ReviewCard__text::before  0×0 @0,0
+            p.ReviewCard__text::after  0×0 @0,0
+        footer.ReviewCard__footer#3  224×57 @18,129  b1 0 0 0
+          span.ReviewCard__avatar  40×40 @0,16  Onest 700 15/23  r50  lines=1  «С»
+          span.ReviewCard__who  73×42 @52,15
+            span.ReviewCard__name#3  73×22 @0,0  Manrope 600 15/22  lines=1  «Сергей»
+            span.ReviewCard__meta#3  73×19 @0,22
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Дата отзыва:»
+              time  73×17 @0,1  Manrope 400 13/19  lines=1  «2 июня 2026»
+      button.ReviewCard__hit  260×204 @1,1  r20
+        span#3  1×1 @129,101  Arial 400 13/normal  lines=1  clipped  «Открыть отзыв: Сергей»
+    li.Card__card#8  262×206 @201,230  r20  b1
+      div.ReviewSlot__body  260×204 @1,1
+        span.Skeleton__skeleton#5  96×18 @18,18  r8
+        span.Skeleton__lines#5  224×63 @18,50
+          span.Skeleton__skeleton  224×15 @0,0  r8
+          span.Skeleton__skeleton#2  224×15 @0,24  r8
+          span.Skeleton__skeleton#3  139×15 @0,48  r8
+        div.ReviewSlot__footer#5  224×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#9  88×14 @0,0  r8
+            span.Skeleton__skeleton#10  64×12 @0,20  r8
+    li.Card__card#9  262×206 @362,4  r20  b1
+      div.ReviewSlot__body  260×204 @1,1
+        span.Skeleton__skeleton#6  96×18 @18,18  r8
+        span.Skeleton__lines#6  224×63 @18,50
+          span.Skeleton__skeleton  224×15 @0,0  r8
+          span.Skeleton__skeleton#2  224×15 @0,24  r8
+          span.Skeleton__skeleton#3  139×15 @0,48  r8
+        div.ReviewSlot__footer#6  224×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#11  88×14 @0,0  r8
+            span.Skeleton__skeleton#12  64×12 @0,20  r8
+    li.Card__card#10  262×206 @483,230  r20  b1
+      div.ReviewSlot__body  260×204 @1,1
+        span.Skeleton__skeleton#7  96×18 @18,18  r8
+        span.Skeleton__lines#7  224×63 @18,50
+          span.Skeleton__skeleton  224×15 @0,0  r8
+          span.Skeleton__skeleton#2  224×15 @0,24  r8
+          span.Skeleton__skeleton#3  139×15 @0,48  r8
+        div.ReviewSlot__footer#7  224×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#13  88×14 @0,0  r8
+            span.Skeleton__skeleton#14  64×12 @0,20  r8
+    li.Card__card#11  262×206 @645,4  r20  b1
+      div.ReviewSlot__body  260×204 @1,1
+        span.Skeleton__skeleton#8  96×18 @18,18  r8
+        span.Skeleton__lines#8  224×63 @18,50
+          span.Skeleton__skeleton  224×15 @0,0  r8
+          span.Skeleton__skeleton#2  224×15 @0,24  r8
+          span.Skeleton__skeleton#3  139×15 @0,48  r8
+        div.ReviewSlot__footer#8  224×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#15  88×14 @0,0  r8
+            span.Skeleton__skeleton#16  64×12 @0,20  r8
+    li.Card__card#12  262×206 @765,230  r20  b1
+      div.ReviewSlot__body  260×204 @1,1
+        span.Skeleton__skeleton#9  96×18 @18,18  r8
+        span.Skeleton__lines#9  224×63 @18,50
+          span.Skeleton__skeleton  224×15 @0,0  r8
+          span.Skeleton__skeleton#2  224×15 @0,24  r8
+          span.Skeleton__skeleton#3  139×15 @0,48  r8
+        div.ReviewSlot__footer#9  224×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#17  88×14 @0,0  r8
+            span.Skeleton__skeleton#18  64×12 @0,20  r8
+
+[геометрия 375]
+section.Reviews__section  375×715 @0,0
+  div.Reviews__container  375×243 @0,0
+    header.Reviews__head  343×192 @16,51
+      p.Reviews__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Отзывы —»
+      h2.Reviews__title  343×30 @0,32  Onest 700 25/30  ls0  lines=1  «Что говорят клиенты в Туле»
+      p.Reviews__lead  343×47 @0,76  Manrope 400 15/23  lines=2  «Публикуем отзывы после модерации — в том»
+      button.Button__button  150×44 @97,148  r11  b1
+        span.Button__content  112×17 @19,13
+          span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Оставить отзыв»
+  ul.ReviewsTrack__track  375×445 @0,271  clipped
+    li.Card__card  308×206 @-875,4  r20  b1
+      div.ReviewSlot__body  306×204 @1,1
+        span.Skeleton__skeleton  96×18 @18,18  r8
+        span.Skeleton__lines  270×63 @18,50
+          span.Skeleton__skeleton  270×15 @0,0  r8
+          span.Skeleton__skeleton#2  270×15 @0,24  r8
+          span.Skeleton__skeleton#3  167×15 @0,48  r8
+        div.ReviewSlot__footer  270×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton  88×14 @0,0  r8
+            span.Skeleton__skeleton#2  64×12 @0,20  r8
+    li.Card__card#2  308×206 @-734,230  r20  b1
+      div.ReviewSlot__body  306×204 @1,1
+        span.Skeleton__skeleton#2  96×18 @18,18  r8
+        span.Skeleton__lines#2  270×63 @18,50
+          span.Skeleton__skeleton  270×15 @0,0  r8
+          span.Skeleton__skeleton#2  270×15 @0,24  r8
+          span.Skeleton__skeleton#3  167×15 @0,48  r8
+        div.ReviewSlot__footer#2  270×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#3  88×14 @0,0  r8
+            span.Skeleton__skeleton#4  64×12 @0,20  r8
+    li.Card__card#3  308×206 @-547,4  r20  b1
+      div.ReviewSlot__body  306×204 @1,1
+        span.Skeleton__skeleton#3  96×18 @18,18  r8
+        span.Skeleton__lines#3  270×63 @18,50
+          span.Skeleton__skeleton  270×15 @0,0  r8
+          span.Skeleton__skeleton#2  270×15 @0,24  r8
+          span.Skeleton__skeleton#3  167×15 @0,48  r8
+        div.ReviewSlot__footer#3  270×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#5  88×14 @0,0  r8
+            span.Skeleton__skeleton#6  64×12 @0,20  r8
+    li.Card__card#4  308×206 @-406,230  r20  b1
+      div.ReviewSlot__body  306×204 @1,1
+        span.Skeleton__skeleton#4  96×18 @18,18  r8
+        span.Skeleton__lines#4  270×63 @18,50
+          span.Skeleton__skeleton  270×15 @0,0  r8
+          span.Skeleton__skeleton#2  270×15 @0,24  r8
+          span.Skeleton__skeleton#3  167×15 @0,48  r8
+        div.ReviewSlot__footer#4  270×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#7  88×14 @0,0  r8
+            span.Skeleton__skeleton#8  64×12 @0,20  r8
+    li.Card__card#5  308×206 @-220,4  r20  b1
+      article.ReviewCard__body  306×204 @1,1
+        div.ReviewCard__top  270×16 @18,18
+          span.Rating__stars  99×15 @0,1
+            svg.Rating__star  15×15 @0,0
+            svg.Rating__star#2  15×15 @21,0
+            svg.Rating__star#3  15×15 @42,0
+            svg.Rating__star#4  15×15 @63,0
+            svg.Rating__star#5  15×15 @84,0
+          span.ReviewCard__attach  16×16 @254,0
+            svg  16×16 @0,0
+            span  1×1 @-1,8  Manrope 400 15/23  lines=1  clipped  «К отзыву приложена фотография»
+        blockquote.ReviewCard__quote  270×67 @18,48
+          p.ReviewCard__text  270×67 @0,0  Manrope 400 15/22  lines=3  «Аккуратно вывели трассу по фасаду — прик»
+            p.ReviewCard__text::before  0×0 @0,0
+            p.ReviewCard__text::after  0×0 @0,0
+        footer.ReviewCard__footer  270×57 @18,129  b1 0 0 0
+          span.ReviewCard__avatar  40×40 @0,16  Onest 700 15/23  r50  lines=1  «Д»
+          span.ReviewCard__who  78×42 @52,15
+            span.ReviewCard__name  78×22 @0,0  Manrope 600 15/22  lines=1  «Дмитрий»
+            span.ReviewCard__meta  78×19 @0,22
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Дата отзыва:»
+              time  78×17 @0,1  Manrope 400 13/19  lines=1  «18 июня 2026»
+      button.ReviewCard__hit  306×204 @1,1  r20
+        span  1×1 @152,101  Arial 400 13/normal  lines=1  clipped  «Открыть отзыв: Дмитрий»
+    li.Card__card#6  308×206 @-79,230  r20  b1
+      article.ReviewCard__body  306×204 @1,1
+        div.ReviewCard__top#2  270×15 @18,18
+          span.Rating__stars  99×15 @0,0
+            svg.Rating__star#6  15×15 @0,0
+            svg.Rating__star#7  15×15 @21,0
+            svg.Rating__star#8  15×15 @42,0
+            svg.Rating__star#9  15×15 @63,0
+            svg.Rating__star#10  15×15 @84,0
+        blockquote.ReviewCard__quote#2  270×68 @18,47
+          p.ReviewCard__text  270×67 @0,0  Manrope 400 15/22  lines=4  clipped  «Ставили сплит в спальню: приехали в назн»
+            p.ReviewCard__text::before  0×0 @0,0
+            p.ReviewCard__text::after  0×0 @0,0
+        footer.ReviewCard__footer#2  270×57 @18,129  b1 0 0 0
+          span.ReviewCard__avatar  40×40 @0,16  Onest 700 15/23  r50  lines=1  «И»
+          span.ReviewCard__who  78×42 @52,15
+            span.ReviewCard__name#2  78×22 @0,0  Manrope 600 15/22  lines=1  «Ирина»
+            span.ReviewCard__meta#2  78×19 @0,22
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Дата отзыва:»
+              time  78×17 @0,1  Manrope 400 13/19  lines=1  «14 июня 2026»
+      button.ReviewCard__hit  306×204 @1,1  r20
+        span#2  1×1 @152,101  Arial 400 13/normal  lines=1  clipped  «Открыть отзыв: Ирина»
+    li.Card__card#7  308×206 @108,4  r20  b1
+      article.ReviewCard__body  306×204 @1,1
+        div.ReviewCard__top#3  270×15 @18,18
+          span.Rating__stars  99×15 @0,0
+            svg.Rating__star#11  15×15 @0,0
+            svg.Rating__star#12  15×15 @21,0
+            svg.Rating__star#13  15×15 @42,0
+            svg.Rating__star#14  15×15 @63,0
+            svg.Rating__star#15  15×15 @84,0
+        blockquote.ReviewCard__quote#3  270×68 @18,47
+          p.ReviewCard__text  270×67 @0,0  Manrope 400 15/22  lines=4  clipped  «Второй кондиционер у этих ребят. В этот»
+            p.ReviewCard__text::before  0×0 @0,0
+            p.ReviewCard__text::after  0×0 @0,0
+        footer.ReviewCard__footer#3  270×57 @18,129  b1 0 0 0
+          span.ReviewCard__avatar  40×40 @0,16  Onest 700 15/23  r50  lines=1  «С»
+          span.ReviewCard__who  73×42 @52,15
+            span.ReviewCard__name#3  73×22 @0,0  Manrope 600 15/22  lines=1  «Сергей»
+            span.ReviewCard__meta#3  73×19 @0,22
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Дата отзыва:»
+              time  73×17 @0,1  Manrope 400 13/19  lines=1  «2 июня 2026»
+      button.ReviewCard__hit  306×204 @1,1  r20
+        span#3  1×1 @152,101  Arial 400 13/normal  lines=1  clipped  «Открыть отзыв: Сергей»
+    li.Card__card#8  308×206 @249,230  r20  b1
+      div.ReviewSlot__body  306×204 @1,1
+        span.Skeleton__skeleton#5  96×18 @18,18  r8
+        span.Skeleton__lines#5  270×63 @18,50
+          span.Skeleton__skeleton  270×15 @0,0  r8
+          span.Skeleton__skeleton#2  270×15 @0,24  r8
+          span.Skeleton__skeleton#3  167×15 @0,48  r8
+        div.ReviewSlot__footer#5  270×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#9  88×14 @0,0  r8
+            span.Skeleton__skeleton#10  64×12 @0,20  r8
+    li.Card__card#9  308×206 @435,4  r20  b1
+      div.ReviewSlot__body  306×204 @1,1
+        span.Skeleton__skeleton#6  96×18 @18,18  r8
+        span.Skeleton__lines#6  270×63 @18,50
+          span.Skeleton__skeleton  270×15 @0,0  r8
+          span.Skeleton__skeleton#2  270×15 @0,24  r8
+          span.Skeleton__skeleton#3  167×15 @0,48  r8
+        div.ReviewSlot__footer#6  270×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#11  88×14 @0,0  r8
+            span.Skeleton__skeleton#12  64×12 @0,20  r8
+    li.Card__card#10  308×206 @576,230  r20  b1
+      div.ReviewSlot__body  306×204 @1,1
+        span.Skeleton__skeleton#7  96×18 @18,18  r8
+        span.Skeleton__lines#7  270×63 @18,50
+          span.Skeleton__skeleton  270×15 @0,0  r8
+          span.Skeleton__skeleton#2  270×15 @0,24  r8
+          span.Skeleton__skeleton#3  167×15 @0,48  r8
+        div.ReviewSlot__footer#7  270×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#13  88×14 @0,0  r8
+            span.Skeleton__skeleton#14  64×12 @0,20  r8
+    li.Card__card#11  308×206 @763,4  r20  b1
+      div.ReviewSlot__body  306×204 @1,1
+        span.Skeleton__skeleton#8  96×18 @18,18  r8
+        span.Skeleton__lines#8  270×63 @18,50
+          span.Skeleton__skeleton  270×15 @0,0  r8
+          span.Skeleton__skeleton#2  270×15 @0,24  r8
+          span.Skeleton__skeleton#3  167×15 @0,48  r8
+        div.ReviewSlot__footer#8  270×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#15  88×14 @0,0  r8
+            span.Skeleton__skeleton#16  64×12 @0,20  r8
+    li.Card__card#12  307×206 @904,230  r20  b1
+      div.ReviewSlot__body  305×204 @1,1
+        span.Skeleton__skeleton#9  96×18 @18,18  r8
+        span.Skeleton__lines#9  269×63 @18,50
+          span.Skeleton__skeleton  269×15 @0,0  r8
+          span.Skeleton__skeleton#2  269×15 @0,24  r8
+          span.Skeleton__skeleton#3  167×15 @0,48  r8
+        div.ReviewSlot__footer#9  269×55 @18,131  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#17  88×14 @0,0  r8
+            span.Skeleton__skeleton#18  64×12 @0,20  r8
+
+[геометрия 768]
+section.Reviews__section  768×770 @0,0
+  div.Reviews__container  768×247 @0,0
+    header.Reviews__head  640×179 @64,68
+      p.Reviews__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Отзывы —»
+      h2.Reviews__title  640×37 @0,32  Onest 700 31/37  ls-1  lines=1  «Что говорят клиенты в Туле»
+      p.Reviews__lead  640×26 @0,83  Manrope 400 17/26  lines=1  «Публикуем отзывы после модерации — в том»
+      button.Button__button  150×44 @245,135  r11  b1
+        span.Button__content  112×17 @19,13
+          span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Оставить отзыв»
+  ul.ReviewsTrack__track  768×475 @0,295  clipped
+    li.Card__card  370×221 @-866,4  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton  96×18 @26,26  r8
+        span.Skeleton__lines  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton  88×14 @0,0  r8
+            span.Skeleton__skeleton#2  64×12 @0,20  r8
+    li.Card__card#2  370×221 @-696,245  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#2  96×18 @26,26  r8
+        span.Skeleton__lines#2  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#2  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#3  88×14 @0,0  r8
+            span.Skeleton__skeleton#4  64×12 @0,20  r8
+    li.Card__card#3  370×221 @-476,4  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#3  96×18 @26,26  r8
+        span.Skeleton__lines#3  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#3  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#5  88×14 @0,0  r8
+            span.Skeleton__skeleton#6  64×12 @0,20  r8
+    li.Card__card#4  370×221 @-306,245  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#4  96×18 @26,26  r8
+        span.Skeleton__lines#4  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#4  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#7  88×14 @0,0  r8
+            span.Skeleton__skeleton#8  64×12 @0,20  r8
+    li.Card__card#5  370×221 @-86,4  r20  b1
+      article.ReviewCard__body  368×219 @1,1
+        div.ReviewCard__top  316×16 @26,26
+          span.Rating__stars  99×15 @0,1
+            svg.Rating__star  15×15 @0,0
+            svg.Rating__star#2  15×15 @21,0
+            svg.Rating__star#3  15×15 @42,0
+            svg.Rating__star#4  15×15 @63,0
+            svg.Rating__star#5  15×15 @84,0
+          span.ReviewCard__attach  16×16 @300,0
+            svg  16×16 @0,0
+            span  1×1 @-1,8  Manrope 400 15/23  lines=1  clipped  «К отзыву приложена фотография»
+        blockquote.ReviewCard__quote  316×66 @26,56
+          p.ReviewCard__text  316×45 @0,0  Manrope 400 15/22  lines=2  «Аккуратно вывели трассу по фасаду — прик»
+            p.ReviewCard__text::before  0×0 @0,0
+            p.ReviewCard__text::after  0×0 @0,0
+        footer.ReviewCard__footer  316×57 @26,136  b1 0 0 0
+          span.ReviewCard__avatar  40×40 @0,16  Onest 700 15/23  r50  lines=1  «Д»
+          span.ReviewCard__who  78×42 @52,15
+            span.ReviewCard__name  78×22 @0,0  Manrope 600 15/22  lines=1  «Дмитрий»
+            span.ReviewCard__meta  78×19 @0,22
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Дата отзыва:»
+              time  78×17 @0,1  Manrope 400 13/19  lines=1  «18 июня 2026»
+      button.ReviewCard__hit  368×219 @1,1  r20
+        span  1×1 @183,109  Arial 400 13/normal  lines=1  clipped  «Открыть отзыв: Дмитрий»
+    li.Card__card#6  370×221 @84,245  r20  b1
+      article.ReviewCard__body  368×219 @1,1
+        div.ReviewCard__top#2  316×15 @26,26
+          span.Rating__stars  99×15 @0,0
+            svg.Rating__star#6  15×15 @0,0
+            svg.Rating__star#7  15×15 @21,0
+            svg.Rating__star#8  15×15 @42,0
+            svg.Rating__star#9  15×15 @63,0
+            svg.Rating__star#10  15×15 @84,0
+        blockquote.ReviewCard__quote#2  316×67 @26,55
+          p.ReviewCard__text  316×67 @0,0  Manrope 400 15/22  lines=4  clipped  «Ставили сплит в спальню: приехали в назн»
+            p.ReviewCard__text::before  0×0 @0,0
+            p.ReviewCard__text::after  0×0 @0,0
+        footer.ReviewCard__footer#2  316×57 @26,136  b1 0 0 0
+          span.ReviewCard__avatar  40×40 @0,16  Onest 700 15/23  r50  lines=1  «И»
+          span.ReviewCard__who  78×42 @52,15
+            span.ReviewCard__name#2  78×22 @0,0  Manrope 600 15/22  lines=1  «Ирина»
+            span.ReviewCard__meta#2  78×19 @0,22
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Дата отзыва:»
+              time  78×17 @0,1  Manrope 400 13/19  lines=1  «14 июня 2026»
+      button.ReviewCard__hit  368×219 @1,1  r20
+        span#2  1×1 @183,109  Arial 400 13/normal  lines=1  clipped  «Открыть отзыв: Ирина»
+    li.Card__card#7  370×221 @304,4  r20  b1
+      article.ReviewCard__body  368×219 @1,1
+        div.ReviewCard__top#3  316×15 @26,26
+          span.Rating__stars  99×15 @0,0
+            svg.Rating__star#11  15×15 @0,0
+            svg.Rating__star#12  15×15 @21,0
+            svg.Rating__star#13  15×15 @42,0
+            svg.Rating__star#14  15×15 @63,0
+            svg.Rating__star#15  15×15 @84,0
+        blockquote.ReviewCard__quote#3  316×67 @26,55
+          p.ReviewCard__text  316×67 @0,0  Manrope 400 15/22  lines=4  clipped  «Второй кондиционер у этих ребят. В этот»
+            p.ReviewCard__text::before  0×0 @0,0
+            p.ReviewCard__text::after  0×0 @0,0
+        footer.ReviewCard__footer#3  316×57 @26,136  b1 0 0 0
+          span.ReviewCard__avatar  40×40 @0,16  Onest 700 15/23  r50  lines=1  «С»
+          span.ReviewCard__who  73×42 @52,15
+            span.ReviewCard__name#3  73×22 @0,0  Manrope 600 15/22  lines=1  «Сергей»
+            span.ReviewCard__meta#3  73×19 @0,22
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Дата отзыва:»
+              time  73×17 @0,1  Manrope 400 13/19  lines=1  «2 июня 2026»
+      button.ReviewCard__hit  368×219 @1,1  r20
+        span#3  1×1 @183,109  Arial 400 13/normal  lines=1  clipped  «Открыть отзыв: Сергей»
+    li.Card__card#8  370×221 @474,245  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#5  96×18 @26,26  r8
+        span.Skeleton__lines#5  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#5  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#9  88×14 @0,0  r8
+            span.Skeleton__skeleton#10  64×12 @0,20  r8
+    li.Card__card#9  370×221 @694,4  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#6  96×18 @26,26  r8
+        span.Skeleton__lines#6  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#6  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#11  88×14 @0,0  r8
+            span.Skeleton__skeleton#12  64×12 @0,20  r8
+    li.Card__card#10  370×221 @864,245  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#7  96×18 @26,26  r8
+        span.Skeleton__lines#7  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#7  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#13  88×14 @0,0  r8
+            span.Skeleton__skeleton#14  64×12 @0,20  r8
+    li.Card__card#11  370×221 @1084,4  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#8  96×18 @26,26  r8
+        span.Skeleton__lines#8  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#8  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#15  88×14 @0,0  r8
+            span.Skeleton__skeleton#16  64×12 @0,20  r8
+    li.Card__card#12  370×221 @1254,245  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#9  96×18 @26,26  r8
+        span.Skeleton__lines#9  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#9  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#17  88×14 @0,0  r8
+            span.Skeleton__skeleton#18  64×12 @0,20  r8
+
+[геометрия 1200]
+section.Reviews__section  1200×798 @0,0
+  div.Reviews__container  1200×275 @0,0
+    header.Reviews__head  640×187 @280,88
+      p.Reviews__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Отзывы —»
+      h2.Reviews__title  640×46 @0,32  Onest 700 38/46  ls-1  lines=1  «Что говорят клиенты в Туле»
+      p.Reviews__lead  640×26 @0,92  Manrope 400 17/26  lines=1  «Публикуем отзывы после модерации — в том»
+      button.Button__button  150×44 @245,143  r11  b1
+        span.Button__content  112×17 @19,13
+          span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Оставить отзыв»
+  ul.ReviewsTrack__track  1200×475 @0,323  clipped
+    li.Card__card  370×221 @-650,4  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton  96×18 @26,26  r8
+        span.Skeleton__lines  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton  88×14 @0,0  r8
+            span.Skeleton__skeleton#2  64×12 @0,20  r8
+    li.Card__card#2  370×221 @-480,245  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#2  96×18 @26,26  r8
+        span.Skeleton__lines#2  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#2  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#3  88×14 @0,0  r8
+            span.Skeleton__skeleton#4  64×12 @0,20  r8
+    li.Card__card#3  370×221 @-260,4  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#3  96×18 @26,26  r8
+        span.Skeleton__lines#3  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#3  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#5  88×14 @0,0  r8
+            span.Skeleton__skeleton#6  64×12 @0,20  r8
+    li.Card__card#4  370×221 @-90,245  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#4  96×18 @26,26  r8
+        span.Skeleton__lines#4  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#4  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#7  88×14 @0,0  r8
+            span.Skeleton__skeleton#8  64×12 @0,20  r8
+    li.Card__card#5  370×221 @130,4  r20  b1
+      article.ReviewCard__body  368×219 @1,1
+        div.ReviewCard__top  316×16 @26,26
+          span.Rating__stars  99×15 @0,1
+            svg.Rating__star  15×15 @0,0
+            svg.Rating__star#2  15×15 @21,0
+            svg.Rating__star#3  15×15 @42,0
+            svg.Rating__star#4  15×15 @63,0
+            svg.Rating__star#5  15×15 @84,0
+          span.ReviewCard__attach  16×16 @300,0
+            svg  16×16 @0,0
+            span  1×1 @-1,8  Manrope 400 15/23  lines=1  clipped  «К отзыву приложена фотография»
+        blockquote.ReviewCard__quote  316×66 @26,56
+          p.ReviewCard__text  316×45 @0,0  Manrope 400 15/22  lines=2  «Аккуратно вывели трассу по фасаду — прик»
+            p.ReviewCard__text::before  0×0 @0,0
+            p.ReviewCard__text::after  0×0 @0,0
+        footer.ReviewCard__footer  316×57 @26,136  b1 0 0 0
+          span.ReviewCard__avatar  40×40 @0,16  Onest 700 15/23  r50  lines=1  «Д»
+          span.ReviewCard__who  78×42 @52,15
+            span.ReviewCard__name  78×22 @0,0  Manrope 600 15/22  lines=1  «Дмитрий»
+            span.ReviewCard__meta  78×19 @0,22
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Дата отзыва:»
+              time  78×17 @0,1  Manrope 400 13/19  lines=1  «18 июня 2026»
+      button.ReviewCard__hit  368×219 @1,1  r20
+        span  1×1 @183,109  Arial 400 13/normal  lines=1  clipped  «Открыть отзыв: Дмитрий»
+    li.Card__card#6  370×221 @300,245  r20  b1
+      article.ReviewCard__body  368×219 @1,1
+        div.ReviewCard__top#2  316×15 @26,26
+          span.Rating__stars  99×15 @0,0
+            svg.Rating__star#6  15×15 @0,0
+            svg.Rating__star#7  15×15 @21,0
+            svg.Rating__star#8  15×15 @42,0
+            svg.Rating__star#9  15×15 @63,0
+            svg.Rating__star#10  15×15 @84,0
+        blockquote.ReviewCard__quote#2  316×67 @26,55
+          p.ReviewCard__text  316×67 @0,0  Manrope 400 15/22  lines=4  clipped  «Ставили сплит в спальню: приехали в назн»
+            p.ReviewCard__text::before  0×0 @0,0
+            p.ReviewCard__text::after  0×0 @0,0
+        footer.ReviewCard__footer#2  316×57 @26,136  b1 0 0 0
+          span.ReviewCard__avatar  40×40 @0,16  Onest 700 15/23  r50  lines=1  «И»
+          span.ReviewCard__who  78×42 @52,15
+            span.ReviewCard__name#2  78×22 @0,0  Manrope 600 15/22  lines=1  «Ирина»
+            span.ReviewCard__meta#2  78×19 @0,22
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Дата отзыва:»
+              time  78×17 @0,1  Manrope 400 13/19  lines=1  «14 июня 2026»
+      button.ReviewCard__hit  368×219 @1,1  r20
+        span#2  1×1 @183,109  Arial 400 13/normal  lines=1  clipped  «Открыть отзыв: Ирина»
+    li.Card__card#7  370×221 @520,4  r20  b1
+      article.ReviewCard__body  368×219 @1,1
+        div.ReviewCard__top#3  316×15 @26,26
+          span.Rating__stars  99×15 @0,0
+            svg.Rating__star#11  15×15 @0,0
+            svg.Rating__star#12  15×15 @21,0
+            svg.Rating__star#13  15×15 @42,0
+            svg.Rating__star#14  15×15 @63,0
+            svg.Rating__star#15  15×15 @84,0
+        blockquote.ReviewCard__quote#3  316×67 @26,55
+          p.ReviewCard__text  316×67 @0,0  Manrope 400 15/22  lines=4  clipped  «Второй кондиционер у этих ребят. В этот»
+            p.ReviewCard__text::before  0×0 @0,0
+            p.ReviewCard__text::after  0×0 @0,0
+        footer.ReviewCard__footer#3  316×57 @26,136  b1 0 0 0
+          span.ReviewCard__avatar  40×40 @0,16  Onest 700 15/23  r50  lines=1  «С»
+          span.ReviewCard__who  73×42 @52,15
+            span.ReviewCard__name#3  73×22 @0,0  Manrope 600 15/22  lines=1  «Сергей»
+            span.ReviewCard__meta#3  73×19 @0,22
+              span  1×1 @-1,-1  Manrope 400 13/19  lines=1  clipped  «Дата отзыва:»
+              time  73×17 @0,1  Manrope 400 13/19  lines=1  «2 июня 2026»
+      button.ReviewCard__hit  368×219 @1,1  r20
+        span#3  1×1 @183,109  Arial 400 13/normal  lines=1  clipped  «Открыть отзыв: Сергей»
+    li.Card__card#8  370×221 @690,245  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#5  96×18 @26,26  r8
+        span.Skeleton__lines#5  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#5  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#9  88×14 @0,0  r8
+            span.Skeleton__skeleton#10  64×12 @0,20  r8
+    li.Card__card#9  370×221 @910,4  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#6  96×18 @26,26  r8
+        span.Skeleton__lines#6  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#6  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#11  88×14 @0,0  r8
+            span.Skeleton__skeleton#12  64×12 @0,20  r8
+    li.Card__card#10  370×221 @1080,245  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#7  96×18 @26,26  r8
+        span.Skeleton__lines#7  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#7  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#13  88×14 @0,0  r8
+            span.Skeleton__skeleton#14  64×12 @0,20  r8
+    li.Card__card#11  370×221 @1300,4  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#8  96×18 @26,26  r8
+        span.Skeleton__lines#8  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#8  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#15  88×14 @0,0  r8
+            span.Skeleton__skeleton#16  64×12 @0,20  r8
+    li.Card__card#12  370×221 @1470,245  r20  b1
+      div.ReviewSlot__body  368×219 @1,1
+        span.Skeleton__skeleton#9  96×18 @26,26  r8
+        span.Skeleton__lines#9  316×63 @26,58
+          span.Skeleton__skeleton  316×15 @0,0  r8
+          span.Skeleton__skeleton#2  316×15 @0,24  r8
+          span.Skeleton__skeleton#3  196×15 @0,48  r8
+        div.ReviewSlot__footer#9  316×55 @26,138  b1 0 0 0
+          span.Skeleton__skeleton  40×40 @0,15  r100
+          div.ReviewSlot__who  88×32 @52,19
+            span.Skeleton__skeleton#17  88×14 @0,0  r8
+            span.Skeleton__skeleton#18  64×12 @0,20  r8
+
+[палитра light]
+section.Reviews__section  bg #ffffff
+  div.Reviews__container
+    header.Reviews__head
+      p.Reviews__kicker  color #0e7490
+      h2.Reviews__title  color #0f172a
+      p.Reviews__lead  color #556173
+      button.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content
+          span.Button__label  color #0f172a
+  ul.ReviewsTrack__track
+    li.Card__card  bg #ffffff  border #e2e8f0
+      div.ReviewSlot__body
+        span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        span.Skeleton__lines
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        div.ReviewSlot__footer  border #eef2f6 #475569 #475569 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    li.Card__card#2  bg #ffffff  border #e2e8f0
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        span.Skeleton__lines#2
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        div.ReviewSlot__footer#2  border #eef2f6 #475569 #475569 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#4  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    li.Card__card#3  bg #ffffff  border #e2e8f0
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        span.Skeleton__lines#3
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        div.ReviewSlot__footer#3  border #eef2f6 #475569 #475569 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#5  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#6  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    li.Card__card#4  bg #ffffff  border #e2e8f0
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#4  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        span.Skeleton__lines#4
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        div.ReviewSlot__footer#4  border #eef2f6 #475569 #475569 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#7  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#8  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    li.Card__card#5  bg #ffffff  border #e2e8f0
+      article.ReviewCard__body
+        div.ReviewCard__top
+          span.Rating__stars
+            svg.Rating__star
+            svg.Rating__star#2
+            svg.Rating__star#3
+            svg.Rating__star#4
+            svg.Rating__star#5
+          span.ReviewCard__attach
+            svg
+            span  color #556173
+        blockquote.ReviewCard__quote
+          p.ReviewCard__text  color #334155
+            p.ReviewCard__text::before
+            p.ReviewCard__text::after
+        footer.ReviewCard__footer  border #eef2f6 #475569 #475569 #475569
+          span.ReviewCard__avatar  color #ffffff  bg #0e7490
+          span.ReviewCard__who
+            span.ReviewCard__name  color #0f172a
+            span.ReviewCard__meta
+              span  color #556173
+              time  color #556173
+      button.ReviewCard__hit
+        span  color #000000
+    li.Card__card#6  bg #ffffff  border #e2e8f0
+      article.ReviewCard__body
+        div.ReviewCard__top#2
+          span.Rating__stars
+            svg.Rating__star#6
+            svg.Rating__star#7
+            svg.Rating__star#8
+            svg.Rating__star#9
+            svg.Rating__star#10
+        blockquote.ReviewCard__quote#2
+          p.ReviewCard__text  color #334155
+            p.ReviewCard__text::before
+            p.ReviewCard__text::after
+        footer.ReviewCard__footer#2  border #eef2f6 #475569 #475569 #475569
+          span.ReviewCard__avatar  color #ffffff  bg #0e7490
+          span.ReviewCard__who
+            span.ReviewCard__name#2  color #0f172a
+            span.ReviewCard__meta#2
+              span  color #556173
+              time  color #556173
+      button.ReviewCard__hit
+        span#2  color #000000
+    li.Card__card#7  bg #ffffff  border #e2e8f0
+      article.ReviewCard__body
+        div.ReviewCard__top#3
+          span.Rating__stars
+            svg.Rating__star#11
+            svg.Rating__star#12
+            svg.Rating__star#13
+            svg.Rating__star#14
+            svg.Rating__star#15
+        blockquote.ReviewCard__quote#3
+          p.ReviewCard__text  color #334155
+            p.ReviewCard__text::before
+            p.ReviewCard__text::after
+        footer.ReviewCard__footer#3  border #eef2f6 #475569 #475569 #475569
+          span.ReviewCard__avatar  color #ffffff  bg #0e7490
+          span.ReviewCard__who
+            span.ReviewCard__name#3  color #0f172a
+            span.ReviewCard__meta#3
+              span  color #556173
+              time  color #556173
+      button.ReviewCard__hit
+        span#3  color #000000
+    li.Card__card#8  bg #ffffff  border #e2e8f0
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#5  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        span.Skeleton__lines#5
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        div.ReviewSlot__footer#5  border #eef2f6 #475569 #475569 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#9  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#10  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    li.Card__card#9  bg #ffffff  border #e2e8f0
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#6  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        span.Skeleton__lines#6
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        div.ReviewSlot__footer#6  border #eef2f6 #475569 #475569 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#11  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#12  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    li.Card__card#10  bg #ffffff  border #e2e8f0
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#7  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        span.Skeleton__lines#7
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        div.ReviewSlot__footer#7  border #eef2f6 #475569 #475569 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#13  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#14  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    li.Card__card#11  bg #ffffff  border #e2e8f0
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#8  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        span.Skeleton__lines#8
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        div.ReviewSlot__footer#8  border #eef2f6 #475569 #475569 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#15  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#16  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    li.Card__card#12  bg #ffffff  border #e2e8f0
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#9  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        span.Skeleton__lines#9
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        div.ReviewSlot__footer#9  border #eef2f6 #475569 #475569 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#17  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#18  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+
+[палитра dark]
+section.Reviews__section  bg #0b1220
+  div.Reviews__container
+    header.Reviews__head
+      p.Reviews__kicker  color #22d3ee
+      h2.Reviews__title  color #eaf1f8
+      p.Reviews__lead  color #8598ac
+      button.Button__button  bg #121d31  border #566d95
+        span.Button__content
+          span.Button__label  color #eaf1f8
+  ul.ReviewsTrack__track
+    li.Card__card  bg #121d31  border #1e2b41
+      div.ReviewSlot__body
+        span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        span.Skeleton__lines
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        div.ReviewSlot__footer  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    li.Card__card#2  bg #121d31  border #1e2b41
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        span.Skeleton__lines#2
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        div.ReviewSlot__footer#2  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#4  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    li.Card__card#3  bg #121d31  border #1e2b41
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        span.Skeleton__lines#3
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        div.ReviewSlot__footer#3  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#5  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#6  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    li.Card__card#4  bg #121d31  border #1e2b41
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#4  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        span.Skeleton__lines#4
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        div.ReviewSlot__footer#4  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#7  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#8  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    li.Card__card#5  bg #121d31  border #1e2b41
+      article.ReviewCard__body
+        div.ReviewCard__top
+          span.Rating__stars
+            svg.Rating__star
+            svg.Rating__star#2
+            svg.Rating__star#3
+            svg.Rating__star#4
+            svg.Rating__star#5
+          span.ReviewCard__attach
+            svg
+            span  color #8598ac
+        blockquote.ReviewCard__quote
+          p.ReviewCard__text  color #c9d5e2
+            p.ReviewCard__text::before
+            p.ReviewCard__text::after
+        footer.ReviewCard__footer  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          span.ReviewCard__avatar  color #ffffff  bg #0e7490
+          span.ReviewCard__who
+            span.ReviewCard__name  color #eaf1f8
+            span.ReviewCard__meta
+              span  color #8598ac
+              time  color #8598ac
+      button.ReviewCard__hit
+        span  color #000000
+    li.Card__card#6  bg #121d31  border #1e2b41
+      article.ReviewCard__body
+        div.ReviewCard__top#2
+          span.Rating__stars
+            svg.Rating__star#6
+            svg.Rating__star#7
+            svg.Rating__star#8
+            svg.Rating__star#9
+            svg.Rating__star#10
+        blockquote.ReviewCard__quote#2
+          p.ReviewCard__text  color #c9d5e2
+            p.ReviewCard__text::before
+            p.ReviewCard__text::after
+        footer.ReviewCard__footer#2  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          span.ReviewCard__avatar  color #ffffff  bg #0e7490
+          span.ReviewCard__who
+            span.ReviewCard__name#2  color #eaf1f8
+            span.ReviewCard__meta#2
+              span  color #8598ac
+              time  color #8598ac
+      button.ReviewCard__hit
+        span#2  color #000000
+    li.Card__card#7  bg #121d31  border #1e2b41
+      article.ReviewCard__body
+        div.ReviewCard__top#3
+          span.Rating__stars
+            svg.Rating__star#11
+            svg.Rating__star#12
+            svg.Rating__star#13
+            svg.Rating__star#14
+            svg.Rating__star#15
+        blockquote.ReviewCard__quote#3
+          p.ReviewCard__text  color #c9d5e2
+            p.ReviewCard__text::before
+            p.ReviewCard__text::after
+        footer.ReviewCard__footer#3  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          span.ReviewCard__avatar  color #ffffff  bg #0e7490
+          span.ReviewCard__who
+            span.ReviewCard__name#3  color #eaf1f8
+            span.ReviewCard__meta#3
+              span  color #8598ac
+              time  color #8598ac
+      button.ReviewCard__hit
+        span#3  color #000000
+    li.Card__card#8  bg #121d31  border #1e2b41
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#5  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        span.Skeleton__lines#5
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        div.ReviewSlot__footer#5  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#9  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#10  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    li.Card__card#9  bg #121d31  border #1e2b41
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#6  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        span.Skeleton__lines#6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        div.ReviewSlot__footer#6  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#11  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#12  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    li.Card__card#10  bg #121d31  border #1e2b41
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#7  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        span.Skeleton__lines#7
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        div.ReviewSlot__footer#7  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#13  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#14  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    li.Card__card#11  bg #121d31  border #1e2b41
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#8  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        span.Skeleton__lines#8
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        div.ReviewSlot__footer#8  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#15  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#16  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    li.Card__card#12  bg #121d31  border #1e2b41
+      div.ReviewSlot__body
+        span.Skeleton__skeleton#9  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        span.Skeleton__lines#9
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        div.ReviewSlot__footer#9  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          div.ReviewSlot__who
+            span.Skeleton__skeleton#17  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#18  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

@@ -1,0 +1,182 @@
+# блоки-услуги--basic · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 600, Onest 700
+
+[документ]
+320 → 320×1200
+375 → 375×1135
+768 → 768×929
+1200 → 1200×900
+
+[геометрия 320]
+div.Services__container  320×1200 @0,0
+  header.Services__head  288×173 @16,48
+    p.Services__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Что мы делаем —»
+    h2.Services__title  288×58 @0,32  Onest 700 24/29  ls0  lines=2  «Полный цикл: от подбора до сервиса»
+    p.Services__lead  288×70 @0,104  Manrope 400 15/23  lines=3  «Одна команда закрывает весь путь — вам н»
+  ul.Services__grid  288×951 @16,249
+    li.Card__card  288×306 @0,0  r20  b1
+      span.Services__iconBox  52×52 @23,23  r14
+        svg  20×20 @16,16
+      h3.Services__cardTitle  91×25 @23,95  Onest 600 21/25  ls0  lines=1  «Продажа»
+      p.Services__cardText  242×93 @23,130  Manrope 400 15/23  lines=4  «Подберём модель под площадь, бюджет и ур»
+      a.Services__link  96×44 @23,239  Manrope 600 15/22  lines=1  «В каталог»
+        svg  20×20 @76,12
+    li.Card__card#2  288×306 @0,322  r20  b1
+      span.Services__iconBox  52×52 @23,23  r14
+        svg#2  20×20 @16,16
+      h3.Services__cardTitle  80×25 @23,95  Onest 600 21/25  ls0  lines=1  «Монтаж»
+      p.Services__cardText  242×93 @23,130  Manrope 400 15/23  lines=4  «Аккуратная установка «под ключ": штробле»
+      a.Services__link  151×44 @23,239  Manrope 600 15/22  lines=1  «Как это проходит»
+        svg#2  20×20 @131,12
+    li.Card__card#3  288×306 @0,644  r20  b1
+      span.Services__iconBox  52×52 @23,23  r14
+        svg#3  20×20 @16,16
+      h3.Services__cardTitle  150×25 @23,95  Onest 600 21/25  ls0  lines=1  «Обслуживание»
+      p.Services__cardText  242×93 @23,130  Manrope 400 15/23  lines=4  «Чистка, диагностика, антибактериальная о»
+      a.Services__link  148×44 @23,239  Manrope 600 15/22  lines=1  «Сервис и ремонт»
+        svg#3  20×20 @128,12
+
+[геометрия 375]
+div.Services__container  375×1135 @0,0
+  header.Services__head  343×176 @16,51
+    p.Services__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Что мы делаем —»
+    h2.Services__title  343×60 @0,32  Onest 700 25/30  ls0  lines=2  «Полный цикл: от подбора до сервиса»
+    p.Services__lead  343×70 @0,106  Manrope 400 15/23  lines=3  «Одна команда закрывает весь путь — вам н»
+  ul.Services__grid  343×881 @16,254
+    li.Card__card  343×283 @0,0  r20  b1
+      span.Services__iconBox  52×52 @23,23  r14
+        svg  20×20 @16,16
+      h3.Services__cardTitle  91×25 @23,95  Onest 600 21/25  ls0  lines=1  «Продажа»
+      p.Services__cardText  297×70 @23,130  Manrope 400 15/23  lines=3  «Подберём модель под площадь, бюджет и ур»
+      a.Services__link  96×44 @23,216  Manrope 600 15/22  lines=1  «В каталог»
+        svg  20×20 @76,12
+    li.Card__card#2  343×283 @0,299  r20  b1
+      span.Services__iconBox  52×52 @23,23  r14
+        svg#2  20×20 @16,16
+      h3.Services__cardTitle  80×25 @23,95  Onest 600 21/25  ls0  lines=1  «Монтаж»
+      p.Services__cardText  297×70 @23,130  Manrope 400 15/23  lines=3  «Аккуратная установка «под ключ": штробле»
+      a.Services__link  151×44 @23,216  Manrope 600 15/22  lines=1  «Как это проходит»
+        svg#2  20×20 @131,12
+    li.Card__card#3  343×283 @0,598  r20  b1
+      span.Services__iconBox  52×52 @23,23  r14
+        svg#3  20×20 @16,16
+      h3.Services__cardTitle  150×25 @23,95  Onest 600 21/25  ls0  lines=1  «Обслуживание»
+      p.Services__cardText  297×70 @23,130  Manrope 400 15/23  lines=3  «Чистка, диагностика, антибактериальная о»
+      a.Services__link  148×44 @23,216  Manrope 600 15/22  lines=1  «Сервис и ремонт»
+        svg#3  20×20 @128,12
+
+[геометрия 768]
+div.Services__container  768×929 @0,0
+  header.Services__head  640×136 @64,68
+    p.Services__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Что мы делаем —»
+    h2.Services__title  640×37 @0,32  Onest 700 31/37  ls-1  lines=1  «Полный цикл: от подбора до сервиса»
+    p.Services__lead  640×53 @0,83  Manrope 400 17/26  lines=2  «Одна команда закрывает весь путь — вам н»
+  ul.Services__grid  728×676 @20,253
+    li.Card__card  352×326 @0,0  r20  b1
+      span.Services__iconBox  52×52 @33,33  r14
+        svg  20×20 @16,16
+      h3.Services__cardTitle  91×25 @33,105  Onest 600 21/25  ls0  lines=1  «Продажа»
+      p.Services__cardText  286×93 @33,140  Manrope 400 15/23  lines=4  «Подберём модель под площадь, бюджет и ур»
+      a.Services__link  96×44 @33,249  Manrope 600 15/22  lines=1  «В каталог»
+        svg  20×20 @76,12
+    li.Card__card#2  352×326 @376,0  r20  b1
+      span.Services__iconBox  52×52 @33,33  r14
+        svg#2  20×20 @16,16
+      h3.Services__cardTitle  80×25 @33,105  Onest 600 21/25  ls0  lines=1  «Монтаж»
+      p.Services__cardText  286×70 @33,140  Manrope 400 15/23  lines=3  «Аккуратная установка «под ключ": штробле»
+      a.Services__link  151×44 @33,249  Manrope 600 15/22  lines=1  «Как это проходит»
+        svg#2  20×20 @131,12
+    li.Card__card#3  352×326 @0,350  r20  b1
+      span.Services__iconBox  52×52 @33,33  r14
+        svg#3  20×20 @16,16
+      h3.Services__cardTitle  150×25 @33,105  Onest 600 21/25  ls0  lines=1  «Обслуживание»
+      p.Services__cardText  286×93 @33,140  Manrope 400 15/23  lines=4  «Чистка, диагностика, антибактериальная о»
+      a.Services__link  148×44 @33,249  Manrope 600 15/22  lines=1  «Сервис и ремонт»
+        svg#3  20×20 @128,12
+
+[геометрия 1200]
+div.Services__container  1200×629 @0,0
+  header.Services__head  640×190 @280,88
+    p.Services__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Что мы делаем —»
+    h2.Services__title  640×91 @0,32  Onest 700 38/46  ls-1  lines=2  «Полный цикл: от подбора до сервиса»
+    p.Services__lead  640×53 @0,137  Manrope 400 17/26  lines=2  «Одна команда закрывает весь путь — вам н»
+  ul.Services__grid  1152×303 @24,326
+    li.Card__card  368×303 @0,0  r20  b1
+      span.Services__iconBox  52×52 @33,33  r14
+        svg  20×20 @16,16
+      h3.Services__cardTitle  91×25 @33,105  Onest 600 21/25  ls0  lines=1  «Продажа»
+      p.Services__cardText  302×70 @33,140  Manrope 400 15/23  lines=3  «Подберём модель под площадь, бюджет и ур»
+      a.Services__link  96×44 @33,226  Manrope 600 15/22  lines=1  «В каталог»
+        svg  20×20 @76,12
+    li.Card__card#2  368×303 @392,0  r20  b1
+      span.Services__iconBox  52×52 @33,33  r14
+        svg#2  20×20 @16,16
+      h3.Services__cardTitle  80×25 @33,105  Onest 600 21/25  ls0  lines=1  «Монтаж»
+      p.Services__cardText  302×70 @33,140  Manrope 400 15/23  lines=3  «Аккуратная установка «под ключ": штробле»
+      a.Services__link  151×44 @33,226  Manrope 600 15/22  lines=1  «Как это проходит»
+        svg#2  20×20 @131,12
+    li.Card__card#3  368×303 @784,0  r20  b1
+      span.Services__iconBox  52×52 @33,33  r14
+        svg#3  20×20 @16,16
+      h3.Services__cardTitle  150×25 @33,105  Onest 600 21/25  ls0  lines=1  «Обслуживание»
+      p.Services__cardText  302×70 @33,140  Manrope 400 15/23  lines=3  «Чистка, диагностика, антибактериальная о»
+      a.Services__link  148×44 @33,226  Manrope 600 15/22  lines=1  «Сервис и ремонт»
+        svg#3  20×20 @128,12
+
+[палитра light]
+div.Services__container
+  header.Services__head
+    p.Services__kicker  color #0e7490
+    h2.Services__title  color #0f172a
+    p.Services__lead  color #556173
+  ul.Services__grid
+    li.Card__card  bg #ffffff  border #e2e8f0
+      span.Services__iconBox  bg #ecfeff
+        svg
+      h3.Services__cardTitle  color #0f172a
+      p.Services__cardText  color #556173
+      a.Services__link  color #0e7490
+        svg
+    li.Card__card#2  bg #ffffff  border #e2e8f0
+      span.Services__iconBox  bg #ecfeff
+        svg#2
+      h3.Services__cardTitle  color #0f172a
+      p.Services__cardText  color #556173
+      a.Services__link  color #0e7490
+        svg#2
+    li.Card__card#3  bg #ffffff  border #e2e8f0
+      span.Services__iconBox  bg #ecfeff
+        svg#3
+      h3.Services__cardTitle  color #0f172a
+      p.Services__cardText  color #556173
+      a.Services__link  color #0e7490
+        svg#3
+
+[палитра dark]
+div.Services__container
+  header.Services__head
+    p.Services__kicker  color #22d3ee
+    h2.Services__title  color #eaf1f8
+    p.Services__lead  color #8598ac
+  ul.Services__grid
+    li.Card__card  bg #121d31  border #1e2b41
+      span.Services__iconBox  bg #22d3ee1a
+        svg
+      h3.Services__cardTitle  color #eaf1f8
+      p.Services__cardText  color #8598ac
+      a.Services__link  color #22d3ee
+        svg
+    li.Card__card#2  bg #121d31  border #1e2b41
+      span.Services__iconBox  bg #22d3ee1a
+        svg#2
+      h3.Services__cardTitle  color #eaf1f8
+      p.Services__cardText  color #8598ac
+      a.Services__link  color #22d3ee
+        svg#2
+    li.Card__card#3  bg #121d31  border #1e2b41
+      span.Services__iconBox  bg #22d3ee1a
+        svg#3
+      h3.Services__cardTitle  color #eaf1f8
+      p.Services__cardText  color #8598ac
+      a.Services__link  color #22d3ee
+        svg#3

@@ -1,0 +1,42 @@
+# ui-kit-card--belts-minimal · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Card__card  358×102 @16,16  r20  b1
+  div.CardBelt__header  356×45 @1,1  b0 0 1 0
+    div.CardBelt__headText  86×20 @16,12
+      h3.CardBelt__title  86×20 @0,0  Onest 700 15/20  ls0  lines=1  «Показатели»
+  div.CardBelt__body  356×55 @1,46  Manrope 400 15/23  lines=1  «Подвала у карточки может не быть вовсе.»
+
+[геометрия 768]
+div.Card__card  736×102 @16,16  r20  b1
+  div.CardBelt__header  734×45 @1,1  b0 0 1 0
+    div.CardBelt__headText  86×20 @16,12
+      h3.CardBelt__title  86×20 @0,0  Onest 700 15/20  ls0  lines=1  «Показатели»
+  div.CardBelt__body  734×55 @1,46  Manrope 400 15/23  lines=1  «Подвала у карточки может не быть вовсе.»
+
+[геометрия 1440]
+div.Card__card  1408×102 @16,16  r20  b1
+  div.CardBelt__header  1406×45 @1,1  b0 0 1 0
+    div.CardBelt__headText  86×20 @16,12
+      h3.CardBelt__title  86×20 @0,0  Onest 700 15/20  ls0  lines=1  «Показатели»
+  div.CardBelt__body  1406×55 @1,46  Manrope 400 15/23  lines=1  «Подвала у карточки может не быть вовсе.»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.CardBelt__header  border #475569 #475569 #e2e8f0 #475569
+    div.CardBelt__headText
+      h3.CardBelt__title  color #0f172a
+  div.CardBelt__body  color #475569
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.CardBelt__header  border #a8b6c6 #a8b6c6 #1e2b41 #a8b6c6
+    div.CardBelt__headText
+      h3.CardBelt__title  color #eaf1f8
+  div.CardBelt__body  color #a8b6c6

@@ -1,0 +1,102 @@
+# ui-kit-rowmenu--open · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.RowMenu__root  44×248 @314,32
+  button.RowMenu__trigger  44×44 @0,0  r100  b1
+    span.RowMenu__dots  16×16 @14,14
+      svg  16×16 @0,0
+  div.RowMenu__menu  200×186 @-156,252  r14  b1
+    div.RowMenu__item  190×44 @5,5  Manrope 400 14/18  r12  lines=1  «Открыть наряд»
+      span.RowMenu__itemIcon  16×16 @10,14
+        svg  16×16 @0,0
+    div.RowMenu__item#2  190×44 @5,49  Manrope 400 14/18  r12  lines=1  «Позвонить клиенту»
+      span.RowMenu__itemIcon  16×16 @10,14
+        svg#2  16×16 @0,0
+    div.RowMenu__item#3  190×44 @5,93  Manrope 400 14/18  r12  lines=1  «Печать наряда»
+      span.RowMenu__itemIcon  16×16 @10,14
+        svg#3  16×16 @0,0
+    div.RowMenu__item#4  190×44 @5,137  Manrope 400 14/18  r12  lines=1  «Отменить наряд»
+      span.RowMenu__itemIcon  16×16 @10,14
+        svg#4  16×16 @0,0
+
+[геометрия 768]
+div.RowMenu__root  44×248 @692,32
+  button.RowMenu__trigger  44×44 @0,0  r100  b1
+    span.RowMenu__dots  16×16 @14,14
+      svg  16×16 @0,0
+  div.RowMenu__menu  200×186 @-156,252  r14  b1
+    div.RowMenu__item  190×44 @5,5  Manrope 400 14/18  r12  lines=1  «Открыть наряд»
+      span.RowMenu__itemIcon  16×16 @10,14
+        svg  16×16 @0,0
+    div.RowMenu__item#2  190×44 @5,49  Manrope 400 14/18  r12  lines=1  «Позвонить клиенту»
+      span.RowMenu__itemIcon  16×16 @10,14
+        svg#2  16×16 @0,0
+    div.RowMenu__item#3  190×44 @5,93  Manrope 400 14/18  r12  lines=1  «Печать наряда»
+      span.RowMenu__itemIcon  16×16 @10,14
+        svg#3  16×16 @0,0
+    div.RowMenu__item#4  190×44 @5,137  Manrope 400 14/18  r12  lines=1  «Отменить наряд»
+      span.RowMenu__itemIcon  16×16 @10,14
+        svg#4  16×16 @0,0
+
+[геометрия 1440]
+div.RowMenu__root  32×248 @1376,32
+  button.RowMenu__trigger  32×32 @0,0  r100  b1
+    span.RowMenu__dots  16×16 @8,8
+      svg  16×16 @0,0
+  div.RowMenu__menu  200×186 @-168,252  r14  b1
+    div.RowMenu__item  190×44 @5,5  Manrope 400 14/18  r12  lines=1  «Открыть наряд»
+      span.RowMenu__itemIcon  16×16 @10,14
+        svg  16×16 @0,0
+    div.RowMenu__item#2  190×44 @5,49  Manrope 400 14/18  r12  lines=1  «Позвонить клиенту»
+      span.RowMenu__itemIcon  16×16 @10,14
+        svg#2  16×16 @0,0
+    div.RowMenu__item#3  190×44 @5,93  Manrope 400 14/18  r12  lines=1  «Печать наряда»
+      span.RowMenu__itemIcon  16×16 @10,14
+        svg#3  16×16 @0,0
+    div.RowMenu__item#4  190×44 @5,137  Manrope 400 14/18  r12  lines=1  «Отменить наряд»
+      span.RowMenu__itemIcon  16×16 @10,14
+        svg#4  16×16 @0,0
+
+[палитра light]
+div.RowMenu__root
+  button.RowMenu__trigger  border transparent
+    span.RowMenu__dots
+      svg
+  div.RowMenu__menu  bg #ffffff  border #e2e8f0  shadow #0f172a0f 0px 0px 30px 0px, #0f172a1f 0px 30px 60px 0px
+    div.RowMenu__item  color #0e7490  bg #ecfeff
+      span.RowMenu__itemIcon
+        svg
+    div.RowMenu__item#2  color #334155
+      span.RowMenu__itemIcon
+        svg#2
+    div.RowMenu__item#3  color #334155
+      span.RowMenu__itemIcon
+        svg#3
+    div.RowMenu__item#4  color #be123c
+      span.RowMenu__itemIcon
+        svg#4
+
+[палитра dark]
+div.RowMenu__root
+  button.RowMenu__trigger  border transparent
+    span.RowMenu__dots
+      svg
+  div.RowMenu__menu  bg #121d31  border #1e2b41  shadow #00000057 0px 0px 30px 0px, #00000075 0px 30px 60px 0px
+    div.RowMenu__item  color #22d3ee  bg #22d3ee1a
+      span.RowMenu__itemIcon
+        svg
+    div.RowMenu__item#2  color #c9d5e2
+      span.RowMenu__itemIcon
+        svg#2
+    div.RowMenu__item#3  color #c9d5e2
+      span.RowMenu__itemIcon
+        svg#3
+    div.RowMenu__item#4  color #fb7185
+      span.RowMenu__itemIcon
+        svg#4

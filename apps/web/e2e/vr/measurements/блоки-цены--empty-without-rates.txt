@@ -1,0 +1,86 @@
+# блоки-цены--empty-without-rates · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.Pricing__section  320×440 @0,0
+  div.Pricing__container  320×440 @0,0
+    header.Pricing__head  288×173 @16,48
+      p.Pricing__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Цены на монтаж —»
+      h2.Pricing__title  288×58 @0,32  Onest 700 24/29  ls0  lines=2  «Стоимость установки кондиционера»
+      p.Pricing__lead  288×70 @0,104  Manrope 400 15/23  lines=3  «Базовый монтаж — кронштейны, медная трас»
+    div.Pricing__money  0×0 @0,0
+      div.Pricing__prices  288×191 @16,249
+        div.Card__card  288×191 @0,0  r20  b1
+          p.Pricing__emptyTitle  246×26 @21,21  Onest 700 17/26  ls0  lines=1  «Прайс пока не заполнен»
+          p.Pricing__emptyText  246×116 @21,53  Manrope 400 15/23  lines=5  «Цены на монтаж появятся здесь, как тольк»
+
+[геометрия 375]
+section.Pricing__section  375×422 @0,0
+  div.Pricing__container  375×422 @0,0
+    header.Pricing__head  343×176 @16,51
+      p.Pricing__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Цены на монтаж —»
+      h2.Pricing__title  343×60 @0,32  Onest 700 25/30  ls0  lines=2  «Стоимость установки кондиционера»
+      p.Pricing__lead  343×70 @0,106  Manrope 400 15/23  lines=3  «Базовый монтаж — кронштейны, медная трас»
+    div.Pricing__money  0×0 @0,0
+      div.Pricing__prices  343×168 @16,254
+        div.Card__card  343×168 @0,0  r20  b1
+          p.Pricing__emptyTitle  301×27 @21,21  Onest 700 17/27  ls0  lines=1  «Прайс пока не заполнен»
+          p.Pricing__emptyText  301×93 @21,54  Manrope 400 15/23  lines=4  «Цены на монтаж появятся здесь, как тольк»
+
+[геометрия 768]
+section.Pricing__section  768×389 @0,0
+  div.Pricing__container  768×389 @0,0
+    header.Pricing__head  640×135 @64,68
+      p.Pricing__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Цены на монтаж —»
+      h2.Pricing__title  640×37 @0,32  Onest 700 31/37  ls-1  lines=1  «Стоимость установки кондиционера»
+      p.Pricing__lead  640×51 @0,83  Manrope 400 17/26  lines=2  «Базовый монтаж — кронштейны, медная трас»
+    div.Pricing__money  0×0 @0,0
+      div.Pricing__prices  728×138 @20,251
+        div.Card__card  620×138 @0,0  r20  b1
+          p.Pricing__emptyTitle  562×28 @29,29  Onest 700 18/28  ls0  lines=1  «Прайс пока не заполнен»
+          p.Pricing__emptyText  562×47 @29,63  Manrope 400 15/23  lines=2  «Цены на монтаж появятся здесь, как тольк»
+
+[геометрия 1200]
+section.Pricing__section  1200×464 @0,0
+  div.Pricing__container  1000×464 @100,0
+    header.Pricing__head  640×188 @180,88
+      p.Pricing__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Цены на монтаж —»
+      h2.Pricing__title  640×91 @0,32  Onest 700 38/46  ls-1  lines=2  «Стоимость установки кондиционера»
+      p.Pricing__lead  640×51 @0,137  Manrope 400 17/26  lines=2  «Базовый монтаж — кронштейны, медная трас»
+    div.Pricing__money  0×0 @-100,0
+      div.Pricing__prices  952×140 @124,324
+        div.Card__card  620×140 @0,0  r20  b1
+          p.Pricing__emptyTitle  562×29 @29,29  Onest 700 19/29  ls0  lines=1  «Прайс пока не заполнен»
+          p.Pricing__emptyText  562×47 @29,64  Manrope 400 15/23  lines=2  «Цены на монтаж появятся здесь, как тольк»
+
+[палитра light]
+section.Pricing__section  bg #ffffff
+  div.Pricing__container
+    header.Pricing__head
+      p.Pricing__kicker  color #0e7490
+      h2.Pricing__title  color #0f172a
+      p.Pricing__lead  color #556173
+    div.Pricing__money
+      div.Pricing__prices
+        div.Card__card  bg #f8fafc  border #eef2f6
+          p.Pricing__emptyTitle  color #0f172a
+          p.Pricing__emptyText  color #556173
+
+[палитра dark]
+section.Pricing__section  bg #0b1220
+  div.Pricing__container
+    header.Pricing__head
+      p.Pricing__kicker  color #22d3ee
+      h2.Pricing__title  color #eaf1f8
+      p.Pricing__lead  color #8598ac
+    div.Pricing__money
+      div.Pricing__prices
+        div.Card__card  bg #0e1729  border #182338
+          p.Pricing__emptyTitle  color #eaf1f8
+          p.Pricing__emptyText  color #8598ac

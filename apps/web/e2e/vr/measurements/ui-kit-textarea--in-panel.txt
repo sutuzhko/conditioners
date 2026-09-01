@@ -1,0 +1,67 @@
+# ui-kit-textarea--in-panel · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  358×106 @16,16
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  textarea.Textarea__textarea  358×106 @0,0  r14  b1
+div.Field__field#2  358×106 @16,138
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  textarea.Textarea__textarea  358×106 @0,0  Manrope 400 14/20  r14  b1  lines=0  «Домофон 34К»
+div.Field__field#3  358×133 @16,261
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  textarea.Textarea__textarea  358×106 @0,0  r14  b1
+  p.Field__error  358×19 @0,113  Manrope 600 13/19  lines=1  «Слишком короткое описание»
+
+[геометрия 768]
+div.Field__field  736×106 @16,16
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  textarea.Textarea__textarea  736×106 @0,0  r14  b1
+div.Field__field#2  736×106 @16,138
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  textarea.Textarea__textarea  736×106 @0,0  Manrope 400 14/20  r14  b1  lines=0  «Домофон 34К»
+div.Field__field#3  736×133 @16,261
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  textarea.Textarea__textarea  736×106 @0,0  r14  b1
+  p.Field__error  736×19 @0,113  Manrope 600 13/19  lines=1  «Слишком короткое описание»
+
+[геометрия 1440]
+div.Field__field  1408×106 @16,16
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  textarea.Textarea__textarea  1408×106 @0,0  r14  b1
+div.Field__field#2  1408×106 @16,138
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  textarea.Textarea__textarea  1408×106 @0,0  Manrope 400 14/20  r14  b1  lines=0  «Домофон 34К»
+div.Field__field#3  1408×133 @16,261
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  textarea.Textarea__textarea  1408×106 @0,0  r14  b1
+  p.Field__error  1408×19 @0,113  Manrope 600 13/19  lines=1  «Слишком короткое описание»
+
+[палитра light]
+div.Field__field
+  label.Field__label  color #556173
+  textarea.Textarea__textarea  bg #f8fafc  border #7e8fa6
+div.Field__field#2
+  label.Field__label  color #556173
+  textarea.Textarea__textarea  color #0f172a  border #7e8fa6
+div.Field__field#3
+  label.Field__label  color #475569
+  textarea.Textarea__textarea  bg #be123c14  border #be123c
+  p.Field__error  color #be123c
+
+[палитра dark]
+div.Field__field
+  label.Field__label  color #8598ac
+  textarea.Textarea__textarea  bg #0e1729  border #566d95
+div.Field__field#2
+  label.Field__label  color #8598ac
+  textarea.Textarea__textarea  color #eaf1f8  border #566d95
+div.Field__field#3
+  label.Field__label  color #a8b6c6
+  textarea.Textarea__textarea  bg #fb71851f  border #fb7185
+  p.Field__error  color #fb7185

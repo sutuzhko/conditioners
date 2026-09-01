@@ -1,0 +1,62 @@
+# админка-журнал-доставки--пустой · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.DeliveryLog__log  358×405 @16,16
+  h2.DeliveryLog__title  358×21 @0,0  Onest 700 17/21  ls0  lines=1  «Доставка уведомлений»
+  p.DeliveryLog__empty  358×45 @0,27  Manrope 400 15/22  lines=2  «Уведомлений ещё не было: заявок с сайта»
+  h2.DeliveryLog__title#2  358×21 @0,90  Onest 700 17/21  ls0  lines=1  «Что не дошло»
+  p.DeliveryLog__hint  358×90 @0,116  Manrope 400 15/22  lines=4  «Причина приходит от самого канала. Испра»
+  p.DeliveryLog__empty#2  358×22 @0,216  Manrope 400 15/22  lines=1  «Сбоев доставки нет.»
+  h2.DeliveryLog__title#3  358×21 @0,256  Onest 700 17/21  ls0  lines=1  «Что ушло людям»
+  p.DeliveryLog__hint#2  358×67 @0,283  Manrope 400 15/22  lines=3  «Копию сообщения монтажнику владелец не п»
+  p.DeliveryLog__empty#3  358×45 @0,360  Manrope 400 15/22  lines=2  «Адресных уведомлений ещё не было: наряды»
+
+[геометрия 768]
+div.DeliveryLog__log  736×296 @16,16
+  h2.DeliveryLog__title  736×22 @0,0  Onest 700 18/22  ls0  lines=1  «Доставка уведомлений»
+  p.DeliveryLog__empty  736×22 @0,28  Manrope 400 15/22  lines=1  «Уведомлений ещё не было: заявок с сайта»
+  h2.DeliveryLog__title#2  736×22 @0,68  Onest 700 18/22  ls0  lines=1  «Что не дошло»
+  p.DeliveryLog__hint  637×45 @0,96  Manrope 400 15/22  lines=2  «Причина приходит от самого канала. Испра»
+  p.DeliveryLog__empty#2  736×22 @0,151  Manrope 400 15/22  lines=1  «Сбоев доставки нет.»
+  h2.DeliveryLog__title#3  736×22 @0,191  Onest 700 18/22  ls0  lines=1  «Что ушло людям»
+  p.DeliveryLog__hint#2  637×45 @0,219  Manrope 400 15/22  lines=2  «Копию сообщения монтажнику владелец не п»
+  p.DeliveryLog__empty#3  736×22 @0,274  Manrope 400 15/22  lines=1  «Адресных уведомлений ещё не было: наряды»
+
+[геометрия 1440]
+div.DeliveryLog__log  1408×300 @16,16
+  h2.DeliveryLog__title  1408×23 @0,0  Onest 700 19/23  ls0  lines=1  «Доставка уведомлений»
+  p.DeliveryLog__empty  1408×22 @0,29  Manrope 400 15/22  lines=1  «Уведомлений ещё не было: заявок с сайта»
+  h2.DeliveryLog__title#2  1408×23 @0,69  Onest 700 19/23  ls0  lines=1  «Что не дошло»
+  p.DeliveryLog__hint  637×45 @0,98  Manrope 400 15/22  lines=2  «Причина приходит от самого канала. Испра»
+  p.DeliveryLog__empty#2  1408×22 @0,153  Manrope 400 15/22  lines=1  «Сбоев доставки нет.»
+  h2.DeliveryLog__title#3  1408×23 @0,193  Onest 700 19/23  ls0  lines=1  «Что ушло людям»
+  p.DeliveryLog__hint#2  637×45 @0,222  Manrope 400 15/22  lines=2  «Копию сообщения монтажнику владелец не п»
+  p.DeliveryLog__empty#3  1408×22 @0,277  Manrope 400 15/22  lines=1  «Адресных уведомлений ещё не было: наряды»
+
+[палитра light]
+div.DeliveryLog__log
+  h2.DeliveryLog__title  color #0f172a
+  p.DeliveryLog__empty  color #556173
+  h2.DeliveryLog__title#2  color #0f172a
+  p.DeliveryLog__hint  color #556173
+  p.DeliveryLog__empty#2  color #556173
+  h2.DeliveryLog__title#3  color #0f172a
+  p.DeliveryLog__hint#2  color #556173
+  p.DeliveryLog__empty#3  color #556173
+
+[палитра dark]
+div.DeliveryLog__log
+  h2.DeliveryLog__title  color #eaf1f8
+  p.DeliveryLog__empty  color #8598ac
+  h2.DeliveryLog__title#2  color #eaf1f8
+  p.DeliveryLog__hint  color #8598ac
+  p.DeliveryLog__empty#2  color #8598ac
+  h2.DeliveryLog__title#3  color #eaf1f8
+  p.DeliveryLog__hint#2  color #8598ac
+  p.DeliveryLog__empty#3  color #8598ac

@@ -1,0 +1,170 @@
+# блоки-почему-нас-выбирают--warranty-only · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+div.WhyUs__container  320×677 @0,0
+  div.WhyUs__panel  288×629 @16,48  r28  clipped
+    span.WhyUs__glow  288×360 @60,-80  r50
+    div.WhyUs__inner  248×573 @20,28
+      h2.WhyUs__title  248×58 @0,0  Onest 700 24/29  ls0  lines=2  «Почему в Туле выбирают нас»
+      ul.WhyUs__reasons  248×488 @0,86
+        li.WhyUs__reason  248×96 @0,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  228×20 @20,0  Onest 700 17/20  ls0  lines=1  «Фиксированная смета»
+          p.WhyUs__reasonText  228×67 @20,28  Manrope 400 15/22  lines=3  «Считаем стоимость заранее и фиксируем в»
+        li.WhyUs__reason#2  248×96 @0,120  b0 0 0 2
+          h3.WhyUs__reasonTitle  228×20 @20,0  Onest 700 17/20  ls0  lines=1  «Свои монтажники»
+          p.WhyUs__reasonText  228×67 @20,28  Manrope 400 15/22  lines=3  «Работают штатные бригады, а не случайные»
+        li.WhyUs__reason#3  248×128 @0,240  b0 0 0 2
+          h3.WhyUs__reasonTitle  228×20 @20,0  Onest 700 17/20  ls0  lines=1  «Гарантия по договору»
+          dl.WhyUs__terms  228×45 @20,28
+            div.WhyUs__term  228×22 @0,0
+              dt.WhyUs__termLabel  73×22 @0,0  Manrope 400 15/22  lines=1  «На монтаж»
+              dd.WhyUs__termValue  45×22 @81,0  Onest 700 15/22  lines=1  «3 года»
+            div.WhyUs__term#2  228×22 @0,22
+              dt.WhyUs__termLabel  121×22 @0,0  Manrope 400 15/22  lines=1  «На оборудование»
+              dd.WhyUs__termValue  34×22 @129,0  Onest 700 15/22  lines=1  «1 год»
+          p.WhyUs__reasonText  228×45 @20,83  Manrope 400 15/22  lines=2  «Приезжаем и исправляем по гарантии беспл»
+        li.WhyUs__reason#4  248×96 @0,392  b0 0 0 2
+          h3.WhyUs__reasonTitle  228×20 @20,0  Onest 700 17/20  ls0  lines=1  «Чисто и быстро»
+          p.WhyUs__reasonText  228×67 @20,28  Manrope 400 15/22  lines=3  «Пылесос, защитная плёнка, вынос мусора.»
+
+[геометрия 375]
+div.WhyUs__container  375×658 @0,0
+  div.WhyUs__panel  343×607 @16,51  r28  clipped
+    span.WhyUs__glow  343×360 @60,-80  r50
+    div.WhyUs__inner  303×551 @20,28
+      h2.WhyUs__title  303×58 @0,0  Onest 700 24/29  ls0  lines=2  «Почему в Туле выбирают нас»
+      ul.WhyUs__reasons  303×466 @0,86
+        li.WhyUs__reason  303×96 @0,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  283×21 @20,0  Onest 700 17/21  ls0  lines=1  «Фиксированная смета»
+          p.WhyUs__reasonText  283×67 @20,29  Manrope 400 15/22  lines=3  «Считаем стоимость заранее и фиксируем в»
+        li.WhyUs__reason#2  303×96 @0,120  b0 0 0 2
+          h3.WhyUs__reasonTitle  283×21 @20,0  Onest 700 17/21  ls0  lines=1  «Свои монтажники»
+          p.WhyUs__reasonText  283×67 @20,29  Manrope 400 15/22  lines=3  «Работают штатные бригады, а не случайные»
+        li.WhyUs__reason#3  303×128 @0,240  b0 0 0 2
+          h3.WhyUs__reasonTitle  283×21 @20,0  Onest 700 17/21  ls0  lines=1  «Гарантия по договору»
+          dl.WhyUs__terms  283×45 @20,29
+            div.WhyUs__term  283×22 @0,0
+              dt.WhyUs__termLabel  73×22 @0,0  Manrope 400 15/22  lines=1  «На монтаж»
+              dd.WhyUs__termValue  45×22 @81,0  Onest 700 15/22  lines=1  «3 года»
+            div.WhyUs__term#2  283×22 @0,22
+              dt.WhyUs__termLabel  121×22 @0,0  Manrope 400 15/22  lines=1  «На оборудование»
+              dd.WhyUs__termValue  34×22 @129,0  Onest 700 15/22  lines=1  «1 год»
+          p.WhyUs__reasonText  283×45 @20,83  Manrope 400 15/22  lines=2  «Приезжаем и исправляем по гарантии беспл»
+        li.WhyUs__reason#4  303×73 @0,392  b0 0 0 2
+          h3.WhyUs__reasonTitle  283×21 @20,0  Onest 700 17/21  ls0  lines=1  «Чисто и быстро»
+          p.WhyUs__reasonText  283×45 @20,29  Manrope 400 15/22  lines=2  «Пылесос, защитная плёнка, вынос мусора.»
+
+[геометрия 768]
+div.WhyUs__container  768×476 @0,0
+  div.WhyUs__panel  728×408 @20,68  r28  clipped
+    span.WhyUs__glow  360×360 @428,-80  r50
+    div.WhyUs__inner  666×331 @31,38
+      h2.WhyUs__title  520×41 @0,0  Onest 700 34/41  ls-1  lines=1  «Почему в Туле выбирают нас»
+      ul.WhyUs__reasons  666×251 @0,81
+        li.WhyUs__reason  323×97 @0,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  303×22 @20,0  Onest 700 18/22  ls0  lines=1  «Фиксированная смета»
+          p.WhyUs__reasonText  303×45 @20,30  Manrope 400 15/22  lines=2  «Считаем стоимость заранее и фиксируем в»
+        li.WhyUs__reason#2  323×97 @343,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  303×22 @20,0  Onest 700 18/22  ls0  lines=1  «Свои монтажники»
+          p.WhyUs__reasonText  303×67 @20,30  Manrope 400 15/22  lines=3  «Работают штатные бригады, а не случайные»
+        li.WhyUs__reason#3  323×129 @0,121  b0 0 0 2
+          h3.WhyUs__reasonTitle  303×22 @20,0  Onest 700 18/22  ls0  lines=1  «Гарантия по договору»
+          dl.WhyUs__terms  303×45 @20,30
+            div.WhyUs__term  303×22 @0,0
+              dt.WhyUs__termLabel  73×22 @0,0  Manrope 400 15/22  lines=1  «На монтаж»
+              dd.WhyUs__termValue  45×22 @81,0  Onest 700 15/22  lines=1  «3 года»
+            div.WhyUs__term#2  303×22 @0,22
+              dt.WhyUs__termLabel  121×22 @0,0  Manrope 400 15/22  lines=1  «На оборудование»
+              dd.WhyUs__termValue  34×22 @129,0  Onest 700 15/22  lines=1  «1 год»
+          p.WhyUs__reasonText  303×45 @20,85  Manrope 400 15/22  lines=2  «Приезжаем и исправляем по гарантии беспл»
+        li.WhyUs__reason#4  323×129 @343,121  b0 0 0 2
+          h3.WhyUs__reasonTitle  303×22 @20,0  Onest 700 18/22  ls0  lines=1  «Чисто и быстро»
+          p.WhyUs__reasonText  303×45 @20,30  Manrope 400 15/22  lines=2  «Пылесос, защитная плёнка, вынос мусора.»
+
+[геометрия 1200]
+div.WhyUs__container  1200×411 @0,0
+  div.WhyUs__panel  1152×323 @24,88  r28  clipped
+    span.WhyUs__glow  360×360 @852,-80  r50
+    div.WhyUs__inner  1056×211 @48,56
+      h2.WhyUs__title  520×41 @0,0  Onest 700 34/41  ls-1  lines=1  «Почему в Туле выбирают нас»
+      ul.WhyUs__reasons  1056×131 @0,81
+        li.WhyUs__reason  249×131 @0,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  229×23 @20,0  Onest 700 19/23  ls0  lines=1  «Фиксированная смета»
+          p.WhyUs__reasonText  229×67 @20,31  Manrope 400 15/22  lines=3  «Считаем стоимость заранее и фиксируем в»
+        li.WhyUs__reason#2  249×131 @269,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  229×23 @20,0  Onest 700 19/23  ls0  lines=1  «Свои монтажники»
+          p.WhyUs__reasonText  229×67 @20,31  Manrope 400 15/22  lines=3  «Работают штатные бригады, а не случайные»
+        li.WhyUs__reason#3  249×131 @538,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  229×23 @20,0  Onest 700 19/23  ls0  lines=1  «Гарантия по договору»
+          dl.WhyUs__terms  229×45 @20,31
+            div.WhyUs__term  229×22 @0,0
+              dt.WhyUs__termLabel  73×22 @0,0  Manrope 400 15/22  lines=1  «На монтаж»
+              dd.WhyUs__termValue  45×22 @81,0  Onest 700 15/22  lines=1  «3 года»
+            div.WhyUs__term#2  229×22 @0,22
+              dt.WhyUs__termLabel  121×22 @0,0  Manrope 400 15/22  lines=1  «На оборудование»
+              dd.WhyUs__termValue  34×22 @129,0  Onest 700 15/22  lines=1  «1 год»
+          p.WhyUs__reasonText  229×45 @20,86  Manrope 400 15/22  lines=2  «Приезжаем и исправляем по гарантии беспл»
+        li.WhyUs__reason#4  249×131 @807,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  229×23 @20,0  Onest 700 19/23  ls0  lines=1  «Чисто и быстро»
+          p.WhyUs__reasonText  229×67 @20,31  Manrope 400 15/22  lines=3  «Пылесос, защитная плёнка, вынос мусора.»
+
+[палитра light]
+div.WhyUs__container
+  div.WhyUs__panel  bg #0f172a
+    span.WhyUs__glow  gradient radial-gradient(circle, color(srgb 0.133333 0.827451 0.933333 / 0.18), transparent 70%)
+    div.WhyUs__inner
+      h2.WhyUs__title  color #ffffff
+      ul.WhyUs__reasons
+        li.WhyUs__reason  border #0f172a #0f172a #0f172a #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)
+        li.WhyUs__reason#2  border #0f172a #0f172a #0f172a #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)
+        li.WhyUs__reason#3  border #0f172a #0f172a #0f172a #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          dl.WhyUs__terms
+            div.WhyUs__term
+              dt.WhyUs__termLabel  color color(srgb 1 1 1 / 0.62)
+              dd.WhyUs__termValue  color #ffffff
+            div.WhyUs__term#2
+              dt.WhyUs__termLabel  color color(srgb 1 1 1 / 0.62)
+              dd.WhyUs__termValue  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)
+        li.WhyUs__reason#4  border #0f172a #0f172a #0f172a #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)
+
+[палитра dark]
+div.WhyUs__container
+  div.WhyUs__panel  bg #111d34
+    span.WhyUs__glow  gradient radial-gradient(circle, color(srgb 0.133333 0.827451 0.933333 / 0.18), transparent 70%)
+    div.WhyUs__inner
+      h2.WhyUs__title  color #ffffff
+      ul.WhyUs__reasons
+        li.WhyUs__reason  border #eaf1f8 #eaf1f8 #eaf1f8 #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)
+        li.WhyUs__reason#2  border #eaf1f8 #eaf1f8 #eaf1f8 #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)
+        li.WhyUs__reason#3  border #eaf1f8 #eaf1f8 #eaf1f8 #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          dl.WhyUs__terms
+            div.WhyUs__term
+              dt.WhyUs__termLabel  color color(srgb 1 1 1 / 0.62)
+              dd.WhyUs__termValue  color #ffffff
+            div.WhyUs__term#2
+              dt.WhyUs__termLabel  color color(srgb 1 1 1 / 0.62)
+              dd.WhyUs__termValue  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)
+        li.WhyUs__reason#4  border #eaf1f8 #eaf1f8 #eaf1f8 #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)

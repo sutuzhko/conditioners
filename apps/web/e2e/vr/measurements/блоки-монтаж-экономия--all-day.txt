@@ -1,0 +1,536 @@
+# блоки-монтаж-экономия--all-day · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 500, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+320 → 320×1558
+375 → 375×1395
+768 → 768×1041
+1200 → 1200×900
+
+[геометрия 320]
+section.SavingsBlock__section  320×1558 @0,0
+  div.SavingsBlock__container  320×1558 @0,0
+    header.SavingsBlock__intro  288×264 @16,48
+      p.SavingsBlock__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Помощь в выборе —»
+      h2.SavingsBlock__title  288×86 @0,32  Onest 700 24/29  ls0  lines=3  «Инверторный кондиционер окупает себя»
+      p.SavingsBlock__lead  288×132 @0,133  Manrope 400 17/26  lines=5  «Посчитайте, сколько вы сэкономите на эле»
+        a.SavingsBlock__articleLink  188×23 @77,106  Manrope 600 17/26  lines=1  ««Инвертор или on/off"»
+    div.SavingsCalculator__grid  288×939 @16,340
+      div.Card__card  288×561 @0,0  r22  b1
+        p.SavingsCalculator__gridHead  242×48 @23,23
+          span.SavingsCalculator__gridLabel  186×48 @0,0  Manrope 700 16/24  lines=2  «Когда работает кондиционер»
+          output.SavingsCalculator__gridTotal  44×34 @198,7  Onest 700 22/34  lines=1  «24 ч»
+        div.HoursGrid__grid  242×158 @23,85
+          span.HoursGrid__mark  22×18 @0,4  JetBrains Mono 400 12/18  lines=1  «00»
+          button.HoursGrid__cell  32×26 @27,0  r7
+          button.HoursGrid__cell#2  32×26 @64,0  r7
+          button.HoursGrid__cell#3  32×26 @100,0  r7
+          button.HoursGrid__cell#4  32×26 @137,0  r7
+          button.HoursGrid__cell#5  32×26 @174,0  r7
+          button.HoursGrid__cell#6  32×26 @210,0  r7
+          span.HoursGrid__mark#2  22×18 @0,48  JetBrains Mono 400 12/18  lines=1  «06»
+          button.HoursGrid__cell#7  32×26 @27,44  r7
+          button.HoursGrid__cell#8  32×26 @64,44  r7
+          button.HoursGrid__cell#9  32×26 @100,44  r7
+          button.HoursGrid__cell#10  32×26 @137,44  r7
+          button.HoursGrid__cell#11  32×26 @174,44  r7
+          button.HoursGrid__cell#12  32×26 @210,44  r7
+          span.HoursGrid__mark#3  22×18 @0,92  JetBrains Mono 400 12/18  lines=1  «12»
+          button.HoursGrid__cell#13  32×26 @27,88  r7
+          button.HoursGrid__cell#14  32×26 @64,88  r7
+          button.HoursGrid__cell#15  32×26 @100,88  r7
+          button.HoursGrid__cell#16  32×26 @137,88  r7
+          button.HoursGrid__cell#17  32×26 @174,88  r7
+          button.HoursGrid__cell#18  32×26 @210,88  r7
+          span.HoursGrid__mark#4  22×18 @0,136  JetBrains Mono 400 12/18  lines=1  «18»
+          button.HoursGrid__cell#19  32×26 @27,132  r7
+          button.HoursGrid__cell#20  32×26 @64,132  r7
+          button.HoursGrid__cell#21  32×26 @100,132  r7
+          button.HoursGrid__cell#22  32×26 @137,132  r7
+          button.HoursGrid__cell#23  32×26 @174,132  r7
+          button.HoursGrid__cell#24  32×26 @210,132  r7
+        p  1×1 @22,242  Manrope 400 15/23  lines=1  clipped  «Кликните или проведите мышью по часам, к»
+        p.SavingsCalculator__tariffHead  242×88 @23,273
+          span.SavingsCalculator__gridLabel  48×24 @0,0  Manrope 700 16/24  lines=1  «Тариф»
+          span.SavingsCalculator__modes  242×52 @0,36  r14  b1
+            button.Button__button  115×44 @4,4  r9  b1
+              span.Button__content  48×16 @33,14
+                span.Button__label  48×16 @0,0  Manrope 600 13/16  lines=1  «Единый»
+            button.Button__button#2  115×44 @123,4  r9  b1
+              span.Button__content  74×16 @21,14
+                span.Button__label#2  74×16 @0,0  Manrope 600 13/16  lines=1  «День / ночь»
+        div.SavingsCalculator__sliders  242×163 @23,375
+          div.Field__field  242×73 @0,0
+            span.RangeSlider__head  242×22 @0,0
+              label  85×19 @0,1  Manrope 500 13/19  lines=1  «Единый тариф»
+              output.RangeSlider__value  77×22 @165,0  Onest 700 14/22  lines=1  «6,5 ₽/кВт·ч»
+            input.RangeSlider__slider  242×44 @0,29
+          div.Field__field#2  242×73 @0,91
+            span.RangeSlider__head  242×22 @0,0
+              label#2  89×19 @0,1  Manrope 500 13/19  lines=1  «Ночью (23–07)»
+              output.RangeSlider__value#2  74×22 @168,0  Onest 700 14/22  lines=1  «3,1 ₽/кВт·ч»
+            input.RangeSlider__slider  242×44 @0,29
+      div.Card__card#2  288×357 @0,581  r22  b1
+        div.SavingsCalculator__row  242×69 @23,23
+          p.SavingsCalculator__rowHead  242×53 @0,0
+            span.SavingsCalculator__rowLabel  106×22 @0,0  Manrope 400 15/22  lines=1  «Обычный on/off»
+            span.SavingsCalculator__rowValue  149×26 @93,26  Onest 700 17/26  lines=1  «≈ 14 040 ₽/сезон»
+          span.SavingsCalculator__bar  242×8 @0,61  r100
+            span.SavingsCalculator__fill  242×8 @0,0  r100
+        div.SavingsCalculator__row#2  242×69 @23,114
+          p.SavingsCalculator__rowHead  242×53 @0,0
+            span.SavingsCalculator__rowLabel#2  94×22 @0,0  Manrope 400 15/22  lines=1  «Инверторный»
+            span.SavingsCalculator__rowValue#2  137×26 @105,26  Onest 700 17/26  lines=1  «≈ 8 705 ₽/сезон»
+          span.SavingsCalculator__bar  242×8 @0,61  r100
+            span.SavingsCalculator__fill#2  150×8 @0,0  r100
+        div.Card__card  242×130 @23,205  r20  b1
+          p.SavingsCalculator__totalLine  200×61 @21,21
+            span.SavingsCalculator__totalLabel  114×23 @0,0  Manrope 400 15/23  lines=1  «Ваша экономия:»
+            span.SavingsCalculator__totalValue  178×34 @22,27  Onest 700 22/34  lines=1  «≈ 5 335 ₽/сезон»
+          p.SavingsCalculator__totalHorizon  200×22 @21,86  Manrope 400 15/22  lines=1  «≈ 26 676 ₽ за 5 лет»
+    p.SavingsBlock__disclaimer  288×255 @16,1303  Manrope 400 15/23  lines=11  «Это прикидка, а не расчёт по счётчику. Р»
+
+[геометрия 375]
+section.SavingsBlock__section  375×1395 @0,0
+  div.SavingsBlock__container  375×1395 @0,0
+    header.SavingsBlock__intro  343×211 @16,51
+      p.SavingsBlock__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Помощь в выборе —»
+      h2.SavingsBlock__title  343×60 @0,32  Onest 700 25/30  ls0  lines=2  «Инверторный кондиционер окупает себя»
+      p.SavingsBlock__lead  343×105 @0,106  Manrope 400 17/26  lines=4  «Посчитайте, сколько вы сэкономите на эле»
+        a.SavingsBlock__articleLink  188×23 @105,80  Manrope 600 17/26  lines=1  ««Инвертор или on/off"»
+    div.SavingsCalculator__grid  343×873 @16,290
+      div.Card__card  343×548 @0,0  r22  b1
+        p.SavingsCalculator__gridHead  297×34 @23,23
+          span.SavingsCalculator__gridLabel  227×24 @0,5  Manrope 700 16/24  lines=1  «Когда работает кондиционер»
+          output.SavingsCalculator__gridTotal  44×34 @253,0  Onest 700 22/34  lines=1  «24 ч»
+        div.HoursGrid__grid  297×158 @23,71
+          span.HoursGrid__mark  22×18 @0,4  JetBrains Mono 400 12/18  lines=1  «00»
+          button.HoursGrid__cell  41×26 @27,0  r7
+          button.HoursGrid__cell#2  41×26 @73,0  r7
+          button.HoursGrid__cell#3  41×26 @119,0  r7
+          button.HoursGrid__cell#4  41×26 @164,0  r7
+          button.HoursGrid__cell#5  41×26 @210,0  r7
+          button.HoursGrid__cell#6  41×26 @256,0  r7
+          span.HoursGrid__mark#2  22×18 @0,48  JetBrains Mono 400 12/18  lines=1  «06»
+          button.HoursGrid__cell#7  41×26 @27,44  r7
+          button.HoursGrid__cell#8  41×26 @73,44  r7
+          button.HoursGrid__cell#9  41×26 @119,44  r7
+          button.HoursGrid__cell#10  41×26 @164,44  r7
+          button.HoursGrid__cell#11  41×26 @210,44  r7
+          button.HoursGrid__cell#12  41×26 @256,44  r7
+          span.HoursGrid__mark#3  22×18 @0,92  JetBrains Mono 400 12/18  lines=1  «12»
+          button.HoursGrid__cell#13  41×26 @27,88  r7
+          button.HoursGrid__cell#14  41×26 @73,88  r7
+          button.HoursGrid__cell#15  41×26 @119,88  r7
+          button.HoursGrid__cell#16  41×26 @164,88  r7
+          button.HoursGrid__cell#17  41×26 @210,88  r7
+          button.HoursGrid__cell#18  41×26 @256,88  r7
+          span.HoursGrid__mark#4  22×18 @0,136  JetBrains Mono 400 12/18  lines=1  «18»
+          button.HoursGrid__cell#19  41×26 @27,132  r7
+          button.HoursGrid__cell#20  41×26 @73,132  r7
+          button.HoursGrid__cell#21  41×26 @119,132  r7
+          button.HoursGrid__cell#22  41×26 @164,132  r7
+          button.HoursGrid__cell#23  41×26 @210,132  r7
+          button.HoursGrid__cell#24  41×26 @256,132  r7
+        p  1×1 @22,228  Manrope 400 15/23  lines=1  clipped  «Кликните или проведите мышью по часам, к»
+        p.SavingsCalculator__tariffHead  297×88 @23,259
+          span.SavingsCalculator__gridLabel  48×24 @0,0  Manrope 700 16/24  lines=1  «Тариф»
+          span.SavingsCalculator__modes  297×52 @0,36  r14  b1
+            button.Button__button  143×44 @4,4  r9  b1
+              span.Button__content  48×16 @47,14
+                span.Button__label  48×16 @0,0  Manrope 600 13/16  lines=1  «Единый»
+            button.Button__button#2  143×44 @151,4  r9  b1
+              span.Button__content  74×16 @34,14
+                span.Button__label#2  74×16 @0,0  Manrope 600 13/16  lines=1  «День / ночь»
+        div.SavingsCalculator__sliders  297×163 @23,361
+          div.Field__field  297×73 @0,0
+            span.RangeSlider__head  297×22 @0,0
+              label  85×19 @0,1  Manrope 500 13/19  lines=1  «Единый тариф»
+              output.RangeSlider__value  77×22 @220,0  Onest 700 14/22  lines=1  «6,5 ₽/кВт·ч»
+            input.RangeSlider__slider  297×44 @0,29
+          div.Field__field#2  297×73 @0,91
+            span.RangeSlider__head  297×22 @0,0
+              label#2  89×19 @0,1  Manrope 500 13/19  lines=1  «Ночью (23–07)»
+              output.RangeSlider__value#2  74×22 @223,0  Onest 700 14/22  lines=1  «3,1 ₽/кВт·ч»
+            input.RangeSlider__slider  297×44 @0,29
+      div.Card__card#2  343×305 @0,568  r22  b1
+        div.SavingsCalculator__row  297×42 @23,23
+          p.SavingsCalculator__rowHead  297×26 @0,0
+            span.SavingsCalculator__rowLabel  106×22 @0,2  Manrope 400 15/22  lines=1  «Обычный on/off»
+            span.SavingsCalculator__rowValue  149×26 @148,0  Onest 700 17/26  lines=1  «≈ 14 040 ₽/сезон»
+          span.SavingsCalculator__bar  297×8 @0,34  r100
+            span.SavingsCalculator__fill  297×8 @0,0  r100
+        div.SavingsCalculator__row#2  297×42 @23,87
+          p.SavingsCalculator__rowHead  297×26 @0,0
+            span.SavingsCalculator__rowLabel#2  94×22 @0,2  Manrope 400 15/22  lines=1  «Инверторный»
+            span.SavingsCalculator__rowValue#2  137×26 @160,0  Onest 700 17/26  lines=1  «≈ 8 705 ₽/сезон»
+          span.SavingsCalculator__bar  297×8 @0,34  r100
+            span.SavingsCalculator__fill#2  184×8 @0,0  r100
+        div.Card__card  297×130 @23,152  r20  b1
+          p.SavingsCalculator__totalLine  255×62 @21,21
+            span.SavingsCalculator__totalLabel  114×23 @0,0  Manrope 400 15/23  lines=1  «Ваша экономия:»
+            span.SavingsCalculator__totalValue  181×35 @74,27  Onest 700 22/35  lines=1  «≈ 5 335 ₽/сезон»
+          p.SavingsCalculator__totalHorizon  255×22 @21,87  Manrope 400 15/22  lines=1  «≈ 26 676 ₽ за 5 лет»
+    p.SavingsBlock__disclaimer  343×209 @16,1186  Manrope 400 15/23  lines=9  «Это прикидка, а не расчёт по счётчику. Р»
+
+[геометрия 768]
+section.SavingsBlock__section  768×1041 @0,0
+  div.SavingsBlock__container  768×1041 @0,0
+    header.SavingsBlock__intro  660×136 @54,68
+      p.SavingsBlock__kicker  660×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Помощь в выборе —»
+      h2.SavingsBlock__title  660×37 @0,32  Onest 700 31/37  ls-1  lines=1  «Инверторный кондиционер окупает себя»
+      p.SavingsBlock__lead  660×53 @0,83  Manrope 400 17/26  lines=2  «Посчитайте, сколько вы сэкономите на эле»
+        a.SavingsBlock__articleLink  188×23 @425,27  Manrope 600 17/26  lines=1  ««Инвертор или on/off"»
+    div.SavingsCalculator__grid  728×676 @20,249
+      div.Card__card  728×354 @0,0  r22  b1
+        p.SavingsCalculator__gridHead  662×34 @33,33
+          span.SavingsCalculator__gridLabel  227×24 @0,5  Manrope 700 16/24  lines=1  «Когда работает кондиционер»
+          output.SavingsCalculator__gridTotal  44×34 @618,0  Onest 700 22/34  lines=1  «24 ч»
+        div.HoursGrid__grid  662×71 @33,81
+          span.HoursGrid__mark  22×18 @0,5  JetBrains Mono 400 12/18  lines=1  «00»
+          button.HoursGrid__cell  48×27 @27,0  r7
+          button.HoursGrid__cell#2  48×27 @80,0  r7
+          button.HoursGrid__cell#3  48×27 @134,0  r7
+          button.HoursGrid__cell#4  48×27 @187,0  r7
+          button.HoursGrid__cell#5  48×27 @240,0  r7
+          button.HoursGrid__cell#6  48×27 @294,0  r7
+          button.HoursGrid__cell#7  48×27 @347,0  r7
+          button.HoursGrid__cell#8  48×27 @400,0  r7
+          button.HoursGrid__cell#9  48×27 @454,0  r7
+          button.HoursGrid__cell#10  48×27 @507,0  r7
+          button.HoursGrid__cell#11  48×27 @560,0  r7
+          button.HoursGrid__cell#12  48×27 @614,0  r7
+          span.HoursGrid__mark#2  22×18 @0,49  JetBrains Mono 400 12/18  lines=1  «12»
+          button.HoursGrid__cell#13  48×27 @27,44  r7
+          button.HoursGrid__cell#14  48×27 @80,44  r7
+          button.HoursGrid__cell#15  48×27 @134,44  r7
+          button.HoursGrid__cell#16  48×27 @187,44  r7
+          button.HoursGrid__cell#17  48×27 @240,44  r7
+          button.HoursGrid__cell#18  48×27 @294,44  r7
+          button.HoursGrid__cell#19  48×27 @347,44  r7
+          button.HoursGrid__cell#20  48×27 @400,44  r7
+          button.HoursGrid__cell#21  48×27 @454,44  r7
+          button.HoursGrid__cell#22  48×27 @507,44  r7
+          button.HoursGrid__cell#23  48×27 @560,44  r7
+          button.HoursGrid__cell#24  48×27 @614,44  r7
+        p  1×1 @32,151  Manrope 400 15/23  lines=1  clipped  «Кликните или проведите мышью по часам, к»
+        p.SavingsCalculator__tariffHead  662×52 @33,182
+          span.SavingsCalculator__gridLabel  48×24 @0,14  Manrope 700 16/24  lines=1  «Тариф»
+          span.SavingsCalculator__modes  194×52 @468,0  r14  b1
+            button.Button__button  78×44 @4,4  r9  b1
+              span.Button__content  48×16 @15,14
+                span.Button__label  48×16 @0,0  Manrope 600 13/16  lines=1  «Единый»
+            button.Button__button#2  104×44 @86,4  r9  b1
+              span.Button__content  74×16 @15,14
+                span.Button__label#2  74×16 @0,0  Manrope 600 13/16  lines=1  «День / ночь»
+        div.SavingsCalculator__sliders  662×73 @33,248
+          div.Field__field  322×73 @0,0
+            span.RangeSlider__head  322×22 @0,0
+              label  85×19 @0,1  Manrope 500 13/19  lines=1  «Единый тариф»
+              output.RangeSlider__value  77×22 @245,0  Onest 700 14/22  lines=1  «6,5 ₽/кВт·ч»
+            input.RangeSlider__slider  322×44 @0,29
+          div.Field__field#2  322×73 @340,0
+            span.RangeSlider__head  322×22 @0,0
+              label#2  89×19 @0,1  Manrope 500 13/19  lines=1  «Ночью (23–07)»
+              output.RangeSlider__value#2  74×22 @248,0  Onest 700 14/22  lines=1  «3,1 ₽/кВт·ч»
+            input.RangeSlider__slider  322×44 @0,29
+      div.Card__card#2  728×302 @0,374  r22  b1
+        div.SavingsCalculator__row  662×42 @33,33
+          p.SavingsCalculator__rowHead  662×26 @0,0
+            span.SavingsCalculator__rowLabel  106×22 @0,2  Manrope 400 15/22  lines=1  «Обычный on/off»
+            span.SavingsCalculator__rowValue  149×26 @513,0  Onest 700 17/26  lines=1  «≈ 14 040 ₽/сезон»
+          span.SavingsCalculator__bar  662×8 @0,34  r100
+            span.SavingsCalculator__fill  662×8 @0,0  r100
+        div.SavingsCalculator__row#2  662×42 @33,97
+          p.SavingsCalculator__rowHead  662×26 @0,0
+            span.SavingsCalculator__rowLabel#2  94×22 @0,2  Manrope 400 15/22  lines=1  «Инверторный»
+            span.SavingsCalculator__rowValue#2  137×26 @525,0  Onest 700 17/26  lines=1  «≈ 8 705 ₽/сезон»
+          span.SavingsCalculator__bar  662×8 @0,34  r100
+            span.SavingsCalculator__fill#2  410×8 @0,0  r100
+        div.Card__card  662×107 @33,162  r20  b1
+          p.SavingsCalculator__totalLine  620×39 @21,21
+            span.SavingsCalculator__totalLabel  114×23 @0,10  Manrope 400 15/23  lines=1  «Ваша экономия:»
+            span.SavingsCalculator__totalValue  202×39 @417,0  Onest 700 25/39  lines=1  «≈ 5 335 ₽/сезон»
+          p.SavingsCalculator__totalHorizon  620×22 @21,64  Manrope 400 15/22  lines=1  «≈ 26 676 ₽ за 5 лет»
+    p.SavingsBlock__disclaimer  728×93 @20,948  Manrope 400 15/23  lines=4  «Это прикидка, а не расчёт по счётчику. Р»
+
+[геометрия 1200]
+section.SavingsBlock__section  1200×799 @0,0
+  div.SavingsBlock__container  1080×799 @60,0
+    header.SavingsBlock__intro  660×190 @210,88
+      p.SavingsBlock__kicker  660×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Помощь в выборе —»
+      h2.SavingsBlock__title  660×91 @0,32  Onest 700 38/46  ls-1  lines=2  «Инверторный кондиционер окупает себя»
+      p.SavingsBlock__lead  660×53 @0,137  Manrope 400 17/26  lines=2  «Посчитайте, сколько вы сэкономите на эле»
+        a.SavingsBlock__articleLink  188×23 @425,27  Manrope 600 17/26  lines=1  ««Инвертор или on/off"»
+    div.SavingsCalculator__grid  1032×360 @24,322
+      div.Card__card  692×360 @0,0  r22  b1
+        p.SavingsCalculator__gridHead  626×34 @33,33
+          span.SavingsCalculator__gridLabel  227×24 @0,5  Manrope 700 16/24  lines=1  «Когда работает кондиционер»
+          output.SavingsCalculator__gridTotal  44×34 @582,0  Onest 700 22/34  lines=1  «24 ч»
+        div.HoursGrid__grid  626×28 @33,81
+          button.HoursGrid__cell  21×28 @0,0  r7
+          button.HoursGrid__cell#2  21×28 @26,0  r7
+          button.HoursGrid__cell#3  21×28 @53,0  r7
+          button.HoursGrid__cell#4  21×28 @79,0  r7
+          button.HoursGrid__cell#5  21×28 @105,0  r7
+          button.HoursGrid__cell#6  21×28 @131,0  r7
+          button.HoursGrid__cell#7  21×28 @158,0  r7
+          button.HoursGrid__cell#8  21×28 @184,0  r7
+          button.HoursGrid__cell#9  21×28 @210,0  r7
+          button.HoursGrid__cell#10  21×28 @237,0  r7
+          button.HoursGrid__cell#11  21×28 @263,0  r7
+          button.HoursGrid__cell#12  21×28 @289,0  r7
+          button.HoursGrid__cell#13  21×28 @315,0  r7
+          button.HoursGrid__cell#14  21×28 @342,0  r7
+          button.HoursGrid__cell#15  21×28 @368,0  r7
+          button.HoursGrid__cell#16  21×28 @394,0  r7
+          button.HoursGrid__cell#17  21×28 @421,0  r7
+          button.HoursGrid__cell#18  21×28 @447,0  r7
+          button.HoursGrid__cell#19  21×28 @473,0  r7
+          button.HoursGrid__cell#20  21×28 @500,0  r7
+          button.HoursGrid__cell#21  21×28 @526,0  r7
+          button.HoursGrid__cell#22  21×28 @552,0  r7
+          button.HoursGrid__cell#23  21×28 @578,0  r7
+          button.HoursGrid__cell#24  21×28 @605,0  r7
+        p.HoursGrid__scale  626×19 @33,115
+          span  14×19 @0,0  JetBrains Mono 400 12/19  lines=1  «00»
+          span#2  14×19 @153,0  JetBrains Mono 400 12/19  lines=1  «06»
+          span#3  14×19 @306,0  JetBrains Mono 400 12/19  lines=1  «12»
+          span#4  14×19 @459,0  JetBrains Mono 400 12/19  lines=1  «18»
+          span#5  14×19 @612,0  JetBrains Mono 400 12/19  lines=1  «24»
+        p  1×1 @32,133  Manrope 400 15/23  lines=1  clipped  «Кликните или проведите мышью по часам, к»
+        p.SavingsCalculator__tariffHead  626×48 @33,164
+          span.SavingsCalculator__gridLabel  48×24 @0,12  Manrope 700 16/24  lines=1  «Тариф»
+          span.SavingsCalculator__modes  194×48 @432,0  r14  b1
+            button.Button__button  78×40 @4,4  r9  b1
+              span.Button__content  48×16 @15,12
+                span.Button__label  48×16 @0,0  Manrope 600 13/16  lines=1  «Единый»
+            button.Button__button#2  104×40 @86,4  r9  b1
+              span.Button__content  74×16 @15,12
+                span.Button__label#2  74×16 @0,0  Manrope 600 13/16  lines=1  «День / ночь»
+        div.SavingsCalculator__sliders  626×73 @33,226
+          div.Field__field  304×73 @0,0
+            span.RangeSlider__head  304×22 @0,0
+              label  85×19 @0,1  Manrope 500 13/19  lines=1  «Единый тариф»
+              output.RangeSlider__value  77×22 @227,0  Onest 700 14/22  lines=1  «6,5 ₽/кВт·ч»
+            input.RangeSlider__slider  304×44 @0,29
+          div.Field__field#2  304×73 @322,0
+            span.RangeSlider__head  304×22 @0,0
+              label#2  89×19 @0,1  Manrope 500 13/19  lines=1  «Ночью (23–07)»
+              output.RangeSlider__value#2  74×22 @230,0  Onest 700 14/22  lines=1  «3,1 ₽/кВт·ч»
+            input.RangeSlider__slider  304×44 @0,29
+      div.Card__card#2  312×360 @720,0  r22  b1
+        div.SavingsCalculator__row  246×69 @33,33
+          p.SavingsCalculator__rowHead  246×53 @0,0
+            span.SavingsCalculator__rowLabel  106×22 @0,0  Manrope 400 15/22  lines=1  «Обычный on/off»
+            span.SavingsCalculator__rowValue  149×26 @97,26  Onest 700 17/26  lines=1  «≈ 14 040 ₽/сезон»
+          span.SavingsCalculator__bar  246×8 @0,61  r100
+            span.SavingsCalculator__fill  246×8 @0,0  r100
+        div.SavingsCalculator__row#2  246×42 @33,124
+          p.SavingsCalculator__rowHead  246×26 @0,0
+            span.SavingsCalculator__rowLabel#2  94×22 @0,2  Manrope 400 15/22  lines=1  «Инверторный»
+            span.SavingsCalculator__rowValue#2  137×26 @109,0  Onest 700 17/26  lines=1  «≈ 8 705 ₽/сезон»
+          span.SavingsCalculator__bar  246×8 @0,34  r100
+            span.SavingsCalculator__fill#2  153×8 @0,0  r100
+        div.Card__card  246×139 @33,188  r20  b1
+          p.SavingsCalculator__totalLine  204×71 @21,21
+            span.SavingsCalculator__totalLabel  114×23 @0,0  Manrope 400 15/23  lines=1  «Ваша экономия:»
+            span.SavingsCalculator__totalValue  226×43 @0,27  Onest 700 28/43  lines=1  «≈ 5 335 ₽/сезон»
+          p.SavingsCalculator__totalHorizon  204×22 @21,96  Manrope 400 15/22  lines=1  «≈ 26 676 ₽ за 5 лет»
+    p.SavingsBlock__disclaimer  760×93 @160,706  Manrope 400 15/23  lines=4  «Это прикидка, а не расчёт по счётчику. Р»
+
+[палитра light]
+section.SavingsBlock__section  bg #ffffff
+  div.SavingsBlock__container
+    header.SavingsBlock__intro
+      p.SavingsBlock__kicker  color #0e7490
+      h2.SavingsBlock__title  color #0f172a
+      p.SavingsBlock__lead  color #556173
+        a.SavingsBlock__articleLink  color #0e7490
+    div.SavingsCalculator__grid
+      div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        p.SavingsCalculator__gridHead
+          span.SavingsCalculator__gridLabel  color #0f172a
+          output.SavingsCalculator__gridTotal  color #0e7490
+        div.HoursGrid__grid
+          button.HoursGrid__cell  gradient linear-gradient(#0e7490, #155e75)
+          button.HoursGrid__cell#2  gradient linear-gradient(#0e7490, #155e75)
+          button.HoursGrid__cell#3  gradient linear-gradient(#0e7490, #155e75)
+          button.HoursGrid__cell#4  gradient linear-gradient(#0e7490, #155e75)
+          button.HoursGrid__cell#5  gradient linear-gradient(#0e7490, #155e75)
+          button.HoursGrid__cell#6  gradient linear-gradient(#0e7490, #155e75)
+          button.HoursGrid__cell#7  gradient linear-gradient(#0e7490, #155e75)
+          button.HoursGrid__cell#8  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#9  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#10  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#11  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#12  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#13  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#14  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#15  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#16  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#17  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#18  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#19  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#20  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#21  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#22  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#23  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#24  gradient linear-gradient(#0e7490, #155e75)
+        p.HoursGrid__scale
+          span  color #5b6a7d
+          span#2  color #5b6a7d
+          span#3  color #5b6a7d
+          span#4  color #5b6a7d
+          span#5  color #5b6a7d
+        p  color #475569
+        p.SavingsCalculator__tariffHead
+          span.SavingsCalculator__gridLabel  color #0f172a
+          span.SavingsCalculator__modes  bg #f8fafc  border #eef2f6
+            button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+              span.Button__content
+                span.Button__label  color #ffffff
+            button.Button__button#2  border transparent
+              span.Button__content
+                span.Button__label#2  color #0e7490
+        div.SavingsCalculator__sliders
+          div.Field__field
+            span.RangeSlider__head
+              label  color #556173
+              output.RangeSlider__value  color #0e7490
+            input.RangeSlider__slider
+          div.Field__field#2
+            span.RangeSlider__head
+              label#2  color #556173
+              output.RangeSlider__value#2  color #0e7490
+            input.RangeSlider__slider
+      div.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        div.SavingsCalculator__row
+          p.SavingsCalculator__rowHead
+            span.SavingsCalculator__rowLabel  color #556173
+            span.SavingsCalculator__rowValue  color #0f172a
+          span.SavingsCalculator__bar  bg #edf2f6
+            span.SavingsCalculator__fill  gradient linear-gradient(90deg, #f97316, #ef4444)
+        div.SavingsCalculator__row#2
+          p.SavingsCalculator__rowHead
+            span.SavingsCalculator__rowLabel#2  color #556173
+            span.SavingsCalculator__rowValue#2  color #0f172a
+          span.SavingsCalculator__bar  bg #edf2f6
+            span.SavingsCalculator__fill#2  gradient linear-gradient(90deg, #06b6d4, #22d3ee)
+        div.Card__card  bg #ecfeff  border #a5f3fc
+          p.SavingsCalculator__totalLine
+            span.SavingsCalculator__totalLabel  color #556173
+            span.SavingsCalculator__totalValue  color #0e7490
+          p.SavingsCalculator__totalHorizon  color #5b6a7d
+    p.SavingsBlock__disclaimer  color #475569
+[палитра light @320]
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #5b6a7d
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#2  color #5b6a7d
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#3  color #5b6a7d
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#4  color #5b6a7d
+[палитра light @375]
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #5b6a7d
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#2  color #5b6a7d
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#3  color #5b6a7d
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#4  color #5b6a7d
+[палитра light @768]
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #5b6a7d
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#2  color #5b6a7d
+
+[палитра dark]
+section.SavingsBlock__section  bg #0b1220
+  div.SavingsBlock__container
+    header.SavingsBlock__intro
+      p.SavingsBlock__kicker  color #22d3ee
+      h2.SavingsBlock__title  color #eaf1f8
+      p.SavingsBlock__lead  color #8598ac
+        a.SavingsBlock__articleLink  color #22d3ee
+    div.SavingsCalculator__grid
+      div.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        p.SavingsCalculator__gridHead
+          span.SavingsCalculator__gridLabel  color #eaf1f8
+          output.SavingsCalculator__gridTotal  color #22d3ee
+        div.HoursGrid__grid
+          button.HoursGrid__cell  gradient linear-gradient(#0891b2, #0e7490)
+          button.HoursGrid__cell#2  gradient linear-gradient(#0891b2, #0e7490)
+          button.HoursGrid__cell#3  gradient linear-gradient(#0891b2, #0e7490)
+          button.HoursGrid__cell#4  gradient linear-gradient(#0891b2, #0e7490)
+          button.HoursGrid__cell#5  gradient linear-gradient(#0891b2, #0e7490)
+          button.HoursGrid__cell#6  gradient linear-gradient(#0891b2, #0e7490)
+          button.HoursGrid__cell#7  gradient linear-gradient(#0891b2, #0e7490)
+          button.HoursGrid__cell#8  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#9  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#10  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#11  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#12  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#13  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#14  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#15  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#16  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#17  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#18  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#19  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#20  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#21  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#22  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#23  gradient linear-gradient(#22d3ee, #0891b2)
+          button.HoursGrid__cell#24  gradient linear-gradient(#0891b2, #0e7490)
+        p.HoursGrid__scale
+          span  color #7e92a7
+          span#2  color #7e92a7
+          span#3  color #7e92a7
+          span#4  color #7e92a7
+          span#5  color #7e92a7
+        p  color #a8b6c6
+        p.SavingsCalculator__tariffHead
+          span.SavingsCalculator__gridLabel  color #eaf1f8
+          span.SavingsCalculator__modes  bg #0e1729  border #182338
+            button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+              span.Button__content
+                span.Button__label  color #ffffff
+            button.Button__button#2  border transparent
+              span.Button__content
+                span.Button__label#2  color #22d3ee
+        div.SavingsCalculator__sliders
+          div.Field__field
+            span.RangeSlider__head
+              label  color #8598ac
+              output.RangeSlider__value  color #22d3ee
+            input.RangeSlider__slider
+          div.Field__field#2
+            span.RangeSlider__head
+              label#2  color #8598ac
+              output.RangeSlider__value#2  color #22d3ee
+            input.RangeSlider__slider
+      div.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        div.SavingsCalculator__row
+          p.SavingsCalculator__rowHead
+            span.SavingsCalculator__rowLabel  color #8598ac
+            span.SavingsCalculator__rowValue  color #eaf1f8
+          span.SavingsCalculator__bar  bg #16223a
+            span.SavingsCalculator__fill  gradient linear-gradient(90deg, #f97316, #ef4444)
+        div.SavingsCalculator__row#2
+          p.SavingsCalculator__rowHead
+            span.SavingsCalculator__rowLabel#2  color #8598ac
+            span.SavingsCalculator__rowValue#2  color #eaf1f8
+          span.SavingsCalculator__bar  bg #16223a
+            span.SavingsCalculator__fill#2  gradient linear-gradient(90deg, #06b6d4, #22d3ee)
+        div.Card__card  bg #22d3ee1a  border #22d3ee59
+          p.SavingsCalculator__totalLine
+            span.SavingsCalculator__totalLabel  color #8598ac
+            span.SavingsCalculator__totalValue  color #22d3ee
+          p.SavingsCalculator__totalHorizon  color #7e92a7
+    p.SavingsBlock__disclaimer  color #a8b6c6
+[палитра dark @320]
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #7e92a7
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#2  color #7e92a7
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#3  color #7e92a7
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#4  color #7e92a7
+[палитра dark @375]
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #7e92a7
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#2  color #7e92a7
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#3  color #7e92a7
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#4  color #7e92a7
+[палитра dark @768]
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #7e92a7
+section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#2  color #7e92a7

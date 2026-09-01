@@ -1,0 +1,42 @@
+# админка-календарь-кнопки-заведения--толькодело · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.CalendarCreate__buttons  358×44 @16,16
+  button.Button__button  132×44 @0,0  r9  b1
+    span.Button__content  102×20 @15,12
+      svg  20×20 @0,0
+      span.Button__label  74×16 @28,2  Manrope 600 13/16  lines=1  «Новое дело»
+
+[геометрия 768]
+div.CalendarCreate__buttons  736×44 @16,16
+  button.Button__button  132×44 @0,0  r9  b1
+    span.Button__content  102×20 @15,12
+      svg  20×20 @0,0
+      span.Button__label  74×16 @28,2  Manrope 600 13/16  lines=1  «Новое дело»
+
+[геометрия 1440]
+div.CalendarCreate__buttons  1408×40 @16,16
+  button.Button__button  132×40 @0,0  r9  b1
+    span.Button__content  102×20 @15,10
+      svg  20×20 @0,0
+      span.Button__label  74×16 @28,2  Manrope 600 13/16  lines=1  «Новое дело»
+
+[палитра light]
+div.CalendarCreate__buttons
+  button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    span.Button__content
+      svg
+      span.Button__label  color #ffffff
+
+[палитра dark]
+div.CalendarCreate__buttons
+  button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    span.Button__content
+      svg
+      span.Button__label  color #ffffff

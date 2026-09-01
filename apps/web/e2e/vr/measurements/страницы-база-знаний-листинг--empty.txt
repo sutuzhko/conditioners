@@ -1,0 +1,74 @@
+# страницы-база-знаний-листинг--empty · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.ArticleList__section  320×496 @0,0
+  div.ArticleList__container  320×496 @0,0
+    header.ArticleList__head  288×204 @16,48
+      p.ArticleList__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+      h1.ArticleList__title  288×65 @0,32  Onest 700 30/32  ls-1  lines=2  «Разбираемся в кондиционерах»
+      p.ArticleList__lead  288×93 @0,111  Manrope 400 15/23  lines=4  «Пишут монтажники, а не маркетологи: как»
+    div.Card__card  288×216 @16,280  r20  b1
+      p.ArticleList__emptyTitle  246×26 @21,21  Onest 700 17/26  ls0  lines=1  «Статьи ещё пишутся»
+      p.ArticleList__emptyText  246×140 @21,55  Manrope 400 15/23  lines=6  «Мы пишем их сами и не переносим к себе ч»
+
+[геометрия 375]
+section.ArticleList__section  375×478 @0,0
+  div.ArticleList__container  375×478 @0,0
+    header.ArticleList__head  343×206 @16,51
+      p.ArticleList__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+      h1.ArticleList__title  343×67 @0,32  Onest 700 31/34  ls-1  lines=2  «Разбираемся в кондиционерах»
+      p.ArticleList__lead  343×93 @0,113  Manrope 400 15/23  lines=4  «Пишут монтажники, а не маркетологи: как»
+    div.Card__card  343×193 @16,285  r20  b1
+      p.ArticleList__emptyTitle  301×27 @21,21  Onest 700 17/27  ls0  lines=1  «Статьи ещё пишутся»
+      p.ArticleList__emptyText  301×116 @21,56  Manrope 400 15/23  lines=5  «Мы пишем их сами и не переносим к себе ч»
+
+[геометрия 768]
+section.ArticleList__section  768×403 @0,0
+  div.ArticleList__container  768×403 @0,0
+    header.ArticleList__head  680×142 @20,68
+      p.ArticleList__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+      h1.ArticleList__title  680×43 @0,32  Onest 700 40/43  ls-1  lines=1  «Разбираемся в кондиционерах»
+      p.ArticleList__lead  680×54 @0,89  Manrope 400 17/27  lines=2  «Пишут монтажники, а не маркетологи: как»
+    div.Card__card  680×164 @20,239  r20  b1
+      p.ArticleList__emptyTitle  622×28 @29,29  Onest 700 18/28  ls0  lines=1  «Статьи ещё пишутся»
+      p.ArticleList__emptyText  622×70 @29,65  Manrope 400 15/23  lines=3  «Мы пишем их сами и не переносим к себе ч»
+
+[геометрия 1200]
+section.ArticleList__section  1200×498 @0,0
+  div.ArticleList__container  1200×498 @0,0
+    header.ArticleList__head  680×209 @24,88
+      p.ArticleList__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+      h1.ArticleList__title  680×106 @0,32  Onest 700 49/53  ls-1  lines=2  «Разбираемся в кондиционерах»
+      p.ArticleList__lead  680×57 @0,152  Manrope 400 18/29  lines=2  «Пишут монтажники, а не маркетологи: как»
+    div.Card__card  680×165 @24,333  r20  b1
+      p.ArticleList__emptyTitle  622×29 @29,29  Onest 700 19/29  ls0  lines=1  «Статьи ещё пишутся»
+      p.ArticleList__emptyText  622×70 @29,66  Manrope 400 15/23  lines=3  «Мы пишем их сами и не переносим к себе ч»
+
+[палитра light]
+section.ArticleList__section  bg #ffffff
+  div.ArticleList__container
+    header.ArticleList__head
+      p.ArticleList__kicker  color #0e7490
+      h1.ArticleList__title  color #0f172a
+      p.ArticleList__lead  color #556173
+    div.Card__card  bg #f8fafc  border #eef2f6
+      p.ArticleList__emptyTitle  color #0f172a
+      p.ArticleList__emptyText  color #556173
+
+[палитра dark]
+section.ArticleList__section  bg #0b1220
+  div.ArticleList__container
+    header.ArticleList__head
+      p.ArticleList__kicker  color #22d3ee
+      h1.ArticleList__title  color #eaf1f8
+      p.ArticleList__lead  color #8598ac
+    div.Card__card  bg #0e1729  border #182338
+      p.ArticleList__emptyTitle  color #eaf1f8
+      p.ArticleList__emptyText  color #8598ac

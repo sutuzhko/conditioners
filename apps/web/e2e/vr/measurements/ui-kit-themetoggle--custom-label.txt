@@ -1,0 +1,36 @@
+# ui-kit-themetoggle--custom-label · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.IconButton__iconButton  40×40 @16,16  r11  b1
+  svg.ThemeToggle__toDark  18×18 @11,11
+[геометрия 390 dark]
+button.IconButton__iconButton > svg.ThemeToggle__toLight  18×18 @11,11
+− button.IconButton__iconButton > svg.ThemeToggle__toDark
+
+[геометрия 768]
+button.IconButton__iconButton  40×40 @16,16  r11  b1
+  svg.ThemeToggle__toDark  18×18 @11,11
+[геометрия 768 dark]
+button.IconButton__iconButton > svg.ThemeToggle__toLight  18×18 @11,11
+− button.IconButton__iconButton > svg.ThemeToggle__toDark
+
+[геометрия 1440]
+button.IconButton__iconButton  40×40 @16,16  r11  b1
+  svg.ThemeToggle__toDark  18×18 @11,11
+[геометрия 1440 dark]
+button.IconButton__iconButton > svg.ThemeToggle__toLight  18×18 @11,11
+− button.IconButton__iconButton > svg.ThemeToggle__toDark
+
+[палитра light]
+button.IconButton__iconButton  border transparent
+  svg.ThemeToggle__toDark
+
+[палитра dark]
+button.IconButton__iconButton  border transparent
+  svg.ThemeToggle__toLight

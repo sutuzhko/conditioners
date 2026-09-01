@@ -1,0 +1,47 @@
+# ui-kit-badge--removable · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Badge__badge  93×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+  button.Badge__remove  24×24 @64,2  r100
+    svg  12×12 @6,6
+span.Badge__badge#2  117×28 @119,16  Manrope 600 13/18  r100  b1  lines=1  «Этот месяц»
+  button.Badge__remove  24×24 @89,2  r100
+    svg#2  12×12 @6,6
+
+[геометрия 768]
+span.Badge__badge  93×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+  button.Badge__remove  24×24 @64,2  r100
+    svg  12×12 @6,6
+span.Badge__badge#2  117×28 @119,16  Manrope 600 13/18  r100  b1  lines=1  «Этот месяц»
+  button.Badge__remove  24×24 @89,2  r100
+    svg#2  12×12 @6,6
+
+[геометрия 1440]
+span.Badge__badge  93×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+  button.Badge__remove  24×24 @64,2  r100
+    svg  12×12 @6,6
+span.Badge__badge#2  117×28 @119,16  Manrope 600 13/18  r100  b1  lines=1  «Этот месяц»
+  button.Badge__remove  24×24 @89,2  r100
+    svg#2  12×12 @6,6
+
+[палитра light]
+span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+  button.Badge__remove
+    svg
+span.Badge__badge#2  color #556173  bg #f8fafc  border #e2e8f0
+  button.Badge__remove
+    svg#2
+
+[палитра dark]
+span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+  button.Badge__remove
+    svg
+span.Badge__badge#2  color #8598ac  bg #0e1729  border #1e2b41
+  button.Badge__remove
+    svg#2

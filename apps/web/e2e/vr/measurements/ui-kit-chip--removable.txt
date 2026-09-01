@@ -1,0 +1,57 @@
+# ui-kit-chip--removable · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Chip__group  129×44 @16,16
+  button.Chip__chip  97×44 @0,0  Manrope 600 15/17  r100 0 0 100  b1 0 1 1  lines=1  «Квартира»
+  button.Chip__remove  33×44 @96,0  r0 100 100 0  b1 1 1 0
+    svg  14×14 @4,15
+span.Chip__group#2  99×44 @155,16
+  button.Chip__chip  67×44 @0,0  Manrope 600 15/17  r100 0 0 100  b1 0 1 1  lines=1  «Офис»
+  button.Chip__remove  33×44 @66,0  r0 100 100 0  b1 1 1 0
+    svg#2  14×14 @4,15
+
+[геометрия 768]
+span.Chip__group  129×44 @16,16
+  button.Chip__chip  97×44 @0,0  Manrope 600 15/17  r100 0 0 100  b1 0 1 1  lines=1  «Квартира»
+  button.Chip__remove  33×44 @96,0  r0 100 100 0  b1 1 1 0
+    svg  14×14 @4,15
+span.Chip__group#2  99×44 @155,16
+  button.Chip__chip  67×44 @0,0  Manrope 600 15/17  r100 0 0 100  b1 0 1 1  lines=1  «Офис»
+  button.Chip__remove  33×44 @66,0  r0 100 100 0  b1 1 1 0
+    svg#2  14×14 @4,15
+
+[геометрия 1440]
+span.Chip__group  129×44 @16,16
+  button.Chip__chip  97×44 @0,0  Manrope 600 15/17  r100 0 0 100  b1 0 1 1  lines=1  «Квартира»
+  button.Chip__remove  33×44 @96,0  r0 100 100 0  b1 1 1 0
+    svg  14×14 @4,15
+span.Chip__group#2  99×44 @155,16
+  button.Chip__chip  67×44 @0,0  Manrope 600 15/17  r100 0 0 100  b1 0 1 1  lines=1  «Офис»
+  button.Chip__remove  33×44 @66,0  r0 100 100 0  b1 1 1 0
+    svg#2  14×14 @4,15
+
+[палитра light]
+span.Chip__group
+  button.Chip__chip  color #ffffff  bg #0e7490  border #0e7490
+  button.Chip__remove  bg #0e7490  border #0e7490
+    svg
+span.Chip__group#2
+  button.Chip__chip  color #475569  border #7e8fa6
+  button.Chip__remove  border #7e8fa6
+    svg#2
+
+[палитра dark]
+span.Chip__group
+  button.Chip__chip  color #ffffff  bg #0e7490  border #0e7490
+  button.Chip__remove  bg #0e7490  border #0e7490
+    svg
+span.Chip__group#2
+  button.Chip__chip  color #a8b6c6  border #566d95
+  button.Chip__remove  border #566d95
+    svg#2

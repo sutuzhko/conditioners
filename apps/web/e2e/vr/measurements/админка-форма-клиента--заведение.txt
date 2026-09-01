@@ -1,0 +1,142 @@
+# админка-форма-клиента--заведение · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×637 @16,16  r20  b1
+  div.FormSection__head  316×67 @21,21
+    div.FormSection__titleRow  316×21 @0,0
+      h2.FormSection__title  115×21 @0,0  Onest 700 17/21  ls0  lines=1  «Новый клиент»
+    p.FormSection__hint  316×40 @0,27  Manrope 400 13/20  lines=2  «Телефон — ключ: по нему клиент опознаётс»
+  form.ClientForm__form  316×516 @21,100
+    div.ClientForm__grid  316×460 @0,0
+      div.Field__field  316×76 @0,0
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+        input  316×49 @0,27  r11  b1
+      div.Field__field#2  316×76 @0,88
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        input  316×49 @0,27  r11  b1
+      div.Field__field#3  316×103 @0,176
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Адрес»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Куда выезжать: улица, дом, квартира»
+      div.Field__field#4  316×169 @0,291
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заметка»
+        textarea.Textarea__textarea  316×96 @0,27  r11  b1
+        p.Field__hint  316×39 @0,130  Manrope 400 13/19  lines=2  «Что важно помнить: этаж, домофон, особен»
+    div.ClientForm__actions  316×44 @0,472
+      button.Button__button  107×44 @0,0  r11  b1
+        span.Button__content  69×17 @19,13
+          span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Добавить»
+
+[геометрия 768]
+section.Card__card  736×510 @16,16  r20  b1
+  div.FormSection__head  694×48 @21,21
+    div.FormSection__titleRow  694×22 @0,0
+      h2.FormSection__title  121×22 @0,0  Onest 700 18/22  ls0  lines=1  «Новый клиент»
+    p.FormSection__hint  508×20 @0,28  Manrope 400 13/20  lines=1  «Телефон — ключ: по нему клиент опознаётс»
+  form.ClientForm__form  694×408 @21,81
+    div.ClientForm__grid  694×352 @0,0
+      div.Field__field  223×76 @0,0
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+        input  223×49 @0,27  r11  b1
+      div.Field__field#2  223×76 @235,0
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        input  223×49 @0,27  r11  b1
+      div.Field__field#3  694×103 @0,88
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Адрес»
+        input  694×49 @0,27  r11  b1
+        p.Field__hint  694×19 @0,83  Manrope 400 13/19  lines=1  «Куда выезжать: улица, дом, квартира»
+      div.Field__field#4  694×150 @0,203
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Заметка»
+        textarea.Textarea__textarea  694×96 @0,27  r11  b1
+        p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Что важно помнить: этаж, домофон, особен»
+    div.ClientForm__actions  694×44 @0,364
+      button.Button__button  107×44 @0,0  r11  b1
+        span.Button__content  69×17 @19,13
+          span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Добавить»
+
+[геометрия 1440]
+section.Card__card  1408×511 @16,16  r20  b1
+  div.FormSection__head  1366×49 @21,21
+    div.FormSection__titleRow  1366×23 @0,0
+      h2.FormSection__title  128×23 @0,0  Onest 700 19/23  ls0  lines=1  «Новый клиент»
+    p.FormSection__hint  508×20 @0,29  Manrope 400 13/20  lines=1  «Телефон — ключ: по нему клиент опознаётс»
+  form.ClientForm__form  1366×408 @21,82
+    div.ClientForm__grid  1366×352 @0,0
+      div.Field__field  218×76 @0,0
+        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+        input  218×49 @0,27  r11  b1
+      div.Field__field#2  218×76 @230,0
+        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        input  218×49 @0,27  r11  b1
+      div.Field__field#3  1366×103 @0,88
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Адрес»
+        input  1366×49 @0,27  r11  b1
+        p.Field__hint  1366×19 @0,83  Manrope 400 13/19  lines=1  «Куда выезжать: улица, дом, квартира»
+      div.Field__field#4  1366×150 @0,203
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Заметка»
+        textarea.Textarea__textarea  1366×96 @0,27  r11  b1
+        p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «Что важно помнить: этаж, домофон, особен»
+    div.ClientForm__actions  1366×44 @0,364
+      button.Button__button  107×44 @0,0  r11  b1
+        span.Button__content  69×17 @19,13
+          span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Добавить»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.FormSection__head
+    div.FormSection__titleRow
+      h2.FormSection__title  color #0f172a
+    p.FormSection__hint  color #556173
+  form.ClientForm__form
+    div.ClientForm__grid
+      div.Field__field
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#2
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#3
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#4
+        label.Field__label  color #334155
+        textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+    div.ClientForm__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.FormSection__head
+    div.FormSection__titleRow
+      h2.FormSection__title  color #eaf1f8
+    p.FormSection__hint  color #8598ac
+  form.ClientForm__form
+    div.ClientForm__grid
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      div.Field__field#3
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#4
+        label.Field__label  color #c9d5e2
+        textarea.Textarea__textarea  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+    div.ClientForm__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff

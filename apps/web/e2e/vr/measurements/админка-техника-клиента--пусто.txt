@@ -1,0 +1,67 @@
+# админка-техника-клиента--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×375 @16,16  r20  b1
+  header.ClientUnits__header  316×125 @21,21
+    h2.ClientUnits__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Установленная техника»
+    p.ClientUnits__hint  316×101 @0,25  Manrope 400 13/20  lines=5  «Появляется сама после выполненного монта»
+  p.ClientUnits__empty  316×67 @21,158  Manrope 400 15/22  lines=3  «Техника не записана. После выполненного»
+  p.ClientUnits__note  316×60 @21,238  Manrope 400 13/20  lines=3  «Даты ТО считаются от монтажа. Напоминани»
+  div.ClientUnits__actions  316×44 @21,310
+    button.Button__button  145×44 @0,0  r9  b1
+      span.Button__content  115×16 @15,14
+        span.Button__label  115×16 @0,0  Manrope 600 13/16  lines=1  «Добавить технику»
+
+[геометрия 768]
+section.Card__card  736×293 @16,16  r20  b1
+  header.ClientUnits__header  694×86 @21,21
+    h2.ClientUnits__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Установленная техника»
+    p.ClientUnits__hint  539×60 @0,26  Manrope 400 13/20  lines=3  «Появляется сама после выполненного монта»
+  p.ClientUnits__empty  694×45 @21,119  Manrope 400 15/22  lines=2  «Техника не записана. После выполненного»
+  p.ClientUnits__note  539×40 @21,176  Manrope 400 13/20  lines=2  «Даты ТО считаются от монтажа. Напоминани»
+  div.ClientUnits__actions  694×44 @21,228
+    button.Button__button  145×44 @0,0  r9  b1
+      span.Button__content  115×16 @15,14
+        span.Button__label  115×16 @0,0  Manrope 600 13/16  lines=1  «Добавить технику»
+
+[геометрия 1440]
+section.Card__card  1408×268 @16,16  r20  b1
+  header.ClientUnits__header  1366×87 @21,21
+    h2.ClientUnits__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Установленная техника»
+    p.ClientUnits__hint  539×60 @0,27  Manrope 400 13/20  lines=3  «Появляется сама после выполненного монта»
+  p.ClientUnits__empty  1366×22 @21,120  Manrope 400 15/22  lines=1  «Техника не записана. После выполненного»
+  p.ClientUnits__note  539×40 @21,155  Manrope 400 13/20  lines=2  «Даты ТО считаются от монтажа. Напоминани»
+  div.ClientUnits__actions  1366×40 @21,207
+    button.Button__button  145×40 @0,0  r9  b1
+      span.Button__content  115×16 @15,12
+        span.Button__label  115×16 @0,0  Manrope 600 13/16  lines=1  «Добавить технику»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.ClientUnits__header
+    h2.ClientUnits__title  color #0f172a
+    p.ClientUnits__hint  color #556173
+  p.ClientUnits__empty  color #475569
+  p.ClientUnits__note  color #5b6a7d
+  div.ClientUnits__actions
+    button.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label  color #0f172a
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.ClientUnits__header
+    h2.ClientUnits__title  color #eaf1f8
+    p.ClientUnits__hint  color #8598ac
+  p.ClientUnits__empty  color #a8b6c6
+  p.ClientUnits__note  color #7e92a7
+  div.ClientUnits__actions
+    button.Button__button  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label  color #eaf1f8

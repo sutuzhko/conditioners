@@ -1,0 +1,27 @@
+# ui-kit-drawer--empty · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.IconButton__iconButton  44×44 @16,16  r11  b1
+  svg  20×20 @12,12
+
+[геометрия 768]
+button.IconButton__iconButton  44×44 @16,16  r11  b1
+  svg  20×20 @12,12
+
+[геометрия 1440]
+button.IconButton__iconButton  44×44 @16,16  r11  b1
+  svg  20×20 @12,12
+
+[палитра light]
+button.IconButton__iconButton  bg #ffffff  border #e2e8f0
+  svg
+
+[палитра dark]
+button.IconButton__iconButton  bg #121d31  border #1e2b41
+  svg

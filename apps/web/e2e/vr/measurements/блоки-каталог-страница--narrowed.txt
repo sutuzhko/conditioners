@@ -1,0 +1,557 @@
+# блоки-каталог-страница--narrowed · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700, Onest 800
+
+[документ]
+320 → 320×927
+375 → 375×947
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.CatalogList__section  320×927 @0,0
+  div.CatalogList__container  320×927 @0,0
+    h2  1×1 @15,21  Onest 700 23/27  ls0  lines=1  clipped  «Модели в продаже»
+    div.CatalogList__layout  288×857 @16,22
+      section.CatalogFilters__filters  288×47 @0,0
+        details.CatalogFilters__box  288×47 @0,0  r14  b1
+          summary.CatalogFilters__summary  286×45 @1,1  Manrope 700 15/23  lines=1  «Подбор по параметрам»
+          div.CatalogFilters__panel  0×0 @-16,-22  b1 0 0 0
+            div.CatalogFilters__group  254×116 @33,85
+              p.CatalogFilters__label  254×64 @0,0  Manrope 700 13/20  lines=1  «Класс мощности»
+                span.CatalogFilters__hint  254×40 @0,24  Manrope 400 13/20  lines=2  «Маркировка модели: 07, 09, 12 — чем боль»
+              div.CatalogFilters__values  286×54 @-16,67
+                a.FilterLink__link  73×44 @16,5  Manrope 600 13/16  r100  b1  lines=1  «Любой»
+                a.FilterLink__link#2  45×44 @97,5  Manrope 600 13/16  r100  b1  lines=1  «07»
+                a.FilterLink__link#3  46×44 @151,5  Manrope 600 13/16  r100  b1  lines=1  «09»
+                a.FilterLink__link#4  43×44 @205,5  Manrope 600 13/16  r100  b1  lines=1  «12»
+                a.FilterLink__link#5  43×44 @256,5  Manrope 600 13/16  r100  b1  lines=1  «18»
+                a.FilterLink__link#6  45×44 @308,5  Manrope 600 13/16  r100  b1  lines=1  «24»
+            div.CatalogFilters__group#2  254×96 @33,220
+              p.CatalogFilters__label  254×44 @0,0  Manrope 700 13/20  lines=1  «Площадь помещения»
+                span.CatalogFilters__hint#2  254×20 @0,24  Manrope 400 13/20  lines=1  «Показываем модели, которые её потянут»
+              div.CatalogFilters__values  286×54 @-16,47
+                a.FilterLink__link#7  73×44 @16,5  Manrope 600 13/16  r100  b1  lines=1  «Любая»
+                a.FilterLink__link#8  63×44 @97,5  Manrope 600 13/16  r100  b1  lines=1  «20 м²»
+                a.FilterLink__link#9  62×44 @168,5  Manrope 600 13/16  r100  b1  lines=1  «25 м²»
+                a.FilterLink__link#10  62×44 @238,5  Manrope 600 13/16  r100  b1  lines=1  «35 м²»
+                a.FilterLink__link#11  63×44 @308,5  Manrope 600 13/16  r100  b1  lines=1  «50 м²»
+                a.FilterLink__link#12  62×44 @380,5  Manrope 600 13/16  r100  b1  lines=1  «70 м²»
+            div.CatalogFilters__group#3  254×72 @33,334
+              p.CatalogFilters__label  254×20 @0,0  Manrope 700 13/20  lines=1  «Предложения»
+              div.CatalogFilters__values  286×54 @-16,23
+                a.FilterLink__link#13  104×44 @16,5  Manrope 600 13/16  r100  b1  lines=1  «Все модели»
+                a.FilterLink__link#14  102×44 @128,5  Manrope 600 13/16  r100  b1  lines=1  «Со скидкой»
+      div.CatalogList__results  288×790 @0,67
+        div.CatalogList__toolbar  288×161 @0,0
+          p.CatalogList__found  66×25 @0,0  Onest 700 16/25  ls0  lines=1  «1 модель»
+          div.CatalogSort__sort  288×124 @0,37
+            p.CatalogSort__label  56×20 @0,0  Manrope 700 13/20  lines=1  «Порядок»
+            div.CatalogSort__values  288×96 @0,28
+              a.FilterLink__link  123×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Как в каталоге»
+              a.FilterLink__link#2  144×44 @131,0  Manrope 600 13/16  r100  b1  lines=1  «Сначала дешевле»
+              a.FilterLink__link#3  136×44 @0,52  Manrope 600 13/16  r100  b1  lines=1  «Сначала дороже»
+              a.FilterLink__link#4  107×44 @144,52  Manrope 600 13/16  r100  b1  lines=1  «По площади»
+        div.ActiveFilters__row  288×148 @0,179
+          ul.ActiveFilters__list  288×96 @0,0
+            a.ActiveFilters__chip  103×44 @0,0  Manrope 700 13/16  r100  b1  lines=1  «Класс 09»
+              span.ActiveFilters__remove  8×15 @80,15  Manrope 700 15/15  lines=1  «×»
+            a.ActiveFilters__chip#2  140×44 @111,0  Manrope 700 13/16  r100  b1  lines=1  «Площадь 25 м²»
+              span.ActiveFilters__remove  8×15 @117,15  Manrope 700 15/15  lines=1  «×»
+            a.ActiveFilters__chip#3  119×44 @0,52  Manrope 700 13/16  r100  b1  lines=1  «Со скидкой»
+              span.ActiveFilters__remove  8×15 @97,15  Manrope 700 15/15  lines=1  «×»
+          a.ActiveFilters__reset  112×44 @0,104  Manrope 600 13/20  lines=1  «Сбросить подбор»
+        ul.CatalogList__grid  288×413 @0,345
+          li.Card__card  288×413 @0,0  r18  b1
+            div.ProductCard__media  286×216 @1,1  b0 0 1 0
+              img.ProductCard__image  286×215 @0,0
+              span.Badge__badge  37×24 @12,12  r100  b1
+                span  17×16 @10,4  JetBrains Mono 600 12/16  ls1  lines=1  «09»
+                span#2  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Класс мощности 09»
+              a.ProductCard__compare  44×44 @232,10  r100  b1
+                svg  20×20 @12,12
+            div.ProductCard__body  286×196 @1,217
+              h3.ProductCard__name  258×21 @14,14
+                a.ProductCard__nameLink  150×21 @0,0  Onest 700 17/21  ls0  lines=1  «Сплит-система 09»
+              div.ProductCard__meta  258×24 @14,39
+                span.ProductCard__area  50×20 @0,2  Manrope 400 13/20  lines=1  «до 25 м²»
+                span.Badge__badge  132×24 @58,0  Manrope 600 12/16  r100  b1  lines=1  «тихая, для спальни»
+              div.ProductPrice__price  258×58 @14,67
+                p.ProductPrice__main  258×25 @0,5
+                  span.ProductPrice__current  96×25 @0,0  Onest 800 22/25  ls0  lines=1  «33 900 ₽»
+                  s.ProductPrice__old  65×18 @104,4  Manrope 400 16/18  lines=1  «38 500 ₽»
+                    span  1×1 @-1,-1  Manrope 400 16/18  lines=1  clipped  «Старая цена:»
+                p.ProductPrice__slot  258×24 @0,34
+                  span.Badge__badge  49×24 @0,0  Manrope 600 12/14  r100  b1  lines=1  «−12%»
+                  span.ProductPrice__until  108×19 @57,3  Manrope 400 12/19  lines=1  «до 31 октября 2026»
+              div.ProductCard__actions  258×52 @14,130
+                a.Button__button  258×44 @0,8  r10  b1
+                  span.Button__content  65×17 @97,13
+                    span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+
+[геометрия 375]
+section.CatalogList__section  375×947 @0,0
+  div.CatalogList__container  375×947 @0,0
+    h2  1×1 @15,21  Onest 700 23/27  ls0  lines=1  clipped  «Модели в продаже»
+    div.CatalogList__layout  343×875 @16,22
+      section.CatalogFilters__filters  343×47 @0,0
+        details.CatalogFilters__box  343×47 @0,0  r14  b1
+          summary.CatalogFilters__summary  341×45 @1,1  Manrope 700 15/23  lines=1  «Подбор по параметрам»
+          div.CatalogFilters__panel  0×0 @-16,-22  b1 0 0 0
+            div.CatalogFilters__group  309×116 @33,85
+              p.CatalogFilters__label  309×64 @0,0  Manrope 700 13/20  lines=1  «Класс мощности»
+                span.CatalogFilters__hint  309×40 @0,24  Manrope 400 13/20  lines=2  «Маркировка модели: 07, 09, 12 — чем боль»
+              div.CatalogFilters__values  341×54 @-16,67
+                a.FilterLink__link  73×44 @16,5  Manrope 600 13/16  r100  b1  lines=1  «Любой»
+                a.FilterLink__link#2  45×44 @97,5  Manrope 600 13/16  r100  b1  lines=1  «07»
+                a.FilterLink__link#3  46×44 @151,5  Manrope 600 13/16  r100  b1  lines=1  «09»
+                a.FilterLink__link#4  43×44 @205,5  Manrope 600 13/16  r100  b1  lines=1  «12»
+                a.FilterLink__link#5  43×44 @256,5  Manrope 600 13/16  r100  b1  lines=1  «18»
+                a.FilterLink__link#6  45×44 @308,5  Manrope 600 13/16  r100  b1  lines=1  «24»
+            div.CatalogFilters__group#2  309×96 @33,220
+              p.CatalogFilters__label  309×44 @0,0  Manrope 700 13/20  lines=1  «Площадь помещения»
+                span.CatalogFilters__hint#2  254×20 @0,24  Manrope 400 13/20  lines=1  «Показываем модели, которые её потянут»
+              div.CatalogFilters__values  341×54 @-16,47
+                a.FilterLink__link#7  73×44 @16,5  Manrope 600 13/16  r100  b1  lines=1  «Любая»
+                a.FilterLink__link#8  63×44 @97,5  Manrope 600 13/16  r100  b1  lines=1  «20 м²»
+                a.FilterLink__link#9  62×44 @168,5  Manrope 600 13/16  r100  b1  lines=1  «25 м²»
+                a.FilterLink__link#10  62×44 @238,5  Manrope 600 13/16  r100  b1  lines=1  «35 м²»
+                a.FilterLink__link#11  63×44 @308,5  Manrope 600 13/16  r100  b1  lines=1  «50 м²»
+                a.FilterLink__link#12  62×44 @380,5  Manrope 600 13/16  r100  b1  lines=1  «70 м²»
+            div.CatalogFilters__group#3  309×72 @33,334
+              p.CatalogFilters__label  309×20 @0,0  Manrope 700 13/20  lines=1  «Предложения»
+              div.CatalogFilters__values  341×54 @-16,23
+                a.FilterLink__link#13  104×44 @16,5  Manrope 600 13/16  r100  b1  lines=1  «Все модели»
+                a.FilterLink__link#14  102×44 @128,5  Manrope 600 13/16  r100  b1  lines=1  «Со скидкой»
+      div.CatalogList__results  343×808 @0,67
+        div.CatalogList__toolbar  343×133 @0,0
+          p.CatalogList__found  67×25 @0,0  Onest 700 16/25  ls0  lines=1  «1 модель»
+          div.CatalogSort__sort  343×96 @0,37
+            p.CatalogSort__label  56×20 @0,38  Manrope 700 13/20  lines=1  «Порядок»
+            div.CatalogSort__values  275×96 @68,0
+              a.FilterLink__link  123×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Как в каталоге»
+              a.FilterLink__link#2  144×44 @131,0  Manrope 600 13/16  r100  b1  lines=1  «Сначала дешевле»
+              a.FilterLink__link#3  136×44 @0,52  Manrope 600 13/16  r100  b1  lines=1  «Сначала дороже»
+              a.FilterLink__link#4  107×44 @144,52  Manrope 600 13/16  r100  b1  lines=1  «По площади»
+        div.ActiveFilters__row  343×148 @0,151
+          ul.ActiveFilters__list  343×96 @0,0
+            a.ActiveFilters__chip  103×44 @0,0  Manrope 700 13/16  r100  b1  lines=1  «Класс 09»
+              span.ActiveFilters__remove  8×15 @80,15  Manrope 700 15/15  lines=1  «×»
+            a.ActiveFilters__chip#2  140×44 @111,0  Manrope 700 13/16  r100  b1  lines=1  «Площадь 25 м²»
+              span.ActiveFilters__remove  8×15 @117,15  Manrope 700 15/15  lines=1  «×»
+            a.ActiveFilters__chip#3  119×44 @0,52  Manrope 700 13/16  r100  b1  lines=1  «Со скидкой»
+              span.ActiveFilters__remove  8×15 @97,15  Manrope 700 15/15  lines=1  «×»
+          a.ActiveFilters__reset  112×44 @0,104  Manrope 600 13/20  lines=1  «Сбросить подбор»
+        ul.CatalogList__grid  343×459 @0,317
+          li.Card__card  343×459 @0,0  r18  b1
+            div.ProductCard__media  341×257 @1,1  b0 0 1 0
+              img.ProductCard__image  341×256 @0,0
+              span.Badge__badge  37×24 @12,12  r100  b1
+                span  17×16 @10,4  JetBrains Mono 600 12/16  ls1  lines=1  «09»
+                span#2  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Класс мощности 09»
+              a.ProductCard__compare  44×44 @287,10  r100  b1
+                svg  20×20 @12,12
+            div.ProductCard__body  341×200 @1,258
+              h3.ProductCard__name  313×21 @14,14
+                a.ProductCard__nameLink  151×22 @0,-1  Onest 700 17/21  ls0  lines=1  «Сплит-система 09»
+              div.ProductCard__meta  313×24 @14,40
+                span.ProductCard__area  50×20 @0,2  Manrope 400 13/20  lines=1  «до 25 м²»
+                span.Badge__badge  132×24 @58,0  Manrope 600 12/16  r100  b1  lines=1  «тихая, для спальни»
+              div.ProductPrice__price  313×61 @14,68
+                p.ProductPrice__main  313×27 @0,5
+                  span.ProductPrice__current  105×27 @0,0  Onest 800 24/27  ls0  lines=1  «33 900 ₽»
+                  s.ProductPrice__old  66×19 @113,6  Manrope 400 16/19  lines=1  «38 500 ₽»
+                    span  1×1 @-1,-1  Manrope 400 16/19  lines=1  clipped  «Старая цена:»
+                p.ProductPrice__slot  313×24 @0,37
+                  span.Badge__badge  49×24 @0,0  Manrope 600 12/14  r100  b1  lines=1  «−12%»
+                  span.ProductPrice__until  108×19 @57,3  Manrope 400 12/19  lines=1  «до 31 октября 2026»
+              div.ProductCard__actions  313×52 @14,133
+                a.Button__button  313×44 @0,8  r10  b1
+                  span.Button__content  65×17 @124,13
+                    span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+
+[геометрия 768]
+section.CatalogList__section  768×872 @0,0
+  div.CatalogList__container  768×872 @0,0
+    h2  1×1 @19,35  Onest 700 23/27  ls0  lines=1  clipped  «Модели в продаже»
+    div.CatalogList__layout  728×767 @20,36
+      section.CatalogFilters__filters  728×47 @0,0
+        details.CatalogFilters__box  728×47 @0,0  r14  b1
+          summary.CatalogFilters__summary  726×45 @1,1  Manrope 700 15/23  lines=1  «Подбор по параметрам»
+          div.CatalogFilters__panel  0×0 @-20,-36  b1 0 0 0
+            div.CatalogFilters__group  694×72 @37,99
+              p.CatalogFilters__label  694×20 @0,0  Manrope 700 13/20  lines=1  «Класс мощности»
+                span.CatalogFilters__hint  355×20 @117,0  Manrope 400 13/20  lines=1  «Маркировка модели: 07, 09, 12 — чем боль»
+              div.CatalogFilters__values  726×54 @-16,23
+                a.FilterLink__link  86×44 @16,5  Manrope 600 15/17  r100  b1  lines=1  «Любой»
+                a.FilterLink__link#2  55×44 @110,5  Manrope 600 15/17  r100  b1  lines=1  «07»
+                a.FilterLink__link#3  56×44 @173,5  Manrope 600 15/17  r100  b1  lines=1  «09»
+                a.FilterLink__link#4  53×44 @238,5  Manrope 600 15/17  r100  b1  lines=1  «12»
+                a.FilterLink__link#5  53×44 @298,5  Manrope 600 15/17  r100  b1  lines=1  «18»
+                a.FilterLink__link#6  55×44 @359,5  Manrope 600 15/17  r100  b1  lines=1  «24»
+            div.CatalogFilters__group#2  694×72 @37,189
+              p.CatalogFilters__label  694×20 @0,0  Manrope 700 13/20  lines=1  «Площадь помещения»
+                span.CatalogFilters__hint#2  254×20 @146,0  Manrope 400 13/20  lines=1  «Показываем модели, которые её потянут»
+              div.CatalogFilters__values  726×54 @-16,23
+                a.FilterLink__link#7  86×44 @16,5  Manrope 600 15/17  r100  b1  lines=1  «Любая»
+                a.FilterLink__link#8  75×44 @110,5  Manrope 600 15/17  r100  b1  lines=1  «20 м²»
+                a.FilterLink__link#9  74×44 @193,5  Manrope 600 15/17  r100  b1  lines=1  «25 м²»
+                a.FilterLink__link#10  74×44 @275,5  Manrope 600 15/17  r100  b1  lines=1  «35 м²»
+                a.FilterLink__link#11  75×44 @357,5  Manrope 600 15/17  r100  b1  lines=1  «50 м²»
+                a.FilterLink__link#12  74×44 @440,5  Manrope 600 15/17  r100  b1  lines=1  «70 м²»
+            div.CatalogFilters__group#3  694×72 @37,280
+              p.CatalogFilters__label  694×20 @0,0  Manrope 700 13/20  lines=1  «Предложения»
+              div.CatalogFilters__values  726×54 @-16,23
+                a.FilterLink__link#13  121×44 @16,5  Manrope 600 15/17  r100  b1  lines=1  «Все модели»
+                a.FilterLink__link#14  119×44 @145,5  Manrope 600 15/17  r100  b1  lines=1  «Со скидкой»
+      div.CatalogList__results  728×700 @0,67
+        div.CatalogList__toolbar  728×83 @0,0
+          p.CatalogList__found  72×27 @0,0  Onest 700 17/27  ls0  lines=1  «1 модель»
+          div.CatalogSort__sort  678×44 @0,39
+            p.CatalogSort__label  56×20 @0,12  Manrope 700 13/20  lines=1  «Порядок»
+            div.CatalogSort__values  610×44 @68,0
+              a.FilterLink__link  141×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Как в каталоге»
+              a.FilterLink__link#2  165×44 @149,0  Manrope 600 15/17  r100  b1  lines=1  «Сначала дешевле»
+              a.FilterLink__link#3  156×44 @322,0  Manrope 600 15/17  r100  b1  lines=1  «Сначала дороже»
+              a.FilterLink__link#4  123×44 @487,0  Manrope 600 15/17  r100  b1  lines=1  «По площади»
+        div.ActiveFilters__row  728×44 @0,101
+          ul.ActiveFilters__list  378×44 @0,0
+            a.ActiveFilters__chip  103×44 @0,0  Manrope 700 13/16  r100  b1  lines=1  «Класс 09»
+              span.ActiveFilters__remove  8×15 @80,15  Manrope 700 15/15  lines=1  «×»
+            a.ActiveFilters__chip#2  140×44 @111,0  Manrope 700 13/16  r100  b1  lines=1  «Площадь 25 м²»
+              span.ActiveFilters__remove  8×15 @117,15  Manrope 700 15/15  lines=1  «×»
+            a.ActiveFilters__chip#3  119×44 @258,0  Manrope 700 13/16  r100  b1  lines=1  «Со скидкой»
+              span.ActiveFilters__remove  8×15 @97,15  Manrope 700 15/15  lines=1  «×»
+          a.ActiveFilters__reset  112×44 @392,0  Manrope 600 13/20  lines=1  «Сбросить подбор»
+        ul.CatalogList__grid  728×505 @0,163
+          li.Card__card  357×505 @0,0  r18  b1
+            div.ProductCard__media  355×267 @1,1  b0 0 1 0
+              img.ProductCard__image  355×266 @0,0
+              span.Badge__badge  37×24 @12,12  r100  b1
+                span  17×16 @10,4  JetBrains Mono 600 12/16  ls1  lines=1  «09»
+                span#2  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Класс мощности 09»
+              a.ProductCard__compare  44×44 @301,10  r100  b1
+                svg  20×20 @12,12
+            div.ProductCard__body  355×236 @1,268
+              h3.ProductCard__name  323×45 @16,16
+                a.ProductCard__nameLink  159×22 @0,0  Onest 700 18/23  ls0  lines=1  «Сплит-система 09»
+              div.ProductCard__meta  323×24 @16,67
+                span.ProductCard__area  50×20 @0,2  Manrope 400 13/20  lines=1  «до 25 м²»
+                span.Badge__badge  132×24 @58,0  Manrope 600 12/16  r100  b1  lines=1  «тихая, для спальни»
+              div.ProductPrice__price  323×63 @16,97
+                p.ProductPrice__main  323×28 @0,7
+                  span.ProductPrice__current  105×28 @0,0  Onest 800 24/28  ls0  lines=1  «33 900 ₽»
+                  s.ProductPrice__old  70×20 @113,5  Manrope 400 17/20  lines=1  «38 500 ₽»
+                    span  1×1 @-1,-1  Manrope 400 17/20  lines=1  clipped  «Старая цена:»
+                p.ProductPrice__slot  323×24 @0,39
+                  span.Badge__badge  49×24 @0,0  Manrope 600 12/14  r100  b1  lines=1  «−12%»
+                  span.ProductPrice__until  108×19 @57,3  Manrope 400 12/19  lines=1  «до 31 октября 2026»
+              div.ProductCard__actions  323×54 @16,166
+                a.Button__button  323×44 @0,10  r10  b1
+                  span.Button__content  65×17 @129,13
+                    span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+
+[геометрия 1200]
+section.CatalogList__section  1200×738 @0,0
+  div.CatalogList__container  1200×738 @0,0
+    h2  1×1 @23,35  Onest 700 23/27  ls0  lines=1  clipped  «Модели в продаже»
+    div.CatalogList__layout  1152×614 @24,36
+      section.CatalogFilters__filters  264×579 @0,0
+        details.CatalogFilters__box  264×579 @24,36  r14  b1  fixed
+          div.CatalogFilters__panel  262×577 @1,1
+            div.CatalogFilters__group  230×168 @16,16
+              p.CatalogFilters__label  230×64 @0,0  Manrope 700 13/20  lines=1  «Класс мощности»
+                span.CatalogFilters__hint  230×40 @0,24  Manrope 400 13/20  lines=2  «Маркировка модели: 07, 09, 12 — чем боль»
+              div.CatalogFilters__values  230×96 @0,72
+                a.FilterLink__link  86×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Любой»
+                a.FilterLink__link#2  55×44 @94,0  Manrope 600 15/17  r100  b1  lines=1  «07»
+                a.FilterLink__link#3  56×44 @157,0  Manrope 600 15/17  r100  b1  lines=1  «09»
+                a.FilterLink__link#4  53×44 @0,52  Manrope 600 15/17  r100  b1  lines=1  «12»
+                a.FilterLink__link#5  53×44 @61,52  Manrope 600 15/17  r100  b1  lines=1  «18»
+                a.FilterLink__link#6  55×44 @121,52  Manrope 600 15/17  r100  b1  lines=1  «24»
+            div.CatalogFilters__group#2  230×220 @16,200
+              p.CatalogFilters__label  230×64 @0,0  Manrope 700 13/20  lines=1  «Площадь помещения»
+                span.CatalogFilters__hint#2  230×40 @0,24  Manrope 400 13/20  lines=2  «Показываем модели, которые её потянут»
+              div.CatalogFilters__values  230×148 @0,72
+                a.FilterLink__link#7  86×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Любая»
+                a.FilterLink__link#8  75×44 @94,0  Manrope 600 15/17  r100  b1  lines=1  «20 м²»
+                a.FilterLink__link#9  74×44 @0,52  Manrope 600 15/17  r100  b1  lines=1  «25 м²»
+                a.FilterLink__link#10  74×44 @82,52  Manrope 600 15/17  r100  b1  lines=1  «35 м²»
+                a.FilterLink__link#11  75×44 @0,104  Manrope 600 15/17  r100  b1  lines=1  «50 м²»
+                a.FilterLink__link#12  74×44 @83,104  Manrope 600 15/17  r100  b1  lines=1  «70 м²»
+            div.CatalogFilters__group#3  230×124 @16,437
+              p.CatalogFilters__label  230×20 @0,0  Manrope 700 13/20  lines=1  «Предложения»
+              div.CatalogFilters__values  230×96 @0,28
+                a.FilterLink__link#13  121×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Все модели»
+                a.FilterLink__link#14  119×44 @0,52  Manrope 600 15/17  r100  b1  lines=1  «Со скидкой»
+      div.CatalogList__results  860×614 @292,0
+        div.CatalogList__toolbar  860×44 @0,0
+          p.CatalogList__found  77×29 @0,8  Onest 700 18/29  ls0  lines=1  «1 модель»
+          div.CatalogSort__sort  678×44 @182,0
+            p.CatalogSort__label  56×20 @0,12  Manrope 700 13/20  lines=1  «Порядок»
+            div.CatalogSort__values  610×44 @68,0
+              a.FilterLink__link  141×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Как в каталоге»
+              a.FilterLink__link#2  165×44 @149,0  Manrope 600 15/17  r100  b1  lines=1  «Сначала дешевле»
+              a.FilterLink__link#3  156×44 @322,0  Manrope 600 15/17  r100  b1  lines=1  «Сначала дороже»
+              a.FilterLink__link#4  123×44 @487,0  Manrope 600 15/17  r100  b1  lines=1  «По площади»
+        div.ActiveFilters__row  860×44 @0,62
+          ul.ActiveFilters__list  378×44 @0,0
+            a.ActiveFilters__chip  103×44 @0,0  Manrope 700 13/16  r100  b1  lines=1  «Класс 09»
+              span.ActiveFilters__remove  8×15 @80,15  Manrope 700 15/15  lines=1  «×»
+            a.ActiveFilters__chip#2  140×44 @111,0  Manrope 700 13/16  r100  b1  lines=1  «Площадь 25 м²»
+              span.ActiveFilters__remove  8×15 @117,15  Manrope 700 15/15  lines=1  «×»
+            a.ActiveFilters__chip#3  119×44 @258,0  Manrope 700 13/16  r100  b1  lines=1  «Со скидкой»
+              span.ActiveFilters__remove  8×15 @97,15  Manrope 700 15/15  lines=1  «×»
+          a.ActiveFilters__reset  112×44 @392,0  Manrope 600 13/20  lines=1  «Сбросить подбор»
+        ul.CatalogList__grid  860×458 @0,124
+          li.Card__card  276×458 @0,0  r18  b1
+            div.ProductCard__media  274×207 @1,1  b0 0 1 0
+              img.ProductCard__image  274×206 @0,0
+              span.Badge__badge  37×24 @12,12  r100  b1
+                span  17×16 @10,4  JetBrains Mono 600 12/16  ls1  lines=1  «09»
+                span#2  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Класс мощности 09»
+              a.ProductCard__compare  44×44 @220,10  r100  b1
+                svg  20×20 @12,12
+            div.ProductCard__body  274×250 @1,208
+              h3.ProductCard__name  238×47 @18,18
+                a.ProductCard__nameLink  167×24 @0,-1  Onest 700 19/24  ls0  lines=1  «Сплит-система 09»
+              div.ProductCard__meta  238×24 @18,73
+                span.ProductCard__area  50×20 @0,2  Manrope 400 13/20  lines=1  «до 25 м²»
+                span.Badge__badge  132×24 @58,0  Manrope 600 12/16  r100  b1  lines=1  «тихая, для спальни»
+              div.ProductPrice__price  238×62 @18,106
+                p.ProductPrice__main  238×25 @0,9
+                  span.ProductPrice__current  96×25 @0,0  Onest 800 22/25  ls0  lines=1  «33 900 ₽»
+                  s.ProductPrice__old  75×21 @104,2  Manrope 400 18/21  lines=1  «38 500 ₽»
+                    span  1×1 @-1,-1  Manrope 400 18/21  lines=1  clipped  «Старая цена:»
+                p.ProductPrice__slot  238×24 @0,38
+                  span.Badge__badge  49×24 @0,0  Manrope 600 12/14  r100  b1  lines=1  «−12%»
+                  span.ProductPrice__until  108×19 @57,3  Manrope 400 12/19  lines=1  «до 31 октября 2026»
+              div.ProductCard__actions  238×56 @18,176
+                a.Button__button  238×44 @0,12  r10  b1
+                  span.Button__content  65×17 @87,13
+                    span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+
+[палитра light]
+section.CatalogList__section  bg #ffffff
+  div.CatalogList__container
+    h2  color #0f172a
+    div.CatalogList__layout
+      section.CatalogFilters__filters
+        details.CatalogFilters__box  bg #f8fafc  border #e2e8f0
+          div.CatalogFilters__panel
+            div.CatalogFilters__group
+              p.CatalogFilters__label  color #0f172a
+                span.CatalogFilters__hint  color #556173
+              div.CatalogFilters__values
+                a.FilterLink__link  color #475569  border #cbd5e1
+                a.FilterLink__link#2  color #475569  border #cbd5e1
+                a.FilterLink__link#3  color #ffffff  bg #0e7490  border #0e7490
+                a.FilterLink__link#4  color #475569  border #cbd5e1
+                a.FilterLink__link#5  color #475569  border #cbd5e1
+                a.FilterLink__link#6  color #475569  border #cbd5e1
+            div.CatalogFilters__group#2
+              p.CatalogFilters__label  color #0f172a
+                span.CatalogFilters__hint#2  color #556173
+              div.CatalogFilters__values
+                a.FilterLink__link#7  color #475569  border #cbd5e1
+                a.FilterLink__link#8  color #475569  border #cbd5e1
+                a.FilterLink__link#9  color #ffffff  bg #0e7490  border #0e7490
+                a.FilterLink__link#10  color #475569  border #cbd5e1
+                a.FilterLink__link#11  color #475569  border #cbd5e1
+                a.FilterLink__link#12  color #475569  border #cbd5e1
+            div.CatalogFilters__group#3
+              p.CatalogFilters__label  color #0f172a
+              div.CatalogFilters__values
+                a.FilterLink__link#13  color #475569  border #cbd5e1
+                a.FilterLink__link#14  color #ffffff  bg #0e7490  border #0e7490
+      div.CatalogList__results
+        div.CatalogList__toolbar
+          p.CatalogList__found  color #0f172a
+          div.CatalogSort__sort
+            p.CatalogSort__label  color #556173
+            div.CatalogSort__values
+              a.FilterLink__link  color #ffffff  bg #0e7490  border #0e7490
+              a.FilterLink__link#2  color #475569  border #cbd5e1
+              a.FilterLink__link#3  color #475569  border #cbd5e1
+              a.FilterLink__link#4  color #475569  border #cbd5e1
+        div.ActiveFilters__row
+          ul.ActiveFilters__list
+            a.ActiveFilters__chip  color #0e7490  bg #ecfeff  border #a5f3fc
+              span.ActiveFilters__remove  color #0e7490
+            a.ActiveFilters__chip#2  color #0e7490  bg #ecfeff  border #a5f3fc
+              span.ActiveFilters__remove  color #0e7490
+            a.ActiveFilters__chip#3  color #0e7490  bg #ecfeff  border #a5f3fc
+              span.ActiveFilters__remove  color #0e7490
+          a.ActiveFilters__reset  color #556173
+        ul.CatalogList__grid
+          li.Card__card  bg #ffffff  border #e2e8f0
+            div.ProductCard__media  bg #f8fafc  border #475569 #475569 #eef2f6 #475569
+              img.ProductCard__image
+              span.Badge__badge  bg #0f172a  border #0f172a
+                span  color #ffffff
+                span#2  color #ffffff
+              a.ProductCard__compare  bg #ffffff  border #e2e8f0
+                svg
+            div.ProductCard__body
+              h3.ProductCard__name
+                a.ProductCard__nameLink  color #0f172a
+              div.ProductCard__meta
+                span.ProductCard__area  color #556173
+                span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+              div.ProductPrice__price
+                p.ProductPrice__main
+                  span.ProductPrice__current  color #0f172a
+                  s.ProductPrice__old  color #5b6a7d
+                    span  color #5b6a7d
+                p.ProductPrice__slot
+                  span.Badge__badge  color #be123c  bg #be123c14  border #be123c47
+                  span.ProductPrice__until  color #556173
+              div.ProductCard__actions
+                a.Button__button  bg #ecfeff  border transparent
+                  span.Button__content
+                    span.Button__label  color #0e7490
+[палитра light @320]
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > summary.CatalogFilters__summary  color #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel  border #e2e8f0 #0f172a #0f172a #0f172a
+[палитра light @375]
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > summary.CatalogFilters__summary  color #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel  border #e2e8f0 #0f172a #0f172a #0f172a
+[палитра light @768]
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > summary.CatalogFilters__summary  color #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel  border #e2e8f0 #0f172a #0f172a #0f172a
+
+[палитра dark]
+section.CatalogList__section  bg #0b1220
+  div.CatalogList__container
+    h2  color #eaf1f8
+    div.CatalogList__layout
+      section.CatalogFilters__filters
+        details.CatalogFilters__box  bg #0e1729  border #1e2b41
+          div.CatalogFilters__panel
+            div.CatalogFilters__group
+              p.CatalogFilters__label  color #eaf1f8
+                span.CatalogFilters__hint  color #8598ac
+              div.CatalogFilters__values
+                a.FilterLink__link  color #a8b6c6  border #2c3d59
+                a.FilterLink__link#2  color #a8b6c6  border #2c3d59
+                a.FilterLink__link#3  color #ffffff  bg #0e7490  border #0e7490
+                a.FilterLink__link#4  color #a8b6c6  border #2c3d59
+                a.FilterLink__link#5  color #a8b6c6  border #2c3d59
+                a.FilterLink__link#6  color #a8b6c6  border #2c3d59
+            div.CatalogFilters__group#2
+              p.CatalogFilters__label  color #eaf1f8
+                span.CatalogFilters__hint#2  color #8598ac
+              div.CatalogFilters__values
+                a.FilterLink__link#7  color #a8b6c6  border #2c3d59
+                a.FilterLink__link#8  color #a8b6c6  border #2c3d59
+                a.FilterLink__link#9  color #ffffff  bg #0e7490  border #0e7490
+                a.FilterLink__link#10  color #a8b6c6  border #2c3d59
+                a.FilterLink__link#11  color #a8b6c6  border #2c3d59
+                a.FilterLink__link#12  color #a8b6c6  border #2c3d59
+            div.CatalogFilters__group#3
+              p.CatalogFilters__label  color #eaf1f8
+              div.CatalogFilters__values
+                a.FilterLink__link#13  color #a8b6c6  border #2c3d59
+                a.FilterLink__link#14  color #ffffff  bg #0e7490  border #0e7490
+      div.CatalogList__results
+        div.CatalogList__toolbar
+          p.CatalogList__found  color #eaf1f8
+          div.CatalogSort__sort
+            p.CatalogSort__label  color #8598ac
+            div.CatalogSort__values
+              a.FilterLink__link  color #ffffff  bg #0e7490  border #0e7490
+              a.FilterLink__link#2  color #a8b6c6  border #2c3d59
+              a.FilterLink__link#3  color #a8b6c6  border #2c3d59
+              a.FilterLink__link#4  color #a8b6c6  border #2c3d59
+        div.ActiveFilters__row
+          ul.ActiveFilters__list
+            a.ActiveFilters__chip  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+              span.ActiveFilters__remove  color #22d3ee
+            a.ActiveFilters__chip#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+              span.ActiveFilters__remove  color #22d3ee
+            a.ActiveFilters__chip#3  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+              span.ActiveFilters__remove  color #22d3ee
+          a.ActiveFilters__reset  color #8598ac
+        ul.CatalogList__grid
+          li.Card__card  bg #121d31  border #1e2b41
+            div.ProductCard__media  bg #0e1729  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+              img.ProductCard__image
+              span.Badge__badge  bg #111d34  border #111d34
+                span  color #ffffff
+                span#2  color #ffffff
+              a.ProductCard__compare  bg #121d31  border #1e2b41
+                svg
+            div.ProductCard__body
+              h3.ProductCard__name
+                a.ProductCard__nameLink  color #eaf1f8
+              div.ProductCard__meta
+                span.ProductCard__area  color #8598ac
+                span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+              div.ProductPrice__price
+                p.ProductPrice__main
+                  span.ProductPrice__current  color #eaf1f8
+                  s.ProductPrice__old  color #7e92a7
+                    span  color #7e92a7
+                p.ProductPrice__slot
+                  span.Badge__badge  color #fb7185  bg #fb71851f  border #fb718552
+                  span.ProductPrice__until  color #8598ac
+              div.ProductCard__actions
+                a.Button__button  bg #22d3ee1a  border transparent
+                  span.Button__content
+                    span.Button__label  color #22d3ee
+[палитра dark @320]
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > summary.CatalogFilters__summary  color #eaf1f8
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel  border #e2e8f0 #0f172a #0f172a #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > p.CatalogFilters__label  color #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > p.CatalogFilters__label > span.CatalogFilters__hint  color #556173
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link#2  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link#4  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link#5  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link#6  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > p.CatalogFilters__label  color #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > p.CatalogFilters__label > span.CatalogFilters__hint#2  color #556173
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#7  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#8  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#10  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#11  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#12  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#3 > p.CatalogFilters__label  color #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#3 > div.CatalogFilters__values > a.FilterLink__link#13  color #475569  border #cbd5e1
+[палитра dark @375]
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > summary.CatalogFilters__summary  color #eaf1f8
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel  border #e2e8f0 #0f172a #0f172a #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > p.CatalogFilters__label  color #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > p.CatalogFilters__label > span.CatalogFilters__hint  color #556173
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link#2  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link#4  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link#5  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link#6  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > p.CatalogFilters__label  color #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > p.CatalogFilters__label > span.CatalogFilters__hint#2  color #556173
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#7  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#8  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#10  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#11  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#12  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#3 > p.CatalogFilters__label  color #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#3 > div.CatalogFilters__values > a.FilterLink__link#13  color #475569  border #cbd5e1
+[палитра dark @768]
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > summary.CatalogFilters__summary  color #eaf1f8
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel  border #e2e8f0 #0f172a #0f172a #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > p.CatalogFilters__label  color #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > p.CatalogFilters__label > span.CatalogFilters__hint  color #556173
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link#2  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link#4  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link#5  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group > div.CatalogFilters__values > a.FilterLink__link#6  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > p.CatalogFilters__label  color #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > p.CatalogFilters__label > span.CatalogFilters__hint#2  color #556173
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#7  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#8  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#10  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#11  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#2 > div.CatalogFilters__values > a.FilterLink__link#12  color #475569  border #cbd5e1
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#3 > p.CatalogFilters__label  color #0f172a
+section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel > div.CatalogFilters__group#3 > div.CatalogFilters__values > a.FilterLink__link#13  color #475569  border #cbd5e1

@@ -1,0 +1,110 @@
+# блоки-каталог-сравнение--single · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.CatalogCompare__compare  320×344 @0,0
+  div.CatalogCompare__container  320×344 @0,0
+    h2  1×1 @15,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.CatalogCompare__head  288×100 @16,28
+      ul.CatalogCompare__chosen  162×44 @0,0
+        a.CatalogCompare__chip  162×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 07»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+      p.CatalogCompare__actions  226×44 @0,56
+        a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
+        a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
+    p.CatalogCompare__hint  288×70 @16,146  Manrope 400 15/23  lines=3  «Отмечена одна модель. Отметьте ещё одну»
+    p.CatalogCompare__order  288×52 @16,244
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+
+[геометрия 375]
+section.CatalogCompare__compare  375×323 @0,0
+  div.CatalogCompare__container  375×323 @0,0
+    h2  1×1 @15,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.CatalogCompare__head  343×100 @16,28
+      ul.CatalogCompare__chosen  162×44 @0,0
+        a.CatalogCompare__chip  162×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 07»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+      p.CatalogCompare__actions  226×44 @0,56
+        a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
+        a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
+    p.CatalogCompare__hint  343×47 @16,146  Manrope 400 15/23  lines=2  «Отмечена одна модель. Отметьте ещё одну»
+    p.CatalogCompare__order  343×52 @16,221
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+
+[геометрия 768]
+section.CatalogCompare__compare  768×262 @0,0
+  div.CatalogCompare__container  768×262 @0,0
+    h2  1×1 @19,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.CatalogCompare__head  728×44 @20,28
+      ul.CatalogCompare__chosen  162×44 @0,0
+        a.CatalogCompare__chip  162×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 07»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+      p.CatalogCompare__actions  226×44 @501,0
+        a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
+        a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
+    p.CatalogCompare__hint  640×23 @20,90  Manrope 400 15/23  lines=1  «Отмечена одна модель. Отметьте ещё одну»
+    p.CatalogCompare__order  728×52 @20,141
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+
+[геометрия 1200]
+section.CatalogCompare__compare  1200×281 @0,0
+  div.CatalogCompare__container  1200×281 @0,0
+    h2  1×1 @23,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.CatalogCompare__head  1152×44 @24,28
+      ul.CatalogCompare__chosen  162×44 @0,0
+        a.CatalogCompare__chip  162×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 07»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+      p.CatalogCompare__actions  226×44 @926,0
+        a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
+        a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
+    p.CatalogCompare__hint  640×23 @24,90  Manrope 400 15/23  lines=1  «Отмечена одна модель. Отметьте ещё одну»
+    p.CatalogCompare__order  1152×52 @24,141
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+
+[палитра light]
+section.CatalogCompare__compare  bg #ffffff
+  div.CatalogCompare__container
+    h2  color #0f172a
+    div.CatalogCompare__head
+      ul.CatalogCompare__chosen
+        a.CatalogCompare__chip  color #0e7490  bg #ecfeff  border #a5f3fc
+          span.CatalogCompare__remove  color #556173
+      p.CatalogCompare__actions
+        a.CatalogCompare__back  color #0e7490
+        a.CatalogCompare__clear  color #556173
+    p.CatalogCompare__hint  color #556173
+    p.CatalogCompare__order
+      a.Button__button  bg #ecfeff  border transparent
+        span.Button__content
+          span.Button__label  color #0e7490
+
+[палитра dark]
+section.CatalogCompare__compare  bg #0b1220
+  div.CatalogCompare__container
+    h2  color #eaf1f8
+    div.CatalogCompare__head
+      ul.CatalogCompare__chosen
+        a.CatalogCompare__chip  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          span.CatalogCompare__remove  color #8598ac
+      p.CatalogCompare__actions
+        a.CatalogCompare__back  color #22d3ee
+        a.CatalogCompare__clear  color #8598ac
+    p.CatalogCompare__hint  color #8598ac
+    p.CatalogCompare__order
+      a.Button__button  bg #22d3ee1a  border transparent
+        span.Button__content
+          span.Button__label  color #22d3ee

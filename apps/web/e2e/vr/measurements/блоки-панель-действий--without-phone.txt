@@ -1,0 +1,50 @@
+# блоки-панель-действий--without-phone · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+div  320×900 @0,0  Manrope 400 15/23  lines=4  «Панель прижата к нижнему краю. На страни»
+nav.ActionBar__bar  320×69 @0,831  b1 0 0 0  fixed
+  a.Button__button  288×44 @16,11  r11  b1
+    span.Button__content  117×17 @85,13
+      span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Оставить заявку»
+
+[геометрия 375]
+div  375×900 @0,0  Manrope 400 15/23  lines=3  «Панель прижата к нижнему краю. На страни»
+nav.ActionBar__bar  375×69 @0,831  b1 0 0 0  fixed
+  a.Button__button  342×44 @17,11  r11  b1
+    span.Button__content  117×17 @112,13
+      span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Оставить заявку»
+
+[геометрия 768]
+div  768×900 @0,0  Manrope 400 15/23  lines=2  «Панель прижата к нижнему краю. На страни»
+nav.ActionBar__bar  768×69 @0,831  b1 0 0 0  fixed
+  a.Button__button  728×44 @20,11  r11  b1
+    span.Button__content  117×17 @305,13
+      span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Оставить заявку»
+
+[геометрия 1200]
+div  1200×900 @0,0  Manrope 400 15/23  lines=1  «Панель прижата к нижнему краю. На страни»
+nav.ActionBar__bar  1200×69 @0,831  b1 0 0 0  fixed
+  a.Button__button  1152×44 @24,11  r11  b1
+    span.Button__content  117×17 @517,13
+      span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Оставить заявку»
+
+[палитра light]
+div  color #556173
+nav.ActionBar__bar  bg #ffffffd1  border #e2e8f0 #0f172a #0f172a #0f172a
+  a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    span.Button__content
+      span.Button__label  color #ffffff
+
+[палитра dark]
+div  color #8598ac
+nav.ActionBar__bar  bg #0b1220cc  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+  a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    span.Button__content
+      span.Button__label  color #ffffff

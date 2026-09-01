@@ -1,0 +1,72 @@
+# ui-kit-formsection--bare · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.FormSection__section  358×222 @16,16
+  div.FormSection__head  358×44 @0,0
+    div.FormSection__titleRow  358×18 @0,0
+      h3.FormSection__title  70×18 @0,0  Onest 700 15/18  ls0  lines=1  «Основное»
+    p.FormSection__hint  358×20 @0,24  Manrope 400 13/20  lines=1  «Поля, без которых позиция не сохранится.»
+  div.Field__field  358×76 @0,58
+    label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+    input  358×49 @0,27  r11  b1
+  div.Field__field#2  358×76 @0,146
+    label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Артикул»
+    input  358×49 @0,27  r11  b1
+
+[геометрия 768]
+section.FormSection__section  736×134 @16,16
+  div.FormSection__head  736×44 @0,0
+    div.FormSection__titleRow  736×18 @0,0
+      h3.FormSection__title  70×18 @0,0  Onest 700 15/18  ls0  lines=1  «Основное»
+    p.FormSection__hint  508×20 @0,24  Manrope 400 13/20  lines=1  «Поля, без которых позиция не сохранится.»
+  div.Field__field  362×76 @0,58
+    label.Field__label  362×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+    input  362×49 @0,27  r11  b1
+  div.Field__field#2  362×76 @374,58
+    label.Field__label  362×20 @0,0  Manrope 600 13/20  lines=1  «Артикул»
+    input  362×49 @0,27  r11  b1
+
+[геометрия 1440]
+section.FormSection__section  1408×134 @16,16
+  div.FormSection__head  1408×44 @0,0
+    div.FormSection__titleRow  1408×18 @0,0
+      h3.FormSection__title  70×18 @0,0  Onest 700 15/18  ls0  lines=1  «Основное»
+    p.FormSection__hint  508×20 @0,24  Manrope 400 13/20  lines=1  «Поля, без которых позиция не сохранится.»
+  div.Field__field  698×76 @0,58
+    label.Field__label  698×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+    input  698×49 @0,27  r11  b1
+  div.Field__field#2  698×76 @710,58
+    label.Field__label  698×20 @0,0  Manrope 600 13/20  lines=1  «Артикул»
+    input  698×49 @0,27  r11  b1
+
+[палитра light]
+section.FormSection__section
+  div.FormSection__head
+    div.FormSection__titleRow
+      h3.FormSection__title  color #0f172a
+    p.FormSection__hint  color #556173
+  div.Field__field
+    label.Field__label  color #334155
+    input  bg #ffffff  border #7e8fa6
+  div.Field__field#2
+    label.Field__label  color #334155
+    input  bg #ffffff  border #7e8fa6
+
+[палитра dark]
+section.FormSection__section
+  div.FormSection__head
+    div.FormSection__titleRow
+      h3.FormSection__title  color #eaf1f8
+    p.FormSection__hint  color #8598ac
+  div.Field__field
+    label.Field__label  color #c9d5e2
+    input  bg #0b1424  border #566d95
+  div.Field__field#2
+    label.Field__label  color #c9d5e2
+    input  bg #0b1424  border #566d95
