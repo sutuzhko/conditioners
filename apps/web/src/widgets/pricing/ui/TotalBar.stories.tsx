@@ -25,6 +25,22 @@ type Story = StoryObj<typeof meta>;
 export const Ready: Story = {
   name: 'Сумма',
   args: { state: 'ready', amount: 18_400 },
+  /* 🔴 Верх кнопки «Вызвать замерщика» обязан стоять на месте во всех
+     состояниях полосы (ADR-212): разброс 22px ловили замером руками, теперь
+     его меряет раннер инвариантов — правило `stability`, #465. Опорная —
+     сумма; состояния — пересчёт, выезд и длинная сумма. */
+  parameters: {
+    invariants: {
+      stability: {
+        control: 'a[href*="#lead"]',
+        states: [
+          'блоки-цены-полоса-итога--pending',
+          'блоки-цены-полоса-итога--on-site',
+          'блоки-цены-полоса-итога--long-amount',
+        ],
+      },
+    },
+  },
 };
 
 export const Pending: Story = {

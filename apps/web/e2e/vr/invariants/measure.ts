@@ -31,7 +31,9 @@ export type InvariantRule =
   | 'clipped-text'
   | 'occlusion'
   | 'fonts'
-  | 'images';
+  | 'images'
+  /** Контрольный элемент стоит на месте между состояниями — меряет раннер, не измеритель (stability.ts). */
+  | 'stability';
 
 export type Violation = {
   readonly rule: InvariantRule;
@@ -68,7 +70,8 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     | 'clipped-text'
     | 'occlusion'
     | 'fonts'
-    | 'images';
+    | 'images'
+    | 'stability';
   type Found = { rule: Rule; element: string; detail: string };
 
   const RULES: readonly Rule[] = [
@@ -80,6 +83,8 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     'occlusion',
     'fonts',
     'images',
+    /* сам измеритель это правило не считает — оно здесь ради допущений `allow` */
+    'stability',
   ];
   const found: Found[] = [];
   const report = (rule: Rule, element: string, detail: string): void => {

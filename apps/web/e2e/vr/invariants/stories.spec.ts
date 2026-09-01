@@ -14,6 +14,7 @@ import {
   writeInvariantsOutcome,
   type InvariantsGroup,
 } from './outcome';
+import { checkStability, readStabilityParameters } from './stability';
 
 /**
  * Инварианты без эталона на всех историях витрины (ADR-230, фаза 3 плана
@@ -99,12 +100,20 @@ async function measureStories(page: Page, run: MeasureRun): Promise<void> {
       /* Отказ одной истории не обрывает обход: причина записывается, замер
          идёт дальше, а в конце список отказов красит тест целиком. */
       try {
-        await page.goto(`/iframe.html?id=${story.id}&viewMode=story&globals=theme:${run.theme}`, {
-          waitUntil: 'domcontentloaded',
-        });
-        await waitForStoryReady(page);
+        await open(page, story.id, run.theme);
         const violations = await page.evaluate(measureInvariants, { theme: run.theme, touch });
-        recordViolations(tally, story.id, violations);
+
+        /* Устойчивость между состояниями (ADR-212, #465): опорная история
+           объявляет контрольный элемент и состояния, раннер открывает каждое
+           на этой же паре «ширина + тема» и сравнивает рамку. Читается после
+           замера — обход состояний уводит страницу с опорной истории. */
+        const stability = await checkStability(
+          page,
+          await readStabilityParameters(page),
+          (stateId) => open(page, stateId, run.theme),
+        );
+        recordViolations(tally, story.id, [...violations, ...stability.violations]);
+        for (const reason of stability.failures) tally.failed.push({ story: story.id, reason });
       } catch (error) {
         tally.failed.push({ story: story.id, reason: describeError(error) });
       }
@@ -133,6 +142,14 @@ async function measureStories(page: Page, run: MeasureRun): Promise<void> {
     describeViolations(tally),
     'инварианты нарушены или истории не дошли до замера — список выше',
   ).toEqual([]);
+}
+
+/** Переход к истории на текущей паре «ширина + тема» с ожиданием готовности. */
+async function open(page: Page, storyId: string, theme: string): Promise<void> {
+  await page.goto(`/iframe.html?id=${storyId}&viewMode=story&globals=theme:${theme}`, {
+    waitUntil: 'domcontentloaded',
+  });
+  await waitForStoryReady(page);
 }
 
 function describeError(error: unknown): string {

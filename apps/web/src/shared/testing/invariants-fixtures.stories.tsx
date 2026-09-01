@@ -43,7 +43,8 @@ type InvariantRule =
   | 'clipped-text'
   | 'occlusion'
   | 'fonts'
-  | 'images';
+  | 'images'
+  | 'stability';
 
 /** Что измеритель обязан найти на этой истории — ровно это и ничего больше. */
 const expects = (...rules: readonly InvariantRule[]): NonNullable<Story['parameters']> => ({
@@ -163,6 +164,50 @@ export const Images: Story = {
   name: 'images — картинка не загрузилась',
   parameters: expects('images'),
   render: () => <Image alt="Схема" width={40} height={40} src="/nope-invariants.png" unoptimized />,
+};
+
+/**
+ * Контрольная кнопка для правила `stability` (ADR-212, #465): опорная история
+ * объявляет её селектор и два состояния — сдвинутое и такое же. Раннер обязан
+ * поймать сдвиг и не поймать совпадение.
+ */
+function Control({ top }: { readonly top: number }): ReactNode {
+  return (
+    <button
+      id="control"
+      type="button"
+      style={{ position: 'absolute', top, left: 16, width: 160, height: 44 }}
+    >
+      Далее
+    </button>
+  );
+}
+
+export const StabilityAnchor: Story = {
+  name: 'stability — опорная: кнопка на 40px',
+  parameters: {
+    invariants: {
+      expect: ['stability'],
+      /* id состояний — из имён экспортов ниже: `StabilityShifted` → `stability-shifted` */
+      stability: {
+        control: '#control',
+        states: ['фикстуры-инварианты--stability-shifted', 'фикстуры-инварианты--stability-same'],
+      },
+    },
+  },
+  render: () => <Control top={40} />,
+};
+
+export const StabilityShifted: Story = {
+  name: 'stability — состояние: кнопка уехала на 30px',
+  parameters: expects(),
+  render: () => <Control top={70} />,
+};
+
+export const StabilitySame: Story = {
+  name: 'stability — состояние: кнопка на месте',
+  parameters: expects(),
+  render: () => <Control top={40} />,
 };
 
 export const Clean: Story = {

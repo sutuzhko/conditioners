@@ -38,6 +38,7 @@ const RULES = [
   'theme',
   'clipped-text',
   'occlusion',
+  'stability',
   'fonts',
   'images',
 ];
