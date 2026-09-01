@@ -1,0 +1,52 @@
+# ui-kit-chart--two-series · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+figure.Chart__figure  292×127 @49,49
+  figcaption.Chart__legend  292×19 @0,0
+    span.Chart__legendItem  66×19 @0,0  Manrope 600 12/19  lines=1  «Заказы»
+      span.Chart__swatch  18×2 @0,8  b2 0 0 0
+    span.Chart__legendItem#2  160×19 @82,0  Manrope 600 12/19  lines=1  «Выплаты монтажникам»
+      span.Chart__swatch  18×2 @0,8  b2 0 0 0
+  svg.Chart__canvas  292×100 @0,27
+
+[геометрия 768]
+figure.Chart__figure  670×257 @49,49
+  figcaption.Chart__legend  670×19 @0,0
+    span.Chart__legendItem  66×19 @0,0  Manrope 600 12/19  lines=1  «Заказы»
+      span.Chart__swatch  18×2 @0,8  b2 0 0 0
+    span.Chart__legendItem#2  160×19 @82,0  Manrope 600 12/19  lines=1  «Выплаты монтажникам»
+      span.Chart__swatch  18×2 @0,8  b2 0 0 0
+  svg.Chart__canvas  670×230 @0,27
+
+[геометрия 1440]
+figure.Chart__figure  1342×488 @49,49
+  figcaption.Chart__legend  1342×19 @0,0
+    span.Chart__legendItem  66×19 @0,0  Manrope 600 12/19  lines=1  «Заказы»
+      span.Chart__swatch  18×2 @0,8  b2 0 0 0
+    span.Chart__legendItem#2  160×19 @82,0  Manrope 600 12/19  lines=1  «Выплаты монтажникам»
+      span.Chart__swatch  18×2 @0,8  b2 0 0 0
+  svg.Chart__canvas  1342×461 @0,27
+
+[палитра light]
+figure.Chart__figure
+  figcaption.Chart__legend
+    span.Chart__legendItem  color #556173
+      span.Chart__swatch  border #0891b2 #556173 #556173 #556173
+    span.Chart__legendItem#2  color #556173
+      span.Chart__swatch  border #b45309 #556173 #556173 #556173
+  svg.Chart__canvas
+
+[палитра dark]
+figure.Chart__figure
+  figcaption.Chart__legend
+    span.Chart__legendItem  color #8598ac
+      span.Chart__swatch  border #22d3ee #8598ac #8598ac #8598ac
+    span.Chart__legendItem#2  color #8598ac
+      span.Chart__swatch  border #fbbf24 #8598ac #8598ac #8598ac
+  svg.Chart__canvas

@@ -1,0 +1,32 @@
+# админка-заказы-список-нарядов--пустоумонтажника · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×114 @16,16  r20  b1
+  h2.OrderList__emptyTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «На вас пока ничего не назначено»
+  p.OrderList__emptyText  316×45 @21,48  Manrope 400 15/22  lines=2  «Как только владелец назначит наряд, он п»
+
+[геометрия 768]
+section.Card__card  736×92 @16,16  r20  b1
+  h2.OrderList__emptyTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «На вас пока ничего не назначено»
+  p.OrderList__emptyText  460×22 @138,49  Manrope 400 15/22  lines=1  «Как только владелец назначит наряд, он п»
+
+[геометрия 1440]
+section.Card__card  1408×93 @16,16  r20  b1
+  h2.OrderList__emptyTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «На вас пока ничего не назначено»
+  p.OrderList__emptyText  460×22 @474,50  Manrope 400 15/22  lines=1  «Как только владелец назначит наряд, он п»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderList__emptyTitle  color #0f172a
+  p.OrderList__emptyText  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderList__emptyTitle  color #eaf1f8
+  p.OrderList__emptyText  color #8598ac

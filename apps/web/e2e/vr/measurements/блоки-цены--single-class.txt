@@ -1,0 +1,584 @@
+# блоки-цены--single-class · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 600, Onest 700, Onest 800
+
+[документ]
+320 → 320×1469
+375 → 375×1456
+768 → 768×1379
+1200 → 1200×1017
+
+[геометрия 320]
+section.Pricing__section  320×1469 @0,0
+  div.Pricing__container  320×1469 @0,0
+    header.Pricing__head  288×173 @16,48
+      p.Pricing__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Цены на монтаж —»
+      h2.Pricing__title  288×58 @0,32  Onest 700 24/29  ls0  lines=2  «Стоимость установки кондиционера»
+      p.Pricing__lead  288×70 @0,104  Manrope 400 15/23  lines=3  «Базовый монтаж — кронштейны, медная трас»
+    div.Pricing__money  0×0 @0,0
+      div.Pricing__prices  288×205 @16,249
+        div.PriceTable__wrap  288×84 @0,0
+          div.Table__viewport  288×84 @0,0
+            table.Table__table  288×84 @0,0
+              col.PriceTable__col1  288×84 @0,0
+              col.PriceTable__col2  0×0 @0,0
+              col.PriceTable__col3  0×0 @0,0
+              tbody.PriceTable__tbody  288×84 @0,0
+                tr.PriceTable__row  288×84 @0,0  r14  b1
+                  th.PriceTable__powerCell  142×23 @17,18
+                    span.PriceTable__power  51×21 @0,1  Manrope 700 15/23  lines=1  «2.6 кВт»
+                    span.PriceTable__area  75×21 @51,1  Manrope 700 15/23  lines=1  «до 27 м²»
+                      span.PriceTable__area::before  0×0 @0,0
+                  td.PriceTable__priceCell  100×29 @171,15
+                    span.PriceTable__label  1×1 @-1,-1  JetBrains Mono 400 12/19  ls1  lines=1  clipped  «Монтаж под ключ»
+                    span.PriceTable__price  100×24 @0,2  Onest 800 19/29  lines=1  «от 6 000 ₽»
+                  td.PriceTable__termCell  254×19 @17,50
+                    span.PriceTable__label  1×1 @-1,-1  JetBrains Mono 400 12/19  ls1  lines=1  clipped  «Срок»
+                    span.PriceTable__term  58×16 @0,1  JetBrains Mono 400 12/19  lines=1  «3–4 часа»
+        p.Pricing__note  288×101 @0,104  Manrope 400 13/20  lines=5  «Трасса до 3 м — в базовой цене · Дополни»
+      div.Pricing__calc  288×986 @16,482
+        div.Card__card  288×986 @0,0  r22  b1
+          div.Calculator__head  246×53 @21,21
+            h3.Calculator__title  202×23 @0,0  Onest 700 19/23  ls0  lines=1  «Калькулятор монтажа»
+            span.Calculator__badge  112×19 @0,35  JetBrains Mono 400 12/19  ls1  lines=1  «ОНЛАЙН-РАСЧЁТ»
+          div.Calculator__body  246×865 @21,100
+            div.Calculator__params  246×480 @0,0
+              div.Calculator__fields  246×398 @0,0
+                div.Field__field  246×76 @0,0
+                  label.Field__label  246×20 @0,0  Manrope 600 13/20  lines=1  «Класс мощности»
+                  span.Select__wrapper  246×49 @0,27
+                    select.Select__select  246×49 @0,0  r11  b1
+                      option  0×0 @-37,-610  Manrope 400 15/21  lines=0  «09 · до 27 м²»
+                    svg.Select__chevron  14×14 @218,18
+                div.Field__field#2  246×101 @0,90
+                  span.RangeSlider__head  246×25 @0,0
+                    label  104×23 @0,0  Manrope 700 15/23  lines=1  «Длина трассы»
+                    output.RangeSlider__value  26×25 @220,0  Onest 700 16/25  lines=1  «3 м»
+                  input.RangeSlider__slider  246×44 @0,32
+                  span.RangeSlider__scale  246×19 @0,83
+                    span  22×19 @0,0  JetBrains Mono 400 12/19  lines=1  «3 м»
+                    span#2  29×19 @217,0  JetBrains Mono 400 12/19  lines=1  «15 м»
+                div.Field__field#3  246×103 @0,206
+                  label.Field__label  246×20 @0,0  Manrope 600 13/20  lines=1  «Этаж»
+                  span.Select__wrapper  246×49 @0,27
+                    select.Select__select#2  246×49 @0,0  r11  b1
+                      option  0×0 @-37,-815  Manrope 400 15/21  lines=0  «1–9»
+                      option#2  0×0 @-37,-815  Manrope 400 15/21  lines=0  «10+»
+                    svg.Select__chevron#2  14×14 @218,18
+                  p.Field__hint  246×19 @0,83  Manrope 400 13/19  lines=1  «Высотные работы — с 10 этажа»
+                div.Field__field#4  246×76 @0,322
+                  label.Field__label  246×20 @0,0  Manrope 600 13/20  lines=1  «Количество блоков»
+                  span.Select__wrapper  246×49 @0,27
+                    select.Select__select#3  246×49 @0,0  r11  b1
+                      option  0×0 @-37,-932  Manrope 400 15/21  lines=0  «1»
+                      option#2  0×0 @-37,-932  Manrope 400 15/21  lines=0  «2»
+                      option#3  0×0 @-37,-932  Manrope 400 15/21  lines=0  «3»
+                      option#4  0×0 @-37,-932  Manrope 400 15/21  lines=0  «4»
+                    svg.Select__chevron#3  14×14 @218,18
+              div.Checkbox__root  246×62 @0,418
+                div.Checkbox__row  246×62 @0,0
+                  input.Checkbox__input  20×20 @0,11  r6  b1
+                  label.Checkbox__label  215×42 @31,10  Manrope 400 15/21  lines=2  «Штробление стен под трассу (+800 ₽/⁠м)»
+            div.Calculator__summary  246×363 @0,502  r20  b1
+              div.Calculator__breakdown  212×181 @17,17
+                p.Calculator__breakdownTitle  212×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Из чего складывается»
+                dl.Calculator__lines  212×152 @0,29
+                  div.Calculator__line  212×152 @0,0
+                    dt.Calculator__lineLabel  145×45 @0,0  Manrope 400 15/22  lines=2  «Базовый монтаж, класс 09»
+                    dd.Calculator__lineAmount  55×22 @157,0  Onest 700 15/22  lines=1  «6 000 ₽»
+              div.Calculator__totalDock  244×146 @38,1102  r0 0 20 20  fixed
+                div.TotalBar__total  212×130 @16,0  b1 0 0 0
+                  p.TotalBar__value  214×49 @0,17
+                    span.TotalBar__label  108×18 @0,3  Manrope 400 13/16  lines=1  «Монтаж под ключ»
+                    output.TotalBar__output  214×26 @0,23
+                      span.TotalBar__amount  93×24 @121,1  Onest 800 24/24  lines=1  «6 000 ₽»
+                  a.Button__button  214×52 @0,78  r12  b1
+                    span.Button__content  156×19 @29,16
+                      span.Button__label  156×19 @0,0  Manrope 600 16/19  lines=1  «Вызвать замерщика»
+
+[геометрия 375]
+section.Pricing__section  375×1456 @0,0
+  div.Pricing__container  375×1456 @0,0
+    header.Pricing__head  343×176 @16,51
+      p.Pricing__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Цены на монтаж —»
+      h2.Pricing__title  343×60 @0,32  Onest 700 25/30  ls0  lines=2  «Стоимость установки кондиционера»
+      p.Pricing__lead  343×70 @0,106  Manrope 400 15/23  lines=3  «Базовый монтаж — кронштейны, медная трас»
+    div.Pricing__money  0×0 @0,0
+      div.Pricing__prices  343×185 @16,254
+        div.PriceTable__wrap  343×85 @0,0
+          div.Table__viewport  343×85 @0,0
+            table.Table__table  343×85 @0,0
+              col.PriceTable__col1  343×85 @0,0
+              col.PriceTable__col2  0×0 @0,0
+              col.PriceTable__col3  0×0 @0,0
+              tbody.PriceTable__tbody  343×85 @0,0
+                tr.PriceTable__row  343×85 @0,0  r14  b1
+                  th.PriceTable__powerCell  196×23 @17,18
+                    span.PriceTable__power  51×21 @0,1  Manrope 700 15/23  lines=1  «2.6 кВт»
+                    span.PriceTable__area  75×21 @51,1  Manrope 700 15/23  lines=1  «до 27 м²»
+                      span.PriceTable__area::before  0×0 @0,0
+                  td.PriceTable__priceCell  100×30 @225,15
+                    span.PriceTable__label  1×1 @-1,-1  JetBrains Mono 400 12/19  ls1  lines=1  clipped  «Монтаж под ключ»
+                    span.PriceTable__price  100×24 @0,2  Onest 800 19/30  lines=1  «от 6 000 ₽»
+                  td.PriceTable__termCell  309×19 @17,51
+                    span.PriceTable__label  1×1 @-1,-1  JetBrains Mono 400 12/19  ls1  lines=1  clipped  «Срок»
+                    span.PriceTable__term  58×16 @0,1  JetBrains Mono 400 12/19  lines=1  «3–4 часа»
+        p.Pricing__note  343×81 @0,105  Manrope 400 13/20  lines=4  «Трасса до 3 м — в базовой цене · Дополни»
+      div.Pricing__calc  343×989 @16,467
+        div.Card__card  343×989 @0,0  r22  b1
+          div.Calculator__head  300×54 @22,22
+            h3.Calculator__title  205×23 @0,0  Onest 700 19/23  ls0  lines=1  «Калькулятор монтажа»
+            span.Calculator__badge  112×19 @0,35  JetBrains Mono 400 12/19  ls1  lines=1  «ОНЛАЙН-РАСЧЁТ»
+          div.Calculator__body  300×866 @22,102
+            div.Calculator__params  300×480 @0,0
+              div.Calculator__fields  300×398 @0,0
+                div.Field__field  300×76 @0,0
+                  label.Field__label  300×20 @0,0  Manrope 600 13/20  lines=1  «Класс мощности»
+                  span.Select__wrapper  300×49 @0,27
+                    select.Select__select  300×49 @0,0  r11  b1
+                      option  0×0 @-38,-596  Manrope 400 15/21  lines=0  «09 · до 27 м²»
+                    svg.Select__chevron  14×14 @272,18
+                div.Field__field#2  300×101 @0,90
+                  span.RangeSlider__head  300×25 @0,0
+                    label  104×23 @0,0  Manrope 700 15/23  lines=1  «Длина трассы»
+                    output.RangeSlider__value  26×25 @274,0  Onest 700 16/25  lines=1  «3 м»
+                  input.RangeSlider__slider  300×44 @0,32
+                  span.RangeSlider__scale  300×19 @0,83
+                    span  22×19 @0,0  JetBrains Mono 400 12/19  lines=1  «3 м»
+                    span#2  29×19 @271,0  JetBrains Mono 400 12/19  lines=1  «15 м»
+                div.Field__field#3  300×103 @0,206
+                  label.Field__label  300×20 @0,0  Manrope 600 13/20  lines=1  «Этаж»
+                  span.Select__wrapper  300×49 @0,27
+                    select.Select__select#2  300×49 @0,0  r11  b1
+                      option  0×0 @-38,-801  Manrope 400 15/21  lines=0  «1–9»
+                      option#2  0×0 @-38,-801  Manrope 400 15/21  lines=0  «10+»
+                    svg.Select__chevron#2  14×14 @272,18
+                  p.Field__hint  300×19 @0,83  Manrope 400 13/19  lines=1  «Высотные работы — с 10 этажа»
+                div.Field__field#4  300×76 @0,322
+                  label.Field__label  300×20 @0,0  Manrope 600 13/20  lines=1  «Количество блоков»
+                  span.Select__wrapper  300×49 @0,27
+                    select.Select__select#3  300×49 @0,0  r11  b1
+                      option  0×0 @-38,-918  Manrope 400 15/21  lines=0  «1»
+                      option#2  0×0 @-38,-918  Manrope 400 15/21  lines=0  «2»
+                      option#3  0×0 @-38,-918  Manrope 400 15/21  lines=0  «3»
+                      option#4  0×0 @-38,-918  Manrope 400 15/21  lines=0  «4»
+                    svg.Select__chevron#3  14×14 @272,18
+              div.Checkbox__root  300×62 @0,418
+                div.Checkbox__row  300×62 @0,0
+                  input.Checkbox__input  20×20 @0,11  r6  b1
+                  label.Checkbox__label  269×42 @31,10  Manrope 400 15/21  lines=2  «Штробление стен под трассу (+800 ₽/⁠м)»
+            div.Calculator__summary  300×363 @0,502  r20  b1
+              div.Calculator__breakdown  265×181 @17,17
+                p.Calculator__breakdownTitle  265×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Из чего складывается»
+                dl.Calculator__lines  265×152 @0,29
+                  div.Calculator__line  265×152 @0,0
+                    dt.Calculator__lineLabel  181×22 @0,0  Manrope 400 15/22  lines=1  «Базовый монтаж, класс 09»
+                    dd.Calculator__lineAmount  55×22 @210,0  Onest 700 15/22  lines=1  «6 000 ₽»
+              div.Calculator__totalDock  298×147 @39,1088  r0 0 20 20  fixed
+                div.TotalBar__total  265×130 @16,0  b1 0 0 0
+                  p.TotalBar__value  265×49 @0,17
+                    span.TotalBar__label  108×18 @0,3  Manrope 400 13/16  lines=1  «Монтаж под ключ»
+                    output.TotalBar__output  265×26 @0,23
+                      span.TotalBar__amount  93×24 @172,1  Onest 800 24/24  lines=1  «6 000 ₽»
+                  a.Button__button  265×52 @0,78  r12  b1
+                    span.Button__content  156×19 @55,16
+                      span.Button__label  156×19 @0,0  Manrope 600 16/19  lines=1  «Вызвать замерщика»
+
+[геометрия 768]
+section.Pricing__section  768×1379 @0,0
+  div.Pricing__container  768×1379 @0,0
+    header.Pricing__head  640×135 @64,68
+      p.Pricing__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Цены на монтаж —»
+      h2.Pricing__title  640×37 @0,32  Onest 700 31/37  ls-1  lines=1  «Стоимость установки кондиционера»
+      p.Pricing__lead  640×51 @0,83  Manrope 400 17/26  lines=2  «Базовый монтаж — кронштейны, медная трас»
+    div.Pricing__money  0×0 @0,0
+      div.Pricing__prices  728×149 @20,251
+        div.PriceTable__wrap  728×89 @0,0
+          div.Table__viewport  728×89 @0,0
+            table.Table__table  728×89 @0,0
+              col.PriceTable__col1  728×89 @0,0
+              col.PriceTable__col2  0×0 @0,0
+              col.PriceTable__col3  0×0 @0,0
+              tbody.PriceTable__tbody  728×89 @0,0
+                tr.PriceTable__row  728×89 @0,0  r14  b1
+                  th.PriceTable__powerCell  575×24 @19,21
+                    span.PriceTable__power  52×21 @0,1  Manrope 700 15/24  lines=1  «2.6 кВт»
+                    span.PriceTable__area  76×21 @52,1  Manrope 700 15/24  lines=1  «до 27 м²»
+                      span.PriceTable__area::before  0×0 @0,0
+                  td.PriceTable__priceCell  103×30 @606,17
+                    span.PriceTable__label  1×1 @-1,-1  JetBrains Mono 400 12/19  ls1  lines=1  clipped  «Монтаж под ключ»
+                    span.PriceTable__price  103×25 @0,2  Onest 800 20/30  lines=1  «от 6 000 ₽»
+                  td.PriceTable__termCell  690×19 @19,53
+                    span.PriceTable__label  1×1 @-1,-1  JetBrains Mono 400 12/19  ls1  lines=1  clipped  «Срок»
+                    span.PriceTable__term  58×16 @0,1  JetBrains Mono 400 12/19  lines=1  «3–4 часа»
+        p.Pricing__note  728×40 @0,109  Manrope 400 13/20  lines=2  «Трасса до 3 м — в базовой цене · Дополни»
+      div.Pricing__calc  728×939 @20,440
+        div.Card__card  728×939 @0,0  r22  b1
+          div.Calculator__head  674×26 @27,27
+            h3.Calculator__title  229×26 @0,0  Onest 700 22/26  ls0  lines=1  «Калькулятор монтажа»
+            span.Calculator__badge  112×19 @561,4  JetBrains Mono 400 12/19  ls1  lines=1  «ОНЛАЙН-РАСЧЁТ»
+          div.Calculator__body  674×833 @27,79
+            div.Calculator__params  674×462 @0,0
+              div.Calculator__fields  674×398 @0,0
+                div.Field__field  674×76 @0,0
+                  label.Field__label  674×20 @0,0  Manrope 600 13/20  lines=1  «Класс мощности»
+                  span.Select__wrapper  674×49 @0,27
+                    select.Select__select  674×49 @0,0  r11  b1
+                      option  0×0 @-47,-546  Manrope 400 15/21  lines=0  «09 · до 27 м²»
+                    svg.Select__chevron  14×14 @646,18
+                div.Field__field#2  674×101 @0,90
+                  span.RangeSlider__head  674×25 @0,0
+                    label  104×23 @0,0  Manrope 700 15/23  lines=1  «Длина трассы»
+                    output.RangeSlider__value  26×25 @648,0  Onest 700 16/25  lines=1  «3 м»
+                  input.RangeSlider__slider  674×44 @0,32
+                  span.RangeSlider__scale  674×19 @0,83
+                    span  22×19 @0,0  JetBrains Mono 400 12/19  lines=1  «3 м»
+                    span#2  29×19 @645,0  JetBrains Mono 400 12/19  lines=1  «15 м»
+                div.Field__field#3  674×103 @0,206
+                  label.Field__label  674×20 @0,0  Manrope 600 13/20  lines=1  «Этаж»
+                  span.Select__wrapper  674×49 @0,27
+                    select.Select__select#2  674×49 @0,0  r11  b1
+                      option  0×0 @-47,-752  Manrope 400 15/21  lines=0  «1–9»
+                      option#2  0×0 @-47,-752  Manrope 400 15/21  lines=0  «10+»
+                    svg.Select__chevron#2  14×14 @646,18
+                  p.Field__hint  674×19 @0,83  Manrope 400 13/19  lines=1  «Высотные работы — с 10 этажа»
+                div.Field__field#4  674×76 @0,322
+                  label.Field__label  674×20 @0,0  Manrope 600 13/20  lines=1  «Количество блоков»
+                  span.Select__wrapper  674×49 @0,27
+                    select.Select__select#3  674×49 @0,0  r11  b1
+                      option  0×0 @-47,-868  Manrope 400 15/21  lines=0  «1»
+                      option#2  0×0 @-47,-868  Manrope 400 15/21  lines=0  «2»
+                      option#3  0×0 @-47,-868  Manrope 400 15/21  lines=0  «3»
+                      option#4  0×0 @-47,-868  Manrope 400 15/21  lines=0  «4»
+                    svg.Select__chevron#3  14×14 @646,18
+              div.Checkbox__root  674×44 @0,418
+                div.Checkbox__row  674×44 @0,0
+                  input.Checkbox__input  20×20 @0,11  r6  b1
+                  label.Checkbox__label  279×21 @31,10  Manrope 400 15/21  lines=1  «Штробление стен под трассу (+800 ₽/⁠м)»
+            div.Calculator__summary  674×349 @0,484  r20  b1
+              div.Calculator__breakdown  636×181 @19,19
+                p.Calculator__breakdownTitle  636×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Из чего складывается»
+                dl.Calculator__lines  636×152 @0,29
+                  div.Calculator__line  636×152 @0,0
+                    dt.Calculator__lineLabel  181×22 @0,0  Manrope 400 15/22  lines=1  «Базовый монтаж, класс 09»
+                    dd.Calculator__lineAmount  55×22 @581,0  Onest 700 15/22  lines=1  «6 000 ₽»
+              div.Calculator__totalDock  672×130 @48,1022  r0 0 20 20  fixed
+                div.TotalBar__total  636×112 @18,0  b1 0 0 0
+                  p.TotalBar__value  636×31 @0,17
+                    span.TotalBar__label  108×16 @0,8  Manrope 400 13/16  lines=1  «Монтаж под ключ»
+                    output.TotalBar__output  97×26 @539,3
+                      span.TotalBar__amount  97×25 @0,0  Onest 800 25/25  lines=1  «6 000 ₽»
+                  a.Button__button  636×52 @0,60  r12  b1
+                    span.Button__content  156×19 @240,16
+                      span.Button__label  156×19 @0,0  Manrope 600 16/19  lines=1  «Вызвать замерщика»
+
+[геометрия 1200]
+section.Pricing__section  1200×1017 @0,0
+  div.Pricing__container  1000×1017 @100,0
+    header.Pricing__head  640×188 @180,88
+      p.Pricing__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Цены на монтаж —»
+      h2.Pricing__title  640×91 @0,32  Onest 700 38/46  ls-1  lines=2  «Стоимость установки кондиционера»
+      p.Pricing__lead  640×51 @0,137  Manrope 400 17/26  lines=2  «Базовый монтаж — кронштейны, медная трас»
+    div.Pricing__money  0×0 @-100,0
+      div.Pricing__prices  952×178 @124,324
+        div.PriceTable__wrap  952×118 @0,0  r20  b1
+          div.Table__viewport  950×116 @1,1
+            table.Table__table  950×116 @0,0
+              col.PriceTable__col1  422×116 @0,0
+              col.PriceTable__col2  264×116 @422,0
+              col.PriceTable__col3  264×116 @686,0
+              thead.PriceTable__thead  950×55 @0,0
+                th.PriceTable__th  422×55 @0,0  Onest 600 15/22  lines=1  «Мощность / площадь»
+                th.PriceTable__th#2  264×55 @422,0  Onest 600 15/22  lines=1  «Монтаж под ключ»
+                th.PriceTable__th#3  264×55 @686,0  Onest 600 15/22  lines=1  «Срок»
+              tbody.PriceTable__tbody  950×61 @0,55
+                tr.PriceTable__row  950×61 @0,0  b1 0 0 0
+                  th.PriceTable__powerCell  422×61 @0,0
+                    span.PriceTable__power  51×21 @24,20  Manrope 600 15/23  lines=1  «2.6 кВт»
+                    span.PriceTable__area  74×21 @75,20  Manrope 600 15/23  lines=1  «до 27 м²»
+                      span.PriceTable__area::before  0×0 @0,0
+                  td.PriceTable__priceCell  264×61 @422,0
+                    span.PriceTable__price  79×20 @24,21  Onest 700 15/23  lines=1  «от 6 000 ₽»
+                  td.PriceTable__termCell  264×61 @686,0
+                    span.PriceTable__term  62×21 @24,20  Manrope 400 15/23  lines=1  «3–4 часа»
+        p.Pricing__note  952×40 @0,138  Manrope 400 13/20  lines=2  «Трасса до 3 м — в базовой цене · Дополни»
+      div.Pricing__calc  952×474 @124,542
+        div.Card__card  952×474 @0,0  r22  b1
+          div.Calculator__head  886×29 @33,33
+            h3.Calculator__title  255×29 @0,0  Onest 700 24/29  ls0  lines=1  «Калькулятор монтажа»
+            span.Calculator__badge  112×19 @774,5  JetBrains Mono 400 12/19  ls1  lines=1  «ОНЛАЙН-РАСЧЁТ»
+          div.Calculator__body  886×354 @33,88
+            div.Calculator__params  451×354 @0,0
+              div.Calculator__fields  451×222 @0,0
+                div.Field__field  217×76 @0,0
+                  label.Field__label  217×20 @0,0  Manrope 600 13/20  lines=1  «Класс мощности»
+                  span.Select__wrapper  217×49 @0,27
+                    select.Select__select  217×49 @0,0  r11  b1
+                      option  0×0 @-157,-657  Manrope 400 15/21  lines=0  «09 · до 27 м²»
+                    svg.Select__chevron  14×14 @189,18
+                div.Field__field#2  217×101 @235,0
+                  span.RangeSlider__head  217×25 @0,0
+                    label  104×23 @0,0  Manrope 700 15/23  lines=1  «Длина трассы»
+                    output.RangeSlider__value  26×25 @191,0  Onest 700 16/25  lines=1  «3 м»
+                  input.RangeSlider__slider  217×44 @0,32
+                  span.RangeSlider__scale  217×19 @0,83
+                    span  22×19 @0,0  JetBrains Mono 400 12/19  lines=1  «3 м»
+                    span#2  29×19 @188,0  JetBrains Mono 400 12/19  lines=1  «15 м»
+                div.Field__field#3  217×103 @0,119
+                  label.Field__label  217×20 @0,0  Manrope 600 13/20  lines=1  «Этаж»
+                  span.Select__wrapper  217×49 @0,27
+                    select.Select__select#2  217×49 @0,0  r11  b1
+                      option  0×0 @-157,-777  Manrope 400 15/21  lines=0  «1–9»
+                      option#2  0×0 @-157,-777  Manrope 400 15/21  lines=0  «10+»
+                    svg.Select__chevron#2  14×14 @189,18
+                  p.Field__hint  217×19 @0,83  Manrope 400 13/19  lines=1  «Высотные работы — с 10 этажа»
+                div.Field__field#4  217×76 @235,119
+                  label.Field__label  217×20 @0,0  Manrope 600 13/20  lines=1  «Количество блоков»
+                  span.Select__wrapper  217×49 @0,27
+                    select.Select__select#3  217×49 @0,0  r11  b1
+                      option  0×0 @-392,-777  Manrope 400 15/21  lines=0  «1»
+                      option#2  0×0 @-392,-777  Manrope 400 15/21  lines=0  «2»
+                      option#3  0×0 @-392,-777  Manrope 400 15/21  lines=0  «3»
+                      option#4  0×0 @-392,-777  Manrope 400 15/21  lines=0  «4»
+                    svg.Select__chevron#3  14×14 @189,18
+              div.Checkbox__root  451×44 @0,242
+                div.Checkbox__row  451×44 @0,0
+                  input.Checkbox__input  20×20 @0,11  r6  b1
+                  label.Checkbox__label  279×21 @31,10  Manrope 400 15/21  lines=1  «Штробление стен под трассу (+800 ₽/⁠м)»
+            div.Calculator__summary  409×354 @477,0  r20  b1
+              div.Calculator__breakdown  367×181 @21,21
+                p.Calculator__breakdownTitle  367×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Из чего складывается»
+                dl.Calculator__lines  367×152 @0,29
+                  div.Calculator__line  367×152 @0,0
+                    dt.Calculator__lineLabel  181×22 @0,0  Manrope 400 15/22  lines=1  «Базовый монтаж, класс 09»
+                    dd.Calculator__lineAmount  55×22 @312,0  Onest 700 15/22  lines=1  «6 000 ₽»
+              div.Calculator__totalDock  367×113 @21,220
+                div.TotalBar__total  367×113 @0,0  b1 0 0 0
+                  p.TotalBar__value  367×32 @0,17
+                    span.TotalBar__label  108×16 @0,8  Manrope 400 13/16  lines=1  «Монтаж под ключ»
+                    output.TotalBar__output  101×26 @266,3
+                      span.TotalBar__amount  101×26 @0,0  Onest 800 26/26  lines=1  «6 000 ₽»
+                  a.Button__button  367×52 @0,61  r12  b1
+                    span.Button__content  156×19 @105,16
+                      span.Button__label  156×19 @0,0  Manrope 600 16/19  lines=1  «Вызвать замерщика»
+
+[палитра light]
+section.Pricing__section  bg #ffffff
+  div.Pricing__container
+    header.Pricing__head
+      p.Pricing__kicker  color #0e7490
+      h2.Pricing__title  color #0f172a
+      p.Pricing__lead  color #556173
+    div.Pricing__money
+      div.Pricing__prices
+        div.PriceTable__wrap  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+          div.Table__viewport
+            table.Table__table
+              col.PriceTable__col1
+              col.PriceTable__col2
+              col.PriceTable__col3
+              thead.PriceTable__thead  bg #0f172a
+                th.PriceTable__th  color #ffffff
+                th.PriceTable__th#2  color #ffffff
+                th.PriceTable__th#3  color #ffffff
+              tbody.PriceTable__tbody
+                tr.PriceTable__row  border #e2e8f0 #334155 #334155 #334155
+                  th.PriceTable__powerCell
+                    span.PriceTable__power  color #0f172a
+                    span.PriceTable__area  color #5b6a7d
+                      span.PriceTable__area::before
+                  td.PriceTable__priceCell
+                    span.PriceTable__price  color #0e7490
+                  td.PriceTable__termCell
+                    span.PriceTable__term  color #556173
+        p.Pricing__note  color #556173
+      div.Pricing__calc
+        div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+          div.Calculator__head
+            h3.Calculator__title  color #0f172a
+            span.Calculator__badge  color #0e7490
+          div.Calculator__body
+            div.Calculator__params
+              div.Calculator__fields
+                div.Field__field
+                  label.Field__label  color #334155
+                  span.Select__wrapper
+                    select.Select__select  bg #ffffff  border #7e8fa6
+                      option  color #0f172a
+                    svg.Select__chevron
+                div.Field__field#2
+                  span.RangeSlider__head
+                    label  color #0f172a
+                    output.RangeSlider__value  color #0e7490
+                  input.RangeSlider__slider
+                  span.RangeSlider__scale
+                    span  color #5b6a7d
+                    span#2  color #5b6a7d
+                div.Field__field#3
+                  label.Field__label  color #334155
+                  span.Select__wrapper
+                    select.Select__select#2  bg #ffffff  border #7e8fa6
+                      option  color #0f172a
+                      option#2  color #0f172a
+                    svg.Select__chevron#2
+                  p.Field__hint  color #556173
+                div.Field__field#4
+                  label.Field__label  color #334155
+                  span.Select__wrapper
+                    select.Select__select#3  bg #ffffff  border #7e8fa6
+                      option  color #0f172a
+                      option#2  color #0f172a
+                      option#3  color #0f172a
+                      option#4  color #0f172a
+                    svg.Select__chevron#3
+              div.Checkbox__root
+                div.Checkbox__row
+                  input.Checkbox__input  bg #ffffff  border #cbd5e1
+                  label.Checkbox__label  color #475569
+            div.Calculator__summary  bg #f8fafc  border #eef2f6
+              div.Calculator__breakdown
+                p.Calculator__breakdownTitle  color #5b6a7d
+                dl.Calculator__lines
+                  div.Calculator__line
+                    dt.Calculator__lineLabel  color #556173
+                    dd.Calculator__lineAmount  color #0f172a
+              div.Calculator__totalDock
+                div.TotalBar__total  border #eef2f6 #475569 #475569 #475569
+                  p.TotalBar__value
+                    span.TotalBar__label  color #556173
+                    output.TotalBar__output
+                      span.TotalBar__amount  color #0e7490
+                  a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+                    span.Button__content
+                      span.Button__label  color #ffffff
+[палитра light @320]
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row  bg #ffffff  border #e2e8f0
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__priceCell > span.PriceTable__label  color #5b6a7d
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__termCell > span.PriceTable__label  color #5b6a7d
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__termCell > span.PriceTable__term  color #5b6a7d
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__calc > div.Card__card > div.Calculator__body > div.Calculator__summary > div.Calculator__totalDock  bg #f8fafc  shadow #0f172a42 0px -12px 28px -18px
+[палитра light @375]
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row  bg #ffffff  border #e2e8f0
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__priceCell > span.PriceTable__label  color #5b6a7d
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__termCell > span.PriceTable__label  color #5b6a7d
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__termCell > span.PriceTable__term  color #5b6a7d
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__calc > div.Card__card > div.Calculator__body > div.Calculator__summary > div.Calculator__totalDock  bg #f8fafc  shadow #0f172a42 0px -12px 28px -18px
+[палитра light @768]
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row  bg #ffffff  border #e2e8f0
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__priceCell > span.PriceTable__label  color #5b6a7d
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__termCell > span.PriceTable__label  color #5b6a7d
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__termCell > span.PriceTable__term  color #5b6a7d
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__calc > div.Card__card > div.Calculator__body > div.Calculator__summary > div.Calculator__totalDock  bg #f8fafc  shadow #0f172a42 0px -12px 28px -18px
+
+[палитра dark]
+section.Pricing__section  bg #0b1220
+  div.Pricing__container
+    header.Pricing__head
+      p.Pricing__kicker  color #22d3ee
+      h2.Pricing__title  color #eaf1f8
+      p.Pricing__lead  color #8598ac
+    div.Pricing__money
+      div.Pricing__prices
+        div.PriceTable__wrap  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+          div.Table__viewport
+            table.Table__table
+              col.PriceTable__col1
+              col.PriceTable__col2
+              col.PriceTable__col3
+              thead.PriceTable__thead  bg #111d34
+                th.PriceTable__th  color #ffffff
+                th.PriceTable__th#2  color #ffffff
+                th.PriceTable__th#3  color #ffffff
+              tbody.PriceTable__tbody
+                tr.PriceTable__row  border #1e2b41 #c9d5e2 #c9d5e2 #c9d5e2
+                  th.PriceTable__powerCell
+                    span.PriceTable__power  color #eaf1f8
+                    span.PriceTable__area  color #7e92a7
+                      span.PriceTable__area::before
+                  td.PriceTable__priceCell
+                    span.PriceTable__price  color #22d3ee
+                  td.PriceTable__termCell
+                    span.PriceTable__term  color #8598ac
+        p.Pricing__note  color #8598ac
+      div.Pricing__calc
+        div.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+          div.Calculator__head
+            h3.Calculator__title  color #eaf1f8
+            span.Calculator__badge  color #22d3ee
+          div.Calculator__body
+            div.Calculator__params
+              div.Calculator__fields
+                div.Field__field
+                  label.Field__label  color #c9d5e2
+                  span.Select__wrapper
+                    select.Select__select  bg #0b1424  border #566d95
+                      option  color #eaf1f8
+                    svg.Select__chevron
+                div.Field__field#2
+                  span.RangeSlider__head
+                    label  color #eaf1f8
+                    output.RangeSlider__value  color #22d3ee
+                  input.RangeSlider__slider
+                  span.RangeSlider__scale
+                    span  color #7e92a7
+                    span#2  color #7e92a7
+                div.Field__field#3
+                  label.Field__label  color #c9d5e2
+                  span.Select__wrapper
+                    select.Select__select#2  bg #0b1424  border #566d95
+                      option  color #eaf1f8
+                      option#2  color #eaf1f8
+                    svg.Select__chevron#2
+                  p.Field__hint  color #8598ac
+                div.Field__field#4
+                  label.Field__label  color #c9d5e2
+                  span.Select__wrapper
+                    select.Select__select#3  bg #0b1424  border #566d95
+                      option  color #eaf1f8
+                      option#2  color #eaf1f8
+                      option#3  color #eaf1f8
+                      option#4  color #eaf1f8
+                    svg.Select__chevron#3
+              div.Checkbox__root
+                div.Checkbox__row
+                  input.Checkbox__input  bg #0b1424  border #2c3d59
+                  label.Checkbox__label  color #a8b6c6
+            div.Calculator__summary  bg #0e1729  border #182338
+              div.Calculator__breakdown
+                p.Calculator__breakdownTitle  color #7e92a7
+                dl.Calculator__lines
+                  div.Calculator__line
+                    dt.Calculator__lineLabel  color #8598ac
+                    dd.Calculator__lineAmount  color #eaf1f8
+              div.Calculator__totalDock
+                div.TotalBar__total  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+                  p.TotalBar__value
+                    span.TotalBar__label  color #8598ac
+                    output.TotalBar__output
+                      span.TotalBar__amount  color #22d3ee
+                  a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+                    span.Button__content
+                      span.Button__label  color #ffffff
+[палитра dark @320]
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row  bg #121d31  border #1e2b41
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__priceCell > span.PriceTable__label  color #7e92a7
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__termCell > span.PriceTable__label  color #7e92a7
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__termCell > span.PriceTable__term  color #7e92a7
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__calc > div.Card__card > div.Calculator__body > div.Calculator__summary > div.Calculator__totalDock  bg #0e1729  shadow #0f172a42 0px -12px 28px -18px
+[палитра dark @375]
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row  bg #121d31  border #1e2b41
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__priceCell > span.PriceTable__label  color #7e92a7
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__termCell > span.PriceTable__label  color #7e92a7
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__termCell > span.PriceTable__term  color #7e92a7
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__calc > div.Card__card > div.Calculator__body > div.Calculator__summary > div.Calculator__totalDock  bg #0e1729  shadow #0f172a42 0px -12px 28px -18px
+[палитра dark @768]
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row  bg #121d31  border #1e2b41
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__priceCell > span.PriceTable__label  color #7e92a7
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__termCell > span.PriceTable__label  color #7e92a7
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__prices > div.PriceTable__wrap > div.Table__viewport > table.Table__table > tbody.PriceTable__tbody > tr.PriceTable__row > td.PriceTable__termCell > span.PriceTable__term  color #7e92a7
+section.Pricing__section > div.Pricing__container > div.Pricing__money > div.Pricing__calc > div.Card__card > div.Calculator__body > div.Calculator__summary > div.Calculator__totalDock  bg #0e1729  shadow #0f172a42 0px -12px 28px -18px

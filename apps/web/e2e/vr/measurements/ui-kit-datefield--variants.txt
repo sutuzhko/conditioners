@@ -1,0 +1,237 @@
+# ui-kit-datefield--variants · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  326×52 @32,32
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  div.DateField__shell  326×52 @0,0  r999  b1
+    span.DateField__segmentBox  17×20 @15,23
+      input.DateField__segment  17×20 @0,0
+    span.DateField__segmentBox#2  23×20 @32,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  17×20 @6,0
+    span.DateField__segmentBox#3  40×20 @55,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  34×20 @6,0
+div.Field__field#2  326×52 @32,100
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  div.DateField__shell  326×52 @0,0  r999  b1
+    span.DateField__segmentBox#4  17×20 @15,23
+      input.DateField__segment  17×20 @0,0
+    span.DateField__segmentBox#5  23×20 @32,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  17×20 @6,0
+    span.DateField__segmentBox#6  40×20 @55,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  34×20 @6,0
+div.Field__field#3  326×52 @32,168
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  div.DateField__shell  326×52 @0,0  r999  b1
+    span.DateField__segmentBox#7  17×20 @15,23
+      input.DateField__segment  17×20 @0,0
+    span.DateField__segmentBox#8  23×20 @32,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  17×20 @6,0
+    span.DateField__segmentBox#9  40×20 @55,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  34×20 @6,0
+div.Field__field#4  326×52 @32,236
+  label.Field__label  57×13 @3,8  Manrope 600 11/13  lines=1  «underlined»
+  div.DateField__shell  326×52 @0,0  b0 0 1 0
+    span.DateField__segmentBox#10  17×20 @2,23
+      input.DateField__segment  17×20 @0,0
+    span.DateField__segmentBox#11  23×20 @19,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  17×20 @6,0
+    span.DateField__segmentBox#12  40×20 @42,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  34×20 @6,0
+
+[геометрия 768]
+div.Field__field  328×52 @32,32
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  div.DateField__shell  328×52 @0,0  r999  b1
+    span.DateField__segmentBox  17×20 @15,23
+      input.DateField__segment  17×20 @0,0
+    span.DateField__segmentBox#2  23×20 @32,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  17×20 @6,0
+    span.DateField__segmentBox#3  40×20 @55,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  34×20 @6,0
+div.Field__field#2  328×52 @32,100
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  div.DateField__shell  328×52 @0,0  r999  b1
+    span.DateField__segmentBox#4  17×20 @15,23
+      input.DateField__segment  17×20 @0,0
+    span.DateField__segmentBox#5  23×20 @32,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  17×20 @6,0
+    span.DateField__segmentBox#6  40×20 @55,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  34×20 @6,0
+div.Field__field#3  328×52 @32,168
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  div.DateField__shell  328×52 @0,0  r999  b1
+    span.DateField__segmentBox#7  17×20 @15,23
+      input.DateField__segment  17×20 @0,0
+    span.DateField__segmentBox#8  23×20 @32,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  17×20 @6,0
+    span.DateField__segmentBox#9  40×20 @55,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  34×20 @6,0
+div.Field__field#4  328×52 @32,236
+  label.Field__label  57×13 @3,8  Manrope 600 11/13  lines=1  «underlined»
+  div.DateField__shell  328×52 @0,0  b0 0 1 0
+    span.DateField__segmentBox#10  17×20 @2,23
+      input.DateField__segment  17×20 @0,0
+    span.DateField__segmentBox#11  23×20 @19,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  17×20 @6,0
+    span.DateField__segmentBox#12  40×20 @42,23
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  34×20 @6,0
+
+[геометрия 1440]
+div.Field__field  328×48 @32,32
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  div.DateField__shell  328×48 @0,0  r999  b1
+    span.DateField__segmentBox  17×20 @15,21
+      input.DateField__segment  17×20 @0,0
+    span.DateField__segmentBox#2  23×20 @32,21
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  17×20 @6,0
+    span.DateField__segmentBox#3  40×20 @55,21
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  34×20 @6,0
+div.Field__field#2  328×48 @32,96
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  div.DateField__shell  328×48 @0,0  r999  b1
+    span.DateField__segmentBox#4  17×20 @15,21
+      input.DateField__segment  17×20 @0,0
+    span.DateField__segmentBox#5  23×20 @32,21
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  17×20 @6,0
+    span.DateField__segmentBox#6  40×20 @55,21
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  34×20 @6,0
+div.Field__field#3  328×48 @32,160
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  div.DateField__shell  328×48 @0,0  r999  b1
+    span.DateField__segmentBox#7  17×20 @15,21
+      input.DateField__segment  17×20 @0,0
+    span.DateField__segmentBox#8  23×20 @32,21
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  17×20 @6,0
+    span.DateField__segmentBox#9  40×20 @55,21
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  34×20 @6,0
+div.Field__field#4  328×48 @32,224
+  label.Field__label  57×13 @3,8  Manrope 600 11/13  lines=1  «underlined»
+  div.DateField__shell  328×48 @0,0  b0 0 1 0
+    span.DateField__segmentBox#10  17×20 @2,21
+      input.DateField__segment  17×20 @0,0
+    span.DateField__segmentBox#11  23×20 @19,21
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  17×20 @6,0
+    span.DateField__segmentBox#12  40×20 @42,21
+      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  34×20 @6,0
+
+[палитра light]
+div.Field__field
+  label.Field__label  color #556173
+  div.DateField__shell  bg #f8fafc  border #7e8fa6
+    span.DateField__segmentBox
+      input.DateField__segment
+    span.DateField__segmentBox#2
+      span.DateField__separator  color #5b6a7d
+      input.DateField__segment
+    span.DateField__segmentBox#3
+      span.DateField__separator  color #5b6a7d
+      input.DateField__segment
+div.Field__field#2
+  label.Field__label  color #556173
+  div.DateField__shell  border #7e8fa6
+    span.DateField__segmentBox#4
+      input.DateField__segment
+    span.DateField__segmentBox#5
+      span.DateField__separator  color #5b6a7d
+      input.DateField__segment
+    span.DateField__segmentBox#6
+      span.DateField__separator  color #5b6a7d
+      input.DateField__segment
+div.Field__field#3
+  label.Field__label  color #556173
+  div.DateField__shell  bg #f8fafc  border #7e8fa6
+    span.DateField__segmentBox#7
+      input.DateField__segment
+    span.DateField__segmentBox#8
+      span.DateField__separator  color #5b6a7d
+      input.DateField__segment
+    span.DateField__segmentBox#9
+      span.DateField__separator  color #5b6a7d
+      input.DateField__segment
+div.Field__field#4
+  label.Field__label  color #556173
+  div.DateField__shell  border #0f172a #0f172a #7e8fa6 #0f172a
+    span.DateField__segmentBox#10
+      input.DateField__segment
+    span.DateField__segmentBox#11
+      span.DateField__separator  color #5b6a7d
+      input.DateField__segment
+    span.DateField__segmentBox#12
+      span.DateField__separator  color #5b6a7d
+      input.DateField__segment
+
+[палитра dark]
+div.Field__field
+  label.Field__label  color #8598ac
+  div.DateField__shell  bg #0e1729  border #566d95
+    span.DateField__segmentBox
+      input.DateField__segment
+    span.DateField__segmentBox#2
+      span.DateField__separator  color #7e92a7
+      input.DateField__segment
+    span.DateField__segmentBox#3
+      span.DateField__separator  color #7e92a7
+      input.DateField__segment
+div.Field__field#2
+  label.Field__label  color #8598ac
+  div.DateField__shell  border #566d95
+    span.DateField__segmentBox#4
+      input.DateField__segment
+    span.DateField__segmentBox#5
+      span.DateField__separator  color #7e92a7
+      input.DateField__segment
+    span.DateField__segmentBox#6
+      span.DateField__separator  color #7e92a7
+      input.DateField__segment
+div.Field__field#3
+  label.Field__label  color #8598ac
+  div.DateField__shell  bg #0e1729  border #566d95
+    span.DateField__segmentBox#7
+      input.DateField__segment
+    span.DateField__segmentBox#8
+      span.DateField__separator  color #7e92a7
+      input.DateField__segment
+    span.DateField__segmentBox#9
+      span.DateField__separator  color #7e92a7
+      input.DateField__segment
+div.Field__field#4
+  label.Field__label  color #8598ac
+  div.DateField__shell  border #eaf1f8 #eaf1f8 #566d95 #eaf1f8
+    span.DateField__segmentBox#10
+      input.DateField__segment
+    span.DateField__segmentBox#11
+      span.DateField__separator  color #7e92a7
+      input.DateField__segment
+    span.DateField__segmentBox#12
+      span.DateField__separator  color #7e92a7
+      input.DateField__segment

@@ -1,0 +1,142 @@
+# админка-заказы-наряд-в-списке--спереработкой · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 500, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+article.Card__card  358×333 @16,16  r20  b1
+  div.OrderCardView__head  316×28 @21,21
+    h2.OrderCardView__number  57×21 @0,4
+      a.OrderCardView__link  57×22 @0,-1  Onest 700 17/21  ls0  lines=1  «№ 1061»
+    span.Badge__badge  67×24 @154,2  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+    span.Badge__badge#2  83×28 @233,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+  dl.OrderCardView__facts  316×217 @21,59
+    div.OrderCardView__fact  316×43 @0,0
+      dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
+      span.OrderCardView__name  117×19 @0,21  Manrope 600 15/22  lines=1  «Ирина Соколова»
+      a.OrderCardView__phone  129×19 @120,21  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+    div.OrderCardView__fact#2  316×65 @0,51
+      dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Дата и время»
+      time  125×19 @0,21  Manrope 600 15/22  lines=1  «28.08.2026, 16:00»
+      span.OrderCardView__span  67×19 @127,21  Manrope 500 15/22  lines=1  «5 ч 15 мин»
+      span.OrderCardView__overtime  316×20 @0,45  Manrope 600 13/20  lines=1  «Переработка: 2 ч 15 мин»
+    div.OrderCardView__fact#3  316×43 @0,123
+      dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
+      dd  316×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
+    div.OrderCardView__fact#4  316×43 @0,174
+      dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Монтажник»
+      dd  316×22 @0,20  Manrope 600 15/22  lines=1  «Дмитрий Соколов»
+  div.OrderCardView__marks  316×24 @21,288
+    span.Badge__badge  79×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «2 позиции»
+    span.Badge__badge#2  125×24 @85,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+
+[геометрия 768]
+article.Card__card  736×232 @16,16  r20  b1
+  div.OrderCardView__head  694×28 @21,21
+    h2.OrderCardView__number  60×22 @0,3
+      a.OrderCardView__link  60×22 @0,-1  Onest 700 18/22  ls0  lines=1  «№ 1061»
+    span.Badge__badge  67×24 @532,2  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+    span.Badge__badge#2  83×28 @611,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+  dl.OrderCardView__facts  694×116 @21,59
+    div.OrderCardView__fact  215×65 @0,0
+      dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
+      span.OrderCardView__name  117×19 @0,21  Manrope 600 15/22  lines=1  «Ирина Соколова»
+      a.OrderCardView__phone  129×19 @0,44  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+    div.OrderCardView__fact#2  215×65 @239,0
+      dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Дата и время»
+      time  125×19 @0,21  Manrope 600 15/22  lines=1  «28.08.2026, 16:00»
+      span.OrderCardView__span  67×19 @127,21  Manrope 500 15/22  lines=1  «5 ч 15 мин»
+      span.OrderCardView__overtime  215×20 @0,45  Manrope 600 13/20  lines=1  «Переработка: 2 ч 15 мин»
+    div.OrderCardView__fact#3  215×65 @479,0
+      dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
+      dd  215×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
+    div.OrderCardView__fact#4  215×43 @0,73
+      dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Монтажник»
+      dd  215×22 @0,20  Manrope 600 15/22  lines=1  «Дмитрий Соколов»
+  div.OrderCardView__marks  694×24 @21,187
+    span.Badge__badge  79×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «2 позиции»
+    span.Badge__badge#2  125×24 @85,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+
+[геометрия 1440]
+article.Card__card  1408×181 @16,16  r20  b1
+  div.OrderCardView__head  1366×28 @21,21
+    h2.OrderCardView__number  63×23 @0,3
+      a.OrderCardView__link  63×24 @0,-1  Onest 700 19/23  ls0  lines=1  «№ 1061»
+    span.Badge__badge  67×24 @1204,2  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+    span.Badge__badge#2  83×28 @1283,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+  dl.OrderCardView__facts  1366×65 @21,59
+    div.OrderCardView__fact  324×65 @0,0
+      dt  324×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
+      span.OrderCardView__name  117×19 @0,21  Manrope 600 15/22  lines=1  «Ирина Соколова»
+      a.OrderCardView__phone  129×19 @120,21  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+    div.OrderCardView__fact#2  324×65 @348,0
+      dt  324×20 @0,0  Manrope 400 13/20  lines=1  «Дата и время»
+      time  125×19 @0,21  Manrope 600 15/22  lines=1  «28.08.2026, 16:00»
+      span.OrderCardView__span  67×19 @127,21  Manrope 500 15/22  lines=1  «5 ч 15 мин»
+      span.OrderCardView__overtime  324×20 @0,45  Manrope 600 13/20  lines=1  «Переработка: 2 ч 15 мин»
+    div.OrderCardView__fact#3  324×65 @695,0
+      dt  324×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
+      dd  324×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
+    div.OrderCardView__fact#4  324×65 @1043,0
+      dt  324×20 @0,0  Manrope 400 13/20  lines=1  «Монтажник»
+      dd  324×22 @0,20  Manrope 600 15/22  lines=1  «Дмитрий Соколов»
+  div.OrderCardView__marks  1366×24 @21,136
+    span.Badge__badge  79×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «2 позиции»
+    span.Badge__badge#2  125×24 @85,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+
+[палитра light]
+article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.OrderCardView__head
+    h2.OrderCardView__number
+      a.OrderCardView__link  color #0f172a
+    span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+    span.Badge__badge#2  color #92400e  bg #b4530914  border #b4530947
+  dl.OrderCardView__facts
+    div.OrderCardView__fact
+      dt  color #5b6a7d
+      span.OrderCardView__name  color #0f172a
+      a.OrderCardView__phone  color #0e7490
+    div.OrderCardView__fact#2
+      dt  color #5b6a7d
+      time  color #475569
+      span.OrderCardView__span  color #556173
+      span.OrderCardView__overtime  color #92400e
+    div.OrderCardView__fact#3
+      dt  color #5b6a7d
+      dd  color #475569
+    div.OrderCardView__fact#4
+      dt  color #5b6a7d
+      dd  color #475569
+  div.OrderCardView__marks
+    span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+    span.Badge__badge#2  color #92400e  bg #b4530914  border #b4530947
+
+[палитра dark]
+article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.OrderCardView__head
+    h2.OrderCardView__number
+      a.OrderCardView__link  color #eaf1f8
+    span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+    span.Badge__badge#2  color #fbbf24  bg #fbbf241f  border #fbbf2452
+  dl.OrderCardView__facts
+    div.OrderCardView__fact
+      dt  color #7e92a7
+      span.OrderCardView__name  color #eaf1f8
+      a.OrderCardView__phone  color #22d3ee
+    div.OrderCardView__fact#2
+      dt  color #7e92a7
+      time  color #a8b6c6
+      span.OrderCardView__span  color #8598ac
+      span.OrderCardView__overtime  color #fbbf24
+    div.OrderCardView__fact#3
+      dt  color #7e92a7
+      dd  color #a8b6c6
+    div.OrderCardView__fact#4
+      dt  color #7e92a7
+      dd  color #a8b6c6
+  div.OrderCardView__marks
+    span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+    span.Badge__badge#2  color #fbbf24  bg #fbbf241f  border #fbbf2452

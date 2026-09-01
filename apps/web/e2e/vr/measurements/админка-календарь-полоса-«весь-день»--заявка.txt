@@ -1,0 +1,67 @@
+# админка-календарь-полоса-«весь-день»--заявка · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.AllDayBar__bar  358×49 @16,16  b0 0 1 0
+  div.AllDayBar__rail  358×14 @0,4
+    span.AllDayBar__label  58×14 @294,0  Manrope 400 12/14  lines=1  «Весь день»
+  ul.AllDayBar__list  358×22 @0,22
+    li.AllDayBar__item  358×22 @0,0
+      button.EventChip__chip  358×22 @0,0  r100  b1 1 1 3
+        span.EventChip__head  52×15 @9,4
+          svg.EventChip__icon  12×12 @0,2
+          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:12»
+        span.EventChip__name  283×15 @66,4  Manrope 600 12/15  lines=1  «Сергей»
+
+[геометрия 768]
+div.AllDayBar__bar  736×49 @16,16  b0 0 1 0
+  div.AllDayBar__rail  736×14 @0,4
+    span.AllDayBar__label  58×14 @672,0  Manrope 400 12/14  lines=1  «Весь день»
+  ul.AllDayBar__list  736×22 @0,22
+    li.AllDayBar__item  736×22 @0,0
+      button.EventChip__chip  736×22 @0,0  r100  b1 1 1 3
+        span.EventChip__head  52×15 @9,4
+          svg.EventChip__icon  12×12 @0,2
+          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:12»
+        span.EventChip__name  661×15 @66,4  Manrope 600 12/15  lines=1  «Сергей»
+
+[геометрия 1440]
+div.AllDayBar__bar  1408×49 @16,16  b0 0 1 0
+  div.AllDayBar__rail  1408×14 @0,4
+    span.AllDayBar__label  58×14 @1344,0  Manrope 400 12/14  lines=1  «Весь день»
+  ul.AllDayBar__list  1408×22 @0,22
+    li.AllDayBar__item  1408×22 @0,0
+      button.EventChip__chip  1408×22 @0,0  r100  b1 1 1 3
+        span.EventChip__head  52×15 @9,4
+          svg.EventChip__icon  12×12 @0,2
+          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:12»
+        span.EventChip__name  1333×15 @66,4  Manrope 600 12/15  lines=1  «Сергей»
+
+[палитра light]
+div.AllDayBar__bar  border #0f172a #0f172a #e2e8f0 #0f172a
+  div.AllDayBar__rail
+    span.AllDayBar__label  color #5b6a7d
+  ul.AllDayBar__list
+    li.AllDayBar__item
+      button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
+        span.EventChip__head
+          svg.EventChip__icon
+          span.EventChip__time  color #334155
+        span.EventChip__name  color #334155
+
+[палитра dark]
+div.AllDayBar__bar  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+  div.AllDayBar__rail
+    span.AllDayBar__label  color #7e92a7
+  ul.AllDayBar__list
+    li.AllDayBar__item
+      button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
+        span.EventChip__head
+          svg.EventChip__icon
+          span.EventChip__time  color #c9d5e2
+        span.EventChip__name  color #c9d5e2

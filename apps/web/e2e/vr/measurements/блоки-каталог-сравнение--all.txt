@@ -1,0 +1,434 @@
+# блоки-каталог-сравнение--all · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+320 → 320×1077
+375 → 375×957
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.CatalogCompare__compare  320×1077 @0,0
+  div.CatalogCompare__container  320×1077 @0,0
+    h2  1×1 @15,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.CatalogCompare__head  288×308 @16,28
+      ul.CatalogCompare__chosen  288×252 @0,0
+        a.CatalogCompare__chip  162×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 07»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#2  163×44 @0,52  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 09»
+          span.CatalogCompare__remove  8×15 @140,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#3  160×44 @0,104  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 12»
+          span.CatalogCompare__remove  8×15 @137,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#4  160×44 @0,156  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 18»
+          span.CatalogCompare__remove  8×15 @137,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#5  162×44 @0,208  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 24»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+      p.CatalogCompare__actions  226×44 @0,264
+        a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
+        a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
+    div.Card__card  288×595 @16,354  r20  b1
+      div.Table__viewport  286×439 @1,1
+        table.Table__table  1007×439 @0,0
+          th  156×56 @17,355  Onest 700 15/23  b0 0 1 0  lines=1  fixed  «Характеристика»
+          th#2  171×56 @156,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 07»
+          th#3  173×56 @327,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 09»
+          th#4  168×56 @500,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 12»
+          th#5  169×56 @668,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 18»
+          th#6  169×56 @837,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 24»
+          tr.CompareTable__priceRow  1006×51 @0,56
+            th  156×51 @17,411  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Цена под ключ»
+            td  171×51 @156,0  Onest 700 15/22  b0 0 1 0  lines=1  «34 900 ₽»
+            td#2  173×51 @327,0  Onest 700 15/22  b0 0 1 0  lines=1  «33 900 ₽»
+            td#3  168×51 @500,0  Onest 700 15/22  b0 0 1 0  lines=1  «45 200 ₽»
+            td#4  169×51 @668,0  Onest 700 15/22  b0 0 1 0  lines=1  «56 400 ₽»
+            td#5  169×51 @837,0  Onest 700 15/22  b0 0 1 0  lines=1  «74 500 ₽»
+          tr.CompareTable__groupRow  1006×52 @0,107
+            span.CompareTable__groupLabel  85×19 @17,481  JetBrains Mono 600 12/19  ls1  lines=1  fixed  «Основное»
+          th#7  156×51 @17,514  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Компрессор»
+          td  171×51 @156,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          td#2  173×51 @327,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          td#3  168×51 @500,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          td#4  169×51 @668,159  Manrope 400 15/22  b0 0 1 0  lines=1  «On/off»
+          td#5  169×51 @837,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          th#8  156×51 @17,565  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Обогрев до»
+          td#6  171×51 @156,210  Manrope 400 15/22  b0 0 1 0  lines=1  «−15 °C»
+          td#7  173×51 @327,210  Manrope 400 15/22  b0 0 1 0  lines=1  «−20 °C»
+          td#8  168×51 @500,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          td#9  169×51 @668,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          td#10  169×51 @837,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          tr.CompareTable__groupRow#2  1006×52 @0,262
+            span.CompareTable__groupLabel  120×19 @17,635  JetBrains Mono 600 12/19  ls1  lines=1  fixed  «Шум и воздух»
+          th#9  156×51 @17,668  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Уровень шума»
+          td#11  171×51 @156,313  Manrope 400 15/22  b0 0 1 0  lines=1  «21 дБ»
+          td#12  173×51 @327,313  Manrope 400 15/22  b0 0 1 0  lines=1  «19 дБ»
+          td#13  168×51 @500,313  Manrope 400 15/22  b0 0 1 0  lines=1  «23 дБ»
+          td#14  169×51 @668,313  Manrope 400 15/22  b0 0 1 0  lines=1  «27 дБ»
+          td#15  169×51 @837,313  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          th#10  156×74 @17,720  Manrope 600 15/22  b0 0 1 0  lines=2  fixed  «Wi-Fi управление»
+          td#16  171×74 @156,365  Manrope 400 15/22  lines=1  «—»
+          td#17  173×74 @327,365  Manrope 400 15/22  lines=1  «—»
+          td#18  168×74 @500,365  Manrope 400 15/22  lines=1  «Есть»
+          td#19  169×74 @668,365  Manrope 400 15/22  lines=1  «—»
+          td#20  169×74 @837,365  Manrope 400 15/22  lines=1  «—»
+      div.CompareTable__notes  286×154 @1,440  b1 0 0 0
+        p.CompareTable__swipe  254×40 @16,15  Manrope 400 13/20  lines=2  «Проведите по таблице вбок, чтобы увидеть»
+        p.CompareTable__note  254×74 @16,61  Manrope 400 12/19  lines=4  «Таблица собирается автоматически из хара»
+    p.CatalogCompare__order  288×52 @16,977
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+
+[геометрия 375]
+section.CatalogCompare__compare  375×957 @0,0
+  div.CatalogCompare__container  375×957 @0,0
+    h2  1×1 @15,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.CatalogCompare__head  343×204 @16,28
+      ul.CatalogCompare__chosen  343×148 @0,0
+        a.CatalogCompare__chip  162×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 07»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#2  163×44 @170,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 09»
+          span.CatalogCompare__remove  8×15 @140,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#3  160×44 @0,52  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 12»
+          span.CatalogCompare__remove  8×15 @137,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#4  160×44 @168,52  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 18»
+          span.CatalogCompare__remove  8×15 @137,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#5  162×44 @0,104  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 24»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+      p.CatalogCompare__actions  226×44 @0,160
+        a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
+        a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
+    div.Card__card  343×576 @16,250  r20  b1
+      div.Table__viewport  341×439 @1,1
+        table.Table__table  1008×439 @0,0
+          th  156×56 @17,251  Onest 700 15/23  b0 0 1 0  lines=1  fixed  «Характеристика»
+          th#2  171×56 @156,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 07»
+          th#3  173×56 @327,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 09»
+          th#4  168×56 @500,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 12»
+          th#5  169×56 @668,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 18»
+          th#6  170×56 @837,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 24»
+          tr.CompareTable__priceRow  1007×51 @0,56
+            th  156×51 @17,307  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Цена под ключ»
+            td  171×51 @156,0  Onest 700 15/22  b0 0 1 0  lines=1  «34 900 ₽»
+            td#2  173×51 @327,0  Onest 700 15/22  b0 0 1 0  lines=1  «33 900 ₽»
+            td#3  168×51 @500,0  Onest 700 15/22  b0 0 1 0  lines=1  «45 200 ₽»
+            td#4  169×51 @668,0  Onest 700 15/22  b0 0 1 0  lines=1  «56 400 ₽»
+            td#5  170×51 @837,0  Onest 700 15/22  b0 0 1 0  lines=1  «74 500 ₽»
+          tr.CompareTable__groupRow  1007×52 @0,107
+            span.CompareTable__groupLabel  86×19 @17,377  JetBrains Mono 600 12/19  ls1  lines=1  fixed  «Основное»
+          th#7  156×51 @17,410  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Компрессор»
+          td  171×51 @156,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          td#2  173×51 @327,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          td#3  168×51 @500,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          td#4  169×51 @668,159  Manrope 400 15/22  b0 0 1 0  lines=1  «On/off»
+          td#5  170×51 @837,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          th#8  156×51 @17,461  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Обогрев до»
+          td#6  171×51 @156,210  Manrope 400 15/22  b0 0 1 0  lines=1  «−15 °C»
+          td#7  173×51 @327,210  Manrope 400 15/22  b0 0 1 0  lines=1  «−20 °C»
+          td#8  168×51 @500,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          td#9  169×51 @668,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          td#10  170×51 @837,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          tr.CompareTable__groupRow#2  1007×52 @0,262
+            span.CompareTable__groupLabel  120×19 @17,531  JetBrains Mono 600 12/19  ls1  lines=1  fixed  «Шум и воздух»
+          th#9  156×51 @17,564  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Уровень шума»
+          td#11  171×51 @156,313  Manrope 400 15/22  b0 0 1 0  lines=1  «21 дБ»
+          td#12  173×51 @327,313  Manrope 400 15/22  b0 0 1 0  lines=1  «19 дБ»
+          td#13  168×51 @500,313  Manrope 400 15/22  b0 0 1 0  lines=1  «23 дБ»
+          td#14  169×51 @668,313  Manrope 400 15/22  b0 0 1 0  lines=1  «27 дБ»
+          td#15  170×51 @837,313  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          th#10  156×74 @17,616  Manrope 600 15/22  b0 0 1 0  lines=2  fixed  «Wi-Fi управление»
+          td#16  171×74 @156,365  Manrope 400 15/22  lines=1  «—»
+          td#17  173×74 @327,365  Manrope 400 15/22  lines=1  «—»
+          td#18  168×74 @500,365  Manrope 400 15/22  lines=1  «Есть»
+          td#19  169×74 @668,365  Manrope 400 15/22  lines=1  «—»
+          td#20  170×74 @837,365  Manrope 400 15/22  lines=1  «—»
+      div.CompareTable__notes  341×135 @1,440  b1 0 0 0
+        p.CompareTable__swipe  308×40 @17,15  Manrope 400 13/20  lines=2  «Проведите по таблице вбок, чтобы увидеть»
+        p.CompareTable__note  308×56 @17,61  Manrope 400 12/19  lines=3  «Таблица собирается автоматически из хара»
+    p.CatalogCompare__order  343×52 @16,854
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+
+[геометрия 768]
+section.CatalogCompare__compare  768×884 @0,0
+  div.CatalogCompare__container  768×884 @0,0
+    h2  1×1 @19,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.CatalogCompare__head  728×152 @20,28
+      ul.CatalogCompare__chosen  728×96 @0,0
+        a.CatalogCompare__chip  162×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 07»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#2  163×44 @170,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 09»
+          span.CatalogCompare__remove  8×15 @140,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#3  160×44 @341,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 12»
+          span.CatalogCompare__remove  8×15 @137,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#4  160×44 @508,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 18»
+          span.CatalogCompare__remove  8×15 @137,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#5  162×44 @0,52  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 24»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+      p.CatalogCompare__actions  226×44 @0,108
+        a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
+        a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
+    div.Card__card  728×538 @20,198  r20  b1
+      div.Table__viewport  726×439 @1,1
+        table.Table__table  1015×439 @0,0
+          th  160×56 @21,199  Onest 700 15/23  b0 0 1 0  lines=1  fixed  «Характеристика»
+          th#2  171×56 @160,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 07»
+          th#3  173×56 @331,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 09»
+          th#4  168×56 @504,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 12»
+          th#5  169×56 @672,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 18»
+          th#6  173×56 @841,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 24»
+          tr.CompareTable__priceRow  1014×51 @0,56
+            th  160×51 @21,255  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Цена под ключ»
+            td  171×51 @160,0  Onest 700 15/22  b0 0 1 0  lines=1  «34 900 ₽»
+            td#2  173×51 @331,0  Onest 700 15/22  b0 0 1 0  lines=1  «33 900 ₽»
+            td#3  168×51 @504,0  Onest 700 15/22  b0 0 1 0  lines=1  «45 200 ₽»
+            td#4  169×51 @672,0  Onest 700 15/22  b0 0 1 0  lines=1  «56 400 ₽»
+            td#5  173×51 @841,0  Onest 700 15/22  b0 0 1 0  lines=1  «74 500 ₽»
+          tr.CompareTable__groupRow  1014×52 @0,107
+            span.CompareTable__groupLabel  89×19 @21,325  JetBrains Mono 600 12/19  ls1  lines=1  fixed  «Основное»
+          th#7  160×51 @21,358  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Компрессор»
+          td  171×51 @160,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          td#2  173×51 @331,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          td#3  168×51 @504,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          td#4  169×51 @672,159  Manrope 400 15/22  b0 0 1 0  lines=1  «On/off»
+          td#5  173×51 @841,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          th#8  160×51 @21,409  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Обогрев до»
+          td#6  171×51 @160,210  Manrope 400 15/22  b0 0 1 0  lines=1  «−15 °C»
+          td#7  173×51 @331,210  Manrope 400 15/22  b0 0 1 0  lines=1  «−20 °C»
+          td#8  168×51 @504,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          td#9  169×51 @672,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          td#10  173×51 @841,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          tr.CompareTable__groupRow#2  1014×52 @0,262
+            span.CompareTable__groupLabel  124×19 @21,479  JetBrains Mono 600 12/19  ls1  lines=1  fixed  «Шум и воздух»
+          th#9  160×51 @21,512  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Уровень шума»
+          td#11  171×51 @160,313  Manrope 400 15/22  b0 0 1 0  lines=1  «21 дБ»
+          td#12  173×51 @331,313  Manrope 400 15/22  b0 0 1 0  lines=1  «19 дБ»
+          td#13  168×51 @504,313  Manrope 400 15/22  b0 0 1 0  lines=1  «23 дБ»
+          td#14  169×51 @672,313  Manrope 400 15/22  b0 0 1 0  lines=1  «27 дБ»
+          td#15  173×51 @841,313  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          th#10  160×74 @21,564  Manrope 600 15/22  b0 0 1 0  lines=2  fixed  «Wi-Fi управление»
+          td#16  171×74 @160,365  Manrope 400 15/22  lines=1  «—»
+          td#17  173×74 @331,365  Manrope 400 15/22  lines=1  «—»
+          td#18  168×74 @504,365  Manrope 400 15/22  lines=1  «Есть»
+          td#19  169×74 @672,365  Manrope 400 15/22  lines=1  «—»
+          td#20  173×74 @841,365  Manrope 400 15/22  lines=1  «—»
+      div.CompareTable__notes  726×96 @1,440  b1 0 0 0
+        p.CompareTable__swipe  686×20 @20,15  Manrope 400 13/20  lines=1  «Проведите по таблице вбок, чтобы увидеть»
+        p.CompareTable__note  686×37 @20,41  Manrope 400 12/19  lines=2  «Таблица собирается автоматически из хара»
+    p.CatalogCompare__order  728×52 @20,764
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+
+[геометрия 1200]
+section.CatalogCompare__compare  1200×755 @0,0
+  div.CatalogCompare__container  1200×755 @0,0
+    h2  1×1 @23,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.CatalogCompare__head  1152×44 @24,28
+      ul.CatalogCompare__chosen  838×44 @0,0
+        a.CatalogCompare__chip  162×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 07»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#2  163×44 @170,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 09»
+          span.CatalogCompare__remove  8×15 @140,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#3  160×44 @341,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 12»
+          span.CatalogCompare__remove  8×15 @137,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#4  160×44 @508,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 18»
+          span.CatalogCompare__remove  8×15 @137,15  Manrope 600 15/15  lines=1  «×»
+        a.CatalogCompare__chip#5  162×44 @676,0  Manrope 600 13/16  r100  b1  lines=1  «Сплит-система 24»
+          span.CatalogCompare__remove  8×15 @139,15  Manrope 600 15/15  lines=1  «×»
+      p.CatalogCompare__actions  226×44 @926,0
+        a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
+        a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
+    div.Card__card  1152×497 @24,90  r20  b1
+      div.Table__viewport  1150×417 @1,1
+        table.Table__table  1150×417 @0,0
+          th  200×56 @25,91  Onest 700 15/23  b0 0 1 0  lines=1  fixed  «Характеристика»
+          th#2  189×56 @200,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 07»
+          th#3  191×56 @389,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 09»
+          th#4  186×56 @581,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 12»
+          th#5  187×56 @766,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 18»
+          th#6  196×56 @953,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 24»
+          tr.CompareTable__priceRow  1150×51 @0,56
+            th  200×51 @25,147  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Цена под ключ»
+            td  189×51 @200,0  Onest 700 15/22  b0 0 1 0  lines=1  «34 900 ₽»
+            td#2  191×51 @389,0  Onest 700 15/22  b0 0 1 0  lines=1  «33 900 ₽»
+            td#3  186×51 @581,0  Onest 700 15/22  b0 0 1 0  lines=1  «45 200 ₽»
+            td#4  187×51 @766,0  Onest 700 15/22  b0 0 1 0  lines=1  «56 400 ₽»
+            td#5  196×51 @953,0  Onest 700 15/22  b0 0 1 0  lines=1  «74 500 ₽»
+          tr.CompareTable__groupRow  1150×52 @0,107
+            span.CompareTable__groupLabel  93×19 @25,217  JetBrains Mono 600 12/19  ls1  lines=1  fixed  «Основное»
+          th#7  200×51 @25,250  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Компрессор»
+          td  189×51 @200,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          td#2  191×51 @389,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          td#3  186×51 @581,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          td#4  187×51 @766,159  Manrope 400 15/22  b0 0 1 0  lines=1  «On/off»
+          td#5  196×51 @953,159  Manrope 400 15/22  b0 0 1 0  lines=1  «Инверторный»
+          th#8  200×51 @25,301  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Обогрев до»
+          td#6  189×51 @200,210  Manrope 400 15/22  b0 0 1 0  lines=1  «−15 °C»
+          td#7  191×51 @389,210  Manrope 400 15/22  b0 0 1 0  lines=1  «−20 °C»
+          td#8  186×51 @581,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          td#9  187×51 @766,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          td#10  196×51 @953,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          tr.CompareTable__groupRow#2  1150×52 @0,262
+            span.CompareTable__groupLabel  128×19 @25,371  JetBrains Mono 600 12/19  ls1  lines=1  fixed  «Шум и воздух»
+          th#9  200×51 @25,404  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Уровень шума»
+          td#11  189×51 @200,313  Manrope 400 15/22  b0 0 1 0  lines=1  «21 дБ»
+          td#12  191×51 @389,313  Manrope 400 15/22  b0 0 1 0  lines=1  «19 дБ»
+          td#13  186×51 @581,313  Manrope 400 15/22  b0 0 1 0  lines=1  «23 дБ»
+          td#14  187×51 @766,313  Manrope 400 15/22  b0 0 1 0  lines=1  «27 дБ»
+          td#15  196×51 @953,313  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+          th#10  200×51 @25,456  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Wi-Fi управление»
+          td#16  189×51 @200,365  Manrope 400 15/22  lines=1  «—»
+          td#17  191×51 @389,365  Manrope 400 15/22  lines=1  «—»
+          td#18  186×51 @581,365  Manrope 400 15/22  lines=1  «Есть»
+          td#19  187×51 @766,365  Manrope 400 15/22  lines=1  «—»
+          td#20  196×51 @953,365  Manrope 400 15/22  lines=1  «—»
+      div.CompareTable__notes  1150×78 @1,418  b1 0 0 0
+        p.CompareTable__swipe  1102×20 @24,15  Manrope 400 13/20  lines=1  «Проведите по таблице вбок, чтобы увидеть»
+        p.CompareTable__note  1102×19 @24,41  Manrope 400 12/19  lines=1  «Таблица собирается автоматически из хара»
+    p.CatalogCompare__order  1152×52 @24,615
+      a.Button__button  187×52 @0,0  r12  b1
+        span.Button__content  129×19 @29,16
+          span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+
+[палитра light]
+section.CatalogCompare__compare  bg #ffffff
+  div.CatalogCompare__container
+    h2  color #0f172a
+    div.CatalogCompare__head
+      ul.CatalogCompare__chosen
+        a.CatalogCompare__chip  color #0e7490  bg #ecfeff  border #a5f3fc
+          span.CatalogCompare__remove  color #556173
+        a.CatalogCompare__chip#2  color #0e7490  bg #ecfeff  border #a5f3fc
+          span.CatalogCompare__remove  color #556173
+        a.CatalogCompare__chip#3  color #0e7490  bg #ecfeff  border #a5f3fc
+          span.CatalogCompare__remove  color #556173
+        a.CatalogCompare__chip#4  color #0e7490  bg #ecfeff  border #a5f3fc
+          span.CatalogCompare__remove  color #556173
+        a.CatalogCompare__chip#5  color #0e7490  bg #ecfeff  border #a5f3fc
+          span.CatalogCompare__remove  color #556173
+      p.CatalogCompare__actions
+        a.CatalogCompare__back  color #0e7490
+        a.CatalogCompare__clear  color #556173
+    div.Card__card  bg #ffffff  border #e2e8f0
+      div.Table__viewport
+        table.Table__table
+          th  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a  shadow #e2e8f0 1px 0px 0px 0px
+          th#2  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+          th#3  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+          th#4  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+          th#5  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+          th#6  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+          tr.CompareTable__priceRow  bg #f5f8fa
+            th  color #0f172a  bg #f5f8fa  border #0f172a #0f172a #e2e8f0 #0f172a  shadow #e2e8f0 1px 0px 0px 0px
+            td  color #0e7490  border #0e7490 #0e7490 #eef2f6 #0e7490
+            td#2  color #0e7490  border #0e7490 #0e7490 #eef2f6 #0e7490
+            td#3  color #0e7490  border #0e7490 #0e7490 #eef2f6 #0e7490
+            td#4  color #0e7490  border #0e7490 #0e7490 #eef2f6 #0e7490
+            td#5  color #0e7490  border #0e7490 #0e7490 #eef2f6 #0e7490
+          tr.CompareTable__groupRow  bg #edf2f6
+            span.CompareTable__groupLabel  color #556173
+          th#7  color #0f172a  bg #f5f8fa  border #0f172a #0f172a #e2e8f0 #0f172a  shadow #e2e8f0 1px 0px 0px 0px
+          td  color #334155  border #334155 #334155 #eef2f6 #334155
+          td#2  color #334155  border #334155 #334155 #eef2f6 #334155
+          td#3  color #334155  border #334155 #334155 #eef2f6 #334155
+          td#4  color #334155  border #334155 #334155 #eef2f6 #334155
+          td#5  color #334155  border #334155 #334155 #eef2f6 #334155
+          th#8  color #0f172a  bg #edf2f6  border #0f172a #0f172a #e2e8f0 #0f172a  shadow #e2e8f0 1px 0px 0px 0px
+          td#6  color #334155  border #334155 #334155 #eef2f6 #334155
+          td#7  color #334155  border #334155 #334155 #eef2f6 #334155
+          td#8  color #334155  border #334155 #334155 #eef2f6 #334155
+          td#9  color #334155  border #334155 #334155 #eef2f6 #334155
+          td#10  color #334155  border #334155 #334155 #eef2f6 #334155
+          tr.CompareTable__groupRow#2  bg #f5f8fa
+            span.CompareTable__groupLabel  color #556173
+          th#9  color #0f172a  bg #edf2f6  border #0f172a #0f172a #e2e8f0 #0f172a  shadow #e2e8f0 1px 0px 0px 0px
+          td#11  color #334155  border #334155 #334155 #eef2f6 #334155
+          td#12  color #334155  border #334155 #334155 #eef2f6 #334155
+          td#13  color #334155  border #334155 #334155 #eef2f6 #334155
+          td#14  color #334155  border #334155 #334155 #eef2f6 #334155
+          td#15  color #334155  border #334155 #334155 #eef2f6 #334155
+          th#10  color #0f172a  bg #f5f8fa  border #0f172a #0f172a #e2e8f0 #0f172a  shadow #e2e8f0 1px 0px 0px 0px
+          td#16  color #334155
+          td#17  color #334155
+          td#18  color #334155
+          td#19  color #334155
+          td#20  color #334155
+      div.CompareTable__notes  border #eef2f6 #475569 #475569 #475569
+        p.CompareTable__swipe  color #556173
+        p.CompareTable__note  color #5b6a7d
+    p.CatalogCompare__order
+      a.Button__button  bg #ecfeff  border transparent
+        span.Button__content
+          span.Button__label  color #0e7490
+
+[палитра dark]
+section.CatalogCompare__compare  bg #0b1220
+  div.CatalogCompare__container
+    h2  color #eaf1f8
+    div.CatalogCompare__head
+      ul.CatalogCompare__chosen
+        a.CatalogCompare__chip  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          span.CatalogCompare__remove  color #8598ac
+        a.CatalogCompare__chip#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          span.CatalogCompare__remove  color #8598ac
+        a.CatalogCompare__chip#3  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          span.CatalogCompare__remove  color #8598ac
+        a.CatalogCompare__chip#4  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          span.CatalogCompare__remove  color #8598ac
+        a.CatalogCompare__chip#5  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          span.CatalogCompare__remove  color #8598ac
+      p.CatalogCompare__actions
+        a.CatalogCompare__back  color #22d3ee
+        a.CatalogCompare__clear  color #8598ac
+    div.Card__card  bg #121d31  border #1e2b41
+      div.Table__viewport
+        table.Table__table
+          th  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8  shadow #1e2b41 1px 0px 0px 0px
+          th#2  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th#3  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th#4  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th#5  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th#6  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          tr.CompareTable__priceRow  bg #121d31
+            th  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8  shadow #1e2b41 1px 0px 0px 0px
+            td  color #22d3ee  border #22d3ee #22d3ee #182338 #22d3ee
+            td#2  color #22d3ee  border #22d3ee #22d3ee #182338 #22d3ee
+            td#3  color #22d3ee  border #22d3ee #22d3ee #182338 #22d3ee
+            td#4  color #22d3ee  border #22d3ee #22d3ee #182338 #22d3ee
+            td#5  color #22d3ee  border #22d3ee #22d3ee #182338 #22d3ee
+          tr.CompareTable__groupRow  bg #16223a
+            span.CompareTable__groupLabel  color #8598ac
+          th#7  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8  shadow #1e2b41 1px 0px 0px 0px
+          td  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td#2  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td#3  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td#4  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td#5  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          th#8  color #eaf1f8  bg #16223a  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8  shadow #1e2b41 1px 0px 0px 0px
+          td#6  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td#7  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td#8  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td#9  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td#10  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          tr.CompareTable__groupRow#2  bg #121d31
+            span.CompareTable__groupLabel  color #8598ac
+          th#9  color #eaf1f8  bg #16223a  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8  shadow #1e2b41 1px 0px 0px 0px
+          td#11  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td#12  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td#13  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td#14  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td#15  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          th#10  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8  shadow #1e2b41 1px 0px 0px 0px
+          td#16  color #c9d5e2
+          td#17  color #c9d5e2
+          td#18  color #c9d5e2
+          td#19  color #c9d5e2
+          td#20  color #c9d5e2
+      div.CompareTable__notes  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+        p.CompareTable__swipe  color #8598ac
+        p.CompareTable__note  color #7e92a7
+    p.CatalogCompare__order
+      a.Button__button  bg #22d3ee1a  border transparent
+        span.Button__content
+          span.Button__label  color #22d3ee

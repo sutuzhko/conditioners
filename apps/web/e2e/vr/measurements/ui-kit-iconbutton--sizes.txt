@@ -1,0 +1,47 @@
+# ui-kit-iconbutton--sizes · ширины 390 768 1440 · темы light dark
+шрифты: —
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.IconButton__iconButton  40×40 @16,22  r11  b1
+  svg  20×20 @10,10
+button.IconButton__iconButton#2  44×44 @68,20  r11  b1
+  svg  20×20 @12,12
+button.IconButton__iconButton#3  52×52 @124,16  r14  b1
+  svg  20×20 @16,16
+
+[геометрия 768]
+button.IconButton__iconButton  40×40 @16,22  r11  b1
+  svg  20×20 @10,10
+button.IconButton__iconButton#2  44×44 @68,20  r11  b1
+  svg  20×20 @12,12
+button.IconButton__iconButton#3  52×52 @124,16  r14  b1
+  svg  20×20 @16,16
+
+[геометрия 1440]
+button.IconButton__iconButton  40×40 @16,22  r11  b1
+  svg  20×20 @10,10
+button.IconButton__iconButton#2  44×44 @68,20  r11  b1
+  svg  20×20 @12,12
+button.IconButton__iconButton#3  52×52 @124,16  r14  b1
+  svg  20×20 @16,16
+
+[палитра light]
+button.IconButton__iconButton  bg #ffffff  border #e2e8f0
+  svg
+button.IconButton__iconButton#2  bg #ffffff  border #e2e8f0
+  svg
+button.IconButton__iconButton#3  bg #ffffff  border #e2e8f0
+  svg
+
+[палитра dark]
+button.IconButton__iconButton  bg #121d31  border #1e2b41
+  svg
+button.IconButton__iconButton#2  bg #121d31  border #1e2b41
+  svg
+button.IconButton__iconButton#3  bg #121d31  border #1e2b41
+  svg

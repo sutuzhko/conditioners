@@ -1,0 +1,72 @@
+# ui-kit-numberinput--with-hint · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  326×78 @32,32
+  label.Field__label  75×13 @15,8  Manrope 600 11/13  lines=1  «Длина трассы»
+  div.NumberInput__shell  326×52 @0,0
+    input.NumberInput__input  212×52 @50,0  r999  b1
+    span.NumberInput__unit  8×19 @268,17  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps  0×0 @-32,-32
+      button.NumberInput__step  44×44 @32,36  r100  b1
+        span  10×19 @17,13  Manrope 400 19/19  lines=1  «−»
+      button.NumberInput__step#2  44×44 @314,36  r100  b1
+        span  11×19 @17,13  Manrope 400 19/19  lines=1  «+»
+  p.Field__hint  326×19 @0,59  Manrope 400 13/19  lines=1  «Считается от наружного блока до внутренн»
+
+[геометрия 768]
+div.Field__field  328×78 @32,32
+  label.Field__label  75×13 @15,8  Manrope 600 11/13  lines=1  «Длина трассы»
+  div.NumberInput__shell  328×52 @0,0
+    input.NumberInput__input  214×52 @50,0  r999  b1
+    span.NumberInput__unit  8×19 @270,17  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps  0×0 @-32,-32
+      button.NumberInput__step  44×44 @32,36  r100  b1
+        span  10×19 @17,13  Manrope 400 19/19  lines=1  «−»
+      button.NumberInput__step#2  44×44 @316,36  r100  b1
+        span  11×19 @17,13  Manrope 400 19/19  lines=1  «+»
+  p.Field__hint  328×19 @0,59  Manrope 400 13/19  lines=1  «Считается от наружного блока до внутренн»
+
+[геометрия 1440]
+div.Field__field  328×74 @32,32
+  label.Field__label  75×13 @15,8  Manrope 600 11/13  lines=1  «Длина трассы»
+  div.NumberInput__shell  328×48 @0,0
+    input.NumberInput__input  328×48 @0,0  r999  b1
+    span.NumberInput__unit  8×19 @258,15  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps  54×26 @268,11
+      button.NumberInput__step  26×26 @0,0  r100  b1
+        span  8×15 @9,6  Manrope 400 15/15  lines=1  «−»
+      button.NumberInput__step#2  26×26 @28,0  r100  b1
+        span  9×15 @9,6  Manrope 400 15/15  lines=1  «+»
+  p.Field__hint  328×19 @0,55  Manrope 400 13/19  lines=1  «Считается от наружного блока до внутренн»
+
+[палитра light]
+div.Field__field
+  label.Field__label  color #556173
+  div.NumberInput__shell
+    input.NumberInput__input  bg #f8fafc  border #7e8fa6
+    span.NumberInput__unit  color #556173
+    span.NumberInput__steps
+      button.NumberInput__step  bg #ffffff  border #e2e8f0
+        span  color #334155
+      button.NumberInput__step#2  bg #ffffff  border #e2e8f0
+        span  color #334155
+  p.Field__hint  color #556173
+
+[палитра dark]
+div.Field__field
+  label.Field__label  color #8598ac
+  div.NumberInput__shell
+    input.NumberInput__input  bg #0e1729  border #566d95
+    span.NumberInput__unit  color #8598ac
+    span.NumberInput__steps
+      button.NumberInput__step  bg #121d31  border #1e2b41
+        span  color #c9d5e2
+      button.NumberInput__step#2  bg #121d31  border #1e2b41
+        span  color #c9d5e2
+  p.Field__hint  color #8598ac

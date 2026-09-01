@@ -1,0 +1,27 @@
+# ui-kit-chart--basic · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+figure.Chart__figure  292×100 @49,49
+  svg.Chart__canvas  292×100 @0,0
+
+[геометрия 768]
+figure.Chart__figure  670×230 @49,49
+  svg.Chart__canvas  670×230 @0,0
+
+[геометрия 1440]
+figure.Chart__figure  1342×461 @49,49
+  svg.Chart__canvas  1342×461 @0,0
+
+[палитра light]
+figure.Chart__figure
+  svg.Chart__canvas
+
+[палитра dark]
+figure.Chart__figure
+  svg.Chart__canvas

@@ -1,0 +1,42 @@
+# ui-kit-autocomplete--with-hint · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  326×78 @32,32
+  label.Field__label  39×13 @15,8  Manrope 600 11/13  lines=1  «Клиент»
+  div.Autocomplete__shell  326×52 @0,0
+    input.Autocomplete__input  326×52 @0,0  r999  b1
+  p.Field__hint  326×19 @0,59  Manrope 400 13/19  lines=1  «Стрелки ведут по списку, Enter выбирает»
+
+[геометрия 768]
+div.Field__field  388×78 @32,32
+  label.Field__label  39×13 @15,8  Manrope 600 11/13  lines=1  «Клиент»
+  div.Autocomplete__shell  388×52 @0,0
+    input.Autocomplete__input  388×52 @0,0  r999  b1
+  p.Field__hint  388×19 @0,59  Manrope 400 13/19  lines=1  «Стрелки ведут по списку, Enter выбирает»
+
+[геометрия 1440]
+div.Field__field  388×74 @32,32
+  label.Field__label  39×13 @15,8  Manrope 600 11/13  lines=1  «Клиент»
+  div.Autocomplete__shell  388×48 @0,0
+    input.Autocomplete__input  388×48 @0,0  r999  b1
+  p.Field__hint  388×19 @0,55  Manrope 400 13/19  lines=1  «Стрелки ведут по списку, Enter выбирает»
+
+[палитра light]
+div.Field__field
+  label.Field__label  color #556173
+  div.Autocomplete__shell
+    input.Autocomplete__input  bg #f8fafc  border #7e8fa6
+  p.Field__hint  color #556173
+
+[палитра dark]
+div.Field__field
+  label.Field__label  color #8598ac
+  div.Autocomplete__shell
+    input.Autocomplete__input  bg #0e1729  border #566d95
+  p.Field__hint  color #8598ac

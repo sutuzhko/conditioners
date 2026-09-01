@@ -1,0 +1,67 @@
+# ui-kit-stat--basic · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+dl.Stat__list  358×115 @16,16
+  div.Stat__item  358×38 @0,0
+    dt.Stat__value  358×23 @0,0  Onest 700 20/23  lines=1  «1 200+»
+    dd.Stat__label  358×15 @0,23  Manrope 400 12/15  lines=1  «установок в Туле»
+  div.Stat__item#2  358×38 @0,38
+    dt.Stat__value  358×23 @0,0  Onest 700 20/23  lines=1  «3 года»
+    dd.Stat__label  358×15 @0,23  Manrope 400 12/15  lines=1  «гарантия на монтаж»
+  div.Stat__item#3  358×38 @0,77
+    dt.Stat__value  358×23 @0,0  Onest 700 20/23  lines=1  «1 день»
+    dd.Stat__label  358×15 @0,23  Manrope 400 12/15  lines=1  «от заявки до монтажа»
+
+[геометрия 768]
+dl.Stat__list  736×126 @16,16
+  div.Stat__item  736×42 @0,0
+    dt.Stat__value  736×27 @0,0  Onest 700 23/27  lines=1  «1 200+»
+    dd.Stat__label  736×15 @0,27  Manrope 400 12/15  lines=1  «установок в Туле»
+  div.Stat__item#2  736×42 @0,42
+    dt.Stat__value  736×27 @0,0  Onest 700 23/27  lines=1  «3 года»
+    dd.Stat__label  736×15 @0,27  Manrope 400 12/15  lines=1  «гарантия на монтаж»
+  div.Stat__item#3  736×42 @0,84
+    dt.Stat__value  736×27 @0,0  Onest 700 23/27  lines=1  «1 день»
+    dd.Stat__label  736×15 @0,27  Manrope 400 12/15  lines=1  «от заявки до монтажа»
+
+[геометрия 1440]
+dl.Stat__list  1408×139 @16,16
+  div.Stat__item  1408×46 @0,0
+    dt.Stat__value  1408×31 @0,0  Onest 700 26/31  lines=1  «1 200+»
+    dd.Stat__label  1408×15 @0,31  Manrope 400 12/15  lines=1  «установок в Туле»
+  div.Stat__item#2  1408×46 @0,46
+    dt.Stat__value  1408×31 @0,0  Onest 700 26/31  lines=1  «3 года»
+    dd.Stat__label  1408×15 @0,31  Manrope 400 12/15  lines=1  «гарантия на монтаж»
+  div.Stat__item#3  1408×46 @0,92
+    dt.Stat__value  1408×31 @0,0  Onest 700 26/31  lines=1  «1 день»
+    dd.Stat__label  1408×15 @0,31  Manrope 400 12/15  lines=1  «от заявки до монтажа»
+
+[палитра light]
+dl.Stat__list
+  div.Stat__item
+    dt.Stat__value  color #0f172a
+    dd.Stat__label  color #556173
+  div.Stat__item#2
+    dt.Stat__value  color #0f172a
+    dd.Stat__label  color #556173
+  div.Stat__item#3
+    dt.Stat__value  color #0f172a
+    dd.Stat__label  color #556173
+
+[палитра dark]
+dl.Stat__list
+  div.Stat__item
+    dt.Stat__value  color #eaf1f8
+    dd.Stat__label  color #8598ac
+  div.Stat__item#2
+    dt.Stat__value  color #eaf1f8
+    dd.Stat__label  color #8598ac
+  div.Stat__item#3
+    dt.Stat__value  color #eaf1f8
+    dd.Stat__label  color #8598ac

@@ -1,0 +1,102 @@
+# ui-kit-состояния-блока--failed · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Card__card  326×282 @32,32  r14  b1
+  div.CardBelt__header  324×45 @1,1  b0 0 1 0
+    div.CardBelt__headText  138×20 @16,12
+      h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
+  div.CardBelt__body  324×192 @1,46
+    div.Alert__alert  292×160 @16,16  r14  b1
+      span.Alert__icon  18×20 @17,13
+        svg  18×18 @0,1
+      div.Alert__body  230×80 @45,13
+        p.Alert__title  230×20 @0,0  Manrope 700 14/20  lines=1  «Наряды не загрузились»
+        div.Alert__text  230×59 @0,22  Manrope 400 14/20  lines=3  «База не ответила за десять секунд. Остал»
+      div.Alert__action  258×44 @17,103
+        button.Button__button  99×44 @159,0  r999  b1
+          span.Button__content  69×16 @15,14
+            span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+  div.CardBelt__footer  324×44 @1,238  b1 0 0 0
+    span  285×19 @16,13  Manrope 400 12/19  lines=1  «Последнее удачное обновление — 12 минут»
+
+[геометрия 768]
+div.Card__card  704×192 @32,32  r14  b1
+  div.CardBelt__header  702×45 @1,1  b0 0 1 0
+    div.CardBelt__headText  138×20 @16,12
+      h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
+  div.CardBelt__body  702×102 @1,46
+    div.Alert__alert  670×70 @16,16  r14  b1
+      span.Alert__icon  18×20 @17,13
+        svg  18×18 @0,1
+      div.Alert__body  499×41 @45,13
+        p.Alert__title  499×20 @0,0  Manrope 700 14/20  lines=1  «Наряды не загрузились»
+        div.Alert__text  499×20 @0,22  Manrope 400 14/20  lines=1  «База не ответила за десять секунд. Остал»
+      div.Alert__action  99×44 @554,13
+        button.Button__button  99×44 @0,0  r999  b1
+          span.Button__content  69×16 @15,14
+            span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+  div.CardBelt__footer  702×44 @1,148  b1 0 0 0
+    span  285×19 @16,13  Manrope 400 12/19  lines=1  «Последнее удачное обновление — 12 минут»
+
+[геометрия 1440]
+div.Card__card  1376×189 @32,32  r14  b1
+  div.CardBelt__header  1374×45 @1,1  b0 0 1 0
+    div.CardBelt__headText  138×20 @16,12
+      h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
+  div.CardBelt__body  1374×99 @1,46
+    div.Alert__alert  1342×67 @16,16  r14  b1
+      span.Alert__icon  18×20 @17,13
+        svg  18×18 @0,1
+      div.Alert__body  1171×41 @45,13
+        p.Alert__title  1171×20 @0,0  Manrope 700 14/20  lines=1  «Наряды не загрузились»
+        div.Alert__text  1171×20 @0,22  Manrope 400 14/20  lines=1  «База не ответила за десять секунд. Остал»
+      div.Alert__action  99×32 @1226,13
+        button.Button__button  99×32 @0,0  r999  b1
+          span.Button__content  69×16 @15,8
+            span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+  div.CardBelt__footer  1374×44 @1,145  b1 0 0 0
+    span  285×19 @16,13  Manrope 400 12/19  lines=1  «Последнее удачное обновление — 12 минут»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+  div.CardBelt__header  border #475569 #475569 #e2e8f0 #475569
+    div.CardBelt__headText
+      h3.CardBelt__title  color #0f172a
+  div.CardBelt__body
+    div.Alert__alert  bg #be123c14  border #be123c73
+      span.Alert__icon
+        svg
+      div.Alert__body
+        p.Alert__title  color #be123c
+        div.Alert__text  color #be123c
+      div.Alert__action
+        button.Button__button  bg #0e7490  border #0e7490
+          span.Button__content
+            span.Button__label  color #ffffff
+  div.CardBelt__footer  border #e2e8f0 #475569 #475569 #475569
+    span  color #556173
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+  div.CardBelt__header  border #a8b6c6 #a8b6c6 #1e2b41 #a8b6c6
+    div.CardBelt__headText
+      h3.CardBelt__title  color #eaf1f8
+  div.CardBelt__body
+    div.Alert__alert  bg #fb71851f  border #fb718580
+      span.Alert__icon
+        svg
+      div.Alert__body
+        p.Alert__title  color #fb7185
+        div.Alert__text  color #fb7185
+      div.Alert__action
+        button.Button__button  bg #0e7490  border #0e7490
+          span.Button__content
+            span.Button__label  color #ffffff
+  div.CardBelt__footer  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+    span  color #8598ac

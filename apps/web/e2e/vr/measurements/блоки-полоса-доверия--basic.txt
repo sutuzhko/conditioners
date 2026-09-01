@@ -1,0 +1,116 @@
+# блоки-полоса-доверия--basic · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.TrustStrip__strip  320×56 @0,0
+  div.TrustStrip__viewport  320×56 @0,0  clipped
+    div.TrustStrip__track  1064×56 @0,0
+      ul.TrustStrip__list  1064×56 @0,0
+        li.TrustStrip__item  224×20 @0,18  Manrope 400 15/20  lines=1  «Официальный договор и чек»
+          span.TrustStrip__icon  20×20 @0,0
+            svg  20×20 @0,0
+        li.TrustStrip__item#2  250×20 @252,18  Manrope 400 15/20  lines=1  «Монтаж под ключ за один выезд»
+          span.TrustStrip__icon  20×20 @0,0
+            svg#2  20×20 @0,0
+        li.TrustStrip__item#3  250×20 @529,18  Manrope 400 15/20  lines=1  «Вакуумация на каждом монтаже»
+          span.TrustStrip__icon  20×20 @0,0
+            svg#3  20×20 @0,0
+        li.TrustStrip__item#4  229×20 @807,18  Manrope 400 15/20  lines=1  «Обслуживаем любые бренды»
+          span.TrustStrip__icon  20×20 @0,0
+            svg#4  20×20 @0,0
+
+[геометрия 375]
+section.TrustStrip__strip  375×56 @0,0
+  div.TrustStrip__viewport  375×56 @0,0  clipped
+    div.TrustStrip__track  1064×56 @0,0
+      ul.TrustStrip__list  1064×56 @0,0
+        li.TrustStrip__item  224×20 @0,18  Manrope 400 15/20  lines=1  «Официальный договор и чек»
+          span.TrustStrip__icon  20×20 @0,0
+            svg  20×20 @0,0
+        li.TrustStrip__item#2  250×20 @252,18  Manrope 400 15/20  lines=1  «Монтаж под ключ за один выезд»
+          span.TrustStrip__icon  20×20 @0,0
+            svg#2  20×20 @0,0
+        li.TrustStrip__item#3  250×20 @529,18  Manrope 400 15/20  lines=1  «Вакуумация на каждом монтаже»
+          span.TrustStrip__icon  20×20 @0,0
+            svg#3  20×20 @0,0
+        li.TrustStrip__item#4  229×20 @807,18  Manrope 400 15/20  lines=1  «Обслуживаем любые бренды»
+          span.TrustStrip__icon  20×20 @0,0
+            svg#4  20×20 @0,0
+
+[геометрия 768]
+section.TrustStrip__strip  768×64 @0,0
+  div.TrustStrip__viewport  768×64 @0,0  clipped
+    div.TrustStrip__track  1144×64 @0,0
+      ul.TrustStrip__list  1144×64 @0,0
+        li.TrustStrip__item  224×20 @0,22  Manrope 400 15/20  lines=1  «Официальный договор и чек»
+          span.TrustStrip__icon  20×20 @0,0
+            svg  20×20 @0,0
+        li.TrustStrip__item#2  250×20 @272,22  Manrope 400 15/20  lines=1  «Монтаж под ключ за один выезд»
+          span.TrustStrip__icon  20×20 @0,0
+            svg#2  20×20 @0,0
+        li.TrustStrip__item#3  250×20 @569,22  Manrope 400 15/20  lines=1  «Вакуумация на каждом монтаже»
+          span.TrustStrip__icon  20×20 @0,0
+            svg#3  20×20 @0,0
+        li.TrustStrip__item#4  229×20 @867,22  Manrope 400 15/20  lines=1  «Обслуживаем любые бренды»
+          span.TrustStrip__icon  20×20 @0,0
+            svg#4  20×20 @0,0
+
+[геометрия 1200]
+section.TrustStrip__strip  1200×64 @0,0
+  div.TrustStrip__viewport  1200×64 @0,0
+    div.TrustStrip__track  1144×64 @28,0
+      ul.TrustStrip__list  1096×64 @24,0
+        li.TrustStrip__item  224×20 @0,22  Manrope 400 15/20  lines=1  «Официальный договор и чек»
+          span.TrustStrip__icon  20×20 @0,0
+            svg  20×20 @0,0
+        li.TrustStrip__item#2  250×20 @272,22  Manrope 400 15/20  lines=1  «Монтаж под ключ за один выезд»
+          span.TrustStrip__icon  20×20 @0,0
+            svg#2  20×20 @0,0
+        li.TrustStrip__item#3  250×20 @569,22  Manrope 400 15/20  lines=1  «Вакуумация на каждом монтаже»
+          span.TrustStrip__icon  20×20 @0,0
+            svg#3  20×20 @0,0
+        li.TrustStrip__item#4  229×20 @867,22  Manrope 400 15/20  lines=1  «Обслуживаем любые бренды»
+          span.TrustStrip__icon  20×20 @0,0
+            svg#4  20×20 @0,0
+
+[палитра light]
+section.TrustStrip__strip  bg #0f172a
+  div.TrustStrip__viewport
+    div.TrustStrip__track
+      ul.TrustStrip__list
+        li.TrustStrip__item  color color(srgb 1 1 1 / 0.8)
+          span.TrustStrip__icon
+            svg
+        li.TrustStrip__item#2  color color(srgb 1 1 1 / 0.8)
+          span.TrustStrip__icon
+            svg#2
+        li.TrustStrip__item#3  color color(srgb 1 1 1 / 0.8)
+          span.TrustStrip__icon
+            svg#3
+        li.TrustStrip__item#4  color color(srgb 1 1 1 / 0.8)
+          span.TrustStrip__icon
+            svg#4
+
+[палитра dark]
+section.TrustStrip__strip  bg #111d34
+  div.TrustStrip__viewport
+    div.TrustStrip__track
+      ul.TrustStrip__list
+        li.TrustStrip__item  color color(srgb 1 1 1 / 0.8)
+          span.TrustStrip__icon
+            svg
+        li.TrustStrip__item#2  color color(srgb 1 1 1 / 0.8)
+          span.TrustStrip__icon
+            svg#2
+        li.TrustStrip__item#3  color color(srgb 1 1 1 / 0.8)
+          span.TrustStrip__icon
+            svg#3
+        li.TrustStrip__item#4  color color(srgb 1 1 1 / 0.8)
+          span.TrustStrip__icon
+            svg#4

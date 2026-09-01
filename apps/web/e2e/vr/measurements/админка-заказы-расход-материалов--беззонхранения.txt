@@ -1,0 +1,62 @@
+# админка-заказы-расход-материалов--беззонхранения · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 700, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×520 @16,16  r20  b1
+  h2.OrderConsumption__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Израсходовано»
+  p.OrderConsumption__hint  316×60 @21,46  Manrope 400 13/20  lines=3  «Что ушло на эту работу по факту. Чеклист»
+  div.OrderConsumption__empty  316×220 @21,120  r11  b1
+    p.OrderConsumption__emptyTitle  282×45 @17,15  Manrope 700 15/22  lines=2  «По этому наряду ещё ничего не списано»
+    p.OrderConsumption__emptyText  282×141 @17,64  Manrope 400 13/20  lines=7  «Пока материал не списан, он числится на»
+  div.OrderConsumption__empty#2  316×160 @21,340  r11  b1
+    p.OrderConsumption__emptyTitle  282×45 @17,15  Manrope 700 15/22  lines=2  «Списывать неоткуда: ни одной зоны хранен»
+    p.OrderConsumption__emptyText  282×81 @17,64  Manrope 400 13/20  lines=4  «Материал уходит из машины или со склада.»
+
+[геометрия 768]
+section.Card__card  736×356 @16,16  r20  b1
+  h2.OrderConsumption__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Израсходовано»
+  p.OrderConsumption__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Что ушло на эту работу по факту. Чеклист»
+  div.OrderConsumption__empty  694×137 @21,101  r11  b1
+    p.OrderConsumption__emptyTitle  660×22 @17,15  Manrope 700 15/22  lines=1  «По этому наряду ещё ничего не списано»
+    p.OrderConsumption__emptyText  539×81 @17,41  Manrope 400 13/20  lines=4  «Пока материал не списан, он числится на»
+  div.OrderConsumption__empty#2  694×97 @21,238  r11  b1
+    p.OrderConsumption__emptyTitle  660×22 @17,15  Manrope 700 15/22  lines=1  «Списывать неоткуда: ни одной зоны хранен»
+    p.OrderConsumption__emptyText  539×40 @17,41  Manrope 400 13/20  lines=2  «Материал уходит из машины или со склада.»
+
+[геометрия 1440]
+section.Card__card  1408×357 @16,16  r20  b1
+  h2.OrderConsumption__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Израсходовано»
+  p.OrderConsumption__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Что ушло на эту работу по факту. Чеклист»
+  div.OrderConsumption__empty  1366×137 @21,102  r11  b1
+    p.OrderConsumption__emptyTitle  1332×22 @17,15  Manrope 700 15/22  lines=1  «По этому наряду ещё ничего не списано»
+    p.OrderConsumption__emptyText  539×81 @17,41  Manrope 400 13/20  lines=4  «Пока материал не списан, он числится на»
+  div.OrderConsumption__empty#2  1366×97 @21,239  r11  b1
+    p.OrderConsumption__emptyTitle  1332×22 @17,15  Manrope 700 15/22  lines=1  «Списывать неоткуда: ни одной зоны хранен»
+    p.OrderConsumption__emptyText  539×40 @17,41  Manrope 400 13/20  lines=2  «Материал уходит из машины или со склада.»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderConsumption__title  color #0f172a
+  p.OrderConsumption__hint  color #556173
+  div.OrderConsumption__empty  bg #f8fafc  border #cbd5e1
+    p.OrderConsumption__emptyTitle  color #334155
+    p.OrderConsumption__emptyText  color #556173
+  div.OrderConsumption__empty#2  bg #f8fafc  border #cbd5e1
+    p.OrderConsumption__emptyTitle  color #334155
+    p.OrderConsumption__emptyText  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderConsumption__title  color #eaf1f8
+  p.OrderConsumption__hint  color #8598ac
+  div.OrderConsumption__empty  bg #0e1729  border #2c3d59
+    p.OrderConsumption__emptyTitle  color #c9d5e2
+    p.OrderConsumption__emptyText  color #8598ac
+  div.OrderConsumption__empty#2  bg #0e1729  border #2c3d59
+    p.OrderConsumption__emptyTitle  color #c9d5e2
+    p.OrderConsumption__emptyText  color #8598ac

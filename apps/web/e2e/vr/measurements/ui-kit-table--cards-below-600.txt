@@ -1,0 +1,800 @@
+# ui-kit-table--cards-below-600 · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×2051
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Table__viewport  326×1987 @32,32
+  table.Table__table  326×1987 @0,0
+    th  83×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
+    th#2  90×56 @83,0  Onest 700 15/23  b0 0 1 0  lines=1  «Объект»
+    th#3  74×56 @173,0  Onest 700 15/23  b0 0 1 0  lines=1  «Срок»
+    th#4  88×56 @247,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+    span  1×1 @352,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr[role=row]  326×240 @0,0  r14  b1
+      th  87×51 @1,5  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1057»
+      td[role=cell]  324×36 @1,56  Manrope 400 15/22  lines=1  «Заказ на Красноармейском»
+        td[role=cell]::before  45×20 @0,0
+      td[role=cell]#2  324×36 @1,93  Manrope 400 15/22  lines=1  «2 сентября»
+        td[role=cell]#2::before  31×20 @0,0
+      td[role=cell]#3  324×42 @1,129
+        td[role=cell]#3::before  43×20 @0,0
+        span.Badge__badge  98×28 @212,7  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  324×59 @1,176  b1 0 0 0
+        div.TableActions__actions  140×44 @170,8
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg  20×20 @12,12
+    tr[role=row]#2  326×240 @0,250  r14  b1
+      th  88×51 @1,5  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1058»
+      td[role=cell]  324×36 @1,56  Manrope 400 15/22  lines=1  «Заказ на Ложевой»
+        td[role=cell]::before  45×20 @0,0
+      td[role=cell]#2  324×36 @1,93  Manrope 400 15/22  lines=1  «2 сентября»
+        td[role=cell]#2::before  31×20 @0,0
+      td[role=cell]#3  324×42 @1,129
+        td[role=cell]#3::before  43×20 @0,0
+        span.Badge__badge#2  90×28 @220,7  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  324×59 @1,176  b1 0 0 0
+        div.TableActions__actions#2  140×44 @170,8
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#2  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#2  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#2  20×20 @12,12
+    tr[role=row]#3  326×240 @0,499  r14  b1
+      th  88×51 @1,5  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1059»
+      td[role=cell]  324×36 @1,56  Manrope 400 15/22  lines=1  «Заказ на Пролетарской»
+        td[role=cell]::before  45×20 @0,0
+      td[role=cell]#2  324×36 @1,93  Manrope 400 15/22  lines=1  «28 августа»
+        td[role=cell]#2::before  31×20 @0,0
+      td[role=cell]#3  324×42 @1,129
+        td[role=cell]#3::before  43×20 @0,0
+        span.Badge__badge#3  104×28 @206,7  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  324×59 @1,176  b1 0 0 0
+        div.TableActions__actions#3  140×44 @170,8
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#3  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#3  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#3  20×20 @12,12
+    tr[role=row]#4  326×240 @0,749  r14  b1
+      th  89×51 @1,5  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1060»
+      td[role=cell]  324×36 @1,56  Manrope 400 15/22  lines=1  «Заказ на Оборонной»
+        td[role=cell]::before  45×20 @0,0
+      td[role=cell]#2  324×36 @1,93  Manrope 400 15/22  lines=1  «3 сентября»
+        td[role=cell]#2::before  31×20 @0,0
+      td[role=cell]#3  324×42 @1,129
+        td[role=cell]#3::before  43×20 @0,0
+        span.Badge__badge#4  95×28 @215,7  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  324×59 @1,176  b1 0 0 0
+        div.TableActions__actions#4  140×44 @170,8
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#4  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#4  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#4  20×20 @12,12
+    tr[role=row]#5  326×240 @0,998  r14  b1
+      th  86×51 @1,5  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1061»
+      td[role=cell]  324×36 @1,56  Manrope 400 15/22  lines=1  «Заказ на Кутузова»
+        td[role=cell]::before  45×20 @0,0
+      td[role=cell]#2  324×36 @1,93  Manrope 400 15/22  lines=1  «3 сентября»
+        td[role=cell]#2::before  31×20 @0,0
+      td[role=cell]#3  324×42 @1,129
+        td[role=cell]#3::before  43×20 @0,0
+        span.Badge__badge#5  98×28 @212,7  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  324×59 @1,176  b1 0 0 0
+        div.TableActions__actions#5  140×44 @170,8
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#5  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#5  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#5  20×20 @12,12
+    tr[role=row]#6  326×240 @0,1248  r14  b1
+      th  88×51 @1,5  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1062»
+      td[role=cell]  324×36 @1,56  Manrope 400 15/22  lines=1  «Заказ на Металлургов»
+        td[role=cell]::before  45×20 @0,0
+      td[role=cell]#2  324×36 @1,93  Manrope 400 15/22  lines=1  «4 сентября»
+        td[role=cell]#2::before  31×20 @0,0
+      td[role=cell]#3  324×42 @1,129
+        td[role=cell]#3::before  43×20 @0,0
+        span.Badge__badge#6  90×28 @220,7  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  324×59 @1,176  b1 0 0 0
+        div.TableActions__actions#6  140×44 @170,8
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#6  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#6  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#6  20×20 @12,12
+    tr[role=row]#7  326×240 @0,1498  r14  b1
+      th  88×51 @1,5  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1063»
+      td[role=cell]  324×36 @1,56  Manrope 400 15/22  lines=1  «Заказ на Демонстрации»
+        td[role=cell]::before  45×20 @0,0
+      td[role=cell]#2  324×36 @1,93  Manrope 400 15/22  lines=1  «4 сентября»
+        td[role=cell]#2::before  31×20 @0,0
+      td[role=cell]#3  324×42 @1,129
+        td[role=cell]#3::before  43×20 @0,0
+        span.Badge__badge#7  95×28 @215,7  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  324×59 @1,176  b1 0 0 0
+        div.TableActions__actions#7  140×44 @170,8
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#7  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#7  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#7  20×20 @12,12
+    tr[role=row]#8  326×240 @0,1747  r14  b1
+      th  88×51 @1,5  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1064»
+      td[role=cell]  324×36 @1,56  Manrope 400 15/22  lines=1  «Заказ на Первомайской»
+        td[role=cell]::before  45×20 @0,0
+      td[role=cell]#2  324×36 @1,93  Manrope 400 15/22  lines=1  «5 сентября»
+        td[role=cell]#2::before  31×20 @0,0
+      td[role=cell]#3  324×42 @1,129
+        td[role=cell]#3::before  43×20 @0,0
+        span.Badge__badge#8  98×28 @212,7  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  324×59 @1,176  b1 0 0 0
+        div.TableActions__actions#8  140×44 @170,8
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#8  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#8  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#8  20×20 @12,12
+
+[геометрия 768]
+div.Table__viewport  704×648 @32,32
+  table.Table__table  704×648 @0,0
+    th  86×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
+    th#2  195×56 @86,0  Onest 700 15/23  b0 0 1 0  lines=1  «Объект»
+    th#3  107×56 @281,0  Onest 700 15/23  b0 0 1 0  lines=1  «Срок»
+    th#4  140×56 @388,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+    span  1×1 @545,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr[role=row]  704×74 @0,56
+      th  86×74 @0,0  Manrope 600 15/22  b0 0 1 0  lines=2  «№ 1057»
+      td[role=cell]  195×74 @86,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Заказ на Красноармейском»
+      td[role=cell]#2  107×74 @281,0  Manrope 400 15/22  b0 0 1 0  lines=2  «2 сентября»
+      td[role=cell]#3  140×74 @388,0  b0 0 1 0
+        span.Badge__badge  98×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  176×74 @528,0  b0 0 1 0
+        div.TableActions__actions  140×44 @18,15
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg  20×20 @12,12
+    tr[role=row]#2  704×74 @0,130
+      th  86×74 @0,0  Manrope 600 15/22  b0 0 1 0  lines=2  «№ 1058»
+      td[role=cell]  195×74 @86,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Ложевой»
+      td[role=cell]#2  107×74 @281,0  Manrope 400 15/22  b0 0 1 0  lines=2  «2 сентября»
+      td[role=cell]#3  140×74 @388,0  b0 0 1 0
+        span.Badge__badge#2  90×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  176×74 @528,0  b0 0 1 0
+        div.TableActions__actions#2  140×44 @18,15
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#2  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#2  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#2  20×20 @12,12
+    tr[role=row]#3  704×74 @0,204
+      th  86×74 @0,0  Manrope 600 15/22  b0 0 1 0  lines=2  «№ 1059»
+      td[role=cell]  195×74 @86,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Заказ на Пролетарской»
+      td[role=cell]#2  107×74 @281,0  Manrope 400 15/22  b0 0 1 0  lines=2  «28 августа»
+      td[role=cell]#3  140×74 @388,0  b0 0 1 0
+        span.Badge__badge#3  104×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  176×74 @528,0  b0 0 1 0
+        div.TableActions__actions#3  140×44 @18,15
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#3  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#3  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#3  20×20 @12,12
+    tr[role=row]#4  704×74 @0,278
+      th  86×74 @0,0  Manrope 600 15/22  b0 0 1 0  lines=2  «№ 1060»
+      td[role=cell]  195×74 @86,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Оборонной»
+      td[role=cell]#2  107×74 @281,0  Manrope 400 15/22  b0 0 1 0  lines=2  «3 сентября»
+      td[role=cell]#3  140×74 @388,0  b0 0 1 0
+        span.Badge__badge#4  95×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  176×74 @528,0  b0 0 1 0
+        div.TableActions__actions#4  140×44 @18,15
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#4  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#4  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#4  20×20 @12,12
+    tr[role=row]#5  704×74 @0,352
+      th  86×74 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1061»
+      td[role=cell]  195×74 @86,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Кутузова»
+      td[role=cell]#2  107×74 @281,0  Manrope 400 15/22  b0 0 1 0  lines=2  «3 сентября»
+      td[role=cell]#3  140×74 @388,0  b0 0 1 0
+        span.Badge__badge#5  98×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  176×74 @528,0  b0 0 1 0
+        div.TableActions__actions#5  140×44 @18,15
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#5  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#5  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#5  20×20 @12,12
+    tr[role=row]#6  704×74 @0,425
+      th  86×74 @0,0  Manrope 600 15/22  b0 0 1 0  lines=2  «№ 1062»
+      td[role=cell]  195×74 @86,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Металлургов»
+      td[role=cell]#2  107×74 @281,0  Manrope 400 15/22  b0 0 1 0  lines=2  «4 сентября»
+      td[role=cell]#3  140×74 @388,0  b0 0 1 0
+        span.Badge__badge#6  90×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  176×74 @528,0  b0 0 1 0
+        div.TableActions__actions#6  140×44 @18,15
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#6  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#6  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#6  20×20 @12,12
+    tr[role=row]#7  704×74 @0,499
+      th  86×74 @0,0  Manrope 600 15/22  b0 0 1 0  lines=2  «№ 1063»
+      td[role=cell]  195×74 @86,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Заказ на Демонстрации»
+      td[role=cell]#2  107×74 @281,0  Manrope 400 15/22  b0 0 1 0  lines=2  «4 сентября»
+      td[role=cell]#3  140×74 @388,0  b0 0 1 0
+        span.Badge__badge#7  95×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  176×74 @528,0  b0 0 1 0
+        div.TableActions__actions#7  140×44 @18,15
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#7  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#7  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#7  20×20 @12,12
+    tr[role=row]#8  704×74 @0,573
+      th  86×74 @0,0  Manrope 600 15/22  b0 0 1 0  lines=2  «№ 1064»
+      td[role=cell]  195×74 @86,0  Manrope 400 15/22  lines=2  «Заказ на Первомайской»
+      td[role=cell]#2  107×74 @281,0  Manrope 400 15/22  lines=2  «5 сентября»
+      td[role=cell]#3  140×74 @388,0
+        span.Badge__badge#8  98×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  176×74 @528,0
+        div.TableActions__actions#8  140×44 @18,15
+          button.IconButton__iconButton  44×44 @0,0  r11  b1
+            svg#8  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @48,0  r11  b1
+            svg#8  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @96,0  r11  b1
+            svg#8  20×20 @12,12
+
+[геометрия 1440]
+div.Table__viewport  1376×640 @32,32
+  table.Table__table  1376×640 @0,0
+    th  165×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
+    th#2  417×56 @165,0  Onest 700 15/23  b0 0 1 0  lines=1  «Объект»
+    th#3  209×56 @582,0  Onest 700 15/23  b0 0 1 0  lines=1  «Срок»
+    th#4  259×56 @791,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+    span  1×1 @1067,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr[role=row]  1376×73 @0,56
+      th  165×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1057»
+      td[role=cell]  417×73 @165,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Красноармейском»
+      td[role=cell]#2  209×73 @582,0  Manrope 400 15/22  b0 0 1 0  lines=1  «2 сентября»
+      td[role=cell]#3  259×73 @791,0  b0 0 1 0
+        span.Badge__badge  98×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  326×73 @1050,0  b0 0 1 0
+        div.TableActions__actions  290×44 @18,15
+          button.IconButton__iconButton  44×44 @150,0  r11  b1
+            svg  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @198,0  r11  b1
+            svg  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @246,0  r11  b1
+            svg  20×20 @12,12
+    tr[role=row]#2  1376×73 @0,129
+      th  165×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1058»
+      td[role=cell]  417×73 @165,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Ложевой»
+      td[role=cell]#2  209×73 @582,0  Manrope 400 15/22  b0 0 1 0  lines=1  «2 сентября»
+      td[role=cell]#3  259×73 @791,0  b0 0 1 0
+        span.Badge__badge#2  90×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  326×73 @1050,0  b0 0 1 0
+        div.TableActions__actions#2  290×44 @18,15
+          button.IconButton__iconButton  44×44 @150,0  r11  b1
+            svg#2  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @198,0  r11  b1
+            svg#2  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @246,0  r11  b1
+            svg#2  20×20 @12,12
+    tr[role=row]#3  1376×73 @0,202
+      th  165×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1059»
+      td[role=cell]  417×73 @165,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Пролетарской»
+      td[role=cell]#2  209×73 @582,0  Manrope 400 15/22  b0 0 1 0  lines=1  «28 августа»
+      td[role=cell]#3  259×73 @791,0  b0 0 1 0
+        span.Badge__badge#3  104×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  326×73 @1050,0  b0 0 1 0
+        div.TableActions__actions#3  290×44 @18,15
+          button.IconButton__iconButton  44×44 @150,0  r11  b1
+            svg#3  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @198,0  r11  b1
+            svg#3  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @246,0  r11  b1
+            svg#3  20×20 @12,12
+    tr[role=row]#4  1376×73 @0,275
+      th  165×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1060»
+      td[role=cell]  417×73 @165,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Оборонной»
+      td[role=cell]#2  209×73 @582,0  Manrope 400 15/22  b0 0 1 0  lines=1  «3 сентября»
+      td[role=cell]#3  259×73 @791,0  b0 0 1 0
+        span.Badge__badge#4  95×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  326×73 @1050,0  b0 0 1 0
+        div.TableActions__actions#4  290×44 @18,15
+          button.IconButton__iconButton  44×44 @150,0  r11  b1
+            svg#4  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @198,0  r11  b1
+            svg#4  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @246,0  r11  b1
+            svg#4  20×20 @12,12
+    tr[role=row]#5  1376×73 @0,348
+      th  165×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1061»
+      td[role=cell]  417×73 @165,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Кутузова»
+      td[role=cell]#2  209×73 @582,0  Manrope 400 15/22  b0 0 1 0  lines=1  «3 сентября»
+      td[role=cell]#3  259×73 @791,0  b0 0 1 0
+        span.Badge__badge#5  98×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  326×73 @1050,0  b0 0 1 0
+        div.TableActions__actions#5  290×44 @18,15
+          button.IconButton__iconButton  44×44 @150,0  r11  b1
+            svg#5  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @198,0  r11  b1
+            svg#5  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @246,0  r11  b1
+            svg#5  20×20 @12,12
+    tr[role=row]#6  1376×73 @0,421
+      th  165×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1062»
+      td[role=cell]  417×73 @165,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Металлургов»
+      td[role=cell]#2  209×73 @582,0  Manrope 400 15/22  b0 0 1 0  lines=1  «4 сентября»
+      td[role=cell]#3  259×73 @791,0  b0 0 1 0
+        span.Badge__badge#6  90×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  326×73 @1050,0  b0 0 1 0
+        div.TableActions__actions#6  290×44 @18,15
+          button.IconButton__iconButton  44×44 @150,0  r11  b1
+            svg#6  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @198,0  r11  b1
+            svg#6  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @246,0  r11  b1
+            svg#6  20×20 @12,12
+    tr[role=row]#7  1376×73 @0,494
+      th  165×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1063»
+      td[role=cell]  417×73 @165,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Демонстрации»
+      td[role=cell]#2  209×73 @582,0  Manrope 400 15/22  b0 0 1 0  lines=1  «4 сентября»
+      td[role=cell]#3  259×73 @791,0  b0 0 1 0
+        span.Badge__badge#7  95×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  326×73 @1050,0  b0 0 1 0
+        div.TableActions__actions#7  290×44 @18,15
+          button.IconButton__iconButton  44×44 @150,0  r11  b1
+            svg#7  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @198,0  r11  b1
+            svg#7  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @246,0  r11  b1
+            svg#7  20×20 @12,12
+    tr[role=row]#8  1376×73 @0,567
+      th  165×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1064»
+      td[role=cell]  417×73 @165,0  Manrope 400 15/22  lines=1  «Заказ на Первомайской»
+      td[role=cell]#2  209×73 @582,0  Manrope 400 15/22  lines=1  «5 сентября»
+      td[role=cell]#3  259×73 @791,0
+        span.Badge__badge#8  98×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+          span.Badge__dot  6×6 @13,11  r100
+      td[role=cell]#4  326×73 @1050,0
+        div.TableActions__actions#8  290×44 @18,15
+          button.IconButton__iconButton  44×44 @150,0  r11  b1
+            svg#8  20×20 @12,12
+          button.IconButton__iconButton#2  44×44 @198,0  r11  b1
+            svg#8  20×20 @12,12
+          button.IconButton__iconButton#3  44×44 @246,0  r11  b1
+            svg#8  20×20 @12,12
+
+[палитра light]
+div.Table__viewport
+  table.Table__table
+    th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#4  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    span  color #0f172a
+    tr[role=row]
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+      td[role=cell]#2  color #556173  border #556173 #556173 #eef2f6 #556173
+      td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+        span.Badge__badge  color #166534  bg #15803d14  border #15803d47
+          span.Badge__dot  bg #166534
+      td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+        div.TableActions__actions
+          button.IconButton__iconButton  border transparent
+            svg
+          button.IconButton__iconButton#2  border transparent
+            svg
+          button.IconButton__iconButton#3  border transparent
+            svg
+    tr[role=row]#2
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+      td[role=cell]#2  color #556173  border #556173 #556173 #eef2f6 #556173
+      td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+        span.Badge__badge#2  color #0e7490  bg #ecfeff  border #a5f3fc
+          span.Badge__dot  bg #0e7490
+      td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+        div.TableActions__actions#2
+          button.IconButton__iconButton  border transparent
+            svg#2
+          button.IconButton__iconButton#2  border transparent
+            svg#2
+          button.IconButton__iconButton#3  border transparent
+            svg#2
+    tr[role=row]#3  bg #ffffff  gradient linear-gradient(#be123c14, #be123c14)
+      th  color #0f172a  border #0f172a #0f172a #be123c73 #0f172a
+      td[role=cell]  color #334155  border #334155 #334155 #be123c73 #334155
+      td[role=cell]#2  color #475569  border #475569 #475569 #be123c73 #475569
+      td[role=cell]#3  border #334155 #334155 #be123c73 #334155
+        span.Badge__badge#3  color #be123c  border #be123c73
+          span.Badge__dot  bg #be123c
+      td[role=cell]#4  border #334155 #334155 #be123c73 #334155
+        div.TableActions__actions#3
+          button.IconButton__iconButton  border transparent
+            svg#3
+          button.IconButton__iconButton#2  border transparent
+            svg#3
+          button.IconButton__iconButton#3  border transparent
+            svg#3
+    tr[role=row]#4
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+      td[role=cell]#2  color #556173  border #556173 #556173 #eef2f6 #556173
+      td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+        span.Badge__badge#4  color #92400e  bg #b4530914  border #b4530947
+          span.Badge__dot  bg #92400e
+      td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+        div.TableActions__actions#4
+          button.IconButton__iconButton  border transparent
+            svg#4
+          button.IconButton__iconButton#2  border transparent
+            svg#4
+          button.IconButton__iconButton#3  border transparent
+            svg#4
+    tr[role=row]#5
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+      td[role=cell]#2  color #556173  border #556173 #556173 #eef2f6 #556173
+      td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+        span.Badge__badge#5  color #166534  bg #15803d14  border #15803d47
+          span.Badge__dot  bg #166534
+      td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+        div.TableActions__actions#5
+          button.IconButton__iconButton  border transparent
+            svg#5
+          button.IconButton__iconButton#2  border transparent
+            svg#5
+          button.IconButton__iconButton#3  border transparent
+            svg#5
+    tr[role=row]#6
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+      td[role=cell]#2  color #556173  border #556173 #556173 #eef2f6 #556173
+      td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+        span.Badge__badge#6  color #0e7490  bg #ecfeff  border #a5f3fc
+          span.Badge__dot  bg #0e7490
+      td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+        div.TableActions__actions#6
+          button.IconButton__iconButton  border transparent
+            svg#6
+          button.IconButton__iconButton#2  border transparent
+            svg#6
+          button.IconButton__iconButton#3  border transparent
+            svg#6
+    tr[role=row]#7
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+      td[role=cell]#2  color #556173  border #556173 #556173 #eef2f6 #556173
+      td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+        span.Badge__badge#7  color #92400e  bg #b4530914  border #b4530947
+          span.Badge__dot  bg #92400e
+      td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+        div.TableActions__actions#7
+          button.IconButton__iconButton  border transparent
+            svg#7
+          button.IconButton__iconButton#2  border transparent
+            svg#7
+          button.IconButton__iconButton#3  border transparent
+            svg#7
+    tr[role=row]#8
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      td[role=cell]  color #334155
+      td[role=cell]#2  color #556173
+      td[role=cell]#3
+        span.Badge__badge#8  color #166534  bg #15803d14  border #15803d47
+          span.Badge__dot  bg #166534
+      td[role=cell]#4
+        div.TableActions__actions#8
+          button.IconButton__iconButton  border transparent
+            svg#8
+          button.IconButton__iconButton#2  border transparent
+            svg#8
+          button.IconButton__iconButton#3  border transparent
+            svg#8
+[палитра light @390]
+div.Table__viewport > table.Table__table > tr[role=row]  bg #ffffff  border #e2e8f0
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]  color #334155
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#2  color #556173
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]  color #334155
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2  color #556173
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+div.Table__viewport > table.Table__table > tr[role=row]#3  bg #ffffff  border #e2e8f0  gradient linear-gradient(#be123c14, #be123c14)
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]  color #334155
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2  color #475569
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#4  border #eef2f6 #334155 #be123c73 #334155
+div.Table__viewport > table.Table__table > tr[role=row]#4  bg #ffffff  border #e2e8f0
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]  color #334155
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2  color #556173
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+div.Table__viewport > table.Table__table > tr[role=row]#5  bg #ffffff  border #e2e8f0
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]  color #334155
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#2  color #556173
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+div.Table__viewport > table.Table__table > tr[role=row]#6  bg #ffffff  border #e2e8f0
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell]  color #334155
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell]#2  color #556173
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+div.Table__viewport > table.Table__table > tr[role=row]#7  bg #ffffff  border #e2e8f0
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell]  color #334155
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell]#2  color #556173
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+div.Table__viewport > table.Table__table > tr[role=row]#8  bg #ffffff  border #e2e8f0
+div.Table__viewport > table.Table__table > tr[role=row]#8 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#8 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#8 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#8 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+
+[палитра dark]
+div.Table__viewport
+  table.Table__table
+    th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#4  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    span  color #eaf1f8
+    tr[role=row]
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+      td[role=cell]#2  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+      td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        span.Badge__badge  color #4ade80  bg #4ade801f  border #4ade8052
+          span.Badge__dot  bg #4ade80
+      td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        div.TableActions__actions
+          button.IconButton__iconButton  border transparent
+            svg
+          button.IconButton__iconButton#2  border transparent
+            svg
+          button.IconButton__iconButton#3  border transparent
+            svg
+    tr[role=row]#2
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+      td[role=cell]#2  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+      td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        span.Badge__badge#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          span.Badge__dot  bg #22d3ee
+      td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        div.TableActions__actions#2
+          button.IconButton__iconButton  border transparent
+            svg#2
+          button.IconButton__iconButton#2  border transparent
+            svg#2
+          button.IconButton__iconButton#3  border transparent
+            svg#2
+    tr[role=row]#3  bg #121d31  gradient linear-gradient(#fb71851f, #fb71851f)
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #fb718580 #eaf1f8
+      td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #fb718580 #c9d5e2
+      td[role=cell]#2  color #a8b6c6  border #a8b6c6 #a8b6c6 #fb718580 #a8b6c6
+      td[role=cell]#3  border #c9d5e2 #c9d5e2 #fb718580 #c9d5e2
+        span.Badge__badge#3  color #fb7185  border #fb718580
+          span.Badge__dot  bg #fb7185
+      td[role=cell]#4  border #c9d5e2 #c9d5e2 #fb718580 #c9d5e2
+        div.TableActions__actions#3
+          button.IconButton__iconButton  border transparent
+            svg#3
+          button.IconButton__iconButton#2  border transparent
+            svg#3
+          button.IconButton__iconButton#3  border transparent
+            svg#3
+    tr[role=row]#4
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+      td[role=cell]#2  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+      td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        span.Badge__badge#4  color #fbbf24  bg #fbbf241f  border #fbbf2452
+          span.Badge__dot  bg #fbbf24
+      td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        div.TableActions__actions#4
+          button.IconButton__iconButton  border transparent
+            svg#4
+          button.IconButton__iconButton#2  border transparent
+            svg#4
+          button.IconButton__iconButton#3  border transparent
+            svg#4
+    tr[role=row]#5
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+      td[role=cell]#2  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+      td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        span.Badge__badge#5  color #4ade80  bg #4ade801f  border #4ade8052
+          span.Badge__dot  bg #4ade80
+      td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        div.TableActions__actions#5
+          button.IconButton__iconButton  border transparent
+            svg#5
+          button.IconButton__iconButton#2  border transparent
+            svg#5
+          button.IconButton__iconButton#3  border transparent
+            svg#5
+    tr[role=row]#6
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+      td[role=cell]#2  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+      td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        span.Badge__badge#6  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          span.Badge__dot  bg #22d3ee
+      td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        div.TableActions__actions#6
+          button.IconButton__iconButton  border transparent
+            svg#6
+          button.IconButton__iconButton#2  border transparent
+            svg#6
+          button.IconButton__iconButton#3  border transparent
+            svg#6
+    tr[role=row]#7
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+      td[role=cell]#2  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+      td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        span.Badge__badge#7  color #fbbf24  bg #fbbf241f  border #fbbf2452
+          span.Badge__dot  bg #fbbf24
+      td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        div.TableActions__actions#7
+          button.IconButton__iconButton  border transparent
+            svg#7
+          button.IconButton__iconButton#2  border transparent
+            svg#7
+          button.IconButton__iconButton#3  border transparent
+            svg#7
+    tr[role=row]#8
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      td[role=cell]  color #c9d5e2
+      td[role=cell]#2  color #8598ac
+      td[role=cell]#3
+        span.Badge__badge#8  color #4ade80  bg #4ade801f  border #4ade8052
+          span.Badge__dot  bg #4ade80
+      td[role=cell]#4
+        div.TableActions__actions#8
+          button.IconButton__iconButton  border transparent
+            svg#8
+          button.IconButton__iconButton#2  border transparent
+            svg#8
+          button.IconButton__iconButton#3  border transparent
+            svg#8
+[палитра dark @390]
+div.Table__viewport > table.Table__table > tr[role=row]  bg #121d31  border #1e2b41
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]  color #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#2  color #8598ac
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]  color #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2  color #8598ac
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#3  bg #121d31  border #1e2b41  gradient linear-gradient(#fb71851f, #fb71851f)
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]  color #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2  color #a8b6c6
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#4  border #182338 #c9d5e2 #fb718580 #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#4  bg #121d31  border #1e2b41
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]  color #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2  color #8598ac
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#5  bg #121d31  border #1e2b41
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]  color #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#2  color #8598ac
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#6  bg #121d31  border #1e2b41
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell]  color #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell]#2  color #8598ac
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#7  bg #121d31  border #1e2b41
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell]  color #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell]#2  color #8598ac
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell]#3
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#7 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#8  bg #121d31  border #1e2b41
+div.Table__viewport > table.Table__table > tr[role=row]#8 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#8 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr[role=row]#8 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr[role=row]#8 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2

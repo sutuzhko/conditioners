@@ -1,0 +1,32 @@
+# админка-адреса-доставки--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+h2.DeliveryAddresses__title  358×21 @16,16  Onest 700 17/21  ls0  lines=1  «Адреса доставки»
+p.DeliveryAddresses__hint  358×90 @16,43  Manrope 400 15/22  lines=4  «Наряд, изменение вводных и отмена уходят»
+p.DeliveryAddresses__empty  358×22 @16,142  Manrope 400 15/22  lines=1  «В команде пока никого нет.»
+
+[геометрия 768]
+h2.DeliveryAddresses__title  736×22 @16,16  Onest 700 18/22  ls0  lines=1  «Адреса доставки»
+p.DeliveryAddresses__hint  637×67 @16,44  Manrope 400 15/22  lines=3  «Наряд, изменение вводных и отмена уходят»
+p.DeliveryAddresses__empty  736×22 @16,121  Manrope 400 15/22  lines=1  «В команде пока никого нет.»
+
+[геометрия 1440]
+h2.DeliveryAddresses__title  1408×23 @16,16  Onest 700 19/23  ls0  lines=1  «Адреса доставки»
+p.DeliveryAddresses__hint  637×67 @16,45  Manrope 400 15/22  lines=3  «Наряд, изменение вводных и отмена уходят»
+p.DeliveryAddresses__empty  1408×22 @16,122  Manrope 400 15/22  lines=1  «В команде пока никого нет.»
+
+[палитра light]
+h2.DeliveryAddresses__title  color #0f172a
+p.DeliveryAddresses__hint  color #556173
+p.DeliveryAddresses__empty  color #556173
+
+[палитра dark]
+h2.DeliveryAddresses__title  color #eaf1f8
+p.DeliveryAddresses__hint  color #8598ac
+p.DeliveryAddresses__empty  color #8598ac

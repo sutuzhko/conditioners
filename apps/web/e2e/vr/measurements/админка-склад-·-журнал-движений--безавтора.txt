@@ -1,0 +1,180 @@
+# админка-склад-·-журнал-движений--безавтора · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.StockJournal__wrap  358×387 @16,16
+  section.Card__card  358×387 @0,0  r20  b1
+    div.StockJournal__head  356×83 @1,1
+      h2.StockJournal__title  320×21 @18,18  Onest 700 17/21  ls0  lines=1  «Журнал движений»
+      p.StockJournal__hint  320×40 @18,43  Manrope 400 13/20  lines=2  «Что, куда, сколько, кто и когда. Без жур»
+    div.Table__viewport  356×302 @1,84
+      table.Table__table  356×302 @0,0
+        tr[role=row]  1×56 @0,0
+          th  79×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+          th#2  63×56 @79,0  Onest 700 15/23  b0 0 1 0  lines=1  «Что»
+          th#3  98×56 @142,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сколько»
+          th#4  90×56 @240,0  Onest 700 15/23  b0 0 1 0  lines=1  «Откуда»
+          th#5  72×56 @330,0  Onest 700 15/23  b0 0 1 0  lines=1  «Куда»
+          th#6  83×56 @402,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
+          th#7  63×56 @485,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто»
+          th#8  117×56 @548,0  Onest 700 15/23  b0 0 1 0  lines=1  «Основание»
+        tr[role=row]#2  356×302 @0,0  r14  b1
+          td[role=cell]  354×36 @1,5
+            td[role=cell]::before  36×20 @0,0
+            time  121×22 @219,7  Manrope 400 15/22  lines=1  «24.08.2026, 08:40»
+          td[role=cell]#2  354×36 @1,41  Manrope 400 15/22  lines=1  «Перемещение»
+            td[role=cell]#2::before  23×20 @0,0
+          td.StockJournal__qty  354×36 @1,78  Manrope 600 15/22  lines=1  «15 м»
+            td.StockJournal__qty::before  54×20 @0,0
+          td[role=cell]#3  354×36 @1,114  Manrope 400 15/22  lines=1  «Гараж на Демидовской»
+            td[role=cell]#3::before  44×20 @0,0
+          td[role=cell]#4  354×36 @1,151  Manrope 400 15/22  lines=1  «Газель»
+            td[role=cell]#4::before  29×20 @0,0
+          td[role=cell]#5  354×36 @1,187  Manrope 400 15/22  lines=1  «—»
+            td[role=cell]#5::before  39×20 @0,0
+          td[role=cell]#6  354×36 @1,224
+            td[role=cell]#6::before  22×20 @0,0
+            span.StockJournal__gone  93×22 @247,7  Manrope 400 15/22  lines=1  «автор удалён»
+          td.StockJournal__reason  354×36 @1,260  Manrope 400 15/22  lines=1  «—»
+            td.StockJournal__reason::before  69×20 @0,0
+
+[геометрия 768]
+div.StockJournal__wrap  736×195 @16,16
+  section.Card__card  736×195 @0,0  r20  b1
+    div.StockJournal__head  734×64 @1,1
+      h2.StockJournal__title  698×22 @18,18  Onest 700 18/22  ls0  lines=1  «Журнал движений»
+      p.StockJournal__hint  539×20 @18,44  Manrope 400 13/20  lines=1  «Что, куда, сколько, кто и когда. Без жур»
+    div.Table__viewport  734×129 @1,65
+      table.Table__table  847×129 @0,0
+        tr[role=row]  847×56 @0,0
+          th  115×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+          th#2  135×56 @115,0  Onest 700 15/23  b0 0 1 0  lines=1  «Что»
+          th#3  98×56 @250,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сколько»
+          th#4  130×56 @348,0  Onest 700 15/23  b0 0 1 0  lines=1  «Откуда»
+          th#5  83×56 @478,0  Onest 700 15/23  b0 0 1 0  lines=1  «Куда»
+          th#6  83×56 @561,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
+          th#7  85×56 @644,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто»
+          th#8  117×56 @729,0  Onest 700 15/23  b0 0 1 0  lines=1  «Основание»
+        tr[role=row]#2  847×73 @0,56
+          td[role=cell]  115×73 @0,0
+            time  79×41 @18,16  Manrope 400 15/22  lines=2  «24.08.2026, 08:40»
+          td[role=cell]#2  135×73 @115,0  Manrope 400 15/22  lines=1  «Перемещение»
+          td.StockJournal__qty  98×73 @250,0  Manrope 600 15/22  lines=1  «15 м»
+          td[role=cell]#3  130×73 @348,0  Manrope 400 15/22  lines=2  «Гараж на Демидовской»
+          td[role=cell]#4  83×73 @478,0  Manrope 400 15/22  lines=1  «Газель»
+          td[role=cell]#5  83×73 @561,0  Manrope 400 15/22  lines=1  «—»
+          td[role=cell]#6  85×73 @644,0
+            span.StockJournal__gone  49×41 @18,16  Manrope 400 15/22  lines=2  «автор удалён»
+          td.StockJournal__reason  117×73 @729,0  Manrope 400 15/22  lines=1  «—»
+
+[геометрия 1440]
+div.StockJournal__wrap  1408×174 @16,16
+  section.Card__card  1408×174 @0,0  r20  b1
+    div.StockJournal__head  1406×65 @1,1
+      h2.StockJournal__title  1370×23 @18,18  Onest 700 19/23  ls0  lines=1  «Журнал движений»
+      p.StockJournal__hint  539×20 @18,45  Manrope 400 13/20  lines=1  «Что, куда, сколько, кто и когда. Без жур»
+    div.Table__viewport  1406×107 @1,66
+      table.Table__table  1406×107 @0,0
+        tr[role=row]  1406×56 @0,0
+          th  222×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+          th#2  190×56 @222,0  Onest 700 15/23  b0 0 1 0  lines=1  «Что»
+          th#3  139×56 @412,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сколько»
+          th#4  274×56 @551,0  Onest 700 15/23  b0 0 1 0  lines=1  «Откуда»
+          th#5  117×56 @825,0  Onest 700 15/23  b0 0 1 0  lines=1  «Куда»
+          th#6  117×56 @942,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
+          th#7  182×56 @1059,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто»
+          th#8  166×56 @1240,0  Onest 700 15/23  b0 0 1 0  lines=1  «Основание»
+        tr[role=row]#2  1406×51 @0,56
+          td[role=cell]  222×51 @0,0
+            time  121×19 @18,16  Manrope 400 15/22  lines=1  «24.08.2026, 08:40»
+          td[role=cell]#2  190×51 @222,0  Manrope 400 15/22  lines=1  «Перемещение»
+          td.StockJournal__qty  139×51 @412,0  Manrope 600 15/22  lines=1  «15 м»
+          td[role=cell]#3  274×51 @551,0  Manrope 400 15/22  lines=1  «Гараж на Демидовской»
+          td[role=cell]#4  117×51 @825,0  Manrope 400 15/22  lines=1  «Газель»
+          td[role=cell]#5  117×51 @942,0  Manrope 400 15/22  lines=1  «—»
+          td[role=cell]#6  182×51 @1059,0
+            span.StockJournal__gone  93×19 @18,16  Manrope 400 15/22  lines=1  «автор удалён»
+          td.StockJournal__reason  166×51 @1240,0  Manrope 400 15/22  lines=1  «—»
+
+[палитра light]
+div.StockJournal__wrap
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.StockJournal__head
+      h2.StockJournal__title  color #0f172a
+      p.StockJournal__hint  color #556173
+    div.Table__viewport
+      table.Table__table
+        tr[role=row]
+          th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th#4  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th#5  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th#6  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th#7  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th#8  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        tr[role=row]#2
+          td[role=cell]
+            time  color #334155
+          td[role=cell]#2  color #334155
+          td.StockJournal__qty  color #334155
+          td[role=cell]#3  color #334155
+          td[role=cell]#4  color #334155
+          td[role=cell]#5  color #334155
+          td[role=cell]#6
+            span.StockJournal__gone  color #5b6a7d
+          td.StockJournal__reason  color #556173
+[палитра light @390]
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockJournal__qty > td.StockJournal__qty::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3 > td[role=cell]#3::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#4 > td[role=cell]#4::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#5 > td[role=cell]#5::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#6 > td[role=cell]#6::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockJournal__reason > td.StockJournal__reason::before
+
+[палитра dark]
+div.StockJournal__wrap
+  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.StockJournal__head
+      h2.StockJournal__title  color #eaf1f8
+      p.StockJournal__hint  color #8598ac
+    div.Table__viewport
+      table.Table__table
+        tr[role=row]
+          th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th#4  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th#5  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th#6  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th#7  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th#8  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        tr[role=row]#2
+          td[role=cell]
+            time  color #c9d5e2
+          td[role=cell]#2  color #c9d5e2
+          td.StockJournal__qty  color #c9d5e2
+          td[role=cell]#3  color #c9d5e2
+          td[role=cell]#4  color #c9d5e2
+          td[role=cell]#5  color #c9d5e2
+          td[role=cell]#6
+            span.StockJournal__gone  color #7e92a7
+          td.StockJournal__reason  color #8598ac
+[палитра dark @390]
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockJournal__qty > td.StockJournal__qty::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3 > td[role=cell]#3::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#4 > td[role=cell]#4::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#5 > td[role=cell]#5::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#6 > td[role=cell]#6::before
+div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockJournal__reason > td.StockJournal__reason::before

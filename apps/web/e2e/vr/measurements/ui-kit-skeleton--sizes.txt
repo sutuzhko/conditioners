@@ -1,0 +1,32 @@
+# ui-kit-skeleton--sizes · ширины 390 768 1440 · темы light dark
+шрифты: —
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Skeleton__skeleton  36×36 @16,16  r100
+span.Skeleton__skeleton#2  132×44 @64,16  r8
+span.Skeleton__skeleton#3  165×15 @209,16  r8
+
+[геометрия 768]
+span.Skeleton__skeleton  44×44 @16,16  r100
+span.Skeleton__skeleton#2  160×44 @72,16  r8
+span.Skeleton__skeleton#3  200×15 @244,16  r8
+
+[геометрия 1440]
+span.Skeleton__skeleton  44×44 @16,16  r100
+span.Skeleton__skeleton#2  160×44 @72,16  r8
+span.Skeleton__skeleton#3  200×15 @244,16  r8
+
+[палитра light]
+span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+
+[палитра dark]
+span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

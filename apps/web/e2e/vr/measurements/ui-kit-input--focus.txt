@@ -1,0 +1,32 @@
+# ui-kit-input--focus · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  358×76 @16,16
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Как к вам обращаться»
+  input  358×49 @0,27  r11  b1
+
+[геометрия 768]
+div.Field__field  736×76 @16,16
+  label.Field__label  736×20 @0,0  Manrope 600 13/20  lines=1  «Как к вам обращаться»
+  input  736×49 @0,27  r11  b1
+
+[геометрия 1440]
+div.Field__field  1408×76 @16,16
+  label.Field__label  1408×20 @0,0  Manrope 600 13/20  lines=1  «Как к вам обращаться»
+  input  1408×49 @0,27  r11  b1
+
+[палитра light]
+div.Field__field
+  label.Field__label  color #334155
+  input  bg #ffffff  border #0891b2  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+
+[палитра dark]
+div.Field__field
+  label.Field__label  color #c9d5e2
+  input  bg #0b1424  border #22d3ee  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee

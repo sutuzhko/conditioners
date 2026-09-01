@@ -1,0 +1,32 @@
+# ui-kit-buttonlink--full-width · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+a.Button__button  358×44 @16,16  r11  b1
+  span.Button__content  117×17 @120,13
+    span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Оставить заявку»
+
+[геометрия 768]
+a.Button__button  736×44 @16,16  r11  b1
+  span.Button__content  117×17 @309,13
+    span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Оставить заявку»
+
+[геометрия 1440]
+a.Button__button  1408×44 @16,16  r11  b1
+  span.Button__content  117×17 @645,13
+    span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Оставить заявку»
+
+[палитра light]
+a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  span.Button__content
+    span.Button__label  color #ffffff
+
+[палитра dark]
+a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  span.Button__content
+    span.Button__label  color #ffffff

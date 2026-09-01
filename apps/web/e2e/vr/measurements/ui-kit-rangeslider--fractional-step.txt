@@ -1,0 +1,57 @@
+# ui-kit-rangeslider--fractional-step · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 700, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  358×101 @16,16
+  span.RangeSlider__head  358×25 @0,0
+    label  46×23 @0,0  Manrope 700 15/23  lines=1  «Тариф»
+    output.RangeSlider__value  88×25 @270,0  Onest 700 16/25  lines=1  «6.5 ₽/кВт·ч»
+  input.RangeSlider__slider  358×44 @0,32
+  span.RangeSlider__scale  358×19 @0,83
+    span  79×19 @0,0  JetBrains Mono 400 12/19  lines=1  «4.0 ₽/кВт·ч»
+    span#2  79×19 @279,0  JetBrains Mono 400 12/19  lines=1  «9.0 ₽/кВт·ч»
+
+[геометрия 768]
+div.Field__field  736×101 @16,16
+  span.RangeSlider__head  736×25 @0,0
+    label  46×23 @0,0  Manrope 700 15/23  lines=1  «Тариф»
+    output.RangeSlider__value  88×25 @648,0  Onest 700 16/25  lines=1  «6.5 ₽/кВт·ч»
+  input.RangeSlider__slider  736×44 @0,32
+  span.RangeSlider__scale  736×19 @0,83
+    span  79×19 @0,0  JetBrains Mono 400 12/19  lines=1  «4.0 ₽/кВт·ч»
+    span#2  79×19 @657,0  JetBrains Mono 400 12/19  lines=1  «9.0 ₽/кВт·ч»
+
+[геометрия 1440]
+div.Field__field  1408×101 @16,16
+  span.RangeSlider__head  1408×25 @0,0
+    label  46×23 @0,0  Manrope 700 15/23  lines=1  «Тариф»
+    output.RangeSlider__value  88×25 @1320,0  Onest 700 16/25  lines=1  «6.5 ₽/кВт·ч»
+  input.RangeSlider__slider  1408×44 @0,32
+  span.RangeSlider__scale  1408×19 @0,83
+    span  79×19 @0,0  JetBrains Mono 400 12/19  lines=1  «4.0 ₽/кВт·ч»
+    span#2  79×19 @1329,0  JetBrains Mono 400 12/19  lines=1  «9.0 ₽/кВт·ч»
+
+[палитра light]
+div.Field__field
+  span.RangeSlider__head
+    label  color #0f172a
+    output.RangeSlider__value  color #0e7490
+  input.RangeSlider__slider
+  span.RangeSlider__scale
+    span  color #5b6a7d
+    span#2  color #5b6a7d
+
+[палитра dark]
+div.Field__field
+  span.RangeSlider__head
+    label  color #eaf1f8
+    output.RangeSlider__value  color #22d3ee
+  input.RangeSlider__slider
+  span.RangeSlider__scale
+    span  color #7e92a7
+    span#2  color #7e92a7

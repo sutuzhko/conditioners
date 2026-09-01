@@ -1,0 +1,42 @@
+# ui-kit-rangeslider--compact · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 500, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  358×73 @16,16
+  span.RangeSlider__head  358×22 @0,0
+    label  69×19 @0,1  Manrope 500 13/19  lines=1  «Тариф день»
+    output.RangeSlider__value  77×22 @281,0  Onest 700 14/22  lines=1  «6.5 ₽/кВт·ч»
+  input.RangeSlider__slider  358×44 @0,29
+
+[геометрия 768]
+div.Field__field  736×73 @16,16
+  span.RangeSlider__head  736×22 @0,0
+    label  69×19 @0,1  Manrope 500 13/19  lines=1  «Тариф день»
+    output.RangeSlider__value  77×22 @659,0  Onest 700 14/22  lines=1  «6.5 ₽/кВт·ч»
+  input.RangeSlider__slider  736×44 @0,29
+
+[геометрия 1440]
+div.Field__field  1408×73 @16,16
+  span.RangeSlider__head  1408×22 @0,0
+    label  69×19 @0,1  Manrope 500 13/19  lines=1  «Тариф день»
+    output.RangeSlider__value  77×22 @1331,0  Onest 700 14/22  lines=1  «6.5 ₽/кВт·ч»
+  input.RangeSlider__slider  1408×44 @0,29
+
+[палитра light]
+div.Field__field
+  span.RangeSlider__head
+    label  color #556173
+    output.RangeSlider__value  color #0e7490
+  input.RangeSlider__slider
+
+[палитра dark]
+div.Field__field
+  span.RangeSlider__head
+    label  color #8598ac
+    output.RangeSlider__value  color #22d3ee
+  input.RangeSlider__slider

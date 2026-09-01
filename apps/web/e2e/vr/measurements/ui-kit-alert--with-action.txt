@@ -1,0 +1,67 @@
+# ui-kit-alert--with-action · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Alert__alert  326×141 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  264×61 @45,13
+    p.Alert__title  264×20 @0,0  Manrope 700 14/20  lines=1  «Данные не загрузились»
+    div.Alert__text  264×39 @0,22  Manrope 400 14/20  lines=2  «База не ответила за десять секунд. Остал»
+  div.Alert__action  292×44 @17,84
+    button.Button__button  99×44 @193,0  r999  b1
+      span.Button__content  69×16 @15,14
+        span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+
+[геометрия 768]
+div.Alert__alert  704×70 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  533×41 @45,13
+    p.Alert__title  533×20 @0,0  Manrope 700 14/20  lines=1  «Данные не загрузились»
+    div.Alert__text  533×20 @0,22  Manrope 400 14/20  lines=1  «База не ответила за десять секунд. Остал»
+  div.Alert__action  99×44 @588,13
+    button.Button__button  99×44 @0,0  r999  b1
+      span.Button__content  69×16 @15,14
+        span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+
+[геометрия 1440]
+div.Alert__alert  1376×67 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  1205×41 @45,13
+    p.Alert__title  1205×20 @0,0  Manrope 700 14/20  lines=1  «Данные не загрузились»
+    div.Alert__text  1205×20 @0,22  Manrope 400 14/20  lines=1  «База не ответила за десять секунд. Остал»
+  div.Alert__action  99×32 @1260,13
+    button.Button__button  99×32 @0,0  r999  b1
+      span.Button__content  69×16 @15,8
+        span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+
+[палитра light]
+div.Alert__alert  bg #be123c14  border #be123c73
+  span.Alert__icon
+    svg
+  div.Alert__body
+    p.Alert__title  color #be123c
+    div.Alert__text  color #be123c
+  div.Alert__action
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label  color #ffffff
+
+[палитра dark]
+div.Alert__alert  bg #fb71851f  border #fb718580
+  span.Alert__icon
+    svg
+  div.Alert__body
+    p.Alert__title  color #fb7185
+    div.Alert__text  color #fb7185
+  div.Alert__action
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label  color #ffffff

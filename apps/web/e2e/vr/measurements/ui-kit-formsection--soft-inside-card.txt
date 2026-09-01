@@ -1,0 +1,72 @@
+# ui-kit-formsection--soft-inside-card · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×262 @16,16  r20  b1
+  div.FormSection__head  316×44 @21,21
+    div.FormSection__titleRow  316×18 @0,0
+      h3.FormSection__title  70×18 @0,0  Onest 700 15/18  ls0  lines=1  «Основное»
+    p.FormSection__hint  316×20 @0,24  Manrope 400 13/20  lines=1  «Поля, без которых позиция не сохранится.»
+  div.Field__field  316×76 @21,77
+    label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+    input  316×49 @0,27  r11  b1
+  div.Field__field#2  316×76 @21,165
+    label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Артикул»
+    input  316×49 @0,27  r11  b1
+
+[геометрия 768]
+section.Card__card  736×174 @16,16  r20  b1
+  div.FormSection__head  694×44 @21,21
+    div.FormSection__titleRow  694×18 @0,0
+      h3.FormSection__title  70×18 @0,0  Onest 700 15/18  ls0  lines=1  «Основное»
+    p.FormSection__hint  508×20 @0,24  Manrope 400 13/20  lines=1  «Поля, без которых позиция не сохранится.»
+  div.Field__field  341×76 @21,77
+    label.Field__label  341×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+    input  341×49 @0,27  r11  b1
+  div.Field__field#2  341×76 @374,77
+    label.Field__label  341×20 @0,0  Manrope 600 13/20  lines=1  «Артикул»
+    input  341×49 @0,27  r11  b1
+
+[геометрия 1440]
+section.Card__card  1408×174 @16,16  r20  b1
+  div.FormSection__head  1366×44 @21,21
+    div.FormSection__titleRow  1366×18 @0,0
+      h3.FormSection__title  70×18 @0,0  Onest 700 15/18  ls0  lines=1  «Основное»
+    p.FormSection__hint  508×20 @0,24  Manrope 400 13/20  lines=1  «Поля, без которых позиция не сохранится.»
+  div.Field__field  677×76 @21,77
+    label.Field__label  677×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+    input  677×49 @0,27  r11  b1
+  div.Field__field#2  677×76 @710,77
+    label.Field__label  677×20 @0,0  Manrope 600 13/20  lines=1  «Артикул»
+    input  677×49 @0,27  r11  b1
+
+[палитра light]
+section.Card__card  bg #f8fafc  border #eef2f6
+  div.FormSection__head
+    div.FormSection__titleRow
+      h3.FormSection__title  color #0f172a
+    p.FormSection__hint  color #556173
+  div.Field__field
+    label.Field__label  color #334155
+    input  bg #ffffff  border #7e8fa6
+  div.Field__field#2
+    label.Field__label  color #334155
+    input  bg #ffffff  border #7e8fa6
+
+[палитра dark]
+section.Card__card  bg #0e1729  border #182338
+  div.FormSection__head
+    div.FormSection__titleRow
+      h3.FormSection__title  color #eaf1f8
+    p.FormSection__hint  color #8598ac
+  div.Field__field
+    label.Field__label  color #c9d5e2
+    input  bg #0b1424  border #566d95
+  div.Field__field#2
+    label.Field__label  color #c9d5e2
+    input  bg #0b1424  border #566d95

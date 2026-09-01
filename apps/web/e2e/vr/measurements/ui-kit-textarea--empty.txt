@@ -1,0 +1,27 @@
+# ui-kit-textarea--empty · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  358×112 @16,16
+  textarea.Textarea__textarea  358×112 @0,0  r11  b1
+
+[геометрия 768]
+div.Field__field  736×112 @16,16
+  textarea.Textarea__textarea  736×112 @0,0  r11  b1
+
+[геометрия 1440]
+div.Field__field  1408×112 @16,16
+  textarea.Textarea__textarea  1408×112 @0,0  r11  b1
+
+[палитра light]
+div.Field__field
+  textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+
+[палитра dark]
+div.Field__field
+  textarea.Textarea__textarea  bg #0b1424  border #566d95

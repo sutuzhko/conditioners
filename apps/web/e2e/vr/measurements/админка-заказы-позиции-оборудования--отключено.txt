@@ -1,0 +1,457 @@
+# админка-заказы-позиции-оборудования--отключено · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+390 → 390×1475
+768 → 768×970
+1440 → 1440×900
+
+[геометрия 390]
+fieldset.OrderUnits__root  358×1443 @16,16  r14  b1
+  legend.OrderUnits__legend  118×22 @15,0  Onest 700 15/22  lines=1  «Оборудование»
+  p.OrderUnits__hint  328×60 @15,36  Manrope 400 13/20  lines=3  «Позиций может быть несколько: в одном вы»
+  ul.OrderUnits__list  328×1267 @15,107
+    li.OrderUnits__item  328×627 @0,0  r11  b1
+      div.OrderUnits__itemHead  302×44 @13,13
+        span.OrderUnits__itemTitle  78×20 @0,12  Manrope 700 13/20  ls1  lines=1  «Позиция 1»
+        button.Button__button  150×44 @152,0  r9  b1
+          span.Button__content  120×16 @15,14
+            span.Button__label  120×16 @0,0  Manrope 600 13/16  lines=1  «Удалить позицию 1»
+      div.OrderUnits__grid  302×547 @13,67
+        div.Field__field  302×76 @0,0
+          label.Field__label  302×20 @0,0  Manrope 600 13/20  lines=1  «Тип»
+          span.Select__wrapper  302×49 @0,27
+            select.Select__select  302×49 @0,0  r11  b1
+              option  0×0 @-44,-217  Manrope 400 15/21  lines=0  «Кондиционер»
+              option#2  0×0 @-44,-217  Manrope 400 15/21  lines=0  «Холодильник»
+              option#3  0×0 @-44,-217  Manrope 400 15/21  lines=0  «Компрессор»
+              option#4  0×0 @-44,-217  Manrope 400 15/21  lines=0  «Вентиляция»
+              option#5  0×0 @-44,-217  Manrope 400 15/21  lines=0  «Тепловая завеса»
+              option#6  0×0 @-44,-217  Manrope 400 15/21  lines=0  «Другое»
+            svg.Select__chevron  14×14 @274,18
+        div.Field__field#2  302×103 @0,88
+          label.Field__label  302×20 @0,0  Manrope 600 13/20  lines=1  «Модель»
+          input  302×49 @0,27  r11  b1
+          p.Field__hint  302×19 @0,83  Manrope 400 13/19  lines=1  «Как в накладной или со слов клиента»
+        div.Field__field#3  302×76 @0,203
+          label.Field__label  302×20 @0,0  Manrope 600 13/20  lines=1  «Чьё оборудование»
+          span.Select__wrapper  302×49 @0,27
+            select.Select__select#2  302×49 @0,0  r11  b1
+              option  0×0 @-44,-420  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
+              option#2  0×0 @-44,-420  Manrope 400 15/21  lines=0  «Клиента — только работы»
+            svg.Select__chevron#2  14×14 @274,18
+        div.Field__field#4  302×76 @0,291
+          label.Field__label  302×20 @0,0  Manrope 600 13/20  lines=1  «Трасса, метров»
+          input  302×49 @0,27  r11  b1
+        div.Field__field#5  302×103 @0,379
+          label.Field__label  302×20 @0,0  Manrope 600 13/20  lines=1  «Диаметр»
+          input  302×49 @0,27  r11  b1
+          p.Field__hint  302×19 @0,83  Manrope 400 13/19  lines=1  «Как пишут в спецификации: 1/4–3/8»
+        div.Checkbox__root  302×54 @0,493
+          div.Checkbox__row  302×44 @0,0
+            input.Checkbox__input  20×20 @0,11  r6  b1
+            label.Checkbox__label  88×21 @31,10  Manrope 400 15/21  lines=1  «Штробление»
+    li.OrderUnits__item#2  328×627 @0,639  r11  b1
+      div.OrderUnits__itemHead  302×44 @13,13
+        span.OrderUnits__itemTitle#2  80×20 @0,12  Manrope 700 13/20  ls1  lines=1  «Позиция 2»
+        button.Button__button#2  152×44 @150,0  r9  b1
+          span.Button__content  122×16 @15,14
+            span.Button__label#2  122×16 @0,0  Manrope 600 13/16  lines=1  «Удалить позицию 2»
+      div.OrderUnits__grid  302×547 @13,67
+        div.Field__field#6  302×76 @0,0
+          label.Field__label  302×20 @0,0  Manrope 600 13/20  lines=1  «Тип»
+          span.Select__wrapper  302×49 @0,27
+            select.Select__select#3  302×49 @0,0  r11  b1
+              option  0×0 @-44,-856  Manrope 400 15/21  lines=0  «Кондиционер»
+              option#2  0×0 @-44,-856  Manrope 400 15/21  lines=0  «Холодильник»
+              option#3  0×0 @-44,-856  Manrope 400 15/21  lines=0  «Компрессор»
+              option#4  0×0 @-44,-856  Manrope 400 15/21  lines=0  «Вентиляция»
+              option#5  0×0 @-44,-856  Manrope 400 15/21  lines=0  «Тепловая завеса»
+              option#6  0×0 @-44,-856  Manrope 400 15/21  lines=0  «Другое»
+            svg.Select__chevron#3  14×14 @274,18
+        div.Field__field#7  302×103 @0,88
+          label.Field__label  302×20 @0,0  Manrope 600 13/20  lines=1  «Модель»
+          input  302×49 @0,27  r11  b1
+          p.Field__hint  302×19 @0,83  Manrope 400 13/19  lines=1  «Как в накладной или со слов клиента»
+        div.Field__field#8  302×76 @0,203
+          label.Field__label  302×20 @0,0  Manrope 600 13/20  lines=1  «Чьё оборудование»
+          span.Select__wrapper  302×49 @0,27
+            select.Select__select#4  302×49 @0,0  r11  b1
+              option  0×0 @-44,-1059  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
+              option#2  0×0 @-44,-1059  Manrope 400 15/21  lines=0  «Клиента — только работы»
+            svg.Select__chevron#4  14×14 @274,18
+        div.Field__field#9  302×76 @0,291
+          label.Field__label  302×20 @0,0  Manrope 600 13/20  lines=1  «Трасса, метров»
+          input  302×49 @0,27  r11  b1
+        div.Field__field#10  302×103 @0,379
+          label.Field__label  302×20 @0,0  Manrope 600 13/20  lines=1  «Диаметр»
+          input  302×49 @0,27  r11  b1
+          p.Field__hint  302×19 @0,83  Manrope 400 13/19  lines=1  «Как пишут в спецификации: 1/4–3/8»
+        div.Checkbox__root#2  302×54 @0,493
+          div.Checkbox__row  302×44 @0,0
+            input.Checkbox__input#2  20×20 @0,11  r6  b1
+            label.Checkbox__label#2  88×21 @31,10  Manrope 400 15/21  lines=1  «Штробление»
+  div.OrderUnits__actions  328×44 @15,1384
+    button.Button__button  151×44 @0,0  r9  b1
+      span.Button__content#2  121×16 @15,14
+        span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Добавить позицию»
+
+[геометрия 768]
+fieldset.OrderUnits__root  736×938 @16,16  r14  b1
+  legend.OrderUnits__legend  118×22 @15,0  Onest 700 15/22  lines=1  «Оборудование»
+  p.OrderUnits__hint  508×40 @15,36  Manrope 400 13/20  lines=2  «Позиций может быть несколько: в одном вы»
+  ul.OrderUnits__list  706×782 @15,87
+    li.OrderUnits__item  706×385 @0,0  r11  b1
+      div.OrderUnits__itemHead  680×44 @13,13
+        span.OrderUnits__itemTitle  78×20 @0,12  Manrope 700 13/20  ls1  lines=1  «Позиция 1»
+        button.Button__button  150×44 @530,0  r9  b1
+          span.Button__content  120×16 @15,14
+            span.Button__label  120×16 @0,0  Manrope 600 13/16  lines=1  «Удалить позицию 1»
+      div.OrderUnits__grid  680×305 @13,67
+        div.Field__field  219×103 @0,0
+          label.Field__label  219×20 @0,0  Manrope 600 13/20  lines=1  «Тип»
+          span.Select__wrapper  219×49 @0,27
+            select.Select__select  219×49 @0,0  r11  b1
+              option  0×0 @-44,-197  Manrope 400 15/21  lines=0  «Кондиционер»
+              option#2  0×0 @-44,-197  Manrope 400 15/21  lines=0  «Холодильник»
+              option#3  0×0 @-44,-197  Manrope 400 15/21  lines=0  «Компрессор»
+              option#4  0×0 @-44,-197  Manrope 400 15/21  lines=0  «Вентиляция»
+              option#5  0×0 @-44,-197  Manrope 400 15/21  lines=0  «Тепловая завеса»
+              option#6  0×0 @-44,-197  Manrope 400 15/21  lines=0  «Другое»
+            svg.Select__chevron  14×14 @191,18
+        div.Field__field#2  449×103 @231,0
+          label.Field__label  449×20 @0,0  Manrope 600 13/20  lines=1  «Модель»
+          input  449×49 @0,27  r11  b1
+          p.Field__hint  449×19 @0,83  Manrope 400 13/19  lines=1  «Как в накладной или со слов клиента»
+        div.Field__field#3  449×76 @0,115
+          label.Field__label  449×20 @0,0  Manrope 600 13/20  lines=1  «Чьё оборудование»
+          span.Select__wrapper  449×49 @0,27
+            select.Select__select#2  449×49 @0,0  r11  b1
+              option  0×0 @-44,-311  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
+              option#2  0×0 @-44,-311  Manrope 400 15/21  lines=0  «Клиента — только работы»
+            svg.Select__chevron#2  14×14 @421,18
+        div.Field__field#4  219×76 @461,115
+          label.Field__label  219×20 @0,0  Manrope 600 13/20  lines=1  «Трасса, метров»
+          input  219×49 @0,27  r11  b1
+        div.Field__field#5  219×103 @0,203
+          label.Field__label  219×20 @0,0  Manrope 600 13/20  lines=1  «Диаметр»
+          input  219×49 @0,27  r11  b1
+          p.Field__hint  219×19 @0,83  Manrope 400 13/19  lines=1  «Как пишут в спецификации: 1/4–3/8»
+        div.Checkbox__root  219×54 @231,251
+          div.Checkbox__row  219×44 @0,0
+            input.Checkbox__input  20×20 @0,11  r6  b1
+            label.Checkbox__label  88×21 @31,10  Manrope 400 15/21  lines=1  «Штробление»
+    li.OrderUnits__item#2  706×385 @0,397  r11  b1
+      div.OrderUnits__itemHead  680×44 @13,13
+        span.OrderUnits__itemTitle#2  80×20 @0,12  Manrope 700 13/20  ls1  lines=1  «Позиция 2»
+        button.Button__button#2  152×44 @528,0  r9  b1
+          span.Button__content  122×16 @15,14
+            span.Button__label#2  122×16 @0,0  Manrope 600 13/16  lines=1  «Удалить позицию 2»
+      div.OrderUnits__grid  680×305 @13,67
+        div.Field__field#6  219×103 @0,0
+          label.Field__label  219×20 @0,0  Manrope 600 13/20  lines=1  «Тип»
+          span.Select__wrapper  219×49 @0,27
+            select.Select__select#3  219×49 @0,0  r11  b1
+              option  0×0 @-44,-594  Manrope 400 15/21  lines=0  «Кондиционер»
+              option#2  0×0 @-44,-594  Manrope 400 15/21  lines=0  «Холодильник»
+              option#3  0×0 @-44,-594  Manrope 400 15/21  lines=0  «Компрессор»
+              option#4  0×0 @-44,-594  Manrope 400 15/21  lines=0  «Вентиляция»
+              option#5  0×0 @-44,-594  Manrope 400 15/21  lines=0  «Тепловая завеса»
+              option#6  0×0 @-44,-594  Manrope 400 15/21  lines=0  «Другое»
+            svg.Select__chevron#3  14×14 @191,18
+        div.Field__field#7  449×103 @231,0
+          label.Field__label  449×20 @0,0  Manrope 600 13/20  lines=1  «Модель»
+          input  449×49 @0,27  r11  b1
+          p.Field__hint  449×19 @0,83  Manrope 400 13/19  lines=1  «Как в накладной или со слов клиента»
+        div.Field__field#8  449×76 @0,115
+          label.Field__label  449×20 @0,0  Manrope 600 13/20  lines=1  «Чьё оборудование»
+          span.Select__wrapper  449×49 @0,27
+            select.Select__select#4  449×49 @0,0  r11  b1
+              option  0×0 @-44,-709  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
+              option#2  0×0 @-44,-709  Manrope 400 15/21  lines=0  «Клиента — только работы»
+            svg.Select__chevron#4  14×14 @421,18
+        div.Field__field#9  219×76 @461,115
+          label.Field__label  219×20 @0,0  Manrope 600 13/20  lines=1  «Трасса, метров»
+          input  219×49 @0,27  r11  b1
+        div.Field__field#10  219×103 @0,203
+          label.Field__label  219×20 @0,0  Manrope 600 13/20  lines=1  «Диаметр»
+          input  219×49 @0,27  r11  b1
+          p.Field__hint  219×19 @0,83  Manrope 400 13/19  lines=1  «Как пишут в спецификации: 1/4–3/8»
+        div.Checkbox__root#2  219×54 @231,251
+          div.Checkbox__row  219×44 @0,0
+            input.Checkbox__input#2  20×20 @0,11  r6  b1
+            label.Checkbox__label#2  88×21 @31,10  Manrope 400 15/21  lines=1  «Штробление»
+  div.OrderUnits__actions  706×44 @15,879
+    button.Button__button  151×44 @0,0  r9  b1
+      span.Button__content#2  121×16 @15,14
+        span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Добавить позицию»
+
+[геометрия 1440]
+fieldset.OrderUnits__root  1408×692 @16,16  r14  b1
+  legend.OrderUnits__legend  118×22 @15,0  Onest 700 15/22  lines=1  «Оборудование»
+  p.OrderUnits__hint  508×40 @15,36  Manrope 400 13/20  lines=2  «Позиций может быть несколько: в одном вы»
+  ul.OrderUnits__list  1378×540 @15,87
+    li.OrderUnits__item  1378×264 @0,0  r11  b1
+      div.OrderUnits__itemHead  1352×40 @13,13
+        span.OrderUnits__itemTitle  78×20 @0,10  Manrope 700 13/20  ls1  lines=1  «Позиция 1»
+        button.Button__button  150×40 @1202,0  r9  b1
+          span.Button__content  120×16 @15,12
+            span.Button__label  120×16 @0,0  Manrope 600 13/16  lines=1  «Удалить позицию 1»
+      div.OrderUnits__grid  1352×188 @13,63
+        div.Field__field  183×122 @0,0
+          label.Field__label  183×20 @0,0  Manrope 600 13/20  lines=1  «Тип»
+          span.Select__wrapper  183×49 @0,27
+            select.Select__select  183×49 @0,0  r11  b1
+              option  0×0 @-44,-193  Manrope 400 15/21  lines=0  «Кондиционер»
+              option#2  0×0 @-44,-193  Manrope 400 15/21  lines=0  «Холодильник»
+              option#3  0×0 @-44,-193  Manrope 400 15/21  lines=0  «Компрессор»
+              option#4  0×0 @-44,-193  Manrope 400 15/21  lines=0  «Вентиляция»
+              option#5  0×0 @-44,-193  Manrope 400 15/21  lines=0  «Тепловая завеса»
+              option#6  0×0 @-44,-193  Manrope 400 15/21  lines=0  «Другое»
+            svg.Select__chevron  14×14 @155,18
+        div.Field__field#2  378×122 @195,0
+          label.Field__label  378×20 @0,0  Manrope 600 13/20  lines=1  «Модель»
+          input  378×49 @0,27  r11  b1
+          p.Field__hint  378×19 @0,83  Manrope 400 13/19  lines=1  «Как в накладной или со слов клиента»
+        div.Field__field#3  378×122 @585,0
+          label.Field__label  378×20 @0,0  Manrope 600 13/20  lines=1  «Чьё оборудование»
+          span.Select__wrapper  378×49 @0,27
+            select.Select__select#2  378×49 @0,0  r11  b1
+              option  0×0 @-629,-193  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
+              option#2  0×0 @-629,-193  Manrope 400 15/21  lines=0  «Клиента — только работы»
+            svg.Select__chevron#2  14×14 @350,18
+        div.Field__field#4  183×122 @974,0
+          label.Field__label  183×20 @0,0  Manrope 600 13/20  lines=1  «Трасса, метров»
+          input  183×49 @0,27  r11  b1
+        div.Field__field#5  183×122 @1169,0
+          label.Field__label  183×20 @0,0  Manrope 600 13/20  lines=1  «Диаметр»
+          input  183×49 @0,27  r11  b1
+          p.Field__hint  183×39 @0,83  Manrope 400 13/19  lines=2  «Как пишут в спецификации: 1/4–3/8»
+        div.Checkbox__root  183×54 @0,134
+          div.Checkbox__row  183×44 @0,0
+            input.Checkbox__input  20×20 @0,11  r6  b1
+            label.Checkbox__label  88×21 @31,10  Manrope 400 15/21  lines=1  «Штробление»
+    li.OrderUnits__item#2  1378×264 @0,276  r11  b1
+      div.OrderUnits__itemHead  1352×40 @13,13
+        span.OrderUnits__itemTitle#2  80×20 @0,10  Manrope 700 13/20  ls1  lines=1  «Позиция 2»
+        button.Button__button#2  152×40 @1200,0  r9  b1
+          span.Button__content  122×16 @15,12
+            span.Button__label#2  122×16 @0,0  Manrope 600 13/16  lines=1  «Удалить позицию 2»
+      div.OrderUnits__grid  1352×188 @13,63
+        div.Field__field#6  183×122 @0,0
+          label.Field__label  183×20 @0,0  Manrope 600 13/20  lines=1  «Тип»
+          span.Select__wrapper  183×49 @0,27
+            select.Select__select#3  183×49 @0,0  r11  b1
+              option  0×0 @-44,-469  Manrope 400 15/21  lines=0  «Кондиционер»
+              option#2  0×0 @-44,-469  Manrope 400 15/21  lines=0  «Холодильник»
+              option#3  0×0 @-44,-469  Manrope 400 15/21  lines=0  «Компрессор»
+              option#4  0×0 @-44,-469  Manrope 400 15/21  lines=0  «Вентиляция»
+              option#5  0×0 @-44,-469  Manrope 400 15/21  lines=0  «Тепловая завеса»
+              option#6  0×0 @-44,-469  Manrope 400 15/21  lines=0  «Другое»
+            svg.Select__chevron#3  14×14 @155,18
+        div.Field__field#7  378×122 @195,0
+          label.Field__label  378×20 @0,0  Manrope 600 13/20  lines=1  «Модель»
+          input  378×49 @0,27  r11  b1
+          p.Field__hint  378×19 @0,83  Manrope 400 13/19  lines=1  «Как в накладной или со слов клиента»
+        div.Field__field#8  378×122 @585,0
+          label.Field__label  378×20 @0,0  Manrope 600 13/20  lines=1  «Чьё оборудование»
+          span.Select__wrapper  378×49 @0,27
+            select.Select__select#4  378×49 @0,0  r11  b1
+              option  0×0 @-629,-469  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
+              option#2  0×0 @-629,-469  Manrope 400 15/21  lines=0  «Клиента — только работы»
+            svg.Select__chevron#4  14×14 @350,18
+        div.Field__field#9  183×122 @974,0
+          label.Field__label  183×20 @0,0  Manrope 600 13/20  lines=1  «Трасса, метров»
+          input  183×49 @0,27  r11  b1
+        div.Field__field#10  183×122 @1169,0
+          label.Field__label  183×20 @0,0  Manrope 600 13/20  lines=1  «Диаметр»
+          input  183×49 @0,27  r11  b1
+          p.Field__hint  183×39 @0,83  Manrope 400 13/19  lines=2  «Как пишут в спецификации: 1/4–3/8»
+        div.Checkbox__root#2  183×54 @0,134
+          div.Checkbox__row  183×44 @0,0
+            input.Checkbox__input#2  20×20 @0,11  r6  b1
+            label.Checkbox__label#2  88×21 @31,10  Manrope 400 15/21  lines=1  «Штробление»
+  div.OrderUnits__actions  1378×40 @15,637
+    button.Button__button  151×40 @0,0  r9  b1
+      span.Button__content#2  121×16 @15,12
+        span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Добавить позицию»
+
+[палитра light]
+fieldset.OrderUnits__root  border #e2e8f0
+  legend.OrderUnits__legend  color #0f172a
+  p.OrderUnits__hint  color #556173
+  ul.OrderUnits__list
+    li.OrderUnits__item  border #eef2f6
+      div.OrderUnits__itemHead
+        span.OrderUnits__itemTitle  color #5b6a7d
+        button.Button__button  border transparent
+          span.Button__content
+            span.Button__label  color #be123c
+      div.OrderUnits__grid
+        div.Field__field
+          label.Field__label  color #334155
+          span.Select__wrapper
+            select.Select__select  bg #f8fafc  border #7e8fa6
+              option  color #556173
+              option#2  color #556173
+              option#3  color #556173
+              option#4  color #556173
+              option#5  color #556173
+              option#6  color #556173
+            svg.Select__chevron
+        div.Field__field#2
+          label.Field__label  color #334155
+          input  bg #f8fafc  border #7e8fa6
+          p.Field__hint  color #556173
+        div.Field__field#3
+          label.Field__label  color #334155
+          span.Select__wrapper
+            select.Select__select#2  bg #f8fafc  border #7e8fa6
+              option  color #556173
+              option#2  color #556173
+            svg.Select__chevron#2
+        div.Field__field#4
+          label.Field__label  color #334155
+          input  bg #f8fafc  border #7e8fa6
+        div.Field__field#5
+          label.Field__label  color #334155
+          input  bg #f8fafc  border #7e8fa6
+          p.Field__hint  color #556173
+        div.Checkbox__root
+          div.Checkbox__row
+            input.Checkbox__input  bg #0e7490  border #0e7490
+            label.Checkbox__label  color #475569
+    li.OrderUnits__item#2  border #eef2f6
+      div.OrderUnits__itemHead
+        span.OrderUnits__itemTitle#2  color #5b6a7d
+        button.Button__button#2  border transparent
+          span.Button__content
+            span.Button__label#2  color #be123c
+      div.OrderUnits__grid
+        div.Field__field#6
+          label.Field__label  color #334155
+          span.Select__wrapper
+            select.Select__select#3  bg #f8fafc  border #7e8fa6
+              option  color #556173
+              option#2  color #556173
+              option#3  color #556173
+              option#4  color #556173
+              option#5  color #556173
+              option#6  color #556173
+            svg.Select__chevron#3
+        div.Field__field#7
+          label.Field__label  color #334155
+          input  bg #f8fafc  border #7e8fa6
+          p.Field__hint  color #556173
+        div.Field__field#8
+          label.Field__label  color #334155
+          span.Select__wrapper
+            select.Select__select#4  bg #f8fafc  border #7e8fa6
+              option  color #556173
+              option#2  color #556173
+            svg.Select__chevron#4
+        div.Field__field#9
+          label.Field__label  color #334155
+          input  bg #f8fafc  border #7e8fa6
+        div.Field__field#10
+          label.Field__label  color #334155
+          input  bg #f8fafc  border #7e8fa6
+          p.Field__hint  color #556173
+        div.Checkbox__root#2
+          div.Checkbox__row
+            input.Checkbox__input#2  bg #f8fafc  border #cbd5e1
+            label.Checkbox__label#2  color #475569
+  div.OrderUnits__actions
+    button.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content#2
+        span.Button__label  color #0f172a
+
+[палитра dark]
+fieldset.OrderUnits__root  border #1e2b41
+  legend.OrderUnits__legend  color #eaf1f8
+  p.OrderUnits__hint  color #8598ac
+  ul.OrderUnits__list
+    li.OrderUnits__item  border #182338
+      div.OrderUnits__itemHead
+        span.OrderUnits__itemTitle  color #7e92a7
+        button.Button__button  border transparent
+          span.Button__content
+            span.Button__label  color #fb7185
+      div.OrderUnits__grid
+        div.Field__field
+          label.Field__label  color #c9d5e2
+          span.Select__wrapper
+            select.Select__select  bg #0e1729  border #566d95
+              option  color #8598ac
+              option#2  color #8598ac
+              option#3  color #8598ac
+              option#4  color #8598ac
+              option#5  color #8598ac
+              option#6  color #8598ac
+            svg.Select__chevron
+        div.Field__field#2
+          label.Field__label  color #c9d5e2
+          input  bg #0e1729  border #566d95
+          p.Field__hint  color #8598ac
+        div.Field__field#3
+          label.Field__label  color #c9d5e2
+          span.Select__wrapper
+            select.Select__select#2  bg #0e1729  border #566d95
+              option  color #8598ac
+              option#2  color #8598ac
+            svg.Select__chevron#2
+        div.Field__field#4
+          label.Field__label  color #c9d5e2
+          input  bg #0e1729  border #566d95
+        div.Field__field#5
+          label.Field__label  color #c9d5e2
+          input  bg #0e1729  border #566d95
+          p.Field__hint  color #8598ac
+        div.Checkbox__root
+          div.Checkbox__row
+            input.Checkbox__input  bg #0e7490  border #0e7490
+            label.Checkbox__label  color #a8b6c6
+    li.OrderUnits__item#2  border #182338
+      div.OrderUnits__itemHead
+        span.OrderUnits__itemTitle#2  color #7e92a7
+        button.Button__button#2  border transparent
+          span.Button__content
+            span.Button__label#2  color #fb7185
+      div.OrderUnits__grid
+        div.Field__field#6
+          label.Field__label  color #c9d5e2
+          span.Select__wrapper
+            select.Select__select#3  bg #0e1729  border #566d95
+              option  color #8598ac
+              option#2  color #8598ac
+              option#3  color #8598ac
+              option#4  color #8598ac
+              option#5  color #8598ac
+              option#6  color #8598ac
+            svg.Select__chevron#3
+        div.Field__field#7
+          label.Field__label  color #c9d5e2
+          input  bg #0e1729  border #566d95
+          p.Field__hint  color #8598ac
+        div.Field__field#8
+          label.Field__label  color #c9d5e2
+          span.Select__wrapper
+            select.Select__select#4  bg #0e1729  border #566d95
+              option  color #8598ac
+              option#2  color #8598ac
+            svg.Select__chevron#4
+        div.Field__field#9
+          label.Field__label  color #c9d5e2
+          input  bg #0e1729  border #566d95
+        div.Field__field#10
+          label.Field__label  color #c9d5e2
+          input  bg #0e1729  border #566d95
+          p.Field__hint  color #8598ac
+        div.Checkbox__root#2
+          div.Checkbox__row
+            input.Checkbox__input#2  bg #0e1729  border #2c3d59
+            label.Checkbox__label#2  color #a8b6c6
+  div.OrderUnits__actions
+    button.Button__button  bg #121d31  border #566d95
+      span.Button__content#2
+        span.Button__label  color #eaf1f8

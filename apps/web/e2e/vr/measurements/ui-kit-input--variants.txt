@@ -1,0 +1,77 @@
+# ui-kit-input--variants · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  358×76 @16,16
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «flat»
+  input  358×49 @0,27  r11  b1
+div.Field__field#2  358×76 @16,108
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «bordered»
+  input  358×49 @0,27  r11  b1
+div.Field__field#3  358×76 @16,200
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «faded»
+  input  358×49 @0,27  r11  b1
+div.Field__field#4  358×75 @16,292
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «underlined»
+  input  358×48 @0,27  b0 0 1 0
+
+[геометрия 768]
+div.Field__field  235×76 @16,16
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «flat»
+  input  235×49 @0,27  r11  b1
+div.Field__field#2  235×76 @267,16
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «bordered»
+  input  235×49 @0,27  r11  b1
+div.Field__field#3  235×76 @517,16
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «faded»
+  input  235×49 @0,27  r11  b1
+div.Field__field#4  235×75 @16,108
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «underlined»
+  input  235×48 @0,27  b0 0 1 0
+
+[геометрия 1440]
+div.Field__field  340×76 @16,16
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «flat»
+  input  340×49 @0,27  r11  b1
+div.Field__field#2  340×76 @372,16
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «bordered»
+  input  340×49 @0,27  r11  b1
+div.Field__field#3  340×76 @728,16
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «faded»
+  input  340×49 @0,27  r11  b1
+div.Field__field#4  340×76 @1084,16
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «underlined»
+  input  340×48 @0,27  b0 0 1 0
+
+[палитра light]
+div.Field__field
+  label.Field__label  color #334155
+  input  bg #ffffff  border #7e8fa6
+div.Field__field#2
+  label.Field__label  color #334155
+  input  border #7e8fa6
+div.Field__field#3
+  label.Field__label  color #334155
+  input  bg #f8fafc  border #7e8fa6
+div.Field__field#4
+  label.Field__label  color #334155
+  input  border #0f172a #0f172a #7e8fa6 #0f172a
+
+[палитра dark]
+div.Field__field
+  label.Field__label  color #c9d5e2
+  input  bg #0b1424  border #566d95
+div.Field__field#2
+  label.Field__label  color #c9d5e2
+  input  border #566d95
+div.Field__field#3
+  label.Field__label  color #c9d5e2
+  input  bg #0e1729  border #566d95
+div.Field__field#4
+  label.Field__label  color #c9d5e2
+  input  border #eaf1f8 #eaf1f8 #566d95 #eaf1f8

@@ -1,0 +1,197 @@
+# ui-kit-select--in-panel · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 432×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  200×52 @16,16
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  span.Select__wrapper  200×52 @0,0
+    select.Select__select  200×52 @0,0  r999  b1
+      option  0×0 @-16,-16  Manrope 400 14/20  lines=0  «Центральный»
+      option#2  0×0 @-16,-16  Manrope 400 14/20  lines=0  «Пролетарский»
+      option#3  0×0 @-16,-16  Manrope 400 14/20  lines=0  «Зареченский»
+      option#4  0×0 @-16,-16  Manrope 400 14/20  lines=0  «Привокзальный»
+    svg.Select__chevron  14×14 @172,19
+div.Field__field#2  200×52 @232,16
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  span.Select__wrapper  200×52 @0,0
+    select.Select__select#2  200×52 @0,0  r999  b1
+      option  0×0 @-232,-16  Manrope 400 14/20  lines=0  «Центральный»
+      option#2  0×0 @-232,-16  Manrope 400 14/20  lines=0  «Пролетарский»
+      option#3  0×0 @-232,-16  Manrope 400 14/20  lines=0  «Зареченский»
+      option#4  0×0 @-232,-16  Manrope 400 14/20  lines=0  «Привокзальный»
+    svg.Select__chevron#2  14×14 @172,19
+div.Field__field#3  200×52 @16,84
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  span.Select__wrapper  200×52 @0,0
+    select.Select__select#3  200×52 @0,0  r999  b1
+      option  0×0 @-16,-84  Manrope 400 14/20  lines=0  «Центральный»
+      option#2  0×0 @-16,-84  Manrope 400 14/20  lines=0  «Пролетарский»
+      option#3  0×0 @-16,-84  Manrope 400 14/20  lines=0  «Зареченский»
+      option#4  0×0 @-16,-84  Manrope 400 14/20  lines=0  «Привокзальный»
+    svg.Select__chevron#3  14×14 @172,19
+div.Field__field#4  200×52 @232,84
+  label.Field__label  57×13 @3,8  Manrope 600 11/13  lines=1  «underlined»
+  span.Select__wrapper  200×52 @0,0
+    select.Select__select#4  200×52 @0,0  b0 0 1 0
+      option  0×0 @-232,-84  Manrope 400 14/20  lines=0  «Центральный»
+      option#2  0×0 @-232,-84  Manrope 400 14/20  lines=0  «Пролетарский»
+      option#3  0×0 @-232,-84  Manrope 400 14/20  lines=0  «Зареченский»
+      option#4  0×0 @-232,-84  Manrope 400 14/20  lines=0  «Привокзальный»
+    svg.Select__chevron#4  14×14 @172,19
+
+[геометрия 768]
+div.Field__field  360×52 @16,16
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  span.Select__wrapper  360×52 @0,0
+    select.Select__select  360×52 @0,0  r999  b1
+      option  0×0 @-16,-16  Manrope 400 14/20  lines=0  «Центральный»
+      option#2  0×0 @-16,-16  Manrope 400 14/20  lines=0  «Пролетарский»
+      option#3  0×0 @-16,-16  Manrope 400 14/20  lines=0  «Зареченский»
+      option#4  0×0 @-16,-16  Manrope 400 14/20  lines=0  «Привокзальный»
+    svg.Select__chevron  14×14 @332,19
+div.Field__field#2  360×52 @392,16
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  span.Select__wrapper  360×52 @0,0
+    select.Select__select#2  360×52 @0,0  r999  b1
+      option  0×0 @-392,-16  Manrope 400 14/20  lines=0  «Центральный»
+      option#2  0×0 @-392,-16  Manrope 400 14/20  lines=0  «Пролетарский»
+      option#3  0×0 @-392,-16  Manrope 400 14/20  lines=0  «Зареченский»
+      option#4  0×0 @-392,-16  Manrope 400 14/20  lines=0  «Привокзальный»
+    svg.Select__chevron#2  14×14 @332,19
+div.Field__field#3  360×52 @16,84
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  span.Select__wrapper  360×52 @0,0
+    select.Select__select#3  360×52 @0,0  r999  b1
+      option  0×0 @-16,-84  Manrope 400 14/20  lines=0  «Центральный»
+      option#2  0×0 @-16,-84  Manrope 400 14/20  lines=0  «Пролетарский»
+      option#3  0×0 @-16,-84  Manrope 400 14/20  lines=0  «Зареченский»
+      option#4  0×0 @-16,-84  Manrope 400 14/20  lines=0  «Привокзальный»
+    svg.Select__chevron#3  14×14 @332,19
+div.Field__field#4  360×52 @392,84
+  label.Field__label  57×13 @3,8  Manrope 600 11/13  lines=1  «underlined»
+  span.Select__wrapper  360×52 @0,0
+    select.Select__select#4  360×52 @0,0  b0 0 1 0
+      option  0×0 @-392,-84  Manrope 400 14/20  lines=0  «Центральный»
+      option#2  0×0 @-392,-84  Manrope 400 14/20  lines=0  «Пролетарский»
+      option#3  0×0 @-392,-84  Manrope 400 14/20  lines=0  «Зареченский»
+      option#4  0×0 @-392,-84  Manrope 400 14/20  lines=0  «Привокзальный»
+    svg.Select__chevron#4  14×14 @332,19
+
+[геометрия 1440]
+div.Field__field  696×48 @16,16
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  span.Select__wrapper  696×48 @0,0
+    select.Select__select  696×48 @0,0  r999  b1
+      option  0×0 @-16,-16  Manrope 400 14/20  lines=0  «Центральный»
+      option#2  0×0 @-16,-16  Manrope 400 14/20  lines=0  «Пролетарский»
+      option#3  0×0 @-16,-16  Manrope 400 14/20  lines=0  «Зареченский»
+      option#4  0×0 @-16,-16  Manrope 400 14/20  lines=0  «Привокзальный»
+    svg.Select__chevron  14×14 @668,17
+div.Field__field#2  696×48 @728,16
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  span.Select__wrapper  696×48 @0,0
+    select.Select__select#2  696×48 @0,0  r999  b1
+      option  0×0 @-728,-16  Manrope 400 14/20  lines=0  «Центральный»
+      option#2  0×0 @-728,-16  Manrope 400 14/20  lines=0  «Пролетарский»
+      option#3  0×0 @-728,-16  Manrope 400 14/20  lines=0  «Зареченский»
+      option#4  0×0 @-728,-16  Manrope 400 14/20  lines=0  «Привокзальный»
+    svg.Select__chevron#2  14×14 @668,17
+div.Field__field#3  696×48 @16,80
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  span.Select__wrapper  696×48 @0,0
+    select.Select__select#3  696×48 @0,0  r999  b1
+      option  0×0 @-16,-80  Manrope 400 14/20  lines=0  «Центральный»
+      option#2  0×0 @-16,-80  Manrope 400 14/20  lines=0  «Пролетарский»
+      option#3  0×0 @-16,-80  Manrope 400 14/20  lines=0  «Зареченский»
+      option#4  0×0 @-16,-80  Manrope 400 14/20  lines=0  «Привокзальный»
+    svg.Select__chevron#3  14×14 @668,17
+div.Field__field#4  696×48 @728,80
+  label.Field__label  57×13 @3,8  Manrope 600 11/13  lines=1  «underlined»
+  span.Select__wrapper  696×48 @0,0
+    select.Select__select#4  696×48 @0,0  b0 0 1 0
+      option  0×0 @-728,-80  Manrope 400 14/20  lines=0  «Центральный»
+      option#2  0×0 @-728,-80  Manrope 400 14/20  lines=0  «Пролетарский»
+      option#3  0×0 @-728,-80  Manrope 400 14/20  lines=0  «Зареченский»
+      option#4  0×0 @-728,-80  Manrope 400 14/20  lines=0  «Привокзальный»
+    svg.Select__chevron#4  14×14 @668,17
+
+[палитра light]
+div.Field__field
+  label.Field__label  color #556173
+  span.Select__wrapper
+    select.Select__select  bg #f8fafc  border #7e8fa6
+      option  color #0f172a
+      option#2  color #0f172a
+      option#3  color #0f172a
+      option#4  color #0f172a
+    svg.Select__chevron
+div.Field__field#2
+  label.Field__label  color #556173
+  span.Select__wrapper
+    select.Select__select#2  border #7e8fa6
+      option  color #0f172a
+      option#2  color #0f172a
+      option#3  color #0f172a
+      option#4  color #0f172a
+    svg.Select__chevron#2
+div.Field__field#3
+  label.Field__label  color #556173
+  span.Select__wrapper
+    select.Select__select#3  bg #f8fafc  border #7e8fa6
+      option  color #0f172a
+      option#2  color #0f172a
+      option#3  color #0f172a
+      option#4  color #0f172a
+    svg.Select__chevron#3
+div.Field__field#4
+  label.Field__label  color #556173
+  span.Select__wrapper
+    select.Select__select#4  border #0f172a #0f172a #7e8fa6 #0f172a
+      option  color #0f172a
+      option#2  color #0f172a
+      option#3  color #0f172a
+      option#4  color #0f172a
+    svg.Select__chevron#4
+
+[палитра dark]
+div.Field__field
+  label.Field__label  color #8598ac
+  span.Select__wrapper
+    select.Select__select  bg #0e1729  border #566d95
+      option  color #eaf1f8
+      option#2  color #eaf1f8
+      option#3  color #eaf1f8
+      option#4  color #eaf1f8
+    svg.Select__chevron
+div.Field__field#2
+  label.Field__label  color #8598ac
+  span.Select__wrapper
+    select.Select__select#2  border #566d95
+      option  color #eaf1f8
+      option#2  color #eaf1f8
+      option#3  color #eaf1f8
+      option#4  color #eaf1f8
+    svg.Select__chevron#2
+div.Field__field#3
+  label.Field__label  color #8598ac
+  span.Select__wrapper
+    select.Select__select#3  bg #0e1729  border #566d95
+      option  color #eaf1f8
+      option#2  color #eaf1f8
+      option#3  color #eaf1f8
+      option#4  color #eaf1f8
+    svg.Select__chevron#3
+div.Field__field#4
+  label.Field__label  color #8598ac
+  span.Select__wrapper
+    select.Select__select#4  border #eaf1f8 #eaf1f8 #566d95 #eaf1f8
+      option  color #eaf1f8
+      option#2  color #eaf1f8
+      option#3  color #eaf1f8
+      option#4  color #eaf1f8
+    svg.Select__chevron#4

@@ -1,0 +1,47 @@
+# ui-kit-alert--basic · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Alert__alert  326×87 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  264×61 @45,13
+    p.Alert__title  264×20 @0,0  Manrope 700 14/20  lines=1  «Роль изменена»
+    div.Alert__text  264×39 @0,22  Manrope 400 14/20  lines=2  «Монтажник больше не видит цены закупки.»
+
+[геометрия 768]
+div.Alert__alert  704×67 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  642×41 @45,13
+    p.Alert__title  642×20 @0,0  Manrope 700 14/20  lines=1  «Роль изменена»
+    div.Alert__text  642×20 @0,22  Manrope 400 14/20  lines=1  «Монтажник больше не видит цены закупки.»
+
+[геометрия 1440]
+div.Alert__alert  1376×67 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  1314×41 @45,13
+    p.Alert__title  1314×20 @0,0  Manrope 700 14/20  lines=1  «Роль изменена»
+    div.Alert__text  1314×20 @0,22  Manrope 400 14/20  lines=1  «Монтажник больше не видит цены закупки.»
+
+[палитра light]
+div.Alert__alert  bg #4338ca14  border #4338ca47
+  span.Alert__icon
+    svg
+  div.Alert__body
+    p.Alert__title  color #4338ca
+    div.Alert__text  color #4338ca
+
+[палитра dark]
+div.Alert__alert  bg #a5b4fc1f  border #a5b4fc52
+  span.Alert__icon
+    svg
+  div.Alert__body
+    p.Alert__title  color #a5b4fc
+    div.Alert__text  color #a5b4fc

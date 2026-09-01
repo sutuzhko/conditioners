@@ -1,0 +1,127 @@
+# ui-kit-table--basic · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 399×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Table__viewport  358×419 @16,16
+  table.Table__table  383×419 @0,0
+    th  93×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
+    th#2  113×56 @93,0  Onest 700 15/23  b0 0 1 0  lines=1  «Мощность»
+    th#3  104×56 @206,0  Onest 700 15/23  b0 0 1 0  lines=1  «Площадь»
+    th#4  73×56 @310,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
+    th#5  93×96 @0,56  Manrope 600 15/22  b0 0 1 0  lines=2  «Класс 07»
+    td  113×96 @93,56  Manrope 400 15/22  b0 0 1 0  lines=1  «2,1 кВт»
+    td#2  104×96 @206,56  Manrope 400 15/22  b0 0 1 0  lines=1  «до 20 м²»
+    td#3  73×96 @310,56  Manrope 400 15/22  b0 0 1 0  lines=3  «от 24 900 ₽»
+    th#6  93×96 @0,152  Manrope 600 15/22  b0 0 1 0  lines=2  «Класс 09»
+    td#4  113×96 @93,152  Manrope 400 15/22  b0 0 1 0  lines=1  «2,6 кВт»
+    td#5  104×96 @206,152  Manrope 400 15/22  b0 0 1 0  lines=1  «до 25 м²»
+    td#6  73×96 @310,152  Manrope 400 15/22  b0 0 1 0  lines=3  «от 27 400 ₽»
+    th#7  93×96 @0,249  Manrope 600 15/22  b0 0 1 0  lines=2  «Класс 12»
+    td#7  113×96 @93,249  Manrope 400 15/22  b0 0 1 0  lines=1  «3,5 кВт»
+    td#8  104×96 @206,249  Manrope 400 15/22  b0 0 1 0  lines=1  «до 35 м²»
+    td#9  73×96 @310,249  Manrope 400 15/22  b0 0 1 0  lines=3  «от 32 800 ₽»
+    th#8  93×74 @0,345  Manrope 600 15/22  b0 0 1 0  lines=2  «Класс 18»
+    td#10  113×74 @93,345  Manrope 400 15/22  lines=1  «5,3 кВт»
+    td#11  104×74 @206,345  Manrope 400 15/22  lines=1  «до 50 м²»
+    td#12  73×74 @310,345  Manrope 400 15/22  lines=2  «от 46 100 ₽»
+
+[геометрия 768]
+div.Table__viewport  736×262 @16,16
+  table.Table__table  736×262 @0,0
+    th  170×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
+    th#2  195×56 @170,0  Onest 700 15/23  b0 0 1 0  lines=1  «Мощность»
+    th#3  178×56 @365,0  Onest 700 15/23  b0 0 1 0  lines=1  «Площадь»
+    th#4  193×56 @543,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
+    th#5  170×51 @0,56  Manrope 600 15/22  b0 0 1 0  lines=1  «Класс 07»
+    td  195×51 @170,56  Manrope 400 15/22  b0 0 1 0  lines=1  «2,1 кВт»
+    td#2  178×51 @365,56  Manrope 400 15/22  b0 0 1 0  lines=1  «до 20 м²»
+    td#3  193×51 @543,56  Manrope 400 15/22  b0 0 1 0  lines=1  «от 24 900 ₽»
+    th#6  170×51 @0,107  Manrope 600 15/22  b0 0 1 0  lines=1  «Класс 09»
+    td#4  195×51 @170,107  Manrope 400 15/22  b0 0 1 0  lines=1  «2,6 кВт»
+    td#5  178×51 @365,107  Manrope 400 15/22  b0 0 1 0  lines=1  «до 25 м²»
+    td#6  193×51 @543,107  Manrope 400 15/22  b0 0 1 0  lines=1  «от 27 400 ₽»
+    th#7  170×51 @0,159  Manrope 600 15/22  b0 0 1 0  lines=1  «Класс 12»
+    td#7  195×51 @170,159  Manrope 400 15/22  b0 0 1 0  lines=1  «3,5 кВт»
+    td#8  178×51 @365,159  Manrope 400 15/22  b0 0 1 0  lines=1  «до 35 м²»
+    td#9  193×51 @543,159  Manrope 400 15/22  b0 0 1 0  lines=1  «от 32 800 ₽»
+    th#8  170×51 @0,210  Manrope 600 15/22  b0 0 1 0  lines=1  «Класс 18»
+    td#10  195×51 @170,210  Manrope 400 15/22  lines=1  «5,3 кВт»
+    td#11  178×51 @365,210  Manrope 400 15/22  lines=1  «до 50 м²»
+    td#12  193×51 @543,210  Manrope 400 15/22  lines=1  «от 46 100 ₽»
+
+[геометрия 1440]
+div.Table__viewport  1408×262 @16,16
+  table.Table__table  1408×262 @0,0
+    th  326×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
+    th#2  373×56 @326,0  Onest 700 15/23  b0 0 1 0  lines=1  «Мощность»
+    th#3  341×56 @698,0  Onest 700 15/23  b0 0 1 0  lines=1  «Площадь»
+    th#4  369×56 @1039,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
+    th#5  326×51 @0,56  Manrope 600 15/22  b0 0 1 0  lines=1  «Класс 07»
+    td  373×51 @326,56  Manrope 400 15/22  b0 0 1 0  lines=1  «2,1 кВт»
+    td#2  341×51 @698,56  Manrope 400 15/22  b0 0 1 0  lines=1  «до 20 м²»
+    td#3  369×51 @1039,56  Manrope 400 15/22  b0 0 1 0  lines=1  «от 24 900 ₽»
+    th#6  326×51 @0,107  Manrope 600 15/22  b0 0 1 0  lines=1  «Класс 09»
+    td#4  373×51 @326,107  Manrope 400 15/22  b0 0 1 0  lines=1  «2,6 кВт»
+    td#5  341×51 @698,107  Manrope 400 15/22  b0 0 1 0  lines=1  «до 25 м²»
+    td#6  369×51 @1039,107  Manrope 400 15/22  b0 0 1 0  lines=1  «от 27 400 ₽»
+    th#7  326×51 @0,159  Manrope 600 15/22  b0 0 1 0  lines=1  «Класс 12»
+    td#7  373×51 @326,159  Manrope 400 15/22  b0 0 1 0  lines=1  «3,5 кВт»
+    td#8  341×51 @698,159  Manrope 400 15/22  b0 0 1 0  lines=1  «до 35 м²»
+    td#9  369×51 @1039,159  Manrope 400 15/22  b0 0 1 0  lines=1  «от 32 800 ₽»
+    th#8  326×51 @0,210  Manrope 600 15/22  b0 0 1 0  lines=1  «Класс 18»
+    td#10  373×51 @326,210  Manrope 400 15/22  lines=1  «5,3 кВт»
+    td#11  341×51 @698,210  Manrope 400 15/22  lines=1  «до 50 м²»
+    td#12  369×51 @1039,210  Manrope 400 15/22  lines=1  «от 46 100 ₽»
+
+[палитра light]
+div.Table__viewport
+  table.Table__table
+    th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#4  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#5  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    td  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#2  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#3  color #334155  border #334155 #334155 #eef2f6 #334155
+    th#6  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    td#4  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#5  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#6  color #334155  border #334155 #334155 #eef2f6 #334155
+    th#7  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    td#7  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#8  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#9  color #334155  border #334155 #334155 #eef2f6 #334155
+    th#8  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    td#10  color #334155
+    td#11  color #334155
+    td#12  color #334155
+
+[палитра dark]
+div.Table__viewport
+  table.Table__table
+    th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#4  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#5  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    td  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#2  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#3  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    th#6  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    td#4  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#5  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#6  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    th#7  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    td#7  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#8  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#9  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    th#8  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    td#10  color #c9d5e2
+    td#11  color #c9d5e2
+    td#12  color #c9d5e2

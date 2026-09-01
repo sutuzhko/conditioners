@@ -1,0 +1,37 @@
+# админка-заказы-история-наряда--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×141 @16,16  r20  b1
+  h2.OrderHistory__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «История наряда»
+  p.OrderHistory__hint  316×40 @21,46  Manrope 400 13/20  lines=2  «Кто и когда менял статус, кого назначили»
+  p.OrderHistory__empty  316×20 @21,100  Manrope 400 13/20  lines=1  «Записей пока нет.»
+
+[геометрия 768]
+section.Card__card  736×122 @16,16  r20  b1
+  h2.OrderHistory__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «История наряда»
+  p.OrderHistory__hint  539×20 @21,47  Manrope 400 13/20  lines=1  «Кто и когда менял статус, кого назначили»
+  p.OrderHistory__empty  694×20 @21,81  Manrope 400 13/20  lines=1  «Записей пока нет.»
+
+[геометрия 1440]
+section.Card__card  1408×123 @16,16  r20  b1
+  h2.OrderHistory__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «История наряда»
+  p.OrderHistory__hint  539×20 @21,48  Manrope 400 13/20  lines=1  «Кто и когда менял статус, кого назначили»
+  p.OrderHistory__empty  1366×20 @21,82  Manrope 400 13/20  lines=1  «Записей пока нет.»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderHistory__title  color #0f172a
+  p.OrderHistory__hint  color #556173
+  p.OrderHistory__empty  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderHistory__title  color #eaf1f8
+  p.OrderHistory__hint  color #8598ac
+  p.OrderHistory__empty  color #8598ac

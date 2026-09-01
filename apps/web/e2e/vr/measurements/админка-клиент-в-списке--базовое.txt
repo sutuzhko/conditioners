@@ -1,0 +1,97 @@
+# админка-клиент-в-списке--базовое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+article.Card__card  358×244 @16,16  r20  b1
+  div.ClientCardView__head  316×28 @21,21
+    h2.ClientCardView__name  136×21 @0,2
+      a.ClientCardView__link  136×22 @0,-1  Onest 700 17/21  ls0  lines=1  «Ирина Соколова»
+    span.Badge__badge  102×28 @214,0  Manrope 600 12/16  r100  b1  lines=1  «2 обращения»
+  dl.ClientCardView__facts  316×91 @21,59
+    div.ClientCardView__fact  129×43 @0,0
+      dt  129×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
+      a.ClientCardView__phone  129×19 @0,21  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+    div.ClientCardView__fact#2  204×43 @0,49
+      dt  204×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
+      dd  204×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
+    div.ClientCardView__fact#3  77×43 @228,49
+      dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
+      time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
+  p.ClientCardView__note  316×61 @21,162  Manrope 400 15/22  r11  lines=2  «Домофон не работает, звонить на телефон.»
+
+[геометрия 768]
+article.Card__card  736×173 @16,16  r20  b1
+  div.ClientCardView__head  694×28 @21,21
+    h2.ClientCardView__name  143×22 @0,2
+      a.ClientCardView__link  143×22 @0,-1  Onest 700 18/22  ls0  lines=1  «Ирина Соколова»
+    span.Badge__badge  102×28 @592,0  Manrope 600 12/16  r100  b1  lines=1  «2 обращения»
+  dl.ClientCardView__facts  694×43 @21,59
+    div.ClientCardView__fact  129×43 @0,0
+      dt  129×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
+      a.ClientCardView__phone  129×19 @0,21  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+    div.ClientCardView__fact#2  204×43 @153,0
+      dt  204×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
+      dd  204×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
+    div.ClientCardView__fact#3  77×43 @381,0
+      dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
+      time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
+  p.ClientCardView__note  694×38 @21,114  Manrope 400 15/22  r11  lines=1  «Домофон не работает, звонить на телефон.»
+
+[геометрия 1440]
+article.Card__card  1408×173 @16,16  r20  b1
+  div.ClientCardView__head  1366×28 @21,21
+    h2.ClientCardView__name  151×23 @0,1
+      a.ClientCardView__link  151×24 @0,-1  Onest 700 19/23  ls0  lines=1  «Ирина Соколова»
+    span.Badge__badge  102×28 @1264,0  Manrope 600 12/16  r100  b1  lines=1  «2 обращения»
+  dl.ClientCardView__facts  1366×43 @21,59
+    div.ClientCardView__fact  129×43 @0,0
+      dt  129×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
+      a.ClientCardView__phone  129×19 @0,21  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+    div.ClientCardView__fact#2  204×43 @153,0
+      dt  204×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
+      dd  204×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
+    div.ClientCardView__fact#3  77×43 @381,0
+      dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
+      time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
+  p.ClientCardView__note  1366×38 @21,114  Manrope 400 15/22  r11  lines=1  «Домофон не работает, звонить на телефон.»
+
+[палитра light]
+article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.ClientCardView__head
+    h2.ClientCardView__name
+      a.ClientCardView__link  color #0f172a
+    span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+  dl.ClientCardView__facts
+    div.ClientCardView__fact
+      dt  color #5b6a7d
+      a.ClientCardView__phone  color #0e7490
+    div.ClientCardView__fact#2
+      dt  color #5b6a7d
+      dd  color #475569
+    div.ClientCardView__fact#3
+      dt  color #5b6a7d
+      time  color #475569
+  p.ClientCardView__note  color #475569  bg #f8fafc
+
+[палитра dark]
+article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.ClientCardView__head
+    h2.ClientCardView__name
+      a.ClientCardView__link  color #eaf1f8
+    span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+  dl.ClientCardView__facts
+    div.ClientCardView__fact
+      dt  color #7e92a7
+      a.ClientCardView__phone  color #22d3ee
+    div.ClientCardView__fact#2
+      dt  color #7e92a7
+      dd  color #a8b6c6
+    div.ClientCardView__fact#3
+      dt  color #7e92a7
+      time  color #a8b6c6
+  p.ClientCardView__note  color #a8b6c6  bg #0e1729

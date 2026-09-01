@@ -1,0 +1,22 @@
+# ui-kit-skiplink--focused · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+a.Button__button  150×44 @14,14  Manrope 600 15/17  r11  b1  lines=1  fixed  «К содержимому»
+
+[геометрия 768]
+a.Button__button  150×44 @14,14  Manrope 600 15/17  r11  b1  lines=1  fixed  «К содержимому»
+
+[геометрия 1440]
+a.Button__button  150×44 @14,14  Manrope 600 15/17  r11  b1  lines=1  fixed  «К содержимому»
+
+[палитра light]
+a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+
+[палитра dark]
+a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee

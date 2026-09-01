@@ -1,0 +1,37 @@
+# ui-kit-avatar--group-of-one · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Avatar__group  36×36 @32,32
+  span.Avatar__avatar  36×36 @0,0  r100  b1
+    span.Avatar__initials  20×13 @8,12  Onest 700 13/13  ls0  lines=1  «ИИ»
+    span  1×1 @18,18  Onest 700 13/13  lines=1  clipped  «Иванов Иван»
+
+[геометрия 768]
+span.Avatar__group  36×36 @32,32
+  span.Avatar__avatar  36×36 @0,0  r100  b1
+    span.Avatar__initials  20×13 @8,12  Onest 700 13/13  ls0  lines=1  «ИИ»
+    span  1×1 @18,18  Onest 700 13/13  lines=1  clipped  «Иванов Иван»
+
+[геометрия 1440]
+span.Avatar__group  36×36 @32,32
+  span.Avatar__avatar  36×36 @0,0  r100  b1
+    span.Avatar__initials  20×13 @8,12  Onest 700 13/13  ls0  lines=1  «ИИ»
+    span  1×1 @18,18  Onest 700 13/13  lines=1  clipped  «Иванов Иван»
+
+[палитра light]
+span.Avatar__group
+  span.Avatar__avatar  bg #ecfeff  border #ffffff
+    span.Avatar__initials  color #0e7490
+    span  color #0e7490
+
+[палитра dark]
+span.Avatar__group
+  span.Avatar__avatar  bg #22d3ee1a  border #121d31
+    span.Avatar__initials  color #22d3ee
+    span  color #22d3ee

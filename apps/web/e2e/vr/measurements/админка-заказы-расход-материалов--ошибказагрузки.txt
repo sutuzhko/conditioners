@@ -1,0 +1,57 @@
+# админка-заказы-расход-материалов--ошибказагрузки · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×274 @16,16  r20  b1
+  h2.OrderConsumption__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Израсходовано»
+  p.OrderConsumption__hint  316×60 @21,46  Manrope 400 13/20  lines=3  «Что ушло на эту работу по факту. Чеклист»
+  div.OrderConsumption__failure  316×133 @21,120
+    p.OrderConsumption__error  316×63 @0,14  Manrope 400 15/22  r11  b1  lines=2  «Не удалось получить расход материалов и»
+    button.Button__button  168×44 @0,89  r9  b1
+      span.Button__content  138×16 @15,14
+        span.Button__label  138×16 @0,0  Manrope 600 13/16  lines=1  «Попробовать ещё раз»
+
+[геометрия 768]
+section.Card__card  736×176 @16,16  r20  b1
+  h2.OrderConsumption__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Израсходовано»
+  p.OrderConsumption__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Что ушло на эту работу по факту. Чеклист»
+  div.OrderConsumption__failure  694×54 @21,101
+    p.OrderConsumption__error  433×40 @0,14  Manrope 400 15/22  r11  b1  lines=1  «Не удалось получить расход материалов и»
+    button.Button__button  168×44 @445,5  r9  b1
+      span.Button__content  138×16 @15,14
+        span.Button__label  138×16 @0,0  Manrope 600 13/16  lines=1  «Попробовать ещё раз»
+
+[геометрия 1440]
+section.Card__card  1408×178 @16,16  r20  b1
+  h2.OrderConsumption__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Израсходовано»
+  p.OrderConsumption__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Что ушло на эту работу по факту. Чеклист»
+  div.OrderConsumption__failure  1366×54 @21,102
+    p.OrderConsumption__error  433×40 @0,14  Manrope 400 15/22  r11  b1  lines=1  «Не удалось получить расход материалов и»
+    button.Button__button  168×40 @445,7  r9  b1
+      span.Button__content  138×16 @15,12
+        span.Button__label  138×16 @0,0  Manrope 600 13/16  lines=1  «Попробовать ещё раз»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderConsumption__title  color #0f172a
+  p.OrderConsumption__hint  color #556173
+  div.OrderConsumption__failure
+    p.OrderConsumption__error  color #be123c  bg #be123c14  border #be123c73
+    button.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label  color #0f172a
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderConsumption__title  color #eaf1f8
+  p.OrderConsumption__hint  color #8598ac
+  div.OrderConsumption__failure
+    p.OrderConsumption__error  color #fb7185  bg #fb71851f  border #fb718580
+    button.Button__button  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label  color #eaf1f8

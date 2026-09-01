@@ -1,0 +1,22 @@
+# ui-kit-badge--sale · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Badge__badge  55×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «−12%»
+
+[геометрия 768]
+span.Badge__badge  55×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «−12%»
+
+[геометрия 1440]
+span.Badge__badge  55×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «−12%»
+
+[палитра light]
+span.Badge__badge  color #be123c  bg #be123c14  border #be123c47
+
+[палитра dark]
+span.Badge__badge  color #fb7185  bg #fb71851f  border #fb718552

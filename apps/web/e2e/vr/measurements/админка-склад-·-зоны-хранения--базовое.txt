@@ -1,0 +1,262 @@
+# админка-склад-·-зоны-хранения--базовое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×610 @16,16  r20  b1
+  header.StockZones__header  316×107 @21,21
+    h2.StockZones__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Зоны хранения»
+    p.StockZones__hint  316×81 @0,27  Manrope 400 13/20  lines=4  «Где лежит материал: основное место хране»
+  ul.StockZones__list  316×393 @21,140
+    li.StockZones__item  316×124 @0,0  r14  b1
+      div.StockZones__row  286×102 @15,11
+        div.StockZones__body  233×48 @0,0
+          div.StockZones__line  233×24 @0,0
+            span.StockZones__name  169×23 @0,0  Manrope 600 15/23  lines=1  «Гараж на Демидовской»
+            span.Badge__badge  56×24 @177,0  Manrope 600 12/16  r100  b1  lines=1  «Склад»
+          p.StockZones__owner  233×20 @0,28  Manrope 400 13/20  lines=1  «У склада хозяина нет: он общий»
+        div.StockZones__rowActions  174×44 @0,58
+          button.Button__button  93×44 @0,0  r9  b1
+            span.Button__content  63×16 @15,14
+              span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
+          button.Button__button#2  78×44 @97,0  r9  b1
+            span.Button__content  48×16 @15,14
+              span.Button__label#2  48×16 @0,0  Manrope 600 13/16  lines=1  «В архив»
+    li.StockZones__item#2  316×124 @0,134  r14  b1
+      div.StockZones__row  286×102 @15,11
+        div.StockZones__body#2  200×48 @0,0
+          div.StockZones__line  200×24 @0,0
+            span.StockZones__name#2  50×23 @0,0  Manrope 600 15/23  lines=1  «Газель»
+            span.Badge__badge#2  143×24 @58,0  Manrope 600 12/16  r100  b1  lines=1  «Машина монтажника»
+          p.StockZones__owner  200×20 @0,28  Manrope 400 13/20  lines=1  «Хозяин: Дмитрий Соколов»
+        div.StockZones__rowActions#2  174×44 @0,58
+          button.Button__button  93×44 @0,0  r9  b1
+            span.Button__content#2  63×16 @15,14
+              span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
+          button.Button__button#2  78×44 @97,0  r9  b1
+            span.Button__content#2  48×16 @15,14
+              span.Button__label#2  48×16 @0,0  Manrope 600 13/16  lines=1  «В архив»
+    li.StockZones__item#3  316×124 @0,269  r14  b1
+      div.StockZones__row  286×102 @15,11
+        div.StockZones__body#3  203×48 @0,0
+          div.StockZones__line  203×24 @0,0
+            span.StockZones__name#3  52×23 @0,0  Manrope 600 15/23  lines=1  «Ларгус»
+            span.Badge__badge#3  143×24 @60,0  Manrope 600 12/16  r100  b1  lines=1  «Машина монтажника»
+          p.StockZones__owner  203×20 @0,28  Manrope 400 13/20  lines=1  «Хозяин: Сергей Панин»
+        div.StockZones__rowActions#3  174×44 @0,58
+          button.Button__button  93×44 @0,0  r9  b1
+            span.Button__content#3  63×16 @15,14
+              span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
+          button.Button__button#2  78×44 @97,0  r9  b1
+            span.Button__content#3  48×16 @15,14
+              span.Button__label#2  48×16 @0,0  Manrope 600 13/16  lines=1  «В архив»
+  div.StockZones__actions  316×44 @21,545
+    a.Button__button  124×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Добавить зону»
+
+[геометрия 768]
+section.Card__card  736×409 @16,16  r20  b1
+  header.StockZones__header  694×68 @21,21
+    h2.StockZones__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Зоны хранения»
+    p.StockZones__hint  539×40 @0,28  Manrope 400 13/20  lines=2  «Где лежит материал: основное место хране»
+  ul.StockZones__list  694×231 @21,101
+    li.StockZones__item  694×70 @0,0  r14  b1
+      div.StockZones__row  664×48 @15,11
+        div.StockZones__body  233×48 @0,0
+          div.StockZones__line  233×24 @0,0
+            span.StockZones__name  169×23 @0,0  Manrope 600 15/23  lines=1  «Гараж на Демидовской»
+            span.Badge__badge  56×24 @177,0  Manrope 600 12/16  r100  b1  lines=1  «Склад»
+          p.StockZones__owner  233×20 @0,28  Manrope 400 13/20  lines=1  «У склада хозяина нет: он общий»
+        div.StockZones__rowActions  174×44 @490,2
+          button.Button__button  93×44 @0,0  r9  b1
+            span.Button__content  63×16 @15,14
+              span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
+          button.Button__button#2  78×44 @97,0  r9  b1
+            span.Button__content  48×16 @15,14
+              span.Button__label#2  48×16 @0,0  Manrope 600 13/16  lines=1  «В архив»
+    li.StockZones__item#2  694×70 @0,80  r14  b1
+      div.StockZones__row  664×48 @15,11
+        div.StockZones__body#2  200×48 @0,0
+          div.StockZones__line  200×24 @0,0
+            span.StockZones__name#2  50×23 @0,0  Manrope 600 15/23  lines=1  «Газель»
+            span.Badge__badge#2  143×24 @58,0  Manrope 600 12/16  r100  b1  lines=1  «Машина монтажника»
+          p.StockZones__owner  200×20 @0,28  Manrope 400 13/20  lines=1  «Хозяин: Дмитрий Соколов»
+        div.StockZones__rowActions#2  174×44 @490,2
+          button.Button__button  93×44 @0,0  r9  b1
+            span.Button__content#2  63×16 @15,14
+              span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
+          button.Button__button#2  78×44 @97,0  r9  b1
+            span.Button__content#2  48×16 @15,14
+              span.Button__label#2  48×16 @0,0  Manrope 600 13/16  lines=1  «В архив»
+    li.StockZones__item#3  694×70 @0,161  r14  b1
+      div.StockZones__row  664×48 @15,11
+        div.StockZones__body#3  203×48 @0,0
+          div.StockZones__line  203×24 @0,0
+            span.StockZones__name#3  52×23 @0,0  Manrope 600 15/23  lines=1  «Ларгус»
+            span.Badge__badge#3  143×24 @60,0  Manrope 600 12/16  r100  b1  lines=1  «Машина монтажника»
+          p.StockZones__owner  203×20 @0,28  Manrope 400 13/20  lines=1  «Хозяин: Сергей Панин»
+        div.StockZones__rowActions#3  174×44 @490,2
+          button.Button__button  93×44 @0,0  r9  b1
+            span.Button__content#3  63×16 @15,14
+              span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
+          button.Button__button#2  78×44 @97,0  r9  b1
+            span.Button__content#3  48×16 @15,14
+              span.Button__label#2  48×16 @0,0  Manrope 600 13/16  lines=1  «В архив»
+  div.StockZones__actions  694×44 @21,344
+    a.Button__button  124×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Добавить зону»
+
+[геометрия 1440]
+section.Card__card  1408×406 @16,16  r20  b1
+  header.StockZones__header  1366×69 @21,21
+    h2.StockZones__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Зоны хранения»
+    p.StockZones__hint  539×40 @0,29  Manrope 400 13/20  lines=2  «Где лежит материал: основное место хране»
+  ul.StockZones__list  1366×231 @21,102
+    li.StockZones__item  1366×70 @0,0  r14  b1
+      div.StockZones__row  1336×48 @15,11
+        div.StockZones__body  233×48 @0,0
+          div.StockZones__line  233×24 @0,0
+            span.StockZones__name  169×23 @0,0  Manrope 600 15/23  lines=1  «Гараж на Демидовской»
+            span.Badge__badge  56×24 @177,0  Manrope 600 12/16  r100  b1  lines=1  «Склад»
+          p.StockZones__owner  233×20 @0,28  Manrope 400 13/20  lines=1  «У склада хозяина нет: он общий»
+        div.StockZones__rowActions  174×40 @1162,4
+          button.Button__button  93×40 @0,0  r9  b1
+            span.Button__content  63×16 @15,12
+              span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
+          button.Button__button#2  78×40 @97,0  r9  b1
+            span.Button__content  48×16 @15,12
+              span.Button__label#2  48×16 @0,0  Manrope 600 13/16  lines=1  «В архив»
+    li.StockZones__item#2  1366×70 @0,80  r14  b1
+      div.StockZones__row  1336×48 @15,11
+        div.StockZones__body#2  200×48 @0,0
+          div.StockZones__line  200×24 @0,0
+            span.StockZones__name#2  50×23 @0,0  Manrope 600 15/23  lines=1  «Газель»
+            span.Badge__badge#2  143×24 @58,0  Manrope 600 12/16  r100  b1  lines=1  «Машина монтажника»
+          p.StockZones__owner  200×20 @0,28  Manrope 400 13/20  lines=1  «Хозяин: Дмитрий Соколов»
+        div.StockZones__rowActions#2  174×40 @1162,4
+          button.Button__button  93×40 @0,0  r9  b1
+            span.Button__content#2  63×16 @15,12
+              span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
+          button.Button__button#2  78×40 @97,0  r9  b1
+            span.Button__content#2  48×16 @15,12
+              span.Button__label#2  48×16 @0,0  Manrope 600 13/16  lines=1  «В архив»
+    li.StockZones__item#3  1366×70 @0,161  r14  b1
+      div.StockZones__row  1336×48 @15,11
+        div.StockZones__body#3  203×48 @0,0
+          div.StockZones__line  203×24 @0,0
+            span.StockZones__name#3  52×23 @0,0  Manrope 600 15/23  lines=1  «Ларгус»
+            span.Badge__badge#3  143×24 @60,0  Manrope 600 12/16  r100  b1  lines=1  «Машина монтажника»
+          p.StockZones__owner  203×20 @0,28  Manrope 400 13/20  lines=1  «Хозяин: Сергей Панин»
+        div.StockZones__rowActions#3  174×40 @1162,4
+          button.Button__button  93×40 @0,0  r9  b1
+            span.Button__content#3  63×16 @15,12
+              span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
+          button.Button__button#2  78×40 @97,0  r9  b1
+            span.Button__content#3  48×16 @15,12
+              span.Button__label#2  48×16 @0,0  Manrope 600 13/16  lines=1  «В архив»
+  div.StockZones__actions  1366×40 @21,345
+    a.Button__button  124×40 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Добавить зону»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.StockZones__header
+    h2.StockZones__title  color #0f172a
+    p.StockZones__hint  color #556173
+  ul.StockZones__list
+    li.StockZones__item  border #e2e8f0
+      div.StockZones__row
+        div.StockZones__body
+          div.StockZones__line
+            span.StockZones__name  color #0f172a
+            span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+          p.StockZones__owner  color #556173
+        div.StockZones__rowActions
+          button.Button__button  border transparent
+            span.Button__content
+              span.Button__label  color #0e7490
+          button.Button__button#2  border transparent
+            span.Button__content
+              span.Button__label#2  color #92400e
+    li.StockZones__item#2  border #e2e8f0
+      div.StockZones__row
+        div.StockZones__body#2
+          div.StockZones__line
+            span.StockZones__name#2  color #0f172a
+            span.Badge__badge#2  color #0e7490  bg #ecfeff  border #a5f3fc
+          p.StockZones__owner  color #556173
+        div.StockZones__rowActions#2
+          button.Button__button  border transparent
+            span.Button__content#2
+              span.Button__label  color #0e7490
+          button.Button__button#2  border transparent
+            span.Button__content#2
+              span.Button__label#2  color #92400e
+    li.StockZones__item#3  border #e2e8f0
+      div.StockZones__row
+        div.StockZones__body#3
+          div.StockZones__line
+            span.StockZones__name#3  color #0f172a
+            span.Badge__badge#3  color #0e7490  bg #ecfeff  border #a5f3fc
+          p.StockZones__owner  color #556173
+        div.StockZones__rowActions#3
+          button.Button__button  border transparent
+            span.Button__content#3
+              span.Button__label  color #0e7490
+          button.Button__button#2  border transparent
+            span.Button__content#3
+              span.Button__label#2  color #92400e
+  div.StockZones__actions
+    a.Button__button  color #0f172a  bg #ffffff  border #7e8fa6
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.StockZones__header
+    h2.StockZones__title  color #eaf1f8
+    p.StockZones__hint  color #8598ac
+  ul.StockZones__list
+    li.StockZones__item  border #1e2b41
+      div.StockZones__row
+        div.StockZones__body
+          div.StockZones__line
+            span.StockZones__name  color #eaf1f8
+            span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+          p.StockZones__owner  color #8598ac
+        div.StockZones__rowActions
+          button.Button__button  border transparent
+            span.Button__content
+              span.Button__label  color #22d3ee
+          button.Button__button#2  border transparent
+            span.Button__content
+              span.Button__label#2  color #fbbf24
+    li.StockZones__item#2  border #1e2b41
+      div.StockZones__row
+        div.StockZones__body#2
+          div.StockZones__line
+            span.StockZones__name#2  color #eaf1f8
+            span.Badge__badge#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          p.StockZones__owner  color #8598ac
+        div.StockZones__rowActions#2
+          button.Button__button  border transparent
+            span.Button__content#2
+              span.Button__label  color #22d3ee
+          button.Button__button#2  border transparent
+            span.Button__content#2
+              span.Button__label#2  color #fbbf24
+    li.StockZones__item#3  border #1e2b41
+      div.StockZones__row
+        div.StockZones__body#3
+          div.StockZones__line
+            span.StockZones__name#3  color #eaf1f8
+            span.Badge__badge#3  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          p.StockZones__owner  color #8598ac
+        div.StockZones__rowActions#3
+          button.Button__button  border transparent
+            span.Button__content#3
+              span.Button__label  color #22d3ee
+          button.Button__button#2  border transparent
+            span.Button__content#3
+              span.Button__label#2  color #fbbf24
+  div.StockZones__actions
+    a.Button__button  color #eaf1f8  bg #121d31  border #566d95

@@ -1,0 +1,192 @@
+# админка-фотографии-модели--базовое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×1221
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×1189 @16,16  r20  b1
+  h2.ProductPhotos__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Фотографии»
+  p.ProductPhotos__hint  316×60 @21,46  Manrope 400 13/20  lines=3  «Первая по порядку главная — она стоит на»
+  ul.ProductPhotos__grid  316×864 @21,120
+    li.ProductPhotos__item  316×425 @0,0
+      div.ProductPhotos__thumbBox  316×316 @0,0
+        img.ProductPhotos__thumb  316×316 @0,0  r14  b1
+        span.Badge__badge  73×28 @8,8  Manrope 600 12/16  r100  b1  lines=1  «Главная»
+      div.Field__field  316×49 @0,324
+        input  316×49 @0,0  r11  b1
+      div.ProductPhotos__itemActions  316×44 @0,381
+        button.Button__button  82×44 @0,0  r9  b1
+          span.Button__content  52×16 @15,14
+            span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+    li.ProductPhotos__item#2  316×425 @0,439
+      div.ProductPhotos__thumbBox  316×316 @0,0
+        img.ProductPhotos__thumb#2  316×316 @0,0  r14  b1
+      div.Field__field  316×49 @0,324
+        input#2  316×49 @0,0  r11  b1
+      div.ProductPhotos__itemActions  316×44 @0,381
+        button.Button__button#2  139×44 @0,0  r9  b1
+          span.Button__content  109×16 @15,14
+            span.Button__label#2  109×16 @0,0  Manrope 600 13/16  lines=1  «Сделать главной»
+        button.Button__button#3  82×44 @143,0  r9  b1
+          span.Button__content  52×16 @15,14
+            span.Button__label#3  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+  div.Field__field  316×166 @21,1002
+    label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фотографию»
+    input.FileInput__input  1×1 @-1,-1  clipped
+    label.FileInput__dropzone  316×93 @0,27  r11  b1
+      svg.FileInput__icon  22×22 @15,36
+      span.FileInput__texts  252×67 @49,13
+        span.FileInput__title  252×45 @0,0  Manrope 600 15/22  lines=2  «Выберите фото или перетащите сюда»
+        span  252×20 @0,47  Manrope 400 13/20  lines=1  «до 5 МБ»
+    p.Field__hint  316×39 @0,127  Manrope 400 13/19  lines=2  «Что на снимке. Читают поисковик и люди с»
+
+[геометрия 768]
+section.Card__card  736×584 @16,16  r20  b1
+  h2.ProductPhotos__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Фотографии»
+  p.ProductPhotos__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Первая по порядку главная — она стоит на»
+  ul.ProductPhotos__grid  694×320 @21,101
+    li.ProductPhotos__item  163×320 @0,0
+      div.ProductPhotos__thumbBox  163×163 @0,0
+        img.ProductPhotos__thumb  163×163 @0,0  r14  b1
+        span.Badge__badge  73×28 @8,8  Manrope 600 12/16  r100  b1  lines=1  «Главная»
+      div.Field__field  163×49 @0,171
+        input  163×49 @0,0  r11  b1  clipped
+      div.ProductPhotos__itemActions  163×44 @0,228
+        button.Button__button  82×44 @0,0  r9  b1
+          span.Button__content  52×16 @15,14
+            span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+    li.ProductPhotos__item#2  163×320 @177,0
+      div.ProductPhotos__thumbBox  163×163 @0,0
+        img.ProductPhotos__thumb#2  163×163 @0,0  r14  b1
+      div.Field__field  163×49 @0,171
+        input#2  163×49 @0,0  r11  b1
+      div.ProductPhotos__itemActions  163×92 @0,228
+        button.Button__button#2  139×44 @0,0  r9  b1
+          span.Button__content  109×16 @15,14
+            span.Button__label#2  109×16 @0,0  Manrope 600 13/16  lines=1  «Сделать главной»
+        button.Button__button#3  82×44 @0,48  r9  b1
+          span.Button__content  52×16 @15,14
+            span.Button__label#3  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+  div.Field__field  694×124 @21,439
+    label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фотографию»
+    input.FileInput__input  1×1 @-1,-1  clipped
+    label.FileInput__dropzone  694×71 @0,27  r11  b1
+      svg.FileInput__icon  22×22 @15,24
+      span.FileInput__texts  267×45 @49,13
+        span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
+        span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+    p.Field__hint  694×19 @0,105  Manrope 400 13/19  lines=1  «Что на снимке. Читают поисковик и люди с»
+
+[геометрия 1440]
+section.Card__card  1408×597 @16,16  r20  b1
+  h2.ProductPhotos__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Фотографии»
+  p.ProductPhotos__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Первая по порядку главная — она стоит на»
+  ul.ProductPhotos__grid  1366×332 @21,102
+    li.ProductPhotos__item  183×332 @0,0
+      div.ProductPhotos__thumbBox  183×183 @0,0
+        img.ProductPhotos__thumb  183×183 @0,0  r14  b1
+        span.Badge__badge  73×28 @8,8  Manrope 600 12/16  r100  b1  lines=1  «Главная»
+      div.Field__field  183×49 @0,191
+        input  183×49 @0,0  r11  b1  clipped
+      div.ProductPhotos__itemActions  183×40 @0,248
+        button.Button__button  82×40 @0,0  r9  b1
+          span.Button__content  52×16 @15,12
+            span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+    li.ProductPhotos__item#2  183×332 @197,0
+      div.ProductPhotos__thumbBox  183×183 @0,0
+        img.ProductPhotos__thumb#2  183×183 @0,0  r14  b1
+      div.Field__field  183×49 @0,191
+        input#2  183×49 @0,0  r11  b1
+      div.ProductPhotos__itemActions  183×84 @0,248
+        button.Button__button#2  139×40 @0,0  r9  b1
+          span.Button__content  109×16 @15,12
+            span.Button__label#2  109×16 @0,0  Manrope 600 13/16  lines=1  «Сделать главной»
+        button.Button__button#3  82×40 @0,44  r9  b1
+          span.Button__content  52×16 @15,12
+            span.Button__label#3  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+  div.Field__field  1366×124 @21,452
+    label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фотографию»
+    input.FileInput__input  1×1 @-1,-1  clipped
+    label.FileInput__dropzone  1366×71 @0,27  r11  b1
+      svg.FileInput__icon  22×22 @15,24
+      span.FileInput__texts  267×45 @49,13
+        span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
+        span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+    p.Field__hint  1366×19 @0,105  Manrope 400 13/19  lines=1  «Что на снимке. Читают поисковик и люди с»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.ProductPhotos__title  color #0f172a
+  p.ProductPhotos__hint  color #556173
+  ul.ProductPhotos__grid
+    li.ProductPhotos__item
+      div.ProductPhotos__thumbBox
+        img.ProductPhotos__thumb  border #e2e8f0
+        span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+      div.Field__field
+        input  bg #ffffff  border #7e8fa6
+      div.ProductPhotos__itemActions
+        button.Button__button  border transparent
+          span.Button__content
+            span.Button__label  color #be123c
+    li.ProductPhotos__item#2
+      div.ProductPhotos__thumbBox
+        img.ProductPhotos__thumb#2  border #e2e8f0
+      div.Field__field
+        input#2  bg #ffffff  border #7e8fa6
+      div.ProductPhotos__itemActions
+        button.Button__button#2  border transparent
+          span.Button__content
+            span.Button__label#2  color #0e7490
+        button.Button__button#3  border transparent
+          span.Button__content
+            span.Button__label#3  color #be123c
+  div.Field__field
+    label.Field__label  color #334155
+    input.FileInput__input
+    label.FileInput__dropzone  bg #ffffff  border #7e8fa6
+      svg.FileInput__icon
+      span.FileInput__texts
+        span.FileInput__title  color #334155
+        span  color #556173
+    p.Field__hint  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.ProductPhotos__title  color #eaf1f8
+  p.ProductPhotos__hint  color #8598ac
+  ul.ProductPhotos__grid
+    li.ProductPhotos__item
+      div.ProductPhotos__thumbBox
+        img.ProductPhotos__thumb  border #1e2b41
+        span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+      div.Field__field
+        input  bg #0b1424  border #566d95
+      div.ProductPhotos__itemActions
+        button.Button__button  border transparent
+          span.Button__content
+            span.Button__label  color #fb7185
+    li.ProductPhotos__item#2
+      div.ProductPhotos__thumbBox
+        img.ProductPhotos__thumb#2  border #1e2b41
+      div.Field__field
+        input#2  bg #0b1424  border #566d95
+      div.ProductPhotos__itemActions
+        button.Button__button#2  border transparent
+          span.Button__content
+            span.Button__label#2  color #22d3ee
+        button.Button__button#3  border transparent
+          span.Button__content
+            span.Button__label#3  color #fb7185
+  div.Field__field
+    label.Field__label  color #c9d5e2
+    input.FileInput__input
+    label.FileInput__dropzone  bg #0b1424  border #566d95
+      svg.FileInput__icon
+      span.FileInput__texts
+        span.FileInput__title  color #c9d5e2
+        span  color #8598ac
+    p.Field__hint  color #8598ac

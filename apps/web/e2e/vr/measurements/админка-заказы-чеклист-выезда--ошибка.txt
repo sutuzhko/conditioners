@@ -1,0 +1,247 @@
+# админка-заказы-чеклист-выезда--ошибка · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×786 @16,16  r20  b1
+  div.OrderChecklist__head  316×22 @21,21
+    h2.OrderChecklist__title  132×21 @0,0  Onest 700 17/21  ls0  lines=1  «Чеклист выезда»
+    p.OrderChecklist__progress  109×20 @207,2  JetBrains Mono 400 13/20  lines=1  «Собрано 2 из 5»
+  p.OrderChecklist__hint  316×81 @21,47  Manrope 400 13/20  lines=4  «Собран из наряда: тип работ, позиции, шт»
+  ul.OrderChecklist__list  316×378 @21,142
+    li.OrderChecklist__item  316×70 @0,0  r11
+      div.Checkbox__root  300×62 @8,4
+        div.Checkbox__row  300×62 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  269×42 @31,10  Manrope 400 15/21  lines=2  «Забрать со склада — Позиция 1, Сплит-сис»
+    li.OrderChecklist__item#2  316×70 @0,74  r11
+      div.Checkbox__root  300×62 @8,4
+        div.Checkbox__row#2  300×62 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  269×42 @31,10  Manrope 400 15/21  lines=2  «Позиция 1, Сплит-система 09: медная трас»
+    li.OrderChecklist__item#3  316×52 @0,148  r11
+      div.Checkbox__root  300×44 @8,4
+        div.Checkbox__row#3  300×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  258×21 @31,10  Manrope 400 15/21  lines=1  «Перфоратор с бурами и удлинителем»
+    li.OrderChecklist__item#4  316×70 @0,204  r11
+      div.Checkbox__root  300×62 @8,4
+        div.Checkbox__row#4  300×62 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  269×42 @31,10  Manrope 400 15/21  lines=2  «Страховочная система и каска: работы на»
+    li.OrderChecklist__item#5  316×100 @0,278  r11
+      div.Checkbox__root  300×44 @8,4
+        div.Checkbox__row#5  300×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  190×21 @31,10  Manrope 400 15/21  lines=1  «Чехлы на мебель и пылесос»
+      span.Badge__badge  84×24 @8,64  Manrope 600 12/16  r100  b1  lines=1  «свой пункт»
+      button.IconButton__iconButton  40×40 @100,56  r11  b1
+        svg  16×16 @12,12
+  form.OrderChecklist__add  316×147 @21,534  b1 0 0 0
+    div.Field__field  316×76 @0,15
+      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Что ещё взять»
+      input  316×49 @0,27  r11  b1
+    button.Button__button  164×44 @0,103  r9  b1
+      span.Button__content  134×16 @15,14
+        span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Добавить свой пункт»
+  div.OrderChecklist__actions  316×72 @21,693
+    button.Button__button  181×44 @0,0  r9  b1
+      span.Button__content#2  151×16 @15,14
+        span.Button__label  151×16 @0,0  Manrope 600 13/16  lines=1  «Пересобрать из наряда»
+    span.OrderChecklist__quiet  266×20 @0,52  Manrope 400 13/20  lines=1  «Отметки и дописанные пункты сохранятся.»
+
+[геометрия 768]
+section.Card__card  736×560 @16,16  r20  b1
+  div.OrderChecklist__head  694×22 @21,21
+    h2.OrderChecklist__title  138×22 @0,0  Onest 700 18/22  ls0  lines=1  «Чеклист выезда»
+    p.OrderChecklist__progress  109×20 @585,2  JetBrains Mono 400 13/20  lines=1  «Собрано 2 из 5»
+  p.OrderChecklist__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Собран из наряда: тип работ, позиции, шт»
+  ul.OrderChecklist__list  694×276 @21,101
+    li.OrderChecklist__item  694×52 @0,0  r11
+      div.Checkbox__root  678×44 @8,4
+        div.Checkbox__row  678×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  346×21 @31,10  Manrope 400 15/21  lines=1  «Забрать со склада — Позиция 1, Сплит-сис»
+    li.OrderChecklist__item#2  694×52 @0,56  r11
+      div.Checkbox__root  678×44 @8,4
+        div.Checkbox__row#2  678×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  454×21 @31,10  Manrope 400 15/21  lines=1  «Позиция 1, Сплит-система 09: медная трас»
+    li.OrderChecklist__item#3  694×52 @0,112  r11
+      div.Checkbox__root  678×44 @8,4
+        div.Checkbox__row#3  678×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  258×21 @31,10  Manrope 400 15/21  lines=1  «Перфоратор с бурами и удлинителем»
+    li.OrderChecklist__item#4  694×52 @0,168  r11
+      div.Checkbox__root  678×44 @8,4
+        div.Checkbox__row#4  678×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  342×21 @31,10  Manrope 400 15/21  lines=1  «Страховочная система и каска: работы на»
+    li.OrderChecklist__item#5  694×52 @0,224  r11
+      div.Checkbox__root  538×44 @8,4
+        div.Checkbox__row#5  538×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  190×21 @31,10  Manrope 400 15/21  lines=1  «Чехлы на мебель и пылесос»
+      span.Badge__badge  84×24 @554,14  Manrope 600 12/16  r100  b1  lines=1  «свой пункт»
+      button.IconButton__iconButton  40×40 @646,6  r11  b1
+        svg  16×16 @12,12
+  form.OrderChecklist__add  694×91 @21,391  b1 0 0 0
+    div.Field__field  518×76 @0,15
+      label.Field__label  518×20 @0,0  Manrope 600 13/20  lines=1  «Что ещё взять»
+      input  518×49 @0,27  r11  b1
+    button.Button__button  164×44 @530,47  r9  b1
+      span.Button__content  134×16 @15,14
+        span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Добавить свой пункт»
+  div.OrderChecklist__actions  694×44 @21,495
+    button.Button__button  181×44 @0,0  r9  b1
+      span.Button__content#2  151×16 @15,14
+        span.Button__label  151×16 @0,0  Manrope 600 13/16  lines=1  «Пересобрать из наряда»
+    span.OrderChecklist__quiet  266×20 @193,12  Manrope 400 13/20  lines=1  «Отметки и дописанные пункты сохранятся.»
+
+[геометрия 1440]
+section.Card__card  1408×557 @16,16  r20  b1
+  div.OrderChecklist__head  1366×23 @21,21
+    h2.OrderChecklist__title  146×23 @0,0  Onest 700 19/23  ls0  lines=1  «Чеклист выезда»
+    p.OrderChecklist__progress  109×20 @1257,3  JetBrains Mono 400 13/20  lines=1  «Собрано 2 из 5»
+  p.OrderChecklist__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Собран из наряда: тип работ, позиции, шт»
+  ul.OrderChecklist__list  1366×276 @21,102
+    li.OrderChecklist__item  1366×52 @0,0  r11
+      div.Checkbox__root  1350×44 @8,4
+        div.Checkbox__row  1350×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  346×21 @31,10  Manrope 400 15/21  lines=1  «Забрать со склада — Позиция 1, Сплит-сис»
+    li.OrderChecklist__item#2  1366×52 @0,56  r11
+      div.Checkbox__root  1350×44 @8,4
+        div.Checkbox__row#2  1350×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  454×21 @31,10  Manrope 400 15/21  lines=1  «Позиция 1, Сплит-система 09: медная трас»
+    li.OrderChecklist__item#3  1366×52 @0,112  r11
+      div.Checkbox__root  1350×44 @8,4
+        div.Checkbox__row#3  1350×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  258×21 @31,10  Manrope 400 15/21  lines=1  «Перфоратор с бурами и удлинителем»
+    li.OrderChecklist__item#4  1366×52 @0,168  r11
+      div.Checkbox__root  1350×44 @8,4
+        div.Checkbox__row#4  1350×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  342×21 @31,10  Manrope 400 15/21  lines=1  «Страховочная система и каска: работы на»
+    li.OrderChecklist__item#5  1366×52 @0,224  r11
+      div.Checkbox__root  1210×44 @8,4
+        div.Checkbox__row#5  1210×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  190×21 @31,10  Manrope 400 15/21  lines=1  «Чехлы на мебель и пылесос»
+      span.Badge__badge  84×24 @1226,14  Manrope 600 12/16  r100  b1  lines=1  «свой пункт»
+      button.IconButton__iconButton  40×40 @1318,6  r11  b1
+        svg  16×16 @12,12
+  form.OrderChecklist__add  1366×91 @21,392  b1 0 0 0
+    div.Field__field  1190×76 @0,15
+      label.Field__label  1190×20 @0,0  Manrope 600 13/20  lines=1  «Что ещё взять»
+      input  1190×49 @0,27  r11  b1
+    button.Button__button  164×40 @1202,51  r9  b1
+      span.Button__content  134×16 @15,12
+        span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Добавить свой пункт»
+  div.OrderChecklist__actions  1366×40 @21,496
+    button.Button__button  181×40 @0,0  r9  b1
+      span.Button__content#2  151×16 @15,12
+        span.Button__label  151×16 @0,0  Manrope 600 13/16  lines=1  «Пересобрать из наряда»
+    span.OrderChecklist__quiet  266×20 @193,10  Manrope 400 13/20  lines=1  «Отметки и дописанные пункты сохранятся.»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.OrderChecklist__head
+    h2.OrderChecklist__title  color #0f172a
+    p.OrderChecklist__progress  color #556173
+  p.OrderChecklist__hint  color #556173
+  ul.OrderChecklist__list
+    li.OrderChecklist__item  bg #f8fafc
+      div.Checkbox__root
+        div.Checkbox__row
+          input.Checkbox__input  bg #0e7490  border #0e7490
+          label.Checkbox__label  color #475569
+    li.OrderChecklist__item#2
+      div.Checkbox__root
+        div.Checkbox__row#2
+          input.Checkbox__input  bg #0e7490  border #0e7490
+          label.Checkbox__label  color #475569
+    li.OrderChecklist__item#3  bg #f8fafc
+      div.Checkbox__root
+        div.Checkbox__row#3
+          input.Checkbox__input  bg #ffffff  border #cbd5e1
+          label.Checkbox__label  color #475569
+    li.OrderChecklist__item#4
+      div.Checkbox__root
+        div.Checkbox__row#4
+          input.Checkbox__input  bg #ffffff  border #cbd5e1
+          label.Checkbox__label  color #475569
+    li.OrderChecklist__item#5  bg #f8fafc
+      div.Checkbox__root
+        div.Checkbox__row#5
+          input.Checkbox__input  bg #ffffff  border #cbd5e1
+          label.Checkbox__label  color #475569
+      span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+      button.IconButton__iconButton  border transparent
+        svg
+  form.OrderChecklist__add  border #e2e8f0 #475569 #475569 #475569
+    div.Field__field
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+    button.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label  color #0f172a
+  div.OrderChecklist__actions
+    button.Button__button  border transparent
+      span.Button__content#2
+        span.Button__label  color #0e7490
+    span.OrderChecklist__quiet  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.OrderChecklist__head
+    h2.OrderChecklist__title  color #eaf1f8
+    p.OrderChecklist__progress  color #8598ac
+  p.OrderChecklist__hint  color #8598ac
+  ul.OrderChecklist__list
+    li.OrderChecklist__item  bg #0e1729
+      div.Checkbox__root
+        div.Checkbox__row
+          input.Checkbox__input  bg #0e7490  border #0e7490
+          label.Checkbox__label  color #a8b6c6
+    li.OrderChecklist__item#2
+      div.Checkbox__root
+        div.Checkbox__row#2
+          input.Checkbox__input  bg #0e7490  border #0e7490
+          label.Checkbox__label  color #a8b6c6
+    li.OrderChecklist__item#3  bg #0e1729
+      div.Checkbox__root
+        div.Checkbox__row#3
+          input.Checkbox__input  bg #0b1424  border #2c3d59
+          label.Checkbox__label  color #a8b6c6
+    li.OrderChecklist__item#4
+      div.Checkbox__root
+        div.Checkbox__row#4
+          input.Checkbox__input  bg #0b1424  border #2c3d59
+          label.Checkbox__label  color #a8b6c6
+    li.OrderChecklist__item#5  bg #0e1729
+      div.Checkbox__root
+        div.Checkbox__row#5
+          input.Checkbox__input  bg #0b1424  border #2c3d59
+          label.Checkbox__label  color #a8b6c6
+      span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+      button.IconButton__iconButton  border transparent
+        svg
+  form.OrderChecklist__add  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+    button.Button__button  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label  color #eaf1f8
+  div.OrderChecklist__actions
+    button.Button__button  border transparent
+      span.Button__content#2
+        span.Button__label  color #22d3ee
+    span.OrderChecklist__quiet  color #8598ac

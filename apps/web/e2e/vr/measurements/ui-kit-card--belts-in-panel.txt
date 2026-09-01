@@ -1,0 +1,92 @@
+# ui-kit-card--belts-in-panel · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Card__card  326×209 @32,32  r14  b1
+  div.CardBelt__header  324×63 @1,1  b0 0 1 0
+    div.CardBelt__headText  137×38 @16,12
+      h3.CardBelt__title  137×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды за неделю»
+      p.CardBelt__subtitle  137×16 @0,22  Manrope 400 12/16  lines=1  «12 из 14 закрыты»
+    div.CardBelt__action  86×28 @222,17
+      span.Badge__badge  86×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «2 в работе»
+  div.CardBelt__body  324×75 @1,64  Manrope 400 14/22  lines=2  «Пояса задают отступы сами: боковые 16px,»
+  div.CardBelt__footer  324×69 @1,139  b1 0 0 0
+    button.Button__button  93×44 @107,13  r999  b1
+      span.Button__content  63×16 @15,14
+        span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Отменить»
+    button.Button__button#2  99×44 @209,13  r999  b1
+      span.Button__content  69×16 @15,14
+        span.Button__label#2  69×16 @0,0  Manrope 600 13/16  lines=1  «Сохранить»
+
+[геометрия 768]
+div.Card__card  704×187 @32,32  r14  b1
+  div.CardBelt__header  702×63 @1,1  b0 0 1 0
+    div.CardBelt__headText  137×38 @16,12
+      h3.CardBelt__title  137×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды за неделю»
+      p.CardBelt__subtitle  137×16 @0,22  Manrope 400 12/16  lines=1  «12 из 14 закрыты»
+    div.CardBelt__action  86×28 @600,17
+      span.Badge__badge  86×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «2 в работе»
+  div.CardBelt__body  702×54 @1,64  Manrope 400 14/22  lines=1  «Пояса задают отступы сами: боковые 16px,»
+  div.CardBelt__footer  702×69 @1,117  b1 0 0 0
+    button.Button__button  93×44 @485,13  r999  b1
+      span.Button__content  63×16 @15,14
+        span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Отменить»
+    button.Button__button#2  99×44 @587,13  r999  b1
+      span.Button__content  69×16 @15,14
+        span.Button__label#2  69×16 @0,0  Manrope 600 13/16  lines=1  «Сохранить»
+
+[геометрия 1440]
+div.Card__card  1376×175 @32,32  r14  b1
+  div.CardBelt__header  1374×63 @1,1  b0 0 1 0
+    div.CardBelt__headText  137×38 @16,12
+      h3.CardBelt__title  137×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды за неделю»
+      p.CardBelt__subtitle  137×16 @0,22  Manrope 400 12/16  lines=1  «12 из 14 закрыты»
+    div.CardBelt__action  86×28 @1272,17
+      span.Badge__badge  86×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «2 в работе»
+  div.CardBelt__body  1374×54 @1,64  Manrope 400 14/22  lines=1  «Пояса задают отступы сами: боковые 16px,»
+  div.CardBelt__footer  1374×57 @1,117  b1 0 0 0
+    button.Button__button  93×32 @1157,13  r999  b1
+      span.Button__content  63×16 @15,8
+        span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Отменить»
+    button.Button__button#2  99×32 @1259,13  r999  b1
+      span.Button__content  69×16 @15,8
+        span.Button__label#2  69×16 @0,0  Manrope 600 13/16  lines=1  «Сохранить»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+  div.CardBelt__header  border #475569 #475569 #e2e8f0 #475569
+    div.CardBelt__headText
+      h3.CardBelt__title  color #0f172a
+      p.CardBelt__subtitle  color #556173
+    div.CardBelt__action
+      span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+  div.CardBelt__body  color #475569
+  div.CardBelt__footer  border #e2e8f0 #475569 #475569 #475569
+    button.Button__button  border #0e7490
+      span.Button__content
+        span.Button__label  color #0e7490
+    button.Button__button#2  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label#2  color #ffffff
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+  div.CardBelt__header  border #a8b6c6 #a8b6c6 #1e2b41 #a8b6c6
+    div.CardBelt__headText
+      h3.CardBelt__title  color #eaf1f8
+      p.CardBelt__subtitle  color #8598ac
+    div.CardBelt__action
+      span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+  div.CardBelt__body  color #a8b6c6
+  div.CardBelt__footer  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+    button.Button__button  border #0e7490
+      span.Button__content
+        span.Button__label  color #22d3ee
+    button.Button__button#2  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label#2  color #ffffff

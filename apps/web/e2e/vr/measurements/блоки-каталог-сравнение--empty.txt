@@ -1,0 +1,74 @@
+# блоки-каталог-сравнение--empty · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.CatalogCompare__compare  320×350 @0,0
+  div.CatalogCompare__container  320×350 @0,0
+    h2  1×1 @15,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.Card__card  288×274 @16,28  r20  b1
+      p.CatalogCompare__emptyTitle  246×26 @21,21  Onest 700 17/26  ls0  lines=1  «Пока ничего не отмечено»
+      p.CatalogCompare__emptyText  246×140 @21,53  Manrope 400 15/23  lines=6  «Отметьте «Сравнить" у нескольких моделей»
+      a.Button__button  169×44 @21,209  r11  b1
+        span.Button__content  131×17 @19,13
+          span.Button__label  131×17 @0,0  Manrope 600 15/17  lines=1  «Перейти в каталог»
+
+[геометрия 375]
+section.CatalogCompare__compare  375×329 @0,0
+  div.CatalogCompare__container  375×329 @0,0
+    h2  1×1 @15,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.Card__card  343×251 @16,28  r20  b1
+      p.CatalogCompare__emptyTitle  301×27 @21,21  Onest 700 17/27  ls0  lines=1  «Пока ничего не отмечено»
+      p.CatalogCompare__emptyText  301×116 @21,54  Manrope 400 15/23  lines=5  «Отметьте «Сравнить" у нескольких моделей»
+      a.Button__button  169×44 @21,186  r11  b1
+        span.Button__content  131×17 @19,13
+          span.Button__label  131×17 @0,0  Manrope 600 15/17  lines=1  «Перейти в каталог»
+
+[геометрия 768]
+section.CatalogCompare__compare  768×318 @0,0
+  div.CatalogCompare__container  768×318 @0,0
+    h2  1×1 @19,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.Card__card  620×222 @20,28  r20  b1
+      p.CatalogCompare__emptyTitle  562×28 @29,29  Onest 700 18/28  ls0  lines=1  «Пока ничего не отмечено»
+      p.CatalogCompare__emptyText  562×70 @29,63  Manrope 400 15/23  lines=3  «Отметьте «Сравнить" у нескольких моделей»
+      a.Button__button  169×44 @29,149  r11  b1
+        span.Button__content  131×17 @19,13
+          span.Button__label  131×17 @0,0  Manrope 600 15/17  lines=1  «Перейти в каталог»
+
+[геометрия 1200]
+section.CatalogCompare__compare  1200×339 @0,0
+  div.CatalogCompare__container  1200×339 @0,0
+    h2  1×1 @23,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
+    div.Card__card  620×223 @24,28  r20  b1
+      p.CatalogCompare__emptyTitle  562×29 @29,29  Onest 700 19/29  ls0  lines=1  «Пока ничего не отмечено»
+      p.CatalogCompare__emptyText  562×70 @29,64  Manrope 400 15/23  lines=3  «Отметьте «Сравнить" у нескольких моделей»
+      a.Button__button  169×44 @29,150  r11  b1
+        span.Button__content  131×17 @19,13
+          span.Button__label  131×17 @0,0  Manrope 600 15/17  lines=1  «Перейти в каталог»
+
+[палитра light]
+section.CatalogCompare__compare  bg #ffffff
+  div.CatalogCompare__container
+    h2  color #0f172a
+    div.Card__card  bg #f8fafc  border #eef2f6
+      p.CatalogCompare__emptyTitle  color #0f172a
+      p.CatalogCompare__emptyText  color #556173
+      a.Button__button  bg #ecfeff  border transparent
+        span.Button__content
+          span.Button__label  color #0e7490
+
+[палитра dark]
+section.CatalogCompare__compare  bg #0b1220
+  div.CatalogCompare__container
+    h2  color #eaf1f8
+    div.Card__card  bg #0e1729  border #182338
+      p.CatalogCompare__emptyTitle  color #eaf1f8
+      p.CatalogCompare__emptyText  color #8598ac
+      a.Button__button  bg #22d3ee1a  border transparent
+        span.Button__content
+          span.Button__label  color #22d3ee

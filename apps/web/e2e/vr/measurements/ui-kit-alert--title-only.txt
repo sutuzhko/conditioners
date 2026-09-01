@@ -1,0 +1,42 @@
+# ui-kit-alert--title-only · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Alert__alert  326×46 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  264×20 @45,13
+    p.Alert__title  264×20 @0,0  Manrope 700 14/20  lines=1  «Изменения сохранены»
+
+[геометрия 768]
+div.Alert__alert  704×46 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  642×20 @45,13
+    p.Alert__title  642×20 @0,0  Manrope 700 14/20  lines=1  «Изменения сохранены»
+
+[геометрия 1440]
+div.Alert__alert  1376×46 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  1314×20 @45,13
+    p.Alert__title  1314×20 @0,0  Manrope 700 14/20  lines=1  «Изменения сохранены»
+
+[палитра light]
+div.Alert__alert  bg #15803d14  border #15803d47
+  span.Alert__icon
+    svg
+  div.Alert__body
+    p.Alert__title  color #166534
+
+[палитра dark]
+div.Alert__alert  bg #4ade801f  border #4ade8052
+  span.Alert__icon
+    svg
+  div.Alert__body
+    p.Alert__title  color #4ade80

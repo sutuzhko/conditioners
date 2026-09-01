@@ -1,0 +1,27 @@
+# ui-kit-chip--with-count · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.Chip__chip  157×44 @16,16  Manrope 600 15/17  r100  b1  lines=1  «Инверторные»
+  span.Chip__count  14×17 @125,13  Onest 700 15/17  lines=1  «12»
+
+[геометрия 768]
+button.Chip__chip  157×44 @16,16  Manrope 600 15/17  r100  b1  lines=1  «Инверторные»
+  span.Chip__count  14×17 @125,13  Onest 700 15/17  lines=1  «12»
+
+[геометрия 1440]
+button.Chip__chip  157×44 @16,16  Manrope 600 15/17  r100  b1  lines=1  «Инверторные»
+  span.Chip__count  14×17 @125,13  Onest 700 15/17  lines=1  «12»
+
+[палитра light]
+button.Chip__chip  color #475569  border #7e8fa6
+  span.Chip__count  color #475569
+
+[палитра dark]
+button.Chip__chip  color #a8b6c6  border #566d95
+  span.Chip__count  color #a8b6c6

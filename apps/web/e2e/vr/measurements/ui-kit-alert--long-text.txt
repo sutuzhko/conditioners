@@ -1,0 +1,67 @@
+# ui-kit-alert--long-text · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Alert__alert  326×200 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  264×120 @45,13
+    p.Alert__title  264×20 @0,0  Manrope 700 14/20  lines=1  «Монтажник не увидит этот наряд»
+    div.Alert__text  264×98 @0,22  Manrope 400 14/20  lines=5  «У него роль «монтажник", а наряд заведён»
+  div.Alert__action  292×44 @17,143
+    button.Button__button  98×44 @194,0  r999  b1
+      span.Button__content  68×16 @15,14
+        span.Button__label  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+
+[геометрия 768]
+div.Alert__alert  704×106 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  534×80 @45,13
+    p.Alert__title  534×20 @0,0  Manrope 700 14/20  lines=1  «Монтажник не увидит этот наряд»
+    div.Alert__text  534×59 @0,22  Manrope 400 14/20  lines=3  «У него роль «монтажник", а наряд заведён»
+  div.Alert__action  98×44 @589,13
+    button.Button__button  98×44 @0,0  r999  b1
+      span.Button__content  68×16 @15,14
+        span.Button__label  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+
+[геометрия 1440]
+div.Alert__alert  1376×67 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  1206×41 @45,13
+    p.Alert__title  1206×20 @0,0  Manrope 700 14/20  lines=1  «Монтажник не увидит этот наряд»
+    div.Alert__text  1206×20 @0,22  Manrope 400 14/20  lines=1  «У него роль «монтажник", а наряд заведён»
+  div.Alert__action  98×32 @1261,13
+    button.Button__button  98×32 @0,0  r999  b1
+      span.Button__content  68×16 @15,8
+        span.Button__label  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+
+[палитра light]
+div.Alert__alert  bg #b4530914  border #b4530947
+  span.Alert__icon
+    svg
+  div.Alert__body
+    p.Alert__title  color #92400e
+    div.Alert__text  color #92400e
+  div.Alert__action
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label  color #ffffff
+
+[палитра dark]
+div.Alert__alert  bg #fbbf241f  border #fbbf2452
+  span.Alert__icon
+    svg
+  div.Alert__body
+    p.Alert__title  color #fbbf24
+    div.Alert__text  color #fbbf24
+  div.Alert__action
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label  color #ffffff
