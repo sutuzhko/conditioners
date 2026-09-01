@@ -81,6 +81,12 @@ export default defineConfig({
     { name: 'invariants', testMatch: /\/invariants\/stories\.spec\.ts$/ },
     { name: 'invariants-fixtures', testMatch: /\/invariants\/fixtures\.spec\.ts$/ },
     { name: 'invariants-measure', testMatch: /\/invariants\/measure\.spec\.ts$/ },
+    /* Измерения раскладки (фаза 4, #460): `measure` обходит истории и пишет
+       части измерений по паре «ширина + тема», `measure-collect` проверяет сам
+       коллектор на маленьких страницах без витрины. Файлы истории собирает и
+       сравнивает Node-сторона (`scripts/measurements-*.mjs`). */
+    { name: 'measure', testMatch: /\/measurements\/stories\.spec\.ts$/ },
+    { name: 'measure-collect', testMatch: /\/measurements\/collect\.spec\.ts$/ },
   ],
   /* Один тест обходит все истории раздела, поэтому меряется он не секундами.
      Разбивать по тесту на историю нельзя: список приходит из Storybook по
