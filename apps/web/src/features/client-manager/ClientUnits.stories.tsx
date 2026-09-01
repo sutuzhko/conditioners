@@ -6,6 +6,18 @@ import { acceptingUnitApi, expiredUnits, ownUnits, singleUnit, today, units } fr
 const meta = {
   title: 'Админка/Техника клиента',
   component: ClientUnits,
+  // Допущение инвариантов — причина в reason (ADR-230)
+  parameters: {
+    invariants: {
+      allow: [
+        {
+          rule: 'images',
+          reason:
+            'фото из тома загрузок сервера (/media, /api/media): в статической витрине его нет (ADR-207)',
+        },
+      ],
+    },
+  },
   /* Раздел обновляет страницу после правки, а значит зовёт `useRouter`: без
      мока навигации App Router история падает ещё до отрисовки. */
   args: { clientId: 'c1', units, today, api: acceptingUnitApi },

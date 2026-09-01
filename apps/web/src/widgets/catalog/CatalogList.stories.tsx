@@ -59,7 +59,15 @@ const meta = {
   title: 'Блоки/Каталог — страница',
   component: CatalogList,
   args: argsFor(catalog),
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    layout: 'fullscreen',
+    // Допущение инвариантов — причина в reason (ADR-230)
+    invariants: {
+      allow: [
+        { rule: 'occlusion', reason: 'issue #474 — ссылки подбора накрыты карточками на 320–768' },
+      ],
+    },
+  },
 } satisfies Meta<typeof CatalogList>;
 
 export default meta;
@@ -90,6 +98,15 @@ export const Sorted: Story = {
 export const SecondPage: Story = {
   name: 'Вторая страница',
   args: argsFor(many, { page: '2' }),
+  // Допущение инвариантов дополняет допущения меты — причина в reason (ADR-230)
+  parameters: {
+    invariants: {
+      allow: [
+        { rule: 'occlusion', reason: 'issue #474 — ссылки подбора накрыты карточками на 320–768' },
+        { rule: 'overflow-x', reason: 'issue #472 — документ 341px на ширине 320' },
+      ],
+    },
+  },
 };
 
 export const NothingFound: Story = {
