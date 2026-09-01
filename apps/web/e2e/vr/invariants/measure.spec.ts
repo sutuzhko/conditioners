@@ -265,6 +265,48 @@ test.describe('clipped-text: визуально скрытое', () => {
   });
 });
 
+test.describe('свёрнутый <details>', () => {
+  /* 🔴 Содержимое закрытого `<details>` браузер прячет мимо стилей узлов:
+     `content-visibility` стоит на псевдоэлементе `::details-content`, а у самой
+     ссылки внутри `display` остаётся `flex`, `visibility` — `visible`. Обход
+     предков отвечал «видимо», рамка при этом 0×0 в точке (0, 0), и измеритель
+     спрашивал, что лежит в её центре. В каталоге он получал карточку товара —
+     868 срабатываний «ссылка подбора накрыта выдачей» при свёрнутом подборе
+     (issue #474). */
+  test('ссылка внутри свёрнутого подбора не считается ни целью, ни накрытой', async ({
+    page: p,
+  }) => {
+    const found = await measure(
+      p,
+      page(
+        /* Выдача закрашивает точку (0, 0) — ровно ту, в которой оказывается
+           рамка 0×0 свёрнутого содержимого, — но не сам `<summary>`: он
+           видим и накрытым быть не должен. */
+        `<div style="position:absolute;top:0;left:0;width:300px;height:60px;background:#eee">выдача</div>
+         <details style="margin-top:80px">
+           <summary style="width:200px;height:48px">Подбор</summary>
+           <a href="#a" style="display:flex;width:10px;height:10px">Со скидкой</a>
+         </details>`,
+      ),
+    );
+    expect(rulesOf(found)).toEqual([]);
+  });
+
+  test('та же ссылка в раскрытом подборе нарушение даёт', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<details open>
+           <summary style="width:200px;height:48px">Подбор</summary>
+           <a href="#a" style="display:flex;width:10px;height:10px">Со скидкой</a>
+         </details>`,
+      ),
+    );
+    expect(rulesOf(found)).toEqual(['target-size']);
+    expect(found[0]?.element).toBe('a «Со скидкой»');
+  });
+});
+
 test.describe('occlusion', () => {
   test('фиксированная полоса поверх кнопки — нарушение с именем полосы', async ({ page: p }) => {
     const found = await measure(
