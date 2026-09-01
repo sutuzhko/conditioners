@@ -66,6 +66,18 @@ export const Минус: Story = {
 
 /** Машину продали: колонка ушла в архив, движения по ней остались. */
 export const САрхивнойЗоной: Story = {
+  // Допущение инвариантов — причина в reason (ADR-230)
+  parameters: {
+    invariants: {
+      allow: [
+        {
+          rule: 'occlusion',
+          reason:
+            'issue #488 — кнопка строки уходит под липкую колонку при центрировании; видно только в образе Linux',
+        },
+      ],
+    },
+  },
   args: {
     overview: {
       ...overview,
