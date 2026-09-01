@@ -7,52 +7,52 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.Card__card  326×338 @32,32  r14  b1
+div.Card__card  326×342 @32,32  r14  b1
   div.CardBelt__header  324×63 @1,1  b0 0 1 0
     div.CardBelt__headText  84×38 @16,12
       h3.CardBelt__title  84×20 @0,0  Onest 700 15/20  ls0  lines=1  «Заявки»
       p.CardBelt__subtitle  84×16 @0,22  Manrope 400 12/16  lines=1  «Фильтр: новые»
-  div.CardBelt__body  324×274 @1,64
-    div.EmptyState__box  292×242 @16,16
+  div.CardBelt__body  324×278 @1,64
+    div.EmptyState__box  292×246 @16,16
       span.EmptyState__badge  48×48 @122,28  r100
         svg  20×20 @14,14
-      h2.EmptyState__title  127×17 @83,88  Onest 700 14/17  ls0  lines=1  «Ничего не найдено»
-      p.EmptyState__text  260×45 @16,109  Manrope 400 15/22  lines=2  «По выбранным фильтрам заявок нет. Всего»
-      div.EmptyState__action  260×44 @16,170
+      h2.EmptyState__title  155×21 @68,88  Onest 700 17/21  ls0  lines=1  «Ничего не найдено»
+      p.EmptyState__text  260×45 @16,113  Manrope 400 15/22  lines=2  «По выбранным фильтрам заявок нет. Всего»
+      div.EmptyState__action  260×44 @16,174
         button.Button__button  260×44 @0,0  r999  b1
           span.Button__content  121×16 @69,14
             span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Сбросить фильтры»
 
 [геометрия 768]
-div.Card__card  704×338 @32,32  r14  b1
+div.Card__card  704×343 @32,32  r14  b1
   div.CardBelt__header  702×63 @1,1  b0 0 1 0
     div.CardBelt__headText  84×38 @16,12
       h3.CardBelt__title  84×20 @0,0  Onest 700 15/20  ls0  lines=1  «Заявки»
       p.CardBelt__subtitle  84×16 @0,22  Manrope 400 12/16  lines=1  «Фильтр: новые»
-  div.CardBelt__body  702×274 @1,64
-    div.EmptyState__box  670×242 @16,16
+  div.CardBelt__body  702×279 @1,64
+    div.EmptyState__box  670×247 @16,16
       span.EmptyState__badge  48×48 @311,28  r100
         svg  20×20 @14,14
-      h2.EmptyState__title  127×17 @272,88  Onest 700 14/17  ls0  lines=1  «Ничего не найдено»
-      p.EmptyState__text  371×45 @149,109  Manrope 400 15/22  lines=2  «По выбранным фильтрам заявок нет. Всего»
-      div.EmptyState__action  151×44 @259,170
+      h2.EmptyState__title  163×22 @253,88  Onest 700 18/22  ls0  lines=1  «Ничего не найдено»
+      p.EmptyState__text  371×45 @149,114  Manrope 400 15/22  lines=2  «По выбранным фильтрам заявок нет. Всего»
+      div.EmptyState__action  151×44 @259,175
         button.Button__button  151×44 @0,0  r999  b1
           span.Button__content  121×16 @15,14
             span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Сбросить фильтры»
 
 [геометрия 1440]
-div.Card__card  1376×326 @32,32  r14  b1
+div.Card__card  1376×332 @32,32  r14  b1
   div.CardBelt__header  1374×63 @1,1  b0 0 1 0
     div.CardBelt__headText  84×38 @16,12
       h3.CardBelt__title  84×20 @0,0  Onest 700 15/20  ls0  lines=1  «Заявки»
       p.CardBelt__subtitle  84×16 @0,22  Manrope 400 12/16  lines=1  «Фильтр: новые»
-  div.CardBelt__body  1374×262 @1,64
-    div.EmptyState__box  1342×230 @16,16
+  div.CardBelt__body  1374×268 @1,64
+    div.EmptyState__box  1342×236 @16,16
       span.EmptyState__badge  48×48 @647,28  r100
         svg  20×20 @14,14
-      h2.EmptyState__title  127×17 @608,88  Onest 700 14/17  ls0  lines=1  «Ничего не найдено»
-      p.EmptyState__text  371×45 @485,109  Manrope 400 15/22  lines=2  «По выбранным фильтрам заявок нет. Всего»
-      div.EmptyState__action  151×32 @595,170
+      h2.EmptyState__title  172×23 @585,88  Onest 700 19/23  ls0  lines=1  «Ничего не найдено»
+      p.EmptyState__text  371×45 @485,115  Manrope 400 15/22  lines=2  «По выбранным фильтрам заявок нет. Всего»
+      div.EmptyState__action  151×32 @595,176
         button.Button__button  151×32 @0,0  r999  b1
           span.Button__content  121×16 @15,8
             span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Сбросить фильтры»

@@ -7,67 +7,67 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.Card__card  326×284 @32,32  r14  b1
-  div.EmptyState__box  284×242 @21,21
+div.Card__card  326×288 @32,32  r14  b1
+  div.EmptyState__box  284×246 @21,21
     span.EmptyState__badge  48×48 @118,28  r100
       svg  20×20 @14,14
-    h2.EmptyState__title  109×17 @88,88  Onest 700 14/17  ls0  lines=1  «Заявок пока нет»
-    p.EmptyState__text  252×45 @16,109  Manrope 400 15/22  lines=2  «Они появятся здесь, как только кто-то от»
-    div.EmptyState__action  252×44 @16,170
+    h2.EmptyState__title  133×21 @75,88  Onest 700 17/21  ls0  lines=1  «Заявок пока нет»
+    p.EmptyState__text  252×45 @16,113  Manrope 400 15/22  lines=2  «Они появятся здесь, как только кто-то от»
+    div.EmptyState__action  252×44 @16,174
       button.Button__button  252×44 @0,0  r999  b1
         span.Button__content  158×16 @47,14
           span.Button__label  158×16 @0,0  Manrope 600 13/16  lines=1  «Проверить уведомления»
-div.Card__card#2  326×284 @32,332  r14  b1
-  div.EmptyState__box  284×242 @21,21
+div.Card__card#2  326×288 @32,336  r14  b1
+  div.EmptyState__box  284×246 @21,21
     span.EmptyState__badge#2  48×48 @118,28  r100
       svg  20×20 @14,14
-    h2.EmptyState__title#2  127×17 @79,88  Onest 700 14/17  ls0  lines=1  «Ничего не найдено»
-    p.EmptyState__text#2  252×45 @16,109  Manrope 400 15/22  lines=2  «По выбранным фильтрам заявок нет.»
-    div.EmptyState__action#2  252×44 @16,170
+    h2.EmptyState__title#2  155×21 @64,88  Onest 700 17/21  ls0  lines=1  «Ничего не найдено»
+    p.EmptyState__text#2  252×45 @16,113  Manrope 400 15/22  lines=2  «По выбранным фильтрам заявок нет.»
+    div.EmptyState__action#2  252×44 @16,174
       button.Button__button  252×44 @0,0  r999  b1
         span.Button__content#2  121×16 @65,14
           span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Сбросить фильтры»
 
 [геометрия 768]
-div.Card__card  704×284 @32,32  r14  b1
-  div.EmptyState__box  662×242 @21,21
+div.Card__card  704×289 @32,32  r14  b1
+  div.EmptyState__box  662×247 @21,21
     span.EmptyState__badge  48×48 @307,28  r100
       svg  20×20 @14,14
-    h2.EmptyState__title  109×17 @277,88  Onest 700 14/17  ls0  lines=1  «Заявок пока нет»
-    p.EmptyState__text  371×45 @145,109  Manrope 400 15/22  lines=2  «Они появятся здесь, как только кто-то от»
-    div.EmptyState__action  188×44 @237,170
+    h2.EmptyState__title  140×22 @261,88  Onest 700 18/22  ls0  lines=1  «Заявок пока нет»
+    p.EmptyState__text  371×45 @145,114  Manrope 400 15/22  lines=2  «Они появятся здесь, как только кто-то от»
+    div.EmptyState__action  188×44 @237,175
       button.Button__button  188×44 @0,0  r999  b1
         span.Button__content  158×16 @15,14
           span.Button__label  158×16 @0,0  Manrope 600 13/16  lines=1  «Проверить уведомления»
-div.Card__card#2  704×261 @32,332  r14  b1
-  div.EmptyState__box  662×219 @21,21
+div.Card__card#2  704×266 @32,337  r14  b1
+  div.EmptyState__box  662×224 @21,21
     span.EmptyState__badge#2  48×48 @307,28  r100
       svg  20×20 @14,14
-    h2.EmptyState__title#2  127×17 @268,88  Onest 700 14/17  ls0  lines=1  «Ничего не найдено»
-    p.EmptyState__text#2  253×22 @204,109  Manrope 400 15/22  lines=1  «По выбранным фильтрам заявок нет.»
-    div.EmptyState__action#2  151×44 @255,147
+    h2.EmptyState__title#2  163×22 @249,88  Onest 700 18/22  ls0  lines=1  «Ничего не найдено»
+    p.EmptyState__text#2  253×22 @204,114  Manrope 400 15/22  lines=1  «По выбранным фильтрам заявок нет.»
+    div.EmptyState__action#2  151×44 @255,152
       button.Button__button  151×44 @0,0  r999  b1
         span.Button__content#2  121×16 @15,14
           span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Сбросить фильтры»
 
 [геометрия 1440]
-div.Card__card  1376×272 @32,32  r14  b1
-  div.EmptyState__box  1334×230 @21,21
+div.Card__card  1376×278 @32,32  r14  b1
+  div.EmptyState__box  1334×236 @21,21
     span.EmptyState__badge  48×48 @643,28  r100
       svg  20×20 @14,14
-    h2.EmptyState__title  109×17 @613,88  Onest 700 14/17  ls0  lines=1  «Заявок пока нет»
-    p.EmptyState__text  371×45 @481,109  Manrope 400 15/22  lines=2  «Они появятся здесь, как только кто-то от»
-    div.EmptyState__action  188×32 @573,170
+    h2.EmptyState__title  148×23 @593,88  Onest 700 19/23  ls0  lines=1  «Заявок пока нет»
+    p.EmptyState__text  371×45 @481,115  Manrope 400 15/22  lines=2  «Они появятся здесь, как только кто-то от»
+    div.EmptyState__action  188×32 @573,176
       button.Button__button  188×32 @0,0  r999  b1
         span.Button__content  158×16 @15,8
           span.Button__label  158×16 @0,0  Manrope 600 13/16  lines=1  «Проверить уведомления»
-div.Card__card#2  1376×249 @32,320  r14  b1
-  div.EmptyState__box  1334×207 @21,21
+div.Card__card#2  1376×255 @32,326  r14  b1
+  div.EmptyState__box  1334×213 @21,21
     span.EmptyState__badge#2  48×48 @643,28  r100
       svg  20×20 @14,14
-    h2.EmptyState__title#2  127×17 @604,88  Onest 700 14/17  ls0  lines=1  «Ничего не найдено»
-    p.EmptyState__text#2  253×22 @540,109  Manrope 400 15/22  lines=1  «По выбранным фильтрам заявок нет.»
-    div.EmptyState__action#2  151×32 @591,147
+    h2.EmptyState__title#2  172×23 @581,88  Onest 700 19/23  ls0  lines=1  «Ничего не найдено»
+    p.EmptyState__text#2  253×22 @540,115  Manrope 400 15/22  lines=1  «По выбранным фильтрам заявок нет.»
+    div.EmptyState__action#2  151×32 @591,153
       button.Button__button  151×32 @0,0  r999  b1
         span.Button__content#2  121×16 @15,8
           span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Сбросить фильтры»
