@@ -1,0 +1,110 @@
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+
+import { afterEach, describe, expect, it } from 'vitest';
+
+import {
+  describeViolations,
+  emptyInvariantsTally,
+  invariantsFileName,
+  recordViolations,
+  writeInvariantsOutcome,
+} from './outcome';
+
+const dirs: string[] = [];
+
+afterEach(() => {
+  for (const dir of dirs.splice(0)) rmSync(dir, { recursive: true, force: true });
+});
+
+describe('recordViolations', () => {
+  it('нарушение красит, допущение с причиной — перечисляется отдельно', () => {
+    const tally = emptyInvariantsTally();
+    recordViolations(tally, 'блоки-цены--basic', [
+      {
+        rule: 'target-size',
+        element: 'button.Chip__root «Все»',
+        detail: '18×18 при минимуме 44',
+        allowed: null,
+      },
+      {
+        rule: 'overflow-x',
+        element: '',
+        detail: 'scrollWidth 571 > 375',
+        allowed: 'issue #12 — лента шире экрана намеренно',
+      },
+    ]);
+    recordViolations(tally, 'блоки-подвал--basic', []);
+
+    expect(tally.stories).toBe(2);
+    expect(tally.violations).toEqual([
+      {
+        story: 'блоки-цены--basic',
+        rule: 'target-size',
+        element: 'button.Chip__root «Все»',
+        detail: '18×18 при минимуме 44',
+      },
+    ]);
+    expect(tally.allowed).toEqual([
+      {
+        story: 'блоки-цены--basic',
+        rule: 'overflow-x',
+        reason: 'issue #12 — лента шире экрана намеренно',
+      },
+    ]);
+  });
+});
+
+describe('describeViolations', () => {
+  it('перечисляет нарушения и отказы читаемыми строками', () => {
+    const tally = emptyInvariantsTally();
+    recordViolations(tally, 'x--y', [
+      { rule: 'theme', element: 'body', detail: 'светлота 0.98 в тёмной теме', allowed: null },
+    ]);
+    tally.failed.push({ story: 'x--z', reason: 'сценарий истории отказал' });
+
+    expect(describeViolations(tally)).toEqual([
+      'x--y · theme · body: светлота 0.98 в тёмной теме',
+      'x--z · отказ: сценарий истории отказал',
+    ]);
+  });
+});
+
+describe('файл итога', () => {
+  it('имя содержит группу, долю, ширину и тему; без доли — короче', () => {
+    expect(invariantsFileName('public', 375, 'dark')).toBe('invariants-public-375-dark.json');
+    expect(invariantsFileName('panel', 1440, 'light', { index: 2, total: 4 })).toBe(
+      'invariants-panel-s2of4-1440-light.json',
+    );
+  });
+
+  it('пишет полную форму итога в каталог, создавая его', () => {
+    const dir = join(mkdtempSync(join(tmpdir(), 'inv-')), 'вложенный');
+    dirs.push(dir);
+    const path = writeInvariantsOutcome(
+      dir,
+      {
+        group: 'public',
+        width: 320,
+        theme: 'light',
+        stories: 3,
+        violations: [{ story: 'a', rule: 'images', element: 'img', detail: 'naturalWidth 0' }],
+        allowed: [],
+        failed: [],
+      },
+      { index: 1, total: 4 },
+    );
+    expect(path.endsWith('invariants-public-s1of4-320-light.json')).toBe(true);
+    const parsed: unknown = JSON.parse(readFileSync(path, 'utf8'));
+    expect(parsed).toEqual({
+      group: 'public',
+      width: 320,
+      theme: 'light',
+      stories: 3,
+      violations: [{ story: 'a', rule: 'images', element: 'img', detail: 'naturalWidth 0' }],
+      allowed: [],
+      failed: [],
+    });
+  });
+});
