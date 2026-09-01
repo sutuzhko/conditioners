@@ -1319,6 +1319,261 @@ jobs:
                    exit 1 ;;
           esac
 
+  # 🔴 Измерения раскладки — текст вместо PNG (ADR-230, фаза 4 плана снимков).
+  #
+  # Эталоны снимков ушли из репозитория, а вместе с ними — то, ради чего они
+  # там лежали: изменение внешнего вида, видимое в диффе PR и проходящее ревью
+  # вместе с кодом (ADR-168). Текстовый файл на историю в
+  # `apps/web/e2e/vr/measurements/` возвращает это дельтой: геометрия по
+  # ширинам, палитра по темам, шрифты, документ. Шарды меряют свои доли историй
+  # и отдают частичные измерения артефактами; сводная работа собирает их в файлы
+  # историй и сравнивает с зафиксированными.
+  #
+  # 🔴 Обновлённые файлы работа отдаёт артефактом `measurements-updated`, а не
+  # коммитит в ветку: push токеном `GITHUB_TOKEN` не запускает проверок, и PR
+  # остался бы без вердикта на последнем коммите — так уже было с заданием
+  # «Эталоны снимков». Разработчик забирает их одной командой
+  # (`pnpm --filter web vr:measure:pull`) и коммитит сам.
+  #
+  # В защиту `main` работа не входит, пока файлы не посеяны первым прогоном:
+  # до этого она красная по построению — сравнивать не с чем.
+  measure-shard:
+    runs-on: ubuntu-latest
+
+    # Упавший шард не отменяет соседние: сводной работе нужны частичные всех
+    # долей — иначе история без пары читалась бы как изменение раскладки.
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+
+    env:
+      # Значения только для проверки: истории данных из базы не читают, но
+      # схема окружения обязана сойтись — её тянут импорты компонентов
+      DATABASE_URL: postgresql://tk:ci@127.0.0.1:5432/tulaklimat?schema=public
+      SITE_URL: https://ci.invalid
+      SESSION_SECRET: ci-secret-not-used-anywhere
+      NEXT_TELEMETRY_DISABLED: '1'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # 🔴 Измерения не снимаются там, где пиксели измениться не могли
+      # (ADR-221): список путей тот же, что у снимков, плюс скрипты измерений.
+      # Работа не пропускается, а заканчивается за секунды зелёной.
+      - name: Затрагивает ли правка пиксели
+        id: scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "Не pull request — меряем всё."
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          changed=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+            --paginate --jq '.[].filename')
+
+          if printf '%s\n' "$changed" | grep -qE '^(apps/web/src/|apps/web/\.storybook/|apps/web/e2e/vr/|apps/web/playwright\.vr\.config\.ts|apps/web/package\.json|pnpm-lock\.yaml|Dockerfile|scripts/measurements-.*\.mjs|\.github/workflows/ci\.yml)'; then
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pixels=false" >> "$GITHUB_OUTPUT"
+            echo "Пиксели не задеты, измерения пропускаются. Изменено:"
+            printf '  %s\n' $changed
+          fi
+
+      # Тот же образ, что у снимков: те же шрифты и браузер — иначе ширина
+      # строки и перенос текста здесь и в снимках разошлись бы.
+      - name: Дев-образ
+        if: steps.scope.outputs.pixels == 'true'
+        run: docker build --target dev -t tulaklimat-dev:ci .
+
+      # 🔴 Витрина статикой (ADR-231) со стабильными именами классов:
+      # `VR_STABLE_CLASSNAMES=1` даёт `Компонент__элемент` вместо хеша, и ключ
+      # узла в файле измерений не протухает от пересборки и читается как бриф.
+      - name: Сборка витрины
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          docker run --name measure-storybook-build \
+            -e VR_STABLE_CLASSNAMES=1 \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web build-storybook --test --quiet
+          docker cp measure-storybook-build:/app/apps/web/storybook-static ./storybook-static
+
+      - name: Витрина под замер
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          docker network create measure
+          docker run -d --name measure-storybook --network measure --network-alias storybook \
+            -v "$PWD/storybook-static:/srv:ro" \
+            caddy:2.8-alpine caddy file-server --root /srv --listen :6006
+
+          # Готовность — по индексу историй: контейнер мог не подняться вовсе
+          docker run --rm --network measure tulaklimat-dev:ci node -e "
+            (async () => {
+              for (let i = 0; i < 30; i += 1) {
+                try {
+                  const r = await fetch('http://storybook:6006/index.json');
+                  if (r.ok) { console.log('витрина готова'); return; }
+                } catch {}
+                await new Promise((done) => setTimeout(done, 1000));
+              }
+              console.error('витрина не поднялась за полминуты');
+              process.exit(1);
+            })()"
+
+      # 🔴 Шаг работу не роняет: вердикт выносит сводная работа по собранным
+      # файлам всех шардов. Доля историй — `VR_SHARD`, как у снимков (устойчивый
+      # хеш id). Переменные раннеру передаются явно: `docker run` окружения шага
+      # не наследует (ADR-222).
+      - name: Измерения историй
+        id: run
+        if: steps.scope.outputs.pixels == 'true'
+        continue-on-error: true
+        run: |
+          mkdir -p vr-outcome
+          docker run --name measure-run --network measure \
+            -v "$PWD/vr-outcome:/vr/outcome" \
+            -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_SHARD=${{ matrix.shard }}/4 \
+            -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web vr:measure
+
+      # Исход раннера — маркером рядом с частичными: сводной работе он нужен,
+      # чтобы отличить «раннер упал» от «истории не дошли». Сборка читает
+      # только `measure-*.json`, маркер ей не мешает.
+      - name: Маркер исхода раннера
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' }}
+        run: echo "${{ steps.run.outcome }}" > "vr-outcome/runner-s${{ matrix.shard }}"
+
+      # Частичные — сводной работе. Выгружаются и при красном шарде: сборка
+      # обязана видеть всё, что раннер успел записать.
+      - name: Частичные — сводной работе
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: measure-partials-${{ matrix.shard }}
+          path: vr-outcome
+          retention-days: 7
+
+      - name: Журнал витрины
+        if: failure() && steps.scope.outputs.pixels == 'true'
+        run: docker logs measure-storybook | tail -50
+
+      # 🔴 Работа, у которой шлюз не отработал, обязана краснеть, а не молчать
+      # (ADR-221).
+      - name: Вердикт работы
+        run: |
+          case "${{ steps.scope.outputs.pixels }}" in
+            true)  echo "Пиксели задеты — доля замерена, вердикт выносит сводная работа." ;;
+            false) echo "Пиксели не задеты — измерения пропущены осознанно." ;;
+            *)     echo "::error::Шлюз не отработал: замеров нет, причина неизвестна."
+                   exit 1 ;;
+          esac
+
+  # 🔴 Сводный вердикт по измерениям. `if: !cancelled()` обязателен: без него
+  # красный шард пропускает сводку, и причина остаётся в журнале шарда.
+  measure:
+    runs-on: ubuntu-latest
+    needs: measure-shard
+    if: ${{ !cancelled() }}
+
+    steps:
+      # Чекаут — ради скриптов измерений и зафиксированных файлов историй.
+      - uses: actions/checkout@v4
+
+      - name: Затрагивает ли правка пиксели
+        id: scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "Не pull request — меряем всё."
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          changed=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+            --paginate --jq '.[].filename')
+
+          if printf '%s\n' "$changed" | grep -qE '^(apps/web/src/|apps/web/\.storybook/|apps/web/e2e/vr/|apps/web/playwright\.vr\.config\.ts|apps/web/package\.json|pnpm-lock\.yaml|Dockerfile|scripts/measurements-.*\.mjs|\.github/workflows/ci\.yml)'; then
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pixels=false" >> "$GITHUB_OUTPUT"
+            echo "Пиксели не задеты, измерения пропускаются. Изменено:"
+            printf '  %s\n' $changed
+          fi
+
+      # Отсутствие части артефактов — не ошибка шага, а факт для сравнения:
+      # истории без частичных оно назовёт пропавшими и покраснеет само.
+      - name: Частичные шардов
+        if: steps.scope.outputs.pixels == 'true'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: measure-partials-*
+          merge-multiple: true
+          path: vr-partials
+
+      # Частичные всех шардов → файл на историю. Отчёт сборки читает
+      # сравнение: история без полного набора пар — отказ, а не изменение.
+      - name: Сборка файлов историй
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          node scripts/measurements-assemble.mjs \
+            --partials vr-partials --out measurements-new --report assemble-report.json
+
+      # 🔴 Обновлённые файлы — артефактом и ДО вердикта: и при зелёном, и при
+      # красном разработчику нужно, что забирать. Push из работы отвергнут:
+      # коммит от `GITHUB_TOKEN` не запускает проверок.
+      - name: Обновлённые файлы — артефактом
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: measurements-updated
+          path: measurements-new
+          retention-days: 14
+          if-no-files-found: warn
+
+      # Флаг раннера: красный, если упал хоть один шард как работа или хоть
+      # один раннер внутри шарда (маркер `runner-s*`).
+      - name: Флаг раннера
+        id: runner
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          flag=success
+          [ "${{ join(needs.*.result, '') }}" = "success" ] || flag=failure
+          if grep -qs failure vr-partials/runner-s*; then flag=failure; fi
+          echo "flag=$flag" >> "$GITHUB_OUTPUT"
+          echo "Шарды: ${{ join(needs.*.result, '') }}, раннеры: $flag"
+          if [ "$flag" = "failure" ]; then
+            echo "::error::Измерения: упал шард или раннер — смотрите журнал шарда"
+          fi
+
+      # Красный означает «файлы в репозитории устарели», а не «сломано»:
+      # задуманное изменение принимают, забирая файлы и коммитя их — тогда
+      # изменение внешнего вида лежит в диффе PR текстом.
+      - name: Сравнение с зафиксированными
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          node scripts/measurements-compare.mjs \
+            --committed apps/web/e2e/vr/measurements --actual measurements-new \
+            --assemble-report assemble-report.json
+          [ "${{ steps.runner.outputs.flag }}" = "success" ]
+
+      # 🔴 Работа, у которой шлюз не отработал, обязана краснеть, а не молчать
+      # (ADR-221).
+      - name: Вердикт работы
+        run: |
+          case "${{ steps.scope.outputs.pixels }}" in
+            true)  echo "Пиксели задеты — вердикт вынесло сравнение измерений." ;;
+            false) echo "Пиксели не задеты — измерения пропущены осознанно." ;;
+            *)     echo "::error::Шлюз не отработал: замеров нет, причина неизвестна."
+                   exit 1 ;;
+          esac
+
   # 🔴 Сквозные сценарии — три из них перечислены в CLAUDE.md как обязательные:
   # заявка доходит до базы, отзыв доезжает до модерации, правка цены видна на
   # сайте. До этой работы их не гонял никто: 971 строка сценариев лежала в
