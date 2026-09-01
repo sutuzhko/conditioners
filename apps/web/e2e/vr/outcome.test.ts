@@ -114,6 +114,8 @@ describe('writeOutcome', () => {
       changed: ['ui-kit-button--basic'],
       new: [],
       failed: [{ story: 'ui-kit-modal--opening', reason: 'сценарий истории отказал' }],
+      hashes: { 'ui-kit-button--basic': 'a94a8fe5' },
+      skipped: 3,
     });
 
     expect(path).toBe(join(nested, outcomeFileName('panel', 390, 'light')));
@@ -128,6 +130,8 @@ describe('writeOutcome', () => {
           changed: [],
           new: [],
           failed: [],
+          hashes: {},
+          skipped: 0,
         },
         { index: 3, total: 4 },
       ),
@@ -140,6 +144,8 @@ describe('writeOutcome', () => {
       changed: ['ui-kit-button--basic'],
       new: [],
       failed: [{ story: 'ui-kit-modal--opening', reason: 'сценарий истории отказал' }],
+      hashes: { 'ui-kit-button--basic': 'a94a8fe5' },
+      skipped: 3,
     });
   });
 });

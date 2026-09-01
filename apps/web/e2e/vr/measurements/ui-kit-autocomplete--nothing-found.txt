@@ -11,27 +11,37 @@ div.Field__field  326×52 @32,32
   label.Field__label  39×13 @15,8  Manrope 600 11/13  lines=1  «Клиент»
   div.Autocomplete__shell  326×52 @0,0
     input.Autocomplete__input  326×52 @0,0  r999  b1
+    ul.Autocomplete__list  326×52 @0,56  r14  b1
+      li.Autocomplete__empty  316×42 @5,5  Manrope 400 14/22  lines=1  «Ничего не найдено»
 
 [геометрия 768]
 div.Field__field  388×52 @32,32
   label.Field__label  39×13 @15,8  Manrope 600 11/13  lines=1  «Клиент»
   div.Autocomplete__shell  388×52 @0,0
     input.Autocomplete__input  388×52 @0,0  r999  b1
+    ul.Autocomplete__list  388×52 @0,56  r14  b1
+      li.Autocomplete__empty  378×42 @5,5  Manrope 400 14/22  lines=1  «Ничего не найдено»
 
 [геометрия 1440]
 div.Field__field  388×48 @32,32
   label.Field__label  39×13 @15,8  Manrope 600 11/13  lines=1  «Клиент»
   div.Autocomplete__shell  388×48 @0,0
     input.Autocomplete__input  388×48 @0,0  r999  b1
+    ul.Autocomplete__list  388×52 @0,52  r14  b1
+      li.Autocomplete__empty  378×42 @5,5  Manrope 400 14/22  lines=1  «Ничего не найдено»
 
 [палитра light]
 div.Field__field
   label.Field__label  color #556173
   div.Autocomplete__shell
-    input.Autocomplete__input  bg #f8fafc  border #7e8fa6
+    input.Autocomplete__input  bg #f8fafc  border #0891b2  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+    ul.Autocomplete__list  bg #ffffff  border #e2e8f0  shadow #0f172a0f 0px 0px 30px 0px, #0f172a1f 0px 30px 60px 0px
+      li.Autocomplete__empty  color #556173
 
 [палитра dark]
 div.Field__field
   label.Field__label  color #8598ac
   div.Autocomplete__shell
-    input.Autocomplete__input  bg #0e1729  border #566d95
+    input.Autocomplete__input  bg #0e1729  border #22d3ee  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+    ul.Autocomplete__list  bg #121d31  border #1e2b41  shadow #00000057 0px 0px 30px 0px, #00000075 0px 30px 60px 0px
+      li.Autocomplete__empty  color #8598ac

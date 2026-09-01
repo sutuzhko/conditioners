@@ -3,6 +3,7 @@ import { expect, test, type Page } from '@playwright/test';
 import { loadStories } from '../story-index';
 import { waitForStoryReady, watchPlayFailures } from '../story-ready';
 import { type InvariantRule, type MeasureInput, measureInvariants } from './measure';
+import { checkStability, readStabilityParameters } from './stability';
 
 /**
  * Фикстуры измерителя инвариантов — каждое правило доказывает, что падает
@@ -32,6 +33,7 @@ const RULES: readonly InvariantRule[] = [
   'occlusion',
   'fonts',
   'images',
+  'stability',
 ];
 
 /** Ожидание истории из её параметров — читается в странице, в `index.json` параметров нет. */
@@ -47,6 +49,13 @@ async function expectedRules(page: Page): Promise<readonly InvariantRule[]> {
   return (raw ?? []).filter((item): item is InvariantRule => RULES.some((rule) => rule === item));
 }
 
+async function open(page: Page, storyId: string, theme: string): Promise<void> {
+  await page.goto(`/iframe.html?id=${storyId}&viewMode=story&globals=theme:${theme}`, {
+    waitUntil: 'domcontentloaded',
+  });
+  await waitForStoryReady(page);
+}
+
 test('каждая фикстура даёт ровно свои нарушения', async ({ page, request }) => {
   const stories = await loadStories(request, [SECTION]);
   expect(stories.length, 'раздел фикстур пуст — их не собрала витрина').toBeGreaterThan(0);
@@ -59,16 +68,20 @@ test('каждая фикстура даёт ровно свои нарушен�
 
   for (const story of stories) {
     const theme = story.tags?.includes('theme-dark') ? 'dark' : 'light';
-    await page.goto(`/iframe.html?id=${story.id}&viewMode=story&globals=theme:${theme}`, {
-      waitUntil: 'domcontentloaded',
-    });
-    await waitForStoryReady(page);
+    await open(page, story.id, theme);
 
     const expected = [...(await expectedRules(page))].sort();
     /* Тип входа назван явно: в литерале объекта `theme` расширился бы до
        `string`, и сигнатура измерителя его не приняла бы. */
     const input: MeasureInput = { theme, touch: WIDTH < 900 };
-    const found = await page.evaluate(measureInvariants, input);
+    const measured = await page.evaluate(measureInvariants, input);
+    /* Устойчивость меряет не измеритель, а обход состояний (stability.ts) —
+       фикстура опорной истории доказывает и его. */
+    const stability = await checkStability(page, await readStabilityParameters(page), (id) =>
+      open(page, id, theme),
+    );
+    const found = [...measured, ...stability.violations];
+    for (const failure of stability.failures) mismatches.push(`${story.id}: ${failure}`);
     const actual = [
       ...new Set(found.filter((item) => item.allowed === null).map((item) => item.rule)),
     ].sort();

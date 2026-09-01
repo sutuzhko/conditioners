@@ -203,6 +203,15 @@ jobs:
             printf '  %s\n' $changed
           fi
 
+          # Список изменённых файлов — раннеру (#444): он снимает только истории,
+          # до которых правка дотягивается по графу импортов. Многострочный выход
+          # — через ограничитель, иначе первая же вторая строка ломает файл выходов.
+          {
+            echo "changed<<VR_CHANGED_EOF"
+            printf '%s\n' "$changed"
+            echo "VR_CHANGED_EOF"
+          } >> "$GITHUB_OUTPUT"
+
       # 🔴 Эталон кадра — кадр базы сравнения, снятый в этой же работе тем же
       # образом и тем же раннером (ADR-230). В репозитории эталонов нет. На PR
       # база — вершина `main`, в которую он вливается: первый родитель
@@ -219,6 +228,8 @@ jobs:
       - name: База сравнения
         id: base
         if: steps.scope.outputs.pixels == 'true'
+        env:
+          VR_CHANGED: ${{ steps.scope.outputs.changed }}
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             mode=compare
@@ -228,12 +239,28 @@ jobs:
             base=${{ github.sha }}
           fi
           renderer=${{ hashFiles('Dockerfile', 'pnpm-lock.yaml', 'apps/web/playwright.vr.config.ts', 'apps/web/e2e/vr/**/*.ts') }}
+          # 🔴 Полный набор кадров и частичный — разные ключи (#444). `main`
+          # пишет полный набор (`-full`); PR при промахе снимает базу только для
+          # задетых историй и пишет частичный (`-aff-<хеш списка изменённого>`).
+          # Выдай частичный за полный — следующий PR с другим списком не нашёл бы
+          # кадров базы для своих историй и получил бы ложные «новые». Восстановление
+          # в PR: сначала свой частичный, иначе полный с `main` (`restore-keys`).
+          stem="vr-frames-$VR_PROJECT-s${{ matrix.shard }}of4-$base-$renderer"
+          if [ "$mode" = "record" ]; then
+            key="$stem-full"
+            restore=""
+          else
+            aff=$(printf '%s\n' "$VR_CHANGED" | sha1sum | cut -c1-12)
+            key="$stem-aff-$aff"
+            restore="$stem-full"
+          fi
           {
             echo "mode=$mode"
             echo "base=$base"
-            echo "key=vr-frames-$VR_PROJECT-s${{ matrix.shard }}of4-$base-$renderer"
+            echo "key=$key"
+            echo "restore=$restore"
           } >> "$GITHUB_OUTPUT"
-          echo "Режим: $mode, база: $base, доля: ${{ matrix.shard }}/4"
+          echo "Режим: $mode, база: $base, доля: ${{ matrix.shard }}/4, ключ: $key"
           mkdir -p vr-frames vr-outcome vr-results
 
       - name: Кадры базы из кеша
@@ -243,6 +270,7 @@ jobs:
         with:
           path: vr-frames
           key: ${{ steps.base.outputs.key }}
+          restore-keys: ${{ steps.base.outputs.restore }}
 
       # 🔴 Обе стороны сравнения снимаются одним образом: шрифты на
       # ubuntu-раннере и в alpine-образе отрисовываются по-разному, и кадр,
@@ -272,7 +300,7 @@ jobs:
       # собирается тем же образом; её кадры снимает раннер HEAD — различаться
       # между сторонами должна витрина, а не код, который её снимает.
       - name: Витрина базы
-        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-matched-key == ''
         run: |
           git worktree add ../vr-base "${{ steps.base.outputs.base }}"
           docker build --target dev -t tulaklimat-dev:base ../vr-base
@@ -289,7 +317,9 @@ jobs:
       # снимается той же долей `VR_SHARD`, что и ветка: раннер делит истории
       # устойчивым хешем id, и доля не зависит от состава историй.
       - name: Кадры базы
-        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-matched-key == ''
+        env:
+          VR_CHANGED: ${{ steps.scope.outputs.changed }}
         run: |
           docker network create "$VR_NET-base"
           docker run -d --name "$VR_NET-base-storybook" --network "$VR_NET-base" --network-alias storybook \
@@ -312,7 +342,7 @@ jobs:
           docker run --name "$VR_NET-base-run" --network "$VR_NET-base" \
             -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome-base:/vr/outcome" \
             -e VR_FRAMES_DIR=/vr/frames -e VR_OUTCOME_DIR=/vr/outcome \
-            -e VR_SHARD=${{ matrix.shard }}/4 \
+            -e VR_SHARD=${{ matrix.shard }}/4 -e VR_CHANGED \
             -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT" --update-snapshots || true
@@ -323,7 +353,7 @@ jobs:
       # Playwright дописывает кадр ветки в тот же каталог — и он выдал бы себя
       # за кадр базы при следующем прогоне.
       - name: Кадры базы в кеш
-        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-matched-key == ''
         uses: actions/cache/save@v4
         with:
           path: vr-frames
@@ -384,12 +414,14 @@ jobs:
         id: shots
         if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare'
         continue-on-error: true
+        env:
+          VR_CHANGED: ${{ steps.scope.outputs.changed }}
         run: |
           docker run --name "$VR_NET-run" --network "$VR_NET" \
             -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome:/vr/outcome" \
             -e VR_FRAMES_DIR=/vr/frames -e VR_BASE_INDEX=/vr/frames/index.json \
             -e VR_OUTCOME_DIR=/vr/outcome \
-            -e VR_SHARD=${{ matrix.shard }}/4 \
+            -e VR_SHARD=${{ matrix.shard }}/4 -e VR_CHANGED -e VR_DUPLICATES=1 \
             -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT"
@@ -677,6 +709,15 @@ jobs:
             printf '  %s\n' $changed
           fi
 
+          # Список изменённых файлов — раннеру (#444): он снимает только истории,
+          # до которых правка дотягивается по графу импортов. Многострочный выход
+          # — через ограничитель, иначе первая же вторая строка ломает файл выходов.
+          {
+            echo "changed<<VR_CHANGED_EOF"
+            printf '%s\n' "$changed"
+            echo "VR_CHANGED_EOF"
+          } >> "$GITHUB_OUTPUT"
+
       # 🔴 Эталон кадра — кадр базы сравнения, снятый в этой же работе тем же
       # образом и тем же раннером (ADR-230). В репозитории эталонов нет. На PR
       # база — вершина `main`, в которую он вливается: первый родитель
@@ -693,6 +734,8 @@ jobs:
       - name: База сравнения
         id: base
         if: steps.scope.outputs.pixels == 'true'
+        env:
+          VR_CHANGED: ${{ steps.scope.outputs.changed }}
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             mode=compare
@@ -702,12 +745,28 @@ jobs:
             base=${{ github.sha }}
           fi
           renderer=${{ hashFiles('Dockerfile', 'pnpm-lock.yaml', 'apps/web/playwright.vr.config.ts', 'apps/web/e2e/vr/**/*.ts') }}
+          # 🔴 Полный набор кадров и частичный — разные ключи (#444). `main`
+          # пишет полный набор (`-full`); PR при промахе снимает базу только для
+          # задетых историй и пишет частичный (`-aff-<хеш списка изменённого>`).
+          # Выдай частичный за полный — следующий PR с другим списком не нашёл бы
+          # кадров базы для своих историй и получил бы ложные «новые». Восстановление
+          # в PR: сначала свой частичный, иначе полный с `main` (`restore-keys`).
+          stem="vr-frames-$VR_PROJECT-s${{ matrix.shard }}of4-$base-$renderer"
+          if [ "$mode" = "record" ]; then
+            key="$stem-full"
+            restore=""
+          else
+            aff=$(printf '%s\n' "$VR_CHANGED" | sha1sum | cut -c1-12)
+            key="$stem-aff-$aff"
+            restore="$stem-full"
+          fi
           {
             echo "mode=$mode"
             echo "base=$base"
-            echo "key=vr-frames-$VR_PROJECT-s${{ matrix.shard }}of4-$base-$renderer"
+            echo "key=$key"
+            echo "restore=$restore"
           } >> "$GITHUB_OUTPUT"
-          echo "Режим: $mode, база: $base, доля: ${{ matrix.shard }}/4"
+          echo "Режим: $mode, база: $base, доля: ${{ matrix.shard }}/4, ключ: $key"
           mkdir -p vr-frames vr-outcome vr-results
 
       - name: Кадры базы из кеша
@@ -717,6 +776,7 @@ jobs:
         with:
           path: vr-frames
           key: ${{ steps.base.outputs.key }}
+          restore-keys: ${{ steps.base.outputs.restore }}
 
       # 🔴 Обе стороны сравнения снимаются одним образом: шрифты на
       # ubuntu-раннере и в alpine-образе отрисовываются по-разному, и кадр,
@@ -746,7 +806,7 @@ jobs:
       # собирается тем же образом; её кадры снимает раннер HEAD — различаться
       # между сторонами должна витрина, а не код, который её снимает.
       - name: Витрина базы
-        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-matched-key == ''
         run: |
           git worktree add ../vr-base "${{ steps.base.outputs.base }}"
           docker build --target dev -t tulaklimat-dev:base ../vr-base
@@ -763,7 +823,9 @@ jobs:
       # снимается той же долей `VR_SHARD`, что и ветка: раннер делит истории
       # устойчивым хешем id, и доля не зависит от состава историй.
       - name: Кадры базы
-        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-matched-key == ''
+        env:
+          VR_CHANGED: ${{ steps.scope.outputs.changed }}
         run: |
           docker network create "$VR_NET-base"
           docker run -d --name "$VR_NET-base-storybook" --network "$VR_NET-base" --network-alias storybook \
@@ -786,7 +848,7 @@ jobs:
           docker run --name "$VR_NET-base-run" --network "$VR_NET-base" \
             -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome-base:/vr/outcome" \
             -e VR_FRAMES_DIR=/vr/frames -e VR_OUTCOME_DIR=/vr/outcome \
-            -e VR_SHARD=${{ matrix.shard }}/4 \
+            -e VR_SHARD=${{ matrix.shard }}/4 -e VR_CHANGED \
             -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT" --update-snapshots || true
@@ -797,7 +859,7 @@ jobs:
       # Playwright дописывает кадр ветки в тот же каталог — и он выдал бы себя
       # за кадр базы при следующем прогоне.
       - name: Кадры базы в кеш
-        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-hit != 'true'
+        if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare' && steps.cache.outputs.cache-matched-key == ''
         uses: actions/cache/save@v4
         with:
           path: vr-frames
@@ -858,12 +920,14 @@ jobs:
         id: shots
         if: steps.scope.outputs.pixels == 'true' && steps.base.outputs.mode == 'compare'
         continue-on-error: true
+        env:
+          VR_CHANGED: ${{ steps.scope.outputs.changed }}
         run: |
           docker run --name "$VR_NET-run" --network "$VR_NET" \
             -v "$PWD/vr-frames:/vr/frames" -v "$PWD/vr-outcome:/vr/outcome" \
             -e VR_FRAMES_DIR=/vr/frames -e VR_BASE_INDEX=/vr/frames/index.json \
             -e VR_OUTCOME_DIR=/vr/outcome \
-            -e VR_SHARD=${{ matrix.shard }}/4 \
+            -e VR_SHARD=${{ matrix.shard }}/4 -e VR_CHANGED -e VR_DUPLICATES=1 \
             -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT"

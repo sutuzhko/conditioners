@@ -184,6 +184,18 @@ describe('вердикт', () => {
     expect(result.reasons).toEqual([]);
   });
 
+  it('пропущенные по графу импортов истории названы числом в шапке', () => {
+    const result = compare(fullSet((w) => ({ skipped: w === 320 ? 40 : 45 })));
+    expect(result.ok).toBe(true);
+    // 40 + 40 + 45·6 = 350 по всем восьми парам
+    expect(result.markdown).toMatch(/\| Пропущено по графу импортов \| 350 историй \|/);
+  });
+
+  it('без пропусков строки про граф нет', () => {
+    const result = compare(fullSet());
+    expect(result.markdown).not.toMatch(/Пропущено по графу/);
+  });
+
   it('отказы базы — предупреждение, а не красный', () => {
     const result = compare(fullSet(), {
       cache: 'miss',
@@ -211,6 +223,40 @@ describe('вердикт', () => {
     expect(result.markdown).toMatch(/кадры `fedcba9` записаны в кеш/);
     expect(result.markdown).toMatch(/Записано кадров \| 60/);
     expect(result.markdown).not.toMatch(/vr:accepted/);
+  });
+});
+
+describe('одинаковые кадры разных историй', () => {
+  it('группа находится внутри пары «ширина + тема» и не красит', () => {
+    const result = compare(
+      fullSet((w, t) =>
+        w === 320 && t === 'dark'
+          ? {
+              hashes: {
+                'блоки-услуги--basic': 'aaa',
+                'блоки-услуги--custom-hrefs': 'aaa',
+                'блоки-цены--basic': 'bbb',
+              },
+            }
+          : { hashes: { 'блоки-услуги--basic': 'ccc', 'блоки-услуги--custom-hrefs': 'ddd' } },
+      ),
+    );
+    expect(result.ok).toBe(true);
+    expect(result.markdown).toMatch(/\| Одинаковые кадры у разных историй \| 1 группа \|/);
+    expect(result.markdown).toMatch(
+      /### Одинаковые кадры у разных историй — 1 группа\n\n- `блоки-услуги--basic`, `блоки-услуги--custom-hrefs` — 320\/dark/,
+    );
+  });
+
+  it('одинаковый хеш одной истории на разных парах — не дубль', () => {
+    const result = compare(fullSet(() => ({ hashes: { 'блоки-цены--basic': 'same' } })));
+    expect(result.markdown).toMatch(/\| Одинаковые кадры у разных историй \| 0 групп \|/);
+    expect(result.markdown).not.toMatch(/### Одинаковые кадры/);
+  });
+
+  it('без хешей ни строки в шапке, ни секции', () => {
+    const result = compare(fullSet());
+    expect(result.markdown).not.toMatch(/Одинаковые кадры/);
   });
 });
 

@@ -74,6 +74,13 @@ function normalise(raw) {
       story: String(item?.story ?? '?'),
       reason: String(item?.reason ?? 'причина не названа'),
     })),
+    hashes:
+      typeof raw.hashes === 'object' && raw.hashes !== null
+        ? Object.fromEntries(
+            Object.entries(raw.hashes).filter(([, hash]) => typeof hash === 'string'),
+          )
+        : {},
+    skipped: Number(raw.skipped) || 0,
   };
 }
 
@@ -84,15 +91,48 @@ export function aggregate(outcomes) {
   const failed = [];
   let compared = 0;
 
+  /* Дубли считаются внутри пары «ширина + тема»: одинаковый хеш одной истории
+     на разных парах — норма (одна и та же раскладка), а разных историй на
+     одной паре — дыра покрытия (issue #464). Группа ключуется составом
+     историй, кадры копятся списком. */
+  const duplicates = new Map();
+  let hashed = 0;
+
+  let skipped = 0;
   for (const outcome of outcomes) {
     const frame = `${outcome.width}/${outcome.theme}`;
     compared += outcome.compared;
+    skipped += outcome.skipped ?? 0;
     for (const story of outcome.changed) changed.set(story, [...(changed.get(story) ?? []), frame]);
     for (const story of outcome.new) fresh.set(story, [...(fresh.get(story) ?? []), frame]);
     for (const item of outcome.failed) failed.push({ ...item, frame });
+
+    const byHash = new Map();
+    for (const [story, hash] of Object.entries(outcome.hashes ?? {})) {
+      hashed += 1;
+      byHash.set(hash, [...(byHash.get(hash) ?? []), story]);
+    }
+    for (const group of byHash.values()) {
+      if (group.length < 2) continue;
+      const stories = [...group].sort((a, b) => a.localeCompare(b, 'ru'));
+      const key = stories.join('\u0000');
+      const entry = duplicates.get(key) ?? { stories, frames: [] };
+      entry.frames.push(frame);
+      duplicates.set(key, entry);
+    }
   }
 
-  return { compared, changed, new: fresh, failed };
+  return {
+    compared,
+    skipped,
+    changed,
+    new: fresh,
+    failed,
+    hashed,
+    duplicates: [...duplicates.values()].sort(
+      (a, b) => b.frames.length - a.frames.length || a.stories[0].localeCompare(b.stories[0], 'ru'),
+    ),
+  };
 }
 
 const frames = (n) => plural(n, 'кадр', 'кадра', 'кадров');
@@ -177,10 +217,21 @@ export function summarize({
     lines.push(`| Сравнено кадров | ${total.compared} |`);
     lines.push(`| Разошлось | ${frames(changedFrames)} у ${storiesAfterAt(total.changed.size)} |`);
     lines.push(`| Новых историй — без сравнения | ${total.new.size} |`);
+    /* Граф импортов (#444): истории, до которых правка не дотягивается, не
+       снимались вовсе — это видно числом, а не молчанием. */
+    if (total.skipped > 0) {
+      lines.push(`| Пропущено по графу импортов | ${stories(total.skipped)} |`);
+    }
   } else {
     lines.push(`| Записано кадров | ${total.compared} |`);
   }
-  lines.push(`| Отказов | ${total.failed.length} |`, '');
+  lines.push(`| Отказов | ${total.failed.length} |`);
+  if (total.hashed > 0) {
+    lines.push(
+      `| Одинаковые кадры у разных историй | ${plural(total.duplicates.length, 'группа', 'группы', 'групп')} |`,
+    );
+  }
+  lines.push('');
 
   if (total.changed.size > 0) {
     lines.push(`### Разошлись — ${stories(total.changed.size)}`, '');
@@ -209,6 +260,22 @@ export function summarize({
     lines.push(`### Новые истории — сравнивать не с чем — ${total.new.size}`, '');
     for (const [story, list] of sortedEntries(total.new))
       lines.push(`- \`${story}\` — ${list.join(', ')}`);
+    lines.push('');
+  }
+
+  if (total.duplicates.length > 0) {
+    /* Диагностика, не вердикт: пара законных дублей существует (история про
+       поведение при том же виде), а дыру покрытия решает человек — тегом
+       `vr-<ширина>` или правкой истории (issue #464). */
+    lines.push(
+      `### Одинаковые кадры у разных историй — ${plural(total.duplicates.length, 'группа', 'группы', 'групп')}`,
+      '',
+    );
+    for (const entry of total.duplicates) {
+      lines.push(
+        `- ${entry.stories.map((story) => `\`${story}\``).join(', ')} — ${entry.frames.join(', ')}`,
+      );
+    }
     lines.push('');
   }
 

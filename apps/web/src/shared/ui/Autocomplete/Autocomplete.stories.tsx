@@ -75,14 +75,28 @@ export const Basic: Story = {
   render: (args) => <Controlled {...args} />,
 };
 
+/**
+ * Список открывает фокус в поле, а без него истории «с текстом», «ничего не
+ * найдено» и «справочник пуст» показывали одно и то же поле с надписью «Ива»
+ * — их кадры совпадали побайтно (#464). Каждая из них про содержимое
+ * списка, поэтому сценарий открывает его и дожидается (issue #435: ожидание
+ * результата, не действия).
+ */
+const openList: Story['play'] = async ({ canvasElement }) => {
+  await userEvent.click(within(canvasElement).getByRole('combobox'));
+  await waitFor(() => expect(within(canvasElement).getByRole('listbox')).toBeVisible());
+};
+
 export const WithQuery: Story = {
   name: 'С набранным текстом',
   render: (args) => <Controlled {...args} initial="Ива" />,
+  play: openList,
 };
 
 export const NothingFound: Story = {
   name: 'Ничего не найдено',
   render: (args) => <Controlled {...args} initial="Щ" />,
+  play: openList,
 };
 
 export const EmptySource: Story = {
@@ -95,6 +109,7 @@ export const EmptySource: Story = {
       emptyText="Клиентов пока нет — заведите первого в разделе «Клиенты»"
     />
   ),
+  play: openList,
 };
 
 export const WithHint: Story = {
