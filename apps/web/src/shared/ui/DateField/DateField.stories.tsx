@@ -22,13 +22,7 @@ const meta = {
   /* Обязательные пропсы объявлены здесь ради типов: сами истории рисуют
      управляемую обёртку, и до компонента эти значения не доходят. */
   args: { label: 'Дата выезда', value: EMPTY_DATE, onChange: () => {} },
-  parameters: {
-    layout: 'padded',
-    // Допущение инвариантов — причина в reason (ADR-230)
-    invariants: {
-      allow: [{ rule: 'target-size', reason: 'issue #471 — сегменты даты 17×19 ниже минимума AA' }],
-    },
-  },
+  parameters: { layout: 'padded' },
   decorators: [
     (Story) => (
       <div data-ui="panel" style={{ background: 'var(--bg-soft)', padding: 16, maxWidth: 360 }}>
