@@ -8,7 +8,7 @@
 1200 → 1200×900
 
 [геометрия 320]
-footer.Footer__footer  320×850 @0,0
+footer.Footer__footer  320×854 @0,0
   div.Footer__inner  320×753 @0,0
     div.Footer__about  288×74 @16,36
       div.Footer__brand  288×38 @0,0
@@ -44,13 +44,13 @@ footer.Footer__footer  320×850 @0,0
           div.Footer__legalRow#3  288×20 @0,49
             dt.Footer__legalTerm  122×20 @0,0  JetBrains Mono 400 12/18  lines=1  «Орган регистрации»
             dd.Footer__legalValue  157×20 @128,0  Manrope 400 14/20  lines=1  «ЗАПОЛНИТЕ В АДМИНКЕ»
-  div.Footer__bottom  320×97 @0,753  b1 0 0 0
-    div.Footer__bottomInner  320×96 @0,1
+  div.Footer__bottom  320×101 @0,753  b1 0 0 0
+    div.Footer__bottomInner  320×100 @0,1
       span.Footer__copy  288×40 @16,16  Manrope 400 13/20  lines=2  «© 2026 ЗАПОЛНИТЕ В АДМИНКЕ. Все права за»
-      a.Footer__policy  288×19 @16,60  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
+      a.Footer__policy  288×24 @16,60  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
 
 [геометрия 375]
-footer.Footer__footer  375×808 @0,0
+footer.Footer__footer  375×813 @0,0
   div.Footer__inner  375×731 @0,0
     div.Footer__about  343×74 @16,36
       div.Footer__brand  343×38 @0,0
@@ -86,13 +86,13 @@ footer.Footer__footer  375×808 @0,0
           div.Footer__legalRow#3  343×20 @0,49
             dt.Footer__legalTerm  122×20 @0,0  JetBrains Mono 400 12/18  lines=1  «Орган регистрации»
             dd.Footer__legalValue  157×20 @128,0  Manrope 400 14/20  lines=1  «ЗАПОЛНИТЕ В АДМИНКЕ»
-  div.Footer__bottom  375×77 @0,731  b1 0 0 0
-    div.Footer__bottomInner  375×76 @0,1
+  div.Footer__bottom  375×81 @0,731  b1 0 0 0
+    div.Footer__bottomInner  375×80 @0,1
       span.Footer__copy  343×20 @16,16  Manrope 400 13/20  lines=1  «© 2026 ЗАПОЛНИТЕ В АДМИНКЕ. Все права за»
-      a.Footer__policy  343×19 @16,40  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
+      a.Footer__policy  343×24 @16,40  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
 
 [геометрия 768]
-footer.Footer__footer  768×631 @0,0
+footer.Footer__footer  768×635 @0,0
   div.Footer__inner  768×574 @0,0
     div.Footer__about  271×74 @20,48
       div.Footer__brand  271×38 @0,0
@@ -128,13 +128,13 @@ footer.Footer__footer  768×631 @0,0
           div.Footer__legalRow#3  260×44 @0,49
             dt.Footer__legalTerm  122×18 @0,0  JetBrains Mono 400 12/18  lines=1  «Орган регистрации»
             dd.Footer__legalValue  157×20 @0,24  Manrope 400 14/20  lines=1  «ЗАПОЛНИТЕ В АДМИНКЕ»
-  div.Footer__bottom  768×57 @0,574  b1 0 0 0
-    div.Footer__bottomInner  768×56 @0,1
-      span.Footer__copy  337×20 @20,18  Manrope 400 13/20  lines=1  «© 2026 ЗАПОЛНИТЕ В АДМИНКЕ. Все права за»
-      a.Footer__policy  258×20 @490,18  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
+  div.Footer__bottom  768×61 @0,574  b1 0 0 0
+    div.Footer__bottomInner  768×60 @0,1
+      span.Footer__copy  337×24 @20,18  Manrope 400 13/20  lines=1  «© 2026 ЗАПОЛНИТЕ В АДМИНКЕ. Все права за»
+      a.Footer__policy  258×24 @490,18  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
 
 [геометрия 1200]
-footer.Footer__footer  1200×447 @0,0
+footer.Footer__footer  1200×451 @0,0
   div.Footer__inner  1200×390 @0,0
     div.Footer__about  271×74 @24,48
       div.Footer__brand  271×38 @0,0
@@ -170,10 +170,10 @@ footer.Footer__footer  1200×447 @0,0
           div.Footer__legalRow#3  260×44 @0,49
             dt.Footer__legalTerm  122×18 @0,0  JetBrains Mono 400 12/18  lines=1  «Орган регистрации»
             dd.Footer__legalValue  157×20 @0,24  Manrope 400 14/20  lines=1  «ЗАПОЛНИТЕ В АДМИНКЕ»
-  div.Footer__bottom  1200×57 @0,390  b1 0 0 0
-    div.Footer__bottomInner  1200×56 @0,1
-      span.Footer__copy  337×20 @24,18  Manrope 400 13/20  lines=1  «© 2026 ЗАПОЛНИТЕ В АДМИНКЕ. Все права за»
-      a.Footer__policy  258×20 @918,18  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
+  div.Footer__bottom  1200×61 @0,390  b1 0 0 0
+    div.Footer__bottomInner  1200×60 @0,1
+      span.Footer__copy  337×24 @24,18  Manrope 400 13/20  lines=1  «© 2026 ЗАПОЛНИТЕ В АДМИНКЕ. Все права за»
+      a.Footer__policy  258×24 @918,18  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
 
 [палитра light]
 footer.Footer__footer  bg #0f172a
