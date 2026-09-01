@@ -40,6 +40,19 @@ export type StoryFailure = {
 export type InvariantsGroup = 'public' | 'panel';
 
 /**
+ * Правила-политики: считаются и показываются в сводке, но не красят (ADR-232).
+ * Сегодня это порог 44×44 в сенсорной раскладке (ADR-183): кит ещё не приведён
+ * к нему, редизайн идёт, и красный на 279 историях был бы шумом, который
+ * перестают читать (ADR-167). Счётчик виден в сводке и обязан идти к нулю.
+ *
+ * 🔴 Тот же набор продублирован в `scripts/invariants-summary.mjs` — сводка
+ * написана на голом Node и типы отсюда не импортирует; менять оба места разом.
+ */
+export const POLICY_RULES: ReadonlySet<InvariantRule> = new Set<InvariantRule>([
+  'target-size-touch',
+]);
+
+/**
  * Итог одного теста — пары «ширина + тема» одной группы. Имена ключей заданы
  * контрактом со сводкой `scripts/invariants-summary.mjs`: она читает файл, а
  * не тип.
@@ -118,12 +131,16 @@ export function writeInvariantsOutcome(
   return path;
 }
 
-/** Строки для жёсткой проверки в конце теста — читаемый список, а не JSON. */
+/**
+ * Строки для жёсткой проверки в конце теста — читаемый список, а не JSON.
+ * Правила-политики сюда не попадают: они записаны в итог и видны сводке, но
+ * тест ими не красится.
+ */
 export function describeViolations(tally: InvariantsTally): readonly string[] {
   return [
-    ...tally.violations.map(
-      (item) => `${item.story} · ${item.rule} · ${item.element}: ${item.detail}`,
-    ),
+    ...tally.violations
+      .filter((item) => !POLICY_RULES.has(item.rule))
+      .map((item) => `${item.story} · ${item.rule} · ${item.element}: ${item.detail}`),
     ...tally.failed.map((item) => `${item.story} · отказ: ${item.reason}`),
   ];
 }

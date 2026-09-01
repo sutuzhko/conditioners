@@ -138,14 +138,28 @@ test.describe('target-size', () => {
     expect(found[0]?.detail).toBe('0×0 при минимуме 24');
   });
 
-  test('в сенсорной раскладке порог 44: 32×32 — нарушение', async ({ page: p }) => {
+  test('в сенсорной раскладке 32×32 — политика 44, отдельное правило (ADR-232)', async ({
+    page: p,
+  }) => {
     const found = await measure(
       p,
       page('<button style="width:32px;height:32px;padding:0">Да</button>'),
       { theme: 'light', touch: true },
     );
-    expect(rulesOf(found)).toEqual(['target-size']);
+    expect(rulesOf(found)).toEqual(['target-size-touch']);
     expect(found[0]?.detail).toBe('32×32 при минимуме 44');
+  });
+
+  test('в сенсорной раскладке 12×12 — только AA-правило, без двойного учёта', async ({
+    page: p,
+  }) => {
+    const found = await measure(
+      p,
+      page('<button aria-label="Закрыть" style="width:12px;height:12px;padding:0"></button>'),
+      { theme: 'light', touch: true },
+    );
+    expect(rulesOf(found)).toEqual(['target-size']);
+    expect(found[0]?.detail).toBe('12×12 при минимуме 24');
   });
 
   test('32×32 без сенсора — допустимо', async ({ page: p }) => {

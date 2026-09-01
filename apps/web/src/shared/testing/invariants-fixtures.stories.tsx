@@ -36,7 +36,14 @@ type Story = StoryObj<typeof meta>;
  * фикстур отбросит неизвестное правило и покраснеет на несовпадении.
  */
 type InvariantRule =
-  'overflow-x' | 'target-size' | 'theme' | 'clipped-text' | 'occlusion' | 'fonts' | 'images';
+  | 'overflow-x'
+  | 'target-size'
+  | 'target-size-touch'
+  | 'theme'
+  | 'clipped-text'
+  | 'occlusion'
+  | 'fonts'
+  | 'images';
 
 /** Что измеритель обязан найти на этой истории — ровно это и ничего больше. */
 const expects = (...rules: readonly InvariantRule[]): NonNullable<Story['parameters']> => ({
@@ -87,6 +94,19 @@ export const TargetSize: Story = {
   parameters: expects('target-size'),
   render: () => (
     <button type="button" aria-label="Закрыть" style={{ width: 12, height: 12, padding: 0 }} />
+  ),
+};
+
+/**
+ * Спек фикстур идёт на 768 — это сенсорная раскладка, и 32×32 нарушает
+ * политику 44×44 (ADR-183), но не AA-порог 24: правило-политика отдельное и
+ * не красит (ADR-232), а фикстура доказывает, что оно всё же ловит.
+ */
+export const TargetSizeTouch: Story = {
+  name: 'target-size-touch — цель 32×32 в сенсорной раскладке',
+  parameters: expects('target-size-touch'),
+  render: () => (
+    <button type="button" aria-label="Ещё" style={{ width: 32, height: 32, padding: 0 }} />
   ),
 };
 

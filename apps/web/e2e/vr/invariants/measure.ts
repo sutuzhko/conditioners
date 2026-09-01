@@ -24,7 +24,14 @@
  */
 
 export type InvariantRule =
-  'overflow-x' | 'target-size' | 'theme' | 'clipped-text' | 'occlusion' | 'fonts' | 'images';
+  | 'overflow-x'
+  | 'target-size'
+  | 'target-size-touch'
+  | 'theme'
+  | 'clipped-text'
+  | 'occlusion'
+  | 'fonts'
+  | 'images';
 
 export type Violation = {
   readonly rule: InvariantRule;
@@ -54,12 +61,20 @@ export type InvariantAllowance = {
 
 export async function measureInvariants(input: MeasureInput): Promise<readonly Violation[]> {
   type Rule =
-    'overflow-x' | 'target-size' | 'theme' | 'clipped-text' | 'occlusion' | 'fonts' | 'images';
+    | 'overflow-x'
+    | 'target-size'
+    | 'target-size-touch'
+    | 'theme'
+    | 'clipped-text'
+    | 'occlusion'
+    | 'fonts'
+    | 'images';
   type Found = { rule: Rule; element: string; detail: string };
 
   const RULES: readonly Rule[] = [
     'overflow-x',
     'target-size',
+    'target-size-touch',
     'theme',
     'clipped-text',
     'occlusion',
@@ -226,7 +241,18 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
 
   /* ---------- 2. у цели есть площадь ---------- */
 
-  const minimum = input.touch ? 44 : 24;
+  /* 🔴 Два порога — два правила (ADR-232). 24×24 — WCAG 2.2 SC 2.5.8 уровня
+     AA, правило `target-size`, красит на любой ширине. 44×44 в сенсорной
+     раскладке — политика проекта (DESIGN_BRIEF §9, ADR-183), правило
+     `target-size-touch`: считается и показывается отдельно, но не красит.
+     Второй прогон разведки дал 10 156 срабатываний порога 44 у 279 историй —
+     чипы 20px, номера страниц 22×20, контролы 42px, ячейки 42×42. Это не 279
+     дефектов, а состояние кита до конца редизайна («Панель · Фаза 4», «Резина
+     · Фаза 9»): порог 44 — цель, к которой идут, и счётчик предупреждений
+     обязан идти к нулю вместе с ней. Двойного учёта нет: цель меньше 24 даёт
+     только `target-size`. */
+  const AA_MINIMUM = 24;
+  const TOUCH_MINIMUM = 44;
 
   /* Цель поля с подписью — вся подпись вместе с полем (WCAG 2.5.8: цель —
      то, по чему нажимают, а по `<label>` нажимают). На разведке ~770
@@ -253,7 +279,10 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
   };
 
   const rects = new Map<Element, DOMRect>(targets.map((el) => [el, targetRect(el)]));
-  const undersized = (rect: DOMRect): boolean => rect.width < minimum || rect.height < minimum;
+  const undersized = (rect: DOMRect): boolean =>
+    rect.width < AA_MINIMUM || rect.height < AA_MINIMUM;
+  const belowPolicy = (rect: DOMRect): boolean =>
+    rect.width < TOUCH_MINIMUM || rect.height < TOUCH_MINIMUM;
 
   /* Исключение WCAG 2.5.8 «Spacing»: цель меньше 24×24 допустима, если
      окружность диаметром 24 с центром в её рамке не пересекает ни другую цель,
@@ -283,17 +312,20 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
   };
 
   for (const [el, rect] of rects) {
-    if (!undersized(rect)) continue;
-    /* Цель без площади нельзя нажать вовсе — воздух вокруг ей не поможет:
-       так ловилась тап-зона 0×0. Исключение «Spacing» — только для целей,
-       по которым в принципе можно попасть. */
-    const flat = rect.width === 0 || rect.height === 0;
-    if (!flat && !input.touch && spacedApart(el, rect)) continue;
-    report(
-      'target-size',
-      describe(el),
-      `${size(rect.width)}×${size(rect.height)} при минимуме ${minimum}`,
-    );
+    const dims = `${size(rect.width)}×${size(rect.height)}`;
+    if (undersized(rect)) {
+      /* Цель без площади нельзя нажать вовсе — воздух вокруг ей не поможет:
+         так ловилась тап-зона 0×0. Исключение «Spacing» — только для целей,
+         по которым в принципе можно попасть, и только вне сенсорной раскладки:
+         там 44 — политика, и воздух её не заменяет. */
+      const flat = rect.width === 0 || rect.height === 0;
+      if (!flat && !input.touch && spacedApart(el, rect)) continue;
+      report('target-size', describe(el), `${dims} при минимуме ${AA_MINIMUM}`);
+      continue;
+    }
+    if (input.touch && belowPolicy(rect)) {
+      report('target-size-touch', describe(el), `${dims} при минимуме ${TOUCH_MINIMUM}`);
+    }
   }
 
   /* ---------- 3. тема покрашена своей краской ---------- */

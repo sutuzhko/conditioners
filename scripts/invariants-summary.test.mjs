@@ -141,6 +141,69 @@ describe('вердикт', () => {
     );
   });
 
+  it('политика 44×44 не красит, но видна отдельной таблицей и строкой шапки', () => {
+    const result = run(
+      fullShard((group, w) =>
+        w === 390
+          ? {
+              violations: [
+                violation(
+                  'ui-kit-chip--basic',
+                  'target-size-touch',
+                  'button.Chip',
+                  '32×32 при минимуме 44',
+                ),
+                violation(
+                  'ui-kit-chip--sizes',
+                  'target-size-touch',
+                  'button.Chip',
+                  '36×36 при минимуме 44',
+                ),
+              ],
+            }
+          : {},
+      ),
+    );
+    expect(result.ok).toBe(true);
+    expect(result.reasons).toEqual([]);
+    expect(result.markdown).toMatch(
+      /\| Политика 44×44 до 900px — предупреждений \| 4 у 2 историй \|/,
+    );
+    expect(result.markdown).toMatch(/### Политика 44×44 до 900px — предупреждения/);
+    expect(result.markdown).toMatch(/`ui-kit-chip--basic` \| 2/);
+    // в счётчик нарушений политика не попадает
+    expect(result.markdown).toMatch(/\| Нарушений \| 0 у 0 историй \|/);
+  });
+
+  it('🔴 AA-порог 24 красит и рядом с политикой', () => {
+    const result = run(
+      fullShard((group, w) =>
+        w === 390
+          ? {
+              violations: [
+                violation(
+                  'ui-kit-chip--basic',
+                  'target-size-touch',
+                  'button.Chip',
+                  '32×32 при минимуме 44',
+                ),
+                violation(
+                  'блоки-каталог--basic',
+                  'target-size',
+                  'a.Pager',
+                  '22×20 при минимуме 24',
+                ),
+              ],
+            }
+          : {},
+      ),
+    );
+    expect(result.ok).toBe(false);
+    expect(result.reasons.join('\n')).toMatch(/2 нарушения у 1 истории/);
+    expect(result.markdown).toMatch(/\| `target-size` \| 2 \| 1 \|/);
+    expect(result.markdown).not.toMatch(/\| `target-size-touch` \|/);
+  });
+
   it('🔴 отказ красит и назван с причиной', () => {
     const result = run(
       fullShard((group, width, theme) =>

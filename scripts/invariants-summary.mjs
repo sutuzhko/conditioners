@@ -34,12 +34,26 @@ const OUTCOME_FILE = /^invariants-.*\.json$/;
 const RULES = [
   'overflow-x',
   'target-size',
+  'target-size-touch',
   'theme',
   'clipped-text',
   'occlusion',
   'fonts',
   'images',
 ];
+
+/**
+ * Правила-политики (ADR-232): считаются и показываются отдельно, но не красят.
+ * Порог 44×44 в сенсорной раскладке — политика проекта (ADR-183), а не норма
+ * WCAG; кит к нему ещё не приведён, и счётчик обязан идти к нулю вместе с
+ * редизайном. 🔴 Тот же набор объявлен в `apps/web/e2e/vr/invariants/outcome.ts`:
+ * этот скрипт написан на голом Node и типы оттуда не импортирует — менять оба
+ * места разом.
+ */
+const POLICY_RULES = new Set(['target-size-touch']);
+
+/** Сколько историй показывать в таблице политики: топ по числу кадров. */
+const POLICY_TOP = 10;
 
 /**
  * Итоги раннера из каталога — по одному файлу на тест. Каталога нет — итогов
@@ -162,9 +176,15 @@ export function summarize({ expected, runner = 'success', outcomes }) {
     );
   }
 
-  const frameCount = total.violations.reduce((sum, item) => sum + item.frames.length, 0);
-  const violatedStories = new Set(total.violations.map((item) => item.story)).size;
-  if (total.violations.length > 0) {
+  /* Политика — не красит: считается и показывается отдельно (ADR-232). */
+  const hard = total.violations.filter((item) => !POLICY_RULES.has(item.rule));
+  const policy = total.violations.filter((item) => POLICY_RULES.has(item.rule));
+  const framesOf = (items) => items.reduce((sum, item) => sum + item.frames.length, 0);
+  const storiesIn = (items) => new Set(items.map((item) => item.story)).size;
+
+  const frameCount = framesOf(hard);
+  const violatedStories = storiesIn(hard);
+  if (hard.length > 0) {
     reasons.push(
       `${violationsOf(frameCount)} у ${storiesAt(violatedStories)} — починить или допустить параметром истории с причиной`,
     );
@@ -176,7 +196,7 @@ export function summarize({ expected, runner = 'success', outcomes }) {
     );
   }
 
-  const explained = total.violations.length > 0 || total.failed.length > 0;
+  const explained = hard.length > 0 || total.failed.length > 0;
   if (runner === 'failure' && !explained) {
     reasons.push('раннер завершился ошибкой, которую итог не объясняет — смотрите журнал шага');
   }
@@ -188,22 +208,25 @@ export function summarize({ expected, runner = 'success', outcomes }) {
   lines.push(`| Итогов раннера | ${outcomes.length} из ${expected} |`);
   lines.push(`| Историй замерено (по всем парам) | ${total.stories} |`);
   lines.push(`| Нарушений | ${frameCount} у ${storiesAt(violatedStories)} |`);
+  lines.push(
+    `| Политика 44×44 до 900px — предупреждений | ${framesOf(policy)} у ${storiesAt(storiesIn(policy))} |`,
+  );
   lines.push(`| Допущено параметром | ${total.allowed.length} |`);
   lines.push(`| Отказов | ${total.failed.length} |`, '');
 
-  if (total.violations.length > 0) {
+  if (hard.length > 0) {
     lines.push('### По правилам', '');
     lines.push('| Правило | Нарушений | Историй |', '| --- | --- | --- |');
-    for (const rule of rulesInOrder(total.violations)) {
-      const items = total.violations.filter((item) => item.rule === rule);
+    for (const rule of rulesInOrder(hard)) {
+      const items = hard.filter((item) => item.rule === rule);
       const frames = items.reduce((sum, item) => sum + item.frames.length, 0);
       const count = new Set(items.map((item) => item.story)).size;
       lines.push(`| \`${rule}\` | ${frames} | ${count} |`);
     }
     lines.push('');
 
-    for (const rule of rulesInOrder(total.violations)) {
-      const items = total.violations
+    for (const rule of rulesInOrder(hard)) {
+      const items = hard
         .filter((item) => item.rule === rule)
         .sort((a, b) => a.story.localeCompare(b.story, 'ru'));
       lines.push(
@@ -223,6 +246,28 @@ export function summarize({ expected, runner = 'success', outcomes }) {
       }
       lines.push('');
     }
+  }
+
+  if (policy.length > 0) {
+    lines.push(
+      `### Политика 44×44 до 900px — предупреждения (ADR-183, ADR-232): ${violationsOf(framesOf(policy))} у ${storiesAt(storiesIn(policy))}`,
+      '',
+    );
+    lines.push(
+      'Не красит: кит приводится к порогу редизайном, счётчик обязан идти к нулю. Топ историй по числу кадров:',
+      '',
+    );
+    lines.push('| История | Кадров с нарушением |', '| --- | --- |');
+    const perStory = new Map();
+    for (const item of policy) {
+      perStory.set(item.story, (perStory.get(item.story) ?? 0) + item.frames.length);
+    }
+    const top = [...perStory.entries()].sort((a, b) => b[1] - a[1]).slice(0, POLICY_TOP);
+    for (const [story, count] of top) lines.push(`| \`${story}\` | ${count} |`);
+    if (perStory.size > POLICY_TOP) {
+      lines.push(`| … | ещё ${storiesOf(perStory.size - POLICY_TOP)} в итогах артефакта |`);
+    }
+    lines.push('');
   }
 
   if (total.allowed.length > 0) {

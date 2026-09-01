@@ -71,6 +71,31 @@ describe('describeViolations', () => {
   });
 });
 
+describe('правила-политики', () => {
+  it('политика записана в итог, но тест ею не красится', () => {
+    const tally = emptyInvariantsTally();
+    recordViolations(tally, 'ui-kit-chip--basic', [
+      {
+        rule: 'target-size-touch',
+        element: 'button.Chip__root «Все»',
+        detail: '32×32 при минимуме 44',
+        allowed: null,
+      },
+      {
+        rule: 'target-size',
+        element: 'a.Pager__number «2»',
+        detail: '22×20 при минимуме 24',
+        allowed: null,
+      },
+    ]);
+
+    expect(tally.violations.map((item) => item.rule)).toEqual(['target-size-touch', 'target-size']);
+    expect(describeViolations(tally)).toEqual([
+      'ui-kit-chip--basic · target-size · a.Pager__number «2»: 22×20 при минимуме 24',
+    ]);
+  });
+});
+
 describe('файл итога', () => {
   it('имя содержит группу, долю, ширину и тему; без доли — короче', () => {
     expect(invariantsFileName('public', 375, 'dark')).toBe('invariants-public-375-dark.json');
