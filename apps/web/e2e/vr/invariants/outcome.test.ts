@@ -4,6 +4,7 @@ import { join } from 'node:path';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
+import type { KnownDefect } from './known-defects';
 import {
   describeViolations,
   emptyInvariantsTally,
@@ -18,26 +19,50 @@ afterEach(() => {
   for (const dir of dirs.splice(0)) rmSync(dir, { recursive: true, force: true });
 });
 
+/**
+ * 🔴 Список дефектов подставляется, а не берётся настоящий. Проверяется
+ * механизм — «известный дефект уходит в допущенные с причиной», — а он не
+ * зависит от того, какие дефекты сегодня открыты. Первая редакция ссылалась
+ * на живую запись, и тест ломался ровно тогда, когда эту запись снимал PR с
+ * починкой: чинишь дефект — падает тест про механизм.
+ */
+const ДЕФЕКТЫ: readonly KnownDefect[] = [
+  {
+    rule: 'target-size',
+    element: /^a\._edit_/,
+    reason: 'issue #0 — ссылка списка ниже минимума AA',
+  },
+  {
+    rule: 'target-size',
+    story: /^админка-календарь/,
+    element: /^button\._chip_/,
+    reason: 'issue #0 — чип календаря ниже минимума AA',
+  },
+];
+
 describe('известные дефекты компонентов', () => {
   it('нарушение по известному дефекту уходит в допущенные с причиной issue', () => {
     const tally = emptyInvariantsTally();
-    recordViolations(tally, 'ui-kit-checkbox--basic', [
-      {
-        rule: 'target-size',
-        element: 'input._input_91hse_20 «Согласие»',
-        detail: '119×21 при минимуме 24',
-        allowed: null,
-      },
-      {
-        rule: 'target-size',
-        element: 'button._primary_1a2b3_4 «Отправить»',
-        detail: '20×20 при минимуме 24',
-        allowed: null,
-      },
-    ]);
-    expect(tally.allowed.map((item) => item.reason)).toEqual([
-      expect.stringContaining('issue #475'),
-    ]);
+    recordViolations(
+      tally,
+      'админка-каталог--базовое',
+      [
+        {
+          rule: 'target-size',
+          element: 'a._edit_91hse_20 «Править»',
+          detail: '54×22 при минимуме 24',
+          allowed: null,
+        },
+        {
+          rule: 'target-size',
+          element: 'button._primary_1a2b3_4 «Отправить»',
+          detail: '20×20 при минимуме 24',
+          allowed: null,
+        },
+      ],
+      ДЕФЕКТЫ,
+    );
+    expect(tally.allowed.map((item) => item.reason)).toEqual([expect.stringContaining('issue #0')]);
     expect(tally.violations.map((item) => item.element)).toEqual([
       'button._primary_1a2b3_4 «Отправить»',
     ]);
@@ -45,14 +70,19 @@ describe('известные дефекты компонентов', () => {
 
   it('дефект с префиксом истории не действует на чужую историю', () => {
     const tally = emptyInvariantsTally();
-    recordViolations(tally, 'блоки-цены--basic', [
-      {
-        rule: 'target-size',
-        element: 'button._chip_x_1 «Офис»',
-        detail: '23×44 при минимуме 24',
-        allowed: null,
-      },
-    ]);
+    recordViolations(
+      tally,
+      'блоки-цены--basic',
+      [
+        {
+          rule: 'target-size',
+          element: 'button._chip_x_1 «Офис»',
+          detail: '23×44 при минимуме 24',
+          allowed: null,
+        },
+      ],
+      ДЕФЕКТЫ,
+    );
     expect(tally.allowed).toEqual([]);
     expect(tally.violations).toHaveLength(1);
   });

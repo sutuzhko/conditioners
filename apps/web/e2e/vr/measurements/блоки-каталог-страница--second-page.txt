@@ -2,16 +2,16 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700, Onest 800
 
 [документ]
-320 → 341×1947
+320 → 320×1999
 375 → 375×2076
 768 → 768×1290
 1200 → 1200×1132
 
 [геометрия 320]
-section.CatalogList__section  320×1947 @0,0
-  div.CatalogList__container  320×1947 @0,0
+section.CatalogList__section  320×1999 @0,0
+  div.CatalogList__container  320×1999 @0,0
     h2  1×1 @15,21  Onest 700 23/27  ls0  lines=1  clipped  «Модели в продаже»
-    div.CatalogList__layout  288×1877 @16,22
+    div.CatalogList__layout  288×1929 @16,22
       section.CatalogFilters__filters  288×47 @0,0
         details.CatalogFilters__box  288×47 @0,0  r14  b1
           summary.CatalogFilters__summary  286×45 @1,1  Manrope 700 15/23  lines=1  «Подбор по параметрам»
@@ -48,7 +48,7 @@ section.CatalogList__section  320×1947 @0,0
               div.CatalogFilters__values  286×54 @-16,23
                 a.FilterLink__link#20  104×44 @16,5  Manrope 600 13/16  r100  b1  lines=1  «Все модели»
                 a.FilterLink__link#21  102×44 @128,5  Manrope 600 13/16  r100  b1  lines=1  «Со скидкой»
-      div.CatalogList__results  288×1810 @0,67
+      div.CatalogList__results  288×1862 @0,67
         div.CatalogList__toolbar  288×161 @0,0
           p.CatalogList__found  86×25 @0,0  Onest 700 16/25  ls0  lines=1  «16 моделей»
           div.CatalogSort__sort  288×124 @0,37
@@ -155,10 +155,10 @@ section.CatalogList__section  320×1947 @0,0
                 a.Button__button  258×44 @0,8  r10  b1
                   span.Button__content#4  65×17 @97,13
                     span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
-        nav.Pager__pager  288×52 @0,1758
-          a.Pager__step  91×44 @-37,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
-          span.Pager__position  143×44 @66,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
-          span.Pager__stepOff  103×44 @221,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+        nav.Pager__pager  288×104 @0,1758
+          a.Pager__step  87×44 @27,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+          span.Pager__position  139×44 @122,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
+          span.Pager__stepOff  99×44 @94,56  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
 
 [геометрия 375]
 section.CatalogList__section  375×2076 @0,0
@@ -309,9 +309,9 @@ section.CatalogList__section  375×2076 @0,0
                   span.Button__content#4  65×17 @124,13
                     span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
         nav.Pager__pager  343×52 @0,1884
-          a.Pager__step  91×44 @-9,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
-          span.Pager__position  143×44 @94,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
-          span.Pager__stepOff  103×44 @249,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+          a.Pager__step  87×44 @1,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+          span.Pager__position  139×44 @96,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
+          span.Pager__stepOff  99×44 @243,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
 
 [геометрия 768]
 section.CatalogList__section  768×1290 @0,0

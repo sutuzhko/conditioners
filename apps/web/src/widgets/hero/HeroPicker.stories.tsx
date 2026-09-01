@@ -59,21 +59,26 @@ export const EmptyCatalog: Story = {
  */
 export const States: Story = {
   name: 'Три состояния рядом',
-  parameters: {
-    layout: 'fullscreen',
-    // Допущение инвариантов — причина в reason (ADR-230)
-    invariants: {
-      allow: [
-        {
-          rule: 'overflow-x',
-          reason:
-            'витрина состояний в ряд шире телефона по замыслу (issue #472 — проверить, что это витрина, а не раскладка)',
-        },
-      ],
-    },
-  },
+  parameters: { layout: 'fullscreen' },
   render: (args) => (
-    <div style={{ display: 'grid', gap: 16, gridTemplateColumns: '1fr 1fr 1fr', padding: 16 }}>
+    <div
+      /* 🔴 Витрина в три колонки уводила документ вбок на 320 и 375 (issue
+         #472), и допущена была как «витрина по замыслу». Замысел — приёмка
+         issue #256: кнопка стоит на одной линии во всех трёх состояниях. По
+         колонке в 96px этого не видно: подбор рисуется обрезками, и линия
+         кнопки не сходится не потому, что дефект, а потому, что карточке не
+         хватило места. Витрина, показывающая искалеченное, ничего не
+         принимает.
+
+         300px — ширина, на которой подбор рисуется целиком; ниже состояния
+         встают друг под друга и сравниваются прокруткой. */
+      style={{
+        display: 'grid',
+        gap: 16,
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        padding: 16,
+      }}
+    >
       <HeroPicker {...args} products={heroPickerModels} />
       <HeroPicker {...args} products={heroPickerModels} pending />
       <HeroPicker {...args} products={weakPickerModels} />

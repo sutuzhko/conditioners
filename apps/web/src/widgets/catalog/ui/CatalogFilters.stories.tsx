@@ -32,12 +32,6 @@ const meta = {
   args: argsFor(),
   parameters: {
     layout: 'padded',
-    // Допущение инвариантов — причина в reason (ADR-230)
-    invariants: {
-      allow: [
-        { rule: 'occlusion', reason: 'issue #474 — ссылки подбора накрыты карточками на 320–768' },
-      ],
-    },
   },
 } satisfies Meta<typeof CatalogFilters>;
 
