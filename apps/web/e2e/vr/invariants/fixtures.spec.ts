@@ -2,7 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 
 import { loadStories } from '../story-index';
 import { waitForStoryReady, watchPlayFailures } from '../story-ready';
-import { measureInvariants, type InvariantRule } from './measure';
+import { type InvariantRule, type MeasureInput, measureInvariants } from './measure';
 
 /**
  * Фикстуры измерителя инвариантов — каждое правило доказывает, что падает
@@ -64,7 +64,10 @@ test('каждая фикстура даёт ровно свои нарушен�
     await waitForStoryReady(page);
 
     const expected = [...(await expectedRules(page))].sort();
-    const found = await page.evaluate(measureInvariants, { theme, touch: WIDTH < 900 });
+    /* Тип входа назван явно: в литерале объекта `theme` расширился бы до
+       `string`, и сигнатура измерителя его не приняла бы. */
+    const input: MeasureInput = { theme, touch: WIDTH < 900 };
+    const found = await page.evaluate(measureInvariants, input);
     const actual = [
       ...new Set(found.filter((item) => item.allowed === null).map((item) => item.rule)),
     ].sort();

@@ -39,7 +39,7 @@ type InvariantRule =
   'overflow-x' | 'target-size' | 'theme' | 'clipped-text' | 'occlusion' | 'fonts' | 'images';
 
 /** Что измеритель обязан найти на этой истории — ровно это и ничего больше. */
-const expects = (...rules: readonly InvariantRule[]): Story['parameters'] => ({
+const expects = (...rules: readonly InvariantRule[]): NonNullable<Story['parameters']> => ({
   invariants: { expect: rules },
 });
 
