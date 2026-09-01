@@ -32,7 +32,10 @@ export const Ready: Story = {
   parameters: {
     invariants: {
       stability: {
-        control: 'a[href*="#lead"]',
+        /* Единственная ссылка полосы — кнопка «Вызвать замерщика». По `href`
+           её не ловить: адрес приходит объектом, и как его сериализует mock
+           `next/link` в витрине, селектору знать незачем. */
+        control: '#storybook-root a',
         states: [
           'блоки-цены-полоса-итога--pending',
           'блоки-цены-полоса-итога--on-site',
