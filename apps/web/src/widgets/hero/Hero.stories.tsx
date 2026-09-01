@@ -55,14 +55,26 @@ export const Discounted: Story = {
  */
 export const PriceReserve: Story = {
   name: 'Подбор: со скидкой и без — рядом',
-  // Допущение инвариантов — причина в reason (ADR-230)
-  parameters: {
-    invariants: {
-      allow: [{ rule: 'overflow-x', reason: 'issue #472 — документ 326px на ширине 320' }],
-    },
-  },
   render: (args) => (
-    <div style={{ display: 'grid', gap: 20, gridTemplateColumns: '1fr 1fr', padding: 20 }}>
+    <div
+      /* 🔴 `auto-fit` с настоящей нижней границей, а не `1fr 1fr` (issue #472).
+         На 320 колонка выходила 130px при содержимом карточки от 171, и витрина
+         уводила документ вбок. Но 320 был только тем случаем, который поймал
+         замер: на 375 колонка в 157px документ уже не двигала — карточка
+         обрезала содержимое сама, — и витрина показывала две искалеченные
+         карточки с разрезанными чипами и словом «Спл сист» вместо названия.
+         Приёмку ADR-126 «обе карточки одной высоты» по такому кадру прочесть
+         нельзя, а замер молчал: переполнение оставалось внутри карточки.
+
+         300px — ширина, на которой подбор рисуется целиком. Ниже неё карточки
+         встают друг под друга: на телефоне их и сравнивают прокруткой. */
+      style={{
+        display: 'grid',
+        gap: 20,
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        padding: 20,
+      }}
+    >
       <HeroPicker products={discountedPickerModels} leadHref="#lead" now={saleNow} />
       <HeroPicker products={args.products} leadHref="#lead" now={saleNow} />
     </div>
