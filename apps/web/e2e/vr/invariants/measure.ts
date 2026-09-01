@@ -180,8 +180,39 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     return short.length > 0 ? `${tag}${cls} «${short}»` : `${tag}${cls}`;
   };
 
-  /* Видимость — по цепочке предков: скрытый предок скрывает всё, что внутри. */
+  /**
+   * Видимость — по цепочке предков: скрытый предок скрывает всё, что внутри.
+   *
+   * 🔴 Первым спрашивается сам браузер — `checkVisibility` (issue #474).
+   * Обход предков видит только то, что написано в стилях узлов, а часть
+   * содержимого браузер прячет мимо стилей: содержимое закрытого `<details>`
+   * скрыто через `content-visibility` у псевдоэлемента `::details-content`, и
+   * у самих ссылок внутри `display` остаётся `flex`, `visibility` — `visible`,
+   * `opacity` — единица. Обход честно отвечал «видимо».
+   *
+   * Стоило это 868 срабатываний правила `occlusion` в каталоге: у свёрнутого
+   * подбора ссылки имеют рамку 0×0 в точке (0, 0), измеритель спрашивал, что
+   * лежит в их центре, и получал карточку товара — «ссылка подбора накрыта
+   * выдачей». Накрывать было нечего: подбор свёрнут, ссылок на экране нет.
+   * Обратная сторона того же промаха опаснее: настоящий дефект внутри
+   * закрытого `<details>` измеритель считал бы видимым и мерил бы по нулевой
+   * рамке.
+   *
+   * `contentVisibilityAuto: true` означает «считать скрытым и то, что скрыто
+   * `content-visibility`». `aria-hidden` остаётся своей проверкой: это не
+   * видимость, а изъятие из дерева доступности, и браузер его здесь не учтёт.
+   */
   const isVisible = (el: Element): boolean => {
+    if (
+      typeof el.checkVisibility === 'function' &&
+      !el.checkVisibility({
+        contentVisibilityAuto: true,
+        opacityProperty: true,
+        visibilityProperty: true,
+      })
+    ) {
+      return false;
+    }
     let node: Element | null = el;
     while (node !== null) {
       if (node instanceof HTMLElement && node.hidden) return false;
