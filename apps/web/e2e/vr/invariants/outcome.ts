@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import type { Shard } from '../shard';
+import { KNOWN_DEFECTS, knownDefectReason, type KnownDefect } from './known-defects';
 import type { InvariantRule, Violation } from './measure';
 
 /**
@@ -89,11 +90,15 @@ export function recordViolations(
   tally: InvariantsTally,
   story: string,
   violations: readonly Violation[],
+  defects: readonly KnownDefect[] = KNOWN_DEFECTS,
 ): void {
   tally.stories += 1;
   for (const violation of violations) {
-    if (violation.allowed !== null) {
-      tally.allowed.push({ story, rule: violation.rule, reason: violation.allowed });
+    /* Допущение параметром истории — первым; известный дефект компонента —
+       вторым (ADR-232): оба уходят в `allowed` с причиной и не красят. */
+    const allowed = violation.allowed ?? knownDefectReason(story, violation, defects);
+    if (allowed !== null) {
+      tally.allowed.push({ story, rule: violation.rule, reason: allowed });
       continue;
     }
     tally.violations.push({

@@ -211,7 +211,7 @@ export function summarize({ expected, runner = 'success', outcomes }) {
   lines.push(
     `| Политика 44×44 до 900px — предупреждений | ${framesOf(policy)} у ${storiesAt(storiesIn(policy))} |`,
   );
-  lines.push(`| Допущено параметром | ${total.allowed.length} |`);
+  lines.push(`| Допущено с причиной | ${total.allowed.length} |`);
   lines.push(`| Отказов | ${total.failed.length} |`, '');
 
   if (hard.length > 0) {
@@ -271,11 +271,29 @@ export function summarize({ expected, runner = 'success', outcomes }) {
   }
 
   if (total.allowed.length > 0) {
-    lines.push(`### Допущено параметром истории — ${total.allowed.length}`, '');
-    lines.push('| История | Правило | Кадры | Причина |', '| --- | --- | --- | --- |');
-    for (const item of [...total.allowed].sort((a, b) => a.story.localeCompare(b.story, 'ru'))) {
+    /* По причинам, а не по историям: известный дефект компонента виден в
+       десятках историй (ADR-232), и список по историям на сотню строк
+       читать невозможно — а причина с номером issue и число задетых историй
+       читаются в одну строку. */
+    const byReason = new Map();
+    for (const item of total.allowed) {
+      const key = `${item.rule}\u0000${item.reason}`;
+      const entry = byReason.get(key) ?? {
+        rule: item.rule,
+        reason: item.reason,
+        stories: new Set(),
+        frames: 0,
+      };
+      entry.stories.add(item.story);
+      entry.frames += item.frames.length;
+      byReason.set(key, entry);
+    }
+    const storiesAllowed = new Set(total.allowed.map((item) => item.story)).size;
+    lines.push(`### Допущено с причиной — ${total.allowed.length} у ${storiesAllowed} историй`, '');
+    lines.push('| Причина | Правило | Историй | Кадров |', '| --- | --- | --- | --- |');
+    for (const entry of [...byReason.values()].sort((a, b) => b.stories.size - a.stories.size)) {
       lines.push(
-        `| \`${item.story}\` | \`${item.rule}\` | ${item.frames.join(', ')} | ${cell(item.reason)} |`,
+        `| ${cell(entry.reason)} | \`${entry.rule}\` | ${entry.stories.size} | ${entry.frames} |`,
       );
     }
     lines.push('');

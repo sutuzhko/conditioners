@@ -135,9 +135,10 @@ describe('вердикт', () => {
       ),
     );
     expect(result.ok).toBe(true);
-    expect(result.markdown).toMatch(/Допущено параметром истории — 1/);
+    expect(result.markdown).toMatch(/Допущено с причиной — 1 у 1 историй/);
+    // по причинам, а не по историям: причина | правило | историй | кадров
     expect(result.markdown).toMatch(
-      /`кит-лента--basic` \| `overflow-x` \| .*390\/light.* \| issue #12/,
+      /\| issue #12 — лента шире экрана \| `overflow-x` \| 1 \| 6 \|/,
     );
   });
 

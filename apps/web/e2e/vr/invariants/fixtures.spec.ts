@@ -26,6 +26,7 @@ const WIDTH = 768;
 const RULES: readonly InvariantRule[] = [
   'overflow-x',
   'target-size',
+  'target-size-touch',
   'theme',
   'clipped-text',
   'occlusion',

@@ -18,6 +18,46 @@ afterEach(() => {
   for (const dir of dirs.splice(0)) rmSync(dir, { recursive: true, force: true });
 });
 
+describe('известные дефекты компонентов', () => {
+  it('нарушение по известному дефекту уходит в допущенные с причиной issue', () => {
+    const tally = emptyInvariantsTally();
+    recordViolations(tally, 'ui-kit-checkbox--basic', [
+      {
+        rule: 'target-size',
+        element: 'input._input_91hse_20 «Согласие»',
+        detail: '119×21 при минимуме 24',
+        allowed: null,
+      },
+      {
+        rule: 'target-size',
+        element: 'button._primary_1a2b3_4 «Отправить»',
+        detail: '20×20 при минимуме 24',
+        allowed: null,
+      },
+    ]);
+    expect(tally.allowed.map((item) => item.reason)).toEqual([
+      expect.stringContaining('issue #475'),
+    ]);
+    expect(tally.violations.map((item) => item.element)).toEqual([
+      'button._primary_1a2b3_4 «Отправить»',
+    ]);
+  });
+
+  it('дефект с префиксом истории не действует на чужую историю', () => {
+    const tally = emptyInvariantsTally();
+    recordViolations(tally, 'блоки-цены--basic', [
+      {
+        rule: 'target-size',
+        element: 'button._chip_x_1 «Офис»',
+        detail: '23×44 при минимуме 24',
+        allowed: null,
+      },
+    ]);
+    expect(tally.allowed).toEqual([]);
+    expect(tally.violations).toHaveLength(1);
+  });
+});
+
 describe('recordViolations', () => {
   it('нарушение красит, допущение с причиной — перечисляется отдельно', () => {
     const tally = emptyInvariantsTally();
