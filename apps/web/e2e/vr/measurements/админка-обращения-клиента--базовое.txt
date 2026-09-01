@@ -1,0 +1,102 @@
+# админка-обращения-клиента--базовое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×315 @16,16  r20  b1
+  header.ClientLeads__header  316×45 @21,21
+    h2.ClientLeads__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Обращения»
+    p.ClientLeads__hint  316×20 @0,25  Manrope 400 13/20  lines=1  «Всё, что этот человек присылал с сайта.»
+  ul.ClientLeads__list  316×181 @21,78
+    li.ClientLeads__item  316×125 @0,0  r11  b1
+      div.ClientLeads__line  290×50 @13,11
+        span.ClientLeads__topic  180×22 @0,1  Manrope 600 15/22  lines=1  «Установка кондиционера»
+        span.Badge__badge  86×24 @192,0  Manrope 600 12/16  r100  b1  lines=1  «Завершена»
+        time.ClientLeads__when  71×20 @219,30  Manrope 400 13/20  lines=1  «14.06.2026»
+      p.ClientLeads__comment  290×45 @13,69  Manrope 400 15/22  lines=2  «Спальня, окна во двор. Нужен тихий вариа»
+    li.ClientLeads__item#2  316×46 @0,135  r11  b1
+      div.ClientLeads__line  290×24 @13,11
+        span.ClientLeads__topic#2  106×22 @0,1  Manrope 600 15/22  lines=1  «Обслуживание»
+        span.Badge__badge#2  56×24 @118,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+        time.ClientLeads__when#2  71×20 @219,2  Manrope 400 13/20  lines=1  «20.08.2026»
+  a.ClientLeads__all  127×22 @21,271  Manrope 600 15/22  lines=1  «Все обращения →»
+
+[геометрия 768]
+section.Card__card  736×267 @16,16  r20  b1
+  header.ClientLeads__header  694×46 @21,21
+    h2.ClientLeads__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Обращения»
+    p.ClientLeads__hint  694×20 @0,26  Manrope 400 13/20  lines=1  «Всё, что этот человек присылал с сайта.»
+  ul.ClientLeads__list  694×133 @21,79
+    li.ClientLeads__item  694×77 @0,0  r11  b1
+      div.ClientLeads__line  668×24 @13,11
+        span.ClientLeads__topic  180×22 @0,1  Manrope 600 15/22  lines=1  «Установка кондиционера»
+        span.Badge__badge  86×24 @192,0  Manrope 600 12/16  r100  b1  lines=1  «Завершена»
+        time.ClientLeads__when  71×20 @597,2  Manrope 400 13/20  lines=1  «14.06.2026»
+      p.ClientLeads__comment  668×22 @13,43  Manrope 400 15/22  lines=1  «Спальня, окна во двор. Нужен тихий вариа»
+    li.ClientLeads__item#2  694×46 @0,87  r11  b1
+      div.ClientLeads__line  668×24 @13,11
+        span.ClientLeads__topic#2  106×22 @0,1  Manrope 600 15/22  lines=1  «Обслуживание»
+        span.Badge__badge#2  56×24 @118,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+        time.ClientLeads__when#2  71×20 @597,2  Manrope 400 13/20  lines=1  «20.08.2026»
+  a.ClientLeads__all  127×22 @21,224  Manrope 600 15/22  lines=1  «Все обращения →»
+
+[геометрия 1440]
+section.Card__card  1408×268 @16,16  r20  b1
+  header.ClientLeads__header  1366×47 @21,21
+    h2.ClientLeads__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Обращения»
+    p.ClientLeads__hint  1366×20 @0,27  Manrope 400 13/20  lines=1  «Всё, что этот человек присылал с сайта.»
+  ul.ClientLeads__list  1366×133 @21,80
+    li.ClientLeads__item  1366×77 @0,0  r11  b1
+      div.ClientLeads__line  1340×24 @13,11
+        span.ClientLeads__topic  180×22 @0,1  Manrope 600 15/22  lines=1  «Установка кондиционера»
+        span.Badge__badge  86×24 @192,0  Manrope 600 12/16  r100  b1  lines=1  «Завершена»
+        time.ClientLeads__when  71×20 @1269,2  Manrope 400 13/20  lines=1  «14.06.2026»
+      p.ClientLeads__comment  1340×22 @13,43  Manrope 400 15/22  lines=1  «Спальня, окна во двор. Нужен тихий вариа»
+    li.ClientLeads__item#2  1366×46 @0,87  r11  b1
+      div.ClientLeads__line  1340×24 @13,11
+        span.ClientLeads__topic#2  106×22 @0,1  Manrope 600 15/22  lines=1  «Обслуживание»
+        span.Badge__badge#2  56×24 @118,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+        time.ClientLeads__when#2  71×20 @1269,2  Manrope 400 13/20  lines=1  «20.08.2026»
+  a.ClientLeads__all  127×22 @21,225  Manrope 600 15/22  lines=1  «Все обращения →»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.ClientLeads__header
+    h2.ClientLeads__title  color #0f172a
+    p.ClientLeads__hint  color #556173
+  ul.ClientLeads__list
+    li.ClientLeads__item  border #e2e8f0
+      div.ClientLeads__line
+        span.ClientLeads__topic  color #0f172a
+        span.Badge__badge  color #166534  bg #15803d14  border #15803d47
+        time.ClientLeads__when  color #5b6a7d
+      p.ClientLeads__comment  color #475569
+    li.ClientLeads__item#2  border #e2e8f0
+      div.ClientLeads__line
+        span.ClientLeads__topic#2  color #0f172a
+        span.Badge__badge#2  color #92400e  bg #b4530914  border #b4530947
+        time.ClientLeads__when#2  color #5b6a7d
+  a.ClientLeads__all  color #0e7490
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.ClientLeads__header
+    h2.ClientLeads__title  color #eaf1f8
+    p.ClientLeads__hint  color #8598ac
+  ul.ClientLeads__list
+    li.ClientLeads__item  border #1e2b41
+      div.ClientLeads__line
+        span.ClientLeads__topic  color #eaf1f8
+        span.Badge__badge  color #4ade80  bg #4ade801f  border #4ade8052
+        time.ClientLeads__when  color #7e92a7
+      p.ClientLeads__comment  color #a8b6c6
+    li.ClientLeads__item#2  border #1e2b41
+      div.ClientLeads__line
+        span.ClientLeads__topic#2  color #eaf1f8
+        span.Badge__badge#2  color #fbbf24  bg #fbbf241f  border #fbbf2452
+        time.ClientLeads__when#2  color #7e92a7
+  a.ClientLeads__all  color #22d3ee

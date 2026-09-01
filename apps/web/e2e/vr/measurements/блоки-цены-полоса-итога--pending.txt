@@ -1,0 +1,74 @@
+# блоки-цены-полоса-итога--pending · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+div.TotalBar__total  288×111 @16,16  b1 0 0 0
+  p.TotalBar__value  288×30 @0,17
+    span.TotalBar__label  108×16 @0,7  Manrope 400 13/16  lines=1  «Монтаж под ключ»
+    output.TotalBar__output  118×26 @170,2
+      span.Skeleton__skeleton  118×26 @0,0  r8
+      span  1×1 @-1,13  Manrope 400 15/15  lines=1  clipped  «Пересчитываем»
+  a.Button__button  288×52 @0,59  r12  b1
+    span.Button__content  156×19 @66,16
+      span.Button__label  156×19 @0,0  Manrope 600 16/19  lines=1  «Вызвать замерщика»
+
+[геометрия 375]
+div.TotalBar__total  343×111 @16,16  b1 0 0 0
+  p.TotalBar__value  343×30 @0,17
+    span.TotalBar__label  108×16 @0,7  Manrope 400 13/16  lines=1  «Монтаж под ключ»
+    output.TotalBar__output  118×26 @225,2
+      span.Skeleton__skeleton  118×26 @0,0  r8
+      span  1×1 @-1,13  Manrope 400 15/15  lines=1  clipped  «Пересчитываем»
+  a.Button__button  343×52 @0,59  r12  b1
+    span.Button__content  156×19 @94,16
+      span.Button__label  156×19 @0,0  Manrope 600 16/19  lines=1  «Вызвать замерщика»
+
+[геометрия 768]
+div.TotalBar__total  736×112 @16,16  b1 0 0 0
+  p.TotalBar__value  736×31 @0,17
+    span.TotalBar__label  108×16 @0,8  Manrope 400 13/16  lines=1  «Монтаж под ключ»
+    output.TotalBar__output  118×26 @618,3
+      span.Skeleton__skeleton  118×26 @0,0  r8
+      span  1×1 @-1,13  Manrope 400 15/15  lines=1  clipped  «Пересчитываем»
+  a.Button__button  736×52 @0,60  r12  b1
+    span.Button__content  156×19 @290,16
+      span.Button__label  156×19 @0,0  Manrope 600 16/19  lines=1  «Вызвать замерщика»
+
+[геометрия 1200]
+div.TotalBar__total  1168×113 @16,16  b1 0 0 0
+  p.TotalBar__value  1168×32 @0,17
+    span.TotalBar__label  108×16 @0,8  Manrope 400 13/16  lines=1  «Монтаж под ключ»
+    output.TotalBar__output  118×26 @1050,3
+      span.Skeleton__skeleton  118×26 @0,0  r8
+      span  1×1 @-1,13  Manrope 400 15/15  lines=1  clipped  «Пересчитываем»
+  a.Button__button  1168×52 @0,61  r12  b1
+    span.Button__content  156×19 @506,16
+      span.Button__label  156×19 @0,0  Manrope 600 16/19  lines=1  «Вызвать замерщика»
+
+[палитра light]
+div.TotalBar__total  border #eef2f6 #0f172a #0f172a #0f172a
+  p.TotalBar__value
+    span.TotalBar__label  color #556173
+    output.TotalBar__output
+      span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+      span  color #0f172a
+  a.Button__button  bg #0e7490  border #0e7490
+    span.Button__content
+      span.Button__label  color #ffffff
+
+[палитра dark]
+div.TotalBar__total  border #182338 #eaf1f8 #eaf1f8 #eaf1f8
+  p.TotalBar__value
+    span.TotalBar__label  color #8598ac
+    output.TotalBar__output
+      span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+      span  color #eaf1f8
+  a.Button__button  bg #0e7490  border #0e7490
+    span.Button__content
+      span.Button__label  color #ffffff

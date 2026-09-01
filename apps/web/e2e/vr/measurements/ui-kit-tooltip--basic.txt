@@ -1,0 +1,37 @@
+# ui-kit-tooltip--basic · ширины 390 768 1440 · темы light dark
+шрифты: —
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Tooltip__wrap  44×44 @173,428
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+
+[геометрия 768]
+span.Tooltip__wrap  44×44 @362,428
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+
+[геометрия 1440]
+span.Tooltip__wrap  44×44 @698,428
+  span.Tooltip__anchor  44×44 @0,0
+    button.IconButton__iconButton  44×44 @0,0  r11  b1
+      svg  20×20 @12,12
+
+[палитра light]
+span.Tooltip__wrap
+  span.Tooltip__anchor
+    button.IconButton__iconButton  border transparent
+      svg
+
+[палитра dark]
+span.Tooltip__wrap
+  span.Tooltip__anchor
+    button.IconButton__iconButton  border transparent
+      svg

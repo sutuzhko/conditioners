@@ -1,0 +1,62 @@
+# ui-kit-rangeslider--with-error · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  358×128 @16,16
+  span.RangeSlider__head  358×25 @0,0
+    label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+    output.RangeSlider__value  41×25 @317,0  Onest 700 16/25  lines=1  «25 м²»
+  input.RangeSlider__slider  358×44 @0,32
+  span.RangeSlider__scale  358×19 @0,83
+    span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+    span#2  36×19 @322,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+  p.Field__error  358×19 @0,108  Manrope 600 13/19  lines=1  «Для такой площади нужен подбор по телефо»
+
+[геометрия 768]
+div.Field__field  736×128 @16,16
+  span.RangeSlider__head  736×25 @0,0
+    label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+    output.RangeSlider__value  41×25 @695,0  Onest 700 16/25  lines=1  «25 м²»
+  input.RangeSlider__slider  736×44 @0,32
+  span.RangeSlider__scale  736×19 @0,83
+    span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+    span#2  36×19 @700,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+  p.Field__error  736×19 @0,108  Manrope 600 13/19  lines=1  «Для такой площади нужен подбор по телефо»
+
+[геометрия 1440]
+div.Field__field  1408×128 @16,16
+  span.RangeSlider__head  1408×25 @0,0
+    label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+    output.RangeSlider__value  41×25 @1367,0  Onest 700 16/25  lines=1  «25 м²»
+  input.RangeSlider__slider  1408×44 @0,32
+  span.RangeSlider__scale  1408×19 @0,83
+    span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+    span#2  36×19 @1372,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+  p.Field__error  1408×19 @0,108  Manrope 600 13/19  lines=1  «Для такой площади нужен подбор по телефо»
+
+[палитра light]
+div.Field__field
+  span.RangeSlider__head
+    label  color #0f172a
+    output.RangeSlider__value  color #0e7490
+  input.RangeSlider__slider
+  span.RangeSlider__scale
+    span  color #5b6a7d
+    span#2  color #5b6a7d
+  p.Field__error  color #be123c
+
+[палитра dark]
+div.Field__field
+  span.RangeSlider__head
+    label  color #eaf1f8
+    output.RangeSlider__value  color #22d3ee
+  input.RangeSlider__slider
+  span.RangeSlider__scale
+    span  color #7e92a7
+    span#2  color #7e92a7
+  p.Field__error  color #fb7185

@@ -1,0 +1,402 @@
+# админка-цены-на-монтаж--сохранение · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×1556
+768 → 768×1267
+1440 → 1440×900
+
+[геометрия 390]
+form.PricesForm__form  358×1524 @16,16
+  section.Card__card  358×868 @0,0  r20  b1
+    h2.PricesForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Прайс по классам»
+    p.PricesForm__hint  316×60 @21,46  Manrope 400 13/20  lines=3  «Таблица сохраняется целиком: строку можн»
+    div.PricesForm__rows  316×669 @21,120
+      div.PricesForm__row  316×328 @0,0  r14  b1
+        div.Field__field  140×76 @13,13
+          label.Field__label  140×20 @0,0  Manrope 600 13/20  lines=1  «Класс»
+          input  140×49 @0,27  r11  b1
+        div.Field__field#2  140×76 @163,13
+          label.Field__label  140×20 @0,0  Manrope 600 13/20  lines=1  «Мощность»
+          input  140×49 @0,27  r11  b1
+        div.Field__field#3  140×76 @13,99
+          label.Field__label  140×20 @0,0  Manrope 600 13/20  lines=1  «Площадь»
+          input  140×49 @0,27  r11  b1
+        div.Field__field#4  140×76 @163,99
+          label.Field__label  140×20 @0,0  Manrope 600 13/20  lines=1  «Цена монтажа, ₽»
+          input  140×49 @0,27  r11  b1
+        div.Field__field#5  140×76 @13,185
+          label.Field__label  140×20 @0,0  Manrope 600 13/20  lines=1  «Срок»
+          input  140×49 @0,27  r11  b1
+        button.Button__button  40×44 @263,271  r9  b1
+          span.Button__content  10×16 @15,14
+            span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+      div.PricesForm__row#2  316×328 @0,340  r14  b1
+        div.Field__field  140×76 @13,13
+          label.Field__label#2  140×20 @0,0  Manrope 600 13/20  lines=1  «Класс»
+          input#2  140×49 @0,27  r11  b1
+        div.Field__field#2  140×76 @163,13
+          label.Field__label#2  140×20 @0,0  Manrope 600 13/20  lines=1  «Мощность»
+          input#2  140×49 @0,27  r11  b1
+        div.Field__field#3  140×76 @13,99
+          label.Field__label#2  140×20 @0,0  Manrope 600 13/20  lines=1  «Площадь»
+          input#2  140×49 @0,27  r11  b1
+        div.Field__field#4  140×76 @163,99
+          label.Field__label#2  140×20 @0,0  Manrope 600 13/20  lines=1  «Цена монтажа, ₽»
+          input#2  140×49 @0,27  r11  b1
+        div.Field__field#5  140×76 @13,185
+          label.Field__label#2  140×20 @0,0  Manrope 600 13/20  lines=1  «Срок»
+          input#2  140×49 @0,27  r11  b1
+        button.Button__button  40×44 @263,271  r9  b1
+          span.Button__content#2  10×16 @15,14
+            span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+    button.Button__button  131×44 @21,803  r9  b1
+      span.Button__content#3  101×16 @15,14
+        span.Button__label  101×16 @0,0  Manrope 600 13/16  lines=1  «Добавить класс»
+  section.Card__card#2  358×584 @0,882  r20  b1
+    h2.PricesForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Ставки допработ»
+    p.PricesForm__hint  316×40 @21,46  Manrope 400 13/20  lines=2  «Из них калькулятор собирает надбавки к б»
+    div.PricesForm__extras  316×463 @21,100
+      div.Field__field  316×76 @0,0
+        label.Field__label#3  316×20 @0,0  Manrope 600 13/20  lines=1  «Трассы включено в цену, м»
+        input#3  316×49 @0,27  r11  b1
+      div.Field__field#2  316×76 @0,90
+        label.Field__label#3  316×20 @0,0  Manrope 600 13/20  lines=1  «Трасса сверх включённой, ₽/м»
+        input#3  316×49 @0,27  r11  b1
+      div.Field__field#3  316×76 @0,180
+        label.Field__label#3  316×20 @0,0  Manrope 600 13/20  lines=1  «Штробление, ₽/м»
+        input#3  316×49 @0,27  r11  b1
+      div.Field__field#4  316×76 @0,270
+        label.Field__label#3  316×20 @0,0  Manrope 600 13/20  lines=1  «Высотные работы, ₽»
+        input#3  316×49 @0,27  r11  b1
+      div.Field__field#5  316×103 @0,361
+        label.Field__label#3  316×20 @0,0  Manrope 600 13/20  lines=1  «Высотные работы с этажа»
+        input#3  316×49 @0,27  r11  b1
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «С этого этажа надбавка начинает применят»
+  div.PricesForm__actions  358×44 @0,1480
+    button.Button__button  128×44 @0,0  r11  b1
+      span.Button__content#4  90×17 @19,13
+        span.Button__label  90×17 @0,0  Manrope 600 15/17  lines=1  «Сохраняем…»
+      span.Button__spinner  126×42 @1,1
+
+[геометрия 768]
+form.PricesForm__form  736×1235 @16,16
+  section.Card__card  736×849 @0,0  r20  b1
+    h2.PricesForm__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Прайс по классам»
+    p.PricesForm__hint  571×40 @21,47  Manrope 400 13/20  lines=2  «Таблица сохраняется целиком: строку можн»
+    div.PricesForm__rows  694×669 @21,101
+      div.PricesForm__row  694×328 @0,0  r14  b1
+        div.Field__field  329×76 @13,13
+          label.Field__label  329×20 @0,0  Manrope 600 13/20  lines=1  «Класс»
+          input  329×49 @0,27  r11  b1
+        div.Field__field#2  329×76 @352,13
+          label.Field__label  329×20 @0,0  Manrope 600 13/20  lines=1  «Мощность»
+          input  329×49 @0,27  r11  b1
+        div.Field__field#3  329×76 @13,99
+          label.Field__label  329×20 @0,0  Manrope 600 13/20  lines=1  «Площадь»
+          input  329×49 @0,27  r11  b1
+        div.Field__field#4  329×76 @352,99
+          label.Field__label  329×20 @0,0  Manrope 600 13/20  lines=1  «Цена монтажа, ₽»
+          input  329×49 @0,27  r11  b1
+        div.Field__field#5  329×76 @13,185
+          label.Field__label  329×20 @0,0  Manrope 600 13/20  lines=1  «Срок»
+          input  329×49 @0,27  r11  b1
+        button.Button__button  40×44 @641,271  r9  b1
+          span.Button__content  10×16 @15,14
+            span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+      div.PricesForm__row#2  694×328 @0,340  r14  b1
+        div.Field__field  329×76 @13,13
+          label.Field__label#2  329×20 @0,0  Manrope 600 13/20  lines=1  «Класс»
+          input#2  329×49 @0,27  r11  b1
+        div.Field__field#2  329×76 @352,13
+          label.Field__label#2  329×20 @0,0  Manrope 600 13/20  lines=1  «Мощность»
+          input#2  329×49 @0,27  r11  b1
+        div.Field__field#3  329×76 @13,99
+          label.Field__label#2  329×20 @0,0  Manrope 600 13/20  lines=1  «Площадь»
+          input#2  329×49 @0,27  r11  b1
+        div.Field__field#4  329×76 @352,99
+          label.Field__label#2  329×20 @0,0  Manrope 600 13/20  lines=1  «Цена монтажа, ₽»
+          input#2  329×49 @0,27  r11  b1
+        div.Field__field#5  329×76 @13,185
+          label.Field__label#2  329×20 @0,0  Manrope 600 13/20  lines=1  «Срок»
+          input#2  329×49 @0,27  r11  b1
+        button.Button__button  40×44 @641,271  r9  b1
+          span.Button__content#2  10×16 @15,14
+            span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+    button.Button__button  131×44 @21,784  r9  b1
+      span.Button__content#3  101×16 @15,14
+        span.Button__label  101×16 @0,0  Manrope 600 13/16  lines=1  «Добавить класс»
+  section.Card__card#2  736×314 @0,863  r20  b1
+    h2.PricesForm__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Ставки допработ»
+    p.PricesForm__hint  571×20 @21,47  Manrope 400 13/20  lines=1  «Из них калькулятор собирает надбавки к б»
+    div.PricesForm__extras  694×212 @21,81
+      div.Field__field  221×76 @0,0
+        label.Field__label#3  221×20 @0,0  Manrope 600 13/20  lines=1  «Трассы включено в цену, м»
+        input#3  221×49 @0,27  r11  b1
+      div.Field__field#2  221×76 @237,0
+        label.Field__label#3  221×20 @0,0  Manrope 600 13/20  lines=1  «Трасса сверх включённой, ₽/м»
+        input#3  221×49 @0,27  r11  b1
+      div.Field__field#3  221×76 @473,0
+        label.Field__label#3  221×20 @0,0  Manrope 600 13/20  lines=1  «Штробление, ₽/м»
+        input#3  221×49 @0,27  r11  b1
+      div.Field__field#4  221×76 @0,90
+        label.Field__label#3  221×20 @0,0  Manrope 600 13/20  lines=1  «Высотные работы, ₽»
+        input#3  221×49 @0,27  r11  b1
+      div.Field__field#5  221×122 @237,90
+        label.Field__label#3  221×20 @0,0  Manrope 600 13/20  lines=1  «Высотные работы с этажа»
+        input#3  221×49 @0,27  r11  b1
+        p.Field__hint  221×39 @0,83  Manrope 400 13/19  lines=2  «С этого этажа надбавка начинает применят»
+  div.PricesForm__actions  736×44 @0,1191
+    button.Button__button  128×44 @0,0  r11  b1
+      span.Button__content#4  90×17 @19,13
+        span.Button__label  90×17 @0,0  Manrope 600 15/17  lines=1  «Сохраняем…»
+      span.Button__spinner  126×42 @1,1
+
+[геометрия 1440]
+form.PricesForm__form  1408×614 @16,16
+  section.Card__card  1408×317 @0,0  r20  b1
+    h2.PricesForm__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Прайс по классам»
+    p.PricesForm__hint  571×40 @21,48  Manrope 400 13/20  lines=2  «Таблица сохраняется целиком: строку можн»
+    div.PricesForm__rows  1366×140 @21,102
+      div.PricesForm__head  1366×20 @0,0
+        span  80×20 @0,0  Manrope 400 13/20  lines=1  «Класс»
+        span#2  130×20 @88,0  Manrope 400 13/20  lines=1  «Мощность»
+        span#3  130×20 @226,0  Manrope 400 13/20  lines=1  «Площадь»
+        span#4  130×20 @364,0  Manrope 400 13/20  lines=1  «Цена монтажа, ₽»
+        span#5  130×20 @502,0  Manrope 400 13/20  lines=1  «Срок»
+      div.PricesForm__row  1366×49 @0,26
+        div.Field__field  80×49 @0,0
+          label.Field__label  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Класс»
+          input  80×49 @0,0  r11  b1
+        div.Field__field#2  130×49 @88,0
+          label.Field__label  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Мощность»
+          input  130×49 @0,0  r11  b1
+        div.Field__field#3  130×49 @226,0
+          label.Field__label  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Площадь»
+          input  130×49 @0,0  r11  b1
+        div.Field__field#4  130×49 @364,0
+          label.Field__label  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Цена монтажа, ₽»
+          input  130×49 @0,0  r11  b1
+        div.Field__field#5  130×49 @502,0
+          label.Field__label  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Срок»
+          input  130×49 @0,0  r11  b1
+        button.Button__button  44×40 @640,0  r9  b1
+          span.Button__content  10×16 @17,12
+            span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+      div.PricesForm__row#2  1366×49 @0,83
+        div.Field__field  80×49 @0,0
+          label.Field__label#2  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Класс»
+          input#2  80×49 @0,0  r11  b1
+        div.Field__field#2  130×49 @88,0
+          label.Field__label#2  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Мощность»
+          input#2  130×49 @0,0  r11  b1
+        div.Field__field#3  130×49 @226,0
+          label.Field__label#2  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Площадь»
+          input#2  130×49 @0,0  r11  b1
+        div.Field__field#4  130×49 @364,0
+          label.Field__label#2  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Цена монтажа, ₽»
+          input#2  130×49 @0,0  r11  b1
+        div.Field__field#5  130×49 @502,0
+          label.Field__label#2  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Срок»
+          input#2  130×49 @0,0  r11  b1
+        button.Button__button  44×40 @640,0  r9  b1
+          span.Button__content#2  10×16 @17,12
+            span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+    button.Button__button  131×40 @21,256  r9  b1
+      span.Button__content#3  101×16 @15,12
+        span.Button__label  101×16 @0,0  Manrope 600 13/16  lines=1  «Добавить класс»
+  section.Card__card#2  1408×225 @0,331  r20  b1
+    h2.PricesForm__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Ставки допработ»
+    p.PricesForm__hint  571×20 @21,48  Manrope 400 13/20  lines=1  «Из них калькулятор собирает надбавки к б»
+    div.PricesForm__extras  1366×122 @21,82
+      div.Field__field  260×76 @0,0
+        label.Field__label#3  260×20 @0,0  Manrope 600 13/20  lines=1  «Трассы включено в цену, м»
+        input#3  260×49 @0,27  r11  b1
+      div.Field__field#2  260×76 @276,0
+        label.Field__label#3  260×20 @0,0  Manrope 600 13/20  lines=1  «Трасса сверх включённой, ₽/м»
+        input#3  260×49 @0,27  r11  b1
+      div.Field__field#3  260×76 @553,0
+        label.Field__label#3  260×20 @0,0  Manrope 600 13/20  lines=1  «Штробление, ₽/м»
+        input#3  260×49 @0,27  r11  b1
+      div.Field__field#4  260×76 @829,0
+        label.Field__label#3  260×20 @0,0  Manrope 600 13/20  lines=1  «Высотные работы, ₽»
+        input#3  260×49 @0,27  r11  b1
+      div.Field__field#5  260×122 @1106,0
+        label.Field__label#3  260×20 @0,0  Manrope 600 13/20  lines=1  «Высотные работы с этажа»
+        input#3  260×49 @0,27  r11  b1
+        p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «С этого этажа надбавка начинает применят»
+  div.PricesForm__actions  1408×44 @0,570
+    button.Button__button  128×44 @0,0  r11  b1
+      span.Button__content#4  90×17 @19,13
+        span.Button__label  90×17 @0,0  Manrope 600 15/17  lines=1  «Сохраняем…»
+      span.Button__spinner  126×42 @1,1
+
+[палитра light]
+form.PricesForm__form
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    h2.PricesForm__title  color #0f172a
+    p.PricesForm__hint  color #556173
+    div.PricesForm__rows
+      div.PricesForm__head
+        span  color #5b6a7d
+        span#2  color #5b6a7d
+        span#3  color #5b6a7d
+        span#4  color #5b6a7d
+        span#5  color #5b6a7d
+      div.PricesForm__row
+        div.Field__field
+          label.Field__label  color #334155
+          input  bg #f8fafc  border #7e8fa6
+        div.Field__field#2
+          label.Field__label  color #334155
+          input  bg #f8fafc  border #7e8fa6
+        div.Field__field#3
+          label.Field__label  color #334155
+          input  bg #f8fafc  border #7e8fa6
+        div.Field__field#4
+          label.Field__label  color #334155
+          input  bg #f8fafc  border #7e8fa6
+        div.Field__field#5
+          label.Field__label  color #334155
+          input  bg #f8fafc  border #7e8fa6
+        button.Button__button  border transparent
+          span.Button__content
+            span.Button__label  color #0e7490
+      div.PricesForm__row#2
+        div.Field__field
+          label.Field__label#2  color #334155
+          input#2  bg #f8fafc  border #7e8fa6
+        div.Field__field#2
+          label.Field__label#2  color #334155
+          input#2  bg #f8fafc  border #7e8fa6
+        div.Field__field#3
+          label.Field__label#2  color #334155
+          input#2  bg #f8fafc  border #7e8fa6
+        div.Field__field#4
+          label.Field__label#2  color #334155
+          input#2  bg #f8fafc  border #7e8fa6
+        div.Field__field#5
+          label.Field__label#2  color #334155
+          input#2  bg #f8fafc  border #7e8fa6
+        button.Button__button  border transparent
+          span.Button__content#2
+            span.Button__label  color #0e7490
+    button.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content#3
+        span.Button__label  color #0f172a
+  section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    h2.PricesForm__title  color #0f172a
+    p.PricesForm__hint  color #556173
+    div.PricesForm__extras
+      div.Field__field
+        label.Field__label#3  color #334155
+        input#3  bg #f8fafc  border #7e8fa6
+      div.Field__field#2
+        label.Field__label#3  color #334155
+        input#3  bg #f8fafc  border #7e8fa6
+      div.Field__field#3
+        label.Field__label#3  color #334155
+        input#3  bg #f8fafc  border #7e8fa6
+      div.Field__field#4
+        label.Field__label#3  color #334155
+        input#3  bg #f8fafc  border #7e8fa6
+      div.Field__field#5
+        label.Field__label#3  color #334155
+        input#3  bg #f8fafc  border #7e8fa6
+        p.Field__hint  color #556173
+  div.PricesForm__actions
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content#4
+        span.Button__label  color #ffffff
+      span.Button__spinner
+[палитра light @390]
+form.PricesForm__form > section.Card__card > div.PricesForm__rows > div.PricesForm__row  border #e2e8f0
+form.PricesForm__form > section.Card__card > div.PricesForm__rows > div.PricesForm__row#2  border #e2e8f0
+[палитра light @768]
+form.PricesForm__form > section.Card__card > div.PricesForm__rows > div.PricesForm__row  border #e2e8f0
+form.PricesForm__form > section.Card__card > div.PricesForm__rows > div.PricesForm__row#2  border #e2e8f0
+
+[палитра dark]
+form.PricesForm__form
+  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    h2.PricesForm__title  color #eaf1f8
+    p.PricesForm__hint  color #8598ac
+    div.PricesForm__rows
+      div.PricesForm__head
+        span  color #7e92a7
+        span#2  color #7e92a7
+        span#3  color #7e92a7
+        span#4  color #7e92a7
+        span#5  color #7e92a7
+      div.PricesForm__row
+        div.Field__field
+          label.Field__label  color #c9d5e2
+          input  bg #0e1729  border #566d95
+        div.Field__field#2
+          label.Field__label  color #c9d5e2
+          input  bg #0e1729  border #566d95
+        div.Field__field#3
+          label.Field__label  color #c9d5e2
+          input  bg #0e1729  border #566d95
+        div.Field__field#4
+          label.Field__label  color #c9d5e2
+          input  bg #0e1729  border #566d95
+        div.Field__field#5
+          label.Field__label  color #c9d5e2
+          input  bg #0e1729  border #566d95
+        button.Button__button  border transparent
+          span.Button__content
+            span.Button__label  color #22d3ee
+      div.PricesForm__row#2
+        div.Field__field
+          label.Field__label#2  color #c9d5e2
+          input#2  bg #0e1729  border #566d95
+        div.Field__field#2
+          label.Field__label#2  color #c9d5e2
+          input#2  bg #0e1729  border #566d95
+        div.Field__field#3
+          label.Field__label#2  color #c9d5e2
+          input#2  bg #0e1729  border #566d95
+        div.Field__field#4
+          label.Field__label#2  color #c9d5e2
+          input#2  bg #0e1729  border #566d95
+        div.Field__field#5
+          label.Field__label#2  color #c9d5e2
+          input#2  bg #0e1729  border #566d95
+        button.Button__button  border transparent
+          span.Button__content#2
+            span.Button__label  color #22d3ee
+    button.Button__button  bg #121d31  border #566d95
+      span.Button__content#3
+        span.Button__label  color #eaf1f8
+  section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    h2.PricesForm__title  color #eaf1f8
+    p.PricesForm__hint  color #8598ac
+    div.PricesForm__extras
+      div.Field__field
+        label.Field__label#3  color #c9d5e2
+        input#3  bg #0e1729  border #566d95
+      div.Field__field#2
+        label.Field__label#3  color #c9d5e2
+        input#3  bg #0e1729  border #566d95
+      div.Field__field#3
+        label.Field__label#3  color #c9d5e2
+        input#3  bg #0e1729  border #566d95
+      div.Field__field#4
+        label.Field__label#3  color #c9d5e2
+        input#3  bg #0e1729  border #566d95
+      div.Field__field#5
+        label.Field__label#3  color #c9d5e2
+        input#3  bg #0e1729  border #566d95
+        p.Field__hint  color #8598ac
+  div.PricesForm__actions
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content#4
+        span.Button__label  color #ffffff
+      span.Button__spinner
+[палитра dark @390]
+form.PricesForm__form > section.Card__card > div.PricesForm__rows > div.PricesForm__row  border #1e2b41
+form.PricesForm__form > section.Card__card > div.PricesForm__rows > div.PricesForm__row#2  border #1e2b41
+[палитра dark @768]
+form.PricesForm__form > section.Card__card > div.PricesForm__rows > div.PricesForm__row  border #1e2b41
+form.PricesForm__form > section.Card__card > div.PricesForm__rows > div.PricesForm__row#2  border #1e2b41

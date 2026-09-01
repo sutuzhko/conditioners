@@ -1,0 +1,357 @@
+# админка-склад-·-остатки--базовое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.StockTable__wrap  358×839 @16,16
+  section.Card__card  358×552 @0,0  r20  b1
+    div.Table__viewport  356×550 @1,1
+      table.Table__table  952×550 @0,0
+        th  128×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
+        th.StockTable__numberHead  210×76 @128,0  b0 0 1 0
+          span.StockTable__zoneName  174×23 @19,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
+        th.StockTable__numberHead#2  202×76 @338,0  b0 0 1 0
+          span.StockTable__zoneName  166×23 @18,16  Onest 700 15/23  lines=1  «Газель»
+          span.StockTable__zoneNote  166×20 @18,39  Manrope 400 13/20  lines=1  «машина: Дмитрий Соколов»
+        th.StockTable__numberHead#3  178×76 @539,0  b0 0 1 0
+          span.StockTable__zoneName  142×23 @18,16  Onest 700 15/23  lines=1  «Ларгус»
+          span.StockTable__zoneNote  142×20 @18,39  Manrope 400 13/20  lines=1  «машина: Сергей Панин»
+        th.StockTable__numberHead#4  154×76 @717,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итог»
+        th.StockTable__numberHead#5  81×76 @871,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порог»
+        a.StockTable__name  85×41 @18,91  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
+        span.StockTable__itemNote  91×20 @18,135  Manrope 400 13/20  lines=1  «Медная труба»
+        a.StockTable__move  85×24 @18,161  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell  210×124 @128,76  b0 0 1 0
+          button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «43,5 м»
+        td.StockCell__cell#2  202×124 @338,76  b0 0 1 0
+          button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12 м»
+        td.StockCell__cell#3  178×124 @539,76  b0 0 1 0
+          button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 м»
+        td.StockTable__number  154×124 @717,76  b0 0 1 0
+          span.StockTable__total  43×19 @93,16  Manrope 600 15/22  lines=1  «55,5 м»
+        td.StockTable__number#2  81×124 @871,76  Manrope 400 15/22  b0 0 1 0  lines=1  «30 м»
+        a.StockTable__name#2  91×41 @18,215  Manrope 600 15/22  lines=2  «Кронштейны 450×450»
+        span.StockTable__itemNote#2  91×20 @18,259  Manrope 400 13/20  lines=1  «Крепёж»
+        a.StockTable__move#2  85×24 @18,286  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#4  210×124 @128,200  b0 0 1 0
+          button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 пар.»
+        td.StockCell__cell#5  202×124 @338,200  b0 0 1 0
+          button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1 пар.»
+        td.StockCell__cell#6  178×124 @539,200  b0 0 1 0
+          button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 пар.»
+        td.StockTable__number#3  154×124 @717,200  b0 0 1 0
+          span.StockTable__total  41×19 @18,16  Manrope 600 15/22  lines=1  «3 пар.»
+          span.Badge__badge  69×24 @67,15  Manrope 600 12/16  r100  b1  lines=1  «К заказу»
+        td.StockTable__number#4  81×124 @871,200  Manrope 400 15/22  b0 0 1 0  lines=1  «6 пар.»
+        a.StockTable__name#3  75×19 @18,340  Manrope 600 15/22  lines=1  «Фреон R32»
+        span.StockTable__itemNote#3  91×20 @18,361  Manrope 400 13/20  lines=1  «Фреон»
+        a.StockTable__move#3  85×24 @18,387  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#7  210×102 @128,324  b0 0 1 0
+          button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «6,2 кг»
+        td.StockCell__cell#8  202×102 @338,324  b0 0 1 0
+          button.StockCell__button  202×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5 кг»
+        td.StockCell__cell#9  178×102 @539,324  b0 0 1 0
+          button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 кг»
+        td.StockTable__number#5  154×102 @717,324  b0 0 1 0
+          span.StockTable__total  38×19 @98,16  Manrope 600 15/22  lines=1  «4,7 кг»
+        td.StockTable__number#6  81×102 @871,324  Manrope 400 15/22  b0 0 1 0  lines=1  «4 кг»
+        a.StockTable__name#4  81×41 @18,441  Manrope 600 15/22  lines=2  «Сплит-система 09»
+        span.StockTable__itemNote#4  91×20 @18,485  Manrope 400 13/20  lines=1  «Без группы»
+        a.StockTable__move#4  85×24 @18,511  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#10  210×124 @128,426
+          button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 шт.»
+        td.StockCell__cell#11  202×124 @338,426
+          button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
+        td.StockCell__cell#12  178×124 @539,426
+          button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
+        td.StockTable__number#7  154×124 @717,426
+          span.StockTable__total  34×19 @101,16  Manrope 600 15/22  lines=1  «2 шт.»
+        td.StockTable__number#8  81×124 @871,426  Manrope 400 15/22  lines=1  «—»
+  p[role=status]  1×1 @-1,-1
+  p.StockTable__hint  358×40 @0,564  Manrope 400 13/20  lines=2  «Таблица прокручивается вбок, название по»
+  p.StockTable__hint#2  358×81 @0,617  Manrope 400 13/20  lines=4  «Остаток можно перетащить мышью в другую»
+  p.StockTable__warning  358×130 @0,709  Manrope 400 15/22  r11  b1  lines=5  «Минус означает, что списали больше, чем»
+
+[геометрия 768]
+div.StockTable__wrap  736×712 @16,16
+  section.Card__card  736×552 @0,0  r20  b1
+    div.Table__viewport  734×550 @1,1
+      table.Table__table  952×550 @0,0
+        th  128×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
+        th.StockTable__numberHead  210×76 @128,0  b0 0 1 0
+          span.StockTable__zoneName  174×23 @19,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
+        th.StockTable__numberHead#2  202×76 @338,0  b0 0 1 0
+          span.StockTable__zoneName  166×23 @18,16  Onest 700 15/23  lines=1  «Газель»
+          span.StockTable__zoneNote  166×20 @18,39  Manrope 400 13/20  lines=1  «машина: Дмитрий Соколов»
+        th.StockTable__numberHead#3  178×76 @539,0  b0 0 1 0
+          span.StockTable__zoneName  142×23 @18,16  Onest 700 15/23  lines=1  «Ларгус»
+          span.StockTable__zoneNote  142×20 @18,39  Manrope 400 13/20  lines=1  «машина: Сергей Панин»
+        th.StockTable__numberHead#4  154×76 @717,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итог»
+        th.StockTable__numberHead#5  81×76 @871,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порог»
+        a.StockTable__name  85×41 @18,91  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
+        span.StockTable__itemNote  91×20 @18,135  Manrope 400 13/20  lines=1  «Медная труба»
+        a.StockTable__move  85×24 @18,161  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell  210×124 @128,76  b0 0 1 0
+          button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «43,5 м»
+        td.StockCell__cell#2  202×124 @338,76  b0 0 1 0
+          button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12 м»
+        td.StockCell__cell#3  178×124 @539,76  b0 0 1 0
+          button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 м»
+        td.StockTable__number  154×124 @717,76  b0 0 1 0
+          span.StockTable__total  43×19 @93,16  Manrope 600 15/22  lines=1  «55,5 м»
+        td.StockTable__number#2  81×124 @871,76  Manrope 400 15/22  b0 0 1 0  lines=1  «30 м»
+        a.StockTable__name#2  91×41 @18,215  Manrope 600 15/22  lines=2  «Кронштейны 450×450»
+        span.StockTable__itemNote#2  91×20 @18,259  Manrope 400 13/20  lines=1  «Крепёж»
+        a.StockTable__move#2  85×24 @18,286  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#4  210×124 @128,200  b0 0 1 0
+          button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 пар.»
+        td.StockCell__cell#5  202×124 @338,200  b0 0 1 0
+          button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1 пар.»
+        td.StockCell__cell#6  178×124 @539,200  b0 0 1 0
+          button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 пар.»
+        td.StockTable__number#3  154×124 @717,200  b0 0 1 0
+          span.StockTable__total  41×19 @18,16  Manrope 600 15/22  lines=1  «3 пар.»
+          span.Badge__badge  69×24 @67,15  Manrope 600 12/16  r100  b1  lines=1  «К заказу»
+        td.StockTable__number#4  81×124 @871,200  Manrope 400 15/22  b0 0 1 0  lines=1  «6 пар.»
+        a.StockTable__name#3  75×19 @18,340  Manrope 600 15/22  lines=1  «Фреон R32»
+        span.StockTable__itemNote#3  91×20 @18,361  Manrope 400 13/20  lines=1  «Фреон»
+        a.StockTable__move#3  85×24 @18,387  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#7  210×102 @128,324  b0 0 1 0
+          button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «6,2 кг»
+        td.StockCell__cell#8  202×102 @338,324  b0 0 1 0
+          button.StockCell__button  202×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5 кг»
+        td.StockCell__cell#9  178×102 @539,324  b0 0 1 0
+          button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 кг»
+        td.StockTable__number#5  154×102 @717,324  b0 0 1 0
+          span.StockTable__total  38×19 @98,16  Manrope 600 15/22  lines=1  «4,7 кг»
+        td.StockTable__number#6  81×102 @871,324  Manrope 400 15/22  b0 0 1 0  lines=1  «4 кг»
+        a.StockTable__name#4  81×41 @18,441  Manrope 600 15/22  lines=2  «Сплит-система 09»
+        span.StockTable__itemNote#4  91×20 @18,485  Manrope 400 13/20  lines=1  «Без группы»
+        a.StockTable__move#4  85×24 @18,511  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#10  210×124 @128,426
+          button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 шт.»
+        td.StockCell__cell#11  202×124 @338,426
+          button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
+        td.StockCell__cell#12  178×124 @539,426
+          button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
+        td.StockTable__number#7  154×124 @717,426
+          span.StockTable__total  34×19 @101,16  Manrope 600 15/22  lines=1  «2 шт.»
+        td.StockTable__number#8  81×124 @871,426  Manrope 400 15/22  lines=1  «—»
+  p[role=status]  1×1 @-1,-1
+  p.StockTable__hint  736×20 @0,564  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
+  p.StockTable__hint#2  736×40 @0,596  Manrope 400 13/20  lines=2  «Остаток можно перетащить мышью в другую»
+  p.StockTable__warning  736×63 @0,649  Manrope 400 15/22  r11  b1  lines=2  «Минус означает, что списали больше, чем»
+
+[геометрия 1440]
+div.StockTable__wrap  1408×602 @16,16
+  section.Card__card  1408×485 @0,0  r20  b1
+    div.Table__viewport  1406×483 @1,1
+      table.Table__table  1406×483 @0,0
+        th  264×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
+        th.StockTable__numberHead  291×76 @264,0  b0 0 1 0
+          span.StockTable__zoneName  254×23 @19,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
+        th.StockTable__numberHead#2  279×76 @555,0  b0 0 1 0
+          span.StockTable__zoneName  243×23 @18,16  Onest 700 15/23  lines=1  «Газель»
+          span.StockTable__zoneNote  243×20 @18,39  Manrope 400 13/20  lines=1  «машина: Дмитрий Соколов»
+        th.StockTable__numberHead#3  247×76 @834,0  b0 0 1 0
+          span.StockTable__zoneName  211×23 @18,16  Onest 700 15/23  lines=1  «Ларгус»
+          span.StockTable__zoneNote  211×20 @18,39  Manrope 400 13/20  lines=1  «машина: Сергей Панин»
+        th.StockTable__numberHead#4  213×76 @1081,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итог»
+        th.StockTable__numberHead#5  112×76 @1294,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порог»
+        a.StockTable__name  129×19 @18,91  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
+        span.StockTable__itemNote  228×20 @18,113  Manrope 400 13/20  lines=1  «Медная труба»
+        a.StockTable__move  85×24 @18,139  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell  291×102 @264,76  b0 0 1 0
+          button.StockCell__button  290×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «43,5 м»
+        td.StockCell__cell#2  279×102 @555,76  b0 0 1 0
+          button.StockCell__button  279×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12 м»
+        td.StockCell__cell#3  247×102 @834,76  b0 0 1 0
+          button.StockCell__button  247×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 м»
+        td.StockTable__number  213×102 @1081,76  b0 0 1 0
+          span.StockTable__total  43×19 @152,16  Manrope 600 15/22  lines=1  «55,5 м»
+        td.StockTable__number#2  112×102 @1294,76  Manrope 400 15/22  b0 0 1 0  lines=1  «30 м»
+        a.StockTable__name#2  154×19 @18,193  Manrope 600 15/22  lines=1  «Кронштейны 450×450»
+        span.StockTable__itemNote#2  228×20 @18,214  Manrope 400 13/20  lines=1  «Крепёж»
+        a.StockTable__move#2  85×24 @18,241  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#4  291×102 @264,178  b0 0 1 0
+          button.StockCell__button  290×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 пар.»
+        td.StockCell__cell#5  279×102 @555,178  b0 0 1 0
+          button.StockCell__button  279×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1 пар.»
+        td.StockCell__cell#6  247×102 @834,178  b0 0 1 0
+          button.StockCell__button  247×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 пар.»
+        td.StockTable__number#3  213×102 @1081,178  b0 0 1 0
+          span.StockTable__total  41×19 @77,16  Manrope 600 15/22  lines=1  «3 пар.»
+          span.Badge__badge  69×24 @126,15  Manrope 600 12/16  r100  b1  lines=1  «К заказу»
+        td.StockTable__number#4  112×102 @1294,178  Manrope 400 15/22  b0 0 1 0  lines=1  «6 пар.»
+        a.StockTable__name#3  75×19 @18,295  Manrope 600 15/22  lines=1  «Фреон R32»
+        span.StockTable__itemNote#3  228×20 @18,316  Manrope 400 13/20  lines=1  «Фреон»
+        a.StockTable__move#3  85×24 @18,342  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#7  291×102 @264,279  b0 0 1 0
+          button.StockCell__button  290×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «6,2 кг»
+        td.StockCell__cell#8  279×102 @555,279  b0 0 1 0
+          button.StockCell__button  279×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5 кг»
+        td.StockCell__cell#9  247×102 @834,279  b0 0 1 0
+          button.StockCell__button  247×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 кг»
+        td.StockTable__number#5  213×102 @1081,279  b0 0 1 0
+          span.StockTable__total  38×19 @157,16  Manrope 600 15/22  lines=1  «4,7 кг»
+        td.StockTable__number#6  112×102 @1294,279  Manrope 400 15/22  b0 0 1 0  lines=1  «4 кг»
+        a.StockTable__name#4  131×19 @18,396  Manrope 600 15/22  lines=1  «Сплит-система 09»
+        span.StockTable__itemNote#4  228×20 @18,418  Manrope 400 13/20  lines=1  «Без группы»
+        a.StockTable__move#4  85×24 @18,444  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#10  291×102 @264,381
+          button.StockCell__button  290×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 шт.»
+        td.StockCell__cell#11  279×102 @555,381
+          button.StockCell__button  279×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
+        td.StockCell__cell#12  247×102 @834,381
+          button.StockCell__button  247×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
+        td.StockTable__number#7  213×102 @1081,381
+          span.StockTable__total  34×19 @161,16  Manrope 600 15/22  lines=1  «2 шт.»
+        td.StockTable__number#8  112×102 @1294,381  Manrope 400 15/22  lines=1  «—»
+  p[role=status]  1×1 @-1,-1
+  p.StockTable__hint  1408×20 @0,497  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
+  p.StockTable__hint#2  1408×20 @0,529  Manrope 400 13/20  lines=1  «Остаток можно перетащить мышью в другую»
+  p.StockTable__warning  1408×40 @0,561  Manrope 400 15/22  r11  b1  lines=1  «Минус означает, что списали больше, чем»
+
+[палитра light]
+div.StockTable__wrap
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Table__viewport
+      table.Table__table
+        th  color #0f172a  bg #ffffff  border #0f172a #e2e8f0 #e2e8f0 #0f172a
+        th.StockTable__numberHead  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+          span.StockTable__zoneName  color #0f172a
+        th.StockTable__numberHead#2  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+          span.StockTable__zoneName  color #0f172a
+          span.StockTable__zoneNote  color #556173
+        th.StockTable__numberHead#3  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+          span.StockTable__zoneName  color #0f172a
+          span.StockTable__zoneNote  color #556173
+        th.StockTable__numberHead#4  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+        th.StockTable__numberHead#5  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+        a.StockTable__name  color #0f172a
+        span.StockTable__itemNote  color #556173
+        a.StockTable__move  color #0e7490
+        td.StockCell__cell  border #334155 #334155 #eef2f6 #334155
+          button.StockCell__button  color #334155  border transparent
+        td.StockCell__cell#2  border #334155 #334155 #eef2f6 #334155
+          button.StockCell__button  color #334155  border transparent
+        td.StockCell__cell#3  border #334155 #334155 #eef2f6 #334155
+          button.StockCell__button  color #5b6a7d  border transparent
+        td.StockTable__number  border #334155 #334155 #eef2f6 #334155
+          span.StockTable__total  color #334155
+        td.StockTable__number#2  color #334155  border #334155 #334155 #eef2f6 #334155
+        a.StockTable__name#2  color #0f172a
+        span.StockTable__itemNote#2  color #556173
+        a.StockTable__move#2  color #0e7490
+        td.StockCell__cell#4  border #334155 #334155 #eef2f6 #334155
+          button.StockCell__button  color #334155  border transparent
+        td.StockCell__cell#5  border #334155 #334155 #eef2f6 #334155
+          button.StockCell__button  color #334155  border transparent
+        td.StockCell__cell#6  border #334155 #334155 #eef2f6 #334155
+          button.StockCell__button  color #5b6a7d  border transparent
+        td.StockTable__number#3  border #334155 #334155 #eef2f6 #334155
+          span.StockTable__total  color #334155
+          span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+        td.StockTable__number#4  color #334155  border #334155 #334155 #eef2f6 #334155
+        a.StockTable__name#3  color #0f172a
+        span.StockTable__itemNote#3  color #556173
+        a.StockTable__move#3  color #0e7490
+        td.StockCell__cell#7  border #334155 #334155 #eef2f6 #334155
+          button.StockCell__button  color #334155  border transparent
+        td.StockCell__cell#8  border #334155 #334155 #eef2f6 #334155
+          button.StockCell__button  color #92400e  border transparent
+        td.StockCell__cell#9  border #334155 #334155 #eef2f6 #334155
+          button.StockCell__button  color #5b6a7d  border transparent
+        td.StockTable__number#5  border #334155 #334155 #eef2f6 #334155
+          span.StockTable__total  color #334155
+        td.StockTable__number#6  color #334155  border #334155 #334155 #eef2f6 #334155
+        a.StockTable__name#4  color #0f172a
+        span.StockTable__itemNote#4  color #556173
+        a.StockTable__move#4  color #0e7490
+        td.StockCell__cell#10
+          button.StockCell__button  color #334155  border transparent
+        td.StockCell__cell#11
+          button.StockCell__button  color #5b6a7d  border transparent
+        td.StockCell__cell#12
+          button.StockCell__button  color #5b6a7d  border transparent
+        td.StockTable__number#7
+          span.StockTable__total  color #334155
+        td.StockTable__number#8  color #334155
+  p[role=status]
+  p.StockTable__hint  color #5b6a7d
+  p.StockTable__hint#2  color #5b6a7d
+  p.StockTable__warning  color #92400e  bg #b4530914  border #b4530947
+
+[палитра dark]
+div.StockTable__wrap
+  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Table__viewport
+      table.Table__table
+        th  color #eaf1f8  bg #121d31  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
+        th.StockTable__numberHead  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          span.StockTable__zoneName  color #eaf1f8
+        th.StockTable__numberHead#2  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          span.StockTable__zoneName  color #eaf1f8
+          span.StockTable__zoneNote  color #8598ac
+        th.StockTable__numberHead#3  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          span.StockTable__zoneName  color #eaf1f8
+          span.StockTable__zoneNote  color #8598ac
+        th.StockTable__numberHead#4  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th.StockTable__numberHead#5  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        a.StockTable__name  color #eaf1f8
+        span.StockTable__itemNote  color #8598ac
+        a.StockTable__move  color #22d3ee
+        td.StockCell__cell  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          button.StockCell__button  color #c9d5e2  border transparent
+        td.StockCell__cell#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          button.StockCell__button  color #c9d5e2  border transparent
+        td.StockCell__cell#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          button.StockCell__button  color #7e92a7  border transparent
+        td.StockTable__number  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.StockTable__total  color #c9d5e2
+        td.StockTable__number#2  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        a.StockTable__name#2  color #eaf1f8
+        span.StockTable__itemNote#2  color #8598ac
+        a.StockTable__move#2  color #22d3ee
+        td.StockCell__cell#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          button.StockCell__button  color #c9d5e2  border transparent
+        td.StockCell__cell#5  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          button.StockCell__button  color #c9d5e2  border transparent
+        td.StockCell__cell#6  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          button.StockCell__button  color #7e92a7  border transparent
+        td.StockTable__number#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.StockTable__total  color #c9d5e2
+          span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+        td.StockTable__number#4  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        a.StockTable__name#3  color #eaf1f8
+        span.StockTable__itemNote#3  color #8598ac
+        a.StockTable__move#3  color #22d3ee
+        td.StockCell__cell#7  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          button.StockCell__button  color #c9d5e2  border transparent
+        td.StockCell__cell#8  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          button.StockCell__button  color #fbbf24  border transparent
+        td.StockCell__cell#9  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          button.StockCell__button  color #7e92a7  border transparent
+        td.StockTable__number#5  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.StockTable__total  color #c9d5e2
+        td.StockTable__number#6  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        a.StockTable__name#4  color #eaf1f8
+        span.StockTable__itemNote#4  color #8598ac
+        a.StockTable__move#4  color #22d3ee
+        td.StockCell__cell#10
+          button.StockCell__button  color #c9d5e2  border transparent
+        td.StockCell__cell#11
+          button.StockCell__button  color #7e92a7  border transparent
+        td.StockCell__cell#12
+          button.StockCell__button  color #7e92a7  border transparent
+        td.StockTable__number#7
+          span.StockTable__total  color #c9d5e2
+        td.StockTable__number#8  color #c9d5e2
+  p[role=status]
+  p.StockTable__hint  color #7e92a7
+  p.StockTable__hint#2  color #7e92a7
+  p.StockTable__warning  color #fbbf24  bg #fbbf241f  border #fbbf2452

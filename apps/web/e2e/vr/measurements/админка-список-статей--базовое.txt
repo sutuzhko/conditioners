@@ -1,0 +1,281 @@
+# админка-список-статей--базовое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×786 @16,16  r20  b1
+  div.Table__viewport  356×784 @1,1
+    table.Table__table  356×784 @0,0
+      tr[role=row]  1×56 @0,0
+        th  114×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заголовок»
+        th#2  99×56 @114,0  Onest 700 15/23  b0 0 1 0  lines=1  «Рубрика»
+        th#3  72×56 @212,0  Onest 700 15/23  b0 0 1 0  lines=1  «Дата»
+        th#4  89×56 @284,0  Onest 700 15/23  b0 0 1 0  lines=1  «Чтение»
+        th#5  102×56 @373,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
+        span  1×1 @492,38  Onest 700 15/23  lines=1  clipped  «Править»
+      tr[role=row]#2  356×262 @0,0  r14  b1
+        td.AdminArticleList__name  354×59 @1,5  Manrope 600 15/22  lines=2  «Инвертор или обычный кондиционер»
+          td.AdminArticleList__name::before  67×20 @0,0
+        td[role=cell]  354×36 @1,64  Manrope 400 15/22  lines=1  «Выбор техники»
+          td[role=cell]::before  51×20 @0,0
+        td.AdminArticleList__date  354×36 @1,100  Manrope 400 15/22  lines=1  «01.08.2026»
+          td.AdminArticleList__date::before  30×20 @0,0
+        td.AdminArticleList__minutes  354×36 @1,137  Manrope 400 15/22  lines=1  «6 мин»
+          td.AdminArticleList__minutes::before  45×20 @0,0
+        td[role=cell]#2  354×42 @1,173
+          td[role=cell]#2::before  55×20 @0,0
+          span.Badge__badge  111×28 @229,7  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
+        td[role=cell]#3  354×37 @1,220  b1 0 0 0
+          a.AdminArticleList__edit  60×22 @280,8  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#3  356×240 @0,272  r14  b1
+        td.AdminArticleList__name  354×36 @1,5  Manrope 600 15/22  lines=1  «Как часто чистить кондиционер»
+          td.AdminArticleList__name::before  67×20 @0,0
+        td[role=cell]  354×36 @1,41  Manrope 400 15/22  lines=1  «Эксплуатация»
+          td[role=cell]::before  51×20 @0,0
+        td.AdminArticleList__date  354×36 @1,78  Manrope 400 15/22  lines=1  «14.07.2026»
+          td.AdminArticleList__date::before  30×20 @0,0
+        td.AdminArticleList__minutes  354×36 @1,114  Manrope 400 15/22  lines=1  «4 мин»
+          td.AdminArticleList__minutes::before  45×20 @0,0
+        td[role=cell]#2  354×42 @1,151
+          td[role=cell]#2::before  55×20 @0,0
+          span.Badge__badge#2  111×28 @229,7  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
+        td[role=cell]#3  354×37 @1,197  b1 0 0 0
+          a.AdminArticleList__edit#2  60×22 @280,8  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#4  356×262 @0,522  r14  b1
+        td.AdminArticleList__name  354×59 @1,5  Manrope 600 15/22  lines=2  «Черновик про монтаж в панельном доме»
+          td.AdminArticleList__name::before  67×20 @0,0
+        td[role=cell]  354×36 @1,64  Manrope 400 15/22  lines=1  «Монтаж»
+          td[role=cell]::before  51×20 @0,0
+        td.AdminArticleList__date  354×36 @1,100  Manrope 400 15/22  lines=1  «20.08.2026»
+          td.AdminArticleList__date::before  30×20 @0,0
+        td.AdminArticleList__minutes  354×36 @1,137  Manrope 400 15/22  lines=1  «8 мин»
+          td.AdminArticleList__minutes::before  45×20 @0,0
+        td[role=cell]#2  354×42 @1,173
+          td[role=cell]#2::before  55×20 @0,0
+          span.Badge__badge#3  83×28 @257,7  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
+        td[role=cell]#3  354×37 @1,220  b1 0 0 0
+          a.AdminArticleList__edit#3  60×22 @280,8  Manrope 600 15/22  lines=1  «Править»
+
+[геометрия 768]
+section.Card__card  736×369 @16,16  r20  b1
+  div.Table__viewport  734×367 @1,1
+    table.Table__table  734×367 @0,0
+      tr[role=row]  734×56 @0,0
+        th  153×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заголовок»
+        th#2  134×56 @153,0  Onest 700 15/23  b0 0 1 0  lines=1  «Рубрика»
+        th#3  115×56 @287,0  Onest 700 15/23  b0 0 1 0  lines=1  «Дата»
+        th#4  89×56 @402,0  Onest 700 15/23  b0 0 1 0  lines=1  «Чтение»
+        th#5  147×56 @491,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
+        span  1×1 @655,38  Onest 700 15/23  lines=1  clipped  «Править»
+      tr[role=row]#2  734×96 @0,56
+        td.AdminArticleList__name  153×96 @0,0  Manrope 600 15/22  b0 0 1 0  lines=3  «Инвертор или обычный кондиционер»
+        td[role=cell]  134×96 @153,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Выбор техники»
+        td.AdminArticleList__date  115×96 @287,0  Manrope 400 15/22  b0 0 1 0  lines=1  «01.08.2026»
+        td.AdminArticleList__minutes  89×96 @402,0  Manrope 400 15/22  b0 0 1 0  lines=1  «6 мин»
+        td[role=cell]#2  147×96 @491,0  b0 0 1 0
+          span.Badge__badge  111×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
+        td[role=cell]#3  96×96 @638,0  b0 0 1 0
+          a.AdminArticleList__edit  60×19 @18,16  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#3  734×96 @0,152
+        td.AdminArticleList__name  153×96 @0,0  Manrope 600 15/22  b0 0 1 0  lines=3  «Как часто чистить кондиционер»
+        td[role=cell]  134×96 @153,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Эксплуатация»
+        td.AdminArticleList__date  115×96 @287,0  Manrope 400 15/22  b0 0 1 0  lines=1  «14.07.2026»
+        td.AdminArticleList__minutes  89×96 @402,0  Manrope 400 15/22  b0 0 1 0  lines=1  «4 мин»
+        td[role=cell]#2  147×96 @491,0  b0 0 1 0
+          span.Badge__badge#2  111×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
+        td[role=cell]#3  96×96 @638,0  b0 0 1 0
+          a.AdminArticleList__edit#2  60×19 @18,16  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#4  734×118 @0,249
+        td.AdminArticleList__name  153×118 @0,0  Manrope 600 15/22  lines=4  «Черновик про монтаж в панельном доме»
+        td[role=cell]  134×118 @153,0  Manrope 400 15/22  lines=1  «Монтаж»
+        td.AdminArticleList__date  115×118 @287,0  Manrope 400 15/22  lines=1  «20.08.2026»
+        td.AdminArticleList__minutes  89×118 @402,0  Manrope 400 15/22  lines=1  «8 мин»
+        td[role=cell]#2  147×118 @491,0
+          span.Badge__badge#3  83×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
+        td[role=cell]#3  96×118 @638,0
+          a.AdminArticleList__edit#3  60×19 @18,16  Manrope 600 15/22  lines=1  «Править»
+
+[геометрия 1440]
+section.Card__card  1408×229 @16,16  r20  b1
+  div.Table__viewport  1406×227 @1,1
+    table.Table__table  1406×227 @0,0
+      tr[role=row]  1406×56 @0,0
+        th  501×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заголовок»
+        th#2  214×56 @501,0  Onest 700 15/23  b0 0 1 0  lines=1  «Рубрика»
+        th#3  178×56 @715,0  Onest 700 15/23  b0 0 1 0  lines=1  «Дата»
+        th#4  138×56 @893,0  Onest 700 15/23  b0 0 1 0  lines=1  «Чтение»
+        th#5  227×56 @1031,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
+        span  1×1 @1275,38  Onest 700 15/23  lines=1  clipped  «Править»
+      tr[role=row]#2  1406×57 @0,56
+        td.AdminArticleList__name  501×57 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Инвертор или обычный кондиционер»
+        td[role=cell]  214×57 @501,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Выбор техники»
+        td.AdminArticleList__date  178×57 @715,0  Manrope 400 15/22  b0 0 1 0  lines=1  «01.08.2026»
+        td.AdminArticleList__minutes  138×57 @893,0  Manrope 400 15/22  b0 0 1 0  lines=1  «6 мин»
+        td[role=cell]#2  227×57 @1031,0  b0 0 1 0
+          span.Badge__badge  111×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
+        td[role=cell]#3  148×57 @1258,0  b0 0 1 0
+          a.AdminArticleList__edit  60×19 @18,16  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#3  1406×57 @0,113
+        td.AdminArticleList__name  501×57 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Как часто чистить кондиционер»
+        td[role=cell]  214×57 @501,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Эксплуатация»
+        td.AdminArticleList__date  178×57 @715,0  Manrope 400 15/22  b0 0 1 0  lines=1  «14.07.2026»
+        td.AdminArticleList__minutes  138×57 @893,0  Manrope 400 15/22  b0 0 1 0  lines=1  «4 мин»
+        td[role=cell]#2  227×57 @1031,0  b0 0 1 0
+          span.Badge__badge#2  111×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
+        td[role=cell]#3  148×57 @1258,0  b0 0 1 0
+          a.AdminArticleList__edit#2  60×19 @18,16  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#4  1406×57 @0,170
+        td.AdminArticleList__name  501×57 @0,0  Manrope 600 15/22  lines=1  «Черновик про монтаж в панельном доме»
+        td[role=cell]  214×57 @501,0  Manrope 400 15/22  lines=1  «Монтаж»
+        td.AdminArticleList__date  178×57 @715,0  Manrope 400 15/22  lines=1  «20.08.2026»
+        td.AdminArticleList__minutes  138×57 @893,0  Manrope 400 15/22  lines=1  «8 мин»
+        td[role=cell]#2  227×57 @1031,0
+          span.Badge__badge#3  83×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
+        td[role=cell]#3  148×57 @1258,0
+          a.AdminArticleList__edit#3  60×19 @18,16  Manrope 600 15/22  lines=1  «Править»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.Table__viewport
+    table.Table__table
+      tr[role=row]
+        th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#4  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#5  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        span  color #0f172a
+      tr[role=row]#2
+        td.AdminArticleList__name  color #0f172a  border #0f172a #0f172a #eef2f6 #0f172a
+        td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+        td.AdminArticleList__date  color #334155  border #334155 #334155 #eef2f6 #334155
+        td.AdminArticleList__minutes  color #334155  border #334155 #334155 #eef2f6 #334155
+        td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+          span.Badge__badge  color #166534  bg #15803d14  border #15803d47
+        td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+          a.AdminArticleList__edit  color #0e7490
+      tr[role=row]#3
+        td.AdminArticleList__name  color #0f172a  border #0f172a #0f172a #eef2f6 #0f172a
+        td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+        td.AdminArticleList__date  color #334155  border #334155 #334155 #eef2f6 #334155
+        td.AdminArticleList__minutes  color #334155  border #334155 #334155 #eef2f6 #334155
+        td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+          span.Badge__badge#2  color #166534  bg #15803d14  border #15803d47
+        td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+          a.AdminArticleList__edit#2  color #0e7490
+      tr[role=row]#4
+        td.AdminArticleList__name  color #0f172a
+        td[role=cell]  color #334155
+        td.AdminArticleList__date  color #334155
+        td.AdminArticleList__minutes  color #334155
+        td[role=cell]#2
+          span.Badge__badge#3  color #556173  bg #f8fafc  border #e2e8f0
+        td[role=cell]#3
+          a.AdminArticleList__edit#3  color #0e7490
+[палитра light @390]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__name  color #0f172a
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__name > td.AdminArticleList__name::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__date  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__date > td.AdminArticleList__date::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__minutes  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3  border #eef2f6 #334155 #334155 #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__name  color #0f172a
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__name > td.AdminArticleList__name::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__date  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__date > td.AdminArticleList__date::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__minutes  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3  border #eef2f6 #334155 #334155 #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminArticleList__name > td.AdminArticleList__name::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminArticleList__date > td.AdminArticleList__date::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3  border #eef2f6 #334155 #334155 #334155
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.Table__viewport
+    table.Table__table
+      tr[role=row]
+        th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#4  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#5  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        span  color #eaf1f8
+      tr[role=row]#2
+        td.AdminArticleList__name  color #eaf1f8  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+        td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td.AdminArticleList__date  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td.AdminArticleList__minutes  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.Badge__badge  color #4ade80  bg #4ade801f  border #4ade8052
+        td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          a.AdminArticleList__edit  color #22d3ee
+      tr[role=row]#3
+        td.AdminArticleList__name  color #eaf1f8  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+        td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td.AdminArticleList__date  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td.AdminArticleList__minutes  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.Badge__badge#2  color #4ade80  bg #4ade801f  border #4ade8052
+        td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          a.AdminArticleList__edit#2  color #22d3ee
+      tr[role=row]#4
+        td.AdminArticleList__name  color #eaf1f8
+        td[role=cell]  color #c9d5e2
+        td.AdminArticleList__date  color #c9d5e2
+        td.AdminArticleList__minutes  color #c9d5e2
+        td[role=cell]#2
+          span.Badge__badge#3  color #8598ac  bg #0e1729  border #1e2b41
+        td[role=cell]#3
+          a.AdminArticleList__edit#3  color #22d3ee
+[палитра dark @390]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__name  color #eaf1f8
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__name > td.AdminArticleList__name::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__date  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__date > td.AdminArticleList__date::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__minutes  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__name  color #eaf1f8
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__name > td.AdminArticleList__name::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__date  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__date > td.AdminArticleList__date::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__minutes  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminArticleList__name > td.AdminArticleList__name::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminArticleList__date > td.AdminArticleList__date::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3  border #182338 #c9d5e2 #c9d5e2 #c9d5e2

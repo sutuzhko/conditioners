@@ -1,0 +1,32 @@
+# ui-kit-badge--sizes · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Badge__badge  59×24 @16,18  Manrope 600 12/16  r100  b1  lines=1  «24 · sm»
+span.Badge__badge#2  66×28 @85,16  Manrope 600 12/16  r100  b1  lines=1  «28 · md»
+span.Badge__badge#3  210×28 @161,16  Manrope 600 13/18  r100  b1  lines=1  «28 · lg, кегль на ступень выше»
+
+[геометрия 768]
+span.Badge__badge  59×24 @16,18  Manrope 600 12/16  r100  b1  lines=1  «24 · sm»
+span.Badge__badge#2  66×28 @85,16  Manrope 600 12/16  r100  b1  lines=1  «28 · md»
+span.Badge__badge#3  210×28 @161,16  Manrope 600 13/18  r100  b1  lines=1  «28 · lg, кегль на ступень выше»
+
+[геометрия 1440]
+span.Badge__badge  59×24 @16,18  Manrope 600 12/16  r100  b1  lines=1  «24 · sm»
+span.Badge__badge#2  66×28 @85,16  Manrope 600 12/16  r100  b1  lines=1  «28 · md»
+span.Badge__badge#3  210×28 @161,16  Manrope 600 13/18  r100  b1  lines=1  «28 · lg, кегль на ступень выше»
+
+[палитра light]
+span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+span.Badge__badge#2  color #0e7490  bg #ecfeff  border #a5f3fc
+span.Badge__badge#3  color #0e7490  bg #ecfeff  border #a5f3fc
+
+[палитра dark]
+span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+span.Badge__badge#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+span.Badge__badge#3  color #22d3ee  bg #22d3ee1a  border #22d3ee59

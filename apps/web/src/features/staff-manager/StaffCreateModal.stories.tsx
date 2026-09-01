@@ -31,8 +31,12 @@ export const Пустое: Story = {};
  */
 export const СамозанятыйБезИНН: Story = {
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.selectOptions(canvas.getByLabelText(texts.employment), 'self_employed');
+    /* Окно монтируется порталом и не мгновенно: в боевой сборке витрины
+       сценарий обгонял его и не находил поле синхронно — первый прогон
+       инвариантов по `Админка/` это показал (#457). Ждём поле там, где оно
+       появится, а не в корне истории. */
+    const root = within(canvasElement.ownerDocument.body);
+    await userEvent.selectOptions(await root.findByLabelText(texts.employment), 'self_employed');
   },
 };
 

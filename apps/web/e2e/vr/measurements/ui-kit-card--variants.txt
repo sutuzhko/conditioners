@@ -1,0 +1,77 @@
+# ui-kit-card--variants · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Card__card  358×117 @16,16  r20  b1
+  h3  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
+  p  316×47 @21,50  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#2  358×117 @16,149  r20  b1
+  h3  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
+  p  316×47 @21,50  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#3  358×117 @16,282  r20  b1
+  h3  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
+  p  316×47 @21,50  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#4  358×117 @16,415  r20  b1
+  h3  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
+  p  316×47 @21,50  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+
+[геометрия 768]
+div.Card__card  235×141 @16,16  r20  b1
+  h3  193×22 @21,21  Onest 700 18/22  ls0  lines=1  «Монтаж под ключ»
+  p  193×70 @21,51  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#2  235×141 @267,16  r20  b1
+  h3  193×22 @21,21  Onest 700 18/22  ls0  lines=1  «Монтаж под ключ»
+  p  193×70 @21,51  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#3  235×141 @517,16  r20  b1
+  h3  193×22 @21,21  Onest 700 18/22  ls0  lines=1  «Монтаж под ключ»
+  p  193×70 @21,51  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#4  235×141 @16,173  r20  b1
+  h3  193×22 @21,21  Onest 700 18/22  ls0  lines=1  «Монтаж под ключ»
+  p  193×70 @21,51  Manrope 400 15/23  lines=3  «Вакуумация магистрали, опрессовка, вывод»
+
+[геометрия 1440]
+div.Card__card  340×119 @16,16  r20  b1
+  h3  298×23 @21,21  Onest 700 19/23  ls0  lines=1  «Монтаж под ключ»
+  p  298×47 @21,52  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#2  340×119 @372,16  r20  b1
+  h3  298×23 @21,21  Onest 700 19/23  ls0  lines=1  «Монтаж под ключ»
+  p  298×47 @21,52  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#3  340×119 @728,16  r20  b1
+  h3  298×23 @21,21  Onest 700 19/23  ls0  lines=1  «Монтаж под ключ»
+  p  298×47 @21,52  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+div.Card__card#4  340×119 @1084,16  r20  b1
+  h3  298×23 @21,21  Onest 700 19/23  ls0  lines=1  «Монтаж под ключ»
+  p  298×47 @21,52  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #0f172a
+  p  color #475569
+div.Card__card#2  bg #f8fafc  border #eef2f6
+  h3  color #0f172a
+  p  color #475569
+div.Card__card#3  bg #ecfeff  border #a5f3fc
+  h3  color #0f172a
+  p  color #475569
+div.Card__card#4  bg #0f172a  border #0f172a
+  h3  color #eaf1f8
+  p  color #ffffff
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #eaf1f8
+  p  color #a8b6c6
+div.Card__card#2  bg #0e1729  border #182338
+  h3  color #eaf1f8
+  p  color #a8b6c6
+div.Card__card#3  bg #22d3ee1a  border #22d3ee59
+  h3  color #eaf1f8
+  p  color #a8b6c6
+div.Card__card#4  bg #111d34  border #111d34
+  h3  color #eaf1f8
+  p  color #ffffff

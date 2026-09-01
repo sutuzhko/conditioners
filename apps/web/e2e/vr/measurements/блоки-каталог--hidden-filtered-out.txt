@@ -1,0 +1,218 @@
+# блоки-каталог--hidden-filtered-out · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700, Onest 800
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.Catalog__section  320×805 @0,0  b1 0 1 0
+  div.Catalog__container  320×803 @0,1
+    header.Catalog__head  288×247 @16,48
+      div.Catalog__intro  288×191 @0,0
+        p.Catalog__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Каталог —»
+        h2.Catalog__title  288×58 @0,32  Onest 700 24/29  ls0  lines=2  «Купить кондиционер в Туле»
+        p.Catalog__lead  288×93 @0,98  Manrope 400 15/23  lines=4  «Цена указана «под ключ" — вместе с базов»
+      div.Catalog__headLinks  114×44 @0,203
+        a.Catalog__help  114×44 @0,0  Manrope 600 15/23  lines=1  «Весь каталог →»
+    li.Card__card  288×376 @16,323  r18  b1
+      div.ProductCard__media  286×179 @1,1  b0 0 1 0
+        div.ProductCard__fallback  286×178 @0,0
+          svg  44×44 @121,54
+          span.ProductCard__fallbackHint  85×19 @101,106  Manrope 400 12/19  ls1  lines=1  «фото скоро»
+        span.Badge__badge  37×24 @12,12  r100  b1
+          span  17×16 @10,4  JetBrains Mono 600 12/16  ls1  lines=1  «07»
+          span#2  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Класс мощности 07»
+      div.ProductCard__body  286×196 @1,180
+        h3.ProductCard__name  258×21 @14,14
+          a.ProductCard__nameLink  148×21 @0,0  Onest 700 17/21  ls0  lines=1  «Сплит-система 07»
+        div.ProductCard__meta  258×24 @14,39
+          span.ProductCard__area  50×20 @0,2  Manrope 400 13/20  lines=1  «до 20 м²»
+        div.ProductPrice__price  258×58 @14,67
+          p.ProductPrice__main  258×25 @0,5
+            span.ProductPrice__current  96×25 @0,0  Onest 800 22/25  ls0  lines=1  «34 900 ₽»
+            span.ProductPrice__turnkey  57×15 @104,7  Manrope 400 13/15  lines=1  «под ключ»
+          p.ProductPrice__slot  258×24 @0,34
+        div.ProductCard__actions  258×52 @14,130
+          a.Button__button  258×44 @0,8  r10  b1
+            span.Button__content  65×17 @97,13
+              span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+    p.Catalog__helpRow  288×44 @16,711
+      a.Catalog__help  233×44 @27,0  Manrope 600 15/23  lines=1  «Не нашли модель? Подберём →»
+
+[геометрия 375]
+section.Catalog__section  375×797 @0,0  b1 0 1 0
+  div.Catalog__container  375×795 @0,1
+    header.Catalog__head  343×196 @16,51
+      div.Catalog__intro  343×140 @0,0
+        p.Catalog__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Каталог —»
+        h2.Catalog__title  343×30 @0,32  Onest 700 25/30  ls0  lines=1  «Купить кондиционер в Туле»
+        p.Catalog__lead  343×70 @0,70  Manrope 400 15/23  lines=3  «Цена указана «под ключ" — вместе с базов»
+      div.Catalog__headLinks  114×44 @0,152
+        a.Catalog__help  114×44 @0,0  Manrope 600 15/23  lines=1  «Весь каталог →»
+    li.Card__card  343×415 @16,274  r18  b1
+      div.ProductCard__media  341×213 @1,1  b0 0 1 0
+        div.ProductCard__fallback  341×212 @0,0
+          svg  44×44 @149,71
+          span.ProductCard__fallbackHint  85×19 @128,123  Manrope 400 12/19  ls1  lines=1  «фото скоро»
+        span.Badge__badge  37×24 @12,12  r100  b1
+          span  17×16 @10,4  JetBrains Mono 600 12/16  ls1  lines=1  «07»
+          span#2  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Класс мощности 07»
+      div.ProductCard__body  341×200 @1,214
+        h3.ProductCard__name  313×21 @14,14
+          a.ProductCard__nameLink  149×22 @0,-1  Onest 700 17/21  ls0  lines=1  «Сплит-система 07»
+        div.ProductCard__meta  313×24 @14,40
+          span.ProductCard__area  50×20 @0,2  Manrope 400 13/20  lines=1  «до 20 м²»
+        div.ProductPrice__price  313×61 @14,68
+          p.ProductPrice__main  313×27 @0,5
+            span.ProductPrice__current  105×27 @0,0  Onest 800 24/27  ls0  lines=1  «34 900 ₽»
+            span.ProductPrice__turnkey  57×15 @113,9  Manrope 400 13/15  lines=1  «под ключ»
+          p.ProductPrice__slot  313×24 @0,37
+        div.ProductCard__actions  313×52 @14,133
+          a.Button__button  313×44 @0,8  r10  b1
+            span.Button__content  65×17 @124,13
+              span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+    p.Catalog__helpRow  343×44 @16,701
+      a.Catalog__help  233×44 @55,0  Manrope 600 15/23  lines=1  «Не нашли модель? Подберём →»
+
+[геометрия 768]
+section.Catalog__section  768×895 @0,0  b1 0 1 0
+  div.Catalog__container  768×893 @0,1
+    header.Catalog__head  728×197 @20,68
+      div.Catalog__intro  620×129 @0,0
+        p.Catalog__kicker  620×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Каталог —»
+        h2.Catalog__title  620×37 @0,32  Onest 700 31/37  ls-1  lines=1  «Купить кондиционер в Туле»
+        p.Catalog__lead  620×51 @0,77  Manrope 400 17/26  lines=2  «Цена указана «под ключ" — вместе с базов»
+      div.Catalog__headLinks  114×44 @0,153
+        a.Catalog__help  114×44 @0,0  Manrope 600 15/23  lines=1  «Весь каталог →»
+    li.Card__card  357×460 @20,309  r18  b1
+      div.ProductCard__media  355×222 @1,1  b0 0 1 0
+        div.ProductCard__fallback  355×221 @0,0
+          svg  44×44 @155,75
+          span.ProductCard__fallbackHint  85×19 @135,127  Manrope 400 12/19  ls1  lines=1  «фото скоро»
+        span.Badge__badge  37×24 @12,12  r100  b1
+          span  17×16 @10,4  JetBrains Mono 600 12/16  ls1  lines=1  «07»
+          span#2  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Класс мощности 07»
+      div.ProductCard__body  355×236 @1,223
+        h3.ProductCard__name  323×45 @16,16
+          a.ProductCard__nameLink  157×22 @0,0  Onest 700 18/23  ls0  lines=1  «Сплит-система 07»
+        div.ProductCard__meta  323×24 @16,67
+          span.ProductCard__area  50×20 @0,2  Manrope 400 13/20  lines=1  «до 20 м²»
+        div.ProductPrice__price  323×63 @16,97
+          p.ProductPrice__main  323×28 @0,7
+            span.ProductPrice__current  105×28 @0,0  Onest 800 24/28  ls0  lines=1  «34 900 ₽»
+            span.ProductPrice__turnkey  57×15 @113,9  Manrope 400 13/15  lines=1  «под ключ»
+          p.ProductPrice__slot  323×24 @0,39
+        div.ProductCard__actions  323×54 @16,166
+          a.Button__button  323×44 @0,10  r10  b1
+            span.Button__content  65×17 @129,13
+              span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+    p.Catalog__helpRow  728×44 @20,781
+      a.Catalog__help  233×44 @247,0  Manrope 600 15/23  lines=1  «Не нашли модель? Подберём →»
+
+[геометрия 1200]
+section.Catalog__section  1200×838 @0,0  b1 0 1 0
+  div.Catalog__container  1200×836 @0,1
+    header.Catalog__head  1152×137 @24,88
+      div.Catalog__intro  620×137 @0,0
+        p.Catalog__kicker  620×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Каталог —»
+        h2.Catalog__title  620×46 @0,32  Onest 700 38/46  ls-1  lines=1  «Купить кондиционер в Туле»
+        p.Catalog__lead  620×51 @0,86  Manrope 400 17/26  lines=2  «Цена указана «под ключ" — вместе с базов»
+      div.Catalog__headLinks  114×44 @1038,93
+        a.Catalog__help  114×44 @0,0  Manrope 600 15/23  lines=1  «Весь каталог →»
+    li.Card__card  276×423 @24,269  r18  b1
+      div.ProductCard__media  274×171 @1,1  b0 0 1 0
+        div.ProductCard__fallback  274×170 @0,0
+          svg  44×44 @115,50
+          span.ProductCard__fallbackHint  85×19 @95,102  Manrope 400 12/19  ls1  lines=1  «фото скоро»
+        span.Badge__badge  37×24 @12,12  r100  b1
+          span  17×16 @10,4  JetBrains Mono 600 12/16  ls1  lines=1  «07»
+          span#2  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Класс мощности 07»
+      div.ProductCard__body  274×250 @1,172
+        h3.ProductCard__name  238×47 @18,18
+          a.ProductCard__nameLink  165×24 @0,-1  Onest 700 19/24  ls0  lines=1  «Сплит-система 07»
+        div.ProductCard__meta  238×24 @18,73
+          span.ProductCard__area  50×20 @0,2  Manrope 400 13/20  lines=1  «до 20 м²»
+        div.ProductPrice__price  238×62 @18,105
+          p.ProductPrice__main  238×25 @0,9
+            span.ProductPrice__current  96×25 @0,0  Onest 800 22/25  ls0  lines=1  «34 900 ₽»
+            span.ProductPrice__turnkey  57×15 @104,7  Manrope 400 13/15  lines=1  «под ключ»
+          p.ProductPrice__slot  238×24 @0,38
+        div.ProductCard__actions  238×56 @18,176
+          a.Button__button  238×44 @0,12  r10  b1
+            span.Button__content  65×17 @87,13
+              span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+    p.Catalog__helpRow  1152×44 @24,704
+      a.Catalog__help  233×44 @459,0  Manrope 600 15/23  lines=1  «Не нашли модель? Подберём →»
+
+[палитра light]
+section.Catalog__section  bg #f8fafc  border #e2e8f0 #0f172a #e2e8f0 #0f172a
+  div.Catalog__container
+    header.Catalog__head
+      div.Catalog__intro
+        p.Catalog__kicker  color #0e7490
+        h2.Catalog__title  color #0f172a
+        p.Catalog__lead  color #556173
+      div.Catalog__headLinks
+        a.Catalog__help  color #0e7490
+    li.Card__card  bg #ffffff  border #e2e8f0
+      div.ProductCard__media  bg #f8fafc  border #475569 #475569 #eef2f6 #475569
+        div.ProductCard__fallback  gradient linear-gradient(160deg, #ecfeff, #f8fafc)
+          svg
+          span.ProductCard__fallbackHint  color #556173
+        span.Badge__badge  bg #0f172a  border #0f172a
+          span  color #ffffff
+          span#2  color #ffffff
+      div.ProductCard__body
+        h3.ProductCard__name
+          a.ProductCard__nameLink  color #0f172a
+        div.ProductCard__meta
+          span.ProductCard__area  color #556173
+        div.ProductPrice__price
+          p.ProductPrice__main
+            span.ProductPrice__current  color #0f172a
+            span.ProductPrice__turnkey  color #5b6a7d
+          p.ProductPrice__slot
+        div.ProductCard__actions
+          a.Button__button  bg #ecfeff  border transparent
+            span.Button__content
+              span.Button__label  color #0e7490
+    p.Catalog__helpRow
+      a.Catalog__help  color #0e7490
+
+[палитра dark]
+section.Catalog__section  bg #0e1729  border #1e2b41 #eaf1f8 #1e2b41 #eaf1f8
+  div.Catalog__container
+    header.Catalog__head
+      div.Catalog__intro
+        p.Catalog__kicker  color #22d3ee
+        h2.Catalog__title  color #eaf1f8
+        p.Catalog__lead  color #8598ac
+      div.Catalog__headLinks
+        a.Catalog__help  color #22d3ee
+    li.Card__card  bg #121d31  border #1e2b41
+      div.ProductCard__media  bg #0e1729  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+        div.ProductCard__fallback  gradient linear-gradient(160deg, #22d3ee1a, #0e1729)
+          svg
+          span.ProductCard__fallbackHint  color #8598ac
+        span.Badge__badge  bg #111d34  border #111d34
+          span  color #ffffff
+          span#2  color #ffffff
+      div.ProductCard__body
+        h3.ProductCard__name
+          a.ProductCard__nameLink  color #eaf1f8
+        div.ProductCard__meta
+          span.ProductCard__area  color #8598ac
+        div.ProductPrice__price
+          p.ProductPrice__main
+            span.ProductPrice__current  color #eaf1f8
+            span.ProductPrice__turnkey  color #7e92a7
+          p.ProductPrice__slot
+        div.ProductCard__actions
+          a.Button__button  bg #22d3ee1a  border transparent
+            span.Button__content
+              span.Button__label  color #22d3ee
+    p.Catalog__helpRow
+      a.Catalog__help  color #22d3ee

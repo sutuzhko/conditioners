@@ -1,0 +1,68 @@
+# блоки-каталог-скелетоны--compare · ширины 320 375 768 1200 · темы light dark
+шрифты: —
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+div.CatalogCompare__compare  320×544 @0,0
+  div.CatalogCompare__container  320×544 @0,0
+    div.CatalogCompare__head  288×130 @16,28
+      ul.CatalogCompare__chosen  288×130 @0,0
+        span.Skeleton__skeleton  160×38 @0,0  r8
+        span.Skeleton__skeleton#2  160×38 @0,46  r8
+        span.Skeleton__skeleton#3  160×38 @0,92  r8
+    span.Skeleton__skeleton  288×320 @16,176  r8
+
+[геометрия 375]
+div.CatalogCompare__compare  375×501 @0,0
+  div.CatalogCompare__container  375×501 @0,0
+    div.CatalogCompare__head  343×84 @16,28
+      ul.CatalogCompare__chosen  343×84 @0,0
+        span.Skeleton__skeleton  160×38 @0,0  r8
+        span.Skeleton__skeleton#2  160×38 @168,0  r8
+        span.Skeleton__skeleton#3  160×38 @0,46  r8
+    span.Skeleton__skeleton  343×320 @16,130  r8
+
+[геометрия 768]
+div.CatalogCompare__compare  768×472 @0,0
+  div.CatalogCompare__container  768×472 @0,0
+    div.CatalogCompare__head  728×38 @20,28
+      ul.CatalogCompare__chosen  496×38 @0,0
+        span.Skeleton__skeleton  160×38 @0,0  r8
+        span.Skeleton__skeleton#2  160×38 @168,0  r8
+        span.Skeleton__skeleton#3  160×38 @336,0  r8
+    span.Skeleton__skeleton  728×320 @20,84  r8
+
+[геометрия 1200]
+div.CatalogCompare__compare  1200×492 @0,0
+  div.CatalogCompare__container  1200×492 @0,0
+    div.CatalogCompare__head  1152×38 @24,28
+      ul.CatalogCompare__chosen  496×38 @0,0
+        span.Skeleton__skeleton  160×38 @0,0  r8
+        span.Skeleton__skeleton#2  160×38 @168,0  r8
+        span.Skeleton__skeleton#3  160×38 @336,0  r8
+    span.Skeleton__skeleton  1152×320 @24,84  r8
+
+[палитра light]
+div.CatalogCompare__compare  bg #ffffff
+  div.CatalogCompare__container
+    div.CatalogCompare__head
+      ul.CatalogCompare__chosen
+        span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+
+[палитра dark]
+div.CatalogCompare__compare  bg #0b1220
+  div.CatalogCompare__container
+    div.CatalogCompare__head
+      ul.CatalogCompare__chosen
+        span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

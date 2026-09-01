@@ -1,0 +1,277 @@
+# админка-склад-·-движение--одназона · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×941
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×909 @16,16  r20  b1
+  div.FormSection__head  316×107 @21,21
+    div.FormSection__titleRow  316×21 @0,0
+      h2.FormSection__title  166×21 @0,0  Onest 700 17/21  ls0  lines=1  «Провести движение»
+    p.FormSection__hint  316×81 @0,27  Manrope 400 13/20  lines=4  «Остаток — сумма движений, а не поле: зап»
+  form.StockMoveForm__form  316×748 @21,140
+    div.StockMoveForm__grid  316×617 @0,0
+      div.Field__field  316×76 @0,0
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Что делаем»
+        span.Select__wrapper  316×49 @0,27
+          select.Select__select  316×49 @0,0  r11  b1
+            option  0×0 @-37,-183  Manrope 400 15/21  lines=0  «Приход»
+            option#2  0×0 @-37,-183  Manrope 400 15/21  lines=0  «Перемещение»
+            option#3  0×0 @-37,-183  Manrope 400 15/21  lines=0  «Инвентаризация»
+          svg.Select__chevron  14×14 @288,18
+      div.Field__field#2  316×76 @0,88
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Позиция»
+        span.Select__wrapper  316×49 @0,27
+          select.Select__select#2  316×49 @0,0  r11  b1
+            option  0×0 @-37,-271  Manrope 400 15/21  lines=0  «Выберите позицию»
+            option#2  0×0 @-37,-271  Manrope 400 15/21  lines=0  «Труба медная 1/4″»
+            option#3  0×0 @-37,-271  Manrope 400 15/21  lines=0  «Кронштейны 450×450»
+            option#4  0×0 @-37,-271  Manrope 400 15/21  lines=0  «Фреон R32»
+            option#5  0×0 @-37,-271  Manrope 400 15/21  lines=0  «Сплит-система 09»
+          svg.Select__chevron#2  14×14 @288,18
+      div.Field__field#3  316×103 @0,176
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Количество»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Дробное — через запятую: 12,5»
+      div.Field__field#4  316×76 @0,291
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Откуда»
+        span.Select__wrapper  316×49 @0,27
+          select.Select__select#3  316×49 @0,0  r11  b1
+            option  0×0 @-37,-474  Manrope 400 15/21  lines=0  «Выберите зону»
+            option#2  0×0 @-37,-474  Manrope 400 15/21  lines=0  «Гараж на Демидовской»
+          svg.Select__chevron#3  14×14 @288,18
+      div.Field__field#5  316×76 @0,379
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Куда»
+        span.Select__wrapper  316×49 @0,27
+          select.Select__select#4  316×49 @0,0  r11  b1
+            option  0×0 @-37,-562  Manrope 400 15/21  lines=0  «Выберите зону»
+            option#2  0×0 @-37,-562  Manrope 400 15/21  lines=0  «Гараж на Демидовской»
+          svg.Select__chevron#4  14×14 @288,18
+      div.Field__field#6  316×150 @0,467
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Основание»
+        textarea.Textarea__textarea  316×96 @0,27  r11  b1
+        p.Field__hint  316×19 @0,130  Manrope 400 13/19  lines=1  «Откуда пришло, зачем перемещаем. Необяза»
+    div.StockMoveForm__actions  316×44 @0,629
+      button.Button__button  107×44 @0,0  r11  b1
+        span.Button__content  69×17 @19,13
+          span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Провести»
+    p.StockMoveForm__warning  316×63 @0,685  Manrope 400 15/22  r11  b1  lines=2  «Перемещать некуда: для этого нужны хотя»
+
+[геометрия 768]
+section.Card__card  736×603 @16,16  r20  b1
+  div.FormSection__head  694×88 @21,21
+    div.FormSection__titleRow  694×22 @0,0
+      h2.FormSection__title  174×22 @0,0  Onest 700 18/22  ls0  lines=1  «Провести движение»
+    p.FormSection__hint  508×60 @0,28  Manrope 400 13/20  lines=3  «Остаток — сумма движений, а не поле: зап»
+  form.StockMoveForm__form  694×461 @21,121
+    div.StockMoveForm__grid  694×352 @0,0
+      div.Field__field  223×76 @0,0
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Что делаем»
+        span.Select__wrapper  223×49 @0,27
+          select.Select__select  223×49 @0,0  r11  b1
+            option  0×0 @-37,-164  Manrope 400 15/21  lines=0  «Приход»
+            option#2  0×0 @-37,-164  Manrope 400 15/21  lines=0  «Перемещение»
+            option#3  0×0 @-37,-164  Manrope 400 15/21  lines=0  «Инвентаризация»
+          svg.Select__chevron  14×14 @195,18
+      div.Field__field#2  223×76 @235,0
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Позиция»
+        span.Select__wrapper  223×49 @0,27
+          select.Select__select#2  223×49 @0,0  r11  b1
+            option  0×0 @-272,-164  Manrope 400 15/21  lines=0  «Выберите позицию»
+            option#2  0×0 @-272,-164  Manrope 400 15/21  lines=0  «Труба медная 1/4″»
+            option#3  0×0 @-272,-164  Manrope 400 15/21  lines=0  «Кронштейны 450×450»
+            option#4  0×0 @-272,-164  Manrope 400 15/21  lines=0  «Фреон R32»
+            option#5  0×0 @-272,-164  Manrope 400 15/21  lines=0  «Сплит-система 09»
+          svg.Select__chevron#2  14×14 @195,18
+      div.Field__field#3  223×103 @471,0
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Количество»
+        input  223×49 @0,27  r11  b1
+        p.Field__hint  223×19 @0,83  Manrope 400 13/19  lines=1  «Дробное — через запятую: 12,5»
+      div.Field__field#4  223×76 @0,115
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Откуда»
+        span.Select__wrapper  223×49 @0,27
+          select.Select__select#3  223×49 @0,0  r11  b1
+            option  0×0 @-37,-279  Manrope 400 15/21  lines=0  «Выберите зону»
+            option#2  0×0 @-37,-279  Manrope 400 15/21  lines=0  «Гараж на Демидовской»
+          svg.Select__chevron#3  14×14 @195,18
+      div.Field__field#5  223×76 @235,115
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Куда»
+        span.Select__wrapper  223×49 @0,27
+          select.Select__select#4  223×49 @0,0  r11  b1
+            option  0×0 @-272,-279  Manrope 400 15/21  lines=0  «Выберите зону»
+            option#2  0×0 @-272,-279  Manrope 400 15/21  lines=0  «Гараж на Демидовской»
+          svg.Select__chevron#4  14×14 @195,18
+      div.Field__field#6  694×150 @0,203
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Основание»
+        textarea.Textarea__textarea  694×96 @0,27  r11  b1
+        p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Откуда пришло, зачем перемещаем. Необяза»
+    div.StockMoveForm__actions  694×44 @0,364
+      button.Button__button  107×44 @0,0  r11  b1
+        span.Button__content  69×17 @19,13
+          span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Провести»
+    p.StockMoveForm__warning  694×40 @0,420  Manrope 400 15/22  r11  b1  lines=1  «Перемещать некуда: для этого нужны хотя»
+
+[геометрия 1440]
+section.Card__card  1408×516 @16,16  r20  b1
+  div.FormSection__head  1366×89 @21,21
+    div.FormSection__titleRow  1366×23 @0,0
+      h2.FormSection__title  184×23 @0,0  Onest 700 19/23  ls0  lines=1  «Провести движение»
+    p.FormSection__hint  508×60 @0,29  Manrope 400 13/20  lines=3  «Остаток — сумма движений, а не поле: зап»
+  form.StockMoveForm__form  1366×373 @21,122
+    div.StockMoveForm__grid  1366×264 @0,0
+      div.Field__field  218×76 @0,0
+        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Что делаем»
+        span.Select__wrapper  218×49 @0,27
+          select.Select__select  218×49 @0,0  r11  b1
+            option  0×0 @-37,-165  Manrope 400 15/21  lines=0  «Приход»
+            option#2  0×0 @-37,-165  Manrope 400 15/21  lines=0  «Перемещение»
+            option#3  0×0 @-37,-165  Manrope 400 15/21  lines=0  «Инвентаризация»
+          svg.Select__chevron  14×14 @190,18
+      div.Field__field#2  218×76 @230,0
+        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Позиция»
+        span.Select__wrapper  218×49 @0,27
+          select.Select__select#2  218×49 @0,0  r11  b1
+            option  0×0 @-267,-165  Manrope 400 15/21  lines=0  «Выберите позицию»
+            option#2  0×0 @-267,-165  Manrope 400 15/21  lines=0  «Труба медная 1/4″»
+            option#3  0×0 @-267,-165  Manrope 400 15/21  lines=0  «Кронштейны 450×450»
+            option#4  0×0 @-267,-165  Manrope 400 15/21  lines=0  «Фреон R32»
+            option#5  0×0 @-267,-165  Manrope 400 15/21  lines=0  «Сплит-система 09»
+          svg.Select__chevron#2  14×14 @190,18
+      div.Field__field#3  218×103 @459,0
+        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Количество»
+        input  218×49 @0,27  r11  b1
+        p.Field__hint  218×19 @0,83  Manrope 400 13/19  lines=1  «Дробное — через запятую: 12,5»
+      div.Field__field#4  218×76 @689,0
+        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Откуда»
+        span.Select__wrapper  218×49 @0,27
+          select.Select__select#3  218×49 @0,0  r11  b1
+            option  0×0 @-726,-165  Manrope 400 15/21  lines=0  «Выберите зону»
+            option#2  0×0 @-726,-165  Manrope 400 15/21  lines=0  «Гараж на Демидовской»
+          svg.Select__chevron#3  14×14 @190,18
+      div.Field__field#5  218×76 @919,0
+        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Куда»
+        span.Select__wrapper  218×49 @0,27
+          select.Select__select#4  218×49 @0,0  r11  b1
+            option  0×0 @-956,-165  Manrope 400 15/21  lines=0  «Выберите зону»
+            option#2  0×0 @-956,-165  Manrope 400 15/21  lines=0  «Гараж на Демидовской»
+          svg.Select__chevron#4  14×14 @190,18
+      div.Field__field#6  1366×150 @0,115
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Основание»
+        textarea.Textarea__textarea  1366×96 @0,27  r11  b1
+        p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «Откуда пришло, зачем перемещаем. Необяза»
+    div.StockMoveForm__actions  1366×44 @0,276
+      button.Button__button  107×44 @0,0  r11  b1
+        span.Button__content  69×17 @19,13
+          span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Провести»
+    p.StockMoveForm__warning  1366×40 @0,332  Manrope 400 15/22  r11  b1  lines=1  «Перемещать некуда: для этого нужны хотя»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.FormSection__head
+    div.FormSection__titleRow
+      h2.FormSection__title  color #0f172a
+    p.FormSection__hint  color #556173
+  form.StockMoveForm__form
+    div.StockMoveForm__grid
+      div.Field__field
+        label.Field__label  color #334155
+        span.Select__wrapper
+          select.Select__select  bg #ffffff  border #0891b2  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+            option  color #0f172a
+            option#2  color #0f172a
+            option#3  color #0f172a
+          svg.Select__chevron
+      div.Field__field#2
+        label.Field__label  color #334155
+        span.Select__wrapper
+          select.Select__select#2  bg #ffffff  border #7e8fa6
+            option  color #0f172a
+            option#2  color #0f172a
+            option#3  color #0f172a
+            option#4  color #0f172a
+            option#5  color #0f172a
+          svg.Select__chevron#2
+      div.Field__field#3
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#4
+        label.Field__label  color #334155
+        span.Select__wrapper
+          select.Select__select#3  bg #ffffff  border #7e8fa6
+            option  color #0f172a
+            option#2  color #0f172a
+          svg.Select__chevron#3
+      div.Field__field#5
+        label.Field__label  color #334155
+        span.Select__wrapper
+          select.Select__select#4  bg #ffffff  border #7e8fa6
+            option  color #0f172a
+            option#2  color #0f172a
+          svg.Select__chevron#4
+      div.Field__field#6
+        label.Field__label  color #334155
+        textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+    div.StockMoveForm__actions
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label  color #ffffff
+    p.StockMoveForm__warning  color #92400e  bg #b4530914  border #b4530947
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.FormSection__head
+    div.FormSection__titleRow
+      h2.FormSection__title  color #eaf1f8
+    p.FormSection__hint  color #8598ac
+  form.StockMoveForm__form
+    div.StockMoveForm__grid
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        span.Select__wrapper
+          select.Select__select  bg #0b1424  border #22d3ee  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+            option  color #eaf1f8
+            option#2  color #eaf1f8
+            option#3  color #eaf1f8
+          svg.Select__chevron
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+        span.Select__wrapper
+          select.Select__select#2  bg #0b1424  border #566d95
+            option  color #eaf1f8
+            option#2  color #eaf1f8
+            option#3  color #eaf1f8
+            option#4  color #eaf1f8
+            option#5  color #eaf1f8
+          svg.Select__chevron#2
+      div.Field__field#3
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#4
+        label.Field__label  color #c9d5e2
+        span.Select__wrapper
+          select.Select__select#3  bg #0b1424  border #566d95
+            option  color #eaf1f8
+            option#2  color #eaf1f8
+          svg.Select__chevron#3
+      div.Field__field#5
+        label.Field__label  color #c9d5e2
+        span.Select__wrapper
+          select.Select__select#4  bg #0b1424  border #566d95
+            option  color #eaf1f8
+            option#2  color #eaf1f8
+          svg.Select__chevron#4
+      div.Field__field#6
+        label.Field__label  color #c9d5e2
+        textarea.Textarea__textarea  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+    div.StockMoveForm__actions
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label  color #ffffff
+    p.StockMoveForm__warning  color #fbbf24  bg #fbbf241f  border #fbbf2452

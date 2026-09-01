@@ -1,0 +1,97 @@
+# ui-kit-skeleton--rows-loading · ширины 390 768 1440 · темы light dark
+шрифты: —
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Skeleton__skeleton  31×31 @32,32  r100
+span.Skeleton__skeleton#2  69×15 @75,40  r8
+span.Skeleton__skeleton#3  106×15 @155,40  r8
+span.Skeleton__skeleton#4  84×24 @274,35  r8
+span.Skeleton__skeleton#5  31×31 @32,73  r100
+span.Skeleton__skeleton#6  69×15 @75,81  r8
+span.Skeleton__skeleton#7  106×15 @155,81  r8
+span.Skeleton__skeleton#8  84×24 @274,76  r8
+span.Skeleton__skeleton#9  31×31 @32,113  r100
+span.Skeleton__skeleton#10  69×15 @75,121  r8
+span.Skeleton__skeleton#11  106×15 @155,121  r8
+span.Skeleton__skeleton#12  84×24 @274,117  r8
+span.Skeleton__skeleton#13  31×31 @32,154  r100
+span.Skeleton__skeleton#14  69×15 @75,162  r8
+span.Skeleton__skeleton#15  106×15 @155,162  r8
+span.Skeleton__skeleton#16  84×24 @274,157  r8
+
+[геометрия 768]
+span.Skeleton__skeleton  32×32 @32,32  r100
+span.Skeleton__skeleton#2  155×15 @76,41  r8
+span.Skeleton__skeleton#3  239×15 @243,41  r8
+span.Skeleton__skeleton#4  88×24 @494,36  r8
+span.Skeleton__skeleton#5  32×32 @32,74  r100
+span.Skeleton__skeleton#6  155×15 @76,83  r8
+span.Skeleton__skeleton#7  239×15 @243,83  r8
+span.Skeleton__skeleton#8  88×24 @494,78  r8
+span.Skeleton__skeleton#9  32×32 @32,116  r100
+span.Skeleton__skeleton#10  155×15 @76,125  r8
+span.Skeleton__skeleton#11  239×15 @243,125  r8
+span.Skeleton__skeleton#12  88×24 @494,120  r8
+span.Skeleton__skeleton#13  32×32 @32,158  r100
+span.Skeleton__skeleton#14  155×15 @76,167  r8
+span.Skeleton__skeleton#15  239×15 @243,167  r8
+span.Skeleton__skeleton#16  88×24 @494,162  r8
+
+[геометрия 1440]
+span.Skeleton__skeleton  32×32 @32,32  r100
+span.Skeleton__skeleton#2  303×15 @76,41  r8
+span.Skeleton__skeleton#3  468×15 @391,41  r8
+span.Skeleton__skeleton#4  88×24 @871,36  r8
+span.Skeleton__skeleton#5  32×32 @32,74  r100
+span.Skeleton__skeleton#6  303×15 @76,83  r8
+span.Skeleton__skeleton#7  468×15 @391,83  r8
+span.Skeleton__skeleton#8  88×24 @871,78  r8
+span.Skeleton__skeleton#9  32×32 @32,116  r100
+span.Skeleton__skeleton#10  303×15 @76,125  r8
+span.Skeleton__skeleton#11  468×15 @391,125  r8
+span.Skeleton__skeleton#12  88×24 @871,120  r8
+span.Skeleton__skeleton#13  32×32 @32,158  r100
+span.Skeleton__skeleton#14  303×15 @76,167  r8
+span.Skeleton__skeleton#15  468×15 @391,167  r8
+span.Skeleton__skeleton#16  88×24 @871,162  r8
+
+[палитра light]
+span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#4  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#5  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#6  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#7  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#8  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#9  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#10  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#11  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#12  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#13  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#14  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#15  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#16  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+
+[палитра dark]
+span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#4  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#5  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#6  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#7  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#8  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#9  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#10  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#11  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#12  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#13  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#14  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#15  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#16  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

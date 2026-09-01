@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import { reviewsContent as t } from './content';
 import { Reviews } from './Reviews';
@@ -72,12 +72,32 @@ export const Paused: Story = {
   args: { reviews: drifting },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: t.pauseTrack }));
 
-    await expect(canvas.getByRole('button', { name: t.resumeTrack })).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    );
+    /* 🔴 Кнопки остановки нет, когда покоя попросила система (issue #436):
+       компонент её не рисует намеренно — WCAG 2.2.2 требует механизм
+       остановки у **движущегося** содержимого, а остановленную системой ленту
+       останавливать нечем. Раннер снимков как раз просит покоя.
+
+       🔴 Чью просьбу выполняет лента, сценарий узнаёт у системы сам, а не по
+       наличию кнопки (#445). Компонент читает `prefers-reduced-motion` в
+       эффекте, и в боевой сборке витрины сценарий обгонял его: кнопка ещё
+       стояла, нажатие переключало ленту, а следом эффект узнавал о покое и
+       убирал кнопку вовсе — искать «Возобновить» было уже негде. На
+       дев-сервере эффект успевал первым, и гонка не была видна. Поэтому
+       сначала ждём, пока лента согласится с системой, и только потом
+       проверяем итог, а не путь. */
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (calm) {
+      await waitFor(() => expect(canvas.queryByRole('button', { name: t.pauseTrack })).toBeNull());
+    } else {
+      await userEvent.click(await canvas.findByRole('button', { name: t.pauseTrack }));
+      await waitFor(() =>
+        expect(canvas.getByRole('button', { name: t.resumeTrack })).toHaveAttribute(
+          'aria-pressed',
+          'true',
+        ),
+      );
+    }
     // прокрутка вернулась не «по классу», а по вычисленному стилю
     await expect(canvas.getByRole('list', { name: t.listLabel })).toHaveStyle({
       overflowX: 'auto',

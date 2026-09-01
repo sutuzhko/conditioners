@@ -1,0 +1,132 @@
+# админка-заказы-документы--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×402 @16,16  r20  b1
+  h2.OrderDocs__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Документы»
+  p.OrderDocs__hint  316×40 @21,46  Manrope 400 13/20  lines=2  «Договор, акт, гарантийный талон, счёт и»
+  p.OrderDocs__empty  316×20 @21,100  Manrope 400 13/20  lines=1  «Документов пока нет.»
+  form.OrderDocs__add  316×247 @21,134  b1 0 0 0
+    div.Field__field  316×76 @0,15
+      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Вид документа»
+      span.Select__wrapper  316×49 @0,27
+        select.Select__select  316×49 @0,0  r11  b1
+          option  0×0 @-37,-192  Manrope 400 15/21  lines=0  «Договор»
+          option#2  0×0 @-37,-192  Manrope 400 15/21  lines=0  «Гарантийный талон»
+          option#3  0×0 @-37,-192  Manrope 400 15/21  lines=0  «Акт выполненных работ»
+          option#4  0×0 @-37,-192  Manrope 400 15/21  lines=0  «Счёт»
+          option#5  0×0 @-37,-192  Manrope 400 15/21  lines=0  «Замерный лист»
+          option#6  0×0 @-37,-192  Manrope 400 15/21  lines=0  «Другое»
+        svg.Select__chevron  14×14 @288,18
+    div.OrderDocs__fileField  316×88 @0,103
+      label.OrderDocs__fileLabel  316×20 @0,0  Manrope 600 13/20  lines=1  «Файл»
+      input.OrderDocs__file  316×40 @0,24  r11  b1
+      span.OrderDocs__fileHint  316×20 @0,68  Manrope 400 13/20  lines=1  «PDF или снимок в JPEG, PNG, WebP»
+    button.Button__button  166×44 @0,203  r9  b1
+      span.Button__content  136×16 @15,14
+        span.Button__label  136×16 @0,0  Manrope 600 13/16  lines=1  «Приложить документ»
+
+[геометрия 768]
+section.Card__card  736×259 @16,16  r20  b1
+  h2.OrderDocs__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Документы»
+  p.OrderDocs__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Договор, акт, гарантийный талон, счёт и»
+  p.OrderDocs__empty  694×20 @21,101  Manrope 400 13/20  lines=1  «Документов пока нет.»
+  form.OrderDocs__add  694×103 @21,135  b1 0 0 0
+    div.Field__field  232×76 @0,27
+      label.Field__label  232×20 @0,0  Manrope 600 13/20  lines=1  «Вид документа»
+      span.Select__wrapper  232×49 @0,27
+        select.Select__select  232×49 @0,0  r11  b1
+          option  0×0 @-37,-205  Manrope 400 15/21  lines=0  «Договор»
+          option#2  0×0 @-37,-205  Manrope 400 15/21  lines=0  «Гарантийный талон»
+          option#3  0×0 @-37,-205  Manrope 400 15/21  lines=0  «Акт выполненных работ»
+          option#4  0×0 @-37,-205  Manrope 400 15/21  lines=0  «Счёт»
+          option#5  0×0 @-37,-205  Manrope 400 15/21  lines=0  «Замерный лист»
+          option#6  0×0 @-37,-205  Manrope 400 15/21  lines=0  «Другое»
+        svg.Select__chevron  14×14 @204,18
+    div.OrderDocs__fileField  272×88 @244,15
+      label.OrderDocs__fileLabel  272×20 @0,0  Manrope 600 13/20  lines=1  «Файл»
+      input.OrderDocs__file  272×40 @0,24  r11  b1
+      span.OrderDocs__fileHint  272×20 @0,68  Manrope 400 13/20  lines=1  «PDF или снимок в JPEG, PNG, WebP»
+    button.Button__button  166×44 @528,59  r9  b1
+      span.Button__content  136×16 @15,14
+        span.Button__label  136×16 @0,0  Manrope 600 13/16  lines=1  «Приложить документ»
+
+[геометрия 1440]
+section.Card__card  1408×261 @16,16  r20  b1
+  h2.OrderDocs__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Документы»
+  p.OrderDocs__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Договор, акт, гарантийный талон, счёт и»
+  p.OrderDocs__empty  1366×20 @21,102  Manrope 400 13/20  lines=1  «Документов пока нет.»
+  form.OrderDocs__add  1366×103 @21,136  b1 0 0 0
+    div.Field__field  568×76 @0,27
+      label.Field__label  568×20 @0,0  Manrope 600 13/20  lines=1  «Вид документа»
+      span.Select__wrapper  568×49 @0,27
+        select.Select__select  568×49 @0,0  r11  b1
+          option  0×0 @-37,-206  Manrope 400 15/21  lines=0  «Договор»
+          option#2  0×0 @-37,-206  Manrope 400 15/21  lines=0  «Гарантийный талон»
+          option#3  0×0 @-37,-206  Manrope 400 15/21  lines=0  «Акт выполненных работ»
+          option#4  0×0 @-37,-206  Manrope 400 15/21  lines=0  «Счёт»
+          option#5  0×0 @-37,-206  Manrope 400 15/21  lines=0  «Замерный лист»
+          option#6  0×0 @-37,-206  Manrope 400 15/21  lines=0  «Другое»
+        svg.Select__chevron  14×14 @540,18
+    div.OrderDocs__fileField  608×88 @580,15
+      label.OrderDocs__fileLabel  608×20 @0,0  Manrope 600 13/20  lines=1  «Файл»
+      input.OrderDocs__file  608×40 @0,24  r11  b1
+      span.OrderDocs__fileHint  608×20 @0,68  Manrope 400 13/20  lines=1  «PDF или снимок в JPEG, PNG, WebP»
+    button.Button__button  166×40 @1200,63  r9  b1
+      span.Button__content  136×16 @15,12
+        span.Button__label  136×16 @0,0  Manrope 600 13/16  lines=1  «Приложить документ»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderDocs__title  color #0f172a
+  p.OrderDocs__hint  color #556173
+  p.OrderDocs__empty  color #556173
+  form.OrderDocs__add  border #e2e8f0 #475569 #475569 #475569
+    div.Field__field
+      label.Field__label  color #334155
+      span.Select__wrapper
+        select.Select__select  bg #ffffff  border #7e8fa6
+          option  color #0f172a
+          option#2  color #0f172a
+          option#3  color #0f172a
+          option#4  color #0f172a
+          option#5  color #0f172a
+          option#6  color #0f172a
+        svg.Select__chevron
+    div.OrderDocs__fileField
+      label.OrderDocs__fileLabel  color #475569
+      input.OrderDocs__file  bg #ffffff  border #e2e8f0
+      span.OrderDocs__fileHint  color #556173
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label  color #ffffff
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderDocs__title  color #eaf1f8
+  p.OrderDocs__hint  color #8598ac
+  p.OrderDocs__empty  color #8598ac
+  form.OrderDocs__add  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      span.Select__wrapper
+        select.Select__select  bg #0b1424  border #566d95
+          option  color #eaf1f8
+          option#2  color #eaf1f8
+          option#3  color #eaf1f8
+          option#4  color #eaf1f8
+          option#5  color #eaf1f8
+          option#6  color #eaf1f8
+        svg.Select__chevron
+    div.OrderDocs__fileField
+      label.OrderDocs__fileLabel  color #a8b6c6
+      input.OrderDocs__file  bg #0b1220  border #1e2b41
+      span.OrderDocs__fileHint  color #8598ac
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label  color #ffffff

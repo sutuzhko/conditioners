@@ -1,0 +1,112 @@
+# админка-форма-техники-клиента--заведение · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+form.ClientUnitForm__form  358×480 @16,16  r11  b1
+  h3.ClientUnitForm__title  332×17 @13,13  Onest 700 15/17  ls0  lines=1  «Новая запись»
+  p.ClientUnitForm__hint  332×40 @13,34  Manrope 400 13/20  lines=2  «Для техники, поставленной до этой систем»
+  div.ClientUnitForm__grid  332×325 @13,87
+    div.Field__field  332×103 @0,0
+      label.Field__label  332×20 @0,0  Manrope 600 13/20  lines=1  «Что стоит»
+      input  332×49 @0,27  r11  b1
+      p.Field__hint  332×19 @0,83  Manrope 400 13/19  lines=1  «Модель, как в наряде: «Сплит-система 09"»
+    div.Field__field#2  332×76 @0,115
+      label.Field__label  332×20 @0,0  Manrope 600 13/20  lines=1  «Дата монтажа»
+      input  332×49 @0,27  r11  b1
+    div.Field__field#3  332×122 @0,203
+      label.Field__label  332×20 @0,0  Manrope 600 13/20  lines=1  «Гарантия до»
+      input  332×49 @0,27  r11  b1
+      p.Field__hint  332×39 @0,83  Manrope 400 13/19  lines=2  «Из наряда считается по сроку из настроек»
+  div.ClientUnitForm__actions  332×44 @13,423
+    button.Button__button  99×44 @0,0  r9  b1
+      span.Button__content  69×16 @15,14
+        span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Сохранить»
+
+[геометрия 768]
+form.ClientUnitForm__form  736×411 @16,16  r11  b1
+  h3.ClientUnitForm__title  710×17 @13,13  Onest 700 15/17  ls0  lines=1  «Новая запись»
+  p.ClientUnitForm__hint  508×40 @13,34  Manrope 400 13/20  lines=2  «Для техники, поставленной до этой систем»
+  div.ClientUnitForm__grid  710×256 @13,87
+    div.Field__field  710×103 @0,0
+      label.Field__label  710×20 @0,0  Manrope 600 13/20  lines=1  «Что стоит»
+      input  710×49 @0,27  r11  b1
+      p.Field__hint  710×19 @0,83  Manrope 400 13/19  lines=1  «Модель, как в наряде: «Сплит-система 09"»
+    div.Field__field#2  229×141 @0,115
+      label.Field__label  229×20 @0,0  Manrope 600 13/20  lines=1  «Дата монтажа»
+      input  229×49 @0,27  r11  b1
+    div.Field__field#3  229×141 @241,115
+      label.Field__label  229×20 @0,0  Manrope 600 13/20  lines=1  «Гарантия до»
+      input  229×49 @0,27  r11  b1
+      p.Field__hint  229×58 @0,83  Manrope 400 13/19  lines=3  «Из наряда считается по сроку из настроек»
+  div.ClientUnitForm__actions  710×44 @13,354
+    button.Button__button  99×44 @0,0  r9  b1
+      span.Button__content  69×16 @15,14
+        span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Сохранить»
+
+[геометрия 1440]
+form.ClientUnitForm__form  1408×407 @16,16  r11  b1
+  h3.ClientUnitForm__title  1382×17 @13,13  Onest 700 15/17  ls0  lines=1  «Новая запись»
+  p.ClientUnitForm__hint  508×40 @13,34  Manrope 400 13/20  lines=2  «Для техники, поставленной до этой систем»
+  div.ClientUnitForm__grid  1382×256 @13,87
+    div.Field__field  1382×103 @0,0
+      label.Field__label  1382×20 @0,0  Manrope 600 13/20  lines=1  «Что стоит»
+      input  1382×49 @0,27  r11  b1
+      p.Field__hint  1382×19 @0,83  Manrope 400 13/19  lines=1  «Модель, как в наряде: «Сплит-система 09"»
+    div.Field__field#2  187×141 @0,115
+      label.Field__label  187×20 @0,0  Manrope 600 13/20  lines=1  «Дата монтажа»
+      input  187×49 @0,27  r11  b1
+    div.Field__field#3  187×141 @199,115
+      label.Field__label  187×20 @0,0  Manrope 600 13/20  lines=1  «Гарантия до»
+      input  187×49 @0,27  r11  b1
+      p.Field__hint  187×58 @0,83  Manrope 400 13/19  lines=3  «Из наряда считается по сроку из настроек»
+  div.ClientUnitForm__actions  1382×40 @13,354
+    button.Button__button  99×40 @0,0  r9  b1
+      span.Button__content  69×16 @15,12
+        span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Сохранить»
+
+[палитра light]
+form.ClientUnitForm__form  bg #f8fafc  border #e2e8f0
+  h3.ClientUnitForm__title  color #0f172a
+  p.ClientUnitForm__hint  color #556173
+  div.ClientUnitForm__grid
+    div.Field__field
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+      p.Field__hint  color #556173
+    div.Field__field#2
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+    div.Field__field#3
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+      p.Field__hint  color #556173
+  div.ClientUnitForm__actions
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff
+
+[палитра dark]
+form.ClientUnitForm__form  bg #0e1729  border #1e2b41
+  h3.ClientUnitForm__title  color #eaf1f8
+  p.ClientUnitForm__hint  color #8598ac
+  div.ClientUnitForm__grid
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+      p.Field__hint  color #8598ac
+    div.Field__field#2
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+    div.Field__field#3
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+      p.Field__hint  color #8598ac
+  div.ClientUnitForm__actions
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff

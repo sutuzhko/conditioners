@@ -1,0 +1,107 @@
+# ui-kit-switch--sizes · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Switch__root  326×20 @32,32
+  div.Switch__row  326×20 @0,0
+    label.Switch__track  34×20 @0,0  r100  b1
+      span.Switch__thumb  14×14 @3,3  r100
+    input.Switch__input  1×1 @0,10
+    label.Switch__label  45×19 @44,1  Manrope 400 14/19  lines=1  «Малый»
+div.Switch__root#2  326×26 @32,66
+  div.Switch__row  326×26 @0,0
+    label.Switch__track#2  44×26 @0,0  r100  b1
+      span.Switch__thumb  18×18 @24,4  r100
+    input.Switch__input#2  1×1 @0,13
+    label.Switch__label#2  59×19 @54,4  Manrope 400 14/19  lines=1  «Средний»
+div.Switch__root#3  326×32 @32,106
+  div.Switch__row  326×32 @0,0
+    label.Switch__track#3  54×32 @0,0  r100  b1
+      span.Switch__thumb  22×22 @5,5  r100
+    input.Switch__input#3  1×1 @0,16
+    label.Switch__label#3  57×19 @64,7  Manrope 400 14/19  lines=1  «Крупный»
+
+[геометрия 768]
+div.Switch__root  704×20 @32,32
+  div.Switch__row  704×20 @0,0
+    label.Switch__track  34×20 @0,0  r100  b1
+      span.Switch__thumb  14×14 @3,3  r100
+    input.Switch__input  1×1 @0,10
+    label.Switch__label  45×19 @44,1  Manrope 400 14/19  lines=1  «Малый»
+div.Switch__root#2  704×26 @32,66
+  div.Switch__row  704×26 @0,0
+    label.Switch__track#2  44×26 @0,0  r100  b1
+      span.Switch__thumb  18×18 @24,4  r100
+    input.Switch__input#2  1×1 @0,13
+    label.Switch__label#2  59×19 @54,4  Manrope 400 14/19  lines=1  «Средний»
+div.Switch__root#3  704×32 @32,106
+  div.Switch__row  704×32 @0,0
+    label.Switch__track#3  54×32 @0,0  r100  b1
+      span.Switch__thumb  22×22 @5,5  r100
+    input.Switch__input#3  1×1 @0,16
+    label.Switch__label#3  57×19 @64,7  Manrope 400 14/19  lines=1  «Крупный»
+
+[геометрия 1440]
+div.Switch__root  1376×20 @32,32
+  div.Switch__row  1376×20 @0,0
+    label.Switch__track  34×20 @0,0  r100  b1
+      span.Switch__thumb  14×14 @3,3  r100
+    input.Switch__input  1×1 @0,10
+    label.Switch__label  45×19 @44,1  Manrope 400 14/19  lines=1  «Малый»
+div.Switch__root#2  1376×26 @32,66
+  div.Switch__row  1376×26 @0,0
+    label.Switch__track#2  44×26 @0,0  r100  b1
+      span.Switch__thumb  18×18 @24,4  r100
+    input.Switch__input#2  1×1 @0,13
+    label.Switch__label#2  59×19 @54,4  Manrope 400 14/19  lines=1  «Средний»
+div.Switch__root#3  1376×32 @32,106
+  div.Switch__row  1376×32 @0,0
+    label.Switch__track#3  54×32 @0,0  r100  b1
+      span.Switch__thumb  22×22 @5,5  r100
+    input.Switch__input#3  1×1 @0,16
+    label.Switch__label#3  57×19 @64,7  Manrope 400 14/19  lines=1  «Крупный»
+
+[палитра light]
+div.Switch__root
+  div.Switch__row
+    label.Switch__track  bg #f8fafc  border #7e8fa6
+      span.Switch__thumb  bg #ffffff  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    input.Switch__input
+    label.Switch__label  color #334155
+div.Switch__root#2
+  div.Switch__row
+    label.Switch__track#2  bg #0e7490  border #0e7490
+      span.Switch__thumb  bg #ffffff  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    input.Switch__input#2
+    label.Switch__label#2  color #0f172a
+div.Switch__root#3
+  div.Switch__row
+    label.Switch__track#3  bg #f8fafc  border #7e8fa6
+      span.Switch__thumb  bg #ffffff  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    input.Switch__input#3
+    label.Switch__label#3  color #334155
+
+[палитра dark]
+div.Switch__root
+  div.Switch__row
+    label.Switch__track  bg #0e1729  border #566d95
+      span.Switch__thumb  bg #121d31  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    input.Switch__input
+    label.Switch__label  color #c9d5e2
+div.Switch__root#2
+  div.Switch__row
+    label.Switch__track#2  bg #0e7490  border #0e7490
+      span.Switch__thumb  bg #121d31  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    input.Switch__input#2
+    label.Switch__label#2  color #eaf1f8
+div.Switch__root#3
+  div.Switch__row
+    label.Switch__track#3  bg #0e1729  border #566d95
+      span.Switch__thumb  bg #121d31  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    input.Switch__input#3
+    label.Switch__label#3  color #c9d5e2

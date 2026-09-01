@@ -1,0 +1,177 @@
+# ui-kit-table--sticky-column · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Table__viewport  358×314 @16,16
+  table.Table__table  760×314 @0,0
+    th  286×56 @16,16  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Характеристика»
+    th#2  120×56 @286,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 07»
+    th#3  122×56 @406,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 09»
+    th#4  116×56 @527,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 12»
+    th#5  117×56 @643,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 18»
+    th#6  286×51 @16,72  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Компрессор»
+    td  120×51 @286,56  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#2  122×51 @406,56  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#3  116×51 @527,56  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#4  117×51 @643,56  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    th#7  286×51 @16,123  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Уровень шума»
+    td#5  120×51 @286,107  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#6  122×51 @406,107  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#7  116×51 @527,107  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#8  117×51 @643,107  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    th#8  286×51 @16,175  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Класс энергоэффективности»
+    td#9  120×51 @286,159  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#10  122×51 @406,159  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#11  116×51 @527,159  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#12  117×51 @643,159  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    th#9  286×51 @16,226  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Обогрев до»
+    td#13  120×51 @286,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#14  122×51 @406,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#15  116×51 @527,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#16  117×51 @643,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    th#10  286×51 @16,278  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Гарантия»
+    td#17  120×51 @286,262  Manrope 400 15/22  lines=1  «—»
+    td#18  122×51 @406,262  Manrope 400 15/22  lines=1  «—»
+    td#19  116×51 @527,262  Manrope 400 15/22  lines=1  «—»
+    td#20  117×51 @643,262  Manrope 400 15/22  lines=1  «—»
+
+[геометрия 768]
+div.Table__viewport  736×314 @16,16
+  table.Table__table  760×314 @0,0
+    th  286×56 @16,16  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Характеристика»
+    th#2  120×56 @286,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 07»
+    th#3  122×56 @406,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 09»
+    th#4  116×56 @527,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 12»
+    th#5  117×56 @643,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 18»
+    th#6  286×51 @16,72  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Компрессор»
+    td  120×51 @286,56  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#2  122×51 @406,56  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#3  116×51 @527,56  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#4  117×51 @643,56  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    th#7  286×51 @16,123  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Уровень шума»
+    td#5  120×51 @286,107  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#6  122×51 @406,107  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#7  116×51 @527,107  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#8  117×51 @643,107  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    th#8  286×51 @16,175  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Класс энергоэффективности»
+    td#9  120×51 @286,159  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#10  122×51 @406,159  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#11  116×51 @527,159  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#12  117×51 @643,159  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    th#9  286×51 @16,226  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Обогрев до»
+    td#13  120×51 @286,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#14  122×51 @406,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#15  116×51 @527,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#16  117×51 @643,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    th#10  286×51 @16,278  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Гарантия»
+    td#17  120×51 @286,262  Manrope 400 15/22  lines=1  «—»
+    td#18  122×51 @406,262  Manrope 400 15/22  lines=1  «—»
+    td#19  116×51 @527,262  Manrope 400 15/22  lines=1  «—»
+    td#20  117×51 @643,262  Manrope 400 15/22  lines=1  «—»
+
+[геометрия 1440]
+div.Table__viewport  1408×314 @16,16
+  table.Table__table  1408×314 @0,0
+    th  529×56 @16,16  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Характеристика»
+    th#2  223×56 @529,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 07»
+    th#3  225×56 @752,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 09»
+    th#4  214×56 @977,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 12»
+    th#5  217×56 @1191,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 18»
+    th#6  529×51 @16,72  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Компрессор»
+    td  223×51 @529,56  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#2  225×51 @752,56  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#3  214×51 @977,56  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#4  217×51 @1191,56  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    th#7  529×51 @16,123  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Уровень шума»
+    td#5  223×51 @529,107  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#6  225×51 @752,107  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#7  214×51 @977,107  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#8  217×51 @1191,107  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    th#8  529×51 @16,175  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Класс энергоэффективности»
+    td#9  223×51 @529,159  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#10  225×51 @752,159  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#11  214×51 @977,159  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#12  217×51 @1191,159  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    th#9  529×51 @16,226  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Обогрев до»
+    td#13  223×51 @529,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#14  225×51 @752,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#15  214×51 @977,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    td#16  217×51 @1191,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+    th#10  529×51 @16,278  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Гарантия»
+    td#17  223×51 @529,262  Manrope 400 15/22  lines=1  «—»
+    td#18  225×51 @752,262  Manrope 400 15/22  lines=1  «—»
+    td#19  214×51 @977,262  Manrope 400 15/22  lines=1  «—»
+    td#20  217×51 @1191,262  Manrope 400 15/22  lines=1  «—»
+
+[палитра light]
+div.Table__viewport
+  table.Table__table
+    th  color #0f172a  bg #ffffff  border #0f172a #e2e8f0 #e2e8f0 #0f172a
+    th#2  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#3  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#4  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#5  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#6  color #0f172a  bg #f5f8fa  border #0f172a #e2e8f0 #e2e8f0 #0f172a
+    td  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#2  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#3  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#4  color #334155  border #334155 #334155 #eef2f6 #334155
+    th#7  color #0f172a  bg #edf2f6  border #0f172a #e2e8f0 #e2e8f0 #0f172a
+    td#5  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#6  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#7  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#8  color #334155  border #334155 #334155 #eef2f6 #334155
+    th#8  color #0f172a  bg #f5f8fa  border #0f172a #e2e8f0 #e2e8f0 #0f172a
+    td#9  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#10  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#11  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#12  color #334155  border #334155 #334155 #eef2f6 #334155
+    th#9  color #0f172a  bg #edf2f6  border #0f172a #e2e8f0 #e2e8f0 #0f172a
+    td#13  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#14  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#15  color #334155  border #334155 #334155 #eef2f6 #334155
+    td#16  color #334155  border #334155 #334155 #eef2f6 #334155
+    th#10  color #0f172a  bg #f5f8fa  border #0f172a #e2e8f0 #e2e8f0 #0f172a
+    td#17  color #334155
+    td#18  color #334155
+    td#19  color #334155
+    td#20  color #334155
+
+[палитра dark]
+div.Table__viewport
+  table.Table__table
+    th  color #eaf1f8  bg #121d31  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
+    th#2  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#3  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#4  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#5  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#6  color #eaf1f8  bg #121d31  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
+    td  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#2  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#3  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#4  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    th#7  color #eaf1f8  bg #16223a  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
+    td#5  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#6  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#7  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#8  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    th#8  color #eaf1f8  bg #121d31  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
+    td#9  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#10  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#11  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#12  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    th#9  color #eaf1f8  bg #16223a  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
+    td#13  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#14  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#15  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    td#16  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+    th#10  color #eaf1f8  bg #121d31  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
+    td#17  color #c9d5e2
+    td#18  color #c9d5e2
+    td#19  color #c9d5e2
+    td#20  color #c9d5e2

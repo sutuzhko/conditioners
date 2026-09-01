@@ -55,6 +55,12 @@ export const Discounted: Story = {
  */
 export const PriceReserve: Story = {
   name: 'Подбор: со скидкой и без — рядом',
+  // Допущение инвариантов — причина в reason (ADR-230)
+  parameters: {
+    invariants: {
+      allow: [{ rule: 'overflow-x', reason: 'issue #472 — документ 326px на ширине 320' }],
+    },
+  },
   render: (args) => (
     <div style={{ display: 'grid', gap: 20, gridTemplateColumns: '1fr 1fr', padding: 20 }}>
       <HeroPicker products={discountedPickerModels} leadHref="#lead" now={saleNow} />

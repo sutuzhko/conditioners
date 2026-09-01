@@ -1,0 +1,142 @@
+# админка-календарь-прокрутка-сетки--рабочееокно · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div[role=group]  358×1152 @16,16
+  div  358×48 @0,0  Manrope 400 15/23  b1 0 0 0  lines=1  «00:00»
+  div#2  358×48 @0,48  Manrope 400 15/23  b1 0 0 0  lines=1  «01:00»
+  div#3  358×48 @0,96  Manrope 400 15/23  b1 0 0 0  lines=1  «02:00»
+  div#4  358×48 @0,144  Manrope 400 15/23  b1 0 0 0  lines=1  «03:00»
+  div#5  358×48 @0,192  Manrope 400 15/23  b1 0 0 0  lines=1  «04:00»
+  div#6  358×48 @0,240  Manrope 400 15/23  b1 0 0 0  lines=1  «05:00»
+  div#7  358×48 @0,288  Manrope 400 15/23  b1 0 0 0  lines=1  «06:00»
+  div#8  358×48 @0,336  Manrope 400 15/23  b1 0 0 0  lines=1  «07:00»
+  div#9  358×48 @0,384  Manrope 400 15/23  b1 0 0 0  lines=1  «08:00»
+  div#10  358×48 @0,432  Manrope 400 15/23  b1 0 0 0  lines=1  «09:00»
+  div#11  358×48 @0,480  Manrope 400 15/23  b1 0 0 0  lines=1  «10:00»
+  div#12  358×48 @0,528  Manrope 400 15/23  b1 0 0 0  lines=1  «11:00»
+  div#13  358×48 @0,576  Manrope 400 15/23  b1 0 0 0  lines=1  «12:00»
+  div#14  358×48 @0,624  Manrope 400 15/23  b1 0 0 0  lines=1  «13:00»
+  div#15  358×48 @0,672  Manrope 400 15/23  b1 0 0 0  lines=1  «14:00»
+  div#16  358×48 @0,720  Manrope 400 15/23  b1 0 0 0  lines=1  «15:00»
+  div#17  358×48 @0,768  Manrope 400 15/23  b1 0 0 0  lines=1  «16:00»
+  div#18  358×48 @0,816  Manrope 400 15/23  b1 0 0 0  lines=1  «17:00»
+  div#19  358×48 @0,864  Manrope 400 15/23  b1 0 0 0  lines=1  «18:00»
+  div#20  358×48 @0,912  Manrope 400 15/23  b1 0 0 0  lines=1  «19:00»
+  div#21  358×48 @0,960  Manrope 400 15/23  b1 0 0 0  lines=1  «20:00»
+  div#22  358×48 @0,1008  Manrope 400 15/23  b1 0 0 0  lines=1  «21:00»
+  div#23  358×48 @0,1056  Manrope 400 15/23  b1 0 0 0  lines=1  «22:00»
+  div#24  358×48 @0,1104  Manrope 400 15/23  b1 0 0 0  lines=1  «23:00»
+
+[геометрия 768]
+div[role=group]  736×1152 @16,16
+  div  736×48 @0,0  Manrope 400 15/23  b1 0 0 0  lines=1  «00:00»
+  div#2  736×48 @0,48  Manrope 400 15/23  b1 0 0 0  lines=1  «01:00»
+  div#3  736×48 @0,96  Manrope 400 15/23  b1 0 0 0  lines=1  «02:00»
+  div#4  736×48 @0,144  Manrope 400 15/23  b1 0 0 0  lines=1  «03:00»
+  div#5  736×48 @0,192  Manrope 400 15/23  b1 0 0 0  lines=1  «04:00»
+  div#6  736×48 @0,240  Manrope 400 15/23  b1 0 0 0  lines=1  «05:00»
+  div#7  736×48 @0,288  Manrope 400 15/23  b1 0 0 0  lines=1  «06:00»
+  div#8  736×48 @0,336  Manrope 400 15/23  b1 0 0 0  lines=1  «07:00»
+  div#9  736×48 @0,384  Manrope 400 15/23  b1 0 0 0  lines=1  «08:00»
+  div#10  736×48 @0,432  Manrope 400 15/23  b1 0 0 0  lines=1  «09:00»
+  div#11  736×48 @0,480  Manrope 400 15/23  b1 0 0 0  lines=1  «10:00»
+  div#12  736×48 @0,528  Manrope 400 15/23  b1 0 0 0  lines=1  «11:00»
+  div#13  736×48 @0,576  Manrope 400 15/23  b1 0 0 0  lines=1  «12:00»
+  div#14  736×48 @0,624  Manrope 400 15/23  b1 0 0 0  lines=1  «13:00»
+  div#15  736×48 @0,672  Manrope 400 15/23  b1 0 0 0  lines=1  «14:00»
+  div#16  736×48 @0,720  Manrope 400 15/23  b1 0 0 0  lines=1  «15:00»
+  div#17  736×48 @0,768  Manrope 400 15/23  b1 0 0 0  lines=1  «16:00»
+  div#18  736×48 @0,816  Manrope 400 15/23  b1 0 0 0  lines=1  «17:00»
+  div#19  736×48 @0,864  Manrope 400 15/23  b1 0 0 0  lines=1  «18:00»
+  div#20  736×48 @0,912  Manrope 400 15/23  b1 0 0 0  lines=1  «19:00»
+  div#21  736×48 @0,960  Manrope 400 15/23  b1 0 0 0  lines=1  «20:00»
+  div#22  736×48 @0,1008  Manrope 400 15/23  b1 0 0 0  lines=1  «21:00»
+  div#23  736×48 @0,1056  Manrope 400 15/23  b1 0 0 0  lines=1  «22:00»
+  div#24  736×48 @0,1104  Manrope 400 15/23  b1 0 0 0  lines=1  «23:00»
+
+[геометрия 1440]
+div[role=group]  1408×1152 @16,16
+  div  1408×48 @0,0  Manrope 400 15/23  b1 0 0 0  lines=1  «00:00»
+  div#2  1408×48 @0,48  Manrope 400 15/23  b1 0 0 0  lines=1  «01:00»
+  div#3  1408×48 @0,96  Manrope 400 15/23  b1 0 0 0  lines=1  «02:00»
+  div#4  1408×48 @0,144  Manrope 400 15/23  b1 0 0 0  lines=1  «03:00»
+  div#5  1408×48 @0,192  Manrope 400 15/23  b1 0 0 0  lines=1  «04:00»
+  div#6  1408×48 @0,240  Manrope 400 15/23  b1 0 0 0  lines=1  «05:00»
+  div#7  1408×48 @0,288  Manrope 400 15/23  b1 0 0 0  lines=1  «06:00»
+  div#8  1408×48 @0,336  Manrope 400 15/23  b1 0 0 0  lines=1  «07:00»
+  div#9  1408×48 @0,384  Manrope 400 15/23  b1 0 0 0  lines=1  «08:00»
+  div#10  1408×48 @0,432  Manrope 400 15/23  b1 0 0 0  lines=1  «09:00»
+  div#11  1408×48 @0,480  Manrope 400 15/23  b1 0 0 0  lines=1  «10:00»
+  div#12  1408×48 @0,528  Manrope 400 15/23  b1 0 0 0  lines=1  «11:00»
+  div#13  1408×48 @0,576  Manrope 400 15/23  b1 0 0 0  lines=1  «12:00»
+  div#14  1408×48 @0,624  Manrope 400 15/23  b1 0 0 0  lines=1  «13:00»
+  div#15  1408×48 @0,672  Manrope 400 15/23  b1 0 0 0  lines=1  «14:00»
+  div#16  1408×48 @0,720  Manrope 400 15/23  b1 0 0 0  lines=1  «15:00»
+  div#17  1408×48 @0,768  Manrope 400 15/23  b1 0 0 0  lines=1  «16:00»
+  div#18  1408×48 @0,816  Manrope 400 15/23  b1 0 0 0  lines=1  «17:00»
+  div#19  1408×48 @0,864  Manrope 400 15/23  b1 0 0 0  lines=1  «18:00»
+  div#20  1408×48 @0,912  Manrope 400 15/23  b1 0 0 0  lines=1  «19:00»
+  div#21  1408×48 @0,960  Manrope 400 15/23  b1 0 0 0  lines=1  «20:00»
+  div#22  1408×48 @0,1008  Manrope 400 15/23  b1 0 0 0  lines=1  «21:00»
+  div#23  1408×48 @0,1056  Manrope 400 15/23  b1 0 0 0  lines=1  «22:00»
+  div#24  1408×48 @0,1104  Manrope 400 15/23  b1 0 0 0  lines=1  «23:00»
+
+[палитра light]
+div[role=group]
+  div  color #0f172a  border #0f172a
+  div#2  color #0f172a  border #0f172a
+  div#3  color #0f172a  border #0f172a
+  div#4  color #0f172a  border #0f172a
+  div#5  color #0f172a  border #0f172a
+  div#6  color #0f172a  border #0f172a
+  div#7  color #0f172a  border #0f172a
+  div#8  color #0f172a  border #0f172a
+  div#9  color #0f172a  border #0f172a
+  div#10  color #0f172a  border #0f172a
+  div#11  color #0f172a  border #0f172a
+  div#12  color #0f172a  border #0f172a
+  div#13  color #0f172a  border #0f172a
+  div#14  color #0f172a  border #0f172a
+  div#15  color #0f172a  border #0f172a
+  div#16  color #0f172a  border #0f172a
+  div#17  color #0f172a  border #0f172a
+  div#18  color #0f172a  border #0f172a
+  div#19  color #0f172a  border #0f172a
+  div#20  color #0f172a  border #0f172a
+  div#21  color #0f172a  border #0f172a
+  div#22  color #0f172a  border #0f172a
+  div#23  color #0f172a  border #0f172a
+  div#24  color #0f172a  border #0f172a
+
+[палитра dark]
+div[role=group]
+  div  color #eaf1f8  border #eaf1f8
+  div#2  color #eaf1f8  border #eaf1f8
+  div#3  color #eaf1f8  border #eaf1f8
+  div#4  color #eaf1f8  border #eaf1f8
+  div#5  color #eaf1f8  border #eaf1f8
+  div#6  color #eaf1f8  border #eaf1f8
+  div#7  color #eaf1f8  border #eaf1f8
+  div#8  color #eaf1f8  border #eaf1f8
+  div#9  color #eaf1f8  border #eaf1f8
+  div#10  color #eaf1f8  border #eaf1f8
+  div#11  color #eaf1f8  border #eaf1f8
+  div#12  color #eaf1f8  border #eaf1f8
+  div#13  color #eaf1f8  border #eaf1f8
+  div#14  color #eaf1f8  border #eaf1f8
+  div#15  color #eaf1f8  border #eaf1f8
+  div#16  color #eaf1f8  border #eaf1f8
+  div#17  color #eaf1f8  border #eaf1f8
+  div#18  color #eaf1f8  border #eaf1f8
+  div#19  color #eaf1f8  border #eaf1f8
+  div#20  color #eaf1f8  border #eaf1f8
+  div#21  color #eaf1f8  border #eaf1f8
+  div#22  color #eaf1f8  border #eaf1f8
+  div#23  color #eaf1f8  border #eaf1f8
+  div#24  color #eaf1f8  border #eaf1f8

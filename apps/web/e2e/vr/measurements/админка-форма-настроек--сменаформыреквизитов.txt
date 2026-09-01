@@ -1,0 +1,292 @@
+# админка-форма-настроек--сменаформыреквизитов · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×1709
+768 → 768×1025
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×1677 @16,16  r20  b1
+  h2.SettingsForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Реквизиты»
+  p.SettingsForm__description  316×180 @21,46  Manrope 400 15/22  lines=8  «Наименование, ИНН и сведения о регистрац»
+  form.SettingsForm__form  316×1413 @21,243
+    div.SettingsForm__fields  316×1351 @0,0
+      div.Field__field  316×122 @0,0
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Форма»
+        span.Select__wrapper  316×49 @0,27
+          select.Select__select  316×49 @0,0  r11  b1
+            option  0×0 @-37,-286  Manrope 400 15/21  lines=0  «ИП»
+            option#2  0×0 @-37,-286  Manrope 400 15/21  lines=0  «ООО»
+          svg.Select__chevron  14×14 @288,18
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «От неё зависят и состав полей, и проверк»
+      div.Field__field#2  316×122 @0,136
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «ФИО полностью»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Как в свидетельстве. Печатается в футере»
+      div.Field__field#3  316×76 @0,272
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
+        input  316×49 @0,27  r11  b1
+      div.Field__field#4  316×76 @0,362
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «ОГРНИП»
+        input  316×49 @0,27  r11  b1
+      div.Field__field#5  316×122 @0,452
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Дата регистрации»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Как в свидетельстве. Закон требует показ»
+      div.Field__field#6  316×122 @0,588
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Орган регистрации»
+        input  316×49 @0,27  r11  b1  clipped
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Кто выдал свидетельство — целиком, как в»
+      div.Field__field#7  316×141 @0,724
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Адрес регистрации»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×58 @0,83  Manrope 400 13/19  lines=3  «На сайт не выводится: у предпринимателя»
+      div.Field__field#8  316×103 @0,879
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Банк»
+        input  316×49 @0,27  r11  b1  clipped
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
+      div.Field__field#9  316×103 @0,996
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «БИК»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
+      div.Field__field#10  316×122 @0,1112
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Расчётный счёт»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится. Контрольный ключ с»
+      div.Field__field#11  316×103 @0,1248
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Корреспондентский счёт»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
+    div.SettingsForm__actions  316×44 @0,1369
+      button.Button__button  115×44 @0,0  r11  b1
+        span.Button__content  77×17 @19,13
+          span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[геометрия 768]
+section.Card__card  736×993 @16,16  r20  b1
+  h2.SettingsForm__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Реквизиты»
+  p.SettingsForm__description  694×90 @21,47  Manrope 400 15/22  lines=4  «Наименование, ИНН и сведения о регистрац»
+  form.SettingsForm__form  694×818 @21,154
+    div.SettingsForm__fields  694×756 @0,0
+      div.Field__field  339×122 @0,0
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Форма»
+        span.Select__wrapper  339×49 @0,27
+          select.Select__select  339×49 @0,0  r11  b1
+            option  0×0 @-37,-198  Manrope 400 15/21  lines=0  «ИП»
+            option#2  0×0 @-37,-198  Manrope 400 15/21  lines=0  «ООО»
+          svg.Select__chevron  14×14 @311,18
+        p.Field__hint  339×39 @0,83  Manrope 400 13/19  lines=2  «От неё зависят и состав полей, и проверк»
+      div.Field__field#2  339×122 @355,0
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «ФИО полностью»
+        input  339×49 @0,27  r11  b1
+        p.Field__hint  339×39 @0,83  Manrope 400 13/19  lines=2  «Как в свидетельстве. Печатается в футере»
+      div.Field__field#3  339×76 @0,136
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
+        input  339×49 @0,27  r11  b1
+      div.Field__field#4  339×76 @355,136
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «ОГРНИП»
+        input  339×49 @0,27  r11  b1
+      div.Field__field#5  339×122 @0,226
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Дата регистрации»
+        input  339×49 @0,27  r11  b1
+        p.Field__hint  339×39 @0,83  Manrope 400 13/19  lines=2  «Как в свидетельстве. Закон требует показ»
+      div.Field__field#6  339×103 @355,226
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Орган регистрации»
+        input  339×49 @0,27  r11  b1  clipped
+        p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «Кто выдал свидетельство — целиком, как в»
+      div.Field__field#7  339×141 @0,362
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Адрес регистрации»
+        input  339×49 @0,27  r11  b1
+        p.Field__hint  339×58 @0,83  Manrope 400 13/19  lines=3  «На сайт не выводится: у предпринимателя»
+      div.Field__field#8  339×103 @355,362
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Банк»
+        input  339×49 @0,27  r11  b1  clipped
+        p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
+      div.Field__field#9  339×103 @0,517
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «БИК»
+        input  339×49 @0,27  r11  b1
+        p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
+      div.Field__field#10  339×122 @355,517
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Расчётный счёт»
+        input  339×49 @0,27  r11  b1
+        p.Field__hint  339×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится. Контрольный ключ с»
+      div.Field__field#11  339×103 @0,653
+        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Корреспондентский счёт»
+        input  339×49 @0,27  r11  b1
+        p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
+    div.SettingsForm__actions  694×44 @0,774
+      button.Button__button  115×44 @0,0  r11  b1
+        span.Button__content  77×17 @19,13
+          span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[геометрия 1440]
+section.Card__card  1408×646 @16,16  r20  b1
+  h2.SettingsForm__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Реквизиты»
+  p.SettingsForm__description  1366×45 @21,48  Manrope 400 15/22  lines=2  «Наименование, ИНН и сведения о регистрац»
+  form.SettingsForm__form  1366×514 @21,111
+    div.SettingsForm__fields  1366×452 @0,0
+      div.Field__field  260×141 @0,0
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Форма»
+        span.Select__wrapper  260×49 @0,27
+          select.Select__select  260×49 @0,0  r11  b1
+            option  0×0 @-37,-154  Manrope 400 15/21  lines=0  «ИП»
+            option#2  0×0 @-37,-154  Manrope 400 15/21  lines=0  «ООО»
+          svg.Select__chevron  14×14 @232,18
+        p.Field__hint  260×58 @0,83  Manrope 400 13/19  lines=3  «От неё зависят и состав полей, и проверк»
+      div.Field__field#2  260×122 @276,0
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «ФИО полностью»
+        input  260×49 @0,27  r11  b1
+        p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «Как в свидетельстве. Печатается в футере»
+      div.Field__field#3  260×76 @553,0
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
+        input  260×49 @0,27  r11  b1
+      div.Field__field#4  260×76 @829,0
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «ОГРНИП»
+        input  260×49 @0,27  r11  b1
+      div.Field__field#5  260×141 @1106,0
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Дата регистрации»
+        input  260×49 @0,27  r11  b1
+        p.Field__hint  260×58 @0,83  Manrope 400 13/19  lines=3  «Как в свидетельстве. Закон требует показ»
+      div.Field__field#6  260×122 @0,155
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Орган регистрации»
+        input  260×49 @0,27  r11  b1  clipped
+        p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «Кто выдал свидетельство — целиком, как в»
+      div.Field__field#7  260×161 @276,155
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Адрес регистрации»
+        input  260×49 @0,27  r11  b1
+        p.Field__hint  260×78 @0,83  Manrope 400 13/19  lines=4  «На сайт не выводится: у предпринимателя»
+      div.Field__field#8  260×122 @553,155
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Банк»
+        input  260×49 @0,27  r11  b1  clipped
+        p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится: нужно для счетов и»
+      div.Field__field#9  260×122 @829,155
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «БИК»
+        input  260×49 @0,27  r11  b1
+        p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится: нужно для счетов и»
+      div.Field__field#10  260×122 @1106,155
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Расчётный счёт»
+        input  260×49 @0,27  r11  b1
+        p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится. Контрольный ключ с»
+      div.Field__field#11  260×122 @0,330
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Корреспондентский счёт»
+        input  260×49 @0,27  r11  b1
+        p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится: нужно для счетов и»
+    div.SettingsForm__actions  1366×44 @0,470
+      button.Button__button  115×44 @0,0  r11  b1
+        span.Button__content  77×17 @19,13
+          span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.SettingsForm__title  color #0f172a
+  p.SettingsForm__description  color #556173
+  form.SettingsForm__form
+    div.SettingsForm__fields
+      div.Field__field
+        label.Field__label  color #334155
+        span.Select__wrapper
+          select.Select__select  bg #ffffff  border #7e8fa6
+            option  color #0f172a
+            option#2  color #0f172a
+          svg.Select__chevron
+        p.Field__hint  color #556173
+      div.Field__field#2
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#3
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#4
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#5
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#6
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#7
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#8
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#9
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#10
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#11
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+    div.SettingsForm__actions
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label  color #ffffff
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.SettingsForm__title  color #eaf1f8
+  p.SettingsForm__description  color #8598ac
+  form.SettingsForm__form
+    div.SettingsForm__fields
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        span.Select__wrapper
+          select.Select__select  bg #0b1424  border #566d95
+            option  color #eaf1f8
+            option#2  color #eaf1f8
+          svg.Select__chevron
+        p.Field__hint  color #8598ac
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#3
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      div.Field__field#4
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      div.Field__field#5
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#6
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#7
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#8
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#9
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#10
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#11
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+    div.SettingsForm__actions
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label  color #ffffff

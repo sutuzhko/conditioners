@@ -1,0 +1,80 @@
+# блоки-база-знаний--empty · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.KnowledgeTeaser__section  320×509 @0,0  b1 0 1 0
+  div.KnowledgeTeaser__container  320×507 @0,1
+    header.KnowledgeTeaser__head  288×167 @16,48
+      div.KnowledgeTeaser__intro  288×167 @0,0
+        p.KnowledgeTeaser__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+        h2.KnowledgeTeaser__title  288×58 @0,32  Onest 700 24/29  ls0  lines=2  «Разбираемся в кондиционерах»
+        p.KnowledgeTeaser__lead  288×70 @0,98  Manrope 400 15/23  lines=3  «Честные статьи без продающей воды: как в»
+    div.Card__card  288×216 @16,243  r20  b1
+      p.KnowledgeTeaser__emptyTitle  246×26 @21,21  Onest 700 17/26  ls0  lines=1  «Статьи ещё пишутся»
+      p.KnowledgeTeaser__emptyText  246×140 @21,55  Manrope 400 15/23  lines=6  «Мы пишем их сами и не переносим к себе ч»
+
+[геометрия 375]
+section.KnowledgeTeaser__section  375×493 @0,0  b1 0 1 0
+  div.KnowledgeTeaser__container  375×491 @0,1
+    header.KnowledgeTeaser__head  343×170 @16,51
+      div.KnowledgeTeaser__intro  343×170 @0,0
+        p.KnowledgeTeaser__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+        h2.KnowledgeTeaser__title  343×60 @0,32  Onest 700 25/30  ls0  lines=2  «Разбираемся в кондиционерах»
+        p.KnowledgeTeaser__lead  343×70 @0,100  Manrope 400 15/23  lines=3  «Честные статьи без продающей воды: как в»
+    div.Card__card  343×193 @16,248  r20  b1
+      p.KnowledgeTeaser__emptyTitle  301×27 @21,21  Onest 700 17/27  ls0  lines=1  «Статьи ещё пишутся»
+      p.KnowledgeTeaser__emptyText  301×116 @21,56  Manrope 400 15/23  lines=5  «Мы пишем их сами и не переносим к себе ч»
+
+[геометрия 768]
+section.KnowledgeTeaser__section  768×459 @0,0  b1 0 1 0
+  div.KnowledgeTeaser__container  768×457 @0,1
+    header.KnowledgeTeaser__head  728×129 @20,68
+      div.KnowledgeTeaser__intro  620×129 @0,0
+        p.KnowledgeTeaser__kicker  620×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+        h2.KnowledgeTeaser__title  620×37 @0,32  Onest 700 31/37  ls-1  lines=1  «Разбираемся в кондиционерах»
+        p.KnowledgeTeaser__lead  620×51 @0,77  Manrope 400 17/26  lines=2  «Честные статьи без продающей воды: как в»
+    div.Card__card  620×164 @20,225  r20  b1
+      p.KnowledgeTeaser__emptyTitle  562×28 @29,29  Onest 700 18/28  ls0  lines=1  «Статьи ещё пишутся»
+      p.KnowledgeTeaser__emptyText  562×70 @29,65  Manrope 400 15/23  lines=3  «Мы пишем их сами и не переносим к себе ч»
+
+[геометрия 1200]
+section.KnowledgeTeaser__section  1200×524 @0,0  b1 0 1 0
+  div.KnowledgeTeaser__container  1200×522 @0,1
+    header.KnowledgeTeaser__head  1152×137 @24,88
+      div.KnowledgeTeaser__intro  620×137 @0,0
+        p.KnowledgeTeaser__kicker  620×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+        h2.KnowledgeTeaser__title  620×46 @0,32  Onest 700 38/46  ls-1  lines=1  «Разбираемся в кондиционерах»
+        p.KnowledgeTeaser__lead  620×51 @0,86  Manrope 400 17/26  lines=2  «Честные статьи без продающей воды: как в»
+    div.Card__card  620×165 @24,269  r20  b1
+      p.KnowledgeTeaser__emptyTitle  562×29 @29,29  Onest 700 19/29  ls0  lines=1  «Статьи ещё пишутся»
+      p.KnowledgeTeaser__emptyText  562×70 @29,66  Manrope 400 15/23  lines=3  «Мы пишем их сами и не переносим к себе ч»
+
+[палитра light]
+section.KnowledgeTeaser__section  bg #f8fafc  border #e2e8f0 #0f172a #e2e8f0 #0f172a
+  div.KnowledgeTeaser__container
+    header.KnowledgeTeaser__head
+      div.KnowledgeTeaser__intro
+        p.KnowledgeTeaser__kicker  color #0e7490
+        h2.KnowledgeTeaser__title  color #0f172a
+        p.KnowledgeTeaser__lead  color #556173
+    div.Card__card  bg #f8fafc  border #eef2f6
+      p.KnowledgeTeaser__emptyTitle  color #0f172a
+      p.KnowledgeTeaser__emptyText  color #556173
+
+[палитра dark]
+section.KnowledgeTeaser__section  bg #0e1729  border #1e2b41 #eaf1f8 #1e2b41 #eaf1f8
+  div.KnowledgeTeaser__container
+    header.KnowledgeTeaser__head
+      div.KnowledgeTeaser__intro
+        p.KnowledgeTeaser__kicker  color #22d3ee
+        h2.KnowledgeTeaser__title  color #eaf1f8
+        p.KnowledgeTeaser__lead  color #8598ac
+    div.Card__card  bg #0e1729  border #182338
+      p.KnowledgeTeaser__emptyTitle  color #eaf1f8
+      p.KnowledgeTeaser__emptyText  color #8598ac

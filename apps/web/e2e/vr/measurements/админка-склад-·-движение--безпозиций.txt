@@ -1,0 +1,42 @@
+# админка-склад-·-движение--безпозиций · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×120 @16,16  r20  b1
+  div.FormSection__head  316×21 @21,21
+    div.FormSection__titleRow  316×21 @0,0
+      h2.FormSection__title  166×21 @0,0  Onest 700 17/21  ls0  lines=1  «Провести движение»
+  p.StockMoveForm__empty  316×45 @21,54  Manrope 400 15/22  lines=2  «Движение проводить нечего: сначала завед»
+
+[геометрия 768]
+section.Card__card  736×98 @16,16  r20  b1
+  div.FormSection__head  694×22 @21,21
+    div.FormSection__titleRow  694×22 @0,0
+      h2.FormSection__title  174×22 @0,0  Onest 700 18/22  ls0  lines=1  «Провести движение»
+  p.StockMoveForm__empty  531×22 @21,55  Manrope 400 15/22  lines=1  «Движение проводить нечего: сначала завед»
+
+[геометрия 1440]
+section.Card__card  1408×99 @16,16  r20  b1
+  div.FormSection__head  1366×23 @21,21
+    div.FormSection__titleRow  1366×23 @0,0
+      h2.FormSection__title  184×23 @0,0  Onest 700 19/23  ls0  lines=1  «Провести движение»
+  p.StockMoveForm__empty  531×22 @21,56  Manrope 400 15/22  lines=1  «Движение проводить нечего: сначала завед»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.FormSection__head
+    div.FormSection__titleRow
+      h2.FormSection__title  color #0f172a
+  p.StockMoveForm__empty  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.FormSection__head
+    div.FormSection__titleRow
+      h2.FormSection__title  color #eaf1f8
+  p.StockMoveForm__empty  color #8598ac

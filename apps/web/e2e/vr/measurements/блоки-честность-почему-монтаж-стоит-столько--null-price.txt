@@ -1,0 +1,374 @@
+# блоки-честность-почему-монтаж-стоит-столько--null-price · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 700, Onest 700
+
+[документ]
+320 → 320×1681
+375 → 375×1548
+768 → 768×966
+1200 → 1200×900
+
+[геометрия 320]
+section.HonestPricing__section  320×1681 @0,0
+  div.HonestPricing__container  320×1681 @0,0
+    header.HonestPricing__head  288×209 @16,48
+      p.HonestPricing__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Честно о цене —»
+      h2.HonestPricing__title  288×58 @0,32  Onest 700 24/29  ls0  lines=2  «Из чего складывается цена монтажа»
+      p.HonestPricing__lead  288×105 @0,104  Manrope 400 17/26  lines=4  «Разница — в том, чего не видно после уст»
+    div.HonestPricing__pair  288×1118 @16,285
+      div.Card__card  288×548 @0,0  r22  b2
+        div.HonestPricing__cardHead  224×24 @32,32
+          h3.HonestPricing__cardTitle  121×24 @0,0  Onest 700 20/24  ls0  lines=1  «Наш монтаж»
+        ul.HonestPricing__points  224×444 @32,72
+          li.HonestPricing__point  224×65 @0,0
+            span.HonestPricing__icon  18×18 @0,2
+              svg  18×18 @0,0
+            span.HonestPricing__pointText  195×65 @29,0  Manrope 400 15/22  lines=3  «Вакуумация трассы 20 минут — влага и воз»
+          li.HonestPricing__point#2  224×109 @0,78
+            span.HonestPricing__icon  18×18 @0,2
+              svg#2  18×18 @0,0
+            span.HonestPricing__pointText  195×109 @29,0  Manrope 400 15/22  lines=5  «Фреон уже заправлен на заводе на трассу»
+          li.HonestPricing__point#3  224×87 @0,200
+            span.HonestPricing__icon  18×18 @0,2
+              svg#3  18×18 @0,0
+            span.HonestPricing__pointText  195×87 @29,0  Manrope 400 15/22  lines=4  «Медная трасса нужного сечения, развальцо»
+          li.HonestPricing__point#4  224×65 @0,300
+            span.HonestPricing__icon  18×18 @0,2
+              svg#4  18×18 @0,0
+            span.HonestPricing__pointText  195×65 @29,0  Manrope 400 15/22  lines=3  «Кронштейны с виброгасителями, дренаж с у»
+          li.HonestPricing__point#5  224×65 @0,378
+            span.HonestPricing__icon  18×18 @0,2
+              svg#5  18×18 @0,0
+            span.HonestPricing__pointText  195×65 @29,0  Manrope 400 15/22  lines=3  «Договор, чек и гарантийный талон — по га»
+      div.Card__card#2  288×551 @0,568  r22  b1
+        div.HonestPricing__cardHead  226×94 @31,31
+          h3.HonestPricing__cardTitle#2  226×48 @0,0  Onest 700 20/24  ls0  lines=2  «Монтаж по минимальной цене»
+          span.Badge__badge  161×34 @0,60  Onest 700 15/20  r100  b1  lines=1  «Цена ниже рынка»
+        ul.HonestPricing__points  226×378 @31,141
+          li.HonestPricing__point#6  226×65 @0,0
+            span.HonestPricing__icon  18×18 @0,2
+              svg#6  18×18 @0,0
+            span.HonestPricing__pointText  197×65 @29,0  Manrope 400 15/22  lines=3  ««Дозаправка фреона" на новой установке —»
+          li.HonestPricing__point#7  226×65 @0,78
+            span.HonestPricing__icon  18×18 @0,2
+              svg#7  18×18 @0,0
+            span.HonestPricing__pointText  197×65 @29,0  Manrope 400 15/22  lines=3  ««Продувка фреоном" вместо вакуумации — х»
+          li.HonestPricing__point#8  226×65 @0,157
+            span.HonestPricing__icon  18×18 @0,2
+              svg#8  18×18 @0,0
+            span.HonestPricing__pointText  197×65 @29,0  Manrope 400 15/22  lines=3  «Тонкостенная труба «что была в багажнике»
+          li.HonestPricing__point#9  226×65 @0,235
+            span.HonestPricing__icon  18×18 @0,2
+              svg#9  18×18 @0,0
+            span.HonestPricing__pointText  197×65 @29,0  Manrope 400 15/22  lines=3  «Саморезы в пустотелый кирпич — блок гуди»
+          li.HonestPricing__point#10  226×65 @0,313
+            span.HonestPricing__icon  18×18 @0,2
+              svg#10  18×18 @0,0
+            span.HonestPricing__pointText  197×65 @29,0  Manrope 400 15/22  lines=3  «Через сезон — утечка, платная «дозаправк»
+    div.Card__card  288×254 @16,1427  r16  b1
+      p.HonestPricing__noteText  246×216 @21,19  Manrope 400 16/24  lines=6  «Запомните главное про фреон: наружный бл»
+        strong  229×70 @8,145  Manrope 700 16/24  lines=3  ««Мастер", берущий деньги за дозаправку н»
+
+[геометрия 375]
+section.HonestPricing__section  375×1548 @0,0
+  div.HonestPricing__container  375×1548 @0,0
+    header.HonestPricing__head  343×185 @16,51
+      p.HonestPricing__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Честно о цене —»
+      h2.HonestPricing__title  343×60 @0,32  Onest 700 25/30  ls0  lines=2  «Из чего складывается цена монтажа»
+      p.HonestPricing__lead  343×79 @0,106  Manrope 400 17/26  lines=3  «Разница — в том, чего не видно после уст»
+    div.HonestPricing__pair  343×1031 @16,263
+      div.Card__card  343×482 @0,0  r22  b2
+        div.HonestPricing__cardHead  279×24 @32,32
+          h3.HonestPricing__cardTitle  121×24 @0,0  Onest 700 20/24  ls0  lines=1  «Наш монтаж»
+        ul.HonestPricing__points  279×378 @32,72
+          li.HonestPricing__point  279×65 @0,0
+            span.HonestPricing__icon  18×18 @0,2
+              svg  18×18 @0,0
+            span.HonestPricing__pointText  250×65 @29,0  Manrope 400 15/22  lines=3  «Вакуумация трассы 20 минут — влага и воз»
+          li.HonestPricing__point#2  279×87 @0,78
+            span.HonestPricing__icon  18×18 @0,2
+              svg#2  18×18 @0,0
+            span.HonestPricing__pointText  250×87 @29,0  Manrope 400 15/22  lines=4  «Фреон уже заправлен на заводе на трассу»
+          li.HonestPricing__point#3  279×65 @0,178
+            span.HonestPricing__icon  18×18 @0,2
+              svg#3  18×18 @0,0
+            span.HonestPricing__pointText  250×65 @29,0  Manrope 400 15/22  lines=3  «Медная трасса нужного сечения, развальцо»
+          li.HonestPricing__point#4  279×44 @0,257
+            span.HonestPricing__icon  18×18 @0,2
+              svg#4  18×18 @0,0
+            span.HonestPricing__pointText  250×44 @29,0  Manrope 400 15/22  lines=2  «Кронштейны с виброгасителями, дренаж с у»
+          li.HonestPricing__point#5  279×65 @0,313
+            span.HonestPricing__icon  18×18 @0,2
+              svg#5  18×18 @0,0
+            span.HonestPricing__pointText  250×65 @29,0  Manrope 400 15/22  lines=3  «Договор, чек и гарантийный талон — по га»
+      div.Card__card#2  343×529 @0,502  r22  b1
+        div.HonestPricing__cardHead  281×94 @31,31
+          h3.HonestPricing__cardTitle#2  281×48 @0,0  Onest 700 20/24  ls0  lines=2  «Монтаж по минимальной цене»
+          span.Badge__badge  161×34 @0,60  Onest 700 15/20  r100  b1  lines=1  «Цена ниже рынка»
+        ul.HonestPricing__points  281×357 @31,141
+          li.HonestPricing__point#6  281×65 @0,0
+            span.HonestPricing__icon  18×18 @0,2
+              svg#6  18×18 @0,0
+            span.HonestPricing__pointText  252×65 @29,0  Manrope 400 15/22  lines=3  ««Дозаправка фреона" на новой установке —»
+          li.HonestPricing__point#7  281×65 @0,78
+            span.HonestPricing__icon  18×18 @0,2
+              svg#7  18×18 @0,0
+            span.HonestPricing__pointText  252×65 @29,0  Manrope 400 15/22  lines=3  ««Продувка фреоном" вместо вакуумации — х»
+          li.HonestPricing__point#8  281×65 @0,157
+            span.HonestPricing__icon  18×18 @0,2
+              svg#8  18×18 @0,0
+            span.HonestPricing__pointText  252×65 @29,0  Manrope 400 15/22  lines=3  «Тонкостенная труба «что была в багажнике»
+          li.HonestPricing__point#9  281×44 @0,235
+            span.HonestPricing__icon  18×18 @0,2
+              svg#9  18×18 @0,0
+            span.HonestPricing__pointText  252×44 @29,0  Manrope 400 15/22  lines=2  «Саморезы в пустотелый кирпич — блок гуди»
+          li.HonestPricing__point#10  281×65 @0,291
+            span.HonestPricing__icon  18×18 @0,2
+              svg#10  18×18 @0,0
+            span.HonestPricing__pointText  252×65 @29,0  Manrope 400 15/22  lines=3  «Через сезон — утечка, платная «дозаправк»
+    div.Card__card  343×230 @16,1318  r16  b1
+      p.HonestPricing__noteText  301×192 @21,19  Manrope 400 16/24  lines=5  «Запомните главное про фреон: наружный бл»
+        strong  293×70 @4,121  Manrope 700 16/24  lines=3  ««Мастер", берущий деньги за дозаправку н»
+
+[геометрия 768]
+section.HonestPricing__section  768×966 @0,0
+  div.HonestPricing__container  768×966 @0,0
+    header.HonestPricing__head  680×136 @44,68
+      p.HonestPricing__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Честно о цене —»
+      h2.HonestPricing__title  680×37 @0,32  Onest 700 31/37  ls-1  lines=1  «Из чего складывается цена монтажа»
+      p.HonestPricing__lead  680×53 @0,83  Manrope 400 17/26  lines=2  «Разница — в том, чего не видно после уст»
+    div.HonestPricing__pair  728×580 @20,249
+      div.Card__card  728×287 @0,0  r22  b2
+        div.HonestPricing__cardHead  664×24 @32,32
+          h3.HonestPricing__cardTitle  121×24 @0,0  Onest 700 20/24  ls0  lines=1  «Наш монтаж»
+        ul.HonestPricing__points  664×183 @32,72
+          li.HonestPricing__point  664×22 @0,0
+            span.HonestPricing__icon  18×18 @0,2
+              svg  18×18 @0,0
+            span.HonestPricing__pointText  469×22 @29,0  Manrope 400 15/22  lines=1  «Вакуумация трассы 20 минут — влага и воз»
+          li.HonestPricing__point#2  664×44 @0,35
+            span.HonestPricing__icon  18×18 @0,2
+              svg#2  18×18 @0,0
+            span.HonestPricing__pointText  635×44 @29,0  Manrope 400 15/22  lines=2  «Фреон уже заправлен на заводе на трассу»
+          li.HonestPricing__point#3  664×22 @0,91
+            span.HonestPricing__icon  18×18 @0,2
+              svg#3  18×18 @0,0
+            span.HonestPricing__pointText  547×22 @29,0  Manrope 400 15/22  lines=1  «Медная трасса нужного сечения, развальцо»
+          li.HonestPricing__point#4  664×22 @0,126
+            span.HonestPricing__icon  18×18 @0,2
+              svg#4  18×18 @0,0
+            span.HonestPricing__pointText  471×22 @29,0  Manrope 400 15/22  lines=1  «Кронштейны с виброгасителями, дренаж с у»
+          li.HonestPricing__point#5  664×22 @0,161
+            span.HonestPricing__icon  18×18 @0,2
+              svg#5  18×18 @0,0
+            span.HonestPricing__pointText  494×22 @29,0  Manrope 400 15/22  lines=1  «Договор, чек и гарантийный талон — по га»
+      div.Card__card#2  728×273 @0,307  r22  b1
+        div.HonestPricing__cardHead  666×34 @31,31
+          h3.HonestPricing__cardTitle#2  292×24 @0,5  Onest 700 20/24  ls0  lines=1  «Монтаж по минимальной цене»
+          span.Badge__badge  161×34 @505,0  Onest 700 15/20  r100  b1  lines=1  «Цена ниже рынка»
+        ul.HonestPricing__points  666×161 @31,81
+          li.HonestPricing__point#6  666×22 @0,0
+            span.HonestPricing__icon  18×18 @0,2
+              svg#6  18×18 @0,0
+            span.HonestPricing__pointText  540×22 @29,0  Manrope 400 15/22  lines=1  ««Дозаправка фреона" на новой установке —»
+          li.HonestPricing__point#7  666×22 @0,35
+            span.HonestPricing__icon  18×18 @0,2
+              svg#7  18×18 @0,0
+            span.HonestPricing__pointText  486×22 @29,0  Manrope 400 15/22  lines=1  ««Продувка фреоном" вместо вакуумации — х»
+          li.HonestPricing__point#8  666×22 @0,70
+            span.HonestPricing__icon  18×18 @0,2
+              svg#8  18×18 @0,0
+            span.HonestPricing__pointText  480×22 @29,0  Manrope 400 15/22  lines=1  «Тонкостенная труба «что была в багажнике»
+          li.HonestPricing__point#9  666×22 @0,104
+            span.HonestPricing__icon  18×18 @0,2
+              svg#9  18×18 @0,0
+            span.HonestPricing__pointText  457×22 @29,0  Manrope 400 15/22  lines=1  «Саморезы в пустотелый кирпич — блок гуди»
+          li.HonestPricing__point#10  666×22 @0,139
+            span.HonestPricing__icon  18×18 @0,2
+              svg#10  18×18 @0,0
+            span.HonestPricing__pointText  480×22 @29,0  Manrope 400 15/22  lines=1  «Через сезон — утечка, платная «дозаправк»
+    div.Card__card  728×114 @20,852  r16  b1
+      p.HonestPricing__noteText  674×72 @27,21  Manrope 400 16/24  lines=2  «Запомните главное про фреон: наружный бл»
+        strong  643×22 @15,49  Manrope 700 16/24  lines=1  ««Мастер", берущий деньги за дозаправку н»
+
+[геометрия 1200]
+section.HonestPricing__section  1200×750 @0,0
+  div.HonestPricing__container  1200×750 @0,0
+    header.HonestPricing__head  680×144 @260,88
+      p.HonestPricing__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Честно о цене —»
+      h2.HonestPricing__title  680×46 @0,32  Onest 700 38/46  ls-1  lines=1  «Из чего складывается цена монтажа»
+      p.HonestPricing__lead  680×53 @0,92  Manrope 400 17/26  lines=2  «Разница — в том, чего не видно после уст»
+    div.HonestPricing__pair  1152×360 @24,276
+      div.Card__card  564×360 @0,0  r22  b2
+        div.HonestPricing__cardHead  500×24 @32,32
+          h3.HonestPricing__cardTitle  121×24 @0,0  Onest 700 20/24  ls0  lines=1  «Наш монтаж»
+        ul.HonestPricing__points  500×226 @32,72
+          li.HonestPricing__point  500×22 @0,0
+            span.HonestPricing__icon  18×18 @0,2
+              svg  18×18 @0,0
+            span.HonestPricing__pointText  469×22 @29,0  Manrope 400 15/22  lines=1  «Вакуумация трассы 20 минут — влага и воз»
+          li.HonestPricing__point#2  500×44 @0,35
+            span.HonestPricing__icon  18×18 @0,2
+              svg#2  18×18 @0,0
+            span.HonestPricing__pointText  471×44 @29,0  Manrope 400 15/22  lines=2  «Фреон уже заправлен на заводе на трассу»
+          li.HonestPricing__point#3  500×44 @0,91
+            span.HonestPricing__icon  18×18 @0,2
+              svg#3  18×18 @0,0
+            span.HonestPricing__pointText  471×44 @29,0  Manrope 400 15/22  lines=2  «Медная трасса нужного сечения, развальцо»
+          li.HonestPricing__point#4  500×22 @0,148
+            span.HonestPricing__icon  18×18 @0,2
+              svg#4  18×18 @0,0
+            span.HonestPricing__pointText  471×22 @29,0  Manrope 400 15/22  lines=1  «Кронштейны с виброгасителями, дренаж с у»
+          li.HonestPricing__point#5  500×44 @0,183
+            span.HonestPricing__icon  18×18 @0,2
+              svg#5  18×18 @0,0
+            span.HonestPricing__pointText  471×44 @29,0  Manrope 400 15/22  lines=2  «Договор, чек и гарантийный талон — по га»
+      div.Card__card#2  564×360 @588,0  r22  b1
+        div.HonestPricing__cardHead  502×34 @31,31
+          h3.HonestPricing__cardTitle#2  292×24 @0,5  Onest 700 20/24  ls0  lines=1  «Монтаж по минимальной цене»
+          span.Badge__badge  161×34 @341,0  Onest 700 15/20  r100  b1  lines=1  «Цена ниже рынка»
+        ul.HonestPricing__points  502×248 @31,81
+          li.HonestPricing__point#6  502×44 @0,0
+            span.HonestPricing__icon  18×18 @0,2
+              svg#6  18×18 @0,0
+            span.HonestPricing__pointText  473×44 @29,0  Manrope 400 15/22  lines=2  ««Дозаправка фреона" на новой установке —»
+          li.HonestPricing__point#7  502×44 @0,57
+            span.HonestPricing__icon  18×18 @0,2
+              svg#7  18×18 @0,0
+            span.HonestPricing__pointText  473×44 @29,0  Manrope 400 15/22  lines=2  ««Продувка фреоном" вместо вакуумации — х»
+          li.HonestPricing__point#8  502×44 @0,113
+            span.HonestPricing__icon  18×18 @0,2
+              svg#8  18×18 @0,0
+            span.HonestPricing__pointText  473×44 @29,0  Manrope 400 15/22  lines=2  «Тонкостенная труба «что была в багажнике»
+          li.HonestPricing__point#9  502×22 @0,170
+            span.HonestPricing__icon  18×18 @0,2
+              svg#9  18×18 @0,0
+            span.HonestPricing__pointText  457×22 @29,0  Manrope 400 15/22  lines=1  «Саморезы в пустотелый кирпич — блок гуди»
+          li.HonestPricing__point#10  502×44 @0,204
+            span.HonestPricing__icon  18×18 @0,2
+              svg#10  18×18 @0,0
+            span.HonestPricing__pointText  473×44 @29,0  Manrope 400 15/22  lines=2  «Через сезон — утечка, платная «дозаправк»
+    div.Card__card  1152×90 @24,660  r16  b1
+      p.HonestPricing__noteText  1098×48 @27,21  Manrope 400 16/24  lines=2  «Запомните главное про фреон: наружный бл»
+        strong  643×22 @349,25  Manrope 700 16/24  lines=1  ««Мастер", берущий деньги за дозаправку н»
+
+[палитра light]
+section.HonestPricing__section  bg #ffffff
+  div.HonestPricing__container
+    header.HonestPricing__head
+      p.HonestPricing__kicker  color #0e7490
+      h2.HonestPricing__title  color #0f172a
+      p.HonestPricing__lead  color #556173
+    div.HonestPricing__pair
+      div.Card__card  bg #ffffff  border #0891b2
+        div.HonestPricing__cardHead
+          h3.HonestPricing__cardTitle  color #0f172a
+        ul.HonestPricing__points
+          li.HonestPricing__point
+            span.HonestPricing__icon
+              svg
+            span.HonestPricing__pointText  color #334155
+          li.HonestPricing__point#2
+            span.HonestPricing__icon
+              svg#2
+            span.HonestPricing__pointText  color #334155
+          li.HonestPricing__point#3
+            span.HonestPricing__icon
+              svg#3
+            span.HonestPricing__pointText  color #334155
+          li.HonestPricing__point#4
+            span.HonestPricing__icon
+              svg#4
+            span.HonestPricing__pointText  color #334155
+          li.HonestPricing__point#5
+            span.HonestPricing__icon
+              svg#5
+            span.HonestPricing__pointText  color #334155
+      div.Card__card#2  bg #ffffff  border #e2e8f0
+        div.HonestPricing__cardHead
+          h3.HonestPricing__cardTitle#2  color #0f172a
+          span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+        ul.HonestPricing__points
+          li.HonestPricing__point#6
+            span.HonestPricing__icon
+              svg#6
+            span.HonestPricing__pointText  color #556173
+          li.HonestPricing__point#7
+            span.HonestPricing__icon
+              svg#7
+            span.HonestPricing__pointText  color #556173
+          li.HonestPricing__point#8
+            span.HonestPricing__icon
+              svg#8
+            span.HonestPricing__pointText  color #556173
+          li.HonestPricing__point#9
+            span.HonestPricing__icon
+              svg#9
+            span.HonestPricing__pointText  color #556173
+          li.HonestPricing__point#10
+            span.HonestPricing__icon
+              svg#10
+            span.HonestPricing__pointText  color #556173
+    div.Card__card  bg #ecfeff  border #a5f3fc
+      p.HonestPricing__noteText  color #334155
+        strong  color #0f172a
+
+[палитра dark]
+section.HonestPricing__section  bg #0b1220
+  div.HonestPricing__container
+    header.HonestPricing__head
+      p.HonestPricing__kicker  color #22d3ee
+      h2.HonestPricing__title  color #eaf1f8
+      p.HonestPricing__lead  color #8598ac
+    div.HonestPricing__pair
+      div.Card__card  bg #121d31  border #22d3ee
+        div.HonestPricing__cardHead
+          h3.HonestPricing__cardTitle  color #eaf1f8
+        ul.HonestPricing__points
+          li.HonestPricing__point
+            span.HonestPricing__icon
+              svg
+            span.HonestPricing__pointText  color #c9d5e2
+          li.HonestPricing__point#2
+            span.HonestPricing__icon
+              svg#2
+            span.HonestPricing__pointText  color #c9d5e2
+          li.HonestPricing__point#3
+            span.HonestPricing__icon
+              svg#3
+            span.HonestPricing__pointText  color #c9d5e2
+          li.HonestPricing__point#4
+            span.HonestPricing__icon
+              svg#4
+            span.HonestPricing__pointText  color #c9d5e2
+          li.HonestPricing__point#5
+            span.HonestPricing__icon
+              svg#5
+            span.HonestPricing__pointText  color #c9d5e2
+      div.Card__card#2  bg #121d31  border #1e2b41
+        div.HonestPricing__cardHead
+          h3.HonestPricing__cardTitle#2  color #eaf1f8
+          span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+        ul.HonestPricing__points
+          li.HonestPricing__point#6
+            span.HonestPricing__icon
+              svg#6
+            span.HonestPricing__pointText  color #8598ac
+          li.HonestPricing__point#7
+            span.HonestPricing__icon
+              svg#7
+            span.HonestPricing__pointText  color #8598ac
+          li.HonestPricing__point#8
+            span.HonestPricing__icon
+              svg#8
+            span.HonestPricing__pointText  color #8598ac
+          li.HonestPricing__point#9
+            span.HonestPricing__icon
+              svg#9
+            span.HonestPricing__pointText  color #8598ac
+          li.HonestPricing__point#10
+            span.HonestPricing__icon
+              svg#10
+            span.HonestPricing__pointText  color #8598ac
+    div.Card__card  bg #22d3ee1a  border #22d3ee59
+      p.HonestPricing__noteText  color #c9d5e2
+        strong  color #eaf1f8

@@ -1,0 +1,164 @@
+# блоки-шапка--placeholders · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+320 → 320×1513
+375 → 375×1513
+768 → 768×1522
+1200 → 1200×1524
+
+[геометрия 320]
+header.Header__header  320×73 @0,0  fixed
+  div.Header__bar  296×56 @12,8  r14  b1
+    a.Header__logo  224×44 @11,6  r11
+      svg.BrandMark__mark  32×32 @0,6
+      span.Header__lockup  183×18 @41,13
+        span.Header__name  183×18 @0,0  Onest 700 17/18  ls0  lines=1  clipped  «ЗАПОЛНИТЕ В АДМИНКЕ»
+    div.Header__actions  44×44 @245,6
+      button.IconButton__iconButton  44×44 @0,0  r11  b1
+        svg  20×20 @12,12
+div  320×1440 @0,73  Manrope 400 15/23  lines=3  «Прокрутите страницу — шапка залипает све»
+
+[геометрия 375]
+header.Header__header  375×73 @0,0  fixed
+  div.Header__bar  350×56 @12,9  r14  b1
+    a.Header__logo  245×44 @11,6  r11
+      svg.BrandMark__mark  33×33 @0,6
+      span.Header__lockup  203×18 @42,13
+        span.Header__name  203×18 @0,0  Onest 700 17/18  ls0  lines=1  «ЗАПОЛНИТЕ В АДМИНКЕ»
+    div.Header__actions  44×44 @298,6
+      button.IconButton__iconButton  44×44 @0,0  r11  b1
+        svg  20×20 @12,12
+div  375×1440 @0,73  Manrope 400 15/23  lines=2  «Прокрутите страницу — шапка залипает све»
+
+[геометрия 768]
+header.Header__header  768×82 @0,0  fixed
+  div.Header__bar  731×60 @19,11  r18  b1
+    a.Header__logo  230×44 @14,8  r11
+      svg.BrandMark__mark  36×36 @0,4
+      span.Header__lockup  183×19 @47,13
+        span.Header__name  183×19 @0,0  Onest 700 17/19  ls0  lines=1  clipped  «ЗАПОЛНИТЕ В АДМИНКЕ»
+    div.Header__actions  465×44 @255,8
+      a.Button__button  217×44 @0,0  JetBrains Mono 600 14/16  r11  b1  ls0  lines=1  «ЗАПОЛНИТЕ В АДМИНКЕ»
+        svg  20×20 @19,12
+      a.Button__button#2  183×44 @227,0  r11  b1
+        span.Button__content  145×20 @19,12
+          span.Button__label  117×17 @0,1
+            span.Header__ctaLong  117×19 @0,-1  Manrope 600 15/17  lines=1  «Оставить заявку»
+          svg  20×20 @125,0
+      button.IconButton__iconButton  44×44 @421,0  r11  b1
+        svg  20×20 @12,12
+div  768×1440 @0,82  Manrope 400 15/23  lines=1  «Прокрутите страницу — шапка залипает све»
+
+[геометрия 1200]
+header.Header__header  1200×84 @0,0  fixed
+  div.Header__bar  1152×60 @24,12  r18  b1
+    a.Header__logo  263×44 @16,8  r11
+      svg.BrandMark__mark  36×36 @0,4
+      span.Header__lockup  216×33 @47,5
+        span.Header__name  216×20 @0,0  Onest 700 18/20  ls0  lines=1  «ЗАПОЛНИТЕ В АДМИНКЕ»
+        span.Header__tagline  216×13 @0,20  Manrope 400 12/13  ls1  lines=1  clipped  «ЗАПОЛНИТЕ В АДМИНКЕ»
+    nav.Header__nav  481×40 @353,10
+      ul.Header__navList  481×40 @0,0
+        a.Header__navLink  59×40 @0,0  Manrope 600 14/22  r6  lines=1  «Каталог»
+        a.Header__navLink#2  41×40 @81,0  Manrope 600 14/22  r6  lines=1  «Цены»
+        a.Header__navLink#3  59×40 @145,0  Manrope 600 14/22  r6  lines=1  «Монтаж»
+        a.Header__navLink#4  55×40 @225,0  Manrope 600 14/22  r6  lines=1  «Сервис»
+        a.Header__navLink#5  88×40 @302,0  Manrope 600 14/22  r6  lines=1  «База знаний»
+        a.Header__navLink#6  69×40 @412,0  Manrope 600 14/22  r6  lines=1  «Контакты»
+    div.Header__actions  233×44 @908,8
+      button.IconButton__iconButton  40×40 @0,2  r11  b1
+        svg.ThemeToggle__toDark  18×18 @11,11
+      a.Button__button  183×44 @50,0  r11  b1
+        span.Button__content  145×20 @19,12
+          span.Button__label  117×17 @0,1
+            span.Header__ctaLong  117×19 @0,-1  Manrope 600 15/17  lines=1  «Оставить заявку»
+          svg  20×20 @125,0
+div  1200×1440 @0,84  Manrope 400 15/23  lines=1  «Прокрутите страницу — шапка залипает све»
+[геометрия 1200 dark]
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton > svg.ThemeToggle__toLight  18×18 @11,11
+− header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton > svg.ThemeToggle__toDark
+
+[палитра light]
+header.Header__header
+  div.Header__bar  bg #ffffffd1  border #e2e8f0  shadow #0f172a38 0px 12px 34px -16px
+    a.Header__logo
+      svg.BrandMark__mark
+      span.Header__lockup
+        span.Header__name  color #0f172a
+        span.Header__tagline  color #556173
+    nav.Header__nav
+      ul.Header__navList
+        a.Header__navLink  color #334155
+        a.Header__navLink#2  color #334155
+        a.Header__navLink#3  color #0e7490  shadow #0e7490 0px -2px 0px 0px inset
+        a.Header__navLink#4  color #334155
+        a.Header__navLink#5  color #334155
+        a.Header__navLink#6  color #334155
+    div.Header__actions
+      button.IconButton__iconButton  bg #ffffff  border #e2e8f0
+        svg.ThemeToggle__toDark
+      a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label
+            span.Header__ctaLong  color #ffffff
+          svg
+div  color #556173  gradient linear-gradient(#f0f9fb 0%, #ffffff 100%)
+[палитра light @320]
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton  bg #ffffff  border #cbd5e1
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton > svg
+[палитра light @375]
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton  bg #ffffff  border #cbd5e1
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton > svg
+[палитра light @768]
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button  color #0f172a  bg #ffffff  border #7e8fa6
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button > svg
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button#2 > span.Button__content
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button#2 > span.Button__content > span.Button__label
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button#2 > span.Button__content > span.Button__label > span.Header__ctaLong  color #ffffff
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button#2 > span.Button__content > svg
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton  bg #ffffff  border #cbd5e1
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton > svg
+
+[палитра dark]
+header.Header__header
+  div.Header__bar  bg #0b1220cc  border #1e2b41  shadow #0f172a38 0px 12px 34px -16px
+    a.Header__logo
+      svg.BrandMark__mark
+      span.Header__lockup
+        span.Header__name  color #eaf1f8
+        span.Header__tagline  color #8598ac
+    nav.Header__nav
+      ul.Header__navList
+        a.Header__navLink  color #c9d5e2
+        a.Header__navLink#2  color #c9d5e2
+        a.Header__navLink#3  color #22d3ee  shadow #22d3ee 0px -2px 0px 0px inset
+        a.Header__navLink#4  color #c9d5e2
+        a.Header__navLink#5  color #c9d5e2
+        a.Header__navLink#6  color #c9d5e2
+    div.Header__actions
+      button.IconButton__iconButton  bg #121d31  border #1e2b41
+        svg.ThemeToggle__toLight
+      a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label
+            span.Header__ctaLong  color #ffffff
+          svg
+div  color #8598ac  gradient linear-gradient(#0c1628 0%, #0b1220 100%)
+[палитра dark @320]
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton  bg #121d31  border #2c3d59
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton > svg
+[палитра dark @375]
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton  bg #121d31  border #2c3d59
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton > svg
+[палитра dark @768]
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button  color #eaf1f8  bg #121d31  border #566d95
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button > svg
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button#2 > span.Button__content
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button#2 > span.Button__content > span.Button__label
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button#2 > span.Button__content > span.Button__label > span.Header__ctaLong  color #ffffff
+header.Header__header > div.Header__bar > div.Header__actions > a.Button__button#2 > span.Button__content > svg
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton  bg #121d31  border #2c3d59
+header.Header__header > div.Header__bar > div.Header__actions > button.IconButton__iconButton > svg

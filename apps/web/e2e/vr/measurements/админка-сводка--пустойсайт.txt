@@ -1,0 +1,212 @@
+# админка-сводка--пустойсайт · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×1036
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.AdminSummary__summary  358×1004 @16,16
+  header.AdminSummary__header  358×59 @0,0
+    h1.AdminSummary__title  358×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Обзор»
+    p.AdminSummary__lead  358×22 @0,36  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
+  section.Card__card  358×249 @0,77  r20  b1
+    h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Готовность к запуску»
+    p.AdminSummary__text  316×67 @21,50  Manrope 400 15/22  lines=3  «Пока не заполнено — на сайте вместо этих»
+    ul.AdminSummary__groups  316×62 @21,129
+      span.Badge__badge  151×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Название и описание»
+      span.Badge__badge#2  124×28 @157,0  Manrope 600 12/16  r100  b1  lines=1  «Телефон и почта»
+      span.Badge__badge#3  63×28 @0,34  Manrope 600 12/16  r100  b1  lines=1  «Адрес»
+      span.Badge__badge#4  89×28 @69,34  Manrope 600 12/16  r100  b1  lines=1  «Реквизиты»
+    a.AdminSummary__link  224×22 @21,205  Manrope 600 15/22  lines=1  «Заполнить данные компании →»
+  div.AdminSummary__tiles  358×438 @0,343
+    a.AdminSummary__tile  173×131 @0,0  r20  b1
+      span.AdminSummary__tileTitle  135×20 @19,17  Manrope 400 13/20  lines=1  «Новые обращения»
+      span.AdminSummary__tileValue  135×33 @19,39  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  135×20 @19,74  Manrope 400 13/20  lines=1  «ждут ответа»
+    a.AdminSummary__tile#2  173×131 @185,0  r20  b1
+      span.AdminSummary__tileTitle  135×20 @19,17  Manrope 400 13/20  lines=1  «Заказы в работе»
+      span.AdminSummary__tileValue  135×33 @19,39  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  135×40 @19,74  Manrope 400 13/20  lines=2  «назначены и на объекте»
+    a.AdminSummary__tile#3  173×152 @0,143  r20  b1
+      span.AdminSummary__tileTitle  135×20 @19,17  Manrope 400 13/20  lines=1  «Клиентов в базе»
+      span.AdminSummary__tileValue  135×33 @19,39  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  135×20 @19,74  Manrope 400 13/20  lines=1  «всего карточек»
+    a.AdminSummary__tile#4  173×152 @185,143  r20  b1
+      span.AdminSummary__tileTitle  135×40 @19,17  Manrope 400 13/20  lines=2  «Монтажников на связи»
+      span.AdminSummary__tileValue  135×33 @19,59  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  135×40 @19,94  Manrope 400 13/20  lines=2  «с открытым доступом в панель»
+    a.AdminSummary__tile#5  173×131 @0,307  r20  b1
+      span.AdminSummary__tileTitle  135×40 @19,17  Manrope 400 13/20  lines=2  «Отзывы на модерации»
+      span.AdminSummary__tileValue  135×33 @19,59  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  135×20 @19,94  Manrope 400 13/20  lines=1  «ждут решения»
+  section.Card__card#2  358×204 @0,800  r20  b1
+    h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Ближайшие дела»
+    p.AdminSummary__text  316×45 @21,60  Manrope 400 15/22  lines=2  «Наряды и дела календаря по времени. Прос»
+    p.AdminSummary__text#2  316×22 @21,115  Manrope 400 15/22  lines=1  «Ничего не запланировано.»
+    a.AdminSummary__link  316×22 @21,161  Manrope 600 15/22  lines=1  «Открыть календарь →»
+
+[геометрия 768]
+div.AdminSummary__summary  736×771 @16,16
+  header.AdminSummary__header  736×66 @0,0
+    h1.AdminSummary__title  736×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Обзор»
+    p.AdminSummary__lead  601×22 @0,43  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
+  section.Card__card  736×193 @0,84  r20  b1
+    h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Готовность к запуску»
+    p.AdminSummary__text  694×45 @21,51  Manrope 400 15/22  lines=2  «Пока не заполнено — на сайте вместо этих»
+    ul.AdminSummary__groups  694×28 @21,108
+      span.Badge__badge  151×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Название и описание»
+      span.Badge__badge#2  124×28 @157,0  Manrope 600 12/16  r100  b1  lines=1  «Телефон и почта»
+      span.Badge__badge#3  63×28 @287,0  Manrope 600 12/16  r100  b1  lines=1  «Адрес»
+      span.Badge__badge#4  89×28 @356,0  Manrope 600 12/16  r100  b1  lines=1  «Реквизиты»
+    a.AdminSummary__link  224×22 @21,150  Manrope 600 15/22  lines=1  «Заполнить данные компании →»
+  div.AdminSummary__tiles  736×275 @0,295
+    a.AdminSummary__tile  175×152 @0,0  r20  b1
+      span.AdminSummary__tileTitle  137×20 @19,17  Manrope 400 13/20  lines=1  «Новые обращения»
+      span.AdminSummary__tileValue  137×33 @19,39  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  137×20 @19,74  Manrope 400 13/20  lines=1  «ждут ответа»
+    a.AdminSummary__tile#2  175×152 @187,0  r20  b1
+      span.AdminSummary__tileTitle  137×20 @19,17  Manrope 400 13/20  lines=1  «Заказы в работе»
+      span.AdminSummary__tileValue  137×33 @19,39  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  137×40 @19,74  Manrope 400 13/20  lines=2  «назначены и на объекте»
+    a.AdminSummary__tile#3  175×152 @374,0  r20  b1
+      span.AdminSummary__tileTitle  137×20 @19,17  Manrope 400 13/20  lines=1  «Клиентов в базе»
+      span.AdminSummary__tileValue  137×33 @19,39  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  137×20 @19,74  Manrope 400 13/20  lines=1  «всего карточек»
+    a.AdminSummary__tile#4  175×152 @561,0  r20  b1
+      span.AdminSummary__tileTitle  137×40 @19,17  Manrope 400 13/20  lines=2  «Монтажников на связи»
+      span.AdminSummary__tileValue  137×33 @19,59  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  137×40 @19,94  Manrope 400 13/20  lines=2  «с открытым доступом в панель»
+    a.AdminSummary__tile#5  175×111 @0,164  r20  b1
+      span.AdminSummary__tileTitle  137×20 @19,17  Manrope 400 13/20  lines=1  «Отзывы на модерации»
+      span.AdminSummary__tileValue  137×33 @19,39  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  137×20 @19,74  Manrope 400 13/20  lines=1  «ждут решения»
+  section.Card__card#2  736×183 @0,588  r20  b1
+    h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Ближайшие дела»
+    p.AdminSummary__text  694×22 @21,61  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
+    p.AdminSummary__text#2  694×22 @21,93  Manrope 400 15/22  lines=1  «Ничего не запланировано.»
+    a.AdminSummary__link  694×22 @21,140  Manrope 600 15/22  lines=1  «Открыть календарь →»
+
+[геометрия 1440]
+div.AdminSummary__summary  1408×595 @16,16
+  header.AdminSummary__header  1408×74 @0,0
+    h1.AdminSummary__title  1408×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Обзор»
+    p.AdminSummary__lead  601×22 @0,52  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
+  section.Card__card  1408×172 @0,92  r20  b1
+    h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Готовность к запуску»
+    p.AdminSummary__text  1366×22 @21,52  Manrope 400 15/22  lines=1  «Пока не заполнено — на сайте вместо этих»
+    ul.AdminSummary__groups  1366×28 @21,86
+      span.Badge__badge  151×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Название и описание»
+      span.Badge__badge#2  124×28 @157,0  Manrope 600 12/16  r100  b1  lines=1  «Телефон и почта»
+      span.Badge__badge#3  63×28 @287,0  Manrope 600 12/16  r100  b1  lines=1  «Адрес»
+      span.Badge__badge#4  89×28 @356,0  Manrope 600 12/16  r100  b1  lines=1  «Реквизиты»
+    a.AdminSummary__link  224×22 @21,128  Manrope 600 15/22  lines=1  «Заполнить данные компании →»
+  div.AdminSummary__tiles  1408×111 @0,282
+    a.AdminSummary__tile  272×111 @0,0  r20  b1
+      span.AdminSummary__tileTitle  234×20 @19,17  Manrope 400 13/20  lines=1  «Новые обращения»
+      span.AdminSummary__tileValue  234×33 @19,39  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  234×20 @19,74  Manrope 400 13/20  lines=1  «ждут ответа»
+    a.AdminSummary__tile#2  272×111 @284,0  r20  b1
+      span.AdminSummary__tileTitle  234×20 @19,17  Manrope 400 13/20  lines=1  «Заказы в работе»
+      span.AdminSummary__tileValue  234×33 @19,39  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  234×20 @19,74  Manrope 400 13/20  lines=1  «назначены и на объекте»
+    a.AdminSummary__tile#3  272×111 @568,0  r20  b1
+      span.AdminSummary__tileTitle  234×20 @19,17  Manrope 400 13/20  lines=1  «Клиентов в базе»
+      span.AdminSummary__tileValue  234×33 @19,39  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  234×20 @19,74  Manrope 400 13/20  lines=1  «всего карточек»
+    a.AdminSummary__tile#4  272×111 @852,0  r20  b1
+      span.AdminSummary__tileTitle  234×20 @19,17  Manrope 400 13/20  lines=1  «Монтажников на связи»
+      span.AdminSummary__tileValue  234×33 @19,39  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  234×20 @19,74  Manrope 400 13/20  lines=1  «с открытым доступом в панель»
+    a.AdminSummary__tile#5  272×111 @1136,0  r20  b1
+      span.AdminSummary__tileTitle  234×20 @19,17  Manrope 400 13/20  lines=1  «Отзывы на модерации»
+      span.AdminSummary__tileValue  234×33 @19,39  Onest 700 30/33  lines=1  «0»
+      span.AdminSummary__tileNote  234×20 @19,74  Manrope 400 13/20  lines=1  «ждут решения»
+  section.Card__card#2  1408×184 @0,411  r20  b1
+    h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Ближайшие дела»
+    p.AdminSummary__text  1366×22 @21,62  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
+    p.AdminSummary__text#2  1366×22 @21,94  Manrope 400 15/22  lines=1  «Ничего не запланировано.»
+    a.AdminSummary__link  1366×22 @21,141  Manrope 600 15/22  lines=1  «Открыть календарь →»
+
+[палитра light]
+div.AdminSummary__summary
+  header.AdminSummary__header
+    h1.AdminSummary__title  color #0f172a
+    p.AdminSummary__lead  color #475569
+  section.Card__card  bg #ecfeff  border #a5f3fc
+    h2.AdminSummary__cardTitle  color #0f172a
+    p.AdminSummary__text  color #475569
+    ul.AdminSummary__groups
+      span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+      span.Badge__badge#2  color #92400e  bg #b4530914  border #b4530947
+      span.Badge__badge#3  color #92400e  bg #b4530914  border #b4530947
+      span.Badge__badge#4  color #92400e  bg #b4530914  border #b4530947
+    a.AdminSummary__link  color #0e7490
+  div.AdminSummary__tiles
+    a.AdminSummary__tile  bg #ffffff  border #e2e8f0
+      span.AdminSummary__tileTitle  color #556173
+      span.AdminSummary__tileValue  color #0f172a
+      span.AdminSummary__tileNote  color #5b6a7d
+    a.AdminSummary__tile#2  bg #ffffff  border #e2e8f0
+      span.AdminSummary__tileTitle  color #556173
+      span.AdminSummary__tileValue  color #0f172a
+      span.AdminSummary__tileNote  color #5b6a7d
+    a.AdminSummary__tile#3  bg #ffffff  border #e2e8f0
+      span.AdminSummary__tileTitle  color #556173
+      span.AdminSummary__tileValue  color #0f172a
+      span.AdminSummary__tileNote  color #5b6a7d
+    a.AdminSummary__tile#4  bg #ffffff  border #e2e8f0
+      span.AdminSummary__tileTitle  color #556173
+      span.AdminSummary__tileValue  color #0f172a
+      span.AdminSummary__tileNote  color #5b6a7d
+    a.AdminSummary__tile#5  bg #ffffff  border #e2e8f0
+      span.AdminSummary__tileTitle  color #556173
+      span.AdminSummary__tileValue  color #0f172a
+      span.AdminSummary__tileNote  color #5b6a7d
+  section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    h2.AdminSummary__cardTitle  color #0f172a
+    p.AdminSummary__text  color #475569
+    p.AdminSummary__text#2  color #475569
+    a.AdminSummary__link  color #0e7490
+
+[палитра dark]
+div.AdminSummary__summary
+  header.AdminSummary__header
+    h1.AdminSummary__title  color #eaf1f8
+    p.AdminSummary__lead  color #a8b6c6
+  section.Card__card  bg #22d3ee1a  border #22d3ee59
+    h2.AdminSummary__cardTitle  color #eaf1f8
+    p.AdminSummary__text  color #a8b6c6
+    ul.AdminSummary__groups
+      span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+      span.Badge__badge#2  color #fbbf24  bg #fbbf241f  border #fbbf2452
+      span.Badge__badge#3  color #fbbf24  bg #fbbf241f  border #fbbf2452
+      span.Badge__badge#4  color #fbbf24  bg #fbbf241f  border #fbbf2452
+    a.AdminSummary__link  color #22d3ee
+  div.AdminSummary__tiles
+    a.AdminSummary__tile  bg #121d31  border #1e2b41
+      span.AdminSummary__tileTitle  color #8598ac
+      span.AdminSummary__tileValue  color #eaf1f8
+      span.AdminSummary__tileNote  color #7e92a7
+    a.AdminSummary__tile#2  bg #121d31  border #1e2b41
+      span.AdminSummary__tileTitle  color #8598ac
+      span.AdminSummary__tileValue  color #eaf1f8
+      span.AdminSummary__tileNote  color #7e92a7
+    a.AdminSummary__tile#3  bg #121d31  border #1e2b41
+      span.AdminSummary__tileTitle  color #8598ac
+      span.AdminSummary__tileValue  color #eaf1f8
+      span.AdminSummary__tileNote  color #7e92a7
+    a.AdminSummary__tile#4  bg #121d31  border #1e2b41
+      span.AdminSummary__tileTitle  color #8598ac
+      span.AdminSummary__tileValue  color #eaf1f8
+      span.AdminSummary__tileNote  color #7e92a7
+    a.AdminSummary__tile#5  bg #121d31  border #1e2b41
+      span.AdminSummary__tileTitle  color #8598ac
+      span.AdminSummary__tileValue  color #eaf1f8
+      span.AdminSummary__tileNote  color #7e92a7
+  section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    h2.AdminSummary__cardTitle  color #eaf1f8
+    p.AdminSummary__text  color #a8b6c6
+    p.AdminSummary__text#2  color #a8b6c6
+    a.AdminSummary__link  color #22d3ee

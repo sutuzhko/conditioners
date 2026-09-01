@@ -1,0 +1,137 @@
+# ui-kit-alert--tones · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Alert__alert  326×87 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  264×61 @45,13
+    p.Alert__title  264×20 @0,0  Manrope 700 14/20  lines=1  «Заявка в очереди»
+    div.Alert__text  264×39 @0,22  Manrope 400 14/20  lines=2  «Уведомление уйдёт, когда воркер разберёт»
+div.Alert__alert#2  326×87 @32,131  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg#2  18×18 @0,1
+  div.Alert__body  264×61 @45,13
+    p.Alert__title#2  264×20 @0,0  Manrope 700 14/20  lines=1  «Наряд закрыт»
+    div.Alert__text#2  264×39 @0,22  Manrope 400 14/20  lines=2  «Монтажник отметил работу выполненной.»
+div.Alert__alert#3  326×67 @32,230  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg#3  18×18 @0,1
+  div.Alert__body  264×41 @45,13
+    p.Alert__title#3  264×20 @0,0  Manrope 700 14/20  lines=1  «Материал на исходе»
+    div.Alert__text#3  264×20 @0,22  Manrope 400 14/20  lines=1  «Медной трубы осталось на два выезда.»
+div.Alert__alert#4  326×67 @32,309  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg#4  18×18 @0,1
+  div.Alert__body  264×41 @45,13
+    p.Alert__title#4  264×20 @0,0  Manrope 700 14/20  lines=1  «Данные не загрузились»
+    div.Alert__text#4  264×20 @0,22  Manrope 400 14/20  lines=1  «База не ответила за десять секунд.»
+
+[геометрия 768]
+div.Alert__alert  704×67 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  642×41 @45,13
+    p.Alert__title  642×20 @0,0  Manrope 700 14/20  lines=1  «Заявка в очереди»
+    div.Alert__text  642×20 @0,22  Manrope 400 14/20  lines=1  «Уведомление уйдёт, когда воркер разберёт»
+div.Alert__alert#2  704×67 @32,111  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg#2  18×18 @0,1
+  div.Alert__body  642×41 @45,13
+    p.Alert__title#2  642×20 @0,0  Manrope 700 14/20  lines=1  «Наряд закрыт»
+    div.Alert__text#2  642×20 @0,22  Manrope 400 14/20  lines=1  «Монтажник отметил работу выполненной.»
+div.Alert__alert#3  704×67 @32,190  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg#3  18×18 @0,1
+  div.Alert__body  642×41 @45,13
+    p.Alert__title#3  642×20 @0,0  Manrope 700 14/20  lines=1  «Материал на исходе»
+    div.Alert__text#3  642×20 @0,22  Manrope 400 14/20  lines=1  «Медной трубы осталось на два выезда.»
+div.Alert__alert#4  704×67 @32,270  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg#4  18×18 @0,1
+  div.Alert__body  642×41 @45,13
+    p.Alert__title#4  642×20 @0,0  Manrope 700 14/20  lines=1  «Данные не загрузились»
+    div.Alert__text#4  642×20 @0,22  Manrope 400 14/20  lines=1  «База не ответила за десять секунд.»
+
+[геометрия 1440]
+div.Alert__alert  1376×67 @32,32  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg  18×18 @0,1
+  div.Alert__body  1314×41 @45,13
+    p.Alert__title  1314×20 @0,0  Manrope 700 14/20  lines=1  «Заявка в очереди»
+    div.Alert__text  1314×20 @0,22  Manrope 400 14/20  lines=1  «Уведомление уйдёт, когда воркер разберёт»
+div.Alert__alert#2  1376×67 @32,111  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg#2  18×18 @0,1
+  div.Alert__body  1314×41 @45,13
+    p.Alert__title#2  1314×20 @0,0  Manrope 700 14/20  lines=1  «Наряд закрыт»
+    div.Alert__text#2  1314×20 @0,22  Manrope 400 14/20  lines=1  «Монтажник отметил работу выполненной.»
+div.Alert__alert#3  1376×67 @32,190  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg#3  18×18 @0,1
+  div.Alert__body  1314×41 @45,13
+    p.Alert__title#3  1314×20 @0,0  Manrope 700 14/20  lines=1  «Материал на исходе»
+    div.Alert__text#3  1314×20 @0,22  Manrope 400 14/20  lines=1  «Медной трубы осталось на два выезда.»
+div.Alert__alert#4  1376×67 @32,270  r14  b1
+  span.Alert__icon  18×20 @17,13
+    svg#4  18×18 @0,1
+  div.Alert__body  1314×41 @45,13
+    p.Alert__title#4  1314×20 @0,0  Manrope 700 14/20  lines=1  «Данные не загрузились»
+    div.Alert__text#4  1314×20 @0,22  Manrope 400 14/20  lines=1  «База не ответила за десять секунд.»
+
+[палитра light]
+div.Alert__alert  bg #4338ca14  border #4338ca47
+  span.Alert__icon
+    svg
+  div.Alert__body
+    p.Alert__title  color #4338ca
+    div.Alert__text  color #4338ca
+div.Alert__alert#2  bg #15803d14  border #15803d47
+  span.Alert__icon
+    svg#2
+  div.Alert__body
+    p.Alert__title#2  color #166534
+    div.Alert__text#2  color #166534
+div.Alert__alert#3  bg #b4530914  border #b4530947
+  span.Alert__icon
+    svg#3
+  div.Alert__body
+    p.Alert__title#3  color #92400e
+    div.Alert__text#3  color #92400e
+div.Alert__alert#4  bg #be123c14  border #be123c73
+  span.Alert__icon
+    svg#4
+  div.Alert__body
+    p.Alert__title#4  color #be123c
+    div.Alert__text#4  color #be123c
+
+[палитра dark]
+div.Alert__alert  bg #a5b4fc1f  border #a5b4fc52
+  span.Alert__icon
+    svg
+  div.Alert__body
+    p.Alert__title  color #a5b4fc
+    div.Alert__text  color #a5b4fc
+div.Alert__alert#2  bg #4ade801f  border #4ade8052
+  span.Alert__icon
+    svg#2
+  div.Alert__body
+    p.Alert__title#2  color #4ade80
+    div.Alert__text#2  color #4ade80
+div.Alert__alert#3  bg #fbbf241f  border #fbbf2452
+  span.Alert__icon
+    svg#3
+  div.Alert__body
+    p.Alert__title#3  color #fbbf24
+    div.Alert__text#3  color #fbbf24
+div.Alert__alert#4  bg #fb71851f  border #fb718580
+  span.Alert__icon
+    svg#4
+  div.Alert__body
+    p.Alert__title#4  color #fb7185
+    div.Alert__text#4  color #fb7185

@@ -1,0 +1,22 @@
+# ui-kit-badge--mono · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Badge__badge  85×28 @16,16  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Схема 1»
+
+[геометрия 768]
+span.Badge__badge  85×28 @16,16  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Схема 1»
+
+[геометрия 1440]
+span.Badge__badge  85×28 @16,16  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Схема 1»
+
+[палитра light]
+span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+
+[палитра dark]
+span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59

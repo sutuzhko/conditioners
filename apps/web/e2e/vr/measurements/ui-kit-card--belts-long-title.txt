@@ -1,0 +1,62 @@
+# ui-kit-card--belts-long-title · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Card__card  358×164 @16,16  r20  b1
+  div.CardBelt__header  356×84 @1,1  b0 0 1 0
+    div.CardBelt__headText  220×59 @16,12
+      h3.CardBelt__title  220×59 @0,0  Onest 700 15/20  ls0  lines=3  «Наряды, назначенные монтажникам на текущ»
+    div.CardBelt__action  92×44 @248,19
+      button.Button__button  92×44 @0,0  r9  b1
+        span.Button__content  62×16 @15,14
+          span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  div.CardBelt__body  356×79 @1,85  Manrope 400 15/23  lines=2  «Действие остаётся на месте, заголовок пе»
+
+[геометрия 768]
+div.Card__card  736×126 @16,16  r20  b1
+  div.CardBelt__header  734×69 @1,1  b0 0 1 0
+    div.CardBelt__headText  545×20 @16,24
+      h3.CardBelt__title  545×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды, назначенные монтажникам на текущ»
+    div.CardBelt__action  92×44 @626,12
+      button.Button__button  92×44 @0,0  r9  b1
+        span.Button__content  62×16 @15,14
+          span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  div.CardBelt__body  734×55 @1,70  Manrope 400 15/23  lines=1  «Действие остаётся на месте, заголовок пе»
+
+[геометрия 1440]
+div.Card__card  1408×122 @16,16  r20  b1
+  div.CardBelt__header  1406×65 @1,1  b0 0 1 0
+    div.CardBelt__headText  545×20 @16,22
+      h3.CardBelt__title  545×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды, назначенные монтажникам на текущ»
+    div.CardBelt__action  92×40 @1298,12
+      button.Button__button  92×40 @0,0  r9  b1
+        span.Button__content  62×16 @15,12
+          span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  div.CardBelt__body  1406×55 @1,66  Manrope 400 15/23  lines=1  «Действие остаётся на месте, заголовок пе»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.CardBelt__header  border #475569 #475569 #e2e8f0 #475569
+    div.CardBelt__headText
+      h3.CardBelt__title  color #0f172a
+    div.CardBelt__action
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+  div.CardBelt__body  color #475569
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.CardBelt__header  border #a8b6c6 #a8b6c6 #1e2b41 #a8b6c6
+    div.CardBelt__headText
+      h3.CardBelt__title  color #eaf1f8
+    div.CardBelt__action
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+  div.CardBelt__body  color #a8b6c6

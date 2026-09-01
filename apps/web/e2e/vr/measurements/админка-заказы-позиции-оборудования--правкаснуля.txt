@@ -1,0 +1,57 @@
+# админка-заказы-позиции-оборудования--правкаснуля · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+fieldset.OrderUnits__root  358×241 @16,16  r14  b1
+  legend.OrderUnits__legend  118×22 @15,0  Onest 700 15/22  lines=1  «Оборудование»
+  p.OrderUnits__hint  328×60 @15,36  Manrope 400 13/20  lines=3  «Позиций может быть несколько: в одном вы»
+  p.OrderUnits__empty  328×65 @15,107  Manrope 400 15/22  r11  lines=2  «Позиций нет. Наряд заводят по звонку, а»
+  div.OrderUnits__actions  328×44 @15,182
+    button.Button__button  151×44 @0,0  r9  b1
+      span.Button__content  121×16 @15,14
+        span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Добавить позицию»
+
+[геометрия 768]
+fieldset.OrderUnits__root  736×198 @16,16  r14  b1
+  legend.OrderUnits__legend  118×22 @15,0  Onest 700 15/22  lines=1  «Оборудование»
+  p.OrderUnits__hint  508×40 @15,36  Manrope 400 13/20  lines=2  «Позиций может быть несколько: в одном вы»
+  p.OrderUnits__empty  706×42 @15,87  Manrope 400 15/22  r11  lines=1  «Позиций нет. Наряд заводят по звонку, а»
+  div.OrderUnits__actions  706×44 @15,139
+    button.Button__button  151×44 @0,0  r9  b1
+      span.Button__content  121×16 @15,14
+        span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Добавить позицию»
+
+[геометрия 1440]
+fieldset.OrderUnits__root  1408×194 @16,16  r14  b1
+  legend.OrderUnits__legend  118×22 @15,0  Onest 700 15/22  lines=1  «Оборудование»
+  p.OrderUnits__hint  508×40 @15,36  Manrope 400 13/20  lines=2  «Позиций может быть несколько: в одном вы»
+  p.OrderUnits__empty  1378×42 @15,87  Manrope 400 15/22  r11  lines=1  «Позиций нет. Наряд заводят по звонку, а»
+  div.OrderUnits__actions  1378×40 @15,139
+    button.Button__button  151×40 @0,0  r9  b1
+      span.Button__content  121×16 @15,12
+        span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Добавить позицию»
+
+[палитра light]
+fieldset.OrderUnits__root  border #e2e8f0
+  legend.OrderUnits__legend  color #0f172a
+  p.OrderUnits__hint  color #556173
+  p.OrderUnits__empty  color #556173  bg #f8fafc
+  div.OrderUnits__actions
+    button.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label  color #0f172a
+
+[палитра dark]
+fieldset.OrderUnits__root  border #1e2b41
+  legend.OrderUnits__legend  color #eaf1f8
+  p.OrderUnits__hint  color #8598ac
+  p.OrderUnits__empty  color #8598ac  bg #0e1729
+  div.OrderUnits__actions
+    button.Button__button  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label  color #eaf1f8

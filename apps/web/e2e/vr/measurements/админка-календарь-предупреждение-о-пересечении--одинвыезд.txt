@@ -1,0 +1,52 @@
+# админка-календарь-предупреждение-о-пересечении--одинвыезд · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.ClashNote__note  358×78 @16,16  r11  b1
+  svg.ClashNote__icon  18×18 @11,10
+  div.ClashNote__body  280×60 @37,9
+    p.ClashNote__title  280×18 @0,0  Manrope 600 13/18  lines=1  «Это время уже занято»
+    ul.ClashNote__list  280×17 @0,22
+      li.ClashNote__item  280×17 @0,0  Manrope 400 12/17  lines=1  «10:00–13:00 · Наряд № 1059, Ирина Соколо»
+    p.ClashNote__hint  280×17 @0,43  Manrope 400 12/17  lines=1  «Запись всё равно сохранится — решение за»
+
+[геометрия 768]
+div.ClashNote__note  736×78 @16,16  r11  b1
+  svg.ClashNote__icon  18×18 @11,10
+  div.ClashNote__body  280×60 @37,9
+    p.ClashNote__title  280×18 @0,0  Manrope 600 13/18  lines=1  «Это время уже занято»
+    ul.ClashNote__list  280×17 @0,22
+      li.ClashNote__item  280×17 @0,0  Manrope 400 12/17  lines=1  «10:00–13:00 · Наряд № 1059, Ирина Соколо»
+    p.ClashNote__hint  280×17 @0,43  Manrope 400 12/17  lines=1  «Запись всё равно сохранится — решение за»
+
+[геометрия 1440]
+div.ClashNote__note  1408×78 @16,16  r11  b1
+  svg.ClashNote__icon  18×18 @11,10
+  div.ClashNote__body  280×60 @37,9
+    p.ClashNote__title  280×18 @0,0  Manrope 600 13/18  lines=1  «Это время уже занято»
+    ul.ClashNote__list  280×17 @0,22
+      li.ClashNote__item  280×17 @0,0  Manrope 400 12/17  lines=1  «10:00–13:00 · Наряд № 1059, Ирина Соколо»
+    p.ClashNote__hint  280×17 @0,43  Manrope 400 12/17  lines=1  «Запись всё равно сохранится — решение за»
+
+[палитра light]
+div.ClashNote__note  bg #b4530914  border #b4530947
+  svg.ClashNote__icon
+  div.ClashNote__body
+    p.ClashNote__title  color #92400e
+    ul.ClashNote__list
+      li.ClashNote__item  color #334155
+    p.ClashNote__hint  color #475569
+
+[палитра dark]
+div.ClashNote__note  bg #fbbf241f  border #fbbf2452
+  svg.ClashNote__icon
+  div.ClashNote__body
+    p.ClashNote__title  color #fbbf24
+    ul.ClashNote__list
+      li.ClashNote__item  color #c9d5e2
+    p.ClashNote__hint  color #a8b6c6

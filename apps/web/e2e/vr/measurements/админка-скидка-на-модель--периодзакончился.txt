@@ -1,0 +1,157 @@
+# админка-скидка-на-модель--периодзакончился · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×713 @16,16  r20  b1
+  h2.ProductSaleForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Скидка»
+  p.ProductSaleForm__hint  316×101 @21,46  Manrope 400 13/20  lines=5  «Задаётся конечной ценой, процент считает»
+  form.ProductSaleForm__form  316×529 @21,162
+    div.ProductSaleForm__fields  316×471 @0,0
+      div.Field__field  316×103 @0,0
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Цена со скидкой, ₽»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — скидки нет»
+      div.Field__field#2  316×103 @0,117
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Действует с»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — с этого момента»
+      div.Field__field#3  316×122 @0,233
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Действует по»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Пусто — без ограничения. Последний день»
+      div.Field__field#4  316×103 @0,369
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Подпись»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Короткая: «Осенняя цена"»
+    div.ProductSaleForm__actions  316×44 @0,485
+      button.Button__button  167×44 @0,0  r11  b1
+        span.Button__content  129×17 @19,13
+          span.Button__label  129×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить скидку»
+      button.Button__button#2  133×44 @181,0  r11  b1
+        span.Button__content  95×17 @19,13
+          span.Button__label#2  95×17 @0,0  Manrope 600 15/17  lines=1  «Снять скидку»
+
+[геометрия 768]
+section.Card__card  736×440 @16,16  r20  b1
+  h2.ProductSaleForm__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Скидка»
+  p.ProductSaleForm__hint  571×60 @21,47  Manrope 400 13/20  lines=3  «Задаётся конечной ценой, процент считает»
+  form.ProductSaleForm__form  694×296 @21,123
+    div.ProductSaleForm__fields  694×238 @0,0
+      div.Field__field  221×103 @0,0
+        label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Цена со скидкой, ₽»
+        input  221×49 @0,27  r11  b1
+        p.Field__hint  221×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — скидки нет»
+      div.Field__field#2  221×103 @237,0
+        label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Действует с»
+        input  221×49 @0,27  r11  b1
+        p.Field__hint  221×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — с этого момента»
+      div.Field__field#3  221×122 @473,0
+        label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Действует по»
+        input  221×49 @0,27  r11  b1
+        p.Field__hint  221×39 @0,83  Manrope 400 13/19  lines=2  «Пусто — без ограничения. Последний день»
+      div.Field__field#4  221×103 @0,136
+        label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Подпись»
+        input  221×49 @0,27  r11  b1
+        p.Field__hint  221×19 @0,83  Manrope 400 13/19  lines=1  «Короткая: «Осенняя цена"»
+    div.ProductSaleForm__actions  694×44 @0,252
+      button.Button__button  167×44 @0,0  r11  b1
+        span.Button__content  129×17 @19,13
+          span.Button__label  129×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить скидку»
+      button.Button__button#2  133×44 @181,0  r11  b1
+        span.Button__content  95×17 @19,13
+          span.Button__label#2  95×17 @0,0  Manrope 600 15/17  lines=1  «Снять скидку»
+
+[геометрия 1440]
+section.Card__card  1408×325 @16,16  r20  b1
+  h2.ProductSaleForm__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Скидка»
+  p.ProductSaleForm__hint  571×60 @21,48  Manrope 400 13/20  lines=3  «Задаётся конечной ценой, процент считает»
+  form.ProductSaleForm__form  1366×180 @21,124
+    div.ProductSaleForm__fields  1366×122 @0,0
+      div.Field__field  330×103 @0,0
+        label.Field__label  330×20 @0,0  Manrope 600 13/20  lines=1  «Цена со скидкой, ₽»
+        input  330×49 @0,27  r11  b1
+        p.Field__hint  330×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — скидки нет»
+      div.Field__field#2  330×103 @346,0
+        label.Field__label  330×20 @0,0  Manrope 600 13/20  lines=1  «Действует с»
+        input  330×49 @0,27  r11  b1
+        p.Field__hint  330×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — с этого момента»
+      div.Field__field#3  330×122 @691,0
+        label.Field__label  330×20 @0,0  Manrope 600 13/20  lines=1  «Действует по»
+        input  330×49 @0,27  r11  b1
+        p.Field__hint  330×39 @0,83  Manrope 400 13/19  lines=2  «Пусто — без ограничения. Последний день»
+      div.Field__field#4  330×103 @1037,0
+        label.Field__label  330×20 @0,0  Manrope 600 13/20  lines=1  «Подпись»
+        input  330×49 @0,27  r11  b1
+        p.Field__hint  330×19 @0,83  Manrope 400 13/19  lines=1  «Короткая: «Осенняя цена"»
+    div.ProductSaleForm__actions  1366×44 @0,136
+      button.Button__button  167×44 @0,0  r11  b1
+        span.Button__content  129×17 @19,13
+          span.Button__label  129×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить скидку»
+      button.Button__button#2  133×44 @181,0  r11  b1
+        span.Button__content  95×17 @19,13
+          span.Button__label#2  95×17 @0,0  Manrope 600 15/17  lines=1  «Снять скидку»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.ProductSaleForm__title  color #0f172a
+  p.ProductSaleForm__hint  color #556173
+  form.ProductSaleForm__form
+    div.ProductSaleForm__fields
+      div.Field__field
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#2
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#3
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#4
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+    div.ProductSaleForm__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+      button.Button__button#2  border transparent
+        span.Button__content
+          span.Button__label#2  color #0e7490
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.ProductSaleForm__title  color #eaf1f8
+  p.ProductSaleForm__hint  color #8598ac
+  form.ProductSaleForm__form
+    div.ProductSaleForm__fields
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#3
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#4
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+    div.ProductSaleForm__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+      button.Button__button#2  border transparent
+        span.Button__content
+          span.Button__label#2  color #22d3ee

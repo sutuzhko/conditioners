@@ -1,0 +1,142 @@
+# ui-kit-accordion--basic · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Accordion__list  358×233 @16,16
+  div.Accordion__item  358×64 @0,0  r16  b1
+    h3.Accordion__heading  356×62 @1,1
+      button.Accordion__trigger  356×62 @0,0
+        span  248×22 @18,20  Manrope 700 17/22  lines=1  «Сколько занимает установка?»
+        span.Accordion__icon  28×28 @310,17  r100
+    div.Accordion__panel  356×0 @1,63
+      div.Accordion__panelInner  356×0 @0,0  clipped
+        div.Accordion__content  356×65 @0,0  Manrope 400 15/23  lines=2  «Стандартный монтаж сплит-системы — один»
+  div.Accordion__item#2  358×64 @0,76  r16  b1
+    h3.Accordion__heading  356×62 @1,1
+      button.Accordion__trigger#2  356×62 @0,0
+        span  226×22 @18,20  Manrope 700 17/22  lines=1  «Какая гарантия на монтаж?»
+        span.Accordion__icon  28×28 @310,17  r100
+    div.Accordion__panel  356×0 @1,63
+      div.Accordion__panelInner#2  356×0 @0,0  clipped
+        div.Accordion__content  356×88 @0,0  Manrope 400 15/23  lines=3  «Гарантия на работы и на оборудование счи»
+  div.Accordion__item#3  358×81 @0,152  r16  b1
+    h3.Accordion__heading  356×79 @1,1
+      button.Accordion__trigger#3  356×79 @0,0
+        span  276×45 @18,17  Manrope 700 17/22  lines=2  «Можно ли ставить кондиционер зимой?»
+        span.Accordion__icon  28×28 @310,25  r100
+    div.Accordion__panel  356×0 @1,80
+      div.Accordion__panelInner#3  356×0 @0,0  clipped
+        div.Accordion__content  356×65 @0,0  Manrope 400 15/23  lines=2  «Можно: монтаж выполняется в любой сезон,»
+
+[геометрия 768]
+div.Accordion__list  736×228 @16,16
+  div.Accordion__item  736×68 @0,0  r16  b1
+    h3.Accordion__heading  734×66 @1,1
+      button.Accordion__trigger  734×66 @0,0
+        span  248×22 @24,22  Manrope 700 17/22  lines=1  «Сколько занимает установка?»
+        span.Accordion__icon  28×28 @682,19  r100
+    div.Accordion__panel  734×0 @1,67
+      div.Accordion__panelInner  734×0 @0,0  clipped
+        div.Accordion__content  734×43 @0,0  Manrope 400 15/23  lines=1  «Стандартный монтаж сплит-системы — один»
+  div.Accordion__item#2  736×68 @0,80  r16  b1
+    h3.Accordion__heading  734×66 @1,1
+      button.Accordion__trigger#2  734×66 @0,0
+        span  226×22 @24,22  Manrope 700 17/22  lines=1  «Какая гарантия на монтаж?»
+        span.Accordion__icon  28×28 @682,19  r100
+    div.Accordion__panel  734×0 @1,67
+      div.Accordion__panelInner#2  734×0 @0,0  clipped
+        div.Accordion__content  734×43 @0,0  Manrope 400 15/23  lines=1  «Гарантия на работы и на оборудование счи»
+  div.Accordion__item#3  736×68 @0,160  r16  b1
+    h3.Accordion__heading  734×66 @1,1
+      button.Accordion__trigger#3  734×66 @0,0
+        span  326×22 @24,22  Manrope 700 17/22  lines=1  «Можно ли ставить кондиционер зимой?»
+        span.Accordion__icon  28×28 @682,19  r100
+    div.Accordion__panel  734×0 @1,67
+      div.Accordion__panelInner#3  734×0 @0,0  clipped
+        div.Accordion__content  734×43 @0,0  Manrope 400 15/23  lines=1  «Можно: монтаж выполняется в любой сезон,»
+
+[геометрия 1440]
+div.Accordion__list  1408×228 @16,16
+  div.Accordion__item  1408×68 @0,0  r16  b1
+    h3.Accordion__heading  1406×66 @1,1
+      button.Accordion__trigger  1406×66 @0,0
+        span  248×22 @24,22  Manrope 700 17/22  lines=1  «Сколько занимает установка?»
+        span.Accordion__icon  28×28 @1354,19  r100
+    div.Accordion__panel  1406×0 @1,67
+      div.Accordion__panelInner  1406×0 @0,0  clipped
+        div.Accordion__content  1406×43 @0,0  Manrope 400 15/23  lines=1  «Стандартный монтаж сплит-системы — один»
+  div.Accordion__item#2  1408×68 @0,80  r16  b1
+    h3.Accordion__heading  1406×66 @1,1
+      button.Accordion__trigger#2  1406×66 @0,0
+        span  226×22 @24,22  Manrope 700 17/22  lines=1  «Какая гарантия на монтаж?»
+        span.Accordion__icon  28×28 @1354,19  r100
+    div.Accordion__panel  1406×0 @1,67
+      div.Accordion__panelInner#2  1406×0 @0,0  clipped
+        div.Accordion__content  1406×43 @0,0  Manrope 400 15/23  lines=1  «Гарантия на работы и на оборудование счи»
+  div.Accordion__item#3  1408×68 @0,160  r16  b1
+    h3.Accordion__heading  1406×66 @1,1
+      button.Accordion__trigger#3  1406×66 @0,0
+        span  326×22 @24,22  Manrope 700 17/22  lines=1  «Можно ли ставить кондиционер зимой?»
+        span.Accordion__icon  28×28 @1354,19  r100
+    div.Accordion__panel  1406×0 @1,67
+      div.Accordion__panelInner#3  1406×0 @0,0  clipped
+        div.Accordion__content  1406×43 @0,0  Manrope 400 15/23  lines=1  «Можно: монтаж выполняется в любой сезон,»
+
+[палитра light]
+div.Accordion__list
+  div.Accordion__item  bg #ffffff  border #e2e8f0
+    h3.Accordion__heading
+      button.Accordion__trigger
+        span  color #0f172a
+        span.Accordion__icon  bg #ecfeff
+    div.Accordion__panel
+      div.Accordion__panelInner
+        div.Accordion__content  color #475569
+  div.Accordion__item#2  bg #ffffff  border #e2e8f0
+    h3.Accordion__heading
+      button.Accordion__trigger#2
+        span  color #0f172a
+        span.Accordion__icon  bg #ecfeff
+    div.Accordion__panel
+      div.Accordion__panelInner#2
+        div.Accordion__content  color #475569
+  div.Accordion__item#3  bg #ffffff  border #e2e8f0
+    h3.Accordion__heading
+      button.Accordion__trigger#3
+        span  color #0f172a
+        span.Accordion__icon  bg #ecfeff
+    div.Accordion__panel
+      div.Accordion__panelInner#3
+        div.Accordion__content  color #475569
+
+[палитра dark]
+div.Accordion__list
+  div.Accordion__item  bg #121d31  border #1e2b41
+    h3.Accordion__heading
+      button.Accordion__trigger
+        span  color #eaf1f8
+        span.Accordion__icon  bg #22d3ee1a
+    div.Accordion__panel
+      div.Accordion__panelInner
+        div.Accordion__content  color #a8b6c6
+  div.Accordion__item#2  bg #121d31  border #1e2b41
+    h3.Accordion__heading
+      button.Accordion__trigger#2
+        span  color #eaf1f8
+        span.Accordion__icon  bg #22d3ee1a
+    div.Accordion__panel
+      div.Accordion__panelInner#2
+        div.Accordion__content  color #a8b6c6
+  div.Accordion__item#3  bg #121d31  border #1e2b41
+    h3.Accordion__heading
+      button.Accordion__trigger#3
+        span  color #eaf1f8
+        span.Accordion__icon  bg #22d3ee1a
+    div.Accordion__panel
+      div.Accordion__panelInner#3
+        div.Accordion__content  color #a8b6c6

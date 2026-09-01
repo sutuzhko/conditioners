@@ -1,0 +1,37 @@
+# ui-kit-pager--with-query · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+nav.Pager__pager  358×52 @16,16
+  a.Pager__step  91×44 @35,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+  span.Pager__position  70×44 @138,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 7»
+  a.Pager__step#2  103×44 @220,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+
+[геометрия 768]
+nav.Pager__pager  736×52 @16,16
+  a.Pager__step  91×44 @224,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+  span.Pager__position  70×44 @327,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 7»
+  a.Pager__step#2  103×44 @409,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+
+[геометрия 1440]
+nav.Pager__pager  1408×52 @16,16
+  a.Pager__step  91×44 @560,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+  span.Pager__position  70×44 @663,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 7»
+  a.Pager__step#2  103×44 @745,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+
+[палитра light]
+nav.Pager__pager
+  a.Pager__step  color #0e7490  border #cbd5e1
+  span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+  a.Pager__step#2  color #0e7490  border #cbd5e1
+
+[палитра dark]
+nav.Pager__pager
+  a.Pager__step  color #22d3ee  border #2c3d59
+  span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+  a.Pager__step#2  color #22d3ee  border #2c3d59

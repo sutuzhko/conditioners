@@ -1,0 +1,147 @@
+# админка-заказы-фотографии--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×484 @16,16  r20  b1
+  h2.OrderPhotos__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Фотографии»
+  p.OrderPhotos__hint  316×60 @21,46  Manrope 400 13/20  lines=3  «Фото места установки грузите до выезда —»
+  div.OrderPhotos__stages  316×343 @21,120
+    section.OrderPhotos__stage  316×151 @0,0
+      h3.OrderPhotos__stageTitle  316×17 @0,0  Onest 700 15/17  ls0  lines=1  «Место установки»
+      p.OrderPhotos__empty  316×20 @0,25  Manrope 400 13/20  lines=1  «Снимков нет»
+      div.Field__field  316×98 @0,54
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фото: место установки»
+        input.FileInput__input  1×1 @-1,-1  clipped
+        label.FileInput__dropzone  316×71 @0,27  r11  b1
+          svg.FileInput__icon  22×22 @15,24
+          span.FileInput__texts  235×45 @49,13
+            span.FileInput__title  235×22 @0,0  Manrope 600 15/22  lines=1  «Добавить фото: место установки»
+            span  235×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+    section.OrderPhotos__stage#2  316×174 @0,169
+      h3.OrderPhotos__stageTitle  316×17 @0,0  Onest 700 15/17  ls0  lines=1  «Выполненные работы»
+      p.OrderPhotos__empty  316×20 @0,25  Manrope 400 13/20  lines=1  «Снимков нет»
+      div.Field__field  316×120 @0,54
+        label.Field__label#2  316×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фото: выполненные работы»
+        input.FileInput__input#2  1×1 @-1,-1  clipped
+        label.FileInput__dropzone#2  316×93 @0,27  r11  b1
+          svg.FileInput__icon  22×22 @15,36
+          span.FileInput__texts  252×67 @49,13
+            span.FileInput__title#2  252×45 @0,0  Manrope 600 15/22  lines=2  «Добавить фото: выполненные работы»
+            span#2  252×20 @0,47  Manrope 400 13/20  lines=1  «до 5 МБ»
+
+[геометрия 768]
+section.Card__card  736×273 @16,16  r20  b1
+  h2.OrderPhotos__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Фотографии»
+  p.OrderPhotos__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Фото места установки грузите до выезда —»
+  div.OrderPhotos__stages  694×151 @21,101
+    section.OrderPhotos__stage  338×151 @0,0
+      h3.OrderPhotos__stageTitle  338×17 @0,0  Onest 700 15/17  ls0  lines=1  «Место установки»
+      p.OrderPhotos__empty  338×20 @0,25  Manrope 400 13/20  lines=1  «Снимков нет»
+      div.Field__field  338×98 @0,54
+        label.Field__label  338×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фото: место установки»
+        input.FileInput__input  1×1 @-1,-1  clipped
+        label.FileInput__dropzone  338×71 @0,27  r11  b1
+          svg.FileInput__icon  22×22 @15,24
+          span.FileInput__texts  235×45 @49,13
+            span.FileInput__title  235×22 @0,0  Manrope 600 15/22  lines=1  «Добавить фото: место установки»
+            span  235×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+    section.OrderPhotos__stage#2  338×151 @356,0
+      h3.OrderPhotos__stageTitle  338×17 @0,0  Onest 700 15/17  ls0  lines=1  «Выполненные работы»
+      p.OrderPhotos__empty  338×20 @0,25  Manrope 400 13/20  lines=1  «Снимков нет»
+      div.Field__field  338×98 @0,54
+        label.Field__label#2  338×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фото: выполненные работы»
+        input.FileInput__input#2  1×1 @-1,-1  clipped
+        label.FileInput__dropzone#2  338×71 @0,27  r11  b1
+          svg.FileInput__icon  22×22 @15,24
+          span.FileInput__texts  269×45 @49,13
+            span.FileInput__title#2  269×22 @0,0  Manrope 600 15/22  lines=1  «Добавить фото: выполненные работы»
+            span#2  269×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+
+[геометрия 1440]
+section.Card__card  1408×274 @16,16  r20  b1
+  h2.OrderPhotos__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Фотографии»
+  p.OrderPhotos__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Фото места установки грузите до выезда —»
+  div.OrderPhotos__stages  1366×151 @21,102
+    section.OrderPhotos__stage  674×151 @0,0
+      h3.OrderPhotos__stageTitle  674×17 @0,0  Onest 700 15/17  ls0  lines=1  «Место установки»
+      p.OrderPhotos__empty  674×20 @0,25  Manrope 400 13/20  lines=1  «Снимков нет»
+      div.Field__field  674×98 @0,54
+        label.Field__label  674×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фото: место установки»
+        input.FileInput__input  1×1 @-1,-1  clipped
+        label.FileInput__dropzone  674×71 @0,27  r11  b1
+          svg.FileInput__icon  22×22 @15,24
+          span.FileInput__texts  235×45 @49,13
+            span.FileInput__title  235×22 @0,0  Manrope 600 15/22  lines=1  «Добавить фото: место установки»
+            span  235×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+    section.OrderPhotos__stage#2  674×151 @692,0
+      h3.OrderPhotos__stageTitle  674×17 @0,0  Onest 700 15/17  ls0  lines=1  «Выполненные работы»
+      p.OrderPhotos__empty  674×20 @0,25  Manrope 400 13/20  lines=1  «Снимков нет»
+      div.Field__field  674×98 @0,54
+        label.Field__label#2  674×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фото: выполненные работы»
+        input.FileInput__input#2  1×1 @-1,-1  clipped
+        label.FileInput__dropzone#2  674×71 @0,27  r11  b1
+          svg.FileInput__icon  22×22 @15,24
+          span.FileInput__texts  269×45 @49,13
+            span.FileInput__title#2  269×22 @0,0  Manrope 600 15/22  lines=1  «Добавить фото: выполненные работы»
+            span#2  269×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderPhotos__title  color #0f172a
+  p.OrderPhotos__hint  color #556173
+  div.OrderPhotos__stages
+    section.OrderPhotos__stage
+      h3.OrderPhotos__stageTitle  color #0f172a
+      p.OrderPhotos__empty  color #556173
+      div.Field__field
+        label.Field__label  color #334155
+        input.FileInput__input
+        label.FileInput__dropzone  bg #ffffff  border #7e8fa6
+          svg.FileInput__icon
+          span.FileInput__texts
+            span.FileInput__title  color #334155
+            span  color #556173
+    section.OrderPhotos__stage#2
+      h3.OrderPhotos__stageTitle  color #0f172a
+      p.OrderPhotos__empty  color #556173
+      div.Field__field
+        label.Field__label#2  color #334155
+        input.FileInput__input#2
+        label.FileInput__dropzone#2  bg #ffffff  border #7e8fa6
+          svg.FileInput__icon
+          span.FileInput__texts
+            span.FileInput__title#2  color #334155
+            span#2  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderPhotos__title  color #eaf1f8
+  p.OrderPhotos__hint  color #8598ac
+  div.OrderPhotos__stages
+    section.OrderPhotos__stage
+      h3.OrderPhotos__stageTitle  color #eaf1f8
+      p.OrderPhotos__empty  color #8598ac
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        input.FileInput__input
+        label.FileInput__dropzone  bg #0b1424  border #566d95
+          svg.FileInput__icon
+          span.FileInput__texts
+            span.FileInput__title  color #c9d5e2
+            span  color #8598ac
+    section.OrderPhotos__stage#2
+      h3.OrderPhotos__stageTitle  color #eaf1f8
+      p.OrderPhotos__empty  color #8598ac
+      div.Field__field
+        label.Field__label#2  color #c9d5e2
+        input.FileInput__input#2
+        label.FileInput__dropzone#2  bg #0b1424  border #566d95
+          svg.FileInput__icon
+          span.FileInput__texts
+            span.FileInput__title#2  color #c9d5e2
+            span#2  color #8598ac

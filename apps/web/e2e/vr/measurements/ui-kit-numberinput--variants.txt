@@ -1,0 +1,217 @@
+# ui-kit-numberinput--variants · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  326×52 @32,32
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  div.NumberInput__shell  326×52 @0,0
+    input.NumberInput__input  212×52 @50,0  r999  b1
+    span.NumberInput__unit  8×19 @268,17  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps  0×0 @-32,-32
+      button.NumberInput__step  44×44 @32,36  r100  b1
+        span  10×19 @17,13  Manrope 400 19/19  lines=1  «−»
+      button.NumberInput__step#2  44×44 @314,36  r100  b1
+        span  11×19 @17,13  Manrope 400 19/19  lines=1  «+»
+div.Field__field#2  326×52 @32,100
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  div.NumberInput__shell  326×52 @0,0
+    input.NumberInput__input#2  212×52 @50,0  r999  b1
+    span.NumberInput__unit#2  8×19 @268,17  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps#2  0×0 @-32,-100
+      button.NumberInput__step  44×44 @32,104  r100  b1
+        span#2  10×19 @17,13  Manrope 400 19/19  lines=1  «−»
+      button.NumberInput__step#2  44×44 @314,104  r100  b1
+        span#2  11×19 @17,13  Manrope 400 19/19  lines=1  «+»
+div.Field__field#3  326×52 @32,168
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  div.NumberInput__shell  326×52 @0,0
+    input.NumberInput__input#3  212×52 @50,0  r999  b1
+    span.NumberInput__unit#3  8×19 @268,17  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps#3  0×0 @-32,-168
+      button.NumberInput__step  44×44 @32,172  r100  b1
+        span#3  10×19 @17,13  Manrope 400 19/19  lines=1  «−»
+      button.NumberInput__step#2  44×44 @314,172  r100  b1
+        span#3  11×19 @17,13  Manrope 400 19/19  lines=1  «+»
+div.Field__field#4  326×52 @32,236
+  label.Field__label  57×13 @3,8  Manrope 600 11/13  lines=1  «underlined»
+  div.NumberInput__shell  326×52 @0,0
+    input.NumberInput__input#4  212×52 @50,0  b0 0 1 0
+    span.NumberInput__unit#4  8×19 @268,17  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps#4  0×0 @-32,-236
+      button.NumberInput__step  44×44 @32,240  r100  b1
+        span#4  10×19 @17,13  Manrope 400 19/19  lines=1  «−»
+      button.NumberInput__step#2  44×44 @314,240  r100  b1
+        span#4  11×19 @17,13  Manrope 400 19/19  lines=1  «+»
+
+[геометрия 768]
+div.Field__field  328×52 @32,32
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  div.NumberInput__shell  328×52 @0,0
+    input.NumberInput__input  214×52 @50,0  r999  b1
+    span.NumberInput__unit  8×19 @270,17  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps  0×0 @-32,-32
+      button.NumberInput__step  44×44 @32,36  r100  b1
+        span  10×19 @17,13  Manrope 400 19/19  lines=1  «−»
+      button.NumberInput__step#2  44×44 @316,36  r100  b1
+        span  11×19 @17,13  Manrope 400 19/19  lines=1  «+»
+div.Field__field#2  328×52 @32,100
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  div.NumberInput__shell  328×52 @0,0
+    input.NumberInput__input#2  214×52 @50,0  r999  b1
+    span.NumberInput__unit#2  8×19 @270,17  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps#2  0×0 @-32,-100
+      button.NumberInput__step  44×44 @32,104  r100  b1
+        span#2  10×19 @17,13  Manrope 400 19/19  lines=1  «−»
+      button.NumberInput__step#2  44×44 @316,104  r100  b1
+        span#2  11×19 @17,13  Manrope 400 19/19  lines=1  «+»
+div.Field__field#3  328×52 @32,168
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  div.NumberInput__shell  328×52 @0,0
+    input.NumberInput__input#3  214×52 @50,0  r999  b1
+    span.NumberInput__unit#3  8×19 @270,17  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps#3  0×0 @-32,-168
+      button.NumberInput__step  44×44 @32,172  r100  b1
+        span#3  10×19 @17,13  Manrope 400 19/19  lines=1  «−»
+      button.NumberInput__step#2  44×44 @316,172  r100  b1
+        span#3  11×19 @17,13  Manrope 400 19/19  lines=1  «+»
+div.Field__field#4  328×52 @32,236
+  label.Field__label  57×13 @3,8  Manrope 600 11/13  lines=1  «underlined»
+  div.NumberInput__shell  328×52 @0,0
+    input.NumberInput__input#4  214×52 @50,0  b0 0 1 0
+    span.NumberInput__unit#4  8×19 @270,17  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps#4  0×0 @-32,-236
+      button.NumberInput__step  44×44 @32,240  r100  b1
+        span#4  10×19 @17,13  Manrope 400 19/19  lines=1  «−»
+      button.NumberInput__step#2  44×44 @316,240  r100  b1
+        span#4  11×19 @17,13  Manrope 400 19/19  lines=1  «+»
+
+[геометрия 1440]
+div.Field__field  328×48 @32,32
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  div.NumberInput__shell  328×48 @0,0
+    input.NumberInput__input  328×48 @0,0  r999  b1
+    span.NumberInput__unit  8×19 @258,15  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps  54×26 @268,11
+      button.NumberInput__step  26×26 @0,0  r100  b1
+        span  8×15 @9,6  Manrope 400 15/15  lines=1  «−»
+      button.NumberInput__step#2  26×26 @28,0  r100  b1
+        span  9×15 @9,6  Manrope 400 15/15  lines=1  «+»
+div.Field__field#2  328×48 @32,96
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  div.NumberInput__shell  328×48 @0,0
+    input.NumberInput__input#2  328×48 @0,0  r999  b1
+    span.NumberInput__unit#2  8×19 @258,15  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps#2  54×26 @268,11
+      button.NumberInput__step  26×26 @0,0  r100  b1
+        span#2  8×15 @9,6  Manrope 400 15/15  lines=1  «−»
+      button.NumberInput__step#2  26×26 @28,0  r100  b1
+        span#2  9×15 @9,6  Manrope 400 15/15  lines=1  «+»
+div.Field__field#3  328×48 @32,160
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  div.NumberInput__shell  328×48 @0,0
+    input.NumberInput__input#3  328×48 @0,0  r999  b1
+    span.NumberInput__unit#3  8×19 @258,15  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps#3  54×26 @268,11
+      button.NumberInput__step  26×26 @0,0  r100  b1
+        span#3  8×15 @9,6  Manrope 400 15/15  lines=1  «−»
+      button.NumberInput__step#2  26×26 @28,0  r100  b1
+        span#3  9×15 @9,6  Manrope 400 15/15  lines=1  «+»
+div.Field__field#4  328×48 @32,224
+  label.Field__label  57×13 @3,8  Manrope 600 11/13  lines=1  «underlined»
+  div.NumberInput__shell  328×48 @0,0
+    input.NumberInput__input#4  328×48 @0,0  b0 0 1 0
+    span.NumberInput__unit#4  8×19 @258,15  Manrope 400 12/19  lines=1  «м»
+    span.NumberInput__steps#4  54×26 @268,11
+      button.NumberInput__step  26×26 @0,0  r100  b1
+        span#4  8×15 @9,6  Manrope 400 15/15  lines=1  «−»
+      button.NumberInput__step#2  26×26 @28,0  r100  b1
+        span#4  9×15 @9,6  Manrope 400 15/15  lines=1  «+»
+
+[палитра light]
+div.Field__field
+  label.Field__label  color #556173
+  div.NumberInput__shell
+    input.NumberInput__input  bg #f8fafc  border #7e8fa6
+    span.NumberInput__unit  color #556173
+    span.NumberInput__steps
+      button.NumberInput__step  bg #ffffff  border #e2e8f0
+        span  color #334155
+      button.NumberInput__step#2  bg #ffffff  border #e2e8f0
+        span  color #334155
+div.Field__field#2
+  label.Field__label  color #556173
+  div.NumberInput__shell
+    input.NumberInput__input#2  border #7e8fa6
+    span.NumberInput__unit#2  color #556173
+    span.NumberInput__steps#2
+      button.NumberInput__step  bg #ffffff  border #e2e8f0
+        span#2  color #334155
+      button.NumberInput__step#2  bg #ffffff  border #e2e8f0
+        span#2  color #334155
+div.Field__field#3
+  label.Field__label  color #556173
+  div.NumberInput__shell
+    input.NumberInput__input#3  bg #f8fafc  border #7e8fa6
+    span.NumberInput__unit#3  color #556173
+    span.NumberInput__steps#3
+      button.NumberInput__step  bg #ffffff  border #e2e8f0
+        span#3  color #334155
+      button.NumberInput__step#2  bg #ffffff  border #e2e8f0
+        span#3  color #334155
+div.Field__field#4
+  label.Field__label  color #556173
+  div.NumberInput__shell
+    input.NumberInput__input#4  border #0f172a #0f172a #7e8fa6 #0f172a
+    span.NumberInput__unit#4  color #556173
+    span.NumberInput__steps#4
+      button.NumberInput__step  bg #ffffff  border #e2e8f0
+        span#4  color #334155
+      button.NumberInput__step#2  bg #ffffff  border #e2e8f0
+        span#4  color #334155
+
+[палитра dark]
+div.Field__field
+  label.Field__label  color #8598ac
+  div.NumberInput__shell
+    input.NumberInput__input  bg #0e1729  border #566d95
+    span.NumberInput__unit  color #8598ac
+    span.NumberInput__steps
+      button.NumberInput__step  bg #121d31  border #1e2b41
+        span  color #c9d5e2
+      button.NumberInput__step#2  bg #121d31  border #1e2b41
+        span  color #c9d5e2
+div.Field__field#2
+  label.Field__label  color #8598ac
+  div.NumberInput__shell
+    input.NumberInput__input#2  border #566d95
+    span.NumberInput__unit#2  color #8598ac
+    span.NumberInput__steps#2
+      button.NumberInput__step  bg #121d31  border #1e2b41
+        span#2  color #c9d5e2
+      button.NumberInput__step#2  bg #121d31  border #1e2b41
+        span#2  color #c9d5e2
+div.Field__field#3
+  label.Field__label  color #8598ac
+  div.NumberInput__shell
+    input.NumberInput__input#3  bg #0e1729  border #566d95
+    span.NumberInput__unit#3  color #8598ac
+    span.NumberInput__steps#3
+      button.NumberInput__step  bg #121d31  border #1e2b41
+        span#3  color #c9d5e2
+      button.NumberInput__step#2  bg #121d31  border #1e2b41
+        span#3  color #c9d5e2
+div.Field__field#4
+  label.Field__label  color #8598ac
+  div.NumberInput__shell
+    input.NumberInput__input#4  border #eaf1f8 #eaf1f8 #566d95 #eaf1f8
+    span.NumberInput__unit#4  color #8598ac
+    span.NumberInput__steps#4
+      button.NumberInput__step  bg #121d31  border #1e2b41
+        span#4  color #c9d5e2
+      button.NumberInput__step#2  bg #121d31  border #1e2b41
+        span#4  color #c9d5e2

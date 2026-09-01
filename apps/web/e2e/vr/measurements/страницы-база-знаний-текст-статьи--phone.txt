@@ -1,0 +1,65 @@
+# страницы-база-знаний-текст-статьи--phone · ширины 375 · темы light dark
+шрифты: Manrope 400, Manrope 700, Onest 600, Onest 700
+
+[документ]
+375 → 375×900
+
+[геометрия 375]
+div.ArticleBody__body  343×679 @16,16
+  p.ArticleBody__paragraph  343×51 @0,0  Manrope 400 17/26  lines=2  «Кондиционер выбирают один раз в 10 лет,»
+  h2.ArticleBody__h2  343×28 @0,83  Onest 700 22/28  ls0  lines=1  «Шаг 1. Мощность по площади»
+  p.ArticleBody__paragraph#2  343×77 @0,125  Manrope 400 17/26  lines=3  «Базовое правило: холодопроизводительност»
+    strong.ArticleBody__strong  39×23 @143,1  Manrope 700 17/26  lines=1  «1 кВт»
+  ul.ArticleBody__list  343×58 @0,215
+    li.ArticleBody__item  319×26 @24,0  Manrope 400 17/26  lines=1  «— комната до 20 м²»
+      strong.ArticleBody__strong  20×23 @0,1  Manrope 700 17/26  lines=1  «07»
+    li.ArticleBody__item#2  319×26 @24,33  Manrope 400 17/26  lines=1  «— комната до 27 м²»
+      strong.ArticleBody__strong  21×23 @0,1  Manrope 700 17/26  lines=1  «09»
+  h3.ArticleBody__h3  343×22 @0,303  Onest 600 17/22  ls0  lines=1  «Поправки, о которых забывают»
+  p.ArticleBody__paragraph#3  343×51 @0,340  Manrope 400 17/26  lines=2  «Окна на юг добавляют , последний этаж —»
+    strong.ArticleBody__strong  36×23 @179,1  Manrope 700 17/26  lines=1  «20%»
+  h2.ArticleBody__h2#2  343×28 @0,423  Onest 700 22/28  ls0  lines=1  «Шаг 2. Инвертор или on/off»
+  p.ArticleBody__paragraph#4  343×51 @0,464  Manrope 400 17/26  lines=2  «Инвертор держит температуру точнее и тиш»
+  h2.ArticleBody__h2#3  343×28 @0,547  Onest 700 22/28  ls0  lines=1  «Шаг 3. Уровень шума»
+  aside.ArticleBody__callout  343×82 @0,597  r14  b1
+    p.ArticleBody__calloutText  305×48 @19,17  Manrope 400 16/24  lines=2  «Не хотите считать сами — оставьте заявку»
+
+[палитра light]
+div.ArticleBody__body
+  p.ArticleBody__paragraph  color #475569
+  h2.ArticleBody__h2  color #0f172a
+  p.ArticleBody__paragraph#2  color #475569
+    strong.ArticleBody__strong  color #0f172a
+  ul.ArticleBody__list
+    li.ArticleBody__item  color #475569
+      strong.ArticleBody__strong  color #0f172a
+    li.ArticleBody__item#2  color #475569
+      strong.ArticleBody__strong  color #0f172a
+  h3.ArticleBody__h3  color #0f172a
+  p.ArticleBody__paragraph#3  color #475569
+    strong.ArticleBody__strong  color #0f172a
+  h2.ArticleBody__h2#2  color #0f172a
+  p.ArticleBody__paragraph#4  color #475569
+  h2.ArticleBody__h2#3  color #0f172a
+  aside.ArticleBody__callout  bg #ecfeff  border #a5f3fc
+    p.ArticleBody__calloutText  color #334155
+
+[палитра dark]
+div.ArticleBody__body
+  p.ArticleBody__paragraph  color #a8b6c6
+  h2.ArticleBody__h2  color #eaf1f8
+  p.ArticleBody__paragraph#2  color #a8b6c6
+    strong.ArticleBody__strong  color #eaf1f8
+  ul.ArticleBody__list
+    li.ArticleBody__item  color #a8b6c6
+      strong.ArticleBody__strong  color #eaf1f8
+    li.ArticleBody__item#2  color #a8b6c6
+      strong.ArticleBody__strong  color #eaf1f8
+  h3.ArticleBody__h3  color #eaf1f8
+  p.ArticleBody__paragraph#3  color #a8b6c6
+    strong.ArticleBody__strong  color #eaf1f8
+  h2.ArticleBody__h2#2  color #eaf1f8
+  p.ArticleBody__paragraph#4  color #a8b6c6
+  h2.ArticleBody__h2#3  color #eaf1f8
+  aside.ArticleBody__callout  bg #22d3ee1a  border #22d3ee59
+    p.ArticleBody__calloutText  color #c9d5e2

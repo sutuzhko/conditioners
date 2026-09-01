@@ -1,0 +1,52 @@
+# ui-kit-rating--with-caption · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Rating__stars  227×20 @16,16
+  svg.Rating__star  20×20 @0,0
+  svg.Rating__star#2  20×20 @26,0
+  svg.Rating__star#3  20×20 @52,0
+  svg.Rating__star#4  20×20 @78,0
+  svg.Rating__star#5  20×20 @104,0
+  span.Rating__caption  93×20 @134,0  Manrope 400 13/20  lines=1  «5,0 · 12 отзывов»
+
+[геометрия 768]
+span.Rating__stars  227×20 @16,16
+  svg.Rating__star  20×20 @0,0
+  svg.Rating__star#2  20×20 @26,0
+  svg.Rating__star#3  20×20 @52,0
+  svg.Rating__star#4  20×20 @78,0
+  svg.Rating__star#5  20×20 @104,0
+  span.Rating__caption  93×20 @134,0  Manrope 400 13/20  lines=1  «5,0 · 12 отзывов»
+
+[геометрия 1440]
+span.Rating__stars  227×20 @16,16
+  svg.Rating__star  20×20 @0,0
+  svg.Rating__star#2  20×20 @26,0
+  svg.Rating__star#3  20×20 @52,0
+  svg.Rating__star#4  20×20 @78,0
+  svg.Rating__star#5  20×20 @104,0
+  span.Rating__caption  93×20 @134,0  Manrope 400 13/20  lines=1  «5,0 · 12 отзывов»
+
+[палитра light]
+span.Rating__stars
+  svg.Rating__star
+  svg.Rating__star#2
+  svg.Rating__star#3
+  svg.Rating__star#4
+  svg.Rating__star#5
+  span.Rating__caption  color #556173
+
+[палитра dark]
+span.Rating__stars
+  svg.Rating__star
+  svg.Rating__star#2
+  svg.Rating__star#3
+  svg.Rating__star#4
+  svg.Rating__star#5
+  span.Rating__caption  color #8598ac

@@ -59,7 +59,19 @@ export const EmptyCatalog: Story = {
  */
 export const States: Story = {
   name: 'Три состояния рядом',
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    layout: 'fullscreen',
+    // Допущение инвариантов — причина в reason (ADR-230)
+    invariants: {
+      allow: [
+        {
+          rule: 'overflow-x',
+          reason:
+            'витрина состояний в ряд шире телефона по замыслу (issue #472 — проверить, что это витрина, а не раскладка)',
+        },
+      ],
+    },
+  },
   render: (args) => (
     <div style={{ display: 'grid', gap: 16, gridTemplateColumns: '1fr 1fr 1fr', padding: 16 }}>
       <HeroPicker {...args} products={heroPickerModels} />

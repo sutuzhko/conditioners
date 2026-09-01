@@ -1,0 +1,112 @@
+# ui-kit-radiogroup--checkboxes-horizontal · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+fieldset.ChoiceGroup__group  326×113 @32,32
+  legend.ChoiceGroup__legend  130×17 @0,0  Manrope 600 13/17  lines=1  «Показывать статусы»
+  div.ChoiceGroup__list  326×96 @0,17
+    label.ChoiceGroup__item  71×44 @0,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  43×19 @28,13
+        span.ChoiceGroup__itemTitle  43×19 @0,0  Manrope 400 14/19  lines=1  «Новые»
+    label.ChoiceGroup__item#2  87×44 @91,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  59×19 @28,13
+        span.ChoiceGroup__itemTitle#2  59×19 @0,0  Manrope 400 14/19  lines=1  «В работе»
+    label.ChoiceGroup__item#3  121×44 @198,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  93×19 @28,13
+        span.ChoiceGroup__itemTitle#3  93×19 @0,0  Manrope 400 14/19  lines=1  «Выполненные»
+    label.ChoiceGroup__item#4  76×44 @0,52
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  48×19 @28,13
+        span.ChoiceGroup__itemTitle#4  48×19 @0,0  Manrope 400 14/19  lines=1  «Отказы»
+
+[геометрия 768]
+fieldset.ChoiceGroup__group  704×61 @32,32
+  legend.ChoiceGroup__legend  130×17 @0,0  Manrope 600 13/17  lines=1  «Показывать статусы»
+  div.ChoiceGroup__list  704×44 @0,17
+    label.ChoiceGroup__item  71×44 @0,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  43×19 @28,13
+        span.ChoiceGroup__itemTitle  43×19 @0,0  Manrope 400 14/19  lines=1  «Новые»
+    label.ChoiceGroup__item#2  87×44 @91,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  59×19 @28,13
+        span.ChoiceGroup__itemTitle#2  59×19 @0,0  Manrope 400 14/19  lines=1  «В работе»
+    label.ChoiceGroup__item#3  121×44 @198,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  93×19 @28,13
+        span.ChoiceGroup__itemTitle#3  93×19 @0,0  Manrope 400 14/19  lines=1  «Выполненные»
+    label.ChoiceGroup__item#4  76×44 @339,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  48×19 @28,13
+        span.ChoiceGroup__itemTitle#4  48×19 @0,0  Manrope 400 14/19  lines=1  «Отказы»
+
+[геометрия 1440]
+fieldset.ChoiceGroup__group  1376×61 @32,32
+  legend.ChoiceGroup__legend  130×17 @0,0  Manrope 600 13/17  lines=1  «Показывать статусы»
+  div.ChoiceGroup__list  1376×44 @0,17
+    label.ChoiceGroup__item  71×44 @0,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  43×19 @28,13
+        span.ChoiceGroup__itemTitle  43×19 @0,0  Manrope 400 14/19  lines=1  «Новые»
+    label.ChoiceGroup__item#2  87×44 @91,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  59×19 @28,13
+        span.ChoiceGroup__itemTitle#2  59×19 @0,0  Manrope 400 14/19  lines=1  «В работе»
+    label.ChoiceGroup__item#3  121×44 @198,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  93×19 @28,13
+        span.ChoiceGroup__itemTitle#3  93×19 @0,0  Manrope 400 14/19  lines=1  «Выполненные»
+    label.ChoiceGroup__item#4  76×44 @339,0
+      input.ChoiceGroup__control  18×18 @0,13  r5  b1
+      span.ChoiceGroup__itemLabel  48×19 @28,13
+        span.ChoiceGroup__itemTitle#4  48×19 @0,0  Manrope 400 14/19  lines=1  «Отказы»
+
+[палитра light]
+fieldset.ChoiceGroup__group
+  legend.ChoiceGroup__legend  color #334155
+  div.ChoiceGroup__list
+    label.ChoiceGroup__item
+      input.ChoiceGroup__control  bg #0e7490  border #0e7490
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle  color #334155
+    label.ChoiceGroup__item#2
+      input.ChoiceGroup__control  bg #f8fafc  border #7e8fa6
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#2  color #334155
+    label.ChoiceGroup__item#3
+      input.ChoiceGroup__control  bg #f8fafc  border #7e8fa6
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#3  color #334155
+    label.ChoiceGroup__item#4
+      input.ChoiceGroup__control  bg #f8fafc  border #7e8fa6
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#4  color #556173
+
+[палитра dark]
+fieldset.ChoiceGroup__group
+  legend.ChoiceGroup__legend  color #c9d5e2
+  div.ChoiceGroup__list
+    label.ChoiceGroup__item
+      input.ChoiceGroup__control  bg #0e7490  border #0e7490
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle  color #c9d5e2
+    label.ChoiceGroup__item#2
+      input.ChoiceGroup__control  bg #0e1729  border #566d95
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#2  color #c9d5e2
+    label.ChoiceGroup__item#3
+      input.ChoiceGroup__control  bg #0e1729  border #566d95
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#3  color #c9d5e2
+    label.ChoiceGroup__item#4
+      input.ChoiceGroup__control  bg #0e1729  border #566d95
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#4  color #8598ac

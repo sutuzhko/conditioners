@@ -1,0 +1,77 @@
+# админка-поиск-клиента--сзапросом · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×231 @16,16  r20  b1
+  form.ClientSearch__form  316×159 @21,21
+    div.Field__field  316×103 @0,0
+      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск клиента»
+      input  316×49 @0,27  r11  b1
+      p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Имя, адрес или любой кусок телефона»
+    div.ClientSearch__actions  148×44 @0,115
+      button.Button__button  69×44 @0,0  r9  b1
+        span.Button__content  39×16 @15,14
+          span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
+      a.ClientSearch__reset  67×22 @81,11  Manrope 400 15/22  lines=1  «Сбросить»
+  p.ClientSearch__total  316×20 @21,190  Manrope 400 13/20  lines=1  «Найдено: 3»
+
+[геометрия 768]
+section.Card__card  736×175 @16,16  r20  b1
+  form.ClientSearch__form  694×103 @21,21
+    div.Field__field  534×103 @0,0
+      label.Field__label  534×20 @0,0  Manrope 600 13/20  lines=1  «Поиск клиента»
+      input  534×49 @0,27  r11  b1
+      p.Field__hint  534×19 @0,83  Manrope 400 13/19  lines=1  «Имя, адрес или любой кусок телефона»
+    div.ClientSearch__actions  148×70 @546,0
+      button.Button__button  69×44 @0,26  r9  b1
+        span.Button__content  39×16 @15,14
+          span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
+      a.ClientSearch__reset  67×22 @81,37  Manrope 400 15/22  lines=1  «Сбросить»
+  p.ClientSearch__total  694×20 @21,134  Manrope 400 13/20  lines=1  «Найдено: 3»
+
+[геометрия 1440]
+section.Card__card  1408×175 @16,16  r20  b1
+  form.ClientSearch__form  1366×103 @21,21
+    div.Field__field  1206×103 @0,0
+      label.Field__label  1206×20 @0,0  Manrope 600 13/20  lines=1  «Поиск клиента»
+      input  1206×49 @0,27  r11  b1
+      p.Field__hint  1206×19 @0,83  Manrope 400 13/19  lines=1  «Имя, адрес или любой кусок телефона»
+    div.ClientSearch__actions  148×66 @1218,0
+      button.Button__button  69×40 @0,26  r9  b1
+        span.Button__content  39×16 @15,12
+          span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
+      a.ClientSearch__reset  67×22 @81,35  Manrope 400 15/22  lines=1  «Сбросить»
+  p.ClientSearch__total  1366×20 @21,134  Manrope 400 13/20  lines=1  «Найдено: 3»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  form.ClientSearch__form
+    div.Field__field
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+      p.Field__hint  color #556173
+    div.ClientSearch__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+      a.ClientSearch__reset  color #556173
+  p.ClientSearch__total  color #5b6a7d
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  form.ClientSearch__form
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+      p.Field__hint  color #8598ac
+    div.ClientSearch__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+      a.ClientSearch__reset  color #8598ac
+  p.ClientSearch__total  color #7e92a7

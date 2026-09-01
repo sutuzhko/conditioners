@@ -68,6 +68,12 @@ export const Choosing: Story = {
  */
 export const InPanel: Story = {
   name: 'В панели',
+  // Допущение инвариантов — причина в reason (ADR-230)
+  parameters: {
+    invariants: {
+      allow: [{ rule: 'overflow-x', reason: 'issue #473 — Select в панели шире окна на 390' }],
+    },
+  },
   render: (args) => (
     <div
       data-ui="panel"

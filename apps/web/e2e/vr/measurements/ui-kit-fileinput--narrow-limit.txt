@@ -1,0 +1,62 @@
+# ui-kit-fileinput--narrow-limit · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  358×124 @16,16
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Фото места установки»
+  input.FileInput__input  1×1 @-1,-1  clipped
+  label.FileInput__dropzone  358×71 @0,27  r11  b1
+    svg.FileInput__icon  22×22 @15,24
+    span.FileInput__texts  267×45 @49,13
+      span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
+      span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 1 МБ»
+  p.Field__hint  358×19 @0,105  Manrope 400 13/19  lines=1  «Проверьте валидацию: выберите файл больш»
+
+[геометрия 768]
+div.Field__field  736×124 @16,16
+  label.Field__label  736×20 @0,0  Manrope 600 13/20  lines=1  «Фото места установки»
+  input.FileInput__input  1×1 @-1,-1  clipped
+  label.FileInput__dropzone  736×71 @0,27  r11  b1
+    svg.FileInput__icon  22×22 @15,24
+    span.FileInput__texts  267×45 @49,13
+      span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
+      span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 1 МБ»
+  p.Field__hint  736×19 @0,105  Manrope 400 13/19  lines=1  «Проверьте валидацию: выберите файл больш»
+
+[геометрия 1440]
+div.Field__field  1408×124 @16,16
+  label.Field__label  1408×20 @0,0  Manrope 600 13/20  lines=1  «Фото места установки»
+  input.FileInput__input  1×1 @-1,-1  clipped
+  label.FileInput__dropzone  1408×71 @0,27  r11  b1
+    svg.FileInput__icon  22×22 @15,24
+    span.FileInput__texts  267×45 @49,13
+      span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
+      span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 1 МБ»
+  p.Field__hint  1408×19 @0,105  Manrope 400 13/19  lines=1  «Проверьте валидацию: выберите файл больш»
+
+[палитра light]
+div.Field__field
+  label.Field__label  color #334155
+  input.FileInput__input
+  label.FileInput__dropzone  bg #ffffff  border #7e8fa6
+    svg.FileInput__icon
+    span.FileInput__texts
+      span.FileInput__title  color #334155
+      span  color #556173
+  p.Field__hint  color #556173
+
+[палитра dark]
+div.Field__field
+  label.Field__label  color #c9d5e2
+  input.FileInput__input
+  label.FileInput__dropzone  bg #0b1424  border #566d95
+    svg.FileInput__icon
+    span.FileInput__texts
+      span.FileInput__title  color #c9d5e2
+      span  color #8598ac
+  p.Field__hint  color #8598ac

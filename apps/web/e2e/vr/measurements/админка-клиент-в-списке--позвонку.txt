@@ -1,0 +1,77 @@
+# админка-клиент-в-списке--позвонку · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+article.Card__card  358×123 @16,16  r20  b1
+  div.ClientCardView__head  316×28 @21,21
+    h2.ClientCardView__name  96×21 @0,2
+      a.ClientCardView__link  96×22 @0,-1  Onest 700 17/21  ls0  lines=1  «Пётр Ильин»
+    span.Badge__badge  115×28 @201,0  Manrope 600 12/16  r100  b1  lines=1  «без обращений»
+  dl.ClientCardView__facts  316×43 @21,59
+    div.ClientCardView__fact  133×43 @0,0
+      dt  133×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
+      a.ClientCardView__phone  133×19 @0,21  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
+    div.ClientCardView__fact#2  77×43 @157,0
+      dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
+      time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
+
+[геометрия 768]
+article.Card__card  736×123 @16,16  r20  b1
+  div.ClientCardView__head  694×28 @21,21
+    h2.ClientCardView__name  101×22 @0,2
+      a.ClientCardView__link  101×22 @0,-1  Onest 700 18/22  ls0  lines=1  «Пётр Ильин»
+    span.Badge__badge  115×28 @579,0  Manrope 600 12/16  r100  b1  lines=1  «без обращений»
+  dl.ClientCardView__facts  694×43 @21,59
+    div.ClientCardView__fact  133×43 @0,0
+      dt  133×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
+      a.ClientCardView__phone  133×19 @0,21  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
+    div.ClientCardView__fact#2  77×43 @157,0
+      dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
+      time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
+
+[геометрия 1440]
+article.Card__card  1408×123 @16,16  r20  b1
+  div.ClientCardView__head  1366×28 @21,21
+    h2.ClientCardView__name  106×23 @0,1
+      a.ClientCardView__link  106×24 @0,-1  Onest 700 19/23  ls0  lines=1  «Пётр Ильин»
+    span.Badge__badge  115×28 @1251,0  Manrope 600 12/16  r100  b1  lines=1  «без обращений»
+  dl.ClientCardView__facts  1366×43 @21,59
+    div.ClientCardView__fact  133×43 @0,0
+      dt  133×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
+      a.ClientCardView__phone  133×19 @0,21  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
+    div.ClientCardView__fact#2  77×43 @157,0
+      dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
+      time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
+
+[палитра light]
+article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.ClientCardView__head
+    h2.ClientCardView__name
+      a.ClientCardView__link  color #0f172a
+    span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+  dl.ClientCardView__facts
+    div.ClientCardView__fact
+      dt  color #5b6a7d
+      a.ClientCardView__phone  color #0e7490
+    div.ClientCardView__fact#2
+      dt  color #5b6a7d
+      time  color #475569
+
+[палитра dark]
+article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.ClientCardView__head
+    h2.ClientCardView__name
+      a.ClientCardView__link  color #eaf1f8
+    span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+  dl.ClientCardView__facts
+    div.ClientCardView__fact
+      dt  color #7e92a7
+      a.ClientCardView__phone  color #22d3ee
+    div.ClientCardView__fact#2
+      dt  color #7e92a7
+      time  color #a8b6c6

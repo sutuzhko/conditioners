@@ -39,6 +39,10 @@ export default defineConfig({
       'src/**/*.{test,spec}.{ts,tsx}',
       'prisma/**/*.{test,spec}.ts',
       '../../scripts/**/*.{test,spec}.mjs',
+      // Раннер снимков раскладывает ошибки Playwright по категориям чистой
+      // функцией — от неё зависит, красить ли PR (ADR-230). Проверять её нужно
+      // без браузера и без витрины, значит здесь, а не в самих снимках.
+      'e2e/vr/**/*.test.ts',
     ],
   },
   resolve: {

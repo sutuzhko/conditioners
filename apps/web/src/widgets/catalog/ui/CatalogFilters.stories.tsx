@@ -30,7 +30,15 @@ const meta = {
   title: 'Блоки/Каталог — подбор',
   component: CatalogFilters,
   args: argsFor(),
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    // Допущение инвариантов — причина в reason (ADR-230)
+    invariants: {
+      allow: [
+        { rule: 'occlusion', reason: 'issue #474 — ссылки подбора накрыты карточками на 320–768' },
+      ],
+    },
+  },
 } satisfies Meta<typeof CatalogFilters>;
 
 export default meta;
@@ -40,6 +48,9 @@ export const Collapsed: Story = { name: 'Свёрнут — одна строк�
 
 export const Expanded: Story = {
   name: 'Развёрнут нажатием на узкой ширине',
+  /* Только узкие ширины: на 1200 подбор раскрыт стилем, `<summary>` там нет, и
+     кадр совпадал со «Свёрнут» побайтно — история снималась впустую (#464). */
+  tags: ['vr-320', 'vr-375', 'vr-768'],
   play: async ({ canvasElement }) => {
     // именно нажатие, а не атрибут: сворачивание должно работать без единой
     // строки JavaScript, и история обязана это показывать
@@ -56,5 +67,8 @@ export const Expanded: Story = {
 
 export const Narrowed: Story = {
   name: 'Выбраны класс и площадь',
+  /* Только 1200: на узких ширинах выбранные значения спрятаны в свёрнутом
+     `<details>`, и кадр совпадал со «Свёрнут» (#464). */
+  tags: ['vr-1200'],
   args: argsFor({ class: '09', area: '25' }),
 };

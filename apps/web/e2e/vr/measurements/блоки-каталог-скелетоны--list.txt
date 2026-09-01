@@ -1,0 +1,539 @@
+# блоки-каталог-скелетоны--list · ширины 320 375 768 1200 · темы light dark
+шрифты: —
+
+[документ]
+320 → 320×2477
+375 → 375×2696
+768 → 768×1591
+1200 → 1200×1073
+
+[геометрия 320]
+section.CatalogList__section  320×2477 @0,0
+  div.CatalogList__container  320×2477 @0,0
+    div.CatalogList__layout  288×2407 @16,22
+      div.CatalogList__results  288×2407 @0,0
+        div.CatalogList__toolbar  288×74 @0,0
+          span.Skeleton__skeleton  140×22 @0,0  r8
+          span.Skeleton__skeleton#2  200×40 @0,34  r8
+        ul.CatalogList__grid  288×2283 @0,92
+          li.Card__card  288×369 @0,0  r18  b1
+            div.ProductCard__media  286×179 @1,1  b0 0 1 0
+              span.Skeleton__skeleton  286×178 @0,0  r8
+            div.ProductCard__body  286×188 @1,180
+              div.ProductCard__nameReserve  258×15 @14,14
+                span.Skeleton__skeleton  181×15 @0,0  r8
+              div.ProductCard__meta  258×24 @14,33
+                span.Skeleton__skeleton  116×16 @0,4  r8
+              div.ProductPrice__price  258×57 @14,61
+                span.Skeleton__skeleton  142×24 @0,5  r8
+                div.ProductPrice__slot  258×24 @0,33
+              div.ProductCard__actions  258×52 @14,122
+                span.Skeleton__skeleton  258×44 @0,8  r8
+          li.Card__card#2  288×369 @0,383  r18  b1
+            div.ProductCard__media  286×179 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#2  286×178 @0,0  r8
+            div.ProductCard__body  286×188 @1,180
+              div.ProductCard__nameReserve#2  258×15 @14,14
+                span.Skeleton__skeleton  181×15 @0,0  r8
+              div.ProductCard__meta#2  258×24 @14,33
+                span.Skeleton__skeleton  116×16 @0,4  r8
+              div.ProductPrice__price#2  258×57 @14,61
+                span.Skeleton__skeleton  142×24 @0,5  r8
+                div.ProductPrice__slot  258×24 @0,33
+              div.ProductCard__actions#2  258×52 @14,122
+                span.Skeleton__skeleton  258×44 @0,8  r8
+          li.Card__card#3  288×369 @0,766  r18  b1
+            div.ProductCard__media  286×179 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#3  286×178 @0,0  r8
+            div.ProductCard__body  286×188 @1,180
+              div.ProductCard__nameReserve#3  258×15 @14,14
+                span.Skeleton__skeleton  181×15 @0,0  r8
+              div.ProductCard__meta#3  258×24 @14,33
+                span.Skeleton__skeleton  116×16 @0,4  r8
+              div.ProductPrice__price#3  258×57 @14,61
+                span.Skeleton__skeleton  142×24 @0,5  r8
+                div.ProductPrice__slot  258×24 @0,33
+              div.ProductCard__actions#3  258×52 @14,122
+                span.Skeleton__skeleton  258×44 @0,8  r8
+          li.Card__card#4  288×369 @0,1148  r18  b1
+            div.ProductCard__media  286×179 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#4  286×178 @0,0  r8
+            div.ProductCard__body  286×188 @1,180
+              div.ProductCard__nameReserve#4  258×15 @14,14
+                span.Skeleton__skeleton  181×15 @0,0  r8
+              div.ProductCard__meta#4  258×24 @14,33
+                span.Skeleton__skeleton  116×16 @0,4  r8
+              div.ProductPrice__price#4  258×57 @14,61
+                span.Skeleton__skeleton  142×24 @0,5  r8
+                div.ProductPrice__slot  258×24 @0,33
+              div.ProductCard__actions#4  258×52 @14,122
+                span.Skeleton__skeleton  258×44 @0,8  r8
+          li.Card__card#5  288×369 @0,1531  r18  b1
+            div.ProductCard__media  286×179 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#5  286×178 @0,0  r8
+            div.ProductCard__body  286×188 @1,180
+              div.ProductCard__nameReserve#5  258×15 @14,14
+                span.Skeleton__skeleton  181×15 @0,0  r8
+              div.ProductCard__meta#5  258×24 @14,33
+                span.Skeleton__skeleton  116×16 @0,4  r8
+              div.ProductPrice__price#5  258×57 @14,61
+                span.Skeleton__skeleton  142×24 @0,5  r8
+                div.ProductPrice__slot  258×24 @0,33
+              div.ProductCard__actions#5  258×52 @14,122
+                span.Skeleton__skeleton  258×44 @0,8  r8
+          li.Card__card#6  288×369 @0,1914  r18  b1
+            div.ProductCard__media  286×179 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#6  286×178 @0,0  r8
+            div.ProductCard__body  286×188 @1,180
+              div.ProductCard__nameReserve#6  258×15 @14,14
+                span.Skeleton__skeleton  181×15 @0,0  r8
+              div.ProductCard__meta#6  258×24 @14,33
+                span.Skeleton__skeleton  116×16 @0,4  r8
+              div.ProductPrice__price#6  258×57 @14,61
+                span.Skeleton__skeleton  142×24 @0,5  r8
+                div.ProductPrice__slot  258×24 @0,33
+              div.ProductCard__actions#6  258×52 @14,122
+                span.Skeleton__skeleton  258×44 @0,8  r8
+
+[геометрия 375]
+section.CatalogList__section  375×2696 @0,0
+  div.CatalogList__container  375×2696 @0,0
+    div.CatalogList__layout  343×2623 @16,22
+      div.CatalogList__results  343×2623 @0,0
+        div.CatalogList__toolbar  343×74 @0,0
+          span.Skeleton__skeleton  140×22 @0,0  r8
+          span.Skeleton__skeleton#2  200×40 @0,34  r8
+        ul.CatalogList__grid  343×2499 @0,92
+          li.Card__card  343×405 @0,0  r18  b1
+            div.ProductCard__media  341×213 @1,1  b0 0 1 0
+              span.Skeleton__skeleton  341×212 @0,0  r8
+            div.ProductCard__body  341×190 @1,214
+              div.ProductCard__nameReserve  313×15 @14,14
+                span.Skeleton__skeleton  219×15 @0,0  r8
+              div.ProductCard__meta  313×24 @14,34
+                span.Skeleton__skeleton  141×16 @0,4  r8
+              div.ProductPrice__price  313×57 @14,62
+                span.Skeleton__skeleton  172×24 @0,5  r8
+                div.ProductPrice__slot  313×24 @0,33
+              div.ProductCard__actions  313×52 @14,123
+                span.Skeleton__skeleton  313×44 @0,8  r8
+          li.Card__card#2  343×405 @0,419  r18  b1
+            div.ProductCard__media  341×213 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#2  341×212 @0,0  r8
+            div.ProductCard__body  341×190 @1,214
+              div.ProductCard__nameReserve#2  313×15 @14,14
+                span.Skeleton__skeleton  219×15 @0,0  r8
+              div.ProductCard__meta#2  313×24 @14,34
+                span.Skeleton__skeleton  141×16 @0,4  r8
+              div.ProductPrice__price#2  313×57 @14,62
+                span.Skeleton__skeleton  172×24 @0,5  r8
+                div.ProductPrice__slot  313×24 @0,33
+              div.ProductCard__actions#2  313×52 @14,123
+                span.Skeleton__skeleton  313×44 @0,8  r8
+          li.Card__card#3  343×405 @0,838  r18  b1
+            div.ProductCard__media  341×213 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#3  341×212 @0,0  r8
+            div.ProductCard__body  341×190 @1,214
+              div.ProductCard__nameReserve#3  313×15 @14,14
+                span.Skeleton__skeleton  219×15 @0,0  r8
+              div.ProductCard__meta#3  313×24 @14,34
+                span.Skeleton__skeleton  141×16 @0,4  r8
+              div.ProductPrice__price#3  313×57 @14,62
+                span.Skeleton__skeleton  172×24 @0,5  r8
+                div.ProductPrice__slot  313×24 @0,33
+              div.ProductCard__actions#3  313×52 @14,123
+                span.Skeleton__skeleton  313×44 @0,8  r8
+          li.Card__card#4  343×405 @0,1257  r18  b1
+            div.ProductCard__media  341×213 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#4  341×212 @0,0  r8
+            div.ProductCard__body  341×190 @1,214
+              div.ProductCard__nameReserve#4  313×15 @14,14
+                span.Skeleton__skeleton  219×15 @0,0  r8
+              div.ProductCard__meta#4  313×24 @14,34
+                span.Skeleton__skeleton  141×16 @0,4  r8
+              div.ProductPrice__price#4  313×57 @14,62
+                span.Skeleton__skeleton  172×24 @0,5  r8
+                div.ProductPrice__slot  313×24 @0,33
+              div.ProductCard__actions#4  313×52 @14,123
+                span.Skeleton__skeleton  313×44 @0,8  r8
+          li.Card__card#5  343×405 @0,1676  r18  b1
+            div.ProductCard__media  341×213 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#5  341×212 @0,0  r8
+            div.ProductCard__body  341×190 @1,214
+              div.ProductCard__nameReserve#5  313×15 @14,14
+                span.Skeleton__skeleton  219×15 @0,0  r8
+              div.ProductCard__meta#5  313×24 @14,34
+                span.Skeleton__skeleton  141×16 @0,4  r8
+              div.ProductPrice__price#5  313×57 @14,62
+                span.Skeleton__skeleton  172×24 @0,5  r8
+                div.ProductPrice__slot  313×24 @0,33
+              div.ProductCard__actions#5  313×52 @14,123
+                span.Skeleton__skeleton  313×44 @0,8  r8
+          li.Card__card#6  343×405 @0,2094  r18  b1
+            div.ProductCard__media  341×213 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#6  341×212 @0,0  r8
+            div.ProductCard__body  341×190 @1,214
+              div.ProductCard__nameReserve#6  313×15 @14,14
+                span.Skeleton__skeleton  219×15 @0,0  r8
+              div.ProductCard__meta#6  313×24 @14,34
+                span.Skeleton__skeleton  141×16 @0,4  r8
+              div.ProductPrice__price#6  313×57 @14,62
+                span.Skeleton__skeleton  172×24 @0,5  r8
+                div.ProductPrice__slot  313×24 @0,33
+              div.ProductCard__actions#6  313×52 @14,123
+                span.Skeleton__skeleton  313×44 @0,8  r8
+
+[геометрия 768]
+section.CatalogList__section  768×1591 @0,0
+  div.CatalogList__container  768×1591 @0,0
+    div.CatalogList__layout  728×1486 @20,36
+      div.CatalogList__results  728×1486 @0,0
+        div.CatalogList__toolbar  728×40 @0,0
+          span.Skeleton__skeleton  140×22 @0,9  r8
+          span.Skeleton__skeleton#2  200×40 @528,0  r8
+        ul.CatalogList__grid  728×1396 @0,58
+          li.Card__card  357×456 @0,0  r18  b1
+            div.ProductCard__media  355×222 @1,1  b0 0 1 0
+              span.Skeleton__skeleton  355×221 @0,0  r8
+            div.ProductCard__body  355×232 @1,223
+              div.ProductCard__nameReserve  323×45 @16,16
+                span.Skeleton__skeleton  226×15 @0,0  r8
+              div.ProductCard__meta  323×24 @16,67
+                span.Skeleton__skeleton  145×16 @0,4  r8
+              div.ProductPrice__price  323×59 @16,97
+                span.Skeleton__skeleton  178×24 @0,7  r8
+                div.ProductPrice__slot  323×24 @0,35
+              div.ProductCard__actions  323×54 @16,162
+                span.Skeleton__skeleton  323×44 @0,10  r8
+          li.Card__card#2  357×456 @371,0  r18  b1
+            div.ProductCard__media  355×222 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#2  355×221 @0,0  r8
+            div.ProductCard__body  355×232 @1,223
+              div.ProductCard__nameReserve#2  323×45 @16,16
+                span.Skeleton__skeleton  226×15 @0,0  r8
+              div.ProductCard__meta#2  323×24 @16,67
+                span.Skeleton__skeleton  145×16 @0,4  r8
+              div.ProductPrice__price#2  323×59 @16,97
+                span.Skeleton__skeleton  178×24 @0,7  r8
+                div.ProductPrice__slot  323×24 @0,35
+              div.ProductCard__actions#2  323×54 @16,162
+                span.Skeleton__skeleton  323×44 @0,10  r8
+          li.Card__card#3  357×456 @0,470  r18  b1
+            div.ProductCard__media  355×222 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#3  355×221 @0,0  r8
+            div.ProductCard__body  355×232 @1,223
+              div.ProductCard__nameReserve#3  323×45 @16,16
+                span.Skeleton__skeleton  226×15 @0,0  r8
+              div.ProductCard__meta#3  323×24 @16,67
+                span.Skeleton__skeleton  145×16 @0,4  r8
+              div.ProductPrice__price#3  323×59 @16,97
+                span.Skeleton__skeleton  178×24 @0,7  r8
+                div.ProductPrice__slot  323×24 @0,35
+              div.ProductCard__actions#3  323×54 @16,162
+                span.Skeleton__skeleton  323×44 @0,10  r8
+          li.Card__card#4  357×456 @371,470  r18  b1
+            div.ProductCard__media  355×222 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#4  355×221 @0,0  r8
+            div.ProductCard__body  355×232 @1,223
+              div.ProductCard__nameReserve#4  323×45 @16,16
+                span.Skeleton__skeleton  226×15 @0,0  r8
+              div.ProductCard__meta#4  323×24 @16,67
+                span.Skeleton__skeleton  145×16 @0,4  r8
+              div.ProductPrice__price#4  323×59 @16,97
+                span.Skeleton__skeleton  178×24 @0,7  r8
+                div.ProductPrice__slot  323×24 @0,35
+              div.ProductCard__actions#4  323×54 @16,162
+                span.Skeleton__skeleton  323×44 @0,10  r8
+          li.Card__card#5  357×456 @0,940  r18  b1
+            div.ProductCard__media  355×222 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#5  355×221 @0,0  r8
+            div.ProductCard__body  355×232 @1,223
+              div.ProductCard__nameReserve#5  323×45 @16,16
+                span.Skeleton__skeleton  226×15 @0,0  r8
+              div.ProductCard__meta#5  323×24 @16,67
+                span.Skeleton__skeleton  145×16 @0,4  r8
+              div.ProductPrice__price#5  323×59 @16,97
+                span.Skeleton__skeleton  178×24 @0,7  r8
+                div.ProductPrice__slot  323×24 @0,35
+              div.ProductCard__actions#5  323×54 @16,162
+                span.Skeleton__skeleton  323×44 @0,10  r8
+          li.Card__card#6  357×456 @371,940  r18  b1
+            div.ProductCard__media  355×222 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#6  355×221 @0,0  r8
+            div.ProductCard__body  355×232 @1,223
+              div.ProductCard__nameReserve#6  323×45 @16,16
+                span.Skeleton__skeleton  226×15 @0,0  r8
+              div.ProductCard__meta#6  323×24 @16,67
+                span.Skeleton__skeleton  145×16 @0,4  r8
+              div.ProductPrice__price#6  323×59 @16,97
+                span.Skeleton__skeleton  178×24 @0,7  r8
+                div.ProductPrice__slot  323×24 @0,35
+              div.ProductCard__actions#6  323×54 @16,162
+                span.Skeleton__skeleton  323×44 @0,10  r8
+
+[геометрия 1200]
+section.CatalogList__section  1200×1073 @0,0
+  div.CatalogList__container  1200×1073 @0,0
+    div.CatalogList__layout  1152×949 @24,36
+      div.CatalogList__filtersReserve  264×0 @0,0
+      div.CatalogList__results  860×949 @292,0
+        div.CatalogList__toolbar  860×40 @0,0
+          span.Skeleton__skeleton  140×22 @0,9  r8
+          span.Skeleton__skeleton#2  200×40 @660,0  r8
+        ul.CatalogList__grid  860×859 @0,58
+          li.Card__card  276×422 @0,0  r18  b1
+            div.ProductCard__media  274×171 @1,1  b0 0 1 0
+              span.Skeleton__skeleton  274×170 @0,0  r8
+            div.ProductCard__body  274×248 @1,172
+              div.ProductCard__nameReserve  238×47 @18,18
+                span.Skeleton__skeleton  167×15 @0,0  r8
+              div.ProductCard__meta  238×24 @18,73
+                span.Skeleton__skeleton  107×16 @0,4  r8
+              div.ProductPrice__price  238×61 @18,105
+                span.Skeleton__skeleton  131×24 @0,9  r8
+                div.ProductPrice__slot  238×24 @0,37
+              div.ProductCard__actions  238×56 @18,174
+                span.Skeleton__skeleton  238×44 @0,12  r8
+          li.Card__card#2  276×422 @292,0  r18  b1
+            div.ProductCard__media  274×171 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#2  274×170 @0,0  r8
+            div.ProductCard__body  274×248 @1,172
+              div.ProductCard__nameReserve#2  238×47 @18,18
+                span.Skeleton__skeleton  167×15 @0,0  r8
+              div.ProductCard__meta#2  238×24 @18,73
+                span.Skeleton__skeleton  107×16 @0,4  r8
+              div.ProductPrice__price#2  238×61 @18,105
+                span.Skeleton__skeleton  131×24 @0,9  r8
+                div.ProductPrice__slot  238×24 @0,37
+              div.ProductCard__actions#2  238×56 @18,174
+                span.Skeleton__skeleton  238×44 @0,12  r8
+          li.Card__card#3  276×422 @584,0  r18  b1
+            div.ProductCard__media  274×171 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#3  274×170 @0,0  r8
+            div.ProductCard__body  274×248 @1,172
+              div.ProductCard__nameReserve#3  238×47 @18,18
+                span.Skeleton__skeleton  167×15 @0,0  r8
+              div.ProductCard__meta#3  238×24 @18,73
+                span.Skeleton__skeleton  107×16 @0,4  r8
+              div.ProductPrice__price#3  238×61 @18,105
+                span.Skeleton__skeleton  131×24 @0,9  r8
+                div.ProductPrice__slot  238×24 @0,37
+              div.ProductCard__actions#3  238×56 @18,174
+                span.Skeleton__skeleton  238×44 @0,12  r8
+          li.Card__card#4  276×422 @0,438  r18  b1
+            div.ProductCard__media  274×171 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#4  274×170 @0,0  r8
+            div.ProductCard__body  274×248 @1,172
+              div.ProductCard__nameReserve#4  238×47 @18,18
+                span.Skeleton__skeleton  167×15 @0,0  r8
+              div.ProductCard__meta#4  238×24 @18,73
+                span.Skeleton__skeleton  107×16 @0,4  r8
+              div.ProductPrice__price#4  238×61 @18,105
+                span.Skeleton__skeleton  131×24 @0,9  r8
+                div.ProductPrice__slot  238×24 @0,37
+              div.ProductCard__actions#4  238×56 @18,174
+                span.Skeleton__skeleton  238×44 @0,12  r8
+          li.Card__card#5  276×422 @292,438  r18  b1
+            div.ProductCard__media  274×171 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#5  274×170 @0,0  r8
+            div.ProductCard__body  274×248 @1,172
+              div.ProductCard__nameReserve#5  238×47 @18,18
+                span.Skeleton__skeleton  167×15 @0,0  r8
+              div.ProductCard__meta#5  238×24 @18,73
+                span.Skeleton__skeleton  107×16 @0,4  r8
+              div.ProductPrice__price#5  238×61 @18,105
+                span.Skeleton__skeleton  131×24 @0,9  r8
+                div.ProductPrice__slot  238×24 @0,37
+              div.ProductCard__actions#5  238×56 @18,174
+                span.Skeleton__skeleton  238×44 @0,12  r8
+          li.Card__card#6  276×422 @584,438  r18  b1
+            div.ProductCard__media  274×171 @1,1  b0 0 1 0
+              span.Skeleton__skeleton#6  274×170 @0,0  r8
+            div.ProductCard__body  274×248 @1,172
+              div.ProductCard__nameReserve#6  238×47 @18,18
+                span.Skeleton__skeleton  167×15 @0,0  r8
+              div.ProductCard__meta#6  238×24 @18,73
+                span.Skeleton__skeleton  107×16 @0,4  r8
+              div.ProductPrice__price#6  238×61 @18,105
+                span.Skeleton__skeleton  131×24 @0,9  r8
+                div.ProductPrice__slot  238×24 @0,37
+              div.ProductCard__actions#6  238×56 @18,174
+                span.Skeleton__skeleton  238×44 @0,12  r8
+
+[палитра light]
+section.CatalogList__section  bg #ffffff
+  div.CatalogList__container
+    div.CatalogList__layout
+      div.CatalogList__filtersReserve
+      div.CatalogList__results
+        div.CatalogList__toolbar
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        ul.CatalogList__grid
+          li.Card__card  bg #ffffff  border #e2e8f0
+            div.ProductCard__media  bg #f8fafc  border #475569 #475569 #eef2f6 #475569
+              span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            div.ProductCard__body
+              div.ProductCard__nameReserve
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+              div.ProductCard__meta
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+              div.ProductPrice__price
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+                div.ProductPrice__slot
+              div.ProductCard__actions
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          li.Card__card#2  bg #ffffff  border #e2e8f0
+            div.ProductCard__media  bg #f8fafc  border #475569 #475569 #eef2f6 #475569
+              span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            div.ProductCard__body
+              div.ProductCard__nameReserve#2
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+              div.ProductCard__meta#2
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+              div.ProductPrice__price#2
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+                div.ProductPrice__slot
+              div.ProductCard__actions#2
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          li.Card__card#3  bg #ffffff  border #e2e8f0
+            div.ProductCard__media  bg #f8fafc  border #475569 #475569 #eef2f6 #475569
+              span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            div.ProductCard__body
+              div.ProductCard__nameReserve#3
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+              div.ProductCard__meta#3
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+              div.ProductPrice__price#3
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+                div.ProductPrice__slot
+              div.ProductCard__actions#3
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          li.Card__card#4  bg #ffffff  border #e2e8f0
+            div.ProductCard__media  bg #f8fafc  border #475569 #475569 #eef2f6 #475569
+              span.Skeleton__skeleton#4  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            div.ProductCard__body
+              div.ProductCard__nameReserve#4
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+              div.ProductCard__meta#4
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+              div.ProductPrice__price#4
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+                div.ProductPrice__slot
+              div.ProductCard__actions#4
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          li.Card__card#5  bg #ffffff  border #e2e8f0
+            div.ProductCard__media  bg #f8fafc  border #475569 #475569 #eef2f6 #475569
+              span.Skeleton__skeleton#5  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            div.ProductCard__body
+              div.ProductCard__nameReserve#5
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+              div.ProductCard__meta#5
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+              div.ProductPrice__price#5
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+                div.ProductPrice__slot
+              div.ProductCard__actions#5
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          li.Card__card#6  bg #ffffff  border #e2e8f0
+            div.ProductCard__media  bg #f8fafc  border #475569 #475569 #eef2f6 #475569
+              span.Skeleton__skeleton#6  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            div.ProductCard__body
+              div.ProductCard__nameReserve#6
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+              div.ProductCard__meta#6
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+              div.ProductPrice__price#6
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+                div.ProductPrice__slot
+              div.ProductCard__actions#6
+                span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+
+[палитра dark]
+section.CatalogList__section  bg #0b1220
+  div.CatalogList__container
+    div.CatalogList__layout
+      div.CatalogList__filtersReserve
+      div.CatalogList__results
+        div.CatalogList__toolbar
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        ul.CatalogList__grid
+          li.Card__card  bg #121d31  border #1e2b41
+            div.ProductCard__media  bg #0e1729  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+              span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            div.ProductCard__body
+              div.ProductCard__nameReserve
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+              div.ProductCard__meta
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+              div.ProductPrice__price
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+                div.ProductPrice__slot
+              div.ProductCard__actions
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          li.Card__card#2  bg #121d31  border #1e2b41
+            div.ProductCard__media  bg #0e1729  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+              span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            div.ProductCard__body
+              div.ProductCard__nameReserve#2
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+              div.ProductCard__meta#2
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+              div.ProductPrice__price#2
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+                div.ProductPrice__slot
+              div.ProductCard__actions#2
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          li.Card__card#3  bg #121d31  border #1e2b41
+            div.ProductCard__media  bg #0e1729  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+              span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            div.ProductCard__body
+              div.ProductCard__nameReserve#3
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+              div.ProductCard__meta#3
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+              div.ProductPrice__price#3
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+                div.ProductPrice__slot
+              div.ProductCard__actions#3
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          li.Card__card#4  bg #121d31  border #1e2b41
+            div.ProductCard__media  bg #0e1729  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+              span.Skeleton__skeleton#4  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            div.ProductCard__body
+              div.ProductCard__nameReserve#4
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+              div.ProductCard__meta#4
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+              div.ProductPrice__price#4
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+                div.ProductPrice__slot
+              div.ProductCard__actions#4
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          li.Card__card#5  bg #121d31  border #1e2b41
+            div.ProductCard__media  bg #0e1729  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+              span.Skeleton__skeleton#5  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            div.ProductCard__body
+              div.ProductCard__nameReserve#5
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+              div.ProductCard__meta#5
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+              div.ProductPrice__price#5
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+                div.ProductPrice__slot
+              div.ProductCard__actions#5
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          li.Card__card#6  bg #121d31  border #1e2b41
+            div.ProductCard__media  bg #0e1729  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+              span.Skeleton__skeleton#6  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            div.ProductCard__body
+              div.ProductCard__nameReserve#6
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+              div.ProductCard__meta#6
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+              div.ProductPrice__price#6
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+                div.ProductPrice__slot
+              div.ProductCard__actions#6
+                span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

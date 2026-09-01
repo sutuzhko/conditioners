@@ -1,0 +1,152 @@
+# блоки-каталог-скелетоны--details · ширины 320 375 768 1200 · темы light dark
+шрифты: —
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×962
+
+[геометрия 320]
+div.ProductDetails__page  320×763 @0,0
+  div.ProductDetails__container  320×763 @0,0
+    div.ProductDetails__head  288×34 @16,28
+      span.Skeleton__skeleton  230×34 @0,0  r8
+    div.ProductDetails__main  288×581 @16,90
+      div.ProductDetails__gallery  288×180 @0,0
+        span.Skeleton__skeleton  288×180 @0,0  r20
+      div.ProductDetails__aside  288×145 @0,204
+        div.Card__card  288×145 @0,0  r20  b1
+          span.Skeleton__skeleton  111×15 @21,21  r8
+          span.Skeleton__skeleton#2  160×26 @21,36  r8
+          span.Skeleton__skeleton#3  246×44 @21,80  r8
+      div.ProductDetails__specs  288×208 @0,373  b1 0 0 0
+        span.Skeleton__skeleton  180×24 @0,29  r8
+        div.ProductDetails__specsSkeleton  288×135 @0,73
+          span.Skeleton__lines  288×135 @0,0
+            span.Skeleton__skeleton  288×15 @0,0  r8
+            span.Skeleton__skeleton#2  288×15 @0,24  r8
+            span.Skeleton__skeleton#3  288×15 @0,48  r8
+            span.Skeleton__skeleton#4  288×15 @0,72  r8
+            span.Skeleton__skeleton#5  288×15 @0,96  r8
+            span.Skeleton__skeleton#6  179×15 @0,120  r8
+
+[геометрия 375]
+div.ProductDetails__page  375×800 @0,0
+  div.ProductDetails__container  375×800 @0,0
+    div.ProductDetails__head  343×34 @16,28
+      span.Skeleton__skeleton  274×34 @0,0  r8
+    div.ProductDetails__main  343×615 @16,90
+      div.ProductDetails__gallery  343×214 @0,0
+        span.Skeleton__skeleton  343×214 @0,0  r20
+      div.ProductDetails__aside  343×145 @0,238
+        div.Card__card  343×145 @0,0  r20  b1
+          span.Skeleton__skeleton  135×15 @21,21  r8
+          span.Skeleton__skeleton#2  196×26 @21,36  r8
+          span.Skeleton__skeleton#3  301×44 @21,80  r8
+      div.ProductDetails__specs  343×208 @0,407  b1 0 0 0
+        span.Skeleton__skeleton  180×24 @0,29  r8
+        div.ProductDetails__specsSkeleton  343×135 @0,73
+          span.Skeleton__lines  343×135 @0,0
+            span.Skeleton__skeleton  343×15 @0,0  r8
+            span.Skeleton__skeleton#2  343×15 @0,24  r8
+            span.Skeleton__skeleton#3  343×15 @0,48  r8
+            span.Skeleton__skeleton#4  343×15 @0,72  r8
+            span.Skeleton__skeleton#5  343×15 @0,96  r8
+            span.Skeleton__skeleton#6  213×15 @0,120  r8
+
+[геометрия 768]
+div.ProductDetails__page  768×697 @0,0
+  div.ProductDetails__container  768×697 @0,0
+    div.ProductDetails__head  728×34 @20,28
+      span.Skeleton__skeleton  420×34 @0,0  r8
+    div.ProductDetails__main  728×494 @20,90
+      div.ProductDetails__gallery  420×262 @0,0
+        span.Skeleton__skeleton  420×262 @0,0  r20
+      div.ProductDetails__aside  280×161 @448,0
+        div.Card__card  280×161 @0,0  r20  b1
+          span.Skeleton__skeleton  100×15 @29,29  r8
+          span.Skeleton__skeleton#2  144×26 @29,44  r8
+          span.Skeleton__skeleton#3  222×44 @29,88  r8
+      div.ProductDetails__specs  728×208 @0,286  b1 0 0 0
+        span.Skeleton__skeleton  180×24 @0,29  r8
+        div.ProductDetails__specsSkeleton  728×135 @0,73
+          span.Skeleton__lines  728×135 @0,0
+            span.Skeleton__skeleton  728×15 @0,0  r8
+            span.Skeleton__skeleton#2  728×15 @0,24  r8
+            span.Skeleton__skeleton#3  728×15 @0,48  r8
+            span.Skeleton__skeleton#4  728×15 @0,72  r8
+            span.Skeleton__skeleton#5  728×15 @0,96  r8
+            span.Skeleton__skeleton#6  451×15 @0,120  r8
+
+[геометрия 1200]
+div.ProductDetails__page  1200×962 @0,0
+  div.ProductDetails__container  1200×962 @0,0
+    div.ProductDetails__head  1152×34 @24,28
+      span.Skeleton__skeleton  420×34 @0,0  r8
+    div.ProductDetails__main  1152×740 @24,90
+      div.ProductDetails__gallery  812×508 @0,0
+        span.Skeleton__skeleton  812×508 @0,0  r20
+      div.ProductDetails__aside  312×161 @840,0
+        div.Card__card  312×161 @864,90  r20  b1  fixed
+          span.Skeleton__skeleton  114×15 @29,29  r8
+          span.Skeleton__skeleton#2  165×26 @29,44  r8
+          span.Skeleton__skeleton#3  254×44 @29,88  r8
+      div.ProductDetails__specs  812×208 @0,532  b1 0 0 0
+        span.Skeleton__skeleton  180×24 @0,29  r8
+        div.ProductDetails__specsSkeleton  812×135 @0,73
+          span.Skeleton__lines  812×135 @0,0
+            span.Skeleton__skeleton  812×15 @0,0  r8
+            span.Skeleton__skeleton#2  812×15 @0,24  r8
+            span.Skeleton__skeleton#3  812×15 @0,48  r8
+            span.Skeleton__skeleton#4  812×15 @0,72  r8
+            span.Skeleton__skeleton#5  812×15 @0,96  r8
+            span.Skeleton__skeleton#6  503×15 @0,120  r8
+
+[палитра light]
+div.ProductDetails__page  bg #ffffff
+  div.ProductDetails__container
+    div.ProductDetails__head
+      span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    div.ProductDetails__main
+      div.ProductDetails__gallery
+        span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+      div.ProductDetails__aside
+        div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+          span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+      div.ProductDetails__specs  border #e2e8f0 #0f172a #0f172a #0f172a
+        span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        div.ProductDetails__specsSkeleton
+          span.Skeleton__lines
+            span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#4  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#5  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+            span.Skeleton__skeleton#6  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+
+[палитра dark]
+div.ProductDetails__page  bg #0b1220
+  div.ProductDetails__container
+    div.ProductDetails__head
+      span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    div.ProductDetails__main
+      div.ProductDetails__gallery
+        span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+      div.ProductDetails__aside
+        div.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+          span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+      div.ProductDetails__specs  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+        span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        div.ProductDetails__specsSkeleton
+          span.Skeleton__lines
+            span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#4  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#5  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+            span.Skeleton__skeleton#6  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

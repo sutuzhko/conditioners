@@ -1,0 +1,52 @@
+# ui-kit-copyfield--proportional · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.CopyField__root  326×80 @32,32
+  span.CopyField__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+  div.CopyField__row  326×54 @0,26  r999  b1
+    span.CopyField__value  258×22 @15,16  Manrope 400 14/22  lines=1  «Тульская климатическая компания»
+    button.CopyField__button  44×44 @277,5  r100
+      svg  16×16 @14,12
+  span[role=status]  1×1 @-1,-1
+
+[геометрия 768]
+div.CopyField__root  388×80 @32,32
+  span.CopyField__label  388×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+  div.CopyField__row  388×54 @0,26  r999  b1
+    span.CopyField__value  320×22 @15,16  Manrope 400 14/22  lines=1  «Тульская климатическая компания»
+    button.CopyField__button  44×44 @339,5  r100
+      svg  16×16 @14,12
+  span[role=status]  1×1 @-1,-1
+
+[геометрия 1440]
+div.CopyField__root  388×74 @32,32
+  span.CopyField__label  388×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+  div.CopyField__row  388×48 @0,26  r999  b1
+    span.CopyField__value  332×22 @15,13  Manrope 400 14/22  lines=1  «Тульская климатическая компания»
+    button.CopyField__button  32×32 @351,8  r100
+      svg  16×16 @8,6
+  span[role=status]  1×1 @-1,-1
+
+[палитра light]
+div.CopyField__root
+  span.CopyField__label  color #334155
+  div.CopyField__row  bg #f8fafc  border #7e8fa6
+    span.CopyField__value  color #0f172a
+    button.CopyField__button
+      svg
+  span[role=status]
+
+[палитра dark]
+div.CopyField__root
+  span.CopyField__label  color #c9d5e2
+  div.CopyField__row  bg #0e1729  border #566d95
+    span.CopyField__value  color #eaf1f8
+    button.CopyField__button
+      svg
+  span[role=status]
