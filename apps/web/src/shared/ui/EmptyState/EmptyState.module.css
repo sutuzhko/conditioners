@@ -22,11 +22,15 @@
   color: var(--accent-text);
 }
 
+/* 🔴 Заголовок крупнее основного текста — `--fs-h3`, как было у прежней
+   разметки разделов. С `--fs-body` он сравнивался с объяснением под ним, и
+   пустое состояние теряло иерархию: два одинаковых абзаца вместо заголовка и
+   причины. Поймано диффом измерений: 19px превратились в 15px. */
 .title {
   margin: 0 0 4px;
-  font-family: var(--font-display);
   color: var(--ink);
-  font-size: var(--fs-body, var(--fs-dense));
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
   font-weight: 700;
 }
 

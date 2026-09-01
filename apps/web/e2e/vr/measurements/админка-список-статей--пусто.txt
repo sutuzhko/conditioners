@@ -7,26 +7,41 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×158 @16,16  r20  b1
-  h2.AdminArticleList__emptyTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Статей пока нет»
-  p.AdminArticleList__emptyText  316×90 @21,48  Manrope 400 15/22  lines=4  «Раздел базы знаний на сайте показывает п»
+section.Card__card  358×269 @16,16  r20  b1
+  div.EmptyState__box  316×227 @21,21
+    span.EmptyState__badge  48×48 @134,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  112×17 @102,88  Onest 700 15/17  ls0  lines=1  «Статей пока нет»
+    p.EmptyState__text  284×90 @16,109  Manrope 400 15/22  lines=4  «Раздел базы знаний на сайте показывает п»
 
 [геометрия 768]
-section.Card__card  736×137 @16,16  r20  b1
-  h2.AdminArticleList__emptyTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Статей пока нет»
-  p.AdminArticleList__emptyText  460×67 @138,49  Manrope 400 15/22  lines=3  «Раздел базы знаний на сайте показывает п»
+section.Card__card  736×247 @16,16  r20  b1
+  div.EmptyState__box  694×205 @21,21
+    span.EmptyState__badge  48×48 @323,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  112×17 @291,88  Onest 700 15/17  ls0  lines=1  «Статей пока нет»
+    p.EmptyState__text  371×67 @161,109  Manrope 400 15/22  lines=3  «Раздел базы знаний на сайте показывает п»
 
 [геометрия 1440]
-section.Card__card  1408×138 @16,16  r20  b1
-  h2.AdminArticleList__emptyTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Статей пока нет»
-  p.AdminArticleList__emptyText  460×67 @474,50  Manrope 400 15/22  lines=3  «Раздел базы знаний на сайте показывает п»
+section.Card__card  1408×247 @16,16  r20  b1
+  div.EmptyState__box  1366×205 @21,21
+    span.EmptyState__badge  48×48 @659,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  112×17 @627,88  Onest 700 15/17  ls0  lines=1  «Статей пока нет»
+    p.EmptyState__text  371×67 @497,109  Manrope 400 15/22  lines=3  «Раздел базы знаний на сайте показывает п»
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-  h2.AdminArticleList__emptyTitle  color #0f172a
-  p.AdminArticleList__emptyText  color #556173
+  div.EmptyState__box
+    span.EmptyState__badge  bg #ecfeff
+      svg
+    h2.EmptyState__title  color #0f172a
+    p.EmptyState__text  color #556173
 
 [палитра dark]
 section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-  h2.AdminArticleList__emptyTitle  color #eaf1f8
-  p.AdminArticleList__emptyText  color #8598ac
+  div.EmptyState__box
+    span.EmptyState__badge  bg #22d3ee1a
+      svg
+    h2.EmptyState__title  color #eaf1f8
+    p.EmptyState__text  color #8598ac

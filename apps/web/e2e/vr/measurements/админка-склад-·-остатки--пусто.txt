@@ -7,26 +7,41 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×138 @16,16  r20  b1
-  h2.StockTable__emptyTitle  140×21 @109,21  Onest 700 17/21  ls0  lines=1  «Справочник пуст»
-  p.StockTable__emptyText  316×67 @21,50  Manrope 400 15/22  lines=3  «Заведите позиции, которые считаете: трас»
+section.Card__card  358×269 @16,16  r20  b1
+  div.EmptyState__box  316×227 @21,21
+    span.EmptyState__badge  48×48 @134,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  119×17 @99,88  Onest 700 15/17  ls0  lines=1  «Справочник пуст»
+    p.EmptyState__text  284×90 @16,109  Manrope 400 15/22  lines=4  «Заведите позиции, которые считаете: трас»
 
 [геометрия 768]
-section.Card__card  736×117 @16,16  r20  b1
-  h2.StockTable__emptyTitle  147×22 @294,21  Onest 700 18/22  ls0  lines=1  «Справочник пуст»
-  p.StockTable__emptyText  531×45 @103,51  Manrope 400 15/22  lines=2  «Заведите позиции, которые считаете: трас»
+section.Card__card  736×247 @16,16  r20  b1
+  div.EmptyState__box  694×205 @21,21
+    span.EmptyState__badge  48×48 @323,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  119×17 @288,88  Onest 700 15/17  ls0  lines=1  «Справочник пуст»
+    p.EmptyState__text  371×67 @161,109  Manrope 400 15/22  lines=3  «Заведите позиции, которые считаете: трас»
 
 [геометрия 1440]
-section.Card__card  1408×118 @16,16  r20  b1
-  h2.StockTable__emptyTitle  155×23 @626,21  Onest 700 19/23  ls0  lines=1  «Справочник пуст»
-  p.StockTable__emptyText  531×45 @439,52  Manrope 400 15/22  lines=2  «Заведите позиции, которые считаете: трас»
+section.Card__card  1408×247 @16,16  r20  b1
+  div.EmptyState__box  1366×205 @21,21
+    span.EmptyState__badge  48×48 @659,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  119×17 @624,88  Onest 700 15/17  ls0  lines=1  «Справочник пуст»
+    p.EmptyState__text  371×67 @497,109  Manrope 400 15/22  lines=3  «Заведите позиции, которые считаете: трас»
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-  h2.StockTable__emptyTitle  color #0f172a
-  p.StockTable__emptyText  color #556173
+  div.EmptyState__box
+    span.EmptyState__badge  bg #ecfeff
+      svg
+    h2.EmptyState__title  color #0f172a
+    p.EmptyState__text  color #556173
 
 [палитра dark]
 section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-  h2.StockTable__emptyTitle  color #eaf1f8
-  p.StockTable__emptyText  color #8598ac
+  div.EmptyState__box
+    span.EmptyState__badge  bg #22d3ee1a
+      svg
+    h2.EmptyState__title  color #eaf1f8
+    p.EmptyState__text  color #8598ac

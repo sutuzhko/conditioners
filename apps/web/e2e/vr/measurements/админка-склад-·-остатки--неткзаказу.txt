@@ -1,5 +1,5 @@
 # админка-склад-·-остатки--неткзаказу · ширины 390 768 1440 · темы light dark
-шрифты: Manrope 600, Onest 700
+шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
 390 → 390×900
@@ -7,26 +7,51 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×114 @16,16  r20  b1
-  h2.StockTable__emptyTitle  316×41 @21,21  Onest 700 17/21  ls0  lines=2  «Ниже порога заказа сейчас ничего нет.»
-  a.StockTable__reset  135×22 @111,70  Manrope 600 15/22  lines=1  «Сбросить фильтры»
+section.Card__card  358×284 @16,16  r20  b1
+  div.EmptyState__box  316×242 @21,21
+    span.EmptyState__badge  48×48 @134,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  270×17 @23,88  Onest 700 15/17  ls0  lines=1  «Ниже порога заказа сейчас ничего нет»
+    p.EmptyState__text  284×45 @16,109  Manrope 400 15/22  lines=2  «Это хорошая новость: остатков хватает по»
+    div.EmptyState__action  284×44 @16,170
+      a.Button__button  284×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Сбросить фильтры»
 
 [геометрия 768]
-section.Card__card  736×94 @16,16  r20  b1
-  h2.StockTable__emptyTitle  340×22 @198,21  Onest 700 18/22  ls0  lines=1  «Ниже порога заказа сейчас ничего нет.»
-  a.StockTable__reset  135×22 @300,51  Manrope 600 15/22  lines=1  «Сбросить фильтры»
+section.Card__card  736×284 @16,16  r20  b1
+  div.EmptyState__box  694×242 @21,21
+    span.EmptyState__badge  48×48 @323,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  270×17 @212,88  Onest 700 15/17  ls0  lines=1  «Ниже порога заказа сейчас ничего нет»
+    p.EmptyState__text  371×45 @161,109  Manrope 400 15/22  lines=2  «Это хорошая новость: остатков хватает по»
+    div.EmptyState__action  151×44 @271,170
+      a.Button__button  151×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Сбросить фильтры»
 
 [геометрия 1440]
-section.Card__card  1408×95 @16,16  r20  b1
-  h2.StockTable__emptyTitle  359×23 @525,21  Onest 700 19/23  ls0  lines=1  «Ниже порога заказа сейчас ничего нет.»
-  a.StockTable__reset  135×22 @636,52  Manrope 600 15/22  lines=1  «Сбросить фильтры»
+section.Card__card  1408×280 @16,16  r20  b1
+  div.EmptyState__box  1366×238 @21,21
+    span.EmptyState__badge  48×48 @659,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  270×17 @548,88  Onest 700 15/17  ls0  lines=1  «Ниже порога заказа сейчас ничего нет»
+    p.EmptyState__text  371×45 @497,109  Manrope 400 15/22  lines=2  «Это хорошая новость: остатков хватает по»
+    div.EmptyState__action  151×40 @607,170
+      a.Button__button  151×40 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Сбросить фильтры»
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-  h2.StockTable__emptyTitle  color #0f172a
-  a.StockTable__reset  color #0e7490
+  div.EmptyState__box
+    span.EmptyState__badge  bg #ecfeff
+      svg
+    h2.EmptyState__title  color #0f172a
+    p.EmptyState__text  color #556173
+    div.EmptyState__action
+      a.Button__button  color #0f172a  bg #ffffff  border #7e8fa6
 
 [палитра dark]
 section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-  h2.StockTable__emptyTitle  color #eaf1f8
-  a.StockTable__reset  color #22d3ee
+  div.EmptyState__box
+    span.EmptyState__badge  bg #22d3ee1a
+      svg
+    h2.EmptyState__title  color #eaf1f8
+    p.EmptyState__text  color #8598ac
+    div.EmptyState__action
+      a.Button__button  color #eaf1f8  bg #121d31  border #566d95
