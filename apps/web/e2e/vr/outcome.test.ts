@@ -94,6 +94,13 @@ describe('firstLines', () => {
 });
 
 describe('writeOutcome', () => {
+  it('имя файла с шардом не совпадает с именами других шардов', () => {
+    expect(outcomeFileName('public', 375, 'dark')).toBe('outcome-public-375-dark.json');
+    expect(outcomeFileName('public', 375, 'dark', { index: 2, total: 4 })).toBe(
+      'outcome-public-s2of4-375-dark.json',
+    );
+  });
+
   it('пишет файл с именем из проекта, ширины и темы и полной формой итога', () => {
     const dir = mkdtempSync(join(tmpdir(), 'vr-outcome-'));
     dirs.push(dir);
@@ -110,6 +117,21 @@ describe('writeOutcome', () => {
     });
 
     expect(path).toBe(join(nested, outcomeFileName('panel', 390, 'light')));
+    expect(
+      writeOutcome(
+        nested,
+        {
+          project: 'panel',
+          width: 390,
+          theme: 'light',
+          compared: 0,
+          changed: [],
+          new: [],
+          failed: [],
+        },
+        { index: 3, total: 4 },
+      ),
+    ).toBe(join(nested, 'outcome-panel-s3of4-390-light.json'));
     expect(JSON.parse(readFileSync(path, 'utf8'))).toEqual({
       project: 'panel',
       width: 390,
