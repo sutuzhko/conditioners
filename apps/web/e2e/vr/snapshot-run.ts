@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+
 import { expect, test, type Page } from '@playwright/test';
 
 import { emptyTally, firstLines, recordErrors, writeOutcome, type RunOutcome } from './outcome';
@@ -113,6 +115,17 @@ export async function snapshotStories(page: Page, run: SnapshotRun): Promise<voi
         .errors.slice(before)
         .map((error) => error.message ?? 'ошибка без сообщения');
       recordErrors(tally, story.id, messages);
+
+      /* Диагностика дублей (issue #464): одинаковый кадр у историй про разные
+         состояния значит, что кадр не видит того, чем они различаются, — это
+         дыра покрытия, а не только вес (ADR-230). Playwright байты сравнённого
+         кадра не отдаёт, поэтому кадр снимается ещё раз тем же способом и
+         хешируется. Только по переменной: локальный прогон за диагностику не
+         платит. */
+      if (process.env.VR_DUPLICATES === '1') {
+        const frame = await page.screenshot({ animations: 'disabled', caret: 'hide' });
+        tally.hashes[story.id] = createHash('sha1').update(frame).digest('hex');
+      }
     }
   } finally {
     /* Итог пишется и когда тест красный: работе он нужен именно тогда. */
@@ -128,6 +141,7 @@ export async function snapshotStories(page: Page, run: SnapshotRun): Promise<voi
           changed: tally.changed,
           new: tally.new,
           failed: tally.failed,
+          hashes: tally.hashes,
         },
         shard ?? undefined,
       );

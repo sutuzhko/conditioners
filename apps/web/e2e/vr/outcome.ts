@@ -39,6 +39,13 @@ export type RunOutcome = {
   readonly new: readonly string[];
   /** Всё остальное — отказ сценария, таймаут, ошибка навигации. Красит всегда. */
   readonly failed: readonly StoryFailure[];
+  /**
+   * sha1 кадра по истории — только при `VR_DUPLICATES=1` (issue #464). Одинаковый
+   * кадр у историй про разные состояния — дыра покрытия: кадр не видит того,
+   * чем они различаются (ADR-230). Сводка показывает такие группы диагностикой,
+   * не крася; без переменной поле пустое.
+   */
+  readonly hashes: Readonly<Record<string, string>>;
 };
 
 export type ErrorKind = 'changed' | 'new' | 'failed';
@@ -49,10 +56,11 @@ export type OutcomeTally = {
   readonly changed: string[];
   readonly new: string[];
   readonly failed: StoryFailure[];
+  readonly hashes: Record<string, string>;
 };
 
 export function emptyTally(): OutcomeTally {
-  return { compared: 0, changed: [], new: [], failed: [] };
+  return { compared: 0, changed: [], new: [], failed: [], hashes: {} };
 }
 
 /**

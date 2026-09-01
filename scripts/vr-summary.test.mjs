@@ -214,6 +214,40 @@ describe('вердикт', () => {
   });
 });
 
+describe('одинаковые кадры разных историй', () => {
+  it('группа находится внутри пары «ширина + тема» и не красит', () => {
+    const result = compare(
+      fullSet((w, t) =>
+        w === 320 && t === 'dark'
+          ? {
+              hashes: {
+                'блоки-услуги--basic': 'aaa',
+                'блоки-услуги--custom-hrefs': 'aaa',
+                'блоки-цены--basic': 'bbb',
+              },
+            }
+          : { hashes: { 'блоки-услуги--basic': 'ccc', 'блоки-услуги--custom-hrefs': 'ddd' } },
+      ),
+    );
+    expect(result.ok).toBe(true);
+    expect(result.markdown).toMatch(/\| Одинаковые кадры у разных историй \| 1 группа \|/);
+    expect(result.markdown).toMatch(
+      /### Одинаковые кадры у разных историй — 1 группа\n\n- `блоки-услуги--basic`, `блоки-услуги--custom-hrefs` — 320\/dark/,
+    );
+  });
+
+  it('одинаковый хеш одной истории на разных парах — не дубль', () => {
+    const result = compare(fullSet(() => ({ hashes: { 'блоки-цены--basic': 'same' } })));
+    expect(result.markdown).toMatch(/\| Одинаковые кадры у разных историй \| 0 групп \|/);
+    expect(result.markdown).not.toMatch(/### Одинаковые кадры/);
+  });
+
+  it('без хешей ни строки в шапке, ни секции', () => {
+    const result = compare(fullSet());
+    expect(result.markdown).not.toMatch(/Одинаковые кадры/);
+  });
+});
+
 describe('склонение', () => {
   it('кадр / кадра / кадров', () => {
     expect([1, 2, 5, 11, 21, 22, 111].map((n) => plural(n, 'кадр', 'кадра', 'кадров'))).toEqual([
