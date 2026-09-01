@@ -1068,6 +1068,257 @@ jobs:
                    exit 1 ;;
           esac
 
+  # 🔴 Инварианты без эталона (ADR-230, фаза 3 плана снимков, issue #455).
+  #
+  # Правила, верные для любой истории — документ не переполнен, цель не меньше
+  # порога, тема совпадает с запрошенной, текст не обрезан, поверх цели никто
+  # не лежит, шрифты и картинки загрузились, — проверяются на ВСЕХ историях,
+  # включая 382 истории `Админка/`, которым пиксельная регрессия недоступна: те
+  # рисуются из данных, и кадр меняется вместе с базой (ADR-207), а инвариантам
+  # данные безразличны. Эталона нет — нет ни кеша, ни базы, ни ярлыка принятия:
+  # нарушение либо чинится, либо допускается параметром истории с причиной, и
+  # допущение видно в сводке.
+  #
+  # Шарды — по образцу снимков: около 5600 загрузок историй одним куском шли бы
+  # дольше самого пайплайна. Каждый шард выгружает итоги артефактом, вердикт
+  # выносит сводная работа `invariants`.
+  #
+  # 🔴 В обязательные проверки защиты `main` работа `invariants` пока НЕ входит:
+  # первый прогон по 734 историям даст список нарушений, и решение, что чинить,
+  # а что допускать, — за владельцем после разбора (issue #457). До него работа
+  # красная по праву, но merge не блокирует.
+  invariants-shard:
+    runs-on: ubuntu-latest
+
+    # Упавший шард не отменяет соседние: сводному вердикту нужны итоги всех
+    # долей — иначе «итогов меньше ожидаемого» прячет настоящую причину.
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+
+    env:
+      # Значения только для проверки: истории данных из базы не читают, но
+      # схема окружения обязана сойтись — её тянут импорты компонентов
+      DATABASE_URL: postgresql://tk:ci@127.0.0.1:5432/tulaklimat?schema=public
+      SITE_URL: https://ci.invalid
+      SESSION_SECRET: ci-secret-not-used-anywhere
+      NEXT_TELEMETRY_DISABLED: '1'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # 🔴 Инварианты не меряются там, где пиксели измениться не могли
+      # (ADR-221): список путей тот же, что у снимков, плюс сводка инвариантов.
+      # Работа не пропускается, а заканчивается за секунды зелёной.
+      - name: Затрагивает ли правка пиксели
+        id: scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "Не pull request — меряем всё."
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          changed=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+            --paginate --jq '.[].filename')
+
+          if printf '%s\n' "$changed" | grep -qE '^(apps/web/src/|apps/web/\.storybook/|apps/web/e2e/vr/|apps/web/playwright\.vr\.config\.ts|apps/web/package\.json|pnpm-lock\.yaml|Dockerfile|scripts/invariants-summary\.mjs|\.github/workflows/ci\.yml)'; then
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pixels=false" >> "$GITHUB_OUTPUT"
+            echo "Пиксели не задеты, инварианты пропускаются. Изменено:"
+            printf '  %s\n' $changed
+          fi
+
+      # Тот же образ, что у снимков: шрифты и браузер в нём те же, что видит
+      # пиксельная регрессия, — иначе размер цели и перенос текста здесь и там
+      # разошлись бы.
+      - name: Дев-образ
+        if: steps.scope.outputs.pixels == 'true'
+        run: docker build --target dev -t tulaklimat-dev:ci .
+
+      # Витрина статикой, как у снимков (ADR-231); `--test` не собирает
+      # документацию — инвариантам нужны только истории.
+      - name: Сборка витрины
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          docker run --name inv-storybook-build \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web build-storybook --test --quiet
+          docker cp inv-storybook-build:/app/apps/web/storybook-static ./storybook-static
+
+      - name: Витрина под замер
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          docker network create inv
+          docker run -d --name inv-storybook --network inv --network-alias storybook \
+            -v "$PWD/storybook-static:/srv:ro" \
+            caddy:2.8-alpine caddy file-server --root /srv --listen :6006
+
+          # Готовность — по индексу историй: контейнер мог не подняться вовсе
+          docker run --rm --network inv tulaklimat-dev:ci node -e "
+            (async () => {
+              for (let i = 0; i < 30; i += 1) {
+                try {
+                  const r = await fetch('http://storybook:6006/index.json');
+                  if (r.ok) { console.log('витрина готова'); return; }
+                } catch {}
+                await new Promise((done) => setTimeout(done, 1000));
+              }
+              console.error('витрина не поднялась за полминуты');
+              process.exit(1);
+            })()"
+
+      # 🔴 Шаг работу не роняет: вердикт выносит сводная работа — ей нужны
+      # итоги всех шардов разом. Доля историй — `VR_SHARD`, как у снимков:
+      # раннер делит истории устойчивым хешем id. Переменные раннеру передаются
+      # явно: `docker run` окружения шага не наследует (ADR-222).
+      - name: Инварианты историй
+        id: run
+        if: steps.scope.outputs.pixels == 'true'
+        continue-on-error: true
+        run: |
+          mkdir -p vr-outcome
+          docker run --name inv-run --network inv \
+            -v "$PWD/vr-outcome:/vr/outcome" \
+            -e VR_OUTCOME_DIR=/vr/outcome \
+            -e VR_SHARD=${{ matrix.shard }}/4 \
+            -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web vr:invariants
+
+      # 🔴 Правило, которое ни разу не падало, не доказано (issue #456).
+      # Истории-фикстуры с нарочными нарушениями обязаны краснеть по каждому
+      # правилу — и этот шаг роняет работу сам, без сводки и ярлыков: если
+      # правило перестало ловить свою фикстуру, оно не ловит и настоящие
+      # нарушения. Фикстур мало, поэтому самотест идёт одним шардом.
+      - name: Самотест правил на фикстурах
+        if: steps.scope.outputs.pixels == 'true' && matrix.shard == 1
+        run: |
+          docker run --name inv-fixtures --network inv \
+            -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=2 \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web vr:invariants:fixtures
+
+      # Исход раннера — маркером рядом с итогами: сводной работе он нужен,
+      # чтобы отличить «раннер упал, а итог этого не объясняет» от чистого
+      # прогона. Сводка читает только `invariants-*.json`, маркер ей не мешает.
+      - name: Маркер исхода раннера
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' }}
+        run: echo "${{ steps.run.outcome }}" > "vr-outcome/runner-s${{ matrix.shard }}"
+
+      # Итоги — сводной работе. Выгружаются и при красном шарде: сводка обязана
+      # видеть всё, что раннер успел записать.
+      - name: Итоги — сводной работе
+        if: ${{ !cancelled() && steps.scope.outputs.pixels == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: invariants-outcome-${{ matrix.shard }}
+          path: vr-outcome
+          retention-days: 7
+
+      - name: Журнал витрины
+        if: failure() && steps.scope.outputs.pixels == 'true'
+        run: docker logs inv-storybook | tail -50
+
+      # 🔴 Работа, у которой шлюз не отработал, обязана краснеть, а не молчать
+      # (ADR-221): пропущенные шаги дают зелёный вердикт, и «замеров нет,
+      # причина неизвестна» иначе проходит за успех.
+      - name: Вердикт работы
+        run: |
+          case "${{ steps.scope.outputs.pixels }}" in
+            true)  echo "Пиксели задеты — доля замерена, вердикт выносит сводная работа." ;;
+            false) echo "Пиксели не задеты — инварианты пропущены осознанно." ;;
+            *)     echo "::error::Шлюз не отработал: замеров нет, причина неизвестна."
+                   exit 1 ;;
+          esac
+
+  # 🔴 Сводный вердикт по инвариантам. `if: !cancelled()` обязателен: без него
+  # красный шард пропускает сводку, и причина красного остаётся в журнале шарда,
+  # а не в сводке, ради которой всё и затевалось.
+  invariants:
+    runs-on: ubuntu-latest
+    needs: invariants-shard
+    if: ${{ !cancelled() }}
+
+    env:
+      # итогов раннеров со всех шардов: 4 шарда × (public 4 ширины × 2 темы +
+      # panel 3 ширины × 2 темы) = 4 × 14
+      INV_EXPECTED: '56'
+
+    steps:
+      # Чекаут — ради `scripts/invariants-summary.mjs`.
+      - uses: actions/checkout@v4
+
+      - name: Затрагивает ли правка пиксели
+        id: scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "Не pull request — меряем всё."
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          changed=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+            --paginate --jq '.[].filename')
+
+          if printf '%s\n' "$changed" | grep -qE '^(apps/web/src/|apps/web/\.storybook/|apps/web/e2e/vr/|apps/web/playwright\.vr\.config\.ts|apps/web/package\.json|pnpm-lock\.yaml|Dockerfile|scripts/invariants-summary\.mjs|\.github/workflows/ci\.yml)'; then
+            echo "pixels=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pixels=false" >> "$GITHUB_OUTPUT"
+            echo "Пиксели не задеты, инварианты пропускаются. Изменено:"
+            printf '  %s\n' $changed
+          fi
+
+      # Отсутствие части артефактов — не ошибка шага, а факт для сводки:
+      # итогов меньше ожидаемого она красит сама и называет число.
+      - name: Итоги шардов
+        if: steps.scope.outputs.pixels == 'true'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: invariants-outcome-*
+          merge-multiple: true
+          path: vr-outcome
+
+      # Флаг раннера для сводки: красный, если упал хоть один шард как работа
+      # или хоть один раннер внутри шарда (маркер `runner-s*`).
+      - name: Флаг раннера
+        id: runner
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          flag=success
+          [ "${{ join(needs.*.result, '') }}" = "success" ] || flag=failure
+          if grep -qs failure vr-outcome/runner-s*; then flag=failure; fi
+          echo "flag=$flag" >> "$GITHUB_OUTPUT"
+          echo "Шарды: ${{ join(needs.*.result, '') }}, раннеры: $flag"
+
+      # Эталона и ярлыка у инвариантов нет: нарушение красит, пока не починено
+      # или не допущено параметром истории с причиной. Допущенное сводка
+      # перечисляет — выключенная молча проверка хуже отсутствующей.
+      - name: Сводка и вердикт инвариантов
+        if: steps.scope.outputs.pixels == 'true'
+        run: |
+          node scripts/invariants-summary.mjs \
+            --outcome vr-outcome --expected "$INV_EXPECTED" \
+            --runner "${{ steps.runner.outputs.flag }}"
+
+      # 🔴 Работа, у которой шлюз не отработал, обязана краснеть, а не молчать
+      # (ADR-221).
+      - name: Вердикт работы
+        run: |
+          case "${{ steps.scope.outputs.pixels }}" in
+            true)  echo "Пиксели задеты — вердикт вынесла сводка по итогам шардов." ;;
+            false) echo "Пиксели не задеты — инварианты пропущены осознанно." ;;
+            *)     echo "::error::Шлюз не отработал: замеров нет, причина неизвестна."
+                   exit 1 ;;
+          esac
+
   # 🔴 Сквозные сценарии — три из них перечислены в CLAUDE.md как обязательные:
   # заявка доходит до базы, отзыв доезжает до модерации, правка цены видна на
   # сайте. До этой работы их не гонял никто: 971 строка сценариев лежала в

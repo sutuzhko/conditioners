@@ -38,6 +38,17 @@ export const WithCaption: Story = {
 
 export const Sizes: Story = {
   name: 'Размеры',
+  // Допущение инвариантов — причина в reason (ADR-230)
+  parameters: {
+    invariants: {
+      allow: [
+        {
+          rule: 'overflow-x',
+          reason: 'витрина размеров в один ряд шире телефона по замыслу; это не раскладка',
+        },
+      ],
+    },
+  },
   render: () => (
     <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
       <Rating value={4} size="sm" />

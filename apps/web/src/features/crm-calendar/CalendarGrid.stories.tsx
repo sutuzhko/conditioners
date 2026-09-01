@@ -33,7 +33,23 @@ function source(patch: Partial<ScheduleSource> = {}): ScheduleSource {
 const meta = {
   title: 'Админка/Календарь/Сетка месяца',
   component: CalendarGrid,
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    // Допущения инвариантов — причины в reason (ADR-230)
+    invariants: {
+      allow: [
+        {
+          rule: 'occlusion',
+          reason:
+            'события лежат поверх сетки часов по эталону Apple Calendar (ADR-128, ADR-138, ADR-140); час под событием достижим через событие',
+        },
+        {
+          rule: 'target-size',
+          reason: 'issue #470 — чипы событий 17–22px и ссылки дня 18.6px ниже минимума AA',
+        },
+      ],
+    },
+  },
   args: { columns: monthColumns(source(), MONTH) },
 } satisfies Meta<typeof CalendarGrid>;
 

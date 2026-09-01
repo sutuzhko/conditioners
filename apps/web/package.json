@@ -15,6 +15,8 @@
     "vr": "playwright test --config=playwright.vr.config.ts --project=public",
     "vr:panel": "playwright test --config=playwright.vr.config.ts --project=panel",
     "vr:all": "playwright test --config=playwright.vr.config.ts",
+    "vr:invariants": "playwright test --config=playwright.vr.config.ts --project=invariants",
+    "vr:invariants:fixtures": "playwright test --config=playwright.vr.config.ts --project=invariants-fixtures",
     "storybook": "storybook dev -p 6006 -h 0.0.0.0 --no-open",
     "build-storybook": "storybook build",
     "seed": "tsx prisma/seed.ts",

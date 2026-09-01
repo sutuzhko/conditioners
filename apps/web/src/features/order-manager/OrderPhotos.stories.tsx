@@ -6,6 +6,18 @@ import { acceptingWorkApi, failingWorkApi, photos } from './fixtures';
 const meta = {
   title: 'Админка/Заказы/Фотографии',
   component: OrderPhotos,
+  // Допущение инвариантов — причина в reason (ADR-230)
+  parameters: {
+    invariants: {
+      allow: [
+        {
+          rule: 'images',
+          reason:
+            'фото из тома загрузок сервера (/media, /api/media): в статической витрине его нет (ADR-207)',
+        },
+      ],
+    },
+  },
   args: {
     api: acceptingWorkApi,
     photos,

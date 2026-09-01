@@ -42,7 +42,18 @@ const meta = {
   title: 'UI Kit/Table',
   component: Table,
   args: { children: body },
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    // Допущение инвариантов — причина в reason (ADR-230)
+    invariants: {
+      allow: [
+        {
+          rule: 'overflow-x',
+          reason: 'issue #473 — таблица шире окна на 390, обёртке нужна своя прокрутка',
+        },
+      ],
+    },
+  },
 } satisfies Meta<typeof Table>;
 
 export default meta;
