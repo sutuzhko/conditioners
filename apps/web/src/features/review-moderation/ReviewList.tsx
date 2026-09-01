@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { Card } from '@/shared/ui';
+import { ButtonLink, Card, EmptyState } from '@/shared/ui';
 
 import { ReviewCardView } from './ReviewCardView';
 import { reviewModerationContent as texts } from './content';
@@ -20,10 +20,35 @@ export function ReviewList({ reviews, filtered = false }: ReviewListProps) {
   const router = useRouter();
 
   if (reviews.length === 0) {
+    /* Пусто и «ничего не найдено» — разные состояния (issue #335). Фильтр
+       живёт в адресе, поэтому сброс — ссылка, а не обработчик. */
     return (
-      <Card as="section" className={styles.empty}>
-        <h2 className={styles.emptyTitle}>{filtered ? texts.emptyFiltered : texts.emptyTitle}</h2>
-        {filtered ? null : <p className={styles.emptyText}>{texts.emptyText}</p>}
+      <Card as="section">
+        {filtered ? (
+          <EmptyState
+            icon="search"
+            title={texts.emptyFiltered}
+            action={
+              <ButtonLink href="/admin/reviews" size="sm" variant="bordered">
+                {texts.emptyFilteredAction}
+              </ButtonLink>
+            }
+          >
+            {texts.emptyFilteredText}
+          </EmptyState>
+        ) : (
+          <EmptyState
+            icon="chat"
+            title={texts.emptyTitle}
+            action={
+              <ButtonLink href="/#reviews" size="sm" variant="bordered">
+                {texts.emptyAction}
+              </ButtonLink>
+            }
+          >
+            {texts.emptyText}
+          </EmptyState>
+        )}
       </Card>
     );
   }

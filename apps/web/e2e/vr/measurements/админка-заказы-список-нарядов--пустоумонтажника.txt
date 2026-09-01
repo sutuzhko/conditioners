@@ -7,26 +7,41 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×114 @16,16  r20  b1
-  h2.OrderList__emptyTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «На вас пока ничего не назначено»
-  p.OrderList__emptyText  316×45 @21,48  Manrope 400 15/22  lines=2  «Как только владелец назначит наряд, он п»
+section.Card__card  358×228 @16,16  r20  b1
+  div.EmptyState__box  316×186 @21,21
+    span.EmptyState__badge  48×48 @134,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  271×21 @23,88  Onest 700 17/21  ls0  lines=1  «На вас пока ничего не назначено»
+    p.EmptyState__text  284×45 @16,113  Manrope 400 15/22  lines=2  «Как только владелец назначит наряд, он п»
 
 [геометрия 768]
-section.Card__card  736×92 @16,16  r20  b1
-  h2.OrderList__emptyTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «На вас пока ничего не назначено»
-  p.OrderList__emptyText  460×22 @138,49  Manrope 400 15/22  lines=1  «Как только владелец назначит наряд, он п»
+section.Card__card  736×229 @16,16  r20  b1
+  div.EmptyState__box  694×187 @21,21
+    span.EmptyState__badge  48×48 @323,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  284×22 @205,88  Onest 700 18/22  ls0  lines=1  «На вас пока ничего не назначено»
+    p.EmptyState__text  371×45 @161,114  Manrope 400 15/22  lines=2  «Как только владелец назначит наряд, он п»
 
 [геометрия 1440]
-section.Card__card  1408×93 @16,16  r20  b1
-  h2.OrderList__emptyTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «На вас пока ничего не назначено»
-  p.OrderList__emptyText  460×22 @474,50  Manrope 400 15/22  lines=1  «Как только владелец назначит наряд, он п»
+section.Card__card  1408×230 @16,16  r20  b1
+  div.EmptyState__box  1366×188 @21,21
+    span.EmptyState__badge  48×48 @659,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  300×23 @533,88  Onest 700 19/23  ls0  lines=1  «На вас пока ничего не назначено»
+    p.EmptyState__text  371×45 @497,115  Manrope 400 15/22  lines=2  «Как только владелец назначит наряд, он п»
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-  h2.OrderList__emptyTitle  color #0f172a
-  p.OrderList__emptyText  color #556173
+  div.EmptyState__box
+    span.EmptyState__badge  bg #ecfeff
+      svg
+    h2.EmptyState__title  color #0f172a
+    p.EmptyState__text  color #556173
 
 [палитра dark]
 section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-  h2.OrderList__emptyTitle  color #eaf1f8
-  p.OrderList__emptyText  color #8598ac
+  div.EmptyState__box
+    span.EmptyState__badge  bg #22d3ee1a
+      svg
+    h2.EmptyState__title  color #eaf1f8
+    p.EmptyState__text  color #8598ac

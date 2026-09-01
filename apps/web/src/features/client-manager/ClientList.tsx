@@ -1,4 +1,4 @@
-import { Card, Pager } from '@/shared/ui';
+import { ButtonLink, Card, EmptyState, Pager } from '@/shared/ui';
 
 import { ClientCardView } from './ClientCardView';
 import { clientManagerContent as texts } from './content';
@@ -21,9 +21,24 @@ export interface ClientListProps {
 export function ClientList({ page, query = '' }: ClientListProps) {
   if (page.items.length === 0) {
     return (
-      <Card as="section" className={styles.empty}>
-        <h2 className={styles.emptyTitle}>{query === '' ? texts.emptyTitle : texts.emptyFound}</h2>
-        {query === '' ? <p className={styles.emptyText}>{texts.emptyText}</p> : null}
+      <Card as="section">
+        {query === '' ? (
+          <EmptyState icon="clients" title={texts.emptyTitle}>
+            {texts.emptyText}
+          </EmptyState>
+        ) : (
+          <EmptyState
+            icon="search"
+            title={texts.emptyFound}
+            action={
+              <ButtonLink href="/admin/clients" size="sm" variant="bordered">
+                {texts.emptyFoundAction}
+              </ButtonLink>
+            }
+          >
+            {texts.emptyFoundText}
+          </EmptyState>
+        )}
       </Card>
     );
   }

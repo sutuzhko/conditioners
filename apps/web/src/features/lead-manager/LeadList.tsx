@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { Card } from '@/shared/ui';
+import { ButtonLink, Card, EmptyState } from '@/shared/ui';
 
 import { LeadCardView } from './LeadCardView';
 import { leadManagerContent as texts } from './content';
@@ -21,10 +21,36 @@ export function LeadList({ leads, filtered = false }: LeadListProps) {
   const router = useRouter();
 
   if (leads.length === 0) {
+    /* 🔴 Пусто и «ничего не найдено» — разные состояния с противоположными
+       шагами (issue #335). Фильтр живёт в адресе, поэтому сброс — ссылка, а
+       не обработчик: он работает и без единой строки JavaScript. */
     return (
-      <Card as="section" className={styles.empty}>
-        <h2 className={styles.emptyTitle}>{filtered ? texts.emptyFiltered : texts.emptyTitle}</h2>
-        {filtered ? null : <p className={styles.emptyText}>{texts.emptyText}</p>}
+      <Card as="section">
+        {filtered ? (
+          <EmptyState
+            icon="search"
+            title={texts.emptyFiltered}
+            action={
+              <ButtonLink href="/admin/leads" size="sm" variant="bordered">
+                {texts.emptyFilteredAction}
+              </ButtonLink>
+            }
+          >
+            {texts.emptyFilteredText}
+          </EmptyState>
+        ) : (
+          <EmptyState
+            icon="leads"
+            title={texts.emptyTitle}
+            action={
+              <ButtonLink href="/admin/notifications" size="sm" variant="bordered">
+                {texts.emptyAction}
+              </ButtonLink>
+            }
+          >
+            {texts.emptyText}
+          </EmptyState>
+        )}
       </Card>
     );
   }

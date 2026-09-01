@@ -1,0 +1,42 @@
+# ui-kit-emptystate--without-action · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.EmptyState__box  326×186 @32,32
+  span.EmptyState__badge  48×48 @139,28  r100
+    svg  20×20 @14,14
+  h2.EmptyState__title  187×21 @70,88  Onest 700 17/21  ls0  lines=1  «Расхода по наряду нет»
+  p.EmptyState__text  294×45 @16,113  Manrope 400 15/22  lines=2  «Материалы спишет монтажник, когда закрое»
+
+[геометрия 768]
+div.EmptyState__box  704×164 @32,32
+  span.EmptyState__badge  48×48 @328,28  r100
+    svg  20×20 @14,14
+  h2.EmptyState__title  196×22 @254,88  Onest 700 18/22  ls0  lines=1  «Расхода по наряду нет»
+  p.EmptyState__text  365×22 @169,114  Manrope 400 15/22  lines=1  «Материалы спишет монтажник, когда закрое»
+
+[геометрия 1440]
+div.EmptyState__box  1376×165 @32,32
+  span.EmptyState__badge  48×48 @664,28  r100
+    svg  20×20 @14,14
+  h2.EmptyState__title  207×23 @584,88  Onest 700 19/23  ls0  lines=1  «Расхода по наряду нет»
+  p.EmptyState__text  365×22 @505,115  Manrope 400 15/22  lines=1  «Материалы спишет монтажник, когда закрое»
+
+[палитра light]
+div.EmptyState__box
+  span.EmptyState__badge  bg #ecfeff
+    svg
+  h2.EmptyState__title  color #0f172a
+  p.EmptyState__text  color #556173
+
+[палитра dark]
+div.EmptyState__box
+  span.EmptyState__badge  bg #22d3ee1a
+    svg
+  h2.EmptyState__title  color #eaf1f8
+  p.EmptyState__text  color #8598ac

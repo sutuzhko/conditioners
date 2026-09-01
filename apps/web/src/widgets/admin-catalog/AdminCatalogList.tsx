@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { formatMoney } from '@/shared/lib/format';
-import { Badge, Card, Table } from '@/shared/ui';
+import { Badge, Card, EmptyState, Table } from '@/shared/ui';
 
 import { adminCatalogContent as texts } from './content';
 import styles from './AdminCatalogList.module.css';
@@ -38,9 +38,10 @@ export interface AdminCatalogListProps {
 export function AdminCatalogList({ products }: AdminCatalogListProps) {
   if (products.length === 0) {
     return (
-      <Card as="section" className={styles.empty}>
-        <h2 className={styles.emptyTitle}>{texts.emptyTitle}</h2>
-        <p className={styles.emptyText}>{texts.emptyText}</p>
+      <Card as="section">
+        <EmptyState icon="conditioner" title={texts.emptyTitle}>
+          {texts.emptyText}
+        </EmptyState>
       </Card>
     );
   }

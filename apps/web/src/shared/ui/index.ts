@@ -70,6 +70,8 @@ export type {
   StatTrend,
 } from './Stat/StatTile';
 
+export { EmptyState } from './EmptyState/EmptyState';
+export type { EmptyStateProps } from './EmptyState/EmptyState';
 export { Skeleton } from './Skeleton/Skeleton';
 export type { SkeletonProps, SkeletonVariant } from './Skeleton/Skeleton';
 

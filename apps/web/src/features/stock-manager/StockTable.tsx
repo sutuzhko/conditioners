@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Badge, Card, Pager, Table, buttonClassName } from '@/shared/ui';
+import { Badge, Card, EmptyState, Pager, Table, buttonClassName } from '@/shared/ui';
 
 import { stockManagerContent as texts } from './content';
 import { StockCell } from './StockCell';
@@ -181,12 +181,18 @@ function ZoneNote({ zone }: { readonly zone: StockZoneCard }) {
  */
 function NoZones() {
   return (
-    <Card as="section" className={styles.empty}>
-      <h2 className={styles.emptyTitle}>{texts.emptyZonesTitle}</h2>
-      <p className={styles.emptyText}>{texts.emptyZonesText}</p>
-      <Link className={buttonClassName({ size: 'sm' })} href={{ pathname: STOCK_ZONES_PATH }}>
-        {texts.emptyZonesAction}
-      </Link>
+    <Card as="section">
+      <EmptyState
+        icon="stock"
+        title={texts.emptyZonesTitle}
+        action={
+          <Link className={buttonClassName({ size: 'sm' })} href={{ pathname: STOCK_ZONES_PATH }}>
+            {texts.emptyZonesAction}
+          </Link>
+        }
+      >
+        {texts.emptyZonesText}
+      </EmptyState>
     </Card>
   );
 }
@@ -195,19 +201,30 @@ function NoZones() {
 function NoItems({ filters }: { readonly filters: StockFilterState }) {
   if (!stockFiltersApplied(filters)) {
     return (
-      <Card as="section" className={styles.empty}>
-        <h2 className={styles.emptyTitle}>{texts.emptyItemsTitle}</h2>
-        <p className={styles.emptyText}>{texts.emptyItemsText}</p>
+      <Card as="section">
+        <EmptyState icon="stock" title={texts.emptyItemsTitle}>
+          {texts.emptyItemsText}
+        </EmptyState>
       </Card>
     );
   }
 
   return (
-    <Card as="section" className={styles.empty}>
-      <h2 className={styles.emptyTitle}>{filters.low ? texts.emptyLow : texts.emptyFound}</h2>
-      <Link className={styles.reset} href={{ pathname: STOCK_PATH }}>
-        {texts.searchReset}
-      </Link>
+    <Card as="section">
+      <EmptyState
+        icon="search"
+        title={filters.low ? texts.emptyLow : texts.emptyFound}
+        action={
+          <Link
+            className={buttonClassName({ size: 'sm', variant: 'bordered' })}
+            href={{ pathname: STOCK_PATH }}
+          >
+            {texts.searchReset}
+          </Link>
+        }
+      >
+        {filters.low ? texts.emptyLowText : texts.emptyFoundText}
+      </EmptyState>
     </Card>
   );
 }

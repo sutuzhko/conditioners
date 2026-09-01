@@ -107,29 +107,6 @@
   font-size: var(--fs-dense);
 }
 
-.empty {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  text-align: center;
-}
-
-.emptyTitle {
-  margin: 0;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  font-weight: 700;
-}
-
-.emptyText {
-  margin: 0;
-  max-width: 60ch;
-  color: var(--muted);
-  font-size: var(--fs-dense);
-}
-
 .reset {
   color: var(--accent-text);
   font-size: var(--fs-dense);

@@ -1,0 +1,62 @@
+/* Пустое состояние блока (issue #335). Геометрия снята с эталона HeroUI:
+   значок в круге 48px, отбивки 12 / 4 / 16. */
+
+.box {
+  display: grid;
+  justify-items: center;
+  padding: 28px 16px;
+  text-align: center;
+}
+
+/* Круг под значок: тинт акцента, а не серый. Серый круг на серой карточке
+   пропадает, и остаётся текст без опоры. */
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  border-radius: var(--r-pill);
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+/* 🔴 Заголовок крупнее основного текста — `--fs-h3`, как было у прежней
+   разметки разделов. С `--fs-body` он сравнивался с объяснением под ним, и
+   пустое состояние теряло иерархию: два одинаковых абзаца вместо заголовка и
+   причины. Поймано диффом измерений: 19px превратились в 15px. */
+.title {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+/* 🔴 Ширина строки ограничена: объяснение в три слова на всю ширину карточки
+   читается хуже, чем в две строки по центру. */
+.text {
+  max-width: 42ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.action {
+  margin-top: 16px;
+}
+
+/* На телефоне действие занимает ширину карточки: кнопка по центру в 96px
+   шириной — самая мелкая цель на экране, где целей и так мало. */
+@media (width < 600px) {
+  /* 🔴 `justify-self`, а не `align-self`: у грида это поперечная ось, и
+     растяжение по ней не давало ничего — замер показал те же 188px. */
+  .action {
+    justify-self: stretch;
+  }
+
+  .action > * {
+    width: 100%;
+  }
+}

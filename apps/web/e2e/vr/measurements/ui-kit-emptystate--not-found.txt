@@ -1,0 +1,62 @@
+# ui-kit-emptystate--not-found · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.EmptyState__box  326×223 @32,32
+  span.EmptyState__badge  48×48 @139,28  r100
+    svg  20×20 @14,14
+  h2.EmptyState__title  155×21 @85,88  Onest 700 17/21  ls0  lines=1  «Ничего не найдено»
+  p.EmptyState__text  253×22 @36,113  Manrope 400 15/22  lines=1  «По выбранным фильтрам заявок нет.»
+  div.EmptyState__action  294×44 @16,151
+    button.Button__button  294×44 @0,0  r999  b1
+      span.Button__content  121×16 @86,14
+        span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Сбросить фильтры»
+
+[геометрия 768]
+div.EmptyState__box  704×224 @32,32
+  span.EmptyState__badge  48×48 @328,28  r100
+    svg  20×20 @14,14
+  h2.EmptyState__title  163×22 @270,88  Onest 700 18/22  ls0  lines=1  «Ничего не найдено»
+  p.EmptyState__text  253×22 @225,114  Manrope 400 15/22  lines=1  «По выбранным фильтрам заявок нет.»
+  div.EmptyState__action  151×44 @276,152
+    button.Button__button  151×44 @0,0  r999  b1
+      span.Button__content  121×16 @15,14
+        span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Сбросить фильтры»
+
+[геометрия 1440]
+div.EmptyState__box  1376×213 @32,32
+  span.EmptyState__badge  48×48 @664,28  r100
+    svg  20×20 @14,14
+  h2.EmptyState__title  172×23 @602,88  Onest 700 19/23  ls0  lines=1  «Ничего не найдено»
+  p.EmptyState__text  253×22 @561,115  Manrope 400 15/22  lines=1  «По выбранным фильтрам заявок нет.»
+  div.EmptyState__action  151×32 @612,153
+    button.Button__button  151×32 @0,0  r999  b1
+      span.Button__content  121×16 @15,8
+        span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Сбросить фильтры»
+
+[палитра light]
+div.EmptyState__box
+  span.EmptyState__badge  bg #ecfeff
+    svg
+  h2.EmptyState__title  color #0f172a
+  p.EmptyState__text  color #556173
+  div.EmptyState__action
+    button.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label  color #0f172a
+
+[палитра dark]
+div.EmptyState__box
+  span.EmptyState__badge  bg #22d3ee1a
+    svg
+  h2.EmptyState__title  color #eaf1f8
+  p.EmptyState__text  color #8598ac
+  div.EmptyState__action
+    button.Button__button  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label  color #eaf1f8

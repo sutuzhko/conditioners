@@ -1,0 +1,117 @@
+# ui-kit-emptystate--both · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Card__card  326×288 @32,32  r14  b1
+  div.EmptyState__box  284×246 @21,21
+    span.EmptyState__badge  48×48 @118,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  133×21 @75,88  Onest 700 17/21  ls0  lines=1  «Заявок пока нет»
+    p.EmptyState__text  252×45 @16,113  Manrope 400 15/22  lines=2  «Они появятся здесь, как только кто-то от»
+    div.EmptyState__action  252×44 @16,174
+      button.Button__button  252×44 @0,0  r999  b1
+        span.Button__content  158×16 @47,14
+          span.Button__label  158×16 @0,0  Manrope 600 13/16  lines=1  «Проверить уведомления»
+div.Card__card#2  326×288 @32,336  r14  b1
+  div.EmptyState__box  284×246 @21,21
+    span.EmptyState__badge#2  48×48 @118,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title#2  155×21 @64,88  Onest 700 17/21  ls0  lines=1  «Ничего не найдено»
+    p.EmptyState__text#2  252×45 @16,113  Manrope 400 15/22  lines=2  «По выбранным фильтрам заявок нет.»
+    div.EmptyState__action#2  252×44 @16,174
+      button.Button__button  252×44 @0,0  r999  b1
+        span.Button__content#2  121×16 @65,14
+          span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Сбросить фильтры»
+
+[геометрия 768]
+div.Card__card  704×289 @32,32  r14  b1
+  div.EmptyState__box  662×247 @21,21
+    span.EmptyState__badge  48×48 @307,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  140×22 @261,88  Onest 700 18/22  ls0  lines=1  «Заявок пока нет»
+    p.EmptyState__text  371×45 @145,114  Manrope 400 15/22  lines=2  «Они появятся здесь, как только кто-то от»
+    div.EmptyState__action  188×44 @237,175
+      button.Button__button  188×44 @0,0  r999  b1
+        span.Button__content  158×16 @15,14
+          span.Button__label  158×16 @0,0  Manrope 600 13/16  lines=1  «Проверить уведомления»
+div.Card__card#2  704×266 @32,337  r14  b1
+  div.EmptyState__box  662×224 @21,21
+    span.EmptyState__badge#2  48×48 @307,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title#2  163×22 @249,88  Onest 700 18/22  ls0  lines=1  «Ничего не найдено»
+    p.EmptyState__text#2  253×22 @204,114  Manrope 400 15/22  lines=1  «По выбранным фильтрам заявок нет.»
+    div.EmptyState__action#2  151×44 @255,152
+      button.Button__button  151×44 @0,0  r999  b1
+        span.Button__content#2  121×16 @15,14
+          span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Сбросить фильтры»
+
+[геометрия 1440]
+div.Card__card  1376×278 @32,32  r14  b1
+  div.EmptyState__box  1334×236 @21,21
+    span.EmptyState__badge  48×48 @643,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  148×23 @593,88  Onest 700 19/23  ls0  lines=1  «Заявок пока нет»
+    p.EmptyState__text  371×45 @481,115  Manrope 400 15/22  lines=2  «Они появятся здесь, как только кто-то от»
+    div.EmptyState__action  188×32 @573,176
+      button.Button__button  188×32 @0,0  r999  b1
+        span.Button__content  158×16 @15,8
+          span.Button__label  158×16 @0,0  Manrope 600 13/16  lines=1  «Проверить уведомления»
+div.Card__card#2  1376×255 @32,326  r14  b1
+  div.EmptyState__box  1334×213 @21,21
+    span.EmptyState__badge#2  48×48 @643,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title#2  172×23 @581,88  Onest 700 19/23  ls0  lines=1  «Ничего не найдено»
+    p.EmptyState__text#2  253×22 @540,115  Manrope 400 15/22  lines=1  «По выбранным фильтрам заявок нет.»
+    div.EmptyState__action#2  151×32 @591,153
+      button.Button__button  151×32 @0,0  r999  b1
+        span.Button__content#2  121×16 @15,8
+          span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Сбросить фильтры»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+  div.EmptyState__box
+    span.EmptyState__badge  bg #ecfeff
+      svg
+    h2.EmptyState__title  color #0f172a
+    p.EmptyState__text  color #556173
+    div.EmptyState__action
+      button.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content
+          span.Button__label  color #0f172a
+div.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+  div.EmptyState__box
+    span.EmptyState__badge#2  bg #ecfeff
+      svg
+    h2.EmptyState__title#2  color #0f172a
+    p.EmptyState__text#2  color #556173
+    div.EmptyState__action#2
+      button.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content#2
+          span.Button__label  color #0f172a
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+  div.EmptyState__box
+    span.EmptyState__badge  bg #22d3ee1a
+      svg
+    h2.EmptyState__title  color #eaf1f8
+    p.EmptyState__text  color #8598ac
+    div.EmptyState__action
+      button.Button__button  bg #121d31  border #566d95
+        span.Button__content
+          span.Button__label  color #eaf1f8
+div.Card__card#2  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+  div.EmptyState__box
+    span.EmptyState__badge#2  bg #22d3ee1a
+      svg
+    h2.EmptyState__title#2  color #eaf1f8
+    p.EmptyState__text#2  color #8598ac
+    div.EmptyState__action#2
+      button.Button__button  bg #121d31  border #566d95
+        span.Button__content#2
+          span.Button__label  color #eaf1f8
