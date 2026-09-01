@@ -10,40 +10,40 @@
 div.Field__field  326×52 @32,32
   label.Field__label  68×13 @15,8  Manrope 600 11/13  lines=1  «Дата выезда»
   div.DateField__shell  326×52 @0,0  r999  b1
-    span.DateField__segmentBox  17×20 @15,23
-      input.DateField__segment  17×20 @0,0
-    span.DateField__segmentBox#2  23×20 @32,23
-      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
-      input.DateField__segment  17×20 @6,0
-    span.DateField__segmentBox#3  40×20 @55,23
-      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
-      input.DateField__segment  34×20 @6,0
+    span.DateField__segmentBox  25×24 @15,21
+      input.DateField__segment  25×24 @0,0
+    span.DateField__segmentBox#2  31×24 @40,21
+      span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  25×24 @6,0
+    span.DateField__segmentBox#3  48×24 @71,21
+      span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  42×24 @6,0
 
 [геометрия 768]
 div.Field__field  328×52 @32,32
   label.Field__label  68×13 @15,8  Manrope 600 11/13  lines=1  «Дата выезда»
   div.DateField__shell  328×52 @0,0  r999  b1
-    span.DateField__segmentBox  17×20 @15,23
-      input.DateField__segment  17×20 @0,0
-    span.DateField__segmentBox#2  23×20 @32,23
-      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
-      input.DateField__segment  17×20 @6,0
-    span.DateField__segmentBox#3  40×20 @55,23
-      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
-      input.DateField__segment  34×20 @6,0
+    span.DateField__segmentBox  25×24 @15,21
+      input.DateField__segment  25×24 @0,0
+    span.DateField__segmentBox#2  31×24 @40,21
+      span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  25×24 @6,0
+    span.DateField__segmentBox#3  48×24 @71,21
+      span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  42×24 @6,0
 
 [геометрия 1440]
-div.Field__field  328×48 @32,32
+div.Field__field  328×52 @32,32
   label.Field__label  68×13 @15,8  Manrope 600 11/13  lines=1  «Дата выезда»
-  div.DateField__shell  328×48 @0,0  r999  b1
-    span.DateField__segmentBox  17×20 @15,21
-      input.DateField__segment  17×20 @0,0
-    span.DateField__segmentBox#2  23×20 @32,21
-      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
-      input.DateField__segment  17×20 @6,0
-    span.DateField__segmentBox#3  40×20 @55,21
-      span.DateField__separator  6×20 @0,0  Manrope 400 14/20  lines=1  «.»
-      input.DateField__segment  34×20 @6,0
+  div.DateField__shell  328×52 @0,0  r999  b1
+    span.DateField__segmentBox  25×24 @15,21
+      input.DateField__segment  25×24 @0,0
+    span.DateField__segmentBox#2  31×24 @40,21
+      span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  25×24 @6,0
+    span.DateField__segmentBox#3  48×24 @71,21
+      span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+      input.DateField__segment  42×24 @6,0
 
 [палитра light]
 div.Field__field
