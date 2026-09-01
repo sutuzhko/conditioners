@@ -2,200 +2,200 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 600, Onest 700
 
 [документ]
-320 → 326×1139
-375 → 375×1060
+320 → 320×1380
+375 → 375×1273
 768 → 768×900
 1200 → 1200×900
 
 [геометрия 320]
-div.Card__card  130×1099 @20,20  r24  b1
-  div.HeroPicker__head  96×60 @17,17
-    h2.HeroPicker__eyebrow  96×34 @0,0  JetBrains Mono 400 12/17  ls2  lines=2  «Подбор за 30 секунд»
-    span.HeroPicker__live  101×19 @0,42  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+div.Card__card  300×670 @20,20  r24  b1
+  div.HeroPicker__head  266×43 @17,17
+    h2.HeroPicker__eyebrow  169×17 @0,0  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+    span.HeroPicker__live  101×19 @0,25  Manrope 400 12/19  lines=1  «онлайн-расчёт»
       span.HeroPicker__dot  7×7 @0,6  r100
-  div.HeroPicker__body  96×993 @17,89
-    div.HeroPicker__controls  96×236 @0,0
-      div.Field__field  96×123 @0,0
-        span.RangeSlider__head  96×47 @0,0
-          label  86×47 @0,0  Manrope 700 15/23  lines=2  «Площадь помещения»
-          output.RangeSlider__value  41×25 @98,0  Onest 700 16/25  lines=1  «25 м²»
-        input.RangeSlider__slider  96×44 @0,54
-        span.RangeSlider__scale  96×19 @0,105
+  div.HeroPicker__body  266×581 @17,72
+    div.HeroPicker__controls  266×191 @0,0
+      div.Field__field  266×101 @0,0
+        span.RangeSlider__head  266×25 @0,0
+          label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+          output.RangeSlider__value  41×25 @225,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider  266×44 @0,32
+        span.RangeSlider__scale  266×19 @0,83
           span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
-          span#2  36×19 @60,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
-      div.HeroPicker__places  96×99 @0,137
-        span.HeroPicker__placesLabel  96×47 @0,0  Manrope 700 15/23  lines=2  «Тип помещения»
-        div.HeroPicker__chips  96×44 @0,55
-          button.Chip__chip  27×44 @0,0  r100  b1
-            span.HeroPicker__placeShort  61×16 @-17,14  Manrope 600 13/16  lines=1  «Квартира»
-          button.Chip__chip#2  27×44 @35,0  r100  b1
-            span.HeroPicker__placeShort  27×16 @0,14  Manrope 600 13/16  lines=1  «Дом»
-          button.Chip__chip#3  27×44 @69,0  r100  b1
-            span.HeroPicker__placeShort  34×16 @-4,14  Manrope 600 13/16  lines=1  «Офис»
-    div.Card__card  96×744 @0,250  r20  b1  clipped
-      span.HeroPicker__glow  200×200 @-65,-49  r50
-      div.HeroPicker__states  68×592 @15,15
-        div.HeroPicker__state  68×592 @0,0
-          div.HeroPicker__resultHead  68×37 @0,0
-            span.HeroPicker__resultEyebrow  98×37 @0,0  JetBrains Mono 400 12/19  ls2  lines=2  «Рекомендуем вам»
-            span.Badge__badge  35×24 @108,7  Manrope 600 12/16  r100  b1  lines=1  «09»
-          div.HeroPicker__model  68×261 @0,45
+          span#2  36×19 @230,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  266×75 @0,115
+        span.HeroPicker__placesLabel  266×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips  266×44 @0,31
+          button.Chip__chip  83×44 @0,0  r100  b1
+            span.HeroPicker__placeShort  61×16 @11,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  83×44 @91,0  r100  b1
+            span.HeroPicker__placeShort  27×16 @28,14  Manrope 600 13/16  lines=1  «Дом»
+          button.Chip__chip#3  83×44 @183,0  r100  b1
+            span.HeroPicker__placeShort  34×16 @24,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card  266×376 @0,205  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @105,-49  r50
+      div.HeroPicker__states  236×299 @15,15
+        div.HeroPicker__state  236×299 @0,0
+          div.HeroPicker__resultHead  236×24 @0,0
+            span.HeroPicker__resultEyebrow  133×19 @0,3  JetBrains Mono 400 12/19  ls2  lines=1  «Рекомендуем вам»
+            span.Badge__badge  35×24 @201,0  Manrope 600 12/16  r100  b1  lines=1  «09»
+          div.HeroPicker__model  236×88 @0,32
             span.HeroPicker__photoStub  62×62 @0,0  r13  b1
-            div.HeroPicker__modelInfo  0×261 @74,0
-              h3.HeroPicker__modelName  0×65 @0,0  Onest 700 18/22  ls0  lines=3  «Сплит-система 09»
-              p.HeroPicker__specs  0×167 @0,69  JetBrains Mono 400 12/19  lines=9  «21 дБ · 0.7 кВт · до 27 м²»
-              p.HeroPicker__tag  0×21 @0,240  Manrope 400 14/21  lines=1  «инвертор»
-          div.HeroPicker__priceRow  68×115 @0,314
+            div.HeroPicker__modelInfo  162×88 @74,0
+              h3.HeroPicker__modelName  162×22 @0,0  Onest 700 18/22  ls0  lines=1  «Сплит-система 09»
+              p.HeroPicker__specs  162×37 @0,26  JetBrains Mono 400 12/19  lines=2  «21 дБ · 0.7 кВт · до 27 м²»
+              p.HeroPicker__tag  162×21 @0,67  Manrope 400 14/21  lines=1  «инвертор»
+          div.HeroPicker__priceRow  236×65 @0,128
             span.HeroPicker__price  105×37 @0,0  Onest 700 24/37  lines=1  «34 900 ₽»
-            s.HeroPicker__oldPrice  65×23 @0,45  Onest 600 15/23  lines=1  «38 500 ₽»
-            span.HeroPicker__priceNote  68×39 @0,76  Manrope 400 13/19  lines=2  «под ключ с монтажом»
-          p.HeroPicker__saleRow  68×103 @0,437
+            s.HeroPicker__oldPrice  65×23 @113,10  Onest 600 15/23  lines=1  «38 500 ₽»
+            span.HeroPicker__priceNote  236×19 @0,45  Manrope 400 13/19  lines=1  «под ключ с монтажом»
+          p.HeroPicker__saleRow  236×47 @0,200
             span.Badge__badge  45×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «−9%»
-            span.HeroPicker__saleUntil  68×74 @0,28  Manrope 400 12/19  lines=4  «Цена действует до 31 июля 2026»
-          a.Button__button  68×44 @0,548  r11  b1
-            span.Button__content  30×17 @19,13
-              span.Button__label  30×17 @0,0  Manrope 600 15/17  lines=1  clipped  «Смета на эту модель»
-      p.HeroPicker__disclaimer  68×112 @15,617  Manrope 400 12/19  lines=6  «финальную цену подтвердит специалист пос»
-div.Card__card#2  130×1099 @170,20  r24  b1
-  div.HeroPicker__head  96×60 @17,17
-    h2.HeroPicker__eyebrow#2  96×34 @0,0  JetBrains Mono 400 12/17  ls2  lines=2  «Подбор за 30 секунд»
-    span.HeroPicker__live#2  101×19 @0,42  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+            span.HeroPicker__saleUntil  185×19 @0,28  Manrope 400 12/19  lines=1  «Цена действует до 31 июля 2026»
+          a.Button__button  236×44 @0,255  r11  b1
+            span.Button__content  148×17 @44,13
+              span.Button__label  148×17 @0,0  Manrope 600 15/17  lines=1  «Смета на эту модель»
+      p.HeroPicker__disclaimer  236×37 @15,324  Manrope 400 12/19  lines=2  «финальную цену подтвердит специалист пос»
+div.Card__card#2  300×650 @20,710  r24  b1
+  div.HeroPicker__head  266×43 @17,17
+    h2.HeroPicker__eyebrow#2  169×17 @0,0  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+    span.HeroPicker__live#2  101×19 @0,25  Manrope 400 12/19  lines=1  «онлайн-расчёт»
       span.HeroPicker__dot  7×7 @0,6  r100
-  div.HeroPicker__body  96×960 @17,89
-    div.HeroPicker__controls#2  96×236 @0,0
-      div.Field__field  96×123 @0,0
-        span.RangeSlider__head#2  96×47 @0,0
-          label  86×47 @0,0  Manrope 700 15/23  lines=2  «Площадь помещения»
-          output.RangeSlider__value  41×25 @98,0  Onest 700 16/25  lines=1  «25 м²»
-        input.RangeSlider__slider#2  96×44 @0,54
-        span.RangeSlider__scale#2  96×19 @0,105
+  div.HeroPicker__body  266×560 @17,72
+    div.HeroPicker__controls#2  266×191 @0,0
+      div.Field__field  266×101 @0,0
+        span.RangeSlider__head#2  266×25 @0,0
+          label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+          output.RangeSlider__value  41×25 @225,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider#2  266×44 @0,32
+        span.RangeSlider__scale#2  266×19 @0,83
           span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
-          span#2  36×19 @60,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
-      div.HeroPicker__places  96×99 @0,137
-        span.HeroPicker__placesLabel#2  96×47 @0,0  Manrope 700 15/23  lines=2  «Тип помещения»
-        div.HeroPicker__chips#2  96×44 @0,55
-          button.Chip__chip  27×44 @0,0  r100  b1
-            span.HeroPicker__placeShort#2  61×16 @-17,14  Manrope 600 13/16  lines=1  «Квартира»
-          button.Chip__chip#2  27×44 @35,0  r100  b1
-            span.HeroPicker__placeShort#2  27×16 @0,14  Manrope 600 13/16  lines=1  «Дом»
-          button.Chip__chip#3  27×44 @69,0  r100  b1
-            span.HeroPicker__placeShort#2  34×16 @-4,14  Manrope 600 13/16  lines=1  «Офис»
-    div.Card__card#2  96×711 @0,250  r20  b1  clipped
-      span.HeroPicker__glow  200×200 @-65,-49  r50
-      div.HeroPicker__states  68×559 @15,15
-        div.HeroPicker__state#2  68×559 @0,0
-          div.HeroPicker__resultHead  68×37 @0,0
-            span.HeroPicker__resultEyebrow#2  98×37 @0,0  JetBrains Mono 400 12/19  ls2  lines=2  «Рекомендуем вам»
-            span.Badge__badge#2  35×24 @108,7  Manrope 600 12/16  r100  b1  lines=1  «09»
-          div.HeroPicker__model  68×261 @0,45
+          span#2  36×19 @230,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  266×75 @0,115
+        span.HeroPicker__placesLabel#2  266×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips#2  266×44 @0,31
+          button.Chip__chip  83×44 @0,0  r100  b1
+            span.HeroPicker__placeShort#2  61×16 @11,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  83×44 @91,0  r100  b1
+            span.HeroPicker__placeShort#2  27×16 @28,14  Manrope 600 13/16  lines=1  «Дом»
+          button.Chip__chip#3  83×44 @183,0  r100  b1
+            span.HeroPicker__placeShort#2  34×16 @24,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card#2  266×356 @0,205  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @105,-49  r50
+      div.HeroPicker__states  236×279 @15,15
+        div.HeroPicker__state#2  236×279 @0,0
+          div.HeroPicker__resultHead  236×24 @0,0
+            span.HeroPicker__resultEyebrow#2  133×19 @0,3  JetBrains Mono 400 12/19  ls2  lines=1  «Рекомендуем вам»
+            span.Badge__badge#2  35×24 @201,0  Manrope 600 12/16  r100  b1  lines=1  «09»
+          div.HeroPicker__model  236×88 @0,32
             span.HeroPicker__photoStub#2  62×62 @0,0  r13  b1
-            div.HeroPicker__modelInfo#2  0×261 @74,0
-              h3.HeroPicker__modelName  0×65 @0,0  Onest 700 18/22  ls0  lines=3  «Сплит-система 09»
-              p.HeroPicker__specs  0×167 @0,69  JetBrains Mono 400 12/19  lines=9  «21 дБ · 0.7 кВт · до 27 м²»
-              p.HeroPicker__tag  0×21 @0,240  Manrope 400 14/21  lines=1  «инвертор»
-          div.HeroPicker__priceRow  68×84 @0,314
+            div.HeroPicker__modelInfo#2  162×88 @74,0
+              h3.HeroPicker__modelName  162×22 @0,0  Onest 700 18/22  ls0  lines=1  «Сплит-система 09»
+              p.HeroPicker__specs  162×37 @0,26  JetBrains Mono 400 12/19  lines=2  «21 дБ · 0.7 кВт · до 27 м²»
+              p.HeroPicker__tag  162×21 @0,67  Manrope 400 14/21  lines=1  «инвертор»
+          div.HeroPicker__priceRow  236×65 @0,128
             span.HeroPicker__price#2  104×37 @0,0  Onest 700 24/37  lines=1  «38 500 ₽»
-            span.HeroPicker__priceNote#2  68×39 @0,45  Manrope 400 13/19  lines=2  «под ключ с монтажом»
-          p.HeroPicker__saleRow  68×26 @0,406
-          a.Button__button  68×44 @0,515  r11  b1
-            span.Button__content#2  30×17 @19,13
-              span.Button__label  30×17 @0,0  Manrope 600 15/17  lines=1  clipped  «Смета на эту модель»
-      p.HeroPicker__disclaimer  68×112 @15,584  Manrope 400 12/19  lines=6  «финальную цену подтвердит специалист пос»
+            span.HeroPicker__priceNote#2  236×19 @0,45  Manrope 400 13/19  lines=1  «под ключ с монтажом»
+          p.HeroPicker__saleRow  236×26 @0,200
+          a.Button__button  236×44 @0,235  r11  b1
+            span.Button__content#2  148×17 @44,13
+              span.Button__label  148×17 @0,0  Manrope 600 15/17  lines=1  «Смета на эту модель»
+      p.HeroPicker__disclaimer  236×37 @15,304  Manrope 400 12/19  lines=2  «финальную цену подтвердит специалист пос»
 
 [геометрия 375]
-div.Card__card  158×1020 @20,20  r24  b1
-  div.HeroPicker__head  124×60 @17,17
-    h2.HeroPicker__eyebrow  124×34 @0,0  JetBrains Mono 400 12/17  ls2  lines=2  «Подбор за 30 секунд»
-    span.HeroPicker__live  101×19 @0,42  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+div.Card__card  335×606 @20,20  r24  b1
+  div.HeroPicker__head  301×19 @17,17
+    h2.HeroPicker__eyebrow  169×17 @0,1  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+    span.HeroPicker__live  101×19 @200,0  Manrope 400 12/19  lines=1  «онлайн-расчёт»
       span.HeroPicker__dot  7×7 @0,6  r100
-  div.HeroPicker__body  124×914 @17,89
-    div.HeroPicker__controls  124×212 @0,0
-      div.Field__field  124×123 @0,0
-        span.RangeSlider__head  124×47 @0,0
-          label  86×47 @0,0  Manrope 700 15/23  lines=2  «Площадь помещения»
-          output.RangeSlider__value  41×25 @98,0  Onest 700 16/25  lines=1  «25 м²»
-        input.RangeSlider__slider  124×44 @0,54
-        span.RangeSlider__scale  124×19 @0,105
+  div.HeroPicker__body  301×542 @17,48
+    div.HeroPicker__controls  301×191 @0,0
+      div.Field__field  301×101 @0,0
+        span.RangeSlider__head  301×25 @0,0
+          label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+          output.RangeSlider__value  41×25 @260,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider  301×44 @0,32
+        span.RangeSlider__scale  301×19 @0,83
           span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
-          span#2  36×19 @87,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
-      div.HeroPicker__places  124×75 @0,137
-        span.HeroPicker__placesLabel  124×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
-        div.HeroPicker__chips  124×44 @0,31
-          button.Chip__chip  36×44 @0,0  r100  b1
-            span.HeroPicker__placeShort  61×16 @-12,14  Manrope 600 13/16  lines=1  «Квартира»
-          button.Chip__chip#2  36×44 @44,0  r100  b1
-            span.HeroPicker__placeShort  27×16 @4,14  Manrope 600 13/16  lines=1  «Дом»
-          button.Chip__chip#3  36×44 @88,0  r100  b1
-            span.HeroPicker__placeShort  34×16 @1,14  Manrope 600 13/16  lines=1  «Офис»
-    div.Card__card  124×688 @0,226  r20  b1  clipped
-      span.HeroPicker__glow  200×200 @-37,-49  r50
-      div.HeroPicker__states  94×555 @15,15
-        div.HeroPicker__state  94×555 @0,0
-          div.HeroPicker__resultHead  94×37 @0,0
-            span.HeroPicker__resultEyebrow  98×37 @0,0  JetBrains Mono 400 12/19  ls2  lines=2  «Рекомендуем вам»
-            span.Badge__badge  35×24 @108,7  Manrope 600 12/16  r100  b1  lines=1  «09»
-          div.HeroPicker__model  94×261 @0,45
+          span#2  36×19 @265,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  301×75 @0,115
+        span.HeroPicker__placesLabel  301×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips  301×44 @0,31
+          button.Chip__chip  95×44 @0,0  r100  b1
+            span.HeroPicker__placeShort  61×16 @17,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  95×44 @103,0  r100  b1
+            span.HeroPicker__placeShort  27×16 @34,14  Manrope 600 13/16  lines=1  «Дом»
+          button.Chip__chip#3  95×44 @206,0  r100  b1
+            span.HeroPicker__placeShort  34×16 @30,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card  301×337 @0,205  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @140,-49  r50
+      div.HeroPicker__states  271×260 @15,15
+        div.HeroPicker__state  271×260 @0,0
+          div.HeroPicker__resultHead  271×24 @0,0
+            span.HeroPicker__resultEyebrow  133×19 @0,3  JetBrains Mono 400 12/19  ls2  lines=1  «Рекомендуем вам»
+            span.Badge__badge  35×24 @236,0  Manrope 600 12/16  r100  b1  lines=1  «09»
+          div.HeroPicker__model  271×69 @0,32
             span.HeroPicker__photoStub  62×62 @0,0  r13  b1
-            div.HeroPicker__modelInfo  20×261 @74,0
-              h3.HeroPicker__modelName  20×65 @0,0  Onest 700 18/22  ls0  lines=3  «Сплит-система 09»
-              p.HeroPicker__specs  20×167 @0,69  JetBrains Mono 400 12/19  lines=9  «21 дБ · 0.7 кВт · до 27 м²»
-              p.HeroPicker__tag  20×21 @0,240  Manrope 400 14/21  lines=1  «инвертор»
-          div.HeroPicker__priceRow  94×115 @0,314
+            div.HeroPicker__modelInfo  187×69 @74,0
+              h3.HeroPicker__modelName  187×22 @0,0  Onest 700 18/22  ls0  lines=1  «Сплит-система 09»
+              p.HeroPicker__specs  187×19 @0,26  JetBrains Mono 400 12/19  lines=1  «21 дБ · 0.7 кВт · до 27 м²»
+              p.HeroPicker__tag  187×21 @0,48  Manrope 400 14/21  lines=1  «инвертор»
+          div.HeroPicker__priceRow  271×65 @0,109
             span.HeroPicker__price  105×37 @0,0  Onest 700 24/37  lines=1  «34 900 ₽»
-            s.HeroPicker__oldPrice  65×23 @0,45  Onest 600 15/23  lines=1  «38 500 ₽»
-            span.HeroPicker__priceNote  94×39 @0,76  Manrope 400 13/19  lines=2  «под ключ с монтажом»
-          p.HeroPicker__saleRow  94×65 @0,437
-            span.Badge__badge  45×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «−9%»
-            span.HeroPicker__saleUntil  94×37 @0,28  Manrope 400 12/19  lines=2  «Цена действует до 31 июля 2026»
-          a.Button__button  94×44 @0,511  r11  b1
-            span.Button__content  56×17 @19,13
-              span.Button__label  56×17 @0,0  Manrope 600 15/17  lines=1  clipped  «Смета на эту модель»
-      p.HeroPicker__disclaimer  94×93 @15,580  Manrope 400 12/19  lines=5  «финальную цену подтвердит специалист пос»
-div.Card__card#2  158×1020 @198,20  r24  b1
-  div.HeroPicker__head  124×60 @17,17
-    h2.HeroPicker__eyebrow#2  124×34 @0,0  JetBrains Mono 400 12/17  ls2  lines=2  «Подбор за 30 секунд»
-    span.HeroPicker__live#2  101×19 @0,42  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+            s.HeroPicker__oldPrice  65×23 @113,10  Onest 600 15/23  lines=1  «38 500 ₽»
+            span.HeroPicker__priceNote  271×19 @0,45  Manrope 400 13/19  lines=1  «под ключ с монтажом»
+          p.HeroPicker__saleRow  271×26 @0,182
+            span.Badge__badge  45×24 @0,1  Manrope 600 12/16  r100  b1  lines=1  «−9%»
+            span.HeroPicker__saleUntil  185×19 @53,4  Manrope 400 12/19  lines=1  «Цена действует до 31 июля 2026»
+          a.Button__button  271×44 @0,216  r11  b1
+            span.Button__content  148×17 @62,13
+              span.Button__label  148×17 @0,0  Manrope 600 15/17  lines=1  «Смета на эту модель»
+      p.HeroPicker__disclaimer  271×37 @15,285  Manrope 400 12/19  lines=2  «финальную цену подтвердит специалист пос»
+div.Card__card#2  335×606 @20,646  r24  b1
+  div.HeroPicker__head  301×19 @17,17
+    h2.HeroPicker__eyebrow#2  169×17 @0,1  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+    span.HeroPicker__live#2  101×19 @200,0  Manrope 400 12/19  lines=1  «онлайн-расчёт»
       span.HeroPicker__dot  7×7 @0,6  r100
-  div.HeroPicker__body  124×844 @17,89
-    div.HeroPicker__controls#2  124×212 @0,0
-      div.Field__field  124×123 @0,0
-        span.RangeSlider__head#2  124×47 @0,0
-          label  86×47 @0,0  Manrope 700 15/23  lines=2  «Площадь помещения»
-          output.RangeSlider__value  41×25 @98,0  Onest 700 16/25  lines=1  «25 м²»
-        input.RangeSlider__slider#2  124×44 @0,54
-        span.RangeSlider__scale#2  124×19 @0,105
+  div.HeroPicker__body  301×542 @17,48
+    div.HeroPicker__controls#2  301×191 @0,0
+      div.Field__field  301×101 @0,0
+        span.RangeSlider__head#2  301×25 @0,0
+          label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+          output.RangeSlider__value  41×25 @260,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider#2  301×44 @0,32
+        span.RangeSlider__scale#2  301×19 @0,83
           span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
-          span#2  36×19 @87,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
-      div.HeroPicker__places  124×75 @0,137
-        span.HeroPicker__placesLabel#2  124×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
-        div.HeroPicker__chips#2  124×44 @0,31
-          button.Chip__chip  36×44 @0,0  r100  b1
-            span.HeroPicker__placeShort#2  61×16 @-12,14  Manrope 600 13/16  lines=1  «Квартира»
-          button.Chip__chip#2  36×44 @44,0  r100  b1
-            span.HeroPicker__placeShort#2  27×16 @4,14  Manrope 600 13/16  lines=1  «Дом»
-          button.Chip__chip#3  36×44 @88,0  r100  b1
-            span.HeroPicker__placeShort#2  34×16 @1,14  Manrope 600 13/16  lines=1  «Офис»
-    div.Card__card#2  124×617 @0,226  r20  b1  clipped
-      span.HeroPicker__glow  200×200 @-37,-49  r50
-      div.HeroPicker__states  94×484 @15,15
-        div.HeroPicker__state#2  94×484 @0,0
-          div.HeroPicker__resultHead  94×37 @0,0
-            span.HeroPicker__resultEyebrow#2  98×37 @0,0  JetBrains Mono 400 12/19  ls2  lines=2  «Рекомендуем вам»
-            span.Badge__badge#2  35×24 @108,7  Manrope 600 12/16  r100  b1  lines=1  «09»
-          div.HeroPicker__model  94×261 @0,45
+          span#2  36×19 @265,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  301×75 @0,115
+        span.HeroPicker__placesLabel#2  301×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips#2  301×44 @0,31
+          button.Chip__chip  95×44 @0,0  r100  b1
+            span.HeroPicker__placeShort#2  61×16 @17,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  95×44 @103,0  r100  b1
+            span.HeroPicker__placeShort#2  27×16 @34,14  Manrope 600 13/16  lines=1  «Дом»
+          button.Chip__chip#3  95×44 @206,0  r100  b1
+            span.HeroPicker__placeShort#2  34×16 @30,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card#2  301×337 @0,205  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @140,-49  r50
+      div.HeroPicker__states  271×260 @15,15
+        div.HeroPicker__state#2  271×260 @0,0
+          div.HeroPicker__resultHead  271×24 @0,0
+            span.HeroPicker__resultEyebrow#2  133×19 @0,3  JetBrains Mono 400 12/19  ls2  lines=1  «Рекомендуем вам»
+            span.Badge__badge#2  35×24 @236,0  Manrope 600 12/16  r100  b1  lines=1  «09»
+          div.HeroPicker__model  271×69 @0,32
             span.HeroPicker__photoStub#2  62×62 @0,0  r13  b1
-            div.HeroPicker__modelInfo#2  20×261 @74,0
-              h3.HeroPicker__modelName  20×65 @0,0  Onest 700 18/22  ls0  lines=3  «Сплит-система 09»
-              p.HeroPicker__specs  20×167 @0,69  JetBrains Mono 400 12/19  lines=9  «21 дБ · 0.7 кВт · до 27 м²»
-              p.HeroPicker__tag  20×21 @0,240  Manrope 400 14/21  lines=1  «инвертор»
-          div.HeroPicker__priceRow  94×84 @0,314
+            div.HeroPicker__modelInfo#2  187×69 @74,0
+              h3.HeroPicker__modelName  187×22 @0,0  Onest 700 18/22  ls0  lines=1  «Сплит-система 09»
+              p.HeroPicker__specs  187×19 @0,26  JetBrains Mono 400 12/19  lines=1  «21 дБ · 0.7 кВт · до 27 м²»
+              p.HeroPicker__tag  187×21 @0,48  Manrope 400 14/21  lines=1  «инвертор»
+          div.HeroPicker__priceRow  271×65 @0,109
             span.HeroPicker__price#2  104×37 @0,0  Onest 700 24/37  lines=1  «38 500 ₽»
-            span.HeroPicker__priceNote#2  94×39 @0,45  Manrope 400 13/19  lines=2  «под ключ с монтажом»
-          p.HeroPicker__saleRow  94×26 @0,406
-          a.Button__button  94×44 @0,440  r11  b1
-            span.Button__content#2  56×17 @19,13
-              span.Button__label  56×17 @0,0  Manrope 600 15/17  lines=1  clipped  «Смета на эту модель»
-      p.HeroPicker__disclaimer  94×93 @15,509  Manrope 400 12/19  lines=5  «финальную цену подтвердит специалист пос»
+            span.HeroPicker__priceNote#2  271×19 @0,45  Manrope 400 13/19  lines=1  «под ключ с монтажом»
+          p.HeroPicker__saleRow  271×26 @0,182
+          a.Button__button  271×44 @0,216  r11  b1
+            span.Button__content#2  148×17 @62,13
+              span.Button__label  148×17 @0,0  Manrope 600 15/17  lines=1  «Смета на эту модель»
+      p.HeroPicker__disclaimer  271×37 @15,285  Manrope 400 12/19  lines=2  «финальную цену подтвердит специалист пос»
 
 [геометрия 768]
 div.Card__card  354×627 @20,20  r24  b1
