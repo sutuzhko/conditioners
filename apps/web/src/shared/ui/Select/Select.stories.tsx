@@ -68,16 +68,19 @@ export const Choosing: Story = {
  */
 export const InPanel: Story = {
   name: 'В панели',
-  // Допущение инвариантов — причина в reason (ADR-230)
-  parameters: {
-    invariants: {
-      allow: [{ rule: 'overflow-x', reason: 'issue #473 — Select в панели шире окна на 390' }],
-    },
-  },
   render: (args) => (
     <div
       data-ui="panel"
-      style={{ display: 'grid', gap: 16, gridTemplateColumns: 'repeat(2, minmax(200px, 1fr))' }}
+      /* 🔴 `auto-fit`, а не `repeat(2, …)` (issue #473). Жёсткие две колонки по
+         200px с зазором требуют 416px, а на 390 доступно 358 — витрина уводила
+         документ вбок на 432. Панель на телефоне и так ставит поля в столбец,
+         так что колонка по месту это ещё и то, как раздел выглядит на самом
+         деле. */
+      style={{
+        display: 'grid',
+        gap: 16,
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+      }}
     >
       <Select {...args} variant="flat" label="flat" />
       <Select {...args} variant="bordered" label="bordered" />
