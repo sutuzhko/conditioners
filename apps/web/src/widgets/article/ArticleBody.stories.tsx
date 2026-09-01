@@ -22,4 +22,10 @@ export const AllBlocks: Story = { name: 'Все виды блоков' };
 
 export const Empty: Story = { name: 'Пустое тело', args: { blocks: [] } };
 
-export const Phone: Story = { name: 'Телефон 375', globals: { viewport: { value: 'sm' } } };
+export const Phone: Story = {
+  name: 'Телефон 375',
+  /* История про телефон — на прочих ширинах она повторяла «Все виды блоков»
+     побайтно (#464). */
+  tags: ['vr-375'],
+  globals: { viewport: { value: 'sm' } },
+};
