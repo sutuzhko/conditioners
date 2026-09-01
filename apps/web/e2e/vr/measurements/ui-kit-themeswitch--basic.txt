@@ -1,0 +1,52 @@
+# ui-kit-themeswitch--basic · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.ThemeSwitch__switch  140×38 @16,16  r999  b1
+  label.ThemeSwitch__segment  68×30 @5,4
+    input.ThemeSwitch__input  1×1 @-1,-1
+    span.ThemeSwitch__text  68×30 @0,0  Manrope 600 13/20  r999  b1  lines=1  «Светлая»
+  label.ThemeSwitch__segment#2  61×30 @75,4
+    input.ThemeSwitch__input  1×1 @-1,-1
+    span.ThemeSwitch__text  61×30 @0,0  Manrope 600 13/20  r999  b1  lines=1  «Тёмная»
+
+[геометрия 768]
+div.ThemeSwitch__switch  140×38 @16,16  r999  b1
+  label.ThemeSwitch__segment  68×30 @5,4
+    input.ThemeSwitch__input  1×1 @-1,-1
+    span.ThemeSwitch__text  68×30 @0,0  Manrope 600 13/20  r999  b1  lines=1  «Светлая»
+  label.ThemeSwitch__segment#2  61×30 @75,4
+    input.ThemeSwitch__input  1×1 @-1,-1
+    span.ThemeSwitch__text  61×30 @0,0  Manrope 600 13/20  r999  b1  lines=1  «Тёмная»
+
+[геометрия 1440]
+div.ThemeSwitch__switch  140×38 @16,16  r999  b1
+  label.ThemeSwitch__segment  68×30 @5,4
+    input.ThemeSwitch__input  1×1 @-1,-1
+    span.ThemeSwitch__text  68×30 @0,0  Manrope 600 13/20  r999  b1  lines=1  «Светлая»
+  label.ThemeSwitch__segment#2  61×30 @75,4
+    input.ThemeSwitch__input  1×1 @-1,-1
+    span.ThemeSwitch__text  61×30 @0,0  Manrope 600 13/20  r999  b1  lines=1  «Тёмная»
+
+[палитра light]
+div.ThemeSwitch__switch  bg #f8fafc  border #e2e8f0
+  label.ThemeSwitch__segment
+    input.ThemeSwitch__input
+    span.ThemeSwitch__text  color #0f172a  bg #ffffff  border #e2e8f0
+  label.ThemeSwitch__segment#2
+    input.ThemeSwitch__input
+    span.ThemeSwitch__text  color #556173  border transparent
+
+[палитра dark]
+div.ThemeSwitch__switch  bg #0e1729  border #1e2b41
+  label.ThemeSwitch__segment
+    input.ThemeSwitch__input
+    span.ThemeSwitch__text  color #8598ac  border transparent
+  label.ThemeSwitch__segment#2
+    input.ThemeSwitch__input
+    span.ThemeSwitch__text  color #eaf1f8  bg #121d31  border #1e2b41

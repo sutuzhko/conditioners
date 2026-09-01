@@ -1,0 +1,182 @@
+# админка-сводка--требуетвнимания · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×903
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.AdminSummary__summary  358×871 @16,16
+  header.AdminSummary__header  358×59 @0,0
+    h1.AdminSummary__title  358×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Обзор»
+    p.AdminSummary__lead  358×22 @0,36  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
+  div.AdminSummary__tiles  358×438 @0,77
+    a.AdminSummary__tile  173×131 @0,0  r20  b1
+      span.AdminSummary__tileTitle  135×20 @19,17  Manrope 400 13/20  lines=1  «Новые обращения»
+      span.AdminSummary__tileValue  135×33 @19,39  Onest 700 30/33  lines=1  «3»
+      span.AdminSummary__tileNote  135×20 @19,74  Manrope 400 13/20  lines=1  «ждут ответа»
+    a.AdminSummary__tile#2  173×131 @185,0  r20  b1
+      span.AdminSummary__tileTitle  135×20 @19,17  Manrope 400 13/20  lines=1  «Заказы в работе»
+      span.AdminSummary__tileValue  135×33 @19,39  Onest 700 30/33  lines=1  «7»
+      span.AdminSummary__tileNote  135×40 @19,74  Manrope 400 13/20  lines=2  «назначены и на объекте»
+    a.AdminSummary__tile#3  173×152 @0,143  r20  b1
+      span.AdminSummary__tileTitle  135×20 @19,17  Manrope 400 13/20  lines=1  «Клиентов в базе»
+      span.AdminSummary__tileValue  135×33 @19,39  Onest 700 30/33  lines=1  «118»
+      span.AdminSummary__tileNote  135×20 @19,74  Manrope 400 13/20  lines=1  «всего карточек»
+    a.AdminSummary__tile#4  173×152 @185,143  r20  b1
+      span.AdminSummary__tileTitle  135×40 @19,17  Manrope 400 13/20  lines=2  «Монтажников на связи»
+      span.AdminSummary__tileValue  135×33 @19,59  Onest 700 30/33  lines=1  «3»
+      span.AdminSummary__tileNote  135×40 @19,94  Manrope 400 13/20  lines=2  «с открытым доступом в панель»
+    a.AdminSummary__tile#5  173×131 @0,307  r20  b1
+      span.AdminSummary__tileTitle  135×40 @19,17  Manrope 400 13/20  lines=2  «Отзывы на модерации»
+      span.AdminSummary__tileValue  135×33 @19,59  Onest 700 30/33  lines=1  «2»
+      span.AdminSummary__tileNote  135×20 @19,94  Manrope 400 13/20  lines=1  «ждут решения»
+  section.Card__card  358×204 @0,533  r20  b1
+    h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Ближайшие дела»
+    p.AdminSummary__text  316×45 @21,60  Manrope 400 15/22  lines=2  «Наряды и дела календаря по времени. Прос»
+    p.AdminSummary__text#2  316×22 @21,115  Manrope 400 15/22  lines=1  «Ничего не запланировано.»
+    a.AdminSummary__link  316×22 @21,161  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  358×116 @0,755  r20  b1
+    h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Готовность к запуску»
+    p.AdminSummary__text  316×45 @21,50  Manrope 400 15/22  lines=2  «Все данные о компании заполнены. Сайт мо»
+
+[геометрия 768]
+div.AdminSummary__summary  736×672 @16,16
+  header.AdminSummary__header  736×66 @0,0
+    h1.AdminSummary__title  736×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Обзор»
+    p.AdminSummary__lead  601×22 @0,43  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
+  div.AdminSummary__tiles  736×275 @0,84
+    a.AdminSummary__tile  175×152 @0,0  r20  b1
+      span.AdminSummary__tileTitle  137×20 @19,17  Manrope 400 13/20  lines=1  «Новые обращения»
+      span.AdminSummary__tileValue  137×33 @19,39  Onest 700 30/33  lines=1  «3»
+      span.AdminSummary__tileNote  137×20 @19,74  Manrope 400 13/20  lines=1  «ждут ответа»
+    a.AdminSummary__tile#2  175×152 @187,0  r20  b1
+      span.AdminSummary__tileTitle  137×20 @19,17  Manrope 400 13/20  lines=1  «Заказы в работе»
+      span.AdminSummary__tileValue  137×33 @19,39  Onest 700 30/33  lines=1  «7»
+      span.AdminSummary__tileNote  137×40 @19,74  Manrope 400 13/20  lines=2  «назначены и на объекте»
+    a.AdminSummary__tile#3  175×152 @374,0  r20  b1
+      span.AdminSummary__tileTitle  137×20 @19,17  Manrope 400 13/20  lines=1  «Клиентов в базе»
+      span.AdminSummary__tileValue  137×33 @19,39  Onest 700 30/33  lines=1  «118»
+      span.AdminSummary__tileNote  137×20 @19,74  Manrope 400 13/20  lines=1  «всего карточек»
+    a.AdminSummary__tile#4  175×152 @561,0  r20  b1
+      span.AdminSummary__tileTitle  137×40 @19,17  Manrope 400 13/20  lines=2  «Монтажников на связи»
+      span.AdminSummary__tileValue  137×33 @19,59  Onest 700 30/33  lines=1  «3»
+      span.AdminSummary__tileNote  137×40 @19,94  Manrope 400 13/20  lines=2  «с открытым доступом в панель»
+    a.AdminSummary__tile#5  175×111 @0,164  r20  b1
+      span.AdminSummary__tileTitle  137×20 @19,17  Manrope 400 13/20  lines=1  «Отзывы на модерации»
+      span.AdminSummary__tileValue  137×33 @19,39  Onest 700 30/33  lines=1  «2»
+      span.AdminSummary__tileNote  137×20 @19,74  Manrope 400 13/20  lines=1  «ждут решения»
+  section.Card__card  736×183 @0,377  r20  b1
+    h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Ближайшие дела»
+    p.AdminSummary__text  694×22 @21,61  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
+    p.AdminSummary__text#2  694×22 @21,93  Manrope 400 15/22  lines=1  «Ничего не запланировано.»
+    a.AdminSummary__link  694×22 @21,140  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  736×94 @0,578  r20  b1
+    h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Готовность к запуску»
+    p.AdminSummary__text  694×22 @21,51  Manrope 400 15/22  lines=1  «Все данные о компании заполнены. Сайт мо»
+
+[геометрия 1440]
+div.AdminSummary__summary  1408×519 @16,16
+  header.AdminSummary__header  1408×74 @0,0
+    h1.AdminSummary__title  1408×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Обзор»
+    p.AdminSummary__lead  601×22 @0,52  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
+  div.AdminSummary__tiles  1408×111 @0,92
+    a.AdminSummary__tile  272×111 @0,0  r20  b1
+      span.AdminSummary__tileTitle  234×20 @19,17  Manrope 400 13/20  lines=1  «Новые обращения»
+      span.AdminSummary__tileValue  234×33 @19,39  Onest 700 30/33  lines=1  «3»
+      span.AdminSummary__tileNote  234×20 @19,74  Manrope 400 13/20  lines=1  «ждут ответа»
+    a.AdminSummary__tile#2  272×111 @284,0  r20  b1
+      span.AdminSummary__tileTitle  234×20 @19,17  Manrope 400 13/20  lines=1  «Заказы в работе»
+      span.AdminSummary__tileValue  234×33 @19,39  Onest 700 30/33  lines=1  «7»
+      span.AdminSummary__tileNote  234×20 @19,74  Manrope 400 13/20  lines=1  «назначены и на объекте»
+    a.AdminSummary__tile#3  272×111 @568,0  r20  b1
+      span.AdminSummary__tileTitle  234×20 @19,17  Manrope 400 13/20  lines=1  «Клиентов в базе»
+      span.AdminSummary__tileValue  234×33 @19,39  Onest 700 30/33  lines=1  «118»
+      span.AdminSummary__tileNote  234×20 @19,74  Manrope 400 13/20  lines=1  «всего карточек»
+    a.AdminSummary__tile#4  272×111 @852,0  r20  b1
+      span.AdminSummary__tileTitle  234×20 @19,17  Manrope 400 13/20  lines=1  «Монтажников на связи»
+      span.AdminSummary__tileValue  234×33 @19,39  Onest 700 30/33  lines=1  «3»
+      span.AdminSummary__tileNote  234×20 @19,74  Manrope 400 13/20  lines=1  «с открытым доступом в панель»
+    a.AdminSummary__tile#5  272×111 @1136,0  r20  b1
+      span.AdminSummary__tileTitle  234×20 @19,17  Manrope 400 13/20  lines=1  «Отзывы на модерации»
+      span.AdminSummary__tileValue  234×33 @19,39  Onest 700 30/33  lines=1  «2»
+      span.AdminSummary__tileNote  234×20 @19,74  Manrope 400 13/20  lines=1  «ждут решения»
+  section.Card__card  1408×184 @0,221  r20  b1
+    h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Ближайшие дела»
+    p.AdminSummary__text  1366×22 @21,62  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
+    p.AdminSummary__text#2  1366×22 @21,94  Manrope 400 15/22  lines=1  «Ничего не запланировано.»
+    a.AdminSummary__link  1366×22 @21,141  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  1408×95 @0,424  r20  b1
+    h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Готовность к запуску»
+    p.AdminSummary__text  1366×22 @21,52  Manrope 400 15/22  lines=1  «Все данные о компании заполнены. Сайт мо»
+
+[палитра light]
+div.AdminSummary__summary
+  header.AdminSummary__header
+    h1.AdminSummary__title  color #0f172a
+    p.AdminSummary__lead  color #475569
+  div.AdminSummary__tiles
+    a.AdminSummary__tile  bg #ffffff  border #e2e8f0
+      span.AdminSummary__tileTitle  color #556173
+      span.AdminSummary__tileValue  color #0e7490
+      span.AdminSummary__tileNote  color #5b6a7d
+    a.AdminSummary__tile#2  bg #ffffff  border #e2e8f0
+      span.AdminSummary__tileTitle  color #556173
+      span.AdminSummary__tileValue  color #0f172a
+      span.AdminSummary__tileNote  color #5b6a7d
+    a.AdminSummary__tile#3  bg #ffffff  border #e2e8f0
+      span.AdminSummary__tileTitle  color #556173
+      span.AdminSummary__tileValue  color #0f172a
+      span.AdminSummary__tileNote  color #5b6a7d
+    a.AdminSummary__tile#4  bg #ffffff  border #e2e8f0
+      span.AdminSummary__tileTitle  color #556173
+      span.AdminSummary__tileValue  color #0f172a
+      span.AdminSummary__tileNote  color #5b6a7d
+    a.AdminSummary__tile#5  bg #ffffff  border #e2e8f0
+      span.AdminSummary__tileTitle  color #556173
+      span.AdminSummary__tileValue  color #0e7490
+      span.AdminSummary__tileNote  color #5b6a7d
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    h2.AdminSummary__cardTitle  color #0f172a
+    p.AdminSummary__text  color #475569
+    p.AdminSummary__text#2  color #475569
+    a.AdminSummary__link  color #0e7490
+  section.Card__card#2  bg #f8fafc  border #eef2f6
+    h2.AdminSummary__cardTitle  color #0f172a
+    p.AdminSummary__text  color #475569
+
+[палитра dark]
+div.AdminSummary__summary
+  header.AdminSummary__header
+    h1.AdminSummary__title  color #eaf1f8
+    p.AdminSummary__lead  color #a8b6c6
+  div.AdminSummary__tiles
+    a.AdminSummary__tile  bg #121d31  border #1e2b41
+      span.AdminSummary__tileTitle  color #8598ac
+      span.AdminSummary__tileValue  color #22d3ee
+      span.AdminSummary__tileNote  color #7e92a7
+    a.AdminSummary__tile#2  bg #121d31  border #1e2b41
+      span.AdminSummary__tileTitle  color #8598ac
+      span.AdminSummary__tileValue  color #eaf1f8
+      span.AdminSummary__tileNote  color #7e92a7
+    a.AdminSummary__tile#3  bg #121d31  border #1e2b41
+      span.AdminSummary__tileTitle  color #8598ac
+      span.AdminSummary__tileValue  color #eaf1f8
+      span.AdminSummary__tileNote  color #7e92a7
+    a.AdminSummary__tile#4  bg #121d31  border #1e2b41
+      span.AdminSummary__tileTitle  color #8598ac
+      span.AdminSummary__tileValue  color #eaf1f8
+      span.AdminSummary__tileNote  color #7e92a7
+    a.AdminSummary__tile#5  bg #121d31  border #1e2b41
+      span.AdminSummary__tileTitle  color #8598ac
+      span.AdminSummary__tileValue  color #22d3ee
+      span.AdminSummary__tileNote  color #7e92a7
+  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    h2.AdminSummary__cardTitle  color #eaf1f8
+    p.AdminSummary__text  color #a8b6c6
+    p.AdminSummary__text#2  color #a8b6c6
+    a.AdminSummary__link  color #22d3ee
+  section.Card__card#2  bg #0e1729  border #182338
+    h2.AdminSummary__cardTitle  color #eaf1f8
+    p.AdminSummary__text  color #a8b6c6

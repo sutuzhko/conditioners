@@ -1,0 +1,77 @@
+# ui-kit-formsection--title-aside · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×271 @16,16  r20  b1
+  div.FormSection__head  316×50 @21,21
+    div.FormSection__titleRow  316×24 @0,0
+      h2.FormSection__title  80×21 @0,2  Onest 700 17/21  ls0  lines=1  «Основное»
+      span.Badge__badge  71×24 @90,0  Manrope 600 12/16  r100  b1  lines=1  «В архиве»
+    p.FormSection__hint  316×20 @0,30  Manrope 400 13/20  lines=1  «Поля, без которых позиция не сохранится.»
+  div.Field__field  316×76 @21,85
+    label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+    input  316×49 @0,27  r11  b1
+  div.Field__field#2  316×76 @21,173
+    label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Артикул»
+    input  316×49 @0,27  r11  b1
+
+[геометрия 768]
+section.Card__card  736×182 @16,16  r20  b1
+  div.FormSection__head  694×50 @21,21
+    div.FormSection__titleRow  694×24 @0,0
+      h2.FormSection__title  84×22 @0,1  Onest 700 18/22  ls0  lines=1  «Основное»
+      span.Badge__badge  71×24 @94,0  Manrope 600 12/16  r100  b1  lines=1  «В архиве»
+    p.FormSection__hint  508×20 @0,30  Manrope 400 13/20  lines=1  «Поля, без которых позиция не сохранится.»
+  div.Field__field  341×76 @21,85
+    label.Field__label  341×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+    input  341×49 @0,27  r11  b1
+  div.Field__field#2  341×76 @374,85
+    label.Field__label  341×20 @0,0  Manrope 600 13/20  lines=1  «Артикул»
+    input  341×49 @0,27  r11  b1
+
+[геометрия 1440]
+section.Card__card  1408×182 @16,16  r20  b1
+  div.FormSection__head  1366×50 @21,21
+    div.FormSection__titleRow  1366×24 @0,0
+      h2.FormSection__title  89×23 @0,1  Onest 700 19/23  ls0  lines=1  «Основное»
+      span.Badge__badge  71×24 @99,0  Manrope 600 12/16  r100  b1  lines=1  «В архиве»
+    p.FormSection__hint  508×20 @0,30  Manrope 400 13/20  lines=1  «Поля, без которых позиция не сохранится.»
+  div.Field__field  677×76 @21,85
+    label.Field__label  677×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+    input  677×49 @0,27  r11  b1
+  div.Field__field#2  677×76 @710,85
+    label.Field__label  677×20 @0,0  Manrope 600 13/20  lines=1  «Артикул»
+    input  677×49 @0,27  r11  b1
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.FormSection__head
+    div.FormSection__titleRow
+      h2.FormSection__title  color #0f172a
+      span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+    p.FormSection__hint  color #556173
+  div.Field__field
+    label.Field__label  color #334155
+    input  bg #ffffff  border #7e8fa6
+  div.Field__field#2
+    label.Field__label  color #334155
+    input  bg #ffffff  border #7e8fa6
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.FormSection__head
+    div.FormSection__titleRow
+      h2.FormSection__title  color #eaf1f8
+      span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+    p.FormSection__hint  color #8598ac
+  div.Field__field
+    label.Field__label  color #c9d5e2
+    input  bg #0b1424  border #566d95
+  div.Field__field#2
+    label.Field__label  color #c9d5e2
+    input  bg #0b1424  border #566d95

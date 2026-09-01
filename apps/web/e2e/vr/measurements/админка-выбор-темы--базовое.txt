@@ -1,0 +1,37 @@
+# админка-выбор-темы--базовое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.ThemeChoice__row  358×37 @16,16
+  button.ThemeChoice__option  94×37 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
+  button.ThemeChoice__option#2  86×37 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
+  button.ThemeChoice__option#3  113×37 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+
+[геометрия 768]
+div.ThemeChoice__row  736×37 @16,16
+  button.ThemeChoice__option  94×37 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
+  button.ThemeChoice__option#2  86×37 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
+  button.ThemeChoice__option#3  113×37 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+
+[геометрия 1440]
+div.ThemeChoice__row  1408×37 @16,16
+  button.ThemeChoice__option  94×37 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
+  button.ThemeChoice__option#2  86×37 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
+  button.ThemeChoice__option#3  113×37 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+
+[палитра light]
+div.ThemeChoice__row
+  button.ThemeChoice__option  color #475569  border #cbd5e1
+  button.ThemeChoice__option#2  color #475569  border #cbd5e1
+  button.ThemeChoice__option#3  color #0e7490  bg #ecfeff  border #0891b2
+
+[палитра dark]
+div.ThemeChoice__row
+  button.ThemeChoice__option  color #a8b6c6  border #2c3d59
+  button.ThemeChoice__option#2  color #a8b6c6  border #2c3d59
+  button.ThemeChoice__option#3  color #22d3ee  bg #22d3ee1a  border #22d3ee

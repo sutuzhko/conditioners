@@ -1,0 +1,140 @@
+# блоки-каталог-страница--empty · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.CatalogList__section  320×535 @0,0
+  div.CatalogList__container  320×535 @0,0
+    h2  1×1 @15,21  Onest 700 23/27  ls0  lines=1  clipped  «Модели в продаже»
+    div.CatalogList__layout  288×465 @16,22
+      div.CatalogList__results  288×465 @0,0
+        div.CatalogList__toolbar  288×161 @0,0
+          p.CatalogList__found  81×25 @0,0  Onest 700 16/25  ls0  lines=1  «0 моделей»
+          div.CatalogSort__sort  288×124 @0,37
+            p.CatalogSort__label  56×20 @0,0  Manrope 700 13/20  lines=1  «Порядок»
+            div.CatalogSort__values  288×96 @0,28
+              a.FilterLink__link  123×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Как в каталоге»
+              a.FilterLink__link#2  144×44 @131,0  Manrope 600 13/16  r100  b1  lines=1  «Сначала дешевле»
+              a.FilterLink__link#3  136×44 @0,52  Manrope 600 13/16  r100  b1  lines=1  «Сначала дороже»
+              a.FilterLink__link#4  107×44 @144,52  Manrope 600 13/16  r100  b1  lines=1  «По площади»
+        div.Card__card  288×254 @0,179  r20  b1
+          p.CatalogList__emptyTitle  246×53 @21,21  Onest 700 17/26  ls0  lines=2  «Под этот подбор ничего не нашлось»
+          p.CatalogList__emptyText  246×93 @21,80  Manrope 400 15/23  lines=4  «Снимите один из параметров — или оставьт»
+          a.Button__button  103×44 @21,189  r11  b1
+            span.Button__content  65×17 @19,13
+              span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+
+[геометрия 375]
+section.CatalogList__section  375×460 @0,0
+  div.CatalogList__container  375×460 @0,0
+    h2  1×1 @15,21  Onest 700 23/27  ls0  lines=1  clipped  «Модели в продаже»
+    div.CatalogList__layout  343×387 @16,22
+      div.CatalogList__results  343×387 @0,0
+        div.CatalogList__toolbar  343×133 @0,0
+          p.CatalogList__found  81×25 @0,0  Onest 700 16/25  ls0  lines=1  «0 моделей»
+          div.CatalogSort__sort  343×96 @0,37
+            p.CatalogSort__label  56×20 @0,38  Manrope 700 13/20  lines=1  «Порядок»
+            div.CatalogSort__values  275×96 @68,0
+              a.FilterLink__link  123×44 @0,0  Manrope 600 13/16  r100  b1  lines=1  «Как в каталоге»
+              a.FilterLink__link#2  144×44 @131,0  Manrope 600 13/16  r100  b1  lines=1  «Сначала дешевле»
+              a.FilterLink__link#3  136×44 @0,52  Manrope 600 13/16  r100  b1  lines=1  «Сначала дороже»
+              a.FilterLink__link#4  107×44 @144,52  Manrope 600 13/16  r100  b1  lines=1  «По площади»
+        div.Card__card  343×204 @0,151  r20  b1
+          p.CatalogList__emptyTitle  301×27 @21,21  Onest 700 17/27  ls0  lines=1  «Под этот подбор ничего не нашлось»
+          p.CatalogList__emptyText  301×70 @21,54  Manrope 400 15/23  lines=3  «Снимите один из параметров — или оставьт»
+          a.Button__button  103×44 @21,139  r11  b1
+            span.Button__content  65×17 @19,13
+              span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+
+[геометрия 768]
+section.CatalogList__section  768×436 @0,0
+  div.CatalogList__container  768×436 @0,0
+    h2  1×1 @19,35  Onest 700 23/27  ls0  lines=1  clipped  «Модели в продаже»
+    div.CatalogList__layout  728×331 @20,36
+      div.CatalogList__results  728×331 @0,0
+        div.CatalogList__toolbar  728×83 @0,0
+          p.CatalogList__found  87×27 @0,0  Onest 700 17/27  ls0  lines=1  «0 моделей»
+          div.CatalogSort__sort  678×44 @0,39
+            p.CatalogSort__label  56×20 @0,12  Manrope 700 13/20  lines=1  «Порядок»
+            div.CatalogSort__values  610×44 @68,0
+              a.FilterLink__link  141×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Как в каталоге»
+              a.FilterLink__link#2  165×44 @149,0  Manrope 600 15/17  r100  b1  lines=1  «Сначала дешевле»
+              a.FilterLink__link#3  156×44 @322,0  Manrope 600 15/17  r100  b1  lines=1  «Сначала дороже»
+              a.FilterLink__link#4  123×44 @487,0  Manrope 600 15/17  r100  b1  lines=1  «По площади»
+        div.Card__card  620×198 @0,101  r20  b1
+          p.CatalogList__emptyTitle  562×28 @29,29  Onest 700 18/28  ls0  lines=1  «Под этот подбор ничего не нашлось»
+          p.CatalogList__emptyText  562×47 @29,63  Manrope 400 15/23  lines=2  «Снимите один из параметров — или оставьт»
+          a.Button__button  103×44 @29,125  r11  b1
+            span.Button__content  65×17 @19,13
+              span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+
+[геометрия 1200]
+section.CatalogList__section  1200×418 @0,0
+  div.CatalogList__container  1200×418 @0,0
+    h2  1×1 @23,35  Onest 700 23/27  ls0  lines=1  clipped  «Модели в продаже»
+    div.CatalogList__layout  1152×294 @24,36
+      div.CatalogList__results  1152×294 @0,0
+        div.CatalogList__toolbar  1152×44 @0,0
+          p.CatalogList__found  93×29 @0,8  Onest 700 18/29  ls0  lines=1  «0 моделей»
+          div.CatalogSort__sort  678×44 @474,0
+            p.CatalogSort__label  56×20 @0,12  Manrope 700 13/20  lines=1  «Порядок»
+            div.CatalogSort__values  610×44 @68,0
+              a.FilterLink__link  141×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Как в каталоге»
+              a.FilterLink__link#2  165×44 @149,0  Manrope 600 15/17  r100  b1  lines=1  «Сначала дешевле»
+              a.FilterLink__link#3  156×44 @322,0  Manrope 600 15/17  r100  b1  lines=1  «Сначала дороже»
+              a.FilterLink__link#4  123×44 @487,0  Manrope 600 15/17  r100  b1  lines=1  «По площади»
+        div.Card__card  620×200 @0,62  r20  b1
+          p.CatalogList__emptyTitle  562×29 @29,29  Onest 700 19/29  ls0  lines=1  «Под этот подбор ничего не нашлось»
+          p.CatalogList__emptyText  562×47 @29,64  Manrope 400 15/23  lines=2  «Снимите один из параметров — или оставьт»
+          a.Button__button  103×44 @29,127  r11  b1
+            span.Button__content  65×17 @19,13
+              span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+
+[палитра light]
+section.CatalogList__section  bg #ffffff
+  div.CatalogList__container
+    h2  color #0f172a
+    div.CatalogList__layout
+      div.CatalogList__results
+        div.CatalogList__toolbar
+          p.CatalogList__found  color #0f172a
+          div.CatalogSort__sort
+            p.CatalogSort__label  color #556173
+            div.CatalogSort__values
+              a.FilterLink__link  color #ffffff  bg #0e7490  border #0e7490
+              a.FilterLink__link#2  color #475569  border #cbd5e1
+              a.FilterLink__link#3  color #475569  border #cbd5e1
+              a.FilterLink__link#4  color #475569  border #cbd5e1
+        div.Card__card  bg #f8fafc  border #eef2f6
+          p.CatalogList__emptyTitle  color #0f172a
+          p.CatalogList__emptyText  color #556173
+          a.Button__button  bg #ecfeff  border transparent
+            span.Button__content
+              span.Button__label  color #0e7490
+
+[палитра dark]
+section.CatalogList__section  bg #0b1220
+  div.CatalogList__container
+    h2  color #eaf1f8
+    div.CatalogList__layout
+      div.CatalogList__results
+        div.CatalogList__toolbar
+          p.CatalogList__found  color #eaf1f8
+          div.CatalogSort__sort
+            p.CatalogSort__label  color #8598ac
+            div.CatalogSort__values
+              a.FilterLink__link  color #ffffff  bg #0e7490  border #0e7490
+              a.FilterLink__link#2  color #a8b6c6  border #2c3d59
+              a.FilterLink__link#3  color #a8b6c6  border #2c3d59
+              a.FilterLink__link#4  color #a8b6c6  border #2c3d59
+        div.Card__card  bg #0e1729  border #182338
+          p.CatalogList__emptyTitle  color #eaf1f8
+          p.CatalogList__emptyText  color #8598ac
+          a.Button__button  bg #22d3ee1a  border transparent
+            span.Button__content
+              span.Button__label  color #22d3ee

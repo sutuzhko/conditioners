@@ -1,0 +1,606 @@
+# блоки-первый-экран--price-reserve · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 600, Onest 700
+
+[документ]
+320 → 326×1139
+375 → 375×1060
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+div.Card__card  130×1099 @20,20  r24  b1
+  div.HeroPicker__head  96×60 @17,17
+    h2.HeroPicker__eyebrow  96×34 @0,0  JetBrains Mono 400 12/17  ls2  lines=2  «Подбор за 30 секунд»
+    span.HeroPicker__live  101×19 @0,42  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+      span.HeroPicker__dot  7×7 @0,6  r100
+  div.HeroPicker__body  96×993 @17,89
+    div.HeroPicker__controls  96×236 @0,0
+      div.Field__field  96×123 @0,0
+        span.RangeSlider__head  96×47 @0,0
+          label  86×47 @0,0  Manrope 700 15/23  lines=2  «Площадь помещения»
+          output.RangeSlider__value  41×25 @98,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider  96×44 @0,54
+        span.RangeSlider__scale  96×19 @0,105
+          span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+          span#2  36×19 @60,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  96×99 @0,137
+        span.HeroPicker__placesLabel  96×47 @0,0  Manrope 700 15/23  lines=2  «Тип помещения»
+        div.HeroPicker__chips  96×44 @0,55
+          button.Chip__chip  27×44 @0,0  r100  b1
+            span.HeroPicker__placeShort  61×16 @-17,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  27×44 @35,0  r100  b1
+            span.HeroPicker__placeShort  27×16 @0,14  Manrope 600 13/16  lines=1  «Дом»
+          button.Chip__chip#3  27×44 @69,0  r100  b1
+            span.HeroPicker__placeShort  34×16 @-4,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card  96×744 @0,250  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @-65,-49  r50
+      div.HeroPicker__states  68×592 @15,15
+        div.HeroPicker__state  68×592 @0,0
+          div.HeroPicker__resultHead  68×37 @0,0
+            span.HeroPicker__resultEyebrow  98×37 @0,0  JetBrains Mono 400 12/19  ls2  lines=2  «Рекомендуем вам»
+            span.Badge__badge  35×24 @108,7  Manrope 600 12/16  r100  b1  lines=1  «09»
+          div.HeroPicker__model  68×261 @0,45
+            span.HeroPicker__photoStub  62×62 @0,0  r13  b1
+            div.HeroPicker__modelInfo  0×261 @74,0
+              h3.HeroPicker__modelName  0×65 @0,0  Onest 700 18/22  ls0  lines=3  «Сплит-система 09»
+              p.HeroPicker__specs  0×167 @0,69  JetBrains Mono 400 12/19  lines=9  «21 дБ · 0.7 кВт · до 27 м²»
+              p.HeroPicker__tag  0×21 @0,240  Manrope 400 14/21  lines=1  «инвертор»
+          div.HeroPicker__priceRow  68×115 @0,314
+            span.HeroPicker__price  105×37 @0,0  Onest 700 24/37  lines=1  «34 900 ₽»
+            s.HeroPicker__oldPrice  65×23 @0,45  Onest 600 15/23  lines=1  «38 500 ₽»
+            span.HeroPicker__priceNote  68×39 @0,76  Manrope 400 13/19  lines=2  «под ключ с монтажом»
+          p.HeroPicker__saleRow  68×103 @0,437
+            span.Badge__badge  45×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «−9%»
+            span.HeroPicker__saleUntil  68×74 @0,28  Manrope 400 12/19  lines=4  «Цена действует до 31 июля 2026»
+          a.Button__button  68×44 @0,548  r11  b1
+            span.Button__content  30×17 @19,13
+              span.Button__label  30×17 @0,0  Manrope 600 15/17  lines=1  clipped  «Смета на эту модель»
+      p.HeroPicker__disclaimer  68×112 @15,617  Manrope 400 12/19  lines=6  «финальную цену подтвердит специалист пос»
+div.Card__card#2  130×1099 @170,20  r24  b1
+  div.HeroPicker__head  96×60 @17,17
+    h2.HeroPicker__eyebrow#2  96×34 @0,0  JetBrains Mono 400 12/17  ls2  lines=2  «Подбор за 30 секунд»
+    span.HeroPicker__live#2  101×19 @0,42  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+      span.HeroPicker__dot  7×7 @0,6  r100
+  div.HeroPicker__body  96×960 @17,89
+    div.HeroPicker__controls#2  96×236 @0,0
+      div.Field__field  96×123 @0,0
+        span.RangeSlider__head#2  96×47 @0,0
+          label  86×47 @0,0  Manrope 700 15/23  lines=2  «Площадь помещения»
+          output.RangeSlider__value  41×25 @98,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider#2  96×44 @0,54
+        span.RangeSlider__scale#2  96×19 @0,105
+          span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+          span#2  36×19 @60,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  96×99 @0,137
+        span.HeroPicker__placesLabel#2  96×47 @0,0  Manrope 700 15/23  lines=2  «Тип помещения»
+        div.HeroPicker__chips#2  96×44 @0,55
+          button.Chip__chip  27×44 @0,0  r100  b1
+            span.HeroPicker__placeShort#2  61×16 @-17,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  27×44 @35,0  r100  b1
+            span.HeroPicker__placeShort#2  27×16 @0,14  Manrope 600 13/16  lines=1  «Дом»
+          button.Chip__chip#3  27×44 @69,0  r100  b1
+            span.HeroPicker__placeShort#2  34×16 @-4,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card#2  96×711 @0,250  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @-65,-49  r50
+      div.HeroPicker__states  68×559 @15,15
+        div.HeroPicker__state#2  68×559 @0,0
+          div.HeroPicker__resultHead  68×37 @0,0
+            span.HeroPicker__resultEyebrow#2  98×37 @0,0  JetBrains Mono 400 12/19  ls2  lines=2  «Рекомендуем вам»
+            span.Badge__badge#2  35×24 @108,7  Manrope 600 12/16  r100  b1  lines=1  «09»
+          div.HeroPicker__model  68×261 @0,45
+            span.HeroPicker__photoStub#2  62×62 @0,0  r13  b1
+            div.HeroPicker__modelInfo#2  0×261 @74,0
+              h3.HeroPicker__modelName  0×65 @0,0  Onest 700 18/22  ls0  lines=3  «Сплит-система 09»
+              p.HeroPicker__specs  0×167 @0,69  JetBrains Mono 400 12/19  lines=9  «21 дБ · 0.7 кВт · до 27 м²»
+              p.HeroPicker__tag  0×21 @0,240  Manrope 400 14/21  lines=1  «инвертор»
+          div.HeroPicker__priceRow  68×84 @0,314
+            span.HeroPicker__price#2  104×37 @0,0  Onest 700 24/37  lines=1  «38 500 ₽»
+            span.HeroPicker__priceNote#2  68×39 @0,45  Manrope 400 13/19  lines=2  «под ключ с монтажом»
+          p.HeroPicker__saleRow  68×26 @0,406
+          a.Button__button  68×44 @0,515  r11  b1
+            span.Button__content#2  30×17 @19,13
+              span.Button__label  30×17 @0,0  Manrope 600 15/17  lines=1  clipped  «Смета на эту модель»
+      p.HeroPicker__disclaimer  68×112 @15,584  Manrope 400 12/19  lines=6  «финальную цену подтвердит специалист пос»
+
+[геометрия 375]
+div.Card__card  158×1020 @20,20  r24  b1
+  div.HeroPicker__head  124×60 @17,17
+    h2.HeroPicker__eyebrow  124×34 @0,0  JetBrains Mono 400 12/17  ls2  lines=2  «Подбор за 30 секунд»
+    span.HeroPicker__live  101×19 @0,42  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+      span.HeroPicker__dot  7×7 @0,6  r100
+  div.HeroPicker__body  124×914 @17,89
+    div.HeroPicker__controls  124×212 @0,0
+      div.Field__field  124×123 @0,0
+        span.RangeSlider__head  124×47 @0,0
+          label  86×47 @0,0  Manrope 700 15/23  lines=2  «Площадь помещения»
+          output.RangeSlider__value  41×25 @98,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider  124×44 @0,54
+        span.RangeSlider__scale  124×19 @0,105
+          span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+          span#2  36×19 @87,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  124×75 @0,137
+        span.HeroPicker__placesLabel  124×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips  124×44 @0,31
+          button.Chip__chip  36×44 @0,0  r100  b1
+            span.HeroPicker__placeShort  61×16 @-12,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  36×44 @44,0  r100  b1
+            span.HeroPicker__placeShort  27×16 @4,14  Manrope 600 13/16  lines=1  «Дом»
+          button.Chip__chip#3  36×44 @88,0  r100  b1
+            span.HeroPicker__placeShort  34×16 @1,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card  124×688 @0,226  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @-37,-49  r50
+      div.HeroPicker__states  94×555 @15,15
+        div.HeroPicker__state  94×555 @0,0
+          div.HeroPicker__resultHead  94×37 @0,0
+            span.HeroPicker__resultEyebrow  98×37 @0,0  JetBrains Mono 400 12/19  ls2  lines=2  «Рекомендуем вам»
+            span.Badge__badge  35×24 @108,7  Manrope 600 12/16  r100  b1  lines=1  «09»
+          div.HeroPicker__model  94×261 @0,45
+            span.HeroPicker__photoStub  62×62 @0,0  r13  b1
+            div.HeroPicker__modelInfo  20×261 @74,0
+              h3.HeroPicker__modelName  20×65 @0,0  Onest 700 18/22  ls0  lines=3  «Сплит-система 09»
+              p.HeroPicker__specs  20×167 @0,69  JetBrains Mono 400 12/19  lines=9  «21 дБ · 0.7 кВт · до 27 м²»
+              p.HeroPicker__tag  20×21 @0,240  Manrope 400 14/21  lines=1  «инвертор»
+          div.HeroPicker__priceRow  94×115 @0,314
+            span.HeroPicker__price  105×37 @0,0  Onest 700 24/37  lines=1  «34 900 ₽»
+            s.HeroPicker__oldPrice  65×23 @0,45  Onest 600 15/23  lines=1  «38 500 ₽»
+            span.HeroPicker__priceNote  94×39 @0,76  Manrope 400 13/19  lines=2  «под ключ с монтажом»
+          p.HeroPicker__saleRow  94×65 @0,437
+            span.Badge__badge  45×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «−9%»
+            span.HeroPicker__saleUntil  94×37 @0,28  Manrope 400 12/19  lines=2  «Цена действует до 31 июля 2026»
+          a.Button__button  94×44 @0,511  r11  b1
+            span.Button__content  56×17 @19,13
+              span.Button__label  56×17 @0,0  Manrope 600 15/17  lines=1  clipped  «Смета на эту модель»
+      p.HeroPicker__disclaimer  94×93 @15,580  Manrope 400 12/19  lines=5  «финальную цену подтвердит специалист пос»
+div.Card__card#2  158×1020 @198,20  r24  b1
+  div.HeroPicker__head  124×60 @17,17
+    h2.HeroPicker__eyebrow#2  124×34 @0,0  JetBrains Mono 400 12/17  ls2  lines=2  «Подбор за 30 секунд»
+    span.HeroPicker__live#2  101×19 @0,42  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+      span.HeroPicker__dot  7×7 @0,6  r100
+  div.HeroPicker__body  124×844 @17,89
+    div.HeroPicker__controls#2  124×212 @0,0
+      div.Field__field  124×123 @0,0
+        span.RangeSlider__head#2  124×47 @0,0
+          label  86×47 @0,0  Manrope 700 15/23  lines=2  «Площадь помещения»
+          output.RangeSlider__value  41×25 @98,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider#2  124×44 @0,54
+        span.RangeSlider__scale#2  124×19 @0,105
+          span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+          span#2  36×19 @87,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  124×75 @0,137
+        span.HeroPicker__placesLabel#2  124×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips#2  124×44 @0,31
+          button.Chip__chip  36×44 @0,0  r100  b1
+            span.HeroPicker__placeShort#2  61×16 @-12,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  36×44 @44,0  r100  b1
+            span.HeroPicker__placeShort#2  27×16 @4,14  Manrope 600 13/16  lines=1  «Дом»
+          button.Chip__chip#3  36×44 @88,0  r100  b1
+            span.HeroPicker__placeShort#2  34×16 @1,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card#2  124×617 @0,226  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @-37,-49  r50
+      div.HeroPicker__states  94×484 @15,15
+        div.HeroPicker__state#2  94×484 @0,0
+          div.HeroPicker__resultHead  94×37 @0,0
+            span.HeroPicker__resultEyebrow#2  98×37 @0,0  JetBrains Mono 400 12/19  ls2  lines=2  «Рекомендуем вам»
+            span.Badge__badge#2  35×24 @108,7  Manrope 600 12/16  r100  b1  lines=1  «09»
+          div.HeroPicker__model  94×261 @0,45
+            span.HeroPicker__photoStub#2  62×62 @0,0  r13  b1
+            div.HeroPicker__modelInfo#2  20×261 @74,0
+              h3.HeroPicker__modelName  20×65 @0,0  Onest 700 18/22  ls0  lines=3  «Сплит-система 09»
+              p.HeroPicker__specs  20×167 @0,69  JetBrains Mono 400 12/19  lines=9  «21 дБ · 0.7 кВт · до 27 м²»
+              p.HeroPicker__tag  20×21 @0,240  Manrope 400 14/21  lines=1  «инвертор»
+          div.HeroPicker__priceRow  94×84 @0,314
+            span.HeroPicker__price#2  104×37 @0,0  Onest 700 24/37  lines=1  «38 500 ₽»
+            span.HeroPicker__priceNote#2  94×39 @0,45  Manrope 400 13/19  lines=2  «под ключ с монтажом»
+          p.HeroPicker__saleRow  94×26 @0,406
+          a.Button__button  94×44 @0,440  r11  b1
+            span.Button__content#2  56×17 @19,13
+              span.Button__label  56×17 @0,0  Manrope 600 15/17  lines=1  clipped  «Смета на эту модель»
+      p.HeroPicker__disclaimer  94×93 @15,509  Manrope 400 12/19  lines=5  «финальную цену подтвердит специалист пос»
+
+[геометрия 768]
+div.Card__card  354×627 @20,20  r24  b1
+  div.HeroPicker__head  308×19 @23,23
+    h2.HeroPicker__eyebrow  169×17 @0,1  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+    span.HeroPicker__live  101×19 @207,0  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+      span.HeroPicker__dot  7×7 @0,6  r100
+  div.HeroPicker__body  308×551 @23,54
+    div.HeroPicker__controls  308×191 @0,0
+      div.Field__field  308×101 @0,0
+        span.RangeSlider__head  308×25 @0,0
+          label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+          output.RangeSlider__value  41×25 @267,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider  308×44 @0,32
+        span.RangeSlider__scale  308×19 @0,83
+          span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+          span#2  36×19 @272,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  308×75 @0,115
+        span.HeroPicker__placesLabel  308×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips  308×44 @0,31
+          button.Chip__chip  89×44 @0,0  r100  b1
+            span.HeroPicker__placeFull  61×16 @14,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  111×44 @97,0  r100  b1
+            span.HeroPicker__placeFull  83×16 @14,14  Manrope 600 13/16  lines=1  «Частный дом»
+          button.Chip__chip#3  62×44 @216,0  r100  b1
+            span.HeroPicker__placeFull  34×16 @14,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card  308×346 @0,205  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @147,-49  r50
+      div.HeroPicker__states  270×261 @19,19
+        div.HeroPicker__state  270×261 @0,0
+          div.HeroPicker__resultHead  270×24 @0,0
+            span.HeroPicker__resultEyebrow  133×19 @0,3  JetBrains Mono 400 12/19  ls2  lines=1  «Рекомендуем вам»
+            span.Badge__badge  35×24 @235,0  Manrope 600 12/16  r100  b1  lines=1  «09»
+          div.HeroPicker__model  270×69 @0,32
+            span.HeroPicker__photoStub  62×62 @0,0  r13  b1
+            div.HeroPicker__modelInfo  187×69 @74,0
+              h3.HeroPicker__modelName  187×22 @0,0  Onest 700 18/22  ls0  lines=1  «Сплит-система 09»
+              p.HeroPicker__specs  187×19 @0,26  JetBrains Mono 400 12/19  lines=1  «21 дБ · 0.7 кВт · до 27 м²»
+              p.HeroPicker__tag  187×21 @0,48  Manrope 400 14/21  lines=1  «инвертор»
+          div.HeroPicker__priceRow  270×66 @0,109
+            span.HeroPicker__price  107×38 @0,0  Onest 700 25/38  lines=1  «34 900 ₽»
+            s.HeroPicker__oldPrice  65×23 @115,11  Onest 600 15/23  lines=1  «38 500 ₽»
+            span.HeroPicker__priceNote  270×19 @0,46  Manrope 400 13/19  lines=1  «под ключ с монтажом»
+          p.HeroPicker__saleRow  270×26 @0,183
+            span.Badge__badge  45×24 @0,1  Manrope 600 12/16  r100  b1  lines=1  «−9%»
+            span.HeroPicker__saleUntil  185×19 @53,4  Manrope 400 12/19  lines=1  «Цена действует до 31 июля 2026»
+          a.Button__button  270×44 @0,217  r11  b1
+            span.Button__content  148×17 @61,13
+              span.Button__label  148×17 @0,0  Manrope 600 15/17  lines=1  «Смета на эту модель»
+      p.HeroPicker__disclaimer  270×37 @19,290  Manrope 400 12/19  lines=2  «финальную цену подтвердит специалист пос»
+div.Card__card#2  354×627 @394,20  r24  b1
+  div.HeroPicker__head  308×19 @23,23
+    h2.HeroPicker__eyebrow#2  169×17 @0,1  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+    span.HeroPicker__live#2  101×19 @207,0  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+      span.HeroPicker__dot  7×7 @0,6  r100
+  div.HeroPicker__body  308×551 @23,54
+    div.HeroPicker__controls#2  308×191 @0,0
+      div.Field__field  308×101 @0,0
+        span.RangeSlider__head#2  308×25 @0,0
+          label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+          output.RangeSlider__value  41×25 @267,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider#2  308×44 @0,32
+        span.RangeSlider__scale#2  308×19 @0,83
+          span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+          span#2  36×19 @272,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  308×75 @0,115
+        span.HeroPicker__placesLabel#2  308×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips#2  308×44 @0,31
+          button.Chip__chip  89×44 @0,0  r100  b1
+            span.HeroPicker__placeFull#2  61×16 @14,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  111×44 @97,0  r100  b1
+            span.HeroPicker__placeFull#2  83×16 @14,14  Manrope 600 13/16  lines=1  «Частный дом»
+          button.Chip__chip#3  62×44 @216,0  r100  b1
+            span.HeroPicker__placeFull#2  34×16 @14,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card#2  308×346 @0,205  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @147,-49  r50
+      div.HeroPicker__states  270×261 @19,19
+        div.HeroPicker__state#2  270×261 @0,0
+          div.HeroPicker__resultHead  270×24 @0,0
+            span.HeroPicker__resultEyebrow#2  133×19 @0,3  JetBrains Mono 400 12/19  ls2  lines=1  «Рекомендуем вам»
+            span.Badge__badge#2  35×24 @235,0  Manrope 600 12/16  r100  b1  lines=1  «09»
+          div.HeroPicker__model  270×69 @0,32
+            span.HeroPicker__photoStub#2  62×62 @0,0  r13  b1
+            div.HeroPicker__modelInfo#2  187×69 @74,0
+              h3.HeroPicker__modelName  187×22 @0,0  Onest 700 18/22  ls0  lines=1  «Сплит-система 09»
+              p.HeroPicker__specs  187×19 @0,26  JetBrains Mono 400 12/19  lines=1  «21 дБ · 0.7 кВт · до 27 м²»
+              p.HeroPicker__tag  187×21 @0,48  Manrope 400 14/21  lines=1  «инвертор»
+          div.HeroPicker__priceRow  270×66 @0,109
+            span.HeroPicker__price#2  107×38 @0,0  Onest 700 25/38  lines=1  «38 500 ₽»
+            span.HeroPicker__priceNote#2  270×19 @0,46  Manrope 400 13/19  lines=1  «под ключ с монтажом»
+          p.HeroPicker__saleRow  270×26 @0,183
+          a.Button__button  270×44 @0,217  r11  b1
+            span.Button__content#2  148×17 @61,13
+              span.Button__label  148×17 @0,0  Manrope 600 15/17  lines=1  «Смета на эту модель»
+      p.HeroPicker__disclaimer  270×37 @19,290  Manrope 400 12/19  lines=2  «финальную цену подтвердит специалист пос»
+
+[геометрия 1200]
+div.Card__card  570×612 @20,20  r24  b1
+  div.HeroPicker__head  524×19 @23,23
+    h2.HeroPicker__eyebrow  169×17 @0,1  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+    span.HeroPicker__live  101×19 @423,0  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+      span.HeroPicker__dot  7×7 @0,6  r100
+  div.HeroPicker__body  524×536 @23,54
+    div.HeroPicker__controls  524×191 @0,0
+      div.Field__field  524×101 @0,0
+        span.RangeSlider__head  524×25 @0,0
+          label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+          output.RangeSlider__value  41×25 @483,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider  524×44 @0,32
+        span.RangeSlider__scale  524×19 @0,83
+          span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+          span#2  36×19 @488,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  524×75 @0,115
+        span.HeroPicker__placesLabel  524×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips  524×44 @0,31
+          button.Chip__chip  89×44 @0,0  r100  b1
+            span.HeroPicker__placeFull  61×16 @14,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  111×44 @97,0  r100  b1
+            span.HeroPicker__placeFull  83×16 @14,14  Manrope 600 13/16  lines=1  «Частный дом»
+          button.Chip__chip#3  62×44 @216,0  r100  b1
+            span.HeroPicker__placeFull  34×16 @14,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card  524×331 @0,205  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @363,-49  r50
+      div.HeroPicker__states  486×264 @19,19
+        div.HeroPicker__state  486×264 @0,0
+          div.HeroPicker__resultHead  486×24 @0,0
+            span.HeroPicker__resultEyebrow  133×19 @0,3  JetBrains Mono 400 12/19  ls2  lines=1  «Рекомендуем вам»
+            span.Badge__badge  35×24 @451,0  Manrope 600 12/16  r100  b1  lines=1  «09»
+          div.HeroPicker__model  486×69 @0,32
+            span.HeroPicker__photoStub  62×62 @0,0  r13  b1
+            div.HeroPicker__modelInfo  187×69 @74,0
+              h3.HeroPicker__modelName  187×22 @0,0  Onest 700 18/22  ls0  lines=1  «Сплит-система 09»
+              p.HeroPicker__specs  187×19 @0,26  JetBrains Mono 400 12/19  lines=1  «21 дБ · 0.7 кВт · до 27 м²»
+              p.HeroPicker__tag  187×21 @0,48  Manrope 400 14/21  lines=1  «инвертор»
+          div.HeroPicker__priceRow  486×69 @0,109
+            span.HeroPicker__price  117×42 @0,0  Onest 700 27/42  lines=1  «34 900 ₽»
+            s.HeroPicker__oldPrice  65×23 @125,13  Onest 600 15/23  lines=1  «38 500 ₽»
+            span.HeroPicker__priceNote  486×19 @0,50  Manrope 400 13/19  lines=1  «под ключ с монтажом»
+          p.HeroPicker__saleRow  486×26 @0,186
+            span.Badge__badge  45×24 @0,1  Manrope 600 12/16  r100  b1  lines=1  «−9%»
+            span.HeroPicker__saleUntil  185×19 @53,4  Manrope 400 12/19  lines=1  «Цена действует до 31 июля 2026»
+          a.Button__button  486×44 @0,220  r11  b1
+            span.Button__content  148×17 @169,13
+              span.Button__label  148×17 @0,0  Manrope 600 15/17  lines=1  «Смета на эту модель»
+      p.HeroPicker__disclaimer  486×19 @19,293  Manrope 400 12/19  lines=1  «финальную цену подтвердит специалист пос»
+div.Card__card#2  570×612 @610,20  r24  b1
+  div.HeroPicker__head  524×19 @23,23
+    h2.HeroPicker__eyebrow#2  169×17 @0,1  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+    span.HeroPicker__live#2  101×19 @423,0  Manrope 400 12/19  lines=1  «онлайн-расчёт»
+      span.HeroPicker__dot  7×7 @0,6  r100
+  div.HeroPicker__body  524×536 @23,54
+    div.HeroPicker__controls#2  524×191 @0,0
+      div.Field__field  524×101 @0,0
+        span.RangeSlider__head#2  524×25 @0,0
+          label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+          output.RangeSlider__value  41×25 @483,0  Onest 700 16/25  lines=1  «25 м²»
+        input.RangeSlider__slider#2  524×44 @0,32
+        span.RangeSlider__scale#2  524×19 @0,83
+          span  36×19 @0,0  JetBrains Mono 400 12/19  lines=1  «10 м²»
+          span#2  36×19 @488,0  JetBrains Mono 400 12/19  lines=1  «60 м²»
+      div.HeroPicker__places  524×75 @0,115
+        span.HeroPicker__placesLabel#2  524×23 @0,0  Manrope 700 15/23  lines=1  «Тип помещения»
+        div.HeroPicker__chips#2  524×44 @0,31
+          button.Chip__chip  89×44 @0,0  r100  b1
+            span.HeroPicker__placeFull#2  61×16 @14,14  Manrope 600 13/16  lines=1  «Квартира»
+          button.Chip__chip#2  111×44 @97,0  r100  b1
+            span.HeroPicker__placeFull#2  83×16 @14,14  Manrope 600 13/16  lines=1  «Частный дом»
+          button.Chip__chip#3  62×44 @216,0  r100  b1
+            span.HeroPicker__placeFull#2  34×16 @14,14  Manrope 600 13/16  lines=1  «Офис»
+    div.Card__card#2  524×331 @0,205  r20  b1  clipped
+      span.HeroPicker__glow  200×200 @363,-49  r50
+      div.HeroPicker__states  486×264 @19,19
+        div.HeroPicker__state#2  486×264 @0,0
+          div.HeroPicker__resultHead  486×24 @0,0
+            span.HeroPicker__resultEyebrow#2  133×19 @0,3  JetBrains Mono 400 12/19  ls2  lines=1  «Рекомендуем вам»
+            span.Badge__badge#2  35×24 @451,0  Manrope 600 12/16  r100  b1  lines=1  «09»
+          div.HeroPicker__model  486×69 @0,32
+            span.HeroPicker__photoStub#2  62×62 @0,0  r13  b1
+            div.HeroPicker__modelInfo#2  187×69 @74,0
+              h3.HeroPicker__modelName  187×22 @0,0  Onest 700 18/22  ls0  lines=1  «Сплит-система 09»
+              p.HeroPicker__specs  187×19 @0,26  JetBrains Mono 400 12/19  lines=1  «21 дБ · 0.7 кВт · до 27 м²»
+              p.HeroPicker__tag  187×21 @0,48  Manrope 400 14/21  lines=1  «инвертор»
+          div.HeroPicker__priceRow  486×69 @0,109
+            span.HeroPicker__price#2  116×42 @0,0  Onest 700 27/42  lines=1  «38 500 ₽»
+            span.HeroPicker__priceNote#2  486×19 @0,50  Manrope 400 13/19  lines=1  «под ключ с монтажом»
+          p.HeroPicker__saleRow  486×26 @0,186
+          a.Button__button  486×44 @0,220  r11  b1
+            span.Button__content#2  148×17 @169,13
+              span.Button__label  148×17 @0,0  Manrope 600 15/17  lines=1  «Смета на эту модель»
+      p.HeroPicker__disclaimer  486×19 @19,293  Manrope 400 12/19  lines=1  «финальную цену подтвердит специалист пос»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #08425473 0px 36px 80px -32px
+  div.HeroPicker__head
+    h2.HeroPicker__eyebrow  color #0e7490
+    span.HeroPicker__live  color #556173
+      span.HeroPicker__dot  bg #166534
+  div.HeroPicker__body
+    div.HeroPicker__controls
+      div.Field__field
+        span.RangeSlider__head
+          label  color #0f172a
+          output.RangeSlider__value  color #0e7490
+        input.RangeSlider__slider
+        span.RangeSlider__scale
+          span  color #5b6a7d
+          span#2  color #5b6a7d
+      div.HeroPicker__places
+        span.HeroPicker__placesLabel  color #0f172a
+        div.HeroPicker__chips
+          button.Chip__chip  bg #0e7490  border #0e7490
+            span.HeroPicker__placeFull  color #ffffff
+          button.Chip__chip#2  border #7e8fa6
+            span.HeroPicker__placeFull  color #475569
+          button.Chip__chip#3  border #7e8fa6
+            span.HeroPicker__placeFull  color #475569
+    div.Card__card  bg #0f172a  border color(srgb 1 1 1 / 0.18)
+      span.HeroPicker__glow  gradient radial-gradient(circle, color(srgb 0.133333 0.827451 0.933333 / 0.16), transparent 70%)
+      div.HeroPicker__states
+        div.HeroPicker__state
+          div.HeroPicker__resultHead
+            span.HeroPicker__resultEyebrow  color #22d3ee
+            span.Badge__badge  color #22d3ee  bg #ecfeff  border #a5f3fc
+          div.HeroPicker__model
+            span.HeroPicker__photoStub  border color(srgb 1 1 1 / 0.18)
+            div.HeroPicker__modelInfo
+              h3.HeroPicker__modelName  color #ffffff
+              p.HeroPicker__specs  color color(srgb 1 1 1 / 0.58)
+              p.HeroPicker__tag  color color(srgb 1 1 1 / 0.72)
+          div.HeroPicker__priceRow
+            span.HeroPicker__price  color #ffffff
+            s.HeroPicker__oldPrice  color color(srgb 1 1 1 / 0.58)
+            span.HeroPicker__priceNote  color color(srgb 1 1 1 / 0.58)
+          p.HeroPicker__saleRow
+            span.Badge__badge  color #22d3ee  bg #ecfeff  border #a5f3fc
+            span.HeroPicker__saleUntil  color color(srgb 1 1 1 / 0.58)
+          a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content
+              span.Button__label  color #ffffff
+      p.HeroPicker__disclaimer  color color(srgb 1 1 1 / 0.58)
+div.Card__card#2  bg #ffffff  border #e2e8f0  shadow #08425473 0px 36px 80px -32px
+  div.HeroPicker__head
+    h2.HeroPicker__eyebrow#2  color #0e7490
+    span.HeroPicker__live#2  color #556173
+      span.HeroPicker__dot  bg #166534
+  div.HeroPicker__body
+    div.HeroPicker__controls#2
+      div.Field__field
+        span.RangeSlider__head#2
+          label  color #0f172a
+          output.RangeSlider__value  color #0e7490
+        input.RangeSlider__slider#2
+        span.RangeSlider__scale#2
+          span  color #5b6a7d
+          span#2  color #5b6a7d
+      div.HeroPicker__places
+        span.HeroPicker__placesLabel#2  color #0f172a
+        div.HeroPicker__chips#2
+          button.Chip__chip  bg #0e7490  border #0e7490
+            span.HeroPicker__placeFull#2  color #ffffff
+          button.Chip__chip#2  border #7e8fa6
+            span.HeroPicker__placeFull#2  color #475569
+          button.Chip__chip#3  border #7e8fa6
+            span.HeroPicker__placeFull#2  color #475569
+    div.Card__card#2  bg #0f172a  border color(srgb 1 1 1 / 0.18)
+      span.HeroPicker__glow  gradient radial-gradient(circle, color(srgb 0.133333 0.827451 0.933333 / 0.16), transparent 70%)
+      div.HeroPicker__states
+        div.HeroPicker__state#2
+          div.HeroPicker__resultHead
+            span.HeroPicker__resultEyebrow#2  color #22d3ee
+            span.Badge__badge#2  color #22d3ee  bg #ecfeff  border #a5f3fc
+          div.HeroPicker__model
+            span.HeroPicker__photoStub#2  border color(srgb 1 1 1 / 0.18)
+            div.HeroPicker__modelInfo#2
+              h3.HeroPicker__modelName  color #ffffff
+              p.HeroPicker__specs  color color(srgb 1 1 1 / 0.58)
+              p.HeroPicker__tag  color color(srgb 1 1 1 / 0.72)
+          div.HeroPicker__priceRow
+            span.HeroPicker__price#2  color #ffffff
+            span.HeroPicker__priceNote#2  color color(srgb 1 1 1 / 0.58)
+          p.HeroPicker__saleRow
+          a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content#2
+              span.Button__label  color #ffffff
+      p.HeroPicker__disclaimer  color color(srgb 1 1 1 / 0.58)
+[палитра light @320]
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip > span.HeroPicker__placeShort  color #ffffff
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#2 > span.HeroPicker__placeShort  color #475569
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#3 > span.HeroPicker__placeShort  color #475569
+div.Card__card#2 > div.HeroPicker__body > div.HeroPicker__controls#2 > div.HeroPicker__places > div.HeroPicker__chips#2 > button.Chip__chip > span.HeroPicker__placeShort#2  color #ffffff
+div.Card__card#2 > div.HeroPicker__body > div.HeroPicker__controls#2 > div.HeroPicker__places > div.HeroPicker__chips#2 > button.Chip__chip#2 > span.HeroPicker__placeShort#2  color #475569
+div.Card__card#2 > div.HeroPicker__body > div.HeroPicker__controls#2 > div.HeroPicker__places > div.HeroPicker__chips#2 > button.Chip__chip#3 > span.HeroPicker__placeShort#2  color #475569
+[палитра light @375]
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip > span.HeroPicker__placeShort  color #ffffff
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#2 > span.HeroPicker__placeShort  color #475569
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#3 > span.HeroPicker__placeShort  color #475569
+div.Card__card#2 > div.HeroPicker__body > div.HeroPicker__controls#2 > div.HeroPicker__places > div.HeroPicker__chips#2 > button.Chip__chip > span.HeroPicker__placeShort#2  color #ffffff
+div.Card__card#2 > div.HeroPicker__body > div.HeroPicker__controls#2 > div.HeroPicker__places > div.HeroPicker__chips#2 > button.Chip__chip#2 > span.HeroPicker__placeShort#2  color #475569
+div.Card__card#2 > div.HeroPicker__body > div.HeroPicker__controls#2 > div.HeroPicker__places > div.HeroPicker__chips#2 > button.Chip__chip#3 > span.HeroPicker__placeShort#2  color #475569
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #08425473 0px 36px 80px -32px
+  div.HeroPicker__head
+    h2.HeroPicker__eyebrow  color #22d3ee
+    span.HeroPicker__live  color #8598ac
+      span.HeroPicker__dot  bg #4ade80
+  div.HeroPicker__body
+    div.HeroPicker__controls
+      div.Field__field
+        span.RangeSlider__head
+          label  color #eaf1f8
+          output.RangeSlider__value  color #22d3ee
+        input.RangeSlider__slider
+        span.RangeSlider__scale
+          span  color #7e92a7
+          span#2  color #7e92a7
+      div.HeroPicker__places
+        span.HeroPicker__placesLabel  color #eaf1f8
+        div.HeroPicker__chips
+          button.Chip__chip  bg #0e7490  border #0e7490
+            span.HeroPicker__placeFull  color #ffffff
+          button.Chip__chip#2  border #566d95
+            span.HeroPicker__placeFull  color #a8b6c6
+          button.Chip__chip#3  border #566d95
+            span.HeroPicker__placeFull  color #a8b6c6
+    div.Card__card  bg #111d34  border color(srgb 1 1 1 / 0.18)
+      span.HeroPicker__glow  gradient radial-gradient(circle, color(srgb 0.133333 0.827451 0.933333 / 0.16), transparent 70%)
+      div.HeroPicker__states
+        div.HeroPicker__state
+          div.HeroPicker__resultHead
+            span.HeroPicker__resultEyebrow  color #22d3ee
+            span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          div.HeroPicker__model
+            span.HeroPicker__photoStub  border color(srgb 1 1 1 / 0.18)
+            div.HeroPicker__modelInfo
+              h3.HeroPicker__modelName  color #ffffff
+              p.HeroPicker__specs  color color(srgb 1 1 1 / 0.58)
+              p.HeroPicker__tag  color color(srgb 1 1 1 / 0.72)
+          div.HeroPicker__priceRow
+            span.HeroPicker__price  color #ffffff
+            s.HeroPicker__oldPrice  color color(srgb 1 1 1 / 0.58)
+            span.HeroPicker__priceNote  color color(srgb 1 1 1 / 0.58)
+          p.HeroPicker__saleRow
+            span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+            span.HeroPicker__saleUntil  color color(srgb 1 1 1 / 0.58)
+          a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content
+              span.Button__label  color #ffffff
+      p.HeroPicker__disclaimer  color color(srgb 1 1 1 / 0.58)
+div.Card__card#2  bg #121d31  border #1e2b41  shadow #08425473 0px 36px 80px -32px
+  div.HeroPicker__head
+    h2.HeroPicker__eyebrow#2  color #22d3ee
+    span.HeroPicker__live#2  color #8598ac
+      span.HeroPicker__dot  bg #4ade80
+  div.HeroPicker__body
+    div.HeroPicker__controls#2
+      div.Field__field
+        span.RangeSlider__head#2
+          label  color #eaf1f8
+          output.RangeSlider__value  color #22d3ee
+        input.RangeSlider__slider#2
+        span.RangeSlider__scale#2
+          span  color #7e92a7
+          span#2  color #7e92a7
+      div.HeroPicker__places
+        span.HeroPicker__placesLabel#2  color #eaf1f8
+        div.HeroPicker__chips#2
+          button.Chip__chip  bg #0e7490  border #0e7490
+            span.HeroPicker__placeFull#2  color #ffffff
+          button.Chip__chip#2  border #566d95
+            span.HeroPicker__placeFull#2  color #a8b6c6
+          button.Chip__chip#3  border #566d95
+            span.HeroPicker__placeFull#2  color #a8b6c6
+    div.Card__card#2  bg #111d34  border color(srgb 1 1 1 / 0.18)
+      span.HeroPicker__glow  gradient radial-gradient(circle, color(srgb 0.133333 0.827451 0.933333 / 0.16), transparent 70%)
+      div.HeroPicker__states
+        div.HeroPicker__state#2
+          div.HeroPicker__resultHead
+            span.HeroPicker__resultEyebrow#2  color #22d3ee
+            span.Badge__badge#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+          div.HeroPicker__model
+            span.HeroPicker__photoStub#2  border color(srgb 1 1 1 / 0.18)
+            div.HeroPicker__modelInfo#2
+              h3.HeroPicker__modelName  color #ffffff
+              p.HeroPicker__specs  color color(srgb 1 1 1 / 0.58)
+              p.HeroPicker__tag  color color(srgb 1 1 1 / 0.72)
+          div.HeroPicker__priceRow
+            span.HeroPicker__price#2  color #ffffff
+            span.HeroPicker__priceNote#2  color color(srgb 1 1 1 / 0.58)
+          p.HeroPicker__saleRow
+          a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content#2
+              span.Button__label  color #ffffff
+      p.HeroPicker__disclaimer  color color(srgb 1 1 1 / 0.58)
+[палитра dark @320]
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip > span.HeroPicker__placeShort  color #ffffff
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#2 > span.HeroPicker__placeShort  color #a8b6c6
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#3 > span.HeroPicker__placeShort  color #a8b6c6
+div.Card__card#2 > div.HeroPicker__body > div.HeroPicker__controls#2 > div.HeroPicker__places > div.HeroPicker__chips#2 > button.Chip__chip > span.HeroPicker__placeShort#2  color #ffffff
+div.Card__card#2 > div.HeroPicker__body > div.HeroPicker__controls#2 > div.HeroPicker__places > div.HeroPicker__chips#2 > button.Chip__chip#2 > span.HeroPicker__placeShort#2  color #a8b6c6
+div.Card__card#2 > div.HeroPicker__body > div.HeroPicker__controls#2 > div.HeroPicker__places > div.HeroPicker__chips#2 > button.Chip__chip#3 > span.HeroPicker__placeShort#2  color #a8b6c6
+[палитра dark @375]
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip > span.HeroPicker__placeShort  color #ffffff
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#2 > span.HeroPicker__placeShort  color #a8b6c6
+div.Card__card > div.HeroPicker__body > div.HeroPicker__controls > div.HeroPicker__places > div.HeroPicker__chips > button.Chip__chip#3 > span.HeroPicker__placeShort  color #a8b6c6
+div.Card__card#2 > div.HeroPicker__body > div.HeroPicker__controls#2 > div.HeroPicker__places > div.HeroPicker__chips#2 > button.Chip__chip > span.HeroPicker__placeShort#2  color #ffffff
+div.Card__card#2 > div.HeroPicker__body > div.HeroPicker__controls#2 > div.HeroPicker__places > div.HeroPicker__chips#2 > button.Chip__chip#2 > span.HeroPicker__placeShort#2  color #a8b6c6
+div.Card__card#2 > div.HeroPicker__body > div.HeroPicker__controls#2 > div.HeroPicker__places > div.HeroPicker__chips#2 > button.Chip__chip#3 > span.HeroPicker__placeShort#2  color #a8b6c6

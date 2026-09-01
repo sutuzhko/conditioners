@@ -1,0 +1,77 @@
+# админка-обложка-статьи--собложкой · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×454 @16,16  r20  b1
+  h2.ArticleCover__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Обложка»
+  p.ArticleCover__hint  316×60 @21,46  Manrope 400 13/20  lines=3  «Показывается в списке статей и при отпра»
+  img.ArticleCover__preview  316×179 @21,120  r14  b1
+  div.Field__field  316×120 @21,313
+    label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заменить обложку»
+    input.FileInput__input  1×1 @-1,-1  clipped
+    label.FileInput__dropzone  316×93 @0,27  r11  b1
+      svg.FileInput__icon  22×22 @15,36
+      span.FileInput__texts  252×67 @49,13
+        span.FileInput__title  252×45 @0,0  Manrope 600 15/22  lines=2  «Выберите фото или перетащите сюда»
+        span  252×20 @0,47  Manrope 400 13/20  lines=1  «до 5 МБ»
+
+[геометрия 768]
+section.Card__card  736×415 @16,16  r20  b1
+  h2.ArticleCover__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Обложка»
+  p.ArticleCover__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Показывается в списке статей и при отпра»
+  img.ArticleCover__preview  320×181 @21,101  r14  b1
+  div.Field__field  694×98 @21,296
+    label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Заменить обложку»
+    input.FileInput__input  1×1 @-1,-1  clipped
+    label.FileInput__dropzone  694×71 @0,27  r11  b1
+      svg.FileInput__icon  22×22 @15,24
+      span.FileInput__texts  267×45 @49,13
+        span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
+        span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+
+[геометрия 1440]
+section.Card__card  1408×416 @16,16  r20  b1
+  h2.ArticleCover__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Обложка»
+  p.ArticleCover__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Показывается в списке статей и при отпра»
+  img.ArticleCover__preview  320×181 @21,102  r14  b1
+  div.Field__field  1366×98 @21,297
+    label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Заменить обложку»
+    input.FileInput__input  1×1 @-1,-1  clipped
+    label.FileInput__dropzone  1366×71 @0,27  r11  b1
+      svg.FileInput__icon  22×22 @15,24
+      span.FileInput__texts  267×45 @49,13
+        span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
+        span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.ArticleCover__title  color #0f172a
+  p.ArticleCover__hint  color #556173
+  img.ArticleCover__preview  border #e2e8f0
+  div.Field__field
+    label.Field__label  color #334155
+    input.FileInput__input
+    label.FileInput__dropzone  bg #ffffff  border #7e8fa6
+      svg.FileInput__icon
+      span.FileInput__texts
+        span.FileInput__title  color #334155
+        span  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.ArticleCover__title  color #eaf1f8
+  p.ArticleCover__hint  color #8598ac
+  img.ArticleCover__preview  border #1e2b41
+  div.Field__field
+    label.Field__label  color #c9d5e2
+    input.FileInput__input
+    label.FileInput__dropzone  bg #0b1424  border #566d95
+      svg.FileInput__icon
+      span.FileInput__texts
+        span.FileInput__title  color #c9d5e2
+        span  color #8598ac

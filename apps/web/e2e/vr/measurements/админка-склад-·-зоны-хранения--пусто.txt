@@ -1,0 +1,52 @@
+# админка-склад-·-зоны-хранения--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×285 @16,16  r20  b1
+  header.StockZones__header  316×107 @21,21
+    h2.StockZones__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Зоны хранения»
+    p.StockZones__hint  316×81 @0,27  Manrope 400 13/20  lines=4  «Где лежит материал: основное место хране»
+  p.StockZones__empty  316×67 @21,140  Manrope 400 15/22  lines=3  «Зон нет. Заведите основное место хранени»
+  div.StockZones__actions  316×44 @21,220
+    a.Button__button  124×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Добавить зону»
+
+[геометрия 768]
+section.Card__card  736×223 @16,16  r20  b1
+  header.StockZones__header  694×68 @21,21
+    h2.StockZones__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Зоны хранения»
+    p.StockZones__hint  539×40 @0,28  Manrope 400 13/20  lines=2  «Где лежит материал: основное место хране»
+  p.StockZones__empty  531×45 @21,101  Manrope 400 15/22  lines=2  «Зон нет. Заведите основное место хранени»
+  div.StockZones__actions  694×44 @21,158
+    a.Button__button  124×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Добавить зону»
+
+[геометрия 1440]
+section.Card__card  1408×220 @16,16  r20  b1
+  header.StockZones__header  1366×69 @21,21
+    h2.StockZones__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Зоны хранения»
+    p.StockZones__hint  539×40 @0,29  Manrope 400 13/20  lines=2  «Где лежит материал: основное место хране»
+  p.StockZones__empty  531×45 @21,102  Manrope 400 15/22  lines=2  «Зон нет. Заведите основное место хранени»
+  div.StockZones__actions  1366×40 @21,159
+    a.Button__button  124×40 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Добавить зону»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.StockZones__header
+    h2.StockZones__title  color #0f172a
+    p.StockZones__hint  color #556173
+  p.StockZones__empty  color #556173
+  div.StockZones__actions
+    a.Button__button  color #0f172a  bg #ffffff  border #7e8fa6
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.StockZones__header
+    h2.StockZones__title  color #eaf1f8
+    p.StockZones__hint  color #8598ac
+  p.StockZones__empty  color #8598ac
+  div.StockZones__actions
+    a.Button__button  color #eaf1f8  bg #121d31  border #566d95

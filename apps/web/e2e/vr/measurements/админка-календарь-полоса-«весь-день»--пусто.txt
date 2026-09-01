@@ -1,0 +1,37 @@
+# админка-календарь-полоса-«весь-день»--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.AllDayBar__bar  358×27 @16,16  b0 0 1 0
+  div.AllDayBar__rail  358×14 @0,4
+    span.AllDayBar__label  58×14 @294,0  Manrope 400 12/14  lines=1  «Весь день»
+  ul.AllDayBar__list  358×0 @0,22
+
+[геометрия 768]
+div.AllDayBar__bar  736×27 @16,16  b0 0 1 0
+  div.AllDayBar__rail  736×14 @0,4
+    span.AllDayBar__label  58×14 @672,0  Manrope 400 12/14  lines=1  «Весь день»
+  ul.AllDayBar__list  736×0 @0,22
+
+[геометрия 1440]
+div.AllDayBar__bar  1408×27 @16,16  b0 0 1 0
+  div.AllDayBar__rail  1408×14 @0,4
+    span.AllDayBar__label  58×14 @1344,0  Manrope 400 12/14  lines=1  «Весь день»
+  ul.AllDayBar__list  1408×0 @0,22
+
+[палитра light]
+div.AllDayBar__bar  border #0f172a #0f172a #e2e8f0 #0f172a
+  div.AllDayBar__rail
+    span.AllDayBar__label  color #5b6a7d
+  ul.AllDayBar__list
+
+[палитра dark]
+div.AllDayBar__bar  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+  div.AllDayBar__rail
+    span.AllDayBar__label  color #7e92a7
+  ul.AllDayBar__list

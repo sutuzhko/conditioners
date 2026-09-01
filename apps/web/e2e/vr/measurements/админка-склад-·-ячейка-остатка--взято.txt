@@ -1,0 +1,52 @@
+# админка-склад-·-ячейка-остатка--взято · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+td.StockCell__cell  82×53 @18,18
+  button.StockCell__button  82×53 @0,0  Manrope 600 15/23  r11  b1  lines=1  «43,5 м»
+td.StockCell__cell#2  66×53 @102,18
+  button.StockCell__button  66×53 @0,0  Manrope 400 15/23  r11  b1  lines=1  «12 м»
+td.StockCell__cell#3  61×53 @170,18
+  button.StockCell__button  61×53 @0,0  Manrope 400 15/23  r11  b1  lines=1  «0 м»
+p[role=status]  1×1 @15,72  Manrope 400 15/23  lines=1  clipped  «Взяли «Труба медная 1/4″" из зоны «Гараж»
+
+[геометрия 768]
+td.StockCell__cell  82×53 @18,18
+  button.StockCell__button  82×53 @0,0  Manrope 600 15/23  r11  b1  lines=1  «43,5 м»
+td.StockCell__cell#2  66×53 @102,18
+  button.StockCell__button  66×53 @0,0  Manrope 400 15/23  r11  b1  lines=1  «12 м»
+td.StockCell__cell#3  61×53 @170,18
+  button.StockCell__button  61×53 @0,0  Manrope 400 15/23  r11  b1  lines=1  «0 м»
+p[role=status]  1×1 @15,72  Manrope 400 15/23  lines=1  clipped  «Взяли «Труба медная 1/4″" из зоны «Гараж»
+
+[геометрия 1440]
+td.StockCell__cell  82×53 @18,18
+  button.StockCell__button  82×53 @0,0  Manrope 600 15/23  r11  b1  lines=1  «43,5 м»
+td.StockCell__cell#2  66×53 @102,18
+  button.StockCell__button  66×53 @0,0  Manrope 400 15/23  r11  b1  lines=1  «12 м»
+td.StockCell__cell#3  61×53 @170,18
+  button.StockCell__button  61×53 @0,0  Manrope 400 15/23  r11  b1  lines=1  «0 м»
+p[role=status]  1×1 @15,72  Manrope 400 15/23  lines=1  clipped  «Взяли «Труба медная 1/4″" из зоны «Гараж»
+
+[палитра light]
+td.StockCell__cell
+  button.StockCell__button  color #0e7490  bg #ecfeff  border #0891b2  outline #0891b2
+td.StockCell__cell#2
+  button.StockCell__button  color #0f172a  border #a5f3fc
+td.StockCell__cell#3
+  button.StockCell__button  color #5b6a7d  border transparent
+p[role=status]  color #0f172a
+
+[палитра dark]
+td.StockCell__cell
+  button.StockCell__button  color #22d3ee  bg #22d3ee1a  border #22d3ee  outline #22d3ee
+td.StockCell__cell#2
+  button.StockCell__button  color #eaf1f8  border #22d3ee59
+td.StockCell__cell#3
+  button.StockCell__button  color #7e92a7  border transparent
+p[role=status]  color #eaf1f8

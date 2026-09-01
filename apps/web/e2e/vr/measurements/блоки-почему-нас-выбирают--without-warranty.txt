@@ -1,0 +1,170 @@
+# блоки-почему-нас-выбирают--without-warranty · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+div.WhyUs__container  320×792 @0,0
+  div.WhyUs__panel  288×744 @16,48  r28  clipped
+    span.WhyUs__glow  288×360 @60,-80  r50
+    div.WhyUs__inner  248×688 @20,28
+      h2.WhyUs__title  248×58 @0,0  Onest 700 24/29  ls0  lines=2  «Почему в Туле выбирают нас»
+      dl.Stat__list  248×231 @0,86  b0 0 1 0
+        div.Stat__item  248×53 @0,0
+          dt.Stat__value  248×29 @0,0  Onest 700 26/29  ls-1  lines=1  «1 200+»
+          dd.Stat__label  248×20 @0,33  Manrope 400 13/20  lines=1  «установок в Туле»
+        div.Stat__item#2  248×53 @0,73
+          dt.Stat__value  248×29 @0,0  Onest 700 26/29  ls-1  lines=1  «8 лет»
+          dd.Stat__label  248×20 @0,33  Manrope 400 13/20  lines=1  «на рынке»
+        div.Stat__item#3  248×53 @0,145
+          dt.Stat__value  248×29 @0,0  Onest 700 26/29  ls-1  lines=1  «1 день»
+          dd.Stat__label  248×20 @0,33  Manrope 400 13/20  lines=1  «от заявки до запуска»
+      ul.WhyUs__reasons  248×335 @0,353
+        li.WhyUs__reason  248×96 @0,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  228×20 @20,0  Onest 700 17/20  ls0  lines=1  «Фиксированная смета»
+          p.WhyUs__reasonText  228×67 @20,28  Manrope 400 15/22  lines=3  «Считаем стоимость заранее и фиксируем в»
+        li.WhyUs__reason#2  248×96 @0,120  b0 0 0 2
+          h3.WhyUs__reasonTitle  228×20 @20,0  Onest 700 17/20  ls0  lines=1  «Свои монтажники»
+          p.WhyUs__reasonText  228×67 @20,28  Manrope 400 15/22  lines=3  «Работают штатные бригады, а не случайные»
+        li.WhyUs__reason#3  248×96 @0,240  b0 0 0 2
+          h3.WhyUs__reasonTitle  228×20 @20,0  Onest 700 17/20  ls0  lines=1  «Чисто и быстро»
+          p.WhyUs__reasonText  228×67 @20,28  Manrope 400 15/22  lines=3  «Пылесос, защитная плёнка, вынос мусора.»
+
+[геометрия 375]
+div.WhyUs__container  375×773 @0,0
+  div.WhyUs__panel  343×722 @16,51  r28  clipped
+    span.WhyUs__glow  343×360 @60,-80  r50
+    div.WhyUs__inner  303×666 @20,28
+      h2.WhyUs__title  303×58 @0,0  Onest 700 24/29  ls0  lines=2  «Почему в Туле выбирают нас»
+      dl.Stat__list  303×231 @0,86  b0 0 1 0
+        div.Stat__item  303×53 @0,0
+          dt.Stat__value  303×29 @0,0  Onest 700 26/29  ls-1  lines=1  «1 200+»
+          dd.Stat__label  303×20 @0,33  Manrope 400 13/20  lines=1  «установок в Туле»
+        div.Stat__item#2  303×53 @0,73
+          dt.Stat__value  303×29 @0,0  Onest 700 26/29  ls-1  lines=1  «8 лет»
+          dd.Stat__label  303×20 @0,33  Manrope 400 13/20  lines=1  «на рынке»
+        div.Stat__item#3  303×53 @0,145
+          dt.Stat__value  303×29 @0,0  Onest 700 26/29  ls-1  lines=1  «1 день»
+          dd.Stat__label  303×20 @0,33  Manrope 400 13/20  lines=1  «от заявки до запуска»
+      ul.WhyUs__reasons  303×313 @0,353
+        li.WhyUs__reason  303×96 @0,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  283×21 @20,0  Onest 700 17/21  ls0  lines=1  «Фиксированная смета»
+          p.WhyUs__reasonText  283×67 @20,29  Manrope 400 15/22  lines=3  «Считаем стоимость заранее и фиксируем в»
+        li.WhyUs__reason#2  303×96 @0,120  b0 0 0 2
+          h3.WhyUs__reasonTitle  283×21 @20,0  Onest 700 17/21  ls0  lines=1  «Свои монтажники»
+          p.WhyUs__reasonText  283×67 @20,29  Manrope 400 15/22  lines=3  «Работают штатные бригады, а не случайные»
+        li.WhyUs__reason#3  303×73 @0,240  b0 0 0 2
+          h3.WhyUs__reasonTitle  283×21 @20,0  Onest 700 17/21  ls0  lines=1  «Чисто и быстро»
+          p.WhyUs__reasonText  283×45 @20,29  Manrope 400 15/22  lines=2  «Пылесос, защитная плёнка, вынос мусора.»
+
+[геометрия 768]
+div.WhyUs__container  768×552 @0,0
+  div.WhyUs__panel  728×484 @20,68  r28  clipped
+    span.WhyUs__glow  360×360 @428,-80  r50
+    div.WhyUs__inner  666×407 @31,38
+      h2.WhyUs__title  520×41 @0,0  Onest 700 34/41  ls-1  lines=1  «Почему в Туле выбирают нас»
+      dl.Stat__list  666×95 @0,81  b0 0 1 0
+        div.Stat__item  203×62 @0,0
+          dt.Stat__value  203×37 @0,0  Onest 700 34/37  ls-1  lines=1  «1 200+»
+          dd.Stat__label  203×20 @0,41  Manrope 400 13/20  lines=1  «установок в Туле»
+        div.Stat__item#2  203×62 @231,0
+          dt.Stat__value  203×37 @0,0  Onest 700 34/37  ls-1  lines=1  «8 лет»
+          dd.Stat__label  203×20 @0,41  Manrope 400 13/20  lines=1  «на рынке»
+        div.Stat__item#3  203×62 @463,0
+          dt.Stat__value  203×37 @0,0  Onest 700 34/37  ls-1  lines=1  «1 день»
+          dd.Stat__label  203×20 @0,41  Manrope 400 13/20  lines=1  «от заявки до запуска»
+      ul.WhyUs__reasons  666×196 @0,211
+        li.WhyUs__reason  323×97 @0,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  303×22 @20,0  Onest 700 18/22  ls0  lines=1  «Фиксированная смета»
+          p.WhyUs__reasonText  303×45 @20,30  Manrope 400 15/22  lines=2  «Считаем стоимость заранее и фиксируем в»
+        li.WhyUs__reason#2  323×97 @343,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  303×22 @20,0  Onest 700 18/22  ls0  lines=1  «Свои монтажники»
+          p.WhyUs__reasonText  303×67 @20,30  Manrope 400 15/22  lines=3  «Работают штатные бригады, а не случайные»
+        li.WhyUs__reason#3  323×75 @0,121  b0 0 0 2
+          h3.WhyUs__reasonTitle  303×22 @20,0  Onest 700 18/22  ls0  lines=1  «Чисто и быстро»
+          p.WhyUs__reasonText  303×45 @20,30  Manrope 400 15/22  lines=2  «Пылесос, защитная плёнка, вынос мусора.»
+
+[геометрия 1200]
+div.WhyUs__container  1200×510 @0,0
+  div.WhyUs__panel  1152×422 @24,88  r28  clipped
+    span.WhyUs__glow  360×360 @852,-80  r50
+    div.WhyUs__inner  1056×310 @48,56
+      h2.WhyUs__title  520×41 @0,0  Onest 700 34/41  ls-1  lines=1  «Почему в Туле выбирают нас»
+      dl.Stat__list  1056×95 @0,81  b0 0 1 0
+        div.Stat__item  333×62 @0,0
+          dt.Stat__value  333×37 @0,0  Onest 700 34/37  ls-1  lines=1  «1 200+»
+          dd.Stat__label  333×20 @0,41  Manrope 400 13/20  lines=1  «установок в Туле»
+        div.Stat__item#2  333×62 @361,0
+          dt.Stat__value  333×37 @0,0  Onest 700 34/37  ls-1  lines=1  «8 лет»
+          dd.Stat__label  333×20 @0,41  Manrope 400 13/20  lines=1  «на рынке»
+        div.Stat__item#3  333×62 @723,0
+          dt.Stat__value  333×37 @0,0  Onest 700 34/37  ls-1  lines=1  «1 день»
+          dd.Stat__label  333×20 @0,41  Manrope 400 13/20  lines=1  «от заявки до запуска»
+      ul.WhyUs__reasons  1056×98 @0,211
+        li.WhyUs__reason  249×98 @0,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  229×23 @20,0  Onest 700 19/23  ls0  lines=1  «Фиксированная смета»
+          p.WhyUs__reasonText  229×67 @20,31  Manrope 400 15/22  lines=3  «Считаем стоимость заранее и фиксируем в»
+        li.WhyUs__reason#2  249×98 @269,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  229×23 @20,0  Onest 700 19/23  ls0  lines=1  «Свои монтажники»
+          p.WhyUs__reasonText  229×67 @20,31  Manrope 400 15/22  lines=3  «Работают штатные бригады, а не случайные»
+        li.WhyUs__reason#3  249×98 @538,0  b0 0 0 2
+          h3.WhyUs__reasonTitle  229×23 @20,0  Onest 700 19/23  ls0  lines=1  «Чисто и быстро»
+          p.WhyUs__reasonText  229×67 @20,31  Manrope 400 15/22  lines=3  «Пылесос, защитная плёнка, вынос мусора.»
+
+[палитра light]
+div.WhyUs__container
+  div.WhyUs__panel  bg #0f172a
+    span.WhyUs__glow  gradient radial-gradient(circle, color(srgb 0.133333 0.827451 0.933333 / 0.18), transparent 70%)
+    div.WhyUs__inner
+      h2.WhyUs__title  color #ffffff
+      dl.Stat__list  border #0f172a #0f172a color(srgb 1 1 1 / 0.14) #0f172a
+        div.Stat__item
+          dt.Stat__value  color #ffffff
+          dd.Stat__label  color color(srgb 1 1 1 / 0.66)
+        div.Stat__item#2
+          dt.Stat__value  color #ffffff
+          dd.Stat__label  color color(srgb 1 1 1 / 0.66)
+        div.Stat__item#3
+          dt.Stat__value  color #ffffff
+          dd.Stat__label  color color(srgb 1 1 1 / 0.66)
+      ul.WhyUs__reasons
+        li.WhyUs__reason  border #0f172a #0f172a #0f172a #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)
+        li.WhyUs__reason#2  border #0f172a #0f172a #0f172a #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)
+        li.WhyUs__reason#3  border #0f172a #0f172a #0f172a #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)
+
+[палитра dark]
+div.WhyUs__container
+  div.WhyUs__panel  bg #111d34
+    span.WhyUs__glow  gradient radial-gradient(circle, color(srgb 0.133333 0.827451 0.933333 / 0.18), transparent 70%)
+    div.WhyUs__inner
+      h2.WhyUs__title  color #ffffff
+      dl.Stat__list  border #eaf1f8 #eaf1f8 color(srgb 1 1 1 / 0.14) #eaf1f8
+        div.Stat__item
+          dt.Stat__value  color #ffffff
+          dd.Stat__label  color color(srgb 1 1 1 / 0.66)
+        div.Stat__item#2
+          dt.Stat__value  color #ffffff
+          dd.Stat__label  color color(srgb 1 1 1 / 0.66)
+        div.Stat__item#3
+          dt.Stat__value  color #ffffff
+          dd.Stat__label  color color(srgb 1 1 1 / 0.66)
+      ul.WhyUs__reasons
+        li.WhyUs__reason  border #eaf1f8 #eaf1f8 #eaf1f8 #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)
+        li.WhyUs__reason#2  border #eaf1f8 #eaf1f8 #eaf1f8 #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)
+        li.WhyUs__reason#3  border #eaf1f8 #eaf1f8 #eaf1f8 #22d3ee
+          h3.WhyUs__reasonTitle  color #ffffff
+          p.WhyUs__reasonText  color color(srgb 1 1 1 / 0.62)

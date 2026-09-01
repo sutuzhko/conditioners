@@ -1,0 +1,242 @@
+# админка-профиль--монтажник · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×1120
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.ProfileForm__grid  358×1088 @16,16
+  section.Card__card  358×525 @0,0  r20  b1
+    form.ProfileForm__form  316×483 @21,21
+      div.ProfileForm__head  316×28 @0,0
+        h2.ProfileForm__title  128×21 @0,4  Onest 700 17/21  ls0  lines=1  «Личные данные»
+        span.Badge__badge  92×28 @136,0  Manrope 600 12/16  r100  b1  lines=1  «монтажник»
+      div.Field__field  316×76 @0,40
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+        input  316×49 @0,27  r11  b1
+      div.Field__field#2  316×76 @0,128
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+        input.ProfileForm__readonly  316×49 @0,27  r11  b1
+      div.Field__field#3  316×122 @0,216
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
+        input.ProfileForm__readonly  316×49 @0,27  r11  b1
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Оформление заводит владелец: от него зав»
+      div.Field__field#4  316×76 @0,350
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        input  316×49 @0,27  r11  b1
+      div.ProfileForm__actions  316×44 @0,439
+        button.Button__button  115×44 @0,0  r11  b1
+          span.Button__content  77×17 @19,13
+            span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+  div.ProfileForm__column  358×547 @0,541
+    section.Card__card  358×379 @0,0  r20  b1
+      form.ProfileForm__form#2  316×337 @21,21
+        h2.ProfileForm__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Смена пароля»
+        p.ProfileForm__hint  316×60 @0,37  Manrope 400 13/20  lines=3  «После смены все остальные открытые сесси»
+        div.Field__field  316×76 @0,117
+          label.Field__label#2  316×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
+          input#2  316×49 @0,27  r11  b1
+        div.Field__field#2  316×76 @0,205
+          label.Field__label#2  316×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
+          input  316×49 @0,27  r11  b1
+        div.ProfileForm__actions  316×44 @0,293
+          button.Button__button#2  155×44 @0,0  r11  b1
+            span.Button__content  117×17 @19,13
+              span.Button__label#2  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
+    section.Card__card#2  358×152 @0,395  r20  b1
+      h2.ProfileForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Тема интерфейса»
+      p.ProfileForm__hint  316×40 @21,46  Manrope 400 13/20  lines=2  «Выбор запоминается в этом браузере и на»
+      div.ThemeChoice__row  316×37 @21,94
+        button.ThemeChoice__option  94×37 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
+        button.ThemeChoice__option#2  86×37 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
+        button.ThemeChoice__option#3  113×37 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+
+[геометрия 768]
+div.ProfileForm__grid  736×549 @16,16
+  section.Card__card  360×525 @0,0  r20  b1
+    form.ProfileForm__form  318×483 @21,21
+      div.ProfileForm__head  318×28 @0,0
+        h2.ProfileForm__title  135×22 @0,3  Onest 700 18/22  ls0  lines=1  «Личные данные»
+        span.Badge__badge  92×28 @143,0  Manrope 600 12/16  r100  b1  lines=1  «монтажник»
+      div.Field__field  318×76 @0,40
+        label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+        input  318×49 @0,27  r11  b1
+      div.Field__field#2  318×76 @0,128
+        label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+        input.ProfileForm__readonly  318×49 @0,27  r11  b1
+      div.Field__field#3  318×122 @0,216
+        label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
+        input.ProfileForm__readonly  318×49 @0,27  r11  b1
+        p.Field__hint  318×39 @0,83  Manrope 400 13/19  lines=2  «Оформление заводит владелец: от него зав»
+      div.Field__field#4  318×76 @0,350
+        label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        input  318×49 @0,27  r11  b1
+      div.ProfileForm__actions  318×44 @0,439
+        button.Button__button  115×44 @0,0  r11  b1
+          span.Button__content  77×17 @19,13
+            span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+  div.ProfileForm__column  360×549 @376,0
+    section.Card__card  360×380 @0,0  r20  b1
+      form.ProfileForm__form#2  318×338 @21,21
+        h2.ProfileForm__title  318×22 @0,0  Onest 700 18/22  ls0  lines=1  «Смена пароля»
+        p.ProfileForm__hint  318×60 @0,38  Manrope 400 13/20  lines=3  «После смены все остальные открытые сесси»
+        div.Field__field  318×76 @0,118
+          label.Field__label#2  318×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
+          input#2  318×49 @0,27  r11  b1
+        div.Field__field#2  318×76 @0,206
+          label.Field__label#2  318×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
+          input  318×49 @0,27  r11  b1
+        div.ProfileForm__actions  318×44 @0,294
+          button.Button__button#2  155×44 @0,0  r11  b1
+            span.Button__content  117×17 @19,13
+              span.Button__label#2  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
+    section.Card__card#2  360×153 @0,396  r20  b1
+      h2.ProfileForm__title  318×22 @21,21  Onest 700 18/22  ls0  lines=1  «Тема интерфейса»
+      p.ProfileForm__hint  318×40 @21,47  Manrope 400 13/20  lines=2  «Выбор запоминается в этом браузере и на»
+      div.ThemeChoice__row  318×37 @21,95
+        button.ThemeChoice__option  94×37 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
+        button.ThemeChoice__option#2  86×37 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
+        button.ThemeChoice__option#3  113×37 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+
+[геометрия 1440]
+div.ProfileForm__grid  860×531 @16,16
+  section.Card__card  422×525 @0,0  r20  b1
+    form.ProfileForm__form  380×483 @21,21
+      div.ProfileForm__head  380×28 @0,0
+        h2.ProfileForm__title  142×23 @0,3  Onest 700 19/23  ls0  lines=1  «Личные данные»
+        span.Badge__badge  92×28 @150,0  Manrope 600 12/16  r100  b1  lines=1  «монтажник»
+      div.Field__field  380×76 @0,40
+        label.Field__label  380×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+        input  380×49 @0,27  r11  b1
+      div.Field__field#2  380×76 @0,128
+        label.Field__label  380×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+        input.ProfileForm__readonly  380×49 @0,27  r11  b1
+      div.Field__field#3  380×122 @0,216
+        label.Field__label  380×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
+        input.ProfileForm__readonly  380×49 @0,27  r11  b1
+        p.Field__hint  380×39 @0,83  Manrope 400 13/19  lines=2  «Оформление заводит владелец: от него зав»
+      div.Field__field#4  380×76 @0,350
+        label.Field__label  380×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        input  380×49 @0,27  r11  b1
+      div.ProfileForm__actions  380×44 @0,439
+        button.Button__button  115×44 @0,0  r11  b1
+          span.Button__content  77×17 @19,13
+            span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+  div.ProfileForm__column  422×531 @438,0
+    section.Card__card  422×382 @0,0  r20  b1
+      form.ProfileForm__form#2  380×340 @21,21
+        h2.ProfileForm__title  380×23 @0,0  Onest 700 19/23  ls0  lines=1  «Смена пароля»
+        p.ProfileForm__hint  380×60 @0,39  Manrope 400 13/20  lines=3  «После смены все остальные открытые сесси»
+        div.Field__field  380×76 @0,119
+          label.Field__label#2  380×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
+          input#2  380×49 @0,27  r11  b1
+        div.Field__field#2  380×76 @0,207
+          label.Field__label#2  380×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
+          input  380×49 @0,27  r11  b1
+        div.ProfileForm__actions  380×44 @0,296
+          button.Button__button#2  155×44 @0,0  r11  b1
+            span.Button__content  117×17 @19,13
+              span.Button__label#2  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
+    section.Card__card#2  422×134 @0,398  r20  b1
+      h2.ProfileForm__title  380×23 @21,21  Onest 700 19/23  ls0  lines=1  «Тема интерфейса»
+      p.ProfileForm__hint  380×20 @21,48  Manrope 400 13/20  lines=1  «Выбор запоминается в этом браузере и на»
+      div.ThemeChoice__row  380×37 @21,76
+        button.ThemeChoice__option  94×37 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
+        button.ThemeChoice__option#2  86×37 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
+        button.ThemeChoice__option#3  113×37 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+
+[палитра light]
+div.ProfileForm__grid
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    form.ProfileForm__form
+      div.ProfileForm__head
+        h2.ProfileForm__title  color #0f172a
+        span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+      div.Field__field
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#2
+        label.Field__label  color #334155
+        input.ProfileForm__readonly  bg #f8fafc  border #7e8fa6
+      div.Field__field#3
+        label.Field__label  color #334155
+        input.ProfileForm__readonly  bg #f8fafc  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#4
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      div.ProfileForm__actions
+        button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+          span.Button__content
+            span.Button__label  color #ffffff
+  div.ProfileForm__column
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      form.ProfileForm__form#2
+        h2.ProfileForm__title  color #0f172a
+        p.ProfileForm__hint  color #556173
+        div.Field__field
+          label.Field__label#2  color #334155
+          input#2  bg #ffffff  border #7e8fa6
+        div.Field__field#2
+          label.Field__label#2  color #334155
+          input  bg #ffffff  border #7e8fa6
+        div.ProfileForm__actions
+          button.Button__button#2  bg #ffffff  border #7e8fa6
+            span.Button__content
+              span.Button__label#2  color #0f172a
+    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      h2.ProfileForm__title  color #0f172a
+      p.ProfileForm__hint  color #556173
+      div.ThemeChoice__row
+        button.ThemeChoice__option  color #475569  border #cbd5e1
+        button.ThemeChoice__option#2  color #475569  border #cbd5e1
+        button.ThemeChoice__option#3  color #0e7490  bg #ecfeff  border #0891b2
+
+[палитра dark]
+div.ProfileForm__grid
+  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    form.ProfileForm__form
+      div.ProfileForm__head
+        h2.ProfileForm__title  color #eaf1f8
+        span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+        input.ProfileForm__readonly  bg #0e1729  border #566d95
+      div.Field__field#3
+        label.Field__label  color #c9d5e2
+        input.ProfileForm__readonly  bg #0e1729  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#4
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      div.ProfileForm__actions
+        button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+          span.Button__content
+            span.Button__label  color #ffffff
+  div.ProfileForm__column
+    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      form.ProfileForm__form#2
+        h2.ProfileForm__title  color #eaf1f8
+        p.ProfileForm__hint  color #8598ac
+        div.Field__field
+          label.Field__label#2  color #c9d5e2
+          input#2  bg #0b1424  border #566d95
+        div.Field__field#2
+          label.Field__label#2  color #c9d5e2
+          input  bg #0b1424  border #566d95
+        div.ProfileForm__actions
+          button.Button__button#2  bg #121d31  border #566d95
+            span.Button__content
+              span.Button__label#2  color #eaf1f8
+    section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      h2.ProfileForm__title  color #eaf1f8
+      p.ProfileForm__hint  color #8598ac
+      div.ThemeChoice__row
+        button.ThemeChoice__option  color #a8b6c6  border #2c3d59
+        button.ThemeChoice__option#2  color #a8b6c6  border #2c3d59
+        button.ThemeChoice__option#3  color #22d3ee  bg #22d3ee1a  border #22d3ee

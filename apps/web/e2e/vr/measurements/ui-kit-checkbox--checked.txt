@@ -1,0 +1,37 @@
+# ui-kit-checkbox--checked · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Checkbox__root  358×44 @16,16
+  div.Checkbox__row  358×44 @0,0
+    input.Checkbox__input  20×20 @0,11  r6  b1
+    label.Checkbox__label  212×21 @31,10  Manrope 400 15/21  lines=1  «Нужна штроба под магистраль»
+
+[геометрия 768]
+div.Checkbox__root  736×44 @16,16
+  div.Checkbox__row  736×44 @0,0
+    input.Checkbox__input  20×20 @0,11  r6  b1
+    label.Checkbox__label  212×21 @31,10  Manrope 400 15/21  lines=1  «Нужна штроба под магистраль»
+
+[геометрия 1440]
+div.Checkbox__root  1408×44 @16,16
+  div.Checkbox__row  1408×44 @0,0
+    input.Checkbox__input  20×20 @0,11  r6  b1
+    label.Checkbox__label  212×21 @31,10  Manrope 400 15/21  lines=1  «Нужна штроба под магистраль»
+
+[палитра light]
+div.Checkbox__root
+  div.Checkbox__row
+    input.Checkbox__input  bg #0e7490  border #0e7490
+    label.Checkbox__label  color #475569
+
+[палитра dark]
+div.Checkbox__root
+  div.Checkbox__row
+    input.Checkbox__input  bg #0e7490  border #0e7490
+    label.Checkbox__label  color #a8b6c6

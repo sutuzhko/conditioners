@@ -66,6 +66,9 @@ test-results/
 # кадры базы `merge-base`, снятые в той же работе CI. Локальный прогон пишет
 # сюда свои кадры, и в коммит им нельзя — 3408 PNG уже весили половину `.git`.
 apps/web/e2e/vr/*-snapshots/
+# Частичные измерения раскладки локального прогона: в репозиторий идут только
+# собранные файлы историй в apps/web/e2e/vr/measurements/ (ADR-230, фаза 4)
+apps/web/e2e/vr/measurements-partials/
 # снимки для просмотра вёрстки (ADR-103): черновые кадры, а не эталоны
 apps/web/.screenshots/
 blob-report/

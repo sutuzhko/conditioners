@@ -1,0 +1,92 @@
+# блоки-сервис--empty · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+section.Diagnostics__section  320×507 @0,0
+  div.Diagnostics__container  320×507 @0,0
+    header.Diagnostics__head  288×197 @16,48
+      p.Diagnostics__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Сервис и ремонт —»
+      h2.Diagnostics__title  288×58 @0,32  Onest 700 24/29  ls0  lines=2  «Что случилось с кондиционером?»
+      p.Diagnostics__lead  288×93 @0,104  Manrope 400 15/23  lines=4  «Выберите симптом — покажем вероятную при»
+    div.Card__card  288×234 @16,273  r22  b1
+      p.Diagnostics__emptyTitle  246×53 @21,21  Onest 700 17/26  ls0  lines=2  «Список симптомов пока не заполнен»
+      p.Diagnostics__emptyText  246×70 @21,84  Manrope 400 15/23  lines=3  «Опишите проблему в заявке — перезвоним и»
+      a.Button__button  246×44 @21,169  r11  b1
+        span.Button__content  122×17 @62,13
+          span.Button__label  122×17 @0,0  Manrope 600 15/17  lines=1  «Вызвать мастера»
+
+[геометрия 375]
+section.Diagnostics__section  375×489 @0,0
+  div.Diagnostics__container  375×489 @0,0
+    header.Diagnostics__head  343×176 @16,51
+      p.Diagnostics__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Сервис и ремонт —»
+      h2.Diagnostics__title  343×60 @0,32  Onest 700 25/30  ls0  lines=2  «Что случилось с кондиционером?»
+      p.Diagnostics__lead  343×70 @0,106  Manrope 400 15/23  lines=3  «Выберите симптом — покажем вероятную при»
+    div.Card__card  343×235 @16,254  r22  b1
+      p.Diagnostics__emptyTitle  301×53 @21,21  Onest 700 17/27  ls0  lines=2  «Список симптомов пока не заполнен»
+      p.Diagnostics__emptyText  301×70 @21,84  Manrope 400 15/23  lines=3  «Опишите проблему в заявке — перезвоним и»
+      a.Button__button  301×44 @21,170  r11  b1
+        span.Button__content  122×17 @90,13
+          span.Button__label  122×17 @0,0  Manrope 600 15/17  lines=1  «Вызвать мастера»
+
+[геометрия 768]
+section.Diagnostics__section  768×428 @0,0
+  div.Diagnostics__container  768×428 @0,0
+    header.Diagnostics__head  680×136 @44,68
+      p.Diagnostics__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Сервис и ремонт —»
+      h2.Diagnostics__title  680×37 @0,32  Onest 700 31/37  ls-1  lines=1  «Что случилось с кондиционером?»
+      p.Diagnostics__lead  680×53 @0,83  Manrope 400 17/26  lines=2  «Выберите симптом — покажем вероятную при»
+    div.Card__card  728×179 @20,249  r22  b1
+      p.Diagnostics__emptyTitle  318×28 @29,29  Onest 700 18/28  ls0  lines=1  «Список симптомов пока не заполнен»
+      p.Diagnostics__emptyText  521×23 @29,67  Manrope 400 15/23  lines=1  «Опишите проблему в заявке — перезвоним и»
+      a.Button__button  160×44 @29,106  r11  b1
+        span.Button__content  122×17 @19,13
+          span.Button__label  122×17 @0,0  Manrope 600 15/17  lines=1  «Вызвать мастера»
+
+[геометрия 1200]
+section.Diagnostics__section  1200×457 @0,0
+  div.Diagnostics__container  1200×457 @0,0
+    header.Diagnostics__head  680×144 @260,88
+      p.Diagnostics__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Сервис и ремонт —»
+      h2.Diagnostics__title  680×46 @0,32  Onest 700 38/46  ls-1  lines=1  «Что случилось с кондиционером?»
+      p.Diagnostics__lead  680×53 @0,92  Manrope 400 17/26  lines=2  «Выберите симптом — покажем вероятную при»
+    div.Card__card  1152×181 @24,276  r22  b1
+      p.Diagnostics__emptyTitle  336×29 @29,29  Onest 700 19/29  ls0  lines=1  «Список симптомов пока не заполнен»
+      p.Diagnostics__emptyText  521×23 @29,68  Manrope 400 15/23  lines=1  «Опишите проблему в заявке — перезвоним и»
+      a.Button__button  160×44 @29,108  r11  b1
+        span.Button__content  122×17 @19,13
+          span.Button__label  122×17 @0,0  Manrope 600 15/17  lines=1  «Вызвать мастера»
+
+[палитра light]
+section.Diagnostics__section  bg #ffffff
+  div.Diagnostics__container
+    header.Diagnostics__head
+      p.Diagnostics__kicker  color #0e7490
+      h2.Diagnostics__title  color #0f172a
+      p.Diagnostics__lead  color #556173
+    div.Card__card  bg #f8fafc  border #eef2f6
+      p.Diagnostics__emptyTitle  color #0f172a
+      p.Diagnostics__emptyText  color #556173
+      a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+
+[палитра dark]
+section.Diagnostics__section  bg #0b1220
+  div.Diagnostics__container
+    header.Diagnostics__head
+      p.Diagnostics__kicker  color #22d3ee
+      h2.Diagnostics__title  color #eaf1f8
+      p.Diagnostics__lead  color #8598ac
+    div.Card__card  bg #0e1729  border #182338
+      p.Diagnostics__emptyTitle  color #eaf1f8
+      p.Diagnostics__emptyText  color #8598ac
+      a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff

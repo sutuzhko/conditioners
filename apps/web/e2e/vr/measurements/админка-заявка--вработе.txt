@@ -1,0 +1,262 @@
+# админка-заявка--вработе · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+article.Card__card  358×845 @16,16  r20  b1
+  header.LeadCardView__header  316×52 @21,21
+    h2.LeadCardView__name  136×21 @0,0  Onest 700 17/21  ls0  lines=1  «Ирина»
+    a.LeadCardView__phone  136×21 @0,24  Manrope 600 15/23  lines=1  «+7 (900) 123-45-67»
+    div.LeadCardView__headerRight  133×52 @183,0
+      span.Badge__badge  78×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+      time.LeadCardView__when  133×20 @0,32  JetBrains Mono 400 13/20  lines=1  «20.08.2026, 12:15»
+  dl.LeadCardView__details  316×296 @21,87
+    div.LeadCardView__detail  316×43 @0,0
+      dt.LeadCardView__detailLabel  316×20 @0,0  Manrope 400 13/20  lines=1  «Тема»
+      dd.LeadCardView__detailValue  316×22 @0,20  Manrope 400 15/22  lines=1  «Установка кондиционера»
+    div.LeadCardView__detail#2  316×43 @0,51
+      dt.LeadCardView__detailLabel  316×20 @0,0  Manrope 400 13/20  lines=1  «Помещение»
+      dd.LeadCardView__detailValue  316×22 @0,20  Manrope 400 15/22  lines=1  «Квартира»
+    div.LeadCardView__detail#3  316×43 @0,101
+      dt.LeadCardView__detailLabel  316×20 @0,0  Manrope 400 13/20  lines=1  «Количество»
+      dd.LeadCardView__detailValue  316×22 @0,20  Manrope 400 15/22  lines=1  «1»
+    div.LeadCardView__detail#4  316×43 @0,152
+      dt.LeadCardView__detailLabel  316×20 @0,0  Manrope 400 13/20  lines=1  «Когда звонить»
+      dd.LeadCardView__detailValue  316×22 @0,20  Manrope 400 15/22  lines=1  «После 18:00»
+    div.LeadCardView__detail#5  316×43 @0,202
+      dt.LeadCardView__detailLabel  316×20 @0,0  Manrope 400 13/20  lines=1  «Страница-источник»
+      dd.LeadCardView__detailValue  316×22 @0,20  Manrope 400 15/22  lines=1  «https://example.test/prices»
+    div.LeadCardView__detail#6  316×43 @0,253
+      dt.LeadCardView__detailLabel  316×20 @0,0  Manrope 400 13/20  lines=1  «Согласие на обработку данных»
+      dd.LeadCardView__detailValue  316×22 @0,20  Manrope 400 15/22  lines=1  «дано 20.08.2026, 12:15»
+  p.LeadCardView__comment  316×65 @21,397  Manrope 400 15/22  b0 0 0 3  lines=2  «Второй этаж, окна во двор. Нужен тихий в»
+  div.LeadCardView__actions  316×238 @21,476
+    div.Field__field  316×76 @0,0
+      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
+      span.Select__wrapper  316×49 @0,27
+        select.Select__select  316×49 @0,0  r11  b1
+          option  0×0 @-37,-519  Manrope 400 15/21  lines=0  «Новая»
+          option#2  0×0 @-37,-519  Manrope 400 15/21  lines=0  «В работе»
+          option#3  0×0 @-37,-519  Manrope 400 15/21  lines=0  «Завершена»
+          option#4  0×0 @-37,-519  Manrope 400 15/21  lines=0  «Отказ»
+        svg.Select__chevron  14×14 @288,18
+    div.Field__field#2  316×150 @0,88
+      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заметка менеджера»
+      textarea.Textarea__textarea  316×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Перезвонил, ждёт замер в четверг»
+      p.Field__hint  316×19 @0,130  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
+  div.LeadCardView__footer  316×98 @21,726
+    button.Button__button  121×44 @0,0  r9  b1
+      span.Button__content  91×16 @15,14
+        span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Создать заказ»
+    a.LeadCardView__plan  105×32 @135,6  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
+    button.Button__button#2  95×44 @0,54  r9  b1
+      span.Button__content  65×16 @15,14
+        span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
+
+[геометрия 768]
+article.Card__card  736×566 @16,16  r20  b1
+  header.LeadCardView__header  694×52 @21,21
+    h2.LeadCardView__name  136×22 @0,0  Onest 700 18/22  ls0  lines=1  «Ирина»
+    a.LeadCardView__phone  136×21 @0,25  Manrope 600 15/23  lines=1  «+7 (900) 123-45-67»
+    div.LeadCardView__headerRight  133×52 @561,0
+      span.Badge__badge  78×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+      time.LeadCardView__when  133×20 @0,32  JetBrains Mono 400 13/20  lines=1  «20.08.2026, 12:15»
+  dl.LeadCardView__details  694×93 @21,87
+    div.LeadCardView__detail  221×43 @0,0
+      dt.LeadCardView__detailLabel  221×20 @0,0  Manrope 400 13/20  lines=1  «Тема»
+      dd.LeadCardView__detailValue  221×22 @0,20  Manrope 400 15/22  lines=1  «Установка кондиционера»
+    div.LeadCardView__detail#2  221×43 @237,0
+      dt.LeadCardView__detailLabel  221×20 @0,0  Manrope 400 13/20  lines=1  «Помещение»
+      dd.LeadCardView__detailValue  221×22 @0,20  Manrope 400 15/22  lines=1  «Квартира»
+    div.LeadCardView__detail#3  221×43 @473,0
+      dt.LeadCardView__detailLabel  221×20 @0,0  Manrope 400 13/20  lines=1  «Количество»
+      dd.LeadCardView__detailValue  221×22 @0,20  Manrope 400 15/22  lines=1  «1»
+    div.LeadCardView__detail#4  221×43 @0,51
+      dt.LeadCardView__detailLabel  221×20 @0,0  Manrope 400 13/20  lines=1  «Когда звонить»
+      dd.LeadCardView__detailValue  221×22 @0,20  Manrope 400 15/22  lines=1  «После 18:00»
+    div.LeadCardView__detail#5  221×43 @237,51
+      dt.LeadCardView__detailLabel  221×20 @0,0  Manrope 400 13/20  lines=1  «Страница-источник»
+      dd.LeadCardView__detailValue  221×22 @0,20  Manrope 400 15/22  lines=1  «https://example.test/prices»
+    div.LeadCardView__detail#6  221×43 @473,51
+      dt.LeadCardView__detailLabel  221×20 @0,0  Manrope 400 13/20  lines=1  «Согласие на обработку данных»
+      dd.LeadCardView__detailValue  221×22 @0,20  Manrope 400 15/22  lines=1  «дано 20.08.2026, 12:15»
+  p.LeadCardView__comment  694×42 @21,195  Manrope 400 15/22  b0 0 0 3  lines=1  «Второй этаж, окна во двор. Нужен тихий в»
+  div.LeadCardView__actions  694×238 @21,251
+    div.Field__field  694×76 @0,0
+      label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
+      span.Select__wrapper  694×49 @0,27
+        select.Select__select  694×49 @0,0  r11  b1
+          option  0×0 @-37,-294  Manrope 400 15/21  lines=0  «Новая»
+          option#2  0×0 @-37,-294  Manrope 400 15/21  lines=0  «В работе»
+          option#3  0×0 @-37,-294  Manrope 400 15/21  lines=0  «Завершена»
+          option#4  0×0 @-37,-294  Manrope 400 15/21  lines=0  «Отказ»
+        svg.Select__chevron  14×14 @666,18
+    div.Field__field#2  694×150 @0,88
+      label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Заметка менеджера»
+      textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Перезвонил, ждёт замер в четверг»
+      p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
+  div.LeadCardView__footer  694×44 @21,501
+    button.Button__button  121×44 @0,0  r9  b1
+      span.Button__content  91×16 @15,14
+        span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Создать заказ»
+    a.LeadCardView__plan  105×32 @135,6  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
+    button.Button__button#2  95×44 @254,0  r9  b1
+      span.Button__content  65×16 @15,14
+        span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
+
+[геометрия 1440]
+article.Card__card  1408×423 @16,16  r20  b1
+  header.LeadCardView__header  1366×52 @21,21
+    h2.LeadCardView__name  136×23 @0,0  Onest 700 19/23  ls0  lines=1  «Ирина»
+    a.LeadCardView__phone  136×21 @0,26  Manrope 600 15/23  lines=1  «+7 (900) 123-45-67»
+    div.LeadCardView__headerRight  133×52 @1233,0
+      span.Badge__badge  78×28 @55,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+      time.LeadCardView__when  133×20 @0,32  JetBrains Mono 400 13/20  lines=1  «20.08.2026, 12:15»
+  dl.LeadCardView__details  1366×43 @21,87
+    div.LeadCardView__detail  214×43 @0,0
+      dt.LeadCardView__detailLabel  214×20 @0,0  Manrope 400 13/20  lines=1  «Тема»
+      dd.LeadCardView__detailValue  214×22 @0,20  Manrope 400 15/22  lines=1  «Установка кондиционера»
+    div.LeadCardView__detail#2  214×43 @230,0
+      dt.LeadCardView__detailLabel  214×20 @0,0  Manrope 400 13/20  lines=1  «Помещение»
+      dd.LeadCardView__detailValue  214×22 @0,20  Manrope 400 15/22  lines=1  «Квартира»
+    div.LeadCardView__detail#3  214×43 @461,0
+      dt.LeadCardView__detailLabel  214×20 @0,0  Manrope 400 13/20  lines=1  «Количество»
+      dd.LeadCardView__detailValue  214×22 @0,20  Manrope 400 15/22  lines=1  «1»
+    div.LeadCardView__detail#4  214×43 @691,0
+      dt.LeadCardView__detailLabel  214×20 @0,0  Manrope 400 13/20  lines=1  «Когда звонить»
+      dd.LeadCardView__detailValue  214×22 @0,20  Manrope 400 15/22  lines=1  «После 18:00»
+    div.LeadCardView__detail#5  214×43 @921,0
+      dt.LeadCardView__detailLabel  214×20 @0,0  Manrope 400 13/20  lines=1  «Страница-источник»
+      dd.LeadCardView__detailValue  214×22 @0,20  Manrope 400 15/22  lines=1  «https://example.test/prices»
+    div.LeadCardView__detail#6  214×43 @1152,0
+      dt.LeadCardView__detailLabel  214×20 @0,0  Manrope 400 13/20  lines=1  «Согласие на обработку данных»
+      dd.LeadCardView__detailValue  214×22 @0,20  Manrope 400 15/22  lines=1  «дано 20.08.2026, 12:15»
+  p.LeadCardView__comment  1366×42 @21,144  Manrope 400 15/22  b0 0 0 3  lines=1  «Второй этаж, окна во двор. Нужен тихий в»
+  div.LeadCardView__actions  1366×150 @21,200
+    div.Field__field  220×76 @0,0
+      label.Field__label  220×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
+      span.Select__wrapper  220×49 @0,27
+        select.Select__select  220×49 @0,0  r11  b1
+          option  0×0 @-37,-244  Manrope 400 15/21  lines=0  «Новая»
+          option#2  0×0 @-37,-244  Manrope 400 15/21  lines=0  «В работе»
+          option#3  0×0 @-37,-244  Manrope 400 15/21  lines=0  «Завершена»
+          option#4  0×0 @-37,-244  Manrope 400 15/21  lines=0  «Отказ»
+        svg.Select__chevron  14×14 @192,18
+    div.Field__field#2  1130×150 @236,0
+      label.Field__label  1130×20 @0,0  Manrope 600 13/20  lines=1  «Заметка менеджера»
+      textarea.Textarea__textarea  1130×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Перезвонил, ждёт замер в четверг»
+      p.Field__hint  1130×19 @0,130  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
+  div.LeadCardView__footer  1366×40 @21,362
+    button.Button__button  121×40 @0,0  r9  b1
+      span.Button__content  91×16 @15,12
+        span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Создать заказ»
+    a.LeadCardView__plan  105×32 @135,4  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
+    button.Button__button#2  95×40 @254,0  r9  b1
+      span.Button__content  65×16 @15,12
+        span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
+
+[палитра light]
+article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.LeadCardView__header
+    h2.LeadCardView__name  color #0f172a
+    a.LeadCardView__phone  color #0e7490
+    div.LeadCardView__headerRight
+      span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+      time.LeadCardView__when  color #5b6a7d
+  dl.LeadCardView__details
+    div.LeadCardView__detail
+      dt.LeadCardView__detailLabel  color #5b6a7d
+      dd.LeadCardView__detailValue  color #475569
+    div.LeadCardView__detail#2
+      dt.LeadCardView__detailLabel  color #5b6a7d
+      dd.LeadCardView__detailValue  color #475569
+    div.LeadCardView__detail#3
+      dt.LeadCardView__detailLabel  color #5b6a7d
+      dd.LeadCardView__detailValue  color #475569
+    div.LeadCardView__detail#4
+      dt.LeadCardView__detailLabel  color #5b6a7d
+      dd.LeadCardView__detailValue  color #475569
+    div.LeadCardView__detail#5
+      dt.LeadCardView__detailLabel  color #5b6a7d
+      dd.LeadCardView__detailValue  color #475569
+    div.LeadCardView__detail#6
+      dt.LeadCardView__detailLabel  color #5b6a7d
+      dd.LeadCardView__detailValue  color #475569
+  p.LeadCardView__comment  color #475569  bg #f8fafc  border #475569 #475569 #475569 #cbd5e1
+  div.LeadCardView__actions
+    div.Field__field
+      label.Field__label  color #334155
+      span.Select__wrapper
+        select.Select__select  bg #ffffff  border #7e8fa6
+          option  color #0f172a
+          option#2  color #0f172a
+          option#3  color #0f172a
+          option#4  color #0f172a
+        svg.Select__chevron
+    div.Field__field#2
+      label.Field__label  color #334155
+      textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
+      p.Field__hint  color #556173
+  div.LeadCardView__footer
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff
+    a.LeadCardView__plan  color #0e7490  border #e2e8f0
+    button.Button__button#2  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label#2  color #0f172a
+
+[палитра dark]
+article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.LeadCardView__header
+    h2.LeadCardView__name  color #eaf1f8
+    a.LeadCardView__phone  color #22d3ee
+    div.LeadCardView__headerRight
+      span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+      time.LeadCardView__when  color #7e92a7
+  dl.LeadCardView__details
+    div.LeadCardView__detail
+      dt.LeadCardView__detailLabel  color #7e92a7
+      dd.LeadCardView__detailValue  color #a8b6c6
+    div.LeadCardView__detail#2
+      dt.LeadCardView__detailLabel  color #7e92a7
+      dd.LeadCardView__detailValue  color #a8b6c6
+    div.LeadCardView__detail#3
+      dt.LeadCardView__detailLabel  color #7e92a7
+      dd.LeadCardView__detailValue  color #a8b6c6
+    div.LeadCardView__detail#4
+      dt.LeadCardView__detailLabel  color #7e92a7
+      dd.LeadCardView__detailValue  color #a8b6c6
+    div.LeadCardView__detail#5
+      dt.LeadCardView__detailLabel  color #7e92a7
+      dd.LeadCardView__detailValue  color #a8b6c6
+    div.LeadCardView__detail#6
+      dt.LeadCardView__detailLabel  color #7e92a7
+      dd.LeadCardView__detailValue  color #a8b6c6
+  p.LeadCardView__comment  color #a8b6c6  bg #0e1729  border #a8b6c6 #a8b6c6 #a8b6c6 #2c3d59
+  div.LeadCardView__actions
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      span.Select__wrapper
+        select.Select__select  bg #0b1424  border #566d95
+          option  color #eaf1f8
+          option#2  color #eaf1f8
+          option#3  color #eaf1f8
+          option#4  color #eaf1f8
+        svg.Select__chevron
+    div.Field__field#2
+      label.Field__label  color #c9d5e2
+      textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
+      p.Field__hint  color #8598ac
+  div.LeadCardView__footer
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff
+    a.LeadCardView__plan  color #22d3ee  border #1e2b41
+    button.Button__button#2  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label#2  color #eaf1f8

@@ -1,0 +1,272 @@
+# админка-склад-·-позиция-справочника--заведение · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×1008
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×976 @16,16  r20  b1
+  div.FormSection__head  316×67 @21,21
+    div.FormSection__titleRow  316×21 @0,0
+      h2.FormSection__title  123×21 @0,0  Onest 700 17/21  ls0  lines=1  «Новая позиция»
+    p.FormSection__hint  316×40 @0,27  Manrope 400 13/20  lines=2  «Что считаем: расходник или модель техник»
+  form.StockItemForm__form  316×856 @21,100
+    div.StockItemForm__grid  316×800 @0,0
+      div.Field__field  316×103 @0,0
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Как называете сами: «Труба медная 1/4″"»
+      div.Field__field#2  316×122 @0,115
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Группа»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Своя, любая: «Медная труба", «Крепёж". П»
+      div.Field__field#3  316×122 @0,248
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Единица»
+        span.Select__wrapper  316×49 @0,27
+          select.Select__select  316×49 @0,0  r11  b1
+            option  0×0 @-37,-391  Manrope 400 15/21  lines=0  «Штуки»
+            option#2  0×0 @-37,-391  Manrope 400 15/21  lines=0  «Метры»
+            option#3  0×0 @-37,-391  Manrope 400 15/21  lines=0  «Килограммы»
+            option#4  0×0 @-37,-391  Manrope 400 15/21  lines=0  «Литры»
+            option#5  0×0 @-37,-391  Manrope 400 15/21  lines=0  «Пары»
+            option#6  0×0 @-37,-391  Manrope 400 15/21  lines=0  «Упаковки»
+            option#7  0×0 @-37,-391  Manrope 400 15/21  lines=0  «Бухты»
+            option#8  0×0 @-37,-391  Manrope 400 15/21  lines=0  «Мотки»
+            option#9  0×0 @-37,-391  Manrope 400 15/21  lines=0  «Баллоны»
+          svg.Select__chevron  14×14 @288,18
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «В чём считаем остаток. Дробный остаток —»
+      div.Field__field#4  316×122 @0,382
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Порог заказа»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Опустился ниже — позиция попадает в спис»
+      div.Field__field#5  316×122 @0,516
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Модель каталога»
+        span.Select__wrapper  316×49 @0,27
+          select.Select__select#2  316×49 @0,0  r11  b1
+            option  0×0 @-37,-659  Manrope 400 15/21  lines=0  «Не техника — расходник»
+            option#2  0×0 @-37,-659  Manrope 400 15/21  lines=0  «Сплит-система 09»
+            option#3  0×0 @-37,-659  Manrope 400 15/21  lines=0  «Сплит-система 12»
+          svg.Select__chevron#2  14×14 @288,18
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Только для техники: расходники ни на что»
+      div.Field__field#6  316×150 @0,650
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заметка»
+        textarea.Textarea__textarea  316×96 @0,27  r11  b1
+        p.Field__hint  316×19 @0,130  Manrope 400 13/19  lines=1  «Что помнить: поставщик, аналоги, чем зам»
+    div.StockItemForm__actions  316×44 @0,812
+      button.Button__button  107×44 @0,0  r11  b1
+        span.Button__content  69×17 @19,13
+          span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Добавить»
+
+[геометрия 768]
+section.Card__card  736×729 @16,16  r20  b1
+  div.FormSection__head  694×68 @21,21
+    div.FormSection__titleRow  694×22 @0,0
+      h2.FormSection__title  129×22 @0,0  Onest 700 18/22  ls0  lines=1  «Новая позиция»
+    p.FormSection__hint  508×40 @0,28  Manrope 400 13/20  lines=2  «Что считаем: расходник или модель техник»
+  form.StockItemForm__form  694×607 @21,101
+    div.StockItemForm__grid  694×551 @0,0
+      div.Field__field  223×141 @0,0
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+        input  223×49 @0,27  r11  b1
+        p.Field__hint  223×39 @0,83  Manrope 400 13/19  lines=2  «Как называете сами: «Труба медная 1/4″"»
+      div.Field__field#2  223×141 @235,0
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Группа»
+        input  223×49 @0,27  r11  b1
+        p.Field__hint  223×39 @0,83  Manrope 400 13/19  lines=2  «Своя, любая: «Медная труба", «Крепёж". П»
+      div.Field__field#3  223×141 @471,0
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Единица»
+        span.Select__wrapper  223×49 @0,27
+          select.Select__select  223×49 @0,0  r11  b1
+            option  0×0 @-508,-144  Manrope 400 15/21  lines=0  «Штуки»
+            option#2  0×0 @-508,-144  Manrope 400 15/21  lines=0  «Метры»
+            option#3  0×0 @-508,-144  Manrope 400 15/21  lines=0  «Килограммы»
+            option#4  0×0 @-508,-144  Manrope 400 15/21  lines=0  «Литры»
+            option#5  0×0 @-508,-144  Manrope 400 15/21  lines=0  «Пары»
+            option#6  0×0 @-508,-144  Manrope 400 15/21  lines=0  «Упаковки»
+            option#7  0×0 @-508,-144  Manrope 400 15/21  lines=0  «Бухты»
+            option#8  0×0 @-508,-144  Manrope 400 15/21  lines=0  «Мотки»
+            option#9  0×0 @-508,-144  Manrope 400 15/21  lines=0  «Баллоны»
+          svg.Select__chevron  14×14 @195,18
+        p.Field__hint  223×58 @0,83  Manrope 400 13/19  lines=3  «В чём считаем остаток. Дробный остаток —»
+      div.Field__field#4  223×122 @0,153
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Порог заказа»
+        input  223×49 @0,27  r11  b1
+        p.Field__hint  223×39 @0,83  Manrope 400 13/19  lines=2  «Опустился ниже — позиция попадает в спис»
+      div.Field__field#5  694×103 @0,287
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Модель каталога»
+        span.Select__wrapper  694×49 @0,27
+          select.Select__select#2  694×49 @0,0  r11  b1
+            option  0×0 @-37,-431  Manrope 400 15/21  lines=0  «Не техника — расходник»
+            option#2  0×0 @-37,-431  Manrope 400 15/21  lines=0  «Сплит-система 09»
+            option#3  0×0 @-37,-431  Manrope 400 15/21  lines=0  «Сплит-система 12»
+          svg.Select__chevron#2  14×14 @666,18
+        p.Field__hint  694×19 @0,83  Manrope 400 13/19  lines=1  «Только для техники: расходники ни на что»
+      div.Field__field#6  694×150 @0,402
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Заметка»
+        textarea.Textarea__textarea  694×96 @0,27  r11  b1
+        p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Что помнить: поставщик, аналоги, чем зам»
+    div.StockItemForm__actions  694×44 @0,563
+      button.Button__button  107×44 @0,0  r11  b1
+        span.Button__content  69×17 @19,13
+          span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Добавить»
+
+[геометрия 1440]
+section.Card__card  1408×596 @16,16  r20  b1
+  div.FormSection__head  1366×69 @21,21
+    div.FormSection__titleRow  1366×23 @0,0
+      h2.FormSection__title  137×23 @0,0  Onest 700 19/23  ls0  lines=1  «Новая позиция»
+    p.FormSection__hint  508×40 @0,29  Manrope 400 13/20  lines=2  «Что считаем: расходник или модель техник»
+  form.StockItemForm__form  1366×473 @21,102
+    div.StockItemForm__grid  1366×417 @0,0
+      div.Field__field  218×141 @0,0
+        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+        input  218×49 @0,27  r11  b1
+        p.Field__hint  218×39 @0,83  Manrope 400 13/19  lines=2  «Как называете сами: «Труба медная 1/4″"»
+      div.Field__field#2  218×141 @230,0
+        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Группа»
+        input  218×49 @0,27  r11  b1
+        p.Field__hint  218×39 @0,83  Manrope 400 13/19  lines=2  «Своя, любая: «Медная труба", «Крепёж". П»
+      div.Field__field#3  218×141 @459,0
+        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Единица»
+        span.Select__wrapper  218×49 @0,27
+          select.Select__select  218×49 @0,0  r11  b1
+            option  0×0 @-496,-145  Manrope 400 15/21  lines=0  «Штуки»
+            option#2  0×0 @-496,-145  Manrope 400 15/21  lines=0  «Метры»
+            option#3  0×0 @-496,-145  Manrope 400 15/21  lines=0  «Килограммы»
+            option#4  0×0 @-496,-145  Manrope 400 15/21  lines=0  «Литры»
+            option#5  0×0 @-496,-145  Manrope 400 15/21  lines=0  «Пары»
+            option#6  0×0 @-496,-145  Manrope 400 15/21  lines=0  «Упаковки»
+            option#7  0×0 @-496,-145  Manrope 400 15/21  lines=0  «Бухты»
+            option#8  0×0 @-496,-145  Manrope 400 15/21  lines=0  «Мотки»
+            option#9  0×0 @-496,-145  Manrope 400 15/21  lines=0  «Баллоны»
+          svg.Select__chevron  14×14 @190,18
+        p.Field__hint  218×58 @0,83  Manrope 400 13/19  lines=3  «В чём считаем остаток. Дробный остаток —»
+      div.Field__field#4  218×141 @689,0
+        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Порог заказа»
+        input  218×49 @0,27  r11  b1
+        p.Field__hint  218×58 @0,83  Manrope 400 13/19  lines=3  «Опустился ниже — позиция попадает в спис»
+      div.Field__field#5  1366×103 @0,153
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Модель каталога»
+        span.Select__wrapper  1366×49 @0,27
+          select.Select__select#2  1366×49 @0,0  r11  b1
+            option  0×0 @-37,-298  Manrope 400 15/21  lines=0  «Не техника — расходник»
+            option#2  0×0 @-37,-298  Manrope 400 15/21  lines=0  «Сплит-система 09»
+            option#3  0×0 @-37,-298  Manrope 400 15/21  lines=0  «Сплит-система 12»
+          svg.Select__chevron#2  14×14 @1338,18
+        p.Field__hint  1366×19 @0,83  Manrope 400 13/19  lines=1  «Только для техники: расходники ни на что»
+      div.Field__field#6  1366×150 @0,268
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Заметка»
+        textarea.Textarea__textarea  1366×96 @0,27  r11  b1
+        p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «Что помнить: поставщик, аналоги, чем зам»
+    div.StockItemForm__actions  1366×44 @0,429
+      button.Button__button  107×44 @0,0  r11  b1
+        span.Button__content  69×17 @19,13
+          span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Добавить»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.FormSection__head
+    div.FormSection__titleRow
+      h2.FormSection__title  color #0f172a
+    p.FormSection__hint  color #556173
+  form.StockItemForm__form
+    div.StockItemForm__grid
+      div.Field__field
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#2
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#3
+        label.Field__label  color #334155
+        span.Select__wrapper
+          select.Select__select  bg #ffffff  border #7e8fa6
+            option  color #0f172a
+            option#2  color #0f172a
+            option#3  color #0f172a
+            option#4  color #0f172a
+            option#5  color #0f172a
+            option#6  color #0f172a
+            option#7  color #0f172a
+            option#8  color #0f172a
+            option#9  color #0f172a
+          svg.Select__chevron
+        p.Field__hint  color #556173
+      div.Field__field#4
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#5
+        label.Field__label  color #334155
+        span.Select__wrapper
+          select.Select__select#2  bg #ffffff  border #7e8fa6
+            option  color #0f172a
+            option#2  color #0f172a
+            option#3  color #0f172a
+          svg.Select__chevron#2
+        p.Field__hint  color #556173
+      div.Field__field#6
+        label.Field__label  color #334155
+        textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+    div.StockItemForm__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.FormSection__head
+    div.FormSection__titleRow
+      h2.FormSection__title  color #eaf1f8
+    p.FormSection__hint  color #8598ac
+  form.StockItemForm__form
+    div.StockItemForm__grid
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#3
+        label.Field__label  color #c9d5e2
+        span.Select__wrapper
+          select.Select__select  bg #0b1424  border #566d95
+            option  color #eaf1f8
+            option#2  color #eaf1f8
+            option#3  color #eaf1f8
+            option#4  color #eaf1f8
+            option#5  color #eaf1f8
+            option#6  color #eaf1f8
+            option#7  color #eaf1f8
+            option#8  color #eaf1f8
+            option#9  color #eaf1f8
+          svg.Select__chevron
+        p.Field__hint  color #8598ac
+      div.Field__field#4
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#5
+        label.Field__label  color #c9d5e2
+        span.Select__wrapper
+          select.Select__select#2  bg #0b1424  border #566d95
+            option  color #eaf1f8
+            option#2  color #eaf1f8
+            option#3  color #eaf1f8
+          svg.Select__chevron#2
+        p.Field__hint  color #8598ac
+      div.Field__field#6
+        label.Field__label  color #c9d5e2
+        textarea.Textarea__textarea  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+    div.StockItemForm__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff

@@ -1,0 +1,327 @@
+# админка-статья--новаястатья · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×1868
+768 → 768×1710
+1440 → 1440×1656
+
+[геометрия 390]
+form.ArticleForm__form  358×1836 @16,16
+  section.Card__card  358×716 @0,0  r20  b1
+    div.FormSection__head  316×21 @21,21
+      div.FormSection__titleRow  316×21 @0,0
+        h2.FormSection__title  80×21 @0,0  Onest 700 17/21  ls0  lines=1  «Основное»
+    div.ArticleForm__fields  316×639 @21,56
+      div.Field__field  316×76 @0,0
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок»
+          span.Field__required  9×18 @67,1  Manrope 600 13/20  lines=1  «*»
+        input  316×49 @0,27  r11  b1
+      div.Field__field#2  316×103 @0,90
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Рубрика»
+          span.Field__required#2  9×18 @53,1  Manrope 600 13/20  lines=1  «*»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «По ней статьи группируются в листинге»
+      div.Field__field#3  316×76 @0,207
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Дата публикации»
+          span.Field__required#3  9×18 @110,1  Manrope 600 13/20  lines=1  «*»
+        input  316×49 @0,27  r11  b1
+      div.Field__field#4  316×76 @0,297
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Время чтения, мин»
+          span.Field__required#4  9×18 @119,1  Manrope 600 13/20  lines=1  «*»
+        input  316×49 @0,27  r11  b1
+      div.Field__field#5  316×150 @0,387
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Анонс»
+          span.Field__required#5  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+        textarea.Textarea__textarea  316×96 @0,27  r11  b1
+        p.Field__hint  316×19 @0,130  Manrope 400 13/19  lines=1  «Показывается в списке статей и в тизере»
+      div.Checkbox__root  316×89 @0,550
+        div.Checkbox__row  316×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  100×21 @31,10  Manrope 400 15/21  lines=1  «Опубликована»
+        p.Field__hint  316×39 @0,50  Manrope 400 13/19  lines=2  «Черновик виден только здесь: на сайте ег»
+  section.Card__card#2  358×613 @0,730  r20  b1
+    div.FormSection__head  316×21 @21,21
+      div.FormSection__titleRow#2  316×21 @0,0
+        h2.FormSection__title  45×21 @0,0  Onest 700 17/21  ls0  lines=1  «Текст»
+    div.ArticleForm__editor  316×536 @21,56
+      div.Field__field  320×536 @0,0
+        label.Field__label#2  320×20 @0,0  Manrope 600 13/20  lines=1  «Текст статьи»
+          span.Field__required  9×18 @81,1  Manrope 600 13/20  lines=1  «*»
+        textarea.Textarea__textarea  320×444 @0,27  r11  b1
+        p.Field__hint  320×58 @0,478  Manrope 400 13/19  lines=3  «Разметка: ## подзаголовок, ### подзаголо»
+  section.Card__card#3  358×406 @0,1357  r20  b1
+    div.FormSection__head  316×21 @21,21
+      div.FormSection__titleRow#3  316×21 @0,0
+        h2.FormSection__title  153×21 @0,0  Onest 700 17/21  ls0  lines=1  «Поисковая выдача»
+    div.ArticleForm__fields  316×330 @21,56
+      div.Field__field#6  316×103 @0,0
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Адрес страницы»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — соберётся из заголовка»
+      div.Field__field#7  316×76 @0,117
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок страницы»
+        input  316×49 @0,27  r11  b1
+      div.Field__field#8  316×123 @0,207
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Описание страницы»
+        textarea.Textarea__textarea  316×96 @0,27  r11  b1
+  div.ArticleForm__actions  358×59 @16,841  b1 0 0 0  fixed
+    button.Button__button  152×44 @0,13  r11  b1
+      span.Button__content  114×17 @19,13
+        span.Button__label  114×17 @0,0  Manrope 600 15/17  lines=1  «Создать статью»
+
+[геометрия 768]
+form.ArticleForm__form  736×1678 @16,16
+  section.Card__card  736×575 @0,0  r20  b1
+    div.FormSection__head  694×22 @21,21
+      div.FormSection__titleRow  694×22 @0,0
+        h2.FormSection__title  84×22 @0,0  Onest 700 18/22  ls0  lines=1  «Основное»
+    div.ArticleForm__fields  694×498 @21,57
+      div.Field__field  694×76 @0,0
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок»
+          span.Field__required  9×18 @67,1  Manrope 600 13/20  lines=1  «*»
+        input  694×49 @0,27  r11  b1
+      div.Field__field#2  221×122 @0,90
+        label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Рубрика»
+          span.Field__required#2  9×18 @53,1  Manrope 600 13/20  lines=1  «*»
+        input  221×49 @0,27  r11  b1
+        p.Field__hint  221×39 @0,83  Manrope 400 13/19  lines=2  «По ней статьи группируются в листинге»
+      div.Field__field#3  221×76 @237,90
+        label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Дата публикации»
+          span.Field__required#3  9×18 @110,1  Manrope 600 13/20  lines=1  «*»
+        input  221×49 @0,27  r11  b1
+      div.Field__field#4  221×76 @473,90
+        label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Время чтения, мин»
+          span.Field__required#4  9×18 @119,1  Manrope 600 13/20  lines=1  «*»
+        input  221×49 @0,27  r11  b1
+      div.Field__field#5  694×150 @0,226
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Анонс»
+          span.Field__required#5  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+        textarea.Textarea__textarea  694×96 @0,27  r11  b1
+        p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Показывается в списке статей и в тизере»
+      div.Checkbox__root  221×108 @0,390
+        div.Checkbox__row  221×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  100×21 @31,10  Manrope 400 15/21  lines=1  «Опубликована»
+        p.Field__hint  221×58 @0,50  Manrope 400 13/19  lines=3  «Черновик виден только здесь: на сайте ег»
+  section.Card__card#2  736×594 @0,589  r20  b1
+    div.FormSection__head  694×22 @21,21
+      div.FormSection__titleRow#2  694×22 @0,0
+        h2.FormSection__title  48×22 @0,0  Onest 700 18/22  ls0  lines=1  «Текст»
+    div.ArticleForm__editor  694×517 @21,57
+      div.Field__field  694×517 @0,0
+        label.Field__label#2  694×20 @0,0  Manrope 600 13/20  lines=1  «Текст статьи»
+          span.Field__required  9×18 @81,1  Manrope 600 13/20  lines=1  «*»
+        textarea.Textarea__textarea  694×444 @0,27  r11  b1
+        p.Field__hint  694×39 @0,478  Manrope 400 13/19  lines=2  «Разметка: ## подзаголовок, ### подзаголо»
+  section.Card__card#3  736×407 @0,1198  r20  b1
+    div.FormSection__head  694×22 @21,21
+      div.FormSection__titleRow#3  694×22 @0,0
+        h2.FormSection__title  161×22 @0,0  Onest 700 18/22  ls0  lines=1  «Поисковая выдача»
+    div.ArticleForm__fields  694×330 @21,57
+      div.Field__field#6  694×103 @0,0
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Адрес страницы»
+        input  694×49 @0,27  r11  b1
+        p.Field__hint  694×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — соберётся из заголовка»
+      div.Field__field#7  694×76 @0,117
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок страницы»
+        input  694×49 @0,27  r11  b1
+      div.Field__field#8  694×123 @0,207
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Описание страницы»
+        textarea.Textarea__textarea  694×96 @0,27  r11  b1
+  div.ArticleForm__actions  736×59 @16,841  b1 0 0 0  fixed
+    button.Button__button  152×44 @0,13  r11  b1
+      span.Button__content  114×17 @19,13
+        span.Button__label  114×17 @0,0  Manrope 600 15/17  lines=1  «Создать статью»
+
+[геометрия 1440]
+form.ArticleForm__form  1408×1624 @16,16
+  section.Card__card  1408×538 @0,0  r20  b1
+    div.FormSection__head  1366×23 @21,21
+      div.FormSection__titleRow  1366×23 @0,0
+        h2.FormSection__title  89×23 @0,0  Onest 700 19/23  ls0  lines=1  «Основное»
+    div.ArticleForm__fields  1366×459 @21,58
+      div.Field__field  1366×76 @0,0
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок»
+          span.Field__required  9×18 @67,1  Manrope 600 13/20  lines=1  «*»
+        input  1366×49 @0,27  r11  b1
+      div.Field__field#2  260×103 @0,90
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Рубрика»
+          span.Field__required#2  9×18 @53,1  Manrope 600 13/20  lines=1  «*»
+        input  260×49 @0,27  r11  b1
+        p.Field__hint  260×19 @0,83  Manrope 400 13/19  lines=1  «По ней статьи группируются в листинге»
+      div.Field__field#3  260×76 @276,90
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Дата публикации»
+          span.Field__required#3  9×18 @110,1  Manrope 600 13/20  lines=1  «*»
+        input  260×49 @0,27  r11  b1
+      div.Field__field#4  260×76 @553,90
+        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Время чтения, мин»
+          span.Field__required#4  9×18 @119,1  Manrope 600 13/20  lines=1  «*»
+        input  260×49 @0,27  r11  b1
+      div.Field__field#5  1366×150 @0,207
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Анонс»
+          span.Field__required#5  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+        textarea.Textarea__textarea  1366×96 @0,27  r11  b1
+        p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «Показывается в списке статей и в тизере»
+      div.Checkbox__root  260×89 @0,370
+        div.Checkbox__row  260×44 @0,0
+          input.Checkbox__input  20×20 @0,11  r6  b1
+          label.Checkbox__label  100×21 @31,10  Manrope 400 15/21  lines=1  «Опубликована»
+        p.Field__hint  260×39 @0,50  Manrope 400 13/19  lines=2  «Черновик виден только здесь: на сайте ег»
+  section.Card__card#2  1408×576 @0,552  r20  b1
+    div.FormSection__head  1366×23 @21,21
+      div.FormSection__titleRow#2  1366×23 @0,0
+        h2.FormSection__title  50×23 @0,0  Onest 700 19/23  ls0  lines=1  «Текст»
+    div.ArticleForm__editor  1366×497 @21,58
+      div.Field__field  1366×497 @0,0
+        label.Field__label#2  1366×20 @0,0  Manrope 600 13/20  lines=1  «Текст статьи»
+          span.Field__required  9×18 @81,1  Manrope 600 13/20  lines=1  «*»
+        textarea.Textarea__textarea  1366×444 @0,27  r11  b1
+        p.Field__hint  1366×19 @0,478  Manrope 400 13/19  lines=1  «Разметка: ## подзаголовок, ### подзаголо»
+  section.Card__card#3  1408×409 @0,1142  r20  b1
+    div.FormSection__head  1366×23 @21,21
+      div.FormSection__titleRow#3  1366×23 @0,0
+        h2.FormSection__title  170×23 @0,0  Onest 700 19/23  ls0  lines=1  «Поисковая выдача»
+    div.ArticleForm__fields  1366×330 @21,58
+      div.Field__field#6  1366×103 @0,0
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Адрес страницы»
+        input  1366×49 @0,27  r11  b1
+        p.Field__hint  1366×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — соберётся из заголовка»
+      div.Field__field#7  1366×76 @0,117
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок страницы»
+        input  1366×49 @0,27  r11  b1
+      div.Field__field#8  1366×123 @0,207
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Описание страницы»
+        textarea.Textarea__textarea  1366×96 @0,27  r11  b1
+  div.ArticleForm__actions  1408×59 @16,841  b1 0 0 0  fixed
+    button.Button__button  152×44 @0,13  r11  b1
+      span.Button__content  114×17 @19,13
+        span.Button__label  114×17 @0,0  Manrope 600 15/17  lines=1  «Создать статью»
+
+[палитра light]
+form.ArticleForm__form
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.FormSection__head
+      div.FormSection__titleRow
+        h2.FormSection__title  color #0f172a
+    div.ArticleForm__fields
+      div.Field__field
+        label.Field__label  color #334155
+          span.Field__required  color #0e7490
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#2
+        label.Field__label  color #334155
+          span.Field__required#2  color #0e7490
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#3
+        label.Field__label  color #334155
+          span.Field__required#3  color #0e7490
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#4
+        label.Field__label  color #334155
+          span.Field__required#4  color #0e7490
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#5
+        label.Field__label  color #334155
+          span.Field__required#5  color #0e7490
+        textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Checkbox__root
+        div.Checkbox__row
+          input.Checkbox__input  bg #ffffff  border #cbd5e1
+          label.Checkbox__label  color #475569
+        p.Field__hint  color #556173
+  section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.FormSection__head
+      div.FormSection__titleRow#2
+        h2.FormSection__title  color #0f172a
+    div.ArticleForm__editor
+      div.Field__field
+        label.Field__label#2  color #334155
+          span.Field__required  color #0e7490
+        textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+  section.Card__card#3  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.FormSection__head
+      div.FormSection__titleRow#3
+        h2.FormSection__title  color #0f172a
+    div.ArticleForm__fields
+      div.Field__field#6
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#7
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#8
+        label.Field__label  color #334155
+        textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+  div.ArticleForm__actions  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff
+
+[палитра dark]
+form.ArticleForm__form
+  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.FormSection__head
+      div.FormSection__titleRow
+        h2.FormSection__title  color #eaf1f8
+    div.ArticleForm__fields
+      div.Field__field
+        label.Field__label  color #c9d5e2
+          span.Field__required  color #22d3ee
+        input  bg #0b1424  border #566d95
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+          span.Field__required#2  color #22d3ee
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#3
+        label.Field__label  color #c9d5e2
+          span.Field__required#3  color #22d3ee
+        input  bg #0b1424  border #566d95
+      div.Field__field#4
+        label.Field__label  color #c9d5e2
+          span.Field__required#4  color #22d3ee
+        input  bg #0b1424  border #566d95
+      div.Field__field#5
+        label.Field__label  color #c9d5e2
+          span.Field__required#5  color #22d3ee
+        textarea.Textarea__textarea  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Checkbox__root
+        div.Checkbox__row
+          input.Checkbox__input  bg #0b1424  border #2c3d59
+          label.Checkbox__label  color #a8b6c6
+        p.Field__hint  color #8598ac
+  section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.FormSection__head
+      div.FormSection__titleRow#2
+        h2.FormSection__title  color #eaf1f8
+    div.ArticleForm__editor
+      div.Field__field
+        label.Field__label#2  color #c9d5e2
+          span.Field__required  color #22d3ee
+        textarea.Textarea__textarea  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+  section.Card__card#3  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.FormSection__head
+      div.FormSection__titleRow#3
+        h2.FormSection__title  color #eaf1f8
+    div.ArticleForm__fields
+      div.Field__field#6
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#7
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      div.Field__field#8
+        label.Field__label  color #c9d5e2
+        textarea.Textarea__textarea  bg #0b1424  border #566d95
+  div.ArticleForm__actions  bg #121d31  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff

@@ -1,0 +1,22 @@
+# ui-kit-skeleton--basic · ширины 390 768 1440 · темы light dark
+шрифты: —
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Skeleton__skeleton  240×15 @16,16  r8
+
+[геометрия 768]
+span.Skeleton__skeleton  240×15 @16,16  r8
+
+[геометрия 1440]
+span.Skeleton__skeleton  240×15 @16,16  r8
+
+[палитра light]
+span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+
+[палитра dark]
+span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

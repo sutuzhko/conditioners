@@ -1,0 +1,1046 @@
+# админка-токены-панели--все · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600
+
+[документ]
+390 → 390×3184
+768 → 768×1937
+1440 → 1440×1747
+
+[геометрия 390]
+div.PanelTokens__board  390×3184 @0,0  r20
+  section.PanelTokens__section  358×515 @16,16  r14  b1
+    span.PanelTokens__caption  324×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Поверхности»
+    p.PanelTokens__note  324×59 @17,48  Manrope 400 13/20  lines=3  «На чём всё лежит. Панель — светлый скруг»
+    div.PanelTokens__grid  324×380 @17,118
+      div.PanelTokens__item  324×44 @0,0
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  29×39 @56,2
+          span.PanelTokens__name  29×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--bg»
+          span.PanelTokens__value  29×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#fff»
+      div.PanelTokens__item#2  324×44 @0,56
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  65×39 @56,2
+          span.PanelTokens__name#2  65×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--bg-soft»
+          span.PanelTokens__value#2  65×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#f8fafc»
+      div.PanelTokens__item#3  324×44 @0,112
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  43×39 @56,2
+          span.PanelTokens__name#3  43×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--card»
+          span.PanelTokens__value#3  43×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#fff»
+      div.PanelTokens__item#4  324×44 @0,168
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  50×39 @56,2
+          span.PanelTokens__name#4  50×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--field»
+          span.PanelTokens__value#4  50×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#fff»
+      div.PanelTokens__item#5  324×44 @0,224
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  72×39 @56,2
+          span.PanelTokens__name#5  72×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--stripe-a»
+          span.PanelTokens__value#5  72×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#edf2f6»
+      div.PanelTokens__item#6  324×44 @0,280
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  72×39 @56,2
+          span.PanelTokens__name#6  72×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--stripe-b»
+          span.PanelTokens__value#6  72×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#f5f8fa»
+      div.PanelTokens__item#7  324×44 @0,336
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  50×39 @56,2
+          span.PanelTokens__name#7  50×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--panel»
+          span.PanelTokens__value#7  50×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#0f172a»
+  section.PanelTokens__section#2  358×411 @16,548  r14  b1
+    span.PanelTokens__caption  324×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Чернила на карточке»
+    p.PanelTokens__note  324×39 @17,48  Manrope 400 13/20  lines=2  «Пять уровней текста и акцент. Ниже опуск»
+    div.PanelTokens__grid  324×295 @17,99
+      div.PanelTokens__item#8  324×39 @0,0
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  107×39 @95,0
+          span.PanelTokens__name#8  107×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ink»
+          span.PanelTokens__ratio  107×19 @0,21  Manrope 400 12/19  lines=1  «17,85:1 · норма 4.5:1»
+      div.PanelTokens__item#9  324×39 @0,51
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  108×39 @95,0
+          span.PanelTokens__name#9  108×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ink2»
+          span.PanelTokens__ratio#2  108×19 @0,21  Manrope 400 12/19  lines=1  «10,35:1 · норма 4.5:1»
+      div.PanelTokens__item#10  324×39 @0,102
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  102×39 @95,0
+          span.PanelTokens__name#10  102×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--body»
+          span.PanelTokens__ratio#3  102×19 @0,21  Manrope 400 12/19  lines=1  «7,58:1 · норма 4.5:1»
+      div.PanelTokens__item#11  324×39 @0,154
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  104×39 @95,0
+          span.PanelTokens__name#11  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--muted»
+          span.PanelTokens__ratio#4  104×19 @0,21  Manrope 400 12/19  lines=1  «6,28:1 · норма 4.5:1»
+      div.PanelTokens__item#12  324×39 @0,205
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  103×39 @95,0
+          span.PanelTokens__name#12  103×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--faint»
+          span.PanelTokens__ratio#5  103×19 @0,21  Manrope 400 12/19  lines=1  «5,52:1 · норма 4.5:1»
+      div.PanelTokens__item#13  324×39 @0,256
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  104×39 @95,0
+          span.PanelTokens__name#13  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--accent-text»
+          span.PanelTokens__ratio#6  104×19 @0,21  Manrope 400 12/19  lines=1  «5,36:1 · норма 4.5:1»
+  section.PanelTokens__section#3  358×347 @16,975  r14  b1
+    span.PanelTokens__caption  324×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Линии»
+    p.PanelTokens__note  324×78 @17,48  Manrope 400 13/20  lines=4  «Разделителю контраст не нужен, он декора»
+    div.PanelTokens__grid  324×193 @17,138
+      div.PanelTokens__item#14  324×39 @0,0
+        div.PanelTokens__line  52×2 @0,19  r100
+        div.PanelTokens__meta  114×39 @64,0
+          span.PanelTokens__name#14  114×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line-soft»
+          span.PanelTokens__ratio#7  114×19 @0,21  Manrope 400 12/19  lines=1  «1,12:1 · декоративная»
+      div.PanelTokens__item#15  324×39 @0,51
+        div.PanelTokens__line  52×2 @0,19  r100
+        div.PanelTokens__meta  117×39 @64,0
+          span.PanelTokens__name#15  117×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line»
+          span.PanelTokens__ratio#8  117×19 @0,21  Manrope 400 12/19  lines=1  «1,23:1 · декоративная»
+      div.PanelTokens__item#16  324×39 @0,102
+        div.PanelTokens__line  52×2 @0,19  r100
+        div.PanelTokens__meta  118×39 @64,0
+          span.PanelTokens__name#16  118×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line-strong»
+          span.PanelTokens__ratio#9  118×19 @0,21  Manrope 400 12/19  lines=1  «1,48:1 · декоративная»
+      div.PanelTokens__item#17  324×39 @0,154
+        div.PanelTokens__line  52×2 @0,19  r100
+        div.PanelTokens__meta  93×39 @64,0
+          span.PanelTokens__name#17  93×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line-ui»
+          span.PanelTokens__ratio#10  93×19 @0,21  Manrope 400 12/19  lines=1  «3,30:1 · норма 3:1»
+  section.PanelTokens__section#4  358×328 @16,1339  r14  b1
+    span.PanelTokens__caption  324×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Краски состояний на своём тинте»
+    p.PanelTokens__note  324×59 @17,48  Manrope 400 13/20  lines=3  «Плашка ложится на подложку, произведённу»
+    div.PanelTokens__grid  324×193 @17,118
+      div.PanelTokens__item#18  324×39 @0,0
+        span.PanelTokens__chip  63×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «Статус»
+        div.PanelTokens__meta  102×39 @75,0
+          span.PanelTokens__name#18  102×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ok-ink»
+          span.PanelTokens__ratio#11  102×19 @0,21  Manrope 400 12/19  lines=1  «6,41:1 · норма 4.5:1»
+      div.PanelTokens__item#19  324×39 @0,51
+        span.PanelTokens__chip  63×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «Статус»
+        div.PanelTokens__meta  104×39 @75,0
+          span.PanelTokens__name#19  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--warn-ink»
+          span.PanelTokens__ratio#12  104×19 @0,21  Manrope 400 12/19  lines=1  «6,36:1 · норма 4.5:1»
+      div.PanelTokens__item#20  324×39 @0,102
+        span.PanelTokens__chip  63×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «Статус»
+        div.PanelTokens__meta  104×39 @75,0
+          span.PanelTokens__name#20  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--error-ink»
+          span.PanelTokens__ratio#13  104×19 @0,21  Manrope 400 12/19  lines=1  «5,48:1 · норма 4.5:1»
+      div.PanelTokens__item#21  324×39 @0,154
+        span.PanelTokens__chip  63×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «Статус»
+        div.PanelTokens__meta  105×39 @75,0
+          span.PanelTokens__name#21  105×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--info-ink»
+          span.PanelTokens__ratio#14  105×19 @0,21  Manrope 400 12/19  lines=1  «6,94:1 · норма 4.5:1»
+  section.PanelTokens__section#5  358×225 @16,1684  r14  b1
+    span.PanelTokens__caption  324×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Текст поверх сплошной заливки»
+    p.PanelTokens__note  324×59 @17,48  Manrope 400 13/20  lines=3  «В тёмной теме краски уходят на светлую с»
+    div.PanelTokens__grid  324×90 @17,118
+      div.PanelTokens__item#22  324×39 @0,0
+        span.PanelTokens__chip  83×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «12 отказов»
+        div.PanelTokens__meta  104×39 @95,0
+          span.PanelTokens__name#22  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--on-error»
+          span.PanelTokens__ratio#15  104×19 @0,21  Manrope 400 12/19  lines=1  «6,29:1 · норма 4.5:1»
+      div.PanelTokens__item#23  324×39 @0,51
+        span.PanelTokens__chip  83×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «12 отказов»
+        div.PanelTokens__meta  98×39 @95,0
+          span.PanelTokens__name#23  98×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--on-ok»
+          span.PanelTokens__ratio#16  98×19 @0,21  Manrope 400 12/19  lines=1  «7,13:1 · норма 4.5:1»
+  section.PanelTokens__section#6  358×286 @16,1926  r14  b1
+    span.PanelTokens__caption  324×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Серии графиков»
+    p.PanelTokens__note  324×78 @17,48  Manrope 400 13/20  lines=4  «Одного цвета мало: пара разведена по тон»
+    div.PanelTokens__chart  324×131 @17,138
+      svg[role=img]  240×72 @0,0
+      div.PanelTokens__legend  283×43 @0,88
+        span.PanelTokens__legendItem  283×19 @0,0
+          svg  36×6 @0,6
+          span.PanelTokens__name  29×19 @44,0  JetBrains Mono 400 12/19  lines=1  «--s1»
+          span.PanelTokens__value  101×19 @81,0  JetBrains Mono 400 12/19  lines=1  «rgb(8 145 178)»
+          span.PanelTokens__ratio  94×19 @190,0  Manrope 400 12/19  lines=1  «3,68:1 · норма 3:1»
+        span.PanelTokens__legendItem#2  283×19 @0,25
+          svg  36×6 @0,6
+          span.PanelTokens__name  29×19 @44,0  JetBrains Mono 400 12/19  lines=1  «--s2»
+          span.PanelTokens__value  94×19 @81,0  JetBrains Mono 400 12/19  lines=1  «rgb(180 83 9)»
+          span.PanelTokens__ratio  94×19 @182,0  Manrope 400 12/19  lines=1  «5,02:1 · норма 3:1»
+  section.PanelTokens__section#7  358×243 @16,2228  r14  b1
+    span.PanelTokens__caption  324×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Плотность»
+    p.PanelTokens__note  324×59 @17,48  Manrope 400 13/20  lines=3  «Высоты панели: мышиные 32 / 40 / 48 и пу»
+    div.PanelTokens__bar  324×108 @17,118
+      span.PanelTokens__control  114×44 @0,0  Manrope 600 14/22  r999  b1  lines=1  «h-sm · 44px»
+      span.PanelTokens__control#2  115×44 @126,0  Manrope 600 14/22  r999  b1  lines=1  «h-md · 44px»
+      span.PanelTokens__control#3  106×52 @0,56  Manrope 600 14/22  r999  b1  lines=1  «h-lg · 52px»
+      span.PanelTokens__control#4  118×44 @118,60  Manrope 600 14/22  r999  b1  lines=1  «h-nav · 44px»
+  section.PanelTokens__section#8  358×308 @16,2488  r14  b1
+    span.PanelTokens__caption  324×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Геометрия»
+    p.PanelTokens__note  324×59 @17,48  Manrope 400 13/20  lines=3  «Контейнер прямее, контрол круглее: при о»
+    div.PanelTokens__bar  324×173 @17,118
+      span.PanelTokens__radius  101×81 @0,0
+        span.PanelTokens__box  96×56 @2,0  r12  b1
+        span.PanelTokens__name  101×19 @0,62  JetBrains Mono 400 12/19  lines=1  «--r-nav · 12px»
+      span.PanelTokens__radius#2  108×81 @113,0
+        span.PanelTokens__box  96×56 @6,0  r14  b1
+        span.PanelTokens__name  108×19 @0,62  JetBrains Mono 400 12/19  lines=1  «--r-card · 14px»
+      span.PanelTokens__radius#3  101×81 @0,93
+        span.PanelTokens__box  96×56 @2,0  r20  b1
+        span.PanelTokens__name  101×19 @0,62  JetBrains Mono 400 12/19  lines=1  «--r-app · 20px»
+      span.PanelTokens__radius#4  108×81 @113,93
+        span.PanelTokens__box  96×56 @6,0  r999  b1
+        span.PanelTokens__name  108×19 @0,62  JetBrains Mono 400 12/19  lines=1  «--r-btn · 999px»
+  section.PanelTokens__section#9  358×356 @16,2813  r14  b1
+    span.PanelTokens__caption  324×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Тени»
+    p.PanelTokens__note  324×39 @17,48  Manrope 400 13/20  lines=2  «Три ступени эталона: тень отделяет слой,»
+    div.PanelTokens__grid  324×240 @17,99
+      div.PanelTokens__shadow  324×72 @0,0  JetBrains Mono 400 12/19  r14  b1  lines=1  «--sh-sm»
+      div.PanelTokens__shadow#2  324×72 @0,84  JetBrains Mono 400 12/19  r14  b1  lines=1  «--sh-md»
+      div.PanelTokens__shadow#3  324×72 @0,168  JetBrains Mono 400 12/19  r14  b1  lines=1  «--sh-lg»
+[геометрия 390 dark]
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item > div.PanelTokens__meta  50×39 @56,2
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item > div.PanelTokens__meta > span.PanelTokens__name  50×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--bg»
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item > div.PanelTokens__meta > span.PanelTokens__value  50×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#0b1220»
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item#3 > div.PanelTokens__meta  50×39 @56,2
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item#3 > div.PanelTokens__meta > span.PanelTokens__name#3  50×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--card»
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item#3 > div.PanelTokens__meta > span.PanelTokens__value#3  50×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#121d31»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#8 > div.PanelTokens__meta  109×39 @95,0
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#8 > div.PanelTokens__meta > span.PanelTokens__name#8  109×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ink»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#8 > div.PanelTokens__meta > span.PanelTokens__ratio  109×19 @0,21  Manrope 400 12/19  lines=1  «14,80:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#9 > div.PanelTokens__meta  105×39 @95,0
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#9 > div.PanelTokens__meta > span.PanelTokens__name#9  105×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ink2»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#9 > div.PanelTokens__meta > span.PanelTokens__ratio#2  105×19 @0,21  Manrope 400 12/19  lines=1  «11,32:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#10 > div.PanelTokens__meta  100×39 @95,0
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#10 > div.PanelTokens__meta > span.PanelTokens__name#10  100×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--body»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#10 > div.PanelTokens__meta > span.PanelTokens__ratio#3  100×19 @0,21  Manrope 400 12/19  lines=1  «8,16:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#14 > div.PanelTokens__meta  117×39 @64,0
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#14 > div.PanelTokens__meta > span.PanelTokens__name#14  117×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line-soft»
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#14 > div.PanelTokens__meta > span.PanelTokens__ratio#7  117×19 @0,21  Manrope 400 12/19  lines=1  «1,07:1 · декоративная»
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#15 > div.PanelTokens__meta  114×39 @64,0
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#15 > div.PanelTokens__meta > span.PanelTokens__name#15  114×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line»
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#15 > div.PanelTokens__meta > span.PanelTokens__ratio#8  114×19 @0,21  Manrope 400 12/19  lines=1  «1,19:1 · декоративная»
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#19 > div.PanelTokens__meta  102×39 @75,0
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#19 > div.PanelTokens__meta > span.PanelTokens__name#19  102×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--warn-ink»
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#19 > div.PanelTokens__meta > span.PanelTokens__ratio#12  102×19 @0,21  Manrope 400 12/19  lines=1  «7,92:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#20 > div.PanelTokens__meta  101×39 @75,0
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#20 > div.PanelTokens__meta > span.PanelTokens__name#20  101×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--error-ink»
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#20 > div.PanelTokens__meta > span.PanelTokens__ratio#13  101×19 @0,21  Manrope 400 12/19  lines=1  «5,31:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#5 > div.PanelTokens__grid > div.PanelTokens__item#23 > div.PanelTokens__meta  107×39 @95,0
+div.PanelTokens__board > section.PanelTokens__section#5 > div.PanelTokens__grid > div.PanelTokens__item#23 > div.PanelTokens__meta > span.PanelTokens__name#23  107×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--on-ok»
+div.PanelTokens__board > section.PanelTokens__section#5 > div.PanelTokens__grid > div.PanelTokens__item#23 > div.PanelTokens__meta > span.PanelTokens__ratio#16  107×19 @0,21  Manrope 400 12/19  lines=1  «10,74:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend  292×43 @0,88
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem  292×19 @0,0
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem > span.PanelTokens__value  108×19 @81,0  JetBrains Mono 400 12/19  lines=1  «rgb(34 211 238)»
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem > span.PanelTokens__ratio  93×19 @197,0  Manrope 400 12/19  lines=1  «9,33:1 · норма 3:1»
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem#2  292×19 @0,25
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem#2 > span.PanelTokens__value  108×19 @81,0  JetBrains Mono 400 12/19  lines=1  «rgb(251 191 36)»
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem#2 > span.PanelTokens__ratio  95×19 @197,0  Manrope 400 12/19  lines=1  «10,10:1 · норма 3:1»
+
+[геометрия 768]
+div.PanelTokens__board  768×1937 @0,0  r20
+  section.PanelTokens__section  736×272 @16,16  r14  b1
+    span.PanelTokens__caption  702×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Поверхности»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «На чём всё лежит. Панель — светлый скруг»
+    div.PanelTokens__grid  702×156 @17,99
+      div.PanelTokens__item  226×44 @0,0
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  29×39 @56,2
+          span.PanelTokens__name  29×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--bg»
+          span.PanelTokens__value  29×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#fff»
+      div.PanelTokens__item#2  226×44 @238,0
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  65×39 @56,2
+          span.PanelTokens__name#2  65×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--bg-soft»
+          span.PanelTokens__value#2  65×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#f8fafc»
+      div.PanelTokens__item#3  226×44 @476,0
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  43×39 @56,2
+          span.PanelTokens__name#3  43×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--card»
+          span.PanelTokens__value#3  43×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#fff»
+      div.PanelTokens__item#4  226×44 @0,56
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  50×39 @56,2
+          span.PanelTokens__name#4  50×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--field»
+          span.PanelTokens__value#4  50×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#fff»
+      div.PanelTokens__item#5  226×44 @238,56
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  72×39 @56,2
+          span.PanelTokens__name#5  72×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--stripe-a»
+          span.PanelTokens__value#5  72×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#edf2f6»
+      div.PanelTokens__item#6  226×44 @476,56
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  72×39 @56,2
+          span.PanelTokens__name#6  72×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--stripe-b»
+          span.PanelTokens__value#6  72×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#f5f8fa»
+      div.PanelTokens__item#7  226×44 @0,112
+        div.PanelTokens__swatch  44×44 @0,0  r12  b1
+        div.PanelTokens__meta  50×39 @56,2
+          span.PanelTokens__name#7  50×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--panel»
+          span.PanelTokens__value#7  50×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#0f172a»
+  section.PanelTokens__section#2  736×186 @16,308  r14  b1
+    span.PanelTokens__caption  702×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Чернила на карточке»
+    p.PanelTokens__note  619×20 @17,48  Manrope 400 13/20  lines=1  «Пять уровней текста и акцент. Ниже опуск»
+    div.PanelTokens__grid  702×90 @17,79
+      div.PanelTokens__item#8  226×39 @0,0
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  107×39 @95,0
+          span.PanelTokens__name#8  107×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ink»
+          span.PanelTokens__ratio  107×19 @0,21  Manrope 400 12/19  lines=1  «17,85:1 · норма 4.5:1»
+      div.PanelTokens__item#9  226×39 @238,0
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  108×39 @95,0
+          span.PanelTokens__name#9  108×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ink2»
+          span.PanelTokens__ratio#2  108×19 @0,21  Manrope 400 12/19  lines=1  «10,35:1 · норма 4.5:1»
+      div.PanelTokens__item#10  226×39 @476,0
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  102×39 @95,0
+          span.PanelTokens__name#10  102×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--body»
+          span.PanelTokens__ratio#3  102×19 @0,21  Manrope 400 12/19  lines=1  «7,58:1 · норма 4.5:1»
+      div.PanelTokens__item#11  226×39 @0,51
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  104×39 @95,0
+          span.PanelTokens__name#11  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--muted»
+          span.PanelTokens__ratio#4  104×19 @0,21  Manrope 400 12/19  lines=1  «6,28:1 · норма 4.5:1»
+      div.PanelTokens__item#12  226×39 @238,51
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  103×39 @95,0
+          span.PanelTokens__name#12  103×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--faint»
+          span.PanelTokens__ratio#5  103×19 @0,21  Manrope 400 12/19  lines=1  «5,52:1 · норма 4.5:1»
+      div.PanelTokens__item#13  226×39 @476,51
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  104×39 @95,0
+          span.PanelTokens__name#13  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--accent-text»
+          span.PanelTokens__ratio#6  104×19 @0,21  Manrope 400 12/19  lines=1  «5,36:1 · норма 4.5:1»
+  section.PanelTokens__section#3  736×206 @16,514  r14  b1
+    span.PanelTokens__caption  702×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Линии»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «Разделителю контраст не нужен, он декора»
+    div.PanelTokens__grid  702×90 @17,99
+      div.PanelTokens__item#14  226×39 @0,0
+        div.PanelTokens__line  52×2 @0,19  r100
+        div.PanelTokens__meta  114×39 @64,0
+          span.PanelTokens__name#14  114×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line-soft»
+          span.PanelTokens__ratio#7  114×19 @0,21  Manrope 400 12/19  lines=1  «1,12:1 · декоративная»
+      div.PanelTokens__item#15  226×39 @238,0
+        div.PanelTokens__line  52×2 @0,19  r100
+        div.PanelTokens__meta  117×39 @64,0
+          span.PanelTokens__name#15  117×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line»
+          span.PanelTokens__ratio#8  117×19 @0,21  Manrope 400 12/19  lines=1  «1,23:1 · декоративная»
+      div.PanelTokens__item#16  226×39 @476,0
+        div.PanelTokens__line  52×2 @0,19  r100
+        div.PanelTokens__meta  118×39 @64,0
+          span.PanelTokens__name#16  118×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line-strong»
+          span.PanelTokens__ratio#9  118×19 @0,21  Manrope 400 12/19  lines=1  «1,48:1 · декоративная»
+      div.PanelTokens__item#17  226×39 @0,51
+        div.PanelTokens__line  52×2 @0,19  r100
+        div.PanelTokens__meta  93×39 @64,0
+          span.PanelTokens__name#17  93×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line-ui»
+          span.PanelTokens__ratio#10  93×19 @0,21  Manrope 400 12/19  lines=1  «3,30:1 · норма 3:1»
+  section.PanelTokens__section#4  736×206 @16,740  r14  b1
+    span.PanelTokens__caption  702×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Краски состояний на своём тинте»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «Плашка ложится на подложку, произведённу»
+    div.PanelTokens__grid  702×90 @17,99
+      div.PanelTokens__item#18  226×39 @0,0
+        span.PanelTokens__chip  63×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «Статус»
+        div.PanelTokens__meta  102×39 @75,0
+          span.PanelTokens__name#18  102×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ok-ink»
+          span.PanelTokens__ratio#11  102×19 @0,21  Manrope 400 12/19  lines=1  «6,41:1 · норма 4.5:1»
+      div.PanelTokens__item#19  226×39 @238,0
+        span.PanelTokens__chip  63×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «Статус»
+        div.PanelTokens__meta  104×39 @75,0
+          span.PanelTokens__name#19  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--warn-ink»
+          span.PanelTokens__ratio#12  104×19 @0,21  Manrope 400 12/19  lines=1  «6,36:1 · норма 4.5:1»
+      div.PanelTokens__item#20  226×39 @476,0
+        span.PanelTokens__chip  63×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «Статус»
+        div.PanelTokens__meta  104×39 @75,0
+          span.PanelTokens__name#20  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--error-ink»
+          span.PanelTokens__ratio#13  104×19 @0,21  Manrope 400 12/19  lines=1  «5,48:1 · норма 4.5:1»
+      div.PanelTokens__item#21  226×39 @0,51
+        span.PanelTokens__chip  63×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «Статус»
+        div.PanelTokens__meta  105×39 @75,0
+          span.PanelTokens__name#21  105×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--info-ink»
+          span.PanelTokens__ratio#14  105×19 @0,21  Manrope 400 12/19  lines=1  «6,94:1 · норма 4.5:1»
+  section.PanelTokens__section#5  736×155 @16,966  r14  b1
+    span.PanelTokens__caption  702×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Текст поверх сплошной заливки»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «В тёмной теме краски уходят на светлую с»
+    div.PanelTokens__grid  702×39 @17,99
+      div.PanelTokens__item#22  226×39 @0,0
+        span.PanelTokens__chip  83×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «12 отказов»
+        div.PanelTokens__meta  104×39 @95,0
+          span.PanelTokens__name#22  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--on-error»
+          span.PanelTokens__ratio#15  104×19 @0,21  Manrope 400 12/19  lines=1  «6,29:1 · норма 4.5:1»
+      div.PanelTokens__item#23  226×39 @238,0
+        span.PanelTokens__chip  83×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «12 отказов»
+        div.PanelTokens__meta  98×39 @95,0
+          span.PanelTokens__name#23  98×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--on-ok»
+          span.PanelTokens__ratio#16  98×19 @0,21  Manrope 400 12/19  lines=1  «7,13:1 · норма 4.5:1»
+  section.PanelTokens__section#6  736×188 @16,1141  r14  b1
+    span.PanelTokens__caption  702×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Серии графиков»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «Одного цвета мало: пара разведена по тон»
+    div.PanelTokens__chart  702×72 @17,99
+      svg[role=img]  240×72 @0,0
+      div.PanelTokens__legend  283×43 @256,14
+        span.PanelTokens__legendItem  283×19 @0,0
+          svg  36×6 @0,6
+          span.PanelTokens__name  29×19 @44,0  JetBrains Mono 400 12/19  lines=1  «--s1»
+          span.PanelTokens__value  101×19 @81,0  JetBrains Mono 400 12/19  lines=1  «rgb(8 145 178)»
+          span.PanelTokens__ratio  94×19 @190,0  Manrope 400 12/19  lines=1  «3,68:1 · норма 3:1»
+        span.PanelTokens__legendItem#2  283×19 @0,25
+          svg  36×6 @0,6
+          span.PanelTokens__name  29×19 @44,0  JetBrains Mono 400 12/19  lines=1  «--s2»
+          span.PanelTokens__value  94×19 @81,0  JetBrains Mono 400 12/19  lines=1  «rgb(180 83 9)»
+          span.PanelTokens__ratio  94×19 @182,0  Manrope 400 12/19  lines=1  «5,02:1 · норма 3:1»
+  section.PanelTokens__section#7  736×168 @16,1349  r14  b1
+    span.PanelTokens__caption  702×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Плотность»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «Высоты панели: мышиные 32 / 40 / 48 и пу»
+    div.PanelTokens__bar  702×52 @17,99
+      span.PanelTokens__control  114×44 @0,4  Manrope 600 14/22  r999  b1  lines=1  «h-sm · 44px»
+      span.PanelTokens__control#2  115×44 @126,4  Manrope 600 14/22  r999  b1  lines=1  «h-md · 44px»
+      span.PanelTokens__control#3  106×52 @253,0  Manrope 600 14/22  r999  b1  lines=1  «h-lg · 52px»
+      span.PanelTokens__control#4  118×44 @371,4  Manrope 600 14/22  r999  b1  lines=1  «h-nav · 44px»
+  section.PanelTokens__section#8  736×196 @16,1537  r14  b1
+    span.PanelTokens__caption  702×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Геометрия»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «Контейнер прямее, контрол круглее: при о»
+    div.PanelTokens__bar  702×81 @17,99
+      span.PanelTokens__radius  101×81 @0,0
+        span.PanelTokens__box  96×56 @2,0  r12  b1
+        span.PanelTokens__name  101×19 @0,62  JetBrains Mono 400 12/19  lines=1  «--r-nav · 12px»
+      span.PanelTokens__radius#2  108×81 @113,0
+        span.PanelTokens__box  96×56 @6,0  r14  b1
+        span.PanelTokens__name  108×19 @0,62  JetBrains Mono 400 12/19  lines=1  «--r-card · 14px»
+      span.PanelTokens__radius#3  101×81 @233,0
+        span.PanelTokens__box  96×56 @2,0  r20  b1
+        span.PanelTokens__name  101×19 @0,62  JetBrains Mono 400 12/19  lines=1  «--r-app · 20px»
+      span.PanelTokens__radius#4  108×81 @346,0
+        span.PanelTokens__box  96×56 @6,0  r999  b1
+        span.PanelTokens__name  108×19 @0,62  JetBrains Mono 400 12/19  lines=1  «--r-btn · 999px»
+  section.PanelTokens__section#9  736×168 @16,1753  r14  b1
+    span.PanelTokens__caption  702×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Тени»
+    p.PanelTokens__note  619×20 @17,48  Manrope 400 13/20  lines=1  «Три ступени эталона: тень отделяет слой,»
+    div.PanelTokens__grid  702×72 @17,79
+      div.PanelTokens__shadow  226×72 @0,0  JetBrains Mono 400 12/19  r14  b1  lines=1  «--sh-sm»
+      div.PanelTokens__shadow#2  226×72 @238,0  JetBrains Mono 400 12/19  r14  b1  lines=1  «--sh-md»
+      div.PanelTokens__shadow#3  226×72 @476,0  JetBrains Mono 400 12/19  r14  b1  lines=1  «--sh-lg»
+[геометрия 768 dark]
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item > div.PanelTokens__meta  50×39 @56,2
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item > div.PanelTokens__meta > span.PanelTokens__name  50×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--bg»
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item > div.PanelTokens__meta > span.PanelTokens__value  50×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#0b1220»
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item#3 > div.PanelTokens__meta  50×39 @56,2
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item#3 > div.PanelTokens__meta > span.PanelTokens__name#3  50×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--card»
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item#3 > div.PanelTokens__meta > span.PanelTokens__value#3  50×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#121d31»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#8 > div.PanelTokens__meta  109×39 @95,0
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#8 > div.PanelTokens__meta > span.PanelTokens__name#8  109×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ink»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#8 > div.PanelTokens__meta > span.PanelTokens__ratio  109×19 @0,21  Manrope 400 12/19  lines=1  «14,80:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#9 > div.PanelTokens__meta  105×39 @95,0
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#9 > div.PanelTokens__meta > span.PanelTokens__name#9  105×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ink2»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#9 > div.PanelTokens__meta > span.PanelTokens__ratio#2  105×19 @0,21  Manrope 400 12/19  lines=1  «11,32:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#10 > div.PanelTokens__meta  100×39 @95,0
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#10 > div.PanelTokens__meta > span.PanelTokens__name#10  100×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--body»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#10 > div.PanelTokens__meta > span.PanelTokens__ratio#3  100×19 @0,21  Manrope 400 12/19  lines=1  «8,16:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#14 > div.PanelTokens__meta  117×39 @64,0
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#14 > div.PanelTokens__meta > span.PanelTokens__name#14  117×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line-soft»
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#14 > div.PanelTokens__meta > span.PanelTokens__ratio#7  117×19 @0,21  Manrope 400 12/19  lines=1  «1,07:1 · декоративная»
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#15 > div.PanelTokens__meta  114×39 @64,0
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#15 > div.PanelTokens__meta > span.PanelTokens__name#15  114×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line»
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#15 > div.PanelTokens__meta > span.PanelTokens__ratio#8  114×19 @0,21  Manrope 400 12/19  lines=1  «1,19:1 · декоративная»
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#19 > div.PanelTokens__meta  102×39 @75,0
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#19 > div.PanelTokens__meta > span.PanelTokens__name#19  102×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--warn-ink»
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#19 > div.PanelTokens__meta > span.PanelTokens__ratio#12  102×19 @0,21  Manrope 400 12/19  lines=1  «7,92:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#20 > div.PanelTokens__meta  101×39 @75,0
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#20 > div.PanelTokens__meta > span.PanelTokens__name#20  101×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--error-ink»
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#20 > div.PanelTokens__meta > span.PanelTokens__ratio#13  101×19 @0,21  Manrope 400 12/19  lines=1  «5,31:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#5 > div.PanelTokens__grid > div.PanelTokens__item#23 > div.PanelTokens__meta  107×39 @95,0
+div.PanelTokens__board > section.PanelTokens__section#5 > div.PanelTokens__grid > div.PanelTokens__item#23 > div.PanelTokens__meta > span.PanelTokens__name#23  107×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--on-ok»
+div.PanelTokens__board > section.PanelTokens__section#5 > div.PanelTokens__grid > div.PanelTokens__item#23 > div.PanelTokens__meta > span.PanelTokens__ratio#16  107×19 @0,21  Manrope 400 12/19  lines=1  «10,74:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend  292×43 @256,14
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem  292×19 @0,0
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem > span.PanelTokens__value  108×19 @81,0  JetBrains Mono 400 12/19  lines=1  «rgb(34 211 238)»
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem > span.PanelTokens__ratio  93×19 @197,0  Manrope 400 12/19  lines=1  «9,33:1 · норма 3:1»
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem#2  292×19 @0,25
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem#2 > span.PanelTokens__value  108×19 @81,0  JetBrains Mono 400 12/19  lines=1  «rgb(251 191 36)»
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem#2 > span.PanelTokens__ratio  95×19 @197,0  Manrope 400 12/19  lines=1  «10,10:1 · норма 3:1»
+
+[геометрия 1440]
+div.PanelTokens__board  1440×1747 @0,0  r20
+  section.PanelTokens__section  1408×208 @16,16  r14  b1
+    span.PanelTokens__caption  1374×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Поверхности»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «На чём всё лежит. Панель — светлый скруг»
+    div.PanelTokens__grid  1374×92 @17,99
+      div.PanelTokens__item  219×40 @0,0
+        div.PanelTokens__swatch  40×40 @0,0  r12  b1
+        div.PanelTokens__meta  29×39 @52,0
+          span.PanelTokens__name  29×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--bg»
+          span.PanelTokens__value  29×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#fff»
+      div.PanelTokens__item#2  219×40 @231,0
+        div.PanelTokens__swatch  40×40 @0,0  r12  b1
+        div.PanelTokens__meta  65×39 @52,0
+          span.PanelTokens__name#2  65×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--bg-soft»
+          span.PanelTokens__value#2  65×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#f8fafc»
+      div.PanelTokens__item#3  219×40 @462,0
+        div.PanelTokens__swatch  40×40 @0,0  r12  b1
+        div.PanelTokens__meta  43×39 @52,0
+          span.PanelTokens__name#3  43×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--card»
+          span.PanelTokens__value#3  43×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#fff»
+      div.PanelTokens__item#4  219×40 @693,0
+        div.PanelTokens__swatch  40×40 @0,0  r12  b1
+        div.PanelTokens__meta  50×39 @52,0
+          span.PanelTokens__name#4  50×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--field»
+          span.PanelTokens__value#4  50×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#fff»
+      div.PanelTokens__item#5  219×40 @924,0
+        div.PanelTokens__swatch  40×40 @0,0  r12  b1
+        div.PanelTokens__meta  72×39 @52,0
+          span.PanelTokens__name#5  72×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--stripe-a»
+          span.PanelTokens__value#5  72×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#edf2f6»
+      div.PanelTokens__item#6  219×40 @1155,0
+        div.PanelTokens__swatch  40×40 @0,0  r12  b1
+        div.PanelTokens__meta  72×39 @52,0
+          span.PanelTokens__name#6  72×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--stripe-b»
+          span.PanelTokens__value#6  72×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#f5f8fa»
+      div.PanelTokens__item#7  219×40 @0,52
+        div.PanelTokens__swatch  40×40 @0,0  r12  b1
+        div.PanelTokens__meta  50×39 @52,0
+          span.PanelTokens__name#7  50×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--panel»
+          span.PanelTokens__value#7  50×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#0f172a»
+  section.PanelTokens__section#2  1408×135 @16,248  r14  b1
+    span.PanelTokens__caption  1374×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Чернила на карточке»
+    p.PanelTokens__note  619×20 @17,48  Manrope 400 13/20  lines=1  «Пять уровней текста и акцент. Ниже опуск»
+    div.PanelTokens__grid  1374×39 @17,79
+      div.PanelTokens__item#8  219×39 @0,0
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  107×39 @95,0
+          span.PanelTokens__name#8  107×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ink»
+          span.PanelTokens__ratio  107×19 @0,21  Manrope 400 12/19  lines=1  «17,85:1 · норма 4.5:1»
+      div.PanelTokens__item#9  219×39 @231,0
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  108×39 @95,0
+          span.PanelTokens__name#9  108×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ink2»
+          span.PanelTokens__ratio#2  108×19 @0,21  Manrope 400 12/19  lines=1  «10,35:1 · норма 4.5:1»
+      div.PanelTokens__item#10  219×39 @462,0
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  102×39 @95,0
+          span.PanelTokens__name#10  102×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--body»
+          span.PanelTokens__ratio#3  102×19 @0,21  Manrope 400 12/19  lines=1  «7,58:1 · норма 4.5:1»
+      div.PanelTokens__item#11  219×39 @693,0
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  104×39 @95,0
+          span.PanelTokens__name#11  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--muted»
+          span.PanelTokens__ratio#4  104×19 @0,21  Manrope 400 12/19  lines=1  «6,28:1 · норма 4.5:1»
+      div.PanelTokens__item#12  219×39 @924,0
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  103×39 @95,0
+          span.PanelTokens__name#12  103×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--faint»
+          span.PanelTokens__ratio#5  103×19 @0,21  Manrope 400 12/19  lines=1  «5,52:1 · норма 4.5:1»
+      div.PanelTokens__item#13  219×39 @1155,0
+        span.PanelTokens__ink  83×22 @0,9  Manrope 600 14/22  lines=1  «Заказ № 128»
+        div.PanelTokens__meta  104×39 @95,0
+          span.PanelTokens__name#13  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--accent-text»
+          span.PanelTokens__ratio#6  104×19 @0,21  Manrope 400 12/19  lines=1  «5,36:1 · норма 4.5:1»
+  section.PanelTokens__section#3  1408×155 @16,407  r14  b1
+    span.PanelTokens__caption  1374×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Линии»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «Разделителю контраст не нужен, он декора»
+    div.PanelTokens__grid  1374×39 @17,99
+      div.PanelTokens__item#14  219×39 @0,0
+        div.PanelTokens__line  48×2 @0,19  r100
+        div.PanelTokens__meta  114×39 @60,0
+          span.PanelTokens__name#14  114×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line-soft»
+          span.PanelTokens__ratio#7  114×19 @0,21  Manrope 400 12/19  lines=1  «1,12:1 · декоративная»
+      div.PanelTokens__item#15  219×39 @231,0
+        div.PanelTokens__line  48×2 @0,19  r100
+        div.PanelTokens__meta  117×39 @60,0
+          span.PanelTokens__name#15  117×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line»
+          span.PanelTokens__ratio#8  117×19 @0,21  Manrope 400 12/19  lines=1  «1,23:1 · декоративная»
+      div.PanelTokens__item#16  219×39 @462,0
+        div.PanelTokens__line  48×2 @0,19  r100
+        div.PanelTokens__meta  118×39 @60,0
+          span.PanelTokens__name#16  118×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line-strong»
+          span.PanelTokens__ratio#9  118×19 @0,21  Manrope 400 12/19  lines=1  «1,48:1 · декоративная»
+      div.PanelTokens__item#17  219×39 @693,0
+        div.PanelTokens__line  48×2 @0,19  r100
+        div.PanelTokens__meta  93×39 @60,0
+          span.PanelTokens__name#17  93×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line-ui»
+          span.PanelTokens__ratio#10  93×19 @0,21  Manrope 400 12/19  lines=1  «3,30:1 · норма 3:1»
+  section.PanelTokens__section#4  1408×155 @16,586  r14  b1
+    span.PanelTokens__caption  1374×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Краски состояний на своём тинте»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «Плашка ложится на подложку, произведённу»
+    div.PanelTokens__grid  1374×39 @17,99
+      div.PanelTokens__item#18  219×39 @0,0
+        span.PanelTokens__chip  63×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «Статус»
+        div.PanelTokens__meta  102×39 @75,0
+          span.PanelTokens__name#18  102×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ok-ink»
+          span.PanelTokens__ratio#11  102×19 @0,21  Manrope 400 12/19  lines=1  «6,41:1 · норма 4.5:1»
+      div.PanelTokens__item#19  219×39 @231,0
+        span.PanelTokens__chip  63×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «Статус»
+        div.PanelTokens__meta  104×39 @75,0
+          span.PanelTokens__name#19  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--warn-ink»
+          span.PanelTokens__ratio#12  104×19 @0,21  Manrope 400 12/19  lines=1  «6,36:1 · норма 4.5:1»
+      div.PanelTokens__item#20  219×39 @462,0
+        span.PanelTokens__chip  63×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «Статус»
+        div.PanelTokens__meta  104×39 @75,0
+          span.PanelTokens__name#20  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--error-ink»
+          span.PanelTokens__ratio#13  104×19 @0,21  Manrope 400 12/19  lines=1  «5,48:1 · норма 4.5:1»
+      div.PanelTokens__item#21  219×39 @693,0
+        span.PanelTokens__chip  63×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «Статус»
+        div.PanelTokens__meta  105×39 @75,0
+          span.PanelTokens__name#21  105×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--info-ink»
+          span.PanelTokens__ratio#14  105×19 @0,21  Manrope 400 12/19  lines=1  «6,94:1 · норма 4.5:1»
+  section.PanelTokens__section#5  1408×155 @16,764  r14  b1
+    span.PanelTokens__caption  1374×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Текст поверх сплошной заливки»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «В тёмной теме краски уходят на светлую с»
+    div.PanelTokens__grid  1374×39 @17,99
+      div.PanelTokens__item#22  219×39 @0,0
+        span.PanelTokens__chip  83×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «12 отказов»
+        div.PanelTokens__meta  104×39 @95,0
+          span.PanelTokens__name#22  104×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--on-error»
+          span.PanelTokens__ratio#15  104×19 @0,21  Manrope 400 12/19  lines=1  «6,29:1 · норма 4.5:1»
+      div.PanelTokens__item#23  219×39 @231,0
+        span.PanelTokens__chip  83×24 @0,8  Manrope 600 12/19  r100  b1  lines=1  «12 отказов»
+        div.PanelTokens__meta  98×39 @95,0
+          span.PanelTokens__name#23  98×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--on-ok»
+          span.PanelTokens__ratio#16  98×19 @0,21  Manrope 400 12/19  lines=1  «7,13:1 · норма 4.5:1»
+  section.PanelTokens__section#6  1408×188 @16,943  r14  b1
+    span.PanelTokens__caption  1374×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Серии графиков»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «Одного цвета мало: пара разведена по тон»
+    div.PanelTokens__chart  1374×72 @17,99
+      svg[role=img]  240×72 @0,0
+      div.PanelTokens__legend  283×43 @256,14
+        span.PanelTokens__legendItem  283×19 @0,0
+          svg  36×6 @0,6
+          span.PanelTokens__name  29×19 @44,0  JetBrains Mono 400 12/19  lines=1  «--s1»
+          span.PanelTokens__value  101×19 @81,0  JetBrains Mono 400 12/19  lines=1  «rgb(8 145 178)»
+          span.PanelTokens__ratio  94×19 @190,0  Manrope 400 12/19  lines=1  «3,68:1 · норма 3:1»
+        span.PanelTokens__legendItem#2  283×19 @0,25
+          svg  36×6 @0,6
+          span.PanelTokens__name  29×19 @44,0  JetBrains Mono 400 12/19  lines=1  «--s2»
+          span.PanelTokens__value  94×19 @81,0  JetBrains Mono 400 12/19  lines=1  «rgb(180 83 9)»
+          span.PanelTokens__ratio  94×19 @182,0  Manrope 400 12/19  lines=1  «5,02:1 · норма 3:1»
+  section.PanelTokens__section#7  1408×164 @16,1155  r14  b1
+    span.PanelTokens__caption  1374×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Плотность»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «Высоты панели: мышиные 32 / 40 / 48 и пу»
+    div.PanelTokens__bar  1374×48 @17,99
+      span.PanelTokens__control  114×32 @0,8  Manrope 600 14/22  r999  b1  lines=1  «h-sm · 32px»
+      span.PanelTokens__control#2  116×40 @126,4  Manrope 600 14/22  r999  b1  lines=1  «h-md · 40px»
+      span.PanelTokens__control#3  107×48 @253,0  Manrope 600 14/22  r999  b1  lines=1  «h-lg · 48px»
+      span.PanelTokens__control#4  118×44 @372,2  Manrope 600 14/22  r999  b1  lines=1  «h-nav · 44px»
+  section.PanelTokens__section#8  1408×196 @16,1342  r14  b1
+    span.PanelTokens__caption  1374×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Геометрия»
+    p.PanelTokens__note  619×39 @17,48  Manrope 400 13/20  lines=2  «Контейнер прямее, контрол круглее: при о»
+    div.PanelTokens__bar  1374×81 @17,99
+      span.PanelTokens__radius  101×81 @0,0
+        span.PanelTokens__box  96×56 @2,0  r12  b1
+        span.PanelTokens__name  101×19 @0,62  JetBrains Mono 400 12/19  lines=1  «--r-nav · 12px»
+      span.PanelTokens__radius#2  108×81 @113,0
+        span.PanelTokens__box  96×56 @6,0  r14  b1
+        span.PanelTokens__name  108×19 @0,62  JetBrains Mono 400 12/19  lines=1  «--r-card · 14px»
+      span.PanelTokens__radius#3  101×81 @233,0
+        span.PanelTokens__box  96×56 @2,0  r20  b1
+        span.PanelTokens__name  101×19 @0,62  JetBrains Mono 400 12/19  lines=1  «--r-app · 20px»
+      span.PanelTokens__radius#4  108×81 @346,0
+        span.PanelTokens__box  96×56 @6,0  r999  b1
+        span.PanelTokens__name  108×19 @0,62  JetBrains Mono 400 12/19  lines=1  «--r-btn · 999px»
+  section.PanelTokens__section#9  1408×168 @16,1563  r14  b1
+    span.PanelTokens__caption  1374×19 @17,17  JetBrains Mono 400 12/19  ls1  lines=1  «Тени»
+    p.PanelTokens__note  619×20 @17,48  Manrope 400 13/20  lines=1  «Три ступени эталона: тень отделяет слой,»
+    div.PanelTokens__grid  1374×72 @17,79
+      div.PanelTokens__shadow  219×72 @0,0  JetBrains Mono 400 12/19  r14  b1  lines=1  «--sh-sm»
+      div.PanelTokens__shadow#2  219×72 @231,0  JetBrains Mono 400 12/19  r14  b1  lines=1  «--sh-md»
+      div.PanelTokens__shadow#3  219×72 @462,0  JetBrains Mono 400 12/19  r14  b1  lines=1  «--sh-lg»
+[геометрия 1440 dark]
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item > div.PanelTokens__meta  50×39 @52,0
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item > div.PanelTokens__meta > span.PanelTokens__name  50×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--bg»
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item > div.PanelTokens__meta > span.PanelTokens__value  50×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#0b1220»
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item#3 > div.PanelTokens__meta  50×39 @52,0
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item#3 > div.PanelTokens__meta > span.PanelTokens__name#3  50×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--card»
+div.PanelTokens__board > section.PanelTokens__section > div.PanelTokens__grid > div.PanelTokens__item#3 > div.PanelTokens__meta > span.PanelTokens__value#3  50×19 @0,21  JetBrains Mono 400 12/19  lines=1  «#121d31»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#8 > div.PanelTokens__meta  109×39 @95,0
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#8 > div.PanelTokens__meta > span.PanelTokens__name#8  109×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ink»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#8 > div.PanelTokens__meta > span.PanelTokens__ratio  109×19 @0,21  Manrope 400 12/19  lines=1  «14,80:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#9 > div.PanelTokens__meta  105×39 @95,0
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#9 > div.PanelTokens__meta > span.PanelTokens__name#9  105×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--ink2»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#9 > div.PanelTokens__meta > span.PanelTokens__ratio#2  105×19 @0,21  Manrope 400 12/19  lines=1  «11,32:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#10 > div.PanelTokens__meta  100×39 @95,0
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#10 > div.PanelTokens__meta > span.PanelTokens__name#10  100×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--body»
+div.PanelTokens__board > section.PanelTokens__section#2 > div.PanelTokens__grid > div.PanelTokens__item#10 > div.PanelTokens__meta > span.PanelTokens__ratio#3  100×19 @0,21  Manrope 400 12/19  lines=1  «8,16:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#14 > div.PanelTokens__meta  117×39 @60,0
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#14 > div.PanelTokens__meta > span.PanelTokens__name#14  117×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line-soft»
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#14 > div.PanelTokens__meta > span.PanelTokens__ratio#7  117×19 @0,21  Manrope 400 12/19  lines=1  «1,07:1 · декоративная»
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#15 > div.PanelTokens__meta  114×39 @60,0
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#15 > div.PanelTokens__meta > span.PanelTokens__name#15  114×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--line»
+div.PanelTokens__board > section.PanelTokens__section#3 > div.PanelTokens__grid > div.PanelTokens__item#15 > div.PanelTokens__meta > span.PanelTokens__ratio#8  114×19 @0,21  Manrope 400 12/19  lines=1  «1,19:1 · декоративная»
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#19 > div.PanelTokens__meta  102×39 @75,0
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#19 > div.PanelTokens__meta > span.PanelTokens__name#19  102×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--warn-ink»
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#19 > div.PanelTokens__meta > span.PanelTokens__ratio#12  102×19 @0,21  Manrope 400 12/19  lines=1  «7,92:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#20 > div.PanelTokens__meta  101×39 @75,0
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#20 > div.PanelTokens__meta > span.PanelTokens__name#20  101×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--error-ink»
+div.PanelTokens__board > section.PanelTokens__section#4 > div.PanelTokens__grid > div.PanelTokens__item#20 > div.PanelTokens__meta > span.PanelTokens__ratio#13  101×19 @0,21  Manrope 400 12/19  lines=1  «5,31:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#5 > div.PanelTokens__grid > div.PanelTokens__item#23 > div.PanelTokens__meta  107×39 @95,0
+div.PanelTokens__board > section.PanelTokens__section#5 > div.PanelTokens__grid > div.PanelTokens__item#23 > div.PanelTokens__meta > span.PanelTokens__name#23  107×19 @0,0  JetBrains Mono 400 12/19  lines=1  «--on-ok»
+div.PanelTokens__board > section.PanelTokens__section#5 > div.PanelTokens__grid > div.PanelTokens__item#23 > div.PanelTokens__meta > span.PanelTokens__ratio#16  107×19 @0,21  Manrope 400 12/19  lines=1  «10,74:1 · норма 4.5:1»
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend  292×43 @256,14
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem  292×19 @0,0
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem > span.PanelTokens__value  108×19 @81,0  JetBrains Mono 400 12/19  lines=1  «rgb(34 211 238)»
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem > span.PanelTokens__ratio  93×19 @197,0  Manrope 400 12/19  lines=1  «9,33:1 · норма 3:1»
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem#2  292×19 @0,25
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem#2 > span.PanelTokens__value  108×19 @81,0  JetBrains Mono 400 12/19  lines=1  «rgb(251 191 36)»
+div.PanelTokens__board > section.PanelTokens__section#6 > div.PanelTokens__chart > div.PanelTokens__legend > span.PanelTokens__legendItem#2 > span.PanelTokens__ratio  95×19 @197,0  Manrope 400 12/19  lines=1  «10,10:1 · норма 3:1»
+
+[палитра light]
+div.PanelTokens__board  bg #f8fafc
+  section.PanelTokens__section  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    span.PanelTokens__caption  color #556173
+    p.PanelTokens__note  color #475569
+    div.PanelTokens__grid
+      div.PanelTokens__item
+        div.PanelTokens__swatch  bg #ffffff  border #7e8fa6
+        div.PanelTokens__meta
+          span.PanelTokens__name  color #0f172a
+          span.PanelTokens__value  color #556173
+      div.PanelTokens__item#2
+        div.PanelTokens__swatch  bg #f8fafc  border #7e8fa6
+        div.PanelTokens__meta
+          span.PanelTokens__name#2  color #0f172a
+          span.PanelTokens__value#2  color #556173
+      div.PanelTokens__item#3
+        div.PanelTokens__swatch  bg #ffffff  border #7e8fa6
+        div.PanelTokens__meta
+          span.PanelTokens__name#3  color #0f172a
+          span.PanelTokens__value#3  color #556173
+      div.PanelTokens__item#4
+        div.PanelTokens__swatch  bg #ffffff  border #7e8fa6
+        div.PanelTokens__meta
+          span.PanelTokens__name#4  color #0f172a
+          span.PanelTokens__value#4  color #556173
+      div.PanelTokens__item#5
+        div.PanelTokens__swatch  bg #edf2f6  border #7e8fa6
+        div.PanelTokens__meta
+          span.PanelTokens__name#5  color #0f172a
+          span.PanelTokens__value#5  color #556173
+      div.PanelTokens__item#6
+        div.PanelTokens__swatch  bg #f5f8fa  border #7e8fa6
+        div.PanelTokens__meta
+          span.PanelTokens__name#6  color #0f172a
+          span.PanelTokens__value#6  color #556173
+      div.PanelTokens__item#7
+        div.PanelTokens__swatch  bg #0f172a  border #7e8fa6
+        div.PanelTokens__meta
+          span.PanelTokens__name#7  color #0f172a
+          span.PanelTokens__value#7  color #556173
+  section.PanelTokens__section#2  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    span.PanelTokens__caption  color #556173
+    p.PanelTokens__note  color #475569
+    div.PanelTokens__grid
+      div.PanelTokens__item#8
+        span.PanelTokens__ink  color #0f172a
+        div.PanelTokens__meta
+          span.PanelTokens__name#8  color #0f172a
+          span.PanelTokens__ratio  color #475569
+      div.PanelTokens__item#9
+        span.PanelTokens__ink  color #334155
+        div.PanelTokens__meta
+          span.PanelTokens__name#9  color #0f172a
+          span.PanelTokens__ratio#2  color #475569
+      div.PanelTokens__item#10
+        span.PanelTokens__ink  color #475569
+        div.PanelTokens__meta
+          span.PanelTokens__name#10  color #0f172a
+          span.PanelTokens__ratio#3  color #475569
+      div.PanelTokens__item#11
+        span.PanelTokens__ink  color #556173
+        div.PanelTokens__meta
+          span.PanelTokens__name#11  color #0f172a
+          span.PanelTokens__ratio#4  color #475569
+      div.PanelTokens__item#12
+        span.PanelTokens__ink  color #5b6a7d
+        div.PanelTokens__meta
+          span.PanelTokens__name#12  color #0f172a
+          span.PanelTokens__ratio#5  color #475569
+      div.PanelTokens__item#13
+        span.PanelTokens__ink  color #0e7490
+        div.PanelTokens__meta
+          span.PanelTokens__name#13  color #0f172a
+          span.PanelTokens__ratio#6  color #475569
+  section.PanelTokens__section#3  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    span.PanelTokens__caption  color #556173
+    p.PanelTokens__note  color #475569
+    div.PanelTokens__grid
+      div.PanelTokens__item#14
+        div.PanelTokens__line  bg #eef2f6
+        div.PanelTokens__meta
+          span.PanelTokens__name#14  color #0f172a
+          span.PanelTokens__ratio#7  color #475569
+      div.PanelTokens__item#15
+        div.PanelTokens__line  bg #e2e8f0
+        div.PanelTokens__meta
+          span.PanelTokens__name#15  color #0f172a
+          span.PanelTokens__ratio#8  color #475569
+      div.PanelTokens__item#16
+        div.PanelTokens__line  bg #cbd5e1
+        div.PanelTokens__meta
+          span.PanelTokens__name#16  color #0f172a
+          span.PanelTokens__ratio#9  color #475569
+      div.PanelTokens__item#17
+        div.PanelTokens__line  bg #7e8fa6
+        div.PanelTokens__meta
+          span.PanelTokens__name#17  color #0f172a
+          span.PanelTokens__ratio#10  color #475569
+  section.PanelTokens__section#4  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    span.PanelTokens__caption  color #556173
+    p.PanelTokens__note  color #475569
+    div.PanelTokens__grid
+      div.PanelTokens__item#18
+        span.PanelTokens__chip  color #166534  bg #15803d14  border #15803d47
+        div.PanelTokens__meta
+          span.PanelTokens__name#18  color #0f172a
+          span.PanelTokens__ratio#11  color #475569
+      div.PanelTokens__item#19
+        span.PanelTokens__chip  color #92400e  bg #b4530914  border #b4530947
+        div.PanelTokens__meta
+          span.PanelTokens__name#19  color #0f172a
+          span.PanelTokens__ratio#12  color #475569
+      div.PanelTokens__item#20
+        span.PanelTokens__chip  color #be123c  bg #be123c14  border #be123c73
+        div.PanelTokens__meta
+          span.PanelTokens__name#20  color #0f172a
+          span.PanelTokens__ratio#13  color #475569
+      div.PanelTokens__item#21
+        span.PanelTokens__chip  color #4338ca  bg #4338ca14  border #4338ca47
+        div.PanelTokens__meta
+          span.PanelTokens__name#21  color #0f172a
+          span.PanelTokens__ratio#14  color #475569
+  section.PanelTokens__section#5  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    span.PanelTokens__caption  color #556173
+    p.PanelTokens__note  color #475569
+    div.PanelTokens__grid
+      div.PanelTokens__item#22
+        span.PanelTokens__chip  color #ffffff  bg #be123c  border transparent
+        div.PanelTokens__meta
+          span.PanelTokens__name#22  color #0f172a
+          span.PanelTokens__ratio#15  color #475569
+      div.PanelTokens__item#23
+        span.PanelTokens__chip  color #ffffff  bg #166534  border transparent
+        div.PanelTokens__meta
+          span.PanelTokens__name#23  color #0f172a
+          span.PanelTokens__ratio#16  color #475569
+  section.PanelTokens__section#6  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    span.PanelTokens__caption  color #556173
+    p.PanelTokens__note  color #475569
+    div.PanelTokens__chart
+      svg[role=img]
+      div.PanelTokens__legend
+        span.PanelTokens__legendItem
+          svg
+          span.PanelTokens__name  color #0f172a
+          span.PanelTokens__value  color #556173
+          span.PanelTokens__ratio  color #475569
+        span.PanelTokens__legendItem#2
+          svg
+          span.PanelTokens__name  color #0f172a
+          span.PanelTokens__value  color #556173
+          span.PanelTokens__ratio  color #475569
+  section.PanelTokens__section#7  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    span.PanelTokens__caption  color #556173
+    p.PanelTokens__note  color #475569
+    div.PanelTokens__bar
+      span.PanelTokens__control  color #0f172a  bg #f8fafc  border #7e8fa6
+      span.PanelTokens__control#2  color #0f172a  bg #f8fafc  border #7e8fa6
+      span.PanelTokens__control#3  color #0f172a  bg #f8fafc  border #7e8fa6
+      span.PanelTokens__control#4  color #0f172a  bg #f8fafc  border #7e8fa6
+  section.PanelTokens__section#8  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    span.PanelTokens__caption  color #556173
+    p.PanelTokens__note  color #475569
+    div.PanelTokens__bar
+      span.PanelTokens__radius
+        span.PanelTokens__box  bg #f8fafc  border #7e8fa6
+        span.PanelTokens__name  color #0f172a
+      span.PanelTokens__radius#2
+        span.PanelTokens__box  bg #f8fafc  border #7e8fa6
+        span.PanelTokens__name  color #0f172a
+      span.PanelTokens__radius#3
+        span.PanelTokens__box  bg #f8fafc  border #7e8fa6
+        span.PanelTokens__name  color #0f172a
+      span.PanelTokens__radius#4
+        span.PanelTokens__box  bg #f8fafc  border #7e8fa6
+        span.PanelTokens__name  color #0f172a
+  section.PanelTokens__section#9  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    span.PanelTokens__caption  color #556173
+    p.PanelTokens__note  color #475569
+    div.PanelTokens__grid
+      div.PanelTokens__shadow  color #556173  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+      div.PanelTokens__shadow#2  color #556173  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
+      div.PanelTokens__shadow#3  color #556173  bg #ffffff  border #e2e8f0  shadow #0f172a0f 0px 0px 30px 0px, #0f172a1f 0px 30px 60px 0px
+
+[палитра dark]
+div.PanelTokens__board  bg #0e1729
+  section.PanelTokens__section  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    span.PanelTokens__caption  color #8598ac
+    p.PanelTokens__note  color #a8b6c6
+    div.PanelTokens__grid
+      div.PanelTokens__item
+        div.PanelTokens__swatch  bg #0b1220  border #566d95
+        div.PanelTokens__meta
+          span.PanelTokens__name  color #eaf1f8
+          span.PanelTokens__value  color #8598ac
+      div.PanelTokens__item#2
+        div.PanelTokens__swatch  bg #0e1729  border #566d95
+        div.PanelTokens__meta
+          span.PanelTokens__name#2  color #eaf1f8
+          span.PanelTokens__value#2  color #8598ac
+      div.PanelTokens__item#3
+        div.PanelTokens__swatch  bg #121d31  border #566d95
+        div.PanelTokens__meta
+          span.PanelTokens__name#3  color #eaf1f8
+          span.PanelTokens__value#3  color #8598ac
+      div.PanelTokens__item#4
+        div.PanelTokens__swatch  bg #0b1424  border #566d95
+        div.PanelTokens__meta
+          span.PanelTokens__name#4  color #eaf1f8
+          span.PanelTokens__value#4  color #8598ac
+      div.PanelTokens__item#5
+        div.PanelTokens__swatch  bg #16223a  border #566d95
+        div.PanelTokens__meta
+          span.PanelTokens__name#5  color #eaf1f8
+          span.PanelTokens__value#5  color #8598ac
+      div.PanelTokens__item#6
+        div.PanelTokens__swatch  bg #121d31  border #566d95
+        div.PanelTokens__meta
+          span.PanelTokens__name#6  color #eaf1f8
+          span.PanelTokens__value#6  color #8598ac
+      div.PanelTokens__item#7
+        div.PanelTokens__swatch  bg #111d34  border #566d95
+        div.PanelTokens__meta
+          span.PanelTokens__name#7  color #eaf1f8
+          span.PanelTokens__value#7  color #8598ac
+  section.PanelTokens__section#2  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    span.PanelTokens__caption  color #8598ac
+    p.PanelTokens__note  color #a8b6c6
+    div.PanelTokens__grid
+      div.PanelTokens__item#8
+        span.PanelTokens__ink  color #eaf1f8
+        div.PanelTokens__meta
+          span.PanelTokens__name#8  color #eaf1f8
+          span.PanelTokens__ratio  color #a8b6c6
+      div.PanelTokens__item#9
+        span.PanelTokens__ink  color #c9d5e2
+        div.PanelTokens__meta
+          span.PanelTokens__name#9  color #eaf1f8
+          span.PanelTokens__ratio#2  color #a8b6c6
+      div.PanelTokens__item#10
+        span.PanelTokens__ink  color #a8b6c6
+        div.PanelTokens__meta
+          span.PanelTokens__name#10  color #eaf1f8
+          span.PanelTokens__ratio#3  color #a8b6c6
+      div.PanelTokens__item#11
+        span.PanelTokens__ink  color #8598ac
+        div.PanelTokens__meta
+          span.PanelTokens__name#11  color #eaf1f8
+          span.PanelTokens__ratio#4  color #a8b6c6
+      div.PanelTokens__item#12
+        span.PanelTokens__ink  color #7e92a7
+        div.PanelTokens__meta
+          span.PanelTokens__name#12  color #eaf1f8
+          span.PanelTokens__ratio#5  color #a8b6c6
+      div.PanelTokens__item#13
+        span.PanelTokens__ink  color #22d3ee
+        div.PanelTokens__meta
+          span.PanelTokens__name#13  color #eaf1f8
+          span.PanelTokens__ratio#6  color #a8b6c6
+  section.PanelTokens__section#3  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    span.PanelTokens__caption  color #8598ac
+    p.PanelTokens__note  color #a8b6c6
+    div.PanelTokens__grid
+      div.PanelTokens__item#14
+        div.PanelTokens__line  bg #182338
+        div.PanelTokens__meta
+          span.PanelTokens__name#14  color #eaf1f8
+          span.PanelTokens__ratio#7  color #a8b6c6
+      div.PanelTokens__item#15
+        div.PanelTokens__line  bg #1e2b41
+        div.PanelTokens__meta
+          span.PanelTokens__name#15  color #eaf1f8
+          span.PanelTokens__ratio#8  color #a8b6c6
+      div.PanelTokens__item#16
+        div.PanelTokens__line  bg #2c3d59
+        div.PanelTokens__meta
+          span.PanelTokens__name#16  color #eaf1f8
+          span.PanelTokens__ratio#9  color #a8b6c6
+      div.PanelTokens__item#17
+        div.PanelTokens__line  bg #566d95
+        div.PanelTokens__meta
+          span.PanelTokens__name#17  color #eaf1f8
+          span.PanelTokens__ratio#10  color #a8b6c6
+  section.PanelTokens__section#4  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    span.PanelTokens__caption  color #8598ac
+    p.PanelTokens__note  color #a8b6c6
+    div.PanelTokens__grid
+      div.PanelTokens__item#18
+        span.PanelTokens__chip  color #4ade80  bg #4ade801f  border #4ade8052
+        div.PanelTokens__meta
+          span.PanelTokens__name#18  color #eaf1f8
+          span.PanelTokens__ratio#11  color #a8b6c6
+      div.PanelTokens__item#19
+        span.PanelTokens__chip  color #fbbf24  bg #fbbf241f  border #fbbf2452
+        div.PanelTokens__meta
+          span.PanelTokens__name#19  color #eaf1f8
+          span.PanelTokens__ratio#12  color #a8b6c6
+      div.PanelTokens__item#20
+        span.PanelTokens__chip  color #fb7185  bg #fb71851f  border #fb718580
+        div.PanelTokens__meta
+          span.PanelTokens__name#20  color #eaf1f8
+          span.PanelTokens__ratio#13  color #a8b6c6
+      div.PanelTokens__item#21
+        span.PanelTokens__chip  color #a5b4fc  bg #a5b4fc1f  border #a5b4fc52
+        div.PanelTokens__meta
+          span.PanelTokens__name#21  color #eaf1f8
+          span.PanelTokens__ratio#14  color #a8b6c6
+  section.PanelTokens__section#5  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    span.PanelTokens__caption  color #8598ac
+    p.PanelTokens__note  color #a8b6c6
+    div.PanelTokens__grid
+      div.PanelTokens__item#22
+        span.PanelTokens__chip  color #0b1220  bg #fb7185  border transparent
+        div.PanelTokens__meta
+          span.PanelTokens__name#22  color #eaf1f8
+          span.PanelTokens__ratio#15  color #a8b6c6
+      div.PanelTokens__item#23
+        span.PanelTokens__chip  color #0b1220  bg #4ade80  border transparent
+        div.PanelTokens__meta
+          span.PanelTokens__name#23  color #eaf1f8
+          span.PanelTokens__ratio#16  color #a8b6c6
+  section.PanelTokens__section#6  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    span.PanelTokens__caption  color #8598ac
+    p.PanelTokens__note  color #a8b6c6
+    div.PanelTokens__chart
+      svg[role=img]
+      div.PanelTokens__legend
+        span.PanelTokens__legendItem
+          svg
+          span.PanelTokens__name  color #eaf1f8
+          span.PanelTokens__value  color #8598ac
+          span.PanelTokens__ratio  color #a8b6c6
+        span.PanelTokens__legendItem#2
+          svg
+          span.PanelTokens__name  color #eaf1f8
+          span.PanelTokens__value  color #8598ac
+          span.PanelTokens__ratio  color #a8b6c6
+  section.PanelTokens__section#7  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    span.PanelTokens__caption  color #8598ac
+    p.PanelTokens__note  color #a8b6c6
+    div.PanelTokens__bar
+      span.PanelTokens__control  color #eaf1f8  bg #0e1729  border #566d95
+      span.PanelTokens__control#2  color #eaf1f8  bg #0e1729  border #566d95
+      span.PanelTokens__control#3  color #eaf1f8  bg #0e1729  border #566d95
+      span.PanelTokens__control#4  color #eaf1f8  bg #0e1729  border #566d95
+  section.PanelTokens__section#8  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    span.PanelTokens__caption  color #8598ac
+    p.PanelTokens__note  color #a8b6c6
+    div.PanelTokens__bar
+      span.PanelTokens__radius
+        span.PanelTokens__box  bg #0e1729  border #566d95
+        span.PanelTokens__name  color #eaf1f8
+      span.PanelTokens__radius#2
+        span.PanelTokens__box  bg #0e1729  border #566d95
+        span.PanelTokens__name  color #eaf1f8
+      span.PanelTokens__radius#3
+        span.PanelTokens__box  bg #0e1729  border #566d95
+        span.PanelTokens__name  color #eaf1f8
+      span.PanelTokens__radius#4
+        span.PanelTokens__box  bg #0e1729  border #566d95
+        span.PanelTokens__name  color #eaf1f8
+  section.PanelTokens__section#9  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    span.PanelTokens__caption  color #8598ac
+    p.PanelTokens__note  color #a8b6c6
+    div.PanelTokens__grid
+      div.PanelTokens__shadow  color #8598ac  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+      div.PanelTokens__shadow#2  color #8598ac  bg #121d31  border #1e2b41  shadow #0000003d 0px 0px 15px 0px, #00000057 0px 2px 30px 0px
+      div.PanelTokens__shadow#3  color #8598ac  bg #121d31  border #1e2b41  shadow #00000057 0px 0px 30px 0px, #00000075 0px 30px 60px 0px

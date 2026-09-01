@@ -1,0 +1,107 @@
+# ui-kit-rating--sizes · ширины 390 768 1440 · темы light dark
+шрифты: —
+
+[документ]
+390 → 435×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Rating__stars  99×15 @16,23
+  svg.Rating__star  15×15 @0,0
+  svg.Rating__star#2  15×15 @21,0
+  svg.Rating__star#3  15×15 @42,0
+  svg.Rating__star#4  15×15 @63,0
+  svg.Rating__star#5  15×15 @84,0
+span.Rating__stars#2  124×20 @131,20
+  svg.Rating__star  20×20 @0,0
+  svg.Rating__star#2  20×20 @26,0
+  svg.Rating__star#3  20×20 @52,0
+  svg.Rating__star#4  20×20 @78,0
+  svg.Rating__star#5  20×20 @104,0
+span.Rating__stars#3  164×28 @271,16
+  svg.Rating__star  28×28 @0,0
+  svg.Rating__star#2  28×28 @34,0
+  svg.Rating__star#3  28×28 @68,0
+  svg.Rating__star#4  28×28 @102,0
+  svg.Rating__star#5  28×28 @136,0
+
+[геометрия 768]
+span.Rating__stars  99×15 @16,23
+  svg.Rating__star  15×15 @0,0
+  svg.Rating__star#2  15×15 @21,0
+  svg.Rating__star#3  15×15 @42,0
+  svg.Rating__star#4  15×15 @63,0
+  svg.Rating__star#5  15×15 @84,0
+span.Rating__stars#2  124×20 @131,20
+  svg.Rating__star  20×20 @0,0
+  svg.Rating__star#2  20×20 @26,0
+  svg.Rating__star#3  20×20 @52,0
+  svg.Rating__star#4  20×20 @78,0
+  svg.Rating__star#5  20×20 @104,0
+span.Rating__stars#3  164×28 @271,16
+  svg.Rating__star  28×28 @0,0
+  svg.Rating__star#2  28×28 @34,0
+  svg.Rating__star#3  28×28 @68,0
+  svg.Rating__star#4  28×28 @102,0
+  svg.Rating__star#5  28×28 @136,0
+
+[геометрия 1440]
+span.Rating__stars  99×15 @16,23
+  svg.Rating__star  15×15 @0,0
+  svg.Rating__star#2  15×15 @21,0
+  svg.Rating__star#3  15×15 @42,0
+  svg.Rating__star#4  15×15 @63,0
+  svg.Rating__star#5  15×15 @84,0
+span.Rating__stars#2  124×20 @131,20
+  svg.Rating__star  20×20 @0,0
+  svg.Rating__star#2  20×20 @26,0
+  svg.Rating__star#3  20×20 @52,0
+  svg.Rating__star#4  20×20 @78,0
+  svg.Rating__star#5  20×20 @104,0
+span.Rating__stars#3  164×28 @271,16
+  svg.Rating__star  28×28 @0,0
+  svg.Rating__star#2  28×28 @34,0
+  svg.Rating__star#3  28×28 @68,0
+  svg.Rating__star#4  28×28 @102,0
+  svg.Rating__star#5  28×28 @136,0
+
+[палитра light]
+span.Rating__stars
+  svg.Rating__star
+  svg.Rating__star#2
+  svg.Rating__star#3
+  svg.Rating__star#4
+  svg.Rating__star#5
+span.Rating__stars#2
+  svg.Rating__star
+  svg.Rating__star#2
+  svg.Rating__star#3
+  svg.Rating__star#4
+  svg.Rating__star#5
+span.Rating__stars#3
+  svg.Rating__star
+  svg.Rating__star#2
+  svg.Rating__star#3
+  svg.Rating__star#4
+  svg.Rating__star#5
+
+[палитра dark]
+span.Rating__stars
+  svg.Rating__star
+  svg.Rating__star#2
+  svg.Rating__star#3
+  svg.Rating__star#4
+  svg.Rating__star#5
+span.Rating__stars#2
+  svg.Rating__star
+  svg.Rating__star#2
+  svg.Rating__star#3
+  svg.Rating__star#4
+  svg.Rating__star#5
+span.Rating__stars#3
+  svg.Rating__star
+  svg.Rating__star#2
+  svg.Rating__star#3
+  svg.Rating__star#4
+  svg.Rating__star#5

@@ -1,0 +1,142 @@
+# ui-kit-состояния-блока--loading · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Card__card  326×254 @32,32  r14  b1
+  div.CardBelt__header  324×69 @1,1  b0 0 1 0
+    div.CardBelt__headText  138×38 @16,15
+      h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
+      p.CardBelt__subtitle  138×16 @0,22  Manrope 400 12/16  lines=1  «Загружаем»
+    div.CardBelt__action  92×44 @216,12
+      button.Button__button  92×44 @0,0  r999  b1
+        span.Button__content  62×16 @15,14
+          span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  div.CardBelt__body  324×183 @1,70
+    span.Skeleton__skeleton  35×14 @18,23  r8
+    span.Skeleton__skeleton#2  65×14 @71,23  r8
+    span.Skeleton__skeleton#3  44×14 @154,23  r8
+    span.Skeleton__skeleton#4  48×28 @216,16  r8
+    span.Skeleton__skeleton#5  24×24 @282,18  r100
+    span.Skeleton__skeleton#6  35×14 @18,84  r8
+    span.Skeleton__skeleton#7  65×14 @71,84  r8
+    span.Skeleton__skeleton#8  44×14 @154,84  r8
+    span.Skeleton__skeleton#9  48×28 @216,77  r8
+    span.Skeleton__skeleton#10  24×24 @282,79  r100
+    span.Skeleton__skeleton#11  35×14 @18,145  r8
+    span.Skeleton__skeleton#12  65×14 @71,145  r8
+    span.Skeleton__skeleton#13  44×14 @154,145  r8
+    span.Skeleton__skeleton#14  48×28 @216,138  r8
+    span.Skeleton__skeleton#15  24×24 @282,140  r100
+
+[геометрия 768]
+div.Card__card  704×254 @32,32  r14  b1
+  div.CardBelt__header  702×69 @1,1  b0 0 1 0
+    div.CardBelt__headText  138×38 @16,15
+      h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
+      p.CardBelt__subtitle  138×16 @0,22  Manrope 400 12/16  lines=1  «Загружаем»
+    div.CardBelt__action  92×44 @594,12
+      button.Button__button  92×44 @0,0  r999  b1
+        span.Button__content  62×16 @15,14
+          span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  div.CardBelt__body  702×183 @1,70
+    span.Skeleton__skeleton  102×14 @18,23  r8
+    span.Skeleton__skeleton#2  192×14 @138,23  r8
+    span.Skeleton__skeleton#3  128×14 @348,23  r8
+    span.Skeleton__skeleton#4  141×28 @494,16  r8
+    span.Skeleton__skeleton#5  31×31 @653,15  r100
+    span.Skeleton__skeleton#6  102×14 @18,84  r8
+    span.Skeleton__skeleton#7  192×14 @138,84  r8
+    span.Skeleton__skeleton#8  128×14 @348,84  r8
+    span.Skeleton__skeleton#9  141×28 @494,77  r8
+    span.Skeleton__skeleton#10  31×31 @653,76  r100
+    span.Skeleton__skeleton#11  102×14 @18,145  r8
+    span.Skeleton__skeleton#12  192×14 @138,145  r8
+    span.Skeleton__skeleton#13  128×14 @348,145  r8
+    span.Skeleton__skeleton#14  141×28 @494,138  r8
+    span.Skeleton__skeleton#15  31×31 @653,137  r100
+
+[геометрия 1440]
+div.Card__card  1376×248 @32,32  r14  b1
+  div.CardBelt__header  1374×63 @1,1  b0 0 1 0
+    div.CardBelt__headText  138×38 @16,12
+      h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
+      p.CardBelt__subtitle  138×16 @0,22  Manrope 400 12/16  lines=1  «Загружаем»
+    div.CardBelt__action  92×32 @1266,15
+      button.Button__button  92×32 @0,0  r999  b1
+        span.Button__content  62×16 @15,8
+          span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  div.CardBelt__body  1374×183 @1,64
+    span.Skeleton__skeleton  214×14 @18,23  r8
+    span.Skeleton__skeleton#2  401×14 @250,23  r8
+    span.Skeleton__skeleton#3  268×14 @669,23  r8
+    span.Skeleton__skeleton#4  294×28 @955,16  r8
+    span.Skeleton__skeleton#5  32×32 @1267,14  r100
+    span.Skeleton__skeleton#6  214×14 @18,84  r8
+    span.Skeleton__skeleton#7  401×14 @250,84  r8
+    span.Skeleton__skeleton#8  268×14 @669,84  r8
+    span.Skeleton__skeleton#9  294×28 @955,77  r8
+    span.Skeleton__skeleton#10  32×32 @1267,75  r100
+    span.Skeleton__skeleton#11  214×14 @18,145  r8
+    span.Skeleton__skeleton#12  401×14 @250,145  r8
+    span.Skeleton__skeleton#13  268×14 @669,145  r8
+    span.Skeleton__skeleton#14  294×28 @955,138  r8
+    span.Skeleton__skeleton#15  32×32 @1267,136  r100
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+  div.CardBelt__header  border #475569 #475569 #e2e8f0 #475569
+    div.CardBelt__headText
+      h3.CardBelt__title  color #0f172a
+      p.CardBelt__subtitle  color #556173
+    div.CardBelt__action
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label  color #ffffff
+  div.CardBelt__body
+    span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#4  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#5  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#6  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#7  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#8  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#9  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#10  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#11  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#12  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#13  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#14  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#15  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+  div.CardBelt__header  border #a8b6c6 #a8b6c6 #1e2b41 #a8b6c6
+    div.CardBelt__headText
+      h3.CardBelt__title  color #eaf1f8
+      p.CardBelt__subtitle  color #8598ac
+    div.CardBelt__action
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label  color #ffffff
+  div.CardBelt__body
+    span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#4  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#5  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#6  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#7  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#8  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#9  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#10  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#11  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#12  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#13  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#14  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#15  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

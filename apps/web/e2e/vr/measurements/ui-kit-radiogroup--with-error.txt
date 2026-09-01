@@ -1,0 +1,107 @@
+# ui-kit-radiogroup--with-error · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+fieldset.ChoiceGroup__group  326×191 @32,32
+  legend.ChoiceGroup__legend  98×17 @0,0  Manrope 600 13/17  lines=1  «Способ оплаты»
+  div.ChoiceGroup__list  326×148 @0,17
+    label.ChoiceGroup__item  326×44 @0,0
+      input.ChoiceGroup__control  18×18 @0,13  r100  b1
+      span.ChoiceGroup__itemLabel  76×19 @28,13
+        span.ChoiceGroup__itemTitle  76×19 @0,0  Manrope 400 14/19  lines=1  «Наличными»
+    label.ChoiceGroup__item#2  326×44 @0,52
+      input.ChoiceGroup__control  18×18 @0,13  r100  b1
+      span.ChoiceGroup__itemLabel  137×36 @28,4
+        span.ChoiceGroup__itemTitle#2  137×19 @0,0  Manrope 400 14/19  lines=1  «Картой»
+        span.ChoiceGroup__itemNote  137×16 @0,21  Manrope 400 12/16  lines=1  «Терминал у монтажника»
+    label.ChoiceGroup__item#3  326×44 @0,104
+      input.ChoiceGroup__control  18×18 @0,13  r100  b1
+      span.ChoiceGroup__itemLabel  125×36 @28,4
+        span.ChoiceGroup__itemTitle#3  125×19 @0,0  Manrope 400 14/19  lines=1  «По счёту»
+        span.ChoiceGroup__itemNote#2  125×16 @0,21  Manrope 400 12/16  lines=1  «Для юридических лиц»
+  p.Field__error  326×19 @0,172  Manrope 600 13/19  lines=1  «Выберите способ оплаты»
+
+[геометрия 768]
+fieldset.ChoiceGroup__group  704×191 @32,32
+  legend.ChoiceGroup__legend  98×17 @0,0  Manrope 600 13/17  lines=1  «Способ оплаты»
+  div.ChoiceGroup__list  704×148 @0,17
+    label.ChoiceGroup__item  704×44 @0,0
+      input.ChoiceGroup__control  18×18 @0,13  r100  b1
+      span.ChoiceGroup__itemLabel  76×19 @28,13
+        span.ChoiceGroup__itemTitle  76×19 @0,0  Manrope 400 14/19  lines=1  «Наличными»
+    label.ChoiceGroup__item#2  704×44 @0,52
+      input.ChoiceGroup__control  18×18 @0,13  r100  b1
+      span.ChoiceGroup__itemLabel  137×36 @28,4
+        span.ChoiceGroup__itemTitle#2  137×19 @0,0  Manrope 400 14/19  lines=1  «Картой»
+        span.ChoiceGroup__itemNote  137×16 @0,21  Manrope 400 12/16  lines=1  «Терминал у монтажника»
+    label.ChoiceGroup__item#3  704×44 @0,104
+      input.ChoiceGroup__control  18×18 @0,13  r100  b1
+      span.ChoiceGroup__itemLabel  125×36 @28,4
+        span.ChoiceGroup__itemTitle#3  125×19 @0,0  Manrope 400 14/19  lines=1  «По счёту»
+        span.ChoiceGroup__itemNote#2  125×16 @0,21  Manrope 400 12/16  lines=1  «Для юридических лиц»
+  p.Field__error  704×19 @0,172  Manrope 600 13/19  lines=1  «Выберите способ оплаты»
+
+[геометрия 1440]
+fieldset.ChoiceGroup__group  1376×191 @32,32
+  legend.ChoiceGroup__legend  98×17 @0,0  Manrope 600 13/17  lines=1  «Способ оплаты»
+  div.ChoiceGroup__list  1376×148 @0,17
+    label.ChoiceGroup__item  1376×44 @0,0
+      input.ChoiceGroup__control  18×18 @0,13  r100  b1
+      span.ChoiceGroup__itemLabel  76×19 @28,13
+        span.ChoiceGroup__itemTitle  76×19 @0,0  Manrope 400 14/19  lines=1  «Наличными»
+    label.ChoiceGroup__item#2  1376×44 @0,52
+      input.ChoiceGroup__control  18×18 @0,13  r100  b1
+      span.ChoiceGroup__itemLabel  137×36 @28,4
+        span.ChoiceGroup__itemTitle#2  137×19 @0,0  Manrope 400 14/19  lines=1  «Картой»
+        span.ChoiceGroup__itemNote  137×16 @0,21  Manrope 400 12/16  lines=1  «Терминал у монтажника»
+    label.ChoiceGroup__item#3  1376×44 @0,104
+      input.ChoiceGroup__control  18×18 @0,13  r100  b1
+      span.ChoiceGroup__itemLabel  125×36 @28,4
+        span.ChoiceGroup__itemTitle#3  125×19 @0,0  Manrope 400 14/19  lines=1  «По счёту»
+        span.ChoiceGroup__itemNote#2  125×16 @0,21  Manrope 400 12/16  lines=1  «Для юридических лиц»
+  p.Field__error  1376×19 @0,172  Manrope 600 13/19  lines=1  «Выберите способ оплаты»
+
+[палитра light]
+fieldset.ChoiceGroup__group
+  legend.ChoiceGroup__legend  color #334155
+  div.ChoiceGroup__list
+    label.ChoiceGroup__item
+      input.ChoiceGroup__control  bg #f8fafc  border #be123c
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle  color #334155
+    label.ChoiceGroup__item#2
+      input.ChoiceGroup__control  bg #f8fafc  border #be123c
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#2  color #334155
+        span.ChoiceGroup__itemNote  color #556173
+    label.ChoiceGroup__item#3
+      input.ChoiceGroup__control  bg #f8fafc  border #be123c
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#3  color #334155
+        span.ChoiceGroup__itemNote#2  color #556173
+  p.Field__error  color #be123c
+
+[палитра dark]
+fieldset.ChoiceGroup__group
+  legend.ChoiceGroup__legend  color #c9d5e2
+  div.ChoiceGroup__list
+    label.ChoiceGroup__item
+      input.ChoiceGroup__control  bg #0e1729  border #fb7185
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle  color #c9d5e2
+    label.ChoiceGroup__item#2
+      input.ChoiceGroup__control  bg #0e1729  border #fb7185
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#2  color #c9d5e2
+        span.ChoiceGroup__itemNote  color #8598ac
+    label.ChoiceGroup__item#3
+      input.ChoiceGroup__control  bg #0e1729  border #fb7185
+      span.ChoiceGroup__itemLabel
+        span.ChoiceGroup__itemTitle#3  color #c9d5e2
+        span.ChoiceGroup__itemNote#2  color #8598ac
+  p.Field__error  color #fb7185

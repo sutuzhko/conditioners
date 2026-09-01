@@ -1,0 +1,62 @@
+# ui-kit-select--disabled · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  358×76 @16,16
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Район»
+  span.Select__wrapper  358×49 @0,27
+    select.Select__select  358×49 @0,0  r11  b1
+      option  0×0 @-16,-43  Manrope 400 15/21  lines=0  «Центральный»
+      option#2  0×0 @-16,-43  Manrope 400 15/21  lines=0  «Пролетарский»
+      option#3  0×0 @-16,-43  Manrope 400 15/21  lines=0  «Зареченский»
+      option#4  0×0 @-16,-43  Manrope 400 15/21  lines=0  «Привокзальный»
+    svg.Select__chevron  14×14 @330,18
+
+[геометрия 768]
+div.Field__field  736×76 @16,16
+  label.Field__label  736×20 @0,0  Manrope 600 13/20  lines=1  «Район»
+  span.Select__wrapper  736×49 @0,27
+    select.Select__select  736×49 @0,0  r11  b1
+      option  0×0 @-16,-43  Manrope 400 15/21  lines=0  «Центральный»
+      option#2  0×0 @-16,-43  Manrope 400 15/21  lines=0  «Пролетарский»
+      option#3  0×0 @-16,-43  Manrope 400 15/21  lines=0  «Зареченский»
+      option#4  0×0 @-16,-43  Manrope 400 15/21  lines=0  «Привокзальный»
+    svg.Select__chevron  14×14 @708,18
+
+[геометрия 1440]
+div.Field__field  1408×76 @16,16
+  label.Field__label  1408×20 @0,0  Manrope 600 13/20  lines=1  «Район»
+  span.Select__wrapper  1408×49 @0,27
+    select.Select__select  1408×49 @0,0  r11  b1
+      option  0×0 @-16,-43  Manrope 400 15/21  lines=0  «Центральный»
+      option#2  0×0 @-16,-43  Manrope 400 15/21  lines=0  «Пролетарский»
+      option#3  0×0 @-16,-43  Manrope 400 15/21  lines=0  «Зареченский»
+      option#4  0×0 @-16,-43  Manrope 400 15/21  lines=0  «Привокзальный»
+    svg.Select__chevron  14×14 @1380,18
+
+[палитра light]
+div.Field__field
+  label.Field__label  color #334155
+  span.Select__wrapper
+    select.Select__select  bg #f8fafc  border #7e8fa6
+      option  color #556173
+      option#2  color #556173
+      option#3  color #556173
+      option#4  color #556173
+    svg.Select__chevron
+
+[палитра dark]
+div.Field__field
+  label.Field__label  color #c9d5e2
+  span.Select__wrapper
+    select.Select__select  bg #0e1729  border #566d95
+      option  color #8598ac
+      option#2  color #8598ac
+      option#3  color #8598ac
+      option#4  color #8598ac
+    svg.Select__chevron

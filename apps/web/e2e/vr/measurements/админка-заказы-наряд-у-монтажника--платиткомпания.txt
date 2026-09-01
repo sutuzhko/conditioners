@@ -1,0 +1,282 @@
+# админка-заказы-наряд-у-монтажника--платиткомпания · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 500, Manrope 600, Onest 700
+
+[документ]
+390 → 390×995
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+article.Card__card  358×963 @16,16  r20  b1
+  header.OrderInstallerView__head  316×28 @21,21
+    h2.OrderInstallerView__number  61×21 @0,4  Onest 700 17/21  ls0  lines=1  «№ 1059»
+    span.Badge__badge  67×24 @154,2  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+    span.Badge__badge#2  83×28 @233,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+  dl.OrderInstallerView__facts  316×296 @21,61
+    div.OrderInstallerView__fact  316×43 @0,0
+      dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Дата и время»
+      time  122×19 @0,21  Manrope 600 15/22  lines=1  «28.08.2026, 11:00»
+      span.OrderInstallerView__quiet  17×18 @125,22  Manrope 500 13/20  lines=1  «3 ч»
+    div.OrderInstallerView__fact#2  316×43 @0,51
+      dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
+      dd  316×22 @0,20  Manrope 600 15/22  lines=1  «Ирина Соколова»
+        a.OrderInstallerView__phone  129×19 @120,1  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+    div.OrderInstallerView__fact#3  316×43 @0,101
+      dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
+      dd  316×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
+    div.OrderInstallerView__fact#4  316×43 @0,152
+      dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Подъезд и домофон»
+      dd  316×22 @0,20  Manrope 600 15/22  lines=1  «24К»
+    div.OrderInstallerView__fact#5  316×43 @0,202
+      dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Этаж»
+      dd  316×22 @0,20  Manrope 600 15/22  lines=1  «5»
+    div.OrderInstallerView__fact#6  316×43 @0,253
+      dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Телефон на объекте»
+      a.OrderInstallerView__phone  133×19 @0,21  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
+  p.OrderInstallerView__height  316×40 @21,369  Manrope 600 15/22  r11  b1  lines=1  «Нужна страховка: работы на высоте»
+  section.OrderInstallerView__block  316×208 @21,421  b1 0 0 0
+    h3.OrderInstallerView__blockTitle  316×17 @0,13  Onest 700 15/17  ls0  lines=1  «Оборудование»
+    ul.OrderInstallerView__units  316×170 @0,38
+      li.OrderInstallerView__unit  316×81 @0,0  r11
+        span.OrderInstallerView__unitModel  292×22 @12,8  Manrope 600 15/22  lines=1  «Сплит-система 09»
+        span.OrderInstallerView__quiet  292×40 @12,32  Manrope 500 13/20  lines=2  «Кондиционер · наше · трасса 4 м · диамет»
+      li.OrderInstallerView__unit#2  316×81 @0,89  r11
+        span.OrderInstallerView__unitModel  292×22 @12,8  Manrope 600 15/22  lines=1  «Блок клиента, 12-я модель»
+        span.OrderInstallerView__quiet  292×40 @12,32  Manrope 500 13/20  lines=2  «Кондиционер · клиента · трасса 6 м · диа»
+  p.OrderInstallerView__comment  316×61 @21,641  Manrope 400 15/22  r11  lines=2  «Домофон не работает, звонить на телефон»
+  section.OrderInstallerView__block#2  316×81 @21,714  b1 0 0 0
+    h3.OrderInstallerView__blockTitle  316×17 @0,13  Onest 700 15/17  ls0  lines=1  «Деньги»
+    dl.OrderInstallerView__facts  316×43 @0,38
+      div.OrderInstallerView__fact#7  316×43 @0,0
+        dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Выплата монтажнику»
+        dd.OrderInstallerView__money  316×22 @0,20  JetBrains Mono 600 15/22  lines=1  «9 000 ₽»
+  div.OrderInstallerView__actions  316×135 @21,807  b1 0 0 0
+    div.Field__field  316×122 @0,13
+      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Статус наряда»
+      span.Select__wrapper  316×49 @0,27
+        select.Select__select  316×49 @0,0  r11  b1
+          option  0×0 @-37,-863  Manrope 400 15/21  lines=0  «Не выбрано»
+          option#2  0×0 @-37,-863  Manrope 400 15/21  lines=0  «В работе»
+          option#3  0×0 @-37,-863  Manrope 400 15/21  lines=0  «Выполнен»
+        svg.Select__chevron  14×14 @288,18
+      p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Выехали — «В работе", закончили — «Выпол»
+
+[геометрия 768]
+article.Card__card  736×701 @16,16  r20  b1
+  header.OrderInstallerView__head  694×28 @21,21
+    h2.OrderInstallerView__number  64×22 @0,3  Onest 700 18/22  ls0  lines=1  «№ 1059»
+    span.Badge__badge  67×24 @532,2  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+    span.Badge__badge#2  83×28 @611,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+  dl.OrderInstallerView__facts  694×116 @21,61
+    div.OrderInstallerView__fact  215×65 @0,0
+      dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Дата и время»
+      time  122×19 @0,21  Manrope 600 15/22  lines=1  «28.08.2026, 11:00»
+      span.OrderInstallerView__quiet  17×18 @125,22  Manrope 500 13/20  lines=1  «3 ч»
+    div.OrderInstallerView__fact#2  215×65 @239,0
+      dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
+      dd  215×45 @0,20  Manrope 600 15/22  lines=1  «Ирина Соколова»
+        a.OrderInstallerView__phone  129×19 @0,23  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+    div.OrderInstallerView__fact#3  215×65 @479,0
+      dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
+      dd  215×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
+    div.OrderInstallerView__fact#4  215×43 @0,73
+      dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Подъезд и домофон»
+      dd  215×22 @0,20  Manrope 600 15/22  lines=1  «24К»
+    div.OrderInstallerView__fact#5  215×43 @239,73
+      dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Этаж»
+      dd  215×22 @0,20  Manrope 600 15/22  lines=1  «5»
+    div.OrderInstallerView__fact#6  215×43 @479,73
+      dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Телефон на объекте»
+      a.OrderInstallerView__phone  133×19 @0,21  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
+  p.OrderInstallerView__height  694×40 @21,189  Manrope 600 15/22  r11  b1  lines=1  «Нужна страховка: работы на высоте»
+  section.OrderInstallerView__block  694×168 @21,241  b1 0 0 0
+    h3.OrderInstallerView__blockTitle  694×17 @0,13  Onest 700 15/17  ls0  lines=1  «Оборудование»
+    ul.OrderInstallerView__units  694×129 @0,38
+      li.OrderInstallerView__unit  694×61 @0,0  r11
+        span.OrderInstallerView__unitModel  670×22 @12,8  Manrope 600 15/22  lines=1  «Сплит-система 09»
+        span.OrderInstallerView__quiet  670×20 @12,32  Manrope 500 13/20  lines=1  «Кондиционер · наше · трасса 4 м · диамет»
+      li.OrderInstallerView__unit#2  694×61 @0,69  r11
+        span.OrderInstallerView__unitModel  670×22 @12,8  Manrope 600 15/22  lines=1  «Блок клиента, 12-я модель»
+        span.OrderInstallerView__quiet  670×20 @12,32  Manrope 500 13/20  lines=1  «Кондиционер · клиента · трасса 6 м · диа»
+  p.OrderInstallerView__comment  694×38 @21,421  Manrope 400 15/22  r11  lines=1  «Домофон не работает, звонить на телефон»
+  section.OrderInstallerView__block#2  694×81 @21,471  b1 0 0 0
+    h3.OrderInstallerView__blockTitle  694×17 @0,13  Onest 700 15/17  ls0  lines=1  «Деньги»
+    dl.OrderInstallerView__facts  694×43 @0,38
+      div.OrderInstallerView__fact#7  694×43 @0,0
+        dt  694×20 @0,0  Manrope 400 13/20  lines=1  «Выплата монтажнику»
+        dd.OrderInstallerView__money  694×22 @0,20  JetBrains Mono 600 15/22  lines=1  «9 000 ₽»
+  div.OrderInstallerView__actions  694×116 @21,564  b1 0 0 0
+    div.Field__field  694×103 @0,13
+      label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Статус наряда»
+      span.Select__wrapper  694×49 @0,27
+        select.Select__select  694×49 @0,0  r11  b1
+          option  0×0 @-37,-621  Manrope 400 15/21  lines=0  «Не выбрано»
+          option#2  0×0 @-37,-621  Manrope 400 15/21  lines=0  «В работе»
+          option#3  0×0 @-37,-621  Manrope 400 15/21  lines=0  «Выполнен»
+        svg.Select__chevron  14×14 @666,18
+      p.Field__hint  694×19 @0,83  Manrope 400 13/19  lines=1  «Выехали — «В работе", закончили — «Выпол»
+
+[геометрия 1440]
+article.Card__card  1408×650 @16,16  r20  b1
+  header.OrderInstallerView__head  1366×28 @21,21
+    h2.OrderInstallerView__number  67×23 @0,3  Onest 700 19/23  ls0  lines=1  «№ 1059»
+    span.Badge__badge  67×24 @1204,2  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+    span.Badge__badge#2  83×28 @1283,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+  dl.OrderInstallerView__facts  1366×65 @21,61
+    div.OrderInstallerView__fact  208×65 @0,0
+      dt  208×20 @0,0  Manrope 400 13/20  lines=1  «Дата и время»
+      time  122×19 @0,21  Manrope 600 15/22  lines=1  «28.08.2026, 11:00»
+      span.OrderInstallerView__quiet  17×18 @125,22  Manrope 500 13/20  lines=1  «3 ч»
+    div.OrderInstallerView__fact#2  208×65 @232,0
+      dt  208×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
+      dd  208×45 @0,20  Manrope 600 15/22  lines=1  «Ирина Соколова»
+        a.OrderInstallerView__phone  129×19 @0,23  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+    div.OrderInstallerView__fact#3  208×65 @463,0
+      dt  208×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
+      dd  208×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
+    div.OrderInstallerView__fact#4  208×65 @695,0
+      dt  208×20 @0,0  Manrope 400 13/20  lines=1  «Подъезд и домофон»
+      dd  208×22 @0,20  Manrope 600 15/22  lines=1  «24К»
+    div.OrderInstallerView__fact#5  208×65 @927,0
+      dt  208×20 @0,0  Manrope 400 13/20  lines=1  «Этаж»
+      dd  208×22 @0,20  Manrope 600 15/22  lines=1  «5»
+    div.OrderInstallerView__fact#6  208×65 @1158,0
+      dt  208×20 @0,0  Manrope 400 13/20  lines=1  «Телефон на объекте»
+      a.OrderInstallerView__phone  133×19 @0,21  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
+  p.OrderInstallerView__height  1366×40 @21,138  Manrope 600 15/22  r11  b1  lines=1  «Нужна страховка: работы на высоте»
+  section.OrderInstallerView__block  1366×168 @21,191  b1 0 0 0
+    h3.OrderInstallerView__blockTitle  1366×17 @0,13  Onest 700 15/17  ls0  lines=1  «Оборудование»
+    ul.OrderInstallerView__units  1366×129 @0,38
+      li.OrderInstallerView__unit  1366×61 @0,0  r11
+        span.OrderInstallerView__unitModel  1342×22 @12,8  Manrope 600 15/22  lines=1  «Сплит-система 09»
+        span.OrderInstallerView__quiet  1342×20 @12,32  Manrope 500 13/20  lines=1  «Кондиционер · наше · трасса 4 м · диамет»
+      li.OrderInstallerView__unit#2  1366×61 @0,69  r11
+        span.OrderInstallerView__unitModel  1342×22 @12,8  Manrope 600 15/22  lines=1  «Блок клиента, 12-я модель»
+        span.OrderInstallerView__quiet  1342×20 @12,32  Manrope 500 13/20  lines=1  «Кондиционер · клиента · трасса 6 м · диа»
+  p.OrderInstallerView__comment  1366×38 @21,370  Manrope 400 15/22  r11  lines=1  «Домофон не работает, звонить на телефон»
+  section.OrderInstallerView__block#2  1366×81 @21,421  b1 0 0 0
+    h3.OrderInstallerView__blockTitle  1366×17 @0,13  Onest 700 15/17  ls0  lines=1  «Деньги»
+    dl.OrderInstallerView__facts  1366×43 @0,38
+      div.OrderInstallerView__fact#7  1366×43 @0,0
+        dt  1366×20 @0,0  Manrope 400 13/20  lines=1  «Выплата монтажнику»
+        dd.OrderInstallerView__money  1366×22 @0,20  JetBrains Mono 600 15/22  lines=1  «9 000 ₽»
+  div.OrderInstallerView__actions  1366×116 @21,514  b1 0 0 0
+    div.Field__field  1366×103 @0,13
+      label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Статус наряда»
+      span.Select__wrapper  1366×49 @0,27
+        select.Select__select  1366×49 @0,0  r11  b1
+          option  0×0 @-37,-570  Manrope 400 15/21  lines=0  «Не выбрано»
+          option#2  0×0 @-37,-570  Manrope 400 15/21  lines=0  «В работе»
+          option#3  0×0 @-37,-570  Manrope 400 15/21  lines=0  «Выполнен»
+        svg.Select__chevron  14×14 @1338,18
+      p.Field__hint  1366×19 @0,83  Manrope 400 13/19  lines=1  «Выехали — «В работе", закончили — «Выпол»
+
+[палитра light]
+article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.OrderInstallerView__head
+    h2.OrderInstallerView__number  color #0f172a
+    span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+    span.Badge__badge#2  color #92400e  bg #b4530914  border #b4530947
+  dl.OrderInstallerView__facts
+    div.OrderInstallerView__fact
+      dt  color #5b6a7d
+      time  color #475569
+      span.OrderInstallerView__quiet  color #556173
+    div.OrderInstallerView__fact#2
+      dt  color #5b6a7d
+      dd  color #475569
+        a.OrderInstallerView__phone  color #0e7490
+    div.OrderInstallerView__fact#3
+      dt  color #5b6a7d
+      dd  color #475569
+    div.OrderInstallerView__fact#4
+      dt  color #5b6a7d
+      dd  color #475569
+    div.OrderInstallerView__fact#5
+      dt  color #5b6a7d
+      dd  color #475569
+    div.OrderInstallerView__fact#6
+      dt  color #5b6a7d
+      a.OrderInstallerView__phone  color #0e7490
+  p.OrderInstallerView__height  color #92400e  bg #b4530914  border #b4530947
+  section.OrderInstallerView__block  border #e2e8f0 #475569 #475569 #475569
+    h3.OrderInstallerView__blockTitle  color #0f172a
+    ul.OrderInstallerView__units
+      li.OrderInstallerView__unit  bg #f8fafc
+        span.OrderInstallerView__unitModel  color #0f172a
+        span.OrderInstallerView__quiet  color #556173
+      li.OrderInstallerView__unit#2  bg #f8fafc
+        span.OrderInstallerView__unitModel  color #0f172a
+        span.OrderInstallerView__quiet  color #556173
+  p.OrderInstallerView__comment  color #475569  bg #f8fafc
+  section.OrderInstallerView__block#2  border #e2e8f0 #475569 #475569 #475569
+    h3.OrderInstallerView__blockTitle  color #0f172a
+    dl.OrderInstallerView__facts
+      div.OrderInstallerView__fact#7
+        dt  color #5b6a7d
+        dd.OrderInstallerView__money  color #475569
+  div.OrderInstallerView__actions  border #e2e8f0 #475569 #475569 #475569
+    div.Field__field
+      label.Field__label  color #334155
+      span.Select__wrapper
+        select.Select__select  bg #ffffff  border #7e8fa6
+          option  color #0f172a
+          option#2  color #0f172a
+          option#3  color #0f172a
+        svg.Select__chevron
+      p.Field__hint  color #556173
+
+[палитра dark]
+article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.OrderInstallerView__head
+    h2.OrderInstallerView__number  color #eaf1f8
+    span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+    span.Badge__badge#2  color #fbbf24  bg #fbbf241f  border #fbbf2452
+  dl.OrderInstallerView__facts
+    div.OrderInstallerView__fact
+      dt  color #7e92a7
+      time  color #a8b6c6
+      span.OrderInstallerView__quiet  color #8598ac
+    div.OrderInstallerView__fact#2
+      dt  color #7e92a7
+      dd  color #a8b6c6
+        a.OrderInstallerView__phone  color #22d3ee
+    div.OrderInstallerView__fact#3
+      dt  color #7e92a7
+      dd  color #a8b6c6
+    div.OrderInstallerView__fact#4
+      dt  color #7e92a7
+      dd  color #a8b6c6
+    div.OrderInstallerView__fact#5
+      dt  color #7e92a7
+      dd  color #a8b6c6
+    div.OrderInstallerView__fact#6
+      dt  color #7e92a7
+      a.OrderInstallerView__phone  color #22d3ee
+  p.OrderInstallerView__height  color #fbbf24  bg #fbbf241f  border #fbbf2452
+  section.OrderInstallerView__block  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+    h3.OrderInstallerView__blockTitle  color #eaf1f8
+    ul.OrderInstallerView__units
+      li.OrderInstallerView__unit  bg #0e1729
+        span.OrderInstallerView__unitModel  color #eaf1f8
+        span.OrderInstallerView__quiet  color #8598ac
+      li.OrderInstallerView__unit#2  bg #0e1729
+        span.OrderInstallerView__unitModel  color #eaf1f8
+        span.OrderInstallerView__quiet  color #8598ac
+  p.OrderInstallerView__comment  color #a8b6c6  bg #0e1729
+  section.OrderInstallerView__block#2  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+    h3.OrderInstallerView__blockTitle  color #eaf1f8
+    dl.OrderInstallerView__facts
+      div.OrderInstallerView__fact#7
+        dt  color #7e92a7
+        dd.OrderInstallerView__money  color #a8b6c6
+  div.OrderInstallerView__actions  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      span.Select__wrapper
+        select.Select__select  bg #0b1424  border #566d95
+          option  color #eaf1f8
+          option#2  color #eaf1f8
+          option#3  color #eaf1f8
+        svg.Select__chevron
+      p.Field__hint  color #8598ac

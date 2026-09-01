@@ -1,0 +1,22 @@
+# ui-kit-badge--basic · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Badge__badge  84×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «Инвертор»
+
+[геометрия 768]
+span.Badge__badge  84×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «Инвертор»
+
+[геометрия 1440]
+span.Badge__badge  84×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «Инвертор»
+
+[палитра light]
+span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+
+[палитра dark]
+span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41

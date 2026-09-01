@@ -1,0 +1,37 @@
+# ui-kit-table--empty · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Table__viewport  358×83 @16,16
+  table.Table__table  358×83 @0,0
+    caption.Table__caption  358×32 @0,0  Manrope 400 13/20  lines=1  «Модели ещё не заведены»
+    td  358×50 @0,32  Manrope 400 15/22  lines=1  «Пока пусто»
+
+[геометрия 768]
+div.Table__viewport  736×83 @16,16
+  table.Table__table  736×83 @0,0
+    caption.Table__caption  736×32 @0,0  Manrope 400 13/20  lines=1  «Модели ещё не заведены»
+    td  736×50 @0,32  Manrope 400 15/22  lines=1  «Пока пусто»
+
+[геометрия 1440]
+div.Table__viewport  1408×83 @16,16
+  table.Table__table  1408×83 @0,0
+    caption.Table__caption  1408×32 @0,0  Manrope 400 13/20  lines=1  «Модели ещё не заведены»
+    td  1408×50 @0,32  Manrope 400 15/22  lines=1  «Пока пусто»
+
+[палитра light]
+div.Table__viewport
+  table.Table__table
+    caption.Table__caption  color #556173
+    td  color #334155
+
+[палитра dark]
+div.Table__viewport
+  table.Table__table
+    caption.Table__caption  color #8598ac
+    td  color #c9d5e2

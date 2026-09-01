@@ -1,0 +1,37 @@
+# ui-kit-button--with-icon · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.Button__button  223×44 @16,16  r11  b1
+  span.Button__content  185×17 @19,13
+    svg  16×16 @0,1
+    span.Button__label  161×17 @24,0  Manrope 600 15/17  lines=1  «Рассчитать стоимость»
+
+[геометрия 768]
+button.Button__button  223×44 @16,16  r11  b1
+  span.Button__content  185×17 @19,13
+    svg  16×16 @0,1
+    span.Button__label  161×17 @24,0  Manrope 600 15/17  lines=1  «Рассчитать стоимость»
+
+[геометрия 1440]
+button.Button__button  223×44 @16,16  r11  b1
+  span.Button__content  185×17 @19,13
+    svg  16×16 @0,1
+    span.Button__label  161×17 @24,0  Manrope 600 15/17  lines=1  «Рассчитать стоимость»
+
+[палитра light]
+button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  span.Button__content
+    svg
+    span.Button__label  color #ffffff
+
+[палитра dark]
+button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  span.Button__content
+    svg
+    span.Button__label  color #ffffff

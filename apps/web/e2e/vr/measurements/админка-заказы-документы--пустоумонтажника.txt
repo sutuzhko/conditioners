@@ -1,0 +1,37 @@
+# админка-заказы-документы--пустоумонтажника · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×155 @16,16  r20  b1
+  h2.OrderDocs__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Документы»
+  p.OrderDocs__hint  316×40 @21,46  Manrope 400 13/20  lines=2  «Договор, акт, гарантийный талон, счёт и»
+  p.OrderDocs__empty  316×20 @21,100  Manrope 400 13/20  lines=1  «Документов по этому наряду пока нет.»
+
+[геометрия 768]
+section.Card__card  736×156 @16,16  r20  b1
+  h2.OrderDocs__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Документы»
+  p.OrderDocs__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Договор, акт, гарантийный талон, счёт и»
+  p.OrderDocs__empty  694×20 @21,101  Manrope 400 13/20  lines=1  «Документов по этому наряду пока нет.»
+
+[геометрия 1440]
+section.Card__card  1408×157 @16,16  r20  b1
+  h2.OrderDocs__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Документы»
+  p.OrderDocs__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Договор, акт, гарантийный талон, счёт и»
+  p.OrderDocs__empty  1366×20 @21,102  Manrope 400 13/20  lines=1  «Документов по этому наряду пока нет.»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderDocs__title  color #0f172a
+  p.OrderDocs__hint  color #556173
+  p.OrderDocs__empty  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.OrderDocs__title  color #eaf1f8
+  p.OrderDocs__hint  color #8598ac
+  p.OrderDocs__empty  color #8598ac

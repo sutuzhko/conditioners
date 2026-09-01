@@ -1,0 +1,32 @@
+# ui-kit-card--interactive · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Card__card  358×117 @16,16  r20  b1
+  h3  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
+  p  316×47 @21,50  Manrope 400 15/23  lines=2  «Вакуумация магистрали, опрессовка, вывод»
+
+[геометрия 768]
+div.Card__card  736×95 @16,16  r20  b1
+  h3  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Монтаж под ключ»
+  p  694×23 @21,51  Manrope 400 15/23  lines=1  «Вакуумация магистрали, опрессовка, вывод»
+
+[геометрия 1440]
+div.Card__card  1408×96 @16,16  r20  b1
+  h3  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Монтаж под ключ»
+  p  1366×23 @21,52  Manrope 400 15/23  lines=1  «Вакуумация магистрали, опрессовка, вывод»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #0f172a
+  p  color #475569
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h3  color #eaf1f8
+  p  color #a8b6c6

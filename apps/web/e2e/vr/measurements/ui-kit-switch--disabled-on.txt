@@ -1,0 +1,47 @@
+# ui-kit-switch--disabled-on · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Switch__root  326×26 @32,32
+  div.Switch__row  326×26 @0,0
+    label.Switch__track  44×26 @0,0  r100  b1
+      span.Switch__thumb  18×18 @24,4  r100
+    input.Switch__input  1×1 @0,13
+    label.Switch__label  55×19 @54,4  Manrope 400 14/19  lines=1  «Активен»
+
+[геометрия 768]
+div.Switch__root  704×26 @32,32
+  div.Switch__row  704×26 @0,0
+    label.Switch__track  44×26 @0,0  r100  b1
+      span.Switch__thumb  18×18 @24,4  r100
+    input.Switch__input  1×1 @0,13
+    label.Switch__label  55×19 @54,4  Manrope 400 14/19  lines=1  «Активен»
+
+[геометрия 1440]
+div.Switch__root  1376×26 @32,32
+  div.Switch__row  1376×26 @0,0
+    label.Switch__track  44×26 @0,0  r100  b1
+      span.Switch__thumb  18×18 @24,4  r100
+    input.Switch__input  1×1 @0,13
+    label.Switch__label  55×19 @54,4  Manrope 400 14/19  lines=1  «Активен»
+
+[палитра light]
+div.Switch__root
+  div.Switch__row
+    label.Switch__track  bg #0e7490  border #0e7490
+      span.Switch__thumb  bg #ffffff  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+    input.Switch__input
+    label.Switch__label  color #556173
+
+[палитра dark]
+div.Switch__root
+  div.Switch__row
+    label.Switch__track  bg #0e7490  border #0e7490
+      span.Switch__thumb  bg #121d31  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+    input.Switch__input
+    label.Switch__label  color #8598ac

@@ -1,0 +1,507 @@
+# ui-kit-button--states · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.Button__button  82×44 @16,16  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#2  118×44 @110,16  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#2  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#3  163×44 @16,72  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#3  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#4  126×44 @191,72  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#4  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#5  82×44 @16,132  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#5  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#6  118×44 @110,132  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#6  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#7  163×44 @16,188  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#7  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#8  126×44 @191,188  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#8  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#9  82×44 @16,248  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#9  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#10  118×44 @110,248  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#10  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#11  163×44 @16,304  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#11  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#12  126×44 @191,304  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#12  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#13  82×44 @16,364  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#13  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#14  118×44 @110,364  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#14  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#15  163×44 @16,420  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#15  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#16  126×44 @191,420  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#16  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#17  82×44 @16,480  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#17  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#18  118×44 @110,480  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#18  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#19  163×44 @16,536  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#19  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#20  126×44 @191,536  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#20  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#21  82×44 @16,596  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#21  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#22  118×44 @110,596  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#22  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#23  163×44 @16,652  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#23  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#24  126×44 @191,652  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#24  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#25  82×44 @16,712  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#25  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#26  118×44 @110,712  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#26  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#27  163×44 @16,768  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#27  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#28  126×44 @191,768  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#28  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+
+[геометрия 768]
+button.Button__button  82×44 @16,16  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#2  118×44 @110,16  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#2  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#3  163×44 @241,16  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#3  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#4  126×44 @415,16  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#4  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#5  82×44 @16,76  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#5  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#6  118×44 @110,76  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#6  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#7  163×44 @241,76  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#7  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#8  126×44 @415,76  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#8  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#9  82×44 @16,136  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#9  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#10  118×44 @110,136  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#10  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#11  163×44 @241,136  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#11  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#12  126×44 @415,136  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#12  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#13  82×44 @16,196  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#13  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#14  118×44 @110,196  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#14  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#15  163×44 @241,196  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#15  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#16  126×44 @415,196  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#16  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#17  82×44 @16,256  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#17  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#18  118×44 @110,256  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#18  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#19  163×44 @241,256  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#19  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#20  126×44 @415,256  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#20  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#21  82×44 @16,316  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#21  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#22  118×44 @110,316  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#22  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#23  163×44 @241,316  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#23  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#24  126×44 @415,316  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#24  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#25  82×44 @16,376  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#25  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#26  118×44 @110,376  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#26  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#27  163×44 @241,376  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#27  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#28  126×44 @415,376  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#28  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+
+[геометрия 1440]
+button.Button__button  82×44 @16,16  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#2  118×44 @110,16  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#2  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#3  163×44 @241,16  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#3  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#4  126×44 @415,16  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#4  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#5  82×44 @16,76  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#5  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#6  118×44 @110,76  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#6  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#7  163×44 @241,76  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#7  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#8  126×44 @415,76  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#8  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#9  82×44 @16,136  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#9  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#10  118×44 @110,136  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#10  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#11  163×44 @241,136  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#11  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#12  126×44 @415,136  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#12  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#13  82×44 @16,196  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#13  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#14  118×44 @110,196  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#14  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#15  163×44 @241,196  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#15  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#16  126×44 @415,196  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#16  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#17  82×44 @16,256  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#17  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#18  118×44 @110,256  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#18  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#19  163×44 @241,256  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#19  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#20  126×44 @415,256  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#20  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#21  82×44 @16,316  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#21  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#22  118×44 @110,316  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#22  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#23  163×44 @241,316  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#23  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#24  126×44 @415,316  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#24  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+button.Button__button#25  82×44 @16,376  r11  b1
+  span.Button__content  44×17 @19,13
+    span.Button__label#25  44×17 @0,0  Manrope 600 15/17  lines=1  «Покой»
+button.Button__button#26  118×44 @110,376  r11  b1
+  span.Button__content  80×17 @19,13
+    span.Button__label#26  80×17 @0,0  Manrope 600 15/17  lines=1  «Отключена»
+button.Button__button#27  163×44 @241,376  r11  b1
+  span.Button__content  125×17 @19,13
+    span.Button__label#27  125×17 @0,0  Manrope 600 15/17  lines=1  «Отказ с причиной»
+  span.Button__reason  1×1 @81,22  Manrope 600 15/17  lines=1  clipped  «Сначала заполните обязательные поля»
+button.Button__button#28  126×44 @415,376  r11  b1
+  span.Button__content  88×17 @19,13
+    span.Button__label#28  88×17 @0,0  Manrope 600 15/17  lines=1  «Отправляем»
+  span.Button__spinner  124×42 @1,1
+
+[палитра light]
+button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  span.Button__content
+    span.Button__label  color #ffffff
+button.Button__button#2  bg #0e7490  border #0e7490
+  span.Button__content
+    span.Button__label#2  color #ffffff
+button.Button__button#3  bg #0e7490  border #0e7490
+  span.Button__content
+    span.Button__label#3  color #ffffff
+  span.Button__reason  color #ffffff
+button.Button__button#4  bg #0e7490  border #0e7490
+  span.Button__content
+    span.Button__label#4  color #ffffff
+  span.Button__spinner
+button.Button__button#5  bg #ecfeff  border transparent
+  span.Button__content
+    span.Button__label#5  color #0e7490
+button.Button__button#6  bg #ecfeff  border transparent
+  span.Button__content
+    span.Button__label#6  color #0e7490
+button.Button__button#7  bg #ecfeff  border transparent
+  span.Button__content
+    span.Button__label#7  color #0e7490
+  span.Button__reason  color #0e7490
+button.Button__button#8  bg #ecfeff  border transparent
+  span.Button__content
+    span.Button__label#8  color #0e7490
+  span.Button__spinner
+button.Button__button#9  bg #ffffff  border #7e8fa6
+  span.Button__content
+    span.Button__label#9  color #0f172a
+button.Button__button#10  bg #ffffff  border #7e8fa6
+  span.Button__content
+    span.Button__label#10  color #0f172a
+button.Button__button#11  bg #ffffff  border #7e8fa6
+  span.Button__content
+    span.Button__label#11  color #0f172a
+  span.Button__reason  color #0f172a
+button.Button__button#12  bg #ffffff  border #7e8fa6
+  span.Button__content
+    span.Button__label#12  color #0f172a
+  span.Button__spinner
+button.Button__button#13  bg #f8fafc  border #7e8fa6
+  span.Button__content
+    span.Button__label#13  color #0f172a
+button.Button__button#14  bg #f8fafc  border #7e8fa6
+  span.Button__content
+    span.Button__label#14  color #0f172a
+button.Button__button#15  bg #f8fafc  border #7e8fa6
+  span.Button__content
+    span.Button__label#15  color #0f172a
+  span.Button__reason  color #0f172a
+button.Button__button#16  bg #f8fafc  border #7e8fa6
+  span.Button__content
+    span.Button__label#16  color #0f172a
+  span.Button__spinner
+button.Button__button#17  border transparent
+  span.Button__content
+    span.Button__label#17  color #0e7490
+button.Button__button#18  border transparent
+  span.Button__content
+    span.Button__label#18  color #0e7490
+button.Button__button#19  border transparent
+  span.Button__content
+    span.Button__label#19  color #0e7490
+  span.Button__reason  color #0e7490
+button.Button__button#20  border transparent
+  span.Button__content
+    span.Button__label#20  color #0e7490
+  span.Button__spinner
+button.Button__button#21  border #0e7490
+  span.Button__content
+    span.Button__label#21  color #0e7490
+button.Button__button#22  border #0e7490
+  span.Button__content
+    span.Button__label#22  color #0e7490
+button.Button__button#23  border #0e7490
+  span.Button__content
+    span.Button__label#23  color #0e7490
+  span.Button__reason  color #0e7490
+button.Button__button#24  border #0e7490
+  span.Button__content
+    span.Button__label#24  color #0e7490
+  span.Button__spinner
+button.Button__button#25  bg #be123c14  border #be123c73
+  span.Button__content
+    span.Button__label#25  color #be123c
+button.Button__button#26  bg #be123c14  border #be123c73
+  span.Button__content
+    span.Button__label#26  color #be123c
+button.Button__button#27  bg #be123c14  border #be123c73
+  span.Button__content
+    span.Button__label#27  color #be123c
+  span.Button__reason  color #be123c
+button.Button__button#28  bg #be123c14  border #be123c73
+  span.Button__content
+    span.Button__label#28  color #be123c
+  span.Button__spinner
+
+[палитра dark]
+button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  span.Button__content
+    span.Button__label  color #ffffff
+button.Button__button#2  bg #0e7490  border #0e7490
+  span.Button__content
+    span.Button__label#2  color #ffffff
+button.Button__button#3  bg #0e7490  border #0e7490
+  span.Button__content
+    span.Button__label#3  color #ffffff
+  span.Button__reason  color #ffffff
+button.Button__button#4  bg #0e7490  border #0e7490
+  span.Button__content
+    span.Button__label#4  color #ffffff
+  span.Button__spinner
+button.Button__button#5  bg #22d3ee1a  border transparent
+  span.Button__content
+    span.Button__label#5  color #22d3ee
+button.Button__button#6  bg #22d3ee1a  border transparent
+  span.Button__content
+    span.Button__label#6  color #22d3ee
+button.Button__button#7  bg #22d3ee1a  border transparent
+  span.Button__content
+    span.Button__label#7  color #22d3ee
+  span.Button__reason  color #22d3ee
+button.Button__button#8  bg #22d3ee1a  border transparent
+  span.Button__content
+    span.Button__label#8  color #22d3ee
+  span.Button__spinner
+button.Button__button#9  bg #121d31  border #566d95
+  span.Button__content
+    span.Button__label#9  color #eaf1f8
+button.Button__button#10  bg #121d31  border #566d95
+  span.Button__content
+    span.Button__label#10  color #eaf1f8
+button.Button__button#11  bg #121d31  border #566d95
+  span.Button__content
+    span.Button__label#11  color #eaf1f8
+  span.Button__reason  color #eaf1f8
+button.Button__button#12  bg #121d31  border #566d95
+  span.Button__content
+    span.Button__label#12  color #eaf1f8
+  span.Button__spinner
+button.Button__button#13  bg #0e1729  border #566d95
+  span.Button__content
+    span.Button__label#13  color #eaf1f8
+button.Button__button#14  bg #0e1729  border #566d95
+  span.Button__content
+    span.Button__label#14  color #eaf1f8
+button.Button__button#15  bg #0e1729  border #566d95
+  span.Button__content
+    span.Button__label#15  color #eaf1f8
+  span.Button__reason  color #eaf1f8
+button.Button__button#16  bg #0e1729  border #566d95
+  span.Button__content
+    span.Button__label#16  color #eaf1f8
+  span.Button__spinner
+button.Button__button#17  border transparent
+  span.Button__content
+    span.Button__label#17  color #22d3ee
+button.Button__button#18  border transparent
+  span.Button__content
+    span.Button__label#18  color #22d3ee
+button.Button__button#19  border transparent
+  span.Button__content
+    span.Button__label#19  color #22d3ee
+  span.Button__reason  color #22d3ee
+button.Button__button#20  border transparent
+  span.Button__content
+    span.Button__label#20  color #22d3ee
+  span.Button__spinner
+button.Button__button#21  border #0e7490
+  span.Button__content
+    span.Button__label#21  color #22d3ee
+button.Button__button#22  border #0e7490
+  span.Button__content
+    span.Button__label#22  color #22d3ee
+button.Button__button#23  border #0e7490
+  span.Button__content
+    span.Button__label#23  color #22d3ee
+  span.Button__reason  color #22d3ee
+button.Button__button#24  border #0e7490
+  span.Button__content
+    span.Button__label#24  color #22d3ee
+  span.Button__spinner
+button.Button__button#25  bg #fb71851f  border #fb718580
+  span.Button__content
+    span.Button__label#25  color #fb7185
+button.Button__button#26  bg #fb71851f  border #fb718580
+  span.Button__content
+    span.Button__label#26  color #fb7185
+button.Button__button#27  bg #fb71851f  border #fb718580
+  span.Button__content
+    span.Button__label#27  color #fb7185
+  span.Button__reason  color #fb7185
+button.Button__button#28  bg #fb71851f  border #fb718580
+  span.Button__content
+    span.Button__label#28  color #fb7185
+  span.Button__spinner

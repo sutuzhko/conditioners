@@ -1,0 +1,338 @@
+# блоки-страница-модели--without-similar · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700, Onest 800
+
+[документ]
+320 → 320×1296
+375 → 375×1335
+768 → 768×909
+1200 → 1200×1169
+
+[геометрия 320]
+article.ProductDetails__page  320×1296 @0,0
+  div.ProductDetails__container  320×1296 @0,0
+    header.ProductDetails__head  288×117 @16,28
+      span.Badge__badge  35×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «09»
+      h1.ProductDetails__title  288×26 @0,34  Onest 700 24/26  ls0  lines=1  «Сплит-система 09»
+      span.Badge__badge#2  132×24 @45,0  Manrope 600 12/16  r100  b1  lines=1  «тихая, для спальни»
+      p.ProductDetails__lead  288×47 @0,71  Manrope 400 15/23  lines=2  «Класс мощности 09. Рассчитана на помещен»
+    div.ProductDetails__main  288×719 @16,173
+      div.ProductDetails__gallery  288×180 @0,0
+        img.ProductDetails__mainPhoto  288×180 @0,0  r20  b1
+      div.ProductDetails__aside  288×259 @0,204
+        div.Card__card  288×259 @0,0  r20  b1
+          p.ProductDetails__area  246×23 @21,21  Manrope 400 15/23  lines=1  «до 25 м²»
+          div.ProductPrice__price  246×60 @21,54
+            p.ProductPrice__main  246×27 @0,5
+              span.ProductPrice__current  101×27 @0,0  Onest 800 23/27  ls0  lines=1  «33 900 ₽»
+              s.ProductPrice__old  65×18 @109,5  Manrope 400 16/18  lines=1  «38 500 ₽»
+                span  1×1 @-1,-1  Manrope 400 16/18  lines=1  clipped  «Старая цена:»
+            p.ProductPrice__slot  246×24 @0,36
+              span.Badge__badge  49×24 @0,0  Manrope 600 12/14  r100  b1  lines=1  «−12%»
+              span.ProductPrice__until  108×19 @57,3  Manrope 400 12/19  lines=1  «до 31 октября 2026»
+          a.Button__button  246×52 @21,132  r12  b1
+            span.Button__content  129×19 @58,16
+              span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+          a.ProductDetails__compare  246×44 @21,194  Manrope 600 15/23  r10  b1  lines=1  «Сравнить»
+            span.ProductDetails__compareMark  7×12 @80,16  JetBrains Mono 600 12/12  lines=1  «+»
+      section.ProductDetails__specs  288×233 @0,487  b1 0 0 0
+        h2.ProductDetails__specsTitle  288×20 @0,29  Onest 700 17/20  ls0  lines=1  «Характеристики»
+        div.ProductDetails__specGroups  288×163 @0,69
+          div.ProductDetails__specGroup  288×87 @0,0
+            h3.ProductDetails__specGroupTitle  288×14 @0,0  JetBrains Mono 600 12/14  ls1  lines=1  «Основное»
+            dl.ProductDetails__specList  288×65 @0,22
+              div.ProductDetails__specRow  288×29 @0,0  b0 0 1 0
+                dt  76×20 @0,1  Manrope 400 13/20  lines=1  «Компрессор»
+                dd  200×22 @88,0  Manrope 600 15/22  lines=1  «Инверторный»
+              div.ProductDetails__specRow#2  288×29 @0,35  b0 0 1 0
+                dt  71×20 @0,1  Manrope 400 13/20  lines=1  «Обогрев до»
+                dd  205×22 @83,0  Manrope 600 15/22  lines=1  «−20 °C»
+          div.ProductDetails__specGroup#2  288×52 @0,111
+            h3.ProductDetails__specGroupTitle  288×14 @0,0  JetBrains Mono 600 12/14  ls1  lines=1  «Шум и воздух»
+            dl.ProductDetails__specList  288×29 @0,22
+              div.ProductDetails__specRow#3  288×29 @0,0  b0 0 1 0
+                dt  88×20 @0,1  Manrope 400 13/20  lines=1  «Уровень шума»
+                dd  188×22 @100,0  Manrope 600 15/22  lines=1  «19 дБ»
+    aside.Card__card  288×311 @16,937  r20  b1
+      div.ProductCta__text  242×135 @23,23
+        p.ProductCta__title  242×62 @0,0  Onest 700 20/31  ls0  lines=2  «Остались вопросы по этой модели?»
+        p.ProductCta__lead  242×67 @0,68  Manrope 400 15/22  lines=3  «Подскажем, потянет ли она ваше помещение»
+      div.ProductCta__actions  173×110 @23,178
+        a.Button__button  173×52 @0,0  r12  b1
+          span.Button__content#2  115×19 @29,16
+            span.Button__label  115×19 @0,0  Manrope 600 16/19  lines=1  «Задать вопрос»
+        a.ProductCta__link  134×44 @-12,66  Manrope 600 15/22  r11  lines=1  «Весь каталог →»
+
+[геометрия 375]
+article.ProductDetails__page  375×1335 @0,0
+  div.ProductDetails__container  375×1335 @0,0
+    header.ProductDetails__head  343×118 @16,28
+      span.Badge__badge  35×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «09»
+      h1.ProductDetails__title  343×27 @0,34  Onest 700 25/27  ls0  lines=1  «Сплит-система 09»
+      span.Badge__badge#2  132×24 @45,0  Manrope 600 12/16  r100  b1  lines=1  «тихая, для спальни»
+      p.ProductDetails__lead  343×47 @0,72  Manrope 400 15/23  lines=2  «Класс мощности 09. Рассчитана на помещен»
+    div.ProductDetails__main  343×755 @16,174
+      div.ProductDetails__gallery  343×214 @0,0
+        img.ProductDetails__mainPhoto  343×214 @0,0  r20  b1
+      div.ProductDetails__aside  343×260 @0,238
+        div.Card__card  343×260 @0,0  r20  b1
+          p.ProductDetails__area  301×23 @21,21  Manrope 400 15/23  lines=1  «до 25 м²»
+          div.ProductPrice__price  301×61 @21,54
+            p.ProductPrice__main  301×28 @0,5
+              span.ProductPrice__current  105×28 @0,0  Onest 800 24/28  ls0  lines=1  «33 900 ₽»
+              s.ProductPrice__old  66×19 @113,6  Manrope 400 16/19  lines=1  «38 500 ₽»
+                span  1×1 @-1,-1  Manrope 400 16/19  lines=1  clipped  «Старая цена:»
+            p.ProductPrice__slot  301×24 @0,37
+              span.Badge__badge  49×24 @0,0  Manrope 600 12/14  r100  b1  lines=1  «−12%»
+              span.ProductPrice__until  108×19 @57,3  Manrope 400 12/19  lines=1  «до 31 октября 2026»
+          a.Button__button  301×52 @21,133  r12  b1
+            span.Button__content  129×19 @86,16
+              span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+          a.ProductDetails__compare  301×44 @21,195  Manrope 600 15/23  r10  b1  lines=1  «Сравнить»
+            span.ProductDetails__compareMark  7×12 @107,16  JetBrains Mono 600 12/12  lines=1  «+»
+      section.ProductDetails__specs  343×233 @0,522  b1 0 0 0
+        h2.ProductDetails__specsTitle  343×21 @0,29  Onest 700 17/21  ls0  lines=1  «Характеристики»
+        div.ProductDetails__specGroups  343×163 @0,70
+          div.ProductDetails__specGroup  343×87 @0,0
+            h3.ProductDetails__specGroupTitle  343×14 @0,0  JetBrains Mono 600 12/14  ls1  lines=1  «Основное»
+            dl.ProductDetails__specList  343×65 @0,22
+              div.ProductDetails__specRow  343×29 @0,0  b0 0 1 0
+                dt  76×20 @0,1  Manrope 400 13/20  lines=1  «Компрессор»
+                dd  255×22 @88,0  Manrope 600 15/22  lines=1  «Инверторный»
+              div.ProductDetails__specRow#2  343×29 @0,35  b0 0 1 0
+                dt  71×20 @0,1  Manrope 400 13/20  lines=1  «Обогрев до»
+                dd  260×22 @83,0  Manrope 600 15/22  lines=1  «−20 °C»
+          div.ProductDetails__specGroup#2  343×52 @0,111
+            h3.ProductDetails__specGroupTitle  343×14 @0,0  JetBrains Mono 600 12/14  ls1  lines=1  «Шум и воздух»
+            dl.ProductDetails__specList  343×29 @0,22
+              div.ProductDetails__specRow#3  343×29 @0,0  b0 0 1 0
+                dt  88×20 @0,1  Manrope 400 13/20  lines=1  «Уровень шума»
+                dd  243×22 @100,0  Manrope 600 15/22  lines=1  «19 дБ»
+    aside.Card__card  343×311 @16,973  r20  b1
+      div.ProductCta__text  297×135 @23,23
+        p.ProductCta__title  297×62 @0,0  Onest 700 20/31  ls0  lines=2  «Остались вопросы по этой модели?»
+        p.ProductCta__lead  297×67 @0,68  Manrope 400 15/22  lines=3  «Подскажем, потянет ли она ваше помещение»
+      div.ProductCta__actions  173×110 @23,178
+        a.Button__button  173×52 @0,0  r12  b1
+          span.Button__content#2  115×19 @29,16
+            span.Button__label  115×19 @0,0  Manrope 600 16/19  lines=1  «Задать вопрос»
+        a.ProductCta__link  134×44 @-12,66  Manrope 600 15/22  r11  lines=1  «Весь каталог →»
+
+[геометрия 768]
+article.ProductDetails__page  768×909 @0,0
+  div.ProductDetails__container  768×909 @0,0
+    header.ProductDetails__head  728×105 @20,28
+      span.Badge__badge  35×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «09»
+      h1.ProductDetails__title  728×34 @0,34  Onest 700 31/34  ls-1  lines=1  «Сплит-система 09»
+      span.Badge__badge#2  132×24 @45,0  Manrope 600 12/16  r100  b1  lines=1  «тихая, для спальни»
+      p.ProductDetails__lead  728×27 @0,78  Manrope 400 17/27  lines=1  «Класс мощности 09. Рассчитана на помещен»
+    div.ProductDetails__main  728×460 @20,161
+      div.ProductDetails__gallery  420×262 @0,0
+        img.ProductDetails__mainPhoto  420×262 @0,0  r20  b1
+      div.ProductDetails__aside  280×278 @448,0
+        div.Card__card  280×278 @0,0  r20  b1
+          p.ProductDetails__area  222×23 @29,29  Manrope 400 15/23  lines=1  «до 25 м²»
+          div.ProductPrice__price  222×63 @29,62
+            p.ProductPrice__main  222×28 @0,7
+              span.ProductPrice__current  105×28 @0,0  Onest 800 24/28  ls0  lines=1  «33 900 ₽»
+              s.ProductPrice__old  70×20 @113,5  Manrope 400 17/20  lines=1  «38 500 ₽»
+                span  1×1 @-1,-1  Manrope 400 17/20  lines=1  clipped  «Старая цена:»
+            p.ProductPrice__slot  222×24 @0,39
+              span.Badge__badge  49×24 @0,0  Manrope 600 12/14  r100  b1  lines=1  «−12%»
+              span.ProductPrice__until  108×19 @57,3  Manrope 400 12/19  lines=1  «до 31 октября 2026»
+          a.Button__button  222×52 @29,143  r12  b1
+            span.Button__content  129×19 @46,16
+              span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+          a.ProductDetails__compare  222×44 @29,205  Manrope 600 15/23  r10  b1  lines=1  «Сравнить»
+            span.ProductDetails__compareMark  7×12 @68,16  JetBrains Mono 600 12/12  lines=1  «+»
+      section.ProductDetails__specs  728×158 @0,302  b1 0 0 0
+        h2.ProductDetails__specsTitle  728×22 @0,29  Onest 700 18/22  ls0  lines=1  «Характеристики»
+        div.ProductDetails__specGroups  728×87 @0,71
+          div.ProductDetails__specGroup  348×87 @0,0
+            h3.ProductDetails__specGroupTitle  348×14 @0,0  JetBrains Mono 600 12/14  ls1  lines=1  «Основное»
+            dl.ProductDetails__specList  348×65 @0,22
+              div.ProductDetails__specRow  348×29 @0,0  b0 0 1 0
+                dt  76×20 @0,1  Manrope 400 13/20  lines=1  «Компрессор»
+                dd  260×22 @88,0  Manrope 600 15/22  lines=1  «Инверторный»
+              div.ProductDetails__specRow#2  348×29 @0,35  b0 0 1 0
+                dt  71×20 @0,1  Manrope 400 13/20  lines=1  «Обогрев до»
+                dd  265×22 @83,0  Manrope 600 15/22  lines=1  «−20 °C»
+          div.ProductDetails__specGroup#2  348×87 @380,0
+            h3.ProductDetails__specGroupTitle  348×14 @0,0  JetBrains Mono 600 12/14  ls1  lines=1  «Шум и воздух»
+            dl.ProductDetails__specList  348×29 @0,22
+              div.ProductDetails__specRow#3  348×29 @0,0  b0 0 1 0
+                dt  88×20 @0,1  Manrope 400 13/20  lines=1  «Уровень шума»
+                dd  248×22 @100,0  Manrope 600 15/22  lines=1  «19 дБ»
+    aside.Card__card  728×176 @20,665  r20  b1
+      div.ProductCta__text  464×82 @33,47
+        p.ProductCta__title  464×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы по этой модели?»
+        p.ProductCta__lead  464×45 @0,37  Manrope 400 15/22  lines=2  «Подскажем, потянет ли она ваше помещение»
+      div.ProductCta__actions  173×110 @521,33
+        a.Button__button  173×52 @0,0  r12  b1
+          span.Button__content#2  115×19 @29,16
+            span.Button__label  115×19 @0,0  Manrope 600 16/19  lines=1  «Задать вопрос»
+        a.ProductCta__link  134×44 @-12,66  Manrope 600 15/22  r11  lines=1  «Весь каталог →»
+
+[геометрия 1200]
+article.ProductDetails__page  1200×1169 @0,0
+  div.ProductDetails__container  1200×1169 @0,0
+    header.ProductDetails__head  1152×115 @24,28
+      span.Badge__badge  35×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «09»
+      h1.ProductDetails__title  1152×42 @0,34  Onest 700 38/42  ls-1  lines=1  «Сплит-система 09»
+      span.Badge__badge#2  132×24 @45,0  Manrope 600 12/16  r100  b1  lines=1  «тихая, для спальни»
+      p.ProductDetails__lead  1152×29 @0,86  Manrope 400 18/29  lines=1  «Класс мощности 09. Рассчитана на помещен»
+    div.ProductDetails__main  1152×691 @24,171
+      div.ProductDetails__gallery  812×508 @0,0
+        img.ProductDetails__mainPhoto  812×508 @0,0  r20  b1
+      div.ProductDetails__aside  312×280 @840,0
+        div.Card__card  312×280 @864,171  r20  b1  fixed
+          p.ProductDetails__area  254×23 @29,29  Manrope 400 15/23  lines=1  «до 25 м²»
+          div.ProductPrice__price  254×65 @29,62
+            p.ProductPrice__main  254×28 @0,9
+              span.ProductPrice__current  105×28 @0,0  Onest 800 24/28  ls0  lines=1  «33 900 ₽»
+              s.ProductPrice__old  75×21 @113,4  Manrope 400 18/21  lines=1  «38 500 ₽»
+                span  1×1 @-1,-1  Manrope 400 18/21  lines=1  clipped  «Старая цена:»
+            p.ProductPrice__slot  254×24 @0,41
+              span.Badge__badge  49×24 @0,0  Manrope 600 12/14  r100  b1  lines=1  «−12%»
+              span.ProductPrice__until  108×19 @57,3  Manrope 400 12/19  lines=1  «до 31 октября 2026»
+          a.Button__button  254×52 @29,145  r12  b1
+            span.Button__content  129×19 @62,16
+              span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
+          a.ProductDetails__compare  254×44 @29,207  Manrope 600 15/23  r10  b1  lines=1  «Сравнить»
+            span.ProductDetails__compareMark  7×12 @84,16  JetBrains Mono 600 12/12  lines=1  «+»
+      section.ProductDetails__specs  812×159 @0,532  b1 0 0 0
+        h2.ProductDetails__specsTitle  812×23 @0,29  Onest 700 19/23  ls0  lines=1  «Характеристики»
+        div.ProductDetails__specGroups  812×87 @0,72
+          div.ProductDetails__specGroup  390×87 @0,0
+            h3.ProductDetails__specGroupTitle  390×14 @0,0  JetBrains Mono 600 12/14  ls1  lines=1  «Основное»
+            dl.ProductDetails__specList  390×65 @0,22
+              div.ProductDetails__specRow  390×29 @0,0  b0 0 1 0
+                dt  76×20 @0,1  Manrope 400 13/20  lines=1  «Компрессор»
+                dd  302×22 @88,0  Manrope 600 15/22  lines=1  «Инверторный»
+              div.ProductDetails__specRow#2  390×29 @0,35  b0 0 1 0
+                dt  71×20 @0,1  Manrope 400 13/20  lines=1  «Обогрев до»
+                dd  307×22 @83,0  Manrope 600 15/22  lines=1  «−20 °C»
+          div.ProductDetails__specGroup#2  390×87 @422,0
+            h3.ProductDetails__specGroupTitle  390×14 @0,0  JetBrains Mono 600 12/14  ls1  lines=1  «Шум и воздух»
+            dl.ProductDetails__specList  390×29 @0,22
+              div.ProductDetails__specRow#3  390×29 @0,0  b0 0 1 0
+                dt  88×20 @0,1  Manrope 400 13/20  lines=1  «Уровень шума»
+                dd  290×22 @100,0  Manrope 600 15/22  lines=1  «19 дБ»
+    aside.Card__card  1152×176 @24,905  r20  b1
+      div.ProductCta__text  889×59 @33,58
+        p.ProductCta__title  889×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы по этой модели?»
+        p.ProductCta__lead  889×22 @0,37  Manrope 400 15/22  lines=1  «Подскажем, потянет ли она ваше помещение»
+      div.ProductCta__actions  173×110 @946,33
+        a.Button__button  173×52 @0,0  r12  b1
+          span.Button__content#2  115×19 @29,16
+            span.Button__label  115×19 @0,0  Manrope 600 16/19  lines=1  «Задать вопрос»
+        a.ProductCta__link  134×44 @-12,66  Manrope 600 15/22  r11  lines=1  «Весь каталог →»
+
+[палитра light]
+article.ProductDetails__page  bg #ffffff
+  div.ProductDetails__container
+    header.ProductDetails__head
+      span.Badge__badge  color #ffffff  bg #0f172a  border #0f172a
+      h1.ProductDetails__title  color #0f172a
+      span.Badge__badge#2  color #0e7490  bg #ecfeff  border #a5f3fc
+      p.ProductDetails__lead  color #556173
+    div.ProductDetails__main
+      div.ProductDetails__gallery
+        img.ProductDetails__mainPhoto  bg #f8fafc  border #e2e8f0
+      div.ProductDetails__aside
+        div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+          p.ProductDetails__area  color #556173
+          div.ProductPrice__price
+            p.ProductPrice__main
+              span.ProductPrice__current  color #0f172a
+              s.ProductPrice__old  color #5b6a7d
+                span  color #5b6a7d
+            p.ProductPrice__slot
+              span.Badge__badge  color #be123c  bg #be123c14  border #be123c47
+              span.ProductPrice__until  color #556173
+          a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content
+              span.Button__label  color #ffffff
+          a.ProductDetails__compare  color #475569  border #e2e8f0
+            span.ProductDetails__compareMark  color #475569
+      section.ProductDetails__specs  border #e2e8f0 #0f172a #0f172a #0f172a
+        h2.ProductDetails__specsTitle  color #0f172a
+        div.ProductDetails__specGroups
+          div.ProductDetails__specGroup
+            h3.ProductDetails__specGroupTitle  color #5b6a7d
+            dl.ProductDetails__specList
+              div.ProductDetails__specRow  border #0f172a #0f172a #eef2f6 #0f172a
+                dt  color #556173
+                dd  color #0f172a
+              div.ProductDetails__specRow#2  border #0f172a #0f172a #eef2f6 #0f172a
+                dt  color #556173
+                dd  color #0f172a
+          div.ProductDetails__specGroup#2
+            h3.ProductDetails__specGroupTitle  color #5b6a7d
+            dl.ProductDetails__specList
+              div.ProductDetails__specRow#3  border #0f172a #0f172a #eef2f6 #0f172a
+                dt  color #556173
+                dd  color #0f172a
+    aside.Card__card  bg #0f172a  border #0f172a
+      div.ProductCta__text
+        p.ProductCta__title  color #ffffff
+        p.ProductCta__lead  color #7e92a7
+      div.ProductCta__actions
+        a.Button__button  bg #ecfeff  border transparent
+          span.Button__content#2
+            span.Button__label  color #0e7490
+        a.ProductCta__link  color #22d3ee
+
+[палитра dark]
+article.ProductDetails__page  bg #0b1220
+  div.ProductDetails__container
+    header.ProductDetails__head
+      span.Badge__badge  color #ffffff  bg #111d34  border #111d34
+      h1.ProductDetails__title  color #eaf1f8
+      span.Badge__badge#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+      p.ProductDetails__lead  color #8598ac
+    div.ProductDetails__main
+      div.ProductDetails__gallery
+        img.ProductDetails__mainPhoto  bg #0e1729  border #1e2b41
+      div.ProductDetails__aside
+        div.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+          p.ProductDetails__area  color #8598ac
+          div.ProductPrice__price
+            p.ProductPrice__main
+              span.ProductPrice__current  color #eaf1f8
+              s.ProductPrice__old  color #7e92a7
+                span  color #7e92a7
+            p.ProductPrice__slot
+              span.Badge__badge  color #fb7185  bg #fb71851f  border #fb718552
+              span.ProductPrice__until  color #8598ac
+          a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content
+              span.Button__label  color #ffffff
+          a.ProductDetails__compare  color #a8b6c6  border #1e2b41
+            span.ProductDetails__compareMark  color #a8b6c6
+      section.ProductDetails__specs  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+        h2.ProductDetails__specsTitle  color #eaf1f8
+        div.ProductDetails__specGroups
+          div.ProductDetails__specGroup
+            h3.ProductDetails__specGroupTitle  color #7e92a7
+            dl.ProductDetails__specList
+              div.ProductDetails__specRow  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+                dt  color #8598ac
+                dd  color #eaf1f8
+              div.ProductDetails__specRow#2  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+                dt  color #8598ac
+                dd  color #eaf1f8
+          div.ProductDetails__specGroup#2
+            h3.ProductDetails__specGroupTitle  color #7e92a7
+            dl.ProductDetails__specList
+              div.ProductDetails__specRow#3  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+                dt  color #8598ac
+                dd  color #eaf1f8
+    aside.Card__card  bg #111d34  border #111d34
+      div.ProductCta__text
+        p.ProductCta__title  color #ffffff
+        p.ProductCta__lead  color #7e92a7
+      div.ProductCta__actions
+        a.Button__button  bg #22d3ee1a  border transparent
+          span.Button__content#2
+            span.Button__label  color #22d3ee
+        a.ProductCta__link  color #22d3ee

@@ -1,0 +1,97 @@
+# ui-kit-autocomplete--variants · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  326×52 @32,32
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  div.Autocomplete__shell  326×52 @0,0
+    input.Autocomplete__input  326×52 @0,0  r999  b1
+div.Field__field#2  326×52 @32,100
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  div.Autocomplete__shell  326×52 @0,0
+    input.Autocomplete__input#2  326×52 @0,0  r999  b1
+div.Field__field#3  326×52 @32,168
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  div.Autocomplete__shell  326×52 @0,0
+    input.Autocomplete__input#3  326×52 @0,0  r999  b1
+div.Field__field#4  326×52 @32,236
+  label.Field__label  57×13 @3,8  Manrope 600 11/13  lines=1  «underlined»
+  div.Autocomplete__shell  326×52 @0,0
+    input.Autocomplete__input#4  326×52 @0,0  b0 0 1 0
+
+[геометрия 768]
+div.Field__field  388×52 @32,32
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  div.Autocomplete__shell  388×52 @0,0
+    input.Autocomplete__input  388×52 @0,0  r999  b1
+div.Field__field#2  388×52 @32,100
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  div.Autocomplete__shell  388×52 @0,0
+    input.Autocomplete__input#2  388×52 @0,0  r999  b1
+div.Field__field#3  388×52 @32,168
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  div.Autocomplete__shell  388×52 @0,0
+    input.Autocomplete__input#3  388×52 @0,0  r999  b1
+div.Field__field#4  388×52 @32,236
+  label.Field__label  57×13 @3,8  Manrope 600 11/13  lines=1  «underlined»
+  div.Autocomplete__shell  388×52 @0,0
+    input.Autocomplete__input#4  388×52 @0,0  b0 0 1 0
+
+[геометрия 1440]
+div.Field__field  388×48 @32,32
+  label.Field__label  18×13 @15,8  Manrope 600 11/13  lines=1  «flat»
+  div.Autocomplete__shell  388×48 @0,0
+    input.Autocomplete__input  388×48 @0,0  r999  b1
+div.Field__field#2  388×48 @32,96
+  label.Field__label  48×13 @15,8  Manrope 600 11/13  lines=1  «bordered»
+  div.Autocomplete__shell  388×48 @0,0
+    input.Autocomplete__input#2  388×48 @0,0  r999  b1
+div.Field__field#3  388×48 @32,160
+  label.Field__label  30×13 @15,8  Manrope 600 11/13  lines=1  «faded»
+  div.Autocomplete__shell  388×48 @0,0
+    input.Autocomplete__input#3  388×48 @0,0  r999  b1
+div.Field__field#4  388×48 @32,224
+  label.Field__label  57×13 @3,8  Manrope 600 11/13  lines=1  «underlined»
+  div.Autocomplete__shell  388×48 @0,0
+    input.Autocomplete__input#4  388×48 @0,0  b0 0 1 0
+
+[палитра light]
+div.Field__field
+  label.Field__label  color #556173
+  div.Autocomplete__shell
+    input.Autocomplete__input  bg #f8fafc  border #7e8fa6
+div.Field__field#2
+  label.Field__label  color #556173
+  div.Autocomplete__shell
+    input.Autocomplete__input#2  border #7e8fa6
+div.Field__field#3
+  label.Field__label  color #556173
+  div.Autocomplete__shell
+    input.Autocomplete__input#3  bg #f8fafc  border #7e8fa6
+div.Field__field#4
+  label.Field__label  color #556173
+  div.Autocomplete__shell
+    input.Autocomplete__input#4  border #0f172a #0f172a #7e8fa6 #0f172a
+
+[палитра dark]
+div.Field__field
+  label.Field__label  color #8598ac
+  div.Autocomplete__shell
+    input.Autocomplete__input  bg #0e1729  border #566d95
+div.Field__field#2
+  label.Field__label  color #8598ac
+  div.Autocomplete__shell
+    input.Autocomplete__input#2  border #566d95
+div.Field__field#3
+  label.Field__label  color #8598ac
+  div.Autocomplete__shell
+    input.Autocomplete__input#3  bg #0e1729  border #566d95
+div.Field__field#4
+  label.Field__label  color #8598ac
+  div.Autocomplete__shell
+    input.Autocomplete__input#4  border #eaf1f8 #eaf1f8 #566d95 #eaf1f8

@@ -1,0 +1,320 @@
+# ui-kit-состояния-блока--ready · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Card__card  326×810 @32,32  r14  b1
+  div.CardBelt__header  324×69 @1,1  b0 0 1 0
+    div.CardBelt__headText  138×38 @16,15
+      h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
+      p.CardBelt__subtitle  138×16 @0,22  Manrope 400 12/16  lines=1  «3 наряда»
+    div.CardBelt__action  92×44 @216,12
+      button.Button__button  92×44 @0,0  r999  b1
+        span.Button__content  62×16 @15,14
+          span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  div.CardBelt__body  324×739 @1,70
+    div.Table__viewport  324×739 @0,0
+      table.Table__table  324×739 @0,0
+        th  83×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
+        th#2  90×56 @83,0  Onest 700 15/23  b0 0 1 0  lines=1  «Объект»
+        th#3  74×56 @173,0  Onest 700 15/23  b0 0 1 0  lines=1  «Срок»
+        th#4  88×56 @247,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+        span  1×1 @352,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr[role=row]  324×240 @0,0  r14  b1
+          th  87×51 @1,5  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1057»
+          td[role=cell]  322×36 @1,56  Manrope 400 15/22  lines=1  «Заказ на Красноармейском»
+            td[role=cell]::before  45×20 @0,0
+          td[role=cell]#2  322×36 @1,93  Manrope 400 15/22  lines=1  «2 сентября»
+            td[role=cell]#2::before  31×20 @0,0
+          td[role=cell]#3  322×42 @1,129
+            td[role=cell]#3::before  43×20 @0,0
+            span.Badge__badge  90×28 @218,7  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+              span.Badge__dot  6×6 @13,11  r100
+          td[role=cell]#4  322×59 @1,176  b1 0 0 0
+            div.TableActions__actions  44×44 @264,8
+              button.IconButton__iconButton  44×44 @0,0  r100  b1
+                svg  20×20 @12,12
+        tr[role=row]#2  324×240 @0,250  r14  b1
+          th  88×51 @1,5  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1058»
+          td[role=cell]  322×36 @1,56  Manrope 400 15/22  lines=1  «Заказ на Ложевой»
+            td[role=cell]::before  45×20 @0,0
+          td[role=cell]#2  322×36 @1,93  Manrope 400 15/22  lines=1  «2 сентября»
+            td[role=cell]#2::before  31×20 @0,0
+          td[role=cell]#3  322×42 @1,129
+            td[role=cell]#3::before  43×20 @0,0
+            span.Badge__badge#2  90×28 @218,7  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+              span.Badge__dot  6×6 @13,11  r100
+          td[role=cell]#4  322×59 @1,176  b1 0 0 0
+            div.TableActions__actions#2  44×44 @264,8
+              button.IconButton__iconButton  44×44 @0,0  r100  b1
+                svg#2  20×20 @12,12
+        tr[role=row]#3  324×240 @0,499  r14  b1
+          th  88×51 @1,5  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1059»
+          td[role=cell]  322×36 @1,56  Manrope 400 15/22  lines=1  «Заказ на Пролетарской»
+            td[role=cell]::before  45×20 @0,0
+          td[role=cell]#2  322×36 @1,93  Manrope 400 15/22  lines=1  «3 сентября»
+            td[role=cell]#2::before  31×20 @0,0
+          td[role=cell]#3  322×42 @1,129
+            td[role=cell]#3::before  43×20 @0,0
+            span.Badge__badge#3  90×28 @218,7  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+              span.Badge__dot  6×6 @13,11  r100
+          td[role=cell]#4  322×59 @1,176  b1 0 0 0
+            div.TableActions__actions#3  44×44 @264,8
+              button.IconButton__iconButton  44×44 @0,0  r100  b1
+                svg#3  20×20 @12,12
+
+[геометрия 768]
+div.Card__card  704×346 @32,32  r14  b1
+  div.CardBelt__header  702×69 @1,1  b0 0 1 0
+    div.CardBelt__headText  138×38 @16,15
+      h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
+      p.CardBelt__subtitle  138×16 @0,22  Manrope 400 12/16  lines=1  «3 наряда»
+    div.CardBelt__action  92×44 @594,12
+      button.Button__button  92×44 @0,0  r999  b1
+        span.Button__content  62×16 @15,14
+          span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  div.CardBelt__body  702×275 @1,70
+    div.Table__viewport  702×275 @0,0
+      table.Table__table  702×275 @0,0
+        th  98×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
+        th#2  250×56 @98,0  Onest 700 15/23  b0 0 1 0  lines=1  «Объект»
+        th#3  125×56 @348,0  Onest 700 15/23  b0 0 1 0  lines=1  «Срок»
+        th#4  140×56 @473,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+        span  1×1 @630,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr[role=row]  702×73 @0,56
+          th  98×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1057»
+          td[role=cell]  250×73 @98,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Красноармейском»
+          td[role=cell]#2  125×73 @348,0  Manrope 400 15/22  b0 0 1 0  lines=1  «2 сентября»
+          td[role=cell]#3  140×73 @473,0  b0 0 1 0
+            span.Badge__badge  90×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+              span.Badge__dot  6×6 @13,11  r100
+          td[role=cell]#4  89×73 @613,0  b0 0 1 0
+            div.TableActions__actions  53×44 @18,15
+              button.IconButton__iconButton  44×44 @9,0  r100  b1
+                svg  20×20 @12,12
+        tr[role=row]#2  702×73 @0,129
+          th  98×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1058»
+          td[role=cell]  250×73 @98,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Ложевой»
+          td[role=cell]#2  125×73 @348,0  Manrope 400 15/22  b0 0 1 0  lines=1  «2 сентября»
+          td[role=cell]#3  140×73 @473,0  b0 0 1 0
+            span.Badge__badge#2  90×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+              span.Badge__dot  6×6 @13,11  r100
+          td[role=cell]#4  89×73 @613,0  b0 0 1 0
+            div.TableActions__actions#2  53×44 @18,15
+              button.IconButton__iconButton  44×44 @9,0  r100  b1
+                svg#2  20×20 @12,12
+        tr[role=row]#3  702×73 @0,202
+          th  98×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1059»
+          td[role=cell]  250×73 @98,0  Manrope 400 15/22  lines=1  «Заказ на Пролетарской»
+          td[role=cell]#2  125×73 @348,0  Manrope 400 15/22  lines=1  «3 сентября»
+          td[role=cell]#3  140×73 @473,0
+            span.Badge__badge#3  90×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+              span.Badge__dot  6×6 @13,11  r100
+          td[role=cell]#4  89×73 @613,0
+            div.TableActions__actions#3  53×44 @18,15
+              button.IconButton__iconButton  44×44 @9,0  r100  b1
+                svg#3  20×20 @12,12
+
+[геометрия 1440]
+div.Card__card  1376×303 @32,32  r14  b1
+  div.CardBelt__header  1374×63 @1,1  b0 0 1 0
+    div.CardBelt__headText  138×38 @16,12
+      h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
+      p.CardBelt__subtitle  138×16 @0,22  Manrope 400 12/16  lines=1  «3 наряда»
+    div.CardBelt__action  92×32 @1266,15
+      button.Button__button  92×32 @0,0  r999  b1
+        span.Button__content  62×16 @15,8
+          span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  div.CardBelt__body  1374×239 @1,64
+    div.Table__viewport  1374×239 @0,0
+      table.Table__table  1374×239 @0,0
+        th  195×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
+        th#2  500×56 @195,0  Onest 700 15/23  b0 0 1 0  lines=1  «Объект»
+        th#3  249×56 @695,0  Onest 700 15/23  b0 0 1 0  lines=1  «Срок»
+        th#4  279×56 @944,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+        span  1×1 @1240,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr[role=row]  1374×61 @0,56
+          th  195×61 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1057»
+          td[role=cell]  500×61 @195,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Красноармейском»
+          td[role=cell]#2  249×61 @695,0  Manrope 400 15/22  b0 0 1 0  lines=1  «2 сентября»
+          td[role=cell]#3  279×61 @944,0  b0 0 1 0
+            span.Badge__badge  90×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+              span.Badge__dot  6×6 @13,11  r100
+          td[role=cell]#4  151×61 @1223,0  b0 0 1 0
+            div.TableActions__actions  115×32 @18,15
+              button.IconButton__iconButton  32×32 @83,0  r100  b1
+                svg  20×20 @6,6
+        tr[role=row]#2  1374×61 @0,117
+          th  195×61 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1058»
+          td[role=cell]  500×61 @195,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Заказ на Ложевой»
+          td[role=cell]#2  249×61 @695,0  Manrope 400 15/22  b0 0 1 0  lines=1  «2 сентября»
+          td[role=cell]#3  279×61 @944,0  b0 0 1 0
+            span.Badge__badge#2  90×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+              span.Badge__dot  6×6 @13,11  r100
+          td[role=cell]#4  151×61 @1223,0  b0 0 1 0
+            div.TableActions__actions#2  115×32 @18,15
+              button.IconButton__iconButton  32×32 @83,0  r100  b1
+                svg#2  20×20 @6,6
+        tr[role=row]#3  1374×61 @0,178
+          th  195×61 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1059»
+          td[role=cell]  500×61 @195,0  Manrope 400 15/22  lines=1  «Заказ на Пролетарской»
+          td[role=cell]#2  249×61 @695,0  Manrope 400 15/22  lines=1  «3 сентября»
+          td[role=cell]#3  279×61 @944,0
+            span.Badge__badge#3  90×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+              span.Badge__dot  6×6 @13,11  r100
+          td[role=cell]#4  151×61 @1223,0
+            div.TableActions__actions#3  115×32 @18,15
+              button.IconButton__iconButton  32×32 @83,0  r100  b1
+                svg#3  20×20 @6,6
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+  div.CardBelt__header  border #475569 #475569 #e2e8f0 #475569
+    div.CardBelt__headText
+      h3.CardBelt__title  color #0f172a
+      p.CardBelt__subtitle  color #556173
+    div.CardBelt__action
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label  color #ffffff
+  div.CardBelt__body
+    div.Table__viewport
+      table.Table__table
+        th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#4  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        span  color #0f172a
+        tr[role=row]  bg #f5f8fa
+          th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+          td[role=cell]#2  color #556173  border #556173 #556173 #eef2f6 #556173
+          td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+            span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+              span.Badge__dot  bg #0e7490
+          td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+            div.TableActions__actions
+              button.IconButton__iconButton  border transparent
+                svg
+        tr[role=row]#2  bg #edf2f6
+          th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+          td[role=cell]#2  color #556173  border #556173 #556173 #eef2f6 #556173
+          td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+            span.Badge__badge#2  color #0e7490  bg #ecfeff  border #a5f3fc
+              span.Badge__dot  bg #0e7490
+          td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+            div.TableActions__actions#2
+              button.IconButton__iconButton  border transparent
+                svg#2
+        tr[role=row]#3  bg #f5f8fa
+          th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          td[role=cell]  color #334155
+          td[role=cell]#2  color #556173
+          td[role=cell]#3
+            span.Badge__badge#3  color #0e7490  bg #ecfeff  border #a5f3fc
+              span.Badge__dot  bg #0e7490
+          td[role=cell]#4
+            div.TableActions__actions#3
+              button.IconButton__iconButton  border transparent
+                svg#3
+[палитра light @390]
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]  bg #ffffff  border #e2e8f0
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]  color #334155
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell] > td[role=cell]::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#2  color #556173
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#2 > td[role=cell]#2::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#3
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#3 > td[role=cell]#3::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #edf2f6  border #e2e8f0
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]  color #334155
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2  color #556173
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3 > td[role=cell]#3::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #ffffff  border #e2e8f0
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3 > td[role=cell]#3::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+  div.CardBelt__header  border #a8b6c6 #a8b6c6 #1e2b41 #a8b6c6
+    div.CardBelt__headText
+      h3.CardBelt__title  color #eaf1f8
+      p.CardBelt__subtitle  color #8598ac
+    div.CardBelt__action
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label  color #ffffff
+  div.CardBelt__body
+    div.Table__viewport
+      table.Table__table
+        th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#4  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        span  color #eaf1f8
+        tr[role=row]  bg #121d31
+          th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td[role=cell]#2  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+          td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+              span.Badge__dot  bg #22d3ee
+          td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            div.TableActions__actions
+              button.IconButton__iconButton  border transparent
+                svg
+        tr[role=row]#2  bg #16223a
+          th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td[role=cell]#2  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+          td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            span.Badge__badge#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+              span.Badge__dot  bg #22d3ee
+          td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            div.TableActions__actions#2
+              button.IconButton__iconButton  border transparent
+                svg#2
+        tr[role=row]#3  bg #121d31
+          th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          td[role=cell]  color #c9d5e2
+          td[role=cell]#2  color #8598ac
+          td[role=cell]#3
+            span.Badge__badge#3  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+              span.Badge__dot  bg #22d3ee
+          td[role=cell]#4
+            div.TableActions__actions#3
+              button.IconButton__iconButton  border transparent
+                svg#3
+[палитра dark @390]
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]  bg #121d31  border #1e2b41
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]  color #c9d5e2
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell] > td[role=cell]::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#2  color #8598ac
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#2 > td[role=cell]#2::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#3
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#3 > td[role=cell]#3::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #16223a  border #1e2b41
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]  color #c9d5e2
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2  color #8598ac
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3 > td[role=cell]#3::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #121d31  border #1e2b41
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3 > td[role=cell]#3::before
+div.Card__card > div.CardBelt__body > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2

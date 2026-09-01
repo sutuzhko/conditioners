@@ -1,0 +1,42 @@
+# админка-календарь-предупреждение-о-занятости--чужаязанятость · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+p.BusyNote__note  358×55 @16,16  r11  b1
+  svg.BusyNote__icon  18×18 @11,10
+  span.BusyNote__body  280×37 @37,9
+    span.BusyNote__title  280×18 @0,0  Manrope 600 13/18  lines=1  «Дмитрий — день закрыт: отпуск»
+    span.BusyNote__hint  280×17 @0,20  Manrope 400 12/17  lines=1  «Запись всё равно сохранится — решение за»
+
+[геометрия 768]
+p.BusyNote__note  736×55 @16,16  r11  b1
+  svg.BusyNote__icon  18×18 @11,10
+  span.BusyNote__body  280×37 @37,9
+    span.BusyNote__title  280×18 @0,0  Manrope 600 13/18  lines=1  «Дмитрий — день закрыт: отпуск»
+    span.BusyNote__hint  280×17 @0,20  Manrope 400 12/17  lines=1  «Запись всё равно сохранится — решение за»
+
+[геометрия 1440]
+p.BusyNote__note  1408×55 @16,16  r11  b1
+  svg.BusyNote__icon  18×18 @11,10
+  span.BusyNote__body  280×37 @37,9
+    span.BusyNote__title  280×18 @0,0  Manrope 600 13/18  lines=1  «Дмитрий — день закрыт: отпуск»
+    span.BusyNote__hint  280×17 @0,20  Manrope 400 12/17  lines=1  «Запись всё равно сохранится — решение за»
+
+[палитра light]
+p.BusyNote__note  bg #b4530914  border #b4530947
+  svg.BusyNote__icon
+  span.BusyNote__body
+    span.BusyNote__title  color #92400e
+    span.BusyNote__hint  color #475569
+
+[палитра dark]
+p.BusyNote__note  bg #fbbf241f  border #fbbf2452
+  svg.BusyNote__icon
+  span.BusyNote__body
+    span.BusyNote__title  color #fbbf24
+    span.BusyNote__hint  color #a8b6c6

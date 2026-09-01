@@ -1,0 +1,77 @@
+# ui-kit-badge--status-dictionary · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Badge__badge  76×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «Новый»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#2  95×28 @102,16  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#3  90×28 @207,16  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#4  98×28 @16,54  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#5  72×28 @124,54  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#6  98×28 @206,54  Manrope 600 12/16  r100  b1  lines=1  «В очереди»
+  span.Badge__dot  6×6 @13,11  r100
+
+[геометрия 768]
+span.Badge__badge  76×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «Новый»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#2  95×28 @102,16  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#3  90×28 @207,16  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#4  98×28 @307,16  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#5  72×28 @415,16  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#6  98×28 @497,16  Manrope 600 12/16  r100  b1  lines=1  «В очереди»
+  span.Badge__dot  6×6 @13,11  r100
+
+[геометрия 1440]
+span.Badge__badge  76×28 @16,16  Manrope 600 12/16  r100  b1  lines=1  «Новый»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#2  95×28 @102,16  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#3  90×28 @207,16  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#4  98×28 @307,16  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#5  72×28 @415,16  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
+  span.Badge__dot  6×6 @13,11  r100
+span.Badge__badge#6  98×28 @497,16  Manrope 600 12/16  r100  b1  lines=1  «В очереди»
+  span.Badge__dot  6×6 @13,11  r100
+
+[палитра light]
+span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+  span.Badge__dot  bg #556173
+span.Badge__badge#2  color #92400e  bg #b4530914  border #b4530947
+  span.Badge__dot  bg #92400e
+span.Badge__badge#3  color #0e7490  bg #ecfeff  border #a5f3fc
+  span.Badge__dot  bg #0e7490
+span.Badge__badge#4  color #166534  bg #15803d14  border #15803d47
+  span.Badge__dot  bg #166534
+span.Badge__badge#5  color #be123c  bg #be123c14  border #be123c73
+  span.Badge__dot  bg #be123c
+span.Badge__badge#6  color #4338ca  bg #4338ca14  border #4338ca47
+  span.Badge__dot  bg #4338ca
+
+[палитра dark]
+span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+  span.Badge__dot  bg #8598ac
+span.Badge__badge#2  color #fbbf24  bg #fbbf241f  border #fbbf2452
+  span.Badge__dot  bg #fbbf24
+span.Badge__badge#3  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+  span.Badge__dot  bg #22d3ee
+span.Badge__badge#4  color #4ade80  bg #4ade801f  border #4ade8052
+  span.Badge__dot  bg #4ade80
+span.Badge__badge#5  color #fb7185  bg #fb71851f  border #fb718580
+  span.Badge__dot  bg #fb7185
+span.Badge__badge#6  color #a5b4fc  bg #a5b4fc1f  border #a5b4fc52
+  span.Badge__dot  bg #a5b4fc

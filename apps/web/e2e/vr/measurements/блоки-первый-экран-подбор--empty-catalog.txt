@@ -1,0 +1,74 @@
+# блоки-первый-экран-подбор--empty-catalog · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+div.Card__card  288×257 @16,16  r24  b1
+  div.HeroPicker__head  254×17 @17,17
+    h2.HeroPicker__eyebrow  169×17 @0,0  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+  div.HeroPicker__empty  254×194 @17,46
+    p.HeroPicker__emptyTitle  217×26 @0,0  Onest 700 17/26  lines=1  «Каталог ещё наполняется»
+    p.HeroPicker__emptyText  254×90 @0,36  Manrope 400 15/22  lines=4  «Моделей на витрине пока нет. Подберём по»
+    a.Button__button  254×52 @0,142  r12  b1
+      span.Button__content  189×19 @32,16
+        span.Button__label  189×19 @0,0  Manrope 600 16/19  lines=1  «Подобрать по телефону»
+
+[геометрия 375]
+div.Card__card  343×235 @16,16  r24  b1
+  div.HeroPicker__head  309×17 @17,17
+    h2.HeroPicker__eyebrow  169×17 @0,0  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+  div.HeroPicker__empty  309×172 @17,46
+    p.HeroPicker__emptyTitle  219×27 @0,0  Onest 700 17/27  lines=1  «Каталог ещё наполняется»
+    p.HeroPicker__emptyText  309×67 @0,37  Manrope 400 15/22  lines=3  «Моделей на витрине пока нет. Подберём по»
+    a.Button__button  309×52 @0,120  r12  b1
+      span.Button__content  189×19 @60,16
+        span.Button__label  189×19 @0,0  Manrope 600 16/19  lines=1  «Подобрать по телефону»
+
+[геометрия 768]
+div.Card__card  736×226 @16,16  r24  b1
+  div.HeroPicker__head  690×17 @23,23
+    h2.HeroPicker__eyebrow  169×17 @0,0  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+  div.HeroPicker__empty  690×151 @23,52
+    p.HeroPicker__emptyTitle  230×28 @0,0  Onest 700 18/28  lines=1  «Каталог ещё наполняется»
+    p.HeroPicker__emptyText  690×45 @0,38  Manrope 400 15/22  lines=2  «Моделей на витрине пока нет. Подберём по»
+    a.Button__button  690×52 @0,99  r12  b1
+      span.Button__content  189×19 @250,16
+        span.Button__label  189×19 @0,0  Manrope 600 16/19  lines=1  «Подобрать по телефону»
+
+[геометрия 1200]
+div.Card__card  1168×205 @16,16  r24  b1
+  div.HeroPicker__head  1122×17 @23,23
+    h2.HeroPicker__eyebrow  169×17 @0,0  JetBrains Mono 400 12/17  ls2  lines=1  «Подбор за 30 секунд»
+  div.HeroPicker__empty  1122×130 @23,52
+    p.HeroPicker__emptyTitle  243×29 @0,0  Onest 700 19/29  lines=1  «Каталог ещё наполняется»
+    p.HeroPicker__emptyText  754×22 @0,39  Manrope 400 15/22  lines=1  «Моделей на витрине пока нет. Подберём по»
+    a.Button__button  1122×52 @0,78  r12  b1
+      span.Button__content  189×19 @466,16
+        span.Button__label  189×19 @0,0  Manrope 600 16/19  lines=1  «Подобрать по телефону»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #08425473 0px 36px 80px -32px
+  div.HeroPicker__head
+    h2.HeroPicker__eyebrow  color #0e7490
+  div.HeroPicker__empty
+    p.HeroPicker__emptyTitle  color #0f172a
+    p.HeroPicker__emptyText  color #475569
+    a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #08425473 0px 36px 80px -32px
+  div.HeroPicker__head
+    h2.HeroPicker__eyebrow  color #22d3ee
+  div.HeroPicker__empty
+    p.HeroPicker__emptyTitle  color #eaf1f8
+    p.HeroPicker__emptyText  color #a8b6c6
+    a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff

@@ -1,0 +1,37 @@
+# ui-kit-chip--group · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div[role=group]  358×44 @16,16
+  button.Chip__chip  106×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Квартира»
+  button.Chip__chip#2  131×44 @116,0  Manrope 600 15/17  r100  b1  lines=1  «Частный дом»
+  button.Chip__chip#3  76×44 @256,0  Manrope 600 15/17  r100  b1  lines=1  «Офис»
+
+[геометрия 768]
+div[role=group]  736×44 @16,16
+  button.Chip__chip  106×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Квартира»
+  button.Chip__chip#2  131×44 @116,0  Manrope 600 15/17  r100  b1  lines=1  «Частный дом»
+  button.Chip__chip#3  76×44 @256,0  Manrope 600 15/17  r100  b1  lines=1  «Офис»
+
+[геометрия 1440]
+div[role=group]  1408×44 @16,16
+  button.Chip__chip  106×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Квартира»
+  button.Chip__chip#2  131×44 @116,0  Manrope 600 15/17  r100  b1  lines=1  «Частный дом»
+  button.Chip__chip#3  76×44 @256,0  Manrope 600 15/17  r100  b1  lines=1  «Офис»
+
+[палитра light]
+div[role=group]
+  button.Chip__chip  color #ffffff  bg #0e7490  border #0e7490
+  button.Chip__chip#2  color #475569  border #7e8fa6
+  button.Chip__chip#3  color #475569  border #7e8fa6
+
+[палитра dark]
+div[role=group]
+  button.Chip__chip  color #ffffff  bg #0e7490  border #0e7490
+  button.Chip__chip#2  color #a8b6c6  border #566d95
+  button.Chip__chip#3  color #a8b6c6  border #566d95

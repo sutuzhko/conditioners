@@ -1,0 +1,67 @@
+# админка-календарь-управляющий-слой--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.CalendarCreate__buttons  358×44 @16,16
+  button.Button__button  184×44 @0,0  r9  b1
+    span.Button__content  154×16 @15,14
+      svg  16×16 @0,0
+      span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
+  button.Button__button#2  132×44 @190,0  r9  b1
+    span.Button__content  102×20 @15,12
+      svg#2  20×20 @0,0
+      span.Button__label#2  74×16 @28,2  Manrope 600 13/16  lines=1  «Новое дело»
+p.CalendarStage__note  358×13 @16,60
+
+[геометрия 768]
+div.CalendarCreate__buttons  736×44 @16,16
+  button.Button__button  184×44 @0,0  r9  b1
+    span.Button__content  154×16 @15,14
+      svg  16×16 @0,0
+      span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
+  button.Button__button#2  132×44 @190,0  r9  b1
+    span.Button__content  102×20 @15,12
+      svg#2  20×20 @0,0
+      span.Button__label#2  74×16 @28,2  Manrope 600 13/16  lines=1  «Новое дело»
+p.CalendarStage__note  736×13 @16,60
+
+[геометрия 1440]
+div.CalendarCreate__buttons  1408×40 @16,16
+  button.Button__button  184×40 @0,0  r9  b1
+    span.Button__content  154×16 @15,12
+      svg  16×16 @0,0
+      span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
+  button.Button__button#2  132×40 @190,0  r9  b1
+    span.Button__content  102×20 @15,10
+      svg#2  20×20 @0,0
+      span.Button__label#2  74×16 @28,2  Manrope 600 13/16  lines=1  «Новое дело»
+p.CalendarStage__note  1408×13 @16,56
+
+[палитра light]
+div.CalendarCreate__buttons
+  button.Button__button  border transparent
+    span.Button__content
+      svg
+      span.Button__label  color #0e7490
+  button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    span.Button__content
+      svg#2
+      span.Button__label#2  color #ffffff
+p.CalendarStage__note
+
+[палитра dark]
+div.CalendarCreate__buttons
+  button.Button__button  border transparent
+    span.Button__content
+      svg
+      span.Button__label  color #22d3ee
+  button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    span.Button__content
+      svg#2
+      span.Button__label#2  color #ffffff
+p.CalendarStage__note

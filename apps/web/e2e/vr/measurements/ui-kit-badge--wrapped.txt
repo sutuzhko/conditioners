@@ -1,0 +1,22 @@
+# ui-kit-badge--wrapped · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span.Badge__badge  260×61 @16,16  Manrope 600 12/16  r100  b1  lines=3  «Тула и область — выезд в день обращения,»
+
+[геометрия 768]
+span.Badge__badge  260×61 @16,16  Manrope 600 12/16  r100  b1  lines=3  «Тула и область — выезд в день обращения,»
+
+[геометрия 1440]
+span.Badge__badge  260×61 @16,16  Manrope 600 12/16  r100  b1  lines=3  «Тула и область — выезд в день обращения,»
+
+[палитра light]
+span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+
+[палитра dark]
+span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59

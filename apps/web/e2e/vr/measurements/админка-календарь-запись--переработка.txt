@@ -1,0 +1,57 @@
+# админка-календарь-запись--переработка · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 600, Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.EventChip__chip  358×22 @16,16  r100  b1 1 1 3
+  span.EventChip__head  52×15 @9,4
+    svg.EventChip__icon  12×12 @0,2
+    span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «19:00»
+  span.EventChip__name  185×15 @66,4  Manrope 600 12/15  lines=1  «Анна Дьякова»
+  span.EventChip__overtimeMark  93×15 @256,4
+    svg  11×11 @0,2
+    span.EventChip__markWord  79×15 @14,0  Manrope 700 12/15  lines=1  «Переработка»
+
+[геометрия 768]
+button.EventChip__chip  736×22 @16,16  r100  b1 1 1 3
+  span.EventChip__head  52×15 @9,4
+    svg.EventChip__icon  12×12 @0,2
+    span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «19:00»
+  span.EventChip__name  563×15 @66,4  Manrope 600 12/15  lines=1  «Анна Дьякова»
+  span.EventChip__overtimeMark  93×15 @634,4
+    svg  11×11 @0,2
+    span.EventChip__markWord  79×15 @14,0  Manrope 700 12/15  lines=1  «Переработка»
+
+[геометрия 1440]
+button.EventChip__chip  1408×22 @16,16  r100  b1 1 1 3
+  span.EventChip__head  52×15 @9,4
+    svg.EventChip__icon  12×12 @0,2
+    span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «19:00»
+  span.EventChip__name  1235×15 @66,4  Manrope 600 12/15  lines=1  «Анна Дьякова»
+  span.EventChip__overtimeMark  93×15 @1306,4
+    svg  11×11 @0,2
+    span.EventChip__markWord  79×15 @14,0  Manrope 700 12/15  lines=1  «Переработка»
+
+[палитра light]
+button.EventChip__chip  bg #15803d14  border #b4530947
+  span.EventChip__head
+    svg.EventChip__icon
+    span.EventChip__time  color #166534
+  span.EventChip__name  color #166534
+  span.EventChip__overtimeMark
+    svg
+    span.EventChip__markWord  color #166534
+
+[палитра dark]
+button.EventChip__chip  bg #4ade801f  border #fbbf2452
+  span.EventChip__head
+    svg.EventChip__icon
+    span.EventChip__time  color #4ade80
+  span.EventChip__name  color #4ade80
+  span.EventChip__overtimeMark
+    svg
+    span.EventChip__markWord  color #4ade80

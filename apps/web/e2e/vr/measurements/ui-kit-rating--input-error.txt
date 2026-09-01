@@ -1,0 +1,167 @@
+# ui-kit-rating--input-error · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+fieldset.Rating__fieldset  358×96 @16,16
+  legend.Field__label  60×20 @0,0  Manrope 600 13/20  lines=1  «Оценка»
+    span.Field__required  9×18 @50,1  Manrope 600 13/20  lines=1  «*»
+  span.Rating__stars  358×49 @0,20
+    span.Rating__cell  44×49 @0,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star  20×20 @12,15
+        span  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 1 из 5»
+    span.Rating__cell#2  44×49 @50,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star#2  20×20 @12,15
+        span#2  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 2 из 5»
+    span.Rating__cell#3  44×49 @100,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star#3  20×20 @12,15
+        span#3  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 3 из 5»
+    span.Rating__cell#4  44×49 @150,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star#4  20×20 @12,15
+        span#4  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 4 из 5»
+    span.Rating__cell#5  44×49 @200,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star#5  20×20 @12,15
+        span#5  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 5 из 5»
+  p.Field__error  358×19 @0,76  Manrope 600 13/19  lines=1  «Поставьте оценку — без неё отзыв не прин»
+
+[геометрия 768]
+fieldset.Rating__fieldset  736×96 @16,16
+  legend.Field__label  60×20 @0,0  Manrope 600 13/20  lines=1  «Оценка»
+    span.Field__required  9×18 @50,1  Manrope 600 13/20  lines=1  «*»
+  span.Rating__stars  736×49 @0,20
+    span.Rating__cell  44×49 @0,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star  20×20 @12,15
+        span  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 1 из 5»
+    span.Rating__cell#2  44×49 @50,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star#2  20×20 @12,15
+        span#2  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 2 из 5»
+    span.Rating__cell#3  44×49 @100,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star#3  20×20 @12,15
+        span#3  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 3 из 5»
+    span.Rating__cell#4  44×49 @150,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star#4  20×20 @12,15
+        span#4  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 4 из 5»
+    span.Rating__cell#5  44×49 @200,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star#5  20×20 @12,15
+        span#5  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 5 из 5»
+  p.Field__error  736×19 @0,76  Manrope 600 13/19  lines=1  «Поставьте оценку — без неё отзыв не прин»
+
+[геометрия 1440]
+fieldset.Rating__fieldset  1408×96 @16,16
+  legend.Field__label  60×20 @0,0  Manrope 600 13/20  lines=1  «Оценка»
+    span.Field__required  9×18 @50,1  Manrope 600 13/20  lines=1  «*»
+  span.Rating__stars  1408×49 @0,20
+    span.Rating__cell  44×49 @0,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star  20×20 @12,15
+        span  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 1 из 5»
+    span.Rating__cell#2  44×49 @50,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star#2  20×20 @12,15
+        span#2  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 2 из 5»
+    span.Rating__cell#3  44×49 @100,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star#3  20×20 @12,15
+        span#3  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 3 из 5»
+    span.Rating__cell#4  44×49 @150,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star#4  20×20 @12,15
+        span#4  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 4 из 5»
+    span.Rating__cell#5  44×49 @200,0
+      input.Rating__radio  1×1 @-1,-1
+      label.Rating__option  44×49 @0,0  r11  b1
+        svg.Rating__star#5  20×20 @12,15
+        span#5  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 5 из 5»
+  p.Field__error  1408×19 @0,76  Manrope 600 13/19  lines=1  «Поставьте оценку — без неё отзыв не прин»
+
+[палитра light]
+fieldset.Rating__fieldset
+  legend.Field__label  color #334155
+    span.Field__required  color #0e7490
+  span.Rating__stars
+    span.Rating__cell
+      input.Rating__radio
+      label.Rating__option  border #cbd5e1
+        svg.Rating__star
+        span  color #cbd5e1
+    span.Rating__cell#2
+      input.Rating__radio
+      label.Rating__option  border #cbd5e1
+        svg.Rating__star#2
+        span#2  color #cbd5e1
+    span.Rating__cell#3
+      input.Rating__radio
+      label.Rating__option  border #cbd5e1
+        svg.Rating__star#3
+        span#3  color #cbd5e1
+    span.Rating__cell#4
+      input.Rating__radio
+      label.Rating__option  border #cbd5e1
+        svg.Rating__star#4
+        span#4  color #cbd5e1
+    span.Rating__cell#5
+      input.Rating__radio
+      label.Rating__option  border #cbd5e1
+        svg.Rating__star#5
+        span#5  color #cbd5e1
+  p.Field__error  color #be123c
+
+[палитра dark]
+fieldset.Rating__fieldset
+  legend.Field__label  color #c9d5e2
+    span.Field__required  color #22d3ee
+  span.Rating__stars
+    span.Rating__cell
+      input.Rating__radio
+      label.Rating__option  border #2c3d59
+        svg.Rating__star
+        span  color #2c3d59
+    span.Rating__cell#2
+      input.Rating__radio
+      label.Rating__option  border #2c3d59
+        svg.Rating__star#2
+        span#2  color #2c3d59
+    span.Rating__cell#3
+      input.Rating__radio
+      label.Rating__option  border #2c3d59
+        svg.Rating__star#3
+        span#3  color #2c3d59
+    span.Rating__cell#4
+      input.Rating__radio
+      label.Rating__option  border #2c3d59
+        svg.Rating__star#4
+        span#4  color #2c3d59
+    span.Rating__cell#5
+      input.Rating__radio
+      label.Rating__option  border #2c3d59
+        svg.Rating__star#5
+        span#5  color #2c3d59
+  p.Field__error  color #fb7185

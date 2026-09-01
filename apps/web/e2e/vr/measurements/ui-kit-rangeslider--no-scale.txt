@@ -1,0 +1,42 @@
+# ui-kit-rangeslider--no-scale · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 700, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  358×76 @16,16
+  span.RangeSlider__head  358×25 @0,0
+    label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+    output.RangeSlider__value  41×25 @317,0  Onest 700 16/25  lines=1  «25 м²»
+  input.RangeSlider__slider  358×44 @0,32
+
+[геометрия 768]
+div.Field__field  736×76 @16,16
+  span.RangeSlider__head  736×25 @0,0
+    label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+    output.RangeSlider__value  41×25 @695,0  Onest 700 16/25  lines=1  «25 м²»
+  input.RangeSlider__slider  736×44 @0,32
+
+[геометрия 1440]
+div.Field__field  1408×76 @16,16
+  span.RangeSlider__head  1408×25 @0,0
+    label  157×23 @0,0  Manrope 700 15/23  lines=1  «Площадь помещения»
+    output.RangeSlider__value  41×25 @1367,0  Onest 700 16/25  lines=1  «25 м²»
+  input.RangeSlider__slider  1408×44 @0,32
+
+[палитра light]
+div.Field__field
+  span.RangeSlider__head
+    label  color #0f172a
+    output.RangeSlider__value  color #0e7490
+  input.RangeSlider__slider
+
+[палитра dark]
+div.Field__field
+  span.RangeSlider__head
+    label  color #eaf1f8
+    output.RangeSlider__value  color #22d3ee
+  input.RangeSlider__slider

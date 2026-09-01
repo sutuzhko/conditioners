@@ -1,0 +1,277 @@
+# ui-kit-input--variant-states · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×1604
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Field__field  358×76 @16,16
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «flat · пусто»
+  input  358×49 @0,27  r11  b1
+div.Field__field#2  358×76 @16,108
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «flat · значение»
+  input  358×49 @0,27  r11  b1
+div.Field__field#3  358×103 @16,200
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «flat · ошибка»
+  input  358×49 @0,27  r11  b1
+  p.Field__error  358×19 @0,83  Manrope 600 13/19  lines=1  «Введите номер полностью»
+div.Field__field#4  358×76 @16,319
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «flat · отключено»
+  input  358×49 @0,27  r11  b1
+div.Field__field#5  358×76 @16,415
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «bordered · пусто»
+  input  358×49 @0,27  r11  b1
+div.Field__field#6  358×76 @16,507
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «bordered · значение»
+  input  358×49 @0,27  r11  b1
+div.Field__field#7  358×103 @16,599
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «bordered · ошибка»
+  input  358×49 @0,27  r11  b1
+  p.Field__error  358×19 @0,83  Manrope 600 13/19  lines=1  «Введите номер полностью»
+div.Field__field#8  358×76 @16,718
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «bordered · отключено»
+  input  358×49 @0,27  r11  b1
+div.Field__field#9  358×76 @16,814
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «faded · пусто»
+  input  358×49 @0,27  r11  b1
+div.Field__field#10  358×76 @16,906
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «faded · значение»
+  input  358×49 @0,27  r11  b1
+div.Field__field#11  358×103 @16,998
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «faded · ошибка»
+  input  358×49 @0,27  r11  b1
+  p.Field__error  358×19 @0,83  Manrope 600 13/19  lines=1  «Введите номер полностью»
+div.Field__field#12  358×76 @16,1117
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «faded · отключено»
+  input  358×49 @0,27  r11  b1
+div.Field__field#13  358×75 @16,1213
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «underlined · пусто»
+  input  358×48 @0,27  b0 0 1 0
+div.Field__field#14  358×75 @16,1304
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «underlined · значение»
+  input  358×48 @0,27  b0 0 1 0
+div.Field__field#15  358×102 @16,1395
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «underlined · ошибка»
+  input  358×48 @0,27  b0 0 1 0
+  p.Field__error  358×19 @0,82  Manrope 600 13/19  lines=1  «Введите номер полностью»
+div.Field__field#16  358×75 @16,1513
+  label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «underlined · отключено»
+  input  358×48 @0,27  b0 0 1 0
+
+[геометрия 768]
+div.Field__field  235×103 @16,16
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «flat · пусто»
+  input  235×49 @0,27  r11  b1
+div.Field__field#2  235×103 @267,16
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «flat · значение»
+  input  235×49 @0,27  r11  b1
+div.Field__field#3  235×103 @517,16
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «flat · ошибка»
+  input  235×49 @0,27  r11  b1
+  p.Field__error  235×19 @0,83  Manrope 600 13/19  lines=1  «Введите номер полностью»
+div.Field__field#4  235×76 @16,135
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «flat · отключено»
+  input  235×49 @0,27  r11  b1
+div.Field__field#5  235×103 @16,231
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «bordered · пусто»
+  input  235×49 @0,27  r11  b1
+div.Field__field#6  235×103 @267,231
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «bordered · значение»
+  input  235×49 @0,27  r11  b1
+div.Field__field#7  235×103 @517,231
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «bordered · ошибка»
+  input  235×49 @0,27  r11  b1
+  p.Field__error  235×19 @0,83  Manrope 600 13/19  lines=1  «Введите номер полностью»
+div.Field__field#8  235×76 @16,349
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «bordered · отключено»
+  input  235×49 @0,27  r11  b1
+div.Field__field#9  235×103 @16,445
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «faded · пусто»
+  input  235×49 @0,27  r11  b1
+div.Field__field#10  235×103 @267,445
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «faded · значение»
+  input  235×49 @0,27  r11  b1
+div.Field__field#11  235×103 @517,445
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «faded · ошибка»
+  input  235×49 @0,27  r11  b1
+  p.Field__error  235×19 @0,83  Manrope 600 13/19  lines=1  «Введите номер полностью»
+div.Field__field#12  235×76 @16,564
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «faded · отключено»
+  input  235×49 @0,27  r11  b1
+div.Field__field#13  235×102 @16,660
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «underlined · пусто»
+  input  235×48 @0,27  b0 0 1 0
+div.Field__field#14  235×102 @267,660
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «underlined · значение»
+  input  235×48 @0,27  b0 0 1 0
+div.Field__field#15  235×102 @517,660
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «underlined · ошибка»
+  input  235×48 @0,27  b0 0 1 0
+  p.Field__error  235×19 @0,82  Manrope 600 13/19  lines=1  «Введите номер полностью»
+div.Field__field#16  235×75 @16,777
+  label.Field__label  235×20 @0,0  Manrope 600 13/20  lines=1  «underlined · отключено»
+  input  235×48 @0,27  b0 0 1 0
+
+[геометрия 1440]
+div.Field__field  340×103 @16,16
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «flat · пусто»
+  input  340×49 @0,27  r11  b1
+div.Field__field#2  340×103 @372,16
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «flat · значение»
+  input  340×49 @0,27  r11  b1
+div.Field__field#3  340×103 @728,16
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «flat · ошибка»
+  input  340×49 @0,27  r11  b1
+  p.Field__error  340×19 @0,83  Manrope 600 13/19  lines=1  «Введите номер полностью»
+div.Field__field#4  340×103 @1084,16
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «flat · отключено»
+  input  340×49 @0,27  r11  b1
+div.Field__field#5  340×103 @16,139
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «bordered · пусто»
+  input  340×49 @0,27  r11  b1
+div.Field__field#6  340×103 @372,139
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «bordered · значение»
+  input  340×49 @0,27  r11  b1
+div.Field__field#7  340×103 @728,139
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «bordered · ошибка»
+  input  340×49 @0,27  r11  b1
+  p.Field__error  340×19 @0,83  Manrope 600 13/19  lines=1  «Введите номер полностью»
+div.Field__field#8  340×103 @1084,139
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «bordered · отключено»
+  input  340×49 @0,27  r11  b1
+div.Field__field#9  340×103 @16,261
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «faded · пусто»
+  input  340×49 @0,27  r11  b1
+div.Field__field#10  340×103 @372,261
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «faded · значение»
+  input  340×49 @0,27  r11  b1
+div.Field__field#11  340×103 @728,261
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «faded · ошибка»
+  input  340×49 @0,27  r11  b1
+  p.Field__error  340×19 @0,83  Manrope 600 13/19  lines=1  «Введите номер полностью»
+div.Field__field#12  340×103 @1084,261
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «faded · отключено»
+  input  340×49 @0,27  r11  b1
+div.Field__field#13  340×102 @16,384
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «underlined · пусто»
+  input  340×48 @0,27  b0 0 1 0
+div.Field__field#14  340×102 @372,384
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «underlined · значение»
+  input  340×48 @0,27  b0 0 1 0
+div.Field__field#15  340×102 @728,384
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «underlined · ошибка»
+  input  340×48 @0,27  b0 0 1 0
+  p.Field__error  340×19 @0,82  Manrope 600 13/19  lines=1  «Введите номер полностью»
+div.Field__field#16  340×102 @1084,384
+  label.Field__label  340×20 @0,0  Manrope 600 13/20  lines=1  «underlined · отключено»
+  input  340×48 @0,27  b0 0 1 0
+
+[палитра light]
+div.Field__field
+  label.Field__label  color #334155
+  input  bg #ffffff  border #7e8fa6
+div.Field__field#2
+  label.Field__label  color #334155
+  input  bg #ffffff  border #7e8fa6
+div.Field__field#3
+  label.Field__label  color #334155
+  input  bg #be123c14  border #be123c
+  p.Field__error  color #be123c
+div.Field__field#4
+  label.Field__label  color #334155
+  input  bg #f8fafc  border #7e8fa6
+div.Field__field#5
+  label.Field__label  color #334155
+  input  border #7e8fa6
+div.Field__field#6
+  label.Field__label  color #334155
+  input  border #7e8fa6
+div.Field__field#7
+  label.Field__label  color #334155
+  input  bg #be123c14  border #be123c
+  p.Field__error  color #be123c
+div.Field__field#8
+  label.Field__label  color #334155
+  input  bg #f8fafc  border #7e8fa6
+div.Field__field#9
+  label.Field__label  color #334155
+  input  bg #f8fafc  border #7e8fa6
+div.Field__field#10
+  label.Field__label  color #334155
+  input  bg #f8fafc  border #7e8fa6
+div.Field__field#11
+  label.Field__label  color #334155
+  input  bg #be123c14  border #be123c
+  p.Field__error  color #be123c
+div.Field__field#12
+  label.Field__label  color #334155
+  input  bg #f8fafc  border #7e8fa6
+div.Field__field#13
+  label.Field__label  color #334155
+  input  border #0f172a #0f172a #7e8fa6 #0f172a
+div.Field__field#14
+  label.Field__label  color #334155
+  input  border #0f172a #0f172a #7e8fa6 #0f172a
+div.Field__field#15
+  label.Field__label  color #334155
+  input  bg #be123c14  border #be123c
+  p.Field__error  color #be123c
+div.Field__field#16
+  label.Field__label  color #334155
+  input  bg #f8fafc  border #556173 #556173 #7e8fa6 #556173
+
+[палитра dark]
+div.Field__field
+  label.Field__label  color #c9d5e2
+  input  bg #0b1424  border #566d95
+div.Field__field#2
+  label.Field__label  color #c9d5e2
+  input  bg #0b1424  border #566d95
+div.Field__field#3
+  label.Field__label  color #c9d5e2
+  input  bg #fb71851f  border #fb7185
+  p.Field__error  color #fb7185
+div.Field__field#4
+  label.Field__label  color #c9d5e2
+  input  bg #0e1729  border #566d95
+div.Field__field#5
+  label.Field__label  color #c9d5e2
+  input  border #566d95
+div.Field__field#6
+  label.Field__label  color #c9d5e2
+  input  border #566d95
+div.Field__field#7
+  label.Field__label  color #c9d5e2
+  input  bg #fb71851f  border #fb7185
+  p.Field__error  color #fb7185
+div.Field__field#8
+  label.Field__label  color #c9d5e2
+  input  bg #0e1729  border #566d95
+div.Field__field#9
+  label.Field__label  color #c9d5e2
+  input  bg #0e1729  border #566d95
+div.Field__field#10
+  label.Field__label  color #c9d5e2
+  input  bg #0e1729  border #566d95
+div.Field__field#11
+  label.Field__label  color #c9d5e2
+  input  bg #fb71851f  border #fb7185
+  p.Field__error  color #fb7185
+div.Field__field#12
+  label.Field__label  color #c9d5e2
+  input  bg #0e1729  border #566d95
+div.Field__field#13
+  label.Field__label  color #c9d5e2
+  input  border #eaf1f8 #eaf1f8 #566d95 #eaf1f8
+div.Field__field#14
+  label.Field__label  color #c9d5e2
+  input  border #eaf1f8 #eaf1f8 #566d95 #eaf1f8
+div.Field__field#15
+  label.Field__label  color #c9d5e2
+  input  bg #fb71851f  border #fb7185
+  p.Field__error  color #fb7185
+div.Field__field#16
+  label.Field__label  color #c9d5e2
+  input  bg #0e1729  border #8598ac #8598ac #566d95 #8598ac

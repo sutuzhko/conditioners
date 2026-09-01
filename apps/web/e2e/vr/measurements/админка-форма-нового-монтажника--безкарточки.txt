@@ -1,0 +1,187 @@
+# админка-форма-нового-монтажника--безкарточки · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.FormSection__section  358×710 @16,16
+  form.StaffForm__form  358×710 @0,0
+    div.StaffForm__grid  358×654 @0,0
+      div.Field__field  358×76 @0,0
+        label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Имя и фамилия»
+        input  358×49 @0,27  r11  b1
+      div.Field__field#2  358×103 @0,88
+        label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+        input  358×49 @0,27  r11  b1
+        p.Field__hint  358×19 @0,83  Manrope 400 13/19  lines=1  «Латиницей: его придётся диктовать по тел»
+      div.Field__field#3  358×76 @0,203
+        label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        input  358×49 @0,27  r11  b1
+      div.Field__field#4  358×76 @0,291
+        label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Временный пароль»
+        input  358×49 @0,27  r11  b1
+      div.Field__field#5  358×122 @0,379
+        label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
+        input  358×49 @0,27  r11  b1
+        p.Field__hint  358×39 @0,83  Manrope 400 13/19  lines=2  «Двенадцать цифр. Без него статус самозан»
+      div.Field__field#6  358×141 @0,513
+        label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
+        span.Select__wrapper  358×49 @0,27
+          select.Select__select  358×49 @0,0  r11  b1
+            option  0×0 @-16,-556  Manrope 400 15/21  lines=0  «Не заведено»
+            option#2  0×0 @-16,-556  Manrope 400 15/21  lines=0  «Самозанятый»
+            option#3  0×0 @-16,-556  Manrope 400 15/21  lines=0  «Договор ГПХ»
+            option#4  0×0 @-16,-556  Manrope 400 15/21  lines=0  «Трудовой договор»
+          svg.Select__chevron  14×14 @330,18
+        p.Field__hint  358×58 @0,83  Manrope 400 13/19  lines=3  «Пока оформление не заведено, наряд не ум»
+    div.StaffForm__actions  358×44 @0,666
+      button.Button__button  107×44 @0,0  r11  b1
+        span.Button__content  69×17 @19,13
+          span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Добавить»
+
+[геометрия 768]
+section.FormSection__section  736×426 @16,16
+  form.StaffForm__form  736×426 @0,0
+    div.StaffForm__grid  736×370 @0,0
+      div.Field__field  237×122 @0,0
+        label.Field__label  237×20 @0,0  Manrope 600 13/20  lines=1  «Имя и фамилия»
+        input  237×49 @0,27  r11  b1
+      div.Field__field#2  237×122 @249,0
+        label.Field__label  237×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+        input  237×49 @0,27  r11  b1
+        p.Field__hint  237×39 @0,83  Manrope 400 13/19  lines=2  «Латиницей: его придётся диктовать по тел»
+      div.Field__field#3  237×122 @499,0
+        label.Field__label  237×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        input  237×49 @0,27  r11  b1
+      div.Field__field#4  237×122 @0,134
+        label.Field__label  237×20 @0,0  Manrope 600 13/20  lines=1  «Временный пароль»
+        input  237×49 @0,27  r11  b1
+      div.Field__field#5  237×122 @249,134
+        label.Field__label  237×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
+        input  237×49 @0,27  r11  b1
+        p.Field__hint  237×39 @0,83  Manrope 400 13/19  lines=2  «Двенадцать цифр. Без него статус самозан»
+      div.Field__field#6  736×103 @0,268
+        label.Field__label  736×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
+        span.Select__wrapper  736×49 @0,27
+          select.Select__select  736×49 @0,0  r11  b1
+            option  0×0 @-16,-311  Manrope 400 15/21  lines=0  «Не заведено»
+            option#2  0×0 @-16,-311  Manrope 400 15/21  lines=0  «Самозанятый»
+            option#3  0×0 @-16,-311  Manrope 400 15/21  lines=0  «Договор ГПХ»
+            option#4  0×0 @-16,-311  Manrope 400 15/21  lines=0  «Трудовой договор»
+          svg.Select__chevron  14×14 @708,18
+        p.Field__hint  736×19 @0,83  Manrope 400 13/19  lines=1  «Пока оформление не заведено, наряд не ум»
+    div.StaffForm__actions  736×44 @0,382
+      button.Button__button  107×44 @0,0  r11  b1
+        span.Button__content  69×17 @19,13
+          span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Добавить»
+
+[геометрия 1440]
+section.FormSection__section  1408×312 @16,16
+  form.StaffForm__form  1408×312 @0,0
+    div.StaffForm__grid  1408×256 @0,0
+      div.Field__field  191×141 @0,0
+        label.Field__label  191×20 @0,0  Manrope 600 13/20  lines=1  «Имя и фамилия»
+        input  191×49 @0,27  r11  b1
+      div.Field__field#2  191×141 @203,0
+        label.Field__label  191×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+        input  191×49 @0,27  r11  b1
+        p.Field__hint  191×39 @0,83  Manrope 400 13/19  lines=2  «Латиницей: его придётся диктовать по тел»
+      div.Field__field#3  191×141 @406,0
+        label.Field__label  191×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        input  191×49 @0,27  r11  b1
+      div.Field__field#4  191×141 @609,0
+        label.Field__label  191×20 @0,0  Manrope 600 13/20  lines=1  «Временный пароль»
+        input  191×49 @0,27  r11  b1
+      div.Field__field#5  191×141 @811,0
+        label.Field__label  191×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
+        input  191×49 @0,27  r11  b1
+        p.Field__hint  191×58 @0,83  Manrope 400 13/19  lines=3  «Двенадцать цифр. Без него статус самозан»
+      div.Field__field#6  1408×103 @0,153
+        label.Field__label  1408×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
+        span.Select__wrapper  1408×49 @0,27
+          select.Select__select  1408×49 @0,0  r11  b1
+            option  0×0 @-16,-196  Manrope 400 15/21  lines=0  «Не заведено»
+            option#2  0×0 @-16,-196  Manrope 400 15/21  lines=0  «Самозанятый»
+            option#3  0×0 @-16,-196  Manrope 400 15/21  lines=0  «Договор ГПХ»
+            option#4  0×0 @-16,-196  Manrope 400 15/21  lines=0  «Трудовой договор»
+          svg.Select__chevron  14×14 @1380,18
+        p.Field__hint  1408×19 @0,83  Manrope 400 13/19  lines=1  «Пока оформление не заведено, наряд не ум»
+    div.StaffForm__actions  1408×44 @0,268
+      button.Button__button  107×44 @0,0  r11  b1
+        span.Button__content  69×17 @19,13
+          span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Добавить»
+
+[палитра light]
+section.FormSection__section
+  form.StaffForm__form
+    div.StaffForm__grid
+      div.Field__field
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#2
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#3
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#4
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#5
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#6
+        label.Field__label  color #334155
+        span.Select__wrapper
+          select.Select__select  bg #ffffff  border #7e8fa6
+            option  color #0f172a
+            option#2  color #0f172a
+            option#3  color #0f172a
+            option#4  color #0f172a
+          svg.Select__chevron
+        p.Field__hint  color #556173
+    div.StaffForm__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
+
+[палитра dark]
+section.FormSection__section
+  form.StaffForm__form
+    div.StaffForm__grid
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#3
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      div.Field__field#4
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      div.Field__field#5
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#6
+        label.Field__label  color #c9d5e2
+        span.Select__wrapper
+          select.Select__select  bg #0b1424  border #566d95
+            option  color #eaf1f8
+            option#2  color #eaf1f8
+            option#3  color #eaf1f8
+            option#4  color #eaf1f8
+          svg.Select__chevron
+        p.Field__hint  color #8598ac
+    div.StaffForm__actions
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff

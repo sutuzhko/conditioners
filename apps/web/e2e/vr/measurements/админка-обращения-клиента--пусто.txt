@@ -1,0 +1,47 @@
+# админка-обращения-клиента--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×178 @16,16  r20  b1
+  header.ClientLeads__header  316×45 @21,21
+    h2.ClientLeads__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Обращения»
+    p.ClientLeads__hint  316×20 @0,25  Manrope 400 13/20  lines=1  «Всё, что этот человек присылал с сайта.»
+  p.ClientLeads__empty  316×45 @21,78  Manrope 400 15/22  lines=2  «Обращений с сайта нет: клиент заведён ру»
+  a.ClientLeads__all  127×22 @21,135  Manrope 600 15/22  lines=1  «Все обращения →»
+
+[геометрия 768]
+section.Card__card  736×157 @16,16  r20  b1
+  header.ClientLeads__header  694×46 @21,21
+    h2.ClientLeads__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Обращения»
+    p.ClientLeads__hint  694×20 @0,26  Manrope 400 13/20  lines=1  «Всё, что этот человек присылал с сайта.»
+  p.ClientLeads__empty  694×22 @21,79  Manrope 400 15/22  lines=1  «Обращений с сайта нет: клиент заведён ру»
+  a.ClientLeads__all  127×22 @21,113  Manrope 600 15/22  lines=1  «Все обращения →»
+
+[геометрия 1440]
+section.Card__card  1408×158 @16,16  r20  b1
+  header.ClientLeads__header  1366×47 @21,21
+    h2.ClientLeads__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Обращения»
+    p.ClientLeads__hint  1366×20 @0,27  Manrope 400 13/20  lines=1  «Всё, что этот человек присылал с сайта.»
+  p.ClientLeads__empty  1366×22 @21,80  Manrope 400 15/22  lines=1  «Обращений с сайта нет: клиент заведён ру»
+  a.ClientLeads__all  127×22 @21,114  Manrope 600 15/22  lines=1  «Все обращения →»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.ClientLeads__header
+    h2.ClientLeads__title  color #0f172a
+    p.ClientLeads__hint  color #556173
+  p.ClientLeads__empty  color #475569
+  a.ClientLeads__all  color #0e7490
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.ClientLeads__header
+    h2.ClientLeads__title  color #eaf1f8
+    p.ClientLeads__hint  color #8598ac
+  p.ClientLeads__empty  color #a8b6c6
+  a.ClientLeads__all  color #22d3ee

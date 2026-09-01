@@ -1,0 +1,277 @@
+# админка-форма-настроек--списокнапределе · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×648 @16,16  r20  b1
+  h2.SettingsForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Цифры первого экрана»
+  p.SettingsForm__description  316×22 @21,46  Manrope 400 15/22  lines=1  «Полоса под заголовком главной.»
+  form.SettingsForm__form  316×541 @21,86
+    div.SettingsForm__fields  316×479 @0,0
+      fieldset.SettingsForm__list  316×479 @0,0
+        legend.SettingsForm__listLabel  49×22 @0,0  Manrope 600 15/22  lines=1  «Цифры»
+        div.SettingsForm__objectRow  316×101 @0,22
+          div.Field__field  90×49 @0,0
+            input  90×49 @0,0  r11  b1
+          div.Field__field#2  90×49 @98,0
+            input  90×49 @0,0  r11  b1
+          div.Field__field#3  90×49 @196,0
+            input  90×49 @0,0  r11  b1  clipped
+          button.Button__button  82×44 @0,57  r9  b1
+            span.Button__content  52×16 @15,14
+              span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+        div.SettingsForm__objectRow#2  316×101 @0,131
+          div.Field__field  90×49 @0,0
+            input#2  90×49 @0,0  r11  b1
+          div.Field__field#2  90×49 @98,0
+            input#2  90×49 @0,0  r11  b1
+          div.Field__field#3  90×49 @196,0
+            input#2  90×49 @0,0  r11  b1  clipped
+          button.Button__button  82×44 @0,57  r9  b1
+            span.Button__content#2  52×16 @15,14
+              span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+        div.SettingsForm__objectRow#3  316×101 @0,240
+          div.Field__field  90×49 @0,0
+            input#3  90×49 @0,0  r11  b1
+          div.Field__field#2  90×49 @98,0
+            input#3  90×49 @0,0  r11  b1
+          div.Field__field#3  90×49 @196,0
+            input#3  90×49 @0,0  r11  b1  clipped
+          button.Button__button  82×44 @0,57  r9  b1
+            span.Button__content#3  52×16 @15,14
+              span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+        div.SettingsForm__objectRow#4  316×101 @0,349
+          div.Field__field  90×49 @0,0
+            input#4  90×49 @0,0  r11  b1
+          div.Field__field#2  90×49 @98,0
+            input#4  90×49 @0,0  r11  b1
+          div.Field__field#3  90×49 @196,0
+            input#4  90×49 @0,0  r11  b1
+          button.Button__button  82×44 @0,57  r9  b1
+            span.Button__content#4  52×16 @15,14
+              span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+        p.SettingsForm__listHint  220×20 @0,458  Manrope 400 13/20  lines=1  «Больше 4 — не поместится в полосу»
+    div.SettingsForm__actions  316×44 @0,497
+      button.Button__button  115×44 @0,0  r11  b1
+        span.Button__content#5  77×17 @19,13
+          span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[геометрия 768]
+section.Card__card  736×441 @16,16  r20  b1
+  h2.SettingsForm__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Цифры первого экрана»
+  p.SettingsForm__description  694×22 @21,47  Manrope 400 15/22  lines=1  «Полоса под заголовком главной.»
+  form.SettingsForm__form  694×333 @21,87
+    div.SettingsForm__fields  694×271 @0,0
+      fieldset.SettingsForm__list  694×271 @0,0
+        legend.SettingsForm__listLabel  49×22 @0,0  Manrope 600 15/22  lines=1  «Цифры»
+        div.SettingsForm__objectRow  640×49 @0,22
+          div.Field__field  90×49 @0,0
+            input  90×49 @0,0  r11  b1
+          div.Field__field#2  90×49 @98,0
+            input  90×49 @0,0  r11  b1
+          div.Field__field#3  90×49 @196,0
+            input  90×49 @0,0  r11  b1  clipped
+          button.Button__button  82×44 @294,0  r9  b1
+            span.Button__content  52×16 @15,14
+              span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+        div.SettingsForm__objectRow#2  640×49 @0,79
+          div.Field__field  90×49 @0,0
+            input#2  90×49 @0,0  r11  b1
+          div.Field__field#2  90×49 @98,0
+            input#2  90×49 @0,0  r11  b1
+          div.Field__field#3  90×49 @196,0
+            input#2  90×49 @0,0  r11  b1  clipped
+          button.Button__button  82×44 @294,0  r9  b1
+            span.Button__content#2  52×16 @15,14
+              span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+        div.SettingsForm__objectRow#3  640×49 @0,136
+          div.Field__field  90×49 @0,0
+            input#3  90×49 @0,0  r11  b1
+          div.Field__field#2  90×49 @98,0
+            input#3  90×49 @0,0  r11  b1
+          div.Field__field#3  90×49 @196,0
+            input#3  90×49 @0,0  r11  b1  clipped
+          button.Button__button  82×44 @294,0  r9  b1
+            span.Button__content#3  52×16 @15,14
+              span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+        div.SettingsForm__objectRow#4  640×49 @0,193
+          div.Field__field  90×49 @0,0
+            input#4  90×49 @0,0  r11  b1
+          div.Field__field#2  90×49 @98,0
+            input#4  90×49 @0,0  r11  b1
+          div.Field__field#3  90×49 @196,0
+            input#4  90×49 @0,0  r11  b1
+          button.Button__button  82×44 @294,0  r9  b1
+            span.Button__content#4  52×16 @15,14
+              span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+        p.SettingsForm__listHint  220×20 @0,250  Manrope 400 13/20  lines=1  «Больше 4 — не поместится в полосу»
+    div.SettingsForm__actions  694×44 @0,289
+      button.Button__button  115×44 @0,0  r11  b1
+        span.Button__content#5  77×17 @19,13
+          span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[геометрия 1440]
+section.Card__card  1408×442 @16,16  r20  b1
+  h2.SettingsForm__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Цифры первого экрана»
+  p.SettingsForm__description  1366×22 @21,48  Manrope 400 15/22  lines=1  «Полоса под заголовком главной.»
+  form.SettingsForm__form  1366×333 @21,88
+    div.SettingsForm__fields  1366×271 @0,0
+      fieldset.SettingsForm__list  1366×271 @0,0
+        legend.SettingsForm__listLabel  49×22 @0,0  Manrope 600 15/22  lines=1  «Цифры»
+        div.SettingsForm__objectRow  640×49 @0,22
+          div.Field__field  90×49 @0,0
+            input  90×49 @0,0  r11  b1
+          div.Field__field#2  90×49 @98,0
+            input  90×49 @0,0  r11  b1
+          div.Field__field#3  90×49 @196,0
+            input  90×49 @0,0  r11  b1  clipped
+          button.Button__button  82×40 @294,0  r9  b1
+            span.Button__content  52×16 @15,12
+              span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+        div.SettingsForm__objectRow#2  640×49 @0,79
+          div.Field__field  90×49 @0,0
+            input#2  90×49 @0,0  r11  b1
+          div.Field__field#2  90×49 @98,0
+            input#2  90×49 @0,0  r11  b1
+          div.Field__field#3  90×49 @196,0
+            input#2  90×49 @0,0  r11  b1  clipped
+          button.Button__button  82×40 @294,0  r9  b1
+            span.Button__content#2  52×16 @15,12
+              span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+        div.SettingsForm__objectRow#3  640×49 @0,136
+          div.Field__field  90×49 @0,0
+            input#3  90×49 @0,0  r11  b1
+          div.Field__field#2  90×49 @98,0
+            input#3  90×49 @0,0  r11  b1
+          div.Field__field#3  90×49 @196,0
+            input#3  90×49 @0,0  r11  b1  clipped
+          button.Button__button  82×40 @294,0  r9  b1
+            span.Button__content#3  52×16 @15,12
+              span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+        div.SettingsForm__objectRow#4  640×49 @0,193
+          div.Field__field  90×49 @0,0
+            input#4  90×49 @0,0  r11  b1
+          div.Field__field#2  90×49 @98,0
+            input#4  90×49 @0,0  r11  b1
+          div.Field__field#3  90×49 @196,0
+            input#4  90×49 @0,0  r11  b1
+          button.Button__button  82×40 @294,0  r9  b1
+            span.Button__content#4  52×16 @15,12
+              span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+        p.SettingsForm__listHint  220×20 @0,250  Manrope 400 13/20  lines=1  «Больше 4 — не поместится в полосу»
+    div.SettingsForm__actions  1366×44 @0,289
+      button.Button__button  115×44 @0,0  r11  b1
+        span.Button__content#5  77×17 @19,13
+          span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.SettingsForm__title  color #0f172a
+  p.SettingsForm__description  color #556173
+  form.SettingsForm__form
+    div.SettingsForm__fields
+      fieldset.SettingsForm__list
+        legend.SettingsForm__listLabel  color #0f172a
+        div.SettingsForm__objectRow
+          div.Field__field
+            input  bg #ffffff  border #7e8fa6
+          div.Field__field#2
+            input  bg #ffffff  border #7e8fa6
+          div.Field__field#3
+            input  bg #ffffff  border #7e8fa6
+          button.Button__button  border transparent
+            span.Button__content
+              span.Button__label  color #0e7490
+        div.SettingsForm__objectRow#2
+          div.Field__field
+            input#2  bg #ffffff  border #7e8fa6
+          div.Field__field#2
+            input#2  bg #ffffff  border #7e8fa6
+          div.Field__field#3
+            input#2  bg #ffffff  border #7e8fa6
+          button.Button__button  border transparent
+            span.Button__content#2
+              span.Button__label  color #0e7490
+        div.SettingsForm__objectRow#3
+          div.Field__field
+            input#3  bg #ffffff  border #7e8fa6
+          div.Field__field#2
+            input#3  bg #ffffff  border #7e8fa6
+          div.Field__field#3
+            input#3  bg #ffffff  border #7e8fa6
+          button.Button__button  border transparent
+            span.Button__content#3
+              span.Button__label  color #0e7490
+        div.SettingsForm__objectRow#4
+          div.Field__field
+            input#4  bg #ffffff  border #7e8fa6
+          div.Field__field#2
+            input#4  bg #ffffff  border #7e8fa6
+          div.Field__field#3
+            input#4  bg #ffffff  border #7e8fa6
+          button.Button__button  border transparent
+            span.Button__content#4
+              span.Button__label  color #0e7490
+        p.SettingsForm__listHint  color #556173
+    div.SettingsForm__actions
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content#5
+          span.Button__label  color #ffffff
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.SettingsForm__title  color #eaf1f8
+  p.SettingsForm__description  color #8598ac
+  form.SettingsForm__form
+    div.SettingsForm__fields
+      fieldset.SettingsForm__list
+        legend.SettingsForm__listLabel  color #eaf1f8
+        div.SettingsForm__objectRow
+          div.Field__field
+            input  bg #0b1424  border #566d95
+          div.Field__field#2
+            input  bg #0b1424  border #566d95
+          div.Field__field#3
+            input  bg #0b1424  border #566d95
+          button.Button__button  border transparent
+            span.Button__content
+              span.Button__label  color #22d3ee
+        div.SettingsForm__objectRow#2
+          div.Field__field
+            input#2  bg #0b1424  border #566d95
+          div.Field__field#2
+            input#2  bg #0b1424  border #566d95
+          div.Field__field#3
+            input#2  bg #0b1424  border #566d95
+          button.Button__button  border transparent
+            span.Button__content#2
+              span.Button__label  color #22d3ee
+        div.SettingsForm__objectRow#3
+          div.Field__field
+            input#3  bg #0b1424  border #566d95
+          div.Field__field#2
+            input#3  bg #0b1424  border #566d95
+          div.Field__field#3
+            input#3  bg #0b1424  border #566d95
+          button.Button__button  border transparent
+            span.Button__content#3
+              span.Button__label  color #22d3ee
+        div.SettingsForm__objectRow#4
+          div.Field__field
+            input#4  bg #0b1424  border #566d95
+          div.Field__field#2
+            input#4  bg #0b1424  border #566d95
+          div.Field__field#3
+            input#4  bg #0b1424  border #566d95
+          button.Button__button  border transparent
+            span.Button__content#4
+              span.Button__label  color #22d3ee
+        p.SettingsForm__listHint  color #8598ac
+    div.SettingsForm__actions
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content#5
+          span.Button__label  color #ffffff
