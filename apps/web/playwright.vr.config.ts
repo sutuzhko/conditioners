@@ -65,9 +65,22 @@ export default defineConfig({
   /* Публичная часть и панель — разные работы пайплайна: у них разные ширины и
      разное время (issue #404). Проекты дают запускать их по отдельности, не
      заводя второго конфига с копией всех настроек. */
+  /* 🔴 Шаблоны заякорены на каталог: Playwright сверяет их с абсолютным путём,
+     и незаякоренный `/stories\.spec\.ts/` подхватил бы `invariants/stories.spec.ts`
+     в проект снимков — обход историй без единого кадра шёл бы под именем `public`. */
   projects: [
-    { name: 'public', testMatch: /stories\.spec\.ts/ },
-    { name: 'panel', testMatch: /panel\.spec\.ts/ },
+    { name: 'public', testMatch: /\/vr\/stories\.spec\.ts$/ },
+    { name: 'panel', testMatch: /\/vr\/panel\.spec\.ts$/ },
+    /* Инварианты без эталона (ADR-230, фаза 3) — три проекта с разной средой:
+       `invariants` обходит все истории витрины и красит на нарушении;
+       `invariants-fixtures` — истории-фикстуры с нарочными нарушениями, каждое
+       правило обязано поймать своё (issue #456); `invariants-measure` — тесты
+       самого измерителя на синтетическом DOM через `page.setContent`, витрина
+       ему не нужна (issue #454). Порознь, потому что первые два ждут Storybook,
+       а третий идёт где угодно — и им незачем ждать друг друга. */
+    { name: 'invariants', testMatch: /\/invariants\/stories\.spec\.ts$/ },
+    { name: 'invariants-fixtures', testMatch: /\/invariants\/fixtures\.spec\.ts$/ },
+    { name: 'invariants-measure', testMatch: /\/invariants\/measure\.spec\.ts$/ },
   ],
   /* Один тест обходит все истории раздела, поэтому меряется он не секундами.
      Разбивать по тесту на историю нельзя: список приходит из Storybook по

@@ -22,7 +22,13 @@ declare global {
      * опросить из `waitForFunction` после перехода на страницу.
      */
     readonly __STORYBOOK_PREVIEW__?: {
-      readonly currentRender?: { readonly phase?: string };
+      readonly currentRender?: {
+        readonly phase?: string;
+        /* Параметры текущей истории — их читает измеритель инвариантов
+           (`invariants/measure.ts`): допущения и ожидания фикстур живут в
+           `parameters.invariants`, а в `index.json` параметров нет. */
+        readonly story?: { readonly parameters?: Readonly<Record<string, unknown>> };
+      };
       readonly channel?: { emit: (name: string, ...rest: readonly unknown[]) => unknown };
     };
     readonly __STORYBOOK_ADDONS_CHANNEL__?: {
