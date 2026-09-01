@@ -184,6 +184,18 @@ describe('вердикт', () => {
     expect(result.reasons).toEqual([]);
   });
 
+  it('пропущенные по графу импортов истории названы числом в шапке', () => {
+    const result = compare(fullSet((w) => ({ skipped: w === 320 ? 40 : 45 })));
+    expect(result.ok).toBe(true);
+    // 40 + 40 + 45·6 = 350 по всем восьми парам
+    expect(result.markdown).toMatch(/\| Пропущено по графу импортов \| 350 историй \|/);
+  });
+
+  it('без пропусков строки про граф нет', () => {
+    const result = compare(fullSet());
+    expect(result.markdown).not.toMatch(/Пропущено по графу/);
+  });
+
   it('отказы базы — предупреждение, а не красный', () => {
     const result = compare(fullSet(), {
       cache: 'miss',

@@ -46,6 +46,12 @@ export type RunOutcome = {
    * не крася; без переменной поле пустое.
    */
   readonly hashes: Readonly<Record<string, string>>;
+  /**
+   * Сколько историй пары не снималось, потому что правка до них не дотягивается
+   * по графу импортов (issue #444). Без списка изменённых файлов — ноль: тогда
+   * снимается всё.
+   */
+  readonly skipped: number;
 };
 
 export type ErrorKind = 'changed' | 'new' | 'failed';
@@ -57,10 +63,11 @@ export type OutcomeTally = {
   readonly new: string[];
   readonly failed: StoryFailure[];
   readonly hashes: Record<string, string>;
+  skipped: number;
 };
 
 export function emptyTally(): OutcomeTally {
-  return { compared: 0, changed: [], new: [], failed: [], hashes: {} };
+  return { compared: 0, changed: [], new: [], failed: [], hashes: {}, skipped: 0 };
 }
 
 /**

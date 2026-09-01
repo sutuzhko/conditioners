@@ -80,6 +80,7 @@ function normalise(raw) {
             Object.entries(raw.hashes).filter(([, hash]) => typeof hash === 'string'),
           )
         : {},
+    skipped: Number(raw.skipped) || 0,
   };
 }
 
@@ -97,9 +98,11 @@ export function aggregate(outcomes) {
   const duplicates = new Map();
   let hashed = 0;
 
+  let skipped = 0;
   for (const outcome of outcomes) {
     const frame = `${outcome.width}/${outcome.theme}`;
     compared += outcome.compared;
+    skipped += outcome.skipped ?? 0;
     for (const story of outcome.changed) changed.set(story, [...(changed.get(story) ?? []), frame]);
     for (const story of outcome.new) fresh.set(story, [...(fresh.get(story) ?? []), frame]);
     for (const item of outcome.failed) failed.push({ ...item, frame });
@@ -121,6 +124,7 @@ export function aggregate(outcomes) {
 
   return {
     compared,
+    skipped,
     changed,
     new: fresh,
     failed,
@@ -213,6 +217,11 @@ export function summarize({
     lines.push(`| Сравнено кадров | ${total.compared} |`);
     lines.push(`| Разошлось | ${frames(changedFrames)} у ${storiesAfterAt(total.changed.size)} |`);
     lines.push(`| Новых историй — без сравнения | ${total.new.size} |`);
+    /* Граф импортов (#444): истории, до которых правка не дотягивается, не
+       снимались вовсе — это видно числом, а не молчанием. */
+    if (total.skipped > 0) {
+      lines.push(`| Пропущено по графу импортов | ${stories(total.skipped)} |`);
+    }
   } else {
     lines.push(`| Записано кадров | ${total.compared} |`);
   }

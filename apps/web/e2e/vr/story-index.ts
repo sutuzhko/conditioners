@@ -14,6 +14,8 @@ export type StoryEntry = {
   readonly title: string;
   readonly name: string;
   readonly tags?: readonly string[];
+  /** Путь файла историй от корня воркспейса с `./` — по нему граф импортов решает, задета ли история правкой (#444). */
+  readonly importPath?: string;
 };
 
 /**
@@ -56,7 +58,7 @@ function isStringArray(value: unknown): value is readonly string[] {
 
 function toStoryEntry(value: unknown): StoryEntry | null {
   if (!isRecord(value)) return null;
-  const { id, type, title, name, tags } = value;
+  const { id, type, title, name, tags, importPath } = value;
   if (
     typeof id !== 'string' ||
     typeof type !== 'string' ||
@@ -66,7 +68,14 @@ function toStoryEntry(value: unknown): StoryEntry | null {
     return null;
   }
   if (tags !== undefined && !isStringArray(tags)) return null;
-  return tags === undefined ? { id, type, title, name } : { id, type, title, name, tags };
+  return {
+    id,
+    type,
+    title,
+    name,
+    ...(tags === undefined ? {} : { tags }),
+    ...(typeof importPath === 'string' ? { importPath } : {}),
+  };
 }
 
 /**

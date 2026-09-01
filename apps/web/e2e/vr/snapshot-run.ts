@@ -4,6 +4,7 @@ import { expect, test, type Page } from '@playwright/test';
 
 import { emptyTally, firstLines, recordErrors, writeOutcome, type RunOutcome } from './outcome';
 import { shardFromEnv, shardSlice } from './shard';
+import { affectedStoryPaths, changedFromEnv, normaliseStoryPath } from './story-deps';
 import { loadBaseStoryIds, pinnedWidths, type StoryEntry } from './story-index';
 import { waitForStoryReady, watchPlayFailures } from './story-ready';
 
@@ -26,6 +27,13 @@ import { waitForStoryReady, watchPlayFailures } from './story-ready';
  * `VR_SHARD=k/n` отдаёт прогону долю списка историй: работа пайплайна снимает
  * доли параллельными работами, а принадлежность истории доле считает
  * устойчивый хеш id — почему именно хеш, объяснено в `shard.ts`.
+ *
+ * `VR_CHANGED` — список изменённых файлов PR (issue #444): раннер снимает
+ * только истории, до которых правка дотягивается по графу импортов
+ * (`story-deps.ts`), остальные считает пропущенными. Правка одной строки в
+ * `Button.module.css` пересчитывала истории каталога, статьи и подвала — то
+ * есть почти всё, чего кнопка не касается. Всё, чего разбор не понял,
+ * задевает всё: без списка или при сомнении снимается каждая история.
  *
  * Без этих переменных раннер сравнивает все истории с кадрами в каталоге
  * рядом со спеками — так идёт локальный прогон. Каталог в репозиторий не
@@ -56,6 +64,19 @@ export async function snapshotStories(page: Page, run: SnapshotRun): Promise<voi
   const stories = shard === null ? run.stories : shardSlice(run.stories, shard);
   const tally = emptyTally();
 
+  /* Истории без пути в индексе графу не показываются и снимаются всегда:
+     безопасная сторона — переснять лишнее, а не пропустить задетое. */
+  const affected = affectedStoryPaths({
+    changed: changedFromEnv(),
+    storyPaths: stories.flatMap((story) =>
+      story.importPath === undefined ? [] : [normaliseStoryPath(story.importPath)],
+    ),
+  });
+  const isAffected = (story: StoryEntry): boolean =>
+    affected === null ||
+    story.importPath === undefined ||
+    affected.has(normaliseStoryPath(story.importPath));
+
   /* Подписка на отказы сценариев ставится до первого перехода: она
      работает через `addInitScript`, то есть на будущие загрузки. */
   await watchPlayFailures(page);
@@ -75,6 +96,10 @@ export async function snapshotStories(page: Page, run: SnapshotRun): Promise<voi
   try {
     for (const story of stories) {
       if (!pinnedWidths(story, run.widths).includes(run.width)) continue;
+      if (!isAffected(story)) {
+        tally.skipped += 1;
+        continue;
+      }
 
       /* 🔴 Отказ одной истории не обрывает обход. Раньше первый же отказ
          сценария бросал исключение из середины цикла, и остальные истории этой
@@ -142,6 +167,7 @@ export async function snapshotStories(page: Page, run: SnapshotRun): Promise<voi
           new: tally.new,
           failed: tally.failed,
           hashes: tally.hashes,
+          skipped: tally.skipped,
         },
         shard ?? undefined,
       );
