@@ -23,7 +23,12 @@
   width: 20px;
   height: 20px;
   margin: 1px 0 0;
-  border: 1px solid var(--line-strong);
+
+  /* 🔴 Граница — `--line-ui`, а не `--line-strong` (ADR-181). Пустой флажок
+     не обозначен ничем, кроме рамки: заливка у него `--field`, почти белая.
+     `--line-strong` даёт на ней 1,48:1 при норме WCAG 1.4.11 в 3:1 — то есть
+     невыбранный флажок на светлой теме приходится искать. */
+  border: 1px solid var(--line-ui);
   border-radius: 6px;
   background: var(--field);
   appearance: none;

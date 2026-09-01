@@ -1,3 +1,7 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -50,5 +54,16 @@ describe('Выбор темы в профиле', () => {
 
     expect(localStorage.getItem('tk-theme')).toBeNull();
     expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+  });
+
+  /* 🔴 Граница контрола обязана держать 3:1 (WCAG 1.4.11, ADR-181): без неё
+     невыбранный вариант темы не виден: заливки у него нет. `--line-strong` даёт 1,48:1 — вдвое ниже нормы. */
+  it('🔴 граница не возвращается на --line-strong', () => {
+    const css = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), 'ThemeChoice.module.css'),
+      'utf8',
+    );
+
+    expect(css).not.toContain('var(--line-strong)');
   });
 });

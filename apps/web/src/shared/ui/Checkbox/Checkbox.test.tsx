@@ -1,3 +1,7 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -56,5 +60,16 @@ describe('Checkbox', () => {
 
     await user.click(screen.getByText('Согласие'));
     expect(screen.getByRole('checkbox')).not.toBeChecked();
+  });
+
+  /* 🔴 Граница контрола обязана держать 3:1 (WCAG 1.4.11, ADR-181): без неё
+     пустой флажок неотличим от почти белой заливки поля. `--line-strong` даёт 1,48:1 — вдвое ниже нормы. */
+  it('🔴 граница не возвращается на --line-strong', () => {
+    const css = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), 'Checkbox.module.css'),
+      'utf8',
+    );
+
+    expect(css).not.toContain('var(--line-strong)');
   });
 });
