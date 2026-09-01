@@ -21,11 +21,11 @@ afterEach(() => {
 describe('известные дефекты компонентов', () => {
   it('нарушение по известному дефекту уходит в допущенные с причиной issue', () => {
     const tally = emptyInvariantsTally();
-    recordViolations(tally, 'ui-kit-checkbox--basic', [
+    recordViolations(tally, 'админка-каталог--базовое', [
       {
         rule: 'target-size',
-        element: 'input._input_91hse_20 «Согласие»',
-        detail: '119×21 при минимуме 24',
+        element: 'a._edit_91hse_20 «Править»',
+        detail: '54×22 при минимуме 24',
         allowed: null,
       },
       {
@@ -36,7 +36,7 @@ describe('известные дефекты компонентов', () => {
       },
     ]);
     expect(tally.allowed.map((item) => item.reason)).toEqual([
-      expect.stringContaining('issue #475'),
+      expect.stringContaining('issue #476'),
     ]);
     expect(tally.violations.map((item) => item.element)).toEqual([
       'button._primary_1a2b3_4 «Отправить»',
