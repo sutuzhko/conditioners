@@ -69,8 +69,9 @@ export function Diagnostics({
           </Card>
         ) : (
           <Card padding="xl" radius="xl" elevation="none" className={styles.board}>
-            {/* Кнопка стоит внутри ряда разбора, как в макете: причина, работа,
-                цена и действие — одна строка, а не разбор и отдельный подвал. */}
+            {/* Кнопка — слот выбора симптома: до 900px она стоит под разбором
+                во всю ширину, с 900 — правой колонкой вровень с его
+                заголовком (issue #272). Одна на все шесть разборов. */}
             <DiagnosticsPicker
               symptoms={symptoms}
               defaultSymptom={defaultSymptom}
