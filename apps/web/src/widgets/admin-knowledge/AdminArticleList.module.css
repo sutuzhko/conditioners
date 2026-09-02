@@ -12,6 +12,12 @@
 }
 
 .edit {
+  /* 🔴 Пол цели, а не оформление (issue #476). Ссылка-действие оформлена
+     блоком, а не стоит в строке текста, — значит по WCAG 2.5.8 она цель, и
+     меряется её рамка: строка кегля давала 22.5px при минимуме 24. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   color: var(--accent-text);
   font-size: var(--fs-dense);
   font-weight: 600;

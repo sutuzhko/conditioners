@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.EventPopover__card  288×242 @40,40  r14  b1  fixed
+div.EventPopover__card  288×247 @40,40  r14  b1  fixed
   div.EventPopover__head  258×23 @15,13
     span.EventPopover__kind  81×23 @0,0  Manrope 700 12/19  r100  lines=1  «Монтаж»
       svg  13×13 @8,5
@@ -18,17 +18,17 @@ div.EventPopover__card  288×242 @40,40  r14  b1  fixed
     svg  13×13 @0,3
   p.EventPopover__where  258×18 @15,91  Manrope 400 13/18  lines=1  «Тула, Октябрьская, 40»
     svg  13×13 @0,3
-  a.EventPopover__phone  258×18 @15,115  Manrope 400 13/18  lines=1  «+7 (920) 000-11-22»
+  a.EventPopover__phone  258×24 @15,115  Manrope 400 13/18  lines=1  «+7 (920) 000-11-22»
+    svg  13×13 @0,6
+  p.EventPopover__detail  258×18 @15,145  Manrope 400 13/18  lines=1  «Клиент просил закончить сегодня»
+  p.EventPopover__overtime  258×18 @15,169  Manrope 600 13/18  lines=1  «Переработка: 3 ч»
     svg  13×13 @0,3
-  p.EventPopover__detail  258×18 @15,139  Manrope 400 13/18  lines=1  «Клиент просил закончить сегодня»
-  p.EventPopover__overtime  258×18 @15,163  Manrope 600 13/18  lines=1  «Переработка: 3 ч»
-    svg  13×13 @0,3
-  div.EventPopover__actions  258×39 @15,191  b1 0 0 0
+  div.EventPopover__actions  258×39 @15,197  b1 0 0 0
     button.EventPopover__action  79×30 @0,9  Manrope 400 13/20  r11  b1  lines=1  «Изменить»
     button.EventPopover__action#2  68×30 @83,9  Manrope 400 13/20  r11  b1  lines=1  «Удалить»
 
 [геометрия 768]
-div.EventPopover__card  288×242 @208,40  r14  b1  fixed
+div.EventPopover__card  288×247 @208,40  r14  b1  fixed
   div.EventPopover__head  258×23 @15,13
     span.EventPopover__kind  81×23 @0,0  Manrope 700 12/19  r100  lines=1  «Монтаж»
       svg  13×13 @8,5
@@ -39,17 +39,17 @@ div.EventPopover__card  288×242 @208,40  r14  b1  fixed
     svg  13×13 @0,3
   p.EventPopover__where  258×18 @15,91  Manrope 400 13/18  lines=1  «Тула, Октябрьская, 40»
     svg  13×13 @0,3
-  a.EventPopover__phone  258×18 @15,115  Manrope 400 13/18  lines=1  «+7 (920) 000-11-22»
+  a.EventPopover__phone  258×24 @15,115  Manrope 400 13/18  lines=1  «+7 (920) 000-11-22»
+    svg  13×13 @0,6
+  p.EventPopover__detail  258×18 @15,145  Manrope 400 13/18  lines=1  «Клиент просил закончить сегодня»
+  p.EventPopover__overtime  258×18 @15,169  Manrope 600 13/18  lines=1  «Переработка: 3 ч»
     svg  13×13 @0,3
-  p.EventPopover__detail  258×18 @15,139  Manrope 400 13/18  lines=1  «Клиент просил закончить сегодня»
-  p.EventPopover__overtime  258×18 @15,163  Manrope 600 13/18  lines=1  «Переработка: 3 ч»
-    svg  13×13 @0,3
-  div.EventPopover__actions  258×39 @15,191  b1 0 0 0
+  div.EventPopover__actions  258×39 @15,197  b1 0 0 0
     button.EventPopover__action  79×30 @0,9  Manrope 400 13/20  r11  b1  lines=1  «Изменить»
     button.EventPopover__action#2  68×30 @83,9  Manrope 400 13/20  r11  b1  lines=1  «Удалить»
 
 [геометрия 1440]
-div.EventPopover__card  288×242 @208,40  r14  b1  fixed
+div.EventPopover__card  288×247 @208,40  r14  b1  fixed
   div.EventPopover__head  258×23 @15,13
     span.EventPopover__kind  81×23 @0,0  Manrope 700 12/19  r100  lines=1  «Монтаж»
       svg  13×13 @8,5
@@ -60,12 +60,12 @@ div.EventPopover__card  288×242 @208,40  r14  b1  fixed
     svg  13×13 @0,3
   p.EventPopover__where  258×18 @15,91  Manrope 400 13/18  lines=1  «Тула, Октябрьская, 40»
     svg  13×13 @0,3
-  a.EventPopover__phone  258×18 @15,115  Manrope 400 13/18  lines=1  «+7 (920) 000-11-22»
+  a.EventPopover__phone  258×24 @15,115  Manrope 400 13/18  lines=1  «+7 (920) 000-11-22»
+    svg  13×13 @0,6
+  p.EventPopover__detail  258×18 @15,145  Manrope 400 13/18  lines=1  «Клиент просил закончить сегодня»
+  p.EventPopover__overtime  258×18 @15,169  Manrope 600 13/18  lines=1  «Переработка: 3 ч»
     svg  13×13 @0,3
-  p.EventPopover__detail  258×18 @15,139  Manrope 400 13/18  lines=1  «Клиент просил закончить сегодня»
-  p.EventPopover__overtime  258×18 @15,163  Manrope 600 13/18  lines=1  «Переработка: 3 ч»
-    svg  13×13 @0,3
-  div.EventPopover__actions  258×39 @15,191  b1 0 0 0
+  div.EventPopover__actions  258×39 @15,197  b1 0 0 0
     button.EventPopover__action  79×30 @0,9  Manrope 400 13/20  r11  b1  lines=1  «Изменить»
     button.EventPopover__action#2  68×30 @83,9  Manrope 400 13/20  r11  b1  lines=1  «Удалить»
 

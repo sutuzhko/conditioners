@@ -191,9 +191,13 @@
   color: var(--faint);
 }
 
+/* 🔴 Пол цели у ссылки на политику стоял только под палец (issue #476), а
+   WCAG 2.5.8 — уровень AA и про указатель ничего не знает: мышью по 19.4px
+   тоже целятся. 24px безусловно, 44 под палец — как было. */
 .policy {
   display: inline-flex;
   align-items: center;
+  min-height: 24px;
   color: var(--faint);
   font-size: 12.5px;
   text-decoration: underline;

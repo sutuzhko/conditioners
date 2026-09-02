@@ -2,12 +2,12 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1087
+390 → 390×1088
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.AdminSummary__summary  358×1055 @16,16
+div.AdminSummary__summary  358×1056 @16,16
   header.AdminSummary__header  358×59 @0,0
     h1.AdminSummary__title  358×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Обзор»
     p.AdminSummary__lead  358×22 @0,36  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
@@ -32,7 +32,7 @@ div.AdminSummary__summary  358×1055 @16,16
       span.AdminSummary__tileTitle  135×40 @19,17  Manrope 400 13/20  lines=2  «Отзывы на модерации»
       span.AdminSummary__tileValue  135×33 @19,59  Onest 700 30/33  lines=1  «2»
       span.AdminSummary__tileNote  135×20 @19,94  Manrope 400 13/20  lines=1  «ждут решения»
-  section.Card__card  358×388 @0,533  r20  b1
+  section.Card__card  358×390 @0,533  r20  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Ближайшие дела»
     p.AdminSummary__text  316×45 @21,60  Manrope 400 15/22  lines=2  «Наряды и дела календаря по времени. Прос»
     ul.AdminSummary__events  316×206 @21,115
@@ -61,13 +61,13 @@ div.AdminSummary__summary  358×1055 @16,16
           span.Badge__badge#5  57×24 @104,0  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
           span.AdminSummary__eventKind#4  16×19 @171,3  Manrope 400 12/19  lines=1  «ТО»
           span.AdminSummary__eventName#4  113×22 @196,0  Manrope 600 15/22  lines=1  «Ольга Кузьмина»
-    a.AdminSummary__link  316×22 @21,345  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  358×116 @0,939  r20  b1
+    a.AdminSummary__link  316×24 @21,345  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  358×116 @0,941  r20  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  316×45 @21,50  Manrope 400 15/22  lines=2  «Все данные о компании заполнены. Сайт мо»
 
 [геометрия 768]
-div.AdminSummary__summary  736×801 @16,16
+div.AdminSummary__summary  736×803 @16,16
   header.AdminSummary__header  736×66 @0,0
     h1.AdminSummary__title  736×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Обзор»
     p.AdminSummary__lead  601×22 @0,43  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
@@ -92,7 +92,7 @@ div.AdminSummary__summary  736×801 @16,16
       span.AdminSummary__tileTitle  137×20 @19,17  Manrope 400 13/20  lines=1  «Отзывы на модерации»
       span.AdminSummary__tileValue  137×33 @19,39  Onest 700 30/33  lines=1  «2»
       span.AdminSummary__tileNote  137×20 @19,74  Manrope 400 13/20  lines=1  «ждут решения»
-  section.Card__card  736×312 @0,377  r20  b1
+  section.Card__card  736×314 @0,377  r20  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Ближайшие дела»
     p.AdminSummary__text  694×22 @21,61  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
     ul.AdminSummary__events  694×152 @21,93
@@ -121,13 +121,13 @@ div.AdminSummary__summary  736×801 @16,16
           span.Badge__badge#5  57×24 @104,0  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
           span.AdminSummary__eventKind#4  16×19 @171,3  Manrope 400 12/19  lines=1  «ТО»
           span.AdminSummary__eventName#4  113×22 @196,0  Manrope 600 15/22  lines=1  «Ольга Кузьмина»
-    a.AdminSummary__link  694×22 @21,269  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  736×94 @0,707  r20  b1
+    a.AdminSummary__link  694×24 @21,269  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  736×94 @0,708  r20  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  694×22 @21,51  Manrope 400 15/22  lines=1  «Все данные о компании заполнены. Сайт мо»
 
 [геометрия 1440]
-div.AdminSummary__summary  1408×648 @16,16
+div.AdminSummary__summary  1408×650 @16,16
   header.AdminSummary__header  1408×74 @0,0
     h1.AdminSummary__title  1408×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Обзор»
     p.AdminSummary__lead  601×22 @0,52  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
@@ -152,7 +152,7 @@ div.AdminSummary__summary  1408×648 @16,16
       span.AdminSummary__tileTitle  234×20 @19,17  Manrope 400 13/20  lines=1  «Отзывы на модерации»
       span.AdminSummary__tileValue  234×33 @19,39  Onest 700 30/33  lines=1  «2»
       span.AdminSummary__tileNote  234×20 @19,74  Manrope 400 13/20  lines=1  «ждут решения»
-  section.Card__card  1408×313 @0,221  r20  b1
+  section.Card__card  1408×315 @0,221  r20  b1
     h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Ближайшие дела»
     p.AdminSummary__text  1366×22 @21,62  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
     ul.AdminSummary__events  1366×152 @21,94
@@ -181,8 +181,8 @@ div.AdminSummary__summary  1408×648 @16,16
           span.Badge__badge#5  57×24 @104,0  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
           span.AdminSummary__eventKind#4  16×19 @171,3  Manrope 400 12/19  lines=1  «ТО»
           span.AdminSummary__eventName#4  113×22 @196,0  Manrope 600 15/22  lines=1  «Ольга Кузьмина»
-    a.AdminSummary__link  1366×22 @21,270  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  1408×95 @0,553  r20  b1
+    a.AdminSummary__link  1366×24 @21,270  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  1408×95 @0,554  r20  b1
     h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  1366×22 @21,52  Manrope 400 15/22  lines=1  «Все данные о компании заполнены. Сайт мо»
 

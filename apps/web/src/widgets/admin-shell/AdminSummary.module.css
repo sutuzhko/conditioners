@@ -52,7 +52,14 @@
 }
 
 .link {
-  display: inline-block;
+  /* 🔴 Пол цели, а не оформление (issue #476). Ссылка-действие оформлена
+     блоком, а не стоит в строке текста, — значит по WCAG 2.5.8 она цель, и
+     меряется её рамка: строка кегля давала 22.5px при минимуме 24.
+     `inline-flex` вместо `inline-block`: подпись встаёт по центру нового
+     пола, а не липнет к его верху. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   margin-top: 14px;
   color: var(--accent-text);
   font-size: var(--fs-dense);
