@@ -72,7 +72,7 @@ test.describe('Лендинг', () => {
     });
   }
 
-  test('ряды доверия и симптомов остаются одной строкой', async ({ page }) => {
+  test('ряд доверия остаётся одной строкой, симптомы — сеткой без обрезки', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/');
     // ряды меряются после того, как оба отрисованы: пустой контейнер дал бы
@@ -91,14 +91,31 @@ test.describe('Лендинг', () => {
         return new Set(tops).size;
       };
 
+      /* Чип обрезан, если его текст не помещается в кнопку или сама кнопка
+         выходит за правый край ряда — ровно то, что лента прятала за краем. */
+      const clipped = (box: Element | null): number => {
+        if (box === null) return -1;
+        const edge = box.getBoundingClientRect().right;
+        return [...box.children].filter(
+          (chip) =>
+            chip.scrollWidth > chip.clientWidth || chip.getBoundingClientRect().right > edge + 0.5,
+        ).length;
+      };
+      const symptoms = document.querySelector('#service [role="group"]');
+
       return {
         trust: lines(document.querySelector('main section:first-of-type ul')),
-        symptoms: lines(document.querySelector('#service [role="group"]')),
+        symptoms: lines(symptoms),
+        clipped: clipped(symptoms),
       };
     });
 
     expect(rows.trust, JSON.stringify(rows)).toBe(1);
-    expect(rows.symptoms, JSON.stringify(rows)).toBe(1);
+    /* 🔴 Симптомов ровно шесть, и до 600px они стоят сеткой 2×3 (issue #272,
+       ADR-237): лента прятала четыре из шести за краем. Три ряда — это
+       раскладка, а не переполнение; переполнением была бы обрезка чипа. */
+    expect(rows.symptoms, JSON.stringify(rows)).toBe(3);
+    expect(rows.clipped, JSON.stringify(rows)).toBe(0);
   });
 });
 

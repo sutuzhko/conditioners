@@ -60,6 +60,12 @@ export const RivalOpen: Story = {
       await userEvent.click(summary);
       await expect(details).toHaveAttribute('open');
     }
-    await expect(canvas.getByRole('list', { name: honestyContent.rivalListLabel })).toBeVisible();
+    /* Видимость — геометрией, а не `toBeVisible`: тот считает содержимое
+       закрытого `<details>` скрытым, а с 900px оно раскрыто стилем при
+       закрытом атрибуте (ADR-237). `checkVisibility` учитывает
+       `content-visibility` и отвечает по факту отрисовки. */
+    await expect(
+      canvas.getByRole('list', { name: honestyContent.rivalListLabel }).checkVisibility(),
+    ).toBe(true);
   },
 };
