@@ -35,7 +35,10 @@ export function OrderCardView({ order }: OrderCardViewProps) {
     <Card as="article" className={styles.card}>
       <div className={styles.head}>
         <h2 className={styles.number}>
-          <Link className={styles.link} href={{ pathname: `${ORDERS_PATH}/${order.id}` }}>
+          <Link
+            className={`${styles.link} tapAction`}
+            href={{ pathname: `${ORDERS_PATH}/${order.id}` }}
+          >
             {texts.number(order.number)}
           </Link>
         </h2>
@@ -53,7 +56,7 @@ export function OrderCardView({ order }: OrderCardViewProps) {
             <span className={styles.name}>{order.client.name}</span>{' '}
             {/* Телефон ссылкой: по наряду звонят с того же экрана, а набирать
                 номер руками — лишний способ ошибиться цифрой. */}
-            <a className={styles.phone} href={phoneHref(order.client.phone)}>
+            <a className={`${styles.phone} tapAction`} href={phoneHref(order.client.phone)}>
               {formatPhone(order.client.phone)}
             </a>
           </dd>

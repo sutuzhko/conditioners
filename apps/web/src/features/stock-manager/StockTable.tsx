@@ -97,14 +97,17 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
               {items.map((item, row) => (
                 <tr key={item.id}>
                   <th scope="row">
-                    <Link className={styles.name} href={{ pathname: stockItemPath(item.id) }}>
+                    <Link
+                      className={`${styles.name} tapAction`}
+                      href={{ pathname: stockItemPath(item.id) }}
+                    >
                       {item.name}
                     </Link>
                     <span className={styles.itemNote}>{item.group ?? texts.itemGroupNone}</span>
 
                     {movable ? (
                       <Link
-                        className={styles.move}
+                        className={`${styles.move} tapAction`}
                         href={{
                           pathname: STOCK_MOVE_PATH,
                           query: stockMoveQuery({ item: item.id, kind: 'transfer' }),

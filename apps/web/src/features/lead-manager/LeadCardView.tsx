@@ -177,7 +177,7 @@ export function LeadCardView({
           <h2 className={styles.name}>{lead.name}</h2>
           {/* Телефон ссылкой: заявку обрабатывают звонком, и набирать номер
               руками с экрана — лишний способ ошибиться цифрой. */}
-          <a className={styles.phone} href={phoneHref(lead.phone)}>
+          <a className={`${styles.phone} tapAction`} href={phoneHref(lead.phone)}>
             {formatPhone(lead.phone)}
           </a>
         </div>
@@ -269,7 +269,7 @@ export function LeadCardView({
             заполненной именем, телефоном и адресом — перебивать их руками
             значит однажды ошибиться в цифре телефона. */}
         <Link
-          className={styles.plan}
+          className={`${styles.plan} tapAction`}
           href={{ pathname: '/admin/crm', query: { lead: lead.id } }}
           prefetch={false}
         >
@@ -291,7 +291,7 @@ export function LeadCardView({
           </Button>
         ) : (
           <Link
-            className={styles.plan}
+            className={`${styles.plan} tapAction`}
             href={{ pathname: `/admin/clients/${clientId}` }}
             prefetch={false}
           >

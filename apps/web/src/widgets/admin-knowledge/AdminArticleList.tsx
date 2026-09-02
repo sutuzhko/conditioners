@@ -70,7 +70,7 @@ export function AdminArticleList({ articles }: AdminArticleListProps) {
               </td>
               <td role="cell">
                 <Link
-                  className={styles.edit}
+                  className={`${styles.edit} tapAction`}
                   href={{ pathname: `/admin/knowledge/${article.id}` }}
                   aria-label={texts.editLabel(article.title)}
                 >

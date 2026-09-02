@@ -61,7 +61,9 @@ export function StaffCardView({ staff, api, onChanged }: StaffCardViewProps) {
           <div className={styles.fact}>
             <dt>{texts.phone}</dt>
             <dd>
-              <a href={`tel:${staff.phone.replace(/\D/g, '')}`}>{staff.phone}</a>
+              <a className="tapAction" href={`tel:${staff.phone.replace(/\D/g, '')}`}>
+                {staff.phone}
+              </a>
             </dd>
           </div>
         )}
@@ -96,7 +98,7 @@ export function StaffCardView({ staff, api, onChanged }: StaffCardViewProps) {
           {staff.active ? texts.disable : texts.enable}
         </Button>
 
-        <Link className={styles.open} href={{ pathname: `/admin/team/${staff.id}` }}>
+        <Link className={`${styles.open} tapAction`} href={{ pathname: `/admin/team/${staff.id}` }}>
           {texts.open} →
         </Link>
       </div>
