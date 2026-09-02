@@ -7,28 +7,28 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.AllDayBar__bar  358×49 @16,16  b0 0 1 0
+div.AllDayBar__bar  358×69 @16,16  b0 0 1 0
   div.AllDayBar__rail  358×14 @0,4
     span.AllDayBar__label  58×14 @294,0  Manrope 400 12/14  lines=1  «Весь день»
-  ul.AllDayBar__list  358×22 @0,22
-    li.AllDayBar__item  358×22 @0,0
-      button.EventChip__chip  358×22 @0,0  r100  b1 1 1 3
-        span.EventChip__head  52×15 @9,4
+  ul.AllDayBar__list  358×44 @0,20
+    li.AllDayBar__item  358×44 @0,0
+      button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+        span.EventChip__head  52×15 @9,15
           svg.EventChip__icon  12×12 @0,2
           span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:12»
-        span.EventChip__name  283×15 @66,4  Manrope 600 12/15  lines=1  «Сергей»
+        span.EventChip__name  283×15 @66,15  Manrope 600 12/15  lines=1  «Сергей»
 
 [геометрия 768]
-div.AllDayBar__bar  736×49 @16,16  b0 0 1 0
+div.AllDayBar__bar  736×69 @16,16  b0 0 1 0
   div.AllDayBar__rail  736×14 @0,4
     span.AllDayBar__label  58×14 @672,0  Manrope 400 12/14  lines=1  «Весь день»
-  ul.AllDayBar__list  736×22 @0,22
-    li.AllDayBar__item  736×22 @0,0
-      button.EventChip__chip  736×22 @0,0  r100  b1 1 1 3
-        span.EventChip__head  52×15 @9,4
+  ul.AllDayBar__list  736×44 @0,20
+    li.AllDayBar__item  736×44 @0,0
+      button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+        span.EventChip__head  52×15 @9,15
           svg.EventChip__icon  12×12 @0,2
           span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:12»
-        span.EventChip__name  661×15 @66,4  Manrope 600 12/15  lines=1  «Сергей»
+        span.EventChip__name  661×15 @66,15  Manrope 600 12/15  lines=1  «Сергей»
 
 [геометрия 1440]
 div.AllDayBar__bar  1408×49 @16,16  b0 0 1 0

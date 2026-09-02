@@ -7,275 +7,283 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.TimeGrid__grid  358×705 @16,16
+section.TimeGrid__grid  358×749 @16,16
   ul.TimeGrid__legend  358×20 @0,0
     li.TimeGrid__legendItem  146×20 @0,0  Manrope 400 13/20  lines=1  «Дмитрий Соколов»
       span.TimeGrid__legendMark  30×20 @0,0  Manrope 700 12/18  r100  b1  lines=1  «ДС»
     li.TimeGrid__legendItem#2  122×20 @158,0  Manrope 400 13/20  lines=1  «Сергей Панин»
       span.TimeGrid__legendMark  30×20 @0,0  Manrope 700 12/18  r100  b1  lines=1  «СП»
   div.TimeGrid__heads  358×45 @0,28
-    span.TimeGrid__corner  40×0 @0,45
-    div.TimeGrid__head  316×45 @42,0  b0 0 2 0
-      span.TimeGrid__headTitle  308×19 @4,2
+    span.TimeGrid__corner  34×0 @0,45
+    div.TimeGrid__head  322×45 @36,0  b0 0 2 0
+      span.TimeGrid__headTitle  322×19 @0,2
         span.TimeGrid__headWeekday  16×19 @0,0  Manrope 600 12/19  lines=1  «Вс»
         span.TimeGrid__headDate  17×16 @21,1  Onest 700 15/16  lines=1  «23»
-      span.TimeGrid__headMeta  308×16 @4,23
+      span.TimeGrid__headMeta  322×16 @0,23
         span.TimeGrid__headLoad  58×16 @0,0  Manrope 400 12/16  lines=1  «занято 4 ч»
         span.TimeGrid__headClash  106×16 @64,0  Manrope 600 12/16  lines=1  «пересечений: 2»
           svg  11×11 @0,2
-  div.AllDayBar__bar  358×56 @0,73  b0 0 1 0
-    div.AllDayBar__rail  40×29 @0,4
-      span.AllDayBar__label  34×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-    ul.AllDayBar__list  314×47 @44,4
-      li.AllDayBar__item  314×22 @0,0
-        button.EventChip__chip  314×22 @0,0  r100  b1 1 1 3
-          span.EventChip__head  84×15 @9,4
+  div.AllDayBar__bar  358×100 @0,73  b0 0 1 0
+    div.AllDayBar__rail  34×29 @0,4
+      span.AllDayBar__label  28×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
+    ul.AllDayBar__list  322×91 @36,4
+      li.AllDayBar__item  322×44 @0,0
+        button.EventChip__chip  322×44 @0,0  r100  b1 1 1 3
+          span.EventChip__head  84×15 @9,15
             svg.EventChip__icon  12×12 @0,2
             span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «Занят»
             span.EventChip__who  28×15 @56,0  Manrope 700 12/13  r100  b1  lines=1  «СП»
-          span.EventChip__name  207×15 @98,4  Manrope 600 12/15  lines=1  «Сергей Панин»
-      li.AllDayBar__item#2  314×22 @0,25
-        button.EventChip__chip  314×22 @0,0  r100  b1 1 1 3
-          span.EventChip__head#2  52×15 @9,4
+          span.EventChip__name  215×15 @98,15  Manrope 600 12/15  lines=1  «Сергей Панин»
+      li.AllDayBar__item#2  322×44 @0,47
+        button.EventChip__chip  322×44 @0,0  r100  b1 1 1 3
+          span.EventChip__head#2  52×15 @9,15
             svg.EventChip__icon  12×12 @0,2
             span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:12»
-          span.EventChip__name#2  239×15 @66,4  Manrope 600 12/15  lines=1  «Сергей»
-  div.TimeGrid__scroll  358×576 @0,129
+          span.EventChip__name#2  247×15 @66,15  Manrope 600 12/15  lines=1  «Сергей»
+  div.TimeGrid__scroll  358×576 @0,173
     div.TimeGrid__hours  358×1008 @0,-336
-      div.TimeGrid__rail  40×1008 @0,0
-        span.TimeGrid__hour  40×42 @0,0  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «00:00»
-        span.TimeGrid__hour#2  40×42 @0,42  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «01:00»
-        span.TimeGrid__hour#3  40×42 @0,84  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «02:00»
-        span.TimeGrid__hour#4  40×42 @0,126  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «03:00»
-        span.TimeGrid__hour#5  40×42 @0,168  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «04:00»
-        span.TimeGrid__hour#6  40×42 @0,210  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «05:00»
-        span.TimeGrid__hour#7  40×42 @0,252  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «06:00»
-        span.TimeGrid__hour#8  40×42 @0,294  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «07:00»
-        span.TimeGrid__hour#9  40×42 @0,336  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «08:00»
-        span.TimeGrid__hour#10  40×42 @0,378  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «09:00»
-        span.TimeGrid__hour#11  40×42 @0,420  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «10:00»
-        span.TimeGrid__hour#12  40×42 @0,462  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «11:00»
-        span.TimeGrid__hour#13  40×42 @0,504  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «12:00»
-        span.TimeGrid__hour#14  40×42 @0,546  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «13:00»
-        span.TimeGrid__hour#15  40×42 @0,588  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «14:00»
-        span.TimeGrid__hour#16  40×42 @0,630  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «15:00»
-        span.TimeGrid__hour#17  40×42 @0,672  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «16:00»
-        span.TimeGrid__hour#18  40×42 @0,714  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «17:00»
-        span.TimeGrid__hour#19  40×42 @0,756  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «18:00»
-        span.TimeGrid__hour#20  40×42 @0,798  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «19:00»
-        span.TimeGrid__hour#21  40×42 @0,840  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «20:00»
-        span.TimeGrid__hour#22  40×42 @0,882  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «21:00»
-        span.TimeGrid__hour#23  40×42 @0,924  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «22:00»
-        span.TimeGrid__hour#24  40×42 @0,966  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «23:00»
-      div.TimeGrid__track  316×1008 @42,0  b0 0 0 1
-        div.ColumnCanvas__canvas  315×1008 @1,0
-          button.ColumnCanvas__hour  315×42 @0,0  b1 0 0 0
-          button.ColumnCanvas__hour#2  315×42 @0,42  b1 0 0 0
-          button.ColumnCanvas__hour#3  315×42 @0,84  b1 0 0 0
-          button.ColumnCanvas__hour#4  315×42 @0,126  b1 0 0 0
-          button.ColumnCanvas__hour#5  315×42 @0,168  b1 0 0 0
-          button.ColumnCanvas__hour#6  315×42 @0,210  b1 0 0 0
-          button.ColumnCanvas__hour#7  315×42 @0,252  b1 0 0 0
-          button.ColumnCanvas__hour#8  315×42 @0,294  b1 0 0 0
-          button.ColumnCanvas__hour#9  315×42 @0,336  b1 0 0 0
-          button.ColumnCanvas__hour#10  315×42 @0,378  b1 0 0 0
-          button.ColumnCanvas__hour#11  315×42 @0,420  b1 0 0 0
-          button.ColumnCanvas__hour#12  315×42 @0,462  b1 0 0 0
-          button.ColumnCanvas__hour#13  315×42 @0,504  b1 0 0 0
-          button.ColumnCanvas__hour#14  315×42 @0,546  b1 0 0 0
-          button.ColumnCanvas__hour#15  315×42 @0,588  b1 0 0 0
-          button.ColumnCanvas__hour#16  315×42 @0,630  b1 0 0 0
-          button.ColumnCanvas__hour#17  315×42 @0,672  b1 0 0 0
-          button.ColumnCanvas__hour#18  315×42 @0,714  b1 0 0 0
-          button.ColumnCanvas__hour#19  315×42 @0,756  b1 0 0 0
-          button.ColumnCanvas__hour#20  315×42 @0,798  b1 0 0 0
-          button.ColumnCanvas__hour#21  315×42 @0,840  b1 0 0 0
-          button.ColumnCanvas__hour#22  315×42 @0,882  b1 0 0 0
-          button.ColumnCanvas__hour#23  315×42 @0,924  b1 0 0 0
-          button.ColumnCanvas__hour#24  315×42 @0,966  b1 0 0 0
-        span.EventChip__slot  105×21 @1,420
-          button.EventChip__chip  105×24 @1,1  r3 7 7 3  b1 1 1 3
-            span.EventChip__head#3  91×15 @8,3
-              span.EventChip__time  36×15 @0,0  JetBrains Mono 600 12/15  lines=1  «10:00»
-            span.EventChip__name#3  91×2 @8,19  Manrope 600 12/15  lines=1  clipped  «Ирина»
-          span.EventChip__edge  103×7 @1,0
-          span.EventChip__edge#2  103×7 @1,14
-        span.EventChip__slot#2  105×126 @106,420
-          button.EventChip__chip  105×126 @1,1  r3 7 7 3  b1 1 1 3
-            span.EventChip__head#4  91×15 @8,3
-              span.EventChip__number  43×15 @0,0  JetBrains Mono 700 12/15  lines=1  «№ 1059»
-              span.EventChip__who  28×15 @47,0  Manrope 700 12/13  r100  b1  lines=1  «ДС»
-            span.EventChip__name#4  91×15 @8,19  Manrope 600 12/15  lines=1  clipped  «Ирина Соколова»
-            span.EventChip__where  91×15 @8,35  Manrope 400 12/15  lines=1  clipped  «Тула, Первомайская, 12, кв. 4»
-            span.EventChip__clashMark  91×15 @8,52
-              svg  7×11 @0,2
-              span.EventChip__markWord  81×15 @10,0  Manrope 700 12/15  lines=1  «Пересечение»
-        span.EventChip__slot#3  105×63 @1,462
-          button.EventChip__chip  105×63 @1,1  r3 7 7 3  b1 1 1 3
-            span.EventChip__head#5  91×15 @8,3
-              span.EventChip__number  43×15 @0,0  JetBrains Mono 700 12/15  lines=1  «№ 1061»
-              span.EventChip__who  28×15 @47,0  Manrope 700 12/13  r100  b1  lines=1  «СП»
-            span.EventChip__name#5  91×15 @8,19  Manrope 600 12/15  lines=1  «Ольга Титова»
-            span.EventChip__where#2  91×15 @8,35  Manrope 400 12/15  lines=1  clipped  «Тула, Пролетарская, 3»
-        span.EventChip__slot#4  105×84 @211,504
-          button.EventChip__chip  105×84 @1,1  r3 7 7 3  b1 1 1 3
-            span.EventChip__head#6  91×15 @8,3
-              span.EventChip__number  43×15 @0,0  JetBrains Mono 700 12/15  lines=1  «№ 1060»
-              span.EventChip__who  28×15 @47,0  Manrope 700 12/13  r100  b1  lines=1  «ДС»
-            span.EventChip__name#6  91×15 @8,19  Manrope 600 12/15  lines=1  «Пётр Лапин»
-            span.EventChip__where#3  91×15 @8,35  Manrope 400 12/15  lines=1  clipped  «Тула, Ленина, 84»
-            span.EventChip__clashMark#2  91×15 @8,52
-              svg  7×11 @0,2
-              span.EventChip__markWord  81×15 @10,0  Manrope 700 12/15  lines=1  «Пересечение»
-        span.EventChip__slot#5  105×168 @1,567
-          button.EventChip__chip  105×168 @1,1  r3 7 7 3  b1 1 1 3
-            span.EventChip__head#7  91×15 @8,3
-              span.EventChip__time  36×15 @0,0  JetBrains Mono 600 12/15  lines=1  «13:30»
-            span.EventChip__name#7  91×15 @8,19  Manrope 600 12/15  lines=1  «Сергей»
-            span.EventChip__where#4  91×15 @8,35  Manrope 400 12/15  lines=1  clipped  «Тула, Пролетарская 12, кв. 45»
-          span.EventChip__edge  103×7 @1,0
-          span.EventChip__edge#2  103×7 @1,161
-        span.TimeGrid__now  315×2 @1,602  b2 0 0 0
+      div.TimeGrid__rail  34×1008 @0,0
+        span.TimeGrid__hour  34×42 @0,0  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «00:00»
+        span.TimeGrid__hour#2  34×42 @0,42  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «01:00»
+        span.TimeGrid__hour#3  34×42 @0,84  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «02:00»
+        span.TimeGrid__hour#4  34×42 @0,126  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «03:00»
+        span.TimeGrid__hour#5  34×42 @0,168  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «04:00»
+        span.TimeGrid__hour#6  34×42 @0,210  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «05:00»
+        span.TimeGrid__hour#7  34×42 @0,252  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «06:00»
+        span.TimeGrid__hour#8  34×42 @0,294  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «07:00»
+        span.TimeGrid__hour#9  34×42 @0,336  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «08:00»
+        span.TimeGrid__hour#10  34×42 @0,378  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «09:00»
+        span.TimeGrid__hour#11  34×42 @0,420  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «10:00»
+        span.TimeGrid__hour#12  34×42 @0,462  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «11:00»
+        span.TimeGrid__hour#13  34×42 @0,504  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «12:00»
+        span.TimeGrid__hour#14  34×42 @0,546  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «13:00»
+        span.TimeGrid__hour#15  34×42 @0,588  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «14:00»
+        span.TimeGrid__hour#16  34×42 @0,630  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «15:00»
+        span.TimeGrid__hour#17  34×42 @0,672  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «16:00»
+        span.TimeGrid__hour#18  34×42 @0,714  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «17:00»
+        span.TimeGrid__hour#19  34×42 @0,756  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «18:00»
+        span.TimeGrid__hour#20  34×42 @0,798  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «19:00»
+        span.TimeGrid__hour#21  34×42 @0,840  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «20:00»
+        span.TimeGrid__hour#22  34×42 @0,882  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «21:00»
+        span.TimeGrid__hour#23  34×42 @0,924  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «22:00»
+        span.TimeGrid__hour#24  34×42 @0,966  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «23:00»
+      div.TimeGrid__track  322×1008 @36,0  b0 0 0 1
+        div.ColumnCanvas__canvas  321×1008 @1,0
+          button.ColumnCanvas__hour  321×42 @0,0  b1 0 0 0
+          button.ColumnCanvas__hour#2  321×42 @0,42  b1 0 0 0
+          button.ColumnCanvas__hour#3  321×42 @0,84  b1 0 0 0
+          button.ColumnCanvas__hour#4  321×42 @0,126  b1 0 0 0
+          button.ColumnCanvas__hour#5  321×42 @0,168  b1 0 0 0
+          button.ColumnCanvas__hour#6  321×42 @0,210  b1 0 0 0
+          button.ColumnCanvas__hour#7  321×42 @0,252  b1 0 0 0
+          button.ColumnCanvas__hour#8  321×42 @0,294  b1 0 0 0
+          button.ColumnCanvas__hour#9  321×42 @0,336  b1 0 0 0
+          button.ColumnCanvas__hour#10  321×42 @0,378  b1 0 0 0
+          button.ColumnCanvas__hour#11  321×42 @0,420  b1 0 0 0
+          button.ColumnCanvas__hour#12  321×42 @0,462  b1 0 0 0
+          button.ColumnCanvas__hour#13  321×42 @0,504  b1 0 0 0
+          button.ColumnCanvas__hour#14  321×42 @0,546  b1 0 0 0
+          button.ColumnCanvas__hour#15  321×42 @0,588  b1 0 0 0
+          button.ColumnCanvas__hour#16  321×42 @0,630  b1 0 0 0
+          button.ColumnCanvas__hour#17  321×42 @0,672  b1 0 0 0
+          button.ColumnCanvas__hour#18  321×42 @0,714  b1 0 0 0
+          button.ColumnCanvas__hour#19  321×42 @0,756  b1 0 0 0
+          button.ColumnCanvas__hour#20  321×42 @0,798  b1 0 0 0
+          button.ColumnCanvas__hour#21  321×42 @0,840  b1 0 0 0
+          button.ColumnCanvas__hour#22  321×42 @0,882  b1 0 0 0
+          button.ColumnCanvas__hour#23  321×42 @0,924  b1 0 0 0
+          button.ColumnCanvas__hour#24  321×42 @0,966  b1 0 0 0
+        span.EventChip__slot  107×21 @1,420
+          button.EventChip__chip  107×24 @1,1  r3 7 7 3  b1 1 1 3
+            span.EventChip__head#3  93×15 @8,3
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+            span.EventChip__name#3  93×2 @8,19  Manrope 600 12/15  lines=1  clipped  «Ирина»
+          span.EventChip__edge  105×7 @1,0
+          span.EventChip__edge#2  105×7 @1,14
+        span.EventChip__slot#2  107×126 @108,420
+          button.EventChip__chip  107×126 @1,1  r3 7 7 3  b1 1 1 3
+            span.EventChip__head#4  93×15 @8,3
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  19×15 @16,0  JetBrains Mono 600 12/15  lines=1  clipped  «10:00»
+              span.EventChip__number  22×15 @39,0  JetBrains Mono 700 12/15  lines=1  clipped  «№ 1059»
+              span.EventChip__who  28×15 @65,0  Manrope 700 12/13  r100  b1  lines=1  «ДС»
+            span.EventChip__name#4  93×15 @8,19  Manrope 600 12/15  lines=1  clipped  «Ирина Соколова»
+            span.EventChip__where  93×15 @8,35  Manrope 400 12/15  lines=1  clipped  «Тула, Первомайская, 12, кв. 4»
+            span.EventChip__clashMark  93×15 @8,52
+              svg  9×11 @0,2
+              span.EventChip__markWord  81×15 @12,0  Manrope 700 12/15  lines=1  «Пересечение»
+        span.EventChip__slot#3  107×63 @1,462
+          button.EventChip__chip  107×63 @1,1  r3 7 7 3  b1 1 1 3
+            span.EventChip__head#5  93×15 @8,3
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  19×15 @16,0  JetBrains Mono 600 12/15  lines=1  clipped  «11:00»
+              span.EventChip__number  23×15 @39,0  JetBrains Mono 700 12/15  lines=1  clipped  «№ 1061»
+              span.EventChip__who  28×15 @65,0  Manrope 700 12/13  r100  b1  lines=1  «СП»
+            span.EventChip__name#5  93×15 @8,19  Manrope 600 12/15  lines=1  «Ольга Титова»
+            span.EventChip__where#2  93×15 @8,35  Manrope 400 12/15  lines=1  clipped  «Тула, Пролетарская, 3»
+        span.EventChip__slot#4  107×84 @215,504
+          button.EventChip__chip  107×84 @1,1  r3 7 7 3  b1 1 1 3
+            span.EventChip__head#6  93×15 @8,3
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  19×15 @16,0  JetBrains Mono 600 12/15  lines=1  clipped  «12:00»
+              span.EventChip__number  22×15 @39,0  JetBrains Mono 700 12/15  lines=1  clipped  «№ 1060»
+              span.EventChip__who  28×15 @65,0  Manrope 700 12/13  r100  b1  lines=1  «ДС»
+            span.EventChip__name#6  93×15 @8,19  Manrope 600 12/15  lines=1  «Пётр Лапин»
+            span.EventChip__where#3  93×15 @8,35  Manrope 400 12/15  lines=1  «Тула, Ленина, 84»
+            span.EventChip__clashMark#2  93×15 @8,52
+              svg  9×11 @0,2
+              span.EventChip__markWord  81×15 @12,0  Manrope 700 12/15  lines=1  «Пересечение»
+        span.EventChip__slot#5  107×168 @1,567
+          button.EventChip__chip  107×168 @1,1  r3 7 7 3  b1 1 1 3
+            span.EventChip__head#7  93×15 @8,3
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «13:30»
+            span.EventChip__name#7  93×15 @8,19  Manrope 600 12/15  lines=1  «Сергей»
+            span.EventChip__where#4  93×15 @8,35  Manrope 400 12/15  lines=1  clipped  «Тула, Пролетарская 12, кв. 45»
+          span.EventChip__edge  105×7 @1,0
+          span.EventChip__edge#2  105×7 @1,161
+        span.TimeGrid__now  321×2 @1,602  b2 0 0 0
           span.TimeGrid__nowDot  8×8 @-5,-3  r100
 
 [геометрия 768]
-section.TimeGrid__grid  736×705 @16,16
+section.TimeGrid__grid  736×749 @16,16
   ul.TimeGrid__legend  736×20 @0,0
     li.TimeGrid__legendItem  146×20 @0,0  Manrope 400 13/20  lines=1  «Дмитрий Соколов»
       span.TimeGrid__legendMark  30×20 @0,0  Manrope 700 12/18  r100  b1  lines=1  «ДС»
     li.TimeGrid__legendItem#2  122×20 @158,0  Manrope 400 13/20  lines=1  «Сергей Панин»
       span.TimeGrid__legendMark  30×20 @0,0  Manrope 700 12/18  r100  b1  lines=1  «СП»
   div.TimeGrid__heads  736×45 @0,28
-    span.TimeGrid__corner  40×0 @0,45
-    div.TimeGrid__head  694×45 @42,0  b0 0 2 0
-      span.TimeGrid__headTitle  686×19 @4,2
+    span.TimeGrid__corner  34×0 @0,45
+    div.TimeGrid__head  700×45 @36,0  b0 0 2 0
+      span.TimeGrid__headTitle  700×19 @0,2
         span.TimeGrid__headWeekday  16×19 @0,0  Manrope 600 12/19  lines=1  «Вс»
         span.TimeGrid__headDate  17×16 @21,1  Onest 700 15/16  lines=1  «23»
-      span.TimeGrid__headMeta  686×16 @4,23
+      span.TimeGrid__headMeta  700×16 @0,23
         span.TimeGrid__headLoad  58×16 @0,0  Manrope 400 12/16  lines=1  «занято 4 ч»
         span.TimeGrid__headClash  106×16 @64,0  Manrope 600 12/16  lines=1  «пересечений: 2»
           svg  11×11 @0,2
-  div.AllDayBar__bar  736×56 @0,73  b0 0 1 0
-    div.AllDayBar__rail  40×29 @0,4
-      span.AllDayBar__label  34×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-    ul.AllDayBar__list  692×47 @44,4
-      li.AllDayBar__item  692×22 @0,0
-        button.EventChip__chip  692×22 @0,0  r100  b1 1 1 3
-          span.EventChip__head  84×15 @9,4
+  div.AllDayBar__bar  736×100 @0,73  b0 0 1 0
+    div.AllDayBar__rail  34×29 @0,4
+      span.AllDayBar__label  28×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
+    ul.AllDayBar__list  700×91 @36,4
+      li.AllDayBar__item  700×44 @0,0
+        button.EventChip__chip  700×44 @0,0  r100  b1 1 1 3
+          span.EventChip__head  84×15 @9,15
             svg.EventChip__icon  12×12 @0,2
             span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «Занят»
             span.EventChip__who  28×15 @56,0  Manrope 700 12/13  r100  b1  lines=1  «СП»
-          span.EventChip__name  585×15 @98,4  Manrope 600 12/15  lines=1  «Сергей Панин»
-      li.AllDayBar__item#2  692×22 @0,25
-        button.EventChip__chip  692×22 @0,0  r100  b1 1 1 3
-          span.EventChip__head#2  52×15 @9,4
+          span.EventChip__name  593×15 @98,15  Manrope 600 12/15  lines=1  «Сергей Панин»
+      li.AllDayBar__item#2  700×44 @0,47
+        button.EventChip__chip  700×44 @0,0  r100  b1 1 1 3
+          span.EventChip__head#2  52×15 @9,15
             svg.EventChip__icon  12×12 @0,2
             span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:12»
-          span.EventChip__name#2  617×15 @66,4  Manrope 600 12/15  lines=1  «Сергей»
-  div.TimeGrid__scroll  736×576 @0,129
+          span.EventChip__name#2  625×15 @66,15  Manrope 600 12/15  lines=1  «Сергей»
+  div.TimeGrid__scroll  736×576 @0,173
     div.TimeGrid__hours  736×1008 @0,-336
-      div.TimeGrid__rail  40×1008 @0,0
-        span.TimeGrid__hour  40×42 @0,0  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «00:00»
-        span.TimeGrid__hour#2  40×42 @0,42  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «01:00»
-        span.TimeGrid__hour#3  40×42 @0,84  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «02:00»
-        span.TimeGrid__hour#4  40×42 @0,126  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «03:00»
-        span.TimeGrid__hour#5  40×42 @0,168  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «04:00»
-        span.TimeGrid__hour#6  40×42 @0,210  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «05:00»
-        span.TimeGrid__hour#7  40×42 @0,252  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «06:00»
-        span.TimeGrid__hour#8  40×42 @0,294  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «07:00»
-        span.TimeGrid__hour#9  40×42 @0,336  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «08:00»
-        span.TimeGrid__hour#10  40×42 @0,378  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «09:00»
-        span.TimeGrid__hour#11  40×42 @0,420  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «10:00»
-        span.TimeGrid__hour#12  40×42 @0,462  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «11:00»
-        span.TimeGrid__hour#13  40×42 @0,504  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «12:00»
-        span.TimeGrid__hour#14  40×42 @0,546  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «13:00»
-        span.TimeGrid__hour#15  40×42 @0,588  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «14:00»
-        span.TimeGrid__hour#16  40×42 @0,630  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «15:00»
-        span.TimeGrid__hour#17  40×42 @0,672  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «16:00»
-        span.TimeGrid__hour#18  40×42 @0,714  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «17:00»
-        span.TimeGrid__hour#19  40×42 @0,756  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «18:00»
-        span.TimeGrid__hour#20  40×42 @0,798  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «19:00»
-        span.TimeGrid__hour#21  40×42 @0,840  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «20:00»
-        span.TimeGrid__hour#22  40×42 @0,882  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «21:00»
-        span.TimeGrid__hour#23  40×42 @0,924  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «22:00»
-        span.TimeGrid__hour#24  40×42 @0,966  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «23:00»
-      div.TimeGrid__track  694×1008 @42,0  b0 0 0 1
-        div.ColumnCanvas__canvas  693×1008 @1,0
-          button.ColumnCanvas__hour  693×42 @0,0  b1 0 0 0
-          button.ColumnCanvas__hour#2  693×42 @0,42  b1 0 0 0
-          button.ColumnCanvas__hour#3  693×42 @0,84  b1 0 0 0
-          button.ColumnCanvas__hour#4  693×42 @0,126  b1 0 0 0
-          button.ColumnCanvas__hour#5  693×42 @0,168  b1 0 0 0
-          button.ColumnCanvas__hour#6  693×42 @0,210  b1 0 0 0
-          button.ColumnCanvas__hour#7  693×42 @0,252  b1 0 0 0
-          button.ColumnCanvas__hour#8  693×42 @0,294  b1 0 0 0
-          button.ColumnCanvas__hour#9  693×42 @0,336  b1 0 0 0
-          button.ColumnCanvas__hour#10  693×42 @0,378  b1 0 0 0
-          button.ColumnCanvas__hour#11  693×42 @0,420  b1 0 0 0
-          button.ColumnCanvas__hour#12  693×42 @0,462  b1 0 0 0
-          button.ColumnCanvas__hour#13  693×42 @0,504  b1 0 0 0
-          button.ColumnCanvas__hour#14  693×42 @0,546  b1 0 0 0
-          button.ColumnCanvas__hour#15  693×42 @0,588  b1 0 0 0
-          button.ColumnCanvas__hour#16  693×42 @0,630  b1 0 0 0
-          button.ColumnCanvas__hour#17  693×42 @0,672  b1 0 0 0
-          button.ColumnCanvas__hour#18  693×42 @0,714  b1 0 0 0
-          button.ColumnCanvas__hour#19  693×42 @0,756  b1 0 0 0
-          button.ColumnCanvas__hour#20  693×42 @0,798  b1 0 0 0
-          button.ColumnCanvas__hour#21  693×42 @0,840  b1 0 0 0
-          button.ColumnCanvas__hour#22  693×42 @0,882  b1 0 0 0
-          button.ColumnCanvas__hour#23  693×42 @0,924  b1 0 0 0
-          button.ColumnCanvas__hour#24  693×42 @0,966  b1 0 0 0
-        span.EventChip__slot  231×21 @1,420
-          button.EventChip__chip  231×24 @1,1  r3 7 7 3  b1 1 1 3
-            span.EventChip__head#3  217×15 @8,3
+      div.TimeGrid__rail  34×1008 @0,0
+        span.TimeGrid__hour  34×42 @0,0  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «00:00»
+        span.TimeGrid__hour#2  34×42 @0,42  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «01:00»
+        span.TimeGrid__hour#3  34×42 @0,84  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «02:00»
+        span.TimeGrid__hour#4  34×42 @0,126  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «03:00»
+        span.TimeGrid__hour#5  34×42 @0,168  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «04:00»
+        span.TimeGrid__hour#6  34×42 @0,210  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «05:00»
+        span.TimeGrid__hour#7  34×42 @0,252  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «06:00»
+        span.TimeGrid__hour#8  34×42 @0,294  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «07:00»
+        span.TimeGrid__hour#9  34×42 @0,336  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «08:00»
+        span.TimeGrid__hour#10  34×42 @0,378  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «09:00»
+        span.TimeGrid__hour#11  34×42 @0,420  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «10:00»
+        span.TimeGrid__hour#12  34×42 @0,462  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «11:00»
+        span.TimeGrid__hour#13  34×42 @0,504  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «12:00»
+        span.TimeGrid__hour#14  34×42 @0,546  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «13:00»
+        span.TimeGrid__hour#15  34×42 @0,588  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «14:00»
+        span.TimeGrid__hour#16  34×42 @0,630  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «15:00»
+        span.TimeGrid__hour#17  34×42 @0,672  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «16:00»
+        span.TimeGrid__hour#18  34×42 @0,714  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «17:00»
+        span.TimeGrid__hour#19  34×42 @0,756  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «18:00»
+        span.TimeGrid__hour#20  34×42 @0,798  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «19:00»
+        span.TimeGrid__hour#21  34×42 @0,840  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «20:00»
+        span.TimeGrid__hour#22  34×42 @0,882  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «21:00»
+        span.TimeGrid__hour#23  34×42 @0,924  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «22:00»
+        span.TimeGrid__hour#24  34×42 @0,966  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «23:00»
+      div.TimeGrid__track  700×1008 @36,0  b0 0 0 1
+        div.ColumnCanvas__canvas  699×1008 @1,0
+          button.ColumnCanvas__hour  699×42 @0,0  b1 0 0 0
+          button.ColumnCanvas__hour#2  699×42 @0,42  b1 0 0 0
+          button.ColumnCanvas__hour#3  699×42 @0,84  b1 0 0 0
+          button.ColumnCanvas__hour#4  699×42 @0,126  b1 0 0 0
+          button.ColumnCanvas__hour#5  699×42 @0,168  b1 0 0 0
+          button.ColumnCanvas__hour#6  699×42 @0,210  b1 0 0 0
+          button.ColumnCanvas__hour#7  699×42 @0,252  b1 0 0 0
+          button.ColumnCanvas__hour#8  699×42 @0,294  b1 0 0 0
+          button.ColumnCanvas__hour#9  699×42 @0,336  b1 0 0 0
+          button.ColumnCanvas__hour#10  699×42 @0,378  b1 0 0 0
+          button.ColumnCanvas__hour#11  699×42 @0,420  b1 0 0 0
+          button.ColumnCanvas__hour#12  699×42 @0,462  b1 0 0 0
+          button.ColumnCanvas__hour#13  699×42 @0,504  b1 0 0 0
+          button.ColumnCanvas__hour#14  699×42 @0,546  b1 0 0 0
+          button.ColumnCanvas__hour#15  699×42 @0,588  b1 0 0 0
+          button.ColumnCanvas__hour#16  699×42 @0,630  b1 0 0 0
+          button.ColumnCanvas__hour#17  699×42 @0,672  b1 0 0 0
+          button.ColumnCanvas__hour#18  699×42 @0,714  b1 0 0 0
+          button.ColumnCanvas__hour#19  699×42 @0,756  b1 0 0 0
+          button.ColumnCanvas__hour#20  699×42 @0,798  b1 0 0 0
+          button.ColumnCanvas__hour#21  699×42 @0,840  b1 0 0 0
+          button.ColumnCanvas__hour#22  699×42 @0,882  b1 0 0 0
+          button.ColumnCanvas__hour#23  699×42 @0,924  b1 0 0 0
+          button.ColumnCanvas__hour#24  699×42 @0,966  b1 0 0 0
+        span.EventChip__slot  233×21 @1,420
+          button.EventChip__chip  233×24 @1,1  r3 7 7 3  b1 1 1 3
+            span.EventChip__head#3  219×15 @8,3
               svg.EventChip__icon  12×12 @0,2
               span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
-            span.EventChip__name#3  217×2 @8,19  Manrope 600 12/15  lines=1  clipped  «Ирина»
-          span.EventChip__edge  229×7 @1,0
-          span.EventChip__edge#2  229×7 @1,14
-        span.EventChip__slot#2  231×126 @232,420
-          button.EventChip__chip  231×126 @1,1  r3 7 7 3  b1 1 1 3
-            span.EventChip__head#4  217×15 @8,3
+            span.EventChip__name#3  219×2 @8,19  Manrope 600 12/15  lines=1  clipped  «Ирина»
+          span.EventChip__edge  231×7 @1,0
+          span.EventChip__edge#2  231×7 @1,14
+        span.EventChip__slot#2  233×126 @234,420
+          button.EventChip__chip  233×126 @1,1  r3 7 7 3  b1 1 1 3
+            span.EventChip__head#4  219×15 @8,3
               svg.EventChip__icon  12×12 @0,2
               span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
               span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1059»
               span.EventChip__who  28×15 @103,0  Manrope 700 12/13  r100  b1  lines=1  «ДС»
-            span.EventChip__name#4  217×15 @8,19  Manrope 600 12/15  lines=1  «Ирина Соколова»
-            span.EventChip__where  217×15 @8,35  Manrope 400 12/15  lines=1  «Тула, Первомайская, 12, кв. 4»
-            span.EventChip__clashMark  217×15 @8,52
+            span.EventChip__name#4  219×15 @8,19  Manrope 600 12/15  lines=1  «Ирина Соколова»
+            span.EventChip__where  219×15 @8,35  Manrope 400 12/15  lines=1  «Тула, Первомайская, 12, кв. 4»
+            span.EventChip__clashMark  219×15 @8,52
               svg  11×11 @0,2
               span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
-        span.EventChip__slot#3  231×63 @1,462
-          button.EventChip__chip  231×63 @1,1  r3 7 7 3  b1 1 1 3
-            span.EventChip__head#5  217×15 @8,3
+        span.EventChip__slot#3  233×63 @1,462
+          button.EventChip__chip  233×63 @1,1  r3 7 7 3  b1 1 1 3
+            span.EventChip__head#5  219×15 @8,3
               svg.EventChip__icon  12×12 @0,2
               span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «11:00»
               span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1061»
               span.EventChip__who  28×15 @103,0  Manrope 700 12/13  r100  b1  lines=1  «СП»
-            span.EventChip__name#5  217×15 @8,19  Manrope 600 12/15  lines=1  «Ольга Титова»
-            span.EventChip__where#2  217×15 @8,35  Manrope 400 12/15  lines=1  «Тула, Пролетарская, 3»
-        span.EventChip__slot#4  231×84 @463,504
-          button.EventChip__chip  231×84 @1,1  r3 7 7 3  b1 1 1 3
-            span.EventChip__head#6  217×15 @8,3
+            span.EventChip__name#5  219×15 @8,19  Manrope 600 12/15  lines=1  «Ольга Титова»
+            span.EventChip__where#2  219×15 @8,35  Manrope 400 12/15  lines=1  «Тула, Пролетарская, 3»
+        span.EventChip__slot#4  233×84 @467,504
+          button.EventChip__chip  233×84 @1,1  r3 7 7 3  b1 1 1 3
+            span.EventChip__head#6  219×15 @8,3
               svg.EventChip__icon  12×12 @0,2
               span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «12:00»
               span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1060»
               span.EventChip__who  28×15 @103,0  Manrope 700 12/13  r100  b1  lines=1  «ДС»
-            span.EventChip__name#6  217×15 @8,19  Manrope 600 12/15  lines=1  «Пётр Лапин»
-            span.EventChip__where#3  217×15 @8,35  Manrope 400 12/15  lines=1  «Тула, Ленина, 84»
-            span.EventChip__clashMark#2  217×15 @8,52
+            span.EventChip__name#6  219×15 @8,19  Manrope 600 12/15  lines=1  «Пётр Лапин»
+            span.EventChip__where#3  219×15 @8,35  Manrope 400 12/15  lines=1  «Тула, Ленина, 84»
+            span.EventChip__clashMark#2  219×15 @8,52
               svg  11×11 @0,2
               span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
-        span.EventChip__slot#5  231×168 @1,567
-          button.EventChip__chip  231×168 @1,1  r3 7 7 3  b1 1 1 3
-            span.EventChip__head#7  217×15 @8,3
+        span.EventChip__slot#5  233×168 @1,567
+          button.EventChip__chip  233×168 @1,1  r3 7 7 3  b1 1 1 3
+            span.EventChip__head#7  219×15 @8,3
               svg.EventChip__icon  12×12 @0,2
               span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «13:30»
-            span.EventChip__name#7  217×15 @8,19  Manrope 600 12/15  lines=1  «Сергей»
-            span.EventChip__where#4  217×15 @8,35  Manrope 400 12/15  lines=1  «Тула, Пролетарская 12, кв. 45»
-          span.EventChip__edge  229×7 @1,0
-          span.EventChip__edge#2  229×7 @1,161
-        span.TimeGrid__now  693×2 @1,602  b2 0 0 0
+            span.EventChip__name#7  219×15 @8,19  Manrope 600 12/15  lines=1  «Сергей»
+            span.EventChip__where#4  219×15 @8,35  Manrope 400 12/15  lines=1  «Тула, Пролетарская 12, кв. 45»
+          span.EventChip__edge  231×7 @1,0
+          span.EventChip__edge#2  231×7 @1,161
+        span.TimeGrid__now  699×2 @1,602  b2 0 0 0
           span.TimeGrid__nowDot  8×8 @-5,-3  r100
 
 [геометрия 1440]

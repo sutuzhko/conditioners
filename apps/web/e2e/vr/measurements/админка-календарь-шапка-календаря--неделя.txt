@@ -7,23 +7,23 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.CalendarNav__nav  358×181 @16,16
-  div.CalendarNav__steps  169×36 @0,0
-    a.CalendarNav__step  36×36 @0,0  r11  b1
-      svg.CalendarNav__back  18×18 @9,9
-    a.CalendarNav__today  85×36 @42,0  Manrope 600 13/20  r11  b1  lines=1  «Сегодня»
-    a.CalendarNav__step#2  36×36 @133,0  r11  b1
-      svg  18×18 @9,9
-  h2.CalendarNav__title  155×21 @183,8  Onest 700 17/21  ls0  lines=1  «17–23 августа 2026»
-  nav.CalendarNav__views  205×36 @0,46  r100  b1
-    a.CalendarNav__view  66×30 @3,3  Manrope 600 13/20  r100  lines=1  «Месяц»
-    a.CalendarNav__view#2  72×30 @71,3  Manrope 600 13/20  r100  lines=1  «Неделя»
-    a.CalendarNav__view#3  57×30 @145,3  Manrope 600 13/20  r100  lines=1  «День»
-  div.CalendarSearch__box  358×35 @0,92
-    span.CalendarSearch__glass  16×23 @10,6
+div.CalendarNav__nav  358×212 @16,16
+  div.CalendarNav__steps  185×44 @0,0
+    a.CalendarNav__step  44×44 @0,0  r11  b1
+      svg.CalendarNav__back  18×18 @13,13
+    a.CalendarNav__today  85×44 @50,0  Manrope 600 13/20  r11  b1  lines=1  «Сегодня»
+    a.CalendarNav__step#2  44×44 @141,0  r11  b1
+      svg  18×18 @13,13
+  h2.CalendarNav__title  155×21 @199,12  Onest 700 17/21  ls0  lines=1  «17–23 августа 2026»
+  nav.CalendarNav__views  205×50 @0,54  r100  b1
+    a.CalendarNav__view  66×44 @3,3  Manrope 600 13/20  r100  lines=1  «Месяц»
+    a.CalendarNav__view#2  72×44 @71,3  Manrope 600 13/20  r100  lines=1  «Неделя»
+    a.CalendarNav__view#3  57×44 @145,3  Manrope 600 13/20  r100  lines=1  «День»
+  div.CalendarSearch__box  358×44 @0,114
+    span.CalendarSearch__glass  16×23 @10,10
       svg  16×16 @0,1
-    input.CalendarSearch__field  358×35 @0,0  r11  b1
-  div.CalendarNav__actions  322×44 @36,137
+    input.CalendarSearch__field  358×44 @0,0  r11  b1
+  div.CalendarNav__actions  322×44 @36,168
     div.CalendarCreate__buttons  322×44 @0,0
       button.Button__button  184×44 @0,0  r9  b1
         span.Button__content  154×16 @15,14
@@ -35,26 +35,26 @@ div.CalendarNav__nav  358×181 @16,16
           span.Button__label#2  74×16 @28,2  Manrope 600 13/16  lines=1  «Новое дело»
 
 [геометрия 768]
-div.CalendarNav__nav  736×90 @16,16
-  div.CalendarNav__steps  169×36 @0,0
-    a.CalendarNav__step  36×36 @0,0  r11  b1
-      svg.CalendarNav__back  18×18 @9,9
-    a.CalendarNav__today  85×36 @42,0  Manrope 600 13/20  r11  b1  lines=1  «Сегодня»
-    a.CalendarNav__step#2  36×36 @133,0  r11  b1
-      svg  18×18 @9,9
-  h2.CalendarNav__title  163×22 @183,7  Onest 700 18/22  ls0  lines=1  «17–23 августа 2026»
-  nav.CalendarNav__views  205×36 @360,0  r100  b1
-    a.CalendarNav__view  66×30 @3,3  Manrope 600 13/20  r100  lines=1  «Месяц»
-    a.CalendarNav__view#2  72×30 @71,3  Manrope 600 13/20  r100  lines=1  «Неделя»
-    a.CalendarNav__view#3  57×30 @145,3  Manrope 600 13/20  r100  lines=1  «День»
-  div.CalendarSearch__box  190×35 @0,51
-    span.CalendarSearch__glass  16×23 @10,6
+div.CalendarNav__nav  736×104 @16,16
+  div.CalendarNav__steps  185×44 @0,3
+    a.CalendarNav__step  44×44 @0,0  r11  b1
+      svg.CalendarNav__back  18×18 @13,13
+    a.CalendarNav__today  85×44 @50,0  Manrope 600 13/20  r11  b1  lines=1  «Сегодня»
+    a.CalendarNav__step#2  44×44 @141,0  r11  b1
+      svg  18×18 @13,13
+  h2.CalendarNav__title  163×22 @199,14  Onest 700 18/22  ls0  lines=1  «17–23 августа 2026»
+  nav.CalendarNav__views  205×50 @376,0  r100  b1
+    a.CalendarNav__view  66×44 @3,3  Manrope 600 13/20  r100  lines=1  «Месяц»
+    a.CalendarNav__view#2  72×44 @71,3  Manrope 600 13/20  r100  lines=1  «Неделя»
+    a.CalendarNav__view#3  57×44 @145,3  Manrope 600 13/20  r100  lines=1  «День»
+  div.CalendarSearch__box  190×44 @0,60
+    span.CalendarSearch__glass  16×23 @10,10
       svg  16×16 @0,1
-    input.CalendarSearch__field  190×35 @0,0  r11  b1
-  button.Button__button  86×44 @204,46  r9  b1
+    input.CalendarSearch__field  190×44 @0,0  r11  b1
+  button.Button__button  86×44 @204,60  r9  b1
     span.Button__content  56×16 @15,14
       span.Button__label  56×16 @0,0  Manrope 600 13/16  lines=1  «Клавиши»
-  div.CalendarNav__actions  322×44 @414,46
+  div.CalendarNav__actions  322×44 @414,60
     div.CalendarCreate__buttons  322×44 @0,0
       button.Button__button  184×44 @0,0  r9  b1
         span.Button__content#2  154×16 @15,14
