@@ -2,16 +2,16 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1039
+390 → 390×1079
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.AdminSummary__summary  358×1007 @16,16
+div.AdminSummary__summary  358×1047 @16,16
   header.AdminSummary__header  358×59 @0,0
     h1.AdminSummary__title  358×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Обзор»
     p.AdminSummary__lead  358×22 @0,36  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
-  section.Card__card  358×250 @0,77  r20  b1
+  section.Card__card  358×270 @0,77  r20  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  316×67 @21,50  Manrope 400 15/22  lines=3  «Пока не заполнено — на сайте вместо этих»
     ul.AdminSummary__groups  316×62 @21,129
@@ -19,8 +19,8 @@ div.AdminSummary__summary  358×1007 @16,16
       span.Badge__badge#2  124×28 @157,0  Manrope 600 12/16  r100  b1  lines=1  «Телефон и почта»
       span.Badge__badge#3  63×28 @0,34  Manrope 600 12/16  r100  b1  lines=1  «Адрес»
       span.Badge__badge#4  89×28 @69,34  Manrope 600 12/16  r100  b1  lines=1  «Реквизиты»
-    a.AdminSummary__link  224×24 @21,205  Manrope 600 15/22  lines=1  «Заполнить данные компании →»
-  div.AdminSummary__tiles  358×438 @0,345
+    a.AdminSummary__link  224×44 @21,205  Manrope 600 15/22  lines=1  «Заполнить данные компании →»
+  div.AdminSummary__tiles  358×438 @0,365
     a.AdminSummary__tile  173×131 @0,0  r20  b1
       span.AdminSummary__tileTitle  135×20 @19,17  Manrope 400 13/20  lines=1  «Новые обращения»
       span.AdminSummary__tileValue  135×33 @19,39  Onest 700 30/33  lines=1  «0»
@@ -41,18 +41,18 @@ div.AdminSummary__summary  358×1007 @16,16
       span.AdminSummary__tileTitle  135×40 @19,17  Manrope 400 13/20  lines=2  «Отзывы на модерации»
       span.AdminSummary__tileValue  135×33 @19,59  Onest 700 30/33  lines=1  «0»
       span.AdminSummary__tileNote  135×20 @19,94  Manrope 400 13/20  lines=1  «ждут решения»
-  section.Card__card#2  358×206 @0,801  r20  b1
+  section.Card__card#2  358×226 @0,821  r20  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Ближайшие дела»
     p.AdminSummary__text  316×45 @21,60  Manrope 400 15/22  lines=2  «Наряды и дела календаря по времени. Прос»
     p.AdminSummary__text#2  316×22 @21,115  Manrope 400 15/22  lines=1  «Ничего не запланировано.»
-    a.AdminSummary__link  316×24 @21,161  Manrope 600 15/22  lines=1  «Открыть календарь →»
+    a.AdminSummary__link  316×44 @21,161  Manrope 600 15/22  lines=1  «Открыть календарь →»
 
 [геометрия 768]
-div.AdminSummary__summary  736×774 @16,16
+div.AdminSummary__summary  736×814 @16,16
   header.AdminSummary__header  736×66 @0,0
     h1.AdminSummary__title  736×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Обзор»
     p.AdminSummary__lead  601×22 @0,43  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
-  section.Card__card  736×195 @0,84  r20  b1
+  section.Card__card  736×215 @0,84  r20  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  694×45 @21,51  Manrope 400 15/22  lines=2  «Пока не заполнено — на сайте вместо этих»
     ul.AdminSummary__groups  694×28 @21,108
@@ -60,8 +60,8 @@ div.AdminSummary__summary  736×774 @16,16
       span.Badge__badge#2  124×28 @157,0  Manrope 600 12/16  r100  b1  lines=1  «Телефон и почта»
       span.Badge__badge#3  63×28 @287,0  Manrope 600 12/16  r100  b1  lines=1  «Адрес»
       span.Badge__badge#4  89×28 @356,0  Manrope 600 12/16  r100  b1  lines=1  «Реквизиты»
-    a.AdminSummary__link  224×24 @21,150  Manrope 600 15/22  lines=1  «Заполнить данные компании →»
-  div.AdminSummary__tiles  736×275 @0,297
+    a.AdminSummary__link  224×44 @21,150  Manrope 600 15/22  lines=1  «Заполнить данные компании →»
+  div.AdminSummary__tiles  736×275 @0,317
     a.AdminSummary__tile  175×152 @0,0  r20  b1
       span.AdminSummary__tileTitle  137×20 @19,17  Manrope 400 13/20  lines=1  «Новые обращения»
       span.AdminSummary__tileValue  137×33 @19,39  Onest 700 30/33  lines=1  «0»
@@ -82,11 +82,11 @@ div.AdminSummary__summary  736×774 @16,16
       span.AdminSummary__tileTitle  137×20 @19,17  Manrope 400 13/20  lines=1  «Отзывы на модерации»
       span.AdminSummary__tileValue  137×33 @19,39  Onest 700 30/33  lines=1  «0»
       span.AdminSummary__tileNote  137×20 @19,74  Manrope 400 13/20  lines=1  «ждут решения»
-  section.Card__card#2  736×185 @0,589  r20  b1
+  section.Card__card#2  736×205 @0,609  r20  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Ближайшие дела»
     p.AdminSummary__text  694×22 @21,61  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
     p.AdminSummary__text#2  694×22 @21,93  Manrope 400 15/22  lines=1  «Ничего не запланировано.»
-    a.AdminSummary__link  694×24 @21,140  Manrope 600 15/22  lines=1  «Открыть календарь →»
+    a.AdminSummary__link  694×44 @21,140  Manrope 600 15/22  lines=1  «Открыть календарь →»
 
 [геометрия 1440]
 div.AdminSummary__summary  1408×599 @16,16

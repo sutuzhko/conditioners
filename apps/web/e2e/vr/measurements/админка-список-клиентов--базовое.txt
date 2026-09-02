@@ -7,64 +7,64 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.ClientList__list  358×379 @16,16
-  article.Card__card  358×244 @0,0  r20  b1
-    div.ClientCardView__head  316×28 @21,21
-      h2.ClientCardView__name  136×21 @0,2
-        a.ClientCardView__link  136×22 @0,-1  Onest 700 17/21  ls0  lines=1  «Ирина Соколова»
-      span.Badge__badge  102×28 @214,0  Manrope 600 12/16  r100  b1  lines=1  «2 обращения»
-    dl.ClientCardView__facts  316×91 @21,59
-      div.ClientCardView__fact  129×43 @0,0
+div.ClientList__list  358×454 @16,16
+  article.Card__card  358×282 @0,0  r20  b1
+    div.ClientCardView__head  316×44 @21,21
+      h2.ClientCardView__name  136×44 @0,0
+        a.ClientCardView__link  136×44 @0,0  Onest 700 17/21  ls0  lines=1  «Ирина Соколова»
+      span.Badge__badge  102×28 @214,10  Manrope 600 12/16  r100  b1  lines=1  «2 обращения»
+    dl.ClientCardView__facts  316×113 @21,75
+      div.ClientCardView__fact  129×64 @0,0
         dt  129×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-        a.ClientCardView__phone  129×19 @0,21  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
-      div.ClientCardView__fact#2  204×43 @0,49
+        a.ClientCardView__phone  129×44 @0,20  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+      div.ClientCardView__fact#2  204×43 @0,70
         dt  204×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
         dd  204×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
-      div.ClientCardView__fact#3  77×43 @228,49
+      div.ClientCardView__fact#3  77×43 @228,70
         dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
         time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
-    p.ClientCardView__note  316×61 @21,162  Manrope 400 15/22  r11  lines=2  «Домофон не работает, звонить на телефон.»
-  article.Card__card#2  358×123 @0,256  r20  b1
-    div.ClientCardView__head  316×28 @21,21
-      h2.ClientCardView__name#2  96×21 @0,2
-        a.ClientCardView__link  96×22 @0,-1  Onest 700 17/21  ls0  lines=1  «Пётр Ильин»
-      span.Badge__badge#2  115×28 @201,0  Manrope 600 12/16  r100  b1  lines=1  «без обращений»
-    dl.ClientCardView__facts  316×43 @21,59
-      div.ClientCardView__fact#4  133×43 @0,0
+    p.ClientCardView__note  316×61 @21,200  Manrope 400 15/22  r11  lines=2  «Домофон не работает, звонить на телефон.»
+  article.Card__card#2  358×160 @0,294  r20  b1
+    div.ClientCardView__head  316×44 @21,21
+      h2.ClientCardView__name#2  96×44 @0,0
+        a.ClientCardView__link  96×44 @0,0  Onest 700 17/21  ls0  lines=1  «Пётр Ильин»
+      span.Badge__badge#2  115×28 @201,10  Manrope 600 12/16  r100  b1  lines=1  «без обращений»
+    dl.ClientCardView__facts  316×64 @21,75
+      div.ClientCardView__fact#4  133×64 @0,0
         dt  133×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-        a.ClientCardView__phone  133×19 @0,21  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
-      div.ClientCardView__fact#5  77×43 @157,0
+        a.ClientCardView__phone  133×44 @0,20  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
+      div.ClientCardView__fact#5  77×64 @157,0
         dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
         time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
 
 [геометрия 768]
-div.ClientList__list  736×308 @16,16
-  article.Card__card  736×173 @0,0  r20  b1
-    div.ClientCardView__head  694×28 @21,21
-      h2.ClientCardView__name  143×22 @0,2
-        a.ClientCardView__link  143×22 @0,-1  Onest 700 18/22  ls0  lines=1  «Ирина Соколова»
-      span.Badge__badge  102×28 @592,0  Manrope 600 12/16  r100  b1  lines=1  «2 обращения»
-    dl.ClientCardView__facts  694×43 @21,59
-      div.ClientCardView__fact  129×43 @0,0
+div.ClientList__list  736×383 @16,16
+  article.Card__card  736×211 @0,0  r20  b1
+    div.ClientCardView__head  694×44 @21,21
+      h2.ClientCardView__name  143×44 @0,0
+        a.ClientCardView__link  143×44 @0,0  Onest 700 18/22  ls0  lines=1  «Ирина Соколова»
+      span.Badge__badge  102×28 @592,9  Manrope 600 12/16  r100  b1  lines=1  «2 обращения»
+    dl.ClientCardView__facts  694×64 @21,75
+      div.ClientCardView__fact  129×64 @0,0
         dt  129×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-        a.ClientCardView__phone  129×19 @0,21  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
-      div.ClientCardView__fact#2  204×43 @153,0
+        a.ClientCardView__phone  129×44 @0,20  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+      div.ClientCardView__fact#2  204×64 @153,0
         dt  204×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
         dd  204×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
-      div.ClientCardView__fact#3  77×43 @381,0
+      div.ClientCardView__fact#3  77×64 @381,0
         dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
         time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
-    p.ClientCardView__note  694×38 @21,114  Manrope 400 15/22  r11  lines=1  «Домофон не работает, звонить на телефон.»
-  article.Card__card#2  736×123 @0,185  r20  b1
-    div.ClientCardView__head  694×28 @21,21
-      h2.ClientCardView__name#2  101×22 @0,2
-        a.ClientCardView__link  101×22 @0,-1  Onest 700 18/22  ls0  lines=1  «Пётр Ильин»
-      span.Badge__badge#2  115×28 @579,0  Manrope 600 12/16  r100  b1  lines=1  «без обращений»
-    dl.ClientCardView__facts  694×43 @21,59
-      div.ClientCardView__fact#4  133×43 @0,0
+    p.ClientCardView__note  694×38 @21,151  Manrope 400 15/22  r11  lines=1  «Домофон не работает, звонить на телефон.»
+  article.Card__card#2  736×160 @0,223  r20  b1
+    div.ClientCardView__head  694×44 @21,21
+      h2.ClientCardView__name#2  101×44 @0,0
+        a.ClientCardView__link  101×44 @0,0  Onest 700 18/22  ls0  lines=1  «Пётр Ильин»
+      span.Badge__badge#2  115×28 @579,9  Manrope 600 12/16  r100  b1  lines=1  «без обращений»
+    dl.ClientCardView__facts  694×64 @21,75
+      div.ClientCardView__fact#4  133×64 @0,0
         dt  133×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-        a.ClientCardView__phone  133×19 @0,21  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
-      div.ClientCardView__fact#5  77×43 @157,0
+        a.ClientCardView__phone  133×44 @0,20  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
+      div.ClientCardView__fact#5  77×64 @157,0
         dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
         time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
 

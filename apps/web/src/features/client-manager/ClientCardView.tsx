@@ -23,7 +23,10 @@ export function ClientCardView({ client }: ClientCardViewProps) {
     <Card as="article" className={styles.card}>
       <div className={styles.head}>
         <h2 className={styles.name}>
-          <Link className={styles.link} href={{ pathname: `/admin/clients/${client.id}` }}>
+          <Link
+            className={`${styles.link} tapAction`}
+            href={{ pathname: `/admin/clients/${client.id}` }}
+          >
             {client.name}
           </Link>
         </h2>
@@ -39,7 +42,7 @@ export function ClientCardView({ client }: ClientCardViewProps) {
           <dd>
             {/* Телефон ссылкой: по клиенту звонят, и набирать номер руками с
                 экрана — лишний способ ошибиться цифрой. */}
-            <a className={styles.phone} href={phoneHref(client.phone)}>
+            <a className={`${styles.phone} tapAction`} href={phoneHref(client.phone)}>
               {formatPhone(client.phone)}
             </a>
           </dd>

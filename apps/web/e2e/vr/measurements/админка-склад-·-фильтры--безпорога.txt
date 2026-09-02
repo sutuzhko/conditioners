@@ -7,17 +7,17 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×423 @16,16  r20  b1
-  nav.StockFilters__row  316×76 @21,21
-    a.StockFilters__chip  102×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все группы»
-    a.StockFilters__chip#2  79×34 @110,0  Manrope 600 13/20  r100  b1  lines=1  «Крепёж»
-    a.StockFilters__chip#3  119×34 @196,0  Manrope 600 13/20  r100  b1  lines=1  «Медная труба»
-    a.StockFilters__chip#4  71×34 @0,42  Manrope 600 13/20  r100  b1  lines=1  «Фреон»
-  nav.StockFilters__row#2  316×76 @21,107
-    a.StockFilters__chip  108×34 @0,0  Manrope 500 13/20  r100  b1  lines=1  «Все позиции»
-    a.StockFilters__chip#2  127×34 @116,0  Manrope 500 13/20  r100  b1  lines=1  «Только к заказу»
-    a.StockFilters__chip#3  85×34 @0,42  Manrope 500 13/20  r100  b1  lines=1  «В архиве»
-  form.StockFilters__form  316×159 @21,194
+section.Card__card  358×463 @16,16  r20  b1
+  nav.StockFilters__row  316×96 @21,21
+    a.StockFilters__chip  102×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все группы»
+    a.StockFilters__chip#2  79×44 @110,0  Manrope 600 13/20  r100  b1  lines=1  «Крепёж»
+    a.StockFilters__chip#3  119×44 @196,0  Manrope 600 13/20  r100  b1  lines=1  «Медная труба»
+    a.StockFilters__chip#4  71×44 @0,52  Manrope 600 13/20  r100  b1  lines=1  «Фреон»
+  nav.StockFilters__row#2  316×96 @21,127
+    a.StockFilters__chip  108×44 @0,0  Manrope 500 13/20  r100  b1  lines=1  «Все позиции»
+    a.StockFilters__chip#2  127×44 @116,0  Manrope 500 13/20  r100  b1  lines=1  «Только к заказу»
+    a.StockFilters__chip#3  85×44 @0,52  Manrope 500 13/20  r100  b1  lines=1  «В архиве»
+  form.StockFilters__form  316×159 @21,233
     div.Field__field  316×103 @0,0
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
       input  316×49 @0,27  r11  b1
@@ -26,21 +26,21 @@ section.Card__card  358×423 @16,16  r20  b1
       button.Button__button  69×44 @0,0  r9  b1
         span.Button__content  39×16 @15,14
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-  p.StockFilters__total  316×40 @21,362
+  p.StockFilters__total  316×40 @21,402
     span  316×40 @0,0  Manrope 400 13/20  lines=2  «Всего позиций: 4 · остаток считается по»
 
 [геометрия 768]
-section.Card__card  736×263 @16,16  r20  b1
-  nav.StockFilters__row  694×34 @21,21
-    a.StockFilters__chip  102×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все группы»
-    a.StockFilters__chip#2  79×34 @110,0  Manrope 600 13/20  r100  b1  lines=1  «Крепёж»
-    a.StockFilters__chip#3  119×34 @196,0  Manrope 600 13/20  r100  b1  lines=1  «Медная труба»
-    a.StockFilters__chip#4  71×34 @323,0  Manrope 600 13/20  r100  b1  lines=1  «Фреон»
-  nav.StockFilters__row#2  694×34 @21,65
-    a.StockFilters__chip  108×34 @0,0  Manrope 500 13/20  r100  b1  lines=1  «Все позиции»
-    a.StockFilters__chip#2  127×34 @116,0  Manrope 500 13/20  r100  b1  lines=1  «Только к заказу»
-    a.StockFilters__chip#3  85×34 @251,0  Manrope 500 13/20  r100  b1  lines=1  «В архиве»
-  form.StockFilters__form  694×103 @21,109
+section.Card__card  736×283 @16,16  r20  b1
+  nav.StockFilters__row  694×44 @21,21
+    a.StockFilters__chip  102×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все группы»
+    a.StockFilters__chip#2  79×44 @110,0  Manrope 600 13/20  r100  b1  lines=1  «Крепёж»
+    a.StockFilters__chip#3  119×44 @196,0  Manrope 600 13/20  r100  b1  lines=1  «Медная труба»
+    a.StockFilters__chip#4  71×44 @323,0  Manrope 600 13/20  r100  b1  lines=1  «Фреон»
+  nav.StockFilters__row#2  694×44 @21,75
+    a.StockFilters__chip  108×44 @0,0  Manrope 500 13/20  r100  b1  lines=1  «Все позиции»
+    a.StockFilters__chip#2  127×44 @116,0  Manrope 500 13/20  r100  b1  lines=1  «Только к заказу»
+    a.StockFilters__chip#3  85×44 @251,0  Manrope 500 13/20  r100  b1  lines=1  «В архиве»
+  form.StockFilters__form  694×103 @21,129
     div.Field__field  613×103 @0,0
       label.Field__label  613×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
       input  613×49 @0,27  r11  b1
@@ -49,7 +49,7 @@ section.Card__card  736×263 @16,16  r20  b1
       button.Button__button  69×44 @0,26  r9  b1
         span.Button__content  39×16 @15,14
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-  p.StockFilters__total  694×20 @21,222
+  p.StockFilters__total  694×20 @21,242
     span  318×20 @0,0  Manrope 400 13/20  lines=1  «Всего позиций: 4 · остаток считается по»
 
 [геометрия 1440]

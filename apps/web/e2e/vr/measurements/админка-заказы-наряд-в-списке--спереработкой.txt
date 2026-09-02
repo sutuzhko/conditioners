@@ -7,56 +7,56 @@
 1440 → 1440×900
 
 [геометрия 390]
-article.Card__card  358×333 @16,16  r20  b1
-  div.OrderCardView__head  316×28 @21,21
-    h2.OrderCardView__number  57×21 @0,4
-      a.OrderCardView__link  57×22 @0,-1  Onest 700 17/21  ls0  lines=1  «№ 1061»
-    span.Badge__badge  67×24 @154,2  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
-    span.Badge__badge#2  83×28 @233,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
-  dl.OrderCardView__facts  316×217 @21,59
-    div.OrderCardView__fact  316×43 @0,0
+article.Card__card  358×370 @16,16  r20  b1
+  div.OrderCardView__head  316×44 @21,21
+    h2.OrderCardView__number  57×44 @0,0
+      a.OrderCardView__link  57×44 @0,0  Onest 700 17/21  ls0  lines=1  «№ 1061»
+    span.Badge__badge  67×24 @154,10  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+    span.Badge__badge#2  83×28 @233,8  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+  dl.OrderCardView__facts  316×238 @21,75
+    div.OrderCardView__fact  316×64 @0,0
       dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
-      span.OrderCardView__name  117×19 @0,21  Manrope 600 15/22  lines=1  «Ирина Соколова»
-      a.OrderCardView__phone  129×19 @120,21  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
-    div.OrderCardView__fact#2  316×65 @0,51
+      span.OrderCardView__name  117×19 @0,32  Manrope 600 15/22  lines=1  «Ирина Соколова»
+      a.OrderCardView__phone  129×44 @120,20  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+    div.OrderCardView__fact#2  316×65 @0,72
       dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Дата и время»
       time  125×19 @0,21  Manrope 600 15/22  lines=1  «28.08.2026, 16:00»
       span.OrderCardView__span  67×19 @127,21  Manrope 500 15/22  lines=1  «5 ч 15 мин»
       span.OrderCardView__overtime  316×20 @0,45  Manrope 600 13/20  lines=1  «Переработка: 2 ч 15 мин»
-    div.OrderCardView__fact#3  316×43 @0,123
+    div.OrderCardView__fact#3  316×43 @0,145
       dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
       dd  316×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
-    div.OrderCardView__fact#4  316×43 @0,174
+    div.OrderCardView__fact#4  316×43 @0,196
       dt  316×20 @0,0  Manrope 400 13/20  lines=1  «Монтажник»
       dd  316×22 @0,20  Manrope 600 15/22  lines=1  «Дмитрий Соколов»
-  div.OrderCardView__marks  316×24 @21,288
+  div.OrderCardView__marks  316×24 @21,325
     span.Badge__badge  79×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «2 позиции»
     span.Badge__badge#2  125×24 @85,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
 
 [геометрия 768]
-article.Card__card  736×232 @16,16  r20  b1
-  div.OrderCardView__head  694×28 @21,21
-    h2.OrderCardView__number  60×22 @0,3
-      a.OrderCardView__link  60×22 @0,-1  Onest 700 18/22  ls0  lines=1  «№ 1061»
-    span.Badge__badge  67×24 @532,2  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
-    span.Badge__badge#2  83×28 @611,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
-  dl.OrderCardView__facts  694×116 @21,59
-    div.OrderCardView__fact  215×65 @0,0
+article.Card__card  736×269 @16,16  r20  b1
+  div.OrderCardView__head  694×44 @21,21
+    h2.OrderCardView__number  60×44 @0,0
+      a.OrderCardView__link  60×44 @0,0  Onest 700 18/22  ls0  lines=1  «№ 1061»
+    span.Badge__badge  67×24 @532,10  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+    span.Badge__badge#2  83×28 @611,8  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+  dl.OrderCardView__facts  694×137 @21,75
+    div.OrderCardView__fact  215×87 @0,0
       dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
       span.OrderCardView__name  117×19 @0,21  Manrope 600 15/22  lines=1  «Ирина Соколова»
-      a.OrderCardView__phone  129×19 @0,44  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
-    div.OrderCardView__fact#2  215×65 @239,0
+      a.OrderCardView__phone  129×44 @0,43  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
+    div.OrderCardView__fact#2  215×87 @239,0
       dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Дата и время»
       time  125×19 @0,21  Manrope 600 15/22  lines=1  «28.08.2026, 16:00»
       span.OrderCardView__span  67×19 @127,21  Manrope 500 15/22  lines=1  «5 ч 15 мин»
       span.OrderCardView__overtime  215×20 @0,45  Manrope 600 13/20  lines=1  «Переработка: 2 ч 15 мин»
-    div.OrderCardView__fact#3  215×65 @479,0
+    div.OrderCardView__fact#3  215×87 @479,0
       dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
       dd  215×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
-    div.OrderCardView__fact#4  215×43 @0,73
+    div.OrderCardView__fact#4  215×43 @0,95
       dt  215×20 @0,0  Manrope 400 13/20  lines=1  «Монтажник»
       dd  215×22 @0,20  Manrope 600 15/22  lines=1  «Дмитрий Соколов»
-  div.OrderCardView__marks  694×24 @21,187
+  div.OrderCardView__marks  694×24 @21,224
     span.Badge__badge  79×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «2 позиции»
     span.Badge__badge#2  125×24 @85,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
 

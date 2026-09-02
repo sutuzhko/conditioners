@@ -97,7 +97,7 @@ export function AdminSummary({ counts, readiness, upcoming = [] }: AdminSummaryP
               </li>
             ))}
           </ul>
-          <Link className={styles.link} href={{ pathname: '/admin/company' }}>
+          <Link className={`${styles.link} tapAction`} href={{ pathname: '/admin/company' }}>
             {texts.readinessCta}
           </Link>
         </>
@@ -166,7 +166,7 @@ export function AdminSummary({ counts, readiness, upcoming = [] }: AdminSummaryP
           <ul className={styles.events}>
             {upcoming.map((item) => (
               <li className={styles.event} key={`${item.nature}-${item.id}`}>
-                <Link className={styles.eventLink} href={{ pathname: item.href }}>
+                <Link className={`${styles.eventLink} tapAction`} href={{ pathname: item.href }}>
                   <span className={styles.eventWhen}>{item.when}</span>
                   {/* Природа записи — словом и плашкой, а не одним цветом:
                       наряд и дело различаются деньгами, и путать их нельзя
@@ -183,7 +183,7 @@ export function AdminSummary({ counts, readiness, upcoming = [] }: AdminSummaryP
           </ul>
         )}
 
-        <Link className={styles.link} href={{ pathname: '/admin/crm' }}>
+        <Link className={`${styles.link} tapAction`} href={{ pathname: '/admin/crm' }}>
           {texts.upcomingCta}
         </Link>
       </Card>

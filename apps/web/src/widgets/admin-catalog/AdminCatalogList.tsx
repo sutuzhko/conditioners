@@ -91,7 +91,7 @@ export function AdminCatalogList({ products }: AdminCatalogListProps) {
               </td>
               <td role="cell">
                 <Link
-                  className={styles.edit}
+                  className={`${styles.edit} tapAction`}
                   href={{ pathname: `/admin/catalog/${product.id}` }}
                   aria-label={texts.editLabel(product.name)}
                 >

@@ -7,18 +7,18 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×399 @16,16  r20  b1
-  nav.OrderFilters__row  316×74 @21,21
-    a.OrderFilters__chip  88×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Активные»
-    a.OrderFilters__chip#2  67×34 @94,0  Manrope 600 13/20  r100  b1  lines=1  «Новые»
-    a.OrderFilters__chip#3  80×34 @168,0  Manrope 600 13/20  r100  b1  lines=1  «История»
-    a.OrderFilters__chip#4  73×34 @0,40  Manrope 600 13/20  r100  b1  lines=1  «Отказы»
-    a.OrderFilters__chip#5  49×34 @79,40  Manrope 600 13/20  r100  b1  lines=1  «Все»
-  nav.OrderFilters__row#2  316×74 @21,105
-    a.OrderFilters__chip  91×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
-    a.OrderFilters__chip#2  99×34 @97,0  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
-    a.OrderFilters__chip#3  129×34 @0,40  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
-  form.OrderFilters__form  316×159 @21,190
+section.Card__card  358×439 @16,16  r20  b1
+  nav.OrderFilters__row  316×94 @21,21
+    a.OrderFilters__chip  88×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Активные»
+    a.OrderFilters__chip#2  67×44 @94,0  Manrope 600 13/20  r100  b1  lines=1  «Новые»
+    a.OrderFilters__chip#3  80×44 @168,0  Manrope 600 13/20  r100  b1  lines=1  «История»
+    a.OrderFilters__chip#4  73×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Отказы»
+    a.OrderFilters__chip#5  49×44 @79,50  Manrope 600 13/20  r100  b1  lines=1  «Все»
+  nav.OrderFilters__row#2  316×94 @21,125
+    a.OrderFilters__chip  91×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
+    a.OrderFilters__chip#2  99×44 @97,0  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
+    a.OrderFilters__chip#3  129×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
+  form.OrderFilters__form  316×159 @21,229
     div.Field__field  316×103 @0,0
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
       input  316×49 @0,27  r11  b1
@@ -28,21 +28,21 @@ section.Card__card  358×399 @16,16  r20  b1
         span.Button__content  39×16 @15,14
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
       a.OrderFilters__reset  121×24 @81,10  Manrope 400 15/22  lines=1  «Сбросить фильтр»
-  p.OrderFilters__total  316×20 @21,358  Manrope 400 13/20  lines=1  «Найдено: 1»
+  p.OrderFilters__total  316×20 @21,398  Manrope 400 13/20  lines=1  «Найдено: 1»
 
 [геометрия 768]
-section.Card__card  736×263 @16,16  r20  b1
-  nav.OrderFilters__row  694×34 @21,21
-    a.OrderFilters__chip  88×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Активные»
-    a.OrderFilters__chip#2  67×34 @94,0  Manrope 600 13/20  r100  b1  lines=1  «Новые»
-    a.OrderFilters__chip#3  80×34 @168,0  Manrope 600 13/20  r100  b1  lines=1  «История»
-    a.OrderFilters__chip#4  73×34 @254,0  Manrope 600 13/20  r100  b1  lines=1  «Отказы»
-    a.OrderFilters__chip#5  49×34 @332,0  Manrope 600 13/20  r100  b1  lines=1  «Все»
-  nav.OrderFilters__row#2  694×34 @21,65
-    a.OrderFilters__chip  91×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
-    a.OrderFilters__chip#2  99×34 @97,0  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
-    a.OrderFilters__chip#3  129×34 @203,0  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
-  form.OrderFilters__form  694×103 @21,109
+section.Card__card  736×283 @16,16  r20  b1
+  nav.OrderFilters__row  694×44 @21,21
+    a.OrderFilters__chip  88×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Активные»
+    a.OrderFilters__chip#2  67×44 @94,0  Manrope 600 13/20  r100  b1  lines=1  «Новые»
+    a.OrderFilters__chip#3  80×44 @168,0  Manrope 600 13/20  r100  b1  lines=1  «История»
+    a.OrderFilters__chip#4  73×44 @254,0  Manrope 600 13/20  r100  b1  lines=1  «Отказы»
+    a.OrderFilters__chip#5  49×44 @332,0  Manrope 600 13/20  r100  b1  lines=1  «Все»
+  nav.OrderFilters__row#2  694×44 @21,75
+    a.OrderFilters__chip  91×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
+    a.OrderFilters__chip#2  99×44 @97,0  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
+    a.OrderFilters__chip#3  129×44 @203,0  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
+  form.OrderFilters__form  694×103 @21,129
     div.Field__field  480×103 @0,0
       label.Field__label  480×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
       input  480×49 @0,27  r11  b1
@@ -52,7 +52,7 @@ section.Card__card  736×263 @16,16  r20  b1
         span.Button__content  39×16 @15,14
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
       a.OrderFilters__reset  121×24 @81,36  Manrope 400 15/22  lines=1  «Сбросить фильтр»
-  p.OrderFilters__total  694×20 @21,222  Manrope 400 13/20  lines=1  «Найдено: 1»
+  p.OrderFilters__total  694×20 @21,242  Manrope 400 13/20  lines=1  «Найдено: 1»
 
 [геометрия 1440]
 section.Card__card  1408×263 @16,16  r20  b1
