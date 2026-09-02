@@ -766,7 +766,7 @@ section.CatalogList__section  bg #ffffff
                   span.Button__content#4
                     span.Button__label  color #0e7490
         nav.Pager__pager
-          a.Pager__step  color #0e7490  border #cbd5e1
+          a.Pager__step  color #0e7490  border #7e8fa6
           span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
           span.Pager__stepOff  color #556173  border #eef2f6
 [палитра light @320]
@@ -927,7 +927,7 @@ section.CatalogList__section  bg #0b1220
                   span.Button__content#4
                     span.Button__label  color #22d3ee
         nav.Pager__pager
-          a.Pager__step  color #22d3ee  border #2c3d59
+          a.Pager__step  color #22d3ee  border #566d95
           span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
           span.Pager__stepOff  color #8598ac  border #182338
 [палитра dark @320]

@@ -298,9 +298,9 @@ div.StockTable__wrap
   p.StockTable__hint#2  color #5b6a7d
   p.StockTable__warning  color #92400e  bg #b4530914  border #b4530947
   nav.Pager__pager
-    a.Pager__step  color #0e7490  border #cbd5e1
+    a.Pager__step  color #0e7490  border #7e8fa6
     span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
-    a.Pager__step#2  color #0e7490  border #cbd5e1
+    a.Pager__step#2  color #0e7490  border #7e8fa6
 
 [палитра dark]
 div.StockTable__wrap
@@ -372,6 +372,6 @@ div.StockTable__wrap
   p.StockTable__hint#2  color #7e92a7
   p.StockTable__warning  color #fbbf24  bg #fbbf241f  border #fbbf2452
   nav.Pager__pager
-    a.Pager__step  color #22d3ee  border #2c3d59
+    a.Pager__step  color #22d3ee  border #566d95
     span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
-    a.Pager__step#2  color #22d3ee  border #2c3d59
+    a.Pager__step#2  color #22d3ee  border #566d95

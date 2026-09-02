@@ -407,7 +407,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
           input  bg #ffffff  border #7e8fa6
         div.Checkbox__root
           div.Checkbox__row
-            input.Checkbox__input  bg #ffffff  border #cbd5e1
+            input.Checkbox__input  bg #ffffff  border #7e8fa6
             label.Checkbox__label  color #475569
     fieldset.OrderUnits__root  border #e2e8f0
       legend.OrderUnits__legend  color #0f172a
@@ -520,7 +520,7 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
           input  bg #0b1424  border #566d95
         div.Checkbox__root
           div.Checkbox__row
-            input.Checkbox__input  bg #0b1424  border #2c3d59
+            input.Checkbox__input  bg #0b1424  border #566d95
             label.Checkbox__label  color #a8b6c6
     fieldset.OrderUnits__root  border #1e2b41
       legend.OrderUnits__legend  color #eaf1f8
