@@ -153,7 +153,7 @@ describe('Монтаж — день по часам свёрнут родным 
     expect(within(details).getAllByRole('listitem')).toHaveLength(installDay.length);
   });
 
-  it('раскрывашка на клавиатуре: summary берёт фокус после четырёх шагов', async () => {
+  it('раскрывашка на клавиатуре: summary — первая цель Tab: шаги нефокусируемы', async () => {
     const user = userEvent.setup();
     const { container } = render(<StepsTimeline />);
 

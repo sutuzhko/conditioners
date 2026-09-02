@@ -144,7 +144,6 @@ function SymptomCard({ id, symptom, active }: SymptomCardProps) {
       aria-hidden={!active}
       aria-labelledby={titleId}
       data-symptom={symptom.key}
-      data-active={active}
     >
       <h3 id={titleId} className={styles.panelTitle}>
         {symptom.title}
