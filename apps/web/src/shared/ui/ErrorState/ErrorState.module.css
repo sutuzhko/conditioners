@@ -1,0 +1,60 @@
+/* Ошибка блока (issue #336). Геометрия та же, что у пустого состояния:
+   значок в круге 48px, отбивки 12 / 4 / 16 — состояния одного блока обязаны
+   стоять на одной линии, иначе смена «пусто» на «ошибка» двигает соседей. */
+
+.box {
+  display: grid;
+  justify-items: center;
+  padding: 28px 16px;
+  text-align: center;
+}
+
+/* Красный круг — единственное, что отличает ошибку от пустоты с первого
+   взгляда; тон задают токены ошибки, а не собственный цвет. */
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  border-radius: var(--r-pill);
+  background: var(--error-bg);
+  color: var(--error-ink);
+}
+
+.title {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.text {
+  max-width: 42ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+/* На телефоне действия встают столбиком во всю ширину карточки: две кнопки
+   по 96px в ряд — самые мелкие цели на экране, где целей и так мало. */
+@media (width < 600px) {
+  .actions {
+    flex-direction: column;
+    justify-self: stretch;
+  }
+
+  .actions > * {
+    width: 100%;
+  }
+}

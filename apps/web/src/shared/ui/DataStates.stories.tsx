@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { Alert } from './Alert/Alert';
 import { Badge } from './Badge/Badge';
 import { Button } from './Button/Button';
 import { Card } from './Card/Card';
-import { CardBody, CardFooter, CardHeader } from './Card/CardBelt';
+import { CardBody, CardHeader } from './Card/CardBelt';
+import { ErrorState } from './ErrorState/ErrorState';
 import { Icon } from './Icon';
 import { IconButton } from './IconButton/IconButton';
 import { Skeleton } from './Skeleton/Skeleton';
@@ -230,27 +230,31 @@ function NotFoundBlock() {
 export const NotFound: Story = { name: 'Ничего не найдено', render: () => <NotFoundBlock /> };
 
 /**
- * Ошибка. Сказано, что случилось с данными, и дано действие «Повторить».
- * Остальная панель при этом работает — об этом тоже сказано.
+ * Ошибка. Сказано, что случилось, что с данными и что делать (issue #336).
+ * Успокоить владельца здесь важнее, чем показать код ответа: «наряды не
+ * потеряны» — это то, ради чего он смотрит на экран. Остальная панель при
+ * этом работает — ошибка занимает место данных, а не страницу.
  */
 function FailedBlock() {
   return (
     <Card padding="none">
       <CardHeader title="Наряды на неделю" />
       <CardBody>
-        <Alert
-          tone="danger"
-          title="Наряды не загрузились"
-          action={<Button size="sm">Повторить</Button>}
+        <ErrorState
+          title="Не удалось загрузить наряды"
+          actions={
+            <>
+              <Button size="sm">Повторить</Button>
+              <Button size="sm" variant="light">
+                Обновить страницу
+              </Button>
+            </>
+          }
         >
-          База не ответила за десять секунд. Остальные разделы панели работают.
-        </Alert>
+          Сервер не ответил. Наряды при этом не потеряны — они записаны в базу и появятся, как
+          только связь восстановится.
+        </ErrorState>
       </CardBody>
-      <CardFooter align="start">
-        <span style={{ color: 'var(--muted)', fontSize: 'var(--fs-tiny)' }}>
-          Последнее удачное обновление — 12 минут назад
-        </span>
-      </CardFooter>
     </Card>
   );
 }
