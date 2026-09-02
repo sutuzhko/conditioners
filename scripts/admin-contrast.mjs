@@ -276,6 +276,17 @@ function probe({ aaText, aaLarge, minAlpha }) {
   for (const el of document.querySelectorAll(CONTROLS)) {
     if (!visible(el)) continue;
 
+    /* 🔴 Исключение объявляет сам контрол атрибутом `data-contrast-border`
+       со значением `scale` (ADR-235). Оно снимает проверку 1.4.11 только с
+       границы и только там, где линия задаёт масштаб, а не очерчивает цель:
+       час сетки календаря опознают по месту в столбце дня, а не по краю.
+       Требование к тексту такого узла остаётся в силе — оно проверено выше.
+
+       Атрибут, а не список классов в скрипте: исключение живёт рядом с
+       разметкой, которая его заслужила, и уезжает вместе с ней. Список в
+       скрипте протухал бы молча при первом переименовании класса. */
+    if (el.getAttribute('data-contrast-border') === 'scale') continue;
+
     const chain = chainOf(el);
     const style = chain.styles[0];
     if (chain.alphas[0] < minAlpha) {

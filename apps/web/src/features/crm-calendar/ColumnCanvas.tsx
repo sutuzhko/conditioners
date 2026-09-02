@@ -129,6 +129,15 @@ export function ColumnCanvas({ day, offHours, reachable = true }: ColumnCanvasPr
           }}
           aria-label={texts.createAt(dayTitle(day), timeOfMinutes(hour * 60))}
           tabIndex={reachable ? undefined : -1}
+          /* 🔴 Линия часа — масштаб, а не край цели (ADR-235). Час опознают по
+             месту в столбце дня и на шкале времени, а не по рамке; сама цель
+             показывает себя наведением, кольцом фокуса и курсором `cell`.
+             Поднять линию до 3:1 значило бы разлиновать календарь чёрной
+             сеткой — то есть испортить единственную часть интерфейса, которая
+             владельца устраивает (ADR-128). Атрибут снимает с этой границы
+             проверку 1.4.11 в `scripts/admin-contrast.mjs`; требование к
+             тексту и к самой цели остаётся. */
+          data-contrast-border="scale"
         />
       ))}
 
