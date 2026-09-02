@@ -7,9 +7,9 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×786 @16,16  r20  b1
-  div.Table__viewport  356×784 @1,1
-    table.Table__table  356×784 @0,0
+section.Card__card  358×790 @16,16  r20  b1
+  div.Table__viewport  356×788 @1,1
+    table.Table__table  356×788 @0,0
       tr[role=row]  1×56 @0,0
         th  114×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заголовок»
         th#2  99×56 @114,0  Onest 700 15/23  b0 0 1 0  lines=1  «Рубрика»
@@ -17,7 +17,7 @@ section.Card__card  358×786 @16,16  r20  b1
         th#4  89×56 @284,0  Onest 700 15/23  b0 0 1 0  lines=1  «Чтение»
         th#5  102×56 @373,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
         span  1×1 @492,38  Onest 700 15/23  lines=1  clipped  «Править»
-      tr[role=row]#2  356×262 @0,0  r14  b1
+      tr[role=row]#2  356×264 @0,0  r14  b1
         td.AdminArticleList__name  354×59 @1,5  Manrope 600 15/22  lines=2  «Инвертор или обычный кондиционер»
           td.AdminArticleList__name::before  67×20 @0,0
         td[role=cell]  354×36 @1,64  Manrope 400 15/22  lines=1  «Выбор техники»
@@ -29,9 +29,9 @@ section.Card__card  358×786 @16,16  r20  b1
         td[role=cell]#2  354×42 @1,173
           td[role=cell]#2::before  55×20 @0,0
           span.Badge__badge  111×28 @229,7  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
-        td[role=cell]#3  354×37 @1,220  b1 0 0 0
-          a.AdminArticleList__edit  60×22 @280,8  Manrope 600 15/22  lines=1  «Править»
-      tr[role=row]#3  356×240 @0,272  r14  b1
+        td[role=cell]#3  354×39 @1,220  b1 0 0 0
+          a.AdminArticleList__edit  60×24 @280,8  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#3  356×241 @0,274  r14  b1
         td.AdminArticleList__name  354×36 @1,5  Manrope 600 15/22  lines=1  «Как часто чистить кондиционер»
           td.AdminArticleList__name::before  67×20 @0,0
         td[role=cell]  354×36 @1,41  Manrope 400 15/22  lines=1  «Эксплуатация»
@@ -43,9 +43,9 @@ section.Card__card  358×786 @16,16  r20  b1
         td[role=cell]#2  354×42 @1,151
           td[role=cell]#2::before  55×20 @0,0
           span.Badge__badge#2  111×28 @229,7  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
-        td[role=cell]#3  354×37 @1,197  b1 0 0 0
-          a.AdminArticleList__edit#2  60×22 @280,8  Manrope 600 15/22  lines=1  «Править»
-      tr[role=row]#4  356×262 @0,522  r14  b1
+        td[role=cell]#3  354×39 @1,197  b1 0 0 0
+          a.AdminArticleList__edit#2  60×24 @280,8  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#4  356×264 @0,525  r14  b1
         td.AdminArticleList__name  354×59 @1,5  Manrope 600 15/22  lines=2  «Черновик про монтаж в панельном доме»
           td.AdminArticleList__name::before  67×20 @0,0
         td[role=cell]  354×36 @1,64  Manrope 400 15/22  lines=1  «Монтаж»
@@ -57,8 +57,8 @@ section.Card__card  358×786 @16,16  r20  b1
         td[role=cell]#2  354×42 @1,173
           td[role=cell]#2::before  55×20 @0,0
           span.Badge__badge#3  83×28 @257,7  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
-        td[role=cell]#3  354×37 @1,220  b1 0 0 0
-          a.AdminArticleList__edit#3  60×22 @280,8  Manrope 600 15/22  lines=1  «Править»
+        td[role=cell]#3  354×39 @1,220  b1 0 0 0
+          a.AdminArticleList__edit#3  60×24 @280,8  Manrope 600 15/22  lines=1  «Править»
 
 [геометрия 768]
 section.Card__card  736×369 @16,16  r20  b1
@@ -79,7 +79,7 @@ section.Card__card  736×369 @16,16  r20  b1
         td[role=cell]#2  147×96 @491,0  b0 0 1 0
           span.Badge__badge  111×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
         td[role=cell]#3  96×96 @638,0  b0 0 1 0
-          a.AdminArticleList__edit  60×19 @18,16  Manrope 600 15/22  lines=1  «Править»
+          a.AdminArticleList__edit  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
       tr[role=row]#3  734×96 @0,152
         td.AdminArticleList__name  153×96 @0,0  Manrope 600 15/22  b0 0 1 0  lines=3  «Как часто чистить кондиционер»
         td[role=cell]  134×96 @153,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Эксплуатация»
@@ -88,7 +88,7 @@ section.Card__card  736×369 @16,16  r20  b1
         td[role=cell]#2  147×96 @491,0  b0 0 1 0
           span.Badge__badge#2  111×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
         td[role=cell]#3  96×96 @638,0  b0 0 1 0
-          a.AdminArticleList__edit#2  60×19 @18,16  Manrope 600 15/22  lines=1  «Править»
+          a.AdminArticleList__edit#2  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
       tr[role=row]#4  734×118 @0,249
         td.AdminArticleList__name  153×118 @0,0  Manrope 600 15/22  lines=4  «Черновик про монтаж в панельном доме»
         td[role=cell]  134×118 @153,0  Manrope 400 15/22  lines=1  «Монтаж»
@@ -97,7 +97,7 @@ section.Card__card  736×369 @16,16  r20  b1
         td[role=cell]#2  147×118 @491,0
           span.Badge__badge#3  83×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
         td[role=cell]#3  96×118 @638,0
-          a.AdminArticleList__edit#3  60×19 @18,16  Manrope 600 15/22  lines=1  «Править»
+          a.AdminArticleList__edit#3  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
 
 [геометрия 1440]
 section.Card__card  1408×229 @16,16  r20  b1
@@ -118,7 +118,7 @@ section.Card__card  1408×229 @16,16  r20  b1
         td[role=cell]#2  227×57 @1031,0  b0 0 1 0
           span.Badge__badge  111×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
         td[role=cell]#3  148×57 @1258,0  b0 0 1 0
-          a.AdminArticleList__edit  60×19 @18,16  Manrope 600 15/22  lines=1  «Править»
+          a.AdminArticleList__edit  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
       tr[role=row]#3  1406×57 @0,113
         td.AdminArticleList__name  501×57 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Как часто чистить кондиционер»
         td[role=cell]  214×57 @501,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Эксплуатация»
@@ -127,7 +127,7 @@ section.Card__card  1408×229 @16,16  r20  b1
         td[role=cell]#2  227×57 @1031,0  b0 0 1 0
           span.Badge__badge#2  111×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
         td[role=cell]#3  148×57 @1258,0  b0 0 1 0
-          a.AdminArticleList__edit#2  60×19 @18,16  Manrope 600 15/22  lines=1  «Править»
+          a.AdminArticleList__edit#2  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
       tr[role=row]#4  1406×57 @0,170
         td.AdminArticleList__name  501×57 @0,0  Manrope 600 15/22  lines=1  «Черновик про монтаж в панельном доме»
         td[role=cell]  214×57 @501,0  Manrope 400 15/22  lines=1  «Монтаж»
@@ -136,7 +136,7 @@ section.Card__card  1408×229 @16,16  r20  b1
         td[role=cell]#2  227×57 @1031,0
           span.Badge__badge#3  83×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
         td[role=cell]#3  148×57 @1258,0
-          a.AdminArticleList__edit#3  60×19 @18,16  Manrope 600 15/22  lines=1  «Править»
+          a.AdminArticleList__edit#3  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px

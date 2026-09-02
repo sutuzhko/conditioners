@@ -7,33 +7,33 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×543 @16,16  r20  b1
+section.Card__card  358×546 @16,16  r20  b1
   h2.OrderDocs__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Документы»
   p.OrderDocs__hint  316×40 @21,46  Manrope 400 13/20  lines=2  «Договор, акт, гарантийный талон, счёт и»
-  ul.OrderDocs__list  316×161 @21,100
-    li.OrderDocs__item  316×78 @0,0  r11
-      svg.OrderDocs__icon  20×20 @8,7
-      a.OrderDocs__link  270×22 @38,6  Manrope 600 15/22  lines=1  «Договор 1059.pdf»
-      span.OrderDocs__meta  100×20 @8,42  Manrope 400 13/20  lines=1  «Договор · 180 КБ»
-      button.IconButton__iconButton  40×40 @118,32  r11  b1
+  ul.OrderDocs__list  316×164 @21,100
+    li.OrderDocs__item  316×80 @0,0  r11
+      svg.OrderDocs__icon  20×20 @8,8
+      a.OrderDocs__link  270×24 @38,6  Manrope 600 15/22  lines=1  «Договор 1059.pdf»
+      span.OrderDocs__meta  100×20 @8,44  Manrope 400 13/20  lines=1  «Договор · 180 КБ»
+      button.IconButton__iconButton  40×40 @118,34  r11  b1
         svg  16×16 @12,12
-    li.OrderDocs__item#2  316×78 @0,82  r11
-      svg.OrderDocs__icon  20×20 @8,7
-      a.OrderDocs__link  270×22 @38,6  Manrope 600 15/22  lines=1  «Замерный лист.jpg»
-      span.OrderDocs__meta  144×20 @8,42  Manrope 400 13/20  lines=1  «Замерный лист · 900 КБ»
-      button.IconButton__iconButton  40×40 @162,32  r11  b1
+    li.OrderDocs__item#2  316×80 @0,84  r11
+      svg.OrderDocs__icon  20×20 @8,8
+      a.OrderDocs__link  270×24 @38,6  Manrope 600 15/22  lines=1  «Замерный лист.jpg»
+      span.OrderDocs__meta  144×20 @8,44  Manrope 400 13/20  lines=1  «Замерный лист · 900 КБ»
+      button.IconButton__iconButton  40×40 @162,34  r11  b1
         svg#2  16×16 @12,12
-  form.OrderDocs__add  316×247 @21,275  b1 0 0 0
+  form.OrderDocs__add  316×247 @21,278  b1 0 0 0
     div.Field__field  316×76 @0,15
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Вид документа»
       span.Select__wrapper  316×49 @0,27
         select.Select__select  316×49 @0,0  r11  b1
-          option  0×0 @-37,-333  Manrope 400 15/21  lines=0  «Договор»
-          option#2  0×0 @-37,-333  Manrope 400 15/21  lines=0  «Гарантийный талон»
-          option#3  0×0 @-37,-333  Manrope 400 15/21  lines=0  «Акт выполненных работ»
-          option#4  0×0 @-37,-333  Manrope 400 15/21  lines=0  «Счёт»
-          option#5  0×0 @-37,-333  Manrope 400 15/21  lines=0  «Замерный лист»
-          option#6  0×0 @-37,-333  Manrope 400 15/21  lines=0  «Другое»
+          option  0×0 @-37,-336  Manrope 400 15/21  lines=0  «Договор»
+          option#2  0×0 @-37,-336  Manrope 400 15/21  lines=0  «Гарантийный талон»
+          option#3  0×0 @-37,-336  Manrope 400 15/21  lines=0  «Акт выполненных работ»
+          option#4  0×0 @-37,-336  Manrope 400 15/21  lines=0  «Счёт»
+          option#5  0×0 @-37,-336  Manrope 400 15/21  lines=0  «Замерный лист»
+          option#6  0×0 @-37,-336  Manrope 400 15/21  lines=0  «Другое»
         svg.Select__chevron  14×14 @288,18
     div.OrderDocs__fileField  316×88 @0,103
       label.OrderDocs__fileLabel  316×20 @0,0  Manrope 600 13/20  lines=1  «Файл»
@@ -50,13 +50,13 @@ section.Card__card  736×347 @16,16  r20  b1
   ul.OrderDocs__list  694×108 @21,101
     li.OrderDocs__item  694×52 @0,0  r11
       svg.OrderDocs__icon  20×20 @8,16
-      a.OrderDocs__link  488×22 @38,15  Manrope 600 15/22  lines=1  «Договор 1059.pdf»
+      a.OrderDocs__link  488×24 @38,14  Manrope 600 15/22  lines=1  «Договор 1059.pdf»
       span.OrderDocs__meta  100×20 @536,16  Manrope 400 13/20  lines=1  «Договор · 180 КБ»
       button.IconButton__iconButton  40×40 @646,6  r11  b1
         svg  16×16 @12,12
     li.OrderDocs__item#2  694×52 @0,56  r11
       svg.OrderDocs__icon  20×20 @8,16
-      a.OrderDocs__link  444×22 @38,15  Manrope 600 15/22  lines=1  «Замерный лист.jpg»
+      a.OrderDocs__link  444×24 @38,14  Manrope 600 15/22  lines=1  «Замерный лист.jpg»
       span.OrderDocs__meta  144×20 @492,16  Manrope 400 13/20  lines=1  «Замерный лист · 900 КБ»
       button.IconButton__iconButton  40×40 @646,6  r11  b1
         svg#2  16×16 @12,12
@@ -87,13 +87,13 @@ section.Card__card  1408×348 @16,16  r20  b1
   ul.OrderDocs__list  1366×108 @21,102
     li.OrderDocs__item  1366×52 @0,0  r11
       svg.OrderDocs__icon  20×20 @8,16
-      a.OrderDocs__link  1160×22 @38,15  Manrope 600 15/22  lines=1  «Договор 1059.pdf»
+      a.OrderDocs__link  1160×24 @38,14  Manrope 600 15/22  lines=1  «Договор 1059.pdf»
       span.OrderDocs__meta  100×20 @1208,16  Manrope 400 13/20  lines=1  «Договор · 180 КБ»
       button.IconButton__iconButton  40×40 @1318,6  r11  b1
         svg  16×16 @12,12
     li.OrderDocs__item#2  1366×52 @0,56  r11
       svg.OrderDocs__icon  20×20 @8,16
-      a.OrderDocs__link  1116×22 @38,15  Manrope 600 15/22  lines=1  «Замерный лист.jpg»
+      a.OrderDocs__link  1116×24 @38,14  Manrope 600 15/22  lines=1  «Замерный лист.jpg»
       span.OrderDocs__meta  144×20 @1164,16  Manrope 400 13/20  lines=1  «Замерный лист · 900 КБ»
       button.IconButton__iconButton  40×40 @1318,6  r11  b1
         svg#2  16×16 @12,12

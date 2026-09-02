@@ -2,19 +2,19 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1522
+390 → 390×1530
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.StockJournal__wrap  358×1490 @16,16
-  section.Card__card  358×1490 @0,0  r20  b1
+div.StockJournal__wrap  358×1498 @16,16
+  section.Card__card  358×1498 @0,0  r20  b1
     div.StockJournal__head  356×83 @1,1
       h2.StockJournal__title  320×21 @18,18  Onest 700 17/21  ls0  lines=1  «Журнал движений»
       p.StockJournal__hint  320×40 @18,43  Manrope 400 13/20  lines=2  «Что, куда, сколько, кто и когда. Без жур»
-    div.StockJournal__scroller  356×1405 @1,84
-      div.Table__viewport  356×1405 @0,0
-        table.Table__table  356×1405 @0,0
+    div.StockJournal__scroller  356×1413 @1,84
+      div.Table__viewport  356×1413 @0,0
+        table.Table__table  356×1413 @0,0
           tr[role=row]  1×56 @0,0
             th  79×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
             th#2  63×56 @79,0  Onest 700 15/23  b0 0 1 0  lines=1  «Что»
@@ -25,91 +25,91 @@ div.StockJournal__wrap  358×1490 @16,16
             th#7  83×56 @502,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
             th#8  63×56 @585,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто»
             th#9  117×56 @648,0  Onest 700 15/23  b0 0 1 0  lines=1  «Основание»
-          tr[role=row]#2  356×338 @0,0  r14  b1
+          tr[role=row]#2  356×340 @0,0  r14  b1
             td[role=cell]  354×36 @1,5
               td[role=cell]::before  36×20 @0,0
               time  116×22 @224,7  Manrope 400 15/22  lines=1  «20.08.2026, 10:15»
             td[role=cell]#2  354×36 @1,41  Manrope 400 15/22  lines=1  «Приход»
               td[role=cell]#2::before  23×20 @0,0
-            td[role=cell]#3  354×36 @1,78
+            td[role=cell]#3  354×38 @1,78
               td[role=cell]#3::before  53×20 @0,0
-              a.StockJournal__item  129×22 @211,7  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
-            td.StockJournal__qty  354×36 @1,114  Manrope 600 15/22  lines=1  «50 м»
+              a.StockJournal__item  129×24 @211,7  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
+            td.StockJournal__qty  354×36 @1,116  Manrope 600 15/22  lines=1  «50 м»
               td.StockJournal__qty::before  54×20 @0,0
-            td[role=cell]#4  354×36 @1,151  Manrope 400 15/22  lines=1  «—»
+            td[role=cell]#4  354×36 @1,152  Manrope 400 15/22  lines=1  «—»
               td[role=cell]#4::before  44×20 @0,0
-            td[role=cell]#5  354×36 @1,187  Manrope 400 15/22  lines=1  «Гараж на Демидовской»
+            td[role=cell]#5  354×36 @1,189  Manrope 400 15/22  lines=1  «Гараж на Демидовской»
               td[role=cell]#5::before  29×20 @0,0
-            td[role=cell]#6  354×36 @1,224  Manrope 400 15/22  lines=1  «—»
+            td[role=cell]#6  354×36 @1,225  Manrope 400 15/22  lines=1  «—»
               td[role=cell]#6::before  39×20 @0,0
-            td[role=cell]#7  354×36 @1,260  Manrope 400 15/22  lines=1  «Иван Петров»
+            td[role=cell]#7  354×36 @1,262  Manrope 400 15/22  lines=1  «Иван Петров»
               td[role=cell]#7::before  22×20 @0,0
-            td.StockJournal__reason  354×36 @1,297  Manrope 400 15/22  lines=1  «Накладная 4517»
+            td.StockJournal__reason  354×36 @1,298  Manrope 400 15/22  lines=1  «Накладная 4517»
               td.StockJournal__reason::before  69×20 @0,0
-          tr[role=row]#3  356×338 @0,348  r14  b1
+          tr[role=row]#3  356×340 @0,350  r14  b1
             td[role=cell]  354×36 @1,5
               td[role=cell]::before  36×20 @0,0
               time#2  121×22 @219,7  Manrope 400 15/22  lines=1  «24.08.2026, 08:40»
             td[role=cell]#2  354×36 @1,41  Manrope 400 15/22  lines=1  «Перемещение»
               td[role=cell]#2::before  23×20 @0,0
-            td[role=cell]#3  354×36 @1,78
+            td[role=cell]#3  354×38 @1,78
               td[role=cell]#3::before  53×20 @0,0
-              a.StockJournal__item#2  129×22 @211,7  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
-            td.StockJournal__qty  354×36 @1,114  Manrope 600 15/22  lines=1  «15 м»
+              a.StockJournal__item#2  129×24 @211,7  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
+            td.StockJournal__qty  354×36 @1,116  Manrope 600 15/22  lines=1  «15 м»
               td.StockJournal__qty::before  54×20 @0,0
-            td[role=cell]#4  354×36 @1,151  Manrope 400 15/22  lines=1  «Гараж на Демидовской»
+            td[role=cell]#4  354×36 @1,152  Manrope 400 15/22  lines=1  «Гараж на Демидовской»
               td[role=cell]#4::before  44×20 @0,0
-            td[role=cell]#5  354×36 @1,187  Manrope 400 15/22  lines=1  «Газель»
+            td[role=cell]#5  354×36 @1,189  Manrope 400 15/22  lines=1  «Газель»
               td[role=cell]#5::before  29×20 @0,0
-            td[role=cell]#6  354×36 @1,224  Manrope 400 15/22  lines=1  «—»
+            td[role=cell]#6  354×36 @1,225  Manrope 400 15/22  lines=1  «—»
               td[role=cell]#6::before  39×20 @0,0
-            td[role=cell]#7  354×36 @1,260  Manrope 400 15/22  lines=1  «Иван Петров»
+            td[role=cell]#7  354×36 @1,262  Manrope 400 15/22  lines=1  «Иван Петров»
               td[role=cell]#7::before  22×20 @0,0
-            td.StockJournal__reason  354×36 @1,297  Manrope 400 15/22  lines=1  «—»
+            td.StockJournal__reason  354×36 @1,298  Manrope 400 15/22  lines=1  «—»
               td.StockJournal__reason::before  69×20 @0,0
-          tr[role=row]#4  356×338 @0,696  r14  b1
+          tr[role=row]#4  356×341 @0,700  r14  b1
             td[role=cell]  354×36 @1,5
               td[role=cell]::before  36×20 @0,0
               time#3  115×22 @225,7  Manrope 400 15/22  lines=1  «26.08.2026, 12:12»
             td[role=cell]#2  354×36 @1,41  Manrope 400 15/22  lines=1  «Списание в наряд»
               td[role=cell]#2::before  23×20 @0,0
-            td[role=cell]#3  354×36 @1,78
+            td[role=cell]#3  354×38 @1,78
               td[role=cell]#3::before  53×20 @0,0
-              a.StockJournal__item#3  129×22 @211,7  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
-            td.StockJournal__qty  354×36 @1,114  Manrope 600 15/22  lines=1  «4 м»
+              a.StockJournal__item#3  129×24 @211,7  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
+            td.StockJournal__qty  354×36 @1,116  Manrope 600 15/22  lines=1  «4 м»
               td.StockJournal__qty::before  54×20 @0,0
-            td[role=cell]#4  354×36 @1,151  Manrope 400 15/22  lines=1  «Газель»
+            td[role=cell]#4  354×36 @1,152  Manrope 400 15/22  lines=1  «Газель»
               td[role=cell]#4::before  44×20 @0,0
-            td[role=cell]#5  354×36 @1,187  Manrope 400 15/22  lines=1  «—»
+            td[role=cell]#5  354×36 @1,189  Manrope 400 15/22  lines=1  «—»
               td[role=cell]#5::before  29×20 @0,0
-            td[role=cell]#6  354×36 @1,224
+            td[role=cell]#6  354×38 @1,225
               td[role=cell]#6::before  39×20 @0,0
-              a.StockJournal__order  100×22 @240,7  Manrope 600 15/22  lines=1  «Наряд № 1059»
-            td[role=cell]#7  354×36 @1,260  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
+              a.StockJournal__order  100×24 @240,7  Manrope 600 15/22  lines=1  «Наряд № 1059»
+            td[role=cell]#7  354×36 @1,263  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
               td[role=cell]#7::before  22×20 @0,0
-            td.StockJournal__reason  354×36 @1,297  Manrope 400 15/22  lines=1  «—»
+            td.StockJournal__reason  354×36 @1,300  Manrope 400 15/22  lines=1  «—»
               td.StockJournal__reason::before  69×20 @0,0
-          tr[role=row]#5  356×361 @0,1045  r14  b1
+          tr[role=row]#5  356×362 @0,1051  r14  b1
             td[role=cell]  354×36 @1,5
               td[role=cell]::before  36×20 @0,0
               time#4  120×22 @220,7  Manrope 400 15/22  lines=1  «27.08.2026, 09:00»
             td[role=cell]#2  354×36 @1,41  Manrope 400 15/22  lines=1  «Инвентаризация»
               td[role=cell]#2::before  23×20 @0,0
-            td[role=cell]#3  354×36 @1,78
+            td[role=cell]#3  354×38 @1,78
               td[role=cell]#3::before  53×20 @0,0
-              a.StockJournal__item#4  129×22 @211,7  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
-            td.StockJournal__qty  354×36 @1,114  Manrope 600 15/22  lines=1  «−2,5 м»
+              a.StockJournal__item#4  129×24 @211,7  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
+            td.StockJournal__qty  354×36 @1,116  Manrope 600 15/22  lines=1  «−2,5 м»
               td.StockJournal__qty::before  54×20 @0,0
-            td[role=cell]#4  354×36 @1,151  Manrope 400 15/22  lines=1  «—»
+            td[role=cell]#4  354×36 @1,152  Manrope 400 15/22  lines=1  «—»
               td[role=cell]#4::before  44×20 @0,0
-            td[role=cell]#5  354×36 @1,187  Manrope 400 15/22  lines=1  «Гараж на Демидовской»
+            td[role=cell]#5  354×36 @1,189  Manrope 400 15/22  lines=1  «Гараж на Демидовской»
               td[role=cell]#5::before  29×20 @0,0
-            td[role=cell]#6  354×36 @1,224  Manrope 400 15/22  lines=1  «—»
+            td[role=cell]#6  354×36 @1,225  Manrope 400 15/22  lines=1  «—»
               td[role=cell]#6::before  39×20 @0,0
-            td[role=cell]#7  354×36 @1,260
+            td[role=cell]#7  354×36 @1,262
               td[role=cell]#7::before  22×20 @0,0
               span.StockJournal__gone  93×22 @247,7  Manrope 400 15/22  lines=1  «автор удалён»
-            td.StockJournal__reason  354×59 @1,297  Manrope 400 15/22  lines=2  «Пересчёт после инвентаризации: обрезки н»
+            td.StockJournal__reason  354×59 @1,298  Manrope 400 15/22  lines=2  «Пересчёт после инвентаризации: обрезки н»
               td.StockJournal__reason::before  69×20 @0,0
 
 [геометрия 768]
@@ -136,7 +136,7 @@ div.StockJournal__wrap  736×529 @16,16
               time  80×41 @18,16  Manrope 400 15/22  lines=2  «20.08.2026, 10:15»
             td[role=cell]#2  152×96 @116,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Приход»
             td[role=cell]#3  100×96 @268,0  b0 0 1 0
-              a.StockJournal__item  53×64 @18,16  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
+              a.StockJournal__item  64×67 @18,15  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
             td.StockJournal__qty  98×96 @368,0  Manrope 600 15/22  b0 0 1 0  lines=1  «50 м»
             td[role=cell]#4  130×96 @466,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
             td[role=cell]#5  130×96 @597,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Гараж на Демидовской»
@@ -148,7 +148,7 @@ div.StockJournal__wrap  736×529 @16,16
               time#2  79×41 @18,16  Manrope 400 15/22  lines=2  «24.08.2026, 08:40»
             td[role=cell]#2  152×96 @116,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Перемещение»
             td[role=cell]#3  100×96 @268,0  b0 0 1 0
-              a.StockJournal__item#2  53×64 @18,16  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
+              a.StockJournal__item#2  64×67 @18,15  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
             td.StockJournal__qty  98×96 @368,0  Manrope 600 15/22  b0 0 1 0  lines=1  «15 м»
             td[role=cell]#4  130×96 @466,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Гараж на Демидовской»
             td[role=cell]#5  130×96 @597,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Газель»
@@ -160,12 +160,12 @@ div.StockJournal__wrap  736×529 @16,16
               time#3  80×41 @18,16  Manrope 400 15/22  lines=2  «26.08.2026, 12:12»
             td[role=cell]#2  152×96 @116,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Списание в наряд»
             td[role=cell]#3  100×96 @268,0  b0 0 1 0
-              a.StockJournal__item#3  53×64 @18,16  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
+              a.StockJournal__item#3  64×67 @18,15  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
             td.StockJournal__qty  98×96 @368,0  Manrope 600 15/22  b0 0 1 0  lines=1  «4 м»
             td[role=cell]#4  130×96 @466,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Газель»
             td[role=cell]#5  130×96 @597,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
             td[role=cell]#6  83×96 @727,0  b0 0 1 0
-              a.StockJournal__order  45×64 @18,16  Manrope 600 15/22  lines=3  «Наряд № 1059»
+              a.StockJournal__order  47×67 @18,15  Manrope 600 15/22  lines=3  «Наряд № 1059»
             td[role=cell]#7  97×96 @810,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Дмитрий Соколов»
             td.StockJournal__reason  155×96 @907,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
           tr[role=row]#5  1062×118 @0,345
@@ -173,7 +173,7 @@ div.StockJournal__wrap  736×529 @16,16
               time#4  77×41 @18,16  Manrope 400 15/22  lines=2  «27.08.2026, 09:00»
             td[role=cell]#2  152×118 @116,0  Manrope 400 15/22  lines=1  «Инвентаризация»
             td[role=cell]#3  100×118 @268,0
-              a.StockJournal__item#4  53×64 @18,16  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
+              a.StockJournal__item#4  64×67 @18,15  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
             td.StockJournal__qty  98×118 @368,0  Manrope 600 15/22  lines=1  «−2,5 м»
             td[role=cell]#4  130×118 @466,0  Manrope 400 15/22  lines=1  «—»
             td[role=cell]#5  130×118 @597,0  Manrope 400 15/22  lines=2  «Гараж на Демидовской»
@@ -206,7 +206,7 @@ div.StockJournal__wrap  1408×418 @16,16
               time  80×41 @18,16  Manrope 400 15/22  lines=2  «20.08.2026, 10:15»
             td[role=cell]#2  156×74 @139,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Приход»
             td[role=cell]#3  136×74 @295,0  b0 0 1 0
-              a.StockJournal__item  98×41 @18,16  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
+              a.StockJournal__item  100×45 @18,15  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
             td.StockJournal__qty  98×74 @430,0  Manrope 600 15/22  b0 0 1 0  lines=1  «50 м»
             td[role=cell]#4  165×74 @529,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
             td[role=cell]#5  165×74 @694,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Гараж на Демидовской»
@@ -218,7 +218,7 @@ div.StockJournal__wrap  1408×418 @16,16
               time#2  79×41 @18,16  Manrope 400 15/22  lines=2  «24.08.2026, 08:40»
             td[role=cell]#2  156×74 @139,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Перемещение»
             td[role=cell]#3  136×74 @295,0  b0 0 1 0
-              a.StockJournal__item#2  98×41 @18,16  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
+              a.StockJournal__item#2  100×45 @18,15  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
             td.StockJournal__qty  98×74 @430,0  Manrope 600 15/22  b0 0 1 0  lines=1  «15 м»
             td[role=cell]#4  165×74 @529,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Гараж на Демидовской»
             td[role=cell]#5  165×74 @694,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Газель»
@@ -230,12 +230,12 @@ div.StockJournal__wrap  1408×418 @16,16
               time#3  80×41 @18,16  Manrope 400 15/22  lines=2  «26.08.2026, 12:12»
             td[role=cell]#2  156×74 @139,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Списание в наряд»
             td[role=cell]#3  136×74 @295,0  b0 0 1 0
-              a.StockJournal__item#3  98×41 @18,16  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
+              a.StockJournal__item#3  100×45 @18,15  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
             td.StockJournal__qty  98×74 @430,0  Manrope 600 15/22  b0 0 1 0  lines=1  «4 м»
             td[role=cell]#4  165×74 @529,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Газель»
             td[role=cell]#5  165×74 @694,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
             td[role=cell]#6  112×74 @859,0  b0 0 1 0
-              a.StockJournal__order  64×41 @18,16  Manrope 600 15/22  lines=2  «Наряд № 1059»
+              a.StockJournal__order  76×45 @18,15  Manrope 600 15/22  lines=2  «Наряд № 1059»
             td[role=cell]#7  131×74 @971,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Дмитрий Соколов»
             td.StockJournal__reason  304×74 @1102,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
           tr[role=row]#5  1406×73 @0,278
@@ -243,7 +243,7 @@ div.StockJournal__wrap  1408×418 @16,16
               time#4  77×41 @18,16  Manrope 400 15/22  lines=2  «27.08.2026, 09:00»
             td[role=cell]#2  156×73 @139,0  Manrope 400 15/22  lines=1  «Инвентаризация»
             td[role=cell]#3  136×73 @295,0
-              a.StockJournal__item#4  98×41 @18,16  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
+              a.StockJournal__item#4  100×45 @18,15  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
             td.StockJournal__qty  98×73 @430,0  Manrope 600 15/22  lines=1  «−2,5 м»
             td[role=cell]#4  165×73 @529,0  Manrope 400 15/22  lines=1  «—»
             td[role=cell]#5  165×73 @694,0  Manrope 400 15/22  lines=2  «Гараж на Демидовской»

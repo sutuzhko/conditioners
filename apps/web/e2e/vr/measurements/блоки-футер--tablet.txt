@@ -2,13 +2,13 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-320 → 320×900
+320 → 320×903
 375 → 375×900
 768 → 768×900
 1200 → 1200×900
 
 [геометрия 320]
-footer.Footer__footer  320×898 @0,0
+footer.Footer__footer  320×903 @0,0
   div.Footer__inner  320×822 @0,0
     div.Footer__about  288×95 @16,36
       div.Footer__brand  288×38 @0,0
@@ -47,13 +47,13 @@ footer.Footer__footer  320×898 @0,0
           div.Footer__legalRow#4  288×65 @0,73
             dt.Footer__legalTerm  122×18 @0,0  JetBrains Mono 400 12/18  lines=1  «Орган регистрации»
             dd.Footer__legalValue  288×41 @0,24  Manrope 400 14/20  lines=2  «Межрайонная ИФНС России № 10 по Тульской»
-  div.Footer__bottom  320×77 @0,822  b1 0 0 0
-    div.Footer__bottomInner  320×76 @0,1
+  div.Footer__bottom  320×81 @0,822  b1 0 0 0
+    div.Footer__bottomInner  320×80 @0,1
       span.Footer__copy  288×20 @16,16  Manrope 400 13/20  lines=1  «© 2026 ТулаКлимат. Все права защищены.»
-      a.Footer__policy  288×19 @16,40  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
+      a.Footer__policy  288×24 @16,40  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
 
 [геометрия 375]
-footer.Footer__footer  375×876 @0,0
+footer.Footer__footer  375×881 @0,0
   div.Footer__inner  375×800 @0,0
     div.Footer__about  343×95 @16,36
       div.Footer__brand  343×38 @0,0
@@ -92,13 +92,13 @@ footer.Footer__footer  375×876 @0,0
           div.Footer__legalRow#4  343×65 @0,73
             dt.Footer__legalTerm  122×18 @0,0  JetBrains Mono 400 12/18  lines=1  «Орган регистрации»
             dd.Footer__legalValue  343×41 @0,24  Manrope 400 14/20  lines=2  «Межрайонная ИФНС России № 10 по Тульской»
-  div.Footer__bottom  375×77 @0,800  b1 0 0 0
-    div.Footer__bottomInner  375×76 @0,1
+  div.Footer__bottom  375×81 @0,800  b1 0 0 0
+    div.Footer__bottomInner  375×80 @0,1
       span.Footer__copy  343×20 @16,16  Manrope 400 13/20  lines=1  «© 2026 ТулаКлимат. Все права защищены.»
-      a.Footer__policy  343×19 @16,40  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
+      a.Footer__policy  343×24 @16,40  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
 
 [геометрия 768]
-footer.Footer__footer  768×697 @0,0
+footer.Footer__footer  768×701 @0,0
   div.Footer__inner  768×640 @0,0
     div.Footer__about  300×95 @20,48
       div.Footer__brand  300×38 @0,0
@@ -137,13 +137,13 @@ footer.Footer__footer  768×697 @0,0
           div.Footer__legalRow#4  260×65 @0,73
             dt.Footer__legalTerm  122×18 @0,0  JetBrains Mono 400 12/18  lines=1  «Орган регистрации»
             dd.Footer__legalValue  260×41 @0,24  Manrope 400 14/20  lines=2  «Межрайонная ИФНС России № 10 по Тульской»
-  div.Footer__bottom  768×57 @0,640  b1 0 0 0
-    div.Footer__bottomInner  768×56 @0,1
-      span.Footer__copy  258×20 @20,18  Manrope 400 13/20  lines=1  «© 2026 ТулаКлимат. Все права защищены.»
-      a.Footer__policy  258×20 @490,18  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
+  div.Footer__bottom  768×61 @0,640  b1 0 0 0
+    div.Footer__bottomInner  768×60 @0,1
+      span.Footer__copy  258×24 @20,18  Manrope 400 13/20  lines=1  «© 2026 ТулаКлимат. Все права защищены.»
+      a.Footer__policy  258×24 @490,18  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
 
 [геометрия 1200]
-footer.Footer__footer  1200×342 @0,0
+footer.Footer__footer  1200×345 @0,0
   div.Footer__inner  1200×284 @0,0
     div.Footer__about  300×200 @24,48
       div.Footer__brand  300×38 @0,0
@@ -182,10 +182,10 @@ footer.Footer__footer  1200×342 @0,0
           div.Footer__legalRow#4  260×65 @0,73
             dt.Footer__legalTerm  122×18 @0,0  JetBrains Mono 400 12/18  lines=1  «Орган регистрации»
             dd.Footer__legalValue  260×41 @0,24  Manrope 400 14/20  lines=2  «Межрайонная ИФНС России № 10 по Тульской»
-  div.Footer__bottom  1200×57 @0,284  b1 0 0 0
-    div.Footer__bottomInner  1200×56 @0,1
-      span.Footer__copy  258×20 @24,18  Manrope 400 13/20  lines=1  «© 2026 ТулаКлимат. Все права защищены.»
-      a.Footer__policy  258×20 @918,18  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
+  div.Footer__bottom  1200×61 @0,284  b1 0 0 0
+    div.Footer__bottomInner  1200×60 @0,1
+      span.Footer__copy  258×24 @24,18  Manrope 400 13/20  lines=1  «© 2026 ТулаКлимат. Все права защищены.»
+      a.Footer__policy  258×24 @918,18  Manrope 400 13/19  lines=1  «Политика обработки персональных данных»
 
 [палитра light]
 footer.Footer__footer  bg #0f172a

@@ -7,51 +7,51 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×487 @16,16  r20  b1
+section.Card__card  358×491 @16,16  r20  b1
   header.ClientUnits__header  316×125 @21,21
     h2.ClientUnits__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Установленная техника»
     p.ClientUnits__hint  316×101 @0,25  Manrope 400 13/20  lines=5  «Появляется сама после выполненного монта»
-  ul.ClientUnits__list  316×179 @21,158
-    li.ClientUnits__item  316×179 @0,0  r11  b1
-      div.ClientUnits__row  290×157 @13,11
-        div.ClientUnits__body  290×101 @0,0
+  ul.ClientUnits__list  316×183 @21,158
+    li.ClientUnits__item  316×183 @0,0  r11  b1
+      div.ClientUnits__row  290×161 @13,11
+        div.ClientUnits__body  290×105 @0,0
           div.ClientUnits__line  290×53 @0,0
             span.ClientUnits__model  130×22 @0,0  Manrope 600 15/22  lines=1  «Сплит-система 07»
             span.Badge__badge  192×24 @0,28  Manrope 600 12/16  r100  b1  lines=1  «Гарантия истекла 20.05.2025»
-          p.ClientUnits__facts  290×20 @0,57
-            time  119×20 @0,0  Manrope 400 13/20  lines=1  «Монтаж 20.05.2022»
-            a.ClientUnits__order  81×20 @133,0  Manrope 600 13/20  lines=1  «Наряд № 812»
-          p.ClientUnits__service  290×20 @0,81
+          p.ClientUnits__facts  290×24 @0,57
+            time  119×24 @0,0  Manrope 400 13/20  lines=1  «Монтаж 20.05.2022»
+            a.ClientUnits__order  81×24 @133,0  Manrope 600 13/20  lines=1  «Наряд № 812»
+          p.ClientUnits__service  290×20 @0,85
             time  240×18 @0,1  Manrope 400 13/20  lines=1  «ТО через год от монтажа — 20.05.2023»
-        div.ClientUnits__rowActions  179×44 @0,113
+        div.ClientUnits__rowActions  179×44 @0,117
           button.Button__button  93×44 @0,0  r9  b1
             span.Button__content  63×16 @15,14
               span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
           button.Button__button#2  82×44 @97,0  r9  b1
             span.Button__content  52×16 @15,14
               span.Button__label#2  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-  p.ClientUnits__note  316×60 @21,349  Manrope 400 13/20  lines=3  «Даты ТО считаются от монтажа. Напоминани»
-  div.ClientUnits__actions  316×44 @21,422
+  p.ClientUnits__note  316×60 @21,353  Manrope 400 13/20  lines=3  «Даты ТО считаются от монтажа. Напоминани»
+  div.ClientUnits__actions  316×44 @21,426
     button.Button__button  145×44 @0,0  r9  b1
       span.Button__content#2  115×16 @15,14
         span.Button__label  115×16 @0,0  Manrope 600 13/16  lines=1  «Добавить технику»
 
 [геометрия 768]
-section.Card__card  736×343 @16,16  r20  b1
+section.Card__card  736×347 @16,16  r20  b1
   header.ClientUnits__header  694×86 @21,21
     h2.ClientUnits__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Установленная техника»
     p.ClientUnits__hint  539×60 @0,26  Manrope 400 13/20  lines=3  «Появляется сама после выполненного монта»
-  ul.ClientUnits__list  694×94 @21,119
-    li.ClientUnits__item  694×94 @0,0  r11  b1
-      div.ClientUnits__row  668×72 @13,11
-        div.ClientUnits__body  477×72 @0,0
+  ul.ClientUnits__list  694×98 @21,119
+    li.ClientUnits__item  694×98 @0,0  r11  b1
+      div.ClientUnits__row  668×76 @13,11
+        div.ClientUnits__body  477×76 @0,0
           div.ClientUnits__line  477×24 @0,0
             span.ClientUnits__model  130×22 @0,1  Manrope 600 15/22  lines=1  «Сплит-система 07»
             span.Badge__badge  192×24 @142,0  Manrope 600 12/16  r100  b1  lines=1  «Гарантия истекла 20.05.2025»
-          p.ClientUnits__facts  477×20 @0,28
-            time  119×20 @0,0  Manrope 400 13/20  lines=1  «Монтаж 20.05.2022»
-            a.ClientUnits__order  81×20 @133,0  Manrope 600 13/20  lines=1  «Наряд № 812»
-          p.ClientUnits__service  477×20 @0,52
+          p.ClientUnits__facts  477×24 @0,28
+            time  119×24 @0,0  Manrope 400 13/20  lines=1  «Монтаж 20.05.2022»
+            a.ClientUnits__order  81×24 @133,0  Manrope 600 13/20  lines=1  «Наряд № 812»
+          p.ClientUnits__service  477×20 @0,56
             time  240×18 @0,1  Manrope 400 13/20  lines=1  «ТО через год от монтажа — 20.05.2023»
         div.ClientUnits__rowActions  179×44 @489,0
           button.Button__button  93×44 @0,0  r9  b1
@@ -60,28 +60,28 @@ section.Card__card  736×343 @16,16  r20  b1
           button.Button__button#2  82×44 @97,0  r9  b1
             span.Button__content  52×16 @15,14
               span.Button__label#2  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-  p.ClientUnits__note  539×40 @21,226  Manrope 400 13/20  lines=2  «Даты ТО считаются от монтажа. Напоминани»
-  div.ClientUnits__actions  694×44 @21,278
+  p.ClientUnits__note  539×40 @21,229  Manrope 400 13/20  lines=2  «Даты ТО считаются от монтажа. Напоминани»
+  div.ClientUnits__actions  694×44 @21,282
     button.Button__button  145×44 @0,0  r9  b1
       span.Button__content#2  115×16 @15,14
         span.Button__label  115×16 @0,0  Manrope 600 13/16  lines=1  «Добавить технику»
 
 [геометрия 1440]
-section.Card__card  1408×340 @16,16  r20  b1
+section.Card__card  1408×344 @16,16  r20  b1
   header.ClientUnits__header  1366×87 @21,21
     h2.ClientUnits__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Установленная техника»
     p.ClientUnits__hint  539×60 @0,27  Manrope 400 13/20  lines=3  «Появляется сама после выполненного монта»
-  ul.ClientUnits__list  1366×94 @21,120
-    li.ClientUnits__item  1366×94 @0,0  r11  b1
-      div.ClientUnits__row  1340×72 @13,11
-        div.ClientUnits__body  1149×72 @0,0
+  ul.ClientUnits__list  1366×98 @21,120
+    li.ClientUnits__item  1366×98 @0,0  r11  b1
+      div.ClientUnits__row  1340×76 @13,11
+        div.ClientUnits__body  1149×76 @0,0
           div.ClientUnits__line  1149×24 @0,0
             span.ClientUnits__model  130×22 @0,1  Manrope 600 15/22  lines=1  «Сплит-система 07»
             span.Badge__badge  192×24 @142,0  Manrope 600 12/16  r100  b1  lines=1  «Гарантия истекла 20.05.2025»
-          p.ClientUnits__facts  1149×20 @0,28
-            time  119×20 @0,0  Manrope 400 13/20  lines=1  «Монтаж 20.05.2022»
-            a.ClientUnits__order  81×20 @133,0  Manrope 600 13/20  lines=1  «Наряд № 812»
-          p.ClientUnits__service  1149×20 @0,52
+          p.ClientUnits__facts  1149×24 @0,28
+            time  119×24 @0,0  Manrope 400 13/20  lines=1  «Монтаж 20.05.2022»
+            a.ClientUnits__order  81×24 @133,0  Manrope 600 13/20  lines=1  «Наряд № 812»
+          p.ClientUnits__service  1149×20 @0,56
             time  240×18 @0,1  Manrope 400 13/20  lines=1  «ТО через год от монтажа — 20.05.2023»
         div.ClientUnits__rowActions  179×40 @1161,0
           button.Button__button  93×40 @0,0  r9  b1
@@ -90,8 +90,8 @@ section.Card__card  1408×340 @16,16  r20  b1
           button.Button__button#2  82×40 @97,0  r9  b1
             span.Button__content  52×16 @15,12
               span.Button__label#2  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-  p.ClientUnits__note  539×40 @21,227  Manrope 400 13/20  lines=2  «Даты ТО считаются от монтажа. Напоминани»
-  div.ClientUnits__actions  1366×40 @21,279
+  p.ClientUnits__note  539×40 @21,231  Manrope 400 13/20  lines=2  «Даты ТО считаются от монтажа. Напоминани»
+  div.ClientUnits__actions  1366×40 @21,283
     button.Button__button  145×40 @0,0  r9  b1
       span.Button__content#2  115×16 @15,12
         span.Button__label  115×16 @0,0  Manrope 600 13/16  lines=1  «Добавить технику»
