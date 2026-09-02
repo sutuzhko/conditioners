@@ -5,25 +5,24 @@ import userEvent from '@testing-library/user-event';
 import { defaultSymptoms, diagnosticsText } from './content';
 import { DiagnosticsPicker } from './DiagnosticsPicker';
 
-/** Прокручиваемая лента симптомов — она же группа чипов. */
-function strip(): HTMLElement {
+/** Сетка симптомов — она же группа чипов. */
+function grid(): HTMLElement {
   return screen.getByRole('group', { name: diagnosticsText.chipsLabel });
 }
 
 /**
- * Лента симптомов прокручивается по горизонтали (`.chips`, overflow-x: auto), а
- * прокручиваемая область обязана быть достижима с клавиатуры. Достигается она
- * через собственные кнопки, а не отдельной остановкой Tab на контейнере, —
- * тесты держат оба конца решения: имя у области есть, лишней остановки нет.
+ * Симптомы стоят сеткой (issue #272): все шесть видны сразу, прокрутки нет.
+ * Порядок обхода с клавиатуры — порядок списка, и сама сетка остановкой Tab
+ * не является: внутри неё только кнопки.
  */
-describe('Лента симптомов — клавиатура и прокрутка', () => {
-  it('область прокрутки — группа с доступным именем', () => {
+describe('Сетка симптомов — клавиатура', () => {
+  it('сетка — группа с доступным именем', () => {
     render(<DiagnosticsPicker symptoms={defaultSymptoms} />);
 
-    expect(strip()).toHaveAccessibleName(diagnosticsText.chipsLabel);
+    expect(grid()).toHaveAccessibleName(diagnosticsText.chipsLabel);
   });
 
-  it('каждый симптом ленты достижим одним Tab — прокрутка едет за фокусом', async () => {
+  it('каждый симптом достижим одним Tab в порядке списка', async () => {
     const user = userEvent.setup();
     render(<DiagnosticsPicker symptoms={defaultSymptoms} />);
 
@@ -31,15 +30,15 @@ describe('Лента симптомов — клавиатура и прокру
       await user.tab();
 
       expect(screen.getByRole('button', { name: symptom.label })).toHaveFocus();
-      expect(strip().contains(document.activeElement)).toBe(true);
+      expect(grid().contains(document.activeElement)).toBe(true);
     }
   });
 
-  it('🔴 сама лента фокус не берёт: внутри только кнопки, лишняя остановка не нужна', async () => {
+  it('🔴 сама сетка фокус не берёт: внутри только кнопки, лишняя остановка не нужна', async () => {
     const user = userEvent.setup();
     render(<DiagnosticsPicker symptoms={defaultSymptoms} />);
 
-    const chips = strip();
+    const chips = grid();
     expect(chips).not.toHaveAttribute('tabindex');
     // условие, при котором контейнеру не нужен свой tabIndex: фокусируем каждый
     // ребёнок, и недостижимого с клавиатуры содержимого в ленте не остаётся

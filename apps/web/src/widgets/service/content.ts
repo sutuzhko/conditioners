@@ -58,6 +58,7 @@ export const defaultSymptoms: readonly Symptom[] = [
   {
     key: 'zapah',
     label: 'Неприятный запах',
+    short: 'Запах',
     title: 'Кондиционер неприятно пахнет',
     causes: 'Бактерии и плесень на испарителе',
     fix: 'Антибактериальная обработка',
@@ -65,6 +66,7 @@ export const defaultSymptoms: readonly Symptom[] = [
   {
     key: 'shum',
     label: 'Шумит или вибрирует',
+    short: 'Шумит',
     title: 'Кондиционер шумит или вибрирует',
     causes: 'Износ вентилятора, ослабли крепления',
     fix: 'Балансировка, протяжка креплений',
@@ -78,7 +80,7 @@ export const defaultSymptoms: readonly Symptom[] = [
   },
   {
     key: 'obmerzaet',
-    label: 'Обмерзает наледью',
+    label: 'Обледенел',
     title: 'Трубки или блок обмерзают наледью',
     causes: 'Мало фреона или забит теплообменник',
     fix: 'Чистка и дозаправка по манометру',

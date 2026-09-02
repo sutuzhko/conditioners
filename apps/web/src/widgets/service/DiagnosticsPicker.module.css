@@ -1,5 +1,7 @@
-/* Выбор симптома и разбор. Пропорции колонок 1.2 / 1.1 / 0.6 и мелкие
-   моноширинные подписи — из макета (docs/DESIGN_BRIEF.md §3, §4). */
+/* Выбор симптома и разбор (issue #272). Симптомы — сетка: 2×3 на телефоне,
+   3×2 на крупном, один ряд с 900px. Разборы лежат стопкой в одной ячейке —
+   высота резервируется по самому длинному, и кнопка вызова мастера не
+   прыгает при смене симптома. Порядок правил — от телефона вверх. */
 
 .picker {
   display: block;
@@ -14,89 +16,83 @@
   text-transform: uppercase;
 }
 
-/* Ряд симптомов прокручивается внутри себя, а не переносится: шести кнопок
-   хватает на две строки уже на планшете и на четыре — на телефоне, и тогда
-   выбранный симптом уезжает от разбора под ним. Страница при этом по
-   горизонтали не скроллится (docs/DESIGN_BRIEF.md §6) — прокрутка здесь.
-   Поле внутри и его компенсация снаружи нужны кольцу фокуса: прокручиваемый
-   контейнер режет всё, что выходит за его границы.
-
-   🔴 Края гасятся маской — приём тот же, что у ленты разделов панели
-   (widgets/admin-shell/AdminNav.module.css). На телефоне полосы прокрутки
-   не видно (`scrollbar-width: thin` тач-устройства игнорируют), и таблетка,
-   обрезанная по прямой, читается не как «листайте», а как сломанная вёрстка.
-   Маска работает по прозрачности, а не по цвету: чёрный здесь значит
-   «оставить как есть» и к палитре отношения не имеет.
-
-   Поле по бокам (18px) намеренно шире зоны гашения (14px): лента вылезает в
-   отступ карточки, поэтому первая таблетка остаётся на том же месте, что и
-   заголовки над ней, её кольцо фокуса целиком попадает в непрозрачную часть,
-   а гаснет только то, что действительно уезжает за край. По той же причине
-   маска не завёрнута в медиа-запрос: пока лента не прокручена, под гашением
-   стоит пустое поле, и на широком экране, где ряд помещается целиком, ничего
-   не тускнеет. */
+/* 🔴 Сетка, а не лента. Симптомов ровно шесть, это закрытый список: человек
+   выбирает из известного набора и не станет искать «обледенел», если не
+   знает, что такой пункт есть. Лента прятала четыре из шести за краем без
+   всякого признака прокрутки. Зазор тянется от 8 до 10px. */
 .chips {
-  display: flex;
-  gap: 10px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding: 4px 18px;
-  margin: -4px -18px;
-  mask-image: linear-gradient(
-    90deg,
-    transparent 0,
-    rgb(0 0 0) 14px,
-    rgb(0 0 0) calc(100% - 14px),
-    transparent
-  );
-  scroll-snap-type: x proximity;
-  scroll-padding-inline: 18px;
-  scrollbar-width: thin;
-  overscroll-behavior-x: contain;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(8px, 0.3rem + 0.5vw, 10px);
 }
 
-.chips > * {
-  flex: none;
-  scroll-snap-align: start;
+/* Чип растягивается на ячейку; поля по бокам уже китовых 13px: в колонке
+   118px на 320 «Не включается» иначе не помещается. Удвоенный класс —
+   специфичность выше китового `.sm` при любом порядке сборки (ADR-038). */
+.chip.chip {
+  min-width: 0;
+  padding-inline: 10px;
 }
 
-.panels {
-  margin-top: 26px;
-  padding-top: 26px;
-  border-top: 1px solid var(--line-soft);
-}
-
-.panel {
-  display: block;
-}
-
-/* класс на .panel перебил бы display:none из атрибута hidden — возвращаем */
-.panel[hidden] {
+/* Полная подпись — на всех ширинах, короткая — только там, где есть и
+   только на телефоне: «Запах» вместо «Неприятный запах». Обе лежат в
+   разметке, имя кнопки даёт `aria-label` с полной подписью. */
+.labelShort {
   display: none;
 }
 
+@media (width < 600px) {
+  .chipWithShort .labelFull {
+    display: none;
+  }
+
+  .chipWithShort .labelShort {
+    display: inline;
+  }
+}
+
+/* Ответ: до 900px — столбец «разбор, затем кнопка во всю ширину». Линия и
+   отступ — на обёртке, а не на стопке разборов: с 900px кнопка встаёт во
+   вторую колонку и должна начинаться с той же линии, что заголовок разбора. */
+.answer {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* 🔴 Стопка: все разборы в одной ячейке сетки, высота — по самому длинному.
+   Неактивный невидим (`visibility`), но остаётся в потоке и держит высоту;
+   `inert` и `aria-hidden` на нём же — из разметки. */
+.panels {
+  display: grid;
+}
+
+.panel {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.panelHidden {
+  visibility: hidden;
+}
+
 .panelTitle {
-  margin: 0 0 18px;
+  margin: 0 0 16px;
   color: var(--ink);
   font-family: var(--font-display);
   font-size: var(--fs-h3);
   font-weight: 700;
   letter-spacing: -0.02em;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
-/* Четвёртая колонка — действие: в макете причина, работа, цена и кнопка
-   стоят одной строкой по центру. */
+/* три пары «подпись моноширинным — значение» столбцом */
 .facts {
   display: grid;
-  grid-template-columns: 1.2fr 1.1fr 0.6fr auto;
-  gap: 26px;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
   margin: 0;
-}
-
-.action {
-  display: flex;
-  justify-content: flex-end;
 }
 
 .fact {
@@ -104,7 +100,7 @@
 }
 
 .factLabel {
-  margin: 0 0 7px;
+  margin: 0 0 4px;
   color: var(--faint);
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
@@ -115,15 +111,16 @@
 .factValue {
   margin: 0;
   color: var(--ink2);
-  font-size: var(--fs-base);
+  font-size: var(--fs-dense);
   font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
 .price {
   margin: 0;
   color: var(--accent-text);
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   white-space: nowrap;
 }
@@ -137,24 +134,66 @@
   font-weight: 600;
 }
 
-@media (width < 900px) {
-  .facts {
-    grid-template-columns: 1fr;
-    gap: 18px;
+.action {
+  display: flex;
+  margin-top: 16px;
+}
+
+/* --- крупный: два ряда по три, подписи полные --- */
+
+@media (width >= 600px) {
+  .chips {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .panels {
-    margin-top: 22px;
-    padding-top: 22px;
+  .chip.chip {
+    padding-inline: 13px;
   }
 }
 
-@media (width < 600px) {
+/* --- планшет и десктоп: один ряд, ответ в две колонки --- */
+
+@media (width >= 900px) {
+  /* один ряд из шести; перенос — на случай длинных подписей снаружи */
   .chips {
-    gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .answer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(220px, 20vw, 260px);
+    gap: 28px;
+    align-items: start;
+    margin-top: 26px;
+    padding-top: 26px;
+  }
+
+  .panelTitle {
+    margin-bottom: 18px;
+  }
+
+  /* причина, работа и цена — одной строкой, как в макете */
+  .facts {
+    grid-template-columns: 1.2fr 1.1fr 0.6fr;
+    gap: 26px;
+    align-items: start;
+  }
+
+  .factLabel {
+    margin-bottom: 7px;
+  }
+
+  .factValue {
+    font-size: var(--fs-base);
   }
 
   .price {
-    font-size: 22px;
+    font-size: 24px;
+  }
+
+  /* кнопка выровнена по верху разбора, а не висит по центру */
+  .action {
+    margin-top: 0;
   }
 }

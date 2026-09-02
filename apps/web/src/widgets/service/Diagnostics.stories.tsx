@@ -7,6 +7,13 @@ import { customSymptoms, symptomsWithPrices } from './fixtures';
 /**
  * Диагностика по симптомам. Все шесть разборов лежат в разметке всегда —
  * скрытые проверяются через DevTools, а не переключением чипа.
+ *
+ * Симптомы — сетка 2×3 на телефоне с короткими подписями, 3×2 на крупном,
+ * один ряд с 900px (issue #272). Историй на симптом — по представителю
+ * каждого класса длины подписи: самая короткая («Запах») и самая длинная
+ * («Не включается»); остальные четыре покрыты RTL-тестами, снимать их
+ * значило бы шесть раз снять одно и то же — высота разбора резервируется по
+ * самому длинному, и от выбора меняется только текст.
  */
 const meta = {
   title: 'Блоки/Сервис',
@@ -20,34 +27,16 @@ type Story = StoryObj<typeof meta>;
 /** Основное состояние: цен в коде нет, стоимость считается после диагностики. */
 export const Basic: Story = { name: 'По умолчанию' };
 
-export const NoCooling: Story = {
-  name: 'Симптом: не холодит',
-  args: { defaultSymptom: 'ne-holodit' },
-};
-
-export const Water: Story = {
-  name: 'Симптом: капает вода',
-  args: { defaultSymptom: 'kapaet-voda' },
-};
-
+/** Самая короткая подпись чипа: на телефоне «Запах» вместо «Неприятный запах». */
 export const Smell: Story = {
   name: 'Симптом: неприятный запах',
   args: { defaultSymptom: 'zapah' },
 };
 
-export const Noise: Story = {
-  name: 'Симптом: шумит или вибрирует',
-  args: { defaultSymptom: 'shum' },
-};
-
+/** Самая длинная подпись чипа на телефоне — «Не включается» в колонке 118px. */
 export const NoStart: Story = {
   name: 'Симптом: не включается',
   args: { defaultSymptom: 'ne-vklyuchaetsya' },
-};
-
-export const Ice: Story = {
-  name: 'Симптом: обмерзает наледью',
-  args: { defaultSymptom: 'obmerzaet' },
 };
 
 /**
