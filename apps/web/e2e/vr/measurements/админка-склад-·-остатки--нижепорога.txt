@@ -7,10 +7,10 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.StockTable__wrap  358×347 @16,16
-  section.Card__card  358×202 @0,0  r20  b1
-    div.Table__viewport  356×200 @1,1
-      table.Table__table  952×200 @0,0
+div.StockTable__wrap  358×367 @16,16
+  section.Card__card  358×222 @0,0  r20  b1
+    div.Table__viewport  356×220 @1,1
+      table.Table__table  952×220 @0,0
         th  128×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
         th.StockTable__numberHead  210×76 @128,0  b0 0 1 0
           span.StockTable__zoneName  174×23 @19,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
@@ -22,28 +22,28 @@ div.StockTable__wrap  358×347 @16,16
           span.StockTable__zoneNote  142×20 @18,39  Manrope 400 13/20  lines=1  «машина: Сергей Панин»
         th.StockTable__numberHead#4  154×76 @717,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итог»
         th.StockTable__numberHead#5  81×76 @871,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порог»
-        a.StockTable__name  91×41 @18,91  Manrope 600 15/22  lines=2  «Кронштейны 450×450»
+        a.StockTable__name  91×45 @18,90  Manrope 600 15/22  lines=2  «Кронштейны 450×450»
         span.StockTable__itemNote  91×20 @18,135  Manrope 400 13/20  lines=1  «Крепёж»
-        a.StockTable__move  85×24 @18,161  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell  210×124 @128,76
+        a.StockTable__move  85×44 @18,161  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell  210×144 @128,76
           button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 пар.»
-        td.StockCell__cell#2  202×124 @338,76
+        td.StockCell__cell#2  202×144 @338,76
           button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1 пар.»
-        td.StockCell__cell#3  178×124 @539,76
+        td.StockCell__cell#3  178×144 @539,76
           button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 пар.»
-        td.StockTable__number  154×124 @717,76
+        td.StockTable__number  154×144 @717,76
           span.StockTable__total  41×19 @18,16  Manrope 600 15/22  lines=1  «3 пар.»
           span.Badge__badge  69×24 @67,15  Manrope 600 12/16  r100  b1  lines=1  «К заказу»
-        td.StockTable__number#2  81×124 @871,76  Manrope 400 15/22  lines=1  «6 пар.»
+        td.StockTable__number#2  81×144 @871,76  Manrope 400 15/22  lines=1  «6 пар.»
   p[role=status]  1×1 @-1,-1
-  p.StockTable__hint  358×40 @0,214  Manrope 400 13/20  lines=2  «Таблица прокручивается вбок, название по»
-  p.StockTable__hint#2  358×81 @0,267  Manrope 400 13/20  lines=4  «Остаток можно перетащить мышью в другую»
+  p.StockTable__hint  358×40 @0,234  Manrope 400 13/20  lines=2  «Таблица прокручивается вбок, название по»
+  p.StockTable__hint#2  358×81 @0,287  Manrope 400 13/20  lines=4  «Остаток можно перетащить мышью в другую»
 
 [геометрия 768]
-div.StockTable__wrap  736×287 @16,16
-  section.Card__card  736×202 @0,0  r20  b1
-    div.Table__viewport  734×200 @1,1
-      table.Table__table  952×200 @0,0
+div.StockTable__wrap  736×307 @16,16
+  section.Card__card  736×222 @0,0  r20  b1
+    div.Table__viewport  734×220 @1,1
+      table.Table__table  952×220 @0,0
         th  128×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
         th.StockTable__numberHead  210×76 @128,0  b0 0 1 0
           span.StockTable__zoneName  174×23 @19,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
@@ -55,22 +55,22 @@ div.StockTable__wrap  736×287 @16,16
           span.StockTable__zoneNote  142×20 @18,39  Manrope 400 13/20  lines=1  «машина: Сергей Панин»
         th.StockTable__numberHead#4  154×76 @717,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итог»
         th.StockTable__numberHead#5  81×76 @871,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порог»
-        a.StockTable__name  91×41 @18,91  Manrope 600 15/22  lines=2  «Кронштейны 450×450»
+        a.StockTable__name  91×45 @18,90  Manrope 600 15/22  lines=2  «Кронштейны 450×450»
         span.StockTable__itemNote  91×20 @18,135  Manrope 400 13/20  lines=1  «Крепёж»
-        a.StockTable__move  85×24 @18,161  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell  210×124 @128,76
+        a.StockTable__move  85×44 @18,161  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell  210×144 @128,76
           button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 пар.»
-        td.StockCell__cell#2  202×124 @338,76
+        td.StockCell__cell#2  202×144 @338,76
           button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1 пар.»
-        td.StockCell__cell#3  178×124 @539,76
+        td.StockCell__cell#3  178×144 @539,76
           button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 пар.»
-        td.StockTable__number  154×124 @717,76
+        td.StockTable__number  154×144 @717,76
           span.StockTable__total  41×19 @18,16  Manrope 600 15/22  lines=1  «3 пар.»
           span.Badge__badge  69×24 @67,15  Manrope 600 12/16  r100  b1  lines=1  «К заказу»
-        td.StockTable__number#2  81×124 @871,76  Manrope 400 15/22  lines=1  «6 пар.»
+        td.StockTable__number#2  81×144 @871,76  Manrope 400 15/22  lines=1  «6 пар.»
   p[role=status]  1×1 @-1,-1
-  p.StockTable__hint  736×20 @0,214  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
-  p.StockTable__hint#2  736×40 @0,247  Manrope 400 13/20  lines=2  «Остаток можно перетащить мышью в другую»
+  p.StockTable__hint  736×20 @0,234  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
+  p.StockTable__hint#2  736×40 @0,267  Manrope 400 13/20  lines=2  «Остаток можно перетащить мышью в другую»
 
 [геометрия 1440]
 div.StockTable__wrap  1408×244 @16,16

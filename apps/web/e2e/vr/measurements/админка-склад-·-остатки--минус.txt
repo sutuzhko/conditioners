@@ -7,10 +7,10 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.StockTable__wrap  358×467 @16,16
-  section.Card__card  358×180 @0,0  r20  b1
-    div.Table__viewport  356×178 @1,1
-      table.Table__table  930×178 @0,0
+div.StockTable__wrap  358×509 @16,16
+  section.Card__card  358×222 @0,0  r20  b1
+    div.Table__viewport  356×220 @1,1
+      table.Table__table  930×220 @0,0
         th  131×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
         th.StockTable__numberHead  225×76 @131,0  b0 0 1 0
           span.StockTable__zoneName  189×23 @19,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
@@ -22,28 +22,28 @@ div.StockTable__wrap  358×467 @16,16
           span.StockTable__zoneNote  155×20 @18,39  Manrope 400 13/20  lines=1  «машина: Сергей Панин»
         th.StockTable__numberHead#4  79×76 @764,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итог»
         th.StockTable__numberHead#5  87×76 @843,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порог»
-        a.StockTable__name  75×19 @18,91  Manrope 600 15/22  lines=1  «Фреон R32»
-        span.StockTable__itemNote  94×20 @18,113  Manrope 400 13/20  lines=1  «Фреон»
-        a.StockTable__move  85×24 @18,139  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell  225×102 @131,76
+        a.StockTable__name  75×44 @18,90  Manrope 600 15/22  lines=1  «Фреон R32»
+        span.StockTable__itemNote  94×20 @18,134  Manrope 400 13/20  lines=1  «Фреон»
+        a.StockTable__move  85×44 @18,161  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell  225×143 @131,76
           button.StockCell__button  225×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «6,2 кг»
-        td.StockCell__cell#2  216×102 @356,76
+        td.StockCell__cell#2  216×143 @356,76
           button.StockCell__button  216×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5 кг»
-        td.StockCell__cell#3  191×102 @573,76
+        td.StockCell__cell#3  191×143 @573,76
           button.StockCell__button  191×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 кг»
-        td.StockTable__number  79×102 @764,76
+        td.StockTable__number  79×143 @764,76
           span.StockTable__total  38×19 @23,16  Manrope 600 15/22  lines=1  «4,7 кг»
-        td.StockTable__number#2  87×102 @843,76  Manrope 400 15/22  lines=1  «4 кг»
+        td.StockTable__number#2  87×143 @843,76  Manrope 400 15/22  lines=1  «4 кг»
   p[role=status]  1×1 @-1,-1
-  p.StockTable__hint  358×40 @0,192  Manrope 400 13/20  lines=2  «Таблица прокручивается вбок, название по»
-  p.StockTable__hint#2  358×81 @0,244  Manrope 400 13/20  lines=4  «Остаток можно перетащить мышью в другую»
-  p.StockTable__warning  358×130 @0,337  Manrope 400 15/22  r11  b1  lines=5  «Минус означает, что списали больше, чем»
+  p.StockTable__hint  358×40 @0,234  Manrope 400 13/20  lines=2  «Таблица прокручивается вбок, название по»
+  p.StockTable__hint#2  358×81 @0,286  Manrope 400 13/20  lines=4  «Остаток можно перетащить мышью в другую»
+  p.StockTable__warning  358×130 @0,378  Manrope 400 15/22  r11  b1  lines=5  «Минус означает, что списали больше, чем»
 
 [геометрия 768]
-div.StockTable__wrap  736×339 @16,16
-  section.Card__card  736×180 @0,0  r20  b1
-    div.Table__viewport  734×178 @1,1
-      table.Table__table  930×178 @0,0
+div.StockTable__wrap  736×381 @16,16
+  section.Card__card  736×222 @0,0  r20  b1
+    div.Table__viewport  734×220 @1,1
+      table.Table__table  930×220 @0,0
         th  131×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
         th.StockTable__numberHead  225×76 @131,0  b0 0 1 0
           span.StockTable__zoneName  189×23 @19,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
@@ -55,22 +55,22 @@ div.StockTable__wrap  736×339 @16,16
           span.StockTable__zoneNote  155×20 @18,39  Manrope 400 13/20  lines=1  «машина: Сергей Панин»
         th.StockTable__numberHead#4  79×76 @764,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итог»
         th.StockTable__numberHead#5  87×76 @843,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порог»
-        a.StockTable__name  75×19 @18,91  Manrope 600 15/22  lines=1  «Фреон R32»
-        span.StockTable__itemNote  94×20 @18,113  Manrope 400 13/20  lines=1  «Фреон»
-        a.StockTable__move  85×24 @18,139  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell  225×102 @131,76
+        a.StockTable__name  75×44 @18,90  Manrope 600 15/22  lines=1  «Фреон R32»
+        span.StockTable__itemNote  94×20 @18,134  Manrope 400 13/20  lines=1  «Фреон»
+        a.StockTable__move  85×44 @18,161  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell  225×143 @131,76
           button.StockCell__button  225×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «6,2 кг»
-        td.StockCell__cell#2  216×102 @356,76
+        td.StockCell__cell#2  216×143 @356,76
           button.StockCell__button  216×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5 кг»
-        td.StockCell__cell#3  191×102 @573,76
+        td.StockCell__cell#3  191×143 @573,76
           button.StockCell__button  191×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 кг»
-        td.StockTable__number  79×102 @764,76
+        td.StockTable__number  79×143 @764,76
           span.StockTable__total  38×19 @23,16  Manrope 600 15/22  lines=1  «4,7 кг»
-        td.StockTable__number#2  87×102 @843,76  Manrope 400 15/22  lines=1  «4 кг»
+        td.StockTable__number#2  87×143 @843,76  Manrope 400 15/22  lines=1  «4 кг»
   p[role=status]  1×1 @-1,-1
-  p.StockTable__hint  736×20 @0,192  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
-  p.StockTable__hint#2  736×40 @0,224  Manrope 400 13/20  lines=2  «Остаток можно перетащить мышью в другую»
-  p.StockTable__warning  736×63 @0,276  Manrope 400 15/22  r11  b1  lines=2  «Минус означает, что списали больше, чем»
+  p.StockTable__hint  736×20 @0,234  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
+  p.StockTable__hint#2  736×40 @0,266  Manrope 400 13/20  lines=2  «Остаток можно перетащить мышью в другую»
+  p.StockTable__warning  736×63 @0,318  Manrope 400 15/22  r11  b1  lines=2  «Минус означает, что списали больше, чем»
 
 [геометрия 1440]
 div.StockTable__wrap  1408×297 @16,16

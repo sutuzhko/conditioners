@@ -2,15 +2,15 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×900
+390 → 390×973
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.StockTable__wrap  358×839 @16,16
-  section.Card__card  358×552 @0,0  r20  b1
-    div.Table__viewport  356×550 @1,1
-      table.Table__table  810×550 @0,0
+div.StockTable__wrap  358×941 @16,16
+  section.Card__card  358×654 @0,0  r20  b1
+    div.Table__viewport  356×652 @1,1
+      table.Table__table  810×652 @0,0
         th  141×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
         th.StockTable__numberHead  210×76 @141,0  b0 0 1 0
           span.StockTable__zoneName  174×23 @19,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
@@ -21,60 +21,60 @@ div.StockTable__wrap  358×839 @16,16
           span.StockTable__zoneName  142×23 @18,16  Onest 700 15/23  lines=1  «Ларгус»
           span.StockTable__zoneNote  142×20 @18,39  Manrope 400 13/20  lines=1  «машина: Сергей Панин»
         th.StockTable__numberHead#4  79×76 @731,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итог»
-        a.StockTable__name  98×41 @18,91  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
+        a.StockTable__name  105×45 @18,90  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
         span.StockTable__itemNote  105×20 @18,135  Manrope 400 13/20  lines=1  «Медная труба»
-        a.StockTable__move  85×24 @18,161  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell  210×124 @141,76  b0 0 1 0
+        a.StockTable__move  85×44 @18,161  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell  210×144 @141,76  b0 0 1 0
           button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «43,5 м»
-        td.StockCell__cell#2  202×124 @351,76  b0 0 1 0
+        td.StockCell__cell#2  202×144 @351,76  b0 0 1 0
           button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12 м»
-        td.StockCell__cell#3  178×124 @553,76  b0 0 1 0
+        td.StockCell__cell#3  178×144 @553,76  b0 0 1 0
           button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 м»
-        td.StockTable__number  79×124 @731,76  b0 0 1 0
+        td.StockTable__number  79×144 @731,76  b0 0 1 0
           span.StockTable__total  43×19 @18,16  Manrope 600 15/22  lines=1  «55,5 м»
-        a.StockTable__name#2  91×41 @18,215  Manrope 600 15/22  lines=2  «Кронштейны 450×450»
-        span.StockTable__itemNote#2  105×20 @18,259  Manrope 400 13/20  lines=1  «Крепёж»
-        a.StockTable__move#2  85×24 @18,286  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell#4  210×124 @141,200  b0 0 1 0
+        a.StockTable__name#2  105×45 @18,234  Manrope 600 15/22  lines=2  «Кронштейны 450×450»
+        span.StockTable__itemNote#2  105×20 @18,279  Manrope 400 13/20  lines=1  «Крепёж»
+        a.StockTable__move#2  85×44 @18,306  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#4  210×144 @141,220  b0 0 1 0
           button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 пар.»
-        td.StockCell__cell#5  202×124 @351,200  b0 0 1 0
+        td.StockCell__cell#5  202×144 @351,220  b0 0 1 0
           button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1 пар.»
-        td.StockCell__cell#6  178×124 @553,200  b0 0 1 0
+        td.StockCell__cell#6  178×144 @553,220  b0 0 1 0
           button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 пар.»
-        td.StockTable__number#2  79×124 @731,200  b0 0 1 0
+        td.StockTable__number#2  79×144 @731,220  b0 0 1 0
           span.StockTable__total  41×19 @20,16  Manrope 600 15/22  lines=1  «3 пар.»
-        a.StockTable__name#3  75×19 @18,340  Manrope 600 15/22  lines=1  «Фреон R32»
-        span.StockTable__itemNote#3  105×20 @18,361  Manrope 400 13/20  lines=1  «Фреон»
-        a.StockTable__move#3  85×24 @18,387  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell#7  210×102 @141,324  b0 0 1 0
+        a.StockTable__name#3  75×44 @18,379  Manrope 600 15/22  lines=1  «Фреон R32»
+        span.StockTable__itemNote#3  105×20 @18,423  Manrope 400 13/20  lines=1  «Фреон»
+        a.StockTable__move#3  85×44 @18,449  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#7  210×143 @141,364  b0 0 1 0
           button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «6,2 кг»
-        td.StockCell__cell#8  202×102 @351,324  b0 0 1 0
+        td.StockCell__cell#8  202×143 @351,364  b0 0 1 0
           button.StockCell__button  202×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5 кг»
-        td.StockCell__cell#9  178×102 @553,324  b0 0 1 0
+        td.StockCell__cell#9  178×143 @553,364  b0 0 1 0
           button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 кг»
-        td.StockTable__number#3  79×102 @731,324  b0 0 1 0
+        td.StockTable__number#3  79×143 @731,364  b0 0 1 0
           span.StockTable__total  38×19 @23,16  Manrope 600 15/22  lines=1  «4,7 кг»
-        a.StockTable__name#4  81×41 @18,441  Manrope 600 15/22  lines=2  «Сплит-система 09»
-        span.StockTable__itemNote#4  105×20 @18,485  Manrope 400 13/20  lines=1  «Без группы»
-        a.StockTable__move#4  85×24 @18,511  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell#10  210×124 @141,426
+        a.StockTable__name#4  105×45 @18,522  Manrope 600 15/22  lines=2  «Сплит-система 09»
+        span.StockTable__itemNote#4  105×20 @18,567  Manrope 400 13/20  lines=1  «Без группы»
+        a.StockTable__move#4  85×44 @18,593  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#10  210×144 @141,507
           button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 шт.»
-        td.StockCell__cell#11  202×124 @351,426
+        td.StockCell__cell#11  202×144 @351,507
           button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
-        td.StockCell__cell#12  178×124 @553,426
+        td.StockCell__cell#12  178×144 @553,507
           button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
-        td.StockTable__number#4  79×124 @731,426
+        td.StockTable__number#4  79×144 @731,507
           span.StockTable__total  34×19 @26,16  Manrope 600 15/22  lines=1  «2 шт.»
   p[role=status]  1×1 @-1,-1
-  p.StockTable__hint  358×40 @0,564  Manrope 400 13/20  lines=2  «Таблица прокручивается вбок, название по»
-  p.StockTable__hint#2  358×81 @0,617  Manrope 400 13/20  lines=4  «Остаток можно перетащить мышью в другую»
-  p.StockTable__warning  358×130 @0,709  Manrope 400 15/22  r11  b1  lines=5  «Минус означает, что списали больше, чем»
+  p.StockTable__hint  358×40 @0,666  Manrope 400 13/20  lines=2  «Таблица прокручивается вбок, название по»
+  p.StockTable__hint#2  358×81 @0,718  Manrope 400 13/20  lines=4  «Остаток можно перетащить мышью в другую»
+  p.StockTable__warning  358×130 @0,811  Manrope 400 15/22  r11  b1  lines=5  «Минус означает, что списали больше, чем»
 
 [геометрия 768]
-div.StockTable__wrap  736×712 @16,16
-  section.Card__card  736×552 @0,0  r20  b1
-    div.Table__viewport  734×550 @1,1
-      table.Table__table  810×550 @0,0
+div.StockTable__wrap  736×813 @16,16
+  section.Card__card  736×654 @0,0  r20  b1
+    div.Table__viewport  734×652 @1,1
+      table.Table__table  810×652 @0,0
         th  141×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
         th.StockTable__numberHead  210×76 @141,0  b0 0 1 0
           span.StockTable__zoneName  174×23 @19,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
@@ -85,54 +85,54 @@ div.StockTable__wrap  736×712 @16,16
           span.StockTable__zoneName  142×23 @18,16  Onest 700 15/23  lines=1  «Ларгус»
           span.StockTable__zoneNote  142×20 @18,39  Manrope 400 13/20  lines=1  «машина: Сергей Панин»
         th.StockTable__numberHead#4  79×76 @731,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итог»
-        a.StockTable__name  98×41 @18,91  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
+        a.StockTable__name  105×45 @18,90  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
         span.StockTable__itemNote  105×20 @18,135  Manrope 400 13/20  lines=1  «Медная труба»
-        a.StockTable__move  85×24 @18,161  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell  210×124 @141,76  b0 0 1 0
+        a.StockTable__move  85×44 @18,161  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell  210×144 @141,76  b0 0 1 0
           button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «43,5 м»
-        td.StockCell__cell#2  202×124 @351,76  b0 0 1 0
+        td.StockCell__cell#2  202×144 @351,76  b0 0 1 0
           button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12 м»
-        td.StockCell__cell#3  178×124 @553,76  b0 0 1 0
+        td.StockCell__cell#3  178×144 @553,76  b0 0 1 0
           button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 м»
-        td.StockTable__number  79×124 @731,76  b0 0 1 0
+        td.StockTable__number  79×144 @731,76  b0 0 1 0
           span.StockTable__total  43×19 @18,16  Manrope 600 15/22  lines=1  «55,5 м»
-        a.StockTable__name#2  91×41 @18,215  Manrope 600 15/22  lines=2  «Кронштейны 450×450»
-        span.StockTable__itemNote#2  105×20 @18,259  Manrope 400 13/20  lines=1  «Крепёж»
-        a.StockTable__move#2  85×24 @18,286  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell#4  210×124 @141,200  b0 0 1 0
+        a.StockTable__name#2  105×45 @18,234  Manrope 600 15/22  lines=2  «Кронштейны 450×450»
+        span.StockTable__itemNote#2  105×20 @18,279  Manrope 400 13/20  lines=1  «Крепёж»
+        a.StockTable__move#2  85×44 @18,306  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#4  210×144 @141,220  b0 0 1 0
           button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 пар.»
-        td.StockCell__cell#5  202×124 @351,200  b0 0 1 0
+        td.StockCell__cell#5  202×144 @351,220  b0 0 1 0
           button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1 пар.»
-        td.StockCell__cell#6  178×124 @553,200  b0 0 1 0
+        td.StockCell__cell#6  178×144 @553,220  b0 0 1 0
           button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 пар.»
-        td.StockTable__number#2  79×124 @731,200  b0 0 1 0
+        td.StockTable__number#2  79×144 @731,220  b0 0 1 0
           span.StockTable__total  41×19 @20,16  Manrope 600 15/22  lines=1  «3 пар.»
-        a.StockTable__name#3  75×19 @18,340  Manrope 600 15/22  lines=1  «Фреон R32»
-        span.StockTable__itemNote#3  105×20 @18,361  Manrope 400 13/20  lines=1  «Фреон»
-        a.StockTable__move#3  85×24 @18,387  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell#7  210×102 @141,324  b0 0 1 0
+        a.StockTable__name#3  75×44 @18,379  Manrope 600 15/22  lines=1  «Фреон R32»
+        span.StockTable__itemNote#3  105×20 @18,423  Manrope 400 13/20  lines=1  «Фреон»
+        a.StockTable__move#3  85×44 @18,449  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#7  210×143 @141,364  b0 0 1 0
           button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «6,2 кг»
-        td.StockCell__cell#8  202×102 @351,324  b0 0 1 0
+        td.StockCell__cell#8  202×143 @351,364  b0 0 1 0
           button.StockCell__button  202×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5 кг»
-        td.StockCell__cell#9  178×102 @553,324  b0 0 1 0
+        td.StockCell__cell#9  178×143 @553,364  b0 0 1 0
           button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 кг»
-        td.StockTable__number#3  79×102 @731,324  b0 0 1 0
+        td.StockTable__number#3  79×143 @731,364  b0 0 1 0
           span.StockTable__total  38×19 @23,16  Manrope 600 15/22  lines=1  «4,7 кг»
-        a.StockTable__name#4  81×41 @18,441  Manrope 600 15/22  lines=2  «Сплит-система 09»
-        span.StockTable__itemNote#4  105×20 @18,485  Manrope 400 13/20  lines=1  «Без группы»
-        a.StockTable__move#4  85×24 @18,511  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell#10  210×124 @141,426
+        a.StockTable__name#4  105×45 @18,522  Manrope 600 15/22  lines=2  «Сплит-система 09»
+        span.StockTable__itemNote#4  105×20 @18,567  Manrope 400 13/20  lines=1  «Без группы»
+        a.StockTable__move#4  85×44 @18,593  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell#10  210×144 @141,507
           button.StockCell__button  210×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 шт.»
-        td.StockCell__cell#11  202×124 @351,426
+        td.StockCell__cell#11  202×144 @351,507
           button.StockCell__button  202×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
-        td.StockCell__cell#12  178×124 @553,426
+        td.StockCell__cell#12  178×144 @553,507
           button.StockCell__button  178×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
-        td.StockTable__number#4  79×124 @731,426
+        td.StockTable__number#4  79×144 @731,507
           span.StockTable__total  34×19 @26,16  Manrope 600 15/22  lines=1  «2 шт.»
   p[role=status]  1×1 @-1,-1
-  p.StockTable__hint  736×20 @0,564  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
-  p.StockTable__hint#2  736×40 @0,596  Manrope 400 13/20  lines=2  «Остаток можно перетащить мышью в другую»
-  p.StockTable__warning  736×63 @0,649  Manrope 400 15/22  r11  b1  lines=2  «Минус означает, что списали больше, чем»
+  p.StockTable__hint  736×20 @0,666  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
+  p.StockTable__hint#2  736×40 @0,698  Manrope 400 13/20  lines=2  «Остаток можно перетащить мышью в другую»
+  p.StockTable__warning  736×63 @0,750  Manrope 400 15/22  r11  b1  lines=2  «Минус означает, что списали больше, чем»
 
 [геометрия 1440]
 div.StockTable__wrap  1408×602 @16,16

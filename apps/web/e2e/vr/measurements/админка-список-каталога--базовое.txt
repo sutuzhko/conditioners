@@ -7,9 +7,9 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×751 @16,16  r20  b1
-  div.Table__viewport  356×749 @1,1
-    table.Table__table  356×749 @0,0
+section.Card__card  358×811 @16,16  r20  b1
+  div.Table__viewport  356×809 @1,1
+    table.Table__table  356×809 @0,0
       tr[role=row]  1×56 @0,0
         th  93×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
         th#2  104×56 @93,0  Onest 700 15/23  b0 0 1 0  lines=1  «Площадь»
@@ -17,7 +17,7 @@ section.Card__card  358×751 @16,16  r20  b1
         th#4  102×56 @270,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
         th#5  101×56 @372,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порядок»
         span  1×1 @490,38  Onest 700 15/23  lines=1  clipped  «Править»
-      tr[role=row]#2  356×241 @0,0  r14  b1
+      tr[role=row]#2  356×261 @0,0  r14  b1
         td[role=cell]  354×36 @1,5
           td[role=cell]::before  48×20 @0,0
           span.AdminCatalogList__name  130×22 @125,7  Manrope 600 15/22  lines=1  «Сплит-система 07»
@@ -32,9 +32,9 @@ section.Card__card  358×751 @16,16  r20  b1
           span.Badge__badge  82×28 @258,7  Manrope 600 12/16  r100  b1  lines=1  «Показана»
         td.AdminCatalogList__sort  354×36 @1,157  Manrope 400 15/22  lines=1  «0»
           td.AdminCatalogList__sort::before  53×20 @0,0
-        td[role=cell]#5  354×39 @1,197  b1 0 0 0
-          a.AdminCatalogList__edit  60×24 @280,8  Manrope 600 15/22  lines=1  «Править»
-      tr[role=row]#3  356×247 @0,251  r14  b1
+        td[role=cell]#5  354×59 @1,197  b1 0 0 0
+          a.AdminCatalogList__edit  60×44 @280,8  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#3  356×267 @0,271  r14  b1
         td[role=cell]  354×36 @1,5
           td[role=cell]::before  48×20 @0,0
           span.AdminCatalogList__name#2  131×22 @124,7  Manrope 600 15/22  lines=1  «Сплит-система 09»
@@ -50,9 +50,9 @@ section.Card__card  358×751 @16,16  r20  b1
           span.Badge__badge#2  82×28 @258,7  Manrope 600 12/16  r100  b1  lines=1  «Показана»
         td.AdminCatalogList__sort  354×36 @1,162  Manrope 400 15/22  lines=1  «1»
           td.AdminCatalogList__sort::before  53×20 @0,0
-        td[role=cell]#5  354×39 @1,203  b1 0 0 0
-          a.AdminCatalogList__edit#2  60×24 @280,8  Manrope 600 15/22  lines=1  «Править»
-      tr[role=row]#4  356×241 @0,508  r14  b1
+        td[role=cell]#5  354×59 @1,203  b1 0 0 0
+          a.AdminCatalogList__edit#2  60×44 @280,8  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#4  356×261 @0,548  r14  b1
         td[role=cell]  354×36 @1,5
           td[role=cell]::before  48×20 @0,0
           span.AdminCatalogList__name#3  128×22 @126,7  Manrope 600 15/22  lines=1  «Сплит-система 18»
@@ -67,8 +67,8 @@ section.Card__card  358×751 @16,16  r20  b1
           span.Badge__badge#3  70×28 @270,7  Manrope 600 12/16  r100  b1  lines=1  «Скрыта»
         td.AdminCatalogList__sort  354×36 @1,157  Manrope 400 15/22  lines=1  «2»
           td.AdminCatalogList__sort::before  53×20 @0,0
-        td[role=cell]#5  354×39 @1,197  b1 0 0 0
-          a.AdminCatalogList__edit#3  60×24 @280,8  Manrope 600 15/22  lines=1  «Править»
+        td[role=cell]#5  354×59 @1,197  b1 0 0 0
+          a.AdminCatalogList__edit#3  60×44 @280,8  Manrope 600 15/22  lines=1  «Править»
 
 [геометрия 768]
 section.Card__card  736×346 @16,16  r20  b1
@@ -92,7 +92,7 @@ section.Card__card  736×346 @16,16  r20  b1
           span.Badge__badge  82×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Показана»
         td.AdminCatalogList__sort  101×96 @537,0  Manrope 400 15/22  b0 0 1 0  lines=1  «0»
         td[role=cell]#5  96×96 @638,0  b0 0 1 0
-          a.AdminCatalogList__edit  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
+          a.AdminCatalogList__edit  60×44 @18,15  Manrope 600 15/22  lines=1  «Править»
       tr[role=row]#3  734×96 @0,152
         td[role=cell]  128×96 @0,0  b0 0 1 0
           span.AdminCatalogList__name#2  60×64 @18,16  Manrope 600 15/22  lines=3  «Сплит-система 09»
@@ -105,7 +105,7 @@ section.Card__card  736×346 @16,16  r20  b1
           span.Badge__badge#2  82×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Показана»
         td.AdminCatalogList__sort  101×96 @537,0  Manrope 400 15/22  b0 0 1 0  lines=1  «1»
         td[role=cell]#5  96×96 @638,0  b0 0 1 0
-          a.AdminCatalogList__edit#2  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
+          a.AdminCatalogList__edit#2  60×44 @18,15  Manrope 600 15/22  lines=1  «Править»
       tr[role=row]#4  734×96 @0,249
         td[role=cell]  128×96 @0,0
           span.AdminCatalogList__name#3  60×64 @18,16  Manrope 600 15/22  lines=3  «Сплит-система 18»
@@ -117,7 +117,7 @@ section.Card__card  736×346 @16,16  r20  b1
           span.Badge__badge#3  70×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Скрыта»
         td.AdminCatalogList__sort  101×96 @537,0  Manrope 400 15/22  lines=1  «2»
         td[role=cell]#5  96×96 @638,0
-          a.AdminCatalogList__edit#3  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
+          a.AdminCatalogList__edit#3  60×44 @18,15  Manrope 600 15/22  lines=1  «Править»
 
 [геометрия 1440]
 section.Card__card  1408×229 @16,16  r20  b1

@@ -2,12 +2,12 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1088
-768 → 768×900
+390 → 390×1150
+768 → 768×930
 1440 → 1440×900
 
 [геометрия 390]
-div.AdminSummary__summary  358×1056 @16,16
+div.AdminSummary__summary  358×1118 @16,16
   header.AdminSummary__header  358×59 @0,0
     h1.AdminSummary__title  358×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Обзор»
     p.AdminSummary__lead  358×22 @0,36  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
@@ -32,42 +32,42 @@ div.AdminSummary__summary  358×1056 @16,16
       span.AdminSummary__tileTitle  135×40 @19,17  Manrope 400 13/20  lines=2  «Отзывы на модерации»
       span.AdminSummary__tileValue  135×33 @19,59  Onest 700 30/33  lines=1  «2»
       span.AdminSummary__tileNote  135×20 @19,94  Manrope 400 13/20  lines=1  «ждут решения»
-  section.Card__card  358×390 @0,533  r20  b1
+  section.Card__card  358×452 @0,533  r20  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Ближайшие дела»
     p.AdminSummary__text  316×45 @21,60  Manrope 400 15/22  lines=2  «Наряды и дела календаря по времени. Прос»
-    ul.AdminSummary__events  316×206 @21,115
-      li.AdminSummary__event  316×65 @0,0  b0 0 1 0
-        a.AdminSummary__eventLink  316×56 @0,0  r11
-          span.AdminSummary__eventWhen  86×20 @0,2  JetBrains Mono 600 13/20  lines=1  «вчера 14:00»
-          span.Badge__badge  51×24 @96,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
-          span.AdminSummary__eventKind  41×19 @156,3  Manrope 400 12/19  lines=1  «Звонок»
-          span.AdminSummary__eventName  52×22 @207,0  Manrope 600 15/22  lines=1  «Сергей»
-          span.Badge__badge#2  98×28 @0,28  Manrope 600 12/16  r100  b1  lines=1  «просрочено»
-      li.AdminSummary__event#2  316×60 @0,73  b0 0 1 0
-        a.AdminSummary__eventLink  316×51 @0,0  r11
-          span.AdminSummary__eventWhen#2  101×20 @0,2  JetBrains Mono 600 13/20  lines=1  «сегодня 09:00»
-          span.Badge__badge#3  57×24 @111,0  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
-          span.AdminSummary__eventKind#2  45×19 @178,3  Manrope 400 12/19  lines=1  «Монтаж»
-          span.AdminSummary__eventName#2  117×22 @0,28  Manrope 600 15/22  lines=1  «Ирина Соколова»
-      li.AdminSummary__event#3  316×33 @0,141  b0 0 1 0
-        a.AdminSummary__eventLink  316×24 @0,0  r11
-          span.AdminSummary__eventWhen#3  101×20 @0,2  JetBrains Mono 600 13/20  lines=1  «сегодня 18:00»
-          span.Badge__badge#4  51×24 @111,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
-          span.AdminSummary__eventKind#3  36×19 @172,3  Manrope 400 12/19  lines=1  «Замер»
-          span.AdminSummary__eventName#3  45×22 @218,0  Manrope 600 15/22  lines=1  «Ирина»
-      li.AdminSummary__event#4  316×24 @0,182
-        a.AdminSummary__eventLink  316×24 @0,0  r11
-          span.AdminSummary__eventWhen#4  94×20 @0,2  JetBrains Mono 600 13/20  lines=1  «завтра 10:00»
-          span.Badge__badge#5  57×24 @104,0  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
-          span.AdminSummary__eventKind#4  16×19 @171,3  Manrope 400 12/19  lines=1  «ТО»
-          span.AdminSummary__eventName#4  113×22 @196,0  Manrope 600 15/22  lines=1  «Ольга Кузьмина»
-    a.AdminSummary__link  316×24 @21,345  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  358×116 @0,941  r20  b1
+    ul.AdminSummary__events  316×248 @21,115
+      li.AdminSummary__event  316×66 @0,0  b0 0 1 0
+        a.AdminSummary__eventLink  316×56 @0,1  r11
+          span.AdminSummary__eventWhen  86×20 @28,2  JetBrains Mono 600 13/20  lines=1  «вчера 14:00»
+          span.Badge__badge  51×24 @124,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
+          span.AdminSummary__eventKind  41×19 @185,3  Manrope 400 12/19  lines=1  «Звонок»
+          span.AdminSummary__eventName  52×22 @236,1  Manrope 600 15/22  lines=1  «Сергей»
+          span.Badge__badge#2  98×28 @109,28  Manrope 600 12/16  r100  b1  lines=1  «просрочено»
+      li.AdminSummary__event#2  316×61 @0,74  b0 0 1 0
+        a.AdminSummary__eventLink  316×51 @0,1  r11
+          span.AdminSummary__eventWhen#2  101×20 @46,2  JetBrains Mono 600 13/20  lines=1  «сегодня 09:00»
+          span.Badge__badge#3  57×24 @158,0  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
+          span.AdminSummary__eventKind#2  45×19 @225,3  Manrope 400 12/19  lines=1  «Монтаж»
+          span.AdminSummary__eventName#2  117×22 @99,28  Manrope 600 15/22  lines=1  «Ирина Соколова»
+      li.AdminSummary__event#3  316×53 @0,143  b0 0 1 0
+        a.AdminSummary__eventLink  263×44 @0,0  r11
+          span.AdminSummary__eventWhen#3  101×20 @0,12  JetBrains Mono 600 13/20  lines=1  «сегодня 18:00»
+          span.Badge__badge#4  51×24 @111,10  Manrope 600 12/16  r100  b1  lines=1  «Дело»
+          span.AdminSummary__eventKind#3  36×19 @172,13  Manrope 400 12/19  lines=1  «Замер»
+          span.AdminSummary__eventName#3  45×22 @218,11  Manrope 600 15/22  lines=1  «Ирина»
+      li.AdminSummary__event#4  316×44 @0,204
+        a.AdminSummary__eventLink  310×44 @0,0  r11
+          span.AdminSummary__eventWhen#4  94×20 @0,12  JetBrains Mono 600 13/20  lines=1  «завтра 10:00»
+          span.Badge__badge#5  57×24 @104,10  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
+          span.AdminSummary__eventKind#4  16×19 @171,13  Manrope 400 12/19  lines=1  «ТО»
+          span.AdminSummary__eventName#4  113×22 @196,11  Manrope 600 15/22  lines=1  «Ольга Кузьмина»
+    a.AdminSummary__link  316×44 @21,387  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  358×116 @0,1003  r20  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  316×45 @21,50  Manrope 400 15/22  lines=2  «Все данные о компании заполнены. Сайт мо»
 
 [геометрия 768]
-div.AdminSummary__summary  736×803 @16,16
+div.AdminSummary__summary  736×898 @16,16
   header.AdminSummary__header  736×66 @0,0
     h1.AdminSummary__title  736×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Обзор»
     p.AdminSummary__lead  601×22 @0,43  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
@@ -92,37 +92,37 @@ div.AdminSummary__summary  736×803 @16,16
       span.AdminSummary__tileTitle  137×20 @19,17  Manrope 400 13/20  lines=1  «Отзывы на модерации»
       span.AdminSummary__tileValue  137×33 @19,39  Onest 700 30/33  lines=1  «2»
       span.AdminSummary__tileNote  137×20 @19,74  Manrope 400 13/20  lines=1  «ждут решения»
-  section.Card__card  736×314 @0,377  r20  b1
+  section.Card__card  736×409 @0,377  r20  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Ближайшие дела»
     p.AdminSummary__text  694×22 @21,61  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
-    ul.AdminSummary__events  694×152 @21,93
-      li.AdminSummary__event  694×37 @0,0  b0 0 1 0
-        a.AdminSummary__eventLink  694×28 @0,0  r11
-          span.AdminSummary__eventWhen  86×20 @0,4  JetBrains Mono 600 13/20  lines=1  «вчера 14:00»
-          span.Badge__badge  51×24 @96,2  Manrope 600 12/16  r100  b1  lines=1  «Дело»
-          span.AdminSummary__eventKind  41×19 @156,5  Manrope 400 12/19  lines=1  «Звонок»
-          span.AdminSummary__eventName  52×22 @207,2  Manrope 600 15/22  lines=1  «Сергей»
-          span.Badge__badge#2  98×28 @269,0  Manrope 600 12/16  r100  b1  lines=1  «просрочено»
-      li.AdminSummary__event#2  694×33 @0,45  b0 0 1 0
-        a.AdminSummary__eventLink  694×24 @0,0  r11
-          span.AdminSummary__eventWhen#2  101×20 @0,2  JetBrains Mono 600 13/20  lines=1  «сегодня 09:00»
-          span.Badge__badge#3  57×24 @111,0  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
-          span.AdminSummary__eventKind#2  45×19 @178,3  Manrope 400 12/19  lines=1  «Монтаж»
-          span.AdminSummary__eventName#2  117×22 @234,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
-      li.AdminSummary__event#3  694×33 @0,86  b0 0 1 0
-        a.AdminSummary__eventLink  694×24 @0,0  r11
-          span.AdminSummary__eventWhen#3  101×20 @0,2  JetBrains Mono 600 13/20  lines=1  «сегодня 18:00»
-          span.Badge__badge#4  51×24 @111,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
-          span.AdminSummary__eventKind#3  36×19 @172,3  Manrope 400 12/19  lines=1  «Замер»
-          span.AdminSummary__eventName#3  45×22 @218,0  Manrope 600 15/22  lines=1  «Ирина»
-      li.AdminSummary__event#4  694×24 @0,128
-        a.AdminSummary__eventLink  694×24 @0,0  r11
-          span.AdminSummary__eventWhen#4  94×20 @0,2  JetBrains Mono 600 13/20  lines=1  «завтра 10:00»
-          span.Badge__badge#5  57×24 @104,0  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
-          span.AdminSummary__eventKind#4  16×19 @171,3  Manrope 400 12/19  lines=1  «ТО»
-          span.AdminSummary__eventName#4  113×22 @196,0  Manrope 600 15/22  lines=1  «Ольга Кузьмина»
-    a.AdminSummary__link  694×24 @21,269  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  736×94 @0,708  r20  b1
+    ul.AdminSummary__events  694×227 @21,93
+      li.AdminSummary__event  694×53 @0,0  b0 0 1 0
+        a.AdminSummary__eventLink  367×44 @0,0  r11
+          span.AdminSummary__eventWhen  86×20 @0,12  JetBrains Mono 600 13/20  lines=1  «вчера 14:00»
+          span.Badge__badge  51×24 @96,10  Manrope 600 12/16  r100  b1  lines=1  «Дело»
+          span.AdminSummary__eventKind  41×19 @156,13  Manrope 400 12/19  lines=1  «Звонок»
+          span.AdminSummary__eventName  52×22 @207,11  Manrope 600 15/22  lines=1  «Сергей»
+          span.Badge__badge#2  98×28 @269,8  Manrope 600 12/16  r100  b1  lines=1  «просрочено»
+      li.AdminSummary__event#2  694×53 @0,61  b0 0 1 0
+        a.AdminSummary__eventLink  351×44 @0,0  r11
+          span.AdminSummary__eventWhen#2  101×20 @0,12  JetBrains Mono 600 13/20  lines=1  «сегодня 09:00»
+          span.Badge__badge#3  57×24 @111,10  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
+          span.AdminSummary__eventKind#2  45×19 @178,13  Manrope 400 12/19  lines=1  «Монтаж»
+          span.AdminSummary__eventName#2  117×22 @234,11  Manrope 600 15/22  lines=1  «Ирина Соколова»
+      li.AdminSummary__event#3  694×53 @0,122  b0 0 1 0
+        a.AdminSummary__eventLink  263×44 @0,0  r11
+          span.AdminSummary__eventWhen#3  101×20 @0,12  JetBrains Mono 600 13/20  lines=1  «сегодня 18:00»
+          span.Badge__badge#4  51×24 @111,10  Manrope 600 12/16  r100  b1  lines=1  «Дело»
+          span.AdminSummary__eventKind#3  36×19 @172,13  Manrope 400 12/19  lines=1  «Замер»
+          span.AdminSummary__eventName#3  45×22 @218,11  Manrope 600 15/22  lines=1  «Ирина»
+      li.AdminSummary__event#4  694×44 @0,183
+        a.AdminSummary__eventLink  310×44 @0,0  r11
+          span.AdminSummary__eventWhen#4  94×20 @0,12  JetBrains Mono 600 13/20  lines=1  «завтра 10:00»
+          span.Badge__badge#5  57×24 @104,10  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
+          span.AdminSummary__eventKind#4  16×19 @171,13  Manrope 400 12/19  lines=1  «ТО»
+          span.AdminSummary__eventName#4  113×22 @196,11  Manrope 600 15/22  lines=1  «Ольга Кузьмина»
+    a.AdminSummary__link  694×44 @21,344  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  736×94 @0,804  r20  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  694×22 @21,51  Manrope 400 15/22  lines=1  «Все данные о компании заполнены. Сайт мо»
 

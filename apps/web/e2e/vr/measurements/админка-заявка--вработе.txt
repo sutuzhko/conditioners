@@ -7,14 +7,14 @@
 1440 → 1440×900
 
 [геометрия 390]
-article.Card__card  358×845 @16,16  r20  b1
-  header.LeadCardView__header  316×52 @21,21
+article.Card__card  358×859 @16,16  r20  b1
+  header.LeadCardView__header  316×67 @21,21
     h2.LeadCardView__name  136×21 @0,0  Onest 700 17/21  ls0  lines=1  «Ирина»
-    a.LeadCardView__phone  136×21 @0,24  Manrope 600 15/23  lines=1  «+7 (900) 123-45-67»
+    a.LeadCardView__phone  136×44 @0,23  Manrope 600 15/23  lines=1  «+7 (900) 123-45-67»
     div.LeadCardView__headerRight  133×52 @183,0
       span.Badge__badge  78×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
       time.LeadCardView__when  133×20 @0,32  JetBrains Mono 400 13/20  lines=1  «20.08.2026, 12:15»
-  dl.LeadCardView__details  316×296 @21,87
+  dl.LeadCardView__details  316×296 @21,102
     div.LeadCardView__detail  316×43 @0,0
       dt.LeadCardView__detailLabel  316×20 @0,0  Manrope 400 13/20  lines=1  «Тема»
       dd.LeadCardView__detailValue  316×22 @0,20  Manrope 400 15/22  lines=1  «Установка кондиционера»
@@ -33,39 +33,39 @@ article.Card__card  358×845 @16,16  r20  b1
     div.LeadCardView__detail#6  316×43 @0,253
       dt.LeadCardView__detailLabel  316×20 @0,0  Manrope 400 13/20  lines=1  «Согласие на обработку данных»
       dd.LeadCardView__detailValue  316×22 @0,20  Manrope 400 15/22  lines=1  «дано 20.08.2026, 12:15»
-  p.LeadCardView__comment  316×65 @21,397  Manrope 400 15/22  b0 0 0 3  lines=2  «Второй этаж, окна во двор. Нужен тихий в»
-  div.LeadCardView__actions  316×238 @21,476
+  p.LeadCardView__comment  316×65 @21,411  Manrope 400 15/22  b0 0 0 3  lines=2  «Второй этаж, окна во двор. Нужен тихий в»
+  div.LeadCardView__actions  316×238 @21,490
     div.Field__field  316×76 @0,0
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
       span.Select__wrapper  316×49 @0,27
         select.Select__select  316×49 @0,0  r11  b1
-          option  0×0 @-37,-519  Manrope 400 15/21  lines=0  «Новая»
-          option#2  0×0 @-37,-519  Manrope 400 15/21  lines=0  «В работе»
-          option#3  0×0 @-37,-519  Manrope 400 15/21  lines=0  «Завершена»
-          option#4  0×0 @-37,-519  Manrope 400 15/21  lines=0  «Отказ»
+          option  0×0 @-37,-533  Manrope 400 15/21  lines=0  «Новая»
+          option#2  0×0 @-37,-533  Manrope 400 15/21  lines=0  «В работе»
+          option#3  0×0 @-37,-533  Manrope 400 15/21  lines=0  «Завершена»
+          option#4  0×0 @-37,-533  Manrope 400 15/21  lines=0  «Отказ»
         svg.Select__chevron  14×14 @288,18
     div.Field__field#2  316×150 @0,88
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заметка менеджера»
       textarea.Textarea__textarea  316×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Перезвонил, ждёт замер в четверг»
       p.Field__hint  316×19 @0,130  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
-  div.LeadCardView__footer  316×98 @21,726
+  div.LeadCardView__footer  316×98 @21,740
     button.Button__button  121×44 @0,0  r9  b1
       span.Button__content  91×16 @15,14
         span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Создать заказ»
-    a.LeadCardView__plan  105×32 @135,6  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
+    a.LeadCardView__plan  105×44 @135,0  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
     button.Button__button#2  95×44 @0,54  r9  b1
       span.Button__content  65×16 @15,14
         span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
 
 [геометрия 768]
-article.Card__card  736×566 @16,16  r20  b1
-  header.LeadCardView__header  694×52 @21,21
+article.Card__card  736×581 @16,16  r20  b1
+  header.LeadCardView__header  694×68 @21,21
     h2.LeadCardView__name  136×22 @0,0  Onest 700 18/22  ls0  lines=1  «Ирина»
-    a.LeadCardView__phone  136×21 @0,25  Manrope 600 15/23  lines=1  «+7 (900) 123-45-67»
+    a.LeadCardView__phone  136×44 @0,24  Manrope 600 15/23  lines=1  «+7 (900) 123-45-67»
     div.LeadCardView__headerRight  133×52 @561,0
       span.Badge__badge  78×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
       time.LeadCardView__when  133×20 @0,32  JetBrains Mono 400 13/20  lines=1  «20.08.2026, 12:15»
-  dl.LeadCardView__details  694×93 @21,87
+  dl.LeadCardView__details  694×93 @21,103
     div.LeadCardView__detail  221×43 @0,0
       dt.LeadCardView__detailLabel  221×20 @0,0  Manrope 400 13/20  lines=1  «Тема»
       dd.LeadCardView__detailValue  221×22 @0,20  Manrope 400 15/22  lines=1  «Установка кондиционера»
@@ -84,26 +84,26 @@ article.Card__card  736×566 @16,16  r20  b1
     div.LeadCardView__detail#6  221×43 @473,51
       dt.LeadCardView__detailLabel  221×20 @0,0  Manrope 400 13/20  lines=1  «Согласие на обработку данных»
       dd.LeadCardView__detailValue  221×22 @0,20  Manrope 400 15/22  lines=1  «дано 20.08.2026, 12:15»
-  p.LeadCardView__comment  694×42 @21,195  Manrope 400 15/22  b0 0 0 3  lines=1  «Второй этаж, окна во двор. Нужен тихий в»
-  div.LeadCardView__actions  694×238 @21,251
+  p.LeadCardView__comment  694×42 @21,210  Manrope 400 15/22  b0 0 0 3  lines=1  «Второй этаж, окна во двор. Нужен тихий в»
+  div.LeadCardView__actions  694×238 @21,266
     div.Field__field  694×76 @0,0
       label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
       span.Select__wrapper  694×49 @0,27
         select.Select__select  694×49 @0,0  r11  b1
-          option  0×0 @-37,-294  Manrope 400 15/21  lines=0  «Новая»
-          option#2  0×0 @-37,-294  Manrope 400 15/21  lines=0  «В работе»
-          option#3  0×0 @-37,-294  Manrope 400 15/21  lines=0  «Завершена»
-          option#4  0×0 @-37,-294  Manrope 400 15/21  lines=0  «Отказ»
+          option  0×0 @-37,-309  Manrope 400 15/21  lines=0  «Новая»
+          option#2  0×0 @-37,-309  Manrope 400 15/21  lines=0  «В работе»
+          option#3  0×0 @-37,-309  Manrope 400 15/21  lines=0  «Завершена»
+          option#4  0×0 @-37,-309  Manrope 400 15/21  lines=0  «Отказ»
         svg.Select__chevron  14×14 @666,18
     div.Field__field#2  694×150 @0,88
       label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Заметка менеджера»
       textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Перезвонил, ждёт замер в четверг»
       p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
-  div.LeadCardView__footer  694×44 @21,501
+  div.LeadCardView__footer  694×44 @21,516
     button.Button__button  121×44 @0,0  r9  b1
       span.Button__content  91×16 @15,14
         span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Создать заказ»
-    a.LeadCardView__plan  105×32 @135,6  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
+    a.LeadCardView__plan  105×44 @135,0  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
     button.Button__button#2  95×44 @254,0  r9  b1
       span.Button__content  65×16 @15,14
         span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»

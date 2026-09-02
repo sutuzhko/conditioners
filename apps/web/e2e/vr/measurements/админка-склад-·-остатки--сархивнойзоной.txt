@@ -7,10 +7,10 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.StockTable__wrap  358×325 @16,16
-  section.Card__card  358×180 @0,0  r20  b1
-    div.Table__viewport  356×178 @1,1
-      table.Table__table  1080×178 @0,0
+div.StockTable__wrap  358×366 @16,16
+  section.Card__card  358×222 @0,0  r20  b1
+    div.Table__viewport  356×220 @1,1
+      table.Table__table  1080×220 @0,0
         th  178×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
         th.StockTable__numberHead  226×76 @178,0  b0 0 1 0
           span.StockTable__zoneName  189×23 @19,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
@@ -25,29 +25,29 @@ div.StockTable__wrap  358×325 @16,16
           span.StockTable__zoneNote  60×20 @18,39  Manrope 400 13/20  lines=1  «в архиве»
         th.StockTable__numberHead#5  85×76 @908,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итог»
         th.StockTable__numberHead#6  87×76 @993,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порог»
-        a.StockTable__name  129×19 @18,91  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
-        span.StockTable__itemNote  142×20 @18,113  Manrope 400 13/20  lines=1  «Медная труба»
-        a.StockTable__move  85×24 @18,139  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell  226×102 @178,76
+        a.StockTable__name  129×44 @18,90  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
+        span.StockTable__itemNote  142×20 @18,134  Manrope 400 13/20  lines=1  «Медная труба»
+        a.StockTable__move  85×44 @18,161  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell  226×143 @178,76
           button.StockCell__button  225×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «43,5 м»
-        td.StockCell__cell#2  217×102 @404,76
+        td.StockCell__cell#2  217×143 @404,76
           button.StockCell__button  217×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12 м»
-        td.StockCell__cell#3  191×102 @621,76
+        td.StockCell__cell#3  191×143 @621,76
           button.StockCell__button  191×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 м»
-        td.StockCell__cell#4  96×102 @812,76
+        td.StockCell__cell#4  96×143 @812,76
           button.StockCell__button  96×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 м»
-        td.StockTable__number  85×102 @908,76
+        td.StockTable__number  85×143 @908,76
           span.StockTable__total  43×19 @24,16  Manrope 600 15/22  lines=1  «55,5 м»
-        td.StockTable__number#2  87×102 @993,76  Manrope 400 15/22  lines=1  «30 м»
+        td.StockTable__number#2  87×143 @993,76  Manrope 400 15/22  lines=1  «30 м»
   p[role=status]  1×1 @-1,-1
-  p.StockTable__hint  358×40 @0,192  Manrope 400 13/20  lines=2  «Таблица прокручивается вбок, название по»
-  p.StockTable__hint#2  358×81 @0,244  Manrope 400 13/20  lines=4  «Остаток можно перетащить мышью в другую»
+  p.StockTable__hint  358×40 @0,234  Manrope 400 13/20  lines=2  «Таблица прокручивается вбок, название по»
+  p.StockTable__hint#2  358×81 @0,286  Manrope 400 13/20  lines=4  «Остаток можно перетащить мышью в другую»
 
 [геометрия 768]
-div.StockTable__wrap  736×264 @16,16
-  section.Card__card  736×180 @0,0  r20  b1
-    div.Table__viewport  734×178 @1,1
-      table.Table__table  1080×178 @0,0
+div.StockTable__wrap  736×306 @16,16
+  section.Card__card  736×222 @0,0  r20  b1
+    div.Table__viewport  734×220 @1,1
+      table.Table__table  1080×220 @0,0
         th  178×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
         th.StockTable__numberHead  226×76 @178,0  b0 0 1 0
           span.StockTable__zoneName  189×23 @19,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
@@ -62,23 +62,23 @@ div.StockTable__wrap  736×264 @16,16
           span.StockTable__zoneNote  60×20 @18,39  Manrope 400 13/20  lines=1  «в архиве»
         th.StockTable__numberHead#5  85×76 @908,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итог»
         th.StockTable__numberHead#6  87×76 @993,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порог»
-        a.StockTable__name  129×19 @18,91  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
-        span.StockTable__itemNote  142×20 @18,113  Manrope 400 13/20  lines=1  «Медная труба»
-        a.StockTable__move  85×24 @18,139  Manrope 600 13/20  lines=1  «Переместить»
-        td.StockCell__cell  226×102 @178,76
+        a.StockTable__name  129×44 @18,90  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
+        span.StockTable__itemNote  142×20 @18,134  Manrope 400 13/20  lines=1  «Медная труба»
+        a.StockTable__move  85×44 @18,161  Manrope 600 13/20  lines=1  «Переместить»
+        td.StockCell__cell  226×143 @178,76
           button.StockCell__button  225×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «43,5 м»
-        td.StockCell__cell#2  217×102 @404,76
+        td.StockCell__cell#2  217×143 @404,76
           button.StockCell__button  217×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12 м»
-        td.StockCell__cell#3  191×102 @621,76
+        td.StockCell__cell#3  191×143 @621,76
           button.StockCell__button  191×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 м»
-        td.StockCell__cell#4  96×102 @812,76
+        td.StockCell__cell#4  96×143 @812,76
           button.StockCell__button  96×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 м»
-        td.StockTable__number  85×102 @908,76
+        td.StockTable__number  85×143 @908,76
           span.StockTable__total  43×19 @24,16  Manrope 600 15/22  lines=1  «55,5 м»
-        td.StockTable__number#2  87×102 @993,76  Manrope 400 15/22  lines=1  «30 м»
+        td.StockTable__number#2  87×143 @993,76  Manrope 400 15/22  lines=1  «30 м»
   p[role=status]  1×1 @-1,-1
-  p.StockTable__hint  736×20 @0,192  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
-  p.StockTable__hint#2  736×40 @0,224  Manrope 400 13/20  lines=2  «Остаток можно перетащить мышью в другую»
+  p.StockTable__hint  736×20 @0,234  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
+  p.StockTable__hint#2  736×40 @0,266  Manrope 400 13/20  lines=2  «Остаток можно перетащить мышью в другую»
 
 [геометрия 1440]
 div.StockTable__wrap  1408×244 @16,16
