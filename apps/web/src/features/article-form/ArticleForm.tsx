@@ -236,7 +236,7 @@ export function ArticleForm({
         </p>
       )}
 
-      <div className={styles.actions}>
+      <div className={styles.actions} data-sticky="bottom">
         <Button type="submit" loading={sending} disabled={removing}>
           {sending ? texts.saving : isNew ? texts.create : texts.save}
         </Button>

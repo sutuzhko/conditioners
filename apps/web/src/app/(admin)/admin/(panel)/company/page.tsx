@@ -6,6 +6,7 @@ import { getAll } from '@/server/repo/settings';
 
 import styles from './page.module.css';
 import { companyPageContent as texts } from './content';
+import { SettingsToc } from './SettingsToc';
 
 export const metadata: Metadata = { title: 'Компания' };
 
@@ -34,20 +35,17 @@ export default async function AdminCompanyPage() {
 
       {/* Оглавление: групп тринадцать, и прокручивать их в поисках нужной —
           основная работа на этой странице. */}
-      <nav className={styles.toc} aria-label={texts.tocLabel}>
-        {SETTINGS_GROUPS.map((group) => (
-          <a className={styles.tocLink} key={group.key} href={`#${group.key}`}>
-            {group.title}
-          </a>
-        ))}
-      </nav>
+      <SettingsToc
+        label={texts.tocLabel}
+        groups={SETTINGS_GROUPS.map((group) => ({ key: group.key, title: group.title }))}
+      />
 
       <div className={styles.groups}>
         {SETTINGS_GROUPS.map((group) => {
           const value = toGroupValue(settings[group.key]);
 
           return (
-            <div id={group.key} key={group.key}>
+            <div className={styles.group} id={group.key} key={group.key}>
               <SettingsForm group={group} value={value} />
             </div>
           );
