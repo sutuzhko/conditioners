@@ -74,6 +74,10 @@ const DENSITY = [
     expected: 32,
     base: 'Button_button',
     part: 'Button_sm',
+    /* «Выйти» — последняя строка колонки разделов, и её высоту задаёт
+       `--h-nav`, а не `--h-sm`: в ряду пунктов она обязана стоять вровень с
+       ними. Кит здесь даёт кнопке только вид и кегль. */
+    reroled: ['AdminNav_logout'],
   },
   {
     name: 'кнопка lg',
@@ -83,14 +87,28 @@ const DENSITY = [
     base: 'Button_button',
     part: 'Button_lg',
   },
+  /* 🔴 Поле — `--h-lg` (48px), а не `--h-md`. Скрипт писался по плану
+     редизайна, где поле стояло на 40px; снятый с эталона DESIGN_BRIEF §14
+     отдал `--h-lg` полю ввода, списку и крупной кнопке, и код с брифом сходится
+     (`internal/control.module.css`). Ожидание 40px делало замер красным на
+     верной раскладке — то есть проверка расходилась не с кодом, а с решением
+     (issue #372). */
   {
     name: 'поле ввода',
     css: 'input, select',
-    token: '--h-md',
-    expected: 40,
+    token: '--h-lg',
+    expected: 48,
     base: 'control_control',
     part: 'control_control',
     tags: ['INPUT', 'SELECT'],
+    /* 🔴 Допуск шире общего на пиксель, и это не поблажка. У `input[type=time]`
+       и его родни строку рисует сам браузер — сегменты часов и минут со своими
+       метриками, — и она на 1,1px выше обычной: поле выходит 48,7 при
+       min-height 48. Ни `line-height`, ни поля этого не меняют: содержимое
+       внутри контрола не наше. Общий допуск 0,5px держал бы замер красным
+       вечно, а красную проверку перестают читать (ADR-167). Дрейф в 8px —
+       разницу между размерами кита — этот допуск по-прежнему ловит. */
+    tolerance: 1.5,
   },
   {
     name: 'пункт навигации',
@@ -204,7 +222,16 @@ function measure({ density, tap }) {
     /* Размер кнопки — отдельный класс, а не отсутствие модификатора:
        компонент проставляет `Button_md` даже при умолчании. */
     const found = painted.filter(
-      (el) => wears(el, row.part) && (row.tags === undefined || row.tags.includes(el.tagName)),
+      (el) =>
+        wears(el, row.part) &&
+        (row.tags === undefined || row.tags.includes(el.tagName)) &&
+        /* 🔴 Роль назначает потребитель, а не только кит. Кнопка кита,
+           поставленная в ряд навигации, обязана быть высоты пункта, а не
+           своего размера: «Выйти» стоит последней строкой колонки разделов и
+           мерить её по `--h-sm` значит требовать, чтобы она выбивалась из
+           ряда. Класс потребителя перекрывает роль — и это записано здесь, а
+           не подразумевается (issue #372). */
+        !(row.reroled ?? []).some((name) => wears(el, name)),
     );
 
     const heights = found.map((el) => Math.round(el.getBoundingClientRect().height * 10) / 10);
@@ -354,7 +381,10 @@ async function main() {
       continue;
     }
 
-    const off = heights.filter((h) => Math.abs(h - row.expected) > TOLERANCE);
+    /* Допуск роли может быть шире общего: у поля внутренности рисует браузер,
+       и его метрики нам не принадлежат (см. `tolerance` в описании роли). */
+    const tolerance = row.tolerance ?? TOLERANCE;
+    const off = heights.filter((h) => Math.abs(h - row.expected) > tolerance);
     const mark = off.length === 0 ? '·' : '✗';
     console.log(
       `  ${mark} ${row.name.padEnd(17)} ${row.css.padEnd(14)} ${row.token.padEnd(8)}` +
