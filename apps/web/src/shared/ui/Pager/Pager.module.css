@@ -37,7 +37,11 @@
      перерастала свою высоту, и ряд разбивки не сходился с рядом кнопок.
      Текст центрируется `align-items`, и от снятого поля не двигается. */
   padding: 0 14px;
-  border: 1px solid var(--line-strong);
+
+  /* 🔴 Граница — `--line-ui`, а не `--line-strong` (ADR-181). Заливки у
+     кнопки разбивки нет, и линия — единственное, чем очерчена цель;
+     `--line-strong` даёт на белом 1,48:1 при норме WCAG 1.4.11 в 3:1. */
+  border: 1px solid var(--line-ui);
   border-radius: var(--r-pill);
   font-family: var(--font-text);
   font-size: var(--fs-dense);

@@ -54,12 +54,16 @@
   min-width: 0;
 }
 
+/* 🔴 Граница — `--line-ui`, а не `--line` (ADR-181, issue #365). Заливка
+   переключателя — та же карточка, что под ним, и рамка остаётся единственным
+   его признаком: с `--line` она давала 1,23:1 при норме WCAG 1.4.11 в 3:1.
+   Счётчик «ещё 3» без видимой рамки читается как подпись, а не как кнопка. */
 .toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 26px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-ui);
   border-radius: var(--r-pill);
   background: var(--card);
   cursor: pointer;

@@ -393,7 +393,7 @@ section.TimeGrid__grid
   div.AllDayBar__bar  border #0f172a #0f172a #e2e8f0 #0f172a
     div.AllDayBar__rail
       span.AllDayBar__label  color #5b6a7d
-      button.AllDayBar__toggle  bg #ffffff  border #e2e8f0
+      button.AllDayBar__toggle  bg #ffffff  border #7e8fa6
         span.AllDayBar__count  color #334155
     ul.AllDayBar__list
       li.AllDayBar__item
@@ -518,7 +518,7 @@ section.TimeGrid__grid
   div.AllDayBar__bar  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
     div.AllDayBar__rail
       span.AllDayBar__label  color #7e92a7
-      button.AllDayBar__toggle  bg #121d31  border #1e2b41
+      button.AllDayBar__toggle  bg #121d31  border #566d95
         span.AllDayBar__count  color #c9d5e2
     ul.AllDayBar__list
       li.AllDayBar__item

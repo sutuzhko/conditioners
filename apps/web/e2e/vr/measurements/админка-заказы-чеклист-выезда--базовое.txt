@@ -170,17 +170,17 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
     li.OrderChecklist__item#3  bg #f8fafc
       div.Checkbox__root
         div.Checkbox__row#3
-          input.Checkbox__input  bg #ffffff  border #cbd5e1
+          input.Checkbox__input  bg #ffffff  border #7e8fa6
           label.Checkbox__label  color #475569
     li.OrderChecklist__item#4
       div.Checkbox__root
         div.Checkbox__row#4
-          input.Checkbox__input  bg #ffffff  border #cbd5e1
+          input.Checkbox__input  bg #ffffff  border #7e8fa6
           label.Checkbox__label  color #475569
     li.OrderChecklist__item#5  bg #f8fafc
       div.Checkbox__root
         div.Checkbox__row#5
-          input.Checkbox__input  bg #ffffff  border #cbd5e1
+          input.Checkbox__input  bg #ffffff  border #7e8fa6
           label.Checkbox__label  color #475569
       span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
       button.IconButton__iconButton  border transparent
@@ -218,17 +218,17 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
     li.OrderChecklist__item#3  bg #0e1729
       div.Checkbox__root
         div.Checkbox__row#3
-          input.Checkbox__input  bg #0b1424  border #2c3d59
+          input.Checkbox__input  bg #0b1424  border #566d95
           label.Checkbox__label  color #a8b6c6
     li.OrderChecklist__item#4
       div.Checkbox__root
         div.Checkbox__row#4
-          input.Checkbox__input  bg #0b1424  border #2c3d59
+          input.Checkbox__input  bg #0b1424  border #566d95
           label.Checkbox__label  color #a8b6c6
     li.OrderChecklist__item#5  bg #0e1729
       div.Checkbox__root
         div.Checkbox__row#5
-          input.Checkbox__input  bg #0b1424  border #2c3d59
+          input.Checkbox__input  bg #0b1424  border #566d95
           label.Checkbox__label  color #a8b6c6
       span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
       button.IconButton__iconButton  border transparent

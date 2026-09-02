@@ -14,11 +14,16 @@
   pointer-events: none;
 }
 
+/* 🔴 Граница — `--line-ui`, а не `--line` (ADR-181, issue #365). Поле поиска
+   не залито ничем, кроме карточки, и рамка — единственное, чем оно обозначено:
+   с `--line` она давала 1,23:1 в светлой теме при норме WCAG 1.4.11 в 3:1,
+   то есть поле приходилось искать по значку лупы. Календарь идёт по своему
+   эталону (ADR-128), но требование 1.4.11 к контролу от эталона не зависит. */
 .field {
   box-sizing: border-box;
   width: 190px;
   max-width: 100%;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-ui);
   border-radius: var(--r-sm);
   background: var(--card);
   padding: 7px 10px 7px 32px;

@@ -142,9 +142,9 @@ div.ClientList__list
         dt  color #5b6a7d
         time  color #475569
   nav.Pager__pager
-    a.Pager__step  color #0e7490  border #cbd5e1
+    a.Pager__step  color #0e7490  border #7e8fa6
     span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
-    a.Pager__step#2  color #0e7490  border #cbd5e1
+    a.Pager__step#2  color #0e7490  border #7e8fa6
 
 [палитра dark]
 div.ClientList__list
@@ -177,6 +177,6 @@ div.ClientList__list
         dt  color #7e92a7
         time  color #a8b6c6
   nav.Pager__pager
-    a.Pager__step  color #22d3ee  border #2c3d59
+    a.Pager__step  color #22d3ee  border #566d95
     span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
-    a.Pager__step#2  color #22d3ee  border #2c3d59
+    a.Pager__step#2  color #22d3ee  border #566d95

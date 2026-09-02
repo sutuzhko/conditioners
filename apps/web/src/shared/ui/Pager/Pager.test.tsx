@@ -1,3 +1,7 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
@@ -51,5 +55,16 @@ describe('Pager', () => {
 
     expect(screen.getByRole('link', { name: '← Предыдущие' })).toBeInTheDocument();
     expect(screen.getByText('Страница 2 из 5')).toBeInTheDocument();
+  });
+
+  /* 🔴 Граница контрола обязана держать 3:1 (WCAG 1.4.11, ADR-181): без неё
+     кнопка разбивки не очерчена ничем: заливки у неё нет. `--line-strong` даёт 1,48:1 — вдвое ниже нормы. */
+  it('🔴 граница не возвращается на --line-strong', () => {
+    const css = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), 'Pager.module.css'),
+      'utf8',
+    );
+
+    expect(css).not.toContain('var(--line-strong)');
   });
 });
