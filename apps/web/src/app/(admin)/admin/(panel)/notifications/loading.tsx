@@ -1,13 +1,49 @@
-import { FieldsSkeleton, HeadSkeleton, RowsSkeleton } from '@/widgets/admin-shell';
+import { env } from '@/shared/config/env';
+import { Card } from '@/shared/ui';
+import { FieldsSkeleton, LineSkeleton, RowsSkeleton } from '@/widgets/admin-shell';
 
+import { notificationsPageContent as texts } from './content';
 import styles from './page.module.css';
 
-/** Уведомления: готовность каналов, выбор адресатов и журнал доставки. */
+/**
+ * Уведомления: шапка и поясняющие карточки настоящие — их текст не зависит от
+ * данных, — состояние каналов, адреса и журнал заготовками (issue #334).
+ * Баннер режима журнала стоит по той же переменной окружения, что и на
+ * странице: скелетон без него обещал бы раскладку без баннера.
+ */
 export default function NotificationsLoading() {
   return (
     <div className={styles.page} aria-busy="true">
-      <HeadSkeleton />
-      <RowsSkeleton rows={1} height="120px" />
+      <header className={styles.header}>
+        <h1 className={styles.title}>{texts.title}</h1>
+        <p className={styles.lead}>{texts.lead}</p>
+      </header>
+
+      {env.NOTIFY_DRIVER === 'log' ? (
+        <Card variant="accent" padding="md" className={styles.none}>
+          <p className={styles.noneTitle}>{texts.logDriverTitle}</p>
+          <p className={styles.noneText}>{texts.logDriverText}</p>
+        </Card>
+      ) : null}
+
+      <Card variant="soft" padding="lg" className={styles.always}>
+        <p className={styles.alwaysTitle}>{texts.alwaysTitle}</p>
+        <p className={styles.alwaysText}>{texts.alwaysText}</p>
+      </Card>
+
+      <section className={styles.status}>
+        <h2 className={styles.statusTitle}>{texts.statusTitle}</h2>
+        <p className={styles.statusHint}>{texts.statusHint}</p>
+
+        <ul className={styles.list}>
+          {Array.from({ length: 2 }, (_, index) => (
+            <li className={styles.item} key={index}>
+              <LineSkeleton width="min(260px, 70%)" />
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <FieldsSkeleton fields={4} />
       <RowsSkeleton rows={2} height="140px" />
       <RowsSkeleton rows={3} height="76px" />

@@ -59,3 +59,15 @@
 .login {
   font-family: var(--font-mono);
 }
+
+/* Заготовка карточки монтажника: замер готовой страницы (issue #334). */
+.rowSkeleton {
+  min-height: 223.3px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+@media (width < 900px) {
+  .rowSkeleton {
+    min-height: 335.9px;
+  }
+}

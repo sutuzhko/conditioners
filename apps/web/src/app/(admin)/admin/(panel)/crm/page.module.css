@@ -71,3 +71,25 @@
   font-size: var(--fs-caption);
   line-height: 1.5;
 }
+
+/* Заготовки календаря (issue #334): панель инструментов по замеру готовой
+   страницы, сетка — высотой недели на экране. */
+.navSkeleton {
+  min-height: 78.3px;
+  border-radius: var(--r-sm);
+}
+
+.gridSkeleton {
+  min-height: 659px;
+  border-radius: var(--r-sm);
+}
+
+@media (width < 900px) {
+  .navSkeleton {
+    min-height: 296.6px;
+  }
+
+  .gridSkeleton {
+    min-height: 646.2px;
+  }
+}

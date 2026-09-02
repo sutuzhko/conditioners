@@ -1,9 +1,45 @@
 /* Скелетоны разделов панели: та же раскладка, что у готовой страницы. */
 
+/* Шапка раздела: те же 6px между заголовком и пояснением, что на странице. */
 .head {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
+}
+
+/* Бокс заголовка — строка `h1`: кегль `--fs-h2`, высота строки 1.2
+   (global.css). Заготовка внутри короче строки, как и буквы. */
+.headTitle {
+  display: flex;
+  align-items: center;
+  height: calc(var(--fs-h2) * 1.2);
+  font-size: var(--fs-h2);
+}
+
+@media (width < 900px) {
+  .headAction {
+    min-height: var(--tap);
+  }
+}
+
+/* Пояснение — кегль `--fs-dense`, строки по 1.55, как у `body`. */
+.headLead {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-dense);
+}
+
+/* Высота — ровно одна строка того текста, на месте которого стоит заготовка:
+   `lh` берёт кегль и высоту строки у родителя, будь то `p` с 1.55 от `body`
+   или `h2` с 1.2 от заголовков. Формула `1em × 1.55` давала в заголовке
+   26.6px вместо 20.6. */
+.line {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 1lh;
+  vertical-align: top;
 }
 
 .rows {

@@ -56,3 +56,25 @@
   font-size: var(--fs-dense);
   font-weight: 600;
 }
+
+/* Заготовки списка: высоты сняты с готовой страницы (issue #334). Карточка
+   фильтров — стопки, период и поиск — на 390 переносится в четыре ряда. */
+.filtersSkeleton {
+  min-height: 234.8px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+.rowSkeleton {
+  min-height: 181.5px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+@media (width < 900px) {
+  .filtersSkeleton {
+    min-height: 414.5px;
+  }
+
+  .rowSkeleton {
+    min-height: 370.6px;
+  }
+}

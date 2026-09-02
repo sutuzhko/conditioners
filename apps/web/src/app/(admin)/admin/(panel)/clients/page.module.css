@@ -67,3 +67,25 @@
 .phone:hover {
   text-decoration: underline;
 }
+
+/* Заготовки: высоты сняты с готовой страницы (issue #334). Карточка поиска
+   на 390 переносит кнопку под поле; карточка клиента — типичная, с адресом. */
+.searchSkeleton {
+  min-height: 146.5px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+.rowSkeleton {
+  min-height: 173.3px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+@media (width < 900px) {
+  .searchSkeleton {
+    min-height: 206.5px;
+  }
+
+  .rowSkeleton {
+    min-height: 330.3px;
+  }
+}
