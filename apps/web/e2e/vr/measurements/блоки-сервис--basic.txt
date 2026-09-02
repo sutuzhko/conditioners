@@ -8,144 +8,172 @@
 1200 → 1200×900
 
 [геометрия 320]
-section.Diagnostics__section  320×787 @0,0
-  div.Diagnostics__container  320×787 @0,0
-    header.Diagnostics__head  288×197 @16,48
+section.Diagnostics__section  320×820 @0,0
+  div.Diagnostics__container  320×820 @0,0
+    header.Diagnostics__head  288×191 @16,48
       p.Diagnostics__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Сервис и ремонт —»
-      h2.Diagnostics__title  288×58 @0,32  Onest 700 24/29  ls0  lines=2  «Что случилось с кондиционером?»
-      p.Diagnostics__lead  288×93 @0,104  Manrope 400 15/23  lines=4  «Выберите симптом — покажем вероятную при»
-    div.Card__card  288×515 @16,273  r22  b1
-      div.DiagnosticsPicker__picker  242×469 @23,23
-        p.DiagnosticsPicker__chipsLabel  242×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Выберите симптом»
-        div.DiagnosticsPicker__chips  278×52 @-18,27
-          button.Chip__chip  119×44 @18,4  Manrope 600 15/17  r100  b1  lines=1  «Не холодит»
-          button.Chip__chip#2  125×44 @145,4  Manrope 600 15/17  r100  b1  lines=1  «Капает вода»
-          button.Chip__chip#3  170×44 @278,4  Manrope 600 15/17  r100  b1  lines=1  «Неприятный запах»
-          button.Chip__chip#4  193×44 @457,4  Manrope 600 15/17  r100  b1  lines=1  «Шумит или вибрирует»
-          button.Chip__chip#5  145×44 @658,4  Manrope 600 15/17  r100  b1  lines=1  «Не включается»
-          button.Chip__chip#6  183×44 @810,4  Manrope 600 15/17  r100  b1  lines=1  «Обмерзает наледью»
-        div.DiagnosticsPicker__panels  242×372 @0,97  b1 0 0 0
-          article.DiagnosticsPicker__panel  242×349 @0,23
-            h3.DiagnosticsPicker__panelTitle  242×41 @0,0  Onest 700 17/20  ls0  lines=2  «Кондиционер работает, но не холодит»
-            dl.DiagnosticsPicker__facts  242×290 @0,59
-              div.DiagnosticsPicker__fact  242×72 @0,0
-                dt.DiagnosticsPicker__factLabel  242×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Вероятная причина»
-                dd.DiagnosticsPicker__factValue  242×47 @0,26  Manrope 600 15/23  lines=2  «Утечка фреона, забиты фильтры или теплоо»
-              div.DiagnosticsPicker__fact#2  242×72 @0,90
-                dt.DiagnosticsPicker__factLabel  242×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Что сделаем»
-                dd.DiagnosticsPicker__factValue  242×47 @0,26  Manrope 600 15/23  lines=2  «Диагностика, чистка, дозаправка»
-              div.DiagnosticsPicker__fact#3  242×48 @0,180
-                dt.DiagnosticsPicker__factLabel  242×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Стоимость»
-                dd.DiagnosticsPicker__priceUnknown  242×22 @0,26  Manrope 600 15/22  lines=1  «Рассчитаем после диагностики»
-              div.DiagnosticsPicker__action  242×44 @0,246
-                a.Button__button  242×44 @0,0  r11  b1
-                  span.Button__content  122×17 @60,13
-                    span.Button__label  122×17 @0,0  Manrope 600 15/17  lines=1  «Вызвать мастера»
+      h2.Diagnostics__title  288×58 @0,30  Onest 700 24/29  ls0  lines=2  «Что случилось с кондиционером?»
+      p.Diagnostics__lead  288×93 @0,98  Manrope 400 16/23  lines=4  «Выберите симптом — покажем вероятную при»
+    div.Card__card  288×558 @16,263  r22  b1
+      div.DiagnosticsPicker__picker  258×528 @15,15
+        p.DiagnosticsPicker__chipsLabel  258×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Выберите симптом»
+        div.DiagnosticsPicker__chips  258×148 @0,31
+          button.Chip__chip  125×44 @0,0  r100  b1
+            span.DiagnosticsPicker__labelFull  73×16 @26,14  Manrope 600 13/16  lines=1  «Не холодит»
+          button.Chip__chip#2  125×44 @133,0  r100  b1
+            span.DiagnosticsPicker__labelFull  78×16 @23,14  Manrope 600 13/16  lines=1  «Капает вода»
+          button.Chip__chip#3  125×44 @0,52  r100  b1
+            span.DiagnosticsPicker__labelShort  38×16 @44,14  Manrope 600 13/16  lines=1  «Запах»
+          button.Chip__chip#4  125×44 @133,52  r100  b1
+            span.DiagnosticsPicker__labelShort  43×16 @41,14  Manrope 600 13/16  lines=1  «Шумит»
+          button.Chip__chip#5  125×44 @0,104  r100  b1
+            span.DiagnosticsPicker__labelFull  96×16 @15,14  Manrope 600 13/16  lines=1  «Не включается»
+          button.Chip__chip#6  125×44 @133,104  r100  b1
+            span.DiagnosticsPicker__labelFull  72×16 @26,14  Manrope 600 13/16  lines=1  «Обледенел»
+        div.DiagnosticsPicker__answer  258×327 @0,201  b1 0 0 0
+          div.DiagnosticsPicker__panels  258×244 @0,23
+            article.DiagnosticsPicker__panel  258×244 @0,0
+              h3.DiagnosticsPicker__panelTitle  258×43 @0,0  Onest 700 17/21  ls0  lines=2  «Кондиционер работает, но не холодит»
+              dl.DiagnosticsPicker__facts  258×186 @0,59
+                div.DiagnosticsPicker__fact  258×68 @0,0
+                  dt.DiagnosticsPicker__factLabel  258×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Вероятная причина»
+                  dd.DiagnosticsPicker__factValue  258×45 @0,23  Manrope 600 15/22  lines=2  «Утечка фреона, забиты фильтры или теплоо»
+                div.DiagnosticsPicker__fact#2  258×45 @0,82
+                  dt.DiagnosticsPicker__factLabel  258×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Что сделаем»
+                  dd.DiagnosticsPicker__factValue  258×22 @0,23  Manrope 600 15/22  lines=1  «Диагностика, чистка, дозаправка»
+                div.DiagnosticsPicker__fact#3  258×45 @0,141
+                  dt.DiagnosticsPicker__factLabel  258×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Стоимость»
+                  dd.DiagnosticsPicker__priceUnknown  258×22 @0,23  Manrope 600 15/22  lines=1  «Рассчитаем после диагностики»
+          div.DiagnosticsPicker__action  258×44 @0,283
+            a.Button__button  258×44 @0,0  r11  b1
+              span.Button__content  122×17 @68,13
+                span.Button__label  122×17 @0,0  Manrope 600 15/17  lines=1  «Вызвать мастера»
 
 [геометрия 375]
-section.Diagnostics__section  375×746 @0,0
-  div.Diagnostics__container  375×746 @0,0
-    header.Diagnostics__head  343×176 @16,51
-      p.Diagnostics__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Сервис и ремонт —»
-      h2.Diagnostics__title  343×60 @0,32  Onest 700 25/30  ls0  lines=2  «Что случилось с кондиционером?»
-      p.Diagnostics__lead  343×70 @0,106  Manrope 400 15/23  lines=3  «Выберите симптом — покажем вероятную при»
-    div.Card__card  343×492 @16,254  r22  b1
-      div.DiagnosticsPicker__picker  297×446 @23,23
-        p.DiagnosticsPicker__chipsLabel  297×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Выберите симптом»
-        div.DiagnosticsPicker__chips  333×52 @-18,27
-          button.Chip__chip  119×44 @18,4  Manrope 600 15/17  r100  b1  lines=1  «Не холодит»
-          button.Chip__chip#2  125×44 @145,4  Manrope 600 15/17  r100  b1  lines=1  «Капает вода»
-          button.Chip__chip#3  170×44 @278,4  Manrope 600 15/17  r100  b1  lines=1  «Неприятный запах»
-          button.Chip__chip#4  193×44 @457,4  Manrope 600 15/17  r100  b1  lines=1  «Шумит или вибрирует»
-          button.Chip__chip#5  145×44 @658,4  Manrope 600 15/17  r100  b1  lines=1  «Не включается»
-          button.Chip__chip#6  183×44 @810,4  Manrope 600 15/17  r100  b1  lines=1  «Обмерзает наледью»
-        div.DiagnosticsPicker__panels  297×349 @0,97  b1 0 0 0
-          article.DiagnosticsPicker__panel  297×326 @0,23
-            h3.DiagnosticsPicker__panelTitle  297×41 @0,0  Onest 700 17/21  ls0  lines=2  «Кондиционер работает, но не холодит»
-            dl.DiagnosticsPicker__facts  297×267 @0,59
-              div.DiagnosticsPicker__fact  297×72 @0,0
-                dt.DiagnosticsPicker__factLabel  297×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Вероятная причина»
-                dd.DiagnosticsPicker__factValue  297×47 @0,26  Manrope 600 15/23  lines=2  «Утечка фреона, забиты фильтры или теплоо»
-              div.DiagnosticsPicker__fact#2  297×49 @0,90
-                dt.DiagnosticsPicker__factLabel  297×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Что сделаем»
-                dd.DiagnosticsPicker__factValue  297×23 @0,26  Manrope 600 15/23  lines=1  «Диагностика, чистка, дозаправка»
-              div.DiagnosticsPicker__fact#3  297×48 @0,157
-                dt.DiagnosticsPicker__factLabel  297×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Стоимость»
-                dd.DiagnosticsPicker__priceUnknown  297×22 @0,26  Manrope 600 15/22  lines=1  «Рассчитаем после диагностики»
-              div.DiagnosticsPicker__action  297×44 @0,223
-                a.Button__button  297×44 @0,0  r11  b1
-                  span.Button__content  122×17 @88,13
-                    span.Button__label  122×17 @0,0  Manrope 600 15/17  lines=1  «Вызвать мастера»
+section.Diagnostics__section  375×827 @0,0
+  div.Diagnostics__container  375×827 @0,0
+    header.Diagnostics__head  342×194 @17,51
+      p.Diagnostics__kicker  342×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Сервис и ремонт —»
+      h2.Diagnostics__title  342×60 @0,30  Onest 700 25/30  ls0  lines=2  «Что случилось с кондиционером?»
+      p.Diagnostics__lead  342×94 @0,100  Manrope 400 16/23  lines=4  «Выберите симптом — покажем вероятную при»
+    div.Card__card  342×559 @17,268  r22  b1
+      div.DiagnosticsPicker__picker  312×528 @15,15
+        p.DiagnosticsPicker__chipsLabel  312×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Выберите симптом»
+        div.DiagnosticsPicker__chips  312×148 @0,31
+          button.Chip__chip  152×44 @0,0  r100  b1
+            span.DiagnosticsPicker__labelFull  73×16 @40,14  Manrope 600 13/16  lines=1  «Не холодит»
+          button.Chip__chip#2  152×44 @160,0  r100  b1
+            span.DiagnosticsPicker__labelFull  78×16 @37,14  Manrope 600 13/16  lines=1  «Капает вода»
+          button.Chip__chip#3  152×44 @0,52  r100  b1
+            span.DiagnosticsPicker__labelShort  38×16 @57,14  Manrope 600 13/16  lines=1  «Запах»
+          button.Chip__chip#4  152×44 @160,52  r100  b1
+            span.DiagnosticsPicker__labelShort  43×16 @54,14  Manrope 600 13/16  lines=1  «Шумит»
+          button.Chip__chip#5  152×44 @0,104  r100  b1
+            span.DiagnosticsPicker__labelFull  96×16 @28,14  Manrope 600 13/16  lines=1  «Не включается»
+          button.Chip__chip#6  152×44 @160,104  r100  b1
+            span.DiagnosticsPicker__labelFull  72×16 @40,14  Manrope 600 13/16  lines=1  «Обледенел»
+        div.DiagnosticsPicker__answer  312×327 @0,201  b1 0 0 0
+          div.DiagnosticsPicker__panels  312×244 @0,23
+            article.DiagnosticsPicker__panel  312×244 @0,0
+              h3.DiagnosticsPicker__panelTitle  312×43 @0,0  Onest 700 17/21  ls0  lines=2  «Кондиционер работает, но не холодит»
+              dl.DiagnosticsPicker__facts  312×186 @0,59
+                div.DiagnosticsPicker__fact  312×68 @0,0
+                  dt.DiagnosticsPicker__factLabel  312×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Вероятная причина»
+                  dd.DiagnosticsPicker__factValue  312×45 @0,23  Manrope 600 15/22  lines=2  «Утечка фреона, забиты фильтры или теплоо»
+                div.DiagnosticsPicker__fact#2  312×45 @0,82
+                  dt.DiagnosticsPicker__factLabel  312×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Что сделаем»
+                  dd.DiagnosticsPicker__factValue  312×22 @0,23  Manrope 600 15/22  lines=1  «Диагностика, чистка, дозаправка»
+                div.DiagnosticsPicker__fact#3  312×45 @0,141
+                  dt.DiagnosticsPicker__factLabel  312×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Стоимость»
+                  dd.DiagnosticsPicker__priceUnknown  312×22 @0,23  Manrope 600 15/22  lines=1  «Рассчитаем после диагностики»
+          div.DiagnosticsPicker__action  312×44 @0,283
+            a.Button__button  312×44 @0,0  r11  b1
+              span.Button__content  122×17 @95,13
+                span.Button__label  122×17 @0,0  Manrope 600 15/17  lines=1  «Вызвать мастера»
 
 [геометрия 768]
-section.Diagnostics__section  768×718 @0,0
-  div.Diagnostics__container  768×718 @0,0
-    header.Diagnostics__head  680×136 @44,68
+section.Diagnostics__section  768×693 @0,0
+  div.Diagnostics__container  768×693 @0,0
+    header.Diagnostics__head  680×129 @44,68
       p.Diagnostics__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Сервис и ремонт —»
-      h2.Diagnostics__title  680×37 @0,32  Onest 700 31/37  ls-1  lines=1  «Что случилось с кондиционером?»
-      p.Diagnostics__lead  680×53 @0,83  Manrope 400 17/26  lines=2  «Выберите симптом — покажем вероятную при»
-    div.Card__card  728×469 @20,249  r22  b1
-      div.DiagnosticsPicker__picker  662×403 @33,33
-        p.DiagnosticsPicker__chipsLabel  662×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Выберите симптом»
-        div.DiagnosticsPicker__chips  698×52 @-18,27
-          button.Chip__chip  119×44 @18,4  Manrope 600 15/17  r100  b1  lines=1  «Не холодит»
-          button.Chip__chip#2  125×44 @147,4  Manrope 600 15/17  r100  b1  lines=1  «Капает вода»
-          button.Chip__chip#3  170×44 @282,4  Manrope 600 15/17  r100  b1  lines=1  «Неприятный запах»
-          button.Chip__chip#4  193×44 @463,4  Manrope 600 15/17  r100  b1  lines=1  «Шумит или вибрирует»
-          button.Chip__chip#5  145×44 @666,4  Manrope 600 15/17  r100  b1  lines=1  «Не включается»
-          button.Chip__chip#6  183×44 @820,4  Manrope 600 15/17  r100  b1  lines=1  «Обмерзает наледью»
-        div.DiagnosticsPicker__panels  662×306 @0,97  b1 0 0 0
-          article.DiagnosticsPicker__panel  662×283 @0,23
-            h3.DiagnosticsPicker__panelTitle  662×22 @0,0  Onest 700 18/22  ls0  lines=1  «Кондиционер работает, но не холодит»
-            dl.DiagnosticsPicker__facts  662×244 @0,40
-              div.DiagnosticsPicker__fact  662×49 @0,0
-                dt.DiagnosticsPicker__factLabel  662×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Вероятная причина»
-                dd.DiagnosticsPicker__factValue  662×23 @0,26  Manrope 600 15/23  lines=1  «Утечка фреона, забиты фильтры или теплоо»
-              div.DiagnosticsPicker__fact#2  662×49 @0,67
-                dt.DiagnosticsPicker__factLabel  662×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Что сделаем»
-                dd.DiagnosticsPicker__factValue  662×23 @0,26  Manrope 600 15/23  lines=1  «Диагностика, чистка, дозаправка»
-              div.DiagnosticsPicker__fact#3  662×48 @0,134
-                dt.DiagnosticsPicker__factLabel  662×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Стоимость»
-                dd.DiagnosticsPicker__priceUnknown  662×22 @0,26  Manrope 600 15/22  lines=1  «Рассчитаем после диагностики»
-              div.DiagnosticsPicker__action  662×44 @0,200
-                a.Button__button  160×44 @502,0  r11  b1
-                  span.Button__content  122×17 @19,13
-                    span.Button__label  122×17 @0,0  Manrope 600 15/17  lines=1  «Вызвать мастера»
+      h2.Diagnostics__title  680×37 @0,31  Onest 700 31/37  ls-1  lines=1  «Что случилось с кондиционером?»
+      p.Diagnostics__lead  680×49 @0,81  Manrope 400 16/24  lines=2  «Выберите симптом — покажем вероятную при»
+    div.Card__card  728×468 @20,225  r22  b1
+      div.DiagnosticsPicker__picker  694×434 @17,17
+        p.DiagnosticsPicker__chipsLabel  694×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Выберите симптом»
+        div.DiagnosticsPicker__chips  694×97 @0,31
+          button.Chip__chip  226×44 @0,0  r100  b1
+            span.DiagnosticsPicker__labelFull  73×16 @76,14  Manrope 600 13/16  lines=1  «Не холодит»
+          button.Chip__chip#2  226×44 @234,0  r100  b1
+            span.DiagnosticsPicker__labelFull  78×16 @74,14  Manrope 600 13/16  lines=1  «Капает вода»
+          button.Chip__chip#3  226×44 @468,0  r100  b1
+            span.DiagnosticsPicker__labelFull  119×16 @53,14  Manrope 600 13/16  lines=1  «Неприятный запах»
+          button.Chip__chip#4  226×44 @0,53  r100  b1
+            span.DiagnosticsPicker__labelFull  139×16 @43,14  Manrope 600 13/16  lines=1  «Шумит или вибрирует»
+          button.Chip__chip#5  226×44 @234,53  r100  b1
+            span.DiagnosticsPicker__labelFull  96×16 @65,14  Manrope 600 13/16  lines=1  «Не включается»
+          button.Chip__chip#6  226×44 @468,53  r100  b1
+            span.DiagnosticsPicker__labelFull  72×16 @77,14  Manrope 600 13/16  lines=1  «Обледенел»
+        div.DiagnosticsPicker__answer  694×285 @0,149  b1 0 0 0
+          div.DiagnosticsPicker__panels  694×202 @0,23
+            article.DiagnosticsPicker__panel  694×202 @0,0
+              h3.DiagnosticsPicker__panelTitle  694×23 @0,0  Onest 700 18/23  ls0  lines=1  «Кондиционер работает, но не холодит»
+              dl.DiagnosticsPicker__facts  694×163 @0,39
+                div.DiagnosticsPicker__fact  694×45 @0,0
+                  dt.DiagnosticsPicker__factLabel  694×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Вероятная причина»
+                  dd.DiagnosticsPicker__factValue  694×22 @0,23  Manrope 600 15/22  lines=1  «Утечка фреона, забиты фильтры или теплоо»
+                div.DiagnosticsPicker__fact#2  694×45 @0,59
+                  dt.DiagnosticsPicker__factLabel  694×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Что сделаем»
+                  dd.DiagnosticsPicker__factValue  694×22 @0,23  Manrope 600 15/22  lines=1  «Диагностика, чистка, дозаправка»
+                div.DiagnosticsPicker__fact#3  694×45 @0,118
+                  dt.DiagnosticsPicker__factLabel  694×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Стоимость»
+                  dd.DiagnosticsPicker__priceUnknown  694×22 @0,23  Manrope 600 15/22  lines=1  «Рассчитаем после диагностики»
+          div.DiagnosticsPicker__action  694×44 @0,241
+            a.Button__button  694×44 @0,0  r11  b1
+              span.Button__content  122×17 @286,13
+                span.Button__label  122×17 @0,0  Manrope 600 15/17  lines=1  «Вызвать мастера»
 
 [геометрия 1200]
-section.Diagnostics__section  1200×583 @0,0
-  div.Diagnostics__container  1200×583 @0,0
-    header.Diagnostics__head  680×144 @260,88
+section.Diagnostics__section  1200×568 @0,0
+  div.Diagnostics__container  1200×568 @0,0
+    header.Diagnostics__head  680×143 @260,88
       p.Diagnostics__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Сервис и ремонт —»
       h2.Diagnostics__title  680×46 @0,32  Onest 700 38/46  ls-1  lines=1  «Что случилось с кондиционером?»
-      p.Diagnostics__lead  680×53 @0,92  Manrope 400 17/26  lines=2  «Выберите симптом — покажем вероятную при»
-    div.Card__card  1152×306 @24,276  r22  b1
-      div.DiagnosticsPicker__picker  1086×240 @33,33
+      p.Diagnostics__lead  680×51 @0,92  Manrope 400 17/25  lines=2  «Выберите симптом — покажем вероятную при»
+    div.Card__card  1152×299 @24,269  r22  b1
+      div.DiagnosticsPicker__picker  1086×233 @33,33
         p.DiagnosticsPicker__chipsLabel  1086×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Выберите симптом»
-        div.DiagnosticsPicker__chips  1122×52 @-18,27
-          button.Chip__chip  119×44 @18,4  Manrope 600 15/17  r100  b1  lines=1  «Не холодит»
-          button.Chip__chip#2  125×44 @147,4  Manrope 600 15/17  r100  b1  lines=1  «Капает вода»
-          button.Chip__chip#3  170×44 @282,4  Manrope 600 15/17  r100  b1  lines=1  «Неприятный запах»
-          button.Chip__chip#4  193×44 @463,4  Manrope 600 15/17  r100  b1  lines=1  «Шумит или вибрирует»
-          button.Chip__chip#5  145×44 @666,4  Manrope 600 15/17  r100  b1  lines=1  «Не включается»
-          button.Chip__chip#6  183×44 @820,4  Manrope 600 15/17  r100  b1  lines=1  «Обмерзает наледью»
-        div.DiagnosticsPicker__panels  1086×140 @0,101  b1 0 0 0
-          article.DiagnosticsPicker__panel  1086×113 @0,27
-            h3.DiagnosticsPicker__panelTitle  1086×23 @0,0  Onest 700 19/23  ls0  lines=1  «Кондиционер работает, но не холодит»
-            dl.DiagnosticsPicker__facts  1086×72 @0,41
-              div.DiagnosticsPicker__fact  351×72 @0,0
-                dt.DiagnosticsPicker__factLabel  351×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Вероятная причина»
-                dd.DiagnosticsPicker__factValue  351×47 @0,26  Manrope 600 15/23  lines=2  «Утечка фреона, забиты фильтры или теплоо»
-              div.DiagnosticsPicker__fact#2  322×49 @377,12
-                dt.DiagnosticsPicker__factLabel  322×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Что сделаем»
-                dd.DiagnosticsPicker__factValue  322×23 @0,26  Manrope 600 15/23  lines=1  «Диагностика, чистка, дозаправка»
-              div.DiagnosticsPicker__fact#3  175×71 @725,1
-                dt.DiagnosticsPicker__factLabel  175×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Стоимость»
-                dd.DiagnosticsPicker__priceUnknown  175×45 @0,26  Manrope 600 15/22  lines=2  «Рассчитаем после диагностики»
-              div.DiagnosticsPicker__action  160×44 @926,14
-                a.Button__button  160×44 @0,0  r11  b1
-                  span.Button__content  122×17 @19,13
-                    span.Button__label  122×17 @0,0  Manrope 600 15/17  lines=1  «Вызвать мастера»
+        div.DiagnosticsPicker__chips  1086×36 @0,31
+          button.Chip__chip  101×36 @0,0  r100  b1
+            span.DiagnosticsPicker__labelFull  73×16 @14,10  Manrope 600 13/16  lines=1  «Не холодит»
+          button.Chip__chip#2  106×36 @111,0  r100  b1
+            span.DiagnosticsPicker__labelFull  78×16 @14,10  Manrope 600 13/16  lines=1  «Капает вода»
+          button.Chip__chip#3  147×36 @227,0  r100  b1
+            span.DiagnosticsPicker__labelFull  119×16 @14,10  Manrope 600 13/16  lines=1  «Неприятный запах»
+          button.Chip__chip#4  167×36 @383,0  r100  b1
+            span.DiagnosticsPicker__labelFull  139×16 @14,10  Manrope 600 13/16  lines=1  «Шумит или вибрирует»
+          button.Chip__chip#5  124×36 @560,0  r100  b1
+            span.DiagnosticsPicker__labelFull  96×16 @14,10  Manrope 600 13/16  lines=1  «Не включается»
+          button.Chip__chip#6  100×36 @694,0  r100  b1
+            span.DiagnosticsPicker__labelFull  72×16 @14,10  Manrope 600 13/16  lines=1  «Обледенел»
+        div.DiagnosticsPicker__answer  1086×141 @0,93  b1 0 0 0
+          div.DiagnosticsPicker__panels  818×114 @0,27
+            article.DiagnosticsPicker__panel  818×114 @0,0
+              h3.DiagnosticsPicker__panelTitle  818×24 @0,0  Onest 700 19/24  ls0  lines=1  «Кондиционер работает, но не холодит»
+              dl.DiagnosticsPicker__facts  818×72 @0,42
+                div.DiagnosticsPicker__fact  317×72 @0,0
+                  dt.DiagnosticsPicker__factLabel  317×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Вероятная причина»
+                  dd.DiagnosticsPicker__factValue  317×47 @0,26  Manrope 600 15/23  lines=2  «Утечка фреона, забиты фильтры или теплоо»
+                div.DiagnosticsPicker__fact#2  291×49 @343,0
+                  dt.DiagnosticsPicker__factLabel  291×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Что сделаем»
+                  dd.DiagnosticsPicker__factValue  291×23 @0,26  Manrope 600 15/23  lines=1  «Диагностика, чистка, дозаправка»
+                div.DiagnosticsPicker__fact#3  158×71 @660,0
+                  dt.DiagnosticsPicker__factLabel  158×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Стоимость»
+                  dd.DiagnosticsPicker__priceUnknown  158×45 @0,26  Manrope 600 15/22  lines=2  «Рассчитаем после диагностики»
+          div.DiagnosticsPicker__action  240×44 @846,27
+            a.Button__button  240×44 @0,0  r11  b1
+              span.Button__content  122×17 @59,13
+                span.Button__label  122×17 @0,0  Manrope 600 15/17  lines=1  «Вызвать мастера»
 
 [палитра light]
 section.Diagnostics__section  bg #ffffff
@@ -158,29 +186,42 @@ section.Diagnostics__section  bg #ffffff
       div.DiagnosticsPicker__picker
         p.DiagnosticsPicker__chipsLabel  color #5b6a7d
         div.DiagnosticsPicker__chips
-          button.Chip__chip  color #ffffff  bg #0e7490  border #0e7490
-          button.Chip__chip#2  color #475569  border #7e8fa6
-          button.Chip__chip#3  color #475569  border #7e8fa6
-          button.Chip__chip#4  color #475569  border #7e8fa6
-          button.Chip__chip#5  color #475569  border #7e8fa6
-          button.Chip__chip#6  color #475569  border #7e8fa6
-        div.DiagnosticsPicker__panels  border #eef2f6 #475569 #475569 #475569
-          article.DiagnosticsPicker__panel
-            h3.DiagnosticsPicker__panelTitle  color #0f172a
-            dl.DiagnosticsPicker__facts
-              div.DiagnosticsPicker__fact
-                dt.DiagnosticsPicker__factLabel  color #5b6a7d
-                dd.DiagnosticsPicker__factValue  color #334155
-              div.DiagnosticsPicker__fact#2
-                dt.DiagnosticsPicker__factLabel  color #5b6a7d
-                dd.DiagnosticsPicker__factValue  color #334155
-              div.DiagnosticsPicker__fact#3
-                dt.DiagnosticsPicker__factLabel  color #5b6a7d
-                dd.DiagnosticsPicker__priceUnknown  color #556173
-              div.DiagnosticsPicker__action
-                a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-                  span.Button__content
-                    span.Button__label  color #ffffff
+          button.Chip__chip  bg #0e7490  border #0e7490
+            span.DiagnosticsPicker__labelFull  color #ffffff
+          button.Chip__chip#2  border #7e8fa6
+            span.DiagnosticsPicker__labelFull  color #475569
+          button.Chip__chip#3  border #7e8fa6
+            span.DiagnosticsPicker__labelFull  color #475569
+          button.Chip__chip#4  border #7e8fa6
+            span.DiagnosticsPicker__labelFull  color #475569
+          button.Chip__chip#5  border #7e8fa6
+            span.DiagnosticsPicker__labelFull  color #475569
+          button.Chip__chip#6  border #7e8fa6
+            span.DiagnosticsPicker__labelFull  color #475569
+        div.DiagnosticsPicker__answer  border #eef2f6 #475569 #475569 #475569
+          div.DiagnosticsPicker__panels
+            article.DiagnosticsPicker__panel
+              h3.DiagnosticsPicker__panelTitle  color #0f172a
+              dl.DiagnosticsPicker__facts
+                div.DiagnosticsPicker__fact
+                  dt.DiagnosticsPicker__factLabel  color #5b6a7d
+                  dd.DiagnosticsPicker__factValue  color #334155
+                div.DiagnosticsPicker__fact#2
+                  dt.DiagnosticsPicker__factLabel  color #5b6a7d
+                  dd.DiagnosticsPicker__factValue  color #334155
+                div.DiagnosticsPicker__fact#3
+                  dt.DiagnosticsPicker__factLabel  color #5b6a7d
+                  dd.DiagnosticsPicker__priceUnknown  color #556173
+          div.DiagnosticsPicker__action
+            a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+              span.Button__content
+                span.Button__label  color #ffffff
+[палитра light @320]
+section.Diagnostics__section > div.Diagnostics__container > div.Card__card > div.DiagnosticsPicker__picker > div.DiagnosticsPicker__chips > button.Chip__chip#3 > span.DiagnosticsPicker__labelShort  color #475569
+section.Diagnostics__section > div.Diagnostics__container > div.Card__card > div.DiagnosticsPicker__picker > div.DiagnosticsPicker__chips > button.Chip__chip#4 > span.DiagnosticsPicker__labelShort  color #475569
+[палитра light @375]
+section.Diagnostics__section > div.Diagnostics__container > div.Card__card > div.DiagnosticsPicker__picker > div.DiagnosticsPicker__chips > button.Chip__chip#3 > span.DiagnosticsPicker__labelShort  color #475569
+section.Diagnostics__section > div.Diagnostics__container > div.Card__card > div.DiagnosticsPicker__picker > div.DiagnosticsPicker__chips > button.Chip__chip#4 > span.DiagnosticsPicker__labelShort  color #475569
 
 [палитра dark]
 section.Diagnostics__section  bg #0b1220
@@ -193,26 +234,39 @@ section.Diagnostics__section  bg #0b1220
       div.DiagnosticsPicker__picker
         p.DiagnosticsPicker__chipsLabel  color #7e92a7
         div.DiagnosticsPicker__chips
-          button.Chip__chip  color #ffffff  bg #0e7490  border #0e7490
-          button.Chip__chip#2  color #a8b6c6  border #566d95
-          button.Chip__chip#3  color #a8b6c6  border #566d95
-          button.Chip__chip#4  color #a8b6c6  border #566d95
-          button.Chip__chip#5  color #a8b6c6  border #566d95
-          button.Chip__chip#6  color #a8b6c6  border #566d95
-        div.DiagnosticsPicker__panels  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
-          article.DiagnosticsPicker__panel
-            h3.DiagnosticsPicker__panelTitle  color #eaf1f8
-            dl.DiagnosticsPicker__facts
-              div.DiagnosticsPicker__fact
-                dt.DiagnosticsPicker__factLabel  color #7e92a7
-                dd.DiagnosticsPicker__factValue  color #c9d5e2
-              div.DiagnosticsPicker__fact#2
-                dt.DiagnosticsPicker__factLabel  color #7e92a7
-                dd.DiagnosticsPicker__factValue  color #c9d5e2
-              div.DiagnosticsPicker__fact#3
-                dt.DiagnosticsPicker__factLabel  color #7e92a7
-                dd.DiagnosticsPicker__priceUnknown  color #8598ac
-              div.DiagnosticsPicker__action
-                a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-                  span.Button__content
-                    span.Button__label  color #ffffff
+          button.Chip__chip  bg #0e7490  border #0e7490
+            span.DiagnosticsPicker__labelFull  color #ffffff
+          button.Chip__chip#2  border #566d95
+            span.DiagnosticsPicker__labelFull  color #a8b6c6
+          button.Chip__chip#3  border #566d95
+            span.DiagnosticsPicker__labelFull  color #a8b6c6
+          button.Chip__chip#4  border #566d95
+            span.DiagnosticsPicker__labelFull  color #a8b6c6
+          button.Chip__chip#5  border #566d95
+            span.DiagnosticsPicker__labelFull  color #a8b6c6
+          button.Chip__chip#6  border #566d95
+            span.DiagnosticsPicker__labelFull  color #a8b6c6
+        div.DiagnosticsPicker__answer  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          div.DiagnosticsPicker__panels
+            article.DiagnosticsPicker__panel
+              h3.DiagnosticsPicker__panelTitle  color #eaf1f8
+              dl.DiagnosticsPicker__facts
+                div.DiagnosticsPicker__fact
+                  dt.DiagnosticsPicker__factLabel  color #7e92a7
+                  dd.DiagnosticsPicker__factValue  color #c9d5e2
+                div.DiagnosticsPicker__fact#2
+                  dt.DiagnosticsPicker__factLabel  color #7e92a7
+                  dd.DiagnosticsPicker__factValue  color #c9d5e2
+                div.DiagnosticsPicker__fact#3
+                  dt.DiagnosticsPicker__factLabel  color #7e92a7
+                  dd.DiagnosticsPicker__priceUnknown  color #8598ac
+          div.DiagnosticsPicker__action
+            a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+              span.Button__content
+                span.Button__label  color #ffffff
+[палитра dark @320]
+section.Diagnostics__section > div.Diagnostics__container > div.Card__card > div.DiagnosticsPicker__picker > div.DiagnosticsPicker__chips > button.Chip__chip#3 > span.DiagnosticsPicker__labelShort  color #a8b6c6
+section.Diagnostics__section > div.Diagnostics__container > div.Card__card > div.DiagnosticsPicker__picker > div.DiagnosticsPicker__chips > button.Chip__chip#4 > span.DiagnosticsPicker__labelShort  color #a8b6c6
+[палитра dark @375]
+section.Diagnostics__section > div.Diagnostics__container > div.Card__card > div.DiagnosticsPicker__picker > div.DiagnosticsPicker__chips > button.Chip__chip#3 > span.DiagnosticsPicker__labelShort  color #a8b6c6
+section.Diagnostics__section > div.Diagnostics__container > div.Card__card > div.DiagnosticsPicker__picker > div.DiagnosticsPicker__chips > button.Chip__chip#4 > span.DiagnosticsPicker__labelShort  color #a8b6c6
