@@ -1,20 +1,20 @@
-# блоки-монтаж-этапы--installation-only · ширины 320 375 768 1200 · темы light dark
+# блоки-монтаж-этапы--day-open · ширины 320 375 768 1200 · темы light dark
 шрифты: JetBrains Mono 400, Manrope 400, Onest 600, Onest 700
 
 [документ]
-320 → 320×900
-375 → 375×900
-768 → 768×900
-1200 → 1200×954
+320 → 320×2049
+375 → 375×1879
+768 → 768×1110
+1200 → 1200×976
 
 [геометрия 320]
-section.StepsTimeline__section  320×717 @0,0
-  div.StepsTimeline__container  320×717 @0,0
+section.StepsTimeline__section  320×2049 @0,0
+  div.StepsTimeline__container  320×2049 @0,0
     header.StepsTimeline__intro  288×144 @16,48
       p.StepsTimeline__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Установка кондиционера —»
       h2.StepsTimeline__title  288×58 @0,30  Onest 700 24/29  ls0  lines=2  «Четыре шага до прохлады»
       p.StepsTimeline__lead  288×47 @0,98  Manrope 400 16/23  lines=2  «Прозрачный процесс — вы понимаете, что п»
-    ol.StepsTimeline__steps  288×418 @16,216
+    ol.StepsTimeline__steps  288×441 @16,216
       li.StepsTimeline__step  288×88 @0,0
         p.StepsTimeline__stepHead  32×32 @0,0
           span.StepsTimeline__stepNum  32×32 @0,0  Onest 700 14/22  r100  lines=1  «1»
@@ -33,23 +33,26 @@ section.StepsTimeline__section  320×717 @0,0
         div.StepsTimeline__stepBody  244×88 @44,0
           h3.StepsTimeline__stepTitle#3  244×21 @0,0  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
           p.StepsTimeline__stepText#3  244×63 @0,25  Manrope 400 14/21  lines=3  «Устанавливаем блоки, прокладываем трассу»
-      li.StepsTimeline__step#4  288×100 @0,319
+      li.StepsTimeline__step#4  288×122 @0,319
         p.StepsTimeline__stepHead  32×32 @0,0
           span.StepsTimeline__stepNum#4  32×32 @0,0  Onest 700 14/22  r100  lines=1  «4»
-        div.StepsTimeline__stepBody  244×100 @44,0
+        div.StepsTimeline__stepBody  244×122 @44,0
           h3.StepsTimeline__stepTitle#4  244×21 @0,0  Onest 700 17/21  ls0  lines=1  «Запуск и гарантия»
           p.StepsTimeline__stepText#4  244×42 @0,25  Manrope 400 14/21  lines=2  «Проверяем работу при вас, выдаём договор»
-          dl.StepsTimeline__terms  244×22 @0,77
+          dl.StepsTimeline__terms  244×45 @0,77
             div.StepsTimeline__term  244×22 @0,0
               dt.StepsTimeline__termLabel  73×22 @0,0  Manrope 400 15/22  lines=1  «На монтаж»
               dd.StepsTimeline__termValue  45×22 @81,0  Onest 700 15/22  lines=1  «3 года»
-    details.StepsTimeline__day  288×62 @16,655
+            div.StepsTimeline__term#2  244×22 @0,22
+              dt.StepsTimeline__termLabel  121×22 @0,0  Manrope 400 15/22  lines=1  «На оборудование»
+              dd.StepsTimeline__termValue  34×22 @129,0  Onest 700 15/22  lines=1  «1 год»
+    details.StepsTimeline__day  288×1372 @16,677
       summary.StepsTimeline__daySummary  288×62 @0,0  r14  b1
         span.StepsTimeline__daySummaryText  171×19 @19,22  Onest 700 15/19  ls0  lines=1  «День монтажа по часам»
         span.StepsTimeline__dayToggle  28×28 @241,17  r9
-      section.Card__card  0×0 @-16,-655  r22  b1  clipped
-        span.StepsTimeline__glow  300×300 @53,660  r50
-        div.StepsTimeline__timelineInner  286×1296 @17,730
+      section.Card__card  288×1298 @0,74  r22  b1  clipped
+        span.StepsTimeline__glow  300×300 @37,-69  r50
+        div.StepsTimeline__timelineInner  286×1296 @1,1
           header.StepsTimeline__timelineHead  238×122 @24,24
             div.StepsTimeline__timelineHeading  238×50 @0,0
               h3.StepsTimeline__timelineTitle  238×50 @0,0  Onest 700 21/25  ls0  lines=2  «Что происходит на объекте»
@@ -97,13 +100,13 @@ section.StepsTimeline__section  320×717 @0,0
               p.StepsTimeline__dayText  238×61 @0,61  Manrope 400 14/20  lines=3  «Выносим мусор, подписываем договор и гар»
 
 [геометрия 375]
-section.StepsTimeline__section  375×672 @0,0
-  div.StepsTimeline__container  375×672 @0,0
+section.StepsTimeline__section  375×1879 @0,0
+  div.StepsTimeline__container  375×1879 @0,0
     header.StepsTimeline__intro  342×117 @17,51
       p.StepsTimeline__kicker  342×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Установка кондиционера —»
       h2.StepsTimeline__title  342×30 @0,30  Onest 700 25/30  ls0  lines=1  «Четыре шага до прохлады»
       p.StepsTimeline__lead  342×47 @0,70  Manrope 400 16/23  lines=2  «Прозрачный процесс — вы понимаете, что п»
-    ol.StepsTimeline__steps  342×398 @17,192
+    ol.StepsTimeline__steps  342×421 @17,192
       li.StepsTimeline__step  342×88 @0,0
         p.StepsTimeline__stepHead  32×32 @0,0
           span.StepsTimeline__stepNum  32×32 @0,0  Onest 700 14/22  r100  lines=1  «1»
@@ -122,23 +125,26 @@ section.StepsTimeline__section  375×672 @0,0
         div.StepsTimeline__stepBody  298×88 @44,0
           h3.StepsTimeline__stepTitle#3  298×21 @0,0  Onest 700 17/21  ls0  lines=1  «Монтаж под ключ»
           p.StepsTimeline__stepText#3  298×63 @0,25  Manrope 400 14/21  lines=3  «Устанавливаем блоки, прокладываем трассу»
-      li.StepsTimeline__step#4  342×100 @0,298
+      li.StepsTimeline__step#4  342×122 @0,298
         p.StepsTimeline__stepHead  32×32 @0,0
           span.StepsTimeline__stepNum#4  32×32 @0,0  Onest 700 14/22  r100  lines=1  «4»
-        div.StepsTimeline__stepBody  298×100 @44,0
+        div.StepsTimeline__stepBody  298×122 @44,0
           h3.StepsTimeline__stepTitle#4  298×21 @0,0  Onest 700 17/21  ls0  lines=1  «Запуск и гарантия»
           p.StepsTimeline__stepText#4  298×42 @0,25  Manrope 400 14/21  lines=2  «Проверяем работу при вас, выдаём договор»
-          dl.StepsTimeline__terms  298×22 @0,77
+          dl.StepsTimeline__terms  298×45 @0,77
             div.StepsTimeline__term  298×22 @0,0
               dt.StepsTimeline__termLabel  73×22 @0,0  Manrope 400 15/22  lines=1  «На монтаж»
               dd.StepsTimeline__termValue  45×22 @81,0  Onest 700 15/22  lines=1  «3 года»
-    details.StepsTimeline__day  342×62 @17,610
+            div.StepsTimeline__term#2  298×22 @0,22
+              dt.StepsTimeline__termLabel  121×22 @0,0  Manrope 400 15/22  lines=1  «На оборудование»
+              dd.StepsTimeline__termValue  34×22 @129,0  Onest 700 15/22  lines=1  «1 год»
+    details.StepsTimeline__day  342×1247 @17,632
       summary.StepsTimeline__daySummary  342×62 @0,0  r14  b1
         span.StepsTimeline__daySummaryText  173×19 @19,22  Onest 700 15/19  ls0  lines=1  «День монтажа по часам»
         span.StepsTimeline__dayToggle  28×28 @295,17  r9
-      section.Card__card  0×0 @-16,-610  r22  b1  clipped
-        span.StepsTimeline__glow  300×300 @108,615  r50
-        div.StepsTimeline__timelineInner  340×1171 @18,685
+      section.Card__card  342×1173 @0,74  r22  b1  clipped
+        span.StepsTimeline__glow  300×300 @91,-69  r50
+        div.StepsTimeline__timelineInner  340×1171 @1,1
           header.StepsTimeline__timelineHead  292×78 @24,24
             div.StepsTimeline__timelineHeading  276×25 @0,0
               h3.StepsTimeline__timelineTitle  276×25 @0,0  Onest 700 21/25  ls0  lines=1  «Что происходит на объекте»
@@ -186,13 +192,13 @@ section.StepsTimeline__section  375×672 @0,0
               p.StepsTimeline__dayText  292×41 @0,61  Manrope 400 14/20  lines=2  «Выносим мусор, подписываем договор и гар»
 
 [геометрия 768]
-section.StepsTimeline__section  768×503 @0,0
-  div.StepsTimeline__container  768×503 @0,0
+section.StepsTimeline__section  768×1110 @0,0
+  div.StepsTimeline__container  768×1110 @0,0
     header.StepsTimeline__intro  640×105 @64,68
       p.StepsTimeline__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Установка кондиционера —»
       h2.StepsTimeline__title  640×37 @0,31  Onest 700 31/37  ls-1  lines=1  «Четыре шага до прохлады»
       p.StepsTimeline__lead  640×24 @0,81  Manrope 400 16/24  lines=1  «Прозрачный процесс — вы понимаете, что п»
-    ol.StepsTimeline__steps  728×211 @20,207
+    ol.StepsTimeline__steps  728×233 @20,207
       li.StepsTimeline__step  348×90 @0,0
         p.StepsTimeline__stepHead  34×34 @0,0
           span.StepsTimeline__stepNum  34×34 @0,0  Onest 700 15/23  r100  lines=1  «1»
@@ -205,29 +211,32 @@ section.StepsTimeline__section  768×503 @0,0
         div.StepsTimeline__stepBody  300×69 @48,0
           h3.StepsTimeline__stepTitle#2  300×23 @0,0  Onest 700 18/23  ls0  lines=1  «Расчёт и договор»
           p.StepsTimeline__stepText#2  300×42 @0,27  Manrope 400 14/21  lines=2  «Согласуем модель, стоимость и удобную да»
-      li.StepsTimeline__step#3  348×101 @0,110
+      li.StepsTimeline__step#3  348×123 @0,110
         p.StepsTimeline__stepHead  34×34 @0,0
           span.StepsTimeline__stepNum#3  34×34 @0,0  Onest 700 15/23  r100  lines=1  «3»
         div.StepsTimeline__stepBody  300×90 @48,0
           h3.StepsTimeline__stepTitle#3  300×23 @0,0  Onest 700 18/23  ls0  lines=1  «Монтаж под ключ»
           p.StepsTimeline__stepText#3  300×63 @0,27  Manrope 400 14/21  lines=3  «Устанавливаем блоки, прокладываем трассу»
-      li.StepsTimeline__step#4  348×101 @380,110
+      li.StepsTimeline__step#4  348×123 @380,110
         p.StepsTimeline__stepHead  34×34 @0,0
           span.StepsTimeline__stepNum#4  34×34 @0,0  Onest 700 15/23  r100  lines=1  «4»
-        div.StepsTimeline__stepBody  300×101 @48,0
+        div.StepsTimeline__stepBody  300×123 @48,0
           h3.StepsTimeline__stepTitle#4  300×23 @0,0  Onest 700 18/23  ls0  lines=1  «Запуск и гарантия»
           p.StepsTimeline__stepText#4  300×42 @0,27  Manrope 400 14/21  lines=2  «Проверяем работу при вас, выдаём договор»
-          dl.StepsTimeline__terms  300×22 @0,79
+          dl.StepsTimeline__terms  300×45 @0,79
             div.StepsTimeline__term  300×22 @0,0
               dt.StepsTimeline__termLabel  73×22 @0,0  Manrope 400 15/22  lines=1  «На монтаж»
               dd.StepsTimeline__termValue  45×22 @81,0  Onest 700 15/22  lines=1  «3 года»
-    details.StepsTimeline__day  728×62 @20,441
+            div.StepsTimeline__term#2  300×22 @0,22
+              dt.StepsTimeline__termLabel  121×22 @0,0  Manrope 400 15/22  lines=1  «На оборудование»
+              dd.StepsTimeline__termValue  34×22 @129,0  Onest 700 15/22  lines=1  «1 год»
+    details.StepsTimeline__day  728×646 @20,464
       summary.StepsTimeline__daySummary  728×62 @0,0  r14  b1
         span.StepsTimeline__daySummaryText  182×20 @19,21  Onest 700 16/20  ls0  lines=1  «День монтажа по часам»
         span.StepsTimeline__dayToggle  28×28 @681,17  r9
-      section.Card__card  0×0 @-20,-441  r22  b1  clipped
-        span.StepsTimeline__glow  300×300 @497,446  r50
-        div.StepsTimeline__timelineInner  726×570 @21,516
+      section.Card__card  728×572 @0,74  r22  b1  clipped
+        span.StepsTimeline__glow  300×300 @477,-69  r50
+        div.StepsTimeline__timelineInner  726×570 @1,1
           header.StepsTimeline__timelineHead  649×68 @38,38
             div.StepsTimeline__timelineHeading  369×34 @0,0
               h3.StepsTimeline__timelineTitle  369×34 @0,0  Onest 700 28/34  ls-1  lines=1  «Что происходит на объекте»
@@ -275,46 +284,49 @@ section.StepsTimeline__section  768×503 @0,0
               p.StepsTimeline__dayText  309×41 @0,49  Manrope 400 14/20  lines=2  «Выносим мусор, подписываем договор и гар»
 
 [геометрия 1200]
-section.StepsTimeline__section  1200×954 @0,0
-  div.StepsTimeline__container  1200×954 @0,0
+section.StepsTimeline__section  1200×976 @0,0
+  div.StepsTimeline__container  1200×976 @0,0
     header.StepsTimeline__intro  640×117 @280,88
       p.StepsTimeline__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Установка кондиционера —»
       h2.StepsTimeline__title  640×46 @0,32  Onest 700 38/46  ls-1  lines=1  «Четыре шага до прохлады»
       p.StepsTimeline__lead  640×25 @0,92  Manrope 400 17/25  lines=1  «Прозрачный процесс — вы понимаете, что п»
-    ol.StepsTimeline__steps  1152×173 @24,253
-      li.StepsTimeline__step  270×173 @0,0
+    ol.StepsTimeline__steps  1152×196 @24,253
+      li.StepsTimeline__step  270×196 @0,0
         p.StepsTimeline__stepHead  270×48 @0,0
           span.StepsTimeline__stepNum  48×48 @0,0  Onest 700 20/31  r14  lines=1  «1»
           span.StepsTimeline__stepRule  210×1 @60,24
         div.StepsTimeline__stepBody  270×99 @0,64
           h3.StepsTimeline__stepTitle  270×24 @0,0  Onest 600 19/24  ls0  lines=1  «Заявка и консультация»
           p.StepsTimeline__stepText  270×67 @0,32  Manrope 400 15/22  lines=3  «Оставляете заявку — специалист помогает»
-      li.StepsTimeline__step#2  270×173 @294,0
+      li.StepsTimeline__step#2  270×196 @294,0
         p.StepsTimeline__stepHead  270×48 @0,0
           span.StepsTimeline__stepNum#2  48×48 @0,0  Onest 700 20/31  r14  lines=1  «2»
           span.StepsTimeline__stepRule#2  210×1 @60,24
         div.StepsTimeline__stepBody  270×99 @0,64
           h3.StepsTimeline__stepTitle#2  270×24 @0,0  Onest 600 19/24  ls0  lines=1  «Расчёт и договор»
           p.StepsTimeline__stepText#2  270×67 @0,32  Manrope 400 15/22  lines=3  «Согласуем модель, стоимость и удобную да»
-      li.StepsTimeline__step#3  270×173 @588,0
+      li.StepsTimeline__step#3  270×196 @588,0
         p.StepsTimeline__stepHead  270×48 @0,0
           span.StepsTimeline__stepNum#3  48×48 @0,0  Onest 700 20/31  r14  lines=1  «3»
           span.StepsTimeline__stepRule#3  210×1 @60,24
         div.StepsTimeline__stepBody  270×99 @0,64
           h3.StepsTimeline__stepTitle#3  270×24 @0,0  Onest 600 19/24  ls0  lines=1  «Монтаж под ключ»
           p.StepsTimeline__stepText#3  270×67 @0,32  Manrope 400 15/22  lines=3  «Устанавливаем блоки, прокладываем трассу»
-      li.StepsTimeline__step#4  270×173 @882,0
+      li.StepsTimeline__step#4  270×196 @882,0
         p.StepsTimeline__stepHead  270×48 @0,0
           span.StepsTimeline__stepNum#4  48×48 @0,0  Onest 700 20/31  r14  lines=1  «4»
           span.StepsTimeline__stepRule#4  210×1 @60,24
-        div.StepsTimeline__stepBody  270×109 @0,64
+        div.StepsTimeline__stepBody  270×132 @0,64
           h3.StepsTimeline__stepTitle#4  270×24 @0,0  Onest 600 19/24  ls0  lines=1  «Запуск и гарантия»
           p.StepsTimeline__stepText#4  270×45 @0,32  Manrope 400 15/22  lines=2  «Проверяем работу при вас, выдаём договор»
-          dl.StepsTimeline__terms  270×22 @0,87
+          dl.StepsTimeline__terms  270×45 @0,87
             div.StepsTimeline__term  270×22 @0,0
               dt.StepsTimeline__termLabel  73×22 @0,0  Manrope 400 15/22  lines=1  «На монтаж»
               dd.StepsTimeline__termValue  45×22 @81,0  Onest 700 15/22  lines=1  «3 года»
-    details.StepsTimeline__day  1152×472 @24,482
+            div.StepsTimeline__term#2  270×22 @0,22
+              dt.StepsTimeline__termLabel  121×22 @0,0  Manrope 400 15/22  lines=1  «На оборудование»
+              dd.StepsTimeline__termValue  34×22 @129,0  Onest 700 15/22  lines=1  «1 год»
+    details.StepsTimeline__day  1152×472 @24,504
       section.Card__card  1152×472 @0,0  r26  b1  clipped
         span.StepsTimeline__glow  300×300 @901,-69  r50
         div.StepsTimeline__timelineInner  1150×470 @1,1
@@ -411,6 +423,9 @@ section.StepsTimeline__section  bg #ffffff
           p.StepsTimeline__stepText#4  color #556173
           dl.StepsTimeline__terms
             div.StepsTimeline__term
+              dt.StepsTimeline__termLabel  color #556173
+              dd.StepsTimeline__termValue  color #0f172a
+            div.StepsTimeline__term#2
               dt.StepsTimeline__termLabel  color #556173
               dd.StepsTimeline__termValue  color #0f172a
     details.StepsTimeline__day
@@ -524,6 +539,9 @@ section.StepsTimeline__section  bg #0b1220
             div.StepsTimeline__term
               dt.StepsTimeline__termLabel  color #8598ac
               dd.StepsTimeline__termValue  color #eaf1f8
+            div.StepsTimeline__term#2
+              dt.StepsTimeline__termLabel  color #8598ac
+              dd.StepsTimeline__termValue  color #eaf1f8
     details.StepsTimeline__day
       section.Card__card  bg #111d34  border #111d34
         span.StepsTimeline__glow  gradient radial-gradient(circle, color(srgb 0.133333 0.827451 0.933333 / 0.15), transparent 70%)
@@ -586,38 +604,11 @@ section.StepsTimeline__section  bg #0b1220
 section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > summary.StepsTimeline__daySummary  bg #121d31  border #1e2b41
 section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > summary.StepsTimeline__daySummary > span.StepsTimeline__daySummaryText  color #eaf1f8
 section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > summary.StepsTimeline__daySummary > span.StepsTimeline__dayToggle  bg #22d3ee1a
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card  bg #111d34  border #0f172a
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#2 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#2  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#3 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#3  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#4 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#4  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#5 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#5  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#6 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#6  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#7 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#7  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#8 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#8  color #0f172a  bg #22d3ee
 [палитра dark @375]
 section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > summary.StepsTimeline__daySummary  bg #121d31  border #1e2b41
 section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > summary.StepsTimeline__daySummary > span.StepsTimeline__daySummaryText  color #eaf1f8
 section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > summary.StepsTimeline__daySummary > span.StepsTimeline__dayToggle  bg #22d3ee1a
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card  bg #111d34  border #0f172a
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#2 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#2  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#3 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#3  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#4 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#4  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#5 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#5  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#6 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#6  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#7 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#7  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#8 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#8  color #0f172a  bg #22d3ee
 [палитра dark @768]
 section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > summary.StepsTimeline__daySummary  bg #121d31  border #1e2b41
 section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > summary.StepsTimeline__daySummary > span.StepsTimeline__daySummaryText  color #eaf1f8
 section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > summary.StepsTimeline__daySummary > span.StepsTimeline__dayToggle  bg #22d3ee1a
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card  bg #111d34  border #0f172a
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#2 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#2  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#3 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#3  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#4 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#4  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#5 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#5  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#6 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#6  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#7 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#7  color #0f172a  bg #22d3ee
-section.StepsTimeline__section > div.StepsTimeline__container > details.StepsTimeline__day > section.Card__card > div.StepsTimeline__timelineInner > ol.StepsTimeline__dayList > li.StepsTimeline__dayItem#8 > p.StepsTimeline__dayHead > time.StepsTimeline__dayTime#8  color #0f172a  bg #22d3ee

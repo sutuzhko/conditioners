@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { HonestPricing } from './HonestPricing';
 import { honestPoints, honestyContent, rivalPoints } from './content';
@@ -84,5 +85,57 @@ describe('Честно о цене — разбор двух смет', () => {
       expect(point.text).not.toMatch(/₽/);
       expect(point.text).not.toMatch(/год|лет/i);
     }
+  });
+});
+
+/** Раскрывашка второй сметы. */
+function rivalDetails(container: HTMLElement): HTMLDetailsElement {
+  const details = container.querySelector('details');
+  if (details === null) throw new Error('Раскрывашки второй сметы нет в разметке');
+  return details;
+}
+
+describe('Честно о цене — вторая смета свёрнута родным details (issue #271)', () => {
+  it('🔴 список второй сметы свёрнут, но лежит в HTML целиком', () => {
+    const { container } = render(<HonestPricing installFrom={installFrom} />);
+
+    const details = rivalDetails(container);
+    expect(details.open).toBe(false);
+    const list = within(details).getByRole('list', { name: honestyContent.rivalListLabel });
+    expect(within(list).getAllByRole('listitem')).toHaveLength(rivalPoints.length);
+  });
+
+  it('заголовок и плашка второй сметы стоят вне раскрывашки — их видно на любой ширине', () => {
+    const { container } = render(<HonestPricing installFrom={installFrom} />);
+
+    const heading = screen.getByRole('heading', { level: 3, name: honestyContent.rivalTitle });
+    const badge = screen.getByText(honestyContent.rivalBadge);
+    const details = rivalDetails(container);
+    expect(details.contains(heading)).toBe(false);
+    expect(details.contains(badge)).toBe(false);
+  });
+
+  it('открывается и закрывается нажатием на подпись «На чём экономят»', async () => {
+    const user = userEvent.setup();
+    const { container } = render(<HonestPricing installFrom={installFrom} />);
+    const details = rivalDetails(container);
+    const summary = within(details).getByText(honestyContent.rivalToggle);
+
+    expect(summary.closest('summary')).toBe(details.firstElementChild);
+
+    await user.click(summary);
+    expect(details.open).toBe(true);
+
+    await user.click(summary);
+    expect(details.open).toBe(false);
+    expect(within(details).getAllByRole('listitem')).toHaveLength(rivalPoints.length);
+  });
+
+  it('первая смета раскрывашки не имеет: пять пунктов видны всегда', () => {
+    const { container } = render(<HonestPricing installFrom={installFrom} />);
+
+    const honest = screen.getByRole('list', { name: honestyContent.honestListLabel });
+    expect(honest.closest('details')).toBeNull();
+    expect(container.querySelectorAll('details')).toHaveLength(1);
   });
 });

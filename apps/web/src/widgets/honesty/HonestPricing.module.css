@@ -1,6 +1,7 @@
-/* «Почему монтаж стоит столько» — две сметы рядом.
-   Ритм секции, радиусы и деградация — docs/DESIGN_BRIEF.md §4, §6.
-   Цвета только токенами: ни одного хекса. */
+/* «Почему монтаж стоит столько» — две сметы: столбцом до 900px и рядом с 900
+   (issue #271). Ритм секции, радиусы и пороги — docs/DESIGN_BRIEF.md §4, §6.
+   Цвета только токенами: ни одного хекса. Порядок правил — от телефона
+   вверх. */
 
 .section {
   background: var(--bg);
@@ -20,12 +21,14 @@
 
 .head {
   max-width: 680px;
-  margin: 0 auto 44px;
+
+  /* 24px на телефоне (макет 375), 44px на десктопе — между ними тянется */
+  margin: 0 auto clamp(24px, 0.5rem + 2.5vw, 44px);
   text-align: center;
 }
 
 .kicker {
-  margin: 0 0 12px;
+  margin: 0 0 clamp(10px, 0.227vw + 9.27px, 12px);
   color: var(--accent-text);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
@@ -34,7 +37,7 @@
 }
 
 .title {
-  margin: 0 0 14px;
+  margin: 0 0 clamp(10px, 0.455vw + 8.55px, 14px);
   color: var(--ink);
   font-family: var(--font-display);
   font-size: var(--fs-h2);
@@ -49,24 +52,27 @@
 .lead {
   margin: 0;
   color: var(--muted);
-  font-size: 17px;
+
+  /* 15,5px на 320 (макет 375), 17px на 1200 — подводка тянется, как заголовки */
+  font-size: clamp(15.5px, 0.17vw + 14.95px, 17px);
+  line-height: 1.5;
 }
 
-/* до планшета сметы идут одна под другой: две колонки по 150px нечитаемы */
+/* Сметы столбцом: сравнение читается, только когда обе устроены одинаково,
+   а на 320px две колонки по 150px нечитаемы. Зазор тянется от 12 до 20px. */
 .pair {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(12px, 0.5rem + 1vw, 20px);
+  align-items: start;
 }
 
-/* Отступ 30px из макета задаётся здесь, а не ступенью кита: у кита есть
-   28 и 32, и обе сметы стояли рядом с разными полями — это видно глазом. */
 .card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 30px;
+  gap: 14px;
+  min-width: 0;
+  padding: var(--card-pad);
   border-radius: var(--r-xl);
 }
 
@@ -76,10 +82,21 @@
   border-width: 2px;
 }
 
+/* 🔴 Вторая смета приглушена, но не покрашена в красный: красный на витрине
+   допустим только у скидки (DESIGN_BRIEF §10). Мягкая поверхность и серый
+   крестик против белой карточки с бирюзовой галочкой — разница читается
+   контрастом и иконкой, а не цветом тревоги. Граница той же толщины, что у
+   честной сметы, только цветом поверхности: иначе карточки разной высоты
+   шапки, и пункты с 900px не встают построчно напротив друг друга. */
+.rival {
+  border-width: 2px;
+  border-color: var(--line-soft);
+}
+
 .cardHead {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
   justify-content: space-between;
 }
@@ -88,9 +105,10 @@
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: var(--fs-h3);
   font-weight: 700;
   letter-spacing: -0.02em;
+  line-height: 1.25;
 }
 
 .price {
@@ -103,17 +121,20 @@
 .points {
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* Кегль пунктов постоянный 14px: это перечисление, а не заголовок. Иконка
+   не переносится на вторую строку — `flex-shrink: 0` у её обёртки. */
 .point {
   display: flex;
-  gap: 11px;
+  gap: 10px;
   align-items: flex-start;
-  font-size: var(--fs-dense);
+  min-width: 0;
+  font-size: 14px;
   line-height: 1.5;
 }
 
@@ -123,28 +144,125 @@
   margin-top: 2px;
 }
 
-.honest .icon {
+.pointText {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.pointsHonest .icon {
   color: var(--accent-text);
 }
 
-.rival .icon {
-  color: var(--error-ink);
+.pointsRival .icon {
+  color: var(--faint);
 }
 
-.honest .pointText {
+.pointsHonest .pointText {
   color: var(--ink2);
 }
 
-.rival .pointText {
+.pointsRival .pointText {
   color: var(--muted);
 }
 
+/* --- раскрывашка второй сметы --- */
+
+/* 🔴 Родной `<details>`, ноль JavaScript (ADR-121): до 900px список второй
+   сметы свёрнут, но остаётся в HTML — это половина позиционирования сайта и
+   индексируемый текст. С 900px список раскрыт стилем, см. `::details-content`
+   ниже. Раскрывашка отделена от шапки карточки линией, как строка списка. */
+.rivalDetails {
+  /* линия и строка-переключатель идут от края до края карточки: поле
+     карточки снимается отрицательным полем и возвращается внутри строки */
+  margin: 0 calc(var(--card-pad) * -1);
+  border-top: 1px solid var(--line);
+}
+
+/* Строка-переключатель — как строка аккордеона вопросов: тап-зона от 44px,
+   справа знак в квадрате 28×28. `display: flex` убирает штатный треугольник.
+   Кольцо фокуса — по форме строки (ADR-085). */
+.rivalSummary {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 8px var(--card-pad);
+  color: var(--ink);
+  list-style: none;
+  cursor: pointer;
+}
+
+.rivalSummary::-webkit-details-marker {
+  display: none;
+}
+
+.rivalSummary:focus-visible {
+  outline: none;
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-inset);
+}
+
+.rivalSummaryText {
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: clamp(15px, 0.313vw + 14px, 16px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+/* Знак «+» из макета: квадрат 28×28 с фоном --accent-bg, две чёрточки.
+   Раскрыто — вертикальная уходит, остаётся «−»: плюс, повёрнутый на 45°,
+   читался бы как «закрыть». */
+.rivalToggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+.rivalToggle::before,
+.rivalToggle::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentcolor;
+  transform: translate(-50%, -50%);
+  content: '';
+}
+
+.rivalToggle::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.rivalDetails[open] .rivalToggle::after {
+  transform: translate(-50%, -50%) rotate(0deg) scaleX(0);
+}
+
+/* раскрытый список возвращает поле карточки и отбит от строки-переключателя */
+.rivalDetails .points {
+  padding: 8px var(--card-pad) 0;
+}
+
+/* Плашка-вывод про фреон показывается на всех ширинах, хотя макеты 375 и 768
+   заканчивают секцию сметами и с ней секция на 375 выходит за бюджет 900px
+   (issue #271). Прятать её на телефоне — резать содержание ради бюджета, а
+   это решение владельца, не вёрстки (ADR-215, issue #429). */
 .note {
-  margin-top: 24px;
+  margin-top: clamp(16px, 0.5rem + 1.5vw, 24px);
 
   /* 16px и 20px 26px — из макета: плашка-вывод шире карточного отступа
      и с радиусом между карточным и секционным */
-  padding: 20px 26px;
+  padding: clamp(18px, 1rem + 0.5vw, 20px) clamp(20px, 1rem + 1vw, 26px);
   border-radius: 16px;
   text-align: center;
 }
@@ -161,26 +279,46 @@
   font-weight: 700;
 }
 
-/* боковой отступ секции на телефоне — 16px (docs/DESIGN_BRIEF.md §6);
-   макета ниже 1200px нет, раскладка наша */
-@media (width < 600px) {
-  .container {
-    padding-right: 16px;
-    padding-left: 16px;
+/* --- планшет и десктоп: сметы рядом --- */
+
+@media (width >= 900px) {
+  /* Выравнивание по верху: пункты списков идут построчно параллельно —
+     вакуумация напротив продувки, — и сравнение читается по строкам. */
+  .pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
   }
 
-  .head {
-    margin-bottom: 28px;
+  .rivalDetails {
+    margin: 0;
+    border-top: 0;
   }
 
-  .note {
-    padding: 18px 20px;
+  .rivalDetails .points {
+    padding: 0;
   }
 }
 
-@media (width >= 900px) {
-  .pair {
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+/* 🔴 С 900px список второй сметы раскрыт по умолчанию — стилем, а не
+   атрибутом: `open` в медиа-запрос не завернуть, а разметка одна на все
+   ширины (issue #271, ADR-121). Переключатель убирается целиком: свёрнутая
+   кнопка над развёрнутым списком сообщала бы читалке неправду. Убирается
+   только там, где раскрытие сработало: без `::details-content` блок остаётся
+   обычным `<details>`, и у него должен остаться способ раскрыться. */
+@supports selector(::details-content) {
+  @media (width >= 900px) {
+    .rivalDetails::details-content {
+      content-visibility: visible;
+    }
+
+    .rivalSummary {
+      display: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rivalToggle::after {
+    transition: none;
   }
 }

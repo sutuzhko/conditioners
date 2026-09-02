@@ -14,6 +14,16 @@ function panel(container: HTMLElement, key: string): HTMLElement {
 }
 
 /**
+ * Показан ли разбор. Разборы лежат стопкой и не выпадают из потока (иначе
+ * кнопка вызова мастера прыгала бы), поэтому «скрыт» — это `inert` и
+ * `aria-hidden`, а не `display: none`; стиль `visibility` jsdom не считает.
+ */
+function shown(container: HTMLElement, key: string): boolean {
+  const node = panel(container, key);
+  return !node.hasAttribute('inert') && node.getAttribute('aria-hidden') !== 'true';
+}
+
+/**
  * Testing Library схлопывает пробелы, включая неразрывный из `formatMoney`.
  * Сравниваем с тем текстом, который видит человек.
  */
@@ -28,13 +38,13 @@ describe('Сервис — диагностика по симптомам', () =
     const user = userEvent.setup();
     const { container } = render(<Diagnostics />);
 
-    expect(panel(container, 'ne-holodit')).toBeVisible();
-    expect(panel(container, 'kapaet-voda')).not.toBeVisible();
+    expect(shown(container, 'ne-holodit')).toBe(true);
+    expect(shown(container, 'kapaet-voda')).toBe(false);
 
     await user.click(chip('Капает вода'));
 
-    expect(panel(container, 'kapaet-voda')).toBeVisible();
-    expect(panel(container, 'ne-holodit')).not.toBeVisible();
+    expect(shown(container, 'kapaet-voda')).toBe(true);
+    expect(shown(container, 'ne-holodit')).toBe(false);
     expect(chip('Капает вода')).toHaveAttribute('aria-pressed', 'true');
     expect(chip('Не холодит')).toHaveAttribute('aria-pressed', 'false');
   });
@@ -55,7 +65,7 @@ describe('Сервис — диагностика по симптомам', () =
     allSymptomsPresent();
     await user.click(chip('Не включается'));
     allSymptomsPresent();
-    expect(panel(container, 'ne-vklyuchaetsya')).toBeVisible();
+    expect(shown(container, 'ne-vklyuchaetsya')).toBe(true);
   });
 
   it('по чипам можно пройти с клавиатуры и выбрать симптом', async () => {
@@ -69,14 +79,14 @@ describe('Сервис — диагностика по симптомам', () =
     expect(chip('Капает вода')).toHaveFocus();
 
     await user.keyboard('{Enter}');
-    expect(panel(container, 'kapaet-voda')).toBeVisible();
+    expect(shown(container, 'kapaet-voda')).toBe(true);
 
     await user.tab();
     expect(chip('Неприятный запах')).toHaveFocus();
 
     await user.keyboard(' ');
-    expect(panel(container, 'zapah')).toBeVisible();
-    expect(panel(container, 'kapaet-voda')).not.toBeVisible();
+    expect(shown(container, 'zapah')).toBe(true);
+    expect(shown(container, 'kapaet-voda')).toBe(false);
   });
 
   it('чипы собраны в группу с общей подписью', () => {
@@ -97,14 +107,58 @@ describe('Сервис — диагностика по симптомам', () =
   it('открывается на симптоме, указанном пропсом', () => {
     const { container } = render(<Diagnostics defaultSymptom="obmerzaet" />);
 
-    expect(panel(container, 'obmerzaet')).toBeVisible();
-    expect(chip('Обмерзает наледью')).toHaveAttribute('aria-pressed', 'true');
+    expect(shown(container, 'obmerzaet')).toBe(true);
+    expect(chip('Обледенел')).toHaveAttribute('aria-pressed', 'true');
   });
 
   it('неизвестный ключ в пропсе не оставляет блок без разбора', () => {
     const { container } = render(<Diagnostics defaultSymptom="net-takogo" />);
 
-    expect(panel(container, 'ne-holodit')).toBeVisible();
+    expect(shown(container, 'ne-holodit')).toBe(true);
+  });
+
+  it('🔴 скрытый разбор остаётся в потоке, но недоступен: inert и aria-hidden', () => {
+    const { container } = render(<Diagnostics />);
+
+    const hiddenPanel = panel(container, 'kapaet-voda');
+    expect(hiddenPanel).toHaveAttribute('inert');
+    expect(hiddenPanel).toHaveAttribute('aria-hidden', 'true');
+    // не `hidden` и не размонтирование: узел держит высоту стопки
+    expect(hiddenPanel).not.toHaveAttribute('hidden');
+    expect(panel(container, 'ne-holodit')).not.toHaveAttribute('inert');
+  });
+
+  it('🔴 кнопка вызова мастера одна и стоит вне разборов — её место не зависит от выбора', async () => {
+    const user = userEvent.setup();
+    render(<Diagnostics />);
+
+    const links = screen.getAllByRole('link', { name: diagnosticsText.cta });
+    expect(links).toHaveLength(1);
+    const link = links[0];
+    expect(link).toBeDefined();
+    expect(link?.closest('[data-symptom]')).toBeNull();
+
+    // тот же узел на месте после перебора всех шести
+    for (const symptom of defaultSymptoms) {
+      await user.click(chip(symptom.label));
+      expect(screen.getByRole('link', { name: diagnosticsText.cta })).toBe(link);
+    }
+  });
+
+  it('🔴 короткая подпись чипа — часть полной: имя кнопки остаётся полным', () => {
+    render(<Diagnostics />);
+
+    for (const symptom of defaultSymptoms) {
+      const button = chip(symptom.label);
+      expect(button).toHaveAccessibleName(symptom.label);
+      if (symptom.short === undefined) continue;
+
+      // видимая на телефоне подпись входит в имя слово в слово (WCAG 2.5.3);
+      // регистр не в счёт — голосовое управление его не различает
+      expect(symptom.label.toLowerCase()).toContain(symptom.short.toLowerCase());
+      expect(within(button).getByText(symptom.short)).toBeInTheDocument();
+      expect(within(button).getByText(symptom.label)).toBeInTheDocument();
+    }
   });
 });
 

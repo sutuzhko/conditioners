@@ -24,10 +24,19 @@ export type DiagnosticsPickerProps = {
 /**
  * Выбор симптома и его разбор.
  *
- * 🔴 Все разборы присутствуют в разметке всегда: неактивные скрыты атрибутом
- * `hidden`, но остаются в HTML — это индексируемый контент под запросы вида
- * «кондиционер не холодит» (docs/CLAUDE.md, «Доступность»). Подгрузка по клику
- * стоила бы этих запросов целиком.
+ * 🔴 Все разборы присутствуют в разметке всегда: неактивные скрыты стилем
+ * и `inert`, но остаются в HTML — это индексируемый контент под запросы
+ * вида «кондиционер не холодит» (docs/CLAUDE.md, «Доступность»). Подгрузка
+ * по клику стоила бы этих запросов целиком.
+ *
+ * 🔴 Симптомы — сетка, а не лента (issue #272): их ровно шесть, это закрытый
+ * список, и человек выбирает из известного набора. Лента прятала половину
+ * вариантов там, где прятать нечего.
+ *
+ * 🔴 Разборы лежат друг на друге в одной ячейке сетки, а не сменяют друг
+ * друга через `display: none`: высота блока резервируется по самому длинному
+ * разбору, и кнопка «Вызвать мастера» стоит на одном месте при любом выборе.
+ * Это измеряется координатой кнопки, а не впечатлением.
  *
  * `'use client'` стоит на этом листе, а не на секции: заголовок и подводка
  * приходят с сервера обычным HTML (инвариант 1).
@@ -50,57 +59,89 @@ export function DiagnosticsPicker({ symptoms, defaultSymptom, action }: Diagnost
         {t.chipsLabel}
       </p>
 
-      {/* 🔴 Лента прокручивается по горизонтали (`.chips`, overflow-x: auto),
-          но собственного `tabIndex` не получает: внутри неё только кнопки, и
-          браузер сам подводит ленту к той, что взяла фокус, — прокрутка едет
-          за Tab. Остановка на самом контейнере добавила бы седьмой Tab перед
-          шестью чипами и ничего бы не дала. `tabIndex={0}` нужен другому
-          случаю: прокручиваемой области, внутри которой фокусироваться не на
-          чем, — там она иначе недостижима с клавиатуры вовсе. */}
       <div className={styles.chips} role="group" aria-labelledby={labelId}>
         {symptoms.map((symptom) => (
-          <Chip
+          <SymptomChip
             key={symptom.key}
+            symptom={symptom}
             selected={symptom.key === active?.key}
-            aria-controls={panelId(symptom.key)}
-            onClick={() => setChosenKey(symptom.key)}
-          >
-            {symptom.label}
-          </Chip>
+            panelId={panelId(symptom.key)}
+            onSelect={() => setChosenKey(symptom.key)}
+          />
         ))}
       </div>
 
-      {/* смена симптома объявляется голосом: меняется содержимое области */}
-      <div className={styles.panels} aria-live="polite">
-        {symptoms.map((symptom) => (
-          <SymptomCard
-            key={symptom.key}
-            id={panelId(symptom.key)}
-            symptom={symptom}
-            active={symptom.key === active?.key}
-            action={action}
-          />
-        ))}
+      <div className={styles.answer}>
+        {/* смена симптома объявляется голосом: меняется содержимое области */}
+        <div className={styles.panels} aria-live="polite">
+          {symptoms.map((symptom) => (
+            <SymptomCard
+              key={symptom.key}
+              id={panelId(symptom.key)}
+              symptom={symptom}
+              active={symptom.key === active?.key}
+            />
+          ))}
+        </div>
+
+        {/* Кнопка одна на все разборы и стоит вне их стопки: её место не
+            зависит от того, какой разбор показан. */}
+        {action === undefined ? null : <div className={styles.action}>{action}</div>}
       </div>
     </div>
   );
 }
 
+type SymptomChipProps = {
+  readonly symptom: Symptom;
+  readonly selected: boolean;
+  readonly panelId: string;
+  readonly onSelect: () => void;
+};
+
+/**
+ * Чип симптома. Полная подпись всегда служит именем кнопки (`aria-label`):
+ * на телефоне глазами видна короткая, и она — часть полной слово в слово,
+ * так что голосовое управление находит кнопку по тому, что видит человек.
+ */
+function SymptomChip({ symptom, selected, panelId, onSelect }: SymptomChipProps) {
+  const hasShort = symptom.short !== undefined;
+
+  return (
+    <Chip
+      size="sm"
+      selected={selected}
+      aria-label={symptom.label}
+      aria-controls={panelId}
+      className={[styles.chip, hasShort ? styles.chipWithShort : null].filter(Boolean).join(' ')}
+      onClick={onSelect}
+    >
+      <span className={styles.labelFull}>{symptom.label}</span>
+      {hasShort ? <span className={styles.labelShort}>{symptom.short}</span> : null}
+    </Chip>
+  );
+}
+
 type SymptomCardProps = {
-  readonly action?: ReactNode | undefined;
   readonly id: string;
   readonly symptom: Symptom;
   readonly active: boolean;
 };
 
-function SymptomCard({ id, symptom, active, action }: SymptomCardProps) {
+/**
+ * Разбор одного симптома. Неактивный остаётся в потоке — он держит высоту
+ * стопки, — но невидим, недоступен фокусу и скрыт от читалки: `inert` и
+ * `aria-hidden` вместе с `visibility: hidden` из стиля.
+ */
+function SymptomCard({ id, symptom, active }: SymptomCardProps) {
   const titleId = `${id}-title`;
 
   return (
     <article
       id={id}
-      className={styles.panel}
-      hidden={!active}
+      className={[styles.panel, active ? null : styles.panelHidden].filter(Boolean).join(' ')}
+      inert={!active}
+      aria-hidden={!active}
       aria-labelledby={titleId}
       data-symptom={symptom.key}
     >
@@ -127,8 +168,6 @@ function SymptomCard({ id, symptom, active, action }: SymptomCardProps) {
             <dd className={styles.price}>{t.priceFrom(formatMoney(symptom.priceFrom))}</dd>
           )}
         </div>
-
-        {action === undefined ? null : <div className={styles.action}>{action}</div>}
       </dl>
     </article>
   );

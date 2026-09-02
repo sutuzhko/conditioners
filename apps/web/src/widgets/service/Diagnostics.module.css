@@ -22,12 +22,14 @@
 
 .head {
   max-width: 680px;
-  margin: 0 auto 44px;
+
+  /* 24px на телефоне (макет 375), 44px на десктопе — между ними тянется */
+  margin: 0 auto clamp(24px, 0.5rem + 2.5vw, 44px);
   text-align: center;
 }
 
 .kicker {
-  margin: 0 0 12px;
+  margin: 0 0 clamp(10px, 0.227vw + 9.27px, 12px);
   color: var(--accent-text);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
@@ -36,7 +38,7 @@
 }
 
 .title {
-  margin: 0 0 14px;
+  margin: 0 0 clamp(10px, 0.455vw + 8.55px, 14px);
   color: var(--ink);
   font-family: var(--font-display);
   font-size: var(--fs-h2);
@@ -47,7 +49,10 @@
 .lead {
   margin: 0;
   color: var(--muted);
-  font-size: 17px;
+
+  /* 15,5px на 320 (макет 375), 17px на 1200 — подводка тянется, как заголовки */
+  font-size: clamp(15.5px, 0.17vw + 14.95px, 17px);
+  line-height: 1.5;
 }
 
 /* 22px — радиус секционного блока из макета, шире карточного по умолчанию */
@@ -58,6 +63,12 @@
 
 .board {
   display: block;
+}
+
+/* Кнопка вызова мастера тянется на всю ширину своей колонки: до 900px это
+   вся карточка (тянуться пальцем некуда), с 900 — правая колонка ответа. */
+.board .cta {
+  width: 100%;
 }
 
 .empty {
@@ -86,23 +97,22 @@
   margin-top: 6px;
 }
 
-@media (width < 600px) {
-  .container {
-    padding-right: 16px;
-    padding-left: 16px;
+/* Поле карточки на телефоне и крупном — карточное (14–18px, макет 375 и
+   768), а не секционное: колонка чипа на 320 иначе теряет 16px. Удвоенный
+   класс перебивает китовый `padding="xl"` при любом порядке сборки. */
+@media (width < 900px) {
+  .board.board {
+    padding: var(--card-pad);
   }
+}
 
+@media (width < 600px) {
   .head {
-    margin-bottom: 28px;
     text-align: left;
   }
 
-  .lead {
-    font-size: var(--fs-base);
-  }
-
-  /* на телефоне кнопка занимает всю ширину: тянуться пальцем некуда */
-  .cta {
+  /* на телефоне кнопка пустого состояния занимает всю ширину */
+  .empty .cta {
     width: 100%;
   }
 }
