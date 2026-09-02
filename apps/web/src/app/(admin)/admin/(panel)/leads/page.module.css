@@ -33,6 +33,14 @@
   gap: 6px;
 }
 
+/* Асинхронный блок списка: тот же ритм, что у страницы, — список и разбивка
+   стоят так, будто лежат в ней напрямую. */
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .filter {
   padding: 6px 12px;
   border: 1px solid var(--line);
@@ -62,5 +70,28 @@
 @media (width < 900px) {
   .filter {
     min-height: var(--tap);
+  }
+}
+
+/* Заготовка карточки списка: высота снята с готовой страницы (issue #334) —
+   331.5px у карточки заявки на 1440 и 637px на 390, где действия встают
+   столбиком. Отзывы делят этот модуль и задают свою высоту тем же классом. */
+.rowSkeleton {
+  min-height: 331.5px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+.reviewSkeleton {
+  min-height: 233.1px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+@media (width < 900px) {
+  .rowSkeleton {
+    min-height: 637px;
+  }
+
+  .reviewSkeleton {
+    min-height: 387px;
   }
 }
