@@ -1,0 +1,104 @@
+# фичи-форма-заявки--success · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+div.Card__card  288×553 @16,16  r22  b1
+  header.LeadForm__header  250×130 @19,19
+    h2.LeadForm__title  250×53 @0,0  Onest 700 24/26  ls0  lines=2  «Оставьте заявку — поможем с выбором»
+    p.LeadForm__description  250×68 @0,63  Manrope 400 15/23  lines=3  «Заполните форму — специалист перезвонит,»
+  p[role=status]  1×1 @18,18  Manrope 400 15/23  lines=1  clipped  «Заявка отправлена. Специалист перезвонит»
+  div.LeadForm__success  250×365 @19,169
+    span.LeadForm__successIcon  76×76 @87,16  r50
+      svg  38×38 @19,19
+    h3.LeadForm__successTitle  220×29 @15,108  Onest 700 24/29  ls0  lines=1  «Заявка отправлена»
+    p.LeadForm__successText  250×48 @0,153  Manrope 400 16/24  lines=2  «Спасибо, Ирина. Мы получили вашу заявку.»
+    p.LeadForm__successText#2  250×72 @0,217  Manrope 400 16/24  lines=3  «Специалист перезвонит по указанному теле»
+    button.Button__button  183×44 @33,305  r11  b1
+      span.Button__content  145×17 @19,13
+        span.Button__label  145×17 @0,0  Manrope 600 15/17  lines=1  «Отправить ещё одну»
+
+[геометрия 375]
+div.Card__card  343×559 @16,16  r22  b1
+  header.LeadForm__header  305×130 @19,19
+    h2.LeadForm__title  305×53 @0,0  Onest 700 24/26  ls0  lines=2  «Оставьте заявку — поможем с выбором»
+    p.LeadForm__description  305×68 @0,63  Manrope 400 15/23  lines=3  «Заполните форму — специалист перезвонит,»
+  p[role=status]  1×1 @18,18  Manrope 400 15/23  lines=1  clipped  «Заявка отправлена. Специалист перезвонит»
+  div.LeadForm__success  305×370 @19,169
+    span.LeadForm__successIcon  76×76 @115,19  r50
+      svg  38×38 @19,19
+    h3.LeadForm__successTitle  220×29 @42,111  Onest 700 24/29  ls0  lines=1  «Заявка отправлена»
+    p.LeadForm__successText  305×48 @0,156  Manrope 400 16/24  lines=2  «Спасибо, Ирина. Мы получили вашу заявку.»
+    p.LeadForm__successText#2  305×72 @0,220  Manrope 400 16/24  lines=3  «Специалист перезвонит по указанному теле»
+    button.Button__button  183×44 @61,308  r11  b1
+      span.Button__content  145×17 @19,13
+        span.Button__label  145×17 @0,0  Manrope 600 15/17  lines=1  «Отправить ещё одну»
+
+[геометрия 768]
+div.Card__card  736×540 @16,16  r22  b1
+  header.LeadForm__header  673×112 @32,32
+    h2.LeadForm__title  673×79 @0,0  Onest 700 36/40  ls-1  lines=2  «Оставьте заявку — поможем с выбором»
+    p.LeadForm__description  673×23 @0,89  Manrope 400 15/23  lines=1  «Заполните форму — специалист перезвонит,»
+  p[role=status]  1×1 @31,31  Manrope 400 15/23  lines=1  clipped  «Заявка отправлена. Специалист перезвонит»
+  div.LeadForm__success  673×345 @32,163
+    span.LeadForm__successIcon  76×76 @298,30  r50
+      svg  38×38 @19,19
+    h3.LeadForm__successTitle  220×29 @226,122  Onest 700 24/29  ls0  lines=1  «Заявка отправлена»
+    p.LeadForm__successText  328×24 @172,167  Manrope 400 16/24  lines=1  «Спасибо, Ирина. Мы получили вашу заявку.»
+    p.LeadForm__successText#2  332×48 @170,207  Manrope 400 16/24  lines=2  «Специалист перезвонит по указанному теле»
+    button.Button__button  183×44 @245,271  r11  b1
+      span.Button__content  145×17 @19,13
+        span.Button__label  145×17 @0,0  Manrope 600 15/17  lines=1  «Отправить ещё одну»
+
+[геометрия 1200]
+div.Card__card  1168×507 @16,16  r22  b1
+  header.LeadForm__header  1098×72 @35,35
+    h2.LeadForm__title  1098×40 @0,0  Onest 700 36/40  ls-1  lines=1  «Оставьте заявку — поможем с выбором»
+    p.LeadForm__description  1098×23 @0,50  Manrope 400 15/23  lines=1  «Заполните форму — специалист перезвонит,»
+  p[role=status]  1×1 @34,34  Manrope 400 15/23  lines=1  clipped  «Заявка отправлена. Специалист перезвонит»
+  div.LeadForm__success  1098×345 @35,127
+    span.LeadForm__successIcon  76×76 @511,30  r50
+      svg  38×38 @19,19
+    h3.LeadForm__successTitle  220×29 @439,122  Onest 700 24/29  ls0  lines=1  «Заявка отправлена»
+    p.LeadForm__successText  328×24 @385,167  Manrope 400 16/24  lines=1  «Спасибо, Ирина. Мы получили вашу заявку.»
+    p.LeadForm__successText#2  332×48 @383,207  Manrope 400 16/24  lines=2  «Специалист перезвонит по указанному теле»
+    button.Button__button  183×44 @457,271  r11  b1
+      span.Button__content  145×17 @19,13
+        span.Button__label  145×17 @0,0  Manrope 600 15/17  lines=1  «Отправить ещё одну»
+
+[палитра light]
+div.Card__card  bg #ffffff  border transparent  shadow #00000080 0px 40px 80px -30px
+  header.LeadForm__header
+    h2.LeadForm__title  color #0f172a
+    p.LeadForm__description  color #556173
+  p[role=status]  color #475569
+  div.LeadForm__success
+    span.LeadForm__successIcon  bg #ecfeff
+      svg
+    h3.LeadForm__successTitle  color #0f172a  outline #0891b2
+    p.LeadForm__successText  color #475569
+    p.LeadForm__successText#2  color #475569
+    button.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label  color #0f172a
+
+[палитра dark]
+div.Card__card  bg #121d31  border transparent  shadow #00000080 0px 40px 80px -30px
+  header.LeadForm__header
+    h2.LeadForm__title  color #eaf1f8
+    p.LeadForm__description  color #8598ac
+  p[role=status]  color #a8b6c6
+  div.LeadForm__success
+    span.LeadForm__successIcon  bg #22d3ee1a
+      svg
+    h3.LeadForm__successTitle  color #eaf1f8  outline #22d3ee
+    p.LeadForm__successText  color #a8b6c6
+    p.LeadForm__successText#2  color #a8b6c6
+    button.Button__button  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label  color #eaf1f8

@@ -1,0 +1,68 @@
+# фичи-напоминание-о-то--success · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+div.ReminderForm__done  232×202 @44,44  r14  b1
+  span.ReminderForm__doneIcon  30×30 @23,86
+    svg  30×30 @0,0
+  div.ReminderForm__doneText  140×160 @69,21
+    p.ReminderForm__doneTitle  140×25 @0,0  Manrope 700 16/25  lines=1  «Готово!»
+    p.ReminderForm__doneNote  140×87 @0,27  Manrope 400 14/22  lines=4  «Напомним о чистке заранее и предложим уд»
+    button.ReminderForm__again  140×44 @0,116  Manrope 600 14/22  lines=2  «Добавить ещё один номер»
+  p[role=status]  1×1 @22,100  Manrope 400 15/23  lines=1  clipped  «Готово! Напомним о чистке заранее и пред»
+
+[геометрия 375]
+div.ReminderForm__done  287×158 @44,44  r14  b1
+  span.ReminderForm__doneIcon  30×30 @23,64
+    svg  30×30 @0,0
+  div.ReminderForm__doneText  195×116 @69,21
+    p.ReminderForm__doneTitle  195×25 @0,0  Manrope 700 16/25  lines=1  «Готово!»
+    p.ReminderForm__doneNote  195×43 @0,27  Manrope 400 14/22  lines=2  «Напомним о чистке заранее и предложим уд»
+    button.ReminderForm__again  181×44 @0,72  Manrope 600 14/22  lines=1  «Добавить ещё один номер»
+  p[role=status]  1×1 @22,79  Manrope 400 15/23  lines=1  clipped  «Готово! Напомним о чистке заранее и пред»
+
+[геометрия 768]
+div.ReminderForm__done  364×158 @44,44  r14  b1
+  span.ReminderForm__doneIcon  30×30 @23,64
+    svg  30×30 @0,0
+  div.ReminderForm__doneText  272×116 @69,21
+    p.ReminderForm__doneTitle  272×25 @0,0  Manrope 700 16/25  lines=1  «Готово!»
+    p.ReminderForm__doneNote  272×43 @0,27  Manrope 400 14/22  lines=2  «Напомним о чистке заранее и предложим уд»
+    button.ReminderForm__again  181×44 @0,72  Manrope 600 14/22  lines=1  «Добавить ещё один номер»
+  p[role=status]  1×1 @22,79  Manrope 400 15/23  lines=1  clipped  «Готово! Напомним о чистке заранее и пред»
+
+[геометрия 1200]
+div.ReminderForm__done  364×158 @44,44  r14  b1
+  span.ReminderForm__doneIcon  30×30 @23,64
+    svg  30×30 @0,0
+  div.ReminderForm__doneText  272×116 @69,21
+    p.ReminderForm__doneTitle  272×25 @0,0  Manrope 700 16/25  lines=1  «Готово!»
+    p.ReminderForm__doneNote  272×43 @0,27  Manrope 400 14/22  lines=2  «Напомним о чистке заранее и предложим уд»
+    button.ReminderForm__again  181×44 @0,72  Manrope 600 14/22  lines=1  «Добавить ещё один номер»
+  p[role=status]  1×1 @22,79  Manrope 400 15/23  lines=1  clipped  «Готово! Напомним о чистке заранее и пред»
+
+[палитра light]
+div.ReminderForm__done  bg color(srgb 0.0313726 0.568627 0.698039 / 0.1)  border color(srgb 0.0313726 0.568627 0.698039 / 0.35)
+  span.ReminderForm__doneIcon
+    svg
+  div.ReminderForm__doneText
+    p.ReminderForm__doneTitle  color #ffffff
+    p.ReminderForm__doneNote  color #8598ac
+    button.ReminderForm__again  color #22d3ee
+  p[role=status]  color #0f172a
+
+[палитра dark]
+div.ReminderForm__done  bg color(srgb 0.0313726 0.568627 0.698039 / 0.1)  border color(srgb 0.0313726 0.568627 0.698039 / 0.35)
+  span.ReminderForm__doneIcon
+    svg
+  div.ReminderForm__doneText
+    p.ReminderForm__doneTitle  color #ffffff
+    p.ReminderForm__doneNote  color #8598ac
+    button.ReminderForm__again  color #22d3ee
+  p[role=status]  color #eaf1f8

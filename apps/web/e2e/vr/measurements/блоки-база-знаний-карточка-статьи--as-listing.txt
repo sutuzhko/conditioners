@@ -1,0 +1,100 @@
+# блоки-база-знаний-карточка-статьи--as-listing · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+li.Card__card  288×207 @16,16  r20  b1
+  div.ArticleCard__body  286×205 @1,1
+    span.Badge__badge  69×24 @14,14  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Монтаж»
+      span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+    h2.ArticleCard__title  258×66 @14,46
+      a.ArticleCard__link  251×65 @0,0  Onest 700 17/22  ls0  lines=3  «Как обманывают при установке кондиционер»
+    p.ArticleCard__excerpt  258×44 @14,120  Manrope 400 15/22  lines=3  clipped  «Формула, поправки на солнечную сторону и»
+    p.ArticleCard__meta  258×19 @14,172
+      span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+      time  86×16 @0,1  JetBrains Mono 400 12/19  lines=1  «14 июня 2026»
+      span#2  22×16 @86,1  JetBrains Mono 400 12/19  lines=1  «·»
+      span#3  86×16 @108,1  JetBrains Mono 400 12/19  lines=1  «6 мин чтения»
+
+[геометрия 375]
+li.Card__card  343×186 @16,16  r20  b1
+  div.ArticleCard__body  341×184 @1,1
+    span.Badge__badge  69×24 @14,14  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Монтаж»
+      span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+    h2.ArticleCard__title  313×45 @14,47
+      a.ArticleCard__link  262×44 @0,0  Onest 700 17/22  ls0  lines=2  «Как обманывают при установке кондиционер»
+    p.ArticleCard__excerpt  313×44 @14,99  Manrope 400 15/22  lines=3  clipped  «Формула, поправки на солнечную сторону и»
+    p.ArticleCard__meta  313×19 @14,151
+      span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+      time  86×16 @0,1  JetBrains Mono 400 12/19  lines=1  «14 июня 2026»
+      span#2  22×16 @86,1  JetBrains Mono 400 12/19  lines=1  «·»
+      span#3  86×16 @108,1  JetBrains Mono 400 12/19  lines=1  «6 мин чтения»
+
+[геометрия 768]
+li.Card__card  736×172 @16,16  r20  b1
+  div.ArticleCard__media  88×170 @1,1
+    img.ArticleCard__cover  88×170 @0,0
+  div.ArticleCard__body  646×170 @89,1
+    span.Badge__badge  69×24 @16,16  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Монтаж»
+      span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+    h2.ArticleCard__title  614×23 @16,50
+      a.ArticleCard__link  499×22 @0,0  Onest 700 18/23  ls0  lines=1  «Как обманывают при установке кондиционер»
+    p.ArticleCard__excerpt  614×44 @16,83  Manrope 400 15/22  lines=2  «Формула, поправки на солнечную сторону и»
+    p.ArticleCard__meta  614×19 @16,136
+      span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+      time  86×16 @0,1  JetBrains Mono 400 12/19  lines=1  «14 июня 2026»
+      span#2  22×16 @86,1  JetBrains Mono 400 12/19  lines=1  «·»
+      span#3  86×16 @108,1  JetBrains Mono 400 12/19  lines=1  «6 мин чтения»
+
+[геометрия 1200]
+li.Card__card  1168×395 @16,16  r20  b1
+  div.ArticleCard__media  1166×220 @1,1
+    img.ArticleCard__cover  1166×220 @0,0
+  div.ArticleCard__body  1166×173 @1,221
+    span.Badge__badge  69×24 @24,24  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Монтаж»
+      span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+    h2.ArticleCard__title  1118×25 @24,60
+      a.ArticleCard__link  526×24 @0,0  Onest 700 19/25  ls0  lines=1  «Как обманывают при установке кондиционер»
+    p.ArticleCard__excerpt  1118×22 @24,97  Manrope 400 15/22  lines=1  «Формула, поправки на солнечную сторону и»
+    p.ArticleCard__meta  1118×19 @24,131
+      span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+      time  86×16 @0,1  JetBrains Mono 400 12/19  lines=1  «14 июня 2026»
+      span#2  22×16 @86,1  JetBrains Mono 400 12/19  lines=1  «·»
+      span#3  86×16 @108,1  JetBrains Mono 400 12/19  lines=1  «6 мин чтения»
+
+[палитра light]
+li.Card__card  bg #ffffff  border #e2e8f0
+  div.ArticleCard__media  bg #f8fafc
+    img.ArticleCard__cover
+  div.ArticleCard__body
+    span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+      span  color #0e7490
+    h2.ArticleCard__title
+      a.ArticleCard__link  color #0f172a
+    p.ArticleCard__excerpt  color #556173
+    p.ArticleCard__meta
+      span  color #5b6a7d
+      time  color #5b6a7d
+      span#2  color #5b6a7d
+      span#3  color #5b6a7d
+
+[палитра dark]
+li.Card__card  bg #121d31  border #1e2b41
+  div.ArticleCard__media  bg #0e1729
+    img.ArticleCard__cover
+  div.ArticleCard__body
+    span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+      span  color #22d3ee
+    h2.ArticleCard__title
+      a.ArticleCard__link  color #eaf1f8
+    p.ArticleCard__excerpt  color #8598ac
+    p.ArticleCard__meta
+      span  color #7e92a7
+      time  color #7e92a7
+      span#2  color #7e92a7
+      span#3  color #7e92a7

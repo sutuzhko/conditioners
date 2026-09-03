@@ -1,0 +1,104 @@
+# фичи-форма-отзыва--success · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+div.Card__card  288×544 @16,16  r22  b1
+  header.ReviewForm__header  250×70 @19,19
+    h2.ReviewForm__title  250×23 @0,0  Onest 700 20/23  ls0  lines=1  «Оставить отзыв»
+    p.ReviewForm__description  250×41 @0,29  Manrope 400 14/20  lines=2  «Отзыв появится на сайте после проверки м»
+  p[role=status]  1×1 @18,18  Manrope 400 15/23  lines=1  clipped  «Отзыв отправлен на модерацию и появится»
+  div.ReviewForm__success  250×418 @19,107
+    span.ReviewForm__successIcon  70×70 @90,16  r50
+      svg  34×34 @18,18
+    h3.ReviewForm__successTitle  250×51 @0,102  Onest 700 22/25  ls0  lines=2  «Отзыв отправлен на модерацию»
+    p.ReviewForm__successText  250×45 @0,169  Manrope 400 15/23  lines=2  «Спасибо, Ирина. Мы получили ваш отзыв.»
+    p.ReviewForm__successText#2  250×113 @0,230  Manrope 400 15/23  lines=5  «Он появится на сайте после проверки моде»
+    button.Button__button  176×44 @37,358  r11  b1
+      span.Button__content  138×17 @19,13
+        span.Button__label  138×17 @0,0  Manrope 600 15/17  lines=1  «Написать ещё один»
+
+[геометрия 375]
+div.Card__card  343×504 @16,16  r22  b1
+  header.ReviewForm__header  305×70 @19,19
+    h2.ReviewForm__title  305×23 @0,0  Onest 700 20/23  ls0  lines=1  «Оставить отзыв»
+    p.ReviewForm__description  305×41 @0,29  Manrope 400 14/20  lines=2  «Отзыв появится на сайте после проверки м»
+  p[role=status]  1×1 @18,18  Manrope 400 15/23  lines=1  clipped  «Отзыв отправлен на модерацию и появится»
+  div.ReviewForm__success  305×379 @19,107
+    span.ReviewForm__successIcon  70×70 @118,19  r50
+      svg  34×34 @18,18
+    h3.ReviewForm__successTitle  290×51 @7,105  Onest 700 22/25  ls0  lines=2  «Отзыв отправлен на модерацию»
+    p.ReviewForm__successText  294×23 @6,171  Manrope 400 15/23  lines=1  «Спасибо, Ирина. Мы получили ваш отзыв.»
+    p.ReviewForm__successText#2  305×90 @0,210  Manrope 400 15/23  lines=4  «Он появится на сайте после проверки моде»
+    button.Button__button  176×44 @65,316  r11  b1
+      span.Button__content  138×17 @19,13
+        span.Button__label  138×17 @0,0  Manrope 600 15/17  lines=1  «Написать ещё один»
+
+[геометрия 768]
+div.Card__card  736×525 @16,16  r22  b1
+  header.ReviewForm__header  674×52 @31,31
+    h2.ReviewForm__title  674×25 @0,0  Onest 700 22/25  ls0  lines=1  «Оставить отзыв»
+    p.ReviewForm__description  674×20 @0,31  Manrope 400 14/20  lines=1  «Отзыв появится на сайте после проверки м»
+  p[role=status]  1×1 @30,30  Manrope 400 15/23  lines=1  clipped  «Отзыв отправлен на модерацию и появится»
+  div.ReviewForm__success  674×393 @31,101
+    span.ReviewForm__successIcon  70×70 @302,26  r50
+      svg  34×34 @18,18
+    h3.ReviewForm__successTitle  290×51 @192,112  Onest 700 22/25  ls0  lines=2  «Отзыв отправлен на модерацию»
+    p.ReviewForm__successText  294×23 @190,179  Manrope 400 15/23  lines=1  «Спасибо, Ирина. Мы получили ваш отзыв.»
+    p.ReviewForm__successText#2  348×90 @163,217  Manrope 400 15/23  lines=4  «Он появится на сайте после проверки моде»
+    button.Button__button  176×44 @249,323  r11  b1
+      span.Button__content  138×17 @19,13
+        span.Button__label  138×17 @0,0  Manrope 600 15/17  lines=1  «Написать ещё один»
+
+[геометрия 1200]
+div.Card__card  1168×525 @16,16  r22  b1
+  header.ReviewForm__header  1106×52 @31,31
+    h2.ReviewForm__title  1106×25 @0,0  Onest 700 22/25  ls0  lines=1  «Оставить отзыв»
+    p.ReviewForm__description  1106×20 @0,31  Manrope 400 14/20  lines=1  «Отзыв появится на сайте после проверки м»
+  p[role=status]  1×1 @30,30  Manrope 400 15/23  lines=1  clipped  «Отзыв отправлен на модерацию и появится»
+  div.ReviewForm__success  1106×393 @31,101
+    span.ReviewForm__successIcon  70×70 @518,26  r50
+      svg  34×34 @18,18
+    h3.ReviewForm__successTitle  290×51 @408,112  Onest 700 22/25  ls0  lines=2  «Отзыв отправлен на модерацию»
+    p.ReviewForm__successText  294×23 @406,179  Manrope 400 15/23  lines=1  «Спасибо, Ирина. Мы получили ваш отзыв.»
+    p.ReviewForm__successText#2  348×90 @379,217  Manrope 400 15/23  lines=4  «Он появится на сайте после проверки моде»
+    button.Button__button  176×44 @465,323  r11  b1
+      span.Button__content  138×17 @19,13
+        span.Button__label  138×17 @0,0  Manrope 600 15/17  lines=1  «Написать ещё один»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.ReviewForm__header
+    h2.ReviewForm__title  color #0f172a
+    p.ReviewForm__description  color #556173
+  p[role=status]  color #475569
+  div.ReviewForm__success
+    span.ReviewForm__successIcon  bg #ecfeff
+      svg
+    h3.ReviewForm__successTitle  color #0f172a  outline #0891b2
+    p.ReviewForm__successText  color #475569
+    p.ReviewForm__successText#2  color #475569
+    button.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label  color #0f172a
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.ReviewForm__header
+    h2.ReviewForm__title  color #eaf1f8
+    p.ReviewForm__description  color #8598ac
+  p[role=status]  color #a8b6c6
+  div.ReviewForm__success
+    span.ReviewForm__successIcon  bg #22d3ee1a
+      svg
+    h3.ReviewForm__successTitle  color #eaf1f8  outline #22d3ee
+    p.ReviewForm__successText  color #a8b6c6
+    p.ReviewForm__successText#2  color #a8b6c6
+    button.Button__button  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label  color #eaf1f8

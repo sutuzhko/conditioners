@@ -4,6 +4,7 @@ import { VR_PANEL_WIDTHS, VR_THEMES, VR_WIDTHS } from '../../../playwright.vr.co
 import { firstLines } from '../outcome';
 import { shardFromEnv, shardSlice } from '../shard';
 import { FROZEN_NOW } from '../snapshot-run';
+import { FIXTURES_SECTION, PANEL_SECTIONS, PUBLIC_SECTIONS } from '../sections';
 import { loadStories, pinnedWidths, type StoryEntry } from '../story-index';
 import { waitForStoryReady, watchPlayFailures } from '../story-ready';
 import { measureInvariants } from './measure';
@@ -45,12 +46,9 @@ const GROUPS: readonly {
   readonly sections: readonly string[];
   readonly widths: readonly number[];
 }[] = [
-  { group: 'public', sections: ['Блоки/', 'Страницы/'], widths: VR_WIDTHS },
-  { group: 'panel', sections: ['UI Kit/', 'Кит/', 'Админка/'], widths: VR_PANEL_WIDTHS },
+  { group: 'public', sections: PUBLIC_SECTIONS, widths: VR_WIDTHS },
+  { group: 'panel', sections: PANEL_SECTIONS, widths: VR_PANEL_WIDTHS },
 ];
-
-/** Истории-фикстуры с нарочными нарушениями проверяет свой спек. */
-const FIXTURES_SECTION = 'Фикстуры/';
 
 /** Ниже этой ширины раскладка сенсорная, и цель обязана быть 44×44 (ADR-183). */
 const TOUCH_BELOW = 900;

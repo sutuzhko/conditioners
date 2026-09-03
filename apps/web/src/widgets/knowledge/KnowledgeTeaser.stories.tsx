@@ -27,12 +27,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Empty: Story = { name: 'Статей ещё нет' };
 
-export const WithArticles: Story = { name: 'Три статьи', args: { articles: articlesFixture } };
+export const WithArticles: Story = { name: 'Две статьи', args: { articles: articlesFixture } };
 
 /**
- * Обложка есть только у первой статьи: у двух соседок её место занимает
+ * Обложка есть только у первой статьи: у соседки её место занимает
  * типографская плашка с рубрикой (ADR-127). Смысл истории — что карточки в
  * ряду одной высоты и одного строения независимо от файла.
+ *
+ * 🔴 До 1200 обложки в карточке нет вовсе (issue #279): на телефоне её нет
+ * совсем, между 600 и 1199 она стоит узкой полосой слева.
  */
 export const WithCover: Story = {
   name: 'Обложка есть и обложки нет',

@@ -1,21 +1,24 @@
 import Link from 'next/link';
 
+import { ArticleCard } from '@/entities/article/ui';
+import type { ArticleTeaser } from '@/entities/article/model';
 import { Card, Icon } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 
 import { knowledgeContent as t } from './content';
-import type { ArticleTeaser } from './model';
-import { ArticleCard } from './ui/ArticleCard';
 import styles from './KnowledgeTeaser.module.css';
 
 const HEADING_ID = 'knowledge-title';
 
 /**
- * Сколько статей показывает тизер. Ограничение принадлежит блоку, а не
- * странице: это свойство краткой витрины — со временем статей станут
- * десятки, и весь список на главной ей не нужен, для него есть листинг.
+ * Сколько статей показывает тизер.
+ *
+ * 🔴 Две, а не три (issue #279). Тизер на 375 занимал 1 735px — два с
+ * половиной экрана на одну секцию, — и третья карточка в этой высоте лишняя:
+ * полный список живёт на `/knowledge`, и он в индексе. Ограничение
+ * принадлежит блоку, а не странице: это свойство краткой витрины.
  */
-const TEASER_LIMIT = 3;
+const TEASER_LIMIT = 2;
 
 export interface KnowledgeTeaserProps {
   /**
@@ -26,9 +29,7 @@ export interface KnowledgeTeaserProps {
   articles?: readonly ArticleTeaser[] | undefined;
   /**
    * Адрес статьи по её слагу. Функцией, а не полем в данных: карта URL
-   * принадлежит странице (docs/SEO.md §1), а не блоку. Маршрута
-   * `/knowledge/[slug]` ещё нет, поэтому адрес собирается объектом —
-   * `typedRoutes` проверяет строковые литералы и пропускает `UrlObject`.
+   * принадлежит странице (docs/SEO.md §1), а не блоку.
    */
   articleHref: (slug: string) => ButtonLinkHref;
   /** Адрес листинга Базы знаний — по той же причине пропсом. */
@@ -38,7 +39,7 @@ export interface KnowledgeTeaserProps {
 }
 
 /**
- * Тизер Базы знаний: три-четыре статьи и ссылка на листинг.
+ * Тизер Базы знаний: две статьи и ссылка на листинг.
  *
  * Серверный компонент: карточки приходят в HTML готовыми и индексируются без
  * JavaScript (инвариант 1). Интерактивности в блоке нет, поэтому нет и
@@ -54,21 +55,11 @@ export function KnowledgeTeaser({
     <section id={id} className={styles.section} aria-labelledby={HEADING_ID} data-band>
       <div className={styles.container}>
         <header className={styles.head}>
-          <div className={styles.intro}>
-            <p className={styles.kicker}>{t.kicker}</p>
-            <h2 id={HEADING_ID} className={styles.title}>
-              {t.title}
-            </h2>
-            <p className={styles.lead}>{t.lead}</p>
-          </div>
-
-          {/* пустой листинг — мёртвая ссылка: пока статей нет, её нет тоже */}
-          {articles.length === 0 ? null : (
-            <Link href={allHref} className={styles.all}>
-              {t.allLink}
-              <Icon name="arrow-right" size={16} />
-            </Link>
-          )}
+          <p className={styles.kicker}>{t.kicker}</p>
+          <h2 id={HEADING_ID} className={styles.title}>
+            {t.title}
+          </h2>
+          <p className={styles.lead}>{t.lead}</p>
         </header>
 
         {articles.length === 0 ? (
@@ -82,6 +73,18 @@ export function KnowledgeTeaser({
               <ArticleCard key={article.id} article={article} href={articleHref(article.slug)} />
             ))}
           </ul>
+        )}
+
+        {/* 🔴 Ссылка стоит после карточек, а не в шапке секции: на телефоне
+            заголовок с лидом и без неё занимает четверть экрана. На широкой
+            ширине сетка возвращает её в правый верхний угол — переносится
+            место, а не порядок чтения. Пустой листинг — мёртвая ссылка:
+            пока статей нет, её нет тоже. */}
+        {articles.length === 0 ? null : (
+          <Link href={allHref} className={styles.all}>
+            {t.allLink}
+            <Icon name="arrow-right" size={16} />
+          </Link>
         )}
       </div>
     </section>

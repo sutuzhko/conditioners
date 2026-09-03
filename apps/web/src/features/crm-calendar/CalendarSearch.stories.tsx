@@ -32,7 +32,7 @@ const hits: CrmSearchHit[] = [
 ];
 
 const meta = {
-  title: 'Календарь/Поиск',
+  title: 'Админка/Календарь/Поиск',
   component: CalendarSearch,
   args: { team: false, find: async () => hits },
 } satisfies Meta<typeof CalendarSearch>;

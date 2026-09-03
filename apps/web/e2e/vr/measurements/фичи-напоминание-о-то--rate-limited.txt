@@ -1,0 +1,200 @@
+# фичи-напоминание-о-то--rate-limited · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+form.ReminderForm__form  232×466 @44,44
+  p[role=status]  1×1 @-1,-1  Manrope 400 15/23  lines=1  clipped  «Слишком много запросов подряд. Подождите»
+  div.ReminderForm__pair  232×164 @0,0
+    div.Field__field  232×76 @0,0
+      label.Field__label  232×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        span.Field__required  9×18 @56,1  Manrope 600 13/20  lines=1  «*»
+      input  232×49 @0,27  r11  b1
+    div.Field__field#2  232×76 @0,88
+      label.Field__label  232×20 @0,0  Manrope 600 13/20  lines=1  «Когда установили»
+      span.Select__wrapper  232×49 @0,27
+        select.Select__select  232×49 @0,0  r11  b1
+          option  0×0 @-44,-159  Manrope 400 15/21  lines=0  «Установили этим летом»
+          option#2  0×0 @-44,-159  Manrope 400 15/21  lines=0  «Установили в прошлом году»
+          option#3  0×0 @-44,-159  Manrope 400 15/21  lines=0  «Стоит больше двух лет»
+          option#4  0×0 @-44,-159  Manrope 400 15/21  lines=0  «Не помню, когда чистили»
+        svg.Select__chevron  14×14 @204,18
+  div.Checkbox__root  232×83 @0,176
+    div.Checkbox__row  232×83 @0,0
+      input.Checkbox__input  20×20 @0,11  r6  b1
+      label.Checkbox__label  201×63 @31,10  Manrope 400 15/21  lines=2  «Согласен на обработку данных —»
+        a.ReminderForm__policy  141×40 @0,22  Manrope 400 15/21  lines=2  «политикой обработки»
+        span.Checkbox__required  9×19 @73,43  Manrope 400 15/21  lines=1  «*»
+  p.ReminderForm__error  232×131 @0,271  Manrope 400 14/21  r11  b1  lines=3  «Слишком много запросов подряд. Подождите»
+    span.ReminderForm__errorCall  204×42 @14,78  Manrope 600 14/21  lines=2  «Не получается — позвоните: +7 (900) 000-»
+  button.Button__button  232×52 @0,414  r12  b1
+    span.Button__content  157×19 @37,16
+      span.Button__label  157×19 @0,0  Manrope 600 16/19  lines=1  «Напомнить о чистке»
+  div.ReminderForm__trap  1×1 @-10044,0  clipped
+    label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
+    input  206×24 @0,93  b2
+
+[геометрия 375]
+form.ReminderForm__form  287×424 @44,44
+  p[role=status]  1×1 @-1,-1  Manrope 400 15/23  lines=1  clipped  «Слишком много запросов подряд. Подождите»
+  div.ReminderForm__pair  287×164 @0,0
+    div.Field__field  287×76 @0,0
+      label.Field__label  287×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        span.Field__required  9×18 @56,1  Manrope 600 13/20  lines=1  «*»
+      input  287×49 @0,27  r11  b1
+    div.Field__field#2  287×76 @0,88
+      label.Field__label  287×20 @0,0  Manrope 600 13/20  lines=1  «Когда установили»
+      span.Select__wrapper  287×49 @0,27
+        select.Select__select  287×49 @0,0  r11  b1
+          option  0×0 @-44,-159  Manrope 400 15/21  lines=0  «Установили этим летом»
+          option#2  0×0 @-44,-159  Manrope 400 15/21  lines=0  «Установили в прошлом году»
+          option#3  0×0 @-44,-159  Manrope 400 15/21  lines=0  «Стоит больше двух лет»
+          option#4  0×0 @-44,-159  Manrope 400 15/21  lines=0  «Не помню, когда чистили»
+        svg.Select__chevron  14×14 @259,18
+  div.Checkbox__root  287×62 @0,176
+    div.Checkbox__row  287×62 @0,0
+      input.Checkbox__input  20×20 @0,11  r6  b1
+      label.Checkbox__label  256×42 @31,10  Manrope 400 15/21  lines=1  «Согласен на обработку данных —»
+        a.ReminderForm__policy  149×19 @0,22  Manrope 400 15/21  lines=1  «политикой обработки»
+        span.Checkbox__required  9×19 @149,22  Manrope 400 15/21  lines=1  «*»
+  p.ReminderForm__error  287×110 @0,250  Manrope 400 14/21  r11  b1  lines=2  «Слишком много запросов подряд. Подождите»
+    span.ReminderForm__errorCall  259×42 @14,57  Manrope 600 14/21  lines=2  «Не получается — позвоните: +7 (900) 000-»
+  button.Button__button  287×52 @0,372  r12  b1
+    span.Button__content  157×19 @65,16
+      span.Button__label  157×19 @0,0  Manrope 600 16/19  lines=1  «Напомнить о чистке»
+  div.ReminderForm__trap  1×1 @-10044,0  clipped
+    label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
+    input  206×24 @0,93  b2
+
+[геометрия 768]
+form.ReminderForm__form  364×315 @44,44
+  p[role=status]  1×1 @-1,-1  Manrope 400 15/23  lines=1  clipped  «Слишком много запросов подряд. Подождите»
+  div.ReminderForm__pair  364×76 @0,0
+    div.Field__field  176×76 @0,0
+      label.Field__label  176×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        span.Field__required  9×18 @56,1  Manrope 600 13/20  lines=1  «*»
+      input  176×49 @0,27  r11  b1
+    div.Field__field#2  176×76 @188,0
+      label.Field__label  176×20 @0,0  Manrope 600 13/20  lines=1  «Когда установили»
+      span.Select__wrapper  176×49 @0,27
+        select.Select__select  176×49 @0,0  r11  b1
+          option  0×0 @-232,-71  Manrope 400 15/21  lines=0  «Установили этим летом»
+          option#2  0×0 @-232,-71  Manrope 400 15/21  lines=0  «Установили в прошлом году»
+          option#3  0×0 @-232,-71  Manrope 400 15/21  lines=0  «Стоит больше двух лет»
+          option#4  0×0 @-232,-71  Manrope 400 15/21  lines=0  «Не помню, когда чистили»
+        svg.Select__chevron  14×14 @148,18
+  div.Checkbox__root  364×62 @0,88
+    div.Checkbox__row  364×62 @0,0
+      input.Checkbox__input  20×20 @0,11  r6  b1
+      label.Checkbox__label  333×42 @31,10  Manrope 400 15/21  lines=1  «Согласен на обработку данных —»
+        a.ReminderForm__policy  306×40 @0,1  Manrope 400 15/21  lines=2  «политикой обработки»
+        span.Checkbox__required  9×19 @73,22  Manrope 400 15/21  lines=1  «*»
+  p.ReminderForm__error  364×89 @0,162  Manrope 400 14/21  r11  b1  lines=2  «Слишком много запросов подряд. Подождите»
+    span.ReminderForm__errorCall  336×21 @14,57  Manrope 600 14/21  lines=1  «Не получается — позвоните: +7 (900) 000-»
+  button.Button__button  364×52 @0,263  r12  b1
+    span.Button__content  157×19 @103,16
+      span.Button__label  157×19 @0,0  Manrope 600 16/19  lines=1  «Напомнить о чистке»
+  div.ReminderForm__trap  1×1 @-10044,0  clipped
+    label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
+    input  206×24 @0,93  b2
+
+[геометрия 1200]
+form.ReminderForm__form  364×315 @44,44
+  p[role=status]  1×1 @-1,-1  Manrope 400 15/23  lines=1  clipped  «Слишком много запросов подряд. Подождите»
+  div.ReminderForm__pair  364×76 @0,0
+    div.Field__field  176×76 @0,0
+      label.Field__label  176×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+        span.Field__required  9×18 @56,1  Manrope 600 13/20  lines=1  «*»
+      input  176×49 @0,27  r11  b1
+    div.Field__field#2  176×76 @188,0
+      label.Field__label  176×20 @0,0  Manrope 600 13/20  lines=1  «Когда установили»
+      span.Select__wrapper  176×49 @0,27
+        select.Select__select  176×49 @0,0  r11  b1
+          option  0×0 @-232,-71  Manrope 400 15/21  lines=0  «Установили этим летом»
+          option#2  0×0 @-232,-71  Manrope 400 15/21  lines=0  «Установили в прошлом году»
+          option#3  0×0 @-232,-71  Manrope 400 15/21  lines=0  «Стоит больше двух лет»
+          option#4  0×0 @-232,-71  Manrope 400 15/21  lines=0  «Не помню, когда чистили»
+        svg.Select__chevron  14×14 @148,18
+  div.Checkbox__root  364×62 @0,88
+    div.Checkbox__row  364×62 @0,0
+      input.Checkbox__input  20×20 @0,11  r6  b1
+      label.Checkbox__label  333×42 @31,10  Manrope 400 15/21  lines=1  «Согласен на обработку данных —»
+        a.ReminderForm__policy  306×40 @0,1  Manrope 400 15/21  lines=2  «политикой обработки»
+        span.Checkbox__required  9×19 @73,22  Manrope 400 15/21  lines=1  «*»
+  p.ReminderForm__error  364×89 @0,162  Manrope 400 14/21  r11  b1  lines=2  «Слишком много запросов подряд. Подождите»
+    span.ReminderForm__errorCall  336×21 @14,57  Manrope 600 14/21  lines=1  «Не получается — позвоните: +7 (900) 000-»
+  button.Button__button  364×52 @0,263  r12  b1
+    span.Button__content  157×19 @103,16
+      span.Button__label  157×19 @0,0  Manrope 600 16/19  lines=1  «Напомнить о чистке»
+  div.ReminderForm__trap  1×1 @-10044,0  clipped
+    label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
+    input  206×24 @0,93  b2
+
+[палитра light]
+form.ReminderForm__form
+  p[role=status]  color #0f172a
+  div.ReminderForm__pair
+    div.Field__field
+      label.Field__label  color #c9d5e2
+        span.Field__required  color #22d3ee
+      input  bg color(srgb 1 1 1 / 0.06)  border #7e8fa6
+    div.Field__field#2
+      label.Field__label  color #c9d5e2
+      span.Select__wrapper
+        select.Select__select  bg color(srgb 1 1 1 / 0.06)  border #7e8fa6
+          option  color #eaf1f8
+          option#2  color #eaf1f8
+          option#3  color #eaf1f8
+          option#4  color #eaf1f8
+        svg.Select__chevron
+  div.Checkbox__root
+    div.Checkbox__row
+      input.Checkbox__input  bg #0e7490  border #0e7490
+      label.Checkbox__label  color #a8b6c6
+        a.ReminderForm__policy  color #22d3ee
+        span.Checkbox__required  color #22d3ee
+  p.ReminderForm__error  color color(srgb 1 1 1 / 0.92)  bg color(srgb 0.745098 0.0705882 0.235294 / 0.15)  border color(srgb 0.745098 0.0705882 0.235294 / 0.4)
+    span.ReminderForm__errorCall  color #22d3ee
+  button.Button__button  bg #0e7490  border #0e7490  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+    span.Button__content
+      span.Button__label  color #ffffff
+  div.ReminderForm__trap
+    label  color #0f172a
+    input  bg #ffffff  border #767676
+
+[палитра dark]
+form.ReminderForm__form
+  p[role=status]  color #eaf1f8
+  div.ReminderForm__pair
+    div.Field__field
+      label.Field__label  color #c9d5e2
+        span.Field__required  color #22d3ee
+      input  bg color(srgb 1 1 1 / 0.06)  border #566d95
+    div.Field__field#2
+      label.Field__label  color #c9d5e2
+      span.Select__wrapper
+        select.Select__select  bg color(srgb 1 1 1 / 0.06)  border #566d95
+          option  color #eaf1f8
+          option#2  color #eaf1f8
+          option#3  color #eaf1f8
+          option#4  color #eaf1f8
+        svg.Select__chevron
+  div.Checkbox__root
+    div.Checkbox__row
+      input.Checkbox__input  bg #0e7490  border #0e7490
+      label.Checkbox__label  color #a8b6c6
+        a.ReminderForm__policy  color #22d3ee
+        span.Checkbox__required  color #22d3ee
+  p.ReminderForm__error  color color(srgb 1 1 1 / 0.92)  bg color(srgb 0.984314 0.443137 0.521569 / 0.15)  border color(srgb 0.984314 0.443137 0.521569 / 0.4)
+    span.ReminderForm__errorCall  color #22d3ee
+  button.Button__button  bg #0e7490  border #0e7490  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+    span.Button__content
+      span.Button__label  color #ffffff
+  div.ReminderForm__trap
+    label  color #eaf1f8
+    input  bg #ffffff  border #767676

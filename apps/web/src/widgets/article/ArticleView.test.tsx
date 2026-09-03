@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
+import { articleLabels as labels } from '@/entities/article/ui';
+
 import { ArticleView } from './ArticleView';
 import { articleContent as t } from './content';
 import {
@@ -40,7 +42,7 @@ describe('Страница статьи', () => {
 
     expect(screen.getByText(articleFixture.category)).toBeInTheDocument();
     expect(screen.getByText('14 июня 2026')).toBeInTheDocument();
-    expect(screen.getByText(t.minutesLabel(articleFixture.minutes))).toBeInTheDocument();
+    expect(screen.getByText(labels.minutesLabel(articleFixture.minutes))).toBeInTheDocument();
   });
 
   it('оглавление ведёт на якоря заголовков самого текста', () => {
@@ -74,7 +76,7 @@ describe('Страница статьи', () => {
   it('обложка выводится с осмысленным `alt`', () => {
     renderArticle(articleWithCoverFixture);
 
-    expect(screen.getByAltText(t.coverAlt(articleWithCoverFixture.title))).toBeInTheDocument();
+    expect(screen.getByAltText(labels.coverAlt(articleWithCoverFixture.title))).toBeInTheDocument();
   });
 
   it('под текстом — переход к заявке и к коммерческим страницам', () => {
