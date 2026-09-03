@@ -1,7 +1,22 @@
 /** Подписи раздела клиентов. */
+import { ORDER_STATUS_TITLE, ORDER_TYPE_TITLE } from '@/entities/order/model';
+import type { OrderStatus, OrderType } from '@/entities/order/model';
 import type { ConfirmRequest } from '@/shared/ui';
-import { formatDateShort } from '@/shared/lib/format';
+import { formatDateShort, formatMoney } from '@/shared/lib/format';
 import { plural } from '@/shared/lib/plural';
+
+import type { ClientCardTab } from './model';
+
+/**
+ * Подписи вкладок карточки. Ключи адреса лежат в словаре
+ * `shared/config/admin-tabs`, подписи — здесь: словарь описывает адрес, а не
+ * текст на экране (ADR-255).
+ */
+export const CLIENT_TAB_TITLES: Readonly<Record<ClientCardTab, string>> = {
+  data: 'Данные',
+  orders: 'Заказы',
+  units: 'Техника',
+};
 
 export const clientManagerContent = {
   title: 'Клиенты',
@@ -40,6 +55,25 @@ export const clientManagerContent = {
 
   /** Подпись даты появления в списке: рядом с ней стоит сама дата. */
   sinceLabel: 'В базе',
+
+  tabsLabel: 'Карточка клиента',
+  tabTitle: (tab: ClientCardTab): string => CLIENT_TAB_TITLES[tab],
+
+  /* ---------- Заказы клиента ---------- */
+
+  ordersTitle: 'История заказов',
+  ordersHint: 'Все работы у этого человека: когда ездили, кто и на какую сумму.',
+  ordersEmpty:
+    'Нарядов у этого человека ещё не было. Первый заводится из обращения кнопкой «Создать заказ» или в разделе заказов.',
+  ordersAll: 'Все наряды клиента',
+  ordersShown: (shown: number, total: number): string =>
+    `Показаны последние ${shown} из ${total}: остальные — в разделе заказов`,
+  orderNumber: (number: number): string => `№ ${number}`,
+  orderType: (type: OrderType): string => ORDER_TYPE_TITLE[type],
+  orderStatus: (status: OrderStatus): string => ORDER_STATUS_TITLE[status],
+  /** Сумма заказа. Прочерк — цену ещё не проставили, а не «работа бесплатная». */
+  orderPrice: (value: number | null): string => (value === null ? '—' : formatMoney(value)),
+  orderInstaller: (name: string | null): string => name ?? 'Исполнитель не назначен',
 
   cardTitle: 'Данные клиента',
   cardHint: 'Правка не трогает обращения: в них остаётся то, что человек прислал сам.',

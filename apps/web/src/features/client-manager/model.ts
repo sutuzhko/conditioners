@@ -4,6 +4,8 @@ import type { Route } from 'next';
 import { dayOf } from '@/entities/client/lib/units';
 import type { ClientUnitCard } from '@/entities/client/model';
 import type { LeadStatus } from '@/entities/lead/model';
+import type { OrderStatus, OrderType } from '@/entities/order/model';
+import { PANEL_TABS, resolvePanelTab, type PanelTab } from '@/shared/config/admin-tabs';
 
 export type { ClientCard, ClientCreate, ClientPage, ClientUpdate } from '@/entities/client/model';
 
@@ -24,6 +26,52 @@ export const CLIENTS_PATH = '/admin/clients' satisfies Route;
  * `article-form/model.ts`.
  */
 export const CLIENT_NEW_PATH = '/admin/clients/new' satisfies Route;
+
+/* ---------- Вкладки карточки ---------- */
+
+/**
+ * Три вкладки карточки клиента: данные, заказы, техника (issue #350).
+ *
+ * 🔴 «Техника» — половина смысла карточки (CRM.md §3.2): она появляется сама
+ * после выполненного монтажа и отвечает на вопрос «что у человека стоит и до
+ * какого числа на это гарантия». В прежнем макете вкладки не было вовсе, и
+ * верстающий по нему её терял.
+ */
+export const CLIENT_CARD_TABS = PANEL_TABS.clientCard;
+export type ClientCardTab = PanelTab<'clientCard'>;
+
+/** Вкладка из адреса. Мусор и пустота открывают «Данные» (issue #341). */
+export function clientCardTabFromParam(value: unknown): ClientCardTab {
+  return resolvePanelTab(CLIENT_CARD_TABS, value);
+}
+
+/**
+ * Наряд в карточке клиента: номер, когда, что за работа, чем кончилось и на
+ * какую сумму (CRM.md §3.2).
+ *
+ * 🔴 Проекция, а не `OrderCard` целиком. Через границу сервер→клиент уезжает
+ * ровно то, что видно на экране: позиции оборудования, чеклист и заметка
+ * владельца в карточке клиента не показываются, а значит и приезжать в
+ * браузер им незачем.
+ */
+export type ClientOrder = {
+  readonly id: string;
+  readonly number: number;
+  readonly type: OrderType;
+  readonly status: OrderStatus;
+  /** ISO в UTC: в московское время переводит подпись при показе. */
+  readonly at: string;
+  readonly address: string;
+  /** Сумма заказа. `null` — наряд без денег: цену ещё не проставили. */
+  readonly price: number | null;
+  readonly installerName: string | null;
+};
+
+/** Наряды клиента с общим их числом: карточка показывает последние. */
+export type ClientOrders = {
+  readonly items: readonly ClientOrder[];
+  readonly total: number;
+};
 
 /** Ответ действия: успех либо готовый к показу текст ошибки. */
 export type ClientResult =

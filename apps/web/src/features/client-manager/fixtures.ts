@@ -1,5 +1,6 @@
 /** Данные для историй и тестов раздела клиентов. */
 import type {
+  ClientOrder,
   ClientApi,
   ClientCard,
   ClientLead,
@@ -150,3 +151,47 @@ export const failingUnitApi: ClientUnitApi = {
   update: async () => ({ ok: false, message: 'Укажите дату монтажа', field: 'installedAt' }),
   remove: async () => ({ ok: false, message: 'Сервер не принял изменения. Попробуйте ещё раз' }),
 };
+
+/**
+ * История заказов клиента: выполненный, идущий и заведённый без цены.
+ *
+ * Именованные записи, а не индексы массива: история, которой нужен именно
+ * наряд без цены, не должна знать, каким он идёт по счёту.
+ *
+ * Суммы демонстрационные — настоящие приходят из нарядов (инвариант 8).
+ */
+export const doneOrder: ClientOrder = {
+  id: 'o1',
+  number: 1059,
+  type: 'install',
+  status: 'done',
+  at: '2026-08-14T07:00:00.000Z',
+  address: 'Тула, ул. Токарева, 88, кв. 204',
+  price: 44900,
+  installerName: 'Захаров Илья',
+};
+
+export const runningOrder: ClientOrder = {
+  id: 'o2',
+  number: 1064,
+  type: 'service',
+  status: 'in_progress',
+  at: '2026-08-28T09:30:00.000Z',
+  address: 'Тула, Красноармейский проспект, 12, офис 3',
+  price: 6000,
+  installerName: 'Миронов Артём',
+};
+
+/** Цену ещё не проставили: на экране это прочерк, а не ноль. */
+export const pricelessOrder: ClientOrder = {
+  id: 'o3',
+  number: 1071,
+  type: 'repair',
+  status: 'new',
+  at: '2026-09-04T06:00:00.000Z',
+  address: 'Тула, ул. Демонстрации, 1',
+  price: null,
+  installerName: null,
+};
+
+export const clientOrders: readonly ClientOrder[] = [doneOrder, runningOrder, pricelessOrder];
