@@ -1,7 +1,6 @@
-/* Листинг Базы знаний. Ритм секции и типографика — те же, что у тизера на
-   главной (docs/PIXEL_SPEC.md, «БАЗА ЗНАНИЙ»): 88px 24px, H1 из шкалы,
-   надзаголовок 13px моноширинный, карточки в две колонки, как в макете
-   `design/База знаний.dc.html`. */
+/* Листинг Базы знаний. Карточка та же, что в тизере на главной
+   (`entities/article/ui/ArticleCard`), сетка — 1 / 2 / 3 / 3 колонки по
+   порогам 600 / 900 / 1200 (issue #279). */
 
 .section {
   background: var(--bg);
@@ -16,7 +15,7 @@
 
 .head {
   max-width: 680px;
-  margin-bottom: 36px;
+  margin-bottom: clamp(20px, 0.8rem + 1.6vw, 36px);
 }
 
 .kicker {
@@ -47,16 +46,52 @@
 /* --- рубрики --- */
 
 .filter {
-  margin-bottom: 32px;
+  margin-bottom: clamp(20px, 0.8rem + 1.4vw, 32px);
 }
 
+/* 🔴 Лента рубрик до 900 (issue #279, правило лент из issue #261). Рубрик
+   бывает семь, все короткие, и переносом они съедали бы три строки над
+   выдачей. Лента допустима только с тремя признаками продолжения, и здесь
+   они все:
+
+   1. Поля по краям — лента выходит за поле контейнера отрицательным полем и
+      возвращает отступ через `padding-inline`: первый чип отбит от края, а
+      последний уезжает под край, а не обрывается об него.
+   2. Затухание маской у правого края — единственное, что говорит «здесь есть
+      продолжение», когда полосы прокрутки не видно.
+   3. Обрыв по своей границе: `white-space: nowrap` у чипа, рвётся расстояние
+      между чипами, а не подпись.
+
+   Вертикальные поля — место под кольцо фокуса: `overflow-x: auto` делает
+   контейнер обрезающим по обеим осям, и внешняя тень кольца срезалась бы. */
 .tabs {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 10px;
-  margin: 0;
-  padding: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  margin: -6px calc(var(--gutter) * -1);
+  padding: 6px var(--gutter);
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
   list-style: none;
+  mask-image: var(--fade-inline-end);
+}
+
+.tabs > * {
+  scroll-snap-align: start;
+}
+
+/* У последнего чипа точка снапа своя — по концу ленты: со снапом по началу
+   жест до упора отскакивал назад и прятал последнюю рубрику. */
+.tabs > *:last-child {
+  scroll-snap-align: end;
+}
+
+/* WebKit прячет полосу своим свойством, а не `scrollbar-width`. */
+.tabs::-webkit-scrollbar {
+  display: none;
 }
 
 /* Ссылка в оформлении чипа. Компонент Chip — это button со своим состоянием,
@@ -69,7 +104,7 @@
   box-sizing: border-box;
   min-height: var(--tap);
   padding: 11px 18px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--line-ui);
   border-radius: var(--r-pill);
   color: var(--body);
   font-size: var(--fs-dense);
@@ -113,11 +148,17 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(12px, 0.5rem + 0.6vw, 16px);
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* --- разбивка на страницы --- */
+
+.pager {
+  margin-top: clamp(24px, 1rem + 1.6vw, 40px);
 }
 
 /* --- пустые состояния --- */
@@ -159,27 +200,30 @@
   text-decoration: underline;
 }
 
-@media (width < 900px) {
-  .head {
-    margin-bottom: 28px;
-  }
-
-  .grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
 @media (width < 600px) {
-  .container {
-    padding-right: 16px;
-    padding-left: 16px;
-  }
-
   .lead {
     font-size: var(--fs-base);
   }
+}
+
+@media (width >= 600px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* С 900 рубрик помещается достаточно, чтобы лента перестала быть нужна:
+   переносим строками, маску и прокрутку снимаем. */
+@media (width >= 900px) {
+  .tabs {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    margin: 0;
+    padding: 0;
+    mask-image: none;
+  }
 
   .grid {
-    gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

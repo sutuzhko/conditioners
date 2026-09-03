@@ -4,6 +4,7 @@ import { ArticleList } from './ArticleList';
 import {
   articleHrefFixture,
   categoryHrefFixture,
+  pagedFixture,
   singleCategoryFixture,
   teasersFixture,
 } from './fixtures';
@@ -17,7 +18,11 @@ import {
 const meta = {
   title: 'Страницы/База знаний/Листинг',
   component: ArticleList,
-  args: { categoryHref: categoryHrefFixture, articleHref: articleHrefFixture },
+  args: {
+    categoryHref: categoryHrefFixture,
+    articleHref: articleHrefFixture,
+    basePath: '/knowledge',
+  },
   parameters: { layout: 'fullscreen' },
 } satisfies Meta<typeof ArticleList>;
 
@@ -67,4 +72,14 @@ export const Narrow: Story = {
   name: 'Минимум 320',
   args: { articles: teasersFixture },
   globals: { viewport: { value: 'xs' } },
+};
+
+/**
+ * Разбивка на страницы: девять карточек на странице, ссылки соседних страниц
+ * и подпись положения. Состояние появляется только на длинном разделе,
+ * поэтому фикстура размножена.
+ */
+export const Paged: Story = {
+  name: 'Разбивка на страницы',
+  args: { articles: pagedFixture, activePage: 2 },
 };

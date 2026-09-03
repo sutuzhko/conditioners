@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
-import { Card } from '@/shared/ui';
+import { ArticleCard } from '@/entities/article/ui';
+import { Card, Pager } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
-import { pageSlug } from '@/shared/lib/slug';
 
 import { articleContent as t } from './content';
+import { selectArticles } from './lib';
 import type { ArticleTeaser } from './model';
-import { ArticleListCard } from './ui/ArticleListCard';
 import styles from './ArticleList.module.css';
 
 const HEADING_ID = 'knowledge-title';
@@ -23,58 +23,48 @@ export interface ArticleListProps {
   articles?: readonly ArticleTeaser[] | undefined;
   /** Слаг выбранной рубрики из адреса; `null` — показаны все статьи. */
   activeCategory?: string | null | undefined;
+  /** Номер страницы из адреса, считая с единицы. */
+  activePage?: number | undefined;
   /** Адрес листинга с фильтром по рубрике; `null` — адрес без фильтра. */
   categoryHref: (category: string | null) => ButtonLinkHref;
   /** Адрес статьи по её слагу: карта URL принадлежит странице (docs/SEO.md §1). */
   articleHref: (slug: string) => ButtonLinkHref;
-}
-
-interface CategoryTab {
-  readonly slug: string | null;
-  readonly label: string;
-  readonly selected: boolean;
-}
-
-/**
- * Рубрики в порядке первого появления, то есть от свежей статьи к старой:
- * отдельного поля сортировки у рубрики нет, а алфавит поставил бы вперёд
- * случайную.
- */
-function collectCategories(articles: readonly ArticleTeaser[]): readonly string[] {
-  const seen = new Map<string, string>();
-  for (const article of articles) {
-    const label = article.category.trim();
-    if (label === '') continue;
-    const slug = pageSlug(label);
-    if (!seen.has(slug)) seen.set(slug, label);
-  }
-  return [...seen.values()];
+  /** Путь листинга — по нему разбивка собирает адреса соседних страниц. */
+  basePath: string;
+  /** Что сохраняется при переходе по страницам: выбранная рубрика. */
+  pagerQuery?: Readonly<Record<string, string>> | undefined;
 }
 
 /**
  * Листинг Базы знаний.
  *
- * 🔴 Фильтр рубрик — обычные ссылки, а не кнопки с состоянием: отфильтрованный
- * список приходит с сервера готовым и работает без JavaScript (инвариант 1).
- * Робот и человек с выключенными скриптами видят один и тот же раздел.
+ * 🔴 И фильтр рубрик, и разбивка на страницы — обычные ссылки, а не состояние
+ * на клиенте: отфильтрованный список приходит с сервера готовым и работает
+ * без JavaScript (инвариант 1). Робот и человек с выключенными скриптами
+ * видят один и тот же раздел.
  */
 export function ArticleList({
   articles = [],
   activeCategory = null,
+  activePage = 1,
   categoryHref,
   articleHref,
+  basePath,
+  pagerQuery,
 }: ArticleListProps) {
-  const categories = collectCategories(articles);
   const active = activeCategory === null || activeCategory === '' ? null : activeCategory;
-  const shown =
-    active === null ? articles : articles.filter((a) => pageSlug(a.category) === active);
+  const { categories, page, published } = selectArticles({
+    articles,
+    category: active,
+    page: activePage,
+  });
 
-  const tabs: readonly CategoryTab[] = [
+  const tabs = [
     { slug: null, label: t.allCategories, selected: active === null },
-    ...categories.map((label) => ({
-      slug: pageSlug(label),
-      label,
-      selected: pageSlug(label) === active,
+    ...categories.map((category) => ({
+      slug: category.slug,
+      label: category.label,
+      selected: category.slug === active,
     })),
   ];
 
@@ -107,14 +97,14 @@ export function ArticleList({
           </nav>
         )}
 
-        {articles.length === 0 ? (
+        {published === 0 ? (
           <Card variant="soft" padding="lg" className={styles.empty}>
             <p className={styles.emptyTitle}>{t.emptyTitle}</p>
             <p className={styles.emptyText}>{t.emptyText}</p>
           </Card>
         ) : null}
 
-        {articles.length > 0 && shown.length === 0 ? (
+        {published > 0 && page.total === 0 ? (
           <Card variant="soft" padding="lg" className={styles.empty}>
             <p className={styles.emptyTitle}>{t.emptyFilterTitle}</p>
             <p className={styles.emptyText}>{t.emptyFilterText}</p>
@@ -124,17 +114,33 @@ export function ArticleList({
           </Card>
         ) : null}
 
-        {shown.length === 0 ? null : (
+        {page.items.length === 0 ? null : (
           <ul className={styles.grid} aria-label={t.listLabel}>
-            {shown.map((article) => (
-              <ArticleListCard
+            {page.items.map((article) => (
+              <ArticleCard
                 key={article.id}
                 article={article}
                 href={articleHref(article.slug)}
+                headingLevel={2}
               />
             ))}
           </ul>
         )}
+
+        {/* Разбивка ссылками: страница остаётся в адресе, её можно сохранить
+            и прислать, и она не стоит ни килобайта в бюджете JS. */}
+        <div className={styles.pager}>
+          <Pager
+            page={page.page}
+            pages={page.pages}
+            basePath={basePath}
+            query={pagerQuery}
+            label={t.pagerLabel}
+            prevLabel={t.pagerPrev}
+            nextLabel={t.pagerNext}
+            position={t.pagerPosition}
+          />
+        </div>
       </div>
     </section>
   );
