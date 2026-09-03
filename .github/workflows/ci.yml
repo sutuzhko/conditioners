@@ -1643,12 +1643,33 @@ jobs:
   # сайте. До этой работы их не гонял никто: 971 строка сценариев лежала в
   # репозитории и не запускалась ни разу за прогон.
   #
-  # Полторы минуты на оба профиля — это шаг, а не повод для отдельной долгой
-  # работы. Но идёт он в дев-образе, а не на голом раннере: там уже стоит
-  # системный chromium и задан CHROMIUM_PATH (ADR-021), а ставить браузеры
-  # заново — минуты на каждый прогон.
-  e2e:
+  # 🔴 Сценарии идут четырьмя группами на своих раннерах (ADR-242, план
+  # `docs/plan-e2e-ci-parallel.md`). Одним куском работа шла 10:16 — 8:17 из
+  # них сами сценарии одним воркером — и была критическим путём пайплайна.
+  # Группы явные, а не `--shard` Playwright: встроенный шардинг режет список по
+  # числу тестов подряд, профили идут друг за другом, и первый шард получал бы
+  # оболочку и состояния панели на пять минут при почти пустых мобильных.
+  # Состав групп и сторож «каждый spec-файл ровно в одной группе» —
+  # `scripts/e2e-groups.mjs`.
+  #
+  # У каждой группы своя база, свой сид и своё приложение: сценарии правят
+  # прайс, реквизиты и статусы заявок и убирают за собой, и общая база на
+  # четыре параллельных прогона перемешала бы их. Один воркер внутри группы:
+  # дев-сервер компилирует страницу по первому обращению однопоточно (ADR-222),
+  # второй браузер дал бы гонку за компиляцию, а не время.
+  #
+  # Идёт в дев-образе, а не на голом раннере: там уже стоит системный chromium
+  # и задан CHROMIUM_PATH (ADR-021), а ставить браузеры заново — минуты на
+  # каждый прогон.
+  e2e-shard:
     runs-on: ubuntu-latest
+
+    # Упавшая группа не отменяет соседние: сводному вердикту нужны итоги всех
+    # групп — иначе «итога нет» прячет настоящую причину.
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [site, shell, panel, flows]
 
     env:
       # 🔴 Адрес тот же, по которому сценарии стучатся в приложение: из него
@@ -1660,9 +1681,21 @@ jobs:
       SESSION_SECRET: ci-secret-not-used-anywhere
       NEXT_TELEMETRY_DISABLED: '1'
       ADMIN_LOGIN: admin
+      DB_URL: postgresql://tk:ci@db:5432/tulaklimat?schema=public
+      E2E_GROUP: ${{ matrix.group }}
 
     steps:
       - uses: actions/checkout@v4
+
+      # Файлы группы — из одного места, `scripts/e2e-groups.mjs`. Опечатка в
+      # имени группы там громкая ошибка, а не пустой список: пустой список
+      # Playwright прочёл бы как «весь набор», и шард молча шёл бы десять минут.
+      - name: Файлы группы
+        id: group
+        run: |
+          files=$(node scripts/e2e-groups.mjs --group "$E2E_GROUP")
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+          echo "Группа $E2E_GROUP: $files"
 
       - name: Дев-образ
         run: docker build --target dev -t tulaklimat-dev:ci .
@@ -1710,8 +1743,6 @@ jobs:
           docker run --rm --network e2e -e DATABASE_URL="$DB_URL" \
             -e SITE_URL -e SESSION_SECRET tulaklimat-dev:ci \
             pnpm --filter web seed:demo
-        env:
-          DB_URL: postgresql://tk:ci@db:5432/tulaklimat?schema=public
 
       - name: Приложение под сценарии
         run: |
@@ -1733,32 +1764,108 @@ jobs:
               console.error('приложение не поднялось за три минуты');
               process.exit(1);
             })()"
-        env:
-          DB_URL: postgresql://tk:ci@db:5432/tulaklimat?schema=public
 
-      - name: Сквозные сценарии
+      # 🔴 Шаг работу не роняет: вердикт выносит сводная работа — ей нужны
+      # итоги всех групп разом. Отчёт JSON-репортера пишется в смонтированный
+      # каталог: из него сводка берёт числа и имена упавших и flaky. Файлы
+      # группы — позиционными аргументами `playwright test`. Переменные раннеру
+      # передаются явно: `docker run` окружения шага не наследует (ADR-222).
+      - name: Сценарии группы
+        id: run
+        continue-on-error: true
+        env:
+          E2E_FILES: ${{ steps.group.outputs.files }}
         run: |
+          mkdir -p e2e-outcome
           docker run --name e2e-run --network e2e \
+            -v "$PWD/e2e-outcome:/e2e/outcome" \
             -e DATABASE_URL="$DB_URL" -e SITE_URL -e SESSION_SECRET \
             -e E2E_BASE_URL=http://web:3000 \
             -e E2E_ADMIN_LOGIN=admin -e E2E_ADMIN_PASSWORD=admin \
-            -e CI=1 tulaklimat-dev:ci pnpm --filter web e2e
-        env:
-          DB_URL: postgresql://tk:ci@db:5432/tulaklimat?schema=public
+            -e PLAYWRIGHT_JSON_OUTPUT_NAME="/e2e/outcome/report-$E2E_GROUP.json" \
+            -e CI=1 tulaklimat-dev:ci \
+            pnpm --filter web e2e --reporter=dot,json $E2E_FILES
+
+      # Исход раннера — маркером рядом с отчётом: сводке он нужен, чтобы
+      # отличить «раннер упал, а отчёт этого не объясняет» от чистого прогона.
+      - name: Маркер исхода раннера
+        if: ${{ !cancelled() }}
+        run: echo "${{ steps.run.outcome }}" > "e2e-outcome/runner-$E2E_GROUP"
+
+      # Итоги — сводной работе. Выгружаются и при красном раннере: сводка
+      # обязана видеть всё, что он успел записать.
+      - name: Итоги — сводной работе
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-outcome-${{ matrix.group }}
+          path: e2e-outcome
+          retention-days: 7
 
       # Трассы Playwright уже пишутся при первом ретрае: без них «сценарий
-      # упал» не говорит, на каком шаге и что было на экране
+      # упал» не говорит, на каком шаге и что было на экране. Забираются
+      # копией, а не монтированием: Playwright сносит каталог результатов
+      # перед прогоном, а точку монтирования изнутри контейнера снести нельзя.
       - name: Трассы упавших сценариев
-        if: failure()
+        if: ${{ !cancelled() && steps.run.outcome != 'success' }}
         run: docker cp e2e-run:/app/apps/web/test-results ./e2e-results || true
 
       - uses: actions/upload-artifact@v4
-        if: failure()
+        if: ${{ !cancelled() && hashFiles('e2e-results/**') != '' }}
         with:
-          name: e2e-trace
+          name: e2e-trace-${{ matrix.group }}
           path: e2e-results
           retention-days: 7
 
       - name: Журнал приложения
-        if: failure()
+        if: ${{ !cancelled() && steps.run.outcome != 'success' }}
         run: docker logs e2e-web | tail -80
+
+  # 🔴 Сводный вердикт по сквозным сценариям. Имя `e2e` — обязательная проверка
+  # защиты `main`, и оно не меняется: группы пришли и ушли бы из требуемых
+  # проверок только правкой защиты руками. `if: !cancelled()` обязателен: без
+  # него красный шард пропускает сводку, а пропущенная обязательная проверка
+  # блокирует merge молча — и наоборот, зелёная сводка обязана состояться
+  # только после всех групп.
+  e2e:
+    runs-on: ubuntu-latest
+    needs: e2e-shard
+    if: ${{ !cancelled() }}
+
+    steps:
+      # Чекаут — ради `scripts/e2e-groups.mjs` и `scripts/e2e-summary.mjs`.
+      - uses: actions/checkout@v4
+
+      # 🔴 Файл, которого нет ни в одной группе, не шёл ни на одном раннере — и
+      # без этого шага сводка была бы зелёной, не зная о нём. Та же проверка
+      # лежит тестом vitest в `check`; здесь она красит сам вердикт `e2e`.
+      - name: Состав групп
+        run: node scripts/e2e-groups.mjs --check
+
+      # Отсутствие части артефактов — не ошибка шага, а факт для сводки:
+      # группу без итога она красит сама и называет по имени.
+      - name: Итоги групп
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: e2e-outcome-*
+          merge-multiple: true
+          path: e2e-outcome
+
+      # Исход шардов как работ — сводке: маркеры исхода раннера она читает
+      # сама, а шард, упавший раньше маркера, виден только здесь.
+      - name: Флаг шардов
+        id: shards
+        run: |
+          flag=success
+          [ "${{ join(needs.*.result, '') }}" = "success" ] || flag=failure
+          echo "flag=$flag" >> "$GITHUB_OUTPUT"
+          echo "Шарды: ${{ join(needs.*.result, '') }}"
+
+      # Красит на упавших сценариях, на группе без итога, на группе без единого
+      # пройденного сценария и на раннере, упавшем без объяснения в отчёте;
+      # flaky показывает предупреждением.
+      - name: Сводка и вердикт сценариев
+        run: |
+          node scripts/e2e-summary.mjs \
+            --outcome e2e-outcome --runner "${{ steps.shards.outputs.flag }}"
