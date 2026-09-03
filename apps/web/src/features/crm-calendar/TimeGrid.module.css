@@ -60,6 +60,13 @@
   text-decoration: none;
 }
 
+/* Ссылка дня — цель, и по ней открывают день: 18.6px по строке текста были
+   ниже минимума AA (WCAG 2.5.8, issue #470). Выравнивание остаётся по базовой
+   линии — число и день недели стоят на одной строке. */
+.headLink {
+  min-height: 24px;
+}
+
 .headWeekday {
   color: var(--muted);
   font-size: var(--fs-micro);
