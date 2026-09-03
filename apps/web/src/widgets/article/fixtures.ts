@@ -22,6 +22,13 @@ export function categoryHrefFixture(category: string | null): ButtonLinkHref {
   return category === null ? '/knowledge' : { pathname: '/knowledge', query: { category } };
 }
 
+/**
+ * Длинный раздел: столько статей, чтобы разбивка на страницы появилась.
+ * Числом, а не «побольше»: одна страница по девять — значит четырнадцать
+ * даёт вторую страницу с пятью карточками, то есть неполный ряд.
+ */
+export const PAGED_COUNT = 14;
+
 export const listHrefFixture: ButtonLinkHref = '/knowledge';
 export const leadHrefFixture: ButtonLinkHref = '/#lead';
 
@@ -89,6 +96,25 @@ export const singleCategoryFixture: readonly ArticleTeaser[] = [
     cover: null,
   },
 ];
+
+/**
+ * Раздел на несколько страниц. Собран размножением витринных статей: важна
+ * не их непохожесть, а то, что разбивка появляется и последний ряд неполный.
+ */
+export const pagedFixture: readonly ArticleTeaser[] = Array.from(
+  { length: PAGED_COUNT },
+  (_, index) => {
+    const source = teasersFixture[index % teasersFixture.length];
+    if (source === undefined) throw new Error('фикстура статей пуста');
+
+    return {
+      ...source,
+      id: `paged-${index}`,
+      slug: `${source.slug}-${index}`,
+      title: `${source.title} — часть ${index + 1}`,
+    };
+  },
+);
 
 /** Текст в мини-формате PROJECT §2.7 — ровно в том виде, в каком его правит владелец. */
 export const bodyFixture = [

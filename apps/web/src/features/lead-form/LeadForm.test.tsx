@@ -27,6 +27,88 @@ async function fillRequired(user: ReturnType<typeof userEvent.setup>): Promise<v
 const submitButton = () => screen.getByRole('button', { name: texts.submit });
 
 describe('LeadForm', () => {
+  /**
+   * 🔴 Форма заявки — точка, ради которой существует сайт, и открытая анкета
+   * из девяти полей отпугивает раньше, чем человек дойдёт до кнопки
+   * (issue #276). Открыто ровно то, без чего заявку не принять.
+   */
+  it('🔴 до раскрывашки открыто три поля плюс согласие', () => {
+    const { container } = setup();
+
+    const extras = container.querySelector('details');
+    expect(extras).not.toBeNull();
+    expect(extras?.open).toBe(false);
+
+    const open = [...container.querySelectorAll('input, select, textarea')].filter(
+      (field) => field.closest('details') === null && field.getAttribute('tabindex') !== '-1',
+    );
+
+    expect(open.map((field) => field.getAttribute('name'))).toEqual([
+      'name',
+      'phone',
+      'topic',
+      'consent',
+    ]);
+  });
+
+  /**
+   * 🔴 Обрезка — только показ: необязательные поля остаются в разметке в обоих
+   * положениях `<details>`, и отправляется всё, что человек заполнил
+   * (ADR-237).
+   */
+  it('🔴 спрятанные поля остаются в разметке и уезжают с заявкой', async () => {
+    const user = userEvent.setup();
+    const { submit, container } = setup();
+
+    const address = screen.getByLabelText(texts.addressLabel);
+    expect(address.closest('details')).not.toBeNull();
+
+    const summary = screen.getByText(texts.extrasLabel);
+    await user.click(summary);
+    expect(container.querySelector('details')?.open).toBe(true);
+
+    await user.type(address, 'ул. Оборонная, 12');
+    await fillRequired(user);
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    await waitFor(() => expect(submit).toHaveBeenCalled());
+    const sent = submit.mock.calls[0]?.[0];
+    expect(sent?.get('address')).toBe('ул. Оборонная, 12');
+  });
+
+  /**
+   * 🔴 Закрытый `<details>` держит поля в `display: none`, и `focus()` в них
+   * не попадает: человек получил бы сообщение об ошибке и не нашёл, где её
+   * править (issue #276).
+   */
+  it('🔴 ошибка сервера в спрятанном поле раскрывает блок и ведёт туда фокус', async () => {
+    const user = userEvent.setup();
+    const submit = vi.fn<LeadSubmit>(() =>
+      Promise.resolve({ ok: false, message: 'Адрес слишком длинный', field: 'address' }),
+    );
+    const { container } = setup({ submit });
+
+    await fillRequired(user);
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    await waitFor(() => expect(container.querySelector('details')?.open).toBe(true));
+    expect(screen.getByLabelText(texts.addressLabel)).toHaveFocus();
+  });
+
+  /**
+   * 🔴 Телефон — запасной путь, и стоит он под кнопкой всегда, а не только
+   * после отказа: человек, который формам не доверяет, обязан видеть номер
+   * там же, где кнопку (issue #276).
+   */
+  it('🔴 телефон стоит под кнопкой в спокойном состоянии', () => {
+    setup();
+
+    const call = screen.getByRole('link', { name: /\d/ });
+    expect(call).toHaveAttribute('href', `tel:${phoneFixture}`);
+  });
+
   it('без согласия на обработку данных не отправляется', async () => {
     const user = userEvent.setup();
     const { submit } = setup();

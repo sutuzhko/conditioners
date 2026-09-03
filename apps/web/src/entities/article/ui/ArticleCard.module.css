@@ -1,0 +1,221 @@
+/* Карточка статьи. Одна на тизер главной и на листинг `/knowledge`
+   (issue #279). Меняется строением на порогах 600 и 1200 — между ними
+   тянется, а не стоит:
+
+   320–599 · телефон — без обложки. Она занимала во всю ширину карточки по
+   300px и не несла ничего: на плашке нарисована рубрика, которая тут же
+   написана ярлыком. Карточка выходит около 200px вместо 445.
+   600–1199 · крупный и планшет — обложка возвращается узкой полосой слева.
+   ≥1200 · десктоп — обложка сверху, как было. */
+
+.card {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  border-radius: var(--r-lg);
+}
+
+/* 🔴 Обложки на телефоне нет вовсе, и скрыта она вместе с контейнером:
+   ленивая картинка внутри `display: none` в область видимости не попадает
+   никогда, то есть не грузится. Свойство `content-visibility` тут не годится
+   — оно откладывает отрисовку, но не загрузку.
+
+   `position: relative` стоит здесь, а не там, где обложка показывается:
+   от него считается плашка на месте отсутствующего файла, и разъехаться с
+   показом ей нельзя. */
+.media {
+  position: relative;
+  display: none;
+}
+
+.cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Плашка на месте обложки, когда файла нет (ADR-127). Это оформление, а не
+   подменённый контент: стоковая картинка нарушила бы «не публиковать чужое»,
+   типографика на фоне из токенов — нет. */
+.placeholder {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  inset: 0;
+  background-color: var(--bg-soft);
+  background-image: linear-gradient(135deg, transparent 40%, var(--accent-bg) 100%);
+  color: var(--ink2);
+  font-family: var(--font-display);
+  font-size: clamp(19px, 2.6vw, 27px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  /* Зазор между ярлыком, заголовком, лидом и подписью. Тянется вместе с
+     полем карточки: на 320 воздуха между четырьмя строками нужно меньше. */
+  gap: clamp(8px, 0.34vw + 6.9px, 12px);
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--card-pad);
+}
+
+/* Ярлык рубрики. Высоту 24px и кегль 12px задаёт `Badge size="sm"` из кита;
+   верхний регистр и разрядка — оформление ярлыка именно здесь.
+
+   🔴 Кегль 11px из макета не берётся: ADR-158 поднял все плашки до 12px,
+   потому что 11px складывался с низким контрастом и на телефоне при ярком
+   свете не читался вовсе. */
+.category {
+  align-self: flex-start;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+
+  /* Заголовок статьи пишет владелец, и длина его ничем не ограничена.
+     Три строки — потолок, после которого карточка перестаёт быть карточкой. */
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* Ссылка накрывает карточку целиком, но доступным именем ссылки остаётся
+   заголовок, а не весь текст карточки. */
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link::after {
+  position: absolute;
+  border-radius: var(--r-lg);
+  content: '';
+  inset: 0;
+}
+
+/* У карточки overflow: hidden ради обложки — он обрезал бы внешнее кольцо,
+   поэтому фокус рисуется внутрь перекрытия (docs/DESIGN_BRIEF.md §12). */
+.link:focus-visible {
+  outline: none;
+}
+
+.link:focus-visible::after {
+  box-shadow: var(--ring-focus-inset);
+}
+
+/* 🔴 Лид обрывается многоточием по слову, а не краем карточки: две строки на
+   телефоне, три на планшете. Без обрыва анонс в 300 знаков растягивал
+   карточку вдвое, и высота карточек в ряду переставала совпадать. */
+.excerpt {
+  display: -webkit-box;
+  overflow: hidden;
+  flex: 1;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+  line-height: 1.5;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.meta {
+  margin: 0;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+}
+
+/* --- 600–1199: обложка узкой полосой слева --- */
+
+@media (width >= 600px) {
+  .card {
+    flex-direction: row;
+    align-items: stretch;
+
+    /* 🔴 Карточка объявлена контейнером запроса, потому что полоса обложки
+       съедает не проценты, а пиксели: 96px из 277px колонки на 900 оставляли
+       заголовку 149px — восемь знаков в строке. Ширина окна об этом ничего не
+       говорит: на 900 колонок три, на 768 их две, и карточка там шире. Тот же
+       приём уже держит кегль цены в каталоге (`--fs-card-price`, `cqi`). */
+    container-type: inline-size;
+  }
+
+  .excerpt {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  /* Полоса появляется, только когда карточке есть чем её оплатить: 330px —
+     ширина, при которой под текстом остаётся больше двухсот пикселей. */
+  @container (min-width: 330px) {
+    .media {
+      display: block;
+      flex: 0 0 auto;
+      width: clamp(88px, 8vw, 112px);
+      background: var(--bg-soft);
+      aspect-ratio: 1;
+    }
+
+    /* Полосы у статьи без обложки нет: плашка в квадрате 96px нечитаема,
+       а рубрику называет ярлык рядом. */
+    .media[data-empty='true'] {
+      display: none;
+    }
+  }
+}
+
+/* --- ≥1200: обложка сверху, как было --- */
+
+@media (width >= 1200px) {
+  .card {
+    flex-direction: column;
+  }
+
+  .media,
+  .media[data-empty='true'] {
+    display: block;
+    width: auto;
+    aspect-ratio: 16 / 9;
+
+    /* 🔴 Потолок высоты, а не только пропорция. В тизере на главной карточек
+       две, и на 1200 каждая выходит 568px шириной — полоса 16:9 занимает там
+       320px, треть экрана под плашку, которая повторяет ярлык под собой.
+       220px — высота обложки в трёхколоночном ряду листинга на той же
+       ширине: карточка статьи выглядит одинаково в обоих местах. */
+    max-height: 220px;
+  }
+
+  .body {
+    gap: 12px;
+    padding: 24px;
+  }
+
+  /* На десктопе карточка стоит в ряду из трёх, и высоту ряда задаёт самая
+     длинная. Обрыв лида здесь только страховка от анонса на десять строк. */
+  .excerpt {
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+  }
+}

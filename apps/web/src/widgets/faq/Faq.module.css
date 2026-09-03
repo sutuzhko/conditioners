@@ -1,6 +1,9 @@
-/* FAQ. Фон основной, ритм 88px 24px 0, H2 38px, контейнер 900px — из
-   docs/PIXEL_SPEC.md («FAQ») и ADR-037. Радиус 16px и раскладка карточки
-   вопроса принадлежат Accordion из UI Kit, здесь их нет. */
+/* Частые вопросы. Строка вопроса приведена к общей плотности (issue #282):
+   радиус 14, поле `--card-pad`, зазор между строками 8, тап-цель не меньше
+   56px, знак «+» квадратом 28×28 в `--accent-bg`.
+
+   🔴 Ширина блока — `min(100%, 680px)`, а не медиа-запрос: длину строки
+   регулирует колонка, и правило одно на все ширины. */
 
 .section {
   background: var(--bg);
@@ -8,9 +11,6 @@
 
 .container {
   box-sizing: border-box;
-
-  /* в макете секция уже остальных: строка ответа не должна быть длиннее
-     680px по ширине чтения (docs/DESIGN_BRIEF.md §4) */
   max-width: 900px;
   margin: 0 auto;
 
@@ -21,7 +21,7 @@
 
 .head {
   max-width: 640px;
-  margin: 0 auto 40px;
+  margin: 0 auto clamp(20px, 0.5rem + 2.4vw, 40px);
   text-align: center;
 }
 
@@ -43,24 +43,119 @@
   letter-spacing: -0.02em;
 }
 
+/* Вопросы читаются как текст, а не как таблица: колонка не шире строки
+   чтения и стоит по центру. */
 .list {
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+  width: min(100%, 680px);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
 }
 
+.item {
+  min-width: 0;
+}
+
+.details {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card);
+}
+
+/* 🔴 Тап-цель — вся строка, не меньше 56px. `list-style: none` и правило для
+   WebKit убирают родной треугольник: знак у нас свой и стоит справа. */
+.summary {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-height: 56px;
+
+  /* Поле по вертикали `--card-pad`, по горизонтали на два пикселя больше:
+     16 / 18 из макета достигаются на 900, а между порогами тянутся. */
+  padding: var(--card-pad) calc(var(--card-pad) + 2px);
+  list-style: none;
+  cursor: pointer;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+/* У `<details>` стоит overflow: hidden ради радиуса — он обрезал бы внешнее
+   кольцо, поэтому фокус рисуется внутрь строки. */
+.summary:focus-visible {
+  outline: none;
+  border-radius: var(--r-md);
+  box-shadow: var(--ring-focus-inset);
+}
+
+/* Вопрос — заголовок третьего уровня: секция это `h2`, статья страницы —
+   `h1` (инвариант 4). Кегль тянется от 14.5 до 15 и потолка достигает на
+   600: выше него вопрос читается как текст, а не как подпись. */
+.question {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: clamp(14.5px, 0.86rem + 0.1vw, 15px);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.summary:hover .question {
+  color: var(--accent-text);
+}
+
+/* 🔴 Знак не отрывается от текста: `flex-shrink: 0` и зазор 12px. Раньше
+   вопрос из семи слов переносился на три строки, а знак отъезжал от него на
+   полстроки — потому что рос вместе со строкой. */
+.sign {
+  position: relative;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: var(--accent-bg);
+}
+
+/* Плюс рисуется двумя полосами: иконка ради двух линий не заводится, а
+   шрифтовые «+» и «−» рисуются по-разному в разных гарнитурах. */
+.sign::before,
+.sign::after {
+  position: absolute;
+  width: 12px;
+  height: 2px;
+  margin: auto;
+  border-radius: 2px;
+  background: var(--accent-text);
+  content: '';
+  inset: 0;
+}
+
+/* Вертикальная полоса исчезает в раскрытом состоянии — остаётся минус. */
+.sign::after {
+  transform: rotate(90deg);
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.details[open] .sign::after {
+  opacity: 0;
+}
+
+/* Ответ отделён от вопроса линией: без неё строка вопроса и текст ответа
+   сливаются в один абзац. Верхнее поле 12px — из макета. */
 .answer {
-  max-width: 720px;
   margin: 0;
-  color: var(--body);
-  font-size: var(--fs-base);
-}
-
-@media (width < 600px) {
-  .container {
-    padding-right: 16px;
-    padding-left: 16px;
-  }
-
-  .head {
-    margin-bottom: 28px;
-  }
+  padding: 12px calc(var(--card-pad) + 2px) var(--card-pad);
+  border-top: 1px solid var(--line-soft);
+  color: var(--muted);
+  font-size: var(--fs-dense);
+  line-height: 1.55;
 }

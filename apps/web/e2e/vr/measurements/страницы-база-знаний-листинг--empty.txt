@@ -8,48 +8,52 @@
 1200 → 1200×900
 
 [геометрия 320]
-section.ArticleList__section  320×496 @0,0
-  div.ArticleList__container  320×496 @0,0
+section.ArticleList__section  320×488 @0,0
+  div.ArticleList__container  320×488 @0,0
     header.ArticleList__head  288×204 @16,48
       p.ArticleList__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
       h1.ArticleList__title  288×65 @0,32  Onest 700 30/32  ls-1  lines=2  «Разбираемся в кондиционерах»
       p.ArticleList__lead  288×93 @0,111  Manrope 400 15/23  lines=4  «Пишут монтажники, а не маркетологи: как»
-    div.Card__card  288×216 @16,280  r20  b1
+    div.Card__card  288×216 @16,272  r20  b1
       p.ArticleList__emptyTitle  246×26 @21,21  Onest 700 17/26  ls0  lines=1  «Статьи ещё пишутся»
       p.ArticleList__emptyText  246×140 @21,55  Manrope 400 15/23  lines=6  «Мы пишем их сами и не переносим к себе ч»
+    div.ArticleList__pager  288×0 @16,512
 
 [геометрия 375]
-section.ArticleList__section  375×478 @0,0
-  div.ArticleList__container  375×478 @0,0
-    header.ArticleList__head  343×206 @16,51
-      p.ArticleList__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
-      h1.ArticleList__title  343×67 @0,32  Onest 700 31/34  ls-1  lines=2  «Разбираемся в кондиционерах»
-      p.ArticleList__lead  343×93 @0,113  Manrope 400 15/23  lines=4  «Пишут монтажники, а не маркетологи: как»
-    div.Card__card  343×193 @16,285  r20  b1
-      p.ArticleList__emptyTitle  301×27 @21,21  Onest 700 17/27  ls0  lines=1  «Статьи ещё пишутся»
-      p.ArticleList__emptyText  301×116 @21,56  Manrope 400 15/23  lines=5  «Мы пишем их сами и не переносим к себе ч»
+section.ArticleList__section  375×470 @0,0
+  div.ArticleList__container  375×470 @0,0
+    header.ArticleList__head  342×206 @17,51
+      p.ArticleList__kicker  342×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+      h1.ArticleList__title  342×67 @0,32  Onest 700 31/34  ls-1  lines=2  «Разбираемся в кондиционерах»
+      p.ArticleList__lead  342×93 @0,113  Manrope 400 15/23  lines=4  «Пишут монтажники, а не маркетологи: как»
+    div.Card__card  342×193 @17,277  r20  b1
+      p.ArticleList__emptyTitle  300×27 @21,21  Onest 700 17/27  ls0  lines=1  «Статьи ещё пишутся»
+      p.ArticleList__emptyText  300×116 @21,56  Manrope 400 15/23  lines=5  «Мы пишем их сами и не переносим к себе ч»
+    div.ArticleList__pager  342×0 @17,494
 
 [геометрия 768]
-section.ArticleList__section  768×403 @0,0
-  div.ArticleList__container  768×403 @0,0
+section.ArticleList__section  768×400 @0,0
+  div.ArticleList__container  768×400 @0,0
     header.ArticleList__head  680×142 @20,68
       p.ArticleList__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
       h1.ArticleList__title  680×43 @0,32  Onest 700 40/43  ls-1  lines=1  «Разбираемся в кондиционерах»
       p.ArticleList__lead  680×54 @0,89  Manrope 400 17/27  lines=2  «Пишут монтажники, а не маркетологи: как»
-    div.Card__card  680×164 @20,239  r20  b1
+    div.Card__card  680×164 @20,236  r20  b1
       p.ArticleList__emptyTitle  622×28 @29,29  Onest 700 18/28  ls0  lines=1  «Статьи ещё пишутся»
       p.ArticleList__emptyText  622×70 @29,65  Manrope 400 15/23  lines=3  «Мы пишем их сами и не переносим к себе ч»
+    div.ArticleList__pager  728×0 @20,428
 
 [геометрия 1200]
-section.ArticleList__section  1200×498 @0,0
-  div.ArticleList__container  1200×498 @0,0
+section.ArticleList__section  1200×494 @0,0
+  div.ArticleList__container  1200×494 @0,0
     header.ArticleList__head  680×209 @24,88
       p.ArticleList__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
       h1.ArticleList__title  680×106 @0,32  Onest 700 49/53  ls-1  lines=2  «Разбираемся в кондиционерах»
       p.ArticleList__lead  680×57 @0,152  Manrope 400 18/29  lines=2  «Пишут монтажники, а не маркетологи: как»
-    div.Card__card  680×165 @24,333  r20  b1
+    div.Card__card  680×165 @24,329  r20  b1
       p.ArticleList__emptyTitle  622×29 @29,29  Onest 700 19/29  ls0  lines=1  «Статьи ещё пишутся»
       p.ArticleList__emptyText  622×70 @29,66  Manrope 400 15/23  lines=3  «Мы пишем их сами и не переносим к себе ч»
+    div.ArticleList__pager  1152×0 @24,530
 
 [палитра light]
 section.ArticleList__section  bg #ffffff
@@ -61,6 +65,7 @@ section.ArticleList__section  bg #ffffff
     div.Card__card  bg #f8fafc  border #eef2f6
       p.ArticleList__emptyTitle  color #0f172a
       p.ArticleList__emptyText  color #556173
+    div.ArticleList__pager
 
 [палитра dark]
 section.ArticleList__section  bg #0b1220
@@ -72,3 +77,4 @@ section.ArticleList__section  bg #0b1220
     div.Card__card  bg #0e1729  border #182338
       p.ArticleList__emptyTitle  color #eaf1f8
       p.ArticleList__emptyText  color #8598ac
+    div.ArticleList__pager

@@ -37,6 +37,7 @@ import {
   validateLeadValues,
 } from './lib';
 import {
+  LEAD_EXTRA_FIELDS,
   LEAD_FIELD_ORDER,
   type LeadFieldErrors,
   type LeadFormStatus,
@@ -114,6 +115,11 @@ export function LeadForm({
   /* Контекст сняли руками: панель исчезла, и без этой отметки исчезновение
      выглядело бы сбоем, а не ответом на нажатие. */
   const [contextDropped, setContextDropped] = useState(false);
+  /* Раскрыт ли блок необязательных полей. 🔴 Состояние здесь не ради вида:
+     форма обязана открыть блок сама, прежде чем вести фокус на ошибку внутри
+     него — в закрытом `<details>` поля лежат в `display: none` и фокуса не
+     принимают (issue #276). */
+  const [extrasOpen, setExtrasOpen] = useState(false);
 
   /* Что человек успел посчитать и отметить до формы. Приходит из лёгкого
      клиентского хранилища (`./context`), а не пропсом: калькулятор и подбор
@@ -166,7 +172,20 @@ export function LeadForm({
   }, [status]);
 
   function focusField(field: string): void {
-    formRef.current?.querySelector<HTMLElement>(`[name="${field}"]`)?.focus();
+    const node = formRef.current?.querySelector<HTMLElement>(`[name="${field}"]`);
+    if (node === null || node === undefined) return;
+
+    /* 🔴 Свёрнутый `<details>` держит поля в `display: none`, и `focus()` в
+       них не попадает: человек получил бы сообщение об ошибке и не нашёл, где
+       её править. Блок раскрывается прямо в DOM — синхронно, до фокуса, — а
+       состояние React догоняет его тем же значением (issue #276). */
+    if (LEAD_EXTRA_FIELDS.some((extra) => extra === field)) {
+      const box = node.closest('details');
+      if (box !== null && !box.open) box.open = true;
+      setExtrasOpen(true);
+    }
+
+    node.focus();
   }
 
   function changeValue(patch: Partial<LeadFormValues>, field: keyof LeadFormValues): void {
@@ -340,74 +359,105 @@ export function LeadForm({
             onChange={(event) => changeValue({ topic: event.target.value }, 'topic')}
           />
 
-          {/* 🔴 Модель стоит сразу за темой и во всю ширину, а не половиной пары:
-              название модели длиннее половины колонки и обрезалось бы прямо на
-              экране. Человек обязан видеть целиком то, что уедет с его заявкой
-              (ADR-129), — ради этого поле и сделано видимым. */}
-          <Input
-            name="model"
-            label={texts.modelLabel}
-            placeholder={texts.modelPlaceholder}
-            value={values.model}
-            error={errors.model}
-            onChange={(event) => changeValue({ model: event.target.value }, 'model')}
-          />
+          {/* 🔴 Восемь необязательных полей открыто превращали форму в анкету:
+              на 375 секция занимала 1 845px там, где человек ожидал «оставить
+              телефон» (issue #276). Свёрнутое состояние — родной
+              `<details>`/`<summary>`: содержимое остаётся в HTML в обоих
+              положениях, клавиатура, объявление «свёрнуто/развёрнуто» и фокус
+              — браузерные, и ни байта JavaScript (ADR-237).
 
-          <div className={styles.pair}>
-            <Select
-              name="place"
-              label={texts.placeLabel}
-              options={PLACE_OPTIONS}
-              value={values.place}
-              error={errors.place}
-              onChange={(event) => changeValue({ place: event.target.value }, 'place')}
-            />
-            <Select
-              name="qty"
-              label={texts.qtyLabel}
-              options={QTY_OPTIONS}
-              value={values.qty}
-              error={errors.qty}
-              onChange={(event) => changeValue({ qty: event.target.value }, 'qty')}
-            />
-          </div>
+              Раскрывашка остаётся и на десктопе: восемь необязательных полей
+              и там анкета. */}
+          <details
+            className={styles.extras}
+            open={extrasOpen}
+            onToggle={(event) => setExtrasOpen(event.currentTarget.open)}
+          >
+            <summary className={styles.extrasSummary}>
+              <span className={styles.extrasCopy}>
+                <span className={styles.extrasTitle}>{texts.extrasLabel}</span>
+                <span className={styles.extrasHint}>{texts.extrasHint}</span>
+              </span>
+              {/* 🔴 Своя стрелка, а не браузерный треугольник: `display: flex`
+                  у `summary` убирает маркер вовсе, и блок читался как
+                  неподвижная серая плашка — по такой не нажимают. Поворот
+                  показывает, куда она откроется. */}
+              <span className={styles.extrasChevron} aria-hidden="true">
+                <Icon name="chevron-down" size={18} />
+              </span>
+            </summary>
 
-          <Input
-            name="address"
-            label={texts.addressLabel}
-            placeholder={texts.addressPlaceholder}
-            autoComplete="street-address"
-            value={values.address}
-            error={errors.address}
-            onChange={(event) => changeValue({ address: event.target.value }, 'address')}
-          />
+            <div className={styles.extrasBody}>
+              {/* 🔴 Модель стоит сразу за темой и во всю ширину, а не половиной пары:
+                название модели длиннее половины колонки и обрезалось бы прямо на
+                экране. Человек обязан видеть целиком то, что уедет с его заявкой
+                (ADR-129), — ради этого поле и сделано видимым. */}
+              <Input
+                name="model"
+                label={texts.modelLabel}
+                placeholder={texts.modelPlaceholder}
+                value={values.model}
+                error={errors.model}
+                onChange={(event) => changeValue({ model: event.target.value }, 'model')}
+              />
 
-          <Select
-            name="callTime"
-            label={texts.callTimeLabel}
-            options={CALL_TIME_OPTIONS}
-            value={values.callTime}
-            error={errors.callTime}
-            onChange={(event) => changeValue({ callTime: event.target.value }, 'callTime')}
-          />
+              <div className={styles.pair}>
+                <Select
+                  name="place"
+                  label={texts.placeLabel}
+                  options={PLACE_OPTIONS}
+                  value={values.place}
+                  error={errors.place}
+                  onChange={(event) => changeValue({ place: event.target.value }, 'place')}
+                />
+                <Select
+                  name="qty"
+                  label={texts.qtyLabel}
+                  options={QTY_OPTIONS}
+                  value={values.qty}
+                  error={errors.qty}
+                  onChange={(event) => changeValue({ qty: event.target.value }, 'qty')}
+                />
+              </div>
 
-          <Textarea
-            name="comment"
-            label={texts.commentLabel}
-            placeholder={texts.commentPlaceholder}
-            rows={3}
-            value={values.comment}
-            error={errors.comment}
-            onChange={(event) => changeValue({ comment: event.target.value }, 'comment')}
-          />
+              <Input
+                name="address"
+                label={texts.addressLabel}
+                placeholder={texts.addressPlaceholder}
+                autoComplete="street-address"
+                value={values.address}
+                error={errors.address}
+                onChange={(event) => changeValue({ address: event.target.value }, 'address')}
+              />
 
-          <FileInput
-            name="photo"
-            label={texts.photoLabel}
-            hint={texts.photoHint}
-            value={photo}
-            onChange={setPhoto}
-          />
+              <Select
+                name="callTime"
+                label={texts.callTimeLabel}
+                options={CALL_TIME_OPTIONS}
+                value={values.callTime}
+                error={errors.callTime}
+                onChange={(event) => changeValue({ callTime: event.target.value }, 'callTime')}
+              />
+
+              <Textarea
+                name="comment"
+                label={texts.commentLabel}
+                placeholder={texts.commentPlaceholder}
+                rows={3}
+                value={values.comment}
+                error={errors.comment}
+                onChange={(event) => changeValue({ comment: event.target.value }, 'comment')}
+              />
+
+              <FileInput
+                name="photo"
+                label={texts.photoLabel}
+                hint={texts.photoHint}
+                value={photo}
+                onChange={setPhoto}
+              />
+            </div>
+          </details>
 
           <Checkbox
             name="consent"
@@ -481,22 +531,30 @@ export function LeadForm({
           {status === 'error' && failure !== undefined ? (
             <div className={styles.failure}>
               <p className={styles.failureText}>{failure}</p>
-              {/* нет телефона в настройках — нет и приглашения позвонить:
-                  пустая ссылка tel: хуже отсутствия запасного пути */}
-              {phone === '' ? null : (
-                <p className={styles.failureText}>
-                  {texts.errorFallbackLead}{' '}
-                  <a className={styles.failurePhone} href={phoneHref(phone)}>
-                    {readablePhone}
-                  </a>
-                </p>
-              )}
             </div>
           ) : null}
 
           <Button type="submit" size="lg" fullWidth loading={status === 'sending'}>
             {status === 'sending' ? texts.submitting : texts.submit}
           </Button>
+
+          {/* 🔴 Запасной путь стоит под кнопкой всегда, а не только в ошибке
+              (issue #276): человек, который формам не доверяет, обязан видеть
+              номер там же, где кнопку. Пустой телефон в настройках — строки
+              нет вовсе: ссылка `tel:` в никуда хуже отсутствия запасного пути.
+
+              🔴 Ссылка одна на оба состояния, а не своя у ошибки: два
+              одинаковых номера подряд — это выбор там, где выбора нет.
+              Меняется только зачин: в ошибке он говорит, что делать
+              дальше. */}
+          {phone === '' ? null : (
+            <p className={styles.callInstead} data-state={status === 'error' ? 'error' : undefined}>
+              {status === 'error' ? texts.errorFallbackLead : texts.callInstead}{' '}
+              <a className={styles.callPhone} href={phoneHref(phone)}>
+                {readablePhone}
+              </a>
+            </p>
+          )}
         </form>
       )}
     </Card>

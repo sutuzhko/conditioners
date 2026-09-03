@@ -2,6 +2,12 @@
    поля в колонку с зазором 16px, парные поля в две колонки.
    Цвета — только токены (docs/CLAUDE.md, раздел «Стилизация»). */
 
+/* 🔴 Карточка формы своего грунта не наследует. Секция заявки стоит на
+   тёмном градиенте, и грунт `[data-ground='panel']` объявлен только на её
+   тёмных частях (ADR-158, issue #276): попади он на белую карточку — подписи
+   полей получили бы цвета тёмной темы на белом фоне, а это 1,6:1 при норме
+   4,5:1. Здесь работают обычные уровни светлой темы. */
+
 /* 🔴 Двухклассовый селектор для отступа: у карточки стоят и класс кита, и
    этот, специфичность одинаковая, и победитель зависел бы от порядка модулей
    в сборке (ADR-038). Значение 34px — из макета, ступени `xl` у кита 32px. */
@@ -10,6 +16,12 @@
   flex-direction: column;
   gap: 20px;
   border-radius: var(--r-xl);
+
+  /* 🔴 Пары полей меряются шириной карточки, а не окна. С 900px форма стоит
+     правой колонкой в 320–380px, и запрос по окну ставил в неё два поля в
+     ряд: плейсхолдер имени обрезался на «Как к вам обращат…», а маска
+     телефона — на «+7 (___) ___-_». Замерено в браузере на 1200. */
+  container-type: inline-size;
 }
 
 .card.card {
@@ -44,7 +56,9 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+
+  /* Зазор полей 14px — из макета (issue #276). */
+  gap: 14px;
 }
 
 /* --muted, а не --faint: мелкий текст обязан добирать AA в обеих темах */
@@ -57,10 +71,13 @@
 .pair {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 14px;
 }
 
-@media (width >= 600px) {
+/* 420px — ширина, с которой два поля по половине держат и подпись, и маску
+   целиком: при 600 ≤ окно < 900 карточка даёт 519px содержимого, а правая
+   колонка десктопа — 260–312px, и там пара остаётся столбиком. */
+@container (min-width: 420px) {
   .pair {
     grid-template-columns: 1fr 1fr;
   }
@@ -97,20 +114,6 @@
   color: var(--error-ink);
   font-size: var(--fs-dense);
   line-height: 1.45;
-}
-
-/* телефон — запасной путь: он обязан быть заметен и нажимаем пальцем */
-.failurePhone {
-  display: inline-block;
-  min-height: var(--tap);
-  padding: 11px 0;
-  color: var(--error-ink);
-  font-family: var(--font-mono);
-  font-size: var(--fs-base);
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  white-space: nowrap;
 }
 
 .success {
@@ -211,4 +214,108 @@
   margin: 0;
   color: var(--muted);
   font-size: var(--fs-micro);
+}
+
+/* ——— Раскрывающийся блок необязательных полей (issue #276, ADR-237).
+
+   🔴 Родной `<details>`: содержимое остаётся в HTML в обоих положениях,
+   клавиатура и объявление «свёрнуто/развёрнуто» — браузерные, своего
+   JavaScript ноль. */
+.extras {
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+}
+
+/* Переключатель — цель во всю ширину: на телефоне в него попадают пальцем,
+   а не в подпись шириной в три слова. Тап-зона держится полями. */
+.extrasSummary {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  min-height: var(--tap);
+  cursor: pointer;
+}
+
+.extrasCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* Стрелка поворачивается вместе с блоком: направление говорит, что случится
+   по нажатию. Тем, кто просил меньше движения, остаётся сам поворот без
+   перехода. */
+.extrasChevron {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--muted);
+  transition: rotate var(--dur-fast) var(--ease-out);
+}
+
+.extras[open] .extrasChevron {
+  rotate: 180deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .extrasChevron {
+    transition: none;
+  }
+}
+
+.extrasSummary:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+.extrasTitle {
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.extrasHint {
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}
+
+.extrasBody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-top: 1px solid var(--line);
+  padding: 14px;
+}
+
+/* ——— Запасной путь под кнопкой. 🔴 Стоит всегда, а не только в ошибке: тот,
+   кто формам не доверяет, обязан видеть номер там же, где кнопку. */
+.callInstead {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  text-align: center;
+}
+
+/* В ошибке строка перестаёт быть служебной: это единственный оставшийся
+   путь, и читается он как основной текст, а не как подпись. */
+.callInstead[data-state='error'] {
+  color: var(--error-ink);
+}
+
+.callPhone {
+  display: inline-block;
+  min-height: var(--tap);
+  padding: 11px 4px;
+  color: var(--accent-text);
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
 }

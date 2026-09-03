@@ -1,0 +1,80 @@
+# блоки-база-знаний-карточка-статьи--bare · ширины 320 375 768 1200 · темы light dark
+шрифты: JetBrains Mono 400, Onest 600, Onest 700
+
+[документ]
+320 → 320×900
+375 → 375×900
+768 → 768×900
+1200 → 1200×900
+
+[геометрия 320]
+li.Card__card  288×101 @16,16  r20  b1
+  div.ArticleCard__body  286×99 @1,1
+    h3.ArticleCard__title  258×44 @14,14
+      a.ArticleCard__link  254×43 @0,0  Onest 700 17/22  ls0  lines=2  «Короткая заметка без рубрики и анонса»
+    p.ArticleCard__meta  258×19 @14,66
+      span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+      time  86×16 @0,1  JetBrains Mono 400 12/19  lines=1  «14 июня 2026»
+      span#2  22×16 @86,1  JetBrains Mono 400 12/19  lines=1  «·»
+      span#3  86×16 @108,1  JetBrains Mono 400 12/19  lines=1  «6 мин чтения»
+
+[геометрия 375]
+li.Card__card  343×102 @16,16  r20  b1
+  div.ArticleCard__body  341×100 @1,1
+    h3.ArticleCard__title  313×45 @14,14
+      a.ArticleCard__link  270×44 @0,0  Onest 700 17/22  ls0  lines=2  «Короткая заметка без рубрики и анонса»
+    p.ArticleCard__meta  313×19 @14,67
+      span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+      time  86×16 @0,1  JetBrains Mono 400 12/19  lines=1  «14 июня 2026»
+      span#2  22×16 @86,1  JetBrains Mono 400 12/19  lines=1  «·»
+      span#3  86×16 @108,1  JetBrains Mono 400 12/19  lines=1  «6 мин чтения»
+
+[геометрия 768]
+li.Card__card  736×86 @16,16  r20  b1
+  div.ArticleCard__body  734×84 @1,1
+    h3.ArticleCard__title  702×23 @16,16
+      a.ArticleCard__link  349×22 @0,0  Onest 700 18/23  ls0  lines=1  «Короткая заметка без рубрики и анонса»
+    p.ArticleCard__meta  702×19 @16,49
+      span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+      time  86×16 @0,1  JetBrains Mono 400 12/19  lines=1  «14 июня 2026»
+      span#2  22×16 @86,1  JetBrains Mono 400 12/19  lines=1  «·»
+      span#3  86×16 @108,1  JetBrains Mono 400 12/19  lines=1  «6 мин чтения»
+
+[геометрия 1200]
+li.Card__card  1168×325 @16,16  r20  b1
+  div.ArticleCard__media  1166×220 @1,1
+    span.ArticleCard__placeholder  1166×220 @0,0  Onest 600 27/32  ls0  lines=1  «База знаний»
+  div.ArticleCard__body  1166×103 @1,221
+    h3.ArticleCard__title  1118×25 @24,24
+      a.ArticleCard__link  368×24 @0,0  Onest 700 19/25  ls0  lines=1  «Короткая заметка без рубрики и анонса»
+    p.ArticleCard__meta  1118×19 @24,61
+      span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+      time  86×16 @0,1  JetBrains Mono 400 12/19  lines=1  «14 июня 2026»
+      span#2  22×16 @86,1  JetBrains Mono 400 12/19  lines=1  «·»
+      span#3  86×16 @108,1  JetBrains Mono 400 12/19  lines=1  «6 мин чтения»
+
+[палитра light]
+li.Card__card  bg #ffffff  border #e2e8f0
+  div.ArticleCard__media  bg #f8fafc
+    span.ArticleCard__placeholder  color #334155  bg #f8fafc  gradient linear-gradient(135deg, transparent 40%, #ecfeff 100%)
+  div.ArticleCard__body
+    h3.ArticleCard__title
+      a.ArticleCard__link  color #0f172a
+    p.ArticleCard__meta
+      span  color #5b6a7d
+      time  color #5b6a7d
+      span#2  color #5b6a7d
+      span#3  color #5b6a7d
+
+[палитра dark]
+li.Card__card  bg #121d31  border #1e2b41
+  div.ArticleCard__media  bg #0e1729
+    span.ArticleCard__placeholder  color #c9d5e2  bg #0e1729  gradient linear-gradient(135deg, transparent 40%, #22d3ee1a 100%)
+  div.ArticleCard__body
+    h3.ArticleCard__title
+      a.ArticleCard__link  color #eaf1f8
+    p.ArticleCard__meta
+      span  color #7e92a7
+      time  color #7e92a7
+      span#2  color #7e92a7
+      span#3  color #7e92a7

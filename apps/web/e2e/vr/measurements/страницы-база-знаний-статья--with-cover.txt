@@ -2,14 +2,14 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 600, Onest 700
 
 [документ]
-320 → 320×1972
-375 → 375×1858
-768 → 768×1910
-1200 → 1200×1929
+320 → 320×1959
+375 → 375×1840
+768 → 768×1892
+1200 → 1200×1734
 
 [геометрия 320]
-article.ArticleView__article  320×1972 @0,0
-  header.ArticleView__head  288×168 @16,48
+article.ArticleView__article  320×1959 @0,0
+  header.ArticleView__head  288×204 @16,28
     p.ArticleView__meta  288×24 @0,0
       span.Badge__badge  62×24 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
         span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
@@ -18,39 +18,41 @@ article.ArticleView__article  320×1972 @0,0
         time  81×18 @0,1  Manrope 400 13/20  lines=1  «14 июня 2026»
         span#2  8×18 @81,1  Manrope 400 13/20  lines=1  «·»
         span#3  81×18 @89,1  Manrope 400 13/20  lines=1  «6 мин чтения»
-    h1.ArticleView__title  288×125 @0,42  Onest 700 28/31  ls-1  lines=4  «Как выбрать кондиционер для квартиры: пл»
-  img.ArticleView__cover  288×151 @16,240  r18  b1
-  nav.ArticleToc__toc  288×198 @16,421  r18  b1
-    p.ArticleToc__title  250×19 @19,17  JetBrains Mono 400 12/19  ls2  lines=1  «В статье»
-    ol.ArticleToc__list  250×135 @19,46
-      li.ArticleToc__item  250×44 @0,0
-        a.ArticleToc__link  250×44 @0,0  Manrope 600 15/22  lines=1  «Шаг 1. Мощность по площади»
-          a.ArticleToc__link::before  22×20 @0,0
-      li.ArticleToc__item#2  250×45 @0,44  b1 0 0 0
-        a.ArticleToc__link  250×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 2. Инвертор или on/off»
-          a.ArticleToc__link::before  22×20 @0,0
-      li.ArticleToc__item#3  250×45 @0,90  b1 0 0 0
-        a.ArticleToc__link  250×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 3. Уровень шума»
-          a.ArticleToc__link::before  22×20 @0,0
-  div.ArticleBody__body  288×783 @16,651
-    p.ArticleBody__paragraph  288×77 @0,0  Manrope 400 17/26  lines=3  «Кондиционер выбирают один раз в 10 лет,»
-    h2.ArticleBody__h2  288×55 @0,109  Onest 700 22/28  ls0  lines=2  «Шаг 1. Мощность по площади»
-    p.ArticleBody__paragraph#2  288×77 @0,178  Manrope 400 17/26  lines=3  «Базовое правило: холодопроизводительност»
-      strong.ArticleBody__strong  39×23 @143,1  Manrope 700 17/26  lines=1  «1 кВт»
-    ul.ArticleBody__list  288×58 @0,268
-      li.ArticleBody__item  264×26 @24,0  Manrope 400 17/26  lines=1  «— комната до 20 м²»
-        strong.ArticleBody__strong  20×23 @0,1  Manrope 700 17/26  lines=1  «07»
-      li.ArticleBody__item#2  264×26 @24,33  Manrope 400 17/26  lines=1  «— комната до 27 м²»
-        strong.ArticleBody__strong  21×23 @0,1  Manrope 700 17/26  lines=1  «09»
-    h3.ArticleBody__h3  288×22 @0,357  Onest 600 17/22  ls0  lines=1  «Поправки, о которых забывают»
-    p.ArticleBody__paragraph#3  288×51 @0,393  Manrope 400 17/26  lines=2  «Окна на юг добавляют , последний этаж —»
-      strong.ArticleBody__strong  36×23 @179,1  Manrope 700 17/26  lines=1  «20%»
-    h2.ArticleBody__h2#2  288×55 @0,476  Onest 700 22/28  ls0  lines=2  «Шаг 2. Инвертор или on/off»
-    p.ArticleBody__paragraph#4  288×51 @0,545  Manrope 400 17/26  lines=2  «Инвертор держит температуру точнее и тиш»
-    h2.ArticleBody__h2#3  288×28 @0,628  Onest 700 22/28  ls0  lines=1  «Шаг 3. Уровень шума»
-    aside.ArticleBody__callout  288×106 @0,677  r14  b1
-      p.ArticleBody__calloutText  250×72 @19,17  Manrope 400 16/24  lines=3  «Не хотите считать сами — оставьте заявку»
-  aside.ArticleView__cta  288×374 @16,1478  r20
+    h1.ArticleView__title  288×162 @0,42  Onest 700 30/32  ls-1  lines=5  «Как выбрать кондиционер для квартиры: пл»
+  img.ArticleView__cover  288×151 @16,256  r18  b1
+  div.ArticleView__layout  288×984 @16,437
+    div.ArticleView__toc  288×198 @0,0
+      nav.ArticleToc__toc  288×198 @0,0  r18  b1
+        p.ArticleToc__title  250×19 @19,17  JetBrains Mono 400 12/19  ls2  lines=1  «В статье»
+        ol.ArticleToc__list  250×135 @19,46
+          li.ArticleToc__item  250×44 @0,0
+            a.ArticleToc__link  250×44 @0,0  Manrope 600 15/22  lines=1  «Шаг 1. Мощность по площади»
+              a.ArticleToc__link::before  22×20 @0,0
+          li.ArticleToc__item#2  250×45 @0,44  b1 0 0 0
+            a.ArticleToc__link  250×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 2. Инвертор или on/off»
+              a.ArticleToc__link::before  22×20 @0,0
+          li.ArticleToc__item#3  250×45 @0,90  b1 0 0 0
+            a.ArticleToc__link  250×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 3. Уровень шума»
+              a.ArticleToc__link::before  22×20 @0,0
+    div.ArticleBody__body  288×754 @0,230
+      p.ArticleBody__paragraph  288×50 @0,0  Manrope 400 15/25  lines=2  «Кондиционер выбирают один раз в 10 лет,»
+      h2.ArticleBody__h2  288×55 @0,82  Onest 700 22/28  ls0  lines=2  «Шаг 1. Мощность по площади»
+      p.ArticleBody__paragraph#2  288×74 @0,151  Manrope 400 15/25  lines=3  «Базовое правило: холодопроизводительност»
+        strong.ArticleBody__strong  35×21 @130,1  Manrope 700 15/25  lines=1  «1 кВт»
+      ul.ArticleBody__list  288×57 @0,239
+        li.ArticleBody__item  264×25 @24,0  Manrope 400 15/25  lines=1  «— комната до 20 м²»
+          strong.ArticleBody__strong  18×21 @0,1  Manrope 700 15/25  lines=1  «07»
+        li.ArticleBody__item#2  264×25 @24,32  Manrope 400 15/25  lines=1  «— комната до 27 м²»
+          strong.ArticleBody__strong  19×21 @0,1  Manrope 700 15/25  lines=1  «09»
+      h3.ArticleBody__h3  288×22 @0,325  Onest 600 17/22  ls0  lines=1  «Поправки, о которых забывают»
+      p.ArticleBody__paragraph#3  288×50 @0,361  Manrope 400 15/25  lines=2  «Окна на юг добавляют , последний этаж —»
+        strong.ArticleBody__strong  32×21 @163,1  Manrope 700 15/25  lines=1  «20%»
+      h2.ArticleBody__h2#2  288×55 @0,443  Onest 700 22/28  ls0  lines=2  «Шаг 2. Инвертор или on/off»
+      p.ArticleBody__paragraph#4  288×50 @0,512  Manrope 400 15/25  lines=2  «Инвертор держит температуру точнее и тиш»
+      h2.ArticleBody__h2#3  288×28 @0,593  Onest 700 22/28  ls0  lines=1  «Шаг 3. Уровень шума»
+      aside.ArticleBody__callout  288×111 @0,643  r14  b1
+        p.ArticleBody__calloutText  250×77 @19,17  Manrope 400 16/26  lines=3  «Не хотите считать сами — оставьте заявку»
+  aside.ArticleView__cta  288×374 @16,1465  r20
     div.ArticleView__ctaText  248×104 @20,24
       p.ArticleView__ctaTitle  248×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы?»
       p.ArticleView__ctaLead  248×67 @0,37  Manrope 400 15/22  lines=3  «Расскажем, что подойдёт именно вашей ква»
@@ -63,13 +65,13 @@ article.ArticleView__article  320×1972 @0,0
           svg  13×15 @235,25
         a.ArticleView__ctaLink#2  260×65 @-12,67  Manrope 600 15/22  r11  lines=2  «Установка кондиционеров под ключ»
           svg  13×15 @235,25
-  p.ArticleView__back  288×44 @16,1880
+  p.ArticleView__back  288×44 @16,1867
     a.ArticleView__backLink  198×44 @-12,0  Manrope 600 15/23  r11  lines=1  «Все статьи Базы знаний»
 
 [геометрия 375]
-article.ArticleView__article  375×1858 @0,0
-  header.ArticleView__head  343×168 @16,48
-    p.ArticleView__meta  343×24 @0,0
+article.ArticleView__article  375×1840 @0,0
+  header.ArticleView__head  342×177 @17,28
+    p.ArticleView__meta  342×24 @0,0
       span.Badge__badge  62×24 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
         span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
       span.ArticleView__dates  170×20 @72,2
@@ -77,42 +79,44 @@ article.ArticleView__article  375×1858 @0,0
         time  81×18 @0,1  Manrope 400 13/20  lines=1  «14 июня 2026»
         span#2  8×18 @81,1  Manrope 400 13/20  lines=1  «·»
         span#3  81×18 @89,1  Manrope 400 13/20  lines=1  «6 мин чтения»
-    h1.ArticleView__title  343×125 @0,42  Onest 700 28/31  ls-1  lines=4  «Как выбрать кондиционер для квартиры: пл»
-  img.ArticleView__cover  343×180 @16,240  r18  b1
-  nav.ArticleToc__toc  343×198 @16,450  r18  b1
-    p.ArticleToc__title  305×19 @19,17  JetBrains Mono 400 12/19  ls2  lines=1  «В статье»
-    ol.ArticleToc__list  305×135 @19,46
-      li.ArticleToc__item  305×44 @0,0
-        a.ArticleToc__link  305×44 @0,0  Manrope 600 15/22  lines=1  «Шаг 1. Мощность по площади»
-          a.ArticleToc__link::before  22×20 @0,0
-      li.ArticleToc__item#2  305×45 @0,44  b1 0 0 0
-        a.ArticleToc__link  305×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 2. Инвертор или on/off»
-          a.ArticleToc__link::before  22×20 @0,0
-      li.ArticleToc__item#3  305×45 @0,90  b1 0 0 0
-        a.ArticleToc__link  305×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 3. Уровень шума»
-          a.ArticleToc__link::before  22×20 @0,0
-  div.ArticleBody__body  343×679 @16,680
-    p.ArticleBody__paragraph  343×51 @0,0  Manrope 400 17/26  lines=2  «Кондиционер выбирают один раз в 10 лет,»
-    h2.ArticleBody__h2  343×28 @0,83  Onest 700 22/28  ls0  lines=1  «Шаг 1. Мощность по площади»
-    p.ArticleBody__paragraph#2  343×77 @0,125  Manrope 400 17/26  lines=3  «Базовое правило: холодопроизводительност»
-      strong.ArticleBody__strong  39×23 @143,1  Manrope 700 17/26  lines=1  «1 кВт»
-    ul.ArticleBody__list  343×58 @0,215
-      li.ArticleBody__item  319×26 @24,0  Manrope 400 17/26  lines=1  «— комната до 20 м²»
-        strong.ArticleBody__strong  20×23 @0,1  Manrope 700 17/26  lines=1  «07»
-      li.ArticleBody__item#2  319×26 @24,33  Manrope 400 17/26  lines=1  «— комната до 27 м²»
-        strong.ArticleBody__strong  21×23 @0,1  Manrope 700 17/26  lines=1  «09»
-    h3.ArticleBody__h3  343×22 @0,303  Onest 600 17/22  ls0  lines=1  «Поправки, о которых забывают»
-    p.ArticleBody__paragraph#3  343×51 @0,340  Manrope 400 17/26  lines=2  «Окна на юг добавляют , последний этаж —»
-      strong.ArticleBody__strong  36×23 @179,1  Manrope 700 17/26  lines=1  «20%»
-    h2.ArticleBody__h2#2  343×28 @0,423  Onest 700 22/28  ls0  lines=1  «Шаг 2. Инвертор или on/off»
-    p.ArticleBody__paragraph#4  343×51 @0,464  Manrope 400 17/26  lines=2  «Инвертор держит температуру точнее и тиш»
-    h2.ArticleBody__h2#3  343×28 @0,547  Onest 700 22/28  ls0  lines=1  «Шаг 3. Уровень шума»
-    aside.ArticleBody__callout  343×82 @0,597  r14  b1
-      p.ArticleBody__calloutText  305×48 @19,17  Manrope 400 16/24  lines=2  «Не хотите считать сами — оставьте заявку»
-  aside.ArticleView__cta  343×332 @16,1403  r20
-    div.ArticleView__ctaText  303×104 @20,24
-      p.ArticleView__ctaTitle  303×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы?»
-      p.ArticleView__ctaLead  303×67 @0,37  Manrope 400 15/22  lines=3  «Расскажем, что подойдёт именно вашей ква»
+    h1.ArticleView__title  342×135 @0,42  Onest 700 31/34  ls-1  lines=4  «Как выбрать кондиционер для квартиры: пл»
+  img.ArticleView__cover  342×180 @17,229  r18  b1
+  div.ArticleView__layout  342×903 @17,438
+    div.ArticleView__toc  342×198 @0,0
+      nav.ArticleToc__toc  342×198 @0,0  r18  b1
+        p.ArticleToc__title  304×19 @19,17  JetBrains Mono 400 12/19  ls2  lines=1  «В статье»
+        ol.ArticleToc__list  304×135 @19,46
+          li.ArticleToc__item  304×44 @0,0
+            a.ArticleToc__link  304×44 @0,0  Manrope 600 15/22  lines=1  «Шаг 1. Мощность по площади»
+              a.ArticleToc__link::before  22×20 @0,0
+          li.ArticleToc__item#2  304×45 @0,44  b1 0 0 0
+            a.ArticleToc__link  304×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 2. Инвертор или on/off»
+              a.ArticleToc__link::before  22×20 @0,0
+          li.ArticleToc__item#3  304×45 @0,90  b1 0 0 0
+            a.ArticleToc__link  304×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 3. Уровень шума»
+              a.ArticleToc__link::before  22×20 @0,0
+    div.ArticleBody__body  342×673 @0,230
+      p.ArticleBody__paragraph  342×50 @0,0  Manrope 400 15/25  lines=2  «Кондиционер выбирают один раз в 10 лет,»
+      h2.ArticleBody__h2  342×28 @0,82  Onest 700 22/28  ls0  lines=1  «Шаг 1. Мощность по площади»
+      p.ArticleBody__paragraph#2  342×74 @0,123  Manrope 400 15/25  lines=3  «Базовое правило: холодопроизводительност»
+        strong.ArticleBody__strong  35×21 @130,1  Manrope 700 15/25  lines=1  «1 кВт»
+      ul.ArticleBody__list  342×57 @0,211
+        li.ArticleBody__item  318×25 @24,0  Manrope 400 15/25  lines=1  «— комната до 20 м²»
+          strong.ArticleBody__strong  18×21 @0,1  Manrope 700 15/25  lines=1  «07»
+        li.ArticleBody__item#2  318×25 @24,32  Manrope 400 15/25  lines=1  «— комната до 27 м²»
+          strong.ArticleBody__strong  19×21 @0,1  Manrope 700 15/25  lines=1  «09»
+      h3.ArticleBody__h3  342×22 @0,298  Onest 600 17/22  ls0  lines=1  «Поправки, о которых забывают»
+      p.ArticleBody__paragraph#3  342×50 @0,334  Manrope 400 15/25  lines=2  «Окна на юг добавляют , последний этаж —»
+        strong.ArticleBody__strong  32×21 @163,1  Manrope 700 15/25  lines=1  «20%»
+      h2.ArticleBody__h2#2  342×28 @0,416  Onest 700 22/28  ls0  lines=1  «Шаг 2. Инвертор или on/off»
+      p.ArticleBody__paragraph#4  342×50 @0,457  Manrope 400 15/25  lines=2  «Инвертор держит температуру точнее и тиш»
+      h2.ArticleBody__h2#3  342×28 @0,539  Onest 700 22/28  ls0  lines=1  «Шаг 3. Уровень шума»
+      aside.ArticleBody__callout  342×85 @0,588  r14  b1
+        p.ArticleBody__calloutText  304×51 @19,17  Manrope 400 16/26  lines=2  «Не хотите считать сами — оставьте заявку»
+  aside.ArticleView__cta  342×332 @17,1386  r20
+    div.ArticleView__ctaText  302×104 @20,24
+      p.ArticleView__ctaTitle  302×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы?»
+      p.ArticleView__ctaLead  302×67 @0,37  Manrope 400 15/22  lines=3  «Расскажем, что подойдёт именно вашей ква»
     div.ArticleView__ctaActions  293×156 @20,152
       a.Button__button  187×52 @0,0  r12  b1
         span.Button__content  129×19 @29,16
@@ -122,13 +126,13 @@ article.ArticleView__article  375×1858 @0,0
           svg  15×15 @261,15
         a.ArticleView__ctaLink#2  305×44 @-12,46  Manrope 600 15/22  r11  lines=1  «Установка кондиционеров под ключ»
           svg  15×15 @278,15
-  p.ArticleView__back  343×44 @16,1763
+  p.ArticleView__back  342×44 @17,1746
     a.ArticleView__backLink  198×44 @-12,0  Manrope 600 15/23  r11  lines=1  «Все статьи Базы знаний»
 
 [геометрия 768]
-article.ArticleView__article  660×1910 @54,0
-  header.ArticleView__head  620×170 @20,48
-    p.ArticleView__meta  620×24 @0,0
+article.ArticleView__article  662×1892 @53,0
+  header.ArticleView__head  622×171 @20,31
+    p.ArticleView__meta  622×24 @0,0
       span.Badge__badge  62×24 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
         span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
       span.ArticleView__dates  170×20 @72,2
@@ -136,42 +140,44 @@ article.ArticleView__article  660×1910 @54,0
         time  81×18 @0,1  Manrope 400 13/20  lines=1  «14 июня 2026»
         span#2  8×18 @81,1  Manrope 400 13/20  lines=1  «·»
         span#3  81×18 @89,1  Manrope 400 13/20  lines=1  «6 мин чтения»
-    h1.ArticleView__title  620×128 @0,42  Onest 700 38/43  ls-1  lines=3  «Как выбрать кондиционер для квартиры: пл»
-  img.ArticleView__cover  620×326 @20,242  r18  b1
-  nav.ArticleToc__toc  620×206 @20,597  r18  b1
-    p.ArticleToc__title  570×19 @25,21  JetBrains Mono 400 12/19  ls2  lines=1  «В статье»
-    ol.ArticleToc__list  570×135 @25,50
-      li.ArticleToc__item  570×44 @0,0
-        a.ArticleToc__link  570×44 @0,0  Manrope 600 15/22  lines=1  «Шаг 1. Мощность по площади»
-          a.ArticleToc__link::before  22×20 @0,0
-      li.ArticleToc__item#2  570×45 @0,44  b1 0 0 0
-        a.ArticleToc__link  570×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 2. Инвертор или on/off»
-          a.ArticleToc__link::before  22×20 @0,0
-      li.ArticleToc__item#3  570×45 @0,90  b1 0 0 0
-        a.ArticleToc__link  570×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 3. Уровень шума»
-          a.ArticleToc__link::before  22×20 @0,0
-  div.ArticleBody__body  620×564 @20,835
-    p.ArticleBody__paragraph  620×26 @0,0  Manrope 400 17/26  lines=1  «Кондиционер выбирают один раз в 10 лет,»
-    h2.ArticleBody__h2  620×31 @0,64  Onest 700 25/31  ls0  lines=1  «Шаг 1. Мощность по площади»
-    p.ArticleBody__paragraph#2  620×26 @0,109  Manrope 400 17/26  lines=1  «Базовое правило: холодопроизводительност»
-      strong.ArticleBody__strong  39×23 @143,1  Manrope 700 17/26  lines=1  «1 кВт»
-    ul.ArticleBody__list  620×58 @0,148
-      li.ArticleBody__item  596×26 @24,0  Manrope 400 17/26  lines=1  «— комната до 20 м²»
-        strong.ArticleBody__strong  20×23 @0,1  Manrope 700 17/26  lines=1  «07»
-      li.ArticleBody__item#2  596×26 @24,33  Manrope 400 17/26  lines=1  «— комната до 27 м²»
-        strong.ArticleBody__strong  21×23 @0,1  Manrope 700 17/26  lines=1  «09»
-    h3.ArticleBody__h3  620×26 @0,237  Onest 600 20/26  ls0  lines=1  «Поправки, о которых забывают»
-    p.ArticleBody__paragraph#3  620×26 @0,277  Manrope 400 17/26  lines=1  «Окна на юг добавляют , последний этаж —»
-      strong.ArticleBody__strong  36×23 @179,1  Manrope 700 17/26  lines=1  «20%»
-    h2.ArticleBody__h2#2  620×31 @0,340  Onest 700 25/31  ls0  lines=1  «Шаг 2. Инвертор или on/off»
-    p.ArticleBody__paragraph#4  620×26 @0,385  Manrope 400 17/26  lines=1  «Инвертор держит температуру точнее и тиш»
-    h2.ArticleBody__h2#3  620×31 @0,449  Onest 700 25/31  ls0  lines=1  «Шаг 3. Уровень шума»
-    aside.ArticleBody__callout  620×62 @0,502  r14  b1
-      p.ArticleBody__calloutText  574×24 @23,19  Manrope 400 16/24  lines=1  «Не хотите считать сами — оставьте заявку»
-  aside.ArticleView__cta  620×326 @20,1443  r20
-    div.ArticleView__ctaText  556×82 @32,32
-      p.ArticleView__ctaTitle  556×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы?»
-      p.ArticleView__ctaLead  556×45 @0,37  Manrope 400 15/22  lines=2  «Расскажем, что подойдёт именно вашей ква»
+    h1.ArticleView__title  622×129 @0,42  Onest 700 40/43  ls-1  lines=3  «Как выбрать кондиционер для квартиры: пл»
+  img.ArticleView__cover  622×327 @20,226  r18  b1
+  div.ArticleView__layout  622×799 @20,583
+    div.ArticleView__toc  622×206 @0,0
+      nav.ArticleToc__toc  622×206 @0,0  r18  b1
+        p.ArticleToc__title  572×19 @25,21  JetBrains Mono 400 12/19  ls2  lines=1  «В статье»
+        ol.ArticleToc__list  572×135 @25,50
+          li.ArticleToc__item  572×44 @0,0
+            a.ArticleToc__link  572×44 @0,0  Manrope 600 15/22  lines=1  «Шаг 1. Мощность по площади»
+              a.ArticleToc__link::before  22×20 @0,0
+          li.ArticleToc__item#2  572×45 @0,44  b1 0 0 0
+            a.ArticleToc__link  572×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 2. Инвертор или on/off»
+              a.ArticleToc__link::before  22×20 @0,0
+          li.ArticleToc__item#3  572×45 @0,90  b1 0 0 0
+            a.ArticleToc__link  572×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 3. Уровень шума»
+              a.ArticleToc__link::before  22×20 @0,0
+    div.ArticleBody__body  622×561 @0,238
+      p.ArticleBody__paragraph  622×25 @0,0  Manrope 400 15/25  lines=1  «Кондиционер выбирают один раз в 10 лет,»
+      h2.ArticleBody__h2  622×31 @0,63  Onest 700 25/31  ls0  lines=1  «Шаг 1. Мощность по площади»
+      p.ArticleBody__paragraph#2  622×25 @0,108  Manrope 400 15/25  lines=1  «Базовое правило: холодопроизводительност»
+        strong.ArticleBody__strong  35×21 @130,1  Manrope 700 15/25  lines=1  «1 кВт»
+      ul.ArticleBody__list  622×57 @0,147
+        li.ArticleBody__item  598×25 @24,0  Manrope 400 15/25  lines=1  «— комната до 20 м²»
+          strong.ArticleBody__strong  18×21 @0,1  Manrope 700 15/25  lines=1  «07»
+        li.ArticleBody__item#2  598×25 @24,32  Manrope 400 15/25  lines=1  «— комната до 27 м²»
+          strong.ArticleBody__strong  19×21 @0,1  Manrope 700 15/25  lines=1  «09»
+      h3.ArticleBody__h3  622×26 @0,233  Onest 600 20/26  ls0  lines=1  «Поправки, о которых забывают»
+      p.ArticleBody__paragraph#3  622×25 @0,273  Manrope 400 15/25  lines=1  «Окна на юг добавляют , последний этаж —»
+        strong.ArticleBody__strong  32×21 @163,1  Manrope 700 15/25  lines=1  «20%»
+      h2.ArticleBody__h2#2  622×31 @0,336  Onest 700 25/31  ls0  lines=1  «Шаг 2. Инвертор или on/off»
+      p.ArticleBody__paragraph#4  622×25 @0,381  Manrope 400 15/25  lines=1  «Инвертор держит температуру точнее и тиш»
+      h2.ArticleBody__h2#3  622×31 @0,444  Onest 700 25/31  ls0  lines=1  «Шаг 3. Уровень шума»
+      aside.ArticleBody__callout  622×64 @0,497  r14  b1
+        p.ArticleBody__calloutText  576×26 @23,19  Manrope 400 16/26  lines=1  «Не хотите считать сами — оставьте заявку»
+  aside.ArticleView__cta  622×326 @20,1426  r20
+    div.ArticleView__ctaText  558×82 @32,32
+      p.ArticleView__ctaTitle  558×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы?»
+      p.ArticleView__ctaLead  558×45 @0,37  Manrope 400 15/22  lines=2  «Расскажем, что подойдёт именно вашей ква»
     div.ArticleView__ctaActions  293×156 @32,138
       a.Button__button  187×52 @0,0  r12  b1
         span.Button__content  129×19 @29,16
@@ -181,13 +187,13 @@ article.ArticleView__article  660×1910 @54,0
           svg  15×15 @261,15
         a.ArticleView__ctaLink#2  305×44 @-12,46  Manrope 600 15/22  r11  lines=1  «Установка кондиционеров под ключ»
           svg  15×15 @278,15
-  p.ArticleView__back  620×44 @20,1797
+  p.ArticleView__back  622×44 @20,1779
     a.ArticleView__backLink  198×44 @-12,0  Manrope 600 15/23  r11  lines=1  «Все статьи Базы знаний»
 
 [геометрия 1200]
-article.ArticleView__article  668×1929 @266,0
-  header.ArticleView__head  620×170 @24,48
-    p.ArticleView__meta  620×24 @0,0
+article.ArticleView__article  914×1734 @143,0
+  header.ArticleView__head  622×201 @268,40
+    p.ArticleView__meta  622×24 @0,0
       span.Badge__badge  62×24 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
         span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
       span.ArticleView__dates  170×20 @72,2
@@ -195,42 +201,44 @@ article.ArticleView__article  668×1929 @266,0
         time  81×18 @0,1  Manrope 400 13/20  lines=1  «14 июня 2026»
         span#2  8×18 @81,1  Manrope 400 13/20  lines=1  «·»
         span#3  81×18 @89,1  Manrope 400 13/20  lines=1  «6 мин чтения»
-    h1.ArticleView__title  620×128 @0,42  Onest 700 38/43  ls-1  lines=3  «Как выбрать кондиционер для квартиры: пл»
-  img.ArticleView__cover  620×326 @24,242  r18  b1
-  nav.ArticleToc__toc  620×206 @24,597  r18  b1
-    p.ArticleToc__title  570×19 @25,21  JetBrains Mono 400 12/19  ls2  lines=1  «В статье»
-    ol.ArticleToc__list  570×135 @25,50
-      li.ArticleToc__item  570×44 @0,0
-        a.ArticleToc__link  570×44 @0,0  Manrope 600 15/22  lines=1  «Шаг 1. Мощность по площади»
-          a.ArticleToc__link::before  22×20 @0,0
-      li.ArticleToc__item#2  570×45 @0,44  b1 0 0 0
-        a.ArticleToc__link  570×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 2. Инвертор или on/off»
-          a.ArticleToc__link::before  22×20 @0,0
-      li.ArticleToc__item#3  570×45 @0,90  b1 0 0 0
-        a.ArticleToc__link  570×44 @0,1  Manrope 600 15/22  lines=1  «Шаг 3. Уровень шума»
-          a.ArticleToc__link::before  22×20 @0,0
-  div.ArticleBody__body  620×564 @24,835
-    p.ArticleBody__paragraph  620×26 @0,0  Manrope 400 17/26  lines=1  «Кондиционер выбирают один раз в 10 лет,»
-    h2.ArticleBody__h2  620×31 @0,64  Onest 700 25/31  ls0  lines=1  «Шаг 1. Мощность по площади»
-    p.ArticleBody__paragraph#2  620×26 @0,109  Manrope 400 17/26  lines=1  «Базовое правило: холодопроизводительност»
-      strong.ArticleBody__strong  39×23 @143,1  Manrope 700 17/26  lines=1  «1 кВт»
-    ul.ArticleBody__list  620×58 @0,148
-      li.ArticleBody__item  596×26 @24,0  Manrope 400 17/26  lines=1  «— комната до 20 м²»
-        strong.ArticleBody__strong  20×23 @0,1  Manrope 700 17/26  lines=1  «07»
-      li.ArticleBody__item#2  596×26 @24,33  Manrope 400 17/26  lines=1  «— комната до 27 м²»
-        strong.ArticleBody__strong  21×23 @0,1  Manrope 700 17/26  lines=1  «09»
-    h3.ArticleBody__h3  620×26 @0,237  Onest 600 20/26  ls0  lines=1  «Поправки, о которых забывают»
-    p.ArticleBody__paragraph#3  620×26 @0,277  Manrope 400 17/26  lines=1  «Окна на юг добавляют , последний этаж —»
-      strong.ArticleBody__strong  36×23 @179,1  Manrope 700 17/26  lines=1  «20%»
-    h2.ArticleBody__h2#2  620×31 @0,340  Onest 700 25/31  ls0  lines=1  «Шаг 2. Инвертор или on/off»
-    p.ArticleBody__paragraph#4  620×26 @0,385  Manrope 400 17/26  lines=1  «Инвертор держит температуру точнее и тиш»
-    h2.ArticleBody__h2#3  620×31 @0,449  Onest 700 25/31  ls0  lines=1  «Шаг 3. Уровень шума»
-    aside.ArticleBody__callout  620×62 @0,502  r14  b1
-      p.ArticleBody__calloutText  574×24 @23,19  Manrope 400 16/24  lines=1  «Не хотите считать сами — оставьте заявку»
-  aside.ArticleView__cta  620×326 @24,1443  r20
-    div.ArticleView__ctaText  556×82 @32,32
-      p.ArticleView__ctaTitle  556×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы?»
-      p.ArticleView__ctaLead  556×45 @0,37  Manrope 400 15/22  lines=2  «Расскажем, что подойдёт именно вашей ква»
+    h1.ArticleView__title  622×159 @0,42  Onest 700 49/53  ls-1  lines=3  «Как выбрать кондиционер для квартиры: пл»
+  img.ArticleView__cover  622×327 @268,265  r18  b1
+  div.ArticleView__layout  0×0 @-143,0
+    div.ArticleView__toc  216×305 @167,622  fixed
+      nav.ArticleToc__toc  216×273 @0,0  r18  b1
+        p.ArticleToc__title  166×19 @25,21  JetBrains Mono 400 12/19  ls2  lines=1  «В статье»
+        ol.ArticleToc__list  166×203 @25,50
+          li.ArticleToc__item  166×67 @0,0
+            a.ArticleToc__link  166×67 @0,0  Manrope 600 15/22  lines=2  «Шаг 1. Мощность по площади»
+              a.ArticleToc__link::before  22×20 @0,0
+          li.ArticleToc__item#2  166×68 @0,67  b1 0 0 0
+            a.ArticleToc__link  166×67 @0,1  Manrope 600 15/22  lines=2  «Шаг 2. Инвертор или on/off»
+              a.ArticleToc__link::before  22×20 @0,0
+          li.ArticleToc__item#3  166×68 @0,135  b1 0 0 0
+            a.ArticleToc__link  166×67 @0,1  Manrope 600 15/22  lines=2  «Шаг 3. Уровень шума»
+              a.ArticleToc__link::before  22×20 @0,0
+    div.ArticleBody__body  622×583 @411,622
+      p.ArticleBody__paragraph  622×25 @0,0  Manrope 400 15/25  lines=1  «Кондиционер выбирают один раз в 10 лет,»
+      h2.ArticleBody__h2  622×31 @0,63  Onest 700 25/31  ls0  lines=1  «Шаг 1. Мощность по площади»
+      p.ArticleBody__paragraph#2  622×25 @0,108  Manrope 400 15/25  lines=1  «Базовое правило: холодопроизводительност»
+        strong.ArticleBody__strong  35×21 @130,1  Manrope 700 15/25  lines=1  «1 кВт»
+      ul.ArticleBody__list  622×57 @0,147
+        li.ArticleBody__item  598×25 @24,0  Manrope 400 15/25  lines=1  «— комната до 20 м²»
+          strong.ArticleBody__strong  18×21 @0,1  Manrope 700 15/25  lines=1  «07»
+        li.ArticleBody__item#2  598×25 @24,32  Manrope 400 15/25  lines=1  «— комната до 27 м²»
+          strong.ArticleBody__strong  19×21 @0,1  Manrope 700 15/25  lines=1  «09»
+      h3.ArticleBody__h3  622×26 @0,233  Onest 600 20/26  ls0  lines=1  «Поправки, о которых забывают»
+      p.ArticleBody__paragraph#3  622×25 @0,273  Manrope 400 15/25  lines=1  «Окна на юг добавляют , последний этаж —»
+        strong.ArticleBody__strong  32×21 @163,1  Manrope 700 15/25  lines=1  «20%»
+      h2.ArticleBody__h2#2  622×31 @0,336  Onest 700 25/31  ls0  lines=1  «Шаг 2. Инвертор или on/off»
+      p.ArticleBody__paragraph#4  622×25 @0,381  Manrope 400 15/25  lines=1  «Инвертор держит температуру точнее и тиш»
+      h2.ArticleBody__h2#3  622×31 @0,444  Onest 700 25/31  ls0  lines=1  «Шаг 3. Уровень шума»
+      aside.ArticleBody__callout  622×64 @0,497  r14  b1
+        p.ArticleBody__calloutText  576×26 @23,19  Manrope 400 16/26  lines=1  «Не хотите считать сами — оставьте заявку»
+  aside.ArticleView__cta  622×326 @268,1248  r20
+    div.ArticleView__ctaText  558×82 @32,32
+      p.ArticleView__ctaTitle  558×31 @0,0  Onest 700 20/31  ls0  lines=1  «Остались вопросы?»
+      p.ArticleView__ctaLead  558×45 @0,37  Manrope 400 15/22  lines=2  «Расскажем, что подойдёт именно вашей ква»
     div.ArticleView__ctaActions  293×156 @32,138
       a.Button__button  187×52 @0,0  r12  b1
         span.Button__content  129×19 @29,16
@@ -240,7 +248,7 @@ article.ArticleView__article  668×1929 @266,0
           svg  15×15 @261,15
         a.ArticleView__ctaLink#2  305×44 @-12,46  Manrope 600 15/22  r11  lines=1  «Установка кондиционеров под ключ»
           svg  15×15 @278,15
-  p.ArticleView__back  620×44 @24,1797
+  p.ArticleView__back  622×44 @268,1602
     a.ArticleView__backLink  198×44 @-12,0  Manrope 600 15/23  r11  lines=1  «Все статьи Базы знаний»
 
 [палитра light]
@@ -256,36 +264,38 @@ article.ArticleView__article
         span#3  color #5b6a7d
     h1.ArticleView__title  color #0f172a
   img.ArticleView__cover  border #e2e8f0
-  nav.ArticleToc__toc  bg #f8fafc  border #e2e8f0
-    p.ArticleToc__title  color #556173
-    ol.ArticleToc__list
-      li.ArticleToc__item
-        a.ArticleToc__link  color #334155
-          a.ArticleToc__link::before
-      li.ArticleToc__item#2  border #eef2f6 #0f172a #0f172a #0f172a
-        a.ArticleToc__link  color #334155
-          a.ArticleToc__link::before
-      li.ArticleToc__item#3  border #eef2f6 #0f172a #0f172a #0f172a
-        a.ArticleToc__link  color #334155
-          a.ArticleToc__link::before
-  div.ArticleBody__body
-    p.ArticleBody__paragraph  color #475569
-    h2.ArticleBody__h2  color #0f172a
-    p.ArticleBody__paragraph#2  color #475569
-      strong.ArticleBody__strong  color #0f172a
-    ul.ArticleBody__list
-      li.ArticleBody__item  color #475569
+  div.ArticleView__layout
+    div.ArticleView__toc
+      nav.ArticleToc__toc  bg #f8fafc  border #e2e8f0
+        p.ArticleToc__title  color #556173
+        ol.ArticleToc__list
+          li.ArticleToc__item
+            a.ArticleToc__link  color #334155
+              a.ArticleToc__link::before
+          li.ArticleToc__item#2  border #eef2f6 #0f172a #0f172a #0f172a
+            a.ArticleToc__link  color #334155
+              a.ArticleToc__link::before
+          li.ArticleToc__item#3  border #eef2f6 #0f172a #0f172a #0f172a
+            a.ArticleToc__link  color #334155
+              a.ArticleToc__link::before
+    div.ArticleBody__body
+      p.ArticleBody__paragraph  color #475569
+      h2.ArticleBody__h2  color #0f172a
+      p.ArticleBody__paragraph#2  color #475569
         strong.ArticleBody__strong  color #0f172a
-      li.ArticleBody__item#2  color #475569
+      ul.ArticleBody__list
+        li.ArticleBody__item  color #475569
+          strong.ArticleBody__strong  color #0f172a
+        li.ArticleBody__item#2  color #475569
+          strong.ArticleBody__strong  color #0f172a
+      h3.ArticleBody__h3  color #0f172a
+      p.ArticleBody__paragraph#3  color #475569
         strong.ArticleBody__strong  color #0f172a
-    h3.ArticleBody__h3  color #0f172a
-    p.ArticleBody__paragraph#3  color #475569
-      strong.ArticleBody__strong  color #0f172a
-    h2.ArticleBody__h2#2  color #0f172a
-    p.ArticleBody__paragraph#4  color #475569
-    h2.ArticleBody__h2#3  color #0f172a
-    aside.ArticleBody__callout  bg #ecfeff  border #a5f3fc
-      p.ArticleBody__calloutText  color #334155
+      h2.ArticleBody__h2#2  color #0f172a
+      p.ArticleBody__paragraph#4  color #475569
+      h2.ArticleBody__h2#3  color #0f172a
+      aside.ArticleBody__callout  bg #ecfeff  border #a5f3fc
+        p.ArticleBody__calloutText  color #334155
   aside.ArticleView__cta  bg #0f172a
     div.ArticleView__ctaText
       p.ArticleView__ctaTitle  color #ffffff
@@ -315,36 +325,38 @@ article.ArticleView__article
         span#3  color #7e92a7
     h1.ArticleView__title  color #eaf1f8
   img.ArticleView__cover  border #1e2b41
-  nav.ArticleToc__toc  bg #0e1729  border #1e2b41
-    p.ArticleToc__title  color #8598ac
-    ol.ArticleToc__list
-      li.ArticleToc__item
-        a.ArticleToc__link  color #c9d5e2
-          a.ArticleToc__link::before
-      li.ArticleToc__item#2  border #182338 #eaf1f8 #eaf1f8 #eaf1f8
-        a.ArticleToc__link  color #c9d5e2
-          a.ArticleToc__link::before
-      li.ArticleToc__item#3  border #182338 #eaf1f8 #eaf1f8 #eaf1f8
-        a.ArticleToc__link  color #c9d5e2
-          a.ArticleToc__link::before
-  div.ArticleBody__body
-    p.ArticleBody__paragraph  color #a8b6c6
-    h2.ArticleBody__h2  color #eaf1f8
-    p.ArticleBody__paragraph#2  color #a8b6c6
-      strong.ArticleBody__strong  color #eaf1f8
-    ul.ArticleBody__list
-      li.ArticleBody__item  color #a8b6c6
+  div.ArticleView__layout
+    div.ArticleView__toc
+      nav.ArticleToc__toc  bg #0e1729  border #1e2b41
+        p.ArticleToc__title  color #8598ac
+        ol.ArticleToc__list
+          li.ArticleToc__item
+            a.ArticleToc__link  color #c9d5e2
+              a.ArticleToc__link::before
+          li.ArticleToc__item#2  border #182338 #eaf1f8 #eaf1f8 #eaf1f8
+            a.ArticleToc__link  color #c9d5e2
+              a.ArticleToc__link::before
+          li.ArticleToc__item#3  border #182338 #eaf1f8 #eaf1f8 #eaf1f8
+            a.ArticleToc__link  color #c9d5e2
+              a.ArticleToc__link::before
+    div.ArticleBody__body
+      p.ArticleBody__paragraph  color #a8b6c6
+      h2.ArticleBody__h2  color #eaf1f8
+      p.ArticleBody__paragraph#2  color #a8b6c6
         strong.ArticleBody__strong  color #eaf1f8
-      li.ArticleBody__item#2  color #a8b6c6
+      ul.ArticleBody__list
+        li.ArticleBody__item  color #a8b6c6
+          strong.ArticleBody__strong  color #eaf1f8
+        li.ArticleBody__item#2  color #a8b6c6
+          strong.ArticleBody__strong  color #eaf1f8
+      h3.ArticleBody__h3  color #eaf1f8
+      p.ArticleBody__paragraph#3  color #a8b6c6
         strong.ArticleBody__strong  color #eaf1f8
-    h3.ArticleBody__h3  color #eaf1f8
-    p.ArticleBody__paragraph#3  color #a8b6c6
-      strong.ArticleBody__strong  color #eaf1f8
-    h2.ArticleBody__h2#2  color #eaf1f8
-    p.ArticleBody__paragraph#4  color #a8b6c6
-    h2.ArticleBody__h2#3  color #eaf1f8
-    aside.ArticleBody__callout  bg #22d3ee1a  border #22d3ee59
-      p.ArticleBody__calloutText  color #c9d5e2
+      h2.ArticleBody__h2#2  color #eaf1f8
+      p.ArticleBody__paragraph#4  color #a8b6c6
+      h2.ArticleBody__h2#3  color #eaf1f8
+      aside.ArticleBody__callout  bg #22d3ee1a  border #22d3ee59
+        p.ArticleBody__calloutText  color #c9d5e2
   aside.ArticleView__cta  bg #111d34
     div.ArticleView__ctaText
       p.ArticleView__ctaTitle  color #ffffff

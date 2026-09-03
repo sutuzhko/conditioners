@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useState } from 'react';
 
 import { formatDate, formatDateIso } from '@/shared/lib/format';
 import { Icon, IconButton, Modal, Rating } from '@/shared/ui';
@@ -44,8 +45,17 @@ export interface ReviewDialogProps {
  * кнопки, — худший из возможных исходов.
  */
 export function ReviewDialog({ reviews, at, onClose, onMove }: ReviewDialogProps) {
+  /* Фотография автора может не загрузиться — так бывает, когда файл удалили из
+     хранилища, а отзыв остался. Битая картинка вместо лица хуже кружка с
+     буквой: карточка ленты подставляет букву, и окно обязано вести себя так
+     же (issue #22). Ключ — сам отзыв: листание меняет автора, и отказ
+     прошлого снимка не должен гасить снимок следующего. */
+  const [broken, setBroken] = useState<string | null>(null);
+
   const review = at === null ? undefined : reviews[at];
   if (review === undefined || at === null) return null;
+
+  const showPhoto = review.avatar !== null && broken !== review.id;
 
   const total = reviews.length;
   const step = (delta: number): void => onMove((at + delta + total) % total);
@@ -57,20 +67,22 @@ export function ReviewDialog({ reviews, at, onClose, onMove }: ReviewDialogProps
             обязана оставаться на виду у отзыва любой длины. */}
         <div className={styles.scroll}>
           <div className={styles.head}>
-            {review.avatar === null ? (
-              <span className={styles.initial} aria-hidden="true">
+            <span className={styles.initial}>
+              <span className={styles.letter} aria-hidden="true">
                 {initialOf(review.name)}
               </span>
-            ) : (
-              <Image
-                className={styles.avatar}
-                src={review.avatar}
-                alt={t.avatarAlt(review.name)}
-                width={AVATAR_SIZE}
-                height={AVATAR_SIZE}
-                sizes={AVATAR_SIZES}
-              />
-            )}
+              {showPhoto && review.avatar !== null ? (
+                <Image
+                  className={styles.avatar}
+                  src={review.avatar}
+                  alt={t.avatarAlt(review.name)}
+                  width={AVATAR_SIZE}
+                  height={AVATAR_SIZE}
+                  sizes={AVATAR_SIZES}
+                  onError={() => setBroken(review.id)}
+                />
+              ) : null}
+            </span>
 
             <div className={styles.who}>
               <p className={styles.name}>{review.name}</p>

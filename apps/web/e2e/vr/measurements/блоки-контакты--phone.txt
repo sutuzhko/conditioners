@@ -1,5 +1,5 @@
 # блоки-контакты--phone · ширины 320 375 768 1200 · темы light dark
-шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 500, Manrope 600, Onest 700
 
 [документ]
 320 → 320×900
@@ -8,172 +8,164 @@
 1200 → 1200×900
 
 [геометрия 320]
-section.Contacts__section  320×761 @0,0
-  div.Contacts__container  320×761 @0,0
-    div.Contacts__layout  288×713 @16,48
-      div.Contacts__info  288×383 @0,0
+section.Contacts__section  320×702 @0,0
+  div.Contacts__container  320×702 @0,0
+    div.Contacts__layout  288×654 @16,48
+      div.Contacts__info  288×360 @0,0
         p.Contacts__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Контакты —»
         h2.Contacts__title  288×29 @0,32  Onest 700 24/29  ls0  lines=1  «Тула и Тульская область»
-        dl.Contacts__rows  288×214 @0,89
-          div.Contacts__row  288×73 @0,0
-            span.Contacts__icon  44×44 @0,0  r12
-              svg  20×20 @12,12
-            div.Contacts__rowBody  230×73 @58,0
-              dt.Contacts__label  230×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
-              dd.Contacts__definition  230×50 @0,23
-                address.Contacts__address  230×50 @0,0  Manrope 600 16/25  lines=2  «Тула, ул. Демонстрационная, 1, оф. 5»
-          div.Contacts__row#2  288×49 @0,95
-            span.Contacts__icon  44×44 @0,0  r12
-              svg#2  20×20 @12,12
-            div.Contacts__rowBody  150×49 @58,0
-              dt.Contacts__label#2  150×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-              dd.Contacts__definition#2  150×26 @0,23
-                span.Contacts__phones  150×26 @0,0
-                  a.Contacts__phone  150×26 @0,0  Manrope 600 16/25  lines=1  «+7 (4872) 90-00-00»
-          div.Contacts__row#3  288×48 @0,166
-            span.Contacts__icon  44×44 @0,0  r12
-              svg#3  20×20 @12,12
-            div.Contacts__rowBody  143×48 @58,0
-              dt.Contacts__label#3  143×20 @0,0  Manrope 400 13/20  lines=1  «Часы работы»
-              dd.Contacts__definition#3  143×25 @0,23
-                span.Contacts__value  143×22 @0,1  Manrope 600 16/25  lines=1  «Пн–Вс, 8:00–21:00»
-        a.Button__button  288×52 @0,331  r12  b1
+        dl.Contacts__rows  288×208 @0,81
+          div.Contacts__row  288×67 @0,0
+            span.Contacts__icon  38×38 @0,0  r12
+              svg  20×20 @9,9
+            div.Contacts__rowBody  236×67 @52,0
+              dt.Contacts__label  236×19 @0,0  Manrope 400 12/19  lines=1  «Адрес»
+              dd.Contacts__definition  236×47 @0,21
+                address.Contacts__address  236×47 @0,0  Manrope 500 15/23  lines=2  «Тула, ул. Демонстрационная, 1, оф. 5»
+          div.Contacts__row#2  288×65 @0,83
+            span.Contacts__icon  38×38 @0,0  r12
+              svg#2  20×20 @9,9
+            div.Contacts__rowBody  162×65 @52,0
+              dt.Contacts__label#2  162×19 @0,0  Manrope 400 12/19  lines=1  «Телефон»
+              dd.Contacts__definition#2  162×44 @0,21
+                span.Contacts__phones  162×44 @0,0
+                  a.Contacts__phone  162×44 @0,0  JetBrains Mono 500 15/23  lines=1  «+7 (4872) 90-00-00»
+          div.Contacts__row#3  288×44 @0,164
+            span.Contacts__icon  38×38 @0,0  r12
+              svg#3  20×20 @9,9
+            div.Contacts__rowBody  131×44 @52,0
+              dt.Contacts__label#3  131×19 @0,0  Manrope 400 12/19  lines=1  «Часы работы»
+              dd.Contacts__definition#3  131×23 @0,21
+                span.Contacts__value  131×21 @0,1  Manrope 500 15/23  lines=1  «Пн–Вс, 8:00–21:00»
+        a.Button__button  288×52 @0,308  r12  b1
           span.Button__content  129×19 @79,16
             span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
-      div.Contacts__map  288×302 @0,411  r20  b1
-        div.Contacts__mapGrid  286×300 @1,1
-        div.Contacts__mapCard  254×268 @17,17  r14  b1
-          p.Contacts__mapTitle  220×20 @17,17  JetBrains Mono 400 13/20  ls1  lines=1  «Как нас найти»
-          p.Contacts__mapAddress  220×50 @17,47  Manrope 600 16/25  lines=2  «Тула, ул. Демонстрационная, 1, оф. 5»
-          p.Contacts__mapArea  220×20 @17,101  Manrope 400 13/20  lines=1  «Тула и Тульская область»
-          a.Contacts__mapLink  220×46 @17,137  Manrope 600 15/22  r11  b1  lines=1  «Открыть в Яндекс.Картах»
-          p.Contacts__mapNote  220×56 @17,195  Manrope 400 12/19  lines=3  «Карта откроется в Яндекс.Картах: так стр»
+      div.Contacts__mapCard  288×273 @0,380  r20  b1
+        p.Contacts__mapTitle  246×20 @21,21  JetBrains Mono 400 13/20  ls1  lines=1  «Как нас найти»
+        p.Contacts__mapAddress  246×47 @21,51  Manrope 600 15/23  lines=2  «Тула, ул. Демонстрационная, 1, оф. 5»
+        p.Contacts__mapArea  246×20 @21,102  Manrope 400 13/20  lines=1  «Тула и Тульская область»
+        a.Contacts__mapLink  246×46 @21,138  Manrope 600 15/22  r11  b1  lines=1  «Открыть в Яндекс.Картах»
+        p.Contacts__mapNote  246×56 @21,196  Manrope 400 12/19  lines=3  «Карта откроется в Яндекс.Картах: так стр»
 
 [геометрия 375]
-section.Contacts__section  375×745 @0,0
-  div.Contacts__container  375×745 @0,0
-    div.Contacts__layout  343×694 @16,51
-      div.Contacts__info  343×383 @0,0
-        p.Contacts__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Контакты —»
-        h2.Contacts__title  343×29 @0,32  Onest 700 24/29  ls0  lines=1  «Тула и Тульская область»
-        dl.Contacts__rows  343×214 @0,89
-          div.Contacts__row  343×73 @0,0
-            span.Contacts__icon  44×44 @0,0  r12
-              svg  20×20 @12,12
-            div.Contacts__rowBody  285×73 @58,0
-              dt.Contacts__label  285×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
-              dd.Contacts__definition  285×50 @0,23
-                address.Contacts__address  285×50 @0,0  Manrope 600 16/25  lines=2  «Тула, ул. Демонстрационная, 1, оф. 5»
-          div.Contacts__row#2  343×49 @0,95
-            span.Contacts__icon  44×44 @0,0  r12
-              svg#2  20×20 @12,12
-            div.Contacts__rowBody  150×49 @58,0
-              dt.Contacts__label#2  150×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-              dd.Contacts__definition#2  150×26 @0,23
-                span.Contacts__phones  150×26 @0,0
-                  a.Contacts__phone  150×26 @0,0  Manrope 600 16/25  lines=1  «+7 (4872) 90-00-00»
-          div.Contacts__row#3  343×48 @0,166
-            span.Contacts__icon  44×44 @0,0  r12
-              svg#3  20×20 @12,12
-            div.Contacts__rowBody  143×48 @58,0
-              dt.Contacts__label#3  143×20 @0,0  Manrope 400 13/20  lines=1  «Часы работы»
-              dd.Contacts__definition#3  143×25 @0,23
-                span.Contacts__value  143×22 @0,1  Manrope 600 16/25  lines=1  «Пн–Вс, 8:00–21:00»
-        a.Button__button  343×52 @0,331  r12  b1
-          span.Button__content  129×19 @107,16
+section.Contacts__section  375×639 @0,0
+  div.Contacts__container  375×639 @0,0
+    div.Contacts__layout  342×588 @17,51
+      div.Contacts__info  342×337 @0,0
+        p.Contacts__kicker  342×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Контакты —»
+        h2.Contacts__title  342×29 @0,32  Onest 700 24/29  ls0  lines=1  «Тула и Тульская область»
+        dl.Contacts__rows  342×184 @0,81
+          div.Contacts__row  342×44 @0,0
+            span.Contacts__icon  38×38 @0,0  r12
+              svg  20×20 @9,9
+            div.Contacts__rowBody  263×44 @52,0
+              dt.Contacts__label  263×19 @0,0  Manrope 400 12/19  lines=1  «Адрес»
+              dd.Contacts__definition  263×23 @0,21
+                address.Contacts__address  263×23 @0,0  Manrope 500 15/23  lines=1  «Тула, ул. Демонстрационная, 1, оф. 5»
+          div.Contacts__row#2  342×65 @0,60
+            span.Contacts__icon  38×38 @0,0  r12
+              svg#2  20×20 @9,9
+            div.Contacts__rowBody  162×65 @52,0
+              dt.Contacts__label#2  162×19 @0,0  Manrope 400 12/19  lines=1  «Телефон»
+              dd.Contacts__definition#2  162×44 @0,21
+                span.Contacts__phones  162×44 @0,0
+                  a.Contacts__phone  162×44 @0,0  JetBrains Mono 500 15/23  lines=1  «+7 (4872) 90-00-00»
+          div.Contacts__row#3  342×44 @0,140
+            span.Contacts__icon  38×38 @0,0  r12
+              svg#3  20×20 @9,9
+            div.Contacts__rowBody  131×44 @52,0
+              dt.Contacts__label#3  131×19 @0,0  Manrope 400 12/19  lines=1  «Часы работы»
+              dd.Contacts__definition#3  131×23 @0,21
+                span.Contacts__value  131×21 @0,1  Manrope 500 15/23  lines=1  «Пн–Вс, 8:00–21:00»
+        a.Button__button  342×52 @0,285  r12  b1
+          span.Button__content  129×19 @106,16
             span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
-      div.Contacts__map  343×284 @0,411  r20  b1
-        div.Contacts__mapGrid  341×282 @1,1
-        div.Contacts__mapCard  309×250 @17,17  r14  b1
-          p.Contacts__mapTitle  275×20 @17,17  JetBrains Mono 400 13/20  ls1  lines=1  «Как нас найти»
-          p.Contacts__mapAddress  275×50 @17,47  Manrope 600 16/25  lines=2  «Тула, ул. Демонстрационная, 1, оф. 5»
-          p.Contacts__mapArea  275×20 @17,101  Manrope 400 13/20  lines=1  «Тула и Тульская область»
-          a.Contacts__mapLink  275×46 @17,137  Manrope 600 15/22  r11  b1  lines=1  «Открыть в Яндекс.Картах»
-          p.Contacts__mapNote  275×37 @17,195  Manrope 400 12/19  lines=2  «Карта откроется в Яндекс.Картах: так стр»
+      div.Contacts__mapCard  342×231 @0,357  r20  b1
+        p.Contacts__mapTitle  300×20 @21,21  JetBrains Mono 400 13/20  ls1  lines=1  «Как нас найти»
+        p.Contacts__mapAddress  300×23 @21,51  Manrope 600 15/23  lines=1  «Тула, ул. Демонстрационная, 1, оф. 5»
+        p.Contacts__mapArea  300×20 @21,78  Manrope 400 13/20  lines=1  «Тула и Тульская область»
+        a.Contacts__mapLink  300×46 @21,115  Manrope 600 15/22  r11  b1  lines=1  «Открыть в Яндекс.Картах»
+        p.Contacts__mapNote  300×37 @21,173  Manrope 400 12/19  lines=2  «Карта откроется в Яндекс.Картах: так стр»
 
 [геометрия 768]
-section.Contacts__section  768×826 @0,0
-  div.Contacts__container  768×826 @0,0
-    div.Contacts__layout  728×758 @20,68
-      div.Contacts__info  728×370 @0,0
+section.Contacts__section  768×604 @0,0
+  div.Contacts__container  768×604 @0,0
+    div.Contacts__layout  728×535 @20,68
+      div.Contacts__info  728×299 @0,0
         p.Contacts__kicker  728×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Контакты —»
         h2.Contacts__title  728×41 @0,32  Onest 700 34/41  ls-1  lines=1  «Тула и Тульская область»
-        dl.Contacts__rows  728×189 @0,101
-          div.Contacts__row  728×48 @0,0
-            span.Contacts__icon  44×44 @0,0  r12
-              svg  20×20 @12,12
-            div.Contacts__rowBody  286×48 @58,0
-              dt.Contacts__label  286×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
-              dd.Contacts__definition  286×25 @0,23
-                address.Contacts__address  286×25 @0,0  Manrope 600 16/25  lines=1  «Тула, ул. Демонстрационная, 1, оф. 5»
-          div.Contacts__row#2  728×49 @0,70
-            span.Contacts__icon  44×44 @0,0  r12
-              svg#2  20×20 @12,12
-            div.Contacts__rowBody  150×49 @58,0
-              dt.Contacts__label#2  150×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-              dd.Contacts__definition#2  150×26 @0,23
-                span.Contacts__phones  150×26 @0,0
-                  a.Contacts__phone  150×26 @0,0  Manrope 600 16/25  lines=1  «+7 (4872) 90-00-00»
-          div.Contacts__row#3  728×48 @0,141
-            span.Contacts__icon  44×44 @0,0  r12
-              svg#3  20×20 @12,12
-            div.Contacts__rowBody  143×48 @58,0
-              dt.Contacts__label#3  143×20 @0,0  Manrope 400 13/20  lines=1  «Часы работы»
-              dd.Contacts__definition#3  143×25 @0,23
-                span.Contacts__value  143×22 @0,1  Manrope 600 16/25  lines=1  «Пн–Вс, 8:00–21:00»
-        a.Button__button  728×52 @0,318  r12  b1
-          span.Button__content  129×19 @299,16
+        dl.Contacts__rows  728×124 @0,98
+          div.Contacts__row  352×65 @0,0
+            span.Contacts__icon  38×38 @0,0  r12
+              svg  20×20 @9,9
+            div.Contacts__rowBody  263×44 @52,0
+              dt.Contacts__label  263×19 @0,0  Manrope 400 12/19  lines=1  «Адрес»
+              dd.Contacts__definition  263×23 @0,21
+                address.Contacts__address  263×23 @0,0  Manrope 500 15/23  lines=1  «Тула, ул. Демонстрационная, 1, оф. 5»
+          div.Contacts__row#2  352×65 @376,0
+            span.Contacts__icon  38×38 @0,0  r12
+              svg#2  20×20 @9,9
+            div.Contacts__rowBody  162×65 @52,0
+              dt.Contacts__label#2  162×19 @0,0  Manrope 400 12/19  lines=1  «Телефон»
+              dd.Contacts__definition#2  162×44 @0,21
+                span.Contacts__phones  162×44 @0,0
+                  a.Contacts__phone  162×44 @0,0  JetBrains Mono 500 15/23  lines=1  «+7 (4872) 90-00-00»
+          div.Contacts__row#3  352×44 @0,81
+            span.Contacts__icon  38×38 @0,0  r12
+              svg#3  20×20 @9,9
+            div.Contacts__rowBody  131×44 @52,0
+              dt.Contacts__label#3  131×19 @0,0  Manrope 400 12/19  lines=1  «Часы работы»
+              dd.Contacts__definition#3  131×23 @0,21
+                span.Contacts__value  131×21 @0,1  Manrope 500 15/23  lines=1  «Пн–Вс, 8:00–21:00»
+        a.Button__button  320×52 @0,247  r12  b1
+          span.Button__content  129×19 @95,16
             span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
-      div.Contacts__map  728×360 @0,398  r20  b1
-        div.Contacts__mapGrid  726×358 @1,1
-        div.Contacts__mapCard  340×233 @194,64  r14  b1
-          p.Contacts__mapTitle  298×20 @21,21  JetBrains Mono 400 13/20  ls1  lines=1  «Как нас найти»
-          p.Contacts__mapAddress  298×25 @21,51  Manrope 600 16/25  lines=1  «Тула, ул. Демонстрационная, 1, оф. 5»
-          p.Contacts__mapArea  298×20 @21,80  Manrope 400 13/20  lines=1  «Тула и Тульская область»
-          a.Contacts__mapLink  298×46 @21,116  Manrope 600 15/22  r11  b1  lines=1  «Открыть в Яндекс.Картах»
-          p.Contacts__mapNote  298×37 @21,175  Manrope 400 12/19  lines=2  «Карта откроется в Яндекс.Картах: так стр»
+      div.Contacts__mapCard  728×213 @0,323  r20  b1
+        p.Contacts__mapTitle  686×20 @21,21  JetBrains Mono 400 13/20  ls1  lines=1  «Как нас найти»
+        p.Contacts__mapAddress  686×23 @21,51  Manrope 600 15/23  lines=1  «Тула, ул. Демонстрационная, 1, оф. 5»
+        p.Contacts__mapArea  686×20 @21,78  Manrope 400 13/20  lines=1  «Тула и Тульская область»
+        a.Contacts__mapLink  686×46 @21,115  Manrope 600 15/22  r11  b1  lines=1  «Открыть в Яндекс.Картах»
+        p.Contacts__mapNote  686×19 @21,173  Manrope 400 12/19  lines=1  «Карта откроется в Яндекс.Картах: так стр»
 
 [геометрия 1200]
-section.Contacts__section  1200×458 @0,0
-  div.Contacts__container  1200×458 @0,0
-    div.Contacts__layout  1152×370 @24,88
-      div.Contacts__info  471×370 @0,0
-        p.Contacts__kicker  471×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Контакты —»
-        h2.Contacts__title  471×41 @0,32  Onest 700 34/41  ls-1  lines=1  «Тула и Тульская область»
-        dl.Contacts__rows  471×189 @0,101
-          div.Contacts__row  471×48 @0,0
-            span.Contacts__icon  44×44 @0,0  r12
-              svg  20×20 @12,12
-            div.Contacts__rowBody  286×48 @58,0
-              dt.Contacts__label  286×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
-              dd.Contacts__definition  286×25 @0,23
-                address.Contacts__address  286×25 @0,0  Manrope 600 16/25  lines=1  «Тула, ул. Демонстрационная, 1, оф. 5»
-          div.Contacts__row#2  471×49 @0,70
-            span.Contacts__icon  44×44 @0,0  r12
-              svg#2  20×20 @12,12
-            div.Contacts__rowBody  150×49 @58,0
-              dt.Contacts__label#2  150×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-              dd.Contacts__definition#2  150×26 @0,23
-                span.Contacts__phones  150×26 @0,0
-                  a.Contacts__phone  150×26 @0,0  Manrope 600 16/25  lines=1  «+7 (4872) 90-00-00»
-          div.Contacts__row#3  471×48 @0,141
-            span.Contacts__icon  44×44 @0,0  r12
-              svg#3  20×20 @12,12
-            div.Contacts__rowBody  143×48 @58,0
-              dt.Contacts__label#3  143×20 @0,0  Manrope 400 13/20  lines=1  «Часы работы»
-              dd.Contacts__definition#3  143×25 @0,23
-                span.Contacts__value  143×22 @0,1  Manrope 600 16/25  lines=1  «Пн–Вс, 8:00–21:00»
-        a.Button__button  471×52 @0,318  r12  b1
-          span.Button__content  129×19 @171,16
+section.Contacts__section  1200×453 @0,0
+  div.Contacts__container  1200×453 @0,0
+    div.Contacts__layout  1152×365 @24,88
+      div.Contacts__info  810×365 @0,0
+        p.Contacts__kicker  810×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Контакты —»
+        h2.Contacts__title  810×41 @0,32  Onest 700 34/41  ls-1  lines=1  «Тула и Тульская область»
+        dl.Contacts__rows  810×184 @0,101
+          div.Contacts__row  810×44 @0,0
+            span.Contacts__icon  38×38 @0,0  r12
+              svg  20×20 @9,9
+            div.Contacts__rowBody  263×44 @52,0
+              dt.Contacts__label  263×19 @0,0  Manrope 400 12/19  lines=1  «Адрес»
+              dd.Contacts__definition  263×23 @0,21
+                address.Contacts__address  263×23 @0,0  Manrope 500 15/23  lines=1  «Тула, ул. Демонстрационная, 1, оф. 5»
+          div.Contacts__row#2  810×65 @0,60
+            span.Contacts__icon  38×38 @0,0  r12
+              svg#2  20×20 @9,9
+            div.Contacts__rowBody  162×65 @52,0
+              dt.Contacts__label#2  162×19 @0,0  Manrope 400 12/19  lines=1  «Телефон»
+              dd.Contacts__definition#2  162×44 @0,21
+                span.Contacts__phones  162×44 @0,0
+                  a.Contacts__phone  162×44 @0,0  JetBrains Mono 500 15/23  lines=1  «+7 (4872) 90-00-00»
+          div.Contacts__row#3  810×44 @0,140
+            span.Contacts__icon  38×38 @0,0  r12
+              svg#3  20×20 @9,9
+            div.Contacts__rowBody  131×44 @52,0
+              dt.Contacts__label#3  131×19 @0,0  Manrope 400 12/19  lines=1  «Часы работы»
+              dd.Contacts__definition#3  131×23 @0,21
+                span.Contacts__value  131×21 @0,1  Manrope 500 15/23  lines=1  «Пн–Вс, 8:00–21:00»
+        a.Button__button  320×52 @0,313  r12  b1
+          span.Button__content  129×19 @95,16
             span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
-      div.Contacts__map  637×370 @515,0  r20  b1
-        div.Contacts__mapGrid  635×368 @1,1
-        div.Contacts__mapCard  340×233 @149,69  r14  b1
-          p.Contacts__mapTitle  298×20 @21,21  JetBrains Mono 400 13/20  ls1  lines=1  «Как нас найти»
-          p.Contacts__mapAddress  298×25 @21,51  Manrope 600 16/25  lines=1  «Тула, ул. Демонстрационная, 1, оф. 5»
-          p.Contacts__mapArea  298×20 @21,80  Manrope 400 13/20  lines=1  «Тула и Тульская область»
-          a.Contacts__mapLink  298×46 @21,116  Manrope 600 15/22  r11  b1  lines=1  «Открыть в Яндекс.Картах»
-          p.Contacts__mapNote  298×37 @21,175  Manrope 400 12/19  lines=2  «Карта откроется в Яндекс.Картах: так стр»
+      div.Contacts__mapCard  312×250 @840,0  r20  b1
+        p.Contacts__mapTitle  270×20 @21,21  JetBrains Mono 400 13/20  ls1  lines=1  «Как нас найти»
+        p.Contacts__mapAddress  270×23 @21,51  Manrope 600 15/23  lines=1  «Тула, ул. Демонстрационная, 1, оф. 5»
+        p.Contacts__mapArea  270×20 @21,78  Manrope 400 13/20  lines=1  «Тула и Тульская область»
+        a.Contacts__mapLink  270×46 @21,115  Manrope 600 15/22  r11  b1  lines=1  «Открыть в Яндекс.Картах»
+        p.Contacts__mapNote  270×56 @21,173  Manrope 400 12/19  lines=3  «Карта откроется в Яндекс.Картах: так стр»
 
 [палитра light]
 section.Contacts__section  bg #ffffff
@@ -184,14 +176,14 @@ section.Contacts__section  bg #ffffff
         h2.Contacts__title  color #0f172a
         dl.Contacts__rows
           div.Contacts__row
-            span.Contacts__icon  bg color(srgb 0.054902 0.454902 0.564706 / 0.08)
+            span.Contacts__icon  bg #ecfeff
               svg
             div.Contacts__rowBody
               dt.Contacts__label  color #5b6a7d
               dd.Contacts__definition
                 address.Contacts__address  color #0f172a
           div.Contacts__row#2
-            span.Contacts__icon  bg color(srgb 0.054902 0.454902 0.564706 / 0.08)
+            span.Contacts__icon  bg #ecfeff
               svg#2
             div.Contacts__rowBody
               dt.Contacts__label#2  color #5b6a7d
@@ -199,7 +191,7 @@ section.Contacts__section  bg #ffffff
                 span.Contacts__phones
                   a.Contacts__phone  color #0f172a
           div.Contacts__row#3
-            span.Contacts__icon  bg color(srgb 0.054902 0.454902 0.564706 / 0.08)
+            span.Contacts__icon  bg #ecfeff
               svg#3
             div.Contacts__rowBody
               dt.Contacts__label#3  color #5b6a7d
@@ -208,14 +200,12 @@ section.Contacts__section  bg #ffffff
         a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
           span.Button__content
             span.Button__label  color #ffffff
-      div.Contacts__map  border #e2e8f0
-        div.Contacts__mapGrid  gradient radial-gradient(circle at 60% 40%, #ecfeff, transparent 60%), repeating-linear-gradient(45deg, #edf2f6, #edf2f6 14px, #f5f8fa 14px, #f5f8fa 28px)
-        div.Contacts__mapCard  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-          p.Contacts__mapTitle  color #0e7490
-          p.Contacts__mapAddress  color #0f172a
-          p.Contacts__mapArea  color #556173
-          a.Contacts__mapLink  color #0f172a  bg #ffffff  border #cbd5e1
-          p.Contacts__mapNote  color #5b6a7d
+      div.Contacts__mapCard  bg #ffffff  border #e2e8f0
+        p.Contacts__mapTitle  color #0e7490
+        p.Contacts__mapAddress  color #0f172a
+        p.Contacts__mapArea  color #556173
+        a.Contacts__mapLink  color #0f172a  bg #ffffff  border #7e8fa6
+        p.Contacts__mapNote  color #5b6a7d
 
 [палитра dark]
 section.Contacts__section  bg #0b1220
@@ -226,14 +216,14 @@ section.Contacts__section  bg #0b1220
         h2.Contacts__title  color #eaf1f8
         dl.Contacts__rows
           div.Contacts__row
-            span.Contacts__icon  bg color(srgb 0.054902 0.454902 0.564706 / 0.08)
+            span.Contacts__icon  bg #22d3ee1a
               svg
             div.Contacts__rowBody
               dt.Contacts__label  color #7e92a7
               dd.Contacts__definition
                 address.Contacts__address  color #eaf1f8
           div.Contacts__row#2
-            span.Contacts__icon  bg color(srgb 0.054902 0.454902 0.564706 / 0.08)
+            span.Contacts__icon  bg #22d3ee1a
               svg#2
             div.Contacts__rowBody
               dt.Contacts__label#2  color #7e92a7
@@ -241,7 +231,7 @@ section.Contacts__section  bg #0b1220
                 span.Contacts__phones
                   a.Contacts__phone  color #eaf1f8
           div.Contacts__row#3
-            span.Contacts__icon  bg color(srgb 0.054902 0.454902 0.564706 / 0.08)
+            span.Contacts__icon  bg #22d3ee1a
               svg#3
             div.Contacts__rowBody
               dt.Contacts__label#3  color #7e92a7
@@ -250,11 +240,9 @@ section.Contacts__section  bg #0b1220
         a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
           span.Button__content
             span.Button__label  color #ffffff
-      div.Contacts__map  border #1e2b41
-        div.Contacts__mapGrid  gradient radial-gradient(circle at 60% 40%, #22d3ee1a, transparent 60%), repeating-linear-gradient(45deg, #16223a, #16223a 14px, #121d31 14px, #121d31 28px)
-        div.Contacts__mapCard  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-          p.Contacts__mapTitle  color #22d3ee
-          p.Contacts__mapAddress  color #eaf1f8
-          p.Contacts__mapArea  color #8598ac
-          a.Contacts__mapLink  color #eaf1f8  bg #121d31  border #2c3d59
-          p.Contacts__mapNote  color #7e92a7
+      div.Contacts__mapCard  bg #121d31  border #1e2b41
+        p.Contacts__mapTitle  color #22d3ee
+        p.Contacts__mapAddress  color #eaf1f8
+        p.Contacts__mapArea  color #8598ac
+        a.Contacts__mapLink  color #eaf1f8  bg #121d31  border #566d95
+        p.Contacts__mapNote  color #7e92a7

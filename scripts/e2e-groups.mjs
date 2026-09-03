@@ -42,13 +42,21 @@ export const E2E_DIR = join(ROOT, 'apps/web/e2e');
  */
 export const GROUPS = Object.freeze({
   /** Публичный сайт: дымовые сценарии и реквизиты компании в футере и политике. */
-  site: ['smoke', 'company-legal'],
+  site: ['smoke', 'company-legal', 'knowledge'],
   /** Оболочка панели: навигация по всем разделам на четырёх ширинах, клавиатура. */
   shell: ['admin-shell'],
   /** Панель: состояния блоков данных и раскладка разделов по ширинам. */
   panel: ['panel-states', 'admin-layout', 'admin-tabs', 'installer-order'],
   /** Сценарии до базы: заявка, отзыв, цена, пустые состояния, поиск. */
-  flows: ['lead', 'review-moderation', 'price-update', 'empty-states', 'crm-search'],
+  flows: [
+    'lead',
+    'lead-fluid',
+    'reviews-fluid',
+    'review-moderation',
+    'price-update',
+    'empty-states',
+    'crm-search',
+  ],
 });
 
 const SPEC = /^(.+)\.spec\.ts$/;

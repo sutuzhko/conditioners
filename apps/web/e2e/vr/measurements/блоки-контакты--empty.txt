@@ -8,45 +8,45 @@
 1200 → 1200×900
 
 [геометрия 320]
-section.Contacts__section  320×386 @0,0
-  div.Contacts__container  320×386 @0,0
-    div.Contacts__layout  288×338 @16,48
-      div.Contacts__info  288×338 @0,0
+section.Contacts__section  320×370 @0,0
+  div.Contacts__container  320×370 @0,0
+    div.Contacts__layout  288×322 @16,48
+      div.Contacts__info  288×322 @0,0
         p.Contacts__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Контакты —»
         h2.Contacts__title  288×29 @0,32  Onest 700 24/29  ls0  lines=1  «Как с нами связаться»
-        div.Card__card  288×169 @0,89  r20  b1
+        div.Card__card  288×169 @0,81  r20  b1
           p.Contacts__emptyTitle  246×26 @21,21  Onest 700 17/26  ls0  lines=1  «Контакты ещё не заполнены»
           p.Contacts__emptyText  246×93 @21,55  Manrope 400 15/23  lines=4  «Телефон, адрес и часы работы заполняются»
-        a.Button__button  288×52 @0,286  r12  b1
+        a.Button__button  288×52 @0,270  r12  b1
           span.Button__content  129×19 @79,16
             span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
 
 [геометрия 375]
-section.Contacts__section  375×389 @0,0
-  div.Contacts__container  375×389 @0,0
-    div.Contacts__layout  343×338 @16,51
-      div.Contacts__info  343×338 @0,0
-        p.Contacts__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Контакты —»
-        h2.Contacts__title  343×29 @0,32  Onest 700 24/29  ls0  lines=1  «Как с нами связаться»
-        div.Card__card  343×170 @0,89  r20  b1
-          p.Contacts__emptyTitle  301×27 @21,21  Onest 700 17/27  ls0  lines=1  «Контакты ещё не заполнены»
-          p.Contacts__emptyText  301×93 @21,56  Manrope 400 15/23  lines=4  «Телефон, адрес и часы работы заполняются»
-        a.Button__button  343×52 @0,286  r12  b1
-          span.Button__content  129×19 @107,16
+section.Contacts__section  375×373 @0,0
+  div.Contacts__container  375×373 @0,0
+    div.Contacts__layout  342×322 @17,51
+      div.Contacts__info  342×322 @0,0
+        p.Contacts__kicker  342×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Контакты —»
+        h2.Contacts__title  342×29 @0,32  Onest 700 24/29  ls0  lines=1  «Как с нами связаться»
+        div.Card__card  342×170 @0,81  r20  b1
+          p.Contacts__emptyTitle  300×27 @21,21  Onest 700 17/27  ls0  lines=1  «Контакты ещё не заполнены»
+          p.Contacts__emptyText  300×93 @21,56  Manrope 400 15/23  lines=4  «Телефон, адрес и часы работы заполняются»
+        a.Button__button  342×52 @0,270  r12  b1
+          span.Button__content  129×19 @106,16
             span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
 
 [геометрия 768]
-section.Contacts__section  768×390 @0,0
-  div.Contacts__container  768×390 @0,0
-    div.Contacts__layout  728×321 @20,68
-      div.Contacts__info  728×321 @0,0
+section.Contacts__section  768×384 @0,0
+  div.Contacts__container  768×384 @0,0
+    div.Contacts__layout  728×315 @20,68
+      div.Contacts__info  728×315 @0,0
         p.Contacts__kicker  728×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Контакты —»
         h2.Contacts__title  728×41 @0,32  Onest 700 34/41  ls-1  lines=1  «Как с нами связаться»
-        div.Card__card  728×140 @0,101  r20  b1
+        div.Card__card  728×140 @0,98  r20  b1
           p.Contacts__emptyTitle  670×28 @29,29  Onest 700 18/28  ls0  lines=1  «Контакты ещё не заполнены»
           p.Contacts__emptyText  670×47 @29,65  Manrope 400 15/23  lines=2  «Телефон, адрес и часы работы заполняются»
-        a.Button__button  728×52 @0,269  r12  b1
-          span.Button__content  129×19 @299,16
+        a.Button__button  320×52 @0,263  r12  b1
+          span.Button__content  129×19 @95,16
             span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
 
 [геометрия 1200]
@@ -59,8 +59,8 @@ section.Contacts__section  1200×411 @0,0
         div.Card__card  620×142 @0,101  r20  b1
           p.Contacts__emptyTitle  562×29 @29,29  Onest 700 19/29  ls0  lines=1  «Контакты ещё не заполнены»
           p.Contacts__emptyText  562×47 @29,66  Manrope 400 15/23  lines=2  «Телефон, адрес и часы работы заполняются»
-        a.Button__button  620×52 @0,271  r12  b1
-          span.Button__content  129×19 @245,16
+        a.Button__button  320×52 @0,271  r12  b1
+          span.Button__content  129×19 @95,16
             span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
 
 [палитра light]

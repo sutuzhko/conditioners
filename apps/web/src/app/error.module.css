@@ -1,10 +1,13 @@
-/* Экран падения рендера. Значения — токены проекта, как у страницы 404:
-   своя палитра служебному экрану не нужна, он часть того же сайта. */
+/* Экран падения рендера. Значения — токены проекта: своя палитра служебному
+   экрану не нужна, он часть того же сайта.
+
+   Каркас урезан сознательно (issue #291): шапка и подвал сайта читают данные
+   компании из базы, а этот экран появляется, когда база не отвечает. */
 
 .page {
   display: flex;
-  align-items: center;
-  min-height: 70vh;
+  flex-direction: column;
+  min-height: 100dvh;
   background: var(--bg);
 }
 
@@ -13,7 +16,35 @@
   width: 100%;
   max-width: var(--container);
   margin: 0 auto;
-  padding: var(--section-y) var(--gutter);
+  padding-right: var(--gutter);
+  padding-left: var(--gutter);
+}
+
+/* Полоса со знаком бренда: единственное, за что можно уцепиться, когда на
+   странице нет ни меню, ни телефона. */
+.bar {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 64px;
+  padding: 0 var(--gutter);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  min-width: var(--tap);
+  border-radius: var(--r-sm);
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: var(--section-y) 0;
 }
 
 .code {
@@ -27,12 +58,17 @@
 .title {
   margin: 0 0 16px;
   color: var(--ink);
-  font-size: var(--fs-h2);
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
 }
 
+/* Текстовый блок не шире 620px: это объяснение, а не статья. */
 .lead {
-  max-width: 560px;
-  margin: 0 0 40px;
+  max-width: min(100%, 620px);
+  margin: 0 0 clamp(24px, 1rem + 1.6vw, 32px);
   color: var(--body);
   font-size: var(--fs-lead);
   line-height: 1.6;
@@ -40,6 +76,78 @@
 
 .actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 12px;
+  align-items: stretch;
+}
+
+/* --- выходы --- */
+
+.foot {
+  padding: clamp(24px, 1rem + 1.6vw, 32px) 0;
+  border-top: 1px solid var(--line);
+  background: var(--bg-soft);
+}
+
+.footTitle {
+  margin: 0 0 12px;
+  color: var(--ink2);
+  font-family: var(--font-text);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  color: var(--accent-text);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* 🔴 Ссылка на политику доступна и здесь: она стоит в каждой форме сайта, и
+   страница ошибки не имеет права остаться единственной, откуда до неё не
+   добраться (152-ФЗ). */
+.policy {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 24px;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  text-decoration: underline;
+}
+
+.policy:hover {
+  color: var(--ink2);
+}
+
+@media (width < 900px) {
+  .policy {
+    min-height: var(--tap);
+  }
+}
+
+@media (width >= 600px) {
+  .actions {
+    flex-flow: row wrap;
+    align-items: center;
+  }
 }

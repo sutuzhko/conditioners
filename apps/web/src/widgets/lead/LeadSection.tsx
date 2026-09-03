@@ -63,7 +63,11 @@ export function LeadSection({
   return (
     <section id={id} className={styles.section} aria-labelledby={HEADING_ID} data-band>
       <div className={styles.container}>
-        <div className={styles.intro}>
+        {/* 🔴 Грунт стоит только на тёмной части секции, а не на секции целиком
+            (ADR-158, issue #276). Белая карточка формы его не наследует:
+            иначе подписи полей получают цвета тёмной темы на белом фоне и
+            контраст падает до 1,6:1 при норме 4,5:1. */}
+        <div className={styles.intro} data-ground="panel">
           <p className={styles.kicker}>{t.kicker}</p>
           <h2 id={HEADING_ID} className={styles.title}>
             {t.title}
