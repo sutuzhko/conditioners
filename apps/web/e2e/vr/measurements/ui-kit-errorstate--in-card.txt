@@ -1,0 +1,102 @@
+# ui-kit-errorstate--in-card · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Card__card  326×421 @32,32  r14  b1
+  div.CardBelt__header  324×45 @1,1  b0 0 1 0
+    div.CardBelt__headText  52×20 @16,12
+      h3.CardBelt__title  52×20 @0,0  Onest 700 15/20  ls0  lines=1  «Заявки»
+  div.CardBelt__body  324×374 @1,46
+    div.ErrorState__box  292×342 @16,16
+      span.ErrorState__badge  48×48 @122,28  r100
+        svg  20×20 @14,14
+      h2.ErrorState__title  240×21 @26,88  Onest 700 17/21  ls0  lines=1  «Не удалось загрузить заявки»
+      p.ErrorState__text  260×90 @16,113  Manrope 400 15/22  lines=4  «Сервер не ответил. Заявки при этом не по»
+      div.ErrorState__actions  260×96 @16,218
+        button.Button__button  260×44 @0,0  r999  b1
+          span.Button__content  69×16 @96,14
+            span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+        button.Button__button#2  260×44 @0,52  r999  b1
+          span.Button__content  125×16 @67,14
+            span.Button__label#2  125×16 @0,0  Manrope 600 13/16  lines=1  «Обновить страницу»
+
+[геометрия 768]
+div.Card__card  704×348 @32,32  r14  b1
+  div.CardBelt__header  702×45 @1,1  b0 0 1 0
+    div.CardBelt__headText  52×20 @16,12
+      h3.CardBelt__title  52×20 @0,0  Onest 700 15/20  ls0  lines=1  «Заявки»
+  div.CardBelt__body  702×301 @1,46
+    div.ErrorState__box  670×269 @16,16
+      span.ErrorState__badge  48×48 @311,28  r100
+        svg  20×20 @14,14
+      h2.ErrorState__title  252×22 @209,88  Onest 700 18/22  ls0  lines=1  «Не удалось загрузить заявки»
+      p.ErrorState__text  371×67 @149,114  Manrope 400 15/22  lines=3  «Сервер не ответил. Заявки при этом не по»
+      div.ErrorState__actions  262×44 @204,197
+        button.Button__button  99×44 @0,0  r999  b1
+          span.Button__content  69×16 @15,14
+            span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+        button.Button__button#2  155×44 @107,0  r999  b1
+          span.Button__content  125×16 @15,14
+            span.Button__label#2  125×16 @0,0  Manrope 600 13/16  lines=1  «Обновить страницу»
+
+[геометрия 1440]
+div.Card__card  1376×337 @32,32  r14  b1
+  div.CardBelt__header  1374×45 @1,1  b0 0 1 0
+    div.CardBelt__headText  52×20 @16,12
+      h3.CardBelt__title  52×20 @0,0  Onest 700 15/20  ls0  lines=1  «Заявки»
+  div.CardBelt__body  1374×290 @1,46
+    div.ErrorState__box  1342×258 @16,16
+      span.ErrorState__badge  48×48 @647,28  r100
+        svg  20×20 @14,14
+      h2.ErrorState__title  266×23 @538,88  Onest 700 19/23  ls0  lines=1  «Не удалось загрузить заявки»
+      p.ErrorState__text  371×67 @485,115  Manrope 400 15/22  lines=3  «Сервер не ответил. Заявки при этом не по»
+      div.ErrorState__actions  262×32 @540,198
+        button.Button__button  99×32 @0,0  r999  b1
+          span.Button__content  69×16 @15,8
+            span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+        button.Button__button#2  155×32 @107,0  r999  b1
+          span.Button__content  125×16 @15,8
+            span.Button__label#2  125×16 @0,0  Manrope 600 13/16  lines=1  «Обновить страницу»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+  div.CardBelt__header  border #475569 #475569 #e2e8f0 #475569
+    div.CardBelt__headText
+      h3.CardBelt__title  color #0f172a
+  div.CardBelt__body
+    div.ErrorState__box
+      span.ErrorState__badge  bg #be123c14
+        svg
+      h2.ErrorState__title  color #0f172a
+      p.ErrorState__text  color #556173
+      div.ErrorState__actions
+        button.Button__button  bg #0e7490  border #0e7490
+          span.Button__content
+            span.Button__label  color #ffffff
+        button.Button__button#2  border transparent
+          span.Button__content
+            span.Button__label#2  color #0e7490
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+  div.CardBelt__header  border #a8b6c6 #a8b6c6 #1e2b41 #a8b6c6
+    div.CardBelt__headText
+      h3.CardBelt__title  color #eaf1f8
+  div.CardBelt__body
+    div.ErrorState__box
+      span.ErrorState__badge  bg #fb71851f
+        svg
+      h2.ErrorState__title  color #eaf1f8
+      p.ErrorState__text  color #8598ac
+      div.ErrorState__actions
+        button.Button__button  bg #0e7490  border #0e7490
+          span.Button__content
+            span.Button__label  color #ffffff
+        button.Button__button#2  border transparent
+          span.Button__content
+            span.Button__label#2  color #22d3ee

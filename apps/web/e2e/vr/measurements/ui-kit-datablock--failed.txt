@@ -1,0 +1,82 @@
+# ui-kit-datablock--failed · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  326×384 @32,32  r14  b1
+  div.ErrorState__box  284×342 @21,21
+    span.ErrorState__badge  48×48 @118,28  r100
+      svg  20×20 @14,14
+    h2.ErrorState__title  240×21 @22,88  Onest 700 17/21  ls0  lines=1  «Не удалось загрузить заявки»
+    p.ErrorState__text  252×90 @16,113  Manrope 400 15/22  lines=4  «Сервер не ответил. Заявки при этом не по»
+    div.ErrorState__actions  252×96 @16,218
+      button.Button__button  252×44 @0,0  r999  b1
+        span.Button__content  69×16 @92,14
+          span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+      button.Button__button#2  252×44 @0,52  r999  b1
+        span.Button__content  125×16 @63,14
+          span.Button__label#2  125×16 @0,0  Manrope 600 13/16  lines=1  «Обновить страницу»
+
+[геометрия 768]
+section.Card__card  704×311 @32,32  r14  b1
+  div.ErrorState__box  662×269 @21,21
+    span.ErrorState__badge  48×48 @307,28  r100
+      svg  20×20 @14,14
+    h2.ErrorState__title  252×22 @205,88  Onest 700 18/22  ls0  lines=1  «Не удалось загрузить заявки»
+    p.ErrorState__text  371×67 @145,114  Manrope 400 15/22  lines=3  «Сервер не ответил. Заявки при этом не по»
+    div.ErrorState__actions  262×44 @200,197
+      button.Button__button  99×44 @0,0  r999  b1
+        span.Button__content  69×16 @15,14
+          span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+      button.Button__button#2  155×44 @107,0  r999  b1
+        span.Button__content  125×16 @15,14
+          span.Button__label#2  125×16 @0,0  Manrope 600 13/16  lines=1  «Обновить страницу»
+
+[геометрия 1440]
+section.Card__card  1376×300 @32,32  r14  b1
+  div.ErrorState__box  1334×258 @21,21
+    span.ErrorState__badge  48×48 @643,28  r100
+      svg  20×20 @14,14
+    h2.ErrorState__title  266×23 @534,88  Onest 700 19/23  ls0  lines=1  «Не удалось загрузить заявки»
+    p.ErrorState__text  371×67 @481,115  Manrope 400 15/22  lines=3  «Сервер не ответил. Заявки при этом не по»
+    div.ErrorState__actions  262×32 @536,198
+      button.Button__button  99×32 @0,0  r999  b1
+        span.Button__content  69×16 @15,8
+          span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+      button.Button__button#2  155×32 @107,0  r999  b1
+        span.Button__content  125×16 @15,8
+          span.Button__label#2  125×16 @0,0  Manrope 600 13/16  lines=1  «Обновить страницу»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+  div.ErrorState__box
+    span.ErrorState__badge  bg #be123c14
+      svg
+    h2.ErrorState__title  color #0f172a
+    p.ErrorState__text  color #556173
+    div.ErrorState__actions
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label  color #ffffff
+      button.Button__button#2  border transparent
+        span.Button__content
+          span.Button__label#2  color #0e7490
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+  div.ErrorState__box
+    span.ErrorState__badge  bg #fb71851f
+      svg
+    h2.ErrorState__title  color #eaf1f8
+    p.ErrorState__text  color #8598ac
+    div.ErrorState__actions
+      button.Button__button  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label  color #ffffff
+      button.Button__button#2  border transparent
+        span.Button__content
+          span.Button__label#2  color #22d3ee

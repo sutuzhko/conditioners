@@ -1,23 +1,24 @@
-import { HeadSkeleton, RowsSkeleton } from '@/widgets/admin-shell';
+import { crmContent as texts } from '@/features/crm-calendar';
+import { Skeleton } from '@/shared/ui';
 
 import styles from './page.module.css';
 
 /**
- * Календарь на загрузке: шапка и сетка часов во всю ширину.
- *
- * Скелетон повторяет то, что придёт: шапку с листанием, полосу «весь день» и
- * колонки часов. Прежний скелетон рисовал сетку месяца и колонку дня справа —
- * ни того, ни другого на экране больше нет (ADR-128).
+ * Календарь работ: шапка настоящая, панель инструментов и сетка — заготовками
+ * по замеру готовой страницы (issue #334). Панель на 390 переносится в
+ * несколько рядов, и её высота задана по ширине экрана.
  */
 export default function CrmLoading() {
   return (
     <div className={styles.page} aria-busy="true">
-      <HeadSkeleton />
+      <header className={styles.header}>
+        <h1 className={styles.title}>{texts.title}</h1>
+        <p className={styles.lead}>{texts.lead}</p>
+      </header>
 
       <div className={styles.calendar}>
-        <RowsSkeleton rows={1} height="44px" />
-        <RowsSkeleton rows={1} height="72px" />
-        <RowsSkeleton rows={1} height="420px" />
+        <Skeleton variant="block" className={styles.navSkeleton} />
+        <Skeleton variant="block" className={styles.gridSkeleton} />
       </div>
     </div>
   );

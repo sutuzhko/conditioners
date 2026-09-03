@@ -6,7 +6,7 @@ import styles from '../page.module.css';
 export default function OrderLoading() {
   return (
     <div className={styles.page} aria-busy="true">
-      <HeadSkeleton />
+      <HeadSkeleton lines={0} />
       <RowsSkeleton rows={1} height="44px" />
       <RowsSkeleton rows={1} height="620px" />
     </div>

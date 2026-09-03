@@ -50,6 +50,7 @@ export default async function AdminReviewsPage({
           className={[styles.filter, selected === undefined ? styles.active : null]
             .filter(Boolean)
             .join(' ')}
+          aria-current={selected === undefined ? 'page' : undefined}
           href={{ pathname: '/admin/reviews' }}
         >
           {texts.filterAll}
@@ -60,6 +61,7 @@ export default async function AdminReviewsPage({
             className={[styles.filter, selected === value ? styles.active : null]
               .filter(Boolean)
               .join(' ')}
+            aria-current={selected === value ? 'page' : undefined}
             key={value}
             href={{ pathname: '/admin/reviews', query: { status: value } }}
           >

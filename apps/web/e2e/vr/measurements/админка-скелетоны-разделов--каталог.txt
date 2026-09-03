@@ -1,0 +1,42 @@
+# админка-скелетоны-разделов--каталог · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+h1  390×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Каталог»
+p  390×45 @0,30  Manrope 400 15/22  lines=2  «Модели, которые видит посетитель. Порядо»
+a.Button__button  205×44 @0,81  Manrope 600 13/16  r9  b1  lines=1  «Справочник характеристик»
+a.Button__button#2  142×44 @213,81  Manrope 600 13/16  r9  b1  lines=1  «Добавить модель»
+span.Skeleton__skeleton  390×420 @0,141  r14
+
+[геометрия 768]
+h1  542×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Каталог»
+p  542×22 @0,37  Manrope 400 15/22  lines=1  «Модели, которые видит посетитель. Порядо»
+a.Button__button  205×44 @0,66  Manrope 600 13/16  r9  b1  lines=1  «Справочник характеристик»
+a.Button__button#2  142×44 @213,66  Manrope 600 13/16  r9  b1  lines=1  «Добавить модель»
+span.Skeleton__skeleton  768×420 @0,126  r14
+
+[геометрия 1440]
+h1  542×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Каталог»
+p  542×22 @0,46  Manrope 400 15/22  lines=1  «Модели, которые видит посетитель. Порядо»
+a.Button__button  205×40 @0,74  Manrope 600 13/16  r9  b1  lines=1  «Справочник характеристик»
+a.Button__button#2  142×40 @213,74  Manrope 600 13/16  r9  b1  lines=1  «Добавить модель»
+span.Skeleton__skeleton  1440×420 @0,130  r14
+
+[палитра light]
+h1  color #0f172a
+p  color #475569
+a.Button__button  color #0f172a  bg #ffffff  border #7e8fa6
+a.Button__button#2  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+
+[палитра dark]
+h1  color #eaf1f8
+p  color #a8b6c6
+a.Button__button  color #eaf1f8  bg #121d31  border #566d95
+a.Button__button#2  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

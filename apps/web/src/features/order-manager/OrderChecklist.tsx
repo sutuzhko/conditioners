@@ -157,8 +157,11 @@ export function OrderChecklist({ api, items, disabled = false, onChanged }: Orde
           {texts.checklistTitle}
         </h2>
 
+        {/* Счётчик меняется от каждой галочки без перезагрузки: без объявления
+            человек с экранным диктором не узнаёт, что отметка принята
+            (issue #337). */}
         {shown.length === 0 ? null : (
-          <p className={styles.progress}>
+          <p className={styles.progress} aria-live="polite">
             {texts.checklistProgress(progress.done, progress.total)}
           </p>
         )}

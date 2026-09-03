@@ -18,6 +18,8 @@ export const leadManagerContent = {
   emptyFiltered: 'В этом статусе заявок нет',
   emptyFilteredText: 'Заявки в разделе есть — их скрыл выбранный статус.',
   emptyFilteredAction: 'Показать все заявки',
+  /** Ошибка блока списка (issue #336): что не загрузилось. */
+  loadFailed: 'Не удалось загрузить заявки',
 
   phone: 'Телефон',
   topic: 'Тема',

@@ -72,6 +72,8 @@ export type {
 
 export { EmptyState } from './EmptyState/EmptyState';
 export type { EmptyStateProps } from './EmptyState/EmptyState';
+export { ErrorState } from './ErrorState/ErrorState';
+export type { ErrorStateProps } from './ErrorState/ErrorState';
 export { Skeleton } from './Skeleton/Skeleton';
 export type { SkeletonProps, SkeletonVariant } from './Skeleton/Skeleton';
 

@@ -38,10 +38,11 @@ describe('Сводка панели управления', () => {
     expect(screen.queryByRole('link', { name: texts.readinessCta })).not.toBeInTheDocument();
   });
 
-  it('незаполненная готовность стоит выше плиток, заполненная — ниже', () => {
-    /* Сайт с заглушками публиковать нельзя, и напоминание об этом обязано
-       быть первым. Зелёная галочка, наоборот, не вправе каждый день
-       отодвигать вниз работу. */
+  it('готовность стоит последней при любом состоянии настроек', () => {
+    /* 🔴 Позиция карточки не зависит от данных (ADR-241): скелетон их не
+       знает, и переезд карточки наверх двигал бы плитки вниз сразу после
+       загрузки — ровно тот прыжок, против которого написан issue #334.
+       О незаполненных настройках говорит вид карточки, а не её место. */
     /* Проверяется порядок блоков между собой, а не номер в списке: сверху
        стоит ещё и заголовок страницы, и привязка к индексу ломалась бы от
        любой правки шапки, ничего не говоря о самом требовании. */
@@ -54,15 +55,15 @@ describe('Сводка панели управления', () => {
     };
 
     const blocking = render(<AdminSummary counts={emptyCounts} readiness={unfinishedReadiness} />);
-    const above = orderOf(blocking.container);
-    expect(above.readiness).toBeGreaterThanOrEqual(0);
-    expect(above.readiness).toBeLessThan(above.tiles);
+    const unfinished = orderOf(blocking.container);
+    expect(unfinished.readiness).toBeGreaterThan(unfinished.tiles);
 
     blocking.unmount();
 
     const done = render(<AdminSummary counts={quietCounts} readiness={readyReadiness} />);
-    const below = orderOf(done.container);
-    expect(below.readiness).toBeGreaterThan(below.tiles);
+    const ready = orderOf(done.container);
+    expect(ready.readiness).toBeGreaterThan(ready.tiles);
+    expect(ready.readiness).toBe(unfinished.readiness);
   });
 
   /* 🔴 Вход в панель был единственной страницей без `h1`: заголовки плиток —

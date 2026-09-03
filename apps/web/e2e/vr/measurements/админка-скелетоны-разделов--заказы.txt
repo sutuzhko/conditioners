@@ -1,0 +1,57 @@
+# админка-скелетоны-разделов--заказы · ширины 390 768 1440 · темы light dark
+шрифты: —
+
+[документ]
+390 → 390×2264
+768 → 768×2264
+1440 → 1440×1167
+
+[геометрия 390]
+span.Skeleton__skeleton  242×19 @0,13  r8
+span.Skeleton__skeleton#2  359×15 @0,54  r8
+span.Skeleton__skeleton#3  187×15 @0,76  r8
+span.Skeleton__skeleton#4  390×619 @0,111  r14
+span.Skeleton__skeleton#5  390×371 @0,746  r14
+span.Skeleton__skeleton#6  390×371 @0,1128  r14
+span.Skeleton__skeleton#7  390×371 @0,1511  r14
+span.Skeleton__skeleton#8  390×371 @0,1894  r14
+
+[геометрия 768]
+span.Skeleton__skeleton  280×23 @0,10  r8
+span.Skeleton__skeleton#2  560×15 @0,54  r8
+span.Skeleton__skeleton#3  320×15 @0,76  r8
+span.Skeleton__skeleton#4  768×619 @0,111  r14
+span.Skeleton__skeleton#5  768×371 @0,746  r14
+span.Skeleton__skeleton#6  768×371 @0,1128  r14
+span.Skeleton__skeleton#7  768×371 @0,1511  r14
+span.Skeleton__skeleton#8  768×371 @0,1894  r14
+
+[геометрия 1440]
+span.Skeleton__skeleton  280×29 @0,9  r8
+span.Skeleton__skeleton#2  560×15 @0,56  r8
+span.Skeleton__skeleton#3  320×15 @0,78  r8
+span.Skeleton__skeleton#4  1440×277 @0,113  r14
+span.Skeleton__skeleton#5  1440×182 @0,405  r14
+span.Skeleton__skeleton#6  1440×182 @0,599  r14
+span.Skeleton__skeleton#7  1440×182 @0,792  r14
+span.Skeleton__skeleton#8  1440×182 @0,986  r14
+
+[палитра light]
+span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#4  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#5  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#6  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#7  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#8  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+
+[палитра dark]
+span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#4  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#5  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#6  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#7  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#8  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

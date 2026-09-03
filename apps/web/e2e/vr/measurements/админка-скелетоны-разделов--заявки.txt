@@ -1,0 +1,72 @@
+# админка-скелетоны-разделов--заявки · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×1698
+768 → 768×1683
+1440 → 1440×925
+
+[геометрия 390]
+h1  86×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Заявки»
+p  390×67 @0,36  Manrope 400 15/22  lines=3  «Обращения с сайта. Заявка записывается в»
+a  49×44 @0,120  Manrope 600 13/20  r100  b1  lines=1  «Все»
+a#2  65×44 @55,120  Manrope 600 13/20  r100  b1  lines=1  «Новая»
+a#3  82×44 @126,120  Manrope 600 13/20  r100  b1  lines=1  «В работе»
+a#4  98×44 @215,120  Manrope 600 13/20  r100  b1  lines=1  «Завершена»
+a#5  63×44 @318,120  Manrope 600 13/20  r100  b1  lines=1  «Отказ»
+span.Skeleton__skeleton  390×371 @0,180  r14
+span.Skeleton__skeleton#2  390×371 @0,562  r14
+span.Skeleton__skeleton#3  390×371 @0,945  r14
+span.Skeleton__skeleton#4  390×371 @0,1327  r14
+
+[геометрия 768]
+h1  107×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Заявки»
+p  601×45 @0,43  Manrope 400 15/22  lines=2  «Обращения с сайта. Заявка записывается в»
+a  49×44 @0,104  Manrope 600 13/20  r100  b1  lines=1  «Все»
+a#2  65×44 @55,104  Manrope 600 13/20  r100  b1  lines=1  «Новая»
+a#3  82×44 @126,104  Manrope 600 13/20  r100  b1  lines=1  «В работе»
+a#4  98×44 @215,104  Manrope 600 13/20  r100  b1  lines=1  «Завершена»
+a#5  63×44 @318,104  Manrope 600 13/20  r100  b1  lines=1  «Отказ»
+span.Skeleton__skeleton  768×371 @0,164  r14
+span.Skeleton__skeleton#2  768×371 @0,547  r14
+span.Skeleton__skeleton#3  768×371 @0,929  r14
+span.Skeleton__skeleton#4  768×371 @0,1312  r14
+
+[геометрия 1440]
+h1  130×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Заявки»
+p  601×45 @0,52  Manrope 400 15/22  lines=2  «Обращения с сайта. Заявка записывается в»
+a  49×34 @0,113  Manrope 600 13/20  r100  b1  lines=1  «Все»
+a#2  65×34 @55,113  Manrope 600 13/20  r100  b1  lines=1  «Новая»
+a#3  82×34 @126,113  Manrope 600 13/20  r100  b1  lines=1  «В работе»
+a#4  98×34 @215,113  Manrope 600 13/20  r100  b1  lines=1  «Завершена»
+a#5  63×34 @318,113  Manrope 600 13/20  r100  b1  lines=1  «Отказ»
+span.Skeleton__skeleton  1440×182 @0,163  r14
+span.Skeleton__skeleton#2  1440×182 @0,356  r14
+span.Skeleton__skeleton#3  1440×182 @0,550  r14
+span.Skeleton__skeleton#4  1440×182 @0,743  r14
+
+[палитра light]
+h1  color #0f172a
+p  color #475569
+a  color #475569  border #e2e8f0
+a#2  color #475569  border #e2e8f0
+a#3  color #475569  border #e2e8f0
+a#4  color #475569  border #e2e8f0
+a#5  color #475569  border #e2e8f0
+span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#4  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+
+[палитра dark]
+h1  color #eaf1f8
+p  color #a8b6c6
+a  color #a8b6c6  border #1e2b41
+a#2  color #a8b6c6  border #1e2b41
+a#3  color #a8b6c6  border #1e2b41
+a#4  color #a8b6c6  border #1e2b41
+a#5  color #a8b6c6  border #1e2b41
+span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#4  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

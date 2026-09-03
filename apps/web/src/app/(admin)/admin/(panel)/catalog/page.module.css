@@ -49,3 +49,10 @@
   gap: 8px;
   align-items: center;
 }
+
+/* Заготовка таблицы моделей (issue #334): высота первого экрана; сама
+   таблица зависит от числа моделей. */
+.tableSkeleton {
+  min-height: 514.8px;
+  border-radius: var(--r-card, var(--r-md));
+}

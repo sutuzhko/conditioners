@@ -68,3 +68,37 @@
   color: var(--warn-ink);
   font-weight: 600;
 }
+
+/* Заготовки: карточка фильтров и таблица остатков (issue #334). Высота
+   фильтров снята с готовой страницы; таблица зависит от числа позиций, и её
+   заготовка держит только верх — экран без прокрутки. */
+.filtersSkeleton {
+  min-height: 276.9px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+.tableSkeleton {
+  min-height: 420px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+/* Журнал и зоны: служебная строка под пояснением и карточка списка. */
+.metaSkeleton {
+  min-height: 420px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+.zonesSkeleton {
+  min-height: 478.4px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+@media (width < 900px) {
+  .filtersSkeleton {
+    min-height: 618.8px;
+  }
+
+  .zonesSkeleton {
+    min-height: 744.5px;
+  }
+}

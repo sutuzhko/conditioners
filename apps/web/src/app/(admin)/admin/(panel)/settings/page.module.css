@@ -73,3 +73,15 @@
   color: var(--body);
   font-size: var(--fs-caption);
 }
+
+/* Заготовка карточки конфигурации: замер готовой страницы (issue #334). */
+.cardSkeleton {
+  min-height: 89.6px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+@media (width < 900px) {
+  .cardSkeleton {
+    min-height: 86.7px;
+  }
+}

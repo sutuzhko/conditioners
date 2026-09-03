@@ -26,6 +26,8 @@ export const ADMIN_PASSWORD = process.env.E2E_ADMIN_PASSWORD ?? 'admin';
 
 const crmEventSchema = z.object({ id: z.string() });
 
+const staffSchema = z.object({ id: z.string(), login: z.string() });
+
 const searchSchema = z.object({ items: z.array(z.object({ id: z.string() })) });
 
 const leadSchema = z.object({
@@ -134,6 +136,42 @@ export class AdminApi {
       data: { status: 'rejected', managerComment },
     });
     await this.json(response, 'закрытие заявки');
+  }
+
+  /**
+   * Перевод заявки в статус: сценарии состояний освобождают статус от записей,
+   * чтобы увидеть «ничего не найдено», и возвращают всё как было.
+   */
+  async setLeadStatus(id: string, status: string): Promise<void> {
+    const response = await this.context.patch(`/api/admin/leads/${id}`, {
+      headers: { Cookie: this.cookie },
+      data: { status },
+    });
+    await this.json(response, `перевод заявки в «${status}»`);
+  }
+
+  /**
+   * Монтажник, которому ничего не назначено: единственный способ увидеть
+   * раздел нарядов пустым на стенде, где демо-данные есть у всех.
+   */
+  async createInstaller(input: {
+    readonly name: string;
+    readonly login: string;
+    readonly phone: string;
+    readonly password: string;
+  }): Promise<{ id: string; login: string }> {
+    const response = await this.context.post('/api/admin/staff', {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: { ...input, employment: '', inn: '' },
+    });
+    if (response.status() !== 201) {
+      throw new Error(`Создание монтажника вернуло код ${response.status()}`);
+    }
+    return staffSchema.parse(await response.json());
+  }
+
+  async deleteStaff(id: string): Promise<void> {
+    await this.context.delete(`/api/admin/staff/${id}`, { headers: { Cookie: this.cookie } });
   }
 
   async listReviews(status?: string): Promise<readonly AdminReview[]> {

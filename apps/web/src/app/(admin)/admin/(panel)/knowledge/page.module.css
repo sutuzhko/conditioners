@@ -41,3 +41,10 @@
 .back:hover {
   text-decoration: underline;
 }
+
+/* Заготовка таблицы статей (issue #334): первый экран, число статей заранее
+   неизвестно. */
+.tableSkeleton {
+  min-height: 343.2px;
+  border-radius: var(--r-card, var(--r-md));
+}

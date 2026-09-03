@@ -168,7 +168,7 @@ export function SpecsDictionaryForm({ value: initial, save = putSpecs }: SpecsDi
         </Card>
       ))}
 
-      <div className={styles.actions}>
+      <div className={styles.actions} data-sticky="bottom">
         <Button
           type="button"
           variant="bordered"
