@@ -50,7 +50,7 @@ export function AdminSummarySkeleton() {
         </span>
       </Card>
 
-      <Card as="section" variant="soft" className={styles.readiness}>
+      <Card as="section" variant="soft">
         <h2 className={styles.cardTitle}>
           <LineSkeleton width="min(220px, 60%)" />
         </h2>

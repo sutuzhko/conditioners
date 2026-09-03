@@ -68,17 +68,21 @@ export interface AdminSummaryProps {
 /**
  * Сводка на входе в панель: что требует внимания прямо сейчас.
  *
- * Порядок блоков — по срочности. Пока данные компании не заполнены, сайт
- * публиковать нельзя, и готовность стоит первой; как только заполнены, она
- * уходит вниз тихой строкой — держать наверху зелёную галочку значит каждый
- * день отодвигать ею работу.
+ * Порядок блоков — по срочности: обращения и заказы, дела календаря,
+ * готовность сайта.
+ *
+ * 🔴 Карточка готовности стоит последней **всегда**, а о незаполненных
+ * настройках говорит цветом и содержимым (ADR-241). Раньше она переезжала
+ * наверх, пока настройки не заполнены, — и позиция плиток зависела от
+ * данных, которых у скелетона нет: на ненастроенном сайте плитки уезжали
+ * вниз на высоту карточки сразу после загрузки. Переменная высота у
+ * последнего блока не двигает ничего.
  */
 export function AdminSummary({ counts, readiness, upcoming = [] }: AdminSummaryProps) {
   const readinessCard = (
     <Card
       as="section"
       variant={readiness.ready ? 'soft' : 'accent'}
-      className={styles.readiness}
       aria-labelledby="readiness-title"
     >
       <h2 className={styles.cardTitle} id="readiness-title">
@@ -114,8 +118,6 @@ export function AdminSummary({ counts, readiness, upcoming = [] }: AdminSummaryP
         <h1 className={styles.title}>{texts.title}</h1>
         <p className={styles.lead}>{texts.lead}</p>
       </header>
-
-      {readiness.ready ? null : readinessCard}
 
       <div className={styles.tiles}>
         <SummaryTile
@@ -188,7 +190,7 @@ export function AdminSummary({ counts, readiness, upcoming = [] }: AdminSummaryP
         </Link>
       </Card>
 
-      {readiness.ready ? readinessCard : null}
+      {readinessCard}
     </div>
   );
 }

@@ -10,6 +10,9 @@ const refresh = vi.fn();
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ refresh, push: vi.fn() }),
   usePathname: () => '/admin/leads',
+  /* Граница зовёт его на каждой пойманной ошибке: настоящий бросает дальше
+     редиректы и 404 роутера, а обычную ошибку пропускает молча. */
+  unstable_rethrow: () => undefined,
 }));
 
 /**

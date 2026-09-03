@@ -98,7 +98,7 @@ export function RowsSkeleton({ rows = 4, height, className }: RowsSkeletonProps)
         <Skeleton
           key={index}
           variant="block"
-          height={className === undefined ? (height ?? '92px') : height}
+          height={className === undefined ? (height ?? '92px') : undefined}
           className={className}
         />
       ))}

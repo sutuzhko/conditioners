@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { unstable_rethrow, useRouter } from 'next/navigation';
 import { Component, Suspense, useTransition, type ErrorInfo, type ReactNode } from 'react';
 
 import { Button, Card, ErrorState } from '@/shared/ui';
@@ -53,7 +53,10 @@ export function BlockError({ title, note, onReset }: BlockErrorProps) {
           <Button type="button" size="sm" loading={pending} onClick={retry}>
             {texts.retry}
           </Button>
-          <Button type="button" size="sm" variant="light" disabled={pending} onClick={reload}>
+          {/* Не выключается на время повтора: перезагрузка документа с висящим
+              переходом не конфликтует, а нужна она ровно тогда, когда повтор
+              идёт долго и не помогает. */}
+          <Button type="button" size="sm" variant="light" onClick={reload}>
             {texts.reload}
           </Button>
         </>
@@ -92,6 +95,12 @@ class Boundary extends Component<BoundaryProps, BoundaryState> {
   override state: BoundaryState = { error: null };
 
   static getDerivedStateFromError(error: Error): BoundaryState {
+    /* 🔴 `redirect()`, `notFound()` и `forbidden()` серверного компонента
+       приходят сюда обычным исключением: поймать их — значит показать
+       карточку «Не удалось загрузить» вместо перехода или 404, а на проверке
+       доступа (ADR-095) — оставить человека в чужом разделе. Своя граница
+       обязана пропускать их дальше, как это делает граница Next. */
+    unstable_rethrow(error);
     return { error };
   }
 
