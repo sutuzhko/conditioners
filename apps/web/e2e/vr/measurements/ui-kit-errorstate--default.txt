@@ -1,0 +1,77 @@
+# ui-kit-errorstate--default · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.ErrorState__box  326×342 @32,32
+  span.ErrorState__badge  48×48 @139,28  r100
+    svg  20×20 @14,14
+  h2.ErrorState__title  240×21 @43,88  Onest 700 17/21  ls0  lines=1  «Не удалось загрузить заявки»
+  p.ErrorState__text  294×90 @16,113  Manrope 400 15/22  lines=4  «Сервер не ответил. Заявки при этом не по»
+  div.ErrorState__actions  294×96 @16,218
+    button.Button__button  294×44 @0,0  r999  b1
+      span.Button__content  69×16 @113,14
+        span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+    button.Button__button#2  294×44 @0,52  r999  b1
+      span.Button__content  125×16 @84,14
+        span.Button__label#2  125×16 @0,0  Manrope 600 13/16  lines=1  «Обновить страницу»
+
+[геометрия 768]
+div.ErrorState__box  704×269 @32,32
+  span.ErrorState__badge  48×48 @328,28  r100
+    svg  20×20 @14,14
+  h2.ErrorState__title  252×22 @226,88  Onest 700 18/22  ls0  lines=1  «Не удалось загрузить заявки»
+  p.ErrorState__text  371×67 @166,114  Manrope 400 15/22  lines=3  «Сервер не ответил. Заявки при этом не по»
+  div.ErrorState__actions  262×44 @221,197
+    button.Button__button  99×44 @0,0  r999  b1
+      span.Button__content  69×16 @15,14
+        span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+    button.Button__button#2  155×44 @107,0  r999  b1
+      span.Button__content  125×16 @15,14
+        span.Button__label#2  125×16 @0,0  Manrope 600 13/16  lines=1  «Обновить страницу»
+
+[геометрия 1440]
+div.ErrorState__box  1376×258 @32,32
+  span.ErrorState__badge  48×48 @664,28  r100
+    svg  20×20 @14,14
+  h2.ErrorState__title  266×23 @555,88  Onest 700 19/23  ls0  lines=1  «Не удалось загрузить заявки»
+  p.ErrorState__text  371×67 @502,115  Manrope 400 15/22  lines=3  «Сервер не ответил. Заявки при этом не по»
+  div.ErrorState__actions  262×32 @557,198
+    button.Button__button  99×32 @0,0  r999  b1
+      span.Button__content  69×16 @15,8
+        span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
+    button.Button__button#2  155×32 @107,0  r999  b1
+      span.Button__content  125×16 @15,8
+        span.Button__label#2  125×16 @0,0  Manrope 600 13/16  lines=1  «Обновить страницу»
+
+[палитра light]
+div.ErrorState__box
+  span.ErrorState__badge  bg #be123c14
+    svg
+  h2.ErrorState__title  color #0f172a
+  p.ErrorState__text  color #556173
+  div.ErrorState__actions
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label  color #ffffff
+    button.Button__button#2  border transparent
+      span.Button__content
+        span.Button__label#2  color #0e7490
+
+[палитра dark]
+div.ErrorState__box
+  span.ErrorState__badge  bg #fb71851f
+    svg
+  h2.ErrorState__title  color #eaf1f8
+  p.ErrorState__text  color #8598ac
+  div.ErrorState__actions
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label  color #ffffff
+    button.Button__button#2  border transparent
+      span.Button__content
+        span.Button__label#2  color #22d3ee

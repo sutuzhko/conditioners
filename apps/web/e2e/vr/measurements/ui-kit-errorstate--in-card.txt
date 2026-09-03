@@ -1,4 +1,4 @@
-# ui-kit-состояния-блока--failed · ширины 390 768 1440 · темы light dark
+# ui-kit-errorstate--in-card · ширины 390 768 1440 · темы light dark
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
@@ -9,14 +9,14 @@
 [геометрия 390]
 div.Card__card  326×421 @32,32  r14  b1
   div.CardBelt__header  324×45 @1,1  b0 0 1 0
-    div.CardBelt__headText  138×20 @16,12
-      h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
+    div.CardBelt__headText  52×20 @16,12
+      h3.CardBelt__title  52×20 @0,0  Onest 700 15/20  ls0  lines=1  «Заявки»
   div.CardBelt__body  324×374 @1,46
     div.ErrorState__box  292×342 @16,16
       span.ErrorState__badge  48×48 @122,28  r100
         svg  20×20 @14,14
-      h2.ErrorState__title  245×21 @23,88  Onest 700 17/21  ls0  lines=1  «Не удалось загрузить наряды»
-      p.ErrorState__text  260×90 @16,113  Manrope 400 15/22  lines=4  «Сервер не ответил. Наряды при этом не по»
+      h2.ErrorState__title  240×21 @26,88  Onest 700 17/21  ls0  lines=1  «Не удалось загрузить заявки»
+      p.ErrorState__text  260×90 @16,113  Manrope 400 15/22  lines=4  «Сервер не ответил. Заявки при этом не по»
       div.ErrorState__actions  260×96 @16,218
         button.Button__button  260×44 @0,0  r999  b1
           span.Button__content  69×16 @96,14
@@ -28,14 +28,14 @@ div.Card__card  326×421 @32,32  r14  b1
 [геометрия 768]
 div.Card__card  704×348 @32,32  r14  b1
   div.CardBelt__header  702×45 @1,1  b0 0 1 0
-    div.CardBelt__headText  138×20 @16,12
-      h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
+    div.CardBelt__headText  52×20 @16,12
+      h3.CardBelt__title  52×20 @0,0  Onest 700 15/20  ls0  lines=1  «Заявки»
   div.CardBelt__body  702×301 @1,46
     div.ErrorState__box  670×269 @16,16
       span.ErrorState__badge  48×48 @311,28  r100
         svg  20×20 @14,14
-      h2.ErrorState__title  258×22 @206,88  Onest 700 18/22  ls0  lines=1  «Не удалось загрузить наряды»
-      p.ErrorState__text  371×67 @149,114  Manrope 400 15/22  lines=3  «Сервер не ответил. Наряды при этом не по»
+      h2.ErrorState__title  252×22 @209,88  Onest 700 18/22  ls0  lines=1  «Не удалось загрузить заявки»
+      p.ErrorState__text  371×67 @149,114  Manrope 400 15/22  lines=3  «Сервер не ответил. Заявки при этом не по»
       div.ErrorState__actions  262×44 @204,197
         button.Button__button  99×44 @0,0  r999  b1
           span.Button__content  69×16 @15,14
@@ -47,14 +47,14 @@ div.Card__card  704×348 @32,32  r14  b1
 [геометрия 1440]
 div.Card__card  1376×337 @32,32  r14  b1
   div.CardBelt__header  1374×45 @1,1  b0 0 1 0
-    div.CardBelt__headText  138×20 @16,12
-      h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
+    div.CardBelt__headText  52×20 @16,12
+      h3.CardBelt__title  52×20 @0,0  Onest 700 15/20  ls0  lines=1  «Заявки»
   div.CardBelt__body  1374×290 @1,46
     div.ErrorState__box  1342×258 @16,16
       span.ErrorState__badge  48×48 @647,28  r100
         svg  20×20 @14,14
-      h2.ErrorState__title  272×23 @535,88  Onest 700 19/23  ls0  lines=1  «Не удалось загрузить наряды»
-      p.ErrorState__text  371×67 @485,115  Manrope 400 15/22  lines=3  «Сервер не ответил. Наряды при этом не по»
+      h2.ErrorState__title  266×23 @538,88  Onest 700 19/23  ls0  lines=1  «Не удалось загрузить заявки»
+      p.ErrorState__text  371×67 @485,115  Manrope 400 15/22  lines=3  «Сервер не ответил. Заявки при этом не по»
       div.ErrorState__actions  262×32 @540,198
         button.Button__button  99×32 @0,0  r999  b1
           span.Button__content  69×16 @15,8
