@@ -57,7 +57,7 @@ describe('Окна создания раздела склада', () => {
     await user.type(screen.getByLabelText(texts.zoneName), 'Гараж на Демидовской');
     await user.click(screen.getByRole('button', { name: texts.zoneAdd }));
 
-    await waitFor(() => expect(replace).toHaveBeenCalledWith('/admin/stock/zones'));
+    await waitFor(() => expect(replace).toHaveBeenCalledWith('/admin/stock?tab=zones'));
     expect(back).not.toHaveBeenCalled();
   });
 
