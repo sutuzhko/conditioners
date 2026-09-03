@@ -77,16 +77,27 @@ test.describe('Отзывы: раскладки и обрезка', () => {
     await expect(visible).toHaveCount(2);
     await expect(all).toHaveAttribute('aria-expanded', 'false');
 
+    /* 🔴 Считаются только запросы за данными и разметкой. Картинки из счёта
+       исключены нарочно: до раскрытия карточки лежат в `display: none`, и
+       браузер их фотографии не грузит — первый показ тянет их всегда, чем бы
+       ни было вызвано раскрытие. Проверяется здесь другое: список уже в
+       разметке, и за ним не идут ни на сервер, ни к роутеру. */
+    const DATA = new Set(['document', 'fetch', 'xhr', 'script']);
     let requests = 0;
-    page.on('request', () => {
-      requests += 1;
+    page.on('request', (request) => {
+      if (DATA.has(request.resourceType())) requests += 1;
     });
-    await all.click();
+    /* 🔴 Нажатие с повтором: до гидратации обработчик не навешан, и клик
+       пропадает молча — на холодной сборке первой страницы это случается
+       регулярно (тот же приём, что в smoke.spec.ts). Повтор идёт только
+       тогда, когда список не раскрылся, поэтому обратно он его не свернёт. */
+    const collapse = section.getByRole('button', { name: 'Свернуть отзывы' });
+    await expect(async () => {
+      await all.click();
+      await expect(collapse).toBeVisible({ timeout: 1_000 });
+    }).toPass();
 
-    await expect(section.getByRole('button', { name: 'Свернуть отзывы' })).toHaveAttribute(
-      'aria-expanded',
-      'true',
-    );
+    await expect(collapse).toHaveAttribute('aria-expanded', 'true');
     await expect(visible).toHaveCount(total);
     expect(requests, 'раскрытие не должно ходить на сервер').toBe(0);
   });
