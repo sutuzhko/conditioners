@@ -1,0 +1,512 @@
+# фичи-форма-отзыва--server-error · ширины 320 375 768 1200 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+320 → 320×1366
+375 → 375×1285
+768 → 768×1104
+1200 → 1200×1086
+
+[геометрия 320]
+div.Card__card  288×1334 @16,16  r22  b1
+  header.ReviewForm__header  250×70 @19,19
+    h2.ReviewForm__title  250×23 @0,0  Onest 700 20/23  ls0  lines=1  «Оставить отзыв»
+    p.ReviewForm__description  250×41 @0,29  Manrope 400 14/20  lines=2  «Отзыв появится на сайте после проверки м»
+  p[role=status]  1×1 @18,18  Manrope 400 15/23  lines=1  clipped  «Отзывы уходят слишком часто. Подождите п»
+  form.ReviewForm__form  250×1209 @19,107
+    div.ReviewForm__single  250×852 @0,0
+      div.ReviewForm__column  250×365 @0,0
+        div.Field__field  250×166 @0,0
+          label.Field__label  250×20 @0,0  Manrope 600 13/20  lines=1  «Ваше фото»
+          input.FileInput__input  1×1 @-1,-1  clipped
+          label.FileInput__dropzone  250×93 @0,27  r11  b1
+            svg.FileInput__icon  22×22 @15,36
+            span.FileInput__texts  186×67 @49,13
+              span.FileInput__title  186×45 @0,0  Manrope 600 15/22  lines=2  «Выберите фото или перетащите сюда»
+              span  186×20 @0,47  Manrope 400 13/20  lines=1  «до 5 МБ»
+          p.Field__hint  250×39 @0,127  Manrope 400 13/19  lines=2  «По желанию: отзыв с лицом читают иначе,»
+        div.Field__field#2  250×185 @0,180
+          label.Field__label  250×20 @0,0  Manrope 600 13/20  lines=1  «Фото с места установки»
+          input.FileInput__input  1×1 @-1,-1  clipped
+          label.FileInput__dropzone  250×93 @0,27  r11  b1
+            svg.FileInput__icon#2  22×22 @15,36
+            span.FileInput__texts#2  186×67 @49,13
+              span.FileInput__title  186×45 @0,0  Manrope 600 15/22  lines=2  «Выберите фото или перетащите сюда»
+              span  186×20 @0,47  Manrope 400 13/20  lines=1  «до 5 МБ»
+          p.Field__hint  250×58 @0,127  Manrope 400 13/19  lines=3  «По желанию: как выглядит блок и убрали л»
+      div.ReviewForm__column#2  250×473 @0,379
+        p.ReviewForm__note  250×19 @0,0  Manrope 400 12/19  lines=1  «Звёздочкой отмечены обязательные поля»
+        div.ReviewForm__pair  250×159 @0,33
+          div.Field__field  250×76 @0,0
+            label.Field__label#2  250×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+              span.Field__required  9×18 @26,1  Manrope 600 13/20  lines=1  «*»
+            input  250×49 @0,27  r11  b1
+          fieldset.Rating__fieldset  250×69 @0,90
+            legend.Field__label  60×20 @0,0  Manrope 600 13/20  lines=1  «Оценка»
+              span.Field__required  9×18 @50,1  Manrope 600 13/20  lines=1  «*»
+            span.Rating__stars  250×49 @0,20
+              span.Rating__cell  44×49 @0,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star  20×20 @12,15
+                  span  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 1 из 5»
+              span.Rating__cell#2  44×49 @50,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#2  20×20 @12,15
+                  span#2  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 2 из 5»
+              span.Rating__cell#3  44×49 @100,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#3  20×20 @12,15
+                  span#3  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 3 из 5»
+              span.Rating__cell#4  44×49 @150,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#4  20×20 @12,15
+                  span#4  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 4 из 5»
+              span.Rating__cell#5  44×49 @200,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#5  20×20 @12,15
+                  span#5  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 5 из 5»
+        div.Field__field  250×267 @0,206
+          label.Field__label#3  250×20 @0,0  Manrope 600 13/20  lines=1  «Отзыв»
+            span.Field__required  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+          textarea.Textarea__textarea  250×175 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Поставили сплит в спальню, трассу спрята»
+          p.Field__hint#2  250×58 @0,209  Manrope 400 13/19  lines=3  «Не меньше 10 символов: как прошёл монтаж»
+    div.Checkbox__root  250×104 @0,866
+      div.Checkbox__row  250×104 @0,0
+        input.Checkbox__input  20×20 @0,11  r6  b1
+        label.Checkbox__label  219×84 @31,10  Manrope 400 15/21  lines=2  «Согласен на обработку персональных данны»
+          a.ReviewForm__policy  154×40 @0,43  Manrope 400 15/21  lines=2  «Политика обработки персональных данных»
+          span.Checkbox__required  9×19 @154,64  Manrope 400 15/21  lines=1  «*»
+    div.ReviewForm__trap  1×1 @-10017,0  clipped
+      label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
+      input  206×24 @0,93  b2
+    div.ReviewForm__failure  250×158 @0,985  r10  b1
+      p.ReviewForm__failureText  220×63 @15,13  Manrope 400 15/21  lines=3  «Отзывы уходят слишком часто. Подождите п»
+      p.ReviewForm__failureText#2  220×63 @15,82  Manrope 400 15/21  lines=3  «Написанное осталось в форме — попробуйте»
+    button.Button__button  250×52 @0,1157  r12  b1
+      span.Button__content  134×19 @58,16
+        span.Button__label  134×19 @0,0  Manrope 600 16/19  lines=1  «Отправить отзыв»
+
+[геометрия 375]
+div.Card__card  343×1253 @16,16  r22  b1
+  header.ReviewForm__header  305×70 @19,19
+    h2.ReviewForm__title  305×23 @0,0  Onest 700 20/23  ls0  lines=1  «Оставить отзыв»
+    p.ReviewForm__description  305×41 @0,29  Manrope 400 14/20  lines=2  «Отзыв появится на сайте после проверки м»
+  p[role=status]  1×1 @18,18  Manrope 400 15/23  lines=1  clipped  «Отзывы уходят слишком часто. Подождите п»
+  form.ReviewForm__form  305×1128 @19,107
+    div.ReviewForm__single  305×814 @0,0
+      div.ReviewForm__column  305×346 @0,0
+        div.Field__field  305×166 @0,0
+          label.Field__label  305×20 @0,0  Manrope 600 13/20  lines=1  «Ваше фото»
+          input.FileInput__input  1×1 @-1,-1  clipped
+          label.FileInput__dropzone  305×93 @0,27  r11  b1
+            svg.FileInput__icon  22×22 @15,36
+            span.FileInput__texts  241×67 @49,13
+              span.FileInput__title  241×45 @0,0  Manrope 600 15/22  lines=2  «Выберите фото или перетащите сюда»
+              span  241×20 @0,47  Manrope 400 13/20  lines=1  «до 5 МБ»
+          p.Field__hint  305×39 @0,127  Manrope 400 13/19  lines=2  «По желанию: отзыв с лицом читают иначе,»
+        div.Field__field#2  305×166 @0,180
+          label.Field__label  305×20 @0,0  Manrope 600 13/20  lines=1  «Фото с места установки»
+          input.FileInput__input  1×1 @-1,-1  clipped
+          label.FileInput__dropzone  305×93 @0,27  r11  b1
+            svg.FileInput__icon#2  22×22 @15,36
+            span.FileInput__texts#2  241×67 @49,13
+              span.FileInput__title  241×45 @0,0  Manrope 600 15/22  lines=2  «Выберите фото или перетащите сюда»
+              span  241×20 @0,47  Manrope 400 13/20  lines=1  «до 5 МБ»
+          p.Field__hint  305×39 @0,127  Manrope 400 13/19  lines=2  «По желанию: как выглядит блок и убрали л»
+      div.ReviewForm__column#2  305×454 @0,360
+        p.ReviewForm__note  305×19 @0,0  Manrope 400 12/19  lines=1  «Звёздочкой отмечены обязательные поля»
+        div.ReviewForm__pair  305×159 @0,33
+          div.Field__field  305×76 @0,0
+            label.Field__label#2  305×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+              span.Field__required  9×18 @26,1  Manrope 600 13/20  lines=1  «*»
+            input  305×49 @0,27  r11  b1
+          fieldset.Rating__fieldset  305×69 @0,90
+            legend.Field__label  60×20 @0,0  Manrope 600 13/20  lines=1  «Оценка»
+              span.Field__required  9×18 @50,1  Manrope 600 13/20  lines=1  «*»
+            span.Rating__stars  305×49 @0,20
+              span.Rating__cell  44×49 @0,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star  20×20 @12,15
+                  span  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 1 из 5»
+              span.Rating__cell#2  44×49 @50,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#2  20×20 @12,15
+                  span#2  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 2 из 5»
+              span.Rating__cell#3  44×49 @100,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#3  20×20 @12,15
+                  span#3  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 3 из 5»
+              span.Rating__cell#4  44×49 @150,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#4  20×20 @12,15
+                  span#4  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 4 из 5»
+              span.Rating__cell#5  44×49 @200,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#5  20×20 @12,15
+                  span#5  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 5 из 5»
+        div.Field__field  305×248 @0,206
+          label.Field__label#3  305×20 @0,0  Manrope 600 13/20  lines=1  «Отзыв»
+            span.Field__required  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+          textarea.Textarea__textarea  305×175 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Поставили сплит в спальню, трассу спрята»
+          p.Field__hint#2  305×39 @0,209  Manrope 400 13/19  lines=2  «Не меньше 10 символов: как прошёл монтаж»
+    div.Checkbox__root  305×83 @0,828
+      div.Checkbox__row  305×83 @0,0
+        input.Checkbox__input  20×20 @0,11  r6  b1
+        label.Checkbox__label  274×63 @31,10  Manrope 400 15/21  lines=2  «Согласен на обработку персональных данны»
+          a.ReviewForm__policy  211×40 @0,22  Manrope 400 15/21  lines=2  «Политика обработки персональных данных»
+          span.Checkbox__required  9×19 @154,43  Manrope 400 15/21  lines=1  «*»
+    div.ReviewForm__trap  1×1 @-10017,0  clipped
+      label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
+      input  206×24 @0,93  b2
+    div.ReviewForm__failure  305×137 @0,925  r10  b1
+      p.ReviewForm__failureText  275×63 @15,13  Manrope 400 15/21  lines=3  «Отзывы уходят слишком часто. Подождите п»
+      p.ReviewForm__failureText#2  275×42 @15,82  Manrope 400 15/21  lines=2  «Написанное осталось в форме — попробуйте»
+    button.Button__button  305×52 @0,1076  r12  b1
+      span.Button__content  134×19 @86,16
+        span.Button__label  134×19 @0,0  Manrope 600 16/19  lines=1  «Отправить отзыв»
+
+[геометрия 768]
+div.Card__card  736×1072 @16,16  r22  b1
+  header.ReviewForm__header  674×52 @31,31
+    h2.ReviewForm__title  674×25 @0,0  Onest 700 22/25  ls0  lines=1  «Оставить отзыв»
+    p.ReviewForm__description  674×20 @0,31  Manrope 400 14/20  lines=1  «Отзыв появится на сайте после проверки м»
+  p[role=status]  1×1 @30,30  Manrope 400 15/23  lines=1  clipped  «Отзывы уходят слишком часто. Подождите п»
+  form.ReviewForm__form  674×941 @31,101
+    div.ReviewForm__single  674×711 @0,0
+      div.ReviewForm__column  674×262 @0,0
+        div.Field__field  674×124 @0,0
+          label.Field__label  674×20 @0,0  Manrope 600 13/20  lines=1  «Ваше фото»
+          input.FileInput__input  1×1 @-1,-1  clipped
+          label.FileInput__dropzone  674×71 @0,27  r11  b1
+            svg.FileInput__icon  22×22 @15,24
+            span.FileInput__texts  267×45 @49,13
+              span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
+              span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+          p.Field__hint  674×19 @0,105  Manrope 400 13/19  lines=1  «По желанию: отзыв с лицом читают иначе,»
+        div.Field__field#2  674×124 @0,138
+          label.Field__label  674×20 @0,0  Manrope 600 13/20  lines=1  «Фото с места установки»
+          input.FileInput__input  1×1 @-1,-1  clipped
+          label.FileInput__dropzone  674×71 @0,27  r11  b1
+            svg.FileInput__icon#2  22×22 @15,24
+            span.FileInput__texts#2  267×45 @49,13
+              span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
+              span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+          p.Field__hint  674×19 @0,105  Manrope 400 13/19  lines=1  «По желанию: как выглядит блок и убрали л»
+      div.ReviewForm__column#2  674×434 @0,276
+        p.ReviewForm__note  674×19 @0,0  Manrope 400 12/19  lines=1  «Звёздочкой отмечены обязательные поля»
+        div.ReviewForm__pair  674×159 @0,33
+          div.Field__field  674×76 @0,0
+            label.Field__label#2  674×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+              span.Field__required  9×18 @26,1  Manrope 600 13/20  lines=1  «*»
+            input  674×49 @0,27  r11  b1
+          fieldset.Rating__fieldset  674×69 @0,90
+            legend.Field__label  60×20 @0,0  Manrope 600 13/20  lines=1  «Оценка»
+              span.Field__required  9×18 @50,1  Manrope 600 13/20  lines=1  «*»
+            span.Rating__stars  674×49 @0,20
+              span.Rating__cell  44×49 @0,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star  20×20 @12,15
+                  span  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 1 из 5»
+              span.Rating__cell#2  44×49 @50,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#2  20×20 @12,15
+                  span#2  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 2 из 5»
+              span.Rating__cell#3  44×49 @100,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#3  20×20 @12,15
+                  span#3  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 3 из 5»
+              span.Rating__cell#4  44×49 @150,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#4  20×20 @12,15
+                  span#4  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 4 из 5»
+              span.Rating__cell#5  44×49 @200,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#5  20×20 @12,15
+                  span#5  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 5 из 5»
+        div.Field__field  674×229 @0,206
+          label.Field__label#3  674×20 @0,0  Manrope 600 13/20  lines=1  «Отзыв»
+            span.Field__required  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+          textarea.Textarea__textarea  674×175 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Поставили сплит в спальню, трассу спрята»
+          p.Field__hint#2  674×19 @0,209  Manrope 400 13/19  lines=1  «Не меньше 10 символов: как прошёл монтаж»
+    div.Checkbox__root  674×62 @0,725
+      div.Checkbox__row  674×62 @0,0
+        input.Checkbox__input  20×20 @0,11  r6  b1
+        label.Checkbox__label  643×42 @31,10  Manrope 400 15/21  lines=1  «Согласен на обработку персональных данны»
+          a.ReviewForm__policy  299×19 @336,1  Manrope 400 15/21  lines=1  «Политика обработки персональных данных»
+          span.Checkbox__required  6×19 @0,22  Manrope 400 15/21  lines=1  «*»
+    div.ReviewForm__trap  1×1 @-10029,0  clipped
+      label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
+      input  206×24 @0,93  b2
+    div.ReviewForm__failure  674×74 @0,801  r10  b1
+      p.ReviewForm__failureText  644×21 @15,13  Manrope 400 15/21  lines=1  «Отзывы уходят слишком часто. Подождите п»
+      p.ReviewForm__failureText#2  644×21 @15,40  Manrope 400 15/21  lines=1  «Написанное осталось в форме — попробуйте»
+    button.Button__button  674×52 @0,889  r12  b1
+      span.Button__content  134×19 @270,16
+        span.Button__label  134×19 @0,0  Manrope 600 16/19  lines=1  «Отправить отзыв»
+
+[геометрия 1200]
+div.Card__card  1168×1054 @16,16  r22  b1
+  header.ReviewForm__header  1106×52 @31,31
+    h2.ReviewForm__title  1106×25 @0,0  Onest 700 22/25  ls0  lines=1  «Оставить отзыв»
+    p.ReviewForm__description  1106×20 @0,31  Manrope 400 14/20  lines=1  «Отзыв появится на сайте после проверки м»
+  p[role=status]  1×1 @30,30  Manrope 400 15/23  lines=1  clipped  «Отзывы уходят слишком часто. Подождите п»
+  form.ReviewForm__form  1106×923 @31,101
+    div.ReviewForm__single  1106×711 @0,0
+      div.ReviewForm__column  1106×262 @0,0
+        div.Field__field  1106×124 @0,0
+          label.Field__label  1106×20 @0,0  Manrope 600 13/20  lines=1  «Ваше фото»
+          input.FileInput__input  1×1 @-1,-1  clipped
+          label.FileInput__dropzone  1106×71 @0,27  r11  b1
+            svg.FileInput__icon  22×22 @15,24
+            span.FileInput__texts  267×45 @49,13
+              span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
+              span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+          p.Field__hint  1106×19 @0,105  Manrope 400 13/19  lines=1  «По желанию: отзыв с лицом читают иначе,»
+        div.Field__field#2  1106×124 @0,138
+          label.Field__label  1106×20 @0,0  Manrope 600 13/20  lines=1  «Фото с места установки»
+          input.FileInput__input  1×1 @-1,-1  clipped
+          label.FileInput__dropzone  1106×71 @0,27  r11  b1
+            svg.FileInput__icon#2  22×22 @15,24
+            span.FileInput__texts#2  267×45 @49,13
+              span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
+              span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
+          p.Field__hint  1106×19 @0,105  Manrope 400 13/19  lines=1  «По желанию: как выглядит блок и убрали л»
+      div.ReviewForm__column#2  1106×434 @0,276
+        p.ReviewForm__note  1106×19 @0,0  Manrope 400 12/19  lines=1  «Звёздочкой отмечены обязательные поля»
+        div.ReviewForm__pair  1106×159 @0,33
+          div.Field__field  1106×76 @0,0
+            label.Field__label#2  1106×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+              span.Field__required  9×18 @26,1  Manrope 600 13/20  lines=1  «*»
+            input  1106×49 @0,27  r11  b1
+          fieldset.Rating__fieldset  1106×69 @0,90
+            legend.Field__label  60×20 @0,0  Manrope 600 13/20  lines=1  «Оценка»
+              span.Field__required  9×18 @50,1  Manrope 600 13/20  lines=1  «*»
+            span.Rating__stars  1106×49 @0,20
+              span.Rating__cell  44×49 @0,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star  20×20 @12,15
+                  span  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 1 из 5»
+              span.Rating__cell#2  44×49 @50,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#2  20×20 @12,15
+                  span#2  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 2 из 5»
+              span.Rating__cell#3  44×49 @100,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#3  20×20 @12,15
+                  span#3  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 3 из 5»
+              span.Rating__cell#4  44×49 @150,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#4  20×20 @12,15
+                  span#4  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 4 из 5»
+              span.Rating__cell#5  44×49 @200,0
+                input.Rating__radio  1×1 @-1,-1
+                label.Rating__option  44×49 @0,0  r11  b1
+                  svg.Rating__star#5  20×20 @12,15
+                  span#5  1×1 @22,24  Manrope 400 15/23  lines=1  clipped  «Оценка 5 из 5»
+        div.Field__field  1106×229 @0,206
+          label.Field__label#3  1106×20 @0,0  Manrope 600 13/20  lines=1  «Отзыв»
+            span.Field__required  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+          textarea.Textarea__textarea  1106×175 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Поставили сплит в спальню, трассу спрята»
+          p.Field__hint#2  1106×19 @0,209  Manrope 400 13/19  lines=1  «Не меньше 10 символов: как прошёл монтаж»
+    div.Checkbox__root  1106×44 @0,725
+      div.Checkbox__row  1106×44 @0,0
+        input.Checkbox__input  20×20 @0,11  r6  b1
+        label.Checkbox__label  645×24 @31,10  Manrope 400 15/21  lines=1  «Согласен на обработку персональных данны»
+          a.ReviewForm__policy  299×19 @336,1  Manrope 400 15/21  lines=1  «Политика обработки персональных данных»
+          span.Checkbox__required  9×19 @636,1  Manrope 400 15/21  lines=1  «*»
+    div.ReviewForm__trap  1×1 @-10029,0  clipped
+      label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
+      input  206×24 @0,93  b2
+    div.ReviewForm__failure  1106×74 @0,783  r10  b1
+      p.ReviewForm__failureText  1076×21 @15,13  Manrope 400 15/21  lines=1  «Отзывы уходят слишком часто. Подождите п»
+      p.ReviewForm__failureText#2  1076×21 @15,40  Manrope 400 15/21  lines=1  «Написанное осталось в форме — попробуйте»
+    button.Button__button  1106×52 @0,871  r12  b1
+      span.Button__content  134×19 @486,16
+        span.Button__label  134×19 @0,0  Manrope 600 16/19  lines=1  «Отправить отзыв»
+
+[палитра light]
+div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.ReviewForm__header
+    h2.ReviewForm__title  color #0f172a
+    p.ReviewForm__description  color #556173
+  p[role=status]  color #475569
+  form.ReviewForm__form
+    div.ReviewForm__single
+      div.ReviewForm__column
+        div.Field__field
+          label.Field__label  color #334155
+          input.FileInput__input
+          label.FileInput__dropzone  bg #ffffff  border #7e8fa6
+            svg.FileInput__icon
+            span.FileInput__texts
+              span.FileInput__title  color #334155
+              span  color #556173
+          p.Field__hint  color #556173
+        div.Field__field#2
+          label.Field__label  color #334155
+          input.FileInput__input
+          label.FileInput__dropzone  bg #ffffff  border #7e8fa6
+            svg.FileInput__icon#2
+            span.FileInput__texts#2
+              span.FileInput__title  color #334155
+              span  color #556173
+          p.Field__hint  color #556173
+      div.ReviewForm__column#2
+        p.ReviewForm__note  color #556173
+        div.ReviewForm__pair
+          div.Field__field
+            label.Field__label#2  color #334155
+              span.Field__required  color #0e7490
+            input  bg #ffffff  border #7e8fa6
+          fieldset.Rating__fieldset
+            legend.Field__label  color #334155
+              span.Field__required  color #0e7490
+            span.Rating__stars
+              span.Rating__cell
+                input.Rating__radio
+                label.Rating__option  bg #d977061f  border #d9770673
+                  svg.Rating__star
+                  span  color #d97706
+              span.Rating__cell#2
+                input.Rating__radio
+                label.Rating__option  bg #d977061f  border #d9770673
+                  svg.Rating__star#2
+                  span#2  color #d97706
+              span.Rating__cell#3
+                input.Rating__radio
+                label.Rating__option  bg #d977061f  border #d9770673
+                  svg.Rating__star#3
+                  span#3  color #d97706
+              span.Rating__cell#4
+                input.Rating__radio
+                label.Rating__option  bg #d977061f  border #d9770673
+                  svg.Rating__star#4
+                  span#4  color #d97706
+              span.Rating__cell#5
+                input.Rating__radio
+                label.Rating__option  bg #d977061f  border #d9770673
+                  svg.Rating__star#5
+                  span#5  color #d97706
+        div.Field__field
+          label.Field__label#3  color #334155
+            span.Field__required  color #0e7490
+          textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
+          p.Field__hint#2  color #556173
+    div.Checkbox__root
+      div.Checkbox__row
+        input.Checkbox__input  bg #0e7490  border #0e7490
+        label.Checkbox__label  color #475569
+          a.ReviewForm__policy  color #0e7490
+          span.Checkbox__required  color #0e7490
+    div.ReviewForm__trap
+      label  color #475569
+      input  bg #ffffff  border #767676
+    div.ReviewForm__failure  bg #be123c14  border #be123c73
+      p.ReviewForm__failureText  color #be123c
+      p.ReviewForm__failureText#2  color #be123c
+    button.Button__button  bg #0e7490  border #0e7490  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+      span.Button__content
+        span.Button__label  color #ffffff
+
+[палитра dark]
+div.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.ReviewForm__header
+    h2.ReviewForm__title  color #eaf1f8
+    p.ReviewForm__description  color #8598ac
+  p[role=status]  color #a8b6c6
+  form.ReviewForm__form
+    div.ReviewForm__single
+      div.ReviewForm__column
+        div.Field__field
+          label.Field__label  color #c9d5e2
+          input.FileInput__input
+          label.FileInput__dropzone  bg #0b1424  border #566d95
+            svg.FileInput__icon
+            span.FileInput__texts
+              span.FileInput__title  color #c9d5e2
+              span  color #8598ac
+          p.Field__hint  color #8598ac
+        div.Field__field#2
+          label.Field__label  color #c9d5e2
+          input.FileInput__input
+          label.FileInput__dropzone  bg #0b1424  border #566d95
+            svg.FileInput__icon#2
+            span.FileInput__texts#2
+              span.FileInput__title  color #c9d5e2
+              span  color #8598ac
+          p.Field__hint  color #8598ac
+      div.ReviewForm__column#2
+        p.ReviewForm__note  color #8598ac
+        div.ReviewForm__pair
+          div.Field__field
+            label.Field__label#2  color #c9d5e2
+              span.Field__required  color #22d3ee
+            input  bg #0b1424  border #566d95
+          fieldset.Rating__fieldset
+            legend.Field__label  color #c9d5e2
+              span.Field__required  color #22d3ee
+            span.Rating__stars
+              span.Rating__cell
+                input.Rating__radio
+                label.Rating__option  bg #fbbf2424  border #fbbf2473
+                  svg.Rating__star
+                  span  color #fbbf24
+              span.Rating__cell#2
+                input.Rating__radio
+                label.Rating__option  bg #fbbf2424  border #fbbf2473
+                  svg.Rating__star#2
+                  span#2  color #fbbf24
+              span.Rating__cell#3
+                input.Rating__radio
+                label.Rating__option  bg #fbbf2424  border #fbbf2473
+                  svg.Rating__star#3
+                  span#3  color #fbbf24
+              span.Rating__cell#4
+                input.Rating__radio
+                label.Rating__option  bg #fbbf2424  border #fbbf2473
+                  svg.Rating__star#4
+                  span#4  color #fbbf24
+              span.Rating__cell#5
+                input.Rating__radio
+                label.Rating__option  bg #fbbf2424  border #fbbf2473
+                  svg.Rating__star#5
+                  span#5  color #fbbf24
+        div.Field__field
+          label.Field__label#3  color #c9d5e2
+            span.Field__required  color #22d3ee
+          textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
+          p.Field__hint#2  color #8598ac
+    div.Checkbox__root
+      div.Checkbox__row
+        input.Checkbox__input  bg #0e7490  border #0e7490
+        label.Checkbox__label  color #a8b6c6
+          a.ReviewForm__policy  color #22d3ee
+          span.Checkbox__required  color #22d3ee
+    div.ReviewForm__trap
+      label  color #a8b6c6
+      input  bg #ffffff  border #767676
+    div.ReviewForm__failure  bg #fb71851f  border #fb718580
+      p.ReviewForm__failureText  color #fb7185
+      p.ReviewForm__failureText#2  color #fb7185
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+      span.Button__content
+        span.Button__label  color #ffffff

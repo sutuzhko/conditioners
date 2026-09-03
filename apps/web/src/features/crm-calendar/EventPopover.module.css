@@ -54,6 +54,11 @@
   align-items: center;
   justify-content: center;
   flex: none;
+
+  /* Значок 14px с отступом 4px давал цель 22×22 — ниже минимума AA
+     (WCAG 2.5.8, issue #470). */
+  min-width: 24px;
+  min-height: 24px;
   border: none;
   border-radius: var(--r-sm);
   background: transparent;

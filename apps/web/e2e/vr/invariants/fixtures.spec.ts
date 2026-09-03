@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 
+import { COVERED_SECTIONS, sectionOf } from '../sections';
 import { loadStories } from '../story-index';
 import { waitForStoryReady, watchPlayFailures } from '../story-ready';
 import { type InvariantRule, type MeasureInput, measureInvariants } from './measure';
@@ -20,6 +21,29 @@ import { checkStability, readStabilityParameters } from './stability';
  * `theme-dark` — так фикстура темы получает `data-theme="dark"` от витрины
  * и красит фон вопреки ему.
  */
+
+/**
+ * 🔴 Сторож покрытия (issue #517). Работы обходят разделы по списку, и раздел,
+ * которого в списке нет, не проверяется ничем — молча: прогон зелёный, потому
+ * что проверять было нечего. Так из всех работ выпали `Фичи/` (формы заявки и
+ * отзыва) и `Календарь/`, и заметили это только при сдаче чужой вехи.
+ *
+ * Проверяется не «зелено ли», а «попало ли в список»: любое название истории,
+ * чей раздел не назван в `sections.ts`, красит прогон.
+ */
+test('🔴 у каждого раздела витрины есть работа, которая его проверяет', async ({ request }) => {
+  const all = await loadStories(request, ['']);
+  expect(all.length, 'витрина не отдала ни одной истории').toBeGreaterThan(0);
+
+  const orphans = [...new Set(all.map((story) => sectionOf(story.title)))]
+    .filter((section) => !COVERED_SECTIONS.includes(section))
+    .sort();
+
+  expect(
+    orphans,
+    'раздел витрины не входит ни в одну работу — допишите его в e2e/vr/sections.ts',
+  ).toEqual([]);
+});
 
 const SECTION = 'Фикстуры/Инварианты';
 const WIDTH = 768;
