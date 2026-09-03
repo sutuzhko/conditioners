@@ -6,23 +6,40 @@ import { reviewsContent as t } from '../content';
 import { ReviewsTrack } from './ReviewsTrack';
 
 /**
- * Управляемая замена matchMedia: настоящий EventTarget, чтобы `change`
- * доходил до подписчиков компонента, плюс изменяемое поле matches —
+ * Управляемая замена matchMedia: настоящие EventTarget на запрос, чтобы
+ * `change` доходил до подписчиков компонента, плюс изменяемое поле matches —
  * тест сам решает, что «ответила» операционная система.
+ *
+ * 🔴 Запросов теперь два, и путать их нельзя. Ширина решает, лента перед нами
+ * или сетка: до 1200px отзывы лежат колонкой и сеткой, и ни хода, ни кнопки
+ * остановки там нет вовсе (issue #274). Прежняя заглушка отвечала «нет» на
+ * всё подряд — с ней компонент считал бы себя сеткой и ни одна проверка
+ * ленты не проверяла бы ленту.
  */
-function calmSwitch() {
-  const media = Object.assign(new EventTarget(), {
-    matches: false,
-    media: '(prefers-reduced-motion: reduce)',
-    onchange: null,
-    addListener: (): void => undefined,
-    removeListener: (): void => undefined,
-  });
-  vi.spyOn(window, 'matchMedia').mockImplementation(() => media);
-  return media;
+function media(): {
+  calm: EventTarget & { matches: boolean };
+  wide: EventTarget & { matches: boolean };
+} {
+  const make = (query: string, matches: boolean) =>
+    Object.assign(new EventTarget(), {
+      matches,
+      media: query,
+      onchange: null,
+      addListener: (): void => undefined,
+      removeListener: (): void => undefined,
+    });
+
+  const calm = make('(prefers-reduced-motion: reduce)', false);
+  const wide = make('(min-width: 1200px)', true);
+
+  vi.spyOn(window, 'matchMedia').mockImplementation(
+    (query: string) => (query.includes('min-width') ? wide : calm) as unknown as MediaQueryList,
+  );
+
+  return { calm, wide };
 }
 
-function track(): HTMLElement {
+function list(): HTMLElement {
   return screen.getByRole('list', { name: 'Отзывы' });
 }
 
@@ -33,36 +50,45 @@ const cards = (
   </>
 );
 
+function renderTrack(props: { drift?: boolean; clipped?: boolean } = {}) {
+  const { drift = true, clipped = false } = props;
+  return render(
+    <ReviewsTrack id="reviews-list" label="Отзывы" drift={drift} clipped={clipped}>
+      {cards}
+    </ReviewsTrack>,
+  );
+}
+
 afterEach(() => {
   vi.restoreAllMocks();
 });
 
 describe('ReviewsTrack', () => {
   it('останавливает самоход, когда экономию движения включили после маунта', () => {
-    const media = calmSwitch();
+    const { calm } = media();
     const cancel = vi.spyOn(window, 'cancelAnimationFrame');
 
-    render(<ReviewsTrack label="Отзывы">{cards}</ReviewsTrack>);
+    renderTrack();
 
     /* Событие системы меняет состояние компонента — значит, идёт через act:
        иначе React справедливо жалуется, что проверяется промежуточный
        результат, а не то, что увидит человек. */
     act(() => {
-      media.matches = true;
-      media.dispatchEvent(new Event('change'));
+      calm.matches = true;
+      calm.dispatchEvent(new Event('change'));
     });
 
     expect(cancel).toHaveBeenCalled();
     // и вместе с ходом лента получила прокрутку — одно без другого не считается
-    expect(track().className).toContain('scrollable');
+    expect(list().className).toContain('scrollable');
   });
 
   it('при включённой с самого начала экономии движения самоход не стартует', () => {
-    const media = calmSwitch();
-    media.matches = true;
+    const { calm } = media();
+    calm.matches = true;
     const raf = vi.spyOn(window, 'requestAnimationFrame');
 
-    render(<ReviewsTrack label="Отзывы">{cards}</ReviewsTrack>);
+    renderTrack();
 
     expect(raf).not.toHaveBeenCalled();
   });
@@ -76,12 +102,12 @@ describe('ReviewsTrack', () => {
    * видит, а прочитать их нечем.
    */
   it('🔴 при экономии движения лента отдаёт прокрутку человеку', () => {
-    const media = calmSwitch();
-    media.matches = true;
+    const { calm } = media();
+    calm.matches = true;
 
-    render(<ReviewsTrack label="Отзывы">{cards}</ReviewsTrack>);
+    renderTrack();
 
-    expect(track().className).toContain('scrollable');
+    expect(list().className).toContain('scrollable');
   });
 
   /**
@@ -91,10 +117,10 @@ describe('ReviewsTrack', () => {
    * хуже отсутствующего — по нему нажимают и не понимают, что произошло.
    */
   it('при экономии движения кнопки нет: останавливать уже нечего', () => {
-    const media = calmSwitch();
-    media.matches = true;
+    const { calm } = media();
+    calm.matches = true;
 
-    render(<ReviewsTrack label="Отзывы">{cards}</ReviewsTrack>);
+    renderTrack();
 
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     // но сказать, что лента стоит, всё равно надо: полосы прокрутки мало
@@ -102,11 +128,11 @@ describe('ReviewsTrack', () => {
   });
 
   it('едущая лента прокрутку не отдаёт: её двигает только компонент', () => {
-    calmSwitch();
+    media();
 
-    render(<ReviewsTrack label="Отзывы">{cards}</ReviewsTrack>);
+    renderTrack();
 
-    expect(track().className).not.toContain('scrollable');
+    expect(list().className).not.toContain('scrollable');
   });
 
   /**
@@ -115,17 +141,17 @@ describe('ReviewsTrack', () => {
    * наведению им не считается — у человека с телефона указателя нет.
    */
   it('🔴 лента останавливается кнопкой и отдаёт прокрутку', async () => {
-    calmSwitch();
+    media();
     const user = userEvent.setup();
 
-    render(<ReviewsTrack label="Отзывы">{cards}</ReviewsTrack>);
+    renderTrack();
 
     const button = screen.getByRole('button', { name: t.pauseTrack });
     expect(button).toHaveAttribute('aria-pressed', 'false');
 
     await user.click(button);
 
-    expect(track().className).toContain('scrollable');
+    expect(list().className).toContain('scrollable');
     expect(screen.getByRole('button', { name: t.resumeTrack })).toHaveAttribute(
       'aria-pressed',
       'true',
@@ -133,15 +159,15 @@ describe('ReviewsTrack', () => {
   });
 
   it('второе нажатие возвращает ход и снимает прокрутку', async () => {
-    calmSwitch();
+    media();
     const user = userEvent.setup();
 
-    render(<ReviewsTrack label="Отзывы">{cards}</ReviewsTrack>);
+    renderTrack();
 
     await user.click(screen.getByRole('button', { name: t.pauseTrack }));
     await user.click(screen.getByRole('button', { name: t.resumeTrack }));
 
-    expect(track().className).not.toContain('scrollable');
+    expect(list().className).not.toContain('scrollable');
     expect(screen.getByRole('button', { name: t.pauseTrack })).toHaveAttribute(
       'aria-pressed',
       'false',
@@ -149,10 +175,10 @@ describe('ReviewsTrack', () => {
   });
 
   it('остановка объявляется голосом, а не только полосой прокрутки', async () => {
-    calmSwitch();
+    media();
     const user = userEvent.setup();
 
-    render(<ReviewsTrack label="Отзывы">{cards}</ReviewsTrack>);
+    renderTrack();
 
     const status = screen.getByRole('status');
     expect(status).toBeEmptyDOMElement();
@@ -163,14 +189,40 @@ describe('ReviewsTrack', () => {
   });
 
   it('у ленты, которой не за чем ехать, кнопки нет — останавливать нечего', () => {
-    calmSwitch();
+    media();
 
-    render(
-      <ReviewsTrack label="Отзывы" drift={false}>
-        {cards}
-      </ReviewsTrack>,
-    );
+    renderTrack({ drift: false });
 
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 До 1200px ленты нет вовсе: отзывы лежат колонкой и сеткой (issue #274).
+   * Двигать там нечего, и кнопка остановки над неподвижными карточками —
+   * контрол, который ничего не делает.
+   */
+  it('🔴 ниже 1200 лента не едет и кнопки остановки не заводит', () => {
+    const { wide } = media();
+    wide.matches = false;
+    const raf = vi.spyOn(window, 'requestAnimationFrame');
+
+    renderTrack();
+
+    expect(raf).not.toHaveBeenCalled();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(screen.getByRole('status')).toBeEmptyDOMElement();
+  });
+
+  /**
+   * 🔴 Свёрнутый список — это стиль, а не удаление: скрытые карточки остаются
+   * в разметке, и робот видит раздел целиком (ADR-195, инвариант 1).
+   */
+  it('🔴 свёрнутый список не выбрасывает карточки из разметки', () => {
+    media();
+
+    renderTrack({ clipped: true });
+
+    expect(list().className).toContain('clipped');
+    expect(list().children).toHaveLength(2);
   });
 });

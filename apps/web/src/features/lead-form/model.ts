@@ -64,6 +64,24 @@ export const LEAD_FIELD_ORDER: readonly (keyof LeadFormValues)[] = [
   'consent',
 ];
 
+/**
+ * Поля, спрятанные в раскрывающийся блок «Модель, адрес, фото — по желанию»
+ * (issue #276).
+ *
+ * 🔴 Список нужен не вёрстке, а фокусу: закрытый `<details>` держит своё
+ * содержимое в `display: none`, и `focus()` по ошибке сервера в такое поле не
+ * попадает вовсе — человек получил бы сообщение об ошибке и не нашёл, где
+ * её править. Форма открывает блок перед тем, как вести туда фокус.
+ */
+export const LEAD_EXTRA_FIELDS: readonly (keyof LeadFormValues)[] = [
+  'model',
+  'place',
+  'qty',
+  'address',
+  'callTime',
+  'comment',
+];
+
 /** Четыре состояния формы (docs/CLAUDE.md, раздел «Формы и состояния»). */
 export type LeadFormStatus = 'idle' | 'sending' | 'success' | 'error';
 

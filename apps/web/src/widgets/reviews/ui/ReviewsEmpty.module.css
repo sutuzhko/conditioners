@@ -1,0 +1,39 @@
+/* Пустой раздел отзывов: объяснение и приглашение, без единой заготовки под
+   карточку (issue #274). Ширина ограничена длиной строки — текст читают,
+   а не разглядывают (docs/DESIGN_BRIEF.md §4). */
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px dashed var(--accent-line);
+  border-radius: var(--r-lg);
+  background: var(--accent-bg);
+  padding: clamp(20px, 5vw, 34px) var(--card-pad);
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.text {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+  line-height: 1.55;
+}
+
+/* Кнопка не растянута: приглашение — это предложение, а не главное действие
+   страницы, и кнопка во всю ширину спорила бы с формой заявки. */
+.cta {
+  margin-top: 4px;
+}

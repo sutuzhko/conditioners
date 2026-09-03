@@ -1,15 +1,15 @@
-# блоки-заявка--default · ширины 320 375 768 1200 · темы light dark
+# блоки-заявка--extras-open · ширины 320 375 768 1200 · темы light dark
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-320 → 320×1260
-375 → 375×1179
-768 → 768×1093
-1200 → 1200×900
+320 → 320×2043
+375 → 375×1962
+768 → 768×1744
+1200 → 1200×1639
 
 [геометрия 320]
-section.LeadSection__section  320×1260 @0,0
-  div.LeadSection__container  320×1260 @0,0
+section.LeadSection__section  320×2043 @0,0
+  div.LeadSection__container  320×2043 @0,0
     div.LeadSection__intro  288×430 @16,48
       p.LeadSection__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Заявка —»
       h2.LeadSection__title  288×53 @0,34  Onest 700 24/26  ls0  lines=2  «Оставьте заявку — поможем с выбором»
@@ -24,10 +24,10 @@ section.LeadSection__section  320×1260 @0,0
         li.LeadSection__benefit#3  288×42 @0,133  Manrope 400 15/21  lines=2  «Честная смета фиксируется в договоре»
           span.LeadSection__mark  38×38 @0,2  r11
             svg#3  18×18 @10,10
-    div.LeadSection__form  288×710 @16,502
-      div.Card__card  288×710 @0,0  r22  b1
+    div.LeadSection__form  288×1493 @16,502
+      div.Card__card  288×1493 @0,0  r22  b1
         p[role=status]  1×1 @18,18
-        form.LeadForm__form  250×672 @19,19
+        form.LeadForm__form  250×1455 @19,19
           p.LeadForm__note  250×19 @0,0  Manrope 400 12/19  lines=1  «Звёздочкой отмечены обязательные поля»
           div.LeadForm__pair  250×166 @0,33
             div.Field__field  250×76 @0,0
@@ -47,7 +47,7 @@ section.LeadSection__section  320×1260 @0,0
                 option#3  0×0 @-35,-761  Manrope 400 15/21  lines=0  «ТО и чистка»
                 option#4  0×0 @-35,-761  Manrope 400 15/21  lines=0  «Консультация»
               svg.Select__chevron  14×14 @222,18
-          details.LeadForm__extras  250×105 @0,303  r11  b1
+          details.LeadForm__extras  250×888 @0,303  r11  b1
             summary.LeadForm__extrasSummary  248×103 @1,1  r11
               span.LeadForm__extrasCopy  190×79 @14,12
                 span.LeadForm__extrasTitle  190×40 @0,0  Manrope 600 13/20  lines=2  «Модель, адрес, фото — по желанию»
@@ -103,7 +103,7 @@ section.LeadSection__section  320×1260 @0,0
                     span.FileInput__title  156×45 @0,0  Manrope 600 15/22  lines=2  «Выберите фото или перетащите сюда»
                     span  156×20 @0,47  Manrope 400 13/20  lines=1  «до 5 МБ»
                 p.Field__hint  220×39 @0,127  Manrope 400 13/19  lines=2  «По желанию: по фото стены точнее посчита»
-          div.Checkbox__root  250×104 @0,422
+          div.Checkbox__root  250×104 @0,1205
             div.Checkbox__row  250×104 @0,0
               input.Checkbox__input  20×20 @0,11  r6  b1
               label.Checkbox__label  219×84 @31,10  Manrope 400 15/21  lines=2  «Согласен на обработку персональных данны»
@@ -112,15 +112,15 @@ section.LeadSection__section  320×1260 @0,0
           div.LeadForm__trap  1×1 @-10017,0  clipped
             label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
             input  206×24 @0,93  b2
-          button.Button__button  250×52 @0,541  r12  b1
+          button.Button__button  250×52 @0,1323  r12  b1
             span.Button__content  140×19 @55,16
               span.Button__label  140×19 @0,0  Manrope 600 16/19  lines=1  «Отправить заявку»
-          p.LeadForm__callInstead  250×65 @0,607  Manrope 400 13/20  lines=1  «Или позвоните:»
+          p.LeadForm__callInstead  250×65 @0,1389  Manrope 400 13/20  lines=1  «Или позвоните:»
             a.LeadForm__callPhone  170×45 @40,20  JetBrains Mono 700 15/23  lines=1  «+7 (4872) 00-00-00»
 
 [геометрия 375]
-section.LeadSection__section  375×1179 @0,0
-  div.LeadSection__container  375×1179 @0,0
+section.LeadSection__section  375×1962 @0,0
+  div.LeadSection__container  375×1962 @0,0
     div.LeadSection__intro  342×405 @17,51
       p.LeadSection__kicker  342×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Заявка —»
       h2.LeadSection__title  342×53 @0,34  Onest 700 24/26  ls0  lines=2  «Оставьте заявку — поможем с выбором»
@@ -135,10 +135,10 @@ section.LeadSection__section  375×1179 @0,0
         li.LeadSection__benefit#3  342×38 @0,112  Manrope 400 15/21  lines=1  «Честная смета фиксируется в договоре»
           span.LeadSection__mark  38×38 @0,0  r11
             svg#3  18×18 @10,10
-    div.LeadSection__form  342×649 @17,480
-      div.Card__card  342×649 @0,0  r22  b1
+    div.LeadSection__form  342×1431 @17,480
+      div.Card__card  342×1431 @0,0  r22  b1
         p[role=status]  1×1 @18,18
-        form.LeadForm__form  304×611 @19,19
+        form.LeadForm__form  304×1393 @19,19
           p.LeadForm__note  304×19 @0,0  Manrope 400 12/19  lines=1  «Звёздочкой отмечены обязательные поля»
           div.LeadForm__pair  304×166 @0,33
             div.Field__field  304×76 @0,0
@@ -158,7 +158,7 @@ section.LeadSection__section  375×1179 @0,0
                 option#3  0×0 @-35,-739  Manrope 400 15/21  lines=0  «ТО и чистка»
                 option#4  0×0 @-35,-739  Manrope 400 15/21  lines=0  «Консультация»
               svg.Select__chevron  14×14 @276,18
-          details.LeadForm__extras  304×85 @0,303  r11  b1
+          details.LeadForm__extras  304×868 @0,303  r11  b1
             summary.LeadForm__extrasSummary  302×83 @1,1  r11
               span.LeadForm__extrasCopy  244×59 @14,12
                 span.LeadForm__extrasTitle  244×20 @0,0  Manrope 600 13/20  lines=1  «Модель, адрес, фото — по желанию»
@@ -214,7 +214,7 @@ section.LeadSection__section  375×1179 @0,0
                     span.FileInput__title  210×45 @0,0  Manrope 600 15/22  lines=2  «Выберите фото или перетащите сюда»
                     span  210×20 @0,47  Manrope 400 13/20  lines=1  «до 5 МБ»
                 p.Field__hint  274×39 @0,127  Manrope 400 13/19  lines=2  «По желанию: по фото стены точнее посчита»
-          div.Checkbox__root  304×83 @0,402
+          div.Checkbox__root  304×83 @0,1185
             div.Checkbox__row  304×83 @0,0
               input.Checkbox__input  20×20 @0,11  r6  b1
               label.Checkbox__label  273×63 @31,10  Manrope 400 15/21  lines=2  «Согласен на обработку персональных данны»
@@ -223,15 +223,15 @@ section.LeadSection__section  375×1179 @0,0
           div.LeadForm__trap  1×1 @-10017,0  clipped
             label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
             input  206×24 @0,93  b2
-          button.Button__button  304×52 @0,499  r12  b1
+          button.Button__button  304×52 @0,1282  r12  b1
             span.Button__content  140×19 @82,16
               span.Button__label  140×19 @0,0  Manrope 600 16/19  lines=1  «Отправить заявку»
-          p.LeadForm__callInstead  304×45 @0,565  Manrope 400 13/20  lines=1  «Или позвоните:»
+          p.LeadForm__callInstead  304×45 @0,1348  Manrope 400 13/20  lines=1  «Или позвоните:»
             a.LeadForm__callPhone  170×45 @116,0  JetBrains Mono 700 15/23  lines=1  «+7 (4872) 00-00-00»
 
 [геометрия 768]
-section.LeadSection__section  768×1093 @0,0
-  div.LeadSection__container  768×1093 @0,0
+section.LeadSection__section  768×1744 @0,0
+  div.LeadSection__container  768×1744 @0,0
     div.LeadSection__intro  620×380 @20,68
       p.LeadSection__kicker  620×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Заявка —»
       h2.LeadSection__title  620×79 @0,34  Onest 700 36/40  ls-1  lines=2  «Оставьте заявку — поможем с выбором»
@@ -246,10 +246,10 @@ section.LeadSection__section  768×1093 @0,0
         li.LeadSection__benefit#3  620×38 @0,108  Manrope 400 15/21  lines=1  «Честная смета фиксируется в договоре»
           span.LeadSection__mark  38×38 @0,0  r11
             svg#3  18×18 @10,10
-    div.LeadSection__form  728×544 @20,481
-      div.Card__card  728×544 @0,0  r22  b1
+    div.LeadSection__form  728×1195 @20,481
+      div.Card__card  728×1195 @0,0  r22  b1
         p[role=status]  1×1 @31,31
-        form.LeadForm__form  664×481 @32,32
+        form.LeadForm__form  664×1132 @32,32
           p.LeadForm__note  664×19 @0,0  Manrope 400 12/19  lines=1  «Звёздочкой отмечены обязательные поля»
           div.LeadForm__pair  664×76 @0,33
             div.Field__field  325×76 @0,0
@@ -269,7 +269,7 @@ section.LeadSection__section  768×1093 @0,0
                 option#3  0×0 @-52,-662  Manrope 400 15/21  lines=0  «ТО и чистка»
                 option#4  0×0 @-52,-662  Manrope 400 15/21  lines=0  «Консультация»
               svg.Select__chevron  14×14 @636,18
-          details.LeadForm__extras  664×67 @0,213  r11  b1
+          details.LeadForm__extras  664×718 @0,213  r11  b1
             summary.LeadForm__extrasSummary  662×65 @1,1  r11
               span.LeadForm__extrasCopy  302×41 @14,12
                 span.LeadForm__extrasTitle  302×20 @0,0  Manrope 600 13/20  lines=1  «Модель, адрес, фото — по желанию»
@@ -325,7 +325,7 @@ section.LeadSection__section  768×1093 @0,0
                     span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
                     span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
                 p.Field__hint  634×19 @0,105  Manrope 400 13/19  lines=1  «По желанию: по фото стены точнее посчита»
-          div.Checkbox__root  664×62 @0,294
+          div.Checkbox__root  664×62 @0,944
             div.Checkbox__row  664×62 @0,0
               input.Checkbox__input  20×20 @0,11  r6  b1
               label.Checkbox__label  633×42 @31,10  Manrope 400 15/21  lines=1  «Согласен на обработку персональных данны»
@@ -334,15 +334,15 @@ section.LeadSection__section  768×1093 @0,0
           div.LeadForm__trap  1×1 @-10030,0  clipped
             label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
             input  206×24 @0,93  b2
-          button.Button__button  664×52 @0,370  r12  b1
+          button.Button__button  664×52 @0,1020  r12  b1
             span.Button__content  140×19 @262,16
               span.Button__label  140×19 @0,0  Manrope 600 16/19  lines=1  «Отправить заявку»
-          p.LeadForm__callInstead  664×45 @0,436  Manrope 400 13/20  lines=1  «Или позвоните:»
+          p.LeadForm__callInstead  664×45 @0,1086  Manrope 400 13/20  lines=1  «Или позвоните:»
             a.LeadForm__callPhone  170×45 @296,0  JetBrains Mono 700 15/23  lines=1  «+7 (4872) 00-00-00»
 
 [геометрия 1200]
-section.LeadSection__section  1200×857 @0,0
-  div.LeadSection__container  1080×857 @60,0
+section.LeadSection__section  1200×1639 @0,0
+  div.LeadSection__container  1080×1639 @60,0
     div.LeadSection__intro  620×389 @24,88
       p.LeadSection__kicker  620×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Заявка —»
       h2.LeadSection__title  620×79 @0,34  Onest 700 36/40  ls-1  lines=2  «Оставьте заявку — поможем с выбором»
@@ -357,10 +357,10 @@ section.LeadSection__section  1200×857 @0,0
         li.LeadSection__benefit#3  620×38 @0,111  Manrope 400 15/21  lines=1  «Честная смета фиксируется в договоре»
           span.LeadSection__mark  38×38 @0,0  r11
             svg#3  18×18 @10,10
-    div.LeadSection__form  360×681 @696,88
-      div.Card__card  360×681 @0,0  r22  b1
+    div.LeadSection__form  360×1463 @696,88
+      div.Card__card  360×1463 @0,0  r22  b1
         p[role=status]  1×1 @34,34
-        form.LeadForm__form  290×611 @35,35
+        form.LeadForm__form  290×1393 @35,35
           p.LeadForm__note  290×19 @0,0  Manrope 400 12/19  lines=1  «Звёздочкой отмечены обязательные поля»
           div.LeadForm__pair  290×166 @0,33
             div.Field__field  290×76 @0,0
@@ -380,7 +380,7 @@ section.LeadSection__section  1200×857 @0,0
                 option#3  0×0 @-791,-363  Manrope 400 15/21  lines=0  «ТО и чистка»
                 option#4  0×0 @-791,-363  Manrope 400 15/21  lines=0  «Консультация»
               svg.Select__chevron  14×14 @262,18
-          details.LeadForm__extras  290×85 @0,303  r11  b1
+          details.LeadForm__extras  290×868 @0,303  r11  b1
             summary.LeadForm__extrasSummary  288×83 @1,1  r11
               span.LeadForm__extrasCopy  230×59 @14,12
                 span.LeadForm__extrasTitle  230×20 @0,0  Manrope 600 13/20  lines=1  «Модель, адрес, фото — по желанию»
@@ -436,7 +436,7 @@ section.LeadSection__section  1200×857 @0,0
                     span.FileInput__title  196×45 @0,0  Manrope 600 15/22  lines=2  «Выберите фото или перетащите сюда»
                     span  196×20 @0,47  Manrope 400 13/20  lines=1  «до 5 МБ»
                 p.Field__hint  260×39 @0,127  Manrope 400 13/19  lines=2  «По желанию: по фото стены точнее посчита»
-          div.Checkbox__root  290×83 @0,402
+          div.Checkbox__root  290×83 @0,1185
             div.Checkbox__row  290×83 @0,0
               input.Checkbox__input  20×20 @0,11  r6  b1
               label.Checkbox__label  259×63 @31,10  Manrope 400 15/21  lines=2  «Согласен на обработку персональных данны»
@@ -445,10 +445,10 @@ section.LeadSection__section  1200×857 @0,0
           div.LeadForm__trap  1×1 @-10033,0  clipped
             label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
             input  206×24 @0,93  b2
-          button.Button__button  290×52 @0,499  r12  b1
+          button.Button__button  290×52 @0,1282  r12  b1
             span.Button__content  140×19 @75,16
               span.Button__label  140×19 @0,0  Manrope 600 16/19  lines=1  «Отправить заявку»
-          p.LeadForm__callInstead  290×45 @0,565  Manrope 400 13/20  lines=1  «Или позвоните:»
+          p.LeadForm__callInstead  290×45 @0,1348  Manrope 400 13/20  lines=1  «Или позвоните:»
             a.LeadForm__callPhone  170×45 @109,0  JetBrains Mono 700 15/23  lines=1  «+7 (4872) 00-00-00»
 
 [палитра light]
@@ -609,55 +609,55 @@ section.LeadSection__section  gradient linear-gradient(#0f172a 0%, #0b2530 100%)
                 span.LeadForm__extrasHint  color #8598ac
               span.LeadForm__extrasChevron
                 svg
-            div.LeadForm__extrasBody  border #e2e8f0 #475569 #475569 #475569
+            div.LeadForm__extrasBody  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
               div.Field__field
-                label.Field__label#3  color #334155
-                input#2  bg #ffffff  border #7e8fa6
+                label.Field__label#3  color #c9d5e2
+                input#2  bg #0b1424  border #566d95
               div.LeadForm__pair
                 div.Field__field#3
-                  label.Field__label  color #334155
+                  label.Field__label  color #c9d5e2
                   span.Select__wrapper
-                    select.Select__select#2  bg #ffffff  border #7e8fa6
-                      option  color #0f172a
-                      option#2  color #0f172a
-                      option#3  color #0f172a
-                      option#4  color #0f172a
-                      option#5  color #0f172a
+                    select.Select__select#2  bg #0b1424  border #566d95
+                      option  color #eaf1f8
+                      option#2  color #eaf1f8
+                      option#3  color #eaf1f8
+                      option#4  color #eaf1f8
+                      option#5  color #eaf1f8
                     svg.Select__chevron#2
                 div.Field__field#4
-                  label.Field__label  color #334155
+                  label.Field__label  color #c9d5e2
                   span.Select__wrapper
-                    select.Select__select#3  bg #ffffff  border #7e8fa6
-                      option  color #0f172a
-                      option#2  color #0f172a
-                      option#3  color #0f172a
-                      option#4  color #0f172a
-                      option#5  color #0f172a
+                    select.Select__select#3  bg #0b1424  border #566d95
+                      option  color #eaf1f8
+                      option#2  color #eaf1f8
+                      option#3  color #eaf1f8
+                      option#4  color #eaf1f8
+                      option#5  color #eaf1f8
                     svg.Select__chevron#3
               div.Field__field#2
-                label.Field__label#2  color #334155
-                input#2  bg #ffffff  border #7e8fa6
+                label.Field__label#2  color #c9d5e2
+                input#2  bg #0b1424  border #566d95
               div.Field__field#3
-                label.Field__label#2  color #334155
+                label.Field__label#2  color #c9d5e2
                 span.Select__wrapper#2
-                  select.Select__select  bg #ffffff  border #7e8fa6
-                    option#5  color #0f172a
-                    option#6  color #0f172a
-                    option#7  color #0f172a
-                    option#8  color #0f172a
+                  select.Select__select  bg #0b1424  border #566d95
+                    option#5  color #eaf1f8
+                    option#6  color #eaf1f8
+                    option#7  color #eaf1f8
+                    option#8  color #eaf1f8
                   svg.Select__chevron
               div.Field__field#4
-                label.Field__label#2  color #334155
-                textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+                label.Field__label#2  color #c9d5e2
+                textarea.Textarea__textarea  bg #0b1424  border #566d95
               div.Field__field#5
-                label.Field__label  color #334155
+                label.Field__label  color #c9d5e2
                 input.FileInput__input
-                label.FileInput__dropzone  bg #ffffff  border #7e8fa6
+                label.FileInput__dropzone  bg #0b1424  border #566d95
                   svg.FileInput__icon
                   span.FileInput__texts
-                    span.FileInput__title  color #334155
-                    span  color #556173
-                p.Field__hint  color #556173
+                    span.FileInput__title  color #c9d5e2
+                    span  color #8598ac
+                p.Field__hint  color #8598ac
           div.Checkbox__root
             div.Checkbox__row
               input.Checkbox__input  bg #0b1424  border #566d95

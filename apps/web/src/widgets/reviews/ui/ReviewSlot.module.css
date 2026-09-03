@@ -1,16 +1,18 @@
 /* Заготовка повторяет форму настоящей карточки: при появлении первого отзыва
    лента не должна дёрнуться. */
 .slot {
+  display: flex;
   border-radius: var(--r-lg);
   opacity: 0.55;
 }
 
 .body {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 14px;
-  height: 100%;
-  padding: clamp(18px, 4vw, 26px);
+  min-width: 0;
+  padding: var(--card-pad);
 }
 
 .footer {
