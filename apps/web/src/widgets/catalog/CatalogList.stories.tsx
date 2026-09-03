@@ -92,12 +92,6 @@ export const Sorted: Story = {
 export const SecondPage: Story = {
   name: 'Вторая страница',
   args: argsFor(many, { page: '2' }),
-  // Допущение инвариантов дополняет допущения меты — причина в reason (ADR-230)
-  parameters: {
-    invariants: {
-      allow: [{ rule: 'overflow-x', reason: 'issue #472 — документ 341px на ширине 320' }],
-    },
-  },
 };
 
 export const NothingFound: Story = {
