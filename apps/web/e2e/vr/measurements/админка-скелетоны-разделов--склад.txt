@@ -1,0 +1,52 @@
+# админка-скелетоны-разделов--склад · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×1305
+768 → 768×1166
+1440 → 1440×900
+
+[геометрия 390]
+h1  74×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Склад»
+a.Button__button  151×44 @0,42  Manrope 600 13/16  r9  b1  lines=1  «Добавить позицию»
+a.Button__button#2  146×44 @159,42  Manrope 600 13/16  r9  b1  lines=1  «Журнал движений»
+a.Button__button#3  127×44 @0,94  Manrope 600 13/16  r9  b1  lines=1  «Зоны хранения»
+p  390×90 @0,144  Manrope 400 15/22  lines=4  «Что лежит в гараже и что уехало в машина»
+span.Skeleton__skeleton  390×619 @0,250  r14
+span.Skeleton__skeleton#2  390×420 @0,885  r14
+
+[геометрия 768]
+h1  92×37 @0,3  Onest 700 31/37  ls-1  lines=1  «Склад»
+a.Button__button  151×44 @104,0  Manrope 600 13/16  r9  b1  lines=1  «Добавить позицию»
+a.Button__button#2  146×44 @263,0  Manrope 600 13/16  r9  b1  lines=1  «Журнал движений»
+a.Button__button#3  127×44 @417,0  Manrope 600 13/16  r9  b1  lines=1  «Зоны хранения»
+p  601×45 @0,50  Manrope 400 15/22  lines=2  «Что лежит в гараже и что уехало в машина»
+span.Skeleton__skeleton  768×619 @0,111  r14
+span.Skeleton__skeleton#2  768×420 @0,746  r14
+
+[геометрия 1440]
+h1  112×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Склад»
+a.Button__button  151×40 @124,3  Manrope 600 13/16  r9  b1  lines=1  «Добавить позицию»
+a.Button__button#2  146×40 @283,3  Manrope 600 13/16  r9  b1  lines=1  «Журнал движений»
+a.Button__button#3  127×40 @437,3  Manrope 600 13/16  r9  b1  lines=1  «Зоны хранения»
+p  601×45 @0,52  Manrope 400 15/22  lines=2  «Что лежит в гараже и что уехало в машина»
+span.Skeleton__skeleton  1440×277 @0,113  r14
+span.Skeleton__skeleton#2  1440×420 @0,405  r14
+
+[палитра light]
+h1  color #0f172a
+a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+a.Button__button#2  color #0f172a  bg #ffffff  border #7e8fa6
+a.Button__button#3  color #0f172a  bg #ffffff  border #7e8fa6
+p  color #475569
+span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+
+[палитра dark]
+h1  color #eaf1f8
+a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+a.Button__button#2  color #eaf1f8  bg #121d31  border #566d95
+a.Button__button#3  color #eaf1f8  bg #121d31  border #566d95
+p  color #a8b6c6
+span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
