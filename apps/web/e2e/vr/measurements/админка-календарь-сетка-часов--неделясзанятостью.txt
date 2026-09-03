@@ -137,21 +137,21 @@ section.TimeGrid__grid  358×682 @16,16
           button.ColumnCanvas__hour#46  43×42 @0,882  b1 0 0 0
           button.ColumnCanvas__hour#47  43×42 @0,924  b1 0 0 0
           button.ColumnCanvas__hour#48  43×42 @0,966  b1 0 0 0
-        span.EventChip__slot  22×84 @1,630
-          button.EventChip__chip#2  22×84 @1,1  r3 7 7 3  b1 1 1 3
-            span.EventChip__head#2  8×15 @8,3
-              span.EventChip__number  8×15 @0,0  JetBrains Mono 700 12/15  lines=1  clipped  «№ 1062»
-            span.EventChip__name#2  8×15 @8,19  Manrope 600 12/15  lines=1  clipped  «Анна Дьякова»
-        span.EventChip__slot#2  22×168 @23,630
-          button.EventChip__chip  22×168 @1,1  r3 7 7 3  b1 1 1 3  clipped
-            span.EventChip__head#3  8×15 @8,3
-              span.EventChip__time  8×15 @0,0  JetBrains Mono 600 12/15  lines=1  clipped  «15:00»
-            span.EventChip__name#3  8×15 @8,19  Manrope 600 12/15  lines=1  clipped  «Пётр»
-            span.EventChip__overtimeMark  8×15 @8,36
+        span.EventChip__slot  24×84 @1,630
+          button.EventChip__chip#2  24×84 @1,1  r3 7 7 3  b1 1 1 3
+            span.EventChip__head#2  10×15 @8,3
+              span.EventChip__number  10×15 @0,0  JetBrains Mono 700 12/15  lines=1  clipped  «№ 1062»
+            span.EventChip__name#2  10×15 @8,19  Manrope 600 12/15  lines=1  clipped  «Анна Дьякова»
+        span.EventChip__slot#2  24×168 @23,630
+          button.EventChip__chip  24×168 @1,1  r3 7 7 3  b1 1 1 3  clipped
+            span.EventChip__head#3  10×15 @8,3
+              span.EventChip__time  10×15 @0,0  JetBrains Mono 600 12/15  lines=1  clipped  «15:00»
+            span.EventChip__name#3  10×15 @8,19  Manrope 600 12/15  lines=1  clipped  «Пётр»
+            span.EventChip__overtimeMark  10×15 @8,36
               svg  0×11 @0,2
               span.EventChip__markWord  79×15 @3,0  Manrope 700 12/15  lines=1  «Переработка»
-          span.EventChip__edge  20×7 @1,0
-          span.EventChip__edge#2  20×7 @1,161
+          span.EventChip__edge  22×7 @1,0
+          span.EventChip__edge#2  22×7 @1,161
       div.TimeGrid__track#3  44×1008 @129,0  b0 0 0 1
         div.ColumnCanvas__canvas  43×1008 @1,0
           button.ColumnCanvas__hour#49  43×42 @0,0  b1 0 0 0
@@ -583,74 +583,74 @@ section.TimeGrid__grid  736×700 @16,16
           button.ColumnCanvas__hour#168  97×42 @0,966  b1 0 0 0
 
 [геометрия 1440]
-section.TimeGrid__grid  1408×659 @16,16
-  div.TimeGrid__heads  1408×45 @0,0
-    span.TimeGrid__corner  54×0 @0,45
-    div.TimeGrid__head  189×45 @58,0  b0 0 2 0
-      a.TimeGrid__headLink  181×19 @4,2
+section.TimeGrid__grid  1408×664 @16,16
+  div.TimeGrid__heads  1408×51 @0,0
+    span.TimeGrid__corner  54×0 @0,51
+    div.TimeGrid__head  189×51 @58,0  b0 0 2 0
+      a.TimeGrid__headLink  181×24 @4,2
         span.TimeGrid__headWeekday  17×19 @0,0  Manrope 600 12/19  lines=1  «Пн»
         span.TimeGrid__headDate  17×16 @22,1  Onest 700 15/16  lines=1  «24»
-      span.TimeGrid__headMeta  181×16 @4,23
+      span.TimeGrid__headMeta  181×16 @4,28
         span.TimeGrid__headBusy  49×16 @0,0  Manrope 600 12/16  lines=1  «Занят»
           svg  11×11 @0,2
-    div.TimeGrid__head#2  189×45 @251,0  b0 0 2 0
-      a.TimeGrid__headLink  181×19 @4,2
+    div.TimeGrid__head#2  189×51 @251,0  b0 0 2 0
+      a.TimeGrid__headLink  181×24 @4,2
         span.TimeGrid__headWeekday#2  15×19 @0,0  Manrope 600 12/19  lines=1  «Вт»
         span.TimeGrid__headDate#2  17×16 @20,1  Onest 700 15/16  lines=1  «25»
-      span.TimeGrid__headMeta  181×16 @4,23
+      span.TimeGrid__headMeta  181×16 @4,28
         span.TimeGrid__headLoad  58×16 @0,0  Manrope 400 12/16  lines=1  «занято 2 ч»
-    div.TimeGrid__head#3  189×45 @445,0  b0 0 2 0
-      a.TimeGrid__headLink  181×19 @4,2
+    div.TimeGrid__head#3  189×51 @445,0  b0 0 2 0
+      a.TimeGrid__headLink  181×24 @4,2
         span.TimeGrid__headWeekday#3  16×19 @0,0  Manrope 600 12/19  lines=1  «Ср»
         span.TimeGrid__headDate#3  17×16 @21,1  Onest 700 15/16  lines=1  «26»
-      span.TimeGrid__headMeta  181×16 @4,23
+      span.TimeGrid__headMeta  181×16 @4,28
         span.TimeGrid__headBusy#2  49×16 @0,0  Manrope 600 12/16  lines=1  «Занят»
           svg  11×11 @0,2
-    div.TimeGrid__head#4  189×45 @638,0  b0 0 2 0
-      a.TimeGrid__headLink  181×19 @4,2
+    div.TimeGrid__head#4  189×51 @638,0  b0 0 2 0
+      a.TimeGrid__headLink  181×24 @4,2
         span.TimeGrid__headWeekday#4  15×19 @0,0  Manrope 600 12/19  lines=1  «Чт»
         span.TimeGrid__headDate#4  16×16 @20,1  Onest 700 15/16  lines=1  «27»
-      span.TimeGrid__headMeta  181×16 @4,23
+      span.TimeGrid__headMeta  181×16 @4,28
         span.TimeGrid__headBusy#3  49×16 @0,0  Manrope 600 12/16  lines=1  «Занят»
           svg  11×11 @0,2
-    div.TimeGrid__head#5  189×30 @832,16  b0 0 2 0
-      a.TimeGrid__headLink  181×19 @4,2
+    div.TimeGrid__head#5  189×35 @832,16  b0 0 2 0
+      a.TimeGrid__headLink  181×24 @4,2
         span.TimeGrid__headWeekday#5  16×19 @0,0  Manrope 600 12/19  lines=1  «Пт»
         span.TimeGrid__headDate#5  17×16 @21,1  Onest 700 15/16  lines=1  «28»
-      span.TimeGrid__headMeta  181×0 @4,23
-    div.TimeGrid__head#6  189×30 @1025,16  b0 0 2 0
-      a.TimeGrid__headLink  181×19 @4,2
+      span.TimeGrid__headMeta  181×0 @4,28
+    div.TimeGrid__head#6  189×35 @1025,16  b0 0 2 0
+      a.TimeGrid__headLink  181×24 @4,2
         span.TimeGrid__headWeekday#6  16×19 @0,0  Manrope 600 12/19  lines=1  «Сб»
         span.TimeGrid__headDate#6  17×16 @21,1  Onest 700 15/16  lines=1  «29»
-      span.TimeGrid__headMeta  181×0 @4,23
-    div.TimeGrid__head#7  189×30 @1219,16  b0 0 2 0
-      a.TimeGrid__headLink  181×19 @4,2
+      span.TimeGrid__headMeta  181×0 @4,28
+    div.TimeGrid__head#7  189×35 @1219,16  b0 0 2 0
+      a.TimeGrid__headLink  181×24 @4,2
         span.TimeGrid__headWeekday#7  16×19 @0,0  Manrope 600 12/19  lines=1  «Вс»
         span.TimeGrid__headDate#7  18×16 @21,1  Onest 700 15/16  lines=1  «30»
-      span.TimeGrid__headMeta  181×0 @4,23
-  div.AllDayBar__bar  1408×38 @0,45  b0 0 1 0
+      span.TimeGrid__headMeta  181×0 @4,28
+  div.AllDayBar__bar  1408×38 @0,51  b0 0 1 0
     div.AllDayBar__rail  54×29 @0,4
       span.AllDayBar__label  48×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
     ul.AllDayBar__list  189×0 @58,4
     ul.AllDayBar__list#2  189×0 @251,4
-    ul.AllDayBar__list#3  189×22 @445,4
-      li.AllDayBar__item  189×22 @0,0
-        button.EventChip__chip  189×22 @0,0  r100  b1 1 1 3
-          span.EventChip__head  52×15 @9,4
+    ul.AllDayBar__list#3  189×24 @445,4
+      li.AllDayBar__item  189×24 @0,0
+        button.EventChip__chip  189×24 @0,0  r100  b1 1 1 3
+          span.EventChip__head  52×15 @9,5
             svg.EventChip__icon  12×12 @0,2
             span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «Занят»
-          span.EventChip__name  114×15 @66,4  Manrope 600 12/15  lines=1  «Моя занятость»
-    ul.AllDayBar__list#4  189×22 @638,4
-      li.AllDayBar__item  189×22 @0,0
-        button.EventChip__chip#2  189×22 @0,0  r100  b1 1 1 3
-          span.EventChip__head  52×15 @9,4
+          span.EventChip__name  114×15 @66,5  Manrope 600 12/15  lines=1  «Моя занятость»
+    ul.AllDayBar__list#4  189×24 @638,4
+      li.AllDayBar__item  189×24 @0,0
+        button.EventChip__chip#2  189×24 @0,0  r100  b1 1 1 3
+          span.EventChip__head  52×15 @9,5
             svg.EventChip__icon#2  12×12 @0,2
             span.EventChip__time#2  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «Занят»
-          span.EventChip__name  114×15 @66,4  Manrope 600 12/15  lines=1  «Моя занятость»
+          span.EventChip__name  114×15 @66,5  Manrope 600 12/15  lines=1  «Моя занятость»
     ul.AllDayBar__list#5  189×0 @832,4
     ul.AllDayBar__list#6  189×0 @1025,4
     ul.AllDayBar__list#7  189×0 @1219,4
-  div.TimeGrid__scroll  1408×576 @0,83
+  div.TimeGrid__scroll  1408×576 @0,88
     div.TimeGrid__hours  1408×1152 @0,-384
       div.TimeGrid__rail  54×1152 @0,0
         span.TimeGrid__hour  54×48 @0,0  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «00:00»
