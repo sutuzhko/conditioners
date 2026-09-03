@@ -1,15 +1,15 @@
 # блоки-заявка--tablet · ширины 320 375 768 1200 · темы light dark
-шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-320 → 320×1260
-375 → 375×1179
-768 → 768×1093
-1200 → 1200×900
+320 → 320×1572
+375 → 375×1491
+768 → 768×1320
+1200 → 1200×1165
 
 [геометрия 320]
-section.LeadSection__section  320×1260 @0,0
-  div.LeadSection__container  320×1260 @0,0
+section.LeadSection__section  320×1572 @0,0
+  div.LeadSection__container  320×1572 @0,0
     div.LeadSection__intro  288×430 @16,48
       p.LeadSection__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Заявка —»
       h2.LeadSection__title  288×53 @0,34  Onest 700 24/26  ls0  lines=2  «Оставьте заявку — поможем с выбором»
@@ -24,10 +24,10 @@ section.LeadSection__section  320×1260 @0,0
         li.LeadSection__benefit#3  288×42 @0,133  Manrope 400 15/21  lines=2  «Честная смета фиксируется в договоре»
           span.LeadSection__mark  38×38 @0,2  r11
             svg#3  18×18 @10,10
-    div.LeadSection__form  288×710 @16,502
-      div.Card__card  288×710 @0,0  r22  b1
+    div.LeadSection__form  288×1022 @16,502
+      div.Card__card  288×1022 @0,0  r22  b1
         p[role=status]  1×1 @18,18
-        form.LeadForm__form  250×672 @19,19
+        form.LeadForm__form  250×984 @19,19
           p.LeadForm__note  250×19 @0,0  Manrope 400 12/19  lines=1  «Звёздочкой отмечены обязательные поля»
           div.LeadForm__pair  250×166 @0,33
             div.Field__field  250×76 @0,0
@@ -109,18 +109,34 @@ section.LeadSection__section  320×1260 @0,0
               label.Checkbox__label  219×84 @31,10  Manrope 400 15/21  lines=2  «Согласен на обработку персональных данны»
                 a.LeadForm__policy  154×40 @0,43  Manrope 400 15/21  lines=2  «Политика обработки персональных данных»
                 span.Checkbox__required  9×19 @154,64  Manrope 400 15/21  lines=1  «*»
+          div.LeadForm__context  250×298 @0,541  r11  b1
+            p.LeadForm__contextTitle  220×22 @15,13  Manrope 700 15/22  lines=1  «К заявке приложим»
+            dl.LeadForm__contextList  220×141 @15,45
+              div.LeadForm__contextRow  220×20 @0,0
+                dt.LeadForm__contextLabel  100×20 @0,0  Manrope 400 13/20  lines=1  «Расчёт монтажа»
+                dd.LeadForm__contextValue  48×20 @108,0  Manrope 600 13/20  lines=1  «15 100 ₽»
+              div.LeadForm__contextRow#2  220×64 @0,26
+                dt.LeadForm__contextLabel  123×20 @0,0  Manrope 400 13/20  lines=1  «Подбор по площади»
+                dd.LeadForm__contextValue  220×40 @0,24  Manrope 600 13/20  lines=2  «25 м², Квартира → Сплит-система 09 — 34»
+              div.LeadForm__contextRow#3  220×44 @0,97
+                dt.LeadForm__contextLabel  128×20 @0,0  Manrope 400 13/20  lines=1  «Отмеченные модели»
+                dd.LeadForm__contextValue  185×20 @0,24  Manrope 600 13/20  lines=1  «Сплит-система 07 — 28 900 ₽»
+            p.LeadForm__contextHint  220×35 @15,196  Manrope 400 12/17  lines=2  «Чтобы не выяснять по телефону то, что вы»
+            button.Button__button  132×44 @15,241  r9  b1
+              span.Button__content  102×16 @15,14
+                span.Button__label  102×16 @0,0  Manrope 600 13/16  lines=1  «Не прикреплять»
           div.LeadForm__trap  1×1 @-10017,0  clipped
             label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
             input  206×24 @0,93  b2
-          button.Button__button  250×52 @0,541  r12  b1
-            span.Button__content  140×19 @55,16
+          button.Button__button  250×52 @0,853  r12  b1
+            span.Button__content#2  140×19 @55,16
               span.Button__label  140×19 @0,0  Manrope 600 16/19  lines=1  «Отправить заявку»
-          p.LeadForm__callInstead  250×65 @0,607  Manrope 400 13/20  lines=1  «Или позвоните:»
+          p.LeadForm__callInstead  250×65 @0,919  Manrope 400 13/20  lines=1  «Или позвоните:»
             a.LeadForm__callPhone  170×45 @40,20  JetBrains Mono 700 15/23  lines=1  «+7 (4872) 00-00-00»
 
 [геометрия 375]
-section.LeadSection__section  375×1179 @0,0
-  div.LeadSection__container  375×1179 @0,0
+section.LeadSection__section  375×1491 @0,0
+  div.LeadSection__container  375×1491 @0,0
     div.LeadSection__intro  342×405 @17,51
       p.LeadSection__kicker  342×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Заявка —»
       h2.LeadSection__title  342×53 @0,34  Onest 700 24/26  ls0  lines=2  «Оставьте заявку — поможем с выбором»
@@ -135,10 +151,10 @@ section.LeadSection__section  375×1179 @0,0
         li.LeadSection__benefit#3  342×38 @0,112  Manrope 400 15/21  lines=1  «Честная смета фиксируется в договоре»
           span.LeadSection__mark  38×38 @0,0  r11
             svg#3  18×18 @10,10
-    div.LeadSection__form  342×649 @17,480
-      div.Card__card  342×649 @0,0  r22  b1
+    div.LeadSection__form  342×961 @17,480
+      div.Card__card  342×961 @0,0  r22  b1
         p[role=status]  1×1 @18,18
-        form.LeadForm__form  304×611 @19,19
+        form.LeadForm__form  304×923 @19,19
           p.LeadForm__note  304×19 @0,0  Manrope 400 12/19  lines=1  «Звёздочкой отмечены обязательные поля»
           div.LeadForm__pair  304×166 @0,33
             div.Field__field  304×76 @0,0
@@ -220,18 +236,34 @@ section.LeadSection__section  375×1179 @0,0
               label.Checkbox__label  273×63 @31,10  Manrope 400 15/21  lines=2  «Согласен на обработку персональных данны»
                 a.LeadForm__policy  211×40 @0,22  Manrope 400 15/21  lines=2  «Политика обработки персональных данных»
                 span.Checkbox__required  9×19 @154,43  Manrope 400 15/21  lines=1  «*»
+          div.LeadForm__context  304×298 @0,499  r11  b1
+            p.LeadForm__contextTitle  274×22 @15,13  Manrope 700 15/22  lines=1  «К заявке приложим»
+            dl.LeadForm__contextList  274×141 @15,45
+              div.LeadForm__contextRow  274×20 @0,0
+                dt.LeadForm__contextLabel  100×20 @0,0  Manrope 400 13/20  lines=1  «Расчёт монтажа»
+                dd.LeadForm__contextValue  48×20 @108,0  Manrope 600 13/20  lines=1  «15 100 ₽»
+              div.LeadForm__contextRow#2  274×64 @0,26
+                dt.LeadForm__contextLabel  123×20 @0,0  Manrope 400 13/20  lines=1  «Подбор по площади»
+                dd.LeadForm__contextValue  274×40 @0,24  Manrope 600 13/20  lines=2  «25 м², Квартира → Сплит-система 09 — 34»
+              div.LeadForm__contextRow#3  274×44 @0,97
+                dt.LeadForm__contextLabel  128×20 @0,0  Manrope 400 13/20  lines=1  «Отмеченные модели»
+                dd.LeadForm__contextValue  185×20 @0,24  Manrope 600 13/20  lines=1  «Сплит-система 07 — 28 900 ₽»
+            p.LeadForm__contextHint  274×35 @15,196  Manrope 400 12/17  lines=2  «Чтобы не выяснять по телефону то, что вы»
+            button.Button__button  132×44 @15,241  r9  b1
+              span.Button__content  102×16 @15,14
+                span.Button__label  102×16 @0,0  Manrope 600 13/16  lines=1  «Не прикреплять»
           div.LeadForm__trap  1×1 @-10017,0  clipped
             label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
             input  206×24 @0,93  b2
-          button.Button__button  304×52 @0,499  r12  b1
-            span.Button__content  140×19 @82,16
+          button.Button__button  304×52 @0,811  r12  b1
+            span.Button__content#2  140×19 @82,16
               span.Button__label  140×19 @0,0  Manrope 600 16/19  lines=1  «Отправить заявку»
-          p.LeadForm__callInstead  304×45 @0,565  Manrope 400 13/20  lines=1  «Или позвоните:»
+          p.LeadForm__callInstead  304×45 @0,877  Manrope 400 13/20  lines=1  «Или позвоните:»
             a.LeadForm__callPhone  170×45 @116,0  JetBrains Mono 700 15/23  lines=1  «+7 (4872) 00-00-00»
 
 [геометрия 768]
-section.LeadSection__section  768×1093 @0,0
-  div.LeadSection__container  768×1093 @0,0
+section.LeadSection__section  768×1320 @0,0
+  div.LeadSection__container  768×1320 @0,0
     div.LeadSection__intro  620×380 @20,68
       p.LeadSection__kicker  620×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Заявка —»
       h2.LeadSection__title  620×79 @0,34  Onest 700 36/40  ls-1  lines=2  «Оставьте заявку — поможем с выбором»
@@ -246,10 +278,10 @@ section.LeadSection__section  768×1093 @0,0
         li.LeadSection__benefit#3  620×38 @0,108  Manrope 400 15/21  lines=1  «Честная смета фиксируется в договоре»
           span.LeadSection__mark  38×38 @0,0  r11
             svg#3  18×18 @10,10
-    div.LeadSection__form  728×544 @20,481
-      div.Card__card  728×544 @0,0  r22  b1
+    div.LeadSection__form  728×771 @20,481
+      div.Card__card  728×771 @0,0  r22  b1
         p[role=status]  1×1 @31,31
-        form.LeadForm__form  664×481 @32,32
+        form.LeadForm__form  664×707 @32,32
           p.LeadForm__note  664×19 @0,0  Manrope 400 12/19  lines=1  «Звёздочкой отмечены обязательные поля»
           div.LeadForm__pair  664×76 @0,33
             div.Field__field  325×76 @0,0
@@ -331,18 +363,34 @@ section.LeadSection__section  768×1093 @0,0
               label.Checkbox__label  633×42 @31,10  Manrope 400 15/21  lines=1  «Согласен на обработку персональных данны»
                 a.LeadForm__policy  582×40 @0,1  Manrope 400 15/21  lines=2  «Политика обработки персональных данных»
                 span.Checkbox__required  9×19 @51,22  Manrope 400 15/21  lines=1  «*»
+          div.LeadForm__context  664×212 @0,370  r11  b1
+            p.LeadForm__contextTitle  634×22 @15,13  Manrope 700 15/22  lines=1  «К заявке приложим»
+            dl.LeadForm__contextList  634×72 @15,45
+              div.LeadForm__contextRow  634×20 @0,0
+                dt.LeadForm__contextLabel  100×20 @0,0  Manrope 400 13/20  lines=1  «Расчёт монтажа»
+                dd.LeadForm__contextValue  48×20 @108,0  Manrope 600 13/20  lines=1  «15 100 ₽»
+              div.LeadForm__contextRow#2  634×20 @0,26
+                dt.LeadForm__contextLabel  123×20 @0,0  Manrope 400 13/20  lines=1  «Подбор по площади»
+                dd.LeadForm__contextValue  408×20 @131,0  Manrope 600 13/20  lines=1  «25 м², Квартира → Сплит-система 09 — 34»
+              div.LeadForm__contextRow#3  634×20 @0,52
+                dt.LeadForm__contextLabel  128×20 @0,0  Manrope 400 13/20  lines=1  «Отмеченные модели»
+                dd.LeadForm__contextValue  185×20 @136,0  Manrope 600 13/20  lines=1  «Сплит-система 07 — 28 900 ₽»
+            p.LeadForm__contextHint  634×17 @15,128  Manrope 400 12/17  lines=1  «Чтобы не выяснять по телефону то, что вы»
+            button.Button__button  132×44 @15,155  r9  b1
+              span.Button__content  102×16 @15,14
+                span.Button__label  102×16 @0,0  Manrope 600 13/16  lines=1  «Не прикреплять»
           div.LeadForm__trap  1×1 @-10030,0  clipped
             label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
             input  206×24 @0,93  b2
-          button.Button__button  664×52 @0,370  r12  b1
-            span.Button__content  140×19 @262,16
+          button.Button__button  664×52 @0,596  r12  b1
+            span.Button__content#2  140×19 @262,16
               span.Button__label  140×19 @0,0  Manrope 600 16/19  lines=1  «Отправить заявку»
-          p.LeadForm__callInstead  664×45 @0,436  Manrope 400 13/20  lines=1  «Или позвоните:»
+          p.LeadForm__callInstead  664×45 @0,662  Manrope 400 13/20  lines=1  «Или позвоните:»
             a.LeadForm__callPhone  170×45 @296,0  JetBrains Mono 700 15/23  lines=1  «+7 (4872) 00-00-00»
 
 [геометрия 1200]
-section.LeadSection__section  1200×857 @0,0
-  div.LeadSection__container  1080×857 @60,0
+section.LeadSection__section  1200×1165 @0,0
+  div.LeadSection__container  1080×1165 @60,0
     div.LeadSection__intro  620×389 @24,88
       p.LeadSection__kicker  620×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Заявка —»
       h2.LeadSection__title  620×79 @0,34  Onest 700 36/40  ls-1  lines=2  «Оставьте заявку — поможем с выбором»
@@ -357,10 +405,10 @@ section.LeadSection__section  1200×857 @0,0
         li.LeadSection__benefit#3  620×38 @0,111  Manrope 400 15/21  lines=1  «Честная смета фиксируется в договоре»
           span.LeadSection__mark  38×38 @0,0  r11
             svg#3  18×18 @10,10
-    div.LeadSection__form  360×681 @696,88
-      div.Card__card  360×681 @0,0  r22  b1
+    div.LeadSection__form  360×989 @696,88
+      div.Card__card  360×989 @0,0  r22  b1
         p[role=status]  1×1 @34,34
-        form.LeadForm__form  290×611 @35,35
+        form.LeadForm__form  290×919 @35,35
           p.LeadForm__note  290×19 @0,0  Manrope 400 12/19  lines=1  «Звёздочкой отмечены обязательные поля»
           div.LeadForm__pair  290×166 @0,33
             div.Field__field  290×76 @0,0
@@ -442,13 +490,29 @@ section.LeadSection__section  1200×857 @0,0
               label.Checkbox__label  259×63 @31,10  Manrope 400 15/21  lines=2  «Согласен на обработку персональных данны»
                 a.LeadForm__policy  237×40 @0,22  Manrope 400 15/21  lines=2  «Политика обработки персональных данных»
                 span.Checkbox__required  9×19 @230,43  Manrope 400 15/21  lines=1  «*»
+          div.LeadForm__context  290×294 @0,499  r11  b1
+            p.LeadForm__contextTitle  260×22 @15,13  Manrope 700 15/22  lines=1  «К заявке приложим»
+            dl.LeadForm__contextList  260×141 @15,45
+              div.LeadForm__contextRow  260×20 @0,0
+                dt.LeadForm__contextLabel  100×20 @0,0  Manrope 400 13/20  lines=1  «Расчёт монтажа»
+                dd.LeadForm__contextValue  48×20 @108,0  Manrope 600 13/20  lines=1  «15 100 ₽»
+              div.LeadForm__contextRow#2  260×64 @0,26
+                dt.LeadForm__contextLabel  123×20 @0,0  Manrope 400 13/20  lines=1  «Подбор по площади»
+                dd.LeadForm__contextValue  260×40 @0,24  Manrope 600 13/20  lines=2  «25 м², Квартира → Сплит-система 09 — 34»
+              div.LeadForm__contextRow#3  260×44 @0,97
+                dt.LeadForm__contextLabel  128×20 @0,0  Manrope 400 13/20  lines=1  «Отмеченные модели»
+                dd.LeadForm__contextValue  185×20 @0,24  Manrope 600 13/20  lines=1  «Сплит-система 07 — 28 900 ₽»
+            p.LeadForm__contextHint  260×35 @15,196  Manrope 400 12/17  lines=2  «Чтобы не выяснять по телефону то, что вы»
+            button.Button__button  132×40 @15,241  r9  b1
+              span.Button__content  102×16 @15,12
+                span.Button__label  102×16 @0,0  Manrope 600 13/16  lines=1  «Не прикреплять»
           div.LeadForm__trap  1×1 @-10033,0  clipped
             label  84×91 @0,1  Manrope 400 15/23  lines=4  «Не заполняйте это поле»
             input  206×24 @0,93  b2
-          button.Button__button  290×52 @0,499  r12  b1
-            span.Button__content  140×19 @75,16
+          button.Button__button  290×52 @0,807  r12  b1
+            span.Button__content#2  140×19 @75,16
               span.Button__label  140×19 @0,0  Manrope 600 16/19  lines=1  «Отправить заявку»
-          p.LeadForm__callInstead  290×45 @0,565  Manrope 400 13/20  lines=1  «Или позвоните:»
+          p.LeadForm__callInstead  290×45 @0,873  Manrope 400 13/20  lines=1  «Или позвоните:»
             a.LeadForm__callPhone  170×45 @109,0  JetBrains Mono 700 15/23  lines=1  «+7 (4872) 00-00-00»
 
 [палитра light]
@@ -553,11 +617,27 @@ section.LeadSection__section  gradient linear-gradient(#0f172a 0%, #0b2530 100%)
               label.Checkbox__label  color #475569
                 a.LeadForm__policy  color #0e7490
                 span.Checkbox__required  color #0e7490
+          div.LeadForm__context  bg #ecfeff  border #a5f3fc
+            p.LeadForm__contextTitle  color #0f172a
+            dl.LeadForm__contextList
+              div.LeadForm__contextRow
+                dt.LeadForm__contextLabel  color #556173
+                dd.LeadForm__contextValue  color #334155
+              div.LeadForm__contextRow#2
+                dt.LeadForm__contextLabel  color #556173
+                dd.LeadForm__contextValue  color #334155
+              div.LeadForm__contextRow#3
+                dt.LeadForm__contextLabel  color #556173
+                dd.LeadForm__contextValue  color #334155
+            p.LeadForm__contextHint  color #556173
+            button.Button__button  border transparent
+              span.Button__content
+                span.Button__label  color #0e7490
           div.LeadForm__trap
             label  color #475569
             input  bg #ffffff  border #767676
           button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-            span.Button__content
+            span.Button__content#2
               span.Button__label  color #ffffff
           p.LeadForm__callInstead  color #556173
             a.LeadForm__callPhone  color #0e7490
@@ -664,11 +744,27 @@ section.LeadSection__section  gradient linear-gradient(#0f172a 0%, #0b2530 100%)
               label.Checkbox__label  color #a8b6c6
                 a.LeadForm__policy  color #22d3ee
                 span.Checkbox__required  color #22d3ee
+          div.LeadForm__context  bg #22d3ee1a  border #22d3ee59
+            p.LeadForm__contextTitle  color #eaf1f8
+            dl.LeadForm__contextList
+              div.LeadForm__contextRow
+                dt.LeadForm__contextLabel  color #8598ac
+                dd.LeadForm__contextValue  color #c9d5e2
+              div.LeadForm__contextRow#2
+                dt.LeadForm__contextLabel  color #8598ac
+                dd.LeadForm__contextValue  color #c9d5e2
+              div.LeadForm__contextRow#3
+                dt.LeadForm__contextLabel  color #8598ac
+                dd.LeadForm__contextValue  color #c9d5e2
+            p.LeadForm__contextHint  color #8598ac
+            button.Button__button  border transparent
+              span.Button__content
+                span.Button__label  color #22d3ee
           div.LeadForm__trap
             label  color #a8b6c6
             input  bg #ffffff  border #767676
           button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-            span.Button__content
+            span.Button__content#2
               span.Button__label  color #ffffff
           p.LeadForm__callInstead  color #8598ac
             a.LeadForm__callPhone  color #22d3ee
