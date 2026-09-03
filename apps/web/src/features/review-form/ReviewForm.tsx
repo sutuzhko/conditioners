@@ -267,76 +267,73 @@ export function ReviewForm({
           onSubmit={(event) => void handleSubmit(event)}
           aria-labelledby={headingId}
         >
-          {/* Две колонки, когда есть что положить слева: памятка и снимки —
-              то, что читают и прикладывают по желанию; справа — обязательное.
-              Так ширина окна занята целиком, а поля, без которых отзыв не
-              отправится, не уезжают под нижний край. */}
-          <div className={aside === undefined ? styles.single : styles.split}>
-            <div className={styles.column}>
-              {aside}
+          {/* 🔴 Одна колонка на любой ширине (issue #277). Окно формы отзыва
+              теперь не шире 520px, и вторая колонка в нём давала поля по
+              230px — `textarea` на четыре строки в такую не помещается.
+              Порядок — из issue: оценка, имя и текст отзыва, и только за
+              ними необязательные снимки. */}
+          <div className={styles.fields}>
+            <p className={styles.note}>{texts.requiredNote}</p>
 
-              {/* Два снимка: сам автор и место установки. Второй — не
-                  украшение: по нему видно и аккуратность бригады, и мусор,
-                  если он остался. */}
-              <FileInput
-                name="avatar"
-                label={texts.avatarLabel}
-                hint={texts.avatarHint}
-                value={authorPhoto}
-                onChange={setAuthorPhoto}
-              />
-              <FileInput
-                name="photo"
-                label={texts.photoLabel}
-                hint={texts.photoHint}
-                value={placePhoto}
-                onChange={setPlacePhoto}
-              />
-            </div>
+            {/* оценка — нативные радиокнопки внутри Rating: стрелки, Tab
+                и группировка работают без единой строки своего JS */}
+            <Rating
+              mode="input"
+              name="rating"
+              size="md"
+              label={texts.ratingLabel}
+              required
+              value={values.rating}
+              error={errors.rating}
+              onChange={(rating) => changeValue({ rating }, 'rating')}
+            />
 
-            <div className={styles.column}>
-              <p className={styles.note}>{texts.requiredNote}</p>
+            <Input
+              name="name"
+              label={texts.nameLabel}
+              placeholder={texts.namePlaceholder}
+              autoComplete="name"
+              required
+              value={values.name}
+              error={errors.name}
+              onChange={(event) => changeValue({ name: event.target.value }, 'name')}
+            />
 
-              {/* Имя и оценка одна под другой: в узкой колонке рядом они не
-                  помещаются, и пятая звезда уходила под край. */}
-              <div className={styles.pair}>
-                <Input
-                  name="name"
-                  label={texts.nameLabel}
-                  placeholder={texts.namePlaceholder}
-                  autoComplete="name"
-                  required
-                  value={values.name}
-                  error={errors.name}
-                  onChange={(event) => changeValue({ name: event.target.value }, 'name')}
-                />
+            {/* 🔴 Памятка стоит над полем, о котором она говорит, а не первой в
+                окне: замерено на 375 — четыре пункта с значками занимают
+                250px, и обязательные поля уезжали за нижний край окна раньше,
+                чем человек до них добирался. */}
+            {aside}
 
-                {/* оценка — нативные радиокнопки внутри Rating: стрелки, Tab
-                    и группировка работают без единой строки своего JS */}
-                <Rating
-                  mode="input"
-                  name="rating"
-                  size="md"
-                  label={texts.ratingLabel}
-                  required
-                  value={values.rating}
-                  error={errors.rating}
-                  onChange={(rating) => changeValue({ rating }, 'rating')}
-                />
-              </div>
+            <Textarea
+              name="text"
+              label={texts.textLabel}
+              placeholder={texts.textPlaceholder}
+              hint={texts.textHint}
+              rows={5}
+              required
+              value={values.text}
+              error={errors.text}
+              onChange={(event) => changeValue({ text: event.target.value }, 'text')}
+            />
 
-              <Textarea
-                name="text"
-                label={texts.textLabel}
-                placeholder={texts.textPlaceholder}
-                hint={texts.textHint}
-                rows={7}
-                required
-                value={values.text}
-                error={errors.text}
-                onChange={(event) => changeValue({ text: event.target.value }, 'text')}
-              />
-            </div>
+            {/* Два снимка: сам автор и место установки. Второй — не
+                украшение: по нему видно и аккуратность бригады, и мусор,
+                если он остался. */}
+            <FileInput
+              name="avatar"
+              label={texts.avatarLabel}
+              hint={texts.avatarHint}
+              value={authorPhoto}
+              onChange={setAuthorPhoto}
+            />
+            <FileInput
+              name="photo"
+              label={texts.photoLabel}
+              hint={texts.photoHint}
+              value={placePhoto}
+              onChange={setPlacePhoto}
+            />
           </div>
 
           <Checkbox

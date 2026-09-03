@@ -3,7 +3,7 @@ export type { LeadFormProps } from './LeadForm';
 export { LeadContextSnapshot } from './LeadContextSnapshot';
 export type { LeadContextSnapshotProps } from './LeadContextSnapshot';
 export { LeadSubjectSync } from './LeadSubjectSync';
-export { LEAD_TOPICS } from './content';
+export { LEAD_TOPICS, leadFormContent } from './content';
 export type { LeadTopic } from './content';
 export { forgetLeadContext, readLeadContext, rememberLeadContext, useLeadContext } from './context';
 export { forgetLeadSubject, readLeadSubject, rememberLeadSubject, useLeadSubject } from './subject';

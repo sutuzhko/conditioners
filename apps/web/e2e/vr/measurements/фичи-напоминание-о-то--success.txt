@@ -53,8 +53,8 @@ div.ReminderForm__done  bg color(srgb 0.0313726 0.568627 0.698039 / 0.1)  border
     svg
   div.ReminderForm__doneText
     p.ReminderForm__doneTitle  color #ffffff
-    p.ReminderForm__doneNote  color color(srgb 1 1 1 / 0.62)
-    button.ReminderForm__again  color #0e7490
+    p.ReminderForm__doneNote  color #8598ac
+    button.ReminderForm__again  color #22d3ee
   p[role=status]  color #0f172a
 
 [палитра dark]
@@ -63,6 +63,6 @@ div.ReminderForm__done  bg color(srgb 0.0313726 0.568627 0.698039 / 0.1)  border
     svg
   div.ReminderForm__doneText
     p.ReminderForm__doneTitle  color #ffffff
-    p.ReminderForm__doneNote  color color(srgb 1 1 1 / 0.62)
+    p.ReminderForm__doneNote  color #8598ac
     button.ReminderForm__again  color #22d3ee
   p[role=status]  color #eaf1f8

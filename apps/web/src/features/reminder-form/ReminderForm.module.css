@@ -6,15 +6,20 @@
    «на панели», а лезть в их разметку из блока — это ровно та лазейка мимо
    кита, которую мы уже закрывали у ползунков. */
 
+/* 🔴 Уровни текста приходят грунтом `[data-ground='panel']` (ADR-158), а не
+   собственными `color-mix` по месту: у грунта значения подобраны расчётом
+   контраста и проверяются машиной (`shared/styles/contrast.test.ts`), у
+   краски по месту — никем. Атрибут ставит сама форма: в Storybook она стоит
+   без тёмной карточки вокруг, и без него подписи оказались бы тёмными на
+   тёмном.
+
+   Здесь остаётся только заливка поля: у грунта её нет, а белое поле на
+   тёмной панели — это карточка внутри карточки. Граница контрола остаётся
+   на `--line-ui`: WCAG 1.4.11 требует для неё 3:1, и на `--panel` этот токен
+   даёт 5,4:1 (ADR-181). */
 .form,
 .done {
-  --field: color-mix(in srgb, var(--on-panel) 7%, transparent);
-  --line-strong: color-mix(in srgb, var(--on-panel) 20%, transparent);
-  --ink: var(--on-panel);
-  --ink2: var(--on-panel);
-  --body: color-mix(in srgb, var(--on-panel) 84%, transparent);
-  --muted: color-mix(in srgb, var(--on-panel) 62%, transparent);
-  --faint: color-mix(in srgb, var(--on-panel) 55%, transparent);
+  --field: color-mix(in srgb, var(--on-panel) 6%, transparent);
   --bg-soft: color-mix(in srgb, var(--on-panel) 10%, transparent);
 }
 

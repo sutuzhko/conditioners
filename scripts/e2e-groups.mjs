@@ -48,7 +48,15 @@ export const GROUPS = Object.freeze({
   /** Панель: состояния блоков данных и раскладка разделов по ширинам. */
   panel: ['panel-states', 'admin-layout', 'admin-tabs'],
   /** Сценарии до базы: заявка, отзыв, цена, пустые состояния, поиск. */
-  flows: ['lead', 'review-moderation', 'price-update', 'empty-states', 'crm-search'],
+  flows: [
+    'lead',
+    'lead-fluid',
+    'reviews-fluid',
+    'review-moderation',
+    'price-update',
+    'empty-states',
+    'crm-search',
+  ],
 });
 
 const SPEC = /^(.+)\.spec\.ts$/;

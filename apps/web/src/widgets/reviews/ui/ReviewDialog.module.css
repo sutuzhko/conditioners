@@ -46,30 +46,40 @@
   align-items: center;
 }
 
-/* Тот же кружок, что в карточке ленты: 40px. Свой размер в окне читался
+/* Тот же кружок, что в карточке списка: 40px. Свой размер в окне читался
    как другой компонент — человек видит один и тот же отзыв дважды и
-   замечает разницу. */
-.avatar,
+   замечает разницу.
+
+   🔴 Фотография ложится поверх буквы, а не встаёт вместо неё: кружок занят
+   с первого кадра, и подмена на месте не двигает подпись рядом (issue #22).
+   Не загрузилась — под ней остаётся буква, а не значок битой картинки. */
 .initial {
+  position: relative;
+  display: inline-flex;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
   width: 40px;
   height: 40px;
   border-radius: var(--r-pill);
-}
-
-.avatar {
-  object-fit: cover;
-}
-
-.initial {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   background: var(--accent-ink);
+  overflow: hidden;
+}
+
+.letter {
   color: var(--on-accent);
   font-family: var(--font-display);
   font-size: var(--fs-dense);
   font-weight: 700;
+  line-height: 1;
+}
+
+.avatar {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
 }
 
 .who {
