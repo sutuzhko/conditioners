@@ -4,6 +4,13 @@ import { VR_PANEL_WIDTHS, VR_THEMES, VR_WIDTHS } from '../../../playwright.vr.co
 import { firstLines } from '../outcome';
 import { shardFromEnv, shardSlice } from '../shard';
 import { FROZEN_NOW } from '../snapshot-run';
+import {
+  COVERED_SECTIONS,
+  FIXTURES_SECTION,
+  PANEL_SECTIONS,
+  PUBLIC_SECTIONS,
+  sectionOf,
+} from '../sections';
 import { loadStories, pinnedWidths, type StoryEntry } from '../story-index';
 import { waitForStoryReady, watchPlayFailures } from '../story-ready';
 import { measureInvariants } from './measure';
@@ -45,15 +52,35 @@ const GROUPS: readonly {
   readonly sections: readonly string[];
   readonly widths: readonly number[];
 }[] = [
-  { group: 'public', sections: ['Блоки/', 'Страницы/'], widths: VR_WIDTHS },
-  { group: 'panel', sections: ['UI Kit/', 'Кит/', 'Админка/'], widths: VR_PANEL_WIDTHS },
+  { group: 'public', sections: PUBLIC_SECTIONS, widths: VR_WIDTHS },
+  { group: 'panel', sections: PANEL_SECTIONS, widths: VR_PANEL_WIDTHS },
 ];
-
-/** Истории-фикстуры с нарочными нарушениями проверяет свой спек. */
-const FIXTURES_SECTION = 'Фикстуры/';
 
 /** Ниже этой ширины раскладка сенсорная, и цель обязана быть 44×44 (ADR-183). */
 const TOUCH_BELOW = 900;
+
+/**
+ * 🔴 Сторож покрытия (issue #517). Работы обходят разделы по списку, и раздел,
+ * которого в списке нет, не проверяется ничем — молча: прогон зелёный, потому
+ * что проверять было нечего. Так из всех работ выпали `Фичи/` (формы заявки и
+ * отзыва) и `Календарь/`, и заметили это только при сдаче чужой вехи.
+ *
+ * Проверяется не «зелено ли», а «попало ли в список»: любое название истории,
+ * чей раздел не назван в `sections.ts`, красит прогон.
+ */
+test('🔴 у каждого раздела витрины есть работа, которая его проверяет', async ({ request }) => {
+  const all = await loadStories(request, ['']);
+  expect(all.length, 'витрина не отдала ни одной истории').toBeGreaterThan(0);
+
+  const orphans = [...new Set(all.map((story) => sectionOf(story.title)))]
+    .filter((section) => !COVERED_SECTIONS.includes(section))
+    .sort();
+
+  expect(
+    orphans,
+    'раздел витрины не входит ни в одну работу — допишите его в e2e/vr/sections.ts',
+  ).toEqual([]);
+});
 
 for (const { group, sections, widths } of GROUPS) {
   for (const width of widths) {
