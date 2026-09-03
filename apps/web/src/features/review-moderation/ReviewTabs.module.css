@@ -1,0 +1,43 @@
+/* Геометрия снята с фильтров раздела заявок: две ленты в соседних разделах
+   панели обязаны выглядеть одинаково, пока их не собрал заново макет. */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tab {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  color: var(--body);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tab:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-text);
+}
+
+/* Кольцо — то же, что у фильтров заявок: соседние ленты не должны показывать
+   фокус по-разному. Без этого срабатывало общее правило `global.css`. */
+.tab:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.active {
+  border-color: var(--accent-ink);
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+/* 🔴 Пол цели на сенсорной раскладке (issue #375, ADR-183): до 900px по этой
+   ссылке целятся пальцем, а строка кегля даёт 34px при норме 44. */
+@media (width < 900px) {
+  .tab {
+    min-height: var(--tap);
+  }
+}

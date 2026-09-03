@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 import { VR_THEMES, VR_WIDTHS } from '../../playwright.vr.config';
+import { PUBLIC_SECTIONS } from './sections';
 import { snapshotStories } from './snapshot-run';
 import { loadStories } from './story-index';
 
@@ -21,13 +22,13 @@ import { loadStories } from './story-index';
  * Dep» и кадр выходит пустым, а не упавшим.
  */
 
-/** Разделы, которые снимаем. Остальные истории проверяются тестами поведения. */
-const SNAPSHOT_SECTIONS = ['Блоки/', 'Страницы/'];
+/* Разделы приходят из общего перечня (issue #517): зашитый по месту список
+   уже однажды разошёлся с витриной, и два раздела выпали из всех работ. */
 
 for (const width of VR_WIDTHS) {
   for (const theme of VR_THEMES) {
     test(`истории блоков на ${width}px, тема ${theme}`, async ({ page, request }) => {
-      const stories = await loadStories(request, SNAPSHOT_SECTIONS);
+      const stories = await loadStories(request, PUBLIC_SECTIONS);
       expect(stories.length).toBeGreaterThan(0);
 
       await snapshotStories(page, { project: 'public', stories, width, widths: VR_WIDTHS, theme });

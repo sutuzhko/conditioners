@@ -16,7 +16,9 @@ describe('Фильтр заказов', () => {
 
     const params = paramsOf(ORDER_TAB_TITLE.cancelled);
 
-    expect(params.get('tab')).toBe('cancelled');
+    /* 🔴 В адресе стоит ключ макета `declined`, а не доменный статус
+       `cancelled`: словарь вкладок описывает адрес (ADR-255). */
+    expect(params.get('tab')).toBe('declined');
     expect(params.get('period')).toBe('month');
     expect(params.get('q')).toBe('Соколова');
   });
@@ -56,6 +58,13 @@ describe('Фильтр заказов', () => {
     const form = screen.getByRole('search');
     expect(within(form).getByDisplayValue('new')).toHaveAttribute('name', 'tab');
     expect(within(form).getByDisplayValue('month')).toHaveAttribute('name', 'period');
+  });
+
+  it('🔴 скрытое поле поиска несёт ключ адреса, а не доменный статус', () => {
+    render(<OrderFilters tab="cancelled" period="all" query="" total={3} />);
+
+    const form = screen.getByRole('search');
+    expect(within(form).getByDisplayValue('declined')).toHaveAttribute('name', 'tab');
   });
 
   it('сброс появляется только там, где есть что сбрасывать', () => {

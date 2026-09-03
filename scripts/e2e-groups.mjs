@@ -46,7 +46,7 @@ export const GROUPS = Object.freeze({
   /** Оболочка панели: навигация по всем разделам на четырёх ширинах, клавиатура. */
   shell: ['admin-shell'],
   /** Панель: состояния блоков данных и раскладка разделов по ширинам. */
-  panel: ['panel-states', 'admin-layout'],
+  panel: ['panel-states', 'admin-layout', 'admin-tabs'],
   /** Сценарии до базы: заявка, отзыв, цена, пустые состояния, поиск. */
   flows: [
     'lead',

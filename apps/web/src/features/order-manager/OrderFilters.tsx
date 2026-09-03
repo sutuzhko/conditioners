@@ -51,6 +51,10 @@ export function OrderFilters({ tab, period, query, total }: OrderFiltersProps) {
             className={[styles.chip, item === tab ? styles.active : null].filter(Boolean).join(' ')}
             key={item}
             href={hrefFor({ tab: item })}
+            /* 🔴 Прокрутка не сбрасывается наверх: стопки сравнивают, стоя в
+               середине списка, и прыжок к шапке на каждом переключении теряет
+               место (issue #342). */
+            scroll={false}
             aria-current={item === tab ? 'page' : undefined}
           >
             {ORDER_TAB_TITLE[item]}

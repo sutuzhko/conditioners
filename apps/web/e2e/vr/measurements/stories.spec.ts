@@ -5,6 +5,7 @@ import { expect, test, type Page } from '@playwright/test';
 
 import { VR_PANEL_WIDTHS, VR_THEMES, VR_WIDTHS } from '../../../playwright.vr.config';
 import { firstLines } from '../outcome';
+import { FIXTURES_SECTION, PANEL_SECTIONS, PUBLIC_SECTIONS } from '../sections';
 import { shardFromEnv, shardSlice, type Shard } from '../shard';
 import { FROZEN_NOW } from '../snapshot-run';
 import { loadStories, pinnedWidths, type StoryEntry } from '../story-index';
@@ -29,12 +30,9 @@ const GROUPS: readonly {
   readonly sections: readonly string[];
   readonly widths: readonly number[];
 }[] = [
-  { group: 'public', sections: ['Блоки/', 'Страницы/'], widths: VR_WIDTHS },
-  { group: 'panel', sections: ['UI Kit/', 'Кит/', 'Админка/'], widths: VR_PANEL_WIDTHS },
+  { group: 'public', sections: PUBLIC_SECTIONS, widths: VR_WIDTHS },
+  { group: 'panel', sections: PANEL_SECTIONS, widths: VR_PANEL_WIDTHS },
 ];
-
-/** Истории-фикстуры инвариантов измерять незачем: они нарочно сломаны. */
-const FIXTURES_SECTION = 'Фикстуры/';
 
 /** Без `VR_OUTCOME_DIR` части ложатся рядом со спеками — каталог не для репозитория. */
 const DEFAULT_DIR = resolve(__dirname, '../measurements-partials');

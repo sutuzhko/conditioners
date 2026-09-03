@@ -1,14 +1,15 @@
-import Link from 'next/link';
-
-import { REVIEW_STATUSES, reviewModerationContent as texts } from '@/features/review-moderation';
+import { ReviewTabs, reviewModerationContent as texts } from '@/features/review-moderation';
 import { RowsSkeleton } from '@/widgets/admin-shell';
 
 import styles from '../leads/page.module.css';
 
 /**
- * Отзывы: шапка и фильтры настоящие, скелетон — только у списка (issue #334).
+ * Отзывы: шапка и вкладки настоящие, скелетон — только у списка (issue #334).
  * Те же причины, что у заявок: статичная часть страницы рисуется как есть,
  * потому что только так её высота совпадает при любом переносе строк.
+ *
+ * Открытую вкладку заготовка не подсвечивает: параметров адреса `loading.tsx`
+ * не получает, и подсветить он может только не ту.
  */
 export default function ReviewsLoading() {
   return (
@@ -18,20 +19,7 @@ export default function ReviewsLoading() {
         <p className={styles.lead}>{texts.lead}</p>
       </header>
 
-      <nav className={styles.filters} aria-label={texts.filterLabel}>
-        <Link className={styles.filter} href={{ pathname: '/admin/reviews' }}>
-          {texts.filterAll}
-        </Link>
-        {REVIEW_STATUSES.map((value) => (
-          <Link
-            className={styles.filter}
-            key={value}
-            href={{ pathname: '/admin/reviews', query: { status: value } }}
-          >
-            {texts.statusTitle(value)}
-          </Link>
-        ))}
-      </nav>
+      <ReviewTabs />
 
       <RowsSkeleton rows={4} className={styles.reviewSkeleton} />
     </div>
