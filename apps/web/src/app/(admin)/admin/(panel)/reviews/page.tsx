@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 
 import {
-  REVIEW_STATUSES,
   ReviewList,
-  isReviewStatus,
+  ReviewTabs,
   reviewModerationContent as texts,
+  reviewStatusOfTab,
+  reviewTabFromParam,
+  reviewsQuery,
 } from '@/features/review-moderation';
 import { requireOwnerPage } from '@/server/guards';
 import { listByStatus } from '@/server/repo/reviews';
@@ -22,21 +23,37 @@ export const dynamic = 'force-dynamic';
  * Модерация отзывов.
  *
  * По умолчанию открывается на «На модерации»: именно они требуют решения, а
- * остальные статусы — архив, в который заходят по надобности. Архив только
+ * остальные вкладки — архив, в который заходят по надобности. Архив только
  * растёт — отклонённые и архивные не удаляются (инвариант 7), — поэтому
  * список разбит на страницы.
+ *
+ * 🔴 Вкладка разбирается здесь, до чтения данных: раздел идёт в базу за тем
+ * статусом, что стоит в адресе, и приходит уже открытым на нём (issue #340).
+ * Мусор в параметре открывает первую вкладку, а не роняет раздел (#341).
  */
 export default async function AdminReviewsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; page?: string }>;
+  searchParams: Promise<{ tab?: string; page?: string }>;
 }) {
   /* Раздел владельца: проверка до чтения данных (ADR-095). */
   await requireOwnerPage();
 
-  const { status, page } = await searchParams;
-  const selected = status !== undefined && isReviewStatus(status) ? status : undefined;
-  const found = await listByStatus({ status: selected, page: pageNumber(page) });
+  const { tab, page } = await searchParams;
+  const selected = reviewTabFromParam(tab);
+  const status = reviewStatusOfTab(selected);
+
+  const found = await listByStatus({
+    ...(status === undefined ? {} : { status }),
+    page: pageNumber(page),
+  });
+
+  /* 🔴 Пустая вкладка и пустой раздел — разные новости с противоположными
+     шагами (issue #335). Раздел стартует без единого отзыва (инвариант 10), и
+     сказать там «их скрыл выбранный статус» значит соврать. Второй запрос
+     уходит только тогда, когда вкладка пуста, — то есть почти никогда. */
+  const anyReviews =
+    found.total > 0 || (status !== undefined && (await listByStatus({ page: 1 })).total > 0);
 
   return (
     <div className={styles.page}>
@@ -45,38 +62,15 @@ export default async function AdminReviewsPage({
         <p className={styles.lead}>{texts.lead}</p>
       </header>
 
-      <nav className={styles.filters} aria-label={texts.filterLabel}>
-        <Link
-          className={[styles.filter, selected === undefined ? styles.active : null]
-            .filter(Boolean)
-            .join(' ')}
-          aria-current={selected === undefined ? 'page' : undefined}
-          href={{ pathname: '/admin/reviews' }}
-        >
-          {texts.filterAll}
-        </Link>
+      <ReviewTabs active={selected} />
 
-        {REVIEW_STATUSES.map((value) => (
-          <Link
-            className={[styles.filter, selected === value ? styles.active : null]
-              .filter(Boolean)
-              .join(' ')}
-            aria-current={selected === value ? 'page' : undefined}
-            key={value}
-            href={{ pathname: '/admin/reviews', query: { status: value } }}
-          >
-            {texts.statusTitle(value)}
-          </Link>
-        ))}
-      </nav>
-
-      <ReviewList reviews={found.items} filtered={selected !== undefined} />
+      <ReviewList reviews={found.items} filtered={status !== undefined && anyReviews} />
 
       <Pager
         page={found.page}
         pages={found.pages}
         basePath="/admin/reviews"
-        query={selected === undefined ? undefined : { status: selected }}
+        query={reviewsQuery(selected)}
       />
     </div>
   );

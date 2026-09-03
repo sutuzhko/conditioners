@@ -6,8 +6,8 @@ import {
   OrderFilters,
   OrderList,
   isOrderPeriod,
-  isOrderTab,
   orderManagerContent as texts,
+  orderTabFromParam,
   pageNumber,
 } from '@/features/order-manager';
 import { requirePage } from '@/server/guards';
@@ -39,7 +39,11 @@ export default async function AdminOrdersPage({
   const session = await requirePage();
 
   const { tab, period, q, page } = await searchParams;
-  const selectedTab = tab !== undefined && isOrderTab(tab) ? tab : DEFAULT_ORDER_FILTERS.tab;
+
+  /* Вкладка разбирается здесь, до чтения данных: страница уходит в базу за той
+     стопкой, что стоит в адресе, и приходит уже открытой на ней (issue #340).
+     Мусор в параметре открывает первую вкладку, а не роняет раздел. */
+  const selectedTab = orderTabFromParam(tab);
   const selectedPeriod =
     period !== undefined && isOrderPeriod(period) ? period : DEFAULT_ORDER_FILTERS.period;
   const query = q?.trim() ?? '';
