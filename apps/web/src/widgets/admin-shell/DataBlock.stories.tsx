@@ -11,7 +11,10 @@ import { DataBlock } from './DataBlock';
  * линии, ошибка занимает место данных, а не страницу целиком.
  */
 const meta = {
-  title: 'Кит панели/DataBlock',
+  /* 🔴 Раздел `UI Kit/`, а не свой: списки разделов у снимков, инвариантов и
+     измерений зашиты префиксами, и «Кит панели/» не попал бы ни в одну
+     работу — единственный новый компонент фазы остался бы без проверок. */
+  title: 'UI Kit/DataBlock',
   component: DataBlock,
   parameters: { layout: 'padded' },
   decorators: [

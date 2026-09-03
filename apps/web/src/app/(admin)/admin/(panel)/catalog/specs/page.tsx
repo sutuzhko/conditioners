@@ -33,7 +33,7 @@ export default async function AdminSpecsDictionaryPage() {
             детей в строку, чтобы справа помещались действия. */}
         <div>
           <Link className={styles.back} href={{ pathname: '/admin/catalog' }}>
-            ← Каталог
+            {texts.back}
           </Link>
           <h1 className={styles.title}>{texts.title}</h1>
           <p className={styles.lead}>{texts.lead}</p>

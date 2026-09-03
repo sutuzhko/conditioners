@@ -12,7 +12,7 @@ export default function SpecsDictionaryLoading() {
       <header className={styles.header}>
         <div>
           <Link className={styles.back} href={{ pathname: '/admin/catalog' }}>
-            ← Каталог
+            {texts.back}
           </Link>
           <h1 className={styles.title}>{texts.title}</h1>
           <p className={styles.lead}>{texts.lead}</p>
