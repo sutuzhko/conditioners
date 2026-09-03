@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 /* Адрес карточки подменяется целиком: вкладка живёт в нём, а не в состоянии
    компонента, и проверять надо именно то, что уходит в историю браузера. */
@@ -13,15 +13,25 @@ vi.mock('next/navigation', () => ({
 }));
 
 import { ORDER_CARD_TAB_TITLE, orderManagerContent as texts } from './content';
+import type { OrderCardTab } from './model';
 import { OrderWorkTabs } from './OrderWorkTabs';
 
-function renderTabs(active: 'job' | 'checklist' | 'documents' = 'job') {
+/* Лента вкладок подвозит открытую к глазам, а jsdom прокрутки не умеет вовсе:
+   без заглушки падал бы не сценарий, а отсутствующий в jsdom метод. */
+beforeAll(() => {
+  Element.prototype.scrollIntoView = vi.fn();
+});
+
+function renderTabs(active: OrderCardTab = 'job', { forInstaller = false } = {}) {
   return render(
     <OrderWorkTabs
       active={active}
       job={<p>Данные наряда</p>}
+      materials={<p>Списано со склада</p>}
       checklist={<p>Список сборов</p>}
       documents={<p>Договор и снимки</p>}
+      /* Монтажнику история не приходит вовсе — ключа нет, и вкладки нет. */
+      history={forInstaller ? undefined : <p>Кто и когда менял</p>}
     />,
   );
 }
@@ -49,7 +59,7 @@ describe('Вкладки наряда', () => {
 
     expect(push).not.toHaveBeenCalled();
     expect(replace).toHaveBeenCalledTimes(2);
-    expect(url()).toBe(`${CARD_PATH}?tab=documents`);
+    expect(url()).toBe(`${CARD_PATH}?tab=checklist`);
 
     push.mockRestore();
     replace.mockRestore();
@@ -67,14 +77,39 @@ describe('Вкладки наряда', () => {
     push.mockRestore();
   });
 
-  it('три собранных вкладки из разбора прототипа, открыт наряд', () => {
+  it('пять вкладок словаря, открыт наряд', () => {
     renderTabs();
 
-    expect(screen.getAllByRole('tab')).toHaveLength(3);
+    expect(screen.getAllByRole('tab')).toHaveLength(5);
     expect(screen.getByRole('tab', { name: ORDER_CARD_TAB_TITLE.job })).toHaveAttribute(
       'aria-selected',
       'true',
     );
+  });
+
+  it('🔴 у монтажника вкладок четыре: истории он не видит вовсе', () => {
+    renderTabs('job', { forInstaller: true });
+
+    expect(screen.getAllByRole('tab')).toHaveLength(4);
+    expect(
+      screen.queryByRole('tab', { name: ORDER_CARD_TAB_TITLE.history }),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText('Кто и когда менял')).not.toBeInTheDocument();
+  });
+
+  it('🔴 присланная монтажнику ссылка на историю открывает наряд, а не пустоту', () => {
+    search = 'tab=history';
+    renderTabs('job', { forInstaller: true });
+
+    expect(screen.getByText('Данные наряда')).toBeVisible();
+    expect(screen.getAllByRole('tab')).toHaveLength(4);
+  });
+
+  it('расход открывается своей вкладкой, а не блоком под лентой', () => {
+    renderTabs('materials');
+
+    expect(screen.getByText('Списано со склада')).toBeVisible();
+    expect(screen.getByText('Данные наряда')).not.toBeVisible();
   });
 
   it('🔴 открытая вкладка приходит с сервера: содержимое видно без единого клика', () => {
@@ -94,7 +129,7 @@ describe('Вкладки наряда', () => {
   });
 
   it('чужой ключ в адресе открывает первую вкладку, а не пустоту', () => {
-    search = 'tab=materials';
+    search = 'tab=payments';
     renderTabs('job');
 
     expect(screen.getByText('Данные наряда')).toBeVisible();
@@ -122,8 +157,8 @@ describe('Вкладки наряда', () => {
     await userEvent.click(screen.getByRole('tab', { name: ORDER_CARD_TAB_TITLE.job }));
     await userEvent.keyboard('{ArrowRight}');
 
-    expect(screen.getByRole('tab', { name: ORDER_CARD_TAB_TITLE.checklist })).toHaveFocus();
-    expect(url()).toBe(`${CARD_PATH}?tab=checklist`);
+    expect(screen.getByRole('tab', { name: ORDER_CARD_TAB_TITLE.materials })).toHaveFocus();
+    expect(url()).toBe(`${CARD_PATH}?tab=materials`);
   });
 
   it('End уводит на последнюю вкладку, Home возвращает на первую', async () => {
@@ -131,7 +166,7 @@ describe('Вкладки наряда', () => {
 
     await userEvent.click(screen.getByRole('tab', { name: ORDER_CARD_TAB_TITLE.job }));
     await userEvent.keyboard('{End}');
-    expect(screen.getByRole('tab', { name: ORDER_CARD_TAB_TITLE.documents })).toHaveFocus();
+    expect(screen.getByRole('tab', { name: ORDER_CARD_TAB_TITLE.history })).toHaveFocus();
 
     await userEvent.keyboard('{Home}');
     expect(screen.getByRole('tab', { name: ORDER_CARD_TAB_TITLE.job })).toHaveFocus();
