@@ -1,0 +1,37 @@
+# админка-календарь-поиск--ничегоненашлось · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.CalendarSearch__box  358×44 @16,16
+  span.CalendarSearch__glass  16×23 @10,10
+    svg  16×16 @0,1
+  input.CalendarSearch__field  358×44 @0,0  r11  b1
+
+[геометрия 768]
+div.CalendarSearch__box  736×44 @16,16
+  span.CalendarSearch__glass  16×23 @10,10
+    svg  16×16 @0,1
+  input.CalendarSearch__field  190×44 @0,0  r11  b1
+
+[геометрия 1440]
+div.CalendarSearch__box  1408×35 @16,16
+  span.CalendarSearch__glass  16×23 @10,6
+    svg  16×16 @0,1
+  input.CalendarSearch__field  190×35 @0,0  r11  b1
+
+[палитра light]
+div.CalendarSearch__box
+  span.CalendarSearch__glass
+    svg
+  input.CalendarSearch__field  bg #ffffff  border #7e8fa6
+
+[палитра dark]
+div.CalendarSearch__box
+  span.CalendarSearch__glass
+    svg
+  input.CalendarSearch__field  bg #121d31  border #566d95
