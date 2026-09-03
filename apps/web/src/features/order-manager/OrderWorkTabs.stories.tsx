@@ -13,7 +13,8 @@ const meta = {
   title: 'Админка/Заказы/Работа с нарядом',
   component: OrderWorkTabs,
   args: {
-    order: (
+    active: 'job',
+    job: (
       <OrderResultForm
         api={api}
         extraWork={orderDetails.extraWork}
@@ -22,7 +23,7 @@ const meta = {
       />
     ),
     checklist: <OrderChecklist api={api} items={checklist} />,
-    files: (
+    documents: (
       <>
         <OrderDocs api={api} docs={docs} editable confirmRemove={async () => true} />
         <OrderPhotos api={api} photos={photos} confirmRemove={async () => true} />
@@ -38,13 +39,19 @@ type Story = StoryObj<typeof meta>;
 export const Базовое: Story = {};
 
 /**
+ * Карточку открыли по ссылке на чеклист: `?tab=checklist` приходит с сервера
+ * уже открытым, без мигания первой вкладкой (issue #340).
+ */
+export const ПоСсылкеНаЧеклист: Story = { args: { active: 'checklist' } };
+
+/**
  * 🔴 Глазами монтажника: документы на чтение, место установки без загрузки.
  * Панель «Наряд» здесь — его отчёт о выезде.
  */
 export const ГлазамиМонтажника: Story = {
   args: {
-    order: <OrderResultForm api={api} extraWork={null} report={null} resultAt={null} />,
-    files: (
+    job: <OrderResultForm api={api} extraWork={null} report={null} resultAt={null} />,
+    documents: (
       <>
         <OrderDocs api={api} docs={docs} />
         <OrderPhotos api={api} photos={photos} forInstaller confirmRemove={async () => true} />
@@ -57,7 +64,7 @@ export const ГлазамиМонтажника: Story = {
 export const Пусто: Story = {
   args: {
     checklist: <OrderChecklist api={api} items={[]} />,
-    files: (
+    documents: (
       <>
         <OrderDocs api={api} docs={[]} editable />
         <OrderPhotos api={api} photos={[]} />

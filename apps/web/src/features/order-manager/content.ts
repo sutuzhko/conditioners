@@ -15,7 +15,7 @@ import { formatDateShort, formatDateTime, formatMoney, formatQuantity } from '@/
 import { STOCK_UNIT_SHORT } from '@/shared/config/units';
 import { plural } from '@/shared/lib/plural';
 
-import type { DeductionMode, StockUnit } from './model';
+import type { DeductionMode, OrderCardTab, StockUnit } from './model';
 
 /**
  * Вид работ. `service` называется «Обслуживанием», а не «ТО»: тем же словом
@@ -44,6 +44,13 @@ export const ORDER_TAB_TITLE: Record<OrderTab, string> = {
   history: 'История',
   cancelled: 'Отказы',
   all: 'Все',
+};
+
+/** Подписи вкладок карточки наряда — ключи адреса из словаря (issue #339). */
+export const ORDER_CARD_TAB_TITLE: Record<OrderCardTab, string> = {
+  job: 'Наряд',
+  checklist: 'Чеклист выезда',
+  documents: 'Документы и фото',
 };
 
 export const ORDER_PERIOD_TITLE: Record<OrderPeriod, string> = {
@@ -275,9 +282,6 @@ export const orderManagerContent = {
   // ---------- Наряд в работе ----------
 
   workTabsLabel: 'Работа с нарядом',
-  tabOrder: 'Наряд',
-  tabChecklist: 'Чеклист выезда',
-  tabFiles: 'Документы и фото',
 
   resultTitle: 'Итог работ',
   resultHint:

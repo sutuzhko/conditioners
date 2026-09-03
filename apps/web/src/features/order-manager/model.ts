@@ -34,6 +34,7 @@ import type {
   StockUnit,
   StockZoneCard,
 } from '@/entities/stock/model';
+import { PANEL_TABS, resolvePanelTab, type PanelTab } from '@/shared/config/admin-tabs';
 import { dayKeyOf, timeOf, todayKey, type DayKey } from '@/shared/lib/calendar';
 import { deductionReducesFee, type Employment } from '@/shared/lib/employment';
 import type { Page } from '@/shared/lib/paging';
@@ -396,6 +397,45 @@ export const DEFAULT_ORDER_FILTERS: OrderFilterState = {
 };
 
 /**
+ * Стопка в адресе ↔ стопка в домене.
+ *
+ * 🔴 Единственная пара, где они расходятся, — отказы: макет называет вкладку
+ * `declined`, а домен — статусом `cancelled`. Словарь вкладок описывает
+ * адрес, домен описывает работу, и переводит их раздел на своей границе
+ * (ADR-255). Контракт `/api/admin/orders` от этого не двигается: наружу
+ * по-прежнему уходит доменное значение.
+ */
+const TAB_BY_PARAM: Record<PanelTab<'orders'>, OrderTab> = {
+  active: 'active',
+  new: 'new',
+  history: 'history',
+  declined: 'cancelled',
+  all: 'all',
+};
+
+const PARAM_BY_TAB: Record<OrderTab, PanelTab<'orders'>> = {
+  active: 'active',
+  new: 'new',
+  history: 'history',
+  cancelled: 'declined',
+  all: 'all',
+};
+
+/** Ключ вкладки для адреса. */
+export function orderTabParam(tab: OrderTab): PanelTab<'orders'> {
+  return PARAM_BY_TAB[tab];
+}
+
+/**
+ * Стопка из адреса. Разбирается схемой словаря: мусор, чужой ключ и
+ * отсутствие параметра открывают первую вкладку, а не роняют раздел
+ * (issue #341).
+ */
+export function orderTabFromParam(value: unknown): OrderTab {
+  return TAB_BY_PARAM[resolvePanelTab(PANEL_TABS.orders, value)];
+}
+
+/**
  * Параметры адреса. Умолчания опускаются: ссылка, которую владелец кому-то
  * пришлёт, не должна тащить `?tab=active&period=all` без единого смысла.
  */
@@ -405,7 +445,7 @@ export function ordersQuery(filters: Partial<OrderFilterState>): Record<string, 
   const query = (filters.query ?? '').trim();
 
   return {
-    ...(tab === DEFAULT_ORDER_FILTERS.tab ? {} : { tab }),
+    ...(tab === DEFAULT_ORDER_FILTERS.tab ? {} : { tab: orderTabParam(tab) }),
     ...(period === DEFAULT_ORDER_FILTERS.period ? {} : { period }),
     ...(query === '' ? {} : { q: query }),
   };
@@ -421,6 +461,29 @@ export function ordersHref(filters: Partial<OrderFilterState>): {
 /** Фильтр отличается от умолчания: пустой список тогда объясняется иначе. */
 export function filtersApplied(filters: Partial<OrderFilterState>): boolean {
   return Object.keys(ordersQuery(filters)).length > 0;
+}
+
+// ---------- Адрес карточки ----------
+
+/**
+ * Вкладки карточки наряда, собранные на сегодня.
+ *
+ * В словаре их пять (`PANEL_TABS.orderCard`), на экране — три: «Расход» и
+ * «История» пока стоят блоками под вкладками, и собрать их вкладками —
+ * работа Фазы 8 (issue #52). Пока панели нет, её ключ в адресе открывает
+ * первую вкладку, а не пустоту.
+ */
+export const ORDER_CARD_TABS = [
+  'job',
+  'checklist',
+  'documents',
+] as const satisfies readonly PanelTab<'orderCard'>[];
+
+export type OrderCardTab = (typeof ORDER_CARD_TABS)[number];
+
+/** Вкладка карточки из адреса. Мусор и чужой ключ — первая вкладка. */
+export function orderCardTabFromParam(value: unknown): OrderCardTab {
+  return resolvePanelTab(ORDER_CARD_TABS, value);
 }
 
 /**

@@ -10,11 +10,14 @@ import {
   OrderResultForm,
   OrderWorkTabs,
   orderWorkApi,
+  type OrderCardTab,
   type OrderDetails,
 } from '@/features/order-manager';
 
 export interface OrderWorkProps {
   readonly order: OrderDetails;
+  /** Открытая вкладка: её разобрала страница на сервере (issue #340). */
+  readonly tab: OrderCardTab;
   /** Монтажник: место установки только смотрит, документы не правит. */
   readonly forInstaller?: boolean | undefined;
   /** Вкладка «Наряд»: форма владельца или карточка монтажника. */
@@ -30,14 +33,15 @@ export interface OrderWorkProps {
  * приходят с сервера — состав чеклиста, документов и снимков живёт в базе, а
  * не в памяти компонента.
  */
-export function OrderWork({ order, forInstaller = false, children }: OrderWorkProps) {
+export function OrderWork({ order, tab, forInstaller = false, children }: OrderWorkProps) {
   const router = useRouter();
   const api = orderWorkApi(order.id);
   const refresh = (): void => router.refresh();
 
   return (
     <OrderWorkTabs
-      order={
+      active={tab}
+      job={
         <>
           {children}
 
@@ -52,7 +56,7 @@ export function OrderWork({ order, forInstaller = false, children }: OrderWorkPr
         </>
       }
       checklist={<OrderChecklist api={api} items={order.checklist} onChanged={refresh} />}
-      files={
+      documents={
         <>
           <OrderDocs api={api} docs={order.docs} editable={!forInstaller} onChanged={refresh} />
           <OrderPhotos
