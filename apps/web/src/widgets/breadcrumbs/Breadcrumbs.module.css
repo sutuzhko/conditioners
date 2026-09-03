@@ -39,13 +39,39 @@
   text-decoration: underline;
 }
 
-/* Тап-зона нужна пальцу, а не курсору: на десктопе min-height растянул бы
-   след втрое против строки текста. */
-@media (pointer: coarse) {
+/* 🔴 Пол цели поднимается по кадру, а не по признаку указателя (ADR-183):
+   `pointer: coarse` врёт на сенсорном ноутбуке, где работают мышью. До 900
+   раскладка сенсорная; выше след остаётся строкой текста, и растягивать его
+   втрое незачем. */
+@media (width < 900px) {
   .link {
     display: inline-flex;
     align-items: center;
     min-height: var(--tap);
+  }
+}
+
+/* 🔴 До 600 след — лента, а не перенос (issue #280). Заголовок статьи задаёт
+   владелец, и в две-три строки след занимал первый экран статьи целиком.
+   Правило лент соблюдено: поля по краям, затухание у правого края и обрыв по
+   своей границе — рвётся расстояние между звеньями, а не подпись. */
+@media (width < 600px) {
+  .list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scrollbar-width: none;
+    mask-image: var(--fade-inline-end);
+  }
+
+  .list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .item {
+    white-space: nowrap;
   }
 }
 
