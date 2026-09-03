@@ -2,8 +2,7 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
-const push = vi.fn();
-vi.mock('next/navigation', () => ({ useRouter: () => ({ push, refresh: vi.fn() }) }));
+vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
 
 import { StaffAccountForm } from './StaffAccountForm';
 import { staffManagerContent as texts } from './content';
@@ -16,45 +15,6 @@ import {
   unsetEmploymentInstaller,
 } from './fixtures';
 import { employmentTitle, staffTitle } from './model';
-
-describe('Учётная запись монтажника — удаление', () => {
-  it('🔴 спрашивает окном панели, а не системным confirm', async () => {
-    const user = userEvent.setup();
-    const remove = vi.fn(async () => ({ ok: true }) as const);
-
-    render(<StaffAccountForm staff={activeInstaller} api={{ ...acceptingApi, remove }} />);
-    await user.click(screen.getByRole('button', { name: texts.remove }));
-
-    /* Окно есть в разметке — без него обещание не разрешится и удаление молча
-       не случится. Учётная запись из необратимых действий самое дорогое:
-       системное окно выглядело для неё так же, как для «удалить фотографию». */
-    const request = texts.removeConfirm(staffTitle(activeInstaller));
-    const dialog = await screen.findByRole('dialog');
-    expect(dialog).toHaveAccessibleName(request.title);
-    expect(dialog).toHaveAccessibleDescription(request.description ?? '');
-    expect(remove).not.toHaveBeenCalled();
-
-    await user.click(within(dialog).getByRole('button', { name: request.confirmLabel }));
-    await waitFor(() => expect(remove).toHaveBeenCalledWith(activeInstaller.id));
-    await waitFor(() => expect(push).toHaveBeenCalledWith('/admin/team'));
-  });
-
-  it('отказ от подтверждения ничего не удаляет', async () => {
-    const user = userEvent.setup();
-    const remove = vi.fn(async () => ({ ok: true }) as const);
-
-    render(
-      <StaffAccountForm
-        staff={activeInstaller}
-        api={{ ...acceptingApi, remove }}
-        confirmRemove={async () => false}
-      />,
-    );
-    await user.click(screen.getByRole('button', { name: texts.remove }));
-
-    expect(remove).not.toHaveBeenCalled();
-  });
-});
 
 describe('Учётная запись монтажника — ИНН', () => {
   it('показывает заведённый номер, а не пустое поле', () => {

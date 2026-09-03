@@ -4,37 +4,93 @@ import { notFound } from 'next/navigation';
 
 import {
   InstallerNotes,
+  STAFF_CARD_TABS,
+  STAFF_TAB_TITLES,
   StaffAccountForm,
+  StaffDangerZone,
+  StaffOrders,
+  StaffPayouts,
+  staffCardTabFromParam,
   staffManagerContent as texts,
   staffTitle,
+  type StaffOrder,
 } from '@/features/staff-manager';
 import { requireOwnerPage } from '@/server/guards';
 import { findById, findDetails, listNotes } from '@/server/repo/admin-users';
+import { installerTotals, listByInstaller } from '@/server/repo/orders';
 
+import { PanelTabs } from '../../PanelTabs';
 import styles from '../page.module.css';
 
 export const dynamic = 'force-dynamic';
 
-type PageProps = { params: Promise<{ id: string }> };
+type PageProps = {
+  params: Promise<{ id: string }>;
+  /** Вкладка карточки живёт в адресе (issue #339, #351). */
+  searchParams: Promise<{ tab?: string }>;
+};
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Pick<PageProps, 'params'>): Promise<Metadata> {
   const { id } = await params;
   const staff = await findById(id);
 
   return { title: staff === null ? texts.title : staffTitle(staff) };
 }
 
-/** Карточка монтажника: аккаунт и заметки владельца. */
-export default async function AdminTeamMemberPage({ params }: PageProps) {
-  /* Раздел владельца: проверка до чтения данных (ADR-095). */
-  await requireOwnerPage();
+/**
+ * Карточка монтажника — четыре вкладки (issue #351, CRM.md §3.6): аккаунт,
+ * заказы, выплаты с удержаниями и заметки владельца.
+ *
+ * 🔴 Две последние монтажник не видит, и закрыты они ролью на сервере, а не
+ * скрытой вкладкой: скрытая кнопка — подсказка интерфейса, а не защита
+ * (CRM.md §6). Раздел владельческий целиком — `requireOwnerPage` отвечает
+ * монтажнику отказом 403 ещё до чтения данных (ADR-095, issue #353).
+ *
+ * 🔴 «Удержание», а не «штраф»: штрафов как вида взыскания в ТК РФ нет
+ * (ADR-114). Ни одна подпись раздела этого слова не произносит.
+ *
+ * Вкладка разбирается здесь, на сервере: карточка приходит открытой на той,
+ * что стоит в адресе (issue #340), мусор открывает первую (#341).
+ */
+export default async function AdminTeamMemberPage({ params, searchParams }: PageProps) {
+  const session = await requireOwnerPage();
 
   const { id } = await params;
+  const { tab } = await searchParams;
+  const active = staffCardTabFromParam(tab);
+
+  const viewer = { role: session.role, userId: session.userId };
 
   /* Карточка с ИНН: реквизит правит владелец, и раздел закрыт `requireOwnerPage`
      выше по коду. Заголовку вкладки достаточно `findById` — там ИНН незачем. */
-  const [staff, notes] = await Promise.all([findDetails(id), listNotes(id)]);
+  const [staff, notes, orders, totals] = await Promise.all([
+    findDetails(id),
+    listNotes(id),
+    listByInstaller(id, viewer),
+    installerTotals(id),
+  ]);
   if (staff === null) notFound();
+
+  /* 🔴 Через границу сервер→клиент уезжает проекция, а не карточка наряда
+     целиком: заметка владельца по наряду в карточке человека не показывается,
+     значит и в браузер ей незачем. */
+  const works: readonly StaffOrder[] = orders.items.map((order) => ({
+    id: order.id,
+    number: order.number,
+    type: order.type,
+    status: order.status,
+    at: order.at,
+    address: order.address,
+    clientName: order.client.name,
+    fee: order.installerFee,
+    deduction: order.deductionSum ?? 0,
+    deductionReason: order.deductionReason ?? null,
+  }));
+
+  const allHref = {
+    pathname: '/admin/orders',
+    query: { q: staff.name ?? staff.login, tab: 'all' },
+  };
 
   return (
     <div className={styles.page}>
@@ -51,8 +107,28 @@ export default async function AdminTeamMemberPage({ params }: PageProps) {
         </p>
       </header>
 
-      <StaffAccountForm staff={staff} />
-      <InstallerNotes staffId={staff.id} notes={notes} />
+      <PanelTabs
+        active={active}
+        tabs={STAFF_CARD_TABS}
+        titles={STAFF_TAB_TITLES}
+        label={texts.tabsLabel}
+        idPrefix="staff"
+        panels={{
+          account: (
+            <>
+              <StaffAccountForm staff={staff} />
+
+              {/* 🔴 Опасная зона всегда последняя: до неё доскроллят осознанно.
+                  Удаление закрыто, пока за человеком закреплены наряды —
+                  иначе наряд остался бы без исполнителя. */}
+              <StaffDangerZone staff={staff} orders={orders.total} />
+            </>
+          ),
+          orders: <StaffOrders orders={{ items: works, total: orders.total }} allHref={allHref} />,
+          payouts: <StaffPayouts totals={totals} orders={works} />,
+          notes: <InstallerNotes staffId={staff.id} notes={notes} />,
+        }}
+      />
     </div>
   );
 }

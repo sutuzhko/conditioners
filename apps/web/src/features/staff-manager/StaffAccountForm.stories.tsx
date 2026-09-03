@@ -17,7 +17,7 @@ import {
 const meta = {
   title: 'Админка/Аккаунт монтажника',
   component: StaffAccountForm,
-  args: { staff: activeInstaller, api: acceptingApi, confirmRemove: async () => true },
+  args: { staff: activeInstaller, api: acceptingApi },
 } satisfies Meta<typeof StaffAccountForm>;
 
 export default meta;
