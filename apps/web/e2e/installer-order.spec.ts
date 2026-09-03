@@ -114,6 +114,16 @@ class OwnerApi {
   }
 }
 
+/**
+ * Телефон сценария: последние семь цифр метки прогона плюс номер записи.
+ * Номера вида `+7 (9NN) NNN-NN-NN` не пересекаются между прогонами, и стенд,
+ * оставшийся с прошлого раза, не роняет следующий.
+ */
+function phoneOf(index: number): string {
+  const digits = `${stamp}`.slice(-7).padStart(7, '0');
+  return `+7 (9${digits.slice(0, 2)}) ${digits.slice(2, 5)}-${digits.slice(5, 7)}-0${index}`;
+}
+
 /** Идентификатор из ответа: у всех разделов панели он лежит в `id`. */
 function idOf(body: Record<string, unknown>, what: string): string {
   const id = body.id;
@@ -125,7 +135,10 @@ async function seed(api: OwnerApi): Promise<Fixture> {
   const installer = await api.post('/api/admin/staff', {
     name: `Монтажник сценария ${stamp}`,
     login: `e2e-installer-${stamp}`,
-    phone: '+7 (900) 000-00-01',
+    /* 🔴 Телефон уникален на прогон: он ключ клиента и монтажника, и второй
+       прогон на непочищенном стенде падал на «этот телефон уже записан».
+       Метка та же, что в именах, — по ней записи сценария видно в базе. */
+    phone: phoneOf(1),
     password: INSTALLER_PASSWORD,
     employment: '',
     inn: '',
@@ -134,7 +147,7 @@ async function seed(api: OwnerApi): Promise<Fixture> {
 
   const client = await api.post('/api/admin/clients', {
     name: `Клиент сценария ${stamp}`,
-    phone: '+7 (900) 000-00-02',
+    phone: phoneOf(2),
     address: 'Тула, Первомайская, 1',
     note: '',
   });
@@ -213,6 +226,15 @@ async function cleanup(api: OwnerApi, fixture: Fixture | null): Promise<void> {
 }
 
 test('🔴 монтажник закрывает наряд с телефона, и статус меняется в базе', async ({ page }) => {
+  /* 🔴 Сценарий длиннее прочих, и это не запас «на всякий случай»: он заводит
+     монтажника, клиента, зону хранения, две позиции склада с приходом и сам
+     наряд, потом проходит вход, три вкладки карточки, два списания и загрузку
+     снимка. На стенде каждый маршрут собирается по первому обращению — только
+     сборка съедает больше минуты, — и общие 90 секунд заканчиваются на
+     полпути. В CI приложение собрано заранее, и сценарий укладывается вчетверо
+     быстрее. */
+  test.setTimeout(300_000);
+
   const api = await OwnerApi.login();
   let fixture: Fixture | null = null;
 
@@ -235,9 +257,15 @@ test('🔴 монтажник закрывает наряд с телефона,
     await page.locator(`a[href="/admin/orders/${fixture.orderId}"]`).first().click();
     await page.waitForURL(new RegExp(`/admin/orders/${fixture.orderId}`));
 
+    /* 🔴 Смена статуса ждёт дольше умолчания: на стенде обработчик
+       `/api/admin/orders/[id]` собирается по первому обращению, и «Сохраняем…»
+       держится секунды. Пять секунд по умолчанию попадают ровно в эту сборку —
+       падает не форма, а холодный старт. */
+    const statusSaved = page.getByText(texts.statusSaved);
+
     // ——— Принять в работу
     await page.getByLabel(texts.statusTitle).selectOption(ORDER_STATUS_TITLE.in_progress);
-    await expect(page.getByText(texts.statusSaved)).toBeVisible();
+    await expect(statusSaved).toBeVisible({ timeout: 30_000 });
 
     // ——— Расход: две позиции с количеством
     await page.getByRole('tab', { name: ORDER_CARD_TAB_TITLE.materials }).click();
@@ -247,8 +275,11 @@ test('🔴 монтажник закрывает наряд с телефона,
       const item = fixture.itemIds[index];
       if (item === undefined) throw new Error('Фикстура завела меньше позиций, чем нужно');
 
-      await page.getByLabel(texts.consumeItem).selectOption(item);
-      await page.getByLabel(texts.consumeQty).fill(String(qty));
+      /* 🔴 `exact: true`: у чеклиста выезда галочки подписаны «Позиция 1, …»,
+         и нестрогий поиск по подписи «Позиция» цепляет их вместе с полем
+         выбора — три узла на одно имя. */
+      await page.getByLabel(texts.consumeItem, { exact: true }).selectOption(item);
+      await page.getByLabel(texts.consumeQty, { exact: true }).fill(String(qty));
       await page.getByRole('button', { name: texts.consumeSubmit }).click();
       await expect(page.getByText(texts.consumeDone)).toBeVisible();
     }
@@ -272,12 +303,16 @@ test('🔴 монтажник закрывает наряд с телефона,
       ),
     });
 
-    await expect(page.getByAltText(texts.photoAlt(PHOTO_STAGE_TITLE.after, 1))).toBeVisible();
+    /* Тот же холодный старт, что у статуса: обработчик `/photos` собирается по
+       первому обращению, и список снимков обновляется после ответа. */
+    await expect(page.getByAltText(texts.photoAlt(PHOTO_STAGE_TITLE.after, 1))).toBeVisible({
+      timeout: 30_000,
+    });
 
     // ——— Закрыть наряд
     await page.getByRole('tab', { name: ORDER_CARD_TAB_TITLE.job }).click();
     await page.getByLabel(texts.statusTitle).selectOption(ORDER_STATUS_TITLE.done);
-    await expect(page.getByText(texts.statusSaved)).toBeVisible();
+    await expect(statusSaved).toBeVisible({ timeout: 30_000 });
 
     // ——— 🔴 Проверка в базе, а не на экране
     const stored = await api.get(`/api/admin/orders/${fixture.orderId}`);
