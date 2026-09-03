@@ -12,7 +12,10 @@
      отличие от прямоугольника в сетке часов, где высота и есть длительность.
      Свёрнутая полоса пересчитывает свой предел от той же переменной, поэтому
      две строки остаются двумя строками, а не полутора. */
-  --cal-bar-row: 22px;
+
+  /* 🔴 24px — нижняя граница цели по WCAG 2.5.8 (issue #470): строка
+     полосы нажимается, а 22px делали её целью меньше минимума AA. */
+  --cal-bar-row: 24px;
 
   display: grid;
   gap: 4px;
@@ -70,6 +73,9 @@
   align-items: center;
   justify-content: center;
   min-width: 26px;
+
+  /* Цель не ниже 24px (WCAG 2.5.8, issue #470): было 20.8px по содержимому. */
+  min-height: 24px;
   border: 1px solid var(--line-ui);
   border-radius: var(--r-pill);
   background: var(--card);
