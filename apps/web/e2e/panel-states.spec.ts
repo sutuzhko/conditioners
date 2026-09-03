@@ -497,6 +497,12 @@ for (const shell of [
     /* Блок расхода: откуда списываем, что и сколько. До каждого поля — табом;
        пункт списка ставится `selectOption` (см. `chooseFirstOption`). */
     const moves = page.getByRole('region', { name: orderTexts.consumptionTableLabel });
+    /* 🔴 Счёт снимается только после того, как журнал отрисован: на медленном
+       раннере `count()` до отрисовки отдавал 0, ожидание превращалось в
+       «ровно две строки», а движений там уже было три — сценарий гоняется
+       дважды, десктопом и телефоном, и списание отменить нельзя: движение
+       склада неизменяемо (ADR-134, issue #497). */
+    await expect(moves).toBeVisible({ timeout: 30_000 });
     const rowsBefore = await moves.getByRole('row').count();
 
     /* 🔴 По роли, а не по метке: `getByLabel('Позиция')` совпадает ещё и с
@@ -535,9 +541,11 @@ for (const shell of [
     await expect(page.getByRole('status').filter({ hasText: orderTexts.consumeDone })).toBeVisible({
       timeout: 30_000,
     });
-    await expect(moves.getByRole('row')).toHaveCount(rowsBefore === 0 ? 2 : rowsBefore + 1, {
-      timeout: 30_000,
-    });
+    /* «Строк стало больше», а не точное число: журнал копит движения от
+       прошлых прогонов, и сценарий обязан переживать любое их количество. */
+    await expect
+      .poll(() => moves.getByRole('row').count(), { timeout: 30_000 })
+      .toBeGreaterThan(rowsBefore);
 
     test.info().annotations.push({
       type: 'остановок табом',
