@@ -4,14 +4,12 @@ import type { ButtonLinkHref } from '@/shared/ui';
 /**
  * Что витрине нужно от статьи.
  *
- * Не весь `Article`: `body` и SEO-поля листингу не нужны, а `published`
- * — дело страницы, она и отбирает опубликованные (docs/ORCHESTRATION.md,
- * «Блок не ходит в базу»).
+ * 🔴 Тип приходит из сущности, а не описывается здесь заново: тот же набор
+ * полей рисует карточка тизера на главной, и пока копий `Pick` было две, они
+ * расходились молча. Реэкспорт нужен, чтобы у блока остался свой публичный
+ * API — страница берёт тип отсюда, а не лезет в сущность через голову.
  */
-export type ArticleTeaser = Pick<
-  Article,
-  'id' | 'slug' | 'title' | 'category' | 'date' | 'minutes' | 'excerpt' | 'cover'
->;
+export type { ArticleTeaser } from '@/entities/article/model';
 
 /**
  * Статья целиком. `body` приходит текстом в мини-формате (PROJECT §2.7), а не

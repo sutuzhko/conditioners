@@ -1,17 +1,23 @@
-/* Тизер Базы знаний. Фон секции, ритм и размеры — из docs/PIXEL_SPEC.md
-   («БАЗА ЗНАНИЙ»: var(--bg-soft), 88px 24px, H2 38px, 13 / 38 / 16.5 / 15).
-   Деградация сеток — docs/DESIGN_BRIEF.md §6. */
+/* Тизер Базы знаний. Полоса на `--bg-soft` с границами: край полосы обязан
+   читаться, иначе двойной зазор вокруг неё выглядит разрывом ритма.
 
-/* Границы с обеих сторон и видимым цветом — по той же причине, что у полосы
-   каталога: край полосы обязан читаться, иначе двойной зазор вокруг неё
-   выглядит разрывом ритма. */
+   🔴 Секция ужата под норму «не выше 750px на 375» (issue #279): три карточки
+   с обложкой во всю ширину давали 1 735px. Карточек стало две, обложка на
+   телефоне ушла, ссылка на листинг переехала под сетку. */
+
 .section {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background: var(--bg-soft);
 }
 
+/* Сетка, а не поток: на широкой ширине ссылка «Все статьи» уезжает из-под
+   карточек в правый верхний угол, и переносится при этом место, а не
+   порядок чтения в разметке. */
 .container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(16px, 0.68rem + 0.8vw, 24px);
   box-sizing: border-box;
   max-width: var(--container);
   margin: 0 auto;
@@ -19,20 +25,11 @@
 }
 
 .head {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 44px;
-}
-
-.intro {
   max-width: 620px;
 }
 
 .kicker {
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   color: var(--accent-text);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
@@ -52,7 +49,7 @@
 .lead {
   margin: 0;
   color: var(--muted);
-  font-size: 16.5px;
+  font-size: var(--fs-base);
 }
 
 .all {
@@ -60,9 +57,10 @@
   gap: 8px;
   align-items: center;
   box-sizing: border-box;
+  justify-self: start;
   min-height: var(--tap);
   padding: 10px 12px;
-  margin-right: -12px;
+  margin-left: -12px;
   border-radius: var(--r-sm);
   color: var(--accent-text);
   font-size: var(--fs-base);
@@ -80,24 +78,14 @@
   box-shadow: var(--ring-focus-ring);
 }
 
-/* Ряд, а не грид: число статей задаёт владелец, и при жёсткой сетке остаток
-   от деления оставлял бы последний ряд полупустым — карточка одна у левого
-   края выглядит как незагрузившийся блок. Здесь последний ряд центрируется,
-   а `max-width` не даёт одинокой карточке растянуться на всю полосу. */
+/* Зазор сетки карточек — непрерывная функция ширины (issue #279). */
 .grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(12px, 0.5rem + 0.6vw, 16px);
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.grid > li {
-  flex: 1 1 300px;
-  min-width: 0;
-  max-width: 380px;
 }
 
 .empty {
@@ -119,23 +107,37 @@
   font-size: var(--fs-base);
 }
 
-@media (width < 900px) {
-  .head {
-    margin-bottom: 28px;
-  }
-}
-
-@media (width < 600px) {
-  .container {
-    padding-right: 16px;
-    padding-left: 16px;
+@media (width >= 600px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .lead {
-    font-size: var(--fs-base);
+    font-size: 16.5px;
+  }
+}
+
+@media (width >= 900px) {
+  .container {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 28px clamp(16px, 0.8rem + 1.4vw, 32px);
   }
 
-  .grid {
-    gap: 16px;
+  .head {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .all {
+    grid-column: 2;
+    grid-row: 1;
+    place-self: end end;
+    margin-right: -12px;
+    margin-left: 0;
+  }
+
+  .grid,
+  .empty {
+    grid-column: 1 / -1;
   }
 }

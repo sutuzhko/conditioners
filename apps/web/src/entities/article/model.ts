@@ -25,6 +25,19 @@ export const articleSchema = z.object({
 
 export type Article = z.infer<typeof articleSchema>;
 
+/**
+ * Что витрине нужно от статьи: карточка в тизере на главной и карточка в
+ * листинге `/knowledge` рисуют один и тот же набор полей.
+ *
+ * Тип живёт здесь, а не в двух виджетах: правило слоёв запрещает связи вбок,
+ * и пока каждый описывал набор сам, две копии `Pick` расходились молча.
+ * `body`, `published` и SEO-поля витрине не нужны — их читает страница статьи.
+ */
+export type ArticleTeaser = Pick<
+  Article,
+  'id' | 'slug' | 'title' | 'category' | 'date' | 'minutes' | 'excerpt' | 'cover'
+>;
+
 const optionalText = z.string().trim().max(300).nullable().default(null);
 
 /**

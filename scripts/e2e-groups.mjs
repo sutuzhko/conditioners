@@ -42,7 +42,7 @@ export const E2E_DIR = join(ROOT, 'apps/web/e2e');
  */
 export const GROUPS = Object.freeze({
   /** Публичный сайт: дымовые сценарии и реквизиты компании в футере и политике. */
-  site: ['smoke', 'company-legal'],
+  site: ['smoke', 'company-legal', 'knowledge'],
   /** Оболочка панели: навигация по всем разделам на четырёх ширинах, клавиатура. */
   shell: ['admin-shell'],
   /** Панель: состояния блоков данных и раскладка разделов по ширинам. */

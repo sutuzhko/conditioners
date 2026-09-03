@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 
+import { articleLabels as card } from '@/entities/article/ui';
+
 import { KnowledgeTeaser } from './KnowledgeTeaser';
 import { knowledgeContent as t } from './content';
 import {
@@ -11,6 +13,9 @@ import {
 } from './fixtures';
 import type { ArticleTeaser } from './model';
 
+/** Сколько карточек тизер показывает на любой ширине (issue #279). */
+const SHOWN = 2;
+
 function renderSection(articles?: readonly ArticleTeaser[]) {
   return render(
     <KnowledgeTeaser
@@ -19,6 +24,14 @@ function renderSection(articles?: readonly ArticleTeaser[]) {
       allHref={allHrefFixture}
     />,
   );
+}
+
+/**
+ * Ярлык рубрики. Ту же строку несёт плашка на месте обложки, но она скрыта от
+ * читалки — по этому признаку ярлык и отличается от неё (ADR-127).
+ */
+function categoryBadge(category: string): HTMLElement {
+  return screen.getByText(category, { ignore: '[aria-hidden="true"]' });
 }
 
 describe('Тизер Базы знаний', () => {
@@ -41,20 +54,18 @@ describe('Тизер Базы знаний', () => {
     renderSection(articlesFixture);
 
     const list = screen.getByRole('list', { name: t.listLabel });
-    expect(within(list).getAllByRole('listitem')).toHaveLength(articlesFixture.length);
+    expect(within(list).getAllByRole('listitem')).toHaveLength(SHOWN);
 
     const [first] = articlesFixture;
     expect(first).toBeDefined();
     if (first === undefined) return;
 
-    // рубрика стоит и бейджем, и подписью плашки на месте обложки (ADR-127):
-    // читалке её называет только бейдж
-    expect(
-      screen.getByText(first.category, { ignore: '[aria-hidden="true"]' }),
-    ).toBeInTheDocument();
+    expect(categoryBadge(first.category)).toBeInTheDocument();
+    // подпись рубрики для читалки — иначе голосом ярлык звучит как обрывок
+    expect(screen.getAllByText(card.categoryLabel)).toHaveLength(SHOWN);
     expect(screen.getByText(first.excerpt)).toBeInTheDocument();
     expect(screen.getByText('14 июня 2026')).toBeInTheDocument();
-    expect(screen.getByText(t.minutesLabel(first.minutes))).toBeInTheDocument();
+    expect(screen.getByText(card.minutesLabel(first.minutes))).toBeInTheDocument();
   });
 
   it('заголовок статьи — ссылка на её страницу по слагу', () => {
@@ -80,7 +91,7 @@ describe('Тизер Базы знаний', () => {
 
   it('🔴 без обложки её место занимает плашка с рубрикой, а не пустота (ADR-127)', () => {
     const { rerender } = renderSection([articleWithCoverFixture]);
-    expect(screen.getByAltText(t.coverAlt(articleWithCoverFixture.title))).toBeInTheDocument();
+    expect(screen.getByAltText(card.coverAlt(articleWithCoverFixture.title))).toBeInTheDocument();
 
     rerender(
       <KnowledgeTeaser
@@ -91,18 +102,11 @@ describe('Тизер Базы знаний', () => {
     );
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
 
-    // рубрика видна дважды: бейджем в теле карточки и подписью плашки
     const [first] = articlesFixture;
     if (first === undefined) throw new Error('фикстура пуста');
+    // плашка несёт ту же рубрику, что и ярлык, но от читалки скрыта
     expect(screen.getAllByText(first.category)).toHaveLength(2);
-  });
-
-  it('плашка скрыта от читалки: рубрику она уже озвучила бейджем', () => {
-    renderSection(articlesFixture);
-
-    const [first] = articlesFixture;
-    if (first === undefined) throw new Error('фикстура пуста');
-    expect(screen.getAllByText(first.category, { ignore: '[aria-hidden="true"]' })).toHaveLength(1);
+    expect(categoryBadge(first.category)).toBeInTheDocument();
   });
 
   it('у секции один заголовок второго уровня — h1 принадлежит странице', () => {
@@ -110,10 +114,10 @@ describe('Тизер Базы знаний', () => {
 
     expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument();
     expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1);
-    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(articlesFixture.length);
+    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(SHOWN);
   });
 
-  it('тизер краткий: длинный список обрезается, за остальным — ссылка на листинг', () => {
+  it('🔴 тизер краткий: показаны две статьи, за остальным — ссылка на листинг', () => {
     const many = Array.from({ length: 7 }, (_, index) => {
       const source = articlesFixture[index % articlesFixture.length];
       if (source === undefined) throw new Error('фикстура статей пуста');
@@ -123,7 +127,16 @@ describe('Тизер Базы знаний', () => {
     renderSection(many);
 
     const list = screen.getByRole('list', { name: t.listLabel });
-    expect(within(list).getAllByRole('listitem')).toHaveLength(3);
+    expect(within(list).getAllByRole('listitem')).toHaveLength(SHOWN);
     expect(screen.getByRole('link', { name: t.allLink })).toBeInTheDocument();
+  });
+
+  it('🔴 карточка — одна ссылка: вложенных в неё ссылок нет', () => {
+    renderSection(articlesFixture);
+
+    const list = screen.getByRole('list', { name: t.listLabel });
+    for (const item of within(list).getAllByRole('listitem')) {
+      expect(within(item).getAllByRole('link')).toHaveLength(1);
+    }
   });
 });

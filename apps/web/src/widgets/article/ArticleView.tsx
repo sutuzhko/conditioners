@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import { parseArticleBody } from '@/entities/article/lib/parseArticleBody';
+import { articleLabels as labels } from '@/entities/article/ui';
 import { Icon, Badge, ButtonLink } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { formatDate, formatDateIso } from '@/shared/lib/format';
@@ -88,15 +89,15 @@ export function ArticleView({
         <p className={styles.meta}>
           {category === '' ? null : (
             <Badge variant="accent" size="sm" mono>
-              <span className="srOnly">{t.categoryLabel} </span>
+              <span className="srOnly">{labels.categoryLabel} </span>
               {category}
             </Badge>
           )}
           <span className={styles.dates}>
-            <span className="srOnly">{t.dateLabel} </span>
+            <span className="srOnly">{labels.dateLabel} </span>
             <time dateTime={formatDateIso(article.date)}>{formatDate(article.date)}</time>
             <span aria-hidden="true"> · </span>
-            <span>{t.minutesLabel(article.minutes)}</span>
+            <span>{labels.minutesLabel(article.minutes)}</span>
           </span>
         </p>
 
@@ -108,7 +109,7 @@ export function ArticleView({
         <Image
           className={styles.cover}
           src={cover}
-          alt={t.coverAlt(article.title)}
+          alt={labels.coverAlt(article.title)}
           width={COVER_WIDTH}
           height={COVER_HEIGHT}
           sizes={COVER_SIZES}
@@ -116,9 +117,19 @@ export function ArticleView({
         />
       )}
 
-      {headings.length < MIN_TOC_HEADINGS ? null : <ArticleToc headings={headings} />}
+      {/* 🔴 Оглавление и текст лежат в одной сетке: с 900 оглавление
+          становится липкой боковой колонкой слева, ниже — остаётся обычным
+          блоком над текстом, где оно и стояло. Порядок в разметке один на
+          все ширины, переезжает только место (issue #280). */}
+      <div className={styles.layout}>
+        {headings.length < MIN_TOC_HEADINGS ? null : (
+          <div className={styles.toc}>
+            <ArticleToc headings={headings} />
+          </div>
+        )}
 
-      <ArticleBody blocks={blocks} />
+        <ArticleBody blocks={blocks} className={styles.text} />
+      </div>
 
       <aside className={styles.cta}>
         <div className={styles.ctaText}>
