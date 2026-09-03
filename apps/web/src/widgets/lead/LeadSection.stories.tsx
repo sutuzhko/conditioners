@@ -1,4 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect, userEvent, within } from 'storybook/test';
+
+import { leadFormContent } from '@/features/lead-form';
 
 import { LeadSection } from './LeadSection';
 import { modelsFixture, phoneFixture, policyHrefFixture, responseTimeFixture } from './fixtures';
@@ -56,6 +59,21 @@ export const WithSubject: Story = {
       appDirectory: true,
       navigation: { pathname: '/', query: { model: modelsFixture[0].slug, topic: 'install' } },
     },
+  },
+};
+
+/**
+ * 🔴 Необязательные поля свёрнуты по умолчанию (issue #276): открытая анкета
+ * из девяти полей отпугивает раньше, чем человек дойдёт до кнопки. История
+ * показывает раскрытое состояние — восемь полей, которые экономят звонок.
+ */
+export const ExtrasOpen: Story = {
+  name: 'Раскрывашка открыта',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await userEvent.click(await canvas.findByText(leadFormContent.extrasLabel));
+    await expect(canvas.getByLabelText(leadFormContent.addressLabel)).toBeVisible();
   },
 };
 
