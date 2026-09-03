@@ -7,7 +7,7 @@ import { ButtonLink, Card, EmptyState } from '@/shared/ui';
 import { ReviewCardView } from './ReviewCardView';
 import { reviewModerationContent as texts } from './content';
 import { reviewApi } from './lib';
-import type { ReviewCard } from './model';
+import { reviewsHref, type ReviewCard } from './model';
 import styles from './ReviewList.module.css';
 
 export interface ReviewListProps {
@@ -29,7 +29,9 @@ export function ReviewList({ reviews, filtered = false }: ReviewListProps) {
             icon="search"
             title={texts.emptyFiltered}
             action={
-              <ButtonLink href="/admin/reviews" size="sm" variant="bordered">
+              /* Сброс ведёт на «Все», а не в раздел: раздел без параметра —
+                 это «На модерации», то есть снова фильтр (issue #340). */
+              <ButtonLink href={reviewsHref('all')} size="sm" variant="bordered">
                 {texts.emptyFilteredAction}
               </ButtonLink>
             }
