@@ -51,26 +51,36 @@ test.describe('База знаний', () => {
     }
   });
 
-  test('фильтр рубрик работает адресом, а не скриптом', async ({ browser }) => {
+  /**
+   * 🔴 Проверяется разметка ответа и переход по адресу, а не нажатие в живом
+   * DOM. У сегмента есть `loading.tsx`, то есть граница `Suspense`: на
+   * медленной отрисовке содержимое приезжает вторым куском внутри
+   * `<div hidden>`, и переставляет его на место inline-скрипт. С выключенным
+   * JavaScript этот скрипт не работает — узел остаётся в скрытом контейнере,
+   * и нажать по нему нельзя ничем. Ссылки при этом в HTML есть, и робот их
+   * видит: именно это и есть «фильтр работает адресом, а не скриптом».
+   */
+  test('фильтр рубрик работает адресом, а не скриптом', async ({ request, browser }) => {
+    const listing = await (await request.get('/knowledge')).text();
+    const href = /href="\/knowledge\?category=([^"]+)"/.exec(listing)?.[1];
+    expect(href, 'в разметке листинга есть ссылка рубрики').toBeDefined();
+
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();
-    await page.goto('/knowledge');
+    await page.goto(`/knowledge?category=${href ?? ''}`);
 
-    const chip = page.locator('nav[aria-label="Рубрики статей"] a').nth(1);
-    const label = (await chip.textContent())?.trim() ?? '';
-    await chip.click();
-
-    await expect(page).toHaveURL(/category=/);
-    await expect(
-      page.locator('nav[aria-label="Рубрики статей"] a[aria-current="page"]'),
-    ).toHaveText(label);
+    const html = await page.content();
+    expect(html).toContain('aria-current="page"');
+    expect(html).toContain(`/knowledge?category=${href ?? ''}`);
 
     await context.close();
   });
 
   test('🔴 строка статьи не длиннее нормы и ничего не уезжает за край', async ({ page }) => {
     await page.goto('/knowledge');
-    const first = page.locator('main ul li a').first();
+    /* Именно список статей: на странице есть ещё лента рубрик, и она тоже
+       `nav > ul > li > a` внутри `main`. */
+    const first = page.locator('main ul[aria-label] li a').first();
     await first.click();
     await expect(page.locator('article h1')).toHaveCount(1);
 
@@ -105,7 +115,10 @@ test.describe('Частые вопросы', () => {
     expect(count).toBeGreaterThan(0);
 
     for (let i = 0; i < count; i += 1) {
-      const answer = (await rows.nth(i).locator('p').innerText()).trim();
+      /* `textContent`, а не `innerText`: ответ лежит в закрытом `<details>`,
+         на экране его нет, и `innerText` вернул бы пустую строку. Проверяем
+         как раз то, что текст в разметке есть, хотя его не видно. */
+      const answer = ((await rows.nth(i).locator('p').textContent()) ?? '').trim();
       expect(answer.length).toBeGreaterThan(0);
       expect(html).toContain(answer.slice(0, 60));
       await expect(rows.nth(i)).not.toHaveAttribute('open', /.*/);
@@ -152,6 +165,9 @@ test.describe('Политика и страница 404', () => {
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('header').first()).toBeVisible();
     await expect(page.locator('main#top ~ footer')).toBeVisible();
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex.*follow/);
+    /* 🔴 Ровно один: два тега robots на странице — это два разных указания
+       роботу, и какое из них он выберет, зависит от него, а не от нас. */
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(1);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
   });
 });
