@@ -45,7 +45,7 @@
     "typescript": "^5.7.2"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
+    "*.{ts,tsx,mjs}": [
       "eslint --max-warnings 0",
       "prettier --check"
     ],
