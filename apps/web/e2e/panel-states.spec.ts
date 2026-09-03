@@ -28,8 +28,13 @@ test.skip(({ isMobile }) => isMobile === true, 'ширины задаёт сам
 
 const LEADS = '/admin/leads';
 
-/** Маркер куска потока, несущего список заявок (`data-block` на обёртке блока). */
-const LEADS_CHUNK = '"data-block":"leads"';
+/**
+ * Маркер обёртки блока заявок в двух видах — их два, и путать их нельзя.
+ * В RSC-потоке разметка приезжает JSON-строкой (`"data-block":"leads"`), в
+ * документе — обычным атрибутом (`data-block="leads"`).
+ */
+const LEADS_FLIGHT = '"data-block":"leads"';
+const LEADS_HTML = 'data-block="leads"';
 
 /** Гидратация: до неё клик уходит обычным переходом, а не по роутеру (HANDOFF). */
 async function settled(page: Page): Promise<void> {
@@ -72,33 +77,38 @@ async function dropChunk(route: Route, marker: string): Promise<void> {
 }
 
 /**
- * Документ обрывается после последнего куска со скелетоном (`aria-busy`), а
- * скрипты не грузятся: на экране остаётся серверный скелетон блока ровно в
- * той геометрии, в какой его видит человек до прихода данных.
+ * Документ обрывается перед куском, который несёт данные блока, а скрипты не
+ * грузятся: на экране остаётся серверный скелетон ровно в той геометрии, в
+ * какой его видит человек до прихода данных.
  *
- * Потоковый HTML кладёт содержимое границ `Suspense` в `<div hidden id="S:n">`
- * и подменяет ими заглушки скриптом `$RC("B:n","S:n")`; кусок раздела со
- * скелетоном блока — последний, где есть `aria-busy`.
+ * Потоковый HTML кладёт содержимое каждой границы `Suspense` в
+ * `<div hidden id="S:n">` и подменяет им заглушку скриптом `$RC("B:n","S:n")`.
+ * 🔴 Резать по куску с данными, а не по куску со скелетоном: где именно React
+ * положит скелетон — в общую оболочку, в кусок страницы или в свой кусок —
+ * зависит от того, что успело отрендериться к первому сбросу, и на холодной
+ * сборке в CI раскладка кусков другая, чем на прогретом сервере. Кусок с
+ * данными опознаётся однозначно — по маркеру `data-block` на обёртке блока, —
+ * и он всегда последний: до него на экране скелетон, чем бы он ни был
+ * доставлен. Прежний вариант резал по последнему куску с `aria-busy`, и в CI
+ * скелетон оставался в скрытом куске: тест видел его `hidden`.
  */
-function cutAfterSkeleton(html: string): string {
-  let keepTo = -1;
-
-  for (const swap of html.matchAll(/\$RC\("B:(\d+)","S:(\d+)"\)/g)) {
-    const open = html.indexOf(`<div hidden id="S:${swap[2]}">`);
-    if (open < 0 || swap.index === undefined || open > swap.index) continue;
-
-    if (html.slice(open, swap.index).includes('aria-busy="true"')) {
-      keepTo = html.indexOf('</script>', swap.index) + '</script>'.length;
-    }
+function cutBeforeData(html: string, marker: string): string {
+  const data = html.indexOf(marker);
+  if (data < 0) {
+    throw new Error(`В документе нет куска с данными блока (${marker}) — резать не по чему`);
   }
 
-  if (keepTo > 0) return html.slice(0, keepTo);
+  const chunk = html.lastIndexOf('<div hidden id="S:', data);
+  if (chunk > 0) return html.slice(0, chunk);
 
+  /* Кусок с данными в отдельный сброс не выделен — значит блок отрисовался
+     разом со страницей, и состояния загрузки в этом ответе нет вовсе. */
   const first = html.indexOf('<div hidden id="S:');
-  return first > 0 ? html.slice(0, first) : html;
+  if (first < 0) throw new Error('Ответ пришёл без потоковых кусков: скелетона в нём нет');
+  return html.slice(0, first);
 }
 
-async function keepSkeletonOnly(page: Page, pathname: string): Promise<void> {
+async function keepSkeletonOnly(page: Page, pathname: string, marker: string): Promise<void> {
   await page.route(
     (url) => url.pathname.endsWith('.js'),
     (route) => route.abort(),
@@ -109,7 +119,7 @@ async function keepSkeletonOnly(page: Page, pathname: string): Promise<void> {
       if (route.request().resourceType() !== 'document') return route.continue();
 
       const response = await route.fetch();
-      const body = cutAfterSkeleton((await response.body()).toString('utf8'));
+      const body = cutBeforeData((await response.body()).toString('utf8'), marker);
       await route.fulfill({
         response,
         body,
@@ -141,18 +151,19 @@ test.describe('состояния блока данных', () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await loginViaUi(page);
 
-    /* Скелетон: сервер отдаёт его первым куском, до списка. */
-    await keepSkeletonOnly(page, LEADS);
+    /* Скелетон: сервер отдаёт его до списка. Ищем видимый узел, а не первый
+       попавшийся — те же заготовки лежат и в скрытых кусках потока. */
+    await keepSkeletonOnly(page, LEADS, LEADS_HTML);
     await page.goto(LEADS);
 
-    await expect(page.locator('main [aria-busy="true"]').first()).toBeVisible();
+    await expect(page.locator('main [aria-busy="true"]:visible').first()).toBeVisible();
     await expect(page.getByRole('navigation', { name: leadTexts.filterLabel })).toBeVisible();
     await page.unrouteAll();
 
     /* Ошибка блока: переход на заявки, поток обрывается на куске списка. */
     await page.goto('/admin');
     await settled(page);
-    await page.route(isRscOf(LEADS), (route) => dropChunk(route, LEADS_CHUNK));
+    await page.route(isRscOf(LEADS), (route) => dropChunk(route, LEADS_FLIGHT));
 
     const column = page.locator('aside');
     await column.getByRole('link', { name: 'Заявки' }).click();
@@ -258,9 +269,9 @@ test.describe('состояния блока данных', () => {
     const tops: Record<string, number> = {};
 
     /* Загрузка: серверный скелетон блока. */
-    await keepSkeletonOnly(page, LEADS);
+    await keepSkeletonOnly(page, LEADS, LEADS_HTML);
     await page.goto(LEADS);
-    await expect(page.locator('main [aria-busy="true"]').first()).toBeVisible();
+    await expect(page.locator('main [aria-busy="true"]:visible').first()).toBeVisible();
     tops['загрузка'] = await blockTop(page);
     await page.unrouteAll();
 
@@ -288,7 +299,7 @@ test.describe('состояния блока данных', () => {
     /* Ошибка: поток обрывается на куске списка. */
     await page.goto('/admin');
     await settled(page);
-    await page.route(isRscOf(LEADS), (route) => dropChunk(route, LEADS_CHUNK));
+    await page.route(isRscOf(LEADS), (route) => dropChunk(route, LEADS_FLIGHT));
     await page.locator('aside').getByRole('link', { name: 'Заявки' }).click();
     await expect(page.locator('main').getByRole('alert')).toBeVisible();
     tops['ошибка'] = await blockTop(page);
@@ -458,7 +469,15 @@ async function chooseFirstOption(page: Page): Promise<void> {
     return option === undefined ? '' : option.value;
   });
   expect(first, 'в списке есть пункт, который можно выбрать').not.toBe('');
-  await active.selectOption(first);
+
+  /* 🔴 Выбор повторяется, пока значение не удержалось. Список управляемый, и
+     выбор, сделанный до гидратации, React откатывает молча: в CI холодная
+     сборка карточки наряда идёт секунды, зона оставалась пустой, форма
+     отвечала «Выберите, откуда списываем», и падало не списание, а сценарий. */
+  await expect(async () => {
+    await active.selectOption(first);
+    await expect(active).toHaveValue(first, { timeout: 2_000 });
+  }).toPass({ timeout: 30_000 });
 }
 
 /**
