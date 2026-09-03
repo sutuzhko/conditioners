@@ -31,6 +31,12 @@ export const Filled: Story = {
   args: { installFrom: installFromFixture, warranty: warrantyFixture },
 };
 
+/** Раскрытая строка: знак становится минусом, ответ отделён линией. */
+export const Opened: Story = {
+  name: 'Вопрос раскрыт',
+  args: { installFrom: installFromFixture, warranty: warrantyFixture, openId: 'price' },
+};
+
 export const Placeholders: Story = {
   name: 'Гарантия ещё заглушка',
   args: { installFrom: installFromFixture, warranty: warrantyPlaceholder },
