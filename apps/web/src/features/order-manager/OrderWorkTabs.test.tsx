@@ -37,6 +37,36 @@ beforeEach(() => {
 });
 
 describe('Вкладки наряда', () => {
+  it('🔴 стрелки открывают вкладку, но истории не копят', async () => {
+    /* Проход по трём вкладкам стрелками не должен оставлять три записи: иначе
+       «назад» выводит из карточки по одному нажатию клавиши. */
+    const push = vi.spyOn(window.history, 'pushState');
+    const replace = vi.spyOn(window.history, 'replaceState');
+    renderTabs();
+
+    await userEvent.tab();
+    await userEvent.keyboard('{ArrowRight}{ArrowRight}');
+
+    expect(push).not.toHaveBeenCalled();
+    expect(replace).toHaveBeenCalledTimes(2);
+    expect(url()).toBe(`${CARD_PATH}?tab=documents`);
+
+    push.mockRestore();
+    replace.mockRestore();
+  });
+
+  it('🔴 нажатие по вкладке кладёт запись в историю', async () => {
+    const push = vi.spyOn(window.history, 'pushState');
+    renderTabs();
+
+    await userEvent.click(screen.getByRole('tab', { name: ORDER_CARD_TAB_TITLE.documents }));
+
+    expect(push).toHaveBeenCalledTimes(1);
+    expect(url()).toBe(`${CARD_PATH}?tab=documents`);
+
+    push.mockRestore();
+  });
+
   it('три собранных вкладки из разбора прототипа, открыт наряд', () => {
     renderTabs();
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useRef, type KeyboardEvent, type ReactNode } from 'react';
 
 import { ORDER_CARD_TAB_TITLE, orderManagerContent as texts } from './content';
@@ -41,7 +41,6 @@ export interface OrderWorkTabsProps {
  * End — к краям.
  */
 export function OrderWorkTabs({ active, job, checklist, documents }: OrderWorkTabsProps) {
-  const pathname = usePathname();
   const params = useSearchParams();
   const tabsRef = useRef<Map<OrderCardTab, HTMLButtonElement>>(new Map());
 
@@ -50,15 +49,28 @@ export function OrderWorkTabs({ active, job, checklist, documents }: OrderWorkTa
      вкладку, с которой карточку открыли. */
   const current = params.has('tab') ? orderCardTabFromParam(params.get('tab')) : active;
 
-  const select = (tab: OrderCardTab): void => {
-    const next = new URLSearchParams(params.toString());
-    next.set('tab', tab);
+  /* 🔴 Адрес строится из текущего, а не из `usePathname` с параметрами: в
+     витрине путь роутера подменён на «/», и переключение вкладки внутри
+     истории переписало бы адрес кадра, потеряв `id` и `viewMode`. Здесь
+     меняется ровно один параметр того адреса, который открыт. */
+  const write = (tab: OrderCardTab, mode: 'push' | 'replace'): void => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('tab', tab);
 
-    window.history.pushState(null, '', `${pathname}?${next.toString()}`);
+    if (mode === 'push') window.history.pushState(null, '', url);
+    else window.history.replaceState(null, '', url);
   };
 
+  const select = (tab: OrderCardTab): void => {
+    write(tab, 'push');
+  };
+
+  /* 🔴 Стрелки водят фокус и открывают вкладку, но записи в историю не
+     оставляют. Иначе проход Наряд → Чеклист → Документы кладёт туда три
+     записи, и «назад» после этого выводит из карточки по одному нажатию
+     клавиши — ровно то, от чего избавляет issue #342. */
   const focus = (tab: OrderCardTab): void => {
-    select(tab);
+    write(tab, 'replace');
     tabsRef.current.get(tab)?.focus();
   };
 
