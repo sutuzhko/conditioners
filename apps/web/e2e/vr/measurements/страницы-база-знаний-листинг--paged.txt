@@ -1,15 +1,15 @@
-# страницы-база-знаний-листинг--with-articles · ширины 320 375 768 1200 · темы light dark
+# страницы-база-знаний-листинг--paged · ширины 320 375 768 1200 · темы light dark
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 600, Onest 700
 
 [документ]
-320 → 320×1004
-375 → 375×969
-768 → 768×900
-1200 → 1200×915
+320 → 320×1545
+375 → 375×1438
+768 → 768×1131
+1200 → 1200×1460
 
 [геометрия 320]
-section.ArticleList__section  320×980 @0,0
-  div.ArticleList__container  320×980 @0,0
+section.ArticleList__section  320×1545 @0,0
+  div.ArticleList__container  320×1545 @0,0
     header.ArticleList__head  288×204 @16,48
       p.ArticleList__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
       h1.ArticleList__title  288×65 @0,32  Onest 700 30/32  ls-1  lines=2  «Разбираемся в кондиционерах»
@@ -20,7 +20,7 @@ section.ArticleList__section  320×980 @0,0
         a.ArticleList__tab#2  84×44 @90,6  Manrope 600 15/17  r100  b1  lines=1  «Выбор»
         a.ArticleList__tab#3  94×44 @184,6  Manrope 600 15/17  r100  b1  lines=1  «Монтаж»
         a.ArticleList__tab#4  72×44 @288,6  Manrope 600 15/17  r100  b1  lines=1  «Уход»
-    ul.ArticleList__grid  288×644 @16,336
+    ul.ArticleList__grid  288×1081 @16,336
       li.Card__card  288×207 @0,0  r20  b1
         div.ArticleCard__body  286×205 @1,1
           span.Badge__badge  61×24 @14,14  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
@@ -57,11 +57,39 @@ section.ArticleList__section  320×980 @0,0
             time  79×16 @0,1  JetBrains Mono 400 12/19  lines=1  «12 мая 2026»
             span#2  22×16 @79,1  JetBrains Mono 400 12/19  lines=1  «·»
             span#3  86×16 @101,1  JetBrains Mono 400 12/19  lines=1  «5 мин чтения»
-    div.ArticleList__pager  288×0 @16,1004
+      li.Card__card#4  288×207 @0,656  r20  b1
+        div.ArticleCard__body  286×205 @1,1
+          span.Badge__badge#4  61×24 @14,14  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
+            span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+          h2.ArticleCard__title#4  258×66 @14,46
+            a.ArticleCard__link  254×65 @0,0  Onest 700 17/22  ls0  lines=3  «Как выбрать кондиционер для квартиры: пл»
+          p.ArticleCard__excerpt#4  258×44 @14,120  Manrope 400 15/22  lines=4  clipped  «Разбираем по шагам: сколько киловатт нуж»
+          p.ArticleCard__meta#4  258×19 @14,172
+            span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+            time  86×16 @0,1  JetBrains Mono 400 12/19  lines=1  «14 июня 2026»
+            span#2  22×16 @86,1  JetBrains Mono 400 12/19  lines=1  «·»
+            span#3  86×16 @108,1  JetBrains Mono 400 12/19  lines=1  «6 мин чтения»
+      li.Card__card#5  288×207 @0,874  r20  b1
+        div.ArticleCard__body  286×205 @1,1
+          span.Badge__badge#5  69×24 @14,14  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Монтаж»
+            span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+          h2.ArticleCard__title#5  258×66 @14,46
+            a.ArticleCard__link  251×65 @0,0  Onest 700 17/22  ls0  lines=3  «Как обманывают при установке кондиционер»
+          p.ArticleCard__excerpt#5  258×44 @14,120  Manrope 400 15/22  lines=3  clipped  «Дешёвая трасса, пропущенная вакуумация и»
+          p.ArticleCard__meta#5  258×19 @14,172
+            span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+            time  79×16 @0,1  JetBrains Mono 400 12/19  lines=1  «30 мая 2026»
+            span#2  22×16 @79,1  JetBrains Mono 400 12/19  lines=1  «·»
+            span#3  86×16 @101,1  JetBrains Mono 400 12/19  lines=1  «7 мин чтения»
+    div.ArticleList__pager  288×104 @16,1441
+      nav.Pager__pager  288×104 @0,0
+        a.Pager__step  88×44 @26,4  Manrope 600 15/17  r100  b1  lines=1  «← Новее»
+        span.Pager__position  139×44 @122,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
+        span.Pager__stepOff  99×44 @95,56  Manrope 600 15/17  r100  b1  lines=1  «Старше →»
 
 [геометрия 375]
-section.ArticleList__section  375×945 @0,0
-  div.ArticleList__container  375×945 @0,0
+section.ArticleList__section  375×1438 @0,0
+  div.ArticleList__container  375×1438 @0,0
     header.ArticleList__head  342×206 @17,51
       p.ArticleList__kicker  342×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
       h1.ArticleList__title  342×67 @0,32  Onest 700 31/34  ls-1  lines=2  «Разбираемся в кондиционерах»
@@ -72,7 +100,7 @@ section.ArticleList__section  375×945 @0,0
         a.ArticleList__tab#2  84×44 @90,6  Manrope 600 15/17  r100  b1  lines=1  «Выбор»
         a.ArticleList__tab#3  94×44 @184,6  Manrope 600 15/17  r100  b1  lines=1  «Монтаж»
         a.ArticleList__tab#4  72×44 @289,6  Manrope 600 15/17  r100  b1  lines=1  «Уход»
-    ul.ArticleList__grid  342×604 @17,341
+    ul.ArticleList__grid  342×1021 @17,341
       li.Card__card  342×208 @0,0  r20  b1
         div.ArticleCard__body  340×206 @1,1
           span.Badge__badge  61×24 @14,14  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
@@ -90,7 +118,7 @@ section.ArticleList__section  375×945 @0,0
           span.Badge__badge#2  69×24 @14,14  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Монтаж»
             span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
           h2.ArticleCard__title#2  312×45 @14,47
-            a.ArticleCard__link  262×44 @0,0  Onest 700 17/22  ls0  lines=2  «Как обманывают при установке кондиционер»
+            a.ArticleCard__link  293×44 @0,0  Onest 700 17/22  ls0  lines=2  «Как обманывают при установке кондиционер»
           p.ArticleCard__excerpt#2  312×44 @14,99  Manrope 400 15/22  lines=3  clipped  «Дешёвая трасса, пропущенная вакуумация и»
           p.ArticleCard__meta#2  312×19 @14,151
             span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
@@ -102,18 +130,46 @@ section.ArticleList__section  375×945 @0,0
           span.Badge__badge#3  53×24 @14,14  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Уход»
             span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
           h2.ArticleCard__title#3  312×45 @14,47
-            a.ArticleCard__link  262×44 @0,0  Onest 700 17/22  ls0  lines=2  «Уход за кондиционером: чистка фильтров и»
+            a.ArticleCard__link  301×44 @0,0  Onest 700 17/22  ls0  lines=2  «Уход за кондиционером: чистка фильтров и»
           p.ArticleCard__excerpt#3  312×44 @14,99  Manrope 400 15/22  lines=2  «Что можно сделать самому за десять минут»
           p.ArticleCard__meta#3  312×19 @14,151
             span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
             time  79×16 @0,1  JetBrains Mono 400 12/19  lines=1  «12 мая 2026»
             span#2  22×16 @79,1  JetBrains Mono 400 12/19  lines=1  «·»
             span#3  86×16 @101,1  JetBrains Mono 400 12/19  lines=1  «5 мин чтения»
-    div.ArticleList__pager  342×0 @17,969
+      li.Card__card#4  342×208 @0,616  r20  b1
+        div.ArticleCard__body  340×206 @1,1
+          span.Badge__badge#4  61×24 @14,14  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
+            span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+          h2.ArticleCard__title#4  312×67 @14,47
+            a.ArticleCard__link  256×67 @0,0  Onest 700 17/22  ls0  lines=3  «Как выбрать кондиционер для квартиры: пл»
+          p.ArticleCard__excerpt#4  312×44 @14,122  Manrope 400 15/22  lines=3  clipped  «Разбираем по шагам: сколько киловатт нуж»
+          p.ArticleCard__meta#4  312×19 @14,173
+            span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+            time  86×16 @0,1  JetBrains Mono 400 12/19  lines=1  «14 июня 2026»
+            span#2  22×16 @86,1  JetBrains Mono 400 12/19  lines=1  «·»
+            span#3  86×16 @108,1  JetBrains Mono 400 12/19  lines=1  «6 мин чтения»
+      li.Card__card#5  342×186 @0,836  r20  b1
+        div.ArticleCard__body  340×184 @1,1
+          span.Badge__badge#5  69×24 @14,14  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Монтаж»
+            span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+          h2.ArticleCard__title#5  312×45 @14,47
+            a.ArticleCard__link  297×44 @0,0  Onest 700 17/22  ls0  lines=2  «Как обманывают при установке кондиционер»
+          p.ArticleCard__excerpt#5  312×44 @14,99  Manrope 400 15/22  lines=3  clipped  «Дешёвая трасса, пропущенная вакуумация и»
+          p.ArticleCard__meta#5  312×19 @14,151
+            span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+            time  79×16 @0,1  JetBrains Mono 400 12/19  lines=1  «30 мая 2026»
+            span#2  22×16 @79,1  JetBrains Mono 400 12/19  lines=1  «·»
+            span#3  86×16 @101,1  JetBrains Mono 400 12/19  lines=1  «7 мин чтения»
+    div.ArticleList__pager  342×52 @17,1386
+      nav.Pager__pager  342×52 @0,0
+        a.Pager__step  88×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «← Новее»
+        span.Pager__position  139×44 @96,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
+        span.Pager__stepOff  99×44 @243,4  Manrope 600 15/17  r100  b1  lines=1  «Старше →»
 
 [геометрия 768]
-section.ArticleList__section  768×753 @0,0
-  div.ArticleList__container  768×753 @0,0
+section.ArticleList__section  768×1131 @0,0
+  div.ArticleList__container  768×1131 @0,0
     header.ArticleList__head  680×142 @20,68
       p.ArticleList__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
       h1.ArticleList__title  680×43 @0,32  Onest 700 40/43  ls-1  lines=1  «Разбираемся в кондиционерах»
@@ -124,7 +180,7 @@ section.ArticleList__section  768×753 @0,0
         a.ArticleList__tab#2  84×44 @94,6  Manrope 600 15/17  r100  b1  lines=1  «Выбор»
         a.ArticleList__tab#3  94×44 @188,6  Manrope 600 15/17  r100  b1  lines=1  «Монтаж»
         a.ArticleList__tab#4  72×44 @292,6  Manrope 600 15/17  r100  b1  lines=1  «Уход»
-    ul.ArticleList__grid  728×449 @20,304
+    ul.ArticleList__grid  728×748 @20,304
       li.Card__card  358×241 @0,0  r20  b1
         div.ArticleCard__body  356×239 @1,1
           span.Badge__badge  61×24 @16,16  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
@@ -151,23 +207,53 @@ section.ArticleList__section  768×753 @0,0
             time  79×16 @0,1  JetBrains Mono 400 12/19  lines=1  «30 мая 2026»
             span#2  22×16 @79,1  JetBrains Mono 400 12/19  lines=1  «·»
             span#3  86×16 @101,1  JetBrains Mono 400 12/19  lines=1  «7 мин чтения»
-      li.Card__card#3  358×196 @0,253  r20  b1
-        div.ArticleCard__body  356×194 @1,1
+      li.Card__card#3  358×241 @0,253  r20  b1
+        div.ArticleCard__body  356×239 @1,1
           span.Badge__badge#3  53×24 @16,16  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Уход»
             span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
           h2.ArticleCard__title#3  324×47 @16,50
-            a.ArticleCard__link  276×45 @0,0  Onest 700 18/23  ls0  lines=2  «Уход за кондиционером: чистка фильтров и»
-          p.ArticleCard__excerpt#3  324×44 @16,106  Manrope 400 15/22  lines=2  «Что можно сделать самому за десять минут»
-          p.ArticleCard__meta#3  324×19 @16,159
+            a.ArticleCard__link  317×45 @0,0  Onest 700 18/23  ls0  lines=2  «Уход за кондиционером: чистка фильтров и»
+          p.ArticleCard__excerpt#3  324×89 @16,106  Manrope 400 15/22  lines=2  «Что можно сделать самому за десять минут»
+          p.ArticleCard__meta#3  324×19 @16,204
             span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
             time  79×16 @0,1  JetBrains Mono 400 12/19  lines=1  «12 мая 2026»
             span#2  22×16 @79,1  JetBrains Mono 400 12/19  lines=1  «·»
             span#3  86×16 @101,1  JetBrains Mono 400 12/19  lines=1  «5 мин чтения»
-    div.ArticleList__pager  728×0 @20,781
+      li.Card__card#4  358×241 @370,253  r20  b1
+        div.ArticleCard__body  356×239 @1,1
+          span.Badge__badge#4  61×24 @16,16  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
+            span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+          h2.ArticleCard__title#4  324×70 @16,50
+            a.ArticleCard__link  269×69 @0,0  Onest 700 18/23  ls0  lines=3  «Как выбрать кондиционер для квартиры: пл»
+          p.ArticleCard__excerpt#4  324×65 @16,129  Manrope 400 15/22  lines=3  «Разбираем по шагам: сколько киловатт нуж»
+          p.ArticleCard__meta#4  324×19 @16,204
+            span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+            time  86×16 @0,1  JetBrains Mono 400 12/19  lines=1  «14 июня 2026»
+            span#2  22×16 @86,1  JetBrains Mono 400 12/19  lines=1  «·»
+            span#3  86×16 @108,1  JetBrains Mono 400 12/19  lines=1  «6 мин чтения»
+      li.Card__card#5  358×241 @0,507  r20  b1
+        div.ArticleCard__media  88×239 @1,1
+          img.ArticleCard__cover#2  88×239 @0,0
+        div.ArticleCard__body  268×239 @89,1
+          span.Badge__badge#5  69×24 @16,16  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Монтаж»
+            span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+          h2.ArticleCard__title#5  236×70 @16,50
+            a.ArticleCard__link  222×69 @0,0  Onest 700 18/23  ls0  lines=3  «Как обманывают при установке кондиционер»
+          p.ArticleCard__excerpt#5  236×65 @16,129  Manrope 400 15/22  lines=3  «Дешёвая трасса, пропущенная вакуумация и»
+          p.ArticleCard__meta#5  236×19 @16,204
+            span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+            time  79×16 @0,1  JetBrains Mono 400 12/19  lines=1  «30 мая 2026»
+            span#2  22×16 @79,1  JetBrains Mono 400 12/19  lines=1  «·»
+            span#3  86×16 @101,1  JetBrains Mono 400 12/19  lines=1  «7 мин чтения»
+    div.ArticleList__pager  728×52 @20,1079
+      nav.Pager__pager  728×52 @0,0
+        a.Pager__step  92×44 @183,4  Manrope 600 15/17  r100  b1  lines=1  «← Новее»
+        span.Pager__position  143×44 @287,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
+        span.Pager__stepOff  103×44 @442,4  Manrope 600 15/17  r100  b1  lines=1  «Старше →»
 
 [геометрия 1200]
-section.ArticleList__section  1200×880 @0,0
-  div.ArticleList__container  1200×880 @0,0
+section.ArticleList__section  1200×1460 @0,0
+  div.ArticleList__container  1200×1460 @0,0
     header.ArticleList__head  680×209 @24,88
       p.ArticleList__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
       h1.ArticleList__title  680×106 @0,32  Onest 700 49/53  ls-1  lines=2  «Разбираемся в кондиционерах»
@@ -178,7 +264,7 @@ section.ArticleList__section  1200×880 @0,0
         a.ArticleList__tab#2  84×44 @74,0  Manrope 600 15/17  r100  b1  lines=1  «Выбор»
         a.ArticleList__tab#3  94×44 @168,0  Manrope 600 15/17  r100  b1  lines=1  «Монтаж»
         a.ArticleList__tab#4  72×44 @272,0  Manrope 600 15/17  r100  b1  lines=1  «Уход»
-    ul.ArticleList__grid  1152×477 @24,403
+    ul.ArticleList__grid  1152×970 @24,403
       li.Card__card  374×477 @0,0  r20  b1
         div.ArticleCard__media  372×209 @1,1
           span.ArticleCard__placeholder  372×209 @0,0  Onest 600 27/32  ls0  lines=1  «Выбор»
@@ -199,9 +285,9 @@ section.ArticleList__section  1200×880 @0,0
         div.ArticleCard__body  372×266 @1,210
           span.Badge__badge#2  69×24 @24,24  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Монтаж»
             span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
-          h2.ArticleCard__title#2  324×49 @24,60
-            a.ArticleCard__link  290×49 @0,0  Onest 700 19/25  ls0  lines=2  «Как обманывают при установке кондиционер»
-          p.ArticleCard__excerpt#2  324×90 @24,122  Manrope 400 15/22  lines=3  «Дешёвая трасса, пропущенная вакуумация и»
+          h2.ArticleCard__title#2  324×74 @24,60
+            a.ArticleCard__link  306×73 @0,0  Onest 700 19/25  ls0  lines=3  «Как обманывают при установке кондиционер»
+          p.ArticleCard__excerpt#2  324×65 @24,146  Manrope 400 15/22  lines=3  «Дешёвая трасса, пропущенная вакуумация и»
           p.ArticleCard__meta#2  324×19 @24,224
             span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
             time  79×16 @0,1  JetBrains Mono 400 12/19  lines=1  «30 мая 2026»
@@ -213,15 +299,47 @@ section.ArticleList__section  1200×880 @0,0
         div.ArticleCard__body  372×266 @1,210
           span.Badge__badge#3  53×24 @24,24  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Уход»
             span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
-          h2.ArticleCard__title#3  324×49 @24,60
-            a.ArticleCard__link  291×49 @0,0  Onest 700 19/25  ls0  lines=2  «Уход за кондиционером: чистка фильтров и»
-          p.ArticleCard__excerpt#3  324×90 @24,122  Manrope 400 15/22  lines=2  «Что можно сделать самому за десять минут»
+          h2.ArticleCard__title#3  324×74 @24,60
+            a.ArticleCard__link  312×73 @0,0  Onest 700 19/25  ls0  lines=3  «Уход за кондиционером: чистка фильтров и»
+          p.ArticleCard__excerpt#3  324×65 @24,146  Manrope 400 15/22  lines=2  «Что можно сделать самому за десять минут»
           p.ArticleCard__meta#3  324×19 @24,224
             span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
             time  79×16 @0,1  JetBrains Mono 400 12/19  lines=1  «12 мая 2026»
             span#2  22×16 @79,1  JetBrains Mono 400 12/19  lines=1  «·»
             span#3  86×16 @101,1  JetBrains Mono 400 12/19  lines=1  «5 мин чтения»
-    div.ArticleList__pager  1152×0 @24,915
+      li.Card__card#4  374×477 @0,492  r20  b1
+        div.ArticleCard__media  372×209 @1,1
+          span.ArticleCard__placeholder#3  372×209 @0,0  Onest 600 27/32  ls0  lines=1  «Выбор»
+        div.ArticleCard__body  372×266 @1,210
+          span.Badge__badge#4  61×24 @24,24  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Выбор»
+            span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+          h2.ArticleCard__title#4  324×74 @24,60
+            a.ArticleCard__link  284×73 @0,0  Onest 700 19/25  ls0  lines=3  «Как выбрать кондиционер для квартиры: пл»
+          p.ArticleCard__excerpt#4  324×65 @24,146  Manrope 400 15/22  lines=3  «Разбираем по шагам: сколько киловатт нуж»
+          p.ArticleCard__meta#4  324×19 @24,224
+            span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+            time  86×16 @0,1  JetBrains Mono 400 12/19  lines=1  «14 июня 2026»
+            span#2  22×16 @86,1  JetBrains Mono 400 12/19  lines=1  «·»
+            span#3  86×16 @108,1  JetBrains Mono 400 12/19  lines=1  «6 мин чтения»
+      li.Card__card#5  374×477 @389,492  r20  b1
+        div.ArticleCard__media  372×209 @1,1
+          img.ArticleCard__cover#2  372×209 @0,0
+        div.ArticleCard__body  372×266 @1,210
+          span.Badge__badge#5  69×24 @24,24  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Монтаж»
+            span  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Рубрика:»
+          h2.ArticleCard__title#5  324×74 @24,60
+            a.ArticleCard__link  306×73 @0,0  Onest 700 19/25  ls0  lines=3  «Как обманывают при установке кондиционер»
+          p.ArticleCard__excerpt#5  324×65 @24,146  Manrope 400 15/22  lines=3  «Дешёвая трасса, пропущенная вакуумация и»
+          p.ArticleCard__meta#5  324×19 @24,224
+            span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «Опубликовано:»
+            time  79×16 @0,1  JetBrains Mono 400 12/19  lines=1  «30 мая 2026»
+            span#2  22×16 @79,1  JetBrains Mono 400 12/19  lines=1  «·»
+            span#3  86×16 @101,1  JetBrains Mono 400 12/19  lines=1  «7 мин чтения»
+    div.ArticleList__pager  1152×52 @24,1408
+      nav.Pager__pager  1152×52 @0,0
+        a.Pager__step  92×44 @395,4  Manrope 600 15/17  r100  b1  lines=1  «← Новее»
+        span.Pager__position  143×44 @499,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
+        span.Pager__stepOff  103×44 @654,4  Manrope 600 15/17  r100  b1  lines=1  «Старше →»
 
 [палитра light]
 section.ArticleList__section  bg #ffffff
@@ -279,7 +397,39 @@ section.ArticleList__section  bg #ffffff
             time  color #5b6a7d
             span#2  color #5b6a7d
             span#3  color #5b6a7d
+      li.Card__card#4  bg #ffffff  border #e2e8f0
+        div.ArticleCard__media  bg #f8fafc
+          span.ArticleCard__placeholder#3  color #334155  bg #f8fafc  gradient linear-gradient(135deg, transparent 40%, #ecfeff 100%)
+        div.ArticleCard__body
+          span.Badge__badge#4  color #0e7490  bg #ecfeff  border #a5f3fc
+            span  color #0e7490
+          h2.ArticleCard__title#4
+            a.ArticleCard__link  color #0f172a
+          p.ArticleCard__excerpt#4  color #556173
+          p.ArticleCard__meta#4
+            span  color #5b6a7d
+            time  color #5b6a7d
+            span#2  color #5b6a7d
+            span#3  color #5b6a7d
+      li.Card__card#5  bg #ffffff  border #e2e8f0
+        div.ArticleCard__media  bg #f8fafc
+          img.ArticleCard__cover#2
+        div.ArticleCard__body
+          span.Badge__badge#5  color #0e7490  bg #ecfeff  border #a5f3fc
+            span  color #0e7490
+          h2.ArticleCard__title#5
+            a.ArticleCard__link  color #0f172a
+          p.ArticleCard__excerpt#5  color #556173
+          p.ArticleCard__meta#5
+            span  color #5b6a7d
+            time  color #5b6a7d
+            span#2  color #5b6a7d
+            span#3  color #5b6a7d
     div.ArticleList__pager
+      nav.Pager__pager
+        a.Pager__step  color #0e7490  border #7e8fa6
+        span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+        span.Pager__stepOff  color #556173  border #eef2f6
 
 [палитра dark]
 section.ArticleList__section  bg #0b1220
@@ -337,4 +487,36 @@ section.ArticleList__section  bg #0b1220
             time  color #7e92a7
             span#2  color #7e92a7
             span#3  color #7e92a7
+      li.Card__card#4  bg #121d31  border #1e2b41
+        div.ArticleCard__media  bg #0e1729
+          span.ArticleCard__placeholder#3  color #c9d5e2  bg #0e1729  gradient linear-gradient(135deg, transparent 40%, #22d3ee1a 100%)
+        div.ArticleCard__body
+          span.Badge__badge#4  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+            span  color #22d3ee
+          h2.ArticleCard__title#4
+            a.ArticleCard__link  color #eaf1f8
+          p.ArticleCard__excerpt#4  color #8598ac
+          p.ArticleCard__meta#4
+            span  color #7e92a7
+            time  color #7e92a7
+            span#2  color #7e92a7
+            span#3  color #7e92a7
+      li.Card__card#5  bg #121d31  border #1e2b41
+        div.ArticleCard__media  bg #0e1729
+          img.ArticleCard__cover#2
+        div.ArticleCard__body
+          span.Badge__badge#5  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+            span  color #22d3ee
+          h2.ArticleCard__title#5
+            a.ArticleCard__link  color #eaf1f8
+          p.ArticleCard__excerpt#5  color #8598ac
+          p.ArticleCard__meta#5
+            span  color #7e92a7
+            time  color #7e92a7
+            span#2  color #7e92a7
+            span#3  color #7e92a7
     div.ArticleList__pager
+      nav.Pager__pager
+        a.Pager__step  color #22d3ee  border #566d95
+        span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+        span.Pager__stepOff  color #8598ac  border #182338

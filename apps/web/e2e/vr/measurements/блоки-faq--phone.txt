@@ -1,5 +1,5 @@
 # блоки-faq--phone · ширины 320 375 768 1200 · темы light dark
-шрифты: JetBrains Mono 400, Manrope 400, Manrope 700, Onest 700
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
 320 → 320×900
@@ -8,288 +8,204 @@
 1200 → 1200×900
 
 [геометрия 320]
-section.Faq__section  320×867 @0,0
-  div.Faq__container  320×867 @0,0
+section.Faq__section  320×689 @0,0
+  div.Faq__container  320×689 @0,0
     header.Faq__head  288×61 @16,48
       p.Faq__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— FAQ —»
       h2.Faq__title  288×29 @0,32  Onest 700 24/29  ls0  lines=1  «Частые вопросы»
-    div.Accordion__list  288×731 @16,137
-      div.Accordion__item  288×125 @0,0  r16  b1
-        h3.Accordion__heading  286×123 @1,1
-          button.Accordion__trigger  286×123 @0,0
-            span  206×89 @18,17  Manrope 700 17/22  lines=4  «Сколько стоит установить кондиционер в т»
-            span.Accordion__icon  28×28 @240,48  r100
-        div.Accordion__panel  286×0 @1,124
-          div.Accordion__panelInner  286×0 @0,0  clipped
-            div.Accordion__content  286×274 @0,0
-              p.Faq__answer  250×256 @18,0  Manrope 400 15/23  lines=11  «Типовая квартира — это почти всегда стан»
-      div.Accordion__item#2  288×81 @0,137  r16  b1
-        h3.Accordion__heading  286×79 @1,1
-          button.Accordion__trigger#2  286×79 @0,0
-            span  206×45 @18,17  Manrope 700 17/22  lines=2  «Сколько времени занимает установка?»
-            span.Accordion__icon  28×28 @240,25  r100
-        div.Accordion__panel  286×0 @1,80
-          div.Accordion__panelInner#2  286×0 @0,0  clipped
-            div.Accordion__content  286×274 @0,0
-              p.Faq__answer#2  250×256 @18,0  Manrope 400 15/23  lines=11  «Типовой монтаж сплит-системы бригада дел»
-      div.Accordion__item#3  288×125 @0,230  r16  b1
-        h3.Accordion__heading  286×123 @1,1
-          button.Accordion__trigger#3  286×123 @0,0
-            span  206×89 @18,17  Manrope 700 17/22  lines=4  «Нужно ли согласовывать наружный блок с у»
-            span.Accordion__icon  28×28 @240,48  r100
-        div.Accordion__panel  286×0 @1,124
-          div.Accordion__panelInner#3  286×0 @0,0  clipped
-            div.Accordion__content  286×367 @0,0
-              p.Faq__answer#3  250×349 @18,0  Manrope 400 15/23  lines=15  «Фасад дома — общее имущество жильцов, по»
-      div.Accordion__item#4  288×103 @0,367  r16  b1
-        h3.Accordion__heading  286×101 @1,1
-          button.Accordion__trigger#4  286×101 @0,0
-            span  206×67 @18,17  Manrope 700 17/22  lines=3  «Можно ли устанавливать кондиционер зимой»
-            span.Accordion__icon  28×28 @240,36  r100
-        div.Accordion__panel  286×0 @1,102
-          div.Accordion__panelInner#4  286×0 @0,0  clipped
-            div.Accordion__content  286×297 @0,0
-              p.Faq__answer#4  250×279 @18,0  Manrope 400 15/23  lines=12  «Смонтировать и запаять трассу можно и в»
-      div.Accordion__item#5  288×81 @0,481  r16  b1
-        h3.Accordion__heading  286×79 @1,1
-          button.Accordion__trigger#5  286×79 @0,0
-            span  206×45 @18,17  Manrope 700 17/22  lines=2  «Нужна ли дозаправка фреона при установке»
-            span.Accordion__icon  28×28 @240,25  r100
-        div.Accordion__panel  286×0 @1,80
-          div.Accordion__panelInner#5  286×0 @0,0  clipped
-            div.Accordion__content  286×274 @0,0
-              p.Faq__answer#5  250×256 @18,0  Manrope 400 15/23  lines=11  «Нет. Наружный блок заправлен хладагентом»
-      div.Accordion__item#6  288×81 @0,574  r16  b1
-        h3.Accordion__heading  286×79 @1,1
-          button.Accordion__trigger#6  286×79 @0,0
-            span  206×45 @18,17  Manrope 700 17/22  lines=2  «Как часто нужно чистить кондиционер?»
-            span.Accordion__icon  28×28 @240,25  r100
-        div.Accordion__panel  286×0 @1,80
-          div.Accordion__panelInner#6  286×0 @0,0  clipped
-            div.Accordion__content  286×181 @0,0
-              p.Faq__answer#6  250×163 @18,0  Manrope 400 15/23  lines=7  «Фильтры внутреннего блока — раз в 2–3 не»
-      div.Accordion__item#7  288×64 @0,667  r16  b1
-        h3.Accordion__heading  286×62 @1,1
-          button.Accordion__trigger#7  286×62 @0,0
-            span  196×22 @18,20  Manrope 700 17/22  lines=1  «Что входит в гарантию?»
-            span.Accordion__icon  28×28 @240,17  r100
-        div.Accordion__panel  286×0 @1,63
-          div.Accordion__panelInner#7  286×0 @0,0  clipped
-            div.Accordion__content  286×390 @0,0
-              p.Faq__answer#7  250×372 @18,0  Manrope 400 15/23  lines=16  «Гарантия на монтаж — Гарантия на монтаж»
+    ul.Faq__list  288×560 @16,129
+      li.Faq__item  288×89 @0,0
+        details.Faq__details  288×89 @0,0  r14  b1
+          summary.Faq__summary  286×87 @1,1
+            h3.Faq__question  214×59 @16,14  Manrope 600 15/20  lines=3  «Сколько стоит установить кондиционер в т»
+            span.Faq__sign  28×28 @242,29  r9
+          p.Faq__answer  0×0 @-16,-129  Manrope 400 15/22  b1 0 0 0  lines=11  «Типовая квартира — это почти всегда стан»
+      li.Faq__item#2  288×69 @0,97
+        details.Faq__details  288×69 @0,0  r14  b1
+          summary.Faq__summary#2  286×67 @1,1
+            h3.Faq__question  214×39 @16,14  Manrope 600 15/20  lines=2  «Сколько времени занимает установка?»
+            span.Faq__sign  28×28 @242,20  r9
+          p.Faq__answer#2  0×0 @-16,-226  Manrope 400 15/22  b1 0 0 0  lines=11  «Типовой монтаж сплит-системы бригада дел»
+      li.Faq__item#3  288×89 @0,174
+        details.Faq__details  288×89 @0,0  r14  b1
+          summary.Faq__summary#3  286×87 @1,1
+            h3.Faq__question  214×59 @16,14  Manrope 600 15/20  lines=3  «Нужно ли согласовывать наружный блок с у»
+            span.Faq__sign  28×28 @242,29  r9
+          p.Faq__answer#3  0×0 @-16,-303  Manrope 400 15/22  b1 0 0 0  lines=14  «Фасад дома — общее имущество жильцов, по»
+      li.Faq__item#4  288×69 @0,271
+        details.Faq__details  288×69 @0,0  r14  b1
+          summary.Faq__summary#4  286×67 @1,1
+            h3.Faq__question  214×39 @16,14  Manrope 600 15/20  lines=2  «Можно ли устанавливать кондиционер зимой»
+            span.Faq__sign  28×28 @242,20  r9
+          p.Faq__answer#4  0×0 @-16,-399  Manrope 400 15/22  b1 0 0 0  lines=12  «Смонтировать и запаять трассу можно и в»
+      li.Faq__item#5  288×69 @0,348
+        details.Faq__details  288×69 @0,0  r14  b1
+          summary.Faq__summary#5  286×67 @1,1
+            h3.Faq__question  214×39 @16,14  Manrope 600 15/20  lines=2  «Нужна ли дозаправка фреона при установке»
+            span.Faq__sign  28×28 @242,20  r9
+          p.Faq__answer#5  0×0 @-16,-477  Manrope 400 15/22  b1 0 0 0  lines=10  «Нет. Наружный блок заправлен хладагентом»
+      li.Faq__item#6  288×69 @0,425
+        details.Faq__details  288×69 @0,0  r14  b1
+          summary.Faq__summary#6  286×67 @1,1
+            h3.Faq__question  214×39 @16,14  Manrope 600 15/20  lines=2  «Как часто нужно чистить кондиционер?»
+            span.Faq__sign  28×28 @242,20  r9
+          p.Faq__answer#6  0×0 @-16,-554  Manrope 400 15/22  b1 0 0 0  lines=7  «Фильтры внутреннего блока — раз в 2–3 не»
+      li.Faq__item#7  288×58 @0,502
+        details.Faq__details  288×58 @0,0  r14  b1
+          summary.Faq__summary#7  286×56 @1,1
+            h3.Faq__question  169×20 @16,18  Manrope 600 15/20  lines=1  «Что входит в гарантию?»
+            span.Faq__sign  28×28 @242,14  r9
+          p.Faq__answer#7  0×0 @-16,-631  Manrope 400 15/22  b1 0 0 0  lines=15  «Гарантия на монтаж — Гарантия на монтаж»
 
 [геометрия 375]
-section.Faq__section  375×804 @0,0
-  div.Faq__container  375×804 @0,0
-    header.Faq__head  343×62 @16,51
-      p.Faq__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— FAQ —»
-      h2.Faq__title  343×30 @0,32  Onest 700 25/30  ls0  lines=1  «Частые вопросы»
-    div.Accordion__list  343×664 @16,140
-      div.Accordion__item  343×103 @0,0  r16  b1
-        h3.Accordion__heading  341×101 @1,1
-          button.Accordion__trigger  341×101 @0,0
-            span  261×67 @18,17  Manrope 700 17/22  lines=3  «Сколько стоит установить кондиционер в т»
-            span.Accordion__icon  28×28 @295,36  r100
-        div.Accordion__panel  341×0 @1,102
-          div.Accordion__panelInner  341×0 @0,0  clipped
-            div.Accordion__content  341×227 @0,0
-              p.Faq__answer  305×209 @18,0  Manrope 400 15/23  lines=9  «Типовая квартира — это почти всегда стан»
-      div.Accordion__item#2  343×81 @0,115  r16  b1
-        h3.Accordion__heading  341×79 @1,1
-          button.Accordion__trigger#2  341×79 @0,0
-            span  261×45 @18,17  Manrope 700 17/22  lines=2  «Сколько времени занимает установка?»
-            span.Accordion__icon  28×28 @295,25  r100
-        div.Accordion__panel  341×0 @1,80
-          div.Accordion__panelInner#2  341×0 @0,0  clipped
-            div.Accordion__content  341×204 @0,0
-              p.Faq__answer#2  305×186 @18,0  Manrope 400 15/23  lines=8  «Типовой монтаж сплит-системы бригада дел»
-      div.Accordion__item#3  343×103 @0,207  r16  b1
-        h3.Accordion__heading  341×101 @1,1
-          button.Accordion__trigger#3  341×101 @0,0
-            span  261×67 @18,17  Manrope 700 17/22  lines=3  «Нужно ли согласовывать наружный блок с у»
-            span.Accordion__icon  28×28 @295,36  r100
-        div.Accordion__panel  341×0 @1,102
-          div.Accordion__panelInner#3  341×0 @0,0  clipped
-            div.Accordion__content  341×297 @0,0
-              p.Faq__answer#3  305×279 @18,0  Manrope 400 15/23  lines=12  «Фасад дома — общее имущество жильцов, по»
-      div.Accordion__item#4  343×81 @0,322  r16  b1
-        h3.Accordion__heading  341×79 @1,1
-          button.Accordion__trigger#4  341×79 @0,0
-            span  261×45 @18,17  Manrope 700 17/22  lines=2  «Можно ли устанавливать кондиционер зимой»
-            span.Accordion__icon  28×28 @295,25  r100
-        div.Accordion__panel  341×0 @1,80
-          div.Accordion__panelInner#4  341×0 @0,0  clipped
-            div.Accordion__content  341×251 @0,0
-              p.Faq__answer#4  305×233 @18,0  Manrope 400 15/23  lines=10  «Смонтировать и запаять трассу можно и в»
-      div.Accordion__item#5  343×81 @0,415  r16  b1
-        h3.Accordion__heading  341×79 @1,1
-          button.Accordion__trigger#5  341×79 @0,0
-            span  261×45 @18,17  Manrope 700 17/22  lines=2  «Нужна ли дозаправка фреона при установке»
-            span.Accordion__icon  28×28 @295,25  r100
-        div.Accordion__panel  341×0 @1,80
-          div.Accordion__panelInner#5  341×0 @0,0  clipped
-            div.Accordion__content  341×227 @0,0
-              p.Faq__answer#5  305×209 @18,0  Manrope 400 15/23  lines=9  «Нет. Наружный блок заправлен хладагентом»
-      div.Accordion__item#6  343×81 @0,507  r16  b1
-        h3.Accordion__heading  341×79 @1,1
-          button.Accordion__trigger#6  341×79 @0,0
-            span  261×45 @18,17  Manrope 700 17/22  lines=2  «Как часто нужно чистить кондиционер?»
-            span.Accordion__icon  28×28 @295,25  r100
-        div.Accordion__panel  341×0 @1,80
-          div.Accordion__panelInner#6  341×0 @0,0  clipped
-            div.Accordion__content  341×158 @0,0
-              p.Faq__answer#6  305×140 @18,0  Manrope 400 15/23  lines=6  «Фильтры внутреннего блока — раз в 2–3 не»
-      div.Accordion__item#7  343×64 @0,600  r16  b1
-        h3.Accordion__heading  341×62 @1,1
-          button.Accordion__trigger#7  341×62 @0,0
-            span  196×22 @18,20  Manrope 700 17/22  lines=1  «Что входит в гарантию?»
-            span.Accordion__icon  28×28 @295,17  r100
-        div.Accordion__panel  341×0 @1,63
-          div.Accordion__panelInner#7  341×0 @0,0  clipped
-            div.Accordion__content  341×320 @0,0
-              p.Faq__answer#7  305×302 @18,0  Manrope 400 15/23  lines=13  «Гарантия на монтаж — Гарантия на монтаж»
+section.Faq__section  375×657 @0,0
+  div.Faq__container  375×657 @0,0
+    header.Faq__head  342×62 @17,51
+      p.Faq__kicker  342×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— FAQ —»
+      h2.Faq__title  342×30 @0,32  Onest 700 25/30  ls0  lines=1  «Частые вопросы»
+    ul.Faq__list  342×524 @17,132
+      li.Faq__item  342×70 @0,0
+        details.Faq__details  342×70 @0,0  r14  b1
+          summary.Faq__summary  340×68 @1,1
+            h3.Faq__question  268×39 @16,14  Manrope 600 15/20  lines=2  «Сколько стоит установить кондиционер в т»
+            span.Faq__sign  28×28 @296,20  r9
+          p.Faq__answer  0×0 @-16,-132  Manrope 400 15/22  b1 0 0 0  lines=9  «Типовая квартира — это почти всегда стан»
+      li.Faq__item#2  342×70 @0,78
+        details.Faq__details  342×70 @0,0  r14  b1
+          summary.Faq__summary#2  340×68 @1,1
+            h3.Faq__question  268×39 @16,14  Manrope 600 15/20  lines=2  «Сколько времени занимает установка?»
+            span.Faq__sign  28×28 @296,20  r9
+          p.Faq__answer#2  0×0 @-16,-210  Manrope 400 15/22  b1 0 0 0  lines=8  «Типовой монтаж сплит-системы бригада дел»
+      li.Faq__item#3  342×70 @0,155
+        details.Faq__details  342×70 @0,0  r14  b1
+          summary.Faq__summary#3  340×68 @1,1
+            h3.Faq__question  268×39 @16,14  Manrope 600 15/20  lines=2  «Нужно ли согласовывать наружный блок с у»
+            span.Faq__sign  28×28 @296,20  r9
+          p.Faq__answer#3  0×0 @-16,-288  Manrope 400 15/22  b1 0 0 0  lines=12  «Фасад дома — общее имущество жильцов, по»
+      li.Faq__item#4  342×70 @0,233
+        details.Faq__details  342×70 @0,0  r14  b1
+          summary.Faq__summary#4  340×68 @1,1
+            h3.Faq__question  268×39 @16,14  Manrope 600 15/20  lines=2  «Можно ли устанавливать кондиционер зимой»
+            span.Faq__sign  28×28 @296,20  r9
+          p.Faq__answer#4  0×0 @-16,-365  Manrope 400 15/22  b1 0 0 0  lines=10  «Смонтировать и запаять трассу можно и в»
+      li.Faq__item#5  342×70 @0,311
+        details.Faq__details  342×70 @0,0  r14  b1
+          summary.Faq__summary#5  340×68 @1,1
+            h3.Faq__question  268×39 @16,14  Manrope 600 15/20  lines=2  «Нужна ли дозаправка фреона при установке»
+            span.Faq__sign  28×28 @296,20  r9
+          p.Faq__answer#5  0×0 @-16,-443  Manrope 400 15/22  b1 0 0 0  lines=9  «Нет. Наружный блок заправлен хладагентом»
+      li.Faq__item#6  342×70 @0,388
+        details.Faq__details  342×70 @0,0  r14  b1
+          summary.Faq__summary#6  340×68 @1,1
+            h3.Faq__question  268×39 @16,14  Manrope 600 15/20  lines=2  «Как часто нужно чистить кондиционер?»
+            span.Faq__sign  28×28 @296,20  r9
+          p.Faq__answer#6  0×0 @-16,-521  Manrope 400 15/22  b1 0 0 0  lines=6  «Фильтры внутреннего блока — раз в 2–3 не»
+      li.Faq__item#7  342×59 @0,466
+        details.Faq__details  342×59 @0,0  r14  b1
+          summary.Faq__summary#7  340×57 @1,1
+            h3.Faq__question  169×20 @16,18  Manrope 600 15/20  lines=1  «Что входит в гарантию?»
+            span.Faq__sign  28×28 @296,14  r9
+          p.Faq__answer#7  0×0 @-16,-598  Manrope 400 15/22  b1 0 0 0  lines=12  «Гарантия на монтаж — Гарантия на монтаж»
 
 [геометрия 768]
-section.Faq__section  768×726 @0,0
-  div.Faq__container  768×726 @0,0
+section.Faq__section  768×647 @0,0
+  div.Faq__container  768×647 @0,0
     header.Faq__head  640×69 @64,68
       p.Faq__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— FAQ —»
       h2.Faq__title  640×37 @0,32  Onest 700 31/37  ls-1  lines=1  «Частые вопросы»
-    div.Accordion__list  728×548 @20,178
-      div.Accordion__item  728×68 @0,0  r16  b1
-        h3.Accordion__heading  726×66 @1,1
-          button.Accordion__trigger  726×66 @0,0
-            span  505×22 @24,22  Manrope 700 17/22  lines=1  «Сколько стоит установить кондиционер в т»
-            span.Accordion__icon  28×28 @674,19  r100
-        div.Accordion__panel  726×0 @1,67
-          div.Accordion__panelInner  726×0 @0,0  clipped
-            div.Accordion__content  726×113 @0,0
-              p.Faq__answer  678×93 @24,0  Manrope 400 15/23  lines=4  «Типовая квартира — это почти всегда стан»
-      div.Accordion__item#2  728×68 @0,80  r16  b1
-        h3.Accordion__heading  726×66 @1,1
-          button.Accordion__trigger#2  726×66 @0,0
-            span  322×22 @24,22  Manrope 700 17/22  lines=1  «Сколько времени занимает установка?»
-            span.Accordion__icon  28×28 @674,19  r100
-        div.Accordion__panel  726×0 @1,67
-          div.Accordion__panelInner#2  726×0 @0,0  clipped
-            div.Accordion__content  726×113 @0,0
-              p.Faq__answer#2  678×93 @24,0  Manrope 400 15/23  lines=4  «Типовой монтаж сплит-системы бригада дел»
-      div.Accordion__item#3  728×68 @0,160  r16  b1
-        h3.Accordion__heading  726×66 @1,1
-          button.Accordion__trigger#3  726×66 @0,0
-            span  569×22 @24,22  Manrope 700 17/22  lines=1  «Нужно ли согласовывать наружный блок с у»
-            span.Accordion__icon  28×28 @674,19  r100
-        div.Accordion__panel  726×0 @1,67
-          div.Accordion__panelInner#3  726×0 @0,0  clipped
-            div.Accordion__content  726×136 @0,0
-              p.Faq__answer#3  678×116 @24,0  Manrope 400 15/23  lines=5  «Фасад дома — общее имущество жильцов, по»
-      div.Accordion__item#4  728×68 @0,240  r16  b1
-        h3.Accordion__heading  726×66 @1,1
-          button.Accordion__trigger#4  726×66 @0,0
-            span  384×22 @24,22  Manrope 700 17/22  lines=1  «Можно ли устанавливать кондиционер зимой»
-            span.Accordion__icon  28×28 @674,19  r100
-        div.Accordion__panel  726×0 @1,67
-          div.Accordion__panelInner#4  726×0 @0,0  clipped
-            div.Accordion__content  726×136 @0,0
-              p.Faq__answer#4  678×116 @24,0  Manrope 400 15/23  lines=5  «Смонтировать и запаять трассу можно и в»
-      div.Accordion__item#5  728×68 @0,320  r16  b1
-        h3.Accordion__heading  726×66 @1,1
-          button.Accordion__trigger#5  726×66 @0,0
-            span  372×22 @24,22  Manrope 700 17/22  lines=1  «Нужна ли дозаправка фреона при установке»
-            span.Accordion__icon  28×28 @674,19  r100
-        div.Accordion__panel  726×0 @1,67
-          div.Accordion__panelInner#5  726×0 @0,0  clipped
-            div.Accordion__content  726×113 @0,0
-              p.Faq__answer#5  678×93 @24,0  Manrope 400 15/23  lines=4  «Нет. Наружный блок заправлен хладагентом»
-      div.Accordion__item#6  728×68 @0,400  r16  b1
-        h3.Accordion__heading  726×66 @1,1
-          button.Accordion__trigger#6  726×66 @0,0
-            span  328×22 @24,22  Manrope 700 17/22  lines=1  «Как часто нужно чистить кондиционер?»
-            span.Accordion__icon  28×28 @674,19  r100
-        div.Accordion__panel  726×0 @1,67
-          div.Accordion__panelInner#6  726×0 @0,0  clipped
-            div.Accordion__content  726×90 @0,0
-              p.Faq__answer#6  678×70 @24,0  Manrope 400 15/23  lines=3  «Фильтры внутреннего блока — раз в 2–3 не»
-      div.Accordion__item#7  728×68 @0,480  r16  b1
-        h3.Accordion__heading  726×66 @1,1
-          button.Accordion__trigger#7  726×66 @0,0
-            span  196×22 @24,22  Manrope 700 17/22  lines=1  «Что входит в гарантию?»
-            span.Accordion__icon  28×28 @674,19  r100
-        div.Accordion__panel  726×0 @1,67
-          div.Accordion__panelInner#7  726×0 @0,0  clipped
-            div.Accordion__content  726×160 @0,0
-              p.Faq__answer#7  678×140 @24,0  Manrope 400 15/23  lines=6  «Гарантия на монтаж — Гарантия на монтаж»
+    ul.Faq__list  680×482 @44,164
+      li.Faq__item  680×62 @0,0
+        details.Faq__details  680×62 @0,0  r14  b1
+          summary.Faq__summary  678×60 @1,1
+            h3.Faq__question  437×20 @18,20  Manrope 600 15/20  lines=1  «Сколько стоит установить кондиционер в т»
+            span.Faq__sign  28×28 @632,16  r9
+          p.Faq__answer  0×0 @-44,-164  Manrope 400 15/22  b1 0 0 0  lines=4  «Типовая квартира — это почти всегда стан»
+      li.Faq__item#2  680×62 @0,70
+        details.Faq__details  680×62 @0,0  r14  b1
+          summary.Faq__summary#2  678×60 @1,1
+            h3.Faq__question  279×20 @18,20  Manrope 600 15/20  lines=1  «Сколько времени занимает установка?»
+            span.Faq__sign  28×28 @632,16  r9
+          p.Faq__answer#2  0×0 @-44,-234  Manrope 400 15/22  b1 0 0 0  lines=4  «Типовой монтаж сплит-системы бригада дел»
+      li.Faq__item#3  680×62 @0,140
+        details.Faq__details  680×62 @0,0  r14  b1
+          summary.Faq__summary#3  678×60 @1,1
+            h3.Faq__question  492×20 @18,20  Manrope 600 15/20  lines=1  «Нужно ли согласовывать наружный блок с у»
+            span.Faq__sign  28×28 @632,16  r9
+          p.Faq__answer#3  0×0 @-44,-304  Manrope 400 15/22  b1 0 0 0  lines=6  «Фасад дома — общее имущество жильцов, по»
+      li.Faq__item#4  680×62 @0,210
+        details.Faq__details  680×62 @0,0  r14  b1
+          summary.Faq__summary#4  678×60 @1,1
+            h3.Faq__question  332×20 @18,20  Manrope 600 15/20  lines=1  «Можно ли устанавливать кондиционер зимой»
+            span.Faq__sign  28×28 @632,16  r9
+          p.Faq__answer#4  0×0 @-44,-374  Manrope 400 15/22  b1 0 0 0  lines=5  «Смонтировать и запаять трассу можно и в»
+      li.Faq__item#5  680×62 @0,280
+        details.Faq__details  680×62 @0,0  r14  b1
+          summary.Faq__summary#5  678×60 @1,1
+            h3.Faq__question  322×20 @18,20  Manrope 600 15/20  lines=1  «Нужна ли дозаправка фреона при установке»
+            span.Faq__sign  28×28 @632,16  r9
+          p.Faq__answer#5  0×0 @-44,-445  Manrope 400 15/22  b1 0 0 0  lines=4  «Нет. Наружный блок заправлен хладагентом»
+      li.Faq__item#6  680×62 @0,350
+        details.Faq__details  680×62 @0,0  r14  b1
+          summary.Faq__summary#6  678×60 @1,1
+            h3.Faq__question  284×20 @18,20  Manrope 600 15/20  lines=1  «Как часто нужно чистить кондиционер?»
+            span.Faq__sign  28×28 @632,16  r9
+          p.Faq__answer#6  0×0 @-44,-515  Manrope 400 15/22  b1 0 0 0  lines=3  «Фильтры внутреннего блока — раз в 2–3 не»
+      li.Faq__item#7  680×62 @0,420
+        details.Faq__details  680×62 @0,0  r14  b1
+          summary.Faq__summary#7  678×60 @1,1
+            h3.Faq__question  170×20 @18,20  Manrope 600 15/20  lines=1  «Что входит в гарантию?»
+            span.Faq__sign  28×28 @632,16  r9
+          p.Faq__answer#7  0×0 @-44,-585  Manrope 400 15/22  b1 0 0 0  lines=6  «Гарантия на монтаж — Гарантия на монтаж»
 
 [геометрия 1200]
-section.Faq__section  1200×754 @0,0
-  div.Faq__container  900×754 @150,0
+section.Faq__section  1200×713 @0,0
+  div.Faq__container  900×713 @150,0
     header.Faq__head  640×78 @130,88
       p.Faq__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— FAQ —»
       h2.Faq__title  640×46 @0,32  Onest 700 38/46  ls-1  lines=1  «Частые вопросы»
-    div.Accordion__list  852×548 @24,206
-      div.Accordion__item  852×68 @0,0  r16  b1
-        h3.Accordion__heading  850×66 @1,1
-          button.Accordion__trigger  850×66 @0,0
-            span  505×22 @24,22  Manrope 700 17/22  lines=1  «Сколько стоит установить кондиционер в т»
-            span.Accordion__icon  28×28 @798,19  r100
-        div.Accordion__panel  850×0 @1,67
-          div.Accordion__panelInner  850×0 @0,0  clipped
-            div.Accordion__content  850×113 @0,0
-              p.Faq__answer  720×93 @24,0  Manrope 400 15/23  lines=4  «Типовая квартира — это почти всегда стан»
-      div.Accordion__item#2  852×68 @0,80  r16  b1
-        h3.Accordion__heading  850×66 @1,1
-          button.Accordion__trigger#2  850×66 @0,0
-            span  322×22 @24,22  Manrope 700 17/22  lines=1  «Сколько времени занимает установка?»
-            span.Accordion__icon  28×28 @798,19  r100
-        div.Accordion__panel  850×0 @1,67
-          div.Accordion__panelInner#2  850×0 @0,0  clipped
-            div.Accordion__content  850×113 @0,0
-              p.Faq__answer#2  720×93 @24,0  Manrope 400 15/23  lines=4  «Типовой монтаж сплит-системы бригада дел»
-      div.Accordion__item#3  852×68 @0,160  r16  b1
-        h3.Accordion__heading  850×66 @1,1
-          button.Accordion__trigger#3  850×66 @0,0
-            span  569×22 @24,22  Manrope 700 17/22  lines=1  «Нужно ли согласовывать наружный блок с у»
-            span.Accordion__icon  28×28 @798,19  r100
-        div.Accordion__panel  850×0 @1,67
-          div.Accordion__panelInner#3  850×0 @0,0  clipped
-            div.Accordion__content  850×136 @0,0
-              p.Faq__answer#3  720×116 @24,0  Manrope 400 15/23  lines=5  «Фасад дома — общее имущество жильцов, по»
-      div.Accordion__item#4  852×68 @0,240  r16  b1
-        h3.Accordion__heading  850×66 @1,1
-          button.Accordion__trigger#4  850×66 @0,0
-            span  384×22 @24,22  Manrope 700 17/22  lines=1  «Можно ли устанавливать кондиционер зимой»
-            span.Accordion__icon  28×28 @798,19  r100
-        div.Accordion__panel  850×0 @1,67
-          div.Accordion__panelInner#4  850×0 @0,0  clipped
-            div.Accordion__content  850×113 @0,0
-              p.Faq__answer#4  720×93 @24,0  Manrope 400 15/23  lines=4  «Смонтировать и запаять трассу можно и в»
-      div.Accordion__item#5  852×68 @0,320  r16  b1
-        h3.Accordion__heading  850×66 @1,1
-          button.Accordion__trigger#5  850×66 @0,0
-            span  372×22 @24,22  Manrope 700 17/22  lines=1  «Нужна ли дозаправка фреона при установке»
-            span.Accordion__icon  28×28 @798,19  r100
-        div.Accordion__panel  850×0 @1,67
-          div.Accordion__panelInner#5  850×0 @0,0  clipped
-            div.Accordion__content  850×113 @0,0
-              p.Faq__answer#5  720×93 @24,0  Manrope 400 15/23  lines=4  «Нет. Наружный блок заправлен хладагентом»
-      div.Accordion__item#6  852×68 @0,400  r16  b1
-        h3.Accordion__heading  850×66 @1,1
-          button.Accordion__trigger#6  850×66 @0,0
-            span  328×22 @24,22  Manrope 700 17/22  lines=1  «Как часто нужно чистить кондиционер?»
-            span.Accordion__icon  28×28 @798,19  r100
-        div.Accordion__panel  850×0 @1,67
-          div.Accordion__panelInner#6  850×0 @0,0  clipped
-            div.Accordion__content  850×90 @0,0
-              p.Faq__answer#6  720×70 @24,0  Manrope 400 15/23  lines=3  «Фильтры внутреннего блока — раз в 2–3 не»
-      div.Accordion__item#7  852×68 @0,480  r16  b1
-        h3.Accordion__heading  850×66 @1,1
-          button.Accordion__trigger#7  850×66 @0,0
-            span  196×22 @24,22  Manrope 700 17/22  lines=1  «Что входит в гарантию?»
-            span.Accordion__icon  28×28 @798,19  r100
-        div.Accordion__panel  850×0 @1,67
-          div.Accordion__panelInner#7  850×0 @0,0  clipped
-            div.Accordion__content  850×136 @0,0
-              p.Faq__answer#7  720×116 @24,0  Manrope 400 15/23  lines=5  «Гарантия на монтаж — Гарантия на монтаж»
+    ul.Faq__list  680×510 @110,203
+      li.Faq__item  680×66 @0,0
+        details.Faq__details  680×66 @0,0  r14  b1
+          summary.Faq__summary  678×64 @1,1
+            h3.Faq__question  450×20 @20,22  Manrope 600 15/20  lines=1  «Сколько стоит установить кондиционер в т»
+            span.Faq__sign  28×28 @630,18  r9
+          p.Faq__answer  0×0 @-260,-203  Manrope 400 15/22  b1 0 0 0  lines=4  «Типовая квартира — это почти всегда стан»
+      li.Faq__item#2  680×66 @0,74
+        details.Faq__details  680×66 @0,0  r14  b1
+          summary.Faq__summary#2  678×64 @1,1
+            h3.Faq__question  288×20 @20,22  Manrope 600 15/20  lines=1  «Сколько времени занимает установка?»
+            span.Faq__sign  28×28 @630,18  r9
+          p.Faq__answer#2  0×0 @-260,-277  Manrope 400 15/22  b1 0 0 0  lines=4  «Типовой монтаж сплит-системы бригада дел»
+      li.Faq__item#3  680×66 @0,148
+        details.Faq__details  680×66 @0,0  r14  b1
+          summary.Faq__summary#3  678×64 @1,1
+            h3.Faq__question  507×20 @20,22  Manrope 600 15/20  lines=1  «Нужно ли согласовывать наружный блок с у»
+            span.Faq__sign  28×28 @630,18  r9
+          p.Faq__answer#3  0×0 @-260,-351  Manrope 400 15/22  b1 0 0 0  lines=6  «Фасад дома — общее имущество жильцов, по»
+      li.Faq__item#4  680×66 @0,222
+        details.Faq__details  680×66 @0,0  r14  b1
+          summary.Faq__summary#4  678×64 @1,1
+            h3.Faq__question  342×20 @20,22  Manrope 600 15/20  lines=1  «Можно ли устанавливать кондиционер зимой»
+            span.Faq__sign  28×28 @630,18  r9
+          p.Faq__answer#4  0×0 @-260,-425  Manrope 400 15/22  b1 0 0 0  lines=5  «Смонтировать и запаять трассу можно и в»
+      li.Faq__item#5  680×66 @0,296
+        details.Faq__details  680×66 @0,0  r14  b1
+          summary.Faq__summary#5  678×64 @1,1
+            h3.Faq__question  332×20 @20,22  Manrope 600 15/20  lines=1  «Нужна ли дозаправка фреона при установке»
+            span.Faq__sign  28×28 @630,18  r9
+          p.Faq__answer#5  0×0 @-260,-499  Manrope 400 15/22  b1 0 0 0  lines=4  «Нет. Наружный блок заправлен хладагентом»
+      li.Faq__item#6  680×66 @0,370
+        details.Faq__details  680×66 @0,0  r14  b1
+          summary.Faq__summary#6  678×64 @1,1
+            h3.Faq__question  292×20 @20,22  Manrope 600 15/20  lines=1  «Как часто нужно чистить кондиционер?»
+            span.Faq__sign  28×28 @630,18  r9
+          p.Faq__answer#6  0×0 @-260,-573  Manrope 400 15/22  b1 0 0 0  lines=3  «Фильтры внутреннего блока — раз в 2–3 не»
+      li.Faq__item#7  680×66 @0,444
+        details.Faq__details  680×66 @0,0  r14  b1
+          summary.Faq__summary#7  678×64 @1,1
+            h3.Faq__question  175×20 @20,22  Manrope 600 15/20  lines=1  «Что входит в гарантию?»
+            span.Faq__sign  28×28 @630,18  r9
+          p.Faq__answer#7  0×0 @-260,-647  Manrope 400 15/22  b1 0 0 0  lines=6  «Гарантия на монтаж — Гарантия на монтаж»
 
 [палитра light]
 section.Faq__section  bg #ffffff
@@ -297,70 +213,49 @@ section.Faq__section  bg #ffffff
     header.Faq__head
       p.Faq__kicker  color #0e7490
       h2.Faq__title  color #0f172a
-    div.Accordion__list
-      div.Accordion__item  bg #ffffff  border #e2e8f0
-        h3.Accordion__heading
-          button.Accordion__trigger
-            span  color #0f172a
-            span.Accordion__icon  bg #ecfeff
-        div.Accordion__panel
-          div.Accordion__panelInner
-            div.Accordion__content
-              p.Faq__answer  color #475569
-      div.Accordion__item#2  bg #ffffff  border #e2e8f0
-        h3.Accordion__heading
-          button.Accordion__trigger#2
-            span  color #0f172a
-            span.Accordion__icon  bg #ecfeff
-        div.Accordion__panel
-          div.Accordion__panelInner#2
-            div.Accordion__content
-              p.Faq__answer#2  color #475569
-      div.Accordion__item#3  bg #ffffff  border #e2e8f0
-        h3.Accordion__heading
-          button.Accordion__trigger#3
-            span  color #0f172a
-            span.Accordion__icon  bg #ecfeff
-        div.Accordion__panel
-          div.Accordion__panelInner#3
-            div.Accordion__content
-              p.Faq__answer#3  color #475569
-      div.Accordion__item#4  bg #ffffff  border #e2e8f0
-        h3.Accordion__heading
-          button.Accordion__trigger#4
-            span  color #0f172a
-            span.Accordion__icon  bg #ecfeff
-        div.Accordion__panel
-          div.Accordion__panelInner#4
-            div.Accordion__content
-              p.Faq__answer#4  color #475569
-      div.Accordion__item#5  bg #ffffff  border #e2e8f0
-        h3.Accordion__heading
-          button.Accordion__trigger#5
-            span  color #0f172a
-            span.Accordion__icon  bg #ecfeff
-        div.Accordion__panel
-          div.Accordion__panelInner#5
-            div.Accordion__content
-              p.Faq__answer#5  color #475569
-      div.Accordion__item#6  bg #ffffff  border #e2e8f0
-        h3.Accordion__heading
-          button.Accordion__trigger#6
-            span  color #0f172a
-            span.Accordion__icon  bg #ecfeff
-        div.Accordion__panel
-          div.Accordion__panelInner#6
-            div.Accordion__content
-              p.Faq__answer#6  color #475569
-      div.Accordion__item#7  bg #ffffff  border #e2e8f0
-        h3.Accordion__heading
-          button.Accordion__trigger#7
-            span  color #0f172a
-            span.Accordion__icon  bg #ecfeff
-        div.Accordion__panel
-          div.Accordion__panelInner#7
-            div.Accordion__content
-              p.Faq__answer#7  color #475569
+    ul.Faq__list
+      li.Faq__item
+        details.Faq__details  bg #ffffff  border #e2e8f0
+          summary.Faq__summary
+            h3.Faq__question  color #0f172a
+            span.Faq__sign  bg #ecfeff
+          p.Faq__answer  color #556173  border #eef2f6 #556173 #556173 #556173
+      li.Faq__item#2
+        details.Faq__details  bg #ffffff  border #e2e8f0
+          summary.Faq__summary#2
+            h3.Faq__question  color #0f172a
+            span.Faq__sign  bg #ecfeff
+          p.Faq__answer#2  color #556173  border #eef2f6 #556173 #556173 #556173
+      li.Faq__item#3
+        details.Faq__details  bg #ffffff  border #e2e8f0
+          summary.Faq__summary#3
+            h3.Faq__question  color #0f172a
+            span.Faq__sign  bg #ecfeff
+          p.Faq__answer#3  color #556173  border #eef2f6 #556173 #556173 #556173
+      li.Faq__item#4
+        details.Faq__details  bg #ffffff  border #e2e8f0
+          summary.Faq__summary#4
+            h3.Faq__question  color #0f172a
+            span.Faq__sign  bg #ecfeff
+          p.Faq__answer#4  color #556173  border #eef2f6 #556173 #556173 #556173
+      li.Faq__item#5
+        details.Faq__details  bg #ffffff  border #e2e8f0
+          summary.Faq__summary#5
+            h3.Faq__question  color #0f172a
+            span.Faq__sign  bg #ecfeff
+          p.Faq__answer#5  color #556173  border #eef2f6 #556173 #556173 #556173
+      li.Faq__item#6
+        details.Faq__details  bg #ffffff  border #e2e8f0
+          summary.Faq__summary#6
+            h3.Faq__question  color #0f172a
+            span.Faq__sign  bg #ecfeff
+          p.Faq__answer#6  color #556173  border #eef2f6 #556173 #556173 #556173
+      li.Faq__item#7
+        details.Faq__details  bg #ffffff  border #e2e8f0
+          summary.Faq__summary#7
+            h3.Faq__question  color #0f172a
+            span.Faq__sign  bg #ecfeff
+          p.Faq__answer#7  color #556173  border #eef2f6 #556173 #556173 #556173
 
 [палитра dark]
 section.Faq__section  bg #0b1220
@@ -368,67 +263,46 @@ section.Faq__section  bg #0b1220
     header.Faq__head
       p.Faq__kicker  color #22d3ee
       h2.Faq__title  color #eaf1f8
-    div.Accordion__list
-      div.Accordion__item  bg #121d31  border #1e2b41
-        h3.Accordion__heading
-          button.Accordion__trigger
-            span  color #eaf1f8
-            span.Accordion__icon  bg #22d3ee1a
-        div.Accordion__panel
-          div.Accordion__panelInner
-            div.Accordion__content
-              p.Faq__answer  color #a8b6c6
-      div.Accordion__item#2  bg #121d31  border #1e2b41
-        h3.Accordion__heading
-          button.Accordion__trigger#2
-            span  color #eaf1f8
-            span.Accordion__icon  bg #22d3ee1a
-        div.Accordion__panel
-          div.Accordion__panelInner#2
-            div.Accordion__content
-              p.Faq__answer#2  color #a8b6c6
-      div.Accordion__item#3  bg #121d31  border #1e2b41
-        h3.Accordion__heading
-          button.Accordion__trigger#3
-            span  color #eaf1f8
-            span.Accordion__icon  bg #22d3ee1a
-        div.Accordion__panel
-          div.Accordion__panelInner#3
-            div.Accordion__content
-              p.Faq__answer#3  color #a8b6c6
-      div.Accordion__item#4  bg #121d31  border #1e2b41
-        h3.Accordion__heading
-          button.Accordion__trigger#4
-            span  color #eaf1f8
-            span.Accordion__icon  bg #22d3ee1a
-        div.Accordion__panel
-          div.Accordion__panelInner#4
-            div.Accordion__content
-              p.Faq__answer#4  color #a8b6c6
-      div.Accordion__item#5  bg #121d31  border #1e2b41
-        h3.Accordion__heading
-          button.Accordion__trigger#5
-            span  color #eaf1f8
-            span.Accordion__icon  bg #22d3ee1a
-        div.Accordion__panel
-          div.Accordion__panelInner#5
-            div.Accordion__content
-              p.Faq__answer#5  color #a8b6c6
-      div.Accordion__item#6  bg #121d31  border #1e2b41
-        h3.Accordion__heading
-          button.Accordion__trigger#6
-            span  color #eaf1f8
-            span.Accordion__icon  bg #22d3ee1a
-        div.Accordion__panel
-          div.Accordion__panelInner#6
-            div.Accordion__content
-              p.Faq__answer#6  color #a8b6c6
-      div.Accordion__item#7  bg #121d31  border #1e2b41
-        h3.Accordion__heading
-          button.Accordion__trigger#7
-            span  color #eaf1f8
-            span.Accordion__icon  bg #22d3ee1a
-        div.Accordion__panel
-          div.Accordion__panelInner#7
-            div.Accordion__content
-              p.Faq__answer#7  color #a8b6c6
+    ul.Faq__list
+      li.Faq__item
+        details.Faq__details  bg #121d31  border #1e2b41
+          summary.Faq__summary
+            h3.Faq__question  color #eaf1f8
+            span.Faq__sign  bg #22d3ee1a
+          p.Faq__answer  color #556173  border #eef2f6 #556173 #556173 #556173
+      li.Faq__item#2
+        details.Faq__details  bg #121d31  border #1e2b41
+          summary.Faq__summary#2
+            h3.Faq__question  color #eaf1f8
+            span.Faq__sign  bg #22d3ee1a
+          p.Faq__answer#2  color #556173  border #eef2f6 #556173 #556173 #556173
+      li.Faq__item#3
+        details.Faq__details  bg #121d31  border #1e2b41
+          summary.Faq__summary#3
+            h3.Faq__question  color #eaf1f8
+            span.Faq__sign  bg #22d3ee1a
+          p.Faq__answer#3  color #556173  border #eef2f6 #556173 #556173 #556173
+      li.Faq__item#4
+        details.Faq__details  bg #121d31  border #1e2b41
+          summary.Faq__summary#4
+            h3.Faq__question  color #eaf1f8
+            span.Faq__sign  bg #22d3ee1a
+          p.Faq__answer#4  color #556173  border #eef2f6 #556173 #556173 #556173
+      li.Faq__item#5
+        details.Faq__details  bg #121d31  border #1e2b41
+          summary.Faq__summary#5
+            h3.Faq__question  color #eaf1f8
+            span.Faq__sign  bg #22d3ee1a
+          p.Faq__answer#5  color #556173  border #eef2f6 #556173 #556173 #556173
+      li.Faq__item#6
+        details.Faq__details  bg #121d31  border #1e2b41
+          summary.Faq__summary#6
+            h3.Faq__question  color #eaf1f8
+            span.Faq__sign  bg #22d3ee1a
+          p.Faq__answer#6  color #556173  border #eef2f6 #556173 #556173 #556173
+      li.Faq__item#7
+        details.Faq__details  bg #121d31  border #1e2b41
+          summary.Faq__summary#7
+            h3.Faq__question  color #eaf1f8
+            span.Faq__sign  bg #22d3ee1a
+          p.Faq__answer#7  color #556173  border #eef2f6 #556173 #556173 #556173

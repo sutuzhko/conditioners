@@ -1,211 +1,211 @@
-# блоки-faq--placeholders · ширины 320 375 768 1200 · темы light dark
+# блоки-faq--opened · ширины 320 375 768 1200 · темы light dark
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-320 → 320×900
+320 → 320×963
 375 → 375×900
 768 → 768×900
 1200 → 1200×900
 
 [геометрия 320]
-section.Faq__section  320×689 @0,0
-  div.Faq__container  320×689 @0,0
+section.Faq__section  320×963 @0,0
+  div.Faq__container  320×963 @0,0
     header.Faq__head  288×61 @16,48
       p.Faq__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— FAQ —»
       h2.Faq__title  288×29 @0,32  Onest 700 24/29  ls0  lines=1  «Частые вопросы»
-    ul.Faq__list  288×560 @16,129
-      li.Faq__item  288×89 @0,0
-        details.Faq__details  288×89 @0,0  r14  b1
+    ul.Faq__list  288×834 @16,129
+      li.Faq__item  288×363 @0,0
+        details.Faq__details  288×363 @0,0  r14  b1
           summary.Faq__summary  286×87 @1,1
             h3.Faq__question  214×59 @16,14  Manrope 600 15/20  lines=3  «Сколько стоит установить кондиционер в т»
             span.Faq__sign  28×28 @242,29  r9
-          p.Faq__answer  0×0 @-16,-129  Manrope 400 15/22  b1 0 0 0  lines=11  «Типовая квартира — это почти всегда стан»
-      li.Faq__item#2  288×69 @0,97
+          p.Faq__answer  286×274 @1,88  Manrope 400 15/22  b1 0 0 0  lines=11  «Типовая квартира — это почти всегда стан»
+      li.Faq__item#2  288×69 @0,371
         details.Faq__details  288×69 @0,0  r14  b1
           summary.Faq__summary#2  286×67 @1,1
             h3.Faq__question  214×39 @16,14  Manrope 600 15/20  lines=2  «Сколько времени занимает установка?»
             span.Faq__sign  28×28 @242,20  r9
-          p.Faq__answer#2  0×0 @-16,-226  Manrope 400 15/22  b1 0 0 0  lines=11  «Типовой монтаж сплит-системы бригада дел»
-      li.Faq__item#3  288×89 @0,174
+          p.Faq__answer#2  0×0 @-16,-500  Manrope 400 15/22  b1 0 0 0  lines=11  «Типовой монтаж сплит-системы бригада дел»
+      li.Faq__item#3  288×89 @0,448
         details.Faq__details  288×89 @0,0  r14  b1
           summary.Faq__summary#3  286×87 @1,1
             h3.Faq__question  214×59 @16,14  Manrope 600 15/20  lines=3  «Нужно ли согласовывать наружный блок с у»
             span.Faq__sign  28×28 @242,29  r9
-          p.Faq__answer#3  0×0 @-16,-303  Manrope 400 15/22  b1 0 0 0  lines=14  «Фасад дома — общее имущество жильцов, по»
-      li.Faq__item#4  288×69 @0,271
+          p.Faq__answer#3  0×0 @-16,-577  Manrope 400 15/22  b1 0 0 0  lines=14  «Фасад дома — общее имущество жильцов, по»
+      li.Faq__item#4  288×69 @0,545
         details.Faq__details  288×69 @0,0  r14  b1
           summary.Faq__summary#4  286×67 @1,1
             h3.Faq__question  214×39 @16,14  Manrope 600 15/20  lines=2  «Можно ли устанавливать кондиционер зимой»
             span.Faq__sign  28×28 @242,20  r9
-          p.Faq__answer#4  0×0 @-16,-399  Manrope 400 15/22  b1 0 0 0  lines=12  «Смонтировать и запаять трассу можно и в»
-      li.Faq__item#5  288×69 @0,348
+          p.Faq__answer#4  0×0 @-16,-674  Manrope 400 15/22  b1 0 0 0  lines=12  «Смонтировать и запаять трассу можно и в»
+      li.Faq__item#5  288×69 @0,622
         details.Faq__details  288×69 @0,0  r14  b1
           summary.Faq__summary#5  286×67 @1,1
             h3.Faq__question  214×39 @16,14  Manrope 600 15/20  lines=2  «Нужна ли дозаправка фреона при установке»
             span.Faq__sign  28×28 @242,20  r9
-          p.Faq__answer#5  0×0 @-16,-477  Manrope 400 15/22  b1 0 0 0  lines=10  «Нет. Наружный блок заправлен хладагентом»
-      li.Faq__item#6  288×69 @0,425
+          p.Faq__answer#5  0×0 @-16,-751  Manrope 400 15/22  b1 0 0 0  lines=10  «Нет. Наружный блок заправлен хладагентом»
+      li.Faq__item#6  288×69 @0,699
         details.Faq__details  288×69 @0,0  r14  b1
           summary.Faq__summary#6  286×67 @1,1
             h3.Faq__question  214×39 @16,14  Manrope 600 15/20  lines=2  «Как часто нужно чистить кондиционер?»
             span.Faq__sign  28×28 @242,20  r9
-          p.Faq__answer#6  0×0 @-16,-554  Manrope 400 15/22  b1 0 0 0  lines=7  «Фильтры внутреннего блока — раз в 2–3 не»
-      li.Faq__item#7  288×58 @0,502
+          p.Faq__answer#6  0×0 @-16,-828  Manrope 400 15/22  b1 0 0 0  lines=7  «Фильтры внутреннего блока — раз в 2–3 не»
+      li.Faq__item#7  288×58 @0,776
         details.Faq__details  288×58 @0,0  r14  b1
           summary.Faq__summary#7  286×56 @1,1
             h3.Faq__question  169×20 @16,18  Manrope 600 15/20  lines=1  «Что входит в гарантию?»
             span.Faq__sign  28×28 @242,14  r9
-          p.Faq__answer#7  0×0 @-16,-631  Manrope 400 15/22  b1 0 0 0  lines=9  «Гарантия на монтаж — ЗАПОЛНИТЕ В АДМИНКЕ»
+          p.Faq__answer#7  0×0 @-16,-905  Manrope 400 15/22  b1 0 0 0  lines=15  «Гарантия на монтаж — Гарантия на монтаж»
 
 [геометрия 375]
-section.Faq__section  375×657 @0,0
-  div.Faq__container  375×657 @0,0
+section.Faq__section  375×886 @0,0
+  div.Faq__container  375×886 @0,0
     header.Faq__head  342×62 @17,51
       p.Faq__kicker  342×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— FAQ —»
       h2.Faq__title  342×30 @0,32  Onest 700 25/30  ls0  lines=1  «Частые вопросы»
-    ul.Faq__list  342×524 @17,132
-      li.Faq__item  342×70 @0,0
-        details.Faq__details  342×70 @0,0  r14  b1
+    ul.Faq__list  342×754 @17,132
+      li.Faq__item  342×299 @0,0
+        details.Faq__details  342×299 @0,0  r14  b1
           summary.Faq__summary  340×68 @1,1
             h3.Faq__question  268×39 @16,14  Manrope 600 15/20  lines=2  «Сколько стоит установить кондиционер в т»
             span.Faq__sign  28×28 @296,20  r9
-          p.Faq__answer  0×0 @-16,-132  Manrope 400 15/22  b1 0 0 0  lines=9  «Типовая квартира — это почти всегда стан»
-      li.Faq__item#2  342×70 @0,78
+          p.Faq__answer  340×229 @1,69  Manrope 400 15/22  b1 0 0 0  lines=9  «Типовая квартира — это почти всегда стан»
+      li.Faq__item#2  342×70 @0,307
         details.Faq__details  342×70 @0,0  r14  b1
           summary.Faq__summary#2  340×68 @1,1
             h3.Faq__question  268×39 @16,14  Manrope 600 15/20  lines=2  «Сколько времени занимает установка?»
             span.Faq__sign  28×28 @296,20  r9
-          p.Faq__answer#2  0×0 @-16,-210  Manrope 400 15/22  b1 0 0 0  lines=8  «Типовой монтаж сплит-системы бригада дел»
-      li.Faq__item#3  342×70 @0,155
+          p.Faq__answer#2  0×0 @-16,-440  Manrope 400 15/22  b1 0 0 0  lines=8  «Типовой монтаж сплит-системы бригада дел»
+      li.Faq__item#3  342×70 @0,385
         details.Faq__details  342×70 @0,0  r14  b1
           summary.Faq__summary#3  340×68 @1,1
             h3.Faq__question  268×39 @16,14  Manrope 600 15/20  lines=2  «Нужно ли согласовывать наружный блок с у»
             span.Faq__sign  28×28 @296,20  r9
-          p.Faq__answer#3  0×0 @-16,-288  Manrope 400 15/22  b1 0 0 0  lines=12  «Фасад дома — общее имущество жильцов, по»
-      li.Faq__item#4  342×70 @0,233
+          p.Faq__answer#3  0×0 @-16,-517  Manrope 400 15/22  b1 0 0 0  lines=12  «Фасад дома — общее имущество жильцов, по»
+      li.Faq__item#4  342×70 @0,462
         details.Faq__details  342×70 @0,0  r14  b1
           summary.Faq__summary#4  340×68 @1,1
             h3.Faq__question  268×39 @16,14  Manrope 600 15/20  lines=2  «Можно ли устанавливать кондиционер зимой»
             span.Faq__sign  28×28 @296,20  r9
-          p.Faq__answer#4  0×0 @-16,-365  Manrope 400 15/22  b1 0 0 0  lines=10  «Смонтировать и запаять трассу можно и в»
-      li.Faq__item#5  342×70 @0,311
+          p.Faq__answer#4  0×0 @-16,-595  Manrope 400 15/22  b1 0 0 0  lines=10  «Смонтировать и запаять трассу можно и в»
+      li.Faq__item#5  342×70 @0,540
         details.Faq__details  342×70 @0,0  r14  b1
           summary.Faq__summary#5  340×68 @1,1
             h3.Faq__question  268×39 @16,14  Manrope 600 15/20  lines=2  «Нужна ли дозаправка фреона при установке»
             span.Faq__sign  28×28 @296,20  r9
-          p.Faq__answer#5  0×0 @-16,-443  Manrope 400 15/22  b1 0 0 0  lines=9  «Нет. Наружный блок заправлен хладагентом»
-      li.Faq__item#6  342×70 @0,388
+          p.Faq__answer#5  0×0 @-16,-672  Manrope 400 15/22  b1 0 0 0  lines=9  «Нет. Наружный блок заправлен хладагентом»
+      li.Faq__item#6  342×70 @0,618
         details.Faq__details  342×70 @0,0  r14  b1
           summary.Faq__summary#6  340×68 @1,1
             h3.Faq__question  268×39 @16,14  Manrope 600 15/20  lines=2  «Как часто нужно чистить кондиционер?»
             span.Faq__sign  28×28 @296,20  r9
-          p.Faq__answer#6  0×0 @-16,-521  Manrope 400 15/22  b1 0 0 0  lines=6  «Фильтры внутреннего блока — раз в 2–3 не»
-      li.Faq__item#7  342×59 @0,466
+          p.Faq__answer#6  0×0 @-16,-750  Manrope 400 15/22  b1 0 0 0  lines=6  «Фильтры внутреннего блока — раз в 2–3 не»
+      li.Faq__item#7  342×59 @0,695
         details.Faq__details  342×59 @0,0  r14  b1
           summary.Faq__summary#7  340×57 @1,1
             h3.Faq__question  169×20 @16,18  Manrope 600 15/20  lines=1  «Что входит в гарантию?»
             span.Faq__sign  28×28 @296,14  r9
-          p.Faq__answer#7  0×0 @-16,-598  Manrope 400 15/22  b1 0 0 0  lines=8  «Гарантия на монтаж — ЗАПОЛНИТЕ В АДМИНКЕ»
+          p.Faq__answer#7  0×0 @-16,-828  Manrope 400 15/22  b1 0 0 0  lines=12  «Гарантия на монтаж — Гарантия на монтаж»
 
 [геометрия 768]
-section.Faq__section  768×647 @0,0
-  div.Faq__container  768×647 @0,0
+section.Faq__section  768×766 @0,0
+  div.Faq__container  768×766 @0,0
     header.Faq__head  640×69 @64,68
       p.Faq__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— FAQ —»
       h2.Faq__title  640×37 @0,32  Onest 700 31/37  ls-1  lines=1  «Частые вопросы»
-    ul.Faq__list  680×482 @44,164
-      li.Faq__item  680×62 @0,0
-        details.Faq__details  680×62 @0,0  r14  b1
+    ul.Faq__list  680×601 @44,164
+      li.Faq__item  680×181 @0,0
+        details.Faq__details  680×181 @0,0  r14  b1
           summary.Faq__summary  678×60 @1,1
             h3.Faq__question  437×20 @18,20  Manrope 600 15/20  lines=1  «Сколько стоит установить кондиционер в т»
             span.Faq__sign  28×28 @632,16  r9
-          p.Faq__answer  0×0 @-44,-164  Manrope 400 15/22  b1 0 0 0  lines=4  «Типовая квартира — это почти всегда стан»
-      li.Faq__item#2  680×62 @0,70
+          p.Faq__answer  678×119 @1,61  Manrope 400 15/22  b1 0 0 0  lines=4  «Типовая квартира — это почти всегда стан»
+      li.Faq__item#2  680×62 @0,189
         details.Faq__details  680×62 @0,0  r14  b1
           summary.Faq__summary#2  678×60 @1,1
             h3.Faq__question  279×20 @18,20  Manrope 600 15/20  lines=1  «Сколько времени занимает установка?»
             span.Faq__sign  28×28 @632,16  r9
-          p.Faq__answer#2  0×0 @-44,-234  Manrope 400 15/22  b1 0 0 0  lines=4  «Типовой монтаж сплит-системы бригада дел»
-      li.Faq__item#3  680×62 @0,140
+          p.Faq__answer#2  0×0 @-44,-353  Manrope 400 15/22  b1 0 0 0  lines=4  «Типовой монтаж сплит-системы бригада дел»
+      li.Faq__item#3  680×62 @0,259
         details.Faq__details  680×62 @0,0  r14  b1
           summary.Faq__summary#3  678×60 @1,1
             h3.Faq__question  492×20 @18,20  Manrope 600 15/20  lines=1  «Нужно ли согласовывать наружный блок с у»
             span.Faq__sign  28×28 @632,16  r9
-          p.Faq__answer#3  0×0 @-44,-304  Manrope 400 15/22  b1 0 0 0  lines=6  «Фасад дома — общее имущество жильцов, по»
-      li.Faq__item#4  680×62 @0,210
+          p.Faq__answer#3  0×0 @-44,-423  Manrope 400 15/22  b1 0 0 0  lines=6  «Фасад дома — общее имущество жильцов, по»
+      li.Faq__item#4  680×62 @0,329
         details.Faq__details  680×62 @0,0  r14  b1
           summary.Faq__summary#4  678×60 @1,1
             h3.Faq__question  332×20 @18,20  Manrope 600 15/20  lines=1  «Можно ли устанавливать кондиционер зимой»
             span.Faq__sign  28×28 @632,16  r9
-          p.Faq__answer#4  0×0 @-44,-374  Manrope 400 15/22  b1 0 0 0  lines=5  «Смонтировать и запаять трассу можно и в»
-      li.Faq__item#5  680×62 @0,280
+          p.Faq__answer#4  0×0 @-44,-493  Manrope 400 15/22  b1 0 0 0  lines=5  «Смонтировать и запаять трассу можно и в»
+      li.Faq__item#5  680×62 @0,399
         details.Faq__details  680×62 @0,0  r14  b1
           summary.Faq__summary#5  678×60 @1,1
             h3.Faq__question  322×20 @18,20  Manrope 600 15/20  lines=1  «Нужна ли дозаправка фреона при установке»
             span.Faq__sign  28×28 @632,16  r9
-          p.Faq__answer#5  0×0 @-44,-445  Manrope 400 15/22  b1 0 0 0  lines=4  «Нет. Наружный блок заправлен хладагентом»
-      li.Faq__item#6  680×62 @0,350
+          p.Faq__answer#5  0×0 @-44,-563  Manrope 400 15/22  b1 0 0 0  lines=4  «Нет. Наружный блок заправлен хладагентом»
+      li.Faq__item#6  680×62 @0,469
         details.Faq__details  680×62 @0,0  r14  b1
           summary.Faq__summary#6  678×60 @1,1
             h3.Faq__question  284×20 @18,20  Manrope 600 15/20  lines=1  «Как часто нужно чистить кондиционер?»
             span.Faq__sign  28×28 @632,16  r9
-          p.Faq__answer#6  0×0 @-44,-515  Manrope 400 15/22  b1 0 0 0  lines=3  «Фильтры внутреннего блока — раз в 2–3 не»
-      li.Faq__item#7  680×62 @0,420
+          p.Faq__answer#6  0×0 @-44,-634  Manrope 400 15/22  b1 0 0 0  lines=3  «Фильтры внутреннего блока — раз в 2–3 не»
+      li.Faq__item#7  680×62 @0,539
         details.Faq__details  680×62 @0,0  r14  b1
           summary.Faq__summary#7  678×60 @1,1
             h3.Faq__question  170×20 @18,20  Manrope 600 15/20  lines=1  «Что входит в гарантию?»
             span.Faq__sign  28×28 @632,16  r9
-          p.Faq__answer#7  0×0 @-44,-585  Manrope 400 15/22  b1 0 0 0  lines=4  «Гарантия на монтаж — ЗАПОЛНИТЕ В АДМИНКЕ»
+          p.Faq__answer#7  0×0 @-44,-704  Manrope 400 15/22  b1 0 0 0  lines=6  «Гарантия на монтаж — Гарантия на монтаж»
 
 [геометрия 1200]
-section.Faq__section  1200×713 @0,0
-  div.Faq__container  900×713 @150,0
+section.Faq__section  1200×833 @0,0
+  div.Faq__container  900×833 @150,0
     header.Faq__head  640×78 @130,88
       p.Faq__kicker  640×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— FAQ —»
       h2.Faq__title  640×46 @0,32  Onest 700 38/46  ls-1  lines=1  «Частые вопросы»
-    ul.Faq__list  680×510 @110,203
-      li.Faq__item  680×66 @0,0
-        details.Faq__details  680×66 @0,0  r14  b1
+    ul.Faq__list  680×631 @110,203
+      li.Faq__item  680×187 @0,0
+        details.Faq__details  680×187 @0,0  r14  b1
           summary.Faq__summary  678×64 @1,1
             h3.Faq__question  450×20 @20,22  Manrope 600 15/20  lines=1  «Сколько стоит установить кондиционер в т»
             span.Faq__sign  28×28 @630,18  r9
-          p.Faq__answer  0×0 @-260,-203  Manrope 400 15/22  b1 0 0 0  lines=4  «Типовая квартира — это почти всегда стан»
-      li.Faq__item#2  680×66 @0,74
+          p.Faq__answer  678×121 @1,65  Manrope 400 15/22  b1 0 0 0  lines=4  «Типовая квартира — это почти всегда стан»
+      li.Faq__item#2  680×66 @0,195
         details.Faq__details  680×66 @0,0  r14  b1
           summary.Faq__summary#2  678×64 @1,1
             h3.Faq__question  288×20 @20,22  Manrope 600 15/20  lines=1  «Сколько времени занимает установка?»
             span.Faq__sign  28×28 @630,18  r9
-          p.Faq__answer#2  0×0 @-260,-277  Manrope 400 15/22  b1 0 0 0  lines=4  «Типовой монтаж сплит-системы бригада дел»
-      li.Faq__item#3  680×66 @0,148
+          p.Faq__answer#2  0×0 @-260,-397  Manrope 400 15/22  b1 0 0 0  lines=4  «Типовой монтаж сплит-системы бригада дел»
+      li.Faq__item#3  680×66 @0,269
         details.Faq__details  680×66 @0,0  r14  b1
           summary.Faq__summary#3  678×64 @1,1
             h3.Faq__question  507×20 @20,22  Manrope 600 15/20  lines=1  «Нужно ли согласовывать наружный блок с у»
             span.Faq__sign  28×28 @630,18  r9
-          p.Faq__answer#3  0×0 @-260,-351  Manrope 400 15/22  b1 0 0 0  lines=6  «Фасад дома — общее имущество жильцов, по»
-      li.Faq__item#4  680×66 @0,222
+          p.Faq__answer#3  0×0 @-260,-471  Manrope 400 15/22  b1 0 0 0  lines=6  «Фасад дома — общее имущество жильцов, по»
+      li.Faq__item#4  680×66 @0,343
         details.Faq__details  680×66 @0,0  r14  b1
           summary.Faq__summary#4  678×64 @1,1
             h3.Faq__question  342×20 @20,22  Manrope 600 15/20  lines=1  «Можно ли устанавливать кондиционер зимой»
             span.Faq__sign  28×28 @630,18  r9
-          p.Faq__answer#4  0×0 @-260,-425  Manrope 400 15/22  b1 0 0 0  lines=5  «Смонтировать и запаять трассу можно и в»
-      li.Faq__item#5  680×66 @0,296
+          p.Faq__answer#4  0×0 @-260,-545  Manrope 400 15/22  b1 0 0 0  lines=5  «Смонтировать и запаять трассу можно и в»
+      li.Faq__item#5  680×66 @0,417
         details.Faq__details  680×66 @0,0  r14  b1
           summary.Faq__summary#5  678×64 @1,1
             h3.Faq__question  332×20 @20,22  Manrope 600 15/20  lines=1  «Нужна ли дозаправка фреона при установке»
             span.Faq__sign  28×28 @630,18  r9
-          p.Faq__answer#5  0×0 @-260,-499  Manrope 400 15/22  b1 0 0 0  lines=4  «Нет. Наружный блок заправлен хладагентом»
-      li.Faq__item#6  680×66 @0,370
+          p.Faq__answer#5  0×0 @-260,-619  Manrope 400 15/22  b1 0 0 0  lines=4  «Нет. Наружный блок заправлен хладагентом»
+      li.Faq__item#6  680×66 @0,491
         details.Faq__details  680×66 @0,0  r14  b1
           summary.Faq__summary#6  678×64 @1,1
             h3.Faq__question  292×20 @20,22  Manrope 600 15/20  lines=1  «Как часто нужно чистить кондиционер?»
             span.Faq__sign  28×28 @630,18  r9
-          p.Faq__answer#6  0×0 @-260,-573  Manrope 400 15/22  b1 0 0 0  lines=3  «Фильтры внутреннего блока — раз в 2–3 не»
-      li.Faq__item#7  680×66 @0,444
+          p.Faq__answer#6  0×0 @-260,-693  Manrope 400 15/22  b1 0 0 0  lines=3  «Фильтры внутреннего блока — раз в 2–3 не»
+      li.Faq__item#7  680×66 @0,565
         details.Faq__details  680×66 @0,0  r14  b1
           summary.Faq__summary#7  678×64 @1,1
             h3.Faq__question  175×20 @20,22  Manrope 600 15/20  lines=1  «Что входит в гарантию?»
             span.Faq__sign  28×28 @630,18  r9
-          p.Faq__answer#7  0×0 @-260,-647  Manrope 400 15/22  b1 0 0 0  lines=4  «Гарантия на монтаж — ЗАПОЛНИТЕ В АДМИНКЕ»
+          p.Faq__answer#7  0×0 @-260,-767  Manrope 400 15/22  b1 0 0 0  lines=6  «Гарантия на монтаж — Гарантия на монтаж»
 
 [палитра light]
 section.Faq__section  bg #ffffff
@@ -269,7 +269,7 @@ section.Faq__section  bg #0b1220
           summary.Faq__summary
             h3.Faq__question  color #eaf1f8
             span.Faq__sign  bg #22d3ee1a
-          p.Faq__answer  color #556173  border #eef2f6 #556173 #556173 #556173
+          p.Faq__answer  color #8598ac  border #182338 #8598ac #8598ac #8598ac
       li.Faq__item#2
         details.Faq__details  bg #121d31  border #1e2b41
           summary.Faq__summary#2
