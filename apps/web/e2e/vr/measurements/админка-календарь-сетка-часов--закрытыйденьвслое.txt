@@ -287,7 +287,7 @@ section.TimeGrid__grid  736×749 @16,16
           span.TimeGrid__nowDot  8×8 @-5,-3  r100
 
 [геометрия 1440]
-section.TimeGrid__grid  1408×705 @16,16
+section.TimeGrid__grid  1408×709 @16,16
   ul.TimeGrid__legend  1408×20 @0,0
     li.TimeGrid__legendItem  146×20 @0,0  Manrope 400 13/20  lines=1  «Дмитрий Соколов»
       span.TimeGrid__legendMark  30×20 @0,0  Manrope 700 12/18  r100  b1  lines=1  «ДС»
@@ -303,24 +303,24 @@ section.TimeGrid__grid  1408×705 @16,16
         span.TimeGrid__headLoad  58×16 @0,0  Manrope 400 12/16  lines=1  «занято 4 ч»
         span.TimeGrid__headClash  106×16 @64,0  Manrope 600 12/16  lines=1  «пересечений: 2»
           svg  11×11 @0,2
-  div.AllDayBar__bar  1408×56 @0,73  b0 0 1 0
+  div.AllDayBar__bar  1408×60 @0,73  b0 0 1 0
     div.AllDayBar__rail  54×29 @0,4
       span.AllDayBar__label  48×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-    ul.AllDayBar__list  1350×47 @58,4
-      li.AllDayBar__item  1350×22 @0,0
-        button.EventChip__chip  1350×22 @0,0  r100  b1 1 1 3
-          span.EventChip__head  84×15 @9,4
+    ul.AllDayBar__list  1350×51 @58,4
+      li.AllDayBar__item  1350×24 @0,0
+        button.EventChip__chip  1350×24 @0,0  r100  b1 1 1 3
+          span.EventChip__head  84×15 @9,5
             svg.EventChip__icon  12×12 @0,2
             span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «Занят»
             span.EventChip__who  28×15 @56,0  Manrope 700 12/13  r100  b1  lines=1  «СП»
-          span.EventChip__name  1243×15 @98,4  Manrope 600 12/15  lines=1  «Сергей Панин»
-      li.AllDayBar__item#2  1350×22 @0,25
-        button.EventChip__chip  1350×22 @0,0  r100  b1 1 1 3
-          span.EventChip__head#2  52×15 @9,4
+          span.EventChip__name  1243×15 @98,5  Manrope 600 12/15  lines=1  «Сергей Панин»
+      li.AllDayBar__item#2  1350×24 @0,27
+        button.EventChip__chip  1350×24 @0,0  r100  b1 1 1 3
+          span.EventChip__head#2  52×15 @9,5
             svg.EventChip__icon  12×12 @0,2
             span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:12»
-          span.EventChip__name#2  1275×15 @66,4  Manrope 600 12/15  lines=1  «Сергей»
-  div.TimeGrid__scroll  1408×576 @0,129
+          span.EventChip__name#2  1275×15 @66,5  Manrope 600 12/15  lines=1  «Сергей»
+  div.TimeGrid__scroll  1408×576 @0,133
     div.TimeGrid__hours  1408×1152 @0,-384
       div.TimeGrid__rail  54×1152 @0,0
         span.TimeGrid__hour  54×48 @0,0  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «00:00»
