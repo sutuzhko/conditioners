@@ -28,6 +28,21 @@ const crmEventSchema = z.object({ id: z.string() });
 
 const staffSchema = z.object({ id: z.string(), login: z.string() });
 
+/**
+ * Наряд глазами владельца — ровно те поля, по которым сценарий доступа
+ * выбирает наряд, переназначает его и потом ищет в теле ответа сумму,
+ * которой монтажнику видеть не положено (CRM.md §6).
+ */
+const orderSchema = z.object({
+  id: z.string(),
+  number: z.number(),
+  address: z.string(),
+  price: z.number().optional(),
+  installerFee: z.number(),
+  installer: z.object({ id: z.string() }).nullable(),
+});
+export type AdminOrder = z.infer<typeof orderSchema>;
+
 const searchSchema = z.object({ items: z.array(z.object({ id: z.string() })) });
 
 const leadSchema = z.object({
@@ -46,6 +61,7 @@ const pageOf = <T extends z.ZodTypeAny>(item: T) =>
   z.object({ items: z.array(item), total: z.number(), page: z.number(), pages: z.number() });
 
 const leadListSchema = pageOf(leadSchema);
+const orderListSchema = pageOf(orderSchema);
 export type AdminLead = z.infer<typeof leadSchema>;
 
 const reviewSchema = z.object({
@@ -168,6 +184,27 @@ export class AdminApi {
       throw new Error(`Создание монтажника вернуло код ${response.status()}`);
     }
     return staffSchema.parse(await response.json());
+  }
+
+  /** Наряды владельца: сценарию доступа нужен чужой наряд и свой. */
+  async listOrders(tab = 'all'): Promise<readonly AdminOrder[]> {
+    const response = await this.context.get('/api/admin/orders', {
+      headers: { Cookie: this.cookie },
+      params: { tab },
+    });
+    return orderListSchema.parse(await this.json(response, 'список нарядов')).items;
+  }
+
+  /**
+   * Переназначение наряда: сценарий доступа делает наряд «своим» для
+   * заведённого монтажника и возвращает исполнителя как было.
+   */
+  async assignOrder(id: string, installerId: string | null): Promise<void> {
+    const response = await this.context.patch(`/api/admin/orders/${id}`, {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: { installerId },
+    });
+    await this.json(response, 'назначение наряда');
   }
 
   async deleteStaff(id: string): Promise<void> {
