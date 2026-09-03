@@ -25,6 +25,25 @@ const marker = `E2E-резина-${Date.now()}`;
  * цифра остаётся голой, а после — превращается в «+7 (9». Заполнять раньше
  * нельзя: состояние React осталось бы пустым, и отправилась бы пустая форма.
  */
+/**
+ * 🔴 Своя «сеть» на каждый сценарий: ограничение частоты у `/api/leads` — пять
+ * обращений с адреса за десять минут (`LEAD_RATE_LIMIT`), и все сценарии
+ * стенда приходят с одного адреса. Пока их было два, лимит не мешал; с
+ * появлением этих проверок обязательный сценарий `lead.spec.ts` начал падать
+ * в CI на отказе «слишком много обращений» — на форме, которая исправна.
+ *
+ * Адрес берётся из `X-Real-IP` (`server/client-ip.ts`) — того самого
+ * запасного пути, который заведён там «для окружений без Caddy». Так каждый
+ * сценарий получает свой счётчик, а сам ограничитель остаётся включённым и
+ * проверяемым: ослаблять его ради тестов нельзя.
+ */
+const ADDRESS_BY_PROJECT: Record<string, number> = { desktop: 10, mobile: 40 };
+
+async function ownAddress(page: Page, projectName: string, seed: number): Promise<void> {
+  const base = ADDRESS_BY_PROJECT[projectName] ?? 90;
+  await page.setExtraHTTPHeaders({ 'X-Real-IP': `10.77.0.${base + seed}` });
+}
+
 async function waitForHydration(page: Page): Promise<void> {
   const phone = page.locator('#lead form input[name="phone"]');
   await expect(async () => {
@@ -46,9 +65,10 @@ test.describe('Заявка на телефоне и на десктопе', () 
     });
   });
 
-  for (const width of [375, 1200] as const) {
-    test(`заявка с ширины ${width} доходит до базы`, async ({ page }) => {
+  for (const [index, width] of ([375, 1200] as const).entries()) {
+    test(`заявка с ширины ${width} доходит до базы`, async ({ page }, testInfo) => {
       test.slow();
+      await ownAddress(page, testInfo.project.name, index);
       await page.setViewportSize({ width, height: 900 });
       await page.goto('/');
 
@@ -91,7 +111,10 @@ test.describe('Заявка на телефоне и на десктопе', () 
    * отметки форма не отправляется (инвариант 12, 152-ФЗ). Отказ обязан
    * объяснять, что делать, и оставлять телефон запасным путём.
    */
-  test('без согласия заявка не уходит, а отказ объясняет и оставляет телефон', async ({ page }) => {
+  test('без согласия заявка не уходит, а отказ объясняет и оставляет телефон', async ({
+    page,
+  }, testInfo) => {
+    await ownAddress(page, testInfo.project.name, 6);
     test.slow();
     await page.setViewportSize({ width: 375, height: 900 });
     await page.goto('/');
@@ -124,7 +147,10 @@ test.describe('Заявка на телефоне и на десктопе', () 
    * Проверяется через клиентскую подстановку: адрес длиннее допустимого
    * ловится той же Zod-схемой, что на сервере (docs/CLAUDE.md, «Формы»).
    */
-  test('ошибка в необязательном поле раскрывает блок и ведёт туда фокус', async ({ page }) => {
+  test('ошибка в необязательном поле раскрывает блок и ведёт туда фокус', async ({
+    page,
+  }, testInfo) => {
+    await ownAddress(page, testInfo.project.name, 5);
     test.slow();
     await page.setViewportSize({ width: 375, height: 900 });
     await page.goto('/');
