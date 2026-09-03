@@ -1,0 +1,47 @@
+# админка-заказы-стопки-заказов--споиском · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+nav.OrderTabs__tabs  358×95 @16,16  b0 0 1 0
+  a.OrderTabs__tab  97×44 @0,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Активные»
+  a.OrderTabs__tab#2  74×44 @101,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Новые»
+  a.OrderTabs__tab#3  88×44 @179,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «История»
+  a.OrderTabs__tab#4  80×44 @272,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Отказы»
+  a.OrderTabs__tab#5  54×44 @0,48  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Все»
+
+[геометрия 768]
+nav.OrderTabs__tabs  736×47 @16,16  b0 0 1 0
+  a.OrderTabs__tab  97×44 @0,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Активные»
+  a.OrderTabs__tab#2  74×44 @101,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Новые»
+  a.OrderTabs__tab#3  88×44 @179,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «История»
+  a.OrderTabs__tab#4  80×44 @272,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Отказы»
+  a.OrderTabs__tab#5  54×44 @356,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Все»
+
+[геометрия 1440]
+nav.OrderTabs__tabs  1408×43 @16,16  b0 0 1 0
+  a.OrderTabs__tab  97×40 @0,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Активные»
+  a.OrderTabs__tab#2  74×40 @101,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Новые»
+  a.OrderTabs__tab#3  88×40 @179,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «История»
+  a.OrderTabs__tab#4  80×40 @272,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Отказы»
+  a.OrderTabs__tab#5  54×40 @356,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Все»
+
+[палитра light]
+nav.OrderTabs__tabs  border #0f172a #0f172a #e2e8f0 #0f172a
+  a.OrderTabs__tab  color #556173  border #556173 #556173 transparent #556173
+  a.OrderTabs__tab#2  color #556173  border #556173 #556173 transparent #556173
+  a.OrderTabs__tab#3  color #556173  border #556173 #556173 transparent #556173
+  a.OrderTabs__tab#4  color #556173  border #556173 #556173 transparent #556173
+  a.OrderTabs__tab#5  color #0f172a  border #0f172a #0f172a #0891b2 #0f172a
+
+[палитра dark]
+nav.OrderTabs__tabs  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+  a.OrderTabs__tab  color #8598ac  border #8598ac #8598ac transparent #8598ac
+  a.OrderTabs__tab#2  color #8598ac  border #8598ac #8598ac transparent #8598ac
+  a.OrderTabs__tab#3  color #8598ac  border #8598ac #8598ac transparent #8598ac
+  a.OrderTabs__tab#4  color #8598ac  border #8598ac #8598ac transparent #8598ac
+  a.OrderTabs__tab#5  color #eaf1f8  border #eaf1f8 #eaf1f8 #22d3ee #eaf1f8
