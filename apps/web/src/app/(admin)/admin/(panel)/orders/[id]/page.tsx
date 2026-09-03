@@ -6,6 +6,7 @@ import {
   OrderConsumption,
   OrderHistory,
   OrderInstallerView,
+  orderCardTabFromParam,
   orderDraftOf,
   orderManagerContent as texts,
   type ConsumptionLoad,
@@ -24,9 +25,13 @@ import styles from '../page.module.css';
 
 export const dynamic = 'force-dynamic';
 
-type PageProps = { params: Promise<{ id: string }> };
+type PageProps = {
+  params: Promise<{ id: string }>;
+  /** Вкладка карточки живёт в адресе (issue #339). */
+  searchParams: Promise<{ tab?: string }>;
+};
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Pick<PageProps, 'params'>): Promise<Metadata> {
   const { id } = await params;
   const session = await requirePage();
   const order = await findById(id, { role: session.role, userId: session.userId });
@@ -68,9 +73,15 @@ async function loadConsumption(orderId: string, viewer: Viewer): Promise<Consump
   }
 }
 
-export default async function AdminOrderPage({ params }: PageProps) {
+export default async function AdminOrderPage({ params, searchParams }: PageProps) {
   const session = await requirePage();
   const { id } = await params;
+
+  /* Вкладка разбирается здесь, на сервере: карточка приходит открытой на той,
+     что стоит в адресе, а мусор в параметре открывает первую (issue #340,
+     #341). */
+  const { tab } = await searchParams;
+  const activeTab = orderCardTabFromParam(tab);
 
   const viewer = { role: session.role, userId: session.userId };
   const order = await findById(id, viewer);
@@ -86,7 +97,7 @@ export default async function AdminOrderPage({ params }: PageProps) {
         </Link>
 
         {/* 🔴 История монтажнику не приходит вовсе — её нет и в разметке. */}
-        <OrderWork order={order} forInstaller>
+        <OrderWork order={order} tab={activeTab} forInstaller>
           <OrderInstallerView order={order} />
         </OrderWork>
 
@@ -117,7 +128,7 @@ export default async function AdminOrderPage({ params }: PageProps) {
         <h1 className={styles.title}>{texts.number(order.number)}</h1>
       </header>
 
-      <OrderWork order={order}>
+      <OrderWork order={order} tab={activeTab}>
         <OrderEditor
           orderId={order.id}
           orderNumber={order.number}

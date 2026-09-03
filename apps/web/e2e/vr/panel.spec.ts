@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 import { VR_PANEL_WIDTHS, VR_THEMES } from '../../playwright.vr.config';
+import { PANEL_KIT_SECTIONS } from './sections';
 import { snapshotStories } from './snapshot-run';
 import { loadStories } from './story-index';
 
@@ -30,17 +31,12 @@ import { loadStories } from './story-index';
  * в `snapshot-run.ts`.
  */
 
-/**
- * Разделы, которые снимаются. Кит и его панельные состояния: `UI Kit/` —
- * основной раздел кита, `Кит/` — два компонента, заведённые под этим именем
- * раньше (Icon и PhoneInput).
- */
-const PANEL_SECTIONS = ['UI Kit/', 'Кит/'];
+/* Разделы приходят из общего перечня (issue #517). */
 
 for (const width of VR_PANEL_WIDTHS) {
   for (const theme of VR_THEMES) {
     test(`истории кита на ${width}px, тема ${theme}`, async ({ page, request }) => {
-      const stories = await loadStories(request, PANEL_SECTIONS);
+      const stories = await loadStories(request, PANEL_KIT_SECTIONS);
       expect(stories.length).toBeGreaterThan(0);
 
       await snapshotStories(page, {
