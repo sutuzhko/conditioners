@@ -1,5 +1,11 @@
-/* Футер. Тёмная панель в обеих темах — так в макете; текст на ней держит AA
-   за счёт var(--faint), ссылки при наведении уходят в белый. */
+/* Футер. Тёмная панель в обеих темах — так в макете; приглушённые уровни
+   берутся от тёмного грунта (`data-ground="panel"`, ADR-158), поэтому текст
+   на ней держит AA.
+
+   🔴 Здесь живут NAP-данные — название, адрес, телефон, часы, — и Яндекс
+   сверяет их с Яндекс.Бизнесом (ADR-009). Ни одна строка не имеет права
+   потеряться при сжатии: реквизиты идут сеткой «подпись → значение», а не
+   строкой, наименование переносится по буквам (issue #283). */
 
 .footer {
   background: var(--panel);
@@ -11,20 +17,24 @@
   font-size: 14px;
 }
 
+/* Сетка вместо ряда: на телефоне это одна колонка в порядке разметки, с 900
+   — три, где бренд и контакты стоят друг под другом в первой. Ряд с
+   переносом такой раскладки не даёт: он ставит контакты рядом с брендом
+   только случайно, по остатку ширины. */
 .inner {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px clamp(16px, 0.8rem + 1.4vw, 32px);
   box-sizing: border-box;
   max-width: var(--container);
   margin: 0 auto;
-  padding: 48px var(--gutter) 36px;
+  padding: clamp(32px, 1rem + 2.4vw, 48px) var(--gutter) clamp(24px, 1rem + 1.4vw, 36px);
 }
 
 /* ---- бренд ---- */
 
 .about {
+  min-width: 0;
   max-width: 300px;
 }
 
@@ -36,13 +46,12 @@
 }
 
 .brandName {
-  overflow: hidden;
   color: var(--on-panel);
   font-family: var(--font-display);
   font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.02em;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
 }
 
 .tagline {
@@ -51,12 +60,6 @@
 }
 
 /* ---- колонки ---- */
-
-.columns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 52px;
-}
 
 .column {
   display: flex;
@@ -83,6 +86,14 @@
   list-style: none;
 }
 
+/* Навигация сеткой: семь пунктов в столбец — это семь тап-зон по 44px,
+   то есть треть экрана телефона под меню, которое уже есть в шапке. */
+.navList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 16px;
+}
+
 .link {
   display: inline-flex;
   align-items: center;
@@ -92,14 +103,6 @@
   font-size: 14px;
   text-decoration: none;
   transition: color var(--dur-fast) var(--ease-out);
-}
-
-/* Тап-зона нужна пальцу, а не курсору: на десктопе min-height растягивал
-   строки колонок втрое против макета */
-@media (pointer: coarse) {
-  .link {
-    min-height: var(--tap);
-  }
 }
 
 .link:hover {
@@ -121,6 +124,12 @@
   font-size: 13.5px;
 }
 
+/* Почту владелец задаёт сам, и длинный адрес без пробелов уводил бы колонку
+   за край: рвём по буквам. */
+.email {
+  overflow-wrap: anywhere;
+}
+
 .text {
   padding: 2px 0;
   font-size: 14px;
@@ -129,42 +138,57 @@
 /* ---- реквизиты ---- */
 
 .legal {
-  max-width: 260px;
+  min-width: 0;
+  max-width: 320px;
 }
 
+/* 🔴 Наименование переносится по буквам и не обрезается: это юридическое
+   наименование, и многоточие в нём — недостоверные сведения. */
 .legalName {
   margin: 0;
   color: var(--on-panel);
-  font-size: 13.5px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
+/* 🔴 Сетка «подпись → значение», а не строка (issue #283). Строкой «ИНН
+   710000000077» не помещалась на 320 и переносилась посреди числа: перенос
+   внутри реквизита читается как другой реквизит.
+
+   Колонки заданы на списке, а не на строке: со своей сеткой у каждой строки
+   значения начинались на разной вертикали, и три реквизита читались как три
+   отдельных абзаца. Ширину первой колонки задаёт самая длинная подпись, и
+   под номера остаётся 160px на 320 — «314710000000002» умещается целиком. */
 .legalList {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 8px;
   margin: 0;
 }
 
+/* Обёртка пары нужна разметке `dl`, но не сетке: она снимается, и подписи со
+   значениями встают колонками общего списка. */
 .legalRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  font-size: 13.5px;
+  display: contents;
 }
 
 .legalTerm {
   color: var(--faint);
   font-family: var(--font-mono);
-  font-size: var(--fs-micro);
+  font-size: 11.5px;
   line-height: 1.5;
   white-space: nowrap;
 }
 
 .legalValue {
   margin: 0;
-  overflow-wrap: anywhere;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 /* ---- нижняя полоса ---- */
@@ -191,9 +215,10 @@
   color: var(--faint);
 }
 
-/* 🔴 Пол цели у ссылки на политику стоял только под палец (issue #476), а
-   WCAG 2.5.8 — уровень AA и про указатель ничего не знает: мышью по 19.4px
-   тоже целятся. 24px безусловно, 44 под палец — как было. */
+/* 🔴 Ссылка на политику обязана оставаться доступной для нажатия на всех
+   ширинах (152-ФЗ): без доступа к политике согласие в форме не считается
+   информированным. Резерв под липкую панель действий даёт `global.css`,
+   здесь — только пол цели: 24px безусловно, 44px на сенсорной раскладке. */
 .policy {
   display: inline-flex;
   align-items: center;
@@ -201,12 +226,6 @@
   color: var(--faint);
   font-size: 12.5px;
   text-decoration: underline;
-}
-
-@media (pointer: coarse) {
-  .policy {
-    min-height: var(--tap);
-  }
 }
 
 .policy:hover {
@@ -218,34 +237,74 @@
   color: var(--on-panel);
 }
 
-/* ---- планшет и телефон ---- */
-
-@media (width <= 899px) {
-  .columns {
-    gap: 28px 40px;
+/* 🔴 Пол цели поднимается по кадру, а не по признаку указателя (ADR-183):
+   `pointer: coarse` врёт на сенсорном ноутбуке, где работают мышью, и
+   молчит на телефоне, подключённом к мыши. До 900 раскладка сенсорная. */
+@media (width < 900px) {
+  .link,
+  .policy {
+    /* 🔴 Цель квадратная: норма 44×44, а не 44 по высоте. «Цены» давало
+       36×44 — по высоте проходило, по ширине нет. Пол по ширине трогает
+       только короткие подписи. */
+    min-width: var(--tap);
+    min-height: var(--tap);
   }
 }
 
-@media (width <= 599px) {
+/* Крупный телефон и планшет: навигация в три колонки, контакты и реквизиты
+   рядом. */
+@media (width >= 600px) and (width < 900px) {
   .inner {
-    flex-direction: column;
-    gap: 28px;
-    padding: 36px 16px 28px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about,
+  .nav {
+    grid-column: 1 / -1;
   }
 
   .about {
     max-width: none;
   }
 
-  .columns {
-    flex-direction: column;
-    gap: 24px;
+  .navList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* С 900 — три колонки макета: бренд с контактами, навигация, реквизиты. */
+@media (width >= 900px) {
+  .inner {
+    grid-template-columns: 1.4fr 1fr 1.2fr;
+  }
+
+  .about {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .contacts {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .nav {
+    grid-column: 2;
+    grid-row: 1 / span 2;
   }
 
   .legal {
-    max-width: none;
+    grid-column: 3;
+    grid-row: 1 / span 2;
   }
 
+  .navList {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (width < 600px) {
   .bottomInner {
     flex-direction: column;
     gap: 4px;

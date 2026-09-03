@@ -67,73 +67,79 @@ export function Footer({
           {tagline === '' ? null : <p className={styles.tagline}>{tagline}</p>}
         </div>
 
-        <div className={styles.columns}>
-          {nav.length === 0 ? null : (
-            <nav className={styles.column} aria-label={footerContent.navLabel}>
-              <h2 className={styles.columnTitle}>{footerContent.navTitle}</h2>
-              <ul className={styles.list}>
-                {nav.map((item) => (
-                  <li key={item.label}>
-                    <Link
-                      href={item.href}
-                      className={styles.link}
-                      aria-current={item.current === true ? 'page' : undefined}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          )}
-
-          <section className={styles.column}>
-            <h2 className={styles.columnTitle}>{footerContent.contactsTitle}</h2>
-            <ul className={styles.list}>
-              {phones.map((phone) => (
-                <li key={phone}>
-                  <a
-                    href={phoneHref(phone)}
-                    className={[styles.link, styles.phone].join(' ')}
-                    aria-label={`${footerContent.callLabel} ${formatPhone(phone)}`}
+        {nav.length === 0 ? null : (
+          <nav
+            className={[styles.column, styles.nav].join(' ')}
+            aria-label={footerContent.navLabel}
+          >
+            <h2 className={styles.columnTitle}>{footerContent.navTitle}</h2>
+            {/* Навигация сеткой, а не столбцом: семь пунктов в один столбец
+                на телефоне занимают экран целиком (issue #283). */}
+            <ul className={[styles.list, styles.navList].join(' ')}>
+              {nav.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className={styles.link}
+                    aria-current={item.current === true ? 'page' : undefined}
                   >
-                    {formatPhone(phone)}
-                  </a>
+                    {item.label}
+                  </Link>
                 </li>
               ))}
-              {email === '' ? null : (
-                <li>
-                  <a
-                    href={`mailto:${email}`}
-                    className={styles.link}
-                    aria-label={`${footerContent.emailLabel} ${email}`}
-                  >
-                    {email}
-                  </a>
-                </li>
-              )}
-              {postal === '' ? null : <li className={styles.text}>{postal}</li>}
-              {hours === '' ? null : <li className={styles.text}>{hours}</li>}
             </ul>
-          </section>
+          </nav>
+        )}
 
-          {hasLegal ? (
-            <section className={[styles.column, styles.legal].join(' ')}>
-              <h2 className={styles.columnTitle}>{footerContent.legalTitle}</h2>
-              {legalName === legal.form ? null : <p className={styles.legalName}>{legalName}</p>}
-              {requisites.length === 0 ? null : (
-                <dl className={styles.legalList}>
-                  {requisites.map((row) => (
-                    <div key={row.key} className={styles.legalRow}>
-                      <dt className={styles.legalTerm}>{row.label}</dt>
-                      <dd className={styles.legalValue}>{row.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              )}
-            </section>
-          ) : null}
-        </div>
+        <section className={[styles.column, styles.contacts].join(' ')}>
+          <h2 className={styles.columnTitle}>{footerContent.contactsTitle}</h2>
+          <ul className={styles.list}>
+            {phones.map((phone) => (
+              <li key={phone}>
+                <a
+                  href={phoneHref(phone)}
+                  className={[styles.link, styles.phone].join(' ')}
+                  aria-label={`${footerContent.callLabel} ${formatPhone(phone)}`}
+                >
+                  {formatPhone(phone)}
+                </a>
+              </li>
+            ))}
+            {email === '' ? null : (
+              <li>
+                <a
+                  href={`mailto:${email}`}
+                  className={[styles.link, styles.email].join(' ')}
+                  aria-label={`${footerContent.emailLabel} ${email}`}
+                >
+                  {email}
+                </a>
+              </li>
+            )}
+            {postal === '' ? null : <li className={styles.text}>{postal}</li>}
+            {hours === '' ? null : <li className={styles.text}>{hours}</li>}
+          </ul>
+        </section>
+
+        {hasLegal ? (
+          <section className={[styles.column, styles.legal].join(' ')}>
+            <h2 className={styles.columnTitle}>{footerContent.legalTitle}</h2>
+            {/* 🔴 Наименование целиком и отдельной строкой: «ИП
+                Демонстрационный Стенд Демонстрационович» длиннее любой
+                разумной колонки, а обрезать юридическое наименование нельзя. */}
+            {legalName === legal.form ? null : <p className={styles.legalName}>{legalName}</p>}
+            {requisites.length === 0 ? null : (
+              <dl className={styles.legalList}>
+                {requisites.map((row) => (
+                  <div key={row.key} className={styles.legalRow}>
+                    <dt className={styles.legalTerm}>{row.label}</dt>
+                    <dd className={styles.legalValue}>{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+          </section>
+        ) : null}
       </div>
 
       <div className={styles.bottom}>

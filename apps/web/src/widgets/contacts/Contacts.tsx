@@ -141,26 +141,28 @@ export function Contacts({
             </ButtonLink>
           </div>
 
-          {/* 🔴 На месте встроенной карты — статичный блок со ссылкой:
-              iframe Яндекс.Карт тянет сторонний скрипт и чужие cookie, а
-              единственный внешний скрипт на сайте — Метрика (ADR-024). */}
+          {/* 🔴 Карта не встраивается, а открывается ссылкой: iframe
+              Яндекс.Карт тянет сторонний скрипт и чужие cookie, а
+              единственный внешний скрипт на сайте — Метрика (ADR-024).
+
+              🔴 Декоративной «карты» под карточкой больше нет (issue #283):
+              штриховка на 360px изображала карту, которой нет, и на телефоне
+              занимала треть экрана ради узора. Осталась карточка с адресом и
+              кнопкой — то, за чем сюда приходят. */}
           {mapHref === null ? null : (
-            <div className={styles.map}>
-              <div className={styles.mapGrid} aria-hidden="true" />
-              <div className={styles.mapCard}>
-                <p className={styles.mapTitle}>{t.mapTitle}</p>
-                {postal === '' ? null : <p className={styles.mapAddress}>{postal}</p>}
-                {served === '' ? null : <p className={styles.mapArea}>{served}</p>}
-                <a
-                  className={styles.mapLink}
-                  href={mapHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t.mapLink}
-                </a>
-                <p className={styles.mapNote}>{t.mapNote}</p>
-              </div>
+            <div className={styles.mapCard}>
+              <p className={styles.mapTitle}>{t.mapTitle}</p>
+              {postal === '' ? null : <p className={styles.mapAddress}>{postal}</p>}
+              {served === '' ? null : <p className={styles.mapArea}>{served}</p>}
+              <a
+                className={styles.mapLink}
+                href={mapHref}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t.mapLink}
+              </a>
+              <p className={styles.mapNote}>{t.mapNote}</p>
             </div>
           )}
         </div>
