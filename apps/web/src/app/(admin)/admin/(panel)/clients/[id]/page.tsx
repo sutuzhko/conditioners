@@ -14,6 +14,7 @@ import {
   type ClientLead,
   type ClientOrder,
 } from '@/features/client-manager';
+import { getAdminSession, isOwner } from '@/server/auth';
 import { requireOwnerPage } from '@/server/guards';
 import { listByClient as listUnits } from '@/server/repo/client-units';
 import { findById } from '@/server/repo/clients';
@@ -34,6 +35,14 @@ type PageProps = {
 };
 
 export async function generateMetadata({ params }: Pick<PageProps, 'params'>): Promise<Metadata> {
+  /* 🔴 Для чужого база не читается вовсе — и рубеж здесь не бросает отказ, а
+     возвращает общий заголовок. `forbidden()` в метаданных не спасает: Next
+     успевает вычислить их до того, как отказ доходит до ответа, и имя
+     человека уезжает в тело 403 (issue #524). Не прочитанное не утечёт ни при
+     каком порядке потока. */
+  const session = await getAdminSession();
+  if (session === null || !isOwner(session)) return { title: texts.title };
+
   const { id } = await params;
   const client = await findById(id);
 

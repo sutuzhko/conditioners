@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { productFormContent as texts } from '@/features/product-form';
+import { getAdminSession, isOwner } from '@/server/auth';
 import { findById } from '@/server/repo/products';
 
 import { ProductEditor } from '../ProductEditor';
@@ -16,6 +17,14 @@ export async function generateMetadata({
 }: {
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
+  /* 🔴 Для чужого база не читается вовсе — и рубеж здесь не бросает отказ, а
+     возвращает общий заголовок. `forbidden()` в метаданных не спасает: Next
+     успевает вычислить их до того, как отказ доходит до ответа, и название
+     уезжает в тело 403 (issue #524). Не прочитанное не утечёт ни при каком
+     порядке потока. */
+  const session = await getAdminSession();
+  if (session === null || !isOwner(session)) return { title: texts.editTitle };
+
   const { id } = await params;
   const product = await findById(id);
 
