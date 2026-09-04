@@ -16,7 +16,7 @@ describe('Модерация — запросы к серверу', () => {
       vi.fn(async () => new Response('{}', { status: 200 })),
     );
 
-    await expect(reviewApi.setStatus('r1', 'approved')).resolves.toEqual({ ok: true });
+    await expect(reviewApi.setStatus('r1', { status: 'approved' })).resolves.toEqual({ ok: true });
   });
 
   it('текст отказа сервера показывается как есть', async () => {
@@ -31,7 +31,7 @@ describe('Модерация — запросы к серверу', () => {
       ),
     );
 
-    await expect(reviewApi.setStatus('r1', 'approved')).resolves.toEqual({
+    await expect(reviewApi.setStatus('r1', { status: 'approved' })).resolves.toEqual({
       ok: false,
       message: 'Неизвестный статус',
     });
@@ -43,7 +43,7 @@ describe('Модерация — запросы к серверу', () => {
       vi.fn(async () => new Response(null, { status: 401 })),
     );
 
-    await expect(reviewApi.setStatus('r1', 'approved')).resolves.toEqual({
+    await expect(reviewApi.setStatus('r1', { status: 'approved' })).resolves.toEqual({
       ok: false,
       message: ADMIN_API_TEXTS.session,
     });

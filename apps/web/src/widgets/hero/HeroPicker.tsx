@@ -245,9 +245,16 @@ function Recommendation({ product, now, area, place }: RecommendationProps) {
 
   return (
     <>
+      {/* 🔴 Плашки этой панели — `onPanel`, а не `accent` (issue #533).
+          Панель подбора всегда тёмная (`Card variant="panel"`), а мягкий
+          акцент от темы зависит: грунт переводит краску текста в тёмную
+          `--accent-text`, тогда как заливка `--accent-bg` остаётся светлой, и
+          класс модели давал 1,74:1 при норме 4,5 — то есть ответ подбора на
+          первом экране не читался вовсе. `onPanel` для того и заведён: обе
+          его краски от темы не зависят, как не зависит от неё сама панель. */}
       <div className={styles.resultHead}>
         <span className={styles.resultEyebrow}>{t.recommendation}</span>
-        <Badge variant="accent" size="sm">
+        <Badge variant="onPanel" size="sm">
           {product.badge}
         </Badge>
       </div>
@@ -302,7 +309,7 @@ function Recommendation({ product, now, area, place }: RecommendationProps) {
           первом экране у каждой модели без скидки. */}
       <p className={styles.saleRow}>
         {price.saleActive ? (
-          <Badge variant="accent" size="sm">
+          <Badge variant="onPanel" size="sm">
             {price.saleLabel ?? `−${price.discountPercent}%`}
           </Badge>
         ) : null}

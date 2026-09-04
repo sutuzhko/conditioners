@@ -11,6 +11,7 @@ import {
   lowRatedReview,
   pendingReview,
   rejectedReview,
+  rejectedWithoutReason,
   reviewWithPhoto,
 } from './fixtures';
 
@@ -58,14 +59,23 @@ describe('Отзыв в модерации', () => {
   });
 
   /** 🔴 Место под причину отказа готово, а её отсутствие названо (issue #522). */
-  it('на отклонённых показывает место причины и честно называет её отсутствие', () => {
+  it('на отклонённых показывает причину, автора решения и дату', () => {
     render(<ReviewCardView review={rejectedReview} api={acceptingApi} tab="rejected" />);
 
     expect(screen.getByText(texts.reasonTitle)).toBeInTheDocument();
+    expect(screen.getByText(rejectedReview.reject?.reason ?? '')).toBeInTheDocument();
+    expect(screen.getByText(/Богдан/)).toBeInTheDocument();
+  });
+
+  /* 🔴 Отклонённые до появления поля: выдумывать им причину нельзя, а пустое
+     место под подписью читается как «причины не было». */
+  it('у отказа без записанной причины отсутствие названо словами', () => {
+    render(<ReviewCardView review={rejectedWithoutReason} api={acceptingApi} tab="rejected" />);
+
     expect(screen.getByText(texts.reasonMissing)).toBeInTheDocument();
   });
 
-  it('публикация уходит на сервер', async () => {
+  it('публикация не спрашивает причину: объясняют отказ, а не согласие', async () => {
     const user = userEvent.setup();
     const setStatus = vi.fn(async () => ({ ok: true }));
     render(
@@ -74,7 +84,88 @@ describe('Отзыв в модерации', () => {
 
     await user.click(screen.getByRole('button', { name: texts.approve }));
 
-    expect(setStatus).toHaveBeenCalledWith('r1', 'approved');
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(setStatus).toHaveBeenCalledWith('r1', { status: 'approved' });
+  });
+
+  /** 🔴 ADR-300: отказ без причины не уходит на сервер вовсе. */
+  describe('отказ спрашивает причину', () => {
+    it('нажатие «Отклонить» открывает окно, а не отправляет запрос', async () => {
+      const user = userEvent.setup();
+      const setStatus = vi.fn(async () => ({ ok: true }));
+      render(
+        <ReviewCardView
+          review={pendingReview}
+          api={{ ...acceptingApi, setStatus }}
+          tab="pending"
+        />,
+      );
+
+      await user.click(screen.getByRole('button', { name: texts.reject }));
+
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+      expect(setStatus).not.toHaveBeenCalled();
+    });
+
+    it('короткая отговорка не проходит и объясняет, чего не хватает', async () => {
+      const user = userEvent.setup();
+      const setStatus = vi.fn(async () => ({ ok: true }));
+      render(
+        <ReviewCardView
+          review={pendingReview}
+          api={{ ...acceptingApi, setStatus }}
+          tab="pending"
+        />,
+      );
+
+      await user.click(screen.getByRole('button', { name: texts.reject }));
+      await user.click(screen.getByRole('button', { name: texts.rejectConfirm }));
+
+      expect(screen.getByText(texts.reasonTooShort)).toBeInTheDocument();
+      expect(setStatus).not.toHaveBeenCalled();
+    });
+
+    it('причина уходит на сервер вместе со статусом', async () => {
+      const user = userEvent.setup();
+      const setStatus = vi.fn(async () => ({ ok: true }));
+      render(
+        <ReviewCardView
+          review={pendingReview}
+          api={{ ...acceptingApi, setStatus }}
+          tab="pending"
+        />,
+      );
+
+      await user.click(screen.getByRole('button', { name: texts.reject }));
+      await user.type(
+        screen.getByLabelText(texts.reasonTitle),
+        'Реклама стороннего магазина со ссылкой',
+      );
+      await user.click(screen.getByRole('button', { name: texts.rejectConfirm }));
+
+      expect(setStatus).toHaveBeenCalledWith('r1', {
+        status: 'rejected',
+        reason: 'Реклама стороннего магазина со ссылкой',
+      });
+    });
+
+    it('отмена закрывает окно и ничего не меняет', async () => {
+      const user = userEvent.setup();
+      const setStatus = vi.fn(async () => ({ ok: true }));
+      render(
+        <ReviewCardView
+          review={pendingReview}
+          api={{ ...acceptingApi, setStatus }}
+          tab="pending"
+        />,
+      );
+
+      await user.click(screen.getByRole('button', { name: texts.reject }));
+      await user.click(screen.getByRole('button', { name: texts.rejectCancel }));
+
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      expect(setStatus).not.toHaveBeenCalled();
+    });
   });
 
   /** 🔴 Фото открывается в полный размер: по нему и решают (issue #53). */

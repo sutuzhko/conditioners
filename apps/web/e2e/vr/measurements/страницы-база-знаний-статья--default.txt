@@ -294,15 +294,15 @@ article.ArticleView__article
   aside.ArticleView__cta  bg #0f172a
     div.ArticleView__ctaText
       p.ArticleView__ctaTitle  color #ffffff
-      p.ArticleView__ctaLead  color #5b6a7d
+      p.ArticleView__ctaLead  color #7e92a7
     div.ArticleView__ctaActions
       a.Button__button  bg #ecfeff  border transparent
         span.Button__content
           span.Button__label  color #0e7490
       ul.ArticleView__ctaLinks
-        a.ArticleView__ctaLink  color #0e7490
+        a.ArticleView__ctaLink  color #22d3ee
           svg
-        a.ArticleView__ctaLink#2  color #0e7490
+        a.ArticleView__ctaLink#2  color #22d3ee
           svg
   p.ArticleView__back
     a.ArticleView__backLink  color #0e7490
