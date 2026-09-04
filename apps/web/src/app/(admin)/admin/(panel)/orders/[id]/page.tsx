@@ -7,6 +7,7 @@ import {
   OrderHistory,
   OrderInstallerView,
   orderCardTabFromParam,
+  orderCardTabsFor,
   orderDraftOf,
   orderManagerContent as texts,
   type ConsumptionLoad,
@@ -47,8 +48,9 @@ export async function generateMetadata({ params }: Pick<PageProps, 'params'>): P
  * удержания и истории (ADR-114). Чужой наряд приходит как `null` и становится
  * 404: отказ подтвердил бы, что наряд существует.
  *
- * Работа с нарядом разложена по трём вкладкам (CRM.md §3.3): сам наряд с
- * итогом работ, чеклист выезда, документы и фотографии.
+ * Работа с нарядом разложена по пяти вкладкам (CRM.md §3.3, issue #346):
+ * наряд с итогом работ, расход материалов, чеклист выезда, документы и
+ * фотографии, история изменений.
  */
 /**
  * 🔴 Начальные данные расхода читаются здесь, а не запрашиваются с клиента.
@@ -79,9 +81,10 @@ export default async function AdminOrderPage({ params, searchParams }: PageProps
 
   /* Вкладка разбирается здесь, на сервере: карточка приходит открытой на той,
      что стоит в адресе, а мусор в параметре открывает первую (issue #340,
-     #341). */
+     #341). Набор вкладок зависит от роли: у монтажника нет истории, и
+     присланный ему `?tab=history` открывает «Наряд», а не пустоту. */
   const { tab } = await searchParams;
-  const activeTab = orderCardTabFromParam(tab);
+  const activeTab = orderCardTabFromParam(tab, orderCardTabsFor(session.role !== 'owner'));
 
   const viewer = { role: session.role, userId: session.userId };
   const order = await findById(id, viewer);
@@ -96,14 +99,25 @@ export default async function AdminOrderPage({ params, searchParams }: PageProps
           {texts.back}
         </Link>
 
-        {/* 🔴 История монтажнику не приходит вовсе — её нет и в разметке. */}
-        <OrderWork order={order} tab={activeTab} forInstaller>
+        {/* 🔴 История монтажнику не приходит вовсе — её нет и в разметке, и в
+            ленте вкладок: `history` не передан, и вкладок остаётся четыре.
+
+            Расход монтажнику открыт: он и списывает материал с объекта. Что
+            видно в форме, решает сервер — ему придёт только своя машина. */}
+        <OrderWork
+          order={order}
+          tab={activeTab}
+          forInstaller
+          materials={
+            <OrderConsumption
+              orderId={order.id}
+              initial={consumption}
+              checklist={order.checklist}
+            />
+          }
+        >
           <OrderInstallerView order={order} />
         </OrderWork>
-
-        {/* Расход монтажнику открыт: он и списывает материал с объекта. Что
-            видно в форме, решает сервер — ему придёт только своя машина. */}
-        <OrderConsumption orderId={order.id} initial={consumption} checklist={order.checklist} />
       </div>
     );
   }
@@ -128,7 +142,18 @@ export default async function AdminOrderPage({ params, searchParams }: PageProps
         <h1 className={styles.title}>{texts.number(order.number)}</h1>
       </header>
 
-      <OrderWork order={order} tab={activeTab}>
+      {/* 🔴 Блок расхода читает склад сам, с клиента: наряд отдаётся страницей,
+          а остаток меняется прямо здесь — после каждого списания он обязан
+          быть новым, не перезагружая карточку целиком. Через границу уезжают
+          только данные: функция сервер→клиент не переживает сериализацию. */}
+      <OrderWork
+        order={order}
+        tab={activeTab}
+        materials={
+          <OrderConsumption orderId={order.id} initial={consumption} checklist={order.checklist} />
+        }
+        history={<OrderHistory entries={order.history ?? []} />}
+      >
         <OrderEditor
           orderId={order.id}
           orderNumber={order.number}
@@ -151,14 +176,6 @@ export default async function AdminOrderPage({ params, searchParams }: PageProps
           removable
         />
       </OrderWork>
-
-      {/* 🔴 Блок читает склад сам, с клиента: наряд отдаётся страницей, а
-          остаток меняется прямо здесь — после каждого списания он обязан быть
-          новым, не перезагружая карточку целиком. Через границу уезжают только
-          данные: функция сервер→клиент не переживает сериализацию. */}
-      <OrderConsumption orderId={order.id} initial={consumption} checklist={order.checklist} />
-
-      <OrderHistory entries={order.history ?? []} />
     </div>
   );
 }

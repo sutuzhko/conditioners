@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 
+import { articleLabels as labels } from '@/entities/article/ui';
+
 import { ArticleList } from './ArticleList';
 import { articleContent as t } from './content';
+import { ARTICLES_PAGE_SIZE } from './lib';
 import {
   articleHrefFixture,
   categoryHrefFixture,
@@ -11,15 +14,34 @@ import {
 } from './fixtures';
 import type { ArticleTeaser } from './model';
 
-function renderList(articles?: readonly ArticleTeaser[], activeCategory?: string | null) {
+function renderList(
+  articles?: readonly ArticleTeaser[],
+  activeCategory?: string | null,
+  activePage?: number,
+) {
   return render(
     <ArticleList
       articles={articles}
       activeCategory={activeCategory ?? null}
+      activePage={activePage ?? 1}
+      basePath="/knowledge"
       categoryHref={categoryHrefFixture}
       articleHref={articleHrefFixture}
     />,
   );
+}
+
+/** Много статей одной рубрики — чтобы разбивка на страницы вообще появилась. */
+function manyArticles(count: number): readonly ArticleTeaser[] {
+  const source = teasersFixture[0];
+  if (source === undefined) throw new Error('фикстура пуста');
+
+  return Array.from({ length: count }, (_, index) => ({
+    ...source,
+    id: `many-${index}`,
+    slug: `${source.slug}-${index}`,
+    title: `${source.title} — ${index + 1}`,
+  }));
 }
 
 describe('Листинг Базы знаний', () => {
@@ -43,7 +65,7 @@ describe('Листинг Базы знаний', () => {
 
     expect(screen.getByText(first.excerpt)).toBeInTheDocument();
     expect(screen.getByText('14 июня 2026')).toBeInTheDocument();
-    expect(screen.getByText(t.minutesLabel(first.minutes))).toBeInTheDocument();
+    expect(screen.getByText(labels.minutesLabel(first.minutes))).toBeInTheDocument();
     expect(screen.getByRole('link', { name: first.title })).toHaveAttribute(
       'href',
       `/knowledge/${first.slug}`,
@@ -115,7 +137,52 @@ describe('Листинг Базы знаний', () => {
         continue;
       }
 
-      expect(within(item).getByAltText(t.coverAlt(article.title))).toBeInTheDocument();
+      expect(within(item).getByAltText(labels.coverAlt(article.title))).toBeInTheDocument();
     }
   });
+
+  it('🔴 карточка — одна ссылка: вложенных в неё ссылок нет', () => {
+    renderList(teasersFixture);
+
+    const list = screen.getByRole('list', { name: t.listLabel });
+    for (const item of within(list).getAllByRole('listitem')) {
+      expect(within(item).getAllByRole('link')).toHaveLength(1);
+    }
+  });
+
+  it('пока статьи умещаются на одну страницу, разбивки нет', () => {
+    renderList(teasersFixture);
+
+    expect(screen.queryByRole('navigation', { name: t.pagerLabel })).not.toBeInTheDocument();
+  });
+
+  it('🔴 разбивка — ссылки: страница живёт в адресе, а не в состоянии клиента', () => {
+    renderList(manyArticles(ARTICLES_PAGE_SIZE + 2));
+
+    const pager = screen.getByRole('navigation', { name: t.pagerLabel });
+    expect(within(pager).getByText(t.pagerPosition(1, 2))).toBeInTheDocument();
+    expect(within(pager).getByRole('link', { name: `${t.pagerNext} →` })).toHaveAttribute(
+      'href',
+      '/knowledge?page=2',
+    );
+    expect(within(list()).getAllByRole('listitem')).toHaveLength(ARTICLES_PAGE_SIZE);
+  });
+
+  it('вторая страница показывает хвост списка', () => {
+    renderList(manyArticles(ARTICLES_PAGE_SIZE + 2), null, 2);
+
+    expect(within(list()).getAllByRole('listitem')).toHaveLength(2);
+    expect(screen.getByText(t.pagerPosition(2, 2))).toBeInTheDocument();
+  });
+
+  it('🔴 номер за пределами списка прижимается к последней странице', () => {
+    renderList(manyArticles(ARTICLES_PAGE_SIZE + 2), null, 99);
+
+    expect(screen.getByText(t.pagerPosition(2, 2))).toBeInTheDocument();
+  });
 });
+
+/** Сетка карточек: имя списка одно на все проверки. */
+function list(): HTMLElement {
+  return screen.getByRole('list', { name: t.listLabel });
+}

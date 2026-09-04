@@ -7,30 +7,48 @@ import {
   articlePath,
   buildPageMetadata,
 } from '@/shared/seo';
+import { pageNumber } from '@/shared/lib/paging';
 import { env } from '@/shared/config/env';
-import { ArticleList } from '@/widgets/article';
+import { ArticleList, selectArticles } from '@/widgets/article';
+import type { ArticleTeaser } from '@/widgets/article';
 import { Breadcrumbs } from '@/widgets/breadcrumbs';
 
 import { inCity } from '../_lib/city';
 import { loadSettings } from '../_lib/settings';
-import { bazaZnaniyContent as t } from './content';
+import { ARTICLES_PAGE_PARAM, bazaZnaniyContent as t } from './content';
 
 /**
  * Листинг Базы знаний — вход в информационный кластер (docs/SEO.md §1).
  *
  * Данные читает страница и передаёт блоку пропсами: виджеты в базу не ходят
- * (docs/ORCHESTRATION.md). Фильтр рубрик работает адресом, а не скриптом,
- * поэтому отфильтрованный список тоже приходит из HTML (инвариант 1).
+ * (docs/ORCHESTRATION.md). И фильтр рубрик, и разбивка на страницы работают
+ * адресом, а не скриптом, поэтому отфильтрованный список тоже приходит из
+ * HTML (инвариант 1).
  */
 export const revalidate = 3600;
 
 type ListingSearchParams = {
   readonly [ARTICLES_CATEGORY_PARAM]?: string | string[] | undefined;
+  readonly [ARTICLES_PAGE_PARAM]?: string | string[] | undefined;
 };
 
-/** Слаг рубрики из адреса. Пустое и повторённое значение — то же, что фильтра нет. */
-function categoryOf(raw: string | string[] | undefined): string | null {
+/** Единственное значение параметра. Пустое и повторённое — то же, что его нет. */
+function single(raw: string | string[] | undefined): string | null {
   return typeof raw === 'string' && raw.trim() !== '' ? raw.trim() : null;
+}
+
+/** Статьи из репозитория (даты строками) в доменный вид, который ждёт блок. */
+function toTeasers(articles: Awaited<ReturnType<typeof listPublished>>): readonly ArticleTeaser[] {
+  return articles.map((article) => ({
+    id: article.id,
+    slug: article.slug,
+    title: article.title,
+    category: article.category,
+    date: new Date(article.date),
+    minutes: article.minutes,
+    excerpt: article.excerpt,
+    cover: article.cover,
+  }));
 }
 
 /**
@@ -41,26 +59,47 @@ function categoryOf(raw: string | string[] | undefined): string | null {
  * завели `noindex, follow` плюс `Clean-param` (ADR-109). Одного каноникала
  * здесь мало: он рекомендация, а не директива, и Яндекс его регулярно
  * игнорирует — ради чего `Clean-param` для каталога и появился.
+ *
+ * 🔴 Разбивка — исключение, и по той же причине, что в каталоге: у `?page=2`
+ * содержимое действительно другое, и `noindex` на ней выбросил бы из индекса
+ * половину раздела. Каноникал указывает на реально показанную страницу:
+ * `?page=99` прижимается к последней, и обещать роботу несуществующий адрес
+ * нельзя (docs/SEO.md §5).
  */
 export async function generateMetadata({
   searchParams,
 }: {
   searchParams: Promise<ListingSearchParams>;
 }): Promise<Metadata> {
-  const [raw, settings] = await Promise.all([searchParams, loadSettings()]);
-  const filtered = categoryOf(raw[ARTICLES_CATEGORY_PARAM]) !== null;
+  const [raw, settings, articles] = await Promise.all([
+    searchParams,
+    loadSettings(),
+    listPublished(),
+  ]);
+
+  const category = single(raw[ARTICLES_CATEGORY_PARAM]);
+  const { page } = selectArticles({
+    articles: toTeasers(articles),
+    category,
+    page: pageNumber(single(raw[ARTICLES_PAGE_PARAM]) ?? undefined),
+  });
+
+  // Каноникал всегда без параметра рубрики: вес собирается в одном месте, а
+  // робот идёт по ссылкам дальше и находит сами статьи (docs/SEO.md §5).
+  const canonical =
+    category !== null || page.page === 1
+      ? ARTICLES_PATH
+      : `${ARTICLES_PATH}?${ARTICLES_PAGE_PARAM}=${page.page}`;
 
   return buildPageMetadata({
     siteUrl: env.SITE_URL,
-    // Каноникал всегда без параметра рубрики: вес собирается в одном месте, а
-    // робот идёт по ссылкам дальше и находит сами статьи (docs/SEO.md §5).
-    path: ARTICLES_PATH,
+    path: canonical,
     title: t.metaTitle,
     description: t.metaDescription(inCity(settings.address.city)),
     titleSuffix: settings.seo.titleSuffix,
     siteName: settings.company.name,
     image: settings.seo.ogImage,
-    ...(filtered ? { noIndex: true, follow: true } : {}),
+    ...(category !== null ? { noIndex: true, follow: true } : {}),
   });
 }
 
@@ -69,30 +108,20 @@ export default async function BazaZnaniyPage({
 }: {
   searchParams: Promise<ListingSearchParams>;
 }) {
-  const [{ [ARTICLES_CATEGORY_PARAM]: raw }, articles] = await Promise.all([
-    searchParams,
-    listPublished(),
-  ]);
-  const category = categoryOf(raw);
-
-  // репозиторий отдаёт DTO контракта (даты строками), блок ждёт доменный тип
-  const teasers = articles.map((article) => ({
-    id: article.id,
-    slug: article.slug,
-    title: article.title,
-    category: article.category,
-    date: new Date(article.date),
-    minutes: article.minutes,
-    excerpt: article.excerpt,
-    cover: article.cover,
-  }));
+  const [raw, articles] = await Promise.all([searchParams, listPublished()]);
+  const category = single(raw[ARTICLES_CATEGORY_PARAM]);
 
   return (
     <>
       <Breadcrumbs items={[{ name: t.sectionTitle }]} siteUrl={env.SITE_URL} />
       <ArticleList
-        articles={teasers}
+        articles={toTeasers(articles)}
         activeCategory={category}
+        activePage={pageNumber(single(raw[ARTICLES_PAGE_PARAM]) ?? undefined)}
+        basePath={ARTICLES_PATH}
+        // рубрика переживает переход по страницам, номер страницы — нет:
+        // при смене рубрики выдача другая, и вторая страница прежней не значит ничего
+        {...(category === null ? {} : { pagerQuery: { [ARTICLES_CATEGORY_PARAM]: category } })}
         categoryHref={(slug) =>
           slug === null
             ? ARTICLES_PATH

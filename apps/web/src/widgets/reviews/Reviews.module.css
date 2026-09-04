@@ -1,5 +1,5 @@
 /* Секция отзывов. Контейнер и вертикальный ритм — из docs/DESIGN_BRIEF.md §4,
-   деградация сеток — из §6: две колонки на десктопе, одна на телефоне. */
+   деградация сеток — из §6. */
 
 .section {
   background: var(--bg);
@@ -19,7 +19,7 @@
 
 .head {
   max-width: 640px;
-  margin: 0 auto 48px;
+  margin: 0 auto clamp(20px, 2.27vw + 12.7px, 40px);
   text-align: center;
 }
 
@@ -44,28 +44,14 @@
 .lead {
   margin: 0;
   color: var(--muted);
-  font-size: 16.5px;
+  font-size: var(--fs-lead);
 }
 
-.cta {
-  margin-top: 26px;
-}
-
-@media (width < 600px) {
-  .container {
-    padding-right: 16px;
-    padding-left: 16px;
-  }
-
-  .head {
-    margin-bottom: 28px;
-  }
-
-  .lead {
-    font-size: var(--fs-base);
-  }
-
-  .grid {
-    gap: 16px;
-  }
+/* Пустой раздел стоит под шапкой в том же контейнере, но своего верхнего
+   отступа не добавляет: его уже дала шапка. */
+.empty {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
 }

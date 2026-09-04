@@ -8,25 +8,45 @@ import styles from './ReviewsTrack.module.css';
 /** Пикселей в секунду: медленнее чтения, чтобы строку можно было дочитать. */
 const SPEED = 22;
 
+/**
+ * 🔴 С этой ширины отзывы выложены лентой, ниже — колонкой и сеткой
+ * (issue #274). Запрос повторяет порог из `ReviewsTrack.module.css`: лента
+ * живёт в CSS, а скрипт обязан знать, есть ли она сейчас, — иначе он двигал
+ * бы прокрутку у сетки и рисовал кнопку остановки над неподвижными
+ * карточками.
+ */
+const RIBBON = '(min-width: 1200px)';
+
 export interface ReviewsTrackProps {
+  /** Нужен кнопке раскрытия: она управляет этим списком (`aria-controls`). */
+  readonly id: string;
   readonly label: string;
   /**
-   * Ехать ли самой. Выключается, когда отзывов нет: двигать заготовки —
-   * движение ради движения, а приглашение в середине уезжало бы от глаз.
+   * Ехать ли самой. Выключается, когда отзывов мало: двигать заготовки —
+   * движение ради движения.
    */
   readonly drift?: boolean | undefined;
+  /**
+   * Показаны ли только первые карточки. Скрытые остаются в разметке и
+   * гасятся стилем (ADR-195): робот видит раздел целиком.
+   */
+  readonly clipped: boolean;
   readonly children: ReactNode;
 }
 
 /**
- * Лента отзывов: бесконечный медленный ход, руками не двигается (ADR-124).
+ * Список отзывов: сетка до 1200px и бесконечная лента дальше (issue #274,
+ * ADR-124).
+ *
+ * 🔴 Раскладку выбирает CSS, а не скрипт: карточки приходят в HTML готовыми
+ * и стоят на своих местах до единой строки JavaScript (инвариант 1). Скрипт
+ * знает про ширину ровно затем, чтобы не двигать то, что не лента.
  *
  * 🔴 Пока лента едет, прокрутка выключена: `overflow-x: hidden` не отдаёт её
  * ни колесу, ни пальцу, ни полосе — двигает её только этот компонент. Лента
  * замкнута сама на себя дублем карточек: доехав до его начала, прокрутка
  * переносится на ширину первой копии, и человек этого не видит — под
- * курсором ровно то же самое. Края у такого содержимого нет: конец и есть
- * начало.
+ * курсором ровно то же самое.
  *
  * 🔴 Как только лента встала — своей кнопкой или по `prefers-reduced-motion`,
  * — прокрутка возвращается, и это не удобство, а условие доступности.
@@ -44,11 +64,8 @@ export interface ReviewsTrackProps {
  * прокрутке всё равно, что overflow скрыт, зато браузер по-прежнему сам
  * доводит до видимости карточку, на которую ушёл фокус с клавиатуры —
  * с `transform` пришлось бы считать это руками.
- *
- * Карточки остаются в серверном HTML: компонент управляет прокруткой, а не
- * рисует содержимое (инвариант 1).
  */
-export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProps) {
+export function ReviewsTrack({ id, label, drift = true, clipped, children }: ReviewsTrackProps) {
   const ref = useRef<HTMLUListElement>(null);
 
   /**
@@ -68,15 +85,30 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
    * 🔴 Отдельно от `stopped`, потому что от этого зависит, нужна ли кнопка
    * вовсе: WCAG 2.2.2 требует механизм остановки у **движущегося**
    * содержимого. Лента, которую уже остановила система, не движется — и
-   * кнопка «Остановить ленту» рядом с ней не делает ничего. Пустой контрол
-   * в разделе хуже отсутствующего: по нему нажимают и не понимают, что
-   * произошло.
+   * кнопка «Остановить ленту» рядом с ней не делает ничего.
    */
   const [calm, setCalm] = useState(false);
 
+  /**
+   * Лежат ли карточки лентой прямо сейчас. На сервере — нет: там ширины окна
+   * не существует, а разметка обязана совпасть с первым кадром клиента.
+   * Кнопка остановки появляется вторым кадром, и это честно — до
+   * JavaScript останавливать нечего.
+   */
+  const [ribbon, setRibbon] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia(RIBBON);
+    const sync = (): void => setRibbon(query.matches);
+
+    sync();
+    query.addEventListener('change', sync);
+    return () => query.removeEventListener('change', sync);
+  }, []);
+
   useEffect(() => {
     const track = ref.current;
-    if (track === null || !drift) return;
+    if (track === null || !drift || !ribbon) return;
 
     const calmQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -92,9 +124,9 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
      * дубля. Пройдя это расстояние, лента показывает ровно то же самое, что
      * в начале, — значит, прокрутку можно перенести назад незаметно.
      *
-     * Меряется каждый раз заново: ширина карточки зависит от ширины окна
-     * (`min(370px, 82vw)`), и запомненное при монтировании значение врало бы
-     * после поворота телефона.
+     * Меряется каждый раз заново: ширина карточки зависит от ширины окна,
+     * и запомненное при монтировании значение врало бы после поворота
+     * телефона.
      */
     const loopWidth = (): number => {
       const items = track.children;
@@ -204,31 +236,33 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
       track.removeEventListener('touchstart', pause);
       track.removeEventListener('touchend', resume);
     };
-  }, [drift, stopped]);
-
-  /* Лента, которой не за чем ехать, кнопки не получает: там нечего
-     останавливать, а лишний контрол в разделе — это лишний повод в него
-     нажать. Такая лента и без того листается: `.static` прокрутку не
-     запрещает. */
-  if (!drift) {
-    return (
-      <ul ref={ref} className={`${styles.track} ${styles.static}`} aria-label={label}>
-        {children}
-      </ul>
-    );
-  }
+  }, [drift, ribbon, stopped]);
 
   /* Лента стоит по любой из двух причин, и от этого зависит одно: отдана ли
      прокрутка человеку. Кто именно её остановил, разметке безразлично. */
   const still = calm || stopped;
 
+  /* Ход есть только там, где есть лента. Ниже 1200 карточки лежат сеткой:
+     двигать нечего, останавливать нечего, и кнопка там не появляется. */
+  const moving = drift && ribbon && !still;
+
+  const listClass = [
+    styles.list,
+    clipped ? styles.clipped : null,
+    drift ? styles.live : null,
+    drift && still ? styles.scrollable : null,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <div className={styles.wrap}>
-      {/* 🔴 Кнопки нет, когда движения и так нет: система уже попросила покоя,
-          лента стоит, и «Остановить ленту» рядом с ней не делает ничего.
-          Кнопка стоит над лентой, а не поверх неё: лента идёт от края до края,
-          и накрыть ею карточку — значит закрыть отзыв ради кнопки. */}
-      {calm ? null : (
+      {/* 🔴 Кнопки нет, когда движения и так нет: система уже попросила покоя
+          или лента ещё не собрана — «Остановить ленту» рядом с неподвижными
+          карточками не делает ничего. Кнопка стоит над лентой, а не поверх
+          неё: лента идёт от края до края, и накрыть ею карточку — значит
+          закрыть отзыв ради кнопки. */}
+      {drift && ribbon && !calm ? (
         <button
           type="button"
           className={styles.switch}
@@ -239,15 +273,9 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
         >
           {stopped ? t.resumeTrack : t.pauseTrack}
         </button>
-      )}
+      ) : null}
 
-      <ul
-        ref={ref}
-        className={[styles.track, styles.live, still ? styles.scrollable : null]
-          .filter(Boolean)
-          .join(' ')}
-        aria-label={label}
-      >
+      <ul ref={ref} id={id} className={listClass} aria-label={label}>
         {children}
       </ul>
 
@@ -255,7 +283,7 @@ export function ReviewsTrack({ label, drift = true, children }: ReviewsTrackProp
           прокрутки: человек, который остановил ленту с клавиатуры, полосы не
           видит. `role="status"` доносит это без перехвата фокуса. */}
       <p className={styles.hint} role="status">
-        {still ? t.pausedHint : ''}
+        {moving || !ribbon || !drift ? '' : t.pausedHint}
       </p>
     </div>
   );

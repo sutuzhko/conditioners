@@ -8,76 +8,80 @@
 1200 → 1200×900
 
 [геометрия 320]
-section.ArticleList__section  320×596 @0,0
-  div.ArticleList__container  320×596 @0,0
+section.ArticleList__section  320×522 @0,0
+  div.ArticleList__container  320×522 @0,0
     header.ArticleList__head  288×204 @16,48
       p.ArticleList__kicker  288×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
       h1.ArticleList__title  288×65 @0,32  Onest 700 30/32  ls-1  lines=2  «Разбираемся в кондиционерах»
       p.ArticleList__lead  288×93 @0,111  Manrope 400 15/23  lines=4  «Пишут монтажники, а не маркетологи: как»
-    nav.ArticleList__filter  288×98 @16,280
-      ul.ArticleList__tabs  288×98 @0,0
-        a.ArticleList__tab  64×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Все»
-        a.ArticleList__tab#2  84×44 @74,0  Manrope 600 15/17  r100  b1  lines=1  «Выбор»
-        a.ArticleList__tab#3  94×44 @168,0  Manrope 600 15/17  r100  b1  lines=1  «Монтаж»
-        a.ArticleList__tab#4  72×44 @0,54  Manrope 600 15/17  r100  b1  lines=1  «Уход»
-    div.Card__card  288×186 @16,410  r20  b1
+    nav.ArticleList__filter  288×56 @16,266
+      ul.ArticleList__tabs  320×56 @-16,0
+        a.ArticleList__tab  64×44 @16,6  Manrope 600 15/17  r100  b1  lines=1  «Все»
+        a.ArticleList__tab#2  84×44 @90,6  Manrope 600 15/17  r100  b1  lines=1  «Выбор»
+        a.ArticleList__tab#3  94×44 @184,6  Manrope 600 15/17  r100  b1  lines=1  «Монтаж»
+        a.ArticleList__tab#4  72×44 @288,6  Manrope 600 15/17  r100  b1  lines=1  «Уход»
+    div.Card__card  288×186 @16,336  r20  b1
       p.ArticleList__emptyTitle  246×26 @21,21  Onest 700 17/26  ls0  lines=1  «В этой рубрике статей нет»
       p.ArticleList__emptyText  246×70 @21,55  Manrope 400 15/23  lines=3  «Возможно, рубрику переименовали. Посмотр»
       a.ArticleList__emptyLink  174×44 @9,131  Manrope 600 15/23  r11  lines=1  «Показать все статьи»
+    div.ArticleList__pager  288×0 @16,546
 
 [геометрия 375]
-section.ArticleList__section  375×578 @0,0
-  div.ArticleList__container  375×578 @0,0
-    header.ArticleList__head  343×206 @16,51
-      p.ArticleList__kicker  343×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
-      h1.ArticleList__title  343×67 @0,32  Onest 700 31/34  ls-1  lines=2  «Разбираемся в кондиционерах»
-      p.ArticleList__lead  343×93 @0,113  Manrope 400 15/23  lines=4  «Пишут монтажники, а не маркетологи: как»
-    nav.ArticleList__filter  343×98 @16,285
-      ul.ArticleList__tabs  343×98 @0,0
-        a.ArticleList__tab  64×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Все»
-        a.ArticleList__tab#2  84×44 @74,0  Manrope 600 15/17  r100  b1  lines=1  «Выбор»
-        a.ArticleList__tab#3  94×44 @168,0  Manrope 600 15/17  r100  b1  lines=1  «Монтаж»
-        a.ArticleList__tab#4  72×44 @0,54  Manrope 600 15/17  r100  b1  lines=1  «Уход»
-    div.Card__card  343×163 @16,415  r20  b1
-      p.ArticleList__emptyTitle  301×27 @21,21  Onest 700 17/27  ls0  lines=1  «В этой рубрике статей нет»
-      p.ArticleList__emptyText  301×47 @21,56  Manrope 400 15/23  lines=2  «Возможно, рубрику переименовали. Посмотр»
+section.ArticleList__section  375×504 @0,0
+  div.ArticleList__container  375×504 @0,0
+    header.ArticleList__head  342×206 @17,51
+      p.ArticleList__kicker  342×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
+      h1.ArticleList__title  342×67 @0,32  Onest 700 31/34  ls-1  lines=2  «Разбираемся в кондиционерах»
+      p.ArticleList__lead  342×93 @0,113  Manrope 400 15/23  lines=4  «Пишут монтажники, а не маркетологи: как»
+    nav.ArticleList__filter  342×56 @17,271
+      ul.ArticleList__tabs  375×56 @-16,0
+        a.ArticleList__tab  64×44 @17,6  Manrope 600 15/17  r100  b1  lines=1  «Все»
+        a.ArticleList__tab#2  84×44 @90,6  Manrope 600 15/17  r100  b1  lines=1  «Выбор»
+        a.ArticleList__tab#3  94×44 @184,6  Manrope 600 15/17  r100  b1  lines=1  «Монтаж»
+        a.ArticleList__tab#4  72×44 @289,6  Manrope 600 15/17  r100  b1  lines=1  «Уход»
+    div.Card__card  342×163 @17,341  r20  b1
+      p.ArticleList__emptyTitle  300×27 @21,21  Onest 700 17/27  ls0  lines=1  «В этой рубрике статей нет»
+      p.ArticleList__emptyText  300×47 @21,56  Manrope 400 15/23  lines=2  «Возможно, рубрику переименовали. Посмотр»
       a.ArticleList__emptyLink  174×44 @9,108  Manrope 600 15/23  r11  lines=1  «Показать все статьи»
+    div.ArticleList__pager  342×0 @17,528
 
 [геометрия 768]
-section.ArticleList__section  768×472 @0,0
-  div.ArticleList__container  768×472 @0,0
+section.ArticleList__section  768×461 @0,0
+  div.ArticleList__container  768×461 @0,0
     header.ArticleList__head  680×142 @20,68
       p.ArticleList__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
       h1.ArticleList__title  680×43 @0,32  Onest 700 40/43  ls-1  lines=1  «Разбираемся в кондиционерах»
       p.ArticleList__lead  680×54 @0,89  Manrope 400 17/27  lines=2  «Пишут монтажники, а не маркетологи: как»
-    nav.ArticleList__filter  728×44 @20,239
-      ul.ArticleList__tabs  728×44 @0,0
-        a.ArticleList__tab  64×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Все»
-        a.ArticleList__tab#2  84×44 @74,0  Manrope 600 15/17  r100  b1  lines=1  «Выбор»
-        a.ArticleList__tab#3  94×44 @168,0  Manrope 600 15/17  r100  b1  lines=1  «Монтаж»
-        a.ArticleList__tab#4  72×44 @272,0  Manrope 600 15/17  r100  b1  lines=1  «Уход»
-    div.Card__card  680×157 @20,315  r20  b1
+    nav.ArticleList__filter  728×56 @20,230
+      ul.ArticleList__tabs  768×56 @-20,0
+        a.ArticleList__tab  64×44 @20,6  Manrope 600 15/17  r100  b1  lines=1  «Все»
+        a.ArticleList__tab#2  84×44 @94,6  Manrope 600 15/17  r100  b1  lines=1  «Выбор»
+        a.ArticleList__tab#3  94×44 @188,6  Manrope 600 15/17  r100  b1  lines=1  «Монтаж»
+        a.ArticleList__tab#4  72×44 @292,6  Manrope 600 15/17  r100  b1  lines=1  «Уход»
+    div.Card__card  680×157 @20,304  r20  b1
       p.ArticleList__emptyTitle  622×28 @29,29  Onest 700 18/28  ls0  lines=1  «В этой рубрике статей нет»
       p.ArticleList__emptyText  622×23 @29,65  Manrope 400 15/23  lines=1  «Возможно, рубрику переименовали. Посмотр»
       a.ArticleList__emptyLink  174×44 @17,94  Manrope 600 15/23  r11  lines=1  «Показать все статьи»
+    div.ArticleList__pager  728×0 @20,489
 
 [геометрия 1200]
-section.ArticleList__section  1200×568 @0,0
-  div.ArticleList__container  1200×568 @0,0
+section.ArticleList__section  1200×562 @0,0
+  div.ArticleList__container  1200×562 @0,0
     header.ArticleList__head  680×209 @24,88
       p.ArticleList__kicker  680×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— База знаний —»
       h1.ArticleList__title  680×106 @0,32  Onest 700 49/53  ls-1  lines=2  «Разбираемся в кондиционерах»
       p.ArticleList__lead  680×57 @0,152  Manrope 400 18/29  lines=2  «Пишут монтажники, а не маркетологи: как»
-    nav.ArticleList__filter  1152×44 @24,333
+    nav.ArticleList__filter  1152×44 @24,329
       ul.ArticleList__tabs  1152×44 @0,0
         a.ArticleList__tab  64×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «Все»
         a.ArticleList__tab#2  84×44 @74,0  Manrope 600 15/17  r100  b1  lines=1  «Выбор»
         a.ArticleList__tab#3  94×44 @168,0  Manrope 600 15/17  r100  b1  lines=1  «Монтаж»
         a.ArticleList__tab#4  72×44 @272,0  Manrope 600 15/17  r100  b1  lines=1  «Уход»
-    div.Card__card  680×159 @24,409  r20  b1
+    div.Card__card  680×159 @24,403  r20  b1
       p.ArticleList__emptyTitle  622×29 @29,29  Onest 700 19/29  ls0  lines=1  «В этой рубрике статей нет»
       p.ArticleList__emptyText  622×23 @29,66  Manrope 400 15/23  lines=1  «Возможно, рубрику переименовали. Посмотр»
       a.ArticleList__emptyLink  174×44 @17,96  Manrope 600 15/23  r11  lines=1  «Показать все статьи»
+    div.ArticleList__pager  1152×0 @24,597
 
 [палитра light]
 section.ArticleList__section  bg #ffffff
@@ -88,14 +92,15 @@ section.ArticleList__section  bg #ffffff
       p.ArticleList__lead  color #556173
     nav.ArticleList__filter
       ul.ArticleList__tabs
-        a.ArticleList__tab  color #475569  border #cbd5e1
-        a.ArticleList__tab#2  color #475569  border #cbd5e1
-        a.ArticleList__tab#3  color #475569  border #cbd5e1
-        a.ArticleList__tab#4  color #475569  border #cbd5e1
+        a.ArticleList__tab  color #475569  border #7e8fa6
+        a.ArticleList__tab#2  color #475569  border #7e8fa6
+        a.ArticleList__tab#3  color #475569  border #7e8fa6
+        a.ArticleList__tab#4  color #475569  border #7e8fa6
     div.Card__card  bg #f8fafc  border #eef2f6
       p.ArticleList__emptyTitle  color #0f172a
       p.ArticleList__emptyText  color #556173
       a.ArticleList__emptyLink  color #0e7490
+    div.ArticleList__pager
 
 [палитра dark]
 section.ArticleList__section  bg #0b1220
@@ -106,11 +111,12 @@ section.ArticleList__section  bg #0b1220
       p.ArticleList__lead  color #8598ac
     nav.ArticleList__filter
       ul.ArticleList__tabs
-        a.ArticleList__tab  color #a8b6c6  border #2c3d59
-        a.ArticleList__tab#2  color #a8b6c6  border #2c3d59
-        a.ArticleList__tab#3  color #a8b6c6  border #2c3d59
-        a.ArticleList__tab#4  color #a8b6c6  border #2c3d59
+        a.ArticleList__tab  color #a8b6c6  border #566d95
+        a.ArticleList__tab#2  color #a8b6c6  border #566d95
+        a.ArticleList__tab#3  color #a8b6c6  border #566d95
+        a.ArticleList__tab#4  color #a8b6c6  border #566d95
     div.Card__card  bg #0e1729  border #182338
       p.ArticleList__emptyTitle  color #eaf1f8
       p.ArticleList__emptyText  color #8598ac
       a.ArticleList__emptyLink  color #22d3ee
+    div.ArticleList__pager

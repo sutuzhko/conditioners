@@ -54,6 +54,7 @@ export function ReviewModal({ renderForm, label = t.open, className }: ReviewMod
         title={t.title}
         description={t.description}
         size="lg"
+        className={styles.window}
       >
         {/* Памятка уходит в левую колонку самой формы: там же снимки, и
             ширина окна занята целиком, а не колонкой подсказок рядом с

@@ -1,21 +1,39 @@
 import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { AdminSummary } from './AdminSummary';
+import { AdminSummary, type SummaryData } from './AdminSummary';
 import {
+  attentionItems,
   busyCounts,
   emptyCounts,
+  emptyMoney,
+  moneySummary,
   overdueItems,
   quietCounts,
   readyReadiness,
+  summaryPeriod,
   unfinishedReadiness,
   upcomingItems,
+  workCounts,
 } from './fixtures';
 import { adminSummaryContent as texts } from './summary-content';
 
+/** Сегмент «Обзор» с заданными числами: три четверти тестов начинаются с него. */
+function overview(
+  counts = quietCounts,
+  readiness = readyReadiness,
+  upcoming = upcomingItems,
+): SummaryData {
+  return { segment: 'overview', counts, readiness, upcoming };
+}
+
+function show(data: SummaryData) {
+  return render(<AdminSummary period={summaryPeriod} data={data} />);
+}
+
 describe('Сводка панели управления', () => {
   it('незаполненные группы названы по-человечески, а не ключами базы', () => {
-    render(<AdminSummary counts={emptyCounts} readiness={unfinishedReadiness} />);
+    show(overview(emptyCounts, unfinishedReadiness, []));
 
     expect(screen.getByText('Телефон и почта')).toBeInTheDocument();
     expect(screen.getByText('Реквизиты')).toBeInTheDocument();
@@ -23,7 +41,7 @@ describe('Сводка панели управления', () => {
   });
 
   it('пока данные не заполнены, ведёт в раздел компании', () => {
-    render(<AdminSummary counts={emptyCounts} readiness={unfinishedReadiness} />);
+    show(overview(emptyCounts, unfinishedReadiness, []));
 
     expect(screen.getByRole('link', { name: texts.readinessCta })).toHaveAttribute(
       'href',
@@ -32,7 +50,7 @@ describe('Сводка панели управления', () => {
   });
 
   it('когда всё заполнено, список групп и призыв исчезают', () => {
-    render(<AdminSummary counts={quietCounts} readiness={readyReadiness} />);
+    show(overview());
 
     expect(screen.getByText(texts.readinessDone)).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: texts.readinessCta })).not.toBeInTheDocument();
@@ -41,11 +59,7 @@ describe('Сводка панели управления', () => {
   it('готовность стоит последней при любом состоянии настроек', () => {
     /* 🔴 Позиция карточки не зависит от данных (ADR-241): скелетон их не
        знает, и переезд карточки наверх двигал бы плитки вниз сразу после
-       загрузки — ровно тот прыжок, против которого написан issue #334.
-       О незаполненных настройках говорит вид карточки, а не её место. */
-    /* Проверяется порядок блоков между собой, а не номер в списке: сверху
-       стоит ещё и заголовок страницы, и привязка к индексу ломалась бы от
-       любой правки шапки, ничего не говоря о самом требовании. */
+       загрузки — ровно тот прыжок, против которого написан issue #334. */
     const orderOf = (container: HTMLElement): { readiness: number; tiles: number } => {
       const blocks = [...container.querySelectorAll('[class*="summary"] > *')];
       return {
@@ -54,13 +68,13 @@ describe('Сводка панели управления', () => {
       };
     };
 
-    const blocking = render(<AdminSummary counts={emptyCounts} readiness={unfinishedReadiness} />);
+    const blocking = show(overview(emptyCounts, unfinishedReadiness, []));
     const unfinished = orderOf(blocking.container);
     expect(unfinished.readiness).toBeGreaterThan(unfinished.tiles);
 
     blocking.unmount();
 
-    const done = render(<AdminSummary counts={quietCounts} readiness={readyReadiness} />);
+    const done = show(overview());
     const ready = orderOf(done.container);
     expect(ready.readiness).toBeGreaterThan(ready.tiles);
     expect(ready.readiness).toBe(unfinished.readiness);
@@ -69,54 +83,72 @@ describe('Сводка панели управления', () => {
   /* 🔴 Вход в панель был единственной страницей без `h1`: заголовки плиток —
      второй уровень, и читалка объявляла экран безымянным (инвариант 4). */
   it('у сводки есть единственный заголовок первого уровня', () => {
-    render(<AdminSummary counts={quietCounts} readiness={readyReadiness} />);
+    show(overview());
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(texts.title);
   });
 
-  it('плитки — про работу компании, а не про содержимое сайта', () => {
-    render(<AdminSummary counts={busyCounts} readiness={readyReadiness} />);
+  it('🔴 три сегмента живут в адресе, первый в него не уезжает', () => {
+    show(overview());
 
-    const tiles: readonly (readonly [string, string, number])[] = [
-      [texts.leads, '/admin/leads', busyCounts.newLeads],
-      [texts.orders, '/admin/orders', busyCounts.activeOrders],
-      [texts.clients, '/admin/clients', busyCounts.clients],
-      [texts.installers, '/admin/team', busyCounts.installers],
-      [texts.reviews, '/admin/reviews', busyCounts.pendingReviews],
+    const segments = screen.getByRole('navigation', { name: texts.segmentsLabel });
+
+    expect(
+      within(segments).getByRole('link', { name: texts.segmentTitle.overview }),
+    ).toHaveAttribute('href', '/admin');
+    expect(within(segments).getByRole('link', { name: texts.segmentTitle.work })).toHaveAttribute(
+      'href',
+      '/admin?tab=work',
+    );
+    expect(within(segments).getByRole('link', { name: texts.segmentTitle.money })).toHaveAttribute(
+      'href',
+      '/admin?tab=money',
+    );
+  });
+
+  it('открытый сегмент отмечен для скринридера, а не только цветом', () => {
+    show({ segment: 'money', money: moneySummary });
+
+    expect(screen.getByRole('link', { name: texts.segmentTitle.money })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+    expect(screen.getByRole('link', { name: texts.segmentTitle.work })).not.toHaveAttribute(
+      'aria-current',
+    );
+  });
+
+  it('🔴 плитка целиком ведёт в свой раздел, а не подпись под числом', () => {
+    /* Подпись — цель 82×17 при норме 44×44 на сенсорной раскладке (ADR-183):
+       ссылкой обязана быть вся плитка, и её имя тогда читается целиком —
+       «Новые обращения 3 ждут ответа». */
+    show(overview(busyCounts));
+
+    const tiles: readonly (readonly [string, string])[] = [
+      [texts.leads, '/admin/leads'],
+      [texts.orders, '/admin/orders'],
+      [texts.revenue, '/admin?tab=money'],
+      [texts.reviews, '/admin/reviews'],
     ];
 
-    for (const [title, href, value] of tiles) {
-      const tile = screen.getByRole('link', { name: new RegExp(title) });
-      expect(tile).toHaveAttribute('href', href);
-      expect(within(tile).getByText(String(value))).toBeInTheDocument();
+    for (const [label, href] of tiles) {
+      expect(screen.getByRole('link', { name: new RegExp(label) })).toHaveAttribute('href', href);
     }
   });
 
-  it('плиток про каталог и статьи на сводке больше нет', () => {
-    render(<AdminSummary counts={busyCounts} readiness={readyReadiness} />);
+  it('🔴 выручка в «Обзоре» — то же число, что в сегменте «Деньги»', () => {
+    /* Один источник, а не два отчёта: расхождение этих двух чисел владелец
+       заметит первым, и объяснить его будет нечем (issue #344). */
+    const { unmount } = show(overview(busyCounts));
+    expect(screen.getByText('486 200 ₽')).toBeInTheDocument();
+    unmount();
 
-    expect(screen.queryByRole('link', { name: /каталоге/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: /Статей/ })).not.toBeInTheDocument();
-  });
-
-  it('ноль обращений не выделяется — выделение значит «нужно действие»', () => {
-    const { container } = render(<AdminSummary counts={emptyCounts} readiness={readyReadiness} />);
-
-    expect(container.querySelectorAll('[class*="urgent"]')).toHaveLength(0);
-  });
-
-  it('ожидающие обращения и отзывы выделены, а число заказов — нет', () => {
-    const { container } = render(<AdminSummary counts={busyCounts} readiness={readyReadiness} />);
-
-    /* Семь заказов в работе — это норма сезона, а не повод для тревоги:
-       подсвеченным должно быть только то, что ждёт ответа человека. */
-    expect(container.querySelectorAll('[class*="urgent"]')).toHaveLength(2);
+    show({ segment: 'money', money: moneySummary });
+    expect(screen.getAllByText('486 200 ₽').length).toBeGreaterThan(0);
   });
 
   it('показывает ближайшие дела: за ними в панель и заходят', () => {
-    render(
-      <AdminSummary counts={quietCounts} readiness={readyReadiness} upcoming={upcomingItems} />,
-    );
+    show(overview());
 
     expect(screen.getByText('сегодня 18:00')).toBeInTheDocument();
     expect(screen.getByText('Замер')).toBeInTheDocument();
@@ -124,9 +156,7 @@ describe('Сводка панели управления', () => {
   });
 
   it('наряд и дело в одном списке различимы словом, а не только цветом', () => {
-    render(
-      <AdminSummary counts={quietCounts} readiness={readyReadiness} upcoming={upcomingItems} />,
-    );
+    show(overview());
 
     /* ADR-093: наряд — работа с деньгами, дело — напоминание. Списка, в
        котором одно неотличимо от другого, быть не должно. */
@@ -135,9 +165,7 @@ describe('Сводка панели управления', () => {
   });
 
   it('каждая строка ведёт в свою сущность: наряд — в карточку, дело — в календарь', () => {
-    render(
-      <AdminSummary counts={quietCounts} readiness={readyReadiness} upcoming={upcomingItems} />,
-    );
+    show(overview());
 
     expect(screen.getByRole('link', { name: /Ирина Соколова/ })).toHaveAttribute(
       'href',
@@ -147,20 +175,65 @@ describe('Сводка панели управления', () => {
   });
 
   it('просроченное дело помечено словом, а не одним цветом', () => {
-    render(
-      <AdminSummary counts={quietCounts} readiness={readyReadiness} upcoming={overdueItems} />,
-    );
+    show(overview(quietCounts, readyReadiness, overdueItems));
 
     expect(screen.getByText(texts.upcomingOverdue)).toBeInTheDocument();
   });
 
   it('пустой список объясняет пустоту, а не молчит', () => {
-    render(<AdminSummary counts={quietCounts} readiness={readyReadiness} />);
+    show(overview(quietCounts, readyReadiness, []));
 
     expect(screen.getByText(texts.upcomingEmpty)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: texts.upcomingCta })).toHaveAttribute(
       'href',
       '/admin/crm',
     );
+  });
+
+  it('сегмент «Работа» отвечает на «успеваем ли», а не на «сколько заработали»', () => {
+    show({ segment: 'work', work: workCounts, attention: attentionItems });
+
+    expect(screen.getByText(String(workCounts.done))).toBeInTheDocument();
+    expect(screen.getByText(texts.attentionTitle)).toBeInTheDocument();
+    expect(screen.getByText(texts.attentionOverdue)).toBeInTheDocument();
+    expect(screen.getByText(texts.attentionUnassigned)).toBeInTheDocument();
+  });
+
+  it('без срывов список «требуют внимания» говорит это словами', () => {
+    show({ segment: 'work', work: workCounts, attention: [] });
+
+    expect(screen.getByText(texts.attentionEmpty)).toBeInTheDocument();
+  });
+
+  it('🔴 в сегменте «Деньги» нет ни себестоимости, ни маржи', () => {
+    /* CRM.md §11.7: закупочных цен в базе нет вовсе, и решение владельца по
+       ним не принято. Слов «себестоимость» и «маржа» в интерфейсе быть не
+       должно, пока за ними нет ни данных, ни решения. */
+    const { container } = show({ segment: 'money', money: moneySummary });
+
+    expect(container.textContent).not.toMatch(/себестоимост|маржа|закупк/i);
+  });
+
+  it('месяц без закрытых нарядов объясняет пустоту, а не рисует пустой график', () => {
+    show({ segment: 'money', money: emptyMoney });
+
+    expect(screen.getAllByText(texts.moneyEmpty).length).toBeGreaterThan(0);
+  });
+
+  it('доли выручки показаны и суммой, и процентом', () => {
+    show({ segment: 'money', money: moneySummary });
+
+    const row = screen.getByText('Монтаж').closest('tr');
+    expect(row).not.toBeNull();
+    if (row === null) return;
+
+    expect(within(row).getByText('311 400 ₽')).toBeInTheDocument();
+    expect(within(row).getByText(texts.moneySharePercent(64))).toBeInTheDocument();
+  });
+
+  it('период, за который посчитаны числа, подписан на экране', () => {
+    show(overview());
+
+    expect(screen.getByText(summaryPeriod)).toBeInTheDocument();
   });
 });

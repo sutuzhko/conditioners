@@ -466,24 +466,49 @@ export function filtersApplied(filters: Partial<OrderFilterState>): boolean {
 // ---------- Адрес карточки ----------
 
 /**
- * Вкладки карточки наряда, собранные на сегодня.
+ * Вкладки карточки наряда — все пять ключей словаря (issue #346).
  *
- * В словаре их пять (`PANEL_TABS.orderCard`), на экране — три: «Расход» и
- * «История» пока стоят блоками под вкладками, и собрать их вкладками —
- * работа Фазы 8 (issue #52). Пока панели нет, её ключ в адресе открывает
- * первую вкладку, а не пустоту.
+ * «Расход» и «История» стояли блоками под лентой вкладок, и карточка
+ * заканчивалась двумя разделами, до которых нужно было доскроллить. Теперь
+ * порядок совпадает с ходом работы: наряд → что израсходовали → что взять →
+ * бумаги → кто и когда менял.
  */
-export const ORDER_CARD_TABS = [
+export const ORDER_CARD_TABS = PANEL_TABS.orderCard;
+
+export type OrderCardTab = PanelTab<'orderCard'>;
+
+/**
+ * 🔴 Вкладок у монтажника четыре: истории он не видит вовсе (ADR-114).
+ *
+ * В истории лежат переназначения — разговор владельца с людьми, а не работа
+ * монтажника, и сервер не кладёт этот ключ в его ответ. Раз панели нет,
+ * не должно быть и вкладки: пустая вкладка «История» сообщала бы, что
+ * история есть, но пуста, — а это неправда.
+ */
+export const INSTALLER_CARD_TABS = [
   'job',
+  'materials',
   'checklist',
   'documents',
 ] as const satisfies readonly PanelTab<'orderCard'>[];
 
-export type OrderCardTab = (typeof ORDER_CARD_TABS)[number];
+/** Набор вкладок под роль: у монтажника он короче на историю. */
+export function orderCardTabsFor(
+  forInstaller: boolean,
+): readonly [OrderCardTab, ...OrderCardTab[]] {
+  return forInstaller ? INSTALLER_CARD_TABS : ORDER_CARD_TABS;
+}
 
-/** Вкладка карточки из адреса. Мусор и чужой ключ — первая вкладка. */
-export function orderCardTabFromParam(value: unknown): OrderCardTab {
-  return resolvePanelTab(ORDER_CARD_TABS, value);
+/**
+ * Вкладка карточки из адреса. Мусор, чужой ключ и вкладка, которой у этой
+ * роли нет, открывают первую (issue #341): `?tab=history` у монтажника — это
+ * ссылка, присланная владельцем, а не повод показать пустоту.
+ */
+export function orderCardTabFromParam(
+  value: unknown,
+  tabs: readonly [OrderCardTab, ...OrderCardTab[]] = ORDER_CARD_TABS,
+): OrderCardTab {
+  return resolvePanelTab(tabs, value);
 }
 
 /**

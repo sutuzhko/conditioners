@@ -155,7 +155,7 @@ export function ReminderForm({
 
   if (status === 'success') {
     return (
-      <div className={[styles.done, className].filter(Boolean).join(' ')}>
+      <div className={[styles.done, className].filter(Boolean).join(' ')} data-ground="panel">
         <span className={styles.doneIcon} aria-hidden="true">
           <CheckIcon />
         </span>
@@ -177,6 +177,7 @@ export function ReminderForm({
     <form
       ref={formRef}
       className={[styles.form, className].filter(Boolean).join(' ')}
+      data-ground="panel"
       onSubmit={(event) => {
         void handleSubmit(event);
       }}
@@ -237,7 +238,7 @@ export function ReminderForm({
         </p>
       ) : null}
 
-      <Button type="submit" size="lg" fullWidth disabled={status === 'sending'}>
+      <Button type="submit" size="lg" fullWidth loading={status === 'sending'}>
         {status === 'sending' ? texts.submitting : texts.submit}
       </Button>
 

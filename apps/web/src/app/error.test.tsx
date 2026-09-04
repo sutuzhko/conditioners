@@ -1,8 +1,12 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ERROR_PAGE_CONTENT as t } from '@/shared/config/error-page';
+import { POLICY_HREF, SITE_NAV } from '@/shared/config/nav';
 
 import RenderError from './error';
 
@@ -28,6 +32,26 @@ describe('Экран падения рендера', () => {
     await user.click(screen.getByRole('button', { name: t.retry }));
 
     expect(reset).toHaveBeenCalledTimes(1);
+  });
+
+  it('🔴 уводит в разделы сайта: страница ошибки не тупик (issue #291)', () => {
+    render(<RenderError error={new Error('база недоступна')} reset={() => undefined} />);
+
+    for (const item of SITE_NAV) {
+      expect(screen.getByRole('link', { name: item.label })).toBeInTheDocument();
+    }
+    expect(screen.getByRole('link', { name: t.policyLabel })).toHaveAttribute('href', POLICY_HREF);
+    expect(screen.getByRole('link', { name: t.brandLabel })).toHaveAttribute('href', '/');
+  });
+
+  it('🔴 не ходит в базу: ни одного серверного чтения на клиентском экране', () => {
+    /* Проверяется составом импортов модуля, а не мокой: экран появляется
+       ровно тогда, когда база не отвечает, и обращение к ней здесь означало
+       бы второе падение поверх первого. */
+    const source = readFileSync(resolve(import.meta.dirname, 'error.tsx'), 'utf8');
+
+    expect(source).not.toMatch(/@\/server\//);
+    expect(source).not.toMatch(/loadSettings|listFeatured|listPublished/);
   });
 
   it('🔴 не выдумывает данных компании: телефона на экране нет (инвариант 8)', () => {

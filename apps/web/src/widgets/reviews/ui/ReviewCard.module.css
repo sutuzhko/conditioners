@@ -1,8 +1,9 @@
-/* Карточка отзыва. Радиус 20px, внутренний отступ 26px — из макета.
-   Цвета только токенами (docs/CLAUDE.md, раздел «Стилизация»). */
+/* Карточка отзыва. Радиус 20px, внутреннее поле --card-pad — из макета
+   (issue #274). Цвета только токенами (docs/CLAUDE.md, «Стилизация»). */
 
 .card {
   position: relative;
+  display: flex;
   border-radius: var(--r-lg);
   overflow: hidden;
   transition:
@@ -57,10 +58,11 @@
 
 .body {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 14px;
-  height: 100%;
-  padding: clamp(18px, 4vw, 26px);
+  min-width: 0;
+  padding: var(--card-pad);
 }
 
 .top {
@@ -85,14 +87,17 @@
 /* кавычки-ёлочки рисует CSS: в базе лежит чистый текст автора,
    и добавлять к нему символы в разметке нельзя (инвариант 7) */
 
-/* 🔴 Три строки — предел показа. Отзыв на пол-экрана растягивал бы ряд, а
-   соседние карточки превращались в полосы пустоты. Читается он целиком в
-   окне: обрезан показ, а не содержание. */
+/* 🔴 Четыре строки — предел показа (issue #275). Отзыв на пол-экрана
+   растягивал бы ряд, а соседние карточки превращались в полосы пустоты.
+   Читается он целиком в окне: обрезан показ, а не содержание — полный текст
+   остаётся в разметке, и читалка с поисковиком видят его весь.
+
+   Обрыв — многоточием по слову, средствами браузера, а не краем карточки. */
 .text {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   margin: 0;
   color: var(--ink2);
   font-size: var(--fs-dense);
@@ -108,35 +113,69 @@
   content: '»';
 }
 
+/* 🔴 Три строки в ленте: карточка там ниже, и четвёртая строка ломает ряд. */
+@media (width >= 1200px) {
+  .text {
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* Признак обрезки. Выглядит как ссылка, но целью не является: нажимается вся
+   карточка, и вторая цель внутри первой сбивала бы и палец, и клавиатуру. */
+.more {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--accent-text);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.card:has(.hit:hover) .more {
+  text-decoration: underline;
+}
+
 .footer {
   display: flex;
   gap: 12px;
   align-items: center;
+
+  /* 🔴 Подвал прижат к низу: в ряду из нескольких карточек имена авторов
+     обязаны стоять на одной линии (issue #274). */
+  margin-top: auto;
   border-top: 1px solid var(--line-soft);
   padding-top: 14px;
 }
 
-.avatarPhoto {
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--r-pill);
-  object-fit: cover;
-}
-
+/* 🔴 Кружок 36×36 занят с первого кадра — и когда фотографии нет, и пока она
+   грузится, и если не загрузилась (issue #22). Фотография ложится поверх
+   буквы, а не встаёт вместо неё: подмена на месте не двигает подпись. */
 .avatar {
+  position: relative;
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: var(--brand);
+  overflow: hidden;
+}
+
+.initial {
   color: var(--on-brand);
   font-family: var(--font-display);
-  font-size: var(--fs-base);
+  font-size: var(--fs-dense);
   font-weight: 700;
+  line-height: 1;
+}
+
+.avatarPhoto {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
 }
 
 .who {
@@ -148,28 +187,12 @@
 .name {
   color: var(--ink);
   font-size: var(--fs-dense);
-  font-weight: 600;
+  font-weight: 700;
   overflow-wrap: anywhere;
 }
 
-/* --muted, а не --faint из макета: 12.5px на карточке обязаны добирать AA */
+/* --muted, а не --faint из макета: 12px на карточке обязаны добирать AA */
 .meta {
   color: var(--muted);
-  font-size: 12.5px;
-}
-
-/* Кнопка выглядит ссылкой: она продолжает текст, а не спорит с ним. */
-.more {
-  align-self: flex-start;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--accent-text);
-  font: inherit;
-  font-size: var(--fs-dense);
-  cursor: pointer;
-}
-
-.more:hover {
-  text-decoration: underline;
+  font-size: var(--fs-micro);
 }

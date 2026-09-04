@@ -1,0 +1,742 @@
+# админка-заказы-работа-с-нарядом--расход · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+390 → 390×2421
+768 → 768×1474
+1440 → 1440×1366
+
+[геометрия 390]
+div.OrderWorkTabs__wrap  358×2389 @16,16
+  div.OrderWorkTabs__strip  358×47 @0,0  b0 0 1 0
+    div.OrderWorkTabs__tabs  358×46 @0,0
+      button.OrderWorkTabs__tab  73×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
+      button.OrderWorkTabs__tab#2  79×44 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Расход»
+      button.OrderWorkTabs__tab#3  141×44 @160,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист выезда»
+      button.OrderWorkTabs__tab#4  159×44 @305,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы и фото»
+      button.OrderWorkTabs__tab#5  88×44 @468,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «История»
+  div.OrderWorkTabs__panel  358×2326 @0,63
+    section.Card__card  358×2326 @0,0  r20  b1
+      h2.OrderConsumption__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Израсходовано»
+      p.OrderConsumption__hint  316×60 @21,46  Manrope 400 13/20  lines=3  «Что ушло на эту работу по факту. Чеклист»
+      div.Table__viewport  316×1199 @21,120
+        table.Table__table  316×1199 @0,0
+          tr[role=row]  1×56 @0,0
+            th  100×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Позиция»
+            th#2  123×56 @100,0  Onest 700 15/23  b0 0 1 0  lines=1  «Количество»
+            th#3  90×56 @223,0  Onest 700 15/23  b0 0 1 0  lines=1  «Откуда»
+            th#4  122×56 @313,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто и когда»
+            span  1×1 @452,38  Onest 700 15/23  lines=1  clipped  «Отмена списания»
+          tr[role=row]#2  316×286 @0,0  r14  b1
+            td.OrderConsumption__item  314×36 @1,5
+              td.OrderConsumption__item::before  53×20 @0,0
+              span.OrderConsumption__name  129×22 @171,7  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
+            td.OrderConsumption__qty  314×36 @1,41  JetBrains Mono 400 15/22  lines=1  «4 м»
+              td.OrderConsumption__qty::before  78×20 @0,0
+            td[role=cell]  314×36 @1,78  Manrope 400 15/22  lines=1  «Газель»
+              td[role=cell]::before  44×20 @0,0
+            td.OrderConsumption__who  314×103 @1,114
+              td.OrderConsumption__who::before  69×20 @0,0
+              span  124×22 @14,41  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
+              span.OrderConsumption__when  95×19 @14,78  Manrope 400 12/19  lines=1  «28.08.2026, 12:12»
+            td[role=cell]#2  314×59 @1,222  b1 0 0 0
+              button.Button__button  141×44 @159,8  r9  b1
+                span.Button__content  111×16 @15,14
+                  span.Button__label  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
+          tr[role=row]#3  316×318 @0,296  r14  b1
+            td.OrderConsumption__item  314×69 @1,5
+              td.OrderConsumption__item::before  53×20 @0,0
+              span.OrderConsumption__name#2  131×22 @169,7  Manrope 600 15/22  lines=1  «Сплит-система 09»
+              span.OrderConsumption__serials  286×19 @14,43  JetBrains Mono 400 12/19  lines=1  «Серийные номера: SN-4412-8890»
+            td.OrderConsumption__qty  314×36 @1,74  JetBrains Mono 400 15/22  lines=1  «1 шт.»
+              td.OrderConsumption__qty::before  78×20 @0,0
+            td[role=cell]  314×36 @1,111  Manrope 400 15/22  lines=1  «Газель»
+              td[role=cell]::before  44×20 @0,0
+            td.OrderConsumption__who  314×103 @1,147
+              td.OrderConsumption__who::before  69×20 @0,0
+              span#2  124×22 @14,41  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
+              span.OrderConsumption__when#2  97×19 @14,78  Manrope 400 12/19  lines=1  «28.08.2026, 12:20»
+            td[role=cell]#2  314×59 @1,254  b1 0 0 0
+              button.Button__button#2  141×44 @159,8  r9  b1
+                span.Button__content  111×16 @15,14
+                  span.Button__label#2  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
+          tr[role=row]#4  316×286 @0,624  r14  b1
+            td.OrderConsumption__item  314×36 @1,5
+              td.OrderConsumption__item::before  53×20 @0,0
+              span.OrderConsumption__name#3  217×22 @83,7  Manrope 600 15/22  lines=1  «Кронштейны наружного блока»
+            td.OrderConsumption__qty  314×36 @1,41  JetBrains Mono 400 15/22  lines=1  «2 пар.»
+              td.OrderConsumption__qty::before  78×20 @0,0
+            td[role=cell]  314×36 @1,78  Manrope 400 15/22  lines=1  «Газель»
+              td[role=cell]::before  44×20 @0,0
+            td.OrderConsumption__who  314×103 @1,114
+              td.OrderConsumption__who::before  69×20 @0,0
+              span#3  165×22 @14,41  Manrope 400 15/22  lines=1  «Автор удалён из панели»
+              span.OrderConsumption__when#3  98×19 @14,78  Manrope 400 12/19  lines=1  «28.08.2026, 12:26»
+            td[role=cell]#2  314×59 @1,222  b1 0 0 0
+              button.Button__button#3  141×44 @159,8  r9  b1
+                span.Button__content  111×16 @15,14
+                  span.Button__label#3  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
+          tr[role=row]#5  316×280 @0,919  r14  b1
+            td.OrderConsumption__item  314×75 @1,5
+              td.OrderConsumption__item::before  53×20 @0,0
+              span.OrderConsumption__name#4  217×22 @83,7  Manrope 600 15/22  lines=1  «Кронштейны наружного блока»
+              span.Badge__badge  67×24 @14,43  Manrope 600 12/16  r100  b1  lines=1  «возврат»
+            td.OrderConsumption__qty  314×36 @1,80  JetBrains Mono 400 15/22  lines=1  «1 пар.»
+              td.OrderConsumption__qty::before  78×20 @0,0
+            td[role=cell]  314×36 @1,116  Manrope 400 15/22  lines=1  «Газель»
+              td[role=cell]::before  44×20 @0,0
+            td.OrderConsumption__who  314×103 @1,153
+              td.OrderConsumption__who::before  69×20 @0,0
+              span#4  124×22 @14,41  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
+              span.OrderConsumption__when#4  97×19 @14,78  Manrope 400 12/19  lines=1  «28.08.2026, 12:35»
+            td[role=cell]#2  314×15 @1,260  b1 0 0 0
+      section.OrderConsumption__totals  316×172 @21,1333
+        p.OrderConsumption__totalsTitle  316×22 @0,0  Manrope 700 15/22  lines=1  «Израсходовано по факту»
+        p.OrderConsumption__hint  316×40 @0,30  Manrope 400 13/20  lines=2  «Списания за вычетом возвратов — столько»
+        ul.OrderConsumption__totalsList  316×79 @0,93
+          li.OrderConsumption__total  156×22 @0,0
+            span  124×22 @0,0  Manrope 400 15/22  lines=1  «Труба медная 1/4″»
+            b.OrderConsumption__totalQty  26×22 @130,0  JetBrains Mono 700 15/22  lines=1  «4 м»
+          li.OrderConsumption__total#2  177×22 @0,28
+            span  127×22 @0,0  Manrope 400 15/22  lines=1  «Сплит-система 09»
+            b.OrderConsumption__totalQty  44×22 @133,0  JetBrains Mono 700 15/22  lines=1  «1 шт.»
+          li.OrderConsumption__total#3  267×22 @0,57
+            span  209×22 @0,0  Manrope 400 15/22  lines=1  «Кронштейны наружного блока»
+            b.OrderConsumption__totalQty  52×22 @215,0  JetBrains Mono 700 15/22  lines=1  «1 пар.»
+      form.OrderConsumptionForm__form  316×799 @21,1505  b1 0 0 0
+        h3.OrderConsumptionForm__title  316×18 @0,17  Onest 700 15/18  ls0  lines=1  «Списать материал»
+        div.OrderConsumptionForm__hints  316×291 @0,47  r11  b1
+          p.OrderConsumptionForm__hintsTitle  290×20 @13,11  Manrope 700 13/20  lines=1  «Из чеклиста выезда»
+          p.OrderConsumptionForm__hint  290×60 @13,37  Manrope 400 13/20  lines=3  «Пунктам сборов нашлись позиции склада —»
+          ul.OrderConsumptionForm__hintList  290×174 @13,106
+            li.OrderConsumptionForm__hintItem  249×83 @0,0
+              button.Button__button  249×44 @0,0  r9  b1
+                span.Button__content#2  194×16 @27,14
+                  span.Button__label  194×16 @0,0  Manrope 600 13/16  lines=1  «Кронштейны наружного блока»
+              span.OrderConsumptionForm__hintPoint  249×37 @0,46  Manrope 400 12/19  lines=2  «Кронштейны наружного блока — пара с анке»
+            li.OrderConsumptionForm__hintItem#2  249×83 @0,91
+              button.Button__button  249×44 @0,0  r9  b1
+                span.Button__content#3  117×16 @66,14
+                  span.Button__label  117×16 @0,0  Manrope 600 13/16  lines=1  «Сплит-система 09»
+              span.OrderConsumptionForm__hintPoint  249×37 @0,46  Manrope 400 12/19  lines=2  «Забрать со склада — Позиция 1, Сплит-сис»
+        fieldset.OrderConsumptionForm__fields  316×393 @0,350
+          div.Field__field  316×76 @0,0
+            label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Откуда списываем»
+            span.Select__wrapper  316×49 @0,27
+              select.Select__select  316×49 @0,0  r11  b1
+                option  0×0 @-37,-1961  Manrope 400 15/21  lines=0  «Выберите зону»
+                option#2  0×0 @-37,-1961  Manrope 400 15/21  lines=0  «Гараж»
+                option#3  0×0 @-37,-1961  Manrope 400 15/21  lines=0  «Газель»
+              svg.Select__chevron  14×14 @288,18
+          div.Field__field#2  316×103 @0,88
+            label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
+            input  316×49 @0,27  r11  b1
+            p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Сузьте список, если позиций в справочник»
+          div.Field__field#3  316×76 @0,203
+            label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Позиция»
+            span.Select__wrapper  316×49 @0,27
+              select.Select__select#2  316×49 @0,0  r11  b1
+                option  0×0 @-37,-2164  Manrope 400 15/21  lines=0  «Выберите позицию»
+                option#2  0×0 @-37,-2164  Manrope 400 15/21  lines=0  «Труба медная 1/4″»
+                option#3  0×0 @-37,-2164  Manrope 400 15/21  lines=0  «Кронштейны наружного блока»
+                option#4  0×0 @-37,-2164  Manrope 400 15/21  lines=0  «Фреон R32»
+                option#5  0×0 @-37,-2164  Manrope 400 15/21  lines=0  «Сплит-система 09»
+              svg.Select__chevron#2  14×14 @288,18
+          div.Field__field#4  316×103 @0,291
+            label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Количество»
+            input  316×49 @0,27  r11  b1
+            p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Дробное можно: «1,5" и «12 000" разбираю»
+        div.OrderConsumptionForm__actions  316×44 @0,755
+          button.Button__button  84×44 @0,0  r9  b1
+            span.Button__content#4  54×16 @15,14
+              span.Button__label  54×16 @0,0  Manrope 600 13/16  lines=1  «Списать»
+
+[геометрия 768]
+div.OrderWorkTabs__wrap  736×1442 @16,16
+  div.OrderWorkTabs__strip  736×47 @0,0  b0 0 1 0
+    div.OrderWorkTabs__tabs  736×46 @0,0
+      button.OrderWorkTabs__tab  73×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
+      button.OrderWorkTabs__tab#2  79×44 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Расход»
+      button.OrderWorkTabs__tab#3  141×44 @160,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист выезда»
+      button.OrderWorkTabs__tab#4  159×44 @305,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы и фото»
+      button.OrderWorkTabs__tab#5  88×44 @468,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «История»
+  div.OrderWorkTabs__panel  736×1379 @0,63
+    section.Card__card  736×1379 @0,0  r20  b1
+      h2.OrderConsumption__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Израсходовано»
+      p.OrderConsumption__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Что ушло на эту работу по факту. Чеклист»
+      div.Table__viewport  694×441 @21,101
+        table.Table__table  694×441 @0,0
+          tr[role=row]  694×56 @0,0
+            th  170×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Позиция»
+            th#2  123×56 @170,0  Onest 700 15/23  b0 0 1 0  lines=1  «Количество»
+            th#3  90×56 @292,0  Onest 700 15/23  b0 0 1 0  lines=1  «Откуда»
+            th#4  135×56 @382,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто и когда»
+            span  1×1 @534,38  Onest 700 15/23  lines=1  clipped  «Отмена списания»
+          tr[role=row]#2  694×95 @0,56
+            td.OrderConsumption__item  170×51 @0,1  b0 0 1 0
+              span.OrderConsumption__name  129×22 @18,14  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
+            td.OrderConsumption__qty  123×95 @170,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «4 м»
+            td[role=cell]  90×95 @292,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Газель»
+            td.OrderConsumption__who  135×95 @382,1  b0 0 1 0
+              span  99×45 @18,14  Manrope 400 15/22  lines=2  «Дмитрий Соколов»
+              span.OrderConsumption__when  99×19 @18,61  Manrope 400 12/19  lines=1  «28.08.2026, 12:12»
+            td[role=cell]#2  177×95 @517,0  b0 0 1 0
+              button.Button__button  141×44 @18,15  r9  b1
+                span.Button__content  111×16 @15,14
+                  span.Button__label  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
+          tr[role=row]#3  694×95 @0,151
+            td.OrderConsumption__item  170×93 @0,0  b0 0 1 0
+              span.OrderConsumption__name#2  131×22 @18,14  Manrope 600 15/22  lines=1  «Сплит-система 09»
+              span.OrderConsumption__serials  134×37 @18,40  JetBrains Mono 400 12/19  lines=2  «Серийные номера: SN-4412-8890»
+            td.OrderConsumption__qty  123×95 @170,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «1 шт.»
+            td[role=cell]  90×95 @292,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Газель»
+            td.OrderConsumption__who  135×95 @382,0  b0 0 1 0
+              span#2  99×45 @18,14  Manrope 400 15/22  lines=2  «Дмитрий Соколов»
+              span.OrderConsumption__when#2  99×19 @18,61  Manrope 400 12/19  lines=1  «28.08.2026, 12:20»
+            td[role=cell]#2  177×95 @517,0  b0 0 1 0
+              button.Button__button#2  141×44 @18,15  r9  b1
+                span.Button__content  111×16 @15,14
+                  span.Button__label#2  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
+          tr[role=row]#4  694×95 @0,245
+            td.OrderConsumption__item  170×74 @0,0  b0 0 1 0
+              span.OrderConsumption__name#3  134×45 @18,14  Manrope 600 15/22  lines=2  «Кронштейны наружного блока»
+            td.OrderConsumption__qty  123×95 @170,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «2 пар.»
+            td[role=cell]  90×95 @292,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Газель»
+            td.OrderConsumption__who  135×95 @382,0  b0 0 1 0
+              span#3  99×45 @18,14  Manrope 400 15/22  lines=2  «Автор удалён из панели»
+              span.OrderConsumption__when#3  99×19 @18,61  Manrope 400 12/19  lines=1  «28.08.2026, 12:26»
+            td[role=cell]#2  177×95 @517,0  b0 0 1 0
+              button.Button__button#3  141×44 @18,15  r9  b1
+                span.Button__content  111×16 @15,14
+                  span.Button__label#3  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
+          tr[role=row]#5  694×101 @0,340
+            td.OrderConsumption__item  170×101 @0,0
+              span.OrderConsumption__name#4  134×45 @18,14  Manrope 600 15/22  lines=2  «Кронштейны наружного блока»
+              span.Badge__badge  67×24 @18,63  Manrope 600 12/16  r100  b1  lines=1  «возврат»
+            td.OrderConsumption__qty  123×101 @170,0  JetBrains Mono 400 15/22  lines=1  «1 пар.»
+            td[role=cell]  90×101 @292,0  Manrope 400 15/22  lines=1  «Газель»
+            td.OrderConsumption__who  135×94 @382,0
+              span#4  99×45 @18,14  Manrope 400 15/22  lines=2  «Дмитрий Соколов»
+              span.OrderConsumption__when#4  99×19 @18,61  Manrope 400 12/19  lines=1  «28.08.2026, 12:35»
+            td[role=cell]#2  177×101 @517,0
+      section.OrderConsumption__totals  694×95 @21,556
+        p.OrderConsumption__totalsTitle  694×22 @0,0  Manrope 700 15/22  lines=1  «Израсходовано по факту»
+        p.OrderConsumption__hint  539×20 @0,30  Manrope 400 13/20  lines=1  «Списания за вычетом возвратов — столько»
+        ul.OrderConsumption__totalsList  694×22 @0,73
+          li.OrderConsumption__total  156×22 @0,0
+            span  124×22 @0,0  Manrope 400 15/22  lines=1  «Труба медная 1/4″»
+            b.OrderConsumption__totalQty  26×22 @130,0  JetBrains Mono 700 15/22  lines=1  «4 м»
+          li.OrderConsumption__total#2  177×22 @174,0
+            span  127×22 @0,0  Manrope 400 15/22  lines=1  «Сплит-система 09»
+            b.OrderConsumption__totalQty  44×22 @133,0  JetBrains Mono 700 15/22  lines=1  «1 шт.»
+          li.OrderConsumption__total#3  267×22 @369,0
+            span  209×22 @0,0  Manrope 400 15/22  lines=1  «Кронштейны наружного блока»
+            b.OrderConsumption__totalQty  52×22 @215,0  JetBrains Mono 700 15/22  lines=1  «1 пар.»
+      form.OrderConsumptionForm__form  694×707 @21,651  b1 0 0 0
+        h3.OrderConsumptionForm__title  694×18 @0,17  Onest 700 15/18  ls0  lines=1  «Списать материал»
+        div.OrderConsumptionForm__hints  694×180 @0,47  r11  b1
+          p.OrderConsumptionForm__hintsTitle  668×20 @13,11  Manrope 700 13/20  lines=1  «Из чеклиста выезда»
+          p.OrderConsumptionForm__hint  539×40 @13,37  Manrope 400 13/20  lines=2  «Пунктам сборов нашлись позиции склада —»
+          ul.OrderConsumptionForm__hintList  668×83 @13,85
+            li.OrderConsumptionForm__hintItem  249×83 @0,0
+              button.Button__button  249×44 @0,0  r9  b1
+                span.Button__content#2  194×16 @27,14
+                  span.Button__label  194×16 @0,0  Manrope 600 13/16  lines=1  «Кронштейны наружного блока»
+              span.OrderConsumptionForm__hintPoint  249×37 @0,46  Manrope 400 12/19  lines=2  «Кронштейны наружного блока — пара с анке»
+            li.OrderConsumptionForm__hintItem#2  249×83 @257,0
+              button.Button__button  249×44 @0,0  r9  b1
+                span.Button__content#3  117×16 @66,14
+                  span.Button__label  117×16 @0,0  Manrope 600 13/16  lines=1  «Сплит-система 09»
+              span.OrderConsumptionForm__hintPoint  249×37 @0,46  Manrope 400 12/19  lines=2  «Забрать со склада — Позиция 1, Сплит-сис»
+        fieldset.OrderConsumptionForm__fields  694×413 @0,239
+          div.Field__field  694×76 @0,0
+            label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Откуда списываем»
+            span.Select__wrapper  694×49 @0,27
+              select.Select__select  694×49 @0,0  r11  b1
+                option  0×0 @-37,-996  Manrope 400 15/21  lines=0  «Выберите зону»
+                option#2  0×0 @-37,-996  Manrope 400 15/21  lines=0  «Гараж»
+                option#3  0×0 @-37,-996  Manrope 400 15/21  lines=0  «Газель»
+              svg.Select__chevron  14×14 @666,18
+          div.Field__field#2  694×103 @0,88
+            label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
+            input  694×49 @0,27  r11  b1
+            p.Field__hint  694×19 @0,83  Manrope 400 13/19  lines=1  «Сузьте список, если позиций в справочник»
+          div.Field__field#3  694×76 @0,203
+            label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Позиция»
+            span.Select__wrapper  694×49 @0,27
+              select.Select__select#2  694×49 @0,0  r11  b1
+                option  0×0 @-37,-1198  Manrope 400 15/21  lines=0  «Выберите позицию»
+                option#2  0×0 @-37,-1198  Manrope 400 15/21  lines=0  «Труба медная 1/4″»
+                option#3  0×0 @-37,-1198  Manrope 400 15/21  lines=0  «Кронштейны наружного блока»
+                option#4  0×0 @-37,-1198  Manrope 400 15/21  lines=0  «Фреон R32»
+                option#5  0×0 @-37,-1198  Manrope 400 15/21  lines=0  «Сплит-система 09»
+              svg.Select__chevron#2  14×14 @666,18
+          div.Field__field#4  223×122 @0,291
+            label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Количество»
+            input  223×49 @0,27  r11  b1
+            p.Field__hint  223×39 @0,83  Manrope 400 13/19  lines=2  «Дробное можно: «1,5" и «12 000" разбираю»
+        div.OrderConsumptionForm__actions  694×44 @0,663
+          button.Button__button  84×44 @0,0  r9  b1
+            span.Button__content#4  54×16 @15,14
+              span.Button__label  54×16 @0,0  Manrope 600 13/16  lines=1  «Списать»
+
+[геометрия 1440]
+div.OrderWorkTabs__wrap  1408×1334 @16,16
+  div.OrderWorkTabs__strip  1408×40 @0,0  b0 0 1 0
+    div.OrderWorkTabs__tabs  1408×39 @0,0
+      button.OrderWorkTabs__tab  73×37 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
+      button.OrderWorkTabs__tab#2  79×37 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Расход»
+      button.OrderWorkTabs__tab#3  141×37 @160,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист выезда»
+      button.OrderWorkTabs__tab#4  159×37 @305,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы и фото»
+      button.OrderWorkTabs__tab#5  88×37 @468,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «История»
+  div.OrderWorkTabs__panel  1408×1278 @0,56
+    section.Card__card  1408×1278 @0,0  r20  b1
+      h2.OrderConsumption__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Израсходовано»
+      p.OrderConsumption__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Что ушло на эту работу по факту. Чеклист»
+      div.Table__viewport  1366×346 @21,102
+        table.Table__table  1366×346 @0,0
+          tr[role=row]  1366×56 @0,0
+            th  538×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Позиция»
+            th#2  172×56 @538,0  Onest 700 15/23  b0 0 1 0  lines=1  «Количество»
+            th#3  126×56 @710,0  Onest 700 15/23  b0 0 1 0  lines=1  «Откуда»
+            th#4  282×56 @836,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто и когда»
+            span  1×1 @1135,38  Onest 700 15/23  lines=1  clipped  «Отмена списания»
+          tr[role=row]#2  1366×73 @0,56
+            td.OrderConsumption__item  538×51 @0,1  b0 0 1 0
+              span.OrderConsumption__name  129×22 @18,14  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
+            td.OrderConsumption__qty  172×73 @538,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «4 м»
+            td[role=cell]  126×73 @710,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Газель»
+            td.OrderConsumption__who  282×72 @836,1  b0 0 1 0
+              span  246×22 @18,14  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
+              span.OrderConsumption__when  246×19 @18,38  Manrope 400 12/19  lines=1  «28.08.2026, 12:12»
+            td[role=cell]#2  248×73 @1118,0  b0 0 1 0
+              button.Button__button  141×40 @18,15  r9  b1
+                span.Button__content  111×16 @15,12
+                  span.Button__label  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
+          tr[role=row]#3  1366×74 @0,128
+            td.OrderConsumption__item  538×74 @0,0  b0 0 1 0
+              span.OrderConsumption__name#2  131×22 @18,14  Manrope 600 15/22  lines=1  «Сплит-система 09»
+              span.OrderConsumption__serials  502×19 @18,40  JetBrains Mono 400 12/19  lines=1  «Серийные номера: SN-4412-8890»
+            td.OrderConsumption__qty  172×74 @538,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «1 шт.»
+            td[role=cell]  126×74 @710,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Газель»
+            td.OrderConsumption__who  282×72 @836,0  b0 0 1 0
+              span#2  246×22 @18,14  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
+              span.OrderConsumption__when#2  246×19 @18,38  Manrope 400 12/19  lines=1  «28.08.2026, 12:20»
+            td[role=cell]#2  248×74 @1118,0  b0 0 1 0
+              button.Button__button#2  141×40 @18,15  r9  b1
+                span.Button__content  111×16 @15,12
+                  span.Button__label#2  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
+          tr[role=row]#4  1366×72 @0,202
+            td.OrderConsumption__item  538×51 @0,0  b0 0 1 0
+              span.OrderConsumption__name#3  217×22 @18,14  Manrope 600 15/22  lines=1  «Кронштейны наружного блока»
+            td.OrderConsumption__qty  172×72 @538,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «2 пар.»
+            td[role=cell]  126×72 @710,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Газель»
+            td.OrderConsumption__who  282×72 @836,0  b0 0 1 0
+              span#3  246×22 @18,14  Manrope 400 15/22  lines=1  «Автор удалён из панели»
+              span.OrderConsumption__when#3  246×19 @18,38  Manrope 400 12/19  lines=1  «28.08.2026, 12:26»
+            td[role=cell]#2  248×72 @1118,0  b0 0 1 0
+              button.Button__button#3  141×40 @18,15  r9  b1
+                span.Button__content  111×16 @15,12
+                  span.Button__label#3  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
+          tr[role=row]#5  1366×72 @0,274
+            td.OrderConsumption__item  538×52 @0,0
+              span.OrderConsumption__name#4  217×22 @18,15  Manrope 600 15/22  lines=1  «Кронштейны наружного блока»
+              span.Badge__badge  67×24 @243,14  Manrope 600 12/16  r100  b1  lines=1  «возврат»
+            td.OrderConsumption__qty  172×72 @538,0  JetBrains Mono 400 15/22  lines=1  «1 пар.»
+            td[role=cell]  126×72 @710,0  Manrope 400 15/22  lines=1  «Газель»
+            td.OrderConsumption__who  282×71 @836,1
+              span#4  246×22 @18,14  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
+              span.OrderConsumption__when#4  246×19 @18,38  Manrope 400 12/19  lines=1  «28.08.2026, 12:35»
+            td[role=cell]#2  248×72 @1118,0
+      section.OrderConsumption__totals  1366×95 @21,462
+        p.OrderConsumption__totalsTitle  1366×22 @0,0  Manrope 700 15/22  lines=1  «Израсходовано по факту»
+        p.OrderConsumption__hint  539×20 @0,30  Manrope 400 13/20  lines=1  «Списания за вычетом возвратов — столько»
+        ul.OrderConsumption__totalsList  1366×22 @0,73
+          li.OrderConsumption__total  156×22 @0,0
+            span  124×22 @0,0  Manrope 400 15/22  lines=1  «Труба медная 1/4″»
+            b.OrderConsumption__totalQty  26×22 @130,0  JetBrains Mono 700 15/22  lines=1  «4 м»
+          li.OrderConsumption__total#2  177×22 @174,0
+            span  127×22 @0,0  Manrope 400 15/22  lines=1  «Сплит-система 09»
+            b.OrderConsumption__totalQty  44×22 @133,0  JetBrains Mono 700 15/22  lines=1  «1 шт.»
+          li.OrderConsumption__total#3  267×22 @369,0
+            span  209×22 @0,0  Manrope 400 15/22  lines=1  «Кронштейны наружного блока»
+            b.OrderConsumption__totalQty  52×22 @215,0  JetBrains Mono 700 15/22  lines=1  «1 пар.»
+      form.OrderConsumptionForm__form  1366×699 @21,558  b1 0 0 0
+        h3.OrderConsumptionForm__title  1366×18 @0,17  Onest 700 15/18  ls0  lines=1  «Списать материал»
+        div.OrderConsumptionForm__hints  1366×176 @0,47  r11  b1
+          p.OrderConsumptionForm__hintsTitle  1340×20 @13,11  Manrope 700 13/20  lines=1  «Из чеклиста выезда»
+          p.OrderConsumptionForm__hint  539×40 @13,37  Manrope 400 13/20  lines=2  «Пунктам сборов нашлись позиции склада —»
+          ul.OrderConsumptionForm__hintList  1340×79 @13,85
+            li.OrderConsumptionForm__hintItem  249×79 @0,0
+              button.Button__button  249×40 @0,0  r9  b1
+                span.Button__content#2  194×16 @27,12
+                  span.Button__label  194×16 @0,0  Manrope 600 13/16  lines=1  «Кронштейны наружного блока»
+              span.OrderConsumptionForm__hintPoint  249×37 @0,42  Manrope 400 12/19  lines=2  «Кронштейны наружного блока — пара с анке»
+            li.OrderConsumptionForm__hintItem#2  249×79 @257,0
+              button.Button__button  249×40 @0,0  r9  b1
+                span.Button__content#3  117×16 @66,12
+                  span.Button__label  117×16 @0,0  Manrope 600 13/16  lines=1  «Сплит-система 09»
+              span.OrderConsumptionForm__hintPoint  249×37 @0,42  Manrope 400 12/19  lines=2  «Забрать со склада — Позиция 1, Сплит-сис»
+        fieldset.OrderConsumptionForm__fields  1366×413 @0,235
+          div.Field__field  1366×76 @0,0
+            label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Откуда списываем»
+            span.Select__wrapper  1366×49 @0,27
+              select.Select__select  1366×49 @0,0  r11  b1
+                option  0×0 @-37,-891  Manrope 400 15/21  lines=0  «Выберите зону»
+                option#2  0×0 @-37,-891  Manrope 400 15/21  lines=0  «Гараж»
+                option#3  0×0 @-37,-891  Manrope 400 15/21  lines=0  «Газель»
+              svg.Select__chevron  14×14 @1338,18
+          div.Field__field#2  1366×103 @0,88
+            label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
+            input  1366×49 @0,27  r11  b1
+            p.Field__hint  1366×19 @0,83  Manrope 400 13/19  lines=1  «Сузьте список, если позиций в справочник»
+          div.Field__field#3  1366×76 @0,203
+            label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Позиция»
+            span.Select__wrapper  1366×49 @0,27
+              select.Select__select#2  1366×49 @0,0  r11  b1
+                option  0×0 @-37,-1094  Manrope 400 15/21  lines=0  «Выберите позицию»
+                option#2  0×0 @-37,-1094  Manrope 400 15/21  lines=0  «Труба медная 1/4″»
+                option#3  0×0 @-37,-1094  Manrope 400 15/21  lines=0  «Кронштейны наружного блока»
+                option#4  0×0 @-37,-1094  Manrope 400 15/21  lines=0  «Фреон R32»
+                option#5  0×0 @-37,-1094  Manrope 400 15/21  lines=0  «Сплит-система 09»
+              svg.Select__chevron#2  14×14 @1338,18
+          div.Field__field#4  218×122 @0,291
+            label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Количество»
+            input  218×49 @0,27  r11  b1
+            p.Field__hint  218×39 @0,83  Manrope 400 13/19  lines=2  «Дробное можно: «1,5" и «12 000" разбираю»
+        div.OrderConsumptionForm__actions  1366×40 @0,659
+          button.Button__button  84×40 @0,0  r9  b1
+            span.Button__content#4  54×16 @15,12
+              span.Button__label  54×16 @0,0  Manrope 600 13/16  lines=1  «Списать»
+
+[палитра light]
+div.OrderWorkTabs__wrap
+  div.OrderWorkTabs__strip  border #0f172a #0f172a #e2e8f0 #0f172a
+    div.OrderWorkTabs__tabs
+      button.OrderWorkTabs__tab  color #556173  border #556173 #556173 transparent #556173
+      button.OrderWorkTabs__tab#2  color #0f172a  border #0f172a #0f172a #0891b2 #0f172a
+      button.OrderWorkTabs__tab#3  color #556173  border #556173 #556173 transparent #556173
+      button.OrderWorkTabs__tab#4  color #556173  border #556173 #556173 transparent #556173
+      button.OrderWorkTabs__tab#5  color #556173  border #556173 #556173 transparent #556173
+  div.OrderWorkTabs__panel
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      h2.OrderConsumption__title  color #0f172a
+      p.OrderConsumption__hint  color #556173
+      div.Table__viewport
+        table.Table__table
+          tr[role=row]
+            th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+            th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+            th#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+            th#4  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+            span  color #0f172a
+          tr[role=row]#2  bg #f5f8fa
+            td.OrderConsumption__item  border #334155 #334155 #eef2f6 #334155
+              span.OrderConsumption__name  color #0f172a
+            td.OrderConsumption__qty  color #334155  border #334155 #334155 #eef2f6 #334155
+            td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+            td.OrderConsumption__who  border #334155 #334155 #eef2f6 #334155
+              span  color #334155
+              span.OrderConsumption__when  color #556173
+            td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+              button.Button__button  border transparent
+                span.Button__content
+                  span.Button__label  color #556173
+          tr[role=row]#3  bg #edf2f6
+            td.OrderConsumption__item  border #334155 #334155 #eef2f6 #334155
+              span.OrderConsumption__name#2  color #0f172a
+              span.OrderConsumption__serials  color #556173
+            td.OrderConsumption__qty  color #334155  border #334155 #334155 #eef2f6 #334155
+            td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+            td.OrderConsumption__who  border #334155 #334155 #eef2f6 #334155
+              span#2  color #334155
+              span.OrderConsumption__when#2  color #556173
+            td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+              button.Button__button#2  border transparent
+                span.Button__content
+                  span.Button__label#2  color #556173
+          tr[role=row]#4  bg #f5f8fa
+            td.OrderConsumption__item  border #334155 #334155 #eef2f6 #334155
+              span.OrderConsumption__name#3  color #0f172a
+            td.OrderConsumption__qty  color #334155  border #334155 #334155 #eef2f6 #334155
+            td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+            td.OrderConsumption__who  border #334155 #334155 #eef2f6 #334155
+              span#3  color #334155
+              span.OrderConsumption__when#3  color #556173
+            td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+              button.Button__button#3  border transparent
+                span.Button__content
+                  span.Button__label#3  color #556173
+          tr[role=row]#5  bg #edf2f6
+            td.OrderConsumption__item
+              span.OrderConsumption__name#4  color #0f172a
+              span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+            td.OrderConsumption__qty  color #334155
+            td[role=cell]  color #334155
+            td.OrderConsumption__who
+              span#4  color #334155
+              span.OrderConsumption__when#4  color #556173
+            td[role=cell]#2
+      section.OrderConsumption__totals
+        p.OrderConsumption__totalsTitle  color #334155
+        p.OrderConsumption__hint  color #556173
+        ul.OrderConsumption__totalsList
+          li.OrderConsumption__total
+            span  color #334155
+            b.OrderConsumption__totalQty  color #334155
+          li.OrderConsumption__total#2
+            span  color #334155
+            b.OrderConsumption__totalQty  color #334155
+          li.OrderConsumption__total#3
+            span  color #334155
+            b.OrderConsumption__totalQty  color #334155
+      form.OrderConsumptionForm__form  border #e2e8f0 #475569 #475569 #475569
+        h3.OrderConsumptionForm__title  color #0f172a
+        div.OrderConsumptionForm__hints  bg #f8fafc  border #e2e8f0
+          p.OrderConsumptionForm__hintsTitle  color #334155
+          p.OrderConsumptionForm__hint  color #556173
+          ul.OrderConsumptionForm__hintList
+            li.OrderConsumptionForm__hintItem
+              button.Button__button  border #cbd5e1
+                span.Button__content#2
+                  span.Button__label  color #334155
+              span.OrderConsumptionForm__hintPoint  color #556173
+            li.OrderConsumptionForm__hintItem#2
+              button.Button__button  border #cbd5e1
+                span.Button__content#3
+                  span.Button__label  color #334155
+              span.OrderConsumptionForm__hintPoint  color #556173
+        fieldset.OrderConsumptionForm__fields
+          div.Field__field
+            label.Field__label  color #334155
+            span.Select__wrapper
+              select.Select__select  bg #ffffff  border #7e8fa6
+                option  color #0f172a
+                option#2  color #0f172a
+                option#3  color #0f172a
+              svg.Select__chevron
+          div.Field__field#2
+            label.Field__label  color #334155
+            input  bg #ffffff  border #7e8fa6
+            p.Field__hint  color #556173
+          div.Field__field#3
+            label.Field__label  color #334155
+            span.Select__wrapper
+              select.Select__select#2  bg #ffffff  border #7e8fa6
+                option  color #0f172a
+                option#2  color #0f172a
+                option#3  color #0f172a
+                option#4  color #0f172a
+                option#5  color #0f172a
+              svg.Select__chevron#2
+          div.Field__field#4
+            label.Field__label  color #334155
+            input  bg #ffffff  border #7e8fa6
+            p.Field__hint  color #556173
+        div.OrderConsumptionForm__actions
+          button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content#4
+              span.Button__label  color #ffffff
+[палитра light @390]
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderConsumption__item
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderConsumption__item > td.OrderConsumption__item::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderConsumption__qty  color #334155
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderConsumption__qty > td.OrderConsumption__qty::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]  color #334155
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderConsumption__who
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderConsumption__who > td.OrderConsumption__who::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2  border #eef2f6 #334155 #334155 #334155
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #edf2f6  border #e2e8f0
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderConsumption__item
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderConsumption__item > td.OrderConsumption__item::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderConsumption__qty  color #334155
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderConsumption__qty > td.OrderConsumption__qty::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]  color #334155
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderConsumption__who
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderConsumption__who > td.OrderConsumption__who::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2  border #eef2f6 #334155 #334155 #334155
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #ffffff  border #e2e8f0
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.OrderConsumption__item
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.OrderConsumption__item > td.OrderConsumption__item::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.OrderConsumption__qty  color #334155
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.OrderConsumption__qty > td.OrderConsumption__qty::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]  color #334155
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.OrderConsumption__who
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.OrderConsumption__who > td.OrderConsumption__who::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2  border #eef2f6 #334155 #334155 #334155
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5  bg #edf2f6  border #e2e8f0
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.OrderConsumption__item > td.OrderConsumption__item::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.OrderConsumption__qty > td.OrderConsumption__qty::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > td[role=cell]::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.OrderConsumption__who > td.OrderConsumption__who::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#2  border #eef2f6 #334155 #334155 #334155
+
+[палитра dark]
+div.OrderWorkTabs__wrap
+  div.OrderWorkTabs__strip  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    div.OrderWorkTabs__tabs
+      button.OrderWorkTabs__tab  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.OrderWorkTabs__tab#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #22d3ee #eaf1f8
+      button.OrderWorkTabs__tab#3  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.OrderWorkTabs__tab#4  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.OrderWorkTabs__tab#5  color #8598ac  border #8598ac #8598ac transparent #8598ac
+  div.OrderWorkTabs__panel
+    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      h2.OrderConsumption__title  color #eaf1f8
+      p.OrderConsumption__hint  color #8598ac
+      div.Table__viewport
+        table.Table__table
+          tr[role=row]
+            th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+            th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+            th#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+            th#4  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+            span  color #eaf1f8
+          tr[role=row]#2  bg #121d31
+            td.OrderConsumption__item  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              span.OrderConsumption__name  color #eaf1f8
+            td.OrderConsumption__qty  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            td.OrderConsumption__who  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              span  color #c9d5e2
+              span.OrderConsumption__when  color #8598ac
+            td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              button.Button__button  border transparent
+                span.Button__content
+                  span.Button__label  color #8598ac
+          tr[role=row]#3  bg #16223a
+            td.OrderConsumption__item  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              span.OrderConsumption__name#2  color #eaf1f8
+              span.OrderConsumption__serials  color #8598ac
+            td.OrderConsumption__qty  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            td.OrderConsumption__who  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              span#2  color #c9d5e2
+              span.OrderConsumption__when#2  color #8598ac
+            td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              button.Button__button#2  border transparent
+                span.Button__content
+                  span.Button__label#2  color #8598ac
+          tr[role=row]#4  bg #121d31
+            td.OrderConsumption__item  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              span.OrderConsumption__name#3  color #eaf1f8
+            td.OrderConsumption__qty  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            td.OrderConsumption__who  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              span#3  color #c9d5e2
+              span.OrderConsumption__when#3  color #8598ac
+            td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              button.Button__button#3  border transparent
+                span.Button__content
+                  span.Button__label#3  color #8598ac
+          tr[role=row]#5  bg #16223a
+            td.OrderConsumption__item
+              span.OrderConsumption__name#4  color #eaf1f8
+              span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+            td.OrderConsumption__qty  color #c9d5e2
+            td[role=cell]  color #c9d5e2
+            td.OrderConsumption__who
+              span#4  color #c9d5e2
+              span.OrderConsumption__when#4  color #8598ac
+            td[role=cell]#2
+      section.OrderConsumption__totals
+        p.OrderConsumption__totalsTitle  color #c9d5e2
+        p.OrderConsumption__hint  color #8598ac
+        ul.OrderConsumption__totalsList
+          li.OrderConsumption__total
+            span  color #c9d5e2
+            b.OrderConsumption__totalQty  color #c9d5e2
+          li.OrderConsumption__total#2
+            span  color #c9d5e2
+            b.OrderConsumption__totalQty  color #c9d5e2
+          li.OrderConsumption__total#3
+            span  color #c9d5e2
+            b.OrderConsumption__totalQty  color #c9d5e2
+      form.OrderConsumptionForm__form  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+        h3.OrderConsumptionForm__title  color #eaf1f8
+        div.OrderConsumptionForm__hints  bg #0e1729  border #1e2b41
+          p.OrderConsumptionForm__hintsTitle  color #c9d5e2
+          p.OrderConsumptionForm__hint  color #8598ac
+          ul.OrderConsumptionForm__hintList
+            li.OrderConsumptionForm__hintItem
+              button.Button__button  border #2c3d59
+                span.Button__content#2
+                  span.Button__label  color #c9d5e2
+              span.OrderConsumptionForm__hintPoint  color #8598ac
+            li.OrderConsumptionForm__hintItem#2
+              button.Button__button  border #2c3d59
+                span.Button__content#3
+                  span.Button__label  color #c9d5e2
+              span.OrderConsumptionForm__hintPoint  color #8598ac
+        fieldset.OrderConsumptionForm__fields
+          div.Field__field
+            label.Field__label  color #c9d5e2
+            span.Select__wrapper
+              select.Select__select  bg #0b1424  border #566d95
+                option  color #eaf1f8
+                option#2  color #eaf1f8
+                option#3  color #eaf1f8
+              svg.Select__chevron
+          div.Field__field#2
+            label.Field__label  color #c9d5e2
+            input  bg #0b1424  border #566d95
+            p.Field__hint  color #8598ac
+          div.Field__field#3
+            label.Field__label  color #c9d5e2
+            span.Select__wrapper
+              select.Select__select#2  bg #0b1424  border #566d95
+                option  color #eaf1f8
+                option#2  color #eaf1f8
+                option#3  color #eaf1f8
+                option#4  color #eaf1f8
+                option#5  color #eaf1f8
+              svg.Select__chevron#2
+          div.Field__field#4
+            label.Field__label  color #c9d5e2
+            input  bg #0b1424  border #566d95
+            p.Field__hint  color #8598ac
+        div.OrderConsumptionForm__actions
+          button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content#4
+              span.Button__label  color #ffffff
+[палитра dark @390]
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderConsumption__item
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderConsumption__item > td.OrderConsumption__item::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderConsumption__qty  color #c9d5e2
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderConsumption__qty > td.OrderConsumption__qty::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]  color #c9d5e2
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderConsumption__who
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderConsumption__who > td.OrderConsumption__who::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #16223a  border #1e2b41
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderConsumption__item
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderConsumption__item > td.OrderConsumption__item::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderConsumption__qty  color #c9d5e2
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderConsumption__qty > td.OrderConsumption__qty::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]  color #c9d5e2
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderConsumption__who
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderConsumption__who > td.OrderConsumption__who::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #121d31  border #1e2b41
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.OrderConsumption__item
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.OrderConsumption__item > td.OrderConsumption__item::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.OrderConsumption__qty  color #c9d5e2
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.OrderConsumption__qty > td.OrderConsumption__qty::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]  color #c9d5e2
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.OrderConsumption__who
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.OrderConsumption__who > td.OrderConsumption__who::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5  bg #16223a  border #1e2b41
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.OrderConsumption__item > td.OrderConsumption__item::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.OrderConsumption__qty > td.OrderConsumption__qty::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > td[role=cell]::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.OrderConsumption__who > td.OrderConsumption__who::before
+div.OrderWorkTabs__wrap > div.OrderWorkTabs__panel > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#2  border #182338 #c9d5e2 #c9d5e2 #c9d5e2

@@ -1,0 +1,206 @@
+/* Наряды таблицей: шесть колонок на 1200, четыре ниже, карточки до 600. */
+
+/* Класс самой таблицы: через него идут правила, которые обязаны перебить
+   карточный режим кита, — только с ним у селектора хватает веса. */
+.table {
+  min-width: 0;
+}
+
+/* Колонки не ужимаются до нечитаемых: от 600px таблица держит нижнюю ширину
+   и прокручивается внутри своего контейнера, а затухание у правого края
+   показывает, что она шире экрана. Ниже 600 строки становятся карточками, и
+   нижняя ширина им только вредит.
+
+   690px — не круглое число, а замер: столько занимают четыре колонки, которые
+   остаются до 1200, вместе с полями. На 768 таблица в них укладывается
+   целиком (контейнер 727.8px), и прокрутка включается только там, где иначе
+   пришлось бы резать слова. */
+@media (width >= 600px) {
+  .table {
+    min-width: 690px;
+  }
+}
+
+.when {
+  color: var(--ink2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  white-space: nowrap;
+}
+
+/* Время под датой, а не рядом: колонка тогда держит одну ширину при любом
+   часе, и глаз сравнивает дни, а не ищет их среди цифр. */
+.clock {
+  display: block;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}
+
+.work {
+  min-width: 0;
+}
+
+/* Содержимое ячейки одним блоком: в карточном режиме ячейка — флекс, и
+   несколько блоков подряд он разложил бы в колонки. */
+.workBox {
+  display: block;
+  min-width: 0;
+}
+
+.headline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  align-items: center;
+}
+
+.number {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.number:hover {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+.number:focus-visible {
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+.client {
+  display: block;
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.address {
+  display: block;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  overflow-wrap: anywhere;
+}
+
+/* Дата и монтажник строкой под работой. Появляются там, где своих колонок у
+   них не осталось. */
+.compact {
+  display: none;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.installer {
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+.none {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.statusBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  align-items: center;
+}
+
+/* Переработка — факт, а не тревога: она стоит рядом со статусом, но ничего
+   не обещает по деньгам (ADR-138). */
+.overtime {
+  color: var(--warn-ink);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+}
+
+.sum,
+.sumCol {
+  text-align: right;
+}
+
+.sum {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Круг, высоту и приглушённый цвет действию задаёт колонка `TableActions`;
+   ссылке остаётся раскладка значка внутри круга. */
+.action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.action:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+/* 🔴 Строка срыва (issue #347). Тинт строки складывался с тинтом плашки, и
+   пара «красная плашка на подсвеченной строке» давала 4.40:1 при норме 4.5,
+   а приглушённый текст — 4.46:1. Здесь снимается заливка плашки — кит держит
+   для этого `--badge-fill` — и приглушённый текст поднимается до `--body`. */
+
+/* Через таблицу: в карточном режиме кит заливает строку `--card` весом
+   0-2-0, и подсветка срыва на 390 пропадала бы вовсе. */
+.table .rowbad {
+  --badge-fill: transparent;
+
+  background: var(--error-bg);
+}
+
+.rowbad .clock,
+.rowbad .address,
+.rowbad .compact,
+.rowbad .none {
+  color: var(--body);
+}
+
+/* Ниже 1200 «Когда» и «Монтажник» уходят в подпись работы: четыре колонки
+   вместо шести, и ни одна из них не ломается переносом. */
+@media (width < 1200px) {
+  /* 🔴 Через саму таблицу и тип ячейки: карточный режим кита объявляет
+     `.cards td { display: block }` весом 0-2-0, и правило в один класс он
+     перебивал бы — колонки «Когда» и «Монтажник» возвращались бы на 390
+     второй парой строк в карточке. */
+  .table th.whenCol,
+  .table td.when,
+  .table th.installerCol,
+  .table td.installer {
+    display: none;
+  }
+
+  .compact {
+    display: block;
+  }
+}
+
+/* В карточном режиме подписи колонок стоят слева от значений, и выравнивание
+   суммы вправо задаёт сам кит. Статус в карточке встаёт в строку с подписью,
+   а не растягивается флексом на всю ширину. */
+@media (width < 600px) {
+  .statusBox {
+    justify-content: flex-end;
+  }
+
+  /* Через таблицу и тип: карточный режим кита выравнивает ячейку вправо тем
+     же весом, и правило в один класс он перебивал бы через раз. */
+  .table td.work {
+    text-align: left;
+  }
+}

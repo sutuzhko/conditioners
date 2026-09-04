@@ -1,0 +1,45 @@
+/* Стопки заказов: подчёркнутые вкладки эталона, как в карточке наряда. */
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+  min-width: 0;
+}
+
+.tab {
+  border-bottom: 2px solid transparent;
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  padding: 8px 14px;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  color: var(--ink);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: -2px;
+}
+
+.current {
+  border-bottom-color: var(--accent-ink);
+  color: var(--ink);
+}
+
+/* 🔴 Пол цели на сенсорной раскладке (ADR-183): до 900px по вкладке целятся
+   пальцем, а строка кегля даёт 36px при норме 44. */
+@media (width < 900px) {
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+}
