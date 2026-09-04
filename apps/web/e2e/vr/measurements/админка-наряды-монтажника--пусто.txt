@@ -1,0 +1,42 @@
+# админка-наряды-монтажника--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×144 @16,16  r20  b1
+  header.StaffOrders__header  316×45 @21,21
+    h2.StaffOrders__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Наряды монтажника»
+    p.StaffOrders__hint  316×20 @0,25  Manrope 400 13/20  lines=1  «Куда ездил, к кому и чем закончилось.»
+  p.StaffOrders__empty  316×45 @21,78  Manrope 400 15/22  lines=2  «Нарядов за этим человеком пока нет: назн»
+
+[геометрия 768]
+section.Card__card  736×122 @16,16  r20  b1
+  header.StaffOrders__header  694×46 @21,21
+    h2.StaffOrders__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Наряды монтажника»
+    p.StaffOrders__hint  539×20 @0,26  Manrope 400 13/20  lines=1  «Куда ездил, к кому и чем закончилось.»
+  p.StaffOrders__empty  694×22 @21,79  Manrope 400 15/22  lines=1  «Нарядов за этим человеком пока нет: назн»
+
+[геометрия 1440]
+section.Card__card  1408×123 @16,16  r20  b1
+  header.StaffOrders__header  1366×47 @21,21
+    h2.StaffOrders__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Наряды монтажника»
+    p.StaffOrders__hint  539×20 @0,27  Manrope 400 13/20  lines=1  «Куда ездил, к кому и чем закончилось.»
+  p.StaffOrders__empty  1366×22 @21,80  Manrope 400 15/22  lines=1  «Нарядов за этим человеком пока нет: назн»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.StaffOrders__header
+    h2.StaffOrders__title  color #0f172a
+    p.StaffOrders__hint  color #556173
+  p.StaffOrders__empty  color #475569
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.StaffOrders__header
+    h2.StaffOrders__title  color #eaf1f8
+    p.StaffOrders__hint  color #8598ac
+  p.StaffOrders__empty  color #a8b6c6

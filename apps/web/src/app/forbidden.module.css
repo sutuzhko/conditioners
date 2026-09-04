@@ -1,0 +1,43 @@
+/* Страница 403. Геометрия и палитра — те же, что у 404: это одна и та же
+   страница отказа, отличающаяся причиной. */
+
+.page {
+  display: flex;
+  align-items: center;
+  min-height: 70vh;
+  background: var(--bg);
+}
+
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter);
+}
+
+.code {
+  margin: 0 0 12px;
+  color: var(--accent-text);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.14em;
+}
+
+.title {
+  margin: 0 0 16px;
+  color: var(--ink);
+  font-size: var(--fs-h2);
+}
+
+.lead {
+  max-width: 560px;
+  margin: 0 0 40px;
+  color: var(--body);
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+}
+
+.action {
+  margin-top: 26px;
+}

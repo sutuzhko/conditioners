@@ -1,0 +1,398 @@
+# админка-выплаты-монтажника--безудержаний · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×1120
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.StatTile__tiles  358×202 @16,16
+  dl.StatTile__tile  175×79 @0,0  r14  b1
+    dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «Выполнено заказов»
+    dd.StatTile__value  149×34 @13,32
+      span.StatTile__number  11×21 @0,6  Onest 700 16/21  ls0  lines=1  «2»
+  dl.StatTile__tile#2  175×79 @183,0  r14  b1
+    dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «В работе сейчас»
+    dd.StatTile__value  149×34 @13,32
+      span.StatTile__number#2  11×21 @0,6  Onest 700 16/21  ls0  lines=1  «1»
+  dl.StatTile__tile#3  175×115 @0,87  r14  b1
+    dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «Заработано»
+    dd.StatTile__value  149×34 @13,32
+      span.StatTile__number#3  72×21 @0,6  Onest 700 16/21  ls0  lines=1  «23 000 ₽»
+    dd.StatTile__note  149×32 @13,70  Manrope 400 12/16  lines=2  «По выполненным нарядам»
+  dl.StatTile__tile#4  175×115 @183,87  r14  b1
+    dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «Удержано»
+    dd.StatTile__value  149×34 @13,32
+      span.StatTile__number#4  24×21 @0,6  Onest 700 16/21  ls0  lines=1  «0 ₽»
+    dd.StatTile__note  149×16 @13,70  Manrope 400 12/16  lines=1  «Из выплат не вычтено»
+section.Card__card  358×886 @16,218  r20  b1
+  header.StaffPayouts__header  356×113 @1,1
+    h2.StaffPayouts__title  324×21 @16,16  Onest 700 17/21  ls0  lines=1  «Движения по выплатам»
+    p.StaffPayouts__hint  324×60 @16,41  Manrope 400 13/20  lines=3  «Что причитается за наряд и что из него у»
+  div.Table__viewport  356×771 @1,114
+    table.Table__table  356×771 @0,0
+      tr[role=row]  1×56 @0,0
+        th  83×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
+        th#2  79×56 @83,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+        th#3  89×56 @162,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
+        th.StaffPayouts__numberHead  99×56 @251,0  Onest 700 15/23  b0 0 1 0  lines=1  «Выплата»
+        th.StaffPayouts__numberHead#2  119×56 @350,0  Onest 700 15/23  b0 0 1 0  lines=1  «Удержание»
+        th#4  117×56 @469,0  Onest 700 15/23  b0 0 1 0  lines=1  «Основание»
+      tr[role=row]#2  356×250 @0,0  r14  b1
+        td[role=cell]  354×58 @1,5
+          td[role=cell]::before  39×20 @0,0
+          a.StaffPayouts__order  55×44 @285,7  Manrope 600 15/22  lines=1  «№ 1059»
+        td.StaffPayouts__when  354×36 @1,63
+          td.StaffPayouts__when::before  36×20 @0,0
+          time  79×22 @261,7  Manrope 400 15/22  lines=1  «14.08.2026»
+        td[role=cell]#2  354×36 @1,99  Manrope 400 15/22  lines=1  «Жуков Кирилл»
+          td[role=cell]#2::before  44×20 @0,0
+        td.StaffPayouts__number  354×36 @1,136  Manrope 400 15/22  lines=1  «14 000 ₽»
+          td.StaffPayouts__number::before  52×20 @0,0
+        td.StaffPayouts__number#2  354×36 @1,172  Manrope 400 15/22  lines=1  «—»
+          td.StaffPayouts__number#2::before  69×20 @0,0
+        td.StaffPayouts__reason  354×36 @1,209  Manrope 400 15/22  lines=1  «—»
+          td.StaffPayouts__reason::before  69×20 @0,0
+      tr[role=row]#3  356×250 @0,260  r14  b1
+        td[role=cell]  354×58 @1,5
+          td[role=cell]::before  39×20 @0,0
+          a.StaffPayouts__order#2  55×44 @285,7  Manrope 600 15/22  lines=1  «№ 1064»
+        td.StaffPayouts__when  354×36 @1,63
+          td.StaffPayouts__when::before  36×20 @0,0
+          time#2  79×22 @261,7  Manrope 400 15/22  lines=1  «22.08.2026»
+        td[role=cell]#2  354×36 @1,99  Manrope 400 15/22  lines=1  «Дёмин Алексей Юрьевич»
+          td[role=cell]#2::before  44×20 @0,0
+        td.StaffPayouts__number  354×36 @1,136  Manrope 400 15/22  lines=1  «9 000 ₽»
+          td.StaffPayouts__number::before  52×20 @0,0
+        td.StaffPayouts__number#2  354×36 @1,172  Manrope 400 15/22  lines=1  «—»
+          td.StaffPayouts__number#2::before  69×20 @0,0
+        td.StaffPayouts__reason  354×36 @1,209  Manrope 400 15/22  lines=1  «—»
+          td.StaffPayouts__reason::before  69×20 @0,0
+      tr[role=row]#4  356×250 @0,521  r14  b1
+        td[role=cell]  354×58 @1,5
+          td[role=cell]::before  39×20 @0,0
+          a.StaffPayouts__order#3  55×44 @285,7  Manrope 600 15/22  lines=1  «№ 1071»
+        td.StaffPayouts__when  354×36 @1,63
+          td.StaffPayouts__when::before  36×20 @0,0
+          time#3  79×22 @261,7  Manrope 400 15/22  lines=1  «04.09.2026»
+        td[role=cell]#2  354×36 @1,99  Manrope 400 15/22  lines=1  «Салон «Аврора"»
+          td[role=cell]#2::before  44×20 @0,0
+        td.StaffPayouts__number  354×36 @1,136  Manrope 400 15/22  lines=1  «6 000 ₽»
+          td.StaffPayouts__number::before  52×20 @0,0
+        td.StaffPayouts__number#2  354×36 @1,172  Manrope 400 15/22  lines=1  «—»
+          td.StaffPayouts__number#2::before  69×20 @0,0
+        td.StaffPayouts__reason  354×36 @1,209  Manrope 400 15/22  lines=1  «—»
+          td.StaffPayouts__reason::before  69×20 @0,0
+
+[геометрия 768]
+div.StatTile__tiles  736×206 @16,16
+  dl.StatTile__tile  362×87 @0,0  r14  b1
+    dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Выполнено заказов»
+    dd.StatTile__value  328×34 @17,36
+      span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «2»
+  dl.StatTile__tile#2  362×87 @374,0  r14  b1
+    dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «В работе сейчас»
+    dd.StatTile__value  328×34 @17,36
+      span.StatTile__number#2  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «1»
+  dl.StatTile__tile#3  362×107 @0,99  r14  b1
+    dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Заработано»
+    dd.StatTile__value  328×34 @17,36
+      span.StatTile__number#3  114×34 @0,0  Onest 700 26/34  ls-1  lines=1  «23 000 ₽»
+    dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «По выполненным нарядам»
+  dl.StatTile__tile#4  362×107 @374,99  r14  b1
+    dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Удержано»
+    dd.StatTile__value  328×34 @17,36
+      span.StatTile__number#4  39×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0 ₽»
+    dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «Из выплат не вычтено»
+section.Card__card  736×373 @16,222  r20  b1
+  header.StaffPayouts__header  734×94 @1,1
+    h2.StaffPayouts__title  702×22 @16,16  Onest 700 18/22  ls0  lines=1  «Движения по выплатам»
+    p.StaffPayouts__hint  539×40 @16,42  Manrope 400 13/20  lines=2  «Что причитается за наряд и что из него у»
+  div.Table__viewport  734×277 @1,95
+    table.Table__table  734×277 @0,0
+      tr[role=row]  734×56 @0,0
+        th  90×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
+        th#2  115×56 @90,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+        th#3  193×56 @205,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
+        th.StaffPayouts__numberHead  99×56 @398,0  Onest 700 15/23  b0 0 1 0  lines=1  «Выплата»
+        th.StaffPayouts__numberHead#2  119×56 @497,0  Onest 700 15/23  b0 0 1 0  lines=1  «Удержание»
+        th#4  118×56 @617,0  Onest 700 15/23  b0 0 1 0  lines=1  «Основание»
+      tr[role=row]#2  734×74 @0,56
+        td[role=cell]  90×74 @0,0  b0 0 1 0
+          a.StaffPayouts__order  54×45 @18,15  Manrope 600 15/22  lines=2  «№ 1059»
+        td.StaffPayouts__when  115×74 @90,0  b0 0 1 0
+          time  79×19 @18,16  Manrope 400 15/22  lines=1  «14.08.2026»
+        td[role=cell]#2  193×74 @205,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Жуков Кирилл»
+        td.StaffPayouts__number  99×74 @398,0  Manrope 400 15/22  b0 0 1 0  lines=1  «14 000 ₽»
+        td.StaffPayouts__number#2  119×74 @497,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+        td.StaffPayouts__reason  118×74 @617,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+      tr[role=row]#3  734×74 @0,130
+        td[role=cell]  90×74 @0,0  b0 0 1 0
+          a.StaffPayouts__order#2  54×45 @18,15  Manrope 600 15/22  lines=2  «№ 1064»
+        td.StaffPayouts__when  115×74 @90,0  b0 0 1 0
+          time#2  79×19 @18,16  Manrope 400 15/22  lines=1  «22.08.2026»
+        td[role=cell]#2  193×74 @205,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Дёмин Алексей Юрьевич»
+        td.StaffPayouts__number  99×74 @398,0  Manrope 400 15/22  b0 0 1 0  lines=1  «9 000 ₽»
+        td.StaffPayouts__number#2  119×74 @497,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+        td.StaffPayouts__reason  118×74 @617,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+      tr[role=row]#4  734×73 @0,204
+        td[role=cell]  90×73 @0,0
+          a.StaffPayouts__order#3  54×45 @18,15  Manrope 600 15/22  lines=2  «№ 1071»
+        td.StaffPayouts__when  115×73 @90,0
+          time#3  79×19 @18,16  Manrope 400 15/22  lines=1  «04.09.2026»
+        td[role=cell]#2  193×73 @205,0  Manrope 400 15/22  lines=1  «Салон «Аврора"»
+        td.StaffPayouts__number  99×73 @398,0  Manrope 400 15/22  lines=1  «6 000 ₽»
+        td.StaffPayouts__number#2  119×73 @497,0  Manrope 400 15/22  lines=1  «—»
+        td.StaffPayouts__reason  118×73 @617,0  Manrope 400 15/22  lines=1  «—»
+
+[геометрия 1440]
+div.StatTile__tiles  1408×107 @16,16
+  dl.StatTile__tile  340×107 @0,0  r14  b1
+    dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Выполнено заказов»
+    dd.StatTile__value  306×34 @17,36
+      span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «2»
+  dl.StatTile__tile#2  340×107 @356,0  r14  b1
+    dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «В работе сейчас»
+    dd.StatTile__value  306×34 @17,36
+      span.StatTile__number#2  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «1»
+  dl.StatTile__tile#3  340×107 @712,0  r14  b1
+    dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Заработано»
+    dd.StatTile__value  306×34 @17,36
+      span.StatTile__number#3  114×34 @0,0  Onest 700 26/34  ls-1  lines=1  «23 000 ₽»
+    dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «По выполненным нарядам»
+  dl.StatTile__tile#4  340×107 @1068,0  r14  b1
+    dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Удержано»
+    dd.StatTile__value  306×34 @17,36
+      span.StatTile__number#4  39×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0 ₽»
+    dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «Из выплат не вычтено»
+section.Card__card  1408×311 @16,123  r20  b1
+  header.StaffPayouts__header  1406×95 @1,1
+    h2.StaffPayouts__title  1374×23 @16,16  Onest 700 19/23  ls0  lines=1  «Движения по выплатам»
+    p.StaffPayouts__hint  539×40 @16,43  Manrope 400 13/20  lines=2  «Что причитается за наряд и что из него у»
+  div.Table__viewport  1406×214 @1,96
+    table.Table__table  1406×214 @0,0
+      tr[role=row]  1406×56 @0,0
+        th  171×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
+        th#2  216×56 @171,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+        th#3  389×56 @387,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
+        th.StaffPayouts__numberHead  186×56 @776,0  Onest 700 15/23  b0 0 1 0  lines=1  «Выплата»
+        th.StaffPayouts__numberHead#2  223×56 @962,0  Onest 700 15/23  b0 0 1 0  lines=1  «Удержание»
+        th#4  220×56 @1186,0  Onest 700 15/23  b0 0 1 0  lines=1  «Основание»
+      tr[role=row]#2  1406×53 @0,56
+        td[role=cell]  171×53 @0,0  b0 0 1 0
+          a.StaffPayouts__order  55×24 @18,15  Manrope 600 15/22  lines=1  «№ 1059»
+        td.StaffPayouts__when  216×53 @171,0  b0 0 1 0
+          time  79×19 @18,16  Manrope 400 15/22  lines=1  «14.08.2026»
+        td[role=cell]#2  389×53 @387,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Жуков Кирилл»
+        td.StaffPayouts__number  186×53 @776,0  Manrope 400 15/22  b0 0 1 0  lines=1  «14 000 ₽»
+        td.StaffPayouts__number#2  223×53 @962,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+        td.StaffPayouts__reason  220×53 @1186,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+      tr[role=row]#3  1406×53 @0,109
+        td[role=cell]  171×53 @0,0  b0 0 1 0
+          a.StaffPayouts__order#2  55×24 @18,15  Manrope 600 15/22  lines=1  «№ 1064»
+        td.StaffPayouts__when  216×53 @171,0  b0 0 1 0
+          time#2  79×19 @18,16  Manrope 400 15/22  lines=1  «22.08.2026»
+        td[role=cell]#2  389×53 @387,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Дёмин Алексей Юрьевич»
+        td.StaffPayouts__number  186×53 @776,0  Manrope 400 15/22  b0 0 1 0  lines=1  «9 000 ₽»
+        td.StaffPayouts__number#2  223×53 @962,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+        td.StaffPayouts__reason  220×53 @1186,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
+      tr[role=row]#4  1406×53 @0,162
+        td[role=cell]  171×53 @0,0
+          a.StaffPayouts__order#3  55×24 @18,15  Manrope 600 15/22  lines=1  «№ 1071»
+        td.StaffPayouts__when  216×53 @171,0
+          time#3  79×19 @18,16  Manrope 400 15/22  lines=1  «04.09.2026»
+        td[role=cell]#2  389×53 @387,0  Manrope 400 15/22  lines=1  «Салон «Аврора"»
+        td.StaffPayouts__number  186×53 @776,0  Manrope 400 15/22  lines=1  «6 000 ₽»
+        td.StaffPayouts__number#2  223×53 @962,0  Manrope 400 15/22  lines=1  «—»
+        td.StaffPayouts__reason  220×53 @1186,0  Manrope 400 15/22  lines=1  «—»
+
+[палитра light]
+div.StatTile__tiles
+  dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #556173
+    dd.StatTile__value
+      span.StatTile__number  color #0f172a
+  dl.StatTile__tile#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #556173
+    dd.StatTile__value
+      span.StatTile__number#2  color #0f172a
+  dl.StatTile__tile#3  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #556173
+    dd.StatTile__value
+      span.StatTile__number#3  color #0f172a
+    dd.StatTile__note  color #556173
+  dl.StatTile__tile#4  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #556173
+    dd.StatTile__value
+      span.StatTile__number#4  color #0f172a
+    dd.StatTile__note  color #556173
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.StaffPayouts__header
+    h2.StaffPayouts__title  color #0f172a
+    p.StaffPayouts__hint  color #556173
+  div.Table__viewport
+    table.Table__table
+      tr[role=row]
+        th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th.StaffPayouts__numberHead  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th.StaffPayouts__numberHead#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#4  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      tr[role=row]#2  bg #f5f8fa
+        td[role=cell]  border #334155 #334155 #eef2f6 #334155
+          a.StaffPayouts__order  color #0e7490
+        td.StaffPayouts__when  border #334155 #334155 #eef2f6 #334155
+          time  color #334155
+        td[role=cell]#2  color #334155  border #334155 #334155 #eef2f6 #334155
+        td.StaffPayouts__number  color #0f172a  border #0f172a #0f172a #eef2f6 #0f172a
+        td.StaffPayouts__number#2  color #0f172a  border #0f172a #0f172a #eef2f6 #0f172a
+        td.StaffPayouts__reason  color #334155  border #334155 #334155 #eef2f6 #334155
+      tr[role=row]#3  bg #edf2f6
+        td[role=cell]  border #334155 #334155 #eef2f6 #334155
+          a.StaffPayouts__order#2  color #0e7490
+        td.StaffPayouts__when  border #334155 #334155 #eef2f6 #334155
+          time#2  color #334155
+        td[role=cell]#2  color #334155  border #334155 #334155 #eef2f6 #334155
+        td.StaffPayouts__number  color #0f172a  border #0f172a #0f172a #eef2f6 #0f172a
+        td.StaffPayouts__number#2  color #0f172a  border #0f172a #0f172a #eef2f6 #0f172a
+        td.StaffPayouts__reason  color #334155  border #334155 #334155 #eef2f6 #334155
+      tr[role=row]#4  bg #f5f8fa
+        td[role=cell]
+          a.StaffPayouts__order#3  color #0e7490
+        td.StaffPayouts__when
+          time#3  color #334155
+        td[role=cell]#2  color #334155
+        td.StaffPayouts__number  color #0f172a
+        td.StaffPayouts__number#2  color #0f172a
+        td.StaffPayouts__reason  color #334155
+[палитра light @390]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__when
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__when > td.StaffPayouts__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__number  color #0f172a
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__number > td.StaffPayouts__number::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__number#2  color #0f172a
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__number#2 > td.StaffPayouts__number#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__reason  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__reason > td.StaffPayouts__reason::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #edf2f6  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__when
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__when > td.StaffPayouts__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__number  color #0f172a
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__number > td.StaffPayouts__number::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__number#2  color #0f172a
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__number#2 > td.StaffPayouts__number#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__reason  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__reason > td.StaffPayouts__reason::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StaffPayouts__when > td.StaffPayouts__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StaffPayouts__number > td.StaffPayouts__number::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StaffPayouts__number#2 > td.StaffPayouts__number#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StaffPayouts__reason > td.StaffPayouts__reason::before
+
+[палитра dark]
+div.StatTile__tiles
+  dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #8598ac
+    dd.StatTile__value
+      span.StatTile__number  color #eaf1f8
+  dl.StatTile__tile#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #8598ac
+    dd.StatTile__value
+      span.StatTile__number#2  color #eaf1f8
+  dl.StatTile__tile#3  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #8598ac
+    dd.StatTile__value
+      span.StatTile__number#3  color #eaf1f8
+    dd.StatTile__note  color #8598ac
+  dl.StatTile__tile#4  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #8598ac
+    dd.StatTile__value
+      span.StatTile__number#4  color #eaf1f8
+    dd.StatTile__note  color #8598ac
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.StaffPayouts__header
+    h2.StaffPayouts__title  color #eaf1f8
+    p.StaffPayouts__hint  color #8598ac
+  div.Table__viewport
+    table.Table__table
+      tr[role=row]
+        th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th.StaffPayouts__numberHead  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th.StaffPayouts__numberHead#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#4  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      tr[role=row]#2  bg #121d31
+        td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          a.StaffPayouts__order  color #22d3ee
+        td.StaffPayouts__when  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          time  color #c9d5e2
+        td[role=cell]#2  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td.StaffPayouts__number  color #eaf1f8  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+        td.StaffPayouts__number#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+        td.StaffPayouts__reason  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+      tr[role=row]#3  bg #16223a
+        td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          a.StaffPayouts__order#2  color #22d3ee
+        td.StaffPayouts__when  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          time#2  color #c9d5e2
+        td[role=cell]#2  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td.StaffPayouts__number  color #eaf1f8  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+        td.StaffPayouts__number#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+        td.StaffPayouts__reason  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+      tr[role=row]#4  bg #121d31
+        td[role=cell]
+          a.StaffPayouts__order#3  color #22d3ee
+        td.StaffPayouts__when
+          time#3  color #c9d5e2
+        td[role=cell]#2  color #c9d5e2
+        td.StaffPayouts__number  color #eaf1f8
+        td.StaffPayouts__number#2  color #eaf1f8
+        td.StaffPayouts__reason  color #c9d5e2
+[палитра dark @390]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__when
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__when > td.StaffPayouts__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__number  color #eaf1f8
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__number > td.StaffPayouts__number::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__number#2  color #eaf1f8
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__number#2 > td.StaffPayouts__number#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__reason  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffPayouts__reason > td.StaffPayouts__reason::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #16223a  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__when
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__when > td.StaffPayouts__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__number  color #eaf1f8
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__number > td.StaffPayouts__number::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__number#2  color #eaf1f8
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__number#2 > td.StaffPayouts__number#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__reason  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StaffPayouts__reason > td.StaffPayouts__reason::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StaffPayouts__when > td.StaffPayouts__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StaffPayouts__number > td.StaffPayouts__number::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StaffPayouts__number#2 > td.StaffPayouts__number#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StaffPayouts__reason > td.StaffPayouts__reason::before

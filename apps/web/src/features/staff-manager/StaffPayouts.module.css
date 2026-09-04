@@ -1,0 +1,96 @@
+/* Выплаты и удержания в карточке монтажника. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 16px 12px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.empty {
+  margin: 0;
+  padding: 0 16px 16px;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+.order {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  color: var(--accent-text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+
+.order:hover {
+  text-decoration: underline;
+}
+
+/* 🔴 Пол цели на сенсорной раскладке — 44px (ADR-183). Номер наряда короткий,
+   и без явной ширины ссылка выходит 28px: по такой цели пальцем не попадают. */
+@media (width < 900px) {
+  .order {
+    min-width: var(--tap);
+    min-height: var(--tap);
+  }
+}
+
+.numberHead {
+  text-align: right;
+}
+
+.number {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.when {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* 🔴 Основание не обрезается: удержание без читаемой причины — это спор с
+   человеком о деньгах, а не строка таблицы (CRM.md §9). */
+.reason {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.missing {
+  color: var(--warn-ink);
+  font-weight: 600;
+}
+
+/* В карточном режиме число прижимается к правому краю строки, и собственное
+   выравнивание ячейки спорит с раскладкой кита. */
+@media (width < 600px) {
+  .number,
+  .when {
+    white-space: normal;
+    text-align: right;
+  }
+}

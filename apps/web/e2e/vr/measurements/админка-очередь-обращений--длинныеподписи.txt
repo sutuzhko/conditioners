@@ -1,0 +1,57 @@
+# админка-очередь-обращений--длинныеподписи · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+nav.Card__card  358×168 @16,16  r20  b1
+  ul.LeadQueue__list  356×166 @1,1
+    a.LeadQueue__row  356×166 @0,0
+      span.LeadQueue__line  328×73 @14,12
+        span.LeadQueue__name  328×45 @0,0  Manrope 600 15/22  lines=2  «Константинопольская-Твердолобова Аполлин»
+        span.Badge__badge  56×24 @0,49  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+      span.LeadQueue__topic  328×40 @14,89  Manrope 400 13/20  lines=2  «Установка мультисплит-системы на два вну»
+      time.LeadQueue__when  328×20 @14,133  JetBrains Mono 400 13/20  lines=1  «03.09.2026, 13:19»
+
+[геометрия 768]
+nav.Card__card  736×98 @16,16  r20  b1
+  ul.LeadQueue__list  734×96 @1,1
+    a.LeadQueue__row  734×96 @0,0
+      span.LeadQueue__line  706×24 @14,12
+        span.LeadQueue__name  471×22 @0,1  Manrope 600 15/22  lines=1  «Константинопольская-Твердолобова Аполлин»
+        span.Badge__badge  56×24 @650,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+      span.LeadQueue__topic  706×20 @14,40  Manrope 400 13/20  lines=1  «Установка мультисплит-системы на два вну»
+      time.LeadQueue__when  706×20 @14,64  JetBrains Mono 400 13/20  lines=1  «03.09.2026, 13:19»
+
+[геометрия 1440]
+nav.Card__card  1408×98 @16,16  r20  b1
+  ul.LeadQueue__list  1406×96 @1,1
+    a.LeadQueue__row  1406×96 @0,0
+      span.LeadQueue__line  1378×24 @14,12
+        span.LeadQueue__name  471×22 @0,1  Manrope 600 15/22  lines=1  «Константинопольская-Твердолобова Аполлин»
+        span.Badge__badge  56×24 @1322,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+      span.LeadQueue__topic  1378×20 @14,40  Manrope 400 13/20  lines=1  «Установка мультисплит-системы на два вну»
+      time.LeadQueue__when  1378×20 @14,64  JetBrains Mono 400 13/20  lines=1  «03.09.2026, 13:19»
+
+[палитра light]
+nav.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  ul.LeadQueue__list
+    a.LeadQueue__row
+      span.LeadQueue__line
+        span.LeadQueue__name  color #0f172a
+        span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+      span.LeadQueue__topic  color #556173
+      time.LeadQueue__when  color #5b6a7d
+
+[палитра dark]
+nav.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  ul.LeadQueue__list
+    a.LeadQueue__row
+      span.LeadQueue__line
+        span.LeadQueue__name  color #eaf1f8
+        span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+      span.LeadQueue__topic  color #8598ac
+      time.LeadQueue__when  color #7e92a7

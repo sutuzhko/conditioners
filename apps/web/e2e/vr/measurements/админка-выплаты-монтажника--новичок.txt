@@ -1,0 +1,137 @@
+# админка-выплаты-монтажника--новичок · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.StatTile__tiles  358×202 @16,16
+  dl.StatTile__tile  175×79 @0,0  r14  b1
+    dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «Выполнено заказов»
+    dd.StatTile__value  149×34 @13,32
+      span.StatTile__number  11×21 @0,6  Onest 700 16/21  ls0  lines=1  «0»
+  dl.StatTile__tile#2  175×79 @183,0  r14  b1
+    dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «В работе сейчас»
+    dd.StatTile__value  149×34 @13,32
+      span.StatTile__number#2  11×21 @0,6  Onest 700 16/21  ls0  lines=1  «0»
+  dl.StatTile__tile#3  175×115 @0,87  r14  b1
+    dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «Заработано»
+    dd.StatTile__value  149×34 @13,32
+      span.StatTile__number#3  24×21 @0,6  Onest 700 16/21  ls0  lines=1  «0 ₽»
+    dd.StatTile__note  149×32 @13,70  Manrope 400 12/16  lines=2  «По выполненным нарядам»
+  dl.StatTile__tile#4  175×115 @183,87  r14  b1
+    dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «Удержано»
+    dd.StatTile__value  149×34 @13,32
+      span.StatTile__number#4  24×21 @0,6  Onest 700 16/21  ls0  lines=1  «0 ₽»
+    dd.StatTile__note  149×16 @13,70  Manrope 400 12/16  lines=1  «Из выплат не вычтено»
+section.Card__card  358×176 @16,218  r20  b1
+  header.StaffPayouts__header  356×113 @1,1
+    h2.StaffPayouts__title  324×21 @16,16  Onest 700 17/21  ls0  lines=1  «Движения по выплатам»
+    p.StaffPayouts__hint  324×60 @16,41  Manrope 400 13/20  lines=3  «Что причитается за наряд и что из него у»
+  p.StaffPayouts__empty  356×61 @1,114  Manrope 400 15/22  lines=2  «Движений пока нет: выплата появляется вм»
+
+[геометрия 768]
+div.StatTile__tiles  736×206 @16,16
+  dl.StatTile__tile  362×87 @0,0  r14  b1
+    dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Выполнено заказов»
+    dd.StatTile__value  328×34 @17,36
+      span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+  dl.StatTile__tile#2  362×87 @374,0  r14  b1
+    dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «В работе сейчас»
+    dd.StatTile__value  328×34 @17,36
+      span.StatTile__number#2  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+  dl.StatTile__tile#3  362×107 @0,99  r14  b1
+    dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Заработано»
+    dd.StatTile__value  328×34 @17,36
+      span.StatTile__number#3  39×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0 ₽»
+    dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «По выполненным нарядам»
+  dl.StatTile__tile#4  362×107 @374,99  r14  b1
+    dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Удержано»
+    dd.StatTile__value  328×34 @17,36
+      span.StatTile__number#4  39×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0 ₽»
+    dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «Из выплат не вычтено»
+section.Card__card  736×134 @16,222  r20  b1
+  header.StaffPayouts__header  734×94 @1,1
+    h2.StaffPayouts__title  702×22 @16,16  Onest 700 18/22  ls0  lines=1  «Движения по выплатам»
+    p.StaffPayouts__hint  539×40 @16,42  Manrope 400 13/20  lines=2  «Что причитается за наряд и что из него у»
+  p.StaffPayouts__empty  734×38 @1,95  Manrope 400 15/22  lines=1  «Движений пока нет: выплата появляется вм»
+
+[геометрия 1440]
+div.StatTile__tiles  1408×107 @16,16
+  dl.StatTile__tile  340×107 @0,0  r14  b1
+    dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Выполнено заказов»
+    dd.StatTile__value  306×34 @17,36
+      span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+  dl.StatTile__tile#2  340×107 @356,0  r14  b1
+    dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «В работе сейчас»
+    dd.StatTile__value  306×34 @17,36
+      span.StatTile__number#2  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+  dl.StatTile__tile#3  340×107 @712,0  r14  b1
+    dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Заработано»
+    dd.StatTile__value  306×34 @17,36
+      span.StatTile__number#3  39×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0 ₽»
+    dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «По выполненным нарядам»
+  dl.StatTile__tile#4  340×107 @1068,0  r14  b1
+    dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Удержано»
+    dd.StatTile__value  306×34 @17,36
+      span.StatTile__number#4  39×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0 ₽»
+    dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «Из выплат не вычтено»
+section.Card__card  1408×136 @16,123  r20  b1
+  header.StaffPayouts__header  1406×95 @1,1
+    h2.StaffPayouts__title  1374×23 @16,16  Onest 700 19/23  ls0  lines=1  «Движения по выплатам»
+    p.StaffPayouts__hint  539×40 @16,43  Manrope 400 13/20  lines=2  «Что причитается за наряд и что из него у»
+  p.StaffPayouts__empty  1406×38 @1,96  Manrope 400 15/22  lines=1  «Движений пока нет: выплата появляется вм»
+
+[палитра light]
+div.StatTile__tiles
+  dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #556173
+    dd.StatTile__value
+      span.StatTile__number  color #0f172a
+  dl.StatTile__tile#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #556173
+    dd.StatTile__value
+      span.StatTile__number#2  color #0f172a
+  dl.StatTile__tile#3  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #556173
+    dd.StatTile__value
+      span.StatTile__number#3  color #0f172a
+    dd.StatTile__note  color #556173
+  dl.StatTile__tile#4  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #556173
+    dd.StatTile__value
+      span.StatTile__number#4  color #0f172a
+    dd.StatTile__note  color #556173
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.StaffPayouts__header
+    h2.StaffPayouts__title  color #0f172a
+    p.StaffPayouts__hint  color #556173
+  p.StaffPayouts__empty  color #475569
+
+[палитра dark]
+div.StatTile__tiles
+  dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #8598ac
+    dd.StatTile__value
+      span.StatTile__number  color #eaf1f8
+  dl.StatTile__tile#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #8598ac
+    dd.StatTile__value
+      span.StatTile__number#2  color #eaf1f8
+  dl.StatTile__tile#3  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #8598ac
+    dd.StatTile__value
+      span.StatTile__number#3  color #eaf1f8
+    dd.StatTile__note  color #8598ac
+  dl.StatTile__tile#4  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #8598ac
+    dd.StatTile__value
+      span.StatTile__number#4  color #eaf1f8
+    dd.StatTile__note  color #8598ac
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.StaffPayouts__header
+    h2.StaffPayouts__title  color #eaf1f8
+    p.StaffPayouts__hint  color #8598ac
+  p.StaffPayouts__empty  color #a8b6c6

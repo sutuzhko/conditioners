@@ -19,8 +19,17 @@ import {
 } from './model';
 import styles from './ClientUnits.module.css';
 
-/** Размер миниатюры. Числом: `next/image` требует ширину и высоту (инвариант 13). */
-const THUMB = 96;
+/**
+ * Сторона снимка установки в пикселях исходника. Числом: `next/image`
+ * требует ширину и высоту (инвариант 13).
+ *
+ * 🔴 Отдаём 150 — размер самой крупной раскладки, — а показанный размер
+ * задаёт CSS: на 1200+ снимок стоит слева от характеристик, на планшете
+ * сжимается до 96 и уходит в строку, до 600 разворачивается во всю ширину.
+ * На телефоне его открывают, чтобы вспомнить, как стоит блок, и мелкий он
+ * там бесполезен (issue #350).
+ */
+const THUMB = 150;
 
 export interface ClientUnitsProps {
   readonly clientId: string;
@@ -173,6 +182,7 @@ function UnitRow({ unit, today, busy, onEdit, onRemove }: UnitRowProps) {
           alt={texts.unitPhotoAlt(unit.model)}
           width={THUMB}
           height={THUMB}
+          sizes="(width < 600px) 100vw, 150px"
         />
       )}
 
@@ -230,8 +240,11 @@ function Warranty({
       </Badge>
     );
 
+  /* 🔴 Истёкшая — красная, действующая — зелёная с датой (issue #350). Янтарь
+     означает «ожидает действия», а истёкшая гарантия ничего не ждёт: это
+     ответ клиенту по телефону, и ошибиться в нём нельзя. */
   return (
-    <Badge variant={expired ? 'warning' : 'success'} size="sm">
+    <Badge variant={expired ? 'danger' : 'success'} size="sm">
       {expired ? texts.unitWarrantyOver(until) : texts.unitWarranty(until)}
     </Badge>
   );

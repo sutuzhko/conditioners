@@ -1,6 +1,8 @@
 /** Раздел команды: типы представления. Доменные схемы — в `entities/staff`. */
 import type { Route } from 'next';
 
+import type { OrderStatus, OrderType } from '@/entities/order/model';
+import { PANEL_TABS, resolvePanelTab, type PanelTab } from '@/shared/config/admin-tabs';
 import type { Employment } from '@/shared/lib/employment';
 
 export type {
@@ -40,6 +42,70 @@ export const TEAM_PATH = '/admin/team' satisfies Route;
  * `article-form/model.ts`.
  */
 export const TEAM_NEW_PATH = '/admin/team/new' satisfies Route;
+
+/* ---------- Вкладки карточки ---------- */
+
+/**
+ * Четыре вкладки карточки монтажника (issue #351, CRM.md §3.6): аккаунт,
+ * заказы, выплаты с удержаниями и заметки владельца.
+ *
+ * 🔴 Две последние монтажник не видит, и закрыты они ролью **на сервере**, а
+ * не скрытой кнопкой: скрытая кнопка — подсказка интерфейса, а не защита
+ * (CRM.md §6). Раздел «Монтажники» целиком владельческий, и `requireOwnerPage`
+ * отвечает монтажнику отказом ещё до чтения данных.
+ */
+export const STAFF_CARD_TABS = PANEL_TABS.staffCard;
+export type StaffCardTab = PanelTab<'staffCard'>;
+
+/** Вкладка из адреса. Мусор и пустота открывают «Аккаунт» (issue #341). */
+export function staffCardTabFromParam(value: unknown): StaffCardTab {
+  return resolvePanelTab(STAFF_CARD_TABS, value);
+}
+
+/**
+ * Наряд в карточке монтажника: чем занимался, у кого и на какие деньги.
+ *
+ * 🔴 Проекция, а не `OrderCard` целиком: в браузер уезжает ровно то, что
+ * видно на экране. Заметка владельца по наряду в этот список не входит.
+ *
+ * 🔴 `deduction` — удержание, а не штраф. Штрафов как вида взыскания в ТК РФ
+ * нет, удержания ограничены статьёй 137 (CRM.md §9, ADR-114), и основание у
+ * записи обязательно.
+ */
+export type StaffOrder = {
+  readonly id: string;
+  readonly number: number;
+  readonly type: OrderType;
+  readonly status: OrderStatus;
+  /** ISO в UTC: в московское время переводит подпись при показе. */
+  readonly at: string;
+  readonly address: string;
+  readonly clientName: string;
+  /** Выплата монтажнику за этот наряд. Его деньги — приходят всегда. */
+  readonly fee: number;
+  readonly deduction: number;
+  readonly deductionReason: string | null;
+};
+
+/** Наряды монтажника с их общим числом: карточка показывает последние. */
+export type StaffOrders = {
+  readonly items: readonly StaffOrder[];
+  readonly total: number;
+};
+
+/**
+ * Показатели монтажника — четыре плитки карточки (CRM.md §3.6).
+ *
+ * 🔴 Удержания стоят отдельной цифрой, а не вычтены из заработанного: вычесть
+ * законно не у всякого оформления (`deductionReducesFee`, ADR-114), и решение
+ * принимает владелец, а не таблица.
+ */
+export type StaffTotals = {
+  readonly done: number;
+  readonly active: number;
+  readonly feeDone: number;
+  readonly deductions: number;
+};
 
 /**
  * Ответ действия: успех либо готовый к показу текст ошибки.

@@ -1,7 +1,7 @@
 /** Данные для историй и тестов раздела заявок. */
 import type { LeadContext } from '@/entities/lead/model';
 
-import type { LeadCard, LeadToClient, LeadToOrder, LeadUpdate } from './model';
+import type { LeadCard, LeadQueueItem, LeadToClient, LeadToOrder, LeadUpdate } from './model';
 
 /**
  * Контекст заявки: человек посчитал смету, подобрал модель по площади и
@@ -145,3 +145,39 @@ export const failingToOrder: LeadToOrder = async () => ({
   ok: false,
   message: 'Сервер не принял изменения. Попробуйте ещё раз',
 });
+
+/** Очередь обращений: разные статусы и длины имён — то, что бывает на экране. */
+export const leadQueueFixture: readonly LeadQueueItem[] = [
+  {
+    id: newLead.id,
+    name: newLead.name,
+    phone: newLead.phone,
+    topic: newLead.topic,
+    status: newLead.status,
+    createdAt: newLead.createdAt,
+  },
+  {
+    id: workedLead.id,
+    name: 'Федотова Лидия Ивановна',
+    phone: workedLead.phone,
+    topic: 'Установка кондиционера',
+    status: 'in_progress',
+    createdAt: '2026-08-30T09:19:00.000Z',
+  },
+  {
+    id: bareLead.id,
+    name: 'Игорь',
+    phone: bareLead.phone,
+    topic: 'Консультация',
+    status: 'rejected',
+    createdAt: '2026-08-23T13:19:00.000Z',
+  },
+  {
+    id: clientLead.id,
+    name: 'Беляева Ольга',
+    phone: clientLead.phone,
+    topic: 'Ремонт',
+    status: 'done',
+    createdAt: '2026-08-15T13:19:00.000Z',
+  },
+];

@@ -1,0 +1,87 @@
+# админка-опасная-зона-монтажника--базовое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×376 @16,16  r20  b1
+  header.StaffDangerZone__header  316×85 @21,21
+    h2.StaffDangerZone__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Опасная зона»
+    p.StaffDangerZone__hint  316×60 @0,25  Manrope 400 13/20  lines=3  «Действия отсюда закрывают человеку вход»
+  div.StaffDangerZone__row  316×112 @21,118
+    button.Button__button  131×44 @0,0  r9  b1
+      span.Button__content  101×16 @15,14
+        span.Button__label  101×16 @0,0  Manrope 600 13/16  lines=1  «Закрыть доступ»
+    p.StaffDangerZone__note  316×60 @0,52  Manrope 400 13/20  lines=3  «Закрытый доступ не пускает в панель и за»
+  div.StaffDangerZone__row#2  316×112 @21,242
+    button.Button__button  164×44 @0,0  r9  b1
+      span.Button__content#2  134×16 @15,14
+        span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Удалить монтажника»
+    p.StaffDangerZone__note  316×60 @0,52  Manrope 400 13/20  lines=3  «Учётная запись исчезнет насовсем. Выполн»
+
+[геометрия 768]
+section.Card__card  736×220 @16,16  r20  b1
+  header.StaffDangerZone__header  694×66 @21,21
+    h2.StaffDangerZone__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Опасная зона»
+    p.StaffDangerZone__hint  539×40 @0,26  Manrope 400 13/20  lines=2  «Действия отсюда закрывают человеку вход»
+  div.StaffDangerZone__row  694×44 @21,99
+    button.Button__button  131×44 @0,0  r9  b1
+      span.Button__content  101×16 @15,14
+        span.Button__label  101×16 @0,0  Manrope 600 13/16  lines=1  «Закрыть доступ»
+    p.StaffDangerZone__note  547×40 @147,2  Manrope 400 13/20  lines=2  «Закрытый доступ не пускает в панель и за»
+  div.StaffDangerZone__row#2  694×44 @21,155
+    button.Button__button  164×44 @0,0  r9  b1
+      span.Button__content#2  134×16 @15,14
+        span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Удалить монтажника»
+    p.StaffDangerZone__note  514×40 @180,2  Manrope 400 13/20  lines=2  «Учётная запись исчезнет насовсем. Выполн»
+
+[геометрия 1440]
+section.Card__card  1408×213 @16,16  r20  b1
+  header.StaffDangerZone__header  1366×67 @21,21
+    h2.StaffDangerZone__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Опасная зона»
+    p.StaffDangerZone__hint  539×40 @0,27  Manrope 400 13/20  lines=2  «Действия отсюда закрывают человеку вход»
+  div.StaffDangerZone__row  1366×40 @21,100
+    button.Button__button  131×40 @0,0  r9  b1
+      span.Button__content  101×16 @15,12
+        span.Button__label  101×16 @0,0  Manrope 600 13/16  lines=1  «Закрыть доступ»
+    p.StaffDangerZone__note  1219×20 @147,10  Manrope 400 13/20  lines=1  «Закрытый доступ не пускает в панель и за»
+  div.StaffDangerZone__row#2  1366×40 @21,152
+    button.Button__button  164×40 @0,0  r9  b1
+      span.Button__content#2  134×16 @15,12
+        span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Удалить монтажника»
+    p.StaffDangerZone__note  1186×20 @180,10  Manrope 400 13/20  lines=1  «Учётная запись исчезнет насовсем. Выполн»
+
+[палитра light]
+section.Card__card  bg #be123c14  border #be123c73  shadow #0f172a33 0px 20px 44px -28px
+  header.StaffDangerZone__header
+    h2.StaffDangerZone__title  color #be123c
+    p.StaffDangerZone__hint  color #475569
+  div.StaffDangerZone__row
+    button.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label  color #0f172a
+    p.StaffDangerZone__note  color #556173
+  div.StaffDangerZone__row#2
+    button.Button__button  bg #ffffff  border #be123c73
+      span.Button__content#2
+        span.Button__label  color #be123c
+    p.StaffDangerZone__note  color #556173
+
+[палитра dark]
+section.Card__card  bg #fb71851f  border #fb718580  shadow #0f172a33 0px 20px 44px -28px
+  header.StaffDangerZone__header
+    h2.StaffDangerZone__title  color #fb7185
+    p.StaffDangerZone__hint  color #a8b6c6
+  div.StaffDangerZone__row
+    button.Button__button  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label  color #eaf1f8
+    p.StaffDangerZone__note  color #8598ac
+  div.StaffDangerZone__row#2
+    button.Button__button  bg #121d31  border #fb718580
+      span.Button__content#2
+        span.Button__label  color #fb7185
+    p.StaffDangerZone__note  color #8598ac

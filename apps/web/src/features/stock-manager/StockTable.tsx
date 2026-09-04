@@ -22,11 +22,6 @@ import {
 } from './model';
 import styles from './StockTable.module.css';
 
-/** Ширины колонок для расчёта порога прокрутки — как в таблице сравнения. */
-const ITEM_COLUMN_PX = 240;
-const ZONE_COLUMN_PX = 150;
-const SUMMARY_COLUMN_PX = 120;
-
 export interface StockTableProps {
   readonly overview: StockOverview;
   /** Действующий фильтр: он переезжает на соседние страницы вместе с «Дальше». */
@@ -45,11 +40,26 @@ export interface StockTableProps {
  * ими же ограничен весь JS раздела. Заголовки, ссылки и разбивка приходят
  * готовыми.
  *
- * 🔴 Первая колонка залипает (`variant="sticky"`): на четвёртой зоне без неё
- * непонятно, чей это остаток, а на телефоне таблица уезжает вбок целиком.
- * Страница по горизонтали при этом не двигается — прокрутка живёт внутри.
- * Кнопка «Переместить» стоит в этой же колонке, а не в крайней правой: иначе
+ * 🔴 Залипают обе крайние колонки: слева позиция, справа итог (issue #42,
+ * #352). Без первой на четвёртой зоне непонятно, чей это остаток; без второй
+ * «Итого» — то, ради чего в таблицу и смотрят, — обрывалось краем экрана и
+ * доставалось только тем, кто догадался прокрутить до конца. Страница по
+ * горизонтали при этом не двигается: прокрутка живёт внутри контейнера.
+ * Кнопка «Переместить» стоит в первой колонке, а не в крайней правой: иначе
  * до неё с телефона нужно доехать через все зоны.
+ *
+ * 🔴 До 600px строка раскладывается карточкой (`variant="cards"`): колонок
+ * там не остаётся, и таблица из шести зон читается только вбок. В карточке
+ * остаток крупный, зоны идут списком, порог — плашкой.
+ *
+ * 🔴 Ширины колонок задаёт CSS, а не проп `minWidth`. Проп кладёт `min-width`
+ * инлайном, снять его в медиа-запросе нечем — и карточка на 390 выходила
+ * 1080px шириной, утаскивая за собой весь документ. Прокрутка обязана жить
+ * внутри контейнера, а не растягивать предков (issue #352, DESIGN_BRIEF §6).
+ *
+ * 🔴 Строка ниже порога помечена целиком (`data-danger`), а не одной плашкой
+ * в углу: список «пора заказывать» — это и есть подсвеченные строки, отдельного
+ * экрана под него нет (CRM.md §11.3).
  *
  * 🔴 Отрицательный остаток помечается, а не запрещается (ADR-134): запрет
  * означал бы, что монтажник впишет неправду, лишь бы закрыть наряд.
@@ -63,7 +73,6 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
      тогда не рисуется, а не показывает прочерки (docs/API.md §14). */
   const showMin = items.some((item) => item.minQty !== undefined);
   const shortage = items.some((item) => hasShortage(item, zones));
-  const minWidth = `${ITEM_COLUMN_PX + zones.length * ZONE_COLUMN_PX + (showMin ? 2 : 1) * SUMMARY_COLUMN_PX}px`;
   /* Перемещать некуда, пока зона одна: предлагать операцию, которую сервер
      отвергнет, честнее не предлагать вовсе. */
   const movable = zones.filter((zone) => !zone.archived).length > 1;
@@ -72,31 +81,35 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
     <div className={styles.wrap}>
       <StockMoveScope>
         <Card as="section" padding="none">
-          <Table variant="sticky" zebra minWidth={minWidth} label={texts.tableLabel}>
+          <Table variant="cards" className={styles.grid} zebra fade label={texts.tableLabel}>
             <thead>
-              <tr>
-                <th scope="col">{texts.colItem}</th>
+              <tr role="row">
+                <th scope="col" className={styles.itemHead}>
+                  {texts.colItem}
+                </th>
                 {zones.map((zone) => (
                   <th key={zone.id} scope="col" className={styles.numberHead}>
                     <span className={styles.zoneName}>{zone.name}</span>
                     <ZoneNote zone={zone} />
                   </th>
                 ))}
-                <th scope="col" className={styles.numberHead}>
-                  {texts.colTotal}
-                </th>
                 {showMin ? (
                   <th scope="col" className={styles.numberHead}>
                     {texts.colMin}
                   </th>
                 ) : null}
+                <th scope="col" className={`${styles.numberHead} ${styles.totalHead}`}>
+                  {texts.colTotal}
+                </th>
               </tr>
             </thead>
 
             <tbody>
               {items.map((item, row) => (
-                <tr key={item.id}>
-                  <th scope="row">
+                /* 🔴 Пометка строки — это и есть список «пора заказывать»
+                   (CRM.md §11.3): отдельного экрана под него нет. */
+                <tr key={item.id} role="row" data-danger={item.low === true ? '' : undefined}>
+                  <th scope="row" role="rowheader" className={styles.itemHead}>
                     <Link
                       className={`${styles.name} tapAction`}
                       href={{ pathname: stockItemPath(item.id) }}
@@ -133,7 +146,22 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
                     />
                   ))}
 
-                  <td className={styles.number}>
+                  {showMin ? (
+                    <td className={styles.number} role="cell" data-label={texts.colMin}>
+                      {item.minQty === undefined || item.minQty === 0
+                        ? texts.dash
+                        : texts.qty(item.minQty, item.unit)}
+                    </td>
+                  ) : null}
+
+                  {/* 🔴 Итог — последняя колонка, и это не порядок чтения, а
+                      условие залипания: прижать к правому краю можно только
+                      крайнюю справа, иначе она встаёт поверх соседней. */}
+                  <td
+                    className={`${styles.number} ${styles.totalCell}`}
+                    role="cell"
+                    data-label={texts.colTotal}
+                  >
                     <span className={styles.total}>{texts.qty(item.total, item.unit)}</span>
                     {item.low === true ? (
                       <Badge variant="warning" size="sm" className={styles.mark}>
@@ -141,14 +169,6 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
                       </Badge>
                     ) : null}
                   </td>
-
-                  {showMin ? (
-                    <td className={styles.number}>
-                      {item.minQty === undefined || item.minQty === 0
-                        ? texts.dash
-                        : texts.qty(item.minQty, item.unit)}
-                    </td>
-                  ) : null}
                 </tr>
               ))}
             </tbody>
@@ -189,7 +209,7 @@ function NoZones() {
         icon="stock"
         title={texts.emptyZonesTitle}
         action={
-          <Link className={buttonClassName({ size: 'sm' })} href={{ pathname: STOCK_ZONES_PATH }}>
+          <Link className={buttonClassName({ size: 'sm' })} href={STOCK_ZONES_PATH}>
             {texts.emptyZonesAction}
           </Link>
         }

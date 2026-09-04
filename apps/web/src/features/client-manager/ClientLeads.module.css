@@ -90,6 +90,14 @@
   text-decoration: none;
 }
 
+/* 🔴 Пол цели на сенсорной раскладке — 44px (ADR-183): строка кегля даёт 24,
+   а по этой ссылке целятся пальцем. */
+@media (width < 900px) {
+  .all {
+    min-height: var(--tap);
+  }
+}
+
 .all:hover {
   text-decoration: underline;
 }

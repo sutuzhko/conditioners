@@ -633,6 +633,93 @@ export async function requireAccess(id: string, viewer: Viewer): Promise<OrderAc
   return row;
 }
 
+/**
+ * Сколько нарядов кладётся в карточку человека.
+ *
+ * 🔴 Не «все за всё время»: у клиента, с которым работают пятый год, история
+ * растёт без потолка, а карточку открывают, чтобы вспомнить последний выезд.
+ * Остальное лежит в разделе заказов, куда карточка и уводит ссылкой.
+ */
+export const CARD_ORDERS_LIMIT = 24;
+
+/** Наряды с их общим числом: карточка честно говорит, сколько не показала. */
+export type OrderSlice = {
+  readonly items: readonly OrderCard[];
+  readonly total: number;
+};
+
+async function slice(where: Prisma.OrderWhereInput, viewer: Viewer): Promise<OrderSlice> {
+  const scoped: Prisma.OrderWhereInput = { ...where, ...viewerWhere(viewer) };
+
+  const [total, rows] = await Promise.all([
+    db.order.count({ where: scoped }),
+    db.order.findMany({
+      where: scoped,
+      select: orderSelect,
+      /* Сверху то, что закончилось последним: карточку открывают ради
+         последнего выезда, а не ради первого. */
+      orderBy: { at: 'desc' },
+      take: CARD_ORDERS_LIMIT,
+    }),
+  ]);
+
+  return { items: rows.map((row) => toCard(row, viewer.role)), total };
+}
+
+/** История работ клиента — вкладка «Заказы» его карточки (CRM.md §3.2). */
+export async function listByClient(clientId: string, viewer: Viewer): Promise<OrderSlice> {
+  return slice({ clientId }, viewer);
+}
+
+/** Наряды монтажника — вкладка «Заказы» его карточки (CRM.md §3.6). */
+export async function listByInstaller(installerId: string, viewer: Viewer): Promise<OrderSlice> {
+  return slice({ installerId }, viewer);
+}
+
+/**
+ * Показатели монтажника: сколько выполнено, сколько за это причитается и
+ * сколько удержано (CRM.md §3.6).
+ *
+ * 🔴 Не «штраф», а удержание, и считается оно отдельно от выплаты, а не
+ * вычитается молча: вычесть законно не у всякого оформления (ADR-114, CRM §9),
+ * и решение об этом принимает владелец, а не таблица.
+ *
+ * Заработано — по выполненным нарядам: наряд, до которого ещё не доехали,
+ * денег не принёс.
+ */
+export type InstallerTotals = {
+  readonly done: number;
+  readonly active: number;
+  readonly feeDone: number;
+  readonly deductions: number;
+};
+
+export async function installerTotals(installerId: string): Promise<InstallerTotals> {
+  const doneWhere: Prisma.OrderWhereInput = {
+    installerId,
+    status: STATUS_TO_DB.done,
+  };
+
+  const [done, active, sums, deductions] = await Promise.all([
+    db.order.count({ where: doneWhere }),
+    db.order.count({
+      where: {
+        installerId,
+        status: { in: TAB_STATUSES.active.map((status) => STATUS_TO_DB[status]) },
+      },
+    }),
+    db.order.aggregate({ where: doneWhere, _sum: { installerFee: true } }),
+    db.order.aggregate({ where: { installerId }, _sum: { deductionSum: true } }),
+  ]);
+
+  return {
+    done,
+    active,
+    feeDone: sums._sum.installerFee ?? 0,
+    deductions: deductions._sum.deductionSum ?? 0,
+  };
+}
+
 /** Сколько работ в работе — цифра сводки панели. */
 export async function countActive(): Promise<number> {
   return db.order.count({

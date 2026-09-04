@@ -20,6 +20,7 @@ export { StockZoneForm, type StockZoneFormProps } from './StockZoneForm';
 export { StockZones, type StockZonesProps } from './StockZones';
 export {
   STOCK_MOVE_TITLES,
+  STOCK_TAB_TITLES,
   STOCK_UNIT_FULL,
   STOCK_UNIT_TITLES,
   STOCK_ZONE_KIND_TITLES,
@@ -30,11 +31,13 @@ export { stockApi } from './lib';
 export {
   ADMIN_PAGE_SIZE,
   DEFAULT_STOCK_FILTERS,
+  DEFAULT_STOCK_TAB,
   STOCK_ITEM_NEW_PATH,
   STOCK_JOURNAL_PATH,
   STOCK_MOVE_PATH,
   STOCK_PATH,
   STOCK_ZONES_PATH,
+  STOCK_TABS,
   STOCK_ZONE_NEW_PATH,
   itemDraftOf,
   itemRefOf,
@@ -44,6 +47,8 @@ export {
   stockItemPath,
   stockMovePath,
   stockMoveQuery,
+  stockTabFromParam,
+  stockTabHref,
   type StockApi,
   type StockFilterState,
   type StockItemCard,
@@ -57,6 +62,7 @@ export {
   type StockMovementPage,
   type StockOverview,
   type StockResult,
+  type StockTab,
   type StockZoneCard,
   type StockZonePerson,
 } from './model';

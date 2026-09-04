@@ -3,47 +3,58 @@ import Link from 'next/link';
 
 import {
   LEAD_STATUSES,
-  LeadList,
+  LeadDetail,
+  LeadQueue,
   isLeadStatus,
   leadManagerContent as texts,
+  leadsHref,
+  type LeadQueueItem,
   type LeadStatus,
 } from '@/features/lead-manager';
 import { requireOwnerPage } from '@/server/guards';
-import { listByStatus } from '@/server/repo/leads';
+import { findById, listByStatus } from '@/server/repo/leads';
 import { pageNumber } from '@/shared/lib/paging';
-import { Pager } from '@/shared/ui';
-import { DataBlock, RowsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
+import { Card, EmptyState, Pager } from '@/shared/ui';
+import { DataBlock, blockErrorNote } from '@/widgets/admin-shell';
 
+import { LeadsSkeleton } from './LeadsSkeleton';
 import styles from './page.module.css';
 
 export const metadata: Metadata = { title: texts.title };
 
 export const dynamic = 'force-dynamic';
 
+type LeadsParams = { status?: string; page?: string; lead?: string };
+
 /**
- * Заявки с сайта.
+ * Заявки с сайта — очередь слева, карточка обращения справа (issue #349).
  *
- * Фильтр по статусу и номер страницы — ссылками, а не состоянием на клиенте:
- * адрес выбранного статуса можно сохранить в закладки и вернуться к нему
- * завтра. Разбивка рисуется здесь, а не внутри списка: список интерактивен и
- * едет в браузер, а переход между страницами — обычная навигация по адресу.
+ * 🔴 Выбранное обращение живёт в адресе, а не в состоянии компонента: ссылку
+ * на обращение пересылают коллеге, а на узком экране, где карточка занимает
+ * весь экран, «назад» браузера обязано возвращать к очереди — не выбрасывать
+ * из раздела (ADR-255, ADR-258).
  *
- * 🔴 Список — асинхронный блок (issue #334, #336): шапка и фильтры уходят в
- * браузер сразу, список приезжает отдельным куском потока на место своего
- * скелетона, а если запрос списка упал — ошибка стоит на его месте, и
- * навигация с фильтрами остаются рабочими. Проверка доступа при этом идёт до
- * первого чтения данных (ADR-095): блок рисуется только после неё.
+ * 🔴 Раскладка решается на сервере разметкой, а не медиазапросом по данным:
+ * до 900px видно ровно одно из двух — очередь либо карточка, — и что именно,
+ * говорит наличие `lead` в адресе. Ниже 900 колонка одна, выше — две.
+ *
+ * 🔴 Очередь — асинхронный блок (issue #334, #336): шапка и фильтры уходят в
+ * браузер сразу, очередь с карточкой приезжают отдельным куском потока на
+ * место заготовки, а упавший запрос показывает ошибку на их месте, оставляя
+ * навигацию рабочей. Проверка доступа при этом идёт до первого чтения данных
+ * (ADR-095): блок рисуется только после неё.
  */
 export default async function AdminLeadsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; page?: string }>;
+  searchParams: Promise<LeadsParams>;
 }) {
   /* Раздел владельца: проверка до чтения данных (ADR-095). */
   await requireOwnerPage();
 
-  const { status, page } = await searchParams;
+  const { status, page, lead } = await searchParams;
   const selected = status !== undefined && isLeadStatus(status) ? status : undefined;
+  const current = pageNumber(page);
 
   return (
     <div className={styles.page}>
@@ -58,7 +69,7 @@ export default async function AdminLeadsPage({
             .filter(Boolean)
             .join(' ')}
           aria-current={selected === undefined ? 'page' : undefined}
-          href={{ pathname: '/admin/leads' }}
+          href={leadsHref({})}
         >
           {texts.filterAll}
         </Link>
@@ -70,7 +81,7 @@ export default async function AdminLeadsPage({
               .join(' ')}
             aria-current={selected === value ? 'page' : undefined}
             key={value}
-            href={{ pathname: '/admin/leads', query: { status: value } }}
+            href={leadsHref({ status: value })}
           >
             {texts.statusTitle(value)}
           </Link>
@@ -78,18 +89,18 @@ export default async function AdminLeadsPage({
       </nav>
 
       <DataBlock
-        skeleton={<RowsSkeleton rows={4} className={styles.rowSkeleton} />}
+        skeleton={<LeadsSkeleton />}
         title={texts.loadFailed}
         note={blockErrorNote('/admin/leads')}
       >
-        <LeadsBlock status={selected} page={pageNumber(page)} />
+        <LeadsBlock status={selected} page={current} lead={lead} />
       </DataBlock>
     </div>
   );
 }
 
 /**
- * Список заявок со страницами — то, что приезжает отдельным куском потока.
+ * Очередь и карточка — то, что приезжает отдельным куском потока.
  *
  * Обёртка `data-block` — единственный узел блока, не зависящий от данных: по
  * нему сквозные сценарии находят кусок потока и меряют его положение.
@@ -97,22 +108,73 @@ export default async function AdminLeadsPage({
 async function LeadsBlock({
   status,
   page,
+  lead,
 }: {
   readonly status: LeadStatus | undefined;
   readonly page: number;
+  readonly lead: string | undefined;
 }) {
-  const found = await listByStatus({ status, page });
+  /* 🔴 Открытое обращение читается своим запросом, а не ищется в текущей
+     странице очереди: ссылка на обращение приходит извне — из письма, из
+     мессенджера, — и оно может лежать на четвёртой странице другого статуса.
+     Пропавшее обращение не роняет раздел: очередь остаётся на месте. */
+  const [found, opened] = await Promise.all([
+    listByStatus({ status, page }),
+    lead === undefined || lead === '' ? Promise.resolve(null) : findById(lead),
+  ]);
+
+  const queue: readonly LeadQueueItem[] = found.items.map((item) => ({
+    id: item.id,
+    name: item.name,
+    phone: item.phone,
+    topic: item.topic,
+    status: item.status,
+    createdAt: item.createdAt,
+  }));
 
   return (
-    <div className={styles.block} data-block="leads">
-      <LeadList leads={found.items} filtered={status !== undefined} />
+    <div
+      className={styles.split}
+      data-block="leads"
+      /* Атрибут решает раскладку до 900px: открытая карточка занимает экран
+         целиком, закрытая уступает его очереди. */
+      data-selected={opened === null ? undefined : ''}
+    >
+      <div className={styles.queue}>
+        <LeadQueue
+          leads={queue}
+          selected={opened?.id}
+          status={status}
+          page={page}
+          filtered={status !== undefined}
+        />
 
-      <Pager
-        page={found.page}
-        pages={found.pages}
-        basePath="/admin/leads"
-        query={status === undefined ? undefined : { status }}
-      />
+        <Pager
+          page={found.page}
+          pages={found.pages}
+          basePath="/admin/leads"
+          query={status === undefined ? undefined : { status }}
+        />
+      </div>
+
+      <div className={styles.detail}>
+        {opened === null ? (
+          <Card as="section">
+            <EmptyState icon="leads" title={texts.pickTitle}>
+              {texts.pickText}
+            </EmptyState>
+          </Card>
+        ) : (
+          <>
+            {/* Путь назад к очереди виден только там, где очередь скрыта. */}
+            <Link className={styles.back} href={leadsHref({ status, page })} scroll={false}>
+              {texts.queueBack}
+            </Link>
+
+            <LeadDetail lead={opened} />
+          </>
+        )}
+      </div>
     </div>
   );
 }

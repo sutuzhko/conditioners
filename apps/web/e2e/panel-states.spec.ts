@@ -142,7 +142,7 @@ test.describe('состояния блока данных', () => {
     await page.getByRole('button', { name: errorTexts.retry }).click();
 
     await expect(page.locator('[data-block="leads"]')).toBeVisible();
-    await expect(page.locator('[data-block="leads"] article').first()).toBeVisible();
+    await expect(page.locator('[data-block="leads"] li a[href*="lead="]').first()).toBeVisible();
     await expect(page.locator('main').getByRole('alert')).toHaveCount(0);
   });
 
@@ -198,7 +198,9 @@ test.describe('состояния блока данных', () => {
 
       await ownerPage.getByRole('link', { name: leadTexts.emptyFilteredAction }).click();
       await ownerPage.waitForURL((url) => url.pathname === LEADS && url.search === '');
-      await expect(ownerPage.locator('[data-block="leads"] article').first()).toBeVisible();
+      await expect(
+        ownerPage.locator('[data-block="leads"] li a[href*="lead="]').first(),
+      ).toBeVisible();
     } finally {
       await withAdmin(async (api) => {
         for (const lead of moved) await api.setLeadStatus(lead.id, 'in_progress');
@@ -222,7 +224,7 @@ test.describe('состояния блока данных', () => {
 
     /* Данные. */
     await page.goto(LEADS);
-    await expect(page.locator('[data-block="leads"] article').first()).toBeVisible();
+    await expect(page.locator('[data-block="leads"] li a[href*="lead="]').first()).toBeVisible();
     tops['данные'] = await blockTop(page);
 
     /* Пусто: статус, из которого записи убраны. */

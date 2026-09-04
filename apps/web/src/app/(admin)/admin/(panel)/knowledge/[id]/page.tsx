@@ -9,6 +9,7 @@ import {
   articleFormContent as texts,
   articleTabFromParam,
 } from '@/features/article-form';
+import { getAdminSession, isOwner } from '@/server/auth';
 import { requireOwnerPage } from '@/server/guards';
 import { findById } from '@/server/repo/articles';
 import { getGroup } from '@/server/repo/settings';
@@ -24,6 +25,14 @@ export async function generateMetadata({
 }: {
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
+  /* 🔴 Для чужого база не читается вовсе — и рубеж здесь не бросает отказ, а
+     возвращает общий заголовок. `forbidden()` в метаданных не спасает: Next
+     успевает вычислить их до того, как отказ доходит до ответа, и название
+     уезжает в тело 403 (issue #524). Не прочитанное не утечёт ни при каком
+     порядке потока. */
+  const session = await getAdminSession();
+  if (session === null || !isOwner(session)) return { title: texts.listTitle };
+
   const { id } = await params;
   const article = await findById(id);
 

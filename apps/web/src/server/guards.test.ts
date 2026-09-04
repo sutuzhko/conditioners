@@ -7,6 +7,11 @@ vi.mock('next/navigation', () => ({
   redirect: vi.fn((to: string) => {
     throw new Error(`redirect:${to}`);
   }),
+  /* 🔴 Отказ — не разворот: страница обязана отдать 403, а не 307 с телом
+     чужого раздела. Подмена повторяет контракт `forbidden()` — она бросает. */
+  forbidden: vi.fn(() => {
+    throw new Error('forbidden');
+  }),
 }));
 
 /* Частичная подмена: `isOwner` берём настоящий — проверяется разграничение,
@@ -15,6 +20,8 @@ vi.mock('@/server/auth', async (importOriginal) => ({
   ...(await importOriginal<typeof AuthModuleTypes>()),
   getAdminSession: vi.fn(),
 }));
+
+import { redirect } from 'next/navigation';
 
 import { getAdminSession } from '@/server/auth';
 
@@ -35,10 +42,19 @@ beforeEach(() => {
 });
 
 describe('🔴 страница раздела владельца', () => {
-  it('монтажника уводит на его рабочий экран — до чтения данных', async () => {
+  it('монтажнику отказывает — до чтения данных', async () => {
     vi.mocked(getAdminSession).mockResolvedValue(installer);
 
-    await expect(requireOwnerPage()).rejects.toThrow('redirect:/admin/crm');
+    await expect(requireOwnerPage()).rejects.toThrow('forbidden');
+  });
+
+  /* 🔴 Разворот вместо отказа возвращал 307 и тело чужого раздела вместе с
+     ним: браузер его выбрасывал, `curl` — нет (issue #353, ADR-095). */
+  it('🔴 монтажника не разворачивает: отказ обязан быть отказом', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(installer);
+
+    await expect(requireOwnerPage()).rejects.toThrow();
+    expect(vi.mocked(redirect)).not.toHaveBeenCalled();
   });
 
   it('без сессии отправляет на вход', async () => {

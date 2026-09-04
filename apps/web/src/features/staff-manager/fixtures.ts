@@ -1,5 +1,5 @@
 /** Данные для историй и тестов раздела команды. */
-import type { InstallerNoteCard, StaffApi, StaffDetails } from './model';
+import type { InstallerNoteCard, StaffApi, StaffDetails, StaffOrder, StaffTotals } from './model';
 
 export const activeInstaller: StaffDetails = {
   id: 'u2',
@@ -139,3 +139,71 @@ export const fieldRefusingApi: StaffApi = {
   addNote: async () => refused,
   removeNote: async () => refused,
 };
+
+/**
+ * Наряды монтажника: два выполненных и один в работе.
+ *
+ * 🔴 У удержания есть основание — запись без него показывается как дефект
+ * данных, а не как ноль (CRM.md §9, ADR-114). Суммы демонстрационные:
+ * настоящие приходят из нарядов (инвариант 8).
+ *
+ * Именованные записи, а не индексы массива: история, которой нужен именно
+ * наряд с удержанием, не должна знать, каким он идёт по счёту.
+ */
+export const paidOrder: StaffOrder = {
+  id: 'o1',
+  number: 1059,
+  type: 'install',
+  status: 'done',
+  at: '2026-08-14T07:00:00.000Z',
+  address: 'Тула, ул. Токарева, 88, кв. 204',
+  clientName: 'Жуков Кирилл',
+  fee: 14000,
+  deduction: 0,
+  deductionReason: null,
+};
+
+export const heldOrder: StaffOrder = {
+  id: 'o2',
+  number: 1064,
+  type: 'service',
+  status: 'done',
+  at: '2026-08-22T09:30:00.000Z',
+  address: 'Тула, Красноармейский проспект, 12',
+  clientName: 'Дёмин Алексей Юрьевич',
+  fee: 9000,
+  deduction: 1500,
+  deductionReason: 'Повторный выезд по той же неисправности за счёт компании',
+};
+
+export const runningOrder: StaffOrder = {
+  id: 'o3',
+  number: 1071,
+  type: 'repair',
+  status: 'in_progress',
+  at: '2026-09-04T06:00:00.000Z',
+  address: 'Тула, ул. Демонстрации, 1',
+  clientName: 'Салон «Аврора»',
+  fee: 6000,
+  deduction: 0,
+  deductionReason: null,
+};
+
+export const staffOrders: readonly StaffOrder[] = [paidOrder, heldOrder, runningOrder];
+
+/** Удержание без основания — дефект данных: экран называет его словами. */
+export const orderWithoutReason: StaffOrder = {
+  ...heldOrder,
+  id: 'o4',
+  number: 1080,
+  deductionReason: null,
+};
+
+export const staffTotals: StaffTotals = {
+  done: 2,
+  active: 1,
+  feeDone: 23000,
+  deductions: 1500,
+};
+
+export const emptyTotals: StaffTotals = { done: 0, active: 0, feeDone: 0, deductions: 0 };

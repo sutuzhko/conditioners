@@ -7,14 +7,14 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×509 @16,16  r20  b1
+section.Card__card  358×626 @16,16  r20  b1
   header.ClientUnits__header  316×125 @21,21
     h2.ClientUnits__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Установленная техника»
     p.ClientUnits__hint  316×101 @0,25  Manrope 400 13/20  lines=5  «Появляется сама после выполненного монта»
-  ul.ClientUnits__list  316×201 @21,158
-    li.ClientUnits__item  316×201 @0,0  r11  b1
-      div.ClientUnits__row  290×179 @13,11
-        div.ClientUnits__body  290×123 @0,0
+  ul.ClientUnits__list  316×318 @21,158
+    li.ClientUnits__item  316×318 @0,0  r11  b1
+      div.ClientUnits__row  290×296 @13,11
+        div.ClientUnits__body  290×240 @0,0
           div.ClientUnits__line  290×75 @0,0
             span.ClientUnits__model  290×45 @0,0  Manrope 600 15/22  lines=2  «Кондиционер клиента, модель не записана»
             span.Badge__badge  149×24 @0,51  Manrope 600 12/16  r100  b1  lines=1  «Гарантия не записана»
@@ -22,15 +22,15 @@ section.Card__card  358×509 @16,16  r20  b1
             time  115×20 @0,0  Manrope 400 13/20  lines=1  «Монтаж 01.06.2019»
           p.ClientUnits__service  290×20 @0,103
             time  240×18 @0,1  Manrope 400 13/20  lines=1  «ТО через год от монтажа — 01.06.2020»
-        div.ClientUnits__rowActions  179×44 @0,135
+        div.ClientUnits__rowActions  179×44 @0,252
           button.Button__button  93×44 @0,0  r9  b1
             span.Button__content  63×16 @15,14
               span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
           button.Button__button#2  82×44 @97,0  r9  b1
             span.Button__content  52×16 @15,14
               span.Button__label#2  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-  p.ClientUnits__note  316×60 @21,372  Manrope 400 13/20  lines=3  «Даты ТО считаются от монтажа. Напоминани»
-  div.ClientUnits__actions  316×44 @21,444
+  p.ClientUnits__note  316×60 @21,488  Manrope 400 13/20  lines=3  «Даты ТО считаются от монтажа. Напоминани»
+  div.ClientUnits__actions  316×44 @21,561
     button.Button__button  145×44 @0,0  r9  b1
       span.Button__content#2  115×16 @15,14
         span.Button__label  115×16 @0,0  Manrope 600 13/16  lines=1  «Добавить технику»
@@ -65,30 +65,30 @@ section.Card__card  736×343 @16,16  r20  b1
         span.Button__label  115×16 @0,0  Manrope 600 13/16  lines=1  «Добавить технику»
 
 [геометрия 1440]
-section.Card__card  1408×340 @16,16  r20  b1
+section.Card__card  1408×420 @16,16  r20  b1
   header.ClientUnits__header  1366×87 @21,21
     h2.ClientUnits__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Установленная техника»
     p.ClientUnits__hint  539×60 @0,27  Manrope 400 13/20  lines=3  «Появляется сама после выполненного монта»
-  ul.ClientUnits__list  1366×94 @21,120
-    li.ClientUnits__item  1366×94 @0,0  r11  b1
-      div.ClientUnits__row  1340×72 @13,11
-        div.ClientUnits__body  1149×72 @0,0
-          div.ClientUnits__line  1149×24 @0,0
-            span.ClientUnits__model  308×22 @0,1  Manrope 600 15/22  lines=1  «Кондиционер клиента, модель не записана»
-            span.Badge__badge  149×24 @320,0  Manrope 600 12/16  r100  b1  lines=1  «Гарантия не записана»
-          p.ClientUnits__facts  1149×20 @0,28
+  ul.ClientUnits__list  1366×175 @21,120
+    li.ClientUnits__item  449×175 @0,0  r11  b1
+      div.ClientUnits__row  423×153 @13,11
+        div.ClientUnits__body  423×101 @0,0
+          div.ClientUnits__line  423×53 @0,0
+            span.ClientUnits__model  308×22 @0,0  Manrope 600 15/22  lines=1  «Кондиционер клиента, модель не записана»
+            span.Badge__badge  149×24 @0,28  Manrope 600 12/16  r100  b1  lines=1  «Гарантия не записана»
+          p.ClientUnits__facts  423×20 @0,57
             time  115×20 @0,0  Manrope 400 13/20  lines=1  «Монтаж 01.06.2019»
-          p.ClientUnits__service  1149×20 @0,52
+          p.ClientUnits__service  423×20 @0,81
             time  240×18 @0,1  Manrope 400 13/20  lines=1  «ТО через год от монтажа — 01.06.2020»
-        div.ClientUnits__rowActions  179×40 @1161,0
+        div.ClientUnits__rowActions  179×40 @244,113
           button.Button__button  93×40 @0,0  r9  b1
             span.Button__content  63×16 @15,12
               span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
           button.Button__button#2  82×40 @97,0  r9  b1
             span.Button__content  52×16 @15,12
               span.Button__label#2  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-  p.ClientUnits__note  539×40 @21,227  Manrope 400 13/20  lines=2  «Даты ТО считаются от монтажа. Напоминани»
-  div.ClientUnits__actions  1366×40 @21,279
+  p.ClientUnits__note  539×40 @21,307  Manrope 400 13/20  lines=2  «Даты ТО считаются от монтажа. Напоминани»
+  div.ClientUnits__actions  1366×40 @21,359
     button.Button__button  145×40 @0,0  r9  b1
       span.Button__content#2  115×16 @15,12
         span.Button__label  115×16 @0,0  Manrope 600 13/16  lines=1  «Добавить технику»

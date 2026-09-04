@@ -28,6 +28,21 @@ const crmEventSchema = z.object({ id: z.string() });
 
 const staffSchema = z.object({ id: z.string(), login: z.string() });
 
+/**
+ * Наряд глазами владельца — ровно те поля, по которым сценарий доступа
+ * выбирает наряд, переназначает его и потом ищет в теле ответа сумму,
+ * которой монтажнику видеть не положено (CRM.md §6).
+ */
+const orderSchema = z.object({
+  id: z.string(),
+  number: z.number(),
+  address: z.string(),
+  price: z.number().optional(),
+  installerFee: z.number(),
+  installer: z.object({ id: z.string() }).nullable(),
+});
+export type AdminOrder = z.infer<typeof orderSchema>;
+
 const searchSchema = z.object({ items: z.array(z.object({ id: z.string() })) });
 
 const leadSchema = z.object({
@@ -46,6 +61,7 @@ const pageOf = <T extends z.ZodTypeAny>(item: T) =>
   z.object({ items: z.array(item), total: z.number(), page: z.number(), pages: z.number() });
 
 const leadListSchema = pageOf(leadSchema);
+const orderListSchema = pageOf(orderSchema);
 export type AdminLead = z.infer<typeof leadSchema>;
 
 const reviewSchema = z.object({
@@ -86,9 +102,16 @@ export class AdminApi {
     private readonly cookie: string,
   ) {}
 
-  /** Вход в панель; возвращает клиента с сессией. */
+  /**
+   * Вход в панель; возвращает клиента с сессией.
+   *
+   * 🔴 Своё ожидание, длиннее общего: вход — это подготовка сценария, а не его
+   * проверка, и на стенде обработчик собирается по первому обращению. Общие
+   * пятнадцать секунд приходятся ровно на сборку, и сценарий падает на
+   * подготовке — там, где ещё нечего проверять.
+   */
   static async login(): Promise<AdminApi> {
-    const context = await request.newContext({ baseURL: BASE_URL });
+    const context = await request.newContext({ baseURL: BASE_URL, timeout: 60_000 });
     const response = await context.post('/api/auth/login', {
       data: { login: ADMIN_LOGIN, password: ADMIN_PASSWORD },
     });
@@ -162,12 +185,104 @@ export class AdminApi {
   }): Promise<{ id: string; login: string }> {
     const response = await this.context.post('/api/admin/staff', {
       headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      /* Заведённый монтажник активен по умолчанию — это умолчание схемы базы;
+         поля `active` у схемы заведения нет вовсе, и лишний ключ она отвергает. */
       data: { ...input, employment: '', inn: '' },
     });
     if (response.status() !== 201) {
-      throw new Error(`Создание монтажника вернуло код ${response.status()}`);
+      const detail = await response.text().catch(() => '');
+      throw new Error(
+        `Создание монтажника вернуло код ${response.status()}${detail === '' ? '' : `: ${detail}`}`,
+      );
     }
     return staffSchema.parse(await response.json());
+  }
+
+  /** Наряды владельца: сценарию доступа нужен чужой наряд и свой. */
+  async listOrders(tab = 'all'): Promise<readonly AdminOrder[]> {
+    const response = await this.context.get('/api/admin/orders', {
+      headers: { Cookie: this.cookie },
+      params: { tab },
+    });
+    return orderListSchema.parse(await this.json(response, 'список нарядов')).items;
+  }
+
+  /**
+   * Переназначение наряда: сценарий доступа делает наряд «своим» для
+   * заведённого монтажника и возвращает исполнителя как было.
+   */
+  /**
+   * 🔴 Исполнитель и статус переносятся вместе, а не порознь: домен считает их
+   * одной парой (`orderPairIssue`), и наряд «Новый» с исполнителем — как и
+   * «Назначен» без него — состояние, из которого он сам не выйдет. Одиночный
+   * `installerId` сервер отклоняет кодом 400, и правильно делает.
+   */
+  /**
+   * Наряд под сценарий: со своей суммой, без исполнителя и без клиента.
+   *
+   * 🔴 Заводится, а не выбирается среди демонстрационных: наряд с суммой и
+   * свободным исполнителем на стенде бывает, а бывает и нет — и сценарий,
+   * который тогда пропускает себя, ничего не проверяет, но выглядит зелёным.
+   */
+  async createOrder(input: {
+    readonly clientId: string;
+    readonly address: string;
+    readonly price: number;
+  }): Promise<{ id: string; number: number }> {
+    const response = await this.context.post('/api/admin/orders', {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: {
+        type: 'install',
+        clientId: input.clientId,
+        day: new Date().toISOString().slice(0, 10),
+        time: '10:00',
+        durationMin: 120,
+        address: input.address,
+        payment: 'company',
+        price: input.price,
+        installerFee: 3_000,
+      },
+    });
+    if (response.status() !== 201) {
+      const detail = await response.text().catch(() => '');
+      throw new Error(`Создание наряда вернуло код ${response.status()}: ${detail}`);
+    }
+    return orderSchema.pick({ id: true, number: true }).parse(await response.json());
+  }
+
+  /** Клиент под сценарий: наряд без клиента завести нельзя. */
+  async createClient(input: {
+    readonly name: string;
+    readonly phone: string;
+    readonly address: string;
+  }): Promise<{ id: string }> {
+    const response = await this.context.post('/api/admin/clients', {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: { ...input, note: '' },
+    });
+    if (response.status() !== 201) {
+      const detail = await response.text().catch(() => '');
+      throw new Error(
+        `Создание клиента вернуло код ${response.status()}${detail === '' ? '' : `: ${detail}`}`,
+      );
+    }
+    return z.object({ id: z.string() }).parse(await response.json());
+  }
+
+  async deleteClient(id: string): Promise<void> {
+    await this.context.delete(`/api/admin/clients/${id}`, { headers: { Cookie: this.cookie } });
+  }
+
+  async deleteOrder(id: string): Promise<void> {
+    await this.context.delete(`/api/admin/orders/${id}`, { headers: { Cookie: this.cookie } });
+  }
+
+  async assignOrder(id: string, installerId: string | null): Promise<void> {
+    const response = await this.context.patch(`/api/admin/orders/${id}`, {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: { installerId, status: installerId === null ? 'new' : 'assigned' },
+    });
+    await this.json(response, 'назначение наряда');
   }
 
   async deleteStaff(id: string): Promise<void> {
@@ -256,7 +371,14 @@ export class AdminApi {
 
   private async json(response: APIResponse, what: string): Promise<unknown> {
     if (response.status() !== 200) {
-      throw new Error(`Запрос «${what}» вернул код ${response.status()}`);
+      /* 🔴 Тело отказа — в сообщении. Код без причины превращает каждое
+         падение сценария в угадайку: «400» одинаково выглядит и при опечатке
+         в поле, и при нарушении доменного правила, а ответ уже содержит
+         поле и объяснение. */
+      const detail = await response.text().catch(() => '');
+      throw new Error(
+        `Запрос «${what}» вернул код ${response.status()}${detail === '' ? '' : `: ${detail}`}`,
+      );
     }
     const body: unknown = await response.json();
     return body;
