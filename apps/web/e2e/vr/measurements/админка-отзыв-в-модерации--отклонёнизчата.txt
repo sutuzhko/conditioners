@@ -1,4 +1,4 @@
-# админка-отзыв-в-модерации--отклонён · ширины 390 768 1440 · темы light dark
+# админка-отзыв-в-модерации--отклонёнизчата · ширины 390 768 1440 · темы light dark
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
@@ -10,11 +10,11 @@
 article.Card__card  358×379 @16,16  r20  b1
   header.ReviewCardView__header  316×155 @21,21
     span.Avatar__avatar  48×48 @0,0  r100  b1
-      span.Avatar__initials  12×16 @18,16  Onest 700 16/16  ls0  lines=1  «А»
-      span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Аноним»
+      span.Avatar__initials  24×16 @12,16  Onest 700 16/16  ls0  lines=1  «ИЧ»
+      span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Из чата»
     div.ReviewCardView__who  256×101 @60,0
       div.ReviewCardView__line  256×77 @0,0
-        h2.ReviewCardView__name  64×21 @0,0  Onest 700 17/21  ls0  lines=1  «Аноним»
+        h2.ReviewCardView__name  62×21 @0,0  Onest 700 17/21  ls0  lines=1  «Из чата»
         span.Rating__stars  215×20 @0,27
           svg.Rating__star  20×20 @0,0
           svg.Rating__star#2  20×20 @26,0
@@ -35,26 +35,26 @@ article.Card__card  358×379 @16,16  r20  b1
     blockquote.ReviewCardView__text  316×69 @0,0  Manrope 400 15/22  b0 0 0 3  lines=2  «Текст рекламы стороннего магазина со ссы»
   p.ReviewCardView__reason  316×89 @21,269
     span.ReviewCardView__reasonLabel  101×20 @0,0  Manrope 600 13/20  lines=1  «Причина отказа»
-    span.ReviewCardView__reasonText  316×40 @0,24  Manrope 400 13/20  lines=2  «Реклама стороннего магазина со ссылкой —»
-    span.ReviewCardView__reasonBy  116×20 @0,68  Manrope 400 13/20  lines=1  «Богдан, 19.08.2026»
+    span.ReviewCardView__reasonText  316×40 @0,24  Manrope 400 13/20  lines=2  «Отклонено кнопкой в Telegram — Богдан. П»
+    span.ReviewCardView__reasonBy  66×20 @0,68  Manrope 400 13/20  lines=1  «19.08.2026»
 
 [геометрия 768]
 article.Card__card  736×235 @16,16  r20  b1
   header.ReviewCardView__header  694×102 @21,21
     span.Avatar__avatar  48×48 @0,0  r100  b1
-      span.Avatar__initials  12×16 @18,16  Onest 700 16/16  ls0  lines=1  «А»
-      span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Аноним»
+      span.Avatar__initials  24×16 @12,16  Onest 700 16/16  ls0  lines=1  «ИЧ»
+      span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Из чата»
     div.ReviewCardView__who  634×48 @60,0
       div.ReviewCardView__line  634×24 @0,0
-        h2.ReviewCardView__name  67×22 @0,1  Onest 700 18/22  ls0  lines=1  «Аноним»
-        span.Rating__stars  215×20 @77,2
+        h2.ReviewCardView__name  65×22 @0,1  Onest 700 18/22  ls0  lines=1  «Из чата»
+        span.Rating__stars  215×20 @75,2
           svg.Rating__star  20×20 @0,0
           svg.Rating__star#2  20×20 @26,0
           svg.Rating__star#3  20×20 @52,0
           svg.Rating__star#4  20×20 @78,0
           svg.Rating__star#5  20×20 @104,0
           span.Rating__caption  81×20 @134,0  Manrope 400 13/20  lines=1  «Оценка 1 из 5»
-        span.Badge__badge  78×24 @302,0  Manrope 600 12/16  r100  b1  lines=1  «Отклонён»
+        span.Badge__badge  78×24 @300,0  Manrope 600 12/16  r100  b1  lines=1  «Отклонён»
       time.ReviewCardView__when  634×20 @0,28  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
     div.ReviewCardView__actions  694×44 @0,58
       button.Button__button  343×44 @0,0  r9  b1
@@ -67,26 +67,26 @@ article.Card__card  736×235 @16,16  r20  b1
     blockquote.ReviewCardView__text  694×46 @0,0  Manrope 400 15/22  b0 0 0 3  lines=1  «Текст рекламы стороннего магазина со ссы»
   p.ReviewCardView__reason  694×20 @21,194
     span.ReviewCardView__reasonLabel  101×20 @0,0  Manrope 600 13/20  lines=1  «Причина отказа»
-    span.ReviewCardView__reasonText  430×20 @109,0  Manrope 400 13/20  lines=1  «Реклама стороннего магазина со ссылкой —»
-    span.ReviewCardView__reasonBy  116×20 @547,0  Manrope 400 13/20  lines=1  «Богдан, 19.08.2026»
+    span.ReviewCardView__reasonText  389×20 @109,0  Manrope 400 13/20  lines=1  «Отклонено кнопкой в Telegram — Богдан. П»
+    span.ReviewCardView__reasonBy  66×20 @506,0  Manrope 400 13/20  lines=1  «19.08.2026»
 
 [геометрия 1440]
 article.Card__card  1408×181 @16,16  r20  b1
   header.ReviewCardView__header  1366×48 @21,21
     span.Avatar__avatar  48×48 @0,0  r100  b1
-      span.Avatar__initials  12×16 @18,16  Onest 700 16/16  ls0  lines=1  «А»
-      span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Аноним»
+      span.Avatar__initials  24×16 @12,16  Onest 700 16/16  ls0  lines=1  «ИЧ»
+      span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Из чата»
     div.ReviewCardView__who  1025×48 @60,0
       div.ReviewCardView__line  1025×24 @0,0
-        h2.ReviewCardView__name  70×23 @0,1  Onest 700 19/23  ls0  lines=1  «Аноним»
-        span.Rating__stars  215×20 @80,2
+        h2.ReviewCardView__name  69×23 @0,1  Onest 700 19/23  ls0  lines=1  «Из чата»
+        span.Rating__stars  215×20 @79,2
           svg.Rating__star  20×20 @0,0
           svg.Rating__star#2  20×20 @26,0
           svg.Rating__star#3  20×20 @52,0
           svg.Rating__star#4  20×20 @78,0
           svg.Rating__star#5  20×20 @104,0
           span.Rating__caption  81×20 @134,0  Manrope 400 13/20  lines=1  «Оценка 1 из 5»
-        span.Badge__badge  78×24 @305,0  Manrope 600 12/16  r100  b1  lines=1  «Отклонён»
+        span.Badge__badge  78×24 @303,0  Manrope 600 12/16  r100  b1  lines=1  «Отклонён»
       time.ReviewCardView__when  1025×20 @0,28  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
     div.ReviewCardView__actions  269×40 @1097,0
       button.Button__button  179×40 @0,0  r9  b1
@@ -99,8 +99,8 @@ article.Card__card  1408×181 @16,16  r20  b1
     blockquote.ReviewCardView__text  1134×46 @0,0  Manrope 400 15/22  b0 0 0 3  lines=1  «Текст рекламы стороннего магазина со ссы»
   p.ReviewCardView__reason  1366×20 @21,140
     span.ReviewCardView__reasonLabel  101×20 @0,0  Manrope 600 13/20  lines=1  «Причина отказа»
-    span.ReviewCardView__reasonText  430×20 @109,0  Manrope 400 13/20  lines=1  «Реклама стороннего магазина со ссылкой —»
-    span.ReviewCardView__reasonBy  116×20 @547,0  Manrope 400 13/20  lines=1  «Богдан, 19.08.2026»
+    span.ReviewCardView__reasonText  389×20 @109,0  Manrope 400 13/20  lines=1  «Отклонено кнопкой в Telegram — Богдан. П»
+    span.ReviewCardView__reasonBy  66×20 @506,0  Manrope 400 13/20  lines=1  «19.08.2026»
 
 [палитра light]
 article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
