@@ -9,6 +9,7 @@ export const pendingReview: ReviewCard = {
   photo: null,
   avatar: null,
   status: 'pending',
+  reject: null,
   createdAt: '2026-08-18T10:00:00.000Z',
 };
 
@@ -27,7 +28,7 @@ export const lowRatedReview: ReviewCard = {
   text: 'Приехали на два часа позже обещанного, хотя работу сделали аккуратно.',
 };
 
-/** Отклонённый: место под причину отказа готово, самой причины пока нет (#522). */
+/** Отклонённый с записанной причиной — обычный случай после ADR-300. */
 export const rejectedReview: ReviewCard = {
   ...pendingReview,
   id: 'r4',
@@ -35,6 +36,36 @@ export const rejectedReview: ReviewCard = {
   rating: 1,
   text: 'Текст рекламы стороннего магазина со ссылкой.',
   status: 'rejected',
+  reject: {
+    reason: 'Реклама стороннего магазина со ссылкой — не отзыв о нашей работе',
+    by: 'Богдан',
+    at: '2026-08-19T08:30:00.000Z',
+  },
+};
+
+/**
+ * Отклонённый до появления поля причины: причины нет и не будет.
+ *
+ * 🔴 Выдумывать её нельзя, и панель обязана сказать это прямо — пустое место
+ * под подписью «Причина отказа» читается как «причины не было».
+ */
+export const rejectedWithoutReason: ReviewCard = {
+  ...rejectedReview,
+  id: 'r6',
+  name: 'Без причины',
+  reject: null,
+};
+
+/** Отказ кнопкой в Telegram: причина есть, учётной записи за ней нет. */
+export const rejectedFromTelegram: ReviewCard = {
+  ...rejectedReview,
+  id: 'r7',
+  name: 'Из чата',
+  reject: {
+    reason: 'Отклонено кнопкой в Telegram — Богдан. Причина не записана.',
+    by: null,
+    at: '2026-08-19T08:30:00.000Z',
+  },
 };
 
 /** Отзыв со снимком места установки: по нему модератор и принимает решение. */
