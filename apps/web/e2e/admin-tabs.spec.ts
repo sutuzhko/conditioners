@@ -36,12 +36,16 @@ const REVIEWS = '/admin/reviews';
 const ORDERS = '/admin/orders';
 
 /** Четыре случая мусора из issue #341. `undefined` — параметра нет вовсе. */
-const GARBAGE: readonly (string | undefined)[] = [
-  undefined,
-  'pendign',
-  'materials',
-  'x'.repeat(600),
-];
+/**
+ * Мусор в параметре: пустота, опечатка, ключ чужого раздела и длинная строка.
+ *
+ * 🔴 `materials` из этого списка убран: он был ключом чужого раздела, пока
+ * карточка наряда собиралась из трёх вкладок, а с «Фазой 8» стал её
+ * собственной вкладкой — и открывается по назначению. Ключ чужого раздела
+ * теперь берётся из склада (`zones`): он есть в словаре, но ни у отзывов, ни
+ * у заказов, ни у карточки наряда его нет.
+ */
+const GARBAGE: readonly (string | undefined)[] = [undefined, 'pendign', 'zones', 'x'.repeat(600)];
 
 function withTab(path: string, tab: string | undefined): string {
   return tab === undefined ? path : `${path}?tab=${encodeURIComponent(tab)}`;

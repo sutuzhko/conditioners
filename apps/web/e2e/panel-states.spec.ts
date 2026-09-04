@@ -1,7 +1,10 @@
 import { expect, test, type Page, type Route } from '@playwright/test';
 
 import { leadManagerContent as leadTexts } from '@/features/lead-manager/content';
-import { orderManagerContent as orderTexts } from '@/features/order-manager/content';
+import {
+  ORDER_CARD_TAB_TITLE,
+  orderManagerContent as orderTexts,
+} from '@/features/order-manager/content';
 import { blockErrorContent as errorTexts } from '@/widgets/admin-shell/content';
 
 import { BASE_URL, withAdmin } from './support/admin-api';
@@ -494,6 +497,17 @@ for (const shell of [
     await tabTo(page, { kind: 'orderLink' }, stops);
     await page.keyboard.press('Enter');
     await page.waitForURL((url) => /^\/admin\/orders\/[^/]+$/.test(url.pathname));
+    await settled(page);
+
+    /* 🔴 Расход переехал из блока под лентой в свою вкладку («Панель · Фаза 8»,
+       issue #346): до неё надо дойти, и доходим тоже с клавиатуры — лента
+       вкладок принимает Enter. Раньше блок стоял на странице всегда, и
+       сценарий находил его сразу. */
+    const materialsTab = page.getByRole('tab', { name: ORDER_CARD_TAB_TITLE.materials });
+    await expect(materialsTab).toBeVisible({ timeout: 30_000 });
+    await materialsTab.focus();
+    await page.keyboard.press('Enter');
+    await page.waitForURL((url) => url.search.includes('tab=materials'));
     await settled(page);
 
     /* Блок расхода: откуда списываем, что и сколько. До каждого поля — табом;

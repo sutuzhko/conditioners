@@ -2,17 +2,20 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×915
+390 → 390×900
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.OrderWorkTabs__wrap  358×883 @16,16
-  div.OrderWorkTabs__tabs  358×81 @0,0  b0 0 1 0
-    button.OrderWorkTabs__tab  73×37 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
-    button.OrderWorkTabs__tab#2  141×37 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист выезда»
-    button.OrderWorkTabs__tab#3  159×37 @0,41  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы и фото»
-  div.OrderWorkTabs__panel  358×786 @0,97
+div.OrderWorkTabs__wrap  358×849 @16,16
+  div.OrderWorkTabs__strip  358×47 @0,0  b0 0 1 0
+    div.OrderWorkTabs__tabs  358×46 @0,0
+      button.OrderWorkTabs__tab  73×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
+      button.OrderWorkTabs__tab#2  79×44 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Расход»
+      button.OrderWorkTabs__tab#3  141×44 @160,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист выезда»
+      button.OrderWorkTabs__tab#4  159×44 @305,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы и фото»
+      button.OrderWorkTabs__tab#5  88×44 @468,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «История»
+  div.OrderWorkTabs__panel  358×786 @0,63
     section.Card__card  358×786 @0,0  r20  b1
       div.OrderChecklist__head  316×22 @21,21
         h2.OrderChecklist__title  132×21 @0,0  Onest 700 17/21  ls0  lines=1  «Чеклист выезда»
@@ -61,12 +64,15 @@ div.OrderWorkTabs__wrap  358×883 @16,16
         span.OrderChecklist__quiet  266×20 @0,52  Manrope 400 13/20  lines=1  «Отметки и дописанные пункты сохранятся.»
 
 [геометрия 768]
-div.OrderWorkTabs__wrap  736×616 @16,16
-  div.OrderWorkTabs__tabs  736×40 @0,0  b0 0 1 0
-    button.OrderWorkTabs__tab  73×37 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
-    button.OrderWorkTabs__tab#2  141×37 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист выезда»
-    button.OrderWorkTabs__tab#3  159×37 @222,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы и фото»
-  div.OrderWorkTabs__panel  736×560 @0,56
+div.OrderWorkTabs__wrap  736×623 @16,16
+  div.OrderWorkTabs__strip  736×47 @0,0  b0 0 1 0
+    div.OrderWorkTabs__tabs  736×46 @0,0
+      button.OrderWorkTabs__tab  73×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
+      button.OrderWorkTabs__tab#2  79×44 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Расход»
+      button.OrderWorkTabs__tab#3  141×44 @160,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист выезда»
+      button.OrderWorkTabs__tab#4  159×44 @305,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы и фото»
+      button.OrderWorkTabs__tab#5  88×44 @468,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «История»
+  div.OrderWorkTabs__panel  736×560 @0,63
     section.Card__card  736×560 @0,0  r20  b1
       div.OrderChecklist__head  694×22 @21,21
         h2.OrderChecklist__title  138×22 @0,0  Onest 700 18/22  ls0  lines=1  «Чеклист выезда»
@@ -116,10 +122,13 @@ div.OrderWorkTabs__wrap  736×616 @16,16
 
 [геометрия 1440]
 div.OrderWorkTabs__wrap  1408×613 @16,16
-  div.OrderWorkTabs__tabs  1408×40 @0,0  b0 0 1 0
-    button.OrderWorkTabs__tab  73×37 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
-    button.OrderWorkTabs__tab#2  141×37 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист выезда»
-    button.OrderWorkTabs__tab#3  159×37 @222,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы и фото»
+  div.OrderWorkTabs__strip  1408×40 @0,0  b0 0 1 0
+    div.OrderWorkTabs__tabs  1408×39 @0,0
+      button.OrderWorkTabs__tab  73×37 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
+      button.OrderWorkTabs__tab#2  79×37 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Расход»
+      button.OrderWorkTabs__tab#3  141×37 @160,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист выезда»
+      button.OrderWorkTabs__tab#4  159×37 @305,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы и фото»
+      button.OrderWorkTabs__tab#5  88×37 @468,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «История»
   div.OrderWorkTabs__panel  1408×557 @0,56
     section.Card__card  1408×557 @0,0  r20  b1
       div.OrderChecklist__head  1366×23 @21,21
@@ -170,10 +179,13 @@ div.OrderWorkTabs__wrap  1408×613 @16,16
 
 [палитра light]
 div.OrderWorkTabs__wrap
-  div.OrderWorkTabs__tabs  border #0f172a #0f172a #e2e8f0 #0f172a
-    button.OrderWorkTabs__tab  color #556173  border #556173 #556173 transparent #556173
-    button.OrderWorkTabs__tab#2  color #0f172a  border #0f172a #0f172a #0891b2 #0f172a
-    button.OrderWorkTabs__tab#3  color #556173  border #556173 #556173 transparent #556173
+  div.OrderWorkTabs__strip  border #0f172a #0f172a #e2e8f0 #0f172a
+    div.OrderWorkTabs__tabs
+      button.OrderWorkTabs__tab  color #556173  border #556173 #556173 transparent #556173
+      button.OrderWorkTabs__tab#2  color #556173  border #556173 #556173 transparent #556173
+      button.OrderWorkTabs__tab#3  color #0f172a  border #0f172a #0f172a #0891b2 #0f172a
+      button.OrderWorkTabs__tab#4  color #556173  border #556173 #556173 transparent #556173
+      button.OrderWorkTabs__tab#5  color #556173  border #556173 #556173 transparent #556173
   div.OrderWorkTabs__panel
     section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
       div.OrderChecklist__head
@@ -224,10 +236,13 @@ div.OrderWorkTabs__wrap
 
 [палитра dark]
 div.OrderWorkTabs__wrap
-  div.OrderWorkTabs__tabs  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
-    button.OrderWorkTabs__tab  color #8598ac  border #8598ac #8598ac transparent #8598ac
-    button.OrderWorkTabs__tab#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #22d3ee #eaf1f8
-    button.OrderWorkTabs__tab#3  color #8598ac  border #8598ac #8598ac transparent #8598ac
+  div.OrderWorkTabs__strip  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    div.OrderWorkTabs__tabs
+      button.OrderWorkTabs__tab  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.OrderWorkTabs__tab#2  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.OrderWorkTabs__tab#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #22d3ee #eaf1f8
+      button.OrderWorkTabs__tab#4  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.OrderWorkTabs__tab#5  color #8598ac  border #8598ac #8598ac transparent #8598ac
   div.OrderWorkTabs__panel
     section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
       div.OrderChecklist__head

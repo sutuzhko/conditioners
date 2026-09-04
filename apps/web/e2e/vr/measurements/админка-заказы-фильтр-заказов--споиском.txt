@@ -7,121 +7,156 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×439 @16,16  r20  b1
-  nav.OrderFilters__row  316×94 @21,21
-    a.OrderFilters__chip  88×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Активные»
-    a.OrderFilters__chip#2  67×44 @94,0  Manrope 600 13/20  r100  b1  lines=1  «Новые»
-    a.OrderFilters__chip#3  80×44 @168,0  Manrope 600 13/20  r100  b1  lines=1  «История»
-    a.OrderFilters__chip#4  73×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Отказы»
-    a.OrderFilters__chip#5  49×44 @79,50  Manrope 600 13/20  r100  b1  lines=1  «Все»
-  nav.OrderFilters__row#2  316×94 @21,125
-    a.OrderFilters__chip  91×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
-    a.OrderFilters__chip#2  99×44 @97,0  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
-    a.OrderFilters__chip#3  129×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
-  form.OrderFilters__form  316×159 @21,229
-    div.Field__field  316×103 @0,0
-      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
-      input  316×49 @0,27  r11  b1
-      p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Номер, имя клиента, адрес или модель в п»
-    div.OrderFilters__actions  202×44 @0,115
-      button.Button__button  69×44 @0,0  r9  b1
-        span.Button__content  39×16 @15,14
-          span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-      a.OrderFilters__reset  121×24 @81,10  Manrope 400 15/22  lines=1  «Сбросить фильтр»
-  p.OrderFilters__total  316×20 @21,398  Manrope 400 13/20  lines=1  «Найдено: 1»
+div.OrderFilters__bar  358×208 @16,16
+  div.OrderFilters__pills  358×96 @0,0
+    details.OrderFilters__filter  110×44 @0,0
+      summary.OrderFilters__pill  110×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
+        span.Badge__badge  27×24 @68,10  r100  b1
+          span  7×16 @10,4  Manrope 600 12/16  lines=1  «2»
+          span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «2 условия»
+      div.OrderFilters__sheet  220×170 @0,50  r14  b1
+        nav.OrderFilters__periods  194×144 @13,13
+          a.OrderFilters__period  91×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
+          a.OrderFilters__period#2  99×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
+          a.OrderFilters__period#3  129×44 @0,100  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
+    a.OrderFilters__chip  113×44 @118,0  r100  b1
+      span.OrderFilters__chipText  73×20 @13,12  Manrope 600 13/20  lines=1  «Этот месяц»
+      span.OrderFilters__chipCross  7×15 @92,15  Manrope 600 15/15  lines=1  «×»
+      span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Убрать условие: Этот месяц»
+    a.OrderFilters__chip#2  179×44 @0,52  r100  b1
+      span.OrderFilters__chipText  139×20 @13,12  Manrope 600 13/20  lines=1  «Поиск: Первомайская»
+      span.OrderFilters__chipCross  7×15 @158,15  Manrope 600 15/15  lines=1  «×»
+      span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Убрать условие: Поиск: Первомайская»
+    a.OrderFilters__reset  108×44 @187,52  Manrope 400 13/20  lines=1  «Сбросить фильтр»
+  form.OrderFilters__form  358×76 @0,104
+    div.Field__field  281×76 @0,0
+      label.Field__label  281×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
+      input  281×49 @0,27  r11  b1
+    button.Button__button  69×44 @289,16  r9  b1
+      span.Button__content  39×16 @15,14
+        span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
+  p.OrderFilters__total  358×20 @0,188  Manrope 400 13/20  lines=1  «Найдено: 1»
 
 [геометрия 768]
-section.Card__card  736×283 @16,16  r20  b1
-  nav.OrderFilters__row  694×44 @21,21
-    a.OrderFilters__chip  88×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Активные»
-    a.OrderFilters__chip#2  67×44 @94,0  Manrope 600 13/20  r100  b1  lines=1  «Новые»
-    a.OrderFilters__chip#3  80×44 @168,0  Manrope 600 13/20  r100  b1  lines=1  «История»
-    a.OrderFilters__chip#4  73×44 @254,0  Manrope 600 13/20  r100  b1  lines=1  «Отказы»
-    a.OrderFilters__chip#5  49×44 @332,0  Manrope 600 13/20  r100  b1  lines=1  «Все»
-  nav.OrderFilters__row#2  694×44 @21,75
-    a.OrderFilters__chip  91×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
-    a.OrderFilters__chip#2  99×44 @97,0  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
-    a.OrderFilters__chip#3  129×44 @203,0  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
-  form.OrderFilters__form  694×103 @21,129
-    div.Field__field  480×103 @0,0
-      label.Field__label  480×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
-      input  480×49 @0,27  r11  b1
-      p.Field__hint  480×19 @0,83  Manrope 400 13/19  lines=1  «Номер, имя клиента, адрес или модель в п»
-    div.OrderFilters__actions  202×70 @492,0
-      button.Button__button  69×44 @0,26  r9  b1
-        span.Button__content  39×16 @15,14
-          span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-      a.OrderFilters__reset  121×24 @81,36  Manrope 400 15/22  lines=1  «Сбросить фильтр»
-  p.OrderFilters__total  694×20 @21,242  Manrope 400 13/20  lines=1  «Найдено: 1»
+div.OrderFilters__bar  736×156 @16,16
+  div.OrderFilters__pills  736×44 @0,0
+    details.OrderFilters__filter  110×44 @0,0
+      summary.OrderFilters__pill  110×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
+        span.Badge__badge  27×24 @68,10  r100  b1
+          span  7×16 @10,4  Manrope 600 12/16  lines=1  «2»
+          span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «2 условия»
+      div.OrderFilters__sheet  220×170 @0,50  r14  b1
+        nav.OrderFilters__periods  194×144 @13,13
+          a.OrderFilters__period  91×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
+          a.OrderFilters__period#2  99×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
+          a.OrderFilters__period#3  129×44 @0,100  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
+    a.OrderFilters__chip  113×44 @118,0  r100  b1
+      span.OrderFilters__chipText  73×20 @13,12  Manrope 600 13/20  lines=1  «Этот месяц»
+      span.OrderFilters__chipCross  7×15 @92,15  Manrope 600 15/15  lines=1  «×»
+      span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Убрать условие: Этот месяц»
+    a.OrderFilters__chip#2  179×44 @239,0  r100  b1
+      span.OrderFilters__chipText  139×20 @13,12  Manrope 600 13/20  lines=1  «Поиск: Первомайская»
+      span.OrderFilters__chipCross  7×15 @158,15  Manrope 600 15/15  lines=1  «×»
+      span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Убрать условие: Поиск: Первомайская»
+    a.OrderFilters__reset  108×44 @425,0  Manrope 400 13/20  lines=1  «Сбросить фильтр»
+  form.OrderFilters__form  736×76 @0,52
+    div.Field__field  659×76 @0,0
+      label.Field__label  659×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
+      input  659×49 @0,27  r11  b1
+    button.Button__button  69×44 @667,16  r9  b1
+      span.Button__content  39×16 @15,14
+        span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
+  p.OrderFilters__total  736×20 @0,136  Manrope 400 13/20  lines=1  «Найдено: 1»
 
 [геометрия 1440]
-section.Card__card  1408×263 @16,16  r20  b1
-  nav.OrderFilters__row  1366×34 @21,21
-    a.OrderFilters__chip  88×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Активные»
-    a.OrderFilters__chip#2  67×34 @94,0  Manrope 600 13/20  r100  b1  lines=1  «Новые»
-    a.OrderFilters__chip#3  80×34 @168,0  Manrope 600 13/20  r100  b1  lines=1  «История»
-    a.OrderFilters__chip#4  73×34 @254,0  Manrope 600 13/20  r100  b1  lines=1  «Отказы»
-    a.OrderFilters__chip#5  49×34 @332,0  Manrope 600 13/20  r100  b1  lines=1  «Все»
-  nav.OrderFilters__row#2  1366×34 @21,65
-    a.OrderFilters__chip  91×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
-    a.OrderFilters__chip#2  99×34 @97,0  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
-    a.OrderFilters__chip#3  129×34 @203,0  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
-  form.OrderFilters__form  1366×103 @21,109
-    div.Field__field  1152×103 @0,0
-      label.Field__label  1152×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
-      input  1152×49 @0,27  r11  b1
-      p.Field__hint  1152×19 @0,83  Manrope 400 13/19  lines=1  «Номер, имя клиента, адрес или модель в п»
-    div.OrderFilters__actions  202×66 @1164,0
-      button.Button__button  69×40 @0,26  r9  b1
-        span.Button__content  39×16 @15,12
-          span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-      a.OrderFilters__reset  121×24 @81,34  Manrope 400 15/22  lines=1  «Сбросить фильтр»
-  p.OrderFilters__total  1366×20 @21,222  Manrope 400 13/20  lines=1  «Найдено: 1»
+div.OrderFilters__bar  1408×104 @16,16
+  div.OrderFilters__pills  1105×38 @0,0
+    details.OrderFilters__filter  110×38 @0,0
+      summary.OrderFilters__pill  110×38 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
+        span.Badge__badge  27×24 @68,7  r100  b1
+          span  7×16 @10,4  Manrope 600 12/16  lines=1  «2»
+          span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «2 условия»
+      div.OrderFilters__sheet  220×140 @0,44  r14  b1
+        nav.OrderFilters__periods  194×114 @13,13
+          a.OrderFilters__period  91×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
+          a.OrderFilters__period#2  99×34 @0,40  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
+          a.OrderFilters__period#3  129×34 @0,80  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
+    a.OrderFilters__chip  113×34 @118,2  r100  b1
+      span.OrderFilters__chipText  73×20 @13,7  Manrope 600 13/20  lines=1  «Этот месяц»
+      span.OrderFilters__chipCross  7×15 @92,10  Manrope 600 15/15  lines=1  «×»
+      span  1×1 @12,17  Manrope 600 13/20  lines=1  clipped  «Убрать условие: Этот месяц»
+    a.OrderFilters__chip#2  179×34 @239,2  r100  b1
+      span.OrderFilters__chipText  139×20 @13,7  Manrope 600 13/20  lines=1  «Поиск: Первомайская»
+      span.OrderFilters__chipCross  7×15 @158,10  Manrope 600 15/15  lines=1  «×»
+      span  1×1 @12,17  Manrope 600 13/20  lines=1  clipped  «Убрать условие: Поиск: Первомайская»
+    a.OrderFilters__reset  108×24 @425,7  Manrope 400 13/20  lines=1  «Сбросить фильтр»
+  form.OrderFilters__form  291×76 @1117,0
+    div.Field__field  214×76 @0,0
+      label.Field__label  214×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
+      input  214×49 @0,27  r11  b1
+    button.Button__button  69×40 @222,18  r9  b1
+      span.Button__content  39×16 @15,12
+        span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
+  p.OrderFilters__total  1408×20 @0,84  Manrope 400 13/20  lines=1  «Найдено: 1»
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-  nav.OrderFilters__row
-    a.OrderFilters__chip  color #475569  border #e2e8f0
-    a.OrderFilters__chip#2  color #475569  border #e2e8f0
-    a.OrderFilters__chip#3  color #475569  border #e2e8f0
-    a.OrderFilters__chip#4  color #475569  border #e2e8f0
-    a.OrderFilters__chip#5  color #0e7490  bg #ecfeff  border #0891b2
-  nav.OrderFilters__row#2
-    a.OrderFilters__chip  color #556173  bg #f8fafc  border transparent
-    a.OrderFilters__chip#2  color #0e7490  bg #ecfeff  border #0891b2
-    a.OrderFilters__chip#3  color #556173  bg #f8fafc  border transparent
+div.OrderFilters__bar
+  div.OrderFilters__pills
+    details.OrderFilters__filter
+      summary.OrderFilters__pill  color #475569  border #e2e8f0
+        span.Badge__badge  bg #ecfeff  border #a5f3fc
+          span  color #0e7490
+          span#2  color #0e7490
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+        nav.OrderFilters__periods
+          a.OrderFilters__period  color #475569  bg #f8fafc  border transparent
+          a.OrderFilters__period#2  color #0e7490  bg #ecfeff  border #0891b2
+          a.OrderFilters__period#3  color #475569  bg #f8fafc  border transparent
+    a.OrderFilters__chip  bg #ecfeff  border #0891b2
+      span.OrderFilters__chipText  color #0e7490
+      span.OrderFilters__chipCross  color #0e7490
+      span  color #0e7490
+    a.OrderFilters__chip#2  bg #ecfeff  border #0891b2
+      span.OrderFilters__chipText  color #0e7490
+      span.OrderFilters__chipCross  color #0e7490
+      span  color #0e7490
+    a.OrderFilters__reset  color #556173
   form.OrderFilters__form
     div.Field__field
       label.Field__label  color #334155
       input  bg #ffffff  border #7e8fa6
-      p.Field__hint  color #556173
-    div.OrderFilters__actions
-      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-        span.Button__content
-          span.Button__label  color #ffffff
-      a.OrderFilters__reset  color #556173
+    button.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label  color #0f172a
   p.OrderFilters__total  color #5b6a7d
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-  nav.OrderFilters__row
-    a.OrderFilters__chip  color #a8b6c6  border #1e2b41
-    a.OrderFilters__chip#2  color #a8b6c6  border #1e2b41
-    a.OrderFilters__chip#3  color #a8b6c6  border #1e2b41
-    a.OrderFilters__chip#4  color #a8b6c6  border #1e2b41
-    a.OrderFilters__chip#5  color #22d3ee  bg #22d3ee1a  border #22d3ee
-  nav.OrderFilters__row#2
-    a.OrderFilters__chip  color #8598ac  bg #0e1729  border transparent
-    a.OrderFilters__chip#2  color #22d3ee  bg #22d3ee1a  border #22d3ee
-    a.OrderFilters__chip#3  color #8598ac  bg #0e1729  border transparent
+div.OrderFilters__bar
+  div.OrderFilters__pills
+    details.OrderFilters__filter
+      summary.OrderFilters__pill  color #a8b6c6  border #1e2b41
+        span.Badge__badge  bg #22d3ee1a  border #22d3ee59
+          span  color #22d3ee
+          span#2  color #22d3ee
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+        nav.OrderFilters__periods
+          a.OrderFilters__period  color #475569  bg #f8fafc  border transparent
+          a.OrderFilters__period#2  color #0e7490  bg #ecfeff  border #0891b2
+          a.OrderFilters__period#3  color #475569  bg #f8fafc  border transparent
+    a.OrderFilters__chip  bg #22d3ee1a  border #22d3ee
+      span.OrderFilters__chipText  color #22d3ee
+      span.OrderFilters__chipCross  color #22d3ee
+      span  color #22d3ee
+    a.OrderFilters__chip#2  bg #22d3ee1a  border #22d3ee
+      span.OrderFilters__chipText  color #22d3ee
+      span.OrderFilters__chipCross  color #22d3ee
+      span  color #22d3ee
+    a.OrderFilters__reset  color #8598ac
   form.OrderFilters__form
     div.Field__field
       label.Field__label  color #c9d5e2
       input  bg #0b1424  border #566d95
-      p.Field__hint  color #8598ac
-    div.OrderFilters__actions
-      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-        span.Button__content
-          span.Button__label  color #ffffff
-      a.OrderFilters__reset  color #8598ac
+    button.Button__button  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label  color #eaf1f8
   p.OrderFilters__total  color #7e92a7

@@ -1,4 +1,4 @@
-/* Три вкладки наряда: работа, сборы, бумаги. */
+/* Пять вкладок наряда: работа, расход, сборы, бумаги, история. */
 
 .wrap {
   display: flex;
@@ -7,11 +7,17 @@
   min-width: 0;
 }
 
+/* Линия под вкладками принадлежит ленте, а не ряду кнопок: на узком экране
+   ряд уезжает вбок вместе с прокруткой, а линия обязана остаться на месте. */
+.strip {
+  border-bottom: 1px solid var(--line);
+  min-width: 0;
+}
+
 .tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  border-bottom: 1px solid var(--line);
   padding-bottom: 2px;
 }
 
@@ -58,4 +64,29 @@
 
 .panel[hidden] {
   display: none;
+}
+
+/* 🔴 До 900px вкладки не переносятся, а едут лентой (макет «Карточка заказа ·
+   вкладки»). Перенос ставил пятую вкладку на вторую строку и уводил панель
+   вниз на 44px ровно тогда, когда её открыли, — а лента оставляет высоту
+   постоянной. Открытую вкладку подвозит к глазам сам компонент.
+
+   Здесь же пол цели: до 900px по вкладке целятся пальцем (ADR-183). */
+@media (width < 900px) {
+  .strip {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    mask-image: var(--fade-inline-end);
+    scrollbar-width: none;
+  }
+
+  .tabs {
+    flex-wrap: nowrap;
+  }
+
+  .tab {
+    flex: none;
+    min-height: var(--tap);
+    white-space: nowrap;
+  }
 }
