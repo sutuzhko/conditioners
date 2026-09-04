@@ -26,6 +26,13 @@ async function fillAndSend(canvasElement: HTMLElement): Promise<void> {
   await userEvent.type(canvas.getByLabelText(/Телефон/), '9051234567');
   await userEvent.click(canvas.getByRole('checkbox'));
   await userEvent.click(canvas.getByRole('button', { name: texts.submit }));
+
+  /* 🔴 Фокус снимается с кнопки после отправки: кольцо `:focus-visible`
+     браузер рисует по своей догадке о том, клавиатурный был ввод или нет, и
+     на одной и той же истории оно то есть, то нет — снимок и измерение
+     расходились сами с собой (#526). Человеку это ничего не меняет: после
+     отправки он смотрит на ответ, а не на кнопку. */
+  (document.activeElement as HTMLElement | null)?.blur();
 }
 
 /**
