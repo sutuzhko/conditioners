@@ -177,10 +177,9 @@ section.CalendarGrid__grid  736×839 @16,16
       ul.CalendarGrid__rows  97×24 @3,30
         li.CalendarGrid__row  97×24 @0,0
           button.EventChip__chip  97×24 @0,0  r5  b1 1 1 3
-            span.EventChip__head  52×15 @8,5
-              svg.EventChip__icon  12×12 @0,2
-              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
-            span.EventChip__name  26×15 @65,5  Manrope 600 12/15  lines=1  clipped  «Ирина»
+            span.EventChip__head  36×15 @8,5
+              span.EventChip__time  36×15 @0,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+            span.EventChip__name  42×15 @49,5  Manrope 600 12/15  lines=1  «Ирина»
     div.CalendarGrid__cell#29  103×134 @0,544  r11  b1
       a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «24»
     div.CalendarGrid__cell#30  103×134 @105,544  r11  b1

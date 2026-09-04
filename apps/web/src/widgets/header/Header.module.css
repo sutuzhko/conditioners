@@ -152,6 +152,7 @@
 }
 
 .navLink {
+  position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 40px;
@@ -164,6 +165,23 @@
   text-decoration: none;
   white-space: nowrap;
   transition: color var(--dur-fast) var(--ease-out);
+}
+
+/* 🔴 Тап-зона пункта добирается прозрачной областью, а не высотой строки
+   (issue #359). Коробка пункта — 40px, и поднять её до 44 значит опустить на
+   два пикселя отбивку текущего раздела: она нарисована по нижнему краю
+   ссылки. Добор даёт те же 44×44, не трогая ни отбивку, ни высоту полосы, —
+   ровно тем же приёмом добирает себя кнопка темы (IconButton).
+
+   Ширина зоны получается 44 и у самого короткого пункта («Цены», 41px): она
+   выходит за коробку на 1,4px с каждой стороны при зазоре между пунктами в
+   22px, поэтому соседа не накрывает. */
+.navLink::after {
+  position: absolute;
+  inset: calc((var(--tap) - 100%) / -2);
+  min-width: var(--tap);
+  min-height: var(--tap);
+  content: '';
 }
 
 .navLink:hover {

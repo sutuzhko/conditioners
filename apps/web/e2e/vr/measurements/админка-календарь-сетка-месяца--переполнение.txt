@@ -194,10 +194,9 @@ section.CalendarGrid__grid  736×851 @16,16
       ul.CalendarGrid__rows  97×24 @3,30
         li.CalendarGrid__row  97×24 @0,0
           button.EventChip__chip  97×24 @0,0  r5  b1 1 1 3
-            span.EventChip__head  52×15 @8,5
-              svg.EventChip__icon  12×12 @0,2
-              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «09:00»
-            span.EventChip__name  26×15 @65,5  Manrope 600 12/15  lines=1  clipped  «Ольга»
+            span.EventChip__head  36×15 @8,5
+              span.EventChip__time  36×15 @0,0  JetBrains Mono 600 12/15  lines=1  «09:00»
+            span.EventChip__name  42×15 @49,5  Manrope 600 12/15  lines=1  «Ольга»
     div.CalendarGrid__cell#27  103×136 @527,414  r11  b1
       a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «22»
     div.CalendarGrid__cell#28  103×136 @633,414  r11  b1
@@ -205,22 +204,19 @@ section.CalendarGrid__grid  736×851 @16,16
       ul.CalendarGrid__rows  97×76 @3,30
         li.CalendarGrid__row#2  97×24 @0,0
           button.EventChip__chip  97×24 @0,0  r5  b1 1 1 3
-            span.EventChip__head#2  52×15 @8,5
-              svg.EventChip__icon  12×12 @0,2
-              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «03:15»
-            span.EventChip__name#2  26×15 @65,5  Manrope 600 12/15  lines=1  clipped  «Заявка 1»
+            span.EventChip__head#2  36×15 @8,5
+              span.EventChip__time  36×15 @0,0  JetBrains Mono 600 12/15  lines=1  «03:15»
+            span.EventChip__name#2  42×15 @49,5  Manrope 600 12/15  lines=1  clipped  «Заявка 1»
         li.CalendarGrid__row#3  97×24 @0,26
           button.EventChip__chip  97×24 @0,0  r5  b1 1 1 3
-            span.EventChip__head#3  52×15 @8,5
-              svg.EventChip__icon  12×12 @0,2
-              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «04:15»
-            span.EventChip__name#3  26×15 @65,5  Manrope 600 12/15  lines=1  clipped  «Заявка 2»
+            span.EventChip__head#3  36×15 @8,5
+              span.EventChip__time  36×15 @0,0  JetBrains Mono 600 12/15  lines=1  «04:15»
+            span.EventChip__name#3  42×15 @49,5  Manrope 600 12/15  lines=1  clipped  «Заявка 2»
         li.CalendarGrid__row#4  97×24 @0,52
           button.EventChip__chip  97×24 @0,0  r5  b1 1 1 3
-            span.EventChip__head#4  52×15 @8,5
-              svg.EventChip__icon  12×12 @0,2
-              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «05:15»
-            span.EventChip__name#4  26×15 @65,5  Manrope 600 12/15  lines=1  clipped  «Заявка 3»
+            span.EventChip__head#4  36×15 @8,5
+              span.EventChip__time  36×15 @0,0  JetBrains Mono 600 12/15  lines=1  «05:15»
+            span.EventChip__name#4  42×15 @49,5  Manrope 600 12/15  lines=1  clipped  «Заявка 3»
       a.CalendarGrid__more  37×24 @3,109  Manrope 400 12/19  lines=1  «Ещё 12»
     div.CalendarGrid__cell#29  103×136 @0,552  r11  b1
       a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «24»
@@ -229,10 +225,9 @@ section.CalendarGrid__grid  736×851 @16,16
       ul.CalendarGrid__rows  97×24 @3,30
         li.CalendarGrid__row#5  97×24 @0,0
           button.EventChip__chip  97×24 @0,0  r5  b1 1 1 3
-            span.EventChip__head#5  52×15 @8,5
-              svg.EventChip__icon  12×12 @0,2
-              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «15:00»
-            span.EventChip__name#5  10×15 @65,5  Manrope 600 12/15  lines=1  clipped  «Пётр»
+            span.EventChip__head#5  36×15 @8,5
+              span.EventChip__time  36×15 @0,0  JetBrains Mono 600 12/15  lines=1  «15:00»
+            span.EventChip__name#5  26×15 @49,5  Manrope 600 12/15  lines=1  clipped  «Пётр»
             span.EventChip__overtimeMark  11×11 @80,7
               svg  11×11 @0,0
     div.CalendarGrid__cell#31  103×136 @211,552  r11  b1
