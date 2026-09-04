@@ -4,9 +4,10 @@
  *
  * 🔴 Эталона у этих правил нет, и хранить нечего: документ не переполнен
  * вбок, у цели есть площадь, тема покрашена своей краской, текст не обрезан
- * молча, поверх кнопки никто не лежит, шрифты и картинки загрузились. Всё
- * это проект ловил измерением руками — тап-зона 0×0, документ вбок на 196px,
- * липкая полоса поверх панели, 25 «тёмных» эталонов в светлой теме — и ни
+ * молча и не вылит за край родителя, поверх кнопки никто не лежит, шрифты и
+ * картинки загрузились. Всё это проект ловил измерением руками — тап-зона
+ * 0×0, документ вбок на 196px, липкая полоса поверх панели, 25 «тёмных»
+ * эталонов в светлой теме, цифра итога за краем карточки на 18–48px — и ни
  * одному случаю не понадобился ни эталон, ни картинка. От содержимого базы
  * правила не зависят, поэтому покрывают и разделы `Админка/`, недоступные
  * пикселям (ADR-207).
@@ -29,6 +30,7 @@ export type InvariantRule =
   | 'target-size-touch'
   | 'theme'
   | 'clipped-text'
+  | 'overflowing-text'
   | 'occlusion'
   | 'fonts'
   | 'images'
@@ -68,6 +70,7 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     | 'target-size-touch'
     | 'theme'
     | 'clipped-text'
+    | 'overflowing-text'
     | 'occlusion'
     | 'fonts'
     | 'images'
@@ -80,6 +83,7 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     'target-size-touch',
     'theme',
     'clipped-text',
+    'overflowing-text',
     'occlusion',
     'fonts',
     'images',
@@ -430,6 +434,7 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     );
 
   const hides = (overflow: string): boolean => overflow === 'hidden' || overflow === 'clip';
+  const scrolls = (overflow: string): boolean => overflow === 'auto' || overflow === 'scroll';
 
   for (const el of Array.from(document.body.querySelectorAll('*'))) {
     if (!hasOwnText(el) || !isVisible(el)) continue;
@@ -465,14 +470,126 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     }
   }
 
-  /* ---------- 5. поверх цели никто не лежит ---------- */
+  /* ---------- 5. текст не вылит за край ---------- */
+
+  /**
+   * 🔴 Обратная сторона правила 4 (issue #558). Правило 4 ищет текст,
+   * обрезанный рамкой, и потому смотрит только на предков с
+   * `overflow: hidden`. Текста, вылитого **наружу**, для него не существует:
+   * там ничего не обрезано, оно просто торчит.
+   *
+   * Цена слепоты уже заплачена. Главная цифра блока экономии — итог, ради
+   * которого блок и написан, — выходила за край акцентной карточки на 18–48px
+   * в зависимости от ширины, и всё это время в git лежало письменное
+   * доказательство: `p.SavingsCalculator__totalLine 204×71` с потомком
+   * `span.SavingsCalculator__totalValue 226×43`, на 22px шире родителя. Файл
+   * читался при каждом прогоне и был зелёным — сравнение измерений ловит
+   * изменение чисел, а не их несовместимость между собой. Дефект заметил
+   * владелец глазами, а не одна из четырёх машинных проверок.
+   *
+   * 🔴 Выход за край сам по себе — приём вёрстки, а не дефект, поэтому
+   * правило смотрит на самый узкий случай, у которого нет законного
+   * прочтения. Семь сужений, и каждое поставлено против срабатывания,
+   * увиденного на разведке по витрине, а не придумано наперёд:
+   *
+   * 1. **Только элемент с собственным текстом.** Декоративное пятно, тень,
+   *    подглядывающая карточка карусели выходят за край по замыслу; вылитая
+   *    наружу строка — нет. Берутся те же узлы, что и в правиле 4.
+   * 2. **Только вбок.** Содержимое выше родителя — обычная раскладка:
+   *    родитель растёт по нему. Вниз текст льётся законно, вбок — нет.
+   * 3. **Только узел в потоке** (`position: static`). Абсолютный, липкий и
+   *    фиксированный узлы стоят по своим координатам, и край родителя им не
+   *    указ; `relative` — тот же сдвиг, только от места в потоке.
+   * 4. **Кроме отрицательного отступа** в сторону выхода: вынести содержимое
+   *    за край маргиналией — приём вёрстки.
+   * 5. **Кроме выхода, поглощённого выше.** Предок прокручивается вбок — до
+   *    текста дотягиваются прокруткой (тот же довод, которым правило 6 не
+   *    считает накрытым уехавший за край ряда чип); предок обрезает — текст
+   *    не снаружи, а срезан, и это предмет правила 4. 🔴 Смотреть на одного
+   *    родителя мало: у полосы вкладок наряда прокручивается не сам ряд
+   *    `div.OrderWorkTabs__tabs`, а обёртка `div.OrderWorkTabs__strip` над
+   *    ним — 22 ложных срабатывания на панели 390 до этой поправки.
+   * 6. **Кроме содержимого скрытого предка.** Шаблон визуального скрытия
+   *    ставится на узел целиком, а потомки внутри остаются обычными: у
+   *    таблицы в карточной раскладке `<thead>` уходит в
+   *    `position: absolute; width: 1px; overflow: hidden`, ячейки внутри
+   *    остаются `static`, и каждая «вылита» из строки шириной в пиксель. Это
+   *    294 срабатывания из 316 на панели 390 — весь заголовок каждой такой
+   *    таблицы.
+   * 7. **Допуск 1px** — на дробные пиксели раскладки, как у правил выше.
+   *
+   * Граница — рамка отступов родителя, та самая линия, вдоль которой резал бы
+   * `overflow: hidden`: текст, дошедший до неё, ещё внутри карточки, а
+   * перешагнувший — уже снаружи.
+   */
+  const SPILL_TOLERANCE = 1;
+
+  const px = (value: string): number => {
+    const parsed = Number.parseFloat(value);
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
+
+  /** Сужение 5: прокручивающийся или обрезающий предок — выход поглощён. */
+  const absorbedAbove = (from: Element): boolean => {
+    for (let node: Element | null = from; node !== null; node = node.parentElement) {
+      const style = getComputedStyle(node);
+      if (scrolls(style.overflowX) || hides(style.overflowX)) return true;
+    }
+    return false;
+  };
+
+  /** Сужение 6: сам узел в потоке, но весь его предок скрыт по шаблону. */
+  const hiddenByAncestor = (el: Element): boolean => {
+    for (let node = el.parentElement; node !== null; node = node.parentElement) {
+      if (isVisuallyHidden(node, getComputedStyle(node))) return true;
+    }
+    return false;
+  };
+
+  for (const el of Array.from(document.body.querySelectorAll('*'))) {
+    if (!hasOwnText(el) || !isVisible(el)) continue;
+    const style = getComputedStyle(el);
+    if (style.position !== 'static') continue;
+    if (isVisuallyHidden(el, style)) continue;
+
+    const parent = el.parentElement;
+    if (parent === null) continue;
+    const parentStyle = getComputedStyle(parent);
+    /* `display: contents` рамки не рисует: у такого родителя нет края, за
+       который можно вылиться, а `getBoundingClientRect` вернёт пустоту. */
+    if (parentStyle.display === 'contents') continue;
+
+    const box = el.getBoundingClientRect();
+    const parentBox = parent.getBoundingClientRect();
+    const left = parentBox.left + px(parentStyle.borderLeftWidth);
+    const right = parentBox.right - px(parentStyle.borderRightWidth);
+    if (box.width === 0) continue;
+
+    /* Сторона выбирается по большему выходу: сообщение называет одну, а не обе. */
+    const overRight = box.right - right;
+    const overLeft = left - box.left;
+    const side = overRight >= overLeft ? 'справа' : 'слева';
+    const over = Math.max(overRight, overLeft);
+    const margin = px(side === 'справа' ? style.marginRight : style.marginLeft);
+    if (over <= SPILL_TOLERANCE || margin < 0) continue;
+
+    /* Обходы предков — только для кандидатов: они дороже самой проверки. */
+    if (absorbedAbove(parent) || hiddenByAncestor(el)) continue;
+
+    report(
+      'overflowing-text',
+      describe(el),
+      `вылит за ${describe(parent)} на ${size(over)}px ${side}: ширина ${size(box.width)} при ${size(right - left)}`,
+    );
+  }
+
+  /* ---------- 6. поверх цели никто не лежит ---------- */
 
   const modal = document.querySelector('[aria-modal="true"]');
 
   const controls = (hit: Element, el: Element): boolean =>
     hit instanceof HTMLLabelElement && hit.control === el;
 
-  const scrolls = (overflow: string): boolean => overflow === 'auto' || overflow === 'scroll';
   const scrollableAncestors = (el: Element): HTMLElement[] => {
     const list: HTMLElement[] = [];
     for (let node = el.parentElement; node !== null; node = node.parentElement) {
@@ -602,7 +719,7 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     );
   }
 
-  /* ---------- 6. шрифты загрузились ---------- */
+  /* ---------- 7. шрифты загрузились ---------- */
 
   await document.fonts.ready;
 
@@ -639,7 +756,7 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     }
   }
 
-  /* ---------- 7. картинки загрузились ---------- */
+  /* ---------- 8. картинки загрузились ---------- */
 
   for (const img of Array.from(document.images)) {
     if (!isVisible(img)) continue;

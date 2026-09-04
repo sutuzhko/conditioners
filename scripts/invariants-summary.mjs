@@ -37,6 +37,7 @@ const RULES = [
   'target-size-touch',
   'theme',
   'clipped-text',
+  'overflowing-text',
   'occlusion',
   'stability',
   'fonts',
