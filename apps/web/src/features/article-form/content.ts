@@ -1,5 +1,15 @@
 /** Подписи формы статьи. */
+import { formatDateTime } from '@/shared/lib/format';
 import type { ConfirmRequest } from '@/shared/ui';
+
+import type { ArticleTab } from './model';
+
+/** Подписи вкладок статьи; ключи адреса английские, подписи — здесь. */
+const TAB_TITLES: Record<ArticleTab, string> = {
+  text: 'Текст',
+  seo: 'SEO',
+  publish: 'Публикация',
+};
 
 export const articleFormContent = {
   createTitle: 'Новая статья',
@@ -15,6 +25,58 @@ export const articleFormContent = {
   sectionBody: 'Текст',
   sectionSeo: 'Поисковая выдача',
 
+  tabsLabel: 'Вкладки статьи',
+  tabTitle: (tab: ArticleTab): string => TAB_TITLES[tab],
+
+  /* Панель инструментов: подписи и то, что вставляет каждая кнопка. Полных
+     названий у кнопок нет — они узкие; название читает диктор и подсказка. */
+  toolbarLabel: 'Разметка текста',
+  markupH2: 'H2',
+  markupH2Title: 'Подзаголовок',
+  markupH3: 'H3',
+  markupH3Title: 'Подзаголовок ниже уровнем',
+  markupBold: 'Ж',
+  markupBoldTitle: 'Жирный',
+  markupList: 'Список',
+  markupListTitle: 'Пункт списка',
+  markupCallout: 'Врезка',
+  markupCalloutTitle: 'Врезка — выделенный абзац',
+  /* 🔴 Названо прямо, чего в формате нет: иначе владелец вставит ссылку из
+     Word и увидит её на сайте текстом (ADR-282). */
+  markupMissing:
+    'Ссылок, картинок внутри текста и таблиц формат не рисует: всё, чего нет на панели, останется на сайте обычным текстом.',
+
+  stateTitle: 'Состояние',
+  stateStatus: 'Статус',
+  stateCharacters: 'Знаков',
+  stateSaved: 'Сохранено',
+  stateNotSaved: 'ещё не сохраняли',
+  statusPublished: 'На сайте',
+  statusDraft: 'Черновик',
+
+  seoFieldsTitle: 'Мета-данные',
+  seoPreviewTitle: 'Как увидят в поиске',
+  seoPreviewEmptyTitle: 'Заголовка пока нет',
+  seoPreviewEmptyDescription: 'Описание соберётся из анонса, пока своего нет',
+  canonical: 'Каноникал',
+  /* 🔴 Каноникал вычисляется из адреса страницы, а не хранится (ADR-281):
+     введённый руками и разошедшийся с собственным адресом, он уводит статью
+     из индекса одной опечаткой. Обязательным становится слаг. */
+  canonicalHint:
+    'Собирается из адреса сайта и адреса страницы — руками не задаётся. Расхождение каноникала с собственным адресом убирает страницу из выдачи.',
+  canonicalEmpty: 'Появится, как только будет задан адрес страницы',
+  slugRequired: 'Задайте адрес страницы: без него не собрать каноникал',
+  counter: (length: number, limit: number): string => `${length} / ${limit}`,
+  counterLabel: (length: number, limit: number): string =>
+    `${length} знаков из ${limit} рекомендованных`,
+  tooLong: 'Длиннее — поиск обрежет многоточием',
+
+  publishTitle: 'Публикация',
+  publishSwitch: 'Опубликовать на сайте',
+  publishSwitchHint: 'Появится в разделе «База знаний» и в карте сайта',
+  characters: (count: number): string => String(count),
+  savedAt: (iso: string): string => formatDateTime(iso),
+
   title: 'Заголовок',
   category: 'Рубрика',
   categoryHint: 'По ней статьи группируются в листинге',
@@ -26,6 +88,11 @@ export const articleFormContent = {
   publishedHint: 'Черновик виден только здесь: на сайте его нет ни в списке, ни по прямой ссылке',
   slug: 'Адрес страницы',
   slugHint: 'Пусто — соберётся из заголовка',
+  /* 🔴 У сохранённой статьи адрес обязателен: из него собирается каноникал
+     (ADR-281), а смена адреса опубликованной статьи заводит перенаправление
+     со старого — об этом нужно знать до правки, а не после. */
+  slugHintSaved:
+    'Из него собирается каноникал. Смена адреса опубликованной статьи заводит перенаправление со старого',
   seoTitle: 'Заголовок страницы',
   seoDescription: 'Описание страницы',
 

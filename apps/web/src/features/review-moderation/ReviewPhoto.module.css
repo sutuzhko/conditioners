@@ -1,0 +1,53 @@
+/* Фото к отзыву: превью-кнопка и окно с полным кадром. */
+
+.trigger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.preview {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  object-fit: cover;
+}
+
+/* Кольцо переезжает на само превью: у кнопки нет своей рамки, и обводка
+   вокруг невидимого прямоугольника не читается. */
+.trigger:focus-visible {
+  outline: none;
+}
+
+.trigger:focus-visible .preview {
+  box-shadow: var(--ring-focus-ring);
+}
+
+.hint {
+  color: var(--accent-text);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.trigger:hover .hint {
+  text-decoration: underline;
+}
+
+/* Полный кадр: высота окна, ширина по месту, пропорции не трогаем. */
+.full {
+  position: relative;
+  width: 100%;
+  height: min(70dvh, 560px);
+}
+
+.full img {
+  object-fit: contain;
+}

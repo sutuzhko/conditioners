@@ -2,13 +2,13 @@
 шрифты: Manrope 400, Manrope 600
 
 [документ]
-390 → 390×1074
-768 → 768×1018
-1440 → 1440×900
+390 → 390×1216
+768 → 768×1160
+1440 → 1440×993
 
 [геометрия 390]
-form.SpecsDictionaryForm__form  358×1042 @16,16
-  section.Card__card  358×534 @0,0  r20  b1
+form.SpecsDictionaryForm__form  358×1184 @16,16
+  section.Card__card  358×628 @0,0  r20  b1
     div.SpecsDictionaryForm__groupHead  316×76 @21,21
       div.Field__field  268×76 @0,0
         label.Field__label  268×20 @0,0  Manrope 600 13/20  lines=1  «Название группы»
@@ -16,31 +16,31 @@ form.SpecsDictionaryForm__form  358×1042 @16,16
       button.Button__button  40×44 @276,32  r9  b1
         span.Button__content  10×16 @15,14
           span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-    div.SpecsDictionaryForm__fields  316×348 @21,109
-      div.SpecsDictionaryForm__fieldRow  316×170 @0,0  b0 0 1 0
+    div.SpecsDictionaryForm__fields  316×442 @21,109
+      div.SpecsDictionaryForm__fieldRow  316×217 @0,0  b0 0 1 0
         div.Field__field  268×49 @0,0
           input#2  268×49 @0,0  r11  b1
         div.Field__field#2  268×49 @0,55
           input  268×49 @0,0  r11  b1
-        div.Field__field#3  268×49 @0,110
-          input  268×49 @0,0  r11  b1  clipped
-        button.Button__button  40×44 @276,113  r9  b1
+        div.Field__field#3  268×96 @0,110
+          textarea.Textarea__textarea  268×96 @0,0  Manrope 400 15/21  r11  b1  lines=0  «Сколько тепла отводит из помещения»
+        button.Button__button  40×44 @276,136  r9  b1
           span.Button__content#2  10×16 @15,14
             span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-      div.SpecsDictionaryForm__fieldRow#2  316×170 @0,178  b0 0 1 0
+      div.SpecsDictionaryForm__fieldRow#2  316×217 @0,225  b0 0 1 0
         div.Field__field  268×49 @0,0
           input#3  268×49 @0,0  r11  b1
         div.Field__field#2  268×49 @0,55
           input#2  268×49 @0,0  r11  b1
-        div.Field__field#3  268×49 @0,110
-          input#2  268×49 @0,0  r11  b1
-        button.Button__button  40×44 @276,113  r9  b1
+        div.Field__field#3  268×96 @0,110
+          textarea.Textarea__textarea#2  268×96 @0,0  Manrope 400 15/21  r11  b1  lines=0  «Инверторный или обычный»
+        button.Button__button  40×44 @276,136  r9  b1
           span.Button__content#3  10×16 @15,14
             span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-    button.Button__button  197×44 @21,469  r9  b1
+    button.Button__button  197×44 @21,563  r9  b1
       span.Button__content#4  167×16 @15,14
         span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
-  section.Card__card#2  358×356 @0,548  r20  b1
+  section.Card__card#2  358×403 @0,642  r20  b1
     div.SpecsDictionaryForm__groupHead  316×76 @21,21
       div.Field__field#2  268×76 @0,0
         label.Field__label  268×20 @0,0  Manrope 600 13/20  lines=1  «Название группы»
@@ -48,31 +48,31 @@ form.SpecsDictionaryForm__form  358×1042 @16,16
       button.Button__button#2  40×44 @276,32  r9  b1
         span.Button__content  10×16 @15,14
           span.Button__label#2  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-    div.SpecsDictionaryForm__fields  316×170 @21,109
-      div.SpecsDictionaryForm__fieldRow#3  316×170 @0,0  b0 0 1 0
+    div.SpecsDictionaryForm__fields  316×217 @21,109
+      div.SpecsDictionaryForm__fieldRow#3  316×217 @0,0  b0 0 1 0
         div.Field__field  268×49 @0,0
           input#4  268×49 @0,0  r11  b1  clipped
         div.Field__field#2  268×49 @0,55
           input#4  268×49 @0,0  r11  b1
-        div.Field__field#3  268×49 @0,110
-          input#3  268×49 @0,0  r11  b1
-        button.Button__button  40×44 @276,113  r9  b1
+        div.Field__field#3  268×96 @0,110
+          textarea.Textarea__textarea#3  268×96 @0,0  r11  b1
+        button.Button__button  40×44 @276,136  r9  b1
           span.Button__content#5  10×16 @15,14
             span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-    button.Button__button  197×44 @21,291  r9  b1
+    button.Button__button  197×44 @21,338  r9  b1
       span.Button__content#6  167×16 @15,14
         span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
-  div.SpecsDictionaryForm__actions  358×124 @16,776  fixed
-    button.Button__button  158×44 @0,12  r11  b1
+  div.SpecsDictionaryForm__actions  358×125 @16,1075  b1 0 0 0  fixed
+    button.Button__button  158×44 @0,13  r11  b1
       span.Button__content#7  120×17 @19,13
         span.Button__label  120×17 @0,0  Manrope 600 15/17  lines=1  «Добавить группу»
-    button.Button__button#2  202×44 @0,68  r11  b1
+    button.Button__button#2  202×44 @0,69  r11  b1
       span.Button__content#2  164×17 @19,13
         span.Button__label#2  164×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить справочник»
 
 [геометрия 768]
-form.SpecsDictionaryForm__form  736×986 @16,16
-  section.Card__card  736×534 @0,0  r20  b1
+form.SpecsDictionaryForm__form  736×1128 @16,16
+  section.Card__card  736×628 @0,0  r20  b1
     div.SpecsDictionaryForm__groupHead  694×76 @21,21
       div.Field__field  646×76 @0,0
         label.Field__label  646×20 @0,0  Manrope 600 13/20  lines=1  «Название группы»
@@ -80,31 +80,31 @@ form.SpecsDictionaryForm__form  736×986 @16,16
       button.Button__button  40×44 @654,32  r9  b1
         span.Button__content  10×16 @15,14
           span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-    div.SpecsDictionaryForm__fields  694×348 @21,109
-      div.SpecsDictionaryForm__fieldRow  694×170 @0,0  b0 0 1 0
+    div.SpecsDictionaryForm__fields  694×442 @21,109
+      div.SpecsDictionaryForm__fieldRow  694×217 @0,0  b0 0 1 0
         div.Field__field  646×49 @0,0
           input#2  646×49 @0,0  r11  b1
         div.Field__field#2  646×49 @0,55
           input  646×49 @0,0  r11  b1
-        div.Field__field#3  646×49 @0,110
-          input  646×49 @0,0  r11  b1
-        button.Button__button  40×44 @654,113  r9  b1
+        div.Field__field#3  646×96 @0,110
+          textarea.Textarea__textarea  646×96 @0,0  Manrope 400 15/21  r11  b1  lines=0  «Сколько тепла отводит из помещения»
+        button.Button__button  40×44 @654,136  r9  b1
           span.Button__content#2  10×16 @15,14
             span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-      div.SpecsDictionaryForm__fieldRow#2  694×170 @0,178  b0 0 1 0
+      div.SpecsDictionaryForm__fieldRow#2  694×217 @0,225  b0 0 1 0
         div.Field__field  646×49 @0,0
           input#3  646×49 @0,0  r11  b1
         div.Field__field#2  646×49 @0,55
           input#2  646×49 @0,0  r11  b1
-        div.Field__field#3  646×49 @0,110
-          input#2  646×49 @0,0  r11  b1
-        button.Button__button  40×44 @654,113  r9  b1
+        div.Field__field#3  646×96 @0,110
+          textarea.Textarea__textarea#2  646×96 @0,0  Manrope 400 15/21  r11  b1  lines=0  «Инверторный или обычный»
+        button.Button__button  40×44 @654,136  r9  b1
           span.Button__content#3  10×16 @15,14
             span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-    button.Button__button  197×44 @21,469  r9  b1
+    button.Button__button  197×44 @21,563  r9  b1
       span.Button__content#4  167×16 @15,14
         span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
-  section.Card__card#2  736×356 @0,548  r20  b1
+  section.Card__card#2  736×403 @0,642  r20  b1
     div.SpecsDictionaryForm__groupHead  694×76 @21,21
       div.Field__field#2  646×76 @0,0
         label.Field__label  646×20 @0,0  Manrope 600 13/20  lines=1  «Название группы»
@@ -112,31 +112,31 @@ form.SpecsDictionaryForm__form  736×986 @16,16
       button.Button__button#2  40×44 @654,32  r9  b1
         span.Button__content  10×16 @15,14
           span.Button__label#2  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-    div.SpecsDictionaryForm__fields  694×170 @21,109
-      div.SpecsDictionaryForm__fieldRow#3  694×170 @0,0  b0 0 1 0
+    div.SpecsDictionaryForm__fields  694×217 @21,109
+      div.SpecsDictionaryForm__fieldRow#3  694×217 @0,0  b0 0 1 0
         div.Field__field  646×49 @0,0
           input#4  646×49 @0,0  r11  b1
         div.Field__field#2  646×49 @0,55
           input#4  646×49 @0,0  r11  b1
-        div.Field__field#3  646×49 @0,110
-          input#3  646×49 @0,0  r11  b1
-        button.Button__button  40×44 @654,113  r9  b1
+        div.Field__field#3  646×96 @0,110
+          textarea.Textarea__textarea#3  646×96 @0,0  r11  b1
+        button.Button__button  40×44 @654,136  r9  b1
           span.Button__content#5  10×16 @15,14
             span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-    button.Button__button  197×44 @21,291  r9  b1
+    button.Button__button  197×44 @21,338  r9  b1
       span.Button__content#6  167×16 @15,14
         span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
-  div.SpecsDictionaryForm__actions  736×68 @16,832  fixed
-    button.Button__button  158×44 @0,12  r11  b1
+  div.SpecsDictionaryForm__actions  736×69 @16,1075  b1 0 0 0  fixed
+    button.Button__button  158×44 @0,13  r11  b1
       span.Button__content#7  120×17 @19,13
         span.Button__label  120×17 @0,0  Manrope 600 15/17  lines=1  «Добавить группу»
-    button.Button__button#2  202×44 @170,12  r11  b1
+    button.Button__button#2  202×44 @170,13  r11  b1
       span.Button__content#2  164×17 @19,13
         span.Button__label#2  164×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить справочник»
 
 [геометрия 1440]
-form.SpecsDictionaryForm__form  1408×615 @16,16
-  section.Card__card  1408×288 @0,0  r20  b1
+form.SpecsDictionaryForm__form  1408×961 @16,16
+  section.Card__card  1408×518 @0,0  r20  b1
     div.SpecsDictionaryForm__groupHead  1366×76 @21,21
       div.Field__field  1318×76 @0,0
         label.Field__label  1318×20 @0,0  Manrope 600 13/20  lines=1  «Название группы»
@@ -144,31 +144,31 @@ form.SpecsDictionaryForm__form  1408×615 @16,16
       button.Button__button  40×40 @1326,36  r9  b1
         span.Button__content  10×16 @15,12
           span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-    div.SpecsDictionaryForm__fields  1366×106 @21,109
-      div.SpecsDictionaryForm__fieldRow  1366×49 @0,0
-        div.Field__field  488×49 @0,0
-          input#2  488×49 @0,0  r11  b1
-        div.Field__field#2  163×49 @496,0
-          input  163×49 @0,0  r11  b1
-        div.Field__field#3  651×49 @667,0
-          input  651×49 @0,0  r11  b1
-        button.Button__button  40×40 @1326,5  r9  b1
+    div.SpecsDictionaryForm__fields  1366×336 @21,109
+      div.SpecsDictionaryForm__fieldRow  1366×164 @0,0  b0 0 1 0
+        div.Field__field  983×49 @0,0
+          input#2  983×49 @0,0  r11  b1
+        div.Field__field#2  375×49 @991,0
+          input  375×49 @0,0  r11  b1
+        div.Field__field#3  1318×96 @0,57
+          textarea.Textarea__textarea  1318×96 @0,0  Manrope 400 15/21  r11  b1  lines=0  «Сколько тепла отводит из помещения»
+        button.Button__button  40×40 @1326,85  r9  b1
           span.Button__content#2  10×16 @15,12
             span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-      div.SpecsDictionaryForm__fieldRow#2  1366×49 @0,57
-        div.Field__field  488×49 @0,0
-          input#3  488×49 @0,0  r11  b1
-        div.Field__field#2  163×49 @496,0
-          input#2  163×49 @0,0  r11  b1
-        div.Field__field#3  651×49 @667,0
-          input#2  651×49 @0,0  r11  b1
-        button.Button__button  40×40 @1326,5  r9  b1
+      div.SpecsDictionaryForm__fieldRow#2  1366×164 @0,172  b0 0 1 0
+        div.Field__field  983×49 @0,0
+          input#3  983×49 @0,0  r11  b1
+        div.Field__field#2  375×49 @991,0
+          input#2  375×49 @0,0  r11  b1
+        div.Field__field#3  1318×96 @0,57
+          textarea.Textarea__textarea#2  1318×96 @0,0  Manrope 400 15/21  r11  b1  lines=0  «Инверторный или обычный»
+        button.Button__button  40×40 @1326,85  r9  b1
           span.Button__content#3  10×16 @15,12
             span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-    button.Button__button  197×40 @21,227  r9  b1
+    button.Button__button  197×40 @21,457  r9  b1
       span.Button__content#4  167×16 @15,12
         span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
-  section.Card__card#2  1408×231 @0,302  r20  b1
+  section.Card__card#2  1408×346 @0,532  r20  b1
     div.SpecsDictionaryForm__groupHead  1366×76 @21,21
       div.Field__field#2  1318×76 @0,0
         label.Field__label  1318×20 @0,0  Manrope 600 13/20  lines=1  «Название группы»
@@ -176,25 +176,25 @@ form.SpecsDictionaryForm__form  1408×615 @16,16
       button.Button__button#2  40×40 @1326,36  r9  b1
         span.Button__content  10×16 @15,12
           span.Button__label#2  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-    div.SpecsDictionaryForm__fields  1366×49 @21,109
-      div.SpecsDictionaryForm__fieldRow#3  1366×49 @0,0
-        div.Field__field  488×49 @0,0
-          input#4  488×49 @0,0  r11  b1
-        div.Field__field#2  163×49 @496,0
-          input#4  163×49 @0,0  r11  b1
-        div.Field__field#3  651×49 @667,0
-          input#3  651×49 @0,0  r11  b1
-        button.Button__button  40×40 @1326,5  r9  b1
+    div.SpecsDictionaryForm__fields  1366×164 @21,109
+      div.SpecsDictionaryForm__fieldRow#3  1366×164 @0,0  b0 0 1 0
+        div.Field__field  983×49 @0,0
+          input#4  983×49 @0,0  r11  b1
+        div.Field__field#2  375×49 @991,0
+          input#4  375×49 @0,0  r11  b1
+        div.Field__field#3  1318×96 @0,57
+          textarea.Textarea__textarea#3  1318×96 @0,0  r11  b1
+        button.Button__button  40×40 @1326,85  r9  b1
           span.Button__content#5  10×16 @15,12
             span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
-    button.Button__button  197×40 @21,170  r9  b1
+    button.Button__button  197×40 @21,285  r9  b1
       span.Button__content#6  167×16 @15,12
         span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
-  div.SpecsDictionaryForm__actions  1408×68 @16,563  fixed
-    button.Button__button  158×44 @0,12  r11  b1
+  div.SpecsDictionaryForm__actions  1408×69 @16,831  b1 0 0 0  fixed
+    button.Button__button  158×44 @0,13  r11  b1
       span.Button__content#7  120×17 @19,13
         span.Button__label  120×17 @0,0  Manrope 600 15/17  lines=1  «Добавить группу»
-    button.Button__button#2  202×44 @170,12  r11  b1
+    button.Button__button#2  202×44 @170,13  r11  b1
       span.Button__content#2  164×17 @19,13
         span.Button__label#2  164×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить справочник»
 
@@ -209,23 +209,23 @@ form.SpecsDictionaryForm__form
         span.Button__content
           span.Button__label  color #0e7490
     div.SpecsDictionaryForm__fields
-      div.SpecsDictionaryForm__fieldRow
+      div.SpecsDictionaryForm__fieldRow  border #475569 #475569 #eef2f6 #475569
         div.Field__field
           input#2  bg #ffffff  border #7e8fa6
         div.Field__field#2
           input  bg #ffffff  border #7e8fa6
         div.Field__field#3
-          input  bg #ffffff  border #7e8fa6
+          textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
         button.Button__button  border transparent
           span.Button__content#2
             span.Button__label  color #0e7490
-      div.SpecsDictionaryForm__fieldRow#2
+      div.SpecsDictionaryForm__fieldRow#2  border #475569 #475569 #eef2f6 #475569
         div.Field__field
           input#3  bg #ffffff  border #7e8fa6
         div.Field__field#2
           input#2  bg #ffffff  border #7e8fa6
         div.Field__field#3
-          input#2  bg #ffffff  border #7e8fa6
+          textarea.Textarea__textarea#2  color #0f172a  bg #ffffff  border #7e8fa6
         button.Button__button  border transparent
           span.Button__content#3
             span.Button__label  color #0e7490
@@ -241,34 +241,26 @@ form.SpecsDictionaryForm__form
         span.Button__content
           span.Button__label#2  color #0e7490
     div.SpecsDictionaryForm__fields
-      div.SpecsDictionaryForm__fieldRow#3
+      div.SpecsDictionaryForm__fieldRow#3  border #475569 #475569 #eef2f6 #475569
         div.Field__field
           input#4  bg #ffffff  border #7e8fa6
         div.Field__field#2
           input#4  bg #ffffff  border #7e8fa6
         div.Field__field#3
-          input#3  bg #ffffff  border #7e8fa6
+          textarea.Textarea__textarea#3  bg #ffffff  border #7e8fa6
         button.Button__button  border transparent
           span.Button__content#5
             span.Button__label  color #0e7490
     button.Button__button  bg #ffffff  border #7e8fa6
       span.Button__content#6
         span.Button__label  color #0f172a
-  div.SpecsDictionaryForm__actions  bg #ffffff
+  div.SpecsDictionaryForm__actions  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a
     button.Button__button  bg #ffffff  border #7e8fa6
       span.Button__content#7
         span.Button__label  color #0f172a
     button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
       span.Button__content#2
         span.Button__label#2  color #ffffff
-[палитра light @390]
-form.SpecsDictionaryForm__form > section.Card__card > div.SpecsDictionaryForm__fields > div.SpecsDictionaryForm__fieldRow  border #475569 #475569 #eef2f6 #475569
-form.SpecsDictionaryForm__form > section.Card__card > div.SpecsDictionaryForm__fields > div.SpecsDictionaryForm__fieldRow#2  border #475569 #475569 #eef2f6 #475569
-form.SpecsDictionaryForm__form > section.Card__card#2 > div.SpecsDictionaryForm__fields > div.SpecsDictionaryForm__fieldRow#3  border #475569 #475569 #eef2f6 #475569
-[палитра light @768]
-form.SpecsDictionaryForm__form > section.Card__card > div.SpecsDictionaryForm__fields > div.SpecsDictionaryForm__fieldRow  border #475569 #475569 #eef2f6 #475569
-form.SpecsDictionaryForm__form > section.Card__card > div.SpecsDictionaryForm__fields > div.SpecsDictionaryForm__fieldRow#2  border #475569 #475569 #eef2f6 #475569
-form.SpecsDictionaryForm__form > section.Card__card#2 > div.SpecsDictionaryForm__fields > div.SpecsDictionaryForm__fieldRow#3  border #475569 #475569 #eef2f6 #475569
 
 [палитра dark]
 form.SpecsDictionaryForm__form
@@ -281,23 +273,23 @@ form.SpecsDictionaryForm__form
         span.Button__content
           span.Button__label  color #22d3ee
     div.SpecsDictionaryForm__fields
-      div.SpecsDictionaryForm__fieldRow
+      div.SpecsDictionaryForm__fieldRow  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
         div.Field__field
           input#2  bg #0b1424  border #566d95
         div.Field__field#2
           input  bg #0b1424  border #566d95
         div.Field__field#3
-          input  bg #0b1424  border #566d95
+          textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
         button.Button__button  border transparent
           span.Button__content#2
             span.Button__label  color #22d3ee
-      div.SpecsDictionaryForm__fieldRow#2
+      div.SpecsDictionaryForm__fieldRow#2  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
         div.Field__field
           input#3  bg #0b1424  border #566d95
         div.Field__field#2
           input#2  bg #0b1424  border #566d95
         div.Field__field#3
-          input#2  bg #0b1424  border #566d95
+          textarea.Textarea__textarea#2  color #eaf1f8  bg #0b1424  border #566d95
         button.Button__button  border transparent
           span.Button__content#3
             span.Button__label  color #22d3ee
@@ -313,31 +305,23 @@ form.SpecsDictionaryForm__form
         span.Button__content
           span.Button__label#2  color #22d3ee
     div.SpecsDictionaryForm__fields
-      div.SpecsDictionaryForm__fieldRow#3
+      div.SpecsDictionaryForm__fieldRow#3  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
         div.Field__field
           input#4  bg #0b1424  border #566d95
         div.Field__field#2
           input#4  bg #0b1424  border #566d95
         div.Field__field#3
-          input#3  bg #0b1424  border #566d95
+          textarea.Textarea__textarea#3  bg #0b1424  border #566d95
         button.Button__button  border transparent
           span.Button__content#5
             span.Button__label  color #22d3ee
     button.Button__button  bg #121d31  border #566d95
       span.Button__content#6
         span.Button__label  color #eaf1f8
-  div.SpecsDictionaryForm__actions  bg #0b1220
+  div.SpecsDictionaryForm__actions  bg #0b1220  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
     button.Button__button  bg #121d31  border #566d95
       span.Button__content#7
         span.Button__label  color #eaf1f8
     button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
       span.Button__content#2
         span.Button__label#2  color #ffffff
-[палитра dark @390]
-form.SpecsDictionaryForm__form > section.Card__card > div.SpecsDictionaryForm__fields > div.SpecsDictionaryForm__fieldRow  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
-form.SpecsDictionaryForm__form > section.Card__card > div.SpecsDictionaryForm__fields > div.SpecsDictionaryForm__fieldRow#2  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
-form.SpecsDictionaryForm__form > section.Card__card#2 > div.SpecsDictionaryForm__fields > div.SpecsDictionaryForm__fieldRow#3  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
-[палитра dark @768]
-form.SpecsDictionaryForm__form > section.Card__card > div.SpecsDictionaryForm__fields > div.SpecsDictionaryForm__fieldRow  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
-form.SpecsDictionaryForm__form > section.Card__card > div.SpecsDictionaryForm__fields > div.SpecsDictionaryForm__fieldRow#2  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
-form.SpecsDictionaryForm__form > section.Card__card#2 > div.SpecsDictionaryForm__fields > div.SpecsDictionaryForm__fieldRow#3  border #a8b6c6 #a8b6c6 #182338 #a8b6c6

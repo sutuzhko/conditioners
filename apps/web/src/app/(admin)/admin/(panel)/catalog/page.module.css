@@ -42,6 +42,15 @@
   text-decoration: underline;
 }
 
+/* Счётчики раздела: сколько моделей, сколько видно, сколько со скидкой.
+   Строка одна на любой ширине — её заготовка в `loading.tsx` держит ту же
+   высоту `1lh` (ADR-239). */
+.summary {
+  margin: 4px 0 0;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
 /* Две кнопки в шапке раздела: справочник и добавление модели. */
 .headActions {
   display: flex;

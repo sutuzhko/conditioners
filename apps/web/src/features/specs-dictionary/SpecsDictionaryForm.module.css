@@ -31,25 +31,44 @@
   margin-bottom: 12px;
 }
 
+/* 🔴 Строка характеристики — сетка в два ряда, а не четыре поля в линию
+   (issue #39). Подсказка длиннее названия: в четверти ширины она обрезалась
+   без многоточия, и владелец писал её вслепую. Второй ряд отдан ей целиком.
+
+   Порядок обхода равен экрану: крестик стоит в разметке последним и на
+   экране тоже последний — справа от подсказки, а не рядом с названием
+   (ADR-240). */
 .fieldRow {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr) auto;
   gap: 8px;
-  align-items: center;
+  align-items: end;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .fieldName {
-  flex: 3 1 0;
+  grid-row: 1;
+  grid-column: 1;
   min-width: 0;
 }
 
 .fieldUnit {
-  flex: 1 1 0;
+  grid-row: 1;
+  grid-column: 2 / -1;
   min-width: 0;
 }
 
 .fieldHint {
-  flex: 4 1 0;
+  grid-row: 2;
+  grid-column: 1 / 3;
   min-width: 0;
+}
+
+.fieldRow button {
+  grid-row: 2;
+  grid-column: 3;
+  align-self: center;
 }
 
 .actions {
@@ -59,12 +78,30 @@
   align-items: center;
 
   /* Действия липнут к нижнему краю: справочник длинный, и кнопка сохранения
-     на сорок полей ниже — это прокрутка ради каждой правки (ADR-084). */
+     на сорок полей ниже — это прокрутка ради каждой правки (ADR-084).
+
+     🔴 Полоса объявляет себя границей и тенью (issue #39). Без них карточки
+     уезжали под неё встык, и «Добавить группу» с «Сохранить справочник»
+     выглядели лежащими поверх второй группы. `z-index: 1` при этом
+     проигрывал полю в фокусе — отсюда 3. */
   position: sticky;
   bottom: 0;
-  z-index: 1;
+  z-index: 3;
   padding: 12px 0;
+  border-top: 1px solid var(--line);
   background: var(--bg);
+  box-shadow: var(--sh-md);
+}
+
+/* 🔴 До 900px полоса встаёт над нижней навигацией, а не под ней (issue #39).
+   Полоса вкладок прибита к низу окна и лежит выше по слою, и «Сохранить
+   справочник», перенесённое во вторую строку, уезжало под неё целиком:
+   главное действие страницы было недостижимо. Отступ под саму навигацию
+   оболочка уже держит, поэтому под полосой ничего не просвечивает. */
+@media (width < 900px) {
+  .actions {
+    bottom: calc(var(--navbar) + env(safe-area-inset-bottom));
+  }
 }
 
 .ok {
@@ -94,22 +131,27 @@
    узлы нельзя: на широком экране крестик и так последний в ряду. */
 @media (width < 900px) {
   .fieldRow {
-    display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 6px 8px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--line-soft);
   }
 
-  .fieldName,
-  .fieldUnit,
+  .fieldName {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .fieldUnit {
+    grid-row: 2;
+    grid-column: 1;
+  }
+
   .fieldHint {
+    grid-row: 3;
     grid-column: 1;
   }
 
   .fieldRow button {
     grid-row: 3;
     grid-column: 2;
-    align-self: center;
   }
 }

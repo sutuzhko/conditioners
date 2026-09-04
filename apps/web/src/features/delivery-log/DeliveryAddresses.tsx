@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 
-import { Badge, Button, Card, Input } from '@/shared/ui';
+import { Badge, Button, Card, CopyField, Input } from '@/shared/ui';
 
 import { deliveryLogContent as texts } from './content';
 import { addressApi } from './lib';
@@ -73,6 +73,11 @@ export function DeliveryAddresses({ people, api = addressApi }: DeliveryAddresse
       </h2>
       <p className={styles.hint}>{texts.addressesHint}</p>
 
+      {/* 🔴 Подсказка про код привязки стоит один раз над списком (issue #38).
+          По разу у каждого человека она повторялась пятью одинаковыми
+          абзацами и вытесняла сами адреса. */}
+      {people.length === 0 ? null : <p className={styles.hint}>{texts.codeHint}</p>}
+
       {people.length === 0 ? (
         <p className={styles.empty}>{texts.addressesEmpty}</p>
       ) : (
@@ -113,11 +118,16 @@ export function DeliveryAddresses({ people, api = addressApi }: DeliveryAddresse
                       </Button>
                     </div>
                   ) : (
-                    <div className={styles.code}>
-                      <span className={styles.codeLabel}>{texts.codeLabel}</span>
-                      <code className={styles.codeValue}>{person.code}</code>
-                      <p className={styles.codeHint}>{texts.codeHint}</p>
-                    </div>
+                    /* 🔴 Код восьмизначный, и перенабирать его руками — это
+                       ошибка в одном знаке из восьми. Значение при этом видно
+                       целиком: буфер обмена по http недоступен (см. `CopyField`). */
+                    <CopyField
+                      className={styles.code}
+                      label={texts.codeLabel}
+                      value={person.code}
+                      copyLabel={texts.codeCopy}
+                      copiedLabel={texts.codeCopied}
+                    />
                   )}
 
                   {unbound.includes(person.id) ? (

@@ -169,7 +169,11 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
       <p className={styles.description}>{group.description}</p>
 
       <form className={styles.form} onSubmit={submit} noValidate>
-        <div className={styles.fields}>
+        <div
+          className={[styles.fields, group.layout === 'pairs' ? styles.pairs : null]
+            .filter(Boolean)
+            .join(' ')}
+        >
           {fields.map((field) => (
             <Field
               key={fieldKey(field)}
@@ -257,6 +261,9 @@ function Field({
     hint: field.hint,
     error: error === '' ? undefined : error,
     disabled,
+    /* Поле-предложение занимает ряд целиком: в трети ряда значение уезжало
+       за край без переноса (issue #37). */
+    ...(field.fullRow === true ? { wrapperClassName: styles.wide } : {}),
   };
 
   if (field.kind === 'list') {
@@ -315,7 +322,7 @@ function Field({
     return (
       <Textarea
         {...shared}
-        rows={4}
+        rows={3}
         wrapperClassName={styles.wide}
         value={asText(value)}
         onChange={(event) => onChange(event.target.value)}

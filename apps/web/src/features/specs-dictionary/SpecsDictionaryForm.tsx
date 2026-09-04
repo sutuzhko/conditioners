@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Input } from '@/shared/ui';
+import { Button, Card, Input, Textarea } from '@/shared/ui';
 
 import { specsDictionaryContent as texts } from './content';
 import { putSpecs } from './lib';
@@ -128,10 +128,17 @@ export function SpecsDictionaryForm({ value: initial, save = putSpecs }: SpecsDi
                     patchField(groupIndex, fieldIndex, { unit: event.target.value })
                   }
                 />
-                <Input
+                {/* 🔴 Подсказка — многострочное поле, а не строка ввода
+                    (issue #39). Строкой она обрезалась без многоточия на
+                    первой же трети: «То же, что мощность охлаждения, в
+                    британских единицах:» — и владелец не видел, что написал.
+                    Текст этот читает посетитель в карточке товара, и написать
+                    его вслепую нельзя. */}
+                <Textarea
                   aria-label={`${texts.fieldHint} ${fieldIndex + 1}`}
                   placeholder={texts.fieldHint}
                   wrapperClassName={styles.fieldHint}
+                  rows={2}
                   value={field.hint}
                   disabled={sending}
                   onChange={(event) =>

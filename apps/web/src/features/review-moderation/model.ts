@@ -83,9 +83,52 @@ export type ReviewCard = {
   readonly name: string;
   readonly rating: number;
   readonly text: string;
+  /** Снимок места установки: по нему модератор и принимает решение. */
   readonly photo: string | null;
+  /** Фотография автора; нет — рисуются инициалы, это тоже аватар. */
+  readonly avatar: string | null;
   readonly status: ReviewStatus;
   readonly createdAt: string;
+};
+
+// ---------- Действия по вкладкам ----------
+
+/**
+ * Что можно сделать с отзывом.
+ *
+ * 🔴 Правки текста здесь нет и не будет (инвариант 7). Каждое действие —
+ * это смена статуса, кроме `remove`: он стирает запись.
+ */
+export type ReviewAction = 'approve' | 'reject' | 'restore' | 'archive' | 'remove';
+
+/**
+ * Действия отзыва на открытой вкладке.
+ *
+ * 🔴 Не все возможные, а те, ради которых на вкладку зашли. Раньше в ряду
+ * стояли четыре действия четырёх уровней заметности разом — «Опубликовать»
+ * сплошной, «Отклонить» контурной, «В архив» текстовой и красное «Удалить»
+ * (BUGS, разнобой панели). Решение на очереди модерации одно из двух, и
+ * ряд должен показывать именно два.
+ */
+export function reviewActionsFor(tab: ReviewTab, status: ReviewStatus): readonly ReviewAction[] {
+  if (tab === 'pending') return ['approve', 'reject'];
+  if (tab === 'published') return ['archive'];
+  if (tab === 'rejected') return ['restore', 'remove'];
+
+  /* «Все» — сквозной список: действия те же, что дала бы своя вкладка отзыва.
+     Иначе найденный здесь отзыв пришлось бы искать ещё раз там, где его можно
+     опубликовать. Удаление остаётся только у тех, кто с сайта уже снят. */
+  if (status === 'pending') return ['approve', 'reject'];
+  if (status === 'approved') return ['archive'];
+  return ['restore', 'remove'];
+}
+
+/** Статус, в который переводит действие. `remove` статуса не имеет. */
+export const REVIEW_ACTION_STATUS: Record<Exclude<ReviewAction, 'remove'>, ReviewStatus> = {
+  approve: 'approved',
+  reject: 'rejected',
+  restore: 'pending',
+  archive: 'archived',
 };
 
 export type ReviewActionResult = { readonly ok: boolean; readonly message?: string };
