@@ -59,7 +59,6 @@ test.skip(({ isMobile }) => isMobile === true, 'ширины задаёт спе
  */
 const KNOWN: readonly { readonly match: string; readonly issue: string }[] = [
   { match: 'HoursGrid_cell', issue: '#532 — ячейка суток 15,3px на 900' },
-  { match: 'SavingsCalculator_totalHorizon', issue: '#535 — итог экономии 4,31:1' },
   /* Подвал: контакты объявлены после навигации, а сеткой стоят левее. Ловим
      по подписи ссылки, а не по имени класса — класс у всех ссылок подвала
      общий, и совпадение по нему заглушило бы любую другую перестановку. */
