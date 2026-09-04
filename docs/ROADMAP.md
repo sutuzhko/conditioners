@@ -162,6 +162,7 @@ ADR-234, ADR-223): [plan-visual-regression-without-baselines.md](plan-visual-reg
 - [x] Короткая витрина каталога
 - [x] Калькулятор
 - [x] Врезка экономии инвертора
+  - [ ] Карточка итога — тёмная сцена с неоном вместо голубой карточки (ADR-308, #566)
 - [x] Тизер Базы знаний, FAQ, контакты
 - [x] Форма заявки: 4 состояния, согласие на обработку ПДн, honeypot
 - [x] Метаданные, JSON-LD `HVACBusiness` + `FAQPage` + `Organization` + `WebSite` + `ItemList`
