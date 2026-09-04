@@ -402,6 +402,57 @@ test.describe('occlusion', () => {
     );
     expect(rulesOf(found)).toEqual([]);
   });
+
+  /**
+   * 🔴 Issue #488. Липкая колонка шире половины области прокрутки: центр
+   * области лежит под ней, и подведение цели к центру утаскивает цель туда
+   * же. Дотянуться при этом можно — таблица прокручивается, и у каждой ячейки
+   * есть положение, где её центр открыт. Так было устроено «Остатки» на 390:
+   * колонка 240px при области 356.
+   */
+  test('липкая колонка шире половины области — цель достижима прокруткой, тишина', async ({
+    page: p,
+  }) => {
+    const cells = Array.from(
+      { length: 6 },
+      () => '<td style="min-width:100px"><button style="width:100px;height:44px">0</button></td>',
+    ).join('');
+    const found = await measure(
+      p,
+      page(
+        `<div style="width:300px;overflow-x:auto;position:relative">
+           <table style="border-collapse:collapse">
+             <tbody><tr>
+               <th style="position:sticky;left:0;z-index:1;width:220px;min-width:220px;background:#fff">Позиция</th>
+               ${cells}
+             </tr></tbody>
+           </table>
+         </div>`,
+      ),
+    );
+    expect(found.filter((item) => item.rule === 'occlusion')).toEqual([]);
+  });
+
+  /**
+   * 🔴 Обратная сторона той же правки: перебор положений не должен ослепить
+   * правило там, где прокрутка не спасает. Полоса накрывает верх окна, цель
+   * стоит в самом начале длинной страницы — выше нуля прокрутки нет, и любое
+   * из девяти подведений возвращает цель под полосу.
+   */
+  test('липкая полоса поверх начала длинной страницы — нарушение, прокрутка не спасает', async ({
+    page: p,
+  }) => {
+    const found = await measure(
+      p,
+      page(
+        `<button style="width:48px;height:48px">Ок</button>
+         <div style="height:2000px"></div>
+         <div class="top-bar" style="position:fixed;top:0;left:0;right:0;height:200px;background:rgba(0,0,0,.1)"></div>`,
+      ),
+    );
+    expect(rulesOf(found)).toEqual(['occlusion']);
+    expect(found[0]?.detail).toMatch(/сверху div\.top-bar/);
+  });
 });
 
 test.describe('fonts', () => {
