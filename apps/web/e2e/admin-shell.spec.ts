@@ -33,6 +33,11 @@ const SECTIONS = sectionsFor('owner');
 /** Что стоит в нижней полосе: первые разделы списка, остальные — за «Ещё». */
 const TABS = columnSectionsFor('owner').slice(0, ADMIN_TABS);
 
+/* 🔴 «Настройки», «Профиль» и три страницы конфигурации в колонке не стоят:
+   они живут в меню карточки вошедшего (ADR-309), и до открытия меню их нет в
+   разметке вовсе. Подсветку у них проверяем там же. */
+const IN_WHO_MENU = new Set(bottomSectionsFor('owner').map((section) => section.href));
+
 type NavKind = 'tabs' | 'column';
 
 const SHELL: readonly { name: string; width: number; height: number; nav: NavKind }[] = [
@@ -113,6 +118,22 @@ async function expectMarked(page: Page, section: AdminSection, nav: NavKind): Pr
     nav === 'column'
       ? page.locator('aside')
       : page.getByRole('navigation', { name: texts.tabsLabel });
+
+  /* Раздел из меню карточки: открываем его и проверяем подсветку внутри.
+     В колонке этих пунктов нет — повтор стоил ей прокрутки (ADR-309). */
+  if (nav === 'column' && IN_WHO_MENU.has(String(expected))) {
+    const who = shell.getByRole('button', { expanded: false });
+    await who.click();
+
+    const menu = page.getByRole('navigation', { name: texts.accountMenuLabel });
+    const inMenu = menu.locator('[aria-current="page"]:visible');
+    await expect(inMenu, `${section.title}: отмечен ровно один пункт меню`).toHaveCount(1);
+    await expect(inMenu).toHaveAttribute('href', String(expected));
+
+    await page.keyboard.press('Escape');
+    return;
+  }
+
   const marked = shell.locator('[aria-current="page"]:visible');
 
   if (nav === 'column' || TABS.some((tab) => tab.href === expected)) {
@@ -377,11 +398,13 @@ async function walkWithTab(page: Page, limit: number): Promise<readonly FocusSto
 }
 
 /* Сколько целей у навигации в каждой раскладке: пять вкладок внизу против
-   всей колонки — карточка вошедшего, разделы, прибитый низ, «Открыть сайт»
-   и «Выйти» (ADR-309). */
+   колонки — карточка вошедшего и разделы.
+
+   🔴 Прибитого низа в колонке нет: «Настройки», «Профиль», «Открыть сайт» и
+   «Выйти» живут в меню карточки (ADR-309) и в обход табом попадают только
+   открытыми. Карточка свою остановку даёт — она кнопка. */
 const TABBAR_STOPS = TABS.length + 1;
-const COLUMN_STOPS =
-  1 + columnSectionsFor('owner').length + bottomSectionsFor('owner').length + 1 + 1;
+const COLUMN_STOPS = 1 + columnSectionsFor('owner').length;
 
 for (const shell of [
   {
