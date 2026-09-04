@@ -45,6 +45,16 @@ describe('Icon', () => {
     expect(screen.getByRole('img', { name: 'Меню' })).toBeInTheDocument();
   });
 
+  it('🔴 ни одна запись реестра не заводит свою сетку координат', () => {
+    /* Сторож на issue #553: один глиф жил в сетке 32 и рядом с соседями по
+       ряду услуг читался замыленным — узлы попадали в другие доли пикселя.
+       Поле `viewBox` из `IconDef` убрано, и этот проход по реестру ловит
+       попытку вернуть его следующей чужой иконкой. */
+    for (const [name, def] of Object.entries(iconRegistry)) {
+      expect(Object.keys(def), name).not.toContain('viewBox');
+    }
+  });
+
   it('🔴 все иконки набраны одной толщиной: разнобой виден на первом же экране', () => {
     for (const [name, def] of Object.entries(iconRegistry)) {
       const { container, unmount } = render(<Icon name={name as never} />);
