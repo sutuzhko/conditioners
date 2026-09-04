@@ -49,8 +49,10 @@ export const ORDER_TAB_TITLE: Record<OrderTab, string> = {
 /** Подписи вкладок карточки наряда — ключи адреса из словаря (issue #339). */
 export const ORDER_CARD_TAB_TITLE: Record<OrderCardTab, string> = {
   job: 'Наряд',
+  materials: 'Расход',
   checklist: 'Чеклист выезда',
   documents: 'Документы и фото',
+  history: 'История',
 };
 
 export const ORDER_PERIOD_TITLE: Record<OrderPeriod, string> = {
@@ -173,6 +175,33 @@ export const orderManagerContent = {
   searchPlaceholder: '1059, Соколова, Первомайская',
   search: 'Найти',
   searchReset: 'Сбросить фильтр',
+
+  /* Пилюля фильтра и снятие отдельного условия — макет «Заказы» (issue #345).
+     Условия остаются видимыми плашками: иначе непонятно, почему нарядов
+     шесть вместо двадцати четырёх. */
+  filterPill: 'Фильтр',
+  filterApplied: (count: number): string =>
+    `${count} ${plural(count, 'условие', 'условия', 'условий')}`,
+  filterDrop: (title: string): string => `Убрать условие: ${title}`,
+  queryChip: (query: string): string => `Поиск: ${query}`,
+
+  /* Таблица нарядов. Подписи колонок короткие: ниже 600 они же становятся
+     подписями строк в карточке. */
+  tableLabel: 'Наряды',
+  colWhen: 'Когда',
+  colWork: 'Работа и объект',
+  colInstaller: 'Монтажник',
+  colStatus: 'Статус',
+  colSum: 'Сумма',
+  colActions: 'Действия',
+  /* 🔴 Просрочка — не статус, а срок (ADR-194): в словаре статусов её нет и
+     заводить её там нельзя. Это отметка рядом со статусом. */
+  overdueMark: 'Просрочен',
+  moneyNone: '—',
+  rowActions: (number: number): string => `Действия над нарядом № ${number}`,
+  rowOpen: (number: number): string => `Открыть наряд № ${number}`,
+  rowCall: (name: string): string => `Позвонить: ${name}`,
+  rowChecklist: (number: number): string => `Чеклист выезда наряда № ${number}`,
   found: (total: number): string => `Найдено: ${total}`,
   totalCount: (total: number): string =>
     `Всего: ${total} ${plural(total, 'наряд', 'наряда', 'нарядов')}`,

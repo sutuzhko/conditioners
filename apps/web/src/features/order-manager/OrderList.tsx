@@ -1,7 +1,6 @@
 import { ButtonLink, Card, EmptyState, Pager } from '@/shared/ui';
 import type { IconName } from '@/shared/ui';
 
-import { OrderCardView } from './OrderCardView';
 import { orderManagerContent as texts } from './content';
 import {
   ORDERS_PATH,
@@ -10,14 +9,17 @@ import {
   type OrderFilterState,
   type OrderPage,
 } from './model';
+import { OrderTable } from './OrderTable';
 import styles from './OrderList.module.css';
 
 export interface OrderListProps {
   readonly page: OrderPage;
   /** Действующий фильтр: пустой список тогда объясняется иначе. */
   readonly filters?: Partial<OrderFilterState> | undefined;
-  /** Экран монтажника: у пустоты там другая причина и другой совет. */
+  /** Экран монтажника: у пустоты там другая причина, а суммы у него нет. */
   readonly forInstaller?: boolean | undefined;
+  /** Момент отсчёта просрочки — прокидывается в таблицу ради снимков и тестов. */
+  readonly now?: string | undefined;
 }
 
 /** Пустой список: почему пусто и что с этим делать — три разных ответа. */
@@ -36,13 +38,13 @@ function emptyText(
 }
 
 /**
- * Список нарядов со страницами.
+ * Список нарядов со страницами (issue #345).
  *
- * Серверный компонент целиком: карточки только показывают данные, а переход
+ * Серверный компонент целиком: таблица только показывает данные, а переход
  * между страницами и выбор стопки — это адрес, а не состояние. Панель не
  * платит за список ни байтом JS.
  */
-export function OrderList({ page, filters = {}, forInstaller = false }: OrderListProps) {
+export function OrderList({ page, filters = {}, forInstaller = false, now }: OrderListProps) {
   if (page.items.length === 0) {
     /* 🔴 «Нарядов нет» и «по фильтру не нашлось» — разные новости. Первое
        говорит завести наряд, второе — сменить вкладку или период. */
@@ -69,9 +71,11 @@ export function OrderList({ page, filters = {}, forInstaller = false }: OrderLis
 
   return (
     <div className={styles.list}>
-      {page.items.map((order) => (
-        <OrderCardView key={order.id} order={order} />
-      ))}
+      {/* Карточка не обрезает содержимое: обрезка предка отменяет прокрутку
+          таблицы вбок вместе с её затуханием (комментарий в Table.tsx). */}
+      <Card as="section" padding="none">
+        <OrderTable items={page.items} forInstaller={forInstaller} now={now} />
+      </Card>
 
       <Pager
         page={page.page}

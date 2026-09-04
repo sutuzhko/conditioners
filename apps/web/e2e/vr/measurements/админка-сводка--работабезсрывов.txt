@@ -1,0 +1,205 @@
+# админка-сводка--работабезсрывов · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.AdminSummary__summary  358×540 @16,16
+  header.AdminSummary__header  358×59 @0,0
+    h1.AdminSummary__title  358×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Обзор»
+    p.AdminSummary__lead  358×22 @0,36  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
+  div.AdminSummary__bar  358×80 @0,77
+    nav.AdminSummary__segments  358×52 @0,0  r100  b1
+      a.AdminSummary__segment  115×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+      a.AdminSummary__segment#2  115×44 @121,4  Manrope 600 13/20  r100  lines=1  «Работа»
+      a.AdminSummary__segment#3  115×44 @239,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+    p.AdminSummary__period  77×20 @0,60  Manrope 600 13/20  lines=1  «Август 2026»
+  div.StatTile__tiles  358×99 @0,175
+    a.AdminSummary__tileLink  175×99 @0,0  r14
+      dl.StatTile__tile  175×99 @0,0  r14  b1
+        dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «Выполнено за месяц»
+        dd.StatTile__value  149×34 @13,32
+          span.StatTile__number  11×21 @0,6  Onest 700 16/21  ls0  lines=1  «0»
+        dd.StatTile__note  149×16 @13,70  Manrope 400 12/16  lines=1  «закрытых нарядов»
+    a.AdminSummary__tileLink#2  175×99 @183,0  r14
+      dl.StatTile__tile  175×99 @0,0  r14  b1
+        dt.StatTile__label#2  149×15 @13,13  Manrope 600 12/15  lines=1  «В работе»
+        dd.StatTile__value#2  149×34 @13,32
+          span.StatTile__number  11×21 @0,6  Onest 700 16/21  ls0  lines=1  «0»
+        dd.StatTile__note#2  149×16 @13,70  Manrope 400 12/16  lines=1  «назначены и на объекте»
+  section.Card__card  358×248 @0,292  r20  b1
+    h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Требуют внимания»
+    p.AdminSummary__text  316×45 @21,60  Manrope 400 15/22  lines=2  «Наряды, по которым время вышло или неком»
+    p.AdminSummary__text#2  316×45 @21,115  Manrope 400 15/22  lines=2  «Ничего не горит: сроки соблюдаются, испо»
+    a.AdminSummary__link  316×44 @21,183  Manrope 600 15/22  lines=1  «Открыть заказы →»
+
+[геометрия 768]
+div.AdminSummary__summary  736×603 @16,16
+  header.AdminSummary__header  736×66 @0,0
+    h1.AdminSummary__title  736×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Обзор»
+    p.AdminSummary__lead  601×22 @0,43  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
+  div.AdminSummary__bar  736×52 @0,84
+    nav.AdminSummary__segments  239×52 @0,0  r100  b1
+      a.AdminSummary__segment  72×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+      a.AdminSummary__segment#2  77×44 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+      a.AdminSummary__segment#3  79×44 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+    p.AdminSummary__period  77×20 @659,16  Manrope 600 13/20  lines=1  «Август 2026»
+  div.StatTile__tiles  736×226 @0,154
+    a.AdminSummary__tileLink  362×107 @0,0  r14
+      dl.StatTile__tile  362×107 @0,0  r14  b1
+        dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Выполнено за месяц»
+        dd.StatTile__value  328×34 @17,36
+          span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+        dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «закрытых нарядов»
+    a.AdminSummary__tileLink#2  362×107 @374,0  r14
+      dl.StatTile__tile  362×107 @0,0  r14  b1
+        dt.StatTile__label#2  328×15 @17,17  Manrope 600 12/15  lines=1  «В работе»
+        dd.StatTile__value#2  328×34 @17,36
+          span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+        dd.StatTile__note#2  328×16 @17,74  Manrope 400 12/16  lines=1  «назначены и на объекте»
+    a.AdminSummary__tileLink#3  362×107 @0,119  r14
+      dl.StatTile__tile  362×107 @0,0  r14  b1
+        dt.StatTile__label#3  328×15 @17,17  Manrope 600 12/15  lines=1  «Новые наряды»
+        dd.StatTile__value#3  328×34 @17,36
+          span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+        dd.StatTile__note#3  328×16 @17,74  Manrope 400 12/16  lines=1  «ждут исполнителя»
+    a.AdminSummary__tileLink#4  362×107 @374,119  r14
+      dl.StatTile__tile  362×107 @0,0  r14  b1
+        dt.StatTile__label#4  328×15 @17,17  Manrope 600 12/15  lines=1  «Монтажников на связи»
+        dd.StatTile__value#4  328×34 @17,36
+          span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «1»
+        dd.StatTile__note#4  328×16 @17,74  Manrope 400 12/16  lines=1  «с открытым доступом в панель»
+  section.Card__card  736×205 @0,398  r20  b1
+    h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Требуют внимания»
+    p.AdminSummary__text  694×22 @21,61  Manrope 400 15/22  lines=1  «Наряды, по которым время вышло или неком»
+    p.AdminSummary__text#2  694×22 @21,93  Manrope 400 15/22  lines=1  «Ничего не горит: сроки соблюдаются, испо»
+    a.AdminSummary__link  694×44 @21,140  Manrope 600 15/22  lines=1  «Открыть заказы →»
+
+[геометрия 1440]
+div.AdminSummary__summary  1408×461 @16,16
+  header.AdminSummary__header  1408×74 @0,0
+    h1.AdminSummary__title  1408×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Обзор»
+    p.AdminSummary__lead  601×22 @0,52  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
+  div.AdminSummary__bar  1408×40 @0,92
+    nav.AdminSummary__segments  239×40 @0,0  r100  b1
+      a.AdminSummary__segment  72×32 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+      a.AdminSummary__segment#2  77×32 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+      a.AdminSummary__segment#3  79×32 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+    p.AdminSummary__period  77×20 @1331,10  Manrope 600 13/20  lines=1  «Август 2026»
+  div.StatTile__tiles  1408×107 @0,150
+    a.AdminSummary__tileLink  340×107 @0,0  r14
+      dl.StatTile__tile  340×107 @0,0  r14  b1
+        dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Выполнено за месяц»
+        dd.StatTile__value  306×34 @17,36
+          span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+        dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «закрытых нарядов»
+    a.AdminSummary__tileLink#2  340×107 @356,0  r14
+      dl.StatTile__tile  340×107 @0,0  r14  b1
+        dt.StatTile__label#2  306×15 @17,17  Manrope 600 12/15  lines=1  «В работе»
+        dd.StatTile__value#2  306×34 @17,36
+          span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+        dd.StatTile__note#2  306×16 @17,74  Manrope 400 12/16  lines=1  «назначены и на объекте»
+    a.AdminSummary__tileLink#3  340×107 @712,0  r14
+      dl.StatTile__tile  340×107 @0,0  r14  b1
+        dt.StatTile__label#3  306×15 @17,17  Manrope 600 12/15  lines=1  «Новые наряды»
+        dd.StatTile__value#3  306×34 @17,36
+          span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+        dd.StatTile__note#3  306×16 @17,74  Manrope 400 12/16  lines=1  «ждут исполнителя»
+    a.AdminSummary__tileLink#4  340×107 @1068,0  r14
+      dl.StatTile__tile  340×107 @0,0  r14  b1
+        dt.StatTile__label#4  306×15 @17,17  Manrope 600 12/15  lines=1  «Монтажников на связи»
+        dd.StatTile__value#4  306×34 @17,36
+          span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «1»
+        dd.StatTile__note#4  306×16 @17,74  Manrope 400 12/16  lines=1  «с открытым доступом в панель»
+  section.Card__card  1408×186 @0,275  r20  b1
+    h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Требуют внимания»
+    p.AdminSummary__text  1366×22 @21,62  Manrope 400 15/22  lines=1  «Наряды, по которым время вышло или неком»
+    p.AdminSummary__text#2  1366×22 @21,94  Manrope 400 15/22  lines=1  «Ничего не горит: сроки соблюдаются, испо»
+    a.AdminSummary__link  1366×24 @21,141  Manrope 600 15/22  lines=1  «Открыть заказы →»
+
+[палитра light]
+div.AdminSummary__summary
+  header.AdminSummary__header
+    h1.AdminSummary__title  color #0f172a
+    p.AdminSummary__lead  color #475569
+  div.AdminSummary__bar
+    nav.AdminSummary__segments  bg #f8fafc  border #e2e8f0
+      a.AdminSummary__segment  color #556173
+      a.AdminSummary__segment#2  color #0f172a  bg #ffffff
+      a.AdminSummary__segment#3  color #556173
+    p.AdminSummary__period  color #556173
+  div.StatTile__tiles
+    a.AdminSummary__tileLink
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label  color #556173
+        dd.StatTile__value
+          span.StatTile__number  color #0f172a
+        dd.StatTile__note  color #556173
+    a.AdminSummary__tileLink#2
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label#2  color #556173
+        dd.StatTile__value#2
+          span.StatTile__number  color #0f172a
+        dd.StatTile__note#2  color #556173
+    a.AdminSummary__tileLink#3
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label#3  color #556173
+        dd.StatTile__value#3
+          span.StatTile__number  color #0f172a
+        dd.StatTile__note#3  color #556173
+    a.AdminSummary__tileLink#4
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label#4  color #556173
+        dd.StatTile__value#4
+          span.StatTile__number  color #0f172a
+        dd.StatTile__note#4  color #556173
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    h2.AdminSummary__cardTitle  color #0f172a
+    p.AdminSummary__text  color #475569
+    p.AdminSummary__text#2  color #475569
+    a.AdminSummary__link  color #0e7490
+
+[палитра dark]
+div.AdminSummary__summary
+  header.AdminSummary__header
+    h1.AdminSummary__title  color #eaf1f8
+    p.AdminSummary__lead  color #a8b6c6
+  div.AdminSummary__bar
+    nav.AdminSummary__segments  bg #0e1729  border #1e2b41
+      a.AdminSummary__segment  color #8598ac
+      a.AdminSummary__segment#2  color #eaf1f8  bg #121d31
+      a.AdminSummary__segment#3  color #8598ac
+    p.AdminSummary__period  color #8598ac
+  div.StatTile__tiles
+    a.AdminSummary__tileLink
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label  color #8598ac
+        dd.StatTile__value
+          span.StatTile__number  color #eaf1f8
+        dd.StatTile__note  color #8598ac
+    a.AdminSummary__tileLink#2
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label#2  color #8598ac
+        dd.StatTile__value#2
+          span.StatTile__number  color #eaf1f8
+        dd.StatTile__note#2  color #8598ac
+    a.AdminSummary__tileLink#3
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label#3  color #8598ac
+        dd.StatTile__value#3
+          span.StatTile__number  color #eaf1f8
+        dd.StatTile__note#3  color #8598ac
+    a.AdminSummary__tileLink#4
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label#4  color #8598ac
+        dd.StatTile__value#4
+          span.StatTile__number  color #eaf1f8
+        dd.StatTile__note#4  color #8598ac
+  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    h2.AdminSummary__cardTitle  color #eaf1f8
+    p.AdminSummary__text  color #a8b6c6
+    p.AdminSummary__text#2  color #a8b6c6
+    a.AdminSummary__link  color #22d3ee

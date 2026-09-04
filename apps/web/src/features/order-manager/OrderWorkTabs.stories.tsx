@@ -1,11 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { OrderChecklist } from './OrderChecklist';
+import { OrderConsumption } from './OrderConsumption';
 import { OrderDocs } from './OrderDocs';
+import { OrderHistory } from './OrderHistory';
 import { OrderPhotos } from './OrderPhotos';
 import { OrderResultForm } from './OrderResultForm';
 import { OrderWorkTabs } from './OrderWorkTabs';
-import { acceptingWorkApi, checklist, docs, orderDetails, photos } from './fixtures';
+import {
+  acceptingConsumptionApi,
+  acceptingWorkApi,
+  checklist,
+  docs,
+  emptyConsumptionApi,
+  orderDetails,
+  photos,
+  stockChecklist,
+} from './fixtures';
 
 const api = acceptingWorkApi;
 
@@ -22,6 +33,15 @@ const meta = {
         resultAt={orderDetails.resultAt}
       />
     ),
+    materials: (
+      <OrderConsumption
+        orderId={orderDetails.id}
+        api={acceptingConsumptionApi}
+        checklist={stockChecklist}
+        /* Подтверждение выведено пропом: история не открывает окно (ADR-113). */
+        confirmReturn={async () => true}
+      />
+    ),
     checklist: <OrderChecklist api={api} items={checklist} />,
     documents: (
       <>
@@ -29,14 +49,21 @@ const meta = {
         <OrderPhotos api={api} photos={photos} confirmRemove={async () => true} />
       </>
     ),
+    history: <OrderHistory entries={orderDetails.history ?? []} />,
   },
 } satisfies Meta<typeof OrderWorkTabs>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Три вкладки из разбора прототипа (CRM.md §3.3). Открыт наряд. */
+/** Пять вкладок словаря (CRM.md §3.3, issue #346). Открыт наряд. */
 export const Базовое: Story = {};
+
+/** Расход материалов: что списали с машины на этот выезд. */
+export const Расход: Story = { args: { active: 'materials' } };
+
+/** История наряда — вкладка владельца: кто и когда менял статус. */
+export const История: Story = { args: { active: 'history' } };
 
 /**
  * Карточку открыли по ссылке на чеклист: `?tab=checklist` приходит с сервера
@@ -57,12 +84,22 @@ export const ГлазамиМонтажника: Story = {
         <OrderPhotos api={api} photos={photos} forInstaller confirmRemove={async () => true} />
       </>
     ),
+    /* 🔴 Истории у монтажника нет вовсе: вкладок остаётся четыре (ADR-114). */
+    history: undefined,
   },
 };
 
 /** Наряд только завели: чеклист пуст, бумаг и снимков нет. */
 export const Пусто: Story = {
   args: {
+    materials: (
+      <OrderConsumption
+        orderId={orderDetails.id}
+        api={emptyConsumptionApi}
+        checklist={[]}
+        confirmReturn={async () => true}
+      />
+    ),
     checklist: <OrderChecklist api={api} items={[]} />,
     documents: (
       <>
@@ -70,5 +107,6 @@ export const Пусто: Story = {
         <OrderPhotos api={api} photos={[]} />
       </>
     ),
+    history: <OrderHistory entries={[]} />,
   },
 };

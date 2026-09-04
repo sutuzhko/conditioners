@@ -1,5 +1,4 @@
 /** Публичный API раздела заказов. */
-export { OrderCardView, type OrderCardViewProps } from './OrderCardView';
 export { OrderChecklist, type OrderChecklistProps } from './OrderChecklist';
 export { OrderConsumption, type OrderConsumptionProps } from './OrderConsumption';
 export { OrderConsumptionForm, type OrderConsumptionFormProps } from './OrderConsumptionForm';
@@ -13,6 +12,8 @@ export { OrderFilters, type OrderFiltersProps } from './OrderFilters';
 export { OrderForm, type OrderFormProps } from './OrderForm';
 export { OrderInstallerView, type OrderInstallerViewProps } from './OrderInstallerView';
 export { OrderList, type OrderListProps } from './OrderList';
+export { OrderTable, type OrderTableProps } from './OrderTable';
+export { OrderTabs, type OrderTabsProps } from './OrderTabs';
 export { OrderUnits, type OrderUnitsProps } from './OrderUnits';
 export {
   DEDUCTION_NOTE,
@@ -34,6 +35,7 @@ export { orderApi, orderConsumptionApi, orderWorkApi } from './lib';
 export {
   ADMIN_PAGE_SIZE,
   DEFAULT_ORDER_FILTERS,
+  INSTALLER_CARD_TABS,
   ORDERS_PATH,
   ORDER_CARD_TABS,
   ORDER_PERIODS,
@@ -52,6 +54,7 @@ export {
   isOrderTab,
   isOrderType,
   orderCardTabFromParam,
+  orderCardTabsFor,
   orderDraftOf,
   orderTabFromParam,
   orderTabParam,

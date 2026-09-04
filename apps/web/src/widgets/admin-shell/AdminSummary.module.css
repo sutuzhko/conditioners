@@ -1,4 +1,4 @@
-/* Сводка на входе в панель. */
+/* Сводка на входе в панель: три сегмента одной раскладки. */
 
 .summary {
   display: flex;
@@ -28,6 +28,97 @@
   font-size: var(--fs-dense);
 }
 
+/* Ряд сегментов и период: сегменты слева, период справа (макет «Обзор»). */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 🔴 Сегменты — переключатель точки зрения, а не переход в другой раздел:
+   отсюда общая подложка и подсвеченная ячейка внутри неё, а не вкладки с
+   подчёркиванием. Вкладки в панели означают стопки списка (заказы, отзывы), и
+   один и тот же вид для двух разных смыслов путал бы оба. */
+.segments {
+  display: inline-flex;
+  gap: 2px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--bg-soft);
+  padding: 3px;
+}
+
+.segment {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--r-pill);
+  padding: 6px 16px;
+  min-height: 32px;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.segment:hover {
+  color: var(--ink);
+}
+
+.segment:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+.current {
+  background: var(--card);
+  box-shadow: var(--sh-sm);
+  color: var(--ink);
+}
+
+.period {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+/* Плитки показателей. Ряд задаёт кит: четыре в ряд от 1200, две ниже. */
+.tiles {
+  min-width: 0;
+}
+
+.tile {
+  min-width: 0;
+}
+
+/* 🔴 Ссылкой служит вся плитка, а не подпись под числом: подпись давала цель
+   82×17 при норме 44×44 (ADR-183, issue #476). Плитка сама себе цель, и
+   промахнуться по ней пальцем нельзя. */
+.tileLink {
+  display: block;
+  min-width: 0;
+  border-radius: var(--r-card, var(--r-md));
+  color: inherit;
+  text-decoration: none;
+}
+
+.tileLink:hover dl {
+  border-color: var(--accent-ink);
+}
+
+.tileLink:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+/* Плитка внутри ссылки тянется на всю её высоту: иначе ряд из четырёх стоит
+   ступенькой, когда у одной подписи перенос. */
+.tileLink .tile {
+  height: 100%;
+}
+
 .cardTitle {
   margin: 0 0 8px;
   color: var(--ink);
@@ -54,9 +145,7 @@
 .link {
   /* 🔴 Пол цели, а не оформление (issue #476). Ссылка-действие оформлена
      блоком, а не стоит в строке текста, — значит по WCAG 2.5.8 она цель, и
-     меряется её рамка: строка кегля давала 22.5px при минимуме 24.
-     `inline-flex` вместо `inline-block`: подпись встаёт по центру нового
-     пола, а не липнет к его верху. */
+     меряется её рамка: строка кегля давала 22.5px при минимуме 24. */
   display: inline-flex;
   align-items: center;
   min-height: 24px;
@@ -71,61 +160,26 @@
   text-decoration: underline;
 }
 
-.tiles {
-  display: grid;
-
-  /* Плитки сами решают, сколько их в ряду: колонок ровно столько, сколько
-     помещается по 158px. Порог подобран под пять плиток: при 200px они
-     ложились на широком экране как «четыре и хвост», а хвост читается как
-     недогруженный блок, а не как пятая цифра. */
-  grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
-  gap: 12px;
-}
-
-.tile {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 16px 18px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  background: var(--card);
-  text-decoration: none;
-  transition: border-color var(--dur-fast) ease;
-}
-
-.tile:hover {
-  border-color: var(--accent-ink);
-}
-
-.tileTitle {
-  color: var(--muted);
-  font-size: var(--fs-caption);
-}
-
-.tileValue {
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: 30px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  line-height: 1.1;
-}
-
-.urgent {
-  color: var(--accent-text);
-}
-
-.tileNote {
-  color: var(--faint);
-  font-size: var(--fs-caption);
-}
-
-/* Ближайшие дела из календаря. */
-.upcoming {
+.panel {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+/* Пара блоков под плитками: от 1200 они стоят рядом в отношении 1.6 к 1 —
+   как в макете, — ниже складываются в столбец. Порядок в разметке один и тот
+   же на всех ширинах, поэтому карточка готовности остаётся последней. */
+.pair {
+  display: grid;
+  gap: 12px;
+  align-items: start;
+}
+
+@media (width >= 1200px) {
+  .pair {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 16px;
+  }
 }
 
 .events {
@@ -188,4 +242,93 @@
   color: inherit;
   font-size: var(--fs-dense);
   font-weight: 600;
+}
+
+.eventNote {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+/* 🔴 Строка срыва (issue #347): тинт строки складывался с тинтом плашки и
+   давал 4,40:1 при норме 4,5. Заливку плашке снимает `--badge-fill` — кит
+   держит эту переменную ровно для такого случая, — а приглушённая подпись
+   поднимается на ступень, до `--body`. */
+.rowbad {
+  --badge-fill: transparent;
+
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  padding: 8px;
+}
+
+.rowbad .eventNote,
+.rowbad .eventKind {
+  color: var(--body);
+}
+
+/* Таблица долей выручки: числа справа, моноширинные — их сравнивают глазом. */
+.right {
+  text-align: right;
+}
+
+.money {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.percent {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  text-align: right;
+}
+
+/* 🔴 До 600px на первом экране остаются две плитки из четырёх (issue #344).
+   Выручка и отзывы живут в своих сегментах, а вчетвером на 358px они дают
+   четыре нечитаемых квадрата вместо двух ответов. Прячется разметка, а не
+   данные: в сегменте «Деньги» те же числа приходят целиком. */
+@media (width < 600px) {
+  /* 🔴 Через ряд, а не одним классом: у кита `.tile` объявляет `display: flex`
+     тем же весом, и порядок подключения модулей между собой не определён —
+     правило одного веса выигрывало бы через раз. */
+  .tiles .wide {
+    display: none;
+  }
+
+  /* Главное число сегмента «Деньги» получает всю ширину и кегль 30px: это
+     ответ на вопрос, ради которого сегмент открывают. */
+  .tiles .leadTile {
+    grid-column: 1 / -1;
+  }
+
+  /* Только число, а не пояснение под ним: `dd` у плитки два, и общий селектор
+     набирал 30px и примечанию — три строки капслоком вместо подписи. */
+  .leadTile dd:first-of-type {
+    font-size: 30px;
+  }
+
+  /* 🔴 График с 390 уходит совсем (issue #344): четыре деления шириной в
+     358px нечитаемы, а числа плиток и таблица долей отвечают на тот же
+     вопрос точнее. */
+  .chartCard {
+    display: none;
+  }
+
+  .segments {
+    width: 100%;
+  }
+
+  .segment {
+    flex: 1 1 0;
+    justify-content: center;
+    min-height: var(--tap);
+  }
+}
+
+@media (width < 900px) {
+  .segment {
+    min-height: var(--tap);
+  }
 }

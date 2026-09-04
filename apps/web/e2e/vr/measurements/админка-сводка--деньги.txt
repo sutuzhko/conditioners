@@ -1,0 +1,360 @@
+# админка-сводка--деньги · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×954
+768 → 768×1086
+1440 → 1440×900
+
+[геометрия 390]
+div.AdminSummary__summary  358×922 @16,16
+  header.AdminSummary__header  358×59 @0,0
+    h1.AdminSummary__title  358×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Обзор»
+    p.AdminSummary__lead  358×22 @0,36  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
+  div.AdminSummary__bar  358×80 @0,77
+    nav.AdminSummary__segments  358×52 @0,0  r100  b1
+      a.AdminSummary__segment  115×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+      a.AdminSummary__segment#2  115×44 @121,4  Manrope 600 13/20  r100  lines=1  «Работа»
+      a.AdminSummary__segment#3  115×44 @239,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+    p.AdminSummary__period  77×20 @0,60  Manrope 600 13/20  lines=1  «Август 2026»
+  div.StatTile__tiles  358×223 @0,175
+    dl.StatTile__tile  358×99 @0,0  r14  b1
+      dt.StatTile__label  332×15 @13,13  Manrope 600 12/15  lines=1  «Выручка»
+      dd.StatTile__value  332×34 @13,32
+        span.StatTile__number  131×34 @0,0  Onest 700 26/34  ls-1  lines=1  «486 200 ₽»
+      dd.StatTile__note  332×16 @13,70  Manrope 400 12/16  lines=1  «по выполненным нарядам»
+    dl.StatTile__tile#2  175×115 @0,107  r14  b1
+      dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «Средний чек»
+      dd.StatTile__value  149×34 @13,32
+        span.StatTile__number#2  72×21 @0,6  Onest 700 16/21  ls0  lines=1  «12 800 ₽»
+      dd.StatTile__note  149×16 @13,70  Manrope 400 12/16  lines=1  «выручка на наряд»
+    dl.StatTile__tile#3  175×115 @183,107  r14  b1
+      dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «К выплате бригадам»
+      dd.StatTile__value  149×34 @13,32
+        span.StatTile__number#3  82×21 @0,6  Onest 700 16/21  ls0  lines=1  «132 000 ₽»
+      dd.StatTile__note  149×32 @13,70  Manrope 400 12/16  lines=2  «вознаграждение за вычетом удержаний»
+  div.AdminSummary__pair  358×507 @0,415
+    section.Card__card  358×507 @0,0  r20  b1
+      h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Из чего сложилась»
+      p.AdminSummary__text  316×45 @21,60  Manrope 400 15/22  lines=2  «Те же наряды, что в разделе «Заказы", —»
+      div.Table__viewport  316×371 @21,115
+        table.Table__table  316×371 @0,0
+          tr[role=row]  1×56 @0,0
+            th  112×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Вид работ»
+            th.AdminSummary__right  100×56 @112,0  Onest 700 15/23  b0 0 1 0  lines=1  «Выручка»
+            th.AdminSummary__right#2  73×56 @213,0  Onest 700 15/23  b0 0 1 0  lines=1  «Доля»
+          tr[role=row]#2  316×117 @0,0  r14  b1
+            td[role=cell]  314×36 @1,5  Manrope 400 15/22  lines=1  «Монтаж»
+              td[role=cell]::before  62×20 @0,0
+            td.AdminSummary__money  314×36 @1,41  JetBrains Mono 700 15/22  lines=1  «311 400 ₽»
+              td.AdminSummary__money::before  55×20 @0,0
+            td.AdminSummary__percent  314×34 @1,78  Manrope 400 13/20  lines=1  «64%»
+              td.AdminSummary__percent::before  32×20 @0,0
+          tr[role=row]#3  316×117 @0,127  r14  b1
+            td[role=cell]  314×36 @1,5  Manrope 400 15/22  lines=1  «Обслуживание»
+              td[role=cell]::before  62×20 @0,0
+            td.AdminSummary__money  314×36 @1,41  JetBrains Mono 700 15/22  lines=1  «118 700 ₽»
+              td.AdminSummary__money::before  55×20 @0,0
+            td.AdminSummary__percent  314×34 @1,78  Manrope 400 13/20  lines=1  «24%»
+              td.AdminSummary__percent::before  32×20 @0,0
+          tr[role=row]#4  316×117 @0,254  r14  b1
+            td[role=cell]  314×36 @1,5  Manrope 400 15/22  lines=1  «Ремонт»
+              td[role=cell]::before  62×20 @0,0
+            td.AdminSummary__money  314×36 @1,41  JetBrains Mono 700 15/22  lines=1  «56 100 ₽»
+              td.AdminSummary__money::before  55×20 @0,0
+            td.AdminSummary__percent  314×34 @1,78  Manrope 400 13/20  lines=1  «12%»
+              td.AdminSummary__percent::before  32×20 @0,0
+
+[геометрия 768]
+div.AdminSummary__summary  736×1054 @16,16
+  header.AdminSummary__header  736×66 @0,0
+    h1.AdminSummary__title  736×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Обзор»
+    p.AdminSummary__lead  601×22 @0,43  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
+  div.AdminSummary__bar  736×52 @0,84
+    nav.AdminSummary__segments  239×52 @0,0  r100  b1
+      a.AdminSummary__segment  72×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+      a.AdminSummary__segment#2  77×44 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+      a.AdminSummary__segment#3  79×44 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+    p.AdminSummary__period  77×20 @659,16  Manrope 600 13/20  lines=1  «Август 2026»
+  div.StatTile__tiles  736×226 @0,154
+    dl.StatTile__tile  362×107 @0,0  r14  b1
+      dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Выручка»
+      dd.StatTile__value  328×34 @17,36
+        span.StatTile__number  131×34 @0,0  Onest 700 26/34  ls-1  lines=1  «486 200 ₽»
+      dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «по выполненным нарядам»
+    dl.StatTile__tile#2  362×107 @374,0  r14  b1
+      dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Средний чек»
+      dd.StatTile__value  328×34 @17,36
+        span.StatTile__number#2  114×34 @0,0  Onest 700 26/34  ls-1  lines=1  «12 800 ₽»
+      dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «выручка на наряд»
+    dl.StatTile__tile#3  362×107 @0,119  r14  b1
+      dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «К выплате бригадам»
+      dd.StatTile__value  328×34 @17,36
+        span.StatTile__number#3  131×34 @0,0  Onest 700 26/34  ls-1  lines=1  «132 000 ₽»
+      dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «вознаграждение за вычетом удержаний»
+    dl.StatTile__tile#4  362×107 @374,119  r14  b1
+      dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Принято наличными»
+      dd.StatTile__value  328×34 @17,36
+        span.StatTile__number#4  114×34 @0,0  Onest 700 26/34  ls-1  lines=1  «74 500 ₽»
+      dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «на объекте, у монтажников»
+  div.AdminSummary__pair  736×656 @0,398
+    section.Card__card  736×320 @0,0  r20  b1
+      h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Выручка по неделям»
+      figure.Chart__figure  694×239 @21,61
+        svg.Chart__canvas  694×239 @0,0
+    section.Card__card#2  736×324 @0,332  r20  b1
+      h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Из чего сложилась»
+      p.AdminSummary__text  694×22 @21,61  Manrope 400 15/22  lines=1  «Те же наряды, что в разделе «Заказы", —»
+      div.Table__viewport  694×210 @21,93
+        table.Table__table  694×210 @0,0
+          tr[role=row]  694×56 @0,0
+            th  295×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Вид работ»
+            th.AdminSummary__right  244×56 @295,0  Onest 700 15/23  b0 0 1 0  lines=1  «Выручка»
+            th.AdminSummary__right#2  156×56 @538,0  Onest 700 15/23  b0 0 1 0  lines=1  «Доля»
+          tr[role=row]#2  694×51 @0,56
+            td[role=cell]  295×51 @0,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Монтаж»
+            td.AdminSummary__money  244×51 @295,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «311 400 ₽»
+            td.AdminSummary__percent  156×51 @538,0  Manrope 400 13/20  b0 0 1 0  lines=1  «64%»
+          tr[role=row]#3  694×51 @0,107
+            td[role=cell]  295×51 @0,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Обслуживание»
+            td.AdminSummary__money  244×51 @295,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «118 700 ₽»
+            td.AdminSummary__percent  156×51 @538,0  Manrope 400 13/20  b0 0 1 0  lines=1  «24%»
+          tr[role=row]#4  694×51 @0,159
+            td[role=cell]  295×51 @0,0  Manrope 400 15/22  lines=1  «Ремонт»
+            td.AdminSummary__money  244×51 @295,0  JetBrains Mono 700 15/22  lines=1  «56 100 ₽»
+            td.AdminSummary__percent  156×51 @538,0  Manrope 400 13/20  lines=1  «12%»
+
+[геометрия 1440]
+div.AdminSummary__summary  1408×638 @16,16
+  header.AdminSummary__header  1408×74 @0,0
+    h1.AdminSummary__title  1408×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Обзор»
+    p.AdminSummary__lead  601×22 @0,52  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
+  div.AdminSummary__bar  1408×40 @0,92
+    nav.AdminSummary__segments  239×40 @0,0  r100  b1
+      a.AdminSummary__segment  72×32 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+      a.AdminSummary__segment#2  77×32 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+      a.AdminSummary__segment#3  79×32 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+    p.AdminSummary__period  77×20 @1331,10  Manrope 600 13/20  lines=1  «Август 2026»
+  div.StatTile__tiles  1408×107 @0,150
+    dl.StatTile__tile  340×107 @0,0  r14  b1
+      dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Выручка»
+      dd.StatTile__value  306×34 @17,36
+        span.StatTile__number  131×34 @0,0  Onest 700 26/34  ls-1  lines=1  «486 200 ₽»
+      dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «по выполненным нарядам»
+    dl.StatTile__tile#2  340×107 @356,0  r14  b1
+      dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Средний чек»
+      dd.StatTile__value  306×34 @17,36
+        span.StatTile__number#2  114×34 @0,0  Onest 700 26/34  ls-1  lines=1  «12 800 ₽»
+      dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «выручка на наряд»
+    dl.StatTile__tile#3  340×107 @712,0  r14  b1
+      dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «К выплате бригадам»
+      dd.StatTile__value  306×34 @17,36
+        span.StatTile__number#3  131×34 @0,0  Onest 700 26/34  ls-1  lines=1  «132 000 ₽»
+      dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «вознаграждение за вычетом удержаний»
+    dl.StatTile__tile#4  340×107 @1068,0  r14  b1
+      dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Принято наличными»
+      dd.StatTile__value  306×34 @17,36
+        span.StatTile__number#4  114×34 @0,0  Onest 700 26/34  ls-1  lines=1  «74 500 ₽»
+      dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «на объекте, у монтажников»
+  div.AdminSummary__pair  1408×363 @0,275
+    section.Card__card  857×363 @0,0  r20  b1
+      h2.AdminSummary__cardTitle  815×23 @21,21  Onest 700 19/23  ls0  lines=1  «Выручка по неделям»
+      figure.Chart__figure  815×280 @21,62
+        svg.Chart__canvas  815×280 @0,0
+    section.Card__card#2  535×325 @873,0  r20  b1
+      h2.AdminSummary__cardTitle  493×23 @21,21  Onest 700 19/23  ls0  lines=1  «Из чего сложилась»
+      p.AdminSummary__text  493×22 @21,62  Manrope 400 15/22  lines=1  «Те же наряды, что в разделе «Заказы", —»
+      div.Table__viewport  493×210 @21,94
+        table.Table__table  493×210 @0,0
+          tr[role=row]  493×56 @0,0
+            th  209×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Вид работ»
+            th.AdminSummary__right  173×56 @209,0  Onest 700 15/23  b0 0 1 0  lines=1  «Выручка»
+            th.AdminSummary__right#2  111×56 @383,0  Onest 700 15/23  b0 0 1 0  lines=1  «Доля»
+          tr[role=row]#2  493×51 @0,56
+            td[role=cell]  209×51 @0,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Монтаж»
+            td.AdminSummary__money  173×51 @209,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «311 400 ₽»
+            td.AdminSummary__percent  111×51 @383,0  Manrope 400 13/20  b0 0 1 0  lines=1  «64%»
+          tr[role=row]#3  493×51 @0,107
+            td[role=cell]  209×51 @0,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Обслуживание»
+            td.AdminSummary__money  173×51 @209,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «118 700 ₽»
+            td.AdminSummary__percent  111×51 @383,0  Manrope 400 13/20  b0 0 1 0  lines=1  «24%»
+          tr[role=row]#4  493×51 @0,159
+            td[role=cell]  209×51 @0,0  Manrope 400 15/22  lines=1  «Ремонт»
+            td.AdminSummary__money  173×51 @209,0  JetBrains Mono 700 15/22  lines=1  «56 100 ₽»
+            td.AdminSummary__percent  111×51 @383,0  Manrope 400 13/20  lines=1  «12%»
+
+[палитра light]
+div.AdminSummary__summary
+  header.AdminSummary__header
+    h1.AdminSummary__title  color #0f172a
+    p.AdminSummary__lead  color #475569
+  div.AdminSummary__bar
+    nav.AdminSummary__segments  bg #f8fafc  border #e2e8f0
+      a.AdminSummary__segment  color #556173
+      a.AdminSummary__segment#2  color #556173
+      a.AdminSummary__segment#3  color #0f172a  bg #ffffff
+    p.AdminSummary__period  color #556173
+  div.StatTile__tiles
+    dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      dt.StatTile__label  color #556173
+      dd.StatTile__value
+        span.StatTile__number  color #0f172a
+      dd.StatTile__note  color #556173
+    dl.StatTile__tile#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      dt.StatTile__label  color #556173
+      dd.StatTile__value
+        span.StatTile__number#2  color #0f172a
+      dd.StatTile__note  color #556173
+    dl.StatTile__tile#3  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      dt.StatTile__label  color #556173
+      dd.StatTile__value
+        span.StatTile__number#3  color #0f172a
+      dd.StatTile__note  color #556173
+    dl.StatTile__tile#4  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      dt.StatTile__label  color #556173
+      dd.StatTile__value
+        span.StatTile__number#4  color #0f172a
+      dd.StatTile__note  color #556173
+  div.AdminSummary__pair
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      h2.AdminSummary__cardTitle  color #0f172a
+      figure.Chart__figure
+        svg.Chart__canvas
+    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      h2.AdminSummary__cardTitle  color #0f172a
+      p.AdminSummary__text  color #475569
+      div.Table__viewport
+        table.Table__table
+          tr[role=row]
+            th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+            th.AdminSummary__right  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+            th.AdminSummary__right#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          tr[role=row]#2
+            td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+            td.AdminSummary__money  color #0f172a  border #0f172a #0f172a #eef2f6 #0f172a
+            td.AdminSummary__percent  color #556173  border #556173 #556173 #eef2f6 #556173
+          tr[role=row]#3
+            td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+            td.AdminSummary__money  color #0f172a  border #0f172a #0f172a #eef2f6 #0f172a
+            td.AdminSummary__percent  color #556173  border #556173 #556173 #eef2f6 #556173
+          tr[role=row]#4
+            td[role=cell]  color #334155
+            td.AdminSummary__money  color #0f172a
+            td.AdminSummary__percent  color #556173
+[палитра light @390]
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > p.AdminSummary__text  color #475569
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.AdminSummary__right  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.AdminSummary__right#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]  color #334155
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminSummary__money  color #0f172a
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminSummary__money > td.AdminSummary__money::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminSummary__percent  color #556173
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminSummary__percent > td.AdminSummary__percent::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #ffffff  border #e2e8f0
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]  color #334155
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminSummary__money  color #0f172a
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminSummary__money > td.AdminSummary__money::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminSummary__percent  color #556173
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminSummary__percent > td.AdminSummary__percent::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #ffffff  border #e2e8f0
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]  color #334155
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminSummary__money  color #0f172a
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminSummary__money > td.AdminSummary__money::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminSummary__percent  color #556173
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminSummary__percent > td.AdminSummary__percent::before
+
+[палитра dark]
+div.AdminSummary__summary
+  header.AdminSummary__header
+    h1.AdminSummary__title  color #eaf1f8
+    p.AdminSummary__lead  color #a8b6c6
+  div.AdminSummary__bar
+    nav.AdminSummary__segments  bg #0e1729  border #1e2b41
+      a.AdminSummary__segment  color #8598ac
+      a.AdminSummary__segment#2  color #8598ac
+      a.AdminSummary__segment#3  color #eaf1f8  bg #121d31
+    p.AdminSummary__period  color #8598ac
+  div.StatTile__tiles
+    dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      dt.StatTile__label  color #8598ac
+      dd.StatTile__value
+        span.StatTile__number  color #eaf1f8
+      dd.StatTile__note  color #8598ac
+    dl.StatTile__tile#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      dt.StatTile__label  color #8598ac
+      dd.StatTile__value
+        span.StatTile__number#2  color #eaf1f8
+      dd.StatTile__note  color #8598ac
+    dl.StatTile__tile#3  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      dt.StatTile__label  color #8598ac
+      dd.StatTile__value
+        span.StatTile__number#3  color #eaf1f8
+      dd.StatTile__note  color #8598ac
+    dl.StatTile__tile#4  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      dt.StatTile__label  color #8598ac
+      dd.StatTile__value
+        span.StatTile__number#4  color #eaf1f8
+      dd.StatTile__note  color #8598ac
+  div.AdminSummary__pair
+    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      h2.AdminSummary__cardTitle  color #eaf1f8
+      figure.Chart__figure
+        svg.Chart__canvas
+    section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      h2.AdminSummary__cardTitle  color #eaf1f8
+      p.AdminSummary__text  color #a8b6c6
+      div.Table__viewport
+        table.Table__table
+          tr[role=row]
+            th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+            th.AdminSummary__right  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+            th.AdminSummary__right#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          tr[role=row]#2
+            td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            td.AdminSummary__money  color #eaf1f8  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+            td.AdminSummary__percent  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+          tr[role=row]#3
+            td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            td.AdminSummary__money  color #eaf1f8  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+            td.AdminSummary__percent  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+          tr[role=row]#4
+            td[role=cell]  color #c9d5e2
+            td.AdminSummary__money  color #eaf1f8
+            td.AdminSummary__percent  color #8598ac
+[палитра dark @390]
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > p.AdminSummary__text  color #a8b6c6
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.AdminSummary__right  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.AdminSummary__right#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]  color #c9d5e2
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminSummary__money  color #eaf1f8
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminSummary__money > td.AdminSummary__money::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminSummary__percent  color #8598ac
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminSummary__percent > td.AdminSummary__percent::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #121d31  border #1e2b41
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]  color #c9d5e2
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminSummary__money  color #eaf1f8
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminSummary__money > td.AdminSummary__money::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminSummary__percent  color #8598ac
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminSummary__percent > td.AdminSummary__percent::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #121d31  border #1e2b41
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]  color #c9d5e2
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminSummary__money  color #eaf1f8
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminSummary__money > td.AdminSummary__money::before
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminSummary__percent  color #8598ac
+div.AdminSummary__summary > div.AdminSummary__pair > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminSummary__percent > td.AdminSummary__percent::before

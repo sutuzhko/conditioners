@@ -20,12 +20,20 @@ export interface OrderWorkProps {
   readonly tab: OrderCardTab;
   /** Монтажник: место установки только смотрит, документы не правит. */
   readonly forInstaller?: boolean | undefined;
+  /**
+   * Расход материалов. Приходит готовым узлом со страницы: блок читает склад
+   * сам, а собрать его здесь значило бы протащить через границу сервер→клиент
+   * начальные движения и справочник, которые страница уже прочитала.
+   */
+  readonly materials: ReactNode;
+  /** 🔴 История — только владельцу: монтажнику её не отдаёт сервер (ADR-114). */
+  readonly history?: ReactNode | undefined;
   /** Вкладка «Наряд»: форма владельца или карточка монтажника. */
   readonly children: ReactNode;
 }
 
 /**
- * Работа с нарядом: три вкладки и итог работ.
+ * Работа с нарядом: пять вкладок и итог работ (issue #346).
  *
  * 🔴 Клиентский лист существует по той же причине, что и `OrderEditor`:
  * функция не переживает границу сервер→клиент, а действиям наряда нужен и
@@ -33,7 +41,14 @@ export interface OrderWorkProps {
  * приходят с сервера — состав чеклиста, документов и снимков живёт в базе, а
  * не в памяти компонента.
  */
-export function OrderWork({ order, tab, forInstaller = false, children }: OrderWorkProps) {
+export function OrderWork({
+  order,
+  tab,
+  forInstaller = false,
+  materials,
+  history,
+  children,
+}: OrderWorkProps) {
   const router = useRouter();
   const api = orderWorkApi(order.id);
   const refresh = (): void => router.refresh();
@@ -55,6 +70,7 @@ export function OrderWork({ order, tab, forInstaller = false, children }: OrderW
           />
         </>
       }
+      materials={materials}
       checklist={<OrderChecklist api={api} items={order.checklist} onChanged={refresh} />}
       documents={
         <>
@@ -67,6 +83,7 @@ export function OrderWork({ order, tab, forInstaller = false, children }: OrderW
           />
         </>
       }
+      history={history}
     />
   );
 }
