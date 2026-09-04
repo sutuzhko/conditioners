@@ -1,0 +1,37 @@
+# админка-вкладки-ссылки-панели--безвыбранной · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+nav.PanelTabs__tabs  358×95 @16,16  b0 0 1 0
+  a.PanelTabs__tab  153×44 @0,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Остатки по зонам»
+  a.PanelTabs__tab#2  157×44 @157,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Журнал движений»
+  a.PanelTabs__tab#3  136×44 @0,48  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Зоны хранения»
+
+[геометрия 768]
+nav.PanelTabs__tabs  736×47 @16,16  b0 0 1 0
+  a.PanelTabs__tab  153×44 @0,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Остатки по зонам»
+  a.PanelTabs__tab#2  157×44 @157,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Журнал движений»
+  a.PanelTabs__tab#3  136×44 @318,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Зоны хранения»
+
+[геометрия 1440]
+nav.PanelTabs__tabs  1408×43 @16,16  b0 0 1 0
+  a.PanelTabs__tab  153×40 @0,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Остатки по зонам»
+  a.PanelTabs__tab#2  157×40 @157,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Журнал движений»
+  a.PanelTabs__tab#3  136×40 @318,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Зоны хранения»
+
+[палитра light]
+nav.PanelTabs__tabs  border #0f172a #0f172a #e2e8f0 #0f172a
+  a.PanelTabs__tab  color #556173  border #556173 #556173 transparent #556173
+  a.PanelTabs__tab#2  color #556173  border #556173 #556173 transparent #556173
+  a.PanelTabs__tab#3  color #556173  border #556173 #556173 transparent #556173
+
+[палитра dark]
+nav.PanelTabs__tabs  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+  a.PanelTabs__tab  color #8598ac  border #8598ac #8598ac transparent #8598ac
+  a.PanelTabs__tab#2  color #8598ac  border #8598ac #8598ac transparent #8598ac
+  a.PanelTabs__tab#3  color #8598ac  border #8598ac #8598ac transparent #8598ac

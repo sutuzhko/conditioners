@@ -1,0 +1,57 @@
+# админка-вкладки-панели--четыревкладки · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.PanelTabs__wrap  358×164 @16,16
+  div.PanelTabs__tabs  358×95 @0,0  b0 0 1 0
+    button.PanelTabs__tab  85×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Аккаунт»
+    button.PanelTabs__tab#2  79×44 @89,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Заказы»
+    button.PanelTabs__tab#3  184×44 @172,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Выплаты и удержания»
+    button.PanelTabs__tab#4  168×44 @0,48  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Заметки владельца»
+  div.PanelTabs__panel  358×53 @0,111
+    p  358×23 @0,15  Manrope 400 15/23  lines=1  «Выплаты и удержания.»
+
+[геометрия 768]
+div.PanelTabs__wrap  736×116 @16,16
+  div.PanelTabs__tabs  736×47 @0,0  b0 0 1 0
+    button.PanelTabs__tab  85×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Аккаунт»
+    button.PanelTabs__tab#2  79×44 @89,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Заказы»
+    button.PanelTabs__tab#3  184×44 @172,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Выплаты и удержания»
+    button.PanelTabs__tab#4  168×44 @360,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Заметки владельца»
+  div.PanelTabs__panel  736×53 @0,63
+    p  736×23 @0,15  Manrope 400 15/23  lines=1  «Выплаты и удержания.»
+
+[геометрия 1440]
+div.PanelTabs__wrap  1408×109 @16,16
+  div.PanelTabs__tabs  1408×40 @0,0  b0 0 1 0
+    button.PanelTabs__tab  85×37 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Аккаунт»
+    button.PanelTabs__tab#2  79×37 @89,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Заказы»
+    button.PanelTabs__tab#3  184×37 @172,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Выплаты и удержания»
+    button.PanelTabs__tab#4  168×37 @360,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Заметки владельца»
+  div.PanelTabs__panel  1408×53 @0,56
+    p  1408×23 @0,15  Manrope 400 15/23  lines=1  «Выплаты и удержания.»
+
+[палитра light]
+div.PanelTabs__wrap
+  div.PanelTabs__tabs  border #0f172a #0f172a #e2e8f0 #0f172a
+    button.PanelTabs__tab  color #556173  border #556173 #556173 transparent #556173
+    button.PanelTabs__tab#2  color #556173  border #556173 #556173 transparent #556173
+    button.PanelTabs__tab#3  color #0f172a  border #0f172a #0f172a #0891b2 #0f172a
+    button.PanelTabs__tab#4  color #556173  border #556173 #556173 transparent #556173
+  div.PanelTabs__panel
+    p  color #0f172a
+
+[палитра dark]
+div.PanelTabs__wrap
+  div.PanelTabs__tabs  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    button.PanelTabs__tab  color #8598ac  border #8598ac #8598ac transparent #8598ac
+    button.PanelTabs__tab#2  color #8598ac  border #8598ac #8598ac transparent #8598ac
+    button.PanelTabs__tab#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #22d3ee #eaf1f8
+    button.PanelTabs__tab#4  color #8598ac  border #8598ac #8598ac transparent #8598ac
+  div.PanelTabs__panel
+    p  color #eaf1f8

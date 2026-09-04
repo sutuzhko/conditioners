@@ -1,0 +1,147 @@
+# админка-очередь-обращений--выбранное · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+nav.Card__card  358×391 @16,16  r20  b1
+  ul.LeadQueue__list  356×389 @1,1
+    a.LeadQueue__row  356×97 @0,0  b0 0 1 0
+      span.LeadQueue__line  328×24 @14,12
+        span.LeadQueue__name  45×22 @0,1  Manrope 600 15/22  lines=1  «Ирина»
+        span.Badge__badge  56×24 @272,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+      span.LeadQueue__topic  328×20 @14,40  Manrope 400 13/20  lines=1  «Установка кондиционера»
+      time.LeadQueue__when  328×20 @14,64  JetBrains Mono 400 13/20  lines=1  «20.08.2026, 12:15»
+    a.LeadQueue__row#2  356×97 @0,97  b0 0 1 0
+      span.LeadQueue__line  328×24 @14,12
+        span.LeadQueue__name#2  190×22 @0,1  Manrope 600 15/22  lines=1  «Федотова Лидия Ивановна»
+        span.Badge__badge#2  72×24 @256,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+      span.LeadQueue__topic  328×20 @14,40  Manrope 400 13/20  lines=1  «Установка кондиционера»
+      time.LeadQueue__when  328×20 @14,64  JetBrains Mono 400 13/20  lines=1  «30.08.2026, 12:19»
+    a.LeadQueue__row#3  356×97 @0,195  b0 0 1 0
+      span.LeadQueue__line  328×24 @14,12
+        span.LeadQueue__name#3  43×22 @0,1  Manrope 600 15/22  lines=1  «Игорь»
+        span.Badge__badge#3  54×24 @274,0  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
+      span.LeadQueue__topic  328×20 @14,40  Manrope 400 13/20  lines=1  «Консультация»
+      time.LeadQueue__when  328×20 @14,64  JetBrains Mono 400 13/20  lines=1  «23.08.2026, 16:19»
+    a.LeadQueue__row#4  356×96 @0,292
+      span.LeadQueue__line  328×24 @14,12
+        span.LeadQueue__name#4  105×22 @0,1  Manrope 600 15/22  lines=1  «Беляева Ольга»
+        span.Badge__badge#4  86×24 @242,0  Manrope 600 12/16  r100  b1  lines=1  «Завершена»
+      span.LeadQueue__topic  328×20 @14,40  Manrope 400 13/20  lines=1  «Ремонт»
+      time.LeadQueue__when  328×20 @14,64  JetBrains Mono 400 13/20  lines=1  «15.08.2026, 16:19»
+
+[геометрия 768]
+nav.Card__card  736×391 @16,16  r20  b1
+  ul.LeadQueue__list  734×389 @1,1
+    a.LeadQueue__row  734×97 @0,0  b0 0 1 0
+      span.LeadQueue__line  706×24 @14,12
+        span.LeadQueue__name  45×22 @0,1  Manrope 600 15/22  lines=1  «Ирина»
+        span.Badge__badge  56×24 @650,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+      span.LeadQueue__topic  706×20 @14,40  Manrope 400 13/20  lines=1  «Установка кондиционера»
+      time.LeadQueue__when  706×20 @14,64  JetBrains Mono 400 13/20  lines=1  «20.08.2026, 12:15»
+    a.LeadQueue__row#2  734×97 @0,97  b0 0 1 0
+      span.LeadQueue__line  706×24 @14,12
+        span.LeadQueue__name#2  190×22 @0,1  Manrope 600 15/22  lines=1  «Федотова Лидия Ивановна»
+        span.Badge__badge#2  72×24 @634,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+      span.LeadQueue__topic  706×20 @14,40  Manrope 400 13/20  lines=1  «Установка кондиционера»
+      time.LeadQueue__when  706×20 @14,64  JetBrains Mono 400 13/20  lines=1  «30.08.2026, 12:19»
+    a.LeadQueue__row#3  734×97 @0,195  b0 0 1 0
+      span.LeadQueue__line  706×24 @14,12
+        span.LeadQueue__name#3  43×22 @0,1  Manrope 600 15/22  lines=1  «Игорь»
+        span.Badge__badge#3  54×24 @652,0  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
+      span.LeadQueue__topic  706×20 @14,40  Manrope 400 13/20  lines=1  «Консультация»
+      time.LeadQueue__when  706×20 @14,64  JetBrains Mono 400 13/20  lines=1  «23.08.2026, 16:19»
+    a.LeadQueue__row#4  734×96 @0,292
+      span.LeadQueue__line  706×24 @14,12
+        span.LeadQueue__name#4  105×22 @0,1  Manrope 600 15/22  lines=1  «Беляева Ольга»
+        span.Badge__badge#4  86×24 @620,0  Manrope 600 12/16  r100  b1  lines=1  «Завершена»
+      span.LeadQueue__topic  706×20 @14,40  Manrope 400 13/20  lines=1  «Ремонт»
+      time.LeadQueue__when  706×20 @14,64  JetBrains Mono 400 13/20  lines=1  «15.08.2026, 16:19»
+
+[геометрия 1440]
+nav.Card__card  1408×391 @16,16  r20  b1
+  ul.LeadQueue__list  1406×389 @1,1
+    a.LeadQueue__row  1406×97 @0,0  b0 0 1 0
+      span.LeadQueue__line  1378×24 @14,12
+        span.LeadQueue__name  45×22 @0,1  Manrope 600 15/22  lines=1  «Ирина»
+        span.Badge__badge  56×24 @1322,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+      span.LeadQueue__topic  1378×20 @14,40  Manrope 400 13/20  lines=1  «Установка кондиционера»
+      time.LeadQueue__when  1378×20 @14,64  JetBrains Mono 400 13/20  lines=1  «20.08.2026, 12:15»
+    a.LeadQueue__row#2  1406×97 @0,97  b0 0 1 0
+      span.LeadQueue__line  1378×24 @14,12
+        span.LeadQueue__name#2  190×22 @0,1  Manrope 600 15/22  lines=1  «Федотова Лидия Ивановна»
+        span.Badge__badge#2  72×24 @1306,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+      span.LeadQueue__topic  1378×20 @14,40  Manrope 400 13/20  lines=1  «Установка кондиционера»
+      time.LeadQueue__when  1378×20 @14,64  JetBrains Mono 400 13/20  lines=1  «30.08.2026, 12:19»
+    a.LeadQueue__row#3  1406×97 @0,195  b0 0 1 0
+      span.LeadQueue__line  1378×24 @14,12
+        span.LeadQueue__name#3  43×22 @0,1  Manrope 600 15/22  lines=1  «Игорь»
+        span.Badge__badge#3  54×24 @1324,0  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
+      span.LeadQueue__topic  1378×20 @14,40  Manrope 400 13/20  lines=1  «Консультация»
+      time.LeadQueue__when  1378×20 @14,64  JetBrains Mono 400 13/20  lines=1  «23.08.2026, 16:19»
+    a.LeadQueue__row#4  1406×96 @0,292
+      span.LeadQueue__line  1378×24 @14,12
+        span.LeadQueue__name#4  105×22 @0,1  Manrope 600 15/22  lines=1  «Беляева Ольга»
+        span.Badge__badge#4  86×24 @1292,0  Manrope 600 12/16  r100  b1  lines=1  «Завершена»
+      span.LeadQueue__topic  1378×20 @14,40  Manrope 400 13/20  lines=1  «Ремонт»
+      time.LeadQueue__when  1378×20 @14,64  JetBrains Mono 400 13/20  lines=1  «15.08.2026, 16:19»
+
+[палитра light]
+nav.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  ul.LeadQueue__list
+    a.LeadQueue__row  bg #ecfeff  border #475569 #475569 #eef2f6 #475569  shadow #0891b2 3px 0px 0px 0px inset
+      span.LeadQueue__line
+        span.LeadQueue__name  color #0f172a
+        span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+      span.LeadQueue__topic  color #556173
+      time.LeadQueue__when  color #5b6a7d
+    a.LeadQueue__row#2  border #475569 #475569 #eef2f6 #475569
+      span.LeadQueue__line
+        span.LeadQueue__name#2  color #0f172a
+        span.Badge__badge#2  color #0e7490  bg #ecfeff  border #a5f3fc
+      span.LeadQueue__topic  color #556173
+      time.LeadQueue__when  color #5b6a7d
+    a.LeadQueue__row#3  border #475569 #475569 #eef2f6 #475569
+      span.LeadQueue__line
+        span.LeadQueue__name#3  color #0f172a
+        span.Badge__badge#3  color #556173  bg #f8fafc  border #e2e8f0
+      span.LeadQueue__topic  color #556173
+      time.LeadQueue__when  color #5b6a7d
+    a.LeadQueue__row#4
+      span.LeadQueue__line
+        span.LeadQueue__name#4  color #0f172a
+        span.Badge__badge#4  color #166534  bg #15803d14  border #15803d47
+      span.LeadQueue__topic  color #556173
+      time.LeadQueue__when  color #5b6a7d
+
+[палитра dark]
+nav.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  ul.LeadQueue__list
+    a.LeadQueue__row  bg #22d3ee1a  border #a8b6c6 #a8b6c6 #182338 #a8b6c6  shadow #22d3ee 3px 0px 0px 0px inset
+      span.LeadQueue__line
+        span.LeadQueue__name  color #eaf1f8
+        span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+      span.LeadQueue__topic  color #8598ac
+      time.LeadQueue__when  color #7e92a7
+    a.LeadQueue__row#2  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+      span.LeadQueue__line
+        span.LeadQueue__name#2  color #eaf1f8
+        span.Badge__badge#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+      span.LeadQueue__topic  color #8598ac
+      time.LeadQueue__when  color #7e92a7
+    a.LeadQueue__row#3  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+      span.LeadQueue__line
+        span.LeadQueue__name#3  color #eaf1f8
+        span.Badge__badge#3  color #8598ac  bg #0e1729  border #1e2b41
+      span.LeadQueue__topic  color #8598ac
+      time.LeadQueue__when  color #7e92a7
+    a.LeadQueue__row#4
+      span.LeadQueue__line
+        span.LeadQueue__name#4  color #eaf1f8
+        span.Badge__badge#4  color #4ade80  bg #4ade801f  border #4ade8052
+      span.LeadQueue__topic  color #8598ac
+      time.LeadQueue__when  color #7e92a7
