@@ -144,11 +144,20 @@ describe('Раздел «Уведомления»', () => {
     expect(screen.getByText(logTexts.telegramMissing)).toBeInTheDocument();
   });
 
+  /* Код показан строкой с кнопкой копирования (issue #38): восьмизначный
+     код перенабирают руками, и ошибка в одном знаке из восьми стоит звонка. */
   it('🔴 непривязанному человеку показывается код: сам он chat ID не узнает', async () => {
-    const { container } = render(await NotificationsPage());
-    const code = container.querySelector('code');
+    render(await NotificationsPage());
 
-    expect(code?.textContent).toMatch(/^[2-9A-HJ-NP-Z]{8}$/);
+    expect(screen.getByText(/^[2-9A-HJ-NP-Z]{8}$/)).toBeInTheDocument();
+  });
+
+  /* 🔴 Подсказка про код стоит один раз над списком, а не под каждым
+     человеком: пять одинаковых абзацев вытесняли сами адреса (issue #38). */
+  it('подсказку про код привязки показывает один раз', async () => {
+    render(await NotificationsPage());
+
+    expect(screen.getAllByText(logTexts.codeHint)).toHaveLength(1);
   });
 
   it('🔴 владелец видит ленту того, что ушло людям: копию сообщением он не получает', async () => {

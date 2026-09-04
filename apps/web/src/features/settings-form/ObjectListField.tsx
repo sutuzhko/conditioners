@@ -64,28 +64,35 @@ export function ObjectListField({
         // пустые больше нечем.
         <div className={styles.objectRow} key={index}>
           {columns.map((column) => (
-            <Input
+            /* 🔴 Доля ширины стоит на ячейке ряда, а не на самом поле ввода
+               (issue #37): внутри поля она ничего не делила, и подпись цифры
+               («Довольных клиентов») занимала 209px в поле 28px. */
+            <span
+              className={styles.objectCell}
               key={column.key}
-              // Подпись уникальна на строку: диктор иначе читает четыре
-              // одинаковых «Число» подряд.
-              aria-label={`${column.label}: ${itemLabel.toLowerCase()} ${index + 1}`}
-              placeholder={column.label}
-              type={column.kind === 'number' ? 'number' : 'text'}
-              value={asText(row[column.key])}
-              wrapperClassName={styles.objectCell}
               style={{ flexGrow: column.grow ?? 1 }}
-              onChange={(event) =>
-                replace(
-                  index,
-                  column.key,
-                  column.kind === 'number'
-                    ? event.target.value === ''
-                      ? ''
-                      : Number(event.target.value)
-                    : event.target.value,
-                )
-              }
-            />
+            >
+              <Input
+                // Подпись уникальна на строку: диктор иначе читает четыре
+                // одинаковых «Число» подряд.
+                aria-label={`${column.label}: ${itemLabel.toLowerCase()} ${index + 1}`}
+                placeholder={column.label}
+                type={column.kind === 'number' ? 'number' : 'text'}
+                value={asText(row[column.key])}
+                wrapperClassName={styles.objectInput}
+                onChange={(event) =>
+                  replace(
+                    index,
+                    column.key,
+                    column.kind === 'number'
+                      ? event.target.value === ''
+                        ? ''
+                        : Number(event.target.value)
+                      : event.target.value,
+                  )
+                }
+              />
+            </span>
           ))}
 
           <Button

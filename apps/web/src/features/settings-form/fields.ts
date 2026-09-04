@@ -86,7 +86,7 @@ export const LEGAL_GROUP: GroupDescriptor = {
     {
       path: 'name',
       label: 'ФИО полностью',
-      kind: 'text',
+      kind: 'longText',
       when: FOR_ENTREPRENEUR,
       hint: 'Как в свидетельстве. Печатается в футере и в политике обработки данных',
     },
@@ -102,14 +102,14 @@ export const LEGAL_GROUP: GroupDescriptor = {
     {
       path: 'regAuthority',
       label: 'Орган регистрации',
-      kind: 'text',
+      kind: 'longText',
       when: FOR_ENTREPRENEUR,
       hint: 'Кто выдал свидетельство — целиком, как в документе',
     },
     {
       path: 'address',
       label: 'Адрес регистрации',
-      kind: 'text',
+      kind: 'longText',
       when: FOR_ENTREPRENEUR,
       /* 🔴 Домашний адрес — персональные данные, и публиковать его не
          требуется: посетителю показывают фактический адрес приёма. */
@@ -120,7 +120,7 @@ export const LEGAL_GROUP: GroupDescriptor = {
     {
       path: 'name',
       label: 'Полное наименование',
-      kind: 'text',
+      kind: 'longText',
       when: FOR_COMPANY,
       hint: 'Как в уставе, вместе с организационно-правовой формой',
     },
@@ -137,7 +137,7 @@ export const LEGAL_GROUP: GroupDescriptor = {
     {
       path: 'address',
       label: 'Место нахождения',
-      kind: 'text',
+      kind: 'longText',
       when: FOR_COMPANY,
       hint: 'Адрес организации из реестра. Показывается на сайте',
     },
@@ -157,7 +157,7 @@ export const LEGAL_GROUP: GroupDescriptor = {
     },
 
     /* Банк — у обеих форм и никогда не на сайте. */
-    { path: 'bankName', label: 'Банк', kind: 'text', hint: NOT_PUBLISHED },
+    { path: 'bankName', label: 'Банк', kind: 'longText', hint: NOT_PUBLISHED },
     { path: 'bankBik', label: 'БИК', kind: 'text', hint: NOT_PUBLISHED },
     {
       path: 'bankAccount',
@@ -176,7 +176,7 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
     description: 'Как компания называется на сайте и в поисковой выдаче.',
     fields: [
       { path: 'name', label: 'Название', kind: 'text' },
-      { path: 'tagline', label: 'Короткое описание', kind: 'text' },
+      { path: 'tagline', label: 'Короткое описание', kind: 'longText' },
       { path: 'foundedYear', label: 'Год основания', kind: 'number' },
     ],
   },
@@ -249,13 +249,14 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
       {
         path: 'served',
         label: 'Зона обслуживания',
-        kind: 'text',
+        kind: 'longText',
         hint: 'Полный список: показывается в контактах и уходит в разметку зоны обслуживания для поисковиков. Города можно перечислять через запятую — здесь длина не мешает',
       },
       {
         path: 'promise',
         label: 'Строка первого экрана',
         kind: 'text',
+        fullRow: true,
         hint: 'Плашка над заголовком главной: город и срок выезда, без перечисления городов — оно живёт в поле выше. Пусто — плашки не будет',
       },
     ],
@@ -288,7 +289,9 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
     description: 'Способы оплаты и режим налогообложения.',
     fields: [
       { path: 'methods', label: 'Способы оплаты', kind: 'list', itemLabel: 'Способ' },
-      { path: 'vat', label: 'НДС', kind: 'text' },
+      /* Строка из документа, а не слово: «Не является плательщиком НДС…» в
+         строке ввода уезжала за край на любой ширине (issue #37). */
+      { path: 'vat', label: 'НДС', kind: 'longText' },
     ],
   },
   {
@@ -302,7 +305,9 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
     title: 'Метаданные главной',
     description: 'Заголовок и описание страницы в поисковой выдаче.',
     fields: [
-      { path: 'homeTitle', label: 'Заголовок главной', kind: 'text' },
+      /* Предложение, а не слово: строкой ввода оно не помещалось ни в треть
+         ряда, ни в целый ряд на 390 (issue #37). */
+      { path: 'homeTitle', label: 'Заголовок главной', kind: 'longText' },
       { path: 'homeDescription', label: 'Описание главной', kind: 'longText' },
       {
         path: 'titleSuffix',
@@ -310,7 +315,7 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
         kind: 'text',
         hint: 'Добавляется к заголовку каждой страницы',
       },
-      { path: 'ogImage', label: 'Картинка для соцсетей', kind: 'text' },
+      { path: 'ogImage', label: 'Картинка для соцсетей', kind: 'text', fullRow: true },
     ],
   },
   {
@@ -365,6 +370,10 @@ export const NOTIFICATIONS_GROUP: GroupDescriptor = {
   description:
     'Куда уходит сообщение о новой заявке, отзыве и напоминании. Сама заявка ' +
     'в любом случае попадает в раздел «Заявки» — это не отключается.',
+  /* 🔴 Ровно два поля в ряду: галочка и её адрес (issue #38). При свободной
+     раскладке «Адрес получателя» переносился в первую колонку следующей
+     строки и вставал под телеграмом — визуально принадлежал чужому каналу. */
+  layout: 'pairs',
   fields: [
     { path: 'telegram', label: 'Отправлять в Telegram', kind: 'checkbox' },
     {

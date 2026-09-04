@@ -5,6 +5,7 @@ import { useState, type FormEvent } from 'react';
 
 import { Badge, Button, Card, Input, PhoneInput } from '@/shared/ui';
 
+import { ProfileExit } from './ProfileExit';
 import { ThemeChoice } from './ThemeChoice';
 import { profileFormContent as texts } from './content';
 import { profileApi } from './lib';
@@ -183,6 +184,14 @@ export function ProfileForm({ me, api = profileApi }: ProfileFormProps) {
           <h2 className={styles.title}>{texts.themeTitle}</h2>
           <p className={styles.hint}>{texts.themeHint}</p>
           <ThemeChoice />
+        </Card>
+
+        {/* Выход есть у обеих ролей и стоит последним: порядок от общего к
+            личному и дальше к необратимому (ADR-188). */}
+        <Card as="section">
+          <h2 className={styles.title}>{texts.exitTitle}</h2>
+          <p className={styles.hint}>{texts.exitHint}</p>
+          <ProfileExit />
         </Card>
       </div>
     </div>

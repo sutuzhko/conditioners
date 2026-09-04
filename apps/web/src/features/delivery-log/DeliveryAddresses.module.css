@@ -69,32 +69,8 @@
 }
 
 .code {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 10px;
-  align-items: baseline;
-}
-
-.codeLabel {
-  color: var(--muted);
-  font-size: var(--fs-micro);
-}
-
-/* Код диктуют вслух и набирают руками — моноширинный и крупнее подписи. */
-.codeValue {
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: var(--fs-dense);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
-
-.codeHint {
-  flex: 1 1 100%;
-  margin: 0;
-  max-width: 72ch;
-  color: var(--muted);
-  font-size: var(--fs-micro);
+  width: 100%;
+  max-width: 320px;
 }
 
 .done {

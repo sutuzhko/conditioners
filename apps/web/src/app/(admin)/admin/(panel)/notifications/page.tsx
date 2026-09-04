@@ -100,7 +100,10 @@ export default async function AdminNotificationsPage() {
         </Card>
       ) : null}
 
-      <Card variant="soft" padding="lg" className={styles.always}>
+      {/* 🔴 Обе вводные плашки одной плотности: разные отступы давали
+          заголовки на 277 и 289 пикселях, и разница в двенадцать пикселей на
+          соседних блоках читалась ошибкой вёрстки (issue #38, BUGS). */}
+      <Card variant="soft" padding="md" className={styles.always}>
         <p className={styles.alwaysTitle}>{texts.alwaysTitle}</p>
         <p className={styles.alwaysText}>{texts.alwaysText}</p>
       </Card>
