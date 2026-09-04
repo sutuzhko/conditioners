@@ -64,7 +64,11 @@ export default async function AdminReviewsPage({
 
       <ReviewTabs active={selected} />
 
-      <ReviewList reviews={found.items} filtered={status !== undefined && anyReviews} />
+      <ReviewList
+        reviews={found.items}
+        tab={selected}
+        filtered={status !== undefined && anyReviews}
+      />
 
       <Pager
         page={found.page}

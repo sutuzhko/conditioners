@@ -4,34 +4,36 @@
   min-width: 0;
 }
 
+/* Шапка: аватар, автор с оценкой и действия. До 1200px действия уходят под
+   автора и делят ширину пополам (issue #356). */
 .header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px 12px;
+  align-items: start;
+  margin-bottom: 12px;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.line {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 16px;
-  align-items: start;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  gap: 6px 10px;
+  align-items: center;
 }
 
 .name {
-  margin: 0 0 2px;
+  margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
   font-size: var(--fs-h3);
   font-weight: 700;
-}
-
-.district {
-  margin: 0;
-  color: var(--muted);
-  font-size: var(--fs-caption);
-}
-
-.headerRight {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: flex-end;
 }
 
 .when {
@@ -41,60 +43,113 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Чужие слова: цитата, а не поле ввода — правки к ней не предполагается. */
+/* 🔴 Две кнопки в строке по половине ширины: на узком экране это даёт цель
+   44px без переноса (issue #356, ADR-183). */
+.actions {
+  display: flex;
+  gap: 8px;
+  grid-column: 1 / -1;
+}
+
+.actions > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+@media (width >= 1200px) {
+  .header {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .actions {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .actions > * {
+    flex: 0 0 auto;
+  }
+}
+
+/* Текст и фото рядом от 900px: снимок прижатый влево оставлял пустой
+   половину карточки (BUGS, «Фото к отзыву нельзя рассмотреть»). */
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+@media (width >= 900px) {
+  .body {
+    grid-template-columns: minmax(0, 1fr) 220px;
+  }
+}
+
+/* 🔴 Текст целиком, без «показать ещё»: решение принимают по нему, а не по
+   первой строке (issue #356). Очень длинный отзыв прокручивается внутри
+   цитаты — карточка на три экрана уводила бы кнопки решения за край. */
 .text {
+  overflow-y: auto;
   overflow-wrap: anywhere;
-  margin: 12px 0;
-  padding: 12px 16px;
+  overscroll-behavior-y: contain;
+  max-height: 46vh;
+  margin: 0;
   border-left: 3px solid var(--line-strong);
   background: var(--bg-soft);
+  padding: 12px 16px;
   color: var(--body);
   font-size: var(--fs-dense);
-
-  /* 🔴 Высота ограничена, но текст не обрезан: он прокручивается внутри
-     цитаты. Отзыв на две тысячи знаков растягивал карточку на три экрана,
-     и до кнопок «Опубликовать» и «Отклонить» приходилось листать — а
-     решение принимают, прочитав всё, и жмут сразу. */
-  max-height: 46vh;
-  overflow-y: auto;
-  overscroll-behavior-y: contain;
 }
 
 .photo {
-  display: block;
-  width: 100%;
-  max-width: 220px;
-  height: auto;
-  margin-bottom: 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  object-fit: cover;
+  min-width: 0;
 }
 
-.actions {
+/* Место под причину отказа: поле придёт (issue #522), вид не переверстается. */
+.reason {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
+  gap: 4px 8px;
+  align-items: baseline;
+  margin: 12px 0 0;
+  font-size: var(--fs-caption);
 }
 
-/* Удаление уводится вправо: рядом с «Опубликовать» его нажмут по инерции. */
+.reasonLabel {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.reasonMissing {
+  color: var(--faint);
+  font-style: italic;
+}
+
+.note {
+  margin: 12px 0 0;
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-sm);
+  background: var(--warn-bg);
+  padding: 8px 12px;
+  color: var(--warn-ink);
+  font-size: var(--fs-caption);
+}
 
 /* Класс удвоен намеренно (ADR-038): цвет кнопки-призрака задан в ките с той
    же специфичностью, и при равной специфичности выигрывает порядок сборки.
    Обычный `.remove` проигрывал — разрушающее действие красилось акцентом и
    выглядело обычной ссылкой. */
 .remove.remove {
-  margin-left: auto;
   color: var(--error-ink);
 }
 
 .error {
   margin: 12px 0 0;
-  padding: 8px 12px;
   border: 1px solid var(--error-line);
   border-radius: var(--r-sm);
   background: var(--error-bg);
+  padding: 8px 12px;
   color: var(--error-ink);
   font-size: var(--fs-dense);
 }
