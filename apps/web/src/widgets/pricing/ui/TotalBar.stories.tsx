@@ -52,7 +52,7 @@ export const Pending: Story = {
 };
 
 export const OnSite: Story = {
-  name: 'Считаем по телефону',
+  name: 'Считаем по звонку',
   args: { state: 'onsite' },
 };
 
