@@ -54,6 +54,7 @@ const RULES: readonly InvariantRule[] = [
   'target-size-touch',
   'theme',
   'clipped-text',
+  'overflowing-text',
   'occlusion',
   'fonts',
   'images',

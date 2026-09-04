@@ -17,13 +17,21 @@ export interface IconProps {
 }
 
 /**
+ * 🔴 Сетка набора одна на все глифы, и записи её не переопределяют (issue
+ * #553): иконка из чужой сетки попадает узлами в другие доли пикселя и рядом
+ * с соседями по ряду читается замыленной, даже когда толщина после
+ * масштабирования совпадает.
+ */
+const VIEW_BOX = '0 0 24 24';
+
+/**
  * Иконка из общего набора (Solar Icon Set, начертание Broken).
  *
  * Цвет наследуется через `currentColor`: иконка окрашивается тем же правилом,
  * что и текст рядом, и отдельного управления цветом ей не нужно.
  */
 export function Icon({ name, size = 20, className, title }: IconProps) {
-  const { node, viewBox = '0 0 24 24', strokeWidth = 1.5 }: IconDef = iconRegistry[name];
+  const { node, strokeWidth = 1.5 }: IconDef = iconRegistry[name];
 
   /* Обводка и заливка задаются здесь один раз на весь набор. Элементы,
      нарисованные заливкой, перебивают их у себя: в одном глифе бывает и то,
@@ -32,7 +40,7 @@ export function Icon({ name, size = 20, className, title }: IconProps) {
     <svg
       width={size}
       height={size}
-      viewBox={viewBox}
+      viewBox={VIEW_BOX}
       fill="none"
       stroke="currentColor"
       strokeWidth={strokeWidth}

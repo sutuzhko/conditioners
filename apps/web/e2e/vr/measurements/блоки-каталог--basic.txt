@@ -4,8 +4,8 @@
 [документ]
 320 → 320×1687
 375 → 375×1763
-768 → 768×1478
-1200 → 1200×937
+768 → 768×1414
+1200 → 1200×900
 
 [геометрия 320]
 section.Catalog__section  320×1687 @0,0  b1 0 1 0
@@ -86,7 +86,7 @@ section.Catalog__section  320×1687 @0,0  b1 0 1 0
             span.Button__content#3  65×17 @97,13
               span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
     div.ShowcaseGrid__row  288×44 @16,1537
-      button.ShowcaseGrid__more  143×44 @72,0  Manrope 600 15/18  r100  b1  lines=1  «Ещё 1 модель»
+      button.ShowcaseGrid__more  214×44 @37,0  Manrope 600 15/18  r100  b1  lines=1  «Показать все 4 модели»
     p.Catalog__helpRow  288×44 @16,1593
       a.Catalog__help  233×44 @27,0  Manrope 600 15/23  lines=1  «Не нашли модель? Подберём →»
 
@@ -169,13 +169,13 @@ section.Catalog__section  375×1763 @0,0  b1 0 1 0
             span.Button__content#3  65×17 @124,13
               span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
     div.ShowcaseGrid__row  343×44 @16,1610
-      button.ShowcaseGrid__more  143×44 @100,0  Manrope 600 15/18  r100  b1  lines=1  «Ещё 1 модель»
+      button.ShowcaseGrid__more  214×44 @64,0  Manrope 600 15/18  r100  b1  lines=1  «Показать все 4 модели»
     p.Catalog__helpRow  343×44 @16,1666
       a.Catalog__help  233×44 @55,0  Manrope 600 15/23  lines=1  «Не нашли модель? Подберём →»
 
 [геометрия 768]
-section.Catalog__section  768×1478 @0,0  b1 0 1 0
-  div.Catalog__container  768×1476 @0,1
+section.Catalog__section  768×1414 @0,0  b1 0 1 0
+  div.Catalog__container  768×1412 @0,1
     header.Catalog__head  728×197 @20,68
       div.Catalog__intro  620×129 @0,0
         p.Catalog__kicker  620×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Каталог —»
@@ -251,14 +251,36 @@ section.Catalog__section  768×1478 @0,0  b1 0 1 0
           a.Button__button  323×44 @0,10  r10  b1
             span.Button__content#3  65×17 @129,13
               span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
-    div.ShowcaseGrid__row  728×44 @20,1308
-      button.ShowcaseGrid__more  143×44 @292,0  Manrope 600 15/18  r100  b1  lines=1  «Ещё 1 модель»
-    p.Catalog__helpRow  728×44 @20,1364
+    li.Card__card#4  357×460 @391,828  r18  b1
+      div.ProductCard__media  355×222 @1,1  b0 0 1 0
+        div.ProductCard__fallback#3  355×221 @0,0
+          svg  44×44 @155,75
+          span.ProductCard__fallbackHint  85×19 @135,127  Manrope 400 12/19  ls1  lines=1  «фото скоро»
+        span.Badge__badge#4  37×24 @12,12  r100  b1
+          span  17×16 @10,4  JetBrains Mono 600 12/16  ls1  lines=1  «18»
+          span#2  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Класс мощности 18»
+      div.ProductCard__body  355×236 @1,223
+        h3.ProductCard__name#4  323×45 @16,16
+          a.ProductCard__nameLink  154×22 @0,0  Onest 700 18/23  ls0  lines=1  «Сплит-система 18»
+        div.ProductCard__meta#4  323×24 @16,67
+          span.ProductCard__area  50×20 @0,2  Manrope 400 13/20  lines=1  «до 50 м²»
+        div.ProductPrice__price#4  323×63 @16,97
+          p.ProductPrice__main  323×28 @0,7
+            span.ProductPrice__current#4  105×28 @0,0  Onest 800 24/28  ls0  lines=1  «56 400 ₽»
+            s.ProductPrice__old#2  70×20 @113,5  Manrope 400 17/20  lines=1  «61 800 ₽»
+              span  1×1 @-1,-1  Manrope 400 17/20  lines=1  clipped  «Старая цена:»
+          p.ProductPrice__slot  323×24 @0,39
+            span.Badge__badge#2  146×24 @0,0  Manrope 600 12/14  r100  b1  lines=1  «Последняя в наличии»
+        div.ProductCard__actions#4  323×54 @16,166
+          a.Button__button  323×44 @0,10  r10  b1
+            span.Button__content#4  65×17 @129,13
+              span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+    p.Catalog__helpRow  728×44 @20,1300
       a.Catalog__help  233×44 @247,0  Manrope 600 15/23  lines=1  «Не нашли модель? Подберём →»
 
 [геометрия 1200]
-section.Catalog__section  1200×937 @0,0  b1 0 1 0
-  div.Catalog__container  1200×935 @0,1
+section.Catalog__section  1200×873 @0,0  b1 0 1 0
+  div.Catalog__container  1200×871 @0,1
     header.Catalog__head  1152×137 @24,88
       div.Catalog__intro  620×137 @0,0
         p.Catalog__kicker  620×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Каталог —»
@@ -334,9 +356,31 @@ section.Catalog__section  1200×937 @0,0  b1 0 1 0
           a.Button__button  238×44 @0,12  r10  b1
             span.Button__content#3  65×17 @87,13
               span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
-    div.ShowcaseGrid__row  1152×44 @24,747
-      button.ShowcaseGrid__more  143×44 @504,0  Manrope 600 15/18  r100  b1  lines=1  «Ещё 1 модель»
-    p.Catalog__helpRow  1152×44 @24,803
+    li.Card__card#4  276×458 @900,269  r18  b1
+      div.ProductCard__media  274×171 @1,1  b0 0 1 0
+        div.ProductCard__fallback#3  274×170 @0,0
+          svg  44×44 @115,50
+          span.ProductCard__fallbackHint  85×19 @95,102  Manrope 400 12/19  ls1  lines=1  «фото скоро»
+        span.Badge__badge#4  37×24 @12,12  r100  b1
+          span  17×16 @10,4  JetBrains Mono 600 12/16  ls1  lines=1  «18»
+          span#2  1×1 @9,12  JetBrains Mono 600 12/16  ls1  lines=1  clipped  «Класс мощности 18»
+      div.ProductCard__body  274×285 @1,172
+        h3.ProductCard__name#4  238×47 @18,18
+          a.ProductCard__nameLink  162×24 @0,-1  Onest 700 19/24  ls0  lines=1  «Сплит-система 18»
+        div.ProductCard__meta#4  238×24 @18,73
+          span.ProductCard__area  50×20 @0,2  Manrope 400 13/20  lines=1  «до 50 м²»
+        div.ProductPrice__price#4  238×62 @18,105
+          p.ProductPrice__main  238×25 @0,9
+            span.ProductPrice__current#4  96×25 @0,0  Onest 800 22/25  ls0  lines=1  «56 400 ₽»
+            s.ProductPrice__old#2  75×21 @104,2  Manrope 400 18/21  lines=1  «61 800 ₽»
+              span  1×1 @-1,-1  Manrope 400 18/21  lines=1  clipped  «Старая цена:»
+          p.ProductPrice__slot  238×24 @0,38
+            span.Badge__badge#2  146×24 @0,0  Manrope 600 12/14  r100  b1  lines=1  «Последняя в наличии»
+        div.ProductCard__actions#4  238×56 @18,211
+          a.Button__button  238×44 @0,12  r10  b1
+            span.Button__content#4  65×17 @87,13
+              span.Button__label  65×17 @0,0  Manrope 600 15/17  lines=1  «Заказать»
+    p.Catalog__helpRow  1152×44 @24,739
       a.Catalog__help  233×44 @459,0  Manrope 600 15/23  lines=1  «Не нашли модель? Подберём →»
 
 [палитра light]
@@ -417,10 +461,38 @@ section.Catalog__section  bg #f8fafc  border #e2e8f0 #0f172a #e2e8f0 #0f172a
           a.Button__button  bg #ecfeff  border transparent
             span.Button__content#3
               span.Button__label  color #0e7490
-    div.ShowcaseGrid__row
-      button.ShowcaseGrid__more  color #0f172a  border #7e8fa6
+    li.Card__card#4  bg #ffffff  border #e2e8f0
+      div.ProductCard__media  bg #f8fafc  border #475569 #475569 #eef2f6 #475569
+        div.ProductCard__fallback#3  gradient linear-gradient(160deg, #ecfeff, #f8fafc)
+          svg
+          span.ProductCard__fallbackHint  color #556173
+        span.Badge__badge#4  bg #0f172a  border #0f172a
+          span  color #ffffff
+          span#2  color #ffffff
+      div.ProductCard__body
+        h3.ProductCard__name#4
+          a.ProductCard__nameLink  color #0f172a
+        div.ProductCard__meta#4
+          span.ProductCard__area  color #556173
+        div.ProductPrice__price#4
+          p.ProductPrice__main
+            span.ProductPrice__current#4  color #0f172a
+            s.ProductPrice__old#2  color #5b6a7d
+              span  color #5b6a7d
+          p.ProductPrice__slot
+            span.Badge__badge#2  color #be123c  bg #be123c14  border #be123c47
+        div.ProductCard__actions#4
+          a.Button__button  bg #ecfeff  border transparent
+            span.Button__content#4
+              span.Button__label  color #0e7490
     p.Catalog__helpRow
       a.Catalog__help  color #0e7490
+[палитра light @320]
+section.Catalog__section > div.Catalog__container > div.ShowcaseGrid__row
+section.Catalog__section > div.Catalog__container > div.ShowcaseGrid__row > button.ShowcaseGrid__more  color #0f172a  border #7e8fa6
+[палитра light @375]
+section.Catalog__section > div.Catalog__container > div.ShowcaseGrid__row
+section.Catalog__section > div.Catalog__container > div.ShowcaseGrid__row > button.ShowcaseGrid__more  color #0f172a  border #7e8fa6
 
 [палитра dark]
 section.Catalog__section  bg #0e1729  border #1e2b41 #eaf1f8 #1e2b41 #eaf1f8
@@ -500,7 +572,35 @@ section.Catalog__section  bg #0e1729  border #1e2b41 #eaf1f8 #1e2b41 #eaf1f8
           a.Button__button  bg #22d3ee1a  border transparent
             span.Button__content#3
               span.Button__label  color #22d3ee
-    div.ShowcaseGrid__row
-      button.ShowcaseGrid__more  color #eaf1f8  border #566d95
+    li.Card__card#4  bg #121d31  border #1e2b41
+      div.ProductCard__media  bg #0e1729  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+        div.ProductCard__fallback#3  gradient linear-gradient(160deg, #22d3ee1a, #0e1729)
+          svg
+          span.ProductCard__fallbackHint  color #8598ac
+        span.Badge__badge#4  bg #111d34  border #111d34
+          span  color #ffffff
+          span#2  color #ffffff
+      div.ProductCard__body
+        h3.ProductCard__name#4
+          a.ProductCard__nameLink  color #eaf1f8
+        div.ProductCard__meta#4
+          span.ProductCard__area  color #8598ac
+        div.ProductPrice__price#4
+          p.ProductPrice__main
+            span.ProductPrice__current#4  color #eaf1f8
+            s.ProductPrice__old#2  color #7e92a7
+              span  color #7e92a7
+          p.ProductPrice__slot
+            span.Badge__badge#2  color #fb7185  bg #fb71851f  border #fb718552
+        div.ProductCard__actions#4
+          a.Button__button  bg #22d3ee1a  border transparent
+            span.Button__content#4
+              span.Button__label  color #22d3ee
     p.Catalog__helpRow
       a.Catalog__help  color #22d3ee
+[палитра dark @320]
+section.Catalog__section > div.Catalog__container > div.ShowcaseGrid__row
+section.Catalog__section > div.Catalog__container > div.ShowcaseGrid__row > button.ShowcaseGrid__more  color #eaf1f8  border #566d95
+[палитра dark @375]
+section.Catalog__section > div.Catalog__container > div.ShowcaseGrid__row
+section.Catalog__section > div.Catalog__container > div.ShowcaseGrid__row > button.ShowcaseGrid__more  color #eaf1f8  border #566d95

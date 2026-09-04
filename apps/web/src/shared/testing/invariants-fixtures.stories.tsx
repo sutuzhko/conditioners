@@ -41,6 +41,7 @@ type InvariantRule =
   | 'target-size-touch'
   | 'theme'
   | 'clipped-text'
+  | 'overflowing-text'
   | 'occlusion'
   | 'fonts'
   | 'images'
@@ -126,6 +127,31 @@ export const ClippedText: Story = {
     <p style={{ width: 60, overflow: 'hidden', whiteSpace: 'nowrap' }}>
       Очень длинная строка без переноса
     </p>
+  ),
+};
+
+/**
+ * 🔴 Числа взяты у настоящего дефекта (issue #558, #542): итог блока экономии
+ * `span.SavingsCalculator__totalValue` шириной 226 стоял в
+ * `p.SavingsCalculator__totalLine` шириной 204 и выходил за край акцентной
+ * карточки на 22px. Ровно эта пара чисел лежала в измерениях в git и была
+ * зелёной — измерения сравнивают числа с прошлыми, а не между собой.
+ *
+ * Ширину держит `min-width`, а не `white-space: nowrap` подлинника: у гибкого
+ * элемента `nowrap` даёт ту же автоматическую минимальную ширину, но её
+ * величина зависит от шрифта, а числа фикстуры обязаны совпадать с числами
+ * дефекта при любом.
+ */
+export const OverflowingText: Story = {
+  name: 'overflowing-text — цифра 226 в строке 204',
+  parameters: expects('overflowing-text'),
+  render: () => (
+    <div style={{ width: 204, margin: 16 }}>
+      <p style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 10px', margin: 0 }}>
+        <span>Экономия</span>
+        <span style={{ minWidth: 226, fontWeight: 700 }}>≈ 1 778 ₽/сезон</span>
+      </p>
+    </div>
   ),
 };
 

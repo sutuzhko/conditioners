@@ -307,6 +307,181 @@ test.describe('свёрнутый <details>', () => {
   });
 });
 
+test.describe('overflowing-text', () => {
+  /**
+   * 🔴 Тот самый случай, ради которого правило заведено (issue #558): итог
+   * блока экономии шириной 226 в строке шириной 204. Пара чисел лежала в
+   * `e2e/vr/measurements/блоки-монтаж-экономия--basic.txt` месяцами и была
+   * зелёной: сравнение измерений ловит изменение чисел, а не их
+   * несовместимость между собой.
+   */
+  test('🔴 цифра 226 в строке 204 — нарушение с числами дефекта', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="width:204px">
+           <p style="display:flex;flex-wrap:wrap;gap:4px 10px;margin:0">
+             <span>Экономия</span>
+             <span style="min-width:226px;font-weight:700">≈ 1 778 ₽/сезон</span>
+           </p>
+         </div>`,
+      ),
+    );
+    expect(rulesOf(found)).toEqual(['overflowing-text']);
+    expect(found[0]?.element).toBe('span «≈ 1 778 ₽/сезон»');
+    expect(found[0]?.detail).toBe('вылит за p на 22px справа: ширина 226 при 204');
+  });
+
+  test('та же строка, когда цифра помещается, — тишина', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="width:204px">
+           <p style="display:flex;flex-wrap:wrap;gap:4px 10px;margin:0">
+             <span>Экономия</span>
+             <span style="min-width:180px;font-weight:700">≈ 1 778 ₽/сезон</span>
+           </p>
+         </div>`,
+      ),
+    );
+    expect(rulesOf(found)).toEqual([]);
+  });
+
+  test('текст вылезает влево — сторона названа', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="width:200px;display:flex;justify-content:flex-end">
+           <span style="min-width:260px;text-align:right">Итого за сезон</span>
+         </div>`,
+      ),
+    );
+    expect(rulesOf(found)).toEqual(['overflowing-text']);
+    expect(found[0]?.detail).toMatch(/на 60px слева/);
+  });
+
+  test('прокручиваемый ряд — до текста дотягиваются прокруткой, тишина', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="width:200px;overflow-x:auto;white-space:nowrap">
+           <span style="display:inline-block;width:400px">Длинная строка внутри ряда</span>
+         </div>`,
+      ),
+    );
+    expect(rulesOf(found)).toEqual([]);
+  });
+
+  /**
+   * 🔴 Прокручивается не ряд, а обёртка над ним — форма полосы вкладок наряда
+   * (`div.OrderWorkTabs__strip` над `div.OrderWorkTabs__tabs`). Проверка
+   * одного родителя дала здесь 22 ложных срабатывания на панели 390.
+   */
+  test('прокручивается дед, а не родитель, — выход поглощён, тишина', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="width:200px;overflow-x:auto">
+           <div style="display:flex;flex-wrap:nowrap">
+             <span style="min-width:150px">Работа с нарядом</span>
+             <span style="min-width:150px">Расход материалов</span>
+           </div>
+         </div>`,
+      ),
+    );
+    expect(found.filter((item) => item.rule === 'overflowing-text')).toEqual([]);
+  });
+
+  /**
+   * 🔴 Форма заголовка таблицы в карточной раскладке: `<thead>` уходит в шаблон
+   * визуального скрытия целиком, а ячейки внутри остаются обычными узлами в
+   * потоке и «вылиты» из строки шириной в пиксель. 294 ложных срабатывания на
+   * панели 390 до сужения.
+   */
+  test('ячейки внутри скрытого по шаблону заголовка таблицы — тишина', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<table style="display:block;width:300px">
+           <thead style="position:absolute;width:1px;height:1px;overflow:hidden;display:block">
+             <tr style="display:block;width:1px">
+               <th style="display:block;width:100px">Позиция</th>
+               <th style="display:block;width:120px">Количество</th>
+             </tr>
+           </thead>
+           <tbody style="display:block"><tr style="display:block"><td>Труба</td></tr></tbody>
+         </table>`,
+      ),
+    );
+    expect(found.filter((item) => item.rule === 'overflowing-text')).toEqual([]);
+  });
+
+  test('родитель с overflow: hidden — предмет clipped-text, а не этого правила', async ({
+    page: p,
+  }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="width:200px;overflow:hidden">
+           <span style="display:inline-block;width:400px">Строка длиннее рамки</span>
+         </div>`,
+      ),
+    );
+    expect(found.filter((item) => item.rule === 'overflowing-text')).toEqual([]);
+  });
+
+  test('абсолютный и липкий текст стоят по своим координатам — тишина', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="width:120px;height:120px;position:relative">
+           <span style="position:absolute;left:200px;top:0">Подпись сбоку</span>
+           <span style="position:sticky;left:0;display:block;width:300px">Липкая строка</span>
+         </div>`,
+      ),
+    );
+    expect(found.filter((item) => item.rule === 'overflowing-text')).toEqual([]);
+  });
+
+  test('вынос отрицательным отступом — приём вёрстки, тишина', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="width:200px">
+           <p style="margin:0 -40px">Цитата шире колонки по замыслу</p>
+         </div>`,
+      ),
+    );
+    expect(found.filter((item) => item.rule === 'overflowing-text')).toEqual([]);
+  });
+
+  test('текст выше родителя — обычная раскладка, правило смотрит только вбок', async ({
+    page: p,
+  }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="width:300px;height:20px">
+           <p style="margin:0">Первая строка и вторая строка и третья строка текста</p>
+         </div>`,
+      ),
+    );
+    expect(rulesOf(found)).toEqual([]);
+  });
+
+  test('декоративное пятно за краем — не текст, тишина', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        `<div style="width:200px;position:relative">
+           <div style="width:320px;height:60px;background:linear-gradient(90deg,#eee,#fff)"></div>
+         </div>`,
+      ),
+    );
+    expect(rulesOf(found)).toEqual([]);
+  });
+});
+
 test.describe('occlusion', () => {
   test('фиксированная полоса поверх кнопки — нарушение с именем полосы', async ({ page: p }) => {
     const found = await measure(
