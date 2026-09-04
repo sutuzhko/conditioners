@@ -61,6 +61,9 @@ const client = {
   note: null,
   createdAt: '2026-08-20T09:00:00.000Z',
   leadCount: 1,
+  orderCount: 0,
+  orderSum: 0,
+  lastOrderAt: null,
 };
 
 const page = { items: [client], total: 1, page: 1, pages: 1 };

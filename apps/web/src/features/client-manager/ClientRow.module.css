@@ -1,0 +1,115 @@
+/* Клиент строкой таблицы (макет `Clients.png`). */
+
+.who {
+  min-width: 0;
+}
+
+.person {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.names {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.name {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.name:hover {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+/* Приписка под именем — одна строка с многоточием: заметка бывает в абзац, а
+   строка таблицы обязана оставаться строкой. */
+.note {
+  max-width: 34ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* Телефон набран моноширинным и не переносится: по нему сверяют цифры. */
+.phone {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  white-space: nowrap;
+}
+
+/* 🔴 Телефон в строке выглядит текстом, а не ссылкой: краска ссылки и
+   подчёркивание в колонке цифр читаются как «здесь что-то не так», а в макете
+   это обычный моноширинный текст. Ссылкой он остаётся — с телефона по нему
+   звонят, — и признаётся ею при наведении и с клавиатуры. */
+.phone a {
+  color: var(--ink2);
+  text-decoration: none;
+}
+
+.phone a:hover,
+.phone a:focus-visible {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+.address {
+  min-width: 0;
+  color: var(--body);
+  font-size: var(--fs-caption);
+  overflow-wrap: anywhere;
+}
+
+.missing {
+  color: var(--faint);
+}
+
+/* Числа прижаты вправо: сравнение читается по цифрам, а не по началу строки. */
+.number {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.when {
+  color: var(--body);
+  font-size: var(--fs-caption);
+  white-space: nowrap;
+}
+
+.actions {
+  width: 1%;
+  text-align: right;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: var(--error-ink);
+  font-size: var(--fs-caption);
+}
+
+@media (width < 600px) {
+  .number,
+  .actions {
+    text-align: left;
+  }
+
+  .actions {
+    width: auto;
+  }
+
+  .note {
+    max-width: none;
+    white-space: normal;
+  }
+}

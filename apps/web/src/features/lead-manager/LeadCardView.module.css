@@ -189,3 +189,53 @@
     align-items: flex-start;
   }
 }
+
+/* Номер обращения над именем: им ссылаются на заявку вслух и в заметках. */
+.number {
+  margin: 0 0 2px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 🔴 Опасная зона отделена чертой: удаление уничтожает персональные данные
+   навсегда, и промах мимо соседней кнопки стоит истории обращения. */
+.danger {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.dangerHint {
+  flex: 1 1 240px;
+  margin: 0;
+  min-width: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+/* Разбор причины отказа в окне. */
+.cancel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cancelHint {
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+.cancelActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}

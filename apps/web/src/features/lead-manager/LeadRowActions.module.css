@@ -1,0 +1,18 @@
+/* Действия строки очереди: меню и сообщение о неудаче под ним. */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+/* Отказ сервера сообщается там же, где нажали, — иначе он теряется в шапке
+   раздела, а строка выглядит удалённой. */
+.error {
+  margin: 0;
+  max-width: 22ch;
+  color: var(--error-ink);
+  font-size: var(--fs-caption);
+  text-align: right;
+}

@@ -1,4 +1,5 @@
 import type { LeadContext } from '@/entities/lead/model';
+import type { CancelReason } from '@/shared/lib/cancel-reason';
 
 /** Заявка в админке — контракт docs/API.md §8. */
 export type LeadStatus = 'new' | 'in_progress' | 'done' | 'rejected';
@@ -15,6 +16,8 @@ export function isLeadStatus(value: string): value is LeadStatus {
 
 export type LeadCard = {
   readonly id: string;
+  /** Номер обращения: им ссылаются на заявку вслух и в заметках. */
+  readonly number: number;
   readonly name: string;
   readonly phone: string;
   readonly topic: string;
@@ -38,6 +41,9 @@ export type LeadCard = {
    */
   readonly context: LeadContext | null;
   readonly status: LeadStatus;
+  /** Почему отказались — заполнено только у отменённых обращений (ADR-310). */
+  readonly cancelReason: CancelReason | null;
+  readonly cancelNote: string | null;
   readonly managerComment: string | null;
   /** Клиент, к которому привязано обращение; `null` — в базу его ещё не завели. */
   readonly clientId: string | null;
@@ -62,12 +68,15 @@ export type LeadsView = {
   readonly status?: LeadStatus | undefined;
   readonly page?: number | undefined;
   readonly lead?: string | undefined;
+  /** Поиск по очереди: имя, телефон, адрес, номер обращения. */
+  readonly query?: string | undefined;
 };
 
 /** Параметры адреса. Умолчания опускаются: ссылка не тащит пустых хвостов. */
 export function leadsQuery(view: LeadsView): Record<string, string> {
   return {
     ...(view.status === undefined ? {} : { status: view.status }),
+    ...(view.query === undefined || view.query === '' ? {} : { q: view.query }),
     ...(view.page === undefined || view.page <= 1 ? {} : { page: String(view.page) }),
     ...(view.lead === undefined || view.lead === '' ? {} : { lead: view.lead }),
   };
@@ -83,15 +92,21 @@ export function leadsHref(view: LeadsView): {
 /** Строка очереди: столько, сколько нужно, чтобы выбрать, кому звонить. */
 export type LeadQueueItem = {
   readonly id: string;
+  readonly number: number;
   readonly name: string;
   readonly phone: string;
   readonly topic: string;
+  /** Адрес приписан к имени: по нему видно, свой район или выезд за город. */
+  readonly address: string | null;
   readonly status: LeadStatus;
   readonly createdAt: string;
 };
 
 export type LeadPatch = {
   readonly status?: LeadStatus;
+  /** Причина обязательна при переводе в отказ и запрещена при остальных. */
+  readonly cancelReason?: CancelReason;
+  readonly cancelNote?: string | null;
   readonly managerComment?: string | null;
 };
 
@@ -115,3 +130,10 @@ export type LeadToOrderResult =
   | { readonly ok: false; readonly message: string };
 
 export type LeadToOrder = (id: string) => Promise<LeadToOrderResult>;
+
+/**
+ * 🔴 Удаление обращения — уничтожение персональных данных (152-ФЗ, #600).
+ * Возвращает тот же результат, что и правка: экрану достаточно знать, вышло
+ * или нет, и что сказать человеку, если не вышло.
+ */
+export type LeadRemove = (id: string) => Promise<LeadUpdateResult>;

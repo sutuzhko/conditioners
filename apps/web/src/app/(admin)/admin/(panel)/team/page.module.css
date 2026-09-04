@@ -74,14 +74,28 @@
   font-family: var(--font-mono);
 }
 
-/* Заготовка карточки монтажника: замер готовой страницы (issue #334). */
+/* Заготовка таблицы команды: шапка и четыре строки (issue #334, #602).
+   Ниже 600px строки разворачиваются карточками и занимают заметно больше. */
 .rowSkeleton {
-  min-height: 223.3px;
+  min-height: 360px;
   border-radius: var(--r-card, var(--r-md));
 }
 
-@media (width < 900px) {
+@media (width < 600px) {
   .rowSkeleton {
-    min-height: 335.9px;
+    min-height: 880px;
+  }
+}
+
+/* Заготовка ряда плиток: высота снята с готовой страницы — четыре плитки в
+   ряд от 1200, две ниже (`StatTiles`). */
+.tilesSkeleton {
+  min-height: 104px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+@media (width < 1200px) {
+  .tilesSkeleton {
+    min-height: 220px;
   }
 }

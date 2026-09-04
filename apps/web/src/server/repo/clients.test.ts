@@ -52,6 +52,9 @@ const CARD = {
   note: null,
   createdAt: new Date('2026-08-28T09:00:00.000Z'),
   _count: { leads: 1 },
+  /* Наряды человека: из них считаются «Заказов», «Сумма» и «Последний» —
+     три колонки списка (issue #602). Новый клиент их ещё не имеет. */
+  orders: [],
 };
 
 function duplicateKey(): Prisma.PrismaClientKnownRequestError {

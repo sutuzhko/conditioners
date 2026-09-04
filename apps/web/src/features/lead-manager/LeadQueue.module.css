@@ -1,82 +1,104 @@
-/* Очередь обращений: узкая колонка слева от карточки. */
+/* Очередь обращений — таблица слева от карточки (issue #349, #601). */
 
 .queue {
   min-width: 0;
-  overflow: hidden;
+
+  /* 🔴 Липкая шапка таблицы считается от ближайшего скроллера, и `hidden` у
+     карточки-предка отменил бы её целиком (см. Table). Здесь обрезка не нужна
+     и без того: у таблицы свой контейнер прокрутки. */
+  overflow: visible;
 }
 
 .empty {
   min-width: 0;
 }
 
-.list {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.table {
+  /* Пять колонок в узкой колонке очереди сжимаются до нечитаемого: ниже этой
+     ширины включается своя прокрутка таблицы, а не расползание страницы. */
+  min-width: 520px;
 }
 
-/* Строка целиком — цель. Пол высоты задан кеглем содержимого: три строки
-   текста дают заведомо больше 44px, добирать нечего. */
-.row {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--line-soft);
-  color: var(--body);
-  text-decoration: none;
+/* Номер набран моноширинным и прижат вправо: по колонке номеров скользят
+   взглядом сверху вниз, и разная ширина цифр сбивает этот путь. */
+.number {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
 }
 
-.row:hover {
-  background: var(--accent-bg);
+.numberHead {
+  width: 1%;
+  text-align: right;
 }
 
-.row:focus-visible {
-  outline: none;
-  box-shadow: inset var(--ring-focus-ring);
-}
-
-/* Последняя строка без разделителя: её роль играет край карточки. */
-.list li:last-child .row {
-  border-bottom: 0;
-}
-
-/* 🔴 Открытая строка отмечена не только краской: `aria-current` в разметке,
-   полоса слева в макете. Заливкой одной различие не читается ни при
-   нарушениях цветовосприятия, ни на солнце. */
-.current {
-  background: var(--accent-bg);
-  box-shadow: inset 3px 0 0 var(--accent-ink);
-}
-
-.line {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 8px;
-  align-items: center;
-  justify-content: space-between;
+.who {
+  min-width: 0;
 }
 
 .name {
-  min-width: 0;
+  display: block;
   color: var(--ink);
-  font-size: var(--fs-dense);
   font-weight: 600;
+  text-decoration: none;
   overflow-wrap: anywhere;
 }
 
-.topic {
-  min-width: 0;
+.name:hover {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+/* Адрес приписан под именем: по нему видно, свой район или выезд за город. */
+.address {
+  display: block;
   color: var(--muted);
   font-size: var(--fs-caption);
   overflow-wrap: anywhere;
 }
 
+.topic {
+  min-width: 0;
+}
+
 .when {
-  color: var(--faint);
-  font-family: var(--font-mono);
+  color: var(--body);
   font-size: var(--fs-caption);
-  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.actions {
+  width: 1%;
+  text-align: right;
+}
+
+.actionsHead {
+  width: 1%;
+}
+
+/* 🔴 Открытая строка отмечена не только заливкой: полоса слева читается и при
+   нарушениях цветовосприятия, и на солнце. */
+.current {
+  background: var(--accent-bg);
+  box-shadow: inset 3px 0 0 var(--accent-ink);
+}
+
+/* Карточками ниже 600px (`variant="cards"` у таблицы): пять колонок на
+   телефоне превращаются в боковую прокрутку, а по очереди звонят стоя. */
+@media (width < 600px) {
+  .table {
+    min-width: 0;
+  }
+
+  .number,
+  .actions,
+  .when {
+    text-align: left;
+  }
+
+  .actions {
+    width: auto;
+  }
 }

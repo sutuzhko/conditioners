@@ -1,12 +1,38 @@
 /** Подписи раздела заявок. */
 import { formatDateTime, formatNumber } from '@/shared/lib/format';
 import { leadStatusTitle } from '@/entities/lead/model';
+import { cancelReasonTitle, type CancelReason } from '@/shared/lib/cancel-reason';
+import { plural, pluralize } from '@/shared/lib/plural';
 
 import type { LeadStatus } from './model';
+import { leadWaiting } from './when';
 
 export const leadManagerContent = {
   title: 'Заявки',
-  lead: 'Обращения с сайта. Заявка записывается в базу до отправки уведомлений — она не теряется, даже если Telegram или почта недоступны.',
+  /**
+   * Строка счёта вместо прозы (макет `Leads.png`): раздел открывают, чтобы
+   * узнать, сколько ждёт ответа, а не чтобы прочитать, как устроена запись в
+   * базу. Объяснение осталось — оно ушло в подпись пустой очереди, где его
+   * читают ровно тогда, когда оно к месту.
+   */
+  count: (fresh: number, stale: number): string =>
+    stale === 0
+      ? `${fresh} ${plural(fresh, 'новая', 'новых', 'новых')}`
+      : `${fresh} ${plural(fresh, 'новая', 'новых', 'новых')} · ${stale === 1 ? 'одна ждёт' : `${formatNumber(stale)} ждут`} больше суток`,
+  countEmpty: 'Новых обращений нет',
+
+  /* 🔴 Плашка о залежавшемся обращении — то, ради чего раздел открывают
+     утром. Она называет номер и объясняет цену молчания, а не просто
+     подсвечивает строку красным. */
+  staleTitle: (number: number): string => `Обращение № ${number} ждёт больше суток`,
+  staleText:
+    'Чем дольше молчим, тем выше шанс, что человек уже позвонил конкуренту. Откройте обращение и перезвоните.',
+  staleOpen: 'Открыть обращение',
+
+  searchLabel: 'Поиск по обращениям',
+  searchPlaceholder: 'Имя, телефон, адрес',
+  searchSubmit: 'Найти',
+  searchHint: 'Ищем по имени, телефону, адресу, теме и номеру обращения.',
 
   filterAll: 'Все',
   filterLabel: 'Показать заявки',
@@ -26,10 +52,10 @@ export const leadManagerContent = {
 
   emptyTitle: 'Заявок пока нет',
   emptyText:
-    'Здесь появятся обращения с сайта: из формы заявки, из калькулятора и с карточек моделей.',
+    'Здесь появятся обращения с сайта: из формы заявки, из калькулятора и с карточек моделей. Заявка записывается в базу до отправки уведомлений — она не теряется, даже если Telegram или почта недоступны.',
   emptyAction: 'Проверить уведомления',
-  emptyFiltered: 'В этом статусе заявок нет',
-  emptyFilteredText: 'Заявки в разделе есть — их скрыл выбранный статус.',
+  emptyFiltered: 'Ничего не нашлось',
+  emptyFilteredText: 'Заявки в разделе есть — их скрыл выбранный статус или поиск.',
   emptyFilteredAction: 'Показать все заявки',
   /** Ошибка блока списка (issue #336): что не загрузилось. */
   loadFailed: 'Не удалось загрузить заявки',
@@ -97,8 +123,55 @@ export const leadManagerContent = {
   serverError: 'Сервер не принял изменения. Попробуйте ещё раз',
   networkError: 'Не удалось связаться с сервером. Изменения не сохранены',
 
+  /* ---------- Очередь таблицей (макет `Leads.png`) ---------- */
+
+  colNumber: '№',
+  colWho: 'Кто и что',
+  colTopic: 'Тема',
+  colWhen: 'Когда',
+  colStatus: 'Статус',
+  colActions: 'Действия',
+  /** Тема не заполнена: у обращения из формы напоминания её нет. */
+  topicUnset: 'Не указана',
+  addressUnset: 'Телефон оставлен, адреса нет',
+  rowActions: (number: number): string => `Действия над обращением № ${number}`,
+  rowOpen: 'Открыть обращение',
+  rowCall: 'Позвонить',
+  cardNumber: (number: number): string => `Обращение № ${number}`,
+
+  /* ---------- Отмена: состояние, а не удаление (ADR-310) ---------- */
+
+  cancel: 'Отказ',
+  cancelTitle: 'Почему отказались?',
+  cancelHint:
+    'Обращение останется в истории и в счётчиках — отказ это факт, а не ошибка ввода. Причина нужна, чтобы через полгода было видно, почему уходят.',
+  cancelReason: 'Причина',
+  cancelReasonTitle: (reason: CancelReason): string => cancelReasonTitle(reason),
+  cancelNote: 'Уточнение',
+  cancelNoteHint: 'Что именно сказал человек. Необязательно',
+  cancelSubmit: 'Отметить отказ',
+  cancelBack: 'Не отказываться',
+  cancelledBy: (reason: CancelReason): string => `Отказ: ${cancelReasonTitle(reason)}`,
+
+  /* ---------- Удаление: уничтожение персональных данных (152-ФЗ) ---------- */
+
+  remove: 'Удалить обращение',
+  removeBusy: 'Удаляем…',
+  removeConfirmTitle: (number: number): string => `Удалить обращение № ${number}?`,
+  removeConfirmText:
+    'Исчезнут имя, телефон, адрес, комментарий и фотография — навсегда и без возможности восстановить. Так исполняют требование человека об уничтожении его персональных данных. Если клиент просто передумал, отметьте отказ: обращение останется в истории.',
+  removeConfirmAction: 'Удалить навсегда',
+  removeCancel: 'Оставить',
+  removeHint:
+    'Уничтожение персональных данных по требованию человека (152-ФЗ). Отказ клиента отмечается статусом, а не удалением.',
+  removed: 'Обращение удалено',
+
   /** Название статуса — доменное, одно на проект (`entities/lead`). */
   statusTitle: (status: LeadStatus): string => leadStatusTitle(status),
+  /** Сколько обращение ждёт: «2 часа назад», «вчера, 11:20», «27 авг». */
+  waiting: (iso: string, now?: Date): string => leadWaiting(iso, now),
+  found: (total: number): string =>
+    `Найдено: ${pluralize(total, 'обращение', 'обращения', 'обращений')}`,
   /** Дата и время по Москве: заявку обрабатывают из Тулы, а не из браузера клиента. */
   when: (iso: string): string => formatDateTime(iso),
   consentAt: (iso: string): string => `дано ${leadManagerContent.when(iso)}`,

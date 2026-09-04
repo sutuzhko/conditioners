@@ -1,14 +1,13 @@
 import Link from 'next/link';
 
 import { TEAM_NEW_PATH, staffManagerContent as texts } from '@/features/staff-manager';
-import { buttonClassName } from '@/shared/ui';
-import { RowsSkeleton } from '@/widgets/admin-shell';
+import { Skeleton, buttonClassName } from '@/shared/ui';
 
 import styles from './page.module.css';
 
 /**
- * Монтажники: шапка настоящая, карточки людей — заготовками по замеру
- * готовой страницы (issue #334).
+ * Монтажники: шапка настоящая, строка счёта, плитки показателей и таблица
+ * команды — заготовками по замеру готовой страницы (issue #334).
  */
 export default function TeamLoading() {
   return (
@@ -22,10 +21,15 @@ export default function TeamLoading() {
           </Link>
         </div>
 
-        <p className={styles.lead}>{texts.lead}</p>
+        {/* Счёт смены приходит из базы: под строку резервируется её высота. */}
+        <Skeleton variant="text" width="14ch" />
       </header>
 
-      <RowsSkeleton rows={4} className={styles.rowSkeleton} />
+      {/* Ряд плиток и таблица команды одним блоком каждый: список стал
+          таблицей (issue #602), и четыре карточки на его месте обещали бы
+          другую геометрию. */}
+      <Skeleton variant="block" className={styles.tilesSkeleton} />
+      <Skeleton variant="block" className={styles.rowSkeleton} />
     </div>
   );
 }

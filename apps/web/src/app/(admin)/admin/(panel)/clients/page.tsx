@@ -9,8 +9,8 @@ import {
   pageNumber,
 } from '@/features/client-manager';
 import { requireOwnerPage } from '@/server/guards';
-import { list } from '@/server/repo/clients';
-import { buttonClassName } from '@/shared/ui';
+import { counts, list } from '@/server/repo/clients';
+import { Alert, buttonClassName } from '@/shared/ui';
 
 import styles from './page.module.css';
 
@@ -43,7 +43,7 @@ export default async function AdminClientsPage({
 
   const { q, page } = await searchParams;
   const query = q?.trim() ?? '';
-  const found = await list({ query, page: pageNumber(page) });
+  const [found, base] = await Promise.all([list({ query, page: pageNumber(page) }), counts()]);
 
   return (
     <div className={styles.page}>
@@ -56,8 +56,17 @@ export default async function AdminClientsPage({
           </Link>
         </div>
 
-        <p className={styles.lead}>{texts.lead}</p>
+        {/* Строка счёта вместо прозы (макет `Clients.png`): раздел открывают,
+            чтобы найти человека, а не прочитать, как устроена дедупликация. */}
+        <p className={styles.lead}>{texts.count(base.total, base.fresh)}</p>
       </header>
+
+      {/* 🔴 Плашка «Телефон — ключ» (ADR-105): она отвечает на вопрос, который
+          владелец задаёт, увидев одного человека дважды, — почему второй
+          карточки не появилось и как её искать. */}
+      <Alert tone="info" title={texts.keyNoticeTitle}>
+        {texts.keyNoticeText}
+      </Alert>
 
       <ClientSearch query={query} total={found.total} />
       <ClientList page={found} query={query} />

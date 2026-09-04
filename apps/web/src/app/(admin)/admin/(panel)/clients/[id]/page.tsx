@@ -131,6 +131,9 @@ export default async function AdminClientPage({ params, searchParams }: PageProp
         titles={CLIENT_TAB_TITLES}
         label={texts.tabsLabel}
         idPrefix="client"
+        /* Счётчики у подписей (issue #602, макет `CardTabs.png`): по ним видно,
+           есть ли за вкладкой что-нибудь, до того как на неё нажали. */
+        counts={{ orders: orders.total, units: units.length }}
         panels={{
           data: (
             <>
