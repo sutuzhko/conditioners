@@ -209,7 +209,7 @@ export function Calculator({
           <div className={styles.breakdown}>
             <p className={styles.breakdownTitle}>{pricingText.breakdownTitle}</p>
             {/* 🔴 За границей формулы разбивка не показывается вовсе: слагаемые
-                с цифрами рядом с «считаем на выезде» читались бы обещанием
+                с цифрами рядом с «считаем по телефону» читались бы обещанием
                 суммы, которого мы не давали. */}
             {scope === 'site-visit' ? (
               <p className={styles.onSiteText}>{pricingText.onSiteText}</p>
