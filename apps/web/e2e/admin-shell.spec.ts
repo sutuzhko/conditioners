@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
 import {
+  ADMIN_COUNTER_TITLES,
   ADMIN_TABS,
   adminShellContent as texts,
   bottomSectionsFor,
@@ -21,8 +22,9 @@ import { loginViaUi } from './support/admin-ui';
  * на каждой ширине и меряет, а не смотрит.
  *
  * Ширины — те же, что у макета: 390 (телефон), 768 (планшет), 1440
- * (десктоп), плюс 320 нижней границей. До 900 навигация лежит нижней полосой
- * вкладок, от 900 — колонкой сбоку.
+ * (десктоп), плюс 320 нижней границей. До 600 навигация лежит нижней полосой
+ * вкладок, от 600 — колонкой сбоку: до 1200 иконочным рельсом, дальше
+ * подписями (ADR-309).
  */
 
 /** Разделы владельца: все адреса панели, включая три под «Настройками». */
@@ -36,7 +38,10 @@ type NavKind = 'tabs' | 'column';
 const SHELL: readonly { name: string; width: number; height: number; nav: NavKind }[] = [
   { name: 'минимум', width: 320, height: 720, nav: 'tabs' },
   { name: 'телефон', width: 390, height: 844, nav: 'tabs' },
-  { name: 'планшет', width: 768, height: 1024, nav: 'tabs' },
+  /* 🔴 На 768 стоит рельс, а не лента: планшет работает планшетом (ADR-309).
+     Подпись пункта там скрыта, но остаётся в разметке — сценарий ищет пункты
+     по имени и на этой ширине тоже. */
+  { name: 'планшет', width: 768, height: 1024, nav: 'column' },
   { name: 'десктоп', width: 1440, height: 900, nav: 'column' },
 ];
 
@@ -156,7 +161,7 @@ for (const shell of SHELL) {
   });
 }
 
-test('оболочка переключается по ширине: полоса вкладок до 900, колонка от 900', async ({
+test('оболочка переключается по ширине: полоса вкладок до 600, колонка от 600', async ({
   page,
 }) => {
   test.setTimeout(120_000);
@@ -167,7 +172,7 @@ test('оболочка переключается по ширине: полос�
   const bar = page.getByRole('navigation', { name: texts.tabsLabel });
   const column = page.getByRole('navigation', { name: texts.navLabel });
 
-  for (const width of [320, 390, 768, 899]) {
+  for (const width of [320, 390, 599]) {
     await page.setViewportSize({ width, height: 844 });
 
     await expect(bar, `на ${width}px навигация внизу`).toBeVisible();
@@ -185,7 +190,10 @@ test('оболочка переключается по ширине: полос�
     await expectNoSideScroll(page, `оболочка на ${width}px`);
   }
 
-  for (const width of [900, 1024, 1200, 1440]) {
+  /* 600 и 1199 — сами границы: рельс живёт между ними, от 1200 колонка
+     разворачивается подписями. Оба режима отвечают на один вопрос — разделы
+     сбоку, полосы внизу нет. */
+  for (const width of [600, 768, 900, 1199, 1200, 1440]) {
     await page.setViewportSize({ width, height: 900 });
 
     await expect(column, `на ${width}px разделы в колонке`).toBeVisible();
@@ -242,7 +250,7 @@ async function expectTapZone(target: Locator, where: string): Promise<void> {
 }
 
 test('все цели оболочки до 900px не мельче 44×44', async ({ page }) => {
-  test.setTimeout(120_000);
+  test.setTimeout(180_000);
 
   /* Движение гасим: мерим геометрию, а не секундомер. */
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -254,11 +262,23 @@ test('все цели оболочки до 900px не мельче 44×44', asy
     await page.goto('/admin');
     await hideDevOverlay(page);
 
-    /* Только видимые: кнопка колонки до 900px спрятана, и мерить у неё
-       нечего — рамка нулевая. */
-    for (const link of await page.locator('header a:visible, header button:visible').all()) {
-      const name = (await link.textContent()) ?? (await link.getAttribute('aria-label')) ?? '?';
-      await expectTapZone(link, `${name.trim()} в шапке на ${width}px`);
+    /* Строка раздела: переключатель колонки и значки оболочки. Только
+       видимые — до 600px кнопки колонки нет, и мерить у неё нечего. */
+    const tools = page.locator('[data-shell="tools"]');
+    for (const target of await tools.locator('a:visible, button:visible').all()) {
+      const name = (await target.getAttribute('aria-label')) ?? (await target.textContent()) ?? '?';
+      await expectTapZone(target, `${name.trim()} в строке раздела на ${width}px`);
+    }
+
+    if (width >= 600) {
+      /* 🔴 Рельс держит 44px, как требует ADR-183: цель там — вся ячейка
+         шириной с рельс, а не значок 20×20 внутри неё. */
+      const rail = page.locator('aside');
+      for (const target of await rail.locator('a:visible, button:visible').all()) {
+        const name = (await target.textContent()) ?? '?';
+        await expectTapZone(target, `«${name.trim()}» в рельсе на ${width}px`);
+      }
+      continue;
     }
 
     const bar = page.getByRole('navigation', { name: texts.tabsLabel });
@@ -321,16 +341,16 @@ async function walkWithTab(page: Page, limit: number): Promise<readonly FocusSto
       const hit = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2);
       const inTabbar = el.closest('nav')?.getAttribute('aria-label') === tabsLabel;
 
-      /* Шапка оболочки — первый `header` документа. Сравнение именно с ним, а
-         не просто `closest('header')`: у раздела есть своя шапка с заголовком
-         и главным действием, и она уехала бы в ту же область. */
-      const shellHeader = document.querySelector('header');
+      /* 🔴 Строка раздела опознаётся по признаку `data-shell`, а не по тегу.
+         Верхней полосы у оболочки больше нет (ADR-309), её значки живут
+         внутри `main` — а `header` там же есть и у самого раздела, со своим
+         заголовком и главным действием. */
       const region = inTabbar
         ? 'полоса вкладок'
         : el.closest('aside') !== null
           ? 'колонка'
-          : el.closest('header') === shellHeader && shellHeader !== null
-            ? 'шапка'
+          : el.closest('[data-shell="tools"]') !== null
+            ? 'строка раздела'
             : 'содержимое';
 
       return {
@@ -357,16 +377,18 @@ async function walkWithTab(page: Page, limit: number): Promise<readonly FocusSto
 }
 
 /* Сколько целей у навигации в каждой раскладке: пять вкладок внизу против
-   всей колонки — разделы, прибитый низ и «Выйти». */
+   всей колонки — карточка вошедшего, разделы, прибитый низ, «Открыть сайт»
+   и «Выйти» (ADR-309). */
 const TABBAR_STOPS = TABS.length + 1;
-const COLUMN_STOPS = columnSectionsFor('owner').length + bottomSectionsFor('owner').length + 1;
+const COLUMN_STOPS =
+  1 + columnSectionsFor('owner').length + bottomSectionsFor('owner').length + 1 + 1;
 
 for (const shell of [
   {
     name: 'телефон',
     width: 390,
     height: 844,
-    order: ['шапка', 'содержимое', 'полоса вкладок'],
+    order: ['строка раздела', 'содержимое', 'полоса вкладок'],
     nav: 'полоса вкладок',
     navStops: TABBAR_STOPS,
   },
@@ -374,7 +396,9 @@ for (const shell of [
     name: 'десктоп',
     width: 1440,
     height: 900,
-    order: ['шапка', 'колонка', 'содержимое'],
+    /* Колонка идёт первой: верхней полосы над ней больше нет, и обход
+       начинается с того, что нарисовано выше и левее всего. */
+    order: ['колонка', 'строка раздела', 'содержимое'],
     nav: 'колонка',
     navStops: COLUMN_STOPS,
   },
@@ -420,3 +444,74 @@ for (const shell of [
     expect(regions, 'порядок областей совпадает с визуальным').toEqual(shell.order);
   });
 }
+
+/**
+ * Счётчики очередей у пунктов навигации (ADR-309, issue #570).
+ *
+ * 🔴 Проверяется присланная разметка, а не только экран: числа обязаны прийти
+ * с сервера (инвариант 1). На экране их дорисовал бы и запрос из браузера, и
+ * отличить одно от другого можно только по ответу сервера.
+ */
+test('счётчики очередей приходят с сервера и названы словами', async ({ page }) => {
+  test.setTimeout(120_000);
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await loginViaUi(page);
+  await page.goto('/admin');
+
+  const column = page.getByRole('navigation', { name: texts.navLabel });
+
+  for (const [title, counter] of [
+    ['Заказы', 'orders'],
+    ['Заявки', 'leads'],
+    ['Отзывы', 'reviews'],
+  ] as const) {
+    /* Имя ссылки целиком: голое число озвучивается как «Заказы 7» и не
+       отвечает, семь чего. */
+    await expect(
+      column.getByRole('link', {
+        name: new RegExp(`^${title} \\d+ ${ADMIN_COUNTER_TITLES[counter]}$`),
+      }),
+      `${title}: счётчик стоит у пункта и назван словами`,
+    ).toHaveCount(1);
+  }
+
+  const html = await (await page.request.get('/admin')).text();
+  const anchor = /<a[^>]*href="\/admin\/orders"[\s\S]*?<\/a>/.exec(html)?.[0] ?? '';
+  const spoken = anchor
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  expect(spoken, 'счётчик очереди стоит уже в присланной разметке').toMatch(
+    new RegExp(`^Заказы \\d+ ${ADMIN_COUNTER_TITLES.orders}$`),
+  );
+});
+
+/**
+ * Карточка вошедшего открывает меню учётной записи (ADR-309, issue #569).
+ *
+ * 🔴 Проверяется на 768: там от прибитого низа остаются три безымянных
+ * значка, и меню — единственное место, где действия названы словами.
+ */
+test('карточка вошедшего открывает меню и закрывается по Esc', async ({ page }) => {
+  test.setTimeout(120_000);
+
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await loginViaUi(page);
+  await page.goto('/admin');
+
+  const card = page.locator('aside').getByRole('button', { expanded: false }).first();
+  await expect(card).toBeVisible();
+  await card.click();
+
+  const menu = page.getByRole('navigation', { name: texts.accountMenuLabel });
+  await expect(menu).toBeVisible();
+  await expect(menu.getByRole('link', { name: 'Профиль' })).toBeVisible();
+  await expect(menu.getByRole('link', { name: texts.site })).toBeVisible();
+  await expect(menu.getByRole('button', { name: texts.logout })).toBeVisible();
+
+  await page.keyboard.press('Escape');
+  await expect(menu).toBeHidden();
+  await expect(card).toBeFocused();
+});

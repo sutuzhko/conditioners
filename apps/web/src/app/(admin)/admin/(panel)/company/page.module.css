@@ -42,7 +42,10 @@
 @media (width < 900px) {
   .toc {
     position: sticky;
-    top: var(--admin-header-h);
+
+    /* Верхней полосы над содержимым больше нет (ADR-309): оглавление липнет
+       к самому верху окна, а не к её нижнему краю. */
+    top: 0;
     z-index: 5;
     flex-wrap: nowrap;
     overflow-x: auto;
