@@ -59,10 +59,6 @@ test.skip(({ isMobile }) => isMobile === true, 'ширины задаёт спе
  */
 const KNOWN: readonly { readonly match: string; readonly issue: string }[] = [
   { match: 'HoursGrid_cell', issue: '#532 — ячейка суток 15,3px на 900' },
-  {
-    match: 'Badge_badge',
-    issue: '#533 — плашка подбора 1,74:1: грунт красит текст, но не заливку',
-  },
   { match: 'ArticleView_ctaLead', issue: '#534 — врезка статьи не объявлена тёмным островом' },
   { match: 'ArticleView_ctaLink', issue: '#534 — врезка статьи не объявлена тёмным островом' },
   { match: 'SavingsCalculator_totalHorizon', issue: '#535 — итог экономии 4,31:1' },
