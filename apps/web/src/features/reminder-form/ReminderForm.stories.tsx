@@ -18,7 +18,12 @@ const rateLimitedSubmit: ReminderSubmit = () =>
 async function fillAndSend(canvasElement: HTMLElement): Promise<void> {
   const canvas = within(canvasElement);
 
-  await userEvent.type(canvas.getByLabelText(/Телефон/), '+7 905 123-45-67');
+  /* 🔴 Цифры без разделителей — то, что человек и набирает в поле с маской:
+   маска сама ставит «+7 (», скобки и дефисы. Набор вместе с «+7 » удваивал
+   префикс, поле переставляло каретку на каждом знаке, и итог зависел от
+   того, сколько знаков успело обработаться, — снимок такой истории не
+   совпадал сам с собой (#526). */
+  await userEvent.type(canvas.getByLabelText(/Телефон/), '9051234567');
   await userEvent.click(canvas.getByRole('checkbox'));
   await userEvent.click(canvas.getByRole('button', { name: texts.submit }));
 }
