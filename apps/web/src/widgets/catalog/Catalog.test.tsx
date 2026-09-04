@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { Catalog, type CatalogProps } from './Catalog';
 import { catalogText } from './content';
-import { SHOWCASE_LIMIT } from './model';
+import { SHOWCASE_MAX_SHOWN, SHOWCASE_MIN_SHOWN, SHOWCASE_STEPS } from './model';
 import {
   catalogFixture,
   discountedProduct,
@@ -27,8 +27,81 @@ import {
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cardCss = readFileSync(join(HERE, 'ui', 'ProductCard.module.css'), 'utf8');
 const gridCss = readFileSync(join(HERE, 'ui', 'grid.module.css'), 'utf8');
+const showcaseCss = readFileSync(join(HERE, 'ui', 'ShowcaseGrid.module.css'), 'utf8');
 const priceCss = readFileSync(join(HERE, 'ui', 'ProductPrice.module.css'), 'utf8');
 const tokensCss = readFileSync(join(HERE, '..', '..', 'shared', 'styles', 'tokens.css'), 'utf8');
+
+/**
+ * Блок правил вместе с условием, при котором он действует.
+ *
+ * 🔴 Заведён под issue #552: вся правка витрины живёт в медиазапросах, а
+ * jsdom их не применяет. Регулярка «в файле где-то есть такая строка» на
+ * этот вопрос не отвечает — спрашивать надо не «есть ли правило», а «какое
+ * из них действует на этой ширине». Поэтому файл разбирается на блоки, и
+ * тест спрашивает ширину так же, как спросил бы браузер.
+ */
+type StyleBlock = {
+  readonly applies: (width: number) => boolean;
+  readonly body: string;
+};
+
+/** Условие медиазапроса → предикат по ширине. Разобраны те формы, что в файлах. */
+function widthCondition(condition: string): (width: number) => boolean {
+  const range = /\((\d+)px\s*<=\s*width\s*<\s*(\d+)px\)/.exec(condition);
+  if (range !== null) {
+    const from = Number(range[1]);
+    const to = Number(range[2]);
+    return (width) => width >= from && width < to;
+  }
+
+  const edges = [...condition.matchAll(/\(width\s*(>=|<)\s*(\d+)px\)/g)].map((edge) => {
+    const value = Number(edge[2]);
+    return edge[1] === '>=' ? (width: number) => width >= value : (width: number) => width < value;
+  });
+
+  // запятая в медиазапросе — «или»; других сочетаний в этих файлах нет
+  return (width) => edges.some((matches) => matches(width));
+}
+
+function styleBlocks(css: string): readonly StyleBlock[] {
+  const media = [...css.matchAll(/@media([^{]+)\{((?:[^{}]|\{[^{}]*\})*)\}/g)];
+  const outside = media.reduce((rest, block) => rest.replace(block[0], ''), css);
+
+  return [
+    { applies: () => true, body: outside },
+    ...media.map((block) => ({
+      applies: widthCondition(block[1] ?? ''),
+      body: block[2] ?? '',
+    })),
+  ];
+}
+
+/**
+ * Что победило на этой ширине: у правил одинаковая специфичность, значит
+ * решает порядок — как в браузере, побеждает последнее.
+ */
+function winnerAt(css: string, width: number, pattern: RegExp): string | null {
+  let winner: string | null = null;
+
+  for (const block of styleBlocks(css)) {
+    if (!block.applies(width)) continue;
+    for (const hit of block.body.matchAll(pattern)) winner = hit[1] ?? null;
+  }
+
+  return winner;
+}
+
+/** Колонок в сетке на этой ширине. */
+const columnsAt = (width: number): string | null =>
+  winnerAt(gridCss, width, /repeat\((\d+),\s*minmax\(0,\s*1fr\)\)/g);
+
+/** С какой по счёту карточки витрина гасит остальные. */
+const clipFromAt = (width: number): string | null =>
+  winnerAt(gridCss, width, /\.clipped > li:nth-child\(n \+ (\d+)\)/g);
+
+/** Убран ли ряд с кнопкой раскрытия у витрины ровно на предел. */
+const revealRowHiddenAt = (width: number): boolean =>
+  winnerAt(showcaseCss, width, /(\.row\[data-reveal='min-shown'\])[^}]*display:\s*none/g) !== null;
 
 /** Витрина всегда знает адрес модели — в тестах он один на все истории. */
 function renderCatalog(props: Omit<CatalogProps, 'productHref'>) {
@@ -260,8 +333,8 @@ describe('Карточка — общая базовая линия цены и 
   });
 });
 
-describe('Витрина — сетка и раскрытие остальных моделей (issue #260)', () => {
-  /** Витрина из шести моделей: три показываются, три ждут раскрытия. */
+describe('Витрина — сетка и раскрытие остальных моделей (issue #260, issue #552)', () => {
+  /** Витрина из шести моделей: часть показывается, остальные ждут раскрытия. */
   const six = [
     plainProduct,
     discountedProduct,
@@ -278,34 +351,60 @@ describe('Витрина — сетка и раскрытие остальных
     expect(screen.getByRole('heading', { name: 'Сплит-система 30' })).toBeInTheDocument();
   });
 
-  it('кнопка раскрытия называет реальное число оставшихся моделей', () => {
+  it('🔴 кнопка называет весь список, а не остаток: остаток зависел бы от ширины', () => {
     renderCatalog({ products: six, now: NOW });
 
-    const more = screen.getByRole('button', { name: catalogText.moreModels(3) });
+    const more = screen.getByRole('button', { name: catalogText.showAll(six.length) });
     expect(more).toHaveAttribute('aria-expanded', 'false');
     expect(more).toHaveAttribute('aria-controls', 'showcase-models');
+    expect(more.parentElement).toHaveAttribute('data-reveal', 'always');
   });
 
-  it('витрина короче предела раскрывать нечем — кнопки нет', () => {
-    renderCatalog({ products: six.slice(0, SHOWCASE_LIMIT), now: NOW });
+  it('витрине короче самого скупого диапазона раскрывать нечем — кнопки нет', () => {
+    renderCatalog({ products: six.slice(0, SHOWCASE_MIN_SHOWN), now: NOW });
 
-    expect(screen.queryByRole('button', { name: /Ещё/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Показать все/ })).not.toBeInTheDocument();
   });
 
-  it('🔴 скрытые карточки гасит CSS, и предел в нём совпадает с SHOWCASE_LIMIT', () => {
-    /* `nth-child` не умеет читать переменную, поэтому связь числа в стиле с
-       константой в коде держит этот тест, а не язык. */
-    expect(SHOWCASE_LIMIT).toBe(3);
-    expect(gridCss).toMatch(
-      new RegExp(`\\.clipped > li:nth-child\\(n \\+ ${SHOWCASE_LIMIT + 1}\\)`),
-    );
+  it('🔴 витрина ровно на предел носит кнопку только там, где показано меньше всего', () => {
+    renderCatalog({ products: six.slice(0, SHOWCASE_MAX_SHOWN), now: NOW });
+
+    /* Кнопка приезжает от сервера всегда — ширины он не знает (инвариант 1),
+       — а убирает её оттуда, где показаны уже все карточки, стиль. */
+    const more = screen.getByRole('button', { name: catalogText.showAll(SHOWCASE_MAX_SHOWN) });
+    expect(more.parentElement).toHaveAttribute('data-reveal', 'min-shown');
+
+    /* Скупых диапазонов два: телефон в одну колонку и планшет в три. Там
+       кнопка обязана быть видна, в остальных — погашена стилем. */
+    expect(SHOWCASE_STEPS.filter((step) => step.shown === SHOWCASE_MIN_SHOWN)).toEqual([
+      { from: 0, columns: 1, shown: 3 },
+      { from: 900, columns: 3, shown: 3 },
+    ]);
+    for (const width of [600, 899, 1200, 1440]) {
+      expect(revealRowHiddenAt(width), `ширина ${width}`).toBe(true);
+    }
+    for (const width of [320, 599, 900, 1199]) {
+      expect(revealRowHiddenAt(width), `ширина ${width}`).toBe(false);
+    }
+  });
+
+  it('🔴 стиль сходится с таблицей порогов, и пустых ячеек в последнем ряду нет', () => {
+    /* `nth-child` не умеет читать переменную, а число колонок принадлежит
+       сетке, одной на витрину и на страницу каталога. Свести таблицу со
+       стилем может только тест — и он же держит главное правило: показанное
+       делится на число колонок нацело. */
+    expect(SHOWCASE_STEPS.map((step) => step.from)).toEqual([0, 600, 900, 1200]);
+
+    for (const [index, step] of SHOWCASE_STEPS.entries()) {
+      expect(step.shown % step.columns, `ряд с ${step.from}`).toBe(0);
+
+      const above = SHOWCASE_STEPS[index + 1];
+      for (const width of [step.from === 0 ? 320 : step.from, (above?.from ?? 1441) - 1]) {
+        expect(columnsAt(width), `колонок на ${width}`).toBe(String(step.columns));
+        expect(clipFromAt(width), `гашение на ${width}`).toBe(String(step.shown + 1));
+      }
+    }
+
     expect(gridCss).toMatch(/display:\s*none/);
-  });
-
-  it('🔴 колонок 1 / 2 / 3 / 4 на порогах 600, 900 и 1200', () => {
-    expect(gridCss).toMatch(/\.grid\s*\{[^}]*repeat\(1,\s*minmax\(0,\s*1fr\)\)/);
-    expect(gridCss).toMatch(/@media \(width >= 600px\)[^@]*repeat\(2,\s*minmax\(0,\s*1fr\)\)/);
-    expect(gridCss).toMatch(/@media \(width >= 900px\)[^@]*repeat\(3,\s*minmax\(0,\s*1fr\)\)/);
-    expect(gridCss).toMatch(/@media \(width >= 1200px\)[^@]*repeat\(4,\s*minmax\(0,\s*1fr\)\)/);
   });
 });

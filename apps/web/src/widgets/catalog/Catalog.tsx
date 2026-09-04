@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Card } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 import { catalogText } from './content';
-import { SHOWCASE_LIMIT, type CatalogProduct, type ProductHref } from './model';
+import type { CatalogProduct, ProductHref } from './model';
 import { ProductCard } from './ui/ProductCard';
 import { ShowcaseGrid } from './ui/ShowcaseGrid';
 import styles from './Catalog.module.css';
@@ -97,10 +97,7 @@ export function Catalog({
             <p className={styles.emptyText}>{catalogText.emptyText}</p>
           </Card>
         ) : (
-          <ShowcaseGrid
-            hiddenCount={visible.length - SHOWCASE_LIMIT}
-            label={catalogText.showcaseLabel}
-          >
+          <ShowcaseGrid total={visible.length} label={catalogText.showcaseLabel}>
             {visible.map((product) => (
               <ProductCard
                 key={product.id}
@@ -114,8 +111,8 @@ export function Catalog({
         )}
 
         {/* Выход для того, кому витрина не подошла. Стоит под сеткой, а не в
-            шапке секции: до раскрытия человек видит три карточки, и вопрос
-            «а если нужной нет?» возникает именно здесь. */}
+            шапке секции: до раскрытия человек видит полный ряд карточек, и
+            вопрос «а если нужной нет?» возникает именно здесь. */}
         <p className={styles.helpRow}>
           <Link href={orderHref} className={styles.help}>
             {catalogText.help}
