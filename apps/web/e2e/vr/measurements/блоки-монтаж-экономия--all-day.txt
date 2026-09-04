@@ -255,85 +255,85 @@ section.SavingsBlock__section  768×1041 @0,0
     p.SavingsBlock__disclaimer  728×93 @20,948  Manrope 400 15/23  lines=4  «Это прикидка, а не расчёт по счётчику. Р»
 
 [геометрия 1200]
-section.SavingsBlock__section  1200×799 @0,0
-  div.SavingsBlock__container  1080×799 @60,0
+section.SavingsBlock__section  1200×790 @0,0
+  div.SavingsBlock__container  1080×790 @60,0
     header.SavingsBlock__intro  660×190 @210,88
       p.SavingsBlock__kicker  660×20 @0,0  JetBrains Mono 400 13/20  ls2  lines=1  «— Помощь в выборе —»
       h2.SavingsBlock__title  660×91 @0,32  Onest 700 38/46  ls-1  lines=2  «Инверторный кондиционер окупает себя»
       p.SavingsBlock__lead  660×53 @0,137  Manrope 400 17/26  lines=2  «Посчитайте, сколько вы сэкономите на эле»
         a.SavingsBlock__articleLink  188×23 @425,27  Manrope 600 17/26  lines=1  ««Инвертор или on/off"»
-    div.SavingsCalculator__grid  1032×360 @24,322
-      div.Card__card  692×360 @0,0  r22  b1
-        p.SavingsCalculator__gridHead  626×34 @33,33
+    div.SavingsCalculator__grid  1032×351 @24,322
+      div.Card__card  656×351 @0,0  r22  b1
+        p.SavingsCalculator__gridHead  590×34 @33,33
           span.SavingsCalculator__gridLabel  227×24 @0,5  Manrope 700 16/24  lines=1  «Когда работает кондиционер»
-          output.SavingsCalculator__gridTotal  44×34 @582,0  Onest 700 22/34  lines=1  «24 ч»
-        div.HoursGrid__grid  626×72 @33,81
+          output.SavingsCalculator__gridTotal  44×34 @546,0  Onest 700 22/34  lines=1  «24 ч»
+        div.HoursGrid__grid  590×72 @33,81
           span.HoursGrid__mark  22×18 @0,5  JetBrains Mono 400 12/18  lines=1  «00»
-          button.HoursGrid__cell  45×28 @27,0  r7
-          button.HoursGrid__cell#2  45×28 @77,0  r7
-          button.HoursGrid__cell#3  45×28 @128,0  r7
-          button.HoursGrid__cell#4  45×28 @178,0  r7
-          button.HoursGrid__cell#5  45×28 @228,0  r7
-          button.HoursGrid__cell#6  45×28 @279,0  r7
-          button.HoursGrid__cell#7  45×28 @329,0  r7
-          button.HoursGrid__cell#8  45×28 @379,0  r7
-          button.HoursGrid__cell#9  45×28 @430,0  r7
-          button.HoursGrid__cell#10  45×28 @480,0  r7
-          button.HoursGrid__cell#11  45×28 @530,0  r7
-          button.HoursGrid__cell#12  45×28 @581,0  r7
+          button.HoursGrid__cell  42×28 @27,0  r7
+          button.HoursGrid__cell#2  42×28 @74,0  r7
+          button.HoursGrid__cell#3  42×28 @122,0  r7
+          button.HoursGrid__cell#4  42×28 @169,0  r7
+          button.HoursGrid__cell#5  42×28 @216,0  r7
+          button.HoursGrid__cell#6  42×28 @264,0  r7
+          button.HoursGrid__cell#7  42×28 @311,0  r7
+          button.HoursGrid__cell#8  42×28 @358,0  r7
+          button.HoursGrid__cell#9  42×28 @406,0  r7
+          button.HoursGrid__cell#10  42×28 @453,0  r7
+          button.HoursGrid__cell#11  42×28 @500,0  r7
+          button.HoursGrid__cell#12  42×28 @548,0  r7
           span.HoursGrid__mark#2  22×18 @0,49  JetBrains Mono 400 12/18  lines=1  «12»
-          button.HoursGrid__cell#13  45×28 @27,44  r7
-          button.HoursGrid__cell#14  45×28 @77,44  r7
-          button.HoursGrid__cell#15  45×28 @128,44  r7
-          button.HoursGrid__cell#16  45×28 @178,44  r7
-          button.HoursGrid__cell#17  45×28 @228,44  r7
-          button.HoursGrid__cell#18  45×28 @279,44  r7
-          button.HoursGrid__cell#19  45×28 @329,44  r7
-          button.HoursGrid__cell#20  45×28 @379,44  r7
-          button.HoursGrid__cell#21  45×28 @430,44  r7
-          button.HoursGrid__cell#22  45×28 @480,44  r7
-          button.HoursGrid__cell#23  45×28 @530,44  r7
-          button.HoursGrid__cell#24  45×28 @581,44  r7
+          button.HoursGrid__cell#13  42×28 @27,44  r7
+          button.HoursGrid__cell#14  42×28 @74,44  r7
+          button.HoursGrid__cell#15  42×28 @122,44  r7
+          button.HoursGrid__cell#16  42×28 @169,44  r7
+          button.HoursGrid__cell#17  42×28 @216,44  r7
+          button.HoursGrid__cell#18  42×28 @264,44  r7
+          button.HoursGrid__cell#19  42×28 @311,44  r7
+          button.HoursGrid__cell#20  42×28 @358,44  r7
+          button.HoursGrid__cell#21  42×28 @406,44  r7
+          button.HoursGrid__cell#22  42×28 @453,44  r7
+          button.HoursGrid__cell#23  42×28 @500,44  r7
+          button.HoursGrid__cell#24  42×28 @548,44  r7
         p  1×1 @32,152  Manrope 400 15/23  lines=1  clipped  «Кликните или проведите мышью по часам, к»
-        p.SavingsCalculator__tariffHead  626×48 @33,183
+        p.SavingsCalculator__tariffHead  590×48 @33,183
           span.SavingsCalculator__gridLabel  48×24 @0,12  Manrope 700 16/24  lines=1  «Тариф»
-          span.SavingsCalculator__modes  194×48 @432,0  r14  b1
+          span.SavingsCalculator__modes  194×48 @396,0  r14  b1
             button.Button__button  78×40 @4,4  r9  b1
               span.Button__content  48×16 @15,12
                 span.Button__label  48×16 @0,0  Manrope 600 13/16  lines=1  «Единый»
             button.Button__button#2  104×40 @86,4  r9  b1
               span.Button__content  74×16 @15,12
                 span.Button__label#2  74×16 @0,0  Manrope 600 13/16  lines=1  «День / ночь»
-        div.SavingsCalculator__sliders  626×73 @33,245
-          div.Field__field  304×73 @0,0
-            span.RangeSlider__head  304×22 @0,0
+        div.SavingsCalculator__sliders  590×73 @33,245
+          div.Field__field  286×73 @0,0
+            span.RangeSlider__head  286×22 @0,0
               label  85×19 @0,1  Manrope 500 13/19  lines=1  «Единый тариф»
-              output.RangeSlider__value  77×22 @227,0  Onest 700 14/22  lines=1  «6,5 ₽/кВт·ч»
-            input.RangeSlider__slider  304×44 @0,29
-          div.Field__field#2  304×73 @322,0
-            span.RangeSlider__head  304×22 @0,0
+              output.RangeSlider__value  77×22 @209,0  Onest 700 14/22  lines=1  «6,5 ₽/кВт·ч»
+            input.RangeSlider__slider  286×44 @0,29
+          div.Field__field#2  286×73 @304,0
+            span.RangeSlider__head  286×22 @0,0
               label#2  89×19 @0,1  Manrope 500 13/19  lines=1  «Ночью (23–07)»
-              output.RangeSlider__value#2  74×22 @230,0  Onest 700 14/22  lines=1  «3,1 ₽/кВт·ч»
-            input.RangeSlider__slider  304×44 @0,29
-      div.Card__card#2  312×360 @720,0  r22  b1
-        div.SavingsCalculator__row  246×69 @33,33
-          p.SavingsCalculator__rowHead  246×53 @0,0
-            span.SavingsCalculator__rowLabel  106×22 @0,0  Manrope 400 15/22  lines=1  «Обычный on/off»
-            span.SavingsCalculator__rowValue  149×26 @97,26  Onest 700 17/26  lines=1  «≈ 14 040 ₽/сезон»
-          span.SavingsCalculator__bar  246×8 @0,61  r100
-            span.SavingsCalculator__fill  246×8 @0,0  r100
-        div.SavingsCalculator__row#2  246×42 @33,124
-          p.SavingsCalculator__rowHead  246×26 @0,0
+              output.RangeSlider__value#2  74×22 @212,0  Onest 700 14/22  lines=1  «3,1 ₽/кВт·ч»
+            input.RangeSlider__slider  286×44 @0,29
+      div.Card__card#2  348×351 @684,0  r22  b1
+        div.SavingsCalculator__row  282×42 @33,41
+          p.SavingsCalculator__rowHead  282×26 @0,0
+            span.SavingsCalculator__rowLabel  106×22 @0,2  Manrope 400 15/22  lines=1  «Обычный on/off»
+            span.SavingsCalculator__rowValue  149×26 @133,0  Onest 700 17/26  lines=1  «≈ 14 040 ₽/сезон»
+          span.SavingsCalculator__bar  282×8 @0,34  r100
+            span.SavingsCalculator__fill  282×8 @0,0  r100
+        div.SavingsCalculator__row#2  282×42 @33,106
+          p.SavingsCalculator__rowHead  282×26 @0,0
             span.SavingsCalculator__rowLabel#2  94×22 @0,2  Manrope 400 15/22  lines=1  «Инверторный»
-            span.SavingsCalculator__rowValue#2  137×26 @109,0  Onest 700 17/26  lines=1  «≈ 8 705 ₽/сезон»
-          span.SavingsCalculator__bar  246×8 @0,34  r100
-            span.SavingsCalculator__fill#2  153×8 @0,0  r100
-        div.Card__card  246×139 @33,188  r20  b1
-          p.SavingsCalculator__totalLine  204×71 @21,21
+            span.SavingsCalculator__rowValue#2  137×26 @145,0  Onest 700 17/26  lines=1  «≈ 8 705 ₽/сезон»
+          span.SavingsCalculator__bar  282×8 @0,34  r100
+            span.SavingsCalculator__fill#2  175×8 @0,0  r100
+        div.Card__card  282×139 @33,170  r20  b1
+          p.SavingsCalculator__totalLine  240×71 @21,21
             span.SavingsCalculator__totalLabel  114×23 @0,0  Manrope 400 15/23  lines=1  «Ваша экономия:»
-            span.SavingsCalculator__totalValue  226×43 @0,27  Onest 700 28/43  lines=1  «≈ 5 335 ₽/сезон»
-          p.SavingsCalculator__totalHorizon  204×22 @21,96  Manrope 400 15/22  lines=1  «≈ 26 676 ₽ за 5 лет»
-    p.SavingsBlock__disclaimer  760×93 @160,706  Manrope 400 15/23  lines=4  «Это прикидка, а не расчёт по счётчику. Р»
+            span.SavingsCalculator__totalValue  226×43 @14,27  Onest 700 28/43  lines=1  «≈ 5 335 ₽/сезон»
+          p.SavingsCalculator__totalHorizon  240×22 @21,96  Manrope 400 15/22  lines=1  «≈ 26 676 ₽ за 5 лет»
+    p.SavingsBlock__disclaimer  760×93 @160,697  Manrope 400 15/23  lines=4  «Это прикидка, а не расчёт по счётчику. Р»
 
 [палитра light]
 section.SavingsBlock__section  bg #ffffff
