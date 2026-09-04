@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { cookies, headers } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { forbidden, redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
 
 import { getAdminSession } from '@/server/auth';
@@ -26,6 +26,10 @@ export const dynamic = 'force-dynamic';
  * (ADR-095): вложенный редирект срабатывает, когда страница уже отдана, и
  * монтажник успевал получить каталог с данными до того, как браузер уводил
  * его прочь. Внешний layout решает до первого байта.
+ *
+ * 🔴 Закрытый раздел отвечает отказом, а не разворотом (issue #353). Разворот
+ * возвращал 307 — код «переехало» на запрос, который отклонён; отличить по
+ * нему «нельзя» от «адрес сменился» нельзя ни человеку, ни программе.
  */
 export default async function AdminPanelLayout({ children }: { children: ReactNode }) {
   const session = await getAdminSession();
@@ -35,9 +39,9 @@ export default async function AdminPanelLayout({ children }: { children: ReactNo
   const pathname = jar.get(ADMIN_PATHNAME_HEADER) ?? '';
 
   if (!sectionAllows(pathname, session.role)) {
-    /* Монтажнику сводка не адресована — она про готовность сайта и модерацию.
-       Его рабочий экран — календарь своих выездов. */
-    redirect(session.role === 'owner' ? '/admin' : '/admin/crm');
+    /* Куда идти дальше, говорит сама страница отказа: её единственная ссылка
+       ведёт на календарь своих выездов — рабочий экран монтажника. */
+    forbidden();
   }
 
   /* Состояние колонки разделов читается на сервере: развёрнутая по умолчанию

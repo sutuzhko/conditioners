@@ -37,11 +37,25 @@
   font-size: var(--fs-dense);
 }
 
+/* 🔴 Пол цели: 24px по WCAG 2.2 (2.5.8) и 44px на сенсорной раскладке до
+   900px (ADR-183). Строка кегля даёт меньше, а по ссылке-действию целятся
+   пальцем. `align-self` — чтобы цель не растягивалась на всю ширину колонки:
+   страница выложена флексом, и её элементы по умолчанию тянутся. */
 .back {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 24px;
   color: var(--accent-text);
   font-size: var(--fs-dense);
   font-weight: 600;
   text-decoration: none;
+}
+
+@media (width < 900px) {
+  .back {
+    min-height: var(--tap);
+  }
 }
 
 .back:hover {

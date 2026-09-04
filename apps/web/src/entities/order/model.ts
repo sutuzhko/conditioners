@@ -40,6 +40,36 @@ export const ORDER_STATUS_VARIANT: Record<OrderStatus, BadgeVariant> = {
   cancelled: 'danger',
 };
 
+/**
+ * Статус наряда словами.
+ *
+ * 🔴 Живёт рядом со схемой, а не в разделе: наряд показывают четыре раздела
+ * панели — заказы, календарь, карточка клиента и карточка монтажника, — и
+ * «Отказ», ставший в одном из них «Отменён», читается владельцем как другой
+ * статус. Краска плашки уже здесь, подпись обязана лежать там же.
+ *
+ * `order-manager` и `crm-calendar` держат свои копии с тех времён, когда
+ * словаря здесь не было; их место — реэкспорт отсюда.
+ */
+export const ORDER_STATUS_TITLE: Record<OrderStatus, string> = {
+  new: 'Новый',
+  assigned: 'Назначен',
+  in_progress: 'В работе',
+  done: 'Выполнен',
+  cancelled: 'Отказ',
+};
+
+/**
+ * Вид работ. `service` называется «Обслуживанием», а не «ТО»: тем же словом
+ * подписан вид услуги на сайте, а два названия одной работы в соседних
+ * разделах панели владелец читает как сбой.
+ */
+export const ORDER_TYPE_TITLE: Record<OrderType, string> = {
+  install: 'Монтаж',
+  service: 'Обслуживание',
+  repair: 'Ремонт',
+};
+
 export const paymentModeSchema = z.enum(['company', 'cash_to_installer']);
 export type PaymentMode = z.infer<typeof paymentModeSchema>;
 export const PAYMENT_MODES: readonly PaymentMode[] = paymentModeSchema.options;

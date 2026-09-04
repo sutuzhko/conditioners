@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { StockJournal } from './StockJournal';
 import { authorlessMove, countMove, emptyJournal, journal, longJournal } from './fixtures';
-import { STOCK_JOURNAL_PATH, stockItemPath } from './model';
+import { STOCK_PATH, stockItemPath } from './model';
 
 const basePath = stockItemPath('s1');
 
@@ -43,5 +43,5 @@ export const БезАвтора: Story = {
  * двигали» первый вопрос к нему. История позиции при этом никуда не девается.
  */
 export const ЖурналСклада: Story = {
-  args: { basePath: STOCK_JOURNAL_PATH, withItem: true },
+  args: { basePath: STOCK_PATH, baseQuery: { tab: 'log' }, withItem: true },
 };

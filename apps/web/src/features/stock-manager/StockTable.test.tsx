@@ -66,7 +66,7 @@ describe('Остатки по зонам', () => {
     expect(screen.getByRole('heading', { name: texts.emptyZonesTitle })).toBeVisible();
     expect(screen.getByRole('link', { name: texts.emptyZonesAction })).toHaveAttribute(
       'href',
-      '/admin/stock/zones',
+      '/admin/stock?tab=zones',
     );
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
   });

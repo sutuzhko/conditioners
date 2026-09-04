@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 import { VR_THEMES, VR_WIDTHS } from '../../playwright.vr.config';
-import { PUBLIC_SECTIONS } from './sections';
+import { PUBLIC_SNAPSHOT_SECTIONS } from './sections';
 import { snapshotStories } from './snapshot-run';
 import { loadStories } from './story-index';
 
@@ -28,7 +28,7 @@ import { loadStories } from './story-index';
 for (const width of VR_WIDTHS) {
   for (const theme of VR_THEMES) {
     test(`истории блоков на ${width}px, тема ${theme}`, async ({ page, request }) => {
-      const stories = await loadStories(request, PUBLIC_SECTIONS);
+      const stories = await loadStories(request, PUBLIC_SNAPSHOT_SECTIONS);
       expect(stories.length).toBeGreaterThan(0);
 
       await snapshotStories(page, { project: 'public', stories, width, widths: VR_WIDTHS, theme });

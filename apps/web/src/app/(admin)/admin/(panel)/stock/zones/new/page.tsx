@@ -26,7 +26,7 @@ export default async function AdminStockZoneNewPage() {
 
   return (
     <div className={styles.page}>
-      <Link className={styles.back} href={{ pathname: STOCK_ZONES_PATH }}>
+      <Link className={styles.back} href={STOCK_ZONES_PATH}>
         {texts.zonesBack}
       </Link>
 

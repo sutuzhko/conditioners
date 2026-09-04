@@ -11,7 +11,7 @@ import {
   journal,
   longJournal,
 } from './fixtures';
-import { STOCK_JOURNAL_PATH, stockItemPath } from './model';
+import { STOCK_PATH, stockItemPath } from './model';
 
 const basePath = stockItemPath('s1');
 
@@ -74,7 +74,7 @@ describe('Журнал движений', () => {
   });
 
   it('🔴 журнал всего склада называет позицию: «что двигали» — первый вопрос к нему', () => {
-    render(<StockJournal journal={journal} basePath={STOCK_JOURNAL_PATH} withItem />);
+    render(<StockJournal journal={journal} basePath={STOCK_PATH} withItem />);
 
     expect(screen.getByRole('columnheader', { name: texts.colItem })).toBeVisible();
     expect(screen.getAllByRole('link', { name: consumeMove.item.name })[0]).toHaveAttribute(
@@ -93,7 +93,7 @@ describe('Журнал движений', () => {
     render(
       <StockJournal
         journal={emptyJournal}
-        basePath={STOCK_JOURNAL_PATH}
+        basePath={STOCK_PATH}
         withItem
         emptyText={texts.journalAllEmpty}
       />,

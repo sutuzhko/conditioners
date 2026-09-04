@@ -46,6 +46,50 @@ export type LeadCard = {
   readonly consentAt: string;
 };
 
+/* ---------- Адрес раздела ---------- */
+
+export const LEADS_PATH = '/admin/leads';
+
+/**
+ * Что выбрано в разделе: статус, страница очереди и открытое обращение.
+ *
+ * 🔴 Всё три живут в адресе, а не в состоянии компонента (issue #349).
+ * Обращение открывают, чтобы кому-то его переслать; на узком экране карточка
+ * занимает весь экран, и «назад» браузера обязано возвращать к очереди, а не
+ * выбрасывать из раздела.
+ */
+export type LeadsView = {
+  readonly status?: LeadStatus | undefined;
+  readonly page?: number | undefined;
+  readonly lead?: string | undefined;
+};
+
+/** Параметры адреса. Умолчания опускаются: ссылка не тащит пустых хвостов. */
+export function leadsQuery(view: LeadsView): Record<string, string> {
+  return {
+    ...(view.status === undefined ? {} : { status: view.status }),
+    ...(view.page === undefined || view.page <= 1 ? {} : { page: String(view.page) }),
+    ...(view.lead === undefined || view.lead === '' ? {} : { lead: view.lead }),
+  };
+}
+
+export function leadsHref(view: LeadsView): {
+  readonly pathname: string;
+  readonly query: Record<string, string>;
+} {
+  return { pathname: LEADS_PATH, query: leadsQuery(view) };
+}
+
+/** Строка очереди: столько, сколько нужно, чтобы выбрать, кому звонить. */
+export type LeadQueueItem = {
+  readonly id: string;
+  readonly name: string;
+  readonly phone: string;
+  readonly topic: string;
+  readonly status: LeadStatus;
+  readonly createdAt: string;
+};
+
 export type LeadPatch = {
   readonly status?: LeadStatus;
   readonly managerComment?: string | null;

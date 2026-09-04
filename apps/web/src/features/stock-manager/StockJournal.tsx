@@ -12,6 +12,12 @@ export interface StockJournalProps {
   /** Адрес экрана, которому принадлежит журнал: разбивка остаётся ссылками. */
   readonly basePath: string;
   /**
+   * Параметры адреса, без которых экран не открывается, — вкладка раздела
+   * (issue #352). Журнал живёт на `/admin/stock?tab=log`, и фильтр вида,
+   * потерявший `tab`, увёл бы на остатки.
+   */
+  readonly baseQuery?: Record<string, string> | undefined;
+  /**
    * Колонка позиции. В карточке позиция одна и колонка ничего не сообщает, а на
    * журнале всего склада она главная: «что двигали» — первый вопрос к нему.
    */
@@ -39,14 +45,17 @@ export interface StockJournalProps {
 export function StockJournal({
   journal,
   basePath,
+  baseQuery,
   withItem = false,
   emptyText = texts.journalEmpty,
   kind,
   withFilter = false,
 }: StockJournalProps) {
   /* Выбранный вид переезжает вместе со страницей: иначе «Дальше» сбрасывает
-     фильтр и человек читает не тот журнал, который открыл. */
-  const carried = kind === undefined ? undefined : { kind };
+     фильтр и человек читает не тот журнал, который открыл. Вкладка раздела
+     едет с ними обоими — без неё адрес открывает остатки. */
+  const base = baseQuery ?? {};
+  const carried = { ...base, ...(kind === undefined ? {} : { kind }) };
 
   const filter = withFilter ? (
     <nav className={styles.filter} aria-label={texts.journalFilter}>
@@ -54,7 +63,7 @@ export function StockJournal({
         className={[styles.chip, kind === undefined ? styles.active : null]
           .filter(Boolean)
           .join(' ')}
-        href={{ pathname: basePath }}
+        href={{ pathname: basePath, query: base }}
         aria-current={kind === undefined ? 'page' : undefined}
       >
         {texts.journalAllKinds}
@@ -65,7 +74,7 @@ export function StockJournal({
           className={[styles.chip, kind === option ? styles.active : null]
             .filter(Boolean)
             .join(' ')}
-          href={{ pathname: basePath, query: { kind: option } }}
+          href={{ pathname: basePath, query: { ...base, kind: option } }}
           aria-current={kind === option ? 'page' : undefined}
         >
           {STOCK_MOVE_TITLES[option]}
@@ -128,12 +137,7 @@ export function StockJournal({
         </div>
       </Card>
 
-      <Pager
-        page={journal.page}
-        pages={journal.pages}
-        basePath={basePath}
-        {...(carried === undefined ? {} : { query: carried })}
-      />
+      <Pager page={journal.page} pages={journal.pages} basePath={basePath} query={carried} />
     </div>
   );
 }

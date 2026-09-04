@@ -22,13 +22,12 @@ import styles from './StaffForm.module.css';
 export interface StaffAccountFormProps {
   readonly staff: StaffDetails;
   readonly api?: StaffApi | undefined;
-  /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
-  readonly confirmRemove?: Confirm | undefined;
   /**
-   * Второй шов того же диалога — подтверждение перевода на самозанятость.
+   * Шов для тестов: подтверждение перевода на самозанятость. По умолчанию —
+   * общий диалог кита (ADR-113).
    *
-   * Отдельным пропом, а не одним на форму: тест удаления не должен молча
-   * отвечать за перевод оформления, и наоборот.
+   * Подтверждение удаления сюда больше не приходит: удаление живёт в опасной
+   * зоне под формой, у неё свой шов (issue #351).
    */
   readonly confirmEmployment?: Confirm | undefined;
 }
@@ -42,13 +41,11 @@ export interface StaffAccountFormProps {
 export function StaffAccountForm({
   staff,
   api = staffApi,
-  confirmRemove,
   confirmEmployment,
 }: StaffAccountFormProps) {
-  /* Подтверждение — общий диалог кита (ADR-113); пропы остаются швом
-     для тестов, чтобы не открывать окно ради проверки удаления. */
+  /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом для
+     тестов, чтобы не открывать окно ради проверки перевода оформления. */
   const { confirm, dialog } = useConfirm();
-  const ask = confirmRemove ?? confirm;
   const askEmployment = confirmEmployment ?? confirm;
 
   const router = useRouter();
@@ -212,46 +209,16 @@ export function StaffAccountForm({
           <p className={styles.notice}>{texts.innMissing}</p>
         ) : null}
 
+        {/* 🔴 Закрытие доступа и удаление ушли в опасную зону под формой
+            (issue #351): необратимому действию не место в одном ряду с
+            кнопкой «Сохранить», которую нажимают каждый день. */}
         <div className={styles.actions}>
           <Button type="submit" disabled={sending}>
             {sending ? texts.saving : texts.save}
           </Button>
 
-          <Button
-            type="button"
-            variant="bordered"
-            size="sm"
-            disabled={sending}
-            onClick={() => void run(() => api.update(staff.id, { active: !staff.active }))}
-          >
-            {staff.active ? texts.disable : texts.enable}
-          </Button>
-
-          <span className={styles.spacer} />
-
-          <Button
-            type="button"
-            variant="light"
-            size="sm"
-            disabled={sending}
-            onClick={() => {
-              void (async () => {
-                if (!(await ask(texts.removeConfirm(staffTitle(staff))))) return;
-                await run(async () => {
-                  const result = await api.remove(staff.id);
-                  if (result.ok) router.push('/admin/team');
-                  return result;
-                });
-              })();
-            }}
-          >
-            {texts.remove}
-          </Button>
-
           {status === 'success' ? <span className={styles.ok}>{texts.saved}</span> : null}
         </div>
-
-        <p className={styles.hint}>{texts.disableHint}</p>
 
         {/* Адресный отказ уже подсвечен на поле — второй красной плашки под
             формой быть не должно. */}

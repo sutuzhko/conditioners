@@ -2,13 +2,13 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1241
+390 → 390×1118
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×1209 @16,16  r20  b1
-  form.StaffForm__form  316×1167 @21,21
+section.Card__card  358×1086 @16,16  r20  b1
+  form.StaffForm__form  316×1044 @21,21
     h2.StaffForm__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Аккаунт монтажника»
     p.StaffForm__hint  316×40 @0,27  Manrope 400 13/20  lines=2  «Логин и пароль выдаёт владелец. Смена па»
     div.StaffForm__grid  316×680 @0,79
@@ -34,30 +34,22 @@ section.Card__card  358×1209 @16,16  r20  b1
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
         span.Select__wrapper  316×49 @0,27
           select.Select__select  316×49 @0,0  r11  b1
-            option  0×0 @-37,-341  Manrope 400 15/21  lines=0  «Не заведено»
-            option#2  0×0 @-37,-341  Manrope 400 15/21  lines=0  «Самозанятый»
-            option#3  0×0 @-37,-341  Manrope 400 15/21  lines=0  «Договор ГПХ»
-            option#4  0×0 @-37,-341  Manrope 400 15/21  lines=0  «Трудовой договор»
+            option  0×0 @-37,-464  Manrope 400 15/21  lines=0  «Не заведено»
+            option#2  0×0 @-37,-464  Manrope 400 15/21  lines=0  «Самозанятый»
+            option#3  0×0 @-37,-464  Manrope 400 15/21  lines=0  «Договор ГПХ»
+            option#4  0×0 @-37,-464  Manrope 400 15/21  lines=0  «Трудовой договор»
           svg.Select__chevron  14×14 @288,18
         p.Field__hint  316×58 @0,83  Manrope 400 13/19  lines=3  «Удержание по наряду уменьшает вознагражд»
     p.StaffForm__hint#2  316×81 @0,765  Manrope 400 13/20  lines=4  «От оформления зависит, чем является удер»
     p.StaffForm__notice  316×130 @0,858  Manrope 400 15/22  r11  b1  lines=5  «Самозанятый без ИНН: проверить его стату»
-    div.StaffForm__actions  316×100 @0,1000
+    div.StaffForm__actions  316×44 @0,1000
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-      button.Button__button#2  131×44 @127,0  r9  b1
-        span.Button__content  101×16 @15,14
-          span.Button__label#2  101×16 @0,0  Manrope 600 13/16  lines=1  «Закрыть доступ»
-      span.StaffForm__spacer  46×0 @270,22
-      button.Button__button#3  164×44 @0,56  r9  b1
-        span.Button__content  134×16 @15,14
-          span.Button__label#3  134×16 @0,0  Manrope 600 13/16  lines=1  «Удалить монтажника»
-    p.StaffForm__hint#3  316×60 @0,1106  Manrope 400 13/20  lines=3  «Закрытый доступ не пускает в панель и за»
 
 [геометрия 768]
-section.Card__card  736×755 @16,16  r20  b1
-  form.StaffForm__form  694×713 @21,21
+section.Card__card  736×709 @16,16  r20  b1
+  form.StaffForm__form  694×667 @21,21
     h2.StaffForm__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Аккаунт монтажника»
     p.StaffForm__hint  508×40 @0,28  Manrope 400 13/20  lines=2  «Логин и пароль выдаёт владелец. Смена па»
     div.StaffForm__grid  694×390 @0,80
@@ -95,18 +87,10 @@ section.Card__card  736×755 @16,16  r20  b1
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-      button.Button__button#2  131×44 @127,0  r9  b1
-        span.Button__content  101×16 @15,14
-          span.Button__label#2  101×16 @0,0  Manrope 600 13/16  lines=1  «Закрыть доступ»
-      span.StaffForm__spacer  248×0 @270,22
-      button.Button__button#3  164×44 @530,0  r9  b1
-        span.Button__content  134×16 @15,14
-          span.Button__label#3  134×16 @0,0  Manrope 600 13/16  lines=1  «Удалить монтажника»
-    p.StaffForm__hint#3  508×40 @0,673  Manrope 400 13/20  lines=2  «Закрытый доступ не пускает в панель и за»
 
 [геометрия 1440]
-section.Card__card  1408×600 @16,16  r20  b1
-  form.StaffForm__form  1366×558 @21,21
+section.Card__card  1408×554 @16,16  r20  b1
+  form.StaffForm__form  1366×512 @21,21
     h2.StaffForm__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Аккаунт монтажника»
     p.StaffForm__hint  508×40 @0,29  Manrope 400 13/20  lines=2  «Логин и пароль выдаёт владелец. Смена па»
     div.StaffForm__grid  1366×256 @0,81
@@ -144,14 +128,6 @@ section.Card__card  1408×600 @16,16  r20  b1
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-      button.Button__button#2  131×40 @127,2  r9  b1
-        span.Button__content  101×16 @15,12
-          span.Button__label#2  101×16 @0,0  Manrope 600 13/16  lines=1  «Закрыть доступ»
-      span.StaffForm__spacer  920×0 @270,22
-      button.Button__button#3  164×40 @1202,2  r9  b1
-        span.Button__content  134×16 @15,12
-          span.Button__label#3  134×16 @0,0  Manrope 600 13/16  lines=1  «Удалить монтажника»
-    p.StaffForm__hint#3  508×40 @0,518  Manrope 400 13/20  lines=2  «Закрытый доступ не пускает в панель и за»
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
@@ -193,14 +169,6 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
       button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
         span.Button__content
           span.Button__label  color #ffffff
-      button.Button__button#2  bg #ffffff  border #7e8fa6
-        span.Button__content
-          span.Button__label#2  color #0f172a
-      span.StaffForm__spacer
-      button.Button__button#3  border transparent
-        span.Button__content
-          span.Button__label#3  color #0e7490
-    p.StaffForm__hint#3  color #556173
 
 [палитра dark]
 section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
@@ -242,11 +210,3 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
       button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
         span.Button__content
           span.Button__label  color #ffffff
-      button.Button__button#2  bg #121d31  border #566d95
-        span.Button__content
-          span.Button__label#2  color #eaf1f8
-      span.StaffForm__spacer
-      button.Button__button#3  border transparent
-        span.Button__content
-          span.Button__label#3  color #22d3ee
-    p.StaffForm__hint#3  color #8598ac

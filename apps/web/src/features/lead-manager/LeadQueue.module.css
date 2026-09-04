@@ -1,0 +1,82 @@
+/* Очередь обращений: узкая колонка слева от карточки. */
+
+.queue {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.empty {
+  min-width: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Строка целиком — цель. Пол высоты задан кеглем содержимого: три строки
+   текста дают заведомо больше 44px, добирать нечего. */
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--body);
+  text-decoration: none;
+}
+
+.row:hover {
+  background: var(--accent-bg);
+}
+
+.row:focus-visible {
+  outline: none;
+  box-shadow: inset var(--ring-focus-ring);
+}
+
+/* Последняя строка без разделителя: её роль играет край карточки. */
+.list li:last-child .row {
+  border-bottom: 0;
+}
+
+/* 🔴 Открытая строка отмечена не только краской: `aria-current` в разметке,
+   полоса слева в макете. Заливкой одной различие не читается ни при
+   нарушениях цветовосприятия, ни на солнце. */
+.current {
+  background: var(--accent-bg);
+  box-shadow: inset 3px 0 0 var(--accent-ink);
+}
+
+.line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.name {
+  min-width: 0;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.topic {
+  min-width: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  overflow-wrap: anywhere;
+}
+
+.when {
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+}

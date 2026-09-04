@@ -33,6 +33,69 @@
   gap: 6px;
 }
 
+/* ——— Очередь слева, карточка справа (issue #349).
+
+   🔴 До 900px колонка одна, и видно ровно одно из двух: список либо карточка
+   отдельным экраном. Что именно — говорит атрибут `data-selected`, который
+   ставит сервер по наличию обращения в адресе. Медиазапрос показать «список,
+   пока не выбрано» сам не может: он не знает адреса. */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.queue,
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* Путь назад к очереди нужен только там, где очередь скрыта. */
+.back {
+  display: none;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--accent-text);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+@media (width < 900px) {
+  .split[data-selected] .queue {
+    display: none;
+  }
+
+  .split:not([data-selected]) .detail {
+    display: none;
+  }
+
+  .back {
+    display: inline-flex;
+  }
+}
+
+/* Очередь сужается первой: на 900–1199 карточке нужно всё, что останется. */
+@media (width >= 900px) {
+  .split {
+    grid-template-columns: 260px minmax(0, 1fr);
+  }
+}
+
+@media (width >= 1200px) {
+  .split {
+    grid-template-columns: 320px minmax(0, 1fr);
+  }
+}
+
 /* Асинхронный блок списка: тот же ритм, что у страницы, — список и разбивка
    стоят так, будто лежат в ней напрямую. */
 .block {
@@ -71,6 +134,19 @@
   .filter {
     min-height: var(--tap);
   }
+}
+
+/* Заготовки очереди и карточки: высоты сняты с готового раздела (issue #334,
+   #349). Восемь строк очереди и карточка типичного обращения — с моделью,
+   комментарием и расчётом. */
+.queueSkeleton {
+  min-height: 640px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+.detailSkeleton {
+  min-height: 640px;
+  border-radius: var(--r-card, var(--r-md));
 }
 
 /* Заготовка карточки списка: высота снята с готовой страницы (issue #334) —

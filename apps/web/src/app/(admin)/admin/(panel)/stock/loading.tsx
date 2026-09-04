@@ -1,53 +1,33 @@
-import Link from 'next/link';
+import { STOCK_TABS, stockManagerContent as texts } from '@/features/stock-manager';
+import { Skeleton } from '@/shared/ui';
 
-import {
-  STOCK_ITEM_NEW_PATH,
-  STOCK_JOURNAL_PATH,
-  STOCK_ZONES_PATH,
-  stockManagerContent as texts,
-} from '@/features/stock-manager';
-import { Skeleton, buttonClassName } from '@/shared/ui';
-
+import { PanelTabLinks } from '../PanelTabLinks';
+import { StockHeader } from './StockHeader';
 import styles from './page.module.css';
 
 /**
- * Остатки склада: шапка настоящая, фильтры и таблица — заготовками по замеру
- * готовой страницы (issue #334). Шапка с тремя действиями на 390 занимает
- * четыре строки — ни одна полоса этого не повторит.
+ * Склад: шапка и лента вкладок настоящие, заготовка — только у содержимого
+ * вкладки (issue #334, ADR-239).
+ *
+ * 🔴 Шапка с действием на 390 занимает четыре строки, а лента вкладок на той
+ * же ширине переносится во второй ряд — ни одна серая полоса этого не
+ * повторит, и содержимое начиналось бы не там, где начнётся на готовой
+ * странице. Обе рисуются тем же кодом, что и страница.
+ *
+ * Открытая вкладка не подсвечивается: какая выбрана, знает только адрес, а
+ * `loading.tsx` параметров адреса не получает — подсветить он может лишь не ту.
  */
 export default function StockLoading() {
   return (
     <div className={styles.page} aria-busy="true">
-      <header className={styles.header}>
-        <div className={styles.headline}>
-          <h1 className={styles.title}>{texts.title}</h1>
+      <StockHeader />
 
-          <div className={styles.actions}>
-            <Link
-              className={buttonClassName({ size: 'sm' })}
-              href={{ pathname: STOCK_ITEM_NEW_PATH }}
-            >
-              {texts.itemAddOpen}
-            </Link>
-
-            <Link
-              className={buttonClassName({ size: 'sm', variant: 'bordered' })}
-              href={{ pathname: STOCK_JOURNAL_PATH }}
-            >
-              {texts.journalOpen}
-            </Link>
-
-            <Link
-              className={buttonClassName({ size: 'sm', variant: 'bordered' })}
-              href={{ pathname: STOCK_ZONES_PATH }}
-            >
-              {texts.zonesOpen}
-            </Link>
-          </div>
-        </div>
-
-        <p className={styles.lead}>{texts.lead}</p>
-      </header>
+      <PanelTabLinks
+        tabs={STOCK_TABS}
+        titleOf={texts.tabTitle}
+        label={texts.tabsLabel}
+        hrefOf={(tab) => ({ pathname: '/admin/stock', query: tab === 'stock' ? {} : { tab } })}
+      />
 
       <Skeleton variant="block" className={styles.filtersSkeleton} />
       <Skeleton variant="block" className={styles.tableSkeleton} />

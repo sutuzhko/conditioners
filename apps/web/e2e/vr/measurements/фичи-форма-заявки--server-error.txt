@@ -496,7 +496,7 @@ div.Card__card  bg #ffffff  border transparent  shadow #00000080 0px 40px 80px -
       input  bg #ffffff  border #767676
     div.LeadForm__failure  bg #be123c14  border #be123c73
       p.LeadForm__failureText  color #be123c
-    button.Button__button  bg #0e7490  border #0e7490  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
       span.Button__content
         span.Button__label  color #ffffff
     p.LeadForm__callInstead  color #be123c
@@ -595,7 +595,7 @@ div.Card__card  bg #121d31  border transparent  shadow #00000080 0px 40px 80px -
       input  bg #ffffff  border #767676
     div.LeadForm__failure  bg #fb71851f  border #fb718580
       p.LeadForm__failureText  color #fb7185
-    button.Button__button  bg #0e7490  border #0e7490  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
       span.Button__content
         span.Button__label  color #ffffff
     p.LeadForm__callInstead  color #fb7185

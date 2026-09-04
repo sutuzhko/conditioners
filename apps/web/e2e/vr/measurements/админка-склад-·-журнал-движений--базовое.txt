@@ -2,18 +2,18 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1378
+390 → 390×1398
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.StockJournal__wrap  358×1346 @16,16
-  section.Card__card  358×1346 @0,0  r20  b1
+div.StockJournal__wrap  358×1366 @16,16
+  section.Card__card  358×1366 @0,0  r20  b1
     div.StockJournal__head  356×83 @1,1
       h2.StockJournal__title  320×21 @18,18  Onest 700 17/21  ls0  lines=1  «Журнал движений»
       p.StockJournal__hint  320×40 @18,43  Manrope 400 13/20  lines=2  «Что, куда, сколько, кто и когда. Без жур»
-    div.Table__viewport  356×1261 @1,84
-      table.Table__table  356×1261 @0,0
+    div.Table__viewport  356×1281 @1,84
+      table.Table__table  356×1281 @0,0
         tr[role=row]  1×56 @0,0
           th  79×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
           th#2  63×56 @79,0  Onest 700 15/23  b0 0 1 0  lines=1  «Что»
@@ -59,7 +59,7 @@ div.StockJournal__wrap  358×1346 @16,16
             td[role=cell]#6::before  22×20 @0,0
           td.StockJournal__reason  354×36 @1,260  Manrope 400 15/22  lines=1  «—»
             td.StockJournal__reason::before  69×20 @0,0
-        tr[role=row]#4  356×303 @0,624  r14  b1
+        tr[role=row]#4  356×323 @0,624  r14  b1
           td[role=cell]  354×36 @1,5
             td[role=cell]::before  36×20 @0,0
             time#3  115×22 @225,7  Manrope 400 15/22  lines=1  «26.08.2026, 12:12»
@@ -71,14 +71,14 @@ div.StockJournal__wrap  358×1346 @16,16
             td[role=cell]#3::before  44×20 @0,0
           td[role=cell]#4  354×36 @1,151  Manrope 400 15/22  lines=1  «—»
             td[role=cell]#4::before  29×20 @0,0
-          td[role=cell]#5  354×38 @1,187
+          td[role=cell]#5  354×58 @1,187
             td[role=cell]#5::before  39×20 @0,0
-            a.StockJournal__order  100×24 @240,7  Manrope 600 15/22  lines=1  «Наряд № 1059»
-          td[role=cell]#6  354×36 @1,225  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
+            a.StockJournal__order  100×44 @240,7  Manrope 600 15/22  lines=1  «Наряд № 1059»
+          td[role=cell]#6  354×36 @1,245  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
             td[role=cell]#6::before  22×20 @0,0
-          td.StockJournal__reason  354×36 @1,262  Manrope 400 15/22  lines=1  «—»
+          td.StockJournal__reason  354×36 @1,282  Manrope 400 15/22  lines=1  «—»
             td.StockJournal__reason::before  69×20 @0,0
-        tr[role=row]#5  356×324 @0,937  r14  b1
+        tr[role=row]#5  356×324 @0,957  r14  b1
           td[role=cell]  354×36 @1,5
             td[role=cell]::before  36×20 @0,0
             time#4  120×22 @220,7  Manrope 400 15/22  lines=1  «27.08.2026, 09:00»

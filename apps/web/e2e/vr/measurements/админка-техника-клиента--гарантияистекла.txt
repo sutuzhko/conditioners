@@ -7,14 +7,14 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×491 @16,16  r20  b1
+section.Card__card  358×626 @16,16  r20  b1
   header.ClientUnits__header  316×125 @21,21
     h2.ClientUnits__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Установленная техника»
     p.ClientUnits__hint  316×101 @0,25  Manrope 400 13/20  lines=5  «Появляется сама после выполненного монта»
-  ul.ClientUnits__list  316×183 @21,158
-    li.ClientUnits__item  316×183 @0,0  r11  b1
-      div.ClientUnits__row  290×161 @13,11
-        div.ClientUnits__body  290×105 @0,0
+  ul.ClientUnits__list  316×318 @21,158
+    li.ClientUnits__item  316×318 @0,0  r11  b1
+      div.ClientUnits__row  290×296 @13,11
+        div.ClientUnits__body  290×240 @0,0
           div.ClientUnits__line  290×53 @0,0
             span.ClientUnits__model  130×22 @0,0  Manrope 600 15/22  lines=1  «Сплит-система 07»
             span.Badge__badge  192×24 @0,28  Manrope 600 12/16  r100  b1  lines=1  «Гарантия истекла 20.05.2025»
@@ -23,15 +23,15 @@ section.Card__card  358×491 @16,16  r20  b1
             a.ClientUnits__order  81×24 @133,0  Manrope 600 13/20  lines=1  «Наряд № 812»
           p.ClientUnits__service  290×20 @0,85
             time  240×18 @0,1  Manrope 400 13/20  lines=1  «ТО через год от монтажа — 20.05.2023»
-        div.ClientUnits__rowActions  179×44 @0,117
+        div.ClientUnits__rowActions  179×44 @0,252
           button.Button__button  93×44 @0,0  r9  b1
             span.Button__content  63×16 @15,14
               span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
           button.Button__button#2  82×44 @97,0  r9  b1
             span.Button__content  52×16 @15,14
               span.Button__label#2  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-  p.ClientUnits__note  316×60 @21,353  Manrope 400 13/20  lines=3  «Даты ТО считаются от монтажа. Напоминани»
-  div.ClientUnits__actions  316×44 @21,426
+  p.ClientUnits__note  316×60 @21,488  Manrope 400 13/20  lines=3  «Даты ТО считаются от монтажа. Напоминани»
+  div.ClientUnits__actions  316×44 @21,561
     button.Button__button  145×44 @0,0  r9  b1
       span.Button__content#2  115×16 @15,14
         span.Button__label  115×16 @0,0  Manrope 600 13/16  lines=1  «Добавить технику»
@@ -67,31 +67,31 @@ section.Card__card  736×347 @16,16  r20  b1
         span.Button__label  115×16 @0,0  Manrope 600 13/16  lines=1  «Добавить технику»
 
 [геометрия 1440]
-section.Card__card  1408×344 @16,16  r20  b1
+section.Card__card  1408×396 @16,16  r20  b1
   header.ClientUnits__header  1366×87 @21,21
     h2.ClientUnits__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Установленная техника»
     p.ClientUnits__hint  539×60 @0,27  Manrope 400 13/20  lines=3  «Появляется сама после выполненного монта»
-  ul.ClientUnits__list  1366×98 @21,120
-    li.ClientUnits__item  1366×98 @0,0  r11  b1
-      div.ClientUnits__row  1340×76 @13,11
-        div.ClientUnits__body  1149×76 @0,0
-          div.ClientUnits__line  1149×24 @0,0
+  ul.ClientUnits__list  1366×150 @21,120
+    li.ClientUnits__item  449×150 @0,0  r11  b1
+      div.ClientUnits__row  423×128 @13,11
+        div.ClientUnits__body  423×76 @0,0
+          div.ClientUnits__line  423×24 @0,0
             span.ClientUnits__model  130×22 @0,1  Manrope 600 15/22  lines=1  «Сплит-система 07»
             span.Badge__badge  192×24 @142,0  Manrope 600 12/16  r100  b1  lines=1  «Гарантия истекла 20.05.2025»
-          p.ClientUnits__facts  1149×24 @0,28
+          p.ClientUnits__facts  423×24 @0,28
             time  119×24 @0,0  Manrope 400 13/20  lines=1  «Монтаж 20.05.2022»
             a.ClientUnits__order  81×24 @133,0  Manrope 600 13/20  lines=1  «Наряд № 812»
-          p.ClientUnits__service  1149×20 @0,56
+          p.ClientUnits__service  423×20 @0,56
             time  240×18 @0,1  Manrope 400 13/20  lines=1  «ТО через год от монтажа — 20.05.2023»
-        div.ClientUnits__rowActions  179×40 @1161,0
+        div.ClientUnits__rowActions  179×40 @244,88
           button.Button__button  93×40 @0,0  r9  b1
             span.Button__content  63×16 @15,12
               span.Button__label  63×16 @0,0  Manrope 600 13/16  lines=1  «Изменить»
           button.Button__button#2  82×40 @97,0  r9  b1
             span.Button__content  52×16 @15,12
               span.Button__label#2  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-  p.ClientUnits__note  539×40 @21,231  Manrope 400 13/20  lines=2  «Даты ТО считаются от монтажа. Напоминани»
-  div.ClientUnits__actions  1366×40 @21,283
+  p.ClientUnits__note  539×40 @21,283  Manrope 400 13/20  lines=2  «Даты ТО считаются от монтажа. Напоминани»
+  div.ClientUnits__actions  1366×40 @21,335
     button.Button__button  145×40 @0,0  r9  b1
       span.Button__content#2  115×16 @15,12
         span.Button__label  115×16 @0,0  Manrope 600 13/16  lines=1  «Добавить технику»
@@ -107,7 +107,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
         div.ClientUnits__body
           div.ClientUnits__line
             span.ClientUnits__model  color #0f172a
-            span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+            span.Badge__badge  color #be123c  bg #be123c14  border #be123c73
           p.ClientUnits__facts
             time  color #556173
             a.ClientUnits__order  color #0e7490
@@ -137,7 +137,7 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
         div.ClientUnits__body
           div.ClientUnits__line
             span.ClientUnits__model  color #eaf1f8
-            span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+            span.Badge__badge  color #fb7185  bg #fb71851f  border #fb718580
           p.ClientUnits__facts
             time  color #8598ac
             a.ClientUnits__order  color #22d3ee
