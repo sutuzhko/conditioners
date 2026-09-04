@@ -1,4 +1,5 @@
 /** Модерация отзывов — контракт docs/API.md §7. */
+import type { ReviewModeration } from '@/entities/review/model';
 import { PANEL_TABS, resolvePanelTab, type PanelTab } from '@/shared/config/admin-tabs';
 
 export type ReviewStatus = 'pending' | 'approved' | 'rejected' | 'archived';
@@ -88,7 +89,17 @@ export type ReviewCard = {
   /** Фотография автора; нет — рисуются инициалы, это тоже аватар. */
   readonly avatar: string | null;
   readonly status: ReviewStatus;
+  /** Отказ целиком: причина, кто и когда. У неотклонённого — `null`. */
+  readonly reject: ReviewReject | null;
   readonly createdAt: string;
+};
+
+/** Запись отказа. Половины у неё не бывает: причина без даты ничего не значит. */
+export type ReviewReject = {
+  readonly reason: string;
+  /** Имя модератора; `null` — отклонили кнопкой в Telegram или учётку удалили. */
+  readonly by: string | null;
+  readonly at: string;
 };
 
 // ---------- Действия по вкладкам ----------
@@ -123,10 +134,18 @@ export function reviewActionsFor(tab: ReviewTab, status: ReviewStatus): readonly
   return ['restore', 'remove'];
 }
 
-/** Статус, в который переводит действие. `remove` статуса не имеет. */
-export const REVIEW_ACTION_STATUS: Record<Exclude<ReviewAction, 'remove'>, ReviewStatus> = {
+/**
+ * Статус, в который переводит действие.
+ *
+ * `remove` статуса не имеет — он стирает запись. `reject` тоже не здесь: отказ
+ * несёт причину (ADR-300), и одним статусом он не описывается — карточка
+ * сначала спрашивает её окном.
+ */
+export const REVIEW_ACTION_STATUS: Record<
+  Exclude<ReviewAction, 'remove' | 'reject'>,
+  Exclude<ReviewStatus, 'rejected'>
+> = {
   approve: 'approved',
-  reject: 'rejected',
   restore: 'pending',
   archive: 'archived',
 };
@@ -134,6 +153,8 @@ export const REVIEW_ACTION_STATUS: Record<Exclude<ReviewAction, 'remove'>, Revie
 export type ReviewActionResult = { readonly ok: boolean; readonly message?: string };
 
 export type ReviewApi = {
-  readonly setStatus: (id: string, status: ReviewStatus) => Promise<ReviewActionResult>;
+  /* Не `status`, а решение целиком: у отказа с ним неразрывно идёт причина, и
+     разнести их по двум аргументам значило бы позволить отказ без неё. */
+  readonly setStatus: (id: string, moderation: ReviewModeration) => Promise<ReviewActionResult>;
   readonly remove: (id: string) => Promise<ReviewActionResult>;
 };

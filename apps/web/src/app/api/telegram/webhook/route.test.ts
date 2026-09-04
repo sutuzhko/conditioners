@@ -107,16 +107,38 @@ describe('POST /api/telegram/webhook', () => {
     const response = await POST(request(update(`rev:approve:${REVIEW_ID}`)));
 
     expect(response.status).toBe(200);
-    expect(reviewsMock.setStatus).toHaveBeenCalledWith(REVIEW_ID, 'approved');
+    expect(reviewsMock.setStatus).toHaveBeenCalledWith(REVIEW_ID, { status: 'approved' }, null);
     expect(revalidateMock.revalidateReviews).toHaveBeenCalled();
   });
 
   it('запрет и архив переводят отзыв в свои статусы', async () => {
     await POST(request(update(`rev:reject:${REVIEW_ID}`)));
-    expect(reviewsMock.setStatus).toHaveBeenLastCalledWith(REVIEW_ID, 'rejected');
+    expect(reviewsMock.setStatus).toHaveBeenLastCalledWith(
+      REVIEW_ID,
+      { status: 'rejected', reason: expect.stringContaining('Отклонено кнопкой в Telegram') },
+      null,
+    );
 
     await POST(request(update(`rev:archive:${REVIEW_ID}`)));
-    expect(reviewsMock.setStatus).toHaveBeenLastCalledWith(REVIEW_ID, 'archived');
+    expect(reviewsMock.setStatus).toHaveBeenLastCalledWith(REVIEW_ID, { status: 'archived' }, null);
+  });
+
+  /* 🔴 ADR-300: отказ обязан нести причину, а кнопка её не собирает — канал
+     складывает её сам и называет себя, вместо того чтобы выдумать за человека. */
+  it('отказ из чата записывает, что причины не написали, и кто нажал', async () => {
+    await POST(request(update(`rev:reject:${REVIEW_ID}`)));
+
+    const moderation = reviewsMock.setStatus.mock.lastCall?.[1];
+    expect(moderation).toEqual({
+      status: 'rejected',
+      reason: 'Отклонено кнопкой в Telegram — Ирина. Причина не записана.',
+    });
+  });
+
+  it('🔴 отказ из чата не приписывается учётной записи панели', async () => {
+    await POST(request(update(`rev:reject:${REVIEW_ID}`)));
+
+    expect(reviewsMock.setStatus.mock.lastCall?.[2]).toBeNull();
   });
 
   it('отвечает на нажатие и дописывает итог в сообщение, убирая кнопки', async () => {
@@ -171,7 +193,7 @@ describe('POST /api/telegram/webhook', () => {
     const response = await POST(request(update(`rev:approve:${REVIEW_ID}`)));
 
     expect(response.status).toBe(200);
-    expect(reviewsMock.setStatus).toHaveBeenCalledWith(REVIEW_ID, 'approved');
+    expect(reviewsMock.setStatus).toHaveBeenCalledWith(REVIEW_ID, { status: 'approved' }, null);
   });
 });
 

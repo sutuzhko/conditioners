@@ -1,5 +1,6 @@
 /** Подписи модерации отзывов. */
 import type { ConfirmRequest } from '@/shared/ui';
+import { REJECT_REASON_MIN } from '@/entities/review/model';
 import { formatDateShort } from '@/shared/lib/format';
 import type { ReviewStatus, ReviewTab } from './model';
 
@@ -48,11 +49,23 @@ export const reviewModerationContent = {
      (issue #356). */
   lowRatingNote: 'Низкая оценка — не причина для отказа: тройка это тоже отзыв.',
 
-  /* 🔴 Причина отказа пока не хранится — у отзыва нет ни поля причины, ни
-     модератора (issue #522). Отсутствие названо честно: заглушка с полем,
-     которое никуда не уходит, была бы хуже пустого места. */
+  /* 🔴 Причина отказа записывается вместе с решением (ADR-300): отзыв править
+     нельзя, и объяснить, за что его убрали, потом будет нечем. */
   reasonTitle: 'Причина отказа',
-  reasonMissing: 'Причина не сохранена: поля для неё пока нет',
+  reasonHint: 'Останется в панели: автор отзыва её не увидит',
+  reasonTooShort: `Объясните отказ — не меньше ${REJECT_REASON_MIN} символов`,
+  /* Отзывы, отклонённые до появления поля: выдумывать им причину нельзя. */
+  reasonMissing: 'Причина не записана — отзыв отклонили до появления поля',
+  /* Кто и когда: причина без автора решения через полгода снова ничья. */
+  reasonBy: (who: string | null, iso: string): string =>
+    who === null ? formatDateShort(iso) : `${who}, ${formatDateShort(iso)}`,
+
+  rejectTitle: (name: string): string => `Отклонить отзыв: ${name}`,
+  rejectDescription: 'Отзыв не попадёт на сайт. Вернуть его на модерацию можно в любой момент.',
+  /* Полным действием, как «Удалить отзыв» рядом: в ряду карточки уже есть
+     «Отклонить», и две кнопки с одним именем читалка объявляет одинаково. */
+  rejectConfirm: 'Отклонить отзыв',
+  rejectCancel: 'Отмена',
 
   photoOpen: 'Открыть фото в полный размер',
   photoClose: 'Закрыть фото',

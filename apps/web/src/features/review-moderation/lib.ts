@@ -3,7 +3,9 @@ import { ADMIN_API_TEXTS } from '@/shared/config/admin-api';
 import { adminRequest, jsonInit } from '@/shared/lib/api';
 
 import { reviewModerationContent as texts } from './content';
-import type { ReviewActionResult, ReviewApi, ReviewStatus } from './model';
+import type { ReviewModeration } from '@/entities/review/model';
+
+import type { ReviewActionResult, ReviewApi } from './model';
 
 /* Общий разбор ответа (ADR-030): фича оставляет только свои формулировки. */
 const MODERATION_TEXTS = {
@@ -18,8 +20,8 @@ async function send(url: string, init: RequestInit): Promise<ReviewActionResult>
 }
 
 export const reviewApi: ReviewApi = {
-  setStatus(id: string, status: ReviewStatus): Promise<ReviewActionResult> {
-    return send(`/api/admin/reviews/${id}/status`, jsonInit('PATCH', { status }));
+  setStatus(id: string, moderation: ReviewModeration): Promise<ReviewActionResult> {
+    return send(`/api/admin/reviews/${id}/status`, jsonInit('PATCH', moderation));
   },
 
   remove(id: string): Promise<ReviewActionResult> {

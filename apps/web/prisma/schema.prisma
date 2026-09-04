@@ -145,6 +145,21 @@ model Review {
   // его нет, а выдумывать дату согласия нельзя.
   consentAt DateTime?
 
+  // ---------- Отказ ----------
+  // 🔴 Единственное, что модератор пишет об отзыве сам (issue #522, ADR-300).
+  // Инварианту 7 это не противоречит: причина относится к решению, а не к
+  // отзыву, и живёт отдельными полями — текст автора по-прежнему неизменяем.
+  //
+  // Все три необязательны: у отзыва, который не отклоняли, отказа нет, а у
+  // отклонённых до появления полей причины не существует — выдумывать её
+  // нельзя. При возврате на модерацию поля гасятся: причина без отказа
+  // читалась бы как действующая.
+  rejectReason String?
+  rejectedAt   DateTime?
+  rejectedById String?
+  // `SetNull`: уволенный модератор не уносит с собой причину отказа.
+  rejectedBy   AdminUser? @relation("ReviewRejectedBy", fields: [rejectedById], references: [id], onDelete: SetNull)
+
   createdAt DateTime @default(now())
 
   @@index([status, createdAt])
@@ -846,14 +861,15 @@ model AdminUser {
   createdAt   DateTime  @default(now())
   lastLoginAt DateTime?
 
-  sessions      Session[]
-  notes         InstallerNote[]
-  orders        Order[]
-  blocks        DayBlock[]
-  notifications Notification[]
-  orderHistory  OrderHistory[]
-  stockZones    StockZone[]
-  stockMoves    StockMovement[]
+  sessions        Session[]
+  notes           InstallerNote[]
+  orders          Order[]
+  blocks          DayBlock[]
+  notifications   Notification[]
+  orderHistory    OrderHistory[]
+  stockZones      StockZone[]
+  stockMoves      StockMovement[]
+  rejectedReviews Review[]        @relation("ReviewRejectedBy")
 
   @@index([role, active])
 }

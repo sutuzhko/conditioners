@@ -7,7 +7,9 @@ import {
   failingApi,
   lowRatedReview,
   pendingReview,
+  rejectedFromTelegram,
   rejectedReview,
+  rejectedWithoutReason,
 } from './fixtures';
 
 const meta = {
@@ -27,12 +29,27 @@ export const Опубликован: Story = {
   args: { review: approvedReview, tab: 'published' },
 };
 
-/**
- * Отклонённый: место под причину отказа готово, а её отсутствие названо
- * честно — поля для неё пока нет (issue #522).
- */
+/** Отклонённый: причина, автор решения и дата стоят под самим отзывом. */
 export const Отклонён: Story = {
   args: { review: rejectedReview, tab: 'rejected' },
+};
+
+/**
+ * Отклонённый до появления поля причины (ADR-300).
+ *
+ * 🔴 Отсутствие названо словами: пустое место под подписью «Причина отказа»
+ * читается как «причины не было», а выдумывать её за модератора нельзя.
+ */
+export const ОтклонёнБезПричины: Story = {
+  args: { review: rejectedWithoutReason, tab: 'rejected' },
+};
+
+/**
+ * Отказ кнопкой в Telegram: причина есть, учётной записи за ней нет — кнопка
+ * в чате поля ввода не имеет, и запись честно говорит именно это.
+ */
+export const ОтклонёнИзЧата: Story = {
+  args: { review: rejectedFromTelegram, tab: 'rejected' },
 };
 
 /** Низкая оценка: модерация не про «пропускать только хорошие». */

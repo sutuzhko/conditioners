@@ -66,6 +66,28 @@ describe('Modal', () => {
     expect(screen.getByRole('dialog').contains(document.activeElement)).toBe(true);
   });
 
+  it('по умолчанию фокус на крестике: действие по умолчанию — отказ', () => {
+    open();
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Закрыть' }));
+  });
+
+  /**
+   * 🔴 Окно, существующее ради ввода, обязано открываться с фокусом в поле:
+   * иначе человек с клавиатуры сначала попадает на крестик и тычет табом.
+   *
+   * Пометка атрибутом, а не пропом `autoFocus`: React выводит его не в DOM, а
+   * фокусирует узел сам — и эффект окна успевал забрать фокус обратно.
+   */
+  it('поле с data-autofocus забирает фокус себе', () => {
+    render(
+      <Modal open onClose={() => {}} title="Отклонить отзыв">
+        <textarea data-autofocus aria-label="Причина отказа" />
+      </Modal>,
+    );
+
+    expect(document.activeElement).toBe(screen.getByLabelText('Причина отказа'));
+  });
+
   /**
    * 🔴 Человек с клавиатуры, закрыв окно, обязан вернуться туда, откуда его
    * открыл. Иначе он оказывается в начале страницы и заново идёт табом до

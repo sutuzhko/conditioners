@@ -9,6 +9,7 @@ import type { ButtonVariant, Confirm } from '@/shared/ui';
 import { reviewModerationContent as texts } from './content';
 import { REVIEW_ACTION_STATUS, reviewActionsFor } from './model';
 import type { ReviewAction, ReviewApi, ReviewCard, ReviewTab } from './model';
+import { RejectDialog } from './RejectDialog';
 import { ReviewPhoto } from './ReviewPhoto';
 import styles from './ReviewCardView.module.css';
 
@@ -53,6 +54,7 @@ export function ReviewCardView({
   const ask = confirmRemove ?? confirm;
 
   const [busy, setBusy] = useState(false);
+  const [rejecting, setRejecting] = useState(false);
   const [message, setMessage] = useState('');
 
   const run = async (action: () => Promise<{ ok: boolean; message?: string }>): Promise<void> => {
@@ -78,7 +80,21 @@ export function ReviewCardView({
       return;
     }
 
-    void run(() => api.setStatus(review.id, REVIEW_ACTION_STATUS[action]));
+    /* 🔴 Отказ без причины не отправляется (ADR-300): сначала окно, и только
+       потом запрос. Причина неразрывна с решением и уходит вместе с ним. */
+    if (action === 'reject') {
+      setRejecting(true);
+      return;
+    }
+
+    void run(() => api.setStatus(review.id, { status: REVIEW_ACTION_STATUS[action] }));
+  };
+
+  const reject = (reason: string): void => {
+    void (async () => {
+      await run(() => api.setStatus(review.id, { status: 'rejected', reason }));
+      setRejecting(false);
+    })();
   };
 
   const actions = reviewActionsFor(tab ?? 'all', review.status);
@@ -138,13 +154,23 @@ export function ReviewCardView({
         )}
       </div>
 
-      {/* 🔴 Причина отказа пока не хранится (issue #522). Место под неё
-          готово, а отсутствие названо честно: пустая строка читалась бы
-          как «причины не было». */}
+      {/* 🔴 Причина показывается там же, где отзыв, а не в отдельном журнале:
+          решение и его основание читаются вместе или не читаются вовсе.
+          У отклонённых до появления поля причины нет — так и написано, пустая
+          строка читалась бы как «причины не было». */}
       {review.status === 'rejected' ? (
         <p className={styles.reason}>
           <span className={styles.reasonLabel}>{texts.reasonTitle}</span>
-          <span className={styles.reasonMissing}>{texts.reasonMissing}</span>
+          {review.reject === null ? (
+            <span className={styles.reasonMissing}>{texts.reasonMissing}</span>
+          ) : (
+            <>
+              <span className={styles.reasonText}>{review.reject.reason}</span>
+              <span className={styles.reasonBy}>
+                {texts.reasonBy(review.reject.by, review.reject.at)}
+              </span>
+            </>
+          )}
         </p>
       ) : null}
 
@@ -157,6 +183,14 @@ export function ReviewCardView({
           {message}
         </p>
       )}
+
+      <RejectDialog
+        open={rejecting}
+        name={review.name}
+        busy={busy}
+        onCancel={() => setRejecting(false)}
+        onConfirm={reject}
+      />
 
       {dialog}
     </Card>
