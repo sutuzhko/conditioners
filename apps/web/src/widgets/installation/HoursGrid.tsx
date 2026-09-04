@@ -7,21 +7,18 @@ import { isNightHour } from './lib';
 import { HOURS_IN_DAY } from './model';
 import styles from './HoursGrid.module.css';
 
-/** Метки рядов и делений шкалы стоят на каждом шестом часе: 00, 06, 12, 18. */
+/** Метки рядов стоят на каждом шестом часе: 00, 06, 12, 18. */
 const MARK_STEP = 6;
 
 /** Часы суток по порядку: 0…23. */
 const DAY_HOURS = [...Array(HOURS_IN_DAY).keys()];
 
-/** Деления шкалы под сеткой: 00, 06, 12, 18 и правый край суток. */
-const SCALE_MARKS = DAY_HOURS.filter((hour) => hour % MARK_STEP === 0);
-
 /** Атрибут с часом на ячейке: по нему протяжка узнаёт, над чем идёт курсор. */
 const HOUR_ATTR = 'data-hour';
 
 /**
- * Метка ряда. Половины суток (00 и 12) остаются видны и в раскладке на два
- * ряда, четверти (06 и 18) — только когда рядов четыре.
+ * Метка ряда. Половины суток (00 и 12) видны всегда — рядов не бывает меньше
+ * двух, — четверти (06 и 18) только когда рядов четыре.
  */
 function markClass(hour: number): string {
   return [styles.mark, hour % (MARK_STEP * 2) === 0 ? styles.markHalf : null]
@@ -149,56 +146,46 @@ export function HoursGrid({ hours, onChange, labelId }: HoursGridProps) {
   };
 
   return (
-    <>
-      <div
-        className={styles.grid}
-        role="group"
-        aria-labelledby={labelId}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={stopPainting}
-        onPointerCancel={stopPainting}
-        onLostPointerCapture={stopPainting}
-      >
-        {DAY_HOURS.map((hour) => {
-          const on = hours[hour] === true;
-          const night = isNightHour(hour);
-          const name = t.hourCell(hour, on, night);
-          const cellClass = [styles.cell, on ? styles.on : null, night ? styles.night : null]
-            .filter(Boolean)
-            .join(' ');
+    <div
+      className={styles.grid}
+      role="group"
+      aria-labelledby={labelId}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={stopPainting}
+      onPointerCancel={stopPainting}
+      onLostPointerCapture={stopPainting}
+    >
+      {DAY_HOURS.map((hour) => {
+        const on = hours[hour] === true;
+        const night = isNightHour(hour);
+        const name = t.hourCell(hour, on, night);
+        const cellClass = [styles.cell, on ? styles.on : null, night ? styles.night : null]
+          .filter(Boolean)
+          .join(' ');
 
-          return (
-            <Fragment key={hour}>
-              {hour % MARK_STEP === 0 ? (
-                /* Метка ряда: на узком экране сутки складываются в несколько
-                   рядов, и без неё непонятно, какой из них какой. В широкой
-                   раскладке ряд один — метки скрыты, работает шкала снизу. */
-                <span className={markClass(hour)} aria-hidden="true">
-                  {t.hourMark(hour)}
-                </span>
-              ) : null}
-              <button
-                type="button"
-                className={cellClass}
-                aria-pressed={on}
-                aria-label={name}
-                title={name}
-                data-hour={hour}
-                onClick={(event) => handleClick(event, hour)}
-              />
-            </Fragment>
-          );
-        })}
-      </div>
-
-      {/* Шкала под сеткой имеет смысл только когда сутки лежат одним рядом. */}
-      <p className={styles.scale} aria-hidden="true">
-        {SCALE_MARKS.map((hour) => (
-          <span key={hour}>{t.hourMark(hour)}</span>
-        ))}
-        <span>{t.gridScaleEnd}</span>
-      </p>
-    </>
+        return (
+          <Fragment key={hour}>
+            {hour % MARK_STEP === 0 ? (
+              /* Метка ряда: сутки складываются в ряды на любой ширине, и
+                 без неё непонятно, какой из них какой. Лишние метки гасит
+                 CSS — какие именно, зависит от числа рядов. */
+              <span className={markClass(hour)} aria-hidden="true">
+                {t.hourMark(hour)}
+              </span>
+            ) : null}
+            <button
+              type="button"
+              className={cellClass}
+              aria-pressed={on}
+              aria-label={name}
+              title={name}
+              data-hour={hour}
+              onClick={(event) => handleClick(event, hour)}
+            />
+          </Fragment>
+        );
+      })}
+    </div>
   );
 }

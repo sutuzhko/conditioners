@@ -210,6 +210,38 @@ function measure({ density, tap }) {
     return { width, height };
   };
 
+  /**
+   * 🔴 Шаблон визуального скрытия (sr-only): узел есть в разметке и в дереве
+   * доступности, но глазами его нет — точка в один пиксель, `clip`,
+   * `clip-path`. Целью по WCAG 2.5.8 он не является: нажимают по подписи или
+   * по видимому напарнику рядом, а сам он только принимает фокус и хранит
+   * состояние. Повод — `Switch` кита: он прячет свой `input` утилитой
+   * `.srOnly`, замер считал ту точку целью 1×1, а нажимают там по дорожке
+   * 34×20 и по подписи — и обе эти цели меряются своими рамками (ADR-297,
+   * issue #530).
+   *
+   * 🔴 Правило дословно повторяет измеритель инвариантов
+   * (`apps/web/e2e/vr/invariants/measure.ts`) — не по небрежности, а потому
+   * что обе функции уезжают в страницу через `page.evaluate`, где нет ни
+   * импортов, ни модульной области: общий модуль туда не доедет. Что две
+   * записи не разойдутся, стережёт `scripts/admin-density.test.mjs` — он
+   * берёт тело правила из обоих файлов и прогоняет их по одной таблице
+   * случаев. Расхождение красит прогон, а не живёт молча.
+   */
+  const isVisuallyHidden = (el, style) => {
+    const rect = el.getBoundingClientRect();
+    const tiny = rect.width <= 1 && rect.height <= 1;
+    if (style.position === 'absolute' && tiny) return true;
+    if (/^rect\(\s*0(?:px)?[ ,]+0(?:px)?[ ,]+0(?:px)?[ ,]+0(?:px)?\s*\)$/.test(style.clip)) {
+      return true;
+    }
+    if (/^inset\(\s*50%\s*\)$/.test(style.clipPath)) return true;
+    /* Точка в потоке с `overflow: hidden`, но без `position: absolute` — не
+       шаблон скрытия, а схлопнувшийся контрол: тап-зона 0×0 выглядела ровно
+       так, и её обязан ловить порог цели. */
+    return false;
+  };
+
   const root = getComputedStyle(document.documentElement);
   const classesOf = (el) => (el.getAttribute('class') ?? '').split(/\s+/);
 
@@ -260,6 +292,8 @@ function measure({ density, tap }) {
     for (const el of document.querySelectorAll(INTERACTIVE)) {
       if (!visible(el)) continue;
       if ('disabled' in el && el.disabled === true) continue;
+      /* Скрытый ввод целью не считается — см. `isVisuallyHidden` выше. */
+      if (isVisuallyHidden(el, getComputedStyle(el))) continue;
 
       /* 🔴 Исключение объявляет сама разметка атрибутом `data-tap-size` со
          значением `essential` (ADR-236). Оно снимает порог там, где размер и
