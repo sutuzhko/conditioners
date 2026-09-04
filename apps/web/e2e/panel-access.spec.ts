@@ -32,9 +32,19 @@ const ORDER_PRICE = 30_000;
 /** Адрес чужого объекта: его не должно быть в теле отказа. */
 const ALIEN_ADDRESS = `Тула, Чужая, ${stamp}, кв. 2`;
 
+/** Посторонний человек: его карточку и запрашивает сценарий. */
+const TARGET = {
+  name: 'Монтажник Посторонний',
+  login: `access-target-${stamp}`,
+  phone: `+7 (9${stamp.slice(0, 2)}) ${stamp.slice(2, 5)}-${stamp.slice(5, 7)}-04`,
+  password: 'access-target-353',
+};
+
 const PROBE = {
   name: 'Монтажник Доступа',
-  login: 'access-probe',
+  /* Логин уникален на прогон: брошенная прошлым падением запись иначе
+     занимает его, и заведение отвечает 409. */
+  login: `access-probe-${stamp}`,
   phone: '+79003330353',
   password: 'access-probe-353',
 };
@@ -109,22 +119,27 @@ test.describe('🔴 закрытые разделы панели', () => {
 
   test('карточка чужого монтажника закрыта на всех вкладках', async ({ page }) => {
     const created = await withAdmin((api) => api.createInstaller(PROBE));
+    /* 🔴 Карточка запрашивается **чужая**, а не своя: под своей учётной записью
+       имя стоит в оболочке панели законно, и проверка «имени нет в теле» на
+       ней ничего не значила бы. Утечка, ради которой сценарий и написан,
+       касается именно постороннего человека. */
+    const target = await withAdmin((api) => api.createInstaller(TARGET));
 
     try {
       await loginViaUi(page, { login: PROBE.login, password: PROBE.password });
 
-      /* Свою карточку монтажник тоже не открывает: раздел «Монтажники» —
-         владельческий целиком, а личные данные правятся в профиле. */
+      /* Раздел «Монтажники» владельческий целиком: свою карточку монтажник
+         тоже не открывает, личные данные правятся в профиле. */
       for (const tab of ['account', 'orders', 'payouts', 'notes']) {
-        const { status, body } = await get(page, `/admin/team/${created.id}?tab=${tab}`);
+        const { status, body } = await get(page, `/admin/team/${target.id}?tab=${tab}`);
 
         expect(status, `вкладка ${tab} обязана отвечать отказом`).toBe(403);
-        /* 🔴 Ни имени человека, ни его телефона: отказ обязан не отвечать даже
-           на вопрос «а кто там». Именно это и утекало — не через страницу, а
-           через `generateMetadata`, которая читала карточку из базы без
-           проверки роли и клала имя в заголовок вкладки браузера. */
-        expect(body).not.toContain(PROBE.name);
-        expect(body).not.toContain(PROBE.phone);
+        /* 🔴 Ни имени постороннего человека, ни его телефона: отказ обязан не
+           отвечать даже на вопрос «а кто там». Именно это и утекало — не через
+           страницу, а через `generateMetadata`, которая читала карточку из
+           базы без проверки роли и клала имя в заголовок вкладки браузера. */
+        expect(body).not.toContain(TARGET.name);
+        expect(body).not.toContain(TARGET.phone);
         /* 🔴 Подписи вкладок в теле отказа остаются, и это не упущение
            проверки, а свойство потока: заготовку раздела (`loading.tsx`) Next
            отдаёт немедленно, ещё до того, как рубеж успевает отказать. Данных
@@ -135,7 +150,10 @@ test.describe('🔴 закрытые разделы панели', () => {
            страницы (ADR-239); решение об этом за владельцем. */
       }
     } finally {
-      await withAdmin((api) => api.deleteStaff(created.id));
+      await withAdmin(async (api) => {
+        await api.deleteStaff(target.id);
+        await api.deleteStaff(created.id);
+      });
     }
   });
 
