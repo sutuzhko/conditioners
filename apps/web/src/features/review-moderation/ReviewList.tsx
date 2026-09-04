@@ -7,16 +7,18 @@ import { ButtonLink, Card, EmptyState } from '@/shared/ui';
 import { ReviewCardView } from './ReviewCardView';
 import { reviewModerationContent as texts } from './content';
 import { reviewApi } from './lib';
-import { reviewsHref, type ReviewCard } from './model';
+import { reviewsHref, type ReviewCard, type ReviewTab } from './model';
 import styles from './ReviewList.module.css';
 
 export interface ReviewListProps {
   readonly reviews: readonly ReviewCard[];
   readonly filtered?: boolean | undefined;
+  /** Открытая вкладка: от неё зависит набор действий у карточки. */
+  readonly tab?: ReviewTab | undefined;
 }
 
 /** Список отзывов в модерации. */
-export function ReviewList({ reviews, filtered = false }: ReviewListProps) {
+export function ReviewList({ reviews, filtered = false, tab }: ReviewListProps) {
   const router = useRouter();
 
   if (reviews.length === 0) {
@@ -62,6 +64,7 @@ export function ReviewList({ reviews, filtered = false }: ReviewListProps) {
           key={review.id}
           review={review}
           api={reviewApi}
+          {...(tab === undefined ? {} : { tab })}
           onChanged={() => router.refresh()}
         />
       ))}

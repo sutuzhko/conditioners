@@ -1,0 +1,213 @@
+# админка-статья--вкладкапубликация · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+form.ArticleForm__form  358×762 @16,16
+  div.ArticleForm__publish  358×689 @0,0
+    section.Card__card  358×589 @0,0  r20  b1
+      div.FormSection__head  316×21 @21,21
+        div.FormSection__titleRow  316×21 @0,0
+          h2.FormSection__title  100×21 @0,0  Onest 700 17/21  ls0  lines=1  «Публикация»
+      div.ArticleForm__publishFields  316×513 @21,56
+        div.Switch__root  316×52 @0,0
+          div.Switch__row  316×26 @0,0
+            label.Switch__track  44×26 @272,0  r100  b1
+              span.Switch__thumb  18×18 @4,4  r100
+            input.Switch__input  1×1 @315,13
+            label.Switch__label  161×20 @0,3  Manrope 400 15/20  lines=1  «Опубликовать на сайте»
+          p.Field__hint  316×19 @0,33  Manrope 400 13/19  lines=1  «Появится в разделе «База знаний" и в кар»
+        div.Field__field  316×76 @0,66
+          label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Дата публикации»
+            span.Field__required  9×18 @110,1  Manrope 600 13/20  lines=1  «*»
+          input  316×49 @0,27  r11  b1
+        div.Field__field#2  316×76 @0,157
+          label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Время чтения, мин»
+            span.Field__required#2  9×18 @119,1  Manrope 600 13/20  lines=1  «*»
+          input  316×49 @0,27  r11  b1
+        div.Field__field#3  316×103 @0,247
+          label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Рубрика»
+            span.Field__required#3  9×18 @53,1  Manrope 600 13/20  lines=1  «*»
+          input  316×49 @0,27  r11  b1
+          p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «По ней статьи группируются в листинге»
+        div.Field__field#4  316×150 @0,363
+          label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Анонс»
+            span.Field__required#4  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+          textarea.Textarea__textarea  316×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Чем инверторный компрессор отличается от»
+          p.Field__hint  316×19 @0,130  Manrope 400 13/19  lines=1  «Показывается в списке статей и в тизере»
+    div.ArticleForm__narrowOnly  0×0 @-16,-16
+      div  358×86 @16,619  Manrope 400 13/20  r14  b1  lines=1  «Обложка статьи»
+  div.ArticleForm__actions  358×59 @16,719  b1 0 0 0  fixed
+    button.Button__button  115×44 @0,13  r11  b1
+      span.Button__content  77×17 @19,13
+        span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[геометрия 768]
+form.ArticleForm__form  736×673 @16,16
+  div.ArticleForm__publish  736×600 @0,0
+    section.Card__card  736×500 @0,0  r20  b1
+      div.FormSection__head  694×22 @21,21
+        div.FormSection__titleRow  694×22 @0,0
+          h2.FormSection__title  105×22 @0,0  Onest 700 18/22  ls0  lines=1  «Публикация»
+      div.ArticleForm__publishFields  694×423 @21,57
+        div.Switch__root  694×52 @0,0
+          div.Switch__row  694×26 @0,0
+            label.Switch__track  44×26 @650,0  r100  b1
+              span.Switch__thumb  18×18 @4,4  r100
+            input.Switch__input  1×1 @693,13
+            label.Switch__label  161×20 @0,3  Manrope 400 15/20  lines=1  «Опубликовать на сайте»
+          p.Field__hint  694×19 @0,33  Manrope 400 13/19  lines=1  «Появится в разделе «База знаний" и в кар»
+        div.Field__field  221×76 @0,66
+          label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Дата публикации»
+            span.Field__required  9×18 @110,1  Manrope 600 13/20  lines=1  «*»
+          input  221×49 @0,27  r11  b1
+        div.Field__field#2  221×76 @237,66
+          label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Время чтения, мин»
+            span.Field__required#2  9×18 @119,1  Manrope 600 13/20  lines=1  «*»
+          input  221×49 @0,27  r11  b1
+        div.Field__field#3  694×103 @0,157
+          label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Рубрика»
+            span.Field__required#3  9×18 @53,1  Manrope 600 13/20  lines=1  «*»
+          input  694×49 @0,27  r11  b1
+          p.Field__hint  694×19 @0,83  Manrope 400 13/19  lines=1  «По ней статьи группируются в листинге»
+        div.Field__field#4  694×150 @0,273
+          label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Анонс»
+            span.Field__required#4  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+          textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Чем инверторный компрессор отличается от»
+          p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Показывается в списке статей и в тизере»
+    div.ArticleForm__narrowOnly  0×0 @-16,-16
+      div  736×86 @16,530  Manrope 400 13/20  r14  b1  lines=1  «Обложка статьи»
+  div.ArticleForm__actions  736×59 @16,630  b1 0 0 0  fixed
+    button.Button__button  115×44 @0,13  r11  b1
+      span.Button__content  77×17 @19,13
+        span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[геометрия 1440]
+form.ArticleForm__form  1408×574 @16,16
+  div.ArticleForm__publish  1408×501 @0,0
+    section.Card__card  720×501 @0,0  r20  b1
+      div.FormSection__head  678×23 @21,21
+        div.FormSection__titleRow  678×23 @0,0
+          h2.FormSection__title  111×23 @0,0  Onest 700 19/23  ls0  lines=1  «Публикация»
+      div.ArticleForm__publishFields  678×423 @21,58
+        div.Switch__root  678×52 @0,0
+          div.Switch__row  678×26 @0,0
+            label.Switch__track  44×26 @634,0  r100  b1
+              span.Switch__thumb  18×18 @4,4  r100
+            input.Switch__input  1×1 @677,13
+            label.Switch__label  161×20 @0,3  Manrope 400 15/20  lines=1  «Опубликовать на сайте»
+          p.Field__hint  678×19 @0,33  Manrope 400 13/19  lines=1  «Появится в разделе «База знаний" и в кар»
+        div.Field__field  331×76 @0,66
+          label.Field__label  331×20 @0,0  Manrope 600 13/20  lines=1  «Дата публикации»
+            span.Field__required  9×18 @110,1  Manrope 600 13/20  lines=1  «*»
+          input  331×49 @0,27  r11  b1
+        div.Field__field#2  331×76 @347,66
+          label.Field__label  331×20 @0,0  Manrope 600 13/20  lines=1  «Время чтения, мин»
+            span.Field__required#2  9×18 @119,1  Manrope 600 13/20  lines=1  «*»
+          input  331×49 @0,27  r11  b1
+        div.Field__field#3  678×103 @0,157
+          label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Рубрика»
+            span.Field__required#3  9×18 @53,1  Manrope 600 13/20  lines=1  «*»
+          input  678×49 @0,27  r11  b1
+          p.Field__hint  678×19 @0,83  Manrope 400 13/19  lines=1  «По ней статьи группируются в листинге»
+        div.Field__field#4  678×150 @0,273
+          label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Анонс»
+            span.Field__required#4  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+          textarea.Textarea__textarea  678×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Чем инверторный компрессор отличается от»
+          p.Field__hint  678×19 @0,130  Manrope 400 13/19  lines=1  «Показывается в списке статей и в тизере»
+  div.ArticleForm__actions  1408×59 @16,531  b1 0 0 0  fixed
+    button.Button__button  115×44 @0,13  r11  b1
+      span.Button__content  77×17 @19,13
+        span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[палитра light]
+form.ArticleForm__form
+  div.ArticleForm__publish
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      div.FormSection__head
+        div.FormSection__titleRow
+          h2.FormSection__title  color #0f172a
+      div.ArticleForm__publishFields
+        div.Switch__root
+          div.Switch__row
+            label.Switch__track  bg #f8fafc  border #7e8fa6
+              span.Switch__thumb  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
+            input.Switch__input
+            label.Switch__label  color #334155
+          p.Field__hint  color #556173
+        div.Field__field
+          label.Field__label  color #334155
+            span.Field__required  color #0e7490
+          input  bg #ffffff  border #7e8fa6
+        div.Field__field#2
+          label.Field__label  color #334155
+            span.Field__required#2  color #0e7490
+          input  bg #ffffff  border #7e8fa6
+        div.Field__field#3
+          label.Field__label  color #334155
+            span.Field__required#3  color #0e7490
+          input  bg #ffffff  border #7e8fa6
+          p.Field__hint  color #556173
+        div.Field__field#4
+          label.Field__label  color #334155
+            span.Field__required#4  color #0e7490
+          textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
+          p.Field__hint  color #556173
+  div.ArticleForm__actions  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff
+[палитра light @390]
+form.ArticleForm__form > div.ArticleForm__publish > div.ArticleForm__narrowOnly
+form.ArticleForm__form > div.ArticleForm__publish > div.ArticleForm__narrowOnly > div  color #556173  border #7e8fa6
+[палитра light @768]
+form.ArticleForm__form > div.ArticleForm__publish > div.ArticleForm__narrowOnly
+form.ArticleForm__form > div.ArticleForm__publish > div.ArticleForm__narrowOnly > div  color #556173  border #7e8fa6
+
+[палитра dark]
+form.ArticleForm__form
+  div.ArticleForm__publish
+    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      div.FormSection__head
+        div.FormSection__titleRow
+          h2.FormSection__title  color #eaf1f8
+      div.ArticleForm__publishFields
+        div.Switch__root
+          div.Switch__row
+            label.Switch__track  bg #0e1729  border #566d95
+              span.Switch__thumb  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
+            input.Switch__input
+            label.Switch__label  color #c9d5e2
+          p.Field__hint  color #8598ac
+        div.Field__field
+          label.Field__label  color #c9d5e2
+            span.Field__required  color #22d3ee
+          input  bg #0b1424  border #566d95
+        div.Field__field#2
+          label.Field__label  color #c9d5e2
+            span.Field__required#2  color #22d3ee
+          input  bg #0b1424  border #566d95
+        div.Field__field#3
+          label.Field__label  color #c9d5e2
+            span.Field__required#3  color #22d3ee
+          input  bg #0b1424  border #566d95
+          p.Field__hint  color #8598ac
+        div.Field__field#4
+          label.Field__label  color #c9d5e2
+            span.Field__required#4  color #22d3ee
+          textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
+          p.Field__hint  color #8598ac
+  div.ArticleForm__actions  bg #121d31  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff
+[палитра dark @390]
+form.ArticleForm__form > div.ArticleForm__publish > div.ArticleForm__narrowOnly
+form.ArticleForm__form > div.ArticleForm__publish > div.ArticleForm__narrowOnly > div  color #8598ac  border #566d95
+[палитра dark @768]
+form.ArticleForm__form > div.ArticleForm__publish > div.ArticleForm__narrowOnly
+form.ArticleForm__form > div.ArticleForm__publish > div.ArticleForm__narrowOnly > div  color #8598ac  border #566d95

@@ -1,0 +1,227 @@
+# админка-статья--вкладкаseoбезадреса · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 600, Onest 700
+
+[документ]
+390 → 390×1060
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+form.ArticleForm__form  358×1028 @16,16
+  div.ArticleForm__seo  358×955 @0,0
+    section.Card__card  358×226 @0,0  r20  b1
+      div.FormSection__head  316×21 @21,21
+        div.FormSection__titleRow  316×21 @0,0
+          h2.FormSection__title  168×21 @0,0  Onest 700 17/21  ls0  lines=1  «Как увидят в поиске»
+      div.SerpPreview__card  316×152 @21,54  r14  b1
+        p.SerpPreview__crumbs  290×19 @13,13  JetBrains Mono 400 12/19  lines=1  «example.test ›»
+        p.SerpPreview__title  290×41 @13,36  Onest 400 15/20  lines=2  «Инвертор или обычный кондиционер | Демо-»
+        p.SerpPreview__description  290×59 @13,80  Manrope 400 13/20  lines=3  «Чем инверторный компрессор отличается от»
+    section.Card__card#2  358×715 @0,240  r20  b1
+      div.FormSection__head  316×21 @21,21
+        div.FormSection__titleRow#2  316×21 @0,0
+          h2.FormSection__title  111×21 @0,0  Onest 700 17/21  ls0  lines=1  «Мета-данные»
+      div.ArticleForm__field  316×99 @21,56
+        div.Field__field  316×76 @0,0
+          label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок страницы»
+          input  316×49 @0,27  r11  b1
+        p.ArticleForm__counter  43×19 @273,80
+          span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «0 знаков из 60 рекомендованных»
+          span#2  43×16 @0,1  JetBrains Mono 400 12/19  lines=1  «0 / 60»
+      div.ArticleForm__field#2  316×146 @21,168
+        div.Field__field  316×123 @0,0
+          label.Field__label#2  316×20 @0,0  Manrope 600 13/20  lines=1  «Описание страницы»
+          textarea.Textarea__textarea  316×96 @0,27  r11  b1
+        p.ArticleForm__counter  50×19 @266,127
+          span#3  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «0 знаков из 160 рекомендованных»
+          span#4  50×16 @0,1  JetBrains Mono 400 12/19  lines=1  «0 / 160»
+      div.Field__field  316×187 @21,328
+        label.Field__label#3  316×20 @0,0  Manrope 600 13/20  lines=1  «Адрес страницы»
+          span.Field__required  9×18 @105,1  Manrope 600 13/20  lines=1  «*»
+        input#2  316×49 @0,27  r11  b1
+        p.Field__hint  316×58 @0,83  Manrope 400 13/19  lines=3  «Из него собирается каноникал. Смена адре»
+        p.Field__error  316×39 @0,148  Manrope 600 13/19  lines=2  «Задайте адрес страницы: без него не собр»
+      div.ArticleForm__canonical  316×165 @21,529  r14  b1
+        span.ArticleForm__canonicalLabel  290×20 @13,11  Manrope 600 13/20  lines=1  «Каноникал»
+        output.ArticleForm__canonicalValue  290×40 @13,35  JetBrains Mono 400 13/20  lines=2  «Появится, как только будет задан адрес с»
+        span.ArticleForm__canonicalHint  290×74 @13,79  Manrope 400 12/19  lines=4  «Собирается из адреса сайта и адреса стра»
+  div.ArticleForm__actions  358×59 @16,985  b1 0 0 0  fixed
+    button.Button__button  115×44 @0,13  r11  b1
+      span.Button__content  77×17 @19,13
+        span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[геометрия 768]
+form.ArticleForm__form  736×855 @16,16
+  div.ArticleForm__seo  736×782 @0,0
+    section.Card__card  736×168 @0,0  r20  b1
+      div.FormSection__head  694×22 @21,21
+        div.FormSection__titleRow  694×22 @0,0
+          h2.FormSection__title  176×22 @0,0  Onest 700 18/22  ls0  lines=1  «Как увидят в поиске»
+      div.SerpPreview__card  694×92 @21,55  r14  b1
+        p.SerpPreview__crumbs  668×19 @13,13  JetBrains Mono 400 12/19  lines=1  «example.test ›»
+        p.SerpPreview__title  668×20 @13,36  Onest 400 15/20  lines=1  «Инвертор или обычный кондиционер | Демо-»
+        p.SerpPreview__description  668×20 @13,60  Manrope 400 13/20  lines=1  «Чем инверторный компрессор отличается от»
+    section.Card__card#2  736×600 @0,182  r20  b1
+      div.FormSection__head  694×22 @21,21
+        div.FormSection__titleRow#2  694×22 @0,0
+          h2.FormSection__title  117×22 @0,0  Onest 700 18/22  ls0  lines=1  «Мета-данные»
+      div.ArticleForm__field  694×99 @21,57
+        div.Field__field  694×76 @0,0
+          label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок страницы»
+          input  694×49 @0,27  r11  b1
+        p.ArticleForm__counter  43×19 @651,80
+          span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «0 знаков из 60 рекомендованных»
+          span#2  43×16 @0,1  JetBrains Mono 400 12/19  lines=1  «0 / 60»
+      div.ArticleForm__field#2  694×146 @21,169
+        div.Field__field  694×123 @0,0
+          label.Field__label#2  694×20 @0,0  Manrope 600 13/20  lines=1  «Описание страницы»
+          textarea.Textarea__textarea  694×96 @0,27  r11  b1
+        p.ArticleForm__counter  50×19 @644,127
+          span#3  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «0 знаков из 160 рекомендованных»
+          span#4  50×16 @0,1  JetBrains Mono 400 12/19  lines=1  «0 / 160»
+      div.Field__field  694×129 @21,329
+        label.Field__label#3  694×20 @0,0  Manrope 600 13/20  lines=1  «Адрес страницы»
+          span.Field__required  9×18 @105,1  Manrope 600 13/20  lines=1  «*»
+        input#2  694×49 @0,27  r11  b1
+        p.Field__hint  694×19 @0,83  Manrope 400 13/19  lines=1  «Из него собирается каноникал. Смена адре»
+        p.Field__error  694×19 @0,110  Manrope 600 13/19  lines=1  «Задайте адрес страницы: без него не собр»
+      div.ArticleForm__canonical  694×107 @21,472  r14  b1
+        span.ArticleForm__canonicalLabel  668×20 @13,11  Manrope 600 13/20  lines=1  «Каноникал»
+        output.ArticleForm__canonicalValue  668×20 @13,35  JetBrains Mono 400 13/20  lines=1  «Появится, как только будет задан адрес с»
+        span.ArticleForm__canonicalHint  668×37 @13,59  Manrope 400 12/19  lines=2  «Собирается из адреса сайта и адреса стра»
+  div.ArticleForm__actions  736×59 @16,812  b1 0 0 0  fixed
+    button.Button__button  115×44 @0,13  r11  b1
+      span.Button__content  77×17 @19,13
+        span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[геометрия 1440]
+form.ArticleForm__form  1408×656 @16,16
+  div.ArticleForm__seo  1408×583 @0,0
+    section.Card__card  380×209 @1028,0  r20  b1
+      div.FormSection__head  338×23 @21,21
+        div.FormSection__titleRow  338×23 @0,0
+          h2.FormSection__title  186×23 @0,0  Onest 700 19/23  ls0  lines=1  «Как увидят в поиске»
+      div.SerpPreview__card  338×132 @21,56  r14  b1
+        p.SerpPreview__crumbs  312×19 @13,13  JetBrains Mono 400 12/19  lines=1  «example.test ›»
+        p.SerpPreview__title  312×41 @13,36  Onest 400 15/20  lines=2  «Инвертор или обычный кондиционер | Демо-»
+        p.SerpPreview__description  312×39 @13,80  Manrope 400 13/20  lines=2  «Чем инверторный компрессор отличается от»
+    section.Card__card#2  1014×583 @0,0  r20  b1
+      div.FormSection__head  972×23 @21,21
+        div.FormSection__titleRow#2  972×23 @0,0
+          h2.FormSection__title  123×23 @0,0  Onest 700 19/23  ls0  lines=1  «Мета-данные»
+      div.ArticleForm__field  972×99 @21,58
+        div.Field__field  972×76 @0,0
+          label.Field__label  972×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок страницы»
+          input  972×49 @0,27  r11  b1
+        p.ArticleForm__counter  43×19 @929,80
+          span  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «0 знаков из 60 рекомендованных»
+          span#2  43×16 @0,1  JetBrains Mono 400 12/19  lines=1  «0 / 60»
+      div.ArticleForm__field#2  972×146 @21,171
+        div.Field__field  972×123 @0,0
+          label.Field__label#2  972×20 @0,0  Manrope 600 13/20  lines=1  «Описание страницы»
+          textarea.Textarea__textarea  972×96 @0,27  r11  b1
+        p.ArticleForm__counter  50×19 @922,127
+          span#3  1×1 @-1,-1  JetBrains Mono 400 12/19  lines=1  clipped  «0 знаков из 160 рекомендованных»
+          span#4  50×16 @0,1  JetBrains Mono 400 12/19  lines=1  «0 / 160»
+      div.Field__field  972×129 @21,330
+        label.Field__label#3  972×20 @0,0  Manrope 600 13/20  lines=1  «Адрес страницы»
+          span.Field__required  9×18 @105,1  Manrope 600 13/20  lines=1  «*»
+        input#2  972×49 @0,27  r11  b1
+        p.Field__hint  972×19 @0,83  Manrope 400 13/19  lines=1  «Из него собирается каноникал. Смена адре»
+        p.Field__error  972×19 @0,110  Manrope 600 13/19  lines=1  «Задайте адрес страницы: без него не собр»
+      div.ArticleForm__canonical  972×89 @21,473  r14  b1
+        span.ArticleForm__canonicalLabel  946×20 @13,11  Manrope 600 13/20  lines=1  «Каноникал»
+        output.ArticleForm__canonicalValue  946×20 @13,35  JetBrains Mono 400 13/20  lines=1  «Появится, как только будет задан адрес с»
+        span.ArticleForm__canonicalHint  946×19 @13,59  Manrope 400 12/19  lines=1  «Собирается из адреса сайта и адреса стра»
+  div.ArticleForm__actions  1408×59 @16,613  b1 0 0 0  fixed
+    button.Button__button  115×44 @0,13  r11  b1
+      span.Button__content  77×17 @19,13
+        span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+
+[палитра light]
+form.ArticleForm__form
+  div.ArticleForm__seo
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      div.FormSection__head
+        div.FormSection__titleRow
+          h2.FormSection__title  color #0f172a
+      div.SerpPreview__card  bg #ffffff  border #e2e8f0
+        p.SerpPreview__crumbs  color #166534
+        p.SerpPreview__title  color #0e7490
+        p.SerpPreview__description  color #556173
+    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      div.FormSection__head
+        div.FormSection__titleRow#2
+          h2.FormSection__title  color #0f172a
+      div.ArticleForm__field
+        div.Field__field
+          label.Field__label  color #334155
+          input  bg #ffffff  border #7e8fa6
+        p.ArticleForm__counter
+          span  color #5b6a7d
+          span#2  color #5b6a7d
+      div.ArticleForm__field#2
+        div.Field__field
+          label.Field__label#2  color #334155
+          textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+        p.ArticleForm__counter
+          span#3  color #5b6a7d
+          span#4  color #5b6a7d
+      div.Field__field
+        label.Field__label#3  color #334155
+          span.Field__required  color #0e7490
+        input#2  bg #be123c14  border #be123c
+        p.Field__hint  color #556173
+        p.Field__error  color #be123c
+      div.ArticleForm__canonical  bg #f8fafc  border #e2e8f0
+        span.ArticleForm__canonicalLabel  color #556173
+        output.ArticleForm__canonicalValue  color #0f172a
+        span.ArticleForm__canonicalHint  color #5b6a7d
+  div.ArticleForm__actions  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff
+
+[палитра dark]
+form.ArticleForm__form
+  div.ArticleForm__seo
+    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      div.FormSection__head
+        div.FormSection__titleRow
+          h2.FormSection__title  color #eaf1f8
+      div.SerpPreview__card  bg #0b1220  border #1e2b41
+        p.SerpPreview__crumbs  color #4ade80
+        p.SerpPreview__title  color #22d3ee
+        p.SerpPreview__description  color #8598ac
+    section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      div.FormSection__head
+        div.FormSection__titleRow#2
+          h2.FormSection__title  color #eaf1f8
+      div.ArticleForm__field
+        div.Field__field
+          label.Field__label  color #c9d5e2
+          input  bg #0b1424  border #566d95
+        p.ArticleForm__counter
+          span  color #7e92a7
+          span#2  color #7e92a7
+      div.ArticleForm__field#2
+        div.Field__field
+          label.Field__label#2  color #c9d5e2
+          textarea.Textarea__textarea  bg #0b1424  border #566d95
+        p.ArticleForm__counter
+          span#3  color #7e92a7
+          span#4  color #7e92a7
+      div.Field__field
+        label.Field__label#3  color #c9d5e2
+          span.Field__required  color #22d3ee
+        input#2  bg #fb71851f  border #fb7185
+        p.Field__hint  color #8598ac
+        p.Field__error  color #fb7185
+      div.ArticleForm__canonical  bg #0e1729  border #1e2b41
+        span.ArticleForm__canonicalLabel  color #8598ac
+        output.ArticleForm__canonicalValue  color #eaf1f8
+        span.ArticleForm__canonicalHint  color #7e92a7
+  div.ArticleForm__actions  bg #121d31  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        span.Button__label  color #ffffff

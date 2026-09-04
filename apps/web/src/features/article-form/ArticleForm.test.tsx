@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { ArticleForm } from './ArticleForm';
 import { articleFormContent as texts } from './content';
 import { draftArticle, failingSave, filledArticle, pendingSave, rejectingSave } from './fixtures';
-import { emptyArticleValues } from './model';
+import { SEO_TITLE_LIMIT, emptyArticleValues } from './model';
 
 describe('Форма статьи', () => {
   it('сохраняет введённые значения', async () => {
@@ -20,11 +20,11 @@ describe('Форма статьи', () => {
     expect(save).toHaveBeenCalledWith({ ...filledArticle, category: 'Эксплуатация' });
   });
 
-  it('черновик объясняется: его нет на сайте даже по прямой ссылке', () => {
+  it('черновик виден статусом и переключателем публикации', () => {
     render(<ArticleForm values={draftArticle} save={vi.fn()} />);
 
-    expect(screen.getByLabelText(new RegExp(texts.published))).not.toBeChecked();
-    expect(screen.getByText(texts.publishedHint)).toBeInTheDocument();
+    expect(screen.getByRole('switch', { name: texts.publishSwitch })).not.toBeChecked();
+    expect(screen.getAllByText(texts.statusDraft).length).toBeGreaterThan(0);
   });
 
   it('ошибка сервера показывается у названного им поля', async () => {
@@ -105,6 +105,88 @@ describe('Удаление статьи через окно подтвержде
     // ищем внутри окна: кнопка формы называется тем же словом
     await user.click(within(dialog).getByRole('button', { name: request.confirmLabel }));
     await waitFor(() => expect(remove).toHaveBeenCalled());
+  });
+});
+
+describe('Вкладки статьи', () => {
+  /**
+   * 🔴 Вкладка выбирает часть работы, а не форму: состояние одно на все три,
+   * и начатый черновик переживает переход (issue #355).
+   */
+  it('вкладка «Текст» показывает редактор и не показывает поля выдачи', () => {
+    render(<ArticleForm values={filledArticle} save={vi.fn()} tab="text" />);
+
+    expect(screen.getByLabelText(new RegExp(texts.body))).toBeInTheDocument();
+    expect(screen.queryByLabelText(new RegExp(texts.seoTitle))).not.toBeInTheDocument();
+  });
+
+  it('вкладка «SEO» показывает превью выдачи и счётчики длины', () => {
+    render(
+      <ArticleForm
+        values={filledArticle}
+        save={vi.fn()}
+        tab="seo"
+        siteUrl="https://example.test"
+      />,
+    );
+
+    expect(screen.getByLabelText(new RegExp(texts.seoTitle))).toBeInTheDocument();
+    expect(
+      screen.getByText(texts.counter(filledArticle.seoTitle.length, SEO_TITLE_LIMIT)),
+    ).toBeInTheDocument();
+  });
+
+  /** 🔴 Каноникал вычисляется и не правится (ADR-281): поля для него нет. */
+  it('каноникал показан вычисленным и не имеет поля ввода', () => {
+    render(
+      <ArticleForm
+        values={filledArticle}
+        save={vi.fn()}
+        tab="seo"
+        siteUrl="https://example.test"
+      />,
+    );
+
+    expect(
+      screen.getByText(`https://example.test/knowledge/${filledArticle.slug}`),
+    ).toBeInTheDocument();
+    expect(screen.queryByLabelText(new RegExp(texts.canonical))).not.toBeInTheDocument();
+  });
+
+  it('пустой адрес у сохранённой статьи назван ошибкой: без него нет каноникала', () => {
+    render(<ArticleForm values={{ ...filledArticle, slug: '' }} save={vi.fn()} tab="seo" />);
+
+    expect(screen.getByText(texts.slugRequired)).toBeInTheDocument();
+  });
+
+  it('вкладка «Публикация» показывает переключатель и дату', () => {
+    render(<ArticleForm values={filledArticle} save={vi.fn()} tab="publish" />);
+
+    expect(screen.getByRole('switch', { name: texts.publishSwitch })).toBeInTheDocument();
+    expect(screen.getByLabelText(new RegExp(texts.date))).toBeInTheDocument();
+  });
+});
+
+describe('Панель инструментов редактора', () => {
+  it('размечает выделенную строку подзаголовком', async () => {
+    const user = userEvent.setup();
+    render(
+      <ArticleForm values={{ ...filledArticle, body: 'Коротко' }} save={vi.fn()} tab="text" />,
+    );
+
+    const body = screen.getByLabelText(new RegExp(texts.body));
+    await user.click(body);
+    await user.click(screen.getByRole('button', { name: texts.markupH2Title }));
+
+    expect(body).toHaveValue('## Коротко');
+  });
+
+  /** 🔴 Того, чего формат не рисует, на панели нет — и об этом сказано. */
+  it('называет, чего в формате нет', () => {
+    render(<ArticleForm values={filledArticle} save={vi.fn()} tab="text" />);
+
+    expect(screen.getByText(texts.markupMissing)).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /ссылк/i })).not.toBeInTheDocument();
   });
 });
 

@@ -7,29 +7,29 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×528 @16,16  r20  b1
+section.Card__card  358×580 @16,16  r20  b1
   h2.SettingsForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Телефон и почта»
   p.SettingsForm__description  316×45 @21,46  Manrope 400 15/22  lines=2  «Стоят в шапке, в футере и в разметке орг»
-  form.SettingsForm__form  316×398 @21,109
-    div.SettingsForm__fields  316×304 @0,0
-      fieldset.SettingsForm__list  316×123 @0,0
+  form.SettingsForm__form  316×450 @21,109
+    div.SettingsForm__fields  316×356 @0,0
+      fieldset.SettingsForm__list  316×175 @0,0
         legend.SettingsForm__listLabel  73×22 @0,0  Manrope 600 15/22  lines=1  «Телефоны»
-        div.SettingsForm__listRow  316×49 @0,22
-          div.Field__field  226×49 @0,0
-            input  226×49 @0,0  r11  b1
-          button.Button__button  82×44 @234,0  r9  b1
+        div.SettingsForm__listRow  316×101 @0,22
+          div.Field__field  316×49 @0,0
+            input  316×49 @0,0  r11  b1
+          button.Button__button  82×44 @0,57  r9  b1
             span.Button__content  52×16 @15,14
               span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-        button.Button__button  154×44 @0,79  r9  b1
+        button.Button__button  154×44 @0,131  r9  b1
           span.Button__content#2  124×16 @15,14
             span.Button__label  124×16 @0,0  Manrope 600 13/16  lines=1  «Добавить: телефон»
-      div.Field__field  316×76 @0,137
+      div.Field__field  316×76 @0,189
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Почта»
         input#2  316×49 @0,27  r11  b1
-      div.Field__field#2  316×76 @0,228
+      div.Field__field#2  316×76 @0,280
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Часы работы»
         input  316×49 @0,27  r11  b1
-    div.SettingsForm__actions  316×76 @0,322
+    div.SettingsForm__actions  316×76 @0,374
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content#3  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»

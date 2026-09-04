@@ -49,6 +49,12 @@
   font-family: var(--font-mono);
 }
 
+/* Выход стоит последним и в своей карточке: он необратим для сессии, и
+   рядом с «Сохранить» его нажимают по инерции. */
+.exit {
+  align-self: flex-start;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;

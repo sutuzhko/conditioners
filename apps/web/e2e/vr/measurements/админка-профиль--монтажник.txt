@@ -2,12 +2,12 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1120
+390 → 390×1342
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.ProfileForm__grid  358×1088 @16,16
+div.ProfileForm__grid  358×1310 @16,16
   section.Card__card  358×525 @0,0  r20  b1
     form.ProfileForm__form  316×483 @21,21
       div.ProfileForm__head  316×28 @0,0
@@ -30,7 +30,7 @@ div.ProfileForm__grid  358×1088 @16,16
         button.Button__button  115×44 @0,0  r11  b1
           span.Button__content  77×17 @19,13
             span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-  div.ProfileForm__column  358×547 @0,541
+  div.ProfileForm__column  358×769 @0,541
     section.Card__card  358×379 @0,0  r20  b1
       form.ProfileForm__form#2  316×337 @21,21
         h2.ProfileForm__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Смена пароля»
@@ -45,16 +45,23 @@ div.ProfileForm__grid  358×1088 @16,16
           button.Button__button#2  155×44 @0,0  r11  b1
             span.Button__content  117×17 @19,13
               span.Button__label#2  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
-    section.Card__card#2  358×152 @0,395  r20  b1
+    section.Card__card#2  358×159 @0,395  r20  b1
       h2.ProfileForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Тема интерфейса»
       p.ProfileForm__hint  316×40 @21,46  Manrope 400 13/20  lines=2  «Выбор запоминается в этом браузере и на»
-      div.ThemeChoice__row  316×37 @21,94
-        button.ThemeChoice__option  94×37 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
-        button.ThemeChoice__option#2  86×37 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
-        button.ThemeChoice__option#3  113×37 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+      div.ThemeChoice__row  316×44 @21,94
+        button.ThemeChoice__option  94×44 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
+        button.ThemeChoice__option#2  86×44 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
+        button.ThemeChoice__option#3  113×44 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+    section.Card__card#3  358×199 @0,570  r20  b1
+      h2.ProfileForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Вход в панель»
+      p.ProfileForm__hint  316×81 @21,46  Manrope 400 13/20  lines=4  «Выход закрывает сессию на этом устройств»
+      button.Button__button  102×44 @21,134  r11  b1
+        span.Button__content#2  64×23 @19,10
+          span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
+            svg  20×20 @0,0
 
 [геометрия 768]
-div.ProfileForm__grid  736×549 @16,16
+div.ProfileForm__grid  736×772 @16,16
   section.Card__card  360×525 @0,0  r20  b1
     form.ProfileForm__form  318×483 @21,21
       div.ProfileForm__head  318×28 @0,0
@@ -77,7 +84,7 @@ div.ProfileForm__grid  736×549 @16,16
         button.Button__button  115×44 @0,0  r11  b1
           span.Button__content  77×17 @19,13
             span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-  div.ProfileForm__column  360×549 @376,0
+  div.ProfileForm__column  360×772 @376,0
     section.Card__card  360×380 @0,0  r20  b1
       form.ProfileForm__form#2  318×338 @21,21
         h2.ProfileForm__title  318×22 @0,0  Onest 700 18/22  ls0  lines=1  «Смена пароля»
@@ -92,16 +99,23 @@ div.ProfileForm__grid  736×549 @16,16
           button.Button__button#2  155×44 @0,0  r11  b1
             span.Button__content  117×17 @19,13
               span.Button__label#2  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
-    section.Card__card#2  360×153 @0,396  r20  b1
+    section.Card__card#2  360×160 @0,396  r20  b1
       h2.ProfileForm__title  318×22 @21,21  Onest 700 18/22  ls0  lines=1  «Тема интерфейса»
       p.ProfileForm__hint  318×40 @21,47  Manrope 400 13/20  lines=2  «Выбор запоминается в этом браузере и на»
-      div.ThemeChoice__row  318×37 @21,95
-        button.ThemeChoice__option  94×37 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
-        button.ThemeChoice__option#2  86×37 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
-        button.ThemeChoice__option#3  113×37 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+      div.ThemeChoice__row  318×44 @21,95
+        button.ThemeChoice__option  94×44 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
+        button.ThemeChoice__option#2  86×44 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
+        button.ThemeChoice__option#3  113×44 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+    section.Card__card#3  360×200 @0,572  r20  b1
+      h2.ProfileForm__title  318×22 @21,21  Onest 700 18/22  ls0  lines=1  «Вход в панель»
+      p.ProfileForm__hint  318×81 @21,47  Manrope 400 13/20  lines=4  «Выход закрывает сессию на этом устройств»
+      button.Button__button  102×44 @21,135  r11  b1
+        span.Button__content#2  64×23 @19,10
+          span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
+            svg  20×20 @0,0
 
 [геометрия 1440]
-div.ProfileForm__grid  860×531 @16,16
+div.ProfileForm__grid  860×729 @16,16
   section.Card__card  422×525 @0,0  r20  b1
     form.ProfileForm__form  380×483 @21,21
       div.ProfileForm__head  380×28 @0,0
@@ -124,7 +138,7 @@ div.ProfileForm__grid  860×531 @16,16
         button.Button__button  115×44 @0,0  r11  b1
           span.Button__content  77×17 @19,13
             span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-  div.ProfileForm__column  422×531 @438,0
+  div.ProfileForm__column  422×729 @438,0
     section.Card__card  422×382 @0,0  r20  b1
       form.ProfileForm__form#2  380×340 @21,21
         h2.ProfileForm__title  380×23 @0,0  Onest 700 19/23  ls0  lines=1  «Смена пароля»
@@ -146,6 +160,13 @@ div.ProfileForm__grid  860×531 @16,16
         button.ThemeChoice__option  94×37 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
         button.ThemeChoice__option#2  86×37 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
         button.ThemeChoice__option#3  113×37 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+    section.Card__card#3  422×181 @0,547  r20  b1
+      h2.ProfileForm__title  380×23 @21,21  Onest 700 19/23  ls0  lines=1  «Вход в панель»
+      p.ProfileForm__hint  380×60 @21,48  Manrope 400 13/20  lines=3  «Выход закрывает сессию на этом устройств»
+      button.Button__button  102×44 @21,116  r11  b1
+        span.Button__content#2  64×23 @19,10
+          span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
+            svg  20×20 @0,0
 
 [палитра light]
 div.ProfileForm__grid
@@ -193,6 +214,13 @@ div.ProfileForm__grid
         button.ThemeChoice__option  color #475569  border #7e8fa6
         button.ThemeChoice__option#2  color #475569  border #7e8fa6
         button.ThemeChoice__option#3  color #0e7490  bg #ecfeff  border #0891b2
+    section.Card__card#3  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      h2.ProfileForm__title  color #0f172a
+      p.ProfileForm__hint  color #556173
+      button.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content#2
+          span.Button__label  color #0f172a
+            svg
 
 [палитра dark]
 div.ProfileForm__grid
@@ -240,3 +268,10 @@ div.ProfileForm__grid
         button.ThemeChoice__option  color #a8b6c6  border #566d95
         button.ThemeChoice__option#2  color #a8b6c6  border #566d95
         button.ThemeChoice__option#3  color #22d3ee  bg #22d3ee1a  border #22d3ee
+    section.Card__card#3  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      h2.ProfileForm__title  color #eaf1f8
+      p.ProfileForm__hint  color #8598ac
+      button.Button__button  bg #121d31  border #566d95
+        span.Button__content#2
+          span.Button__label  color #eaf1f8
+            svg

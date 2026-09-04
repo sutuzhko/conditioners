@@ -102,6 +102,14 @@ export type FieldDescriptor = {
    * подтверждение и называет исчезающее (ADR-113).
    */
   readonly resetsGroup?: boolean;
+  /**
+   * Поле занимает ряд целиком.
+   *
+   * 🔴 Нужно там, где значение — предложение, а не слово: в трети ряда оно
+   * уезжало за край без переноса и без многоточия, и увидеть введённое можно
+   * было, только проехав по нему стрелками (issue #37).
+   */
+  readonly fullRow?: boolean;
 };
 
 export type GroupDescriptor = {
@@ -117,6 +125,14 @@ export type GroupDescriptor = {
    * владельцу, что оно там уже видно, значит соврать.
    */
   readonly savedNote?: string;
+  /**
+   * Раскладка полей.
+   *
+   * `auto` — сколько поместится в ряд. `pairs` — ровно два в ряду: так стоят
+   * группы, где поле принадлежит соседней галочке, и третья колонка уносила
+   * его под чужую (issue #38).
+   */
+  readonly layout?: 'auto' | 'pairs';
   readonly fields: readonly FieldDescriptor[];
 };
 

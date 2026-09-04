@@ -1,0 +1,132 @@
+# админка-отзыв-в-модерации--всеотзывы · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+article.Card__card  358×300 @16,16  r20  b1
+  header.ReviewCardView__header  316×155 @21,21
+    span.Avatar__avatar  48×48 @0,0  r100  b1
+      span.Avatar__initials  12×16 @18,16  Onest 700 16/16  ls0  lines=1  «А»
+      span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Алексей»
+    div.ReviewCardView__who  256×101 @60,0
+      div.ReviewCardView__line  256×77 @0,0
+        h2.ReviewCardView__name  69×21 @0,0  Onest 700 17/21  ls0  lines=1  «Алексей»
+        span.Rating__stars  217×20 @0,27
+          svg.Rating__star  20×20 @0,0
+          svg.Rating__star#2  20×20 @26,0
+          svg.Rating__star#3  20×20 @52,0
+          svg.Rating__star#4  20×20 @78,0
+          svg.Rating__star#5  20×20 @104,0
+          span.Rating__caption  83×20 @134,0  Manrope 400 13/20  lines=1  «Оценка 5 из 5»
+        span.Badge__badge  98×24 @0,53  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
+      time.ReviewCardView__when  256×20 @0,81  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
+    div.ReviewCardView__actions  316×44 @0,111
+      button.Button__button  316×44 @0,0  r9  b1
+        span.Button__content  88×16 @114,14
+          span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
+  div.ReviewCardView__body  316×91 @21,188
+    blockquote.ReviewCardView__text  316×91 @0,0  Manrope 400 15/22  b0 0 0 3  lines=3  «Приехали в тот же день, смету назвали за»
+
+[геометрия 768]
+article.Card__card  736×203 @16,16  r20  b1
+  header.ReviewCardView__header  694×102 @21,21
+    span.Avatar__avatar  48×48 @0,0  r100  b1
+      span.Avatar__initials  12×16 @18,16  Onest 700 16/16  ls0  lines=1  «А»
+      span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Алексей»
+    div.ReviewCardView__who  634×48 @60,0
+      div.ReviewCardView__line  634×24 @0,0
+        h2.ReviewCardView__name  73×22 @0,1  Onest 700 18/22  ls0  lines=1  «Алексей»
+        span.Rating__stars  217×20 @83,2
+          svg.Rating__star  20×20 @0,0
+          svg.Rating__star#2  20×20 @26,0
+          svg.Rating__star#3  20×20 @52,0
+          svg.Rating__star#4  20×20 @78,0
+          svg.Rating__star#5  20×20 @104,0
+          span.Rating__caption  83×20 @134,0  Manrope 400 13/20  lines=1  «Оценка 5 из 5»
+        span.Badge__badge  98×24 @310,0  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
+      time.ReviewCardView__when  634×20 @0,28  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
+    div.ReviewCardView__actions  694×44 @0,58
+      button.Button__button  694×44 @0,0  r9  b1
+        span.Button__content  88×16 @303,14
+          span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
+  div.ReviewCardView__body  694×46 @21,135
+    blockquote.ReviewCardView__text  694×46 @0,0  Manrope 400 15/22  b0 0 0 3  lines=1  «Приехали в тот же день, смету назвали за»
+
+[геометрия 1440]
+article.Card__card  1408×149 @16,16  r20  b1
+  header.ReviewCardView__header  1366×48 @21,21
+    span.Avatar__avatar  48×48 @0,0  r100  b1
+      span.Avatar__initials  12×16 @18,16  Onest 700 16/16  ls0  lines=1  «А»
+      span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Алексей»
+    div.ReviewCardView__who  1176×48 @60,0
+      div.ReviewCardView__line  1176×24 @0,0
+        h2.ReviewCardView__name  77×23 @0,1  Onest 700 19/23  ls0  lines=1  «Алексей»
+        span.Rating__stars  217×20 @87,2
+          svg.Rating__star  20×20 @0,0
+          svg.Rating__star#2  20×20 @26,0
+          svg.Rating__star#3  20×20 @52,0
+          svg.Rating__star#4  20×20 @78,0
+          svg.Rating__star#5  20×20 @104,0
+          span.Rating__caption  83×20 @134,0  Manrope 400 13/20  lines=1  «Оценка 5 из 5»
+        span.Badge__badge  98×24 @314,0  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
+      time.ReviewCardView__when  1176×20 @0,28  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
+    div.ReviewCardView__actions  118×40 @1248,0
+      button.Button__button  118×40 @0,0  r9  b1
+        span.Button__content  88×16 @15,12
+          span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
+  div.ReviewCardView__body  1366×46 @21,81
+    blockquote.ReviewCardView__text  1134×46 @0,0  Manrope 400 15/22  b0 0 0 3  lines=1  «Приехали в тот же день, смету назвали за»
+
+[палитра light]
+article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.ReviewCardView__header
+    span.Avatar__avatar  bg #ecfeff  border #ffffff
+      span.Avatar__initials  color #0e7490
+      span  color #0e7490
+    div.ReviewCardView__who
+      div.ReviewCardView__line
+        h2.ReviewCardView__name  color #0f172a
+        span.Rating__stars
+          svg.Rating__star
+          svg.Rating__star#2
+          svg.Rating__star#3
+          svg.Rating__star#4
+          svg.Rating__star#5
+          span.Rating__caption  color #556173
+        span.Badge__badge  color #166534  bg #15803d14  border #15803d47
+      time.ReviewCardView__when  color #5b6a7d
+    div.ReviewCardView__actions
+      button.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content
+          span.Button__label  color #0f172a
+  div.ReviewCardView__body
+    blockquote.ReviewCardView__text  color #475569  bg #f8fafc  border #475569 #475569 #475569 #cbd5e1
+
+[палитра dark]
+article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.ReviewCardView__header
+    span.Avatar__avatar  bg #22d3ee1a  border #121d31
+      span.Avatar__initials  color #22d3ee
+      span  color #22d3ee
+    div.ReviewCardView__who
+      div.ReviewCardView__line
+        h2.ReviewCardView__name  color #eaf1f8
+        span.Rating__stars
+          svg.Rating__star
+          svg.Rating__star#2
+          svg.Rating__star#3
+          svg.Rating__star#4
+          svg.Rating__star#5
+          span.Rating__caption  color #8598ac
+        span.Badge__badge  color #4ade80  bg #4ade801f  border #4ade8052
+      time.ReviewCardView__when  color #7e92a7
+    div.ReviewCardView__actions
+      button.Button__button  bg #121d31  border #566d95
+        span.Button__content
+          span.Button__label  color #eaf1f8
+  div.ReviewCardView__body
+    blockquote.ReviewCardView__text  color #a8b6c6  bg #0e1729  border #a8b6c6 #a8b6c6 #a8b6c6 #2c3d59

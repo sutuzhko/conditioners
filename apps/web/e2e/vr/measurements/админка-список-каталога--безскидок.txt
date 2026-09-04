@@ -1,0 +1,578 @@
+# админка-список-каталога--безскидок · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×942
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×910 @16,16  r20  b1
+  div.Table__viewport  356×908 @1,1
+    table.Table__table  356×908 @0,0
+      tr[role=row]  1×56 @0,0
+        th.AdminCatalogList__colName  93×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
+        th.AdminCatalogList__colNarrow  104×56 @93,0  Onest 700 15/23  b0 0 1 0  lines=1  «Площадь»
+        th.AdminCatalogList__colPrice  73×56 @197,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
+        th.AdminCatalogList__colNarrow#2  119×56 @270,0  Onest 700 15/23  b0 0 1 0  lines=1  «На главной»
+        th.AdminCatalogList__colNarrow#3  118×56 @389,0  Onest 700 15/23  b0 0 1 0  lines=1  «Видимость»
+        span  1×1 @524,38  Onest 700 15/23  lines=1  clipped  «Править»
+      tr[role=row]#2  356×305 @0,0  r14  b1
+        td[role=cell]  354×81 @1,5
+          td[role=cell]::before  48×20 @0,0
+          span.AdminCatalogList__model  264×67 @76,7
+            span.AdminCatalogList__thumbEmpty  52×38 @0,15  r11  b1
+              svg  16×16 @18,11
+            span.AdminCatalogList__names  202×67 @62,0
+              span.AdminCatalogList__name  202×45 @0,0  Manrope 600 15/22  lines=2  «Сплит-система 07, тихая серия»
+              span.AdminCatalogList__sub  202×20 @0,47  JetBrains Mono 400 13/20  lines=1  «07»
+                span.AdminCatalogList__narrowOnly  94×17 @108,1  JetBrains Mono 400 13/20  lines=1  «· порядок 0»
+        td.AdminCatalogList__area  354×36 @1,86  Manrope 400 15/22  lines=1  «до 20 м²»
+          td.AdminCatalogList__area::before  56×20 @0,0
+        td[role=cell]#2  354×36 @1,123
+          td[role=cell]#2::before  32×20 @0,0
+          span.AdminCatalogList__priceBlock  137×22 @203,7
+            span.AdminCatalogList__price  59×22 @0,0  Manrope 600 15/22  lines=1  «31 900 ₽»
+            span.AdminCatalogList__saleLine  69×20 @67,1
+              span.AdminCatalogList__noSale  69×20 @0,0  Manrope 400 13/20  lines=1  «Скидки нет»
+        td[role=cell]#3  354×42 @1,159
+          td[role=cell]#3::before  69×20 @0,0
+          span.Badge__badge  92×28 @248,7  Manrope 600 12/16  r100  b1  lines=1  «На главной»
+        td[role=cell]#4  354×36 @1,201
+          td[role=cell]#4::before  68×20 @0,0
+          div.VisibilitySwitch__root  86×20 @254,7
+            div.Switch__root  86×20 @0,0
+              div.Switch__row  86×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb  14×14 @19,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+        td[role=cell]#5  354×59 @1,241  b1 0 0 0
+          a.AdminCatalogList__edit  60×44 @280,8  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#3  356×305 @0,315  r14  b1
+        td[role=cell]  354×81 @1,5
+          td[role=cell]::before  48×20 @0,0
+          span.AdminCatalogList__model#2  264×67 @76,7
+            span.AdminCatalogList__thumbEmpty  52×38 @0,15  r11  b1
+              svg#2  16×16 @18,11
+            span.AdminCatalogList__names  202×67 @62,0
+              span.AdminCatalogList__name#2  202×45 @0,0  Manrope 600 15/22  lines=2  «Сплит-система 09, инверторная»
+              span.AdminCatalogList__sub#2  202×20 @0,47  JetBrains Mono 400 13/20  lines=1  «09»
+                span.AdminCatalogList__narrowOnly  94×17 @108,1  JetBrains Mono 400 13/20  lines=1  «· порядок 1»
+        td.AdminCatalogList__area  354×36 @1,86  Manrope 400 15/22  lines=1  «до 27 м²»
+          td.AdminCatalogList__area::before  56×20 @0,0
+        td[role=cell]#2  354×36 @1,123
+          td[role=cell]#2::before  32×20 @0,0
+          span.AdminCatalogList__priceBlock#2  137×22 @203,7
+            span.AdminCatalogList__price  59×22 @0,0  Manrope 600 15/22  lines=1  «34 900 ₽»
+            span.AdminCatalogList__saleLine  69×20 @67,1
+              span.AdminCatalogList__noSale#2  69×20 @0,0  Manrope 400 13/20  lines=1  «Скидки нет»
+        td[role=cell]#3  354×42 @1,159
+          td[role=cell]#3::before  69×20 @0,0
+          span.Badge__badge#2  92×28 @248,7  Manrope 600 12/16  r100  b1  lines=1  «На главной»
+        td[role=cell]#4  354×36 @1,201
+          td[role=cell]#4::before  68×20 @0,0
+          div.VisibilitySwitch__root#2  86×20 @254,7
+            div.Switch__root  86×20 @0,0
+              div.Switch__row#2  86×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb#2  14×14 @19,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+        td[role=cell]#5  354×59 @1,241  b1 0 0 0
+          a.AdminCatalogList__edit#2  60×44 @280,8  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#4  356×277 @0,631  r14  b1
+        td[role=cell]  354×59 @1,5
+          td[role=cell]::before  48×20 @0,0
+          span.AdminCatalogList__model#3  256×45 @84,7
+            span.AdminCatalogList__thumbEmpty  52×38 @0,3  r11  b1
+              svg#3  16×16 @18,11
+            span.AdminCatalogList__names  194×45 @62,0
+              span.AdminCatalogList__name#3  194×22 @0,0  Manrope 600 15/22  lines=1  «Мульти-сплит на два блока»
+              span.AdminCatalogList__sub#3  194×20 @0,24  JetBrains Mono 400 13/20  lines=1  «мульти»
+                span.AdminCatalogList__narrowOnly  94×17 @100,1  JetBrains Mono 400 13/20  lines=1  «· порядок 2»
+        td.AdminCatalogList__area  354×36 @1,64  Manrope 400 15/22  lines=1  «до 50 м²»
+          td.AdminCatalogList__area::before  56×20 @0,0
+        td[role=cell]#2  354×36 @1,100
+          td[role=cell]#2::before  32×20 @0,0
+          span.AdminCatalogList__priceBlock#3  137×22 @203,7
+            span.AdminCatalogList__price  59×22 @0,0  Manrope 600 15/22  lines=1  «58 700 ₽»
+            span.AdminCatalogList__saleLine  69×20 @67,1
+              span.AdminCatalogList__noSale#3  69×20 @0,0  Manrope 400 13/20  lines=1  «Скидки нет»
+        td[role=cell]#3  354×36 @1,137
+          td[role=cell]#3::before  69×20 @0,0
+          span.AdminCatalogList__muted  11×22 @329,7
+            span  1×1 @-1,-1  Manrope 400 15/22  lines=1  clipped  «Только в каталоге»
+            span#2  11×19 @0,1  Manrope 400 15/22  lines=1  «—»
+        td[role=cell]#4  354×36 @1,173
+          td[role=cell]#4::before  68×20 @0,0
+          div.VisibilitySwitch__root#3  95×20 @245,7
+            div.Switch__root  95×20 @0,0
+              div.Switch__row#3  95×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb#3  14×14 @3,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  51×20 @44,0  Manrope 400 15/20  lines=1  «Скрыта»
+        td[role=cell]#5  354×59 @1,213  b1 0 0 0
+          a.AdminCatalogList__edit#3  60×44 @280,8  Manrope 600 15/22  lines=1  «Править»
+
+[геометрия 768]
+section.Card__card  736×473 @16,16  r20  b1
+  div.Table__viewport  734×471 @1,1
+    table.Table__table  755×471 @0,0
+      tr[role=row]  755×56 @0,0
+        th.AdminCatalogList__colName  192×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
+        th.AdminCatalogList__colNarrow  104×56 @192,0  Onest 700 15/23  b0 0 1 0  lines=1  «Площадь»
+        th.AdminCatalogList__colPrice  105×56 @295,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
+        th.AdminCatalogList__colNarrow#2  128×56 @400,0  Onest 700 15/23  b0 0 1 0  lines=1  «На главной»
+        th.AdminCatalogList__colNarrow#3  131×56 @528,0  Onest 700 15/23  b0 0 1 0  lines=1  «Видимость»
+        span  1×1 @676,38  Onest 700 15/23  lines=1  clipped  «Править»
+      tr[role=row]#2  755×139 @0,56
+        td[role=cell]  192×139 @0,0  b0 0 1 0
+          span.AdminCatalogList__model  156×110 @18,15
+            span.AdminCatalogList__thumbEmpty  52×38 @0,36  r11  b1
+              svg  16×16 @18,11
+            span.AdminCatalogList__names  94×110 @62,0
+              span.AdminCatalogList__name  94×67 @0,0  Manrope 600 15/22  lines=3  «Сплит-система 07, тихая серия»
+              span.AdminCatalogList__sub  94×40 @0,69  JetBrains Mono 400 13/20  lines=1  «07»
+                span.AdminCatalogList__narrowOnly  70×37 @0,1  JetBrains Mono 400 13/20  lines=2  «· порядок 0»
+        td.AdminCatalogList__area  104×139 @192,0  Manrope 400 15/22  b0 0 1 0  lines=1  «до 20 м²»
+        td[role=cell]#2  105×139 @295,0  b0 0 1 0
+          span.AdminCatalogList__priceBlock  69×45 @18,15
+            span.AdminCatalogList__price  59×22 @10,0  Manrope 600 15/22  lines=1  «31 900 ₽»
+            span.AdminCatalogList__saleLine  69×20 @0,24
+              span.AdminCatalogList__noSale  69×20 @0,0  Manrope 400 13/20  lines=1  «Скидки нет»
+        td[role=cell]#3  128×139 @400,0  b0 0 1 0
+          span.Badge__badge  92×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «На главной»
+        td[role=cell]#4  131×139 @528,0  b0 0 1 0
+          div.VisibilitySwitch__root  95×20 @18,15
+            div.Switch__root  86×20 @0,0
+              div.Switch__row  86×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb  14×14 @19,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+        td[role=cell]#5  96×139 @659,0  b0 0 1 0
+          a.AdminCatalogList__edit  60×44 @18,15  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#3  755×139 @0,194
+        td[role=cell]  192×139 @0,0  b0 0 1 0
+          span.AdminCatalogList__model#2  156×110 @18,15
+            span.AdminCatalogList__thumbEmpty  52×38 @0,36  r11  b1
+              svg#2  16×16 @18,11
+            span.AdminCatalogList__names  94×110 @62,0
+              span.AdminCatalogList__name#2  94×67 @0,0  Manrope 600 15/22  lines=3  «Сплит-система 09, инверторная»
+              span.AdminCatalogList__sub#2  94×40 @0,69  JetBrains Mono 400 13/20  lines=1  «09»
+                span.AdminCatalogList__narrowOnly  70×37 @0,1  JetBrains Mono 400 13/20  lines=2  «· порядок 1»
+        td.AdminCatalogList__area  104×139 @192,0  Manrope 400 15/22  b0 0 1 0  lines=1  «до 27 м²»
+        td[role=cell]#2  105×139 @295,0  b0 0 1 0
+          span.AdminCatalogList__priceBlock#2  69×45 @18,15
+            span.AdminCatalogList__price  59×22 @10,0  Manrope 600 15/22  lines=1  «34 900 ₽»
+            span.AdminCatalogList__saleLine  69×20 @0,24
+              span.AdminCatalogList__noSale#2  69×20 @0,0  Manrope 400 13/20  lines=1  «Скидки нет»
+        td[role=cell]#3  128×139 @400,0  b0 0 1 0
+          span.Badge__badge#2  92×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «На главной»
+        td[role=cell]#4  131×139 @528,0  b0 0 1 0
+          div.VisibilitySwitch__root#2  95×20 @18,15
+            div.Switch__root  86×20 @0,0
+              div.Switch__row#2  86×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb#2  14×14 @19,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+        td[role=cell]#5  96×139 @659,0  b0 0 1 0
+          a.AdminCatalogList__edit#2  60×44 @18,15  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#4  755×138 @0,333
+        td[role=cell]  192×138 @0,0
+          span.AdminCatalogList__model#3  156×110 @18,15
+            span.AdminCatalogList__thumbEmpty  52×38 @0,36  r11  b1
+              svg#3  16×16 @18,11
+            span.AdminCatalogList__names  94×110 @62,0
+              span.AdminCatalogList__name#3  94×67 @0,0  Manrope 600 15/22  lines=3  «Мульти-сплит на два блока»
+              span.AdminCatalogList__sub#3  94×40 @0,69  JetBrains Mono 400 13/20  lines=1  «мульти»
+                span.AdminCatalogList__narrowOnly  70×37 @0,1  JetBrains Mono 400 13/20  lines=2  «· порядок 2»
+        td.AdminCatalogList__area  104×138 @192,0  Manrope 400 15/22  lines=1  «до 50 м²»
+        td[role=cell]#2  105×138 @295,0
+          span.AdminCatalogList__priceBlock#3  69×45 @18,15
+            span.AdminCatalogList__price  59×22 @10,0  Manrope 600 15/22  lines=1  «58 700 ₽»
+            span.AdminCatalogList__saleLine  69×20 @0,24
+              span.AdminCatalogList__noSale#3  69×20 @0,0  Manrope 400 13/20  lines=1  «Скидки нет»
+        td[role=cell]#3  128×138 @400,0
+          span.AdminCatalogList__muted  11×19 @18,16
+            span  1×1 @-1,-2  Manrope 400 15/22  lines=1  clipped  «Только в каталоге»
+            span#2  11×19 @0,0  Manrope 400 15/22  lines=1  «—»
+        td[role=cell]#4  131×138 @528,0
+          div.VisibilitySwitch__root#3  95×20 @18,15
+            div.Switch__root  95×20 @0,0
+              div.Switch__row#3  95×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb#3  14×14 @3,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  51×20 @44,0  Manrope 400 15/20  lines=1  «Скрыта»
+        td[role=cell]#5  96×138 @659,0
+          a.AdminCatalogList__edit#3  60×44 @18,15  Manrope 600 15/22  lines=1  «Править»
+
+[геометрия 1440]
+section.Card__card  1408×278 @16,16  r20  b1
+  div.Table__viewport  1406×276 @1,1
+    table.Table__table  1406×276 @0,0
+      tr[role=row]  1406×56 @0,0
+        th.AdminCatalogList__colName  478×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
+        th.AdminCatalogList__colNarrow  120×56 @478,0  Onest 700 15/23  b0 0 1 0  lines=1  «Площадь»
+        th.AdminCatalogList__colPrice  190×56 @598,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
+        th.AdminCatalogList__colNarrow#2  128×56 @788,0  Onest 700 15/23  b0 0 1 0  lines=1  «На главной»
+        th.AdminCatalogList__colNarrow#3  131×56 @916,0  Onest 700 15/23  b0 0 1 0  lines=1  «Видимость»
+        th.AdminCatalogList__wideOnly  101×56 @1047,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порядок»
+        span  1×1 @1165,38  Onest 700 15/23  lines=1  clipped  «Править»
+      tr[role=row]#2  1406×74 @0,56
+        td[role=cell]  478×74 @0,0  b0 0 1 0
+          span.AdminCatalogList__model  442×45 @18,15
+            span.AdminCatalogList__thumbEmpty  52×38 @0,3  r11  b1
+              svg  16×16 @18,11
+            span.AdminCatalogList__names  222×45 @62,0
+              span.AdminCatalogList__name  222×22 @0,0  Manrope 600 15/22  lines=1  «Сплит-система 07, тихая серия»
+              span.AdminCatalogList__sub  222×20 @0,24  JetBrains Mono 400 13/20  lines=1  «07»
+        td.AdminCatalogList__area  120×74 @478,0  Manrope 400 15/22  b0 0 1 0  lines=1  «до 20 м²»
+        td[role=cell]#2  190×74 @598,0  b0 0 1 0
+          span.AdminCatalogList__priceBlock  154×45 @18,15
+            span.AdminCatalogList__price  59×22 @95,0  Manrope 600 15/22  lines=1  «31 900 ₽»
+            span.AdminCatalogList__saleLine  69×20 @85,24
+              span.AdminCatalogList__noSale  69×20 @0,0  Manrope 400 13/20  lines=1  «Скидки нет»
+        td[role=cell]#3  128×74 @788,0  b0 0 1 0
+          span.Badge__badge  92×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «На главной»
+        td[role=cell]#4  131×74 @916,0  b0 0 1 0
+          div.VisibilitySwitch__root  95×20 @18,15
+            div.Switch__root  86×20 @0,0
+              div.Switch__row  86×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb  14×14 @19,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+        td.AdminCatalogList__wideOnly  101×74 @1047,0  Manrope 400 15/22  b0 0 1 0  lines=1  «0»
+        td[role=cell]#5  258×74 @1148,0  b0 0 1 0
+          a.AdminCatalogList__edit  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#3  1406×74 @0,129
+        td[role=cell]  478×74 @0,0  b0 0 1 0
+          span.AdminCatalogList__model#2  442×45 @18,15
+            span.AdminCatalogList__thumbEmpty  52×38 @0,3  r11  b1
+              svg#2  16×16 @18,11
+            span.AdminCatalogList__names  232×45 @62,0
+              span.AdminCatalogList__name#2  232×22 @0,0  Manrope 600 15/22  lines=1  «Сплит-система 09, инверторная»
+              span.AdminCatalogList__sub#2  232×20 @0,24  JetBrains Mono 400 13/20  lines=1  «09»
+        td.AdminCatalogList__area  120×74 @478,0  Manrope 400 15/22  b0 0 1 0  lines=1  «до 27 м²»
+        td[role=cell]#2  190×74 @598,0  b0 0 1 0
+          span.AdminCatalogList__priceBlock#2  154×45 @18,15
+            span.AdminCatalogList__price  59×22 @95,0  Manrope 600 15/22  lines=1  «34 900 ₽»
+            span.AdminCatalogList__saleLine  69×20 @85,24
+              span.AdminCatalogList__noSale#2  69×20 @0,0  Manrope 400 13/20  lines=1  «Скидки нет»
+        td[role=cell]#3  128×74 @788,0  b0 0 1 0
+          span.Badge__badge#2  92×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «На главной»
+        td[role=cell]#4  131×74 @916,0  b0 0 1 0
+          div.VisibilitySwitch__root#2  95×20 @18,15
+            div.Switch__root  86×20 @0,0
+              div.Switch__row#2  86×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb#2  14×14 @19,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+        td.AdminCatalogList__wideOnly  101×74 @1047,0  Manrope 400 15/22  b0 0 1 0  lines=1  «1»
+        td[role=cell]#5  258×74 @1148,0  b0 0 1 0
+          a.AdminCatalogList__edit#2  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#4  1406×73 @0,203
+        td[role=cell]  478×73 @0,0
+          span.AdminCatalogList__model#3  442×45 @18,15
+            span.AdminCatalogList__thumbEmpty  52×38 @0,3  r11  b1
+              svg#3  16×16 @18,11
+            span.AdminCatalogList__names  194×45 @62,0
+              span.AdminCatalogList__name#3  194×22 @0,0  Manrope 600 15/22  lines=1  «Мульти-сплит на два блока»
+              span.AdminCatalogList__sub#3  194×20 @0,24  JetBrains Mono 400 13/20  lines=1  «мульти»
+        td.AdminCatalogList__area  120×73 @478,0  Manrope 400 15/22  lines=1  «до 50 м²»
+        td[role=cell]#2  190×73 @598,0
+          span.AdminCatalogList__priceBlock#3  154×45 @18,15
+            span.AdminCatalogList__price  59×22 @95,0  Manrope 600 15/22  lines=1  «58 700 ₽»
+            span.AdminCatalogList__saleLine  69×20 @85,24
+              span.AdminCatalogList__noSale#3  69×20 @0,0  Manrope 400 13/20  lines=1  «Скидки нет»
+        td[role=cell]#3  128×73 @788,0
+          span.AdminCatalogList__muted  11×19 @18,16
+            span  1×1 @-1,-2  Manrope 400 15/22  lines=1  clipped  «Только в каталоге»
+            span#2  11×19 @0,0  Manrope 400 15/22  lines=1  «—»
+        td[role=cell]#4  131×73 @916,0
+          div.VisibilitySwitch__root#3  95×20 @18,15
+            div.Switch__root  95×20 @0,0
+              div.Switch__row#3  95×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb#3  14×14 @3,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  51×20 @44,0  Manrope 400 15/20  lines=1  «Скрыта»
+        td.AdminCatalogList__wideOnly  101×73 @1047,0  Manrope 400 15/22  lines=1  «2»
+        td[role=cell]#5  258×73 @1148,0
+          a.AdminCatalogList__edit#3  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.Table__viewport
+    table.Table__table
+      tr[role=row]
+        th.AdminCatalogList__colName  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th.AdminCatalogList__colNarrow  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th.AdminCatalogList__colPrice  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th.AdminCatalogList__colNarrow#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th.AdminCatalogList__colNarrow#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th.AdminCatalogList__wideOnly  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        span  color #0f172a
+      tr[role=row]#2
+        td[role=cell]  border #334155 #334155 #eef2f6 #334155
+          span.AdminCatalogList__model
+            span.AdminCatalogList__thumbEmpty  bg #f8fafc  border #e2e8f0
+              svg
+            span.AdminCatalogList__names
+              span.AdminCatalogList__name  color #0f172a
+              span.AdminCatalogList__sub  color #556173
+        td.AdminCatalogList__area  color #334155  border #334155 #334155 #eef2f6 #334155
+        td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+          span.AdminCatalogList__priceBlock
+            span.AdminCatalogList__price  color #0f172a
+            span.AdminCatalogList__saleLine
+              span.AdminCatalogList__noSale  color #5b6a7d
+        td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+          span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+        td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+          div.VisibilitySwitch__root
+            div.Switch__root
+              div.Switch__row
+                label.Switch__track  bg #0e7490  border #0e7490
+                  span.Switch__thumb  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #0f172a
+        td.AdminCatalogList__wideOnly  color #334155  border #334155 #334155 #eef2f6 #334155
+        td[role=cell]#5  border #334155 #334155 #eef2f6 #334155
+          a.AdminCatalogList__edit  color #0e7490
+      tr[role=row]#3
+        td[role=cell]  border #334155 #334155 #eef2f6 #334155
+          span.AdminCatalogList__model#2
+            span.AdminCatalogList__thumbEmpty  bg #f8fafc  border #e2e8f0
+              svg#2
+            span.AdminCatalogList__names
+              span.AdminCatalogList__name#2  color #0f172a
+              span.AdminCatalogList__sub#2  color #556173
+        td.AdminCatalogList__area  color #334155  border #334155 #334155 #eef2f6 #334155
+        td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+          span.AdminCatalogList__priceBlock#2
+            span.AdminCatalogList__price  color #0f172a
+            span.AdminCatalogList__saleLine
+              span.AdminCatalogList__noSale#2  color #5b6a7d
+        td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+          span.Badge__badge#2  color #0e7490  bg #ecfeff  border #a5f3fc
+        td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+          div.VisibilitySwitch__root#2
+            div.Switch__root
+              div.Switch__row#2
+                label.Switch__track  bg #0e7490  border #0e7490
+                  span.Switch__thumb#2  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #0f172a
+        td.AdminCatalogList__wideOnly  color #334155  border #334155 #334155 #eef2f6 #334155
+        td[role=cell]#5  border #334155 #334155 #eef2f6 #334155
+          a.AdminCatalogList__edit#2  color #0e7490
+      tr[role=row]#4
+        td[role=cell]
+          span.AdminCatalogList__model#3
+            span.AdminCatalogList__thumbEmpty  bg #f8fafc  border #e2e8f0
+              svg#3
+            span.AdminCatalogList__names
+              span.AdminCatalogList__name#3  color #0f172a
+              span.AdminCatalogList__sub#3  color #556173
+        td.AdminCatalogList__area  color #334155
+        td[role=cell]#2
+          span.AdminCatalogList__priceBlock#3
+            span.AdminCatalogList__price  color #0f172a
+            span.AdminCatalogList__saleLine
+              span.AdminCatalogList__noSale#3  color #5b6a7d
+        td[role=cell]#3
+          span.AdminCatalogList__muted
+            span  color #5b6a7d
+            span#2  color #5b6a7d
+        td[role=cell]#4
+          div.VisibilitySwitch__root#3
+            div.Switch__root
+              div.Switch__row#3
+                label.Switch__track  bg #f8fafc  border #7e8fa6
+                  span.Switch__thumb#3  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #334155
+        td.AdminCatalogList__wideOnly  color #334155
+        td[role=cell]#5
+          a.AdminCatalogList__edit#3  color #0e7490
+[палитра light @390]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.AdminCatalogList__model > span.AdminCatalogList__names > span.AdminCatalogList__sub > span.AdminCatalogList__narrowOnly  color #556173
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminCatalogList__area  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminCatalogList__area > td.AdminCatalogList__area::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#4
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#4 > td[role=cell]#4::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#5  border #eef2f6 #334155 #334155 #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.AdminCatalogList__model#2 > span.AdminCatalogList__names > span.AdminCatalogList__sub#2 > span.AdminCatalogList__narrowOnly  color #556173
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminCatalogList__area  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminCatalogList__area > td.AdminCatalogList__area::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#4
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#4 > td[role=cell]#4::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#5  border #eef2f6 #334155 #334155 #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.AdminCatalogList__model#3 > span.AdminCatalogList__names > span.AdminCatalogList__sub#3 > span.AdminCatalogList__narrowOnly  color #556173
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminCatalogList__area > td.AdminCatalogList__area::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#4 > td[role=cell]#4::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#5  border #eef2f6 #334155 #334155 #334155
+[палитра light @768]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.AdminCatalogList__model > span.AdminCatalogList__names > span.AdminCatalogList__sub > span.AdminCatalogList__narrowOnly  color #556173
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.AdminCatalogList__model#2 > span.AdminCatalogList__names > span.AdminCatalogList__sub#2 > span.AdminCatalogList__narrowOnly  color #556173
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.AdminCatalogList__model#3 > span.AdminCatalogList__names > span.AdminCatalogList__sub#3 > span.AdminCatalogList__narrowOnly  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.Table__viewport
+    table.Table__table
+      tr[role=row]
+        th.AdminCatalogList__colName  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th.AdminCatalogList__colNarrow  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th.AdminCatalogList__colPrice  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th.AdminCatalogList__colNarrow#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th.AdminCatalogList__colNarrow#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th.AdminCatalogList__wideOnly  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        span  color #eaf1f8
+      tr[role=row]#2
+        td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.AdminCatalogList__model
+            span.AdminCatalogList__thumbEmpty  bg #0e1729  border #1e2b41
+              svg
+            span.AdminCatalogList__names
+              span.AdminCatalogList__name  color #eaf1f8
+              span.AdminCatalogList__sub  color #8598ac
+        td.AdminCatalogList__area  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.AdminCatalogList__priceBlock
+            span.AdminCatalogList__price  color #eaf1f8
+            span.AdminCatalogList__saleLine
+              span.AdminCatalogList__noSale  color #7e92a7
+        td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+        td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          div.VisibilitySwitch__root
+            div.Switch__root
+              div.Switch__row
+                label.Switch__track  bg #0e7490  border #0e7490
+                  span.Switch__thumb  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #eaf1f8
+        td.AdminCatalogList__wideOnly  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td[role=cell]#5  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          a.AdminCatalogList__edit  color #22d3ee
+      tr[role=row]#3
+        td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.AdminCatalogList__model#2
+            span.AdminCatalogList__thumbEmpty  bg #0e1729  border #1e2b41
+              svg#2
+            span.AdminCatalogList__names
+              span.AdminCatalogList__name#2  color #eaf1f8
+              span.AdminCatalogList__sub#2  color #8598ac
+        td.AdminCatalogList__area  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.AdminCatalogList__priceBlock#2
+            span.AdminCatalogList__price  color #eaf1f8
+            span.AdminCatalogList__saleLine
+              span.AdminCatalogList__noSale#2  color #7e92a7
+        td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.Badge__badge#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+        td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          div.VisibilitySwitch__root#2
+            div.Switch__root
+              div.Switch__row#2
+                label.Switch__track  bg #0e7490  border #0e7490
+                  span.Switch__thumb#2  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #eaf1f8
+        td.AdminCatalogList__wideOnly  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td[role=cell]#5  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          a.AdminCatalogList__edit#2  color #22d3ee
+      tr[role=row]#4
+        td[role=cell]
+          span.AdminCatalogList__model#3
+            span.AdminCatalogList__thumbEmpty  bg #0e1729  border #1e2b41
+              svg#3
+            span.AdminCatalogList__names
+              span.AdminCatalogList__name#3  color #eaf1f8
+              span.AdminCatalogList__sub#3  color #8598ac
+        td.AdminCatalogList__area  color #c9d5e2
+        td[role=cell]#2
+          span.AdminCatalogList__priceBlock#3
+            span.AdminCatalogList__price  color #eaf1f8
+            span.AdminCatalogList__saleLine
+              span.AdminCatalogList__noSale#3  color #7e92a7
+        td[role=cell]#3
+          span.AdminCatalogList__muted
+            span  color #7e92a7
+            span#2  color #7e92a7
+        td[role=cell]#4
+          div.VisibilitySwitch__root#3
+            div.Switch__root
+              div.Switch__row#3
+                label.Switch__track  bg #0e1729  border #566d95
+                  span.Switch__thumb#3  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #c9d5e2
+        td.AdminCatalogList__wideOnly  color #c9d5e2
+        td[role=cell]#5
+          a.AdminCatalogList__edit#3  color #22d3ee
+[палитра dark @390]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.AdminCatalogList__model > span.AdminCatalogList__names > span.AdminCatalogList__sub > span.AdminCatalogList__narrowOnly  color #8598ac
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminCatalogList__area  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminCatalogList__area > td.AdminCatalogList__area::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#4
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#4 > td[role=cell]#4::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#5  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.AdminCatalogList__model#2 > span.AdminCatalogList__names > span.AdminCatalogList__sub#2 > span.AdminCatalogList__narrowOnly  color #8598ac
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminCatalogList__area  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminCatalogList__area > td.AdminCatalogList__area::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#4
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#4 > td[role=cell]#4::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#5  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.AdminCatalogList__model#3 > span.AdminCatalogList__names > span.AdminCatalogList__sub#3 > span.AdminCatalogList__narrowOnly  color #8598ac
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminCatalogList__area > td.AdminCatalogList__area::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#4 > td[role=cell]#4::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#5  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+[палитра dark @768]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.AdminCatalogList__model > span.AdminCatalogList__names > span.AdminCatalogList__sub > span.AdminCatalogList__narrowOnly  color #8598ac
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.AdminCatalogList__model#2 > span.AdminCatalogList__names > span.AdminCatalogList__sub#2 > span.AdminCatalogList__narrowOnly  color #8598ac
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.AdminCatalogList__model#3 > span.AdminCatalogList__names > span.AdminCatalogList__sub#3 > span.AdminCatalogList__narrowOnly  color #8598ac

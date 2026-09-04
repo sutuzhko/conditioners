@@ -2,16 +2,16 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1884
-768 → 768×1110
-1440 → 1440×900
+390 → 390×2025
+768 → 768×1484
+1440 → 1440×1265
 
 [геометрия 390]
-section.Card__card  358×1852 @16,16  r20  b1
+section.Card__card  358×1993 @16,16  r20  b1
   h2.SettingsForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Реквизиты»
   p.SettingsForm__description  316×180 @21,46  Manrope 400 15/22  lines=8  «Наименование, ИНН и сведения о регистрац»
-  form.SettingsForm__form  316×1587 @21,243
-    div.SettingsForm__fields  316×1525 @0,0
+  form.SettingsForm__form  316×1728 @21,243
+    div.SettingsForm__fields  316×1666 @0,0
       div.Field__field  316×122 @0,0
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Форма»
         span.Select__wrapper  316×49 @0,27
@@ -20,63 +20,63 @@ section.Card__card  358×1852 @16,16  r20  b1
             option#2  0×0 @-37,-286  Manrope 400 15/21  lines=0  «ООО»
           svg.Select__chevron  14×14 @288,18
         p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «От неё зависят и состав полей, и проверк»
-      div.Field__field#2  316×122 @0,136
+      div.Field__field#2  316×169 @0,136
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Полное наименование»
-        input  316×49 @0,27  r11  b1  clipped
-        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Как в уставе, вместе с организационно-пр»
-      div.Field__field#3  316×103 @0,272
+        textarea.Textarea__textarea  316×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Общество с ограниченной ответственностью»
+        p.Field__hint  316×39 @0,130  Manrope 400 13/19  lines=2  «Как в уставе, вместе с организационно-пр»
+      div.Field__field#3  316×103 @0,319
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Сокращённое наименование»
         input  316×49 @0,27  r11  b1
         p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Им подписан футер и разметка организации»
-      div.Field__field#4  316×76 @0,388
+      div.Field__field#4  316×76 @0,435
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
         input  316×49 @0,27  r11  b1
-      div.Field__field#5  316×103 @0,478
+      div.Field__field#5  316×103 @0,525
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «КПП»
         input  316×49 @0,27  r11  b1
         p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#6  316×76 @0,595
+      div.Field__field#6  316×76 @0,642
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «ОГРН»
         input  316×49 @0,27  r11  b1
-      div.Field__field#7  316×122 @0,685
+      div.Field__field#7  316×169 @0,732
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Место нахождения»
-        input  316×49 @0,27  r11  b1
-        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Адрес организации из реестра. Показывает»
-      div.Field__field#8  316×103 @0,821
+        textarea.Textarea__textarea  316×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «г. Тула, пр-т Ленина, д. 1, офис 3»
+        p.Field__hint  316×39 @0,130  Manrope 400 13/19  lines=2  «Адрес организации из реестра. Показывает»
+      div.Field__field#8  316×103 @0,915
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Руководитель»
         input  316×49 @0,27  r11  b1
         p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#9  316×103 @0,938
+      div.Field__field#9  316×103 @0,1032
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Должность руководителя»
         input  316×49 @0,27  r11  b1
         p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#10  316×103 @0,1054
+      div.Field__field#10  316×150 @0,1148
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Банк»
-        input  316×49 @0,27  r11  b1  clipped
-        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#11  316×103 @0,1171
+        textarea.Textarea__textarea  316×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Тульское отделение № 8604 ПАО Сбербанк»
+        p.Field__hint  316×19 @0,130  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
+      div.Field__field#11  316×103 @0,1312
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «БИК»
         input  316×49 @0,27  r11  b1
         p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#12  316×122 @0,1287
+      div.Field__field#12  316×122 @0,1428
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Расчётный счёт»
         input  316×49 @0,27  r11  b1
         p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится. Контрольный ключ с»
-      div.Field__field#13  316×103 @0,1423
+      div.Field__field#13  316×103 @0,1564
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Корреспондентский счёт»
         input  316×49 @0,27  r11  b1
         p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-    div.SettingsForm__actions  316×44 @0,1543
+    div.SettingsForm__actions  316×44 @0,1684
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
 
 [геометрия 768]
-section.Card__card  736×1078 @16,16  r20  b1
+section.Card__card  736×1452 @16,16  r20  b1
   h2.SettingsForm__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Реквизиты»
   p.SettingsForm__description  694×90 @21,47  Manrope 400 15/22  lines=4  «Наименование, ИНН и сведения о регистрац»
-  form.SettingsForm__form  694×902 @21,154
-    div.SettingsForm__fields  694×840 @0,0
+  form.SettingsForm__form  694×1276 @21,154
+    div.SettingsForm__fields  694×1214 @0,0
       div.Field__field  339×122 @0,0
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Форма»
         span.Select__wrapper  339×49 @0,27
@@ -85,63 +85,63 @@ section.Card__card  736×1078 @16,16  r20  b1
             option#2  0×0 @-37,-198  Manrope 400 15/21  lines=0  «ООО»
           svg.Select__chevron  14×14 @311,18
         p.Field__hint  339×39 @0,83  Manrope 400 13/19  lines=2  «От неё зависят и состав полей, и проверк»
-      div.Field__field#2  339×122 @355,0
-        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Полное наименование»
-        input  339×49 @0,27  r11  b1  clipped
-        p.Field__hint  339×39 @0,83  Manrope 400 13/19  lines=2  «Как в уставе, вместе с организационно-пр»
-      div.Field__field#3  339×103 @0,136
+      div.Field__field#2  694×150 @0,136
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Полное наименование»
+        textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Общество с ограниченной ответственностью»
+        p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Как в уставе, вместе с организационно-пр»
+      div.Field__field#3  339×103 @0,299
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Сокращённое наименование»
         input  339×49 @0,27  r11  b1
         p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «Им подписан футер и разметка организации»
-      div.Field__field#4  339×76 @355,136
+      div.Field__field#4  339×76 @355,299
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
         input  339×49 @0,27  r11  b1
-      div.Field__field#5  339×103 @0,252
+      div.Field__field#5  339×103 @0,416
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «КПП»
         input  339×49 @0,27  r11  b1
         p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#6  339×76 @355,252
+      div.Field__field#6  339×76 @355,416
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «ОГРН»
         input  339×49 @0,27  r11  b1
-      div.Field__field#7  339×103 @0,369
-        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Место нахождения»
-        input  339×49 @0,27  r11  b1
-        p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «Адрес организации из реестра. Показывает»
-      div.Field__field#8  339×103 @355,369
+      div.Field__field#7  694×150 @0,532
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Место нахождения»
+        textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «г. Тула, пр-т Ленина, д. 1, офис 3»
+        p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Адрес организации из реестра. Показывает»
+      div.Field__field#8  339×103 @0,696
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Руководитель»
         input  339×49 @0,27  r11  b1
         p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#9  339×103 @0,485
+      div.Field__field#9  339×103 @355,696
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Должность руководителя»
         input  339×49 @0,27  r11  b1
         p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#10  339×103 @355,485
-        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Банк»
-        input  339×49 @0,27  r11  b1  clipped
-        p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#11  339×103 @0,602
+      div.Field__field#10  694×150 @0,812
+        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Банк»
+        textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Тульское отделение № 8604 ПАО Сбербанк»
+        p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
+      div.Field__field#11  339×103 @0,976
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «БИК»
         input  339×49 @0,27  r11  b1
         p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#12  339×122 @355,602
+      div.Field__field#12  339×122 @355,976
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Расчётный счёт»
         input  339×49 @0,27  r11  b1
         p.Field__hint  339×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится. Контрольный ключ с»
-      div.Field__field#13  339×103 @0,738
+      div.Field__field#13  339×103 @0,1112
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Корреспондентский счёт»
         input  339×49 @0,27  r11  b1
         p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-    div.SettingsForm__actions  694×44 @0,858
+    div.SettingsForm__actions  694×44 @0,1232
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
 
 [геометрия 1440]
-section.Card__card  1408×607 @16,16  r20  b1
+section.Card__card  1408×1233 @16,16  r20  b1
   h2.SettingsForm__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Реквизиты»
   p.SettingsForm__description  1366×45 @21,48  Manrope 400 15/22  lines=2  «Наименование, ИНН и сведения о регистрац»
-  form.SettingsForm__form  1366×475 @21,111
-    div.SettingsForm__fields  1366×413 @0,0
+  form.SettingsForm__form  1366×1101 @21,111
+    div.SettingsForm__fields  1366×1039 @0,0
       div.Field__field  260×141 @0,0
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Форма»
         span.Select__wrapper  260×49 @0,27
@@ -150,53 +150,53 @@ section.Card__card  1408×607 @16,16  r20  b1
             option#2  0×0 @-37,-154  Manrope 400 15/21  lines=0  «ООО»
           svg.Select__chevron  14×14 @232,18
         p.Field__hint  260×58 @0,83  Manrope 400 13/19  lines=3  «От неё зависят и состав полей, и проверк»
-      div.Field__field#2  260×122 @276,0
-        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Полное наименование»
-        input  260×49 @0,27  r11  b1  clipped
-        p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «Как в уставе, вместе с организационно-пр»
-      div.Field__field#3  260×122 @553,0
+      div.Field__field#2  1366×150 @0,155
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Полное наименование»
+        textarea.Textarea__textarea  1366×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Общество с ограниченной ответственностью»
+        p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «Как в уставе, вместе с организационно-пр»
+      div.Field__field#3  260×122 @0,319
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Сокращённое наименование»
         input  260×49 @0,27  r11  b1
         p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «Им подписан футер и разметка организации»
-      div.Field__field#4  260×76 @829,0
+      div.Field__field#4  260×76 @276,319
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
         input  260×49 @0,27  r11  b1
-      div.Field__field#5  260×122 @1106,0
+      div.Field__field#5  260×122 @553,319
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «КПП»
         input  260×49 @0,27  r11  b1
         p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#6  260×76 @0,155
+      div.Field__field#6  260×76 @829,319
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «ОГРН»
         input  260×49 @0,27  r11  b1
-      div.Field__field#7  260×122 @276,155
-        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Место нахождения»
-        input  260×49 @0,27  r11  b1
-        p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «Адрес организации из реестра. Показывает»
-      div.Field__field#8  260×122 @553,155
+      div.Field__field#7  1366×150 @0,455
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Место нахождения»
+        textarea.Textarea__textarea  1366×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «г. Тула, пр-т Ленина, д. 1, офис 3»
+        p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «Адрес организации из реестра. Показывает»
+      div.Field__field#8  260×122 @0,618
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Руководитель»
         input  260×49 @0,27  r11  b1
         p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#9  260×122 @829,155
+      div.Field__field#9  260×122 @276,618
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Должность руководителя»
         input  260×49 @0,27  r11  b1
         p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#10  260×122 @1106,155
-        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Банк»
-        input  260×49 @0,27  r11  b1  clipped
-        p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#11  260×122 @0,291
+      div.Field__field#10  1366×150 @0,754
+        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Банк»
+        textarea.Textarea__textarea  1366×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Тульское отделение № 8604 ПАО Сбербанк»
+        p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
+      div.Field__field#11  260×122 @0,918
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «БИК»
         input  260×49 @0,27  r11  b1
         p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#12  260×122 @276,291
+      div.Field__field#12  260×122 @276,918
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Расчётный счёт»
         input  260×49 @0,27  r11  b1
         p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится. Контрольный ключ с»
-      div.Field__field#13  260×122 @553,291
+      div.Field__field#13  260×122 @553,918
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Корреспондентский счёт»
         input  260×49 @0,27  r11  b1
         p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится: нужно для счетов и»
-    div.SettingsForm__actions  1366×44 @0,431
+    div.SettingsForm__actions  1366×44 @0,1057
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
@@ -217,7 +217,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
         p.Field__hint  color #556173
       div.Field__field#2
         label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
+        textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
         p.Field__hint  color #556173
       div.Field__field#3
         label.Field__label  color #334155
@@ -235,7 +235,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
         input  bg #ffffff  border #7e8fa6
       div.Field__field#7
         label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
+        textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
         p.Field__hint  color #556173
       div.Field__field#8
         label.Field__label  color #334155
@@ -247,7 +247,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
         p.Field__hint  color #556173
       div.Field__field#10
         label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
+        textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
         p.Field__hint  color #556173
       div.Field__field#11
         label.Field__label  color #334155
@@ -282,7 +282,7 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
         p.Field__hint  color #8598ac
       div.Field__field#2
         label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
+        textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
         p.Field__hint  color #8598ac
       div.Field__field#3
         label.Field__label  color #c9d5e2
@@ -300,7 +300,7 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
         input  bg #0b1424  border #566d95
       div.Field__field#7
         label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
+        textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
         p.Field__hint  color #8598ac
       div.Field__field#8
         label.Field__label  color #c9d5e2
@@ -312,7 +312,7 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
         p.Field__hint  color #8598ac
       div.Field__field#10
         label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
+        textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
         p.Field__hint  color #8598ac
       div.Field__field#11
         label.Field__label  color #c9d5e2

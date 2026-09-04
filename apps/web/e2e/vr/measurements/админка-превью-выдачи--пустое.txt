@@ -1,0 +1,37 @@
+# админка-превью-выдачи--пустое · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Onest 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.SerpPreview__card  358×92 @16,16  r14  b1
+  p.SerpPreview__crumbs  332×19 @13,13  JetBrains Mono 400 12/19  lines=1  «example.test ›»
+  p.SerpPreview__title  332×20 @13,36  Onest 400 15/20  lines=1  «Демо-стенд»
+  p.SerpPreview__description  332×20 @13,60  Manrope 400 13/20  lines=1  «Описание соберётся из анонса, пока своег»
+
+[геометрия 768]
+div.SerpPreview__card  736×92 @16,16  r14  b1
+  p.SerpPreview__crumbs  710×19 @13,13  JetBrains Mono 400 12/19  lines=1  «example.test ›»
+  p.SerpPreview__title  710×20 @13,36  Onest 400 15/20  lines=1  «Демо-стенд»
+  p.SerpPreview__description  710×20 @13,60  Manrope 400 13/20  lines=1  «Описание соберётся из анонса, пока своег»
+
+[геометрия 1440]
+div.SerpPreview__card  1408×92 @16,16  r14  b1
+  p.SerpPreview__crumbs  1382×19 @13,13  JetBrains Mono 400 12/19  lines=1  «example.test ›»
+  p.SerpPreview__title  1382×20 @13,36  Onest 400 15/20  lines=1  «Демо-стенд»
+  p.SerpPreview__description  1382×20 @13,60  Manrope 400 13/20  lines=1  «Описание соберётся из анонса, пока своег»
+
+[палитра light]
+div.SerpPreview__card  bg #ffffff  border #e2e8f0
+  p.SerpPreview__crumbs  color #166534
+  p.SerpPreview__title  color #0e7490
+  p.SerpPreview__description  color #5b6a7d
+
+[палитра dark]
+div.SerpPreview__card  bg #0b1220  border #1e2b41
+  p.SerpPreview__crumbs  color #4ade80
+  p.SerpPreview__title  color #22d3ee
+  p.SerpPreview__description  color #7e92a7

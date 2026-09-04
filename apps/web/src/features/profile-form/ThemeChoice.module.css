@@ -27,6 +27,17 @@
     color var(--dur-fast) ease;
 }
 
+/* 🔴 Пол цели на сенсорной раскладке (issue #375, ADR-183): до 900px по
+   варианту темы целятся пальцем, а строка кегля с отбивкой даёт 37px при
+   норме 44. */
+@media (width < 900px) {
+  .option {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+}
+
 .option:hover {
   border-color: var(--accent-ink);
   color: var(--accent-text);
