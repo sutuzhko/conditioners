@@ -32,9 +32,21 @@ async function fillAndSend(canvasElement: HTMLElement): Promise<void> {
   const canvas = within(canvasElement);
 
   await userEvent.type(canvas.getByLabelText(/Имя/), 'Ирина');
-  await userEvent.type(canvas.getByLabelText(/Телефон/), '+7 900 123-45-67');
+  /* 🔴 Цифры без разделителей — то, что человек и набирает в поле с маской:
+   маска сама ставит «+7 (», скобки и дефисы. Набор вместе с «+7 » удваивал
+   префикс, поле переставляло каретку на каждом знаке, и итог зависел от
+   того, сколько знаков успело обработаться, — снимок такой истории не
+   совпадал сам с собой (#526). */
+  await userEvent.type(canvas.getByLabelText(/Телефон/), '9001234567');
   await userEvent.click(canvas.getByRole('checkbox'));
   await userEvent.click(canvas.getByRole('button', { name: texts.submit }));
+
+  /* 🔴 Фокус снимается с кнопки после отправки: кольцо `:focus-visible`
+     браузер рисует по своей догадке о том, клавиатурный был ввод или нет, и
+     на одной и той же истории оно то есть, то нет — снимок и измерение
+     расходились сами с собой (#526). Человеку это ничего не меняет: после
+     отправки он смотрит на ответ, а не на кнопку. */
+  (document.activeElement as HTMLElement | null)?.blur();
 }
 
 const meta = {
