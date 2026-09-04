@@ -595,8 +595,14 @@ div.Card__card  bg #121d31  border transparent  shadow #00000080 0px 40px 80px -
       input  bg #ffffff  border #767676
     div.LeadForm__failure  bg #fb71851f  border #fb718580
       p.LeadForm__failureText  color #fb7185
-    button.Button__button  bg #0e7490  border #0e7490  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
       span.Button__content
         span.Button__label  color #ffffff
     p.LeadForm__callInstead  color #fb7185
       a.LeadForm__callPhone  color #22d3ee
+[палитра dark @320]
+div.Card__card > form.LeadForm__form > button.Button__button  bg #0e7490  border #0e7490  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+[палитра dark @375]
+div.Card__card > form.LeadForm__form > button.Button__button  bg #0e7490  border #0e7490  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+[палитра dark @768]
+div.Card__card > form.LeadForm__form > button.Button__button  bg #0e7490  border #0e7490  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
