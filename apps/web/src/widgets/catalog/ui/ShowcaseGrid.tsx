@@ -3,14 +3,21 @@
 import { useState, type ReactNode } from 'react';
 
 import { catalogText } from '../content';
+import { showcaseReveal } from '../model';
 import gridStyles from './grid.module.css';
 import styles from './ShowcaseGrid.module.css';
 
 export interface ShowcaseGridProps {
   /** Карточки целиком — их рисует сервер, сюда они приезжают готовыми. */
   readonly children: ReactNode;
-  /** Сколько моделей осталось за ограничением: 0 — кнопки нет вовсе. */
-  readonly hiddenCount: number;
+  /**
+   * Сколько карточек в списке — всех, а не оставшихся за пределом.
+   *
+   * 🔴 Именно всех (issue #552): остаток зависит от того, сколько карточек
+   * показано, а это число разное на разных ширинах. Сервер ширины не знает и
+   * знать не должен (инвариант 1), поэтому считать остаток ему нечем.
+   */
+  readonly total: number;
   /** Имя списка для скринридера: без него это безымянный список из карточек. */
   readonly label: string;
 }
@@ -34,11 +41,18 @@ const LIST_ID = 'showcase-models';
  * Кнопка остаётся на месте после раскрытия и сворачивает список обратно:
  * исчезающая кнопка уносит с собой фокус, и человек с клавиатуры оказывается
  * в начале документа.
+ *
+ * 🔴 Подпись кнопки называет весь список, а не остаток (issue #552). Пока в
+ * ней стояло «Ещё N», число N зависело от того, сколько карточек показано, —
+ * а показано их разное количество на разных ширинах, и серверное N было
+ * верным не везде. Развязав подпись от предела, витрина смогла гасить
+ * карточки по порогам и не оставлять последний ряд неполным.
  */
-export function ShowcaseGrid({ children, hiddenCount, label }: ShowcaseGridProps) {
+export function ShowcaseGrid({ children, total, label }: ShowcaseGridProps) {
   const [open, setOpen] = useState(false);
+  const reveal = showcaseReveal(total);
 
-  if (hiddenCount <= 0) {
+  if (reveal === 'none') {
     return (
       <ul id={LIST_ID} className={gridStyles.grid} aria-label={label}>
         {children}
@@ -55,7 +69,11 @@ export function ShowcaseGrid({ children, hiddenCount, label }: ShowcaseGridProps
       >
         {children}
       </ul>
-      <div className={styles.row}>
+      {/* 🔴 Ряд помечен диапазоном, а не спрятан здесь: где именно кнопка
+          нужна, зависит от ширины окна, а разметку собирает сервер
+          (инвариант 1). Атрибут говорит стилю, убирать ли кнопку там, где
+          показаны уже все карточки. */}
+      <div className={styles.row} data-reveal={reveal}>
         <button
           type="button"
           className={styles.more}
@@ -65,7 +83,7 @@ export function ShowcaseGrid({ children, hiddenCount, label }: ShowcaseGridProps
         >
           {/* 🔴 Число берётся из данных, а не пишется: моделей на витрине
               столько, сколько владелец вынес флагом `featured` (ADR-109). */}
-          {open ? catalogText.collapse : catalogText.moreModels(hiddenCount)}
+          {open ? catalogText.collapse : catalogText.showAll(total)}
         </button>
       </div>
     </>
