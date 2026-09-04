@@ -106,7 +106,9 @@
   min-width: 0;
 }
 
-/* Место под причину отказа: поле придёт (issue #522), вид не переверстается. */
+/* Причина отказа: подпись, сам текст и автор решения — одной строкой, пока
+   помещаются, и в столбик, когда нет. Перенос по словам, а не по буквам:
+   причину пишет человек, и её читают. */
 .reason {
   display: flex;
   flex-wrap: wrap;
@@ -124,6 +126,18 @@
 .reasonMissing {
   color: var(--faint);
   font-style: italic;
+}
+
+.reasonText {
+  min-width: 0;
+  color: var(--ink2);
+  overflow-wrap: anywhere;
+}
+
+/* Кто и когда — тише самой причины: это подпись под решением, а не решение. */
+.reasonBy {
+  color: var(--faint);
+  white-space: nowrap;
 }
 
 .note {

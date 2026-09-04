@@ -43,7 +43,16 @@ export function useDialog({ open, onClose, containerRef }: DialogOptions): Dialo
     opener.current = previous instanceof HTMLElement ? previous : null;
 
     const container = containerRef.current;
-    const first = container?.querySelector<HTMLElement>(FOCUSABLE);
+
+    /* 🔴 Окно, которое существует ради ввода, открывается с фокусом в поле —
+       так же ведёт себя нативный <dialog> с `autofocus`. Пометка нужна явная:
+       React атрибут `autofocus` в DOM не выводит, а фокусирует узел сам, и
+       эффект окна успевал забрать фокус обратно на крестик.
+
+       Умолчание не меняется: без пометки фокус по-прежнему уходит на первый
+       элемент — крестик закрытия, — и действием по умолчанию остаётся отказ. */
+    const requested = container?.querySelector<HTMLElement>('[data-autofocus]');
+    const first = requested ?? container?.querySelector<HTMLElement>(FOCUSABLE);
     (first ?? container)?.focus();
   }, [open, containerRef]);
 

@@ -48,6 +48,7 @@ const stored = {
   photo: null,
   avatar: null,
   status: 'pending' as const,
+  reject: null,
   createdAt: '2026-08-01T10:00:00.000Z',
 };
 
@@ -128,7 +129,7 @@ describe('смена статуса', () => {
     );
 
     expect(response.status).toBe(200);
-    expect(reviews.setStatus).toHaveBeenCalledWith('r5', 'approved');
+    expect(reviews.setStatus).toHaveBeenCalledWith('r5', { status: 'approved' }, 'u1');
   });
 
   it('без сессии статус не меняется', async () => {
@@ -204,8 +205,58 @@ describe('текст отзыва изменить нельзя', () => {
       context('r5'),
     );
 
-    expect(reviews.setStatus).toHaveBeenCalledWith('r5', 'archived');
-    expect(vi.mocked(reviews.setStatus).mock.calls[0]).toHaveLength(2);
+    expect(reviews.setStatus).toHaveBeenCalledWith('r5', { status: 'archived' }, 'u1');
+    expect(vi.mocked(reviews.setStatus).mock.calls[0]).toHaveLength(3);
+  });
+});
+
+/** 🔴 ADR-300: отклонить, не объяснив, нельзя — ни из панели, ни мимо неё. */
+describe('отказ без причины не принимается', () => {
+  const reject = (body: Record<string, unknown>) =>
+    PATCH(
+      request('/api/admin/reviews/r5/status', {
+        method: 'PATCH',
+        body: JSON.stringify(body),
+        headers: { 'content-type': 'application/json' },
+      }),
+      context('r5'),
+    );
+
+  it('статус rejected без поля причины — 400', async () => {
+    expect((await reject({ status: 'rejected' })).status).toBe(400);
+    expect(reviews.setStatus).not.toHaveBeenCalled();
+  });
+
+  it('отговорка в два слова причиной не считается', async () => {
+    expect((await reject({ status: 'rejected', reason: 'спам' })).status).toBe(400);
+    expect(reviews.setStatus).not.toHaveBeenCalled();
+  });
+
+  it('причина с пробелами по краям обрезается, а не проходит длиной', async () => {
+    expect((await reject({ status: 'rejected', reason: '   спам    ' })).status).toBe(400);
+    expect(reviews.setStatus).not.toHaveBeenCalled();
+  });
+
+  it('причина уходит в репозиторий вместе с автором решения', async () => {
+    vi.mocked(reviews.setStatus).mockResolvedValue({
+      ...stored,
+      status: 'rejected',
+      reject: { reason: 'Реклама конкурента', by: 'admin', at: '2026-09-04T09:00:00.000Z' },
+    });
+
+    const response = await reject({ status: 'rejected', reason: 'Реклама конкурента' });
+
+    expect(response.status).toBe(200);
+    expect(reviews.setStatus).toHaveBeenCalledWith(
+      'r5',
+      { status: 'rejected', reason: 'Реклама конкурента' },
+      'u1',
+    );
+  });
+
+  it('🔴 причина к одобрению не приделывается: это не поле на все случаи', async () => {
+    expect((await reject({ status: 'approved', reason: 'Хороший отзыв' })).status).toBe(400);
+    expect(reviews.setStatus).not.toHaveBeenCalled();
   });
 });
 

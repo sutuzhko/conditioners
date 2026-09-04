@@ -67,30 +67,12 @@ export function Footer({
           {tagline === '' ? null : <p className={styles.tagline}>{tagline}</p>}
         </div>
 
-        {nav.length === 0 ? null : (
-          <nav
-            className={[styles.column, styles.nav].join(' ')}
-            aria-label={footerContent.navLabel}
-          >
-            <h2 className={styles.columnTitle}>{footerContent.navTitle}</h2>
-            {/* Навигация сеткой, а не столбцом: семь пунктов в один столбец
-                на телефоне занимают экран целиком (issue #283). */}
-            <ul className={[styles.list, styles.navList].join(' ')}>
-              {nav.map((item) => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    className={styles.link}
-                    aria-current={item.current === true ? 'page' : undefined}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
-
+        {/* 🔴 Контакты стоят до навигации, потому что сеткой они стоят левее и
+            выше её (issue #536). Порядок разметки — это порядок обхода с
+            клавиатуры, и с 900 он расходился с порядком чтения: фокус доходил
+            до «Контакты» в третьей колонке и прыгал обратно к телефонам в
+            первую. Это WCAG 2.4.3, уровень A. Местами блоки не менять: сетка
+            расставляет их явно, а разметка отвечает за обход. */}
         <section className={[styles.column, styles.contacts].join(' ')}>
           <h2 className={styles.columnTitle}>{footerContent.contactsTitle}</h2>
           <ul className={styles.list}>
@@ -120,6 +102,30 @@ export function Footer({
             {hours === '' ? null : <li className={styles.text}>{hours}</li>}
           </ul>
         </section>
+
+        {nav.length === 0 ? null : (
+          <nav
+            className={[styles.column, styles.nav].join(' ')}
+            aria-label={footerContent.navLabel}
+          >
+            <h2 className={styles.columnTitle}>{footerContent.navTitle}</h2>
+            {/* Навигация сеткой, а не столбцом: семь пунктов в один столбец
+                на телефоне занимают экран целиком (issue #283). */}
+            <ul className={[styles.list, styles.navList].join(' ')}>
+              {nav.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className={styles.link}
+                    aria-current={item.current === true ? 'page' : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
 
         {hasLegal ? (
           <section className={[styles.column, styles.legal].join(' ')}>

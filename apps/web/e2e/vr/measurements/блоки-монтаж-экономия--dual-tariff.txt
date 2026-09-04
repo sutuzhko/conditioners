@@ -421,7 +421,7 @@ section.SavingsBlock__section  bg #ffffff
           p.SavingsCalculator__totalLine
             span.SavingsCalculator__totalLabel  color #556173
             span.SavingsCalculator__totalValue  color #0e7490
-          p.SavingsCalculator__totalHorizon  color #5b6a7d
+          p.SavingsCalculator__totalHorizon  color #475569
     p.SavingsBlock__disclaimer  color #475569
 [палитра light @320]
 section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #5b6a7d
@@ -519,7 +519,7 @@ section.SavingsBlock__section  bg #0b1220
           p.SavingsCalculator__totalLine
             span.SavingsCalculator__totalLabel  color #8598ac
             span.SavingsCalculator__totalValue  color #22d3ee
-          p.SavingsCalculator__totalHorizon  color #7e92a7
+          p.SavingsCalculator__totalHorizon  color #a8b6c6
     p.SavingsBlock__disclaimer  color #a8b6c6
 [палитра dark @320]
 section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #7e92a7

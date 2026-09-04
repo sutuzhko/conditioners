@@ -27,24 +27,46 @@ export const REVIEW_STATUS_VARIANT: Record<ReviewStatus, BadgeVariant> = {
   archived: 'neutral',
 };
 
+/** Причина короче этого ничего не объясняет: «нет» и «спам» — не причины. */
+export const REJECT_REASON_MIN = 10;
+/** Причина — не переписка: длинное объяснение место автору отзыва, а не полю. */
+export const REJECT_REASON_MAX = 500;
+
+const REASON_REQUIRED = `Объясните отказ — не меньше ${REJECT_REASON_MIN} символов`;
+const REASON_TOO_LONG = `Причина длиннее ${REJECT_REASON_MAX} символов не сохранится`;
+
+export const rejectReasonSchema = z
+  .string()
+  .trim()
+  .min(REJECT_REASON_MIN, REASON_REQUIRED)
+  .max(REJECT_REASON_MAX, REASON_TOO_LONG);
+
 /**
- * Модератор переводит отзыв в один из трёх конечных статусов.
+ * Модератор переводит отзыв в один из четырёх статусов.
  *
- * 🔴 Схема строгая и ровно с одним полем: попытка прислать `text`, `name` или
- * `rating` заканчивается 400, а не молчаливым игнорированием. Редактируемый
- * отзыв — не отзыв (инвариант 7).
+ * 🔴 Схема строгая: попытка прислать `text`, `name` или `rating` заканчивается
+ * 400, а не молчаливым игнорированием. Редактируемый отзыв — не отзыв
+ * (инвариант 7). Причина отказа инварианту не противоречит — она относится к
+ * решению модератора, а не к словам автора, и лежит отдельным полем.
+ *
+ * 🔴 Различение по статусу, а не одно необязательное поле на все случаи
+ * (ADR-300): при отказе причина обязательна, при остальных переходах её
+ * присылать нельзя. Необязательное поле «причина» рядом с «опубликовать»
+ * означало бы, что отказ без объяснения — тоже вариант, а он не вариант:
+ * спор с автором отзыва разрешать было бы нечем.
  */
-export const reviewModerationSchema = z
-  .object({
+export const reviewModerationSchema = z.discriminatedUnion(
+  'status',
+  [
+    z.object({ status: z.literal('rejected'), reason: rejectReasonSchema }).strict(),
     /* 🔴 `pending` в списке намеренно: модератор должен уметь вернуть отзыв
        в очередь — например, когда ошибся кнопкой или решил перечитать. Без
        этого одобренный отзыв нельзя было снять с публикации иначе, чем
        отклонить, а это разные вещи. */
-    status: z.enum(['pending', 'approved', 'rejected', 'archived'], {
-      errorMap: () => ({ message: 'Неизвестный статус отзыва' }),
-    }),
-  })
-  .strict();
+    z.object({ status: z.enum(['pending', 'approved', 'archived']) }).strict(),
+  ],
+  { errorMap: () => ({ message: 'Неизвестный статус отзыва' }) },
+);
 
 export type ReviewModeration = z.infer<typeof reviewModerationSchema>;
 

@@ -12,6 +12,7 @@ import {
 import {
   moderatorName,
   parseModerationCommand,
+  telegramRejectReason,
   telegramUpdateSchema,
   type TelegramChatMessage,
 } from '@/server/notifications/moderation';
@@ -20,6 +21,7 @@ import {
   listDeliveryTargets,
   unbindTelegramChat,
 } from '@/server/repo/admin-users';
+import type { ReviewModeration } from '@/entities/review/model';
 import { setStatus } from '@/server/repo/reviews';
 import { revalidateReviews } from '@/server/revalidate';
 import { env } from '@/shared/config/env';
@@ -96,8 +98,16 @@ export async function POST(request: Request): Promise<Response> {
     return json({ ok: true }, 200, NO_STORE);
   }
 
+  /* Отказ обязан нести причину (ADR-300), а кнопка её не собирает — канал
+     складывает её сам и честно называет себя. Кто нажал, известен здесь и
+     нигде дальше: `rejectedById` у телеграм-отказа пуст. */
+  const moderation: ReviewModeration =
+    command.status === 'rejected'
+      ? { status: 'rejected', reason: telegramRejectReason(moderatorName(query.from)) }
+      : { status: command.status };
+
   try {
-    await setStatus(command.reviewId, command.status);
+    await setStatus(command.reviewId, moderation, null);
     revalidateReviews();
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
