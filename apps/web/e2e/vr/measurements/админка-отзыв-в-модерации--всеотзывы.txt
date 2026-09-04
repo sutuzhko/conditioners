@@ -1,4 +1,4 @@
-# админка-отзыв-в-модерации--намодерации · ширины 390 768 1440 · темы light dark
+# админка-отзыв-в-модерации--всеотзывы · ширины 390 768 1440 · темы light dark
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
@@ -22,15 +22,12 @@ article.Card__card  358×300 @16,16  r20  b1
           svg.Rating__star#4  20×20 @78,0
           svg.Rating__star#5  20×20 @104,0
           span.Rating__caption  83×20 @134,0  Manrope 400 13/20  lines=1  «Оценка 5 из 5»
-        span.Badge__badge  104×24 @0,53  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
+        span.Badge__badge  98×24 @0,53  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
       time.ReviewCardView__when  256×20 @0,81  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
     div.ReviewCardView__actions  316×44 @0,111
-      button.Button__button  154×44 @0,0  r9  b1
-        span.Button__content  91×16 @32,14
-          span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Опубликовать»
-      button.Button__button#2  154×44 @162,0  r9  b1
-        span.Button__content  69×16 @43,14
-          span.Button__label#2  69×16 @0,0  Manrope 600 13/16  lines=1  «Отклонить»
+      button.Button__button  316×44 @0,0  r9  b1
+        span.Button__content  88×16 @114,14
+          span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
   div.ReviewCardView__body  316×91 @21,188
     blockquote.ReviewCardView__text  316×91 @0,0  Manrope 400 15/22  b0 0 0 3  lines=3  «Приехали в тот же день, смету назвали за»
 
@@ -50,15 +47,12 @@ article.Card__card  736×203 @16,16  r20  b1
           svg.Rating__star#4  20×20 @78,0
           svg.Rating__star#5  20×20 @104,0
           span.Rating__caption  83×20 @134,0  Manrope 400 13/20  lines=1  «Оценка 5 из 5»
-        span.Badge__badge  104×24 @310,0  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
+        span.Badge__badge  98×24 @310,0  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
       time.ReviewCardView__when  634×20 @0,28  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
     div.ReviewCardView__actions  694×44 @0,58
-      button.Button__button  343×44 @0,0  r9  b1
-        span.Button__content  91×16 @126,14
-          span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Опубликовать»
-      button.Button__button#2  343×44 @351,0  r9  b1
-        span.Button__content  69×16 @137,14
-          span.Button__label#2  69×16 @0,0  Manrope 600 13/16  lines=1  «Отклонить»
+      button.Button__button  694×44 @0,0  r9  b1
+        span.Button__content  88×16 @303,14
+          span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
   div.ReviewCardView__body  694×46 @21,135
     blockquote.ReviewCardView__text  694×46 @0,0  Manrope 400 15/22  b0 0 0 3  lines=1  «Приехали в тот же день, смету назвали за»
 
@@ -68,8 +62,8 @@ article.Card__card  1408×149 @16,16  r20  b1
     span.Avatar__avatar  48×48 @0,0  r100  b1
       span.Avatar__initials  12×16 @18,16  Onest 700 16/16  ls0  lines=1  «А»
       span  1×1 @24,24  Onest 700 16/16  lines=1  clipped  «Алексей»
-    div.ReviewCardView__who  1067×48 @60,0
-      div.ReviewCardView__line  1067×24 @0,0
+    div.ReviewCardView__who  1176×48 @60,0
+      div.ReviewCardView__line  1176×24 @0,0
         h2.ReviewCardView__name  77×23 @0,1  Onest 700 19/23  ls0  lines=1  «Алексей»
         span.Rating__stars  217×20 @87,2
           svg.Rating__star  20×20 @0,0
@@ -78,15 +72,12 @@ article.Card__card  1408×149 @16,16  r20  b1
           svg.Rating__star#4  20×20 @78,0
           svg.Rating__star#5  20×20 @104,0
           span.Rating__caption  83×20 @134,0  Manrope 400 13/20  lines=1  «Оценка 5 из 5»
-        span.Badge__badge  104×24 @314,0  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
-      time.ReviewCardView__when  1067×20 @0,28  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
-    div.ReviewCardView__actions  227×40 @1139,0
-      button.Button__button  121×40 @0,0  r9  b1
-        span.Button__content  91×16 @15,12
-          span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Опубликовать»
-      button.Button__button#2  99×40 @129,0  r9  b1
-        span.Button__content  69×16 @15,12
-          span.Button__label#2  69×16 @0,0  Manrope 600 13/16  lines=1  «Отклонить»
+        span.Badge__badge  98×24 @314,0  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
+      time.ReviewCardView__when  1176×20 @0,28  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
+    div.ReviewCardView__actions  118×40 @1248,0
+      button.Button__button  118×40 @0,0  r9  b1
+        span.Button__content  88×16 @15,12
+          span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
   div.ReviewCardView__body  1366×46 @21,81
     blockquote.ReviewCardView__text  1134×46 @0,0  Manrope 400 15/22  b0 0 0 3  lines=1  «Приехали в тот же день, смету назвали за»
 
@@ -106,15 +97,12 @@ article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
           svg.Rating__star#4
           svg.Rating__star#5
           span.Rating__caption  color #556173
-        span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+        span.Badge__badge  color #166534  bg #15803d14  border #15803d47
       time.ReviewCardView__when  color #5b6a7d
     div.ReviewCardView__actions
-      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      button.Button__button  bg #ffffff  border #7e8fa6
         span.Button__content
-          span.Button__label  color #ffffff
-      button.Button__button#2  bg #ffffff  border #7e8fa6
-        span.Button__content
-          span.Button__label#2  color #0f172a
+          span.Button__label  color #0f172a
   div.ReviewCardView__body
     blockquote.ReviewCardView__text  color #475569  bg #f8fafc  border #475569 #475569 #475569 #cbd5e1
 
@@ -134,14 +122,11 @@ article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
           svg.Rating__star#4
           svg.Rating__star#5
           span.Rating__caption  color #8598ac
-        span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+        span.Badge__badge  color #4ade80  bg #4ade801f  border #4ade8052
       time.ReviewCardView__when  color #7e92a7
     div.ReviewCardView__actions
-      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      button.Button__button  bg #121d31  border #566d95
         span.Button__content
-          span.Button__label  color #ffffff
-      button.Button__button#2  bg #121d31  border #566d95
-        span.Button__content
-          span.Button__label#2  color #eaf1f8
+          span.Button__label  color #eaf1f8
   div.ReviewCardView__body
     blockquote.ReviewCardView__text  color #a8b6c6  bg #0e1729  border #a8b6c6 #a8b6c6 #a8b6c6 #2c3d59

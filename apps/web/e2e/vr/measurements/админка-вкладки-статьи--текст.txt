@@ -1,0 +1,37 @@
+# админка-вкладки-статьи--текст · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+nav.ArticleTabs__tabs  358×44 @16,16
+  a.ArticleTabs__tab  61×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Текст»
+  a.ArticleTabs__tab#2  51×44 @67,0  Manrope 600 13/20  r100  b1  lines=1  «SEO»
+  a.ArticleTabs__tab#3  103×44 @125,0  Manrope 600 13/20  r100  b1  lines=1  «Публикация»
+
+[геометрия 768]
+nav.ArticleTabs__tabs  736×44 @16,16
+  a.ArticleTabs__tab  61×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Текст»
+  a.ArticleTabs__tab#2  51×44 @67,0  Manrope 600 13/20  r100  b1  lines=1  «SEO»
+  a.ArticleTabs__tab#3  103×44 @125,0  Manrope 600 13/20  r100  b1  lines=1  «Публикация»
+
+[геометрия 1440]
+nav.ArticleTabs__tabs  1408×34 @16,16
+  a.ArticleTabs__tab  61×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Текст»
+  a.ArticleTabs__tab#2  51×34 @67,0  Manrope 600 13/20  r100  b1  lines=1  «SEO»
+  a.ArticleTabs__tab#3  103×34 @125,0  Manrope 600 13/20  r100  b1  lines=1  «Публикация»
+
+[палитра light]
+nav.ArticleTabs__tabs
+  a.ArticleTabs__tab  color #0e7490  bg #ecfeff  border #0891b2
+  a.ArticleTabs__tab#2  color #475569  border #e2e8f0
+  a.ArticleTabs__tab#3  color #475569  border #e2e8f0
+
+[палитра dark]
+nav.ArticleTabs__tabs
+  a.ArticleTabs__tab  color #22d3ee  bg #22d3ee1a  border #22d3ee
+  a.ArticleTabs__tab#2  color #a8b6c6  border #1e2b41
+  a.ArticleTabs__tab#3  color #a8b6c6  border #1e2b41

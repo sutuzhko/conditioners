@@ -9,7 +9,8 @@
 [геометрия 390]
 h2.DeliveryAddresses__title  358×21 @16,16  Onest 700 17/21  ls0  lines=1  «Адреса доставки»
 p.DeliveryAddresses__hint  358×90 @16,43  Manrope 400 15/22  lines=4  «Наряд, изменение вводных и отмена уходят»
-ul.DeliveryAddresses__list  358×556 @16,142
+p.DeliveryAddresses__hint#2  358×67 @16,142  Manrope 400 15/22  lines=3  «Код привязки диктуют человеку: он отправ»
+ul.DeliveryAddresses__list  358×556 @16,220
   div.Card__card  358×258 @0,0  r20  b1
     div.DeliveryAddresses__head  267×24 @21,21
       span.DeliveryAddresses__name  62×23 @0,0  Manrope 600 15/23  lines=1  «Алексей»
@@ -46,7 +47,8 @@ ul.DeliveryAddresses__list  358×556 @16,142
 [геометрия 768]
 h2.DeliveryAddresses__title  736×22 @16,16  Onest 700 18/22  ls0  lines=1  «Адреса доставки»
 p.DeliveryAddresses__hint  637×67 @16,44  Manrope 400 15/22  lines=3  «Наряд, изменение вводных и отмена уходят»
-ul.DeliveryAddresses__list  736×421 @16,121
+p.DeliveryAddresses__hint#2  637×45 @16,121  Manrope 400 15/22  lines=2  «Код привязки диктуют человеку: он отправ»
+ul.DeliveryAddresses__list  736×421 @16,176
   div.Card__card  736×206 @0,0  r20  b1
     div.DeliveryAddresses__head  267×24 @21,21
       span.DeliveryAddresses__name  62×23 @0,0  Manrope 600 15/23  lines=1  «Алексей»
@@ -83,7 +85,8 @@ ul.DeliveryAddresses__list  736×421 @16,121
 [геометрия 1440]
 h2.DeliveryAddresses__title  1408×23 @16,16  Onest 700 19/23  ls0  lines=1  «Адреса доставки»
 p.DeliveryAddresses__hint  637×67 @16,45  Manrope 400 15/22  lines=3  «Наряд, изменение вводных и отмена уходят»
-ul.DeliveryAddresses__list  1408×413 @16,122
+p.DeliveryAddresses__hint#2  637×45 @16,122  Manrope 400 15/22  lines=2  «Код привязки диктуют человеку: он отправ»
+ul.DeliveryAddresses__list  1408×413 @16,177
   div.Card__card  1408×202 @0,0  r20  b1
     div.DeliveryAddresses__head  267×24 @21,21
       span.DeliveryAddresses__name  62×23 @0,0  Manrope 600 15/23  lines=1  «Алексей»
@@ -120,6 +123,7 @@ ul.DeliveryAddresses__list  1408×413 @16,122
 [палитра light]
 h2.DeliveryAddresses__title  color #0f172a
 p.DeliveryAddresses__hint  color #556173
+p.DeliveryAddresses__hint#2  color #556173
 ul.DeliveryAddresses__list
   div.Card__card  bg #f8fafc  border #eef2f6
     div.DeliveryAddresses__head
@@ -157,6 +161,7 @@ ul.DeliveryAddresses__list
 [палитра dark]
 h2.DeliveryAddresses__title  color #eaf1f8
 p.DeliveryAddresses__hint  color #8598ac
+p.DeliveryAddresses__hint#2  color #8598ac
 ul.DeliveryAddresses__list
   div.Card__card  bg #0e1729  border #182338
     div.DeliveryAddresses__head

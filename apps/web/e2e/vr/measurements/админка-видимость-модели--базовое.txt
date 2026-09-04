@@ -1,0 +1,52 @@
+# админка-видимость-модели--базовое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.VisibilitySwitch__root  358×20 @16,16
+  div.Switch__root  86×20 @0,0
+    div.Switch__row  86×20 @0,0
+      label.Switch__track  34×20 @0,0  r100  b1
+        span.Switch__thumb  14×14 @19,3  r100
+      input.Switch__input  1×1 @0,10
+      label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+
+[геометрия 768]
+div.VisibilitySwitch__root  736×20 @16,16
+  div.Switch__root  86×20 @0,0
+    div.Switch__row  86×20 @0,0
+      label.Switch__track  34×20 @0,0  r100  b1
+        span.Switch__thumb  14×14 @19,3  r100
+      input.Switch__input  1×1 @0,10
+      label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+
+[геометрия 1440]
+div.VisibilitySwitch__root  1408×20 @16,16
+  div.Switch__root  86×20 @0,0
+    div.Switch__row  86×20 @0,0
+      label.Switch__track  34×20 @0,0  r100  b1
+        span.Switch__thumb  14×14 @19,3  r100
+      input.Switch__input  1×1 @0,10
+      label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+
+[палитра light]
+div.VisibilitySwitch__root
+  div.Switch__root
+    div.Switch__row
+      label.Switch__track  bg #0e7490  border #0e7490
+        span.Switch__thumb  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
+      input.Switch__input
+      label.Switch__label  color #0f172a
+
+[палитра dark]
+div.VisibilitySwitch__root
+  div.Switch__root
+    div.Switch__row
+      label.Switch__track  bg #0e7490  border #0e7490
+        span.Switch__thumb  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
+      input.Switch__input
+      label.Switch__label  color #eaf1f8

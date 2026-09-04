@@ -1,0 +1,294 @@
+# админка-статья--вкладкатекст · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+390 → 390×1215
+768 → 768×1129
+1440 → 1440×1124
+
+[геометрия 390]
+form.ArticleForm__form  358×1183 @16,16
+  div.ArticleForm__editor  358×1110 @0,0
+    section.Card__card  358×1110 @0,0  r20  b1
+      div.FormSection__head  316×24 @21,21
+        div.FormSection__titleRow  316×24 @0,0
+          h2.FormSection__title  45×21 @0,2  Onest 700 17/21  ls0  lines=1  «Текст»
+          span.ArticleForm__narrowOnly  0×0 @-37,-37
+            span.Badge__badge  72×24 @92,37  Manrope 600 12/16  r100  b1  lines=1  «На сайте»
+      div.ArticleForm__toolbar  316×44 @21,59
+        button.Button__button  47×44 @0,0  r9  b1
+          span.Button__content  17×16 @15,14
+            span.Button__label  17×16 @0,0  Manrope 600 13/16  lines=1  «H2»
+        button.Button__button#2  47×44 @53,0  r9  b1
+          span.Button__content  17×16 @15,14
+            span.Button__label#2  17×16 @0,0  Manrope 600 13/16  lines=1  «H3»
+        button.Button__button#3  44×44 @106,0  r9  b1
+          span.Button__content  12×16 @16,14
+            span.Button__label#3  12×16 @0,0  Manrope 700 13/16  lines=1  «Ж»
+        button.Button__button#4  77×44 @156,0  r9  b1
+          span.Button__content  47×16 @15,14
+            span.Button__label#4  47×16 @0,0  Manrope 600 13/16  lines=1  «Список»
+        button.Button__button#5  74×44 @238,0  r9  b1
+          span.Button__content  44×16 @15,14
+            span.Button__label#5  44×16 @0,0  Manrope 600 13/16  lines=1  «Врезка»
+      div.Field__field  316×76 @21,117
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок»
+          span.Field__required  9×18 @67,1  Manrope 600 13/20  lines=1  «*»
+        input  316×49 @0,27  r11  b1
+      div.Field__field#2  316×495 @21,207
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Текст статьи»
+          span.Field__required#2  9×18 @81,1  Manrope 600 13/20  lines=1  «*»
+        textarea.Textarea__textarea  316×402 @0,27  JetBrains Mono 400 13/21  r11  b1  lines=0  «## Коротко Инвертор дороже, но тише и эк»
+        p.Field__hint  316×58 @0,436  Manrope 400 13/19  lines=3  «Разметка: ## подзаголовок, ### подзаголо»
+      p.ArticleForm__missing  316×60 @21,716  Manrope 400 13/20  lines=3  «Ссылок, картинок внутри текста и таблиц»
+      section.ArticleForm__preview  316×299 @21,790  r20  b1
+        p.ArticleForm__previewHint  278×20 @19,17  Manrope 400 13/20  lines=1  «Так статью увидит посетитель»
+        pre  278×233 @19,49  monospace 400 15/23  lines=7  «## Коротко Инвертор дороже, но тише и эк»
+  div.ArticleForm__actions  358×59 @16,1140  b1 0 0 0  fixed
+    button.Button__button  115×44 @0,13  r11  b1
+      span.Button__content#2  77×17 @19,13
+        span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+    button.Button__button#2  150×44 @208,13  r11  b1
+      span.Button__content#2  112×17 @19,13
+        span.Button__label#2  112×17 @0,0  Manrope 600 15/17  lines=1  «Удалить статью»
+
+[геометрия 768]
+form.ArticleForm__form  736×1097 @16,16
+  div.ArticleForm__editor  736×1024 @0,0
+    section.Card__card  736×1024 @0,0  r20  b1
+      div.FormSection__head  694×24 @21,21
+        div.FormSection__titleRow  694×24 @0,0
+          h2.FormSection__title  48×22 @0,1  Onest 700 18/22  ls0  lines=1  «Текст»
+          span.ArticleForm__narrowOnly  0×0 @-37,-37
+            span.Badge__badge  72×24 @95,37  Manrope 600 12/16  r100  b1  lines=1  «На сайте»
+      div.ArticleForm__toolbar  694×44 @21,59
+        button.Button__button  47×44 @0,0  r9  b1
+          span.Button__content  17×16 @15,14
+            span.Button__label  17×16 @0,0  Manrope 600 13/16  lines=1  «H2»
+        button.Button__button#2  47×44 @53,0  r9  b1
+          span.Button__content  17×16 @15,14
+            span.Button__label#2  17×16 @0,0  Manrope 600 13/16  lines=1  «H3»
+        button.Button__button#3  44×44 @106,0  r9  b1
+          span.Button__content  12×16 @16,14
+            span.Button__label#3  12×16 @0,0  Manrope 700 13/16  lines=1  «Ж»
+        button.Button__button#4  77×44 @156,0  r9  b1
+          span.Button__content  47×16 @15,14
+            span.Button__label#4  47×16 @0,0  Manrope 600 13/16  lines=1  «Список»
+        button.Button__button#5  74×44 @238,0  r9  b1
+          span.Button__content  44×16 @15,14
+            span.Button__label#5  44×16 @0,0  Manrope 600 13/16  lines=1  «Врезка»
+      div.Field__field  622×76 @21,117
+        label.Field__label  622×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок»
+          span.Field__required  9×18 @67,1  Manrope 600 13/20  lines=1  «*»
+        input  622×49 @0,27  r11  b1
+      div.Field__field#2  622×475 @21,207
+        label.Field__label  622×20 @0,0  Manrope 600 13/20  lines=1  «Текст статьи»
+          span.Field__required#2  9×18 @81,1  Manrope 600 13/20  lines=1  «*»
+        textarea.Textarea__textarea  622×402 @0,27  JetBrains Mono 400 13/21  r11  b1  lines=0  «## Коротко Инвертор дороже, но тише и эк»
+        p.Field__hint  622×39 @0,436  Manrope 400 13/19  lines=2  «Разметка: ## подзаголовок, ### подзаголо»
+      p.ArticleForm__missing  539×40 @21,697  Manrope 400 13/20  lines=2  «Ссылок, картинок внутри текста и таблиц»
+      section.ArticleForm__preview  622×252 @21,751  r20  b1
+        p.ArticleForm__previewHint  584×20 @19,17  Manrope 400 13/20  lines=1  «Так статью увидит посетитель»
+        pre  584×186 @19,49  monospace 400 15/23  lines=5  «## Коротко Инвертор дороже, но тише и эк»
+  div.ArticleForm__actions  736×59 @16,1054  b1 0 0 0  fixed
+    button.Button__button  115×44 @0,13  r11  b1
+      span.Button__content#2  77×17 @19,13
+        span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+    button.Button__button#2  150×44 @586,13  r11  b1
+      span.Button__content#2  112×17 @19,13
+        span.Button__label#2  112×17 @0,0  Manrope 600 15/17  lines=1  «Удалить статью»
+
+[геометрия 1440]
+form.ArticleForm__form  1408×1092 @16,16
+  div.ArticleForm__editor  1408×1019 @0,0
+    section.Card__card  1094×1019 @0,0  r20  b1
+      div.FormSection__head  1052×23 @21,21
+        div.FormSection__titleRow  1052×23 @0,0
+          h2.FormSection__title  50×23 @0,0  Onest 700 19/23  ls0  lines=1  «Текст»
+      div.ArticleForm__toolbar  1052×40 @21,58
+        button.Button__button  47×40 @0,0  r9  b1
+          span.Button__content  17×16 @15,12
+            span.Button__label  17×16 @0,0  Manrope 600 13/16  lines=1  «H2»
+        button.Button__button#2  47×40 @53,0  r9  b1
+          span.Button__content  17×16 @15,12
+            span.Button__label#2  17×16 @0,0  Manrope 600 13/16  lines=1  «H3»
+        button.Button__button#3  44×40 @106,0  r9  b1
+          span.Button__content  12×16 @16,12
+            span.Button__label#3  12×16 @0,0  Manrope 700 13/16  lines=1  «Ж»
+        button.Button__button#4  77×40 @156,0  r9  b1
+          span.Button__content  47×16 @15,12
+            span.Button__label#4  47×16 @0,0  Manrope 600 13/16  lines=1  «Список»
+        button.Button__button#5  74×40 @238,0  r9  b1
+          span.Button__content  44×16 @15,12
+            span.Button__label#5  44×16 @0,0  Manrope 600 13/16  lines=1  «Врезка»
+      div.Field__field  622×76 @21,112
+        label.Field__label  622×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок»
+          span.Field__required  9×18 @67,1  Manrope 600 13/20  lines=1  «*»
+        input  622×49 @0,27  r11  b1
+      div.Field__field#2  622×475 @21,202
+        label.Field__label  622×20 @0,0  Manrope 600 13/20  lines=1  «Текст статьи»
+          span.Field__required#2  9×18 @81,1  Manrope 600 13/20  lines=1  «*»
+        textarea.Textarea__textarea  622×402 @0,27  JetBrains Mono 400 13/21  r11  b1  lines=0  «## Коротко Инвертор дороже, но тише и эк»
+        p.Field__hint  622×39 @0,436  Manrope 400 13/19  lines=2  «Разметка: ## подзаголовок, ### подзаголо»
+      p.ArticleForm__missing  539×40 @21,691  Manrope 400 13/20  lines=2  «Ссылок, картинок внутри текста и таблиц»
+      section.ArticleForm__preview  622×252 @21,745  r20  b1
+        p.ArticleForm__previewHint  584×20 @19,17  Manrope 400 13/20  lines=1  «Так статью увидит посетитель»
+        pre  584×186 @19,49  monospace 400 15/23  lines=5  «## Коротко Инвертор дороже, но тише и эк»
+    div.ArticleForm__side  300×257 @1108,0
+      section.Card__card  300×157 @0,0  r20  b1
+        div.FormSection__head#2  258×23 @21,21
+          div.FormSection__titleRow  258×23 @0,0
+            h2.FormSection__title#2  98×23 @0,0  Onest 700 19/23  ls0  lines=1  «Состояние»
+        dl.ArticleForm__state  258×80 @21,56
+          div.ArticleForm__stateRow  258×24 @0,0
+            dt.ArticleForm__stateName  43×20 @0,2  Manrope 400 13/20  lines=1  «Статус»
+            dd.ArticleForm__stateValue  72×24 @186,0
+              span.Badge__badge  72×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «На сайте»
+          div.ArticleForm__stateRow#2  258×20 @0,32
+            dt.ArticleForm__stateName  44×20 @0,0  Manrope 400 13/20  lines=1  «Знаков»
+            dd.ArticleForm__stateValue  23×20 @235,0  JetBrains Mono 600 13/20  lines=1  «129»
+          div.ArticleForm__stateRow#3  258×20 @0,60
+            dt.ArticleForm__stateName  69×20 @0,0  Manrope 400 13/20  lines=1  «Сохранено»
+            dd.ArticleForm__stateValue  133×20 @125,0  JetBrains Mono 600 13/20  lines=1  «03.09.2026, 14:02»
+      div  300×86 @0,171  Manrope 400 13/20  r14  b1  lines=1  «Обложка статьи»
+  div.ArticleForm__actions  1408×59 @16,841  b1 0 0 0  fixed
+    button.Button__button  115×44 @0,13  r11  b1
+      span.Button__content#2  77×17 @19,13
+        span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+    button.Button__button#2  150×44 @1258,13  r11  b1
+      span.Button__content#2  112×17 @19,13
+        span.Button__label#2  112×17 @0,0  Manrope 600 15/17  lines=1  «Удалить статью»
+
+[палитра light]
+form.ArticleForm__form
+  div.ArticleForm__editor
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      div.FormSection__head
+        div.FormSection__titleRow
+          h2.FormSection__title  color #0f172a
+      div.ArticleForm__toolbar
+        button.Button__button  border transparent
+          span.Button__content
+            span.Button__label  color #0e7490
+        button.Button__button#2  border transparent
+          span.Button__content
+            span.Button__label#2  color #0e7490
+        button.Button__button#3  border transparent
+          span.Button__content
+            span.Button__label#3  color #0e7490
+        button.Button__button#4  border transparent
+          span.Button__content
+            span.Button__label#4  color #0e7490
+        button.Button__button#5  border transparent
+          span.Button__content
+            span.Button__label#5  color #0e7490
+      div.Field__field
+        label.Field__label  color #334155
+          span.Field__required  color #0e7490
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#2
+        label.Field__label  color #334155
+          span.Field__required#2  color #0e7490
+        textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      p.ArticleForm__missing  color #5b6a7d
+      section.ArticleForm__preview  bg #f8fafc  border #e2e8f0
+        p.ArticleForm__previewHint  color #5b6a7d
+        pre  color #475569
+    div.ArticleForm__side
+      section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        div.FormSection__head#2
+          div.FormSection__titleRow
+            h2.FormSection__title#2  color #0f172a
+        dl.ArticleForm__state
+          div.ArticleForm__stateRow
+            dt.ArticleForm__stateName  color #556173
+            dd.ArticleForm__stateValue
+              span.Badge__badge  color #166534  bg #15803d14  border #15803d47
+          div.ArticleForm__stateRow#2
+            dt.ArticleForm__stateName  color #556173
+            dd.ArticleForm__stateValue  color #0f172a
+          div.ArticleForm__stateRow#3
+            dt.ArticleForm__stateName  color #556173
+            dd.ArticleForm__stateValue  color #0f172a
+      div  color #556173  border #7e8fa6
+  div.ArticleForm__actions  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content#2
+        span.Button__label  color #ffffff
+    button.Button__button#2  border transparent
+      span.Button__content#2
+        span.Button__label#2  color #be123c
+[палитра light @390]
+form.ArticleForm__form > div.ArticleForm__editor > section.Card__card > div.FormSection__head > div.FormSection__titleRow > span.ArticleForm__narrowOnly
+form.ArticleForm__form > div.ArticleForm__editor > section.Card__card > div.FormSection__head > div.FormSection__titleRow > span.ArticleForm__narrowOnly > span.Badge__badge  color #166534  bg #15803d14  border #15803d47
+[палитра light @768]
+form.ArticleForm__form > div.ArticleForm__editor > section.Card__card > div.FormSection__head > div.FormSection__titleRow > span.ArticleForm__narrowOnly
+form.ArticleForm__form > div.ArticleForm__editor > section.Card__card > div.FormSection__head > div.FormSection__titleRow > span.ArticleForm__narrowOnly > span.Badge__badge  color #166534  bg #15803d14  border #15803d47
+
+[палитра dark]
+form.ArticleForm__form
+  div.ArticleForm__editor
+    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      div.FormSection__head
+        div.FormSection__titleRow
+          h2.FormSection__title  color #eaf1f8
+      div.ArticleForm__toolbar
+        button.Button__button  border transparent
+          span.Button__content
+            span.Button__label  color #22d3ee
+        button.Button__button#2  border transparent
+          span.Button__content
+            span.Button__label#2  color #22d3ee
+        button.Button__button#3  border transparent
+          span.Button__content
+            span.Button__label#3  color #22d3ee
+        button.Button__button#4  border transparent
+          span.Button__content
+            span.Button__label#4  color #22d3ee
+        button.Button__button#5  border transparent
+          span.Button__content
+            span.Button__label#5  color #22d3ee
+      div.Field__field
+        label.Field__label  color #c9d5e2
+          span.Field__required  color #22d3ee
+        input  bg #0b1424  border #566d95
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+          span.Field__required#2  color #22d3ee
+        textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      p.ArticleForm__missing  color #7e92a7
+      section.ArticleForm__preview  bg #0e1729  border #1e2b41
+        p.ArticleForm__previewHint  color #7e92a7
+        pre  color #a8b6c6
+    div.ArticleForm__side
+      section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        div.FormSection__head#2
+          div.FormSection__titleRow
+            h2.FormSection__title#2  color #eaf1f8
+        dl.ArticleForm__state
+          div.ArticleForm__stateRow
+            dt.ArticleForm__stateName  color #8598ac
+            dd.ArticleForm__stateValue
+              span.Badge__badge  color #4ade80  bg #4ade801f  border #4ade8052
+          div.ArticleForm__stateRow#2
+            dt.ArticleForm__stateName  color #8598ac
+            dd.ArticleForm__stateValue  color #eaf1f8
+          div.ArticleForm__stateRow#3
+            dt.ArticleForm__stateName  color #8598ac
+            dd.ArticleForm__stateValue  color #eaf1f8
+      div  color #8598ac  border #566d95
+  div.ArticleForm__actions  bg #121d31  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content#2
+        span.Button__label  color #ffffff
+    button.Button__button#2  border transparent
+      span.Button__content#2
+        span.Button__label#2  color #fb7185
+[палитра dark @390]
+form.ArticleForm__form > div.ArticleForm__editor > section.Card__card > div.FormSection__head > div.FormSection__titleRow > span.ArticleForm__narrowOnly
+form.ArticleForm__form > div.ArticleForm__editor > section.Card__card > div.FormSection__head > div.FormSection__titleRow > span.ArticleForm__narrowOnly > span.Badge__badge  color #4ade80  bg #4ade801f  border #4ade8052
+[палитра dark @768]
+form.ArticleForm__form > div.ArticleForm__editor > section.Card__card > div.FormSection__head > div.FormSection__titleRow > span.ArticleForm__narrowOnly
+form.ArticleForm__form > div.ArticleForm__editor > section.Card__card > div.FormSection__head > div.FormSection__titleRow > span.ArticleForm__narrowOnly > span.Badge__badge  color #4ade80  bg #4ade801f  border #4ade8052

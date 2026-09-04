@@ -7,37 +7,43 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×454 @16,16  r20  b1
+section.Card__card  358×682 @16,16  r20  b1
   h2.SettingsForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Цифры первого экрана»
   p.SettingsForm__description  316×22 @21,46  Manrope 400 15/22  lines=1  «Полоса под заголовком главной.»
-  form.SettingsForm__form  316×346 @21,86
-    div.SettingsForm__fields  316×284 @0,0
-      fieldset.SettingsForm__list  316×284 @0,0
+  form.SettingsForm__form  316×574 @21,86
+    div.SettingsForm__fields  316×512 @0,0
+      fieldset.SettingsForm__list  316×512 @0,0
         legend.SettingsForm__listLabel  49×22 @0,0  Manrope 600 15/22  lines=1  «Цифры»
-        div.SettingsForm__objectRow  316×101 @0,22
-          div.Field__field  90×49 @0,0
-            input  90×49 @0,0  r11  b1
-          div.Field__field#2  90×49 @98,0
-            input  90×49 @0,0  r11  b1
-          div.Field__field#3  90×49 @196,0
-            input  90×49 @0,0  r11  b1  clipped
-          button.Button__button  82×44 @0,57  r9  b1
+        div.SettingsForm__objectRow  316×215 @0,22
+          span.SettingsForm__objectCell  316×49 @0,0
+            div.Field__field  316×49 @0,0
+              input  316×49 @0,0  r11  b1
+          span.SettingsForm__objectCell#2  316×49 @0,57
+            div.Field__field  316×49 @0,0
+              input#2  316×49 @0,0  r11  b1
+          span.SettingsForm__objectCell#3  316×49 @0,114
+            div.Field__field  316×49 @0,0
+              input#3  316×49 @0,0  r11  b1
+          button.Button__button  82×44 @0,171  r9  b1
             span.Button__content  52×16 @15,14
               span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-        div.SettingsForm__objectRow#2  316×101 @0,131
-          div.Field__field  90×49 @0,0
-            input#2  90×49 @0,0  r11  b1
-          div.Field__field#2  90×49 @98,0
-            input#2  90×49 @0,0  r11  b1
-          div.Field__field#3  90×49 @196,0
-            input#2  90×49 @0,0  r11  b1  clipped
-          button.Button__button  82×44 @0,57  r9  b1
+        div.SettingsForm__objectRow#2  316×215 @0,245
+          span.SettingsForm__objectCell  316×49 @0,0
+            div.Field__field#2  316×49 @0,0
+              input  316×49 @0,0  r11  b1
+          span.SettingsForm__objectCell#2  316×49 @0,57
+            div.Field__field#2  316×49 @0,0
+              input#2  316×49 @0,0  r11  b1
+          span.SettingsForm__objectCell#3  316×49 @0,114
+            div.Field__field#2  316×49 @0,0
+              input#3  316×49 @0,0  r11  b1
+          button.Button__button  82×44 @0,171  r9  b1
             span.Button__content#2  52×16 @15,14
               span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-        button.Button__button  140×44 @0,240  r9  b1
+        button.Button__button  140×44 @0,468  r9  b1
           span.Button__content#3  110×16 @15,14
             span.Button__label  110×16 @0,0  Manrope 600 13/16  lines=1  «Добавить: цифра»
-    div.SettingsForm__actions  316×44 @0,302
+    div.SettingsForm__actions  316×44 @0,530
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content#4  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
@@ -50,24 +56,30 @@ section.Card__card  736×351 @16,16  r20  b1
     div.SettingsForm__fields  694×180 @0,0
       fieldset.SettingsForm__list  694×180 @0,0
         legend.SettingsForm__listLabel  49×22 @0,0  Manrope 600 15/22  lines=1  «Цифры»
-        div.SettingsForm__objectRow  640×49 @0,22
-          div.Field__field  90×49 @0,0
-            input  90×49 @0,0  r11  b1
-          div.Field__field#2  90×49 @98,0
-            input  90×49 @0,0  r11  b1
-          div.Field__field#3  90×49 @196,0
-            input  90×49 @0,0  r11  b1  clipped
-          button.Button__button  82×44 @294,0  r9  b1
+        div.SettingsForm__objectRow  694×49 @0,22
+          span.SettingsForm__objectCell  196×49 @0,0
+            div.Field__field  196×49 @0,0
+              input  196×49 @0,0  r11  b1
+          span.SettingsForm__objectCell#2  196×49 @204,0
+            div.Field__field  196×49 @0,0
+              input#2  196×49 @0,0  r11  b1
+          span.SettingsForm__objectCell#3  196×49 @408,0
+            div.Field__field  196×49 @0,0
+              input#3  196×49 @0,0  r11  b1
+          button.Button__button  82×44 @612,0  r9  b1
             span.Button__content  52×16 @15,14
               span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-        div.SettingsForm__objectRow#2  640×49 @0,79
-          div.Field__field  90×49 @0,0
-            input#2  90×49 @0,0  r11  b1
-          div.Field__field#2  90×49 @98,0
-            input#2  90×49 @0,0  r11  b1
-          div.Field__field#3  90×49 @196,0
-            input#2  90×49 @0,0  r11  b1  clipped
-          button.Button__button  82×44 @294,0  r9  b1
+        div.SettingsForm__objectRow#2  694×49 @0,79
+          span.SettingsForm__objectCell  196×49 @0,0
+            div.Field__field#2  196×49 @0,0
+              input  196×49 @0,0  r11  b1
+          span.SettingsForm__objectCell#2  196×49 @204,0
+            div.Field__field#2  196×49 @0,0
+              input#2  196×49 @0,0  r11  b1
+          span.SettingsForm__objectCell#3  196×49 @408,0
+            div.Field__field#2  196×49 @0,0
+              input#3  196×49 @0,0  r11  b1
+          button.Button__button  82×44 @612,0  r9  b1
             span.Button__content#2  52×16 @15,14
               span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
         button.Button__button  140×44 @0,136  r9  b1
@@ -86,24 +98,30 @@ section.Card__card  1408×348 @16,16  r20  b1
     div.SettingsForm__fields  1366×176 @0,0
       fieldset.SettingsForm__list  1366×176 @0,0
         legend.SettingsForm__listLabel  49×22 @0,0  Manrope 600 15/22  lines=1  «Цифры»
-        div.SettingsForm__objectRow  640×49 @0,22
-          div.Field__field  90×49 @0,0
-            input  90×49 @0,0  r11  b1
-          div.Field__field#2  90×49 @98,0
-            input  90×49 @0,0  r11  b1
-          div.Field__field#3  90×49 @196,0
-            input  90×49 @0,0  r11  b1  clipped
-          button.Button__button  82×40 @294,0  r9  b1
+        div.SettingsForm__objectRow  820×49 @0,22
+          span.SettingsForm__objectCell  238×49 @0,0
+            div.Field__field  238×49 @0,0
+              input  238×49 @0,0  r11  b1
+          span.SettingsForm__objectCell#2  238×49 @246,0
+            div.Field__field  238×49 @0,0
+              input#2  238×49 @0,0  r11  b1
+          span.SettingsForm__objectCell#3  238×49 @492,0
+            div.Field__field  238×49 @0,0
+              input#3  238×49 @0,0  r11  b1
+          button.Button__button  82×40 @738,0  r9  b1
             span.Button__content  52×16 @15,12
               span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-        div.SettingsForm__objectRow#2  640×49 @0,79
-          div.Field__field  90×49 @0,0
-            input#2  90×49 @0,0  r11  b1
-          div.Field__field#2  90×49 @98,0
-            input#2  90×49 @0,0  r11  b1
-          div.Field__field#3  90×49 @196,0
-            input#2  90×49 @0,0  r11  b1  clipped
-          button.Button__button  82×40 @294,0  r9  b1
+        div.SettingsForm__objectRow#2  820×49 @0,79
+          span.SettingsForm__objectCell  238×49 @0,0
+            div.Field__field#2  238×49 @0,0
+              input  238×49 @0,0  r11  b1
+          span.SettingsForm__objectCell#2  238×49 @246,0
+            div.Field__field#2  238×49 @0,0
+              input#2  238×49 @0,0  r11  b1
+          span.SettingsForm__objectCell#3  238×49 @492,0
+            div.Field__field#2  238×49 @0,0
+              input#3  238×49 @0,0  r11  b1
+          button.Button__button  82×40 @738,0  r9  b1
             span.Button__content#2  52×16 @15,12
               span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
         button.Button__button  140×40 @0,136  r9  b1
@@ -123,22 +141,28 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
       fieldset.SettingsForm__list
         legend.SettingsForm__listLabel  color #0f172a
         div.SettingsForm__objectRow
-          div.Field__field
-            input  bg #ffffff  border #7e8fa6
-          div.Field__field#2
-            input  bg #ffffff  border #7e8fa6
-          div.Field__field#3
-            input  bg #ffffff  border #7e8fa6
+          span.SettingsForm__objectCell
+            div.Field__field
+              input  bg #ffffff  border #7e8fa6
+          span.SettingsForm__objectCell#2
+            div.Field__field
+              input#2  bg #ffffff  border #7e8fa6
+          span.SettingsForm__objectCell#3
+            div.Field__field
+              input#3  bg #ffffff  border #7e8fa6
           button.Button__button  border transparent
             span.Button__content
               span.Button__label  color #0e7490
         div.SettingsForm__objectRow#2
-          div.Field__field
-            input#2  bg #ffffff  border #7e8fa6
-          div.Field__field#2
-            input#2  bg #ffffff  border #7e8fa6
-          div.Field__field#3
-            input#2  bg #ffffff  border #7e8fa6
+          span.SettingsForm__objectCell
+            div.Field__field#2
+              input  bg #ffffff  border #7e8fa6
+          span.SettingsForm__objectCell#2
+            div.Field__field#2
+              input#2  bg #ffffff  border #7e8fa6
+          span.SettingsForm__objectCell#3
+            div.Field__field#2
+              input#3  bg #ffffff  border #7e8fa6
           button.Button__button  border transparent
             span.Button__content#2
               span.Button__label  color #0e7490
@@ -159,22 +183,28 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
       fieldset.SettingsForm__list
         legend.SettingsForm__listLabel  color #eaf1f8
         div.SettingsForm__objectRow
-          div.Field__field
-            input  bg #0b1424  border #566d95
-          div.Field__field#2
-            input  bg #0b1424  border #566d95
-          div.Field__field#3
-            input  bg #0b1424  border #566d95
+          span.SettingsForm__objectCell
+            div.Field__field
+              input  bg #0b1424  border #566d95
+          span.SettingsForm__objectCell#2
+            div.Field__field
+              input#2  bg #0b1424  border #566d95
+          span.SettingsForm__objectCell#3
+            div.Field__field
+              input#3  bg #0b1424  border #566d95
           button.Button__button  border transparent
             span.Button__content
               span.Button__label  color #22d3ee
         div.SettingsForm__objectRow#2
-          div.Field__field
-            input#2  bg #0b1424  border #566d95
-          div.Field__field#2
-            input#2  bg #0b1424  border #566d95
-          div.Field__field#3
-            input#2  bg #0b1424  border #566d95
+          span.SettingsForm__objectCell
+            div.Field__field#2
+              input  bg #0b1424  border #566d95
+          span.SettingsForm__objectCell#2
+            div.Field__field#2
+              input#2  bg #0b1424  border #566d95
+          span.SettingsForm__objectCell#3
+            div.Field__field#2
+              input#3  bg #0b1424  border #566d95
           button.Button__button  border transparent
             span.Button__content#2
               span.Button__label  color #22d3ee

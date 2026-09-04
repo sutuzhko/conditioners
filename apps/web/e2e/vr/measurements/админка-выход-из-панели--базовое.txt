@@ -1,0 +1,37 @@
+# админка-выход-из-панели--базовое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+button.Button__button  102×44 @16,16  r11  b1
+  span.Button__content  64×23 @19,10
+    span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
+      svg  20×20 @0,0
+
+[геометрия 768]
+button.Button__button  102×44 @16,16  r11  b1
+  span.Button__content  64×23 @19,10
+    span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
+      svg  20×20 @0,0
+
+[геометрия 1440]
+button.Button__button  102×44 @16,16  r11  b1
+  span.Button__content  64×23 @19,10
+    span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
+      svg  20×20 @0,0
+
+[палитра light]
+button.Button__button  bg #ffffff  border #7e8fa6
+  span.Button__content
+    span.Button__label  color #0f172a
+      svg
+
+[палитра dark]
+button.Button__button  bg #121d31  border #566d95
+  span.Button__content
+    span.Button__label  color #eaf1f8
+      svg
