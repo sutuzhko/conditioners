@@ -518,10 +518,17 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     return { ok, hit, cx, cy };
   };
 
+  /**
+   * Куда пробуем подвести цель, прежде чем назвать её накрытой. Порядок
+   * важен: центр идёт первым, и его координаты попадают в сообщение —
+   * читателю сводки нужна одна понятная точка, а не девять.
+   */
+  const ALIGNMENTS: readonly ScrollLogicalPosition[] = ['center', 'start', 'end'];
+
   /* 🔴 Две ступени. Сначала цель смотрится там, где стоит; если накрыта или
-     под ней пусто — подводится к центру окна (`scrollIntoView` двигает и
-     окно, и все прокручиваемые предки) и смотрится снова, а прокрутка
-     возвращается. Нарушение — только то, что накрыто и после прокрутки.
+     под ней пусто — подводится прокруткой (`scrollIntoView` двигает и окно, и
+     все прокручиваемые предки) и смотрится снова, а прокрутка возвращается.
+     Нарушение — только то, что накрыто при **любом** положении прокрутки.
 
      Почему так, а не «на месте»: липкая полоса поверх верха страницы ловится
      всё равно — вверх прокрутить нельзя, цель остаётся под полосой; нижняя
@@ -530,7 +537,19 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
      уехавший за край ряда с `overflow-x: auto`, и поле под липким подвалом
      окна до прокрутки — не нарушения: до них дотягиваются прокруткой. На
      разведке (прогон 33468735089) из 2938 срабатываний почти все были именно
-     такими — в точке оказывался `html`. */
+     такими — в точке оказывался `html`.
+
+     🔴 Положений прокрутки девять, а не одно (issue #488). Одного центра было
+     мало ровно там, где липкий край шире половины области прокрутки: у
+     таблицы склада на 390 залипающая колонка занимала 240px при области 356,
+     и `inline: 'center'` уводил ячейку прямо под неё — правило сообщало о
+     накрытии там, где человек дотягивается. Замер на синтетической таблице
+     (колонка 220 в области 300): центр ячейки свободен в 40 положениях
+     прокрутки из 261, но среди них нет ни центрального. Поэтому перебираются
+     все сочетания `block` и `inline`: край, противоположный липкому, выводит
+     цель из-под него, а цель, которой прокрутка не помогает, остаётся
+     накрытой при всех девяти — клампинг `scrollIntoView` возвращает её в то
+     же место. */
   for (const el of targets) {
     /* Открытое модальное окно накрывает страницу по замыслу: цели под ним
        недоступны законно, проверяются только цели внутри. */
@@ -550,8 +569,23 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     const windowX = window.scrollX;
     const windowY = window.scrollY;
 
-    el.scrollIntoView({ block: 'center', inline: 'center' });
-    const centred = lookAt(el);
+    /* Первое положение — то, о котором расскажет сообщение; поиск
+       прекращается на первом свободном. */
+    let blocked: Sight | null = null;
+    let reachable = false;
+    for (const block of ALIGNMENTS) {
+      for (const inline of ALIGNMENTS) {
+        el.scrollIntoView({ block, inline });
+        const sight = lookAt(el);
+        /* Центр за краем окна — не «накрытие», а предмет других правил. */
+        if (sight === null || sight.ok) {
+          reachable = true;
+          break;
+        }
+        blocked = blocked ?? sight;
+      }
+      if (reachable) break;
+    }
 
     ancestors.forEach((node, index) => {
       const [left, top] = saved[index] ?? [0, 0];
@@ -560,11 +594,11 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     });
     window.scrollTo(windowX, windowY);
 
-    if (centred === null || centred.ok) continue;
+    if (reachable || blocked === null) continue;
     report(
       'occlusion',
       describe(el),
-      `в точке (${Math.round(centred.cx)}, ${Math.round(centred.cy)}) сверху ${describe(centred.hit)}`,
+      `в точке (${Math.round(blocked.cx)}, ${Math.round(blocked.cy)}) сверху ${describe(blocked.hit)}`,
     );
   }
 

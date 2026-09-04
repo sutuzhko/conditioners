@@ -149,6 +149,51 @@ export const Occlusion: Story = {
   ),
 };
 
+/**
+ * 🔴 Обратная фикстура правила `occlusion` (issue #488): накрытия здесь нет,
+ * и измеритель обязан промолчать.
+ *
+ * Липкая колонка шире половины области прокрутки — 220px при области 300, как
+ * было у «Остатков» на 390. Центр области лежит под колонкой, поэтому
+ * подведение ячейки к центру утаскивает её под неё же; дотянуться при этом
+ * можно — у каждой ячейки есть положение прокрутки, где её центр открыт.
+ * Правило, проверявшее одно только центральное положение, сообщало о
+ * накрытии там, где его нет.
+ */
+export const StickyColumn: Story = {
+  name: 'occlusion — липкая колонка шире половины области: накрытия нет',
+  parameters: expects(),
+  render: () => (
+    <div style={{ width: 300, overflowX: 'auto', position: 'relative' }}>
+      <table style={{ borderCollapse: 'collapse' }}>
+        <tbody>
+          <tr>
+            <th
+              style={{
+                position: 'sticky',
+                left: 0,
+                zIndex: 1,
+                width: 220,
+                minWidth: 220,
+                background: '#fff',
+              }}
+            >
+              Позиция
+            </th>
+            {[1, 2, 3, 4, 5, 6].map((zone) => (
+              <td key={zone} style={{ minWidth: 100 }}>
+                <button type="button" style={{ width: 100, height: 44 }}>
+                  {zone}
+                </button>
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  ),
+};
+
 export const Fonts: Story = {
   name: 'fonts — шрифт с несуществующим файлом',
   parameters: expects('fonts'),
