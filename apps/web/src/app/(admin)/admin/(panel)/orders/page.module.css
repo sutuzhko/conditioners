@@ -57,24 +57,51 @@
   font-weight: 600;
 }
 
-/* Заготовки списка: высоты сняты с готовой страницы (issue #334). Карточка
-   фильтров — стопки, период и поиск — на 390 переносится в четыре ряда. */
+/* Заготовки раздела: высоты сняты с готовой страницы (issue #334, #345).
+   Лента стопок — 43.5px, на 768 ячейка растёт до тап-зоны (47px), на 390 ряд
+   переносится в две строки (95px). Ряд фильтров — 76.1px, ниже 900 поиск
+   встаёт на свою строку (132.1px). Строка таблицы — 99.8px, на 768 она
+   теряет две колонки и растёт до 139.8px, на 390 становится карточкой. */
+.tabsSkeleton {
+  min-height: 43.5px;
+  border-radius: var(--r-sm);
+}
+
 .filtersSkeleton {
-  min-height: 234.8px;
-  border-radius: var(--r-card, var(--r-md));
+  min-height: 76.1px;
+  border-radius: var(--r-sm);
+}
+
+.headSkeleton {
+  min-height: 55.8px;
+  border-radius: 0;
 }
 
 .rowSkeleton {
-  min-height: 181.5px;
-  border-radius: var(--r-card, var(--r-md));
+  min-height: 99.8px;
+  border-radius: 0;
 }
 
 @media (width < 900px) {
+  .tabsSkeleton {
+    min-height: 47px;
+  }
+
   .filtersSkeleton {
-    min-height: 414.5px;
+    min-height: 132.1px;
   }
 
   .rowSkeleton {
-    min-height: 370.6px;
+    min-height: 139.8px;
+  }
+}
+
+@media (width < 600px) {
+  .tabsSkeleton {
+    min-height: 95px;
+  }
+
+  .rowSkeleton {
+    min-height: 239.8px;
   }
 }

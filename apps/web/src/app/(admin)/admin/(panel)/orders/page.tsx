@@ -5,6 +5,7 @@ import {
   DEFAULT_ORDER_FILTERS,
   OrderFilters,
   OrderList,
+  OrderTabs,
   isOrderPeriod,
   orderManagerContent as texts,
   orderTabFromParam,
@@ -75,6 +76,10 @@ export default async function AdminOrdersPage({
 
         <p className={styles.lead}>{owner ? texts.lead : texts.installerLead}</p>
       </header>
+
+      {/* Стопки — над рядом фильтров, как в макете: сначала выбирают, что за
+          список смотрят, и только потом сужают его условиями. */}
+      <OrderTabs tab={selectedTab} period={selectedPeriod} query={query} />
 
       <OrderFilters tab={selectedTab} period={selectedPeriod} query={query} total={found.total} />
 

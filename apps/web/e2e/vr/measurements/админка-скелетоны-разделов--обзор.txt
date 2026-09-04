@@ -2,191 +2,194 @@
 шрифты: Manrope 400, Onest 700
 
 [документ]
-390 → 390×1039
-768 → 768×905
+390 → 390×900
+768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.AdminSummary__summary  390×1039 @0,0
+div.AdminSummary__summary  390×783 @0,0
   header.AdminSummary__header  390×59 @0,0
     h1.AdminSummary__title  390×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Обзор»
     p.AdminSummary__lead  390×22 @0,36  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
-  div.AdminSummary__tiles  390×418 @0,77
-    span.Skeleton__skeleton  189×131 @0,0  r20
-    span.Skeleton__skeleton#2  189×131 @201,0  r20
-    span.Skeleton__skeleton#3  189×131 @0,143  r20
-    span.Skeleton__skeleton#4  189×131 @201,143  r20
-    span.Skeleton__skeleton#5  189×131 @0,287  r20
-  section.Card__card  390×415 @0,513  r20  b1
-    h2.AdminSummary__cardTitle  348×21 @21,21
-      span.Skeleton__skeleton  209×17 @0,2  r8
-    p.AdminSummary__text  348×22 @21,60
-      span.Skeleton__skeleton  278×15 @0,4  r8
-    ul.AdminSummary__events  348×254 @21,92
-      li.AdminSummary__event  348×37 @0,0  b0 0 1 0
-        span.Skeleton__skeleton  251×15 @0,7  r8
-      li.AdminSummary__event#2  348×37 @0,45  b0 0 1 0
-        span.Skeleton__skeleton  202×15 @0,7  r8
-      li.AdminSummary__event#3  348×37 @0,90  b0 0 1 0
-        span.Skeleton__skeleton  251×15 @0,7  r8
-      li.AdminSummary__event#4  348×37 @0,136  b0 0 1 0
-        span.Skeleton__skeleton  202×15 @0,7  r8
-      li.AdminSummary__event#5  348×37 @0,181  b0 0 1 0
-        span.Skeleton__skeleton  251×15 @0,7  r8
-      li.AdminSummary__event#6  348×28 @0,226
-        span.Skeleton__skeleton  202×15 @0,7  r8
-    span.AdminSummary__link  348×24 @21,370
-      span.Skeleton__skeleton  160×15 @0,5  r8
-  section.Card__card#2  390×93 @0,946  r20  b1
-    h2.AdminSummary__cardTitle  348×21 @21,21
-      span.Skeleton__skeleton#2  209×17 @0,2  r8
-    p.AdminSummary__text  348×22 @21,50
-      span.Skeleton__skeleton#2  278×15 @0,4  r8
+  div.AdminSummary__bar  390×80 @0,77
+    span.Skeleton__skeleton  390×52 @0,0  r100
+    span.Skeleton__skeleton#2  96×20 @0,60  r11
+  div.StatTile__tiles  390×115 @0,175
+    span.Skeleton__skeleton  191×115 @0,0  r14
+    span.Skeleton__skeleton#2  191×115 @199,0  r14
+  div.AdminSummary__pair  390×475 @0,308
+    section.Card__card  390×370 @0,0  r20  b1
+      h2.AdminSummary__cardTitle  348×21 @21,21
+        span.Skeleton__skeleton  209×17 @0,2  r8
+      p.AdminSummary__text  348×22 @21,60
+        span.Skeleton__skeleton  278×15 @0,4  r8
+      ul.AdminSummary__events  348×209 @21,92
+        li.AdminSummary__event  348×37 @0,0  b0 0 1 0
+          span.Skeleton__skeleton  251×15 @0,7  r8
+        li.AdminSummary__event#2  348×37 @0,45  b0 0 1 0
+          span.Skeleton__skeleton  202×15 @0,7  r8
+        li.AdminSummary__event#3  348×37 @0,90  b0 0 1 0
+          span.Skeleton__skeleton  251×15 @0,7  r8
+        li.AdminSummary__event#4  348×37 @0,136  b0 0 1 0
+          span.Skeleton__skeleton  202×15 @0,7  r8
+        li.AdminSummary__event#5  348×28 @0,181
+          span.Skeleton__skeleton  251×15 @0,7  r8
+      span.AdminSummary__link  348×24 @21,325
+        span.Skeleton__skeleton  160×15 @0,5  r8
+    section.Card__card#2  390×93 @0,382  r20  b1
+      h2.AdminSummary__cardTitle  348×21 @21,21
+        span.Skeleton__skeleton#2  220×17 @0,2  r8
+      p.AdminSummary__text  348×22 @21,50
+        span.Skeleton__skeleton#2  313×15 @0,4  r8
 
 [геометрия 768]
-div.AdminSummary__summary  768×905 @0,0
+div.AdminSummary__summary  768×875 @0,0
   header.AdminSummary__header  768×66 @0,0
     h1.AdminSummary__title  768×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Обзор»
     p.AdminSummary__lead  601×22 @0,43  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
-  div.AdminSummary__tiles  768×275 @0,84
-    span.Skeleton__skeleton  183×131 @0,0  r20
-    span.Skeleton__skeleton#2  183×131 @195,0  r20
-    span.Skeleton__skeleton#3  183×131 @390,0  r20
-    span.Skeleton__skeleton#4  183×131 @585,0  r20
-    span.Skeleton__skeleton#5  183×131 @0,143  r20
-  section.Card__card  768×416 @0,377  r20  b1
-    h2.AdminSummary__cardTitle  726×22 @21,21
-      span.Skeleton__skeleton  240×18 @0,2  r8
-    p.AdminSummary__text  726×22 @21,61
-      span.Skeleton__skeleton  420×15 @0,4  r8
-    ul.AdminSummary__events  726×254 @21,93
-      li.AdminSummary__event  726×37 @0,0  b0 0 1 0
-        span.Skeleton__skeleton  523×15 @0,7  r8
-      li.AdminSummary__event#2  726×37 @0,45  b0 0 1 0
-        span.Skeleton__skeleton  421×15 @0,7  r8
-      li.AdminSummary__event#3  726×37 @0,90  b0 0 1 0
-        span.Skeleton__skeleton  523×15 @0,7  r8
-      li.AdminSummary__event#4  726×37 @0,136  b0 0 1 0
-        span.Skeleton__skeleton  421×15 @0,7  r8
-      li.AdminSummary__event#5  726×37 @0,181  b0 0 1 0
-        span.Skeleton__skeleton  523×15 @0,7  r8
-      li.AdminSummary__event#6  726×28 @0,226
-        span.Skeleton__skeleton  421×15 @0,7  r8
-    span.AdminSummary__link  726×24 @21,371
-      span.Skeleton__skeleton  160×15 @0,5  r8
-  section.Card__card#2  768×94 @0,811  r20  b1
-    h2.AdminSummary__cardTitle  726×22 @21,21
-      span.Skeleton__skeleton#2  220×18 @0,2  r8
-    p.AdminSummary__text  726×22 @21,51
-      span.Skeleton__skeleton#2  360×15 @0,4  r8
+  div.AdminSummary__bar  768×52 @0,84
+    span.Skeleton__skeleton  239×52 @0,0  r100
+    span.Skeleton__skeleton#2  96×20 @672,16  r11
+  div.StatTile__tiles  768×226 @0,154
+    span.Skeleton__skeleton  378×107 @0,0  r14
+    span.Skeleton__skeleton#2  378×107 @390,0  r14
+    span.Skeleton__skeleton#3  378×107 @0,119  r14
+    span.Skeleton__skeleton#4  378×107 @390,119  r14
+  div.AdminSummary__pair  768×477 @0,398
+    section.Card__card  768×371 @0,0  r20  b1
+      h2.AdminSummary__cardTitle  726×22 @21,21
+        span.Skeleton__skeleton  240×18 @0,2  r8
+      p.AdminSummary__text  726×22 @21,61
+        span.Skeleton__skeleton  420×15 @0,4  r8
+      ul.AdminSummary__events  726×209 @21,93
+        li.AdminSummary__event  726×37 @0,0  b0 0 1 0
+          span.Skeleton__skeleton  523×15 @0,7  r8
+        li.AdminSummary__event#2  726×37 @0,45  b0 0 1 0
+          span.Skeleton__skeleton  421×15 @0,7  r8
+        li.AdminSummary__event#3  726×37 @0,90  b0 0 1 0
+          span.Skeleton__skeleton  523×15 @0,7  r8
+        li.AdminSummary__event#4  726×37 @0,136  b0 0 1 0
+          span.Skeleton__skeleton  421×15 @0,7  r8
+        li.AdminSummary__event#5  726×28 @0,181
+          span.Skeleton__skeleton  523×15 @0,7  r8
+      span.AdminSummary__link  726×24 @21,326
+        span.Skeleton__skeleton  160×15 @0,5  r8
+    section.Card__card#2  768×94 @0,383  r20  b1
+      h2.AdminSummary__cardTitle  726×22 @21,21
+        span.Skeleton__skeleton#2  220×18 @0,2  r8
+      p.AdminSummary__text  726×22 @21,51
+        span.Skeleton__skeleton#2  320×15 @0,4  r8
 
 [геометрия 1440]
-div.AdminSummary__summary  1440×772 @0,0
+div.AdminSummary__summary  1440×648 @0,0
   header.AdminSummary__header  1440×74 @0,0
     h1.AdminSummary__title  1440×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Обзор»
     p.AdminSummary__lead  601×22 @0,52  Manrope 400 15/22  lines=1  «Что требует внимания прямо сейчас»
-  div.AdminSummary__tiles  1440×131 @0,92
-    span.Skeleton__skeleton  278×131 @0,0  r20
-    span.Skeleton__skeleton#2  278×131 @290,0  r20
-    span.Skeleton__skeleton#3  278×131 @581,0  r20
-    span.Skeleton__skeleton#4  278×131 @871,0  r20
-    span.Skeleton__skeleton#5  278×131 @1162,0  r20
-  section.Card__card  1440×417 @0,241  r20  b1
-    h2.AdminSummary__cardTitle  1398×23 @21,21
-      span.Skeleton__skeleton  240×19 @0,2  r8
-    p.AdminSummary__text  1398×22 @21,62
-      span.Skeleton__skeleton  420×15 @0,4  r8
-    ul.AdminSummary__events  1398×254 @21,94
-      li.AdminSummary__event  1398×37 @0,0  b0 0 1 0
-        span.Skeleton__skeleton  1007×15 @0,7  r8
-      li.AdminSummary__event#2  1398×37 @0,45  b0 0 1 0
-        span.Skeleton__skeleton  811×15 @0,7  r8
-      li.AdminSummary__event#3  1398×37 @0,90  b0 0 1 0
-        span.Skeleton__skeleton  1007×15 @0,7  r8
-      li.AdminSummary__event#4  1398×37 @0,136  b0 0 1 0
-        span.Skeleton__skeleton  811×15 @0,7  r8
-      li.AdminSummary__event#5  1398×37 @0,181  b0 0 1 0
-        span.Skeleton__skeleton  1007×15 @0,7  r8
-      li.AdminSummary__event#6  1398×28 @0,226
-        span.Skeleton__skeleton  811×15 @0,7  r8
-    span.AdminSummary__link  1398×24 @21,372
-      span.Skeleton__skeleton  160×15 @0,5  r8
-  section.Card__card#2  1440×95 @0,677  r20  b1
-    h2.AdminSummary__cardTitle  1398×23 @21,21
-      span.Skeleton__skeleton#2  220×19 @0,2  r8
-    p.AdminSummary__text  1398×22 @21,52
-      span.Skeleton__skeleton#2  360×15 @0,4  r8
+  div.AdminSummary__bar  1440×40 @0,92
+    span.Skeleton__skeleton  239×40 @0,0  r100
+    span.Skeleton__skeleton#2  96×20 @1344,10  r11
+  div.StatTile__tiles  1440×107 @0,150
+    span.Skeleton__skeleton  348×107 @0,0  r14
+    span.Skeleton__skeleton#2  348×107 @364,0  r14
+    span.Skeleton__skeleton#3  348×107 @728,0  r14
+    span.Skeleton__skeleton#4  348×107 @1092,0  r14
+  div.AdminSummary__pair  1440×372 @0,275
+    section.Card__card  876×372 @0,0  r20  b1
+      h2.AdminSummary__cardTitle  834×23 @21,21
+        span.Skeleton__skeleton  240×19 @0,2  r8
+      p.AdminSummary__text  834×22 @21,62
+        span.Skeleton__skeleton  420×15 @0,4  r8
+      ul.AdminSummary__events  834×209 @21,94
+        li.AdminSummary__event  834×37 @0,0  b0 0 1 0
+          span.Skeleton__skeleton  601×15 @0,7  r8
+        li.AdminSummary__event#2  834×37 @0,45  b0 0 1 0
+          span.Skeleton__skeleton  484×15 @0,7  r8
+        li.AdminSummary__event#3  834×37 @0,90  b0 0 1 0
+          span.Skeleton__skeleton  601×15 @0,7  r8
+        li.AdminSummary__event#4  834×37 @0,136  b0 0 1 0
+          span.Skeleton__skeleton  484×15 @0,7  r8
+        li.AdminSummary__event#5  834×28 @0,181
+          span.Skeleton__skeleton  601×15 @0,7  r8
+      span.AdminSummary__link  834×24 @21,327
+        span.Skeleton__skeleton  160×15 @0,5  r8
+    section.Card__card#2  548×95 @892,0  r20  b1
+      h2.AdminSummary__cardTitle  506×23 @21,21
+        span.Skeleton__skeleton#2  220×19 @0,2  r8
+      p.AdminSummary__text  506×22 @21,52
+        span.Skeleton__skeleton#2  320×15 @0,4  r8
 
 [палитра light]
 div.AdminSummary__summary
   header.AdminSummary__header
     h1.AdminSummary__title  color #0f172a
     p.AdminSummary__lead  color #475569
-  div.AdminSummary__tiles
+  div.AdminSummary__bar
+    span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+  div.StatTile__tiles
     span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
     span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
     span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
     span.Skeleton__skeleton#4  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-    span.Skeleton__skeleton#5  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-    h2.AdminSummary__cardTitle
-      span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-    p.AdminSummary__text
-      span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-    ul.AdminSummary__events
-      li.AdminSummary__event  border #475569 #475569 #eef2f6 #475569
+  div.AdminSummary__pair
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      h2.AdminSummary__cardTitle
         span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-      li.AdminSummary__event#2  border #475569 #475569 #eef2f6 #475569
+      p.AdminSummary__text
         span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-      li.AdminSummary__event#3  border #475569 #475569 #eef2f6 #475569
+      ul.AdminSummary__events
+        li.AdminSummary__event  border #475569 #475569 #eef2f6 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        li.AdminSummary__event#2  border #475569 #475569 #eef2f6 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        li.AdminSummary__event#3  border #475569 #475569 #eef2f6 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        li.AdminSummary__event#4  border #475569 #475569 #eef2f6 #475569
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+        li.AdminSummary__event#5
+          span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+      span.AdminSummary__link
         span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-      li.AdminSummary__event#4  border #475569 #475569 #eef2f6 #475569
-        span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-      li.AdminSummary__event#5  border #475569 #475569 #eef2f6 #475569
-        span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-      li.AdminSummary__event#6
-        span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-    span.AdminSummary__link
-      span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-  section.Card__card#2  bg #f8fafc  border #eef2f6
-    h2.AdminSummary__cardTitle
-      span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-    p.AdminSummary__text
-      span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+    section.Card__card#2  bg #f8fafc  border #eef2f6
+      h2.AdminSummary__cardTitle
+        span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+      p.AdminSummary__text
+        span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
 
 [палитра dark]
 div.AdminSummary__summary
   header.AdminSummary__header
     h1.AdminSummary__title  color #eaf1f8
     p.AdminSummary__lead  color #a8b6c6
-  div.AdminSummary__tiles
+  div.AdminSummary__bar
+    span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+  div.StatTile__tiles
     span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
     span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
     span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
     span.Skeleton__skeleton#4  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-    span.Skeleton__skeleton#5  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-    h2.AdminSummary__cardTitle
-      span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-    p.AdminSummary__text
-      span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-    ul.AdminSummary__events
-      li.AdminSummary__event  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+  div.AdminSummary__pair
+    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      h2.AdminSummary__cardTitle
         span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-      li.AdminSummary__event#2  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+      p.AdminSummary__text
         span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-      li.AdminSummary__event#3  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+      ul.AdminSummary__events
+        li.AdminSummary__event  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        li.AdminSummary__event#2  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        li.AdminSummary__event#3  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        li.AdminSummary__event#4  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+        li.AdminSummary__event#5
+          span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+      span.AdminSummary__link
         span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-      li.AdminSummary__event#4  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
-        span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-      li.AdminSummary__event#5  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
-        span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-      li.AdminSummary__event#6
-        span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-    span.AdminSummary__link
-      span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-  section.Card__card#2  bg #0e1729  border #182338
-    h2.AdminSummary__cardTitle
-      span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-    p.AdminSummary__text
-      span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+    section.Card__card#2  bg #0e1729  border #182338
+      h2.AdminSummary__cardTitle
+        span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+      p.AdminSummary__text
+        span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

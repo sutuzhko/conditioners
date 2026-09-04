@@ -1,0 +1,322 @@
+# админка-заказы-таблица-нарядов--глазамимонтажника · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Table__viewport  358×575 @16,16
+  table.Table__table  358×575 @0,0
+    tr[role=row]  1×56 @0,0
+      th  158×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Работа и объект»
+      th#2  88×56 @158,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+      span  1×1 @262,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr[role=row]#2  358×282 @0,0  r14  b1
+      td.OrderTable__work  356×175 @1,5
+        td.OrderTable__work::before  99×20 @0,0
+        span.OrderTable__workBox  215×161 @127,7
+          span.OrderTable__headline  215×74 @0,0
+            a.OrderTable__number  52×44 @0,0  JetBrains Mono 700 15/22  lines=1  «№ 1059»
+            span.Badge__badge  67×24 @60,10  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+            span.Badge__badge#2  125×24 @0,50  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+          span.OrderTable__client  215×22 @0,78  Manrope 600 15/22  lines=1  «Ирина Соколова»
+          span.OrderTable__address  215×20 @0,101  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
+          span.OrderTable__compact  215×40 @0,121  Manrope 400 13/20  lines=2  «28.08.2026, 11:00 · Дмитрий Соколов»
+      td[role=cell]  356×42 @1,180
+        td[role=cell]::before  43×20 @0,0
+        span.OrderTable__statusBox  83×28 @259,7
+          span.Badge__badge  83×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+      td[role=cell]#2  356×51 @1,226  b1 0 0 0
+        div.TableActions__actions  116×36 @226,8
+          a.OrderTable__action  36×36 @0,0  r100
+            svg  18×18 @9,6
+          a.OrderTable__action#2  36×36 @40,0  r100
+            svg  18×18 @9,6
+          a.OrderTable__action#3  36×36 @80,0  r100
+            svg  18×18 @9,6
+    tr[role=row]#3  358×282 @0,292  r14  b1
+      td.OrderTable__work  356×175 @1,5
+        td.OrderTable__work::before  99×20 @0,0
+        span.OrderTable__workBox#2  215×161 @127,7
+          span.OrderTable__headline  215×74 @0,0
+            a.OrderTable__number#2  52×44 @0,0  JetBrains Mono 700 15/22  lines=1  «№ 1059»
+            span.Badge__badge#3  67×24 @60,10  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+            span.Badge__badge#4  125×24 @0,50  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+          span.OrderTable__client  215×22 @0,78  Manrope 600 15/22  lines=1  «Ирина Соколова»
+          span.OrderTable__address  215×20 @0,101  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
+          span.OrderTable__compact  215×40 @0,121  Manrope 400 13/20  lines=2  «28.08.2026, 16:00 · Дмитрий Соколов»
+      td[role=cell]  356×42 @1,180
+        td[role=cell]::before  43×20 @0,0
+        span.OrderTable__statusBox#2  229×28 @113,7
+          span.Badge__badge  83×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+          span.OrderTable__overtime  140×19 @89,5  Manrope 600 12/19  lines=1  «Переработка: 2 ч 15 мин»
+      td[role=cell]#2  356×51 @1,226  b1 0 0 0
+        div.TableActions__actions#2  116×36 @226,8
+          a.OrderTable__action  36×36 @0,0  r100
+            svg#2  18×18 @9,6
+          a.OrderTable__action#2  36×36 @40,0  r100
+            svg#2  18×18 @9,6
+          a.OrderTable__action#3  36×36 @80,0  r100
+            svg#2  18×18 @9,6
+
+[геометрия 768]
+div.Table__viewport  736×335 @16,16
+  table.Table__table  736×335 @0,0
+    tr[role=row]  736×56 @0,0
+      th  305×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Работа и объект»
+      th#2  274×56 @305,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+      span  1×1 @596,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr[role=row]#2  736×140 @0,56
+      td.OrderTable__work  305×140 @0,0  b0 0 1 0
+        span.OrderTable__workBox  269×111 @18,15
+          span.OrderTable__headline  269×44 @0,0
+            a.OrderTable__number  52×44 @0,0  JetBrains Mono 700 15/22  lines=1  «№ 1059»
+            span.Badge__badge  67×24 @60,10  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+            span.Badge__badge#2  125×24 @135,10  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+          span.OrderTable__client  269×22 @0,48  Manrope 600 15/22  lines=1  «Ирина Соколова»
+          span.OrderTable__address  269×20 @0,70  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
+          span.OrderTable__compact  269×20 @0,91  Manrope 400 13/20  lines=1  «28.08.2026, 11:00 · Дмитрий Соколов»
+      td[role=cell]  274×140 @305,0  b0 0 1 0
+        span.OrderTable__statusBox  238×28 @18,15
+          span.Badge__badge  83×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+      td[role=cell]#2  157×140 @579,0  b0 0 1 0
+        div.TableActions__actions  121×36 @18,15
+          a.OrderTable__action  36×36 @5,0  r100
+            svg  18×18 @9,6
+          a.OrderTable__action#2  36×36 @45,0  r100
+            svg  18×18 @9,6
+          a.OrderTable__action#3  36×36 @85,0  r100
+            svg  18×18 @9,6
+    tr[role=row]#3  736×139 @0,196
+      td.OrderTable__work  305×139 @0,0
+        span.OrderTable__workBox#2  269×111 @18,15
+          span.OrderTable__headline  269×44 @0,0
+            a.OrderTable__number#2  52×44 @0,0  JetBrains Mono 700 15/22  lines=1  «№ 1059»
+            span.Badge__badge#3  67×24 @60,10  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+            span.Badge__badge#4  125×24 @135,10  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+          span.OrderTable__client  269×22 @0,48  Manrope 600 15/22  lines=1  «Ирина Соколова»
+          span.OrderTable__address  269×20 @0,70  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
+          span.OrderTable__compact  269×20 @0,91  Manrope 400 13/20  lines=1  «28.08.2026, 16:00 · Дмитрий Соколов»
+      td[role=cell]  274×139 @305,0
+        span.OrderTable__statusBox#2  238×28 @18,15
+          span.Badge__badge  83×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+          span.OrderTable__overtime  140×19 @89,5  Manrope 600 12/19  lines=1  «Переработка: 2 ч 15 мин»
+      td[role=cell]#2  157×139 @579,0
+        div.TableActions__actions#2  121×36 @18,15
+          a.OrderTable__action  36×36 @5,0  r100
+            svg#2  18×18 @9,6
+          a.OrderTable__action#2  36×36 @45,0  r100
+            svg#2  18×18 @9,6
+          a.OrderTable__action#3  36×36 @85,0  r100
+            svg#2  18×18 @9,6
+
+[геометрия 1440]
+div.Table__viewport  1408×255 @16,16
+  table.Table__table  1408×255 @0,0
+    tr[role=row]  1408×56 @0,0
+      th.OrderTable__whenCol  162×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+      th  420×56 @162,0  Onest 700 15/23  b0 0 1 0  lines=1  «Работа и объект»
+      th.OrderTable__installerCol  232×56 @582,0  Onest 700 15/23  b0 0 1 0  lines=1  «Монтажник»
+      th#2  377×56 @815,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+      span  1×1 @1209,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr[role=row]#2  1408×100 @0,56
+      td.OrderTable__when  162×100 @0,0  b0 0 1 0
+        time  126×38 @18,16  JetBrains Mono 400 13/20  lines=1  «28.08.2026»
+          span.OrderTable__clock  126×19 @0,19  JetBrains Mono 400 12/19  lines=1  «11:00»
+      td.OrderTable__work  420×100 @162,0  b0 0 1 0
+        span.OrderTable__workBox  384×71 @18,15
+          span.OrderTable__headline  384×24 @0,0
+            a.OrderTable__number  52×22 @0,1  JetBrains Mono 700 15/22  lines=1  «№ 1059»
+            span.Badge__badge  67×24 @60,0  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+            span.Badge__badge#2  125×24 @135,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+          span.OrderTable__client  384×22 @0,28  Manrope 600 15/22  lines=1  «Ирина Соколова»
+          span.OrderTable__address  384×20 @0,51  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
+      td.OrderTable__installer  232×100 @582,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Дмитрий Соколов»
+      td[role=cell]  377×100 @815,0  b0 0 1 0
+        span.OrderTable__statusBox  341×28 @18,15
+          span.Badge__badge  83×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+      td[role=cell]#2  216×100 @1192,0  b0 0 1 0
+        div.TableActions__actions  180×36 @18,15
+          a.OrderTable__action  36×36 @64,0  r100
+            svg  18×18 @9,6
+          a.OrderTable__action#2  36×36 @104,0  r100
+            svg  18×18 @9,6
+          a.OrderTable__action#3  36×36 @144,0  r100
+            svg  18×18 @9,6
+    tr[role=row]#3  1408×99 @0,156
+      td.OrderTable__when  162×99 @0,0
+        time#2  126×38 @18,16  JetBrains Mono 400 13/20  lines=1  «28.08.2026»
+          span.OrderTable__clock  126×19 @0,19  JetBrains Mono 400 12/19  lines=1  «16:00»
+      td.OrderTable__work  420×99 @162,0
+        span.OrderTable__workBox#2  384×71 @18,15
+          span.OrderTable__headline  384×24 @0,0
+            a.OrderTable__number#2  52×22 @0,1  JetBrains Mono 700 15/22  lines=1  «№ 1059»
+            span.Badge__badge#3  67×24 @60,0  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+            span.Badge__badge#4  125×24 @135,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+          span.OrderTable__client  384×22 @0,28  Manrope 600 15/22  lines=1  «Ирина Соколова»
+          span.OrderTable__address  384×20 @0,51  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
+      td.OrderTable__installer  232×99 @582,0  Manrope 600 15/22  lines=1  «Дмитрий Соколов»
+      td[role=cell]  377×99 @815,0
+        span.OrderTable__statusBox#2  341×28 @18,15
+          span.Badge__badge  83×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+          span.OrderTable__overtime  140×19 @89,5  Manrope 600 12/19  lines=1  «Переработка: 2 ч 15 мин»
+      td[role=cell]#2  216×99 @1192,0
+        div.TableActions__actions#2  180×36 @18,15
+          a.OrderTable__action  36×36 @64,0  r100
+            svg#2  18×18 @9,6
+          a.OrderTable__action#2  36×36 @104,0  r100
+            svg#2  18×18 @9,6
+          a.OrderTable__action#3  36×36 @144,0  r100
+            svg#2  18×18 @9,6
+
+[палитра light]
+div.Table__viewport
+  table.Table__table
+    tr[role=row]
+      th.OrderTable__whenCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      th.OrderTable__installerCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      span  color #0f172a
+    tr[role=row]#2
+      td.OrderTable__when  border #334155 #334155 #eef2f6 #334155
+        time  color #334155
+          span.OrderTable__clock  color #556173
+      td.OrderTable__work  border #334155 #334155 #eef2f6 #334155
+        span.OrderTable__workBox
+          span.OrderTable__headline
+            a.OrderTable__number  color #0f172a
+            span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+            span.Badge__badge#2  color #92400e  bg #b4530914  border #b4530947
+          span.OrderTable__client  color #0f172a
+          span.OrderTable__address  color #556173
+      td.OrderTable__installer  color #334155  border #334155 #334155 #eef2f6 #334155
+      td[role=cell]  border #334155 #334155 #eef2f6 #334155
+        span.OrderTable__statusBox
+          span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+      td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+        div.TableActions__actions
+          a.OrderTable__action
+            svg
+          a.OrderTable__action#2
+            svg
+          a.OrderTable__action#3
+            svg
+    tr[role=row]#3
+      td.OrderTable__when
+        time#2  color #334155
+          span.OrderTable__clock  color #556173
+      td.OrderTable__work
+        span.OrderTable__workBox#2
+          span.OrderTable__headline
+            a.OrderTable__number#2  color #0f172a
+            span.Badge__badge#3  color #556173  bg #f8fafc  border #e2e8f0
+            span.Badge__badge#4  color #92400e  bg #b4530914  border #b4530947
+          span.OrderTable__client  color #0f172a
+          span.OrderTable__address  color #556173
+      td.OrderTable__installer  color #334155
+      td[role=cell]
+        span.OrderTable__statusBox#2
+          span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+          span.OrderTable__overtime  color #92400e
+      td[role=cell]#2
+        div.TableActions__actions#2
+          a.OrderTable__action
+            svg#2
+          a.OrderTable__action#2
+            svg#2
+          a.OrderTable__action#3
+            svg#2
+[палитра light @390]
+div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__work
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__work > td.OrderTable__work::before
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__work > span.OrderTable__workBox > span.OrderTable__compact  color #556173
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2  border #eef2f6 #334155 #334155 #334155
+div.Table__viewport > table.Table__table > tr[role=row]#3  bg #ffffff  border #e2e8f0
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderTable__work > td.OrderTable__work::before
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderTable__work > span.OrderTable__workBox#2 > span.OrderTable__compact  color #556173
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2  border #eef2f6 #334155 #334155 #334155
+[палитра light @768]
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__work > span.OrderTable__workBox > span.OrderTable__compact  color #556173
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderTable__work > span.OrderTable__workBox#2 > span.OrderTable__compact  color #556173
+
+[палитра dark]
+div.Table__viewport
+  table.Table__table
+    tr[role=row]
+      th.OrderTable__whenCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      th.OrderTable__installerCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      span  color #eaf1f8
+    tr[role=row]#2
+      td.OrderTable__when  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        time  color #c9d5e2
+          span.OrderTable__clock  color #8598ac
+      td.OrderTable__work  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        span.OrderTable__workBox
+          span.OrderTable__headline
+            a.OrderTable__number  color #eaf1f8
+            span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+            span.Badge__badge#2  color #fbbf24  bg #fbbf241f  border #fbbf2452
+          span.OrderTable__client  color #eaf1f8
+          span.OrderTable__address  color #8598ac
+      td.OrderTable__installer  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+      td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        span.OrderTable__statusBox
+          span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+      td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        div.TableActions__actions
+          a.OrderTable__action
+            svg
+          a.OrderTable__action#2
+            svg
+          a.OrderTable__action#3
+            svg
+    tr[role=row]#3
+      td.OrderTable__when
+        time#2  color #c9d5e2
+          span.OrderTable__clock  color #8598ac
+      td.OrderTable__work
+        span.OrderTable__workBox#2
+          span.OrderTable__headline
+            a.OrderTable__number#2  color #eaf1f8
+            span.Badge__badge#3  color #8598ac  bg #0e1729  border #1e2b41
+            span.Badge__badge#4  color #fbbf24  bg #fbbf241f  border #fbbf2452
+          span.OrderTable__client  color #eaf1f8
+          span.OrderTable__address  color #8598ac
+      td.OrderTable__installer  color #c9d5e2
+      td[role=cell]
+        span.OrderTable__statusBox#2
+          span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+          span.OrderTable__overtime  color #fbbf24
+      td[role=cell]#2
+        div.TableActions__actions#2
+          a.OrderTable__action
+            svg#2
+          a.OrderTable__action#2
+            svg#2
+          a.OrderTable__action#3
+            svg#2
+[палитра dark @390]
+div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__work
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__work > td.OrderTable__work::before
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__work > span.OrderTable__workBox > span.OrderTable__compact  color #8598ac
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.Table__viewport > table.Table__table > tr[role=row]#3  bg #121d31  border #1e2b41
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderTable__work > td.OrderTable__work::before
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderTable__work > span.OrderTable__workBox#2 > span.OrderTable__compact  color #8598ac
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+[палитра dark @768]
+div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__work > span.OrderTable__workBox > span.OrderTable__compact  color #8598ac
+div.Table__viewport > table.Table__table > tr[role=row]#3 > td.OrderTable__work > span.OrderTable__workBox#2 > span.OrderTable__compact  color #8598ac

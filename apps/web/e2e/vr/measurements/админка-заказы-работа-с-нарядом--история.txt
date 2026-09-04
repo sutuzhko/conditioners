@@ -1,0 +1,142 @@
+# админка-заказы-работа-с-нарядом--история · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.OrderWorkTabs__wrap  358×424 @16,16
+  div.OrderWorkTabs__strip  358×47 @0,0  b0 0 1 0
+    div.OrderWorkTabs__tabs  358×46 @-199,0
+      button.OrderWorkTabs__tab  73×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
+      button.OrderWorkTabs__tab#2  79×44 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Расход»
+      button.OrderWorkTabs__tab#3  141×44 @160,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист выезда»
+      button.OrderWorkTabs__tab#4  159×44 @305,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы и фото»
+      button.OrderWorkTabs__tab#5  88×44 @468,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «История»
+  div.OrderWorkTabs__panel  358×361 @0,63
+    section.Card__card  358×361 @0,0  r20  b1
+      h2.OrderHistory__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «История наряда»
+      p.OrderHistory__hint  316×40 @21,46  Manrope 400 13/20  lines=2  «Кто и когда менял статус, кого назначили»
+      ol.OrderHistory__list  316×240 @21,100
+        li.OrderHistory__entry  316×79 @0,0  b0 0 0 2
+          time.OrderHistory__when  302×20 @14,6  JetBrains Mono 400 13/20  lines=1  «28.08.2026, 15:40»
+          span.OrderHistory__text  302×22 @14,28  Manrope 600 15/22  lines=1  «Выполнен»
+          span.OrderHistory__author  302×20 @14,53  Manrope 400 13/20  lines=1  «Дмитрий Соколов»
+        li.OrderHistory__entry#2  316×79 @0,81  b0 0 0 2
+          time.OrderHistory__when  302×20 @14,6  JetBrains Mono 400 13/20  lines=1  «28.08.2026, 11:05»
+          span.OrderHistory__text  302×22 @14,28  Manrope 600 15/22  lines=1  «Взят в работу»
+          span.OrderHistory__author  302×20 @14,53  Manrope 400 13/20  lines=1  «Дмитрий Соколов»
+        li.OrderHistory__entry#3  316×79 @0,162  b0 0 0 2
+          time.OrderHistory__when  302×20 @14,6  JetBrains Mono 400 13/20  lines=1  «26.08.2026, 17:00»
+          span.OrderHistory__text  302×22 @14,28  Manrope 600 15/22  lines=1  «Наряд заведён»
+          span.OrderHistory__author  302×20 @14,53  Manrope 400 13/20  lines=1  «Автор удалён из панели»
+
+[геометрия 768]
+div.OrderWorkTabs__wrap  736×339 @16,16
+  div.OrderWorkTabs__strip  736×47 @0,0  b0 0 1 0
+    div.OrderWorkTabs__tabs  736×46 @0,0
+      button.OrderWorkTabs__tab  73×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
+      button.OrderWorkTabs__tab#2  79×44 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Расход»
+      button.OrderWorkTabs__tab#3  141×44 @160,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист выезда»
+      button.OrderWorkTabs__tab#4  159×44 @305,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы и фото»
+      button.OrderWorkTabs__tab#5  88×44 @468,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «История»
+  div.OrderWorkTabs__panel  736×276 @0,63
+    section.Card__card  736×276 @0,0  r20  b1
+      h2.OrderHistory__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «История наряда»
+      p.OrderHistory__hint  539×20 @21,47  Manrope 400 13/20  lines=1  «Кто и когда менял статус, кого назначили»
+      ol.OrderHistory__list  694×174 @21,81
+        li.OrderHistory__entry  694×57 @0,0  b0 0 0 2
+          time.OrderHistory__when  192×22 @14,6  JetBrains Mono 400 13/20  lines=1  «28.08.2026, 15:40»
+          span.OrderHistory__text  474×22 @220,6  Manrope 600 15/22  lines=1  «Выполнен»
+          span.OrderHistory__author  474×20 @220,30  Manrope 400 13/20  lines=1  «Дмитрий Соколов»
+        li.OrderHistory__entry#2  694×57 @0,59  b0 0 0 2
+          time.OrderHistory__when  192×22 @14,6  JetBrains Mono 400 13/20  lines=1  «28.08.2026, 11:05»
+          span.OrderHistory__text  474×22 @220,6  Manrope 600 15/22  lines=1  «Взят в работу»
+          span.OrderHistory__author  474×20 @220,30  Manrope 400 13/20  lines=1  «Дмитрий Соколов»
+        li.OrderHistory__entry#3  694×57 @0,117  b0 0 0 2
+          time.OrderHistory__when  192×22 @14,6  JetBrains Mono 400 13/20  lines=1  «26.08.2026, 17:00»
+          span.OrderHistory__text  474×22 @220,6  Manrope 600 15/22  lines=1  «Наряд заведён»
+          span.OrderHistory__author  474×20 @220,30  Manrope 400 13/20  lines=1  «Автор удалён из панели»
+
+[геометрия 1440]
+div.OrderWorkTabs__wrap  1408×333 @16,16
+  div.OrderWorkTabs__strip  1408×40 @0,0  b0 0 1 0
+    div.OrderWorkTabs__tabs  1408×39 @0,0
+      button.OrderWorkTabs__tab  73×37 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
+      button.OrderWorkTabs__tab#2  79×37 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Расход»
+      button.OrderWorkTabs__tab#3  141×37 @160,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист выезда»
+      button.OrderWorkTabs__tab#4  159×37 @305,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы и фото»
+      button.OrderWorkTabs__tab#5  88×37 @468,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «История»
+  div.OrderWorkTabs__panel  1408×277 @0,56
+    section.Card__card  1408×277 @0,0  r20  b1
+      h2.OrderHistory__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «История наряда»
+      p.OrderHistory__hint  539×20 @21,48  Manrope 400 13/20  lines=1  «Кто и когда менял статус, кого назначили»
+      ol.OrderHistory__list  1366×174 @21,82
+        li.OrderHistory__entry  1366×57 @0,0  b0 0 0 2
+          time.OrderHistory__when  192×22 @14,6  JetBrains Mono 400 13/20  lines=1  «28.08.2026, 15:40»
+          span.OrderHistory__text  1146×22 @220,6  Manrope 600 15/22  lines=1  «Выполнен»
+          span.OrderHistory__author  1146×20 @220,30  Manrope 400 13/20  lines=1  «Дмитрий Соколов»
+        li.OrderHistory__entry#2  1366×57 @0,59  b0 0 0 2
+          time.OrderHistory__when  192×22 @14,6  JetBrains Mono 400 13/20  lines=1  «28.08.2026, 11:05»
+          span.OrderHistory__text  1146×22 @220,6  Manrope 600 15/22  lines=1  «Взят в работу»
+          span.OrderHistory__author  1146×20 @220,30  Manrope 400 13/20  lines=1  «Дмитрий Соколов»
+        li.OrderHistory__entry#3  1366×57 @0,117  b0 0 0 2
+          time.OrderHistory__when  192×22 @14,6  JetBrains Mono 400 13/20  lines=1  «26.08.2026, 17:00»
+          span.OrderHistory__text  1146×22 @220,6  Manrope 600 15/22  lines=1  «Наряд заведён»
+          span.OrderHistory__author  1146×20 @220,30  Manrope 400 13/20  lines=1  «Автор удалён из панели»
+
+[палитра light]
+div.OrderWorkTabs__wrap
+  div.OrderWorkTabs__strip  border #0f172a #0f172a #e2e8f0 #0f172a
+    div.OrderWorkTabs__tabs
+      button.OrderWorkTabs__tab  color #556173  border #556173 #556173 transparent #556173
+      button.OrderWorkTabs__tab#2  color #556173  border #556173 #556173 transparent #556173
+      button.OrderWorkTabs__tab#3  color #556173  border #556173 #556173 transparent #556173
+      button.OrderWorkTabs__tab#4  color #556173  border #556173 #556173 transparent #556173
+      button.OrderWorkTabs__tab#5  color #0f172a  border #0f172a #0f172a #0891b2 #0f172a
+  div.OrderWorkTabs__panel
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      h2.OrderHistory__title  color #0f172a
+      p.OrderHistory__hint  color #556173
+      ol.OrderHistory__list
+        li.OrderHistory__entry  border #475569 #475569 #475569 #e2e8f0
+          time.OrderHistory__when  color #5b6a7d
+          span.OrderHistory__text  color #475569
+          span.OrderHistory__author  color #556173
+        li.OrderHistory__entry#2  border #475569 #475569 #475569 #e2e8f0
+          time.OrderHistory__when  color #5b6a7d
+          span.OrderHistory__text  color #475569
+          span.OrderHistory__author  color #556173
+        li.OrderHistory__entry#3  border #475569 #475569 #475569 #e2e8f0
+          time.OrderHistory__when  color #5b6a7d
+          span.OrderHistory__text  color #475569
+          span.OrderHistory__author  color #556173
+
+[палитра dark]
+div.OrderWorkTabs__wrap
+  div.OrderWorkTabs__strip  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    div.OrderWorkTabs__tabs
+      button.OrderWorkTabs__tab  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.OrderWorkTabs__tab#2  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.OrderWorkTabs__tab#3  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.OrderWorkTabs__tab#4  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.OrderWorkTabs__tab#5  color #eaf1f8  border #eaf1f8 #eaf1f8 #22d3ee #eaf1f8
+  div.OrderWorkTabs__panel
+    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      h2.OrderHistory__title  color #eaf1f8
+      p.OrderHistory__hint  color #8598ac
+      ol.OrderHistory__list
+        li.OrderHistory__entry  border #a8b6c6 #a8b6c6 #a8b6c6 #1e2b41
+          time.OrderHistory__when  color #7e92a7
+          span.OrderHistory__text  color #a8b6c6
+          span.OrderHistory__author  color #8598ac
+        li.OrderHistory__entry#2  border #a8b6c6 #a8b6c6 #a8b6c6 #1e2b41
+          time.OrderHistory__when  color #7e92a7
+          span.OrderHistory__text  color #a8b6c6
+          span.OrderHistory__author  color #8598ac
+        li.OrderHistory__entry#3  border #a8b6c6 #a8b6c6 #a8b6c6 #1e2b41
+          time.OrderHistory__when  color #7e92a7
+          span.OrderHistory__text  color #a8b6c6
+          span.OrderHistory__author  color #8598ac

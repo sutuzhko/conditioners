@@ -1,42 +1,100 @@
-/* Фильтр списка нарядов: стопки, период и поиск. */
+/* Ряд фильтров над таблицей нарядов: пилюли слева, поиск справа. */
 
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 12px;
+  align-items: start;
 }
 
-.row {
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Пилюля раскрывается своим листом: `details` держит состояние сам, и рядом
+   с ним не нужно ни кнопки, ни обработчика. */
+.filter {
+  position: relative;
+}
+
+.pill {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  padding: 6px 14px;
+  min-height: var(--h-sm);
+  color: var(--body);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  list-style: none;
+}
+
+/* Стрелка сводки убирается в обоих движках: у пилюли свой вид. */
+.pill::-webkit-details-marker {
+  display: none;
+}
+
+.pill:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-text);
+}
+
+.pill:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+/* Лист пилюли ложится поверх содержимого, а не раздвигает ряд: иначе таблица
+   уезжала бы вниз на высоту листа каждый раз, когда фильтр открывают. */
+.sheet {
+  position: absolute;
+  z-index: 3;
+  top: calc(100% + 6px);
+  left: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card);
+  box-shadow: var(--sh-md);
+  padding: 12px;
+  min-width: 220px;
+}
+
+.periods {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-.chip {
-  padding: 6px 12px;
-  border: 1px solid var(--line);
+.period {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
   border-radius: var(--r-pill);
+  background: var(--bg-soft);
+  padding: 6px 12px;
+  min-height: var(--h-sm);
   color: var(--body);
   font-size: var(--fs-caption);
   font-weight: 600;
   text-decoration: none;
 }
 
-.chip:hover {
+.period:hover {
   border-color: var(--accent-ink);
   color: var(--accent-text);
 }
 
-.chip:focus-visible {
+.period:focus-visible {
   box-shadow: var(--ring-focus-ring);
   outline: none;
-}
-
-/* Период — фильтр второго порядка: рамка мягче, чтобы стопки читались первыми. */
-.quiet {
-  border-color: transparent;
-  background: var(--bg-soft);
-  color: var(--muted);
 }
 
 .active {
@@ -45,36 +103,47 @@
   color: var(--accent-text);
 }
 
-.form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: flex-start;
-}
-
-.field {
-  flex: 1 1 260px;
-  min-width: 0;
-}
-
-/* Кнопка встаёт на строку поля, а не под подпись: подписи и подсказки у поля
-   занимают две строки над самим вводом. */
-.actions {
-  display: flex;
-  gap: 12px;
+/* Применённое условие: видно, что оно есть, и снимается одним нажатием. */
+.chip {
+  display: inline-flex;
+  gap: 6px;
   align-items: center;
-  padding-top: 26px;
+  border: 1px solid var(--accent-ink);
+  border-radius: var(--r-pill);
+  background: var(--accent-bg);
+  padding: 6px 12px;
+  min-height: var(--h-sm);
+  max-width: 100%;
+  color: var(--accent-text);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.chip:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+.chipText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chipCross {
+  font-size: var(--fs-dense);
+  line-height: 1;
 }
 
 .reset {
-  /* 🔴 Пол цели, а не оформление (issue #476). Ссылка-действие оформлена
-     блоком, а не стоит в строке текста, — значит по WCAG 2.5.8 она цель, и
-     меряется её рамка: строка кегля давала 22.5px при минимуме 24. */
+  /* 🔴 Пол цели, а не оформление (issue #476): ссылка-действие оформлена
+     блоком, значит по WCAG 2.5.8 меряется её рамка. */
   display: inline-flex;
   align-items: center;
   min-height: 24px;
   color: var(--muted);
-  font-size: var(--fs-dense);
+  font-size: var(--fs-caption);
   text-decoration: none;
 }
 
@@ -83,25 +152,44 @@
   text-decoration: underline;
 }
 
+.form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-self: end;
+}
+
+.field {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+/* Счёт занимает свою строку сетки целиком: он подпись к ряду, а не его часть. */
 .total {
+  grid-column: 1 / -1;
   margin: 0;
   color: var(--faint);
   font-size: var(--fs-caption);
 }
 
-@media (width < 600px) {
-  .actions {
-    padding-top: 0;
-  }
-}
-
-/* 🔴 Пол цели на сенсорной раскладке (issue #375, ADR-183). До 900px по этой
-   ссылке целятся пальцем, а строка кегля даёт 34px при норме 44. Правило стоит
-   в модуле, а не берёт общий `tapAction` из `global.css`: там пол нужен
-   отдельным ссылкам внутри компонента, здесь — всем без исключения элементам
-   класса, и место правила совпадает с местом класса. */
+/* До 900px поиск встаёт на свою строку во всю ширину: рядом с пилюлями он
+   ужимался до поля, в которое не помещается ни одно слово запроса. */
 @media (width < 900px) {
+  .bar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .form {
+    justify-self: stretch;
+  }
+
+  .pill,
+  .period,
   .chip {
+    min-height: var(--tap);
+  }
+
+  .reset {
     min-height: var(--tap);
   }
 }

@@ -23,11 +23,19 @@ export {
 } from './content';
 export {
   AdminSummary,
+  segmentHref,
   type AdminSummaryProps,
+  type AttentionItem,
+  type AttentionReason,
+  type MoneyShare,
+  type MoneySummary,
   type ReadinessSummary,
   type SummaryCounts,
+  type SummaryData,
+  type SummarySegment,
   type UpcomingItem,
   type UpcomingNature,
+  type WorkCounts,
 } from './AdminSummary';
 export { adminSummaryContent } from './summary-content';
 export { NAV_COOKIE } from './navCookie';
