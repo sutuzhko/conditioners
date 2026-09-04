@@ -15,6 +15,7 @@ import {
   type StockZoneCard,
   type StockZoneKind,
 } from '@/entities/stock/model';
+import { PANEL_TABS, resolvePanelTab, type PanelTab } from '@/shared/config/admin-tabs';
 import type { Page } from '@/shared/lib/paging';
 
 export type {
@@ -41,7 +42,13 @@ export { ADMIN_PAGE_SIZE, pageNumber } from '@/shared/lib/paging';
 /* ---------- Адреса раздела ---------- */
 
 export const STOCK_PATH = '/admin/stock' satisfies Route;
-export const STOCK_ZONES_PATH = '/admin/stock/zones' satisfies Route;
+
+/**
+ * Зоны хранения — вкладка раздела, а не своя страница (issue #352). Прежний
+ * адрес `/admin/stock/zones` остался и разворачивает сюда: закладку владельца
+ * ломать нельзя.
+ */
+export const STOCK_ZONES_PATH = '/admin/stock?tab=zones' satisfies Route;
 
 export function stockItemPath(id: string): string {
   return `/admin/stock/items/${id}`;
@@ -57,13 +64,59 @@ export const STOCK_ZONE_NEW_PATH = '/admin/stock/zones/new' satisfies Route;
 export const STOCK_MOVE_PATH = '/admin/stock/move' satisfies Route;
 
 /**
- * Журнал движений всего склада.
+ * Журнал движений всего склада — вторая вкладка раздела.
  *
- * 🔴 Отдельный экран, а не замена истории позиции (ADR-137): «что было на
- * складе в четверг» и «куда делась эта труба» — разные вопросы, и второй
- * перебором позиций не решается.
+ * 🔴 Свой вид, а не замена истории позиции (ADR-137): «что было на складе в
+ * четверг» и «куда делась эта труба» — разные вопросы, и второй перебором
+ * позиций не решается. Прежний адрес `/admin/stock/journal` разворачивает сюда.
  */
-export const STOCK_JOURNAL_PATH = '/admin/stock/journal' satisfies Route;
+export const STOCK_JOURNAL_PATH = '/admin/stock?tab=log' satisfies Route;
+
+/* ---------- Вкладки раздела ---------- */
+
+/**
+ * Три вкладки одного адреса: остатки, журнал движений, зоны хранения
+ * (issue #352). До этого раздел жил тремя страницами, и «назад» из журнала
+ * уводило не на ту, с которой в него зашли.
+ *
+ * 🔴 За каждой вкладкой стоит своя выборка — остатки со страницами, журнал
+ * со своими страницами и фильтром вида, справочник зон вместе с архивными.
+ * Поэтому вкладки здесь ссылки, а не кнопки: собирает их сервер (ADR-256).
+ */
+export const STOCK_TABS = PANEL_TABS.stock;
+export type StockTab = PanelTab<'stock'>;
+
+/** Раздел открывается остатками: за ними в него и заходят. */
+export const DEFAULT_STOCK_TAB: StockTab = STOCK_TABS[0];
+
+/** Вкладка из адреса. Мусор и пустота открывают остатки (issue #341). */
+export function stockTabFromParam(value: unknown): StockTab {
+  return resolvePanelTab(STOCK_TABS, value);
+}
+
+/**
+ * Параметры адреса вкладки. Умолчание опускается: ссылка на остатки — это
+ * `/admin/stock`, без хвоста, который ничего не выбирает.
+ *
+ * Фильтры остатков переезжают вместе со вкладкой только на своей: журналу и
+ * зонам поиск по позициям не адресован, и тащить его туда значит показывать
+ * снятый фильтр, которого на экране нет.
+ */
+export function stockTabQuery(
+  tab: StockTab,
+  filters?: Partial<StockFilterState>,
+): Record<string, string> {
+  const own = tab === DEFAULT_STOCK_TAB && filters !== undefined ? stockQuery(filters) : {};
+
+  return { ...own, ...(tab === DEFAULT_STOCK_TAB ? {} : { tab }) };
+}
+
+export function stockTabHref(
+  tab: StockTab,
+  filters?: Partial<StockFilterState>,
+): { readonly pathname: string; readonly query: Record<string, string> } {
+  return { pathname: STOCK_PATH, query: stockTabQuery(tab, filters) };
+}
 
 /* ---------- Фильтры остатков ---------- */
 

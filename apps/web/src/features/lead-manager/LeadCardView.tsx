@@ -175,9 +175,13 @@ export function LeadCardView({
       <header className={styles.header}>
         <div>
           <h2 className={styles.name}>{lead.name}</h2>
-          {/* Телефон ссылкой: заявку обрабатывают звонком, и набирать номер
-              руками с экрана — лишний способ ошибиться цифрой. */}
+          {/* 🔴 Телефон ссылкой: заявку обрабатывают звонком, и набирать
+              номер руками с экрана — лишний способ ошибиться цифрой. До 600px
+              ссылка становится кнопкой «Позвонить»: с телефона по номеру
+              звонят, а не читают его (issue #349). Слово стоит в разметке, а
+              не в `content` модуля CSS — текст живёт в подписях фичи. */}
           <a className={`${styles.phone} tapAction`} href={phoneHref(lead.phone)}>
+            <span className={styles.callWord}>{texts.call}</span>
             {formatPhone(lead.phone)}
           </a>
         </div>

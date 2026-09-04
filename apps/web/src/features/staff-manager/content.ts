@@ -1,8 +1,28 @@
 /** Подписи раздела команды. */
 
+import { ORDER_STATUS_TITLE, ORDER_TYPE_TITLE } from '@/entities/order/model';
+import type { OrderStatus, OrderType } from '@/entities/order/model';
 import type { ConfirmRequest } from '@/shared/ui';
 import { EMPLOYMENTS, employmentTitle, type Employment } from '@/shared/lib/employment';
-import { formatDateShort, formatDateTime } from '@/shared/lib/format';
+import { formatDateShort, formatDateTime, formatMoney } from '@/shared/lib/format';
+import { plural } from '@/shared/lib/plural';
+
+import type { StaffCardTab } from './model';
+
+/**
+ * Подписи вкладок карточки. Ключи адреса — в словаре
+ * `shared/config/admin-tabs`, подписи — здесь (ADR-255).
+ *
+ * 🔴 «Выплаты и удержания», а не «штрафы»: штрафов как вида взыскания в ТК РФ
+ * нет (CRM.md §9, ADR-114). Слово держится и в подписи вкладки — её читают
+ * чаще, чем текст внутри.
+ */
+export const STAFF_TAB_TITLES: Readonly<Record<StaffCardTab, string>> = {
+  account: 'Аккаунт',
+  orders: 'Заказы',
+  payouts: 'Выплаты и удержания',
+  notes: 'Заметки владельца',
+};
 
 /** Пункт «оформления нет»: не значение словаря, а отсутствие выбора. */
 const EMPLOYMENT_EMPTY = 'Не заведено';
@@ -109,12 +129,66 @@ export const staffManagerContent = {
   disableHint:
     'Закрытый доступ не пускает в панель и закрывает уже открытые сессии. Выполненные наряды остаются в истории.',
 
+  tabsLabel: 'Карточка монтажника',
+
+  /* ---------- Опасная зона ---------- */
+
+  dangerTitle: 'Опасная зона',
+  dangerHint:
+    'Действия отсюда закрывают человеку вход или убирают его из команды. Наряды и деньги по ним остаются в истории в любом случае.',
+  /* 🔴 Причина, по которой кнопка отключена, написана рядом с ней. Отключённая
+     кнопка без объяснения хуже отсутствующей: человек нажимает и не понимает,
+     сломался интерфейс или так задумано. */
+  removeBlocked: (orders: number): string =>
+    `Удалить нельзя: за монтажником закреплено ${orders} ${plural(orders, 'наряд', 'наряда', 'нарядов')}. Снимите его с них или закройте доступ — учётная запись останется, а в панель он не войдёт.`,
+
   remove: 'Удалить монтажника',
+  removeHint:
+    'Учётная запись исчезнет насовсем. Выполненные наряды останутся в истории — они привязаны к работе, а не к записи в панели.',
   removeConfirm: (who: string): ConfirmRequest => ({
     title: `Удалить ${who}?`,
     description: 'Учётная запись исчезнет, выполненные наряды останутся в истории.',
     confirmLabel: 'Удалить учётную запись',
   }),
+
+  /* ---------- Заказы монтажника ---------- */
+
+  ordersTitle: 'Наряды монтажника',
+  ordersHint: 'Куда ездил, к кому и чем закончилось.',
+  ordersEmpty: 'Нарядов за этим человеком пока нет: назначьте его в карточке наряда.',
+  ordersAll: 'Все наряды монтажника',
+  ordersShown: (shown: number, total: number): string =>
+    `Показаны последние ${shown} из ${total}: остальные — в разделе заказов`,
+  orderNumber: (number: number): string => `№ ${number}`,
+  orderType: (type: OrderType): string => ORDER_TYPE_TITLE[type],
+  orderStatus: (status: OrderStatus): string => ORDER_STATUS_TITLE[status],
+
+  /* ---------- Выплаты и удержания ---------- */
+
+  payoutsTitle: 'Движения по выплатам',
+  payoutsHint:
+    'Что причитается за наряд и что из него удержано. У каждого удержания есть основание и наряд, к которому оно относится.',
+  payoutsEmpty: 'Движений пока нет: выплата появляется вместе с первым нарядом.',
+  /* 🔴 Удержания не вычтены из заработанного, и плитки об этом говорят прямо:
+     уменьшать вознаграждение законно не при всяком оформлении (CRM.md §9). */
+  tileDone: 'Выполнено заказов',
+  tileActive: 'В работе сейчас',
+  tileFee: 'Заработано',
+  tileHeld: 'Удержано',
+  tilesLabel: 'Показатели монтажника',
+  tileFeeNote: 'По выполненным нарядам',
+  tileHeldNote: 'Из выплат не вычтено',
+  colOrder: 'Наряд',
+  colWhen: 'Когда',
+  colClient: 'Клиент',
+  colFee: 'Выплата',
+  colHeld: 'Удержание',
+  colReason: 'Основание',
+  money: (value: number): string => formatMoney(value),
+  dash: '—',
+  /* Удержание без основания — дефект данных, а не «ноль»: запись обязана его
+     нести (ADR-114). Показываем это словами, а не пустой ячейкой. */
+  reasonMissing: 'Основание не записано',
 
   notesTitle: 'Заметки владельца',
   notesHint: 'Монтажник их не видит.',

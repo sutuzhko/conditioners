@@ -1,0 +1,102 @@
+# админка-история-заказов-клиента--безцены · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×316 @16,16  r20  b1
+  header.ClientOrders__header  316×65 @21,21
+    h2.ClientOrders__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «История заказов»
+    p.ClientOrders__hint  316×40 @0,25  Manrope 400 13/20  lines=2  «Все работы у этого человека: когда ездил»
+  ul.ClientOrders__list  316×141 @21,98
+    a.ClientOrders__row  316×141 @0,0  r11  b1
+      span.ClientOrders__head  290×24 @13,11
+        span.ClientOrders__number  55×22 @0,1  Manrope 600 15/22  lines=1  «№ 1071»
+        span.Badge__badge  58×24 @65,0  Manrope 600 12/16  r100  b1  lines=1  «Новый»
+      span.ClientOrders__facts  290×64 @13,39
+        time.ClientOrders__when  71×20 @0,0  Manrope 400 13/20  lines=1  «04.09.2026»
+        span  46×20 @83,0  Manrope 400 13/20  lines=1  «Ремонт»
+        span.ClientOrders__address  158×20 @0,22  Manrope 400 13/20  lines=1  «Тула, ул. Демонстрации, 1»
+        span.ClientOrders__who  162×20 @0,44  Manrope 400 13/20  lines=1  «Исполнитель не назначен»
+      span.ClientOrders__price  290×22 @13,108  Manrope 600 15/22  lines=1  «—»
+  p.ClientOrders__actions  316×44 @21,251
+    a.ClientOrders__all  143×44 @0,0  Manrope 600 15/22  lines=1  «Все наряды клиента»
+
+[геометрия 768]
+section.Card__card  736×226 @16,16  r20  b1
+  header.ClientOrders__header  694×46 @21,21
+    h2.ClientOrders__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «История заказов»
+    p.ClientOrders__hint  539×20 @0,26  Manrope 400 13/20  lines=1  «Все работы у этого человека: когда ездил»
+  ul.ClientOrders__list  694×70 @21,79
+    a.ClientOrders__row  694×70 @0,0  r11  b1
+      span.ClientOrders__head  641×24 @13,11
+        span.ClientOrders__number  55×22 @0,1  Manrope 600 15/22  lines=1  «№ 1071»
+        span.Badge__badge  58×24 @65,0  Manrope 600 12/16  r100  b1  lines=1  «Новый»
+      span.ClientOrders__facts  641×20 @13,39
+        time.ClientOrders__when  71×20 @0,0  Manrope 400 13/20  lines=1  «04.09.2026»
+        span  46×20 @83,0  Manrope 400 13/20  lines=1  «Ремонт»
+        span.ClientOrders__address  158×20 @141,0  Manrope 400 13/20  lines=1  «Тула, ул. Демонстрации, 1»
+        span.ClientOrders__who  162×20 @311,0  Manrope 400 13/20  lines=1  «Исполнитель не назначен»
+      span.ClientOrders__price  11×22 @670,24  Manrope 600 15/22  lines=1  «—»
+  p.ClientOrders__actions  694×44 @21,161
+    a.ClientOrders__all  143×44 @0,0  Manrope 600 15/22  lines=1  «Все наряды клиента»
+
+[геометрия 1440]
+section.Card__card  1408×207 @16,16  r20  b1
+  header.ClientOrders__header  1366×47 @21,21
+    h2.ClientOrders__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «История заказов»
+    p.ClientOrders__hint  539×20 @0,27  Manrope 400 13/20  lines=1  «Все работы у этого человека: когда ездил»
+  ul.ClientOrders__list  1366×70 @21,80
+    a.ClientOrders__row  1366×70 @0,0  r11  b1
+      span.ClientOrders__head  1313×24 @13,11
+        span.ClientOrders__number  55×22 @0,1  Manrope 600 15/22  lines=1  «№ 1071»
+        span.Badge__badge  58×24 @65,0  Manrope 600 12/16  r100  b1  lines=1  «Новый»
+      span.ClientOrders__facts  1313×20 @13,39
+        time.ClientOrders__when  71×20 @0,0  Manrope 400 13/20  lines=1  «04.09.2026»
+        span  46×20 @83,0  Manrope 400 13/20  lines=1  «Ремонт»
+        span.ClientOrders__address  158×20 @141,0  Manrope 400 13/20  lines=1  «Тула, ул. Демонстрации, 1»
+        span.ClientOrders__who  162×20 @311,0  Manrope 400 13/20  lines=1  «Исполнитель не назначен»
+      span.ClientOrders__price  11×22 @1342,24  Manrope 600 15/22  lines=1  «—»
+  p.ClientOrders__actions  1366×24 @21,162
+    a.ClientOrders__all  143×24 @0,0  Manrope 600 15/22  lines=1  «Все наряды клиента»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.ClientOrders__header
+    h2.ClientOrders__title  color #0f172a
+    p.ClientOrders__hint  color #556173
+  ul.ClientOrders__list
+    a.ClientOrders__row  border #e2e8f0
+      span.ClientOrders__head
+        span.ClientOrders__number  color #0f172a
+        span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+      span.ClientOrders__facts
+        time.ClientOrders__when  color #556173
+        span  color #556173
+        span.ClientOrders__address  color #556173
+        span.ClientOrders__who  color #5b6a7d
+      span.ClientOrders__price  color #0f172a
+  p.ClientOrders__actions
+    a.ClientOrders__all  color #0e7490
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.ClientOrders__header
+    h2.ClientOrders__title  color #eaf1f8
+    p.ClientOrders__hint  color #8598ac
+  ul.ClientOrders__list
+    a.ClientOrders__row  border #1e2b41
+      span.ClientOrders__head
+        span.ClientOrders__number  color #eaf1f8
+        span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+      span.ClientOrders__facts
+        time.ClientOrders__when  color #8598ac
+        span  color #8598ac
+        span.ClientOrders__address  color #8598ac
+        span.ClientOrders__who  color #7e92a7
+      span.ClientOrders__price  color #eaf1f8
+  p.ClientOrders__actions
+    a.ClientOrders__all  color #22d3ee

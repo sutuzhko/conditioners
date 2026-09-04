@@ -1,0 +1,207 @@
+# админка-наряды-монтажника--естьещё · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×602 @16,16  r20  b1
+  header.StaffOrders__header  316×45 @21,21
+    h2.StaffOrders__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Наряды монтажника»
+    p.StaffOrders__hint  316×20 @0,25  Manrope 400 13/20  lines=1  «Куда ездил, к кому и чем закончилось.»
+  ul.StaffOrders__list  316×395 @21,78
+    a.StaffOrders__row  316×119 @0,0  r11  b1
+      span.StaffOrders__head  290×24 @13,11
+        span.StaffOrders__number  55×22 @0,1  Manrope 600 15/22  lines=1  «№ 1059»
+        span.Badge__badge  80×24 @65,0  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+      span.StaffOrders__facts  290×42 @13,39
+        time.StaffOrders__when  71×20 @0,0  Manrope 400 13/20  lines=1  «14.08.2026»
+        span  49×20 @83,0  Manrope 400 13/20  lines=1  «Монтаж»
+        span.StaffOrders__who  87×20 @144,0  Manrope 400 13/20  lines=1  «Жуков Кирилл»
+        span.StaffOrders__address  181×20 @0,22  Manrope 400 13/20  lines=1  «Тула, ул. Токарева, 88, кв. 204»
+      span.StaffOrders__fee  290×22 @13,85  Manrope 600 15/22  lines=1  «14 000 ₽»
+    a.StaffOrders__row#2  316×141 @0,127  r11  b1
+      span.StaffOrders__head  290×24 @13,11
+        span.StaffOrders__number#2  55×22 @0,1  Manrope 600 15/22  lines=1  «№ 1064»
+        span.Badge__badge#2  80×24 @65,0  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+      span.StaffOrders__facts  290×64 @13,39
+        time.StaffOrders__when#2  71×20 @0,0  Manrope 400 13/20  lines=1  «22.08.2026»
+        span#2  92×20 @83,0  Manrope 400 13/20  lines=1  «Обслуживание»
+        span.StaffOrders__who#2  154×20 @0,22  Manrope 400 13/20  lines=1  «Дёмин Алексей Юрьевич»
+        span.StaffOrders__address#2  226×20 @0,44  Manrope 400 13/20  lines=1  «Тула, Красноармейский проспект, 12»
+      span.StaffOrders__fee  290×22 @13,108  Manrope 600 15/22  lines=1  «9 000 ₽»
+    a.StaffOrders__row#3  316×119 @0,276  r11  b1
+      span.StaffOrders__head  290×24 @13,11
+        span.StaffOrders__number#3  55×22 @0,1  Manrope 600 15/22  lines=1  «№ 1071»
+        span.Badge__badge#3  72×24 @65,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+      span.StaffOrders__facts  290×42 @13,39
+        time.StaffOrders__when#3  71×20 @0,0  Manrope 400 13/20  lines=1  «04.09.2026»
+        span#3  46×20 @83,0  Manrope 400 13/20  lines=1  «Ремонт»
+        span.StaffOrders__who#3  101×20 @141,0  Manrope 400 13/20  lines=1  «Салон «Аврора"»
+        span.StaffOrders__address#3  158×20 @0,22  Manrope 400 13/20  lines=1  «Тула, ул. Демонстрации, 1»
+      span.StaffOrders__fee  290×22 @13,85  Manrope 600 15/22  lines=1  «6 000 ₽»
+  p.StaffOrders__more  316×40 @21,485  Manrope 400 13/20  lines=2  «Показаны последние 3 из 96: остальные —»
+  p.StaffOrders__actions  316×44 @21,537
+    a.StaffOrders__all  173×44 @0,0  Manrope 600 15/22  lines=1  «Все наряды монтажника»
+
+[геометрия 768]
+section.Card__card  736×415 @16,16  r20  b1
+  header.StaffOrders__header  694×46 @21,21
+    h2.StaffOrders__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Наряды монтажника»
+    p.StaffOrders__hint  539×20 @0,26  Manrope 400 13/20  lines=1  «Куда ездил, к кому и чем закончилось.»
+  ul.StaffOrders__list  694×227 @21,79
+    a.StaffOrders__row  694×70 @0,0  r11  b1
+      span.StaffOrders__head  593×24 @13,11
+        span.StaffOrders__number  55×22 @0,1  Manrope 600 15/22  lines=1  «№ 1059»
+        span.Badge__badge  80×24 @65,0  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+      span.StaffOrders__facts  593×20 @13,39
+        time.StaffOrders__when  71×20 @0,0  Manrope 400 13/20  lines=1  «14.08.2026»
+        span  49×20 @83,0  Manrope 400 13/20  lines=1  «Монтаж»
+        span.StaffOrders__who  87×20 @144,0  Manrope 400 13/20  lines=1  «Жуков Кирилл»
+        span.StaffOrders__address  181×20 @243,0  Manrope 400 13/20  lines=1  «Тула, ул. Токарева, 88, кв. 204»
+      span.StaffOrders__fee  59×22 @622,24  Manrope 600 15/22  lines=1  «14 000 ₽»
+    a.StaffOrders__row#2  694×70 @0,78  r11  b1
+      span.StaffOrders__head  602×24 @13,11
+        span.StaffOrders__number#2  55×22 @0,1  Manrope 600 15/22  lines=1  «№ 1064»
+        span.Badge__badge#2  80×24 @65,0  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+      span.StaffOrders__facts  602×20 @13,39
+        time.StaffOrders__when#2  71×20 @0,0  Manrope 400 13/20  lines=1  «22.08.2026»
+        span#2  92×20 @83,0  Manrope 400 13/20  lines=1  «Обслуживание»
+        span.StaffOrders__who#2  154×20 @187,0  Manrope 400 13/20  lines=1  «Дёмин Алексей Юрьевич»
+        span.StaffOrders__address#2  226×20 @352,0  Manrope 400 13/20  lines=1  «Тула, Красноармейский проспект, 12»
+      span.StaffOrders__fee  50×22 @631,24  Manrope 600 15/22  lines=1  «9 000 ₽»
+    a.StaffOrders__row#3  694×70 @0,157  r11  b1
+      span.StaffOrders__head  602×24 @13,11
+        span.StaffOrders__number#3  55×22 @0,1  Manrope 600 15/22  lines=1  «№ 1071»
+        span.Badge__badge#3  72×24 @65,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+      span.StaffOrders__facts  602×20 @13,39
+        time.StaffOrders__when#3  71×20 @0,0  Manrope 400 13/20  lines=1  «04.09.2026»
+        span#3  46×20 @83,0  Manrope 400 13/20  lines=1  «Ремонт»
+        span.StaffOrders__who#3  101×20 @141,0  Manrope 400 13/20  lines=1  «Салон «Аврора"»
+        span.StaffOrders__address#3  158×20 @255,0  Manrope 400 13/20  lines=1  «Тула, ул. Демонстрации, 1»
+      span.StaffOrders__fee  50×22 @631,24  Manrope 600 15/22  lines=1  «6 000 ₽»
+  p.StaffOrders__more  694×20 @21,318  Manrope 400 13/20  lines=1  «Показаны последние 3 из 96: остальные —»
+  p.StaffOrders__actions  694×44 @21,350
+    a.StaffOrders__all  173×44 @0,0  Manrope 600 15/22  lines=1  «Все наряды монтажника»
+
+[геометрия 1440]
+section.Card__card  1408×396 @16,16  r20  b1
+  header.StaffOrders__header  1366×47 @21,21
+    h2.StaffOrders__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Наряды монтажника»
+    p.StaffOrders__hint  539×20 @0,27  Manrope 400 13/20  lines=1  «Куда ездил, к кому и чем закончилось.»
+  ul.StaffOrders__list  1366×227 @21,80
+    a.StaffOrders__row  1366×70 @0,0  r11  b1
+      span.StaffOrders__head  1265×24 @13,11
+        span.StaffOrders__number  55×22 @0,1  Manrope 600 15/22  lines=1  «№ 1059»
+        span.Badge__badge  80×24 @65,0  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+      span.StaffOrders__facts  1265×20 @13,39
+        time.StaffOrders__when  71×20 @0,0  Manrope 400 13/20  lines=1  «14.08.2026»
+        span  49×20 @83,0  Manrope 400 13/20  lines=1  «Монтаж»
+        span.StaffOrders__who  87×20 @144,0  Manrope 400 13/20  lines=1  «Жуков Кирилл»
+        span.StaffOrders__address  181×20 @243,0  Manrope 400 13/20  lines=1  «Тула, ул. Токарева, 88, кв. 204»
+      span.StaffOrders__fee  59×22 @1294,24  Manrope 600 15/22  lines=1  «14 000 ₽»
+    a.StaffOrders__row#2  1366×70 @0,78  r11  b1
+      span.StaffOrders__head  1274×24 @13,11
+        span.StaffOrders__number#2  55×22 @0,1  Manrope 600 15/22  lines=1  «№ 1064»
+        span.Badge__badge#2  80×24 @65,0  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+      span.StaffOrders__facts  1274×20 @13,39
+        time.StaffOrders__when#2  71×20 @0,0  Manrope 400 13/20  lines=1  «22.08.2026»
+        span#2  92×20 @83,0  Manrope 400 13/20  lines=1  «Обслуживание»
+        span.StaffOrders__who#2  154×20 @187,0  Manrope 400 13/20  lines=1  «Дёмин Алексей Юрьевич»
+        span.StaffOrders__address#2  226×20 @352,0  Manrope 400 13/20  lines=1  «Тула, Красноармейский проспект, 12»
+      span.StaffOrders__fee  50×22 @1303,24  Manrope 600 15/22  lines=1  «9 000 ₽»
+    a.StaffOrders__row#3  1366×70 @0,157  r11  b1
+      span.StaffOrders__head  1274×24 @13,11
+        span.StaffOrders__number#3  55×22 @0,1  Manrope 600 15/22  lines=1  «№ 1071»
+        span.Badge__badge#3  72×24 @65,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+      span.StaffOrders__facts  1274×20 @13,39
+        time.StaffOrders__when#3  71×20 @0,0  Manrope 400 13/20  lines=1  «04.09.2026»
+        span#3  46×20 @83,0  Manrope 400 13/20  lines=1  «Ремонт»
+        span.StaffOrders__who#3  101×20 @141,0  Manrope 400 13/20  lines=1  «Салон «Аврора"»
+        span.StaffOrders__address#3  158×20 @255,0  Manrope 400 13/20  lines=1  «Тула, ул. Демонстрации, 1»
+      span.StaffOrders__fee  50×22 @1303,24  Manrope 600 15/22  lines=1  «6 000 ₽»
+  p.StaffOrders__more  1366×20 @21,319  Manrope 400 13/20  lines=1  «Показаны последние 3 из 96: остальные —»
+  p.StaffOrders__actions  1366×24 @21,351
+    a.StaffOrders__all  173×24 @0,0  Manrope 600 15/22  lines=1  «Все наряды монтажника»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  header.StaffOrders__header
+    h2.StaffOrders__title  color #0f172a
+    p.StaffOrders__hint  color #556173
+  ul.StaffOrders__list
+    a.StaffOrders__row  border #e2e8f0
+      span.StaffOrders__head
+        span.StaffOrders__number  color #0f172a
+        span.Badge__badge  color #166534  bg #15803d14  border #15803d47
+      span.StaffOrders__facts
+        time.StaffOrders__when  color #556173
+        span  color #556173
+        span.StaffOrders__who  color #5b6a7d
+        span.StaffOrders__address  color #556173
+      span.StaffOrders__fee  color #0f172a
+    a.StaffOrders__row#2  border #e2e8f0
+      span.StaffOrders__head
+        span.StaffOrders__number#2  color #0f172a
+        span.Badge__badge#2  color #166534  bg #15803d14  border #15803d47
+      span.StaffOrders__facts
+        time.StaffOrders__when#2  color #556173
+        span#2  color #556173
+        span.StaffOrders__who#2  color #5b6a7d
+        span.StaffOrders__address#2  color #556173
+      span.StaffOrders__fee  color #0f172a
+    a.StaffOrders__row#3  border #e2e8f0
+      span.StaffOrders__head
+        span.StaffOrders__number#3  color #0f172a
+        span.Badge__badge#3  color #0e7490  bg #ecfeff  border #a5f3fc
+      span.StaffOrders__facts
+        time.StaffOrders__when#3  color #556173
+        span#3  color #556173
+        span.StaffOrders__who#3  color #5b6a7d
+        span.StaffOrders__address#3  color #556173
+      span.StaffOrders__fee  color #0f172a
+  p.StaffOrders__more  color #5b6a7d
+  p.StaffOrders__actions
+    a.StaffOrders__all  color #0e7490
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  header.StaffOrders__header
+    h2.StaffOrders__title  color #eaf1f8
+    p.StaffOrders__hint  color #8598ac
+  ul.StaffOrders__list
+    a.StaffOrders__row  border #1e2b41
+      span.StaffOrders__head
+        span.StaffOrders__number  color #eaf1f8
+        span.Badge__badge  color #4ade80  bg #4ade801f  border #4ade8052
+      span.StaffOrders__facts
+        time.StaffOrders__when  color #8598ac
+        span  color #8598ac
+        span.StaffOrders__who  color #7e92a7
+        span.StaffOrders__address  color #8598ac
+      span.StaffOrders__fee  color #eaf1f8
+    a.StaffOrders__row#2  border #1e2b41
+      span.StaffOrders__head
+        span.StaffOrders__number#2  color #eaf1f8
+        span.Badge__badge#2  color #4ade80  bg #4ade801f  border #4ade8052
+      span.StaffOrders__facts
+        time.StaffOrders__when#2  color #8598ac
+        span#2  color #8598ac
+        span.StaffOrders__who#2  color #7e92a7
+        span.StaffOrders__address#2  color #8598ac
+      span.StaffOrders__fee  color #eaf1f8
+    a.StaffOrders__row#3  border #1e2b41
+      span.StaffOrders__head
+        span.StaffOrders__number#3  color #eaf1f8
+        span.Badge__badge#3  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+      span.StaffOrders__facts
+        time.StaffOrders__when#3  color #8598ac
+        span#3  color #8598ac
+        span.StaffOrders__who#3  color #7e92a7
+        span.StaffOrders__address#3  color #8598ac
+      span.StaffOrders__fee  color #eaf1f8
+  p.StaffOrders__more  color #7e92a7
+  p.StaffOrders__actions
+    a.StaffOrders__all  color #22d3ee

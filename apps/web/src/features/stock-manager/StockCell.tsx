@@ -119,7 +119,10 @@ export function StockCell({
   };
 
   return (
-    <td className={styles.cell}>
+    /* `role` и `data-label` — требование карточного режима таблицы: до 600px
+       строка раскладывается в карточку через `display: block`, а он снимает с
+       таблицы семантику и прячет шапку (см. Table.tsx). */
+    <td className={styles.cell} role="cell" data-label={zoneName}>
       <button
         type="button"
         data-stock-cell={key}

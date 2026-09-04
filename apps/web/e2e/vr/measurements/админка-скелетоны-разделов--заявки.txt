@@ -2,7 +2,7 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1175
+390 → 390×900
 768 → 768×900
 1440 → 1440×900
 
@@ -14,10 +14,7 @@ a#2  65×44 @55,120  Manrope 600 13/20  r100  b1  lines=1  «Новая»
 a#3  82×44 @126,120  Manrope 600 13/20  r100  b1  lines=1  «В работе»
 a#4  98×44 @215,120  Manrope 600 13/20  r100  b1  lines=1  «Завершена»
 a#5  63×44 @318,120  Manrope 600 13/20  r100  b1  lines=1  «Отказ»
-span.Skeleton__skeleton  390×240 @0,180
-span.Skeleton__skeleton#2  390×240 @0,431
-span.Skeleton__skeleton#3  390×240 @0,683
-span.Skeleton__skeleton#4  390×240 @0,935
+span.Skeleton__skeleton  390×640 @0,180  r14
 
 [геометрия 768]
 h1  107×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Заявки»
@@ -27,10 +24,7 @@ a#2  65×44 @55,104  Manrope 600 13/20  r100  b1  lines=1  «Новая»
 a#3  82×44 @126,104  Manrope 600 13/20  r100  b1  lines=1  «В работе»
 a#4  98×44 @215,104  Manrope 600 13/20  r100  b1  lines=1  «Завершена»
 a#5  63×44 @318,104  Manrope 600 13/20  r100  b1  lines=1  «Отказ»
-span.Skeleton__skeleton  768×140 @0,164
-span.Skeleton__skeleton#2  768×140 @0,316
-span.Skeleton__skeleton#3  768×140 @0,468
-span.Skeleton__skeleton#4  768×140 @0,620
+span.Skeleton__skeleton  768×640 @0,164  r14
 
 [геометрия 1440]
 h1  130×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Заявки»
@@ -40,10 +34,8 @@ a#2  65×34 @55,113  Manrope 600 13/20  r100  b1  lines=1  «Новая»
 a#3  82×34 @126,113  Manrope 600 13/20  r100  b1  lines=1  «В работе»
 a#4  98×34 @215,113  Manrope 600 13/20  r100  b1  lines=1  «Завершена»
 a#5  63×34 @318,113  Manrope 600 13/20  r100  b1  lines=1  «Отказ»
-span.Skeleton__skeleton  1440×100 @0,163
-span.Skeleton__skeleton#2  1440×100 @0,274
-span.Skeleton__skeleton#3  1440×100 @0,386
-span.Skeleton__skeleton#4  1440×100 @0,498
+span.Skeleton__skeleton  320×640 @0,163  r14
+span.Skeleton__skeleton#2  1104×640 @336,163  r14
 
 [палитра light]
 h1  color #0f172a
@@ -55,8 +47,6 @@ a#4  color #475569  border #e2e8f0
 a#5  color #475569  border #e2e8f0
 span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
 span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-span.Skeleton__skeleton#4  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
 
 [палитра dark]
 h1  color #eaf1f8
@@ -68,5 +58,3 @@ a#4  color #a8b6c6  border #1e2b41
 a#5  color #a8b6c6  border #1e2b41
 span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
 span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-span.Skeleton__skeleton#4  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

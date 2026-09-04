@@ -76,6 +76,16 @@
   text-decoration: underline;
 }
 
+/* 🔴 На сенсорной раскладке пол цели выше — 44px (ADR-183). До 900px журнал
+   открывают с телефона в машине, и по строке кегля пальцем промахиваются.
+   Ниже 600 строка и так раскладывается карточкой, где места хватает. */
+@media (width < 900px) {
+  .order,
+  .item {
+    min-height: var(--tap);
+  }
+}
+
 .gone {
   color: var(--faint);
 }
@@ -101,6 +111,16 @@
 .chip:hover {
   border-color: var(--accent-line);
   color: var(--accent-text);
+}
+
+/* 🔴 Пол цели фильтра на сенсорной раскладке (ADR-183): пилюля кеглем даёт
+   32px при норме 44, а фильтр вида — первое, что нажимают в журнале. */
+@media (width < 900px) {
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
 }
 
 .active {
