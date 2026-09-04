@@ -68,6 +68,15 @@ export const rejectedFromTelegram: ReviewCard = {
   },
 };
 
+/** Снятый с сайта: не плохой, а устаревший — его возвращают, а не стирают. */
+export const archivedReview: ReviewCard = {
+  ...pendingReview,
+  id: 'r8',
+  name: 'Сергей',
+  text: 'Ставили сплит в 2019-м, работает до сих пор. Модели этой давно нет в продаже.',
+  status: 'archived',
+};
+
 /** Отзыв со снимком места установки: по нему модератор и принимает решение. */
 export const reviewWithPhoto: ReviewCard = {
   ...pendingReview,

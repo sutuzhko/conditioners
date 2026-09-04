@@ -4,6 +4,7 @@ import { ReviewCardView } from './ReviewCardView';
 import {
   acceptingApi,
   approvedReview,
+  archivedReview,
   failingApi,
   lowRatedReview,
   pendingReview,
@@ -55,6 +56,15 @@ export const ОтклонёнИзЧата: Story = {
 /** Низкая оценка: модерация не про «пропускать только хорошие». */
 export const НизкаяОценка: Story = {
   args: { review: lowRatedReview },
+};
+
+/**
+ * В архиве: вернуть на сайт или на модерацию. Кнопки «Удалить» здесь нет
+ * намеренно — архив заведён затем, чтобы убрать с сайта, ничего не потеряв
+ * (ADR-300).
+ */
+export const ВАрхиве: Story = {
+  args: { review: archivedReview, tab: 'archived' },
 };
 
 /** Вкладка «Все»: сквозной поиск по архиву, действий минимум. */
