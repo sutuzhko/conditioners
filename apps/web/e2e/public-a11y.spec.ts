@@ -58,7 +58,6 @@ test.skip(({ isMobile }) => isMobile === true, 'ширины задаёт спе
  * которого нет в списке, красит прогон как прежде.
  */
 const KNOWN: readonly { readonly match: string; readonly issue: string }[] = [
-  { match: 'HoursGrid_cell', issue: '#532 — ячейка суток 15,3px на 900' },
   {
     match: 'Badge_badge',
     issue: '#533 — плашка подбора 1,74:1: грунт красит текст, но не заливку',
