@@ -20,15 +20,56 @@ const MOCKUP: Record<PanelTabSection, readonly string[]> = {
   overview: ['overview', 'work', 'money'],
 };
 
+/**
+ * Вкладки, заведённые решением сверх макета.
+ *
+ * 🔴 Перечень именной и с причиной: «словарь разошёлся с макетом» — это либо
+ * дефект, либо решение, и различить их может только запись. Пустой перечень
+ * означает, что словарь макету равен.
+ */
+const BEYOND_MOCKUP: readonly {
+  readonly section: PanelTabSection;
+  readonly tab: string;
+  readonly why: string;
+}[] = [
+  {
+    section: 'reviews',
+    tab: 'archived',
+    why: 'ADR-300, issue #514: архивные не удаляются, и без своей вкладки до них не добраться',
+  },
+];
+
+/** Макет плюс осознанные отступления — то, чему словарь обязан быть равен. */
+const EXPECTED: Record<PanelTabSection, readonly string[]> = Object.fromEntries(
+  Object.entries(MOCKUP).map(([section, tabs]) => [
+    section,
+    BEYOND_MOCKUP.filter((extra) => extra.section === section).reduce<readonly string[]>(
+      /* Добавленная вкладка встаёт перед «Все»: «Все» — не статус, а снятие
+         фильтра, и она всегда последняя. */
+      (list, extra) => [...list.slice(0, -1), extra.tab, ...list.slice(-1)],
+      tabs,
+    ),
+  ]),
+) as Record<PanelTabSection, readonly string[]>;
+
 describe('словарь вкладок панели', () => {
-  it('каждой вкладке макета соответствует ключ, и лишних ключей нет', () => {
-    expect(PANEL_TABS).toEqual(MOCKUP);
+  it('каждой вкладке соответствует ключ, и лишних ключей нет', () => {
+    expect(PANEL_TABS).toEqual(EXPECTED);
   });
 
-  it('вкладок ровно тридцать — столько же, сколько на макете', () => {
+  it('вкладок тридцать одна: тридцать макета и одна заведённая решением', () => {
     const total = Object.values(PANEL_TABS).reduce((count, tabs) => count + tabs.length, 0);
+    const mockup = Object.values(MOCKUP).reduce((count, tabs) => count + tabs.length, 0);
 
-    expect(total).toBe(30);
+    expect(mockup).toBe(30);
+    expect(total).toBe(mockup + BEYOND_MOCKUP.length);
+  });
+
+  it('🔴 каждое отступление от макета названо причиной', () => {
+    for (const extra of BEYOND_MOCKUP) {
+      expect(extra.why).toMatch(/#\d+/);
+      expect(PANEL_TABS[extra.section]).toContain(extra.tab);
+    }
   });
 
   it('🔴 ключи по-английски: латиница в нижнем регистре, без транслита и разделителей', () => {

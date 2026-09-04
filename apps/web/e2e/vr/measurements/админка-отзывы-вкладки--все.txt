@@ -11,32 +11,37 @@ nav.ReviewTabs__tabs  358×94 @16,16
   a.ReviewTabs__tab  117×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «На модерации»
   a.ReviewTabs__tab#2  136×44 @123,0  Manrope 600 13/20  r100  b1  lines=1  «Опубликованные»
   a.ReviewTabs__tab#3  113×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Отклонённые»
-  a.ReviewTabs__tab#4  49×44 @119,50  Manrope 600 13/20  r100  b1  lines=1  «Все»
+  a.ReviewTabs__tab#4  82×44 @119,50  Manrope 600 13/20  r100  b1  lines=1  «В архиве»
+  a.ReviewTabs__tab#5  49×44 @207,50  Manrope 600 13/20  r100  b1  lines=1  «Все»
 
 [геометрия 768]
 nav.ReviewTabs__tabs  736×44 @16,16
   a.ReviewTabs__tab  117×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «На модерации»
   a.ReviewTabs__tab#2  136×44 @123,0  Manrope 600 13/20  r100  b1  lines=1  «Опубликованные»
   a.ReviewTabs__tab#3  113×44 @265,0  Manrope 600 13/20  r100  b1  lines=1  «Отклонённые»
-  a.ReviewTabs__tab#4  49×44 @385,0  Manrope 600 13/20  r100  b1  lines=1  «Все»
+  a.ReviewTabs__tab#4  82×44 @385,0  Manrope 600 13/20  r100  b1  lines=1  «В архиве»
+  a.ReviewTabs__tab#5  49×44 @472,0  Manrope 600 13/20  r100  b1  lines=1  «Все»
 
 [геометрия 1440]
 nav.ReviewTabs__tabs  1408×34 @16,16
   a.ReviewTabs__tab  117×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «На модерации»
   a.ReviewTabs__tab#2  136×34 @123,0  Manrope 600 13/20  r100  b1  lines=1  «Опубликованные»
   a.ReviewTabs__tab#3  113×34 @265,0  Manrope 600 13/20  r100  b1  lines=1  «Отклонённые»
-  a.ReviewTabs__tab#4  49×34 @385,0  Manrope 600 13/20  r100  b1  lines=1  «Все»
+  a.ReviewTabs__tab#4  82×34 @385,0  Manrope 600 13/20  r100  b1  lines=1  «В архиве»
+  a.ReviewTabs__tab#5  49×34 @472,0  Manrope 600 13/20  r100  b1  lines=1  «Все»
 
 [палитра light]
 nav.ReviewTabs__tabs
   a.ReviewTabs__tab  color #475569  border #e2e8f0
   a.ReviewTabs__tab#2  color #475569  border #e2e8f0
   a.ReviewTabs__tab#3  color #475569  border #e2e8f0
-  a.ReviewTabs__tab#4  color #0e7490  bg #ecfeff  border #0891b2
+  a.ReviewTabs__tab#4  color #475569  border #e2e8f0
+  a.ReviewTabs__tab#5  color #0e7490  bg #ecfeff  border #0891b2
 
 [палитра dark]
 nav.ReviewTabs__tabs
   a.ReviewTabs__tab  color #a8b6c6  border #1e2b41
   a.ReviewTabs__tab#2  color #a8b6c6  border #1e2b41
   a.ReviewTabs__tab#3  color #a8b6c6  border #1e2b41
-  a.ReviewTabs__tab#4  color #22d3ee  bg #22d3ee1a  border #22d3ee
+  a.ReviewTabs__tab#4  color #a8b6c6  border #1e2b41
+  a.ReviewTabs__tab#5  color #22d3ee  bg #22d3ee1a  border #22d3ee

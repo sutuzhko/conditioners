@@ -267,39 +267,35 @@ section.SavingsBlock__section  1200×799 @0,0
         p.SavingsCalculator__gridHead  626×34 @33,33
           span.SavingsCalculator__gridLabel  227×24 @0,5  Manrope 700 16/24  lines=1  «Когда работает кондиционер»
           output.SavingsCalculator__gridTotal  32×34 @594,0  Onest 700 22/34  lines=1  «8 ч»
-        div.HoursGrid__grid  626×28 @33,81
-          button.HoursGrid__cell  21×28 @0,0  r7
-          button.HoursGrid__cell#2  21×28 @26,0  r7
-          button.HoursGrid__cell#3  21×28 @53,0  r7
-          button.HoursGrid__cell#4  21×28 @79,0  r7
-          button.HoursGrid__cell#5  21×28 @105,0  r7
-          button.HoursGrid__cell#6  21×28 @131,0  r7
-          button.HoursGrid__cell#7  21×28 @158,0  r7
-          button.HoursGrid__cell#8  21×28 @184,0  r7
-          button.HoursGrid__cell#9  21×28 @210,0  r7
-          button.HoursGrid__cell#10  21×28 @237,0  r7
-          button.HoursGrid__cell#11  21×28 @263,0  r7
-          button.HoursGrid__cell#12  21×28 @289,0  r7
-          button.HoursGrid__cell#13  21×28 @315,0  r7
-          button.HoursGrid__cell#14  21×28 @342,0  r7
-          button.HoursGrid__cell#15  21×28 @368,0  r7
-          button.HoursGrid__cell#16  21×28 @394,0  r7
-          button.HoursGrid__cell#17  21×28 @421,0  r7
-          button.HoursGrid__cell#18  21×28 @447,0  r7
-          button.HoursGrid__cell#19  21×28 @473,0  r7
-          button.HoursGrid__cell#20  21×28 @500,0  r7
-          button.HoursGrid__cell#21  21×28 @526,0  r7
-          button.HoursGrid__cell#22  21×28 @552,0  r7
-          button.HoursGrid__cell#23  21×28 @578,0  r7
-          button.HoursGrid__cell#24  21×28 @605,0  r7
-        p.HoursGrid__scale  626×19 @33,115
-          span  14×19 @0,0  JetBrains Mono 400 12/19  lines=1  «00»
-          span#2  14×19 @153,0  JetBrains Mono 400 12/19  lines=1  «06»
-          span#3  14×19 @306,0  JetBrains Mono 400 12/19  lines=1  «12»
-          span#4  14×19 @459,0  JetBrains Mono 400 12/19  lines=1  «18»
-          span#5  14×19 @612,0  JetBrains Mono 400 12/19  lines=1  «24»
-        p  1×1 @32,133  Manrope 400 15/23  lines=1  clipped  «Кликните или проведите мышью по часам, к»
-        p.SavingsCalculator__tariffHead  626×48 @33,164
+        div.HoursGrid__grid  626×72 @33,81
+          span.HoursGrid__mark  22×18 @0,5  JetBrains Mono 400 12/18  lines=1  «00»
+          button.HoursGrid__cell  45×28 @27,0  r7
+          button.HoursGrid__cell#2  45×28 @77,0  r7
+          button.HoursGrid__cell#3  45×28 @128,0  r7
+          button.HoursGrid__cell#4  45×28 @178,0  r7
+          button.HoursGrid__cell#5  45×28 @228,0  r7
+          button.HoursGrid__cell#6  45×28 @279,0  r7
+          button.HoursGrid__cell#7  45×28 @329,0  r7
+          button.HoursGrid__cell#8  45×28 @379,0  r7
+          button.HoursGrid__cell#9  45×28 @430,0  r7
+          button.HoursGrid__cell#10  45×28 @480,0  r7
+          button.HoursGrid__cell#11  45×28 @530,0  r7
+          button.HoursGrid__cell#12  45×28 @581,0  r7
+          span.HoursGrid__mark#2  22×18 @0,49  JetBrains Mono 400 12/18  lines=1  «12»
+          button.HoursGrid__cell#13  45×28 @27,44  r7
+          button.HoursGrid__cell#14  45×28 @77,44  r7
+          button.HoursGrid__cell#15  45×28 @128,44  r7
+          button.HoursGrid__cell#16  45×28 @178,44  r7
+          button.HoursGrid__cell#17  45×28 @228,44  r7
+          button.HoursGrid__cell#18  45×28 @279,44  r7
+          button.HoursGrid__cell#19  45×28 @329,44  r7
+          button.HoursGrid__cell#20  45×28 @379,44  r7
+          button.HoursGrid__cell#21  45×28 @430,44  r7
+          button.HoursGrid__cell#22  45×28 @480,44  r7
+          button.HoursGrid__cell#23  45×28 @530,44  r7
+          button.HoursGrid__cell#24  45×28 @581,44  r7
+        p  1×1 @32,152  Manrope 400 15/23  lines=1  clipped  «Кликните или проведите мышью по часам, к»
+        p.SavingsCalculator__tariffHead  626×48 @33,183
           span.SavingsCalculator__gridLabel  48×24 @0,12  Manrope 700 16/24  lines=1  «Тариф»
           span.SavingsCalculator__modes  194×48 @432,0  r14  b1
             button.Button__button  78×40 @4,4  r9  b1
@@ -308,7 +304,7 @@ section.SavingsBlock__section  1200×799 @0,0
             button.Button__button#2  104×40 @86,4  r9  b1
               span.Button__content  74×16 @15,12
                 span.Button__label#2  74×16 @0,0  Manrope 600 13/16  lines=1  «День / ночь»
-        div.SavingsCalculator__sliders  626×73 @33,226
+        div.SavingsCalculator__sliders  626×73 @33,245
           div.Field__field  304×73 @0,0
             span.RangeSlider__head  304×22 @0,0
               label  85×19 @0,1  Manrope 500 13/19  lines=1  «Единый тариф»
@@ -353,6 +349,7 @@ section.SavingsBlock__section  bg #ffffff
           span.SavingsCalculator__gridLabel  color #0f172a
           output.SavingsCalculator__gridTotal  color #0e7490
         div.HoursGrid__grid
+          span.HoursGrid__mark  color #5b6a7d
           button.HoursGrid__cell  bg #cbd5e1
           button.HoursGrid__cell#2  bg #cbd5e1
           button.HoursGrid__cell#3  bg #cbd5e1
@@ -365,6 +362,7 @@ section.SavingsBlock__section  bg #ffffff
           button.HoursGrid__cell#10  bg #edf2f6
           button.HoursGrid__cell#11  bg #edf2f6
           button.HoursGrid__cell#12  bg #edf2f6
+          span.HoursGrid__mark#2  color #5b6a7d
           button.HoursGrid__cell#13  gradient linear-gradient(#22d3ee, #0891b2)
           button.HoursGrid__cell#14  gradient linear-gradient(#22d3ee, #0891b2)
           button.HoursGrid__cell#15  gradient linear-gradient(#22d3ee, #0891b2)
@@ -377,12 +375,6 @@ section.SavingsBlock__section  bg #ffffff
           button.HoursGrid__cell#22  bg #edf2f6
           button.HoursGrid__cell#23  bg #edf2f6
           button.HoursGrid__cell#24  bg #cbd5e1
-        p.HoursGrid__scale
-          span  color #5b6a7d
-          span#2  color #5b6a7d
-          span#3  color #5b6a7d
-          span#4  color #5b6a7d
-          span#5  color #5b6a7d
         p  color #475569
         p.SavingsCalculator__tariffHead
           span.SavingsCalculator__gridLabel  color #0f172a
@@ -424,18 +416,11 @@ section.SavingsBlock__section  bg #ffffff
           p.SavingsCalculator__totalHorizon  color #475569
     p.SavingsBlock__disclaimer  color #475569
 [палитра light @320]
-section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #5b6a7d
-section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#2  color #5b6a7d
 section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#3  color #5b6a7d
 section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#4  color #5b6a7d
 [палитра light @375]
-section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #5b6a7d
-section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#2  color #5b6a7d
 section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#3  color #5b6a7d
 section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#4  color #5b6a7d
-[палитра light @768]
-section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #5b6a7d
-section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#2  color #5b6a7d
 
 [палитра dark]
 section.SavingsBlock__section  bg #0b1220
@@ -451,6 +436,7 @@ section.SavingsBlock__section  bg #0b1220
           span.SavingsCalculator__gridLabel  color #eaf1f8
           output.SavingsCalculator__gridTotal  color #22d3ee
         div.HoursGrid__grid
+          span.HoursGrid__mark  color #7e92a7
           button.HoursGrid__cell  bg #0b1220
           button.HoursGrid__cell#2  bg #0b1220
           button.HoursGrid__cell#3  bg #0b1220
@@ -463,6 +449,7 @@ section.SavingsBlock__section  bg #0b1220
           button.HoursGrid__cell#10  bg #16223a
           button.HoursGrid__cell#11  bg #16223a
           button.HoursGrid__cell#12  bg #16223a
+          span.HoursGrid__mark#2  color #7e92a7
           button.HoursGrid__cell#13  gradient linear-gradient(#22d3ee, #0891b2)
           button.HoursGrid__cell#14  gradient linear-gradient(#22d3ee, #0891b2)
           button.HoursGrid__cell#15  gradient linear-gradient(#22d3ee, #0891b2)
@@ -475,12 +462,6 @@ section.SavingsBlock__section  bg #0b1220
           button.HoursGrid__cell#22  bg #16223a
           button.HoursGrid__cell#23  bg #16223a
           button.HoursGrid__cell#24  bg #0b1220
-        p.HoursGrid__scale
-          span  color #7e92a7
-          span#2  color #7e92a7
-          span#3  color #7e92a7
-          span#4  color #7e92a7
-          span#5  color #7e92a7
         p  color #a8b6c6
         p.SavingsCalculator__tariffHead
           span.SavingsCalculator__gridLabel  color #eaf1f8
@@ -522,15 +503,8 @@ section.SavingsBlock__section  bg #0b1220
           p.SavingsCalculator__totalHorizon  color #a8b6c6
     p.SavingsBlock__disclaimer  color #a8b6c6
 [палитра dark @320]
-section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #7e92a7
-section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#2  color #7e92a7
 section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#3  color #7e92a7
 section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#4  color #7e92a7
 [палитра dark @375]
-section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #7e92a7
-section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#2  color #7e92a7
 section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#3  color #7e92a7
 section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#4  color #7e92a7
-[палитра dark @768]
-section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark  color #7e92a7
-section.SavingsBlock__section > div.SavingsBlock__container > div.SavingsCalculator__grid > div.Card__card > div.HoursGrid__grid > span.HoursGrid__mark#2  color #7e92a7

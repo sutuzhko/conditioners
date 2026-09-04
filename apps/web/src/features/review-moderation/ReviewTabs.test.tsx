@@ -10,10 +10,19 @@ function hrefOf(name: string): string {
 }
 
 describe('Вкладки модерации', () => {
-  it('четыре вкладки макета, все ссылками', () => {
+  it('пять вкладок, все ссылками', () => {
     render(<ReviewTabs active="pending" />);
 
-    expect(screen.getAllByRole('link')).toHaveLength(4);
+    expect(screen.getAllByRole('link')).toHaveLength(5);
+  });
+
+  /* 🔴 Вход в архив — то, ради чего вкладка и заведена (ADR-300, issue #514):
+     без неё до отзыва, снятого полгода назад, добирались листая «Все» по
+     восемь записей, и с каждым месяцем он уезжал дальше. */
+  it('«В архиве» ведёт на свой фильтр, а не на «Все»', () => {
+    render(<ReviewTabs active="pending" />);
+
+    expect(hrefOf(texts.tabTitle('archived'))).toBe('/admin/reviews?tab=archived');
   });
 
   it('🔴 ключ и значения по-английски: `?tab=published`, а не транслит', () => {

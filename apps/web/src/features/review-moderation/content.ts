@@ -19,6 +19,7 @@ const TAB_TITLES: Record<ReviewTab, string> = {
   pending: 'На модерации',
   published: 'Опубликованные',
   rejected: 'Отклонённые',
+  archived: 'В архиве',
   all: 'Все',
 };
 

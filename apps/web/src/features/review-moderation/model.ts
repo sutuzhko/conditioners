@@ -32,13 +32,12 @@ export type ReviewTab = PanelTab<'reviews'>;
  * не двигается.
  *
  * `all` — не статус, а его отсутствие: вкладка снимает фильтр целиком.
- * Архивные отзывы своей вкладки на макете не имеют и живут здесь — удалять
- * их нельзя (инвариант 7), и потерять их из виду тоже нельзя.
  */
 const STATUS_BY_TAB: Record<ReviewTab, ReviewStatus | undefined> = {
   pending: 'pending',
   published: 'approved',
   rejected: 'rejected',
+  archived: 'archived',
   all: undefined,
 };
 
@@ -126,11 +125,22 @@ export function reviewActionsFor(tab: ReviewTab, status: ReviewStatus): readonly
   if (tab === 'published') return ['archive'];
   if (tab === 'rejected') return ['restore', 'remove'];
 
+  /* В архиве отзыв не плохой, а отложенный: его возвращают на модерацию, а
+     не стирают. Удаления здесь нет намеренно — архив для того и заведён,
+     чтобы убрать с сайта, ничего не потеряв (ADR-300). */
+  if (tab === 'archived') return ['approve', 'restore'];
+
   /* «Все» — сквозной список: действия те же, что дала бы своя вкладка отзыва.
      Иначе найденный здесь отзыв пришлось бы искать ещё раз там, где его можно
-     опубликовать. Удаление остаётся только у тех, кто с сайта уже снят. */
+     опубликовать.
+
+     🔴 Удаление остаётся только у отклонённых. Архив заведён ровно затем,
+     чтобы убрать с сайта, ничего не потеряв (ADR-300), — кнопка «Удалить» в
+     нём отменяла бы смысл состояния. Отклонённый — другое дело: там реклама
+     и спам, и держать их вечно незачем. */
   if (status === 'pending') return ['approve', 'reject'];
   if (status === 'approved') return ['archive'];
+  if (status === 'archived') return ['approve', 'restore'];
   return ['restore', 'remove'];
 }
 
