@@ -117,16 +117,16 @@ section.Pricing__section  320×1751 @0,0
             div.Calculator__summary  246×363 @0,502  r20  b1
               div.Calculator__breakdown  212×181 @17,17
                 p.Calculator__breakdownTitle  212×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Из чего складывается»
-                p.Calculator__onSiteText  212×152 @0,29  Manrope 400 15/22  lines=5  «Длинная трасса и мульти-сплит считаются»
+                p.Calculator__onSiteText  212×152 @0,29  Manrope 400 15/22  lines=6  «Длинная трасса и мульти-сплит считаются»
               div.Calculator__totalDock  244×146 @38,1384  r0 0 20 20  fixed
                 div.TotalBar__total  212×130 @16,0  b1 0 0 0
-                  p.TotalBar__value  214×49 @0,17
+                  p.TotalBar__value  212×49 @0,17
                     span.TotalBar__label  108×18 @0,3  Manrope 400 13/16  lines=1  «Монтаж под ключ»
-                    output.TotalBar__output  214×26 @0,23
-                      span.TotalBar__onsite  163×20 @51,3  Manrope 700 17/20  lines=1  «Считаем на выезде»
-                  a.Button__button  214×52 @0,78  r12  b1
-                    span.Button__content  156×19 @29,16
-                      span.Button__label  156×19 @0,0  Manrope 600 16/19  lines=1  «Вызвать замерщика»
+                    output.TotalBar__output  212×26 @0,23
+                      span.TotalBar__onsite  159×20 @53,3  Manrope 700 17/20  lines=1  «Считаем по звонку»
+                  a.Button__button  212×52 @0,78  r12  b1
+                    span.Button__content  129×19 @41,16
+                      span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
 
 [геометрия 375]
 section.Pricing__section  375×1740 @0,0
@@ -238,16 +238,16 @@ section.Pricing__section  375×1740 @0,0
             div.Calculator__summary  300×363 @0,502  r20  b1
               div.Calculator__breakdown  265×181 @17,17
                 p.Calculator__breakdownTitle  265×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Из чего складывается»
-                p.Calculator__onSiteText  265×152 @0,29  Manrope 400 15/22  lines=4  «Длинная трасса и мульти-сплит считаются»
+                p.Calculator__onSiteText  265×152 @0,29  Manrope 400 15/22  lines=5  «Длинная трасса и мульти-сплит считаются»
               div.Calculator__totalDock  298×147 @39,1372  r0 0 20 20  fixed
                 div.TotalBar__total  265×130 @16,0  b1 0 0 0
                   p.TotalBar__value  265×49 @0,17
                     span.TotalBar__label  108×18 @0,3  Manrope 400 13/16  lines=1  «Монтаж под ключ»
                     output.TotalBar__output  265×26 @0,23
-                      span.TotalBar__onsite  164×21 @101,3  Manrope 700 17/21  lines=1  «Считаем на выезде»
+                      span.TotalBar__onsite  160×21 @105,3  Manrope 700 17/21  lines=1  «Считаем по звонку»
                   a.Button__button  265×52 @0,78  r12  b1
-                    span.Button__content  156×19 @55,16
-                      span.Button__label  156×19 @0,0  Manrope 600 16/19  lines=1  «Вызвать замерщика»
+                    span.Button__content  129×19 @68,16
+                      span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
 
 [геометрия 768]
 section.Pricing__section  768×1676 @0,0
@@ -364,11 +364,11 @@ section.Pricing__section  768×1676 @0,0
                 div.TotalBar__total  636×112 @18,0  b1 0 0 0
                   p.TotalBar__value  636×31 @0,17
                     span.TotalBar__label  108×16 @0,8  Manrope 400 13/16  lines=1  «Монтаж под ключ»
-                    output.TotalBar__output  172×26 @463,3
-                      span.TotalBar__onsite  172×22 @0,2  Manrope 700 18/22  lines=1  «Считаем на выезде»
+                    output.TotalBar__output  169×26 @467,3
+                      span.TotalBar__onsite  169×22 @0,2  Manrope 700 18/22  lines=1  «Считаем по звонку»
                   a.Button__button  636×52 @0,60  r12  b1
-                    span.Button__content  156×19 @240,16
-                      span.Button__label  156×19 @0,0  Manrope 600 16/19  lines=1  «Вызвать замерщика»
+                    span.Button__content  129×19 @253,16
+                      span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
 
 [геометрия 1200]
 section.Pricing__section  1200×1201 @0,0
@@ -476,16 +476,16 @@ section.Pricing__section  1200×1201 @0,0
             div.Calculator__summary  409×354 @477,0  r20  b1
               div.Calculator__breakdown  367×181 @21,21
                 p.Calculator__breakdownTitle  367×19 @0,0  JetBrains Mono 400 12/19  ls1  lines=1  «Из чего складывается»
-                p.Calculator__onSiteText  367×152 @0,29  Manrope 400 15/22  lines=3  «Длинная трасса и мульти-сплит считаются»
+                p.Calculator__onSiteText  367×152 @0,29  Manrope 400 15/22  lines=4  «Длинная трасса и мульти-сплит считаются»
               div.Calculator__totalDock  367×113 @21,220
                 div.TotalBar__total  367×113 @0,0  b1 0 0 0
                   p.TotalBar__value  367×32 @0,17
                     span.TotalBar__label  108×16 @0,8  Manrope 400 13/16  lines=1  «Монтаж под ключ»
-                    output.TotalBar__output  182×26 @185,3
-                      span.TotalBar__onsite  182×23 @0,2  Manrope 700 19/23  lines=1  «Считаем на выезде»
+                    output.TotalBar__output  178×26 @189,3
+                      span.TotalBar__onsite  178×23 @0,2  Manrope 700 19/23  lines=1  «Считаем по звонку»
                   a.Button__button  367×52 @0,61  r12  b1
-                    span.Button__content  156×19 @105,16
-                      span.Button__label  156×19 @0,0  Manrope 600 16/19  lines=1  «Вызвать замерщика»
+                    span.Button__content  129×19 @119,16
+                      span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
 
 [палитра light]
 section.Pricing__section  bg #ffffff

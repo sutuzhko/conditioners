@@ -11,7 +11,7 @@ import styles from './TotalBar.module.css';
  *
  * - `ready` — сумма посчитана и её можно назвать;
  * - `pending` — ввод изменился, показанная сумма устарела;
- * - `onsite` — по формуле честной суммы не выходит, считаем на выезде.
+ * - `onsite` — по формуле честной суммы не выходит, называем по звонку.
  */
 export type TotalState = 'ready' | 'pending' | 'onsite';
 
