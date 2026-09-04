@@ -80,7 +80,7 @@ div.Card__card  bg #ffffff  border transparent  shadow #00000080 0px 40px 80px -
   div.LeadForm__success
     span.LeadForm__successIcon  bg #ecfeff
       svg
-    h3.LeadForm__successTitle  color #0f172a  outline #0891b2
+    h3.LeadForm__successTitle  color #0f172a
     p.LeadForm__successText  color #475569
     p.LeadForm__successText#2  color #475569
     button.Button__button  bg #ffffff  border #7e8fa6
@@ -96,7 +96,7 @@ div.Card__card  bg #121d31  border transparent  shadow #00000080 0px 40px 80px -
   div.LeadForm__success
     span.LeadForm__successIcon  bg #22d3ee1a
       svg
-    h3.LeadForm__successTitle  color #eaf1f8  outline #22d3ee
+    h3.LeadForm__successTitle  color #eaf1f8
     p.LeadForm__successText  color #a8b6c6
     p.LeadForm__successText#2  color #a8b6c6
     button.Button__button  bg #121d31  border #566d95
