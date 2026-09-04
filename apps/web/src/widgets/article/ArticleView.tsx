@@ -131,7 +131,13 @@ export function ArticleView({
         <ArticleBody blocks={blocks} className={styles.text} />
       </div>
 
-      <aside className={styles.cta}>
+      {/* 🔴 Тёмный остров внутри светлой страницы объявляет себя грунтом
+          (ADR-158, issue #534). Без атрибута приглушённые уровни остаются
+          подобранными под белый фон и на `--panel` не читаются: подпись
+          давала 3,23:1, ссылки — 3,33:1 при норме 4,5. Та же панель у
+          страницы модели (`ProductCta`) грунт получает от `Card variant`,
+          здесь карточки нет — и атрибут ставится руками. */}
+      <aside className={styles.cta} data-ground="panel">
         <div className={styles.ctaText}>
           <p className={styles.ctaTitle}>{t.ctaTitle}</p>
           <p className={styles.ctaLead}>{t.ctaText}</p>
