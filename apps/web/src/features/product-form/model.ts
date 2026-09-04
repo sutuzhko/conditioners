@@ -64,6 +64,12 @@ export type ProductSave = (values: ProductFormValues) => Promise<ProductSaveResu
 
 export type ProductDelete = () => Promise<{ readonly ok: boolean; readonly message?: string }>;
 
+/** Смена видимости одной моделью: список каталога правит только этот флаг. */
+export type SetVisible = (
+  id: string,
+  visible: boolean,
+) => Promise<{ readonly ok: boolean; readonly message?: string }>;
+
 export const emptyProductValues: ProductFormValues = {
   name: '',
   badge: '',

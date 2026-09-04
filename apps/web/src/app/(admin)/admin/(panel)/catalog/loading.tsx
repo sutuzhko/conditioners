@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { CATALOG_NEW_PATH, CATALOG_SPECS_PATH } from '@/features/product-form';
 import { Skeleton, buttonClassName } from '@/shared/ui';
+import { LineSkeleton } from '@/widgets/admin-shell';
 import { adminCatalogContent as texts } from '@/widgets/admin-catalog';
 
 import styles from './page.module.css';
@@ -10,6 +11,10 @@ import styles from './page.module.css';
  * Каталог: шапка с действиями настоящая, таблица моделей — заготовкой
  * (issue #334). Высота таблицы зависит от числа моделей; заготовка держит
  * верх и первый экран.
+ *
+ * 🔴 Строка счётчиков зависит от данных, поэтому вместо неё стоит заготовка
+ * в строчном боксе того же кегля (ADR-239): полоса другой высоты сдвинула бы
+ * таблицу ещё до прихода данных.
  */
 export default function CatalogLoading() {
   return (
@@ -18,6 +23,9 @@ export default function CatalogLoading() {
         <div>
           <h1 className={styles.title}>{texts.title}</h1>
           <p className={styles.lead}>{texts.lead}</p>
+          <p className={styles.summary}>
+            <LineSkeleton width="min(280px, 70%)" />
+          </p>
         </div>
 
         <div className={styles.headActions}>

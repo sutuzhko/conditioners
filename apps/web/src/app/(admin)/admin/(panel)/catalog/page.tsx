@@ -4,7 +4,11 @@ import Link from 'next/link';
 import { CATALOG_NEW_PATH, CATALOG_SPECS_PATH } from '@/features/product-form';
 import { requireOwnerPage } from '@/server/guards';
 import { listAll } from '@/server/repo/products';
-import { AdminCatalogList, adminCatalogContent as texts } from '@/widgets/admin-catalog';
+import {
+  AdminCatalogList,
+  adminCatalogContent as texts,
+  type CatalogRow,
+} from '@/widgets/admin-catalog';
 import { buttonClassName } from '@/shared/ui';
 
 import styles from './page.module.css';
@@ -20,12 +24,36 @@ export default async function AdminCatalogPage() {
 
   const products = await listAll();
 
+  /* 🔴 Цены приходят посчитанными из домена (`getActivePrice`, ADR-011):
+     перечёркнутой становится только та цена, по которой товар действительно
+     продавался, а процент выводится из двух цен. Список их не пересчитывает. */
+  const rows: readonly CatalogRow[] = products.map((product) => ({
+    id: product.id,
+    name: product.name,
+    badge: product.badge,
+    areaMax: product.areaMax,
+    currentPrice: product.currentPrice,
+    oldPrice: product.oldPrice,
+    discountPercent: product.discountPercent,
+    saleTo: product.saleActive ? product.saleTo : null,
+    visible: product.visible,
+    featured: product.featured,
+    sort: product.sort,
+    photo: product.photos[0]?.url ?? null,
+  }));
+
+  const visible = rows.filter((row) => row.visible).length;
+  const onSale = rows.filter((row) => row.oldPrice !== null).length;
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <div>
           <h1 className={styles.title}>{texts.title}</h1>
           <p className={styles.lead}>{texts.lead}</p>
+          {/* Счётчики считаются из тех же строк, что показаны ниже: второй
+              запрос разошёлся бы со списком на первой же правке. */}
+          <p className={styles.summary}>{texts.summary(rows.length, visible, onSale)}</p>
         </div>
 
         <div className={styles.headActions}>
@@ -43,7 +71,7 @@ export default async function AdminCatalogPage() {
         </div>
       </header>
 
-      <AdminCatalogList products={products} />
+      <AdminCatalogList products={rows} />
     </div>
   );
 }

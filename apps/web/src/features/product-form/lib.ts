@@ -106,3 +106,24 @@ export async function deleteProduct(id: string): Promise<{ ok: boolean; message?
 }
 
 export { emptyProductValues };
+
+/**
+ * Видимость модели из списка каталога — `PATCH`, а не `PUT`.
+ *
+ * 🔴 Частичное тело намеренно: полное обновление отправило бы вместе с флагом
+ * весь снимок модели, каким его знает список, — а список знает восемь полей из
+ * тридцати. Скидка, характеристики и фотографии, которых в нём нет, ушли бы на
+ * сервер пустыми.
+ */
+export async function setProductVisible(
+  id: string,
+  visible: boolean,
+): Promise<{ ok: boolean; message?: string }> {
+  const result = await adminRequest(
+    `/api/admin/models/${id}`,
+    jsonInit('PATCH', { visible }),
+    FORM_TEXTS,
+  );
+
+  return result.ok ? { ok: true } : { ok: false, message: result.message };
+}

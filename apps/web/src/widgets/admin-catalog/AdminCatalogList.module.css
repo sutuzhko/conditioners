@@ -1,27 +1,108 @@
 /* Список моделей каталога. */
 
+.model {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.thumb,
+.thumbEmpty {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 52px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  object-fit: cover;
+}
+
+.thumbEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-soft);
+  color: var(--faint);
+}
+
+.names {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
 .name {
   color: var(--ink);
   font-weight: 600;
 }
 
-.badge {
-  margin-left: 8px;
-  color: var(--faint);
+/* Подпись под названием: категория всегда, порядок — там, где его колонка
+   закрыта (issue #354). */
+.sub {
+  color: var(--muted);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
 }
 
-.price {
+.narrowOnly {
+  display: none;
+}
+
+.area {
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
-.sale {
-  margin-left: 8px;
+/* 🔴 Блок цены одной высоты у моделей со скидкой и без (issue #354). Вторая
+   строка есть всегда: без скидки в ней стоит «Скидки нет», со скидкой —
+   перечёркнутая прежняя цена, процент и срок. Резерв держит `min-height`
+   в строках, а не в пикселях: кегль подписи задаётся токеном и меняется
+   вместе с темой. */
+.priceBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-end;
 }
 
-.sort {
+.price {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.saleLine {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  min-height: 1lh;
+  font-size: var(--fs-caption);
+  white-space: nowrap;
+}
+
+.oldPrice {
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 🔴 Краска панели, а не витринная `sale`. Тёплый акцент закреплён за сайтом
+   и в панели не используется вовсе (кит, DESIGN_BRIEF §10); макет ставит здесь
+   `c-danger` — той же краской и красим. */
+.percent {
+  color: var(--error-ink);
+  font-weight: 600;
+}
+
+.saleUntil,
+.noSale,
+.muted {
+  color: var(--faint);
+}
+
+.sortCell {
   font-variant-numeric: tabular-nums;
 }
 
@@ -41,4 +122,58 @@
 
 .edit:hover {
   text-decoration: underline;
+}
+
+/* Доли ширины колонок. Без них таблица делит место поровну: название модели
+   ломалось на три строки, а «Править» уезжало за правый край карточки.
+   Названию отдана доля, а не число пикселей: слабину ряда забирает оно, а не
+   колонка площади с четырьмя знаками. */
+.colName {
+  width: 34%;
+}
+
+.colNarrow {
+  width: 120px;
+}
+
+.colTiny {
+  width: 84px;
+}
+
+.colPrice {
+  width: 190px;
+  text-align: right;
+}
+
+/* 🔴 Между брейкпоинтами (issue #354): семь колонок честно помещаются только
+   от 1200px. Ниже порядок уходит в подпись модели — он реже всего нужен
+   глазами и лучше всего читается рядом с названием. */
+@media (width < 1200px) {
+  /* Класс удвоен намеренно (ADR-038): ниже 600px кит раскладывает ячейки
+     карточками правилом той же специфичности, и при равной специфичности
+     выигрывает порядок сборки — колонка порядка вылезала обратно в карточку
+     рядом с той же цифрой в подписи модели. */
+  .wideOnly.wideOnly {
+    display: none;
+  }
+
+  .narrowOnly {
+    display: inline;
+  }
+}
+
+/* Ниже 600px кит раскладывает строки карточками: подпись ячейки слева,
+   значение справа. Цена в карточке встаёт в одну строку — колонки, вдоль
+   которой её равняли, там уже нет. */
+@media (width < 600px) {
+  .priceBlock {
+    flex-flow: row wrap;
+    gap: 4px 8px;
+    align-items: baseline;
+    justify-content: flex-end;
+  }
+
+  .saleLine {
+    min-height: 0;
+  }
 }
