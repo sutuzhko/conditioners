@@ -380,7 +380,7 @@ section.Hero__hero  gradient linear-gradient(#f0f9fb 0%, #ffffff 100%)
               div.HeroPicker__state
                 div.HeroPicker__resultHead
                   span.HeroPicker__resultEyebrow  color #22d3ee
-                  span.Badge__badge  color #22d3ee  bg #ecfeff  border #a5f3fc
+                  span.Badge__badge  color #0f172a  bg #22d3ee  border transparent
                 div.HeroPicker__model
                   span.HeroPicker__photoStub  border color(srgb 1 1 1 / 0.18)
                   div.HeroPicker__modelInfo
@@ -392,7 +392,7 @@ section.Hero__hero  gradient linear-gradient(#f0f9fb 0%, #ffffff 100%)
                   s.HeroPicker__oldPrice  color color(srgb 1 1 1 / 0.58)
                   span.HeroPicker__priceNote  color color(srgb 1 1 1 / 0.58)
                 p.HeroPicker__saleRow
-                  span.Badge__badge  color #22d3ee  bg #ecfeff  border #a5f3fc
+                  span.Badge__badge  color #0f172a  bg #22d3ee  border transparent
                   span.HeroPicker__saleUntil  color color(srgb 1 1 1 / 0.58)
                 a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
                   span.Button__content#2
@@ -474,7 +474,7 @@ section.Hero__hero  gradient linear-gradient(#0c1628 0%, #0b1220 100%)
               div.HeroPicker__state
                 div.HeroPicker__resultHead
                   span.HeroPicker__resultEyebrow  color #22d3ee
-                  span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+                  span.Badge__badge  color #111d34  bg #22d3ee  border transparent
                 div.HeroPicker__model
                   span.HeroPicker__photoStub  border color(srgb 1 1 1 / 0.18)
                   div.HeroPicker__modelInfo
@@ -486,7 +486,7 @@ section.Hero__hero  gradient linear-gradient(#0c1628 0%, #0b1220 100%)
                   s.HeroPicker__oldPrice  color color(srgb 1 1 1 / 0.58)
                   span.HeroPicker__priceNote  color color(srgb 1 1 1 / 0.58)
                 p.HeroPicker__saleRow
-                  span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+                  span.Badge__badge  color #111d34  bg #22d3ee  border transparent
                   span.HeroPicker__saleUntil  color color(srgb 1 1 1 / 0.58)
                 a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
                   span.Button__content#2
