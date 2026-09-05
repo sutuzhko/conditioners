@@ -2,7 +2,7 @@
 шрифты: —
 
 [документ]
-390 → 390×1327
+390 → 390×1400
 768 → 768×900
 1440 → 1440×900
 
@@ -40,45 +40,49 @@ code#15  26×17 @87,563  monospace 400 11/17  lines=1  «chat»
 svg#16  28×28 @276,527
 code#16  33×17 @273,563  monospace 400 11/17  lines=1  «close»
 svg#17  28×28 @87,600
-code#17  26×17 @87,636  monospace 400 11/17  lines=1  «plus»
+code#17  46×17 @77,636  monospace 400 11/17  lines=1  «chevron»
 svg#18  28×28 @276,600
-code#18  40×17 @270,636  monospace 400 11/17  lines=1  «burger»
+code#18  26×17 @276,636  monospace 400 11/17  lines=1  «plus»
 svg#19  28×28 @87,673
-code#19  73×17 @64,709  monospace 400 11/17  lines=1  «arrow-right»
+code#19  40×17 @81,709  monospace 400 11/17  lines=1  «burger»
 svg#20  28×28 @276,673
-code#20  53×17 @263,709  monospace 400 11/17  lines=1  «arrow-up»
+code#20  66×17 @257,709  monospace 400 11/17  lines=1  «panel-left»
 svg#21  28×28 @87,746
-code#21  79×17 @61,782  monospace 400 11/17  lines=1  «chevron-down»
+code#21  73×17 @64,782  monospace 400 11/17  lines=1  «arrow-right»
 svg#22  28×28 @276,746
-code#22  86×17 @247,782  monospace 400 11/17  lines=1  «chevron-right»
+code#22  53×17 @263,782  monospace 400 11/17  lines=1  «arrow-up»
 svg#23  28×28 @87,820
-code#23  20×17 @91,856  monospace 400 11/17  lines=1  «sun»
+code#23  79×17 @61,856  monospace 400 11/17  lines=1  «chevron-down»
 svg#24  28×28 @276,820
-code#24  26×17 @276,856  monospace 400 11/17  lines=1  «moon»
+code#24  86×17 @247,856  monospace 400 11/17  lines=1  «chevron-right»
 svg#25  28×28 @87,893
-code#25  26×17 @87,929  monospace 400 11/17  lines=1  «sale»
+code#25  20×17 @91,929  monospace 400 11/17  lines=1  «sun»
 svg#26  28×28 @276,893
-code#26  40×17 @270,929  monospace 400 11/17  lines=1  «wrench»
+code#26  26×17 @276,929  monospace 400 11/17  lines=1  «moon»
 svg#27  28×28 @87,966
-code#27  53×17 @74,1002  monospace 400 11/17  lines=1  «overview»
+code#27  26×17 @87,1002  monospace 400 11/17  lines=1  «sale»
 svg#28  28×28 @276,966
-code#28  53×17 @263,1002  monospace 400 11/17  lines=1  «calendar»
+code#28  40×17 @270,1002  monospace 400 11/17  lines=1  «wrench»
 svg#29  28×28 @87,1039
-code#29  40×17 @81,1075  monospace 400 11/17  lines=1  «orders»
+code#29  53×17 @74,1075  monospace 400 11/17  lines=1  «overview»
 svg#30  28×28 @276,1039
-code#30  33×17 @273,1075  monospace 400 11/17  lines=1  «leads»
+code#30  53×17 @263,1075  monospace 400 11/17  lines=1  «calendar»
 svg#31  28×28 @87,1112
-code#31  46×17 @77,1148  monospace 400 11/17  lines=1  «clients»
+code#31  40×17 @81,1148  monospace 400 11/17  lines=1  «orders»
 svg#32  28×28 @276,1112
-code#32  26×17 @276,1148  monospace 400 11/17  lines=1  «team»
+code#32  33×17 @273,1148  monospace 400 11/17  lines=1  «leads»
 svg#33  28×28 @87,1185
-code#33  33×17 @84,1221  monospace 400 11/17  lines=1  «stock»
+code#33  46×17 @77,1221  monospace 400 11/17  lines=1  «clients»
 svg#34  28×28 @276,1185
-code#34  59×17 @260,1221  monospace 400 11/17  lines=1  «knowledge»
+code#34  26×17 @276,1221  monospace 400 11/17  lines=1  «team»
 svg#35  28×28 @87,1258
-code#35  46×17 @77,1294  monospace 400 11/17  lines=1  «profile»
+code#35  33×17 @84,1294  monospace 400 11/17  lines=1  «stock»
 svg#36  28×28 @276,1258
-code#36  26×17 @276,1294  monospace 400 11/17  lines=1  «exit»
+code#36  59×17 @260,1294  monospace 400 11/17  lines=1  «knowledge»
+svg#37  28×28 @87,1331
+code#37  46×17 @77,1367  monospace 400 11/17  lines=1  «profile»
+svg#38  28×28 @276,1331
+code#38  26×17 @276,1367  monospace 400 11/17  lines=1  «exit»
 
 [геометрия 768]
 svg  28×28 @68,16
@@ -114,45 +118,49 @@ code#15  26×17 @673,198  monospace 400 11/17  lines=1  «chat»
 svg#16  28×28 @68,235
 code#16  33×17 @65,271  monospace 400 11/17  lines=1  «close»
 svg#17  28×28 @219,235
-code#17  26×17 @220,271  monospace 400 11/17  lines=1  «plus»
+code#17  46×17 @210,271  monospace 400 11/17  lines=1  «chevron»
 svg#18  28×28 @370,235
-code#18  40×17 @364,271  monospace 400 11/17  lines=1  «burger»
+code#18  26×17 @371,271  monospace 400 11/17  lines=1  «plus»
 svg#19  28×28 @521,235
-code#19  73×17 @499,271  monospace 400 11/17  lines=1  «arrow-right»
+code#19  40×17 @515,271  monospace 400 11/17  lines=1  «burger»
 svg#20  28×28 @672,235
-code#20  53×17 @660,271  monospace 400 11/17  lines=1  «arrow-up»
+code#20  66×17 @653,271  monospace 400 11/17  lines=1  «panel-left»
 svg#21  28×28 @68,308
-code#21  79×17 @42,344  monospace 400 11/17  lines=1  «chevron-down»
+code#21  73×17 @45,344  monospace 400 11/17  lines=1  «arrow-right»
 svg#22  28×28 @219,308
-code#22  86×17 @190,344  monospace 400 11/17  lines=1  «chevron-right»
+code#22  53×17 @206,344  monospace 400 11/17  lines=1  «arrow-up»
 svg#23  28×28 @370,308
-code#23  20×17 @374,344  monospace 400 11/17  lines=1  «sun»
+code#23  79×17 @344,344  monospace 400 11/17  lines=1  «chevron-down»
 svg#24  28×28 @521,308
-code#24  26×17 @522,344  monospace 400 11/17  lines=1  «moon»
+code#24  86×17 @492,344  monospace 400 11/17  lines=1  «chevron-right»
 svg#25  28×28 @672,308
-code#25  26×17 @673,344  monospace 400 11/17  lines=1  «sale»
+code#25  20×17 @676,344  monospace 400 11/17  lines=1  «sun»
 svg#26  28×28 @68,381
-code#26  40×17 @62,417  monospace 400 11/17  lines=1  «wrench»
+code#26  26×17 @68,417  monospace 400 11/17  lines=1  «moon»
 svg#27  28×28 @219,381
-code#27  53×17 @206,417  monospace 400 11/17  lines=1  «overview»
+code#27  26×17 @220,417  monospace 400 11/17  lines=1  «sale»
 svg#28  28×28 @370,381
-code#28  53×17 @358,417  monospace 400 11/17  lines=1  «calendar»
+code#28  40×17 @364,417  monospace 400 11/17  lines=1  «wrench»
 svg#29  28×28 @521,381
-code#29  40×17 @515,417  monospace 400 11/17  lines=1  «orders»
+code#29  53×17 @509,417  monospace 400 11/17  lines=1  «overview»
 svg#30  28×28 @672,381
-code#30  33×17 @670,417  monospace 400 11/17  lines=1  «leads»
+code#30  53×17 @660,417  monospace 400 11/17  lines=1  «calendar»
 svg#31  28×28 @68,454
-code#31  46×17 @58,490  monospace 400 11/17  lines=1  «clients»
+code#31  40×17 @62,490  monospace 400 11/17  lines=1  «orders»
 svg#32  28×28 @219,454
-code#32  26×17 @220,490  monospace 400 11/17  lines=1  «team»
+code#32  33×17 @216,490  monospace 400 11/17  lines=1  «leads»
 svg#33  28×28 @370,454
-code#33  33×17 @367,490  monospace 400 11/17  lines=1  «stock»
+code#33  46×17 @361,490  monospace 400 11/17  lines=1  «clients»
 svg#34  28×28 @521,454
-code#34  59×17 @505,490  monospace 400 11/17  lines=1  «knowledge»
+code#34  26×17 @522,490  monospace 400 11/17  lines=1  «team»
 svg#35  28×28 @672,454
-code#35  46×17 @663,490  monospace 400 11/17  lines=1  «profile»
+code#35  33×17 @670,490  monospace 400 11/17  lines=1  «stock»
 svg#36  28×28 @68,527
-code#36  26×17 @68,563  monospace 400 11/17  lines=1  «exit»
+code#36  59×17 @52,563  monospace 400 11/17  lines=1  «knowledge»
+svg#37  28×28 @219,527
+code#37  46×17 @210,563  monospace 400 11/17  lines=1  «profile»
+svg#38  28×28 @370,527
+code#38  26×17 @371,563  monospace 400 11/17  lines=1  «exit»
 
 [геометрия 1440]
 svg  28×28 @63,16
@@ -188,45 +196,49 @@ code#15  26×17 @635,125  monospace 400 11/17  lines=1  «chat»
 svg#16  28×28 @777,89
 code#16  33×17 @775,125  monospace 400 11/17  lines=1  «close»
 svg#17  28×28 @920,89
-code#17  26×17 @921,125  monospace 400 11/17  lines=1  «plus»
+code#17  46×17 @911,125  monospace 400 11/17  lines=1  «chevron»
 svg#18  28×28 @1063,89
-code#18  40×17 @1057,125  monospace 400 11/17  lines=1  «burger»
+code#18  26×17 @1064,125  monospace 400 11/17  lines=1  «plus»
 svg#19  28×28 @1206,89
-code#19  73×17 @1183,125  monospace 400 11/17  lines=1  «arrow-right»
+code#19  40×17 @1200,125  monospace 400 11/17  lines=1  «burger»
 svg#20  28×28 @1349,89
-code#20  53×17 @1336,125  monospace 400 11/17  lines=1  «arrow-up»
+code#20  66×17 @1330,125  monospace 400 11/17  lines=1  «panel-left»
 svg#21  28×28 @63,162
-code#21  79×17 @38,198  monospace 400 11/17  lines=1  «chevron-down»
+code#21  73×17 @41,198  monospace 400 11/17  lines=1  «arrow-right»
 svg#22  28×28 @206,162
-code#22  86×17 @177,198  monospace 400 11/17  lines=1  «chevron-right»
+code#22  53×17 @194,198  monospace 400 11/17  lines=1  «arrow-up»
 svg#23  28×28 @349,162
-code#23  20×17 @353,198  monospace 400 11/17  lines=1  «sun»
+code#23  79×17 @323,198  monospace 400 11/17  lines=1  «chevron-down»
 svg#24  28×28 @492,162
-code#24  26×17 @493,198  monospace 400 11/17  lines=1  «moon»
+code#24  86×17 @463,198  monospace 400 11/17  lines=1  «chevron-right»
 svg#25  28×28 @635,162
-code#25  26×17 @635,198  monospace 400 11/17  lines=1  «sale»
+code#25  20×17 @639,198  monospace 400 11/17  lines=1  «sun»
 svg#26  28×28 @777,162
-code#26  40×17 @772,198  monospace 400 11/17  lines=1  «wrench»
+code#26  26×17 @778,198  monospace 400 11/17  lines=1  «moon»
 svg#27  28×28 @920,162
-code#27  53×17 @908,198  monospace 400 11/17  lines=1  «overview»
+code#27  26×17 @921,198  monospace 400 11/17  lines=1  «sale»
 svg#28  28×28 @1063,162
-code#28  53×17 @1051,198  monospace 400 11/17  lines=1  «calendar»
+code#28  40×17 @1057,198  monospace 400 11/17  lines=1  «wrench»
 svg#29  28×28 @1206,162
-code#29  40×17 @1200,198  monospace 400 11/17  lines=1  «orders»
+code#29  53×17 @1193,198  monospace 400 11/17  lines=1  «overview»
 svg#30  28×28 @1349,162
-code#30  33×17 @1346,198  monospace 400 11/17  lines=1  «leads»
+code#30  53×17 @1336,198  monospace 400 11/17  lines=1  «calendar»
 svg#31  28×28 @63,235
-code#31  46×17 @54,271  monospace 400 11/17  lines=1  «clients»
+code#31  40×17 @58,271  monospace 400 11/17  lines=1  «orders»
 svg#32  28×28 @206,235
-code#32  26×17 @207,271  monospace 400 11/17  lines=1  «team»
+code#32  33×17 @204,271  monospace 400 11/17  lines=1  «leads»
 svg#33  28×28 @349,235
-code#33  33×17 @346,271  monospace 400 11/17  lines=1  «stock»
+code#33  46×17 @340,271  monospace 400 11/17  lines=1  «clients»
 svg#34  28×28 @492,235
-code#34  59×17 @476,271  monospace 400 11/17  lines=1  «knowledge»
+code#34  26×17 @493,271  monospace 400 11/17  lines=1  «team»
 svg#35  28×28 @635,235
-code#35  46×17 @625,271  monospace 400 11/17  lines=1  «profile»
+code#35  33×17 @632,271  monospace 400 11/17  lines=1  «stock»
 svg#36  28×28 @777,235
-code#36  26×17 @778,271  monospace 400 11/17  lines=1  «exit»
+code#36  59×17 @762,271  monospace 400 11/17  lines=1  «knowledge»
+svg#37  28×28 @920,235
+code#37  46×17 @911,271  monospace 400 11/17  lines=1  «profile»
+svg#38  28×28 @1063,235
+code#38  26×17 @1064,271  monospace 400 11/17  lines=1  «exit»
 
 [палитра light]
 svg
@@ -301,6 +313,10 @@ svg#35
 code#35  color #556173
 svg#36
 code#36  color #556173
+svg#37
+code#37  color #556173
+svg#38
+code#38  color #556173
 
 [палитра dark]
 svg
@@ -375,3 +391,7 @@ svg#35
 code#35  color #8598ac
 svg#36
 code#36  color #8598ac
+svg#37
+code#37  color #8598ac
+svg#38
+code#38  color #8598ac

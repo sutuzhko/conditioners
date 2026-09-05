@@ -360,8 +360,14 @@ async function readActive(page: Page, target: Target): Promise<ActiveInfo | null
         matches = el instanceof HTMLInputElement && el.name === wanted.name;
         break;
       case 'navLink':
+        /* Совпадение по началу подписи, а не по ней целиком: у пункта со
+           счётчиком доступное имя длиннее видимого — «Заказы 3 в работе»
+           (ADR-309). Число названо словами намеренно, и обход не должен
+           требовать, чтобы сценарий знал текущее содержимое очередей. */
         matches =
-          el instanceof HTMLAnchorElement && el.closest('nav') !== null && text === wanted.text;
+          el instanceof HTMLAnchorElement &&
+          el.closest('nav') !== null &&
+          text.startsWith(wanted.text);
         break;
       case 'orderLink':
         matches =
