@@ -94,50 +94,69 @@ export function Pager({
     query: { ...query, ...(target > 1 ? { page: String(target) } : {}) },
   });
 
+  /* 🔴 Полоса номеров ужимается на телефоне, а не переносится (issue #653).
+     Пять номеров, два многоточия и два шага со словами требуют 362px в
+     колонке 256 на ширине 320: ряд вставал в три строки и упирался в
+     соседний блок подвала. Ниже 600px остаётся то, чем на телефоне и
+     листают, — два шага и подпись положения; слова шагов уходят с глаз, но
+     остаются в озвучке, номера уступают место подписи. Отступление от
+     макета записано в PIXEL_SPEC. */
+  const pagerClass = numbers ? `${styles.pager} ${styles.compact}` : styles.pager;
+
   return (
-    <nav className={styles.pager} aria-label={label}>
+    <nav className={pagerClass} aria-label={label}>
       {page > 1 ? (
         <Link className={styles.step} href={href(page - 1)} rel="prev">
-          ← {prevLabel}
+          ← <span className={styles.stepText}>{prevLabel}</span>
         </Link>
       ) : (
-        <span className={styles.stepOff}>← {prevLabel}</span>
+        <span className={styles.stepOff}>
+          ← <span className={styles.stepText}>{prevLabel}</span>
+        </span>
       )}
 
       {numbers ? (
-        <ol className={styles.numbers}>
-          {pageWindowNumbers(page, pages).map((item, index) =>
-            item === 'gap' ? (
-              /* Многоточие — не цель: оно сообщает о пропуске, а не ведёт
+        <>
+          <span className={`${styles.position} ${styles.positionCompact}`}>
+            {position(page, pages)}
+          </span>
+
+          <ol className={styles.numbers}>
+            {pageWindowNumbers(page, pages).map((item, index) =>
+              item === 'gap' ? (
+                /* Многоточие — не цель: оно сообщает о пропуске, а не ведёт
                  никуда, и из табуляции выпадает вместе с ролью ссылки. */
-              <li className={styles.gap} key={`gap-${index}`} aria-hidden="true">
-                …
-              </li>
-            ) : (
-              <li key={item}>
-                {item === page ? (
-                  <span className={styles.position} aria-current="page">
-                    {item}
-                  </span>
-                ) : (
-                  <Link className={styles.number} href={href(item)} aria-label={pageLabel(item)}>
-                    {item}
-                  </Link>
-                )}
-              </li>
-            ),
-          )}
-        </ol>
+                <li className={styles.gap} key={`gap-${index}`} aria-hidden="true">
+                  …
+                </li>
+              ) : (
+                <li key={item}>
+                  {item === page ? (
+                    <span className={styles.position} aria-current="page">
+                      {item}
+                    </span>
+                  ) : (
+                    <Link className={styles.number} href={href(item)} aria-label={pageLabel(item)}>
+                      {item}
+                    </Link>
+                  )}
+                </li>
+              ),
+            )}
+          </ol>
+        </>
       ) : (
         <span className={styles.position}>{position(page, pages)}</span>
       )}
 
       {page < pages ? (
         <Link className={styles.step} href={href(page + 1)} rel="next">
-          {nextLabel} →
+          <span className={styles.stepText}>{nextLabel}</span> →
         </Link>
       ) : (
-        <span className={styles.stepOff}>{nextLabel} →</span>
+        <span className={styles.stepOff}>
+          <span className={styles.stepText}>{nextLabel}</span> →
+        </span>
       )}
     </nav>
   );
