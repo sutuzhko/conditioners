@@ -1,0 +1,166 @@
+/* Таблица «Ближайших дел» (issue #591, макет «Обзор»).
+
+   Ширины колонок сняты с макета: «Когда» 116, «Монтажник» 180, «Статус» 140,
+   «Сумма» 118, «Действия» 126 — остаток забирает «Работа и объект». */
+
+/* 🔴 Нижняя ширина таблицы живёт здесь, а не в пропе `minWidth`: проп ставит
+   её стилем на самой таблице, а в карточном режиме (до 600px) строки уже
+   разложены по вертикали — и 720px превратились бы в карточку вдвое шире
+   экрана, у которой сумма и статус уезжают за правый край. */
+@media (width >= 600px) {
+  .table {
+    min-width: 720px;
+  }
+}
+
+.whenCol {
+  width: 116px;
+}
+
+.workCol {
+  min-width: 0;
+}
+
+.installerCol {
+  width: 180px;
+}
+
+.statusCol {
+  width: 140px;
+}
+
+.sumCol {
+  width: 118px;
+  text-align: right;
+}
+
+.actionsCol {
+  width: 126px;
+}
+
+/* Когда: день строкой, время и длительность под ним. Моноширинные цифры —
+   колонку читают глазом по вертикали, и пропорциональные цифры её ломают. */
+.when {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.day {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.clock {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  white-space: nowrap;
+}
+
+/* 🔴 Одна обёртка на всё содержимое ячейки работы: в карточном режиме кита
+   ячейка становится флексом с подписью слева, и три блока подряд встали бы
+   тремя колонками шириной в букву. */
+.workBox {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.kindRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.kind {
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+.place {
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.person {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.personName {
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Пустое поле — прочерк приглушённым: «не назначен» и «дело без выезда» это
+   не ошибка данных, а их свойство. */
+.none {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.money {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.actions {
+  white-space: nowrap;
+}
+
+/* Круг, высоту и приглушённый цвет действию задаёт колонка `TableActions`;
+   ссылке остаётся раскладка значка внутри круга. */
+.action,
+.phone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+.phone:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+/* Пустое состояние занимает место таблицы: карточка не должна менять высоту
+   от того, нашлось что-нибудь или нет. */
+.empty {
+  margin: 4px 0;
+}
+
+/* 🔴 Между 600 и 1200 «Монтажник» уходит, и порог двусторонний намеренно.
+   Колонка в 180px на планшете отнимает у работы и объекта ровно ту ширину, на
+   которой адрес перестаёт помещаться в строку; ниже 600 таблица становится
+   карточками, у каждого поля появляется своя строка с подписью — и там
+   монтажник обязан вернуться, иначе на телефоне негде увидеть, кто едет.
+
+   Односторонним `width < 1200` это не записывается: карточный режим кита
+   ставит ячейкам `display: flex`, и вернуть их `revert`'ом нельзя — он
+   откатывает до `table-cell`, то есть ломает саму карточку. */
+@media (600px <= width < 1200px) {
+  .table th.installerCol,
+  .table td.installerCol {
+    display: none;
+  }
+}
