@@ -135,3 +135,36 @@ export {
   type StockUnit,
   type StockZoneCard,
 } from './model';
+
+/* Путь монтажника на объекте (issue #619, #632, #633): свой экран нарядов,
+   карточка наряда на чтение и сдача работы. */
+export { OrderHandover, type OrderHandoverProps } from './OrderHandover';
+export { OrderInstallerActions, type OrderInstallerActionsProps } from './OrderInstallerActions';
+export { OrderInstallerAgenda, type OrderInstallerAgendaProps } from './OrderInstallerAgenda';
+export { OrderInstallerHead, type OrderInstallerHeadProps } from './OrderInstallerHead';
+export {
+  installerContent,
+  installerWorkTitle,
+  orderMarks,
+  type OrderMark,
+} from './installer-content';
+export {
+  INSTALLER_WHENS,
+  REQUIRED_AFTER_PHOTOS,
+  agendaGroups,
+  agendaHref,
+  agendaSummary,
+  agendaWindow,
+  handoverPath,
+  installerStep,
+  installerWhenFromParam,
+  parseExtraWork,
+  photosLeft,
+  routeHref,
+  type AgendaGroup,
+  type AgendaSummary,
+  type AgendaWindow,
+  type ExtraWorkBreakdown,
+  type InstallerStep,
+  type InstallerWhen,
+} from './installer-model';

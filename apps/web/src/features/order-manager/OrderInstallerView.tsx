@@ -1,58 +1,36 @@
-'use client';
-
-import { useState } from 'react';
-
+import type { OrderCard, OrderUnitCard } from '@/entities/order/model';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
-import { Badge, Card, Select } from '@/shared/ui';
+import { Badge, Card, Icon, buttonClassName } from '@/shared/ui';
 
-import {
-  EQUIP_TITLE,
-  ORDER_STATUS_TITLE,
-  ORDER_STATUS_VARIANT,
-  ORDER_TYPE_TITLE,
-  SOURCE_SHORT,
-  orderManagerContent as texts,
-} from './content';
-import { orderApi } from './lib';
-import {
-  INSTALLER_STATUSES,
-  installerMaySetStatus,
-  isOrderStatus,
-  type OrderApi,
-  type OrderCard,
-  type OrderFormStatus,
-  type OrderStatus,
-  type OrderUnitCard,
-} from './model';
+import { EQUIP_TITLE, orderManagerContent as texts } from './content';
+import { installerContent as own } from './installer-content';
+import { routeHref } from './installer-model';
+import { OrderInstallerActions } from './OrderInstallerActions';
+import type { OrderApi } from './model';
 import styles from './OrderInstallerView.module.css';
 
 export interface OrderInstallerViewProps {
   readonly order: OrderCard;
+  /** Набор запросов действия. Подменяется в историях и тестах. */
   readonly api?: OrderApi | undefined;
-  /** Список обновляют снаружи: карточка не знает, откуда её открыли. */
+  /** Страницу обновляют снаружи: карточка не знает, откуда её открыли. */
   readonly onChanged?: (() => void) | undefined;
 }
 
-const STATUS_OPTIONS = INSTALLER_STATUSES.map((value) => ({
-  value,
-  label: ORDER_STATUS_TITLE[value],
-}));
+/** Плашки позиции: чьё оборудование, сколько трассы, какой диаметр, штроба. */
+function unitMarks(unit: OrderUnitCard): readonly { key: string; text: string }[] {
+  const marks = [{ key: 'source', text: own.sourceMark(unit.source) }];
 
-/** Позиция одной строкой: что везём и на каких условиях. */
-function unitLine(unit: OrderUnitCard): string {
-  const parts = [
-    EQUIP_TITLE[unit.equip],
-    SOURCE_SHORT[unit.source],
-    unit.trassaM === null ? null : texts.unitTrassaValue(unit.trassaM),
-    unit.diameter === null ? null : texts.unitDiameterValue(unit.diameter),
-    unit.shtrob ? texts.unitShtrobOn : null,
-  ].filter((part): part is string => part !== null);
+  if (unit.trassaM !== null) marks.push({ key: 'trassa', text: own.trassaMark(unit.trassaM) });
+  if (unit.diameter !== null) marks.push({ key: 'diameter', text: unit.diameter });
+  if (unit.shtrob) marks.push({ key: 'shtrob', text: own.shtrobUnitMark });
 
-  return parts.join(' · ');
+  return marks;
 }
 
 /**
- * Наряд глазами монтажника.
+ * Наряд глазами монтажника — второй кадр `design/admin/Installer.body.html`,
+ * issue #619.
  *
  * 🔴 Заметки владельца и удержания здесь нет вовсе — и это не про скрытые
  * кнопки: сервер не кладёт эти ключи в его ответ (docs/API.md §13), а
@@ -60,132 +38,148 @@ function unitLine(unit: OrderUnitCard): string {
  * наличными: в остальных случаях её монтажнику знать незачем, и приходить она
  * тоже не должна.
  *
- * Данные — на чтение. Единственное, чем монтажник управляет, — статус, и
- * только двумя значениями: выехал и закончил (CRM.md §6).
+ * 🔴 Данные — на чтение. Правка наряда монтажнику закрыта; единственное, чем
+ * он управляет, — переход статуса, и он вынесен в липкую полосу внизу.
+ *
+ * Серверный компонент: интерактивна только полоса действия. Порядок блоков —
+ * порядок работы на объекте: доехать, найти квартиру, посмотреть, что ставим,
+ * прочитать предупреждения, сдать.
  */
-export function OrderInstallerView({ order, api = orderApi, onChanged }: OrderInstallerViewProps) {
-  const [status, setStatus] = useState<OrderStatus>(order.status);
-  const [state, setState] = useState<OrderFormStatus>('idle');
-  const [message, setMessage] = useState('');
-  const [fieldError, setFieldError] = useState('');
-
-  const sending = state === 'sending';
-
-  const change = async (next: OrderStatus): Promise<void> => {
-    const previous = status;
-    setStatus(next);
-    setState('sending');
-    setMessage('');
-    setFieldError('');
-
-    const result = await api.setStatus(order.id, next);
-
-    if (result.ok) {
-      setState('success');
-      onChanged?.();
-      return;
-    }
-
-    /* Сервер отказал — статус возвращается к прежнему: показывать «Выполнен»
-       у наряда, который сервер таким не считает, значит соврать монтажнику. */
-    setStatus(previous);
-    setState('error');
-    if (result.field === 'status') setFieldError(result.message);
-    else setMessage(result.message);
-  };
-
+export function OrderInstallerView({ order, api, onChanged }: OrderInstallerViewProps) {
   const cash = order.payment === 'cash_to_installer' && order.price !== undefined;
 
-  /* 🔴 Свою переработку монтажник видит: это его часы, и ключ приходит ему в
-     проекции наравне с выплатой (ADR-114). Ничего сверх этого он не узнаёт —
-     ни суммы заказа, ни удержания. */
-  const overtimeMin = order.overtimeMin ?? 0;
-
   return (
-    <Card as="article" className={styles.card}>
-      <header className={styles.head}>
-        <h2 className={styles.number}>{texts.number(order.number)}</h2>
-        <Badge size="sm">{ORDER_TYPE_TITLE[order.type]}</Badge>
-        <Badge variant={ORDER_STATUS_VARIANT[status]}>{ORDER_STATUS_TITLE[status]}</Badge>
-      </header>
+    <div className={styles.view}>
+      <Card as="section" className={styles.block} aria-labelledby="installer-object">
+        <h2 className={styles.blockTitle} id="installer-object">
+          {own.objectTitle}
+        </h2>
 
-      <dl className={styles.facts}>
-        <div className={styles.fact}>
-          <dt>{texts.when}</dt>
-          <dd>
-            <time dateTime={order.at}>
-              {texts.date(order.at)}, {texts.clock(order.at)}
-            </time>{' '}
-            <span className={styles.quiet}>{texts.span(order.durationMin)}</span>
-            {overtimeMin > 0 ? (
-              <span className={styles.overtime}>{texts.overtime(overtimeMin)}</span>
-            ) : null}
-          </dd>
-        </div>
+        <p className={styles.address}>{order.address}</p>
 
-        <div className={styles.fact}>
-          <dt>{texts.client}</dt>
-          <dd>
-            {order.client.name}{' '}
-            <a className={styles.phone} href={phoneHref(order.client.phone)}>
-              {formatPhone(order.client.phone)}
-            </a>
-          </dd>
-        </div>
-
-        <div className={styles.fact}>
-          <dt>{texts.address}</dt>
-          <dd>{order.address}</dd>
-        </div>
-
-        {order.intercom === null ? null : (
+        <dl className={styles.facts}>
+          {/* Кого спрашивать у двери. Номер рядом с именем — его диктуют
+              вслух; кнопка «Позвонить» ниже нужна для другого, для нажатия. */}
           <div className={styles.fact}>
-            <dt>{texts.intercom}</dt>
-            <dd>{order.intercom}</dd>
-          </div>
-        )}
-
-        {order.floor === null ? null : (
-          <div className={styles.fact}>
-            <dt>{texts.floor}</dt>
-            <dd>{order.floor}</dd>
-          </div>
-        )}
-
-        {order.phone2 === null ? null : (
-          <div className={styles.fact}>
-            <dt>{texts.phone2}</dt>
+            <dt>{texts.client}</dt>
             <dd>
-              <a className={styles.phone} href={phoneHref(order.phone2)}>
-                {formatPhone(order.phone2)}
+              {order.client.name}{' '}
+              <a className={styles.phone} href={phoneHref(order.client.phone)}>
+                {formatPhone(order.client.phone)}
               </a>
             </dd>
           </div>
-        )}
-      </dl>
 
-      {order.heightWorks ? <p className={styles.height}>{texts.heightWorksOn}</p> : null}
+          {order.intercom === null ? null : (
+            <div className={styles.fact}>
+              <dt>{own.intercom}</dt>
+              <dd className={styles.factValue}>{order.intercom}</dd>
+            </div>
+          )}
 
-      <section className={styles.block}>
-        <h3 className={styles.blockTitle}>{texts.unitsTitle}</h3>
+          {order.floor === null ? null : (
+            <div className={styles.fact}>
+              <dt>{own.floor}</dt>
+              <dd className={styles.factValue}>{order.floor}</dd>
+            </div>
+          )}
+
+          {order.phone2 === null ? null : (
+            <div className={styles.fact}>
+              <dt>{own.phone2}</dt>
+              <dd>
+                <a className={styles.phone} href={phoneHref(order.phone2)}>
+                  {formatPhone(order.phone2)}
+                </a>
+              </dd>
+            </div>
+          )}
+        </dl>
+
+        {/* Маршрут и звонок — ссылки наружу: `tel:` и карты не маршруты
+            приложения, и типизированный Link им не нужен. */}
+        <div className={styles.actions}>
+          <a
+            className={`${buttonClassName({ variant: 'flat', size: 'lg', fullWidth: true })} ${styles.action}`}
+            href={routeHref(order.address)}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={own.routeLabel(order.address)}
+          >
+            {own.route}
+          </a>
+          <a
+            className={`${buttonClassName({ variant: 'flat', size: 'lg', fullWidth: true })} ${styles.action}`}
+            href={phoneHref(order.client.phone)}
+            aria-label={own.callLabel(order.client.name)}
+            title={formatPhone(order.client.phone)}
+          >
+            {own.callOnSite}
+          </a>
+        </div>
+      </Card>
+
+      <Card as="section" className={styles.block} aria-labelledby="installer-units">
+        <div className={styles.blockHead}>
+          <h2 className={styles.blockTitle} id="installer-units">
+            {own.unitsTitle}
+          </h2>
+          {order.units.length === 0 ? null : (
+            <Badge variant="neutral" size="sm">
+              {own.unitsMark(order.units.length)}
+            </Badge>
+          )}
+        </div>
+
         {order.units.length === 0 ? (
-          <p className={styles.quiet}>{texts.unitsEmpty}</p>
+          <p className={styles.quiet}>{own.unitsEmpty}</p>
         ) : (
           <ul className={styles.units}>
             {order.units.map((unit) => (
               <li className={styles.unit} key={unit.id}>
                 <span className={styles.unitModel}>{unit.model ?? EQUIP_TITLE[unit.equip]}</span>
-                <span className={styles.quiet}>{unitLine(unit)}</span>
+                <span className={styles.unitMarks}>
+                  {unitMarks(unit).map((mark) => (
+                    <Badge
+                      key={mark.key}
+                      size="sm"
+                      variant={mark.key === 'shtrob' ? 'warning' : 'neutral'}
+                    >
+                      {mark.text}
+                    </Badge>
+                  ))}
+                </span>
               </li>
             ))}
           </ul>
         )}
-      </section>
+      </Card>
 
-      {order.comment === null ? null : <p className={styles.comment}>{order.comment}</p>}
+      {/* Предупреждения — то, к чему готовятся до звонка в дверь: собака,
+          домофон, страховка. Отдельной карточкой, а не строчкой в фактах:
+          на телефоне их пролистывают вместе с адресом. */}
+      {order.comment === null && !order.heightWorks ? null : (
+        <Card
+          as="section"
+          variant="accent"
+          className={styles.note}
+          aria-labelledby="installer-note"
+        >
+          <h2 className={styles.noteTitle} id="installer-note">
+            <Icon name="danger" size={18} />
+            {own.noteTitle}
+          </h2>
 
-      <section className={styles.block}>
-        <h3 className={styles.blockTitle}>{texts.moneyTitle}</h3>
+          {order.heightWorks ? <p className={styles.noteText}>{own.heightWorksNote}</p> : null}
+          {order.comment === null ? null : <p className={styles.noteText}>{order.comment}</p>}
+        </Card>
+      )}
+
+      <Card as="section" className={styles.block} aria-labelledby="installer-money">
+        <h2 className={styles.blockTitle} id="installer-money">
+          {texts.moneyTitle}
+        </h2>
+
         <dl className={styles.facts}>
           {/* 🔴 Выплата приходит всегда: это его деньги. */}
           <div className={styles.fact}>
@@ -202,42 +196,14 @@ export function OrderInstallerView({ order, api = orderApi, onChanged }: OrderIn
             </div>
           ) : null}
         </dl>
-      </section>
+      </Card>
 
-      <div className={styles.actions}>
-        <Select
-          label={texts.statusTitle}
-          hint={texts.statusHint}
-          options={STATUS_OPTIONS}
-          placeholder={texts.statusPlaceholder}
-          value={installerMaySetStatus(status) ? status : ''}
-          disabled={sending}
-          error={fieldError === '' ? undefined : fieldError}
-          wrapperClassName={styles.statusField}
-          onChange={(event) => {
-            const next = event.target.value;
-            if (isOrderStatus(next)) void change(next);
-          }}
-        />
-
-        {state === 'sending' ? (
-          <span className={styles.quiet} role="status">
-            {texts.statusSaving}
-          </span>
-        ) : null}
-
-        {state === 'success' ? (
-          <span className={styles.ok} role="status">
-            {texts.statusSaved}
-          </span>
-        ) : null}
-      </div>
-
-      {state === 'error' && message !== '' ? (
-        <p className={styles.error} role="alert">
-          {message}
-        </p>
-      ) : null}
-    </Card>
+      <OrderInstallerActions
+        orderId={order.id}
+        status={order.status}
+        api={api}
+        onChanged={onChanged}
+      />
+    </div>
   );
 }
