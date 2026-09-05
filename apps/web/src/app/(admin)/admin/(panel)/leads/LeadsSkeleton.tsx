@@ -14,28 +14,15 @@ import styles from './page.module.css';
  */
 export function LeadsSkeleton() {
   return (
-    <div className={styles.split} aria-busy="true">
-      <div className={styles.queue}>
-        <Skeleton variant="block" className={styles.queueSkeleton} />
+    <div className={styles.block} aria-busy="true">
+      <div className={styles.split}>
+        <div className={styles.queue}>
+          <Skeleton variant="block" className={styles.queueSkeleton} />
+        </div>
+        <div className={styles.detail}>
+          <Skeleton variant="block" className={styles.detailSkeleton} />
+        </div>
       </div>
-      <div className={styles.detail}>
-        <Skeleton variant="block" className={styles.detailSkeleton} />
-      </div>
-    </div>
-  );
-}
-
-/**
- * Заготовка строки счёта (issue #601).
- *
- * Одна строка кегля подписи: плашка о залежавшемся обращении места под себя
- * не резервирует — она появляется не всегда, и пустая рамка под неё обещала бы
- * тревогу там, где её нет.
- */
-export function SummarySkeleton() {
-  return (
-    <div className={styles.summary} aria-busy="true">
-      <Skeleton variant="text" width="18ch" />
     </div>
   );
 }

@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+
+import { TableScroller } from './TableScroller';
 import styles from './Table.module.css';
 
 export type TableVariant = 'plain' | 'scroll' | 'sticky' | 'cards';
@@ -102,10 +104,10 @@ export function Table({
 
   if (!scrolls) return <div className={styles.viewport}>{table}</div>;
 
-  // контейнер получает tabIndex: прокрутить таблицу вбок должно быть можно
-  // и с клавиатуры, а не только пальцем
+  // прокрутить таблицу вбок должно быть можно и с клавиатуры, а не только
+  // пальцем — но только там, где вбок действительно есть куда двигаться
   return (
-    <div
+    <TableScroller
       className={[
         styles.viewport,
         styles.scrollable,
@@ -115,12 +117,10 @@ export function Table({
       ]
         .filter(Boolean)
         .join(' ')}
-      role="region"
-      aria-label={label}
-      tabIndex={0}
-      style={maxHeight === undefined ? undefined : { maxBlockSize: maxHeight }}
+      label={label}
+      maxHeight={maxHeight}
     >
       {table}
-    </div>
+    </TableScroller>
   );
 }

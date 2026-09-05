@@ -15,12 +15,21 @@ import { loginViaUi } from './support/admin-ui';
  * Это единственное правильное поведение необратимого действия (ADR-113), и
  * ошибка здесь стоит истории обращения, восстановить которую нечем.
  *
- * 🔴 Обращение заводится сценарием и удаляется сценарием: на стенде настоящие
- * данные владельца, и удалять чужую заявку ради проверки нельзя. Своя
- * помечается уникальным маркером в имени.
+ * 🔴 Публичная форма зовётся ровно один раз за прогон — только там, где
+ * обращение потом уничтожается. `POST /api/leads` держит ограничитель частоты
+ * (пять обращений за десять минут с адреса), и три создания на файл, помноженные
+ * на два профиля и повторы Playwright, упирались в 429 — сценарий падал на
+ * подготовке, не дойдя до проверки. Остальные два сценария ничего не создают:
+ * они работают с обращением, которое на стенде уже есть, и возвращают его
+ * состояние обратно — тем же приёмом, что `panel-states`.
  */
 
 test.use({ baseURL: BASE_URL });
+
+/* Удаление и отмена от ширины не зависят: сценарий проверяет поведение, а не
+   раскладку. Тот же приём, что у остальных сценариев панели, — и он же вдвое
+   уменьшает число обращений к ограничителю частоты. */
+test.skip(({ isMobile }) => isMobile === true, 'удаление не зависит от ширины');
 
 /** Маркер прогона: по нему обращение находится и убирается, чужое не трогается. */
 const marker = `E2E-удаление-${Date.now()}`;
@@ -46,6 +55,17 @@ async function createLead(name: string): Promise<AdminLead> {
     if (created === undefined) throw new Error('Заявка не нашлась в списке после создания');
 
     return created;
+  });
+}
+
+/** Любое обращение со стенда — для сценариев, которые ничего не меняют насовсем. */
+async function anyLead(): Promise<AdminLead> {
+  return withAdmin(async (admin) => {
+    const [first] = await admin.listLeads();
+    if (first === undefined) {
+      throw new Error('На стенде нет ни одного обращения: сценарию не с чем работать');
+    }
+    return first;
   });
 }
 
@@ -87,15 +107,19 @@ test.describe('Удаление обращения', () => {
     });
   });
 
+  /* 🔴 Сценарий ничего не меняет: он открывает окно и отказывается. Поэтому
+     работает с обращением, которое на стенде уже есть, и публичную форму не
+     трогает — ограничитель частоты бережётся для того сценария, которому
+     обращение действительно нужно уничтожить. */
   test('🔴 отказ от подтверждения ничего не удаляет', async ({ page }) => {
     test.slow();
 
-    const lead = await createLead(marker);
+    const lead = await anyLead();
 
     await loginViaUi(page);
     await page.goto(`/admin/leads?lead=${lead.id}`);
 
-    await expect(page.getByRole('heading', { name: marker })).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByRole('heading', { name: lead.name })).toBeVisible({ timeout: 30_000 });
 
     await page.getByRole('button', { name: 'Удалить обращение' }).click();
 
@@ -103,7 +127,7 @@ test.describe('Удаление обращения', () => {
     await dialog.getByRole('button', { name: 'Оставить' }).click();
 
     await expect(dialog).toBeHidden();
-    await expect(page.getByRole('heading', { name: marker })).toBeVisible();
+    await expect(page.getByRole('heading', { name: lead.name })).toBeVisible();
 
     // 🔴 Запись на месте: отказ от подтверждения не делает ничего
     await withAdmin(async (admin) => {
@@ -119,25 +143,32 @@ test.describe('Удаление обращения', () => {
   test('🔴 отказ оставляет обращение в базе и записывает причину', async ({ page }) => {
     test.slow();
 
-    const lead = await createLead(marker);
+    /* Сценарий меняет статус чужого обращения и возвращает его обратно —
+       тем же приёмом, что `panel-states`: стенд после прогона такой же, каким
+       был до него. */
+    const lead = await anyLead();
 
     await loginViaUi(page);
     await page.goto(`/admin/leads?lead=${lead.id}`);
 
-    await expect(page.getByRole('heading', { name: marker })).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByRole('heading', { name: lead.name })).toBeVisible({ timeout: 30_000 });
 
-    await page.getByLabel('Статус').selectOption({ label: 'Отказ' });
+    try {
+      await page.getByLabel('Статус').selectOption({ label: 'Отказ' });
 
-    const dialog = page.getByRole('dialog', { name: 'Почему отказались?' });
-    await expect(dialog).toBeVisible();
-    await dialog.getByLabel('Причина').selectOption({ label: 'Дорого' });
-    await dialog.getByRole('button', { name: 'Отметить отказ' }).click();
+      const dialog = page.getByRole('dialog', { name: 'Почему отказались?' });
+      await expect(dialog).toBeVisible();
+      await dialog.getByLabel('Причина').selectOption({ label: 'Дорого' });
+      await dialog.getByRole('button', { name: 'Отметить отказ' }).click();
 
-    await expect(dialog).toBeHidden({ timeout: 30_000 });
+      await expect(dialog).toBeHidden({ timeout: 30_000 });
 
-    await withAdmin(async (admin) => {
-      const found = await admin.findLead(lead.id);
-      expect(found?.status).toBe('rejected');
-    });
+      await withAdmin(async (admin) => {
+        const found = await admin.findLead(lead.id);
+        expect(found?.status).toBe('rejected');
+      });
+    } finally {
+      await withAdmin((admin) => admin.setLeadStatus(lead.id, lead.status));
+    }
   });
 });

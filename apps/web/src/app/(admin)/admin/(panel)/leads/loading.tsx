@@ -7,7 +7,9 @@ import {
   leadsHref,
 } from '@/features/lead-manager';
 
-import { LeadsSkeleton, SummarySkeleton } from './LeadsSkeleton';
+import { Skeleton } from '@/shared/ui';
+
+import { LeadsSkeleton } from './LeadsSkeleton';
 import styles from './page.module.css';
 
 /**
@@ -35,7 +37,9 @@ export default function LeadsLoading() {
 
       {/* Счёт очереди приходит из базы: под него резервируется строка той же
           высоты, а поиск и фильтры рисуются настоящими — они данных не ждут. */}
-      <SummarySkeleton />
+      <p className={styles.lead}>
+        <Skeleton variant="text" width="16ch" />
+      </p>
 
       <LeadSearch query="" />
 
