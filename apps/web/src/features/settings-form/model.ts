@@ -139,6 +139,22 @@ export type GroupDescriptor = {
 /** Значение группы — произвольный объект: его форму знает схема, а не форма. */
 export type GroupValue = Record<string, unknown>;
 
+/**
+ * Группа в общей форме данных компании: описание, значение и готовность.
+ *
+ * 🔴 Готовность считает сервер тем же кодом, что и страница-указатель
+ * (`server/repo/settings`): второй счёт на клиенте разошёлся бы с первым, и
+ * владелец читал бы два разных ответа на один вопрос. Сюда она приходит
+ * готовыми данными — функции границу сервер→клиент не переживают.
+ */
+export type GroupEntry = {
+  readonly group: GroupDescriptor;
+  readonly value: GroupValue;
+  readonly ready: boolean;
+  /** Подписи незаполненных полей. Пусто у готовой группы и у несохранённой вовсе. */
+  readonly missing: readonly string[];
+};
+
 export type SaveStatus = 'idle' | 'sending' | 'success' | 'error';
 
 export type SaveResult =

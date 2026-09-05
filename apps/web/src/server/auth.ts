@@ -230,12 +230,31 @@ export async function changePassword(params: {
   if (!ok) return 'invalid_current';
 
   await adminUsers.setPasswordHash(params.userId, await hashPassword(params.next));
-  await sessions.deleteOtherForUser(
-    params.userId,
-    params.currentToken === undefined ? '' : hashToken(params.currentToken),
-  );
+  await logoutOtherSessions(params.userId, params.currentToken);
 
   return 'ok';
+}
+
+/**
+ * Закрыть все сессии человека, кроме текущей.
+ *
+ * 🔴 Текущая остаётся намеренно: и смена пароля, и кнопка «Выйти на всех
+ * устройствах» — реакция на «кажется, кто-то знает мой пароль». Выкинуть
+ * человека из панели за то, что он сделал правильную вещь, значит заставить
+ * его вводить пароль ещё раз на том самом устройстве, с которого он и наводит
+ * порядок.
+ *
+ * Токен без cookie (запрос пришёл без неё) закрывает вообще все сессии: пустой
+ * хеш не совпадает ни с одной записью, и сохранять нечего.
+ */
+export async function logoutOtherSessions(
+  userId: string,
+  currentToken: string | undefined,
+): Promise<void> {
+  await sessions.deleteOtherForUser(
+    userId,
+    currentToken === undefined ? '' : hashToken(currentToken),
+  );
 }
 
 /* Общая реализация переехала в server/client-ip (аудит: две копии разошлись

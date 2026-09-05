@@ -2,19 +2,13 @@
 
 import { useId, useState, type FormEvent } from 'react';
 
-import { Button, Card, Checkbox, Input, Select, Textarea, useConfirm } from '@/shared/ui';
+import { Button, Card, useConfirm } from '@/shared/ui';
 
-import { ListField } from './ListField';
-import { ObjectListField, type ObjectRow } from './ObjectListField';
+import { GroupFields } from './GroupFields';
 import { settingsFormContent as texts } from './content';
 import {
-  filledFieldLabels,
-  minutesToTime,
+  confirmGroupSwitch,
   putGroup,
-  readPath,
-  timeToMinutes,
-  toDateValue,
-  visibleFields,
   withGroupDefaults,
   withoutHiddenFields,
   writePath,
@@ -30,50 +24,14 @@ export interface SettingsFormProps {
   readonly save?: SaveGroup | undefined;
 }
 
-/** Строка из значения любого типа: в поле ввода попадает текст, а не `null`. */
-function asText(value: unknown): string {
-  if (value === undefined || value === null) return '';
-  return String(value);
-}
-
-function asList(value: unknown): readonly string[] {
-  return Array.isArray(value) ? value.map(asText) : [];
-}
-
 /**
- * Минуты дня из значения группы. Всё, что не целым числом минут в сутках, —
- * пустое поле: рабочее окно могло быть сохранено до появления поля, а
- * показывать мусор временем нельзя.
- */
-function asMinutes(value: unknown): number | null {
-  if (typeof value !== 'number' || !Number.isInteger(value)) return null;
-  return value >= 0 && value <= 24 * 60 ? value : null;
-}
-
-/** Строки списка объектов: всё, что не объект, отбрасывается как мусор. */
-function asObjectList(value: unknown): readonly ObjectRow[] {
-  if (!Array.isArray(value)) return [];
-  return value.filter(
-    (item): item is ObjectRow => typeof item === 'object' && item !== null && !Array.isArray(item),
-  );
-}
-
-/**
- * Ключ строки формы. Путь повторяется у полей разных вариантов состава
- * («Наименование» у предпринимателя и у общества), поэтому в ключ входит и
- * условие показа: одновременно видно только одно из таких полей, но ключ
- * обязан быть своим у каждого.
- */
-function fieldKey(field: FieldDescriptor): string {
-  return field.when === undefined ? field.path : `${field.path}@${field.when.equals.join('|')}`;
-}
-
-/**
- * Форма одной группы настроек.
+ * Форма одной группы настроек — со своей кнопкой.
  *
- * Группа сохраняется целиком и отдельно от соседних: контракт — `PUT` на
- * группу (docs/API.md §5), и владелец, правящий телефон, не должен ждать,
- * пока он допишет условия гарантии.
+ * 🔴 Зовёт её ровно одна страница: «Уведомления», где группа стоит одна и
+ * ждать соседей ей не от кого. Данные компании собраны в общую форму с одной
+ * кнопкой (`SettingsGroups`, issue #617): тринадцать кнопок «Сохранить» на
+ * одном экране означали, что владелец, правивший телефон и адрес, уезжал с
+ * сохранённым телефоном и потерянным адресом.
  *
  * Проверка значений остаётся на сервере: схема Zod там одна и та же для формы
  * и для API, дублировать её здесь — значит однажды разойтись с ней.
@@ -92,10 +50,6 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
   const { confirm, dialog } = useConfirm();
 
   const sending = status === 'sending';
-  /* Состав группы зависит от её собственного значения: у предпринимателя и у
-     общества разные реквизиты (ADR-112). Поля вне текущего состава не
-     рисуются и не уходят на сервер. */
-  const fields = visibleFields(group, draft);
   /* Сравнение по JSON, а не по ссылкам: значения — простые деревья из строк,
      чисел и флажков, и глубокого сравнения руками они не стоят.
 
@@ -110,30 +64,10 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
     setFieldErrors((prev) => (prev[path] === undefined ? prev : { ...prev, [path]: '' }));
   };
 
-  /**
-   * Смена значения, от которого зависит состав группы.
-   *
-   * 🔴 Стирается вся группа, а не только ушедшие с экрана поля: одноимённые
-   * поля у разных вариантов означают разное, и молчаливый перенос значения
-   * опубликовал бы не то, что владелец вводил (ADR-112). Очистка происходит
-   * сразу — что показано на экране, то и уйдёт на сервер.
-   */
   const switchGroup = async (field: FieldDescriptor, next: unknown): Promise<void> => {
-    const losing = filledFieldLabels(group, draft, field.path);
-
-    // терять нечего — вопрос был бы лишним
-    if (losing.length > 0) {
-      const confirmed = await confirm({
-        title: texts.resetTitle(group.title),
-        description: texts.resetDescription(losing),
-        confirmLabel: texts.resetConfirm,
-        cancelLabel: texts.resetCancel,
-      });
-
-      /* Отказ не меняет ничего: черновик не тронут, и переключатель
-         возвращается на прежнее значение сам — он управляемый. */
-      if (!confirmed) return;
-    }
+    /* Отказ не меняет ничего: черновик не тронут, и переключатель
+       возвращается на прежнее значение сам — он управляемый. */
+    if (!(await confirmGroupSwitch(confirm, group, draft, field))) return;
 
     setDraft(writePath({}, field.path, next));
     setStatus('idle');
@@ -169,31 +103,16 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
       <p className={styles.description}>{group.description}</p>
 
       <form className={styles.form} onSubmit={submit} noValidate>
-        <div
-          className={[styles.fields, group.layout === 'pairs' ? styles.pairs : null]
-            .filter(Boolean)
-            .join(' ')}
-        >
-          {fields.map((field) => (
-            <Field
-              key={fieldKey(field)}
-              field={field}
-              value={readPath(draft, field.path)}
-              error={fieldErrors[field.path]}
-              disabled={sending}
-              onChange={(next) => {
-                /* Поле, задающее состав группы, меняется не как остальные:
-                   сначала вопрос, потом очистка. */
-                if (field.resetsGroup === true) {
-                  void switchGroup(field, next);
-                  return;
-                }
-
-                set(field.path, next);
-              }}
-            />
-          ))}
-        </div>
+        <GroupFields
+          group={group}
+          draft={draft}
+          fieldErrors={fieldErrors}
+          disabled={sending}
+          onChange={set}
+          onSwitch={(field, next) => {
+            void switchGroup(field, next);
+          }}
+        />
 
         {/* Сообщение над кнопкой — только когда его негде показать у поля:
             сервер не назвал поле или отказ вообще не про значения (истёкшая
@@ -240,146 +159,5 @@ export function SettingsForm({ group, value, save = putGroup }: SettingsFormProp
           отправке группы. */}
       {dialog}
     </Card>
-  );
-}
-
-function Field({
-  field,
-  value,
-  error,
-  disabled,
-  onChange,
-}: {
-  field: FieldDescriptor;
-  value: unknown;
-  error: string | undefined;
-  disabled: boolean;
-  onChange: (next: unknown) => void;
-}) {
-  const shared = {
-    label: field.label,
-    hint: field.hint,
-    error: error === '' ? undefined : error,
-    disabled,
-    /* Поле-предложение занимает ряд целиком: в трети ряда значение уезжало
-       за край без переноса (issue #37). */
-    ...(field.fullRow === true ? { wrapperClassName: styles.wide } : {}),
-  };
-
-  if (field.kind === 'list') {
-    return (
-      <ListField
-        label={field.label}
-        itemLabel={field.itemLabel ?? field.label}
-        hint={field.hint}
-        mask={field.mask}
-        values={asList(value)}
-        disabled={disabled}
-        onChange={onChange}
-      />
-    );
-  }
-
-  if (field.kind === 'objectList') {
-    return (
-      <ObjectListField
-        label={field.label}
-        itemLabel={field.itemLabel ?? field.label}
-        hint={field.hint}
-        columns={field.columns ?? []}
-        values={asObjectList(value)}
-        maxItems={field.maxItems}
-        disabled={disabled}
-        onChange={onChange}
-      />
-    );
-  }
-
-  if (field.kind === 'checkbox') {
-    return (
-      <Checkbox
-        label={field.label}
-        hint={field.hint}
-        checked={value === true}
-        disabled={disabled}
-        onChange={(event) => onChange(event.target.checked)}
-      />
-    );
-  }
-
-  if (field.kind === 'select') {
-    return (
-      <Select
-        {...shared}
-        options={(field.options ?? []).map((option) => ({ value: option, label: option }))}
-        value={asText(value)}
-        onChange={(event) => onChange(event.target.value)}
-      />
-    );
-  }
-
-  if (field.kind === 'longText') {
-    return (
-      <Textarea
-        {...shared}
-        rows={3}
-        wrapperClassName={styles.wide}
-        value={asText(value)}
-        onChange={(event) => onChange(event.target.value)}
-      />
-    );
-  }
-
-  if (field.kind === 'time') {
-    const minutes = asMinutes(value);
-
-    return (
-      <Input
-        {...shared}
-        type="time"
-        value={minutes === null ? '' : minutesToTime(minutes)}
-        onChange={(event) => {
-          /* Очищенное поле — не полночь: ключ уходит из тела запроса, и
-             сервер подставляет умолчание из схемы. Ноль означал бы, что
-             владелец сам открыл календарь с нуля часов. */
-          onChange(timeToMinutes(event.target.value) ?? undefined);
-        }}
-      />
-    );
-  }
-
-  if (field.kind === 'date') {
-    return (
-      <Input
-        {...shared}
-        type="date"
-        value={toDateValue(value)}
-        onChange={(event) => {
-          /* Очищенное поле — не «первое января»: ключ уходит из тела запроса,
-             и сервер подставляет умолчание схемы (ADR-139). */
-          onChange(event.target.value === '' ? undefined : event.target.value);
-        }}
-      />
-    );
-  }
-
-  if (field.kind === 'number') {
-    return (
-      <Input
-        {...shared}
-        type="number"
-        value={asText(value)}
-        onChange={(event) => {
-          /* Пустое поле — это `null`, а не ноль: незаполненный год основания
-             и «основана в нулевом году» — разные утверждения. */
-          const raw = event.target.value;
-          onChange(raw === '' ? null : Number(raw));
-        }}
-      />
-    );
-  }
-
-  return (
-    <Input {...shared} value={asText(value)} onChange={(event) => onChange(event.target.value)} />
   );
 }

@@ -67,6 +67,21 @@ describe('профиль: разбор ответа', () => {
     ).resolves.toEqual({ ok: false, message: 'Текущий пароль неверен' });
   });
 
+  it('🔴 выход везде идёт своим маршрутом и не трогает текущее устройство', async () => {
+    const fetchMock = vi.fn<(url: string, init?: RequestInit) => Promise<Response>>(
+      async () => new Response(null, { status: 204 }),
+    );
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(profileApi.logoutEverywhere()).resolves.toEqual({ ok: true });
+
+    const [url, init] = fetchMock.mock.calls[0] ?? [];
+    expect(url).toBe('/api/admin/profile/sessions');
+    expect(init).toMatchObject({ method: 'DELETE' });
+    /* Тела нет: кого выгонять, сервер знает из сессии. */
+    expect(init).not.toHaveProperty('body');
+  });
+
   it('упавшая сеть говорит, что изменения не сохранены', async () => {
     vi.stubGlobal(
       'fetch',

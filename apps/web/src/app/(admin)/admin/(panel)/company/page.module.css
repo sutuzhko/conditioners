@@ -1,15 +1,36 @@
-/* Страница данных компании: оглавление и список групп. */
+/* Страница данных компании: шапка, плашка готовности и форма групп. */
 
 .page {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 14px;
 }
 
 .header {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+.back {
+  align-self: flex-start;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--accent-text);
+}
+
+/* 🔴 Пол цели на сенсорной раскладке (ADR-183): до 900px по ссылке возврата
+   целятся пальцем, а строка кегля даёт 20px при норме 44. */
+@media (width < 900px) {
+  .back {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
 }
 
 .title {
@@ -27,95 +48,9 @@
   font-size: var(--fs-dense);
 }
 
-.toc {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-/* 🔴 На телефоне раздел растягивается на девять экранов: тринадцать групп по
-   несколько полей. Оглавление липнет к шапке — иначе после первой же правки
-   до него не добраться, не пролистав всё обратно.
-
-   Ниже — лента в одну строку, а не четыре: неподвижное оглавление из четырёх
-   строк заняло бы треть экрана, ради которого всё и затевалось. */
-@media (width < 900px) {
-  .toc {
-    position: sticky;
-    top: var(--admin-header-h);
-    z-index: 5;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scrollbar-width: none;
-    margin: 0 calc(var(--gutter) * -1);
-    background: var(--bg);
-    padding: 8px var(--gutter);
-  }
-
-  .toc::-webkit-scrollbar {
-    display: none;
-  }
-
-  .tocLink {
-    white-space: nowrap;
-  }
-}
-
-.tocLink {
-  padding: 5px 10px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-pill);
-  color: var(--body);
-  font-size: var(--fs-caption);
-  text-decoration: none;
-}
-
-.tocLink:hover {
-  border-color: var(--accent-ink);
-  color: var(--accent-text);
-}
-
-/* Оглавление на телефоне прокручивается — кольцо внутрь, иначе край области
-   срежет его у крайних пунктов. */
-.tocLink:focus-visible {
-  outline: none;
-  box-shadow: var(--ring-focus-inset);
-}
-
+/* Заготовки групп на время загрузки: та же колонка, что у готовой формы. */
 .groups {
   display: flex;
   flex-direction: column;
   gap: 14px;
-}
-
-/* Переход по оглавлению ставит карточку под шапку с отбивкой, а не под
-   верх окна.
-
-   🔴 Отступ под саму шапку документ держит своим `scroll-padding-top`
-   (global.css, issue #337) — здесь только то, что липнет ниже неё: отбивка
-   на широком экране и лента оглавления на телефоне (8px полей сверху и снизу
-   плюс пункт 44px). Отступ стоит на цели якоря, а не на карточке внутри неё:
-   браузер отступает от элемента с `id`, и прежние 90px на карточке формы не
-   работали — карточка уезжала под шапку. Замер: верх карточки 74px при шапке
-   в 66 до правки. */
-.group {
-  scroll-margin-top: 16px;
-}
-
-@media (width < 900px) {
-  .group {
-    scroll-margin-top: 68px;
-  }
-}
-
-/* 🔴 Пол цели на сенсорной раскладке (issue #375, ADR-183). До 900px по этой
-   ссылке целятся пальцем, а строка кегля даёт 32px при норме 44. Правило стоит
-   в модуле, а не берёт общий `tapAction` из `global.css`: там пол нужен
-   отдельным ссылкам внутри компонента, здесь — всем без исключения элементам
-   класса, и место правила совпадает с местом класса. */
-@media (width < 900px) {
-  .tocLink {
-    min-height: var(--tap);
-  }
 }

@@ -1,0 +1,211 @@
+/* Данные компании: тринадцать групп и одна кнопка (issue #617). */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 🔴 Полоса готовности, кнопка и оглавление липнут к шапке панели одним
+   блоком. Тринадцать групп — это девять экранов прокрутки: кнопка, оставшаяся
+   наверху, требовала бы возврата после каждой правки, а оглавление наверху
+   переставало быть оглавлением (issue #337).
+
+   Липнет один блок, а не два по очереди: два сцепленных `sticky` считают
+   смещение друг от друга, и любая правка высоты верхнего роняет нижний. */
+.bar {
+  position: sticky;
+  top: var(--admin-header-h);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 calc(var(--gutter) * -1);
+  border-bottom: 1px solid var(--line);
+
+  /* 🔴 Поверхность панели — `--card`, а не `--bg`: в тёмной теме это разные
+     цвета (#121d31 против #0b1220), и полоса «своего» фона легла бы тёмным
+     прямоугольником поверх карточки. Прежнее оглавление раздела красилось
+     в `--bg` и ровно так и выглядело ниже 900. */
+  background: var(--card);
+  padding: 10px var(--gutter);
+}
+
+.barRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  align-items: center;
+}
+
+/* Дорожка занимает всё, что осталось от процента и кнопок. */
+.track {
+  flex: 1 1 160px;
+  min-width: 120px;
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--line);
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: var(--accent-ink);
+  transition: inline-size 200ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    transition: none;
+  }
+}
+
+/* Моноширинный процент: он меняется на месте, и пропорциональная цифра
+   двигала бы кнопку рядом. */
+.percent {
+  flex: 0 0 auto;
+  min-width: 4ch;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Ниже 900 оглавление — лента в одну строку: неподвижные четыре строки чипов
+   заняли бы треть экрана, ради которого всё и затевалось. */
+@media (width < 900px) {
+  .toc {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .toc::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tocLink {
+    white-space: nowrap;
+  }
+}
+
+.tocLink {
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  color: var(--body);
+  font-size: var(--fs-caption);
+  text-decoration: none;
+}
+
+.tocLink:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-text);
+}
+
+/* Оглавление на телефоне прокручивается — кольцо внутрь, иначе край области
+   срежет его у крайних пунктов. */
+.tocLink:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-inset);
+}
+
+/* 🔴 Пол цели на сенсорной раскладке (issue #375, ADR-183): до 900px по этой
+   ссылке целятся пальцем, а строка кегля даёт 32px при норме 44. */
+@media (width < 900px) {
+  .tocLink {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+}
+
+/* Сводка держит место только когда ей есть что сказать: пустой блок между
+   полосой и первой карточкой сдвигал бы форму на свою высоту. */
+.summary:focus-visible {
+  outline: none;
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-ring);
+}
+
+.summaryText {
+  margin: 0;
+}
+
+.summaryList {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.saved {
+  margin: 0;
+  color: var(--ok-ink);
+  font-size: var(--fs-dense);
+}
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Переход по оглавлению ставит карточку под липкую полосу, а не под верх
+   окна. Отступ под саму шапку документ держит своим `scroll-padding-top`
+   (global.css, issue #337) — здесь только высота этой полосы. */
+.group {
+  scroll-margin-top: 76px;
+}
+
+@media (width < 900px) {
+  .group {
+    scroll-margin-top: 118px;
+  }
+}
+
+/* Незаполненная группа видна в столбце из тринадцати карточек ещё до того,
+   как читают плашку: рамкой предупреждения, а не заливкой — заливка на всю
+   карточку спорит с полями формы внутри неё. */
+.groupUnfilled {
+  border-color: var(--warn-line);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.missing {
+  margin: 0 0 14px;
+  color: var(--warn-ink);
+  font-size: var(--fs-dense);
+}
+
+.error {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}

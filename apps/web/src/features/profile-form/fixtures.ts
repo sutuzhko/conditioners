@@ -30,9 +30,17 @@ export const unsetEmploymentMe: StaffCard = { ...installerMe, employment: null }
 export const acceptingApi: ProfileApi = {
   save: async () => ({ ok: true }),
   changePassword: async () => ({ ok: true }),
+  logoutEverywhere: async () => ({ ok: true }),
 };
 
 export const failingApi: ProfileApi = {
   save: async () => ({ ok: false, message: 'Сервер не принял изменения. Попробуйте ещё раз' }),
   changePassword: async () => ({ ok: false, message: 'Текущий пароль не подошёл' }),
+  logoutEverywhere: async () => ({
+    ok: false,
+    message: 'Сервер не принял изменения. Попробуйте ещё раз',
+  }),
 };
+
+/** Ни одного входа: учётная запись заведена, но человек ещё не заходил. */
+export const neverLoggedInMe: StaffCard = { ...installerMe, lastLoginAt: null };
