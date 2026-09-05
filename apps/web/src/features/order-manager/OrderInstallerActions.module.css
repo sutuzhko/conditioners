@@ -1,0 +1,44 @@
+/* Липкая полоса действия — второй кадр `design/admin/Installer.body.html`.
+
+   Высота цели — 56px, как у всего пути монтажника: одна рука и перчатка. */
+
+.bar {
+  --h-lg: 56px;
+
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  background: var(--card);
+
+  /* Нижнее поле больше верхнего: под полосой на телефоне лежит домашняя
+     черта, и кнопка, прижатая к самому краю, промахивается мимо пальца. */
+  padding: 12px 0 16px;
+}
+
+/* Подпись под кнопкой объясняет, что произойдёт: «Откроется сдача». Она
+   служебная, поэтому тише подписи кнопки, но не мельче микротекста —
+   её читают на солнце. */
+.hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  text-align: center;
+}
+
+.error {
+  margin-bottom: 4px;
+}
+
+/* 🔴 Ниже 600px оболочка панели прижимает к низу окна свою полосу разделов
+   (`AdminTabs`, position: fixed, z-index 20). Липкая полоса с `bottom: 0`
+   уезжала бы прямо под неё — и главная кнопка экрана оказывалась накрытой.
+   Поднимаем её ровно на высоту полосы вместе с безопасной областью. */
+@media (width < 600px) {
+  .bar {
+    bottom: calc(var(--navbar) + env(safe-area-inset-bottom));
+  }
+}

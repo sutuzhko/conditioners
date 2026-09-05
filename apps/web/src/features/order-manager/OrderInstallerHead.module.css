@@ -1,0 +1,65 @@
+/* Шапка наряда у монтажника — второй кадр `design/admin/Installer.body.html`. */
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: center;
+  margin: 0;
+}
+
+.clock {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.span {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+}
+
+/* 🔴 Один приём на все три экрана монтажника: номер — моноширинная метка. */
+.number {
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Переработка — часы человека, а не обещание доплаты: только число. */
+.overtime {
+  margin: 0;
+  color: var(--warn-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.cancelled {
+  margin: 0;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  padding: 8px 12px;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}

@@ -1,0 +1,148 @@
+/* Наряд дня монтажника — первый кадр `design/admin/Installer.body.html`.
+
+   🔴 Цели крупнее панельных: 56px вместо 48. Экран смотрят одной рукой, в
+   перчатках и на солнце, и промах здесь стоит не лишнего нажатия, а звонка
+   владельцу с объекта. Число берётся из макета (`.big`), а подставляется
+   переопределением токена высоты — иначе пришлось бы перебивать `min-height`
+   у каждой кнопки и ссылки-кнопки по отдельности. */
+
+.agenda {
+  --h-lg: 56px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+}
+
+/* Сводка дня: сколько выездов и сколько часов. Это первое, что монтажник
+   читает утром, — поэтому строка, а не подпись мельче основного текста. */
+.summary {
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-base);
+  font-weight: 600;
+}
+
+.periods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.day {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Наряд, который уже в работе, — единственный выделенный: остальные ждут
+   своего часа, и подсвечивать их незачем. */
+.current {
+  border-color: var(--accent-ink);
+}
+
+.when {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: center;
+}
+
+.clock {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 🔴 Номер наряда — моноширинная метка рядом со временем, и так же он выглядит
+   в карточке и на сдаче. В макете он был то заголовком экрана, то подписью в
+   углу; один приём на все три экрана (issue #633). */
+.number {
+  margin-right: auto;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.what {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.where {
+  margin: 0;
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+  overflow-wrap: anywhere;
+}
+
+.marks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+}
+
+/* Звонок и маршрут — рядом и одинаковой ширины: в машине выбирают между ними,
+   а не читают, какая кнопка длиннее. */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Кнопки ряда делят ширину поровну и умеют сжиматься: `fullWidth` кита даёт
+   каждой `width: 100%`, и без явной доли на 320 они спорили бы за место. */
+.action {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.open {
+  margin-top: 2px;
+}

@@ -1,0 +1,206 @@
+/* Сдача работы — четвёртый кадр `design/admin/Installer.body.html`.
+
+   Цели крупнее панельных: 56px из макета (`.big`). Подставляется
+   переопределением токена высоты — так его получают и кнопки, и ссылки. */
+
+.handover {
+  --h-lg: 56px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: baseline;
+  margin: 0;
+}
+
+/* 🔴 Один приём на все три экрана монтажника: номер — моноширинная метка. */
+.number {
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.what {
+  color: var(--body);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.blockHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.blockTitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+/* Снимки — сеткой по три, как в макете: на 390 миниатюра остаётся крупнее
+   ногтя, и по ней видно, что снято. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shot {
+  position: relative;
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  overflow: hidden;
+}
+
+.thumb {
+  display: block;
+  aspect-ratio: 1;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Удаление — в углу снимка. Тап-зона у кнопки своя, от размера картинки
+   она не зависит. */
+.remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: var(--card);
+}
+
+.breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.breakdownTitle {
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0;
+}
+
+.tile {
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  padding: 8px 12px;
+  min-width: 0;
+}
+
+.tile dt {
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.tile dd {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.paymentMode {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-base);
+  font-weight: 600;
+}
+
+/* Липкая полоса сдачи: два действия и место под сообщение о результате. */
+.bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  background: var(--card);
+  padding: 12px 0 16px;
+}
+
+.alert {
+  margin-bottom: 4px;
+}
+
+.note {
+  margin: 0;
+  color: var(--ok-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-align: center;
+}
+
+.error {
+  margin: 0;
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-sm);
+  background: var(--error-bg);
+  padding: 8px 12px;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+}
+
+/* 🔴 Ниже 600px оболочка панели прижимает к низу окна свою полосу разделов
+   (`AdminTabs`, position: fixed, z-index 20). Липкая полоса с `bottom: 0`
+   уезжала бы прямо под неё — и главная кнопка экрана оказывалась накрытой.
+   Поднимаем её ровно на высоту полосы вместе с безопасной областью. */
+@media (width < 600px) {
+  .bar {
+    bottom: calc(var(--navbar) + env(safe-area-inset-bottom));
+  }
+}

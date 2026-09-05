@@ -16,6 +16,8 @@ vi.mock('@/server/repo/admin-users', () => ({ listInstallers: vi.fn(async () => 
 
 vi.mock('@/server/repo/orders', () => ({
   list: vi.fn(async () => ({ items: [], total: 0, page: 1, pages: 1 })),
+  /* Наряд дня монтажника — свой запрос, а не страница общего списка (#633). */
+  agenda: vi.fn(async () => []),
   /* Счёт по стопкам считает тот же репозиторий: строка «24 всего · 7
      активных · 2 просрочены» и числа на вкладках берутся из него (issue #593). */
   counts: vi.fn(async () => ({ all: 0, active: 0, new: 0, overdue: 0 })),
@@ -23,7 +25,7 @@ vi.mock('@/server/repo/orders', () => ({
 }));
 
 import { getAdminSession } from '@/server/auth';
-import { list } from '@/server/repo/orders';
+import { agenda, list } from '@/server/repo/orders';
 
 import AdminOrdersPage from './page';
 
@@ -34,6 +36,8 @@ const owner = {
   role: 'owner',
   expiresAt: new Date('2026-12-31'),
 } as const;
+
+const installer = { ...owner, userId: 'u9', login: 'petr', role: 'installer' } as const;
 
 /** Что раздел спросил у репозитория: стопка и есть выбранная вкладка. */
 function askedTab(): string | undefined {
@@ -104,5 +108,37 @@ describe('🔴 неизвестное значение tab не роняет р�
     await expect(open({ tab: 'cancelled' })).resolves.toBeTruthy();
 
     expect(askedTab()).toBe('active');
+  });
+});
+
+describe('🔴 у монтажника свой экран, а не таблица владельца (issue #633)', () => {
+  it('раздел уходит за нарядом дня, а не за страницей списка', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(installer);
+
+    await expect(open()).resolves.toBeTruthy();
+
+    expect(agenda).toHaveBeenCalledTimes(1);
+    expect(list).not.toHaveBeenCalled();
+  });
+
+  it('окно приходит из адреса, а мусор в нём открывает сегодняшний день', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(installer);
+
+    await open({ when: 'week' });
+    expect(vi.mocked(agenda).mock.calls[0]?.[1]?.days).toBe(7);
+
+    vi.clearAllMocks();
+    vi.mocked(getAdminSession).mockResolvedValue(installer);
+
+    await open({ when: 'позавчера' });
+    expect(vi.mocked(agenda).mock.calls[0]?.[1]?.days).toBe(1);
+  });
+
+  it('🔴 выборку сужает репозиторий: смотрящий уезжает в запрос (ADR-114)', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(installer);
+
+    await open();
+
+    expect(vi.mocked(agenda).mock.calls[0]?.[0]).toEqual({ role: 'installer', userId: 'u9' });
   });
 });
