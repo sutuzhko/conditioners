@@ -1,0 +1,43 @@
+/* Отбор статей базы знаний: поиск, рубрика, состояние и порядок. */
+
+.card {
+  min-width: 0;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+/* Поиск занимает всё, что осталось от выпадающих списков: искать по тексту
+   владелец будет чаще, чем перебирать рубрики. */
+.field {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.select {
+  flex: 0 1 180px;
+  min-width: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.reset {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-text);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.reset:hover {
+  text-decoration: underline;
+}

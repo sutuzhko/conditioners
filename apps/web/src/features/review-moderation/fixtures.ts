@@ -85,6 +85,19 @@ export const reviewWithPhoto: ReviewCard = {
   photo: '/api/media/demo-review.jpg',
 };
 
+/**
+ * Строки для таблиц вкладок: по одному отзыву каждого состояния.
+ *
+ * 🔴 Тексты выдуманы для истории и в разметку сайта не попадают: `Review` и
+ * `AggregateRating` собираются только из настоящих записей базы (инвариант 10).
+ */
+export const tableReviewsFixture: readonly ReviewCard[] = [
+  approvedReview,
+  archivedReview,
+  rejectedReview,
+  lowRatedReview,
+];
+
 export const acceptingApi: ReviewApi = {
   setStatus: async () => ({ ok: true }),
   remove: async () => ({ ok: true }),

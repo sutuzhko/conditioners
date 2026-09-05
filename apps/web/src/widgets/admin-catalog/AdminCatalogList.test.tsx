@@ -104,4 +104,17 @@ describe('Список каталога в админке', () => {
       within(actions).getByRole('button', { name: texts.viewHiddenLabel(name) }),
     ).toBeDisabled();
   });
+
+  /* 🔴 Пусто из-за отбора и пусто вообще — разные новости с противоположными
+     шагами (issue #335): в одном случае надо завести модель, в другом — снять
+     условие. */
+  it('пусто из-за отбора предлагает снять отбор, а не завести модель', () => {
+    render(<AdminCatalogList products={[]} filtered />);
+
+    expect(screen.getByText(texts.emptyFilteredTitle)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: texts.emptyFilteredAction })).toHaveAttribute(
+      'href',
+      '/admin/catalog',
+    );
+  });
 });

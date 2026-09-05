@@ -120,17 +120,48 @@ export async function listApproved(): Promise<ReviewDto[]> {
 }
 
 /**
+ * Условие поиска по отзывам: имя автора и сам текст.
+ *
+ * Текст входит в поиск потому, что ищут именно по нему: отзыв помнят по
+ * фразе, а не по фамилии. Правкой это не является — читается то же поле,
+ * которое остаётся неизменяемым (инвариант 7).
+ */
+function searchWhere(query: string): Prisma.ReviewWhereInput {
+  const text = query.trim();
+  if (text === '') return {};
+
+  return {
+    OR: [
+      { name: { contains: text, mode: 'insensitive' } },
+      { text: { contains: text, mode: 'insensitive' } },
+    ],
+  };
+}
+
+/**
  * Страница списка отзывов.
  *
  * 🔴 С `take`, а не «все за всё время»: отклонённые и архивные не удаляются
  * (инвариант 7), список только растёт, и запрос без границы однажды кладёт
  * панель вместе с базой.
+ *
+ * Поиск и оценка — сквозные условия вкладки «Все» (issue #613): там ищут
+ * конкретный отзыв, не помня, в каком он состоянии.
  */
 export async function listByStatus(
-  params: { status?: ReviewStatusApi | undefined; page?: number | undefined } = {},
+  params: {
+    status?: ReviewStatusApi | undefined;
+    page?: number | undefined;
+    query?: string | undefined;
+    /** Точная оценка, 1–5. `undefined` — оценка не важна. */
+    rating?: number | undefined;
+  } = {},
 ): Promise<Page<ReviewDto>> {
-  const where: Prisma.ReviewWhereInput =
-    params.status === undefined ? {} : { status: TO_DB[params.status] };
+  const where: Prisma.ReviewWhereInput = {
+    ...(params.status === undefined ? {} : { status: TO_DB[params.status] }),
+    ...searchWhere(params.query ?? ''),
+    ...(params.rating === undefined ? {} : { rating: params.rating }),
+  };
 
   const total = await db.review.count({ where });
   const { page, pages, skip, take } = pageWindow(total, params.page ?? 1);

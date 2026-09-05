@@ -1,16 +1,14 @@
 'use client';
 
-import { useState } from 'react';
-
 import { REVIEW_STATUS_VARIANT } from '@/entities/review/model';
-import { Avatar, Badge, Button, Card, Rating, useConfirm } from '@/shared/ui';
+import { Avatar, Badge, Button, Card, Rating } from '@/shared/ui';
 import type { ButtonVariant, Confirm } from '@/shared/ui';
 
 import { reviewModerationContent as texts } from './content';
-import { REVIEW_ACTION_STATUS, reviewActionsFor } from './model';
+import { reviewActionsFor } from './model';
 import type { ReviewAction, ReviewApi, ReviewCard, ReviewTab } from './model';
-import { RejectDialog } from './RejectDialog';
 import { ReviewPhoto } from './ReviewPhoto';
+import { useReviewActions } from './useReviewActions';
 import styles from './ReviewCardView.module.css';
 
 export interface ReviewCardViewProps {
@@ -24,7 +22,7 @@ export interface ReviewCardViewProps {
 }
 
 /** Подпись и заметность действия. Порядок в ряду задаёт `reviewActionsFor`. */
-const ACTION_LOOK: Record<ReviewAction, { label: string; variant: ButtonVariant }> = {
+export const REVIEW_ACTION_LOOK: Record<ReviewAction, { label: string; variant: ButtonVariant }> = {
   approve: { label: texts.approve, variant: 'solid' },
   reject: { label: texts.reject, variant: 'bordered' },
   restore: { label: texts.restore, variant: 'bordered' },
@@ -48,54 +46,14 @@ export function ReviewCardView({
   onChanged,
   confirmRemove,
 }: ReviewCardViewProps) {
-  /* Подтверждение — общий диалог кита (ADR-113); проп остаётся швом
-     для тестов, чтобы не открывать окно ради проверки удаления. */
-  const { confirm, dialog } = useConfirm();
-  const ask = confirmRemove ?? confirm;
-
-  const [busy, setBusy] = useState(false);
-  const [rejecting, setRejecting] = useState(false);
-  const [message, setMessage] = useState('');
-
-  const run = async (action: () => Promise<{ ok: boolean; message?: string }>): Promise<void> => {
-    setBusy(true);
-    setMessage('');
-
-    const result = await action();
-
-    setBusy(false);
-    if (result.ok) {
-      onChanged?.();
-      return;
-    }
-    setMessage(result.message ?? texts.serverError);
-  };
-
-  const perform = (action: ReviewAction): void => {
-    if (action === 'remove') {
-      void (async () => {
-        if (!(await ask(texts.removeConfirm))) return;
-        await run(() => api.remove(review.id));
-      })();
-      return;
-    }
-
-    /* 🔴 Отказ без причины не отправляется (ADR-300): сначала окно, и только
-       потом запрос. Причина неразрывна с решением и уходит вместе с ним. */
-    if (action === 'reject') {
-      setRejecting(true);
-      return;
-    }
-
-    void run(() => api.setStatus(review.id, { status: REVIEW_ACTION_STATUS[action] }));
-  };
-
-  const reject = (reason: string): void => {
-    void (async () => {
-      await run(() => api.setStatus(review.id, { status: 'rejected', reason }));
-      setRejecting(false);
-    })();
-  };
+  /* Подтверждение, причина отказа и разбор ответа — общие с таблицами вкладок
+     (issue #613): вторая реализация тех же правил отстала бы молча. */
+  const { busy, message, perform, dialogs } = useReviewActions({
+    review,
+    api,
+    onChanged,
+    confirmRemove,
+  });
 
   const actions = reviewActionsFor(tab ?? 'all', review.status);
 
@@ -131,12 +89,12 @@ export function ReviewCardView({
               key={action}
               type="button"
               size="sm"
-              variant={ACTION_LOOK[action].variant}
+              variant={REVIEW_ACTION_LOOK[action].variant}
               className={action === 'remove' ? styles.remove : undefined}
               disabled={busy}
               onClick={() => perform(action)}
             >
-              {ACTION_LOOK[action].label}
+              {REVIEW_ACTION_LOOK[action].label}
             </Button>
           ))}
         </div>
@@ -184,15 +142,7 @@ export function ReviewCardView({
         </p>
       )}
 
-      <RejectDialog
-        open={rejecting}
-        name={review.name}
-        busy={busy}
-        onCancel={() => setRejecting(false)}
-        onConfirm={reject}
-      />
-
-      {dialog}
+      {dialogs}
     </Card>
   );
 }

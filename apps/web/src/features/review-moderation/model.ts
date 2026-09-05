@@ -58,18 +58,107 @@ export function reviewStatusOfTab(tab: ReviewTab): ReviewStatus | undefined {
 }
 
 /**
- * Параметры адреса вкладки. Умолчание опускается: ссылка на «На модерации» —
- * это `/admin/reviews`, без хвоста, который ничего не выбирает.
+ * 🔴 Карточки остались только на «На модерации» (issue #613, макет
+ * `ContentTabs`).
+ *
+ * Там решают по тексту целиком, и карточка — единственный способ показать его
+ * без «показать ещё». На остальных вкладках решение уже принято: туда заходят
+ * искать конкретный отзыв, и колонки со сравнимыми значениями делают это
+ * быстрее, чем четыре одинаковых карточки на экран.
  */
-export function reviewsQuery(tab: ReviewTab): Record<string, string> {
-  return tab === DEFAULT_REVIEW_TAB ? {} : { tab };
+export function reviewTabShowsTable(tab: ReviewTab): tab is Exclude<ReviewTab, 'pending'> {
+  return tab !== 'pending';
 }
 
-export function reviewsHref(tab: ReviewTab): {
+// ---------- Сквозной отбор вкладки «Все» ----------
+
+/** Оценки, по которым отбирают: шкала отзыва целиком. */
+export const REVIEW_RATINGS: readonly number[] = [5, 4, 3, 2, 1];
+
+/**
+ * Что выбрано на вкладке «Все».
+ *
+ * 🔴 Отбор живёт в адресе, а не в состоянии компонента (ADR-105): найденный
+ * отзыв можно прислать себе ссылкой, а «назад» возвращает к прошлому поиску.
+ */
+export type ReviewFilter = {
+  readonly query: string;
+  readonly status: ReviewStatus | undefined;
+  readonly rating: number | undefined;
+};
+
+export const EMPTY_REVIEW_FILTER: ReviewFilter = {
+  query: '',
+  status: undefined,
+  rating: undefined,
+};
+
+/** Параметры адреса раздела — ровно то, что приходит в `searchParams`. */
+export type ReviewSearchParams = {
+  readonly tab?: string | undefined;
+  readonly page?: string | undefined;
+  readonly q?: string | undefined;
+  readonly status?: string | undefined;
+  readonly rating?: string | undefined;
+};
+
+/**
+ * Отбор из адреса.
+ *
+ * Мусор в параметре снимает условие, а не роняет раздел: адрес правят руками
+ * и присылают друг другу, и отказ вместо списка там ничего не объясняет
+ * (issue #341).
+ */
+export function reviewFilterOf(params: ReviewSearchParams): ReviewFilter {
+  const rating = Number.parseInt(params.rating ?? '', 10);
+
+  return {
+    query: params.q?.trim() ?? '',
+    status:
+      params.status !== undefined && isReviewStatus(params.status) ? params.status : undefined,
+    rating: REVIEW_RATINGS.find((value) => value === rating),
+  };
+}
+
+/** Условия отбора как параметры адреса: их несут за собой ссылки разбивки. */
+export function reviewFilterQuery(filter: ReviewFilter): Record<string, string> {
+  return {
+    ...(filter.query === '' ? {} : { q: filter.query }),
+    ...(filter.status === undefined ? {} : { status: filter.status }),
+    ...(filter.rating === undefined ? {} : { rating: String(filter.rating) }),
+  };
+}
+
+/** Выбрано ли хоть что-то: от этого зависит, какое пустое состояние показать. */
+export function reviewFilterOn(filter: ReviewFilter): boolean {
+  return Object.keys(reviewFilterQuery(filter)).length > 0;
+}
+
+/**
+ * Параметры адреса вкладки. Умолчание опускается: ссылка на «На модерации» —
+ * это `/admin/reviews`, без хвоста, который ничего не выбирает.
+ *
+ * Отбор вкладки «Все» едет тем же набором: разбивка обязана нести его за
+ * собой, иначе вторая страница найденного показывает весь раздел.
+ */
+export function reviewsQuery(
+  tab: ReviewTab,
+  filter: ReviewFilter = EMPTY_REVIEW_FILTER,
+): Record<string, string> {
+  return {
+    ...(tab === DEFAULT_REVIEW_TAB ? {} : { tab }),
+    ...reviewFilterQuery(filter),
+  };
+}
+
+export function reviewsHref(
+  tab: ReviewTab,
+  filter: ReviewFilter = EMPTY_REVIEW_FILTER,
+): {
   readonly pathname: string;
   readonly query: Record<string, string>;
 } {
-  return { pathname: REVIEWS_PATH, query: reviewsQuery(tab) };
+  return { pathname: REVIEWS_PATH, query: reviewsQuery(tab, filter) };
 }
 
 /**

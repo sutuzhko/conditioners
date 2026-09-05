@@ -1,0 +1,40 @@
+/* Действия над отзывом в строке таблицы. */
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+/* Кнопки в столбик: подписи действий длинные («Вернуть на модерацию»), и в
+   ряду они либо переносятся внутри кнопки, либо растягивают колонку. */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Удаление — красное и последнее в ряду: оно необратимо и спрашивает
+   подтверждение (ADR-113). */
+.remove {
+  color: var(--error-ink);
+}
+
+.error {
+  margin: 0;
+  color: var(--error-ink);
+  font-size: var(--fs-caption);
+}
+
+/* Ниже 600px кит раскладывает строку карточкой и равняет значения вправо —
+   действия встают туда же, к правому краю карточки. */
+@media (width < 600px) {
+  .cell {
+    align-items: flex-end;
+  }
+
+  .actions {
+    justify-content: flex-end;
+  }
+}

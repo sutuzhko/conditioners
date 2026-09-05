@@ -1,5 +1,6 @@
 /** Подписи списка моделей. */
 import { formatDateShort, formatMoney } from '@/shared/lib/format';
+import { plural } from '@/shared/lib/plural';
 
 export const adminCatalogContent = {
   title: 'Каталог',
@@ -12,6 +13,33 @@ export const adminCatalogContent = {
   emptyTitle: 'В каталоге пока пусто',
   emptyText:
     'Пока не добавлена ни одна модель, разделы каталога на сайте показывают пустое состояние.',
+
+  /* Пусто из-за отбора и пусто вообще — разные новости с противоположными
+     шагами: в первом случае модели есть, их скрыли условия (issue #335). */
+  emptyFilteredTitle: 'Ничего не нашлось',
+  emptyFilteredText: 'Модели в каталоге есть — их скрыли поиск или выбранная видимость.',
+  emptyFilteredAction: 'Показать все модели',
+
+  /* Подписи отбора (issue #612): каталог растёт, и восемь моделей на странице
+     без поиска превращаются в листание вслепую. */
+  searchLabel: 'Поиск по каталогу',
+  searchHint: 'Название, марка, артикул или категория',
+  searchPlaceholder: 'Название или мощность',
+  searchSubmit: 'Найти',
+  filterVisibility: 'Видимость',
+  filterVisibilityAll: 'Все модели',
+  filterVisible: 'Видимые на сайте',
+  filterHidden: 'Скрытые',
+  reset: 'Сбросить отбор',
+
+  pagerLabel: 'Страницы списка моделей',
+
+  /* Блок списка упал: раздел называет, что именно не загрузилось, и оставляет
+     навигацию рабочей (issue #336). */
+  loadFailed: 'Не удалось загрузить каталог',
+  /* Счётчики не сложились — строка остаётся, но чисел в ней нет: пустое место
+     сдвинуло бы всё, что ниже. */
+  summaryUnknown: 'Счётчики раздела сейчас недоступны',
 
   colName: 'Модель',
   colCategory: 'Категория',
@@ -53,9 +81,9 @@ export const adminCatalogContent = {
   /**
    * Подзаголовок раздела: сколько моделей и сколько из них видно.
    *
-   * 🔴 Числа считаются из тех же строк, что показаны в таблице, а не берутся
-   * вторым запросом: расхождение подписи и списка на одной странице владелец
-   * замечает мгновенно и перестаёт верить обоим.
+   * 🔴 Числа считаются по всему каталогу, а не по показанной странице
+   * (issue #612): подпись «8 моделей» над списком из восьми при сорока в базе
+   * — это не округление, а ложь.
    */
   summary: (total: number, visible: number, onSale: number): string =>
     [
@@ -64,14 +92,3 @@ export const adminCatalogContent = {
       `${onSale} со скидкой`,
     ].join(' · '),
 } as const;
-
-/** Склонение после числа: 1 модель, 2 модели, 5 моделей. */
-function plural(count: number, one: string, few: string, many: string): string {
-  const mod100 = count % 100;
-  if (mod100 >= 11 && mod100 <= 14) return many;
-
-  const mod10 = count % 10;
-  if (mod10 === 1) return one;
-  if (mod10 >= 2 && mod10 <= 4) return few;
-  return many;
-}
