@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 
-import { PANEL_NOT_FOUND_CONTENT } from '@/app/(admin)/admin/(panel)/not-found-content';
+import { PANEL_NOT_FOUND_CONTENT } from '@/app/(admin)/admin/not-found-content';
 import { FORBIDDEN_CONTENT } from '@/app/forbidden-content';
 import { POLICY_HREF } from '@/shared/config/nav';
 
@@ -252,7 +252,9 @@ test.describe('🔴 несуществующий адрес панели', () =>
     const { status, body } = await get(page, MISSING);
 
     expect(status, 'адрес не существует — код обязан быть 404').toBe(404);
-    expect(body, 'показана страница панели «не найдено»').toContain(PANEL_NOT_FOUND_CONTENT.title);
+    expect(body, 'показана страница панели «не найдено»').toContain(
+      PANEL_NOT_FOUND_CONTENT.address.title,
+    );
     expect(body, 'выход ведёт на сводку').toContain(PANEL_NOT_FOUND_CONTENT.owner.label);
     expect(body, 'подвал витрины сюда не приезжает').not.toContain(POLICY_HREF);
   });
