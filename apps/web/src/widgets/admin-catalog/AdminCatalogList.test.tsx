@@ -68,4 +68,40 @@ describe('Список каталога в админке', () => {
     expect(screen.getByText(texts.emptyTitle)).toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
   });
+
+  /* 🔴 Набор действий строки повторяет набор карточки (issue #575): до этого
+     список давал только «Править», и об удалении узнавал лишь тот, кто открыл
+     карточку и долистал форму до низа. */
+  it('строка даёт открыть, править и убрать, не открывая карточку', () => {
+    render(<AdminCatalogList products={catalogRowsFixture} />);
+
+    const name = plain?.name ?? '';
+    const actions = screen.getByRole('group', { name: texts.rowActions(name) });
+
+    expect(within(actions).getByRole('link', { name: texts.viewLabel(name) })).toHaveAttribute(
+      'href',
+      `/catalog/${plain?.slug ?? ''}`,
+    );
+    expect(within(actions).getByRole('link', { name: texts.editLabel(name) })).toHaveAttribute(
+      'href',
+      `/admin/catalog/${plain?.id ?? ''}`,
+    );
+    expect(
+      within(actions).getByRole('button', { name: productFormContent.removeLabel(name) }),
+    ).toBeInTheDocument();
+  });
+
+  /* 🔴 Страницы скрытой модели на сайте нет — она отдаёт 404 (ADR-109).
+     Действие не исчезает из ряда, а стоит отключённым и называет причину. */
+  it('у скрытой модели «Смотреть на сайте» отключено и объясняет почему', () => {
+    render(<AdminCatalogList products={catalogRowsFixture} />);
+
+    const name = invisible?.name ?? '';
+    const actions = screen.getByRole('group', { name: texts.rowActions(name) });
+
+    expect(within(actions).queryByRole('link', { name: texts.viewLabel(name) })).toBeNull();
+    expect(
+      within(actions).getByRole('button', { name: texts.viewHiddenLabel(name) }),
+    ).toBeDisabled();
+  });
 });

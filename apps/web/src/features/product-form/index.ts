@@ -1,6 +1,7 @@
 /** Публичный API формы модели каталога. */
 export { ProductCreateModal, type ProductCreateModalProps } from './ProductCreateModal';
 export { ProductForm, type ProductFormProps } from './ProductForm';
+export { ProductRowRemove, type ProductRowRemoveProps } from './ProductRowRemove';
 export { VisibilitySwitch, type VisibilitySwitchProps } from './VisibilitySwitch';
 export { SpecsEditor, type SpecsEditorProps } from './SpecsEditor';
 export { productFormContent } from './content';

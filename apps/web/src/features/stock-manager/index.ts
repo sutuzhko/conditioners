@@ -9,6 +9,7 @@ export { StockFilters, type StockFiltersProps } from './StockFilters';
 export { StockItemForm, type StockItemFormProps } from './StockItemForm';
 export { StockJournal, type StockJournalProps } from './StockJournal';
 export { StockMoveForm, type StockMoveFormProps } from './StockMoveForm';
+export { StockRowMenu, type StockRowMenuProps } from './StockRowMenu';
 export {
   StockMoveScope,
   useStockMove,

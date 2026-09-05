@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { Switch } from '@/shared/ui';
+import { Switch, Tooltip } from '@/shared/ui';
 
 import { productFormContent as texts } from './content';
 import { setProductVisible } from './lib';
@@ -66,16 +66,24 @@ export function VisibilitySwitch({
 
   return (
     <div className={styles.root}>
-      <Switch
-        size="sm"
-        checked={on}
-        disabled={busy}
-        label={on ? texts.inCatalog : texts.hidden}
-        aria-label={texts.visibleLabel(name)}
-        onChange={(event) => {
-          void toggle(event.target.checked);
-        }}
-      />
+      {/* 🔴 Подпись состояния уехала в подсказку, а видимой не осталось:
+          в колонке она повторялась двадцать раз подряд и занимала место
+          рядом с самим переключателем, который то же самое и показывает.
+          Смысл при этом не потерян: состояние озвучивается ролью `switch`,
+          а имя строки стоит в `aria-label` — просьба владельца от 5 сентября. */}
+      <Tooltip text={on ? texts.inCatalog : texts.hidden}>
+        <Switch
+          size="sm"
+          checked={on}
+          disabled={busy}
+          label={on ? texts.inCatalog : texts.hidden}
+          labelHidden
+          aria-label={texts.visibleLabel(name)}
+          onChange={(event) => {
+            void toggle(event.target.checked);
+          }}
+        />
+      </Tooltip>
 
       {message === '' ? null : (
         <p className={styles.error} role="alert">

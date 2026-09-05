@@ -20,6 +20,7 @@ export const adminCatalogContent = {
   colFeatured: 'На главной',
   colVisible: 'Видимость',
   colSort: 'Порядок',
+  colActions: 'Действия',
 
   featured: 'На главной',
   notFeatured: 'Только в каталоге',
@@ -40,6 +41,13 @@ export const adminCatalogContent = {
   saleUntil: (iso: string): string => `до ${formatDateShort(iso)}`,
   /** Подпись строки для скринридера: одна ссылка «Править» на десять строк бесполезна. */
   editLabel: (name: string): string => `Править: ${name}`,
+  /** Имя группы действий строки: без него читалка объявляет её безымянной. */
+  rowActions: (name: string): string => `Действия над моделью: ${name}`,
+  viewLabel: (name: string): string => `Смотреть на сайте: ${name}`,
+  /* 🔴 Скрытой модели страницы на сайте нет вовсе — она отдаёт 404 (ADR-109).
+     Поэтому действие не ведёт в никуда, а стоит отключённым и объясняет
+     причину: пропавшая из ряда кнопка заставляла бы гадать, куда она делась. */
+  viewHiddenLabel: (name: string): string => `Скрыта на сайте, смотреть нечего: ${name}`,
   photoAlt: (name: string): string => `Фотография модели: ${name}`,
 
   /**
