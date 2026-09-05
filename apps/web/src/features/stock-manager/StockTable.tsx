@@ -89,7 +89,17 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
     <div className={styles.wrap}>
       <StockMoveScope>
         <Card as="section" padding="none">
-          <Table variant="cards" className={styles.grid} zebra fade label={texts.tableLabel}>
+          {/* 🔴 «Порога нет» — это разметка, а не догадка стилей: отступ
+              залипающего итога считается от правого края области прокрутки, и
+              вычитать ширину колонки, которой нет, значит увести итог влево
+              поверх последней зоны (см. `.noMin` в модуле). */}
+          <Table
+            variant="cards"
+            className={[styles.grid, showMin ? null : styles.noMin].filter(Boolean).join(' ')}
+            zebra
+            fade
+            label={texts.tableLabel}
+          >
             <thead>
               <tr role="row">
                 <th scope="col" className={styles.itemHead}>

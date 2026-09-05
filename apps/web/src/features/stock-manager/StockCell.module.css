@@ -69,6 +69,23 @@
   background: var(--accent-bg);
 }
 
+/* 🔴 Название зоны видно только на карточке телефона: выше 600px оно стоит в
+   шапке своей колонки, и повторять его в каждой ячейке значит писать «Гараж на
+   Демидовской» пятнадцать раз подряд. Порог тот же, на котором таблица
+   раскладывается карточками (StockTable.module.css): это одна раскладка, а не
+   два независимых решения. */
+.zoneTag {
+  display: none;
+}
+
+@media (width < 600px) {
+  .zoneTag {
+    display: inline;
+    color: var(--muted);
+    font-weight: 400;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .button {
     transition:
