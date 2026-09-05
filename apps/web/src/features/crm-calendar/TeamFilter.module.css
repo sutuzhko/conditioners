@@ -1,0 +1,282 @@
+/* Карточка «Показывать» — ADR-123, issue #49, макет `design/admin/Calendar.body.html`.
+
+   Слева от сетки на десктопе, полосой над ней на планшете и телефоне: три
+   колонки людей и видов рядом с семью колонками дней не помещаются, а
+   выбрасывать управление слоем на узком экране нельзя — именно там владелец
+   и смотрит, кто свободен. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-sizing: border-box;
+  min-width: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-card);
+  background: var(--card);
+  padding: 12px;
+}
+
+.cap {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Строка целиком — цель: по ней нажимают, а не по галочке в шесть пикселей. */
+.line {
+  display: flex;
+  flex: 1;
+  gap: 8px;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 0;
+
+  /* Цель не ниже 24px (WCAG 2.5.8). */
+  min-height: 28px;
+  border-radius: var(--r-sm);
+  padding: 2px 6px;
+  color: var(--ink);
+  font-size: var(--fs-caption);
+  text-decoration: none;
+}
+
+.line:hover {
+  background: var(--bg-soft);
+}
+
+.line:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* Выключенный гаснет, но остаётся читаемым: по нему нажимают, чтобы вернуть. */
+.off {
+  color: var(--muted);
+}
+
+/* 🔴 Галочка залита тинтом краски человека, а не самой краской, и обведена ею
+   же. У макета заливка сплошная и галочка белая — но белый по шести краскам
+   тёмной темы даёт 2,69:1 (ADR-181), а седьмого токена под текст поверх
+   каждой из них в проекте нет. Пара «тинт + краска» уже проверена на записях
+   календаря и проходит AA в обеих темах. */
+.box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--line-ui);
+  border-radius: 5px;
+  background: var(--field-bg);
+}
+
+.name {
+  overflow: hidden;
+  min-width: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Часы за показанный промежуток: ответ на «кого можно догрузить». */
+.hours {
+  flex: none;
+  margin-left: auto;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+}
+
+/* «Только он» — второе действие рядом с человеком, подписью, а не кнопкой:
+   по весу оно не должно спорить с самим фильтром. */
+.only {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  min-height: 28px;
+  border-radius: var(--r-sm);
+  padding: 0 6px;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  text-decoration: none;
+}
+
+.only:hover {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+.only:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.rule {
+  width: 100%;
+  margin: 4px 0;
+  border: none;
+  border-top: 1px solid var(--line);
+}
+
+.window {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0 6px;
+}
+
+.windowLabel {
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}
+
+.windowValue {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+}
+
+/* Переработка отмечается — плашка предупреждения, как в макете. */
+.note {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  margin: 0;
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-pill);
+  background: var(--warn-bg);
+  padding: 2px 8px;
+  color: var(--warn-ink);
+  font-size: var(--fs-micro);
+}
+
+/* ---------- Краски монтажников (ADR-123) и видов записей ---------- */
+
+.personA {
+  border-color: var(--accent-ink);
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+.personB {
+  border-color: var(--info-ink);
+  background: var(--info-bg);
+  color: var(--info-ink);
+}
+
+.personC {
+  border-color: var(--ok-ink);
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.personD {
+  border-color: var(--warn-ink);
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.personE {
+  border-color: var(--sale-ink);
+  background: var(--sale-bg);
+  color: var(--sale-ink);
+}
+
+.personF {
+  border-color: var(--star);
+  background: var(--star-bg);
+  color: var(--star);
+}
+
+.kindOrders {
+  border-color: var(--accent-ink);
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+.kindLeads {
+  border-color: var(--warn-ink);
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.kindNotes {
+  border-color: var(--line-ui);
+  background: var(--bg-soft);
+  color: var(--ink2);
+}
+
+/* ---------- Полосой над сеткой ---------- */
+
+/* До 1200px колонка карточки отбирает у сетки треть ширины, а семь дней и без
+   того тесны: карточка ложится полосой и переносится по строкам. */
+@media (width < 1200px) {
+  .card {
+    flex-flow: row wrap;
+    gap: 4px 12px;
+    align-items: center;
+    padding: 8px 10px;
+  }
+
+  .list {
+    flex-flow: row wrap;
+    gap: 2px 6px;
+  }
+
+  .line {
+    flex: none;
+  }
+
+  .hours {
+    margin-left: 4px;
+  }
+
+  .rule {
+    display: none;
+  }
+
+  .window {
+    margin-left: auto;
+    padding: 0;
+  }
+}
+
+/* 🔴 Сенсорная раскладка (ADR-183): до 900px цель — 44×44. Фильтр открывают
+   пальцем в машине, и промах здесь стоит не косметики, а перепутанного
+   монтажника в наряде. */
+@media (width < 900px) {
+  .line,
+  .only {
+    min-width: var(--tap);
+    min-height: var(--tap);
+  }
+
+  .only {
+    justify-content: center;
+  }
+}

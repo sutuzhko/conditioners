@@ -1,0 +1,1071 @@
+# админка-календарь-неделя--пусто · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.WeekBoard__agenda  358×52 @16,16
+  section.Agenda__agenda  358×52 @0,0
+    p.Agenda__emptyTitle  358×22 @0,0  Manrope 600 15/22  lines=1  «На этой неделе записей нет»
+    p.Agenda__emptyText  358×20 @0,32  Manrope 400 13/20  lines=1  «Заведите дело кнопкой «+" или откройте д»
+
+[геометрия 768]
+div.WeekBoard__hours  736×669 @16,16
+  section.TimeGrid__grid  736×669 @0,0
+    div.TimeGrid__heads  736×55 @0,0
+      span.TimeGrid__corner  34×0 @0,55
+      div.TimeGrid__head  98×55 @36,0  b0 0 2 0
+        a.TimeGrid__headLink  98×44 @0,2
+          span.TimeGrid__headWeekday  17×19 @32,13  Manrope 600 12/19  lines=1  «Пн»
+          span.TimeGrid__headDate  13×16 @54,14  Onest 700 15/16  lines=1  «17»
+        span.TimeGrid__headMeta  98×0 @0,48
+      div.TimeGrid__head#2  98×55 @136,0  b0 0 2 0
+        a.TimeGrid__headLink  98×44 @0,2
+          span.TimeGrid__headWeekday#2  15×19 @32,13  Manrope 600 12/19  lines=1  «Вт»
+          span.TimeGrid__headDate#2  15×16 @52,14  Onest 700 15/16  lines=1  «18»
+        span.TimeGrid__headMeta  98×0 @0,48
+      div.TimeGrid__head#3  98×55 @237,0  b0 0 2 0
+        a.TimeGrid__headLink  98×44 @0,2
+          span.TimeGrid__headWeekday#3  16×19 @31,13  Manrope 600 12/19  lines=1  «Ср»
+          span.TimeGrid__headDate#3  15×16 @52,14  Onest 700 15/16  lines=1  «19»
+        span.TimeGrid__headMeta  98×0 @0,48
+      div.TimeGrid__head#4  98×55 @337,0  b0 0 2 0
+        a.TimeGrid__headLink  98×44 @0,2
+          span.TimeGrid__headWeekday#4  15×19 @30,13  Manrope 600 12/19  lines=1  «Чт»
+          span.TimeGrid__headDate#4  18×16 @50,14  Onest 700 15/16  lines=1  «20»
+        span.TimeGrid__headMeta  98×0 @0,48
+      div.TimeGrid__head#5  98×55 @437,0  b0 0 2 0
+        a.TimeGrid__headLink  98×44 @0,2
+          span.TimeGrid__headWeekday#5  16×19 @32,13  Manrope 600 12/19  lines=1  «Пт»
+          span.TimeGrid__headDate#5  14×16 @53,14  Onest 700 15/16  lines=1  «21»
+        span.TimeGrid__headMeta  98×0 @0,48
+      div.TimeGrid__head#6  98×55 @537,0  b0 0 2 0
+        a.TimeGrid__headLink  98×44 @0,2
+          span.TimeGrid__headWeekday#6  16×19 @30,13  Manrope 600 12/19  lines=1  «Сб»
+          span.TimeGrid__headDate#6  17×16 @52,14  Onest 700 15/16  lines=1  «22»
+        span.TimeGrid__headMeta  98×0 @0,48
+      div.TimeGrid__head#7  98×55 @638,0  b0 0 2 0
+        a.TimeGrid__headLink  98×44 @0,2
+          span.TimeGrid__headWeekday#7  16×19 @30,13  Manrope 600 12/19  lines=1  «Вс»
+          span.TimeGrid__headDate#7  17×16 @51,14  Onest 700 15/16  lines=1  «23»
+        span.TimeGrid__headMeta  98×0 @0,48
+    div.AllDayBar__bar  736×38 @0,55  b0 0 1 0
+      div.AllDayBar__rail  34×29 @0,4
+        span.AllDayBar__label  28×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
+      ul.AllDayBar__list  98×0 @36,4
+      ul.AllDayBar__list#2  98×0 @136,4
+      ul.AllDayBar__list#3  98×0 @237,4
+      ul.AllDayBar__list#4  98×0 @337,4
+      ul.AllDayBar__list#5  98×0 @437,4
+      ul.AllDayBar__list#6  98×0 @537,4
+      ul.AllDayBar__list#7  98×0 @638,4
+    div.TimeGrid__scroll  736×576 @0,93
+      div.TimeGrid__hours  736×1008 @0,-336
+        div.TimeGrid__rail  34×1008 @0,0
+          span.TimeGrid__hour  34×42 @0,0  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «00:00»
+          span.TimeGrid__hour#2  34×42 @0,42  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «01:00»
+          span.TimeGrid__hour#3  34×42 @0,84  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «02:00»
+          span.TimeGrid__hour#4  34×42 @0,126  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «03:00»
+          span.TimeGrid__hour#5  34×42 @0,168  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «04:00»
+          span.TimeGrid__hour#6  34×42 @0,210  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «05:00»
+          span.TimeGrid__hour#7  34×42 @0,252  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «06:00»
+          span.TimeGrid__hour#8  34×42 @0,294  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «07:00»
+          span.TimeGrid__hour#9  34×42 @0,336  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «08:00»
+          span.TimeGrid__hour#10  34×42 @0,378  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «09:00»
+          span.TimeGrid__hour#11  34×42 @0,420  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «10:00»
+          span.TimeGrid__hour#12  34×42 @0,462  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «11:00»
+          span.TimeGrid__hour#13  34×42 @0,504  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «12:00»
+          span.TimeGrid__hour#14  34×42 @0,546  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «13:00»
+          span.TimeGrid__hour#15  34×42 @0,588  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «14:00»
+          span.TimeGrid__hour#16  34×42 @0,630  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «15:00»
+          span.TimeGrid__hour#17  34×42 @0,672  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «16:00»
+          span.TimeGrid__hour#18  34×42 @0,714  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «17:00»
+          span.TimeGrid__hour#19  34×42 @0,756  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «18:00»
+          span.TimeGrid__hour#20  34×42 @0,798  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «19:00»
+          span.TimeGrid__hour#21  34×42 @0,840  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «20:00»
+          span.TimeGrid__hour#22  34×42 @0,882  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «21:00»
+          span.TimeGrid__hour#23  34×42 @0,924  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «22:00»
+          span.TimeGrid__hour#24  34×42 @0,966  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «23:00»
+        div.TimeGrid__track  98×1008 @36,0  b0 0 0 1
+          div.ColumnCanvas__canvas  97×1008 @1,0
+            button.ColumnCanvas__hour  97×42 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#2  97×42 @0,42  b1 0 0 0
+            button.ColumnCanvas__hour#3  97×42 @0,84  b1 0 0 0
+            button.ColumnCanvas__hour#4  97×42 @0,126  b1 0 0 0
+            button.ColumnCanvas__hour#5  97×42 @0,168  b1 0 0 0
+            button.ColumnCanvas__hour#6  97×42 @0,210  b1 0 0 0
+            button.ColumnCanvas__hour#7  97×42 @0,252  b1 0 0 0
+            button.ColumnCanvas__hour#8  97×42 @0,294  b1 0 0 0
+            button.ColumnCanvas__hour#9  97×42 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#10  97×42 @0,378  b1 0 0 0
+            button.ColumnCanvas__hour#11  97×42 @0,420  b1 0 0 0
+            button.ColumnCanvas__hour#12  97×42 @0,462  b1 0 0 0
+            button.ColumnCanvas__hour#13  97×42 @0,504  b1 0 0 0
+            button.ColumnCanvas__hour#14  97×42 @0,546  b1 0 0 0
+            button.ColumnCanvas__hour#15  97×42 @0,588  b1 0 0 0
+            button.ColumnCanvas__hour#16  97×42 @0,630  b1 0 0 0
+            button.ColumnCanvas__hour#17  97×42 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#18  97×42 @0,714  b1 0 0 0
+            button.ColumnCanvas__hour#19  97×42 @0,756  b1 0 0 0
+            button.ColumnCanvas__hour#20  97×42 @0,798  b1 0 0 0
+            button.ColumnCanvas__hour#21  97×42 @0,840  b1 0 0 0
+            button.ColumnCanvas__hour#22  97×42 @0,882  b1 0 0 0
+            button.ColumnCanvas__hour#23  97×42 @0,924  b1 0 0 0
+            button.ColumnCanvas__hour#24  97×42 @0,966  b1 0 0 0
+        div.TimeGrid__track#2  98×1008 @136,0  b0 0 0 1
+          div.ColumnCanvas__canvas  97×1008 @1,0
+            button.ColumnCanvas__hour#25  97×42 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#26  97×42 @0,42  b1 0 0 0
+            button.ColumnCanvas__hour#27  97×42 @0,84  b1 0 0 0
+            button.ColumnCanvas__hour#28  97×42 @0,126  b1 0 0 0
+            button.ColumnCanvas__hour#29  97×42 @0,168  b1 0 0 0
+            button.ColumnCanvas__hour#30  97×42 @0,210  b1 0 0 0
+            button.ColumnCanvas__hour#31  97×42 @0,252  b1 0 0 0
+            button.ColumnCanvas__hour#32  97×42 @0,294  b1 0 0 0
+            button.ColumnCanvas__hour#33  97×42 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#34  97×42 @0,378  b1 0 0 0
+            button.ColumnCanvas__hour#35  97×42 @0,420  b1 0 0 0
+            button.ColumnCanvas__hour#36  97×42 @0,462  b1 0 0 0
+            button.ColumnCanvas__hour#37  97×42 @0,504  b1 0 0 0
+            button.ColumnCanvas__hour#38  97×42 @0,546  b1 0 0 0
+            button.ColumnCanvas__hour#39  97×42 @0,588  b1 0 0 0
+            button.ColumnCanvas__hour#40  97×42 @0,630  b1 0 0 0
+            button.ColumnCanvas__hour#41  97×42 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#42  97×42 @0,714  b1 0 0 0
+            button.ColumnCanvas__hour#43  97×42 @0,756  b1 0 0 0
+            button.ColumnCanvas__hour#44  97×42 @0,798  b1 0 0 0
+            button.ColumnCanvas__hour#45  97×42 @0,840  b1 0 0 0
+            button.ColumnCanvas__hour#46  97×42 @0,882  b1 0 0 0
+            button.ColumnCanvas__hour#47  97×42 @0,924  b1 0 0 0
+            button.ColumnCanvas__hour#48  97×42 @0,966  b1 0 0 0
+        div.TimeGrid__track#3  98×1008 @237,0  b0 0 0 1
+          div.ColumnCanvas__canvas  97×1008 @1,0
+            button.ColumnCanvas__hour#49  97×42 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#50  97×42 @0,42  b1 0 0 0
+            button.ColumnCanvas__hour#51  97×42 @0,84  b1 0 0 0
+            button.ColumnCanvas__hour#52  97×42 @0,126  b1 0 0 0
+            button.ColumnCanvas__hour#53  97×42 @0,168  b1 0 0 0
+            button.ColumnCanvas__hour#54  97×42 @0,210  b1 0 0 0
+            button.ColumnCanvas__hour#55  97×42 @0,252  b1 0 0 0
+            button.ColumnCanvas__hour#56  97×42 @0,294  b1 0 0 0
+            button.ColumnCanvas__hour#57  97×42 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#58  97×42 @0,378  b1 0 0 0
+            button.ColumnCanvas__hour#59  97×42 @0,420  b1 0 0 0
+            button.ColumnCanvas__hour#60  97×42 @0,462  b1 0 0 0
+            button.ColumnCanvas__hour#61  97×42 @0,504  b1 0 0 0
+            button.ColumnCanvas__hour#62  97×42 @0,546  b1 0 0 0
+            button.ColumnCanvas__hour#63  97×42 @0,588  b1 0 0 0
+            button.ColumnCanvas__hour#64  97×42 @0,630  b1 0 0 0
+            button.ColumnCanvas__hour#65  97×42 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#66  97×42 @0,714  b1 0 0 0
+            button.ColumnCanvas__hour#67  97×42 @0,756  b1 0 0 0
+            button.ColumnCanvas__hour#68  97×42 @0,798  b1 0 0 0
+            button.ColumnCanvas__hour#69  97×42 @0,840  b1 0 0 0
+            button.ColumnCanvas__hour#70  97×42 @0,882  b1 0 0 0
+            button.ColumnCanvas__hour#71  97×42 @0,924  b1 0 0 0
+            button.ColumnCanvas__hour#72  97×42 @0,966  b1 0 0 0
+        div.TimeGrid__track#4  98×1008 @337,0  b0 0 0 1
+          div.ColumnCanvas__canvas  97×1008 @1,0
+            button.ColumnCanvas__hour#73  97×42 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#74  97×42 @0,42  b1 0 0 0
+            button.ColumnCanvas__hour#75  97×42 @0,84  b1 0 0 0
+            button.ColumnCanvas__hour#76  97×42 @0,126  b1 0 0 0
+            button.ColumnCanvas__hour#77  97×42 @0,168  b1 0 0 0
+            button.ColumnCanvas__hour#78  97×42 @0,210  b1 0 0 0
+            button.ColumnCanvas__hour#79  97×42 @0,252  b1 0 0 0
+            button.ColumnCanvas__hour#80  97×42 @0,294  b1 0 0 0
+            button.ColumnCanvas__hour#81  97×42 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#82  97×42 @0,378  b1 0 0 0
+            button.ColumnCanvas__hour#83  97×42 @0,420  b1 0 0 0
+            button.ColumnCanvas__hour#84  97×42 @0,462  b1 0 0 0
+            button.ColumnCanvas__hour#85  97×42 @0,504  b1 0 0 0
+            button.ColumnCanvas__hour#86  97×42 @0,546  b1 0 0 0
+            button.ColumnCanvas__hour#87  97×42 @0,588  b1 0 0 0
+            button.ColumnCanvas__hour#88  97×42 @0,630  b1 0 0 0
+            button.ColumnCanvas__hour#89  97×42 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#90  97×42 @0,714  b1 0 0 0
+            button.ColumnCanvas__hour#91  97×42 @0,756  b1 0 0 0
+            button.ColumnCanvas__hour#92  97×42 @0,798  b1 0 0 0
+            button.ColumnCanvas__hour#93  97×42 @0,840  b1 0 0 0
+            button.ColumnCanvas__hour#94  97×42 @0,882  b1 0 0 0
+            button.ColumnCanvas__hour#95  97×42 @0,924  b1 0 0 0
+            button.ColumnCanvas__hour#96  97×42 @0,966  b1 0 0 0
+        div.TimeGrid__track#5  98×1008 @437,0  b0 0 0 1
+          div.ColumnCanvas__canvas  97×1008 @1,0
+            button.ColumnCanvas__hour#97  97×42 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#98  97×42 @0,42  b1 0 0 0
+            button.ColumnCanvas__hour#99  97×42 @0,84  b1 0 0 0
+            button.ColumnCanvas__hour#100  97×42 @0,126  b1 0 0 0
+            button.ColumnCanvas__hour#101  97×42 @0,168  b1 0 0 0
+            button.ColumnCanvas__hour#102  97×42 @0,210  b1 0 0 0
+            button.ColumnCanvas__hour#103  97×42 @0,252  b1 0 0 0
+            button.ColumnCanvas__hour#104  97×42 @0,294  b1 0 0 0
+            button.ColumnCanvas__hour#105  97×42 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#106  97×42 @0,378  b1 0 0 0
+            button.ColumnCanvas__hour#107  97×42 @0,420  b1 0 0 0
+            button.ColumnCanvas__hour#108  97×42 @0,462  b1 0 0 0
+            button.ColumnCanvas__hour#109  97×42 @0,504  b1 0 0 0
+            button.ColumnCanvas__hour#110  97×42 @0,546  b1 0 0 0
+            button.ColumnCanvas__hour#111  97×42 @0,588  b1 0 0 0
+            button.ColumnCanvas__hour#112  97×42 @0,630  b1 0 0 0
+            button.ColumnCanvas__hour#113  97×42 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#114  97×42 @0,714  b1 0 0 0
+            button.ColumnCanvas__hour#115  97×42 @0,756  b1 0 0 0
+            button.ColumnCanvas__hour#116  97×42 @0,798  b1 0 0 0
+            button.ColumnCanvas__hour#117  97×42 @0,840  b1 0 0 0
+            button.ColumnCanvas__hour#118  97×42 @0,882  b1 0 0 0
+            button.ColumnCanvas__hour#119  97×42 @0,924  b1 0 0 0
+            button.ColumnCanvas__hour#120  97×42 @0,966  b1 0 0 0
+        div.TimeGrid__track#6  98×1008 @537,0  b0 0 0 1
+          div.ColumnCanvas__canvas  97×1008 @1,0
+            button.ColumnCanvas__hour#121  97×42 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#122  97×42 @0,42  b1 0 0 0
+            button.ColumnCanvas__hour#123  97×42 @0,84  b1 0 0 0
+            button.ColumnCanvas__hour#124  97×42 @0,126  b1 0 0 0
+            button.ColumnCanvas__hour#125  97×42 @0,168  b1 0 0 0
+            button.ColumnCanvas__hour#126  97×42 @0,210  b1 0 0 0
+            button.ColumnCanvas__hour#127  97×42 @0,252  b1 0 0 0
+            button.ColumnCanvas__hour#128  97×42 @0,294  b1 0 0 0
+            button.ColumnCanvas__hour#129  97×42 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#130  97×42 @0,378  b1 0 0 0
+            button.ColumnCanvas__hour#131  97×42 @0,420  b1 0 0 0
+            button.ColumnCanvas__hour#132  97×42 @0,462  b1 0 0 0
+            button.ColumnCanvas__hour#133  97×42 @0,504  b1 0 0 0
+            button.ColumnCanvas__hour#134  97×42 @0,546  b1 0 0 0
+            button.ColumnCanvas__hour#135  97×42 @0,588  b1 0 0 0
+            button.ColumnCanvas__hour#136  97×42 @0,630  b1 0 0 0
+            button.ColumnCanvas__hour#137  97×42 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#138  97×42 @0,714  b1 0 0 0
+            button.ColumnCanvas__hour#139  97×42 @0,756  b1 0 0 0
+            button.ColumnCanvas__hour#140  97×42 @0,798  b1 0 0 0
+            button.ColumnCanvas__hour#141  97×42 @0,840  b1 0 0 0
+            button.ColumnCanvas__hour#142  97×42 @0,882  b1 0 0 0
+            button.ColumnCanvas__hour#143  97×42 @0,924  b1 0 0 0
+            button.ColumnCanvas__hour#144  97×42 @0,966  b1 0 0 0
+        div.TimeGrid__track#7  98×1008 @638,0  b0 0 0 1
+          div.ColumnCanvas__canvas  97×1008 @1,0
+            button.ColumnCanvas__hour#145  97×42 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#146  97×42 @0,42  b1 0 0 0
+            button.ColumnCanvas__hour#147  97×42 @0,84  b1 0 0 0
+            button.ColumnCanvas__hour#148  97×42 @0,126  b1 0 0 0
+            button.ColumnCanvas__hour#149  97×42 @0,168  b1 0 0 0
+            button.ColumnCanvas__hour#150  97×42 @0,210  b1 0 0 0
+            button.ColumnCanvas__hour#151  97×42 @0,252  b1 0 0 0
+            button.ColumnCanvas__hour#152  97×42 @0,294  b1 0 0 0
+            button.ColumnCanvas__hour#153  97×42 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#154  97×42 @0,378  b1 0 0 0
+            button.ColumnCanvas__hour#155  97×42 @0,420  b1 0 0 0
+            button.ColumnCanvas__hour#156  97×42 @0,462  b1 0 0 0
+            button.ColumnCanvas__hour#157  97×42 @0,504  b1 0 0 0
+            button.ColumnCanvas__hour#158  97×42 @0,546  b1 0 0 0
+            button.ColumnCanvas__hour#159  97×42 @0,588  b1 0 0 0
+            button.ColumnCanvas__hour#160  97×42 @0,630  b1 0 0 0
+            button.ColumnCanvas__hour#161  97×42 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#162  97×42 @0,714  b1 0 0 0
+            button.ColumnCanvas__hour#163  97×42 @0,756  b1 0 0 0
+            button.ColumnCanvas__hour#164  97×42 @0,798  b1 0 0 0
+            button.ColumnCanvas__hour#165  97×42 @0,840  b1 0 0 0
+            button.ColumnCanvas__hour#166  97×42 @0,882  b1 0 0 0
+            button.ColumnCanvas__hour#167  97×42 @0,924  b1 0 0 0
+            button.ColumnCanvas__hour#168  97×42 @0,966  b1 0 0 0
+          span.TimeGrid__now  97×2 @1,602  b2 0 0 0
+            span.TimeGrid__nowDot  8×8 @-5,-3  r100
+
+[геометрия 1440]
+div.WeekBoard__hours  1408×649 @16,16
+  section.TimeGrid__grid  1408×649 @0,0
+    div.TimeGrid__heads  1408×35 @0,0
+      span.TimeGrid__corner  54×0 @0,35
+      div.TimeGrid__head  189×35 @58,0  b0 0 2 0
+        a.TimeGrid__headLink  181×24 @4,2
+          span.TimeGrid__headWeekday  17×19 @0,0  Manrope 600 12/19  lines=1  «Пн»
+          span.TimeGrid__headDate  13×16 @22,1  Onest 700 15/16  lines=1  «17»
+        span.TimeGrid__headMeta  181×0 @4,28
+      div.TimeGrid__head#2  189×35 @251,0  b0 0 2 0
+        a.TimeGrid__headLink  181×24 @4,2
+          span.TimeGrid__headWeekday#2  15×19 @0,0  Manrope 600 12/19  lines=1  «Вт»
+          span.TimeGrid__headDate#2  15×16 @20,1  Onest 700 15/16  lines=1  «18»
+        span.TimeGrid__headMeta  181×0 @4,28
+      div.TimeGrid__head#3  189×35 @445,0  b0 0 2 0
+        a.TimeGrid__headLink  181×24 @4,2
+          span.TimeGrid__headWeekday#3  16×19 @0,0  Manrope 600 12/19  lines=1  «Ср»
+          span.TimeGrid__headDate#3  15×16 @21,1  Onest 700 15/16  lines=1  «19»
+        span.TimeGrid__headMeta  181×0 @4,28
+      div.TimeGrid__head#4  189×35 @638,0  b0 0 2 0
+        a.TimeGrid__headLink  181×24 @4,2
+          span.TimeGrid__headWeekday#4  15×19 @0,0  Manrope 600 12/19  lines=1  «Чт»
+          span.TimeGrid__headDate#4  18×16 @20,1  Onest 700 15/16  lines=1  «20»
+        span.TimeGrid__headMeta  181×0 @4,28
+      div.TimeGrid__head#5  189×35 @832,0  b0 0 2 0
+        a.TimeGrid__headLink  181×24 @4,2
+          span.TimeGrid__headWeekday#5  16×19 @0,0  Manrope 600 12/19  lines=1  «Пт»
+          span.TimeGrid__headDate#5  14×16 @21,1  Onest 700 15/16  lines=1  «21»
+        span.TimeGrid__headMeta  181×0 @4,28
+      div.TimeGrid__head#6  189×35 @1025,0  b0 0 2 0
+        a.TimeGrid__headLink  181×24 @4,2
+          span.TimeGrid__headWeekday#6  16×19 @0,0  Manrope 600 12/19  lines=1  «Сб»
+          span.TimeGrid__headDate#6  17×16 @21,1  Onest 700 15/16  lines=1  «22»
+        span.TimeGrid__headMeta  181×0 @4,28
+      div.TimeGrid__head#7  189×35 @1219,0  b0 0 2 0
+        a.TimeGrid__headLink  181×24 @4,2
+          span.TimeGrid__headWeekday#7  16×19 @0,0  Manrope 600 12/19  lines=1  «Вс»
+          span.TimeGrid__headDate#7  17×16 @21,1  Onest 700 15/16  lines=1  «23»
+        span.TimeGrid__headMeta  181×0 @4,28
+    div.AllDayBar__bar  1408×38 @0,35  b0 0 1 0
+      div.AllDayBar__rail  54×29 @0,4
+        span.AllDayBar__label  48×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
+      ul.AllDayBar__list  189×0 @58,4
+      ul.AllDayBar__list#2  189×0 @251,4
+      ul.AllDayBar__list#3  189×0 @445,4
+      ul.AllDayBar__list#4  189×0 @638,4
+      ul.AllDayBar__list#5  189×0 @832,4
+      ul.AllDayBar__list#6  189×0 @1025,4
+      ul.AllDayBar__list#7  189×0 @1219,4
+    div.TimeGrid__scroll  1408×576 @0,73
+      div.TimeGrid__hours  1408×1152 @0,-384
+        div.TimeGrid__rail  54×1152 @0,0
+          span.TimeGrid__hour  54×48 @0,0  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «00:00»
+          span.TimeGrid__hour#2  54×48 @0,48  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «01:00»
+          span.TimeGrid__hour#3  54×48 @0,96  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «02:00»
+          span.TimeGrid__hour#4  54×48 @0,144  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «03:00»
+          span.TimeGrid__hour#5  54×48 @0,192  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «04:00»
+          span.TimeGrid__hour#6  54×48 @0,240  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «05:00»
+          span.TimeGrid__hour#7  54×48 @0,288  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «06:00»
+          span.TimeGrid__hour#8  54×48 @0,336  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «07:00»
+          span.TimeGrid__hour#9  54×48 @0,384  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «08:00»
+          span.TimeGrid__hour#10  54×48 @0,432  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «09:00»
+          span.TimeGrid__hour#11  54×48 @0,480  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «10:00»
+          span.TimeGrid__hour#12  54×48 @0,528  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «11:00»
+          span.TimeGrid__hour#13  54×48 @0,576  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «12:00»
+          span.TimeGrid__hour#14  54×48 @0,624  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «13:00»
+          span.TimeGrid__hour#15  54×48 @0,672  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «14:00»
+          span.TimeGrid__hour#16  54×48 @0,720  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «15:00»
+          span.TimeGrid__hour#17  54×48 @0,768  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «16:00»
+          span.TimeGrid__hour#18  54×48 @0,816  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «17:00»
+          span.TimeGrid__hour#19  54×48 @0,864  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «18:00»
+          span.TimeGrid__hour#20  54×48 @0,912  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «19:00»
+          span.TimeGrid__hour#21  54×48 @0,960  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «20:00»
+          span.TimeGrid__hour#22  54×48 @0,1008  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «21:00»
+          span.TimeGrid__hour#23  54×48 @0,1056  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «22:00»
+          span.TimeGrid__hour#24  54×48 @0,1104  JetBrains Mono 400 12/14  b1 0 0 0  lines=1  «23:00»
+        div.TimeGrid__track  189×1152 @58,0  b0 0 0 1
+          div.ColumnCanvas__canvas  188×1152 @1,0
+            button.ColumnCanvas__hour  188×48 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#2  188×48 @0,48  b1 0 0 0
+            button.ColumnCanvas__hour#3  188×48 @0,96  b1 0 0 0
+            button.ColumnCanvas__hour#4  188×48 @0,144  b1 0 0 0
+            button.ColumnCanvas__hour#5  188×48 @0,192  b1 0 0 0
+            button.ColumnCanvas__hour#6  188×48 @0,240  b1 0 0 0
+            button.ColumnCanvas__hour#7  188×48 @0,288  b1 0 0 0
+            button.ColumnCanvas__hour#8  188×48 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#9  188×48 @0,384  b1 0 0 0
+            button.ColumnCanvas__hour#10  188×48 @0,432  b1 0 0 0
+            button.ColumnCanvas__hour#11  188×48 @0,480  b1 0 0 0
+            button.ColumnCanvas__hour#12  188×48 @0,528  b1 0 0 0
+            button.ColumnCanvas__hour#13  188×48 @0,576  b1 0 0 0
+            button.ColumnCanvas__hour#14  188×48 @0,624  b1 0 0 0
+            button.ColumnCanvas__hour#15  188×48 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#16  188×48 @0,720  b1 0 0 0
+            button.ColumnCanvas__hour#17  188×48 @0,768  b1 0 0 0
+            button.ColumnCanvas__hour#18  188×48 @0,816  b1 0 0 0
+            button.ColumnCanvas__hour#19  188×48 @0,864  b1 0 0 0
+            button.ColumnCanvas__hour#20  188×48 @0,912  b1 0 0 0
+            button.ColumnCanvas__hour#21  188×48 @0,960  b1 0 0 0
+            button.ColumnCanvas__hour#22  188×48 @0,1008  b1 0 0 0
+            button.ColumnCanvas__hour#23  188×48 @0,1056  b1 0 0 0
+            button.ColumnCanvas__hour#24  188×48 @0,1104  b1 0 0 0
+        div.TimeGrid__track#2  189×1152 @251,0  b0 0 0 1
+          div.ColumnCanvas__canvas  188×1152 @1,0
+            button.ColumnCanvas__hour#25  188×48 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#26  188×48 @0,48  b1 0 0 0
+            button.ColumnCanvas__hour#27  188×48 @0,96  b1 0 0 0
+            button.ColumnCanvas__hour#28  188×48 @0,144  b1 0 0 0
+            button.ColumnCanvas__hour#29  188×48 @0,192  b1 0 0 0
+            button.ColumnCanvas__hour#30  188×48 @0,240  b1 0 0 0
+            button.ColumnCanvas__hour#31  188×48 @0,288  b1 0 0 0
+            button.ColumnCanvas__hour#32  188×48 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#33  188×48 @0,384  b1 0 0 0
+            button.ColumnCanvas__hour#34  188×48 @0,432  b1 0 0 0
+            button.ColumnCanvas__hour#35  188×48 @0,480  b1 0 0 0
+            button.ColumnCanvas__hour#36  188×48 @0,528  b1 0 0 0
+            button.ColumnCanvas__hour#37  188×48 @0,576  b1 0 0 0
+            button.ColumnCanvas__hour#38  188×48 @0,624  b1 0 0 0
+            button.ColumnCanvas__hour#39  188×48 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#40  188×48 @0,720  b1 0 0 0
+            button.ColumnCanvas__hour#41  188×48 @0,768  b1 0 0 0
+            button.ColumnCanvas__hour#42  188×48 @0,816  b1 0 0 0
+            button.ColumnCanvas__hour#43  188×48 @0,864  b1 0 0 0
+            button.ColumnCanvas__hour#44  188×48 @0,912  b1 0 0 0
+            button.ColumnCanvas__hour#45  188×48 @0,960  b1 0 0 0
+            button.ColumnCanvas__hour#46  188×48 @0,1008  b1 0 0 0
+            button.ColumnCanvas__hour#47  188×48 @0,1056  b1 0 0 0
+            button.ColumnCanvas__hour#48  188×48 @0,1104  b1 0 0 0
+        div.TimeGrid__track#3  189×1152 @445,0  b0 0 0 1
+          div.ColumnCanvas__canvas  188×1152 @1,0
+            button.ColumnCanvas__hour#49  188×48 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#50  188×48 @0,48  b1 0 0 0
+            button.ColumnCanvas__hour#51  188×48 @0,96  b1 0 0 0
+            button.ColumnCanvas__hour#52  188×48 @0,144  b1 0 0 0
+            button.ColumnCanvas__hour#53  188×48 @0,192  b1 0 0 0
+            button.ColumnCanvas__hour#54  188×48 @0,240  b1 0 0 0
+            button.ColumnCanvas__hour#55  188×48 @0,288  b1 0 0 0
+            button.ColumnCanvas__hour#56  188×48 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#57  188×48 @0,384  b1 0 0 0
+            button.ColumnCanvas__hour#58  188×48 @0,432  b1 0 0 0
+            button.ColumnCanvas__hour#59  188×48 @0,480  b1 0 0 0
+            button.ColumnCanvas__hour#60  188×48 @0,528  b1 0 0 0
+            button.ColumnCanvas__hour#61  188×48 @0,576  b1 0 0 0
+            button.ColumnCanvas__hour#62  188×48 @0,624  b1 0 0 0
+            button.ColumnCanvas__hour#63  188×48 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#64  188×48 @0,720  b1 0 0 0
+            button.ColumnCanvas__hour#65  188×48 @0,768  b1 0 0 0
+            button.ColumnCanvas__hour#66  188×48 @0,816  b1 0 0 0
+            button.ColumnCanvas__hour#67  188×48 @0,864  b1 0 0 0
+            button.ColumnCanvas__hour#68  188×48 @0,912  b1 0 0 0
+            button.ColumnCanvas__hour#69  188×48 @0,960  b1 0 0 0
+            button.ColumnCanvas__hour#70  188×48 @0,1008  b1 0 0 0
+            button.ColumnCanvas__hour#71  188×48 @0,1056  b1 0 0 0
+            button.ColumnCanvas__hour#72  188×48 @0,1104  b1 0 0 0
+        div.TimeGrid__track#4  189×1152 @638,0  b0 0 0 1
+          div.ColumnCanvas__canvas  188×1152 @1,0
+            button.ColumnCanvas__hour#73  188×48 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#74  188×48 @0,48  b1 0 0 0
+            button.ColumnCanvas__hour#75  188×48 @0,96  b1 0 0 0
+            button.ColumnCanvas__hour#76  188×48 @0,144  b1 0 0 0
+            button.ColumnCanvas__hour#77  188×48 @0,192  b1 0 0 0
+            button.ColumnCanvas__hour#78  188×48 @0,240  b1 0 0 0
+            button.ColumnCanvas__hour#79  188×48 @0,288  b1 0 0 0
+            button.ColumnCanvas__hour#80  188×48 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#81  188×48 @0,384  b1 0 0 0
+            button.ColumnCanvas__hour#82  188×48 @0,432  b1 0 0 0
+            button.ColumnCanvas__hour#83  188×48 @0,480  b1 0 0 0
+            button.ColumnCanvas__hour#84  188×48 @0,528  b1 0 0 0
+            button.ColumnCanvas__hour#85  188×48 @0,576  b1 0 0 0
+            button.ColumnCanvas__hour#86  188×48 @0,624  b1 0 0 0
+            button.ColumnCanvas__hour#87  188×48 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#88  188×48 @0,720  b1 0 0 0
+            button.ColumnCanvas__hour#89  188×48 @0,768  b1 0 0 0
+            button.ColumnCanvas__hour#90  188×48 @0,816  b1 0 0 0
+            button.ColumnCanvas__hour#91  188×48 @0,864  b1 0 0 0
+            button.ColumnCanvas__hour#92  188×48 @0,912  b1 0 0 0
+            button.ColumnCanvas__hour#93  188×48 @0,960  b1 0 0 0
+            button.ColumnCanvas__hour#94  188×48 @0,1008  b1 0 0 0
+            button.ColumnCanvas__hour#95  188×48 @0,1056  b1 0 0 0
+            button.ColumnCanvas__hour#96  188×48 @0,1104  b1 0 0 0
+        div.TimeGrid__track#5  189×1152 @832,0  b0 0 0 1
+          div.ColumnCanvas__canvas  188×1152 @1,0
+            button.ColumnCanvas__hour#97  188×48 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#98  188×48 @0,48  b1 0 0 0
+            button.ColumnCanvas__hour#99  188×48 @0,96  b1 0 0 0
+            button.ColumnCanvas__hour#100  188×48 @0,144  b1 0 0 0
+            button.ColumnCanvas__hour#101  188×48 @0,192  b1 0 0 0
+            button.ColumnCanvas__hour#102  188×48 @0,240  b1 0 0 0
+            button.ColumnCanvas__hour#103  188×48 @0,288  b1 0 0 0
+            button.ColumnCanvas__hour#104  188×48 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#105  188×48 @0,384  b1 0 0 0
+            button.ColumnCanvas__hour#106  188×48 @0,432  b1 0 0 0
+            button.ColumnCanvas__hour#107  188×48 @0,480  b1 0 0 0
+            button.ColumnCanvas__hour#108  188×48 @0,528  b1 0 0 0
+            button.ColumnCanvas__hour#109  188×48 @0,576  b1 0 0 0
+            button.ColumnCanvas__hour#110  188×48 @0,624  b1 0 0 0
+            button.ColumnCanvas__hour#111  188×48 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#112  188×48 @0,720  b1 0 0 0
+            button.ColumnCanvas__hour#113  188×48 @0,768  b1 0 0 0
+            button.ColumnCanvas__hour#114  188×48 @0,816  b1 0 0 0
+            button.ColumnCanvas__hour#115  188×48 @0,864  b1 0 0 0
+            button.ColumnCanvas__hour#116  188×48 @0,912  b1 0 0 0
+            button.ColumnCanvas__hour#117  188×48 @0,960  b1 0 0 0
+            button.ColumnCanvas__hour#118  188×48 @0,1008  b1 0 0 0
+            button.ColumnCanvas__hour#119  188×48 @0,1056  b1 0 0 0
+            button.ColumnCanvas__hour#120  188×48 @0,1104  b1 0 0 0
+        div.TimeGrid__track#6  189×1152 @1025,0  b0 0 0 1
+          div.ColumnCanvas__canvas  188×1152 @1,0
+            button.ColumnCanvas__hour#121  188×48 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#122  188×48 @0,48  b1 0 0 0
+            button.ColumnCanvas__hour#123  188×48 @0,96  b1 0 0 0
+            button.ColumnCanvas__hour#124  188×48 @0,144  b1 0 0 0
+            button.ColumnCanvas__hour#125  188×48 @0,192  b1 0 0 0
+            button.ColumnCanvas__hour#126  188×48 @0,240  b1 0 0 0
+            button.ColumnCanvas__hour#127  188×48 @0,288  b1 0 0 0
+            button.ColumnCanvas__hour#128  188×48 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#129  188×48 @0,384  b1 0 0 0
+            button.ColumnCanvas__hour#130  188×48 @0,432  b1 0 0 0
+            button.ColumnCanvas__hour#131  188×48 @0,480  b1 0 0 0
+            button.ColumnCanvas__hour#132  188×48 @0,528  b1 0 0 0
+            button.ColumnCanvas__hour#133  188×48 @0,576  b1 0 0 0
+            button.ColumnCanvas__hour#134  188×48 @0,624  b1 0 0 0
+            button.ColumnCanvas__hour#135  188×48 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#136  188×48 @0,720  b1 0 0 0
+            button.ColumnCanvas__hour#137  188×48 @0,768  b1 0 0 0
+            button.ColumnCanvas__hour#138  188×48 @0,816  b1 0 0 0
+            button.ColumnCanvas__hour#139  188×48 @0,864  b1 0 0 0
+            button.ColumnCanvas__hour#140  188×48 @0,912  b1 0 0 0
+            button.ColumnCanvas__hour#141  188×48 @0,960  b1 0 0 0
+            button.ColumnCanvas__hour#142  188×48 @0,1008  b1 0 0 0
+            button.ColumnCanvas__hour#143  188×48 @0,1056  b1 0 0 0
+            button.ColumnCanvas__hour#144  188×48 @0,1104  b1 0 0 0
+        div.TimeGrid__track#7  189×1152 @1219,0  b0 0 0 1
+          div.ColumnCanvas__canvas  188×1152 @1,0
+            button.ColumnCanvas__hour#145  188×48 @0,0  b1 0 0 0
+            button.ColumnCanvas__hour#146  188×48 @0,48  b1 0 0 0
+            button.ColumnCanvas__hour#147  188×48 @0,96  b1 0 0 0
+            button.ColumnCanvas__hour#148  188×48 @0,144  b1 0 0 0
+            button.ColumnCanvas__hour#149  188×48 @0,192  b1 0 0 0
+            button.ColumnCanvas__hour#150  188×48 @0,240  b1 0 0 0
+            button.ColumnCanvas__hour#151  188×48 @0,288  b1 0 0 0
+            button.ColumnCanvas__hour#152  188×48 @0,336  b1 0 0 0
+            button.ColumnCanvas__hour#153  188×48 @0,384  b1 0 0 0
+            button.ColumnCanvas__hour#154  188×48 @0,432  b1 0 0 0
+            button.ColumnCanvas__hour#155  188×48 @0,480  b1 0 0 0
+            button.ColumnCanvas__hour#156  188×48 @0,528  b1 0 0 0
+            button.ColumnCanvas__hour#157  188×48 @0,576  b1 0 0 0
+            button.ColumnCanvas__hour#158  188×48 @0,624  b1 0 0 0
+            button.ColumnCanvas__hour#159  188×48 @0,672  b1 0 0 0
+            button.ColumnCanvas__hour#160  188×48 @0,720  b1 0 0 0
+            button.ColumnCanvas__hour#161  188×48 @0,768  b1 0 0 0
+            button.ColumnCanvas__hour#162  188×48 @0,816  b1 0 0 0
+            button.ColumnCanvas__hour#163  188×48 @0,864  b1 0 0 0
+            button.ColumnCanvas__hour#164  188×48 @0,912  b1 0 0 0
+            button.ColumnCanvas__hour#165  188×48 @0,960  b1 0 0 0
+            button.ColumnCanvas__hour#166  188×48 @0,1008  b1 0 0 0
+            button.ColumnCanvas__hour#167  188×48 @0,1056  b1 0 0 0
+            button.ColumnCanvas__hour#168  188×48 @0,1104  b1 0 0 0
+          span.TimeGrid__now  188×2 @1,688  b2 0 0 0
+            span.TimeGrid__nowDot  8×8 @-5,-3  r100
+
+[палитра light]
+div.WeekBoard__hours
+  section.TimeGrid__grid
+    div.TimeGrid__heads
+      span.TimeGrid__corner
+      div.TimeGrid__head  border #0f172a #0f172a #e2e8f0 #0f172a
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday  color #556173
+          span.TimeGrid__headDate  color #0f172a
+        span.TimeGrid__headMeta
+      div.TimeGrid__head#2  border #0f172a #0f172a #e2e8f0 #0f172a
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday#2  color #556173
+          span.TimeGrid__headDate#2  color #0f172a
+        span.TimeGrid__headMeta
+      div.TimeGrid__head#3  border #0f172a #0f172a #e2e8f0 #0f172a
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday#3  color #556173
+          span.TimeGrid__headDate#3  color #0f172a
+        span.TimeGrid__headMeta
+      div.TimeGrid__head#4  border #0f172a #0f172a #e2e8f0 #0f172a
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday#4  color #556173
+          span.TimeGrid__headDate#4  color #0f172a
+        span.TimeGrid__headMeta
+      div.TimeGrid__head#5  border #0f172a #0f172a #e2e8f0 #0f172a
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday#5  color #556173
+          span.TimeGrid__headDate#5  color #0f172a
+        span.TimeGrid__headMeta
+      div.TimeGrid__head#6  border #0f172a #0f172a #e2e8f0 #0f172a
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday#6  color #556173
+          span.TimeGrid__headDate#6  color #0f172a
+        span.TimeGrid__headMeta
+      div.TimeGrid__head#7  border #0f172a #0f172a #0891b2 #0f172a
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday#7  color #0e7490
+          span.TimeGrid__headDate#7  color #0e7490
+        span.TimeGrid__headMeta
+    div.AllDayBar__bar  border #0f172a #0f172a #e2e8f0 #0f172a
+      div.AllDayBar__rail
+        span.AllDayBar__label  color #5b6a7d
+      ul.AllDayBar__list
+      ul.AllDayBar__list#2
+      ul.AllDayBar__list#3
+      ul.AllDayBar__list#4
+      ul.AllDayBar__list#5
+      ul.AllDayBar__list#6
+      ul.AllDayBar__list#7
+    div.TimeGrid__scroll
+      div.TimeGrid__hours
+        div.TimeGrid__rail
+          span.TimeGrid__hour  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#2  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#3  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#4  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#5  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#6  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#7  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#8  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#9  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#10  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#11  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#12  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#13  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#14  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#15  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#16  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#17  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#18  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#19  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#20  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#21  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#22  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#23  color #556173  border #eef2f6 #556173 #556173 #556173
+          span.TimeGrid__hour#24  color #556173  border #eef2f6 #556173 #556173 #556173
+        div.TimeGrid__track  border #0f172a #0f172a #0f172a #eef2f6
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#2  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#3  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#4  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#5  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#6  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#7  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#8  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#9  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#10  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#11  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#12  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#13  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#14  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#15  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#16  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#17  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#18  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#19  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#20  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#21  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#22  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#23  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#24  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+        div.TimeGrid__track#2  border #0f172a #0f172a #0f172a #eef2f6
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour#25  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#26  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#27  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#28  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#29  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#30  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#31  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#32  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#33  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#34  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#35  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#36  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#37  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#38  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#39  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#40  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#41  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#42  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#43  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#44  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#45  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#46  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#47  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#48  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+        div.TimeGrid__track#3  border #0f172a #0f172a #0f172a #eef2f6
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour#49  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#50  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#51  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#52  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#53  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#54  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#55  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#56  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#57  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#58  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#59  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#60  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#61  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#62  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#63  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#64  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#65  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#66  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#67  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#68  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#69  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#70  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#71  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#72  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+        div.TimeGrid__track#4  border #0f172a #0f172a #0f172a #eef2f6
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour#73  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#74  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#75  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#76  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#77  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#78  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#79  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#80  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#81  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#82  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#83  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#84  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#85  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#86  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#87  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#88  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#89  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#90  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#91  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#92  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#93  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#94  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#95  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#96  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+        div.TimeGrid__track#5  border #0f172a #0f172a #0f172a #eef2f6
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour#97  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#98  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#99  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#100  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#101  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#102  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#103  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#104  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#105  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#106  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#107  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#108  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#109  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#110  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#111  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#112  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#113  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#114  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#115  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#116  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#117  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#118  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#119  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#120  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+        div.TimeGrid__track#6  border #0f172a #0f172a #0f172a #eef2f6
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour#121  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#122  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#123  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#124  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#125  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#126  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#127  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#128  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#129  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#130  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#131  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#132  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#133  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#134  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#135  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#136  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#137  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#138  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#139  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#140  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#141  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#142  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#143  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#144  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+        div.TimeGrid__track#7  border #0f172a #0f172a #0f172a #eef2f6
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour#145  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#146  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#147  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#148  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#149  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#150  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#151  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#152  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#153  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#154  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#155  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#156  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#157  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#158  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#159  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#160  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#161  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#162  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#163  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#164  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#165  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#166  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#167  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+            button.ColumnCanvas__hour#168  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
+          span.TimeGrid__now  border #be123c #0f172a #0f172a #0f172a
+            span.TimeGrid__nowDot  bg #be123c
+[палитра light @390]
+div.WeekBoard__agenda
+div.WeekBoard__agenda > section.Agenda__agenda
+div.WeekBoard__agenda > section.Agenda__agenda > p.Agenda__emptyTitle  color #0f172a
+div.WeekBoard__agenda > section.Agenda__agenda > p.Agenda__emptyText  color #556173
+
+[палитра dark]
+div.WeekBoard__hours
+  section.TimeGrid__grid
+    div.TimeGrid__heads
+      span.TimeGrid__corner
+      div.TimeGrid__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday  color #8598ac
+          span.TimeGrid__headDate  color #eaf1f8
+        span.TimeGrid__headMeta
+      div.TimeGrid__head#2  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday#2  color #8598ac
+          span.TimeGrid__headDate#2  color #eaf1f8
+        span.TimeGrid__headMeta
+      div.TimeGrid__head#3  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday#3  color #8598ac
+          span.TimeGrid__headDate#3  color #eaf1f8
+        span.TimeGrid__headMeta
+      div.TimeGrid__head#4  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday#4  color #8598ac
+          span.TimeGrid__headDate#4  color #eaf1f8
+        span.TimeGrid__headMeta
+      div.TimeGrid__head#5  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday#5  color #8598ac
+          span.TimeGrid__headDate#5  color #eaf1f8
+        span.TimeGrid__headMeta
+      div.TimeGrid__head#6  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday#6  color #8598ac
+          span.TimeGrid__headDate#6  color #eaf1f8
+        span.TimeGrid__headMeta
+      div.TimeGrid__head#7  border #eaf1f8 #eaf1f8 #22d3ee #eaf1f8
+        a.TimeGrid__headLink
+          span.TimeGrid__headWeekday#7  color #22d3ee
+          span.TimeGrid__headDate#7  color #22d3ee
+        span.TimeGrid__headMeta
+    div.AllDayBar__bar  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      div.AllDayBar__rail
+        span.AllDayBar__label  color #7e92a7
+      ul.AllDayBar__list
+      ul.AllDayBar__list#2
+      ul.AllDayBar__list#3
+      ul.AllDayBar__list#4
+      ul.AllDayBar__list#5
+      ul.AllDayBar__list#6
+      ul.AllDayBar__list#7
+    div.TimeGrid__scroll
+      div.TimeGrid__hours
+        div.TimeGrid__rail
+          span.TimeGrid__hour  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#2  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#3  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#4  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#5  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#6  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#7  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#8  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#9  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#10  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#11  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#12  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#13  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#14  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#15  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#16  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#17  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#18  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#19  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#20  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#21  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#22  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#23  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+          span.TimeGrid__hour#24  color #8598ac  border #182338 #8598ac #8598ac #8598ac
+        div.TimeGrid__track  border #eaf1f8 #eaf1f8 #eaf1f8 #182338
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#2  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#3  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#4  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#5  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#6  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#7  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#8  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#9  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#10  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#11  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#12  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#13  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#14  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#15  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#16  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#17  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#18  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#19  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#20  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#21  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#22  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#23  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#24  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+        div.TimeGrid__track#2  border #eaf1f8 #eaf1f8 #eaf1f8 #182338
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour#25  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#26  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#27  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#28  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#29  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#30  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#31  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#32  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#33  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#34  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#35  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#36  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#37  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#38  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#39  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#40  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#41  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#42  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#43  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#44  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#45  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#46  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#47  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#48  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+        div.TimeGrid__track#3  border #eaf1f8 #eaf1f8 #eaf1f8 #182338
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour#49  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#50  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#51  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#52  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#53  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#54  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#55  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#56  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#57  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#58  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#59  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#60  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#61  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#62  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#63  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#64  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#65  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#66  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#67  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#68  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#69  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#70  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#71  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#72  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+        div.TimeGrid__track#4  border #eaf1f8 #eaf1f8 #eaf1f8 #182338
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour#73  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#74  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#75  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#76  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#77  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#78  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#79  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#80  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#81  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#82  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#83  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#84  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#85  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#86  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#87  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#88  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#89  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#90  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#91  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#92  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#93  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#94  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#95  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#96  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+        div.TimeGrid__track#5  border #eaf1f8 #eaf1f8 #eaf1f8 #182338
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour#97  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#98  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#99  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#100  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#101  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#102  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#103  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#104  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#105  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#106  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#107  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#108  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#109  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#110  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#111  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#112  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#113  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#114  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#115  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#116  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#117  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#118  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#119  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#120  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+        div.TimeGrid__track#6  border #eaf1f8 #eaf1f8 #eaf1f8 #182338
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour#121  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#122  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#123  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#124  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#125  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#126  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#127  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#128  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#129  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#130  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#131  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#132  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#133  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#134  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#135  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#136  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#137  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#138  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#139  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#140  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#141  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#142  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#143  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#144  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+        div.TimeGrid__track#7  border #eaf1f8 #eaf1f8 #eaf1f8 #182338
+          div.ColumnCanvas__canvas
+            button.ColumnCanvas__hour#145  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#146  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#147  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#148  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#149  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#150  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#151  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#152  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#153  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#154  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#155  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#156  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#157  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#158  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#159  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#160  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#161  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#162  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#163  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#164  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#165  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#166  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#167  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+            button.ColumnCanvas__hour#168  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
+          span.TimeGrid__now  border #fb7185 #eaf1f8 #eaf1f8 #eaf1f8
+            span.TimeGrid__nowDot  bg #fb7185
+[палитра dark @390]
+div.WeekBoard__agenda
+div.WeekBoard__agenda > section.Agenda__agenda
+div.WeekBoard__agenda > section.Agenda__agenda > p.Agenda__emptyTitle  color #eaf1f8
+div.WeekBoard__agenda > section.Agenda__agenda > p.Agenda__emptyText  color #8598ac

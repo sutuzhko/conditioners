@@ -14,11 +14,13 @@ import {
   monthLeads,
   monthOrders,
   morningInstall,
+  parallelService,
   plannedCall,
   sergey,
   viewerId,
   wholeDayBlock,
 } from './fixtures';
+import type { ScheduleKind } from './model';
 import {
   DEFAULT_WORK_WINDOW,
   dayColumns,
@@ -30,6 +32,8 @@ import {
   monthRows,
   offsetPercent,
   weekColumns,
+  type ScheduleColumn,
+  type ScheduleItem,
   type ScheduleSource,
 } from './schedule';
 
@@ -46,6 +50,11 @@ function source(patch: Partial<ScheduleSource> = {}): ScheduleSource {
     today: SUNDAY,
     ...patch,
   };
+}
+
+/** Строки клетки без разыменования `undefined`: колонку возвращает массив. */
+function rowsOf(column: ScheduleColumn | undefined): readonly ScheduleItem[] {
+  return column === undefined ? [] : monthRows(column);
 }
 
 describe('раскладка недели', () => {
@@ -65,8 +74,26 @@ describe('раскладка недели', () => {
     expect(sunday?.timed.some((placed) => placed.item.id === morningInstall.id)).toBe(true);
   });
 
-  it('🔴 наряды попадают в сетку наравне с делами и отличимы по сущности', () => {
+  it('🔴 в колонке недели запись одна, остаток уходит за «+N»', () => {
     const sunday = weekColumns(source(), SUNDAY)[6];
+
+    /* Колонка недели около 120px, и голова чипа съедает половину: разделив её
+       надвое, мы оставляем имени тридцать пикселей. Поэтому в ряд идёт одна
+       запись, а сколько спрятано — говорит метка (issue #47). */
+    expect(sunday?.timed.every((placed) => placed.lanes === 1)).toBe(true);
+    expect(sunday?.more.reduce((total, mark) => total + mark.count, 0)).toBeGreaterThan(0);
+  });
+
+  it('метка «+N» знает свой день и часы: по ней уходят в день', () => {
+    const mark = weekColumns(source(), SUNDAY)[6]?.more[0];
+
+    expect(mark?.day).toBe(SUNDAY);
+    expect(mark?.count).toBeGreaterThan(0);
+    expect(mark?.label).toContain('открыть день');
+  });
+
+  it('🔴 наряды попадают в сетку наравне с делами и отличимы по сущности', () => {
+    const sunday = dayColumns(source(), SUNDAY)[0];
     const items = sunday?.timed.map((placed) => placed.item) ?? [];
 
     expect(items.filter((item) => item.entity === 'order')).toHaveLength(3);
@@ -74,12 +101,35 @@ describe('раскладка недели', () => {
   });
 
   it('у наряда есть номер, у дела его нет — различие остаётся и без цвета', () => {
-    const sunday = weekColumns(source(), SUNDAY)[6];
+    const sunday = dayColumns(source(), SUNDAY)[0];
     const order = sunday?.timed.find((placed) => placed.item.entity === 'order')?.item;
     const event = sunday?.timed.find((placed) => placed.item.entity === 'event')?.item;
 
     expect(order?.number).toBe(morningInstall.number);
     expect(event?.number).toBeNull();
+  });
+
+  it('🔴 ничего не теряется: свёрнутое за «+N» остаётся в списке дня', () => {
+    const week = weekColumns(source(), SUNDAY)[6];
+    const day = dayColumns(source(), SUNDAY)[0];
+
+    const shown = week?.timed.length ?? 0;
+    const hidden = week?.more.reduce((total, mark) => total + mark.count, 0) ?? 0;
+
+    expect(shown + hidden).toBe(day?.timed.length);
+
+    /* Повестка на телефоне и клетка месяца читают колонку через `monthRows`:
+       спрятанное за меткой обязано вернуться туда, иначе выезд пропадает из
+       календаря, а не «сворачивается». */
+    expect(
+      rowsOf(week)
+        .map((item) => item.id)
+        .sort(),
+    ).toEqual(
+      rowsOf(day)
+        .map((item) => item.id)
+        .sort(),
+    );
   });
 
   it('шапка колонки знает день недели и число', () => {
@@ -286,6 +336,118 @@ describe('наложение занятости команды', () => {
     const loose = column?.timed.find((placed) => placed.item.id === looseOrder.id);
 
     expect(loose?.item.person).toBeNull();
+  });
+});
+
+describe('фильтр слоя занятости', () => {
+  const who = (...ids: readonly string[]) => ({ who: new Set(ids), kinds: null });
+
+  it('🔴 выключенный человек уносит с сетки свои выезды', () => {
+    const all = dayColumns(source({ team: installers }), SUNDAY)[0];
+    const only = dayColumns(source({ team: installers, filter: who(sergey.id) }), SUNDAY)[0];
+
+    expect(all?.timed.some((placed) => placed.item.id === morningInstall.id)).toBe(true);
+    expect(only?.timed.some((placed) => placed.item.id === morningInstall.id)).toBe(false);
+    expect(only?.timed.some((placed) => placed.item.id === parallelService.id)).toBe(true);
+  });
+
+  it('выключенный человек уносит и свои отлучки', () => {
+    const away = { ...doctorBlock, userId: dmitry.id, day: SUNDAY };
+    const shown = source({ team: installers, blocks: [away] });
+    const hidden = source({ team: installers, blocks: [away], filter: who(sergey.id) });
+
+    expect(dayColumns(shown, SUNDAY)[0]?.timed.some((p) => p.item.entity === 'block')).toBe(true);
+    expect(dayColumns(hidden, SUNDAY)[0]?.timed.some((p) => p.item.entity === 'block')).toBe(false);
+  });
+
+  it('🔴 краска выключенного не переезжает к другому: она закреплена за человеком', () => {
+    const only = dayColumns(source({ team: installers, filter: who(sergey.id) }), SUNDAY)[0];
+    const kept = only?.timed.find((placed) => placed.item.id === parallelService.id);
+
+    expect(kept?.item.person?.tone).toBe(marksOf(installers).get(sergey.id)?.tone);
+  });
+
+  it('снятые виды убирают дела и заявки: остаются наряды', () => {
+    const filter = { who: null, kinds: new Set<ScheduleKind>(['orders']) };
+    const rows = rowsOf(dayColumns(source({ team: installers, filter }), SUNDAY)[0]);
+
+    expect(rows.every((item) => item.entity === 'order' || item.entity === 'block')).toBe(true);
+    expect(rows.some((item) => item.entity === 'event')).toBe(false);
+    expect(rows.some((item) => item.entity === 'lead')).toBe(false);
+  });
+
+  it('снятый вид «дела и отлучки» убирает и свою отлучку', () => {
+    const blocks = [{ ...doctorBlock, day: SUNDAY }];
+    const filter = { who: null, kinds: new Set<ScheduleKind>(['orders']) };
+    const column = dayColumns(source({ team: installers, blocks, filter }), SUNDAY)[0];
+
+    expect(column?.timed.some((placed) => placed.item.entity === 'block')).toBe(false);
+    expect(column?.busy.state).toBe('free');
+  });
+
+  it('🔴 наряд без исполнителя фильтром по людям не убирается: он ничей', () => {
+    const plain = dayColumns(source({ team: installers }), '2026-08-25')[0];
+    const solo = dayColumns(source({ team: installers, filter: who(dmitry.id) }), '2026-08-25')[0];
+    const noOrders = dayColumns(
+      source({
+        team: installers,
+        filter: { who: null, kinds: new Set<ScheduleKind>(['leads', 'notes']) },
+      }),
+      '2026-08-25',
+    )[0];
+
+    expect(plain?.timed.some((placed) => placed.item.id === looseOrder.id)).toBe(true);
+    /* Приписать его некому, и снять с сетки можно только галочкой «Наряды»:
+       иначе он исчезал бы при любом выборе человека и «терялся» вместе с ним. */
+    expect(solo?.timed.some((placed) => placed.item.id === looseOrder.id)).toBe(true);
+    expect(noOrders?.timed.some((placed) => placed.item.id === looseOrder.id)).toBe(false);
+  });
+});
+
+describe('запись без часа', () => {
+  it('🔴 заявка помечена как всесуточная: её время — момент обращения, а не встреча', () => {
+    const column = dayColumns(source(), SUNDAY)[0];
+    const lead = column?.allDay.find((item) => item.entity === 'lead');
+
+    expect(lead?.allDay).toBe(true);
+  });
+
+  it('заметка «не забыть» тоже без часа, а звонок на десять — с часом', () => {
+    const column = dayColumns(source({ events: [dayNote, plannedCall] }), SUNDAY)[0];
+
+    expect(column?.allDay.find((item) => item.id === dayNote.id)?.allDay).toBe(true);
+    expect(column?.timed.find((placed) => placed.item.id === plannedCall.id)?.item.allDay).toBe(
+      false,
+    );
+  });
+});
+
+describe('подпись дня', () => {
+  it('🔴 называет число записей словами: на телефоне в клетке остаются точки', () => {
+    const column = dayColumns(source(), SUNDAY)[0];
+    const rows = rowsOf(column);
+
+    expect(column?.label).toContain(`${rows.length} запис`);
+  });
+
+  it('🔴 называет требующие внимания: пересечение и переработка', () => {
+    const clashing = dayColumns(
+      source({ orders: monthOrders.slice(0, 2), events: [], leads: [] }),
+      SUNDAY,
+    )[0];
+    const overtime = dayColumns(
+      source({ events: [lateInstall], orders: [], leads: [] }),
+      SUNDAY,
+    )[0];
+
+    expect(clashing?.label).toContain('требу');
+    expect(overtime?.label).toContain('требу');
+  });
+
+  it('пустой день так и говорит', () => {
+    const column = dayColumns(source({ events: [], orders: [], leads: [] }), '2026-08-31')[0];
+
+    expect(column?.label).toContain('Пусто');
   });
 });
 

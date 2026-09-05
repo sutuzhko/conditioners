@@ -149,4 +149,35 @@ describe('Запись календаря', () => {
       within(screen.getByRole('dialog')).getByRole('button', { name: texts.edit }),
     ).toBeInTheDocument();
   });
+
+  it('🔴 у записи «весь день» часа нет: у заявки в нём момент обращения', () => {
+    const lead = pick('lead');
+    chip(lead);
+
+    /* Час заявки — когда человек написал, а не когда договорились. Показанный
+       в полосе «Весь день», он читается как назначенное время (BUGS, аудит 30
+       августа). В подписи он остаётся: там видно, что это за момент. */
+    expect(screen.getByRole('button', { name: lead.label })).not.toHaveTextContent(lead.time);
+  });
+
+  it('запись на час свой час показывает', () => {
+    const event = pick('event');
+    chip(event);
+
+    expect(screen.getByRole('button', { name: event.label })).toHaveTextContent(event.time);
+  });
+
+  it('🔴 обрезанное имя раскрывается подсказкой — и карточкой для клавиатуры', () => {
+    const order = pick('order');
+    chip(order);
+
+    /* Подсказка при наведении не имеет права быть единственным путём к
+       полному тексту: для клавиатуры и пальца тот же текст даёт карточка
+       записи, открываемая нажатием (правило truncation-strategy). */
+    expect(screen.getByTitle(order.title)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: order.label })).toHaveAttribute(
+      'aria-haspopup',
+      'dialog',
+    );
+  });
 });

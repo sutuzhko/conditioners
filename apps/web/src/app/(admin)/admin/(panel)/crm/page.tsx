@@ -5,18 +5,24 @@ import {
   CalendarGrid,
   CalendarNav,
   CalendarStage,
+  TeamFilter,
   TimeGrid,
+  WeekBoard,
   crmContent as texts,
   dayColumns,
   hourRangeOf,
   marksOf,
   monthColumns,
   parseCalendarView,
+  parseKinds,
   parseTeamFlag,
+  parseWho,
+  teamLoad,
   weekColumns,
   type CalendarLead,
   type CalendarView,
   type CrmEventDraft,
+  type ScheduleFilter,
   type ScheduleSource,
 } from '@/features/crm-calendar';
 import { formatPhone } from '@/shared/lib/format';
@@ -50,6 +56,10 @@ type Search = {
   view?: string;
   /** Наложение занятости команды: `on` включает (ADR-123). */
   team?: string;
+  /** Кого видно в слое: `who=u2,u3`. Нет параметра — всех (issue #49). */
+  who?: string;
+  /** `kinds=orders,leads` — какие виды записей показывать (issue #49). */
+  kinds?: string;
   /** Заявка, из которой заводят дело: приходит из раздела заявок. */
   lead?: string;
   /** Найденная поиском запись: её подсвечивают в сетке (issue #132). */
@@ -83,6 +93,8 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
     day: dayParam,
     view: viewParam,
     team: teamParam,
+    who: whoParam,
+    kinds: kindsParam,
     lead: leadParam,
     focus: focusParam,
   } = await searchParams;
@@ -102,6 +114,14 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
      заготовка дела из заявки. Две проверки одного и того же разошлись бы. */
   const owner = isOwner(session);
   const team = owner && parseTeamFlag(teamParam);
+
+  /* 🔴 Состав слоя существует только вместе со слоем (issue #49): выключенный
+     не должен нести за собой список, о котором человек не помнит, — и
+     монтажнику он не достаётся вовсе, как и сам слой (ADR-095). Виды записей
+     от слоя не зависят: ими прячут заявки и дела и с выключенным слоем. */
+  const who = team ? parseWho(whoParam) : null;
+  const kinds = parseKinds(kindsParam);
+  const filter: ScheduleFilter = { who: who === null ? null : new Set(who), kinds };
 
   // день главнее месяца: пришли по ссылке на день — показываем его месяц
   const day = (dayParam === undefined ? null : parseDayKey(dayParam)) ?? today;
@@ -124,9 +144,11 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
     listBlocks(viewer, range.from, range.to),
     countOverdue(viewer, dayRange(today).from),
     leadParam === undefined || !owner ? Promise.resolve(null) : findById(leadParam),
-    /* Список команды нужен только включённому наложению: без него это лишний
-       запрос на каждое листание месяца. */
-    team ? listInstallers(true) : Promise.resolve([]),
+    /* 🔴 Список команды нужен всегда, а не только включённому слою: карточка
+       «Показывать» и подзаголовок раздела называют состав постоянно (макет
+       `design/admin/Calendar.body.html`), и без списка галочку нечем зажечь.
+       Монтажнику команда закрыта (ADR-095) — ему запрос и не идёт. */
+    owner ? listInstallers(true) : Promise.resolve([]),
     /* 🔴 Рабочее окно — настройка `schedule` (ADR-138). Оно решает, куда сетка
        прокручена и какие часы помечены нерабочими, но не то, что можно
        завести: запись за границей окна создаётся обычным образом. */
@@ -163,18 +185,28 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
     viewerId: session.userId,
     today,
     team: installers,
+    filter,
   };
 
   const legend = [...marksOf(installers).values()];
   const hours = hourRangeOf(window);
+  /* Часы считаются по всем нарядам промежутка, а не по показанным: цифра
+     рядом с выключенным человеком обязана остаться прежней. */
+  const load = teamLoad(orders, installers);
+
+  /* Место целиком: из него собираются и переходы шапки, и адреса фильтра. */
+  const place = {
+    view,
+    month,
+    day,
+    today,
+    team,
+    who: who === null ? null : [...who],
+    kinds: kinds === null ? null : [...kinds],
+  };
 
   return (
     <div className={styles.page}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>{texts.title}</h1>
-        <p className={styles.lead}>{texts.lead}</p>
-      </header>
-
       {/* 🔴 Сетка внутри управляющего слоя остаётся серверной: `children`
           переезжают через границу как разметка, а действия раздаются
           контекстом — функция границу не переживает. */}
@@ -193,43 +225,70 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
             today={today}
             overdue={overdue}
             team={team}
+            who={place.who}
+            kinds={place.kinds}
             canTeam={owner}
+            teamSize={installers.length}
+            workFromMin={hours.workFromMin}
+            workToMin={hours.workToMin}
           />
 
-          {team && installers.length === 0 ? (
-            <div className={styles.empty}>
-              <p className={styles.emptyTitle}>{texts.teamEmpty}</p>
-              <p className={styles.emptyText}>{texts.teamEmptyHint}</p>
+          {/* 🔴 Карточка «Показывать» слева от сетки — макет
+              `design/admin/Calendar.body.html`. Список людей в ней и легенда, и
+              фильтр слоя, и его переключатель разом: отдельной кнопки над
+              сеткой макет не знает, а две кнопки на одно состояние — это ровно
+              то, на что владелец и пожаловался. Монтажнику карточки нет:
+              команда ему закрыта (ADR-095). */}
+          <div
+            className={[styles.board, owner ? null : styles.boardWide].filter(Boolean).join(' ')}
+          >
+            {owner ? (
+              <TeamFilter
+                place={place}
+                team={legend}
+                load={load}
+                workFromMin={hours.workFromMin}
+                workToMin={hours.workToMin}
+              />
+            ) : null}
+
+            <div className={styles.sheet}>
+              {owner && installers.length === 0 ? (
+                <div className={styles.empty}>
+                  <p className={styles.emptyTitle}>{texts.teamEmpty}</p>
+                  <p className={styles.emptyText}>{texts.teamEmptyHint}</p>
+                </div>
+              ) : null}
+
+              {view === 'month' ? (
+                <CalendarGrid columns={monthColumns(source, month)} focusId={focusParam} />
+              ) : null}
+
+              {/* 🔴 Неделя на телефоне складывается в повестку (issue #47):
+                  семь колонок в 375px дают сорок пикселей на день, и от записи
+                  остаётся один символ. Выбор между сеткой и списком делает CSS —
+                  ширины окна сервер не знает. */}
+              {view === 'week' ? (
+                <WeekBoard
+                  columns={weekColumns(source, day)}
+                  range={hours}
+                  nowMin={minutesOfDay(now)}
+                  focusId={focusParam}
+                />
+              ) : null}
+
+              {view === 'day' ? (
+                <TimeGrid
+                  columns={dayColumns(source, day)}
+                  view={view}
+                  range={hours}
+                  nowMin={minutesOfDay(now)}
+                  label={texts.dayLabel}
+                  focusId={focusParam}
+                />
+              ) : null}
             </div>
-          ) : null}
-
-          {view === 'month' ? (
-            <CalendarGrid columns={monthColumns(source, month)} focusId={focusParam} />
-          ) : null}
-
-          {view === 'week' ? (
-            <TimeGrid
-              columns={weekColumns(source, day)}
-              view={view}
-              range={hours}
-              nowMin={minutesOfDay(now)}
-              label={texts.weekLabel}
-              team={legend}
-              focusId={focusParam}
-            />
-          ) : null}
-
-          {view === 'day' ? (
-            <TimeGrid
-              columns={dayColumns(source, day)}
-              view={view}
-              range={hours}
-              nowMin={minutesOfDay(now)}
-              label={texts.dayLabel}
-              team={legend}
-              focusId={focusParam}
-            />
-          ) : null}
+          </div>
         </div>
       </CalendarStage>
     </div>

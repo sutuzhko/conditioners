@@ -358,7 +358,7 @@ section.TimeGrid__grid
           button.ColumnCanvas__hour#23  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
           button.ColumnCanvas__hour#24  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
         span.EventChip__slot
-          button.EventChip__chip  bg #15803d14  border #be123c73  shadow #be123c73 0px 0px 0px 1px inset
+          button.EventChip__chip  bg #15803d14  border #be123c
             span.EventChip__head
               svg.EventChip__icon
               span.EventChip__time  color #166534
@@ -369,7 +369,7 @@ section.TimeGrid__grid
               svg
               span.EventChip__markWord  color #166534
         span.EventChip__slot#2
-          button.EventChip__chip  bg #be123c14  border #be123c73  shadow #be123c73 0px 0px 0px 1px inset
+          button.EventChip__chip  bg #be123c14  border #be123c
             span.EventChip__head#2
               svg.EventChip__icon
               span.EventChip__time  color #be123c
@@ -452,7 +452,7 @@ section.TimeGrid__grid
           button.ColumnCanvas__hour#23  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
           button.ColumnCanvas__hour#24  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
         span.EventChip__slot
-          button.EventChip__chip  bg #4ade801f  border #fb718580  shadow #fb718580 0px 0px 0px 1px inset
+          button.EventChip__chip  bg #4ade801f  border #fb7185
             span.EventChip__head
               svg.EventChip__icon
               span.EventChip__time  color #4ade80
@@ -463,7 +463,7 @@ section.TimeGrid__grid
               svg
               span.EventChip__markWord  color #4ade80
         span.EventChip__slot#2
-          button.EventChip__chip  bg #fb71851f  border #fb718580  shadow #fb718580 0px 0px 0px 1px inset
+          button.EventChip__chip  bg #fb71851f  border #fb7185
             span.EventChip__head#2
               svg.EventChip__icon
               span.EventChip__time  color #fb7185

@@ -12,7 +12,8 @@ const meta = {
     today: '2026-08-23',
     overdue: 0,
     team: false,
-    canTeam: false,
+    canTeam: true,
+    teamSize: 4,
   },
 } satisfies Meta<typeof CalendarNav>;
 
@@ -37,14 +38,17 @@ export const День: Story = {
   args: { view: 'day' },
 };
 
-/** Переключатель занятости команды — у владельца, выключен. */
-export const СПереключателем: Story = {
-  args: { view: 'week', canTeam: true },
+/**
+ * 🔴 Монтажнику состав команды не называется: она ему закрыта (ADR-095), и
+ * подзаголовок говорит только про рабочее окно.
+ */
+export const УМонтажника: Story = {
+  args: { view: 'week', canTeam: false },
 };
 
-/** 🔴 Наложение включено: занятость всей команды ляжет на ту же сетку. */
-export const ЗанятостьВключена: Story = {
-  args: { view: 'week', canTeam: true, team: true },
+/** Другое рабочее окно: подзаголовок берёт его из настройки (ADR-138). */
+export const ДругоеОкно: Story = {
+  args: { view: 'week', workFromMin: 8 * 60, workToMin: 21 * 60 },
 };
 
 /** Просроченные дела: цифра рядом с заголовком, а не в глубине списка. */

@@ -1,19 +1,76 @@
-/* Шапка календаря — порядок эталона (CRM §3.5.1): стрелки и «Сегодня» слева,
-   заголовок и переключатель видов посередине, заведение справа. */
+/* Шапка календаря — состав и порядок макета (`design/admin/Calendar.body.html`,
+   кадр 1440).
+
+   Две строки, а не одна. Верхняя: период заголовком, под ним раздел с составом
+   команды и рабочим окном, справа переключатель видов и «Запись». Нижняя:
+   стрелки, «Сегодня», клавиши и прижатый вправо поиск. Одной строкой всё это
+   не помещается уже на 1200 и переносится случайными кусками — так и вышло в
+   первой сборке, где переключатель стоял рядом с датой, а поиск падал под
+   стрелки. */
 
 .nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px 14px;
-  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
 }
 
+.headline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* 🔴 Период — сам заголовок страницы (инвариант 4: он на ней один). Название
+   раздела человек и так видит в колонке слева; чего он не видит — какую
+   неделю ему открыли. */
 .title {
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: var(--fs-h3);
+  font-size: clamp(20px, 2.2vw, 26px);
   font-weight: 700;
+  line-height: 1.15;
+}
+
+.sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: 1.4;
+}
+
+/* Виды и «Запись» — правый край верхней строки, как в макете. */
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Поиск прижат к правому краю строки листания — там его и ищет рука. */
+.find {
+  min-width: 0;
+  margin-left: auto;
 }
 
 /* Переключатель видов: лента ссылок, а не вкладки на клиенте — вид живёт в
@@ -60,47 +117,6 @@
   color: var(--bg);
 }
 
-/* Переключатель наложения занятости команды. Ссылка, а не кнопка: состояние
-   живёт в адресе и переживает обновление страницы (ADR-080). */
-.team {
-  display: inline-flex;
-  gap: 6px;
-  align-items: center;
-  border: 1px solid var(--line);
-  border-radius: var(--r-pill);
-  background: var(--card);
-  padding: 5px 12px;
-  color: var(--ink2);
-  font-size: var(--fs-caption);
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.team:hover {
-  border-color: var(--accent-ink);
-  color: var(--accent-text);
-}
-
-.team:focus-visible {
-  outline: none;
-  box-shadow: var(--ring-focus-ring);
-}
-
-/* Включённое состояние — не только цвет: у ссылки стоит `aria-pressed`, а
-   заливка сплошная, и это видно в монохромном режиме. */
-.teamOn {
-  border-color: var(--accent-ink);
-  background: var(--accent-bg);
-  color: var(--accent-text);
-}
-
-.teamIcon {
-  flex: none;
-  width: 16px;
-  height: 16px;
-}
-
 /* Просроченное — ссылка, а не надпись: увидел цифру, нажал, попал в сегодня. */
 .overdue {
   border: 1px solid var(--error-line);
@@ -113,17 +129,11 @@
   text-decoration: none;
 }
 
-/* Стрелки и «Сегодня» — слева, как в эталоне: рука идёт к ним первой. */
+/* Стрелки — парой, «Сегодня» рядом: в макете они стоят вместе слева. */
 .steps {
   display: flex;
-  gap: 6px;
+  gap: 2px;
   align-items: center;
-}
-
-/* Заведение прижимается к правому краю: оно завершает строку, а не спорит с
-   переключателем видов за середину. */
-.actions {
-  margin-left: auto;
 }
 
 /* 🔴 36px — размер для мыши. До 900px раскладка сенсорная, и шаги листания
@@ -190,7 +200,6 @@
   /* Переключателю вида и остальным пилюлям хватает вертикального поля:
      ширина у них своя от подписи и заведомо больше 44. */
   .view,
-  .team,
   .overdue {
     display: inline-flex;
     align-items: center;
