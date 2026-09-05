@@ -1,0 +1,57 @@
+# админка-заказы-шапка-наряда-монтажника--вработе · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 500, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+header.OrderInstallerHead__head  358×64 @16,16
+  h1.OrderInstallerHead__title  358×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Монтаж · Сплит-система 09»
+  p.OrderInstallerHead__meta  358×28 @0,36
+    time.OrderInstallerHead__clock  148×22 @0,3  JetBrains Mono 700 15/22  lines=1  «28.08.2026, 11:00»
+    span.OrderInstallerHead__span  17×20 @160,4  Manrope 500 13/20  lines=1  «3 ч»
+    span.OrderInstallerHead__number  47×20 @189,4  JetBrains Mono 400 13/20  lines=1  «№ 1059»
+    span.Badge__badge  90×28 @248,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+      span.Badge__dot  6×6 @13,11  r100
+
+[геометрия 768]
+header.OrderInstallerHead__head  736×72 @16,16
+  h1.OrderInstallerHead__title  736×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Монтаж · Сплит-система 09»
+  p.OrderInstallerHead__meta  736×28 @0,43
+    time.OrderInstallerHead__clock  148×22 @0,3  JetBrains Mono 700 15/22  lines=1  «28.08.2026, 11:00»
+    span.OrderInstallerHead__span  17×20 @160,4  Manrope 500 13/20  lines=1  «3 ч»
+    span.OrderInstallerHead__number  47×20 @189,4  JetBrains Mono 400 13/20  lines=1  «№ 1059»
+    span.Badge__badge  90×28 @248,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+      span.Badge__dot  6×6 @13,11  r100
+
+[геометрия 1440]
+header.OrderInstallerHead__head  1408×80 @16,16
+  h1.OrderInstallerHead__title  1408×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Монтаж · Сплит-система 09»
+  p.OrderInstallerHead__meta  1408×28 @0,52
+    time.OrderInstallerHead__clock  148×22 @0,3  JetBrains Mono 700 15/22  lines=1  «28.08.2026, 11:00»
+    span.OrderInstallerHead__span  17×20 @160,4  Manrope 500 13/20  lines=1  «3 ч»
+    span.OrderInstallerHead__number  47×20 @189,4  JetBrains Mono 400 13/20  lines=1  «№ 1059»
+    span.Badge__badge  90×28 @248,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+      span.Badge__dot  6×6 @13,11  r100
+
+[палитра light]
+header.OrderInstallerHead__head
+  h1.OrderInstallerHead__title  color #0f172a
+  p.OrderInstallerHead__meta
+    time.OrderInstallerHead__clock  color #0f172a
+    span.OrderInstallerHead__span  color #556173
+    span.OrderInstallerHead__number  color #5b6a7d
+    span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
+      span.Badge__dot  bg #0e7490
+
+[палитра dark]
+header.OrderInstallerHead__head
+  h1.OrderInstallerHead__title  color #eaf1f8
+  p.OrderInstallerHead__meta
+    time.OrderInstallerHead__clock  color #eaf1f8
+    span.OrderInstallerHead__span  color #8598ac
+    span.OrderInstallerHead__number  color #7e92a7
+    span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+      span.Badge__dot  bg #22d3ee

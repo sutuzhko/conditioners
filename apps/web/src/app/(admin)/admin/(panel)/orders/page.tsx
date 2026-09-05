@@ -4,8 +4,11 @@ import Link from 'next/link';
 import {
   DEFAULT_ORDER_FILTERS,
   OrderFilters,
+  OrderInstallerAgenda,
   OrderList,
   OrderTabs,
+  agendaWindow,
+  installerWhenFromParam,
   isOrderPeriod,
   orderColumnsFromParam,
   orderManagerContent as texts,
@@ -17,7 +20,7 @@ import {
 } from '@/features/order-manager';
 import { requirePage } from '@/server/guards';
 import { listInstallers } from '@/server/repo/admin-users';
-import { counts, historyTotals, list } from '@/server/repo/orders';
+import { agenda, counts, historyTotals, list } from '@/server/repo/orders';
 import { buttonClassName } from '@/shared/ui';
 
 import styles from './page.module.css';
@@ -29,14 +32,18 @@ export const dynamic = 'force-dynamic';
 /**
  * Наряды.
  *
- * 🔴 Раздел открыт обеим ролям, и разграничение делает не эта страница, а
- * репозиторий: `list` получает смотрящего и сужает выборку до назначенных
- * ему нарядов (ADR-114). Здесь `requirePage`, а не `requireOwnerPage` —
- * у монтажника это рабочий экран.
+ * 🔴 Раздел открыт обеим ролям, но экранов у него два, а не один урезанный
+ * (issue #633). Владельцу — список со стопками, фильтрами и разбивкой:
+ * «что где висит». Монтажнику — наряд дня, сгруппированный по времени:
+ * «куда я еду дальше». Здесь `requirePage`, а не `requireOwnerPage` — у
+ * монтажника это рабочий экран.
+ *
+ * 🔴 Данные сужает репозиторий, а не разметка: и `agenda`, и `list` получают
+ * смотрящего и ставят фильтр по исполнителю в сам запрос (ADR-114).
  *
  * Стопка, период, монтажник, сортировка, состав колонок, число строк и
  * страница живут в адресе: «Отказы за прошлый месяц» — ссылка, которую
- * сохраняют в закладки.
+ * сохраняют в закладки. Окно наряда дня — там же, параметром `when`.
  */
 export default async function AdminOrdersPage({
   searchParams,
@@ -50,11 +57,29 @@ export default async function AdminOrdersPage({
     sort?: string;
     size?: string;
     cols?: string;
+    /** Окно наряда дня монтажника: сегодня, завтра, неделя (issue #633). */
+    when?: string;
   }>;
 }) {
   const session = await requirePage();
 
   const params = await searchParams;
+  const viewer = { role: session.role, userId: session.userId };
+
+  /* 🔴 Монтажнику — свой экран, а не таблица владельца в карточках (issue
+     #633). Ветка стоит до чтения списка: у наряда дня свой запрос, своё окно
+     и свой порядок — по времени, а не по состоянию, — и общий `list` со
+     стопками, фильтрами и разбивкой ему не нужен вовсе. */
+  if (session.role !== 'owner') {
+    const when = installerWhenFromParam(params.when);
+    const orders = await agenda(viewer, agendaWindow(when));
+
+    return (
+      <div className={styles.page}>
+        <OrderInstallerAgenda orders={orders} when={when} />
+      </div>
+    );
+  }
 
   /* Вкладка разбирается здесь, до чтения данных: страница уходит в базу за той
      стопкой, что стоит в адресе, и приходит уже открытой на ней (issue #340).
@@ -71,9 +96,6 @@ export default async function AdminOrdersPage({
     size: orderPageSizeFromParam(params.size),
     columns: orderColumnsFromParam(params.cols),
   };
-
-  const owner = session.role === 'owner';
-  const viewer = { role: session.role, userId: session.userId };
 
   /* 🔴 Монтажники нужны владельцу и только ему: они наполняют фильтр по
      исполнителю и групповое назначение — оба решения владельца (CRM.md §6).
@@ -93,7 +115,7 @@ export default async function AdminOrdersPage({
       viewer,
     ),
     counts(viewer),
-    owner ? listInstallers(true) : Promise.resolve([]),
+    listInstallers(true),
   ]);
 
   /* Форма исполнителя для панели: репозиторий отдаёт учётную запись целиком,
@@ -108,7 +130,7 @@ export default async function AdminOrdersPage({
   /* Итог периода нужен только «Истории»: на остальных стопках он отвечал бы
      на вопрос, которого к ним не задают. */
   const totals =
-    owner && filters.tab === 'history'
+    filters.tab === 'history'
       ? await historyTotals({ period: filters.period, installerId: filters.installer }, viewer)
       : undefined;
 
@@ -116,31 +138,25 @@ export default async function AdminOrdersPage({
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.headline}>
-          <h1 className={styles.title}>{owner ? texts.title : texts.installerTitle}</h1>
+          <h1 className={styles.title}>{texts.title}</h1>
 
-          {/* Завести наряд может только владелец: у монтажника это список
-              его выездов, а не инструмент планирования. */}
-          {owner ? (
-            <Link
-              className={buttonClassName({ size: 'sm' })}
-              href={{ pathname: '/admin/orders/new' }}
-            >
-              {texts.add}
-            </Link>
-          ) : null}
+          <Link
+            className={buttonClassName({ size: 'sm' })}
+            href={{ pathname: '/admin/orders/new' }}
+          >
+            {texts.add}
+          </Link>
         </div>
 
         {/* 🔴 Строка счёта вместо прозы (issue #593, макет «Заказы»): три числа
             отвечают на три вопроса, которые владелец задаёт разделу первым.
             Проза объясняла, что такое наряд, — а это он знает и без нас. */}
         <p className={styles.lead}>
-          {owner
-            ? [
-                texts.countAll(stacks.all),
-                texts.countActive(stacks.active),
-                texts.countOverdue(stacks.overdue),
-              ].join(' · ')
-            : texts.installerLead}
+          {[
+            texts.countAll(stacks.all),
+            texts.countActive(stacks.active),
+            texts.countOverdue(stacks.overdue),
+          ].join(' · ')}
         </p>
       </header>
 
@@ -155,13 +171,7 @@ export default async function AdminOrdersPage({
 
       <OrderFilters filters={filters} installers={crew} total={found.total} />
 
-      <OrderList
-        page={found}
-        filters={filters}
-        installers={crew}
-        totals={totals}
-        forInstaller={!owner}
-      />
+      <OrderList page={found} filters={filters} installers={crew} totals={totals} />
     </div>
   );
 }
