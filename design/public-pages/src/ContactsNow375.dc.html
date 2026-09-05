@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+:root{--bg: #fff;--bg-soft: #f8fafc;--card: #fff;--header-bg: rgb(255 255 255 / 82%);--hero-grad: linear-gradient(180deg, #f0f9fb 0%, #fff 100%);--ink: #0f172a;--ink2: #334155;--body: #475569;--muted: #556173;--faint: #5b6a7d;--line: #e2e8f0;--line-strong: #cbd5e1;--line-soft: #eef2f6;--accent-ink: #0891b2;--accent-text: #0e7490;--accent-bg: #ecfeff;--accent-line: #a5f3fc;--panel: #0f172a;--stripe-a: #edf2f6;--stripe-b: #f5f8fa;--field: #fff;--brand: #0e7490;--brand-hover: #155e75;--brand-mark: #0891b2;--brand-mark-dark: #22d3ee;--font-display: 'Onest', system-ui, sans-serif;--font-text: 'Manrope', system-ui, sans-serif;--font-mono: 'JetBrains Mono', ui-monospace, monospace;--fs-h1: clamp(30px, 2.159vw + 23.091px, 49px);--fs-h2: clamp(24px, 1.591vw + 18.909px, 38px);--fs-h3: clamp(17px, 0.227vw + 16.273px, 19px);--fs-lead: clamp(16px, 0.284vw + 15.091px, 18.5px);--fs-base: 15px;--fs-dense: 14.5px;--fs-caption: 13px;--fs-micro: 12px;--r-sm: 11px;--r-md: 14px;--r-lg: 20px;--r-xl: 22px;--r-pill: 100px;--container: 1200px;--gutter: clamp(16px, 0.91vw + 13.09px, 24px);--section-y: clamp(48px, 4.55vw + 33.45px, 88px);--card-pad: clamp(14px, 0.455vw + 12.55px, 18px);--sale-slot-h: 24px;--fs-card-price: clamp(22px, 3.571cqi + 11.71px, 24px);--shadow-header: 0 12px 34px -16px rgb(15 23 42 / 22%);--shadow-card: 0 20px 44px -28px rgb(15 23 42 / 20%);--shadow-brand: 0 10px 24px rgb(14 116 144 / 30%);--shadow-sticky-up: 0 -12px 28px -18px rgb(15 23 42 / 26%);--ring-focus: 0 0 0 3px rgb(8 145 178 / 12%);}
+[data-ground='panel']{--ink: #eaf1f8;--ink2: #c9d5e2;--body: #a8b6c6;--muted: #8598ac;--faint: #7e92a7;--accent-text: #22d3ee;}
+[data-theme='dark']{--bg: #0b1220;--bg-soft: #0e1729;--card: #121d31;--header-bg: rgb(11 18 32 / 80%);--hero-grad: linear-gradient(180deg, #0c1628 0%, #0b1220 100%);--ink: #eaf1f8;--ink2: #c9d5e2;--body: #a8b6c6;--muted: #8598ac;--faint: #7e92a7;--line: #1e2b41;--line-strong: #2c3d59;--line-soft: #182338;--accent-ink: #22d3ee;--accent-text: #22d3ee;--accent-bg: rgb(34 211 238 / 10%);--accent-line: rgb(34 211 238 / 35%);--panel: #111d34;--stripe-a: #16223a;--stripe-b: #121d31;--field: #0b1424;}
+[data-ui='panel'],body:has([data-ui='panel']){--h-sm: 32px;--h-md: 40px;--h-lg: 48px;--h-nav: 44px;--r-btn: 999px;--r-card: 14px;--r-nav: 12px;--r-app: 20px;--pad-card: 16px;--pad-card-sm: 12px;--fs-label: 13px;--fs-body: 14px;--fs-tiny: 12px;--field-bg: var(--bg-soft);--aside: 264px;--rail: 72px;--navbar: 56px;--sh-sm: 0 0 5px 0 rgb(15 23 42 / 3%), 0 2px 10px 0 rgb(15 23 42 / 6%);--sh-md: 0 0 15px 0 rgb(15 23 42 / 4%), 0 2px 30px 0 rgb(15 23 42 / 8%);--sh-lg: 0 0 30px 0 rgb(15 23 42 / 6%), 0 30px 60px 0 rgb(15 23 42 / 12%);--shadow-btn: none;}
+[data-theme='dark'] [data-ui='panel'],[data-theme='dark'] body:has([data-ui='panel']){--sh-sm: 0 0 5px 0 rgb(0 0 0 / 20%), 0 2px 10px 0 rgb(0 0 0 / 28%);--sh-md: 0 0 15px 0 rgb(0 0 0 / 24%), 0 2px 30px 0 rgb(0 0 0 / 34%);--sh-lg: 0 0 30px 0 rgb(0 0 0 / 34%), 0 30px 60px 0 rgb(0 0 0 / 46%);}
+@media (max-width: 899px){[data-ui='panel'],body:has([data-ui='panel']){--h-sm: var(--tap);--h-md: var(--tap);--h-lg: 52px;}
+}
+:root{--eco-usual-from: rgb(249 115 22);--eco-usual-to: rgb(239 68 68);--eco-inverter-from: rgb(6 182 212);--ring-focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent-ink);--ring-focus-inset: inset 0 0 0 2px var(--accent-ink);--r-ml: 18px;--r-xxl: 24px;--shadow-raised: 0 36px 80px -32px rgb(8 66 84 / 45%);--shadow-float: 0 40px 80px -30px rgb(0 0 0 / 50%);--on-accent: var(--accent-text);--header-h: 90px;--admin-header-h: 66px;--lead-grad: linear-gradient(180deg, rgb(15 23 42) 0%, rgb(11 37 48) 100%);--line-ui: rgb(126 143 166);--star: rgb(217 119 6);--star-bg: rgb(217 119 6 / 12%);--star-line: rgb(217 119 6 / 45%);--sale-ink: rgb(190 18 60);--sale-bg: rgb(190 18 60 / 8%);--sale-line: rgb(190 18 60 / 28%);--error-ink: rgb(190 18 60);--error-bg: rgb(190 18 60 / 8%);--error-line: rgb(190 18 60 / 45%);--ok-ink: rgb(22 101 52);--ok-bg: rgb(21 128 61 / 8%);--ok-line: rgb(21 128 61 / 28%);--warn-ink: rgb(146 64 14);--warn-bg: rgb(180 83 9 / 8%);--warn-line: rgb(180 83 9 / 28%);--info-ink: rgb(67 56 202);--info-bg: rgb(67 56 202 / 8%);--info-line: rgb(67 56 202 / 28%);--on-brand: rgb(255 255 255);--on-panel: rgb(255 255 255);--on-error: rgb(255 255 255);--on-ok: rgb(255 255 255);--overlay: rgb(15 23 42 / 45%);--s1: rgb(8 145 178);--s2: rgb(180 83 9);--tap: 44px;--fade-inline-end: linear-gradient(90deg, rgb(0 0 0), rgb(0 0 0) calc(100% - 32px), transparent);--fade-inline-both: linear-gradient( 90deg, transparent, rgb(0 0 0) 24px, rgb(0 0 0) calc(100% - 24px), transparent );--action-bar-h: 69px;--bottom-reserve: calc(var(--tap) + var(--gutter));--icon-when-light: block;--icon-when-dark: none;--mark-auto-tile: var(--brand-mark);--mark-auto-jet: var(--on-brand);--mark-auto-jet-soft: var(--accent-line);--hours-night: var(--line-strong);--hours-night-on-from: var(--brand);--hours-night-on-to: var(--brand-hover);--hero-accent-from: var(--brand);--hero-accent-to: var(--brand-mark);--dur-fast: 0.15s;--dur-base: 0.22s;--ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);}
+[data-theme='dark']{--star: rgb(251 191 36);--star-bg: rgb(251 191 36 / 14%);--star-line: rgb(251 191 36 / 45%);--sale-ink: rgb(251 113 133);--sale-bg: rgb(251 113 133 / 12%);--sale-line: rgb(251 113 133 / 32%);--line-ui: rgb(86 109 149);--on-error: var(--bg);--on-ok: var(--bg);--error-ink: rgb(251 113 133);--error-bg: rgb(251 113 133 / 12%);--error-line: rgb(251 113 133 / 50%);--ok-ink: rgb(74 222 128);--ok-bg: rgb(74 222 128 / 12%);--ok-line: rgb(74 222 128 / 32%);--warn-ink: rgb(251 191 36);--warn-bg: rgb(251 191 36 / 12%);--warn-line: rgb(251 191 36 / 32%);--s1: rgb(34 211 238);--s2: rgb(251 191 36);--info-ink: rgb(165 180 252);--info-bg: rgb(165 180 252 / 12%);--info-line: rgb(165 180 252 / 32%);--icon-when-light: none;--icon-when-dark: block;--mark-auto-tile: var(--brand-mark-dark);--mark-auto-jet: var(--bg);--mark-auto-jet-soft: var(--bg);--hours-night: var(--bg);--hours-night-on-from: var(--brand-mark);--hours-night-on-to: var(--brand);--hero-accent-from: var(--brand-mark);--hero-accent-to: var(--brand-mark-dark);--overlay: rgb(2 6 16 / 68%);}
+@media (max-width: 599px){:root{--header-h: 80px;}
+}
+@media (max-width: 899px){:root{--admin-header-h: 60px;}
+}
+@media (max-height: 519px) and (orientation: landscape){:root{--admin-header-h: 46px;}
+}
+@media (max-width: 599px){:root{--bottom-reserve: calc(var(--action-bar-h) + env(safe-area-inset-bottom));}
+}
+*,*::before,*::after{box-sizing: border-box;}
+html{scroll-behavior: smooth;}
+html:has([data-ui='panel']){scroll-padding-bottom: 72px;scroll-padding-top: calc(var(--admin-header-h) + 8px);}
+@media (max-width: 899px){html:has([data-ui='panel'] [data-sticky='bottom']){scroll-padding-bottom: calc(72px + 68px);}
+}
+html:has(main#top){scroll-padding-top: calc(var(--header-h) + 8px);}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior: auto;}
+*,*::before,*::after{animation-duration: 0.01ms !important;animation-iteration-count: 1 !important;transition-duration: 0.01ms !important;}
+}
+body{margin: 0;background: var(--bg);color: var(--ink);font-family: var(--font-text);font-size: var(--fs-base);line-height: 1.55;-webkit-font-smoothing: antialiased;}
+h1,h2,h3,h4,h5,h6{font-family: var(--font-display);line-height: 1.2;letter-spacing: -0.02em;}
+:focus-visible{outline: 2px solid var(--accent-ink);outline-offset: 2px;}
+:where(a:focus-visible){border-radius: var(--r-sm);}
+::selection{background: var(--brand-mark-dark);color: var(--panel);}
+main > :last-child{padding-bottom: var(--section-y);}
+main > section:not([data-band]) + section[data-band]{margin-top: var(--section-y);}
+main#top ~ footer{padding-bottom: var(--bottom-reserve);}
+.Button_button__86Aws{display: inline-flex;gap: 8px;align-items: center;justify-content: center;box-sizing: border-box;border: 1px solid transparent;font-family: var(--font-text);font-weight: 600;line-height: 1.2;text-align: center;text-decoration: none;white-space: nowrap;cursor: pointer;transition: background var(--dur-fast) ease, color var(--dur-fast) ease, border-color var(--dur-fast) ease, box-shadow var(--dur-fast) ease, transform var(--dur-fast) ease;}
+.Button_button__86Aws:focus-visible{box-shadow: var(--ring-focus-ring);}
+.Button_button__86Aws:disabled,.Button_button__86Aws[aria-disabled='true']{cursor: not-allowed;opacity: 0.5;box-shadow: none;}
+.Button_button__86Aws:active:not(:disabled, [aria-disabled='true']){transform: scale(0.97);}
+@media (prefers-reduced-motion: reduce){.Button_button__86Aws:active{transform: none;}
+}
+.Button_lg__3sF9G{min-height: var(--h-lg, 52px);padding: 0 28px;border-radius: var(--r-btn, 12px);font-size: 16px;}
+.Button_solid__Opetg{border-color: var(--brand);background: var(--brand);color: var(--on-brand);box-shadow: var(--shadow-btn, var(--shadow-brand));}
+@media (hover: hover){.Button_solid__Opetg:hover:not(:disabled, [aria-disabled='true']){border-color: var(--brand-hover);background: var(--brand-hover);}
+}
+.Button_fullWidth__kiO4D{width: 100%;}
+.Button_content__7ZT41{display: inline-flex;gap: 8px;align-items: center;justify-content: center;min-width: 0;}
+.Button_label__PlLEz{overflow: hidden;text-overflow: ellipsis;}
+@keyframes Button_button-spin___vC0s{to{transform: rotate(360deg);}
+}
+@keyframes Modal_modal-fade__XJh44{from{opacity: 0;}
+}
+@keyframes Modal_modal-rise__bW8_j{from{opacity: 0;transform: translateY(24px);}
+}
+@keyframes Drawer_drawer-fade__VPDLa{from{opacity: 0;}
+}
+@keyframes Drawer_drawer-in-left__Y0vMf{from{transform: translateX(-100%);}
+}
+@keyframes Drawer_drawer-in-right__Wzf85{from{transform: translateX(100%);}
+}
+@keyframes Skeleton_skeleton-shimmer__SYauk{from{background-position: 150% 0;}
+to{background-position: -50% 0;}
+}
+:where(.Table_table__pT4x0 th){padding: 14px 18px;border-bottom: 1px solid var(--line);vertical-align: bottom;}
+:where(.Table_table__pT4x0 thead th){padding: 16px 18px;color: var(--ink);font-family: var(--font-display);font-size: var(--fs-base);font-weight: 700;white-space: nowrap;}
+:where(.Table_table__pT4x0 tbody th){padding: 14px 18px;color: var(--ink);font-size: var(--fs-dense);font-weight: 600;text-align: left;vertical-align: top;}
+:where(.Table_table__pT4x0 td){padding: 14px 18px;border-bottom: 1px solid var(--line-soft);vertical-align: top;}
+@keyframes ActionBar_action-bar-in__iE_aU{from{transform: translateY(100%);opacity: 0;}
+}
+.Button_button__86Aws{display: inline-flex;gap: 8px;align-items: center;justify-content: center;box-sizing: border-box;border: 1px solid transparent;font-family: var(--font-text);font-weight: 600;line-height: 1.2;text-align: center;text-decoration: none;white-space: nowrap;cursor: pointer;transition: background var(--dur-fast) ease, color var(--dur-fast) ease, border-color var(--dur-fast) ease, box-shadow var(--dur-fast) ease, transform var(--dur-fast) ease;}
+.Button_button__86Aws:focus-visible{box-shadow: var(--ring-focus-ring);}
+.Button_button__86Aws:disabled,.Button_button__86Aws[aria-disabled='true']{cursor: not-allowed;opacity: 0.5;box-shadow: none;}
+.Button_button__86Aws:active:not(:disabled, [aria-disabled='true']){transform: scale(0.97);}
+@media (prefers-reduced-motion: reduce){.Button_button__86Aws:active{transform: none;}
+}
+.Button_lg__3sF9G{min-height: var(--h-lg, 52px);padding: 0 28px;border-radius: var(--r-btn, 12px);font-size: 16px;}
+.Button_solid__Opetg{border-color: var(--brand);background: var(--brand);color: var(--on-brand);box-shadow: var(--shadow-btn, var(--shadow-brand));}
+@media (hover: hover){.Button_solid__Opetg:hover:not(:disabled, [aria-disabled='true']){border-color: var(--brand-hover);background: var(--brand-hover);}
+}
+.Button_fullWidth__kiO4D{width: 100%;}
+.Button_content__7ZT41{display: inline-flex;gap: 8px;align-items: center;justify-content: center;min-width: 0;}
+.Button_label__PlLEz{overflow: hidden;text-overflow: ellipsis;}
+@keyframes Button_button-spin___vC0s{to{transform: rotate(360deg);}
+}
+@keyframes Skeleton_skeleton-shimmer__SYauk{from{background-position: 150% 0;}
+to{background-position: -50% 0;}
+}
+:where(.Table_table__pT4x0 th){padding: 14px 18px;border-bottom: 1px solid var(--line);vertical-align: bottom;}
+:where(.Table_table__pT4x0 thead th){padding: 16px 18px;color: var(--ink);font-family: var(--font-display);font-size: var(--fs-base);font-weight: 700;white-space: nowrap;}
+:where(.Table_table__pT4x0 tbody th){padding: 14px 18px;color: var(--ink);font-size: var(--fs-dense);font-weight: 600;text-align: left;vertical-align: top;}
+:where(.Table_table__pT4x0 td){padding: 14px 18px;border-bottom: 1px solid var(--line-soft);vertical-align: top;}
+@keyframes Modal_modal-fade__XJh44{from{opacity: 0;}
+}
+@keyframes Modal_modal-rise__bW8_j{from{opacity: 0;transform: translateY(24px);}
+}
+@keyframes Drawer_drawer-fade__VPDLa{from{opacity: 0;}
+}
+@keyframes Drawer_drawer-in-left__Y0vMf{from{transform: translateX(-100%);}
+}
+@keyframes Drawer_drawer-in-right__Wzf85{from{transform: translateX(100%);}
+}
+@keyframes ScrollTop_scroll-top-in__fVdkV{from{transform: translateY(8px);opacity: 0;}
+}
+@keyframes Hero_hero-gradient__9_mEO{0%, 100%{background-position: 0% 50%;}
+50%{background-position: 100% 50%;}
+}
+@keyframes TrustStrip_slide__elbnf{from{transform: translateX(0);}
+to{transform: translateX(-50%);}
+}
+@keyframes WeatherChip_weather-pulse__HREfj{0%{box-shadow: 0 0 0 0 color-mix(in srgb, var(--warn-ink) 35%, transparent);}
+70%{box-shadow: 0 0 0 8px transparent;}
+100%{box-shadow: 0 0 0 0 transparent;}
+}
+.Contacts_section__DHm14{background: var(--bg);}
+.Contacts_container__xytvB{box-sizing: border-box;max-width: var(--container);margin: 0 auto;padding: var(--section-y) var(--gutter) 0;}
+.Contacts_layout__Cp0Sy{display: grid;grid-template-columns: minmax(0, 1fr);grid-gap: clamp(20px, 0.8rem + 1.4vw, 32px);gap: clamp(20px, 0.8rem + 1.4vw, 32px);align-items: start;}
+.Contacts_info__Jdhqu{display: flex;flex-direction: column;min-width: 0;}
+.Contacts_kicker__eaEdj{margin: 0 0 12px;color: var(--accent-text);font-family: var(--font-mono);font-size: var(--fs-caption);letter-spacing: 0.14em;text-transform: uppercase;}
+.Contacts_title__f_Jte{margin: 0 0 clamp(20px, 0.6rem + 2vw, 28px);color: var(--ink);font-family: var(--font-display);font-size: clamp(24px, 5.4vw, 34px);font-weight: 700;letter-spacing: -0.02em;}
+.Contacts_rows__NKwak{display: grid;grid-template-columns: minmax(0, 1fr);grid-gap: 16px;gap: 16px;margin: 0;}
+.Contacts_row__74Rdr{display: flex;gap: 14px;align-items: flex-start;min-width: 0;}
+.Contacts_icon__pdaMS{display: flex;flex-shrink: 0;align-items: center;justify-content: center;width: 38px;height: 38px;border-radius: 12px;background: var(--accent-bg);color: var(--accent-text);}
+.Contacts_rowBody__uuiEG{min-width: 0;}
+.Contacts_label__Tw9E6{margin: 0 0 2px;color: var(--faint);font-size: var(--fs-micro);}
+.Contacts_definition__fT3pt{margin: 0;}
+.Contacts_value__00eQh,.Contacts_address__s0m4y{color: var(--ink);font-size: var(--fs-base);font-style: normal;font-weight: 500;overflow-wrap: anywhere;}
+.Contacts_phones__OVvo_{display: flex;flex-direction: column;}
+.Contacts_phone__26ki_{display: inline-flex;align-items: center;align-self: flex-start;min-height: var(--tap);color: var(--ink);font-family: var(--font-mono);font-size: var(--fs-base);font-weight: 500;white-space: nowrap;text-decoration: none;}
+.Contacts_phone__26ki_:hover{color: var(--accent-text);}
+.Contacts_phone__26ki_:focus-visible{outline: none;border-radius: 9px;box-shadow: var(--ring-focus-ring);}
+.Contacts_cta__7cv48{margin-top: clamp(20px, 0.6rem + 2vw, 28px);}
+.Contacts_mapCard__Vgblz{box-sizing: border-box;min-width: 0;padding: 20px;border: 1px solid var(--line);border-radius: var(--r-lg);background: var(--card);}
+.Contacts_mapTitle__EXdnt{margin: 0 0 10px;color: var(--accent-text);font-family: var(--font-mono);font-size: var(--fs-caption);letter-spacing: 0.1em;text-transform: uppercase;}
+.Contacts_mapAddress__K0Ngc{margin: 0 0 4px;color: var(--ink);font-size: var(--fs-base);font-weight: 600;overflow-wrap: anywhere;}
+.Contacts_mapArea__nXQlh{margin: 0 0 16px;color: var(--muted);font-size: var(--fs-caption);}
+.Contacts_mapLink__J8m7f{display: inline-flex;align-items: center;justify-content: center;box-sizing: border-box;width: 100%;min-height: var(--tap);padding: 11px 16px;border: 1px solid var(--line-ui);border-radius: var(--r-sm);background: var(--card);color: var(--ink);font-size: var(--fs-dense);font-weight: 600;text-align: center;text-decoration: none;}
+.Contacts_mapLink__J8m7f:hover{border-color: var(--accent-ink);color: var(--accent-text);}
+.Contacts_mapLink__J8m7f:focus-visible{outline: none;box-shadow: var(--ring-focus-ring);}
+.Contacts_mapNote__Ofubk{margin: 12px 0 0;color: var(--faint);font-size: var(--fs-micro);}
+@media (min-width: 600px){.Contacts_rows__NKwak{grid-template-columns: repeat(2, minmax(0, 1fr));gap: 16px clamp(16px, 0.8rem + 1.4vw, 32px);}
+.Contacts_cta__7cv48{max-width: 320px;}
+}
+@media (min-width: 900px){.Contacts_layout__Cp0Sy{grid-template-columns: minmax(0, 1fr) clamp(280px, 26vw, 320px);}
+.Contacts_rows__NKwak{grid-template-columns: minmax(0, 1fr);}
+}
+@keyframes HeroPicker_hero-pulse__iiu80{0%, 100%{box-shadow: 0 0 0 0 var(--ok-line);}
+50%{box-shadow: 0 0 0 5px transparent;}
+}
+  </style>
+</helmet>
+<div data-theme="{{theme}}" style="background:var(--bg);color:var(--ink);min-height:100vh">
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><symbol id="i1" viewBox="0 0 24 24"><path d="M12.5 7.04148C12.3374 7.0142 12.1704 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13C13.6569 13 15 11.6569 15 10C15 9.82964 14.9858 9.6626 14.9585 9.5"></path><path d="M5 15.2161C4.35254 13.5622 4 11.8013 4 10.1433C4 5.64588 7.58172 2 12 2C16.4183 2 20 5.64588 20 10.1433C20 14.6055 17.4467 19.8124 13.4629 21.6744C12.5343 22.1085 11.4657 22.1085 10.5371 21.6744C9.26474 21.0797 8.13831 20.1439 7.19438 19"></path></symbol><symbol id="i2" viewBox="0 0 24 24"><path d="M15.1008 15.0272L15.6446 15.5437L15.6446 15.5437L15.1008 15.0272ZM15.5562 14.5477L15.0124 14.0312L15.0124 14.0312L15.5562 14.5477ZM17.9729 14.2123L17.5987 14.8623L17.5987 14.8623L17.9729 14.2123ZM19.8834 15.312L19.5092 15.962L19.8834 15.312ZM20.4217 18.7584L20.9655 19.2749L20.9655 19.2749L20.4217 18.7584ZM19.0012 20.254L18.4574 19.7375L18.4574 19.7375L19.0012 20.254ZM17.6763 20.9631L17.75 21.7095L17.75 21.7095L17.6763 20.9631ZM7.8154 16.4752L8.3592 15.9587L7.8154 16.4752ZM3.75185 6.92574C3.72965 6.51212 3.37635 6.19481 2.96273 6.21701C2.54911 6.23921 2.23181 6.59252 2.25401 7.00613L3.75185 6.92574ZM9.19075 8.80507L9.73454 9.32159L9.73454 9.32159L9.19075 8.80507ZM9.47756 8.50311L10.0214 9.01963L10.0214 9.01963L9.47756 8.50311ZM9.63428 5.6931L10.2467 5.26012L10.2467 5.26012L9.63428 5.6931ZM8.3733 3.90961L7.7609 4.3426L7.7609 4.3426L8.3733 3.90961ZM4.7177 3.09213C4.43244 3.39246 4.44465 3.86717 4.74498 4.15244C5.04531 4.4377 5.52002 4.42549 5.80529 4.12516L4.7177 3.09213ZM11.0632 13.0559L11.607 12.5394L11.607 12.5394L11.0632 13.0559ZM10.6641 19.8123C11.0148 20.0327 11.4778 19.9271 11.6982 19.5764C11.9186 19.2257 11.8129 18.7627 11.4622 18.5423L10.6641 19.8123ZM15.113 20.0584C14.7076 19.9735 14.3101 20.2334 14.2252 20.6388C14.1403 21.0442 14.4001 21.4417 14.8056 21.5266L15.113 20.0584ZM15.6446 15.5437L16.1 15.0642L15.0124 14.0312L14.557 14.5107L15.6446 15.5437ZM17.5987 14.8623L19.5092 15.962L20.2575 14.662L18.347 13.5623L17.5987 14.8623ZM19.8779 18.2419L18.4574 19.7375L19.545 20.7705L20.9655 19.2749L19.8779 18.2419ZM8.3592 15.9587C4.48307 11.8778 3.83289 8.43556 3.75185 6.92574L2.25401 7.00613C2.35326 8.85536 3.13844 12.6403 7.27161 16.9917L8.3592 15.9587ZM9.73454 9.32159L10.0214 9.01963L8.93377 7.9866L8.64695 8.28856L9.73454 9.32159ZM10.2467 5.26012L8.98569 3.47663L7.7609 4.3426L9.02189 6.12608L10.2467 5.26012ZM9.19075 8.80507C8.64695 8.28856 8.64626 8.28929 8.64556 8.29002C8.64533 8.29028 8.64463 8.29102 8.64415 8.29152C8.6432 8.29254 8.64223 8.29357 8.64125 8.29463C8.63928 8.29675 8.63724 8.29896 8.63515 8.30127C8.63095 8.30588 8.6265 8.31087 8.62182 8.31625C8.61247 8.32701 8.60219 8.33931 8.5912 8.3532C8.56922 8.38098 8.54435 8.41511 8.51826 8.45588C8.46595 8.53764 8.40921 8.64531 8.36117 8.78033C8.26346 9.0549 8.21022 9.4185 8.27675 9.87257C8.40746 10.7647 8.99202 11.9644 10.5194 13.5724L11.607 12.5394C10.1793 11.0363 9.82765 10.1106 9.7609 9.65511C9.72871 9.43536 9.76142 9.31957 9.77436 9.28321C9.78163 9.26277 9.78639 9.25709 9.78174 9.26437C9.77948 9.26789 9.77498 9.27451 9.76742 9.28407C9.76363 9.28885 9.75908 9.29437 9.75364 9.30063C9.75092 9.30375 9.74798 9.30706 9.7448 9.31056C9.74321 9.31231 9.74156 9.3141 9.73985 9.31594C9.739 9.31686 9.73813 9.31779 9.73724 9.31873C9.7368 9.3192 9.73612 9.31992 9.7359 9.32015C9.73522 9.32087 9.73454 9.32159 9.19075 8.80507ZM10.5194 13.5724C12.0422 15.1757 13.1924 15.806 14.0699 15.9485C14.5201 16.0216 14.8846 15.9632 15.1606 15.8544C15.2955 15.8012 15.4023 15.7387 15.4824 15.6819C15.5223 15.6535 15.5556 15.6266 15.5825 15.6031C15.5959 15.5913 15.6078 15.5803 15.6181 15.5703C15.6233 15.5654 15.628 15.5606 15.6324 15.5562C15.6346 15.554 15.6368 15.5518 15.6388 15.5497C15.6398 15.5487 15.6408 15.5477 15.6417 15.5467C15.6422 15.5462 15.6429 15.5454 15.6432 15.5452C15.6439 15.5444 15.6446 15.5437 15.1008 15.0272C14.557 14.5107 14.5577 14.51 14.5583 14.5093C14.5586 14.509 14.5592 14.5083 14.5597 14.5078C14.5606 14.5069 14.5615 14.506 14.5623 14.5051C14.5641 14.5033 14.5658 14.5015 14.5675 14.4998C14.5708 14.4965 14.574 14.4933 14.577 14.4904C14.5831 14.4846 14.5885 14.4796 14.5933 14.4754C14.6029 14.467 14.61 14.4616 14.6146 14.4583C14.6239 14.4517 14.623 14.454 14.6102 14.459C14.5909 14.4666 14.5001 14.4987 14.3103 14.4679C13.9078 14.4025 13.0391 14.0472 11.607 12.5394L10.5194 13.5724ZM8.98569 3.47663C7.9721 2.04305 5.94388 1.80119 4.7177 3.09213L5.80529 4.12516C6.32812 3.57471 7.24855 3.61795 7.7609 4.3426L8.98569 3.47663ZM18.4574 19.7375C18.1783 20.0313 17.8864 20.1887 17.6026 20.2167L17.75 21.7095C18.497 21.6357 19.1016 21.2373 19.545 20.7705L18.4574 19.7375ZM10.0214 9.01963C10.9889 8.00095 11.0574 6.40678 10.2467 5.26012L9.02189 6.12608C9.44404 6.72315 9.3793 7.51753 8.93377 7.9866L10.0214 9.01963ZM19.5092 15.962C20.3301 16.4345 20.4907 17.5968 19.8779 18.2419L20.9655 19.2749C22.2705 17.901 21.8904 15.6019 20.2575 14.662L19.5092 15.962ZM16.1 15.0642C16.4854 14.6584 17.086 14.5672 17.5987 14.8623L18.347 13.5623C17.2485 12.93 15.8862 13.1113 15.0124 14.0312L16.1 15.0642ZM11.4622 18.5423C10.4785 17.9241 9.43149 17.0876 8.3592 15.9587L7.27161 16.9917C8.42564 18.2067 9.56897 19.1241 10.6641 19.8123L11.4622 18.5423ZM17.6026 20.2167C17.0561 20.2707 16.1912 20.2842 15.113 20.0584L14.8056 21.5266C16.0541 21.788 17.0742 21.7762 17.75 21.7095L17.6026 20.2167Z" fill="currentColor" stroke="none"></path></symbol><symbol id="i3" viewBox="0 0 24 24"><path d="M12 8V12L14.5 14.5"></path><path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7"></path></symbol></svg>
+<section id="contacts" class="Contacts_section__DHm14" aria-labelledby="contacts-title"><div class="Contacts_container__xytvB"><div class="Contacts_layout__Cp0Sy"><div class="Contacts_info__Jdhqu"><p class="Contacts_kicker__eaEdj">— Контакты —</p><h2 id="contacts-title" class="Contacts_title__f_Jte">Тула и область: Щёкино, Новомосковск, Алексин, Ясногорск, Венёв</h2><dl class="Contacts_rows__NKwak" aria-label="Контакты компании"><div class="Contacts_row__74Rdr"><span class="Contacts_icon__pdaMS" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i1"></use></svg></span><div class="Contacts_rowBody__uuiEG"><dt class="Contacts_label__Tw9E6">Адрес</dt><dd class="Contacts_definition__fT3pt"><address class="Contacts_address__s0m4y">Тула, проспект Ленина, 108, офис 312</address></dd></div></div><div class="Contacts_row__74Rdr"><span class="Contacts_icon__pdaMS" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i2"></use></svg></span><div class="Contacts_rowBody__uuiEG"><dt class="Contacts_label__Tw9E6">Телефон</dt><dd class="Contacts_definition__fT3pt"><span class="Contacts_phones__OVvo_"><a href="tel:+74872000010" class="Contacts_phone__26ki_" aria-label="Позвонить +7&nbsp;(4872)&nbsp;00-00-10">+7&nbsp;(4872)&nbsp;00-00-10</a><a href="tel:+79000000020" class="Contacts_phone__26ki_" aria-label="Позвонить +7&nbsp;(900)&nbsp;000-00-20">+7&nbsp;(900)&nbsp;000-00-20</a></span></dd></div></div><div class="Contacts_row__74Rdr"><span class="Contacts_icon__pdaMS" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i3"></use></svg></span><div class="Contacts_rowBody__uuiEG"><dt class="Contacts_label__Tw9E6">Часы работы</dt><dd class="Contacts_definition__fT3pt"><span class="Contacts_value__00eQh">Пн–Вс, 8:00–21:00</span></dd></div></div></dl><a class="Button_button__86Aws Button_solid__Opetg Button_lg__3sF9G Button_fullWidth__kiO4D Contacts_cta__7cv48" href="#lead"><span class="Button_content__7ZT41"><span class="Button_label__PlLEz">Оставить заявку</span></span></a></div><div class="Contacts_mapCard__Vgblz"><p class="Contacts_mapTitle__EXdnt">Как нас найти</p><p class="Contacts_mapAddress__K0Ngc">Тула, проспект Ленина, 108, офис 312</p><p class="Contacts_mapArea__nXQlh">Тула и область: Щёкино, Новомосковск, Алексин, Ясногорск, Венёв</p><a class="Contacts_mapLink__J8m7f" href="https://yandex.ru/maps/?ll=37.6182,54.1961&amp;z=17&amp;pt=37.6182,54.1961" target="_blank" rel="noopener noreferrer">Открыть в Яндекс.Картах</a><p class="Contacts_mapNote__Ofubk">Карта откроется в Яндекс.Картах: так страница грузится быстрее и не ставит чужих cookie.</p></div></div></div></section>
+</div>
+</x-dc>
+<script data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Тема"}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { theme: this.props.theme ?? 'light' };
+  }
+}
+</script>
+</body>
+</html>
