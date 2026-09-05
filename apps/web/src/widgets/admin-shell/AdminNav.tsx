@@ -2,18 +2,22 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import type { ReactNode } from 'react';
 
 import type { AdminRole } from '@/entities/staff/model';
-import { Icon } from '@/shared/ui';
+import type { AdminCounts } from '@/shared/config/admin-counters';
+import { Icon, Tooltip } from '@/shared/ui';
 
-import { LogoutButton } from './LogoutButton';
+import { AdminWho } from './AdminWho';
 import {
+  ADMIN_COUNTER_TITLES,
   ADMIN_GROUP_TITLES,
   ADMIN_ROLE_TITLES,
   adminShellContent as texts,
   bottomSectionsFor,
   columnSectionsFor,
   navHrefOf,
+  type AdminSection,
 } from './content';
 import styles from './AdminNav.module.css';
 
@@ -22,13 +26,32 @@ export type AdminNavProps = {
   readonly role: AdminRole;
   /** Кто вошёл: имя из профиля, иначе логин. */
   readonly userName: string;
+  /**
+   * Сколько ждёт в очередях. Считается на сервере в одном месте и приходит
+   * пропсом: колонка к базе не ходит (ADR-309).
+   */
+  readonly counts?: AdminCounts | undefined;
 };
 
-/** Инициалы для кружка: две первых буквы имени и фамилии, иначе одна. */
-function initialsOf(name: string): string {
-  const parts = name.trim().split(/\s+/).slice(0, 2);
-
-  return parts.map((part) => part.slice(0, 1).toUpperCase()).join('');
+/**
+ * Подсказка значка в рельсе (ADR-309).
+ *
+ * 🔴 `Tooltip` кита вместо `title=`: браузерная подсказка появляется через
+ * секунду, не открывается с клавиатуры и не убирается по Esc — то есть для
+ * половины способов ввода её нет. Смысл при этом не держится на подсказке:
+ * подпись пункта остаётся в разметке и озвучивается, даже когда её не видно.
+ *
+ * 🔴 Пузырёк гасится стилями, а не условием в коде: на широком экране подпись
+ * видна, и подсказка повторяла бы её слово в слово. Ветвление по ширине в JS
+ * дало бы либо расхождение гидратации, либо мигание после загрузки — тот же
+ * выбор, что у всей оболочки.
+ */
+function NavTip({ text, children }: { readonly text: string; readonly children: ReactNode }) {
+  return (
+    <Tooltip className={styles.tip} text={text} placement="right">
+      {children}
+    </Tooltip>
+  );
 }
 
 /**
@@ -36,7 +59,7 @@ function initialsOf(name: string): string {
  *
  * Колонка устроена в три яруса (ADR-188): сверху карточка «кто вошёл», в
  * середине прокручиваемый список разделов, внизу прибитое редкое — настройки,
- * профиль и выход. Прокручивается только середина: прибитый низ на то и
+ * профиль, сайт и выход. Прокручивается только середина: прибитый низ на то и
  * прибитый, чтобы за ним не нужно было листать.
  *
  * 🔴 На планшете колонка сворачивается в рельс, и подпись пункта уходит из
@@ -47,7 +70,7 @@ function initialsOf(name: string): string {
  * Клиентский компонент ровно из-за одного: текущий раздел подсвечивается по
  * адресу. Всё остальное в оболочке остаётся серверным.
  */
-export function AdminNav({ role, userName }: AdminNavProps) {
+export function AdminNav({ role, userName, counts }: AdminNavProps) {
   const pathname = usePathname();
 
   const sections = columnSectionsFor(role);
@@ -57,26 +80,45 @@ export function AdminNav({ role, userName }: AdminNavProps) {
      горят «Настройки», через которые в него и заходят. */
   const activeHref = navHrefOf(pathname);
 
+  const link = (section: AdminSection) => {
+    const current = section.href === activeHref;
+    const counter = section.counter;
+    const waiting = counter === undefined ? undefined : counts?.[counter];
+
+    return (
+      <NavTip text={section.title}>
+        <Link
+          className={[styles.link, current ? styles.active : null].filter(Boolean).join(' ')}
+          href={{ pathname: section.href }}
+          aria-current={current ? 'page' : undefined}
+        >
+          <Icon className={styles.icon} name={section.icon} />
+          <span className={styles.label}>{section.title}</span>
+
+          {/* 🔴 Счётчик рисуется и на нуле, и это ответ, а не пустота: «ноль
+              отзывов на модерации» — рабочее состояние, которое владелец
+              смотрит каждое утро. Нет счётчика вовсе только у разделов, где
+              ждать нечего, и у монтажника — очереди все владельца. */}
+          {waiting === undefined || counter === undefined ? null : (
+            <span className={styles.count}>
+              {waiting}
+              {/* Подпись слышна, но не видна: голое число озвучивается как
+                  «Заказы 7» и не отвечает, семь чего. */}
+              <span className={styles.countTitle}> {ADMIN_COUNTER_TITLES[counter]}</span>
+            </span>
+          )}
+        </Link>
+      </NavTip>
+    );
+  };
+
   return (
     <div className={styles.column}>
-      {/* Карточка «кто вошёл». Не ссылка и не меню: действия, которые открыл
-          бы шеврон макета, стоят прибитыми в том же столбце ниже — дублировать
-          их в выпадающем списке значит спрашивать «а эти два «Выйти» разные?». */}
-      <div className={styles.who}>
-        <span className={styles.avatar} aria-hidden="true">
-          {initialsOf(userName)}
-        </span>
-        <span className={styles.whoText}>
-          <span className={styles.whoName}>{userName}</span>
-          <span className={styles.whoRole}>{ADMIN_ROLE_TITLES[role]}</span>
-        </span>
-      </div>
+      <AdminWho name={userName} roleTitle={ADMIN_ROLE_TITLES[role]} sections={bottom} />
 
       <nav className={styles.nav} aria-label={texts.navLabel}>
         <ul className={styles.list}>
           {sections.map((section, index) => {
-            const current = section.href === activeHref;
-
             /* Заголовок группы рисуется перед её первым разделом. Он
                декоративный: список ссылок и без него полный, поэтому от
                озвучки скрыт. */
@@ -93,53 +135,18 @@ export function AdminNav({ role, userName }: AdminNavProps) {
                     {caption}
                   </span>
                 )}
-                <Link
-                  className={[styles.link, current ? styles.active : null]
-                    .filter(Boolean)
-                    .join(' ')}
-                  href={{ pathname: section.href }}
-                  aria-current={current ? 'page' : undefined}
-                  title={section.title}
-                >
-                  <Icon className={styles.icon} name={section.icon} />
-                  <span className={styles.label}>{section.title}</span>
-                </Link>
+                {link(section)}
               </li>
             );
           })}
         </ul>
       </nav>
 
-      <nav className={styles.foot} aria-label={texts.accountLabel}>
-        <ul className={styles.list}>
-          {bottom.map((section) => {
-            const current = section.href === activeHref;
-
-            return (
-              <li key={section.href}>
-                <Link
-                  className={[styles.link, current ? styles.active : null]
-                    .filter(Boolean)
-                    .join(' ')}
-                  href={{ pathname: section.href }}
-                  aria-current={current ? 'page' : undefined}
-                  title={section.title}
-                >
-                  <Icon className={styles.icon} name={section.icon} />
-                  <span className={styles.label}>{section.title}</span>
-                </Link>
-              </li>
-            );
-          })}
-
-          {/* Выход — кнопка, а не ссылка: он меняет состояние на сервере.
-              Стоит последним по цене промаха: любой другой отменяется кнопкой
-              «назад», этот стоит повторного входа. */}
-          <li>
-            <LogoutButton className={styles.logout} labelClassName={styles.label} />
-          </li>
-        </ul>
-      </nav>
+      {/* 🔴 Прибитого низа больше нет: «Настройки», «Профиль», «Открыть сайт» и
+          «Выйти» живут в меню карточки вошедшего, и повторять их в колонке
+          значит занимать четыре пункта тем, что уже доступно в одно нажатие.
+          Повтор стоил колонке прокрутки на большом экране — решение владельца
+          от 4 сентября. В рельсе и в ленте вкладок они там же. */}
     </div>
   );
 }

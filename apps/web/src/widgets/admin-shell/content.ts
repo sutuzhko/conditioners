@@ -1,4 +1,5 @@
 import type { AdminRole } from '@/entities/staff/model';
+import type { AdminCounterKey } from '@/shared/config/admin-counters';
 import type { IconName } from '@/shared/ui';
 
 /**
@@ -39,6 +40,14 @@ export type AdminSection = {
   readonly exact?: boolean | undefined;
   /** Заголовок группы. Есть только у пунктов списка — остальным его негде показать. */
   readonly group?: AdminSectionGroup | undefined;
+  /**
+   * Очередь, число которой стоит у пункта (ADR-309).
+   *
+   * Есть не у каждого раздела: счётчик показывает то, что ждёт решения, —
+   * наряд в работе, новое обращение, отзыв на модерации. У «Клиентов» и
+   * «Каталога» ждать нечего, и пустое место у них не пропуск, а ответ.
+   */
+  readonly counter?: AdminCounterKey | undefined;
 };
 
 /**
@@ -68,6 +77,19 @@ export const ADMIN_GROUP_TITLES: Readonly<Record<AdminSectionGroup, string | nul
 export const ADMIN_ROLE_TITLES: Readonly<Record<AdminRole, string>> = {
   owner: 'Владелец',
   installer: 'Монтажник',
+};
+
+/**
+ * Что именно ждёт в очереди — подпись рядом с числом.
+ *
+ * 🔴 Голое число читалка озвучивает как «Заказы 7» и не отвечает, семь чего.
+ * Подпись скрыта от глаза и звучит вслух: «Заказы, 7 в работе». Правило то же,
+ * что у любого счётчика: сообщение целиком, а не цифра отдельно.
+ */
+export const ADMIN_COUNTER_TITLES: Readonly<Record<AdminCounterKey, string>> = {
+  orders: 'в работе',
+  leads: 'новых',
+  reviews: 'на модерации',
 };
 
 /** Страница-указатель, которую открывает пункт «Настройки». */
@@ -105,6 +127,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     roles: BOTH,
     place: 'main',
     group: 'work',
+    counter: 'orders',
   },
   {
     href: '/admin/leads',
@@ -114,6 +137,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     roles: OWNER,
     place: 'main',
     group: 'work',
+    counter: 'leads',
   },
   {
     href: '/admin/clients',
@@ -168,6 +192,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     roles: OWNER,
     place: 'main',
     group: 'site',
+    counter: 'reviews',
   },
 
   /* Конфигурация: заполняется однажды, правится редко. Открывается со
@@ -298,12 +323,14 @@ export function sectionAllows(pathname: string, role: AdminRole): boolean {
 }
 
 export const adminShellContent = {
-  brand: 'Панель управления',
-  /** Короткие подписи для телефона: полные уводят шапку на вторую строку. */
-  brandShort: 'Панель',
-  /** Ссылка на сам сайт: смотреть результат правки нужно постоянно. */
+  /**
+   * Ссылка на сам сайт: смотреть результат правки нужно постоянно.
+   *
+   * 🔴 В макете её нет ни на одном артборде, и это пробел макета, а не
+   * решение (ADR-309, ADR-307 §4). Стоит внизу колонки, рядом с «Настройками»
+   * и «Профилем»: отступление записано строкой в PIXEL_SPEC §«Панель».
+   */
   site: 'Открыть сайт',
-  siteShort: 'Сайт',
   logout: 'Выйти',
   navLabel: 'Разделы панели управления',
   /** Второй `<nav>` колонки: без своего имени читалка не отличит его от первого. */
@@ -317,7 +344,10 @@ export const adminShellContent = {
   /** Кнопка колонки разделов: подпись меняется по состоянию. */
   navHide: 'Скрыть разделы',
   navShow: 'Показать разделы',
-  menu: 'Меню',
+  /** Меню карточки вошедшего: подпись говорит, что произойдёт по нажатию. */
+  accountOpen: 'Открыть меню профиля',
+  accountClose: 'Закрыть меню профиля',
+  accountMenuLabel: 'Профиль и выход',
 } as const;
 
 /**
