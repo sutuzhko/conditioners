@@ -19,7 +19,7 @@ export function NavToggle() {
     <IconButton
       className={styles.toggle}
       label={open ? texts.navHide : texts.navShow}
-      icon={<Icon name="burger" />}
+      icon={<Icon name="panel-left" />}
       aria-expanded={open}
       onClick={toggle}
     />
