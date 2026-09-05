@@ -552,8 +552,6 @@ ADR-234, ADR-223): [plan-visual-regression-without-baselines.md](plan-visual-reg
 
 ---
 
----
-
 ## Этап 15 · Панель приводится к макету — эпик «Соответствие»
 
 **PRD:** [prd-admin-panel-mockup-conformance.md](prd-admin-panel-mockup-conformance.md) ·
