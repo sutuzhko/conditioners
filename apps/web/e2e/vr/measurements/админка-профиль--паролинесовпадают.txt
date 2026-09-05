@@ -1,14 +1,14 @@
-# админка-профиль--отказсервера · ширины 390 768 1440 · темы light dark
+# админка-профиль--паролинесовпадают · ширины 390 768 1440 · темы light dark
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1701
-768 → 768×1126
-1440 → 1440×1070
+390 → 390×1728
+768 → 768×1152
+1440 → 1440×1096
 
 [геометрия 390]
-div.ProfileForm__grid  358×1669 @16,16
-  div.ProfileForm__column  358×1094 @0,0
+div.ProfileForm__grid  358×1696 @16,16
+  div.ProfileForm__column  358×1120 @0,0
     section.Card__card  358×611 @0,0  r20  b1
       div.CardBelt__header  356×53 @1,1  b0 0 1 0
         div.CardBelt__headText  114×20 @16,16
@@ -35,29 +35,30 @@ div.ProfileForm__grid  358×1669 @16,16
           button.Button__button  115×44 @0,0  r11  b1
             span.Button__content  77×17 @19,13
               span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-    section.Card__card#2  358×467 @0,627  r20  b1
+    section.Card__card#2  358×493 @0,627  r20  b1
       div.CardBelt__header  356×111 @1,1  b0 0 1 0
         div.CardBelt__headText#2  219×86 @16,12
           h2.CardBelt__title  219×20 @0,0  Onest 700 15/20  ls0  lines=1  «Смена пароля»
           p.CardBelt__subtitle  219×65 @0,22  Manrope 400 12/16  lines=4  «После смены все остальные открытые сесси»
         div.CardBelt__action#2  93×28 @247,41
           span.Badge__badge  93×28 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Argon2id»
-      div.CardBelt__body  356×284 @1,112
+      div.CardBelt__body  356×311 @1,112
         div.Field__field#5  324×76 @16,16
           label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
           input  324×49 @0,27  r11  b1
         div.Field__field#6  324×76 @16,104
           label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
           input  324×49 @0,27  r11  b1
-        div.Field__field#7  324×76 @16,192
+        div.Field__field#7  324×103 @16,192
           label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Повторите новый»
           input  324×49 @0,27  r11  b1
-      div.CardBelt__footer  356×69 @1,397  b1 0 0 0
+          p.Field__error  324×19 @0,83  Manrope 600 13/19  lines=1  «Пароли не совпадают»
+      div.CardBelt__footer  356×69 @1,423  b1 0 0 0
         div.ProfileForm__actions#2  155×44 @185,13
           button.Button__button  155×44 @0,0  r11  b1
             span.Button__content#2  117×17 @19,13
               span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
-  div.ProfileForm__column#2  358×560 @0,1110
+  div.ProfileForm__column#2  358×560 @0,1136
     section.Card__card  358×157 @0,0  r20  b1
       div.CardBelt__header#2  356×79 @1,1  b0 0 1 0
         div.CardBelt__headText  324×54 @16,12
@@ -89,8 +90,8 @@ div.ProfileForm__grid  358×1669 @16,16
               svg  20×20 @0,0
 
 [геометрия 768]
-div.ProfileForm__grid  736×1094 @16,16
-  div.ProfileForm__column  360×1094 @0,0
+div.ProfileForm__grid  736×1120 @16,16
+  div.ProfileForm__column  360×1120 @0,0
     section.Card__card  360×611 @0,0  r20  b1
       div.CardBelt__header  358×53 @1,1  b0 0 1 0
         div.CardBelt__headText  114×20 @16,16
@@ -117,24 +118,25 @@ div.ProfileForm__grid  736×1094 @16,16
           button.Button__button  115×44 @0,0  r11  b1
             span.Button__content  77×17 @19,13
               span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-    section.Card__card#2  360×467 @0,627  r20  b1
+    section.Card__card#2  360×493 @0,627  r20  b1
       div.CardBelt__header  358×111 @1,1  b0 0 1 0
         div.CardBelt__headText#2  221×86 @16,12
           h2.CardBelt__title  221×20 @0,0  Onest 700 15/20  ls0  lines=1  «Смена пароля»
           p.CardBelt__subtitle  221×65 @0,22  Manrope 400 12/16  lines=4  «После смены все остальные открытые сесси»
         div.CardBelt__action#2  93×28 @249,41
           span.Badge__badge  93×28 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Argon2id»
-      div.CardBelt__body  358×284 @1,112
+      div.CardBelt__body  358×311 @1,112
         div.Field__field#5  326×76 @16,16
           label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
           input  326×49 @0,27  r11  b1
         div.Field__field#6  326×76 @16,104
           label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
           input  326×49 @0,27  r11  b1
-        div.Field__field#7  326×76 @16,192
+        div.Field__field#7  326×103 @16,192
           label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Повторите новый»
           input  326×49 @0,27  r11  b1
-      div.CardBelt__footer  358×69 @1,397  b1 0 0 0
+          p.Field__error  326×19 @0,83  Manrope 600 13/19  lines=1  «Пароли не совпадают»
+      div.CardBelt__footer  358×69 @1,423  b1 0 0 0
         div.ProfileForm__actions#2  155×44 @187,13
           button.Button__button  155×44 @0,0  r11  b1
             span.Button__content#2  117×17 @19,13
@@ -171,8 +173,8 @@ div.ProfileForm__grid  736×1094 @16,16
               svg  20×20 @0,0
 
 [геометрия 1440]
-div.ProfileForm__grid  940×1038 @16,16
-  div.ProfileForm__column  462×1038 @0,0
+div.ProfileForm__grid  940×1064 @16,16
+  div.ProfileForm__column  462×1064 @0,0
     section.Card__card  462×571 @0,0  r20  b1
       div.CardBelt__header  460×53 @1,1  b0 0 1 0
         div.CardBelt__headText  114×20 @16,16
@@ -199,24 +201,25 @@ div.ProfileForm__grid  940×1038 @16,16
           button.Button__button  115×44 @0,0  r11  b1
             span.Button__content  77×17 @19,13
               span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-    section.Card__card#2  462×450 @0,587  r20  b1
+    section.Card__card#2  462×477 @0,587  r20  b1
       div.CardBelt__header  460×95 @1,1  b0 0 1 0
         div.CardBelt__headText#2  323×70 @16,12
           h2.CardBelt__title  323×20 @0,0  Onest 700 15/20  ls0  lines=1  «Смена пароля»
           p.CardBelt__subtitle  323×49 @0,22  Manrope 400 12/16  lines=3  «После смены все остальные открытые сесси»
         div.CardBelt__action#2  93×28 @351,33
           span.Badge__badge  93×28 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Argon2id»
-      div.CardBelt__body  460×284 @1,96
+      div.CardBelt__body  460×311 @1,96
         div.Field__field#5  428×76 @16,16
           label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
           input  428×49 @0,27  r11  b1
         div.Field__field#6  428×76 @16,104
           label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
           input  428×49 @0,27  r11  b1
-        div.Field__field#7  428×76 @16,192
+        div.Field__field#7  428×103 @16,192
           label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Повторите новый»
           input  428×49 @0,27  r11  b1
-      div.CardBelt__footer  460×69 @1,380  b1 0 0 0
+          p.Field__error  428×19 @0,83  Manrope 600 13/19  lines=1  «Пароли не совпадают»
+      div.CardBelt__footer  460×69 @1,407  b1 0 0 0
         div.ProfileForm__actions#2  155×44 @289,13
           button.Button__button  155×44 @0,0  r11  b1
             span.Button__content#2  117×17 @19,13
@@ -297,10 +300,11 @@ div.ProfileForm__grid
           input  bg #ffffff  border #7e8fa6
         div.Field__field#7
           label.Field__label  color #334155
-          input  bg #ffffff  border #7e8fa6
+          input  bg #be123c14  border #be123c
+          p.Field__error  color #be123c
       div.CardBelt__footer  border #e2e8f0 #475569 #475569 #475569
         div.ProfileForm__actions#2
-          button.Button__button  bg #ecfeff  border transparent
+          button.Button__button  bg #ecfeff  border transparent  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
             span.Button__content#2
               span.Button__label  color #0e7490
   div.ProfileForm__column#2
@@ -379,10 +383,11 @@ div.ProfileForm__grid
           input  bg #0b1424  border #566d95
         div.Field__field#7
           label.Field__label  color #c9d5e2
-          input  bg #0b1424  border #566d95
+          input  bg #fb71851f  border #fb7185
+          p.Field__error  color #fb7185
       div.CardBelt__footer  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
         div.ProfileForm__actions#2
-          button.Button__button  bg #22d3ee1a  border transparent
+          button.Button__button  bg #22d3ee1a  border transparent  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
             span.Button__content#2
               span.Button__label  color #22d3ee
   div.ProfileForm__column#2

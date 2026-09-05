@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import type { ReactElement } from 'react';
 import { userEvent, within } from 'storybook/test';
 
 import { SettingsGroups } from './SettingsGroups';
@@ -15,6 +16,20 @@ const meta = {
   title: 'Админка/Данные компании',
   component: SettingsGroups,
   args: { entries: companyEntriesFixture, save: acceptingSave },
+
+  /* 🔴 Витрина обязана повторить поля страницы. Липкая полоса выходит за них
+     отрицательными полями, чтобы фон дошёл до края карточки; без обрамления
+     она вылезала за корень истории, и документ становился шире окна на два
+     гутера — инварианты ловили `scrollWidth 1448 > 1440` во всех шести
+     историях. На самой странице этого не бывает: там полосу обнимает
+     контейнер раздела. */
+  decorators: [
+    (Story: () => ReactElement) => (
+      <div style={{ padding: '0 var(--gutter)' }}>
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof SettingsGroups>;
 
 export default meta;

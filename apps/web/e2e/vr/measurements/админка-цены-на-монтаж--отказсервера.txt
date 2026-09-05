@@ -28,9 +28,8 @@ form.PricesForm__form  358×1582 @16,16
         div.Field__field#5  140×76 @13,185
           label.Field__label  140×20 @0,0  Manrope 600 13/20  lines=1  «Срок»
           input  140×49 @0,27  r11  b1
-        button.Button__button  44×44 @259,271  r9  b1
-          span.Button__content  10×16 @17,14
-            span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+        button.IconButton__iconButton  44×44 @259,271  r11  b1
+          svg  16×16 @14,14
       div.PricesForm__row#2  316×328 @0,340  r14  b1
         div.Field__field  140×76 @13,13
           label.Field__label#2  140×20 @0,0  Manrope 600 13/20  lines=1  «Класс»
@@ -47,11 +46,10 @@ form.PricesForm__form  358×1582 @16,16
         div.Field__field#5  140×76 @13,185
           label.Field__label#2  140×20 @0,0  Manrope 600 13/20  lines=1  «Срок»
           input#2  140×49 @0,27  r11  b1
-        button.Button__button  44×44 @259,271  r9  b1
-          span.Button__content#2  10×16 @17,14
-            span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+        button.IconButton__iconButton  44×44 @259,271  r11  b1
+          svg#2  16×16 @14,14
     button.Button__button  131×44 @21,803  r9  b1
-      span.Button__content#3  101×16 @15,14
+      span.Button__content  101×16 @15,14
         span.Button__label  101×16 @0,0  Manrope 600 13/16  lines=1  «Добавить класс»
   section.Card__card#2  358×584 @0,882  r20  b1
     h2.PricesForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Ставки допработ»
@@ -76,7 +74,7 @@ form.PricesForm__form  358×1582 @16,16
   p.PricesForm__error  358×44 @0,1480  Manrope 400 15/22  r11  b1  lines=1  «Нужна хотя бы одна строка прайса»
   div.PricesForm__actions  358×44 @0,1538
     button.Button__button  115×44 @0,0  r11  b1
-      span.Button__content#4  77×17 @19,13
+      span.Button__content#2  77×17 @19,13
         span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
 
 [геометрия 768]
@@ -101,9 +99,8 @@ form.PricesForm__form  736×1293 @16,16
         div.Field__field#5  329×76 @13,185
           label.Field__label  329×20 @0,0  Manrope 600 13/20  lines=1  «Срок»
           input  329×49 @0,27  r11  b1
-        button.Button__button  44×44 @637,271  r9  b1
-          span.Button__content  10×16 @17,14
-            span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+        button.IconButton__iconButton  44×44 @637,271  r11  b1
+          svg  16×16 @14,14
       div.PricesForm__row#2  694×328 @0,340  r14  b1
         div.Field__field  329×76 @13,13
           label.Field__label#2  329×20 @0,0  Manrope 600 13/20  lines=1  «Класс»
@@ -120,11 +117,10 @@ form.PricesForm__form  736×1293 @16,16
         div.Field__field#5  329×76 @13,185
           label.Field__label#2  329×20 @0,0  Manrope 600 13/20  lines=1  «Срок»
           input#2  329×49 @0,27  r11  b1
-        button.Button__button  44×44 @637,271  r9  b1
-          span.Button__content#2  10×16 @17,14
-            span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+        button.IconButton__iconButton  44×44 @637,271  r11  b1
+          svg#2  16×16 @14,14
     button.Button__button  131×44 @21,784  r9  b1
-      span.Button__content#3  101×16 @15,14
+      span.Button__content  101×16 @15,14
         span.Button__label  101×16 @0,0  Manrope 600 13/16  lines=1  «Добавить класс»
   section.Card__card#2  736×314 @0,863  r20  b1
     h2.PricesForm__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Ставки допработ»
@@ -149,7 +145,7 @@ form.PricesForm__form  736×1293 @16,16
   p.PricesForm__error  736×44 @0,1191  Manrope 400 15/22  r11  b1  lines=1  «Нужна хотя бы одна строка прайса»
   div.PricesForm__actions  736×44 @0,1249
     button.Button__button  115×44 @0,0  r11  b1
-      span.Button__content#4  77×17 @19,13
+      span.Button__content#2  77×17 @19,13
         span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
 
 [геометрия 1440]
@@ -180,9 +176,8 @@ form.PricesForm__form  1408×673 @16,16
         div.Field__field#5  130×49 @502,0
           label.Field__label  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Срок»
           input  130×49 @0,0  r11  b1
-        button.Button__button  44×40 @640,0  r9  b1
-          span.Button__content  10×16 @17,12
-            span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+        button.IconButton__iconButton  44×44 @640,0  r11  b1
+          svg  16×16 @14,14
       div.PricesForm__row#2  1366×49 @0,83
         div.Field__field  80×49 @0,0
           label.Field__label#2  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Класс»
@@ -199,11 +194,10 @@ form.PricesForm__form  1408×673 @16,16
         div.Field__field#5  130×49 @502,0
           label.Field__label#2  1×1 @0,0  Manrope 600 13/20  lines=1  clipped  «Срок»
           input#2  130×49 @0,0  r11  b1
-        button.Button__button  44×40 @640,0  r9  b1
-          span.Button__content#2  10×16 @17,12
-            span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+        button.IconButton__iconButton  44×44 @640,0  r11  b1
+          svg#2  16×16 @14,14
     button.Button__button  131×40 @21,256  r9  b1
-      span.Button__content#3  101×16 @15,12
+      span.Button__content  101×16 @15,12
         span.Button__label  101×16 @0,0  Manrope 600 13/16  lines=1  «Добавить класс»
   section.Card__card#2  1408×225 @0,331  r20  b1
     h2.PricesForm__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Ставки допработ»
@@ -228,7 +222,7 @@ form.PricesForm__form  1408×673 @16,16
   p.PricesForm__error  1408×44 @0,570  Manrope 400 15/22  r11  b1  lines=1  «Нужна хотя бы одна строка прайса»
   div.PricesForm__actions  1408×44 @0,629
     button.Button__button  115×44 @0,0  r11  b1
-      span.Button__content#4  77×17 @19,13
+      span.Button__content#2  77×17 @19,13
         span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
 
 [палитра light]
@@ -259,9 +253,8 @@ form.PricesForm__form
         div.Field__field#5
           label.Field__label  color #334155
           input  bg #ffffff  border #7e8fa6
-        button.Button__button  border transparent
-          span.Button__content
-            span.Button__label  color #0e7490
+        button.IconButton__iconButton  border transparent
+          svg
       div.PricesForm__row#2
         div.Field__field
           label.Field__label#2  color #334155
@@ -278,11 +271,10 @@ form.PricesForm__form
         div.Field__field#5
           label.Field__label#2  color #334155
           input#2  bg #ffffff  border #7e8fa6
-        button.Button__button  border transparent
-          span.Button__content#2
-            span.Button__label  color #0e7490
+        button.IconButton__iconButton  border transparent
+          svg#2
     button.Button__button  bg #ffffff  border #7e8fa6
-      span.Button__content#3
+      span.Button__content
         span.Button__label  color #0f172a
   section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
     h2.PricesForm__title  color #0f172a
@@ -307,7 +299,7 @@ form.PricesForm__form
   p.PricesForm__error  color #be123c  bg #be123c14  border #be123c73
   div.PricesForm__actions
     button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-      span.Button__content#4
+      span.Button__content#2
         span.Button__label  color #ffffff
 [палитра light @390]
 form.PricesForm__form > section.Card__card > div.PricesForm__rows > div.PricesForm__row  border #e2e8f0
@@ -344,9 +336,8 @@ form.PricesForm__form
         div.Field__field#5
           label.Field__label  color #c9d5e2
           input  bg #0b1424  border #566d95
-        button.Button__button  border transparent
-          span.Button__content
-            span.Button__label  color #22d3ee
+        button.IconButton__iconButton  border transparent
+          svg
       div.PricesForm__row#2
         div.Field__field
           label.Field__label#2  color #c9d5e2
@@ -363,11 +354,10 @@ form.PricesForm__form
         div.Field__field#5
           label.Field__label#2  color #c9d5e2
           input#2  bg #0b1424  border #566d95
-        button.Button__button  border transparent
-          span.Button__content#2
-            span.Button__label  color #22d3ee
+        button.IconButton__iconButton  border transparent
+          svg#2
     button.Button__button  bg #121d31  border #566d95
-      span.Button__content#3
+      span.Button__content
         span.Button__label  color #eaf1f8
   section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
     h2.PricesForm__title  color #eaf1f8
@@ -392,7 +382,7 @@ form.PricesForm__form
   p.PricesForm__error  color #fb7185  bg #fb71851f  border #fb718580
   div.PricesForm__actions
     button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-      span.Button__content#4
+      span.Button__content#2
         span.Button__label  color #ffffff
 [палитра dark @390]
 form.PricesForm__form > section.Card__card > div.PricesForm__rows > div.PricesForm__row  border #1e2b41

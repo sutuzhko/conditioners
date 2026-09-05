@@ -2,276 +2,416 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1342
-768 → 768×900
-1440 → 1440×900
+390 → 390×1701
+768 → 768×1126
+1440 → 1440×1070
 
 [геометрия 390]
-div.ProfileForm__grid  358×1310 @16,16
-  section.Card__card  358×525 @0,0  r20  b1
-    form.ProfileForm__form  316×483 @21,21
-      div.ProfileForm__head  316×28 @0,0
-        h2.ProfileForm__title  128×21 @0,4  Onest 700 17/21  ls0  lines=1  «Личные данные»
-        span.Badge__badge  92×28 @136,0  Manrope 600 12/16  r100  b1  lines=1  «монтажник»
-      div.Field__field  316×76 @0,40
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
-        input  316×49 @0,27  r11  b1
-      div.Field__field#2  316×76 @0,128
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
-        input.ProfileForm__readonly  316×49 @0,27  r11  b1
-      div.Field__field#3  316×122 @0,216
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
-        input.ProfileForm__readonly  316×49 @0,27  r11  b1
-        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Оформление заводит владелец: от него зав»
-      div.Field__field#4  316×76 @0,350
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
-        input  316×49 @0,27  r11  b1
-      div.ProfileForm__actions  316×44 @0,439
-        button.Button__button  115×44 @0,0  r11  b1
-          span.Button__content  77×17 @19,13
-            span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-  div.ProfileForm__column  358×769 @0,541
-    section.Card__card  358×379 @0,0  r20  b1
-      form.ProfileForm__form#2  316×337 @21,21
-        h2.ProfileForm__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Смена пароля»
-        p.ProfileForm__hint  316×60 @0,37  Manrope 400 13/20  lines=3  «После смены все остальные открытые сесси»
-        div.Field__field  316×76 @0,117
-          label.Field__label#2  316×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
-          input#2  316×49 @0,27  r11  b1
-        div.Field__field#2  316×76 @0,205
-          label.Field__label#2  316×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
-          input  316×49 @0,27  r11  b1
-        div.ProfileForm__actions  316×44 @0,293
-          button.Button__button#2  155×44 @0,0  r11  b1
-            span.Button__content  117×17 @19,13
-              span.Button__label#2  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
-    section.Card__card#2  358×159 @0,395  r20  b1
-      h2.ProfileForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Тема интерфейса»
-      p.ProfileForm__hint  316×40 @21,46  Manrope 400 13/20  lines=2  «Выбор запоминается в этом браузере и на»
-      div.ThemeChoice__row  316×44 @21,94
-        button.ThemeChoice__option  94×44 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
-        button.ThemeChoice__option#2  86×44 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
-        button.ThemeChoice__option#3  113×44 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
-    section.Card__card#3  358×199 @0,570  r20  b1
-      h2.ProfileForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Вход в панель»
-      p.ProfileForm__hint  316×81 @21,46  Manrope 400 13/20  lines=4  «Выход закрывает сессию на этом устройств»
-      button.Button__button  102×44 @21,134  r11  b1
-        span.Button__content#2  64×23 @19,10
-          span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
-            svg  20×20 @0,0
+div.ProfileForm__grid  358×1669 @16,16
+  div.ProfileForm__column  358×1094 @0,0
+    section.Card__card  358×611 @0,0  r20  b1
+      div.CardBelt__header  356×53 @1,1  b0 0 1 0
+        div.CardBelt__headText  114×20 @16,16
+          h2.CardBelt__title  114×20 @0,0  Onest 700 15/20  ls0  lines=1  «Личные данные»
+        div.CardBelt__action  92×28 @248,12
+          span.Badge__badge  92×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «монтажник»
+      div.CardBelt__body  356×418 @1,54
+        div.Field__field  324×76 @16,16
+          label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+          input  324×49 @0,27  r11  b1
+        div.Field__field#2  324×76 @16,104
+          label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+          input  324×49 @0,27  r11  b1
+        div.Field__field#3  324×76 @16,192
+          label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+          input.ProfileForm__readonly  324×49 @0,27  r11  b1
+        div.Field__field#4  324×122 @16,280
+          label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
+          input.ProfileForm__readonly  324×49 @0,27  r11  b1
+          p.Field__hint  324×39 @0,83  Manrope 400 13/19  lines=2  «Оформление заводит владелец: от него зав»
+      div.CardBelt__footer  356×137 @1,473  b1 0 0 0
+        p.ProfileForm__hint  324×60 @16,13  Manrope 400 13/20  lines=3  «Логин меняет только владелец из раздела»
+        div.ProfileForm__actions  115×44 @16,81
+          button.Button__button  115×44 @0,0  r11  b1
+            span.Button__content  77×17 @19,13
+              span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+    section.Card__card#2  358×467 @0,627  r20  b1
+      div.CardBelt__header  356×111 @1,1  b0 0 1 0
+        div.CardBelt__headText#2  219×86 @16,12
+          h2.CardBelt__title  219×20 @0,0  Onest 700 15/20  ls0  lines=1  «Смена пароля»
+          p.CardBelt__subtitle  219×65 @0,22  Manrope 400 12/16  lines=4  «После смены все остальные открытые сесси»
+        div.CardBelt__action#2  93×28 @247,41
+          span.Badge__badge  93×28 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Argon2id»
+      div.CardBelt__body  356×284 @1,112
+        div.Field__field#5  324×76 @16,16
+          label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
+          input  324×49 @0,27  r11  b1
+        div.Field__field#6  324×76 @16,104
+          label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
+          input  324×49 @0,27  r11  b1
+        div.Field__field#7  324×76 @16,192
+          label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Повторите новый»
+          input  324×49 @0,27  r11  b1
+      div.CardBelt__footer  356×69 @1,397  b1 0 0 0
+        div.ProfileForm__actions#2  155×44 @185,13
+          button.Button__button  155×44 @0,0  r11  b1
+            span.Button__content#2  117×17 @19,13
+              span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
+  div.ProfileForm__column#2  358×560 @0,1110
+    section.Card__card  358×157 @0,0  r20  b1
+      div.CardBelt__header#2  356×79 @1,1  b0 0 1 0
+        div.CardBelt__headText  324×54 @16,12
+          h2.CardBelt__title#2  324×20 @0,0  Onest 700 15/20  ls0  lines=1  «Тема интерфейса»
+          p.CardBelt__subtitle  324×32 @0,22  Manrope 400 12/16  lines=2  «Выбор запоминается в этом браузере и на»
+      div.CardBelt__body#2  356×76 @1,80
+        div.ThemeChoice__row  324×44 @16,16
+          button.ThemeChoice__option  94×44 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
+          button.ThemeChoice__option#2  86×44 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
+          button.ThemeChoice__option#3  113×44 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+    section.Card__card#2  358×387 @0,173  r20  b1
+      div.CardBelt__header#2  356×45 @1,1  b0 0 1 0
+        div.CardBelt__headText#2  36×20 @16,12
+          h2.CardBelt__title#2  36×20 @0,0  Onest 700 15/20  ls0  lines=1  «Вход»
+      div.CardBelt__body#2  356×183 @1,46
+        dl.ProfileForm__facts  324×22 @16,16
+          dt.ProfileForm__factTerm  112×22 @0,0  Manrope 400 15/22  lines=1  «Последний вход»
+          dd.ProfileForm__factValue  196×22 @128,0  JetBrains Mono 400 15/22  lines=1  «25.08.2026, 08:00»
+        p.ProfileForm__hint  324×60 @16,50  Manrope 400 13/20  lines=3  «Закрывает панель везде, кроме этого брау»
+        div.ProfileForm__exitRow  324×44 @16,123
+          button.Button__button  324×44 @0,0  r11  b1
+            span.Button__content#3  192×17 @66,13
+              span.Button__label  192×17 @0,0  Manrope 600 15/17  lines=1  «Выйти на всех устройствах»
+      div.CardBelt__footer#2  356×158 @1,228  b1 0 0 0
+        p.ProfileForm__hint  324×81 @16,13  Manrope 400 13/20  lines=4  «Выход закрывает сессию на этом устройств»
+        button.Button__button  102×44 @16,102  r11  b1
+          span.Button__content#4  64×23 @19,10
+            span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
+              svg  20×20 @0,0
 
 [геометрия 768]
-div.ProfileForm__grid  736×772 @16,16
-  section.Card__card  360×525 @0,0  r20  b1
-    form.ProfileForm__form  318×483 @21,21
-      div.ProfileForm__head  318×28 @0,0
-        h2.ProfileForm__title  135×22 @0,3  Onest 700 18/22  ls0  lines=1  «Личные данные»
-        span.Badge__badge  92×28 @143,0  Manrope 600 12/16  r100  b1  lines=1  «монтажник»
-      div.Field__field  318×76 @0,40
-        label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
-        input  318×49 @0,27  r11  b1
-      div.Field__field#2  318×76 @0,128
-        label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
-        input.ProfileForm__readonly  318×49 @0,27  r11  b1
-      div.Field__field#3  318×122 @0,216
-        label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
-        input.ProfileForm__readonly  318×49 @0,27  r11  b1
-        p.Field__hint  318×39 @0,83  Manrope 400 13/19  lines=2  «Оформление заводит владелец: от него зав»
-      div.Field__field#4  318×76 @0,350
-        label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
-        input  318×49 @0,27  r11  b1
-      div.ProfileForm__actions  318×44 @0,439
-        button.Button__button  115×44 @0,0  r11  b1
-          span.Button__content  77×17 @19,13
-            span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-  div.ProfileForm__column  360×772 @376,0
-    section.Card__card  360×380 @0,0  r20  b1
-      form.ProfileForm__form#2  318×338 @21,21
-        h2.ProfileForm__title  318×22 @0,0  Onest 700 18/22  ls0  lines=1  «Смена пароля»
-        p.ProfileForm__hint  318×60 @0,38  Manrope 400 13/20  lines=3  «После смены все остальные открытые сесси»
-        div.Field__field  318×76 @0,118
-          label.Field__label#2  318×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
-          input#2  318×49 @0,27  r11  b1
-        div.Field__field#2  318×76 @0,206
-          label.Field__label#2  318×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
-          input  318×49 @0,27  r11  b1
-        div.ProfileForm__actions  318×44 @0,294
-          button.Button__button#2  155×44 @0,0  r11  b1
-            span.Button__content  117×17 @19,13
-              span.Button__label#2  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
-    section.Card__card#2  360×160 @0,396  r20  b1
-      h2.ProfileForm__title  318×22 @21,21  Onest 700 18/22  ls0  lines=1  «Тема интерфейса»
-      p.ProfileForm__hint  318×40 @21,47  Manrope 400 13/20  lines=2  «Выбор запоминается в этом браузере и на»
-      div.ThemeChoice__row  318×44 @21,95
-        button.ThemeChoice__option  94×44 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
-        button.ThemeChoice__option#2  86×44 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
-        button.ThemeChoice__option#3  113×44 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
-    section.Card__card#3  360×200 @0,572  r20  b1
-      h2.ProfileForm__title  318×22 @21,21  Onest 700 18/22  ls0  lines=1  «Вход в панель»
-      p.ProfileForm__hint  318×81 @21,47  Manrope 400 13/20  lines=4  «Выход закрывает сессию на этом устройств»
-      button.Button__button  102×44 @21,135  r11  b1
-        span.Button__content#2  64×23 @19,10
-          span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
-            svg  20×20 @0,0
+div.ProfileForm__grid  736×1094 @16,16
+  div.ProfileForm__column  360×1094 @0,0
+    section.Card__card  360×611 @0,0  r20  b1
+      div.CardBelt__header  358×53 @1,1  b0 0 1 0
+        div.CardBelt__headText  114×20 @16,16
+          h2.CardBelt__title  114×20 @0,0  Onest 700 15/20  ls0  lines=1  «Личные данные»
+        div.CardBelt__action  92×28 @250,12
+          span.Badge__badge  92×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «монтажник»
+      div.CardBelt__body  358×418 @1,54
+        div.Field__field  326×76 @16,16
+          label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+          input  326×49 @0,27  r11  b1
+        div.Field__field#2  326×76 @16,104
+          label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+          input  326×49 @0,27  r11  b1
+        div.Field__field#3  326×76 @16,192
+          label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+          input.ProfileForm__readonly  326×49 @0,27  r11  b1
+        div.Field__field#4  326×122 @16,280
+          label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
+          input.ProfileForm__readonly  326×49 @0,27  r11  b1
+          p.Field__hint  326×39 @0,83  Manrope 400 13/19  lines=2  «Оформление заводит владелец: от него зав»
+      div.CardBelt__footer  358×137 @1,473  b1 0 0 0
+        p.ProfileForm__hint  326×60 @16,13  Manrope 400 13/20  lines=3  «Логин меняет только владелец из раздела»
+        div.ProfileForm__actions  115×44 @16,81
+          button.Button__button  115×44 @0,0  r11  b1
+            span.Button__content  77×17 @19,13
+              span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+    section.Card__card#2  360×467 @0,627  r20  b1
+      div.CardBelt__header  358×111 @1,1  b0 0 1 0
+        div.CardBelt__headText#2  221×86 @16,12
+          h2.CardBelt__title  221×20 @0,0  Onest 700 15/20  ls0  lines=1  «Смена пароля»
+          p.CardBelt__subtitle  221×65 @0,22  Manrope 400 12/16  lines=4  «После смены все остальные открытые сесси»
+        div.CardBelt__action#2  93×28 @249,41
+          span.Badge__badge  93×28 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Argon2id»
+      div.CardBelt__body  358×284 @1,112
+        div.Field__field#5  326×76 @16,16
+          label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
+          input  326×49 @0,27  r11  b1
+        div.Field__field#6  326×76 @16,104
+          label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
+          input  326×49 @0,27  r11  b1
+        div.Field__field#7  326×76 @16,192
+          label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Повторите новый»
+          input  326×49 @0,27  r11  b1
+      div.CardBelt__footer  358×69 @1,397  b1 0 0 0
+        div.ProfileForm__actions#2  155×44 @187,13
+          button.Button__button  155×44 @0,0  r11  b1
+            span.Button__content#2  117×17 @19,13
+              span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
+  div.ProfileForm__column#2  360×560 @376,0
+    section.Card__card  360×157 @0,0  r20  b1
+      div.CardBelt__header#2  358×79 @1,1  b0 0 1 0
+        div.CardBelt__headText  326×54 @16,12
+          h2.CardBelt__title#2  326×20 @0,0  Onest 700 15/20  ls0  lines=1  «Тема интерфейса»
+          p.CardBelt__subtitle  326×32 @0,22  Manrope 400 12/16  lines=2  «Выбор запоминается в этом браузере и на»
+      div.CardBelt__body#2  358×76 @1,80
+        div.ThemeChoice__row  326×44 @16,16
+          button.ThemeChoice__option  94×44 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
+          button.ThemeChoice__option#2  86×44 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
+          button.ThemeChoice__option#3  113×44 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+    section.Card__card#2  360×387 @0,173  r20  b1
+      div.CardBelt__header#2  358×45 @1,1  b0 0 1 0
+        div.CardBelt__headText#2  36×20 @16,12
+          h2.CardBelt__title#2  36×20 @0,0  Onest 700 15/20  ls0  lines=1  «Вход»
+      div.CardBelt__body#2  358×183 @1,46
+        dl.ProfileForm__facts  326×22 @16,16
+          dt.ProfileForm__factTerm  112×22 @0,0  Manrope 400 15/22  lines=1  «Последний вход»
+          dd.ProfileForm__factValue  198×22 @128,0  JetBrains Mono 400 15/22  lines=1  «25.08.2026, 08:00»
+        p.ProfileForm__hint  326×60 @16,50  Manrope 400 13/20  lines=3  «Закрывает панель везде, кроме этого брау»
+        div.ProfileForm__exitRow  326×44 @16,123
+          button.Button__button  326×44 @0,0  r11  b1
+            span.Button__content#3  192×17 @67,13
+              span.Button__label  192×17 @0,0  Manrope 600 15/17  lines=1  «Выйти на всех устройствах»
+      div.CardBelt__footer#2  358×158 @1,228  b1 0 0 0
+        p.ProfileForm__hint  326×81 @16,13  Manrope 400 13/20  lines=4  «Выход закрывает сессию на этом устройств»
+        button.Button__button  102×44 @16,102  r11  b1
+          span.Button__content#4  64×23 @19,10
+            span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
+              svg  20×20 @0,0
 
 [геометрия 1440]
-div.ProfileForm__grid  860×729 @16,16
-  section.Card__card  422×525 @0,0  r20  b1
-    form.ProfileForm__form  380×483 @21,21
-      div.ProfileForm__head  380×28 @0,0
-        h2.ProfileForm__title  142×23 @0,3  Onest 700 19/23  ls0  lines=1  «Личные данные»
-        span.Badge__badge  92×28 @150,0  Manrope 600 12/16  r100  b1  lines=1  «монтажник»
-      div.Field__field  380×76 @0,40
-        label.Field__label  380×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
-        input  380×49 @0,27  r11  b1
-      div.Field__field#2  380×76 @0,128
-        label.Field__label  380×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
-        input.ProfileForm__readonly  380×49 @0,27  r11  b1
-      div.Field__field#3  380×122 @0,216
-        label.Field__label  380×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
-        input.ProfileForm__readonly  380×49 @0,27  r11  b1
-        p.Field__hint  380×39 @0,83  Manrope 400 13/19  lines=2  «Оформление заводит владелец: от него зав»
-      div.Field__field#4  380×76 @0,350
-        label.Field__label  380×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
-        input  380×49 @0,27  r11  b1
-      div.ProfileForm__actions  380×44 @0,439
-        button.Button__button  115×44 @0,0  r11  b1
-          span.Button__content  77×17 @19,13
-            span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-  div.ProfileForm__column  422×729 @438,0
-    section.Card__card  422×382 @0,0  r20  b1
-      form.ProfileForm__form#2  380×340 @21,21
-        h2.ProfileForm__title  380×23 @0,0  Onest 700 19/23  ls0  lines=1  «Смена пароля»
-        p.ProfileForm__hint  380×60 @0,39  Manrope 400 13/20  lines=3  «После смены все остальные открытые сесси»
-        div.Field__field  380×76 @0,119
-          label.Field__label#2  380×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
-          input#2  380×49 @0,27  r11  b1
-        div.Field__field#2  380×76 @0,207
-          label.Field__label#2  380×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
-          input  380×49 @0,27  r11  b1
-        div.ProfileForm__actions  380×44 @0,296
-          button.Button__button#2  155×44 @0,0  r11  b1
-            span.Button__content  117×17 @19,13
-              span.Button__label#2  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
-    section.Card__card#2  422×134 @0,398  r20  b1
-      h2.ProfileForm__title  380×23 @21,21  Onest 700 19/23  ls0  lines=1  «Тема интерфейса»
-      p.ProfileForm__hint  380×20 @21,48  Manrope 400 13/20  lines=1  «Выбор запоминается в этом браузере и на»
-      div.ThemeChoice__row  380×37 @21,76
-        button.ThemeChoice__option  94×37 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
-        button.ThemeChoice__option#2  86×37 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
-        button.ThemeChoice__option#3  113×37 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
-    section.Card__card#3  422×181 @0,547  r20  b1
-      h2.ProfileForm__title  380×23 @21,21  Onest 700 19/23  ls0  lines=1  «Вход в панель»
-      p.ProfileForm__hint  380×60 @21,48  Manrope 400 13/20  lines=3  «Выход закрывает сессию на этом устройств»
-      button.Button__button  102×44 @21,116  r11  b1
-        span.Button__content#2  64×23 @19,10
-          span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
-            svg  20×20 @0,0
+div.ProfileForm__grid  940×1038 @16,16
+  div.ProfileForm__column  462×1038 @0,0
+    section.Card__card  462×571 @0,0  r20  b1
+      div.CardBelt__header  460×53 @1,1  b0 0 1 0
+        div.CardBelt__headText  114×20 @16,16
+          h2.CardBelt__title  114×20 @0,0  Onest 700 15/20  ls0  lines=1  «Личные данные»
+        div.CardBelt__action  92×28 @352,12
+          span.Badge__badge  92×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «монтажник»
+      div.CardBelt__body  460×399 @1,54
+        div.Field__field  428×76 @16,16
+          label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Имя»
+          input  428×49 @0,27  r11  b1
+        div.Field__field#2  428×76 @16,104
+          label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+          input  428×49 @0,27  r11  b1
+        div.Field__field#3  428×76 @16,192
+          label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+          input.ProfileForm__readonly  428×49 @0,27  r11  b1
+        div.Field__field#4  428×103 @16,280
+          label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
+          input.ProfileForm__readonly  428×49 @0,27  r11  b1
+          p.Field__hint  428×19 @0,83  Manrope 400 13/19  lines=1  «Оформление заводит владелец: от него зав»
+      div.CardBelt__footer  460×117 @1,453  b1 0 0 0
+        p.ProfileForm__hint  428×40 @16,13  Manrope 400 13/20  lines=2  «Логин меняет только владелец из раздела»
+        div.ProfileForm__actions  115×44 @16,61
+          button.Button__button  115×44 @0,0  r11  b1
+            span.Button__content  77×17 @19,13
+              span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+    section.Card__card#2  462×450 @0,587  r20  b1
+      div.CardBelt__header  460×95 @1,1  b0 0 1 0
+        div.CardBelt__headText#2  323×70 @16,12
+          h2.CardBelt__title  323×20 @0,0  Onest 700 15/20  ls0  lines=1  «Смена пароля»
+          p.CardBelt__subtitle  323×49 @0,22  Manrope 400 12/16  lines=3  «После смены все остальные открытые сесси»
+        div.CardBelt__action#2  93×28 @351,33
+          span.Badge__badge  93×28 @0,0  JetBrains Mono 600 12/16  r100  b1  ls1  lines=1  «Argon2id»
+      div.CardBelt__body  460×284 @1,96
+        div.Field__field#5  428×76 @16,16
+          label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
+          input  428×49 @0,27  r11  b1
+        div.Field__field#6  428×76 @16,104
+          label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
+          input  428×49 @0,27  r11  b1
+        div.Field__field#7  428×76 @16,192
+          label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Повторите новый»
+          input  428×49 @0,27  r11  b1
+      div.CardBelt__footer  460×69 @1,380  b1 0 0 0
+        div.ProfileForm__actions#2  155×44 @289,13
+          button.Button__button  155×44 @0,0  r11  b1
+            span.Button__content#2  117×17 @19,13
+              span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
+  div.ProfileForm__column#2  462×496 @478,0
+    section.Card__card  462×134 @0,0  r20  b1
+      div.CardBelt__header#2  460×63 @1,1  b0 0 1 0
+        div.CardBelt__headText  332×38 @16,12
+          h2.CardBelt__title#2  332×20 @0,0  Onest 700 15/20  ls0  lines=1  «Тема интерфейса»
+          p.CardBelt__subtitle  332×16 @0,22  Manrope 400 12/16  lines=1  «Выбор запоминается в этом браузере и на»
+      div.CardBelt__body#2  460×69 @1,64
+        div.ThemeChoice__row  428×37 @16,16
+          button.ThemeChoice__option  94×37 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
+          button.ThemeChoice__option#2  86×37 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
+          button.ThemeChoice__option#3  113×37 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
+    section.Card__card#2  462×347 @0,150  r20  b1
+      div.CardBelt__header#2  460×45 @1,1  b0 0 1 0
+        div.CardBelt__headText#2  36×20 @16,12
+          h2.CardBelt__title#2  36×20 @0,0  Onest 700 15/20  ls0  lines=1  «Вход»
+      div.CardBelt__body#2  460×163 @1,46
+        dl.ProfileForm__facts  428×22 @16,16
+          dt.ProfileForm__factTerm  112×22 @0,0  Manrope 400 15/22  lines=1  «Последний вход»
+          dd.ProfileForm__factValue  300×22 @128,0  JetBrains Mono 400 15/22  lines=1  «25.08.2026, 08:00»
+        p.ProfileForm__hint  428×40 @16,50  Manrope 400 13/20  lines=2  «Закрывает панель везде, кроме этого брау»
+        div.ProfileForm__exitRow  428×44 @16,103
+          button.Button__button  428×44 @0,0  r11  b1
+            span.Button__content#3  192×17 @118,13
+              span.Button__label  192×17 @0,0  Manrope 600 15/17  lines=1  «Выйти на всех устройствах»
+      div.CardBelt__footer#2  460×137 @1,208  b1 0 0 0
+        p.ProfileForm__hint  428×60 @16,13  Manrope 400 13/20  lines=3  «Выход закрывает сессию на этом устройств»
+        button.Button__button  102×44 @16,81  r11  b1
+          span.Button__content#4  64×23 @19,10
+            span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
+              svg  20×20 @0,0
 
 [палитра light]
 div.ProfileForm__grid
-  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-    form.ProfileForm__form
-      div.ProfileForm__head
-        h2.ProfileForm__title  color #0f172a
-        span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
-      div.Field__field
-        label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
-      div.Field__field#2
-        label.Field__label  color #334155
-        input.ProfileForm__readonly  bg #f8fafc  border #7e8fa6
-      div.Field__field#3
-        label.Field__label  color #334155
-        input.ProfileForm__readonly  bg #f8fafc  border #7e8fa6
-        p.Field__hint  color #556173
-      div.Field__field#4
-        label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
-      div.ProfileForm__actions
-        button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-          span.Button__content
-            span.Button__label  color #ffffff
   div.ProfileForm__column
     section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-      form.ProfileForm__form#2
-        h2.ProfileForm__title  color #0f172a
-        p.ProfileForm__hint  color #556173
+      div.CardBelt__header  border #475569 #475569 #e2e8f0 #475569
+        div.CardBelt__headText
+          h2.CardBelt__title  color #0f172a
+        div.CardBelt__action
+          span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+      div.CardBelt__body
         div.Field__field
-          label.Field__label#2  color #334155
-          input#2  bg #ffffff  border #7e8fa6
-        div.Field__field#2
-          label.Field__label#2  color #334155
+          label.Field__label  color #334155
           input  bg #ffffff  border #7e8fa6
+        div.Field__field#2
+          label.Field__label  color #334155
+          input  bg #ffffff  border #7e8fa6
+        div.Field__field#3
+          label.Field__label  color #334155
+          input.ProfileForm__readonly  bg #f8fafc  border #7e8fa6
+        div.Field__field#4
+          label.Field__label  color #334155
+          input.ProfileForm__readonly  bg #f8fafc  border #7e8fa6
+          p.Field__hint  color #556173
+      div.CardBelt__footer  border #e2e8f0 #475569 #475569 #475569
+        p.ProfileForm__hint  color #556173
         div.ProfileForm__actions
-          button.Button__button#2  bg #ffffff  border #7e8fa6
+          button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
             span.Button__content
-              span.Button__label#2  color #0f172a
+              span.Button__label  color #ffffff
     section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-      h2.ProfileForm__title  color #0f172a
-      p.ProfileForm__hint  color #556173
-      div.ThemeChoice__row
-        button.ThemeChoice__option  color #475569  border #7e8fa6
-        button.ThemeChoice__option#2  color #475569  border #7e8fa6
-        button.ThemeChoice__option#3  color #0e7490  bg #ecfeff  border #0891b2
-    section.Card__card#3  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-      h2.ProfileForm__title  color #0f172a
-      p.ProfileForm__hint  color #556173
-      button.Button__button  bg #ffffff  border #7e8fa6
-        span.Button__content#2
-          span.Button__label  color #0f172a
-            svg
+      div.CardBelt__header  border #475569 #475569 #e2e8f0 #475569
+        div.CardBelt__headText#2
+          h2.CardBelt__title  color #0f172a
+          p.CardBelt__subtitle  color #556173
+        div.CardBelt__action#2
+          span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+      div.CardBelt__body
+        div.Field__field#5
+          label.Field__label  color #334155
+          input  bg #ffffff  border #7e8fa6
+        div.Field__field#6
+          label.Field__label  color #334155
+          input  bg #ffffff  border #7e8fa6
+        div.Field__field#7
+          label.Field__label  color #334155
+          input  bg #ffffff  border #7e8fa6
+      div.CardBelt__footer  border #e2e8f0 #475569 #475569 #475569
+        div.ProfileForm__actions#2
+          button.Button__button  bg #ecfeff  border transparent
+            span.Button__content#2
+              span.Button__label  color #0e7490
+  div.ProfileForm__column#2
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      div.CardBelt__header#2  border #475569 #475569 #e2e8f0 #475569
+        div.CardBelt__headText
+          h2.CardBelt__title#2  color #0f172a
+          p.CardBelt__subtitle  color #556173
+      div.CardBelt__body#2
+        div.ThemeChoice__row
+          button.ThemeChoice__option  color #475569  border #7e8fa6
+          button.ThemeChoice__option#2  color #475569  border #7e8fa6
+          button.ThemeChoice__option#3  color #0e7490  bg #ecfeff  border #0891b2
+    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      div.CardBelt__header#2  border #475569 #475569 #e2e8f0 #475569
+        div.CardBelt__headText#2
+          h2.CardBelt__title#2  color #0f172a
+      div.CardBelt__body#2
+        dl.ProfileForm__facts
+          dt.ProfileForm__factTerm  color #475569
+          dd.ProfileForm__factValue  color #0f172a
+        p.ProfileForm__hint  color #556173
+        div.ProfileForm__exitRow
+          button.Button__button  bg #be123c14  border #be123c73
+            span.Button__content#3
+              span.Button__label  color #be123c
+      div.CardBelt__footer#2  border #e2e8f0 #475569 #475569 #475569
+        p.ProfileForm__hint  color #556173
+        button.Button__button  bg #ffffff  border #7e8fa6
+          span.Button__content#4
+            span.Button__label  color #0f172a
+              svg
 
 [палитра dark]
 div.ProfileForm__grid
-  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-    form.ProfileForm__form
-      div.ProfileForm__head
-        h2.ProfileForm__title  color #eaf1f8
-        span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
-      div.Field__field
-        label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
-      div.Field__field#2
-        label.Field__label  color #c9d5e2
-        input.ProfileForm__readonly  bg #0e1729  border #566d95
-      div.Field__field#3
-        label.Field__label  color #c9d5e2
-        input.ProfileForm__readonly  bg #0e1729  border #566d95
-        p.Field__hint  color #8598ac
-      div.Field__field#4
-        label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
-      div.ProfileForm__actions
-        button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-          span.Button__content
-            span.Button__label  color #ffffff
   div.ProfileForm__column
     section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-      form.ProfileForm__form#2
-        h2.ProfileForm__title  color #eaf1f8
-        p.ProfileForm__hint  color #8598ac
+      div.CardBelt__header  border #a8b6c6 #a8b6c6 #1e2b41 #a8b6c6
+        div.CardBelt__headText
+          h2.CardBelt__title  color #eaf1f8
+        div.CardBelt__action
+          span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+      div.CardBelt__body
         div.Field__field
-          label.Field__label#2  color #c9d5e2
-          input#2  bg #0b1424  border #566d95
-        div.Field__field#2
-          label.Field__label#2  color #c9d5e2
+          label.Field__label  color #c9d5e2
           input  bg #0b1424  border #566d95
+        div.Field__field#2
+          label.Field__label  color #c9d5e2
+          input  bg #0b1424  border #566d95
+        div.Field__field#3
+          label.Field__label  color #c9d5e2
+          input.ProfileForm__readonly  bg #0e1729  border #566d95
+        div.Field__field#4
+          label.Field__label  color #c9d5e2
+          input.ProfileForm__readonly  bg #0e1729  border #566d95
+          p.Field__hint  color #8598ac
+      div.CardBelt__footer  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+        p.ProfileForm__hint  color #8598ac
         div.ProfileForm__actions
-          button.Button__button#2  bg #121d31  border #566d95
+          button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
             span.Button__content
-              span.Button__label#2  color #eaf1f8
+              span.Button__label  color #ffffff
     section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-      h2.ProfileForm__title  color #eaf1f8
-      p.ProfileForm__hint  color #8598ac
-      div.ThemeChoice__row
-        button.ThemeChoice__option  color #a8b6c6  border #566d95
-        button.ThemeChoice__option#2  color #a8b6c6  border #566d95
-        button.ThemeChoice__option#3  color #22d3ee  bg #22d3ee1a  border #22d3ee
-    section.Card__card#3  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-      h2.ProfileForm__title  color #eaf1f8
-      p.ProfileForm__hint  color #8598ac
-      button.Button__button  bg #121d31  border #566d95
-        span.Button__content#2
-          span.Button__label  color #eaf1f8
-            svg
+      div.CardBelt__header  border #a8b6c6 #a8b6c6 #1e2b41 #a8b6c6
+        div.CardBelt__headText#2
+          h2.CardBelt__title  color #eaf1f8
+          p.CardBelt__subtitle  color #8598ac
+        div.CardBelt__action#2
+          span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+      div.CardBelt__body
+        div.Field__field#5
+          label.Field__label  color #c9d5e2
+          input  bg #0b1424  border #566d95
+        div.Field__field#6
+          label.Field__label  color #c9d5e2
+          input  bg #0b1424  border #566d95
+        div.Field__field#7
+          label.Field__label  color #c9d5e2
+          input  bg #0b1424  border #566d95
+      div.CardBelt__footer  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+        div.ProfileForm__actions#2
+          button.Button__button  bg #22d3ee1a  border transparent
+            span.Button__content#2
+              span.Button__label  color #22d3ee
+  div.ProfileForm__column#2
+    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      div.CardBelt__header#2  border #a8b6c6 #a8b6c6 #1e2b41 #a8b6c6
+        div.CardBelt__headText
+          h2.CardBelt__title#2  color #eaf1f8
+          p.CardBelt__subtitle  color #8598ac
+      div.CardBelt__body#2
+        div.ThemeChoice__row
+          button.ThemeChoice__option  color #a8b6c6  border #566d95
+          button.ThemeChoice__option#2  color #a8b6c6  border #566d95
+          button.ThemeChoice__option#3  color #22d3ee  bg #22d3ee1a  border #22d3ee
+    section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      div.CardBelt__header#2  border #a8b6c6 #a8b6c6 #1e2b41 #a8b6c6
+        div.CardBelt__headText#2
+          h2.CardBelt__title#2  color #eaf1f8
+      div.CardBelt__body#2
+        dl.ProfileForm__facts
+          dt.ProfileForm__factTerm  color #a8b6c6
+          dd.ProfileForm__factValue  color #eaf1f8
+        p.ProfileForm__hint  color #8598ac
+        div.ProfileForm__exitRow
+          button.Button__button  bg #fb71851f  border #fb718580
+            span.Button__content#3
+              span.Button__label  color #fb7185
+      div.CardBelt__footer#2  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+        p.ProfileForm__hint  color #8598ac
+        button.Button__button  bg #121d31  border #566d95
+          span.Button__content#4
+            span.Button__label  color #eaf1f8
+              svg
