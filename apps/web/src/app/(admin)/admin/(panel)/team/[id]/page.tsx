@@ -122,6 +122,9 @@ export default async function AdminTeamMemberPage({ params, searchParams }: Page
         titles={STAFF_TAB_TITLES}
         label={texts.tabsLabel}
         idPrefix="staff"
+        /* Счётчик у подписи (issue #602, макет `CardTabs.png`): по нему видно,
+           есть ли за вкладкой наряды, до того как на неё нажали. */
+        counts={{ orders: orders.total, notes: notes.length }}
         panels={{
           account: (
             <>

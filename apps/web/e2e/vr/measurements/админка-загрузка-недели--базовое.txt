@@ -1,0 +1,37 @@
+# админка-загрузка-недели--базовое · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.StaffLoadBar__load  358×20 @16,16
+  div.StaffLoadBar__track  319×6 @0,7  r100
+    div.StaffLoadBar__fill  204×6 @0,0  r100
+  span.StaffLoadBar__value  31×20 @327,0  JetBrains Mono 400 13/20  lines=1  «32 ч»
+
+[геометрия 768]
+div.StaffLoadBar__load  736×20 @16,16
+  div.StaffLoadBar__track  697×6 @0,7  r100
+    div.StaffLoadBar__fill  446×6 @0,0  r100
+  span.StaffLoadBar__value  31×20 @705,0  JetBrains Mono 400 13/20  lines=1  «32 ч»
+
+[геометрия 1440]
+div.StaffLoadBar__load  1408×20 @16,16
+  div.StaffLoadBar__track  1369×6 @0,7  r100
+    div.StaffLoadBar__fill  876×6 @0,0  r100
+  span.StaffLoadBar__value  31×20 @1377,0  JetBrains Mono 400 13/20  lines=1  «32 ч»
+
+[палитра light]
+div.StaffLoadBar__load
+  div.StaffLoadBar__track  bg #eef2f6
+    div.StaffLoadBar__fill  bg #0891b2
+  span.StaffLoadBar__value  color #475569
+
+[палитра dark]
+div.StaffLoadBar__load
+  div.StaffLoadBar__track  bg #182338
+    div.StaffLoadBar__fill  bg #22d3ee
+  span.StaffLoadBar__value  color #a8b6c6

@@ -16,7 +16,7 @@ const { testEnv, dbMock } = vi.hoisted(() => ({
     lead: { create: vi.fn() },
     notification: { createMany: vi.fn() },
     rateLimit: { upsert: vi.fn() },
-    setting: { findUnique: vi.fn() },
+    setting: { findUnique: vi.fn(), upsert: vi.fn() },
     $transaction: vi.fn(),
   },
 }));

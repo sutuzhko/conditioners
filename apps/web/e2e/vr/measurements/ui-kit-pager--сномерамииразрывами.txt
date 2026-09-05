@@ -1,0 +1,72 @@
+# ui-kit-pager--сномерамииразрывами · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+nav.Pager__pager  358×156 @16,16
+  a.Pager__step  87×44 @136,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+  ol.Pager__numbers  270×44 @44,56
+    a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+    li.Pager__gap  13×22 @48,11  Manrope 400 15/22  lines=1  «…»
+    a.Pager__number#2  44×44 @65,0  Manrope 600 15/17  r100  b1  lines=1  «12»
+    span.Pager__position  44×44 @113,0  Manrope 600 15/17  r100  b1  lines=1  «13»
+    a.Pager__number#3  44×44 @161,0  Manrope 600 15/17  r100  b1  lines=1  «14»
+    li.Pager__gap#2  13×22 @209,11  Manrope 400 15/22  lines=1  «…»
+    a.Pager__number#4  44×44 @226,0  Manrope 600 15/17  r100  b1  lines=1  «26»
+  a.Pager__step#2  99×44 @129,108  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+
+[геометрия 768]
+nav.Pager__pager  736×52 @16,16
+  a.Pager__step  91×44 @122,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+  ol.Pager__numbers  274×44 @225,4
+    a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+    li.Pager__gap  13×22 @48,11  Manrope 400 15/22  lines=1  «…»
+    a.Pager__number#2  44×44 @65,0  Manrope 600 15/17  r100  b1  lines=1  «12»
+    span.Pager__position  48×44 @113,0  Manrope 600 15/17  r100  b1  lines=1  «13»
+    a.Pager__number#3  44×44 @165,0  Manrope 600 15/17  r100  b1  lines=1  «14»
+    li.Pager__gap#2  13×22 @213,11  Manrope 400 15/22  lines=1  «…»
+    a.Pager__number#4  44×44 @230,0  Manrope 600 15/17  r100  b1  lines=1  «26»
+  a.Pager__step#2  103×44 @511,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+
+[геометрия 1440]
+nav.Pager__pager  1408×52 @16,16
+  a.Pager__step  91×44 @458,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+  ol.Pager__numbers  274×44 @561,4
+    a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+    li.Pager__gap  13×22 @48,11  Manrope 400 15/22  lines=1  «…»
+    a.Pager__number#2  44×44 @65,0  Manrope 600 15/17  r100  b1  lines=1  «12»
+    span.Pager__position  48×44 @113,0  Manrope 600 15/17  r100  b1  lines=1  «13»
+    a.Pager__number#3  44×44 @165,0  Manrope 600 15/17  r100  b1  lines=1  «14»
+    li.Pager__gap#2  13×22 @213,11  Manrope 400 15/22  lines=1  «…»
+    a.Pager__number#4  44×44 @230,0  Manrope 600 15/17  r100  b1  lines=1  «26»
+  a.Pager__step#2  103×44 @847,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+
+[палитра light]
+nav.Pager__pager
+  a.Pager__step  color #0e7490  border #7e8fa6
+  ol.Pager__numbers
+    a.Pager__number  color #0e7490  border transparent
+    li.Pager__gap  color #5b6a7d
+    a.Pager__number#2  color #0e7490  border transparent
+    span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+    a.Pager__number#3  color #0e7490  border transparent
+    li.Pager__gap#2  color #5b6a7d
+    a.Pager__number#4  color #0e7490  border transparent
+  a.Pager__step#2  color #0e7490  border #7e8fa6
+
+[палитра dark]
+nav.Pager__pager
+  a.Pager__step  color #22d3ee  border #566d95
+  ol.Pager__numbers
+    a.Pager__number  color #22d3ee  border transparent
+    li.Pager__gap  color #7e92a7
+    a.Pager__number#2  color #22d3ee  border transparent
+    span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+    a.Pager__number#3  color #22d3ee  border transparent
+    li.Pager__gap#2  color #7e92a7
+    a.Pager__number#4  color #22d3ee  border transparent
+  a.Pager__step#2  color #22d3ee  border #566d95

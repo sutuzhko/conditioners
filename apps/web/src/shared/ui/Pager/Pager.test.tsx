@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { Pager } from './Pager';
+import { Pager, pageWindowNumbers } from './Pager';
 
 describe('Pager', () => {
   it('ведёт на соседние страницы и показывает положение', () => {
@@ -66,5 +66,50 @@ describe('Pager', () => {
     );
 
     expect(css).not.toContain('var(--line-strong)');
+  });
+});
+
+/**
+ * Полоса номеров (issue #602, макет). Края, соседи текущей страницы и
+ * многоточия на разрывах: полная лента на двадцати шести страницах — ряд, по
+ * которому никто не целится.
+ */
+describe('Pager — номера страниц', () => {
+  it('🔴 показывает края, соседей и многоточия вместо всей ленты', () => {
+    expect(pageWindowNumbers(13, 26)).toEqual([1, 'gap', 12, 13, 14, 'gap', 26]);
+  });
+
+  it('короткий список показывается целиком — сворачивать нечего', () => {
+    expect(pageWindowNumbers(2, 4)).toEqual([1, 2, 3, 4]);
+  });
+
+  /* Разрыв в одну страницу не сворачивается: «1 … 3» занимает столько же
+     места, сколько «1 2 3», и прячет доступную страницу. */
+  it('разрыв в одну страницу не сворачивается', () => {
+    expect(pageWindowNumbers(4, 6)).toEqual([1, 'gap', 3, 4, 5, 6]);
+  });
+
+  it('текущая страница отмечена в разметке, а не только заливкой', () => {
+    render(<Pager page={3} pages={9} basePath="/admin/clients" numbers />);
+
+    expect(screen.getByText('3')).toHaveAttribute('aria-current', 'page');
+  });
+
+  it('номер — ссылка со своим именем: «3» в озвучке ничего не значит', () => {
+    render(<Pager page={1} pages={9} basePath="/admin/clients" numbers />);
+
+    expect(screen.getByRole('link', { name: 'Страница 2' })).toHaveAttribute(
+      'href',
+      '/admin/clients?page=2',
+    );
+  });
+
+  it('поиск переезжает на соседнюю страницу вместе с номером', () => {
+    render(<Pager page={1} pages={9} basePath="/admin/clients" query={{ q: 'Тула' }} numbers />);
+
+    expect(screen.getByRole('link', { name: 'Страница 2' })).toHaveAttribute(
+      'href',
+      '/admin/clients?q=%D0%A2%D1%83%D0%BB%D0%B0&page=2',
+    );
   });
 });

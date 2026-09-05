@@ -60,3 +60,16 @@ export const ЧетыреВкладки: Story = {
     },
   },
 };
+
+/**
+ * Счётчики у подписей (issue #602, макет `CardTabs.png`). Ноль показывается
+ * наравне с остальными числами: «Техника 0» отвечает на вопрос, а пустое
+ * место — нет.
+ */
+export const СоСчётчиками: Story = {
+  args: { counts: { orders: 3, units: 2 } },
+};
+
+export const СНулём: Story = {
+  args: { counts: { orders: 12, units: 0 } },
+};

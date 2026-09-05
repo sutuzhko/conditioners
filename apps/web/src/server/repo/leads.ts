@@ -4,13 +4,17 @@
  * Раздела «Заявки» в исходном дизайне не было — заявки жили только в Telegram
  * (docs/API.md, отличие 3).
  */
+import { z } from 'zod';
+
 import type { LeadStatus, Prisma } from '@prisma/client';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import type { Viewer } from '@/server/repo/day-blocks';
 import { parseLeadContext } from '@/entities/lead/lib/context';
 import type { LeadContext, LeadUpdate } from '@/entities/lead/model';
+import { isCancelReason, type CancelReason } from '@/shared/lib/cancel-reason';
 import { pageWindow, type Page } from '@/shared/lib/paging';
+import { phoneBody } from '@/shared/lib/phone';
 import { mimeFor, resolveProtectedPath } from '@/server/uploads/store';
 
 export type LeadStatusApi = 'new' | 'in_progress' | 'done' | 'rejected';
@@ -31,6 +35,11 @@ const FROM_DB: Record<LeadStatus, LeadStatusApi> = {
 
 export type LeadDto = {
   id: string;
+  /**
+   * Номер обращения — то, чем на него ссылаются вслух и в заметках. Сквозной
+   * счётчик, как у наряда (ADR-114): дыр в нумерации быть не должно.
+   */
+  number: number;
   name: string;
   phone: string;
   topic: string;
@@ -62,6 +71,12 @@ export type LeadDto = {
   context: LeadContext | null;
   consentAt: string;
   status: LeadStatusApi;
+  /**
+   * Почему отказались (ADR-310). Заполнено только у отменённых обращений: у
+   * остальных объяснять нечего, и `null` здесь — рабочее состояние.
+   */
+  cancelReason: CancelReason | null;
+  cancelNote: string | null;
   managerComment: string | null;
   /** Клиент, в которого выросло обращение; `null` — в базу его ещё не завели. */
   clientId: string | null;
@@ -69,8 +84,12 @@ export type LeadDto = {
   updatedAt: string;
 };
 
-type LeadRow = Omit<LeadDto, 'status' | 'context' | 'consentAt' | 'createdAt' | 'updatedAt'> & {
+type LeadRow = Omit<
+  LeadDto,
+  'status' | 'context' | 'consentAt' | 'createdAt' | 'updatedAt' | 'cancelReason'
+> & {
   status: LeadStatus;
+  cancelReason: string | null;
   context: Prisma.JsonValue;
   consentAt: Date;
   createdAt: Date;
@@ -92,6 +111,11 @@ function toDto(row: LeadRow): LeadDto {
     ...row,
     photo: row.photo === null ? null : leadPhotoUrl(row.id),
     status: FROM_DB[row.status],
+    /* Код причины лежит в колонке строкой, и в ней может быть значение,
+       записанное вчерашним словарём. Незнакомое — то же самое, что причины
+       нет: показывать владельцу чужой код бессмысленно. */
+    cancelReason:
+      row.cancelReason !== null && isCancelReason(row.cancelReason) ? row.cancelReason : null,
     /* Снимок разбирается на выходе из базы: в колонке лежит то, что записали
        вчерашней версией схемы, и доверять ей на слово нельзя. Не разобралось —
        контекста нет, заявка от этого не перестаёт быть заявкой. */
@@ -107,6 +131,35 @@ function whereStatus(status?: LeadStatusApi): Prisma.LeadWhereInput {
 }
 
 /**
+ * Поиск по очереди: имя, телефон, адрес и номер обращения.
+ *
+ * Телефон ищется по цифрам, а не по тому, как номер записан: в колонке лежит
+ * канонический `+79101552468`, а владелец набирает «910 155» или «8 910» —
+ * `phoneBody` снимает код страны и приводит оба обрывка к одному виду. Тот же
+ * приём, что в поиске по клиентам (ADR-105).
+ *
+ * Номер обращения ищется точным совпадением: «41» — это заявка № 41, а не
+ * всякая, где сорок первый попался внутри адреса.
+ */
+function searchWhere(query: string): Prisma.LeadWhereInput {
+  const text = query.trim();
+  if (text === '') return {};
+
+  const digits = phoneBody(text);
+  const number = /^\d{1,9}$/.test(text) ? Number.parseInt(text, 10) : null;
+
+  return {
+    OR: [
+      { name: { contains: text, mode: 'insensitive' } },
+      { address: { contains: text, mode: 'insensitive' } },
+      { topic: { contains: text, mode: 'insensitive' } },
+      ...(digits === '' ? [] : [{ phone: { contains: digits } }]),
+      ...(number === null ? [] : [{ number }]),
+    ],
+  };
+}
+
+/**
  * Запись нового обращения — заявки с сайта или напоминания о ТО.
  *
  * Клиент транзакции параметром, потому что в одиночку обращение не пишется
@@ -115,10 +168,48 @@ function whereStatus(status?: LeadStatusApi): Prisma.LeadWhereInput {
  * сервисов (`services/leads`), здесь только доступ к данным.
  */
 export async function create(
-  data: Prisma.LeadCreateInput,
+  data: Omit<Prisma.LeadCreateInput, 'number'>,
   client: Prisma.TransactionClient = db,
 ): Promise<LeadDto> {
-  return toDto(await client.lead.create({ data }));
+  return toDto(await client.lead.create({ data: { ...data, number: await nextNumber(client) } }));
+}
+
+/** Ключ счётчика номеров обращений в `Setting` — по образцу нарядов. */
+const LEAD_SEQ_KEY = 'leadSeq';
+
+/**
+ * Первое обращение — № 1.
+ *
+ * Начинать с сотни, чтобы «выглядело солиднее», нельзя ровно по той же
+ * причине, что и у наряда (ADR-114): номер называют вслух, и он сообщал бы о
+ * работе, которой не было (инвариант 10). Владельцу, продолжающему нумерацию
+ * бумажного журнала, кода менять не нужно — стартовое значение задаётся
+ * записью в `Setting`.
+ */
+const FIRST_LEAD_NUMBER = 1;
+
+/** Значение из `Setting` приходит как JSON — доверять ему без проверки нельзя. */
+const leadSeqSchema = z.number().int().min(0);
+
+/**
+ * 🔴 Номер выдаётся в той же транзакции, что и вставка обращения.
+ *
+ * Автоинкремент Postgres не годится: он оставляет дыру на каждой откатанной
+ * транзакции. Заявка пишется вместе с уведомлением о ней (инвариант 2,
+ * ADR-091), и откат этой пары — обычное дело при недоступной очереди.
+ */
+async function nextNumber(tx: Prisma.TransactionClient): Promise<number> {
+  const row = await tx.setting.findUnique({ where: { key: LEAD_SEQ_KEY } });
+  const stored = leadSeqSchema.safeParse(row?.value);
+  const number = stored.success ? stored.data + 1 : FIRST_LEAD_NUMBER;
+
+  await tx.setting.upsert({
+    where: { key: LEAD_SEQ_KEY },
+    create: { key: LEAD_SEQ_KEY, value: number },
+    update: { value: number },
+  });
+
+  return number;
 }
 
 /**
@@ -130,9 +221,16 @@ export async function create(
  * прижимается к последней существующей (`pageWindow`).
  */
 export async function listByStatus(
-  params: { status?: LeadStatusApi | undefined; page?: number | undefined } = {},
+  params: {
+    status?: LeadStatusApi | undefined;
+    page?: number | undefined;
+    query?: string | undefined;
+  } = {},
 ): Promise<Page<LeadDto>> {
-  const where = whereStatus(params.status);
+  const where: Prisma.LeadWhereInput = {
+    ...whereStatus(params.status),
+    ...searchWhere(params.query ?? ''),
+  };
   const total = await db.lead.count({ where });
   const { page, pages, skip, take } = pageWindow(total, params.page ?? 1);
 
@@ -241,8 +339,106 @@ export async function update(id: string, input: LeadUpdate): Promise<LeadDto> {
     data: {
       ...(input.status === undefined ? {} : { status: TO_DB[input.status] }),
       ...(input.managerComment === undefined ? {} : { managerComment: input.managerComment }),
+      ...cancelData(input),
     },
   });
 
   return toDto(row);
+}
+
+/**
+ * Что происходит с разбором отказа при смене статуса (ADR-310).
+ *
+ * 🔴 Возврат обращения из отказа стирает причину. Схема не даёт прислать её
+ * вместе с другим статусом, но старая запись осталась бы в колонке и врала:
+ * «в работе, отказались потому что дорого». Стирается и уточнение — оно
+ * объясняло причину, которой больше нет.
+ */
+function cancelData(input: LeadUpdate): Prisma.LeadUpdateInput {
+  if (input.cancelReason !== undefined) {
+    return { cancelReason: input.cancelReason, cancelNote: input.cancelNote ?? null };
+  }
+
+  return input.status === undefined || input.status === 'rejected'
+    ? {}
+    : { cancelReason: null, cancelNote: null };
+}
+
+/**
+ * 🔴 Уничтожение обращения — исполнение требования 152-ФЗ (issue #600).
+ *
+ * В заявке лежат имя, телефон, адрес, комментарий и снимок комнаты — тот же
+ * состав персональных данных, что в карточке клиента, где удаление есть с
+ * самого начала. Закон требует уметь их уничтожить по требованию человека, и
+ * до этой правки владелец такой возможности не имел вовсе.
+ *
+ * Отменённое и удалённое — разные вещи: отмена оставляет обращение в истории
+ * и в счётчиках, удаление не оставляет ничего. Второе необратимо, поэтому
+ * спрашивает подтверждение (ADR-113), а наряд, выросший из обращения, при
+ * этом остаётся — связь помечена `SetNull`: удалённая заявка не отменяет
+ * работу, о которой уже договорились.
+ *
+ * Возвращается имя файла снимка: удалить его с диска — забота сервиса, у
+ * репозитория нет доступа к хранилищу.
+ */
+export async function remove(id: string): Promise<{ readonly photo: string | null }> {
+  const row = await db.lead.findUnique({ where: { id }, select: { photo: true } });
+  if (row === null) throw new ApiException('not_found', 'Заявка не найдена');
+
+  await db.lead.delete({ where: { id } });
+
+  return { photo: row.photo };
+}
+
+/**
+ * Счёт очереди для подписи раздела: сколько новых и сколько из них ждут
+ * дольше суток.
+ *
+ * 🔴 Считается в базе, а не по текущей странице очереди: на экране восемь
+ * строк, а залежавшееся обращение лежит на четвёртой странице — именно поэтому
+ * оно и залежалось.
+ */
+export type LeadQueueCounts = {
+  readonly total: number;
+  readonly fresh: number;
+  readonly stale: number;
+  /** Самое старое непринятое обращение — то, ради которого висит плашка. */
+  readonly oldest: {
+    readonly id: string;
+    readonly number: number;
+    readonly createdAt: string;
+  } | null;
+};
+
+/** Сутки без ответа — граница, после которой обращение считается залежавшимся. */
+export const LEAD_STALE_HOURS = 24;
+
+export async function queueCounts(now: Date = new Date()): Promise<LeadQueueCounts> {
+  const staleBefore = new Date(now.getTime() - LEAD_STALE_HOURS * 60 * 60 * 1000);
+  const fresh: Prisma.LeadWhereInput = { status: TO_DB.new };
+
+  const [total, freshCount, stale, oldest] = await Promise.all([
+    db.lead.count(),
+    db.lead.count({ where: fresh }),
+    db.lead.count({ where: { ...fresh, createdAt: { lt: staleBefore } } }),
+    db.lead.findFirst({
+      where: { ...fresh, createdAt: { lt: staleBefore } },
+      orderBy: { createdAt: 'asc' },
+      select: { id: true, number: true, createdAt: true },
+    }),
+  ]);
+
+  return {
+    total,
+    fresh: freshCount,
+    stale,
+    oldest:
+      oldest === null
+        ? null
+        : {
+            id: oldest.id,
+            number: oldest.number,
+            createdAt: oldest.createdAt.toISOString(),
+          },
+  };
 }

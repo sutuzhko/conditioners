@@ -2995,6 +2995,9 @@ async function main(): Promise<void> {
 
   console.error('Обращения…');
   const leadIds: string[] = [];
+  /* Номер обращения сквозной, как у наряда (ADR-114): в сиде он раздаётся по
+     порядку списка, а счётчик ниже продолжает с последнего выданного. */
+  let leadNumber = 0;
   for (const lead of leads) {
     const photo =
       lead.photo === true
@@ -3008,8 +3011,11 @@ async function main(): Promise<void> {
           })
         : null;
 
+    leadNumber += 1;
+
     const created = await prisma.lead.create({
       data: {
+        number: leadNumber,
         name: lead.name,
         phone: lead.phone,
         topic: lead.topic,
@@ -3126,6 +3132,14 @@ async function main(): Promise<void> {
     where: { key: 'orderSeq' },
     create: { key: 'orderSeq', value: orders.length },
     update: { value: orders.length },
+  });
+
+  /* То же и у обращений: заявка с сайта, пришедшая после сида, продолжает
+     нумерацию очереди, а не сталкивается с уже занятым номером. */
+  await prisma.setting.upsert({
+    where: { key: 'leadSeq' },
+    create: { key: 'leadSeq', value: leads.length },
+    update: { value: leads.length },
   });
 
   /* Автор записи по умолчанию — владелец: закупку, инвентаризацию и правки

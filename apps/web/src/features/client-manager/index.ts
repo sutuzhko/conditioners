@@ -1,5 +1,5 @@
 /** Публичный API раздела клиентов. */
-export { ClientCardView, type ClientCardViewProps } from './ClientCardView';
+export { ClientRow, type ClientRowProps } from './ClientRow';
 export { ClientCreateModal, type ClientCreateModalProps } from './ClientCreateModal';
 export { ClientForm, type ClientFormProps } from './ClientForm';
 export { ClientLeads, type ClientLeadsProps } from './ClientLeads';

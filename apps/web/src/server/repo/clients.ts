@@ -26,6 +26,17 @@ const clientSelect = {
   note: true,
   createdAt: true,
   _count: { select: { leads: true } },
+  /* 🔴 Наряды человека: из них считаются «Заказов», «Сумма» и «Последний» —
+     три колонки списка (макет `Clients.png`).
+     
+     Отменённые не в счёт: за них никто не ездил и денег они не принесли, а
+     сложить их в «на сумму» значит обещать выручку, которой не было. Берутся
+     две колонки, а не наряды целиком: список показывает числа, а не работы. */
+  orders: {
+    where: { status: { not: 'CANCELLED' } },
+    select: { at: true, price: true },
+    orderBy: { at: 'desc' },
+  },
 } as const;
 
 type ClientRow = {
@@ -36,6 +47,7 @@ type ClientRow = {
   note: string | null;
   createdAt: Date;
   _count: { leads: number };
+  orders: readonly { at: Date; price: number }[];
 };
 
 function toCard(row: ClientRow): ClientCard {
@@ -47,6 +59,9 @@ function toCard(row: ClientRow): ClientCard {
     note: row.note,
     createdAt: row.createdAt.toISOString(),
     leadCount: row._count.leads,
+    orderCount: row.orders.length,
+    orderSum: row.orders.reduce((sum, order) => sum + order.price, 0),
+    lastOrderAt: row.orders[0]?.at.toISOString() ?? null,
   };
 }
 
@@ -120,6 +135,27 @@ export async function findById(id: string): Promise<ClientCard | null> {
 
 export async function countAll(): Promise<number> {
   return db.client.count();
+}
+
+/**
+ * Счёт базы для подписи раздела: сколько всего и сколько завели за месяц
+ * (issue #602, макет `Clients.png`).
+ *
+ * Календарный месяц, а не «последние тридцать дней»: владелец сверяет эту
+ * цифру с тем, что помнит про август, а не с плавающим окном.
+ */
+export async function counts(now: Date = new Date()): Promise<{
+  readonly total: number;
+  readonly fresh: number;
+}> {
+  const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+
+  const [total, fresh] = await Promise.all([
+    db.client.count(),
+    db.client.count({ where: { createdAt: { gte: monthStart } } }),
+  ]);
+
+  return { total, fresh };
 }
 
 /**

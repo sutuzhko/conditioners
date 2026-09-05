@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import type { BadgeVariant } from '@/shared/ui';
 
+import { CANCEL_NOTE_MAX, CANCEL_REASONS } from '@/shared/lib/cancel-reason';
 import { consentSchema, honeypotSchema, phoneField } from '@/shared/lib/zod';
 
 /**
@@ -279,9 +280,32 @@ export const toReminderSchema = z.object({
 
 export type ToReminderInput = z.infer<typeof toReminderSchema>;
 
+const managerCommentSchema = z.string().trim().max(2000).nullable().optional();
+
+/** Причина отмены — код справочника, общего с нарядом (ADR-310). */
+export const leadCancelReasonSchema = z.enum(CANCEL_REASONS, {
+  errorMap: () => ({ message: 'Выберите причину отказа' }),
+});
+
+const cancelNoteSchema = z
+  .string()
+  .trim()
+  .max(CANCEL_NOTE_MAX, `Уточнение длиннее ${CANCEL_NOTE_MAX} символов не сохранится`)
+  .nullable()
+  .optional();
+
 /**
- * Правка заявки в админке: статус и комментарий менеджера, больше ничего.
- * Данные клиента — то, что он прислал; правка их превращает заявку в пересказ.
+ * Правка заявки в админке: статус, причина отказа и комментарий менеджера,
+ * больше ничего. Данные клиента — то, что он прислал; правка их превращает
+ * заявку в пересказ.
+ *
+ * 🔴 Отмена и удаление — разные вещи (ADR-310). Здесь только отмена: заявка
+ * остаётся в истории и в счётчиках конверсии, меняется её состояние. Стирает
+ * персональные данные `DELETE`, и это отдельное необратимое действие.
+ *
+ * 🔴 Причина отказа связана со статусом правилом, а не оставлена
+ * необязательным полем «на всякий случай» — довод тот же, что в ADR-300 про
+ * отказ по отзыву: поле, которое можно не заполнить, не заполняют.
  */
 export const leadUpdateSchema = z
   .object({
@@ -290,9 +314,45 @@ export const leadUpdateSchema = z
         errorMap: () => ({ message: 'Неизвестный статус заявки' }),
       })
       .optional(),
-    managerComment: z.string().trim().max(2000).nullable().optional(),
+    cancelReason: leadCancelReasonSchema.optional(),
+    cancelNote: cancelNoteSchema,
+    managerComment: managerCommentSchema,
   })
   .strict()
-  .refine((value) => Object.keys(value).length > 0, 'Нечего сохранять');
+  .superRefine((value, ctx) => {
+    if (Object.keys(value).length === 0) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Нечего сохранять' });
+      return;
+    }
+
+    /* 🔴 Отмена без причины запрещена (ADR-310): ради разбора причин отказа
+       вкладка и заводится, а «просто отказ» не отвечает ни на один вопрос
+       владельца — ни почему ушли, ни что с этим делать. */
+    if (value.status === 'rejected' && value.cancelReason === undefined) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['cancelReason'],
+        message: 'Выберите причину отказа',
+      });
+    }
+
+    /* Причина живёт только вместе с отказом: обращение, вернувшееся в работу,
+       не должно тащить объяснение, которое перестало быть правдой. */
+    if (value.status !== 'rejected' && value.cancelReason !== undefined) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['cancelReason'],
+        message: 'Причина относится только к отказу',
+      });
+    }
+
+    if (value.cancelReason === undefined && value.cancelNote !== undefined) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['cancelNote'],
+        message: 'Уточнение без причины ничего не объясняет',
+      });
+    }
+  });
 
 export type LeadUpdate = z.infer<typeof leadUpdateSchema>;

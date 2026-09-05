@@ -1,6 +1,13 @@
 import Link from 'next/link';
 
-import { LEAD_STATUSES, leadManagerContent as texts, leadsHref } from '@/features/lead-manager';
+import {
+  LEAD_STATUSES,
+  LeadSearch,
+  leadManagerContent as texts,
+  leadsHref,
+} from '@/features/lead-manager';
+
+import { Skeleton } from '@/shared/ui';
 
 import { LeadsSkeleton } from './LeadsSkeleton';
 import styles from './page.module.css';
@@ -9,11 +16,14 @@ import styles from './page.module.css';
  * Заявки: шапка и фильтры настоящие, заготовка — у очереди с карточкой
  * (issue #334, #349).
  *
- * 🔴 Шапка и фильтры не зависят от данных, и рисовать их серыми полосами
- * значит обещать одну высоту и показать другую: пояснение под заголовком на
- * 1440 занимает две строки, на 390 — три, а фильтры на телефоне переносятся
- * во второй ряд; никакая полоса этого не повторит. Замер до правки: список
- * начинался на 113px в заготовке и на 180.7px на готовой странице.
+ * 🔴 Шапка, поиск и фильтры не зависят от данных, и рисовать их серыми
+ * полосами значит обещать одну высоту и показать другую: фильтры на телефоне
+ * переносятся во второй ряд, а поле поиска на 390 встаёт над кнопкой; никакая
+ * полоса этого не повторит. Замер до правки: список начинался на 113px в
+ * заготовке и на 180.7px на готовой странице.
+ *
+ * Строка счёта — единственное здесь, что приходит из базы: под неё стоит
+ * заготовка той же высоты.
  *
  * Активный фильтр не подсвечивается: какой выбран, знает только адрес, а
  * подсветка на геометрию не влияет.
@@ -23,8 +33,15 @@ export default function LeadsLoading() {
     <div className={styles.page} aria-busy="true">
       <header className={styles.header}>
         <h1 className={styles.title}>{texts.title}</h1>
-        <p className={styles.lead}>{texts.lead}</p>
       </header>
+
+      {/* Счёт очереди приходит из базы: под него резервируется строка той же
+          высоты, а поиск и фильтры рисуются настоящими — они данных не ждут. */}
+      <p className={styles.lead}>
+        <Skeleton variant="text" width="16ch" />
+      </p>
+
+      <LeadSearch query="" />
 
       <nav className={styles.filters} aria-label={texts.filterLabel}>
         <Link className={styles.filter} href={leadsHref({})}>

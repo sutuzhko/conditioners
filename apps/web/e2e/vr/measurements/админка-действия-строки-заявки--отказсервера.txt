@@ -1,0 +1,42 @@
+# админка-действия-строки-заявки--отказсервера · ширины 390 768 1440 · темы light dark
+шрифты: —
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.LeadRowActions__wrap  358×44 @16,16
+  div.RowMenu__root  44×44 @314,0
+    button.RowMenu__trigger  44×44 @0,0  r100  b1
+      span.RowMenu__dots  16×16 @14,14
+        svg  16×16 @0,0
+
+[геометрия 768]
+div.LeadRowActions__wrap  736×44 @16,16
+  div.RowMenu__root  44×44 @692,0
+    button.RowMenu__trigger  44×44 @0,0  r100  b1
+      span.RowMenu__dots  16×16 @14,14
+        svg  16×16 @0,0
+
+[геометрия 1440]
+div.LeadRowActions__wrap  1408×44 @16,16
+  div.RowMenu__root  44×44 @1364,0
+    button.RowMenu__trigger  44×44 @0,0  r100  b1
+      span.RowMenu__dots  16×16 @14,14
+        svg  16×16 @0,0
+
+[палитра light]
+div.LeadRowActions__wrap
+  div.RowMenu__root
+    button.RowMenu__trigger  border transparent
+      span.RowMenu__dots
+        svg
+
+[палитра dark]
+div.LeadRowActions__wrap
+  div.RowMenu__root
+    button.RowMenu__trigger  border transparent
+      span.RowMenu__dots
+        svg

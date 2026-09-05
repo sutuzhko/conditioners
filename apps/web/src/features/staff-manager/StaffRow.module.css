@@ -1,0 +1,140 @@
+/* Монтажник строкой таблицы команды (макет `Team.png`). */
+
+/* Закрытый доступ приглушает строку, но не прячет данные: человек остаётся в
+   команде, и его наряды из истории никуда не делись. */
+.off {
+  color: var(--muted);
+}
+
+.who {
+  min-width: 0;
+}
+
+.person {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.names {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.name {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.name:hover {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+.since {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+/* Ссылка-действие в колонке: круг и размер задаёт `TableActions`, здесь
+   остаётся центрирование значка — у ссылки его нет по умолчанию. */
+.action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.phone {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  white-space: nowrap;
+}
+
+/* 🔴 Телефон в строке выглядит текстом, а не ссылкой: краска ссылки и
+   подчёркивание в колонке цифр читаются как «здесь что-то не так», а в макете
+   это обычный моноширинный текст. Ссылкой он остаётся — с телефона по нему
+   звонят, — и признаётся ею при наведении и с клавиатуры. */
+.phone a {
+  color: var(--ink2);
+  text-decoration: none;
+}
+
+.phone a:hover,
+.phone a:focus-visible {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+.missing {
+  color: var(--faint);
+}
+
+.number {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.actions {
+  width: 1%;
+  text-align: right;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: var(--error-ink);
+  font-size: var(--fs-caption);
+}
+
+/* Карточками ниже 600px: восемь колонок на телефоне не читаются вовсе. */
+@media (width < 600px) {
+  .number,
+  .actions {
+    text-align: left;
+  }
+
+  .actions {
+    width: auto;
+  }
+}
+
+/* 🔴 Карточный режим: главная ячейка занимает всю ширину карточки.
+
+   `Table` раскладывает ячейку строкой «подпись слева — значение справа»
+   (`display: flex`), и на 390 колонка имени сжималась до 19,3px: ссылка с
+   полом тап-зоны в 44px (`tapAction`, ADR-183) вылезала из неё на 24,8px.
+   Виноват был не текст — «petrov» занимает 19,3px, — а пол цели в контейнере,
+   не рассчитанном на него. Ячейке-блоку ширины хватает, и пол цели остаётся
+   на месте: он нужен пальцу.
+
+   Удвоенный класс — приём проекта (ADR-038): у `.cards td` вес больше, чем у
+   одиночного класса модуля. */
+@media (width < 600px) {
+  .who.who {
+    display: block;
+    text-align: left;
+  }
+
+  .who::before {
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .badges {
+    justify-content: flex-start;
+  }
+}
