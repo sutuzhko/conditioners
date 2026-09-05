@@ -1,5 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 
+import { ADMIN_PAGE_SIZE } from '@/shared/lib/paging';
+
 import { BASE_URL, withAdmin } from './support/admin-api';
 import { loginViaUi } from './support/admin-ui';
 
@@ -18,11 +20,37 @@ import { loginViaUi } from './support/admin-ui';
 
 test.use({ baseURL: BASE_URL });
 
-/** Сколько записей на странице списка панели (`shared/lib/paging`). */
-const PAGE_SIZE = 8;
+/**
+ * Сколько записей на странице списка панели.
+ *
+ * 🔴 Берётся у приложения, а не переписывается числом. Скопированная сюда
+ * восьмёрка — второй источник правды о размере страницы: он молчит ровно до
+ * того дня, когда размер поменяют, и тогда сценарий начинает проверять
+ * разбивку, которой в панели уже нет.
+ */
+const PAGE_SIZE = ADMIN_PAGE_SIZE;
 
 /** Записей заводим на три больше страницы: две страницы, вторая не пустая. */
 const TOTAL = PAGE_SIZE + 3;
+
+/**
+ * План статей сценария: номер и состояние.
+ *
+ * 🔴 Один список, из которого статьи и создаются, и по которому потом
+ * считается ожидание. Пока «сколько черновиков» вычислялось второй формулой
+ * рядом, она разошлась с фикстурой и молча проверяла не то: формула обещала
+ * шесть черновиков, а заводились пять — черновиками оказывались чётные
+ * номера, а не нечётные.
+ */
+const ARTICLE_PLAN = Array.from({ length: TOTAL }, (_, index) => ({
+  number: index + 1,
+  /* Каждая вторая — черновик: на них проверяется фильтр состояния и
+     отключённое «Смотреть на сайте» (issue #615). */
+  published: index % 2 === 0,
+}));
+
+/** Сколько черновиков завёл сценарий — по тому же списку, что их создаёт. */
+const DRAFTS = ARTICLE_PLAN.filter((article) => !article.published).length;
 
 /** Что стоит в адресе после перехода по ссылке разбивки. */
 function params(page: Page): URLSearchParams {
@@ -90,19 +118,17 @@ test.describe('База знаний: разбивка, поиск и подпи
 
     await withAdmin(async (api) => {
       try {
-        for (let index = 1; index <= TOTAL; index += 1) {
+        for (const planned of ARTICLE_PLAN) {
           const article = await api.createArticle({
-            title: `${mark} № ${index}`,
+            title: `${mark} № ${planned.number}`,
             category,
             /* Разные дни: список идёт по дате, и одинаковая дата у всех
                оставила бы порядок страниц на усмотрение базы. */
-            date: `2026-08-${String(index).padStart(2, '0')}`,
+            date: `2026-08-${String(planned.number).padStart(2, '0')}`,
             minutes: 4,
             excerpt: `Служебная статья сквозного сценария ${mark}. Удаляется после прогона.`,
             body: `## ${mark}\n\nСлужебный текст сквозного сценария. Удаляется после прогона.`,
-            /* Половина черновиками: на них проверяется фильтр состояния и
-               отключённое «Смотреть на сайте» (issue #615). */
-            published: index % 2 === 1,
+            published: planned.published,
           });
           created.push(article.id);
         }
@@ -129,8 +155,11 @@ test.describe('База знаний: разбивка, поиск и подпи
            показанный на четвёртой странице нового списка, выглядел бы как
            «ничего не нашлось». */
         await page.goto(`/admin/knowledge?q=${encodeURIComponent(mark)}&state=draft`);
-        /* Черновиками заведена каждая нечётная — их на одну больше половины. */
-        await expect(rows).toHaveCount(Math.ceil(TOTAL / 2));
+        /* Черновики умещаются на одну страницу — иначе строка ниже мерила бы
+           не число черновиков, а размер окна, и молча проходила бы при любом
+           дефекте фильтра. */
+        expect(DRAFTS).toBeLessThanOrEqual(PAGE_SIZE);
+        await expect(rows).toHaveCount(DRAFTS);
 
         /* 🔴 У черновика адреса на сайте нет — действие отключено и называет
            причину (issue #615). */
