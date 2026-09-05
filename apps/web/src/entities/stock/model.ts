@@ -40,6 +40,73 @@ export function isStockMoveKind(value: string): value is StockMoveKind {
 }
 
 /**
+ * Журнал смотрят за период: «что было в этом месяце» — обычный вопрос к нему.
+ * Набор тот же, что у списка нарядов (`orderPeriodSchema`): разные наборы
+ * периодов в соседних разделах владелец читает как сбой, а не как настройку.
+ */
+export const stockPeriodSchema = z.enum(['all', 'month', 'prev']);
+export type StockPeriod = z.infer<typeof stockPeriodSchema>;
+export const STOCK_PERIODS: readonly StockPeriod[] = stockPeriodSchema.options;
+
+export function isStockPeriod(value: string): value is StockPeriod {
+  return STOCK_PERIODS.some((period) => period === value);
+}
+
+/**
+ * Позиция опустилась ниже порога — это и есть список «пора заказывать»
+ * (CRM.md §11.3). Ноль порога означает «за позицией не следим»: порог задаётся
+ * на позицию, а не общим числом.
+ */
+export function isLow(total: number, minQty: number): boolean {
+  return minQty > 0 && total < minQty;
+}
+
+/**
+ * Насколько выше порога остаток ещё считается «подходит к порогу».
+ *
+ * 🔴 Это не данные компании, а правило показа (инвариант 8 про них и говорит):
+ * ниже порога — уже поздно, и владельцу нужна ступень раньше. Четверть запаса
+ * сверх порога — один выезд: позиция, у которой осталось «на один монтаж
+ * сверх нормы», попадает в закупку этой недели, а не следующей.
+ */
+export const NEAR_LOW_RATIO = 1.25;
+
+/**
+ * Остаток ещё не ниже порога, но следующий выезд уведёт его туда.
+ *
+ * 🔴 Строго вне списка «ниже порога»: одна позиция не может стоять в двух
+ * плитках сразу, иначе сумма плиток перестаёт сходиться со справочником.
+ */
+export function isNearLow(total: number, minQty: number): boolean {
+  return minQty > 0 && !isLow(total, minQty) && total <= minQty * NEAR_LOW_RATIO;
+}
+
+/**
+ * Как движение меняет общий остаток по складу.
+ *
+ * 🔴 Приход и списание в колонке «Сколько» выглядели одинаково, а по журналу
+ * сверяют остаток (issue #610). Направление у движения задают зоны, а не знак
+ * количества, — поэтому знак считается здесь, а не хранится в базе.
+ *
+ * `null` у перемещения: общий остаток оно не меняет вовсе, и знак у него был
+ * бы неправдой в любую сторону.
+ */
+export function movementDelta(kind: StockMoveKind, qty: number): number | null {
+  switch (kind) {
+    case 'income':
+    case 'return':
+      return qty;
+    case 'consume':
+      return -qty;
+    /* Инвентаризация приходит со своим знаком: она и добавляет, и убавляет. */
+    case 'count':
+      return qty;
+    case 'transfer':
+      return null;
+  }
+}
+
+/**
  * Количество приходит из формы строкой. Человек пишет «1,5» и «12 000» — так
  * пишут по-русски, и отвергать такой ввод значит спорить с клавиатурой, а не
  * защищать данные.
@@ -349,6 +416,8 @@ export type StockItemCard = {
   readonly total: number;
   readonly minQty?: number;
   readonly low?: boolean;
+  /** Остаток ещё не ниже порога, но следующий выезд уведёт его туда. */
+  readonly near?: boolean;
 };
 
 export type StockMovementOrder = {
@@ -380,11 +449,23 @@ export type StockOverview = {
   readonly zones: readonly StockZoneCard[];
   readonly items: readonly StockItemCard[];
   readonly groups: readonly string[];
+  /** Сколько позиций отобрал фильтр: по этому числу считается разбивка. */
   readonly total: number;
   readonly page: number;
   readonly pages: number;
+  /** Сколько строк на странице: выбор владельца живёт в адресе (issue #608). */
+  readonly size: number;
+  /**
+   * Позиций в справочнике целиком — плитка показателей (issue #606).
+   *
+   * 🔴 Не то же, что `total`: тот считает отобранное фильтром и меняется от
+   * набранного в поиске, а «позиций в справочнике» — цифра склада.
+   */
+  readonly itemsTotal: number;
   /** Сколько позиций опустилось ниже порога. Ключ владельческий. */
   readonly lowCount?: number;
+  /** Сколько подходит к порогу. Ключ владельческий, как и сам порог. */
+  readonly nearCount?: number;
 };
 
 /**

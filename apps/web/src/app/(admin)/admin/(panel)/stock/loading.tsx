@@ -1,5 +1,5 @@
 import { STOCK_TABS, stockManagerContent as texts } from '@/features/stock-manager';
-import { Skeleton } from '@/shared/ui';
+import { Skeleton, StatTiles } from '@/shared/ui';
 
 import { PanelTabLinks } from '../PanelTabLinks';
 import { StockHeader } from './StockHeader';
@@ -28,6 +28,16 @@ export default function StockLoading() {
         label={texts.tabsLabel}
         hrefOf={(tab) => ({ pathname: '/admin/stock', query: tab === 'stock' ? {} : { tab } })}
       />
+
+      {/* 🔴 Плитки резервируют место, а не появляются поверх готового списка
+          (issue #606): без резерва таблица уезжала бы вниз на две плитки в
+          момент прихода данных. Сетка берётся у кита — раскладка совпадает по
+          построению, а не по совпадению чисел (ADR-239). */}
+      <StatTiles label={texts.tilesLabel}>
+        {Array.from({ length: 4 }, (_, index) => (
+          <Skeleton key={index} variant="block" className={styles.tileSkeleton} />
+        ))}
+      </StatTiles>
 
       <Skeleton variant="block" className={styles.filtersSkeleton} />
       <Skeleton variant="block" className={styles.tableSkeleton} />

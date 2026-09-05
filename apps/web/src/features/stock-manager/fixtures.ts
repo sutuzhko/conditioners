@@ -4,6 +4,7 @@
  * 🔴 Названия зон здесь — фикстура, а не умолчание кода: в самом разделе ни
  * одного названия нет, свой гараж владелец называет сам (инвариант 8).
  */
+import { STOCK_PAGE_SIZES } from './model';
 import type {
   StockApi,
   StockItemCard,
@@ -84,6 +85,7 @@ export const pipe: StockItemCard = {
   total: 55.5,
   minQty: 30,
   low: false,
+  near: false,
 };
 
 /** Опустилась ниже порога: это и есть список «пора заказывать». */
@@ -99,6 +101,7 @@ export const bracket: StockItemCard = {
   total: 3,
   minQty: 6,
   low: true,
+  near: false,
 };
 
 /** Списали больше, чем числилось: склад разошёлся с реальностью (ADR-134). */
@@ -112,8 +115,11 @@ export const freon: StockItemCard = {
   product: null,
   byZone: { z1: 6.2, z2: -1.5, z3: 0 },
   total: 4.7,
+  /* 4,7 при пороге 4 — ещё не «ниже порога», но следующий выезд уведёт туда:
+     это и есть «подходит к порогу» (issue #606). */
   minQty: 4,
   low: false,
+  near: true,
 };
 
 /** Техника: позиция ссылается на модель каталога. */
@@ -129,6 +135,7 @@ export const unit: StockItemCard = {
   total: 2,
   minQty: 0,
   low: false,
+  near: false,
 };
 
 export const items: readonly StockItemCard[] = [pipe, bracket, freon, unit];
@@ -142,11 +149,20 @@ export const overview: StockOverview = {
   total: 4,
   page: 1,
   pages: 1,
+  size: STOCK_PAGE_SIZES[1],
+  itemsTotal: 4,
   lowCount: 1,
+  nearCount: 1,
 };
 
 /** Справочник перерос страницу: разбивка обязана появиться. */
-export const longOverview: StockOverview = { ...overview, total: 47, page: 2, pages: 3 };
+export const longOverview: StockOverview = {
+  ...overview,
+  total: 47,
+  itemsTotal: 47,
+  page: 2,
+  pages: 3,
+};
 
 /** Позиций нет вовсе — справочник пуст. */
 export const emptyOverview: StockOverview = {
@@ -154,8 +170,10 @@ export const emptyOverview: StockOverview = {
   items: [],
   groups: [],
   total: 0,
+  itemsTotal: 0,
   pages: 1,
   lowCount: 0,
+  nearCount: 0,
 };
 
 /** 🔴 Зон нет: раздел объясняет, что заводят сначала. */
@@ -187,6 +205,8 @@ export const noThresholdOverview: StockOverview = {
   total: overview.total,
   page: 1,
   pages: 1,
+  size: overview.size,
+  itemsTotal: overview.itemsTotal,
 };
 
 export const itemRefs: readonly StockItemRef[] = items.map((item) => ({

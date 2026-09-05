@@ -1,0 +1,91 @@
+/* Подвал таблицы остатков: счёт, номера страниц, шаг листания (issue #608). */
+
+/* Подвал живёт внутри карточки таблицы, как в макете, и сам отбивается от неё
+   линией: снаружи это была бы полоса, висящая под таблицей, когда листать
+   нечего. */
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line-soft);
+  padding: 12px 16px;
+}
+
+.count {
+  color: var(--faint);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.size {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.sizeTitle {
+  margin-right: 4px;
+}
+
+/* Ступень — пилюля той же геометрии, что номер страницы у кита: подвал стоит
+   одним рядом, и вторая высота в нём читалась бы как сбой. Высота приходит
+   подстановкой у `var()` (ADR-187): в панели `--h-sm` — 32px, вне её остаётся
+   тап-зона. */
+.sizeItem,
+.sizeOn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: var(--h-sm, var(--tap));
+  min-height: var(--h-sm, var(--tap));
+  border: 1px solid var(--line-ui);
+  border-radius: var(--r-pill);
+  padding: 0 8px;
+  font-family: var(--font-text);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.sizeItem {
+  color: var(--accent-text);
+}
+
+.sizeItem:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+}
+
+.sizeItem:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+.sizeOn {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+/* 🔴 Пол цели на сенсорной раскладке приходит вместе с `--h-sm`: до 900px
+   панель переопределяет его в тап-зону (ADR-183, tokens.css). Своего
+   медиа-запроса здесь нет намеренно — второй порог рядом с первым однажды
+   разойдётся с ним, а ступень обязана стоять в одном ряду с номерами
+   страниц кита, у которых высота считается ровно так же. */
+
+/* На телефоне подвал становится столбиком: три зоны в строку не помещаются
+   даже без номеров, и «Строк на странице» уезжала бы за правый край. */
+@media (width < 600px) {
+  .pager {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

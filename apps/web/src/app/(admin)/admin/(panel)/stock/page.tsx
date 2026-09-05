@@ -6,17 +6,21 @@ import {
   STOCK_TABS,
   StockFilters,
   StockJournal,
+  StockStats,
   StockTable,
   StockZones,
   lowFromParam,
+  moveKindFromParam,
   pageNumber,
+  pageSizeFromParam,
+  periodFromParam,
   stockManagerContent as texts,
   stockTabFromParam,
   stockTabHref,
+  type StockJournalFilterState,
   type StockTab,
   type StockZonePerson,
 } from '@/features/stock-manager';
-import { isStockMoveKind } from '@/entities/stock/model';
 import { staffTitle } from '@/entities/staff/model';
 import { requireOwnerPage } from '@/server/guards';
 import { list as listStaff } from '@/server/repo/admin-users';
@@ -36,7 +40,9 @@ type StockParams = {
   low?: string;
   archived?: string;
   page?: string;
+  size?: string;
   kind?: string;
+  period?: string;
 };
 
 type PageProps = { searchParams: Promise<StockParams> };
@@ -110,6 +116,9 @@ async function OverviewTab({
   const filters = {
     query: params.q?.trim() ?? '',
     group: params.group?.trim() ?? '',
+    /* Сколько строк на странице — выбор владельца, а не константа (issue
+       #608). Мусор в параметре даёт умолчание раздела, а не отказ. */
+    size: pageSizeFromParam(params.size),
     low: lowFromParam(params.low),
     archived: lowFromParam(params.archived),
   };
@@ -121,6 +130,10 @@ async function OverviewTab({
 
   return (
     <>
+      {/* 🔴 Плитки стоят до фильтра: «надо ли сегодня что-то заказывать» —
+          вопрос, который задают раньше, чем начинают искать (issue #606). */}
+      <StockStats overview={found} />
+
       <StockFilters
         filters={filters}
         groups={found.groups}
@@ -142,10 +155,15 @@ async function OverviewTab({
  * этом остаётся в её карточке — это другой вопрос.
  */
 async function JournalTab({ params }: { readonly params: StockParams }) {
-  /* Вид приходит адресом, а адрес правят руками: неизвестное значение — это
+  /* Отбор приходит адресом, а адрес правят руками: неизвестное значение — это
      «покажи всё», а не пустой журнал с необъяснимым фильтром. */
-  const kind = params.kind !== undefined && isStockMoveKind(params.kind) ? params.kind : undefined;
-  const journal = await movements({ page: pageNumber(params.page), kind });
+  const filters: StockJournalFilterState = {
+    kind: moveKindFromParam(params.kind),
+    period: periodFromParam(params.period),
+    query: params.q?.trim() ?? '',
+  };
+
+  const journal = await movements({ ...filters, page: pageNumber(params.page) });
 
   return (
     <>
@@ -158,8 +176,8 @@ async function JournalTab({ params }: { readonly params: StockParams }) {
         baseQuery={{ tab: 'log' satisfies StockTab }}
         withItem
         withFilter
+        filters={filters}
         emptyText={texts.journalAllEmpty}
-        {...(kind === undefined ? {} : { kind })}
       />
     </>
   );

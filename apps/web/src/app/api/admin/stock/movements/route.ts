@@ -11,8 +11,10 @@
  */
 import {
   isStockMoveKind,
+  isStockPeriod,
   stockMovementCreateSchema,
   type StockMoveKind,
+  type StockPeriod,
 } from '@/entities/stock/model';
 import { json, readJson, validationError, withAdmin, withOwner } from '@/server/http';
 import { assertMayMove, move, movements } from '@/server/repo/stock';
@@ -24,6 +26,11 @@ function kindOf(value: string | null): StockMoveKind | undefined {
   return value !== null && isStockMoveKind(value) ? value : undefined;
 }
 
+/** Период журнала (issue #610). Неизвестное значение — «за всё время». */
+function periodOf(value: string | null): StockPeriod | undefined {
+  return value !== null && isStockPeriod(value) ? value : undefined;
+}
+
 export const GET = withOwner(async (request) => {
   const params = request.nextUrl.searchParams;
 
@@ -33,6 +40,10 @@ export const GET = withOwner(async (request) => {
       /* Вид приходит из адреса, а адрес правят руками: неизвестное значение —
          это «покажи всё», а не отказ. */
       kind: kindOf(params.get('kind')),
+      period: periodOf(params.get('period')),
+      /* Поиск по позиции, основанию и номеру наряда — тот же, что в панели:
+         журнал за пределами интерфейса читают теми же вопросами. */
+      query: params.get('q') ?? undefined,
       page: pageNumber(params.get('page') ?? undefined),
     }),
   );
