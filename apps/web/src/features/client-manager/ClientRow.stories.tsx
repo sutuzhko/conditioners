@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
+import { Table } from '@/shared/ui';
+
 import { ClientRow } from './ClientRow';
+import { clientManagerContent as texts } from './content';
 import { acceptingApi, bareClient, client, failingApi } from './fixtures';
 
 /**
@@ -14,14 +17,30 @@ const meta = {
   component: ClientRow,
   args: { client, api: acceptingApi, confirmRemove: async () => true },
   decorators: [
-    /* `<tr>` вне таблицы браузер выбрасывает из разметки: история показывала
-       бы то, чего на экране не бывает. */
+    /* 🔴 Строка живёт в той же таблице, что и на странице, — `Table` кита с
+       `variant="cards"`, а не в голом `<table>`. Голая таблица не получает
+       класса `.cards`, и ниже 600px строка остаётся строкой из семи колонок:
+       история ехала вбок на сотню пикселей там, где раздел раскладывается
+       карточками. Витрина обязана показывать то, что показывает страница. */
     (Story) => (
-      <table style={{ inlineSize: '100%' }}>
+      <Table variant="cards" label={texts.tableLabel}>
+        <thead>
+          <tr>
+            <th scope="col">{texts.colClient}</th>
+            <th scope="col">{texts.colPhone}</th>
+            <th scope="col">{texts.colAddress}</th>
+            <th scope="col">{texts.colOrders}</th>
+            <th scope="col">{texts.colSum}</th>
+            <th scope="col">{texts.colLast}</th>
+            <th scope="col">
+              <span className="srOnly">{texts.colActions}</span>
+            </th>
+          </tr>
+        </thead>
         <tbody>
           <Story />
         </tbody>
-      </table>
+      </Table>
     ),
   ],
 } satisfies Meta<typeof ClientRow>;

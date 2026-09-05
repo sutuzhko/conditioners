@@ -140,7 +140,12 @@ export function LeadQueue({
                 </td>
 
                 <td role="cell" className={styles.topic} data-label={texts.colTopic}>
-                  <Badge variant="neutral" size="sm">
+                  {/* 🔴 `wrap`: тема приходит из формы, её длину задаёт
+                      человек (ADR-126). Плашка без переноса не ужимается ниже
+                      своей строки — «Установка мультисплит-системы на два
+                      внутренних блока» выносила ячейку за край на 30px и
+                      тянула за собой всю таблицу. */}
+                  <Badge variant="neutral" size="sm" wrap>
                     {lead.topic}
                   </Badge>
                 </td>
