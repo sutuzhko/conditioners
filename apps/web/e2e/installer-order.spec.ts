@@ -374,8 +374,13 @@ test('🔴 монтажник проходит объект целиком, и �
 
     // ——— Итог работ и его разбор на трассу и короб
     await page.getByLabel(own.extraWork).fill('Доп. трасса 1,5 м, короб 60×60 — 2 м');
-    await expect(page.getByText(own.meters(1.5))).toBeVisible();
-    await expect(page.getByText(own.meters(2))).toBeVisible();
+
+    /* 🔴 Ищем внутри самого разбора, а не по всей странице: те же метры стоят
+       в поле, куда их только что ввели, и «где-то на экране есть 1,5 м» ничего
+       не говорит о разборе. Разбор — названная группа, по имени и находится. */
+    const breakdown = page.getByRole('group', { name: own.breakdownTitle });
+    await expect(breakdown.getByText(own.meters(1.5))).toBeVisible();
+    await expect(breakdown.getByText(own.meters(2))).toBeVisible();
 
     await page.getByLabel(own.report).fill('Блок повешен, вакуумирование 20 минут, проверен.');
 

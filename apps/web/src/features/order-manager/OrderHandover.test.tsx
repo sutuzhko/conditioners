@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -124,8 +124,21 @@ describe('Сдача работы', () => {
 
     await user.type(screen.getByLabelText(own.extraWork), 'трасса 1,5 м, короб 2 м');
 
-    expect(screen.getByText(own.meters(1.5))).toBeInTheDocument();
-    expect(screen.getByText(own.meters(2))).toBeInTheDocument();
+    /* 🔴 Ищем внутри самого разбора, а не по всему экрану: те же метры стоят
+       и в поле, куда их ввели, — проверка «где-то есть 1,5 м» ничего не
+       говорит о разборе. */
+    const breakdown = within(screen.getByRole('group', { name: own.breakdownTitle }));
+
+    expect(breakdown.getByText(own.meters(1.5))).toBeInTheDocument();
+    expect(breakdown.getByText(own.meters(2))).toBeInTheDocument();
+  });
+
+  it('пустой итог разбирать нечего — обе клетки говорят это словами', () => {
+    render(<OrderHandover order={ready} api={acceptingWorkApi} statusApi={acceptingApi} />);
+
+    const breakdown = within(screen.getByRole('group', { name: own.breakdownTitle }));
+
+    expect(breakdown.getAllByText(own.breakdownNone)).toHaveLength(2);
   });
 
   it('🔴 карточка оплаты говорит о наряде, а не об устройстве панели', () => {

@@ -290,9 +290,16 @@ export function OrderHandover({
 
         {/* 🔴 Разбор читает то же поле, а не второе: полей под эти метры в базе
             нет, и заводить их незачем — смету всё равно правит владелец. Разбор
-            существует, чтобы главные числа отчёта было видно сразу. */}
-        <div className={styles.breakdown}>
-          <span className={styles.breakdownTitle}>{own.breakdownTitle}</span>
+            существует, чтобы главные числа отчёта было видно сразу.
+
+            🔴 И это названная группа, а не два числа россыпью: озвучка
+            произносит, откуда они взялись, а проверка целится в сам разбор.
+            «1,5 м» стоит и в поле, куда его ввели, — локатор без имени находил
+            три узла вместо одного и проверял не то. */}
+        <div className={styles.breakdown} role="group" aria-labelledby="handover-breakdown-title">
+          <span className={styles.breakdownTitle} id="handover-breakdown-title">
+            {own.breakdownTitle}
+          </span>
           <dl className={styles.tiles}>
             <div className={styles.tile}>
               <dt>{own.breakdownTrassa}</dt>
