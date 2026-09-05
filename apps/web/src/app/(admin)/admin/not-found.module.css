@@ -1,0 +1,40 @@
+/* Страница «не найдено» внутри панели — issue #631.
+
+   Геометрия та же, что у шапки любого раздела: человек остался в панели, и
+   пустой раздел обязан читаться разделом, а не отдельной страницей ошибки. */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 24px 0;
+}
+
+.code {
+  margin: 0;
+  color: var(--accent-text);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.14em;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+}
+
+.lead {
+  max-width: 68ch;
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+  line-height: 1.6;
+}
+
+.action {
+  margin-top: 12px;
+}
