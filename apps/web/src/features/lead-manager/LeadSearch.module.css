@@ -1,0 +1,38 @@
+/* Поиск по очереди обращений. */
+
+.card {
+  min-width: 0;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+/* Поле занимает всё, что осталось от кнопок: строка поиска — главное в этой
+   карточке, и ужимать её ради подписи кнопки незачем. */
+.field {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.reset {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-text);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.reset:hover {
+  text-decoration: underline;
+}

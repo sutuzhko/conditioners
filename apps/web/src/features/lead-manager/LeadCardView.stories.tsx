@@ -2,12 +2,15 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { LeadCardView } from './LeadCardView';
 import {
+  acceptingRemove,
   acceptingToClient,
   acceptingToOrder,
   acceptingUpdate,
   bareLead,
+  cancelledLead,
   clientLead,
   contextLead,
+  failingRemove,
   failingToOrder,
   failingUpdate,
   linkingToClient,
@@ -24,6 +27,10 @@ const meta = {
     update: acceptingUpdate,
     toClient: acceptingToClient,
     toOrder: acceptingToOrder,
+    remove: acceptingRemove,
+    /* Окно кита в витрине не открываем: история показывает состояние карточки,
+       а не поведение диалога — у него свои истории (ADR-113). */
+    confirmRemove: async () => true,
   },
 } satisfies Meta<typeof LeadCardView>;
 
@@ -75,4 +82,14 @@ export const ПовторноеОбращение: Story = {
 /** Заказ по обращению завести не удалось: телефона в заявке нет. */
 export const ЗаказНеЗавёлся: Story = {
   args: { toOrder: failingToOrder },
+};
+
+/** Отменённое обращение: причина разобрана справочником и видна в карточке. */
+export const Отказ: Story = {
+  args: { lead: cancelledLead },
+};
+
+/** Удаление не прошло: сообщение остаётся в карточке, обращение на месте. */
+export const УдалениеНеУдалось: Story = {
+  args: { remove: failingRemove },
 };

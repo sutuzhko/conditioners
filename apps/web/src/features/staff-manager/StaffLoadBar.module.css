@@ -1,0 +1,48 @@
+/* Загрузка недели: полоса, число и переработка словами. */
+
+.load {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.track {
+  flex: 1 1 72px;
+  min-width: 56px;
+  block-size: 6px;
+  border-radius: var(--r-pill);
+  background: var(--line-soft);
+  overflow: hidden;
+}
+
+.fill {
+  block-size: 100%;
+  border-radius: var(--r-pill);
+  background: var(--accent-ink);
+}
+
+/* Переработка отмечена и цветом, и чипом рядом: цветом одним она не читается. */
+.fillOver {
+  block-size: 100%;
+  border-radius: var(--r-pill);
+  background: var(--error-ink);
+}
+
+.value {
+  color: var(--body);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.valueOver {
+  color: var(--error-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+}

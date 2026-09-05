@@ -22,6 +22,9 @@ export const GET = withOwner(async (request) => {
 
   const status = raw === null || raw === '' ? undefined : raw;
   const page = pageNumber(request.nextUrl.searchParams.get('page') ?? undefined);
+  /* Поиск по очереди: имя, телефон, адрес и номер обращения. Пустая строка —
+     это «без поиска», а не «найти пустоту». */
+  const query = request.nextUrl.searchParams.get('q')?.trim() ?? '';
 
-  return json(await listByStatus({ status, page }));
+  return json(await listByStatus({ status, page, query }));
 });

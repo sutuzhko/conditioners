@@ -1,6 +1,21 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Table } from './Table';
+
+/**
+ * 🔴 Останов табуляции у области прокрутки ставится по замеру, а не всегда
+ * (`TableScroller`): в jsdom ширины нулевые, и без подмены ни одна таблица не
+ * считается прокручиваемой. Подменяем геометрию — тогда видно оба состояния,
+ * а не одно.
+ */
+function pretendScrollable(): void {
+  vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(900);
+  vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(400);
+}
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 const body = (
   <tbody>
@@ -20,6 +35,8 @@ describe('Table', () => {
   });
 
   it('в варианте со скроллом даёт именованную область, доступную с клавиатуры', () => {
+    pretendScrollable();
+
     render(
       <Table variant="sticky" label="Сравнение моделей">
         {body}
@@ -28,6 +45,25 @@ describe('Table', () => {
 
     const region = screen.getByRole('region', { name: 'Сравнение моделей' });
     expect(region).toHaveAttribute('tabindex', '0');
+  });
+
+  /**
+   * 🔴 Пока прокручивать нечего, останова табуляции нет (issue #602). Он стоял
+   * всегда, и на телефоне, где строки разложены карточками, обход клавиатурой
+   * упирался в контейнер высотой во весь список: фокус оказывался за пределами
+   * окна — элемент выше экрана в него целиком не помещается.
+   *
+   * Имя и роль при этом остаются: по ним область находят озвучка и сценарии.
+   */
+  it('🔴 непрокручиваемая область остаётся именованной, но останова не даёт', () => {
+    render(
+      <Table variant="cards" label="Список клиентов">
+        {body}
+      </Table>,
+    );
+
+    const region = screen.getByRole('region', { name: 'Список клиентов' });
+    expect(region).not.toHaveAttribute('tabindex');
   });
 
   it('подпись таблицы попадает в caption', () => {
@@ -50,6 +86,8 @@ describe('Table', () => {
   });
 
   it('карточный режим заворачивает таблицу в прокручиваемую область', () => {
+    pretendScrollable();
+
     render(
       <Table variant="cards" label="Каталог">
         {body}
@@ -77,6 +115,8 @@ describe('Table', () => {
      в нём по вертикали нечего, пока его высота равна высоте таблицы. Поэтому
      `stickyHead` обязан заводить свою прокручиваемую область (issue #329). */
   it('липкая шапка заводит прокручиваемую область с пределом высоты', () => {
+    pretendScrollable();
+
     render(
       <Table stickyHead label="Наряды">
         {body}

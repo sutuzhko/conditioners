@@ -50,6 +50,7 @@ export const GROUPS = Object.freeze({
   /** Сценарии до базы: заявка, отзыв, цена, пустые состояния, поиск. */
   flows: [
     'lead',
+    'lead-delete',
     'lead-fluid',
     'reviews-fluid',
     'review-moderation',

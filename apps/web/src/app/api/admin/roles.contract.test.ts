@@ -89,6 +89,9 @@ const EXPECTED: Readonly<Record<string, Role>> = {
   'leads GET': 'owner',
   'leads/[id] GET': 'owner',
   'leads/[id] PATCH': 'owner',
+  /* 🔴 Уничтожение персональных данных обращения (152-ФЗ, issue #600):
+     обращения монтажнику закрыты целиком, удаление — тем более. */
+  'leads/[id] DELETE': 'owner',
   'leads/[id]/client POST': 'owner',
   'leads/[id]/order POST': 'owner',
   // снимок при заявке — персональные данные клиента, как и сама заявка (ADR-171)

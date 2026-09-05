@@ -5,8 +5,23 @@ import Link from 'next/link';
 import { useId, useState } from 'react';
 
 import { LEAD_STATUS_VARIANT } from '@/entities/lead/model';
+import {
+  CANCEL_REASON_OPTIONS,
+  isCancelReason,
+  type CancelReason,
+} from '@/shared/lib/cancel-reason';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
-import { Badge, Button, Card, Select, Textarea } from '@/shared/ui';
+import {
+  Alert,
+  Badge,
+  Button,
+  Card,
+  Modal,
+  Select,
+  Textarea,
+  useConfirm,
+  type Confirm,
+} from '@/shared/ui';
 
 import { leadManagerContent as texts } from './content';
 import { LeadContextView } from './LeadContextView';
@@ -14,6 +29,7 @@ import {
   LEAD_STATUSES,
   isLeadStatus,
   type LeadCard,
+  type LeadRemove,
   type LeadStatus,
   type LeadToClient,
   type LeadToOrder,
@@ -28,12 +44,18 @@ export interface LeadCardViewProps {
   readonly toClient: LeadToClient;
   /** «Создать заказ»: клиент плюс перевод обращения в работу (CRM.md §3.4). */
   readonly toOrder: LeadToOrder;
+  /** 🔴 Уничтожение персональных данных обращения (152-ФЗ, issue #600). */
+  readonly remove: LeadRemove;
   /**
    * Куда уходить за черновиком наряда, знает страница: карточка не решает,
    * из какого раздела её открыли, и в Storybook никуда не переходит.
    */
   readonly onOrder?: ((leadId: string) => void) | undefined;
+  /** Куда уходить после удаления: обращения больше нет, показывать нечего. */
+  readonly onRemoved?: (() => void) | undefined;
   readonly onChanged?: (() => void) | undefined;
+  /** Шов для тестов и историй: окно кита подменяется своим ответом (ADR-113). */
+  readonly confirmRemove?: Confirm | undefined;
 }
 
 /** Поля заявки, которые показываются, только когда заполнены. */
@@ -51,8 +73,11 @@ export function LeadCardView({
   update,
   toClient,
   toOrder,
+  remove,
   onOrder,
+  onRemoved,
   onChanged,
+  confirmRemove,
 }: LeadCardViewProps) {
   const [status, setStatus] = useState<LeadStatus>(lead.status);
   const [note, setNote] = useState(lead.managerComment ?? '');
@@ -68,11 +93,19 @@ export function LeadCardView({
      карточка остаётся на экране, и кнопка обязана объяснять, что она уже
      нажата, — иначе её нажмут второй раз. */
   const [starting, setStarting] = useState(false);
+  /* Разбор отказа: окно открывается вместо молчаливой смены статуса, потому
+     что отмена без причины запрещена схемой (ADR-310). */
+  const [cancelling, setCancelling] = useState(false);
+  const [reason, setReason] = useState<CancelReason>('client_refused');
+  const [cancelNote, setCancelNote] = useState('');
+  const [removing, setRemoving] = useState(false);
   const contextId = useId();
+  const { confirm, dialog } = useConfirm();
+  const ask = confirmRemove ?? confirm;
 
   const noteChanged = note !== (lead.managerComment ?? '');
   /** Карточка занята любым из действий: два разом ломают порядок статусов. */
-  const locked = busy || starting;
+  const locked = busy || starting || removing;
 
   /** Исход возвращается наружу: без него оптимистичную отметку нечем откатить. */
   const run = async (patch: Parameters<LeadUpdate>[1]): Promise<boolean> => {
@@ -110,6 +143,65 @@ export function LeadCardView({
 
     const ok = await run({ status: next });
     if (!ok) setStatus(previous);
+  };
+
+  /**
+   * 🔴 Отказ проходит через разбор причины, а не ставится выбором в списке
+   * (ADR-310). Схема отклоняет отмену без причины, и молчаливая попытка
+   * поставить её селектором закончилась бы отказом сервера, который человек
+   * прочитал бы как поломку.
+   */
+  const confirmCancel = async (): Promise<void> => {
+    const previous = status;
+    setStatus('rejected');
+
+    const ok = await run({
+      status: 'rejected',
+      cancelReason: reason,
+      cancelNote: cancelNote.trim() === '' ? null : cancelNote.trim(),
+    });
+
+    if (ok) {
+      setCancelling(false);
+      return;
+    }
+    setStatus(previous);
+  };
+
+  /**
+   * 🔴 Удаление — уничтожение персональных данных по требованию человека
+   * (152-ФЗ, issue #600), и это не то же самое, что отказ: отменённое
+   * обращение остаётся в истории, удалённого не остаётся нигде.
+   *
+   * Подтверждение — окном кита, а не браузера (ADR-113): системное окно
+   * выглядит одинаково для «удалить фотографию» и «стереть человека из базы».
+   * Отказ от подтверждения не делает ничего.
+   */
+  const handleRemove = async (): Promise<void> => {
+    if (locked) return;
+    if (
+      !(await ask({
+        title: texts.removeConfirmTitle(lead.number),
+        description: texts.removeConfirmText,
+        confirmLabel: texts.removeConfirmAction,
+        cancelLabel: texts.removeCancel,
+      }))
+    ) {
+      return;
+    }
+
+    setRemoving(true);
+    setMessage('');
+
+    const result = await remove(lead.id);
+
+    if (result.ok) {
+      onChanged?.();
+      onRemoved?.();
+      return;
+    }
+    setRemoving(false);
+    setMessage(result.message ?? texts.serverError);
   };
 
   /**
@@ -174,6 +266,9 @@ export function LeadCardView({
     <Card as="article" className={styles.card}>
       <header className={styles.header}>
         <div>
+          {/* Номер стоит над именем: им ссылаются на обращение вслух и в
+              заметках, а в очереди по нему же ищут строку. */}
+          <p className={styles.number}>{texts.cardNumber(lead.number)}</p>
           <h2 className={styles.name}>{lead.name}</h2>
           {/* 🔴 Телефон ссылкой: заявку обрабатывают звонком, и набирать
               номер руками с экрана — лишний способ ошибиться цифрой. До 600px
@@ -212,6 +307,14 @@ export function LeadCardView({
         </div>
       </dl>
 
+      {/* Разбор отказа виден в карточке, а не только в статистике: через
+          полгода вопрос «почему не срослось» задают именно здесь. */}
+      {lead.cancelReason === null ? null : (
+        <Alert tone="info" title={texts.cancelledBy(lead.cancelReason)}>
+          {lead.cancelNote ?? undefined}
+        </Alert>
+      )}
+
       {lead.comment === null ? null : <p className={styles.comment}>{lead.comment}</p>}
 
       {lead.photo === null ? null : (
@@ -246,7 +349,15 @@ export function LeadCardView({
           wrapperClassName={styles.statusSelect}
           onChange={(event) => {
             const next = event.target.value;
-            if (isLeadStatus(next)) void changeStatus(next);
+            if (!isLeadStatus(next)) return;
+
+            /* Отказ — единственный переход с разбором: он открывает окно, а
+               не уходит на сервер сразу (ADR-310). */
+            if (next === 'rejected') {
+              setCancelling(true);
+              return;
+            }
+            void changeStatus(next);
           }}
         />
 
@@ -333,6 +444,84 @@ export function LeadCardView({
           </p>
         )}
       </div>
+
+      {/* 🔴 Опасная зона отделена от остальных действий чертой и подписью, а
+          не стоит четвёртой кнопкой в ряду: удаление уничтожает персональные
+          данные навсегда, и промах мимо соседней кнопки стоит истории
+          обращения (152-ФЗ, issue #600). */}
+      <div className={styles.danger}>
+        <p className={styles.dangerHint}>{texts.removeHint}</p>
+
+        <Button
+          type="button"
+          variant="danger"
+          size="sm"
+          disabled={locked}
+          onClick={() => void handleRemove()}
+        >
+          {removing ? texts.removeBusy : texts.remove}
+        </Button>
+      </div>
+
+      {/* Разбор причины отказа: окно, а не поле в карточке. Причина
+          спрашивается ровно в момент отмены — заранее её никто не заполнит,
+          а после отмены заполнять уже некому (ADR-310). */}
+      <Modal
+        open={cancelling}
+        title={texts.cancelTitle}
+        onClose={() => {
+          setCancelling(false);
+          setStatus(lead.status);
+        }}
+      >
+        <div className={styles.cancel}>
+          <p className={styles.cancelHint}>{texts.cancelHint}</p>
+
+          <Select
+            label={texts.cancelReason}
+            options={CANCEL_REASON_OPTIONS.map((option) => ({
+              value: option.value,
+              label: option.label,
+            }))}
+            value={reason}
+            disabled={busy}
+            onChange={(event) => {
+              const next = event.target.value;
+              if (isCancelReason(next)) setReason(next);
+            }}
+          />
+
+          <Textarea
+            label={texts.cancelNote}
+            hint={texts.cancelNoteHint}
+            rows={3}
+            value={cancelNote}
+            disabled={busy}
+            onChange={(event) => setCancelNote(event.target.value)}
+          />
+
+          <div className={styles.cancelActions}>
+            <Button type="button" size="sm" loading={busy} onClick={() => void confirmCancel()}>
+              {texts.cancelSubmit}
+            </Button>
+
+            <Button
+              type="button"
+              variant="light"
+              size="sm"
+              disabled={busy}
+              onClick={() => {
+                setCancelling(false);
+                setStatus(lead.status);
+              }}
+            >
+              {texts.cancelBack}
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      {dialog}
     </Card>
   );
 }

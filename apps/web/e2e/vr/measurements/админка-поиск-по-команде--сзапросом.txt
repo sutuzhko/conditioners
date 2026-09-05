@@ -1,0 +1,62 @@
+# админка-поиск-по-команде--сзапросом · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×201 @16,16  r20  b1
+  form.StaffSearch__form  316×159 @21,21
+    div.Field__field  316×103 @0,0
+      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по команде»
+      input  316×49 @0,27  r11  b1
+      p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Ищем по имени, логину и телефону.»
+    div.StaffSearch__actions  242×44 @0,115
+      button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+      a.StaffSearch__reset  161×44 @81,0  Manrope 600 15/22  lines=1  «Показать всю команду»
+
+[геометрия 768]
+section.Card__card  736×145 @16,16  r20  b1
+  form.StaffSearch__form  694×103 @21,21
+    div.Field__field  440×103 @0,0
+      label.Field__label  440×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по команде»
+      input  440×49 @0,27  r11  b1
+      p.Field__hint  440×19 @0,83  Manrope 400 13/19  lines=1  «Ищем по имени, логину и телефону.»
+    div.StaffSearch__actions  242×44 @452,59
+      button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+      a.StaffSearch__reset  161×44 @81,0  Manrope 600 15/22  lines=1  «Показать всю команду»
+
+[геометрия 1440]
+section.Card__card  1408×145 @16,16  r20  b1
+  form.StaffSearch__form  1366×103 @21,21
+    div.Field__field  1112×103 @0,0
+      label.Field__label  1112×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по команде»
+      input  1112×49 @0,27  r11  b1
+      p.Field__hint  1112×19 @0,83  Manrope 400 13/19  lines=1  «Ищем по имени, логину и телефону.»
+    div.StaffSearch__actions  242×40 @1124,63
+      button.Button__button  69×40 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+      a.StaffSearch__reset  161×22 @81,9  Manrope 600 15/22  lines=1  «Показать всю команду»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  form.StaffSearch__form
+    div.Field__field
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+      p.Field__hint  color #556173
+    div.StaffSearch__actions
+      button.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      a.StaffSearch__reset  color #0e7490
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  form.StaffSearch__form
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+      p.Field__hint  color #8598ac
+    div.StaffSearch__actions
+      button.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      a.StaffSearch__reset  color #22d3ee

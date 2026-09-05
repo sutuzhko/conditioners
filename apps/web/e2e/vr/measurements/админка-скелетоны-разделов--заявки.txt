@@ -2,59 +2,99 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×900
-768 → 768×900
-1440 → 1440×900
+390 → 390×957
+768 → 768×944
+1440 → 1440×943
 
 [геометрия 390]
 h1  86×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Заявки»
-p  390×67 @0,36  Manrope 400 15/22  lines=3  «Обращения с сайта. Заявка записывается в»
-a  49×44 @0,120  Manrope 600 13/20  r100  b1  lines=1  «Все»
-a#2  65×44 @55,120  Manrope 600 13/20  r100  b1  lines=1  «Новая»
-a#3  82×44 @126,120  Manrope 600 13/20  r100  b1  lines=1  «В работе»
-a#4  98×44 @215,120  Manrope 600 13/20  r100  b1  lines=1  «Завершена»
-a#5  63×44 @318,120  Manrope 600 13/20  r100  b1  lines=1  «Отказ»
-span.Skeleton__skeleton  390×640 @0,180  r14
+span.Skeleton__skeleton  142×15 @0,46  r8
+section.Card__card  390×164 @0,77  r20  b1
+  form.LeadSearch__form  348×122 @21,21
+    div.Field__field  267×122 @0,0
+      label.Field__label  267×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по обращениям»
+      input  267×49 @0,27  r11  b1
+      p.Field__hint  267×39 @0,83  Manrope 400 13/19  lines=2  «Ищем по имени, телефону, адресу, теме и»
+    div.LeadSearch__actions  69×44 @279,78
+      button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+a  49×44 @0,257  Manrope 600 13/20  r100  b1  lines=1  «Все»
+a#2  65×44 @55,257  Manrope 600 13/20  r100  b1  lines=1  «Новая»
+a#3  82×44 @126,257  Manrope 600 13/20  r100  b1  lines=1  «В работе»
+a#4  98×44 @215,257  Manrope 600 13/20  r100  b1  lines=1  «Завершена»
+a#5  63×44 @318,257  Manrope 600 13/20  r100  b1  lines=1  «Отказ»
+span.Skeleton__skeleton#2  390×640 @0,317  r14
 
 [геометрия 768]
 h1  107×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Заявки»
-p  601×45 @0,43  Manrope 400 15/22  lines=2  «Обращения с сайта. Заявка записывается в»
-a  49×44 @0,104  Manrope 600 13/20  r100  b1  lines=1  «Все»
-a#2  65×44 @55,104  Manrope 600 13/20  r100  b1  lines=1  «Новая»
-a#3  82×44 @126,104  Manrope 600 13/20  r100  b1  lines=1  «В работе»
-a#4  98×44 @215,104  Manrope 600 13/20  r100  b1  lines=1  «Завершена»
-a#5  63×44 @318,104  Manrope 600 13/20  r100  b1  lines=1  «Отказ»
-span.Skeleton__skeleton  768×640 @0,164  r14
+span.Skeleton__skeleton  142×15 @0,53  r8
+section.Card__card  768×145 @0,84  r20  b1
+  form.LeadSearch__form  726×103 @21,21
+    div.Field__field  645×103 @0,0
+      label.Field__label  645×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по обращениям»
+      input  645×49 @0,27  r11  b1
+      p.Field__hint  645×19 @0,83  Manrope 400 13/19  lines=1  «Ищем по имени, телефону, адресу, теме и»
+    div.LeadSearch__actions  69×44 @657,59
+      button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+a  49×44 @0,244  Manrope 600 13/20  r100  b1  lines=1  «Все»
+a#2  65×44 @55,244  Manrope 600 13/20  r100  b1  lines=1  «Новая»
+a#3  82×44 @126,244  Manrope 600 13/20  r100  b1  lines=1  «В работе»
+a#4  98×44 @215,244  Manrope 600 13/20  r100  b1  lines=1  «Завершена»
+a#5  63×44 @318,244  Manrope 600 13/20  r100  b1  lines=1  «Отказ»
+span.Skeleton__skeleton#2  768×640 @0,304  r14
 
 [геометрия 1440]
 h1  130×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Заявки»
-p  601×45 @0,52  Manrope 400 15/22  lines=2  «Обращения с сайта. Заявка записывается в»
-a  49×34 @0,113  Manrope 600 13/20  r100  b1  lines=1  «Все»
-a#2  65×34 @55,113  Manrope 600 13/20  r100  b1  lines=1  «Новая»
-a#3  82×34 @126,113  Manrope 600 13/20  r100  b1  lines=1  «В работе»
-a#4  98×34 @215,113  Manrope 600 13/20  r100  b1  lines=1  «Завершена»
-a#5  63×34 @318,113  Manrope 600 13/20  r100  b1  lines=1  «Отказ»
-span.Skeleton__skeleton  320×640 @0,163  r14
-span.Skeleton__skeleton#2  1104×640 @336,163  r14
+span.Skeleton__skeleton  142×15 @0,62  r8
+section.Card__card  1440×145 @0,92  r20  b1
+  form.LeadSearch__form  1398×103 @21,21
+    div.Field__field  1317×103 @0,0
+      label.Field__label  1317×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по обращениям»
+      input  1317×49 @0,27  r11  b1
+      p.Field__hint  1317×19 @0,83  Manrope 400 13/19  lines=1  «Ищем по имени, телефону, адресу, теме и»
+    div.LeadSearch__actions  69×40 @1329,63
+      button.Button__button  69×40 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+a  49×34 @0,253  Manrope 600 13/20  r100  b1  lines=1  «Все»
+a#2  65×34 @55,253  Manrope 600 13/20  r100  b1  lines=1  «Новая»
+a#3  82×34 @126,253  Manrope 600 13/20  r100  b1  lines=1  «В работе»
+a#4  98×34 @215,253  Manrope 600 13/20  r100  b1  lines=1  «Завершена»
+a#5  63×34 @318,253  Manrope 600 13/20  r100  b1  lines=1  «Отказ»
+span.Skeleton__skeleton#2  1004×640 @0,303  r14
+span.Skeleton__skeleton#3  420×640 @1020,303  r14
 
 [палитра light]
 h1  color #0f172a
-p  color #475569
+span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  form.LeadSearch__form
+    div.Field__field
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+      p.Field__hint  color #556173
+    div.LeadSearch__actions
+      button.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
 a  color #475569  border #e2e8f0
 a#2  color #475569  border #e2e8f0
 a#3  color #475569  border #e2e8f0
 a#4  color #475569  border #e2e8f0
 a#5  color #475569  border #e2e8f0
-span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
 span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
 
 [палитра dark]
 h1  color #eaf1f8
-p  color #a8b6c6
+span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  form.LeadSearch__form
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+      p.Field__hint  color #8598ac
+    div.LeadSearch__actions
+      button.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
 a  color #a8b6c6  border #1e2b41
 a#2  color #a8b6c6  border #1e2b41
 a#3  color #a8b6c6  border #1e2b41
 a#4  color #a8b6c6  border #1e2b41
 a#5  color #a8b6c6  border #1e2b41
-span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
 span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

@@ -46,6 +46,18 @@ export interface PanelTabsProps<T extends string> {
   readonly idPrefix: string;
   /** Содержимое вкладок — готовое: разметку собирает страница. */
   readonly panels: Readonly<Record<T, ReactNode>>;
+  /**
+   * Счётчики у подписей: «Заказы 3», «Техника 2» (issue #602, макет
+   * `CardTabs.png`).
+   *
+   * 🔴 Число сообщает, есть ли за вкладкой что-нибудь, — до того, как на неё
+   * нажали. Пустая вкладка, о которой узнаёшь только открыв её, стоит одного
+   * лишнего нажатия каждый раз; на карточке из трёх вкладок это заметно.
+   *
+   * Ноль показывается наравне с остальными числами: «Техника 0» отвечает на
+   * вопрос, а пустое место — нет.
+   */
+  readonly counts?: Partial<Readonly<Record<T, number>>> | undefined;
 }
 
 /**
@@ -66,6 +78,7 @@ export function PanelTabs<T extends string>({
   label,
   idPrefix,
   panels,
+  counts,
 }: PanelTabsProps<T>) {
   const params = useSearchParams();
   const buttons = useRef<Map<T, HTMLButtonElement>>(new Map());
@@ -146,6 +159,10 @@ export function PanelTabs<T extends string>({
             onKeyDown={(event) => onKeyDown(event, index)}
           >
             {titles[tab]}
+
+            {counts?.[tab] === undefined ? null : (
+              <span className={styles.count}>{counts[tab]}</span>
+            )}
           </button>
         ))}
       </div>

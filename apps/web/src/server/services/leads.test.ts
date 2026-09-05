@@ -8,6 +8,12 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
  */
 const mocks = vi.hoisted(() => ({
   leadCreate: vi.fn(),
+  /* Счётчик номеров обращений (ADR-114): репозиторий читает и пишет его в той
+     же транзакции, что и вставку. */
+  settingFindUnique: vi.fn(),
+  settingUpsert: vi.fn(),
+  leadFindUnique: vi.fn(),
+  leadDelete: vi.fn(),
   enqueue: vi.fn(),
   saveProtectedImage: vi.fn(),
   deleteProtectedImage: vi.fn(),
@@ -16,7 +22,14 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock('@/server/db', () => {
-  const client = { lead: { create: mocks.leadCreate } };
+  const client = {
+    lead: {
+      create: mocks.leadCreate,
+      findUnique: mocks.leadFindUnique,
+      delete: mocks.leadDelete,
+    },
+    setting: { findUnique: mocks.settingFindUnique, upsert: mocks.settingUpsert },
+  };
 
   return {
     db: {
@@ -40,7 +53,7 @@ vi.mock('@/server/uploads/store', () => ({
   deleteProtectedImage: mocks.deleteProtectedImage,
 }));
 
-import { createLead, createToReminder } from '@/server/services/leads';
+import { createLead, createToReminder, removeLead } from '@/server/services/leads';
 import type { LeadFormInput, ToReminderFormInput } from '@/server/intake/schemas';
 import type { Tracking } from '@/server/intake/tracking';
 import type { LeadContext } from '@/entities/lead/model';
@@ -77,6 +90,8 @@ const row = {
   context: null,
   consentAt: new Date('2026-08-28T09:00:00Z'),
   status: 'NEW' as const,
+  cancelReason: null,
+  cancelNote: null,
   managerComment: null,
   clientId: null,
   createdAt: new Date('2026-08-28T09:00:00Z'),
@@ -89,6 +104,9 @@ let enqueuedInTransaction: boolean | null = null;
 beforeEach(() => {
   vi.clearAllMocks();
   enqueuedInTransaction = null;
+  /* Счётчик пуст: первое обращение получает № 1 (ADR-114). */
+  mocks.settingFindUnique.mockResolvedValue(null);
+  mocks.settingUpsert.mockResolvedValue({ key: 'leadSeq', value: 1 });
   mocks.leadCreate.mockImplementation(
     async ({ data }: { data: Record<string, unknown> }): Promise<unknown> => ({ ...row, ...data }),
   );
@@ -98,6 +116,8 @@ beforeEach(() => {
   });
   mocks.saveProtectedImage.mockResolvedValue({ filename: PHOTO_FILENAME, mime: 'image/webp' });
   mocks.deleteProtectedImage.mockResolvedValue(undefined);
+  mocks.leadFindUnique.mockResolvedValue({ photo: null });
+  mocks.leadDelete.mockResolvedValue(row);
 });
 
 describe('приём заявки', () => {
@@ -287,5 +307,40 @@ describe('напоминание о ТО', () => {
       kind: 'to-reminder',
       when: 'не помню',
     });
+  });
+});
+
+/**
+ * 🔴 Уничтожение обращения по требованию субъекта персональных данных
+ * (152-ФЗ, issue #600). Уничтожается и запись, и снимок комнаты на диске:
+ * фотография интерьера — такие же персональные данные, как адрес в той же
+ * заявке (ADR-171).
+ */
+describe('удаление обращения', () => {
+  it('🔴 стирает запись и снимок комнаты', async () => {
+    mocks.leadFindUnique.mockResolvedValue({ photo: PHOTO_FILENAME });
+
+    await removeLead('l1');
+
+    expect(mocks.leadDelete).toHaveBeenCalledWith({ where: { id: 'l1' } });
+    expect(mocks.deleteProtectedImage).toHaveBeenCalledWith(PHOTO_FILENAME);
+  });
+
+  it('заявка без снимка ничего с диска не удаляет', async () => {
+    await removeLead('l1');
+
+    expect(mocks.leadDelete).toHaveBeenCalledWith({ where: { id: 'l1' } });
+    expect(mocks.deleteProtectedImage).not.toHaveBeenCalled();
+  });
+
+  /* 🔴 Порядок важен: пока строка есть, есть и имя файла, по которому его
+     находят. Удалить сперва файл, а потом упасть на записи — значит оставить
+     в базе заявку со ссылкой в пустоту. */
+  it('🔴 упавшее удаление записи не трогает файл', async () => {
+    mocks.leadFindUnique.mockResolvedValue({ photo: PHOTO_FILENAME });
+    mocks.leadDelete.mockRejectedValue(new Error('база недоступна'));
+
+    await expect(removeLead('l1')).rejects.toThrow('база недоступна');
+    expect(mocks.deleteProtectedImage).not.toHaveBeenCalled();
   });
 });

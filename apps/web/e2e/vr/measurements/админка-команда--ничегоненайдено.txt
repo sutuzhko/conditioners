@@ -1,0 +1,67 @@
+# админка-команда--ничегоненайдено · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×308 @16,16  r20  b1
+  div.EmptyState__box  316×266 @21,21
+    span.EmptyState__badge  48×48 @134,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  284×41 @16,88  Onest 700 17/21  ls0  lines=2  «По этому запросу никого не нашлось»
+    p.EmptyState__text  284×45 @16,133  Manrope 400 15/22  lines=2  «Команда в разделе есть — её скрыл поиск.»
+    div.EmptyState__action  284×44 @16,194
+      a.Button__button  284×44 @0,0  r9  b1
+        span.Button__content  145×16 @70,14
+          span.Button__label  145×16 @0,0  Manrope 600 13/16  lines=1  «Показать всю команду»
+
+[геометрия 768]
+section.Card__card  736×266 @16,16  r20  b1
+  div.EmptyState__box  694×224 @21,21
+    span.EmptyState__badge  48×48 @323,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  322×22 @186,88  Onest 700 18/22  ls0  lines=1  «По этому запросу никого не нашлось»
+    p.EmptyState__text  292×22 @201,114  Manrope 400 15/22  lines=1  «Команда в разделе есть — её скрыл поиск.»
+    div.EmptyState__action  175×44 @260,152
+      a.Button__button  175×44 @0,0  r9  b1
+        span.Button__content  145×16 @15,14
+          span.Button__label  145×16 @0,0  Manrope 600 13/16  lines=1  «Показать всю команду»
+
+[геометрия 1440]
+section.Card__card  1408×263 @16,16  r20  b1
+  div.EmptyState__box  1366×221 @21,21
+    span.EmptyState__badge  48×48 @659,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  340×23 @513,88  Onest 700 19/23  ls0  lines=1  «По этому запросу никого не нашлось»
+    p.EmptyState__text  292×22 @537,115  Manrope 400 15/22  lines=1  «Команда в разделе есть — её скрыл поиск.»
+    div.EmptyState__action  175×40 @596,153
+      a.Button__button  175×40 @0,0  r9  b1
+        span.Button__content  145×16 @15,12
+          span.Button__label  145×16 @0,0  Manrope 600 13/16  lines=1  «Показать всю команду»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.EmptyState__box
+    span.EmptyState__badge  bg #ecfeff
+      svg
+    h2.EmptyState__title  color #0f172a
+    p.EmptyState__text  color #556173
+    div.EmptyState__action
+      a.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content
+          span.Button__label  color #0f172a
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.EmptyState__box
+    span.EmptyState__badge  bg #22d3ee1a
+      svg
+    h2.EmptyState__title  color #eaf1f8
+    p.EmptyState__text  color #8598ac
+    div.EmptyState__action
+      a.Button__button  bg #121d31  border #566d95
+        span.Button__content
+          span.Button__label  color #eaf1f8
