@@ -49,17 +49,32 @@ export function StockPager({ overview, filters }: StockPagerProps) {
     <div className={styles.pager}>
       <span className={styles.count}>{texts.shown(overview.items.length, overview.total)}</span>
 
-      <Pager
-        page={overview.page}
-        pages={overview.pages}
-        basePath={STOCK_PATH}
-        query={stockQuery(filters)}
-        numbers
-      />
+      {/* 🔴 Обёртка нужна ради телефона: ниже 600px разбивка уходит на свою
+          строку, а счёт и ступени остаются на первой. Сам кит про подвал
+          склада не знает и класса не принимает, поэтому строку ему задаёт
+          обёртка; выше 600px она `display: contents` и геометрию подвала не
+          меняет вовсе. */}
+      {overview.pages > 1 ? (
+        <div className={styles.nav}>
+          <Pager
+            page={overview.page}
+            pages={overview.pages}
+            basePath={STOCK_PATH}
+            query={stockQuery(filters)}
+            numbers
+          />
+        </div>
+      ) : null}
 
       {sizeShown ? (
-        <span className={styles.size}>
-          <span className={styles.sizeTitle}>{texts.perPage}</span>
+        /* 🔴 Имя группы живёт в `aria-label`, а не только в видимой подписи:
+           ниже 600px подпись коротка — «Строк на странице» и три ступени не
+           встают в строку на 320. Озвучке объяснение нужно целиком и на
+           любой ширине. */
+        <span className={styles.size} role="group" aria-label={texts.perPage}>
+          <span className={styles.sizeTitle} aria-hidden="true">
+            {texts.perPage}
+          </span>
 
           {STOCK_PAGE_SIZES.map((size) =>
             size === filters.size ? (

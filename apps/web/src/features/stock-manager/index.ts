@@ -47,6 +47,7 @@ export {
   STOCK_PAGE_SIZES,
   STOCK_TABS,
   STOCK_ZONE_NEW_PATH,
+  filledZones,
   itemDraftOf,
   itemRefOf,
   lowFromParam,

@@ -16,10 +16,38 @@ describe('Фильтр остатков', () => {
   it('группы приходят из справочника, а не из кода', () => {
     render(<StockFilters {...base} />);
 
+    /* 🔴 Ссылки живут под свёрнутой пилюлей (issue #609): развёрнутый ряд
+       чипов занимал на телефоне две трети первого экрана. В разметке они
+       есть всегда — свёртка это `details`, а не подгрузка по нажатию. */
     for (const group of overview.groups) {
-      expect(screen.getByRole('link', { name: group })).toBeVisible();
+      expect(screen.getByRole('link', { name: group })).toBeInTheDocument();
     }
-    expect(screen.getByRole('link', { name: texts.groupAll })).toBeVisible();
+    expect(screen.getByRole('link', { name: texts.groupAll })).toBeInTheDocument();
+  });
+
+  it('🔴 отбор свёрнут в пилюлю, и пилюля называет число условий', () => {
+    const { rerender } = render(<StockFilters {...base} />);
+
+    /* Ничего не выбрано — считать нечего, и числа на пилюле нет. */
+    expect(screen.getByText(texts.filterPill)).toBeVisible();
+    expect(screen.queryByText(texts.filterApplied(1))).not.toBeInTheDocument();
+
+    rerender(
+      <StockFilters
+        {...base}
+        filters={{
+          query: '',
+          group: 'Крепёж',
+          size: DEFAULT_STOCK_PAGE_SIZE,
+          low: true,
+          archived: false,
+        }}
+      />,
+    );
+
+    /* Число на экране, словами — для озвучки: «2» без пояснения не значит
+       ничего. */
+    expect(screen.getByText(texts.filterApplied(2))).toBeInTheDocument();
   });
 
   it('🔴 выбор группы сохраняет поиск: фильтр живёт в адресе целиком', () => {

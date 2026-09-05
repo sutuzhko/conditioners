@@ -1,6 +1,14 @@
 import Link from 'next/link';
 
-import { Badge, Card, EmptyState, Table, buttonClassName, type BadgeVariant } from '@/shared/ui';
+import {
+  Badge,
+  Card,
+  EmptyState,
+  Icon,
+  Table,
+  buttonClassName,
+  type BadgeVariant,
+} from '@/shared/ui';
 
 import { STOCK_UNIT_TITLES, formatQty, stockManagerContent as texts } from './content';
 import { StockCell } from './StockCell';
@@ -12,6 +20,7 @@ import {
   STOCK_MOVE_PATH,
   STOCK_PATH,
   STOCK_ZONES_PATH,
+  filledZones,
   hasShortage,
   stockFiltersApplied,
   stockItemPath,
@@ -88,7 +97,10 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
   return (
     <div className={styles.wrap}>
       <StockMoveScope>
-        <Card as="section" padding="none">
+        {/* 🔴 Ниже 600px карточка списка снимает с себя рамку, фон и тень: под
+            ней лежат пятнадцать своих карточек, и вторая коробка вокруг них
+            только шумит. Одна скруглённая коробка на позицию — сама позиция. */}
+        <Card as="section" padding="none" className={styles.board}>
           {/* 🔴 «Порога нет» — это разметка, а не догадка стилей: отступ
               залипающего итога считается от правого края области прокрутки, и
               вычитать ширину колонки, которой нет, значит увести итог влево
@@ -125,6 +137,12 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
                     {texts.colMin}
                   </th>
                 ) : null}
+                {/* Колонка свёртки зон живёт только на карточке телефона: выше
+                    600px зоны стоят своими колонками, и она снята со страницы
+                    целиком вместе с шапкой. */}
+                <th scope="col" className={styles.zonesHead}>
+                  {texts.zonesFoldLabel}
+                </th>
                 {/* Имя колонки читалке нужно, а на экране под ним стоит
                     подписанная кнопка меню. */}
                 <th scope="col" className={styles.menuHead}>
@@ -220,6 +238,15 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
                     </td>
                   ) : null}
 
+                  {/* 🔴 Разбивка по зонам на телефоне свёрнута (issue #609):
+                      развёрнутым списком одна позиция занимала 202px — две
+                      трети экрана, — а первый вопрос к складу «чего не
+                      хватает», а не «где именно лежит». Раскрытие — `details`,
+                      то есть работа браузера: ни состояния, ни своего JS. */}
+                  <td className={styles.zonesCell} role="cell" data-label="">
+                    <ZonesFold item={item} zones={zones} />
+                  </td>
+
                   {/* 🔴 Действия строки — то, чего разделу не хватало: правка
                       и архив жили только внутри карточки, и из списка о них
                       ничто не сообщало (issue #573). Удаления здесь нет —
@@ -244,7 +271,7 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
       </StockMoveScope>
 
       <p className={styles.hint}>{texts.tableHint}</p>
-      {movable ? <p className={styles.hint}>{texts.dragHint}</p> : null}
+      {movable ? <p className={`${styles.hint} ${styles.pointerHint}`}>{texts.dragHint}</p> : null}
       {shortage ? <p className={styles.warning}>{texts.minusNote}</p> : null}
     </div>
   );
@@ -315,6 +342,46 @@ function Threshold({ item }: { readonly item: StockItemCard }) {
       ) : null}
       {item.near === true ? <span className={styles.state}>{texts.nearNote}</span> : null}
     </>
+  );
+}
+
+/**
+ * Разбивка по зонам одной строкой — только на карточке телефона.
+ *
+ * 🔴 Пустых зон в списке нет: четыре строки «Газель Зверева 0» подряд
+ * занимали две трети экрана и не отвечали ни на один вопрос. Если позиции нет
+ * нигде, свёртки нет вовсе — раскрывать нечего.
+ */
+function ZonesFold({
+  item,
+  zones,
+}: {
+  readonly item: StockItemCard;
+  readonly zones: readonly StockZoneCard[];
+}) {
+  const filled = filledZones(item, zones);
+  if (filled.length === 0) return null;
+
+  return (
+    <details className={styles.zones}>
+      {/* 🔴 Раскрывашка не притворяется кнопкой: ни рамки, ни заливки —
+          приглушённый текст того же веса, что «Порог 40 м», и шеврон. Она
+          вспомогательная, а весила столько же, сколько главное число карточки.
+          Тап-зона при этом прежняя, 44×44: её держит поле, а не рамка. */}
+      <summary className={styles.zonesSummary}>
+        {texts.zonesFold(filled.length)}
+        <Icon className={styles.zonesChevron} name="chevron-down" size={14} />
+      </summary>
+
+      <ul className={styles.zonesList}>
+        {filled.map((zone) => (
+          <li className={styles.zonesItem} key={zone.id}>
+            <span className={styles.zonesName}>{zone.name}</span>
+            <span className={styles.zonesQty}>{texts.qty(zoneQty(item, zone.id), item.unit)}</span>
+          </li>
+        ))}
+      </ul>
+    </details>
   );
 }
 

@@ -607,6 +607,20 @@ export function zoneQty(item: StockItemCard, zoneId: string): number {
 }
 
 /**
+ * Зоны, в которых по позиции что-то есть.
+ *
+ * 🔴 Ноль на карточке телефона не показывается вовсе (issue #609): четыре
+ * строки «Газель Зверева 0» подряд занимали две трети экрана и не отвечали ни
+ * на один вопрос. Минус остаётся — он и есть сообщение (ADR-134).
+ */
+export function filledZones(
+  item: StockItemCard,
+  zones: readonly StockZoneCard[],
+): readonly StockZoneCard[] {
+  return zones.filter((zone) => zoneQty(item, zone.id) !== 0);
+}
+
+/**
  * Склад разошёлся с реальностью: где-то минус.
  *
  * 🔴 Это предупреждение, а не ошибка (ADR-134): запрет ухода в минус означает,

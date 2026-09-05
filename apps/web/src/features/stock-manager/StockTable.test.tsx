@@ -207,6 +207,25 @@ describe('Остатки по зонам', () => {
     expect(within(row).getAllByText('0')).not.toHaveLength(0);
   });
 
+  it('🔴 разбивка по зонам свёрнута и называет число зон (issue #609)', () => {
+    render(<StockTable overview={{ ...overview, items: [pipe], total: 1 }} />);
+
+    /* У трубы остаток в двух зонах из трёх: пустая в свёртку не идёт. */
+    const fold = screen.getByText(texts.zonesFold(2));
+    expect(fold).toBeInTheDocument();
+
+    const list = screen.getByRole('list');
+    expect(within(list).getByText(warehouse.name)).toBeInTheDocument();
+  });
+
+  it('позиции нет ни в одной зоне — раскрывать нечего, свёртки нет', () => {
+    const nowhere = { ...pipe, byZone: { z1: 0, z2: 0, z3: 0 }, total: 0 };
+    render(<StockTable overview={{ ...overview, items: [nowhere], total: 1 }} />);
+
+    expect(screen.queryByText(texts.zonesFold(1))).not.toBeInTheDocument();
+    expect(screen.queryByRole('list')).not.toBeInTheDocument();
+  });
+
   it('🔴 «Итого» стоит перед «Порогом», как в макете (issue #607)', () => {
     render(<StockTable overview={overview} />);
 

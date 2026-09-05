@@ -30,8 +30,13 @@ export interface StockStatsProps {
 export function StockStats({ overview }: StockStatsProps) {
   const { lowCount, nearCount } = overview;
 
+  /* 🔴 Ниже 600px плиток нет вовсе (issue #609, макет 390): четыре плитки
+     давали два ряда по 115px до первой позиции. То же самое сообщает строка
+     под заголовком раздела — её собирает `texts.countsLine` из этих же чисел,
+     и разойтись им нечем. Скрытый блок не даёт и зазора: `display: none`
+     выбрасывает его из раскладки целиком. */
   return (
-    <StatTiles label={texts.tilesLabel}>
+    <StatTiles className={styles.tiles} label={texts.tilesLabel}>
       <StatTile label={texts.tileItems} value={formatNumber(overview.itemsTotal)} />
 
       {lowCount === undefined ? null : (

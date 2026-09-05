@@ -17,7 +17,9 @@ import {
   stockManagerContent as texts,
   stockTabFromParam,
   stockTabHref,
+  type StockFilterState,
   type StockJournalFilterState,
+  type StockOverview,
   type StockTab,
   type StockZonePerson,
 } from '@/features/stock-manager';
@@ -86,34 +88,11 @@ export default async function AdminStockPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const tab = stockTabFromParam(params.tab);
 
-  return (
-    <div className={styles.page}>
-      <StockHeader />
-
-      <PanelTabLinks
-        active={tab}
-        tabs={STOCK_TABS}
-        titleOf={texts.tabTitle}
-        label={texts.tabsLabel}
-        hrefOf={(key) => stockTabHref(key)}
-      />
-
-      {tab === 'log' ? <JournalTab params={params} /> : null}
-      {tab === 'zones' ? <ZonesTab session={session} /> : null}
-      {tab === 'stock' ? <OverviewTab params={params} session={session} /> : null}
-    </div>
-  );
-}
-
-/** Остатки по зонам: таблица «позиции × зоны» и фильтры над ней. */
-async function OverviewTab({
-  params,
-  session,
-}: {
-  readonly params: StockParams;
-  readonly session: AdminSession;
-}) {
-  const filters = {
+  /* 🔴 Остатки читает сама страница, а не вкладка: их счёт стоит подстрокой
+     заголовка, а заголовок один на три вкладки. Данные получает серверный
+     компонент и раздаёт вниз пропсами — второй запрос за теми же строками
+     ради одной строки текста ничего бы не ускорил. */
+  const filters: StockFilterState = {
     query: params.q?.trim() ?? '',
     group: params.group?.trim() ?? '',
     /* Сколько строк на странице — выбор владельца, а не константа (issue
@@ -123,15 +102,57 @@ async function OverviewTab({
     archived: lowFromParam(params.archived),
   };
 
-  const found = await overview(
-    { ...filters, page: pageNumber(params.page) },
-    { role: session.role, userId: session.userId },
-  );
+  const found =
+    tab === 'stock'
+      ? await overview(
+          { ...filters, page: pageNumber(params.page) },
+          { role: session.role, userId: session.userId },
+        )
+      : null;
 
+  return (
+    <div className={styles.page}>
+      <StockHeader
+        {...(found === null
+          ? {}
+          : { counts: texts.countsLine(found.itemsTotal, found.lowCount, found.nearCount) })}
+      />
+
+      {/* 🔴 Лента вкладок прокручивается вбок, а не складывается столбиком.
+          Три подписи раздела («Остатки по зонам», «Журнал движений», «Зоны
+          хранения») на 320 не встают в строку, и перенос давал вертикальный
+          список из трёх ссылок — он читается как случайные ссылки, а не как
+          переключатель вида (issue #609). */}
+      <div className={styles.tabsStrip}>
+        <PanelTabLinks
+          active={tab}
+          tabs={STOCK_TABS}
+          titleOf={texts.tabTitle}
+          label={texts.tabsLabel}
+          hrefOf={(key) => stockTabHref(key)}
+        />
+      </div>
+
+      {tab === 'log' ? <JournalTab params={params} /> : null}
+      {tab === 'zones' ? <ZonesTab session={session} /> : null}
+      {found === null ? null : <OverviewTab found={found} filters={filters} />}
+    </div>
+  );
+}
+
+/** Остатки по зонам: таблица «позиции × зоны» и фильтры над ней. */
+function OverviewTab({
+  found,
+  filters,
+}: {
+  readonly found: StockOverview;
+  readonly filters: StockFilterState;
+}) {
   return (
     <>
       {/* 🔴 Плитки стоят до фильтра: «надо ли сегодня что-то заказывать» —
-          вопрос, который задают раньше, чем начинают искать (issue #606). */}
+          вопрос, который задают раньше, чем начинают искать (issue #606).
+          Ниже 600px их место занимает строка под заголовком раздела. */}
       <StockStats overview={found} />
 
       <StockFilters

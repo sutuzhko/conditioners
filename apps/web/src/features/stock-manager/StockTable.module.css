@@ -28,9 +28,12 @@
   text-decoration: none;
 }
 
+/* 🔴 Наведение меняет цвет, а не подчёркивает. Название позиции — заголовок
+   карточки, а не ссылка в строке текста: подчёркивание под ним читалось как
+   вторая, текстовая ссылка внутри уже нажимаемой карточки (замечание
+   владельца 5 сентября). */
 .name:hover {
   color: var(--accent-text);
-  text-decoration: underline;
 }
 
 .itemNote {
@@ -105,6 +108,17 @@
   font-size: var(--fs-caption);
 }
 
+/* 🔴 Подсказка про перетаскивание снята на сенсорной раскладке (ADR-183).
+   «Остаток можно перетащить мышью» и «Enter берёт остаток» описывают
+   указатель и клавиатуру, которых до 900px нет: четыре строки под таблицей,
+   каждая из которых неправда. Выше порога подсказка остаётся — там она и
+   написана для того, у кого мышь. */
+@media (width < 900px) {
+  .pointerHint {
+    display: none;
+  }
+}
+
 .warning {
   margin: 0;
   padding: 8px 12px;
@@ -157,6 +171,13 @@
 }
 
 @media (width >= 600px) {
+  /* Свёртка зон — форма для карточки телефона: выше 600px зоны стоят своими
+     колонками, и колонка свёртки снимается со страницы целиком. */
+  .grid .zonesHead,
+  .grid tbody td.zonesCell {
+    display: none;
+  }
+
   /* 🔴 Ширины колонок живут здесь, а не в пропе `minWidth`: тот кладёт
      `min-width` инлайном, и снять его ниже 600px, где строка раскладывается
      карточкой, нечем без `!important`. Таблица шире контейнера прокручивается
@@ -259,18 +280,45 @@
    разметки под телефон разошёлся бы с первым на первой же правке — и это уже
    случалось в этом же разделе. */
 @media (width < 600px) {
-  .grid tbody tr.row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
-    padding: 12px 14px;
+  /* 🔴 Одна скруглённая коробка на позицию — сама позиция.
+
+     Карточка списка держит рамку, радиус и тень: верно, когда внутри неё
+     таблица. Ниже 600px внутри лежат пятнадцать своих карточек, и внешняя
+     рамка становится второй коробкой вокруг них, а тень на списке из
+     одинаковых карточек не выделяет ничего — она просто шумит.
+
+     Класс повторён (`.board.board`), чтобы перебить умолчание кита: у карточки
+     и у этого правила специфичность совпадает, а порядок подключения модулей
+     не определён. */
+  .board.board {
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
   }
 
-  /* Название — вся первая строка, кроме итога и меню. */
+  /* 🔴 Сетка с именованными областями, а не порядок во флексе.
+     Порядку нужен разрыв строки, а разрыв во флексе держится на том, что
+     предыдущий элемент занял строку целиком: у позиции с коротким названием
+     («Фреон R32») он не срабатывал, и порог с меню запрыгивали в первую
+     строку. Сетка расставляет то же самое без единого условия.
+
+     Две строки, а не пять: название с итогом сверху, под ними — порог, свёртка
+     зон и меню. Меню в нижней строке намеренно: тап-зона 44px в верхней строке
+     растила бы её вдвое, а карточка обязана уложиться в 110px. */
+  .grid tbody tr.row {
+    display: grid;
+    grid-template-areas:
+      'name  name  total'
+      'min   zones menu';
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 6px 8px;
+    align-items: center;
+    padding: 10px 14px;
+  }
+
   .grid .itemHead {
-    order: 1;
-    flex: 1 1 auto;
+    grid-area: name;
     min-width: 0;
     border: 0;
     padding: 0;
@@ -291,8 +339,8 @@
 
   /* Итог — главное число карточки: за ним её и открывают. */
   .grid tbody td.totalCell {
-    order: 2;
-    flex: 0 0 auto;
+    grid-area: total;
+    justify-content: flex-end;
     border: 0;
     padding: 0;
   }
@@ -306,8 +354,8 @@
   }
 
   .grid tbody td.menuCell {
-    order: 3;
-    flex: 0 0 auto;
+    grid-area: menu;
+    justify-content: flex-end;
     border: 0;
     margin: 0;
     padding: 0;
@@ -319,18 +367,18 @@
      владельцу пришлось бы в уме. Полная ширина заодно ломает строку — ряд
      чипов зон начинается ниже, а не втискивается рядом с итогом. */
   .grid tbody td.minCell {
-    order: 4;
+    grid-area: min;
 
     /* 🔴 Строка, а не пара «подпись — значение» по краям. Карточный режим кита
        разводит подпись и значение `space-between` с зазором 14 — верно для
        ячейки-строки, но здесь это одна фраза, и разорванная на два края она
        перестаёт читаться как «Порог 40 м · не хватает 28». */
     display: flex;
-    flex: 1 0 100%;
     flex-wrap: wrap;
     gap: 4px;
     align-items: baseline;
     justify-content: flex-start;
+    min-width: 0;
     border: 0;
     padding: 0;
     color: var(--muted);
@@ -360,59 +408,123 @@
     display: none;
   }
 
-  /* 🔴 Зоны — ряд чипов, а не восемь строк «подпись — значение». Пустые зоны
-     на карточку не попадают вовсе: четыре нуля подряд занимают всю высоту
-     экрана и не сообщают ничего, а итог по зонам всё равно стоит выше.
-     Минус остаётся: он и есть сообщение (ADR-134). */
+  /* 🔴 Ячейки зон на карточке не рисуются вовсе: их заменила свёртка.
+     Рядом чипов они не встали — название зоны задаёт владелец, и «Гараж на
+     Оборонной 166» на 320 занимает всю строку: четыре зоны давали 202px на
+     позицию, две трети экрана. Данные не потеряны, они под свёрткой. */
   .grid tbody td[data-zone] {
-    order: 5;
-
-    /* 🔴 Чип сжимается, а не выталкивает карточку. Название зоны задаёт
-       владелец (инвариант 8), и «Гараж на Демидовской, второй бокс» обязан
-       уместиться: `min-width: 0` разрешает флексу ужать ячейку, а перенос
-       внутри чипа растит его в высоту, а не в ширину. */
-    display: flex;
-    flex: 0 1 auto;
-    min-width: 0;
-    border: 0;
-    padding: 0;
-    font-size: var(--fs-caption);
-    text-align: left;
-  }
-
-  .grid tbody td[data-zone][data-empty] {
     display: none;
   }
 
-  /* 🔴 Подписи снаружи кнопки нет: чип целиком и есть кнопка.
-     `data-label` рисует подпись перед ячейкой во всём карточном режиме кита —
-     здесь она оставляла нажимаемой одну цифру, 19,5px по ширине при
-     абсолютном минимуме 24. Название зоны переехало внутрь кнопки. */
-  .grid tbody td[data-zone]::before {
+  /* Свёртка зон — предпоследняя ячейка нижней строки карточки. */
+  .grid tbody td.zonesCell {
+    grid-area: zones;
+    display: block;
+    justify-content: flex-start;
+    min-width: 0;
+    border: 0;
+    padding: 0;
+  }
+
+  .grid tbody td.zonesCell::before {
     content: none;
   }
 
-  /* 🔴 Цель целиком, по обеим осям (ADR-183). Высоты 44 мало: «высота ≥ 44» и
-     «зона проходит по ширине» — разные проверки, и по ширине цифра давала 19,5
-     при норме 44. Ширину держит `min-width`, а не расчёт на длину подписи:
-     «0» и «43,5» не должны давать целей разного размера. */
-  .grid tbody td[data-zone] button {
+  /* Ячейка без зон схлопывается: раскрывать нечего, а пустая цель на её месте
+     хуже отсутствующей. */
+  .grid tbody td.zonesCell:empty {
+    display: none;
+  }
+
+  .grid .zones {
+    position: relative;
+  }
+
+  /* 🔴 Раскрывашка того же веса, что «Порог 40 м · не хватает 28»: это одна
+     строка «что известно про запас», и разный вес у её половин читался как две
+     разные сущности. Ни рамки, ни заливки — приглушённый текст и шеврон.
+
+     🔴 Цель при этом остаётся целой, 44×44 по обеим осям (ADR-183): её держит
+     поле, а не рамка. Уменьшать надо вес, а не зону — по ней целятся пальцем. */
+  .grid .zonesSummary {
     display: inline-flex;
-    gap: 6px;
+    gap: 4px;
     align-items: center;
-    justify-content: flex-start;
     box-sizing: border-box;
-    width: auto;
-    max-width: 100%;
+    border: 0;
+    cursor: pointer;
+    padding: 0 4px;
     min-width: var(--tap);
     min-height: var(--tap);
-    white-space: normal;
+    color: var(--muted);
+    font-size: var(--fs-caption);
+    white-space: nowrap;
+    list-style: none;
+  }
+
+  .grid .zonesSummary::-webkit-details-marker {
+    display: none;
+  }
+
+  .grid .zonesSummary:hover {
+    color: var(--accent-text);
+  }
+
+  .grid .zonesSummary:focus-visible {
+    border-radius: var(--r-sm);
+    box-shadow: var(--ring-focus-ring);
+    outline: none;
+  }
+
+  /* Шеврон переворачивается на раскрытой — единственный признак состояния,
+     оставшийся после снятой рамки. */
+  .grid .zonesChevron {
+    flex-shrink: 0;
+  }
+
+  .grid .zones[open] .zonesChevron {
+    transform: rotate(180deg);
+  }
+
+  /* 🔴 Раскрытая разбивка ложится поверх карточки, а не раздвигает список:
+     иначе соседние позиции уезжают вниз каждый раз, когда одну раскрывают, —
+     и место, куда человек целился, оказывается занято другой строкой. */
+  .grid .zonesList {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 6px 0 0;
     border: 1px solid var(--line);
-    border-radius: var(--r-pill);
-    padding: 0 14px;
+    border-radius: var(--r-md);
+    background: var(--card);
+    box-shadow: var(--sh-md);
+    padding: 10px 12px;
+    min-width: 200px;
+    max-width: calc(100vw - 56px);
+    list-style: none;
+  }
+
+  .grid .zonesItem {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    justify-content: space-between;
+    font-size: var(--fs-caption);
+  }
+
+  .grid .zonesName {
+    min-width: 0;
+    color: var(--muted);
+  }
+
+  .grid .zonesQty {
     color: var(--ink);
     font-weight: 600;
-    text-align: left;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   /* 🔴 Обе подсказки под таблицей на телефоне не просто лишние — они неверны.

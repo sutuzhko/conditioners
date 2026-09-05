@@ -6,6 +6,7 @@ import {
   DEFAULT_STOCK_JOURNAL_FILTERS,
   DEFAULT_STOCK_PAGE_SIZE,
   checkMove,
+  filledZones,
   checkZone,
   emptyMoveDraft,
   hasShortage,
@@ -221,5 +222,24 @@ describe('отбор журнала живёт в адресе', () => {
     expect(moveKindFromParam('чепуха')).toBeUndefined();
     expect(periodFromParam('month')).toBe('month');
     expect(periodFromParam('чепуха')).toBe('all');
+  });
+});
+
+/**
+ * 🔴 Свёртка зон на карточке телефона показывает только то, где что-то есть
+ * (issue #609): четыре строки «Газель Зверева 0» подряд занимали две трети
+ * экрана и не отвечали ни на один вопрос.
+ */
+describe('зоны с остатком', () => {
+  it('пустые зоны в разбивку не идут', () => {
+    expect(filledZones(pipe, zones).map((zone) => zone.id)).toEqual(['z1', 'z2']);
+  });
+
+  it('🔴 минус остаётся: он и есть сообщение, а не пустота', () => {
+    expect(filledZones(freon, zones).map((zone) => zone.id)).toEqual(['z1', 'z2']);
+  });
+
+  it('позиции нет нигде — разбивка пуста, и раскрывать нечего', () => {
+    expect(filledZones({ ...pipe, byZone: {}, total: 0 }, zones)).toEqual([]);
   });
 });
