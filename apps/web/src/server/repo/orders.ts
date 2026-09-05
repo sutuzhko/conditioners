@@ -12,6 +12,7 @@
 import { Prisma } from '@prisma/client';
 import type {
   Employment as DbEmployment,
+  OrderCancelReason as DbCancelReason,
   OrderDocKind as DbDocKind,
   OrderEquip as DbEquip,
   OrderStatus as DbStatus,
@@ -35,8 +36,10 @@ import {
 } from '@/entities/order/lib/history';
 import {
   installerMaySetStatus,
+  orderCancelIssue,
   orderPairIssue,
   TAB_STATUSES,
+  type OrderCancelReason,
   type OrderCard,
   type OrderChecklistCard,
   type OrderCreate,
@@ -96,6 +99,26 @@ const STATUS_FROM_DB: Record<DbStatus, OrderStatus> = {
   IN_PROGRESS: 'in_progress',
   DONE: 'done',
   CANCELLED: 'cancelled',
+};
+
+const CANCEL_REASON_TO_DB: Record<OrderCancelReason, DbCancelReason> = {
+  client_refused: 'CLIENT_REFUSED',
+  no_answer: 'NO_ANSWER',
+  too_expensive: 'TOO_EXPENSIVE',
+  chose_other: 'CHOSE_OTHER',
+  postponed: 'POSTPONED',
+  our_fault: 'OUR_FAULT',
+  other: 'OTHER',
+};
+
+const CANCEL_REASON_FROM_DB: Record<DbCancelReason, OrderCancelReason> = {
+  CLIENT_REFUSED: 'client_refused',
+  NO_ANSWER: 'no_answer',
+  TOO_EXPENSIVE: 'too_expensive',
+  CHOSE_OTHER: 'chose_other',
+  POSTPONED: 'postponed',
+  OUR_FAULT: 'our_fault',
+  OTHER: 'other',
 };
 
 const PAYMENT_TO_DB: Record<PaymentMode, DbPayment> = {
@@ -195,6 +218,9 @@ const orderSelect = {
   comment: true,
   ownerNote: true,
   leadId: true,
+  cancelReason: true,
+  cancelNote: true,
+  cancelledAt: true,
   extraWork: true,
   report: true,
   resultAt: true,
@@ -273,6 +299,9 @@ type OrderRow = {
   comment: string | null;
   ownerNote: string | null;
   leadId: string | null;
+  cancelReason: DbCancelReason | null;
+  cancelNote: string | null;
+  cancelledAt: Date | null;
   extraWork: string | null;
   report: string | null;
   resultAt: Date | null;
@@ -368,6 +397,11 @@ function toCard(row: OrderRow, role: AdminRole): OrderCard {
     installerFee: row.installerFee,
     comment: row.comment,
     leadId: row.leadId,
+    /* Причина отказа приходит обеим ролям: это про работу, а не про деньги —
+       монтажник, у которого выезд сняли, вправе знать, почему. */
+    cancelReason: row.cancelReason === null ? null : CANCEL_REASON_FROM_DB[row.cancelReason],
+    cancelNote: row.cancelNote,
+    cancelledAt: row.cancelledAt === null ? null : row.cancelledAt.toISOString(),
     /* Итог приходит обеим ролям: это отчёт монтажника о выезде, и он же его
        заполняет — прятать от него собственный текст незачем. */
     extraWork: row.extraWork,
@@ -479,6 +513,11 @@ export type OrderListParams = {
   readonly tab?: OrderTab | undefined;
   readonly period?: OrderPeriod | undefined;
   readonly page?: number | undefined;
+  /** Фильтр по исполнителю: чип «Пётр К. ×» над таблицей (issue #594). */
+  readonly installerId?: string | undefined;
+  readonly sort?: OrderSort | undefined;
+  /** Сколько строк на странице: «Строк на странице 8 ▾» (issue #595). */
+  readonly size?: number | undefined;
 };
 
 /**
@@ -490,6 +529,19 @@ export type OrderListParams = {
  */
 function viewerWhere(viewer: Viewer): Prisma.OrderWhereInput {
   return viewer.role === 'installer' ? { installerId: viewer.userId } : {};
+}
+
+/**
+ * 🔴 «Не назначен» — такой же фильтр, как имя монтажника, а не его отсутствие.
+ *
+ * Вопрос «что висит без исполнителя» владелец задаёт списку каждый день, и
+ * ответом на него служит тот же чип над таблицей, что и у выбранного человека.
+ */
+export const NO_INSTALLER = 'none';
+
+function installerWhere(installerId: string | undefined): Prisma.OrderWhereInput {
+  if (installerId === undefined || installerId === '') return {};
+  return installerId === NO_INSTALLER ? { installerId: null } : { installerId };
 }
 
 function tabWhere(tab: OrderTab): Prisma.OrderWhereInput {
@@ -561,6 +613,27 @@ function orderDirection(tab: OrderTab): Prisma.SortOrder {
 }
 
 /**
+ * Чем сортировать список (issue #594).
+ *
+ * Умолчание — дата, и направление у неё своё на каждой вкладке. Номер и сумма
+ * сортируются по убыванию всегда: «покажи самые дорогие» и «покажи последние
+ * заведённые» — это ровно те два вопроса, ради которых сортировку и открывают.
+ */
+export type OrderSort = 'date' | 'number' | 'sum';
+
+const SORTS: readonly OrderSort[] = ['date', 'number', 'sum'];
+
+export function isOrderSort(value: string): value is OrderSort {
+  return SORTS.some((sort) => sort === value);
+}
+
+function orderByOf(tab: OrderTab, sort: OrderSort): Prisma.OrderOrderByWithRelationInput {
+  if (sort === 'number') return { number: 'desc' };
+  if (sort === 'sum') return { price: 'desc' };
+  return { at: orderDirection(tab) };
+}
+
+/**
  * Страница списка нарядов.
  *
  * С `take`, а не «все за всё время»: за годы работы список растёт без потолка,
@@ -575,15 +648,16 @@ export async function list(params: OrderListParams, viewer: Viewer): Promise<Pag
     ...tabWhere(tab),
     ...periodWhere(params.period ?? 'all', new Date()),
     ...searchWhere(params.query ?? ''),
+    ...installerWhere(params.installerId),
   };
 
   const total = await db.order.count({ where });
-  const { page, pages, skip, take } = pageWindow(total, params.page ?? 1);
+  const { page, pages, skip, take } = pageWindow(total, params.page ?? 1, params.size);
 
   const rows = await db.order.findMany({
     where,
     select: orderSelect,
-    orderBy: { at: orderDirection(tab) },
+    orderBy: orderByOf(tab, params.sort ?? 'date'),
     skip,
     take,
   });
@@ -725,6 +799,88 @@ export async function countActive(): Promise<number> {
   return db.order.count({
     where: { status: { in: TAB_STATUSES.active.map((status) => STATUS_TO_DB[status]) } },
   });
+}
+
+/** Сколько нарядов в каждой стопке — числа на вкладках и в строке счёта. */
+export type OrderCounts = {
+  readonly all: number;
+  readonly active: number;
+  readonly new: number;
+  /** Срок вышел, а работа не закрыта и не отменена. Это не статус (ADR-194). */
+  readonly overdue: number;
+};
+
+/* Массив изменяемый, а не `readonly`: фильтр `in` у Prisma принимает только
+   такой, и `readonly` в возврате отвергался бы на каждом вызове. */
+const dbStatuses = (tab: Exclude<OrderTab, 'all'>): DbStatus[] =>
+  TAB_STATUSES[tab].map((status) => STATUS_TO_DB[status]);
+
+/**
+ * Счёт по стопкам — строка «24 всего · 7 активных · 2 просрочены» и числа на
+ * вкладках (issue #593, макет «Заказы»).
+ *
+ * 🔴 Числа не зависят ни от периода, ни от поиска: вкладка обещает, сколько
+ * нарядов в стопке, а не сколько их осталось после фильтра. Иначе «Активные 0»
+ * при пустом поиске читалось бы как «работы кончились».
+ *
+ * 🔴 Считается одним местом на весь раздел, а не тремя запросами по вызывающим:
+ * три счётчика, разошедшихся между шапкой и лентой вкладок, владелец читает
+ * как сбой панели. Монтажнику считается его собственная стопка — тот же
+ * фильтр по исполнителю, что и у списка (ADR-114).
+ */
+export async function counts(viewer: Viewer): Promise<OrderCounts> {
+  const scope = viewerWhere(viewer);
+
+  const [all, active, fresh, overdue] = await Promise.all([
+    db.order.count({ where: scope }),
+    db.order.count({ where: { ...scope, status: { in: dbStatuses('active') } } }),
+    db.order.count({ where: { ...scope, status: { in: dbStatuses('new') } } }),
+    db.order.count({
+      where: {
+        ...scope,
+        at: { lt: new Date() },
+        status: { notIn: ['DONE', 'CANCELLED'] },
+      },
+    }),
+  ]);
+
+  return { all, active, new: fresh, overdue };
+}
+
+/** Итог периода над таблицей истории: сколько закрыли и на какую сумму. */
+export type OrderHistoryTotals = {
+  readonly closed: number;
+  readonly revenue: number;
+};
+
+/**
+ * Итог закрытых работ за период (issue #597, вкладка «История»).
+ *
+ * 🔴 Только владельцу: суммы заказов монтажнику не показываются нигде, кроме
+ * оплаты наличными (ADR-092, CRM.md §6). Вызывающий обязан спросить итог
+ * только у владельца — здесь стоит вторая проверка, потому что забытая первая
+ * стоит утечки выручки в чужой браузер.
+ *
+ * 🔴 Маржи здесь нет намеренно: без закупочной цены позиции склада её нечем
+ * считать (ADR-310, issue #628). Разность `price − installerFee` маржой не
+ * является — материалы в монтаже заметная доля, и число врало бы в большую
+ * сторону ровно там, где владелец решает, какую цену ставить.
+ */
+export async function historyTotals(
+  params: { readonly period?: OrderPeriod | undefined; readonly installerId?: string | undefined },
+  viewer: Viewer,
+): Promise<OrderHistoryTotals> {
+  if (viewer.role !== 'owner') return { closed: 0, revenue: 0 };
+
+  const where: Prisma.OrderWhereInput = {
+    status: { in: dbStatuses('history') },
+    ...periodWhere(params.period ?? 'all', new Date()),
+    ...installerWhere(params.installerId),
+  };
+
+  const totals = await db.order.aggregate({ where, _count: { _all: true }, _sum: { price: true } });
+
+  return { closed: totals._count._all, revenue: totals._sum.price ?? 0 };
 }
 
 // ---------- Запись ----------
@@ -1122,6 +1278,7 @@ type CurrentOrder = {
   readonly installerId: string | null;
   readonly deductionSum: number;
   readonly deductionReason: string | null;
+  readonly cancelReason: DbCancelReason | null;
 };
 
 /**
@@ -1143,6 +1300,66 @@ function assertStatusPair(
   const issue = orderPairIssue(STATUS_FROM_DB[status ?? current.status], installerId !== null);
 
   if (issue !== null) throw new ApiException('validation_error', issue.message, issue.field);
+}
+
+/**
+ * 🔴 Досмотр причины отказа на уже собранной записи (ADR-310).
+ *
+ * Схема видит только присланные поля и пропускает обычный случай: владелец
+ * переводит наряд в «Отказ» одним `select`, ничего больше не трогая. Причина
+ * при этом либо приходит вместе со статусом, либо уже записана — отказ без
+ * разбора не даёт ничего, ради чего заводится вкладка «Отказы».
+ */
+function assertCancelReason(
+  current: CurrentOrder,
+  input: OrderUpdate,
+  status: DbStatus | undefined,
+): void {
+  const reason = input.cancelReason === undefined ? current.cancelReason : input.cancelReason;
+  const message = orderCancelIssue(STATUS_FROM_DB[status ?? current.status], reason !== null);
+
+  if (message !== null) throw new ApiException('validation_error', message, 'cancelReason');
+}
+
+/**
+ * Поля отказа по итогам правки.
+ *
+ * 🔴 Отметка времени ставится сервером в момент перехода, а не приходит от
+ * клиента: «когда отказались» — это факт, а не поле формы. При возврате в
+ * работу все три гасятся: причина без отказа читалась бы как действующая — то
+ * же правило, что у отказа отзыва (ADR-300).
+ *
+ * Правка отменённого наряда, не трогающая статус, отметку не двигает: иначе
+ * дописанное через месяц уточнение делало бы отказ вчерашним.
+ */
+type CancelData = {
+  readonly cancelReason?: DbCancelReason | null;
+  readonly cancelNote?: string | null;
+  readonly cancelledAt?: Date | null;
+};
+
+function cancelData(
+  current: CurrentOrder,
+  input: OrderUpdate,
+  status: DbStatus | undefined,
+): CancelData {
+  const next = status ?? current.status;
+  const wasCancelled = current.status === 'CANCELLED';
+
+  if (next !== 'CANCELLED') {
+    return wasCancelled ? { cancelReason: null, cancelNote: null, cancelledAt: null } : {};
+  }
+
+  return {
+    ...(input.cancelReason === undefined
+      ? {}
+      : {
+          cancelReason:
+            input.cancelReason === null ? null : CANCEL_REASON_TO_DB[input.cancelReason],
+        }),
+    ...(input.cancelNote === undefined ? {} : { cancelNote: input.cancelNote }),
+    ...(wasCancelled ? {} : { cancelledAt: new Date() }),
+  };
 }
 
 /**
@@ -1184,7 +1401,13 @@ function updateHistory(
 export async function update(id: string, input: OrderUpdate, authorId: string): Promise<OrderCard> {
   const current = await db.order.findUnique({
     where: { id },
-    select: { status: true, installerId: true, deductionSum: true, deductionReason: true },
+    select: {
+      status: true,
+      installerId: true,
+      deductionSum: true,
+      deductionReason: true,
+      cancelReason: true,
+    },
   });
   if (current === null) throw new ApiException('not_found', 'Наряд не найден');
 
@@ -1193,6 +1416,7 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
 
   const status = nextStatus(current, input);
   assertStatusPair(current, input, status);
+  assertCancelReason(current, input, status);
   /* Схема гарантирует, что день и время приходят только вместе: перенести
      работу на другой день, не сказав на какое время, нельзя. */
   const at =
@@ -1243,6 +1467,7 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
       ...(input.comment === undefined ? {} : { comment: input.comment }),
       ...(input.ownerNote === undefined ? {} : { ownerNote: input.ownerNote }),
       ...(input.leadId === undefined ? {} : { leadId: input.leadId }),
+      ...cancelData(current, input, status),
     };
 
     if (expected !== undefined) {

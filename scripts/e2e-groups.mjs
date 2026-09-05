@@ -56,6 +56,7 @@ export const GROUPS = Object.freeze({
     'price-update',
     'empty-states',
     'crm-search',
+    'orders-list',
   ],
 });
 

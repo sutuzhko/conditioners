@@ -1,5 +1,5 @@
 /** Данные для историй и тестов раздела заказов. */
-import { consumptionHints, orderDraftOf } from './model';
+import { DEFAULT_ORDER_FILTERS, consumptionHints, orderDraftOf } from './model';
 import type {
   ConsumptionHint,
   OrderApi,
@@ -11,6 +11,7 @@ import type {
   OrderDetails,
   OrderDocCard,
   OrderDraft,
+  OrderFilterState,
   OrderHistoryEntry,
   OrderInstallerRef,
   OrderPage,
@@ -93,7 +94,16 @@ export const units: readonly OrderUnitCard[] = [
 ];
 
 /** Пустой итог — наряд, по которому ещё не отчитывались. */
-const noResult = { extraWork: null, report: null, resultAt: null } as const;
+const noResult = {
+  extraWork: null,
+  report: null,
+  resultAt: null,
+  /* Наряд, который не отменяли: полей отказа у него нет — ни причины, ни даты
+     (ADR-310). Отменённый переопределяет их у себя. */
+  cancelReason: null,
+  cancelNote: null,
+  cancelledAt: null,
+} as const;
 
 /** Наряд глазами владельца: с заметкой, удержанием и суммой заказа. */
 export const order: OrderCard = {
@@ -160,6 +170,34 @@ export const cancelledOrder: OrderCard = {
   installerFee: 0,
   deductionSum: 1_500,
   deductionReason: 'Сорван выезд без предупреждения',
+  /* 🔴 Причина обязательна у любого отказа (ADR-310): справочник обобщает
+     воронку, дописанное словами объясняет частный случай. */
+  cancelReason: 'too_expensive',
+  cancelNote: 'Нашёл дешевле, отказался на этапе замера',
+  cancelledAt: '2026-08-18T11:20:00.000Z',
+};
+
+/** Второй отказ: причина из справочника без уточнения словами. */
+export const declinedOrder: OrderCard = {
+  ...cancelledOrder,
+  id: 'o8',
+  number: 1032,
+  client: clientRef,
+  installer: null,
+  cancelReason: 'no_answer',
+  cancelNote: null,
+  cancelledAt: '2026-08-09T07:05:00.000Z',
+};
+
+/** Выполненный наряд: у него есть день закрытия и выручка — вкладка «История». */
+export const doneOrder: OrderCard = {
+  ...order,
+  id: 'o7',
+  number: 1044,
+  status: 'done',
+  resultAt: '2026-08-24T15:40:00.000Z',
+  price: 31_900,
+  installerFee: 8_200,
 };
 
 /**
@@ -245,6 +283,25 @@ export const longPage: OrderPage = {
 
 export const emptyPage: OrderPage = { items: [], total: 0, page: 1, pages: 1 };
 
+/** Страница отказов: колонки «Отказ» и «Причина» с действием строки. */
+export const declinedPage: OrderPage = {
+  items: [cancelledOrder, declinedOrder],
+  total: 2,
+  page: 1,
+  pages: 1,
+};
+
+/** Страница истории: закрытые работы с днём закрытия и выручкой. */
+export const historyPage: OrderPage = { items: [doneOrder], total: 18, page: 1, pages: 3 };
+
+/**
+ * Состояние списка целиком. Истории и тесты меняют одно поле, а не собирают
+ * весь объект: полей у фильтра семь, и забытое — это тихо другой экран.
+ */
+export function listFilters(over: Partial<OrderFilterState> = {}): OrderFilterState {
+  return { ...DEFAULT_ORDER_FILTERS, ...over };
+}
+
 /** Длинные данные: адрес, комментарий и имя не должны рвать карточку. */
 export const longOrder: OrderCard = {
   ...order,
@@ -270,6 +327,7 @@ export const acceptingApi: OrderApi = {
   update: async () => ({ ok: true }),
   remove: async () => ({ ok: true }),
   setStatus: async () => ({ ok: true }),
+  restore: async () => ({ ok: true }),
 };
 
 /** 🔴 Сервер называет поле: удержание без основания не записывается. */
@@ -284,6 +342,7 @@ export const failingApi: OrderApi = {
   update: async () => noReason,
   remove: async () => ({ ok: false, message: 'Сервер не принял изменения. Попробуйте ещё раз' }),
   setStatus: async () => ({ ok: false, message: 'Такой переход монтажнику недоступен' }),
+  restore: async () => ({ ok: false, message: 'Сервер не принял изменения. Попробуйте ещё раз' }),
 };
 
 /** Запрос, который не отвечает: история показывает состояние отправки. */
@@ -294,6 +353,7 @@ export const pendingApi: OrderApi = {
   update: stuck,
   remove: stuck,
   setStatus: stuck,
+  restore: stuck,
 };
 
 /** Заполненный черновик формы — тот же наряд, но полями ввода. */

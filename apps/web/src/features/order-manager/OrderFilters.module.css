@@ -67,13 +67,28 @@
   min-width: 220px;
 }
 
-.periods {
+/* Группа листа: подпись и пункты выбора столбиком. Групп в листе бывает две
+   — период и монтажник, — и без подписей они читаются одним списком. */
+.group {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-.period {
+.group + .group {
+  margin-top: 12px;
+}
+
+.groupTitle {
+  flex: 1 0 100%;
+  color: var(--faint);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.item {
   display: inline-flex;
   align-items: center;
   border: 1px solid transparent;
@@ -87,12 +102,12 @@
   text-decoration: none;
 }
 
-.period:hover {
+.item:hover {
   border-color: var(--accent-ink);
   color: var(--accent-text);
 }
 
-.period:focus-visible {
+.item:focus-visible {
   box-shadow: var(--ring-focus-ring);
   outline: none;
 }
@@ -101,6 +116,15 @@
   border-color: var(--accent-ink);
   background: var(--accent-bg);
   color: var(--accent-text);
+}
+
+/* Галочка выбранной колонки: место под неё занято всегда, иначе строки
+   списка сдвигались бы вбок при каждом переключении. */
+.mark {
+  display: inline-block;
+  width: 12px;
+  color: var(--accent-text);
+  font-weight: 700;
 }
 
 /* Применённое условие: видно, что оно есть, и снимается одним нажатием. */
@@ -136,22 +160,6 @@
   line-height: 1;
 }
 
-.reset {
-  /* 🔴 Пол цели, а не оформление (issue #476): ссылка-действие оформлена
-     блоком, значит по WCAG 2.5.8 меряется её рамка. */
-  display: inline-flex;
-  align-items: center;
-  min-height: 24px;
-  color: var(--muted);
-  font-size: var(--fs-caption);
-  text-decoration: none;
-}
-
-.reset:hover {
-  color: var(--accent-text);
-  text-decoration: underline;
-}
-
 .form {
   display: flex;
   gap: 8px;
@@ -184,12 +192,8 @@
   }
 
   .pill,
-  .period,
+  .item,
   .chip {
-    min-height: var(--tap);
-  }
-
-  .reset {
     min-height: var(--tap);
   }
 }

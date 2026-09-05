@@ -16,6 +16,10 @@ vi.mock('@/server/repo/admin-users', () => ({ listInstallers: vi.fn(async () => 
 
 vi.mock('@/server/repo/orders', () => ({
   list: vi.fn(async () => ({ items: [], total: 0, page: 1, pages: 1 })),
+  /* Счёт по стопкам считает тот же репозиторий: строка «24 всего · 7
+     активных · 2 просрочены» и числа на вкладках берутся из него (issue #593). */
+  counts: vi.fn(async () => ({ all: 0, active: 0, new: 0, overdue: 0 })),
+  historyTotals: vi.fn(async () => ({ closed: 0, revenue: 0 })),
 }));
 
 import { getAdminSession } from '@/server/auth';

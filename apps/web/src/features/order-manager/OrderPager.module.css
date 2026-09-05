@@ -1,0 +1,141 @@
+/* Подвал таблицы нарядов: счёт, номера страниц, число строк (макет «Заказы»). */
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  padding: 12px 16px;
+}
+
+.count {
+  color: var(--faint);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.pages {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+/* Номер, шаг и текущая страница — одна геометрия: ряд не дёргается, когда
+   двузначный номер сменяет однозначный. */
+.number,
+.current,
+.step,
+.stepOff {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  min-width: var(--h-sm, 32px);
+  min-height: var(--h-sm, 32px);
+  color: var(--body);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+
+.number:hover,
+.step:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-text);
+}
+
+.number:focus-visible,
+.step:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+/* Текущая страница залита: между двумя соседними номерами её иначе не
+   отличить, а рамка на этой плотности читается как наведение. */
+.current {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+/* Край списка: шаг остаётся на месте, чтобы номера не прыгали вбок при
+   переходе на первую и последнюю страницы. */
+.stepOff {
+  color: var(--faint);
+  opacity: 0.6;
+}
+
+.size {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.sizeTitle {
+  margin-right: 4px;
+}
+
+.sizeItem,
+.sizeOn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid var(--line-ui);
+  border-radius: var(--r-sm);
+  min-width: var(--h-sm, 32px);
+  min-height: var(--h-sm, 32px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+
+.sizeItem {
+  color: var(--body);
+}
+
+.sizeItem:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-text);
+}
+
+.sizeItem:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+.sizeOn {
+  border-color: var(--accent-ink);
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+/* 🔴 Пол цели на сенсорной раскладке (ADR-183): до 900px по номеру страницы
+   целятся пальцем, и 32px там мимо нормы. */
+@media (width < 900px) {
+  .number,
+  .current,
+  .step,
+  .stepOff,
+  .sizeItem,
+  .sizeOn {
+    min-width: var(--tap);
+    min-height: var(--tap);
+  }
+}
+
+/* На телефоне подвал становится столбиком: три зоны в строку не помещаются
+   даже без номеров, и «Строк на странице» уезжала бы за правый край. */
+@media (width < 600px) {
+  .pager {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

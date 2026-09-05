@@ -2,6 +2,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import { CANCEL_REASON_REQUIRED } from '@/entities/order/model';
+
 import { OrderForm } from './OrderForm';
 import { DEDUCTION_NOTE, orderManagerContent as texts } from './content';
 import {
@@ -22,6 +24,7 @@ const lists = { clients, installers } as const;
 
 /* У обязательного поля к подписи добавляется звёздочка — ищем по началу. */
 const reasonLabel = new RegExp(`^${texts.deductionReason}`);
+const cancelLabel = new RegExp(`^${texts.cancelReason}`);
 
 describe('Форма наряда', () => {
   it('заводит наряд и очищает форму: следующий вводят сразу', async () => {
@@ -135,10 +138,54 @@ describe('Форма наряда', () => {
       <OrderForm {...lists} api={{ ...acceptingApi, update }} orderId={order.id} initial={draft} />,
     );
 
-    await user.selectOptions(screen.getByLabelText(texts.status), 'cancelled');
+    await user.selectOptions(screen.getByLabelText(texts.status), 'done');
     await user.click(screen.getByRole('button', { name: texts.save }));
 
-    expect(update).toHaveBeenCalledWith(order.id, { ...draft, status: 'cancelled' });
+    expect(update).toHaveBeenCalledWith(order.id, { ...draft, status: 'done' });
+  });
+
+  /**
+   * 🔴 Отказ без причины не уходит на сервер (ADR-310, issue #627).
+   *
+   * Поля причины у наряда в работе нет вовсе: оно появляется вместе с самим
+   * отказом — висящее поле приглашает заполнить его «на всякий случай».
+   */
+  it('перевод в отказ открывает причину и без неё не отправляется', async () => {
+    const user = userEvent.setup();
+    const update = vi.fn(async () => ({ ok: true }) as const);
+
+    render(
+      <OrderForm {...lists} api={{ ...acceptingApi, update }} orderId={order.id} initial={draft} />,
+    );
+
+    expect(screen.queryByLabelText(cancelLabel)).not.toBeInTheDocument();
+
+    await user.selectOptions(screen.getByLabelText(texts.status), 'cancelled');
+    expect(screen.getByLabelText(cancelLabel)).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    expect(update).not.toHaveBeenCalled();
+    expect(screen.getByText(CANCEL_REASON_REQUIRED)).toBeInTheDocument();
+  });
+
+  it('с выбранной причиной отказ уходит вместе с ней', async () => {
+    const user = userEvent.setup();
+    const update = vi.fn(async () => ({ ok: true }) as const);
+
+    render(
+      <OrderForm {...lists} api={{ ...acceptingApi, update }} orderId={order.id} initial={draft} />,
+    );
+
+    await user.selectOptions(screen.getByLabelText(texts.status), 'cancelled');
+    await user.selectOptions(screen.getByLabelText(cancelLabel), 'too_expensive');
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    expect(update).toHaveBeenCalledWith(order.id, {
+      ...draft,
+      status: 'cancelled',
+      cancelReason: 'too_expensive',
+    });
   });
 
   it('кнопка блокируется на время отправки', async () => {

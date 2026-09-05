@@ -10,7 +10,7 @@
 import { isOrderPeriod, isOrderTab, orderCreateSchema } from '@/entities/order/model';
 import { json, readJson, validationError, withAdmin, withOwner } from '@/server/http';
 import { notifyOrderCreated } from '@/server/notifications/orders';
-import { create, list } from '@/server/repo/orders';
+import { create, isOrderSort, list } from '@/server/repo/orders';
 import { pageNumber } from '@/shared/lib/paging';
 
 export const dynamic = 'force-dynamic';
@@ -20,16 +20,24 @@ export const GET = withAdmin(async (request, _context, session) => {
 
   const tab = params.get('tab');
   const period = params.get('period');
+  const sort = params.get('sort');
+  const size = Number.parseInt(params.get('size') ?? '', 10);
 
   return json(
     await list(
       {
         query: params.get('q') ?? undefined,
-        /* Незнакомое значение — это умолчание вкладки и периода, а не 400:
-           адрес списка правят руками и присылают друг другу, и отказ вместо
-           списка там ничего не объясняет. */
+        /* Незнакомое значение — это умолчание вкладки, периода и сортировки,
+           а не 400: адрес списка правят руками и присылают друг другу, и
+           отказ вместо списка там ничего не объясняет. */
         tab: tab !== null && isOrderTab(tab) ? tab : undefined,
         period: period !== null && isOrderPeriod(period) ? period : undefined,
+        sort: sort !== null && isOrderSort(sort) ? sort : undefined,
+        installerId: params.get('installer') ?? undefined,
+        /* Размер страницы приходит от того же адреса, что и номер. Мусор и
+           бессмысленные числа отбрасываются: страница «по нулю строк» и
+           «по миллиону» одинаково кладут раздел. */
+        size: Number.isFinite(size) && size > 0 && size <= 100 ? size : undefined,
         page: pageNumber(params.get('page') ?? undefined),
       },
       { role: session.role, userId: session.userId },

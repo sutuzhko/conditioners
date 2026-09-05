@@ -37,9 +37,12 @@ import type {
 import { PANEL_TABS, resolvePanelTab, type PanelTab } from '@/shared/config/admin-tabs';
 import { dayKeyOf, timeOf, todayKey, type DayKey } from '@/shared/lib/calendar';
 import { deductionReducesFee, type Employment } from '@/shared/lib/employment';
-import type { Page } from '@/shared/lib/paging';
+import { ADMIN_PAGE_SIZE, type Page } from '@/shared/lib/paging';
+
+import { isOrderColumn, type OrderColumn } from './columns';
 
 export type {
+  OrderCancelReason,
   OrderCard,
   OrderChecklistCard,
   OrderClientRef,
@@ -63,6 +66,7 @@ export type {
 
 export {
   INSTALLER_STATUSES,
+  ORDER_CANCEL_REASONS,
   ORDER_DOC_KINDS,
   ORDER_EQUIPS,
   ORDER_PERIODS,
@@ -74,15 +78,18 @@ export {
   UNIT_SOURCES,
   checklistItemCreateSchema,
   installerMaySetStatus,
+  isOrderCancelReason,
   isOrderDocKind,
   isOrderPeriod,
   isOrderStatus,
   isOrderTab,
   isOrderType,
+  orderCancelIssue,
   orderCreateSchema,
 } from '@/entities/order/model';
 
-export { ADMIN_PAGE_SIZE, pageNumber } from '@/shared/lib/paging';
+export { pageNumber } from '@/shared/lib/paging';
+export { ADMIN_PAGE_SIZE };
 
 /** Страница списка нарядов — та же разбивка, что у клиентов и заявок. */
 export type OrderPage = Page<OrderCard>;
@@ -166,6 +173,9 @@ export type OrderDraft = {
   readonly installerFee: string;
   readonly deductionSum: string;
   readonly deductionReason: string;
+  /** Причина отказа: пустая строка — не выбрана (справочник, ADR-310). */
+  readonly cancelReason: string;
+  readonly cancelNote: string;
   readonly comment: string;
   readonly ownerNote: string;
   /** Обращение, из которого завели наряд. Поля в форме нет — оно переносится. */
@@ -196,6 +206,8 @@ export function emptyOrderDraft(day: DayKey = todayKey()): OrderDraft {
     installerFee: '0',
     deductionSum: '0',
     deductionReason: '',
+    cancelReason: '',
+    cancelNote: '',
     comment: '',
     ownerNote: '',
     updatedAt: '',
@@ -240,6 +252,8 @@ export function orderDraftOf(order: OrderCard, timeZone?: string): OrderDraft {
     installerFee: money(order.installerFee),
     deductionSum: money(order.deductionSum),
     deductionReason: text(order.deductionReason),
+    cancelReason: order.cancelReason ?? '',
+    cancelNote: text(order.cancelNote),
     comment: text(order.comment),
     ownerNote: text(order.ownerNote),
     updatedAt: order.updatedAt,
@@ -295,6 +309,10 @@ export function orderPayload(draft: OrderDraft): Record<string, unknown> {
     installerFee: intOrZero(draft.installerFee),
     deductionSum: intOrZero(draft.deductionSum),
     deductionReason: draft.deductionReason,
+    /* Пустой выбор — это `null`, а не пустая строка: справочник не знает
+       значения «», и схема обязана увидеть отсутствие причины отсутствием. */
+    cancelReason: draft.cancelReason === '' ? null : draft.cancelReason,
+    cancelNote: draft.cancelNote,
     comment: draft.comment,
     ownerNote: draft.ownerNote,
     leadId: draft.leadId ?? '',
@@ -327,6 +345,8 @@ const DRAFT_FIELDS = [
   'installerFee',
   'deductionSum',
   'deductionReason',
+  'cancelReason',
+  'cancelNote',
   'comment',
   'ownerNote',
 ] as const;
@@ -383,17 +403,66 @@ export type { Employment, Page };
 
 export const ORDERS_PATH = '/admin/orders';
 
+/**
+ * Чем сортируется список: дата (умолчание вкладки), номер, сумма.
+ *
+ * Направление у каждой сортировки одно и в адрес не выносится: «сначала
+ * дешёвые» — вопрос, которого владелец списку не задаёт, а второй параметр
+ * в ссылке стоит дороже, чем ответ на него.
+ */
+export const ORDER_SORTS = ['date', 'number', 'sum'] as const;
+export type OrderSort = (typeof ORDER_SORTS)[number];
+
+export function isOrderSort(value: string): value is OrderSort {
+  return ORDER_SORTS.some((sort) => sort === value);
+}
+
+/**
+ * Сколько строк на странице. Восемь — общий шаг панели (`ADMIN_PAGE_SIZE`),
+ * остальные две ступени для тех, у кого экран большой, а нарядов много.
+ */
+export const ORDER_PAGE_SIZES = [8, 16, 32] as const;
+export type OrderPageSize = (typeof ORDER_PAGE_SIZES)[number];
+
+export function isOrderPageSize(value: number): value is OrderPageSize {
+  return ORDER_PAGE_SIZES.some((size) => size === value);
+}
+
+/** «Не назначен» — такой же выбор фильтра, как имя монтажника. */
+export const NO_INSTALLER = 'none';
+
+/**
+ * Имя поля галочки и идентификатор формы выбора (issue #596).
+ *
+ * 🔴 Живут здесь, а не в самой полосе действия: галочку рисует серверная
+ * таблица, полосу — клиентский компонент, и связывает их атрибут `form`.
+ * Строка, написанная по месту дважды, разойдётся на первой же правке — и
+ * выбор строк перестанет работать молча.
+ */
+export const BULK_FIELD = 'orderId';
+export const BULK_FORM_ID = 'orders-bulk';
+
 /** Состояние фильтра. Живёт в адресе, а не в состоянии компонента. */
 export type OrderFilterState = {
   readonly tab: OrderTab;
   readonly period: OrderPeriod;
   readonly query: string;
+  /** Идентификатор монтажника либо `NO_INSTALLER`; пусто — фильтра нет. */
+  readonly installer: string;
+  readonly sort: OrderSort;
+  readonly size: OrderPageSize;
+  /** Колонки, перевёрнутые относительно умолчания вкладки (`columns.ts`). */
+  readonly columns: readonly OrderColumn[];
 };
 
 export const DEFAULT_ORDER_FILTERS: OrderFilterState = {
   tab: 'active',
   period: 'all',
   query: '',
+  installer: '',
+  sort: 'date',
+  size: ADMIN_PAGE_SIZE,
+  columns: [],
 };
 
 /**
@@ -443,12 +512,53 @@ export function ordersQuery(filters: Partial<OrderFilterState>): Record<string, 
   const tab = filters.tab ?? DEFAULT_ORDER_FILTERS.tab;
   const period = filters.period ?? DEFAULT_ORDER_FILTERS.period;
   const query = (filters.query ?? '').trim();
+  const installer = (filters.installer ?? '').trim();
+  const sort = filters.sort ?? DEFAULT_ORDER_FILTERS.sort;
+  const size = filters.size ?? DEFAULT_ORDER_FILTERS.size;
+  const columns = filters.columns ?? DEFAULT_ORDER_FILTERS.columns;
 
   return {
     ...(tab === DEFAULT_ORDER_FILTERS.tab ? {} : { tab: orderTabParam(tab) }),
     ...(period === DEFAULT_ORDER_FILTERS.period ? {} : { period }),
     ...(query === '' ? {} : { q: query }),
+    ...(installer === '' ? {} : { installer }),
+    ...(sort === DEFAULT_ORDER_FILTERS.sort ? {} : { sort }),
+    ...(size === DEFAULT_ORDER_FILTERS.size ? {} : { size: String(size) }),
+    ...(columns.length === 0 ? {} : { cols: columns.join(',') }),
   };
+}
+
+/**
+ * Условия фильтра, снимаемые по одному, — плашки над таблицей.
+ *
+ * 🔴 Вкладка сюда не входит: она стоит лентой над рядом фильтров и снимается
+ * переходом на «Все». Сортировка, число строк и состав колонок — тоже: это
+ * вид списка, а не условие отбора, и крестик у них означал бы, что список
+ * из-за них короче.
+ */
+export function isFilterCondition(key: keyof OrderFilterState): boolean {
+  return key === 'period' || key === 'query' || key === 'installer';
+}
+
+/** Разбор списка колонок из адреса: мусор игнорируется, а не роняет раздел. */
+export function orderColumnsFromParam(value: string | undefined): readonly OrderColumn[] {
+  if (value === undefined || value.trim() === '') return [];
+
+  return value
+    .split(',')
+    .map((item) => item.trim())
+    .filter(isOrderColumn);
+}
+
+/** Число строк из адреса. Чужое значение — это умолчание, а не ошибка. */
+export function orderPageSizeFromParam(value: string | undefined): OrderPageSize {
+  const parsed = Number.parseInt(value ?? '', 10);
+  return isOrderPageSize(parsed) ? parsed : DEFAULT_ORDER_FILTERS.size;
+}
+
+/** Сортировка из адреса. То же правило: чужое значение — умолчание. */
+export function orderSortFromParam(value: string | undefined): OrderSort {
+  return value !== undefined && isOrderSort(value) ? value : DEFAULT_ORDER_FILTERS.sort;
 }
 
 export function ordersHref(filters: Partial<OrderFilterState>): {
@@ -458,9 +568,26 @@ export function ordersHref(filters: Partial<OrderFilterState>): {
   return { pathname: ORDERS_PATH, query: ordersQuery(filters) };
 }
 
-/** Фильтр отличается от умолчания: пустой список тогда объясняется иначе. */
+/**
+ * Фильтр отличается от умолчания: пустой список тогда объясняется иначе.
+ *
+ * 🔴 Считаются только условия отбора. Сортировка и состав колонок список не
+ * укорачивают, и «по этому фильтру ничего не нашлось» из-за выключенной
+ * колонки — неправда, за которой владелец пойдёт искать несуществующую
+ * причину.
+ */
 export function filtersApplied(filters: Partial<OrderFilterState>): boolean {
-  return Object.keys(ordersQuery(filters)).length > 0;
+  const period = filters.period ?? DEFAULT_ORDER_FILTERS.period;
+  const query = (filters.query ?? '').trim();
+  const installer = (filters.installer ?? '').trim();
+  const tab = filters.tab ?? DEFAULT_ORDER_FILTERS.tab;
+
+  return (
+    tab !== DEFAULT_ORDER_FILTERS.tab ||
+    period !== DEFAULT_ORDER_FILTERS.period ||
+    query !== '' ||
+    installer !== ''
+  );
 }
 
 // ---------- Адрес карточки ----------
@@ -521,6 +648,28 @@ export type OrderApi = {
   readonly remove: (id: string) => Promise<OrderResult>;
   /** Отдельным действием: монтажнику доступен только статус, и только он. */
   readonly setStatus: (id: string, status: OrderStatus) => Promise<OrderResult>;
+  /**
+   * Возврат отказа в работу (issue #597).
+   *
+   * 🔴 Не то же самое, что `setStatus(id, 'new')`: «Новый» по схеме означает
+   * «исполнителя нет» (`orderPairIssue`), и у отказа, который успели кому-то
+   * назначить, один статус сервер не примет. Назначение к тому же устарело:
+   * работу вернули в план, а кто на неё поедет — решают заново.
+   */
+  readonly restore: (id: string) => Promise<OrderResult>;
+};
+
+/**
+ * Групповое действие над выбранными нарядами (issue #596).
+ *
+ * Одно на раздел — назначить монтажника нескольким нарядам разом: планируя
+ * день, владелец раздаёт бригаде сразу пачку выездов, а не открывает восемь
+ * карточек подряд. Групповое удаление сюда не заводится намеренно: восемь
+ * нарядов, стёртых одним нажатием, — это восемь потерянных историй и восемь
+ * сорванных счётчиков воронки.
+ */
+export type OrderBulkApi = {
+  readonly assign: (ids: readonly string[], installerId: string) => Promise<OrderResult>;
 };
 
 // ---------- Наряд в работе ----------

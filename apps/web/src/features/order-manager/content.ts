@@ -28,7 +28,7 @@ export const ORDER_TYPE_TITLE: Record<OrderType, string> = {
   repair: 'Ремонт',
 };
 
-export { ORDER_STATUS_VARIANT } from '@/entities/order/model';
+export { ORDER_CANCEL_REASON_TITLE, ORDER_STATUS_VARIANT } from '@/entities/order/model';
 
 export const ORDER_STATUS_TITLE: Record<OrderStatus, string> = {
   new: 'Новый',
@@ -154,7 +154,6 @@ function spanText(minutes: number): string {
 
 export const orderManagerContent = {
   title: 'Заказы',
-  lead: 'Наряды на монтаж, обслуживание и ремонт: кто едет, когда, на сколько и за какие деньги.',
   installerTitle: 'Мои заказы',
   installerLead: 'Наряды, назначенные вам. Статус меняется здесь же — владелец видит его сразу.',
 
@@ -172,9 +171,7 @@ export const orderManagerContent = {
   periodLabel: 'Период',
   searchLabel: 'Поиск заказа',
   searchHint: 'Номер, имя клиента, адрес или модель в позициях',
-  searchPlaceholder: '1059, Соколова, Первомайская',
-  search: 'Найти',
-  searchReset: 'Сбросить фильтр',
+  searchPlaceholder: 'Номер, клиент, адрес, модель',
 
   /* Пилюля фильтра и снятие отдельного условия — макет «Заказы» (issue #345).
      Условия остаются видимыми плашками: иначе непонятно, почему нарядов
@@ -188,12 +185,24 @@ export const orderManagerContent = {
   /* Таблица нарядов. Подписи колонок короткие: ниже 600 они же становятся
      подписями строк в карточке. */
   tableLabel: 'Наряды',
+  colNumber: 'Номер',
+  colType: 'Тип',
   colWhen: 'Когда',
-  colWork: 'Работа и объект',
+  colWork: 'Клиент и объект',
+  colSource: 'Откуда',
+  colCreated: 'Создан',
+  colClosed: 'Закрыт',
+  colDeclined: 'Отказ',
+  colReason: 'Причина',
   colInstaller: 'Монтажник',
   colStatus: 'Статус',
   colSum: 'Сумма',
   colActions: 'Действия',
+  /* 🔴 Единственное число — не стилистика: колонка действия вкладки стоит
+     рядом с колонкой круглых действий, и два заголовка «Действия» подряд
+     читалка объявляет одинаково. */
+  colAction: 'Действие',
+  colSelect: 'Выбор строки',
   /* 🔴 Просрочка — не статус, а срок (ADR-194): в словаре статусов её нет и
      заводить её там нельзя. Это отметка рядом со статусом. */
   overdueMark: 'Просрочен',
@@ -202,9 +211,90 @@ export const orderManagerContent = {
   rowOpen: (number: number): string => `Открыть наряд № ${number}`,
   rowCall: (name: string): string => `Позвонить: ${name}`,
   rowChecklist: (number: number): string => `Чеклист выезда наряда № ${number}`,
+  rowRemove: (number: number): string => `Удалить наряд № ${number}`,
+  rowSelect: (number: number): string => `Выбрать наряд № ${number}`,
   found: (total: number): string => `Найдено: ${total}`,
   totalCount: (total: number): string =>
     `Всего: ${total} ${plural(total, 'наряд', 'наряда', 'нарядов')}`,
+
+  /* 🔴 Строка счёта вместо прозы под заголовком (issue #593, макет «Заказы»).
+     Три числа отвечают на три вопроса, которые владелец задаёт разделу
+     первым: сколько всего, сколько в работе и сколько уже подводит. */
+  countAll: (total: number): string => `${total} всего`,
+  countActive: (count: number): string =>
+    `${count} ${plural(count, 'активный', 'активных', 'активных')}`,
+  countOverdue: (count: number): string =>
+    `${count} ${plural(count, 'просрочен', 'просрочены', 'просрочено')}`,
+  /* Счётчик вкладки словами — для озвучки: «Активные 7» читалка объявляет
+     как «Активные семь», и это не значит ничего. */
+  tabCount: (title: string, count: number): string =>
+    `${title}: ${count} ${plural(count, 'наряд', 'наряда', 'нарядов')}`,
+
+  /* Вид списка: сортировка, состав колонок, число строк (issue #594, #595). */
+  sortPill: 'Сортировка',
+  sortLabel: 'Чем сортировать',
+  sortTitle: { date: 'По дате', number: 'По номеру', sum: 'По сумме' } as const,
+  columnsPill: 'Колонки',
+  columnsLabel: 'Какие колонки показывать',
+  columnShow: (title: string): string => `Показать колонку «${title}»`,
+  columnHide: (title: string): string => `Скрыть колонку «${title}»`,
+  installerLabel: 'Монтажник',
+  installerAny: 'Любой',
+  installerNoneFilter: 'Не назначен',
+  perPage: 'Строк на странице',
+  perPageSet: (size: number): string => `Показывать по ${size} строк`,
+  pagesLabel: 'Страницы списка',
+  pageGo: (page: number): string => `Страница ${page}`,
+  pageCurrent: (page: number): string => `Страница ${page}, текущая`,
+  pagePrev: 'Предыдущая страница',
+  pageNext: 'Следующая страница',
+  rangeOf: (shown: number, total: number): string => `${shown} из ${total}`,
+
+  /* Выбор строк и групповое действие (issue #596, макет «Заказы»). */
+  selectAll: 'Выбрать все наряды на странице',
+  selectedOf: (count: number, total: number): string => `Выбрано ${count} из ${total}`,
+  selectionClear: 'Снять выбор',
+  bulkAssign: 'Назначить',
+  bulkAssignLabel: 'Кому назначить выбранные наряды',
+  bulkPlaceholder: 'Выберите монтажника',
+  bulkAssigning: 'Назначаем…',
+  bulkAssigned: (count: number): string =>
+    `${count} ${plural(count, 'наряд назначен', 'наряда назначено', 'нарядов назначено')}`,
+  bulkAskTitle: (count: number, who: string): string =>
+    `Назначить ${count} ${plural(count, 'наряд', 'наряда', 'нарядов')} на ${who}?`,
+  bulkAskText:
+    'Монтажник получит уведомление по каждому наряду, а сами наряды появятся у него в панели и в календаре.',
+  bulkAskConfirm: 'Назначить',
+  bulkEmpty: 'Отметьте наряды галочками — тогда появится, кому их назначить.',
+
+  /* Действие вкладки в строке (issue #597, макет `OrdersTabs`). */
+  assignRow: 'Назначить',
+  assignRowLabel: (number: number): string => `Назначить монтажника наряду № ${number}`,
+  restoreRow: 'Вернуть в работу',
+  restoreRowLabel: (number: number): string => `Вернуть наряд № ${number} в работу`,
+  restoreAskTitle: (number: number): string => `Вернуть наряд № ${number} в работу?`,
+  restoreAskText:
+    'Наряд снова станет новым, а причина отказа сотрётся: причина без отказа читается как действующая.',
+  restoreAskConfirm: 'Вернуть в работу',
+  restored: 'Наряд вернулся в работу',
+
+  /* Итог периода над таблицей истории (issue #597, вкладка «История»). */
+  historyClosed: 'Закрыто',
+  historyRevenue: 'Выручка',
+  /* 🔴 Маржи здесь нет: без закупочной цены позиции склада её нечем считать
+     (ADR-310, issue #628). Разность «сумма минус выплата» маржой не является
+     — материалы в монтаже заметная доля, и число врало бы в большую сторону
+     ровно там, где владелец решает, какую цену ставить. */
+  newsAlert: (count: number): string =>
+    `${count} ${plural(count, 'заказ ждёт', 'заказа ждут', 'заказов ждут')} назначения`,
+  newsAlertText:
+    'Пока не назначен монтажник, наряд не попадает в календарь и не виден исполнителю.',
+  /* 🔴 Без номера заявки: номера у обращения в схеме нет вовсе — макет рисует
+     «из заявки № 41», а показать нечего. Сам факт «пришло с сайта, а не
+     завели руками» отвечает на вопрос вкладки и без цифры. */
+  sourceFrom: 'из заявки',
+  sourceManual: 'вручную',
+  reviewNone: 'нет',
 
   number: (value: number): string => `№ ${value}`,
   open: 'Открыть наряд',
@@ -245,6 +335,16 @@ export const orderManagerContent = {
   deductionHint: 'Брак, срыв выезда, испорченный материал',
   deductionReason: 'Основание',
   deductionReasonHint: 'Обязательно: сумма без причины через полгода не значит ничего',
+
+  /* 🔴 Отказ без причины не записывается (ADR-310): вкладка «Отказы» заводится
+     ради разбора воронки, а «просто отказ» не разбирает ничего. */
+  cancelTitle: 'Отказ',
+  cancelReason: 'Причина отказа',
+  cancelReasonPlaceholder: 'Выберите причину',
+  cancelReasonHint: 'Обязательно при переводе наряда в «Отказ»',
+  cancelNote: 'Что именно произошло',
+  cancelNoteHint: 'Необязательно: справочник обобщает воронку, эта строка объясняет частный случай',
+  cancelAt: (iso: string): string => `Отказ ${formatDateShort(iso)}`,
 
   comment: 'Комментарий монтажнику',
   commentHint: 'Что важно на объекте: домофон, собака, узкая лестница. Монтажник это видит',

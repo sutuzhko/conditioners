@@ -107,6 +107,12 @@ const orderRow = {
   comment: 'Домофон не работает, звонить на телефон',
   ownerNote: 'Клиент постоянный, скидку не даём',
   leadId: null,
+  /* Наряд не отменяли: полей отказа у него нет (ADR-310, issue #627). Строка
+     обязана повторять `orderSelect` целиком — недостающая колонка в двойнике
+     означает 500 там, где в бою придёт `null`. */
+  cancelReason: null,
+  cancelNote: null,
+  cancelledAt: null,
   extraWork: null,
   report: null,
   resultAt: null,
@@ -179,6 +185,7 @@ beforeEach(() => {
     status: 'ASSIGNED',
     deductionSum: 0,
     deductionReason: null,
+    cancelReason: null,
   });
   fake.db.order.create.mockResolvedValue(orderRow);
   fake.db.order.update.mockResolvedValue(orderRow);

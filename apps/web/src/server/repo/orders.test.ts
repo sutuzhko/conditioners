@@ -47,6 +47,7 @@ type SavedOrder = {
   installerId: string | null;
   deductionSum: number;
   deductionReason: string | null;
+  cancelReason: 'CLIENT_REFUSED' | 'NO_ANSWER' | 'TOO_EXPENSIVE' | 'OTHER' | null;
 };
 
 const SAVED: SavedOrder = {
@@ -54,6 +55,7 @@ const SAVED: SavedOrder = {
   installerId: null,
   deductionSum: 0,
   deductionReason: null,
+  cancelReason: null,
 };
 
 function saved(patch: Partial<SavedOrder> = {}): void {
@@ -108,7 +110,14 @@ describe('🔴 статус и исполнитель досматриваютс
   });
 
   it('закрытие наряда без исполнителя разрешено: работу мог сделать сам владелец', async () => {
-    await expect(update('o1', { status: 'cancelled' }, 'u1')).rejects.toThrow(REACHED_WRITE);
+    await expect(update('o1', { status: 'done' }, 'u1')).rejects.toThrow(REACHED_WRITE);
+
+    /* Причина отказа здесь не проверяется, а обходится: она своё правило и
+       свой блок тестов (ниже). Без неё до пары «статус + исполнитель» дело
+       не дошло бы, и тест краснел бы по чужой причине. */
+    await expect(
+      update('o1', { status: 'cancelled', cancelReason: 'client_refused' }, 'u1'),
+    ).rejects.toThrow(REACHED_WRITE);
   });
 });
 
@@ -174,6 +183,37 @@ describe('удержание без основания', () => {
   });
 });
 
+/**
+ * 🔴 Отказ без причины не записывается (ADR-310, issue #627).
+ *
+ * Схема правки видит только присланные поля и пропускает обычный случай:
+ * владелец переводит наряд в «Отказ» одним `select`, ничего больше не трогая.
+ * Досмотр стоит в репозитории, на уже собранной записи.
+ */
+describe('причина отказа', () => {
+  it('перевод в отказ без причины не доходит до записи', async () => {
+    await expect(update('o1', { status: 'cancelled' }, 'u1')).rejects.toThrow(/причин/i);
+  });
+
+  it('причина, присланная вместе со статусом, отказ пропускает', async () => {
+    await expect(
+      update('o1', { status: 'cancelled', cancelReason: 'too_expensive' }, 'u1'),
+    ).rejects.toThrow(REACHED_WRITE);
+  });
+
+  it('у уже отменённого наряда причина берётся из сохранённой записи', async () => {
+    saved({ status: 'CANCELLED', cancelReason: 'NO_ANSWER' });
+
+    await expect(update('o1', { address: 'Тула, Мира, 4' }, 'u1')).rejects.toThrow(REACHED_WRITE);
+  });
+
+  it('снятие причины у отменённого наряда — тот же отказ', async () => {
+    saved({ status: 'CANCELLED', cancelReason: 'NO_ANSWER' });
+
+    await expect(update('o1', { cancelReason: null }, 'u1')).rejects.toThrow(/причин/i);
+  });
+});
+
 describe('наряда нет', () => {
   it('правка несуществующего наряда отвечает «не найден», а не падает', async () => {
     dbMock.order.findUnique.mockResolvedValue(null);
@@ -215,6 +255,9 @@ describe('🔴 версия карточки: сохранение не зати
     comment: null,
     ownerNote: null,
     leadId: null,
+    cancelReason: null,
+    cancelNote: null,
+    cancelledAt: null,
     extraWork: null,
     report: null,
     resultAt: null,

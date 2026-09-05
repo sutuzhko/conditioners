@@ -21,6 +21,7 @@ import {
 import { OrderUnits } from './OrderUnits';
 import {
   DEDUCTION_NOTE,
+  ORDER_CANCEL_REASON_TITLE,
   ORDER_STATUS_TITLE,
   ORDER_TYPE_TITLE,
   PAYMENT_TITLE,
@@ -28,12 +29,15 @@ import {
 } from './content';
 import { orderApi } from './lib';
 import {
+  ORDER_CANCEL_REASONS,
   ORDER_STATUSES,
   ORDER_TYPES,
   PAYMENT_MODES,
   deductionModeOf,
   emptyOrderDraft,
   installerName,
+  orderCancelIssue,
+  isOrderCancelReason,
   isOrderField,
   isOrderStatus,
   isOrderType,
@@ -90,6 +94,10 @@ type Errors = Partial<Record<OrderField, string>>;
 const TYPE_OPTIONS = ORDER_TYPES.map((value) => ({ value, label: ORDER_TYPE_TITLE[value] }));
 const STATUS_OPTIONS = ORDER_STATUSES.map((value) => ({ value, label: ORDER_STATUS_TITLE[value] }));
 const PAYMENT_OPTIONS = PAYMENT_MODES.map((value) => ({ value, label: PAYMENT_TITLE[value] }));
+const CANCEL_REASON_OPTIONS = ORDER_CANCEL_REASONS.map((value) => ({
+  value,
+  label: ORDER_CANCEL_REASON_TITLE[value],
+}));
 
 /**
  * Наряд в правке владельцем — одна форма и на заведение, и на правку.
@@ -148,6 +156,18 @@ export function OrderForm({
   const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     if (busy) return;
+
+    /* 🔴 Отказ без причины не уходит на сервер (ADR-310). Схема заведения
+       статуса не знает — его назначает сервер, — поэтому пара «статус +
+       причина» проверяется здесь тем же правилом, что и на сервере. */
+    const cancelIssue = editing ? orderCancelIssue(draft.status, draft.cancelReason !== '') : null;
+
+    if (cancelIssue !== null) {
+      setErrors({ cancelReason: cancelIssue });
+      setStatus('error');
+      setMessage(texts.invalid);
+      return;
+    }
 
     /* Клиентская проверка — той же доменной схемой, что и на сервере: это
        мгновенная подсказка, а не защита, и расходиться с сервером ей нельзя. */
@@ -485,6 +505,42 @@ export function OrderForm({
             {DEDUCTION_NOTE[deduction]}
           </p>
         </fieldset>
+
+        {/* 🔴 Блок отказа появляется только у отменённого наряда: причина без
+            отказа не значит ничего, а поле, висящее у наряда в работе,
+            приглашает заполнить его «на всякий случай» (ADR-310). */}
+        {editing && draft.status === 'cancelled' ? (
+          <fieldset className={styles.group} disabled={busy}>
+            <legend className={styles.legend}>{texts.cancelTitle}</legend>
+
+            <div className={styles.grid}>
+              <Select
+                label={texts.cancelReason}
+                hint={texts.cancelReasonHint}
+                options={CANCEL_REASON_OPTIONS}
+                placeholder={texts.cancelReasonPlaceholder}
+                value={draft.cancelReason}
+                error={errors.cancelReason}
+                required
+                onChange={(event) => {
+                  if (event.target.value === '' || isOrderCancelReason(event.target.value)) {
+                    set('cancelReason', event.target.value);
+                  }
+                }}
+              />
+
+              <Input
+                label={texts.cancelNote}
+                hint={texts.cancelNoteHint}
+                value={draft.cancelNote}
+                error={errors.cancelNote}
+                autoComplete="off"
+                wrapperClassName={styles.wide}
+                onChange={(event) => set('cancelNote', event.target.value)}
+              />
+            </div>
+          </fieldset>
+        ) : null}
 
         <fieldset className={styles.group} disabled={busy}>
           <legend className={styles.legend}>{texts.notesTitle}</legend>
