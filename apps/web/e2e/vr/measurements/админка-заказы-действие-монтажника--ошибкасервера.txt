@@ -1,0 +1,67 @@
+# админка-заказы-действие-монтажника--ошибкасервера · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.OrderInstallerActions__bar  358×171 @16,16  b1 0 0 0  fixed
+  div.Alert__alert  358×46 @0,13  r14  b1
+    span.Alert__icon  18×20 @15,13
+      svg  18×18 @0,1
+    div.Alert__body  300×20 @43,13
+      p.Alert__title  300×20 @0,0  Manrope 700 15/20  lines=1  «Такой переход монтажнику недоступен»
+  button.Button__button  358×56 @0,71  r12  b1
+    span.Button__content  137×19 @111,18
+      span.Button__label  137×19 @0,0  Manrope 600 16/19  lines=1  «Принять в работу»
+  p.OrderInstallerActions__hint  358×20 @0,135  Manrope 400 13/20  lines=1  «Владелец увидит, что вы на объекте»
+
+[геометрия 768]
+div.OrderInstallerActions__bar  736×171 @16,16  b1 0 0 0  fixed
+  div.Alert__alert  736×46 @0,13  r14  b1
+    span.Alert__icon  18×20 @15,13
+      svg  18×18 @0,1
+    div.Alert__body  678×20 @43,13
+      p.Alert__title  678×20 @0,0  Manrope 700 15/20  lines=1  «Такой переход монтажнику недоступен»
+  button.Button__button  736×56 @0,71  r12  b1
+    span.Button__content  137×19 @300,18
+      span.Button__label  137×19 @0,0  Manrope 600 16/19  lines=1  «Принять в работу»
+  p.OrderInstallerActions__hint  736×20 @0,135  Manrope 400 13/20  lines=1  «Владелец увидит, что вы на объекте»
+
+[геометрия 1440]
+div.OrderInstallerActions__bar  1408×171 @16,16  b1 0 0 0  fixed
+  div.Alert__alert  1408×46 @0,13  r14  b1
+    span.Alert__icon  18×20 @15,13
+      svg  18×18 @0,1
+    div.Alert__body  1350×20 @43,13
+      p.Alert__title  1350×20 @0,0  Manrope 700 15/20  lines=1  «Такой переход монтажнику недоступен»
+  button.Button__button  1408×56 @0,71  r12  b1
+    span.Button__content  137×19 @636,18
+      span.Button__label  137×19 @0,0  Manrope 600 16/19  lines=1  «Принять в работу»
+  p.OrderInstallerActions__hint  1408×20 @0,135  Manrope 400 13/20  lines=1  «Владелец увидит, что вы на объекте»
+
+[палитра light]
+div.OrderInstallerActions__bar  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a
+  div.Alert__alert  bg #be123c14  border #be123c73
+    span.Alert__icon
+      svg
+    div.Alert__body
+      p.Alert__title  color #be123c
+  button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    span.Button__content
+      span.Button__label  color #ffffff
+  p.OrderInstallerActions__hint  color #556173
+
+[палитра dark]
+div.OrderInstallerActions__bar  bg #121d31  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+  div.Alert__alert  bg #fb71851f  border #fb718580
+    span.Alert__icon
+      svg
+    div.Alert__body
+      p.Alert__title  color #fb7185
+  button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    span.Button__content
+      span.Button__label  color #ffffff
+  p.OrderInstallerActions__hint  color #8598ac
