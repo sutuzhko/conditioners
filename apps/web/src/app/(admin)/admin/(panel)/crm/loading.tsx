@@ -4,9 +4,12 @@ import { Skeleton } from '@/shared/ui';
 import styles from './page.module.css';
 
 /**
- * Календарь работ: шапка настоящая, панель инструментов и сетка — заготовками
+ * Календарь работ: название раздела настоящее, период и сетка — заготовками
  * по замеру готовой страницы (issue #334). Панель на 390 переносится в
  * несколько рядов, и её высота задана по ширине экрана.
+ *
+ * 🔴 В заголовке стоит название раздела, а не период: периода на этот момент
+ * ещё нет, а страница без `h1` — нарушение инварианта 4 даже на полсекунды.
  */
 export default function CrmLoading() {
   return (
@@ -18,7 +21,14 @@ export default function CrmLoading() {
 
       <div className={styles.calendar}>
         <Skeleton variant="block" className={styles.navSkeleton} />
-        <Skeleton variant="block" className={styles.gridSkeleton} />
+
+        {/* Заготовка повторяет раскладку готовой страницы: карточка
+            «Показывать» слева, сетка справа. Иначе после загрузки сетка
+            прыгает влево на ширину карточки. */}
+        <div className={styles.board}>
+          <Skeleton variant="block" className={styles.cardSkeleton} />
+          <Skeleton variant="block" className={styles.gridSkeleton} />
+        </div>
       </div>
     </div>
   );

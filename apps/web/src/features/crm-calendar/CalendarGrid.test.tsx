@@ -98,6 +98,26 @@ describe('Сетка месяца', () => {
     ).toBeInTheDocument();
   });
 
+  it('🔴 подпись дня называет число записей и требующие внимания словами', () => {
+    render(grid());
+
+    /* Ниже 600px в клетке остаются одни точки (issue #547), и смысл держится
+       на подписи ссылки, а не на цвете: «23 августа, 4 записи, 2 записи
+       требуют внимания, открыть день». */
+    const day = screen.getByRole('link', { name: /^23 августа/ });
+
+    expect(day).toHaveAccessibleName(expect.stringMatching(/\d+ запис/));
+    expect(day).toHaveAccessibleName(expect.stringContaining('требу'));
+  });
+
+  it('пустой день так и подписан: точек в нём нет вовсе', () => {
+    render(grid({ events: [], orders: [], leads: [], blocks: [] }));
+
+    expect(screen.getByRole('link', { name: /^23 августа/ })).toHaveAccessibleName(
+      expect.stringContaining(texts.columnEmpty),
+    );
+  });
+
   it('сетка называется словами: у области должно быть имя', () => {
     render(grid());
 

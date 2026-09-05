@@ -19,7 +19,6 @@ import {
   DEFAULT_WORK_WINDOW,
   dayColumns,
   hourRangeOf,
-  marksOf,
   weekColumns,
   type ScheduleSource,
 } from './schedule';
@@ -157,7 +156,6 @@ export const СлойКоманды: Story = {
     ),
     view: 'day',
     label: texts.dayLabel,
-    team: [...marksOf(installers).values()],
   },
 };
 
@@ -165,7 +163,6 @@ export const СлойКоманды: Story = {
 export const СлойКомандыЗаНеделю: Story = {
   args: {
     columns: weekColumns(source({ team: installers, blocks: monthBlocks }), DAY),
-    team: [...marksOf(installers).values()],
   },
 };
 
@@ -178,8 +175,16 @@ export const ЗакрытыйДеньВСлое: Story = {
     ),
     view: 'day',
     label: texts.dayLabel,
-    team: [...marksOf(installers).values()],
   },
+};
+
+/**
+ * 🔴 Неделя с наложением: в колонке остаётся одна запись, остаток — за «+N»
+ * (issue #47). Колонка недели около 120px, и делить её надвое значит оставить
+ * имени тридцать пикселей — от «Фёдоров» видно «Фе…».
+ */
+export const НеделяСоСвёрткой: Story = {
+  args: { columns: weekColumns(source({ orders: crowdedOrders }), DAY) },
 };
 
 /** Сегодня: линия текущего времени с кружком — только в колонке этого дня. */

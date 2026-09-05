@@ -31,6 +31,11 @@ export type ChipPlace = {
   readonly leftPercent: number;
   readonly widthPercent: number;
   readonly depth: number;
+  /**
+   * Рядом стоит метка «+N» свёрнутого остатка: запись оставляет ей поле
+   * справа, иначе имя уезжает под метку и обрывается без многоточия.
+   */
+  readonly crowded?: boolean | undefined;
 };
 
 export interface EventChipProps {
@@ -227,11 +232,15 @@ export function EventChip({
     styles.chip,
     styles[variant],
     item.person === null ? styles[item.tone] : PERSON_CLASS[item.person.tone],
+    /* Запись человека из слоя занятости: краска у неё своя, и контур той же
+       краской — единственное, что читается в тёмной теме (см. модуль). */
+    item.person === null ? null : styles.marked,
     styles[item.entity],
     item.muted ? styles.muted : null,
     item.clash ? styles.clash : null,
     item.overtimeMin > 0 ? styles.overtime : null,
     shift === null ? null : styles.dragging,
+    place?.crowded === true ? styles.crowded : null,
     open ? styles.open : null,
     focused && !faded ? styles.found : null,
   ]
@@ -287,9 +296,16 @@ export function EventChip({
       >
         <span className={styles.head} aria-hidden="true">
           <Icon className={styles.icon} name={item.icon} size={12} />
-          <span className={styles.time}>
-            {shift === null ? item.time : timeOfMinutes(shift.fromMin)}
-          </span>
+          {/* 🔴 У записи «весь день» часа нет (BUGS, аудит 30 августа). Заявка
+              несёт момент обращения, и показанный в полосе «Весь день» он
+              читается как договорённость, которой не было; закрытые сутки
+              часа не имеют вовсе. Время остаётся в подписи и в карточке —
+              там видно, что это за момент. */}
+          {item.allDay ? null : (
+            <span className={styles.time}>
+              {shift === null ? item.time : timeOfMinutes(shift.fromMin)}
+            </span>
+          )}
           {item.number === null ? null : (
             <span className={styles.number}>{`№ ${item.number}`}</span>
           )}
@@ -298,12 +314,18 @@ export function EventChip({
           {person === null ? null : <span className={styles.who}>{person.initials}</span>}
         </span>
 
-        <span className={styles.name} aria-hidden="true">
+        {/* 🔴 Обрезанное имя раскрывается, а не остаётся огрызком (BUGS,
+            аудит 30 августа). Подсказка — для мыши, карточка записи по
+            нажатию — для клавиатуры и пальца: подсказка при наведении не
+            имеет права быть единственным путём к полному тексту. Атрибут
+            стоит на самой обрезаемой строке, а не на кнопке: у кнопки уже
+            есть `aria-label`, и второй текст читался бы дважды. */}
+        <span className={styles.name} aria-hidden="true" title={item.title}>
           {item.title}
         </span>
 
         {item.note === null ? null : (
-          <span className={styles.where} aria-hidden="true">
+          <span className={styles.where} aria-hidden="true" title={item.note}>
             {item.note}
           </span>
         )}
