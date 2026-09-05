@@ -58,6 +58,7 @@ export const GROUPS = Object.freeze({
     'row-actions',
     'empty-states',
     'crm-search',
+    'crm-team-layer',
   ],
 });
 

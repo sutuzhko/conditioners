@@ -38,6 +38,60 @@ export function parseTeamFlag(value: string | undefined): boolean {
   return value === 'on';
 }
 
+/** Разделитель списка людей в адресе: `?who=u2,u3`. */
+export const WHO_SEPARATOR = ',';
+
+/**
+ * Вид записи в фильтре «Виды записей» (макет `design/admin/Calendar.body.html`).
+ *
+ * Групп три, а сущностей четыре: дело и отлучка стоят вместе, потому что и то
+ * и другое — «занят, но не по наряду», и владелец снимает их одной галочкой.
+ */
+export const SCHEDULE_KINDS = ['orders', 'leads', 'notes'] as const;
+
+export type ScheduleKind = (typeof SCHEDULE_KINDS)[number];
+
+/**
+ * Какие виды показывать — `?kinds=orders,leads` (issue #49).
+ *
+ * Отсутствие параметра значит «все», а не «ничего»: адрес без фильтра — это
+ * состояние по умолчанию. Незнакомые значения отбрасываются, а пустой остаток
+ * читается как «все»: пустая сетка по опечатке в адресе ничего не объясняет.
+ */
+export function parseKinds(value: string | undefined): ReadonlySet<ScheduleKind> | null {
+  if (value === undefined) return null;
+
+  const kinds = value
+    .split(WHO_SEPARATOR)
+    .map((kind) => kind.trim())
+    .filter((kind): kind is ScheduleKind => SCHEDULE_KINDS.some((known) => known === kind));
+
+  return kinds.length === 0 ? null : new Set(kinds);
+}
+
+/**
+ * Кого видно в слое занятости — `?who=u2,u3` (issue #49).
+ *
+ * 🔴 Отсутствие параметра значит «всех», а не «никого»: адрес без фильтра —
+ * это состояние по умолчанию, и слой, включённый кнопкой в шапке, обязан
+ * показать команду целиком. Пустое значение даёт то же самое: `?who=` — это
+ * опечатка в адресе, а не просьба показать пустую сетку.
+ *
+ * Незнакомые номера просто ни с кем не совпадают: адрес календаря правят
+ * руками и пересылают друг другу, и отказ вместо сетки там ничего не
+ * объясняет (то же правило, что у вида и у переключателя).
+ */
+export function parseWho(value: string | undefined): ReadonlySet<string> | null {
+  if (value === undefined) return null;
+
+  const ids = value
+    .split(WHO_SEPARATOR)
+    .map((id) => id.trim())
+    .filter((id) => id !== '');
+
+  return ids.length === 0 ? null : new Set(ids);
+}
+
 /**
  * Дело в том виде, в каком его показывают. Момент времени — строкой ISO:
  * день и время из него достаёт `shared/lib/calendar` в поясе работ, чтобы

@@ -12,10 +12,10 @@ div.CalendarCreate__buttons  358×44 @16,16
     span.Button__content  154×16 @15,14
       svg  16×16 @0,0
       span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
-  button.Button__button#2  132×44 @190,0  r9  b1
-    span.Button__content  102×20 @15,12
+  button.Button__button#2  104×44 @190,0  r9  b1
+    span.Button__content  74×20 @15,12
       svg#2  20×20 @0,0
-      span.Button__label#2  74×16 @28,2  Manrope 600 13/16  lines=1  «Новое дело»
+      span.Button__label#2  46×16 @28,2  Manrope 600 13/16  lines=1  «Запись»
 button.EventChip__chip  358×24 @16,66  r100  b1 1 1 3
   span.EventChip__head  52×15 @9,5
     svg.EventChip__icon  12×12 @0,2
@@ -63,10 +63,10 @@ div.CalendarCreate__buttons  736×44 @16,16
     span.Button__content  154×16 @15,14
       svg  16×16 @0,0
       span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
-  button.Button__button#2  132×44 @190,0  r9  b1
-    span.Button__content  102×20 @15,12
+  button.Button__button#2  104×44 @190,0  r9  b1
+    span.Button__content  74×20 @15,12
       svg#2  20×20 @0,0
-      span.Button__label#2  74×16 @28,2  Manrope 600 13/16  lines=1  «Новое дело»
+      span.Button__label#2  46×16 @28,2  Manrope 600 13/16  lines=1  «Запись»
 button.EventChip__chip  736×24 @16,66  r100  b1 1 1 3
   span.EventChip__head  52×15 @9,5
     svg.EventChip__icon  12×12 @0,2
@@ -114,10 +114,10 @@ div.CalendarCreate__buttons  1408×40 @16,16
     span.Button__content  154×16 @15,12
       svg  16×16 @0,0
       span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
-  button.Button__button#2  132×40 @190,0  r9  b1
-    span.Button__content  102×20 @15,10
+  button.Button__button#2  104×40 @190,0  r9  b1
+    span.Button__content  74×20 @15,10
       svg#2  20×20 @0,0
-      span.Button__label#2  74×16 @28,2  Manrope 600 13/16  lines=1  «Новое дело»
+      span.Button__label#2  46×16 @28,2  Manrope 600 13/16  lines=1  «Запись»
 button.EventChip__chip  1408×24 @16,62  r100  b1 1 1 3
   span.EventChip__head  52×15 @9,5
     svg.EventChip__icon  12×12 @0,2
@@ -174,7 +174,7 @@ button.EventChip__chip  bg #ecfeff  border transparent transparent transparent #
     svg.EventChip__icon
     span.EventChip__time  color #0e7490
   span.EventChip__name  color #0e7490
-button.EventChip__chip#2  bg #15803d14  border #be123c73  shadow #be123c73 0px 0px 0px 1px inset
+button.EventChip__chip#2  bg #15803d14  border #be123c
   span.EventChip__head
     svg.EventChip__icon#2
     span.EventChip__time#2  color #166534
@@ -189,7 +189,7 @@ button.EventChip__chip#3  bg #b4530914  border transparent transparent transpare
     span.EventChip__time#3  color #92400e
     span.EventChip__number#2  color #92400e
   span.EventChip__name  color #92400e
-button.EventChip__chip#4  bg #be123c14  border #be123c73  shadow #be123c73 0px 0px 0px 1px inset
+button.EventChip__chip#4  bg #be123c14  border #be123c
   span.EventChip__head
     svg.EventChip__icon#4
     span.EventChip__time#4  color #be123c
@@ -203,7 +203,7 @@ button.EventChip__chip#5  bg #15803d14  border transparent transparent transpare
     svg.EventChip__icon#5
     span.EventChip__time#5  color #166534
   span.EventChip__name  color #166534
-button.EventChip__chip#6  bg #eef2f6  border transparent transparent transparent #334155
+button.EventChip__chip#6  bg #eef2f6  border #334155
   span.EventChip__head
     svg.EventChip__icon#6
     span.EventChip__time#6  color #334155
@@ -225,7 +225,7 @@ button.EventChip__chip  bg #22d3ee1a  border transparent transparent transparent
     svg.EventChip__icon
     span.EventChip__time  color #22d3ee
   span.EventChip__name  color #22d3ee
-button.EventChip__chip#2  bg #4ade801f  border #fb718580  shadow #fb718580 0px 0px 0px 1px inset
+button.EventChip__chip#2  bg #4ade801f  border #fb7185
   span.EventChip__head
     svg.EventChip__icon#2
     span.EventChip__time#2  color #4ade80
@@ -240,7 +240,7 @@ button.EventChip__chip#3  bg #fbbf241f  border transparent transparent transpare
     span.EventChip__time#3  color #fbbf24
     span.EventChip__number#2  color #fbbf24
   span.EventChip__name  color #fbbf24
-button.EventChip__chip#4  bg #fb71851f  border #fb718580  shadow #fb718580 0px 0px 0px 1px inset
+button.EventChip__chip#4  bg #fb71851f  border #fb7185
   span.EventChip__head
     svg.EventChip__icon#4
     span.EventChip__time#4  color #fb7185
@@ -254,7 +254,7 @@ button.EventChip__chip#5  bg #4ade801f  border transparent transparent transpare
     svg.EventChip__icon#5
     span.EventChip__time#5  color #4ade80
   span.EventChip__name  color #4ade80
-button.EventChip__chip#6  bg #182338  border transparent transparent transparent #c9d5e2
+button.EventChip__chip#6  bg #182338  border #c9d5e2
   span.EventChip__head
     svg.EventChip__icon#6
     span.EventChip__time#6  color #c9d5e2

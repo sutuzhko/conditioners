@@ -7,7 +7,7 @@
 1440 → 1440×905
 
 [геометрия 390]
-section.CalendarGrid__grid  358×839 @16,16
+section.CalendarGrid__grid  358×395 @16,16
   div.CalendarGrid__weekdays  358×21 @0,0
     span.CalendarGrid__weekday  49×21 @0,0  Manrope 600 12/19  ls0  lines=1  «Пн»
     span.CalendarGrid__weekday#2  49×21 @51,0  Manrope 600 12/19  ls0  lines=1  «Вт»
@@ -16,91 +16,133 @@ section.CalendarGrid__grid  358×839 @16,16
     span.CalendarGrid__weekday#5  49×21 @206,0  Manrope 600 12/19  ls0  lines=1  «Пт»
     span.CalendarGrid__weekday#6  49×21 @257,0  Manrope 600 12/19  ls0  lines=1  «Сб»
     span.CalendarGrid__weekday#7  49×21 @309,0  Manrope 600 12/19  ls0  lines=1  «Вс»
-  div.CalendarGrid__days  358×814 @0,25
-    div.CalendarGrid__cell  49×134 @0,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «27»
-    div.CalendarGrid__cell#2  49×134 @51,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «28»
-    div.CalendarGrid__cell#3  49×134 @103,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «29»
-    div.CalendarGrid__cell#4  49×134 @154,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «30»
-    div.CalendarGrid__cell#5  49×134 @206,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «31»
-    div.CalendarGrid__cell#6  49×134 @257,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «1»
-    div.CalendarGrid__cell#7  49×134 @309,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «2»
-    div.CalendarGrid__cell#8  49×134 @0,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «3»
-    div.CalendarGrid__cell#9  49×134 @51,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «4»
-    div.CalendarGrid__cell#10  49×134 @103,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «5»
-    div.CalendarGrid__cell#11  49×134 @154,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «6»
-    div.CalendarGrid__cell#12  49×134 @206,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «7»
-    div.CalendarGrid__cell#13  49×134 @257,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «8»
-    div.CalendarGrid__cell#14  49×134 @309,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «9»
-    div.CalendarGrid__cell#15  49×134 @0,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «10»
-    div.CalendarGrid__cell#16  49×134 @51,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «11»
-    div.CalendarGrid__cell#17  49×134 @103,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «12»
-    div.CalendarGrid__cell#18  49×134 @154,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «13»
-    div.CalendarGrid__cell#19  49×134 @206,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «14»
-    div.CalendarGrid__cell#20  49×134 @257,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «15»
-    div.CalendarGrid__cell#21  49×134 @309,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «16»
-    div.CalendarGrid__cell#22  49×134 @0,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «17»
-    div.CalendarGrid__cell#23  49×134 @51,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «18»
-    div.CalendarGrid__cell#24  49×134 @103,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «19»
-    div.CalendarGrid__cell#25  49×134 @154,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «20»
-    div.CalendarGrid__cell#26  49×134 @206,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «21»
-    div.CalendarGrid__cell#27  49×134 @257,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «22»
-    div.CalendarGrid__cell#28  49×134 @309,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «23»
-    div.CalendarGrid__cell#29  49×134 @0,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «24»
-    div.CalendarGrid__cell#30  49×134 @51,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «25»
-    div.CalendarGrid__cell#31  49×134 @103,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «26»
-    div.CalendarGrid__cell#32  49×134 @154,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «27»
-    div.CalendarGrid__cell#33  49×134 @206,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «28»
-    div.CalendarGrid__cell#34  49×134 @257,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «29»
-    div.CalendarGrid__cell#35  49×134 @309,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «30»
-    div.CalendarGrid__cell#36  49×134 @0,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «31»
-    div.CalendarGrid__cell#37  49×134 @51,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «1»
-    div.CalendarGrid__cell#38  49×134 @103,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «2»
-    div.CalendarGrid__cell#39  49×134 @154,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «3»
-    div.CalendarGrid__cell#40  49×134 @206,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «4»
-    div.CalendarGrid__cell#41  49×134 @257,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «5»
-    div.CalendarGrid__cell#42  49×134 @309,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «6»
+  div.CalendarGrid__days  358×370 @0,25
+    div.CalendarGrid__cell  49×60 @0,0  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «27»
+    div.CalendarGrid__cell#2  49×60 @51,0  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#2  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «28»
+    div.CalendarGrid__cell#3  49×60 @103,0  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#3  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «29»
+    div.CalendarGrid__cell#4  49×60 @154,0  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#4  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «30»
+    div.CalendarGrid__cell#5  49×60 @206,0  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#5  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «31»
+    div.CalendarGrid__cell#6  49×60 @257,0  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#6  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «1»
+    div.CalendarGrid__cell#7  49×60 @309,0  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#7  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «2»
+    div.CalendarGrid__cell#8  49×60 @0,62  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#8  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «3»
+    div.CalendarGrid__cell#9  49×60 @51,62  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#9  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «4»
+    div.CalendarGrid__cell#10  49×60 @103,62  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#10  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «5»
+    div.CalendarGrid__cell#11  49×60 @154,62  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#11  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «6»
+    div.CalendarGrid__cell#12  49×60 @206,62  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#12  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «7»
+    div.CalendarGrid__cell#13  49×60 @257,62  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#13  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «8»
+    div.CalendarGrid__cell#14  49×60 @309,62  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#14  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «9»
+    div.CalendarGrid__cell#15  49×60 @0,124  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#15  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «10»
+    div.CalendarGrid__cell#16  49×60 @51,124  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#16  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «11»
+    div.CalendarGrid__cell#17  49×60 @103,124  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#17  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «12»
+    div.CalendarGrid__cell#18  49×60 @154,124  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#18  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «13»
+    div.CalendarGrid__cell#19  49×60 @206,124  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#19  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «14»
+    div.CalendarGrid__cell#20  49×60 @257,124  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#20  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «15»
+    div.CalendarGrid__cell#21  49×60 @309,124  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#21  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «16»
+    div.CalendarGrid__cell#22  49×60 @0,186  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#22  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «17»
+    div.CalendarGrid__cell#23  49×60 @51,186  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#23  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «18»
+    div.CalendarGrid__cell#24  49×60 @103,186  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#24  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «19»
+    div.CalendarGrid__cell#25  49×60 @154,186  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#25  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «20»
+    div.CalendarGrid__cell#26  49×60 @206,186  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#26  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «21»
+    div.CalendarGrid__cell#27  49×60 @257,186  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#27  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «22»
+    div.CalendarGrid__cell#28  49×60 @309,186  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#28  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «23»
+    div.CalendarGrid__cell#29  49×60 @0,248  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#29  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «24»
+    div.CalendarGrid__cell#30  49×60 @51,248  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#30  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «25»
+    div.CalendarGrid__cell#31  49×60 @103,248  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#31  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «26»
+    div.CalendarGrid__cell#32  49×60 @154,248  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#32  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «27»
+    div.CalendarGrid__cell#33  49×60 @206,248  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#33  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «28»
+    div.CalendarGrid__cell#34  49×60 @257,248  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#34  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «29»
+    div.CalendarGrid__cell#35  49×60 @309,248  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#35  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «30»
+    div.CalendarGrid__cell#36  49×60 @0,310  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#36  16×20 @2,2  JetBrains Mono 700 13/20  lines=1  «31»
+    div.CalendarGrid__cell#37  49×60 @51,310  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#37  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «1»
+    div.CalendarGrid__cell#38  49×60 @103,310  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#38  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «2»
+    div.CalendarGrid__cell#39  49×60 @154,310  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#39  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «3»
+    div.CalendarGrid__cell#40  49×60 @206,310  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#40  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «4»
+    div.CalendarGrid__cell#41  49×60 @257,310  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#41  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «5»
+    div.CalendarGrid__cell#42  49×60 @309,310  r11  b1
+      a.CalendarGrid__number  43×54 @3,3  r100
+        span#42  8×20 @2,2  JetBrains Mono 700 13/20  lines=1  «6»
 
 [геометрия 768]
 section.CalendarGrid__grid  736×839 @16,16
@@ -114,89 +156,131 @@ section.CalendarGrid__grid  736×839 @16,16
     span.CalendarGrid__weekday#7  103×21 @633,0  Manrope 600 12/19  ls0  lines=1  «Вс»
   div.CalendarGrid__days  736×814 @0,25
     div.CalendarGrid__cell  103×134 @0,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «27»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «27»
     div.CalendarGrid__cell#2  103×134 @105,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «28»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#2  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «28»
     div.CalendarGrid__cell#3  103×134 @211,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «29»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#3  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «29»
     div.CalendarGrid__cell#4  103×134 @316,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «30»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#4  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «30»
     div.CalendarGrid__cell#5  103×134 @422,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «31»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#5  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «31»
     div.CalendarGrid__cell#6  103×134 @527,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «1»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#6  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «1»
     div.CalendarGrid__cell#7  103×134 @633,0  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «2»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#7  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «2»
     div.CalendarGrid__cell#8  103×134 @0,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «3»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#8  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «3»
     div.CalendarGrid__cell#9  103×134 @105,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «4»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#9  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «4»
     div.CalendarGrid__cell#10  103×134 @211,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «5»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#10  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «5»
     div.CalendarGrid__cell#11  103×134 @316,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «6»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#11  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «6»
     div.CalendarGrid__cell#12  103×134 @422,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «7»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#12  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «7»
     div.CalendarGrid__cell#13  103×134 @527,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «8»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#13  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «8»
     div.CalendarGrid__cell#14  103×134 @633,136  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «9»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#14  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «9»
     div.CalendarGrid__cell#15  103×134 @0,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «10»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#15  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «10»
     div.CalendarGrid__cell#16  103×134 @105,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «11»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#16  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «11»
     div.CalendarGrid__cell#17  103×134 @211,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «12»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#17  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «12»
     div.CalendarGrid__cell#18  103×134 @316,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «13»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#18  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «13»
     div.CalendarGrid__cell#19  103×134 @422,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «14»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#19  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «14»
     div.CalendarGrid__cell#20  103×134 @527,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «15»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#20  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «15»
     div.CalendarGrid__cell#21  103×134 @633,272  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «16»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#21  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «16»
     div.CalendarGrid__cell#22  103×134 @0,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «17»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#22  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «17»
     div.CalendarGrid__cell#23  103×134 @105,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «18»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#23  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «18»
     div.CalendarGrid__cell#24  103×134 @211,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «19»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#24  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «19»
     div.CalendarGrid__cell#25  103×134 @316,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «20»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#25  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «20»
     div.CalendarGrid__cell#26  103×134 @422,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «21»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#26  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «21»
     div.CalendarGrid__cell#27  103×134 @527,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «22»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#27  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «22»
     div.CalendarGrid__cell#28  103×134 @633,408  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «23»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#28  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «23»
     div.CalendarGrid__cell#29  103×134 @0,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «24»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#29  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «24»
     div.CalendarGrid__cell#30  103×134 @105,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «25»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#30  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «25»
     div.CalendarGrid__cell#31  103×134 @211,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «26»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#31  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «26»
     div.CalendarGrid__cell#32  103×134 @316,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «27»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#32  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «27»
     div.CalendarGrid__cell#33  103×134 @422,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «28»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#33  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «28»
     div.CalendarGrid__cell#34  103×134 @527,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «29»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#34  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «29»
     div.CalendarGrid__cell#35  103×134 @633,544  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «30»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#35  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «30»
     div.CalendarGrid__cell#36  103×134 @0,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «31»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#36  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «31»
     div.CalendarGrid__cell#37  103×134 @105,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «1»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#37  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «1»
     div.CalendarGrid__cell#38  103×134 @211,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «2»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#38  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «2»
     div.CalendarGrid__cell#39  103×134 @316,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «3»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#39  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «3»
     div.CalendarGrid__cell#40  103×134 @422,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «4»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#40  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «4»
     div.CalendarGrid__cell#41  103×134 @527,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «5»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#41  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «5»
     div.CalendarGrid__cell#42  103×134 @633,680  r11  b1
-      a.CalendarGrid__number  24×24 @3,3  JetBrains Mono 700 13/20  r100  lines=1  «6»
+      a.CalendarGrid__number  24×24 @3,3  r100
+        span#42  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «6»
 
 [геометрия 1440]
 section.CalendarGrid__grid  1408×873 @16,16
@@ -210,89 +294,131 @@ section.CalendarGrid__grid  1408×873 @16,16
     span.CalendarGrid__weekday#7  198×21 @1210,0  Manrope 600 12/19  ls0  lines=1  «Вс»
   div.CalendarGrid__days  1408×848 @0,25
     div.CalendarGrid__cell  198×138 @0,0  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «27»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «27»
     div.CalendarGrid__cell#2  198×138 @202,0  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «28»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#2  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «28»
     div.CalendarGrid__cell#3  198×138 @403,0  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «29»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#3  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «29»
     div.CalendarGrid__cell#4  198×138 @605,0  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «30»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#4  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «30»
     div.CalendarGrid__cell#5  198×138 @807,0  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «31»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#5  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «31»
     div.CalendarGrid__cell#6  198×138 @1009,0  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «1»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#6  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «1»
     div.CalendarGrid__cell#7  198×138 @1210,0  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «2»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#7  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «2»
     div.CalendarGrid__cell#8  198×138 @0,142  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «3»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#8  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «3»
     div.CalendarGrid__cell#9  198×138 @202,142  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «4»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#9  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «4»
     div.CalendarGrid__cell#10  198×138 @403,142  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «5»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#10  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «5»
     div.CalendarGrid__cell#11  198×138 @605,142  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «6»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#11  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «6»
     div.CalendarGrid__cell#12  198×138 @807,142  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «7»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#12  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «7»
     div.CalendarGrid__cell#13  198×138 @1009,142  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «8»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#13  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «8»
     div.CalendarGrid__cell#14  198×138 @1210,142  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «9»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#14  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «9»
     div.CalendarGrid__cell#15  198×138 @0,284  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «10»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#15  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «10»
     div.CalendarGrid__cell#16  198×138 @202,284  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «11»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#16  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «11»
     div.CalendarGrid__cell#17  198×138 @403,284  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «12»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#17  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «12»
     div.CalendarGrid__cell#18  198×138 @605,284  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «13»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#18  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «13»
     div.CalendarGrid__cell#19  198×138 @807,284  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «14»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#19  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «14»
     div.CalendarGrid__cell#20  198×138 @1009,284  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «15»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#20  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «15»
     div.CalendarGrid__cell#21  198×138 @1210,284  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «16»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#21  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «16»
     div.CalendarGrid__cell#22  198×138 @0,426  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «17»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#22  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «17»
     div.CalendarGrid__cell#23  198×138 @202,426  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «18»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#23  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «18»
     div.CalendarGrid__cell#24  198×138 @403,426  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «19»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#24  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «19»
     div.CalendarGrid__cell#25  198×138 @605,426  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «20»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#25  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «20»
     div.CalendarGrid__cell#26  198×138 @807,426  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «21»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#26  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «21»
     div.CalendarGrid__cell#27  198×138 @1009,426  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «22»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#27  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «22»
     div.CalendarGrid__cell#28  198×138 @1210,426  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «23»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#28  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «23»
     div.CalendarGrid__cell#29  198×138 @0,568  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «24»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#29  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «24»
     div.CalendarGrid__cell#30  198×138 @202,568  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «25»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#30  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «25»
     div.CalendarGrid__cell#31  198×138 @403,568  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «26»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#31  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «26»
     div.CalendarGrid__cell#32  198×138 @605,568  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «27»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#32  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «27»
     div.CalendarGrid__cell#33  198×138 @807,568  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «28»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#33  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «28»
     div.CalendarGrid__cell#34  198×138 @1009,568  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «29»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#34  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «29»
     div.CalendarGrid__cell#35  198×138 @1210,568  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «30»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#35  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «30»
     div.CalendarGrid__cell#36  198×138 @0,710  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «31»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#36  16×20 @4,2  JetBrains Mono 700 13/20  lines=1  «31»
     div.CalendarGrid__cell#37  198×138 @202,710  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «1»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#37  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «1»
     div.CalendarGrid__cell#38  198×138 @403,710  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «2»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#38  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «2»
     div.CalendarGrid__cell#39  198×138 @605,710  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «3»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#39  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «3»
     div.CalendarGrid__cell#40  198×138 @807,710  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «4»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#40  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «4»
     div.CalendarGrid__cell#41  198×138 @1009,710  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «5»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#41  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «5»
     div.CalendarGrid__cell#42  198×138 @1210,710  r11  b1
-      a.CalendarGrid__number  24×24 @5,5  JetBrains Mono 700 13/20  r100  lines=1  «6»
+      a.CalendarGrid__number  24×24 @5,5  r100
+        span#42  8×20 @8,2  JetBrains Mono 700 13/20  lines=1  «6»
 
 [палитра light]
 section.CalendarGrid__grid
@@ -306,89 +432,131 @@ section.CalendarGrid__grid
     span.CalendarGrid__weekday#7  color #556173
   div.CalendarGrid__days
     div.CalendarGrid__cell  bg #f8fafc  border #eef2f6
-      a.CalendarGrid__number  color #5b6a7d
+      a.CalendarGrid__number
+        span  color #5b6a7d
     div.CalendarGrid__cell#2  bg #f8fafc  border #eef2f6
-      a.CalendarGrid__number  color #5b6a7d
+      a.CalendarGrid__number
+        span#2  color #5b6a7d
     div.CalendarGrid__cell#3  bg #f8fafc  border #eef2f6
-      a.CalendarGrid__number  color #5b6a7d
+      a.CalendarGrid__number
+        span#3  color #5b6a7d
     div.CalendarGrid__cell#4  bg #f8fafc  border #eef2f6
-      a.CalendarGrid__number  color #5b6a7d
+      a.CalendarGrid__number
+        span#4  color #5b6a7d
     div.CalendarGrid__cell#5  bg #f8fafc  border #eef2f6
-      a.CalendarGrid__number  color #5b6a7d
+      a.CalendarGrid__number
+        span#5  color #5b6a7d
     div.CalendarGrid__cell#6  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#6  color #0f172a
     div.CalendarGrid__cell#7  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#7  color #0f172a
     div.CalendarGrid__cell#8  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#8  color #0f172a
     div.CalendarGrid__cell#9  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#9  color #0f172a
     div.CalendarGrid__cell#10  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#10  color #0f172a
     div.CalendarGrid__cell#11  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#11  color #0f172a
     div.CalendarGrid__cell#12  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#12  color #0f172a
     div.CalendarGrid__cell#13  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#13  color #0f172a
     div.CalendarGrid__cell#14  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#14  color #0f172a
     div.CalendarGrid__cell#15  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#15  color #0f172a
     div.CalendarGrid__cell#16  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#16  color #0f172a
     div.CalendarGrid__cell#17  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#17  color #0f172a
     div.CalendarGrid__cell#18  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#18  color #0f172a
     div.CalendarGrid__cell#19  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#19  color #0f172a
     div.CalendarGrid__cell#20  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#20  color #0f172a
     div.CalendarGrid__cell#21  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#21  color #0f172a
     div.CalendarGrid__cell#22  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#22  color #0f172a
     div.CalendarGrid__cell#23  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#23  color #0f172a
     div.CalendarGrid__cell#24  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#24  color #0f172a
     div.CalendarGrid__cell#25  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#25  color #0f172a
     div.CalendarGrid__cell#26  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#26  color #0f172a
     div.CalendarGrid__cell#27  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#27  color #0f172a
     div.CalendarGrid__cell#28  bg #ffffff  border #0891b2
-      a.CalendarGrid__number  color #0e7490  shadow #0891b2 0px 0px 0px 2px inset
+      a.CalendarGrid__number  shadow #0891b2 0px 0px 0px 2px inset
+        span#28  color #0e7490
     div.CalendarGrid__cell#29  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#29  color #0f172a
     div.CalendarGrid__cell#30  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#30  color #0f172a
     div.CalendarGrid__cell#31  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#31  color #0f172a
     div.CalendarGrid__cell#32  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#32  color #0f172a
     div.CalendarGrid__cell#33  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#33  color #0f172a
     div.CalendarGrid__cell#34  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#34  color #0f172a
     div.CalendarGrid__cell#35  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#35  color #0f172a
     div.CalendarGrid__cell#36  bg #ffffff  border #eef2f6
-      a.CalendarGrid__number  color #0f172a
+      a.CalendarGrid__number
+        span#36  color #0f172a
     div.CalendarGrid__cell#37  bg #f8fafc  border #eef2f6
-      a.CalendarGrid__number  color #5b6a7d
+      a.CalendarGrid__number
+        span#37  color #5b6a7d
     div.CalendarGrid__cell#38  bg #f8fafc  border #eef2f6
-      a.CalendarGrid__number  color #5b6a7d
+      a.CalendarGrid__number
+        span#38  color #5b6a7d
     div.CalendarGrid__cell#39  bg #f8fafc  border #eef2f6
-      a.CalendarGrid__number  color #5b6a7d
+      a.CalendarGrid__number
+        span#39  color #5b6a7d
     div.CalendarGrid__cell#40  bg #f8fafc  border #eef2f6
-      a.CalendarGrid__number  color #5b6a7d
+      a.CalendarGrid__number
+        span#40  color #5b6a7d
     div.CalendarGrid__cell#41  bg #f8fafc  border #eef2f6
-      a.CalendarGrid__number  color #5b6a7d
+      a.CalendarGrid__number
+        span#41  color #5b6a7d
     div.CalendarGrid__cell#42  bg #f8fafc  border #eef2f6
-      a.CalendarGrid__number  color #5b6a7d
+      a.CalendarGrid__number
+        span#42  color #5b6a7d
 
 [палитра dark]
 section.CalendarGrid__grid
@@ -402,86 +570,128 @@ section.CalendarGrid__grid
     span.CalendarGrid__weekday#7  color #8598ac
   div.CalendarGrid__days
     div.CalendarGrid__cell  bg #0e1729  border #182338
-      a.CalendarGrid__number  color #7e92a7
+      a.CalendarGrid__number
+        span  color #7e92a7
     div.CalendarGrid__cell#2  bg #0e1729  border #182338
-      a.CalendarGrid__number  color #7e92a7
+      a.CalendarGrid__number
+        span#2  color #7e92a7
     div.CalendarGrid__cell#3  bg #0e1729  border #182338
-      a.CalendarGrid__number  color #7e92a7
+      a.CalendarGrid__number
+        span#3  color #7e92a7
     div.CalendarGrid__cell#4  bg #0e1729  border #182338
-      a.CalendarGrid__number  color #7e92a7
+      a.CalendarGrid__number
+        span#4  color #7e92a7
     div.CalendarGrid__cell#5  bg #0e1729  border #182338
-      a.CalendarGrid__number  color #7e92a7
+      a.CalendarGrid__number
+        span#5  color #7e92a7
     div.CalendarGrid__cell#6  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#6  color #eaf1f8
     div.CalendarGrid__cell#7  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#7  color #eaf1f8
     div.CalendarGrid__cell#8  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#8  color #eaf1f8
     div.CalendarGrid__cell#9  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#9  color #eaf1f8
     div.CalendarGrid__cell#10  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#10  color #eaf1f8
     div.CalendarGrid__cell#11  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#11  color #eaf1f8
     div.CalendarGrid__cell#12  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#12  color #eaf1f8
     div.CalendarGrid__cell#13  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#13  color #eaf1f8
     div.CalendarGrid__cell#14  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#14  color #eaf1f8
     div.CalendarGrid__cell#15  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#15  color #eaf1f8
     div.CalendarGrid__cell#16  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#16  color #eaf1f8
     div.CalendarGrid__cell#17  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#17  color #eaf1f8
     div.CalendarGrid__cell#18  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#18  color #eaf1f8
     div.CalendarGrid__cell#19  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#19  color #eaf1f8
     div.CalendarGrid__cell#20  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#20  color #eaf1f8
     div.CalendarGrid__cell#21  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#21  color #eaf1f8
     div.CalendarGrid__cell#22  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#22  color #eaf1f8
     div.CalendarGrid__cell#23  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#23  color #eaf1f8
     div.CalendarGrid__cell#24  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#24  color #eaf1f8
     div.CalendarGrid__cell#25  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#25  color #eaf1f8
     div.CalendarGrid__cell#26  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#26  color #eaf1f8
     div.CalendarGrid__cell#27  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#27  color #eaf1f8
     div.CalendarGrid__cell#28  bg #121d31  border #22d3ee
-      a.CalendarGrid__number  color #22d3ee  shadow #22d3ee 0px 0px 0px 2px inset
+      a.CalendarGrid__number  shadow #22d3ee 0px 0px 0px 2px inset
+        span#28  color #22d3ee
     div.CalendarGrid__cell#29  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#29  color #eaf1f8
     div.CalendarGrid__cell#30  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#30  color #eaf1f8
     div.CalendarGrid__cell#31  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#31  color #eaf1f8
     div.CalendarGrid__cell#32  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#32  color #eaf1f8
     div.CalendarGrid__cell#33  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#33  color #eaf1f8
     div.CalendarGrid__cell#34  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#34  color #eaf1f8
     div.CalendarGrid__cell#35  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#35  color #eaf1f8
     div.CalendarGrid__cell#36  bg #121d31  border #182338
-      a.CalendarGrid__number  color #eaf1f8
+      a.CalendarGrid__number
+        span#36  color #eaf1f8
     div.CalendarGrid__cell#37  bg #0e1729  border #182338
-      a.CalendarGrid__number  color #7e92a7
+      a.CalendarGrid__number
+        span#37  color #7e92a7
     div.CalendarGrid__cell#38  bg #0e1729  border #182338
-      a.CalendarGrid__number  color #7e92a7
+      a.CalendarGrid__number
+        span#38  color #7e92a7
     div.CalendarGrid__cell#39  bg #0e1729  border #182338
-      a.CalendarGrid__number  color #7e92a7
+      a.CalendarGrid__number
+        span#39  color #7e92a7
     div.CalendarGrid__cell#40  bg #0e1729  border #182338
-      a.CalendarGrid__number  color #7e92a7
+      a.CalendarGrid__number
+        span#40  color #7e92a7
     div.CalendarGrid__cell#41  bg #0e1729  border #182338
-      a.CalendarGrid__number  color #7e92a7
+      a.CalendarGrid__number
+        span#41  color #7e92a7
     div.CalendarGrid__cell#42  bg #0e1729  border #182338
-      a.CalendarGrid__number  color #7e92a7
+      a.CalendarGrid__number
+        span#42  color #7e92a7

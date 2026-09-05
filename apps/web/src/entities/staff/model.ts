@@ -265,3 +265,24 @@ export function isSelfEmployedWithoutInn(
 export function staffTitle(staff: Pick<StaffCard, 'name' | 'login'>): string {
   return staff.name ?? staff.login;
 }
+
+/**
+ * Короткое имя для узких мест: «Захаров Илья» → «Илья З.».
+ *
+ * 🔴 Заведено ради карточки «Показывать» в календаре: колонка 240px делится
+ * между галочкой, именем, часами и «Только», и полное имя обрезалось до
+ * «Миронов Арт…». Макет пишет там ровно так — «Пётр К.» (`design/admin`).
+ *
+ * Сокращается фамилия, а не имя: людей зовут по имени, и «М. Артём» никто
+ * так не называет. Одно слово остаётся как есть — сокращать нечего.
+ */
+export function staffShortTitle(staff: Pick<StaffCard, 'name' | 'login'>): string {
+  const full = staffTitle(staff).trim();
+  const parts = full.split(/\s+/);
+  if (parts.length < 2) return full;
+
+  const [surname, given] = parts;
+  if (surname === undefined || given === undefined) return full;
+
+  return `${given} ${surname.slice(0, 1)}.`;
+}

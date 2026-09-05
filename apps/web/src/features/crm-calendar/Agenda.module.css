@@ -1,0 +1,114 @@
+/* Повестка недели — issue #47, эталон Apple Calendar (CRM §3.5.1).
+
+   Живёт только на телефоне: показывает её `WeekBoard`, он же прячет часовую
+   сетку. Здесь — оформление списка, а не решение о том, когда его показывать. */
+
+.agenda {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.days {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* Шапка дня — ссылка в день: из повестки переходят туда, где есть часы.
+   Цель во всю ширину, а не по подписи: палец бьёт по строке, а не по слову. */
+.head {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  border-bottom: 2px solid var(--line);
+  padding: 6px 2px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.head:focus-visible {
+  outline: none;
+  border-radius: 4px;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.weekday {
+  color: var(--muted);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.date {
+  font-family: var(--font-display);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* Сегодня помечено не только цветом: линия под шапкой плотнее и акцентная —
+   в ч/б это читается так же, как краска. */
+.today {
+  border-bottom-color: var(--accent-ink);
+}
+
+.today .date,
+.today .weekday {
+  color: var(--accent-text);
+}
+
+.count {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: var(--fs-micro);
+}
+
+.items {
+  /* Строка повестки — цель: её высоту знает сама запись (`.chip.bar`), и
+     задаётся она здесь, потому что повестка живёт только на телефоне. */
+  --cal-bar-row: var(--tap);
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: block;
+  min-width: 0;
+}
+
+/* Пустая неделя — то же оформление, что у пустого слоя на странице: рамка
+   пунктиром и объяснение, что делать дальше. */
+.emptyTitle {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+.emptyText {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+}

@@ -46,7 +46,39 @@
   }
 }
 
-/* Наложение включено, а команды ещё нет: полоса часов ни о чём не говорит —
+/* 🔴 Карточка «Показывать» слева от сетки, как в макете
+   (`design/admin/Calendar.body.html`, кадр 1440). Ниже 1200px она ложится
+   полосой над сеткой: колонка в 240px отбирает у семи дней треть ширины, а
+   выбрасывать управление слоем на узком экране нельзя — именно там владелец
+   и смотрит, кто свободен. */
+.board {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  min-width: 0;
+}
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* Монтажнику карточки нет: команда ему закрыта (ADR-095), и сетка обязана
+   занять всю ширину, а не встать в колонку, отведённую под карточку. */
+.boardWide {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (width < 1200px) {
+  .board {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Слой включён, а команды ещё нет: полоса часов ни о чём не говорит —
    вместо неё объяснение, где заводят людей. */
 .empty {
   display: flex;
@@ -77,6 +109,17 @@
 .navSkeleton {
   min-height: 78.3px;
   border-radius: var(--r-sm);
+}
+
+.cardSkeleton {
+  min-height: 320px;
+  border-radius: var(--r-card);
+}
+
+@media (width < 1200px) {
+  .cardSkeleton {
+    min-height: 64px;
+  }
 }
 
 .gridSkeleton {
