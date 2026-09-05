@@ -1,29 +1,35 @@
-# админка-заказы-список-нарядов--базовое · ширины 390 768 1440 · темы light dark
-шрифты: JetBrains Mono 400, Manrope 400, Manrope 500, Manrope 600, Onest 600, Onest 700
+# админка-заказы-список-нарядов--вкладкановые · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 500, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-390 → 390×1289
+390 → 390×1402
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.OrderList__list  358×1257 @16,16
-  form.OrderBulk__form  358×1257 @0,0
+div.OrderList__list  358×1370 @16,16
+  div.Alert__alert  358×109 @0,0  r14  b1
+    span.Alert__icon  18×20 @15,13
+      svg  18×18 @0,1
+    div.Alert__body  300×83 @43,13
+      p.Alert__title  300×20 @0,0  Manrope 700 15/20  lines=1  «3 заказа ждут назначения»
+      div.Alert__text  300×61 @0,22  Manrope 400 15/20  lines=3  «Пока не назначен монтажник, наряд не поп»
+  form.OrderBulk__form  358×1249 @0,121
     label.OrderBulk__all  264×44 @0,0  Manrope 600 13/20  lines=1  «Выбрать все наряды на странице»
       input.OrderBulk__allBox  24×24 @10,10
-    section.Card__card  358×1203 @0,54  r20  b1
-      div.Table__viewport  356×1102 @1,1
-        table.Table__table  356×1102 @0,0
+    section.Card__card  358×1195 @0,54  r20  b1
+      div.Table__viewport  356×1094 @1,1
+        table.Table__table  356×1094 @0,0
           tr[role=row]  1×56 @0,0
             th.OrderTable__pickCol  36×56 @0,0  b0 0 1 0
               span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Выбор строки»
             th.OrderTable__numberCol  85×56 @36,0  Onest 700 15/23  b0 0 1 0  lines=1  «Номер»
             th.OrderTable__clientCol  158×56 @121,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент и объект»
-            th.OrderTable__dateCol  75×56 @279,0  JetBrains Mono 700 13/20  b0 0 1 0  lines=1  «Когда»
-            th.OrderTable__statusCol  88×56 @354,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
-            th.OrderTable__actionsCol  36×56 @442,0  b0 0 1 0
+            th.OrderTable__dateCol  83×56 @279,0  JetBrains Mono 700 13/20  b0 0 1 0  lines=1  «Создан»
+            th.OrderTable__tabActionCol  107×56 @362,0  Onest 700 15/23  b0 0 1 0  lines=1  «Действие»
+            th.OrderTable__actionsCol  36×56 @469,0  b0 0 1 0
               span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
-          tr.OrderTable__rowbad  356×377 @0,0  r14  b1
+          tr.OrderTable__rowbad  356×374 @0,0  r14  b1
             td.OrderTable__pick  354×58 @1,5
               td.OrderTable__pick::before  85×20 @0,0
               input.OrderTable__pickBox  24×24 @306,17
@@ -36,17 +42,16 @@ div.OrderList__list  358×1257 @16,16
                 span.OrderTable__client  176×22 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
                 span.OrderTable__address  176×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
                 span.Badge__badge  125×24 @0,43  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
-                span.OrderTable__compact  176×20 @0,67  Manrope 400 13/20  lines=1  «Дмитрий Соколов · 38 500 ₽»
-            td.OrderTable__dateCol  354×53 @1,222
-              td.OrderTable__dateCol::before  39×20 @0,0
-              time  78×39 @262,7  JetBrains Mono 400 13/20  lines=1  «28.08.2026»
-                span.OrderTable__clock  78×19 @0,20  JetBrains Mono 400 12/19  lines=1  «11:00»
-            td.OrderTable__statusCol  354×42 @1,275
-              td.OrderTable__statusCol::before  43×20 @0,0
-              span.OrderTable__statusBox  175×28 @165,7
-                span.Badge__badge  83×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
-                span.Badge__badge#2  86×24 @89,2  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
-            td.OrderTable__actions  354×51 @1,321  b1 0 0 0
+                span.OrderTable__compact  176×20 @0,67  Manrope 400 13/20  lines=1  «38 500 ₽»
+            td.OrderTable__dateCol  354×34 @1,222
+              td.OrderTable__dateCol::before  47×20 @0,0
+              time  78×20 @262,7  JetBrains Mono 400 13/20  lines=1  «26.08.2026»
+            td.OrderTable__tabAction  354×58 @1,256
+              td.OrderTable__tabAction::before  60×20 @0,0
+              a.Button__button  98×44 @242,7  r9  b1
+                span.Button__content  68×16 @15,14
+                  span.Button__label  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+            td.OrderTable__actions  354×51 @1,318  b1 0 0 0
               div.TableActions__actions  116×36 @224,8
                 a.OrderTable__action  36×36 @0,0  r100
                   svg  18×18 @9,6
@@ -54,7 +59,7 @@ div.OrderList__list  358×1257 @16,16
                   svg  18×18 @9,6
                 button.OrderTable__action  36×36 @80,0  r100
                   svg  18×18 @9,7
-          tr.OrderTable__rowbad#2  356×353 @0,387  r14  b1
+          tr.OrderTable__rowbad#2  356×350 @0,384  r14  b1
             td.OrderTable__pick  354×58 @1,5
               td.OrderTable__pick::before  85×20 @0,0
               input.OrderTable__pickBox#2  24×24 @306,17
@@ -63,20 +68,19 @@ div.OrderList__list  358×1257 @16,16
               a.OrderTable__numberLink#2  52×44 @288,7  JetBrains Mono 700 15/22  lines=1  «№ 1060»
             td.OrderTable__clientCol  354×77 @1,121
               td.OrderTable__clientCol::before  100×20 @0,0
-              span.OrderTable__workBox#2  130×63 @210,7
-                span.OrderTable__client  130×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
-                span.OrderTable__address  130×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
-                span.OrderTable__compact  130×20 @0,43  Manrope 400 13/20  lines=1  «Не назначен · 4 500 ₽»
-            td.OrderTable__dateCol  354×53 @1,198
-              td.OrderTable__dateCol::before  39×20 @0,0
-              time#2  78×39 @262,7  JetBrains Mono 400 13/20  lines=1  «29.08.2026»
-                span.OrderTable__clock  78×19 @0,20  JetBrains Mono 400 12/19  lines=1  «09:30»
-            td.OrderTable__statusCol  354×42 @1,250
-              td.OrderTable__statusCol::before  43×20 @0,0
-              span.OrderTable__statusBox#2  156×28 @184,7
-                span.Badge__badge  64×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Новый»
-                span.Badge__badge#2  86×24 @70,2  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
-            td.OrderTable__actions  354×51 @1,297  b1 0 0 0
+              span.OrderTable__workBox#2  127×63 @213,7
+                span.OrderTable__client  127×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
+                span.OrderTable__address  127×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
+                span.OrderTable__compact  127×20 @0,43  Manrope 400 13/20  lines=1  «4 500 ₽»
+            td.OrderTable__dateCol  354×34 @1,198
+              td.OrderTable__dateCol::before  47×20 @0,0
+              time#2  78×20 @262,7  JetBrains Mono 400 13/20  lines=1  «26.08.2026»
+            td.OrderTable__tabAction  354×58 @1,232
+              td.OrderTable__tabAction::before  60×20 @0,0
+              a.Button__button#2  98×44 @242,7  r9  b1
+                span.Button__content  68×16 @15,14
+                  span.Button__label#2  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+            td.OrderTable__actions  354×51 @1,294  b1 0 0 0
               div.TableActions__actions#2  116×36 @224,8
                 a.OrderTable__action  36×36 @0,0  r100
                   svg#2  18×18 @9,6
@@ -84,7 +88,7 @@ div.OrderList__list  358×1257 @16,16
                   svg#2  18×18 @9,6
                 button.OrderTable__action  36×36 @80,0  r100
                   svg#2  18×18 @9,7
-          tr[role=row]#2  356×353 @0,750  r14  b1
+          tr[role=row]#2  356×350 @0,744  r14  b1
             td.OrderTable__pick  354×58 @1,5
               td.OrderTable__pick::before  85×20 @0,0
               input.OrderTable__pickBox#3  24×24 @306,17
@@ -96,16 +100,16 @@ div.OrderList__list  358×1257 @16,16
               span.OrderTable__workBox#3  127×63 @213,7
                 span.OrderTable__client  127×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
                 span.OrderTable__address  127×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
-                span.OrderTable__compact  127×20 @0,43  Manrope 400 13/20  lines=1  «Артём Белов · 0 ₽»
-            td.OrderTable__dateCol  354×53 @1,198
-              td.OrderTable__dateCol::before  39×20 @0,0
-              time#3  78×39 @262,7  JetBrains Mono 400 13/20  lines=1  «29.08.2026»
-                span.OrderTable__clock  78×19 @0,20  JetBrains Mono 400 12/19  lines=1  «09:30»
-            td.OrderTable__statusCol  354×42 @1,250
-              td.OrderTable__statusCol::before  43×20 @0,0
-              span.OrderTable__statusBox#3  60×28 @280,7
-                span.Badge__badge  60×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
-            td.OrderTable__actions  354×51 @1,297  b1 0 0 0
+                span.OrderTable__compact  127×20 @0,43  Manrope 400 13/20  lines=1  «0 ₽»
+            td.OrderTable__dateCol  354×34 @1,198
+              td.OrderTable__dateCol::before  47×20 @0,0
+              time#3  78×20 @262,7  JetBrains Mono 400 13/20  lines=1  «26.08.2026»
+            td.OrderTable__tabAction  354×58 @1,232
+              td.OrderTable__tabAction::before  60×20 @0,0
+              a.Button__button#3  98×44 @242,7  r9  b1
+                span.Button__content  68×16 @15,14
+                  span.Button__label#3  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+            td.OrderTable__actions  354×51 @1,294  b1 0 0 0
               div.TableActions__actions#3  116×36 @224,8
                 a.OrderTable__action  36×36 @0,0  r100
                   svg#3  18×18 @9,6
@@ -113,7 +117,7 @@ div.OrderList__list  358×1257 @16,16
                   svg#3  18×18 @9,6
                 button.OrderTable__action  36×36 @80,0  r100
                   svg#3  18×18 @9,7
-      div.OrderPager__pager  356×99 @1,1103  b1 0 0 0
+      div.OrderPager__pager  356×99 @1,1095  b1 0 0 0
         span.OrderPager__count  35×20 @16,13  Manrope 400 13/20  lines=1  «3 из 3»
         span.OrderPager__size  265×44 @16,43
           span.OrderPager__sizeTitle  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
@@ -124,41 +128,46 @@ div.OrderList__list  358×1257 @16,16
             span  16×20 @14,12  Manrope 600 13/20  lines=1  «32»
 
 [геометрия 768]
-div.OrderList__list  736×601 @16,16
-  form.OrderBulk__form  736×601 @0,0
+div.OrderList__list  736×641 @16,16
+  div.Alert__alert  736×69 @0,0  r14  b1
+    span.Alert__icon  18×20 @15,13
+      svg  18×18 @0,1
+    div.Alert__body  678×43 @43,13
+      p.Alert__title  678×20 @0,0  Manrope 700 15/20  lines=1  «3 заказа ждут назначения»
+      div.Alert__text  678×20 @0,22  Manrope 400 15/20  lines=1  «Пока не назначен монтажник, наряд не поп»
+  form.OrderBulk__form  736×560 @0,81
     label.OrderBulk__all  264×44 @0,0  Manrope 600 13/20  lines=1  «Выбрать все наряды на странице»
       input.OrderBulk__allBox  24×24 @10,10
-    section.Card__card  736×547 @0,54  r20  b1
-      div.Table__viewport  734×476 @1,1
-        table.Table__table  734×476 @0,0
+    section.Card__card  736×506 @0,54  r20  b1
+      div.Table__viewport  734×435 @1,1
+        table.Table__table  734×435 @0,0
           tr[role=row]  734×56 @0,0
             th.OrderTable__pickCol  80×56 @0,0  b0 0 1 0
               span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Выбор строки»
             th.OrderTable__numberCol  88×56 @80,0  Onest 700 15/23  b0 0 1 0  lines=1  «Номер»
             th.OrderTable__clientCol  161×56 @168,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент и объект»
-            th.OrderTable__dateCol  123×56 @329,0  JetBrains Mono 700 13/20  b0 0 1 0  lines=1  «Когда»
-            th.OrderTable__statusCol  130×56 @452,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+            th.OrderTable__dateCol  116×56 @329,0  JetBrains Mono 700 13/20  b0 0 1 0  lines=1  «Создан»
+            th.OrderTable__tabActionCol  137×56 @445,0  Onest 700 15/23  b0 0 1 0  lines=1  «Действие»
             th.OrderTable__actionsCol  152×56 @582,0  b0 0 1 0
               span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
-          tr.OrderTable__rowbad  734×176 @0,56
-            td.OrderTable__pick  80×176 @0,0  b0 0 1 0
+          tr.OrderTable__rowbad  734×156 @0,56
+            td.OrderTable__pick  80×156 @0,0  b0 0 1 0
               input.OrderTable__pickBox  24×24 @28,25
-            td.OrderTable__numberCol  88×176 @80,0  b0 0 1 0
+            td.OrderTable__numberCol  88×156 @80,0  b0 0 1 0
               a.OrderTable__numberLink  52×44 @18,15  JetBrains Mono 700 15/22  lines=1  «№ 1059»
-            td.OrderTable__clientCol  161×176 @168,0  b0 0 1 0
-              span.OrderTable__workBox  125×147 @18,15
+            td.OrderTable__clientCol  161×156 @168,0  b0 0 1 0
+              span.OrderTable__workBox  125×127 @18,15
                 span.OrderTable__client  125×22 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
                 span.OrderTable__address  125×60 @0,22  Manrope 400 13/20  lines=3  «Тула, Первомайская, 12, кв. 4»
                 span.Badge__badge  125×24 @0,83  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
-                span.OrderTable__compact  125×40 @0,107  Manrope 400 13/20  lines=2  «Дмитрий Соколов · 38 500 ₽»
-            td.OrderTable__dateCol  123×176 @329,0  b0 0 1 0
-              time  87×38 @18,16  JetBrains Mono 400 13/20  lines=1  «28.08.2026»
-                span.OrderTable__clock  87×19 @0,19  JetBrains Mono 400 12/19  lines=1  «11:00»
-            td.OrderTable__statusCol  130×176 @452,0  b0 0 1 0
-              span.OrderTable__statusBox  94×56 @18,15
-                span.Badge__badge  83×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
-                span.Badge__badge#2  86×24 @0,32  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
-            td.OrderTable__actions  152×176 @582,0  b0 0 1 0
+                span.OrderTable__compact  125×20 @0,107  Manrope 400 13/20  lines=1  «38 500 ₽»
+            td.OrderTable__dateCol  116×156 @329,0  b0 0 1 0
+              time  78×17 @18,16  JetBrains Mono 400 13/20  lines=1  «26.08.2026»
+            td.OrderTable__tabAction  137×156 @445,0  b0 0 1 0
+              a.Button__button  98×44 @18,15  r9  b1
+                span.Button__content  68×16 @15,14
+                  span.Button__label  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+            td.OrderTable__actions  152×156 @582,0  b0 0 1 0
               div.TableActions__actions  116×36 @18,15
                 a.OrderTable__action  36×36 @0,0  r100
                   svg  18×18 @9,6
@@ -166,24 +175,23 @@ div.OrderList__list  736×601 @16,16
                   svg  18×18 @9,6
                 button.OrderTable__action  36×36 @80,0  r100
                   svg  18×18 @9,7
-          tr.OrderTable__rowbad#2  734×132 @0,232
-            td.OrderTable__pick  80×132 @0,0  b0 0 1 0
+          tr.OrderTable__rowbad#2  734×112 @0,212
+            td.OrderTable__pick  80×112 @0,0  b0 0 1 0
               input.OrderTable__pickBox#2  24×24 @28,25
-            td.OrderTable__numberCol  88×132 @80,0  b0 0 1 0
+            td.OrderTable__numberCol  88×112 @80,0  b0 0 1 0
               a.OrderTable__numberLink#2  52×44 @18,15  JetBrains Mono 700 15/22  lines=1  «№ 1060»
-            td.OrderTable__clientCol  161×132 @168,0  b0 0 1 0
-              span.OrderTable__workBox#2  125×103 @18,15
+            td.OrderTable__clientCol  161×112 @168,0  b0 0 1 0
+              span.OrderTable__workBox#2  125×83 @18,15
                 span.OrderTable__client  125×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
                 span.OrderTable__address  125×40 @0,22  Manrope 400 13/20  lines=2  «Тула, Октябрьская, 3»
-                span.OrderTable__compact  125×40 @0,63  Manrope 400 13/20  lines=2  «Не назначен · 4 500 ₽»
-            td.OrderTable__dateCol  123×132 @329,0  b0 0 1 0
-              time#2  87×38 @18,16  JetBrains Mono 400 13/20  lines=1  «29.08.2026»
-                span.OrderTable__clock  87×19 @0,19  JetBrains Mono 400 12/19  lines=1  «09:30»
-            td.OrderTable__statusCol  130×132 @452,0  b0 0 1 0
-              span.OrderTable__statusBox#2  94×56 @18,15
-                span.Badge__badge  64×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Новый»
-                span.Badge__badge#2  86×24 @0,32  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
-            td.OrderTable__actions  152×132 @582,0  b0 0 1 0
+                span.OrderTable__compact  125×20 @0,63  Manrope 400 13/20  lines=1  «4 500 ₽»
+            td.OrderTable__dateCol  116×112 @329,0  b0 0 1 0
+              time#2  78×17 @18,16  JetBrains Mono 400 13/20  lines=1  «26.08.2026»
+            td.OrderTable__tabAction  137×112 @445,0  b0 0 1 0
+              a.Button__button#2  98×44 @18,15  r9  b1
+                span.Button__content  68×16 @15,14
+                  span.Button__label#2  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+            td.OrderTable__actions  152×112 @582,0  b0 0 1 0
               div.TableActions__actions#2  116×36 @18,15
                 a.OrderTable__action  36×36 @0,0  r100
                   svg#2  18×18 @9,6
@@ -191,7 +199,7 @@ div.OrderList__list  736×601 @16,16
                   svg#2  18×18 @9,6
                 button.OrderTable__action  36×36 @80,0  r100
                   svg#2  18×18 @9,7
-          tr[role=row]#2  734×111 @0,364
+          tr[role=row]#2  734×111 @0,324
             td.OrderTable__pick  80×111 @0,0
               input.OrderTable__pickBox#3  24×24 @28,25
             td.OrderTable__numberCol  88×111 @80,0
@@ -200,13 +208,13 @@ div.OrderList__list  736×601 @16,16
               span.OrderTable__workBox#3  125×83 @18,15
                 span.OrderTable__client  125×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
                 span.OrderTable__address  125×40 @0,22  Manrope 400 13/20  lines=2  «Тула, Октябрьская, 3»
-                span.OrderTable__compact  125×20 @0,63  Manrope 400 13/20  lines=1  «Артём Белов · 0 ₽»
-            td.OrderTable__dateCol  123×111 @329,0
-              time#3  87×38 @18,16  JetBrains Mono 400 13/20  lines=1  «29.08.2026»
-                span.OrderTable__clock  87×19 @0,19  JetBrains Mono 400 12/19  lines=1  «09:30»
-            td.OrderTable__statusCol  130×111 @452,0
-              span.OrderTable__statusBox#3  94×28 @18,15
-                span.Badge__badge  60×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
+                span.OrderTable__compact  125×20 @0,63  Manrope 400 13/20  lines=1  «0 ₽»
+            td.OrderTable__dateCol  116×111 @329,0
+              time#3  78×17 @18,16  JetBrains Mono 400 13/20  lines=1  «26.08.2026»
+            td.OrderTable__tabAction  137×111 @445,0
+              a.Button__button#3  98×44 @18,15  r9  b1
+                span.Button__content  68×16 @15,14
+                  span.Button__label#3  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
             td.OrderTable__actions  152×111 @582,0
               div.TableActions__actions#3  116×36 @18,15
                 a.OrderTable__action  36×36 @0,0  r100
@@ -215,7 +223,7 @@ div.OrderList__list  736×601 @16,16
                   svg#3  18×18 @9,6
                 button.OrderTable__action  36×36 @80,0  r100
                   svg#3  18×18 @9,7
-      div.OrderPager__pager  734×69 @1,477  b1 0 0 0
+      div.OrderPager__pager  734×69 @1,436  b1 0 0 0
         span.OrderPager__count  35×20 @16,25  Manrope 400 13/20  lines=1  «3 из 3»
         span.OrderPager__size  265×44 @453,13
           span.OrderPager__sizeTitle  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
@@ -226,22 +234,28 @@ div.OrderList__list  736×601 @16,16
             span  16×20 @14,12  Manrope 600 13/20  lines=1  «32»
 
 [геометрия 1440]
-div.OrderList__list  1408×403 @16,16
-  form.OrderBulk__form  1408×403 @0,0
+div.OrderList__list  1408×470 @16,16
+  div.Alert__alert  1408×69 @0,0  r14  b1
+    span.Alert__icon  18×20 @15,13
+      svg  18×18 @0,1
+    div.Alert__body  1350×43 @43,13
+      p.Alert__title  1350×20 @0,0  Manrope 700 15/20  lines=1  «3 заказа ждут назначения»
+      div.Alert__text  1350×20 @0,22  Manrope 400 15/20  lines=1  «Пока не назначен монтажник, наряд не поп»
+  form.OrderBulk__form  1408×389 @0,81
     label.OrderBulk__all  247×26 @0,0  Manrope 600 13/20  lines=1  «Выбрать все наряды на странице»
       input.OrderBulk__allBox  20×20 @4,3
-    section.Card__card  1408×367 @0,36  r20  b1
-      div.Table__viewport  1406×308 @1,1
-        table.Table__table  1406×308 @0,0
+    section.Card__card  1408×353 @0,36  r20  b1
+      div.Table__viewport  1406×294 @1,1
+        table.Table__table  1406×294 @0,0
           tr[role=row]  1406×56 @0,0
             th.OrderTable__pickCol  63×56 @0,0  b0 0 1 0
               span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Выбор строки»
             th.OrderTable__numberCol  88×56 @63,0  Onest 700 15/23  b0 0 1 0  lines=1  «Номер»
-            th.OrderTable__clientCol  542×56 @151,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент и объект»
-            th.OrderTable__installerCol  186×56 @694,0  Onest 600 15/22  b0 0 1 0  lines=1  «Монтажник»
-            th.OrderTable__dateCol  126×56 @880,0  JetBrains Mono 700 13/20  b0 0 1 0  lines=1  «Когда»
-            th.OrderTable__statusCol  132×56 @1006,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
-            th.OrderTable__sumCol  116×56 @1138,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «Сумма»
+            th.OrderTable__clientCol  551×56 @151,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент и объект»
+            th.OrderTable__sourceCol  160×56 @702,0  Onest 700 15/23  b0 0 1 0  lines=1  «Откуда»
+            th.OrderTable__dateCol  126×56 @862,0  JetBrains Mono 700 13/20  b0 0 1 0  lines=1  «Создан»
+            th.OrderTable__sumCol  116×56 @988,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «Сумма»
+            th.OrderTable__tabActionCol  150×56 @1104,0  Onest 700 15/23  b0 0 1 0  lines=1  «Действие»
             th.OrderTable__actionsCol  152×56 @1254,0  b0 0 1 0
               span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
           tr.OrderTable__rowbad  1406×96 @0,56
@@ -249,25 +263,20 @@ div.OrderList__list  1408×403 @16,16
               input.OrderTable__pickBox  20×20 @22,18
             td.OrderTable__numberCol  88×96 @63,0  b0 0 1 0
               a.OrderTable__numberLink  52×19 @18,16  JetBrains Mono 700 15/22  lines=1  «№ 1059»
-            td.OrderTable__clientCol  542×96 @151,0  b0 0 1 0
-              span.OrderTable__workBox  506×67 @18,15
-                span.OrderTable__client  506×22 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
-                span.OrderTable__address  506×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
+            td.OrderTable__clientCol  551×96 @151,0  b0 0 1 0
+              span.OrderTable__workBox  515×67 @18,15
+                span.OrderTable__client  515×22 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
+                span.OrderTable__address  515×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
                 span.Badge__badge  125×24 @0,43  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
-            td.OrderTable__installerCol  186×96 @694,0  b0 0 1 0
-              span.OrderTable__person  150×28 @18,15
-                span.Avatar__avatar  28×28 @0,0  r100  b1
-                  span.Avatar__initials  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «ДС»
-                  span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Дмитрий Соколов»
-                span.OrderTable__personName  114×20 @36,4  Manrope 600 13/20  lines=1  «Дмитрий Соколов»
-            td.OrderTable__dateCol  126×96 @880,0  b0 0 1 0
-              time  90×38 @18,16  JetBrains Mono 400 13/20  lines=1  «28.08.2026»
-                span.OrderTable__clock  90×19 @0,19  JetBrains Mono 400 12/19  lines=1  «11:00»
-            td.OrderTable__statusCol  132×96 @1006,0  b0 0 1 0
-              span.OrderTable__statusBox  96×56 @18,15
-                span.Badge__badge  83×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
-                span.Badge__badge#2  86×24 @0,32  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
-            td.OrderTable__sumCol  116×96 @1138,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «38 500 ₽»
+            td.OrderTable__sourceCol  160×96 @702,0  b0 0 1 0
+              span.OrderTable__none  60×19 @18,16  Manrope 500 15/22  lines=1  «вручную»
+            td.OrderTable__dateCol  126×96 @862,0  b0 0 1 0
+              time  78×17 @18,16  JetBrains Mono 400 13/20  lines=1  «26.08.2026»
+            td.OrderTable__sumCol  116×96 @988,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «38 500 ₽»
+            td.OrderTable__tabAction  150×96 @1104,0  b0 0 1 0
+              a.Button__button  98×40 @18,15  r9  b1
+                span.Button__content  68×16 @15,12
+                  span.Button__label  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
             td.OrderTable__actions  152×96 @1254,0  b0 0 1 0
               div.TableActions__actions  116×36 @18,15
                 a.OrderTable__action  36×36 @0,0  r100
@@ -276,26 +285,25 @@ div.OrderList__list  1408×403 @16,16
                   svg  18×18 @9,6
                 button.OrderTable__action  36×36 @80,0  r100
                   svg  18×18 @9,7
-          tr.OrderTable__rowbad#2  1406×85 @0,152
-            td.OrderTable__pick  63×85 @0,0  b0 0 1 0
+          tr.OrderTable__rowbad#2  1406×72 @0,152
+            td.OrderTable__pick  63×72 @0,0  b0 0 1 0
               input.OrderTable__pickBox#2  20×20 @22,18
-            td.OrderTable__numberCol  88×85 @63,0  b0 0 1 0
+            td.OrderTable__numberCol  88×72 @63,0  b0 0 1 0
               a.OrderTable__numberLink#2  52×19 @18,16  JetBrains Mono 700 15/22  lines=1  «№ 1060»
-            td.OrderTable__clientCol  542×85 @151,0  b0 0 1 0
-              span.OrderTable__workBox#2  506×43 @18,15
-                span.OrderTable__client  506×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
-                span.OrderTable__address  506×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
-            td.OrderTable__installerCol  186×85 @694,0  b0 0 1 0
-              span.OrderTable__none  88×19 @18,16  Manrope 500 15/22  lines=1  «Не назначен»
-            td.OrderTable__dateCol  126×85 @880,0  b0 0 1 0
-              time#2  90×38 @18,16  JetBrains Mono 400 13/20  lines=1  «29.08.2026»
-                span.OrderTable__clock  90×19 @0,19  JetBrains Mono 400 12/19  lines=1  «09:30»
-            td.OrderTable__statusCol  132×85 @1006,0  b0 0 1 0
-              span.OrderTable__statusBox#2  96×56 @18,15
-                span.Badge__badge  64×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Новый»
-                span.Badge__badge#2  86×24 @0,32  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
-            td.OrderTable__sumCol  116×85 @1138,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «4 500 ₽»
-            td.OrderTable__actions  152×85 @1254,0  b0 0 1 0
+            td.OrderTable__clientCol  551×72 @151,0  b0 0 1 0
+              span.OrderTable__workBox#2  515×43 @18,15
+                span.OrderTable__client  515×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
+                span.OrderTable__address  515×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
+            td.OrderTable__sourceCol  160×72 @702,0  b0 0 1 0
+              span.OrderTable__none#2  60×19 @18,16  Manrope 500 15/22  lines=1  «вручную»
+            td.OrderTable__dateCol  126×72 @862,0  b0 0 1 0
+              time#2  78×17 @18,16  JetBrains Mono 400 13/20  lines=1  «26.08.2026»
+            td.OrderTable__sumCol  116×72 @988,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «4 500 ₽»
+            td.OrderTable__tabAction  150×72 @1104,0  b0 0 1 0
+              a.Button__button#2  98×40 @18,15  r9  b1
+                span.Button__content  68×16 @15,12
+                  span.Button__label#2  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+            td.OrderTable__actions  152×72 @1254,0  b0 0 1 0
               div.TableActions__actions#2  116×36 @18,15
                 a.OrderTable__action  36×36 @0,0  r100
                   svg#2  18×18 @9,6
@@ -303,28 +311,24 @@ div.OrderList__list  1408×403 @16,16
                   svg#2  18×18 @9,6
                 button.OrderTable__action  36×36 @80,0  r100
                   svg#2  18×18 @9,7
-          tr[role=row]#2  1406×71 @0,237
+          tr[role=row]#2  1406×71 @0,223
             td.OrderTable__pick  63×71 @0,0
               input.OrderTable__pickBox#3  20×20 @22,18
             td.OrderTable__numberCol  88×71 @63,0
               a.OrderTable__numberLink#3  52×19 @18,16  JetBrains Mono 700 15/22  lines=1  «№ 1041»
-            td.OrderTable__clientCol  542×71 @151,0
-              span.OrderTable__workBox#3  506×43 @18,15
-                span.OrderTable__client  506×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
-                span.OrderTable__address  506×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
-            td.OrderTable__installerCol  186×71 @694,0
-              span.OrderTable__person#2  150×28 @18,15
-                span.Avatar__avatar  28×28 @0,0  r100  b1
-                  span.Avatar__initials#2  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «АБ»
-                  span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Артём Белов»
-                span.OrderTable__personName  81×20 @36,4  Manrope 600 13/20  lines=1  «Артём Белов»
-            td.OrderTable__dateCol  126×71 @880,0
-              time#3  90×38 @18,16  JetBrains Mono 400 13/20  lines=1  «29.08.2026»
-                span.OrderTable__clock  90×19 @0,19  JetBrains Mono 400 12/19  lines=1  «09:30»
-            td.OrderTable__statusCol  132×71 @1006,0
-              span.OrderTable__statusBox#3  96×28 @18,15
-                span.Badge__badge  60×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
-            td.OrderTable__sumCol  116×71 @1138,0  JetBrains Mono 700 15/22  lines=1  «0 ₽»
+            td.OrderTable__clientCol  551×71 @151,0
+              span.OrderTable__workBox#3  515×43 @18,15
+                span.OrderTable__client  515×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
+                span.OrderTable__address  515×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
+            td.OrderTable__sourceCol  160×71 @702,0
+              span.OrderTable__none#3  60×19 @18,16  Manrope 500 15/22  lines=1  «вручную»
+            td.OrderTable__dateCol  126×71 @862,0
+              time#3  78×17 @18,16  JetBrains Mono 400 13/20  lines=1  «26.08.2026»
+            td.OrderTable__sumCol  116×71 @988,0  JetBrains Mono 700 15/22  lines=1  «0 ₽»
+            td.OrderTable__tabAction  150×71 @1104,0
+              a.Button__button#3  98×40 @18,15  r9  b1
+                span.Button__content  68×16 @15,12
+                  span.Button__label#3  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
             td.OrderTable__actions  152×71 @1254,0
               div.TableActions__actions#3  116×36 @18,15
                 a.OrderTable__action  36×36 @0,0  r100
@@ -333,7 +337,7 @@ div.OrderList__list  1408×403 @16,16
                   svg#3  18×18 @9,6
                 button.OrderTable__action  36×36 @80,0  r100
                   svg#3  18×18 @9,7
-      div.OrderPager__pager  1406×57 @1,309  b1 0 0 0
+      div.OrderPager__pager  1406×57 @1,295  b1 0 0 0
         span.OrderPager__count  35×20 @16,19  Manrope 400 13/20  lines=1  «3 из 3»
         span.OrderPager__size  229×32 @1161,13
           span.OrderPager__sizeTitle  117×20 @0,6  Manrope 400 13/20  lines=1  «Строк на странице»
@@ -345,6 +349,12 @@ div.OrderList__list  1408×403 @16,16
 
 [палитра light]
 div.OrderList__list
+  div.Alert__alert  bg #b4530914  border #b4530947
+    span.Alert__icon
+      svg
+    div.Alert__body
+      p.Alert__title  color #92400e
+      div.Alert__text  color #92400e
   form.OrderBulk__form
     label.OrderBulk__all  color #556173
       input.OrderBulk__allBox
@@ -356,10 +366,10 @@ div.OrderList__list
               span  color #0f172a
             th.OrderTable__numberCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
             th.OrderTable__clientCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
-            th.OrderTable__installerCol  color #334155  border #334155 #334155 #e2e8f0 #334155
+            th.OrderTable__sourceCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
             th.OrderTable__dateCol  color #334155  border #334155 #334155 #e2e8f0 #334155
-            th.OrderTable__statusCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
             th.OrderTable__sumCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+            th.OrderTable__tabActionCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
             th.OrderTable__actionsCol  border #0f172a #0f172a #e2e8f0 #0f172a
               span  color #0f172a
           tr.OrderTable__rowbad  bg #be123c14
@@ -372,20 +382,15 @@ div.OrderList__list
                 span.OrderTable__client  color #0f172a
                 span.OrderTable__address  color #475569
                 span.Badge__badge  color #92400e  border #b4530947
-            td.OrderTable__installerCol  border #334155 #334155 #eef2f6 #334155
-              span.OrderTable__person
-                span.Avatar__avatar  bg #ecfeff  border #ffffff
-                  span.Avatar__initials  color #0e7490
-                  span  color #0e7490
-                span.OrderTable__personName  color #334155
-            td.OrderTable__dateCol  border #be123c #be123c #eef2f6 #be123c
-              time  color #be123c
-                span.OrderTable__clock  color #475569
-            td.OrderTable__statusCol  border #334155 #334155 #eef2f6 #334155
-              span.OrderTable__statusBox
-                span.Badge__badge  color #92400e  border #b4530947
-                span.Badge__badge#2  color #be123c  border #be123c73
+            td.OrderTable__sourceCol  border #334155 #334155 #eef2f6 #334155
+              span.OrderTable__none  color #475569
+            td.OrderTable__dateCol  border #334155 #334155 #eef2f6 #334155
+              time  color #334155
             td.OrderTable__sumCol  color #0f172a  border #0f172a #0f172a #eef2f6 #0f172a
+            td.OrderTable__tabAction  border #334155 #334155 #eef2f6 #334155
+              a.Button__button  bg #ecfeff  border transparent
+                span.Button__content
+                  span.Button__label  color #0e7490
             td.OrderTable__actions  border #334155 #334155 #eef2f6 #334155
               div.TableActions__actions
                 a.OrderTable__action
@@ -403,16 +408,15 @@ div.OrderList__list
               span.OrderTable__workBox#2
                 span.OrderTable__client  color #0f172a
                 span.OrderTable__address  color #475569
-            td.OrderTable__installerCol  border #334155 #334155 #eef2f6 #334155
-              span.OrderTable__none  color #475569
-            td.OrderTable__dateCol  border #be123c #be123c #eef2f6 #be123c
-              time#2  color #be123c
-                span.OrderTable__clock  color #475569
-            td.OrderTable__statusCol  border #334155 #334155 #eef2f6 #334155
-              span.OrderTable__statusBox#2
-                span.Badge__badge  color #556173  border #e2e8f0
-                span.Badge__badge#2  color #be123c  border #be123c73
+            td.OrderTable__sourceCol  border #334155 #334155 #eef2f6 #334155
+              span.OrderTable__none#2  color #475569
+            td.OrderTable__dateCol  border #334155 #334155 #eef2f6 #334155
+              time#2  color #334155
             td.OrderTable__sumCol  color #0f172a  border #0f172a #0f172a #eef2f6 #0f172a
+            td.OrderTable__tabAction  border #334155 #334155 #eef2f6 #334155
+              a.Button__button#2  bg #ecfeff  border transparent
+                span.Button__content
+                  span.Button__label#2  color #0e7490
             td.OrderTable__actions  border #334155 #334155 #eef2f6 #334155
               div.TableActions__actions#2
                 a.OrderTable__action
@@ -430,19 +434,15 @@ div.OrderList__list
               span.OrderTable__workBox#3
                 span.OrderTable__client  color #0f172a
                 span.OrderTable__address  color #556173
-            td.OrderTable__installerCol
-              span.OrderTable__person#2
-                span.Avatar__avatar  bg #ecfeff  border #ffffff
-                  span.Avatar__initials#2  color #0e7490
-                  span#2  color #0e7490
-                span.OrderTable__personName  color #334155
+            td.OrderTable__sourceCol
+              span.OrderTable__none#3  color #556173
             td.OrderTable__dateCol
               time#3  color #334155
-                span.OrderTable__clock  color #556173
-            td.OrderTable__statusCol
-              span.OrderTable__statusBox#3
-                span.Badge__badge  color #be123c  bg #be123c14  border #be123c73
             td.OrderTable__sumCol  color #0f172a
+            td.OrderTable__tabAction
+              a.Button__button#3  bg #ecfeff  border transparent
+                span.Button__content
+                  span.Button__label#3  color #0e7490
             td.OrderTable__actions
               div.TableActions__actions#3
                 a.OrderTable__action
@@ -471,8 +471,8 @@ div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__vie
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__clientCol > span.OrderTable__workBox > span.OrderTable__compact  color #475569
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__dateCol
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__dateCol > td.OrderTable__dateCol::before
-div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__statusCol
-div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__statusCol > td.OrderTable__statusCol::before
+div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__tabAction
+div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__tabAction > td.OrderTable__tabAction::before
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__actions  border #eef2f6 #334155 #334155 #334155
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2  bg #be123c14  border #e2e8f0
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__pick
@@ -484,8 +484,8 @@ div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__vie
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__clientCol > span.OrderTable__workBox#2 > span.OrderTable__compact  color #475569
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__dateCol
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__dateCol > td.OrderTable__dateCol::before
-div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__statusCol
-div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__statusCol > td.OrderTable__statusCol::before
+div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__tabAction
+div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__tabAction > td.OrderTable__tabAction::before
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__actions  border #eef2f6 #334155 #334155 #334155
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__pick > td.OrderTable__pick::before
@@ -493,7 +493,7 @@ div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__vie
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__clientCol > td.OrderTable__clientCol::before
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__clientCol > span.OrderTable__workBox#3 > span.OrderTable__compact  color #556173
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__dateCol > td.OrderTable__dateCol::before
-div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__statusCol > td.OrderTable__statusCol::before
+div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__tabAction > td.OrderTable__tabAction::before
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__actions  border #eef2f6 #334155 #334155 #334155
 [палитра light @768]
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__clientCol > span.OrderTable__workBox > span.OrderTable__compact  color #475569
@@ -502,6 +502,12 @@ div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__vie
 
 [палитра dark]
 div.OrderList__list
+  div.Alert__alert  bg #fbbf241f  border #fbbf2452
+    span.Alert__icon
+      svg
+    div.Alert__body
+      p.Alert__title  color #fbbf24
+      div.Alert__text  color #fbbf24
   form.OrderBulk__form
     label.OrderBulk__all  color #8598ac
       input.OrderBulk__allBox
@@ -513,10 +519,10 @@ div.OrderList__list
               span  color #eaf1f8
             th.OrderTable__numberCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
             th.OrderTable__clientCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
-            th.OrderTable__installerCol  color #c9d5e2  border #c9d5e2 #c9d5e2 #1e2b41 #c9d5e2
+            th.OrderTable__sourceCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
             th.OrderTable__dateCol  color #c9d5e2  border #c9d5e2 #c9d5e2 #1e2b41 #c9d5e2
-            th.OrderTable__statusCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
             th.OrderTable__sumCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+            th.OrderTable__tabActionCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
             th.OrderTable__actionsCol  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
               span  color #eaf1f8
           tr.OrderTable__rowbad  bg #fb71851f
@@ -529,20 +535,15 @@ div.OrderList__list
                 span.OrderTable__client  color #eaf1f8
                 span.OrderTable__address  color #a8b6c6
                 span.Badge__badge  color #fbbf24  border #fbbf2452
-            td.OrderTable__installerCol  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
-              span.OrderTable__person
-                span.Avatar__avatar  bg #22d3ee1a  border #121d31
-                  span.Avatar__initials  color #22d3ee
-                  span  color #22d3ee
-                span.OrderTable__personName  color #c9d5e2
-            td.OrderTable__dateCol  border #fb7185 #fb7185 #182338 #fb7185
-              time  color #fb7185
-                span.OrderTable__clock  color #a8b6c6
-            td.OrderTable__statusCol  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
-              span.OrderTable__statusBox
-                span.Badge__badge  color #fbbf24  border #fbbf2452
-                span.Badge__badge#2  color #fb7185  border #fb718580
+            td.OrderTable__sourceCol  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              span.OrderTable__none  color #a8b6c6
+            td.OrderTable__dateCol  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              time  color #c9d5e2
             td.OrderTable__sumCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+            td.OrderTable__tabAction  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              a.Button__button  bg #22d3ee1a  border transparent
+                span.Button__content
+                  span.Button__label  color #22d3ee
             td.OrderTable__actions  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
               div.TableActions__actions
                 a.OrderTable__action
@@ -560,16 +561,15 @@ div.OrderList__list
               span.OrderTable__workBox#2
                 span.OrderTable__client  color #eaf1f8
                 span.OrderTable__address  color #a8b6c6
-            td.OrderTable__installerCol  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
-              span.OrderTable__none  color #a8b6c6
-            td.OrderTable__dateCol  border #fb7185 #fb7185 #182338 #fb7185
-              time#2  color #fb7185
-                span.OrderTable__clock  color #a8b6c6
-            td.OrderTable__statusCol  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
-              span.OrderTable__statusBox#2
-                span.Badge__badge  color #8598ac  border #1e2b41
-                span.Badge__badge#2  color #fb7185  border #fb718580
+            td.OrderTable__sourceCol  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              span.OrderTable__none#2  color #a8b6c6
+            td.OrderTable__dateCol  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              time#2  color #c9d5e2
             td.OrderTable__sumCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+            td.OrderTable__tabAction  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+              a.Button__button#2  bg #22d3ee1a  border transparent
+                span.Button__content
+                  span.Button__label#2  color #22d3ee
             td.OrderTable__actions  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
               div.TableActions__actions#2
                 a.OrderTable__action
@@ -587,19 +587,15 @@ div.OrderList__list
               span.OrderTable__workBox#3
                 span.OrderTable__client  color #eaf1f8
                 span.OrderTable__address  color #8598ac
-            td.OrderTable__installerCol
-              span.OrderTable__person#2
-                span.Avatar__avatar  bg #22d3ee1a  border #121d31
-                  span.Avatar__initials#2  color #22d3ee
-                  span#2  color #22d3ee
-                span.OrderTable__personName  color #c9d5e2
+            td.OrderTable__sourceCol
+              span.OrderTable__none#3  color #8598ac
             td.OrderTable__dateCol
               time#3  color #c9d5e2
-                span.OrderTable__clock  color #8598ac
-            td.OrderTable__statusCol
-              span.OrderTable__statusBox#3
-                span.Badge__badge  color #fb7185  bg #fb71851f  border #fb718580
             td.OrderTable__sumCol  color #eaf1f8
+            td.OrderTable__tabAction
+              a.Button__button#3  bg #22d3ee1a  border transparent
+                span.Button__content
+                  span.Button__label#3  color #22d3ee
             td.OrderTable__actions
               div.TableActions__actions#3
                 a.OrderTable__action
@@ -628,8 +624,8 @@ div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__vie
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__clientCol > span.OrderTable__workBox > span.OrderTable__compact  color #a8b6c6
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__dateCol
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__dateCol > td.OrderTable__dateCol::before
-div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__statusCol
-div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__statusCol > td.OrderTable__statusCol::before
+div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__tabAction
+div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__tabAction > td.OrderTable__tabAction::before
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2  bg #fb71851f  border #1e2b41
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__pick
@@ -641,8 +637,8 @@ div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__vie
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__clientCol > span.OrderTable__workBox#2 > span.OrderTable__compact  color #a8b6c6
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__dateCol
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__dateCol > td.OrderTable__dateCol::before
-div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__statusCol
-div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__statusCol > td.OrderTable__statusCol::before
+div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__tabAction
+div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__tabAction > td.OrderTable__tabAction::before
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad#2 > td.OrderTable__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__pick > td.OrderTable__pick::before
@@ -650,7 +646,7 @@ div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__vie
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__clientCol > td.OrderTable__clientCol::before
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__clientCol > span.OrderTable__workBox#3 > span.OrderTable__compact  color #8598ac
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__dateCol > td.OrderTable__dateCol::before
-div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__statusCol > td.OrderTable__statusCol::before
+div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__tabAction > td.OrderTable__tabAction::before
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
 [палитра dark @768]
 div.OrderList__list > form.OrderBulk__form > section.Card__card > div.Table__viewport > table.Table__table > tr.OrderTable__rowbad > td.OrderTable__clientCol > span.OrderTable__workBox > span.OrderTable__compact  color #a8b6c6
