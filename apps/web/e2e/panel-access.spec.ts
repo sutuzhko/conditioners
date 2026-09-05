@@ -2,7 +2,6 @@ import { expect, test, type Page } from '@playwright/test';
 
 import { PANEL_NOT_FOUND_CONTENT } from '@/app/(admin)/admin/not-found-content';
 import { FORBIDDEN_CONTENT } from '@/app/forbidden-content';
-import { POLICY_HREF } from '@/shared/config/nav';
 
 import { BASE_URL, withAdmin } from './support/admin-api';
 import { loginViaUi } from './support/admin-ui';
@@ -240,23 +239,35 @@ test.describe('🔴 закрытые разделы панели', () => {
  * и рисовал витрину сайта: меню разделов сайта и кнопку заявки. Вошедший
  * терял панель на ровном месте, а монтажник видел цены вместо своих нарядов.
  *
- * Признак витрины — ссылка на политику обработки данных: она стоит в подвале
- * каждой публичной страницы и не встречается в панели ни на одном экране.
+ * 🔴 Смотреть надо **отрисованную** страницу, а не тело ответа. В теле лежит
+ * весь поток RSC, и подвал витрины встречается в нём на любом экране панели:
+ * первая версия этой проверки падала именно на этом и врала про дефект, а не
+ * про код.
  */
 test.describe('🔴 несуществующий адрес панели', () => {
   const MISSING = '/admin/nosuchpage';
 
+  /** Колонка разделов — признак того, что человек остался в панели. */
+  const PANEL_NAV = 'Разделы панели управления';
+
+  /** Кнопка шапки сайта: если она видна, показана витрина, а не панель. */
+  const SITE_CTA = 'Оставить заявку';
+
   test('владельцу отвечают 404 страницей панели, а не витриной сайта', async ({ page }) => {
     await loginViaUi(page);
 
-    const { status, body } = await get(page, MISSING);
+    const response = await page.goto(MISSING, { timeout: 60_000 });
 
-    expect(status, 'адрес не существует — код обязан быть 404').toBe(404);
-    expect(body, 'показана страница панели «не найдено»').toContain(
+    expect(response?.status(), 'адрес не существует — код обязан быть 404').toBe(404);
+
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
       PANEL_NOT_FOUND_CONTENT.address.title,
     );
-    expect(body, 'выход ведёт на сводку').toContain(PANEL_NOT_FOUND_CONTENT.owner.label);
-    expect(body, 'подвал витрины сюда не приезжает').not.toContain(POLICY_HREF);
+    await expect(
+      page.getByRole('link', { name: PANEL_NOT_FOUND_CONTENT.owner.label }),
+    ).toBeVisible();
+    await expect(page.getByRole('navigation', { name: PANEL_NAV })).toBeVisible();
+    await expect(page.getByRole('link', { name: SITE_CTA })).toHaveCount(0);
   });
 
   test('монтажнику отвечают 404 с выходом на его выезды, а не 403', async ({ page }) => {
@@ -265,15 +276,19 @@ test.describe('🔴 несуществующий адрес панели', () =>
     try {
       await loginViaUi(page, { login: PROBE.login, password: PROBE.password });
 
-      const { status, body } = await get(page, MISSING);
+      const response = await page.goto(MISSING, { timeout: 60_000 });
 
       /* 🔴 Именно 404, а не 403: раздела нет вовсе, и отказ здесь соврал бы —
          он значит «есть, но не для вас». */
-      expect(status, 'несуществующего раздела нет ни для кого').toBe(404);
-      expect(body, 'выход ведёт на выезды, а не на закрытую сводку').toContain(
-        PANEL_NOT_FOUND_CONTENT.installer.label,
+      expect(response?.status(), 'несуществующего раздела нет ни для кого').toBe(404);
+
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+        PANEL_NOT_FOUND_CONTENT.address.title,
       );
-      expect(body, 'страницы отказа тут быть не должно').not.toContain(FORBIDDEN_CONTENT.title);
+      await expect(
+        page.getByRole('link', { name: PANEL_NOT_FOUND_CONTENT.installer.label }),
+      ).toBeVisible();
+      await expect(page.getByText(FORBIDDEN_CONTENT.title)).toHaveCount(0);
     } finally {
       await withAdmin((api) => api.deleteStaff(created.id));
     }
