@@ -63,7 +63,14 @@ import {
 } from '@/entities/order/model';
 import { overtimeMinutes } from '@/entities/crm/lib/overtime';
 import type { AdminRole } from '@/entities/staff/model';
-import { momentOf, monthKeyOf, shiftMonth, type MonthKey } from '@/shared/lib/calendar';
+import {
+  momentOf,
+  monthKeyOf,
+  shiftDay,
+  shiftMonth,
+  type DayKey,
+  type MonthKey,
+} from '@/shared/lib/calendar';
 import { pageWindow, type Page } from '@/shared/lib/paging';
 import * as clientUnits from '@/server/repo/client-units';
 import { db } from '@/server/db';
@@ -663,6 +670,53 @@ export async function list(params: OrderListParams, viewer: Viewer): Promise<Pag
   });
 
   return { items: rows.map((row) => toCard(row, viewer.role)), total, page, pages };
+}
+
+/**
+ * Окно наряда дня: с какого дня и на сколько дней вперёд (issue #633).
+ * Считает его `features/order-manager/installer-model`, здесь только границы.
+ */
+export type AgendaWindow = {
+  readonly from: DayKey;
+  readonly days: number;
+};
+
+/**
+ * Потолок выборки. У одного монтажника не бывает полусотни выездов за неделю
+ * — число стоит здесь не ради разбивки, а чтобы сломанное окно не утащило из
+ * базы всю таблицу нарядов на телефон с мобильным интернетом.
+ */
+const AGENDA_LIMIT = 50;
+
+/**
+ * 🔴 Наряд дня монтажника — свой запрос, а не страница общего списка.
+ *
+ * Список владельца отвечает на вопрос «что где висит»: стопки по состоянию,
+ * фильтры, разбивка по страницам. Монтажнику нужен другой ответ — «куда я еду
+ * дальше», — и он читается по времени подряд, без страниц (issue #633).
+ *
+ * Сужение по исполнителю остаётся тем же `viewerWhere`: чужой наряд в наряд
+ * дня не попадает, потому что его нет в самом запросе (ADR-114).
+ *
+ * Отказы сюда не приходят: по отменённому выезду не едут, а объясняет отказ
+ * владелец — у монтажника это уже не работа, а новость.
+ */
+export async function agenda(viewer: Viewer, window: AgendaWindow): Promise<readonly OrderCard[]> {
+  const rows = await db.order.findMany({
+    where: {
+      ...viewerWhere(viewer),
+      status: { not: 'CANCELLED' },
+      at: {
+        gte: momentOf(window.from, DAY_START),
+        lt: momentOf(shiftDay(window.from, window.days), DAY_START),
+      },
+    },
+    select: orderSelect,
+    orderBy: { at: 'asc' },
+    take: AGENDA_LIMIT,
+  });
+
+  return rows.map((row) => toCard(row, viewer.role));
 }
 
 /**

@@ -155,7 +155,6 @@ function spanText(minutes: number): string {
 export const orderManagerContent = {
   title: 'Заказы',
   installerTitle: 'Мои заказы',
-  installerLead: 'Наряды, назначенные вам. Статус меняется здесь же — владелец видит его сразу.',
 
   emptyTitle: 'Нарядов пока нет',
   emptyText:

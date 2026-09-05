@@ -5,6 +5,7 @@ import {
   ORDER_CARD_TAB_TITLE,
   orderManagerContent as orderTexts,
 } from '@/features/order-manager/content';
+import { installerContent as installerTexts } from '@/features/order-manager/installer-content';
 import { blockErrorContent as errorTexts } from '@/widgets/admin-shell/content';
 
 import { BASE_URL, withAdmin } from './support/admin-api';
@@ -154,7 +155,13 @@ test.describe('состояния блока данных', () => {
     await page.setViewportSize({ width: 1440, height: 900 });
 
     /* Раздел без записей: свежему монтажнику ничего не назначено. На стенде
-       демо-данные есть у всех, и это единственный честный пустой раздел. */
+       демо-данные есть у всех, и это единственный честный пустой раздел.
+
+       🔴 У монтажника с issue #633 свой экран — наряд дня, а не таблица
+       владельца, — и пустота у него своя: она называет окно («Сегодня —
+       выездов нет»), объясняет, что работа может стоять дальше, и даёт выход
+       на неделю. Прежний текст «Как только владелец назначит наряд, он
+       появится здесь» на этот вопрос не отвечал и выхода не давал. */
     const installer = {
       name: 'E2E Пустой раздел',
       login: `e2e-empty-${Date.now().toString(36)}`,
@@ -167,8 +174,18 @@ test.describe('состояния блока данных', () => {
       await loginViaUi(page, installer);
       await page.goto('/admin/orders');
 
-      await expect(page.getByRole('heading', { name: orderTexts.emptyInstaller })).toBeVisible();
-      await expect(page.getByText(orderTexts.emptyInstallerText)).toBeVisible();
+      await expect(
+        page.getByRole('heading', { level: 1, name: orderTexts.installerTitle }),
+      ).toBeVisible();
+      await expect(page.getByText(installerTexts.summary('today', 0, 0))).toBeVisible();
+
+      await expect(page.getByRole('heading', { name: installerTexts.emptyTitle })).toBeVisible();
+      await expect(page.getByText(installerTexts.emptyText('today'))).toBeVisible();
+
+      /* Пустота даёт следующий шаг, а не только новость: работа монтажника
+         часто стоит не сегодня, а дальше по неделе. */
+      await expect(page.getByRole('link', { name: installerTexts.emptyWeek })).toBeVisible();
+
       /* И не текст «ничего не найдено»: фильтра здесь нет. */
       await expect(page.getByRole('heading', { name: orderTexts.emptyFound })).toHaveCount(0);
     } finally {
