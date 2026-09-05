@@ -122,7 +122,31 @@ export function RowMenu({ items, label, className }: RowMenuProps) {
        контейнер таблицы, и всплывающего события от него на `window` нет. */
     window.addEventListener('scroll', place, true);
     window.addEventListener('resize', place);
+
+    /* 🔴 Раскладка умеет доезжать уже после открытия, и ни прокрутки, ни
+       изменения размера окна при этом не происходит (issue #660). Самый
+       частый случай — подмена шрифта: страница переверстывается, кнопка
+       уезжает, а меню остаётся стоять по замеру, снятому до подмены. В
+       снимках это выглядело как случайный сдвиг меню на полтора сантиметра,
+       у владельца — как меню мимо своей кнопки.
+
+       Наблюдатель следит за кнопкой и за самим меню: у кнопки меняется место,
+       у меню — высота, а от высоты зависит, раскрыться вниз или вверх.
+       Работает он ровно пока меню открыто. */
+    const watcher = new ResizeObserver(place);
+    if (buttonRef.current !== null) watcher.observe(buttonRef.current);
+    if (menuRef.current !== null) watcher.observe(menuRef.current);
+
+    /* Шрифт доезжает один раз за загрузку страницы, поэтому это не подписка,
+       а одно обещание; `alive` гасит его, если меню успели закрыть. */
+    let alive = true;
+    void document.fonts.ready.then(() => {
+      if (alive) place();
+    });
+
     return () => {
+      alive = false;
+      watcher.disconnect();
       window.removeEventListener('scroll', place, true);
       window.removeEventListener('resize', place);
     };
