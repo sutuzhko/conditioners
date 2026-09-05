@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -135,6 +135,55 @@ describe('Меню строки', () => {
 
     await user.click(item);
     expect(onSelect).not.toHaveBeenCalled();
+  });
+});
+
+/**
+ * 🔴 Раскладка умеет доезжать уже после открытия меню — подмена шрифта, поздняя
+ * картинка, — и ни прокрутки, ни изменения размера окна при этом не
+ * происходит (issue #660). Меню, посчитанное один раз, оставалось стоять мимо
+ * своей кнопки.
+ */
+describe('Меню строки — положение', () => {
+  it('🔴 едет за кнопкой, когда раскладка доезжает после открытия', async () => {
+    const callbacks: ResizeObserverCallback[] = [];
+    const original = globalThis.ResizeObserver;
+
+    globalThis.ResizeObserver = class {
+      constructor(callback: ResizeObserverCallback) {
+        callbacks.push(callback);
+      }
+      observe(): void {}
+      unobserve(): void {}
+      disconnect(): void {}
+    };
+
+    try {
+      const { trigger } = setup();
+
+      let top = 100;
+      vi.spyOn(trigger, 'getBoundingClientRect').mockImplementation(
+        () => new DOMRect(0, top, 32, 32),
+      );
+
+      await userEvent.click(trigger);
+      const menu = screen.getByRole('menu');
+      expect(menu.style.top).toBe('136px');
+
+      /* Кнопка уехала вниз на 200px — ровно то, что делает подмена шрифта. */
+      top = 300;
+      /* Список слепком: наблюдатель, отданный обработчику, сам регистрирует
+         ещё один — перебор живого списка не кончился бы никогда. */
+      const observed = [...callbacks];
+      const dummy = new globalThis.ResizeObserver(() => {});
+      act(() => {
+        for (const callback of observed) callback([], dummy);
+      });
+
+      expect(menu.style.top).toBe('336px');
+    } finally {
+      globalThis.ResizeObserver = original;
+    }
   });
 });
 
