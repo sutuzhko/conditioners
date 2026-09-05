@@ -1,32 +1,54 @@
-/* Наряд глазами монтажника: данные на чтение и один переключатель статуса. */
+/* Наряд глазами монтажника — второй кадр `design/admin/Installer.body.html`.
 
-.card {
+   Цели крупнее панельных: 56px из макета (`.big`). Число подставляется
+   переопределением токена высоты — так его получают и кнопки, и
+   ссылки-кнопки, не перебивая каждую по отдельности. */
+
+.view {
+  --h-lg: 56px;
+
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   min-width: 0;
 }
 
-.head {
+.blockHead {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 12px;
   align-items: center;
+  justify-content: space-between;
 }
 
-.number {
+.blockTitle {
   margin: 0;
-  margin-right: auto;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
+  color: var(--muted);
+  font-size: var(--fs-caption);
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Адрес — главная строка карточки объекта: по ней сверяются у подъезда. */
+.address {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
 .facts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 8px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
   margin: 0;
 }
 
@@ -47,14 +69,15 @@
   overflow-wrap: anywhere;
 }
 
-.quiet {
-  color: var(--muted);
-  font-size: var(--fs-caption);
-  font-weight: 500;
+/* Домофон и этаж читают вслух по телефону — моноширинные, чтобы не спутать
+   ноль с буквой. */
+.factValue {
+  font-family: var(--font-mono);
 }
 
 .phone {
   color: var(--accent-text);
+  font-family: var(--font-mono);
   text-decoration: none;
   white-space: nowrap;
 }
@@ -63,33 +86,22 @@
   text-decoration: underline;
 }
 
-/* Высотные работы — про безопасность, а не про удобство: строка выделена,
-   чтобы её не пролистали на телефоне по дороге на объект. */
-.height {
-  margin: 0;
-  border: 1px solid var(--warn-line);
-  border-radius: var(--r-sm);
-  background: var(--warn-bg);
-  padding: 8px 12px;
-  color: var(--warn-ink);
-  font-size: var(--fs-dense);
-  font-weight: 600;
-}
-
-.block {
+.actions {
   display: flex;
-  flex-direction: column;
   gap: 8px;
-  border-top: 1px solid var(--line);
-  padding-top: 12px;
 }
 
-.blockTitle {
+/* Кнопки ряда делят ширину поровну и умеют сжиматься: `fullWidth` кита даёт
+   каждой `width: 100%`, и без явной доли на 320 они спорили бы за место. */
+.action {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.quiet {
   margin: 0;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: var(--fs-dense);
-  font-weight: 700;
+  color: var(--muted);
+  font-size: var(--fs-caption);
 }
 
 .units {
@@ -104,10 +116,10 @@
 .unit {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 6px;
   border-radius: var(--r-sm);
   background: var(--bg-soft);
-  padding: 8px 12px;
+  padding: 10px 12px;
   min-width: 0;
 }
 
@@ -118,57 +130,45 @@
   overflow-wrap: anywhere;
 }
 
-.money {
-  font-family: var(--font-mono);
-  font-size: var(--fs-base);
+.unitMarks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
-.comment {
+/* Предупреждения: собака, домофон, страховка. Про безопасность и про то,
+   что нельзя пролистать по дороге на объект. */
+.note {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.noteTitle {
+  display: flex;
+  gap: 8px;
+  align-items: center;
   margin: 0;
-  border-radius: var(--r-sm);
-  background: var(--bg-soft);
-  padding: 8px 12px;
+  color: var(--accent-text);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.noteText {
+  margin: 0;
   color: var(--body);
   font-size: var(--fs-dense);
+  font-weight: 600;
   overflow-wrap: anywhere;
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-  border-top: 1px solid var(--line);
-  padding-top: 12px;
-}
-
-.statusField {
-  flex: 1 1 220px;
-  min-width: 0;
-}
-
-.ok {
-  color: var(--ok-ink);
-  font-size: var(--fs-caption);
-  font-weight: 600;
-}
-
-.error {
+.money {
   margin: 0;
-  border: 1px solid var(--error-line);
-  border-radius: var(--r-sm);
-  background: var(--error-bg);
-  padding: 8px 12px;
-  color: var(--error-ink);
-  font-size: var(--fs-dense);
-}
-
-/* Свои переработанные часы монтажник видит рядом с длительностью выезда.
-   Обещания доплаты в этих словах нет — только число (ADR-138). */
-.overtime {
-  display: block;
-  margin-top: 2px;
-  color: var(--warn-ink);
-  font-size: var(--fs-caption);
-  font-weight: 600;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }

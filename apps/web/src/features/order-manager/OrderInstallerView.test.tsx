@@ -1,17 +1,16 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+/* 🔴 Полоса действия зовёт `useRouter().refresh()` после удачного перехода:
+   наряд перечитывается страницей, а не подменяется в памяти компонента. */
+const refresh = vi.fn();
+vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh }) }));
+
 import { OrderInstallerView } from './OrderInstallerView';
-import { ORDER_STATUS_TITLE, orderManagerContent as texts } from './content';
-import {
-  acceptingApi,
-  failingApi,
-  installerCompanyOrder,
-  installerOrder,
-  installerOvertimeOrder,
-  order,
-} from './fixtures';
+import { orderManagerContent as texts } from './content';
+import { installerContent as own } from './installer-content';
+import { acceptingApi, failingApi, installerCompanyOrder, installerOrder, order } from './fixtures';
 
 describe('Наряд у монтажника', () => {
   it('🔴 не показывает заметку владельца и удержание, даже если они пришли', () => {
@@ -40,50 +39,43 @@ describe('Наряд у монтажника', () => {
     expect(screen.queryByText(texts.cashToTake)).not.toBeInTheDocument();
   });
 
-  it('🔴 свою переработку монтажник видит: это его часы, а не деньги компании', () => {
-    render(<OrderInstallerView order={installerOvertimeOrder} api={acceptingApi} />);
-
-    expect(screen.getByText(texts.overtime(2 * 60 + 15))).toBeInTheDocument();
-  });
-
-  it('без переработки строки нет', () => {
-    render(<OrderInstallerView order={installerOrder} api={acceptingApi} />);
-
-    expect(screen.queryByText(/Переработка/)).not.toBeInTheDocument();
-  });
-
   it('выплата монтажнику видна всегда: это его деньги', () => {
     render(<OrderInstallerView order={installerCompanyOrder} api={acceptingApi} />);
 
     expect(screen.getByText(texts.installerFee)).toBeInTheDocument();
   });
 
-  it('🔴 в переходах статуса только «В работе» и «Выполнен»', () => {
+  it('телефон клиента — ссылка для звонка с объекта', () => {
     render(<OrderInstallerView order={installerOrder} api={acceptingApi} />);
 
-    const select = screen.getByLabelText(texts.statusTitle);
-    const options = within(select)
-      .getAllByRole('option')
-      .map((option) => option.textContent);
-
-    expect(options).toContain(ORDER_STATUS_TITLE.in_progress);
-    expect(options).toContain(ORDER_STATUS_TITLE.done);
-    expect(options).not.toContain(ORDER_STATUS_TITLE.cancelled);
-    expect(options).not.toContain(ORDER_STATUS_TITLE.assigned);
+    expect(
+      screen.getByRole('link', { name: own.callLabel(installerOrder.client.name) }),
+    ).toHaveAttribute('href', 'tel:+79101552468');
   });
 
-  it('отмечает выезд: статус уходит на сервер и обновляется на экране', async () => {
+  it('маршрут ведёт на карту по адресу объекта', () => {
+    render(<OrderInstallerView order={installerOrder} api={acceptingApi} />);
+
+    const route = screen.getByRole('link', { name: own.routeLabel(installerOrder.address) });
+
+    expect(route.getAttribute('href')).toContain(encodeURIComponent(installerOrder.address));
+  });
+
+  it('высотные работы вынесены в предупреждения: это про страховку', () => {
+    render(<OrderInstallerView order={installerOrder} api={acceptingApi} />);
+
+    expect(screen.getByText(own.heightWorksNote)).toBeInTheDocument();
+  });
+
+  it('🔴 назначенный наряд предлагает одно действие — принять в работу', async () => {
     const user = userEvent.setup();
     const setStatus = vi.fn(async () => ({ ok: true }) as const);
 
     render(<OrderInstallerView order={installerOrder} api={{ ...acceptingApi, setStatus }} />);
 
-    await user.selectOptions(screen.getByLabelText(texts.statusTitle), 'in_progress');
+    await user.click(screen.getByRole('button', { name: own.take }));
 
     expect(setStatus).toHaveBeenCalledWith(installerOrder.id, 'in_progress');
-    expect(await screen.findByText(texts.statusSaved)).toBeInTheDocument();
-    // «В работе» есть и в плашке статуса, и в списке переходов — сверяем поле
-    expect(screen.getByLabelText(texts.statusTitle)).toHaveValue('in_progress');
   });
 
   it('сообщает наверх, что наряд изменился', async () => {
@@ -92,31 +84,47 @@ describe('Наряд у монтажника', () => {
 
     render(<OrderInstallerView order={installerOrder} api={acceptingApi} onChanged={onChanged} />);
 
-    await user.selectOptions(screen.getByLabelText(texts.statusTitle), 'done');
+    await user.click(screen.getByRole('button', { name: own.take }));
 
     expect(onChanged).toHaveBeenCalled();
   });
 
-  it('🔴 отказ сервера возвращает прежний статус: врать монтажнику нельзя', async () => {
+  it('🔴 отказ сервера объясняется словами, а не молчанием', async () => {
     const user = userEvent.setup();
 
     render(<OrderInstallerView order={installerOrder} api={failingApi} />);
 
-    await user.selectOptions(screen.getByLabelText(texts.statusTitle), 'done');
+    await user.click(screen.getByRole('button', { name: own.take }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent('недоступен');
-    expect(screen.getByText(ORDER_STATUS_TITLE.assigned)).toBeInTheDocument();
   });
 
-  it('телефон клиента — ссылка для звонка с объекта', () => {
-    render(<OrderInstallerView order={installerOrder} api={acceptingApi} />);
+  it('🔴 наряд в работе ведёт на сдачу, а не закрывается прямо здесь', () => {
+    render(
+      <OrderInstallerView
+        order={{ ...installerOrder, status: 'in_progress' }}
+        api={acceptingApi}
+      />,
+    );
 
-    expect(screen.getByRole('link', { name: /910/ })).toHaveAttribute('href', 'tel:+79101552468');
+    expect(screen.getByRole('link', { name: own.finish })).toHaveAttribute(
+      'href',
+      `/admin/orders/${installerOrder.id}/handover`,
+    );
+    expect(screen.getByText(own.finishHint)).toBeInTheDocument();
   });
 
-  it('высотные работы вынесены отдельной строкой: это про страховку', () => {
+  it('🔴 сданный наряд монтажник в работу не возвращает', () => {
+    render(<OrderInstallerView order={{ ...installerOrder, status: 'done' }} api={acceptingApi} />);
+
+    expect(screen.queryByRole('button', { name: own.take })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: own.openHandover })).toBeInTheDocument();
+  });
+
+  it('позиции наряда видны с условиями: чьё оборудование и есть ли штроба', () => {
     render(<OrderInstallerView order={installerOrder} api={acceptingApi} />);
 
-    expect(screen.getByText(texts.heightWorksOn)).toBeInTheDocument();
+    expect(screen.getByText(own.unitsTitle)).toBeInTheDocument();
+    expect(screen.getAllByText(own.sourceMark('ours')).length).toBeGreaterThan(0);
   });
 });

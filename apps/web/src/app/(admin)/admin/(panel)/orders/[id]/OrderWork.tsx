@@ -60,14 +60,19 @@ export function OrderWork({
         <>
           {children}
 
-          {/* 🔴 Итог заполняют обе роли: это отчёт монтажника о выезде. */}
-          <OrderResultForm
-            api={api}
-            extraWork={order.extraWork}
-            report={order.report}
-            resultAt={order.resultAt}
-            onSaved={refresh}
-          />
+          {/* 🔴 У монтажника итог живёт не здесь, а на экране сдачи работы
+              (issue #632): фото, отчёт и оплата — одно действие, а не три
+              места, из которых он собирает его по памяти. Владельцу форма
+              остаётся тут: он правит уже сданный отчёт. */}
+          {forInstaller ? null : (
+            <OrderResultForm
+              api={api}
+              extraWork={order.extraWork}
+              report={order.report}
+              resultAt={order.resultAt}
+              onSaved={refresh}
+            />
+          )}
         </>
       }
       materials={materials}
