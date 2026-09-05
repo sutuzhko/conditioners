@@ -1,0 +1,257 @@
+# админка-заказы-наряд-дня-монтажника--базовое · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.OrderInstallerAgenda__agenda  358×804 @16,16
+  header.OrderInstallerAgenda__head  358×57 @0,0
+    h1.OrderInstallerAgenda__title  358×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Мои заказы»
+    p.OrderInstallerAgenda__summary  358×23 @0,34  Manrope 600 15/23  lines=1  «Сегодня 2 выезда · 6 ч»
+  nav.OrderInstallerAgenda__periods  358×44 @0,73
+    a.Button__button  99×44 @0,0  Manrope 600 15/17  r11  b1  lines=1  «Сегодня»
+    a.Button__button#2  88×44 @107,0  Manrope 600 15/17  r11  b1  lines=1  «Завтра»
+    a.Button__button#3  92×44 @203,0  Manrope 600 15/17  r11  b1  lines=1  «Неделя»
+  section.OrderInstallerAgenda__group  358×671 @0,133
+    h2.OrderInstallerAgenda__day  358×16 @0,0  Onest 700 13/16  ls1  lines=1  «Сегодня»
+    ul.OrderInstallerAgenda__list  358×645 @0,26
+      li.Card__card  358×301 @0,0  r20  b1
+        div.OrderInstallerAgenda__when  316×28 @21,21
+          time.OrderInstallerAgenda__clock  45×23 @0,2  JetBrains Mono 700 15/23  lines=1  «09:00»
+          span.OrderInstallerAgenda__number  39×20 @55,4  JetBrains Mono 400 13/20  lines=1  «№ 128»
+          span.Badge__badge  95×28 @221,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+            span.Badge__dot  6×6 @13,11  r100
+        h3.OrderInstallerAgenda__what  316×21 @21,59  Onest 700 17/21  ls0  lines=1  «Монтаж · Сплит-система 09»
+        p.OrderInstallerAgenda__where  316×22 @21,90  Manrope 400 15/22  lines=1  «Тула, Оборонная, 12, кв. 34 · 5 этаж»
+        p.OrderInstallerAgenda__marks  316×24 @21,122
+          span.Badge__badge  125×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+          span.Badge__badge#2  95×24 @131,0  Manrope 600 12/16  r100  b1  lines=1  «Штробление»
+          span.Badge__badge#3  64×24 @232,0  Manrope 600 12/16  r100  b1  lines=1  «2 блока»
+        div.OrderInstallerAgenda__actions  316×56 @21,156
+          a.Button__button  154×56 @0,0  Manrope 600 16/19  r12  b1  lines=1  «Клиент»
+          a.Button__button#2  154×56 @162,0  Manrope 600 16/19  r12  b1  lines=1  «Маршрут»
+        a.Button__button  316×56 @21,224  r12  b1
+          span.Button__content  118×19 @99,18
+            span.Button__label  118×19 @0,0  Manrope 600 16/19  lines=1  «Открыть наряд»
+      li.Card__card#2  358×332 @0,313  r20  b1
+        div.OrderInstallerAgenda__when  316×28 @21,21
+          time.OrderInstallerAgenda__clock#2  45×23 @0,2  JetBrains Mono 700 15/23  lines=1  «14:00»
+          span.OrderInstallerAgenda__number#2  39×20 @55,4  JetBrains Mono 400 13/20  lines=1  «№ 129»
+          span.Badge__badge#2  90×28 @226,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+            span.Badge__dot  6×6 @13,11  r100
+        h3.OrderInstallerAgenda__what  316×21 @21,59  Onest 700 17/21  ls0  lines=1  «Монтаж · Сплит-система 09»
+        p.OrderInstallerAgenda__where  316×22 @21,90  Manrope 400 15/22  lines=1  «Тула, Первомайская, 12, кв. 4 · 5 этаж»
+        p.OrderInstallerAgenda__marks  316×54 @21,122
+          span.Badge__badge#4  125×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+          span.Badge__badge#5  95×24 @131,0  Manrope 600 12/16  r100  b1  lines=1  «Штробление»
+          span.Badge__badge#6  64×24 @232,0  Manrope 600 12/16  r100  b1  lines=1  «2 блока»
+          span.Badge__badge#7  144×24 @0,30  Manrope 600 12/16  r100  b1  lines=1  «Наличными · 38 500 ₽»
+        div.OrderInstallerAgenda__actions  316×56 @21,187
+          a.Button__button#3  154×56 @0,0  Manrope 600 16/19  r12  b1  lines=1  «Клиент»
+          a.Button__button#4  154×56 @162,0  Manrope 600 16/19  r12  b1  lines=1  «Маршрут»
+        a.Button__button  316×56 @21,255  r12  b1
+          span.Button__content#2  118×19 @99,18
+            span.Button__label  118×19 @0,0  Manrope 600 16/19  lines=1  «Открыть наряд»
+
+[геометрия 768]
+div.OrderInstallerAgenda__agenda  736×783 @16,16
+  header.OrderInstallerAgenda__head  736×65 @0,0
+    h1.OrderInstallerAgenda__title  736×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Мои заказы»
+    p.OrderInstallerAgenda__summary  736×23 @0,41  Manrope 600 15/23  lines=1  «Сегодня 2 выезда · 6 ч»
+  nav.OrderInstallerAgenda__periods  736×44 @0,81
+    a.Button__button  99×44 @0,0  Manrope 600 15/17  r11  b1  lines=1  «Сегодня»
+    a.Button__button#2  88×44 @107,0  Manrope 600 15/17  r11  b1  lines=1  «Завтра»
+    a.Button__button#3  92×44 @203,0  Manrope 600 15/17  r11  b1  lines=1  «Неделя»
+  section.OrderInstallerAgenda__group  736×643 @0,141
+    h2.OrderInstallerAgenda__day  736×16 @0,0  Onest 700 13/16  ls1  lines=1  «Сегодня»
+    ul.OrderInstallerAgenda__list  736×617 @0,26
+      li.Card__card  736×302 @0,0  r20  b1
+        div.OrderInstallerAgenda__when  694×28 @21,21
+          time.OrderInstallerAgenda__clock  45×23 @0,2  JetBrains Mono 700 15/23  lines=1  «09:00»
+          span.OrderInstallerAgenda__number  39×20 @55,4  JetBrains Mono 400 13/20  lines=1  «№ 128»
+          span.Badge__badge  95×28 @599,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+            span.Badge__dot  6×6 @13,11  r100
+        h3.OrderInstallerAgenda__what  694×22 @21,59  Onest 700 18/22  ls0  lines=1  «Монтаж · Сплит-система 09»
+        p.OrderInstallerAgenda__where  694×22 @21,91  Manrope 400 15/22  lines=1  «Тула, Оборонная, 12, кв. 34 · 5 этаж»
+        p.OrderInstallerAgenda__marks  694×24 @21,123
+          span.Badge__badge  125×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+          span.Badge__badge#2  95×24 @131,0  Manrope 600 12/16  r100  b1  lines=1  «Штробление»
+          span.Badge__badge#3  64×24 @232,0  Manrope 600 12/16  r100  b1  lines=1  «2 блока»
+        div.OrderInstallerAgenda__actions  694×56 @21,157
+          a.Button__button  343×56 @0,0  Manrope 600 16/19  r12  b1  lines=1  «Клиент»
+          a.Button__button#2  343×56 @351,0  Manrope 600 16/19  r12  b1  lines=1  «Маршрут»
+        a.Button__button  694×56 @21,225  r12  b1
+          span.Button__content  118×19 @288,18
+            span.Button__label  118×19 @0,0  Manrope 600 16/19  lines=1  «Открыть наряд»
+      li.Card__card#2  736×302 @0,314  r20  b1
+        div.OrderInstallerAgenda__when  694×28 @21,21
+          time.OrderInstallerAgenda__clock#2  45×23 @0,2  JetBrains Mono 700 15/23  lines=1  «14:00»
+          span.OrderInstallerAgenda__number#2  39×20 @55,4  JetBrains Mono 400 13/20  lines=1  «№ 129»
+          span.Badge__badge#2  90×28 @604,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+            span.Badge__dot  6×6 @13,11  r100
+        h3.OrderInstallerAgenda__what  694×22 @21,59  Onest 700 18/22  ls0  lines=1  «Монтаж · Сплит-система 09»
+        p.OrderInstallerAgenda__where  694×22 @21,91  Manrope 400 15/22  lines=1  «Тула, Первомайская, 12, кв. 4 · 5 этаж»
+        p.OrderInstallerAgenda__marks  694×24 @21,123
+          span.Badge__badge#4  125×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+          span.Badge__badge#5  95×24 @131,0  Manrope 600 12/16  r100  b1  lines=1  «Штробление»
+          span.Badge__badge#6  64×24 @232,0  Manrope 600 12/16  r100  b1  lines=1  «2 блока»
+          span.Badge__badge#7  144×24 @302,0  Manrope 600 12/16  r100  b1  lines=1  «Наличными · 38 500 ₽»
+        div.OrderInstallerAgenda__actions  694×56 @21,157
+          a.Button__button#3  343×56 @0,0  Manrope 600 16/19  r12  b1  lines=1  «Клиент»
+          a.Button__button#4  343×56 @351,0  Manrope 600 16/19  r12  b1  lines=1  «Маршрут»
+        a.Button__button  694×56 @21,225  r12  b1
+          span.Button__content#2  118×19 @288,18
+            span.Button__label  118×19 @0,0  Manrope 600 16/19  lines=1  «Открыть наряд»
+
+[геометрия 1440]
+div.OrderInstallerAgenda__agenda  1408×794 @16,16
+  header.OrderInstallerAgenda__head  1408×73 @0,0
+    h1.OrderInstallerAgenda__title  1408×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Мои заказы»
+    p.OrderInstallerAgenda__summary  1408×23 @0,50  Manrope 600 15/23  lines=1  «Сегодня 2 выезда · 6 ч»
+  nav.OrderInstallerAgenda__periods  1408×44 @0,89
+    a.Button__button  99×44 @0,0  Manrope 600 15/17  r11  b1  lines=1  «Сегодня»
+    a.Button__button#2  88×44 @107,0  Manrope 600 15/17  r11  b1  lines=1  «Завтра»
+    a.Button__button#3  92×44 @203,0  Manrope 600 15/17  r11  b1  lines=1  «Неделя»
+  section.OrderInstallerAgenda__group  1408×645 @0,149
+    h2.OrderInstallerAgenda__day  1408×16 @0,0  Onest 700 13/16  ls1  lines=1  «Сегодня»
+    ul.OrderInstallerAgenda__list  1408×619 @0,26
+      li.Card__card  1408×304 @0,0  r20  b1
+        div.OrderInstallerAgenda__when  1366×28 @21,21
+          time.OrderInstallerAgenda__clock  45×23 @0,2  JetBrains Mono 700 15/23  lines=1  «09:00»
+          span.OrderInstallerAgenda__number  39×20 @55,4  JetBrains Mono 400 13/20  lines=1  «№ 128»
+          span.Badge__badge  95×28 @1271,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
+            span.Badge__dot  6×6 @13,11  r100
+        h3.OrderInstallerAgenda__what  1366×23 @21,59  Onest 700 19/23  ls0  lines=1  «Монтаж · Сплит-система 09»
+        p.OrderInstallerAgenda__where  1366×22 @21,92  Manrope 400 15/22  lines=1  «Тула, Оборонная, 12, кв. 34 · 5 этаж»
+        p.OrderInstallerAgenda__marks  1366×24 @21,124
+          span.Badge__badge  125×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+          span.Badge__badge#2  95×24 @131,0  Manrope 600 12/16  r100  b1  lines=1  «Штробление»
+          span.Badge__badge#3  64×24 @232,0  Manrope 600 12/16  r100  b1  lines=1  «2 блока»
+        div.OrderInstallerAgenda__actions  1366×56 @21,159
+          a.Button__button  679×56 @0,0  Manrope 600 16/19  r12  b1  lines=1  «Клиент»
+          a.Button__button#2  679×56 @687,0  Manrope 600 16/19  r12  b1  lines=1  «Маршрут»
+        a.Button__button  1366×56 @21,227  r12  b1
+          span.Button__content  118×19 @624,18
+            span.Button__label  118×19 @0,0  Manrope 600 16/19  lines=1  «Открыть наряд»
+      li.Card__card#2  1408×304 @0,316  r20  b1
+        div.OrderInstallerAgenda__when  1366×28 @21,21
+          time.OrderInstallerAgenda__clock#2  45×23 @0,2  JetBrains Mono 700 15/23  lines=1  «14:00»
+          span.OrderInstallerAgenda__number#2  39×20 @55,4  JetBrains Mono 400 13/20  lines=1  «№ 129»
+          span.Badge__badge#2  90×28 @1276,0  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+            span.Badge__dot  6×6 @13,11  r100
+        h3.OrderInstallerAgenda__what  1366×23 @21,59  Onest 700 19/23  ls0  lines=1  «Монтаж · Сплит-система 09»
+        p.OrderInstallerAgenda__where  1366×22 @21,92  Manrope 400 15/22  lines=1  «Тула, Первомайская, 12, кв. 4 · 5 этаж»
+        p.OrderInstallerAgenda__marks  1366×24 @21,124
+          span.Badge__badge#4  125×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Высотные работы»
+          span.Badge__badge#5  95×24 @131,0  Manrope 600 12/16  r100  b1  lines=1  «Штробление»
+          span.Badge__badge#6  64×24 @232,0  Manrope 600 12/16  r100  b1  lines=1  «2 блока»
+          span.Badge__badge#7  144×24 @302,0  Manrope 600 12/16  r100  b1  lines=1  «Наличными · 38 500 ₽»
+        div.OrderInstallerAgenda__actions  1366×56 @21,159
+          a.Button__button#3  679×56 @0,0  Manrope 600 16/19  r12  b1  lines=1  «Клиент»
+          a.Button__button#4  679×56 @687,0  Manrope 600 16/19  r12  b1  lines=1  «Маршрут»
+        a.Button__button  1366×56 @21,227  r12  b1
+          span.Button__content#2  118×19 @624,18
+            span.Button__label  118×19 @0,0  Manrope 600 16/19  lines=1  «Открыть наряд»
+
+[палитра light]
+div.OrderInstallerAgenda__agenda
+  header.OrderInstallerAgenda__head
+    h1.OrderInstallerAgenda__title  color #0f172a
+    p.OrderInstallerAgenda__summary  color #475569
+  nav.OrderInstallerAgenda__periods
+    a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    a.Button__button#2  color #0f172a  bg #ffffff  border #7e8fa6
+    a.Button__button#3  color #0f172a  bg #ffffff  border #7e8fa6
+  section.OrderInstallerAgenda__group
+    h2.OrderInstallerAgenda__day  color #556173
+    ul.OrderInstallerAgenda__list
+      li.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        div.OrderInstallerAgenda__when
+          time.OrderInstallerAgenda__clock  color #0f172a
+          span.OrderInstallerAgenda__number  color #5b6a7d
+          span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+            span.Badge__dot  bg #92400e
+        h3.OrderInstallerAgenda__what  color #0f172a
+        p.OrderInstallerAgenda__where  color #334155
+        p.OrderInstallerAgenda__marks
+          span.Badge__badge  color #be123c  bg #be123c14  border #be123c73
+          span.Badge__badge#2  color #92400e  bg #b4530914  border #b4530947
+          span.Badge__badge#3  color #556173  bg #f8fafc  border #e2e8f0
+        div.OrderInstallerAgenda__actions
+          a.Button__button  color #0e7490  bg #ecfeff  border transparent
+          a.Button__button#2  color #0e7490  bg #ecfeff  border transparent
+        a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+          span.Button__content
+            span.Button__label  color #ffffff
+      li.Card__card#2  bg #ffffff  border #0891b2  shadow #0f172a33 0px 20px 44px -28px
+        div.OrderInstallerAgenda__when
+          time.OrderInstallerAgenda__clock#2  color #0f172a
+          span.OrderInstallerAgenda__number#2  color #5b6a7d
+          span.Badge__badge#2  color #0e7490  bg #ecfeff  border #a5f3fc
+            span.Badge__dot  bg #0e7490
+        h3.OrderInstallerAgenda__what  color #0f172a
+        p.OrderInstallerAgenda__where  color #334155
+        p.OrderInstallerAgenda__marks
+          span.Badge__badge#4  color #be123c  bg #be123c14  border #be123c73
+          span.Badge__badge#5  color #92400e  bg #b4530914  border #b4530947
+          span.Badge__badge#6  color #556173  bg #f8fafc  border #e2e8f0
+          span.Badge__badge#7  color #166534  bg #15803d14  border #15803d47
+        div.OrderInstallerAgenda__actions
+          a.Button__button#3  color #0e7490  bg #ecfeff  border transparent
+          a.Button__button#4  color #0e7490  bg #ecfeff  border transparent
+        a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+          span.Button__content#2
+            span.Button__label  color #ffffff
+
+[палитра dark]
+div.OrderInstallerAgenda__agenda
+  header.OrderInstallerAgenda__head
+    h1.OrderInstallerAgenda__title  color #eaf1f8
+    p.OrderInstallerAgenda__summary  color #a8b6c6
+  nav.OrderInstallerAgenda__periods
+    a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    a.Button__button#2  color #eaf1f8  bg #121d31  border #566d95
+    a.Button__button#3  color #eaf1f8  bg #121d31  border #566d95
+  section.OrderInstallerAgenda__group
+    h2.OrderInstallerAgenda__day  color #8598ac
+    ul.OrderInstallerAgenda__list
+      li.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        div.OrderInstallerAgenda__when
+          time.OrderInstallerAgenda__clock  color #eaf1f8
+          span.OrderInstallerAgenda__number  color #7e92a7
+          span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+            span.Badge__dot  bg #fbbf24
+        h3.OrderInstallerAgenda__what  color #eaf1f8
+        p.OrderInstallerAgenda__where  color #c9d5e2
+        p.OrderInstallerAgenda__marks
+          span.Badge__badge  color #fb7185  bg #fb71851f  border #fb718580
+          span.Badge__badge#2  color #fbbf24  bg #fbbf241f  border #fbbf2452
+          span.Badge__badge#3  color #8598ac  bg #0e1729  border #1e2b41
+        div.OrderInstallerAgenda__actions
+          a.Button__button  color #22d3ee  bg #22d3ee1a  border transparent
+          a.Button__button#2  color #22d3ee  bg #22d3ee1a  border transparent
+        a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+          span.Button__content
+            span.Button__label  color #ffffff
+      li.Card__card#2  bg #121d31  border #22d3ee  shadow #0f172a33 0px 20px 44px -28px
+        div.OrderInstallerAgenda__when
+          time.OrderInstallerAgenda__clock#2  color #eaf1f8
+          span.OrderInstallerAgenda__number#2  color #7e92a7
+          span.Badge__badge#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
+            span.Badge__dot  bg #22d3ee
+        h3.OrderInstallerAgenda__what  color #eaf1f8
+        p.OrderInstallerAgenda__where  color #c9d5e2
+        p.OrderInstallerAgenda__marks
+          span.Badge__badge#4  color #fb7185  bg #fb71851f  border #fb718580
+          span.Badge__badge#5  color #fbbf24  bg #fbbf241f  border #fbbf2452
+          span.Badge__badge#6  color #8598ac  bg #0e1729  border #1e2b41
+          span.Badge__badge#7  color #4ade80  bg #4ade801f  border #4ade8052
+        div.OrderInstallerAgenda__actions
+          a.Button__button#3  color #22d3ee  bg #22d3ee1a  border transparent
+          a.Button__button#4  color #22d3ee  bg #22d3ee1a  border transparent
+        a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+          span.Button__content#2
+            span.Button__label  color #ffffff

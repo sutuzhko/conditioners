@@ -1,17 +1,17 @@
-# админка-заказы-наряд-у-монтажника--длинныеданные · ширины 390 768 1440 · темы light dark
+# админка-заказы-наряд-у-монтажника--сдан · ширины 390 768 1440 · темы light dark
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1028
+390 → 390×936
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.OrderInstallerView__view  358×996 @16,16
-  section.Card__card  358×307 @0,0  r20  b1
+div.OrderInstallerView__view  358×904 @16,16
+  section.Card__card  358×260 @0,0  r20  b1
     h2.OrderInstallerView__blockTitle  316×16 @21,21  Onest 700 13/16  ls1  lines=1  «Объект»
-    p.OrderInstallerView__address  316×70 @21,47  Manrope 600 15/23  lines=3  «Тульская область, Ленинский район, посёл»
-    dl.OrderInstallerView__facts  316×93 @21,126
+    p.OrderInstallerView__address  316×23 @21,47  Manrope 600 15/23  lines=1  «Тула, Первомайская, 12, кв. 4»
+    dl.OrderInstallerView__facts  316×93 @21,80
       div.OrderInstallerView__fact  277×43 @0,0
         dt  277×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
         dd  277×22 @0,20  Manrope 600 15/22  lines=1  «Ирина Соколова»
@@ -25,10 +25,10 @@ div.OrderInstallerView__view  358×996 @16,16
       div.OrderInstallerView__fact#4  157×43 @130,51
         dt  157×20 @0,0  Manrope 400 13/20  lines=1  «Телефон на объекте»
         a.OrderInstallerView__phone  157×19 @0,21  JetBrains Mono 600 15/22  lines=1  «+7 (953) 100-20-30»
-    div.OrderInstallerView__actions  316×56 @21,230
+    div.OrderInstallerView__actions  316×56 @21,183
       a.Button__button  154×56 @0,0  Manrope 600 16/19  r12  b1  lines=1  «Маршрут»
       a.Button__button#2  154×56 @162,0  Manrope 600 16/19  r12  b1  lines=1  «Позвонить»
-  section.Card__card#2  358×230 @0,319  r20  b1
+  section.Card__card#2  358×230 @0,272  r20  b1
     div.OrderInstallerView__blockHead  316×24 @21,21
       h2.OrderInstallerView__blockTitle  94×16 @0,4  Onest 700 13/16  ls1  lines=1  «Что ставим»
       span.Badge__badge  64×24 @252,0  Manrope 600 12/16  r100  b1  lines=1  «2 блока»
@@ -46,12 +46,12 @@ div.OrderInstallerView__view  358×996 @16,16
           span.Badge__badge#5  69×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Клиента»
           span.Badge__badge#6  82×24 @75,0  Manrope 600 12/16  r100  b1  lines=1  «Трасса 6 м»
           span.Badge__badge#7  61×24 @163,0  Manrope 600 12/16  r100  b1  lines=1  «1/4–1/2»
-  section.Card__card#3  358×188 @0,560  r20  b1
+  section.Card__card#3  358×143 @0,514  r20  b1
     h2.OrderInstallerView__noteTitle  316×18 @21,21  Onest 700 13/16  ls1  lines=1  «На что обратить внимание»
       svg  18×18 @0,0
     p.OrderInstallerView__noteText  316×22 @21,47  Manrope 600 15/22  lines=1  «Нужна страховка: работы на высоте»
-    p.OrderInstallerView__noteText#2  316×90 @21,77  Manrope 600 15/22  lines=4  «Домофон не работает, звонить на телефон»
-  section.Card__card#4  358×110 @0,760  r20  b1
+    p.OrderInstallerView__noteText#2  316×45 @21,77  Manrope 600 15/22  lines=2  «Домофон не работает, звонить на телефон»
+  section.Card__card#4  358×110 @0,669  r20  b1
     h2.OrderInstallerView__blockTitle  316×16 @21,21  Onest 700 13/16  ls1  lines=1  «Деньги»
     dl.OrderInstallerView__facts  316×43 @21,47
       div.OrderInstallerView__fact#5  130×43 @0,0
@@ -60,17 +60,15 @@ div.OrderInstallerView__view  358×996 @16,16
       div.OrderInstallerView__fact#6  122×43 @150,0
         dt  122×20 @0,0  Manrope 400 13/20  lines=1  «Принять от клиента»
         dd.OrderInstallerView__money  122×22 @0,20  JetBrains Mono 600 15/22  lines=1  «38 500 ₽»
-  div.OrderInstallerActions__bar  358×113 @16,899  b1 0 0 0  fixed
-    button.Button__button  358×56 @0,13  r12  b1
-      span.Button__content  137×19 @111,18
-        span.Button__label  137×19 @0,0  Manrope 600 16/19  lines=1  «Принять в работу»
-    p.OrderInstallerActions__hint  358×20 @0,77  Manrope 400 13/20  lines=1  «Владелец увидит, что вы на объекте»
+  div.OrderInstallerActions__bar  358×113 @16,807  b1 0 0 0  fixed
+    a.Button__button  358×56 @0,13  Manrope 600 16/19  r12  b1  lines=1  «Открыть сдачу работы»
+    p.OrderInstallerActions__hint  358×20 @0,77  Manrope 400 13/20  lines=1  «Наряд сдан. Вернуть его в работу может т»
 
 [геометрия 768]
-div.OrderInstallerView__view  736×854 @16,16
+div.OrderInstallerView__view  736×831 @16,16
   section.Card__card  736×209 @0,0  r20  b1
     h2.OrderInstallerView__blockTitle  694×16 @21,21  Onest 700 13/16  ls1  lines=1  «Объект»
-    p.OrderInstallerView__address  694×23 @21,47  Manrope 600 15/23  lines=1  «Тульская область, Ленинский район, посёл»
+    p.OrderInstallerView__address  694×23 @21,47  Manrope 600 15/23  lines=1  «Тула, Первомайская, 12, кв. 4»
     dl.OrderInstallerView__facts  694×43 @21,80
       div.OrderInstallerView__fact  277×43 @0,0
         dt  277×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
@@ -106,12 +104,12 @@ div.OrderInstallerView__view  736×854 @16,16
           span.Badge__badge#5  69×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Клиента»
           span.Badge__badge#6  82×24 @75,0  Manrope 600 12/16  r100  b1  lines=1  «Трасса 6 м»
           span.Badge__badge#7  61×24 @163,0  Manrope 600 12/16  r100  b1  lines=1  «1/4–1/2»
-  section.Card__card#3  736×143 @0,463  r20  b1
+  section.Card__card#3  736×121 @0,463  r20  b1
     h2.OrderInstallerView__noteTitle  694×18 @21,21  Onest 700 13/16  ls1  lines=1  «На что обратить внимание»
       svg  18×18 @0,0
     p.OrderInstallerView__noteText  694×22 @21,47  Manrope 600 15/22  lines=1  «Нужна страховка: работы на высоте»
-    p.OrderInstallerView__noteText#2  694×45 @21,77  Manrope 600 15/22  lines=2  «Домофон не работает, звонить на телефон»
-  section.Card__card#4  736×110 @0,618  r20  b1
+    p.OrderInstallerView__noteText#2  694×22 @21,77  Manrope 600 15/22  lines=1  «Домофон не работает, звонить на телефон»
+  section.Card__card#4  736×110 @0,596  r20  b1
     h2.OrderInstallerView__blockTitle  694×16 @21,21  Onest 700 13/16  ls1  lines=1  «Деньги»
     dl.OrderInstallerView__facts  694×43 @21,47
       div.OrderInstallerView__fact#5  130×43 @0,0
@@ -120,17 +118,15 @@ div.OrderInstallerView__view  736×854 @16,16
       div.OrderInstallerView__fact#6  122×43 @150,0
         dt  122×20 @0,0  Manrope 400 13/20  lines=1  «Принять от клиента»
         dd.OrderInstallerView__money  122×22 @0,20  JetBrains Mono 600 15/22  lines=1  «38 500 ₽»
-  div.OrderInstallerActions__bar  736×113 @16,757  b1 0 0 0  fixed
-    button.Button__button  736×56 @0,13  r12  b1
-      span.Button__content  137×19 @300,18
-        span.Button__label  137×19 @0,0  Manrope 600 16/19  lines=1  «Принять в работу»
-    p.OrderInstallerActions__hint  736×20 @0,77  Manrope 400 13/20  lines=1  «Владелец увидит, что вы на объекте»
+  div.OrderInstallerActions__bar  736×113 @16,734  b1 0 0 0  fixed
+    a.Button__button  736×56 @0,13  Manrope 600 16/19  r12  b1  lines=1  «Открыть сдачу работы»
+    p.OrderInstallerActions__hint  736×20 @0,77  Manrope 400 13/20  lines=1  «Наряд сдан. Вернуть его в работу может т»
 
 [геометрия 1440]
 div.OrderInstallerView__view  1408×831 @16,16
   section.Card__card  1408×209 @0,0  r20  b1
     h2.OrderInstallerView__blockTitle  1366×16 @21,21  Onest 700 13/16  ls1  lines=1  «Объект»
-    p.OrderInstallerView__address  1366×23 @21,47  Manrope 600 15/23  lines=1  «Тульская область, Ленинский район, посёл»
+    p.OrderInstallerView__address  1366×23 @21,47  Manrope 600 15/23  lines=1  «Тула, Первомайская, 12, кв. 4»
     dl.OrderInstallerView__facts  1366×43 @21,80
       div.OrderInstallerView__fact  277×43 @0,0
         dt  277×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
@@ -181,10 +177,8 @@ div.OrderInstallerView__view  1408×831 @16,16
         dt  122×20 @0,0  Manrope 400 13/20  lines=1  «Принять от клиента»
         dd.OrderInstallerView__money  122×22 @0,20  JetBrains Mono 600 15/22  lines=1  «38 500 ₽»
   div.OrderInstallerActions__bar  1408×113 @16,734  b1 0 0 0  fixed
-    button.Button__button  1408×56 @0,13  r12  b1
-      span.Button__content  137×19 @636,18
-        span.Button__label  137×19 @0,0  Manrope 600 16/19  lines=1  «Принять в работу»
-    p.OrderInstallerActions__hint  1408×20 @0,77  Manrope 400 13/20  lines=1  «Владелец увидит, что вы на объекте»
+    a.Button__button  1408×56 @0,13  Manrope 600 16/19  r12  b1  lines=1  «Открыть сдачу работы»
+    p.OrderInstallerActions__hint  1408×20 @0,77  Manrope 400 13/20  lines=1  «Наряд сдан. Вернуть его в работу может т»
 
 [палитра light]
 div.OrderInstallerView__view
@@ -241,9 +235,7 @@ div.OrderInstallerView__view
         dt  color #5b6a7d
         dd.OrderInstallerView__money  color #475569
   div.OrderInstallerActions__bar  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a
-    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-      span.Button__content
-        span.Button__label  color #ffffff
+    a.Button__button  color #0f172a  bg #ffffff  border #7e8fa6
     p.OrderInstallerActions__hint  color #556173
 
 [палитра dark]
@@ -301,7 +293,5 @@ div.OrderInstallerView__view
         dt  color #7e92a7
         dd.OrderInstallerView__money  color #a8b6c6
   div.OrderInstallerActions__bar  bg #121d31  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
-    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-      span.Button__content
-        span.Button__label  color #ffffff
+    a.Button__button  color #eaf1f8  bg #121d31  border #566d95
     p.OrderInstallerActions__hint  color #8598ac
