@@ -1,19 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { LeadQueue } from './LeadQueue';
-import { leadQueueFixture } from './fixtures';
+import { leadQueueFixture, leadQueueNow } from './fixtures';
 
 /**
  * Очередь обращений — левая колонка раздела заявок (issue #349).
  *
- * Ширина у неё своя: 260px на планшете, 320px на рабочем столе. В историях
- * колонка не сужается — состояния смотрят целиком, а раскладку двух колонок
- * показывает страница раздела.
+ * 🔴 Таблица, а не карточки (issue #601, макет `Leads.png`): очередь читают
+ * колонками сверху вниз. Ниже 600px строки разворачиваются карточками — пять
+ * колонок на телефоне превращаются в боковую прокрутку.
+ *
+ * «Сейчас» задано фикстурой: относительное время в снимке витрины обязано
+ * быть одинаковым от прогона к прогону.
  */
 const meta = {
   title: 'Админка/Очередь обращений',
   component: LeadQueue,
-  args: { leads: leadQueueFixture },
+  args: { leads: leadQueueFixture, now: leadQueueNow },
 } satisfies Meta<typeof LeadQueue>;
 
 export default meta;
@@ -42,11 +45,13 @@ export const ДлинныеПодписи: Story = {
     leads: [
       {
         id: 'long',
+        number: 1041,
         name: 'Константинопольская-Твердолобова Аполлинария Аристарховна',
         phone: '+79001234567',
         topic: 'Установка мультисплит-системы на два внутренних блока с прокладкой трассы',
+        address: 'Новомосковск, микрорайон Урванский, Комсомольская 108, корпус 2, квартира 341',
         status: 'new',
-        createdAt: '2026-09-03T10:19:00.000Z',
+        createdAt: '2026-08-30T10:19:00.000Z',
       },
     ],
   },

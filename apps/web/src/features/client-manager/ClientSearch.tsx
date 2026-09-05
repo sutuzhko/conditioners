@@ -64,7 +64,9 @@ export function ClientSearch({ query, total }: ClientSearchProps) {
         </div>
       </form>
 
-      <p className={styles.total}>{query === '' ? texts.totalCount(total) : texts.found(total)}</p>
+      {/* Счёт базы переехал в подпись раздела (issue #602): здесь остаётся
+          только итог поиска — то, что относится к самому полю. */}
+      {query === '' ? null : <p className={styles.total}>{texts.found(total)}</p>}
     </Card>
   );
 }

@@ -73,3 +73,16 @@ export async function leadToOrder(id: string): Promise<LeadToOrderResult> {
 
   return { ok: true, clientId: parsed.data.client.id, status: parsed.data.lead.status };
 }
+
+/**
+ * 🔴 Уничтожение обращения (152-ФЗ, issue #600).
+ *
+ * Отдельная функция, а не `patchLead` с флагом: удаление необратимо и
+ * спрашивает подтверждение, а правка статуса — нет. Одно имя на два действия
+ * с такой разницей в цене ошибки — приглашение перепутать.
+ */
+export async function removeLead(id: string): Promise<LeadUpdateResult> {
+  const result = await adminRequest(`/api/admin/leads/${id}`, { method: 'DELETE' }, REQUEST_TEXTS);
+
+  return result.ok ? { ok: true } : { ok: false, message: result.message };
+}

@@ -1,0 +1,62 @@
+# админка-поиск-по-заявкам--внутрифильтра · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×220 @16,16  r20  b1
+  form.LeadSearch__form  316×178 @21,21
+    div.Field__field  316×122 @0,0
+      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по обращениям»
+      input  316×49 @0,27  r11  b1
+      p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Ищем по имени, телефону, адресу, теме и»
+    div.LeadSearch__actions  226×44 @0,134
+      button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+      a.LeadSearch__reset  145×44 @81,0  Manrope 600 15/22  lines=1  «Показать все заявки»
+
+[геометрия 768]
+section.Card__card  736×145 @16,16  r20  b1
+  form.LeadSearch__form  694×103 @21,21
+    div.Field__field  456×103 @0,0
+      label.Field__label  456×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по обращениям»
+      input  456×49 @0,27  r11  b1
+      p.Field__hint  456×19 @0,83  Manrope 400 13/19  lines=1  «Ищем по имени, телефону, адресу, теме и»
+    div.LeadSearch__actions  226×44 @468,59
+      button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+      a.LeadSearch__reset  145×44 @81,0  Manrope 600 15/22  lines=1  «Показать все заявки»
+
+[геометрия 1440]
+section.Card__card  1408×145 @16,16  r20  b1
+  form.LeadSearch__form  1366×103 @21,21
+    div.Field__field  1128×103 @0,0
+      label.Field__label  1128×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по обращениям»
+      input  1128×49 @0,27  r11  b1
+      p.Field__hint  1128×19 @0,83  Manrope 400 13/19  lines=1  «Ищем по имени, телефону, адресу, теме и»
+    div.LeadSearch__actions  226×40 @1140,63
+      button.Button__button  69×40 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+      a.LeadSearch__reset  145×22 @81,9  Manrope 600 15/22  lines=1  «Показать все заявки»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  form.LeadSearch__form
+    div.Field__field
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+      p.Field__hint  color #556173
+    div.LeadSearch__actions
+      button.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      a.LeadSearch__reset  color #0e7490
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  form.LeadSearch__form
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+      p.Field__hint  color #8598ac
+    div.LeadSearch__actions
+      button.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      a.LeadSearch__reset  color #22d3ee

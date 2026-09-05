@@ -151,6 +151,7 @@ describe('Форма цен', () => {
     await user.click(screen.getByRole('button', { name: texts.rowAdd }));
     await user.type(screen.getByLabelText(`${texts.cls} 3`), '12');
     await user.click(screen.getByRole('button', { name: texts.rowRemove(1) }));
+    await user.click(await screen.findByRole('button', { name: texts.rowRemoveConfirm }));
     await user.click(screen.getByRole('button', { name: texts.save }));
 
     expect(save).toHaveBeenCalledWith(
@@ -158,6 +159,39 @@ describe('Форма цен', () => {
         prices: [expect.objectContaining({ cls: '09' }), expect.objectContaining({ cls: '12' })],
       }),
     );
+  });
+
+  it('🔴 удаление заполненной строки спрашивает подтверждение (ADR-113)', async () => {
+    const user = userEvent.setup();
+    render(<PricesForm values={filledPrices} save={vi.fn()} />);
+
+    await user.click(screen.getByRole('button', { name: texts.rowRemove(1) }));
+
+    expect(await screen.findByRole('dialog')).toHaveTextContent(texts.rowRemoveTitle(1));
+  });
+
+  it('отказ от подтверждения оставляет строку на месте', async () => {
+    const user = userEvent.setup();
+    render(<PricesForm values={filledPrices} save={vi.fn()} />);
+
+    const before = screen.getByLabelText(`${texts.cls} 1`);
+    await user.click(screen.getByRole('button', { name: texts.rowRemove(1) }));
+    await user.click(await screen.findByRole('button', { name: texts.rowRemoveCancel }));
+
+    expect(screen.getByLabelText(`${texts.cls} 1`)).toHaveValue(
+      before instanceof HTMLInputElement ? before.value : '',
+    );
+  });
+
+  it('пустая строка удаляется без вопроса: терять в ней нечего', async () => {
+    const user = userEvent.setup();
+    render(<PricesForm values={emptyPrices} save={vi.fn()} />);
+
+    await user.click(screen.getByRole('button', { name: texts.rowAdd }));
+    await user.click(screen.getByRole('button', { name: texts.rowRemove(1) }));
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(screen.getByText(texts.rowsEmpty)).toBeInTheDocument();
   });
 
   it('🔴 незаданная ставка остаётся пустой, а не превращается в ноль', () => {

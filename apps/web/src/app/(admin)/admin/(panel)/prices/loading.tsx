@@ -1,7 +1,7 @@
 import { pricesFormContent as texts } from '@/features/prices-form';
-import { FieldsSkeleton } from '@/widgets/admin-shell';
 
-import styles from '../leads/page.module.css';
+import { PricesSkeleton } from './PricesSkeleton';
+import styles from './page.module.css';
 
 /** Цены на монтаж: шапка настоящая, поля прайса — заготовками (issue #334). */
 export default function PricesLoading() {
@@ -12,8 +12,7 @@ export default function PricesLoading() {
         <p className={styles.lead}>{texts.lead}</p>
       </header>
 
-      <FieldsSkeleton fields={6} />
-      <FieldsSkeleton fields={4} />
+      <PricesSkeleton />
     </div>
   );
 }

@@ -24,10 +24,9 @@ section.TimeGrid__grid  358×674 @16,16
     ul.AllDayBar__list  322×44 @36,4
       li.AllDayBar__item  322×44 @0,0
         button.EventChip__chip  322×44 @0,0  r100  b1 1 1 3
-          span.EventChip__head  52×15 @9,15
-            svg.EventChip__icon  12×12 @0,2
-            span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:12»
-          span.EventChip__name  247×15 @66,15  Manrope 600 12/15  lines=1  «Сергей»
+          span.EventChip__head  12×12 @9,16
+            svg.EventChip__icon  12×12 @0,0
+          span.EventChip__name  287×15 @26,15  Manrope 600 12/15  lines=1  «Сергей»
   div.TimeGrid__scroll  358×576 @0,98
     div.TimeGrid__hours  358×1008 @0,-336
       div.TimeGrid__rail  34×1008 @0,0
@@ -149,10 +148,9 @@ section.TimeGrid__grid  736×674 @16,16
     ul.AllDayBar__list  700×44 @36,4
       li.AllDayBar__item  700×44 @0,0
         button.EventChip__chip  700×44 @0,0  r100  b1 1 1 3
-          span.EventChip__head  52×15 @9,15
-            svg.EventChip__icon  12×12 @0,2
-            span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:12»
-          span.EventChip__name  625×15 @66,15  Manrope 600 12/15  lines=1  «Сергей»
+          span.EventChip__head  12×12 @9,16
+            svg.EventChip__icon  12×12 @0,0
+          span.EventChip__name  665×15 @26,15  Manrope 600 12/15  lines=1  «Сергей»
   div.TimeGrid__scroll  736×576 @0,98
     div.TimeGrid__hours  736×1008 @0,-336
       div.TimeGrid__rail  34×1008 @0,0
@@ -274,10 +272,9 @@ section.TimeGrid__grid  1408×659 @16,16
     ul.AllDayBar__list  1350×24 @58,4
       li.AllDayBar__item  1350×24 @0,0
         button.EventChip__chip  1350×24 @0,0  r100  b1 1 1 3
-          span.EventChip__head  52×15 @9,5
-            svg.EventChip__icon  12×12 @0,2
-            span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:12»
-          span.EventChip__name  1275×15 @66,5  Manrope 600 12/15  lines=1  «Сергей»
+          span.EventChip__head  12×12 @9,6
+            svg.EventChip__icon  12×12 @0,0
+          span.EventChip__name  1315×15 @26,5  Manrope 600 12/15  lines=1  «Сергей»
   div.TimeGrid__scroll  1408×576 @0,83
     div.TimeGrid__hours  1408×1152 @0,-384
       div.TimeGrid__rail  54×1152 @0,0
@@ -401,7 +398,6 @@ section.TimeGrid__grid
         button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
           span.EventChip__head
             svg.EventChip__icon
-            span.EventChip__time  color #334155
           span.EventChip__name  color #334155
   div.TimeGrid__scroll
     div.TimeGrid__hours
@@ -465,7 +461,7 @@ section.TimeGrid__grid
           span.EventChip__edge
           span.EventChip__edge#2
         span.EventChip__slot#2
-          button.EventChip__chip  bg #15803d14  border #be123c73  shadow #be123c73 0px 0px 0px 1px inset
+          button.EventChip__chip  bg #15803d14  border #be123c
             span.EventChip__head#3
               svg.EventChip__icon
               span.EventChip__time  color #166534
@@ -484,7 +480,7 @@ section.TimeGrid__grid
             span.EventChip__name#4  color #92400e
             span.EventChip__where#2  color #92400e
         span.EventChip__slot#4
-          button.EventChip__chip  bg #be123c14  border #be123c73  shadow #be123c73 0px 0px 0px 1px inset
+          button.EventChip__chip  bg #be123c14  border #be123c
             span.EventChip__head#5
               svg.EventChip__icon
               span.EventChip__time  color #be123c
@@ -526,7 +522,6 @@ section.TimeGrid__grid
         button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
           span.EventChip__head
             svg.EventChip__icon
-            span.EventChip__time  color #c9d5e2
           span.EventChip__name  color #c9d5e2
   div.TimeGrid__scroll
     div.TimeGrid__hours
@@ -590,7 +585,7 @@ section.TimeGrid__grid
           span.EventChip__edge
           span.EventChip__edge#2
         span.EventChip__slot#2
-          button.EventChip__chip  bg #4ade801f  border #fb718580  shadow #fb718580 0px 0px 0px 1px inset
+          button.EventChip__chip  bg #4ade801f  border #fb7185
             span.EventChip__head#3
               svg.EventChip__icon
               span.EventChip__time  color #4ade80
@@ -609,7 +604,7 @@ section.TimeGrid__grid
             span.EventChip__name#4  color #fbbf24
             span.EventChip__where#2  color #fbbf24
         span.EventChip__slot#4
-          button.EventChip__chip  bg #fb71851f  border #fb718580  shadow #fb718580 0px 0px 0px 1px inset
+          button.EventChip__chip  bg #fb71851f  border #fb7185
             span.EventChip__head#5
               svg.EventChip__icon
               span.EventChip__time  color #fb7185

@@ -8,6 +8,8 @@ const place = (over: Partial<CalendarPlace> = {}): CalendarPlace => ({
   month: '2026-08',
   today: '2026-08-29',
   team: false,
+  who: null,
+  kinds: null,
   ...over,
 });
 

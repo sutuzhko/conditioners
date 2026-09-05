@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import { timeOfMinutes } from '@/entities/crm/lib/busy';
-import type { PersonTone } from '@/entities/crm/lib/palette';
 import { busyTitle, crmBusyContent, crmClashContent, loadTitle } from '@/entities/crm/content';
 import { Icon } from '@/shared/ui';
 
@@ -18,7 +17,6 @@ import {
   offsetPercent,
   type HourRange,
   type ScheduleColumn,
-  type SchedulePersonMark,
 } from './schedule';
 import styles from './TimeGrid.module.css';
 
@@ -37,31 +35,12 @@ export interface TimeGridProps {
   /** Подпись сетки: у неё роль области, и называться она обязана словами. */
   readonly label: string;
   /**
-   * Легенда наложения занятости команды: кто каким цветом (ADR-123). Пусто —
-   * переключатель выключен. 🔴 Цвет не единственный признак: в легенде и на
-   * записях стоят инициалы, а в подписи — имя целиком.
-   */
-  readonly team?: readonly SchedulePersonMark[] | undefined;
-  /**
    * Найденная поиском запись — её подсвечивают, чтобы глаз нашёл её в сетке
    * (issue #132). Признак идёт с адреса и передаётся вниз пропом: чип не
    * должен знать про маршрутизацию.
    */
   readonly focusId?: string | undefined;
 }
-
-/**
- * Краска человека → класс модуля. Прямой перевод, а не сборка имени строкой:
- * так линтер видит, что все шесть классов используются.
- */
-const PERSON_CLASS: Record<PersonTone, string> = {
-  a: styles.personA ?? '',
-  b: styles.personB ?? '',
-  c: styles.personC ?? '',
-  d: styles.personD ?? '',
-  e: styles.personE ?? '',
-  f: styles.personF ?? '',
-};
 
 /** Шапка колонки: день недели, число, занятость и загрузка. */
 function Head({ column, view }: { readonly column: ScheduleColumn; readonly view: CalendarView }) {
@@ -131,16 +110,12 @@ function Head({ column, view }: { readonly column: ScheduleColumn; readonly view
  * Серверный компонент: страница панели приходит готовой, вид и день живут в
  * адресе, а интерактивны только листья — сама запись, пустое место колонки и
  * полоса прокрутки.
+ *
+ * 🔴 Легенды слоя занятости здесь нет: список людей переехал в `TeamFilter`
+ * (issue #49), где он одновременно и легенда, и управление. Две копии одного
+ * списка разошлись бы на первой правке, а в месяце легенды не было вовсе.
  */
-export function TimeGrid({
-  columns,
-  view,
-  range,
-  nowMin,
-  label,
-  team = [],
-  focusId,
-}: TimeGridProps) {
+export function TimeGrid({ columns, view, range, nowMin, label, focusId }: TimeGridProps) {
   /* Раскладка колонок задаётся числом дней, а не оформлением: тот же шаблон
      нужен шапке, полосе «весь день» и сетке часов — иначе час в одной колонке
      перестаёт быть тем же часом в другой. */
@@ -151,19 +126,6 @@ export function TimeGrid({
 
   return (
     <section className={styles.grid} aria-label={label}>
-      {team.length === 0 ? null : (
-        <ul className={styles.legend} aria-label={texts.teamLegend}>
-          {team.map((person) => (
-            <li className={styles.legendItem} key={person.id}>
-              <span className={`${styles.legendMark} ${PERSON_CLASS[person.tone]}`}>
-                {person.initials}
-              </span>
-              {person.title}
-            </li>
-          ))}
-        </ul>
-      )}
-
       <div className={styles.heads} style={{ gridTemplateColumns: template }}>
         <span className={styles.corner} aria-hidden="true" />
         {columns.map((column) => (
@@ -217,11 +179,36 @@ export function TimeGrid({
                       leftPercent: lane.leftPercent,
                       widthPercent: lane.widthPercent,
                       depth: lane.depth,
+                      /* Под «+N» записи оставляют поле справа: иначе имя
+                         уезжает под метку и обрывается без многоточия. */
+                      crowded: column.more.some(
+                        (mark) =>
+                          placed.item.fromMin < mark.toMin && mark.fromMin < placed.item.toMin,
+                      ),
                     }}
                     draggable
                   />
                 );
               })}
+
+              {/* 🔴 Остаток кучки — «+N», а не ещё одна доля ширины (issue
+                  #47). Колонка недели около 120px: разделив её надвое, мы
+                  оставляем имени тридцать пикселей, и от «Фёдоров» видно
+                  «Фе…». Эталон в такой тесноте прячет остаток, а не ужимает
+                  содержимое до бесконечности. Ведёт метка в день, где колонка
+                  одна на весь экран и помещается всё. */}
+              {column.more.map((mark) => (
+                <Link
+                  className={styles.more}
+                  key={mark.key}
+                  href={{ pathname: CRM_PATH, query: { view: 'day', day: mark.day } }}
+                  style={{ top: `${offsetPercent(mark.fromMin)}%` }}
+                  aria-label={mark.label}
+                  prefetch={false}
+                >
+                  {texts.moreCount(mark.count)}
+                </Link>
+              ))}
 
               {/* 🔴 Линия «сейчас» — только в колонке сегодняшнего дня
                   (CRM §3.5.1): в остальных она означала бы неправду. */}

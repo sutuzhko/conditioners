@@ -41,22 +41,25 @@ describe('Шапка календаря', () => {
     expect(screen.queryByRole('link', { name: texts.team })).toBeNull();
   });
 
-  it('🔴 занятость команды — переключатель в адресе, а не состояние на клиенте', () => {
+  it('🔴 переключателя слоя в шапке нет: им служит карточка «Показывать»', () => {
     nav({ canTeam: true, view: 'week' });
 
-    const toggle = screen.getByRole('link', { name: texts.team });
-
-    expect(toggle).toHaveAttribute('href', '/admin/crm?view=week&day=2026-08-23&team=on');
-    expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    /* Две кнопки на одно состояние — то, на что владелец и пожаловался
+       (макет `design/admin/Calendar.body.html`): галочка человека в карточке
+       и зажигает слой, и выбирает состав. */
+    expect(screen.queryByRole('link', { name: texts.team })).toBeNull();
   });
 
-  it('включённое наложение снимается той же кнопкой и помечено не только цветом', () => {
-    nav({ canTeam: true, view: 'week', team: true });
+  it('🔴 подзаголовок называет состав команды и рабочее окно', () => {
+    nav({ canTeam: true, teamSize: 4 });
 
-    const toggle = screen.getByRole('link', { name: texts.team });
+    expect(screen.getByText(texts.subtitle(4, '09–19'))).toBeInTheDocument();
+  });
 
-    expect(toggle).toHaveAttribute('href', '/admin/crm?view=week&day=2026-08-23');
-    expect(toggle).toHaveAttribute('aria-pressed', 'true');
+  it('монтажнику состав команды не называется: она ему закрыта (ADR-095)', () => {
+    nav({ canTeam: false });
+
+    expect(screen.getByText(texts.subtitleSolo('09–19'))).toBeInTheDocument();
   });
 
   it('наложение переживает смену вида и листание', () => {
@@ -106,21 +109,21 @@ describe('Шапка календаря', () => {
     );
   });
 
-  it('заголовок называет то, что показано', () => {
+  it('🔴 заголовок страницы — сам период, а не название раздела', () => {
     nav();
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Август 2026');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Август 2026');
 
     nav({ view: 'week' });
-    expect(screen.getAllByRole('heading', { level: 2 })[1]).toHaveTextContent('17–23 августа 2026');
+    expect(screen.getAllByRole('heading', { level: 1 })[1]).toHaveTextContent('17–23 августа 2026');
 
     nav({ view: 'day' });
-    expect(screen.getAllByRole('heading', { level: 2 })[2]).toHaveTextContent('23 августа 2026');
+    expect(screen.getAllByRole('heading', { level: 1 })[2]).toHaveTextContent('23 августа 2026');
   });
 
   it('неделя на стыке месяцев называет оба', () => {
     nav({ view: 'week', day: '2026-08-31' });
 
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       '31 августа – 6 сентября 2026',
     );
   });

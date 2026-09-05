@@ -64,7 +64,9 @@ function originData(tracking: Tracking): OriginData {
  * что прислала форма: воркеру нужен идентификатор, которого до записи нет.
  */
 async function record(
-  data: Prisma.LeadCreateInput,
+  /* Номер выдаёт репозиторий в той же транзакции (ADR-114): сервис его не
+     знает и знать не должен — счётчик живёт рядом с вставкой. */
+  data: Omit<Prisma.LeadCreateInput, 'number'>,
   payloadOf: (lead: LeadDto) => NotificationPayload,
 ): Promise<LeadDto> {
   return db.$transaction(async (tx) => {
@@ -165,4 +167,24 @@ export async function createToReminder(input: CreateToReminderInput): Promise<Le
       when: lead.comment,
     }),
   );
+}
+
+/**
+ * 🔴 Уничтожение обращения по требованию субъекта персональных данных
+ * (152-ФЗ, issue #600).
+ *
+ * Сервисом, а не прямым вызовом репозитория из обработчика: удаление —
+ * составное действие. Запись в базе и снимок комнаты на диске живут в разных
+ * хранилищах, и порядок между ними важен. Сначала строка: пока она есть, есть
+ * и имя файла, по которому его можно найти. Удалить сперва файл, а потом
+ * упасть на записи — значит оставить в базе заявку со ссылкой в пустоту.
+ *
+ * Не удалившийся файл при удалённой записи — единственный оставшийся исход, и
+ * он предпочтителен: имя файла сервер сгенерировал сам, догадаться до него
+ * нельзя, а по требованию человека уничтожена та запись, по которой его
+ * находят.
+ */
+export async function removeLead(id: string): Promise<void> {
+  const { photo } = await leads.remove(id);
+  if (photo !== null) await deleteProtectedImage(photo);
 }

@@ -23,6 +23,7 @@ import {
   clashingIds,
   laneOf,
   loadMinutes,
+  overlaps,
   spanOf,
   type Booking,
   type Placed,
@@ -35,7 +36,7 @@ import {
   crmClashContent,
   loadTitle,
 } from '@/entities/crm/content';
-import { staffTitle } from '@/entities/staff/model';
+import { staffShortTitle, staffTitle } from '@/entities/staff/model';
 import {
   type DayKey,
   dayKeyOf,
@@ -65,6 +66,7 @@ import type {
   CrmEventDraft,
   DayBlockCard,
   DayBlockDraft,
+  ScheduleKind,
 } from './model';
 
 const MINUTES_IN_HOUR = 60;
@@ -92,6 +94,8 @@ export type ScheduleTone =
 export type SchedulePersonMark = {
   readonly id: string;
   readonly title: string;
+  /** Короткое имя для узких мест: «Илья З.» вместо «Захаров Илья». */
+  readonly short: string;
   readonly initials: string;
   readonly tone: PersonTone;
 };
@@ -140,6 +144,16 @@ export type ScheduleItem = {
   readonly statusTitle: string | null;
   /** Время начала — «10:00». Промежуток целиком лежит в `range`. */
   readonly time: string;
+  /**
+   * 🔴 Запись без часа: заявка, заметка «не забыть», закрытый целиком день.
+   *
+   * Считается раскладкой один раз (`isAllDay`), а не выводится в разметке
+   * заново: одна и та же запись попадает и в полосу «весь день», и в клетку
+   * месяца, и час у неё не должен появляться ни там, ни там. У заявки в
+   * `time` лежит момент обращения — показанный как время встречи, он читается
+   * как договорённость, которой не было (BUGS, аудит 30 августа).
+   */
+  readonly allDay: boolean;
   /** «10:00–13:00» — то, что читается в карточке и в подписи. */
   readonly range: string;
   readonly fromMin: number;
@@ -163,6 +177,41 @@ export type ScheduleItem = {
   readonly label: string;
 };
 
+/**
+ * Запись до того, как раскладка решила, есть ли у неё час.
+ *
+ * Признак `allDay` считается один раз в колонке (`isAllDay`), а не в каждом
+ * сборщике: правило одно на все четыре сущности, и разъехаться ему нельзя.
+ */
+type ItemDraft = Omit<ScheduleItem, 'allDay'>;
+
+/**
+ * Свёрнутая кучка: сколько записей не поместилось и на каком отрезке.
+ *
+ * 🔴 Ширину колонки делят не бесконечно (issue #47, вердикт владельца). В
+ * неделе на 1440 колонка выходит около 120px, и голова чипа — полоса, значок
+ * и час — съедает шестьдесят: на имя остаётся семь знаков, а на двух записях
+ * рядом не остаётся ничего, и от «Фёдоров» видно «Фе…». Эталон (Apple
+ * Calendar) в такой тесноте не ужимает, а прячет остаток за «+N».
+ */
+export type MoreMark = {
+  readonly key: string;
+  readonly day: DayKey;
+  /** Отрезок кучки: метка стоит у её начала, а не растягивается на всю. */
+  readonly fromMin: number;
+  readonly toMin: number;
+  readonly count: number;
+  /**
+   * 🔴 Сами свёрнутые записи, а не только их число. Свёртка — это про ширину
+   * колонки, и списку она не касается: повестка на телефоне и клетка месяца
+   * читают всё через `monthRows`, и потерять там запись значило бы, что выезд
+   * пропал из календаря, а не «спрятался за меткой».
+   */
+  readonly items: readonly ScheduleItem[];
+  /** Подпись для скринридера: «Ещё 2 записи в 09:00–13:00, открыть день». */
+  readonly label: string;
+};
+
 /** Колонка сетки: один день. */
 export type ScheduleColumn = {
   readonly key: string;
@@ -179,6 +228,8 @@ export type ScheduleColumn = {
   readonly loadMin: number;
   readonly clashes: number;
   readonly timed: readonly Placed<ScheduleItem>[];
+  /** Кучки, не поместившиеся по ширине: остаток свёрнут в «+N». */
+  readonly more: readonly MoreMark[];
   /** 🔴 Полоса «весь день»: записи без часа и заявки с сайта (ADR-128). */
   readonly allDay: readonly ScheduleItem[];
   readonly label: string;
@@ -197,6 +248,30 @@ export type SchedulePerson = {
   readonly login: string;
 };
 
+/**
+ * Что показывает слой занятости — issue #49, запрос владельца 27 августа.
+ *
+ * 🔴 Слой, включаемый целиком, на пяти монтажниках даёт ту же кашу, ради
+ * которой он и затевался. Поэтому у него два ограничителя: кого видно и надо
+ * ли вообще всё остальное. Оба живут в адресе (инвариант 17) и приезжают сюда
+ * разобранными: раскладка не знает про `URLSearchParams`.
+ */
+export type ScheduleFilter = {
+  /** Кого видно в слое. `null` — всех, кто в него попал. */
+  readonly who: ReadonlySet<string> | null;
+  /**
+   * Какие виды записей показывать. `null` — все три.
+   *
+   * Разбивка взята с макета («Виды записей»: наряды · заявки без времени ·
+   * дела и отлучки). Вопрос «кто свободен в четверг в десять» решается
+   * снятием двух галочек, а не вычитанием лишнего глазами.
+   */
+  readonly kinds: ReadonlySet<ScheduleKind> | null;
+};
+
+/** Ничего не спрятано — состояние по умолчанию и при выключенном слое. */
+export const ALL_VISIBLE: ScheduleFilter = { who: null, kinds: null };
+
 /** Данные, из которых собирается любой вид. */
 export type ScheduleSource = {
   readonly events: readonly CrmEventCard[];
@@ -212,16 +287,30 @@ export type ScheduleSource = {
    * он не показывается вовсе: чужая занятость ему не видна (ADR-095).
    */
   readonly team?: readonly SchedulePerson[] | undefined;
+  /**
+   * Ограничители слоя занятости (issue #49). Без него показывается всё —
+   * это же состояние остаётся при выключенном слое.
+   */
+  readonly filter?: ScheduleFilter | undefined;
 };
 
 /** Люди наложения с уже закреплённой краской — считается один раз на вид. */
 export function marksOf(team: readonly SchedulePerson[]): ReadonlyMap<string, SchedulePersonMark> {
   return new Map(
     team.map((person) => {
+      /* Полное имя нужно озвучке и подсказке, короткое — узким местам:
+         карточка «Показывать» и плашка «весь день» шире имени не бывают, и
+         «Миронов Арт…» там не читается (макет пишет «Пётр К.»). */
       const title = staffTitle(person);
       return [
         person.id,
-        { id: person.id, title, initials: initialsOf(title), tone: personTone(person.id) },
+        {
+          id: person.id,
+          title,
+          short: staffShortTitle(person),
+          initials: initialsOf(title),
+          tone: personTone(person.id),
+        },
       ];
     }),
   );
@@ -257,7 +346,7 @@ function itemOfOrder(
   order: CalendarOrderCard,
   clash: boolean,
   person: SchedulePersonMark | null,
-): ScheduleItem {
+): ItemDraft {
   const at = new Date(order.at);
   const day = dayKeyOf(at);
   const span = spanOf(minutesOfDay(at), order.durationMin);
@@ -307,7 +396,7 @@ function itemOfOrder(
 }
 
 /** Дело → запись сетки. Номера у дела нет: это напоминание, а не работа. */
-function itemOfEvent(event: CrmEventCard): ScheduleItem {
+function itemOfEvent(event: CrmEventCard): ItemDraft {
   const at = new Date(event.at);
   const day = dayKeyOf(at);
   const time = timeOf(at);
@@ -374,7 +463,7 @@ function itemOfEvent(event: CrmEventCard): ScheduleItem {
  * ей не поставили время делом или нарядом. Час обращения показан текстом: он
  * говорит, когда человек написал, но не занимает места в сетке.
  */
-function itemOfLead(lead: CalendarLead): ScheduleItem {
+function itemOfLead(lead: CalendarLead): ItemDraft {
   const at = new Date(lead.at);
   const fromMin = minutesOfDay(at);
   const time = timeOf(at);
@@ -422,7 +511,7 @@ function itemsOfBlocks(
   who: string,
   blocks: readonly DayBlockCard[],
   mine: boolean,
-): readonly ScheduleItem[] {
+): readonly ItemDraft[] {
   return blocksOn(day, blocks).map((block, index) => {
     const whole = block.fromMin === null || block.toMin === null;
     const fromMin = block.fromMin ?? 0;
@@ -473,7 +562,7 @@ function itemsOfBlocks(
           }
         : null,
       label: [who, when, block.reason].filter((part) => part !== null && part !== '').join(', '),
-    } satisfies ScheduleItem;
+    } satisfies ItemDraft;
   });
 }
 
@@ -484,7 +573,7 @@ function itemsOfBlocks(
  * а не на часе; закрытый целиком день — это сутки, а не промежуток. Всё
  * остальное имеет начало и конец и рисуется по ним.
  */
-function isAllDay(item: ScheduleItem): boolean {
+function isAllDay(item: ItemDraft): boolean {
   if (item.entity === 'lead') return true;
   if (item.toMin <= item.fromMin) return true;
 
@@ -510,7 +599,117 @@ type ColumnInput = {
   readonly clashing: ReadonlySet<string>;
   /** Наложение занятости команды: пустая карта — переключатель выключен. */
   readonly marks: ReadonlyMap<string, SchedulePersonMark>;
+  /**
+   * Сколько записей делят ширину колонки, прежде чем остаток свернётся в «+N».
+   * Число даёт вид: у недели колонка узкая, у дня — во весь экран.
+   */
+  readonly laneLimit: number;
 };
+
+/**
+ * Кучки записей: группа, связанная пересечениями напрямую или через соседа.
+ *
+ * Считается здесь, а не в `entities/crm/lib/load`: там `laneOf` раздаёт
+ * дорожки и про свёртку не знает, а знать ей и незачем — свёртка это про
+ * ширину экрана, а не про время.
+ */
+function clustersOf<Item extends { readonly fromMin: number; readonly toMin: number }>(
+  items: readonly Item[],
+): readonly (readonly Item[])[] {
+  const sorted = [...items].sort(
+    (left, right) => left.fromMin - right.fromMin || left.toMin - right.toMin,
+  );
+
+  const clusters: Item[][] = [];
+  let current: Item[] = [];
+  let edge = -1;
+
+  for (const item of sorted) {
+    if (current.length > 0 && item.fromMin >= edge) {
+      clusters.push(current);
+      current = [];
+    }
+
+    current.push(item);
+    edge = Math.max(edge, item.toMin);
+  }
+
+  if (current.length > 0) clusters.push(current);
+  return clusters;
+}
+
+/**
+ * Кто уступает место: записи, которым не хватило дорожки под пределом.
+ *
+ * 🔴 Дорожки раздаются в другом порядке, чем в `laneOf`: при равном начале
+ * место оставляет себе более длинная запись. Иначе получасовой звонок в 10:00
+ * прячет за «+1» трёхчасовой монтаж, начатый в тот же час, — а неделю
+ * открывают ради монтажей. Это правило показа, а не домена, и живёт оно здесь,
+ * а не в `entities/crm/lib/load`: там считают время, тут — что видно на экране.
+ */
+function crowdedOut(items: readonly ScheduleItem[], limit: number): readonly ScheduleItem[] {
+  const sorted = [...items].sort(
+    (left, right) =>
+      left.fromMin - right.fromMin ||
+      right.toMin - right.fromMin - (left.toMin - left.fromMin) ||
+      left.id.localeCompare(right.id),
+  );
+
+  const open: { readonly item: ScheduleItem; readonly lane: number }[] = [];
+  const hidden: ScheduleItem[] = [];
+
+  for (const item of sorted) {
+    const taken = new Set(
+      open.filter((entry) => overlaps(entry.item, item)).map((entry) => entry.lane),
+    );
+
+    let lane = 0;
+    while (taken.has(lane)) lane += 1;
+
+    open.push({ item, lane });
+    if (lane >= limit) hidden.push(item);
+  }
+
+  return hidden;
+}
+
+/**
+ * Раскладка колонки со свёрткой: что показать рядом, а что спрятать за «+N».
+ *
+ * 🔴 Прячется по дорожкам, а не по кучкам целиком. Пять записей за день, из
+ * которых одновременно идут только две, — это не повод сворачивать четыре:
+ * дорожку выше предела получает ровно та запись, которой не хватило места на
+ * своём часе. Оставшиеся раскладываются заново — иначе одна видимая запись
+ * держала бы треть ширины, отведённую спрятанным соседям.
+ */
+function foldLanes(
+  day: DayKey,
+  items: readonly ScheduleItem[],
+  limit: number,
+): { readonly timed: readonly Placed<ScheduleItem>[]; readonly more: readonly MoreMark[] } {
+  const hidden = crowdedOut(items, limit);
+  if (hidden.length === 0) return { timed: laneOf(items), more: [] };
+
+  const dropped = new Set(hidden.map((item) => item.id));
+  const shown = items.filter((item) => !dropped.has(item.id));
+
+  const more = clustersOf(hidden).map((cluster) => {
+    const fromMin = Math.min(...cluster.map((item) => item.fromMin));
+    const toMin = Math.max(...cluster.map((item) => item.toMin));
+
+    return {
+      key: `more-${day}-${fromMin}-${toMin}`,
+      day,
+      fromMin,
+      toMin,
+      count: cluster.length,
+      items: cluster,
+      label: texts.moreAt(cluster.length, timeRange(fromMin, toMin)),
+    } satisfies MoreMark;
+  });
+
+  return { timed: laneOf(shown), more };
+}
 
 /** Записи, попадающие на этот день. Момент разбирается в поясе работ. */
 function onDay<Item extends { readonly at: string }>(
@@ -522,28 +721,41 @@ function onDay<Item extends { readonly at: string }>(
 
 function columnOf(input: ColumnInput): ScheduleColumn {
   const { day, source, marks } = input;
+  const filter = source.filter ?? ALL_VISIBLE;
 
   const markOf = (id: string | null): SchedulePersonMark | null =>
     id === null ? null : (marks.get(id) ?? null);
 
-  const orders = onDay(day, source.orders);
-  const events = onDay(day, source.events);
-  const leads = onDay(day, source.leads);
+  /* 🔴 Фильтр по людям решает, чьи записи видны, а не чьи покрашены (issue
+     #49). Краска остаётся закреплённой за человеком (ADR-123): выключенный
+     монтажник исчезает с сетки и возвращается тем же цветом. */
+  const shown = (id: string): boolean => filter.who === null || filter.who.has(id);
+
+  /* Вид записи снимается галочкой «Виды записей» на карточке слева. */
+  const kindShown = (kind: ScheduleKind): boolean =>
+    filter.kinds === null || filter.kinds.has(kind);
+
+  /* Наряд без исполнителя ничей: фильтр по людям его не касается — снять его
+     с сетки можно только галочкой «Наряды». */
+  const orders = kindShown('orders')
+    ? onDay(day, source.orders).filter((order) =>
+        order.installerId === null ? true : shown(order.installerId),
+      )
+    : [];
+  const events = kindShown('notes') ? onDay(day, source.events) : [];
+  const leads = kindShown('leads') ? onDay(day, source.leads) : [];
 
   /* Своя отлучка показывается всегда: без неё пустая колонка выглядит
      свободной, и в неё ставят выезд (ADR-115). Чужие приходят слоем. */
-  const own = itemsOfBlocks(
-    day,
-    null,
-    texts.busyMine,
-    source.blocks.filter((block) => block.userId === source.viewerId),
-    true,
-  );
+  const mineBlocks = kindShown('notes')
+    ? source.blocks.filter((block) => block.userId === source.viewerId)
+    : [];
+  const own = itemsOfBlocks(day, null, texts.busyMine, mineBlocks, true);
 
   /* Отлучки команды ложатся на ту же сетку, что и выезды: занятость — это
      объединение работы и личных дел, а не два разных ответа (ADR-123). */
-  const away = [...marks.values()]
-    .filter((person) => person.id !== source.viewerId)
+  const away = (kindShown('notes') ? [...marks.values()] : [])
+    .filter((person) => person.id !== source.viewerId && shown(person.id))
     .flatMap((person) =>
       itemsOfBlocks(
         day,
@@ -554,7 +766,7 @@ function columnOf(input: ColumnInput): ScheduleColumn {
       ),
     );
 
-  const items = [
+  const drafts = [
     ...orders.map((order) =>
       itemOfOrder(order, input.clashing.has(order.id), markOf(order.installerId)),
     ),
@@ -564,8 +776,21 @@ function columnOf(input: ColumnInput): ScheduleColumn {
     ...away,
   ];
 
-  const allDay = items.filter(isAllDay).sort((left, right) => left.fromMin - right.fromMin);
-  const timed = laneOf(items.filter((item) => !isAllDay(item)));
+  /* Признак «весь день» ставится здесь и один раз: дальше по нему решают и
+     полоса над сеткой, и клетка месяца, и сама запись — показывать ли час. */
+  const items: readonly ScheduleItem[] = drafts.map((item) => ({
+    ...item,
+    allDay: isAllDay(item),
+  }));
+
+  const allDay = items
+    .filter((item) => item.allDay)
+    .sort((left, right) => left.fromMin - right.fromMin);
+  const { timed, more } = foldLanes(
+    day,
+    items.filter((item) => !item.allDay),
+    input.laneLimit,
+  );
 
   /* Загрузка считается по нарядам: дело — это напоминание, и час, отведённый
      на звонок, не занимает бригаду. */
@@ -574,10 +799,16 @@ function columnOf(input: ColumnInput): ScheduleColumn {
   );
 
   const clashes = orders.filter((order) => input.clashing.has(order.id)).length;
-  const busy = busyOn(
-    day,
-    source.blocks.filter((block) => block.userId === source.viewerId),
-  );
+
+  /* Занятость шапки считается по тем же отлучкам, что показаны в колонке:
+     иначе «Занят» стоит над днём, в котором отлучку только что спрятали. */
+  const busy = busyOn(day, mineBlocks);
+
+  /* Что требует внимания: пересечение по времени и переработка. Это ответ на
+     вопрос «куда смотреть с утра», и он обязан звучать словами — клетка
+     месяца на телефоне показывает точки, а точка ничего не говорит
+     скринридеру (issue #547, решение владельца). */
+  const attention = items.filter((item) => item.clash || item.overtimeMin > 0).length;
 
   return {
     key: day,
@@ -590,17 +821,30 @@ function columnOf(input: ColumnInput): ScheduleColumn {
     loadMin: loadMinutes(spans),
     clashes,
     timed,
+    more,
     allDay,
     label: [
       dayTitle(day),
+      items.length === 0 ? texts.columnEmpty : texts.records(items.length),
+      attention === 0 ? null : texts.attention(attention),
       busy.state === 'free' ? null : busyTitle(busy),
-      items.length === 0 ? texts.columnEmpty : null,
-      clashes === 0 ? null : crmClashContent.count(clashes),
     ]
       .filter((part) => part !== null && part !== '')
       .join(', '),
   };
 }
+
+/**
+ * 🔴 Сколько записей делят ширину колонки недели — одна (issue #47).
+ *
+ * Считано по чипу, а не выбрано на глаз. В неделе на 1440 колонка выходит
+ * около 120px: 3px полоса вида, 10px поля, 12px значок, 4px просвет и час
+ * «09:00» кеглем 12 — это ещё 34px. На имя остаётся под шестьдесят, то есть
+ * семь знаков с многоточием. Разделив колонку надвое, мы отдаём имени
+ * тридцать — не остаётся ничего, и владелец видит «Фе…» вместо «Фёдоров».
+ * Остаток уходит за «+N», как в эталоне.
+ */
+const WEEK_LANES = 1;
 
 /** Неделя: семь колонок с понедельника. */
 export function weekColumns(source: ScheduleSource, day: DayKey): readonly ScheduleColumn[] {
@@ -615,6 +859,7 @@ export function weekColumns(source: ScheduleSource, day: DayKey): readonly Sched
       source,
       clashing,
       marks,
+      laneLimit: WEEK_LANES,
     }),
   );
 }
@@ -632,6 +877,9 @@ export function dayColumns(source: ScheduleSource, day: DayKey): readonly Schedu
       source,
       clashing,
       marks,
+      /* В дне колонка занимает весь экран, и три записи рядом читаются:
+         сворачивать там нечего, а уходить из дня уже некуда. */
+      laneLimit: LANES_ABREAST,
     }),
   ];
 }
@@ -657,6 +905,9 @@ export function monthColumns(source: ScheduleSource, month: string): readonly Sc
         source,
         clashing,
         marks,
+        /* Месяц раскладывает клетку строками, а не дорожками: свернуть там
+           нечего — переполнение и так уходит в «Ещё N» и в точки. */
+        laneLimit: Number.POSITIVE_INFINITY,
       }),
     );
 }
@@ -668,7 +919,58 @@ export function monthColumns(source: ScheduleSource, month: string): readonly Sc
  * следует, когда человек занят, владелец забраковал прямо.
  */
 export function monthRows(column: ScheduleColumn): readonly ScheduleItem[] {
-  return [...column.allDay, ...[...column.timed].map((placed) => placed.item)];
+  /* Свёрнутое за «+N» возвращается в список: метка экономит ширину колонки, а
+     в списке ширина не при чём — там пропавшая запись читается как потерянная. */
+  const timed = [
+    ...column.timed.map((placed) => placed.item),
+    ...column.more.flatMap((mark) => mark.items),
+  ].sort((left, right) => left.fromMin - right.fromMin || left.toMin - right.toMin);
+
+  return [...column.allDay, ...timed];
+}
+
+/**
+ * Сколько часов у каждого человека в показанном промежутке — цифра рядом с
+ * именем на карточке «Показывать» (макет `design/admin/Calendar.body.html`).
+ *
+ * 🔴 Считается по нарядам и из исходных данных, а не из колонок: цифра рядом
+ * с выключенным человеком обязана остаться прежней, иначе снятая галочка
+ * «обнуляет» его загрузку и по ней перестаёт быть видно, кого можно догрузить.
+ *
+ * Пересечения не считаются дважды — за это отвечает `loadMinutes`, и считать
+ * приходится по дням: два наряда 10–12 в разные дни это четыре часа, а в один
+ * и тот же — два.
+ */
+export function teamLoad(
+  orders: readonly CalendarOrderCard[],
+  team: readonly SchedulePerson[],
+): ReadonlyMap<string, number> {
+  const byPerson = new Map<string, Map<DayKey, TimeSpan[]>>();
+
+  for (const order of orders) {
+    if (order.installerId === null) continue;
+
+    const at = new Date(order.at);
+    const day = dayKeyOf(at);
+    const days = byPerson.get(order.installerId) ?? new Map<DayKey, TimeSpan[]>();
+    const spans = days.get(day) ?? [];
+
+    spans.push(spanOf(minutesOfDay(at), order.durationMin));
+    days.set(day, spans);
+    byPerson.set(order.installerId, days);
+  }
+
+  return new Map(
+    team.map((person) => {
+      const days = byPerson.get(person.id);
+      const minutes =
+        days === undefined
+          ? 0
+          : [...days.values()].reduce((total, spans) => total + loadMinutes(spans), 0);
+
+      return [person.id, minutes];
+    }),
+  );
 }
 
 // ---------- Окно часов ----------

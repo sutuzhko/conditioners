@@ -140,7 +140,7 @@
   box-shadow: var(--ring-focus-ring);
 }
 
-/* Телефон: клетка ниже, и в неё помещается меньше строк — но время в строке
+/* Планшет: клетка ниже, и в неё помещается меньше строк — но время в строке
    остаётся, потому что без него строка ничего не говорит. */
 @media (width < 900px) {
   .days {
@@ -154,5 +154,37 @@
 
   .cell {
     padding: 2px;
+  }
+}
+
+/* 🔴 Телефон: строки уходят, остаются точки (issue #547, решение владельца).
+   Клетка от этого становится ниже втрое, и месяц целиком наконец помещается
+   на экран — раньше он прокручивался, теряя смысл обзора. Ссылка занимает всю
+   клетку: палец бьёт по дню, а не по цифре в углу. */
+@media (width < 600px) {
+  .days {
+    grid-auto-rows: minmax(60px, 1fr);
+  }
+
+  .number {
+    flex: 1;
+    flex-direction: column;
+    gap: 3px;
+    align-self: stretch;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: var(--tap);
+    padding: 2px;
+  }
+
+  .dots {
+    display: flex;
+  }
+
+  .rows,
+  .more {
+    display: none;
   }
 }

@@ -26,3 +26,19 @@
   color: var(--body);
   font-size: var(--fs-dense);
 }
+
+/* Заготовка профиля повторяет две колонки готового экрана: слева личные
+   данные и пароль, справа тема и вход (issue #334). */
+.skeleton {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  align-items: start;
+  max-width: 940px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

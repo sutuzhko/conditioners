@@ -20,7 +20,6 @@ import {
   DEFAULT_WORK_WINDOW,
   dayColumns,
   hourRangeOf,
-  marksOf,
   weekColumns,
   type ScheduleSource,
 } from './schedule';
@@ -194,24 +193,6 @@ describe('Сетка часов', () => {
     expect(screen.getAllByTitle(/День закрыт: семейные дела/).length).toBeGreaterThan(0);
   });
 
-  it('🔴 легенда наложения называет людей: цвет не единственный признак', () => {
-    render(
-      <TimeGrid
-        columns={day({ team: installers })}
-        view="day"
-        range={RANGE}
-        nowMin={14 * 60}
-        label={texts.dayLabel}
-        team={[...marksOf(installers).values()]}
-      />,
-    );
-
-    const legend = screen.getByRole('list', { name: texts.teamLegend });
-
-    expect(within(legend).getByText(dmitry.name ?? '')).toBeInTheDocument();
-    expect(within(legend).getByText('ДС')).toBeInTheDocument();
-  });
-
   it('чужая отлучка в наложении подписана человеком и часами', () => {
     const mine = { ...doctorBlock, userId: dmitry.id, day: DAY };
     render(
@@ -221,7 +202,6 @@ describe('Сетка часов', () => {
         range={RANGE}
         nowMin={14 * 60}
         label={texts.dayLabel}
-        team={[...marksOf(installers).values()]}
       />,
     );
 

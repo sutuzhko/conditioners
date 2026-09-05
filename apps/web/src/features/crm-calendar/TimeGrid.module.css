@@ -16,6 +16,10 @@
   /* Ширина полосы часов. Одной переменной, потому что её знают три ряда. */
   --cal-rail: 54px;
   --cal-hour: 48px;
+
+  /* Поле под метку «+N» справа: его знают и сама метка, и запись под ней —
+     иначе имя уезжает под метку и обрывается без многоточия. */
+  --cal-more: 34px;
 }
 
 .heads {
@@ -214,6 +218,41 @@
   background-color: var(--bg-soft);
 }
 
+/* ---------- Свёрнутый остаток кучки ---------- */
+
+/* 🔴 Метка стоит у начала кучки, а не растягивается на её длину: «+2» высотой
+   в четыре часа читается как запись, которой нет. Ширина фиксированная —
+   ровно та, что запись под ней оставляет полем справа. */
+.more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 20;
+  right: 1px;
+  box-sizing: border-box;
+  min-width: calc(var(--cal-more) - 6px);
+  height: 24px;
+  border: 1px solid var(--line-ui);
+  border-radius: var(--r-pill);
+  background: var(--card);
+  color: var(--ink2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.more:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-text);
+}
+
+.more:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
 /* ---------- Линия «сейчас» ---------- */
 
 .now {
@@ -237,76 +276,21 @@
   background: var(--error-ink);
 }
 
-/* ---------- Легенда наложения ---------- */
-
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 12px;
-  align-items: center;
-  margin: 0 0 8px;
-  padding: 0;
-  list-style: none;
-}
-
-.legendItem {
-  display: inline-flex;
-  gap: 5px;
-  align-items: center;
-  color: var(--ink2);
-  font-size: var(--fs-caption);
-}
-
-.legendMark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 22px;
-  border: 1px solid currentcolor;
-  border-radius: var(--r-pill);
-  padding: 0 5px;
-  font-size: var(--fs-micro);
-  font-weight: 700;
-  line-height: 18px;
-}
-
-.personA {
-  background: var(--accent-bg);
-  color: var(--accent-text);
-}
-
-.personB {
-  background: var(--info-bg);
-  color: var(--info-ink);
-}
-
-.personC {
-  background: var(--ok-bg);
-  color: var(--ok-ink);
-}
-
-.personD {
-  background: var(--warn-bg);
-  color: var(--warn-ink);
-}
-
-.personE {
-  background: var(--sale-bg);
-  color: var(--sale-ink);
-}
-
-.personF {
-  background: var(--star-bg);
-  color: var(--star);
-}
-
 /* ---------- Узкий экран ---------- */
 
 /* Семь колонок на телефоне сжимаются до сорока пикселей, и в записи не
    остаётся ни времени, ни имени. Полоса часов и отступы ужимаются первыми —
    сетка при этом остаётся сеткой, а не превращается в список. */
 @media (width < 900px) {
+  .more {
+    min-width: var(--tap);
+    height: var(--tap);
+  }
+
   .grid {
+    /* Метка «+N» на телефоне растёт до тап-зоны, и поле под неё — вместе с ней. */
+    --cal-more: 50px;
+
     /* 🔴 34px, а не 40: колонка дня обязана быть не уже тап-зоны (ADR-183,
        issue #374). На 390 семь колонок делят то, что осталось от полосы
        часов, и при 40px заголовок дня выходил 43,3px — недобор в семь

@@ -37,7 +37,7 @@ button.EventChip__chip  1408×24 @16,16  r100  b1 1 1 3
     span.EventChip__markWord  79×15 @14,0  Manrope 700 12/15  lines=1  «Переработка»
 
 [палитра light]
-button.EventChip__chip  bg #15803d14  border #b4530947
+button.EventChip__chip  bg #15803d14  border #92400e
   span.EventChip__head
     svg.EventChip__icon
     span.EventChip__time  color #166534
@@ -47,7 +47,7 @@ button.EventChip__chip  bg #15803d14  border #b4530947
     span.EventChip__markWord  color #166534
 
 [палитра dark]
-button.EventChip__chip  bg #4ade801f  border #fbbf2452
+button.EventChip__chip  bg #4ade801f  border #fbbf24
   span.EventChip__head
     svg.EventChip__icon
     span.EventChip__time  color #4ade80

@@ -1,12 +1,32 @@
 import Link from 'next/link';
 
+import type { PersonTone } from '@/entities/crm/lib/palette';
+
 import { CRM_PATH, WEEKDAYS, crmContent as texts } from './content';
 import { EventChip } from './EventChip';
-import { monthRows, type ScheduleColumn } from './schedule';
+import { monthRows, type ScheduleColumn, type ScheduleItem } from './schedule';
 import styles from './CalendarGrid.module.css';
 
 /** Сколько записей помещается в клетку до того, как остаток свернётся в «Ещё N». */
 const VISIBLE = 3;
+
+/**
+ * Краска человека → класс модуля. Прямой перевод, а не сборка имени строкой:
+ * так линтер видит, что все шесть классов используются.
+ */
+const PERSON_CLASS: Record<PersonTone, string> = {
+  a: styles.personA ?? '',
+  b: styles.personB ?? '',
+  c: styles.personC ?? '',
+  d: styles.personD ?? '',
+  e: styles.personE ?? '',
+  f: styles.personF ?? '',
+};
+
+/** Краска точки — та же, что у записи: человек из слоя перебивает вид работ. */
+function dotClass(item: ScheduleItem): string {
+  return item.person === null ? (styles[item.tone] ?? '') : PERSON_CLASS[item.person.tone];
+}
 
 export interface CalendarGridProps {
   /** Сорок две клетки месячной сетки. Собирает их `monthColumns`. */
@@ -29,6 +49,12 @@ export interface CalendarGridProps {
  * показывается всегда — строкой «цветная точка · время · название». Капсулы с
  * инициалами, из которых не следует, когда человек занят, владелец забраковал
  * прямо.
+ *
+ * 🔴 Ниже 600px клетка показывает точки, а не строки — решение владельца по
+ * issue #547. Семь дней в 390px дают 43px на клетку, а голова строки — час со
+ * значком — занимает 59: строка переливалась за край в любом виде, и резать
+ * было уже нечего. У эталона (Apple Calendar) в тесной клетке тоже точки;
+ * точка не обрезается вовсе, а подробности открываются нажатием на день.
  *
  * Серверный компонент: клетки приходят готовыми, интерактивна только запись.
  */
@@ -62,13 +88,35 @@ export function CalendarGrid({ columns, label = texts.gridLabel, focusId }: Cale
                 .join(' ')}
               key={column.key}
             >
+              {/* 🔴 Подпись называет число записей и требующие внимания
+                  словами (issue #547). Точка ничего не сообщает ни
+                  скринридеру, ни человеку, который не различает цвета, а на
+                  телефоне она — единственное, что в клетке остаётся. */}
               <Link
                 className={styles.number}
                 href={{ pathname: CRM_PATH, query: { view: 'day', day: column.day } }}
                 aria-label={texts.openDay(column.label)}
                 prefetch={false}
               >
-                {column.date}
+                <span className={styles.date}>{column.date}</span>
+
+                {rows.length === 0 ? null : (
+                  <span className={styles.dots} aria-hidden="true">
+                    {shown.map((item) => (
+                      <span
+                        className={[
+                          styles.dot,
+                          dotClass(item),
+                          item.clash || item.overtimeMin > 0 ? styles.alert : null,
+                        ]
+                          .filter(Boolean)
+                          .join(' ')}
+                        key={item.id}
+                      />
+                    ))}
+                    {rest > 0 ? <span className={styles.rest}>{`+${rest}`}</span> : null}
+                  </span>
+                )}
               </Link>
 
               {rows.length === 0 ? null : (

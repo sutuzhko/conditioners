@@ -1,18 +1,13 @@
 import type { Metadata } from 'next';
 
-import { DeliveryAddresses, DeliveryLog } from '@/features/delivery-log';
-import { NOTIFICATIONS_GROUP, SettingsForm, toGroupValue } from '@/features/settings-form';
 import { requireOwnerPage } from '@/server/guards';
-import { bindingCode } from '@/server/notifications/binding';
-import { isEmailConfigured } from '@/server/notifications/channels/email';
-import { isTelegramConfigured } from '@/server/notifications/channels/telegram';
-import { loadNotificationPrefs } from '@/server/notifications/prefs';
-import { listDeliveryTargets } from '@/server/repo/admin-users';
-import { deliverySummary, recentFailures, recentPersonal } from '@/server/repo/notifications';
-import { getGroup } from '@/server/repo/settings';
 import { env } from '@/shared/config/env';
-import { Badge, Card } from '@/shared/ui';
+import { Card } from '@/shared/ui';
+import { DataBlock, blockErrorNote } from '@/widgets/admin-shell';
 
+import { ChannelsBlock } from './ChannelsBlock';
+import { DeliveryBlock } from './DeliveryBlock';
+import { ChannelsSkeleton, DeliverySkeleton } from './NotificationsSkeletons';
 import styles from './page.module.css';
 import { notificationsPageContent as texts } from './content';
 
@@ -21,16 +16,6 @@ export const metadata: Metadata = { title: 'Уведомления' };
 /* Страница читает настройки при каждом заходе: она же их и правит. */
 export const dynamic = 'force-dynamic';
 
-type ChannelState = {
-  readonly title: string;
-  /** Выбран ли канал владельцем. */
-  readonly chosen: boolean;
-  /** Готовы ли доступы на сервере. */
-  readonly configured: boolean;
-  /** Чего не хватает, если не готов. */
-  readonly missing: string;
-};
-
 /**
  * Каналы уведомлений.
  *
@@ -38,50 +23,16 @@ type ChannelState = {
  * пароль SMTP) остаются в переменных окружения — их правит тот, кто держит
  * сервер (инвариант 3). Поэтому страница показывает две разные вещи: что
  * выбрано здесь и что вообще способно работать.
+ *
+ * 🔴 Раздел состоит из двух независимых блоков (issue #334, #336): настройка
+ * каналов и журнал доставки. Журнал ходит в четыре таблицы и падает не вместе
+ * с настройкой — упавший журнал не имеет права уносить с экрана форму, ради
+ * которой в раздел заходят. Проверка доступа идёт до первого чтения данных
+ * (ADR-095).
  */
 export default async function AdminNotificationsPage() {
   /* Раздел владельца: проверка до чтения данных (ADR-095). */
   await requireOwnerPage();
-
-  const [stored, prefs, summary, failures, entries, team] = await Promise.all([
-    getGroup('notifications'),
-    loadNotificationPrefs(),
-    deliverySummary(),
-    recentFailures(),
-    recentPersonal(),
-    listDeliveryTargets(),
-  ]);
-
-  /* Код привязки считается на сервере при каждом заходе: он живёт получасовое
-     окно и хранить его негде — он выводится из секрета и идентификатора. */
-  const people = team.map((person) => ({
-    id: person.id,
-    name: person.name,
-    role: person.role,
-    active: person.active,
-    telegram: person.telegramChatId !== null,
-    email: person.email,
-    code: bindingCode(person.id),
-  }));
-
-  const channels: readonly ChannelState[] = [
-    {
-      title: texts.channelTelegram,
-      chosen: prefs.telegram.enabled,
-      configured: isTelegramConfigured(prefs.telegram.chatId),
-      missing: texts.missingTelegram,
-    },
-    {
-      title: texts.channelEmail,
-      chosen: prefs.email.enabled,
-      configured: isEmailConfigured(prefs.email.to),
-      missing: texts.missingEmail,
-    },
-  ];
-
-  const working = channels.filter((channel) => channel.chosen && channel.configured);
-
-  const value = toGroupValue(stored);
 
   return (
     <div className={styles.page}>
@@ -108,55 +59,23 @@ export default async function AdminNotificationsPage() {
         <p className={styles.alwaysText}>{texts.alwaysText}</p>
       </Card>
 
-      <section className={styles.status} aria-labelledby="channels-status">
-        <h2 className={styles.statusTitle} id="channels-status">
-          {texts.statusTitle}
-        </h2>
-        <p className={styles.statusHint}>{texts.statusHint}</p>
+      <DataBlock
+        skeleton={<ChannelsSkeleton />}
+        title={texts.channelsLoadFailed}
+        note={blockErrorNote('/admin/notifications')}
+        surface="bare"
+      >
+        <ChannelsBlock />
+      </DataBlock>
 
-        <ul className={styles.list}>
-          {channels.map((channel) => (
-            <li className={styles.item} key={channel.title}>
-              <span className={styles.itemTitle}>{channel.title}</span>
-              {channel.chosen && channel.configured ? (
-                <Badge variant="success" size="sm">
-                  {texts.stateWorking}
-                </Badge>
-              ) : !channel.chosen ? (
-                <Badge variant="neutral" size="sm">
-                  {texts.stateOffByOwner}
-                </Badge>
-              ) : (
-                <>
-                  <Badge variant="warning" size="sm">
-                    {texts.stateNotConfigured}
-                  </Badge>
-                  <span className={styles.missing}>{channel.missing}</span>
-                </>
-              )}
-            </li>
-          ))}
-        </ul>
-
-        {/* Молчащие каналы — не мелочь: владелец узнаёт о заявке из сообщения,
-            а не из привычки открывать админку. */}
-        {working.length === 0 ? (
-          <Card variant="accent" padding="md" className={styles.none}>
-            <p className={styles.noneTitle}>{texts.noneTitle}</p>
-            <p className={styles.noneText}>{texts.noneText}</p>
-          </Card>
-        ) : null}
-      </section>
-
-      <SettingsForm group={NOTIFICATIONS_GROUP} value={value} />
-
-      {/* Адреса людей — под общими настройками: сперва «куда шлём вообще»,
-          потом «кому лично». Наряды уходят по этим адресам и никуда больше. */}
-      <DeliveryAddresses people={people} />
-
-      {/* Журнал доставки под настройками: сначала владелец правит, куда слать,
-          и только потом разбирается, что не дошло. */}
-      <DeliveryLog summary={summary} failures={failures} entries={entries} />
+      <DataBlock
+        skeleton={<DeliverySkeleton />}
+        title={texts.deliveryLoadFailed}
+        note={blockErrorNote('/admin/notifications')}
+        surface="bare"
+      >
+        <DeliveryBlock />
+      </DataBlock>
     </div>
   );
 }

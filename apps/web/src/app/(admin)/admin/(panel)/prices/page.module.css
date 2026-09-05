@@ -1,0 +1,36 @@
+/* Раздел «Цены на монтаж». */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+}
+
+.lead {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+/* Заготовка прайса: та же колонка, что у формы, — иначе данные приезжают и
+   раскладка перестраивается второй раз (issue #334). */
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

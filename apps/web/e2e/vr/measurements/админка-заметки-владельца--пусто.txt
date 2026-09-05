@@ -1,0 +1,67 @@
+# админка-заметки-владельца--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×231 @16,16  r20  b1
+  h2.InstallerNotes__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Заметки владельца»
+  p.InstallerNotes__hint  316×20 @21,46  Manrope 400 13/20  lines=1  «Монтажник их не видит.»
+  form.InstallerNotes__add  316×96 @21,78
+    div.Field__field  216×96 @0,0
+      textarea.Textarea__textarea  216×96 @0,0  r11  b1
+    button.Button__button  92×44 @224,52  r9  b1
+      span.Button__content  62×16 @15,14
+        span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  p.InstallerNotes__empty  316×22 @21,188  Manrope 400 15/22  lines=1  «Заметок пока нет.»
+
+[геометрия 768]
+section.Card__card  736×232 @16,16  r20  b1
+  h2.InstallerNotes__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Заметки владельца»
+  p.InstallerNotes__hint  694×20 @21,47  Manrope 400 13/20  lines=1  «Монтажник их не видит.»
+  form.InstallerNotes__add  694×96 @21,79
+    div.Field__field  594×96 @0,0
+      textarea.Textarea__textarea  594×96 @0,0  r11  b1
+    button.Button__button  92×44 @602,52  r9  b1
+      span.Button__content  62×16 @15,14
+        span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  p.InstallerNotes__empty  694×22 @21,189  Manrope 400 15/22  lines=1  «Заметок пока нет.»
+
+[геометрия 1440]
+section.Card__card  1408×233 @16,16  r20  b1
+  h2.InstallerNotes__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Заметки владельца»
+  p.InstallerNotes__hint  1366×20 @21,48  Manrope 400 13/20  lines=1  «Монтажник их не видит.»
+  form.InstallerNotes__add  1366×96 @21,80
+    div.Field__field  1266×96 @0,0
+      textarea.Textarea__textarea  1266×96 @0,0  r11  b1
+    button.Button__button  92×40 @1274,56  r9  b1
+      span.Button__content  62×16 @15,12
+        span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  p.InstallerNotes__empty  1366×22 @21,190  Manrope 400 15/22  lines=1  «Заметок пока нет.»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.InstallerNotes__title  color #0f172a
+  p.InstallerNotes__hint  color #556173
+  form.InstallerNotes__add
+    div.Field__field
+      textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label  color #ffffff
+  p.InstallerNotes__empty  color #5b6a7d
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.InstallerNotes__title  color #eaf1f8
+  p.InstallerNotes__hint  color #8598ac
+  form.InstallerNotes__add
+    div.Field__field
+      textarea.Textarea__textarea  bg #0b1424  border #566d95
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label  color #ffffff
+  p.InstallerNotes__empty  color #7e92a7

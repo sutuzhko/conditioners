@@ -14,12 +14,14 @@ import styles from './page.module.css';
  */
 export function LeadsSkeleton() {
   return (
-    <div className={styles.split} aria-busy="true">
-      <div className={styles.queue}>
-        <Skeleton variant="block" className={styles.queueSkeleton} />
-      </div>
-      <div className={styles.detail}>
-        <Skeleton variant="block" className={styles.detailSkeleton} />
+    <div className={styles.block} aria-busy="true">
+      <div className={styles.split}>
+        <div className={styles.queue}>
+          <Skeleton variant="block" className={styles.queueSkeleton} />
+        </div>
+        <div className={styles.detail}>
+          <Skeleton variant="block" className={styles.detailSkeleton} />
+        </div>
       </div>
     </div>
   );

@@ -14,6 +14,8 @@ const place: CalendarPlace = {
   month: '2026-08',
   today: '2026-08-29',
   team: false,
+  who: null,
+  kinds: null,
 };
 
 /**

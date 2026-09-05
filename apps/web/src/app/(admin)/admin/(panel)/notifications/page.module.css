@@ -115,3 +115,11 @@
   color: var(--body);
   font-size: var(--fs-dense);
 }
+
+/* Асинхронный блок раздела: та же колонка, что у страницы, — заготовка и
+   данные встают одинаково (issue #334). */
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}

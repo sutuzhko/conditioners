@@ -92,3 +92,46 @@ describe('Вкладки панели', () => {
     expect(screen.getByRole('tablist', { name: 'Карточка клиента' })).toBeInTheDocument();
   });
 });
+
+/**
+ * Счётчики у подписей (issue #602, макет `CardTabs.png`): по ним видно, есть
+ * ли за вкладкой что-нибудь, до того как на неё нажали.
+ */
+describe('Вкладки панели — счётчики', () => {
+  it('число стоит рядом с подписью и попадает в имя вкладки', () => {
+    render(
+      <PanelTabs
+        active="data"
+        tabs={TABS}
+        titles={TITLES}
+        label="Карточка клиента"
+        idPrefix="client"
+        counts={{ orders: 3, units: 2 }}
+        panels={{ data: <p>Данные</p>, orders: <p>Наряды</p>, units: <p>Техника</p> }}
+      />,
+    );
+
+    expect(screen.getByRole('tab', { name: `${TITLES.orders} 3` })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: `${TITLES.units} 2` })).toBeInTheDocument();
+  });
+
+  /* Ноль показывается наравне с остальными: «Техника 0» отвечает на вопрос,
+     а пустое место — нет. */
+  it('ноль показывается, а не прячется', () => {
+    render(
+      <PanelTabs
+        active="data"
+        tabs={TABS}
+        titles={TITLES}
+        label="Карточка клиента"
+        idPrefix="client"
+        counts={{ units: 0 }}
+        panels={{ data: <p>Данные</p>, orders: <p>Наряды</p>, units: <p>Техника</p> }}
+      />,
+    );
+
+    expect(screen.getByRole('tab', { name: `${TITLES.units} 0` })).toBeInTheDocument();
+    // у вкладки без счётчика число не появляется
+    expect(screen.getByRole('tab', { name: TITLES.orders })).toBeInTheDocument();
+  });
+});

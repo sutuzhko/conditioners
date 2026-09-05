@@ -1,8 +1,9 @@
 import type { CrmEventKind, CrmEventStatus, DayBlockRepeat } from '@/entities/crm/model';
 import type { OrderStatus, OrderType } from '@/entities/order/model';
+import { plural, pluralize } from '@/shared/lib/plural';
 import type { IconName, ConfirmRequest } from '@/shared/ui';
 
-import type { CalendarView } from './model';
+import type { CalendarView, ScheduleKind } from './model';
 
 /** Раздел календаря. Адрес по-английски, как и все адресуемое (инвариант 17). */
 export const CRM_PATH = '/admin/crm';
@@ -112,6 +113,30 @@ export const crmContent = {
   columnEmpty: 'Пусто',
   openDay: (date: string): string => `${date}, открыть день`,
 
+  /**
+   * 🔴 Сколько записей в дне и сколько из них требуют внимания — словами.
+   *
+   * На телефоне клетка месяца показывает точки (issue #547), а точка ничего
+   * не сообщает ни скринридеру, ни человеку, который не различает цвета:
+   * доступное имя клетки обязано называть то же самое текстом (WCAG 1.4.1).
+   */
+  records: (count: number): string => pluralize(count, 'запись', 'записи', 'записей'),
+  attention: (count: number): string =>
+    `${pluralize(count, 'запись', 'записи', 'записей')} ${plural(count, 'требует', 'требуют', 'требуют')} внимания`,
+
+  /**
+   * Подзаголовок раздела — макет ставит период в `h1`, а название раздела
+   * уводит в строку под ним вместе с составом команды и рабочим окном.
+   */
+  subtitle: (team: number, window: string): string =>
+    `Календарь работ · ${pluralize(team, 'монтажник', 'монтажника', 'монтажников')}, рабочее окно ${window}`,
+  subtitleSolo: (window: string): string => `Календарь работ · рабочее окно ${window}`,
+
+  /** Повестка: неделя на телефоне складывается в список дел по дням (issue #47). */
+  agendaLabel: 'Повестка недели',
+  agendaEmpty: 'На этой неделе записей нет',
+  agendaEmptyHint: 'Заведите дело кнопкой «+» или откройте другую неделю.',
+
   // ---------- Занятость команды (ADR-123) ----------
 
   team: 'Занятость монтажников',
@@ -122,13 +147,40 @@ export const crmContent = {
   teamEmptyHint:
     'Заведите учётные записи в разделе «Монтажники» — тогда их занятость ляжет на эту сетку.',
 
+  /* ---------- Карточка «Показывать» (issue #49, макет) ----------
+     Список имён здесь и легенда, и управление: цвет человека в нём тот же,
+     что у его записей на сетке. */
+
+  filterLabel: 'Что показывать в календаре',
+  filterPeople: 'Показывать',
+  filterKinds: 'Виды записей',
+  filterAll: 'Все',
+  filterAllHint: 'Показать занятость всех монтажников',
+  /** Одно нажатие на крайнее состояние: слой остаётся, в нём один человек. */
+  filterOnly: 'Только',
+  filterOnlyOf: (name: string): string => `Показать только ${name}`,
+  filterShow: (name: string): string => `Показать ${name} в слое`,
+  filterHide: (name: string): string => `Скрыть ${name} из слоя`,
+  /** Последний выключенный человек гасит слой: слой без людей — это его отсутствие. */
+  filterNobody: 'Скрыть слой занятости',
+  /** Человеку в промежутке ничего не назначено — так и сказано словами. */
+  filterIdle: 'нет работ',
+  kindShow: (title: string): string => `Показать: ${title.toLocaleLowerCase('ru-RU')}`,
+  kindHide: (title: string): string => `Скрыть: ${title.toLocaleLowerCase('ru-RU')}`,
+  /** Рабочее окно и предупреждение — подвал карточки (ADR-138). */
+  windowTitle: 'Рабочее окно',
+  overtimeNote: 'Переработка отмечается',
+
   orderMark: (number: number): string => `Наряд № ${number}`,
   orderOpen: 'Открыть наряд',
 
   // ---------- Создание и правка ----------
 
-  add: 'Новое дело',
-  addShort: 'Добавить',
+  /* 🔴 «Запись», а не «Новое дело» — так в макете (`design/admin/Calendar.body.html`,
+     кадр 1440). Кнопка заводит и дело, и занятость, и слово «дело» сужало
+     обещание до одного из двух. */
+  add: 'Запись',
+  addShort: 'Запись',
   addTitle: 'Новое дело',
   editTitle: 'Правка дела',
   /** Подпись пустого часа: с клавиатуры и с тача запись заводится отсюда. */
@@ -139,6 +191,10 @@ export const crmContent = {
   close: 'Закрыть',
 
   moreEvents: (count: number): string => `Ещё ${count}`,
+  /** Свёрнутая кучка в сетке часов: «Ещё 2 записи в 09:00–13:00, открыть день». */
+  moreAt: (count: number, range: string): string =>
+    `Ещё ${pluralize(count, 'запись', 'записи', 'записей')} в ${range}, открыть день`,
+  moreCount: (count: number): string => `+${count}`,
   leadsTitle: 'Заявка с сайта',
   leadLink: 'Открыть в заявках',
 
@@ -215,6 +271,23 @@ export const crmContent = {
   fieldReasonPlaceholder: 'Семейные дела, врач, отпуск',
   fieldReasonHint: 'Её увидят рядом с днём — «день закрыт» без причины ничего не объясняет',
 } as const;
+
+/**
+ * Виды записей на карточке «Показывать» — макет
+ * `design/admin/Calendar.body.html`. Групп три, а сущностей четыре: дело и
+ * отлучка стоят вместе, потому что и то и другое — «занят, но не по наряду».
+ */
+export const KIND_FILTER_TITLE: Record<ScheduleKind, string> = {
+  orders: 'Наряды',
+  leads: 'Заявки без времени',
+  notes: 'Дела и отлучки',
+};
+
+/** «09–19»: рабочее окно словами, как его пишет макет. */
+export function windowTitle(fromMin: number, toMin: number): string {
+  const hour = (minutes: number): string => String(Math.floor(minutes / 60)).padStart(2, '0');
+  return `${hour(fromMin)}–${hour(toMin)}`;
+}
 
 /** Названия видов — подписи переключателя в шапке. */
 /**

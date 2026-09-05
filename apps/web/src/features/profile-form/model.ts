@@ -10,4 +10,6 @@ export type ProfileStatus = 'idle' | 'sending' | 'success' | 'error';
 export type ProfileApi = {
   readonly save: (patch: { name: string; phone: string }) => Promise<ProfileResult>;
   readonly changePassword: (input: { current: string; next: string }) => Promise<ProfileResult>;
+  /** Закрыть панель на всех остальных устройствах. Текущее остаётся. */
+  readonly logoutEverywhere: () => Promise<ProfileResult>;
 };

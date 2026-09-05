@@ -47,6 +47,12 @@ vi.mock('@/server/guards', () => ({
 }));
 
 const { default: NotificationsPage } = await import('./page');
+/* 🔴 Блоки рендерятся отдельно от страницы: их данные приезжают своим куском
+   потока внутри `DataBlock`, и `render(await Page())` показал бы заготовку,
+   а не содержимое (issue #334). Что страница их вообще зовёт — проверяет
+   отдельный тест ниже. */
+const { ChannelsBlock } = await import('./ChannelsBlock');
+const { DeliveryBlock } = await import('./DeliveryBlock');
 const { notificationsPageContent: texts } = await import('./content');
 const { deliveryLogContent: logTexts } = await import('@/features/delivery-log');
 
@@ -80,7 +86,7 @@ describe('Раздел «Уведомления»', () => {
   });
 
   it('оба канала выбраны и настроены — оба показаны рабочими', async () => {
-    render(await NotificationsPage());
+    render(await ChannelsBlock());
 
     expect(screen.getAllByText(texts.stateWorking)).toHaveLength(2);
     expect(screen.queryByText(texts.noneTitle)).not.toBeInTheDocument();
@@ -89,7 +95,7 @@ describe('Раздел «Уведомления»', () => {
   it('выключенный владельцем канал так и подписан', async () => {
     settingsMock.getGroup.mockResolvedValue({ telegram: false, email: true });
 
-    render(await NotificationsPage());
+    render(await ChannelsBlock());
 
     expect(screen.getByText(texts.stateOffByOwner)).toBeInTheDocument();
     expect(screen.getByText(texts.stateWorking)).toBeInTheDocument();
@@ -98,7 +104,7 @@ describe('Раздел «Уведомления»', () => {
   it('🔴 выбран, но без доступов на сервере — видно, чего не хватает', async () => {
     testEnv.TELEGRAM_BOT_TOKEN = '';
 
-    render(await NotificationsPage());
+    render(await ChannelsBlock());
 
     expect(screen.getByText(texts.stateNotConfigured)).toBeInTheDocument();
     expect(screen.getByText(texts.missingTelegram)).toBeInTheDocument();
@@ -107,14 +113,14 @@ describe('Раздел «Уведомления»', () => {
   it('🔴 когда не работает ни один канал, страница говорит об этом прямо', async () => {
     settingsMock.getGroup.mockResolvedValue({ telegram: false, email: false });
 
-    render(await NotificationsPage());
+    render(await ChannelsBlock());
 
     expect(screen.getByText(texts.noneTitle)).toBeInTheDocument();
     expect(screen.getByText(texts.noneText)).toBeInTheDocument();
   });
 
   it('🔴 ни токена, ни пароля почты на странице нет: доступы живут в окружении', async () => {
-    const { container } = render(await NotificationsPage());
+    const { container } = render(await ChannelsBlock());
 
     expect(container.textContent).not.toContain('token');
     expect(container.textContent).not.toContain('smtp.example.test');
@@ -137,7 +143,7 @@ describe('Раздел «Уведомления»', () => {
   });
 
   it('🔴 показывает адреса доставки по людям: без них наряд никому не уйдёт', async () => {
-    render(await NotificationsPage());
+    render(await DeliveryBlock());
 
     expect(screen.getByText(logTexts.addressesTitle)).toBeInTheDocument();
     expect(screen.getByText('Дмитрий Соколов')).toBeInTheDocument();
@@ -147,7 +153,7 @@ describe('Раздел «Уведомления»', () => {
   /* Код показан строкой с кнопкой копирования (issue #38): восьмизначный
      код перенабирают руками, и ошибка в одном знаке из восьми стоит звонка. */
   it('🔴 непривязанному человеку показывается код: сам он chat ID не узнает', async () => {
-    render(await NotificationsPage());
+    render(await DeliveryBlock());
 
     expect(screen.getByText(/^[2-9A-HJ-NP-Z]{8}$/)).toBeInTheDocument();
   });
@@ -155,9 +161,18 @@ describe('Раздел «Уведомления»', () => {
   /* 🔴 Подсказка про код стоит один раз над списком, а не под каждым
      человеком: пять одинаковых абзацев вытесняли сами адреса (issue #38). */
   it('подсказку про код привязки показывает один раз', async () => {
-    render(await NotificationsPage());
+    render(await DeliveryBlock());
 
     expect(screen.getAllByText(logTexts.codeHint)).toHaveLength(1);
+  });
+
+  /* 🔴 Заготовка на месте блока — обещание раскладки: страница обязана
+     показать её сразу, не дожидаясь четырёх запросов к базе (issue #334). */
+  it('пока данные едут, на их месте стоят заготовки обоих блоков', async () => {
+    const { container } = render(await NotificationsPage());
+
+    expect(screen.getByText(texts.statusTitle)).toBeInTheDocument();
+    expect(container.querySelectorAll('[aria-hidden="true"]').length).toBeGreaterThan(0);
   });
 
   it('🔴 владелец видит ленту того, что ушло людям: копию сообщением он не получает', async () => {
@@ -178,7 +193,7 @@ describe('Раздел «Уведомления»', () => {
       },
     ]);
 
-    render(await NotificationsPage());
+    render(await DeliveryBlock());
 
     expect(screen.getByText('Вам назначен наряд № 1059')).toBeInTheDocument();
     expect(screen.getByText(logTexts.statusSent)).toBeInTheDocument();

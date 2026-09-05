@@ -1,0 +1,32 @@
+# админка-календарь-повестка-недели--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Agenda__agenda  358×52 @16,16
+  p.Agenda__emptyTitle  358×22 @0,0  Manrope 600 15/22  lines=1  «На этой неделе записей нет»
+  p.Agenda__emptyText  358×20 @0,32  Manrope 400 13/20  lines=1  «Заведите дело кнопкой «+" или откройте д»
+
+[геометрия 768]
+section.Agenda__agenda  736×52 @16,16
+  p.Agenda__emptyTitle  736×22 @0,0  Manrope 600 15/22  lines=1  «На этой неделе записей нет»
+  p.Agenda__emptyText  736×20 @0,32  Manrope 400 13/20  lines=1  «Заведите дело кнопкой «+" или откройте д»
+
+[геометрия 1440]
+section.Agenda__agenda  1408×52 @16,16
+  p.Agenda__emptyTitle  1408×22 @0,0  Manrope 600 15/22  lines=1  «На этой неделе записей нет»
+  p.Agenda__emptyText  1408×20 @0,32  Manrope 400 13/20  lines=1  «Заведите дело кнопкой «+" или откройте д»
+
+[палитра light]
+section.Agenda__agenda
+  p.Agenda__emptyTitle  color #0f172a
+  p.Agenda__emptyText  color #556173
+
+[палитра dark]
+section.Agenda__agenda
+  p.Agenda__emptyTitle  color #eaf1f8
+  p.Agenda__emptyText  color #8598ac

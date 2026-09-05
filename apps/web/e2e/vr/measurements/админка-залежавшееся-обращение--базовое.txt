@@ -1,0 +1,67 @@
+# админка-залежавшееся-обращение--базовое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Alert__alert  358×163 @16,16  r14  b1
+  span.Alert__icon  18×20 @15,13
+    svg  18×18 @0,1
+  div.Alert__body  300×83 @43,13
+    p.Alert__title  300×20 @0,0  Manrope 700 15/20  lines=1  «Обращение № 39 ждёт больше суток»
+    div.Alert__text  300×61 @0,22  Manrope 400 15/20  lines=3  «Чем дольше молчим, тем выше шанс, что че»
+  div.Alert__action  328×44 @15,106
+    a.Button__button  159×44 @169,0  r9  b1
+      span.Button__content  129×16 @15,14
+        span.Button__label  129×16 @0,0  Manrope 600 13/16  lines=1  «Открыть обращение»
+
+[геометрия 768]
+div.Alert__alert  736×89 @16,16  r14  b1
+  span.Alert__icon  18×20 @15,13
+    svg  18×18 @0,1
+  div.Alert__body  509×63 @43,13
+    p.Alert__title  509×20 @0,0  Manrope 700 15/20  lines=1  «Обращение № 39 ждёт больше суток»
+    div.Alert__text  509×41 @0,22  Manrope 400 15/20  lines=2  «Чем дольше молчим, тем выше шанс, что че»
+  div.Alert__action  159×44 @562,13
+    a.Button__button  159×44 @0,0  r9  b1
+      span.Button__content  129×16 @15,14
+        span.Button__label  129×16 @0,0  Manrope 600 13/16  lines=1  «Открыть обращение»
+
+[геометрия 1440]
+div.Alert__alert  1408×69 @16,16  r14  b1
+  span.Alert__icon  18×20 @15,13
+    svg  18×18 @0,1
+  div.Alert__body  1181×43 @43,13
+    p.Alert__title  1181×20 @0,0  Manrope 700 15/20  lines=1  «Обращение № 39 ждёт больше суток»
+    div.Alert__text  1181×20 @0,22  Manrope 400 15/20  lines=1  «Чем дольше молчим, тем выше шанс, что че»
+  div.Alert__action  159×40 @1234,13
+    a.Button__button  159×40 @0,0  r9  b1
+      span.Button__content  129×16 @15,12
+        span.Button__label  129×16 @0,0  Manrope 600 13/16  lines=1  «Открыть обращение»
+
+[палитра light]
+div.Alert__alert  bg #b4530914  border #b4530947
+  span.Alert__icon
+    svg
+  div.Alert__body
+    p.Alert__title  color #92400e
+    div.Alert__text  color #92400e
+  div.Alert__action
+    a.Button__button  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label  color #0f172a
+
+[палитра dark]
+div.Alert__alert  bg #fbbf241f  border #fbbf2452
+  span.Alert__icon
+    svg
+  div.Alert__body
+    p.Alert__title  color #fbbf24
+    div.Alert__text  color #fbbf24
+  div.Alert__action
+    a.Button__button  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label  color #eaf1f8

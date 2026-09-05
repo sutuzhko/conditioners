@@ -17,6 +17,9 @@ export const client: ClientCard = {
   note: 'Домофон не работает, звонить на телефон. Пятый этаж без лифта.',
   createdAt: '2026-06-14T09:00:00.000Z',
   leadCount: 2,
+  orderCount: 3,
+  orderSum: 98_700,
+  lastOrderAt: '2026-08-29T06:00:00.000Z',
 };
 
 /** Заведён руками, по звонку: ни адреса, ни заметки, ни обращений с сайта. */
@@ -28,6 +31,11 @@ export const bareClient: ClientCard = {
   address: null,
   note: null,
   leadCount: 0,
+  /* Работ ещё не было: колонки «Заказов» и «Сумма» обязаны показать это
+     словами, а не нулём, который читается как «ноль рублей выручки». */
+  orderCount: 0,
+  orderSum: 0,
+  lastOrderAt: null,
 };
 
 export const page: ClientPage = {

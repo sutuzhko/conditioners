@@ -1,0 +1,42 @@
+# админка-загрузка-недели--переработка · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.StaffLoadBar__load  358×24 @16,16
+  div.StaffLoadBar__track  268×6 @0,9  r100
+    div.StaffLoadBar__fillOver  268×6 @0,0  r100
+  span.StaffLoadBar__valueOver  31×20 @276,2  JetBrains Mono 600 13/20  lines=1  «54 ч»
+  span.Badge__badge  43×24 @315,0  Manrope 600 12/16  r100  b1  lines=1  «+4 ч»
+
+[геометрия 768]
+div.StaffLoadBar__load  736×24 @16,16
+  div.StaffLoadBar__track  646×6 @0,9  r100
+    div.StaffLoadBar__fillOver  646×6 @0,0  r100
+  span.StaffLoadBar__valueOver  31×20 @654,2  JetBrains Mono 600 13/20  lines=1  «54 ч»
+  span.Badge__badge  43×24 @693,0  Manrope 600 12/16  r100  b1  lines=1  «+4 ч»
+
+[геометрия 1440]
+div.StaffLoadBar__load  1408×24 @16,16
+  div.StaffLoadBar__track  1318×6 @0,9  r100
+    div.StaffLoadBar__fillOver  1318×6 @0,0  r100
+  span.StaffLoadBar__valueOver  31×20 @1326,2  JetBrains Mono 600 13/20  lines=1  «54 ч»
+  span.Badge__badge  43×24 @1365,0  Manrope 600 12/16  r100  b1  lines=1  «+4 ч»
+
+[палитра light]
+div.StaffLoadBar__load
+  div.StaffLoadBar__track  bg #eef2f6
+    div.StaffLoadBar__fillOver  bg #be123c
+  span.StaffLoadBar__valueOver  color #be123c
+  span.Badge__badge  color #be123c  bg #be123c14  border #be123c73
+
+[палитра dark]
+div.StaffLoadBar__load
+  div.StaffLoadBar__track  bg #182338
+    div.StaffLoadBar__fillOver  bg #fb7185
+  span.StaffLoadBar__valueOver  color #fb7185
+  span.Badge__badge  color #fb7185  bg #fb71851f  border #fb718580

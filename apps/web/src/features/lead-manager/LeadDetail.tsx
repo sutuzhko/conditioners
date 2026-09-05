@@ -3,8 +3,8 @@
 import { useRouter } from 'next/navigation';
 
 import { LeadCardView } from './LeadCardView';
-import { leadToClient, leadToOrder, patchLead } from './lib';
-import type { LeadCard } from './model';
+import { leadToClient, leadToOrder, patchLead, removeLead } from './lib';
+import { LEADS_PATH, type LeadCard } from './model';
 
 export interface LeadDetailProps {
   readonly lead: LeadCard;
@@ -27,9 +27,13 @@ export function LeadDetail({ lead }: LeadDetailProps) {
       update={patchLead}
       toClient={leadToClient}
       toOrder={leadToOrder}
+      remove={removeLead}
       /* Черновик наряда живёт своей страницей: раздел заявок не знает ни
          полей наряда, ни списка монтажников. */
       onOrder={(leadId) => router.push(`/admin/orders/new?lead=${leadId}`)}
+      /* Удалённого обращения больше нет: карточка справа обязана уступить
+         место очереди, иначе она показывала бы то, чего в базе не осталось. */
+      onRemoved={() => router.replace(LEADS_PATH)}
       onChanged={() => router.refresh()}
     />
   );
