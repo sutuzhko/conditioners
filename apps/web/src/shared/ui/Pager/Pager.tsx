@@ -103,16 +103,22 @@ export function Pager({
      макета записано в PIXEL_SPEC. */
   const pagerClass = numbers ? `${styles.pager} ${styles.compact}` : styles.pager;
 
+  /* 🔴 Обёртка вокруг слова — только в режиме полосы номеров. Она нужна, чтобы
+     ниже 600px убрать слово с глаз, оставив его в озвучке, но сама по себе
+     меняет ширину шага на 3px: пробел между стрелкой и словом отрисовывается
+     иначе. В списках витрины полосы номеров нет, и трогать их геометрию эта
+     задача не должна — там шаг остаётся ровно тем, чем был. */
+  const stepText = (text: string) =>
+    numbers ? <span className={styles.stepText}>{text}</span> : text;
+
   return (
     <nav className={pagerClass} aria-label={label}>
       {page > 1 ? (
         <Link className={styles.step} href={href(page - 1)} rel="prev">
-          ← <span className={styles.stepText}>{prevLabel}</span>
+          ← {stepText(prevLabel)}
         </Link>
       ) : (
-        <span className={styles.stepOff}>
-          ← <span className={styles.stepText}>{prevLabel}</span>
-        </span>
+        <span className={styles.stepOff}>← {stepText(prevLabel)}</span>
       )}
 
       {numbers ? (
@@ -151,12 +157,10 @@ export function Pager({
 
       {page < pages ? (
         <Link className={styles.step} href={href(page + 1)} rel="next">
-          <span className={styles.stepText}>{nextLabel}</span> →
+          {stepText(nextLabel)} →
         </Link>
       ) : (
-        <span className={styles.stepOff}>
-          <span className={styles.stepText}>{nextLabel}</span> →
-        </span>
+        <span className={styles.stepOff}>{stepText(nextLabel)} →</span>
       )}
     </nav>
   );
