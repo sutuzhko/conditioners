@@ -2,7 +2,12 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  NEAR_LOW_RATIO,
   deltaSchema,
+  isLow,
+  isNearLow,
+  isStockPeriod,
+  movementDelta,
   orderConsumeSchema,
   quantitySchema,
   stockItemCreateSchema,
@@ -359,5 +364,72 @@ describe('списание по наряду', () => {
     const parsed = orderConsumeSchema.safeParse({ lines: [{ ...line, orderId: 'o1' }] });
 
     expect(parsed.success && 'orderId' in (parsed.data.lines[0] ?? {})).toBe(false);
+  });
+});
+
+// ---------- Порог заказа ----------
+
+/**
+ * 🔴 Ошибка здесь стоит денег: по этим двум функциям считаются плитки склада
+ * и список «пора заказывать», по которому владелец закупается (issue #606).
+ */
+describe('порог заказа', () => {
+  it('ниже порога — это строго меньше порога', () => {
+    expect(isLow(3, 6)).toBe(true);
+    expect(isLow(6, 6)).toBe(false);
+    expect(isLow(7, 6)).toBe(false);
+  });
+
+  it('🔴 ноль порога — за позицией не следим, а не «всё ниже порога»', () => {
+    expect(isLow(0, 0)).toBe(false);
+    expect(isNearLow(0, 0)).toBe(false);
+  });
+
+  it('подходит к порогу — запас не больше четверти сверх него', () => {
+    expect(isNearLow(6, 6)).toBe(true);
+    expect(isNearLow(6 * NEAR_LOW_RATIO, 6)).toBe(true);
+    expect(isNearLow(6 * NEAR_LOW_RATIO + 0.1, 6)).toBe(false);
+  });
+
+  it('🔴 позиция не стоит в двух плитках сразу: иначе сумма не сходится', () => {
+    expect(isLow(3, 6)).toBe(true);
+    expect(isNearLow(3, 6)).toBe(false);
+  });
+});
+
+// ---------- Знак у количества в журнале ----------
+
+/**
+ * 🔴 По журналу сверяют остаток (issue #610): приход и списание в колонке
+ * «Сколько» выглядели одинаково, и разобрать, куда делись тридцать метров,
+ * было нельзя.
+ */
+describe('знак движения', () => {
+  it('приход и возврат добавляют', () => {
+    expect(movementDelta('income', 50)).toBe(50);
+    expect(movementDelta('return', 4)).toBe(4);
+  });
+
+  it('списание убавляет: направление задают зоны, а знак — вид движения', () => {
+    expect(movementDelta('consume', 9)).toBe(-9);
+  });
+
+  it('инвентаризация приходит со своим знаком: она и добавляет, и убавляет', () => {
+    expect(movementDelta('count', -1.2)).toBe(-1.2);
+    expect(movementDelta('count', 2)).toBe(2);
+  });
+
+  it('🔴 у перемещения знака нет: общий остаток оно не меняет вовсе', () => {
+    expect(movementDelta('transfer', 30)).toBeNull();
+  });
+});
+
+// ---------- Период журнала ----------
+
+describe('период журнала', () => {
+  it('свои значения принимаются, чужие — нет', () => {
+    expect(isStockPeriod('month')).toBe(true);
+    expect(isStockPeriod('prev')).toBe(true);
+    expect(isStockPeriod('year')).toBe(false);
   });
 });

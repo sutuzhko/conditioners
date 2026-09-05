@@ -3,6 +3,7 @@ import type { Route } from 'next';
 
 import {
   isStockMoveKind,
+  isStockPeriod,
   stockItemCreateSchema,
   stockItemUpdateSchema,
   stockMovementCreateSchema,
@@ -11,12 +12,13 @@ import {
   type StockItemCard,
   type StockMoveKind,
   type StockMovementCard,
+  type StockPeriod,
   type StockUnit,
   type StockZoneCard,
   type StockZoneKind,
 } from '@/entities/stock/model';
 import { PANEL_TABS, resolvePanelTab, type PanelTab } from '@/shared/config/admin-tabs';
-import type { Page } from '@/shared/lib/paging';
+import { ADMIN_PAGE_SIZE, type Page } from '@/shared/lib/paging';
 
 export type {
   StockItemCard,
@@ -24,6 +26,7 @@ export type {
   StockMoveKind,
   StockMovementCard,
   StockOverview,
+  StockPeriod,
   StockUnit,
   StockZoneCard,
   StockZoneKind,
@@ -31,10 +34,13 @@ export type {
 
 export {
   STOCK_MOVE_KINDS,
+  STOCK_PERIODS,
   STOCK_UNITS,
   STOCK_ZONE_KINDS,
   isStockMoveKind,
+  isStockPeriod,
   isStockUnit,
+  movementDelta,
 } from '@/entities/stock/model';
 
 export { ADMIN_PAGE_SIZE, pageNumber } from '@/shared/lib/paging';
@@ -124,6 +130,37 @@ export function stockTabHref(
   return { pathname: STOCK_PATH, query: stockTabQuery(tab, filters) };
 }
 
+/* ---------- Сколько строк на странице ---------- */
+
+/**
+ * Ступени разбивки остатков (issue #608, макет: «Строк на странице 8 ▾»).
+ *
+ * 🔴 Ступени, а не свободное число: выбор из трёх значений не стоит ни
+ * выпадающего списка, ни его клиентского кода — три ссылки делают то же
+ * самое. Восемь — общий шаг панели (`ADMIN_PAGE_SIZE`), двадцать — умолчание
+ * раздела: остатки это таблица, а не список карточек, и десяток строк в ней
+ * читается одним взглядом. Полсотни — для тех, у кого экран большой, а
+ * справочник длинный.
+ */
+export const STOCK_PAGE_SIZES = [ADMIN_PAGE_SIZE, 20, 50] as const;
+export type StockPageSize = (typeof STOCK_PAGE_SIZES)[number];
+
+/** Умолчание раздела: то же число, что и раньше стояло в репозитории. */
+export const DEFAULT_STOCK_PAGE_SIZE: StockPageSize = 20;
+
+export function isStockPageSize(value: number): value is StockPageSize {
+  return STOCK_PAGE_SIZES.some((size) => size === value);
+}
+
+/**
+ * Размер страницы из адреса. Мусор и чужое число — это умолчание, а не отказ:
+ * адрес правят руками и присылают друг другу.
+ */
+export function pageSizeFromParam(raw: string | undefined): StockPageSize {
+  const parsed = Number.parseInt(raw ?? '', 10);
+  return isStockPageSize(parsed) ? parsed : DEFAULT_STOCK_PAGE_SIZE;
+}
+
 /* ---------- Фильтры остатков ---------- */
 
 /**
@@ -134,6 +171,8 @@ export function stockTabHref(
 export type StockFilterState = {
   readonly query: string;
   readonly group: string;
+  /** Сколько строк на странице: выбор владельца, а не константа (issue #608). */
+  readonly size: StockPageSize;
   /** Только позиции, опустившиеся ниже своего порога заказа. */
   readonly low: boolean;
   /**
@@ -147,6 +186,7 @@ export type StockFilterState = {
 export const DEFAULT_STOCK_FILTERS: StockFilterState = {
   query: '',
   group: '',
+  size: DEFAULT_STOCK_PAGE_SIZE,
   low: false,
   archived: false,
 };
@@ -158,12 +198,14 @@ export const DEFAULT_STOCK_FILTERS: StockFilterState = {
 export function stockQuery(filters: Partial<StockFilterState>): Record<string, string> {
   const query = (filters.query ?? DEFAULT_STOCK_FILTERS.query).trim();
   const group = (filters.group ?? DEFAULT_STOCK_FILTERS.group).trim();
+  const size = filters.size ?? DEFAULT_STOCK_FILTERS.size;
   const low = filters.low ?? DEFAULT_STOCK_FILTERS.low;
   const archived = filters.archived ?? DEFAULT_STOCK_FILTERS.archived;
 
   return {
     ...(query === '' ? {} : { q: query }),
     ...(group === '' ? {} : { group }),
+    ...(size === DEFAULT_STOCK_FILTERS.size ? {} : { size: String(size) }),
     ...(low ? { low: '1' } : {}),
     ...(archived ? { archived: '1' } : {}),
   };
@@ -184,6 +226,60 @@ export function stockFiltersApplied(filters: Partial<StockFilterState>): boolean
 /** Значение признака из адреса. Всё, кроме единицы, — «показываем всё». */
 export function lowFromParam(raw: string | undefined): boolean {
   return raw === '1';
+}
+
+/* ---------- Фильтры журнала движений ---------- */
+
+/**
+ * Что отобрано в журнале: вид движения, период и строка поиска (issue #610).
+ *
+ * 🔴 Живёт в адресе, как и фильтр остатков: отфильтрованный журнал — ссылка,
+ * которую можно сохранить и прислать себе, а «Дальше» не сбрасывает отбор.
+ */
+export type StockJournalFilterState = {
+  readonly kind: StockMoveKind | undefined;
+  readonly period: StockPeriod;
+  readonly query: string;
+};
+
+export const DEFAULT_STOCK_JOURNAL_FILTERS: StockJournalFilterState = {
+  kind: undefined,
+  period: 'all',
+  query: '',
+};
+
+/**
+ * Параметры адреса журнала. Умолчания опускаются: `?period=all` ничего не
+ * выбирает, а ссылку владелец присылает себе в мессенджер.
+ */
+export function stockJournalQuery(
+  filters: Partial<StockJournalFilterState>,
+): Record<string, string> {
+  const period = filters.period ?? DEFAULT_STOCK_JOURNAL_FILTERS.period;
+  const query = (filters.query ?? DEFAULT_STOCK_JOURNAL_FILTERS.query).trim();
+
+  return {
+    ...(filters.kind === undefined ? {} : { kind: filters.kind }),
+    ...(period === DEFAULT_STOCK_JOURNAL_FILTERS.period ? {} : { period }),
+    ...(query === '' ? {} : { q: query }),
+  };
+}
+
+/** Отбор отличается от умолчания: пустой журнал тогда объясняется иначе. */
+export function stockJournalApplied(filters: Partial<StockJournalFilterState>): boolean {
+  return Object.keys(stockJournalQuery(filters)).length > 0;
+}
+
+/** Вид движения из адреса. Мусор — это «покажи всё», а не пустой журнал. */
+export function moveKindFromParam(raw: string | undefined): StockMoveKind | undefined {
+  const value = raw?.trim() ?? '';
+  return value !== '' && isStockMoveKind(value) ? value : undefined;
+}
+
+/** Период из адреса. Мусор — это «за всё время». */
+export function periodFromParam(raw: string | undefined): StockPeriod {
+  const value = raw?.trim() ?? '';
+  return value !== '' && isStockPeriod(value) ? value : DEFAULT_STOCK_JOURNAL_FILTERS.period;
 }
 
 /* ---------- Ответ действия ---------- */

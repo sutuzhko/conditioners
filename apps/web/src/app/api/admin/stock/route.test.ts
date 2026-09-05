@@ -105,7 +105,10 @@ const page = {
   total: 1,
   page: 1,
   pages: 1,
+  size: 20,
+  itemsTotal: 1,
   lowCount: 0,
+  nearCount: 0,
 };
 
 const itemBody = {
@@ -183,6 +186,24 @@ describe('Остатки', () => {
     expect(stock.overview).toHaveBeenCalledWith(
       { query: 'труба', group: 'Крепёж', low: true, archived: false, page: 3 },
       { role: 'owner', userId: 'u1' },
+    );
+  });
+
+  it('🔴 шаг листания берётся из адреса, а не зашит в репозитории (issue #608)', async () => {
+    await GET(request('/api/admin/stock?size=8'), undefined);
+
+    expect(stock.overview).toHaveBeenCalledWith(
+      expect.objectContaining({ size: 8 }),
+      expect.anything(),
+    );
+  });
+
+  it('мусор в шаге листания даёт умолчание раздела, а не отказ', async () => {
+    await GET(request('/api/admin/stock?size=много'), undefined);
+
+    expect(stock.overview).toHaveBeenCalledWith(
+      expect.objectContaining({ size: undefined }),
+      expect.anything(),
     );
   });
 
@@ -402,7 +423,21 @@ describe('Движения', () => {
   it('журнал фильтруется по позиции и листается', async () => {
     await GET_MOVEMENTS(request('/api/admin/stock/movements?item=s1&page=2'), undefined);
 
-    expect(stock.movements).toHaveBeenCalledWith({ item: 's1', page: 2 });
+    expect(stock.movements).toHaveBeenCalledWith(expect.objectContaining({ item: 's1', page: 2 }));
+  });
+
+  it('🔴 период и поиск журнала берутся из адреса (issue #610)', async () => {
+    await GET_MOVEMENTS(request('/api/admin/stock/movements?period=month&q=накладная'), undefined);
+
+    expect(stock.movements).toHaveBeenCalledWith(
+      expect.objectContaining({ period: 'month', query: 'накладная' }),
+    );
+  });
+
+  it('неизвестный период — «за всё время», а не отказ: адрес правят руками', async () => {
+    await GET_MOVEMENTS(request('/api/admin/stock/movements?period=год'), undefined);
+
+    expect(stock.movements).toHaveBeenCalledWith(expect.objectContaining({ period: undefined }));
   });
 });
 

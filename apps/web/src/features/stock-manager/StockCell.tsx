@@ -2,7 +2,7 @@
 
 import { useState, type DragEvent, type KeyboardEvent } from 'react';
 
-import { stockManagerContent as texts } from './content';
+import { formatQty, stockManagerContent as texts } from './content';
 import { useStockMove } from './StockMoveScope';
 import type { StockUnit } from './model';
 import styles from './StockCell.module.css';
@@ -57,6 +57,9 @@ export function StockCell({
      реальностью, и переносить расхождение в другую зону незачем. */
   const takeable = move !== null && !closed && qty > 0;
 
+  /* 🔴 В ячейке остаётся число, единица вынесена в свою колонку (issue #607).
+     Голосом ячейка по-прежнему называется целиком: «12 м» — величина, и без
+     единицы одно число вне таблицы не значит ничего. */
   const value = texts.qty(qty, unit);
   const tabbable = move === null ? false : move.tabStop === null ? first : move.tabStop === key;
 
@@ -122,7 +125,16 @@ export function StockCell({
     /* `role` и `data-label` — требование карточного режима таблицы: до 600px
        строка раскладывается в карточку через `display: block`, а он снимает с
        таблицы семантику и прячет шапку (см. Table.tsx). */
-    <td className={styles.cell} role="cell" data-label={zoneName}>
+    <td
+      className={styles.cell}
+      role="cell"
+      data-label={zoneName}
+      /* Метка «это колонка зоны»: карточная раскладка на телефоне собирает из
+         таких ячеек ряд чипов, а пустые зоны прячет — четыре нуля подряд
+         занимают там место, ничего не сообщая (issue #609). */
+      data-zone=""
+      data-empty={qty === 0 ? '' : undefined}
+    >
       <button
         type="button"
         data-stock-cell={key}
@@ -150,7 +162,7 @@ export function StockCell({
         onDragLeave={() => setOver(false)}
         onDrop={onDrop}
       >
-        {value}
+        {formatQty(qty)}
       </button>
     </td>
   );

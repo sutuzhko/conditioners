@@ -8,10 +8,12 @@ import {
   consumeMove,
   countMove,
   emptyJournal,
+  incomeMove,
   journal,
   longJournal,
+  transferMove,
 } from './fixtures';
-import { STOCK_PATH, stockItemPath } from './model';
+import { DEFAULT_STOCK_JOURNAL_FILTERS, STOCK_PATH, stockItemPath } from './model';
 
 const basePath = stockItemPath('s1');
 
@@ -107,5 +109,97 @@ describe('Журнал движений', () => {
 
     expect(screen.getByText(texts.journalEmpty)).toBeVisible();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  });
+
+  /* ---------- Знак у количества и отбор (issue #610) ---------- */
+
+  it('🔴 приход и списание в колонке «Сколько» больше не выглядят одинаково', () => {
+    render(
+      <StockJournal
+        journal={{ ...journal, items: [incomeMove, consumeMove], total: 2 }}
+        basePath={basePath}
+      />,
+    );
+
+    expect(screen.getByText(/^\+50/u)).toBeVisible();
+    expect(screen.getByText(/^−4/u)).toBeVisible();
+  });
+
+  it('🔴 у перемещения знака нет: общий остаток оно не меняет', () => {
+    render(
+      <StockJournal
+        journal={{ ...journal, items: [transferMove], total: 1 }}
+        basePath={basePath}
+      />,
+    );
+
+    const row = screen.getByRole('row', { name: new RegExp(STOCK_MOVE_TITLES.transfer) });
+    expect(within(row).getByText(/^15/u)).toBeVisible();
+  });
+
+  it('отбор по виду, периоду и поиску живёт в адресе', () => {
+    render(
+      <StockJournal
+        journal={journal}
+        basePath={STOCK_PATH}
+        baseQuery={{ tab: 'log' }}
+        withItem
+        withFilter
+        filters={DEFAULT_STOCK_JOURNAL_FILTERS}
+      />,
+    );
+
+    expect(screen.getByRole('link', { name: STOCK_MOVE_TITLES.income })).toHaveAttribute(
+      'href',
+      '/admin/stock?tab=log&kind=income',
+    );
+    expect(screen.getByRole('link', { name: texts.journalPeriodTitle('month') })).toHaveAttribute(
+      'href',
+      '/admin/stock?tab=log&period=month',
+    );
+    expect(
+      screen.getByRole('searchbox', { name: new RegExp(texts.journalSearchLabel) }),
+    ).toBeVisible();
+  });
+
+  it('🔴 отбор переезжает в форму поиска: `GET` заменяет строку запроса целиком', () => {
+    const { container } = render(
+      <StockJournal
+        journal={journal}
+        basePath={STOCK_PATH}
+        baseQuery={{ tab: 'log' }}
+        withItem
+        withFilter
+        filters={{ kind: 'income', period: 'month', query: '' }}
+      />,
+    );
+
+    const hidden = [...container.querySelectorAll('input[type="hidden"]')].map((input) => [
+      input.getAttribute('name'),
+      input.getAttribute('value'),
+    ]);
+
+    expect(hidden).toEqual([
+      ['tab', 'log'],
+      ['kind', 'income'],
+      ['period', 'month'],
+    ]);
+  });
+
+  it('пусто по отбору объясняется не так, как пусто вообще', () => {
+    render(
+      <StockJournal
+        journal={emptyJournal}
+        basePath={STOCK_PATH}
+        baseQuery={{ tab: 'log' }}
+        withItem
+        withFilter
+        filters={{ kind: 'income', period: 'all', query: '' }}
+        emptyText={texts.journalAllEmpty}
+      />,
+    );
+
+    expect(screen.getByText(texts.journalNothingText)).toBeVisible();
+    expect(screen.queryByText(texts.journalAllEmpty)).not.toBeInTheDocument();
   });
 });

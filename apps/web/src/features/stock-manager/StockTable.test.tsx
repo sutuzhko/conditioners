@@ -1,3 +1,4 @@
+import { DEFAULT_STOCK_PAGE_SIZE } from './model';
 import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -18,9 +19,6 @@ import {
 
 /* Ячейки остатка — клиентские: они же ручки перемещения (ADR-137). */
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
-
-/** Testing Library схлопывает неразрывный пробел в обычный — сверяем так же. */
-const flat = (value: string): string => value.replace(/\u00A0/gu, ' ');
 
 describe('Остатки по зонам', () => {
   it('строки — позиции, колонки — зоны хранения', () => {
@@ -44,7 +42,33 @@ describe('Остатки по зонам', () => {
   it('позиция ниже порога помечена — это и есть список «пора заказывать»', () => {
     render(<StockTable overview={{ ...overview, items: [bracket], total: 1, lowCount: 1 }} />);
 
-    expect(screen.getByText(texts.low)).toBeVisible();
+    /* 🔴 Итог помечен пилюлей состояния, а слово стоит рядом для озвучки:
+       краску различает не всякий глаз (ADR-081, issue #607). */
+    const total = screen.getByTitle(texts.lowTitle);
+    expect(total).toHaveTextContent(String(bracket.total));
+    expect(within(total).getByText(texts.low)).toBeInTheDocument();
+  });
+
+  it('🔴 подходит к порогу — своя пометка, а не «ниже порога» (issue #606)', () => {
+    render(<StockTable overview={{ ...overview, items: [freon], total: 1, nearCount: 1 }} />);
+
+    expect(screen.getByTitle(texts.nearTitle)).toBeInTheDocument();
+  });
+
+  it('🔴 единица вынесена в свою колонку, в ячейках зон остались числа (issue #607)', () => {
+    render(<StockTable overview={{ ...overview, items: [pipe], total: 1 }} />);
+
+    expect(screen.getByRole('columnheader', { name: texts.colUnit })).toBeVisible();
+
+    const row = screen.getByRole('row', { name: new RegExp(pipe.name) });
+    /* Число без единицы на экране, единица целиком — в имени ячейки голосом. */
+    expect(within(row).getByText('43,5')).toBeVisible();
+
+    const [zone] = within(row).getAllByRole('button');
+    /* Атрибут хранит неразрывный пробел как есть — сверяем без схлопывания. */
+    expect(zone?.getAttribute('aria-label') ?? '').toContain(
+      texts.cellLabel(pipe.name, warehouse.name, texts.qty(43.5, pipe.unit)),
+    );
   });
 
   it('🔴 минус помечен предупреждением, а не отказом: склад разошёлся с реальностью', () => {
@@ -81,7 +105,13 @@ describe('Остатки по зонам', () => {
     render(
       <StockTable
         overview={emptyOverview}
-        filters={{ query: 'труба', group: '', low: false, archived: false }}
+        filters={{
+          query: 'труба',
+          group: '',
+          size: DEFAULT_STOCK_PAGE_SIZE,
+          low: false,
+          archived: false,
+        }}
       />,
     );
 
@@ -93,7 +123,13 @@ describe('Остатки по зонам', () => {
     render(
       <StockTable
         overview={emptyOverview}
-        filters={{ query: '', group: '', low: true, archived: false }}
+        filters={{
+          query: '',
+          group: '',
+          size: DEFAULT_STOCK_PAGE_SIZE,
+          low: true,
+          archived: false,
+        }}
       />,
     );
 
@@ -104,7 +140,13 @@ describe('Остатки по зонам', () => {
     render(
       <StockTable
         overview={longOverview}
-        filters={{ query: 'труба', group: 'Крепёж', low: true, archived: false }}
+        filters={{
+          query: 'труба',
+          group: 'Крепёж',
+          size: DEFAULT_STOCK_PAGE_SIZE,
+          low: true,
+          archived: false,
+        }}
       />,
     );
 
@@ -162,6 +204,27 @@ describe('Остатки по зонам', () => {
     render(<StockTable overview={{ ...overview, items: [pipe], total: 1 }} />);
 
     const row = screen.getByRole('row', { name: new RegExp(pipe.name) });
-    expect(within(row).getAllByText(flat(texts.qty(0, pipe.unit)))).not.toHaveLength(0);
+    expect(within(row).getAllByText('0')).not.toHaveLength(0);
+  });
+
+  it('🔴 «Итого» стоит перед «Порогом», как в макете (issue #607)', () => {
+    render(<StockTable overview={overview} />);
+
+    const heads = screen.getAllByRole('columnheader').map((cell) => cell.textContent);
+    const total = heads.indexOf(texts.colTotal);
+    const min = heads.indexOf(texts.colMin);
+
+    expect(total).toBeGreaterThan(-1);
+    expect(min).toBeGreaterThan(total);
+  });
+
+  it('🔴 шаг листания живёт в адресе, а не в коде (issue #608)', () => {
+    render(<StockTable overview={{ ...overview, itemsTotal: 42 }} />);
+
+    expect(screen.getByText(texts.perPage)).toBeVisible();
+    expect(screen.getByRole('link', { name: texts.perPageSet(8) })).toHaveAttribute(
+      'href',
+      '/admin/stock?size=8',
+    );
   });
 });
