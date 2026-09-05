@@ -2,22 +2,22 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×918
+390 → 390×942
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×886 @16,16  r20  b1
-  div.Table__viewport  356×884 @1,1
-    table.Table__table  356×884 @0,0
+section.Card__card  358×910 @16,16  r20  b1
+  div.Table__viewport  356×908 @1,1
+    table.Table__table  356×908 @0,0
       tr[role=row]  1×56 @0,0
         th.AdminCatalogList__colName  93×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
         th.AdminCatalogList__colNarrow  104×56 @93,0  Onest 700 15/23  b0 0 1 0  lines=1  «Площадь»
         th.AdminCatalogList__colPrice  73×56 @197,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
         th.AdminCatalogList__colNarrow#2  119×56 @270,0  Onest 700 15/23  b0 0 1 0  lines=1  «На главной»
         th.AdminCatalogList__colNarrow#3  118×56 @389,0  Onest 700 15/23  b0 0 1 0  lines=1  «Видимость»
-        span  1×1 @524,38  Onest 700 15/23  lines=1  clipped  «Действия»
-      tr[role=row]#2  356×297 @0,0  r14  b1
+        span  1×1 @524,38  Onest 700 15/23  lines=1  clipped  «Править»
+      tr[role=row]#2  356×305 @0,0  r14  b1
         td[role=cell]  354×81 @1,5
           td[role=cell]::before  48×20 @0,0
           span.AdminCatalogList__model  264×67 @76,7
@@ -44,34 +44,16 @@ section.Card__card  358×886 @16,16  r20  b1
           span.Badge__badge  92×28 @248,7  Manrope 600 12/16  r100  b1  lines=1  «На главной»
         td[role=cell]#4  354×36 @1,201
           td[role=cell]#4::before  68×20 @0,0
-          div.VisibilitySwitch__root  43×20 @297,7
-            span.Tooltip__wrap  43×20 @0,0
-              span.Tooltip__anchor  43×20 @0,0
-                div.Switch__root  43×20 @0,0
-                  div.Switch__row  43×20 @0,0
-                    label.Switch__track  34×20 @0,0  r100  b1
-                      span.Switch__thumb  14×14 @19,3  r100
-                    input.Switch__input  1×1 @0,10
-                    label  1×1 @43,10  Manrope 400 15/22  lines=1  clipped  «Видна»
-        td[role=cell]#5  354×51 @1,241  b1 0 0 0
-          div.TableActions__actions  116×36 @224,8
-            span.Tooltip__wrap  36×36 @0,0  r100
-              span.Tooltip__anchor#2  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea  36×36 @0,0
-                    svg  16×16 @10,10
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#2  36×36 @0,0
-                    svg  16×16 @10,10
-            span.ProductRowRemove__root  36×36 @80,0  r100
-              span.Tooltip__wrap  36×36 @0,0
-                span.Tooltip__anchor#3  36×36 @0,0
-                  button.TableActions__action  36×36 @0,0  r100
-                    span.TableActions__iconArea  24×34 @6,1
-                      svg#2  16×16 @4,9
-      tr[role=row]#3  356×297 @0,307  r14  b1
+          div.VisibilitySwitch__root  86×20 @254,7
+            div.Switch__root  86×20 @0,0
+              div.Switch__row  86×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb  14×14 @19,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+        td[role=cell]#5  354×59 @1,241  b1 0 0 0
+          a.AdminCatalogList__edit  60×44 @280,8  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#3  356×305 @0,315  r14  b1
         td[role=cell]  354×81 @1,5
           td[role=cell]::before  48×20 @0,0
           span.AdminCatalogList__model#2  264×67 @76,7
@@ -98,34 +80,16 @@ section.Card__card  358×886 @16,16  r20  b1
           span.Badge__badge#2  92×28 @248,7  Manrope 600 12/16  r100  b1  lines=1  «На главной»
         td[role=cell]#4  354×36 @1,201
           td[role=cell]#4::before  68×20 @0,0
-          div.VisibilitySwitch__root#2  43×20 @297,7
-            span.Tooltip__wrap  43×20 @0,0
-              span.Tooltip__anchor#4  43×20 @0,0
-                div.Switch__root  43×20 @0,0
-                  div.Switch__row#2  43×20 @0,0
-                    label.Switch__track  34×20 @0,0  r100  b1
-                      span.Switch__thumb#2  14×14 @19,3  r100
-                    input.Switch__input  1×1 @0,10
-                    label  1×1 @43,10  Manrope 400 15/22  lines=1  clipped  «Видна»
-        td[role=cell]#5  354×51 @1,241  b1 0 0 0
-          div.TableActions__actions#2  116×36 @224,8
-            span.Tooltip__wrap  36×36 @0,0  r100
-              span.Tooltip__anchor#5  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#3  36×36 @0,0
-                    svg  16×16 @10,10
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor#2  36×36 @0,0
-                a.TableActions__action#2  36×36 @0,0  r100
-                  span.TableActions__iconArea  36×36 @0,0
-                    svg#3  16×16 @10,10
-            span.ProductRowRemove__root  36×36 @80,0  r100
-              span.Tooltip__wrap#2  36×36 @0,0
-                span.Tooltip__anchor#3  36×36 @0,0
-                  button.TableActions__action#2  36×36 @0,0  r100
-                    span.TableActions__iconArea  24×34 @6,1
-                      svg#4  16×16 @4,9
-      tr[role=row]#4  356×269 @0,615  r14  b1
+          div.VisibilitySwitch__root#2  86×20 @254,7
+            div.Switch__root  86×20 @0,0
+              div.Switch__row#2  86×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb#2  14×14 @19,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+        td[role=cell]#5  354×59 @1,241  b1 0 0 0
+          a.AdminCatalogList__edit#2  60×44 @280,8  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#4  356×277 @0,631  r14  b1
         td[role=cell]  354×59 @1,5
           td[role=cell]::before  48×20 @0,0
           span.AdminCatalogList__model#3  256×45 @84,7
@@ -154,46 +118,28 @@ section.Card__card  358×886 @16,16  r20  b1
             span#2  11×19 @0,1  Manrope 400 15/22  lines=1  «—»
         td[role=cell]#4  354×36 @1,173
           td[role=cell]#4::before  68×20 @0,0
-          div.VisibilitySwitch__root#3  43×20 @297,7
-            span.Tooltip__wrap  43×20 @0,0
-              span.Tooltip__anchor#6  43×20 @0,0
-                div.Switch__root  43×20 @0,0
-                  div.Switch__row#3  43×20 @0,0
-                    label.Switch__track  34×20 @0,0  r100  b1
-                      span.Switch__thumb#3  14×14 @3,3  r100
-                    input.Switch__input  1×1 @0,10
-                    label  1×1 @43,10  Manrope 400 15/22  lines=1  clipped  «Скрыта»
-        td[role=cell]#5  354×51 @1,213  b1 0 0 0
-          div.TableActions__actions#3  116×36 @224,8
-            span.Tooltip__wrap  36×36 @0,0  r100
-              span.Tooltip__anchor#7  36×36 @0,0
-                button.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#2  24×34 @6,1
-                    svg#2  16×16 @4,9
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor#4  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#4  36×36 @0,0
-                    svg  16×16 @10,10
-            span.ProductRowRemove__root  36×36 @80,0  r100
-              span.Tooltip__wrap#3  36×36 @0,0
-                span.Tooltip__anchor  36×36 @0,0
-                  button.TableActions__action  36×36 @0,0  r100
-                    span.TableActions__iconArea#3  24×34 @6,1
-                      svg#2  16×16 @4,9
+          div.VisibilitySwitch__root#3  95×20 @245,7
+            div.Switch__root  95×20 @0,0
+              div.Switch__row#3  95×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb#3  14×14 @3,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  51×20 @44,0  Manrope 400 15/20  lines=1  «Скрыта»
+        td[role=cell]#5  354×59 @1,213  b1 0 0 0
+          a.AdminCatalogList__edit#3  60×44 @280,8  Manrope 600 15/22  lines=1  «Править»
 
 [геометрия 768]
 section.Card__card  736×473 @16,16  r20  b1
   div.Table__viewport  734×471 @1,1
-    table.Table__table  911×471 @0,0
-      tr[role=row]  911×56 @0,0
+    table.Table__table  868×471 @0,0
+      tr[role=row]  868×56 @0,0
         th.AdminCatalogList__colName  192×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
         th.AdminCatalogList__colNarrow  104×56 @192,0  Onest 700 15/23  b0 0 1 0  lines=1  «Площадь»
         th.AdminCatalogList__colPrice  218×56 @295,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
         th.AdminCatalogList__colNarrow#2  128×56 @514,0  Onest 700 15/23  b0 0 1 0  lines=1  «На главной»
-        th.AdminCatalogList__colNarrow#3  118×56 @641,0  Onest 700 15/23  b0 0 1 0  lines=1  «Видимость»
-        span  1×1 @776,38  Onest 700 15/23  lines=1  clipped  «Действия»
-      tr[role=row]#2  911×139 @0,56
+        th.AdminCatalogList__colNarrow#3  131×56 @641,0  Onest 700 15/23  b0 0 1 0  lines=1  «Видимость»
+        span  1×1 @789,38  Onest 700 15/23  lines=1  clipped  «Править»
+      tr[role=row]#2  868×139 @0,56
         td[role=cell]  192×139 @0,0  b0 0 1 0
           span.AdminCatalogList__model  156×110 @18,15
             span.AdminCatalogList__thumbEmpty  52×38 @0,36  r11  b1
@@ -214,35 +160,17 @@ section.Card__card  736×473 @16,16  r20  b1
               span.AdminCatalogList__saleUntil  86×20 @96,0  Manrope 400 13/20  lines=1  «до 30.09.2026»
         td[role=cell]#3  128×139 @514,0  b0 0 1 0
           span.Badge__badge  92×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «На главной»
-        td[role=cell]#4  118×139 @641,0  b0 0 1 0
-          div.VisibilitySwitch__root  82×20 @18,15
-            span.Tooltip__wrap  43×20 @0,0
-              span.Tooltip__anchor  43×20 @0,0
-                div.Switch__root  43×20 @0,0
-                  div.Switch__row  43×20 @0,0
-                    label.Switch__track  34×20 @0,0  r100  b1
-                      span.Switch__thumb  14×14 @19,3  r100
-                    input.Switch__input  1×1 @0,10
-                    label  1×1 @43,10  Manrope 400 15/22  lines=1  clipped  «Видна»
-        td[role=cell]#5  152×139 @759,0  b0 0 1 0
-          div.TableActions__actions  116×36 @18,15
-            span.Tooltip__wrap  36×36 @0,0  r100
-              span.Tooltip__anchor#2  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea  36×36 @0,0
-                    svg  16×16 @10,10
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#2  36×36 @0,0
-                    svg  16×16 @10,10
-            span.ProductRowRemove__root  36×36 @80,0  r100
-              span.Tooltip__wrap  36×36 @0,0
-                span.Tooltip__anchor#3  36×36 @0,0
-                  button.TableActions__action  36×36 @0,0  r100
-                    span.TableActions__iconArea  24×34 @6,1
-                      svg#2  16×16 @4,9
-      tr[role=row]#3  911×139 @0,194
+        td[role=cell]#4  131×139 @641,0  b0 0 1 0
+          div.VisibilitySwitch__root  95×20 @18,15
+            div.Switch__root  86×20 @0,0
+              div.Switch__row  86×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb  14×14 @19,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+        td[role=cell]#5  96×139 @772,0  b0 0 1 0
+          a.AdminCatalogList__edit  60×44 @18,15  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#3  868×139 @0,194
         td[role=cell]  192×139 @0,0  b0 0 1 0
           span.AdminCatalogList__model#2  156×110 @18,15
             span.AdminCatalogList__thumbEmpty  52×38 @0,36  r11  b1
@@ -263,35 +191,17 @@ section.Card__card  736×473 @16,16  r20  b1
               span.AdminCatalogList__saleUntil#2  86×20 @96,0  Manrope 400 13/20  lines=1  «до 30.09.2026»
         td[role=cell]#3  128×139 @514,0  b0 0 1 0
           span.Badge__badge#2  92×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «На главной»
-        td[role=cell]#4  118×139 @641,0  b0 0 1 0
-          div.VisibilitySwitch__root#2  82×20 @18,15
-            span.Tooltip__wrap  43×20 @0,0
-              span.Tooltip__anchor#4  43×20 @0,0
-                div.Switch__root  43×20 @0,0
-                  div.Switch__row#2  43×20 @0,0
-                    label.Switch__track  34×20 @0,0  r100  b1
-                      span.Switch__thumb#2  14×14 @19,3  r100
-                    input.Switch__input  1×1 @0,10
-                    label  1×1 @43,10  Manrope 400 15/22  lines=1  clipped  «Видна»
-        td[role=cell]#5  152×139 @759,0  b0 0 1 0
-          div.TableActions__actions#2  116×36 @18,15
-            span.Tooltip__wrap  36×36 @0,0  r100
-              span.Tooltip__anchor#5  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#3  36×36 @0,0
-                    svg  16×16 @10,10
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor#2  36×36 @0,0
-                a.TableActions__action#2  36×36 @0,0  r100
-                  span.TableActions__iconArea  36×36 @0,0
-                    svg#3  16×16 @10,10
-            span.ProductRowRemove__root  36×36 @80,0  r100
-              span.Tooltip__wrap#2  36×36 @0,0
-                span.Tooltip__anchor#3  36×36 @0,0
-                  button.TableActions__action#2  36×36 @0,0  r100
-                    span.TableActions__iconArea  24×34 @6,1
-                      svg#4  16×16 @4,9
-      tr[role=row]#4  911×138 @0,333
+        td[role=cell]#4  131×139 @641,0  b0 0 1 0
+          div.VisibilitySwitch__root#2  95×20 @18,15
+            div.Switch__root  86×20 @0,0
+              div.Switch__row#2  86×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb#2  14×14 @19,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+        td[role=cell]#5  96×139 @772,0  b0 0 1 0
+          a.AdminCatalogList__edit#2  60×44 @18,15  Manrope 600 15/22  lines=1  «Править»
+      tr[role=row]#4  868×138 @0,333
         td[role=cell]  192×138 @0,0
           span.AdminCatalogList__model#3  156×110 @18,15
             span.AdminCatalogList__thumbEmpty  52×38 @0,36  r11  b1
@@ -314,34 +224,16 @@ section.Card__card  736×473 @16,16  r20  b1
           span.AdminCatalogList__muted  11×19 @18,16
             span  1×1 @-1,-2  Manrope 400 15/22  lines=1  clipped  «Только в каталоге»
             span#2  11×19 @0,0  Manrope 400 15/22  lines=1  «—»
-        td[role=cell]#4  118×138 @641,0
-          div.VisibilitySwitch__root#3  82×20 @18,15
-            span.Tooltip__wrap  43×20 @0,0
-              span.Tooltip__anchor#6  43×20 @0,0
-                div.Switch__root  43×20 @0,0
-                  div.Switch__row#3  43×20 @0,0
-                    label.Switch__track  34×20 @0,0  r100  b1
-                      span.Switch__thumb#3  14×14 @3,3  r100
-                    input.Switch__input  1×1 @0,10
-                    label  1×1 @43,10  Manrope 400 15/22  lines=1  clipped  «Скрыта»
-        td[role=cell]#5  152×138 @759,0
-          div.TableActions__actions#3  116×36 @18,15
-            span.Tooltip__wrap  36×36 @0,0  r100
-              span.Tooltip__anchor#7  36×36 @0,0
-                button.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#2  24×34 @6,1
-                    svg#2  16×16 @4,9
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor#4  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#4  36×36 @0,0
-                    svg  16×16 @10,10
-            span.ProductRowRemove__root  36×36 @80,0  r100
-              span.Tooltip__wrap#3  36×36 @0,0
-                span.Tooltip__anchor  36×36 @0,0
-                  button.TableActions__action  36×36 @0,0  r100
-                    span.TableActions__iconArea#3  24×34 @6,1
-                      svg#2  16×16 @4,9
+        td[role=cell]#4  131×138 @641,0
+          div.VisibilitySwitch__root#3  95×20 @18,15
+            div.Switch__root  95×20 @0,0
+              div.Switch__row#3  95×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb#3  14×14 @3,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  51×20 @44,0  Manrope 400 15/20  lines=1  «Скрыта»
+        td[role=cell]#5  96×138 @772,0
+          a.AdminCatalogList__edit#3  60×44 @18,15  Manrope 600 15/22  lines=1  «Править»
 
 [геометрия 1440]
 section.Card__card  1408×278 @16,16  r20  b1
@@ -352,9 +244,9 @@ section.Card__card  1408×278 @16,16  r20  b1
         th.AdminCatalogList__colNarrow  120×56 @478,0  Onest 700 15/23  b0 0 1 0  lines=1  «Площадь»
         th.AdminCatalogList__colPrice  218×56 @598,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
         th.AdminCatalogList__colNarrow#2  128×56 @816,0  Onest 700 15/23  b0 0 1 0  lines=1  «На главной»
-        th.AdminCatalogList__colNarrow#3  120×56 @944,0  Onest 700 15/23  b0 0 1 0  lines=1  «Видимость»
-        th.AdminCatalogList__wideOnly  101×56 @1064,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порядок»
-        span  1×1 @1182,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        th.AdminCatalogList__colNarrow#3  131×56 @944,0  Onest 700 15/23  b0 0 1 0  lines=1  «Видимость»
+        th.AdminCatalogList__wideOnly  101×56 @1075,0  Onest 700 15/23  b0 0 1 0  lines=1  «Порядок»
+        span  1×1 @1193,38  Onest 700 15/23  lines=1  clipped  «Править»
       tr[role=row]#2  1406×74 @0,56
         td[role=cell]  478×74 @0,0  b0 0 1 0
           span.AdminCatalogList__model  442×45 @18,15
@@ -375,35 +267,17 @@ section.Card__card  1408×278 @16,16  r20  b1
               span.AdminCatalogList__saleUntil  86×20 @96,0  Manrope 400 13/20  lines=1  «до 30.09.2026»
         td[role=cell]#3  128×74 @816,0  b0 0 1 0
           span.Badge__badge  92×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «На главной»
-        td[role=cell]#4  120×74 @944,0  b0 0 1 0
-          div.VisibilitySwitch__root  84×20 @18,15
-            span.Tooltip__wrap  43×20 @0,0
-              span.Tooltip__anchor  43×20 @0,0
-                div.Switch__root  43×20 @0,0
-                  div.Switch__row  43×20 @0,0
-                    label.Switch__track  34×20 @0,0  r100  b1
-                      span.Switch__thumb  14×14 @19,3  r100
-                    input.Switch__input  1×1 @0,10
-                    label  1×1 @43,10  Manrope 400 15/22  lines=1  clipped  «Видна»
-        td.AdminCatalogList__wideOnly  101×74 @1064,0  Manrope 400 15/22  b0 0 1 0  lines=1  «0»
-        td[role=cell]#5  241×74 @1165,0  b0 0 1 0
-          div.TableActions__actions  205×36 @18,15
-            span.Tooltip__wrap  36×36 @89,0  r100
-              span.Tooltip__anchor#2  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea  36×36 @0,0
-                    svg  16×16 @10,10
-            span.Tooltip__wrap#2  36×36 @129,0  r100
-              span.Tooltip__anchor  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#2  36×36 @0,0
-                    svg  16×16 @10,10
-            span.ProductRowRemove__root  36×36 @169,0  r100
-              span.Tooltip__wrap  36×36 @0,0
-                span.Tooltip__anchor#3  36×36 @0,0
-                  button.TableActions__action  36×36 @0,0  r100
-                    span.TableActions__iconArea  24×34 @6,1
-                      svg#2  16×16 @4,9
+        td[role=cell]#4  131×74 @944,0  b0 0 1 0
+          div.VisibilitySwitch__root  95×20 @18,15
+            div.Switch__root  86×20 @0,0
+              div.Switch__row  86×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb  14×14 @19,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+        td.AdminCatalogList__wideOnly  101×74 @1075,0  Manrope 400 15/22  b0 0 1 0  lines=1  «0»
+        td[role=cell]#5  230×74 @1176,0  b0 0 1 0
+          a.AdminCatalogList__edit  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
       tr[role=row]#3  1406×74 @0,129
         td[role=cell]  478×74 @0,0  b0 0 1 0
           span.AdminCatalogList__model#2  442×45 @18,15
@@ -424,35 +298,17 @@ section.Card__card  1408×278 @16,16  r20  b1
               span.AdminCatalogList__saleUntil#2  86×20 @96,0  Manrope 400 13/20  lines=1  «до 30.09.2026»
         td[role=cell]#3  128×74 @816,0  b0 0 1 0
           span.Badge__badge#2  92×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «На главной»
-        td[role=cell]#4  120×74 @944,0  b0 0 1 0
-          div.VisibilitySwitch__root#2  84×20 @18,15
-            span.Tooltip__wrap  43×20 @0,0
-              span.Tooltip__anchor#4  43×20 @0,0
-                div.Switch__root  43×20 @0,0
-                  div.Switch__row#2  43×20 @0,0
-                    label.Switch__track  34×20 @0,0  r100  b1
-                      span.Switch__thumb#2  14×14 @19,3  r100
-                    input.Switch__input  1×1 @0,10
-                    label  1×1 @43,10  Manrope 400 15/22  lines=1  clipped  «Видна»
-        td.AdminCatalogList__wideOnly  101×74 @1064,0  Manrope 400 15/22  b0 0 1 0  lines=1  «1»
-        td[role=cell]#5  241×74 @1165,0  b0 0 1 0
-          div.TableActions__actions#2  205×36 @18,15
-            span.Tooltip__wrap  36×36 @89,0  r100
-              span.Tooltip__anchor#5  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#3  36×36 @0,0
-                    svg  16×16 @10,10
-            span.Tooltip__wrap#2  36×36 @129,0  r100
-              span.Tooltip__anchor#2  36×36 @0,0
-                a.TableActions__action#2  36×36 @0,0  r100
-                  span.TableActions__iconArea  36×36 @0,0
-                    svg#3  16×16 @10,10
-            span.ProductRowRemove__root  36×36 @169,0  r100
-              span.Tooltip__wrap#2  36×36 @0,0
-                span.Tooltip__anchor#3  36×36 @0,0
-                  button.TableActions__action#2  36×36 @0,0  r100
-                    span.TableActions__iconArea  24×34 @6,1
-                      svg#4  16×16 @4,9
+        td[role=cell]#4  131×74 @944,0  b0 0 1 0
+          div.VisibilitySwitch__root#2  95×20 @18,15
+            div.Switch__root  86×20 @0,0
+              div.Switch__row#2  86×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb#2  14×14 @19,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  42×20 @44,0  Manrope 400 15/20  lines=1  «Видна»
+        td.AdminCatalogList__wideOnly  101×74 @1075,0  Manrope 400 15/22  b0 0 1 0  lines=1  «1»
+        td[role=cell]#5  230×74 @1176,0  b0 0 1 0
+          a.AdminCatalogList__edit#2  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
       tr[role=row]#4  1406×73 @0,203
         td[role=cell]  478×73 @0,0
           span.AdminCatalogList__model#3  442×45 @18,15
@@ -475,35 +331,17 @@ section.Card__card  1408×278 @16,16  r20  b1
           span.AdminCatalogList__muted  11×19 @18,16
             span  1×1 @-1,-2  Manrope 400 15/22  lines=1  clipped  «Только в каталоге»
             span#2  11×19 @0,0  Manrope 400 15/22  lines=1  «—»
-        td[role=cell]#4  120×73 @944,0
-          div.VisibilitySwitch__root#3  84×20 @18,15
-            span.Tooltip__wrap  43×20 @0,0
-              span.Tooltip__anchor#6  43×20 @0,0
-                div.Switch__root  43×20 @0,0
-                  div.Switch__row#3  43×20 @0,0
-                    label.Switch__track  34×20 @0,0  r100  b1
-                      span.Switch__thumb#3  14×14 @3,3  r100
-                    input.Switch__input  1×1 @0,10
-                    label  1×1 @43,10  Manrope 400 15/22  lines=1  clipped  «Скрыта»
-        td.AdminCatalogList__wideOnly  101×73 @1064,0  Manrope 400 15/22  lines=1  «2»
-        td[role=cell]#5  241×73 @1165,0
-          div.TableActions__actions#3  205×36 @18,15
-            span.Tooltip__wrap  36×36 @89,0  r100
-              span.Tooltip__anchor#7  36×36 @0,0
-                button.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#2  24×34 @6,1
-                    svg#2  16×16 @4,9
-            span.Tooltip__wrap#2  36×36 @129,0  r100
-              span.Tooltip__anchor#4  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#4  36×36 @0,0
-                    svg  16×16 @10,10
-            span.ProductRowRemove__root  36×36 @169,0  r100
-              span.Tooltip__wrap#3  36×36 @0,0
-                span.Tooltip__anchor  36×36 @0,0
-                  button.TableActions__action  36×36 @0,0  r100
-                    span.TableActions__iconArea#3  24×34 @6,1
-                      svg#2  16×16 @4,9
+        td[role=cell]#4  131×73 @944,0
+          div.VisibilitySwitch__root#3  95×20 @18,15
+            div.Switch__root  95×20 @0,0
+              div.Switch__row#3  95×20 @0,0
+                label.Switch__track  34×20 @0,0  r100  b1
+                  span.Switch__thumb#3  14×14 @3,3  r100
+                input.Switch__input  1×1 @0,10
+                label.Switch__label  51×20 @44,0  Manrope 400 15/20  lines=1  «Скрыта»
+        td.AdminCatalogList__wideOnly  101×73 @1075,0  Manrope 400 15/22  lines=1  «2»
+        td[role=cell]#5  230×73 @1176,0
+          a.AdminCatalogList__edit#3  60×24 @18,15  Manrope 600 15/22  lines=1  «Править»
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
@@ -539,33 +377,15 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
           span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
         td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
           div.VisibilitySwitch__root
-            span.Tooltip__wrap
-              span.Tooltip__anchor
-                div.Switch__root
-                  div.Switch__row
-                    label.Switch__track  bg #0e7490  border #0e7490
-                      span.Switch__thumb  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
-                    input.Switch__input
-                    label  color #334155
+            div.Switch__root
+              div.Switch__row
+                label.Switch__track  bg #0e7490  border #0e7490
+                  span.Switch__thumb  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #0f172a
         td.AdminCatalogList__wideOnly  color #334155  border #334155 #334155 #eef2f6 #334155
         td[role=cell]#5  border #334155 #334155 #eef2f6 #334155
-          div.TableActions__actions
-            span.Tooltip__wrap
-              span.Tooltip__anchor#2
-                a.TableActions__action
-                  span.TableActions__iconArea
-                    svg
-            span.Tooltip__wrap#2
-              span.Tooltip__anchor
-                a.TableActions__action
-                  span.TableActions__iconArea#2
-                    svg
-            span.ProductRowRemove__root
-              span.Tooltip__wrap
-                span.Tooltip__anchor#3
-                  button.TableActions__action
-                    span.TableActions__iconArea
-                      svg#2
+          a.AdminCatalogList__edit  color #0e7490
       tr[role=row]#3
         td[role=cell]  border #334155 #334155 #eef2f6 #334155
           span.AdminCatalogList__model#2
@@ -588,33 +408,15 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
           span.Badge__badge#2  color #0e7490  bg #ecfeff  border #a5f3fc
         td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
           div.VisibilitySwitch__root#2
-            span.Tooltip__wrap
-              span.Tooltip__anchor#4
-                div.Switch__root
-                  div.Switch__row#2
-                    label.Switch__track  bg #0e7490  border #0e7490
-                      span.Switch__thumb#2  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
-                    input.Switch__input
-                    label  color #334155
+            div.Switch__root
+              div.Switch__row#2
+                label.Switch__track  bg #0e7490  border #0e7490
+                  span.Switch__thumb#2  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #0f172a
         td.AdminCatalogList__wideOnly  color #334155  border #334155 #334155 #eef2f6 #334155
         td[role=cell]#5  border #334155 #334155 #eef2f6 #334155
-          div.TableActions__actions#2
-            span.Tooltip__wrap
-              span.Tooltip__anchor#5
-                a.TableActions__action
-                  span.TableActions__iconArea#3
-                    svg
-            span.Tooltip__wrap#2
-              span.Tooltip__anchor#2
-                a.TableActions__action#2
-                  span.TableActions__iconArea
-                    svg#3
-            span.ProductRowRemove__root
-              span.Tooltip__wrap#2
-                span.Tooltip__anchor#3
-                  button.TableActions__action#2
-                    span.TableActions__iconArea
-                      svg#4
+          a.AdminCatalogList__edit#2  color #0e7490
       tr[role=row]#4
         td[role=cell]
           span.AdminCatalogList__model#3
@@ -639,33 +441,15 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
             span#2  color #5b6a7d
         td[role=cell]#4
           div.VisibilitySwitch__root#3
-            span.Tooltip__wrap
-              span.Tooltip__anchor#6
-                div.Switch__root
-                  div.Switch__row#3
-                    label.Switch__track  bg #f8fafc  border #7e8fa6
-                      span.Switch__thumb#3  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
-                    input.Switch__input
-                    label  color #334155
+            div.Switch__root
+              div.Switch__row#3
+                label.Switch__track  bg #f8fafc  border #7e8fa6
+                  span.Switch__thumb#3  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #334155
         td.AdminCatalogList__wideOnly  color #334155
         td[role=cell]#5
-          div.TableActions__actions#3
-            span.Tooltip__wrap
-              span.Tooltip__anchor#7
-                button.TableActions__action
-                  span.TableActions__iconArea#2
-                    svg#2
-            span.Tooltip__wrap#2
-              span.Tooltip__anchor#4
-                a.TableActions__action
-                  span.TableActions__iconArea#4
-                    svg
-            span.ProductRowRemove__root
-              span.Tooltip__wrap#3
-                span.Tooltip__anchor
-                  button.TableActions__action
-                    span.TableActions__iconArea#3
-                      svg#2
+          a.AdminCatalogList__edit#3  color #0e7490
 [палитра light @390]
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
@@ -740,33 +524,15 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
           span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
         td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
           div.VisibilitySwitch__root
-            span.Tooltip__wrap
-              span.Tooltip__anchor
-                div.Switch__root
-                  div.Switch__row
-                    label.Switch__track  bg #0e7490  border #0e7490
-                      span.Switch__thumb  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
-                    input.Switch__input
-                    label  color #c9d5e2
+            div.Switch__root
+              div.Switch__row
+                label.Switch__track  bg #0e7490  border #0e7490
+                  span.Switch__thumb  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #eaf1f8
         td.AdminCatalogList__wideOnly  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
         td[role=cell]#5  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
-          div.TableActions__actions
-            span.Tooltip__wrap
-              span.Tooltip__anchor#2
-                a.TableActions__action
-                  span.TableActions__iconArea
-                    svg
-            span.Tooltip__wrap#2
-              span.Tooltip__anchor
-                a.TableActions__action
-                  span.TableActions__iconArea#2
-                    svg
-            span.ProductRowRemove__root
-              span.Tooltip__wrap
-                span.Tooltip__anchor#3
-                  button.TableActions__action
-                    span.TableActions__iconArea
-                      svg#2
+          a.AdminCatalogList__edit  color #22d3ee
       tr[role=row]#3
         td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
           span.AdminCatalogList__model#2
@@ -789,33 +555,15 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
           span.Badge__badge#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
         td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
           div.VisibilitySwitch__root#2
-            span.Tooltip__wrap
-              span.Tooltip__anchor#4
-                div.Switch__root
-                  div.Switch__row#2
-                    label.Switch__track  bg #0e7490  border #0e7490
-                      span.Switch__thumb#2  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
-                    input.Switch__input
-                    label  color #c9d5e2
+            div.Switch__root
+              div.Switch__row#2
+                label.Switch__track  bg #0e7490  border #0e7490
+                  span.Switch__thumb#2  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #eaf1f8
         td.AdminCatalogList__wideOnly  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
         td[role=cell]#5  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
-          div.TableActions__actions#2
-            span.Tooltip__wrap
-              span.Tooltip__anchor#5
-                a.TableActions__action
-                  span.TableActions__iconArea#3
-                    svg
-            span.Tooltip__wrap#2
-              span.Tooltip__anchor#2
-                a.TableActions__action#2
-                  span.TableActions__iconArea
-                    svg#3
-            span.ProductRowRemove__root
-              span.Tooltip__wrap#2
-                span.Tooltip__anchor#3
-                  button.TableActions__action#2
-                    span.TableActions__iconArea
-                      svg#4
+          a.AdminCatalogList__edit#2  color #22d3ee
       tr[role=row]#4
         td[role=cell]
           span.AdminCatalogList__model#3
@@ -840,33 +588,15 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
             span#2  color #7e92a7
         td[role=cell]#4
           div.VisibilitySwitch__root#3
-            span.Tooltip__wrap
-              span.Tooltip__anchor#6
-                div.Switch__root
-                  div.Switch__row#3
-                    label.Switch__track  bg #0e1729  border #566d95
-                      span.Switch__thumb#3  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
-                    input.Switch__input
-                    label  color #c9d5e2
+            div.Switch__root
+              div.Switch__row#3
+                label.Switch__track  bg #0e1729  border #566d95
+                  span.Switch__thumb#3  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #c9d5e2
         td.AdminCatalogList__wideOnly  color #c9d5e2
         td[role=cell]#5
-          div.TableActions__actions#3
-            span.Tooltip__wrap
-              span.Tooltip__anchor#7
-                button.TableActions__action
-                  span.TableActions__iconArea#2
-                    svg#2
-            span.Tooltip__wrap#2
-              span.Tooltip__anchor#4
-                a.TableActions__action
-                  span.TableActions__iconArea#4
-                    svg
-            span.ProductRowRemove__root
-              span.Tooltip__wrap#3
-                span.Tooltip__anchor
-                  button.TableActions__action
-                    span.TableActions__iconArea#3
-                      svg#2
+          a.AdminCatalogList__edit#3  color #22d3ee
 [палитра dark @390]
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]

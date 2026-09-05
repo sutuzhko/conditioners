@@ -1,0 +1,203 @@
+# админка-календарь-карточка-«показывать»--тольконаряды · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.TeamFilter__card  358×276 @16,16  b1
+  p.TeamFilter__cap  82×19 @11,9  Manrope 600 12/19  ls0  lines=1  «Показывать»
+  ul.TeamFilter__list  336×90 @11,32
+    li.TeamFilter__row  194×44 @0,0
+      a.TeamFilter__line  140×44 @0,0  r11
+        span.TeamFilter__box  18×18 @6,13  r5  b1
+          svg  13×13 @3,3
+        span.TeamFilter__name  69×20 @32,12  Manrope 400 13/20  lines=1  «Соколов Д.»
+        span.TeamFilter__hours  22×19 @113,13  JetBrains Mono 400 12/19  lines=1  «4 ч»
+      a.TeamFilter__only  52×44 @142,0  Manrope 400 12/19  r11  lines=1  «Только»
+    li.TeamFilter__row#2  230×44 @0,46
+      a.TeamFilter__line  176×44 @0,0  r11
+        span.TeamFilter__box#2  18×18 @6,13  r5  b1
+          svg  13×13 @3,3
+        span.TeamFilter__name#2  54×20 @32,12  Manrope 400 13/20  lines=1  «Панин С.»
+        span.TeamFilter__hours#2  72×19 @98,13  JetBrains Mono 400 12/19  lines=1  «1 ч 30 мин»
+      a.TeamFilter__only  52×44 @178,0  Manrope 400 12/19  r11  lines=1  «Только»
+  p.TeamFilter__cap#2  97×19 @11,126  Manrope 600 12/19  ls0  lines=1  «Виды записей»
+  ul.TeamFilter__list#2  336×90 @11,148
+    li.TeamFilter__row  86×44 @0,0
+      a.TeamFilter__line#2  86×44 @0,0  r11
+        span.TeamFilter__box  18×18 @6,13  r5  b1
+          svg#2  13×13 @3,3
+        span.TeamFilter__name  48×20 @32,12  Manrope 400 13/20  lines=1  «Наряды»
+    li.TeamFilter__row#2  161×44 @92,0
+      a.TeamFilter__line#2  161×44 @0,0  r11
+        span.TeamFilter__box#2  18×18 @6,13  r5  b1
+        span.TeamFilter__name#2  123×20 @32,12  Manrope 400 13/20  lines=1  «Заявки без времени»
+    li.TeamFilter__row#3  132×44 @0,46
+      a.TeamFilter__line  132×44 @0,0  r11
+        span.TeamFilter__box#3  18×18 @6,13  r5  b1
+        span.TeamFilter__name#3  94×20 @32,12  Manrope 400 13/20  lines=1  «Дела и отлучки»
+  p.TeamFilter__window  125×20 @46,244
+    span.TeamFilter__windowLabel  78×19 @0,1  Manrope 400 12/19  lines=1  «Рабочее окно»
+    span.TeamFilter__windowValue  39×20 @86,0  JetBrains Mono 700 13/20  lines=1  «09–19»
+  p.TeamFilter__note  164×25 @183,242  Manrope 400 12/19  r100  b1  lines=1  «Переработка отмечается»
+
+[геометрия 768]
+section.TeamFilter__card  736×110 @16,16  b1
+  p.TeamFilter__cap  82×19 @11,22  Manrope 600 12/19  ls0  lines=1  «Показывать»
+  ul.TeamFilter__list  430×44 @105,9
+    li.TeamFilter__row  194×44 @0,0
+      a.TeamFilter__line  140×44 @0,0  r11
+        span.TeamFilter__box  18×18 @6,13  r5  b1
+          svg  13×13 @3,3
+        span.TeamFilter__name  69×20 @32,12  Manrope 400 13/20  lines=1  «Соколов Д.»
+        span.TeamFilter__hours  22×19 @113,13  JetBrains Mono 400 12/19  lines=1  «4 ч»
+      a.TeamFilter__only  52×44 @142,0  Manrope 400 12/19  r11  lines=1  «Только»
+    li.TeamFilter__row#2  230×44 @200,0
+      a.TeamFilter__line  176×44 @0,0  r11
+        span.TeamFilter__box#2  18×18 @6,13  r5  b1
+          svg  13×13 @3,3
+        span.TeamFilter__name#2  54×20 @32,12  Manrope 400 13/20  lines=1  «Панин С.»
+        span.TeamFilter__hours#2  72×19 @98,13  JetBrains Mono 400 12/19  lines=1  «1 ч 30 мин»
+      a.TeamFilter__only  52×44 @178,0  Manrope 400 12/19  r11  lines=1  «Только»
+  p.TeamFilter__cap#2  97×19 @547,22  Manrope 600 12/19  ls0  lines=1  «Виды записей»
+  ul.TeamFilter__list#2  391×44 @11,57
+    li.TeamFilter__row  86×44 @0,0
+      a.TeamFilter__line#2  86×44 @0,0  r11
+        span.TeamFilter__box  18×18 @6,13  r5  b1
+          svg#2  13×13 @3,3
+        span.TeamFilter__name  48×20 @32,12  Manrope 400 13/20  lines=1  «Наряды»
+    li.TeamFilter__row#2  161×44 @92,0
+      a.TeamFilter__line#2  161×44 @0,0  r11
+        span.TeamFilter__box#2  18×18 @6,13  r5  b1
+        span.TeamFilter__name#2  123×20 @32,12  Manrope 400 13/20  lines=1  «Заявки без времени»
+    li.TeamFilter__row#3  132×44 @259,0
+      a.TeamFilter__line  132×44 @0,0  r11
+        span.TeamFilter__box#3  18×18 @6,13  r5  b1
+        span.TeamFilter__name#3  94×20 @32,12  Manrope 400 13/20  lines=1  «Дела и отлучки»
+  p.TeamFilter__window  125×20 @424,69
+    span.TeamFilter__windowLabel  78×19 @0,1  Manrope 400 12/19  lines=1  «Рабочее окно»
+    span.TeamFilter__windowValue  39×20 @86,0  JetBrains Mono 700 13/20  lines=1  «09–19»
+  p.TeamFilter__note  164×25 @561,57  Manrope 400 12/19  r100  b1  lines=1  «Переработка отмечается»
+
+[геометрия 1440]
+section.TeamFilter__card  1408×314 @16,16  b1
+  p.TeamFilter__cap  1382×19 @13,13  Manrope 600 12/19  ls0  lines=1  «Показывать»
+  ul.TeamFilter__list  1382×58 @13,38
+    li.TeamFilter__row  1382×28 @0,0
+      a.TeamFilter__line  1328×28 @0,0  r11
+        span.TeamFilter__box  18×18 @6,5  r5  b1
+          svg  13×13 @3,3
+        span.TeamFilter__name  69×20 @32,4  Manrope 400 13/20  lines=1  «Соколов Д.»
+        span.TeamFilter__hours  22×19 @1301,5  JetBrains Mono 400 12/19  lines=1  «4 ч»
+      a.TeamFilter__only  52×28 @1330,0  Manrope 400 12/19  r11  lines=1  «Только»
+    li.TeamFilter__row#2  1382×28 @0,30
+      a.TeamFilter__line  1328×28 @0,0  r11
+        span.TeamFilter__box#2  18×18 @6,5  r5  b1
+          svg  13×13 @3,3
+        span.TeamFilter__name#2  54×20 @32,4  Manrope 400 13/20  lines=1  «Панин С.»
+        span.TeamFilter__hours#2  72×19 @1250,5  JetBrains Mono 400 12/19  lines=1  «1 ч 30 мин»
+      a.TeamFilter__only  52×28 @1330,0  Manrope 400 12/19  r11  lines=1  «Только»
+  hr.TeamFilter__rule  1382×1 @13,106  b1 0 0 0
+  p.TeamFilter__cap#2  1382×19 @13,117  Manrope 600 12/19  ls0  lines=1  «Виды записей»
+  ul.TeamFilter__list#2  1382×88 @13,141
+    li.TeamFilter__row  1382×28 @0,0
+      a.TeamFilter__line#2  1382×28 @0,0  r11
+        span.TeamFilter__box  18×18 @6,5  r5  b1
+          svg#2  13×13 @3,3
+        span.TeamFilter__name  48×20 @32,4  Manrope 400 13/20  lines=1  «Наряды»
+    li.TeamFilter__row#2  1382×28 @0,30
+      a.TeamFilter__line#2  1382×28 @0,0  r11
+        span.TeamFilter__box#2  18×18 @6,5  r5  b1
+        span.TeamFilter__name#2  123×20 @32,4  Manrope 400 13/20  lines=1  «Заявки без времени»
+    li.TeamFilter__row#3  1382×28 @0,60
+      a.TeamFilter__line  1382×28 @0,0  r11
+        span.TeamFilter__box#3  18×18 @6,5  r5  b1
+        span.TeamFilter__name#3  94×20 @32,4  Manrope 400 13/20  lines=1  «Дела и отлучки»
+  hr.TeamFilter__rule#2  1382×1 @13,239  b1 0 0 0
+  p.TeamFilter__window  1382×20 @13,250
+    span.TeamFilter__windowLabel  78×19 @6,1  Manrope 400 12/19  lines=1  «Рабочее окно»
+    span.TeamFilter__windowValue  39×20 @1337,0  JetBrains Mono 700 13/20  lines=1  «09–19»
+  p.TeamFilter__note  164×25 @13,276  Manrope 400 12/19  r100  b1  lines=1  «Переработка отмечается»
+
+[палитра light]
+section.TeamFilter__card  bg #ffffff  border #cbd5e1
+  p.TeamFilter__cap  color #556173
+  ul.TeamFilter__list
+    li.TeamFilter__row
+      a.TeamFilter__line
+        span.TeamFilter__box  bg #d977061f  border #d97706
+          svg
+        span.TeamFilter__name  color #0f172a
+        span.TeamFilter__hours  color #5b6a7d
+      a.TeamFilter__only  color #556173
+    li.TeamFilter__row#2
+      a.TeamFilter__line
+        span.TeamFilter__box#2  bg #ecfeff  border #0891b2
+          svg
+        span.TeamFilter__name#2  color #0f172a
+        span.TeamFilter__hours#2  color #5b6a7d
+      a.TeamFilter__only  color #556173
+  hr.TeamFilter__rule  border #e2e8f0 #808080 #808080 #808080
+  p.TeamFilter__cap#2  color #556173
+  ul.TeamFilter__list#2
+    li.TeamFilter__row
+      a.TeamFilter__line#2
+        span.TeamFilter__box  bg #ecfeff  border #0891b2
+          svg#2
+        span.TeamFilter__name  color #0f172a
+    li.TeamFilter__row#2
+      a.TeamFilter__line#2
+        span.TeamFilter__box#2  border #7e8fa6
+        span.TeamFilter__name#2  color #556173
+    li.TeamFilter__row#3
+      a.TeamFilter__line
+        span.TeamFilter__box#3  border #7e8fa6
+        span.TeamFilter__name#3  color #556173
+  hr.TeamFilter__rule#2  border #e2e8f0 #808080 #808080 #808080
+  p.TeamFilter__window
+    span.TeamFilter__windowLabel  color #556173
+    span.TeamFilter__windowValue  color #0f172a
+  p.TeamFilter__note  color #92400e  bg #b4530914  border #b4530947
+
+[палитра dark]
+section.TeamFilter__card  bg #121d31  border #2c3d59
+  p.TeamFilter__cap  color #8598ac
+  ul.TeamFilter__list
+    li.TeamFilter__row
+      a.TeamFilter__line
+        span.TeamFilter__box  bg #fbbf2424  border #fbbf24
+          svg
+        span.TeamFilter__name  color #eaf1f8
+        span.TeamFilter__hours  color #7e92a7
+      a.TeamFilter__only  color #8598ac
+    li.TeamFilter__row#2
+      a.TeamFilter__line
+        span.TeamFilter__box#2  bg #22d3ee1a  border #22d3ee
+          svg
+        span.TeamFilter__name#2  color #eaf1f8
+        span.TeamFilter__hours#2  color #7e92a7
+      a.TeamFilter__only  color #8598ac
+  hr.TeamFilter__rule  border #1e2b41 #808080 #808080 #808080
+  p.TeamFilter__cap#2  color #8598ac
+  ul.TeamFilter__list#2
+    li.TeamFilter__row
+      a.TeamFilter__line#2
+        span.TeamFilter__box  bg #22d3ee1a  border #22d3ee
+          svg#2
+        span.TeamFilter__name  color #eaf1f8
+    li.TeamFilter__row#2
+      a.TeamFilter__line#2
+        span.TeamFilter__box#2  border #566d95
+        span.TeamFilter__name#2  color #8598ac
+    li.TeamFilter__row#3
+      a.TeamFilter__line
+        span.TeamFilter__box#3  border #566d95
+        span.TeamFilter__name#3  color #8598ac
+  hr.TeamFilter__rule#2  border #1e2b41 #808080 #808080 #808080
+  p.TeamFilter__window
+    span.TeamFilter__windowLabel  color #8598ac
+    span.TeamFilter__windowValue  color #eaf1f8
+  p.TeamFilter__note  color #fbbf24  bg #fbbf241f  border #fbbf2452

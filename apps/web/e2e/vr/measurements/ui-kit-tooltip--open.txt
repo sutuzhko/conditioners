@@ -11,27 +11,32 @@ span.Tooltip__wrap  44×44 @173,428
   span.Tooltip__anchor  44×44 @0,0
     button.IconButton__iconButton  44×44 @0,0  r11  b1
       svg  20×20 @12,12
+  span.Tooltip__bubble  240×44 @-98,-52  Manrope 500 12/16  r12  lines=2  «Обзор — заказы, выручка и выплаты за пер»
 
 [геометрия 768]
 span.Tooltip__wrap  44×44 @362,428
   span.Tooltip__anchor  44×44 @0,0
     button.IconButton__iconButton  44×44 @0,0  r11  b1
       svg  20×20 @12,12
+  span.Tooltip__bubble  240×44 @-98,-52  Manrope 500 12/16  r12  lines=2  «Обзор — заказы, выручка и выплаты за пер»
 
 [геометрия 1440]
 span.Tooltip__wrap  44×44 @698,428
   span.Tooltip__anchor  44×44 @0,0
     button.IconButton__iconButton  44×44 @0,0  r11  b1
       svg  20×20 @12,12
+  span.Tooltip__bubble  240×44 @-98,-52  Manrope 500 12/16  r12  lines=2  «Обзор — заказы, выручка и выплаты за пер»
 
 [палитра light]
 span.Tooltip__wrap
   span.Tooltip__anchor
     button.IconButton__iconButton  border transparent
       svg
+  span.Tooltip__bubble  color #ffffff  bg #0f172a  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
 
 [палитра dark]
 span.Tooltip__wrap
   span.Tooltip__anchor
     button.IconButton__iconButton  border transparent
       svg
+  span.Tooltip__bubble  color #ffffff  bg #111d34  shadow #0000003d 0px 0px 15px 0px, #00000057 0px 2px 30px 0px

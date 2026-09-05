@@ -1,4 +1,4 @@
-# админка-календарь-шапка-календаря--неделянастыке · ширины 390 768 1440 · темы light dark
+# админка-календарь-шапка-календаря--другоеокно · ширины 390 768 1440 · темы light dark
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
@@ -9,9 +9,9 @@
 [геометрия 390]
 div.CalendarNav__nav  358×263 @16,16
   div.CalendarNav__headline  358×155 @0,0
-    div.CalendarNav__titles  330×43 @0,0
-      h1.CalendarNav__title  330×23 @0,0  Onest 700 20/23  ls0  lines=1  «31 августа – 6 сентября 2026»
-      p.CalendarNav__sub  330×18 @0,25  Manrope 400 13/18  lines=1  «Календарь работ · 4 монтажника, рабочее»
+    div.CalendarNav__titles  329×43 @0,0
+      h1.CalendarNav__title  329×23 @0,0  Onest 700 20/23  ls0  lines=1  «17–23 августа 2026»
+      p.CalendarNav__sub  329×18 @0,25  Manrope 400 13/18  lines=1  «Календарь работ · 4 монтажника, рабочее»
     div.CalendarNav__tools  358×102 @0,53
       nav.CalendarNav__views  205×50 @0,0  r100  b1
         a.CalendarNav__view  66×44 @3,3  Manrope 600 13/20  r100  lines=1  «Месяц»
@@ -42,9 +42,9 @@ div.CalendarNav__nav  358×263 @16,16
 [геометрия 768]
 div.CalendarNav__nav  736×159 @16,16
   div.CalendarNav__headline  736×103 @0,0
-    div.CalendarNav__titles  330×43 @0,0
-      h1.CalendarNav__title  330×23 @0,0  Onest 700 20/23  ls0  lines=1  «31 августа – 6 сентября 2026»
-      p.CalendarNav__sub  330×18 @0,25  Manrope 400 13/18  lines=1  «Календарь работ · 4 монтажника, рабочее»
+    div.CalendarNav__titles  329×43 @0,0
+      h1.CalendarNav__title  329×23 @0,0  Onest 700 20/23  ls0  lines=1  «17–23 августа 2026»
+      p.CalendarNav__sub  329×18 @0,25  Manrope 400 13/18  lines=1  «Календарь работ · 4 монтажника, рабочее»
     div.CalendarNav__tools  506×50 @0,53
       nav.CalendarNav__views  205×50 @0,0  r100  b1
         a.CalendarNav__view  66×44 @3,3  Manrope 600 13/20  r100  lines=1  «Месяц»
@@ -78,9 +78,9 @@ div.CalendarNav__nav  736×159 @16,16
 [геометрия 1440]
 div.CalendarNav__nav  1408×102 @16,16
   div.CalendarNav__headline  1408×50 @0,0
-    div.CalendarNav__titles  360×50 @0,0
-      h1.CalendarNav__title  360×30 @0,0  Onest 700 26/30  ls-1  lines=1  «31 августа – 6 сентября 2026»
-      p.CalendarNav__sub  360×18 @0,32  Manrope 400 13/18  lines=1  «Календарь работ · 4 монтажника, рабочее»
+    div.CalendarNav__titles  329×50 @0,0
+      h1.CalendarNav__title  329×30 @0,0  Onest 700 26/30  ls-1  lines=1  «17–23 августа 2026»
+      p.CalendarNav__sub  329×18 @0,32  Manrope 400 13/18  lines=1  «Календарь работ · 4 монтажника, рабочее»
     div.CalendarNav__tools  506×40 @902,10
       nav.CalendarNav__views  205×36 @0,2  r100  b1
         a.CalendarNav__view  66×30 @3,3  Manrope 600 13/20  r100  lines=1  «Месяц»

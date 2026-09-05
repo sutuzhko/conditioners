@@ -15,52 +15,44 @@ div.AllDayBar__bar  358×162 @16,16  b0 0 1 0
   ul.AllDayBar__list  358×91 @0,66  clipped
     li.AllDayBar__item  358×44 @0,0
       button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «03:15»
-        span.EventChip__name  283×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 1»
+        span.EventChip__head  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 1»
     li.AllDayBar__item#2  358×44 @0,47
       button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#2  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «04:15»
-        span.EventChip__name#2  283×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 2»
+        span.EventChip__head#2  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#2  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 2»
     li.AllDayBar__item#3  358×44 @0,94
       button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#3  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «05:15»
-        span.EventChip__name#3  283×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 3»
+        span.EventChip__head#3  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#3  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 3»
     li.AllDayBar__item#4  358×44 @0,141
       button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#4  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «06:15»
-        span.EventChip__name#4  283×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 4»
+        span.EventChip__head#4  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#4  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 4»
     li.AllDayBar__item#5  358×44 @0,188
       button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#5  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «07:15»
-        span.EventChip__name#5  283×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 5»
+        span.EventChip__head#5  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#5  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 5»
     li.AllDayBar__item#6  358×44 @0,235
       button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#6  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:15»
-        span.EventChip__name#6  283×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 6»
+        span.EventChip__head#6  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#6  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 6»
     li.AllDayBar__item#7  358×44 @0,282
       button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#7  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «09:15»
-        span.EventChip__name#7  283×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 7»
+        span.EventChip__head#7  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#7  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 7»
     li.AllDayBar__item#8  358×44 @0,329
       button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#8  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:15»
-        span.EventChip__name#8  283×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 8»
+        span.EventChip__head#8  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#8  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 8»
 
 [геометрия 768]
 div.AllDayBar__bar  736×162 @16,16  b0 0 1 0
@@ -71,52 +63,44 @@ div.AllDayBar__bar  736×162 @16,16  b0 0 1 0
   ul.AllDayBar__list  736×91 @0,66  clipped
     li.AllDayBar__item  736×44 @0,0
       button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «03:15»
-        span.EventChip__name  661×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 1»
+        span.EventChip__head  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 1»
     li.AllDayBar__item#2  736×44 @0,47
       button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#2  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «04:15»
-        span.EventChip__name#2  661×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 2»
+        span.EventChip__head#2  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#2  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 2»
     li.AllDayBar__item#3  736×44 @0,94
       button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#3  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «05:15»
-        span.EventChip__name#3  661×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 3»
+        span.EventChip__head#3  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#3  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 3»
     li.AllDayBar__item#4  736×44 @0,141
       button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#4  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «06:15»
-        span.EventChip__name#4  661×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 4»
+        span.EventChip__head#4  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#4  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 4»
     li.AllDayBar__item#5  736×44 @0,188
       button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#5  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «07:15»
-        span.EventChip__name#5  661×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 5»
+        span.EventChip__head#5  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#5  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 5»
     li.AllDayBar__item#6  736×44 @0,235
       button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#6  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:15»
-        span.EventChip__name#6  661×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 6»
+        span.EventChip__head#6  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#6  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 6»
     li.AllDayBar__item#7  736×44 @0,282
       button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#7  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «09:15»
-        span.EventChip__name#7  661×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 7»
+        span.EventChip__head#7  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#7  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 7»
     li.AllDayBar__item#8  736×44 @0,329
       button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
-        span.EventChip__head#8  52×15 @9,15
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:15»
-        span.EventChip__name#8  661×15 @66,15  Manrope 600 12/15  lines=1  «Заявка 8»
+        span.EventChip__head#8  12×12 @9,16
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#8  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 8»
 
 [геометрия 1440]
 div.AllDayBar__bar  1408×104 @16,16  b0 0 1 0
@@ -127,52 +111,44 @@ div.AllDayBar__bar  1408×104 @16,16  b0 0 1 0
   ul.AllDayBar__list  1408×51 @0,48  clipped
     li.AllDayBar__item  1408×24 @0,0
       button.EventChip__chip  1408×24 @0,0  r100  b1 1 1 3
-        span.EventChip__head  52×15 @9,5
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «03:15»
-        span.EventChip__name  1333×15 @66,5  Manrope 600 12/15  lines=1  «Заявка 1»
+        span.EventChip__head  12×12 @9,6
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name  1373×15 @26,5  Manrope 600 12/15  lines=1  «Заявка 1»
     li.AllDayBar__item#2  1408×24 @0,27
       button.EventChip__chip  1408×24 @0,0  r100  b1 1 1 3
-        span.EventChip__head#2  52×15 @9,5
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «04:15»
-        span.EventChip__name#2  1333×15 @66,5  Manrope 600 12/15  lines=1  «Заявка 2»
+        span.EventChip__head#2  12×12 @9,6
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#2  1373×15 @26,5  Manrope 600 12/15  lines=1  «Заявка 2»
     li.AllDayBar__item#3  1408×24 @0,54
       button.EventChip__chip  1408×24 @0,0  r100  b1 1 1 3
-        span.EventChip__head#3  52×15 @9,5
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «05:15»
-        span.EventChip__name#3  1333×15 @66,5  Manrope 600 12/15  lines=1  «Заявка 3»
+        span.EventChip__head#3  12×12 @9,6
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#3  1373×15 @26,5  Manrope 600 12/15  lines=1  «Заявка 3»
     li.AllDayBar__item#4  1408×24 @0,81
       button.EventChip__chip  1408×24 @0,0  r100  b1 1 1 3
-        span.EventChip__head#4  52×15 @9,5
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «06:15»
-        span.EventChip__name#4  1333×15 @66,5  Manrope 600 12/15  lines=1  «Заявка 4»
+        span.EventChip__head#4  12×12 @9,6
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#4  1373×15 @26,5  Manrope 600 12/15  lines=1  «Заявка 4»
     li.AllDayBar__item#5  1408×24 @0,108
       button.EventChip__chip  1408×24 @0,0  r100  b1 1 1 3
-        span.EventChip__head#5  52×15 @9,5
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «07:15»
-        span.EventChip__name#5  1333×15 @66,5  Manrope 600 12/15  lines=1  «Заявка 5»
+        span.EventChip__head#5  12×12 @9,6
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#5  1373×15 @26,5  Manrope 600 12/15  lines=1  «Заявка 5»
     li.AllDayBar__item#6  1408×24 @0,135
       button.EventChip__chip  1408×24 @0,0  r100  b1 1 1 3
-        span.EventChip__head#6  52×15 @9,5
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «08:15»
-        span.EventChip__name#6  1333×15 @66,5  Manrope 600 12/15  lines=1  «Заявка 6»
+        span.EventChip__head#6  12×12 @9,6
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#6  1373×15 @26,5  Manrope 600 12/15  lines=1  «Заявка 6»
     li.AllDayBar__item#7  1408×24 @0,162
       button.EventChip__chip  1408×24 @0,0  r100  b1 1 1 3
-        span.EventChip__head#7  52×15 @9,5
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «09:15»
-        span.EventChip__name#7  1333×15 @66,5  Manrope 600 12/15  lines=1  «Заявка 7»
+        span.EventChip__head#7  12×12 @9,6
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#7  1373×15 @26,5  Manrope 600 12/15  lines=1  «Заявка 7»
     li.AllDayBar__item#8  1408×24 @0,189
       button.EventChip__chip  1408×24 @0,0  r100  b1 1 1 3
-        span.EventChip__head#8  52×15 @9,5
-          svg.EventChip__icon  12×12 @0,2
-          span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:15»
-        span.EventChip__name#8  1333×15 @66,5  Manrope 600 12/15  lines=1  «Заявка 8»
+        span.EventChip__head#8  12×12 @9,6
+          svg.EventChip__icon  12×12 @0,0
+        span.EventChip__name#8  1373×15 @26,5  Manrope 600 12/15  lines=1  «Заявка 8»
 
 [палитра light]
 div.AllDayBar__bar  border #0f172a #0f172a #e2e8f0 #0f172a
@@ -185,49 +161,41 @@ div.AllDayBar__bar  border #0f172a #0f172a #e2e8f0 #0f172a
       button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
         span.EventChip__head
           svg.EventChip__icon
-          span.EventChip__time  color #334155
         span.EventChip__name  color #334155
     li.AllDayBar__item#2
       button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
         span.EventChip__head#2
           svg.EventChip__icon
-          span.EventChip__time  color #334155
         span.EventChip__name#2  color #334155
     li.AllDayBar__item#3
       button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
         span.EventChip__head#3
           svg.EventChip__icon
-          span.EventChip__time  color #334155
         span.EventChip__name#3  color #334155
     li.AllDayBar__item#4
       button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
         span.EventChip__head#4
           svg.EventChip__icon
-          span.EventChip__time  color #334155
         span.EventChip__name#4  color #334155
     li.AllDayBar__item#5
       button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
         span.EventChip__head#5
           svg.EventChip__icon
-          span.EventChip__time  color #334155
         span.EventChip__name#5  color #334155
     li.AllDayBar__item#6
       button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
         span.EventChip__head#6
           svg.EventChip__icon
-          span.EventChip__time  color #334155
         span.EventChip__name#6  color #334155
     li.AllDayBar__item#7
       button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
         span.EventChip__head#7
           svg.EventChip__icon
-          span.EventChip__time  color #334155
         span.EventChip__name#7  color #334155
     li.AllDayBar__item#8
       button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
         span.EventChip__head#8
           svg.EventChip__icon
-          span.EventChip__time  color #334155
         span.EventChip__name#8  color #334155
 
 [палитра dark]
@@ -241,47 +209,39 @@ div.AllDayBar__bar  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
       button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
         span.EventChip__head
           svg.EventChip__icon
-          span.EventChip__time  color #c9d5e2
         span.EventChip__name  color #c9d5e2
     li.AllDayBar__item#2
       button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
         span.EventChip__head#2
           svg.EventChip__icon
-          span.EventChip__time  color #c9d5e2
         span.EventChip__name#2  color #c9d5e2
     li.AllDayBar__item#3
       button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
         span.EventChip__head#3
           svg.EventChip__icon
-          span.EventChip__time  color #c9d5e2
         span.EventChip__name#3  color #c9d5e2
     li.AllDayBar__item#4
       button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
         span.EventChip__head#4
           svg.EventChip__icon
-          span.EventChip__time  color #c9d5e2
         span.EventChip__name#4  color #c9d5e2
     li.AllDayBar__item#5
       button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
         span.EventChip__head#5
           svg.EventChip__icon
-          span.EventChip__time  color #c9d5e2
         span.EventChip__name#5  color #c9d5e2
     li.AllDayBar__item#6
       button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
         span.EventChip__head#6
           svg.EventChip__icon
-          span.EventChip__time  color #c9d5e2
         span.EventChip__name#6  color #c9d5e2
     li.AllDayBar__item#7
       button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
         span.EventChip__head#7
           svg.EventChip__icon
-          span.EventChip__time  color #c9d5e2
         span.EventChip__name#7  color #c9d5e2
     li.AllDayBar__item#8
       button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
         span.EventChip__head#8
           svg.EventChip__icon
-          span.EventChip__time  color #c9d5e2
         span.EventChip__name#8  color #c9d5e2

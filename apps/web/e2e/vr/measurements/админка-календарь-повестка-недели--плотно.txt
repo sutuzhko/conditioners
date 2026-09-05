@@ -1,0 +1,627 @@
+# админка-календарь-повестка-недели--плотно · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Agenda__agenda  358×868 @16,16
+  ol.Agenda__days  358×868 @0,0
+    li.Agenda__day  358×92 @0,0
+      a.Agenda__head  358×44 @0,0  b0 0 2 0
+        span.Agenda__weekday  16×19 @2,6  Manrope 600 12/19  lines=1  «Пт»
+        span.Agenda__date  14×16 @26,7  Onest 700 15/16  lines=1  «21»
+        span.Agenda__count  47×19 @309,6  Manrope 400 12/19  lines=1  «1 запись»
+      ul.Agenda__items  358×44 @0,48
+        li.Agenda__item  358×44 @0,0
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head  52×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «09:00»
+            span.EventChip__name  283×15 @66,15  Manrope 600 12/15  lines=1  «Ольга»
+    li.Agenda__day#2  358×764 @0,104
+      a.Agenda__head  358×44 @0,0  b0 0 2 0
+        span.Agenda__weekday#2  16×19 @2,6  Manrope 600 12/19  lines=1  «Вс»
+        span.Agenda__date#2  17×16 @26,7  Onest 700 15/16  lines=1  «23»
+        span.Agenda__count#2  61×19 @295,6  Manrope 400 12/19  lines=1  «15 записей»
+      ul.Agenda__items  358×716 @0,48
+        li.Agenda__item#2  358×44 @0,0
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#2  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#2  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 1»
+        li.Agenda__item#3  358×44 @0,48
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#3  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#3  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 2»
+        li.Agenda__item#4  358×44 @0,96
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#4  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#4  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 3»
+        li.Agenda__item#5  358×44 @0,144
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#5  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#5  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 4»
+        li.Agenda__item#6  358×44 @0,192
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#6  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#6  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 5»
+        li.Agenda__item#7  358×44 @0,240
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#7  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#7  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 6»
+        li.Agenda__item#8  358×44 @0,288
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#8  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#8  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 7»
+        li.Agenda__item#9  358×44 @0,336
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#9  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#9  323×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 8»
+        li.Agenda__item#10  358×44 @0,384
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#10  52×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+            span.EventChip__name#10  283×15 @66,15  Manrope 600 12/15  lines=1  «Ирина»
+        li.Agenda__item#11  358×44 @0,432
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#11  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1059»
+            span.EventChip__name#11  136×15 @113,15  Manrope 600 12/15  lines=1  «Ирина Соколова»
+            span.EventChip__clashMark  95×15 @254,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#12  358×44 @0,480
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#12  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:30»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1063»
+            span.EventChip__name#12  136×15 @113,15  Manrope 600 12/15  lines=1  «Ирина Соколова»
+            span.EventChip__clashMark#2  95×15 @254,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#13  358×44 @0,528
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#13  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «11:00»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1061»
+            span.EventChip__name#13  136×15 @113,15  Manrope 600 12/15  lines=1  «Ольга Титова»
+            span.EventChip__clashMark#3  95×15 @254,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#14  358×44 @0,576
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#14  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «11:15»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1064»
+            span.EventChip__name#14  136×15 @113,15  Manrope 600 12/15  lines=1  «Ольга Титова»
+            span.EventChip__clashMark#4  95×15 @254,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#15  358×44 @0,624
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#15  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «12:00»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1060»
+            span.EventChip__name#15  136×15 @113,15  Manrope 600 12/15  lines=1  «Пётр Лапин»
+            span.EventChip__clashMark#5  95×15 @254,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#16  358×44 @0,672
+          button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#16  52×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «13:30»
+            span.EventChip__name#16  283×15 @66,15  Manrope 600 12/15  lines=1  «Сергей»
+
+[геометрия 768]
+section.Agenda__agenda  736×868 @16,16
+  ol.Agenda__days  736×868 @0,0
+    li.Agenda__day  736×92 @0,0
+      a.Agenda__head  736×44 @0,0  b0 0 2 0
+        span.Agenda__weekday  16×19 @2,6  Manrope 600 12/19  lines=1  «Пт»
+        span.Agenda__date  14×16 @26,7  Onest 700 15/16  lines=1  «21»
+        span.Agenda__count  47×19 @687,6  Manrope 400 12/19  lines=1  «1 запись»
+      ul.Agenda__items  736×44 @0,48
+        li.Agenda__item  736×44 @0,0
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head  52×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «09:00»
+            span.EventChip__name  661×15 @66,15  Manrope 600 12/15  lines=1  «Ольга»
+    li.Agenda__day#2  736×764 @0,104
+      a.Agenda__head  736×44 @0,0  b0 0 2 0
+        span.Agenda__weekday#2  16×19 @2,6  Manrope 600 12/19  lines=1  «Вс»
+        span.Agenda__date#2  17×16 @26,7  Onest 700 15/16  lines=1  «23»
+        span.Agenda__count#2  61×19 @673,6  Manrope 400 12/19  lines=1  «15 записей»
+      ul.Agenda__items  736×716 @0,48
+        li.Agenda__item#2  736×44 @0,0
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#2  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#2  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 1»
+        li.Agenda__item#3  736×44 @0,48
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#3  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#3  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 2»
+        li.Agenda__item#4  736×44 @0,96
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#4  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#4  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 3»
+        li.Agenda__item#5  736×44 @0,144
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#5  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#5  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 4»
+        li.Agenda__item#6  736×44 @0,192
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#6  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#6  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 5»
+        li.Agenda__item#7  736×44 @0,240
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#7  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#7  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 6»
+        li.Agenda__item#8  736×44 @0,288
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#8  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#8  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 7»
+        li.Agenda__item#9  736×44 @0,336
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#9  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#9  701×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 8»
+        li.Agenda__item#10  736×44 @0,384
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#10  52×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+            span.EventChip__name#10  661×15 @66,15  Manrope 600 12/15  lines=1  «Ирина»
+        li.Agenda__item#11  736×44 @0,432
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#11  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1059»
+            span.EventChip__name#11  514×15 @113,15  Manrope 600 12/15  lines=1  «Ирина Соколова»
+            span.EventChip__clashMark  95×15 @632,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#12  736×44 @0,480
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#12  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:30»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1063»
+            span.EventChip__name#12  514×15 @113,15  Manrope 600 12/15  lines=1  «Ирина Соколова»
+            span.EventChip__clashMark#2  95×15 @632,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#13  736×44 @0,528
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#13  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «11:00»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1061»
+            span.EventChip__name#13  514×15 @113,15  Manrope 600 12/15  lines=1  «Ольга Титова»
+            span.EventChip__clashMark#3  95×15 @632,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#14  736×44 @0,576
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#14  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «11:15»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1064»
+            span.EventChip__name#14  514×15 @113,15  Manrope 600 12/15  lines=1  «Ольга Титова»
+            span.EventChip__clashMark#4  95×15 @632,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#15  736×44 @0,624
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#15  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «12:00»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1060»
+            span.EventChip__name#15  514×15 @113,15  Manrope 600 12/15  lines=1  «Пётр Лапин»
+            span.EventChip__clashMark#5  95×15 @632,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#16  736×44 @0,672
+          button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#16  52×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «13:30»
+            span.EventChip__name#16  661×15 @66,15  Manrope 600 12/15  lines=1  «Сергей»
+
+[геометрия 1440]
+section.Agenda__agenda  1408×868 @16,16
+  ol.Agenda__days  1408×868 @0,0
+    li.Agenda__day  1408×92 @0,0
+      a.Agenda__head  1408×44 @0,0  b0 0 2 0
+        span.Agenda__weekday  16×19 @2,6  Manrope 600 12/19  lines=1  «Пт»
+        span.Agenda__date  14×16 @26,7  Onest 700 15/16  lines=1  «21»
+        span.Agenda__count  47×19 @1359,6  Manrope 400 12/19  lines=1  «1 запись»
+      ul.Agenda__items  1408×44 @0,48
+        li.Agenda__item  1408×44 @0,0
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head  52×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «09:00»
+            span.EventChip__name  1333×15 @66,15  Manrope 600 12/15  lines=1  «Ольга»
+    li.Agenda__day#2  1408×764 @0,104
+      a.Agenda__head  1408×44 @0,0  b0 0 2 0
+        span.Agenda__weekday#2  16×19 @2,6  Manrope 600 12/19  lines=1  «Вс»
+        span.Agenda__date#2  17×16 @26,7  Onest 700 15/16  lines=1  «23»
+        span.Agenda__count#2  61×19 @1345,6  Manrope 400 12/19  lines=1  «15 записей»
+      ul.Agenda__items  1408×716 @0,48
+        li.Agenda__item#2  1408×44 @0,0
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#2  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#2  1373×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 1»
+        li.Agenda__item#3  1408×44 @0,48
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#3  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#3  1373×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 2»
+        li.Agenda__item#4  1408×44 @0,96
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#4  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#4  1373×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 3»
+        li.Agenda__item#5  1408×44 @0,144
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#5  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#5  1373×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 4»
+        li.Agenda__item#6  1408×44 @0,192
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#6  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#6  1373×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 5»
+        li.Agenda__item#7  1408×44 @0,240
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#7  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#7  1373×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 6»
+        li.Agenda__item#8  1408×44 @0,288
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#8  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#8  1373×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 7»
+        li.Agenda__item#9  1408×44 @0,336
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#9  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#9  1373×15 @26,15  Manrope 600 12/15  lines=1  «Заявка 8»
+        li.Agenda__item#10  1408×44 @0,384
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#10  52×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+            span.EventChip__name#10  1333×15 @66,15  Manrope 600 12/15  lines=1  «Ирина»
+        li.Agenda__item#11  1408×44 @0,432
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#11  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1059»
+            span.EventChip__name#11  1186×15 @113,15  Manrope 600 12/15  lines=1  «Ирина Соколова»
+            span.EventChip__clashMark  95×15 @1304,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#12  1408×44 @0,480
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#12  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:30»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1063»
+            span.EventChip__name#12  1186×15 @113,15  Manrope 600 12/15  lines=1  «Ирина Соколова»
+            span.EventChip__clashMark#2  95×15 @1304,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#13  1408×44 @0,528
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#13  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «11:00»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1061»
+            span.EventChip__name#13  1186×15 @113,15  Manrope 600 12/15  lines=1  «Ольга Титова»
+            span.EventChip__clashMark#3  95×15 @1304,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#14  1408×44 @0,576
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#14  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «11:15»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1064»
+            span.EventChip__name#14  1186×15 @113,15  Manrope 600 12/15  lines=1  «Ольга Титова»
+            span.EventChip__clashMark#4  95×15 @1304,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#15  1408×44 @0,624
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#15  99×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «12:00»
+              span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1060»
+            span.EventChip__name#15  1186×15 @113,15  Manrope 600 12/15  lines=1  «Пётр Лапин»
+            span.EventChip__clashMark#5  95×15 @1304,15
+              svg  11×11 @0,2
+              span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
+        li.Agenda__item#16  1408×44 @0,672
+          button.EventChip__chip  1408×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#16  52×15 @9,15
+              svg.EventChip__icon  12×12 @0,2
+              span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «13:30»
+            span.EventChip__name#16  1333×15 @66,15  Manrope 600 12/15  lines=1  «Сергей»
+
+[палитра light]
+section.Agenda__agenda
+  ol.Agenda__days
+    li.Agenda__day
+      a.Agenda__head  border #0f172a #0f172a #e2e8f0 #0f172a
+        span.Agenda__weekday  color #556173
+        span.Agenda__date  color #0f172a
+        span.Agenda__count  color #556173
+      ul.Agenda__items
+        li.Agenda__item
+          button.EventChip__chip  bg #4338ca14  border transparent transparent transparent #4338ca
+            span.EventChip__head
+              svg.EventChip__icon
+              span.EventChip__time  color #4338ca
+            span.EventChip__name  color #4338ca
+    li.Agenda__day#2
+      a.Agenda__head  border #0f172a #0f172a #0891b2 #0f172a
+        span.Agenda__weekday#2  color #0e7490
+        span.Agenda__date#2  color #0e7490
+        span.Agenda__count#2  color #556173
+      ul.Agenda__items
+        li.Agenda__item#2
+          button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
+            span.EventChip__head#2
+              svg.EventChip__icon
+            span.EventChip__name#2  color #334155
+        li.Agenda__item#3
+          button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
+            span.EventChip__head#3
+              svg.EventChip__icon
+            span.EventChip__name#3  color #334155
+        li.Agenda__item#4
+          button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
+            span.EventChip__head#4
+              svg.EventChip__icon
+            span.EventChip__name#4  color #334155
+        li.Agenda__item#5
+          button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
+            span.EventChip__head#5
+              svg.EventChip__icon
+            span.EventChip__name#5  color #334155
+        li.Agenda__item#6
+          button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
+            span.EventChip__head#6
+              svg.EventChip__icon
+            span.EventChip__name#6  color #334155
+        li.Agenda__item#7
+          button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
+            span.EventChip__head#7
+              svg.EventChip__icon
+            span.EventChip__name#7  color #334155
+        li.Agenda__item#8
+          button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
+            span.EventChip__head#8
+              svg.EventChip__icon
+            span.EventChip__name#8  color #334155
+        li.Agenda__item#9
+          button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
+            span.EventChip__head#9
+              svg.EventChip__icon
+            span.EventChip__name#9  color #334155
+        li.Agenda__item#10
+          button.EventChip__chip  bg #ecfeff  border transparent transparent transparent #0e7490
+            span.EventChip__head#10
+              svg.EventChip__icon
+              span.EventChip__time  color #0e7490
+            span.EventChip__name#10  color #0e7490
+        li.Agenda__item#11
+          button.EventChip__chip  bg #15803d14  border #be123c
+            span.EventChip__head#11
+              svg.EventChip__icon
+              span.EventChip__time  color #166534
+              span.EventChip__number  color #166534
+            span.EventChip__name#11  color #166534
+            span.EventChip__clashMark
+              svg
+              span.EventChip__markWord  color #166534
+        li.Agenda__item#12
+          button.EventChip__chip  bg #15803d14  border #be123c
+            span.EventChip__head#12
+              svg.EventChip__icon
+              span.EventChip__time  color #166534
+              span.EventChip__number  color #166534
+            span.EventChip__name#12  color #166534
+            span.EventChip__clashMark#2
+              svg
+              span.EventChip__markWord  color #166534
+        li.Agenda__item#13
+          button.EventChip__chip  bg #b4530914  border #be123c
+            span.EventChip__head#13
+              svg.EventChip__icon
+              span.EventChip__time  color #92400e
+              span.EventChip__number  color #92400e
+            span.EventChip__name#13  color #92400e
+            span.EventChip__clashMark#3
+              svg
+              span.EventChip__markWord  color #92400e
+        li.Agenda__item#14
+          button.EventChip__chip  bg #b4530914  border #be123c
+            span.EventChip__head#14
+              svg.EventChip__icon
+              span.EventChip__time  color #92400e
+              span.EventChip__number  color #92400e
+            span.EventChip__name#14  color #92400e
+            span.EventChip__clashMark#4
+              svg
+              span.EventChip__markWord  color #92400e
+        li.Agenda__item#15
+          button.EventChip__chip  bg #be123c14  border #be123c
+            span.EventChip__head#15
+              svg.EventChip__icon
+              span.EventChip__time  color #be123c
+              span.EventChip__number  color #be123c
+            span.EventChip__name#15  color #be123c
+            span.EventChip__clashMark#5
+              svg
+              span.EventChip__markWord  color #be123c
+        li.Agenda__item#16
+          button.EventChip__chip  bg #15803d14  border transparent transparent transparent #166534
+            span.EventChip__head#16
+              svg.EventChip__icon
+              span.EventChip__time  color #166534
+            span.EventChip__name#16  color #166534
+
+[палитра dark]
+section.Agenda__agenda
+  ol.Agenda__days
+    li.Agenda__day
+      a.Agenda__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        span.Agenda__weekday  color #8598ac
+        span.Agenda__date  color #eaf1f8
+        span.Agenda__count  color #8598ac
+      ul.Agenda__items
+        li.Agenda__item
+          button.EventChip__chip  bg #a5b4fc1f  border transparent transparent transparent #a5b4fc
+            span.EventChip__head
+              svg.EventChip__icon
+              span.EventChip__time  color #a5b4fc
+            span.EventChip__name  color #a5b4fc
+    li.Agenda__day#2
+      a.Agenda__head  border #eaf1f8 #eaf1f8 #22d3ee #eaf1f8
+        span.Agenda__weekday#2  color #22d3ee
+        span.Agenda__date#2  color #22d3ee
+        span.Agenda__count#2  color #8598ac
+      ul.Agenda__items
+        li.Agenda__item#2
+          button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
+            span.EventChip__head#2
+              svg.EventChip__icon
+            span.EventChip__name#2  color #c9d5e2
+        li.Agenda__item#3
+          button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
+            span.EventChip__head#3
+              svg.EventChip__icon
+            span.EventChip__name#3  color #c9d5e2
+        li.Agenda__item#4
+          button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
+            span.EventChip__head#4
+              svg.EventChip__icon
+            span.EventChip__name#4  color #c9d5e2
+        li.Agenda__item#5
+          button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
+            span.EventChip__head#5
+              svg.EventChip__icon
+            span.EventChip__name#5  color #c9d5e2
+        li.Agenda__item#6
+          button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
+            span.EventChip__head#6
+              svg.EventChip__icon
+            span.EventChip__name#6  color #c9d5e2
+        li.Agenda__item#7
+          button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
+            span.EventChip__head#7
+              svg.EventChip__icon
+            span.EventChip__name#7  color #c9d5e2
+        li.Agenda__item#8
+          button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
+            span.EventChip__head#8
+              svg.EventChip__icon
+            span.EventChip__name#8  color #c9d5e2
+        li.Agenda__item#9
+          button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
+            span.EventChip__head#9
+              svg.EventChip__icon
+            span.EventChip__name#9  color #c9d5e2
+        li.Agenda__item#10
+          button.EventChip__chip  bg #22d3ee1a  border transparent transparent transparent #22d3ee
+            span.EventChip__head#10
+              svg.EventChip__icon
+              span.EventChip__time  color #22d3ee
+            span.EventChip__name#10  color #22d3ee
+        li.Agenda__item#11
+          button.EventChip__chip  bg #4ade801f  border #fb7185
+            span.EventChip__head#11
+              svg.EventChip__icon
+              span.EventChip__time  color #4ade80
+              span.EventChip__number  color #4ade80
+            span.EventChip__name#11  color #4ade80
+            span.EventChip__clashMark
+              svg
+              span.EventChip__markWord  color #4ade80
+        li.Agenda__item#12
+          button.EventChip__chip  bg #4ade801f  border #fb7185
+            span.EventChip__head#12
+              svg.EventChip__icon
+              span.EventChip__time  color #4ade80
+              span.EventChip__number  color #4ade80
+            span.EventChip__name#12  color #4ade80
+            span.EventChip__clashMark#2
+              svg
+              span.EventChip__markWord  color #4ade80
+        li.Agenda__item#13
+          button.EventChip__chip  bg #fbbf241f  border #fb7185
+            span.EventChip__head#13
+              svg.EventChip__icon
+              span.EventChip__time  color #fbbf24
+              span.EventChip__number  color #fbbf24
+            span.EventChip__name#13  color #fbbf24
+            span.EventChip__clashMark#3
+              svg
+              span.EventChip__markWord  color #fbbf24
+        li.Agenda__item#14
+          button.EventChip__chip  bg #fbbf241f  border #fb7185
+            span.EventChip__head#14
+              svg.EventChip__icon
+              span.EventChip__time  color #fbbf24
+              span.EventChip__number  color #fbbf24
+            span.EventChip__name#14  color #fbbf24
+            span.EventChip__clashMark#4
+              svg
+              span.EventChip__markWord  color #fbbf24
+        li.Agenda__item#15
+          button.EventChip__chip  bg #fb71851f  border #fb7185
+            span.EventChip__head#15
+              svg.EventChip__icon
+              span.EventChip__time  color #fb7185
+              span.EventChip__number  color #fb7185
+            span.EventChip__name#15  color #fb7185
+            span.EventChip__clashMark#5
+              svg
+              span.EventChip__markWord  color #fb7185
+        li.Agenda__item#16
+          button.EventChip__chip  bg #4ade801f  border transparent transparent transparent #4ade80
+            span.EventChip__head#16
+              svg.EventChip__icon
+              span.EventChip__time  color #4ade80
+            span.EventChip__name#16  color #4ade80
