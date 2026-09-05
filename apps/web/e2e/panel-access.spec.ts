@@ -1,6 +1,8 @@
 import { expect, test, type Page } from '@playwright/test';
 
+import { PANEL_NOT_FOUND_CONTENT } from '@/app/(admin)/admin/(panel)/not-found-content';
 import { FORBIDDEN_CONTENT } from '@/app/forbidden-content';
+import { POLICY_HREF } from '@/shared/config/nav';
 
 import { BASE_URL, withAdmin } from './support/admin-api';
 import { loginViaUi } from './support/admin-ui';
@@ -226,6 +228,52 @@ test.describe('🔴 закрытые разделы панели', () => {
         await api.deleteClient(client.id);
         await api.deleteStaff(created.id);
       });
+    }
+  });
+});
+
+/**
+ * Ошибка в адресе панели — issue #631.
+ *
+ * 🔴 Проверяется не только код 404, но и то, **чья** это страница. До правки
+ * `/admin/nosuchpage` разбирался корневым `not-found.tsx`, отдавал честный 404
+ * и рисовал витрину сайта: меню разделов сайта и кнопку заявки. Вошедший
+ * терял панель на ровном месте, а монтажник видел цены вместо своих нарядов.
+ *
+ * Признак витрины — ссылка на политику обработки данных: она стоит в подвале
+ * каждой публичной страницы и не встречается в панели ни на одном экране.
+ */
+test.describe('🔴 несуществующий адрес панели', () => {
+  const MISSING = '/admin/nosuchpage';
+
+  test('владельцу отвечают 404 страницей панели, а не витриной сайта', async ({ page }) => {
+    await loginViaUi(page);
+
+    const { status, body } = await get(page, MISSING);
+
+    expect(status, 'адрес не существует — код обязан быть 404').toBe(404);
+    expect(body, 'показана страница панели «не найдено»').toContain(PANEL_NOT_FOUND_CONTENT.title);
+    expect(body, 'выход ведёт на сводку').toContain(PANEL_NOT_FOUND_CONTENT.owner.label);
+    expect(body, 'подвал витрины сюда не приезжает').not.toContain(POLICY_HREF);
+  });
+
+  test('монтажнику отвечают 404 с выходом на его выезды, а не 403', async ({ page }) => {
+    const created = await withAdmin((api) => api.createInstaller(PROBE));
+
+    try {
+      await loginViaUi(page, { login: PROBE.login, password: PROBE.password });
+
+      const { status, body } = await get(page, MISSING);
+
+      /* 🔴 Именно 404, а не 403: раздела нет вовсе, и отказ здесь соврал бы —
+         он значит «есть, но не для вас». */
+      expect(status, 'несуществующего раздела нет ни для кого').toBe(404);
+      expect(body, 'выход ведёт на выезды, а не на закрытую сводку').toContain(
+        PANEL_NOT_FOUND_CONTENT.installer.label,
+      );
+      expect(body, 'страницы отказа тут быть не должно').not.toContain(FORBIDDEN_CONTENT.title);
+    } finally {
+      await withAdmin((api) => api.deleteStaff(created.id));
     }
   });
 });
