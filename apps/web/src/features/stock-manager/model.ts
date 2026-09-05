@@ -50,7 +50,13 @@ export const STOCK_PATH = '/admin/stock' satisfies Route;
  */
 export const STOCK_ZONES_PATH = '/admin/stock?tab=zones' satisfies Route;
 
-export function stockItemPath(id: string): string {
+/**
+ * Адрес карточки позиции.
+ *
+ * Тип литеральный, а не `string`, как и у адреса движения: маршруты проекта
+ * типизированы, и обычная строка не годится для мягкого перехода.
+ */
+export function stockItemPath(id: string): `/admin/stock/items/${string}` {
   return `/admin/stock/items/${id}`;
 }
 

@@ -29,10 +29,118 @@
    Порядок правил — по возрастанию специфичности: фокус объявлен первым,
    потому что `:hover:not(:disabled)` весит больше, и правило с меньшим весом,
    поставленное позже, не перебивало бы ничего. */
-.actions > *:focus-visible {
+.actions > *:not(.action):focus-visible {
   color: var(--accent-text);
 }
 
-.actions > *:hover:not(:disabled) {
+/* 🔴 Приглушённый цвет колонки — умолчание для действия без своей краски.
+   Действие с ролью (`.action`) из него исключено: правило с `:hover` весит
+   больше классов роли и перекрашивало бы «Удалить» в акцентный, стоит на
+   него навести. */
+.actions > *:not(.action):hover:not(:disabled) {
   color: var(--accent-text);
+}
+
+/* ——— Действие с краской по смыслу (issue #574, #575) ———
+
+   Круг с мягкой заливкой снят с макета (design/admin/_base.css, `.actbtn`):
+   32×32, радиус-пилюля, тинт по роли. Заливка, а не голый значок: три
+   действия подряд без неё сливались в полосу серых точек, и «удалить»
+   отличалось от «править» только формой глифа.
+
+   🔴 Селектор по потомку, а не по прямому ребёнку. Действие, у которого есть
+   что сказать при отказе, приходит завёрнутым в свой позиционированный
+   пролёт — сообщение об ошибке обязано выпасть из ряда, а не растянуть
+   колонку. Поэтому размер и форму `.action` держит сам, а не получает
+   сверху. */
+.actions .action {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--h-sm, 36px);
+  height: var(--h-sm, 36px);
+  border: 0;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease;
+}
+
+/* Пролёт значка занимает круг целиком: подсказка обязана появляться на любой
+   точке кнопки, а не только над глифом. */
+.actions .iconArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* 🔴 В покое заливки нет, смысл несёт краска значка. Три залитых кружка
+   подряд макет рисует ради различимости, но на светлой теме мягкий тинт
+   читается как «кнопка выключена» — замечено владельцем: живое действие не
+   должно выглядеть недоступным. Тинт остаётся, но приходит на наведение и
+   фокус, то есть тогда, когда он и нужен — подтвердить, куда попадёт нажатие.
+   Отступление от макета записано в PIXEL_SPEC §«Панель». */
+.actions .open {
+  background: none;
+  color: var(--ink2);
+}
+
+.actions .edit {
+  background: none;
+
+  /* Мягко-акцентная поверхность красится `--on-accent` (ADR-305). */
+  color: var(--accent-text);
+}
+
+/* 🔴 Красным — только необратимое. Краска не одна несёт смысл: имя действия
+   («Удалить: Сплит-система 09») стоит в `aria-label` и в подсказке. */
+.actions .remove {
+  background: none;
+  color: var(--error-ink);
+}
+
+@media (hover: hover) {
+  .actions .open:hover:not(:disabled) {
+    background: var(--bg-soft);
+  }
+
+  .actions .edit:hover:not(:disabled) {
+    background: var(--accent-bg);
+    color: var(--on-accent);
+  }
+
+  .actions .remove:hover:not(:disabled) {
+    background: var(--error-bg);
+  }
+}
+
+.actions .open:focus-visible {
+  background: var(--bg-soft);
+}
+
+.actions .edit:focus-visible {
+  background: var(--accent-bg);
+  color: var(--on-accent);
+}
+
+.actions .remove:focus-visible {
+  background: var(--error-bg);
+}
+
+.actions .action:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+/* Тинт появляется на наведении у каждой роли своей краской — не уводя все три
+   кнопки в акцентный: иначе «Удалить» под курсором переставало быть красным. */
+
+.actions .action:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }

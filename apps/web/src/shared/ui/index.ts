@@ -128,8 +128,13 @@ export type { PagerProps } from './Pager/Pager';
 
 export { Table } from './Table/Table';
 export type { TableProps, TableVariant } from './Table/Table';
-export { TableActions } from './Table/TableActions';
-export type { TableActionsProps } from './Table/TableActions';
+export { TableAction, TableActionLink, TableActions } from './Table/TableActions';
+export type {
+  TableActionLinkProps,
+  TableActionProps,
+  TableActionTone,
+  TableActionsProps,
+} from './Table/TableActions';
 
 export { Accordion } from './Accordion/Accordion';
 export type { AccordionItem, AccordionProps } from './Accordion/Accordion';
