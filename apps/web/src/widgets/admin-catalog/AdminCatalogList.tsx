@@ -1,9 +1,17 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
-import { VisibilitySwitch } from '@/features/product-form';
+import { ProductRowRemove, VisibilitySwitch } from '@/features/product-form';
 import { formatMoney } from '@/shared/lib/format';
-import { Badge, Card, EmptyState, Icon, Table } from '@/shared/ui';
+import {
+  Badge,
+  Card,
+  EmptyState,
+  Icon,
+  Table,
+  TableAction,
+  TableActionLink,
+  TableActions,
+} from '@/shared/ui';
 
 import { adminCatalogContent as texts } from './content';
 import styles from './AdminCatalogList.module.css';
@@ -34,6 +42,8 @@ export type CatalogRow = {
   /** Последний день скидки, `2026-09-10`. Пусто — без ограничения. */
   readonly saleTo: string | null;
   readonly visible: boolean;
+  /** Адрес модели на сайте: по нему открывается «Смотреть». */
+  readonly slug: string;
   readonly featured: boolean;
   readonly sort: number;
   /** Главная фотография; нет — в ячейке стоит значок-заглушка. */
@@ -89,8 +99,10 @@ export function AdminCatalogList({ products }: AdminCatalogListProps) {
             <th className={`${styles.wideOnly} ${styles.colTiny}`} scope="col">
               {texts.colSort}
             </th>
+            {/* Имя колонки читалке нужно, а на экране оно только повторяет
+                три подписанных значка под собой. */}
             <th scope="col">
-              <span className="srOnly">{texts.edit}</span>
+              <span className="srOnly">{texts.colActions}</span>
             </th>
           </tr>
         </thead>
@@ -192,13 +204,35 @@ export function AdminCatalogList({ products }: AdminCatalogListProps) {
               </td>
 
               <td role="cell">
-                <Link
-                  className={`${styles.edit} tapAction`}
-                  href={{ pathname: `/admin/catalog/${product.id}` }}
-                  aria-label={texts.editLabel(product.name)}
-                >
-                  {texts.edit}
-                </Link>
+                {/* 🔴 Открыть · править · убрать — один набор на все списки
+                    панели (issue #575). Удаление красное и спрашивает
+                    подтверждение диалогом кита (ADR-113). */}
+                <TableActions label={texts.rowActions(product.name)}>
+                  {product.visible ? (
+                    <TableActionLink
+                      tone="open"
+                      label={texts.viewLabel(product.name)}
+                      icon={<Icon name="eye" size={16} />}
+                      href={{ pathname: `/catalog/${product.slug}` }}
+                    />
+                  ) : (
+                    <TableAction
+                      tone="open"
+                      label={texts.viewHiddenLabel(product.name)}
+                      icon={<Icon name="eye" size={16} />}
+                      disabled
+                    />
+                  )}
+
+                  <TableActionLink
+                    tone="edit"
+                    label={texts.editLabel(product.name)}
+                    icon={<Icon name="edit" size={16} />}
+                    href={{ pathname: `/admin/catalog/${product.id}` }}
+                  />
+
+                  <ProductRowRemove id={product.id} name={product.name} />
+                </TableActions>
               </td>
             </tr>
           ))}

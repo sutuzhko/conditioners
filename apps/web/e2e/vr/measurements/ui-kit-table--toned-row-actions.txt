@@ -1,0 +1,347 @@
+# ui-kit-table--toned-row-actions · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Table__viewport  326×345 @32,32
+  table.Table__table  379×345 @0,0
+    tr[role=row]  379×56 @0,0
+      th  130×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
+      th#2  73×56 @130,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
+      span  1×1 @220,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr[role=row]#2  379×96 @0,56
+      th  130×96 @0,0  Manrope 600 15/22  b0 0 1 0  lines=3  «Сплит-система 07, тихая серия»
+      td[role=cell]  73×96 @130,0  Manrope 400 15/22  b0 0 1 0  lines=3  «31 900 ₽»
+      td[role=cell]#2  176×96 @203,0  b0 0 1 0
+        div.TableActions__actions  140×44 @18,15
+          span.Tooltip__wrap  44×44 @0,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea  44×44 @0,0
+                  svg  16×16 @14,14
+          span.Tooltip__wrap#2  44×44 @48,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              a.TableActions__action#2  44×44 @0,0  r100
+                span.TableActions__iconArea  44×44 @0,0
+                  svg#2  16×16 @14,14
+          span.Tooltip__wrap#3  44×44 @96,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea  32×42 @6,1
+                  svg#3  16×16 @8,13
+    tr[role=row]#3  379×96 @0,152
+      th  130×96 @0,0  Manrope 600 15/22  b0 0 1 0  lines=3  «Сплит-система 09, инверторная»
+      td[role=cell]  73×96 @130,0  Manrope 400 15/22  b0 0 1 0  lines=3  «34 900 ₽»
+      td[role=cell]#2  176×96 @203,0  b0 0 1 0
+        div.TableActions__actions#2  140×44 @18,15
+          span.Tooltip__wrap  44×44 @0,0  r100
+            span.Tooltip__anchor#2  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#2  44×44 @0,0
+                  svg  16×16 @14,14
+          span.Tooltip__wrap#2  44×44 @48,0  r100
+            span.Tooltip__anchor#2  44×44 @0,0
+              a.TableActions__action#2  44×44 @0,0  r100
+                span.TableActions__iconArea#2  44×44 @0,0
+                  svg#2  16×16 @14,14
+          span.Tooltip__wrap#3  44×44 @96,0  r100
+            span.Tooltip__anchor#2  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#2  32×42 @6,1
+                  svg#3  16×16 @8,13
+    tr[role=row]#4  379×96 @0,249
+      th  130×96 @0,0  Manrope 600 15/22  b0 0 1 0  lines=3  «Мульти-сплит на два блока»
+      td[role=cell]  73×96 @130,0  Manrope 400 15/22  lines=2  «58 700 ₽»
+      td[role=cell]#2  176×96 @203,0
+        div.TableActions__actions#3  140×44 @18,15
+          span.Tooltip__wrap  44×44 @0,0  r100
+            span.Tooltip__anchor#3  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#3  32×42 @6,1
+                  svg  16×16 @8,13
+          span.Tooltip__wrap#2  44×44 @48,0  r100
+            span.Tooltip__anchor#3  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#3  44×44 @0,0
+                  svg#2  16×16 @14,14
+          span.Tooltip__wrap#3  44×44 @96,0  r100
+            span.Tooltip__anchor#3  44×44 @0,0
+              button.TableActions__action#2  44×44 @0,0  r100
+                span.TableActions__iconArea  32×42 @6,1
+                  svg#4  16×16 @8,13
+
+[геометрия 768]
+div.Table__viewport  704×275 @32,32
+  table.Table__table  704×275 @0,0
+    tr[role=row]  704×56 @0,0
+      th  351×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
+      th#2  123×56 @351,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
+      span  1×1 @490,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr[role=row]#2  704×73 @0,56
+      th  351×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Сплит-система 07, тихая серия»
+      td[role=cell]  123×73 @351,0  Manrope 400 15/22  b0 0 1 0  lines=1  «31 900 ₽»
+      td[role=cell]#2  231×73 @473,0  b0 0 1 0
+        div.TableActions__actions  195×44 @18,15
+          span.Tooltip__wrap  44×44 @55,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea  44×44 @0,0
+                  svg  16×16 @14,14
+          span.Tooltip__wrap#2  44×44 @103,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              a.TableActions__action#2  44×44 @0,0  r100
+                span.TableActions__iconArea  44×44 @0,0
+                  svg#2  16×16 @14,14
+          span.Tooltip__wrap#3  44×44 @151,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea  32×42 @6,1
+                  svg#3  16×16 @8,13
+    tr[role=row]#3  704×73 @0,129
+      th  351×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Сплит-система 09, инверторная»
+      td[role=cell]  123×73 @351,0  Manrope 400 15/22  b0 0 1 0  lines=1  «34 900 ₽»
+      td[role=cell]#2  231×73 @473,0  b0 0 1 0
+        div.TableActions__actions#2  195×44 @18,15
+          span.Tooltip__wrap  44×44 @55,0  r100
+            span.Tooltip__anchor#2  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#2  44×44 @0,0
+                  svg  16×16 @14,14
+          span.Tooltip__wrap#2  44×44 @103,0  r100
+            span.Tooltip__anchor#2  44×44 @0,0
+              a.TableActions__action#2  44×44 @0,0  r100
+                span.TableActions__iconArea#2  44×44 @0,0
+                  svg#2  16×16 @14,14
+          span.Tooltip__wrap#3  44×44 @151,0  r100
+            span.Tooltip__anchor#2  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#2  32×42 @6,1
+                  svg#3  16×16 @8,13
+    tr[role=row]#4  704×73 @0,202
+      th  351×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Мульти-сплит на два блока»
+      td[role=cell]  123×73 @351,0  Manrope 400 15/22  lines=1  «58 700 ₽»
+      td[role=cell]#2  231×73 @473,0
+        div.TableActions__actions#3  195×44 @18,15
+          span.Tooltip__wrap  44×44 @55,0  r100
+            span.Tooltip__anchor#3  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#3  32×42 @6,1
+                  svg  16×16 @8,13
+          span.Tooltip__wrap#2  44×44 @103,0  r100
+            span.Tooltip__anchor#3  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#3  44×44 @0,0
+                  svg#2  16×16 @14,14
+          span.Tooltip__wrap#3  44×44 @151,0  r100
+            span.Tooltip__anchor#3  44×44 @0,0
+              button.TableActions__action#2  44×44 @0,0  r100
+                span.TableActions__iconArea  32×42 @6,1
+                  svg#4  16×16 @8,13
+
+[геометрия 1440]
+div.Table__viewport  1376×239 @32,32
+  table.Table__table  1376×239 @0,0
+    tr[role=row]  1376×56 @0,0
+      th  735×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
+      th#2  257×56 @735,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
+      span  1×1 @1008,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr[role=row]#2  1376×61 @0,56
+      th  735×61 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Сплит-система 07, тихая серия»
+      td[role=cell]  257×61 @735,0  Manrope 400 15/22  b0 0 1 0  lines=1  «31 900 ₽»
+      td[role=cell]#2  385×61 @991,0  b0 0 1 0
+        div.TableActions__actions  349×32 @18,15
+          span.Tooltip__wrap  32×32 @245,0  r100
+            span.Tooltip__anchor  32×32 @0,0
+              a.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea  32×32 @0,0
+                  svg  16×16 @8,8
+          span.Tooltip__wrap#2  32×32 @281,0  r100
+            span.Tooltip__anchor  32×32 @0,0
+              a.TableActions__action#2  32×32 @0,0  r100
+                span.TableActions__iconArea  32×32 @0,0
+                  svg#2  16×16 @8,8
+          span.Tooltip__wrap#3  32×32 @317,0  r100
+            span.Tooltip__anchor  32×32 @0,0
+              button.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea  20×30 @6,1
+                  svg#3  16×16 @2,7
+    tr[role=row]#3  1376×61 @0,117
+      th  735×61 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Сплит-система 09, инверторная»
+      td[role=cell]  257×61 @735,0  Manrope 400 15/22  b0 0 1 0  lines=1  «34 900 ₽»
+      td[role=cell]#2  385×61 @991,0  b0 0 1 0
+        div.TableActions__actions#2  349×32 @18,15
+          span.Tooltip__wrap  32×32 @245,0  r100
+            span.Tooltip__anchor#2  32×32 @0,0
+              a.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea#2  32×32 @0,0
+                  svg  16×16 @8,8
+          span.Tooltip__wrap#2  32×32 @281,0  r100
+            span.Tooltip__anchor#2  32×32 @0,0
+              a.TableActions__action#2  32×32 @0,0  r100
+                span.TableActions__iconArea#2  32×32 @0,0
+                  svg#2  16×16 @8,8
+          span.Tooltip__wrap#3  32×32 @317,0  r100
+            span.Tooltip__anchor#2  32×32 @0,0
+              button.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea#2  20×30 @6,1
+                  svg#3  16×16 @2,7
+    tr[role=row]#4  1376×61 @0,178
+      th  735×61 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Мульти-сплит на два блока»
+      td[role=cell]  257×61 @735,0  Manrope 400 15/22  lines=1  «58 700 ₽»
+      td[role=cell]#2  385×61 @991,0
+        div.TableActions__actions#3  349×32 @18,15
+          span.Tooltip__wrap  32×32 @245,0  r100
+            span.Tooltip__anchor#3  32×32 @0,0
+              button.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea#3  20×30 @6,1
+                  svg  16×16 @2,7
+          span.Tooltip__wrap#2  32×32 @281,0  r100
+            span.Tooltip__anchor#3  32×32 @0,0
+              a.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea#3  32×32 @0,0
+                  svg#2  16×16 @8,8
+          span.Tooltip__wrap#3  32×32 @317,0  r100
+            span.Tooltip__anchor#3  32×32 @0,0
+              button.TableActions__action#2  32×32 @0,0  r100
+                span.TableActions__iconArea  20×30 @6,1
+                  svg#4  16×16 @2,7
+
+[палитра light]
+div.Table__viewport
+  table.Table__table
+    tr[role=row]
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      span  color #0f172a
+    tr[role=row]#2
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      td[role=cell]  color #556173  border #556173 #556173 #eef2f6 #556173
+      td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+        div.TableActions__actions
+          span.Tooltip__wrap
+            span.Tooltip__anchor
+              a.TableActions__action
+                span.TableActions__iconArea
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor
+              a.TableActions__action#2
+                span.TableActions__iconArea
+                  svg#2
+          span.Tooltip__wrap#3
+            span.Tooltip__anchor
+              button.TableActions__action
+                span.TableActions__iconArea
+                  svg#3
+    tr[role=row]#3
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      td[role=cell]  color #556173  border #556173 #556173 #eef2f6 #556173
+      td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+        div.TableActions__actions#2
+          span.Tooltip__wrap
+            span.Tooltip__anchor#2
+              a.TableActions__action
+                span.TableActions__iconArea#2
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor#2
+              a.TableActions__action#2
+                span.TableActions__iconArea#2
+                  svg#2
+          span.Tooltip__wrap#3
+            span.Tooltip__anchor#2
+              button.TableActions__action
+                span.TableActions__iconArea#2
+                  svg#3
+    tr[role=row]#4
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      td[role=cell]  color #556173
+      td[role=cell]#2
+        div.TableActions__actions#3
+          span.Tooltip__wrap
+            span.Tooltip__anchor#3
+              button.TableActions__action
+                span.TableActions__iconArea#3
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor#3
+              a.TableActions__action
+                span.TableActions__iconArea#3
+                  svg#2
+          span.Tooltip__wrap#3
+            span.Tooltip__anchor#3
+              button.TableActions__action#2
+                span.TableActions__iconArea
+                  svg#4
+
+[палитра dark]
+div.Table__viewport
+  table.Table__table
+    tr[role=row]
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      span  color #eaf1f8
+    tr[role=row]#2
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      td[role=cell]  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+      td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        div.TableActions__actions
+          span.Tooltip__wrap
+            span.Tooltip__anchor
+              a.TableActions__action
+                span.TableActions__iconArea
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor
+              a.TableActions__action#2
+                span.TableActions__iconArea
+                  svg#2
+          span.Tooltip__wrap#3
+            span.Tooltip__anchor
+              button.TableActions__action
+                span.TableActions__iconArea
+                  svg#3
+    tr[role=row]#3
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      td[role=cell]  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+      td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        div.TableActions__actions#2
+          span.Tooltip__wrap
+            span.Tooltip__anchor#2
+              a.TableActions__action
+                span.TableActions__iconArea#2
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor#2
+              a.TableActions__action#2
+                span.TableActions__iconArea#2
+                  svg#2
+          span.Tooltip__wrap#3
+            span.Tooltip__anchor#2
+              button.TableActions__action
+                span.TableActions__iconArea#2
+                  svg#3
+    tr[role=row]#4
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      td[role=cell]  color #8598ac
+      td[role=cell]#2
+        div.TableActions__actions#3
+          span.Tooltip__wrap
+            span.Tooltip__anchor#3
+              button.TableActions__action
+                span.TableActions__iconArea#3
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor#3
+              a.TableActions__action
+                span.TableActions__iconArea#3
+                  svg#2
+          span.Tooltip__wrap#3
+            span.Tooltip__anchor#3
+              button.TableActions__action#2
+                span.TableActions__iconArea
+                  svg#4
