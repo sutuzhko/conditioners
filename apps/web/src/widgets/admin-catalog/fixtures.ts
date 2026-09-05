@@ -5,6 +5,7 @@ export const catalogRowsFixture: readonly CatalogRow[] = [
   {
     id: '1',
     name: 'Сплит-система 07, тихая серия',
+    slug: 'split-07-tihaya',
     badge: '07',
     areaMax: 20,
     currentPrice: 31900,
@@ -21,6 +22,7 @@ export const catalogRowsFixture: readonly CatalogRow[] = [
     /* Модель со скидкой стоит рядом с моделью без неё намеренно: ровно на этой
        паре и меряется, что блок цены одной высоты (issue #354). */
     name: 'Сплит-система 09, инверторная',
+    slug: 'split-09-invertornaya',
     badge: '09',
     areaMax: 27,
     currentPrice: 34900,
@@ -35,6 +37,7 @@ export const catalogRowsFixture: readonly CatalogRow[] = [
   {
     id: '3',
     name: 'Мульти-сплит на два блока',
+    slug: 'multi-split-dva-bloka',
     badge: 'мульти',
     areaMax: 50,
     currentPrice: 58700,

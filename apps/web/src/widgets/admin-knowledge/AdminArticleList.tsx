@@ -1,6 +1,14 @@
-import Link from 'next/link';
-
-import { Badge, Card, EmptyState, Table } from '@/shared/ui';
+import { ArticleRowRemove } from '@/features/article-form';
+import {
+  Badge,
+  Card,
+  EmptyState,
+  Icon,
+  Table,
+  TableAction,
+  TableActionLink,
+  TableActions,
+} from '@/shared/ui';
 
 import { adminKnowledgeContent as texts } from './content';
 import styles from './AdminArticleList.module.css';
@@ -14,6 +22,8 @@ export type ArticleRow = {
   readonly date: string;
   readonly minutes: number;
   readonly published: boolean;
+  /** Адрес статьи на сайте: по нему открывается «Смотреть». */
+  readonly slug: string;
 };
 
 export interface AdminArticleListProps {
@@ -43,8 +53,10 @@ export function AdminArticleList({ articles }: AdminArticleListProps) {
             <th scope="col">{texts.colDate}</th>
             <th scope="col">{texts.colMinutes}</th>
             <th scope="col">{texts.colPublished}</th>
+            {/* Имя колонки читалке нужно, а на экране оно только повторяет
+                три подписанных значка под собой. */}
             <th scope="col">
-              <span className="srOnly">{texts.edit}</span>
+              <span className="srOnly">{texts.colActions}</span>
             </th>
           </tr>
         </thead>
@@ -69,13 +81,35 @@ export function AdminArticleList({ articles }: AdminArticleListProps) {
                 </Badge>
               </td>
               <td role="cell">
-                <Link
-                  className={`${styles.edit} tapAction`}
-                  href={{ pathname: `/admin/knowledge/${article.id}` }}
-                  aria-label={texts.editLabel(article.title)}
-                >
-                  {texts.edit}
-                </Link>
+                {/* 🔴 Открыть · править · убрать — один набор на все списки
+                    панели (issue #575). Удаление красное и спрашивает
+                    подтверждение диалогом кита (ADR-113). */}
+                <TableActions label={texts.rowActions(article.title)}>
+                  {article.published ? (
+                    <TableActionLink
+                      tone="open"
+                      label={texts.viewLabel(article.title)}
+                      icon={<Icon name="eye" size={16} />}
+                      href={{ pathname: `/knowledge/${article.slug}` }}
+                    />
+                  ) : (
+                    <TableAction
+                      tone="open"
+                      label={texts.viewDraftLabel(article.title)}
+                      icon={<Icon name="eye" size={16} />}
+                      disabled
+                    />
+                  )}
+
+                  <TableActionLink
+                    tone="edit"
+                    label={texts.editLabel(article.title)}
+                    icon={<Icon name="edit" size={16} />}
+                    href={{ pathname: `/admin/knowledge/${article.id}` }}
+                  />
+
+                  <ArticleRowRemove id={article.id} title={article.title} />
+                </TableActions>
               </td>
             </tr>
           ))}

@@ -54,6 +54,7 @@ export const GROUPS = Object.freeze({
     'reviews-fluid',
     'review-moderation',
     'price-update',
+    'row-actions',
     'empty-states',
     'crm-search',
     'crm-team-layer',
