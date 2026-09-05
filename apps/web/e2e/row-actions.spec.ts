@@ -93,7 +93,10 @@ test.describe('Действия строки списка', () => {
     await page.waitForURL(`**/admin/knowledge/${id}`);
 
     const renamed = `${title} — переименована`;
-    const titleField = page.getByLabel('Заголовок');
+    /* Точное совпадение: «Заголовок» — начало ещё двух подписей формы
+       («Заголовок страницы» на вкладке SEO и его двойник в предпросмотре),
+       и нестрогий поиск находил три поля разом. */
+    const titleField = page.getByLabel('Заголовок', { exact: true });
     await expect(titleField).toHaveValue(title, { timeout: 30_000 });
     await titleField.fill(renamed);
     await page.getByRole('button', { name: 'Сохранить' }).first().click();
