@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Input } from '@/shared/ui';
+import { Button, Card, Icon, IconButton, Input, useConfirm } from '@/shared/ui';
 
 import { pricesFormContent as texts } from './content';
 import { putPrices, rowOfField, rowsWithoutClass } from './lib';
@@ -49,6 +49,9 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
      таблицу целиком, и назвать ему только первую ошибку — заставить нажимать
      «Сохранить» столько раз, сколько строк он забыл. */
   const [badRows, setBadRows] = useState<readonly number[]>([]);
+  /* Подтверждение необратимой правки — общий диалог кита, а не окно
+     браузера: системное окно нельзя объяснить (ADR-113). */
+  const { confirm, dialog } = useConfirm();
 
   const sending = status === 'sending';
 
@@ -59,6 +62,36 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
     }));
     setStatus('idle');
     // правка снимает отметку со своей строки, а не со всей таблицы
+    setBadRows((prev) => prev.filter((at) => at !== index));
+  };
+
+  /**
+   * Удаление строки прайса.
+   *
+   * 🔴 Спрашивает подтверждение, когда в строке что-то есть: набранные цена,
+   * мощность и срок исчезают безвозвратно — формa прежних значений не хранит,
+   * а «Отменить» у неё нет. Пустая строка не спрашивает: терять нечего, а
+   * лишний вопрос учит нажимать «Да» не глядя.
+   */
+  const removeRow = async (index: number): Promise<void> => {
+    const row = values.prices[index];
+    if (row === undefined) return;
+
+    const filled = Object.values(row).some((cell) => cell.trim() !== '');
+
+    if (filled) {
+      const confirmed = await confirm({
+        title: texts.rowRemoveTitle(index + 1),
+        description: texts.rowRemoveText(row.cls.trim()),
+        confirmLabel: texts.rowRemoveConfirm,
+        cancelLabel: texts.rowRemoveCancel,
+      });
+
+      if (!confirmed) return;
+    }
+
+    setValues((prev) => ({ ...prev, prices: prev.prices.filter((_, at) => at !== index) }));
+    setStatus('idle');
     setBadRows((prev) => prev.filter((at) => at !== index));
   };
 
@@ -170,21 +203,16 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
                   disabled={sending}
                   onChange={(event) => setRow(index, { term: event.target.value })}
                 />
-                <Button
-                  type="button"
-                  variant="light"
-                  size="sm"
+                {/* Подпись кнопки полная и уникальная («Удалить строку 2»):
+                    диктор читает список одинаковых «Удалить» без пользы. */}
+                <IconButton
+                  label={texts.rowRemove(index + 1)}
+                  icon={<Icon name="close" size={16} />}
                   disabled={sending}
-                  aria-label={texts.rowRemove(index + 1)}
-                  onClick={() =>
-                    setValues((prev) => ({
-                      ...prev,
-                      prices: prev.prices.filter((_, at) => at !== index),
-                    }))
-                  }
-                >
-                  ✕
-                </Button>
+                  onClick={() => {
+                    void removeRow(index);
+                  }}
+                />
               </div>
             ))}
           </div>
@@ -239,6 +267,10 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
           </p>
         ) : null}
       </div>
+
+      {/* Окно живёт вне строк таблицы: подтверждение не принадлежит строке,
+          которую оно спрашивает удалить. */}
+      {dialog}
     </form>
   );
 }

@@ -175,6 +175,9 @@ const EXPECTED: Readonly<Record<string, Role>> = {
   'profile GET': 'admin',
   'profile PATCH': 'admin',
   'profile/password POST': 'admin',
+  /* Выход на всех устройствах доступен обеим ролям: у монтажника телефон
+     теряется чаще, чем у владельца ноутбук (ADR-313). */
+  'profile/sessions DELETE': 'admin',
 };
 
 const ADMIN_API_DIR = fileURLToPath(new URL('.', import.meta.url));

@@ -1,7 +1,7 @@
 import { env } from '@/shared/config/env';
 import { Card } from '@/shared/ui';
-import { FieldsSkeleton, LineSkeleton, RowsSkeleton } from '@/widgets/admin-shell';
 
+import { ChannelsSkeleton, DeliverySkeleton } from './NotificationsSkeletons';
 import { notificationsPageContent as texts } from './content';
 import styles from './page.module.css';
 
@@ -26,27 +26,13 @@ export default function NotificationsLoading() {
         </Card>
       ) : null}
 
-      <Card variant="soft" padding="lg" className={styles.always}>
+      <Card variant="soft" padding="md" className={styles.always}>
         <p className={styles.alwaysTitle}>{texts.alwaysTitle}</p>
         <p className={styles.alwaysText}>{texts.alwaysText}</p>
       </Card>
 
-      <section className={styles.status}>
-        <h2 className={styles.statusTitle}>{texts.statusTitle}</h2>
-        <p className={styles.statusHint}>{texts.statusHint}</p>
-
-        <ul className={styles.list}>
-          {Array.from({ length: 2 }, (_, index) => (
-            <li className={styles.item} key={index}>
-              <LineSkeleton width="min(260px, 70%)" />
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <FieldsSkeleton fields={4} />
-      <RowsSkeleton rows={2} height="140px" />
-      <RowsSkeleton rows={3} height="76px" />
+      <ChannelsSkeleton />
+      <DeliverySkeleton />
     </div>
   );
 }

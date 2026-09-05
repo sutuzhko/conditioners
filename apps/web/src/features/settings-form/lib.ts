@@ -1,7 +1,9 @@
 /** Чтение и запись значения по пути, отправка группы — контракт docs/API.md §5. */
 import type { SettingKey } from '@/entities/settings/model';
 import { adminRequest, jsonInit } from '@/shared/lib/api';
+import type { Confirm } from '@/shared/ui';
 
+import { settingsFormContent as texts } from './content';
 import type { FieldDescriptor, GroupDescriptor, GroupValue, SaveResult } from './model';
 
 /** Сужение вместо приведения типа: `as` на проекте запрещён. */
@@ -179,6 +181,71 @@ export function withoutHiddenFields(group: GroupDescriptor, value: GroupValue): 
     (result, field) => (isFieldVisible(field, value) ? result : dropPath(result, field.path)),
     value,
   );
+}
+
+/**
+ * Отметка отчёта готовности: путь до поля, которое сайт не покажет.
+ *
+ * 🔴 Структурный тип, а не импорт из `server/repo/settings`: правило слоёв
+ * запрещает фиче ходить в серверный код, и отчёт приезжает сюда данными.
+ */
+export type ReadinessMark = { readonly field: string };
+
+/**
+ * Подписи полей, которых не хватает группе, — словами владельца.
+ *
+ * 🔴 Отчёт готовности называет поля путями (`bankBik`, `phones[0]`), а
+ * владелец смотрит на форму с подписями. Путь, у которого подписи нет,
+ * показывается как есть: промолчать о незаполненном поле хуже, чем показать
+ * его технический ключ.
+ *
+ * Индекс строки списка отбрасывается: «Телефоны» не превращаются в три
+ * одинаковых пункта из-за трёх пустых строк.
+ */
+export function missingFieldLabels(
+  group: GroupDescriptor,
+  issues: readonly ReadinessMark[],
+): readonly string[] {
+  const labels: string[] = [];
+
+  for (const issue of issues) {
+    const path = issue.field.replace(/\[\d+\]/g, '');
+    if (path === '') continue;
+
+    const label = group.fields.find((field) => field.path === path)?.label ?? path;
+    if (!labels.includes(label)) labels.push(label);
+  }
+
+  return labels;
+}
+
+/**
+ * Спросить о смене состава группы и ответить, менять ли.
+ *
+ * 🔴 Стирается группа целиком, а не только поля, ушедшие с экрана: одноимённые
+ * поля у разных вариантов означают разное, и молчаливый перенос значения
+ * опубликовал бы не то, что владелец вводил (ADR-112). Окно называет
+ * исчезающее словами — «данные будут удалены» владельцу не говорит ничего
+ * (ADR-113). Терять нечего — вопрос был бы лишним, и его не задают.
+ *
+ * Живёт здесь, а не в форме: форм две — одна группа со своей кнопкой на
+ * «Уведомлениях» и тринадцать групп с одной кнопкой на «Компании».
+ */
+export async function confirmGroupSwitch(
+  confirm: Confirm,
+  group: GroupDescriptor,
+  draft: GroupValue,
+  field: FieldDescriptor,
+): Promise<boolean> {
+  const losing = filledFieldLabels(group, draft, field.path);
+  if (losing.length === 0) return true;
+
+  return confirm({
+    title: texts.resetTitle(group.title),
+    description: texts.resetDescription(losing),
+    confirmLabel: texts.resetConfirm,
+    cancelLabel: texts.resetCancel,
+  });
 }
 
 /**
