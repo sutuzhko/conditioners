@@ -106,8 +106,16 @@
   border-radius: var(--r-card, var(--r-md));
 }
 
+/* Плашка «Телефон — ключ»: два абзаца в рамке (issue #602). */
+.noticeSkeleton {
+  min-height: 96px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+/* Заготовка таблицы клиентов: шапка и восемь строк (issue #334, #602).
+   Ниже 600px строки разворачиваются карточками и занимают заметно больше. */
 .rowSkeleton {
-  min-height: 173.3px;
+  min-height: 560px;
   border-radius: var(--r-card, var(--r-md));
 }
 
@@ -116,7 +124,13 @@
     min-height: 206.5px;
   }
 
+  .noticeSkeleton {
+    min-height: 140px;
+  }
+}
+
+@media (width < 600px) {
   .rowSkeleton {
-    min-height: 330.3px;
+    min-height: 1480px;
   }
 }

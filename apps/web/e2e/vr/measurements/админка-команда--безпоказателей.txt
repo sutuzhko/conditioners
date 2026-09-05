@@ -1,0 +1,737 @@
+# админка-команда--безпоказателей · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+390 → 390×1491
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.StaffList__list  358×1459 @16,16
+  section.Card__card  358×1337 @0,0  r20  b1
+    div.Table__viewport  356×1335 @1,1
+      table.Table__table  356×1335 @0,0
+        th  122×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Монтажник»
+        th#2  99×56 @122,0  Onest 700 15/23  b0 0 1 0  lines=1  «Телефон»
+        th#3  161×56 @222,0  Onest 700 15/23  b0 0 1 0  lines=1  «Загрузка недели»
+        th#4  119×56 @383,0  Onest 700 15/23  b0 0 1 0  lines=1  «Выполнено»
+        th#5  115×56 @502,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заработал»
+        th#6  119×56 @617,0  Onest 700 15/23  b0 0 1 0  lines=1  «Удержания»
+        th#7  90×56 @736,0  Onest 700 15/23  b0 0 1 0  lines=1  «Доступ»
+        span  1×1 @842,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr[role=row]  356×438 @0,0  r14  b1
+          td.StaffRow__who  354×128 @1,5
+            td.StaffRow__who::before  326×20 @0,0
+            div.StaffRow__person  326×64 @14,29
+              span.Avatar__avatar  28×28 @0,18  r100  b1
+                span.Avatar__initials  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «ДС»
+                span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Дмитрий Соколов»
+              div.StaffRow__names  128×64 @36,0
+                a.StaffRow__name  128×44 @0,0  Manrope 600 15/22  lines=1  «Дмитрий Соколов»
+                span.StaffRow__since  128×20 @0,44  Manrope 400 13/20  lines=1  «с 10.04.2026»
+            div.StaffRow__badges  326×24 @14,97
+              span.Tooltip__wrap  101×24 @0,0
+                span.Tooltip__anchor  101×24 @0,0
+                  span.Badge__badge  101×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Самозанятый»
+              span  1×1 @-1,-1  Manrope 400 15/22  lines=1  clipped  «Удержание по наряду уменьшает вознагражд»
+          td.StaffRow__phone  354×58 @1,133
+            td.StaffRow__phone::before  55×20 @0,0
+            a  140×44 @200,7  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+          td[role=cell]  354×36 @1,191
+            td[role=cell]::before  104×20 @0,0
+            span.StaffRow__missing  11×22 @329,7  Manrope 400 15/22  lines=1  «—»
+          td.StaffRow__number  354×36 @1,228  JetBrains Mono 400 15/22  lines=1  «0»
+            td.StaffRow__number::before  70×20 @0,0
+          td.StaffRow__number#2  354×36 @1,264  JetBrains Mono 400 15/22  lines=1  «0 ₽»
+            td.StaffRow__number#2::before  70×20 @0,0
+          td.StaffRow__number#3  354×36 @1,301
+            td.StaffRow__number#3::before  70×20 @0,0
+            span.StaffRow__missing  26×22 @314,7  JetBrains Mono 400 15/22  lines=1  «нет»
+          td[role=cell]#2  354×41 @1,337
+            td[role=cell]#2::before  45×20 @0,0
+            div.Switch__root  111×26 @229,7
+              div.Switch__row  111×26 @0,0
+                label.Switch__track  44×26 @0,0  r100  b1
+                  span.Switch__thumb  18×18 @24,4  r100
+                input.Switch__input  1×1 @0,13
+                label.Switch__label  57×20 @54,3  Manrope 400 15/20  lines=1  «Активен»
+          td.StaffRow__actions  354×51 @1,382  b1 0 0 0
+            div.TableActions__actions  76×36 @264,8
+              a.StaffRow__action  36×36 @0,0  r100
+                svg  18×18 @9,9
+              button.IconButton__iconButton  36×36 @40,0  r100  b1
+                svg  18×18 @9,9
+        tr[role=row]#2  356×438 @0,448  r14  b1
+          td.StaffRow__who  354×128 @1,5
+            td.StaffRow__who::before  326×20 @0,0
+            div.StaffRow__person#2  326×64 @14,29
+              span.Avatar__avatar  28×28 @0,18  r100  b1
+                span.Avatar__initials#2  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «СИ»
+                span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Сергей Иванов»
+              div.StaffRow__names  107×64 @36,0
+                a.StaffRow__name#2  107×44 @0,0  Manrope 600 15/22  lines=1  «Сергей Иванов»
+                span.StaffRow__since#2  107×20 @0,44  Manrope 400 13/20  lines=1  «с 10.04.2026»
+            div.StaffRow__badges#2  326×24 @14,97
+              span.Tooltip__wrap  96×24 @0,0
+                span.Tooltip__anchor#2  96×24 @0,0
+                  span.Badge__badge  96×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Договор ГПХ»
+              span  1×1 @-1,-1  Manrope 400 15/22  lines=1  clipped  «Удержание по наряду уменьшает вознагражд»
+          td.StaffRow__phone  354×58 @1,133
+            td.StaffRow__phone::before  55×20 @0,0
+            a#2  140×44 @200,7  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+          td[role=cell]  354×36 @1,191
+            td[role=cell]::before  104×20 @0,0
+            span.StaffRow__missing#2  11×22 @329,7  Manrope 400 15/22  lines=1  «—»
+          td.StaffRow__number  354×36 @1,228  JetBrains Mono 400 15/22  lines=1  «0»
+            td.StaffRow__number::before  70×20 @0,0
+          td.StaffRow__number#2  354×36 @1,264  JetBrains Mono 400 15/22  lines=1  «0 ₽»
+            td.StaffRow__number#2::before  70×20 @0,0
+          td.StaffRow__number#3  354×36 @1,301
+            td.StaffRow__number#3::before  70×20 @0,0
+            span.StaffRow__missing#2  26×22 @314,7  JetBrains Mono 400 15/22  lines=1  «нет»
+          td[role=cell]#2  354×41 @1,337
+            td[role=cell]#2::before  45×20 @0,0
+            div.Switch__root#2  111×26 @229,7
+              div.Switch__row  111×26 @0,0
+                label.Switch__track#2  44×26 @0,0  r100  b1
+                  span.Switch__thumb  18×18 @24,4  r100
+                input.Switch__input#2  1×1 @0,13
+                label.Switch__label#2  57×20 @54,3  Manrope 400 15/20  lines=1  «Активен»
+          td.StaffRow__actions  354×51 @1,382  b1 0 0 0
+            div.TableActions__actions#2  76×36 @264,8
+              a.StaffRow__action  36×36 @0,0  r100
+                svg#2  18×18 @9,9
+              button.IconButton__iconButton  36×36 @40,0  r100  b1
+                svg#2  18×18 @9,9
+        tr.StaffRow__off  356×438 @0,897  r14  b1
+          td.StaffRow__who  354×128 @1,5
+            td.StaffRow__who::before  326×20 @0,0
+            div.StaffRow__person#3  326×64 @14,29
+              span.Avatar__avatar  28×28 @0,18  r100  b1
+                span.Avatar__initials#3  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «АБ»
+                span#3  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Артём Белов»
+              div.StaffRow__names  91×64 @36,0
+                a.StaffRow__name#3  91×44 @0,0  Manrope 600 15/22  lines=1  «Артём Белов»
+                span.StaffRow__since#3  91×20 @0,44  Manrope 400 13/20  lines=1  «с 10.04.2026»
+            div.StaffRow__badges#3  326×24 @14,97
+              span.Tooltip__wrap  96×24 @0,0
+                span.Tooltip__anchor#3  96×24 @0,0
+                  span.Badge__badge  96×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Договор ГПХ»
+              span  1×1 @-1,-1  Manrope 400 15/22  lines=1  clipped  «Удержание по наряду уменьшает вознагражд»
+          td.StaffRow__phone  354×58 @1,133
+            td.StaffRow__phone::before  55×20 @0,0
+            a#3  140×44 @200,7  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+          td[role=cell]  354×36 @1,191
+            td[role=cell]::before  104×20 @0,0
+            span.StaffRow__missing#3  11×22 @329,7  Manrope 400 15/22  lines=1  «—»
+          td.StaffRow__number  354×36 @1,228  JetBrains Mono 400 15/22  lines=1  «0»
+            td.StaffRow__number::before  70×20 @0,0
+          td.StaffRow__number#2  354×36 @1,264  JetBrains Mono 400 15/22  lines=1  «0 ₽»
+            td.StaffRow__number#2::before  70×20 @0,0
+          td.StaffRow__number#3  354×36 @1,301
+            td.StaffRow__number#3::before  70×20 @0,0
+            span.StaffRow__missing#3  26×22 @314,7  JetBrains Mono 400 15/22  lines=1  «нет»
+          td[role=cell]#2  354×41 @1,337
+            td[role=cell]#2::before  45×20 @0,0
+            div.Switch__root#3  140×26 @200,7
+              div.Switch__row  140×26 @0,0
+                label.Switch__track#3  44×26 @0,0  r100  b1
+                  span.Switch__thumb  18×18 @4,4  r100
+                input.Switch__input#3  1×1 @0,13
+                label.Switch__label#3  86×20 @54,3  Manrope 400 15/20  lines=1  «Не работает»
+          td.StaffRow__actions  354×51 @1,382  b1 0 0 0
+            div.TableActions__actions#3  76×36 @264,8
+              a.StaffRow__action  36×36 @0,0  r100
+                svg#3  18×18 @9,9
+              button.IconButton__iconButton  36×36 @40,0  r100  b1
+                svg#3  18×18 @9,9
+  div.Alert__alert  358×109 @0,1349  r14  b1
+    span.Alert__icon  18×20 @15,13
+      svg  18×18 @0,1
+    div.Alert__body  300×83 @43,13
+      p.Alert__title  300×20 @0,0  Manrope 700 15/20  lines=1  «Заметки владельца монтажник не видит»
+      div.Alert__text  300×61 @0,22  Manrope 400 15/20  lines=3  «Они живут в карточке и закрыты сервером,»
+
+[геометрия 768]
+div.StaffList__list  736×585 @16,16
+  section.Card__card  736×484 @0,0  r20  b1
+    div.Table__viewport  734×482 @1,1
+      table.Table__table  1094×482 @0,0
+        th  138×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Монтажник»
+        th#2  176×56 @138,0  Onest 700 15/23  b0 0 1 0  lines=1  «Телефон»
+        th#3  161×56 @314,0  Onest 700 15/23  b0 0 1 0  lines=1  «Загрузка недели»
+        th#4  119×56 @475,0  Onest 700 15/23  b0 0 1 0  lines=1  «Выполнено»
+        th#5  115×56 @594,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заработал»
+        th#6  119×56 @709,0  Onest 700 15/23  b0 0 1 0  lines=1  «Удержания»
+        th#7  154×56 @828,0  Onest 700 15/23  b0 0 1 0  lines=1  «Доступ»
+        span  1×1 @999,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr[role=row]  1094×142 @0,56
+          td.StaffRow__who  138×142 @0,0  b0 0 1 0
+            div.StaffRow__person  102×85 @18,15
+              span.Avatar__avatar  28×28 @0,29  r100  b1
+                span.Avatar__initials  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «ДС»
+                span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Дмитрий Соколов»
+              div.StaffRow__names  66×85 @36,0
+                a.StaffRow__name  66×45 @0,0  Manrope 600 15/22  lines=2  «Дмитрий Соколов»
+                span.StaffRow__since  66×40 @0,45  Manrope 400 13/20  lines=2  «с 10.04.2026»
+            div.StaffRow__badges  102×24 @18,104
+              span.Tooltip__wrap  101×24 @0,0
+                span.Tooltip__anchor  101×24 @0,0
+                  span.Badge__badge  101×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Самозанятый»
+              span  1×1 @-1,-1  Manrope 400 15/22  lines=1  clipped  «Удержание по наряду уменьшает вознагражд»
+          td.StaffRow__phone  176×142 @138,0  b0 0 1 0
+            a  140×44 @18,15  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+          td[role=cell]  161×142 @314,0  b0 0 1 0
+            span.StaffRow__missing  11×19 @18,16  Manrope 400 15/22  lines=1  «—»
+          td.StaffRow__number  119×142 @475,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «0»
+          td.StaffRow__number#2  115×142 @594,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «0 ₽»
+          td.StaffRow__number#3  119×142 @709,0  b0 0 1 0
+            span.StaffRow__missing  26×19 @75,16  JetBrains Mono 400 15/22  lines=1  «нет»
+          td[role=cell]#2  154×142 @828,0  b0 0 1 0
+            div.Switch__root  118×26 @18,15
+              div.Switch__row  118×26 @0,0
+                label.Switch__track  44×26 @0,0  r100  b1
+                  span.Switch__thumb  18×18 @24,4  r100
+                input.Switch__input  1×1 @0,13
+                label.Switch__label  57×20 @54,3  Manrope 400 15/20  lines=1  «Активен»
+          td.StaffRow__actions  112×142 @982,0  b0 0 1 0
+            div.TableActions__actions  76×36 @18,15
+              a.StaffRow__action  36×36 @0,0  r100
+                svg  18×18 @9,9
+              button.IconButton__iconButton  36×36 @40,0  r100  b1
+                svg  18×18 @9,9
+        tr[role=row]#2  1094×142 @0,198
+          td.StaffRow__who  138×142 @0,0  b0 0 1 0
+            div.StaffRow__person#2  102×85 @18,15
+              span.Avatar__avatar  28×28 @0,29  r100  b1
+                span.Avatar__initials#2  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «СИ»
+                span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Сергей Иванов»
+              div.StaffRow__names  66×85 @36,0
+                a.StaffRow__name#2  66×45 @0,0  Manrope 600 15/22  lines=2  «Сергей Иванов»
+                span.StaffRow__since#2  66×40 @0,45  Manrope 400 13/20  lines=2  «с 10.04.2026»
+            div.StaffRow__badges#2  102×24 @18,104
+              span.Tooltip__wrap  96×24 @0,0
+                span.Tooltip__anchor#2  96×24 @0,0
+                  span.Badge__badge  96×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Договор ГПХ»
+              span  1×1 @-1,-1  Manrope 400 15/22  lines=1  clipped  «Удержание по наряду уменьшает вознагражд»
+          td.StaffRow__phone  176×142 @138,0  b0 0 1 0
+            a#2  140×44 @18,15  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+          td[role=cell]  161×142 @314,0  b0 0 1 0
+            span.StaffRow__missing#2  11×19 @18,16  Manrope 400 15/22  lines=1  «—»
+          td.StaffRow__number  119×142 @475,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «0»
+          td.StaffRow__number#2  115×142 @594,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «0 ₽»
+          td.StaffRow__number#3  119×142 @709,0  b0 0 1 0
+            span.StaffRow__missing#2  26×19 @75,16  JetBrains Mono 400 15/22  lines=1  «нет»
+          td[role=cell]#2  154×142 @828,0  b0 0 1 0
+            div.Switch__root#2  118×26 @18,15
+              div.Switch__row  118×26 @0,0
+                label.Switch__track#2  44×26 @0,0  r100  b1
+                  span.Switch__thumb  18×18 @24,4  r100
+                input.Switch__input#2  1×1 @0,13
+                label.Switch__label#2  57×20 @54,3  Manrope 400 15/20  lines=1  «Активен»
+          td.StaffRow__actions  112×142 @982,0  b0 0 1 0
+            div.TableActions__actions#2  76×36 @18,15
+              a.StaffRow__action  36×36 @0,0  r100
+                svg#2  18×18 @9,9
+              button.IconButton__iconButton  36×36 @40,0  r100  b1
+                svg#2  18×18 @9,9
+        tr.StaffRow__off  1094×142 @0,341
+          td.StaffRow__who  138×142 @0,0
+            div.StaffRow__person#3  102×85 @18,15
+              span.Avatar__avatar  28×28 @0,29  r100  b1
+                span.Avatar__initials#3  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «АБ»
+                span#3  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Артём Белов»
+              div.StaffRow__names  66×85 @36,0
+                a.StaffRow__name#3  66×45 @0,0  Manrope 600 15/22  lines=2  «Артём Белов»
+                span.StaffRow__since#3  66×40 @0,45  Manrope 400 13/20  lines=2  «с 10.04.2026»
+            div.StaffRow__badges#3  102×24 @18,104
+              span.Tooltip__wrap  96×24 @0,0
+                span.Tooltip__anchor#3  96×24 @0,0
+                  span.Badge__badge  96×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Договор ГПХ»
+              span  1×1 @-1,-1  Manrope 400 15/22  lines=1  clipped  «Удержание по наряду уменьшает вознагражд»
+          td.StaffRow__phone  176×142 @138,0
+            a#3  140×44 @18,15  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+          td[role=cell]  161×142 @314,0
+            span.StaffRow__missing#3  11×19 @18,16  Manrope 400 15/22  lines=1  «—»
+          td.StaffRow__number  119×142 @475,0  JetBrains Mono 400 15/22  lines=1  «0»
+          td.StaffRow__number#2  115×142 @594,0  JetBrains Mono 400 15/22  lines=1  «0 ₽»
+          td.StaffRow__number#3  119×142 @709,0
+            span.StaffRow__missing#3  26×19 @75,16  JetBrains Mono 400 15/22  lines=1  «нет»
+          td[role=cell]#2  154×142 @828,0
+            div.Switch__root#3  118×39 @18,15
+              div.Switch__row  118×39 @0,0
+                label.Switch__track#3  44×26 @0,7  r100  b1
+                  span.Switch__thumb  18×18 @4,4  r100
+                input.Switch__input#3  1×1 @0,19
+                label.Switch__label#3  64×39 @54,0  Manrope 400 15/20  lines=2  «Не работает»
+          td.StaffRow__actions  112×142 @982,0
+            div.TableActions__actions#3  76×36 @18,15
+              a.StaffRow__action  36×36 @0,0  r100
+                svg#3  18×18 @9,9
+              button.IconButton__iconButton  36×36 @40,0  r100  b1
+                svg#3  18×18 @9,9
+  div.Alert__alert  736×89 @0,496  r14  b1
+    span.Alert__icon  18×20 @15,13
+      svg  18×18 @0,1
+    div.Alert__body  678×63 @43,13
+      p.Alert__title  678×20 @0,0  Manrope 700 15/20  lines=1  «Заметки владельца монтажник не видит»
+      div.Alert__text  678×41 @0,22  Manrope 400 15/20  lines=2  «Они живут в карточке и закрыты сервером,»
+
+[геометрия 1440]
+div.StaffList__list  1408×437 @16,16
+  section.Card__card  1408×357 @0,0  r20  b1
+    div.Table__viewport  1406×355 @1,1
+      table.Table__table  1406×355 @0,0
+        th  242×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Монтажник»
+        th#2  214×56 @242,0  Onest 700 15/23  b0 0 1 0  lines=1  «Телефон»
+        th#3  196×56 @457,0  Onest 700 15/23  b0 0 1 0  lines=1  «Загрузка недели»
+        th#4  144×56 @652,0  Onest 700 15/23  b0 0 1 0  lines=1  «Выполнено»
+        th#5  140×56 @797,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заработал»
+        th#6  145×56 @936,0  Onest 700 15/23  b0 0 1 0  lines=1  «Удержания»
+        th#7  213×56 @1081,0  Onest 700 15/23  b0 0 1 0  lines=1  «Доступ»
+        span  1×1 @1311,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr[role=row]  1406×100 @0,56
+          td.StaffRow__who  242×100 @0,0  b0 0 1 0
+            div.StaffRow__person  206×43 @18,15
+              span.Avatar__avatar  28×28 @0,7  r100  b1
+                span.Avatar__initials  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «ДС»
+                span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Дмитрий Соколов»
+              div.StaffRow__names  128×43 @36,0
+                a.StaffRow__name  128×22 @0,0  Manrope 600 15/22  lines=1  «Дмитрий Соколов»
+                span.StaffRow__since  128×20 @0,22  Manrope 400 13/20  lines=1  «с 10.04.2026»
+            div.StaffRow__badges  206×24 @18,61
+              span.Tooltip__wrap  101×24 @0,0
+                span.Tooltip__anchor  101×24 @0,0
+                  span.Badge__badge  101×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Самозанятый»
+              span  1×1 @-1,-1  Manrope 400 15/22  lines=1  clipped  «Удержание по наряду уменьшает вознагражд»
+          td.StaffRow__phone  214×100 @242,0  b0 0 1 0
+            a  140×17 @18,16  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+          td[role=cell]  196×100 @457,0  b0 0 1 0
+            span.StaffRow__missing  11×19 @18,16  Manrope 400 15/22  lines=1  «—»
+          td.StaffRow__number  144×100 @652,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «0»
+          td.StaffRow__number#2  140×100 @797,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «0 ₽»
+          td.StaffRow__number#3  145×100 @936,0  b0 0 1 0
+            span.StaffRow__missing  26×19 @100,16  JetBrains Mono 400 15/22  lines=1  «нет»
+          td[role=cell]#2  213×100 @1081,0  b0 0 1 0
+            div.Switch__root  177×26 @18,15
+              div.Switch__row  177×26 @0,0
+                label.Switch__track  44×26 @0,0  r100  b1
+                  span.Switch__thumb  18×18 @24,4  r100
+                input.Switch__input  1×1 @0,13
+                label.Switch__label  57×20 @54,3  Manrope 400 15/20  lines=1  «Активен»
+          td.StaffRow__actions  112×100 @1294,0  b0 0 1 0
+            div.TableActions__actions  76×36 @18,15
+              a.StaffRow__action  36×36 @0,0  r100
+                svg  18×18 @9,9
+              button.IconButton__iconButton  36×36 @40,0  r100  b1
+                svg  18×18 @9,9
+        tr[role=row]#2  1406×100 @0,156
+          td.StaffRow__who  242×100 @0,0  b0 0 1 0
+            div.StaffRow__person#2  206×43 @18,15
+              span.Avatar__avatar  28×28 @0,7  r100  b1
+                span.Avatar__initials#2  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «СИ»
+                span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Сергей Иванов»
+              div.StaffRow__names  107×43 @36,0
+                a.StaffRow__name#2  107×22 @0,0  Manrope 600 15/22  lines=1  «Сергей Иванов»
+                span.StaffRow__since#2  107×20 @0,22  Manrope 400 13/20  lines=1  «с 10.04.2026»
+            div.StaffRow__badges#2  206×24 @18,61
+              span.Tooltip__wrap  96×24 @0,0
+                span.Tooltip__anchor#2  96×24 @0,0
+                  span.Badge__badge  96×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Договор ГПХ»
+              span  1×1 @-1,-1  Manrope 400 15/22  lines=1  clipped  «Удержание по наряду уменьшает вознагражд»
+          td.StaffRow__phone  214×100 @242,0  b0 0 1 0
+            a#2  140×17 @18,16  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+          td[role=cell]  196×100 @457,0  b0 0 1 0
+            span.StaffRow__missing#2  11×19 @18,16  Manrope 400 15/22  lines=1  «—»
+          td.StaffRow__number  144×100 @652,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «0»
+          td.StaffRow__number#2  140×100 @797,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «0 ₽»
+          td.StaffRow__number#3  145×100 @936,0  b0 0 1 0
+            span.StaffRow__missing#2  26×19 @100,16  JetBrains Mono 400 15/22  lines=1  «нет»
+          td[role=cell]#2  213×100 @1081,0  b0 0 1 0
+            div.Switch__root#2  177×26 @18,15
+              div.Switch__row  177×26 @0,0
+                label.Switch__track#2  44×26 @0,0  r100  b1
+                  span.Switch__thumb  18×18 @24,4  r100
+                input.Switch__input#2  1×1 @0,13
+                label.Switch__label#2  57×20 @54,3  Manrope 400 15/20  lines=1  «Активен»
+          td.StaffRow__actions  112×100 @1294,0  b0 0 1 0
+            div.TableActions__actions#2  76×36 @18,15
+              a.StaffRow__action  36×36 @0,0  r100
+                svg#2  18×18 @9,9
+              button.IconButton__iconButton  36×36 @40,0  r100  b1
+                svg#2  18×18 @9,9
+        tr.StaffRow__off  1406×99 @0,255
+          td.StaffRow__who  242×99 @0,0
+            div.StaffRow__person#3  206×43 @18,15
+              span.Avatar__avatar  28×28 @0,7  r100  b1
+                span.Avatar__initials#3  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «АБ»
+                span#3  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Артём Белов»
+              div.StaffRow__names  91×43 @36,0
+                a.StaffRow__name#3  91×22 @0,0  Manrope 600 15/22  lines=1  «Артём Белов»
+                span.StaffRow__since#3  91×20 @0,22  Manrope 400 13/20  lines=1  «с 10.04.2026»
+            div.StaffRow__badges#3  206×24 @18,61
+              span.Tooltip__wrap  96×24 @0,0
+                span.Tooltip__anchor#3  96×24 @0,0
+                  span.Badge__badge  96×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Договор ГПХ»
+              span  1×1 @-1,-1  Manrope 400 15/22  lines=1  clipped  «Удержание по наряду уменьшает вознагражд»
+          td.StaffRow__phone  214×99 @242,0
+            a#3  140×17 @18,16  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+          td[role=cell]  196×99 @457,0
+            span.StaffRow__missing#3  11×19 @18,16  Manrope 400 15/22  lines=1  «—»
+          td.StaffRow__number  144×99 @652,0  JetBrains Mono 400 15/22  lines=1  «0»
+          td.StaffRow__number#2  140×99 @797,0  JetBrains Mono 400 15/22  lines=1  «0 ₽»
+          td.StaffRow__number#3  145×99 @936,0
+            span.StaffRow__missing#3  26×19 @100,16  JetBrains Mono 400 15/22  lines=1  «нет»
+          td[role=cell]#2  213×99 @1081,0
+            div.Switch__root#3  177×26 @18,15
+              div.Switch__row  177×26 @0,0
+                label.Switch__track#3  44×26 @0,0  r100  b1
+                  span.Switch__thumb  18×18 @4,4  r100
+                input.Switch__input#3  1×1 @0,13
+                label.Switch__label#3  86×20 @54,3  Manrope 400 15/20  lines=1  «Не работает»
+          td.StaffRow__actions  112×99 @1294,0
+            div.TableActions__actions#3  76×36 @18,15
+              a.StaffRow__action  36×36 @0,0  r100
+                svg#3  18×18 @9,9
+              button.IconButton__iconButton  36×36 @40,0  r100  b1
+                svg#3  18×18 @9,9
+  div.Alert__alert  1408×69 @0,369  r14  b1
+    span.Alert__icon  18×20 @15,13
+      svg  18×18 @0,1
+    div.Alert__body  1350×43 @43,13
+      p.Alert__title  1350×20 @0,0  Manrope 700 15/20  lines=1  «Заметки владельца монтажник не видит»
+      div.Alert__text  1350×20 @0,22  Manrope 400 15/20  lines=1  «Они живут в карточке и закрыты сервером,»
+
+[палитра light]
+div.StaffList__list
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Table__viewport
+      table.Table__table
+        th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#4  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#5  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#6  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#7  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        span  color #0f172a
+        tr[role=row]
+          td.StaffRow__who  border #334155 #334155 #eef2f6 #334155
+            div.StaffRow__person
+              span.Avatar__avatar  bg #ecfeff  border #ffffff
+                span.Avatar__initials  color #0e7490
+                span  color #0e7490
+              div.StaffRow__names
+                a.StaffRow__name  color #0f172a
+                span.StaffRow__since  color #556173
+            div.StaffRow__badges
+              span.Tooltip__wrap
+                span.Tooltip__anchor
+                  span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+              span  color #334155
+          td.StaffRow__phone  border #334155 #334155 #eef2f6 #334155
+            a  color #334155
+          td[role=cell]  border #334155 #334155 #eef2f6 #334155
+            span.StaffRow__missing  color #5b6a7d
+          td.StaffRow__number  color #334155  border #334155 #334155 #eef2f6 #334155
+          td.StaffRow__number#2  color #334155  border #334155 #334155 #eef2f6 #334155
+          td.StaffRow__number#3  border #334155 #334155 #eef2f6 #334155
+            span.StaffRow__missing  color #5b6a7d
+          td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+            div.Switch__root
+              div.Switch__row
+                label.Switch__track  bg #0e7490  border #0e7490
+                  span.Switch__thumb  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #0f172a
+          td.StaffRow__actions  border #334155 #334155 #eef2f6 #334155
+            div.TableActions__actions
+              a.StaffRow__action
+                svg
+              button.IconButton__iconButton  border transparent
+                svg
+        tr[role=row]#2
+          td.StaffRow__who  border #334155 #334155 #eef2f6 #334155
+            div.StaffRow__person#2
+              span.Avatar__avatar  bg #ecfeff  border #ffffff
+                span.Avatar__initials#2  color #0e7490
+                span#2  color #0e7490
+              div.StaffRow__names
+                a.StaffRow__name#2  color #0f172a
+                span.StaffRow__since#2  color #556173
+            div.StaffRow__badges#2
+              span.Tooltip__wrap
+                span.Tooltip__anchor#2
+                  span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+              span  color #334155
+          td.StaffRow__phone  border #334155 #334155 #eef2f6 #334155
+            a#2  color #334155
+          td[role=cell]  border #334155 #334155 #eef2f6 #334155
+            span.StaffRow__missing#2  color #5b6a7d
+          td.StaffRow__number  color #334155  border #334155 #334155 #eef2f6 #334155
+          td.StaffRow__number#2  color #334155  border #334155 #334155 #eef2f6 #334155
+          td.StaffRow__number#3  border #334155 #334155 #eef2f6 #334155
+            span.StaffRow__missing#2  color #5b6a7d
+          td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+            div.Switch__root#2
+              div.Switch__row
+                label.Switch__track#2  bg #0e7490  border #0e7490
+                  span.Switch__thumb  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input#2
+                label.Switch__label#2  color #0f172a
+          td.StaffRow__actions  border #334155 #334155 #eef2f6 #334155
+            div.TableActions__actions#2
+              a.StaffRow__action
+                svg#2
+              button.IconButton__iconButton  border transparent
+                svg#2
+        tr.StaffRow__off
+          td.StaffRow__who
+            div.StaffRow__person#3
+              span.Avatar__avatar  bg #ecfeff  border #ffffff
+                span.Avatar__initials#3  color #0e7490
+                span#3  color #0e7490
+              div.StaffRow__names
+                a.StaffRow__name#3  color #0f172a
+                span.StaffRow__since#3  color #556173
+            div.StaffRow__badges#3
+              span.Tooltip__wrap
+                span.Tooltip__anchor#3
+                  span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+              span  color #556173
+          td.StaffRow__phone
+            a#3  color #334155
+          td[role=cell]
+            span.StaffRow__missing#3  color #5b6a7d
+          td.StaffRow__number  color #556173
+          td.StaffRow__number#2  color #556173
+          td.StaffRow__number#3
+            span.StaffRow__missing#3  color #5b6a7d
+          td[role=cell]#2
+            div.Switch__root#3
+              div.Switch__row
+                label.Switch__track#3  bg #f8fafc  border #7e8fa6
+                  span.Switch__thumb  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input#3
+                label.Switch__label#3  color #334155
+          td.StaffRow__actions
+            div.TableActions__actions#3
+              a.StaffRow__action
+                svg#3
+              button.IconButton__iconButton  border transparent
+                svg#3
+  div.Alert__alert  bg #b4530914  border #b4530947
+    span.Alert__icon
+      svg
+    div.Alert__body
+      p.Alert__title  color #92400e
+      div.Alert__text  color #92400e
+[палитра light @390]
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]  bg #ffffff  border #e2e8f0
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__who
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__who > td.StaffRow__who::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__phone
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__phone > td.StaffRow__phone::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell] > td[role=cell]::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__number  color #334155
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__number > td.StaffRow__number::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__number#2  color #334155
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__number#2 > td.StaffRow__number#2::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__number#3
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__number#3 > td.StaffRow__number#3::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#2
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#2 > td[role=cell]#2::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__actions  border #eef2f6 #334155 #334155 #334155
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__who
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__who > td.StaffRow__who::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__phone
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__phone > td.StaffRow__phone::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__number  color #334155
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__number > td.StaffRow__number::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__number#2  color #334155
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__number#2 > td.StaffRow__number#2::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__number#3
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__number#3 > td.StaffRow__number#3::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__actions  border #eef2f6 #334155 #334155 #334155
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off  bg #ffffff  border #e2e8f0
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td.StaffRow__who > td.StaffRow__who::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td.StaffRow__phone > td.StaffRow__phone::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td[role=cell] > td[role=cell]::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td.StaffRow__number > td.StaffRow__number::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td.StaffRow__number#2 > td.StaffRow__number#2::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td.StaffRow__number#3 > td.StaffRow__number#3::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td[role=cell]#2 > td[role=cell]#2::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td.StaffRow__actions  border #eef2f6 #556173 #556173 #556173
+
+[палитра dark]
+div.StaffList__list
+  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Table__viewport
+      table.Table__table
+        th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#4  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#5  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#6  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#7  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        span  color #eaf1f8
+        tr[role=row]
+          td.StaffRow__who  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            div.StaffRow__person
+              span.Avatar__avatar  bg #22d3ee1a  border #121d31
+                span.Avatar__initials  color #22d3ee
+                span  color #22d3ee
+              div.StaffRow__names
+                a.StaffRow__name  color #eaf1f8
+                span.StaffRow__since  color #8598ac
+            div.StaffRow__badges
+              span.Tooltip__wrap
+                span.Tooltip__anchor
+                  span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+              span  color #c9d5e2
+          td.StaffRow__phone  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            a  color #c9d5e2
+          td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            span.StaffRow__missing  color #7e92a7
+          td.StaffRow__number  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td.StaffRow__number#2  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td.StaffRow__number#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            span.StaffRow__missing  color #7e92a7
+          td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            div.Switch__root
+              div.Switch__row
+                label.Switch__track  bg #0e7490  border #0e7490
+                  span.Switch__thumb  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input
+                label.Switch__label  color #eaf1f8
+          td.StaffRow__actions  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            div.TableActions__actions
+              a.StaffRow__action
+                svg
+              button.IconButton__iconButton  border transparent
+                svg
+        tr[role=row]#2
+          td.StaffRow__who  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            div.StaffRow__person#2
+              span.Avatar__avatar  bg #22d3ee1a  border #121d31
+                span.Avatar__initials#2  color #22d3ee
+                span#2  color #22d3ee
+              div.StaffRow__names
+                a.StaffRow__name#2  color #eaf1f8
+                span.StaffRow__since#2  color #8598ac
+            div.StaffRow__badges#2
+              span.Tooltip__wrap
+                span.Tooltip__anchor#2
+                  span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+              span  color #c9d5e2
+          td.StaffRow__phone  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            a#2  color #c9d5e2
+          td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            span.StaffRow__missing#2  color #7e92a7
+          td.StaffRow__number  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td.StaffRow__number#2  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td.StaffRow__number#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            span.StaffRow__missing#2  color #7e92a7
+          td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            div.Switch__root#2
+              div.Switch__row
+                label.Switch__track#2  bg #0e7490  border #0e7490
+                  span.Switch__thumb  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input#2
+                label.Switch__label#2  color #eaf1f8
+          td.StaffRow__actions  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            div.TableActions__actions#2
+              a.StaffRow__action
+                svg#2
+              button.IconButton__iconButton  border transparent
+                svg#2
+        tr.StaffRow__off
+          td.StaffRow__who
+            div.StaffRow__person#3
+              span.Avatar__avatar  bg #22d3ee1a  border #121d31
+                span.Avatar__initials#3  color #22d3ee
+                span#3  color #22d3ee
+              div.StaffRow__names
+                a.StaffRow__name#3  color #eaf1f8
+                span.StaffRow__since#3  color #8598ac
+            div.StaffRow__badges#3
+              span.Tooltip__wrap
+                span.Tooltip__anchor#3
+                  span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+              span  color #8598ac
+          td.StaffRow__phone
+            a#3  color #c9d5e2
+          td[role=cell]
+            span.StaffRow__missing#3  color #7e92a7
+          td.StaffRow__number  color #8598ac
+          td.StaffRow__number#2  color #8598ac
+          td.StaffRow__number#3
+            span.StaffRow__missing#3  color #7e92a7
+          td[role=cell]#2
+            div.Switch__root#3
+              div.Switch__row
+                label.Switch__track#3  bg #0e1729  border #566d95
+                  span.Switch__thumb  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
+                input.Switch__input#3
+                label.Switch__label#3  color #c9d5e2
+          td.StaffRow__actions
+            div.TableActions__actions#3
+              a.StaffRow__action
+                svg#3
+              button.IconButton__iconButton  border transparent
+                svg#3
+  div.Alert__alert  bg #fbbf241f  border #fbbf2452
+    span.Alert__icon
+      svg
+    div.Alert__body
+      p.Alert__title  color #fbbf24
+      div.Alert__text  color #fbbf24
+[палитра dark @390]
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]  bg #121d31  border #1e2b41
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__who
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__who > td.StaffRow__who::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__phone
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__phone > td.StaffRow__phone::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell] > td[role=cell]::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__number  color #c9d5e2
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__number > td.StaffRow__number::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__number#2  color #c9d5e2
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__number#2 > td.StaffRow__number#2::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__number#3
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__number#3 > td.StaffRow__number#3::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#2
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell]#2 > td[role=cell]#2::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.StaffRow__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__who
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__who > td.StaffRow__who::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__phone
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__phone > td.StaffRow__phone::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__number  color #c9d5e2
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__number > td.StaffRow__number::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__number#2  color #c9d5e2
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__number#2 > td.StaffRow__number#2::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__number#3
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__number#3 > td.StaffRow__number#3::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StaffRow__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off  bg #121d31  border #1e2b41
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td.StaffRow__who > td.StaffRow__who::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td.StaffRow__phone > td.StaffRow__phone::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td[role=cell] > td[role=cell]::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td.StaffRow__number > td.StaffRow__number::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td.StaffRow__number#2 > td.StaffRow__number#2::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td.StaffRow__number#3 > td.StaffRow__number#3::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td[role=cell]#2 > td[role=cell]#2::before
+div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__table > tr.StaffRow__off > td.StaffRow__actions  border #182338 #8598ac #8598ac #8598ac

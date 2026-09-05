@@ -7,37 +7,37 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×310 @16,16  r20  b1
-  div.EmptyState__box  316×268 @21,21
+section.Card__card  358×377 @16,16  r20  b1
+  div.EmptyState__box  316×335 @21,21
     span.EmptyState__badge  48×48 @134,28  r100
       svg  20×20 @14,14
     h2.EmptyState__title  133×21 @91,88  Onest 700 17/21  ls0  lines=1  «Заявок пока нет»
-    p.EmptyState__text  284×67 @16,113  Manrope 400 15/22  lines=3  «Здесь появятся обращения с сайта: из фор»
-    div.EmptyState__action  284×44 @16,196
+    p.EmptyState__text  284×135 @16,113  Manrope 400 15/22  lines=6  «Здесь появятся обращения с сайта: из фор»
+    div.EmptyState__action  284×44 @16,263
       a.Button__button  284×44 @0,0  r9  b1
         span.Button__content  158×16 @63,14
           span.Button__label  158×16 @0,0  Manrope 600 13/16  lines=1  «Проверить уведомления»
 
 [геометрия 768]
-section.Card__card  736×289 @16,16  r20  b1
-  div.EmptyState__box  694×247 @21,21
+section.Card__card  736×356 @16,16  r20  b1
+  div.EmptyState__box  694×314 @21,21
     span.EmptyState__badge  48×48 @323,28  r100
       svg  20×20 @14,14
     h2.EmptyState__title  140×22 @277,88  Onest 700 18/22  ls0  lines=1  «Заявок пока нет»
-    p.EmptyState__text  371×45 @161,114  Manrope 400 15/22  lines=2  «Здесь появятся обращения с сайта: из фор»
-    div.EmptyState__action  188×44 @253,175
+    p.EmptyState__text  371×112 @161,114  Manrope 400 15/22  lines=5  «Здесь появятся обращения с сайта: из фор»
+    div.EmptyState__action  188×44 @253,242
       a.Button__button  188×44 @0,0  r9  b1
         span.Button__content  158×16 @15,14
           span.Button__label  158×16 @0,0  Manrope 600 13/16  lines=1  «Проверить уведомления»
 
 [геометрия 1440]
-section.Card__card  1408×286 @16,16  r20  b1
-  div.EmptyState__box  1366×244 @21,21
+section.Card__card  1408×353 @16,16  r20  b1
+  div.EmptyState__box  1366×311 @21,21
     span.EmptyState__badge  48×48 @659,28  r100
       svg  20×20 @14,14
     h2.EmptyState__title  148×23 @609,88  Onest 700 19/23  ls0  lines=1  «Заявок пока нет»
-    p.EmptyState__text  371×45 @497,115  Manrope 400 15/22  lines=2  «Здесь появятся обращения с сайта: из фор»
-    div.EmptyState__action  188×40 @589,176
+    p.EmptyState__text  371×112 @497,115  Manrope 400 15/22  lines=5  «Здесь появятся обращения с сайта: из фор»
+    div.EmptyState__action  188×40 @589,243
       a.Button__button  188×40 @0,0  r9  b1
         span.Button__content  158×16 @15,12
           span.Button__label  158×16 @0,0  Manrope 600 13/16  lines=1  «Проверить уведомления»

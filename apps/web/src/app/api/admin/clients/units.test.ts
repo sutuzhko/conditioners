@@ -62,6 +62,9 @@ const client = {
   note: null,
   createdAt: '2026-08-20T09:00:00.000Z',
   leadCount: 1,
+  orderCount: 0,
+  orderSum: 0,
+  lastOrderAt: null,
 };
 
 function request(url: string, init: { method?: string; body?: unknown } = {}): NextRequest {

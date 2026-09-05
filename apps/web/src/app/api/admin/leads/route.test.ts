@@ -25,13 +25,15 @@ vi.mock('@/server/repo/leads', () => ({
   startWork: vi.fn(),
   update: vi.fn(),
 }));
+vi.mock('@/server/services/leads', () => ({ removeLead: vi.fn() }));
 vi.mock('@/server/repo/clients', () => ({ fromLead: vi.fn() }));
 
 import { getAdminSession } from '@/server/auth';
 import * as clients from '@/server/repo/clients';
 import * as leads from '@/server/repo/leads';
+import { removeLead } from '@/server/services/leads';
 import { GET } from './route';
-import { PATCH } from './[id]/route';
+import { DELETE, PATCH } from './[id]/route';
 import { POST as startOrder } from './[id]/order/route';
 import { GET as getPhoto } from './[id]/photo/route';
 
@@ -45,6 +47,7 @@ const session = {
 
 const lead = {
   id: 'l1',
+  number: 41,
   name: 'Пётр',
   phone: '+7 (953) 123-45-67',
   topic: 'Установка',
@@ -61,6 +64,8 @@ const lead = {
   context: null,
   consentAt: '2026-08-01T10:00:00.000Z',
   status: 'new' as const,
+  cancelReason: null,
+  cancelNote: null,
   managerComment: null,
   clientId: null,
   createdAt: '2026-08-01T10:00:00.000Z',
@@ -71,6 +76,10 @@ type Init = { method?: string; body?: string; headers?: Record<string, string> }
 
 function request(url: string, init: Init = {}): NextRequest {
   return new NextRequest(new URL(url, 'http://tulaklimat.localhost'), init);
+}
+
+function del(): NextRequest {
+  return request('/api/admin/leads/l1', { method: 'DELETE' });
 }
 
 function patch(body: unknown): NextRequest {
@@ -89,6 +98,9 @@ const client = {
   note: null,
   createdAt: '2026-08-01T10:00:00.000Z',
   leadCount: 1,
+  orderCount: 0,
+  orderSum: 0,
+  lastOrderAt: null,
 };
 
 const context = { params: Promise.resolve({ id: 'l1' }) };
@@ -120,23 +132,43 @@ describe('список заявок', () => {
     const response = await GET(request('/api/admin/leads?status=in_progress'), undefined);
 
     expect(response.status).toBe(200);
-    expect(leads.listByStatus).toHaveBeenCalledWith({ status: 'in_progress', page: 1 });
+    expect(leads.listByStatus).toHaveBeenCalledWith({
+      status: 'in_progress',
+      page: 1,
+      query: '',
+    });
   });
 
   it('номер страницы читается из адреса, мусор — первая страница', async () => {
     await GET(request('/api/admin/leads?page=4'), undefined);
-    expect(leads.listByStatus).toHaveBeenCalledWith({ status: undefined, page: 4 });
+    expect(leads.listByStatus).toHaveBeenCalledWith({ status: undefined, page: 4, query: '' });
 
     // адрес правят руками и присылают друг другу: отказ вместо списка там
     // ничего не объясняет
     await GET(request('/api/admin/leads?page=нет'), undefined);
-    expect(leads.listByStatus).toHaveBeenLastCalledWith({ status: undefined, page: 1 });
+    expect(leads.listByStatus).toHaveBeenLastCalledWith({
+      status: undefined,
+      page: 1,
+      query: '',
+    });
   });
 
   it('пустой фильтр означает «все»', async () => {
     await GET(request('/api/admin/leads?status='), undefined);
 
-    expect(leads.listByStatus).toHaveBeenCalledWith({ status: undefined, page: 1 });
+    expect(leads.listByStatus).toHaveBeenCalledWith({ status: undefined, page: 1, query: '' });
+  });
+
+  /* Поиск по очереди — часть контракта раздела (issue #601): по нему ищут имя,
+     телефон, адрес и номер обращения. */
+  it('поиск уезжает в запрос к базе', async () => {
+    await GET(request('/api/admin/leads?q=%20Ирина%20'), undefined);
+
+    expect(leads.listByStatus).toHaveBeenCalledWith({
+      status: undefined,
+      page: 1,
+      query: 'Ирина',
+    });
   });
 
   it('неизвестный статус отклоняется', async () => {
@@ -171,6 +203,47 @@ describe('обработка заявки', () => {
     const response = await PATCH(patch({}), context);
 
     expect(response.status).toBe(400);
+  });
+
+  /* 🔴 Отмена — состояние, и без разбора причины она не проходит (ADR-310):
+     вкладка отказов заводится ради причин, а «просто отказ» не отвечает ни на
+     один вопрос владельца. */
+  it('🔴 отказ без причины не принимается', async () => {
+    const response = await PATCH(patch({ status: 'rejected' }), context);
+
+    expect(response.status).toBe(400);
+    expect(leads.update).not.toHaveBeenCalled();
+  });
+
+  it('отказ с причиной и уточнением сохраняется', async () => {
+    const response = await PATCH(
+      patch({ status: 'rejected', cancelReason: 'too_expensive', cancelNote: 'Нашёл дешевле' }),
+      context,
+    );
+
+    expect(response.status).toBe(200);
+    expect(leads.update).toHaveBeenCalledWith('l1', {
+      status: 'rejected',
+      cancelReason: 'too_expensive',
+      cancelNote: 'Нашёл дешевле',
+    });
+  });
+
+  it('неизвестная причина отказа отклоняется — справочник закрытый', async () => {
+    const response = await PATCH(patch({ status: 'rejected', cancelReason: 'дорого' }), context);
+
+    expect(response.status).toBe(400);
+    expect(leads.update).not.toHaveBeenCalled();
+  });
+
+  it('причина без отказа не принимается: она перестала бы быть правдой', async () => {
+    const response = await PATCH(
+      patch({ status: 'in_progress', cancelReason: 'no_answer' }),
+      context,
+    );
+
+    expect(response.status).toBe(400);
+    expect(leads.update).not.toHaveBeenCalled();
   });
 
   it('без сессии заявка не меняется', async () => {
@@ -287,5 +360,37 @@ describe('🔴 выдача снимка при заявке', () => {
     const response = await getPhoto(get(), context);
 
     expect(response.status).toBe(404);
+  });
+});
+
+/**
+ * 🔴 Уничтожение персональных данных обращения — требование 152-ФЗ
+ * (issue #600). До этой правки маршрут умел только `GET` и `PATCH`, и
+ * владелец не мог удалить ни имени, ни телефона, ни адреса.
+ */
+describe('🔴 удаление обращения', () => {
+  it('владелец удаляет обращение, ответ — 204 без тела', async () => {
+    const response = await DELETE(del(), context);
+
+    expect(response.status).toBe(204);
+    expect(removeLead).toHaveBeenCalledWith('l1');
+  });
+
+  it('без сессии обращение не удаляется', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(null);
+
+    const response = await DELETE(del(), context);
+
+    expect(response.status).toBe(401);
+    expect(removeLead).not.toHaveBeenCalled();
+  });
+
+  it('🔴 монтажнику обращения не адресованы — удаление тоже', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue({ ...session, role: 'installer' });
+
+    const response = await DELETE(del(), context);
+
+    expect(response.status).toBe(403);
+    expect(removeLead).not.toHaveBeenCalled();
   });
 });

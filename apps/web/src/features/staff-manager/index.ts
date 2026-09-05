@@ -1,7 +1,9 @@
 /** Публичный API раздела команды. */
 export { InstallerNotes, type InstallerNotesProps } from './InstallerNotes';
 export { StaffAccountForm, type StaffAccountFormProps } from './StaffAccountForm';
-export { StaffCardView, type StaffCardViewProps } from './StaffCardView';
+export { StaffLoadBar, type StaffLoadBarProps } from './StaffLoadBar';
+export { StaffRow, type StaffRowProps } from './StaffRow';
+export { StaffSearch, type StaffSearchProps } from './StaffSearch';
 export { StaffCreateForm, type StaffCreateFormProps } from './StaffCreateForm';
 export { StaffCreateModal, type StaffCreateModalProps } from './StaffCreateModal';
 export { StaffDangerZone, type StaffDangerZoneProps } from './StaffDangerZone';
@@ -25,5 +27,6 @@ export {
   type StaffOrder,
   type StaffOrders as StaffOrdersData,
   type StaffResult,
+  type StaffRowStats,
   type StaffTotals,
 } from './model';

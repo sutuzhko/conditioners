@@ -1,5 +1,12 @@
 /** Данные для историй и тестов раздела команды. */
-import type { InstallerNoteCard, StaffApi, StaffDetails, StaffOrder, StaffTotals } from './model';
+import type {
+  InstallerNoteCard,
+  StaffApi,
+  StaffDetails,
+  StaffOrder,
+  StaffRowStats,
+  StaffTotals,
+} from './model';
 
 export const activeInstaller: StaffDetails = {
   id: 'u2',
@@ -107,6 +114,52 @@ export const notes: readonly InstallerNoteCard[] = [
     createdAt: '2026-07-15T10:00:00.000Z',
   },
 ];
+
+/**
+ * Загрузка недели по монтажникам: норма — рабочее окно 09–19 на пять дней,
+ * то есть 3000 минут. У Иванова переработка — она обязана быть видна в
+ * историях и в снимках, иначе её оформление никто не проверит.
+ */
+export const staffLoadFixture: ReadonlyMap<string, StaffRowStats> = new Map([
+  [
+    'u2',
+    {
+      loadMin: 1920,
+      normMin: 3000,
+      overtimeMin: 0,
+      done: 7,
+      earned: 42_000,
+      deductionSum: 0,
+      /* Наряды за человеком есть — удаление учётной записи закрыто. */
+      orders: 9,
+    },
+  ],
+  [
+    'u5',
+    {
+      loadMin: 3240,
+      normMin: 3000,
+      overtimeMin: 240,
+      done: 6,
+      earned: 36_000,
+      deductionSum: 3_000,
+      orders: 8,
+    },
+  ],
+  [
+    'u3',
+    {
+      loadMin: 0,
+      normMin: 3000,
+      overtimeMin: 0,
+      done: 0,
+      earned: 0,
+      deductionSum: 0,
+      /* Ни одного наряда: только такую запись и можно удалить. */
+      orders: 0,
+    },
+  ],
+]);
 
 export const acceptingApi: StaffApi = {
   create: async () => ({ ok: true }),

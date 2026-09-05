@@ -7,12 +7,15 @@ import { formatMoney } from '@/shared/lib/format';
 import { LeadCardView } from './LeadCardView';
 import { leadManagerContent as texts } from './content';
 import {
+  acceptingRemove,
   acceptingToClient,
   acceptingToOrder,
   acceptingUpdate,
   bareLead,
+  cancelledLead,
   clientLead,
   contextLead,
+  failingRemove,
   failingToOrder,
   failingUpdate,
   linkingToClient,
@@ -29,6 +32,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -44,6 +48,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -57,6 +62,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -70,6 +76,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -87,6 +94,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -101,6 +109,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -120,6 +129,7 @@ describe('Карточка заявки', () => {
         update={update}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -141,6 +151,7 @@ describe('Карточка заявки', () => {
         update={failingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -161,6 +172,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -181,6 +193,7 @@ describe('Карточка заявки', () => {
         update={update}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -201,6 +214,7 @@ describe('Карточка заявки', () => {
         update={update}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -217,6 +231,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -232,6 +247,7 @@ describe('Карточка заявки', () => {
         update={failingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
         onChanged={onChanged}
       />,
     );
@@ -251,6 +267,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={toClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -269,6 +286,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={linkingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -286,6 +304,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -305,6 +324,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -326,6 +346,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={toClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -347,6 +368,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={toOrder}
+        remove={acceptingRemove}
         onOrder={onOrder}
         onChanged={onChanged}
       />,
@@ -370,6 +392,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={acceptingToOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -390,6 +413,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={toOrder}
+        remove={acceptingRemove}
       />,
     );
 
@@ -410,6 +434,7 @@ describe('Карточка заявки', () => {
         update={acceptingUpdate}
         toClient={acceptingToClient}
         toOrder={failingToOrder}
+        remove={acceptingRemove}
         onOrder={onOrder}
       />,
     );
@@ -430,6 +455,7 @@ function renderContextCard(lead = contextLead) {
       update={acceptingUpdate}
       toClient={acceptingToClient}
       toOrder={acceptingToOrder}
+      remove={acceptingRemove}
     />,
   );
 }
@@ -515,5 +541,196 @@ describe('Карточка заявки — что человек делал н�
     expect(context.getByText(texts.contextModel)).toBeInTheDocument();
     expect(context.queryByText(texts.contextEstimate)).not.toBeInTheDocument();
     expect(context.queryByText(texts.contextPick)).not.toBeInTheDocument();
+  });
+});
+
+/**
+ * 🔴 Отмена и удаление — разные вещи (ADR-310, issue #600, #630). Отменённое
+ * обращение остаётся в истории и в счётчиках конверсии, удалённого не
+ * остаётся нигде: это исполнение требования 152-ФЗ об уничтожении
+ * персональных данных.
+ */
+describe('Отмена и удаление обращения', () => {
+  it('🔴 отказ спрашивает причину, а не ставится молча выбором в списке', async () => {
+    const update = vi.fn(acceptingUpdate);
+
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={update}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={acceptingRemove}
+      />,
+    );
+
+    await userEvent.selectOptions(
+      screen.getByLabelText(texts.status),
+      texts.statusTitle('rejected'),
+    );
+
+    /* Ни одного запроса до разбора причины: схема отклоняет отмену без неё, и
+       молчаливая попытка закончилась бы отказом сервера. */
+    expect(update).not.toHaveBeenCalled();
+    expect(screen.getByRole('dialog', { name: texts.cancelTitle })).toBeInTheDocument();
+  });
+
+  it('причина и уточнение уезжают вместе со статусом', async () => {
+    const update = vi.fn(acceptingUpdate);
+
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={update}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={acceptingRemove}
+      />,
+    );
+
+    await userEvent.selectOptions(
+      screen.getByLabelText(texts.status),
+      texts.statusTitle('rejected'),
+    );
+
+    const dialog = within(screen.getByRole('dialog', { name: texts.cancelTitle }));
+    await userEvent.selectOptions(
+      dialog.getByLabelText(texts.cancelReason),
+      texts.cancelReasonTitle('too_expensive'),
+    );
+    await userEvent.type(dialog.getByLabelText(texts.cancelNote), 'Нашёл дешевле у частника');
+    await userEvent.click(dialog.getByRole('button', { name: texts.cancelSubmit }));
+
+    await waitFor(() =>
+      expect(update).toHaveBeenCalledWith(newLead.id, {
+        status: 'rejected',
+        cancelReason: 'too_expensive',
+        cancelNote: 'Нашёл дешевле у частника',
+      }),
+    );
+  });
+
+  it('отказ от разбора возвращает прежний статус и ничего не сохраняет', async () => {
+    const update = vi.fn(acceptingUpdate);
+
+    render(
+      <LeadCardView
+        lead={workedLead}
+        update={update}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={acceptingRemove}
+      />,
+    );
+
+    await userEvent.selectOptions(
+      screen.getByLabelText(texts.status),
+      texts.statusTitle('rejected'),
+    );
+    await userEvent.click(screen.getByRole('button', { name: texts.cancelBack }));
+
+    expect(update).not.toHaveBeenCalled();
+    expect(screen.getByLabelText(texts.status)).toHaveValue(workedLead.status);
+  });
+
+  it('разобранный отказ виден в карточке — вместе с уточнением', () => {
+    render(
+      <LeadCardView
+        lead={cancelledLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={acceptingRemove}
+      />,
+    );
+
+    expect(screen.getByText(texts.cancelledBy('too_expensive'))).toBeInTheDocument();
+    expect(screen.getByText(cancelledLead.cancelNote ?? '')).toBeInTheDocument();
+  });
+
+  /* 🔴 152-ФЗ: владелец обязан уметь уничтожить персональные данные по
+     требованию человека (issue #600). */
+  it('🔴 удаление спрашивает подтверждение и называет номер обращения', async () => {
+    const remove = vi.fn(acceptingRemove);
+    const confirmRemove = vi.fn(async () => true);
+
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={remove}
+        confirmRemove={confirmRemove}
+      />,
+    );
+
+    await userEvent.click(screen.getByRole('button', { name: texts.remove }));
+
+    expect(confirmRemove).toHaveBeenCalledWith(
+      expect.objectContaining({ title: texts.removeConfirmTitle(newLead.number) }),
+    );
+    await waitFor(() => expect(remove).toHaveBeenCalledWith(newLead.id));
+  });
+
+  /* 🔴 Отказ от подтверждения не делает ничего — ни запроса, ни пометки. */
+  it('🔴 отказ от подтверждения обращение не удаляет', async () => {
+    const remove = vi.fn(acceptingRemove);
+
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={remove}
+        confirmRemove={async () => false}
+      />,
+    );
+
+    await userEvent.click(screen.getByRole('button', { name: texts.remove }));
+
+    expect(remove).not.toHaveBeenCalled();
+  });
+
+  it('удалённое обращение уводит со страницы карточки', async () => {
+    const onRemoved = vi.fn();
+
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={acceptingRemove}
+        confirmRemove={async () => true}
+        onRemoved={onRemoved}
+      />,
+    );
+
+    await userEvent.click(screen.getByRole('button', { name: texts.remove }));
+
+    await waitFor(() => expect(onRemoved).toHaveBeenCalled());
+  });
+
+  it('сервер отказал в удалении — обращение остаётся, отказ объяснён', async () => {
+    const onRemoved = vi.fn();
+
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={failingRemove}
+        confirmRemove={async () => true}
+        onRemoved={onRemoved}
+      />,
+    );
+
+    await userEvent.click(screen.getByRole('button', { name: texts.remove }));
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(texts.serverError);
+    expect(onRemoved).not.toHaveBeenCalled();
   });
 });

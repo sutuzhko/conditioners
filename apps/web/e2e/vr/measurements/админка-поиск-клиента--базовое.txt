@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×231 @16,16  r20  b1
+section.Card__card  358×201 @16,16  r20  b1
   form.ClientSearch__form  316×159 @21,21
     div.Field__field  316×103 @0,0
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск клиента»
@@ -17,10 +17,9 @@ section.Card__card  358×231 @16,16  r20  b1
       button.Button__button  69×44 @0,0  r9  b1
         span.Button__content  39×16 @15,14
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-  p.ClientSearch__total  316×20 @21,190  Manrope 400 13/20  lines=1  «Всего в базе: 24»
 
 [геометрия 768]
-section.Card__card  736×175 @16,16  r20  b1
+section.Card__card  736×145 @16,16  r20  b1
   form.ClientSearch__form  694×103 @21,21
     div.Field__field  613×103 @0,0
       label.Field__label  613×20 @0,0  Manrope 600 13/20  lines=1  «Поиск клиента»
@@ -30,10 +29,9 @@ section.Card__card  736×175 @16,16  r20  b1
       button.Button__button  69×44 @0,26  r9  b1
         span.Button__content  39×16 @15,14
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-  p.ClientSearch__total  694×20 @21,134  Manrope 400 13/20  lines=1  «Всего в базе: 24»
 
 [геометрия 1440]
-section.Card__card  1408×175 @16,16  r20  b1
+section.Card__card  1408×145 @16,16  r20  b1
   form.ClientSearch__form  1366×103 @21,21
     div.Field__field  1285×103 @0,0
       label.Field__label  1285×20 @0,0  Manrope 600 13/20  lines=1  «Поиск клиента»
@@ -43,7 +41,6 @@ section.Card__card  1408×175 @16,16  r20  b1
       button.Button__button  69×40 @0,26  r9  b1
         span.Button__content  39×16 @15,12
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-  p.ClientSearch__total  1366×20 @21,134  Manrope 400 13/20  lines=1  «Всего в базе: 24»
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
@@ -56,7 +53,6 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
       button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
         span.Button__content
           span.Button__label  color #ffffff
-  p.ClientSearch__total  color #5b6a7d
 
 [палитра dark]
 section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
@@ -69,4 +65,3 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
       button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
         span.Button__content
           span.Button__label  color #ffffff
-  p.ClientSearch__total  color #7e92a7

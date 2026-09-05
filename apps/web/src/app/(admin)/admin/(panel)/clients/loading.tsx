@@ -2,14 +2,14 @@ import Link from 'next/link';
 
 import { CLIENT_NEW_PATH, clientManagerContent as texts } from '@/features/client-manager';
 import { Skeleton, buttonClassName } from '@/shared/ui';
-import { RowsSkeleton } from '@/widgets/admin-shell';
 
 import styles from './page.module.css';
 
 /**
- * Клиенты: шапка настоящая, карточка поиска и список — заготовками по замеру
- * готовой страницы (issue #334). Шапка не зависит от данных, и только
- * настоящая шапка даёт ту же высоту при любом переносе строк.
+ * Клиенты: шапка настоящая, строка счёта, карточка поиска и список —
+ * заготовками по замеру готовой страницы (issue #334). Заголовок и кнопка не
+ * зависят от данных, и только настоящие они дают ту же высоту при любом
+ * переносе строк.
  */
 export default function ClientsLoading() {
   return (
@@ -23,11 +23,17 @@ export default function ClientsLoading() {
           </Link>
         </div>
 
-        <p className={styles.lead}>{texts.lead}</p>
+        {/* Счёт базы приходит из базы: под строку резервируется её высота, а
+            не рисуется полоса на месте заголовка. */}
+        <Skeleton variant="text" width="16ch" />
       </header>
 
+      {/* Плашка «Телефон — ключ», поиск и таблица: список стал таблицей
+          (issue #602), и четыре карточки на его месте обещали бы другую
+          геометрию. */}
+      <Skeleton variant="block" className={styles.noticeSkeleton} />
       <Skeleton variant="block" className={styles.searchSkeleton} />
-      <RowsSkeleton rows={4} className={styles.rowSkeleton} />
+      <Skeleton variant="block" className={styles.rowSkeleton} />
     </div>
   );
 }

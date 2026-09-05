@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Input } from '@/shared/ui';
+import { Button, Card, Textarea, useConfirm, type Confirm } from '@/shared/ui';
 
 import { staffManagerContent as texts } from './content';
 import { staffApi } from './lib';
@@ -14,6 +14,8 @@ export interface InstallerNotesProps {
   readonly staffId: string;
   readonly notes: readonly InstallerNoteCard[];
   readonly api?: StaffApi | undefined;
+  /** Шов для тестов и историй: окно кита подменяется своим ответом (ADR-113). */
+  readonly confirmRemove?: Confirm | undefined;
 }
 
 /**
@@ -21,9 +23,21 @@ export interface InstallerNotesProps {
  *
  * Монтажник их не видит — они и не приходят на его страницы: раздел целиком
  * закрыт `withOwner`, а не спрятан условием в разметке.
+ *
+ * 🔴 Удаление спрашивает подтверждение окном кита (ADR-113, issue #603). До
+ * этой правки крестик стирал заметку сразу: восстановить её нечем, а стоит она
+ * ровно того наблюдения о человеке, ради которого её и записали.
  */
-export function InstallerNotes({ staffId, notes, api = staffApi }: InstallerNotesProps) {
+export function InstallerNotes({
+  staffId,
+  notes,
+  api = staffApi,
+  confirmRemove,
+}: InstallerNotesProps) {
   const router = useRouter();
+  const { confirm, dialog } = useConfirm();
+  const ask = confirmRemove ?? confirm;
+
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
@@ -42,6 +56,18 @@ export function InstallerNotes({ staffId, notes, api = staffApi }: InstallerNote
     setMessage(result.message ?? texts.serverError);
   };
 
+  /**
+   * 🔴 Отказ от подтверждения не делает ничего — ни запроса, ни пометки.
+   * Заметка называется в вопросе целиком: «удалить заметку» без текста
+   * выглядит одинаково для любой из пяти (ADR-113).
+   */
+  const handleRemove = async (note: InstallerNoteCard): Promise<void> => {
+    if (busy) return;
+    if (!(await ask(texts.noteRemoveConfirm(note.text)))) return;
+
+    await run(() => api.removeNote(staffId, note.id));
+  };
+
   const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     if (busy || text.trim() === '') return;
@@ -56,11 +82,16 @@ export function InstallerNotes({ staffId, notes, api = staffApi }: InstallerNote
       <p className={styles.hint}>{texts.notesHint}</p>
 
       <form className={styles.add} onSubmit={submit} noValidate>
-        {/* Подпись поля заменена на aria-label: заголовок карточки уже сказал,
-            что это заметки, и повторять его строкой выше — шум. */}
-        <Input
+        {/* 🔴 Многострочное поле, а не однострочное (макет `CardTabs.png`):
+            заметка о человеке — это наблюдение в две-три строки, и в строке
+            ввода её начало уезжает за левый край, пока дописывают конец.
+
+            Подпись заменена на aria-label: заголовок карточки уже сказал, что
+            это заметки, и повторять его строкой выше — шум. */}
+        <Textarea
           aria-label={texts.notesTitle}
           placeholder={texts.notePlaceholder}
+          rows={3}
           wrapperClassName={styles.field}
           value={text}
           disabled={busy}
@@ -87,7 +118,7 @@ export function InstallerNotes({ staffId, notes, api = staffApi }: InstallerNote
                 size="sm"
                 aria-label={texts.noteRemove}
                 disabled={busy}
-                onClick={() => void run(() => api.removeNote(staffId, note.id))}
+                onClick={() => void handleRemove(note)}
               >
                 ✕
               </Button>
@@ -101,6 +132,8 @@ export function InstallerNotes({ staffId, notes, api = staffApi }: InstallerNote
           {message}
         </p>
       )}
+
+      {dialog}
     </Card>
   );
 }

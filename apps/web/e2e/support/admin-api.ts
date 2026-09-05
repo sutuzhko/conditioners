@@ -47,6 +47,8 @@ const searchSchema = z.object({ items: z.array(z.object({ id: z.string() })) });
 
 const leadSchema = z.object({
   id: z.string(),
+  /** Номер обращения — им сценарий находит свою строку в очереди (ADR-114). */
+  number: z.number(),
   name: z.string(),
   phone: z.string(),
   status: z.string(),
@@ -140,6 +142,20 @@ export class AdminApi {
     await this.context.dispose();
   }
 
+  /**
+   * Отправка публичной формы тем же путём, каким она приходит с сайта:
+   * `multipart/form-data`, без cookie панели.
+   *
+   * 🔴 Сценарию нужна настоящая заявка — со снимком согласия, происхождением и
+   * записью в очередь уведомлений (инвариант 2). Вставить строку в базу мимо
+   * формы значило бы проверять удаление того, чего форма не создаёт.
+   */
+  async postPublicForm(path: string, form: URLSearchParams): Promise<APIResponse> {
+    return this.context.post(path, {
+      multipart: Object.fromEntries(form.entries()),
+    });
+  }
+
   async listLeads(status?: string): Promise<readonly AdminLead[]> {
     const response = await this.context.get('/api/admin/leads', {
       headers: { Cookie: this.cookie },
@@ -149,16 +165,43 @@ export class AdminApi {
   }
 
   /**
-   * Единственная «уборка», которую контракт даёт для заявки: DELETE в
-   * docs/API.md §8 нет, поэтому запись закрывается статусом «отклонена»
-   * с пояснением в комментарии менеджера.
+   * Мягкая уборка: своя запись закрывается отказом с пояснением, а не
+   * удаляется. Так сценарий не трогает историю обращений на стенде — удаление
+   * проверяется отдельным сценарием (`lead-delete.spec.ts`, #605).
+   *
+   * 🔴 Причина отказа обязательна (ADR-310): отмена без разбора причины
+   * отклоняется схемой на границе.
    */
   async closeLead(id: string, managerComment: string): Promise<void> {
     const response = await this.context.patch(`/api/admin/leads/${id}`, {
       headers: { Cookie: this.cookie },
-      data: { status: 'rejected', managerComment },
+      data: { status: 'rejected', cancelReason: 'other', managerComment },
     });
     await this.json(response, 'закрытие заявки');
+  }
+
+  /**
+   * 🔴 Уничтожение обращения — исполнение требования 152-ФЗ (#600). Отдельно
+   * от `closeLead`: отменённое обращение остаётся в истории, удалённого не
+   * остаётся нигде.
+   */
+  async deleteLead(id: string): Promise<void> {
+    const response = await this.context.delete(`/api/admin/leads/${id}`, {
+      headers: { Cookie: this.cookie },
+    });
+    if (response.status() !== 204) {
+      throw new Error(`Удаление заявки не удалось: код ${response.status()}`);
+    }
+  }
+
+  /** Есть ли обращение в базе — по нему сценарий удаления проверяет результат. */
+  async findLead(id: string): Promise<AdminLead | null> {
+    const response = await this.context.get(`/api/admin/leads/${id}`, {
+      headers: { Cookie: this.cookie },
+    });
+    if (response.status() === 404) return null;
+
+    return leadSchema.parse(await this.json(response, 'обращение'));
   }
 
   /**
@@ -168,7 +211,9 @@ export class AdminApi {
   async setLeadStatus(id: string, status: string): Promise<void> {
     const response = await this.context.patch(`/api/admin/leads/${id}`, {
       headers: { Cookie: this.cookie },
-      data: { status },
+      /* Отказ без причины схема не принимает (ADR-310): она обязательна
+         ровно у этого перехода и запрещена у остальных. */
+      data: status === 'rejected' ? { status, cancelReason: 'other' } : { status },
     });
     await this.json(response, `перевод заявки в «${status}»`);
   }

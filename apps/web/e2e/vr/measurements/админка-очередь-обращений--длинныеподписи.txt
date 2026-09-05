@@ -1,5 +1,5 @@
 # админка-очередь-обращений--длинныеподписи · ширины 390 768 1440 · темы light dark
-шрифты: JetBrains Mono 400, Manrope 400, Manrope 600
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
 390 → 390×900
@@ -7,51 +7,167 @@
 1440 → 1440×900
 
 [геометрия 390]
-nav.Card__card  358×168 @16,16  r20  b1
-  ul.LeadQueue__list  356×166 @1,1
-    a.LeadQueue__row  356×166 @0,0
-      span.LeadQueue__line  328×73 @14,12
-        span.LeadQueue__name  328×45 @0,0  Manrope 600 15/22  lines=2  «Константинопольская-Твердолобова Аполлин»
-        span.Badge__badge  56×24 @0,49  Manrope 600 12/16  r100  b1  lines=1  «Новая»
-      span.LeadQueue__topic  328×40 @14,89  Manrope 400 13/20  lines=2  «Установка мультисплит-системы на два вну»
-      time.LeadQueue__when  328×20 @14,133  JetBrains Mono 400 13/20  lines=1  «03.09.2026, 13:19»
+section.Card__card  358×360 @16,16  r20  b1
+  div.Table__viewport  356×358 @1,1
+    table.Table__table  356×358 @0,0
+      th.LeadQueue__numberHead  52×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «№»
+      th  105×56 @52,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто и что»
+      th#2  72×56 @157,0  Onest 700 15/23  b0 0 1 0  lines=1  «Тема»
+      th#3  79×56 @230,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+      th#4  88×56 @308,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+      th.LeadQueue__actionsHead  36×56 @396,0  b0 0 1 0
+        span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
+      tr[role=row]  356×358 @0,0  r14  b1
+        td.LeadQueue__number  354×36 @1,5  JetBrains Mono 400 15/22  lines=1  «1041»
+          td.LeadQueue__number::before  8×20 @0,0
+        td.LeadQueue__who  354×121 @1,41
+          td.LeadQueue__who::before  326×20 @0,0
+          a.LeadQueue__name  326×45 @14,29  Manrope 600 15/22  lines=2  «Константинопольская-Твердолобова Аполлин»
+          span.LeadQueue__address  326×40 @14,74  Manrope 400 13/20  lines=2  «Новомосковск, микрорайон Урванский, Комс»
+        td.LeadQueue__topic  354×54 @1,163
+          td.LeadQueue__topic::before  30×20 @0,0
+          span.Badge__badge  282×40 @58,7  Manrope 600 12/16  r100  b1  lines=2  «Установка мультисплит-системы на два вну»
+        td.LeadQueue__when  354×34 @1,217
+          td.LeadQueue__when::before  36×20 @0,0
+          time  68×20 @272,7  Manrope 400 13/20  lines=1  «1 час назад»
+        td[role=cell]  354×38 @1,251
+          td[role=cell]::before  43×20 @0,0
+          span.Badge__badge  56×24 @284,7  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+        td.LeadQueue__actions  354×59 @1,294  b1 0 0 0
+          div.LeadRowActions__wrap  44×44 @296,8
+            div.RowMenu__root  44×44 @0,0
+              button.RowMenu__trigger  44×44 @0,0  r100  b1
+                span.RowMenu__dots  16×16 @14,14
+                  svg  16×16 @0,0
 
 [геометрия 768]
-nav.Card__card  736×98 @16,16  r20  b1
-  ul.LeadQueue__list  734×96 @1,1
-    a.LeadQueue__row  734×96 @0,0
-      span.LeadQueue__line  706×24 @14,12
-        span.LeadQueue__name  471×22 @0,1  Manrope 600 15/22  lines=1  «Константинопольская-Твердолобова Аполлин»
-        span.Badge__badge  56×24 @650,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
-      span.LeadQueue__topic  706×20 @14,40  Manrope 400 13/20  lines=1  «Установка мультисплит-системы на два вну»
-      time.LeadQueue__when  706×20 @14,64  JetBrains Mono 400 13/20  lines=1  «03.09.2026, 13:19»
+section.Card__card  736×277 @16,16  r20  b1
+  div.Table__viewport  734×275 @1,1
+    table.Table__table  734×275 @0,0
+      th.LeadQueue__numberHead  71×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «№»
+      th  182×56 @71,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто и что»
+      th#2  205×56 @252,0  Onest 700 15/23  b0 0 1 0  lines=1  «Тема»
+      th#3  104×56 @458,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+      th#4  92×56 @562,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+      th.LeadQueue__actionsHead  80×56 @654,0  b0 0 1 0
+        span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
+      tr[role=row]  734×219 @0,56
+        td.LeadQueue__number  71×219 @0,0  JetBrains Mono 400 15/22  lines=1  «1041»
+        td.LeadQueue__who  182×219 @71,0
+          a.LeadQueue__name  146×90 @18,15  Manrope 600 15/22  lines=4  «Константинопольская-Твердолобова Аполлин»
+          span.LeadQueue__address  146×101 @18,104  Manrope 400 13/20  lines=5  «Новомосковск, микрорайон Урванский, Комс»
+        td.LeadQueue__topic  205×219 @252,0
+          span.Badge__badge  169×73 @18,15  Manrope 600 12/16  r100  b1  lines=4  «Установка мультисплит-системы на два вну»
+        td.LeadQueue__when  104×219 @458,0
+          time  68×18 @18,16  Manrope 400 13/20  lines=1  «1 час назад»
+        td[role=cell]  92×219 @562,0
+          span.Badge__badge  56×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+        td.LeadQueue__actions  80×219 @654,0
+          div.LeadRowActions__wrap  44×44 @18,15
+            div.RowMenu__root  44×44 @0,0
+              button.RowMenu__trigger  44×44 @0,0  r100  b1
+                span.RowMenu__dots  16×16 @14,14
+                  svg  16×16 @0,0
 
 [геометрия 1440]
-nav.Card__card  1408×98 @16,16  r20  b1
-  ul.LeadQueue__list  1406×96 @1,1
-    a.LeadQueue__row  1406×96 @0,0
-      span.LeadQueue__line  1378×24 @14,12
-        span.LeadQueue__name  471×22 @0,1  Manrope 600 15/22  lines=1  «Константинопольская-Твердолобова Аполлин»
-        span.Badge__badge  56×24 @1322,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
-      span.LeadQueue__topic  1378×20 @14,40  Manrope 400 13/20  lines=1  «Установка мультисплит-системы на два вну»
-      time.LeadQueue__when  1378×20 @14,64  JetBrains Mono 400 13/20  lines=1  «03.09.2026, 13:19»
+section.Card__card  1408×149 @16,16  r20  b1
+  div.Table__viewport  1406×147 @1,1
+    table.Table__table  1406×147 @0,0
+      th.LeadQueue__numberHead  71×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «№»
+      th  539×56 @71,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто и что»
+      th#2  520×56 @610,0  Onest 700 15/23  b0 0 1 0  lines=1  «Тема»
+      th#3  104×56 @1130,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+      th#4  92×56 @1234,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+      th.LeadQueue__actionsHead  80×56 @1326,0  b0 0 1 0
+        span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
+      tr[role=row]  1406×91 @0,56
+        td.LeadQueue__number  71×91 @0,0  JetBrains Mono 400 15/22  lines=1  «1041»
+        td.LeadQueue__who  539×91 @71,0
+          a.LeadQueue__name  503×22 @18,15  Manrope 600 15/22  lines=1  «Константинопольская-Твердолобова Аполлин»
+          span.LeadQueue__address  503×40 @18,37  Manrope 400 13/20  lines=2  «Новомосковск, микрорайон Урванский, Комс»
+        td.LeadQueue__topic  520×91 @610,0
+          span.Badge__badge  484×40 @18,15  Manrope 600 12/16  r100  b1  lines=2  «Установка мультисплит-системы на два вну»
+        td.LeadQueue__when  104×91 @1130,0
+          time  68×18 @18,16  Manrope 400 13/20  lines=1  «1 час назад»
+        td[role=cell]  92×91 @1234,0
+          span.Badge__badge  56×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+        td.LeadQueue__actions  80×91 @1326,0
+          div.LeadRowActions__wrap  44×44 @18,15
+            div.RowMenu__root  44×44 @0,0
+              button.RowMenu__trigger  44×44 @0,0  r100  b1
+                span.RowMenu__dots  16×16 @14,14
+                  svg  16×16 @0,0
 
 [палитра light]
-nav.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-  ul.LeadQueue__list
-    a.LeadQueue__row
-      span.LeadQueue__line
-        span.LeadQueue__name  color #0f172a
-        span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
-      span.LeadQueue__topic  color #556173
-      time.LeadQueue__when  color #5b6a7d
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.Table__viewport
+    table.Table__table
+      th.LeadQueue__numberHead  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      th#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      th#4  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      th.LeadQueue__actionsHead  border #0f172a #0f172a #e2e8f0 #0f172a
+        span  color #0f172a
+      tr[role=row]
+        td.LeadQueue__number  color #556173
+        td.LeadQueue__who
+          a.LeadQueue__name  color #0f172a
+          span.LeadQueue__address  color #556173
+        td.LeadQueue__topic
+          span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+        td.LeadQueue__when
+          time  color #475569
+        td[role=cell]
+          span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+        td.LeadQueue__actions
+          div.LeadRowActions__wrap
+            div.RowMenu__root
+              button.RowMenu__trigger  border transparent
+                span.RowMenu__dots
+                  svg
+[палитра light @390]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.LeadQueue__number > td.LeadQueue__number::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.LeadQueue__who > td.LeadQueue__who::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.LeadQueue__topic > td.LeadQueue__topic::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.LeadQueue__when > td.LeadQueue__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.LeadQueue__actions  border #eef2f6 #334155 #334155 #334155
 
 [палитра dark]
-nav.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-  ul.LeadQueue__list
-    a.LeadQueue__row
-      span.LeadQueue__line
-        span.LeadQueue__name  color #eaf1f8
-        span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
-      span.LeadQueue__topic  color #8598ac
-      time.LeadQueue__when  color #7e92a7
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.Table__viewport
+    table.Table__table
+      th.LeadQueue__numberHead  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      th#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      th#4  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      th.LeadQueue__actionsHead  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        span  color #eaf1f8
+      tr[role=row]
+        td.LeadQueue__number  color #8598ac
+        td.LeadQueue__who
+          a.LeadQueue__name  color #eaf1f8
+          span.LeadQueue__address  color #8598ac
+        td.LeadQueue__topic
+          span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+        td.LeadQueue__when
+          time  color #a8b6c6
+        td[role=cell]
+          span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+        td.LeadQueue__actions
+          div.LeadRowActions__wrap
+            div.RowMenu__root
+              button.RowMenu__trigger  border transparent
+                span.RowMenu__dots
+                  svg
+[палитра dark @390]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.LeadQueue__number > td.LeadQueue__number::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.LeadQueue__who > td.LeadQueue__who::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.LeadQueue__topic > td.LeadQueue__topic::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.LeadQueue__when > td.LeadQueue__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.LeadQueue__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2

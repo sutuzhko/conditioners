@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 
 import { parseCatalogQuery, selectCatalogCompare } from '@/entities/product/lib/catalogQuery';
@@ -108,11 +108,20 @@ describe('Сравнение — таблица (ADR-109)', () => {
   });
 
   it('прокручивается внутри своего контейнера, а не растягивает страницу', () => {
+    /* 🔴 Останов табуляции у области ставится по замеру, а не всегда
+       (`TableScroller`, issue #602): в jsdom ширины нулевые, и без подмены
+       геометрии таблица прокручиваемой не считается. Здесь проверяется именно
+       прокручиваемая — та, у которой колонок больше, чем помещается. */
+    vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(1200);
+    vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(600);
+
     renderCompare({ compare: 'split-07,split-12' });
 
     const region = screen.getByRole('region', { name: /прокручивается по горизонтали/i });
     expect(region).toHaveAttribute('tabindex', '0');
     expect(region).toContainElement(screen.getByRole('table'));
+
+    vi.restoreAllMocks();
   });
 
   it('отмечены все — таблица со всеми колонками', () => {

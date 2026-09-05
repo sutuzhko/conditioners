@@ -4,7 +4,7 @@ import { ORDER_STATUS_TITLE, ORDER_TYPE_TITLE } from '@/entities/order/model';
 import type { OrderStatus, OrderType } from '@/entities/order/model';
 import type { ConfirmRequest } from '@/shared/ui';
 import { EMPLOYMENTS, employmentTitle, type Employment } from '@/shared/lib/employment';
-import { formatDateShort, formatDateTime, formatMoney } from '@/shared/lib/format';
+import { formatDateShort, formatDateTime, formatMoney, formatNumber } from '@/shared/lib/format';
 import { plural } from '@/shared/lib/plural';
 
 import type { StaffCardTab } from './model';
@@ -51,6 +51,90 @@ export const staffManagerContent = {
   title: 'Монтажники',
   lead: 'Команда: доступ в панель, телефоны и заметки. Монтажник видит только назначенные ему наряды, календарь и свой профиль.',
 
+  /**
+   * Строка счёта вместо прозы (макет `Team.png`): раздел открывают, чтобы
+   * узнать, кто сегодня на смене. Объяснение про роли ушло в плашку под
+   * таблицей — там оно к месту.
+   */
+  count: (active: number, total: number): string => `${active} на смене из ${total}`,
+
+  /* ---------- Плитки показателей раздела (issue #602) ---------- */
+
+  tilesMonthLabel: 'Показатели команды за месяц',
+  tileMonthDone: 'Выполнено за месяц',
+  tileMonthPaid: 'Выплачено за месяц',
+  tileMonthHeld: 'Удержаний',
+  /* Сумма стоит рядом с числом: «1» без неё не отвечает, о каких деньгах
+     речь, а «0» без пояснения читается как отсутствие данных. */
+  tileMonthHeldNote: (sum: number): string =>
+    sum === 0 ? 'За месяц удержаний не было' : `На сумму ${formatMoney(sum)}`,
+  tileMonthLoad: 'Средняя загрузка',
+  tileMonthLoadNote: (normHours: number): string => `из ${formatNumber(normHours)} ч`,
+
+  /* ---------- Таблица команды (макет `Team.png`) ---------- */
+
+  tableTitle: 'Команда',
+  tableLabel: 'Список монтажников',
+  colStaff: 'Монтажник',
+  colPhone: 'Телефон',
+  colLoad: 'Загрузка недели',
+  colDone: 'Выполнено',
+  colEarned: 'Заработал',
+  colDeductions: 'Удержания',
+  colAccess: 'Доступ',
+  colActions: 'Действия',
+  rowActions: (who: string): string => `Действия над записью «${who}»`,
+  /** Часы недели: минуты округляются до часа — их считают выездами, а не минутами. */
+  hours: (minutes: number): string => `${Math.round(minutes / 60)} ч`,
+  /**
+   * Полная величина загрузки — в подсказке и в озвучке полосы. На экране у
+   * полосы стоит одно число («32 ч»), как в макете: норма одна на всех, и
+   * повторять её в каждой строке значит набирать восемь одинаковых «из 50».
+   */
+  loadOf: (minutes: number, normMin: number): string =>
+    `${Math.round(minutes / 60)} из ${Math.round(normMin / 60)} ч`,
+  /**
+   * 🔴 Переработка помечена не только цветом (DESIGN_BRIEF §14): рядом с
+   * числом встаёт чип с превышением. Прозой она больше не пишется — абзац в
+   * ячейке ломал ритм таблицы.
+   */
+  overtimeChip: (minutes: number): string => `+${Math.round(minutes / 60)} ч`,
+  overtime: (minutes: number): string =>
+    `Переработка ${Math.round(minutes / 60)} ${plural(Math.round(minutes / 60), 'час', 'часа', 'часов')}`,
+  noDeductions: 'нет',
+  phoneMissing: 'Не заведён',
+  /** Короткое «с 14 марта 2024» под именем в строке таблицы. */
+  inTeamSince: (iso: string): string => `с ${formatDateShort(iso)}`,
+
+  /**
+   * 🔴 Плашка про заметки владельца (макет `Team.png`). Она объясняет, чем
+   * закрыты заметки: не скрытой вкладкой, а ролью на сервере — скрытая кнопка
+   * это подсказка интерфейса, а не защита (CRM §6, ADR-092).
+   */
+  notesNoticeTitle: 'Заметки владельца монтажник не видит',
+  notesNoticeText:
+    'Они живут в карточке и закрыты сервером, а не скрытием кнопки: скрытая кнопка — подсказка интерфейса, а не защита.',
+
+  searchLabel: 'Поиск по команде',
+  searchPlaceholder: 'Имя или телефон',
+  searchSubmit: 'Найти',
+  searchHint: 'Ищем по имени, логину и телефону.',
+  searchReset: 'Показать всю команду',
+  emptyFound: 'По этому запросу никого не нашлось',
+  emptyFoundText: 'Команда в разделе есть — её скрыл поиск.',
+
+  /* ---------- Действия строки (макет `Team.png`) ---------- */
+
+  rowOpen: 'Открыть карточку',
+  /**
+   * 🔴 Удаление закрыто, пока за человеком закреплены наряды: иначе наряд
+   * остался бы без исполнителя. Причина написана рядом с кнопкой — отключённая
+   * кнопка без объяснения хуже отсутствующей (та же формулировка, что в
+   * «Опасной зоне»).
+   */
+  rowRemoveBlocked: (orders: number): string =>
+    `Удалить нельзя: ${orders} ${plural(orders, 'наряд', 'наряда', 'нарядов')} за человеком. Закройте доступ`,
+
   emptyTitle: 'Монтажников пока нет',
   emptyText:
     'Заведите первого — он получит логин и пароль и сможет войти в панель со своего телефона.',
@@ -77,6 +161,15 @@ export const staffManagerContent = {
      владелец прочитает как придирку формы и отложит. */
   innMissing:
     'Самозанятый без ИНН: проверить его статус на дату выплаты нечем. Слетевший статус означает НДФЛ и взносы за компанию — заведите номер до первой выплаты.',
+
+  /**
+   * 🔴 Короткий ярлык для строки таблицы, длинный текст — в подсказке на нём
+   * (issue #602). Абзац в ячейке растил строку до двухсот пикселей, и таблица
+   * переставала читаться колонками — а читают её именно так. В карточке абзац
+   * был уместен, в строке он не уместен.
+   */
+  employmentUnsetShort: 'Оформление не заведено',
+  innMissingShort: 'Самозанятый без ИНН',
 
   employment: 'Оформление',
   employmentEmpty: EMPLOYMENT_EMPTY,
@@ -122,8 +215,10 @@ export const staffManagerContent = {
   saving: 'Сохраняем…',
   saved: 'Сохранено',
 
-  active: 'Работает',
-  inactive: 'Доступ закрыт',
+  /* Подписи переключателя доступа — по макету `Team.png`. «Не работает»
+     говорит о человеке, а не о кнопке: «Доступ закрыт» читалось как поломка. */
+  active: 'Активен',
+  inactive: 'Не работает',
   disable: 'Закрыть доступ',
   enable: 'Открыть доступ',
   disableHint:
@@ -196,6 +291,17 @@ export const staffManagerContent = {
   noteAdd: 'Добавить',
   notePlaceholder: 'Например: аккуратный монтаж, можно доверять сложные объекты',
   noteRemove: 'Удалить заметку',
+  /**
+   * 🔴 Подтверждение называет саму заметку, а не «эту запись»: у человека их
+   * пять, и вопрос «удалить заметку?» одинаков для всех пяти (ADR-113).
+   * Длинная заметка обрезается — окно не место для абзаца.
+   */
+  noteRemoveConfirm: (text: string): ConfirmRequest => ({
+    title: 'Удалить заметку?',
+    description: `«${text.length > 120 ? `${text.slice(0, 120)}…` : text}» — заметка исчезнет насовсем, восстановить её нечем.`,
+    confirmLabel: 'Удалить заметку',
+    cancelLabel: 'Оставить',
+  }),
 
   open: 'Карточка',
   back: '← Все монтажники',

@@ -1,7 +1,14 @@
 /** Данные для историй и тестов раздела заявок. */
 import type { LeadContext } from '@/entities/lead/model';
 
-import type { LeadCard, LeadQueueItem, LeadToClient, LeadToOrder, LeadUpdate } from './model';
+import type {
+  LeadCard,
+  LeadQueueItem,
+  LeadRemove,
+  LeadToClient,
+  LeadToOrder,
+  LeadUpdate,
+} from './model';
 
 /**
  * Контекст заявки: человек посчитал смету, подобрал модель по площади и
@@ -40,6 +47,7 @@ export const leadContextFixture: LeadContext = {
 
 export const newLead: LeadCard = {
   id: 'l1',
+  number: 41,
   name: 'Ирина',
   phone: '+79001234567',
   topic: 'Установка кондиционера',
@@ -53,6 +61,8 @@ export const newLead: LeadCard = {
   sourceUrl: 'https://example.test/prices',
   context: null,
   status: 'new',
+  cancelReason: null,
+  cancelNote: null,
   managerComment: null,
   clientId: null,
   createdAt: '2026-08-20T09:15:00.000Z',
@@ -87,6 +97,7 @@ export const modelLead: LeadCard = {
 export const bareLead: LeadCard = {
   ...newLead,
   id: 'l2',
+  number: 39,
   topic: 'Консультация',
   model: null,
   place: null,
@@ -99,6 +110,7 @@ export const bareLead: LeadCard = {
 export const workedLead: LeadCard = {
   ...newLead,
   id: 'l3',
+  number: 40,
   status: 'in_progress',
   managerComment: 'Перезвонил, ждёт замер в четверг',
 };
@@ -107,7 +119,18 @@ export const workedLead: LeadCard = {
 export const clientLead: LeadCard = {
   ...newLead,
   id: 'l4',
+  number: 38,
   clientId: 'c1',
+};
+
+/** Отменённое обращение: причина отказа разобрана справочником (ADR-310). */
+export const cancelledLead: LeadCard = {
+  ...newLead,
+  id: 'l7',
+  number: 37,
+  status: 'rejected',
+  cancelReason: 'too_expensive',
+  cancelNote: 'Сказал, что нашёл дешевле у частника',
 };
 
 export const acceptingUpdate: LeadUpdate = async () => ({ ok: true });
@@ -146,38 +169,62 @@ export const failingToOrder: LeadToOrder = async () => ({
   message: 'Сервер не принял изменения. Попробуйте ещё раз',
 });
 
+export const acceptingRemove: LeadRemove = async () => ({ ok: true });
+
+export const failingRemove: LeadRemove = async () => ({
+  ok: false,
+  message: 'Сервер не принял изменения. Попробуйте ещё раз',
+});
+
 /** Очередь обращений: разные статусы и длины имён — то, что бывает на экране. */
 export const leadQueueFixture: readonly LeadQueueItem[] = [
   {
     id: newLead.id,
+    number: newLead.number,
     name: newLead.name,
     phone: newLead.phone,
     topic: newLead.topic,
+    address: 'Щёкино, Пионерская 4 · гостиная 32 м²',
     status: newLead.status,
     createdAt: newLead.createdAt,
   },
   {
     id: workedLead.id,
+    number: workedLead.number,
     name: 'Федотова Лидия Ивановна',
     phone: workedLead.phone,
     topic: 'Установка кондиционера',
+    address: 'Тула, Кирова 18 · нужен замер',
     status: 'in_progress',
     createdAt: '2026-08-30T09:19:00.000Z',
   },
   {
     id: bareLead.id,
+    number: bareLead.number,
     name: 'Игорь',
     phone: bareLead.phone,
     topic: 'Консультация',
+    /* Адреса нет — так приходит обращение, где оставили один телефон. */
+    address: null,
     status: 'rejected',
     createdAt: '2026-08-23T13:19:00.000Z',
   },
   {
     id: clientLead.id,
+    number: clientLead.number,
     name: 'Беляева Ольга',
     phone: clientLead.phone,
     topic: 'Ремонт',
+    address: 'Тула, Оборонная 12, кв. 34',
     status: 'done',
     createdAt: '2026-08-15T13:19:00.000Z',
   },
 ];
+
+/**
+ * Момент, от которого мерится относительное время в историях и тестах.
+ *
+ * 🔴 Задаётся, а не берётся из `Date.now()`: иначе «2 часа назад» в снимке
+ * витрины меняется каждый прогон, и сравнение кадров краснеет само по себе.
+ */
+export const leadQueueNow = new Date('2026-08-30T11:19:00.000Z');
