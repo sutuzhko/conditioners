@@ -26,4 +26,7 @@ async function send(url: string, init: RequestInit): Promise<ProfileResult> {
 export const profileApi: ProfileApi = {
   save: (patch) => send('/api/admin/profile', jsonInit('PATCH', patch)),
   changePassword: (input) => send('/api/admin/profile/password', jsonInit('POST', input)),
+  /* Тела у запроса нет: что закрывать, сервер знает из сессии — присылать ему
+     свой идентификатор значит предлагать закрыть чужие устройства. */
+  logoutEverywhere: () => send('/api/admin/profile/sessions', jsonInit('DELETE')),
 };

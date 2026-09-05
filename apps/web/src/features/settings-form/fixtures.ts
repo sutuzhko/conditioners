@@ -1,6 +1,6 @@
 /** Данные для историй и тестов форм настроек. */
 import { LEGAL_GROUP } from './fields';
-import type { GroupDescriptor, SaveGroup, SaveResult } from './model';
+import type { GroupDescriptor, GroupEntry, SaveGroup, SaveResult } from './model';
 
 export const contactsGroupFixture: GroupDescriptor = {
   key: 'contacts',
@@ -141,3 +141,32 @@ export const rejectingSave: SaveGroup = async () => ({
 
 /** Сохранение, которое не завершается: состояние «сохраняем» в истории. */
 export const pendingSave: SaveGroup = () => new Promise<SaveResult>(() => {});
+
+/** Отказ без названного поля: сообщение показывается у группы, а не у поля. */
+export const rejectingWholeGroup: SaveGroup = async () => ({
+  ok: false,
+  message: 'Сервер не принял изменения. Попробуйте ещё раз',
+});
+
+/**
+ * Три группы для общей формы данных компании: заполненная, пустая и
+ * заполненная наполовину. Готовность приходит из отчёта сервера, поэтому в
+ * фикстуре она задана данными, а не выводится из значений.
+ */
+export const companyEntriesFixture: readonly GroupEntry[] = [
+  { group: contactsGroupFixture, value: filledContacts, ready: true, missing: [] },
+  {
+    group: integrationsGroupFixture,
+    value: {},
+    ready: false,
+    missing: ['Номер счётчика'],
+  },
+  { group: achievementsGroupFixture, value: filledAchievements, ready: true, missing: [] },
+];
+
+/** Всё заполнено: полоса готовности на ста процентах, плашек «не заполнено» нет. */
+export const readyEntriesFixture: readonly GroupEntry[] = companyEntriesFixture.map((entry) => ({
+  ...entry,
+  ready: true,
+  missing: [],
+}));

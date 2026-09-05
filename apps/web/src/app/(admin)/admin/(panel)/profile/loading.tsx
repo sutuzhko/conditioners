@@ -3,7 +3,7 @@ import { FieldsSkeleton } from '@/widgets/admin-shell';
 
 import styles from './page.module.css';
 
-/** Профиль: шапка настоящая, поля формы — заготовками (issue #334). */
+/** Профиль: шапка настоящая, карточки формы — заготовками (issue #334). */
 export default function ProfileLoading() {
   return (
     <div className={styles.page} aria-busy="true">
@@ -12,7 +12,17 @@ export default function ProfileLoading() {
         <p className={styles.lead}>{texts.lead}</p>
       </header>
 
-      <FieldsSkeleton fields={5} />
+      <div className={styles.skeleton}>
+        <div className={styles.column}>
+          <FieldsSkeleton fields={4} />
+          <FieldsSkeleton fields={3} />
+        </div>
+
+        <div className={styles.column}>
+          <FieldsSkeleton fields={3} />
+          <FieldsSkeleton fields={2} />
+        </div>
+      </div>
     </div>
   );
 }

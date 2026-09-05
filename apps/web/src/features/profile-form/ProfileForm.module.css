@@ -1,11 +1,11 @@
-/* Раздел профиля: личные данные, пароль, тема. */
+/* Раздел профиля: личные данные, пароль, тема, вход. */
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 16px;
   align-items: start;
-  max-width: 860px;
+  max-width: 940px;
 }
 
 .column {
@@ -14,30 +14,24 @@
   gap: 16px;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* Поля карточки: два в ряд там, где ширина позволяет. «Новый пароль» и
+   «Повторите новый» обязаны стоять рядом — они об одном значении, и в столбик
+   второе читается как ещё одно требование, а не как проверка первого. */
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px 14px;
+  align-items: start;
 }
 
-.head {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-}
-
-.title {
-  margin: 0;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  font-weight: 700;
+/* Поле занимает ряд целиком: подсказка оформления — предложение, а не слово. */
+.wide {
+  grid-column: 1 / -1;
 }
 
 .hint {
-  margin: 4px 0 8px;
-  max-width: 60ch;
+  margin: 0;
+  max-width: 56ch;
   color: var(--muted);
   font-size: var(--fs-caption);
 }
@@ -49,17 +43,42 @@
   font-family: var(--font-mono);
 }
 
-/* Выход стоит последним и в своей карточке: он необратим для сессии, и
-   рядом с «Сохранить» его нажимают по инерции. */
-.exit {
-  align-self: flex-start;
-}
-
 .actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
+  justify-content: flex-end;
+}
+
+/* Строка факта о входе: подпись слева, значение справа — как в макете. */
+.facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
+  margin: 0 0 12px;
+}
+
+.factTerm {
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+.factValue {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-dense);
+  text-align: right;
+}
+
+/* Выход везде — кнопка во всю ширину карточки: это главное действие блока, и
+   в макете оно занимает строку целиком. */
+.exitRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
 }
 
 .ok {
@@ -76,4 +95,11 @@
   background: var(--error-bg);
   color: var(--error-ink);
   font-size: var(--fs-dense);
+}
+
+/* Выход с этого устройства стоит в подвале карточки и не растягивается: он
+   рядом с объяснением, а не вместо главного действия. */
+.exit {
+  align-self: flex-start;
+  flex-shrink: 0;
 }
