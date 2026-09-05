@@ -1,12 +1,70 @@
 /* Список статей базы знаний. */
 
+.titleCell {
+  min-width: 0;
+}
+
+/* Заголовок и подпись одним столбцом: ячейке достаётся ровно один узел, и
+   карточная раскладка ниже 600px не растаскивает их по разным сторонам. */
+.names {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
 .name {
   color: var(--ink);
   font-weight: 600;
+}
+
+/* Подпись строки: адрес, длина текста, отсутствие обложки. Один ряд на любой
+   ширине — вторая строка сдвинула бы соседние ячейки по всей таблице. */
+.sub {
+  overflow: hidden;
+  color: var(--faint);
+  font-size: var(--fs-caption);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slug {
+  font-family: var(--font-mono);
+}
+
+.chars {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Не ошибка, а недоделка: статья выйдет на сайт, просто без картинки. */
+.warn {
+  color: var(--warn-ink);
 }
 
 .date,
 .minutes {
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+
+/* Ширины колонок из макета `Knowledge`. Только в шапке: ниже 600px строки
+   раскладываются карточками, и ширина на ячейке распёрла бы карточку. */
+.colCategory {
+  width: 150px;
+}
+
+.colDate {
+  width: 120px;
+}
+
+.colMinutes {
+  width: 110px;
+}
+
+.colState {
+  width: 140px;
+}
+
+.colActions {
+  width: 126px;
 }

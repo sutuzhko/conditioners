@@ -17,3 +17,8 @@ export const Базовое: Story = {};
 export const Пусто: Story = {
   args: { articles: [] },
 };
+
+/** Пусто из-за отбора: статьи есть, их скрыли условия. */
+export const НичегоНеНашлось: Story = {
+  args: { articles: [], filtered: true },
+};

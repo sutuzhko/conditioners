@@ -65,10 +65,43 @@ describe('Список статей в админке', () => {
     ).toBeDisabled();
   });
 
+  /* 🔴 Адрес статьи виден в списке: слаг задаёт владелец, и на него завязаны
+     разосланные ссылки. Число знаков отвечает на второй вопрос списка —
+     статья написана или начата (issue #614). */
+  it('под заголовком стоят адрес статьи и длина её текста', () => {
+    render(<AdminArticleList articles={articleRowsFixture} />);
+
+    expect(screen.getByText(texts.slugPath('invertor-ili-obychnyy'))).toBeInTheDocument();
+    /* Разряды числа разделены неразрывным пробелом — в разметке он есть, а
+       нормализация Testing Library превращает его в обычный. */
+    expect(screen.getByText(/6\s120 знаков/)).toBeInTheDocument();
+  });
+
+  /* Обложки нет — статья выйдет в листинг сайта без картинки, и сказано об
+     этом там, где на статью смотрят. */
+  it('отсутствие обложки названо в подписи строки', () => {
+    render(<AdminArticleList articles={articleRowsFixture} />);
+
+    expect(screen.getAllByText(texts.noCover)).toHaveLength(1);
+  });
+
   it('пустой раздел объясняет, зачем нужны статьи', () => {
     render(<AdminArticleList articles={[]} />);
 
     expect(screen.getByText(texts.emptyTitle)).toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  });
+
+  /* 🔴 Пусто из-за отбора и пусто вообще — разные новости с противоположными
+     шагами (issue #335): в одном случае надо написать статью, в другом —
+     снять фильтр. */
+  it('пусто из-за отбора предлагает снять отбор, а не написать статью', () => {
+    render(<AdminArticleList articles={[]} filtered />);
+
+    expect(screen.getByText(texts.emptyFilteredTitle)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: texts.emptyFilteredAction })).toHaveAttribute(
+      'href',
+      '/admin/knowledge',
+    );
   });
 });

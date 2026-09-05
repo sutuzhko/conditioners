@@ -2,7 +2,8 @@
 
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Input } from '@/shared/ui';
+import { Button, Card, DateField, Input, dateSegmentsOf, isoOfDateSegments } from '@/shared/ui';
+import type { DateSegments } from '@/shared/ui';
 
 import { productSaleContent as texts } from './content';
 import { explainInactive, previewSale } from './lib';
@@ -38,6 +39,13 @@ export function ProductSaleForm({
   const [values, setValues] = useState<SaleFormValues>(initial);
   const [status, setStatus] = useState<SaleStatus>('idle');
   const [message, setMessage] = useState('');
+
+  /* 🔴 Границы периода живут в форме двумя видами: сегментами — потому что их
+     набирают, и строкой ISO — потому что её ждут контракт и расчёт скидки.
+     Выводить сегменты из строки на каждый рендер нельзя: пока набран один
+     день, полной даты ещё нет, строка пуста, и цифра пропала бы под пальцами. */
+  const [fromParts, setFromParts] = useState<DateSegments>(() => dateSegmentsOf(initial.saleFrom));
+  const [toParts, setToParts] = useState<DateSegments>(() => dateSegmentsOf(initial.saleTo));
 
   const sending = status === 'sending';
   const preview = previewSale(values, priceNum, now);
@@ -88,21 +96,29 @@ export function ProductSaleForm({
             disabled={sending}
             onChange={(event) => set('salePrice', event.target.value)}
           />
-          <Input
+          {/* 🔴 Три сегмента вместо `input[type=date]` (кит, `DateField`):
+              нативный редактор приносит свой порядок сегментов, зависящий от
+              локали системы, — на машине с английской локалью владелец задал
+              бы месяц вместо дня и не заметил бы этого. */}
+          <DateField
             label={texts.saleFrom}
             hint={texts.saleFromHint}
-            type="date"
-            value={values.saleFrom}
+            value={fromParts}
             disabled={sending}
-            onChange={(event) => set('saleFrom', event.target.value)}
+            onChange={(next) => {
+              setFromParts(next);
+              set('saleFrom', isoOfDateSegments(next));
+            }}
           />
-          <Input
+          <DateField
             label={texts.saleTo}
             hint={texts.saleToHint}
-            type="date"
-            value={values.saleTo}
+            value={toParts}
             disabled={sending}
-            onChange={(event) => set('saleTo', event.target.value)}
+            onChange={(next) => {
+              setToParts(next);
+              set('saleTo', isoOfDateSegments(next));
+            }}
           />
           <Input
             label={texts.saleLabel}

@@ -66,6 +66,16 @@ const leadListSchema = pageOf(leadSchema);
 const orderListSchema = pageOf(orderSchema);
 export type AdminLead = z.infer<typeof leadSchema>;
 
+/**
+ * Модель и статья глазами сценария разбивки: id — чтобы убрать за собой,
+ * имя и адрес — чтобы найти свою строку в списке панели (issue #616).
+ */
+const productSchema = z.object({ id: z.string(), name: z.string(), slug: z.string() });
+export type AdminProduct = z.infer<typeof productSchema>;
+
+const articleSchema = z.object({ id: z.string(), title: z.string(), slug: z.string() });
+export type AdminArticle = z.infer<typeof articleSchema>;
+
 const reviewSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -372,6 +382,63 @@ export class AdminApi {
     });
 
     return z.record(z.unknown()).parse(await this.json(response, 'наряд'));
+  }
+
+  /**
+   * Модель под сценарий разбивки каталога.
+   *
+   * 🔴 Скидки здесь нет: её задаёт отдельная ручка (ADR-011), и просить её
+   * тут — значит заводить второе место рождения перечёркнутой цены.
+   */
+  async createProduct(input: {
+    readonly name: string;
+    readonly badge: string;
+    readonly areaMax: number;
+    readonly priceNum: number;
+    readonly sort: number;
+  }): Promise<AdminProduct> {
+    const response = await this.context.post('/api/admin/models', {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: { ...input, visible: true, featured: false },
+    });
+    if (response.status() !== 201) {
+      const detail = await response.text().catch(() => '');
+      throw new Error(
+        `Создание модели вернуло код ${response.status()}${detail === '' ? '' : `: ${detail}`}`,
+      );
+    }
+    return productSchema.parse(await response.json());
+  }
+
+  async deleteProduct(id: string): Promise<void> {
+    await this.context.delete(`/api/admin/models/${id}`, { headers: { Cookie: this.cookie } });
+  }
+
+  /** Статья под сценарий разбивки базы знаний. */
+  async createArticle(input: {
+    readonly title: string;
+    readonly category: string;
+    readonly date: string;
+    readonly minutes: number;
+    readonly excerpt: string;
+    readonly body: string;
+    readonly published: boolean;
+  }): Promise<AdminArticle> {
+    const response = await this.context.post('/api/admin/articles', {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: input,
+    });
+    if (response.status() !== 201) {
+      const detail = await response.text().catch(() => '');
+      throw new Error(
+        `Создание статьи вернуло код ${response.status()}${detail === '' ? '' : `: ${detail}`}`,
+      );
+    }
+    return articleSchema.parse(await response.json());
+  }
+
+  async deleteArticle(id: string): Promise<void> {
+    await this.context.delete(`/api/admin/articles/${id}`, { headers: { Cookie: this.cookie } });
   }
 
   async deleteStaff(id: string): Promise<void> {

@@ -40,6 +40,36 @@ function pad(value: string, length: number): string {
 }
 
 /**
+ * ISO-день `2026-09-10` в сегменты поля.
+ *
+ * 🔴 Хранят и передают дату по-прежнему строкой ISO — её ждут и схемы Zod, и
+ * контракт API (`shared/lib/zod.ts`). Сегменты — представление ввода, и жить
+ * они должны рядом с полем, а не в модели формы. Пустая и неразобранная
+ * строка дают пустое поле: гадать за владельца, какой день он имел в виду,
+ * поле не должно.
+ */
+export function dateSegmentsOf(iso: string): DateSegments {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso.trim());
+  if (match === null) return EMPTY_DATE;
+
+  return { day: match[3] ?? '', month: match[2] ?? '', year: match[1] ?? '' };
+}
+
+/**
+ * Сегменты обратно в ISO-день.
+ *
+ * 🔴 Неполная дата даёт пустую строку, а не половину значения: «10.09.» — это
+ * не дата, и отправлять её на сервер нельзя. Пустое поле сервер уже умеет
+ * назвать ошибкой, а `2026-09-` не разберёт ни одна схема.
+ */
+export function isoOfDateSegments(value: DateSegments): string {
+  const { day, month, year } = value;
+  if (day === '' || month === '' || year.length !== 4) return '';
+
+  return `${year}-${pad(month, 2)}-${pad(day, 2)}`;
+}
+
+/**
  * Поле даты сегментами: дата выезда, период отчёта (issue #331).
  *
  * 🔴 Три поля вместо `input[type=date]`. Нативный редактор даты приносит

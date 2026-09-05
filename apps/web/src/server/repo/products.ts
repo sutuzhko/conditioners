@@ -9,6 +9,7 @@ import { db } from '@/server/db';
 import { withSlugRetry } from '@/server/repo/slug-retry';
 import { getActivePrice } from '@/entities/product/lib/getActivePrice';
 import { pageSlug, uniqueSlug } from '@/shared/lib/slug';
+import { pageWindow, type Page } from '@/shared/lib/paging';
 import { ApiException } from '@/server/http';
 import type { PhotoUpdate, ProductInput, ProductPatch } from '@/entities/product/model';
 import type { SaleInput } from '@/entities/product/sale';
@@ -149,6 +150,105 @@ export async function findVisibleBySlug(slug: string): Promise<ProductDto | null
 export async function listAll(): Promise<ProductDto[]> {
   const rows = await db.product.findMany({ include: withRelations, orderBy: order });
   return rows.map((row) => toDto(row));
+}
+
+/** Что показывает список панели: только видимые, только скрытые или всё. */
+export type CatalogVisibility = 'visible' | 'hidden';
+
+/** Отбор каталога в панели: поиск, видимость и номер страницы. */
+export type CatalogQuery = {
+  readonly query?: string | undefined;
+  readonly visibility?: CatalogVisibility | undefined;
+  readonly page?: number | undefined;
+};
+
+/** Счётчики раздела: они считаются по всему каталогу, а не по странице списка. */
+export type CatalogCounts = {
+  readonly total: number;
+  readonly visible: number;
+  readonly onSale: number;
+};
+
+/**
+ * Условие поиска по одной строке: название, марка, артикул и категория разом.
+ *
+ * Мощность в подсказке поля названа не случайно — владелец ищет «09» или
+ * «12», а это категория модели (`badge`), а не отдельное поле.
+ */
+function catalogSearchWhere(query: string): Prisma.ProductWhereInput {
+  const text = query.trim();
+  if (text === '') return {};
+
+  return {
+    OR: [
+      { name: { contains: text, mode: 'insensitive' } },
+      { brand: { contains: text, mode: 'insensitive' } },
+      { sku: { contains: text, mode: 'insensitive' } },
+      { badge: { contains: text, mode: 'insensitive' } },
+    ],
+  };
+}
+
+function catalogWhere(params: CatalogQuery): Prisma.ProductWhereInput {
+  return {
+    ...catalogSearchWhere(params.query ?? ''),
+    ...(params.visibility === undefined ? {} : { visible: params.visibility === 'visible' }),
+  };
+}
+
+/**
+ * Страница списка моделей для панели.
+ *
+ * 🔴 С окном, а не «все за раз» (issue #612). Восемь моделей помещаются на
+ * экран, восемьдесят — нет, и запрос без границы однажды отдаёт всю базу
+ * вместе с фотографиями и характеристиками каждой строки.
+ *
+ * Порядок тот же, что на сайте: список панели и есть порядок витрины, и
+ * второй сортировки у него быть не должно.
+ */
+export async function listAdmin(params: CatalogQuery = {}): Promise<Page<ProductDto>> {
+  const where = catalogWhere(params);
+  const total = await db.product.count({ where });
+  const { page, pages, skip, take } = pageWindow(total, params.page ?? 1);
+
+  const rows = await db.product.findMany({
+    where,
+    include: withRelations,
+    orderBy: order,
+    skip,
+    take,
+  });
+
+  return { items: rows.map((row) => toDto(row)), total, page, pages };
+}
+
+/**
+ * Счётчики шапки раздела.
+ *
+ * 🔴 Скидка считается доменной функцией, а не условием запроса (ADR-011).
+ * Действующей её делают три вещи разом — конечная цена ниже обычной и обе
+ * границы периода, — и выразить это в `where` Prisma нельзя: сравнения двух
+ * колонок там нет. Второй расчёт скидки на SQL разошёлся бы с витриной на
+ * первой же правке периода, поэтому читаются пять коротких полей на модель, а
+ * решение принимает `getActivePrice`.
+ */
+export async function adminCounts(now: Date = new Date()): Promise<CatalogCounts> {
+  const rows = await db.product.findMany({
+    select: {
+      visible: true,
+      priceNum: true,
+      salePrice: true,
+      saleFrom: true,
+      saleTo: true,
+      saleLabel: true,
+    },
+  });
+
+  return {
+    total: rows.length,
+    visible: rows.filter((row) => row.visible).length,
+    onSale: rows.filter((row) => getActivePrice(row, now).saleActive).length,
+  };
 }
 
 export async function findById(id: string): Promise<ProductDto | null> {
