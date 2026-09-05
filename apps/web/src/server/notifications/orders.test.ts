@@ -34,6 +34,10 @@ const ORDER: OrderCard = {
   comment: 'Домофон не работает, звонить на телефон',
   ownerNote: 'Клиент постоянный, скидку не даём',
   leadId: null,
+  /* Наряд, который не отменяли: полей отказа у него нет (ADR-310). */
+  cancelReason: null,
+  cancelNote: null,
+  cancelledAt: null,
   extraWork: null,
   report: null,
   resultAt: null,

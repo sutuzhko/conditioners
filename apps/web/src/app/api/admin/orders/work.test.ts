@@ -111,6 +111,12 @@ const detailsRow = {
   comment: null,
   ownerNote: 'Клиент постоянный',
   leadId: null,
+  /* Наряд не отменяли: полей отказа у него нет (ADR-310, issue #627). Строка
+     обязана повторять `orderSelect` целиком — недостающая колонка в двойнике
+     означает 500 там, где в бою придёт `null`. */
+  cancelReason: null,
+  cancelNote: null,
+  cancelledAt: null,
   extraWork: 'Дополнительно два метра трассы',
   report: 'Блок повешен, проверен на охлаждение',
   resultAt: new Date('2026-08-28T12:00:00.000Z'),

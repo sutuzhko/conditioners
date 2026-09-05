@@ -330,6 +330,50 @@ export class AdminApi {
     await this.json(response, 'назначение наряда');
   }
 
+  /**
+   * Групповое назначение — issue #596. Ответ говорит, сколько нарядов
+   * действительно назначено: половина назначенных при отказе на середине
+   * должна быть видна вызывающему, а не спрятана за общим «ошибка».
+   */
+  async assignMany(
+    ids: readonly string[],
+    installerId: string,
+  ): Promise<{ assigned: number; failed: string[] }> {
+    const response = await this.context.post('/api/admin/orders/assign', {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: { ids: [...ids], installerId },
+    });
+
+    return z
+      .object({ assigned: z.number(), failed: z.array(z.string()) })
+      .parse(await this.json(response, 'групповое назначение'));
+  }
+
+  /**
+   * Перевод наряда в отказ — issue #627. Причина отдельным полем: без неё
+   * сервер обязан отказать, и сценарий проверяет именно это.
+   */
+  async cancelOrder(
+    id: string,
+    body: Record<string, unknown>,
+  ): Promise<{ status: number; text: string }> {
+    const response = await this.context.patch(`/api/admin/orders/${id}`, {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: { status: 'cancelled', ...body },
+    });
+
+    return { status: response.status(), text: await response.text() };
+  }
+
+  /** Наряд целиком: сценарию нужны поля отказа, которых нет в списке. */
+  async getOrder(id: string): Promise<Record<string, unknown>> {
+    const response = await this.context.get(`/api/admin/orders/${id}`, {
+      headers: { Cookie: this.cookie },
+    });
+
+    return z.record(z.unknown()).parse(await this.json(response, 'наряд'));
+  }
+
   async deleteStaff(id: string): Promise<void> {
     await this.context.delete(`/api/admin/staff/${id}`, { headers: { Cookie: this.cookie } });
   }

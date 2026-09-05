@@ -62,8 +62,13 @@ function activeChip(html: string, navLabel: string): string | null {
   if (navs === null) return null;
 
   for (const nav of navs) {
-    const link = nav.match(/<a\b[^>]*aria-current="page"[^>]*>([^<]*)<\/a>/);
-    if (link !== null) return link[1] ?? null;
+    const link = nav.match(/<a\b[^>]*aria-current="page"[^>]*>([\s\S]*?)<\/a>/);
+    if (link === null) continue;
+
+    /* 🔴 Берётся текст до первого вложенного узла, а не всё содержимое ссылки.
+       У вкладки бывает счётчик — плашка с числом и скрытой подписью для
+       озвучки (issue #593), — и её текст к имени стопки не относится. */
+    return (link[1] ?? '').split('<')[0]?.trim() ?? null;
   }
   return null;
 }

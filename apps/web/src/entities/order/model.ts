@@ -70,6 +70,44 @@ export const ORDER_TYPE_TITLE: Record<OrderType, string> = {
   repair: 'Ремонт',
 };
 
+/**
+ * Почему отказались — справочник (ADR-310, issue #627).
+ *
+ * 🔴 Свободного текста здесь недостаточно: «дорого», «Дорого» и «дороговато»
+ * стали бы тремя разными причинами, и вкладка «Отказы» перестала бы обобщать
+ * воронку. Уточнение словами живёт рядом отдельным полем — оно дополняет
+ * справочник, а не заменяет его.
+ */
+export const orderCancelReasonSchema = z.enum([
+  'client_refused',
+  'no_answer',
+  'too_expensive',
+  'chose_other',
+  'postponed',
+  'our_fault',
+  'other',
+]);
+export type OrderCancelReason = z.infer<typeof orderCancelReasonSchema>;
+export const ORDER_CANCEL_REASONS: readonly OrderCancelReason[] = orderCancelReasonSchema.options;
+
+/**
+ * Причина отказа словами. Порядок — от частого к редкому, «Другое» последним:
+ * оно и есть запасной путь, а не первый попавшийся пункт списка.
+ */
+export const ORDER_CANCEL_REASON_TITLE: Record<OrderCancelReason, string> = {
+  client_refused: 'Отказ клиента',
+  no_answer: 'Не дозвонились',
+  too_expensive: 'Дорого',
+  chose_other: 'Выбрал другого подрядчика',
+  postponed: 'Перенос на потом',
+  our_fault: 'Наша ошибка',
+  other: 'Другое',
+};
+
+export function isOrderCancelReason(value: string): value is OrderCancelReason {
+  return ORDER_CANCEL_REASONS.some((reason) => reason === value);
+}
+
 export const paymentModeSchema = z.enum(['company', 'cash_to_installer']);
 export type PaymentMode = z.infer<typeof paymentModeSchema>;
 export const PAYMENT_MODES: readonly PaymentMode[] = paymentModeSchema.options;
@@ -151,6 +189,27 @@ export function orderPairIssue(status: OrderStatus, hasInstaller: boolean): Orde
   }
 
   return null;
+}
+
+/**
+ * 🔴 Отказ без причины не записывается (ADR-310).
+ *
+ * Причина относится к решению владельца, а не к самой работе, и живёт
+ * отдельным полем — как причина отказа отзыва (ADR-300). Правило одно на всех:
+ * его спрашивает схема правки (когда статус и причина пришли вместе) и
+ * репозиторий (на уже сохранённой записи — схема не видит, что причина
+ * записана месяц назад).
+ *
+ * Уточнение словами необязательно: справочник обобщает воронку, текст
+ * объясняет частный случай, и требовать его от каждого отказа значит получить
+ * поле, заполненное точкой.
+ */
+export const CANCEL_REASON_REQUIRED =
+  'Выберите причину отказа — без неё раздел отказов ничего не обобщает';
+
+export function orderCancelIssue(status: OrderStatus, hasReason: boolean): string | null {
+  if (status !== 'cancelled' || hasReason) return null;
+  return CANCEL_REASON_REQUIRED;
 }
 
 /**
@@ -255,6 +314,12 @@ const baseOrderFields = {
   ownerNote: optionalText(2000),
   leadId: optionalText(40),
 
+  /* Отказ. У заводимого наряда причины нет и быть не может — статус ему
+     назначает сервер, — но схема заведения общая с правкой, и поле обязано
+     существовать: иначе `strict` отвергал бы черновик, собранный формой. */
+  cancelReason: orderCancelReasonSchema.nullable().default(null),
+  cancelNote: optionalText(500),
+
   /** Позиции приходят и уходят вместе с нарядом: своих маршрутов у них нет. */
   units: z.array(orderUnitInputSchema).max(20, { message: 'Двадцати позиций хватит' }).default([]),
 };
@@ -317,6 +382,8 @@ export const orderUpdateSchema = z
     comment: baseOrderFields.comment.optional(),
     ownerNote: baseOrderFields.ownerNote.optional(),
     leadId: baseOrderFields.leadId.optional(),
+    cancelReason: baseOrderFields.cancelReason.optional(),
+    cancelNote: baseOrderFields.cancelNote.optional(),
     units: baseOrderFields.units.optional(),
   })
   .strict()
@@ -338,6 +405,19 @@ export const orderUpdateSchema = z
           path: ['deductionReason'],
         });
       }
+    }
+
+    /* 🔴 Здесь ловится только прямое противоречие в одном запросе: отказ и
+       снятая причина вместе. Отсутствие причины отказом не считается — наряд
+       мог быть отменён месяц назад, и правка его адреса не обязана нести
+       причину заново. Полноту досматривает репозиторий на сохранённой записи:
+       он один видит, что там уже записано (тот же приём, что у удержания). */
+    if (value.status === 'cancelled' && value.cancelReason === null) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: CANCEL_REASON_REQUIRED,
+        path: ['cancelReason'],
+      });
     }
 
     /* Пара «статус + исполнитель» проверяется, только когда пришли оба поля:
@@ -425,6 +505,15 @@ export type OrderCard = {
   readonly comment: string | null;
   readonly ownerNote?: string | null;
   readonly leadId: string | null;
+
+  /**
+   * Отказ: почему и когда. У наряда, который не отменяли, всё три пусты —
+   * вкладка «Отказы» показывает только отменённые (ADR-310).
+   */
+  readonly cancelReason: OrderCancelReason | null;
+  readonly cancelNote: string | null;
+  /** ISO в UTC; `null` — наряд не отменяли либо отказ старше самого поля. */
+  readonly cancelledAt: string | null;
   readonly units: readonly OrderUnitCard[];
 
   /**

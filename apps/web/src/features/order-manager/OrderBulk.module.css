@@ -1,0 +1,81 @@
+/* Выбор строк и групповое действие над выбранным (макет «Заказы»). */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Полоса действия появляется над таблицей и двигает вниз список, а не кнопку,
+   по которой человек в этот момент целится. */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  align-items: flex-end;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--r-md);
+  background: var(--accent-bg);
+  padding: 12px 14px;
+}
+
+.count {
+  /* Подпись выровнена по низу ряда вместе с полем выбора: она читается как
+     часть действия, а не как заголовок над ним. */
+  padding-bottom: 8px;
+  color: var(--accent-text);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.pick {
+  flex: 1 1 240px;
+  min-width: 0;
+  max-width: 320px;
+}
+
+/* «Выбрать все на странице» — обычная строка с галочкой, а не заголовок
+   колонки: в шапке таблицы она попадала бы в карточный режим на 390, где
+   шапки нет вовсе, и выбор всей страницы там пропадал бы. */
+.all {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 24px;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.allBox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--brand);
+  cursor: pointer;
+}
+
+.allBox:focus-visible {
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+.error {
+  margin: 0;
+}
+
+/* 🔴 Пол цели на сенсорной раскладке (ADR-183). */
+@media (width < 900px) {
+  .all {
+    min-height: var(--tap);
+  }
+
+  .allBox {
+    width: 24px;
+    height: 24px;
+    margin: 10px;
+  }
+}

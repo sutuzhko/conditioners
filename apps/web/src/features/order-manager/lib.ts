@@ -11,6 +11,7 @@ import {
   type ConsumptionLine,
   type ConsumptionLoad,
   type OrderApi,
+  type OrderBulkApi,
   type OrderConsumptionApi,
   type OrderDocKind,
   type OrderResult,
@@ -81,6 +82,23 @@ export const orderApi: OrderApi = {
   remove: (id) => send(`${API_PATH}/${id}`, jsonInit('DELETE')),
 
   setStatus: (id, status) => send(`${API_PATH}/${id}`, jsonInit('PATCH', { status })),
+
+  /* Пустая строка исполнителя — это `null` по доменной схеме: наряд
+     возвращается в стопку «Новые», где исполнителя по определению нет.
+     Причину отказа гасит сервер (ADR-310). */
+  restore: (id) => send(`${API_PATH}/${id}`, jsonInit('PATCH', { status: 'new', installerId: '' })),
+};
+
+/**
+ * Групповое действие списка — docs/API.md §13.
+ *
+ * 🔴 Один запрос, а не цикл по строкам из браузера: половина назначенных
+ * нарядов при оборванной сети — это состояние, из которого владелец не знает,
+ * что доделывать. Сервер назначает всё разом и отвечает один раз.
+ */
+export const orderBulkApi: OrderBulkApi = {
+  assign: (ids, installerId) =>
+    send(`${API_PATH}/assign`, jsonInit('POST', { ids: [...ids], installerId })),
 };
 
 /**

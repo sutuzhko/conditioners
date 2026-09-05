@@ -42,6 +42,21 @@ describe('Стопки заказов', () => {
     );
   });
 
+  it('🔴 счётчик вкладки объявляется словами, а не голым числом', () => {
+    render(
+      <OrderTabs tab="active" period="all" query="" counts={{ active: 7, new: 2, all: 24 }} />,
+    );
+
+    /* На экране «7», для озвучки — «Активные: 7 нарядов»: число без пояснения
+       читалка объявляет как «Активные семь», и это не значит ничего. */
+    expect(screen.getByText('7')).toBeInTheDocument();
+    expect(screen.getByText(texts.tabCount(ORDER_TAB_TITLE.active, 7))).toBeInTheDocument();
+
+    /* У закрытых стопок счётчика нет: «сколько накопилось за всё время» —
+       число, которое растёт само и ни к чему не зовёт. */
+    expect(screen.queryByText(texts.tabCount(ORDER_TAB_TITLE.history, 0))).not.toBeInTheDocument();
+  });
+
   it('открытая стопка отмечена для скринридера, а не только цветом', () => {
     render(<OrderTabs tab="history" period="all" query="" />);
 

@@ -9,7 +9,12 @@
   min-width: 0;
 }
 
+/* Подпись и счётчик — одна строка: вкладка со счётчиком и без него держат
+   одну высоту, и лента не дёргается, когда число появляется. */
 .tab {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
   border-bottom: 2px solid transparent;
   border-radius: var(--r-sm) var(--r-sm) 0 0;
   padding: 8px 14px;
@@ -34,12 +39,15 @@
   color: var(--ink);
 }
 
+/* Табличные цифры: «7» и «12» не двигают подпись вкладки. */
+.count {
+  font-variant-numeric: tabular-nums;
+}
+
 /* 🔴 Пол цели на сенсорной раскладке (ADR-183): до 900px по вкладке целятся
    пальцем, а строка кегля даёт 36px при норме 44. */
 @media (width < 900px) {
   .tab {
-    display: inline-flex;
-    align-items: center;
     min-height: var(--tap);
   }
 }

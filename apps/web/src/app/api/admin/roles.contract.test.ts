@@ -126,6 +126,9 @@ const EXPECTED: Readonly<Record<string, Role>> = {
      персональные данные клиента. */
   'orders GET': 'admin',
   'orders POST': 'owner',
+  /* Групповое назначение — решение владельца: монтажник, раздающий себе чужие
+     выезды, ломает и график, и деньги (CRM §6, issue #596). */
+  'orders/assign POST': 'owner',
   'orders/[id] GET': 'admin',
   'orders/[id] PATCH': 'admin',
   'orders/[id] DELETE': 'owner',

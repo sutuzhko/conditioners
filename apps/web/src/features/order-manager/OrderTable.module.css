@@ -1,4 +1,5 @@
-/* Наряды таблицей: шесть колонок на 1200, четыре ниже, карточки до 600. */
+/* Наряды таблицей. Состав колонок задаёт вкладка (`columns.ts`), ширины и
+   пороги — этот модуль: ширина колонки — свойство вёрстки, а не данных. */
 
 /* Класс самой таблицы: через него идут правила, которые обязаны перебить
    карточный режим кита, — только с ним у селектора хватает веса. */
@@ -11,7 +12,7 @@
    показывает, что она шире экрана. Ниже 600 строки становятся карточками, и
    нижняя ширина им только вредит.
 
-   690px — не круглое число, а замер: столько занимают четыре колонки, которые
+   690px — не круглое число, а замер: столько занимают колонки, которые
    остаются до 1200, вместе с полями. На 768 таблица в них укладывается
    целиком (контейнер 727.8px), и прокрутка включается только там, где иначе
    пришлось бы резать слова. */
@@ -21,11 +22,124 @@
   }
 }
 
-.when {
+/* ---------- Ширины колонок: макет «Заказы», 1440 ---------- */
+
+.pickCol {
+  width: 44px;
+}
+
+.numberCol {
+  width: 80px;
+  white-space: nowrap;
+}
+
+.typeCol {
+  width: 110px;
+}
+
+.clientCol {
+  min-width: 0;
+}
+
+.sourceCol {
+  width: 160px;
+}
+
+/* Дата, «Создан», «Закрыт» и «Отказ» — одна колонка по геометрии: одинаковая
+   ширина и моноширинные цифры, чтобы даты сравнивались взглядом по столбцу. */
+.dateCol {
+  width: 126px;
   color: var(--ink2);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
   white-space: nowrap;
+}
+
+.installerCol {
+  width: 180px;
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+.statusCol {
+  width: 132px;
+}
+
+.sumCol {
+  width: 116px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.reasonCol {
+  width: auto;
+  min-width: 0;
+}
+
+.tabActionCol {
+  width: 150px;
+}
+
+.actionsCol {
+  width: 126px;
+}
+
+/* ---------- Ячейки ---------- */
+
+/* 🔴 Галочка — цель, а не украшение: до 900 норма 44×44 (ADR-183), выше —
+   24×24. Здесь растёт сама галочка до 24 и добирает поле до 44 по строке:
+   поле даёт пальцу промах-запас, но целью не считается. Кит решает это иначе
+   — растягивает зону попадания псевдоэлементом (`Checkbox.module.css`,
+   issue #475), — и если замер спросит с этой галочки все 44, ответом будет
+   тот же приём, а не увеличенный квадрат: 44px нативной галочки в строке
+   таблицы перекрывают саму строку. */
+.pick {
+  width: 44px;
+}
+
+.pickBox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--brand);
+  cursor: pointer;
+}
+
+.pickBox:focus-visible {
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+.numberLink {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.numberLink:hover {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+.numberLink:focus-visible {
+  border-radius: var(--r-sm);
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+/* 🔴 Просрочка видна двумя признаками, а не одним: краснота даты плюс плашка
+   у статуса. Один признак цветом — это цвет как единственный носитель
+   смысла, и для человека, который его не различает, строка ничем не
+   отличается от остальных (макет `OrdersTabs`, вкладка «Активные»). */
+.whenBad {
+  color: var(--error-ink);
 }
 
 /* Время под датой, а не рядом: колонка тогда держит одну ширину при любом
@@ -36,10 +150,6 @@
   font-size: var(--fs-micro);
 }
 
-.work {
-  min-width: 0;
-}
-
 /* Содержимое ячейки одним блоком: в карточном режиме ячейка — флекс, и
    несколько блоков подряд он разложил бы в колонки. */
 .workBox {
@@ -47,35 +157,8 @@
   min-width: 0;
 }
 
-.headline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 8px;
-  align-items: center;
-}
-
-.number {
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: var(--fs-dense);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.number:hover {
-  color: var(--accent-text);
-  text-decoration: underline;
-}
-
-.number:focus-visible {
-  border-radius: var(--r-sm);
-  box-shadow: var(--ring-focus-ring);
-  outline: none;
-}
-
 .client {
   display: block;
-  margin-top: 4px;
   color: var(--ink);
   font-size: var(--fs-dense);
   font-weight: 600;
@@ -89,23 +172,44 @@
   overflow-wrap: anywhere;
 }
 
-/* Дата и монтажник строкой под работой. Появляются там, где своих колонок у
-   них не осталось. */
+/* Монтажник и сумма строкой под работой: появляются там, где своих колонок у
+   них не остаётся. Дата остаётся колонкой на всех ширинах — в макете она
+   держится и на 768, и без неё список работ перестаёт быть планом. */
 .compact {
   display: none;
   color: var(--muted);
   font-size: var(--fs-caption);
 }
 
-.installer {
-  color: var(--ink2);
-  font-size: var(--fs-dense);
-  font-weight: 600;
+/* Аватар и имя одной строкой: кружок опознаётся быстрее имени, а имя нужно
+   тому, кто видит бригаду впервые. */
+.person {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.personName {
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--fs-caption);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .none {
   color: var(--muted);
   font-weight: 500;
+}
+
+/* Причина из справочника — главная строка, дописанное словами — подпись под
+   ней: обобщает воронку справочник, объясняет частный случай текст. */
+.reasonTitle {
+  display: block;
+  color: var(--ink2);
+  font-size: var(--fs-dense);
+  font-weight: 600;
 }
 
 .statusBox {
@@ -123,32 +227,41 @@
   font-weight: 600;
 }
 
-.sum,
-.sumCol {
-  text-align: right;
+.tabAction {
+  white-space: nowrap;
 }
 
-.sum {
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: var(--fs-dense);
-  font-weight: 700;
+.actions {
   white-space: nowrap;
 }
 
 /* Круг, высоту и приглушённый цвет действию задаёт колонка `TableActions`;
-   ссылке остаётся раскладка значка внутри круга. */
+   ссылке и кнопке остаётся раскладка значка внутри круга. */
 .action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  background: none;
   color: inherit;
+  cursor: pointer;
   text-decoration: none;
 }
 
 .action:focus-visible {
   box-shadow: var(--ring-focus-ring);
   outline: none;
+}
+
+.action:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+/* Разрушающее действие краснеет — и только оно: три одинаковых значка, из
+   которых один стирает наряд, отличаются на ощупь только порядком. */
+.danger {
+  color: var(--error-ink);
 }
 
 /* 🔴 Строка срыва (issue #347). Тинт строки складывался с тинтом плашки, и
@@ -171,17 +284,22 @@
   color: var(--body);
 }
 
-/* Ниже 1200 «Когда» и «Монтажник» уходят в подпись работы: четыре колонки
-   вместо шести, и ни одна из них не ломается переносом. */
+/* Ниже 1200 в подпись работы уходят монтажник, сумма, вид работ и источник:
+   четыре узких колонки, каждая из которых на этой ширине ломается переносом.
+   Дата и статус остаются колонками — на них смотрят в первую очередь. */
 @media (width < 1200px) {
   /* 🔴 Через саму таблицу и тип ячейки: карточный режим кита объявляет
      `.cards td { display: block }` весом 0-2-0, и правило в один класс он
-     перебивал бы — колонки «Когда» и «Монтажник» возвращались бы на 390
-     второй парой строк в карточке. */
-  .table th.whenCol,
-  .table td.when,
+     перебивал бы — колонки возвращались бы на 390 второй парой строк в
+     карточке. */
   .table th.installerCol,
-  .table td.installer {
+  .table td.installerCol,
+  .table th.sumCol,
+  .table td.sumCol,
+  .table th.typeCol,
+  .table td.typeCol,
+  .table th.sourceCol,
+  .table td.sourceCol {
     display: none;
   }
 
@@ -194,13 +312,49 @@
    суммы вправо задаёт сам кит. Статус в карточке встаёт в строку с подписью,
    а не растягивается флексом на всю ширину. */
 @media (width < 600px) {
+  /* 🔴 Ширина колонки — свойство табличной раскладки, и в карточном режиме её
+     быть не должно (issue #599).
+
+     Кит разворачивает ячейку в строку «подпись — значение» во всю ширину
+     карточки, а мои ширины стоят на самой ячейке: класс колонки живёт и на
+     `th`, и на `td`, потому что медиа-запрос прячет колонку целиком. Ниже 600
+     от колонки «Номер» оставалось 80px, и в них не помещались подпись,
+     зазор и сам номер: ссылка упиралась в свой пол цели 44px и выливалась за
+     ячейку на 32,9px. У даты то же самое — 78px содержимого в 126px колонке
+     минус подпись и поля.
+
+     Пол цели здесь ни при чём и не трогается: он квадратный намеренно
+     (`global.css`, «Номер наряда «№ 2» давал 32,1×44»). Убирается ширина —
+     та ось, которая в карточке ничего не значит. */
+  .table td.pick,
+  .table td.numberCol,
+  .table td.typeCol,
+  .table td.sourceCol,
+  .table td.dateCol,
+  .table td.installerCol,
+  .table td.statusCol,
+  .table td.sumCol {
+    width: auto;
+  }
+
   .statusBox {
     justify-content: flex-end;
   }
 
   /* Через таблицу и тип: карточный режим кита выравнивает ячейку вправо тем
      же весом, и правило в один класс он перебивал бы через раз. */
-  .table td.work {
+  .table td.clientCol,
+  .table td.reasonCol {
     text-align: left;
+  }
+}
+
+/* Тап-зона галочки ниже 900: 44×44 — не «желательно», а норма раздела
+   (ADR-183). Растёт сама цель, а не поле вокруг неё. */
+@media (width < 900px) {
+  .pickBox {
+    width: 24px;
+    height: 24px;
+    margin: 10px;
   }
 }

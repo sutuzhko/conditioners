@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { OrderFilters } from './OrderFilters';
 import { ORDER_PERIOD_TITLE, orderManagerContent as texts } from './content';
+import { installers, listFilters } from './fixtures';
 
 /** Разбирает `href` ссылки в набор параметров — порядок ключей неважен. */
 function paramsOf(name: string | RegExp): URLSearchParams {
@@ -12,7 +13,12 @@ function paramsOf(name: string | RegExp): URLSearchParams {
 
 describe('Фильтр заказов', () => {
   it('🔴 стопка, период и поиск живут в адресе — ссылку можно прислать', () => {
-    render(<OrderFilters tab="cancelled" period="month" query="Соколова" total={2} />);
+    render(
+      <OrderFilters
+        filters={listFilters({ tab: 'cancelled', period: 'month', query: 'Соколова' })}
+        total={2}
+      />,
+    );
 
     const params = paramsOf(ORDER_PERIOD_TITLE.prev);
 
@@ -24,7 +30,7 @@ describe('Фильтр заказов', () => {
   });
 
   it('🔴 параметры адреса английские, без транслита', () => {
-    render(<OrderFilters tab="active" period="all" query="" total={4} />);
+    render(<OrderFilters filters={listFilters()} total={4} />);
 
     const params = paramsOf(ORDER_PERIOD_TITLE.prev);
 
@@ -33,7 +39,7 @@ describe('Фильтр заказов', () => {
   });
 
   it('умолчания в адрес не уезжают: лишних параметров в ссылке нет', () => {
-    render(<OrderFilters tab="active" period="prev" query="" total={0} />);
+    render(<OrderFilters filters={listFilters({ period: 'prev' })} total={0} />);
 
     const href = screen.getByRole('link', { name: ORDER_PERIOD_TITLE.all }).getAttribute('href');
 
@@ -41,7 +47,7 @@ describe('Фильтр заказов', () => {
   });
 
   it('выбранный период отмечен для скринридера, а не только цветом', () => {
-    render(<OrderFilters tab="history" period="month" query="" total={7} />);
+    render(<OrderFilters filters={listFilters({ tab: 'history', period: 'month' })} total={7} />);
 
     expect(screen.getByRole('link', { name: ORDER_PERIOD_TITLE.month })).toHaveAttribute(
       'aria-current',
@@ -53,7 +59,9 @@ describe('Фильтр заказов', () => {
   });
 
   it('🔴 применённое условие видно плашкой и снимается по одному', () => {
-    render(<OrderFilters tab="active" period="month" query="Соколова" total={2} />);
+    render(
+      <OrderFilters filters={listFilters({ period: 'month', query: 'Соколова' })} total={2} />,
+    );
 
     /* Два условия — период и поиск: пилюля считает их числом, а каждая плашка
        уводит на адрес без своего условия. */
@@ -69,14 +77,14 @@ describe('Фильтр заказов', () => {
   });
 
   it('без условий пилюля не считает ничего', () => {
-    render(<OrderFilters tab="active" period="all" query="" total={9} />);
+    render(<OrderFilters filters={listFilters()} total={9} />);
 
     expect(screen.queryByText(texts.filterApplied(1))).not.toBeInTheDocument();
     expect(screen.getByText(texts.filterPill)).toBeInTheDocument();
   });
 
   it('поиск переносит выбранную стопку и период скрытыми полями', () => {
-    render(<OrderFilters tab="new" period="month" query="" total={1} />);
+    render(<OrderFilters filters={listFilters({ tab: 'new', period: 'month' })} total={1} />);
 
     const form = screen.getByRole('search');
     expect(within(form).getByDisplayValue('new')).toHaveAttribute('name', 'tab');
@@ -84,31 +92,72 @@ describe('Фильтр заказов', () => {
   });
 
   it('🔴 скрытое поле поиска несёт ключ адреса, а не доменный статус', () => {
-    render(<OrderFilters tab="cancelled" period="all" query="" total={3} />);
+    render(<OrderFilters filters={listFilters({ tab: 'cancelled' })} total={3} />);
 
     const form = screen.getByRole('search');
     expect(within(form).getByDisplayValue('declined')).toHaveAttribute('name', 'tab');
   });
 
-  it('сброс появляется только там, где есть что сбрасывать', () => {
-    const { unmount } = render(<OrderFilters tab="active" period="all" query="" total={9} />);
+  it('🔴 фильтр по монтажнику становится третьим условием и снимается плашкой', () => {
+    const person = installers[0];
+    if (person === undefined) throw new Error('Фикстура монтажников пуста');
 
-    expect(screen.queryByRole('link', { name: texts.searchReset })).not.toBeInTheDocument();
+    render(
+      <OrderFilters
+        filters={listFilters({ installer: person.id })}
+        installers={installers}
+        total={4}
+      />,
+    );
+
+    expect(screen.getByText(texts.filterApplied(1))).toBeInTheDocument();
+
+    const drop = screen.getByRole('link', {
+      name: new RegExp(texts.filterDrop(person.name ?? person.login)),
+    });
+
+    expect(drop.getAttribute('href')).toBe('/admin/orders');
+  });
+
+  it('🔴 «Не назначен» — такой же выбор фильтра, как имя монтажника', () => {
+    render(<OrderFilters filters={listFilters()} installers={installers} total={9} />);
+
+    const params = paramsOf(texts.installerNoneFilter);
+
+    expect(params.get('installer')).toBe('none');
+  });
+
+  it('сортировка уходит в адрес и не считается условием фильтра', () => {
+    render(<OrderFilters filters={listFilters({ sort: 'sum' })} total={9} />);
+
+    /* Сортировка список не укорачивает — плашкой она не становится, и пилюля
+       фильтра её не считает. */
+    expect(screen.queryByText(texts.filterApplied(1))).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: texts.sortTitle.number }).getAttribute('href'),
+    ).toContain('sort=number');
+  });
+
+  it('🔴 колонка переключается ссылкой в обе стороны', () => {
+    const { unmount } = render(<OrderFilters filters={listFilters()} total={9} />);
+
+    /* «Тип» на «Активных» спрятан по умолчанию: ссылка его включает. */
+    const show = screen.getByRole('link', { name: texts.columnShow(texts.colType) });
+    expect(show.getAttribute('href')).toContain('cols=type');
     unmount();
 
-    render(<OrderFilters tab="active" period="all" query="1059" total={1} />);
-    expect(screen.getByRole('link', { name: texts.searchReset })).toHaveAttribute(
-      'href',
-      '/admin/orders',
-    );
+    render(<OrderFilters filters={listFilters({ columns: ['type'] })} total={9} />);
+
+    const hide = screen.getByRole('link', { name: texts.columnHide(texts.colType) });
+    expect(hide.getAttribute('href')).toBe('/admin/orders');
   });
 
   it('считает найденное отдельно от всего списка', () => {
-    const { unmount } = render(<OrderFilters tab="all" period="all" query="" total={9} />);
+    const { unmount } = render(<OrderFilters filters={listFilters({ tab: 'all' })} total={9} />);
     expect(screen.getByText(texts.totalCount(9))).toBeInTheDocument();
     unmount();
 
-    render(<OrderFilters tab="all" period="all" query="1059" total={1} />);
+    render(<OrderFilters filters={listFilters({ tab: 'all', query: '1059' })} total={1} />);
     expect(screen.getByText(texts.found(1))).toBeInTheDocument();
   });
 });

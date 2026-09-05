@@ -1,0 +1,257 @@
+# админка-заказы-фильтр-заказов--помонтажнику · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.OrderFilters__bar  358×208 @16,16
+  div.OrderFilters__pills  358×96 @0,0
+    details.OrderFilters__filter  108×44 @0,0
+      summary.OrderFilters__pill  108×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
+        span.Badge__badge  25×24 @68,10  r100  b1
+          span  5×16 @10,4  Manrope 600 12/16  lines=1  «1»
+          span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «1 условие»
+      div.OrderFilters__sheet  220×375 @0,50  r14  b1
+        nav.OrderFilters__group  194×169 @13,13
+          span.OrderFilters__groupTitle  194×19 @0,0  Manrope 700 12/19  ls0  lines=1  «Период»
+          a.OrderFilters__item  91×44 @0,25  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
+          a.OrderFilters__item#2  99×44 @0,75  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
+          a.OrderFilters__item#3  129×44 @0,125  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
+        nav.OrderFilters__group#2  194×169 @13,194
+          span.OrderFilters__groupTitle  194×19 @0,0  Manrope 700 12/19  ls0  lines=1  «Монтажник»
+          a.OrderFilters__item  69×44 @0,25  Manrope 600 13/20  r100  b1  lines=1  «Любой»
+          a.OrderFilters__item#2  106×44 @75,25  Manrope 600 13/20  r100  b1  lines=1  «Не назначен»
+          a.OrderFilters__item#3  140×44 @0,75  Manrope 600 13/20  r100  b1  lines=1  «Дмитрий Соколов»
+          a.OrderFilters__item#4  107×44 @0,125  Manrope 600 13/20  r100  b1  lines=1  «Артём Белов»
+          a.OrderFilters__item#5  67×44 @113,125  Manrope 600 13/20  r100  b1  lines=1  «petrov»
+    details.OrderFilters__filter#2  107×44 @116,0
+      summary.OrderFilters__pill  107×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Сортировка»
+      div.OrderFilters__sheet  220×120 @0,50  r14  b1
+        nav.OrderFilters__group#3  194×94 @13,13
+          a.OrderFilters__item  76×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «По дате»
+          a.OrderFilters__item#2  93×44 @82,0  Manrope 600 13/20  r100  b1  lines=1  «По номеру»
+          a.OrderFilters__item#3  86×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «По сумме»
+    details.OrderFilters__filter#3  84×44 @231,0
+      summary.OrderFilters__pill  84×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Колонки»
+      div.OrderFilters__sheet  220×120 @0,50  r14  b1
+        nav.OrderFilters__group#4  194×94 @13,13
+          a.OrderFilters__item  61×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Тип»
+            span.OrderFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+          a.OrderFilters__item#2  75×44 @67,0  Manrope 600 13/20  r100  b1  lines=1  «Когда»
+            span.OrderFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+          a.OrderFilters__item#3  82×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Статус»
+            span.OrderFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+          a.OrderFilters__item#4  81×44 @88,50  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
+            span.OrderFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+    a.OrderFilters__chip  154×44 @0,52  r100  b1
+      span.OrderFilters__chipText  114×20 @13,12  Manrope 600 13/20  lines=1  «Дмитрий Соколов»
+      span.OrderFilters__chipCross  7×15 @133,15  Manrope 600 15/15  lines=1  «×»
+      span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Убрать условие: Дмитрий Соколов»
+  form.OrderFilters__form  358×76 @0,104
+    div.Field__field  358×76 @0,0
+      label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
+      input  358×49 @0,27  r11  b1
+  p.OrderFilters__total  358×20 @0,188  Manrope 400 13/20  lines=1  «Всего: 4 наряда»
+
+[геометрия 768]
+div.OrderFilters__bar  736×156 @16,16
+  div.OrderFilters__pills  736×44 @0,0
+    details.OrderFilters__filter  108×44 @0,0
+      summary.OrderFilters__pill  108×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
+        span.Badge__badge  25×24 @68,10  r100  b1
+          span  5×16 @10,4  Manrope 600 12/16  lines=1  «1»
+          span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «1 условие»
+      div.OrderFilters__sheet  220×375 @0,50  r14  b1
+        nav.OrderFilters__group  194×169 @13,13
+          span.OrderFilters__groupTitle  194×19 @0,0  Manrope 700 12/19  ls0  lines=1  «Период»
+          a.OrderFilters__item  91×44 @0,25  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
+          a.OrderFilters__item#2  99×44 @0,75  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
+          a.OrderFilters__item#3  129×44 @0,125  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
+        nav.OrderFilters__group#2  194×169 @13,194
+          span.OrderFilters__groupTitle  194×19 @0,0  Manrope 700 12/19  ls0  lines=1  «Монтажник»
+          a.OrderFilters__item  69×44 @0,25  Manrope 600 13/20  r100  b1  lines=1  «Любой»
+          a.OrderFilters__item#2  106×44 @75,25  Manrope 600 13/20  r100  b1  lines=1  «Не назначен»
+          a.OrderFilters__item#3  140×44 @0,75  Manrope 600 13/20  r100  b1  lines=1  «Дмитрий Соколов»
+          a.OrderFilters__item#4  107×44 @0,125  Manrope 600 13/20  r100  b1  lines=1  «Артём Белов»
+          a.OrderFilters__item#5  67×44 @113,125  Manrope 600 13/20  r100  b1  lines=1  «petrov»
+    details.OrderFilters__filter#2  107×44 @116,0
+      summary.OrderFilters__pill  107×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Сортировка»
+      div.OrderFilters__sheet  220×120 @0,50  r14  b1
+        nav.OrderFilters__group#3  194×94 @13,13
+          a.OrderFilters__item  76×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «По дате»
+          a.OrderFilters__item#2  93×44 @82,0  Manrope 600 13/20  r100  b1  lines=1  «По номеру»
+          a.OrderFilters__item#3  86×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «По сумме»
+    details.OrderFilters__filter#3  84×44 @231,0
+      summary.OrderFilters__pill  84×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Колонки»
+      div.OrderFilters__sheet  220×120 @0,50  r14  b1
+        nav.OrderFilters__group#4  194×94 @13,13
+          a.OrderFilters__item  61×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Тип»
+            span.OrderFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+          a.OrderFilters__item#2  75×44 @67,0  Manrope 600 13/20  r100  b1  lines=1  «Когда»
+            span.OrderFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+          a.OrderFilters__item#3  82×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Статус»
+            span.OrderFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+          a.OrderFilters__item#4  81×44 @88,50  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
+            span.OrderFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+    a.OrderFilters__chip  154×44 @323,0  r100  b1
+      span.OrderFilters__chipText  114×20 @13,12  Manrope 600 13/20  lines=1  «Дмитрий Соколов»
+      span.OrderFilters__chipCross  7×15 @133,15  Manrope 600 15/15  lines=1  «×»
+      span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Убрать условие: Дмитрий Соколов»
+  form.OrderFilters__form  736×76 @0,52
+    div.Field__field  736×76 @0,0
+      label.Field__label  736×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
+      input  736×49 @0,27  r11  b1
+  p.OrderFilters__total  736×20 @0,136  Manrope 400 13/20  lines=1  «Всего: 4 наряда»
+
+[геометрия 1440]
+div.OrderFilters__bar  1408×104 @16,16
+  div.OrderFilters__pills  1182×38 @0,0
+    details.OrderFilters__filter  108×38 @0,0
+      summary.OrderFilters__pill  108×38 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
+        span.Badge__badge  25×24 @68,7  r100  b1
+          span  5×16 @10,4  Manrope 600 12/16  lines=1  «1»
+          span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «1 условие»
+      div.OrderFilters__sheet  220×316 @0,44  r14  b1
+        nav.OrderFilters__group  194×139 @13,13
+          span.OrderFilters__groupTitle  194×19 @0,0  Manrope 700 12/19  ls0  lines=1  «Период»
+          a.OrderFilters__item  91×34 @0,25  Manrope 600 13/20  r100  b1  lines=1  «Всё время»
+          a.OrderFilters__item#2  99×34 @0,65  Manrope 600 13/20  r100  b1  lines=1  «Этот месяц»
+          a.OrderFilters__item#3  129×34 @0,105  Manrope 600 13/20  r100  b1  lines=1  «Прошлый месяц»
+        nav.OrderFilters__group#2  194×139 @13,164
+          span.OrderFilters__groupTitle  194×19 @0,0  Manrope 700 12/19  ls0  lines=1  «Монтажник»
+          a.OrderFilters__item  69×34 @0,25  Manrope 600 13/20  r100  b1  lines=1  «Любой»
+          a.OrderFilters__item#2  106×34 @75,25  Manrope 600 13/20  r100  b1  lines=1  «Не назначен»
+          a.OrderFilters__item#3  140×34 @0,65  Manrope 600 13/20  r100  b1  lines=1  «Дмитрий Соколов»
+          a.OrderFilters__item#4  107×34 @0,105  Manrope 600 13/20  r100  b1  lines=1  «Артём Белов»
+          a.OrderFilters__item#5  67×34 @113,105  Manrope 600 13/20  r100  b1  lines=1  «petrov»
+    details.OrderFilters__filter#2  107×34 @116,2
+      summary.OrderFilters__pill  107×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Сортировка»
+      div.OrderFilters__sheet  220×100 @0,40  r14  b1
+        nav.OrderFilters__group#3  194×74 @13,13
+          a.OrderFilters__item  76×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «По дате»
+          a.OrderFilters__item#2  93×34 @82,0  Manrope 600 13/20  r100  b1  lines=1  «По номеру»
+          a.OrderFilters__item#3  86×34 @0,40  Manrope 600 13/20  r100  b1  lines=1  «По сумме»
+    details.OrderFilters__filter#3  84×34 @231,2
+      summary.OrderFilters__pill  84×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Колонки»
+      div.OrderFilters__sheet  220×100 @0,40  r14  b1
+        nav.OrderFilters__group#4  194×74 @13,13
+          a.OrderFilters__item  61×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Тип»
+            span.OrderFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
+          a.OrderFilters__item#2  75×34 @67,0  Manrope 600 13/20  r100  b1  lines=1  «Когда»
+            span.OrderFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
+          a.OrderFilters__item#3  82×34 @0,40  Manrope 600 13/20  r100  b1  lines=1  «Статус»
+            span.OrderFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
+          a.OrderFilters__item#4  81×34 @88,40  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
+            span.OrderFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
+    a.OrderFilters__chip  154×34 @323,2  r100  b1
+      span.OrderFilters__chipText  114×20 @13,7  Manrope 600 13/20  lines=1  «Дмитрий Соколов»
+      span.OrderFilters__chipCross  7×15 @133,10  Manrope 600 15/15  lines=1  «×»
+      span  1×1 @12,17  Manrope 600 13/20  lines=1  clipped  «Убрать условие: Дмитрий Соколов»
+  form.OrderFilters__form  214×76 @1194,0
+    div.Field__field  214×76 @0,0
+      label.Field__label  214×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
+      input  214×49 @0,27  r11  b1
+  p.OrderFilters__total  1408×20 @0,84  Manrope 400 13/20  lines=1  «Всего: 4 наряда»
+
+[палитра light]
+div.OrderFilters__bar
+  div.OrderFilters__pills
+    details.OrderFilters__filter
+      summary.OrderFilters__pill  color #475569  border #e2e8f0
+        span.Badge__badge  bg #ecfeff  border #a5f3fc
+          span  color #0e7490
+          span#2  color #0e7490
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+        nav.OrderFilters__group
+          span.OrderFilters__groupTitle  color #5b6a7d
+          a.OrderFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+          a.OrderFilters__item#2  color #475569  bg #f8fafc  border transparent
+          a.OrderFilters__item#3  color #475569  bg #f8fafc  border transparent
+        nav.OrderFilters__group#2
+          span.OrderFilters__groupTitle  color #5b6a7d
+          a.OrderFilters__item  color #475569  bg #f8fafc  border transparent
+          a.OrderFilters__item#2  color #475569  bg #f8fafc  border transparent
+          a.OrderFilters__item#3  color #0e7490  bg #ecfeff  border #0891b2
+          a.OrderFilters__item#4  color #475569  bg #f8fafc  border transparent
+          a.OrderFilters__item#5  color #475569  bg #f8fafc  border transparent
+    details.OrderFilters__filter#2
+      summary.OrderFilters__pill  color #475569  border #e2e8f0
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+        nav.OrderFilters__group#3
+          a.OrderFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+          a.OrderFilters__item#2  color #475569  bg #f8fafc  border transparent
+          a.OrderFilters__item#3  color #475569  bg #f8fafc  border transparent
+    details.OrderFilters__filter#3
+      summary.OrderFilters__pill  color #475569  border #e2e8f0
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+        nav.OrderFilters__group#4
+          a.OrderFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+            span.OrderFilters__mark  color #0e7490
+          a.OrderFilters__item#2  color #0e7490  bg #ecfeff  border #0891b2
+            span.OrderFilters__mark  color #0e7490
+          a.OrderFilters__item#3  color #0e7490  bg #ecfeff  border #0891b2
+            span.OrderFilters__mark  color #0e7490
+          a.OrderFilters__item#4  color #0e7490  bg #ecfeff  border #0891b2
+            span.OrderFilters__mark  color #0e7490
+    a.OrderFilters__chip  bg #ecfeff  border #0891b2
+      span.OrderFilters__chipText  color #0e7490
+      span.OrderFilters__chipCross  color #0e7490
+      span  color #0e7490
+  form.OrderFilters__form
+    div.Field__field
+      label.Field__label  color #334155
+      input  bg #ffffff  border #7e8fa6
+  p.OrderFilters__total  color #5b6a7d
+
+[палитра dark]
+div.OrderFilters__bar
+  div.OrderFilters__pills
+    details.OrderFilters__filter
+      summary.OrderFilters__pill  color #a8b6c6  border #1e2b41
+        span.Badge__badge  bg #22d3ee1a  border #22d3ee59
+          span  color #22d3ee
+          span#2  color #22d3ee
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+        nav.OrderFilters__group
+          span.OrderFilters__groupTitle  color #5b6a7d
+          a.OrderFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+          a.OrderFilters__item#2  color #475569  bg #f8fafc  border transparent
+          a.OrderFilters__item#3  color #475569  bg #f8fafc  border transparent
+        nav.OrderFilters__group#2
+          span.OrderFilters__groupTitle  color #5b6a7d
+          a.OrderFilters__item  color #475569  bg #f8fafc  border transparent
+          a.OrderFilters__item#2  color #475569  bg #f8fafc  border transparent
+          a.OrderFilters__item#3  color #0e7490  bg #ecfeff  border #0891b2
+          a.OrderFilters__item#4  color #475569  bg #f8fafc  border transparent
+          a.OrderFilters__item#5  color #475569  bg #f8fafc  border transparent
+    details.OrderFilters__filter#2
+      summary.OrderFilters__pill  color #a8b6c6  border #1e2b41
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+        nav.OrderFilters__group#3
+          a.OrderFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+          a.OrderFilters__item#2  color #475569  bg #f8fafc  border transparent
+          a.OrderFilters__item#3  color #475569  bg #f8fafc  border transparent
+    details.OrderFilters__filter#3
+      summary.OrderFilters__pill  color #a8b6c6  border #1e2b41
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+        nav.OrderFilters__group#4
+          a.OrderFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+            span.OrderFilters__mark  color #0e7490
+          a.OrderFilters__item#2  color #0e7490  bg #ecfeff  border #0891b2
+            span.OrderFilters__mark  color #0e7490
+          a.OrderFilters__item#3  color #0e7490  bg #ecfeff  border #0891b2
+            span.OrderFilters__mark  color #0e7490
+          a.OrderFilters__item#4  color #0e7490  bg #ecfeff  border #0891b2
+            span.OrderFilters__mark  color #0e7490
+    a.OrderFilters__chip  bg #22d3ee1a  border #22d3ee
+      span.OrderFilters__chipText  color #22d3ee
+      span.OrderFilters__chipCross  color #22d3ee
+      span  color #22d3ee
+  form.OrderFilters__form
+    div.Field__field
+      label.Field__label  color #c9d5e2
+      input  bg #0b1424  border #566d95
+  p.OrderFilters__total  color #7e92a7

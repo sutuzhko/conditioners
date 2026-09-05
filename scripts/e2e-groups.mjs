@@ -59,6 +59,7 @@ export const GROUPS = Object.freeze({
     'empty-states',
     'crm-search',
     'crm-team-layer',
+    'orders-list',
   ],
 });
 
