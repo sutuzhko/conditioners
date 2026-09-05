@@ -88,6 +88,55 @@ describe('График', () => {
     expect(svg).not.toHaveAttribute('width');
   });
 
+  /* 🔴 Столбцы рисуются прямоугольниками, а не ломаной по тем же числам
+     (issue #589): иначе проп `kind` менял бы только подпись. */
+  it('столбцами рисует по прямоугольнику на деление, без ломаной', () => {
+    const { container } = render(
+      <Chart series={[ORDERS]} labels={LABELS} title="Заказы по неделям" kind="bars" />,
+    );
+
+    expect(container.querySelectorAll('rect')).toHaveLength(ORDERS.points.length);
+    expect(container.querySelectorAll('path')).toHaveLength(0);
+  });
+
+  /* Неделя без единого наряда — столбец нулевой высоты. Полоска-минимум на
+     этом месте означала бы работу, которой не было. */
+  it('нулевое значение даёт столбец нулевой высоты', () => {
+    const { container } = render(
+      <Chart
+        series={[{ id: 'done', name: 'Наряды', points: [0, 4] }]}
+        labels={['34 нед', '35 нед']}
+        title="Заказы по неделям"
+        kind="bars"
+      />,
+    );
+
+    const bars = container.querySelectorAll('rect');
+    expect(bars[0]?.getAttribute('height')).toBe('0');
+    expect(Number(bars[1]?.getAttribute('height'))).toBeGreaterThan(0);
+  });
+
+  /* Столбец стоит между краями сетки, а не на них: полоса делится поровну, и
+     первый столбец не должен наполовину вылезать за левое поле. */
+  it('столбцы стоят внутри сетки, а не на её краях', () => {
+    const { container } = render(
+      <Chart series={[ORDERS]} labels={LABELS} title="Заказы по неделям" kind="bars" />,
+    );
+
+    const bars = [...container.querySelectorAll('rect')];
+    const first = bars[0];
+    const last = bars[bars.length - 1];
+    const grid = container.querySelector('line');
+
+    const left = Number(grid?.getAttribute('x1'));
+    const right = Number(grid?.getAttribute('x2'));
+
+    expect(Number(first?.getAttribute('x'))).toBeGreaterThan(left);
+    expect(Number(last?.getAttribute('x')) + Number(last?.getAttribute('width'))).toBeLessThan(
+      right,
+    );
+  });
+
   it('пустая серия не роняет график', () => {
     render(
       <Chart series={[{ id: 'empty', name: 'Заказы', points: [] }]} labels={[]} title="Заказы" />,
