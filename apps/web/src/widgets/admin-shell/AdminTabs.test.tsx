@@ -74,7 +74,9 @@ describe('Нижняя панель вкладок', () => {
     );
   });
 
-  it('лист держит настройки, профиль и выход', async () => {
+  /* «Открыть сайт» приехало в лист из убранной верхней полосы (ADR-309): на
+     телефоне это единственное место, где ссылка на сайт вообще есть. */
+  it('лист держит настройки, профиль, сайт и выход', async () => {
     const user = userEvent.setup();
     render(<AdminTabs role="owner" />);
 
@@ -83,6 +85,11 @@ describe('Нижняя панель вкладок', () => {
     const sheet = screen.getByRole('dialog');
     expect(within(sheet).getByRole('link', { name: 'Настройки' })).toBeInTheDocument();
     expect(within(sheet).getByRole('link', { name: 'Профиль' })).toBeInTheDocument();
+
+    const site = within(sheet).getByRole('link', { name: texts.site });
+    expect(site).toHaveAttribute('href', '/');
+    expect(site).toHaveAttribute('target', '_blank');
+
     expect(within(sheet).getByRole('button', { name: texts.logout })).toBeInTheDocument();
   });
 
