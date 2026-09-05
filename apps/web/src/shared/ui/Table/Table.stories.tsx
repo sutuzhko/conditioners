@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Table } from './Table';
-import { TableActions } from './TableActions';
+import { TableAction, TableActionLink, TableActions } from './TableActions';
 import { Badge } from '../Badge/Badge';
 import { Icon } from '../Icon';
 import { IconButton } from '../IconButton/IconButton';
@@ -177,6 +177,73 @@ const orderRows = (
   </>
 );
 
+const tonedItems = [
+  { name: 'Сплит-система 07, тихая серия', price: '31 900 ₽', onSite: true },
+  { name: 'Сплит-система 09, инверторная', price: '34 900 ₽', onSite: true },
+  { name: 'Мульти-сплит на два блока', price: '58 700 ₽', onSite: false },
+];
+
+/**
+ * Тот же ряд, но действиями с краской по смыслу: открыть — нейтральное,
+ * править — акцентное, убрать — красное. Так нарисован макет панели, и так
+ * выглядят списки каталога и базы знаний.
+ */
+const tonedRows = (
+  <>
+    <thead>
+      <tr role="row">
+        <th scope="col">Модель</th>
+        <th scope="col">Цена</th>
+        <th scope="col">
+          <span className="srOnly">Действия</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {tonedItems.map((item) => (
+        <tr key={item.name} role="row">
+          <th scope="row">{item.name}</th>
+          <td role="cell" data-label="Цена" style={{ color: 'var(--muted)' }}>
+            {item.price}
+          </td>
+          <td role="cell">
+            <TableActions label={`Действия над моделью: ${item.name}`}>
+              {item.onSite ? (
+                <TableActionLink
+                  tone="open"
+                  label={`Смотреть на сайте: ${item.name}`}
+                  icon={<Icon name="eye" size={16} />}
+                  href="/"
+                />
+              ) : (
+                /* Скрытой модели страницы на сайте нет — действие остаётся в
+                   ряду отключённым и называет причину, а не исчезает. */
+                <TableAction
+                  tone="open"
+                  label={`Скрыта на сайте, смотреть нечего: ${item.name}`}
+                  icon={<Icon name="eye" size={16} />}
+                  disabled
+                />
+              )}
+              <TableActionLink
+                tone="edit"
+                label={`Править: ${item.name}`}
+                icon={<Icon name="edit" size={16} />}
+                href="/"
+              />
+              <TableAction
+                tone="remove"
+                label={`Удалить: ${item.name}`}
+                icon={<Icon name="trash" size={16} />}
+              />
+            </TableActions>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </>
+);
+
 const panel = (Story: () => ReactElement) => (
   <div data-ui="panel" style={{ background: 'var(--bg-soft)', padding: 16 }}>
     <Story />
@@ -227,6 +294,18 @@ export const DangerRow: Story = {
 export const RowActions: Story = {
   name: 'Действия строки',
   args: { children: orderRows, label: 'Наряды' },
+  decorators: [panel],
+};
+
+/**
+ * 🔴 Краска действия идёт от смысла, а не от места: открыть — нейтральное,
+ * править — акцентное, убрать — красное (issue #575). Один набор на все
+ * списки панели, поэтому «Удалить» узнаётся раньше, чем прочитана подсказка.
+ * Краска при этом не единственный признак: имя действия называет строку.
+ */
+export const TonedRowActions: Story = {
+  name: 'Действия строки с краской',
+  args: { children: tonedRows, label: 'Каталог' },
   decorators: [panel],
 };
 

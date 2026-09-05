@@ -15,12 +15,20 @@ export const adminKnowledgeContent = {
   colDate: 'Дата',
   colMinutes: 'Чтение',
   colPublished: 'На сайте',
+  colActions: 'Действия',
 
   published: 'Опубликована',
   draft: 'Черновик',
   edit: 'Править',
 
   editLabel: (title: string): string => `Править: ${title}`,
+  /** Имя группы действий строки: без него читалка объявляет её безымянной. */
+  rowActions: (title: string): string => `Действия над статьёй: ${title}`,
+  viewLabel: (title: string): string => `Смотреть на сайте: ${title}`,
+  /* 🔴 У черновика адреса на сайте нет — страница отдаёт 404. Действие не
+     ведёт в никуда, а стоит отключённым и объясняет причину: пропавшая из
+     ряда кнопка заставляла бы гадать, куда она делась. */
+  viewDraftLabel: (title: string): string => `Черновик, на сайте его ещё нет: ${title}`,
   minutes: (value: number): string => `${value} мин`,
   date: (iso: string): string => formatDateShort(iso),
 } as const;

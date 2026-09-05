@@ -30,6 +30,7 @@ export default async function AdminCatalogPage() {
   const rows: readonly CatalogRow[] = products.map((product) => ({
     id: product.id,
     name: product.name,
+    slug: product.slug,
     badge: product.badge,
     areaMax: product.areaMax,
     currentPrice: product.currentPrice,

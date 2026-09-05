@@ -19,6 +19,15 @@ export interface SwitchProps extends Omit<
   size?: SwitchSize | undefined;
   /** Подпись слева от дорожки: так стоят флаги настроек в эталоне. */
   labelFirst?: boolean | undefined;
+  /**
+   * Подпись остаётся в разметке, но не показывается.
+   *
+   * 🔴 Нужна там, где переключатель стоит колонкой таблицы: подпись состояния
+   * повторяется в каждой строке и занимает место рядом с дорожкой, которая то
+   * же самое и показывает. Убрать подпись совсем нельзя — она связана с вводом
+   * через `htmlFor` и остаётся его именем, когда своего `aria-label` нет.
+   */
+  labelHidden?: boolean | undefined;
   wrapperClassName?: string | undefined;
 }
 
@@ -42,6 +51,7 @@ export function Switch({
   error,
   size = 'md',
   labelFirst = false,
+  labelHidden = false,
   id,
   className,
   wrapperClassName,
@@ -74,7 +84,7 @@ export function Switch({
           aria-describedby={describedBy}
           className={['srOnly', styles.input, className].filter(Boolean).join(' ')}
         />
-        <label htmlFor={fieldId} className={styles.label}>
+        <label htmlFor={fieldId} className={labelHidden ? 'srOnly' : styles.label}>
           {label}
         </label>
       </div>

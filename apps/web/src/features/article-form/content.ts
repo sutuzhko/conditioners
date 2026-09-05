@@ -110,6 +110,9 @@ export const articleFormContent = {
 
   remove: 'Удалить статью',
   removing: 'Удаляем…',
+  /* 🔴 Подпись действия строки называет саму строку: десять одинаковых
+     «Удалить» подряд читалке бесполезны — они не говорят, что удаляется. */
+  removeLabel: (title: string): string => `Удалить: ${title}`,
   removeConfirm: (title: string): ConfirmRequest => ({
     title: `Удалить статью «${title}»?`,
     description: 'Отменить это будет нельзя, а её адрес станет недоступен.',

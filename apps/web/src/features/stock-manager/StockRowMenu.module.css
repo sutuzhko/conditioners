@@ -1,0 +1,28 @@
+/* Действия над позицией склада из строки (issue #573).
+
+   🔴 Пролёт нужен ради сообщения об отказе: оно висит под кнопкой абсолютом
+   и не участвует в раскладке колонки. Отказ здесь — рабочее состояние: сдать
+   в архив позицию с ненулевым остатком сервер не даёт, и человек обязан
+   узнать причину, а не смотреть на строку, которая никуда не делась. */
+
+.root {
+  position: relative;
+  display: inline-flex;
+}
+
+.error {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  right: 0;
+  width: max-content;
+  max-width: 240px;
+  border: 1px solid var(--error-ink);
+  border-radius: var(--r-sm);
+  background: var(--card);
+  box-shadow: var(--sh-lg, var(--shadow-card));
+  padding: 6px 8px;
+  color: var(--error-ink);
+  font-size: var(--fs-dense);
+  line-height: 1.3;
+}
