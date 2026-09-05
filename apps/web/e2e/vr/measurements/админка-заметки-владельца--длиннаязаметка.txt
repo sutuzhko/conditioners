@@ -1,0 +1,97 @@
+# админка-заметки-владельца--длиннаязаметка · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×382 @16,16  r20  b1
+  h2.InstallerNotes__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Заметки владельца»
+  p.InstallerNotes__hint  316×20 @21,46  Manrope 400 13/20  lines=1  «Монтажник их не видит.»
+  form.InstallerNotes__add  316×96 @21,78
+    div.Field__field  216×96 @0,0
+      textarea.Textarea__textarea  216×96 @0,0  r11  b1
+    button.Button__button  92×44 @224,52  r9  b1
+      span.Button__content  62×16 @15,14
+        span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  ul.InstallerNotes__list  316×173 @21,188
+    li.InstallerNotes__note  316×173 @0,0  r0 11 11 0  b0 0 0 3
+      time.InstallerNotes__when  237×20 @15,8  JetBrains Mono 400 13/20  lines=1  «21.08.2026»
+      p.InstallerNotes__text  237×135 @15,30  Manrope 400 15/22  lines=6  «Работает быстро, но за собой убирает не»
+      button.Button__button  44×44 @260,8  r9  b1
+        span.Button__content#2  10×16 @17,14
+          span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+
+[геометрия 768]
+section.Card__card  736×293 @16,16  r20  b1
+  h2.InstallerNotes__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Заметки владельца»
+  p.InstallerNotes__hint  694×20 @21,47  Manrope 400 13/20  lines=1  «Монтажник их не видит.»
+  form.InstallerNotes__add  694×96 @21,79
+    div.Field__field  594×96 @0,0
+      textarea.Textarea__textarea  594×96 @0,0  r11  b1
+    button.Button__button  92×44 @602,52  r9  b1
+      span.Button__content  62×16 @15,14
+        span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  ul.InstallerNotes__list  694×83 @21,189
+    li.InstallerNotes__note  694×83 @0,0  r0 11 11 0  b0 0 0 3
+      time.InstallerNotes__when  615×20 @15,8  JetBrains Mono 400 13/20  lines=1  «21.08.2026»
+      p.InstallerNotes__text  615×45 @15,30  Manrope 400 15/22  lines=2  «Работает быстро, но за собой убирает не»
+      button.Button__button  44×44 @638,8  r9  b1
+        span.Button__content#2  10×16 @17,14
+          span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+
+[геометрия 1440]
+section.Card__card  1408×272 @16,16  r20  b1
+  h2.InstallerNotes__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Заметки владельца»
+  p.InstallerNotes__hint  1366×20 @21,48  Manrope 400 13/20  lines=1  «Монтажник их не видит.»
+  form.InstallerNotes__add  1366×96 @21,80
+    div.Field__field  1266×96 @0,0
+      textarea.Textarea__textarea  1266×96 @0,0  r11  b1
+    button.Button__button  92×40 @1274,56  r9  b1
+      span.Button__content  62×16 @15,12
+        span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
+  ul.InstallerNotes__list  1366×61 @21,190
+    li.InstallerNotes__note  1366×61 @0,0  r0 11 11 0  b0 0 0 3
+      time.InstallerNotes__when  1291×20 @15,8  JetBrains Mono 400 13/20  lines=1  «21.08.2026»
+      p.InstallerNotes__text  1291×22 @15,30  Manrope 400 15/22  lines=1  «Работает быстро, но за собой убирает не»
+      button.Button__button  40×40 @1314,8  r9  b1
+        span.Button__content#2  10×16 @15,12
+          span.Button__label  10×16 @0,0  Manrope 600 13/16  lines=1  «✕»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  h2.InstallerNotes__title  color #0f172a
+  p.InstallerNotes__hint  color #556173
+  form.InstallerNotes__add
+    div.Field__field
+      textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label  color #ffffff
+  ul.InstallerNotes__list
+    li.InstallerNotes__note  bg #f8fafc  border #475569 #475569 #475569 #cbd5e1
+      time.InstallerNotes__when  color #5b6a7d
+      p.InstallerNotes__text  color #475569
+      button.Button__button  border transparent
+        span.Button__content#2
+          span.Button__label  color #0e7490
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  h2.InstallerNotes__title  color #eaf1f8
+  p.InstallerNotes__hint  color #8598ac
+  form.InstallerNotes__add
+    div.Field__field
+      textarea.Textarea__textarea  bg #0b1424  border #566d95
+    button.Button__button  bg #0e7490  border #0e7490
+      span.Button__content
+        span.Button__label  color #ffffff
+  ul.InstallerNotes__list
+    li.InstallerNotes__note  bg #0e1729  border #a8b6c6 #a8b6c6 #a8b6c6 #2c3d59
+      time.InstallerNotes__when  color #7e92a7
+      p.InstallerNotes__text  color #a8b6c6
+      button.Button__button  border transparent
+        span.Button__content#2
+          span.Button__label  color #22d3ee

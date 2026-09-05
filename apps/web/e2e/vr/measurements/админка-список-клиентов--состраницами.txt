@@ -1,5 +1,5 @@
 # админка-список-клиентов--состраницами · ширины 390 768 1440 · темы light dark
-шрифты: Manrope 400, Manrope 600, Onest 700
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
 390 → 390×900
@@ -7,176 +7,379 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.ClientList__list  358×518 @16,16
-  article.Card__card  358×282 @0,0  r20  b1
-    div.ClientCardView__head  316×44 @21,21
-      h2.ClientCardView__name  136×44 @0,0
-        a.ClientCardView__link  136×44 @0,0  Onest 700 17/21  ls0  lines=1  «Ирина Соколова»
-      span.Badge__badge  102×28 @214,10  Manrope 600 12/16  r100  b1  lines=1  «2 обращения»
-    dl.ClientCardView__facts  316×113 @21,75
-      div.ClientCardView__fact  129×64 @0,0
-        dt  129×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-        a.ClientCardView__phone  129×44 @0,20  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
-      div.ClientCardView__fact#2  204×43 @0,70
-        dt  204×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
-        dd  204×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
-      div.ClientCardView__fact#3  77×43 @228,70
-        dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
-        time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
-    p.ClientCardView__note  316×61 @21,200  Manrope 400 15/22  r11  lines=2  «Домофон не работает, звонить на телефон.»
-  article.Card__card#2  358×160 @0,294  r20  b1
-    div.ClientCardView__head  316×44 @21,21
-      h2.ClientCardView__name#2  96×44 @0,0
-        a.ClientCardView__link  96×44 @0,0  Onest 700 17/21  ls0  lines=1  «Пётр Ильин»
-      span.Badge__badge#2  115×28 @201,10  Manrope 600 12/16  r100  b1  lines=1  «без обращений»
-    dl.ClientCardView__facts  316×64 @21,75
-      div.ClientCardView__fact#4  133×64 @0,0
-        dt  133×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-        a.ClientCardView__phone  133×44 @0,20  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
-      div.ClientCardView__fact#5  77×64 @157,0
-        dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
-        time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
-  nav.Pager__pager  358×52 @0,466
-    a.Pager__step  87×44 @45,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
-    span.Pager__position  66×44 @140,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 3»
-    a.Pager__step#2  99×44 @214,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+div.ClientList__list  358×841 @16,16
+  section.Card__card  358×777 @0,0  r20  b1
+    div.Table__viewport  356×775 @1,1
+      table.Table__table  356×775 @0,0
+        th  89×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
+        th#2  99×56 @89,0  Onest 700 15/23  b0 0 1 0  lines=1  «Телефон»
+        th#3  83×56 @188,0  Onest 700 15/23  b0 0 1 0  lines=1  «Адрес»
+        th#4  97×56 @271,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заказов»
+        th#5  86×56 @368,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
+        th#6  118×56 @453,0  Onest 700 15/23  b0 0 1 0  lines=1  «Последний»
+        span  1×1 @588,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr[role=row]  356×393 @0,0  r14  b1
+          td.ClientRow__who  354×120 @1,5
+            td.ClientRow__who::before  326×20 @0,0
+            div.ClientRow__person  326×84 @14,29
+              span.Avatar__avatar  28×28 @0,28  r100  b1
+                span.Avatar__initials  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «ИС»
+                span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Ирина Соколова»
+              div.ClientRow__names  290×84 @36,0
+                a.ClientRow__name  290×44 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
+                span.ClientRow__note  290×40 @0,44  Manrope 400 13/20  lines=2  «Домофон не работает, звонить на телефон.»
+          td.ClientRow__phone  354×58 @1,125
+            td.ClientRow__phone::before  55×20 @0,0
+            a  140×44 @200,7  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+          td.ClientRow__address  354×34 @1,183  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
+            td.ClientRow__address::before  39×20 @0,0
+          td.ClientRow__number  354×36 @1,218  JetBrains Mono 400 15/22  lines=1  «3»
+            td.ClientRow__number::before  55×20 @0,0
+          td.ClientRow__number#2  354×36 @1,254  JetBrains Mono 400 15/22  lines=1  «98 700 ₽»
+            td.ClientRow__number#2::before  39×20 @0,0
+          td.ClientRow__when  354×34 @1,291
+            td.ClientRow__when::before  69×20 @0,0
+            time  68×20 @272,7  Manrope 400 13/20  lines=1  «29.08.2026»
+          td.ClientRow__actions  354×59 @1,329  b1 0 0 0
+            div.RowMenu__root  44×44 @296,8
+              button.RowMenu__trigger  44×44 @0,0  r100  b1
+                span.RowMenu__dots  16×16 @14,14
+                  svg  16×16 @0,0
+        tr[role=row]#2  356×373 @0,403  r14  b1
+          td.ClientRow__who  354×100 @1,5
+            td.ClientRow__who::before  326×20 @0,0
+            div.ClientRow__person#2  326×64 @14,29
+              span.Avatar__avatar  28×28 @0,18  r100  b1
+                span.Avatar__initials#2  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «ПИ»
+                span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Пётр Ильин»
+              div.ClientRow__names  94×64 @36,0
+                a.ClientRow__name#2  94×44 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
+                span.ClientRow__note#2  94×20 @0,44  Manrope 400 13/20  lines=1  «без обращений»
+          td.ClientRow__phone  354×58 @1,105
+            td.ClientRow__phone::before  55×20 @0,0
+            a#2  140×44 @200,7  JetBrains Mono 400 13/20  lines=1  «+7 (953) 100-20-30»
+          td.ClientRow__address  354×34 @1,163
+            td.ClientRow__address::before  39×20 @0,0
+            span.ClientRow__missing  71×20 @269,7  Manrope 400 13/20  lines=1  «Не заведён»
+          td.ClientRow__number  354×36 @1,197  JetBrains Mono 400 15/22  lines=1  «0»
+            td.ClientRow__number::before  55×20 @0,0
+          td.ClientRow__number#2  354×36 @1,234
+            td.ClientRow__number#2::before  39×20 @0,0
+            span.ClientRow__missing  96×22 @244,7  JetBrains Mono 400 15/22  lines=1  «Ещё не было»
+          td.ClientRow__when  354×34 @1,270
+            td.ClientRow__when::before  69×20 @0,0
+            span.ClientRow__missing  10×20 @330,7  Manrope 400 13/20  lines=1  «—»
+          td.ClientRow__actions  354×59 @1,309  b1 0 0 0
+            div.RowMenu__root#2  44×44 @296,8
+              button.RowMenu__trigger  44×44 @0,0  r100  b1
+                span.RowMenu__dots#2  16×16 @14,14
+                  svg  16×16 @0,0
+  nav.Pager__pager  358×52 @0,789
+    a.Pager__step  87×44 @12,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+    ol.Pager__numbers  131×44 @107,4
+      a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+      span.Pager__position  35×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
+      a.Pager__number#2  44×44 @87,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+    a.Pager__step#2  99×44 @246,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
 
 [геометрия 768]
-div.ClientList__list  736×447 @16,16
-  article.Card__card  736×211 @0,0  r20  b1
-    div.ClientCardView__head  694×44 @21,21
-      h2.ClientCardView__name  143×44 @0,0
-        a.ClientCardView__link  143×44 @0,0  Onest 700 18/22  ls0  lines=1  «Ирина Соколова»
-      span.Badge__badge  102×28 @592,9  Manrope 600 12/16  r100  b1  lines=1  «2 обращения»
-    dl.ClientCardView__facts  694×64 @21,75
-      div.ClientCardView__fact  129×64 @0,0
-        dt  129×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-        a.ClientCardView__phone  129×44 @0,20  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
-      div.ClientCardView__fact#2  204×64 @153,0
-        dt  204×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
-        dd  204×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
-      div.ClientCardView__fact#3  77×64 @381,0
-        dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
-        time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
-    p.ClientCardView__note  694×38 @21,151  Manrope 400 15/22  r11  lines=1  «Домофон не работает, звонить на телефон.»
-  article.Card__card#2  736×160 @0,223  r20  b1
-    div.ClientCardView__head  694×44 @21,21
-      h2.ClientCardView__name#2  101×44 @0,0
-        a.ClientCardView__link  101×44 @0,0  Onest 700 18/22  ls0  lines=1  «Пётр Ильин»
-      span.Badge__badge#2  115×28 @579,9  Manrope 600 12/16  r100  b1  lines=1  «без обращений»
-    dl.ClientCardView__facts  694×64 @21,75
-      div.ClientCardView__fact#4  133×64 @0,0
-        dt  133×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-        a.ClientCardView__phone  133×44 @0,20  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
-      div.ClientCardView__fact#5  77×64 @157,0
-        dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
-        time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
-  nav.Pager__pager  736×52 @0,395
-    a.Pager__step  91×44 @224,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
-    span.Pager__position  70×44 @327,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 3»
-    a.Pager__step#2  103×44 @409,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+div.ClientList__list  736×344 @16,16
+  section.Card__card  736×280 @0,0  r20  b1
+    div.Table__viewport  734×278 @1,1
+      table.Table__table  1027×278 @0,0
+        th  342×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
+        th#2  176×56 @342,0  Onest 700 15/23  b0 0 1 0  lines=1  «Телефон»
+        th#3  83×56 @518,0  Onest 700 15/23  b0 0 1 0  lines=1  «Адрес»
+        th#4  97×56 @601,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заказов»
+        th#5  132×56 @697,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
+        th#6  118×56 @829,0  Onest 700 15/23  b0 0 1 0  lines=1  «Последний»
+        span  1×1 @964,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr[role=row]  1027×130 @0,56
+          td.ClientRow__who  342×130 @0,0  b0 0 1 0
+            div.ClientRow__person  306×64 @18,15
+              span.Avatar__avatar  28×28 @0,18  r100  b1
+                span.Avatar__initials  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «ИС»
+                span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Ирина Соколова»
+              div.ClientRow__names  270×64 @36,0
+                a.ClientRow__name  270×44 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
+                span.ClientRow__note  270×20 @0,44  Manrope 400 13/20  lines=1  clipped  «Домофон не работает, звонить на телефон.»
+          td.ClientRow__phone  176×130 @342,0  b0 0 1 0
+            a  140×44 @18,15  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+          td.ClientRow__address  83×130 @518,0  Manrope 400 13/20  b0 0 1 0  lines=5  «Тула, Первомайская, 12, кв. 4»
+          td.ClientRow__number  97×130 @601,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «3»
+          td.ClientRow__number#2  132×130 @697,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «98 700 ₽»
+          td.ClientRow__when  118×130 @829,0  b0 0 1 0
+            time  68×18 @18,16  Manrope 400 13/20  lines=1  «29.08.2026»
+          td.ClientRow__actions  80×130 @947,0  b0 0 1 0
+            div.RowMenu__root  44×44 @18,15
+              button.RowMenu__trigger  44×44 @0,0  r100  b1
+                span.RowMenu__dots  16×16 @14,14
+                  svg  16×16 @0,0
+        tr[role=row]#2  1027×93 @0,185
+          td.ClientRow__who  342×93 @0,0
+            div.ClientRow__person#2  306×64 @18,15
+              span.Avatar__avatar  28×28 @0,18  r100  b1
+                span.Avatar__initials#2  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «ПИ»
+                span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Пётр Ильин»
+              div.ClientRow__names  94×64 @36,0
+                a.ClientRow__name#2  94×44 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
+                span.ClientRow__note#2  94×20 @0,44  Manrope 400 13/20  lines=1  «без обращений»
+          td.ClientRow__phone  176×93 @342,0
+            a#2  140×44 @18,15  JetBrains Mono 400 13/20  lines=1  «+7 (953) 100-20-30»
+          td.ClientRow__address  83×93 @518,0
+            span.ClientRow__missing  44×58 @18,16  Manrope 400 13/20  lines=3  «Не заведён»
+          td.ClientRow__number  97×93 @601,0  JetBrains Mono 400 15/22  lines=1  «0»
+          td.ClientRow__number#2  132×93 @697,0
+            span.ClientRow__missing  96×19 @18,16  JetBrains Mono 400 15/22  lines=1  «Ещё не было»
+          td.ClientRow__when  118×93 @829,0
+            span.ClientRow__missing  10×18 @18,16  Manrope 400 13/20  lines=1  «—»
+          td.ClientRow__actions  80×93 @947,0
+            div.RowMenu__root#2  44×44 @18,15
+              button.RowMenu__trigger  44×44 @0,0  r100  b1
+                span.RowMenu__dots#2  16×16 @14,14
+                  svg  16×16 @0,0
+  nav.Pager__pager  736×52 @0,292
+    a.Pager__step  91×44 @191,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+    ol.Pager__numbers  135×44 @294,4
+      a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+      span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
+      a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+    a.Pager__step#2  103×44 @441,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
 
 [геометрия 1440]
-div.ClientList__list  1408×372 @16,16
-  article.Card__card  1408×173 @0,0  r20  b1
-    div.ClientCardView__head  1366×28 @21,21
-      h2.ClientCardView__name  151×23 @0,1
-        a.ClientCardView__link  151×24 @0,-1  Onest 700 19/23  ls0  lines=1  «Ирина Соколова»
-      span.Badge__badge  102×28 @1264,0  Manrope 600 12/16  r100  b1  lines=1  «2 обращения»
-    dl.ClientCardView__facts  1366×43 @21,59
-      div.ClientCardView__fact  129×43 @0,0
-        dt  129×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-        a.ClientCardView__phone  129×19 @0,21  Manrope 600 15/22  lines=1  «+7 (910) 155-24-68»
-      div.ClientCardView__fact#2  204×43 @153,0
-        dt  204×20 @0,0  Manrope 400 13/20  lines=1  «Адрес»
-        dd  204×22 @0,20  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
-      div.ClientCardView__fact#3  77×43 @381,0
-        dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
-        time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
-    p.ClientCardView__note  1366×38 @21,114  Manrope 400 15/22  r11  lines=1  «Домофон не работает, звонить на телефон.»
-  article.Card__card#2  1408×123 @0,185  r20  b1
-    div.ClientCardView__head  1366×28 @21,21
-      h2.ClientCardView__name#2  106×23 @0,1
-        a.ClientCardView__link  106×24 @0,-1  Onest 700 19/23  ls0  lines=1  «Пётр Ильин»
-      span.Badge__badge#2  115×28 @1251,0  Manrope 600 12/16  r100  b1  lines=1  «без обращений»
-    dl.ClientCardView__facts  1366×43 @21,59
-      div.ClientCardView__fact#4  133×43 @0,0
-        dt  133×20 @0,0  Manrope 400 13/20  lines=1  «Телефон»
-        a.ClientCardView__phone  133×19 @0,21  Manrope 600 15/22  lines=1  «+7 (953) 100-20-30»
-      div.ClientCardView__fact#5  77×43 @157,0
-        dt  77×20 @0,0  Manrope 400 13/20  lines=1  «В базе»
-        time  77×19 @0,21  Manrope 600 15/22  lines=1  «14.06.2026»
-  nav.Pager__pager  1408×52 @0,320
-    a.Pager__step  91×44 @560,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
-    span.Pager__position  70×44 @663,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 3»
-    a.Pager__step#2  103×44 @745,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+div.ClientList__list  1408×267 @16,16
+  section.Card__card  1408×203 @0,0  r20  b1
+    div.Table__viewport  1406×201 @1,1
+      table.Table__table  1406×201 @0,0
+        th  421×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
+        th#2  217×56 @421,0  Onest 700 15/23  b0 0 1 0  lines=1  «Телефон»
+        th#3  261×56 @638,0  Onest 700 15/23  b0 0 1 0  lines=1  «Адрес»
+        th#4  119×56 @899,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заказов»
+        th#5  162×56 @1018,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
+        th#6  145×56 @1181,0  Onest 700 15/23  b0 0 1 0  lines=1  «Последний»
+        span  1×1 @1343,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr[role=row]  1406×73 @0,56
+          td.ClientRow__who  421×73 @0,0  b0 0 1 0
+            div.ClientRow__person  385×43 @18,15
+              span.Avatar__avatar  28×28 @0,7  r100  b1
+                span.Avatar__initials  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «ИС»
+                span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Ирина Соколова»
+              div.ClientRow__names  270×43 @36,0
+                a.ClientRow__name  270×22 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
+                span.ClientRow__note  270×20 @0,22  Manrope 400 13/20  lines=1  clipped  «Домофон не работает, звонить на телефон.»
+          td.ClientRow__phone  217×73 @421,0  b0 0 1 0
+            a  140×17 @18,16  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+          td.ClientRow__address  261×73 @638,0  Manrope 400 13/20  b0 0 1 0  lines=1  «Тула, Первомайская, 12, кв. 4»
+          td.ClientRow__number  119×73 @899,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «3»
+          td.ClientRow__number#2  162×73 @1018,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «98 700 ₽»
+          td.ClientRow__when  145×73 @1181,0  b0 0 1 0
+            time  68×18 @18,16  Manrope 400 13/20  lines=1  «29.08.2026»
+          td.ClientRow__actions  80×73 @1326,0  b0 0 1 0
+            div.RowMenu__root  44×44 @18,15
+              button.RowMenu__trigger  44×44 @0,0  r100  b1
+                span.RowMenu__dots  16×16 @14,14
+                  svg  16×16 @0,0
+        tr[role=row]#2  1406×73 @0,129
+          td.ClientRow__who  421×73 @0,0
+            div.ClientRow__person#2  385×43 @18,15
+              span.Avatar__avatar  28×28 @0,7  r100  b1
+                span.Avatar__initials#2  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «ПИ»
+                span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Пётр Ильин»
+              div.ClientRow__names  94×43 @36,0
+                a.ClientRow__name#2  94×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
+                span.ClientRow__note#2  94×20 @0,22  Manrope 400 13/20  lines=1  «без обращений»
+          td.ClientRow__phone  217×73 @421,0
+            a#2  140×17 @18,16  JetBrains Mono 400 13/20  lines=1  «+7 (953) 100-20-30»
+          td.ClientRow__address  261×73 @638,0
+            span.ClientRow__missing  71×18 @18,16  Manrope 400 13/20  lines=1  «Не заведён»
+          td.ClientRow__number  119×73 @899,0  JetBrains Mono 400 15/22  lines=1  «0»
+          td.ClientRow__number#2  162×73 @1018,0
+            span.ClientRow__missing  96×19 @48,16  JetBrains Mono 400 15/22  lines=1  «Ещё не было»
+          td.ClientRow__when  145×73 @1181,0
+            span.ClientRow__missing  10×18 @18,16  Manrope 400 13/20  lines=1  «—»
+          td.ClientRow__actions  80×73 @1326,0
+            div.RowMenu__root#2  44×44 @18,15
+              button.RowMenu__trigger  44×44 @0,0  r100  b1
+                span.RowMenu__dots#2  16×16 @14,14
+                  svg  16×16 @0,0
+  nav.Pager__pager  1408×52 @0,215
+    a.Pager__step  91×44 @527,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+    ol.Pager__numbers  135×44 @630,4
+      a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+      span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
+      a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+    a.Pager__step#2  103×44 @777,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
 
 [палитра light]
 div.ClientList__list
-  article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-    div.ClientCardView__head
-      h2.ClientCardView__name
-        a.ClientCardView__link  color #0f172a
-      span.Badge__badge  color #0e7490  bg #ecfeff  border #a5f3fc
-    dl.ClientCardView__facts
-      div.ClientCardView__fact
-        dt  color #5b6a7d
-        a.ClientCardView__phone  color #0e7490
-      div.ClientCardView__fact#2
-        dt  color #5b6a7d
-        dd  color #475569
-      div.ClientCardView__fact#3
-        dt  color #5b6a7d
-        time  color #475569
-    p.ClientCardView__note  color #475569  bg #f8fafc
-  article.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-    div.ClientCardView__head
-      h2.ClientCardView__name#2
-        a.ClientCardView__link  color #0f172a
-      span.Badge__badge#2  color #556173  bg #f8fafc  border #e2e8f0
-    dl.ClientCardView__facts
-      div.ClientCardView__fact#4
-        dt  color #5b6a7d
-        a.ClientCardView__phone  color #0e7490
-      div.ClientCardView__fact#5
-        dt  color #5b6a7d
-        time  color #475569
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Table__viewport
+      table.Table__table
+        th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#4  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#5  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#6  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        span  color #0f172a
+        tr[role=row]
+          td.ClientRow__who  border #334155 #334155 #eef2f6 #334155
+            div.ClientRow__person
+              span.Avatar__avatar  bg #ecfeff  border #ffffff
+                span.Avatar__initials  color #0e7490
+                span  color #0e7490
+              div.ClientRow__names
+                a.ClientRow__name  color #0f172a
+                span.ClientRow__note  color #556173
+          td.ClientRow__phone  border #334155 #334155 #eef2f6 #334155
+            a  color #334155
+          td.ClientRow__address  color #475569  border #475569 #475569 #eef2f6 #475569
+          td.ClientRow__number  color #334155  border #334155 #334155 #eef2f6 #334155
+          td.ClientRow__number#2  color #334155  border #334155 #334155 #eef2f6 #334155
+          td.ClientRow__when  border #475569 #475569 #eef2f6 #475569
+            time  color #475569
+          td.ClientRow__actions  border #334155 #334155 #eef2f6 #334155
+            div.RowMenu__root
+              button.RowMenu__trigger  border transparent
+                span.RowMenu__dots
+                  svg
+        tr[role=row]#2
+          td.ClientRow__who
+            div.ClientRow__person#2
+              span.Avatar__avatar  bg #ecfeff  border #ffffff
+                span.Avatar__initials#2  color #0e7490
+                span#2  color #0e7490
+              div.ClientRow__names
+                a.ClientRow__name#2  color #0f172a
+                span.ClientRow__note#2  color #556173
+          td.ClientRow__phone
+            a#2  color #334155
+          td.ClientRow__address
+            span.ClientRow__missing  color #5b6a7d
+          td.ClientRow__number  color #334155
+          td.ClientRow__number#2
+            span.ClientRow__missing  color #5b6a7d
+          td.ClientRow__when
+            span.ClientRow__missing  color #5b6a7d
+          td.ClientRow__actions
+            div.RowMenu__root#2
+              button.RowMenu__trigger  border transparent
+                span.RowMenu__dots#2
+                  svg
   nav.Pager__pager
     a.Pager__step  color #0e7490  border #7e8fa6
-    span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+    ol.Pager__numbers
+      a.Pager__number  color #0e7490  border transparent
+      span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+      a.Pager__number#2  color #0e7490  border transparent
     a.Pager__step#2  color #0e7490  border #7e8fa6
+[палитра light @390]
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]  bg #ffffff  border #e2e8f0
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__who
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__who > td.ClientRow__who::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__phone
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__phone > td.ClientRow__phone::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__address  color #475569
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__address > td.ClientRow__address::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__number  color #334155
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__number > td.ClientRow__number::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__number#2  color #334155
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__number#2 > td.ClientRow__number#2::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__when
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__when > td.ClientRow__when::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__actions  border #eef2f6 #334155 #334155 #334155
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__who > td.ClientRow__who::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__phone > td.ClientRow__phone::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__address > td.ClientRow__address::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__number > td.ClientRow__number::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__number#2 > td.ClientRow__number#2::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__when > td.ClientRow__when::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__actions  border #eef2f6 #334155 #334155 #334155
 
 [палитра dark]
 div.ClientList__list
-  article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-    div.ClientCardView__head
-      h2.ClientCardView__name
-        a.ClientCardView__link  color #eaf1f8
-      span.Badge__badge  color #22d3ee  bg #22d3ee1a  border #22d3ee59
-    dl.ClientCardView__facts
-      div.ClientCardView__fact
-        dt  color #7e92a7
-        a.ClientCardView__phone  color #22d3ee
-      div.ClientCardView__fact#2
-        dt  color #7e92a7
-        dd  color #a8b6c6
-      div.ClientCardView__fact#3
-        dt  color #7e92a7
-        time  color #a8b6c6
-    p.ClientCardView__note  color #a8b6c6  bg #0e1729
-  article.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-    div.ClientCardView__head
-      h2.ClientCardView__name#2
-        a.ClientCardView__link  color #eaf1f8
-      span.Badge__badge#2  color #8598ac  bg #0e1729  border #1e2b41
-    dl.ClientCardView__facts
-      div.ClientCardView__fact#4
-        dt  color #7e92a7
-        a.ClientCardView__phone  color #22d3ee
-      div.ClientCardView__fact#5
-        dt  color #7e92a7
-        time  color #a8b6c6
+  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Table__viewport
+      table.Table__table
+        th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#4  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#5  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#6  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        span  color #eaf1f8
+        tr[role=row]
+          td.ClientRow__who  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            div.ClientRow__person
+              span.Avatar__avatar  bg #22d3ee1a  border #121d31
+                span.Avatar__initials  color #22d3ee
+                span  color #22d3ee
+              div.ClientRow__names
+                a.ClientRow__name  color #eaf1f8
+                span.ClientRow__note  color #8598ac
+          td.ClientRow__phone  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            a  color #c9d5e2
+          td.ClientRow__address  color #a8b6c6  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+          td.ClientRow__number  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td.ClientRow__number#2  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          td.ClientRow__when  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+            time  color #a8b6c6
+          td.ClientRow__actions  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+            div.RowMenu__root
+              button.RowMenu__trigger  border transparent
+                span.RowMenu__dots
+                  svg
+        tr[role=row]#2
+          td.ClientRow__who
+            div.ClientRow__person#2
+              span.Avatar__avatar  bg #22d3ee1a  border #121d31
+                span.Avatar__initials#2  color #22d3ee
+                span#2  color #22d3ee
+              div.ClientRow__names
+                a.ClientRow__name#2  color #eaf1f8
+                span.ClientRow__note#2  color #8598ac
+          td.ClientRow__phone
+            a#2  color #c9d5e2
+          td.ClientRow__address
+            span.ClientRow__missing  color #7e92a7
+          td.ClientRow__number  color #c9d5e2
+          td.ClientRow__number#2
+            span.ClientRow__missing  color #7e92a7
+          td.ClientRow__when
+            span.ClientRow__missing  color #7e92a7
+          td.ClientRow__actions
+            div.RowMenu__root#2
+              button.RowMenu__trigger  border transparent
+                span.RowMenu__dots#2
+                  svg
   nav.Pager__pager
     a.Pager__step  color #22d3ee  border #566d95
-    span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+    ol.Pager__numbers
+      a.Pager__number  color #22d3ee  border transparent
+      span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+      a.Pager__number#2  color #22d3ee  border transparent
     a.Pager__step#2  color #22d3ee  border #566d95
+[палитра dark @390]
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]  bg #121d31  border #1e2b41
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__who
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__who > td.ClientRow__who::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__phone
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__phone > td.ClientRow__phone::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__address  color #a8b6c6
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__address > td.ClientRow__address::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__number  color #c9d5e2
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__number > td.ClientRow__number::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__number#2  color #c9d5e2
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__number#2 > td.ClientRow__number#2::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__when
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__when > td.ClientRow__when::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__who > td.ClientRow__who::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__phone > td.ClientRow__phone::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__address > td.ClientRow__address::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__number > td.ClientRow__number::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__number#2 > td.ClientRow__number#2::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__when > td.ClientRow__when::before
+div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2

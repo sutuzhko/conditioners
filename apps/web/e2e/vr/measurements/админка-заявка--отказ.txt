@@ -1,20 +1,20 @@
-# админка-заявка--ужевбазе · ширины 390 768 1440 · темы light dark
-шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+# админка-заявка--отказ · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-390 → 390×1109
+390 → 390×1198
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-article.Card__card  358×1077 @16,16  r20  b1
+article.Card__card  358×1166 @16,16  r20  b1
   header.LeadCardView__header  316×155 @21,21
-    p.LeadCardView__number  255×20 @0,0  JetBrains Mono 400 13/20  lines=1  «Обращение № 38»
+    p.LeadCardView__number  255×20 @0,0  JetBrains Mono 400 13/20  lines=1  «Обращение № 37»
     h2.LeadCardView__name  255×21 @0,22  Onest 700 17/21  ls0  lines=1  «Ирина»
     a.LeadCardView__phone  255×44 @0,51  Manrope 600 15/23  r100  lines=1  «+7 (900) 123-45-67»
       span.LeadCardView__callWord  79×23 @16,10  Manrope 600 15/23  lines=1  «Позвонить»
     div.LeadCardView__headerRight  133×52 @0,103
-      span.Badge__badge  62×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+      span.Badge__badge  60×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
       time.LeadCardView__when  133×20 @0,32  JetBrains Mono 400 13/20  lines=1  «20.08.2026, 12:15»
   dl.LeadCardView__details  316×296 @21,190
     div.LeadCardView__detail  316×43 @0,0
@@ -35,41 +35,49 @@ article.Card__card  358×1077 @16,16  r20  b1
     div.LeadCardView__detail#6  316×43 @0,253
       dt.LeadCardView__detailLabel  316×20 @0,0  Manrope 400 13/20  lines=1  «Согласие на обработку данных»
       dd.LeadCardView__detailValue  316×22 @0,20  Manrope 400 15/22  lines=1  «дано 20.08.2026, 12:15»
-  p.LeadCardView__comment  316×65 @21,500  Manrope 400 15/22  b0 0 0 3  lines=2  «Второй этаж, окна во двор. Нужен тихий в»
-  div.LeadCardView__actions  316×238 @21,579
+  div.Alert__alert  316×89 @21,500  r14  b1
+    span.Alert__icon  18×20 @15,13
+      svg  18×18 @0,1
+    div.Alert__body  258×63 @43,13
+      p.Alert__title  258×20 @0,0  Manrope 700 15/20  lines=1  «Отказ: Дорого»
+      div.Alert__text  258×41 @0,22  Manrope 400 15/20  lines=2  «Сказал, что нашёл дешевле у частника»
+  p.LeadCardView__comment  316×65 @21,589  Manrope 400 15/22  b0 0 0 3  lines=2  «Второй этаж, окна во двор. Нужен тихий в»
+  div.LeadCardView__actions  316×238 @21,668
     div.Field__field  316×76 @0,0
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
       span.Select__wrapper  316×49 @0,27
         select.Select__select  316×49 @0,0  r11  b1
-          option  0×0 @-37,-622  Manrope 400 15/21  lines=0  «Новая»
-          option#2  0×0 @-37,-622  Manrope 400 15/21  lines=0  «В работе»
-          option#3  0×0 @-37,-622  Manrope 400 15/21  lines=0  «Завершена»
-          option#4  0×0 @-37,-622  Manrope 400 15/21  lines=0  «Отказ»
+          option  0×0 @-37,-711  Manrope 400 15/21  lines=0  «Новая»
+          option#2  0×0 @-37,-711  Manrope 400 15/21  lines=0  «В работе»
+          option#3  0×0 @-37,-711  Manrope 400 15/21  lines=0  «Завершена»
+          option#4  0×0 @-37,-711  Manrope 400 15/21  lines=0  «Отказ»
         svg.Select__chevron  14×14 @288,18
     div.Field__field#2  316×150 @0,88
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заметка менеджера»
       textarea.Textarea__textarea  316×96 @0,27  r11  b1
       p.Field__hint  316×19 @0,130  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
-  div.LeadCardView__footer  316×98 @21,828
+  div.LeadCardView__footer  316×98 @21,917
     button.Button__button  121×44 @0,0  r9  b1
       span.Button__content  91×16 @15,14
         span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Создать заказ»
     a.LeadCardView__plan  105×44 @135,0  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
-    a.LeadCardView__plan#2  196×44 @0,54  Manrope 600 13/20  r100  b1  lines=1  «Открыть карточку клиента»
-  div.LeadCardView__danger  316×125 @21,930  b1 0 0 0
+    button.Button__button#2  95×44 @0,54  r9  b1
+      span.Button__content  65×16 @15,14
+        span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
+  div.LeadCardView__danger  316×125 @21,1019  b1 0 0 0
     p.LeadCardView__dangerHint  316×60 @0,13  Manrope 400 13/20  lines=3  «Уничтожение персональных данных по требо»
     button.Button__button  157×44 @0,81  r9  b1
       span.Button__content#2  127×16 @15,14
         span.Button__label  127×16 @0,0  Manrope 600 13/16  lines=1  «Удалить обращение»
 
 [геометрия 768]
-article.Card__card  736×664 @16,16  r20  b1
+article.Card__card  736×733 @16,16  r20  b1
   header.LeadCardView__header  694×90 @21,21
-    p.LeadCardView__number  136×20 @0,0  JetBrains Mono 400 13/20  lines=1  «Обращение № 38»
+    p.LeadCardView__number  136×20 @0,0  JetBrains Mono 400 13/20  lines=1  «Обращение № 37»
     h2.LeadCardView__name  136×22 @0,22  Onest 700 18/22  ls0  lines=1  «Ирина»
     a.LeadCardView__phone  136×44 @0,46  Manrope 600 15/23  lines=1  «+7 (900) 123-45-67»
     div.LeadCardView__headerRight  133×52 @561,0
-      span.Badge__badge  62×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+      span.Badge__badge  60×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
       time.LeadCardView__when  133×20 @0,32  JetBrains Mono 400 13/20  lines=1  «20.08.2026, 12:15»
   dl.LeadCardView__details  694×93 @21,125
     div.LeadCardView__detail  221×43 @0,0
@@ -90,41 +98,49 @@ article.Card__card  736×664 @16,16  r20  b1
     div.LeadCardView__detail#6  221×43 @473,51
       dt.LeadCardView__detailLabel  221×20 @0,0  Manrope 400 13/20  lines=1  «Согласие на обработку данных»
       dd.LeadCardView__detailValue  221×22 @0,20  Manrope 400 15/22  lines=1  «дано 20.08.2026, 12:15»
-  p.LeadCardView__comment  694×42 @21,232  Manrope 400 15/22  b0 0 0 3  lines=1  «Второй этаж, окна во двор. Нужен тихий в»
-  div.LeadCardView__actions  694×238 @21,288
+  div.Alert__alert  694×69 @21,232  r14  b1
+    span.Alert__icon  18×20 @15,13
+      svg  18×18 @0,1
+    div.Alert__body  636×43 @43,13
+      p.Alert__title  636×20 @0,0  Manrope 700 15/20  lines=1  «Отказ: Дорого»
+      div.Alert__text  636×20 @0,22  Manrope 400 15/20  lines=1  «Сказал, что нашёл дешевле у частника»
+  p.LeadCardView__comment  694×42 @21,301  Manrope 400 15/22  b0 0 0 3  lines=1  «Второй этаж, окна во двор. Нужен тихий в»
+  div.LeadCardView__actions  694×238 @21,357
     div.Field__field  694×76 @0,0
       label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
       span.Select__wrapper  694×49 @0,27
         select.Select__select  694×49 @0,0  r11  b1
-          option  0×0 @-37,-332  Manrope 400 15/21  lines=0  «Новая»
-          option#2  0×0 @-37,-332  Manrope 400 15/21  lines=0  «В работе»
-          option#3  0×0 @-37,-332  Manrope 400 15/21  lines=0  «Завершена»
-          option#4  0×0 @-37,-332  Manrope 400 15/21  lines=0  «Отказ»
+          option  0×0 @-37,-400  Manrope 400 15/21  lines=0  «Новая»
+          option#2  0×0 @-37,-400  Manrope 400 15/21  lines=0  «В работе»
+          option#3  0×0 @-37,-400  Manrope 400 15/21  lines=0  «Завершена»
+          option#4  0×0 @-37,-400  Manrope 400 15/21  lines=0  «Отказ»
         svg.Select__chevron  14×14 @666,18
     div.Field__field#2  694×150 @0,88
       label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Заметка менеджера»
       textarea.Textarea__textarea  694×96 @0,27  r11  b1
       p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
-  div.LeadCardView__footer  694×44 @21,538
+  div.LeadCardView__footer  694×44 @21,607
     button.Button__button  121×44 @0,0  r9  b1
       span.Button__content  91×16 @15,14
         span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Создать заказ»
     a.LeadCardView__plan  105×44 @135,0  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
-    a.LeadCardView__plan#2  196×44 @254,0  Manrope 600 13/20  r100  b1  lines=1  «Открыть карточку клиента»
-  div.LeadCardView__danger  694×57 @21,586  b1 0 0 0
+    button.Button__button#2  95×44 @254,0  r9  b1
+      span.Button__content  65×16 @15,14
+        span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
+  div.LeadCardView__danger  694×57 @21,655  b1 0 0 0
     p.LeadCardView__dangerHint  521×40 @0,15  Manrope 400 13/20  lines=2  «Уничтожение персональных данных по требо»
     button.Button__button  157×44 @537,13  r9  b1
       span.Button__content#2  127×16 @15,14
         span.Button__label  127×16 @0,0  Manrope 600 13/16  lines=1  «Удалить обращение»
 
 [геометрия 1440]
-article.Card__card  1408×498 @16,16  r20  b1
+article.Card__card  1408×566 @16,16  r20  b1
   header.LeadCardView__header  1366×70 @21,21
-    p.LeadCardView__number  136×20 @0,0  JetBrains Mono 400 13/20  lines=1  «Обращение № 38»
+    p.LeadCardView__number  136×20 @0,0  JetBrains Mono 400 13/20  lines=1  «Обращение № 37»
     h2.LeadCardView__name  136×23 @0,22  Onest 700 19/23  ls0  lines=1  «Ирина»
     a.LeadCardView__phone  136×21 @0,48  Manrope 600 15/23  lines=1  «+7 (900) 123-45-67»
     div.LeadCardView__headerRight  133×52 @1233,0
-      span.Badge__badge  62×28 @70,0  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+      span.Badge__badge  60×28 @72,0  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
       time.LeadCardView__when  133×20 @0,32  JetBrains Mono 400 13/20  lines=1  «20.08.2026, 12:15»
   dl.LeadCardView__details  1366×43 @21,105
     div.LeadCardView__detail  214×43 @0,0
@@ -145,28 +161,36 @@ article.Card__card  1408×498 @16,16  r20  b1
     div.LeadCardView__detail#6  214×43 @1152,0
       dt.LeadCardView__detailLabel  214×20 @0,0  Manrope 400 13/20  lines=1  «Согласие на обработку данных»
       dd.LeadCardView__detailValue  214×22 @0,20  Manrope 400 15/22  lines=1  «дано 20.08.2026, 12:15»
-  p.LeadCardView__comment  1366×42 @21,162  Manrope 400 15/22  b0 0 0 3  lines=1  «Второй этаж, окна во двор. Нужен тихий в»
-  div.LeadCardView__actions  1366×150 @21,218
+  div.Alert__alert  1366×69 @21,162  r14  b1
+    span.Alert__icon  18×20 @15,13
+      svg  18×18 @0,1
+    div.Alert__body  1308×43 @43,13
+      p.Alert__title  1308×20 @0,0  Manrope 700 15/20  lines=1  «Отказ: Дорого»
+      div.Alert__text  1308×20 @0,22  Manrope 400 15/20  lines=1  «Сказал, что нашёл дешевле у частника»
+  p.LeadCardView__comment  1366×42 @21,230  Manrope 400 15/22  b0 0 0 3  lines=1  «Второй этаж, окна во двор. Нужен тихий в»
+  div.LeadCardView__actions  1366×150 @21,287
     div.Field__field  220×76 @0,0
       label.Field__label  220×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
       span.Select__wrapper  220×49 @0,27
         select.Select__select  220×49 @0,0  r11  b1
-          option  0×0 @-37,-261  Manrope 400 15/21  lines=0  «Новая»
-          option#2  0×0 @-37,-261  Manrope 400 15/21  lines=0  «В работе»
-          option#3  0×0 @-37,-261  Manrope 400 15/21  lines=0  «Завершена»
-          option#4  0×0 @-37,-261  Manrope 400 15/21  lines=0  «Отказ»
+          option  0×0 @-37,-330  Manrope 400 15/21  lines=0  «Новая»
+          option#2  0×0 @-37,-330  Manrope 400 15/21  lines=0  «В работе»
+          option#3  0×0 @-37,-330  Manrope 400 15/21  lines=0  «Завершена»
+          option#4  0×0 @-37,-330  Manrope 400 15/21  lines=0  «Отказ»
         svg.Select__chevron  14×14 @192,18
     div.Field__field#2  1130×150 @236,0
       label.Field__label  1130×20 @0,0  Manrope 600 13/20  lines=1  «Заметка менеджера»
       textarea.Textarea__textarea  1130×96 @0,27  r11  b1
       p.Field__hint  1130×19 @0,130  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
-  div.LeadCardView__footer  1366×40 @21,380
+  div.LeadCardView__footer  1366×40 @21,448
     button.Button__button  121×40 @0,0  r9  b1
       span.Button__content  91×16 @15,12
         span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Создать заказ»
     a.LeadCardView__plan  105×32 @135,4  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
-    a.LeadCardView__plan#2  196×32 @254,4  Manrope 600 13/20  r100  b1  lines=1  «Открыть карточку клиента»
-  div.LeadCardView__danger  1366×53 @21,424  b1 0 0 0
+    button.Button__button#2  95×40 @254,0  r9  b1
+      span.Button__content  65×16 @15,12
+        span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
+  div.LeadCardView__danger  1366×53 @21,492  b1 0 0 0
     p.LeadCardView__dangerHint  1193×20 @0,23  Manrope 400 13/20  lines=1  «Уничтожение персональных данных по требо»
     button.Button__button  157×40 @1209,13  r9  b1
       span.Button__content#2  127×16 @15,12
@@ -179,7 +203,7 @@ article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
     h2.LeadCardView__name  color #0f172a
     a.LeadCardView__phone  color #0e7490
     div.LeadCardView__headerRight
-      span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
+      span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
       time.LeadCardView__when  color #5b6a7d
   dl.LeadCardView__details
     div.LeadCardView__detail
@@ -200,6 +224,12 @@ article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
     div.LeadCardView__detail#6
       dt.LeadCardView__detailLabel  color #5b6a7d
       dd.LeadCardView__detailValue  color #475569
+  div.Alert__alert  bg #4338ca14  border #4338ca47
+    span.Alert__icon
+      svg
+    div.Alert__body
+      p.Alert__title  color #4338ca
+      div.Alert__text  color #4338ca
   p.LeadCardView__comment  color #475569  bg #f8fafc  border #475569 #475569 #475569 #cbd5e1
   div.LeadCardView__actions
     div.Field__field
@@ -220,7 +250,9 @@ article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
       span.Button__content
         span.Button__label  color #ffffff
     a.LeadCardView__plan  color #0e7490  border #e2e8f0
-    a.LeadCardView__plan#2  color #0e7490  border #e2e8f0
+    button.Button__button#2  bg #ffffff  border #7e8fa6
+      span.Button__content
+        span.Button__label#2  color #0f172a
   div.LeadCardView__danger  border #eef2f6 #475569 #475569 #475569
     p.LeadCardView__dangerHint  color #556173
     button.Button__button  bg #be123c14  border #be123c73
@@ -237,7 +269,7 @@ article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
     h2.LeadCardView__name  color #eaf1f8
     a.LeadCardView__phone  color #22d3ee
     div.LeadCardView__headerRight
-      span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
+      span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
       time.LeadCardView__when  color #7e92a7
   dl.LeadCardView__details
     div.LeadCardView__detail
@@ -258,6 +290,12 @@ article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
     div.LeadCardView__detail#6
       dt.LeadCardView__detailLabel  color #7e92a7
       dd.LeadCardView__detailValue  color #a8b6c6
+  div.Alert__alert  bg #a5b4fc1f  border #a5b4fc52
+    span.Alert__icon
+      svg
+    div.Alert__body
+      p.Alert__title  color #a5b4fc
+      div.Alert__text  color #a5b4fc
   p.LeadCardView__comment  color #a8b6c6  bg #0e1729  border #a8b6c6 #a8b6c6 #a8b6c6 #2c3d59
   div.LeadCardView__actions
     div.Field__field
@@ -278,7 +316,9 @@ article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
       span.Button__content
         span.Button__label  color #ffffff
     a.LeadCardView__plan  color #22d3ee  border #1e2b41
-    a.LeadCardView__plan#2  color #22d3ee  border #1e2b41
+    button.Button__button#2  bg #121d31  border #566d95
+      span.Button__content
+        span.Button__label#2  color #eaf1f8
   div.LeadCardView__danger  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
     p.LeadCardView__dangerHint  color #8598ac
     button.Button__button  bg #fb71851f  border #fb718580

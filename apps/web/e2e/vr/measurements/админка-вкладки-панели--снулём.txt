@@ -1,0 +1,62 @@
+# админка-вкладки-панели--снулём · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.PanelTabs__wrap  358×116 @16,16
+  div.PanelTabs__tabs  358×47 @0,0  b0 0 1 0
+    button.PanelTabs__tab  84×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Данные»
+    button.PanelTabs__tab#2  101×44 @88,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Заказы»
+      span.PanelTabs__count  16×17 @71,14  JetBrains Mono 600 13/normal  lines=1  «12»
+    button.PanelTabs__tab#3  99×44 @193,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Техника»
+      span.PanelTabs__count  8×17 @77,14  JetBrains Mono 600 13/normal  lines=1  «0»
+  div.PanelTabs__panel  358×53 @0,63
+    p  358×23 @0,15  Manrope 400 15/23  lines=1  «Форма клиента: имя, телефон, адрес, заме»
+
+[геометрия 768]
+div.PanelTabs__wrap  736×116 @16,16
+  div.PanelTabs__tabs  736×47 @0,0  b0 0 1 0
+    button.PanelTabs__tab  84×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Данные»
+    button.PanelTabs__tab#2  101×44 @88,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Заказы»
+      span.PanelTabs__count  16×17 @71,14  JetBrains Mono 600 13/normal  lines=1  «12»
+    button.PanelTabs__tab#3  99×44 @193,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Техника»
+      span.PanelTabs__count  8×17 @77,14  JetBrains Mono 600 13/normal  lines=1  «0»
+  div.PanelTabs__panel  736×53 @0,63
+    p  736×23 @0,15  Manrope 400 15/23  lines=1  «Форма клиента: имя, телефон, адрес, заме»
+
+[геометрия 1440]
+div.PanelTabs__wrap  1408×109 @16,16
+  div.PanelTabs__tabs  1408×40 @0,0  b0 0 1 0
+    button.PanelTabs__tab  84×37 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Данные»
+    button.PanelTabs__tab#2  101×37 @88,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Заказы»
+      span.PanelTabs__count  16×17 @71,10  JetBrains Mono 600 13/normal  lines=1  «12»
+    button.PanelTabs__tab#3  99×37 @193,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Техника»
+      span.PanelTabs__count  8×17 @77,10  JetBrains Mono 600 13/normal  lines=1  «0»
+  div.PanelTabs__panel  1408×53 @0,56
+    p  1408×23 @0,15  Manrope 400 15/23  lines=1  «Форма клиента: имя, телефон, адрес, заме»
+
+[палитра light]
+div.PanelTabs__wrap
+  div.PanelTabs__tabs  border #0f172a #0f172a #e2e8f0 #0f172a
+    button.PanelTabs__tab  color #0f172a  border #0f172a #0f172a #0891b2 #0f172a
+    button.PanelTabs__tab#2  color #556173  border #556173 #556173 transparent #556173
+      span.PanelTabs__count  color #556173
+    button.PanelTabs__tab#3  color #556173  border #556173 #556173 transparent #556173
+      span.PanelTabs__count  color #556173
+  div.PanelTabs__panel
+    p  color #0f172a
+
+[палитра dark]
+div.PanelTabs__wrap
+  div.PanelTabs__tabs  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    button.PanelTabs__tab  color #eaf1f8  border #eaf1f8 #eaf1f8 #22d3ee #eaf1f8
+    button.PanelTabs__tab#2  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      span.PanelTabs__count  color #8598ac
+    button.PanelTabs__tab#3  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      span.PanelTabs__count  color #8598ac
+  div.PanelTabs__panel
+    p  color #eaf1f8
