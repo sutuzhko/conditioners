@@ -3,8 +3,8 @@
 
 [документ]
 390 → 390×1299
-768 → 768×1233
-1440 → 1440×1230
+768 → 768×1230
+1440 → 1440×1238
 
 [геометрия 390]
 div.OrderHandover__handover  358×1267 @16,16
@@ -69,127 +69,127 @@ div.OrderHandover__handover  358×1267 @16,16
         span.Button__label#2  163×19 @0,0  Manrope 600 16/19  lines=1  «Сохранить черновик»
 
 [геометрия 768]
-div.OrderHandover__handover  736×1201 @16,16
-  header.OrderHandover__head  736×64 @0,0
-    h1.OrderHandover__title  736×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Сдача работы»
-    p.OrderHandover__meta  736×22 @0,41
+div.OrderHandover__handover  720×1198 @16,16
+  header.OrderHandover__head  720×64 @0,0
+    h1.OrderHandover__title  720×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Сдача работы»
+    p.OrderHandover__meta  720×22 @0,41
       span.OrderHandover__number  47×20 @0,2  JetBrains Mono 400 13/20  lines=1  «№ 1059»
       span.OrderHandover__what  197×22 @59,0  Manrope 600 15/22  lines=1  «Монтаж · Сплит-система 09»
-  section.Card__card  736×323 @0,76  r20  b1
-    div.OrderHandover__blockHead  694×24 @21,21
+  section.Card__card  720×320 @0,76  r20  b1
+    div.OrderHandover__blockHead  678×24 @21,21
       h2.OrderHandover__blockTitle  213×16 @0,4  Onest 700 13/16  ls1  lines=1  «Фото выполненных работ»
-      span.Badge__badge  116×24 @578,0  Manrope 600 12/16  r100  b1  lines=1  «Фото загружены»
-    p.OrderHandover__hint  694×20 @21,55  Manrope 400 13/20  lines=1  «Снимки остаются в истории клиента: по ни»
-    ul.OrderHandover__grid  694×109 @21,85
-      li.OrderHandover__shot  109×109 @0,0  r11
-        img.OrderHandover__thumb  109×109 @0,0
-        button.IconButton__iconButton  40×40 @65,4  r11  b1
+      span.Badge__badge  116×24 @562,0  Manrope 600 12/16  r100  b1  lines=1  «Фото загружены»
+    p.OrderHandover__hint  678×20 @21,55  Manrope 400 13/20  lines=1  «Снимки остаются в истории клиента: по ни»
+    ul.OrderHandover__grid  678×106 @21,85
+      li.OrderHandover__shot  106×106 @0,0  r11
+        img.OrderHandover__thumb  106×106 @0,0
+        button.IconButton__iconButton  40×40 @62,4  r11  b1
           svg  16×16 @12,12
-      li.OrderHandover__shot#2  109×109 @117,0  r11
-        img.OrderHandover__thumb  109×109 @0,0
-        button.IconButton__iconButton  40×40 @65,4  r11  b1
+      li.OrderHandover__shot#2  106×106 @114,0  r11
+        img.OrderHandover__thumb  106×106 @0,0
+        button.IconButton__iconButton  40×40 @62,4  r11  b1
           svg#2  16×16 @12,12
-    div.Field__field  694×98 @21,204
-      label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фото «после"»
+    div.Field__field  678×98 @21,202
+      label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фото «после"»
       input.FileInput__input  1×1 @-1,-1  clipped
-      label.FileInput__dropzone  694×71 @0,27  r11  b1
+      label.FileInput__dropzone  678×71 @0,27  r11  b1
         svg.FileInput__icon  22×22 @15,24
         span.FileInput__texts  170×45 @49,13
           span.FileInput__title  170×22 @0,0  Manrope 600 15/22  lines=1  «Добавить фото «после"»
           span  170×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
-  section.Card__card#2  736×487 @0,411  r20  b1
-    h2.OrderHandover__blockTitle  694×16 @21,21  Onest 700 13/16  ls1  lines=1  «Итог работ»
-    div.Field__field  694×150 @21,47
-      label.Field__label#2  694×20 @0,0  Manrope 600 13/20  lines=1  «Что сделали сверх наряда»
-      textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Доп. трасса 1,5 м, короб 60×60 — 2 м»
-      p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Словами, как скажете клиенту. Метры трас»
-    div.OrderHandover__breakdown  694×85 @21,206
-      span.OrderHandover__breakdownTitle  694×20 @0,0  Manrope 400 13/20  lines=1  «Разобрано из текста»
-      dl.OrderHandover__tiles  694×59 @0,26
-        div.OrderHandover__tile  343×59 @0,0  r11
-          dt  319×20 @12,8  Manrope 400 13/20  lines=1  «Доп. трасса»
-          dd  319×22 @12,28  JetBrains Mono 700 15/22  lines=1  «1,5 м»
-        div.OrderHandover__tile#2  343×59 @351,0  r11
-          dt  319×20 @12,8  Manrope 400 13/20  lines=1  «Короб»
-          dd  319×22 @12,28  JetBrains Mono 700 15/22  lines=1  «2 м»
-    div.Field__field#2  694×166 @21,301
-      label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
-      textarea.Textarea__textarea  694×112 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Блок повешен, вакуумирование 20 минут, п»
-      p.Field__hint  694×19 @0,146  Manrope 400 13/19  lines=1  «Что сделано, что осталось, на что обрати»
-  section.Card__card#3  736×130 @0,910  r20  b1
-    div.OrderHandover__blockHead  694×24 @21,21
+  section.Card__card#2  720×487 @0,408  r20  b1
+    h2.OrderHandover__blockTitle  678×16 @21,21  Onest 700 13/16  ls1  lines=1  «Итог работ»
+    div.Field__field  678×150 @21,47
+      label.Field__label#2  678×20 @0,0  Manrope 600 13/20  lines=1  «Что сделали сверх наряда»
+      textarea.Textarea__textarea  678×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Доп. трасса 1,5 м, короб 60×60 — 2 м»
+      p.Field__hint  678×19 @0,130  Manrope 400 13/19  lines=1  «Словами, как скажете клиенту. Метры трас»
+    div.OrderHandover__breakdown  678×85 @21,206
+      span.OrderHandover__breakdownTitle  678×20 @0,0  Manrope 400 13/20  lines=1  «Разобрано из текста»
+      dl.OrderHandover__tiles  678×59 @0,26
+        div.OrderHandover__tile  335×59 @0,0  r11
+          dt  311×20 @12,8  Manrope 400 13/20  lines=1  «Доп. трасса»
+          dd  311×22 @12,28  JetBrains Mono 700 15/22  lines=1  «1,5 м»
+        div.OrderHandover__tile#2  335×59 @343,0  r11
+          dt  311×20 @12,8  Manrope 400 13/20  lines=1  «Короб»
+          dd  311×22 @12,28  JetBrains Mono 700 15/22  lines=1  «2 м»
+    div.Field__field#2  678×166 @21,301
+      label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
+      textarea.Textarea__textarea  678×112 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Блок повешен, вакуумирование 20 минут, п»
+      p.Field__hint  678×19 @0,146  Manrope 400 13/19  lines=1  «Что сделано, что осталось, на что обрати»
+  section.Card__card#3  720×130 @0,908  r20  b1
+    div.OrderHandover__blockHead  678×24 @21,21
       h2.OrderHandover__blockTitle#2  58×16 @0,4  Onest 700 13/16  ls1  lines=1  «Оплата»
-      span.Badge__badge#2  69×24 @625,0  Manrope 600 12/16  r100  b1  lines=1  «принять»
-    p.OrderHandover__paymentMode  694×23 @21,55  Manrope 600 15/23  lines=1  «Наличными на объекте»
-    p.OrderHandover__hint  694×20 @21,88  Manrope 400 13/20  lines=1  «Возьмите с клиента 38 500 ₽.»
-  div.OrderHandover__bar  736×149 @16,751  b1 0 0 0  fixed
-    button.Button__button  736×56 @0,13  r12  b1
-      span.Button__content  106×19 @315,18
+      span.Badge__badge#2  69×24 @609,0  Manrope 600 12/16  r100  b1  lines=1  «принять»
+    p.OrderHandover__paymentMode  678×23 @21,55  Manrope 600 15/23  lines=1  «Наличными на объекте»
+    p.OrderHandover__hint  678×20 @21,88  Manrope 400 13/20  lines=1  «Возьмите с клиента 38 500 ₽.»
+  div.OrderHandover__bar  720×149 @16,751  b1 0 0 0  fixed
+    button.Button__button  720×56 @0,13  r12  b1
+      span.Button__content  106×19 @307,18
         span.Button__label  106×19 @0,0  Manrope 600 16/19  lines=1  «Сдать работу»
-    button.Button__button#2  736×56 @0,77  r12  b1
-      span.Button__content  163×19 @286,18
+    button.Button__button#2  720×56 @0,77  r12  b1
+      span.Button__content  163×19 @278,18
         span.Button__label#2  163×19 @0,0  Manrope 600 16/19  lines=1  «Сохранить черновик»
 
 [геометрия 1440]
-div.OrderHandover__handover  1408×1198 @16,16
-  header.OrderHandover__head  1408×72 @0,0
-    h1.OrderHandover__title  1408×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Сдача работы»
-    p.OrderHandover__meta  1408×22 @0,50
+div.OrderHandover__handover  720×1206 @16,16
+  header.OrderHandover__head  720×72 @0,0
+    h1.OrderHandover__title  720×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Сдача работы»
+    p.OrderHandover__meta  720×22 @0,50
       span.OrderHandover__number  47×20 @0,2  JetBrains Mono 400 13/20  lines=1  «№ 1059»
       span.OrderHandover__what  197×22 @59,0  Manrope 600 15/22  lines=1  «Монтаж · Сплит-система 09»
-  section.Card__card  1408×312 @0,84  r20  b1
-    div.OrderHandover__blockHead  1366×24 @21,21
+  section.Card__card  720×320 @0,84  r20  b1
+    div.OrderHandover__blockHead  678×24 @21,21
       h2.OrderHandover__blockTitle  213×16 @0,4  Onest 700 13/16  ls1  lines=1  «Фото выполненных работ»
-      span.Badge__badge  116×24 @1250,0  Manrope 600 12/16  r100  b1  lines=1  «Фото загружены»
-    p.OrderHandover__hint  1366×20 @21,55  Manrope 400 13/20  lines=1  «Снимки остаются в истории клиента: по ни»
-    ul.OrderHandover__grid  1366×98 @21,85
-      li.OrderHandover__shot  98×98 @0,0  r11
-        img.OrderHandover__thumb  98×98 @0,0
-        button.IconButton__iconButton  40×40 @54,4  r11  b1
+      span.Badge__badge  116×24 @562,0  Manrope 600 12/16  r100  b1  lines=1  «Фото загружены»
+    p.OrderHandover__hint  678×20 @21,55  Manrope 400 13/20  lines=1  «Снимки остаются в истории клиента: по ни»
+    ul.OrderHandover__grid  678×106 @21,85
+      li.OrderHandover__shot  106×106 @0,0  r11
+        img.OrderHandover__thumb  106×106 @0,0
+        button.IconButton__iconButton  40×40 @62,4  r11  b1
           svg  16×16 @12,12
-      li.OrderHandover__shot#2  98×98 @106,0  r11
-        img.OrderHandover__thumb  98×98 @0,0
-        button.IconButton__iconButton  40×40 @54,4  r11  b1
+      li.OrderHandover__shot#2  106×106 @114,0  r11
+        img.OrderHandover__thumb  106×106 @0,0
+        button.IconButton__iconButton  40×40 @62,4  r11  b1
           svg#2  16×16 @12,12
-    div.Field__field  1366×98 @21,193
-      label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фото «после"»
+    div.Field__field  678×98 @21,202
+      label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Добавить фото «после"»
       input.FileInput__input  1×1 @-1,-1  clipped
-      label.FileInput__dropzone  1366×71 @0,27  r11  b1
+      label.FileInput__dropzone  678×71 @0,27  r11  b1
         svg.FileInput__icon  22×22 @15,24
         span.FileInput__texts  170×45 @49,13
           span.FileInput__title  170×22 @0,0  Manrope 600 15/22  lines=1  «Добавить фото «после"»
           span  170×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
-  section.Card__card#2  1408×487 @0,408  r20  b1
-    h2.OrderHandover__blockTitle  1366×16 @21,21  Onest 700 13/16  ls1  lines=1  «Итог работ»
-    div.Field__field  1366×150 @21,47
-      label.Field__label#2  1366×20 @0,0  Manrope 600 13/20  lines=1  «Что сделали сверх наряда»
-      textarea.Textarea__textarea  1366×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Доп. трасса 1,5 м, короб 60×60 — 2 м»
-      p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «Словами, как скажете клиенту. Метры трас»
-    div.OrderHandover__breakdown  1366×85 @21,206
-      span.OrderHandover__breakdownTitle  1366×20 @0,0  Manrope 400 13/20  lines=1  «Разобрано из текста»
-      dl.OrderHandover__tiles  1366×59 @0,26
-        div.OrderHandover__tile  679×59 @0,0  r11
-          dt  655×20 @12,8  Manrope 400 13/20  lines=1  «Доп. трасса»
-          dd  655×22 @12,28  JetBrains Mono 700 15/22  lines=1  «1,5 м»
-        div.OrderHandover__tile#2  679×59 @687,0  r11
-          dt  655×20 @12,8  Manrope 400 13/20  lines=1  «Короб»
-          dd  655×22 @12,28  JetBrains Mono 700 15/22  lines=1  «2 м»
-    div.Field__field#2  1366×166 @21,301
-      label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
-      textarea.Textarea__textarea  1366×112 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Блок повешен, вакуумирование 20 минут, п»
-      p.Field__hint  1366×19 @0,146  Manrope 400 13/19  lines=1  «Что сделано, что осталось, на что обрати»
-  section.Card__card#3  1408×130 @0,907  r20  b1
-    div.OrderHandover__blockHead  1366×24 @21,21
+  section.Card__card#2  720×487 @0,416  r20  b1
+    h2.OrderHandover__blockTitle  678×16 @21,21  Onest 700 13/16  ls1  lines=1  «Итог работ»
+    div.Field__field  678×150 @21,47
+      label.Field__label#2  678×20 @0,0  Manrope 600 13/20  lines=1  «Что сделали сверх наряда»
+      textarea.Textarea__textarea  678×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Доп. трасса 1,5 м, короб 60×60 — 2 м»
+      p.Field__hint  678×19 @0,130  Manrope 400 13/19  lines=1  «Словами, как скажете клиенту. Метры трас»
+    div.OrderHandover__breakdown  678×85 @21,206
+      span.OrderHandover__breakdownTitle  678×20 @0,0  Manrope 400 13/20  lines=1  «Разобрано из текста»
+      dl.OrderHandover__tiles  678×59 @0,26
+        div.OrderHandover__tile  335×59 @0,0  r11
+          dt  311×20 @12,8  Manrope 400 13/20  lines=1  «Доп. трасса»
+          dd  311×22 @12,28  JetBrains Mono 700 15/22  lines=1  «1,5 м»
+        div.OrderHandover__tile#2  335×59 @343,0  r11
+          dt  311×20 @12,8  Manrope 400 13/20  lines=1  «Короб»
+          dd  311×22 @12,28  JetBrains Mono 700 15/22  lines=1  «2 м»
+    div.Field__field#2  678×166 @21,301
+      label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
+      textarea.Textarea__textarea  678×112 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Блок повешен, вакуумирование 20 минут, п»
+      p.Field__hint  678×19 @0,146  Manrope 400 13/19  lines=1  «Что сделано, что осталось, на что обрати»
+  section.Card__card#3  720×130 @0,916  r20  b1
+    div.OrderHandover__blockHead  678×24 @21,21
       h2.OrderHandover__blockTitle#2  58×16 @0,4  Onest 700 13/16  ls1  lines=1  «Оплата»
-      span.Badge__badge#2  69×24 @1297,0  Manrope 600 12/16  r100  b1  lines=1  «принять»
-    p.OrderHandover__paymentMode  1366×23 @21,55  Manrope 600 15/23  lines=1  «Наличными на объекте»
-    p.OrderHandover__hint  1366×20 @21,88  Manrope 400 13/20  lines=1  «Возьмите с клиента 38 500 ₽.»
-  div.OrderHandover__bar  1408×149 @16,751  b1 0 0 0  fixed
-    button.Button__button  1408×56 @0,13  r12  b1
-      span.Button__content  106×19 @651,18
+      span.Badge__badge#2  69×24 @609,0  Manrope 600 12/16  r100  b1  lines=1  «принять»
+    p.OrderHandover__paymentMode  678×23 @21,55  Manrope 600 15/23  lines=1  «Наличными на объекте»
+    p.OrderHandover__hint  678×20 @21,88  Manrope 400 13/20  lines=1  «Возьмите с клиента 38 500 ₽.»
+  div.OrderHandover__bar  720×149 @16,751  b1 0 0 0  fixed
+    button.Button__button  720×56 @0,13  r12  b1
+      span.Button__content  106×19 @307,18
         span.Button__label  106×19 @0,0  Manrope 600 16/19  lines=1  «Сдать работу»
-    button.Button__button#2  1408×56 @0,77  r12  b1
-      span.Button__content  163×19 @622,18
+    button.Button__button#2  720×56 @0,77  r12  b1
+      span.Button__content  163×19 @278,18
         span.Button__label#2  163×19 @0,0  Manrope 600 16/19  lines=1  «Сохранить черновик»
 
 [палитра light]

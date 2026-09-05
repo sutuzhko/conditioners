@@ -23,36 +23,36 @@ div.OrderInstallerAgenda__agenda  358×383 @16,16
       p.EmptyState__text  284×67 @16,113  Manrope 400 15/22  lines=3  «На ближайшую неделю на вас ничего не наз»
 
 [геометрия 768]
-div.OrderInstallerAgenda__agenda  736×369 @16,16
-  header.OrderInstallerAgenda__head  736×65 @0,0
-    h1.OrderInstallerAgenda__title  736×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Мои заказы»
-    p.OrderInstallerAgenda__summary  736×23 @0,41  Manrope 600 15/23  lines=1  «Неделя — выездов нет»
-  nav.OrderInstallerAgenda__periods  736×44 @0,81
+div.OrderInstallerAgenda__agenda  720×369 @16,16
+  header.OrderInstallerAgenda__head  720×65 @0,0
+    h1.OrderInstallerAgenda__title  720×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Мои заказы»
+    p.OrderInstallerAgenda__summary  720×23 @0,41  Manrope 600 15/23  lines=1  «Неделя — выездов нет»
+  nav.OrderInstallerAgenda__periods  720×44 @0,81
     a.Button__button  99×44 @0,0  Manrope 600 15/17  r11  b1  lines=1  «Сегодня»
     a.Button__button#2  88×44 @107,0  Manrope 600 15/17  r11  b1  lines=1  «Завтра»
     a.Button__button#3  92×44 @203,0  Manrope 600 15/17  r11  b1  lines=1  «Неделя»
-  section.Card__card  736×229 @0,141  r20  b1
-    div.EmptyState__box  694×187 @21,21
-      span.EmptyState__badge  48×48 @323,28  r100
+  section.Card__card  720×229 @0,141  r20  b1
+    div.EmptyState__box  678×187 @21,21
+      span.EmptyState__badge  48×48 @315,28  r100
         svg  20×20 @14,14
-      h2.EmptyState__title  109×22 @293,88  Onest 700 18/22  ls0  lines=1  «Выездов нет»
-      p.EmptyState__text  371×45 @161,114  Manrope 400 15/22  lines=2  «На ближайшую неделю на вас ничего не наз»
+      h2.EmptyState__title  109×22 @285,88  Onest 700 18/22  ls0  lines=1  «Выездов нет»
+      p.EmptyState__text  371×45 @153,114  Manrope 400 15/22  lines=2  «На ближайшую неделю на вас ничего не наз»
 
 [геометрия 1440]
-div.OrderInstallerAgenda__agenda  1408×379 @16,16
-  header.OrderInstallerAgenda__head  1408×73 @0,0
-    h1.OrderInstallerAgenda__title  1408×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Мои заказы»
-    p.OrderInstallerAgenda__summary  1408×23 @0,50  Manrope 600 15/23  lines=1  «Неделя — выездов нет»
-  nav.OrderInstallerAgenda__periods  1408×44 @0,89
+div.OrderInstallerAgenda__agenda  720×379 @16,16
+  header.OrderInstallerAgenda__head  720×73 @0,0
+    h1.OrderInstallerAgenda__title  720×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Мои заказы»
+    p.OrderInstallerAgenda__summary  720×23 @0,50  Manrope 600 15/23  lines=1  «Неделя — выездов нет»
+  nav.OrderInstallerAgenda__periods  720×44 @0,89
     a.Button__button  99×44 @0,0  Manrope 600 15/17  r11  b1  lines=1  «Сегодня»
     a.Button__button#2  88×44 @107,0  Manrope 600 15/17  r11  b1  lines=1  «Завтра»
     a.Button__button#3  92×44 @203,0  Manrope 600 15/17  r11  b1  lines=1  «Неделя»
-  section.Card__card  1408×230 @0,149  r20  b1
-    div.EmptyState__box  1366×188 @21,21
-      span.EmptyState__badge  48×48 @659,28  r100
+  section.Card__card  720×230 @0,149  r20  b1
+    div.EmptyState__box  678×188 @21,21
+      span.EmptyState__badge  48×48 @315,28  r100
         svg  20×20 @14,14
-      h2.EmptyState__title  115×23 @626,88  Onest 700 19/23  ls0  lines=1  «Выездов нет»
-      p.EmptyState__text  371×45 @497,115  Manrope 400 15/22  lines=2  «На ближайшую неделю на вас ничего не наз»
+      h2.EmptyState__title  115×23 @282,88  Onest 700 19/23  ls0  lines=1  «Выездов нет»
+      p.EmptyState__text  371×45 @153,115  Manrope 400 15/22  lines=2  «На ближайшую неделю на вас ничего не наз»
 
 [палитра light]
 div.OrderInstallerAgenda__agenda
