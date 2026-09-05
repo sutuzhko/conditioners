@@ -85,7 +85,17 @@ export function pathOf(points: readonly number[], scale: ChartScale, pad: ChartP
  * сверяют порядок величины, а точное число читают в подписи конца линии.
  */
 export function ticksOf(scale: ChartScale): readonly number[] {
-  return [scale.min, (scale.min + scale.max) / 2, scale.max];
+  const middle = (scale.min + scale.max) / 2;
+
+  /* 🔴 Середина отбрасывается, если её подпись совпала с краем. Подпись
+     отметки округляется до целого, а сама отметка стоит там, где стоит: на
+     шкале 0…1 середина 0,5 подписывалась единицей — на графике оказывались
+     две единицы, и линия сетки врала про своё значение. Так выглядели
+     «Заказы по неделям», пока недельный максимум был равен одному. */
+  const edges = [Math.round(scale.min), Math.round(scale.max)];
+  if (edges.includes(Math.round(middle))) return [scale.min, scale.max];
+
+  return [scale.min, middle, scale.max];
 }
 
 /**
