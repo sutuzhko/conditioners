@@ -1,0 +1,47 @@
+# админка-страница-не-найдена--записьмонтажнику · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+p  29×20 @16,40  JetBrains Mono 400 13/20  ls2  lines=1  «404»
+h1  227×30 @16,72  Onest 700 25/30  ls-1  lines=1  «Запись не найдена»
+p#2  358×70 @16,114  Manrope 400 15/23  lines=3  «Записи по этому адресу больше нет — скор»
+a.Button__button  190×52 @16,208  r12  b1
+  span.Button__content  132×19 @29,16
+    span.Button__label  132×19 @0,0  Manrope 600 16/19  lines=1  «К своим работам»
+
+[геометрия 768]
+p  29×20 @16,40  JetBrains Mono 400 13/20  ls2  lines=1  «404»
+h1  281×37 @16,72  Onest 700 31/37  ls-1  lines=1  «Запись не найдена»
+p#2  601×46 @16,121  Manrope 400 15/23  lines=2  «Записи по этому адресу больше нет — скор»
+a.Button__button  190×52 @16,192  r12  b1
+  span.Button__content  132×19 @29,16
+    span.Button__label  132×19 @0,0  Manrope 600 16/19  lines=1  «К своим работам»
+
+[геометрия 1440]
+p  29×20 @16,40  JetBrains Mono 400 13/20  ls2  lines=1  «404»
+h1  344×46 @16,72  Onest 700 38/46  ls-1  lines=1  «Запись не найдена»
+p#2  601×46 @16,130  Manrope 400 15/23  lines=2  «Записи по этому адресу больше нет — скор»
+a.Button__button  190×52 @16,200  r12  b1
+  span.Button__content  132×19 @29,16
+    span.Button__label  132×19 @0,0  Manrope 600 16/19  lines=1  «К своим работам»
+
+[палитра light]
+p  color #0e7490
+h1  color #0f172a
+p#2  color #475569
+a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  span.Button__content
+    span.Button__label  color #ffffff
+
+[палитра dark]
+p  color #22d3ee
+h1  color #eaf1f8
+p#2  color #a8b6c6
+a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  span.Button__content
+    span.Button__label  color #ffffff
