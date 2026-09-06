@@ -3,9 +3,11 @@ import { describe, expect, it } from 'vitest';
 import {
   BARS_PAD,
   PAD,
+  VALUE_LINE,
   VIEW,
   bandCenter,
   barAt,
+  endLabelsOf,
   padOf,
   pathOf,
   pointAt,
@@ -133,5 +135,86 @@ describe('Геометрия столбцов', () => {
   it('поля столбцов уже полей ломаной справа', () => {
     expect(padOf('bars').right).toBeLessThan(padOf('line').right);
     expect(padOf('line')).toEqual(PAD);
+  });
+});
+
+/**
+ * Подписи концов линий — issue #666.
+ *
+ * 🔴 Ноль и ноль — состояние любого нового бизнеса до первого закрытого
+ * наряда, и владелец видит его на первом же входе в панель. Две подписи «0 т₽»
+ * в одной точке рисуются друг поверх друга: на экране остаётся нечитаемая
+ * каша, а не два числа.
+ */
+describe('подписи на концах линий не спорят за одно место', () => {
+  const two = (a: readonly number[], b: readonly number[]) => [
+    { id: 'revenue', name: 'Выручка', points: a },
+    { id: 'payout', name: 'Выплаты', points: b },
+  ];
+
+  it('🔴 равные значения дают одну подпись на две линии, а не две в точке', () => {
+    const series = two([0, 0, 0], [0, 0, 0]);
+    const labels = endLabelsOf(series, scaleOf(series));
+
+    expect(labels).toHaveLength(1);
+    expect(labels[0]?.shared).toBe(true);
+  });
+
+  it('равные, но не нулевые — то же самое: спор за место не про ноль', () => {
+    const series = two([10, 40], [30, 40]);
+    const labels = endLabelsOf(series, scaleOf(series));
+
+    expect(labels).toHaveLength(1);
+    expect(labels[0]?.shared).toBe(true);
+  });
+
+  /* 🔴 Одна подпись на две линии законна только тогда, когда число у них
+     действительно одно. Близкие, но разные величины — это два разных числа, и
+     показать вместо них одно значило бы соврать. */
+  it('🔴 близкие, но разные значения дают две подписи, разведённые по высоте', () => {
+    const series = two([0, 100], [0, 99]);
+    const labels = endLabelsOf(series, scaleOf(series));
+
+    expect(labels).toHaveLength(2);
+    expect(labels.every((label) => label.shared)).toBe(false);
+
+    const [first, second] = labels;
+    expect(Math.abs((second?.y ?? 0) - (first?.y ?? 0))).toBeGreaterThanOrEqual(VALUE_LINE);
+  });
+
+  it('далёкие значения ничего не двигают: каждая подпись стоит у своего конца', () => {
+    const series = two([0, 100], [0, 0]);
+    const scale = scaleOf(series);
+    const labels = endLabelsOf(series, scale);
+
+    expect(labels).toHaveLength(2);
+    expect(labels[0]?.y).toBeCloseTo(pointAt(1, 100, 2, scale).y, 5);
+    expect(labels[1]?.y).toBeCloseTo(pointAt(1, 0, 2, scale).y, 5);
+  });
+
+  it('одна серия — одна подпись, и разводить нечего', () => {
+    const series = [{ id: 'revenue', name: 'Выручка', points: [1, 2, 3] }];
+    const labels = endLabelsOf(series, scaleOf(series));
+
+    expect(labels).toHaveLength(1);
+    expect(labels[0]?.shared).toBe(false);
+  });
+
+  it('пустая серия подписи не даёт: подписывать нечего', () => {
+    const series = [{ id: 'revenue', name: 'Выручка', points: [] }];
+
+    expect(endLabelsOf(series, scaleOf(series))).toHaveLength(0);
+  });
+
+  /* Подпись, уехавшая за верхнее поле, обрезается краем SVG: разводить их
+     можно только внутри холста. */
+  it('разведённая подпись остаётся внутри холста', () => {
+    const series = two([100, 100], [99, 99]);
+    const labels = endLabelsOf(series, scaleOf(series));
+
+    for (const label of labels) {
+      expect(label.y).toBeGreaterThanOrEqual(PAD.top);
+      expect(label.y).toBeLessThanOrEqual(VIEW.height - PAD.bottom);
+    }
   });
 });
