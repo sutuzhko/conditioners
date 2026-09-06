@@ -4,7 +4,7 @@ import { createContext, useContext } from 'react';
 
 import type { DayKey } from '@/shared/lib/calendar';
 
-import type { CrmEventDraft } from './model';
+import type { CrmEventDraft, DayBlockDraft } from './model';
 import type { ScheduleEdit } from './schedule';
 
 /**
@@ -24,6 +24,14 @@ export type CalendarActions = {
   readonly remove: (edit: ScheduleEdit) => void;
   /** Перетаскивание и растягивание дела: те же поля, только время другое. */
   readonly move: (id: string, draft: CrmEventDraft) => void;
+  /**
+   * Перенос отлучки вбок: тот же черновик, только даты сдвинуты (#144).
+   *
+   * Отдельно от `move`, а не общим действием с объединением: у дела и у
+   * отлучки разные черновики и разные маршруты правки, и «одно из двух»
+   * пришлось бы разбирать в каждом вызове.
+   */
+  readonly moveBlock: (id: string, draft: DayBlockDraft) => void;
   /** Отметить занятость — своя, на выбранный день (ADR-115). */
   readonly block: (day: DayKey) => void;
   /** Номер записи, по которой идёт запрос: её кнопки на это время заперты. */
@@ -42,6 +50,7 @@ const IDLE: CalendarActions = {
   edit: () => {},
   remove: () => {},
   move: () => {},
+  moveBlock: () => {},
   block: () => {},
   pending: null,
 };

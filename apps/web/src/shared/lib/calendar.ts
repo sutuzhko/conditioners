@@ -265,11 +265,29 @@ export function todayKey(now: Date = new Date(), timeZone: string = WORK_TIME_ZO
   return dayKeyOf(now, timeZone);
 }
 
+/** Ключ дня как момент полуночи UTC — общая мера для арифметики над датами. */
+function utcOf(day: DayKey): number {
+  const [year = 0, month = 1, date = 1] = day.split('-').map((part) => Number.parseInt(part, 10));
+  return Date.UTC(year, month - 1, date);
+}
+
 /** Соседний день: `shiftDay('2026-08-31', 1) === '2026-09-01'`. */
 export function shiftDay(day: DayKey, delta: number): DayKey {
   const [year = 0, month = 1, date = 1] = day.split('-').map((part) => Number.parseInt(part, 10));
   const at = new Date(Date.UTC(year, month - 1, date + delta));
   return `${at.getUTCFullYear()}-${pad(at.getUTCMonth() + 1)}-${pad(at.getUTCDate())}`;
+}
+
+/**
+ * Сколько дней от одного ключа до другого: `daysBetween('2026-08-19',
+ * '2026-09-01') === 13`. Отрицательное значение — второй день раньше первого.
+ *
+ * 🔴 Считается по самим ключам через UTC, а не разностью моментов в поясе
+ * работ: у календарной даты часового пояса нет вовсе (ADR-080), а переход на
+ * летнее время в поясе с ним дал бы сутки в 23 часа и лишний день в ответе.
+ */
+export function daysBetween(from: DayKey, to: DayKey): number {
+  return Math.round((utcOf(to) - utcOf(from)) / DAY_MS);
 }
 
 /**

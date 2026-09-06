@@ -38,6 +38,7 @@ function chip(item: ScheduleItem, actions: Partial<CalendarActions> = {}) {
     edit: vi.fn(),
     remove: vi.fn(),
     move: vi.fn(),
+    moveBlock: vi.fn(),
     block: vi.fn(),
     pending: null,
     ...actions,

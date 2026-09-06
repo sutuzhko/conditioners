@@ -26,6 +26,19 @@ export const ADMIN_PASSWORD = process.env.E2E_ADMIN_PASSWORD ?? 'admin';
 
 const crmEventSchema = z.object({ id: z.string() });
 
+/**
+ * Отлучка так, как её отдаёт сервер: диапазон дат — то, ради чего сценарий
+ * переноса и заведён (ADR-165), и читается он обратно с сервера, а не из
+ * ответа на правку.
+ */
+const dayBlockSchema = z.object({
+  id: z.string(),
+  day: z.string().nullable(),
+  endDay: z.string().nullable(),
+  reason: z.string().nullable(),
+});
+export type AdminDayBlock = z.infer<typeof dayBlockSchema>;
+
 const staffSchema = z.object({ id: z.string(), login: z.string() });
 
 /**
@@ -509,6 +522,38 @@ export class AdminApi {
       throw new Error(`Создание дела вернуло код ${response.status()}`);
     }
     return crmEventSchema.parse(await response.json());
+  }
+
+  /** Отлучка смотрящего — заводится ради проверки и удаляется в `finally`. */
+  async createBlock(input: Record<string, unknown>): Promise<AdminDayBlock> {
+    const response = await this.context.post('/api/admin/blocks', {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: input,
+    });
+    if (response.status() !== 201) {
+      const detail = await response.text().catch(() => '');
+      throw new Error(`Заведение занятости вернуло код ${response.status()}: ${detail}`);
+    }
+    return dayBlockSchema.parse(await response.json());
+  }
+
+  /**
+   * Занятость месяца — read-back после правки.
+   *
+   * 🔴 Читается отдельным запросом, а не из ответа на `PATCH`: сценарий обязан
+   * доказать, что новые даты лежат в базе, а не что сервер повторил
+   * присланное.
+   */
+  async listBlocks(month: string): Promise<AdminDayBlock[]> {
+    const response = await this.context.get(`/api/admin/blocks?month=${month}`, {
+      headers: { Cookie: this.cookie },
+    });
+    const body = await this.json(response, 'занятость месяца');
+    return z.array(dayBlockSchema).parse(body);
+  }
+
+  async deleteBlock(id: string): Promise<void> {
+    await this.context.delete(`/api/admin/blocks/${id}`, { headers: { Cookie: this.cookie } });
   }
 
   async deleteCrmEvent(id: string): Promise<void> {

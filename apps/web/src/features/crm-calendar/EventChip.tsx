@@ -10,7 +10,7 @@ import type { DayKey } from '@/shared/lib/calendar';
 import { Icon } from '@/shared/ui';
 
 import { useCalendarActions } from './actions';
-import { columnShift, dayOfDrop, isDraggable } from './drag';
+import { columnShift, dayOfDrop, isDraggable, movedBlock, rangeShift } from './drag';
 import { capturePointer, releasePointer } from './pointer';
 import { crmContent as texts } from './content';
 import { EventPopover } from './EventPopover';
@@ -101,6 +101,7 @@ type Drag = {
   readonly startY: number;
   readonly fromMin: number;
   readonly toMin: number;
+  /** Минут в пикселе по вертикали. Ноль — вертикали у поверхности нет. */
   readonly perPx: number;
   /** Ширина колонки дня в пикселях: по ней считается перенос вбок. */
   readonly columnWidth: number;
@@ -111,6 +112,12 @@ type Shift = {
   readonly fromMin: number;
   readonly toMin: number;
   readonly day: DayKey;
+  /**
+   * Сдвиг вбок в колонках, уже зажатый краями показанного. Он же отвечает на
+   * вопрос «жест что-нибудь изменил?»: у многодневной отлучки день первого
+   * куска мог остаться прежним, а диапазон — переехать.
+   */
+  readonly columns: number;
   /** Сдвиг вбок в пикселях: колонка чужая, а место в ней своё. */
   readonly offsetPx: number;
 };
@@ -152,7 +159,16 @@ export function EventChip({
   const [shift, setShift] = useState<Shift | null>(null);
 
   const edit = item.edit;
-  const canDrag = draggable && isDraggable(item);
+  /* 🔴 Пока по записи идёт сохранение, жест по ней не начинается. На экране
+     до прихода новой сетки стоит прежний черновик, и второй жест посчитался
+     бы от него: сервер получил бы те же даты второй раз, а объявление
+     отчиталось бы о новых — человеку сказали бы «перенесено», хотя запись
+     осталась там же (#144). */
+  const busy = edit !== null && actions.pending === edit.id;
+  const canDrag = draggable && isDraggable(item) && !busy;
+  /* 🔴 Отлучку двигают только вбок: её время задаёт окно «с 11 до 20» в форме,
+     и одно движение мышью не имеет права менять заодно и его (#144). */
+  const sideOnly = edit !== null && edit.kind === 'block';
 
   const show = (): void => {
     const rect = buttonRef.current?.getBoundingClientRect() ?? null;
@@ -168,14 +184,23 @@ export function EventChip({
   const startDrag = (event: ReactPointerEvent<HTMLElement>, mode: Drag['mode']): void => {
     if (!canDrag || event.button !== 0) return;
 
-    /* Сетка меряется своей полосой: она покрывает ровно сутки, поэтому
-       минута в пикселях выводится из её высоты и не требует общей с CSS
-       константы — та разошлась бы с модулем на первой правке высоты часа. */
-    const track = buttonRef.current?.closest('[data-track]');
-    if (!(track instanceof HTMLElement)) return;
+    /* Поверхность, по которой считается жест, меряется сама: и высота часа, и
+       ширина колонки живут в CSS, а общая с ним константа разошлась бы с
+       раскладкой на первой правке шаблона.
 
-    const height = track.getBoundingClientRect().height;
-    if (height <= 0) return;
+       Их две. Колонка часов покрывает ровно сутки — из её высоты выводится
+       минута в пикселе, а её ширина и есть ширина дня. Полоса «весь день»
+       лежит поперёк всех колонок сразу: вертикали у неё нет вовсе, а колонка
+       дня — её ширина, делённая на число показанных дней. */
+    const surface = buttonRef.current?.closest('[data-track],[data-days]');
+    if (!(surface instanceof HTMLElement)) return;
+
+    const rect = surface.getBoundingClientRect();
+    const across = surface.dataset['days'] !== undefined;
+    const columnWidth = across ? rect.width / Math.max(days.length, 1) : rect.width;
+    const perPx = across || rect.height <= 0 ? 0 : MINUTES_IN_DAY / rect.height;
+    // неизмеренная поверхность двигать запись не может — это состояние до отрисовки
+    if (perPx === 0 && columnWidth <= 0) return;
 
     event.stopPropagation();
     capturePointer(event.currentTarget, event.pointerId);
@@ -187,10 +212,8 @@ export function EventChip({
       startY: event.clientY,
       fromMin: item.fromMin,
       toMin: item.toMin,
-      perPx: MINUTES_IN_DAY / height,
-      /* Колонка дня и есть эта полоса: её ширину меряет сетка, а не общая с
-         CSS константа — та разошлась бы с шаблоном на первой правке. */
-      columnWidth: track.getBoundingClientRect().width,
+      perPx,
+      columnWidth,
     };
   };
 
@@ -213,6 +236,28 @@ export function EventChip({
     movedRef.current = true;
     const delta = snap(deltaPx * drag.perPx);
 
+    if (drag.mode === 'move' && sideOnly) {
+      /* 🔴 Диапазон едет целиком, и считается он по записи, а не по её куску
+         в этой колонке: полоса отпуска обрезана краем недели, и сдвиг,
+         зажатый по первому видимому дню, не пустил бы её назад (#144). */
+      const span = item.span;
+      const columns = rangeShift(
+        days,
+        span?.fromDay ?? item.day,
+        span?.toDay ?? item.day,
+        columnShift(sidePx, drag.columnWidth),
+      );
+
+      setShift({
+        fromMin: item.fromMin,
+        toMin: item.toMin,
+        day: item.day,
+        columns,
+        offsetPx: columns * drag.columnWidth,
+      });
+      return;
+    }
+
     if (drag.mode === 'move') {
       const length = drag.toMin - drag.fromMin;
       const from = Math.min(Math.max(drag.fromMin + delta, 0), MINUTES_IN_DAY - length);
@@ -222,23 +267,26 @@ export function EventChip({
       const index = days.indexOf(item.day);
       const day = dayOfDrop(days, item.day, columnShift(sidePx, drag.columnWidth));
 
+      const columns = index < 0 ? 0 : days.indexOf(day) - index;
+
       setShift({
         fromMin: from,
         toMin: from + length,
         day,
-        offsetPx: index < 0 ? 0 : (days.indexOf(day) - index) * drag.columnWidth,
+        columns,
+        offsetPx: columns * drag.columnWidth,
       });
       return;
     }
 
     if (drag.mode === 'start') {
       const from = Math.min(Math.max(drag.fromMin + delta, 0), drag.toMin - MIN_EVENT_MIN);
-      setShift({ fromMin: from, toMin: drag.toMin, day: item.day, offsetPx: 0 });
+      setShift({ fromMin: from, toMin: drag.toMin, day: item.day, columns: 0, offsetPx: 0 });
       return;
     }
 
     const to = Math.min(Math.max(drag.toMin + delta, drag.fromMin + MIN_EVENT_MIN), MINUTES_IN_DAY);
-    setShift({ fromMin: drag.fromMin, toMin: to, day: item.day, offsetPx: 0 });
+    setShift({ fromMin: drag.fromMin, toMin: to, day: item.day, columns: 0, offsetPx: 0 });
   };
 
   const endDrag = (event: ReactPointerEvent<HTMLElement>): void => {
@@ -250,7 +298,7 @@ export function EventChip({
 
     const next = shift;
     setShift(null);
-    if (!movedRef.current || next === null || edit === null || edit.kind !== 'event') return;
+    if (!movedRef.current || next === null || edit === null) return;
 
     /* 🔴 Жест, ничего не изменивший, — это клик, а не перенос (issue #143).
        Палец на тач-экране уезжает вбок на несколько пикселей у каждого тапа;
@@ -258,8 +306,18 @@ export function EventChip({
        отправлял бы на сервер правку с прежними значениями и заодно съедал
        нажатие, ради которого карточка и открывается. То же спасает от пустой
        правки по вертикали: сдвиг на три минуты садится обратно на свой шаг. */
-    if (next.day === item.day && next.fromMin === item.fromMin && next.toMin === item.toMin) {
+    if (
+      next.columns === 0 &&
+      next.day === item.day &&
+      next.fromMin === item.fromMin &&
+      next.toMin === item.toMin
+    ) {
       movedRef.current = false;
+      return;
+    }
+
+    if (edit.kind === 'block') {
+      actions.moveBlock(edit.id, movedBlock(edit.draft, next.columns));
       return;
     }
 
@@ -336,6 +394,14 @@ export function EventChip({
             shift === null || shift.offsetPx === 0 ? undefined : `translateX(${shift.offsetPx}px)`,
         };
 
+  /* Полоса «весь день» едет тем же сдвигом, но в своей ячейке сетки:
+     перевесить её в чужие колонки посреди жеста значило бы пересчитать
+     раскладку соседних полос ради промежуточного состояния. */
+  const barStyle =
+    variant === 'slot' || shift === null || shift.offsetPx === 0
+      ? undefined
+      : { transform: `translateX(${shift.offsetPx}px)` };
+
   const person = item.person;
 
   const body = (
@@ -343,6 +409,7 @@ export function EventChip({
       <button
         className={classes}
         ref={buttonRef}
+        style={barStyle}
         type="button"
         onClick={onClick}
         onPointerDown={canDrag ? (event) => startDrag(event, 'move') : undefined}
@@ -421,7 +488,7 @@ export function EventChip({
 
       {/* Края тянутся мышью; с клавиатуры длительность задаётся полем в форме
           правки — ускоритель не может быть единственным путём (CRM §3.5.1). */}
-      {canDrag && variant === 'slot' ? (
+      {canDrag && !sideOnly && variant === 'slot' ? (
         <>
           <span
             className={`${styles.edge} ${styles.edgeStart}`}
