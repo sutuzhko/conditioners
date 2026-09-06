@@ -2,10 +2,12 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import type { AdminRole } from '@/entities/staff/model';
+import type { AdminCounts } from '@/shared/config/admin-counters';
 import { Icon, ThemeSwitch } from '@/shared/ui';
 
 import { LogoutButton } from './LogoutButton';
 import {
+  ADMIN_COUNTER_TITLES,
   ADMIN_SHEET_GROUP_TITLES,
   ADMIN_TABS,
   adminShellContent as texts,
@@ -26,6 +28,16 @@ export interface AdminMoreSheetProps {
    * по дороге ничего не добавлял, но требовал приведения на каждом вызове.
    */
   readonly activeHref: string | undefined;
+  /**
+   * Сколько ждёт в очередях. Тот же проп и тот же источник, что у колонки
+   * (`server/services/nav-counts`): лист к базе не ходит и о том, как эти
+   * числа получены, не знает.
+   *
+   * 🔴 Приходит сверху, а не читается здесь. Счёт нужен листу ровно для того,
+   * чтобы его нарисовать, — и любая попытка добыть его на месте сделала бы
+   * лист клиентским компонентом с запросом внутри (бюджет JS, ADR-184).
+   */
+  readonly counts?: AdminCounts | undefined;
 }
 
 /** Порядок групп разделов в листе. Тот же, что в колонке. */
@@ -53,24 +65,43 @@ const ACCOUNT = 'account';
  * его не видели ни снимки, ни инварианты. Отсюда и жалоба владельца вместо
  * красной проверки.
  */
-export function AdminMoreSheet({ role, activeHref }: AdminMoreSheetProps) {
+export function AdminMoreSheet({ role, activeHref, counts }: AdminMoreSheetProps) {
   const rest = columnSectionsFor(role).slice(ADMIN_TABS);
   const bottom = bottomSectionsFor(role);
 
-  const link = (section: AdminSection) => (
-    <li key={section.href}>
-      <Link
-        className={[styles.link, section.href === activeHref ? styles.active : null]
-          .filter(Boolean)
-          .join(' ')}
-        href={{ pathname: section.href }}
-        aria-current={section.href === activeHref ? 'page' : undefined}
-      >
-        <Icon className={styles.icon} name={section.icon} />
-        {section.title}
-      </Link>
-    </li>
-  );
+  const link = (section: AdminSection) => {
+    const counter = section.counter;
+    const waiting = counter === undefined ? undefined : counts?.[counter];
+
+    return (
+      <li key={section.href}>
+        <Link
+          className={[styles.link, section.href === activeHref ? styles.active : null]
+            .filter(Boolean)
+            .join(' ')}
+          href={{ pathname: section.href }}
+          aria-current={section.href === activeHref ? 'page' : undefined}
+        >
+          <Icon className={styles.icon} name={section.icon} />
+          {section.title}
+
+          {/* 🔴 Счётчик тот же, что у пункта колонки, и по тому же правилу:
+              рисуется и на нуле — «отзывов на модерации нет» это ответ, а не
+              пустота. На телефоне колонки нет вовсе, и без него владелец не
+              узнаёт о работе нигде: во вкладках этих разделов не осталось
+              (issue #670). */}
+          {waiting === undefined || counter === undefined ? null : (
+            <span className={styles.count}>
+              {waiting}
+              {/* Подпись слышна, но не видна: голое число озвучивается как
+                  «Отзывы 2» и не отвечает, два чего. */}
+              <span className="srOnly"> {ADMIN_COUNTER_TITLES[counter]}</span>
+            </span>
+          )}
+        </Link>
+      </li>
+    );
+  };
 
   return (
     <div className={styles.sheet} data-ui="panel">
