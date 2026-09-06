@@ -10,6 +10,7 @@ const fetchMock = vi.fn();
 
 const draft: DayBlockDraft = {
   repeat: 'once',
+  endDay: '',
   day: '2026-08-26',
   weekday: 3,
   allDay: true,
@@ -84,6 +85,7 @@ describe('Окно занятости', () => {
         body: JSON.stringify({
           repeat: 'once',
           day: '2026-08-26',
+          endDay: null,
           weekday: null,
           fromMin: null,
           toMin: null,
@@ -91,6 +93,44 @@ describe('Окно занятости', () => {
         }),
       }),
     );
+  });
+
+  it('🔴 отпуск уходит одной записью с диапазоном дат (ADR-165)', async () => {
+    const user = userEvent.setup();
+    dialog({ draft: { ...draft, day: '2026-07-01', endDay: '2026-07-14' } });
+
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    expect(String(fetchMock.mock.calls[0]?.[1]?.body)).toContain(
+      '"day":"2026-07-01","endDay":"2026-07-14"',
+    );
+  });
+
+  it('пустое поле «по какое число» уходит пустым концом: это один день', async () => {
+    const user = userEvent.setup();
+    dialog();
+
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    expect(String(fetchMock.mock.calls[0]?.[1]?.body)).toContain('"endDay":null');
+  });
+
+  it('конец раньше начала не отправляется и объясняет, что не так', async () => {
+    const user = userEvent.setup();
+    dialog({ draft: { ...draft, day: '2026-07-14', endDay: '2026-07-01' } });
+
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(screen.getByText('Последний день не раньше первого')).toBeInTheDocument();
+  });
+
+  it('у повторяемой поля диапазона нет вовсе: она тянется неделями', () => {
+    dialog({ draft: { ...draft, repeat: 'weekly', weekday: 3 } });
+
+    expect(screen.queryByLabelText(new RegExp(texts.fieldEndDay))).toBeNull();
   });
 
   it('переводит часы в минуты от полуночи, а не заставляет считать человека', async () => {
@@ -110,7 +150,9 @@ describe('Окно занятости', () => {
     await user.click(screen.getByRole('button', { name: texts.save }));
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalled());
-    expect(String(fetchMock.mock.calls[0]?.[1]?.body)).toContain('"day":null,"weekday":3');
+    expect(String(fetchMock.mock.calls[0]?.[1]?.body)).toContain(
+      '"day":null,"endDay":null,"weekday":3',
+    );
   });
 
   it('правка уходит на свой адрес, а не заводит вторую запись', async () => {

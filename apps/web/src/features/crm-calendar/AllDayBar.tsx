@@ -6,23 +6,16 @@ import { Icon } from '@/shared/ui';
 
 import { crmContent as texts } from './content';
 import { EventChip } from './EventChip';
-import type { ScheduleItem } from './schedule';
+import { allDayBands, type ScheduleColumn } from './schedule';
 import styles from './AllDayBar.module.css';
 
-/** Колонка полосы: день и его записи без времени. */
-export type AllDayColumn = {
-  readonly key: string;
-  readonly items: readonly ScheduleItem[];
-};
-
 export interface AllDayBarProps {
-  readonly columns: readonly AllDayColumn[];
   /**
-   * Раскладка колонок — та же строка, что у шапки и у сетки часов. 🔴 Полоса
-   * обязана стоять в тех же колонках: заявка, съехавшая на соседний день, —
-   * это неправда о том, когда человек обратился.
+   * Колонки вида — те же, что у шапки и у сетки часов. 🔴 Полоса обязана
+   * стоять в тех же колонках: заявка, съехавшая на соседний день, — это
+   * неправда о том, когда человек обратился.
    */
-  readonly template: string;
+  readonly columns: readonly ScheduleColumn[];
   /**
    * Найденная поиском запись — её подсвечивают, чтобы глаз нашёл её в сетке
    * (issue #132). Признак идёт с адреса и передаётся вниз пропом: чип не
@@ -41,18 +34,25 @@ const COLLAPSED_ROWS = 2;
  * пришла, а не была запланирована на час, и место в сетке занимать не должна.
  * Сюда же уходят заметки «не забыть» и дни, закрытые целиком.
  *
+ * 🔴 Многодневная отлучка идёт одной полосой через колонки, а не повторяется в
+ * каждой (ADR-165): отпуск на две недели — одна запись, и четырнадцать раз
+ * подряд написанное «Отпуск» читается как четырнадцать разных отлучек.
+ * Раскладку полос считает `allDayBands`, разметке остаётся поставить их по
+ * колонкам сетки.
+ *
  * Полоса растёт и сворачивается: день с восемью заявками не имеет права
  * съесть сетку часов, ради которой календарь и открывают.
  */
-export function AllDayBar({ columns, template, focusId }: AllDayBarProps) {
+export function AllDayBar({ columns, focusId }: AllDayBarProps) {
   const [open, setOpen] = useState(false);
 
-  const rows = columns.reduce((max, column) => Math.max(max, column.items.length), 0);
+  const bands = allDayBands(columns);
+  const rows = bands.reduce((max, band) => Math.max(max, band.lane + 1), 0);
   const hidden = Math.max(rows - COLLAPSED_ROWS, 0);
   const collapsed = hidden > 0 && !open;
 
   return (
-    <div className={styles.bar} style={{ gridTemplateColumns: template }}>
+    <div className={styles.bar}>
       <div className={styles.rail}>
         <span className={styles.label} aria-hidden="true">
           {texts.allDay}
@@ -78,21 +78,32 @@ export function AllDayBar({ columns, template, focusId }: AllDayBarProps) {
         )}
       </div>
 
-      {columns.map((column) => (
-        /* Список, а не набор кнопок: у полосы должно быть имя и счёт —
-           скринридер объявляет «список из двух». */
-        <ul
-          className={[styles.list, collapsed ? styles.collapsed : null].filter(Boolean).join(' ')}
-          key={column.key}
-          aria-label={texts.allDay}
-        >
-          {column.items.map((item) => (
-            <li className={styles.item} key={item.id}>
-              <EventChip item={item} variant="bar" focused={item.id === focusId} />
-            </li>
-          ))}
-        </ul>
-      ))}
+      {/* Список, а не набор кнопок: у полосы должно быть имя и счёт —
+          скринридер объявляет «список из двух». */}
+      <ul
+        className={[styles.lanes, collapsed ? styles.collapsed : null].filter(Boolean).join(' ')}
+        style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}
+        aria-label={texts.allDay}
+      >
+        {bands.map((band) => (
+          <li
+            className={[
+              styles.item,
+              band.clippedStart ? styles.fromEarlier : null,
+              band.clippedEnd ? styles.toLater : null,
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            key={band.key}
+            style={{
+              gridColumn: `${band.from + 1} / span ${band.span}`,
+              gridRow: band.lane + 1,
+            }}
+          >
+            <EventChip item={band.item} variant="bar" focused={band.item.id === focusId} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

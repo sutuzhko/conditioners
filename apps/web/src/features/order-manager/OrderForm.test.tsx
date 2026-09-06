@@ -18,6 +18,7 @@ import {
   staffDraft,
   staffInstaller,
   unassignedDraft,
+  vacationBlocks,
 } from './fixtures';
 
 const lists = { clients, installers } as const;
@@ -337,6 +338,51 @@ describe('Форма наряда: занятость монтажника', () 
     expect(screen.getByLabelText(texts.time)).toHaveValue('17:00');
 
     expect(screen.queryByText(/Артём Белов —/)).not.toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Отпуск на две недели — одна запись, и занят монтажник в каждый её день
+   * (ADR-165). Дефект, который эта проверка ловит: пометка, считающая только
+   * первый день диапазона, оставляет человека свободным в остальные
+   * тринадцать — и наряд ставят на второй день отпуска.
+   */
+  it('🔴 отпуск на две недели помечает монтажника занятым в каждый свой день', async () => {
+    const user = userEvent.setup();
+
+    for (const day of ['2026-08-20', '2026-08-28', '2026-09-02']) {
+      const view = render(
+        <OrderForm
+          {...lists}
+          blocks={vacationBlocks}
+          initial={{ ...draft, day }}
+          api={acceptingApi}
+        />,
+      );
+
+      // предупреждение под формой
+      expect(screen.getByText(/Дмитрий Соколов —/)).toBeInTheDocument();
+
+      // и пометка в самом списке монтажников: владелец выбирает, глядя в него
+      await user.selectOptions(screen.getByLabelText(texts.installer), staffInstaller.id);
+      expect(
+        screen.getByRole('option', { name: texts.installerBusy('Дмитрий Соколов') }),
+      ).toBeInTheDocument();
+
+      view.unmount();
+    }
+  });
+
+  it('за границами отпуска монтажник свободен: диапазон закрыт с обоих концов', () => {
+    render(
+      <OrderForm
+        {...lists}
+        blocks={vacationBlocks}
+        initial={{ ...draft, day: '2026-09-03' }}
+        api={acceptingApi}
+      />,
+    );
+
+    expect(screen.queryByText(/Дмитрий Соколов —/)).not.toBeInTheDocument();
   });
 
   it('без назначенного монтажника занятость не показывается: некого предупреждать', () => {

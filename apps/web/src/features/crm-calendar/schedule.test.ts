@@ -17,7 +17,9 @@ import {
   parallelService,
   plannedCall,
   sergey,
+  vacationBlock,
   viewerId,
+  weeklyBlock,
   wholeDayBlock,
 } from './fixtures';
 import type { ScheduleKind } from './model';
@@ -448,6 +450,117 @@ describe('подпись дня', () => {
     const column = dayColumns(source({ events: [], orders: [], leads: [] }), '2026-08-31')[0];
 
     expect(column?.label).toContain('Пусто');
+  });
+});
+
+/**
+ * 🔴 Отпуск на две недели — одна запись, а не четырнадцать (ADR-165).
+ *
+ * Здесь проверяется третье из трёх мест, где считается занятость: сам слой
+ * календаря. Первые два — разрешение занятости (`entities/crm/lib/busy`) и
+ * пометка занятых в форме наряда (`order-manager/OrderForm`). Разойдись они,
+ * монтажник окажется свободен в одном экране и занят в другом.
+ */
+describe('многодневная отлучка', () => {
+  /** Отпуск фикстуры: 19 августа — 1 сентября. */
+  const VACATION_DAYS = [
+    '2026-08-19',
+    '2026-08-23',
+    '2026-08-26',
+    '2026-08-31',
+    '2026-09-01',
+  ] as const;
+
+  it('🔴 закрывает каждый свой день, а не только первый', () => {
+    for (const day of VACATION_DAYS) {
+      const column = dayColumns(source({ blocks: [vacationBlock] }), day)[0];
+
+      expect(column?.busy).toEqual({ state: 'full', reasons: ['Отпуск'] });
+    }
+  });
+
+  it('за границами диапазона день свободен', () => {
+    for (const day of ['2026-08-18', '2026-09-02']) {
+      const column = dayColumns(source({ blocks: [vacationBlock] }), day)[0];
+
+      expect(column?.busy.state).toBe('free');
+    }
+  });
+
+  it('в неделе стоит в полосе «весь день» во всех семи колонках', () => {
+    const week = weekColumns(source({ blocks: [vacationBlock] }), '2026-08-26');
+
+    expect(week).toHaveLength(7);
+    expect(week.every((column) => column.allDay.some((item) => item.entity === 'block'))).toBe(
+      true,
+    );
+  });
+
+  it('🔴 куски помнят одну запись: по ней вид сшивает их в полосу', () => {
+    const week = weekColumns(source({ blocks: [vacationBlock] }), '2026-08-26');
+    const pieces = week.flatMap((column) =>
+      column.allDay.filter((item) => item.entity === 'block'),
+    );
+
+    expect(pieces).toHaveLength(7);
+    expect(new Set(pieces.map((item) => item.span?.recordId)).size).toBe(1);
+    expect(pieces[0]?.span).toEqual({
+      recordId: `block-${vacationBlock.id}`,
+      fromDay: vacationBlock.day,
+      toDay: vacationBlock.endDay,
+    });
+  });
+
+  it('однодневная отлучка полосой не становится: сшивать нечего', () => {
+    const column = dayColumns(source({ blocks: [wholeDayBlock] }), '2026-08-26')[0];
+    const away = column?.allDay.find((item) => item.entity === 'block');
+
+    expect(away?.span).toBeNull();
+  });
+
+  it('в месяце попадает в каждую клетку диапазона, включая хвост соседнего месяца', () => {
+    const month = monthColumns(source({ blocks: [vacationBlock] }), '2026-08');
+    const covered = month.filter((column) => column.allDay.some((item) => item.entity === 'block'));
+
+    expect(covered.map((column) => column.day)).toEqual([
+      '2026-08-19',
+      '2026-08-20',
+      '2026-08-21',
+      '2026-08-22',
+      '2026-08-23',
+      '2026-08-24',
+      '2026-08-25',
+      '2026-08-26',
+      '2026-08-27',
+      '2026-08-28',
+      '2026-08-29',
+      '2026-08-30',
+      '2026-08-31',
+      '2026-09-01',
+    ]);
+  });
+
+  it('🔴 подпись называет даты: «День закрыт» не говорит, до какого числа', () => {
+    const column = dayColumns(source({ blocks: [vacationBlock] }), '2026-08-26')[0];
+    const away = column?.allDay.find((item) => item.entity === 'block');
+
+    expect(away?.range).toBe('с 19 августа по 1 сентября');
+    expect(away?.label).toContain('с 19 августа по 1 сентября');
+  });
+
+  it('правка открывает диапазон целиком, а не день, с которого её открыли', () => {
+    const column = dayColumns(source({ blocks: [vacationBlock] }), '2026-08-26')[0];
+    const edit = column?.allDay.find((item) => item.entity === 'block')?.edit;
+
+    expect(edit?.kind === 'block' ? edit.draft.day : null).toBe('2026-08-19');
+    expect(edit?.kind === 'block' ? edit.draft.endDay : null).toBe('2026-09-01');
+  });
+
+  it('повторяемая отлучка диапазоном не становится: она тянется неделями', () => {
+    const column = dayColumns(source({ blocks: [weeklyBlock] }), '2026-08-20')[0];
+    const away = column?.allDay.find((item) => item.entity === 'block');
+
+    expect(away?.span).toBeNull();
   });
 });
 

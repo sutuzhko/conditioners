@@ -10,6 +10,8 @@ import {
   monthEvents,
   monthLeads,
   monthOrders,
+  foreignVacationBlock,
+  vacationBlock,
   viewerId,
   wholeDayBlock,
 } from './fixtures';
@@ -105,4 +107,31 @@ export const СлойКоманды: Story = {
 /** Сегодня: число в кружке и плотная рамка — видно и в монохромном режиме. */
 export const Сегодня: Story = {
   args: { columns: monthColumns(source({ today: DAY }), MONTH) },
+};
+
+/**
+ * 🔴 Отпуск с 19 августа по 1 сентября — сплошная плашка через свои дни, а не
+ * четырнадцать одинаковых строк в четырнадцати клетках (ADR-165). Плашка
+ * рвётся на границе недели: ряд месяца — своё место на экране.
+ */
+export const МногодневнаяОтлучка: Story = {
+  args: {
+    columns: monthColumns(source({ blocks: [vacationBlock], leads: [] }), MONTH),
+  },
+};
+
+/** Две плашки в одном ряду: свой отпуск и чужой больничный встают дорожками. */
+export const ДвеОтлучкиРядом: Story = {
+  args: {
+    columns: monthColumns(
+      source({
+        team: installers,
+        blocks: [vacationBlock, foreignVacationBlock],
+        events: [],
+        orders: [],
+        leads: [],
+      }),
+      MONTH,
+    ),
+  },
 };

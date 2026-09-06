@@ -21,7 +21,7 @@ section.TimeGrid__grid  358×674 @16,16
   div.AllDayBar__bar  358×53 @0,45  b0 0 1 0
     div.AllDayBar__rail  34×29 @0,4
       span.AllDayBar__label  28×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-    ul.AllDayBar__list  322×44 @36,4
+    ul.AllDayBar__lanes  322×44 @36,4
       li.AllDayBar__item  322×44 @0,0
         button.EventChip__chip  322×44 @0,0  r100  b1 1 1 3
           span.EventChip__head  12×12 @9,16
@@ -156,7 +156,7 @@ section.TimeGrid__grid  736×674 @16,16
   div.AllDayBar__bar  736×53 @0,45  b0 0 1 0
     div.AllDayBar__rail  34×29 @0,4
       span.AllDayBar__label  28×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-    ul.AllDayBar__list  700×44 @36,4
+    ul.AllDayBar__lanes  700×44 @36,4
       li.AllDayBar__item  700×44 @0,0
         button.EventChip__chip  700×44 @0,0  r100  b1 1 1 3
           span.EventChip__head  12×12 @9,16
@@ -291,7 +291,7 @@ section.TimeGrid__grid  1408×659 @16,16
   div.AllDayBar__bar  1408×38 @0,45  b0 0 1 0
     div.AllDayBar__rail  54×29 @0,4
       span.AllDayBar__label  48×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-    ul.AllDayBar__list  1350×24 @58,4
+    ul.AllDayBar__lanes  1350×24 @58,4
       li.AllDayBar__item  1350×24 @0,0
         button.EventChip__chip  1350×24 @0,0  r100  b1 1 1 3
           span.EventChip__head  12×12 @9,6
@@ -426,7 +426,7 @@ section.TimeGrid__grid
   div.AllDayBar__bar  border #0f172a #0f172a #e2e8f0 #0f172a
     div.AllDayBar__rail
       span.AllDayBar__label  color #5b6a7d
-    ul.AllDayBar__list
+    ul.AllDayBar__lanes
       li.AllDayBar__item
         button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
           span.EventChip__head
@@ -561,7 +561,7 @@ section.TimeGrid__grid
   div.AllDayBar__bar  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
     div.AllDayBar__rail
       span.AllDayBar__label  color #7e92a7
-    ul.AllDayBar__list
+    ul.AllDayBar__lanes
       li.AllDayBar__item
         button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
           span.EventChip__head

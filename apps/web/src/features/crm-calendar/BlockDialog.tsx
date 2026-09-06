@@ -16,7 +16,7 @@ const REPEAT_OPTIONS = Object.entries(REPEAT_TITLE).map(([value, label]) => ({ v
 const WEEKDAY_OPTIONS = Object.entries(WEEKDAY_TITLE).map(([value, label]) => ({ value, label }));
 
 /** Поля черновика, у которых бывает своя подсказка об ошибке. */
-type Errors = Partial<Record<'day' | 'weekday' | 'from' | 'to' | 'reason', string>>;
+type Errors = Partial<Record<'day' | 'endDay' | 'weekday' | 'from' | 'to' | 'reason', string>>;
 
 /** Четыре состояния формы: покой, отправка, успех, отказ. */
 type Status = 'idle' | 'sending' | 'success' | 'error';
@@ -68,6 +68,7 @@ export function BlockDialog({ open, onClose, onSaved, draft, id }: BlockDialogPr
     const parsed = dayBlockCreateSchema.safeParse({
       repeat: form.repeat,
       day: form.repeat === 'once' ? form.day : null,
+      endDay: form.repeat === 'once' && form.endDay !== '' ? form.endDay : null,
       weekday: form.repeat === 'weekly' ? form.weekday : null,
       fromMin: form.allDay ? null : minutesOfTime(form.from),
       toMin: form.allDay ? null : minutesOfTime(form.to),
@@ -81,6 +82,7 @@ export function BlockDialog({ open, onClose, onSaved, draft, id }: BlockDialogPr
 
       // ошибки окна сервер называет по минутам, человек видит поля времени
       if (field === 'day') setErrors({ day: message });
+      else if (field === 'endDay') setErrors({ endDay: message });
       else if (field === 'weekday') setErrors({ weekday: message });
       else if (field === 'fromMin' || field === 'toMin') setErrors({ to: message });
       else setErrors({ reason: message });
@@ -141,6 +143,25 @@ export function BlockDialog({ open, onClose, onSaved, draft, id }: BlockDialogPr
             />
           )}
         </div>
+
+        {/* 🔴 Отпуск заводится одной записью, а не четырнадцатью (ADR-165).
+            Поле необязательное и стоит отдельной строкой: у однодневной
+            отлучки — а их большинство — оно остаётся пустым, и место в паре с
+            датой начала оно бы отнимало у каждой записи. У повторяемой
+            диапазона дат нет: она тянется неделями. */}
+        {form.repeat === 'once' ? (
+          <Input
+            label={texts.fieldEndDay}
+            type="date"
+            value={form.endDay}
+            /* Раньше первого дня конца не бывает — браузер не даст его выбрать,
+               а схема не даст сохранить. */
+            min={form.day}
+            hint={texts.fieldEndDayHint}
+            onChange={(event) => set('endDay', event.target.value)}
+            error={errors.endDay}
+          />
+        ) : null}
 
         <Checkbox
           label={texts.fieldAllDay}

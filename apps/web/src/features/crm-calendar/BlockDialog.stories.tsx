@@ -5,6 +5,7 @@ import type { DayBlockDraft } from './model';
 
 const draft: DayBlockDraft = {
   repeat: 'once',
+  endDay: '',
   day: '2026-08-26',
   weekday: 3,
   allDay: true,
@@ -31,7 +32,17 @@ export const Диапазон: Story = {
   args: { draft: { ...draft, allDay: false, from: '14:00', to: '16:00', reason: 'Врач' } },
 };
 
-/** Повторяемая: вместо даты — день недели. */
+/**
+ * 🔴 Отпуск на две недели заводится одной записью (ADR-165): поле «по какое
+ * число» стоит отдельной строкой и у однодневной отлучки остаётся пустым.
+ */
+export const Отпуск: Story = {
+  args: {
+    draft: { ...draft, day: '2026-07-01', endDay: '2026-07-14', reason: 'Отпуск' },
+  },
+};
+
+/** Повторяемая: вместо даты — день недели. Диапазона дат у неё нет. */
 export const Повторяемая: Story = {
   args: { draft: { ...draft, repeat: 'weekly', weekday: 3, reason: 'Выходной' } },
 };

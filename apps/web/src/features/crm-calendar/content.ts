@@ -210,6 +210,8 @@ export const crmContent = {
 
   fieldKind: 'Что за дело',
   fieldDay: 'Дата',
+  fieldEndDay: 'По какое число',
+  fieldEndDayHint: 'Пусто — отлучка на один день',
   fieldTime: 'Время',
   fieldDuration: 'Длительность',
   fieldName: 'Клиент',
@@ -257,6 +259,8 @@ export const crmContent = {
   busyMine: 'Моя занятость',
   busyOthers: (names: string): string => `Занят: ${names}`,
   busyRepeatNote: 'Повторяется каждую неделю',
+  /** Отпуск и больничный — одна запись на весь диапазон (ADR-165). */
+  busyRange: (from: string, to: string): string => `с ${from} по ${to}`,
   busyFailure: 'Не удалось сохранить занятость. Проверьте связь и попробуйте ещё раз.',
   busyRemoveFailure: 'Не удалось снять занятость. Попробуйте ещё раз.',
   busyRemoveConfirm: {

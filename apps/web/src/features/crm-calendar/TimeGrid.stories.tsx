@@ -12,6 +12,8 @@ import {
   monthEvents,
   monthLeads,
   monthOrders,
+  foreignVacationBlock,
+  vacationBlock,
   viewerId,
   wholeDayBlock,
 } from './fixtures';
@@ -190,4 +192,35 @@ export const НеделяСоСвёрткой: Story = {
 /** Сегодня: линия текущего времени с кружком — только в колонке этого дня. */
 export const Сегодня: Story = {
   args: { columns: weekColumns(source({ today: DAY }), DAY), nowMin: 11 * 60 + 40 },
+};
+
+/**
+ * 🔴 Отпуск с 19 августа по 1 сентября — одна полоса «Весь день» через все
+ * семь колонок, а не семь одинаковых записей подряд (ADR-165). Неделя 24–30
+ * лежит внутри диапазона целиком, поэтому полоса обрезана с обеих сторон.
+ */
+export const НеделяСМногодневнойОтлучкой: Story = {
+  args: { columns: weekColumns(source({ blocks: [vacationBlock] }), '2026-08-26') },
+};
+
+/**
+ * Начало и конец отпуска видны: полоса начинается в среду 19 августа и уходит
+ * за правый край недели. Ниже неё — чужой больничный на три дня своей краской.
+ */
+export const НеделяСДвумяОтлучками: Story = {
+  args: {
+    columns: weekColumns(
+      source({ team: installers, blocks: [vacationBlock, foreignVacationBlock] }),
+      '2026-08-19',
+    ),
+  },
+};
+
+/** День внутри отпуска: полоса занимает единственную колонку целиком. */
+export const ДеньВнутриОтпуска: Story = {
+  args: {
+    columns: dayColumns(source({ blocks: [vacationBlock] }), '2026-08-26'),
+    view: 'day',
+    label: texts.dayLabel,
+  },
 };

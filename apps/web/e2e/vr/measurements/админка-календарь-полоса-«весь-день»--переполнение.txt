@@ -12,7 +12,7 @@ div.AllDayBar__bar  358×162 @16,16  b0 0 1 0
     span.AllDayBar__label  58×14 @294,0  Manrope 400 12/14  lines=1  «Весь день»
     button.AllDayBar__toggle  44×44 @308,16  r100  b1
       span.AllDayBar__count  14×17 @15,14  JetBrains Mono 700 12/17  lines=1  «+6»
-  ul.AllDayBar__list  358×91 @0,66  clipped
+  ul.AllDayBar__lanes  358×91 @0,66  clipped
     li.AllDayBar__item  358×44 @0,0
       button.EventChip__chip  358×44 @0,0  r100  b1 1 1 3
         span.EventChip__head  12×12 @9,16
@@ -60,7 +60,7 @@ div.AllDayBar__bar  736×162 @16,16  b0 0 1 0
     span.AllDayBar__label  58×14 @672,0  Manrope 400 12/14  lines=1  «Весь день»
     button.AllDayBar__toggle  44×44 @686,16  r100  b1
       span.AllDayBar__count  14×17 @15,14  JetBrains Mono 700 12/17  lines=1  «+6»
-  ul.AllDayBar__list  736×91 @0,66  clipped
+  ul.AllDayBar__lanes  736×91 @0,66  clipped
     li.AllDayBar__item  736×44 @0,0
       button.EventChip__chip  736×44 @0,0  r100  b1 1 1 3
         span.EventChip__head  12×12 @9,16
@@ -108,7 +108,7 @@ div.AllDayBar__bar  1408×104 @16,16  b0 0 1 0
     span.AllDayBar__label  58×14 @1344,0  Manrope 400 12/14  lines=1  «Весь день»
     button.AllDayBar__toggle  28×24 @1374,16  r100  b1
       span.AllDayBar__count  14×17 @7,4  JetBrains Mono 700 12/17  lines=1  «+6»
-  ul.AllDayBar__list  1408×51 @0,48  clipped
+  ul.AllDayBar__lanes  1408×51 @0,48  clipped
     li.AllDayBar__item  1408×24 @0,0
       button.EventChip__chip  1408×24 @0,0  r100  b1 1 1 3
         span.EventChip__head  12×12 @9,6
@@ -156,7 +156,7 @@ div.AllDayBar__bar  border #0f172a #0f172a #e2e8f0 #0f172a
     span.AllDayBar__label  color #5b6a7d
     button.AllDayBar__toggle  bg #ffffff  border #7e8fa6
       span.AllDayBar__count  color #334155
-  ul.AllDayBar__list
+  ul.AllDayBar__lanes
     li.AllDayBar__item
       button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
         span.EventChip__head
@@ -204,7 +204,7 @@ div.AllDayBar__bar  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
     span.AllDayBar__label  color #7e92a7
     button.AllDayBar__toggle  bg #121d31  border #566d95
       span.AllDayBar__count  color #c9d5e2
-  ul.AllDayBar__list
+  ul.AllDayBar__lanes
     li.AllDayBar__item
       button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
         span.EventChip__head

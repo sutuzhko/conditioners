@@ -474,6 +474,7 @@ export const blocks: readonly OrderBlock[] = [
     userId: selfEmployedInstaller.id,
     repeat: 'once',
     day: '2026-08-28',
+    endDay: '2026-08-28',
     weekday: null,
     fromMin: null,
     toMin: null,
@@ -483,10 +484,31 @@ export const blocks: readonly OrderBlock[] = [
     userId: staffInstaller.id,
     repeat: 'once',
     day: '2026-08-28',
+    endDay: '2026-08-28',
     weekday: null,
     fromMin: 14 * 60,
     toMin: 16 * 60,
     reason: 'Врач',
+  },
+];
+
+/**
+ * Отпуск монтажника с 20 августа по 2 сентября — одна запись (ADR-165).
+ *
+ * 🔴 Наряд из фикстур стоит на 28 августа: это середина диапазона, а не его
+ * первый день. Пометка занятости, считающая только начало, на такой фикстуре
+ * молчит — ровно тем дефектом, ради которого диапазон и заводился.
+ */
+export const vacationBlocks: readonly OrderBlock[] = [
+  {
+    userId: selfEmployedInstaller.id,
+    repeat: 'once',
+    day: '2026-08-20',
+    endDay: '2026-09-02',
+    weekday: null,
+    fromMin: null,
+    toMin: null,
+    reason: 'Отпуск',
   },
 ];
 
