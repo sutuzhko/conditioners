@@ -172,6 +172,15 @@ export const dayBlockCreateSchema = z
   .object({
     repeat: dayBlockRepeatSchema,
     day: blockDaySchema,
+    /**
+     * Последний день разовой отлучки включительно (ADR-165): отпуск с 1 по 14
+     * июля — одна запись, а не четырнадцать.
+     *
+     * Пусто — отлучка на один день. Умолчание, а не обязательное поле:
+     * форма отдаёт конец только у многодневной, а записи, заведённые до
+     * появления диапазона, конца не знают вовсе.
+     */
+    endDay: blockDaySchema,
     weekday: blockWeekdaySchema,
     fromMin: blockMinuteSchema,
     toMin: blockMinuteSchema,
@@ -193,6 +202,24 @@ export const dayBlockCreateSchema = z
   .refine((input) => input.repeat !== 'weekly' || input.day === null, {
     message: 'У повторяемой занятости даты нет',
     path: ['day'],
+  })
+  /* Повторяемая отлучка тянется по неделям, а не по дням: диапазон дат ей
+     нечем истолковать. */
+  .refine((input) => input.repeat !== 'weekly' || input.endDay === null, {
+    message: 'У повторяемой занятости диапазона дат нет',
+    path: ['endDay'],
+  })
+  /* Конец без начала — не диапазон: сравнивать его не с чем. */
+  .refine((input) => input.endDay === null || input.day !== null, {
+    message: 'Выберите дату начала',
+    path: ['day'],
+  })
+  /* 🔴 Ключ дня сравнивается строкой: у формата `2026-08-26`
+     лексикографический порядок совпадает с хронологическим, а разбор в `Date`
+     завёл бы здесь часовой пояс, которого у календарной даты нет (ADR-080). */
+  .refine((input) => input.day === null || input.endDay === null || input.endDay >= input.day, {
+    message: 'Последний день не раньше первого',
+    path: ['endDay'],
   })
   // окно задаётся целиком: «занят с 14:00» без «до» — это не окно, а весь день
   .refine((input) => (input.fromMin === null) === (input.toMin === null), {
