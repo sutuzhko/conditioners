@@ -1,5 +1,5 @@
 import type { AdminRole } from '@/entities/staff/model';
-import type { AdminCounterKey } from '@/shared/config/admin-counters';
+import type { AdminCounterKey, AdminCounts } from '@/shared/config/admin-counters';
 import type { IconName } from '@/shared/ui';
 
 /**
@@ -277,6 +277,51 @@ export function columnSectionsFor(role: AdminRole): readonly AdminSection[] {
 /** Прибитый низ колонки: настройки и профиль. */
 export function bottomSectionsFor(role: AdminRole): readonly AdminSection[] {
   return sectionsFor(role).filter((section) => section.place === 'bottom');
+}
+
+/**
+ * Что лежит за «Ещё» на телефоне: разделы сверх четырёх вкладок и служебные
+ * пункты.
+ *
+ * 🔴 Список собирается здесь, а не в двух компонентах порознь. По нему «Ещё»
+ * решает сразу два вопроса — подсвечивать ли кнопку и есть ли повод её
+ * открывать, — а лист рисует те же пункты. Разойдясь, они начали бы отвечать
+ * про разные наборы разделов: кнопка про один, лист про другой.
+ */
+export function moreSectionsFor(role: AdminRole): readonly AdminSection[] {
+  return [...columnSectionsFor(role).slice(ADMIN_TABS), ...bottomSectionsFor(role)];
+}
+
+/**
+ * Что ждёт в очередях перечисленных разделов — словами, одной строкой:
+ * «2 на модерации», «2 на модерации, 3 новых». `null` — не ждёт ничего.
+ *
+ * 🔴 Ноль ожиданием не считается, и это не то же правило, что в колонке. Там
+ * ноль рисуется намеренно: «отзывов на модерации нет» — ответ, который
+ * владелец смотрит каждое утро, стоя перед самим пунктом. На кнопке «Ещё»
+ * тот же ноль означал бы «есть повод открыть» — признак, горящий всегда,
+ * признаком быть перестаёт.
+ *
+ * Строка собирается из того же словаря, что подпись счётчика в колонке: голое
+ * число озвучивается как «Ещё 2» и не отвечает, два чего.
+ */
+export function waitingTitleOf(
+  sections: readonly AdminSection[],
+  counts: AdminCounts | undefined,
+): string | null {
+  if (counts === undefined) return null;
+
+  const parts = sections.flatMap((section) => {
+    const key = section.counter;
+    if (key === undefined) return [];
+
+    const waiting = counts[key];
+    return waiting === undefined || waiting === 0
+      ? []
+      : [`${waiting} ${ADMIN_COUNTER_TITLES[key]}`];
+  });
+
+  return parts.length === 0 ? null : parts.join(', ');
 }
 
 /** Что открывает страница «Настройки»: три страницы конфигурации (ADR-188). */

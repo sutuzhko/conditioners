@@ -3,7 +3,12 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { AdminTabs } from './AdminTabs';
-import { ADMIN_TABS, adminShellContent as texts, columnSectionsFor } from './content';
+import {
+  ADMIN_COUNTER_TITLES,
+  ADMIN_TABS,
+  adminShellContent as texts,
+  columnSectionsFor,
+} from './content';
 
 const pathname = vi.fn(() => '/admin/stock');
 
@@ -115,5 +120,60 @@ describe('Нижняя панель вкладок', () => {
     const bar = screen.getByRole('navigation', { name: texts.tabsLabel });
     expect(within(bar).getByRole('link', { name: 'Календарь' })).toBeInTheDocument();
     expect(within(bar).queryByRole('link', { name: 'Заявки' })).not.toBeInTheDocument();
+  });
+});
+
+/**
+ * Признак ожидающего на кнопке «Ещё» (issue #670).
+ *
+ * 🔴 На телефоне колонки разделов нет, а разделы с очередями лежат за «Ещё»:
+ * без признака владелец не узнавал, что на модерации что-то ждёт, — ни во
+ * вкладках, ни на кнопке, ни в закрытом листе.
+ */
+describe('«Ещё» — признак ожидающего', () => {
+  const waiting = `${texts.more} 2 ${ADMIN_COUNTER_TITLES.reviews}`;
+
+  it('🔴 называет ожидающее словами и по очередям', () => {
+    render(<AdminTabs role="owner" counts={{ orders: 7, leads: 3, reviews: 2 }} />);
+
+    const bar = screen.getByRole('navigation', { name: texts.tabsLabel });
+    expect(within(bar).getByRole('button', { name: waiting })).toBeInTheDocument();
+  });
+
+  /* 🔴 «Заказы» и «Заявки» стоят отдельными вкладками рядом: их числа за
+     кнопкой не спрятаны, и признак от них загораться не должен — иначе он
+     горит почти всегда и перестаёт быть признаком. */
+  it('на очереди из вкладок не загорается', () => {
+    render(<AdminTabs role="owner" counts={{ orders: 7, leads: 3 }} />);
+
+    expect(screen.getByRole('button', { name: texts.more })).toBeInTheDocument();
+  });
+
+  /* Ноль в листе рисуется и остаётся ответом, а на кнопке означал бы повод её
+     открыть. */
+  it('на нуле не загорается', () => {
+    render(<AdminTabs role="owner" counts={{ reviews: 0 }} />);
+
+    expect(screen.getByRole('button', { name: texts.more })).toBeInTheDocument();
+  });
+
+  it('без чисел подпись кнопки остаётся прежней', () => {
+    render(<AdminTabs role="owner" />);
+
+    expect(screen.getByRole('button', { name: texts.more })).toBeInTheDocument();
+  });
+
+  /* Числа доезжают до самого листа, а не остаются на кнопке: за ней владелец
+     и смотрит, чья это очередь. */
+  it('счётчик доезжает до строки листа', async () => {
+    const user = userEvent.setup();
+    render(<AdminTabs role="owner" counts={{ reviews: 2 }} />);
+
+    await user.click(screen.getByRole('button', { name: waiting }));
+
+    const sheet = screen.getByRole('dialog');
+    expect(
+      within(sheet).getByRole('link', { name: `Отзывы 2 ${ADMIN_COUNTER_TITLES.reviews}` }),
+    ).toBeInTheDocument();
   });
 });

@@ -8,6 +8,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { AdminMoreSheet } from './AdminMoreSheet';
 import {
+  ADMIN_COUNTER_TITLES,
   ADMIN_SHEET_GROUP_TITLES,
   ADMIN_TABS,
   adminShellContent as texts,
@@ -126,6 +127,54 @@ describe('Лист «Ещё»', () => {
     }
   });
 
+  /**
+   * 🔴 Счётчик очереди в строке листа (issue #670). На телефоне колонки нет, а
+   * «Отзывы» лежат за «Ещё»: без числа здесь владелец не узнавал о работе на
+   * модерации нигде.
+   *
+   * Имя ссылки проверяется целиком: голое число озвучивается как «Отзывы 2» и
+   * не отвечает, два чего.
+   */
+  it('🔴 показывает счётчик очереди в строке раздела', () => {
+    render(
+      <AdminMoreSheet
+        role="owner"
+        activeHref={undefined}
+        counts={{ orders: 7, leads: 3, reviews: 2 }}
+      />,
+    );
+
+    expect(
+      screen.getByRole('link', { name: `Отзывы 2 ${ADMIN_COUNTER_TITLES.reviews}` }),
+    ).toHaveAttribute('href', '/admin/reviews');
+  });
+
+  /* Ноль — рабочее состояние, которое владелец смотрит каждое утро: пропав, он
+     читался бы как сбой загрузки. Правило то же, что в колонке. */
+  it('ноль в строке показывается, а не прячется', () => {
+    render(<AdminMoreSheet role="owner" activeHref={undefined} counts={{ reviews: 0 }} />);
+
+    expect(
+      screen.getByRole('link', { name: `Отзывы 0 ${ADMIN_COUNTER_TITLES.reviews}` }),
+    ).toBeInTheDocument();
+  });
+
+  /* 🔴 Числа «Заказов» и «Заявок» в лист приходят вместе с остальными, но
+     показывать их здесь нечему: оба раздела остались вкладками. Счётчик идёт
+     за разделом, а не за набором чисел. */
+  it('чужую очередь в лист не приносит', () => {
+    render(<AdminMoreSheet role="owner" activeHref={undefined} counts={{ orders: 7, leads: 3 }} />);
+
+    expect(screen.getByRole('link', { name: 'Отзывы' })).toBeInTheDocument();
+    expect(screen.queryByText('7')).not.toBeInTheDocument();
+  });
+
+  it('без чисел подпись строки остаётся прежней', () => {
+    render(<AdminMoreSheet role="owner" activeHref={undefined} />);
+
+    expect(screen.getByRole('link', { name: 'Отзывы' })).toBeInTheDocument();
+  });
+
   it('открытый раздел листа подсвечен и назван читалке', () => {
     render(<AdminMoreSheet role="owner" activeHref="/admin/stock" />);
 
@@ -153,6 +202,29 @@ describe('Лист «Ещё» — тап-зоны и служебная стро
     /* Строка идёт во всю ширину шторки: цель — вся она, а не подпись. */
     expect(rule(sheet, '.link')).toContain('width: 100%');
     expect(rule(sheet, '.logout')).toContain('width: 100%');
+  });
+
+  /**
+   * 🔴 Кегль счётчика не опускается ниже 12px (ADR-158). Довод «двузначное
+   * число не помещается» опровергнут замером: в капсуле от 22px «137» встаёт
+   * целиком, потому что капсула тянется вправо, а не ужимает шрифт.
+   */
+  it('🔴 счётчик держит кегль служебной подписи и не жмёт строку', () => {
+    const count = rule(sheet, '.count');
+
+    expect(count).toContain('font-size: var(--fs-tiny)');
+    /* Высота капсулы меньше строки: тап-зону держит `min-height` строки, и
+       счётчик её не трогает (ADR-183). */
+    expect(count).toContain('height: 20px');
+    expect(count).toContain('flex-shrink: 0');
+  });
+
+  /* У открытого пункта заливка строки и заливка счётчика совпали бы, и число
+     растворилось бы в ней: на подсвеченной строке счётчик переходит на
+     основной цвет марки — так же, как в колонке разделов. */
+  it('счётчик на открытой строке не растворяется в её заливке', () => {
+    expect(rule(sheet, '.active .count')).toContain('background: var(--brand)');
+    expect(rule(sheet, '.active .count')).toContain('color: var(--on-brand)');
   });
 
   /* Кольцо фокуса рисуется внутрь: наружное ложилось бы на соседний пункт —

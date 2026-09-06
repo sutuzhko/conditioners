@@ -3,14 +3,18 @@ import { describe, expect, it } from 'vitest';
 import { settingKeySchema } from '@/entities/settings/model';
 
 import {
+  ADMIN_COUNTER_TITLES,
   ADMIN_SECTIONS,
+  ADMIN_TABS,
   bottomSectionsFor,
   columnSectionsFor,
+  moreSectionsFor,
   navHrefOf,
   sectionAllows,
   sectionOf,
   sectionsFor,
   settingsSectionsFor,
+  waitingTitleOf,
 } from './content';
 import { adminSummaryContent } from './summary-content';
 
@@ -120,5 +124,56 @@ describe('названия групп настроек', () => {
         key,
       );
     }
+  });
+});
+
+/**
+ * Что лежит за «Ещё» и что там ждёт (issue #670).
+ *
+ * 🔴 Разбор вынесен из компонентов сюда потому, что от него зависит правдивость
+ * признака: точка на кнопке обязана гореть ровно тогда, когда за ней работа.
+ * Проверять это через отрисовку значило бы проверять вёрстку вместо правила.
+ */
+describe('очереди за «Ещё»', () => {
+  const owner = moreSectionsFor('owner');
+
+  it('за «Ещё» лежит всё, что не попало во вкладки, и служебные пункты', () => {
+    expect(owner.map((section) => section.href)).toEqual([
+      ...columnSectionsFor('owner')
+        .slice(ADMIN_TABS)
+        .map((section) => section.href),
+      ...bottomSectionsFor('owner').map((section) => section.href),
+    ]);
+  });
+
+  /* 🔴 «Заказы» и «Заявки» стоят отдельными вкладками рядом с «Ещё»: их числа
+     за кнопкой не спрятаны, и признак от них загораться не должен. Без этой
+     проверки точка горела бы у владельца почти всегда — а горящая всегда
+     точка перестаёт быть признаком. */
+  it('очереди из вкладок признак не зажигают', () => {
+    expect(waitingTitleOf(owner, { orders: 7, leads: 3 })).toBeNull();
+  });
+
+  it('ждущая очередь названа числом и словами', () => {
+    expect(waitingTitleOf(owner, { orders: 7, leads: 3, reviews: 2 })).toBe(
+      `2 ${ADMIN_COUNTER_TITLES.reviews}`,
+    );
+  });
+
+  /* 🔴 Ноль в колонке рисуется намеренно: «отзывов на модерации нет» — ответ.
+     На кнопке тот же ноль означал бы «есть повод открыть». */
+  it('ноль ожиданием не считается', () => {
+    expect(waitingTitleOf(owner, { reviews: 0 })).toBeNull();
+  });
+
+  it('без чисел признака нет вовсе', () => {
+    expect(waitingTitleOf(owner, undefined)).toBeNull();
+    expect(waitingTitleOf(owner, {})).toBeNull();
+  });
+
+  /* Очереди все владельца: монтажнику за «Ещё» ждать нечего, и разделов сверх
+     вкладок у него там тоже нет. */
+  it('монтажнику признак не достаётся', () => {
+    expect(waitingTitleOf(moreSectionsFor('installer'), { orders: 7, reviews: 2 })).toBeNull();
   });
 });

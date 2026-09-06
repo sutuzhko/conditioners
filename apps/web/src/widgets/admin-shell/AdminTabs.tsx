@@ -5,20 +5,27 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import type { AdminRole } from '@/entities/staff/model';
+import type { AdminCounts } from '@/shared/config/admin-counters';
 import { Drawer, Icon } from '@/shared/ui';
 
 import { AdminMoreFooter, AdminMoreSheet } from './AdminMoreSheet';
 import {
   ADMIN_TABS,
   adminShellContent as texts,
-  bottomSectionsFor,
   columnSectionsFor,
+  moreSectionsFor,
   navHrefOf,
+  waitingTitleOf,
 } from './content';
 import styles from './AdminTabs.module.css';
 
 export type AdminTabsProps = {
   readonly role: AdminRole;
+  /**
+   * Сколько ждёт в очередях. Тот же проп, что у колонки: панель вкладок —
+   * её замена на телефоне, и числа у них обязаны быть одни.
+   */
+  readonly counts?: AdminCounts | undefined;
 };
 
 /**
@@ -38,7 +45,7 @@ export type AdminTabsProps = {
  * грунта поэтому проставлен листу явно: без него панельные переменные внутри
  * него не определены, и свойства с ними просто не применяются.
  */
-export function AdminTabs({ role }: AdminTabsProps) {
+export function AdminTabs({ role, counts }: AdminTabsProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -52,11 +59,16 @@ export function AdminTabs({ role }: AdminTabsProps) {
   const column = columnSectionsFor(role);
   const tabs = column.slice(0, ADMIN_TABS);
 
+  const rest = moreSectionsFor(role);
+
   /* «Ещё» подсвечивается, когда открыт раздел из листа: иначе на складе
      подсвеченного пункта нет вовсе, и панель выглядит потерявшей место. */
-  const restActive = [...column.slice(ADMIN_TABS), ...bottomSectionsFor(role)].some(
-    (section) => section.href === activeHref,
-  );
+  const restActive = rest.some((section) => section.href === activeHref);
+
+  /* 🔴 Признак считается по разделам листа, а не по всем очередям сразу.
+     «Заказы» и «Заявки» стоят отдельными вкладками рядом — их число за «Ещё»
+     не спрятано, и точка над кнопкой обещала бы работу там, где её нет. */
+  const waiting = waitingTitleOf(rest, counts);
 
   return (
     <>
@@ -92,8 +104,23 @@ export function AdminTabs({ role }: AdminTabsProps) {
               }}
               aria-expanded={open}
             >
-              <Icon name="burger" size={22} />
+              {/* 🔴 Точка на плече значка, а не число: за «Ещё» лежит несколько
+                  очередей сразу, и одна цифра на пятой части экрана не сказала
+                  бы, чья она. Кнопка отвечает на единственный вопрос — есть ли
+                  повод её открывать, — а сколько и чего именно, называет
+                  строка внутри листа (issue #670). */}
+              <span className={styles.tabIcon}>
+                <Icon name="burger" size={22} />
+                {waiting === null ? null : <span className={styles.dot} />}
+              </span>
               <span className={styles.tabLabel}>{texts.more}</span>
+
+              {/* 🔴 Точку видно, но не слышно, а признак нужен обоим. Читалке
+                  ожидающее называется словами и по очередям — «Ещё 2 на
+                  модерации», тем же складом, что подпись счётчика в колонке:
+                  иначе кнопку пришлось бы открывать, чтобы узнать, стоило ли
+                  её открывать. */}
+              {waiting === null ? null : <span className="srOnly"> {waiting}</span>}
             </button>
           </li>
         </ul>
@@ -107,7 +134,7 @@ export function AdminTabs({ role }: AdminTabsProps) {
         title={texts.moreTitle}
         footer={<AdminMoreFooter />}
       >
-        <AdminMoreSheet role={role} activeHref={activeHref} />
+        <AdminMoreSheet role={role} activeHref={activeHref} counts={counts} />
       </Drawer>
     </>
   );
