@@ -30,6 +30,8 @@ export type DayBlockDto = {
   userName: string | null;
   repeat: DayBlockRepeat;
   day: DayKey | null;
+  /** Последний день разовой отлучки включительно. Пусто — отлучка на один день. */
+  endDay: DayKey | null;
   weekday: number | null;
   fromMin: number | null;
   toMin: number | null;
@@ -41,6 +43,7 @@ type DayBlockRow = {
   userId: string;
   repeat: DbRepeat;
   day: Date | null;
+  endDay: Date | null;
   weekday: number | null;
   fromMin: number | null;
   toMin: number | null;
@@ -53,6 +56,7 @@ const FIELDS = {
   userId: true,
   repeat: true,
   day: true,
+  endDay: true,
   weekday: true,
   fromMin: true,
   toMin: true,
@@ -69,6 +73,11 @@ function toDto(row: DayBlockRow): DayBlockDto {
     userName: row.user.name ?? row.user.login,
     repeat: REPEAT_FROM_DB[row.repeat],
     day: row.day === null ? null : dayKeyOf(row.day),
+    /* Пустой конец читается как «в тот же день»: так лежат записи, заведённые
+       до появления диапазона, — и разрешение занятости не должно знать, когда
+       именно их завели. */
+    endDay:
+      row.endDay === null ? (row.day === null ? null : dayKeyOf(row.day)) : dayKeyOf(row.endDay),
     weekday: row.weekday,
     fromMin: row.fromMin,
     toMin: row.toMin,
@@ -91,7 +100,22 @@ export async function listRange(viewer: Viewer, from: Date, to: Date): Promise<D
   const rows = await db.dayBlock.findMany({
     where: {
       ...viewerWhere(viewer),
-      OR: [{ repeat: 'ONCE', day: { gte: from, lt: to } }, { repeat: 'WEEKLY' }],
+      OR: [
+        {
+          repeat: 'ONCE',
+          /* 🔴 Пересечение промежутков, а не попадание начала (ADR-165):
+             отпуск, начавшийся в июне и кончающийся в июле, обязан быть виден
+             в июле — иначе монтажник выглядит свободным ровно в те дни, ради
+             которых отлучку и заводили. */
+          day: { lt: to },
+          OR: [
+            { endDay: { gte: from } },
+            // конец пустой — отлучка на один день, и решает её начало
+            { endDay: null, day: { gte: from, lt: to } },
+          ],
+        },
+        { repeat: 'WEEKLY' },
+      ],
     },
     orderBy: [{ repeat: 'asc' }, { day: 'asc' }, { weekday: 'asc' }, { fromMin: 'asc' }],
     select: FIELDS,
@@ -104,6 +128,7 @@ export async function listRange(viewer: Viewer, from: Date, to: Date): Promise<D
 type BlockData = {
   readonly repeat: DbRepeat;
   readonly day: Date | null;
+  readonly endDay: Date | null;
   readonly weekday: number | null;
   readonly fromMin: number | null;
   readonly toMin: number | null;
@@ -115,6 +140,10 @@ function dataOf(input: DayBlockCreate): BlockData {
     repeat: REPEAT_TO_DB[input.repeat],
     // разовая держит дату, повторяемая — день недели; схема это уже проверила
     day: input.day === null ? null : momentOf(input.day, DAY_START),
+    /* Конец пишется всегда, когда есть начало: пустое поле формы значит
+       «отлучка на один день», и хранить это пустотой значило бы заставлять
+       каждый запрос за промежуток дат помнить про исключение. */
+    endDay: input.day === null ? null : momentOf(input.endDay ?? input.day, DAY_START),
     weekday: input.weekday,
     fromMin: input.fromMin,
     toMin: input.toMin,
