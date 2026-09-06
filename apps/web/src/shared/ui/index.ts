@@ -38,7 +38,7 @@ export { CopyField } from './CopyField/CopyField';
 export type { CopyFieldProps } from './CopyField/CopyField';
 
 export { Chart } from './Chart/Chart';
-export type { ChartProps, ChartSeries } from './Chart/Chart';
+export type { ChartKind, ChartProps, ChartSeries } from './Chart/Chart';
 
 export { Card } from './Card/Card';
 export type { CardElevation, CardPadding, CardProps, CardRadius, CardVariant } from './Card/Card';

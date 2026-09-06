@@ -1,13 +1,13 @@
-# админка-сводка--требуетвнимания · ширины 390 768 1440 · темы light dark
+# админка-сводка--несколькостраниц · ширины 390 768 1440 · темы light dark
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-390 → 390×2176
-768 → 768×1681
-1440 → 1440×1409
+390 → 390×2290
+768 → 768×1743
+1440 → 1440×1471
 
 [геометрия 390]
-div.AdminSummary__summary  358×2144 @16,16
+div.AdminSummary__summary  358×2258 @16,16
   header.AdminSummary__header  358×109 @0,0
     div.AdminSummary__headText  253×55 @0,0
       h1.AdminSummary__title  253×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Доброе утро, Сергей»
@@ -42,12 +42,12 @@ div.AdminSummary__summary  358×2144 @16,16
             span#4  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «рост»
         dd.StatTile__note#2  149×32 @13,70  Manrope 400 12/16  lines=2  «назначены и на объекте →»
   div.AdminSummary__charts  358×0 @0,358
-  section.Card__card  358×1634 @0,376  r20  b1
+  section.Card__card  358×1748 @0,376  r20  b1
     div.AdminSummary__cardHead  316×24 @21,21
       h2.AdminSummary__cardTitle  141×21 @0,2  Onest 700 17/21  ls0  lines=1  «Ближайшие дела»
-      span.Badge__badge  27×24 @149,0  r100  b1
-        span  7×16 @10,4  Manrope 600 12/16  lines=1  «4»
-        span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «4 дела в списке»
+      span.Badge__badge  34×24 @149,0  r100  b1
+        span  14×16 @10,4  Manrope 600 12/16  lines=1  «24»
+        span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «24 дела в списке»
     p.AdminSummary__text  316×45 @21,55  Manrope 400 15/22  lines=2  «Наряды и дела календаря по времени. Прос»
     div.SummaryFilters__bar  316×156 @21,110
       div.SummaryFilters__pills  316×44 @0,0
@@ -80,7 +80,7 @@ div.AdminSummary__summary  358×2144 @16,16
         div.Field__field  316×76 @0,0
           label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
           input  316×49 @0,27  r11  b1
-      p.SummaryFilters__total  316×20 @0,136  Manrope 400 13/20  lines=1  «4 дела в списке»
+      p.SummaryFilters__total  316×20 @0,136  Manrope 400 13/20  lines=1  «24 дела в списке»
     div.Table__viewport  316×1269 @21,276
       table.Table__table  316×1269 @0,0
         tr[role=row]  1×56 @0,0
@@ -227,13 +227,20 @@ div.AdminSummary__summary  358×2144 @16,16
                   a.TableActions__action#2  36×36 @0,0  r100
                     span.TableActions__iconArea#2  36×36 @0,0
                       svg#2  18×18 @9,9
-    a.AdminSummary__link  316×44 @21,1569  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  358×116 @0,2028  r20  b1
+    nav.Pager__pager  316×104 @21,1555
+      a.Pager__step  87×44 @45,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+      ol.Pager__numbers  131×44 @140,4
+        a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+        span.Pager__position  35×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
+        a.Pager__number#2  44×44 @87,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+      a.Pager__step#2  99×44 @108,56  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+    a.AdminSummary__link  316×44 @21,1683  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  358×116 @0,2142  r20  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  316×45 @21,50  Manrope 400 15/22  lines=2  «Все данные о компании заполнены. Сайт мо»
 
 [геометрия 768]
-div.AdminSummary__summary  736×1649 @16,16
+div.AdminSummary__summary  736×1711 @16,16
   header.AdminSummary__header  736×62 @0,0
     div.AdminSummary__headText  312×62 @0,0
       h1.AdminSummary__title  312×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Доброе утро, Сергей»
@@ -292,12 +299,12 @@ div.AdminSummary__summary  736×1649 @16,16
         p.AdminSummary__chartNote  694×19 @0,24  Manrope 400 12/19  lines=1  «выполненные наряды, 12 недель»
       figure.Chart__figure  694×239 @21,71
         svg.Chart__canvas  694×239 @0,0
-  section.Card__card  736×794 @0,743  r20  b1
+  section.Card__card  736×856 @0,743  r20  b1
     div.AdminSummary__cardHead  694×24 @21,21
       h2.AdminSummary__cardTitle  148×22 @0,1  Onest 700 18/22  ls0  lines=1  «Ближайшие дела»
-      span.Badge__badge  27×24 @156,0  r100  b1
-        span  7×16 @10,4  Manrope 600 12/16  lines=1  «4»
-        span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «4 дела в списке»
+      span.Badge__badge  34×24 @156,0  r100  b1
+        span  14×16 @10,4  Manrope 600 12/16  lines=1  «24»
+        span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «24 дела в списке»
     p.AdminSummary__text  694×22 @21,55  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
     div.SummaryFilters__bar  694×156 @21,88
       div.SummaryFilters__pills  694×44 @0,0
@@ -330,7 +337,7 @@ div.AdminSummary__summary  736×1649 @16,16
         div.Field__field  694×76 @0,0
           label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
           input  694×49 @0,27  r11  b1
-      p.SummaryFilters__total  694×20 @0,136  Manrope 400 13/20  lines=1  «4 дела в списке»
+      p.SummaryFilters__total  694×20 @0,136  Manrope 400 13/20  lines=1  «24 дела в списке»
     div.Table__viewport  694×451 @21,254
       table.Table__table  720×451 @0,0
         tr[role=row]  720×56 @0,0
@@ -444,13 +451,20 @@ div.AdminSummary__summary  736×1649 @16,16
                   a.TableActions__action#2  36×36 @0,0  r100
                     span.TableActions__iconArea#2  36×36 @0,0
                       svg#2  18×18 @9,9
-    a.AdminSummary__link  694×44 @21,729  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  736×94 @0,1555  r20  b1
+    nav.Pager__pager  694×52 @21,715
+      a.Pager__step  91×44 @170,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+      ol.Pager__numbers  135×44 @273,4
+        a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+        span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
+        a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+      a.Pager__step#2  103×44 @420,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+    a.AdminSummary__link  694×44 @21,791  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  736×94 @0,1617  r20  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  694×22 @21,51  Manrope 400 15/22  lines=1  «Все данные о компании заполнены. Сайт мо»
 
 [геометрия 1440]
-div.AdminSummary__summary  1408×1377 @16,16
+div.AdminSummary__summary  1408×1439 @16,16
   header.AdminSummary__header  1408×70 @0,0
     div.AdminSummary__headText  381×70 @0,0
       h1.AdminSummary__title  381×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Доброе утро, Сергей»
@@ -520,12 +534,12 @@ div.AdminSummary__summary  1408×1377 @16,16
           span.Chart__legendItem#2  160×19 @90,0  Manrope 600 12/19  lines=1  «Выплаты монтажникам»
             span.Chart__swatch  18×2 @0,8  b2 0 0 0
         svg.Chart__canvas#2  654×225 @0,27
-  section.Card__card  1408×629 @0,634  r20  b1
+  section.Card__card  1408×691 @0,634  r20  b1
     div.AdminSummary__cardHead  1366×24 @21,21
       h2.AdminSummary__cardTitle  156×23 @0,1  Onest 700 19/23  ls0  lines=1  «Ближайшие дела»
-      span.Badge__badge  27×24 @164,0  r100  b1
-        span  7×16 @10,4  Manrope 600 12/16  lines=1  «4»
-        span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «4 дела в списке»
+      span.Badge__badge  34×24 @164,0  r100  b1
+        span  14×16 @10,4  Manrope 600 12/16  lines=1  «24»
+        span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «24 дела в списке»
     p.AdminSummary__text  1366×22 @21,55  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
     div.SummaryFilters__bar  1366×104 @21,88
       div.SummaryFilters__pills  1140×34 @0,0
@@ -558,7 +572,7 @@ div.AdminSummary__summary  1408×1377 @16,16
         div.Field__field  214×76 @0,0
           label.Field__label  214×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
           input  214×49 @0,27  r11  b1
-      p.SummaryFilters__total  1366×20 @0,84  Manrope 400 13/20  lines=1  «4 дела в списке»
+      p.SummaryFilters__total  1366×20 @0,84  Manrope 400 13/20  lines=1  «24 дела в списке»
     div.Table__viewport  1366×358 @21,202
       table.Table__table  1366×358 @0,0
         tr[role=row]  1366×56 @0,0
@@ -685,8 +699,15 @@ div.AdminSummary__summary  1408×1377 @16,16
                   a.TableActions__action#2  36×36 @0,0  r100
                     span.TableActions__iconArea#2  36×36 @0,0
                       svg#2  18×18 @9,9
-    a.AdminSummary__link  1366×24 @21,584  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  1408×95 @0,1282  r20  b1
+    nav.Pager__pager  1366×52 @21,570
+      a.Pager__step  91×44 @506,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+      ol.Pager__numbers  135×44 @609,4
+        a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+        span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
+        a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+      a.Pager__step#2  103×44 @756,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+    a.AdminSummary__link  1366×24 @21,646  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  1408×95 @0,1344  r20  b1
     h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  1366×22 @21,52  Manrope 400 15/22  lines=1  «Все данные о компании заполнены. Сайт мо»
 
@@ -926,6 +947,13 @@ div.AdminSummary__summary
                   a.TableActions__action#2
                     span.TableActions__iconArea#2
                       svg#2
+    nav.Pager__pager
+      a.Pager__step  color #0e7490  border #7e8fa6
+      ol.Pager__numbers
+        a.Pager__number  color #0e7490  border transparent
+        span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+        a.Pager__number#2  color #0e7490  border transparent
+      a.Pager__step#2  color #0e7490  border #7e8fa6
     a.AdminSummary__link  color #0e7490
   section.Card__card#2  bg #f8fafc  border #eef2f6
     h2.AdminSummary__cardTitle  color #0f172a
@@ -1211,6 +1239,13 @@ div.AdminSummary__summary
                   a.TableActions__action#2
                     span.TableActions__iconArea#2
                       svg#2
+    nav.Pager__pager
+      a.Pager__step  color #22d3ee  border #566d95
+      ol.Pager__numbers
+        a.Pager__number  color #22d3ee  border transparent
+        span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+        a.Pager__number#2  color #22d3ee  border transparent
+      a.Pager__step#2  color #22d3ee  border #566d95
     a.AdminSummary__link  color #22d3ee
   section.Card__card#2  bg #0e1729  border #182338
     h2.AdminSummary__cardTitle  color #eaf1f8
