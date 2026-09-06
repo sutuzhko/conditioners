@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -47,6 +47,29 @@ beforeEach(() => {
 afterEach(() => {
   vi.unstubAllGlobals();
 });
+
+/** Неделя под записью: по её колонкам считается перенос вбок. */
+const WEEK = [DAY, '2026-08-24', '2026-08-25'];
+const COLUMN_PX = 100;
+const TRACK_RECT: DOMRect = {
+  x: 0,
+  y: 0,
+  width: COLUMN_PX,
+  height: 24 * 60,
+  top: 0,
+  left: 0,
+  right: COLUMN_PX,
+  bottom: 24 * 60,
+  toJSON: () => ({}),
+};
+
+/** Тело последнего запроса правки: по нему сверяются два пути переноса. */
+function lastPayload(): unknown {
+  const call = fetchMock.mock.calls.at(-1);
+  const init = call?.[1];
+  if (typeof init?.body !== 'string') throw new Error('запрос правки не ушёл');
+  return JSON.parse(init.body);
+}
 
 describe('Управляющий слой календаря', () => {
   it('🔴 сетка приходит разметкой и остаётся на месте: слой её не собирает', () => {
@@ -114,6 +137,64 @@ describe('Управляющий слой календаря', () => {
 
     await waitFor(() => expect(ask).toHaveBeenCalled());
     expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('🔴 перетаскивание вбок и форма дают один и тот же перенос (WCAG 2.5.7)', async () => {
+    const user = userEvent.setup();
+    const item = eventItem();
+
+    /* Путь мышью: запись уезжает на две колонки вправо. Полосу приходится
+       мерить самим — в jsdom у элементов нулевые размеры; событие собирается
+       из `MouseEvent`, потому что `PointerEvent` в jsdom нет вовсе. */
+    const view = stage(
+      <div data-track="">
+        <EventChip
+          item={item}
+          draggable
+          days={WEEK}
+          place={{
+            topPercent: 0,
+            heightPercent: 10,
+            leftPercent: 0,
+            widthPercent: 100,
+            depth: 0,
+          }}
+        />
+      </div>,
+    );
+
+    const track = view.container.querySelector('[data-track]');
+    if (!(track instanceof HTMLElement)) throw new Error('полоса колонки не нарисована');
+    vi.spyOn(track, 'getBoundingClientRect').mockReturnValue(TRACK_RECT);
+
+    const chip = screen.getByRole('button', { name: item.label });
+    const point = (type: string, x: number): MouseEvent =>
+      new MouseEvent(type, { bubbles: true, button: 0, clientX: x, clientY: 300 });
+
+    fireEvent(chip, point('pointerdown', 50));
+    fireEvent(chip, point('pointermove', 50 + 2 * COLUMN_PX));
+    fireEvent(chip, point('pointerup', 50 + 2 * COLUMN_PX));
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    const dragged = lastPayload();
+    view.unmount();
+
+    /* Путь без мыши: та же запись, та же дата — но выбранная полем формы.
+       Перетаскивание обязано иметь одно-указательную замену (WCAG 2.5.7), и
+       замена считается равной только если приводит к тому же запросу. */
+    fetchMock.mockClear();
+    stage(<EventChip item={item} />);
+
+    await user.click(screen.getByRole('button', { name: item.label }));
+    await user.click(screen.getByRole('button', { name: texts.edit }));
+
+    const day = screen.getByLabelText(new RegExp(texts.fieldDay));
+    expect(day).toHaveValue(DAY);
+    fireEvent.change(day, { target: { value: '2026-08-25' } });
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    expect(lastPayload()).toEqual(dragged);
   });
 
   it('🔴 изменение объявляется словами: сетка перерисовывается молча', async () => {
