@@ -10,7 +10,7 @@ import type { Confirm } from '@/shared/ui';
 
 import { BlockDialog } from './BlockDialog';
 import { CalendarActionsContext, type CalendarActions } from './actions';
-import { CRM_PATH, crmContent as texts } from './content';
+import { CRM_PATH, crmContent as texts, dayTitle } from './content';
 import { EventDialog } from './EventDialog';
 import { removeBlock, removeEvent, updateEvent } from './lib';
 import {
@@ -169,7 +169,7 @@ export function CalendarStage({
           const result = await updateEvent(id, draft);
           setPending(null);
 
-          if (result.ok) done(texts.movedNote(draft.time));
+          if (result.ok) done(texts.movedNote(dayTitle(draft.day), draft.time));
           else setFailure(result.message ?? texts.failure);
         })();
       },
