@@ -7,12 +7,11 @@
 1440 → 1440×900
 
 [геометрия 390]
-h1  390×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Каталог»
-p  390×45 @0,30  Manrope 400 15/22  lines=2  «Модели, которые видит посетитель. Порядо»
-span.Skeleton__skeleton  273×13 @0,83  r8
-a.Button__button  205×44 @0,105  Manrope 600 13/16  r9  b1  lines=1  «Справочник характеристик»
-a.Button__button#2  142×44 @213,105  Manrope 600 13/16  r9  b1  lines=1  «Добавить модель»
-section.Card__card  390×233 @0,165  r20  b1
+h1  95×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Каталог»
+span.Skeleton__skeleton  66×13 @0,38  r8
+a.Button__button  205×44 @0,60  Manrope 600 13/16  r9  b1  lines=1  «Справочник характеристик»
+a.Button__button#2  142×44 @213,60  Manrope 600 13/16  r9  b1  lines=1  «Добавить модель»
+section.Card__card  390×233 @0,120  r20  b1
   form.CatalogSearch__form  348×191 @21,21
     div.Field__field  348×103 @0,0
       label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по каталогу»
@@ -22,13 +21,13 @@ section.Card__card  390×233 @0,165  r20  b1
       label.Field__label  200×20 @0,0  Manrope 600 13/20  lines=1  «Видимость»
       span.Select__wrapper  200×49 @0,27
         select.Select__select  200×49 @0,0  r11  b1
-          option  0×0 @-21,-328  Manrope 400 15/21  lines=0  «Все модели»
-          option#2  0×0 @-21,-328  Manrope 400 15/21  lines=0  «Видимые на сайте»
-          option#3  0×0 @-21,-328  Manrope 400 15/21  lines=0  «Скрытые»
+          option  0×0 @-21,-283  Manrope 400 15/21  lines=0  «Все модели»
+          option#2  0×0 @-21,-283  Manrope 400 15/21  lines=0  «Видимые на сайте»
+          option#3  0×0 @-21,-283  Manrope 400 15/21  lines=0  «Скрытые»
         svg.Select__chevron  14×14 @172,18
     div.CatalogSearch__actions  69×44 @212,147
       button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
-span.Skeleton__skeleton#2  390×420 @0,414  r14
+span.Skeleton__skeleton#2  390×420 @0,369  r14
 
 [геометрия 768]
 h1  542×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Каталог»
