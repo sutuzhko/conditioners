@@ -1,10 +1,10 @@
 'use client';
 
-import type { CSSProperties, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useCallback, useId, useRef, useState } from 'react';
 
 import { Portal } from '../lib/Portal';
-import { useAnchoredLayer } from '../lib/useAnchoredLayer';
+import { useAnchoredLayer, type LayerPlacement } from '../lib/useAnchoredLayer';
 import styles from './Tooltip.module.css';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'right' | 'left';
@@ -20,9 +20,6 @@ export interface TooltipProps {
 
 /** Зазор между целью и пузырьком — тот же, что был у абсолютного варианта. */
 const GAP = 8;
-
-/** До замера пузырёк не показывается: иначе он мигает в левом верхнем углу. */
-const HIDDEN: CSSProperties = { position: 'fixed', opacity: 0 };
 
 /**
  * Подсказка: значки рельса, действия строки, усечённые значения таблиц
@@ -55,7 +52,7 @@ export function Tooltip({ text, children, placement = 'top', className }: Toolti
    * вызывающего — подсказка у нижней строки таблицы, поставленная сверху, ушла
    * бы за край окна, а подсказка, которой не видно, не подсказка.
    */
-  const measure = useCallback((): CSSProperties | null => {
+  const measure = useCallback((): LayerPlacement | null => {
     const anchor = anchorRef.current;
     const bubble = bubbleRef.current;
     if (anchor === null || bubble === null) return null;
@@ -80,7 +77,6 @@ export function Tooltip({ text, children, placement = 'top', className }: Toolti
     const clamp = (value: number, max: number): number => Math.max(GAP, Math.min(value, max - GAP));
 
     return {
-      position: 'fixed',
       top:
         side === 'top'
           ? rect.top - GAP - height
@@ -96,12 +92,12 @@ export function Tooltip({ text, children, placement = 'top', className }: Toolti
     };
   }, [placement]);
 
-  /* 🔴 Пузырёк едет за своим якорем (ADR-319, issue #665). Прокрутки и
-     изменения размера окна мало: подмена шрифта переверстывает страницу, не
-     давая ни того, ни другого, — и подсказка оставалась стоять по замеру,
-     снятому до сдвига, указывая мимо своего ярлыка. Слежение общее с меню
-     строки, где тот же дефект чинился первым (issue #660). */
-  const at = useAnchoredLayer({ open, anchorRef, layerRef: bubbleRef, measure });
+  /* 🔴 Пузырёк стоит у своего якоря в каждом кадре (ADR-328, issue #683).
+     Событий на переезд якоря не бывает: он умеет уехать, не изменившись в
+     размере, — и подсказка оставалась стоять по замеру, снятому до сдвига,
+     указывая мимо своего ярлыка. Слежение общее с меню строки, где тот же
+     дефект чинился первым (issue #660, #665). */
+  useAnchoredLayer({ open, layerRef: bubbleRef, measure });
 
   return (
     <span
@@ -128,13 +124,7 @@ export function Tooltip({ text, children, placement = 'top', className }: Toolti
           озвучивается как безымянный элемент у каждого значка рельса. */}
       {open ? (
         <Portal>
-          <span
-            ref={bubbleRef}
-            className={styles.bubble}
-            style={at ?? HIDDEN}
-            role="tooltip"
-            id={tooltipId}
-          >
+          <span ref={bubbleRef} className={styles.bubble} role="tooltip" id={tooltipId}>
             {text}
           </span>
         </Portal>
