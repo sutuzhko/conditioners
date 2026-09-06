@@ -1,7 +1,19 @@
 import styles from './Chart.module.css';
-import { PAD, VIEW, pathOf, pointAt, scaleOf, ticksOf, type ChartSeries } from './geometry';
+import {
+  BAR_RADIUS,
+  VIEW,
+  bandCenter,
+  barAt,
+  padOf,
+  pathOf,
+  pointAt,
+  scaleOf,
+  ticksOf,
+  type ChartKind,
+  type ChartSeries,
+} from './geometry';
 
-export type { ChartSeries } from './geometry';
+export type { ChartKind, ChartSeries } from './geometry';
 
 export interface ChartProps {
   /**
@@ -17,17 +29,24 @@ export interface ChartProps {
    * имени озвучка называет «изображение» и не говорит, что показано.
    */
   readonly title: string;
+  /**
+   * Ломаная или столбцы. Столбцы отвечают на «сколько было в каждую неделю»,
+   * ломаная — на «как менялось»; вторую серию столбцы не принимают, потому что
+   * две группы столбцов в одной полосе читаются хуже двух линий.
+   */
+  readonly kind?: ChartKind | undefined;
   /** Как показать число: «128 ₽», «14 шт». Формат задаёт место вызова. */
   readonly format?: ((value: number) => string) | undefined;
   readonly className?: string | undefined;
 }
 
 /**
- * Линейный график: заказы по неделям, выручка и выплаты (issue #332).
+ * График панели: заказы по неделям, выручка и выплаты (issue #332, #589).
  *
  * 🔴 Инлайновый SVG, отрисованный на сервере. Клиентского JS ноль — это важно
  * при запасе бюджета в 0,3 КБ (ADR-184): библиотека графиков стоит десятки
  * килобайт и уходит в бандл целиком ради одной картинки на одном экране.
+ * Столбцы добавлены тем же способом и не стоят ни байта.
  *
  * 🔴 Вторая серия различается штрихом, а не только цветом. Пара `--s1`/`--s2`
  * разведена по тону, но не по светлоте — 1,36:1 в светлой теме и 1,08:1 в
@@ -38,9 +57,18 @@ export interface ChartProps {
  * 🔴 `aria-label` называет, что показано и какие числа, а не «график». Пустой
  * или общий текст здесь равен отсутствию графика для того, кто его не видит.
  */
-export function Chart({ series, labels, title, format = String, className }: ChartProps) {
+export function Chart({
+  series,
+  labels,
+  title,
+  kind = 'line',
+  format = String,
+  className,
+}: ChartProps) {
   const scale = scaleOf(series);
   const ticks = ticksOf(scale);
+  const pad = padOf(kind);
+  const bars = kind === 'bars';
 
   /* Описание для озвучки собирается из тех же чисел, что нарисованы: расхождение
      разметки и картинки — это разные данные для зрячего и незрячего. */
@@ -82,17 +110,17 @@ export function Chart({ series, labels, title, format = String, className }: Cha
         aria-label={`${title}. ${description}`}
       >
         {ticks.map((tick) => {
-          const { y } = pointAt(0, tick, labels.length, scale);
+          const { y } = pointAt(0, tick, labels.length, scale, pad);
           return (
             <g key={tick}>
               <line
                 className={styles.grid}
-                x1={PAD.left}
-                x2={VIEW.width - PAD.right}
+                x1={pad.left}
+                x2={VIEW.width - pad.right}
                 y1={y}
                 y2={y}
               />
-              <text className={styles.tick} x={PAD.left - 8} y={y + 4} textAnchor="end">
+              <text className={styles.tick} x={pad.left - 8} y={y + 4} textAnchor="end">
                 {format(Math.round(tick))}
               </text>
             </g>
@@ -100,13 +128,18 @@ export function Chart({ series, labels, title, format = String, className }: Cha
         })}
 
         {labels.map((label, index) => {
-          const { x } = pointAt(index, scale.min, labels.length, scale);
+          /* У столбцов подпись стоит под центром полосы, у ломаной — под
+             точкой: точка живёт на краю холста, полоса — между краями. */
+          const x = bars
+            ? bandCenter(index, labels.length, pad)
+            : pointAt(index, scale.min, labels.length, scale, pad).x;
+
           return (
             <text
               key={label}
               className={styles.tick}
               x={x}
-              y={VIEW.height - PAD.bottom + 18}
+              y={VIEW.height - pad.bottom + 18}
               textAnchor="middle"
             >
               {label}
@@ -114,43 +147,58 @@ export function Chart({ series, labels, title, format = String, className }: Cha
           );
         })}
 
-        {series.map((line, index) => {
-          const last = line.points[line.points.length - 1];
-          const end =
-            last === undefined
-              ? undefined
-              : pointAt(line.points.length - 1, last, line.points.length, scale);
+        {bars
+          ? series[0].points.map((value, index) => {
+              const rect = barAt(index, value, series[0].points.length, scale, pad);
+              return (
+                <rect
+                  className={styles.bar}
+                  key={labels[index] ?? index}
+                  x={rect.x}
+                  y={rect.y}
+                  width={rect.width}
+                  height={rect.height}
+                  rx={BAR_RADIUS}
+                />
+              );
+            })
+          : series.map((line, index) => {
+              const last = line.points[line.points.length - 1];
+              const end =
+                last === undefined
+                  ? undefined
+                  : pointAt(line.points.length - 1, last, line.points.length, scale, pad);
 
-          return (
-            <g key={line.id}>
-              <path
-                className={[styles.line, index === 0 ? styles.line1 : styles.line2].join(' ')}
-                d={pathOf(line.points, scale)}
-              />
-              {end === undefined || last === undefined ? null : (
-                <>
-                  <circle
-                    className={[styles.dot, index === 0 ? styles.dot1 : styles.dot2].join(' ')}
-                    cx={end.x}
-                    cy={end.y}
-                    r={3.5}
+              return (
+                <g key={line.id}>
+                  <path
+                    className={[styles.line, index === 0 ? styles.line1 : styles.line2].join(' ')}
+                    d={pathOf(line.points, scale, pad)}
                   />
-                  {/* Подпись значения на конце линии: она и есть точное число,
-                      график же показывает только форму. */}
-                  <text
-                    className={[styles.value, index === 0 ? styles.value1 : styles.value2].join(
-                      ' ',
-                    )}
-                    x={end.x + 8}
-                    y={end.y + 4}
-                  >
-                    {format(last)}
-                  </text>
-                </>
-              )}
-            </g>
-          );
-        })}
+                  {end === undefined || last === undefined ? null : (
+                    <>
+                      <circle
+                        className={[styles.dot, index === 0 ? styles.dot1 : styles.dot2].join(' ')}
+                        cx={end.x}
+                        cy={end.y}
+                        r={3.5}
+                      />
+                      {/* Подпись значения на конце линии: она и есть точное
+                          число, график же показывает только форму. */}
+                      <text
+                        className={[styles.value, index === 0 ? styles.value1 : styles.value2].join(
+                          ' ',
+                        )}
+                        x={end.x + 8}
+                        y={end.y + 4}
+                      >
+                        {format(last)}
+                      </text>
+                    </>
+                  )}
+                </g>
+              );
+            })}
       </svg>
     </figure>
   );
