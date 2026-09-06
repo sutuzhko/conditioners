@@ -1,11 +1,11 @@
 'use client';
 
-import type { CSSProperties, KeyboardEvent, ReactNode } from 'react';
+import type { KeyboardEvent, ReactNode } from 'react';
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 
 import { Icon } from '../Icon';
 import { Portal } from '../lib/Portal';
-import { useAnchoredLayer } from '../lib/useAnchoredLayer';
+import { useAnchoredLayer, type LayerPlacement } from '../lib/useAnchoredLayer';
 import styles from './RowMenu.module.css';
 
 export interface RowMenuItem {
@@ -27,16 +27,6 @@ export interface RowMenuProps {
 
 /** Просвет между кнопкой и меню — он же отступ от края окна. */
 const GAP = 4;
-
-/**
- * Первый проход: меню уже в разметке — иначе его нечем измерить, — но
- * координат ещё нет.
- *
- * Прозрачность, а не `visibility: hidden`: скрытый так элемент не принимает
- * фокус, а фокус переезжает в меню в этом же кадре. Кадр не рисуется —
- * `useLayoutEffect` ставит меню на место до отрисовки.
- */
-const HIDDEN: CSSProperties = { position: 'fixed', opacity: 0 };
 
 /**
  * Выпадающее меню строки таблицы (issue #332). Четвёртое действие и дальше:
@@ -82,7 +72,7 @@ export function RowMenu({ items, label, className }: RowMenuProps) {
     return () => document.removeEventListener('mousedown', onDocumentDown);
   }, [open]);
 
-  const measure = useCallback((): CSSProperties | null => {
+  const measure = useCallback((): LayerPlacement | null => {
     const button = buttonRef.current;
     const menu = menuRef.current;
     if (button === null || menu === null) return null;
@@ -93,16 +83,16 @@ export function RowMenu({ items, label, className }: RowMenuProps) {
     const up = below < height + GAP && rect.top > height + GAP;
 
     return {
-      position: 'fixed',
       top: up ? rect.top - GAP - height : rect.bottom + GAP,
       right: Math.max(GAP, window.innerWidth - rect.right),
     };
   }, []);
 
-  /* Слежение за якорем — общее с подсказкой (ADR-319, issue #665): и меню, и
-     подсказка обязаны ехать за элементом, у которого стоят, а формула счёта у
-     каждого своя. */
-  const at = useAnchoredLayer({ open, anchorRef: buttonRef, layerRef: menuRef, measure });
+  /* Слежение за якорем — общее с подсказкой (ADR-328, issue #683): и меню, и
+     подсказка обязаны стоять у элемента, к которому привязаны, а формула счёта
+     у каждого своя. Координаты хук пишет узлу сам, поэтому `style` у меню
+     ниже нет: React, перерисовав меню на стрелке, стёр бы их. */
+  useAnchoredLayer({ open, layerRef: menuRef, measure });
 
   /* Фокус переезжает в меню в том же кадре, в котором оно появилось: до
      отрисовки, иначе кадр без фокуса успевает попасть на экран. */
@@ -196,7 +186,6 @@ export function RowMenu({ items, label, className }: RowMenuProps) {
             className={styles.menu}
             tabIndex={-1}
             ref={menuRef}
-            style={at ?? HIDDEN}
             aria-activedescendant={`${menuId}-${items[active]?.id ?? ''}`}
             onKeyDown={handleMenuKeys}
             onBlur={(event) => {

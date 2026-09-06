@@ -139,51 +139,55 @@ describe('Меню строки', () => {
 });
 
 /**
- * 🔴 Раскладка умеет доезжать уже после открытия меню — подмена шрифта, поздняя
- * картинка, — и ни прокрутки, ни изменения размера окна при этом не
- * происходит (issue #660). Меню, посчитанное один раз, оставалось стоять мимо
- * своей кнопки.
+ * Кадр браузера в jsdom: `requestAnimationFrame` там живой, и один его тик —
+ * ровно то, что делает хук в настоящем браузере.
+ */
+async function nextFrame(): Promise<void> {
+  await act(async () => {
+    await new Promise((resolve) => {
+      requestAnimationFrame(() => resolve(undefined));
+    });
+  });
+}
+
+/**
+ * 🔴 Якорь умеет переехать, не изменившись в размере (issue #683): доехавшая
+ * таблица стилей, поздняя картинка, раскрывшийся соседний блок. Ни прокрутки,
+ * ни изменения окна, ни срабатывания `ResizeObserver` при этом нет — а меню,
+ * посчитанное один раз, оставалось стоять мимо своей кнопки. Поэтому проверка
+ * двигает кнопку и не подаёт **ни одного** события: положение обязано
+ * выправиться от самого кадра.
  */
 describe('Меню строки — положение', () => {
-  it('🔴 едет за кнопкой, когда раскладка доезжает после открытия', async () => {
-    const callbacks: ResizeObserverCallback[] = [];
-    const original = globalThis.ResizeObserver;
+  it('🔴 встаёт у кнопки сразу, до первого кадра', async () => {
+    const { trigger } = setup();
 
-    globalThis.ResizeObserver = class {
-      constructor(callback: ResizeObserverCallback) {
-        callbacks.push(callback);
-      }
-      observe(): void {}
-      unobserve(): void {}
-      disconnect(): void {}
-    };
+    vi.spyOn(trigger, 'getBoundingClientRect').mockImplementation(
+      () => new DOMRect(0, 100, 32, 32),
+    );
 
-    try {
-      const { trigger } = setup();
+    await userEvent.click(trigger);
 
-      let top = 100;
-      vi.spyOn(trigger, 'getBoundingClientRect').mockImplementation(
-        () => new DOMRect(0, top, 32, 32),
-      );
+    expect(screen.getByRole('menu').style.top).toBe('136px');
+  });
 
-      await userEvent.click(trigger);
-      const menu = screen.getByRole('menu');
-      expect(menu.style.top).toBe('136px');
+  it('🔴 едет за кнопкой, когда та переехала без единого события', async () => {
+    const { trigger } = setup();
 
-      /* Кнопка уехала вниз на 200px — ровно то, что делает подмена шрифта. */
-      top = 300;
-      /* Список слепком: наблюдатель, отданный обработчику, сам регистрирует
-         ещё один — перебор живого списка не кончился бы никогда. */
-      const observed = [...callbacks];
-      const dummy = new globalThis.ResizeObserver(() => {});
-      act(() => {
-        for (const callback of observed) callback([], dummy);
-      });
+    let top = 100;
+    vi.spyOn(trigger, 'getBoundingClientRect').mockImplementation(
+      () => new DOMRect(0, top, 32, 32),
+    );
 
-      expect(menu.style.top).toBe('336px');
-    } finally {
-      globalThis.ResizeObserver = original;
-    }
+    await userEvent.click(trigger);
+    const menu = screen.getByRole('menu');
+    expect(menu.style.top).toBe('136px');
+
+    /* Кнопка уехала вниз на 200px — ровно то, что делает доехавшая раскладка. */
+    top = 300;
+    await nextFrame();
+
+    expect(menu.style.top).toBe('336px');
   });
 });
 
@@ -258,59 +262,35 @@ describe('Подсказка', () => {
 });
 
 /**
- * 🔴 Тот же дефект, что у меню строки, и та же проверка (issue #665).
- * Подсказка считала координаты один раз при открытии и слушала только
- * прокрутку и изменение размера окна — а подмена шрифта не даёт ни того, ни
- * другого: цель уезжала, пузырёк оставался стоять и указывал мимо своего
- * ярлыка.
+ * 🔴 Тот же дефект и та же проверка, что у меню строки (issue #683).
+ * Подсказка считала координаты один раз при открытии, и переехавшая цель
+ * оставляла пузырёк указывать мимо своего ярлыка.
  */
 describe('Подсказка — положение', () => {
-  it('🔴 едет за целью, когда раскладка доезжает после открытия', async () => {
-    const callbacks: ResizeObserverCallback[] = [];
-    const original = globalThis.ResizeObserver;
+  it('🔴 едет за целью, когда та переехала без единого события', async () => {
+    const user = userEvent.setup();
+    render(
+      <Tooltip text="Заказы за неделю">
+        <button type="button">Обзор</button>
+      </Tooltip>,
+    );
 
-    globalThis.ResizeObserver = class {
-      constructor(callback: ResizeObserverCallback) {
-        callbacks.push(callback);
-      }
-      observe(): void {}
-      unobserve(): void {}
-      disconnect(): void {}
-    };
+    const target = screen.getByRole('button', { name: 'Обзор' });
+    const anchor = target.parentElement;
+    if (anchor === null) throw new Error('у цели нет обёртки-якоря');
 
-    try {
-      const user = userEvent.setup();
-      render(
-        <Tooltip text="Заказы за неделю">
-          <button type="button">Обзор</button>
-        </Tooltip>,
-      );
+    let top = 200;
+    vi.spyOn(anchor, 'getBoundingClientRect').mockImplementation(
+      () => new DOMRect(100, top, 40, 20),
+    );
 
-      const target = screen.getByRole('button', { name: 'Обзор' });
-      const anchor = target.parentElement;
-      if (anchor === null) throw new Error('у цели нет обёртки-якоря');
+    await user.hover(target);
+    expect(screen.getByRole('tooltip').style.top).toBe('192px');
 
-      let top = 200;
-      vi.spyOn(anchor, 'getBoundingClientRect').mockImplementation(
-        () => new DOMRect(100, top, 40, 20),
-      );
+    /* Цель уехала вниз на 200px — ровно то, что делает доехавшая раскладка. */
+    top = 400;
+    await nextFrame();
 
-      await user.hover(target);
-      expect(screen.getByRole('tooltip').style.top).toBe('192px');
-
-      /* Цель уехала вниз на 200px — ровно то, что делает подмена шрифта. */
-      top = 400;
-      /* Список слепком: наблюдатель, отданный обработчику, сам регистрирует
-         ещё один — перебор живого списка не кончился бы никогда. */
-      const observed = [...callbacks];
-      const dummy = new globalThis.ResizeObserver(() => {});
-      act(() => {
-        for (const callback of observed) callback([], dummy);
-      });
-
-      expect(screen.getByRole('tooltip').style.top).toBe('392px');
-    } finally {
-      globalThis.ResizeObserver = original;
-    }
+    expect(screen.getByRole('tooltip').style.top).toBe('392px');
   });
 });
