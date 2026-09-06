@@ -1,0 +1,147 @@
+/* Лист «Ещё» на телефоне: разделы, настройки, тема и выход (issue #659). */
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Заголовок группы. Кегль и разрядка — те же, что у подписи группы в колонке
+   разделов: один и тот же приём на двух экранах обязан выглядеть одинаково.
+   Сброс полей обязателен — это `h2`, и браузер даёт ему свои. */
+.caption {
+  margin: 0;
+  padding: 0 12px 6px;
+  color: var(--faint);
+  font-family: inherit;
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Строка листа. Высота — тап-зона целиком: строка во всю ширину, и цель у неё
+   такая же (ADR-183). */
+.link {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--tap);
+  padding: 0 12px;
+  border-radius: var(--r-nav);
+  color: var(--body);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Наведение — только там, где есть указатель: на телефоне подсветка залипает
+   после касания, и строка остаётся отмеченной, хотя раздел давно другой. */
+@media (hover: hover) {
+  .link:hover {
+    background: var(--accent-bg);
+    color: var(--ink);
+  }
+}
+
+.active {
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+.icon {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.active .icon {
+  color: var(--accent-text);
+}
+
+/* Строка темы: подпись слева, пилюля справа. Высота та же, что у соседних
+   строк, — иначе группа теряет ритм на последнем пункте. Своей тап-зоны у
+   строки нет: цель здесь — сегменты пилюли, и 44px они добирают сами. */
+.themeRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: 0 12px;
+}
+
+.themeLabel {
+  color: var(--body);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+}
+
+/* 🔴 Выход в подвале шторки. Кнопка, а не ссылка (`LogoutButton`), и браузер
+   даёт ей свой шрифт, свою рамку, свою серую заливку и подпись по центру — в
+   прежнем листе она носила класс ссылок, где ничего этого не снималось, и
+   стояла среди них системной серой кнопкой с чужой гарнитурой. Ровно это
+   владелец и назвал «странно выглядит». Тот же набор объявлений уже стоит у
+   пункта меню в колонке (`AdminNav.module.css`, `.menuItem`).
+
+   Обведённой, а не залитой: выход не разрушает данные и красным не красится,
+   но и переходом не является — рамка отличает действие от списка ссылок над
+   ним, не пугая. */
+.logout {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--tap);
+  border: 1px solid var(--line-ui);
+  border-radius: var(--r-md);
+  background: var(--card);
+  padding: 0 12px;
+  color: var(--ink2);
+  font: inherit;
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .logout:hover:not(:disabled) {
+    border-color: var(--error-line);
+    color: var(--error-ink);
+  }
+
+  .logout:hover:not(:disabled) .icon {
+    color: var(--error-ink);
+  }
+}
+
+.logout:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+/* Пока запрос идёт, кнопка выключена: второе нажатие не ускоряет выход, а
+   отправляет второй запрос. */
+.logout:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
