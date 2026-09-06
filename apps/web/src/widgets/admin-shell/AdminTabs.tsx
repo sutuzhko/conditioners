@@ -2,20 +2,18 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { AdminRole } from '@/entities/staff/model';
 import { Drawer, Icon } from '@/shared/ui';
 
-import { LogoutButton } from './LogoutButton';
+import { AdminMoreFooter, AdminMoreSheet } from './AdminMoreSheet';
 import {
-  ADMIN_GROUP_TITLES,
   ADMIN_TABS,
   adminShellContent as texts,
   bottomSectionsFor,
   columnSectionsFor,
   navHrefOf,
-  type AdminSection,
 } from './content';
 import styles from './AdminTabs.module.css';
 
@@ -53,26 +51,11 @@ export function AdminTabs({ role }: AdminTabsProps) {
   const activeHref = navHrefOf(pathname);
   const column = columnSectionsFor(role);
   const tabs = column.slice(0, ADMIN_TABS);
-  const rest = column.slice(ADMIN_TABS);
-  const bottom = bottomSectionsFor(role);
 
   /* «Ещё» подсвечивается, когда открыт раздел из листа: иначе на складе
      подсвеченного пункта нет вовсе, и панель выглядит потерявшей место. */
-  const restActive = [...rest, ...bottom].some((section) => section.href === activeHref);
-
-  const sheetLink = (section: AdminSection) => (
-    <li key={section.href}>
-      <Link
-        className={[styles.sheetLink, section.href === activeHref ? styles.sheetActive : null]
-          .filter(Boolean)
-          .join(' ')}
-        href={{ pathname: section.href }}
-        aria-current={section.href === activeHref ? 'page' : undefined}
-      >
-        <Icon className={styles.sheetIcon} name={section.icon} />
-        {section.title}
-      </Link>
-    </li>
+  const restActive = [...column.slice(ADMIN_TABS), ...bottomSectionsFor(role)].some(
+    (section) => section.href === activeHref,
   );
 
   return (
@@ -122,54 +105,9 @@ export function AdminTabs({ role }: AdminTabsProps) {
           setOpen(false);
         }}
         title={texts.moreTitle}
+        footer={<AdminMoreFooter />}
       >
-        <div className={styles.sheet} data-ui="panel">
-          <ul className={styles.sheetList}>
-            {rest.map((section, index) => {
-              const group = section.group;
-              const caption =
-                group === undefined || rest[index - 1]?.group === group
-                  ? null
-                  : ADMIN_GROUP_TITLES[group];
-
-              return (
-                <Fragment key={section.href}>
-                  {/* Заголовок группы декоративен: список ссылок и без него
-                      полный, поэтому от озвучки скрыт. */}
-                  {caption === null ? null : (
-                    <li className={styles.caption} aria-hidden="true">
-                      {caption}
-                    </li>
-                  )}
-                  {sheetLink(section)}
-                </Fragment>
-              );
-            })}
-          </ul>
-
-          <ul className={[styles.sheetList, styles.sheetFoot].join(' ')}>
-            {bottom.map((section) => sheetLink(section))}
-
-            {/* «Открыть сайт» приехало сюда из убранной верхней полосы
-                (ADR-309): в макете ссылки нет нигде, но владелец сверяет с
-                сайтом каждую правку. Отступление — строкой в PIXEL_SPEC. */}
-            <li>
-              <Link
-                className={styles.sheetLink}
-                href={{ pathname: '/' }}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Icon className={styles.sheetIcon} name="conditioner" />
-                {texts.site}
-              </Link>
-            </li>
-
-            <li>
-              <LogoutButton className={styles.sheetLink} iconClassName={styles.sheetIcon} />
-            </li>
-          </ul>
-        </div>
+        <AdminMoreSheet role={role} activeHref={activeHref} />
       </Drawer>
     </>
   );

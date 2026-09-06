@@ -1,0 +1,222 @@
+# админка-лист-«ещё»--содержимое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.AdminMoreSheet__sheet  303×561 @32,30
+  section.AdminMoreSheet__group  303×160 @0,0
+    h2.AdminMoreSheet__caption  303×22 @0,0  Manrope 600 13/16  ls1  lines=1  «Разделы»
+    ul.AdminMoreSheet__list  303×136 @0,24
+      a.AdminMoreSheet__link  303×44 @0,0  Manrope 600 15/22  r12  lines=1  «Клиенты»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#2  303×44 @0,46  Manrope 600 15/22  r12  lines=1  «Монтажники»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#3  303×44 @0,92  Manrope 600 15/22  r12  lines=1  «Склад»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+  section.AdminMoreSheet__group#2  303×160 @0,178
+    h2.AdminMoreSheet__caption  303×22 @0,0  Manrope 600 13/16  ls1  lines=1  «Сайт»
+    ul.AdminMoreSheet__list  303×136 @0,24
+      a.AdminMoreSheet__link#4  303×44 @0,0  Manrope 600 15/22  r12  lines=1  «Каталог»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#5  303×44 @0,46  Manrope 600 15/22  r12  lines=1  «База знаний»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#6  303×44 @0,92  Manrope 600 15/22  r12  lines=1  «Отзывы»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+  section.AdminMoreSheet__group#3  303×206 @0,355
+    h2.AdminMoreSheet__caption  303×22 @0,0  Manrope 600 13/16  ls1  lines=1  «Настройки и профиль»
+    ul.AdminMoreSheet__list  303×182 @0,24
+      a.AdminMoreSheet__link#7  303×44 @0,0  Manrope 600 15/22  r12  lines=1  «Настройки»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#8  303×44 @0,46  Manrope 600 15/22  r12  lines=1  «Профиль»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#9  303×44 @0,92  Manrope 600 15/22  r12  lines=1  «Открыть сайт»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+        span  1×1 @11,22  Manrope 600 15/22  lines=1  clipped  «в новой вкладке»
+      li.AdminMoreSheet__themeRow  303×44 @0,138
+        span.AdminMoreSheet__themeLabel  35×22 @12,11  Manrope 600 15/22  lines=1  «Тема»
+        div.ThemeSwitch__switch  140×38 @151,3  r999  b1
+          label.ThemeSwitch__segment  68×30 @5,4
+            input.ThemeSwitch__input  1×1 @-1,-1
+            span.ThemeSwitch__text  68×30 @0,0  Manrope 600 13/20  r999  b1  lines=1  «Светлая»
+          label.ThemeSwitch__segment#2  61×30 @75,4
+            input.ThemeSwitch__input  1×1 @-1,-1
+            span.ThemeSwitch__text  61×30 @0,0  Manrope 600 13/20  r999  b1  lines=1  «Тёмная»
+button.AdminMoreSheet__logout  303×44 @32,605  r14  b1
+  svg.AdminMoreSheet__icon  20×20 @114,12
+  span  44×22 @146,11  Manrope 600 15/22  lines=1  «Выйти»
+
+[геометрия 768]
+div.AdminMoreSheet__sheet  348×561 @32,30
+  section.AdminMoreSheet__group  348×160 @0,0
+    h2.AdminMoreSheet__caption  348×22 @0,0  Manrope 600 13/16  ls1  lines=1  «Разделы»
+    ul.AdminMoreSheet__list  348×136 @0,24
+      a.AdminMoreSheet__link  348×44 @0,0  Manrope 600 15/22  r12  lines=1  «Клиенты»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#2  348×44 @0,46  Manrope 600 15/22  r12  lines=1  «Монтажники»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#3  348×44 @0,92  Manrope 600 15/22  r12  lines=1  «Склад»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+  section.AdminMoreSheet__group#2  348×160 @0,178
+    h2.AdminMoreSheet__caption  348×22 @0,0  Manrope 600 13/16  ls1  lines=1  «Сайт»
+    ul.AdminMoreSheet__list  348×136 @0,24
+      a.AdminMoreSheet__link#4  348×44 @0,0  Manrope 600 15/22  r12  lines=1  «Каталог»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#5  348×44 @0,46  Manrope 600 15/22  r12  lines=1  «База знаний»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#6  348×44 @0,92  Manrope 600 15/22  r12  lines=1  «Отзывы»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+  section.AdminMoreSheet__group#3  348×206 @0,355
+    h2.AdminMoreSheet__caption  348×22 @0,0  Manrope 600 13/16  ls1  lines=1  «Настройки и профиль»
+    ul.AdminMoreSheet__list  348×182 @0,24
+      a.AdminMoreSheet__link#7  348×44 @0,0  Manrope 600 15/22  r12  lines=1  «Настройки»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#8  348×44 @0,46  Manrope 600 15/22  r12  lines=1  «Профиль»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#9  348×44 @0,92  Manrope 600 15/22  r12  lines=1  «Открыть сайт»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+        span  1×1 @11,22  Manrope 600 15/22  lines=1  clipped  «в новой вкладке»
+      li.AdminMoreSheet__themeRow  348×44 @0,138
+        span.AdminMoreSheet__themeLabel  35×22 @12,11  Manrope 600 15/22  lines=1  «Тема»
+        div.ThemeSwitch__switch  140×38 @196,3  r999  b1
+          label.ThemeSwitch__segment  68×30 @5,4
+            input.ThemeSwitch__input  1×1 @-1,-1
+            span.ThemeSwitch__text  68×30 @0,0  Manrope 600 13/20  r999  b1  lines=1  «Светлая»
+          label.ThemeSwitch__segment#2  61×30 @75,4
+            input.ThemeSwitch__input  1×1 @-1,-1
+            span.ThemeSwitch__text  61×30 @0,0  Manrope 600 13/20  r999  b1  lines=1  «Тёмная»
+button.AdminMoreSheet__logout  348×44 @32,605  r14  b1
+  svg.AdminMoreSheet__icon  20×20 @136,12
+  span  44×22 @168,11  Manrope 600 15/22  lines=1  «Выйти»
+
+[геометрия 1440]
+div.AdminMoreSheet__sheet  348×561 @32,30
+  section.AdminMoreSheet__group  348×160 @0,0
+    h2.AdminMoreSheet__caption  348×22 @0,0  Manrope 600 13/16  ls1  lines=1  «Разделы»
+    ul.AdminMoreSheet__list  348×136 @0,24
+      a.AdminMoreSheet__link  348×44 @0,0  Manrope 600 15/22  r12  lines=1  «Клиенты»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#2  348×44 @0,46  Manrope 600 15/22  r12  lines=1  «Монтажники»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#3  348×44 @0,92  Manrope 600 15/22  r12  lines=1  «Склад»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+  section.AdminMoreSheet__group#2  348×160 @0,178
+    h2.AdminMoreSheet__caption  348×22 @0,0  Manrope 600 13/16  ls1  lines=1  «Сайт»
+    ul.AdminMoreSheet__list  348×136 @0,24
+      a.AdminMoreSheet__link#4  348×44 @0,0  Manrope 600 15/22  r12  lines=1  «Каталог»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#5  348×44 @0,46  Manrope 600 15/22  r12  lines=1  «База знаний»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#6  348×44 @0,92  Manrope 600 15/22  r12  lines=1  «Отзывы»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+  section.AdminMoreSheet__group#3  348×206 @0,355
+    h2.AdminMoreSheet__caption  348×22 @0,0  Manrope 600 13/16  ls1  lines=1  «Настройки и профиль»
+    ul.AdminMoreSheet__list  348×182 @0,24
+      a.AdminMoreSheet__link#7  348×44 @0,0  Manrope 600 15/22  r12  lines=1  «Настройки»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#8  348×44 @0,46  Manrope 600 15/22  r12  lines=1  «Профиль»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+      a.AdminMoreSheet__link#9  348×44 @0,92  Manrope 600 15/22  r12  lines=1  «Открыть сайт»
+        svg.AdminMoreSheet__icon  20×20 @12,12
+        span  1×1 @11,22  Manrope 600 15/22  lines=1  clipped  «в новой вкладке»
+      li.AdminMoreSheet__themeRow  348×44 @0,138
+        span.AdminMoreSheet__themeLabel  35×22 @12,11  Manrope 600 15/22  lines=1  «Тема»
+        div.ThemeSwitch__switch  140×38 @196,3  r999  b1
+          label.ThemeSwitch__segment  68×30 @5,4
+            input.ThemeSwitch__input  1×1 @-1,-1
+            span.ThemeSwitch__text  68×30 @0,0  Manrope 600 13/20  r999  b1  lines=1  «Светлая»
+          label.ThemeSwitch__segment#2  61×30 @75,4
+            input.ThemeSwitch__input  1×1 @-1,-1
+            span.ThemeSwitch__text  61×30 @0,0  Manrope 600 13/20  r999  b1  lines=1  «Тёмная»
+button.AdminMoreSheet__logout  348×44 @32,605  r14  b1
+  svg.AdminMoreSheet__icon  20×20 @136,12
+  span  44×22 @168,11  Manrope 600 15/22  lines=1  «Выйти»
+
+[палитра light]
+div.AdminMoreSheet__sheet
+  section.AdminMoreSheet__group
+    h2.AdminMoreSheet__caption  color #5b6a7d
+    ul.AdminMoreSheet__list
+      a.AdminMoreSheet__link  color #475569
+        svg.AdminMoreSheet__icon
+      a.AdminMoreSheet__link#2  color #475569
+        svg.AdminMoreSheet__icon
+      a.AdminMoreSheet__link#3  color #0e7490  bg #ecfeff
+        svg.AdminMoreSheet__icon
+  section.AdminMoreSheet__group#2
+    h2.AdminMoreSheet__caption  color #5b6a7d
+    ul.AdminMoreSheet__list
+      a.AdminMoreSheet__link#4  color #475569
+        svg.AdminMoreSheet__icon
+      a.AdminMoreSheet__link#5  color #475569
+        svg.AdminMoreSheet__icon
+      a.AdminMoreSheet__link#6  color #475569
+        svg.AdminMoreSheet__icon
+  section.AdminMoreSheet__group#3
+    h2.AdminMoreSheet__caption  color #5b6a7d
+    ul.AdminMoreSheet__list
+      a.AdminMoreSheet__link#7  color #475569
+        svg.AdminMoreSheet__icon
+      a.AdminMoreSheet__link#8  color #475569
+        svg.AdminMoreSheet__icon
+      a.AdminMoreSheet__link#9  color #475569
+        svg.AdminMoreSheet__icon
+        span  color #475569
+      li.AdminMoreSheet__themeRow
+        span.AdminMoreSheet__themeLabel  color #475569
+        div.ThemeSwitch__switch  bg #f8fafc  border #e2e8f0
+          label.ThemeSwitch__segment
+            input.ThemeSwitch__input
+            span.ThemeSwitch__text  color #0f172a  bg #ffffff  border #e2e8f0
+          label.ThemeSwitch__segment#2
+            input.ThemeSwitch__input
+            span.ThemeSwitch__text  color #556173  border transparent
+button.AdminMoreSheet__logout  bg #ffffff  border #7e8fa6
+  svg.AdminMoreSheet__icon
+  span  color #334155
+
+[палитра dark]
+div.AdminMoreSheet__sheet
+  section.AdminMoreSheet__group
+    h2.AdminMoreSheet__caption  color #7e92a7
+    ul.AdminMoreSheet__list
+      a.AdminMoreSheet__link  color #a8b6c6
+        svg.AdminMoreSheet__icon
+      a.AdminMoreSheet__link#2  color #a8b6c6
+        svg.AdminMoreSheet__icon
+      a.AdminMoreSheet__link#3  color #22d3ee  bg #22d3ee1a
+        svg.AdminMoreSheet__icon
+  section.AdminMoreSheet__group#2
+    h2.AdminMoreSheet__caption  color #7e92a7
+    ul.AdminMoreSheet__list
+      a.AdminMoreSheet__link#4  color #a8b6c6
+        svg.AdminMoreSheet__icon
+      a.AdminMoreSheet__link#5  color #a8b6c6
+        svg.AdminMoreSheet__icon
+      a.AdminMoreSheet__link#6  color #a8b6c6
+        svg.AdminMoreSheet__icon
+  section.AdminMoreSheet__group#3
+    h2.AdminMoreSheet__caption  color #7e92a7
+    ul.AdminMoreSheet__list
+      a.AdminMoreSheet__link#7  color #a8b6c6
+        svg.AdminMoreSheet__icon
+      a.AdminMoreSheet__link#8  color #a8b6c6
+        svg.AdminMoreSheet__icon
+      a.AdminMoreSheet__link#9  color #a8b6c6
+        svg.AdminMoreSheet__icon
+        span  color #a8b6c6
+      li.AdminMoreSheet__themeRow
+        span.AdminMoreSheet__themeLabel  color #a8b6c6
+        div.ThemeSwitch__switch  bg #0e1729  border #1e2b41
+          label.ThemeSwitch__segment
+            input.ThemeSwitch__input
+            span.ThemeSwitch__text  color #8598ac  border transparent
+          label.ThemeSwitch__segment#2
+            input.ThemeSwitch__input
+            span.ThemeSwitch__text  color #eaf1f8  bg #121d31  border #1e2b41
+button.AdminMoreSheet__logout  bg #121d31  border #566d95
+  svg.AdminMoreSheet__icon
+  span  color #c9d5e2
