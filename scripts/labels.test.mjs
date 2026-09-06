@@ -35,9 +35,9 @@ describe('словарь', () => {
   });
 
   it('ярлык оси несёт её префикс и её цвет', () => {
-    for (const [axis, { prefix, color }] of Object.entries(AXES)) {
+    for (const [axis, { title, prefix, color }] of Object.entries(AXES)) {
       const names = labelsOf(axis);
-      expect(names.length, `ось «${axis}» пуста`).toBeGreaterThan(0);
+      expect(names.length, `ось «${title}» пуста`).toBeGreaterThan(0);
       for (const name of names) {
         expect(name.startsWith(prefix), `${name} не начинается с ${prefix}`).toBe(true);
         expect(LABELS[name].color).toBe(color);
@@ -69,25 +69,25 @@ describe('словарь', () => {
 
 describe('проверка осей', () => {
   it('молчит на правильном наборе', () => {
-    expect(checkAxes(['часть/панель', 'раздел/склад', 'тип/дефект'])).toEqual([]);
+    expect(checkAxes(['area/panel', 'module/stock', 'kind/bug'])).toEqual([]);
   });
 
   it('замечает отсутствие обязательной оси', () => {
-    expect(checkAxes(['раздел/склад', 'тип/дефект']).join()).toContain('часть');
+    expect(checkAxes(['module/stock', 'kind/bug']).join()).toContain('часть');
   });
 
   it('замечает две обязательные оси разом', () => {
-    const problems = checkAxes(['часть/сайт', 'часть/панель', 'тип/дефект']);
+    const problems = checkAxes(['area/site', 'area/panel', 'kind/bug']);
     expect(problems.join()).toContain('2 раза');
   });
 
   it('замечает ярлык вне словаря — старая разметка не доживает молча', () => {
-    const problems = checkAxes(['часть/панель', 'тип/дефект', 'ui']);
+    const problems = checkAxes(['area/panel', 'kind/bug', 'ui']);
     expect(problems.join()).toContain('ui');
   });
 
   it('необязательные оси можно не ставить', () => {
-    expect(checkAxes(['часть/документы', 'тип/решение'])).toEqual([]);
+    expect(checkAxes(['area/docs', 'kind/decision'])).toEqual([]);
   });
 });
 
@@ -107,8 +107,8 @@ describe('синхронизация', () => {
   });
 
   it('заводит отсутствующий ярлык', () => {
-    const plan = planSync([], { 'тип/дефект': LABELS['тип/дефект'] });
-    expect(plan.create.map((label) => label.name)).toEqual(['тип/дефект']);
+    const plan = planSync([], { 'kind/bug': LABELS['kind/bug'] });
+    expect(plan.create.map((label) => label.name)).toEqual(['kind/bug']);
   });
 
   it('правит разошедшийся цвет и описание, не трогая совпавшие', () => {
@@ -143,17 +143,17 @@ describe('ревизор разметки', () => {
   });
 
   it('молчит, когда все задачи размечены', () => {
-    expect(auditIssues([issue(1, ['часть/панель', 'тип/дефект'])])).toEqual([]);
+    expect(auditIssues([issue(1, ['area/panel', 'kind/bug'])])).toEqual([]);
   });
 
   it('🔴 называет задачу и причину, а не только число', () => {
-    const [broken] = auditIssues([issue(42, ['тип/дефект'])]);
+    const [broken] = auditIssues([issue(42, ['kind/bug'])]);
     expect(broken.number).toBe(42);
     expect(broken.problems.join()).toContain('часть');
   });
 
   it('ловит остатки старой разметки', () => {
-    const [broken] = auditIssues([issue(7, ['часть/сайт', 'тип/дефект', 'ui'])]);
+    const [broken] = auditIssues([issue(7, ['area/site', 'kind/bug', 'ui'])]);
     expect(broken.problems.join()).toContain('ui');
   });
 });

@@ -4,25 +4,25 @@
 #    node scripts/labeler-generate.mjs --write
 # Правки руками теряются при следующей сборке; тест сверяет файл с
 # генерацией и краснеет на расхождении.
-'часть/сайт':
+'area/site':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(site)/**'
 
-'часть/панель':
+'area/panel':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(admin)/**'
           - 'apps/web/src/widgets/admin-*/**'
 
-'часть/api':
+'area/api':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/api/**'
           - 'apps/web/src/server/**'
           - 'apps/web/prisma/**'
 
-'часть/инфра':
+'area/infra':
   - changed-files:
       - any-glob-to-any-file:
           - '.github/workflows/**'
@@ -31,25 +31,25 @@
           - 'apps/web/e2e/**'
           - 'docker-compose*.yml'
 
-'часть/процесс':
+'area/process':
   - changed-files:
       - any-glob-to-any-file:
           - '.agents/skills/**'
           - '.husky/**'
 
-'часть/общее':
+'area/shared':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/shared/**'
           - 'apps/web/src/entities/**'
 
-'часть/документы':
+'area/docs':
   - changed-files:
       - any-glob-to-any-file:
           - 'docs/**'
           - '*.md'
 
-'раздел/каталог':
+'module/catalog':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(site)/catalog/**'
@@ -61,13 +61,13 @@
           - 'apps/web/src/widgets/catalog/**'
           - 'apps/web/src/widgets/admin-catalog/**'
 
-'раздел/характеристики':
+'module/specs':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(admin)/admin/(panel)/catalog/specs/**'
           - 'apps/web/src/features/specs-dictionary/**'
 
-'раздел/прайс':
+'module/prices':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(admin)/admin/(panel)/prices/**'
@@ -77,13 +77,13 @@
           - 'apps/web/src/features/prices-form/**'
           - 'apps/web/src/widgets/pricing/**'
 
-'раздел/скидки':
+'module/discounts':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/features/product-sale/**'
           - 'apps/web/src/app/api/admin/models/*/sale/**'
 
-'раздел/заявки':
+'module/leads':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(admin)/admin/(panel)/leads/**'
@@ -95,7 +95,7 @@
           - 'apps/web/src/features/reminder-form/**'
           - 'apps/web/src/widgets/lead/**'
 
-'раздел/клиенты':
+'module/clients':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(admin)/admin/(panel)/clients/**'
@@ -103,7 +103,7 @@
           - 'apps/web/src/entities/client/**'
           - 'apps/web/src/features/client-manager/**'
 
-'раздел/наряды':
+'module/orders':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(admin)/admin/(panel)/orders/**'
@@ -111,7 +111,7 @@
           - 'apps/web/src/entities/order/**'
           - 'apps/web/src/features/order-manager/**'
 
-'раздел/календарь':
+'module/calendar':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(admin)/admin/(panel)/crm/**'
@@ -119,7 +119,7 @@
           - 'apps/web/src/entities/crm/**'
           - 'apps/web/src/features/crm-calendar/**'
 
-'раздел/склад':
+'module/stock':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(admin)/admin/(panel)/stock/**'
@@ -127,7 +127,7 @@
           - 'apps/web/src/entities/stock/**'
           - 'apps/web/src/features/stock-manager/**'
 
-'раздел/монтажники':
+'module/team':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(admin)/admin/(panel)/team/**'
@@ -135,7 +135,7 @@
           - 'apps/web/src/entities/staff/**'
           - 'apps/web/src/features/staff-manager/**'
 
-'раздел/отзывы':
+'module/reviews':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/api/reviews/**'
@@ -147,7 +147,7 @@
           - 'apps/web/src/features/review-moderation/**'
           - 'apps/web/src/widgets/reviews/**'
 
-'раздел/знания':
+'module/knowledge':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(site)/knowledge/**'
@@ -160,7 +160,7 @@
           - 'apps/web/src/widgets/article/**'
           - 'apps/web/src/widgets/admin-knowledge/**'
 
-'раздел/настройки':
+'module/settings':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(admin)/admin/(panel)/settings/**'
@@ -170,7 +170,7 @@
           - 'apps/web/src/entities/settings/**'
           - 'apps/web/src/features/settings-form/**'
 
-'раздел/уведомления':
+'module/notifications':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/server/notifications/**'
@@ -178,7 +178,7 @@
           - 'apps/web/src/app/api/telegram/**'
           - 'apps/web/src/features/delivery-log/**'
 
-'раздел/доступ':
+'module/auth':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(admin)/admin/login/**'
@@ -191,7 +191,7 @@
           - 'apps/web/src/server/repo/sessions.ts'
           - 'apps/web/src/server/repo/admin-users.ts'
 
-'раздел/лендинг':
+'module/landing':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(site)/page.tsx'
@@ -203,25 +203,25 @@
           - 'apps/web/src/widgets/service/**'
           - 'apps/web/src/widgets/contacts/**'
 
-'раздел/сравнение':
+'module/compare':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/(site)/compare/**'
 
-'раздел/кит':
+'module/kit':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/shared/ui/**'
           - 'apps/web/src/shared/styles/**'
           - 'apps/web/.storybook/**'
 
-'раздел/медиа':
+'module/media':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/api/media/**'
           - 'apps/web/public/**'
 
-'раздел/погода':
+'module/weather':
   - changed-files:
       - any-glob-to-any-file:
           - 'apps/web/src/app/api/weather/**'

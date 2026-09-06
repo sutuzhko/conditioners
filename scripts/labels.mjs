@@ -31,30 +31,30 @@ import { parseArgs } from 'node:util';
  * что группирует их только цвет.
  */
 export const AXES = Object.freeze({
-  часть: { prefix: 'часть/', color: '0366D6', required: 'one' },
-  раздел: { prefix: 'раздел/', color: '0E8A16', required: 'any' },
-  тип: { prefix: 'тип/', color: 'D93F0B', required: 'one' },
-  качество: { prefix: 'качество/', color: '8250DF', required: 'any' },
+  area: { title: 'часть', prefix: 'area/', color: '0366D6', required: 'one' },
+  module: { title: 'раздел', prefix: 'module/', color: '0E8A16', required: 'any' },
+  kind: { title: 'тип', prefix: 'kind/', color: 'D93F0B', required: 'one' },
+  quality: { title: 'качество', prefix: 'quality/', color: '8250DF', required: 'any' },
 });
 
 /**
  * Ось «часть» — где в продукте лежит задача. Пути ведут к слоям целиком:
  * раздел уточняется своей осью.
  */
-const ЧАСТЬ = {
-  'часть/сайт': {
+const AREA = {
+  'area/site': {
     description: 'Публичные страницы: лендинг, каталог, статьи, отзывы, формы',
     paths: ['apps/web/src/app/(site)/**'],
   },
-  'часть/панель': {
+  'area/panel': {
     description: 'Админка: разделы, оболочка, формы и таблицы панели',
     paths: ['apps/web/src/app/(admin)/**', 'apps/web/src/widgets/admin-*/**'],
   },
-  'часть/api': {
+  'area/api': {
     description: 'Маршруты, сервисы, доступ к данным, схема БД',
     paths: ['apps/web/src/app/api/**', 'apps/web/src/server/**', 'apps/web/prisma/**'],
   },
-  'часть/инфра': {
+  'area/infra': {
     description: 'CI, Docker, сборка, бюджеты, сквозные проверки, наблюдаемость',
     paths: [
       '.github/workflows/**',
@@ -64,15 +64,15 @@ const ЧАСТЬ = {
       'docker-compose*.yml',
     ],
   },
-  'часть/процесс': {
+  'area/process': {
     description: 'Маршрут задачи: ветки, Pull Request, стенды, хуки, скиллы',
     paths: ['.agents/skills/**', '.husky/**'],
   },
-  'часть/общее': {
+  'area/shared': {
     description: 'Код, служащий сразу сайту и панели: кит, токены, доменные сущности',
     paths: ['apps/web/src/shared/**', 'apps/web/src/entities/**'],
   },
-  'часть/документы': {
+  'area/docs': {
     description: 'ADR, журналы, PRD и планы, PIXEL_SPEC',
     paths: ['docs/**', '*.md'],
   },
@@ -83,8 +83,8 @@ const ЧАСТЬ = {
  * одного, и это норма: расход материалов в наряде — это и `наряды`, и
  * `склад`.
  */
-const РАЗДЕЛ = {
-  'раздел/каталог': {
+const MODULE = {
+  'module/catalog': {
     description: 'Модели кондиционеров: карточки, фотографии, витрина, справочник моделей',
     paths: [
       'apps/web/src/app/(site)/catalog/**',
@@ -97,14 +97,14 @@ const РАЗДЕЛ = {
       'apps/web/src/widgets/admin-catalog/**',
     ],
   },
-  'раздел/характеристики': {
+  'module/specs': {
     description: 'Справочник характеристик и таблица сравнения (инвариант 6)',
     paths: [
       'apps/web/src/app/(admin)/admin/(panel)/catalog/specs/**',
       'apps/web/src/features/specs-dictionary/**',
     ],
   },
-  'раздел/прайс': {
+  'module/prices': {
     description: 'Цены монтажа, калькулятор сметы, прайс-лист',
     paths: [
       'apps/web/src/app/(admin)/admin/(panel)/prices/**',
@@ -115,11 +115,11 @@ const РАЗДЕЛ = {
       'apps/web/src/widgets/pricing/**',
     ],
   },
-  'раздел/скидки': {
+  'module/discounts': {
     description: 'Действующая цена, период акции, перечёркнутая цена (инвариант 14)',
     paths: ['apps/web/src/features/product-sale/**', 'apps/web/src/app/api/admin/models/*/sale/**'],
   },
-  'раздел/заявки': {
+  'module/leads': {
     description: 'Заявка с сайта, её обработка в панели, напоминания (инвариант 2)',
     paths: [
       'apps/web/src/app/(admin)/admin/(panel)/leads/**',
@@ -132,7 +132,7 @@ const РАЗДЕЛ = {
       'apps/web/src/widgets/lead/**',
     ],
   },
-  'раздел/клиенты': {
+  'module/clients': {
     description: 'Карточка клиента и его техника',
     paths: [
       'apps/web/src/app/(admin)/admin/(panel)/clients/**',
@@ -141,7 +141,7 @@ const РАЗДЕЛ = {
       'apps/web/src/features/client-manager/**',
     ],
   },
-  'раздел/наряды': {
+  'module/orders': {
     description: 'Заказы и наряды: чек-лист, расход, документы, сдача работы',
     paths: [
       'apps/web/src/app/(admin)/admin/(panel)/orders/**',
@@ -150,7 +150,7 @@ const РАЗДЕЛ = {
       'apps/web/src/features/order-manager/**',
     ],
   },
-  'раздел/календарь': {
+  'module/calendar': {
     description: 'Календарь работ и назначение монтажников. Эталон — Apple Calendar, не HeroUI',
     paths: [
       'apps/web/src/app/(admin)/admin/(panel)/crm/**',
@@ -159,7 +159,7 @@ const РАЗДЕЛ = {
       'apps/web/src/features/crm-calendar/**',
     ],
   },
-  'раздел/склад': {
+  'module/stock': {
     description: 'Позиции, зоны, перемещения, журнал склада',
     paths: [
       'apps/web/src/app/(admin)/admin/(panel)/stock/**',
@@ -168,7 +168,7 @@ const РАЗДЕЛ = {
       'apps/web/src/features/stock-manager/**',
     ],
   },
-  'раздел/монтажники': {
+  'module/team': {
     description: 'Бригада: карточки, занятость, заработок, заметки',
     paths: [
       'apps/web/src/app/(admin)/admin/(panel)/team/**',
@@ -177,7 +177,7 @@ const РАЗДЕЛ = {
       'apps/web/src/features/staff-manager/**',
     ],
   },
-  'раздел/отзывы': {
+  'module/reviews': {
     description: 'Отзывы и их модерация (инварианты 7 и 10)',
     paths: [
       'apps/web/src/app/api/reviews/**',
@@ -190,7 +190,7 @@ const РАЗДЕЛ = {
       'apps/web/src/widgets/reviews/**',
     ],
   },
-  'раздел/знания': {
+  'module/knowledge': {
     description: 'База знаний: статьи, блоки, листинг и страница статьи',
     paths: [
       'apps/web/src/app/(site)/knowledge/**',
@@ -204,7 +204,7 @@ const РАЗДЕЛ = {
       'apps/web/src/widgets/admin-knowledge/**',
     ],
   },
-  'раздел/настройки': {
+  'module/settings': {
     description: 'Настройки и данные компании: NAP, реквизиты, готовность (инвариант 8)',
     paths: [
       'apps/web/src/app/(admin)/admin/(panel)/settings/**',
@@ -215,7 +215,7 @@ const РАЗДЕЛ = {
       'apps/web/src/features/settings-form/**',
     ],
   },
-  'раздел/уведомления': {
+  'module/notifications': {
     description: 'Очередь, воркер, Telegram и SMTP, журнал доставки, получатели',
     paths: [
       'apps/web/src/server/notifications/**',
@@ -224,7 +224,7 @@ const РАЗДЕЛ = {
       'apps/web/src/features/delivery-log/**',
     ],
   },
-  'раздел/доступ': {
+  'module/auth': {
     description: 'Вход в панель, сессии, пароль, профиль, права',
     paths: [
       'apps/web/src/app/(admin)/admin/login/**',
@@ -238,7 +238,7 @@ const РАЗДЕЛ = {
       'apps/web/src/server/repo/admin-users.ts',
     ],
   },
-  'раздел/лендинг': {
+  'module/landing': {
     description: 'Коммерческие секции главной: первый экран, честность, доверие, FAQ, монтаж',
     paths: [
       'apps/web/src/app/(site)/page.tsx',
@@ -251,19 +251,19 @@ const РАЗДЕЛ = {
       'apps/web/src/widgets/contacts/**',
     ],
   },
-  'раздел/сравнение': {
+  'module/compare': {
     description: 'Страница сравнения моделей',
     paths: ['apps/web/src/app/(site)/compare/**'],
   },
-  'раздел/кит': {
+  'module/kit': {
     description: 'UI Kit, токены, витрина Storybook, дизайн-система',
     paths: ['apps/web/src/shared/ui/**', 'apps/web/src/shared/styles/**', 'apps/web/.storybook/**'],
   },
-  'раздел/медиа': {
+  'module/media': {
     description: 'Загрузка и отдача файлов, изображения, обложки',
     paths: ['apps/web/src/app/api/media/**', 'apps/web/public/**'],
   },
-  'раздел/погода': {
+  'module/weather': {
     description: 'Погода на сайте и в панели',
     paths: ['apps/web/src/app/api/weather/**', 'apps/web/src/features/weather-chip/**'],
   },
@@ -274,28 +274,28 @@ const РАЗДЕЛ = {
  * типы — функция организации, а репозиторий пока личный. При переносе
  * ось конвертируется в типы один в один, переразметки не потребуется.
  */
-const ТИП = {
-  'тип/дефект': { description: 'Работает не так, как задумано' },
-  'тип/улучшение': { description: 'Новая возможность или развитие существующей' },
-  'тип/аудит': { description: 'Найдено ревью или проверкой, журнал docs/BUGS.md' },
-  'тип/рефакторинг': { description: 'Внутреннее устройство без изменения поведения' },
-  'тип/проверка': { description: 'Приёмка фазы: тесты, замеры, снимки, сквозные сценарии' },
-  'тип/решение': { description: 'Требует решения владельца и записи ADR' },
+const KIND = {
+  'kind/bug': { description: 'Работает не так, как задумано' },
+  'kind/enhancement': { description: 'Новая возможность или развитие существующей' },
+  'kind/audit': { description: 'Найдено ревью или проверкой, журнал docs/BUGS.md' },
+  'kind/refactor': { description: 'Внутреннее устройство без изменения поведения' },
+  'kind/verification': { description: 'Приёмка фазы: тесты, замеры, снимки, сквозные сценарии' },
+  'kind/decision': { description: 'Требует решения владельца и записи ADR' },
 };
 
 /**
  * Ось «качество» — сквозное требование, идущее поперёк разделов. Это не
- * «плохой код» (для него есть `тип/рефакторинг`), а нефункциональные
+ * «плохой код» (для него есть `kind/refactor`), а нефункциональные
  * требования: по ним считают долг и по ним же принимают работу.
  */
-const КАЧЕСТВО = {
-  'качество/доступность': { description: 'Клавиатура, фокус, роли и имена, контраст AA' },
-  'качество/производительность': { description: 'Core Web Vitals, бюджет JS, число запросов' },
-  'качество/безопасность': { description: 'Секреты, права, ограничение частоты, загрузки' },
-  'качество/seo': { description: 'Каноникал, метаданные, JSON-LD, sitemap, индексируемость' },
-  'качество/адаптив': { description: 'Поведение раскладки между 320 и 1440' },
-  'качество/тёмная-тема': { description: 'Вторая тема: палитра, контраст, снимки' },
-  'качество/пд': { description: 'Персональные данные и 152-ФЗ: согласие, хранение, доступ' },
+const QUALITY = {
+  'quality/a11y': { description: 'Клавиатура, фокус, роли и имена, контраст AA' },
+  'quality/perf': { description: 'Core Web Vitals, бюджет JS, число запросов' },
+  'quality/security': { description: 'Секреты, права, ограничение частоты, загрузки' },
+  'quality/seo': { description: 'Каноникал, метаданные, JSON-LD, sitemap, индексируемость' },
+  'quality/responsive': { description: 'Поведение раскладки между 320 и 1440' },
+  'quality/dark-theme': { description: 'Вторая тема: палитра, контраст, снимки' },
+  'quality/privacy': { description: 'Персональные данные и 152-ФЗ: согласие, хранение, доступ' },
 };
 
 /**
@@ -306,7 +306,7 @@ const КАЧЕСТВО = {
  * `.github/workflows/ci.yml` (строки 609 и 1111) — там ярлык открывает
  * приём разошедшихся кадров по ADR-230.
  */
-const СЛУЖЕБНЫЕ = {
+const SERVICE = {
   'vr:accepted': {
     description:
       'Визуальное изменение принято автором: расхождения снимков не красят проверку (ADR-230)',
@@ -320,17 +320,17 @@ const СЛУЖЕБНЫЕ = {
 /** Все ярлыки словаря: имя → { description, color, axis, paths }. */
 export const LABELS = Object.freeze(
   Object.fromEntries([
-    ...Object.entries(ЧАСТЬ).map(([n, v]) => [n, { ...v, axis: 'часть', color: AXES.часть.color }]),
-    ...Object.entries(РАЗДЕЛ).map(([n, v]) => [
+    ...Object.entries(AREA).map(([n, v]) => [n, { ...v, axis: 'area', color: AXES.area.color }]),
+    ...Object.entries(MODULE).map(([n, v]) => [
       n,
-      { ...v, axis: 'раздел', color: AXES.раздел.color },
+      { ...v, axis: 'module', color: AXES.module.color },
     ]),
-    ...Object.entries(ТИП).map(([n, v]) => [n, { ...v, axis: 'тип', color: AXES.тип.color }]),
-    ...Object.entries(КАЧЕСТВО).map(([n, v]) => [
+    ...Object.entries(KIND).map(([n, v]) => [n, { ...v, axis: 'kind', color: AXES.kind.color }]),
+    ...Object.entries(QUALITY).map(([n, v]) => [
       n,
-      { ...v, axis: 'качество', color: AXES.качество.color },
+      { ...v, axis: 'quality', color: AXES.quality.color },
     ]),
-    ...Object.entries(СЛУЖЕБНЫЕ).map(([n, v]) => [n, { ...v, axis: null }]),
+    ...Object.entries(SERVICE).map(([n, v]) => [n, { ...v, axis: null }]),
   ]),
 );
 
@@ -348,11 +348,11 @@ export function labelsOf(axis) {
  */
 export function checkAxes(names) {
   const problems = [];
-  for (const [axis, { prefix, required }] of Object.entries(AXES)) {
+  for (const { title, prefix, required } of Object.values(AXES)) {
     const found = names.filter((name) => name.startsWith(prefix));
-    if (required === 'one' && found.length === 0) problems.push(`нет ярлыка оси «${axis}»`);
+    if (required === 'one' && found.length === 0) problems.push(`нет ярлыка оси «${title}»`);
     if (required === 'one' && found.length > 1) {
-      problems.push(`ось «${axis}» стоит ${found.length} раза: ${found.join(', ')}`);
+      problems.push(`ось «${title}» стоит ${found.length} раза: ${found.join(', ')}`);
     }
   }
   const unknown = names.filter((name) => !(name in LABELS));
