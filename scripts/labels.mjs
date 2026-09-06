@@ -68,6 +68,10 @@ const ЧАСТЬ = {
     description: 'Маршрут задачи: ветки, Pull Request, стенды, хуки, скиллы',
     paths: ['.agents/skills/**', '.husky/**'],
   },
+  'часть/общее': {
+    description: 'Код, служащий сразу сайту и панели: кит, токены, доменные сущности',
+    paths: ['apps/web/src/shared/**', 'apps/web/src/entities/**'],
+  },
   'часть/документы': {
     description: 'ADR, журналы, PRD и планы, PIXEL_SPEC',
     paths: ['docs/**', '*.md'],
