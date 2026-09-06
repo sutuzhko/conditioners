@@ -90,42 +90,9 @@
   color: var(--faint);
 }
 
-/* Фильтр вида движения: ссылки, а не переключатель. Выбранное живёт в адресе,
-   и отфильтрованный журнал можно сохранить и прислать себе. */
-.filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
-}
-
-.chip {
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 5px 12px;
-  color: var(--ink2);
+/* Сколько движений отобрано: строка под фильтром, как «Найдено» у остатков. */
+.found {
+  margin: 6px 0 0;
+  color: var(--faint);
   font-size: var(--fs-caption);
-  text-decoration: none;
-}
-
-.chip:hover {
-  border-color: var(--accent-line);
-  color: var(--accent-text);
-}
-
-/* 🔴 Пол цели фильтра на сенсорной раскладке (ADR-183): пилюля кеглем даёт
-   32px при норме 44, а фильтр вида — первое, что нажимают в журнале. */
-@media (width < 900px) {
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    min-height: var(--tap);
-  }
-}
-
-.active {
-  border-color: var(--accent-line);
-  background: var(--accent-bg);
-  color: var(--accent-text);
-  font-weight: 600;
 }

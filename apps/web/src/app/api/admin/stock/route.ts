@@ -19,6 +19,16 @@ function isOn(value: string | null): boolean {
   return value === '1' || value === 'true';
 }
 
+/**
+ * Сколько строк на странице (issue #608). Мусор и ноль — это умолчание
+ * раздела, а не отказ: границы разумного прижимает сам репозиторий, потому
+ * что параметр приходит из адресной строки, а её правят руками.
+ */
+function pageSize(value: string | null): number | undefined {
+  const parsed = Number.parseInt(value ?? '', 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : undefined;
+}
+
 export const GET = withAdmin(async (request, _context, session) => {
   const params = request.nextUrl.searchParams;
 
@@ -30,6 +40,7 @@ export const GET = withAdmin(async (request, _context, session) => {
         low: isOn(params.get('low')),
         archived: isOn(params.get('archived')),
         page: pageNumber(params.get('page') ?? undefined),
+        size: pageSize(params.get('size')),
       },
       { role: session.role, userId: session.userId },
     ),

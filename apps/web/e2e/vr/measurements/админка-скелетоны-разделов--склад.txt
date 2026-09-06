@@ -2,61 +2,94 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1322
-768 → 768×1229
+390 → 390×900
+768 → 768×947
 1440 → 1440×900
 
 [геометрия 390]
 h1  74×30 @0,7  Onest 700 25/30  ls-1  lines=1  «Склад»
-a.Button__button  151×44 @86,0  Manrope 600 13/16  r9  b1  lines=1  «Добавить позицию»
-p  390×90 @0,50  Manrope 400 15/22  lines=4  «Что лежит в гараже и что уехало в машина»
-nav.PanelTabs__tabs  390×95 @0,156  b0 0 1 0
+a.Button__button  44×44 @86,0  r9  b1
+  svg  16×16 @14,14
+nav.PanelTabs__tabs  390×47 @0,60  b0 0 1 0
   a.PanelTabs__tab  153×44 @0,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Остатки по зонам»
   a.PanelTabs__tab#2  157×44 @157,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Журнал движений»
-  a.PanelTabs__tab#3  136×44 @0,48  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Зоны хранения»
-span.Skeleton__skeleton  390×619 @0,267  r14
-span.Skeleton__skeleton#2  390×420 @0,902  r14
+  a.PanelTabs__tab#3  136×44 @318,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Зоны хранения»
+span.Skeleton__skeleton  390×20 @0,123  r11
+span.Skeleton__skeleton#2  390×100 @0,159  r14
+span.Skeleton__skeleton#3  390×420 @0,275  r14
 
 [геометрия 768]
 h1  92×37 @0,3  Onest 700 31/37  ls-1  lines=1  «Склад»
-a.Button__button  151×44 @104,0  Manrope 600 13/16  r9  b1  lines=1  «Добавить позицию»
+a.Button__button  173×44 @104,0  r9  b1
+  svg  16×16 @15,14
+  span  121×16 @37,14  Manrope 600 13/16  lines=1  «Добавить позицию»
 p  601×45 @0,50  Manrope 400 15/22  lines=2  «Что лежит в гараже и что уехало в машина»
 nav.PanelTabs__tabs  768×47 @0,111  b0 0 1 0
   a.PanelTabs__tab  153×44 @0,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Остатки по зонам»
   a.PanelTabs__tab#2  157×44 @157,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Журнал движений»
   a.PanelTabs__tab#3  136×44 @318,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Зоны хранения»
-span.Skeleton__skeleton  768×619 @0,174  r14
-span.Skeleton__skeleton#2  768×420 @0,809  r14
+div.StatTile__tiles  768×226 @0,174
+  span.Skeleton__skeleton  378×107 @0,0  r14
+  span.Skeleton__skeleton#2  378×107 @390,0  r14
+  span.Skeleton__skeleton#3  378×107 @0,119  r14
+  span.Skeleton__skeleton#4  378×107 @390,119  r14
+span.Skeleton__skeleton  768×95 @0,416  r14
+span.Skeleton__skeleton#2  768×420 @0,527  r14
 
 [геометрия 1440]
 h1  112×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Склад»
-a.Button__button  151×40 @124,3  Manrope 600 13/16  r9  b1  lines=1  «Добавить позицию»
+a.Button__button  173×40 @124,3  r9  b1
+  svg  16×16 @15,12
+  span  121×16 @37,12  Manrope 600 13/16  lines=1  «Добавить позицию»
 p  601×45 @0,52  Manrope 400 15/22  lines=2  «Что лежит в гараже и что уехало в машина»
 nav.PanelTabs__tabs  1440×43 @0,113  b0 0 1 0
   a.PanelTabs__tab  153×40 @0,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Остатки по зонам»
   a.PanelTabs__tab#2  157×40 @157,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Журнал движений»
   a.PanelTabs__tab#3  136×40 @318,0  Manrope 600 15/22  r11 11 0 0  b0 0 2 0  lines=1  «Зоны хранения»
-span.Skeleton__skeleton  1440×277 @0,172  r14
-span.Skeleton__skeleton#2  1440×420 @0,465  r14
+div.StatTile__tiles  1440×107 @0,172
+  span.Skeleton__skeleton  348×107 @0,0  r14
+  span.Skeleton__skeleton#2  348×107 @364,0  r14
+  span.Skeleton__skeleton#3  348×107 @728,0  r14
+  span.Skeleton__skeleton#4  348×107 @1092,0  r14
+span.Skeleton__skeleton  1440×70 @0,295  r14
+span.Skeleton__skeleton#2  1440×420 @0,381  r14
 
 [палитра light]
 h1  color #0f172a
-a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  svg
+  span  color #ffffff
 p  color #475569
 nav.PanelTabs__tabs  border #0f172a #0f172a #e2e8f0 #0f172a
   a.PanelTabs__tab  color #556173  border #556173 #556173 transparent #556173
   a.PanelTabs__tab#2  color #556173  border #556173 #556173 transparent #556173
   a.PanelTabs__tab#3  color #556173  border #556173 #556173 transparent #556173
+div.StatTile__tiles
+  span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+  span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+  span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+  span.Skeleton__skeleton#4  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
 span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
 span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
+[палитра light @390]
+span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
 
 [палитра dark]
 h1  color #eaf1f8
-a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  svg
+  span  color #ffffff
 p  color #a8b6c6
 nav.PanelTabs__tabs  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
   a.PanelTabs__tab  color #8598ac  border #8598ac #8598ac transparent #8598ac
   a.PanelTabs__tab#2  color #8598ac  border #8598ac #8598ac transparent #8598ac
   a.PanelTabs__tab#3  color #8598ac  border #8598ac #8598ac transparent #8598ac
+div.StatTile__tiles
+  span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+  span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+  span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+  span.Skeleton__skeleton#4  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
 span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
 span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
+[палитра dark @390]
+span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

@@ -94,7 +94,12 @@ test.describe('Каталог: разбивка и поиск', () => {
         const pager = page.getByRole('navigation', { name: 'Страницы списка моделей' });
         await expect(pager).toBeVisible();
 
-        await pager.getByRole('link', { name: 'Страница 2' }).click();
+        /* 🔴 Шагом, а не номером: ниже 600px полосы номеров нет вовсе — её
+           место занимает подпись положения (PIXEL_SPEC П-15), и пять номеров
+           со словами не помещались в колонку 256px на ширине 320. Сценарий
+           гоняется на узком окне, и целиться в номер здесь означало бы
+           проверять то, чего на этой ширине не рисуется. */
+        await pager.getByRole('link', { name: 'Дальше →' }).click();
         await page.waitForURL((url) => url.searchParams.get('page') === '2');
 
         /* 🔴 Условие отбора уехало на вторую страницу вместе со страницей. */
@@ -145,7 +150,12 @@ test.describe('База знаний: разбивка, поиск и подпи
         await expect(rows.first()).toContainText('знаков');
 
         const pager = page.getByRole('navigation', { name: 'Страницы списка статей' });
-        await pager.getByRole('link', { name: 'Страница 2' }).click();
+        /* 🔴 Шагом, а не номером: ниже 600px полосы номеров нет вовсе — её
+           место занимает подпись положения (PIXEL_SPEC П-15), и пять номеров
+           со словами не помещались в колонку 256px на ширине 320. Сценарий
+           гоняется на узком окне, и целиться в номер здесь означало бы
+           проверять то, чего на этой ширине не рисуется. */
+        await pager.getByRole('link', { name: 'Дальше →' }).click();
         await page.waitForURL((url) => url.searchParams.get('page') === '2');
 
         expect(params(page).get('q')).toBe(mark);

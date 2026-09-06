@@ -1,5 +1,11 @@
 /** Подписи раздела склада. */
-import type { StockMoveKind, StockUnit, StockZoneKind } from '@/entities/stock/model';
+import {
+  movementDelta,
+  type StockMoveKind,
+  type StockPeriod,
+  type StockUnit,
+  type StockZoneKind,
+} from '@/entities/stock/model';
 import { STOCK_UNIT_SHORT } from '@/shared/config/units';
 import { formatDateTime, formatQuantity } from '@/shared/lib/format';
 import { plural } from '@/shared/lib/plural';
@@ -49,6 +55,13 @@ export const STOCK_ZONE_KIND_TITLES: Readonly<Record<StockZoneKind, string>> = {
   van: 'Машина монтажника',
 };
 
+/** Периоды журнала. Те же три, что у списка нарядов: словарь панели один. */
+export const STOCK_PERIOD_TITLES: Readonly<Record<StockPeriod, string>> = {
+  all: 'За всё время',
+  month: 'Этот месяц',
+  prev: 'Прошлый месяц',
+};
+
 export const STOCK_MOVE_TITLES: Readonly<Record<StockMoveKind, string>> = {
   income: 'Приход',
   transfer: 'Перемещение',
@@ -91,8 +104,16 @@ export const stockManagerContent = {
   /* ---------- Фильтры ---------- */
 
   searchLabel: 'Поиск позиции',
-  searchHint: 'Название или его кусок',
+  /* Подсказки под полем нет: подставленный текст говорит то же самое, а на
+     390 каждая строка над первой позицией стоит экрана прокрутки (issue #609). */
   searchPlaceholder: 'труба, кабель, кронштейн',
+
+  /* 🔴 Группы и вид списка ушли под пилюлю (issue #609, макет 1440: «Группа ⌄»).
+     Развёрнутый ряд чипов занимал на телефоне две трети первого экрана, а на
+     вопрос «чего не хватает» не отвечал вовсе. */
+  filterPill: 'Фильтр',
+  filterApplied: (count: number): string =>
+    `${count} ${plural(count, 'условие', 'условия', 'условий')} отбора`,
   search: 'Найти',
   searchReset: 'Сбросить фильтры',
   groupLabel: 'Группы справочника',
@@ -114,10 +135,45 @@ export const stockManagerContent = {
   tabsLabel: 'Разделы склада',
   tabTitle: (tab: StockTab): string => STOCK_TAB_TITLES[tab],
 
+  /* ---------- Плитки показателей (issue #606) ---------- */
+
+  /* 🔴 На телефоне вместо четырёх плиток — одна строка (issue #609, макет 390:
+     чипы «Ниже порога 3 · Все 42»). Плитки занимали два ряда до первой
+     позиции, а сообщали то же самое. */
+  countsLine: (items: number, low: number | undefined, near: number | undefined): string =>
+    [
+      low === undefined ? null : `Ниже порога — ${low}`,
+      near === undefined || near === 0 ? null : `подходят — ${near}`,
+      `всего ${items}`,
+    ]
+      .filter(Boolean)
+      .join(`${NBSP}· `),
+
+  tilesLabel: 'Показатели склада',
+  tileItems: 'Позиций в справочнике',
+  tileLow: 'Ниже порога',
+  tileNear: 'Подходят к порогу',
+  tileZones: 'Зон хранения',
+  tileLowNote: 'Это и есть список «пора заказывать»',
+  tileNearNote: 'Хватит на один выезд сверх порога',
+  tileLowCalm: 'Остатков хватает по всем позициям',
+  tileZonesNote: 'Гараж и машины монтажников',
+
+  /* ---------- Разбивка на страницы (issue #608) ---------- */
+
+  perPage: 'Строк на странице',
+  perPageSet: (size: number): string =>
+    `Показывать по ${size} ${plural(size, 'строке', 'строки', 'строк')}`,
+  shown: (shown: number, total: number): string =>
+    `Показано ${shown} из ${total} ${plural(total, 'позиции', 'позиций', 'позиций')}`,
+
   tableLabel: 'Остатки по зонам хранения',
   tableHint: 'Таблица прокручивается вбок, название позиции остаётся на месте.',
   colItem: 'Позиция',
-  colTotal: 'Итог',
+  /* Единица вынесена из ячеек в свою колонку (issue #607, макет): в ячейках
+     остались числа, и колонка зоны перестала быть вдвое шире нужного. */
+  colUnit: 'Ед.',
+  colTotal: 'Итого',
   colMin: 'Порог',
   zoneArchived: 'в архиве',
   /** Хозяин машины под её названием в шапке колонки. */
@@ -125,12 +181,25 @@ export const stockManagerContent = {
   itemGroupNone: 'Без группы',
   low: 'К заказу',
   lowTitle: 'Остаток ниже порога заказа',
+  nearTitle: 'Остаток подходит к порогу заказа',
+  /* 🔴 На карточке телефона «не хватает» пишется словами: столбца «Порог»
+     там нет, и разность владелец считал бы в уме (issue #609, макет 390). */
+  shortage: (value: string): string => `не хватает ${value}`,
+  nearNote: 'подходит к порогу',
+  minLine: (value: string): string => `Порог ${value}`,
   minus: 'Минус',
   /* 🔴 Минус — не отказ, а сигнал: склад разошёлся с реальностью (ADR-134). */
   minusTitle: 'Остаток ушёл в минус: склад разошёлся с реальностью, нужна инвентаризация',
   minusNote:
     'Минус означает, что списали больше, чем числилось: система не запрещает такое движение, потому что запрет заставил бы вписывать неправду. Проведите инвентаризацию с основанием.',
   openItem: 'Карточка позиции',
+
+  /* 🔴 Разбивка по зонам на телефоне свёрнута (issue #609): развёрнутым
+     списком одна позиция занимала 202px — две трети экрана, — а первый вопрос
+     к складу «чего не хватает», а не «где именно лежит». */
+  zonesFold: (count: number): string => `в ${count} ${plural(count, 'зоне', 'зонах', 'зонах')}`,
+  zonesFoldEmpty: 'Нет ни в одной зоне',
+  zonesFoldLabel: 'Разбивка по зонам',
 
   /* ---------- Перемещение прямо из таблицы (ADR-137) ---------- */
 
@@ -294,6 +363,34 @@ export const stockManagerContent = {
   journalAllLead:
     'Всё, что происходило на складе: приход, перемещения между зонами, списания в наряды, возвраты и инвентаризации. История отдельной позиции осталась в её карточке — она отвечает на другой вопрос.',
   journalAllEmpty: 'Движений на складе ещё не было: журнал заполнится с первого прихода.',
+  journalPeriod: 'Период',
+  journalPeriodTitle: (period: StockPeriod): string => STOCK_PERIOD_TITLES[period],
+  journalSearchLabel: 'Поиск по журналу',
+  journalSearchHint: 'Позиция, основание или номер наряда',
+  journalSearchPlaceholder: 'труба, накладная, № 1059',
+  journalSearch: 'Найти',
+  journalReset: 'Сбросить отбор',
+  journalFound: (total: number): string =>
+    `Найдено: ${total} ${plural(total, 'движение', 'движения', 'движений')}`,
+  journalNothingText:
+    'Движения на складе есть — их скрыл поиск, выбранный период или вид движения.',
+
+  /**
+   * 🔴 Количество со знаком (issue #610). Приход и списание в колонке
+   * «Сколько» выглядели одинаково, а по журналу сверяют остаток. Знак берётся
+   * из вида движения: направление задают зоны, а не знак в базе.
+   *
+   * У перемещения знака нет вовсе: общий остаток оно не меняет, и «+» или «−»
+   * были бы неправдой в любую сторону.
+   */
+  qtySigned: (kind: StockMoveKind, value: number, unit: StockUnit): string => {
+    const delta = movementDelta(kind, value);
+    const tail = `${NBSP}${STOCK_UNIT_TITLES[unit]}`;
+    if (delta === null) return `${formatQty(value)}${tail}`;
+
+    return `${delta < 0 ? '−' : '+'}${formatQty(Math.abs(delta))}${tail}`;
+  },
+
   journalItemOpen: 'Только эта позиция',
   journalItemAll: 'Весь склад',
   journalOf: (item: string): string => `Журнал позиции «${item}»`,

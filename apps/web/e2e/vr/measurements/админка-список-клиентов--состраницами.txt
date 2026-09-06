@@ -75,12 +75,11 @@ div.ClientList__list  358×841 @16,16
                 span.RowMenu__dots#2  16×16 @14,14
                   svg  16×16 @0,0
   nav.Pager__pager  358×52 @0,789
-    a.Pager__step  87×44 @12,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
-    ol.Pager__numbers  131×44 @107,4
-      a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
-      span.Pager__position  35×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
-      a.Pager__number#2  44×44 @87,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-    a.Pager__step#2  99×44 @246,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+    a.Pager__step  44×44 @94,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+      span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Назад»
+    span.Pager__position  66×44 @146,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 3»
+    a.Pager__step#2  44×44 @220,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+      span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Дальше»
 
 [геометрия 768]
 div.ClientList__list  736×344 @16,16
@@ -139,12 +138,14 @@ div.ClientList__list  736×344 @16,16
                 span.RowMenu__dots#2  16×16 @14,14
                   svg  16×16 @0,0
   nav.Pager__pager  736×52 @0,292
-    a.Pager__step  91×44 @191,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+    a.Pager__step  88×44 @194,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+      span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
     ol.Pager__numbers  135×44 @294,4
       a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
       span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
       a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-    a.Pager__step#2  103×44 @441,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+    a.Pager__step#2  100×44 @441,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+      span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
 
 [геометрия 1440]
 div.ClientList__list  1408×267 @16,16
@@ -203,12 +204,14 @@ div.ClientList__list  1408×267 @16,16
                 span.RowMenu__dots#2  16×16 @14,14
                   svg  16×16 @0,0
   nav.Pager__pager  1408×52 @0,215
-    a.Pager__step  91×44 @527,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+    a.Pager__step  88×44 @530,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+      span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
     ol.Pager__numbers  135×44 @630,4
       a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
       span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
       a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-    a.Pager__step#2  103×44 @777,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+    a.Pager__step#2  100×44 @777,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+      span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
 
 [палитра light]
 div.ClientList__list
@@ -268,11 +271,13 @@ div.ClientList__list
                   svg
   nav.Pager__pager
     a.Pager__step  color #0e7490  border #7e8fa6
+      span.Pager__stepText  color #0e7490
     ol.Pager__numbers
       a.Pager__number  color #0e7490  border transparent
       span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
       a.Pager__number#2  color #0e7490  border transparent
     a.Pager__step#2  color #0e7490  border #7e8fa6
+      span.Pager__stepText  color #0e7490
 [палитра light @390]
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]  bg #ffffff  border #e2e8f0
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__who
@@ -296,6 +301,7 @@ div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__t
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__number#2 > td.ClientRow__number#2::before
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__when > td.ClientRow__when::before
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__actions  border #eef2f6 #334155 #334155 #334155
+div.ClientList__list > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
 
 [палитра dark]
 div.ClientList__list
@@ -355,11 +361,13 @@ div.ClientList__list
                   svg
   nav.Pager__pager
     a.Pager__step  color #22d3ee  border #566d95
+      span.Pager__stepText  color #22d3ee
     ol.Pager__numbers
       a.Pager__number  color #22d3ee  border transparent
       span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
       a.Pager__number#2  color #22d3ee  border transparent
     a.Pager__step#2  color #22d3ee  border #566d95
+      span.Pager__stepText  color #22d3ee
 [палитра dark @390]
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]  bg #121d31  border #1e2b41
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__who
@@ -383,3 +391,4 @@ div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__t
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__number#2 > td.ClientRow__number#2::before
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__when > td.ClientRow__when::before
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ClientRow__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.ClientList__list > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490

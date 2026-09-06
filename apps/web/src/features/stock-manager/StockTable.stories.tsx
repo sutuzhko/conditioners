@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
+import { DEFAULT_STOCK_PAGE_SIZE } from './model';
 import { StockTable } from './StockTable';
 import {
   archivedZone,
@@ -45,13 +46,22 @@ export const Пусто: Story = {
 export const НичегоНеНайдено: Story = {
   args: {
     overview: emptyOverview,
-    filters: { query: 'труба', group: '', low: false, archived: false },
+    filters: {
+      query: 'труба',
+      group: '',
+      size: DEFAULT_STOCK_PAGE_SIZE,
+      low: false,
+      archived: false,
+    },
   },
 };
 
 /** «Только к заказу» и ничего ниже порога — тоже отдельное объяснение. */
 export const НетКЗаказу: Story = {
-  args: { overview: emptyOverview, filters: { query: '', group: '', low: true, archived: false } },
+  args: {
+    overview: emptyOverview,
+    filters: { query: '', group: '', size: DEFAULT_STOCK_PAGE_SIZE, low: true, archived: false },
+  },
 };
 
 /** Ниже порога заказа: это и есть список «пора заказывать» без отдельного экрана. */
@@ -83,4 +93,17 @@ export const САрхивнойЗоной: Story = {
  */
 export const БезПорога: Story = {
   args: { overview: noThresholdOverview },
+};
+
+/** 🔴 Подходит к порогу: ступень раньше «пора заказывать» (issue #606). */
+export const ПодходитКПорогу: Story = {
+  args: { overview: { ...overview, items: [freon], total: 1, lowCount: 0, nearCount: 1 } },
+};
+
+/**
+ * 🔴 Шаг листания выбирается в подвале таблицы (issue #608). Справочник
+ * длиннее самой мелкой ступени — значит, выбор имеет смысл и виден.
+ */
+export const СВыборомШага: Story = {
+  args: { overview: { ...longOverview, itemsTotal: 47 } },
 };

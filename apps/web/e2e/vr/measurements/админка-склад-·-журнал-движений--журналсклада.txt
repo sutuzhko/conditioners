@@ -34,7 +34,7 @@ div.StockJournal__wrap  358×1598 @16,16
             td[role=cell]#3  354×58 @1,78
               td[role=cell]#3::before  53×20 @0,0
               a.StockJournal__item  129×44 @211,7  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
-            td.StockJournal__qty  354×36 @1,136  Manrope 600 15/22  lines=1  «50 м»
+            td.StockJournal__qty  354×36 @1,136  Manrope 600 15/22  lines=1  «+50 м»
               td.StockJournal__qty::before  54×20 @0,0
             td[role=cell]#4  354×36 @1,172  Manrope 400 15/22  lines=1  «—»
               td[role=cell]#4::before  44×20 @0,0
@@ -76,7 +76,7 @@ div.StockJournal__wrap  358×1598 @16,16
             td[role=cell]#3  354×58 @1,78
               td[role=cell]#3::before  53×20 @0,0
               a.StockJournal__item#3  129×44 @211,7  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
-            td.StockJournal__qty  354×36 @1,136  Manrope 600 15/22  lines=1  «4 м»
+            td.StockJournal__qty  354×36 @1,136  Manrope 600 15/22  lines=1  «−4 м»
               td.StockJournal__qty::before  54×20 @0,0
             td[role=cell]#4  354×36 @1,172  Manrope 400 15/22  lines=1  «Газель»
               td[role=cell]#4::before  44×20 @0,0
@@ -137,7 +137,7 @@ div.StockJournal__wrap  736×529 @16,16
             td[role=cell]#2  152×96 @116,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Приход»
             td[role=cell]#3  100×96 @268,0  b0 0 1 0
               a.StockJournal__item  64×67 @18,15  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
-            td.StockJournal__qty  98×96 @368,0  Manrope 600 15/22  b0 0 1 0  lines=1  «50 м»
+            td.StockJournal__qty  98×96 @368,0  Manrope 600 15/22  b0 0 1 0  lines=1  «+50 м»
             td[role=cell]#4  130×96 @466,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
             td[role=cell]#5  130×96 @597,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Гараж на Демидовской»
             td[role=cell]#6  83×96 @727,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
@@ -161,7 +161,7 @@ div.StockJournal__wrap  736×529 @16,16
             td[role=cell]#2  152×96 @116,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Списание в наряд»
             td[role=cell]#3  100×96 @268,0  b0 0 1 0
               a.StockJournal__item#3  64×67 @18,15  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
-            td.StockJournal__qty  98×96 @368,0  Manrope 600 15/22  b0 0 1 0  lines=1  «4 м»
+            td.StockJournal__qty  98×96 @368,0  Manrope 600 15/22  b0 0 1 0  lines=1  «−4 м»
             td[role=cell]#4  130×96 @466,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Газель»
             td[role=cell]#5  130×96 @597,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
             td[role=cell]#6  83×96 @727,0  b0 0 1 0
@@ -207,7 +207,7 @@ div.StockJournal__wrap  1408×418 @16,16
             td[role=cell]#2  156×74 @139,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Приход»
             td[role=cell]#3  136×74 @295,0  b0 0 1 0
               a.StockJournal__item  100×45 @18,15  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
-            td.StockJournal__qty  98×74 @430,0  Manrope 600 15/22  b0 0 1 0  lines=1  «50 м»
+            td.StockJournal__qty  98×74 @430,0  Manrope 600 15/22  b0 0 1 0  lines=1  «+50 м»
             td[role=cell]#4  165×74 @529,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
             td[role=cell]#5  165×74 @694,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Гараж на Демидовской»
             td[role=cell]#6  112×74 @859,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
@@ -231,7 +231,7 @@ div.StockJournal__wrap  1408×418 @16,16
             td[role=cell]#2  156×74 @139,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Списание в наряд»
             td[role=cell]#3  136×74 @295,0  b0 0 1 0
               a.StockJournal__item#3  100×45 @18,15  Manrope 600 15/22  lines=2  «Труба медная 1/4″»
-            td.StockJournal__qty  98×74 @430,0  Manrope 600 15/22  b0 0 1 0  lines=1  «4 м»
+            td.StockJournal__qty  98×74 @430,0  Manrope 600 15/22  b0 0 1 0  lines=1  «−4 м»
             td[role=cell]#4  165×74 @529,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Газель»
             td[role=cell]#5  165×74 @694,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
             td[role=cell]#6  112×74 @859,0  b0 0 1 0
