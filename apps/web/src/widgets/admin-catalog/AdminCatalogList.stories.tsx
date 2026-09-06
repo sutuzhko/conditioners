@@ -45,3 +45,8 @@ export const ВсеСоСкидкой: Story = {
 export const Пустой: Story = {
   args: { products: [] },
 };
+
+/** Пусто из-за отбора: модели есть, их скрыли поиск или видимость. */
+export const НичегоНеНашлось: Story = {
+  args: { products: [], filtered: true },
+};

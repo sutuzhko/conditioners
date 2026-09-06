@@ -1,0 +1,859 @@
+# админка-отзывы-таблицей--все · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×1172
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×1140 @16,16  r20  b1
+  div.Table__viewport  356×1138 @1,1
+    table.Table__table  356×1138 @0,0
+      tr[role=row]  1×56 @0,0
+        th.ReviewTable__colAuthor  81×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Автор»
+        th  83×56 @81,0  Onest 700 15/23  b0 0 1 0  lines=1  «Отзыв»
+        th.ReviewTable__colStatus  88×56 @164,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+        th.ReviewTable__colDate  99×56 @252,0  Onest 700 15/23  b0 0 1 0  lines=1  «Получен»
+        th.ReviewTable__colActions  36×56 @350,0  b0 0 1 0
+          span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
+      tr[role=row]#2  356×283 @0,0  r14  b1
+        td[role=cell]  354×53 @1,5
+          td[role=cell]::before  37×20 @0,0
+          span.ReviewTable__author  137×39 @203,7
+            span.Avatar__avatar  28×28 @0,6  r100  b1
+              span.Avatar__initials  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
+              span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Алексей»
+            span.ReviewTable__who  99×39 @38,0
+              span.ReviewTable__name  99×22 @0,0  Manrope 600 15/22  lines=1  «Алексей»
+              span.ReviewTable__narrowOnly  99×15 @0,24
+                span.Rating__stars  99×15 @0,0
+                  svg.Rating__star  15×15 @0,0
+                  svg.Rating__star#2  15×15 @21,0
+                  svg.Rating__star#3  15×15 @42,0
+                  svg.Rating__star#4  15×15 @63,0
+                  svg.Rating__star#5  15×15 @84,0
+        td[role=cell]#2  354×81 @1,58
+          td[role=cell]#2::before  38×20 @0,0
+          blockquote.ReviewTable__text  274×67 @66,7  Manrope 400 15/22  lines=3  «Приехали в тот же день, смету назвали за»
+        td[role=cell]#3  354×38 @1,140
+          td[role=cell]#3::before  43×20 @0,0
+          span.Badge__badge  98×24 @242,7  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
+        td.ReviewTable__cellDate  354×36 @1,178
+          td.ReviewTable__cellDate::before  53×20 @0,0
+          time.ReviewTable__when  79×22 @261,7  Manrope 400 15/22  lines=1  «18.08.2026»
+        td[role=cell]#4  354×59 @1,219  b1 0 0 0
+          div.ReviewRowActions__cell  118×44 @222,8
+            div.ReviewRowActions__actions  118×44 @0,0
+              button.Button__button  118×44 @0,0  r9  b1
+                span.Button__content  88×16 @15,14
+                  span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
+      tr[role=row]#3  356×283 @0,293  r14  b1
+        td[role=cell]  354×53 @1,5
+          td[role=cell]::before  37×20 @0,0
+          span.ReviewTable__author#2  137×39 @203,7
+            span.Avatar__avatar  28×28 @0,6  r100  b1
+              span.Avatar__initials#2  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «С»
+              span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Сергей»
+            span.ReviewTable__who  99×39 @38,0
+              span.ReviewTable__name#2  99×22 @0,0  Manrope 600 15/22  lines=1  «Сергей»
+              span.ReviewTable__narrowOnly#2  99×15 @0,24
+                span.Rating__stars  99×15 @0,0
+                  svg.Rating__star#6  15×15 @0,0
+                  svg.Rating__star#7  15×15 @21,0
+                  svg.Rating__star#8  15×15 @42,0
+                  svg.Rating__star#9  15×15 @63,0
+                  svg.Rating__star#10  15×15 @84,0
+        td[role=cell]#2  354×81 @1,58
+          td[role=cell]#2::before  38×20 @0,0
+          blockquote.ReviewTable__text#2  274×67 @66,7  Manrope 400 15/22  lines=3  «Ставили сплит в 2019-м, работает до сих»
+        td[role=cell]#3  354×38 @1,140
+          td[role=cell]#3::before  43×20 @0,0
+          span.Badge__badge#2  71×24 @269,7  Manrope 600 12/16  r100  b1  lines=1  «В архиве»
+        td.ReviewTable__cellDate  354×36 @1,178
+          td.ReviewTable__cellDate::before  53×20 @0,0
+          time.ReviewTable__when#2  79×22 @261,7  Manrope 400 15/22  lines=1  «18.08.2026»
+        td[role=cell]#4  354×59 @1,219  b1 0 0 0
+          div.ReviewRowActions__cell#2  306×44 @34,8
+            div.ReviewRowActions__actions  306×44 @0,0
+              button.Button__button#2  121×44 @0,0  r9  b1
+                span.Button__content  91×16 @15,14
+                  span.Button__label#2  91×16 @0,0  Manrope 600 13/16  lines=1  «Опубликовать»
+              button.Button__button#3  179×44 @127,0  r9  b1
+                span.Button__content  149×16 @15,14
+                  span.Button__label#3  149×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на модерацию»
+      tr[role=row]#4  356×260 @0,585  r14  b1
+        td[role=cell]  354×53 @1,5
+          td[role=cell]::before  37×20 @0,0
+          span.ReviewTable__author#3  137×39 @203,7
+            span.Avatar__avatar  28×28 @0,6  r100  b1
+              span.Avatar__initials#3  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
+              span#3  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Аноним»
+            span.ReviewTable__who  99×39 @38,0
+              span.ReviewTable__name#3  99×22 @0,0  Manrope 600 15/22  lines=1  «Аноним»
+              span.ReviewTable__narrowOnly#3  99×15 @0,24
+                span.Rating__stars  99×15 @0,0
+                  svg.Rating__star#11  15×15 @0,0
+                  svg.Rating__star#12  15×15 @21,0
+                  svg.Rating__star#13  15×15 @42,0
+                  svg.Rating__star#14  15×15 @63,0
+                  svg.Rating__star#15  15×15 @84,0
+        td[role=cell]#2  354×59 @1,58
+          td[role=cell]#2::before  38×20 @0,0
+          blockquote.ReviewTable__text#3  274×45 @66,7  Manrope 400 15/22  lines=2  «Текст рекламы стороннего магазина со ссы»
+        td[role=cell]#3  354×38 @1,117
+          td[role=cell]#3::before  43×20 @0,0
+          span.Badge__badge#3  78×24 @262,7  Manrope 600 12/16  r100  b1  lines=1  «Отклонён»
+        td.ReviewTable__cellDate  354×36 @1,156
+          td.ReviewTable__cellDate::before  53×20 @0,0
+          time.ReviewTable__when#3  79×22 @261,7  Manrope 400 15/22  lines=1  «18.08.2026»
+        td[role=cell]#4  354×59 @1,196  b1 0 0 0
+          div.ReviewRowActions__cell#3  267×44 @73,8
+            div.ReviewRowActions__actions  267×44 @0,0
+              button.Button__button#4  179×44 @0,0  r9  b1
+                span.Button__content  149×16 @15,14
+                  span.Button__label#4  149×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на модерацию»
+              button.Button__button#5  82×44 @185,0  r9  b1
+                span.Button__content  52×16 @15,14
+                  span.Button__label#5  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+      tr[role=row]#5  356×283 @0,855  r14  b1
+        td[role=cell]  354×53 @1,5
+          td[role=cell]::before  37×20 @0,0
+          span.ReviewTable__author#4  137×39 @203,7
+            span.Avatar__avatar  28×28 @0,6  r100  b1
+              span.Avatar__initials#4  10×11 @9,9  Onest 700 11/11  ls0  lines=1  «М»
+              span#4  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Марина»
+            span.ReviewTable__who  99×39 @38,0
+              span.ReviewTable__name#4  99×22 @0,0  Manrope 600 15/22  lines=1  «Марина»
+              span.ReviewTable__narrowOnly#4  99×15 @0,24
+                span.Rating__stars  99×15 @0,0
+                  svg.Rating__star#16  15×15 @0,0
+                  svg.Rating__star#17  15×15 @21,0
+                  svg.Rating__star#18  15×15 @42,0
+                  svg.Rating__star#19  15×15 @63,0
+                  svg.Rating__star#20  15×15 @84,0
+        td[role=cell]#2  354×81 @1,58
+          td[role=cell]#2::before  38×20 @0,0
+          blockquote.ReviewTable__text#4  274×67 @66,7  Manrope 400 15/22  lines=3  «Приехали на два часа позже обещанного, х»
+        td[role=cell]#3  354×38 @1,140
+          td[role=cell]#3::before  43×20 @0,0
+          span.Badge__badge#4  104×24 @236,7  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
+        td.ReviewTable__cellDate  354×36 @1,178
+          td.ReviewTable__cellDate::before  53×20 @0,0
+          time.ReviewTable__when#4  79×22 @261,7  Manrope 400 15/22  lines=1  «18.08.2026»
+        td[role=cell]#4  354×59 @1,219  b1 0 0 0
+          div.ReviewRowActions__cell#4  225×44 @115,8
+            div.ReviewRowActions__actions  225×44 @0,0
+              button.Button__button#6  121×44 @0,0  r9  b1
+                span.Button__content  91×16 @15,14
+                  span.Button__label#6  91×16 @0,0  Manrope 600 13/16  lines=1  «Опубликовать»
+              button.Button__button#7  99×44 @127,0  r9  b1
+                span.Button__content  69×16 @15,14
+                  span.Button__label#7  69×16 @0,0  Manrope 600 13/16  lines=1  «Отклонить»
+
+[геометрия 768]
+section.Card__card  736×523 @16,16  r20  b1
+  div.Table__viewport  734×521 @1,1
+    table.Table__table  769×521 @0,0
+      tr[role=row]  769×56 @0,0
+        th.ReviewTable__colAuthor  173×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Автор»
+        th  125×56 @173,0  Onest 700 15/23  b0 0 1 0  lines=1  «Отзыв»
+        th.ReviewTable__colStatus  140×56 @298,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+        th.ReviewTable__colDate  115×56 @439,0  Onest 700 15/23  b0 0 1 0  lines=1  «Получен»
+        th.ReviewTable__colActions  215×56 @554,0  b0 0 1 0
+          span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
+      tr[role=row]#2  769×96 @0,56
+        td[role=cell]  173×96 @0,0  b0 0 1 0
+          span.ReviewTable__author  137×39 @18,15
+            span.Avatar__avatar  28×28 @0,6  r100  b1
+              span.Avatar__initials  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
+              span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Алексей»
+            span.ReviewTable__who  99×39 @38,0
+              span.ReviewTable__name  99×22 @0,0  Manrope 600 15/22  lines=1  «Алексей»
+              span.ReviewTable__narrowOnly  99×15 @0,24
+                span.Rating__stars  99×15 @0,0
+                  svg.Rating__star  15×15 @0,0
+                  svg.Rating__star#2  15×15 @21,0
+                  svg.Rating__star#3  15×15 @42,0
+                  svg.Rating__star#4  15×15 @63,0
+                  svg.Rating__star#5  15×15 @84,0
+        td[role=cell]#2  125×96 @173,0  b0 0 1 0
+          blockquote.ReviewTable__text  89×67 @18,15  Manrope 400 15/22  lines=9  clipped  «Приехали в тот же день, смету назвали за»
+        td[role=cell]#3  140×96 @298,0  b0 0 1 0
+          span.Badge__badge  98×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
+        td.ReviewTable__cellDate  115×96 @439,0  b0 0 1 0
+          time.ReviewTable__when  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+        td[role=cell]#4  215×96 @554,0  b0 0 1 0
+          div.ReviewRowActions__cell  179×44 @18,15
+            div.ReviewRowActions__actions  118×44 @0,0
+              button.Button__button  118×44 @0,0  r9  b1
+                span.Button__content  88×16 @15,14
+                  span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
+      tr[role=row]#3  769×123 @0,152
+        td[role=cell]  173×123 @0,0  b0 0 1 0
+          span.ReviewTable__author#2  137×39 @18,15
+            span.Avatar__avatar  28×28 @0,6  r100  b1
+              span.Avatar__initials#2  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «С»
+              span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Сергей»
+            span.ReviewTable__who  99×39 @38,0
+              span.ReviewTable__name#2  99×22 @0,0  Manrope 600 15/22  lines=1  «Сергей»
+              span.ReviewTable__narrowOnly#2  99×15 @0,24
+                span.Rating__stars  99×15 @0,0
+                  svg.Rating__star#6  15×15 @0,0
+                  svg.Rating__star#7  15×15 @21,0
+                  svg.Rating__star#8  15×15 @42,0
+                  svg.Rating__star#9  15×15 @63,0
+                  svg.Rating__star#10  15×15 @84,0
+        td[role=cell]#2  125×123 @173,0  b0 0 1 0
+          blockquote.ReviewTable__text#2  89×67 @18,15  Manrope 400 15/22  lines=8  clipped  «Ставили сплит в 2019-м, работает до сих»
+        td[role=cell]#3  140×123 @298,0  b0 0 1 0
+          span.Badge__badge#2  71×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В архиве»
+        td.ReviewTable__cellDate  115×123 @439,0  b0 0 1 0
+          time.ReviewTable__when#2  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+        td[role=cell]#4  215×123 @554,0  b0 0 1 0
+          div.ReviewRowActions__cell#2  179×94 @18,15
+            div.ReviewRowActions__actions  179×94 @0,0
+              button.Button__button#2  121×44 @0,0  r9  b1
+                span.Button__content  91×16 @15,14
+                  span.Button__label#2  91×16 @0,0  Manrope 600 13/16  lines=1  «Опубликовать»
+              button.Button__button#3  179×44 @0,50  r9  b1
+                span.Button__content  149×16 @15,14
+                  span.Button__label#3  149×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на модерацию»
+      tr[role=row]#4  769×123 @0,275
+        td[role=cell]  173×123 @0,0  b0 0 1 0
+          span.ReviewTable__author#3  137×39 @18,15
+            span.Avatar__avatar  28×28 @0,6  r100  b1
+              span.Avatar__initials#3  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
+              span#3  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Аноним»
+            span.ReviewTable__who  99×39 @38,0
+              span.ReviewTable__name#3  99×22 @0,0  Manrope 600 15/22  lines=1  «Аноним»
+              span.ReviewTable__narrowOnly#3  99×15 @0,24
+                span.Rating__stars  99×15 @0,0
+                  svg.Rating__star#11  15×15 @0,0
+                  svg.Rating__star#12  15×15 @21,0
+                  svg.Rating__star#13  15×15 @42,0
+                  svg.Rating__star#14  15×15 @63,0
+                  svg.Rating__star#15  15×15 @84,0
+        td[role=cell]#2  125×123 @173,0  b0 0 1 0
+          blockquote.ReviewTable__text#3  89×67 @18,15  Manrope 400 15/22  lines=5  clipped  «Текст рекламы стороннего магазина со ссы»
+        td[role=cell]#3  140×123 @298,0  b0 0 1 0
+          span.Badge__badge#3  78×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Отклонён»
+        td.ReviewTable__cellDate  115×123 @439,0  b0 0 1 0
+          time.ReviewTable__when#3  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+        td[role=cell]#4  215×123 @554,0  b0 0 1 0
+          div.ReviewRowActions__cell#3  179×94 @18,15
+            div.ReviewRowActions__actions  179×94 @0,0
+              button.Button__button#4  179×44 @0,0  r9  b1
+                span.Button__content  149×16 @15,14
+                  span.Button__label#4  149×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на модерацию»
+              button.Button__button#5  82×44 @0,50  r9  b1
+                span.Button__content  52×16 @15,14
+                  span.Button__label#5  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+      tr[role=row]#5  769×123 @0,398
+        td[role=cell]  173×123 @0,0
+          span.ReviewTable__author#4  137×39 @18,15
+            span.Avatar__avatar  28×28 @0,6  r100  b1
+              span.Avatar__initials#4  10×11 @9,9  Onest 700 11/11  ls0  lines=1  «М»
+              span#4  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Марина»
+            span.ReviewTable__who  99×39 @38,0
+              span.ReviewTable__name#4  99×22 @0,0  Manrope 600 15/22  lines=1  «Марина»
+              span.ReviewTable__narrowOnly#4  99×15 @0,24
+                span.Rating__stars  99×15 @0,0
+                  svg.Rating__star#16  15×15 @0,0
+                  svg.Rating__star#17  15×15 @21,0
+                  svg.Rating__star#18  15×15 @42,0
+                  svg.Rating__star#19  15×15 @63,0
+                  svg.Rating__star#20  15×15 @84,0
+        td[role=cell]#2  125×123 @173,0
+          blockquote.ReviewTable__text#4  89×67 @18,15  Manrope 400 15/22  lines=7  clipped  «Приехали на два часа позже обещанного, х»
+        td[role=cell]#3  140×123 @298,0
+          span.Badge__badge#4  104×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
+        td.ReviewTable__cellDate  115×123 @439,0
+          time.ReviewTable__when#4  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+        td[role=cell]#4  215×123 @554,0
+          div.ReviewRowActions__cell#4  179×94 @18,15
+            div.ReviewRowActions__actions  179×94 @0,0
+              button.Button__button#6  121×44 @0,0  r9  b1
+                span.Button__content  91×16 @15,14
+                  span.Button__label#6  91×16 @0,0  Manrope 600 13/16  lines=1  «Опубликовать»
+              button.Button__button#7  99×44 @0,50  r9  b1
+                span.Button__content  69×16 @15,14
+                  span.Button__label#7  69×16 @0,0  Manrope 600 13/16  lines=1  «Отклонить»
+
+[геометрия 1440]
+section.Card__card  1408×476 @16,16  r20  b1
+  div.Table__viewport  1406×474 @1,1
+    table.Table__table  1406×474 @0,0
+      tr[role=row]  1406×56 @0,0
+        th.ReviewTable__colAuthor  200×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Автор»
+        th.ReviewTable__colRating  135×56 @200,0  Onest 700 15/23  b0 0 1 0  lines=1  «Оценка»
+        th  596×56 @335,0  Onest 700 15/23  b0 0 1 0  lines=1  «Отзыв»
+        th.ReviewTable__colStatus  140×56 @931,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+        th.ReviewTable__colDate  120×56 @1071,0  Onest 700 15/23  b0 0 1 0  lines=1  «Получен»
+        th.ReviewTable__colActions  215×56 @1191,0  b0 0 1 0
+          span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
+      tr[role=row]#2  1406×74 @0,56
+        td[role=cell]  200×74 @0,0  b0 0 1 0
+          span.ReviewTable__author  164×28 @18,15
+            span.Avatar__avatar  28×28 @0,0  r100  b1
+              span.Avatar__initials  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
+              span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Алексей»
+            span.ReviewTable__who  60×22 @38,3
+              span.ReviewTable__name  60×22 @0,0  Manrope 600 15/22  lines=1  «Алексей»
+        td.ReviewTable__colRating  135×74 @200,0  b0 0 1 0
+          span.Rating__stars  99×15 @18,16
+            svg.Rating__star  15×15 @0,0
+            svg.Rating__star#2  15×15 @21,0
+            svg.Rating__star#3  15×15 @42,0
+            svg.Rating__star#4  15×15 @63,0
+            svg.Rating__star#5  15×15 @84,0
+        td[role=cell]#2  596×74 @335,0  b0 0 1 0
+          blockquote.ReviewTable__text  560×45 @18,15  Manrope 400 15/22  lines=2  «Приехали в тот же день, смету назвали за»
+        td[role=cell]#3  140×74 @931,0  b0 0 1 0
+          span.Badge__badge  98×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
+        td.ReviewTable__cellDate  120×74 @1071,0  b0 0 1 0
+          time.ReviewTable__when  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+        td[role=cell]#4  215×74 @1191,0  b0 0 1 0
+          div.ReviewRowActions__cell  179×40 @18,15
+            div.ReviewRowActions__actions  118×40 @0,0
+              button.Button__button  118×40 @0,0  r9  b1
+                span.Button__content  88×16 @15,12
+                  span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
+      tr[role=row]#3  1406×115 @0,130
+        td[role=cell]  200×115 @0,0  b0 0 1 0
+          span.ReviewTable__author#2  164×28 @18,15
+            span.Avatar__avatar  28×28 @0,0  r100  b1
+              span.Avatar__initials#2  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «С»
+              span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Сергей»
+            span.ReviewTable__who  52×22 @38,3
+              span.ReviewTable__name#2  52×22 @0,0  Manrope 600 15/22  lines=1  «Сергей»
+        td.ReviewTable__colRating  135×115 @200,0  b0 0 1 0
+          span.Rating__stars#2  99×15 @18,16
+            svg.Rating__star  15×15 @0,0
+            svg.Rating__star#2  15×15 @21,0
+            svg.Rating__star#3  15×15 @42,0
+            svg.Rating__star#4  15×15 @63,0
+            svg.Rating__star#5  15×15 @84,0
+        td[role=cell]#2  596×115 @335,0  b0 0 1 0
+          blockquote.ReviewTable__text#2  560×22 @18,15  Manrope 400 15/22  lines=1  «Ставили сплит в 2019-м, работает до сих»
+        td[role=cell]#3  140×115 @931,0  b0 0 1 0
+          span.Badge__badge#2  71×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В архиве»
+        td.ReviewTable__cellDate  120×115 @1071,0  b0 0 1 0
+          time.ReviewTable__when#2  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+        td[role=cell]#4  215×115 @1191,0  b0 0 1 0
+          div.ReviewRowActions__cell#2  179×86 @18,15
+            div.ReviewRowActions__actions  179×86 @0,0
+              button.Button__button#2  121×40 @0,0  r9  b1
+                span.Button__content  91×16 @15,12
+                  span.Button__label#2  91×16 @0,0  Manrope 600 13/16  lines=1  «Опубликовать»
+              button.Button__button#3  179×40 @0,46  r9  b1
+                span.Button__content  149×16 @15,12
+                  span.Button__label#3  149×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на модерацию»
+      tr[role=row]#4  1406×115 @0,245
+        td[role=cell]  200×115 @0,0  b0 0 1 0
+          span.ReviewTable__author#3  164×28 @18,15
+            span.Avatar__avatar  28×28 @0,0  r100  b1
+              span.Avatar__initials#3  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
+              span#3  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Аноним»
+            span.ReviewTable__who  55×22 @38,3
+              span.ReviewTable__name#3  55×22 @0,0  Manrope 600 15/22  lines=1  «Аноним»
+        td.ReviewTable__colRating  135×115 @200,0  b0 0 1 0
+          span.Rating__stars#3  99×15 @18,16
+            svg.Rating__star  15×15 @0,0
+            svg.Rating__star#2  15×15 @21,0
+            svg.Rating__star#3  15×15 @42,0
+            svg.Rating__star#4  15×15 @63,0
+            svg.Rating__star#5  15×15 @84,0
+        td[role=cell]#2  596×115 @335,0  b0 0 1 0
+          blockquote.ReviewTable__text#3  560×22 @18,15  Manrope 400 15/22  lines=1  «Текст рекламы стороннего магазина со ссы»
+        td[role=cell]#3  140×115 @931,0  b0 0 1 0
+          span.Badge__badge#3  78×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Отклонён»
+        td.ReviewTable__cellDate  120×115 @1071,0  b0 0 1 0
+          time.ReviewTable__when#3  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+        td[role=cell]#4  215×115 @1191,0  b0 0 1 0
+          div.ReviewRowActions__cell#3  179×86 @18,15
+            div.ReviewRowActions__actions  179×86 @0,0
+              button.Button__button#4  179×40 @0,0  r9  b1
+                span.Button__content  149×16 @15,12
+                  span.Button__label#4  149×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на модерацию»
+              button.Button__button#5  82×40 @0,46  r9  b1
+                span.Button__content  52×16 @15,12
+                  span.Button__label#5  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
+      tr[role=row]#5  1406×115 @0,360
+        td[role=cell]  200×115 @0,0
+          span.ReviewTable__author#4  164×28 @18,15
+            span.Avatar__avatar  28×28 @0,0  r100  b1
+              span.Avatar__initials#4  10×11 @9,9  Onest 700 11/11  ls0  lines=1  «М»
+              span#4  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Марина»
+            span.ReviewTable__who  55×22 @38,3
+              span.ReviewTable__name#4  55×22 @0,0  Manrope 600 15/22  lines=1  «Марина»
+        td.ReviewTable__colRating  135×115 @200,0
+          span.Rating__stars#4  99×15 @18,16
+            svg.Rating__star  15×15 @0,0
+            svg.Rating__star#2  15×15 @21,0
+            svg.Rating__star#3  15×15 @42,0
+            svg.Rating__star#4  15×15 @63,0
+            svg.Rating__star#5  15×15 @84,0
+        td[role=cell]#2  596×115 @335,0
+          blockquote.ReviewTable__text#4  560×22 @18,15  Manrope 400 15/22  lines=1  «Приехали на два часа позже обещанного, х»
+        td[role=cell]#3  140×115 @931,0
+          span.Badge__badge#4  104×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
+        td.ReviewTable__cellDate  120×115 @1071,0
+          time.ReviewTable__when#4  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+        td[role=cell]#4  215×115 @1191,0
+          div.ReviewRowActions__cell#4  179×86 @18,15
+            div.ReviewRowActions__actions  179×86 @0,0
+              button.Button__button#6  121×40 @0,0  r9  b1
+                span.Button__content  91×16 @15,12
+                  span.Button__label#6  91×16 @0,0  Manrope 600 13/16  lines=1  «Опубликовать»
+              button.Button__button#7  99×40 @0,46  r9  b1
+                span.Button__content  69×16 @15,12
+                  span.Button__label#7  69×16 @0,0  Manrope 600 13/16  lines=1  «Отклонить»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.Table__viewport
+    table.Table__table
+      tr[role=row]
+        th.ReviewTable__colAuthor  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th.ReviewTable__colRating  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th.ReviewTable__colStatus  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th.ReviewTable__colDate  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th.ReviewTable__colActions  border #0f172a #0f172a #e2e8f0 #0f172a
+          span  color #0f172a
+      tr[role=row]#2
+        td[role=cell]  border #334155 #334155 #eef2f6 #334155
+          span.ReviewTable__author
+            span.Avatar__avatar  bg #ecfeff  border #ffffff
+              span.Avatar__initials  color #0e7490
+              span  color #0e7490
+            span.ReviewTable__who
+              span.ReviewTable__name  color #0f172a
+        td.ReviewTable__colRating  border #334155 #334155 #eef2f6 #334155
+          span.Rating__stars
+            svg.Rating__star
+            svg.Rating__star#2
+            svg.Rating__star#3
+            svg.Rating__star#4
+            svg.Rating__star#5
+        td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+          blockquote.ReviewTable__text  color #475569
+        td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+          span.Badge__badge  color #166534  bg #15803d14  border #15803d47
+        td.ReviewTable__cellDate  border #334155 #334155 #eef2f6 #334155
+          time.ReviewTable__when  color #475569
+        td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+          div.ReviewRowActions__cell
+            div.ReviewRowActions__actions
+              button.Button__button  bg #ffffff  border #7e8fa6
+                span.Button__content
+                  span.Button__label  color #0f172a
+      tr[role=row]#3
+        td[role=cell]  border #334155 #334155 #eef2f6 #334155
+          span.ReviewTable__author#2
+            span.Avatar__avatar  bg #ecfeff  border #ffffff
+              span.Avatar__initials#2  color #0e7490
+              span#2  color #0e7490
+            span.ReviewTable__who
+              span.ReviewTable__name#2  color #0f172a
+        td.ReviewTable__colRating  border #334155 #334155 #eef2f6 #334155
+          span.Rating__stars#2
+            svg.Rating__star
+            svg.Rating__star#2
+            svg.Rating__star#3
+            svg.Rating__star#4
+            svg.Rating__star#5
+        td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+          blockquote.ReviewTable__text#2  color #475569
+        td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+          span.Badge__badge#2  color #556173  bg #f8fafc  border #e2e8f0
+        td.ReviewTable__cellDate  border #334155 #334155 #eef2f6 #334155
+          time.ReviewTable__when#2  color #475569
+        td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+          div.ReviewRowActions__cell#2
+            div.ReviewRowActions__actions
+              button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+                span.Button__content
+                  span.Button__label#2  color #ffffff
+              button.Button__button#3  bg #ffffff  border #7e8fa6
+                span.Button__content
+                  span.Button__label#3  color #0f172a
+      tr[role=row]#4
+        td[role=cell]  border #334155 #334155 #eef2f6 #334155
+          span.ReviewTable__author#3
+            span.Avatar__avatar  bg #ecfeff  border #ffffff
+              span.Avatar__initials#3  color #0e7490
+              span#3  color #0e7490
+            span.ReviewTable__who
+              span.ReviewTable__name#3  color #0f172a
+        td.ReviewTable__colRating  border #334155 #334155 #eef2f6 #334155
+          span.Rating__stars#3
+            svg.Rating__star
+            svg.Rating__star#2
+            svg.Rating__star#3
+            svg.Rating__star#4
+            svg.Rating__star#5
+        td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+          blockquote.ReviewTable__text#3  color #475569
+        td[role=cell]#3  border #334155 #334155 #eef2f6 #334155
+          span.Badge__badge#3  color #556173  bg #f8fafc  border #e2e8f0
+        td.ReviewTable__cellDate  border #334155 #334155 #eef2f6 #334155
+          time.ReviewTable__when#3  color #475569
+        td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+          div.ReviewRowActions__cell#3
+            div.ReviewRowActions__actions
+              button.Button__button#4  bg #ffffff  border #7e8fa6
+                span.Button__content
+                  span.Button__label#4  color #0f172a
+              button.Button__button#5  border transparent
+                span.Button__content
+                  span.Button__label#5  color #be123c
+      tr[role=row]#5
+        td[role=cell]
+          span.ReviewTable__author#4
+            span.Avatar__avatar  bg #ecfeff  border #ffffff
+              span.Avatar__initials#4  color #0e7490
+              span#4  color #0e7490
+            span.ReviewTable__who
+              span.ReviewTable__name#4  color #0f172a
+        td.ReviewTable__colRating
+          span.Rating__stars#4
+            svg.Rating__star
+            svg.Rating__star#2
+            svg.Rating__star#3
+            svg.Rating__star#4
+            svg.Rating__star#5
+        td[role=cell]#2
+          blockquote.ReviewTable__text#4  color #475569
+        td[role=cell]#3
+          span.Badge__badge#4  color #556173  bg #f8fafc  border #e2e8f0
+        td.ReviewTable__cellDate
+          time.ReviewTable__when#4  color #475569
+        td[role=cell]#4
+          div.ReviewRowActions__cell#4
+            div.ReviewRowActions__actions
+              button.Button__button#6  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+                span.Button__content
+                  span.Button__label#6  color #ffffff
+              button.Button__button#7  bg #ffffff  border #7e8fa6
+                span.Button__content
+                  span.Button__label#7  color #0f172a
+[палитра light @390]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#4
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#5
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ReviewTable__cellDate
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ReviewTable__cellDate > td.ReviewTable__cellDate::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#6
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#7
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#8
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#9
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#10
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ReviewTable__cellDate
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ReviewTable__cellDate > td.ReviewTable__cellDate::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#11
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#12
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#13
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#14
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#15
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ReviewTable__cellDate
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ReviewTable__cellDate > td.ReviewTable__cellDate::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#16
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#17
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#18
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#19
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#20
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ReviewTable__cellDate > td.ReviewTable__cellDate::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+[палитра light @768]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#4
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#5
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#6
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#7
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#8
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#9
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#10
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#11
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#12
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#13
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#14
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#15
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#16
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#17
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#18
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#19
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#20
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.Table__viewport
+    table.Table__table
+      tr[role=row]
+        th.ReviewTable__colAuthor  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th.ReviewTable__colRating  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th.ReviewTable__colStatus  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th.ReviewTable__colDate  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th.ReviewTable__colActions  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          span  color #eaf1f8
+      tr[role=row]#2
+        td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.ReviewTable__author
+            span.Avatar__avatar  bg #22d3ee1a  border #121d31
+              span.Avatar__initials  color #22d3ee
+              span  color #22d3ee
+            span.ReviewTable__who
+              span.ReviewTable__name  color #eaf1f8
+        td.ReviewTable__colRating  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.Rating__stars
+            svg.Rating__star
+            svg.Rating__star#2
+            svg.Rating__star#3
+            svg.Rating__star#4
+            svg.Rating__star#5
+        td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          blockquote.ReviewTable__text  color #a8b6c6
+        td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.Badge__badge  color #4ade80  bg #4ade801f  border #4ade8052
+        td.ReviewTable__cellDate  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          time.ReviewTable__when  color #a8b6c6
+        td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          div.ReviewRowActions__cell
+            div.ReviewRowActions__actions
+              button.Button__button  bg #121d31  border #566d95
+                span.Button__content
+                  span.Button__label  color #eaf1f8
+      tr[role=row]#3
+        td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.ReviewTable__author#2
+            span.Avatar__avatar  bg #22d3ee1a  border #121d31
+              span.Avatar__initials#2  color #22d3ee
+              span#2  color #22d3ee
+            span.ReviewTable__who
+              span.ReviewTable__name#2  color #eaf1f8
+        td.ReviewTable__colRating  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.Rating__stars#2
+            svg.Rating__star
+            svg.Rating__star#2
+            svg.Rating__star#3
+            svg.Rating__star#4
+            svg.Rating__star#5
+        td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          blockquote.ReviewTable__text#2  color #a8b6c6
+        td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.Badge__badge#2  color #8598ac  bg #0e1729  border #1e2b41
+        td.ReviewTable__cellDate  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          time.ReviewTable__when#2  color #a8b6c6
+        td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          div.ReviewRowActions__cell#2
+            div.ReviewRowActions__actions
+              button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+                span.Button__content
+                  span.Button__label#2  color #ffffff
+              button.Button__button#3  bg #121d31  border #566d95
+                span.Button__content
+                  span.Button__label#3  color #eaf1f8
+      tr[role=row]#4
+        td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.ReviewTable__author#3
+            span.Avatar__avatar  bg #22d3ee1a  border #121d31
+              span.Avatar__initials#3  color #22d3ee
+              span#3  color #22d3ee
+            span.ReviewTable__who
+              span.ReviewTable__name#3  color #eaf1f8
+        td.ReviewTable__colRating  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.Rating__stars#3
+            svg.Rating__star
+            svg.Rating__star#2
+            svg.Rating__star#3
+            svg.Rating__star#4
+            svg.Rating__star#5
+        td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          blockquote.ReviewTable__text#3  color #a8b6c6
+        td[role=cell]#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          span.Badge__badge#3  color #8598ac  bg #0e1729  border #1e2b41
+        td.ReviewTable__cellDate  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          time.ReviewTable__when#3  color #a8b6c6
+        td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          div.ReviewRowActions__cell#3
+            div.ReviewRowActions__actions
+              button.Button__button#4  bg #121d31  border #566d95
+                span.Button__content
+                  span.Button__label#4  color #eaf1f8
+              button.Button__button#5  border transparent
+                span.Button__content
+                  span.Button__label#5  color #fb7185
+      tr[role=row]#5
+        td[role=cell]
+          span.ReviewTable__author#4
+            span.Avatar__avatar  bg #22d3ee1a  border #121d31
+              span.Avatar__initials#4  color #22d3ee
+              span#4  color #22d3ee
+            span.ReviewTable__who
+              span.ReviewTable__name#4  color #eaf1f8
+        td.ReviewTable__colRating
+          span.Rating__stars#4
+            svg.Rating__star
+            svg.Rating__star#2
+            svg.Rating__star#3
+            svg.Rating__star#4
+            svg.Rating__star#5
+        td[role=cell]#2
+          blockquote.ReviewTable__text#4  color #a8b6c6
+        td[role=cell]#3
+          span.Badge__badge#4  color #8598ac  bg #0e1729  border #1e2b41
+        td.ReviewTable__cellDate
+          time.ReviewTable__when#4  color #a8b6c6
+        td[role=cell]#4
+          div.ReviewRowActions__cell#4
+            div.ReviewRowActions__actions
+              button.Button__button#6  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+                span.Button__content
+                  span.Button__label#6  color #ffffff
+              button.Button__button#7  bg #121d31  border #566d95
+                span.Button__content
+                  span.Button__label#7  color #eaf1f8
+[палитра dark @390]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#4
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#5
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ReviewTable__cellDate
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ReviewTable__cellDate > td.ReviewTable__cellDate::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#6
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#7
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#8
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#9
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#10
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ReviewTable__cellDate
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ReviewTable__cellDate > td.ReviewTable__cellDate::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#11
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#12
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#13
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#14
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#15
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ReviewTable__cellDate
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ReviewTable__cellDate > td.ReviewTable__cellDate::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#16
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#17
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#18
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#19
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#20
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#3 > td[role=cell]#3::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ReviewTable__cellDate > td.ReviewTable__cellDate::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+[палитра dark @768]
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#4
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > span.ReviewTable__author > span.ReviewTable__who > span.ReviewTable__narrowOnly > span.Rating__stars > svg.Rating__star#5
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#6
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#7
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#8
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#9
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > span.ReviewTable__author#2 > span.ReviewTable__who > span.ReviewTable__narrowOnly#2 > span.Rating__stars > svg.Rating__star#10
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#11
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#12
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#13
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#14
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > span.ReviewTable__author#3 > span.ReviewTable__who > span.ReviewTable__narrowOnly#3 > span.Rating__stars > svg.Rating__star#15
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#16
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#17
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#18
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#19
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > span.ReviewTable__author#4 > span.ReviewTable__who > span.ReviewTable__narrowOnly#4 > span.Rating__stars > svg.Rating__star#20

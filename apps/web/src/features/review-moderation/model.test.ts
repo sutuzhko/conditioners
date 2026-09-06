@@ -3,8 +3,12 @@ import { describe, expect, it } from 'vitest';
 import {
   REVIEW_TABS,
   reviewActionsFor,
+  reviewFilterOf,
+  reviewFilterOn,
+  reviewFilterQuery,
   reviewStatusOfTab,
   reviewTabFromParam,
+  reviewTabShowsTable,
   reviewsQuery,
 } from './model';
 import type { ReviewStatus, ReviewTab } from './model';
@@ -76,4 +80,58 @@ describe('действия по вкладкам', () => {
       expect(reviewActionsFor('all', status)).toEqual(reviewActionsFor(own[status], status));
     },
   );
+});
+
+describe('вид вкладки: карточки или таблица (issue #613)', () => {
+  /* 🔴 На очереди модерации решают по тексту целиком, и карточка —
+     единственный способ показать его без «показать ещё». */
+  it('карточки остались только на «На модерации»', () => {
+    expect(reviewTabShowsTable('pending')).toBe(false);
+    expect(reviewTabShowsTable('published')).toBe(true);
+    expect(reviewTabShowsTable('rejected')).toBe(true);
+    expect(reviewTabShowsTable('archived')).toBe(true);
+    expect(reviewTabShowsTable('all')).toBe(true);
+  });
+});
+
+describe('сквозной отбор вкладки «Все»', () => {
+  it('читает поиск, статус и оценку из адреса', () => {
+    expect(reviewFilterOf({ q: '  штроба ', status: 'approved', rating: '4' })).toEqual({
+      query: 'штроба',
+      status: 'approved',
+      rating: 4,
+    });
+  });
+
+  /* 🔴 Адрес правят руками и присылают друг другу: мусор снимает условие, а не
+     роняет раздел (issue #341). */
+  it('мусор в параметрах снимает условие, а не роняет раздел', () => {
+    expect(reviewFilterOf({ status: 'опубликован', rating: '9' })).toEqual({
+      query: '',
+      status: undefined,
+      rating: undefined,
+    });
+    expect(reviewFilterOf({ rating: 'пять' }).rating).toBeUndefined();
+  });
+
+  it('пустой отбор в адрес не уезжает', () => {
+    expect(reviewFilterQuery({ query: '', status: undefined, rating: undefined })).toEqual({});
+    expect(reviewFilterOn({ query: '', status: undefined, rating: undefined })).toBe(false);
+  });
+
+  /* 🔴 Разбивка обязана нести отбор за собой: без него вторая страница
+     найденного показывала бы весь раздел. */
+  it('разбивка вкладки «Все» несёт отбор в адрес', () => {
+    expect(reviewsQuery('all', { query: 'штроба', status: 'rejected', rating: 3 })).toEqual({
+      tab: 'all',
+      q: 'штроба',
+      status: 'rejected',
+      rating: '3',
+    });
+  });
+
+  it('без отбора адрес вкладки остаётся прежним', () => {
+    expect(reviewsQuery('published')).toEqual({ tab: 'published' });
+    expect(reviewsQuery('pending')).toEqual({});
+  });
 });

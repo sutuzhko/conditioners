@@ -39,6 +39,39 @@ export const reviewModerationContent = {
   emptyFilteredText: 'Отзывы в разделе есть — их скрыл выбранный статус.',
   emptyFilteredAction: 'Показать все отзывы',
 
+  /* Отбор вкладки «Все» — не то же самое, что вкладка без записей: там пусто
+     из-за статуса, здесь — из-за поиска и условий, которые задал человек. */
+  emptySearch: 'Ничего не нашлось',
+  emptySearchText: 'Отзывы в разделе есть — их скрыли поиск или выбранные условия.',
+  emptySearchAction: 'Сбросить отбор',
+
+  /* Колонки таблиц вкладок (issue #613, макет `ContentTabs`). */
+  colAuthor: 'Автор',
+  colRating: 'Оценка',
+  colText: 'Отзыв',
+  colStatus: 'Статус',
+  /* 🔴 «Получен», а не «Опубликован», как в макете: даты публикации у отзыва
+     нет — в базе лежит только момент, когда его прислали. Подпись обязана
+     называть то число, которое под ней стоит. */
+  colReceived: 'Получен',
+  colReason: 'Причина отказа',
+  colRejectedBy: 'Кто и когда',
+  colActions: 'Действия',
+
+  /* Подписи отбора вкладки «Все». */
+  searchLabel: 'Поиск по отзывам',
+  searchHint: 'Имя автора или слова из отзыва',
+  searchPlaceholder: 'Автор или текст',
+  searchSubmit: 'Найти',
+  filterStatus: 'Статус',
+  filterStatusAll: 'Любой',
+  filterRating: 'Оценка',
+  filterRatingAll: 'Любая',
+  filterRatingOption: (value: number): string => `${value} из 5`,
+  reset: 'Сбросить отбор',
+
+  pagerLabel: 'Страницы списка отзывов',
+
   approve: 'Опубликовать',
   reject: 'Отклонить',
   archive: 'Снять с сайта',
@@ -81,6 +114,10 @@ export const reviewModerationContent = {
   } satisfies ConfirmRequest,
 
   rating: (value: number): string => `Оценка ${value} из 5`,
+  /** Имя группы действий строки: без него читалка объявляет её безымянной. */
+  rowActions: (name: string): string => `Действия над отзывом: ${name}`,
+  /** Имя таблицы вкладки для озвучки области прокрутки. */
+  tableLabel: (tab: ReviewTab): string => `Отзывы: ${TAB_TITLES[tab].toLowerCase()}`,
   photoAlt: (name: string): string => `Фотография к отзыву: ${name}`,
   statusTitle: (status: ReviewStatus): string => STATUS_TITLES[status],
   tabTitle: (tab: ReviewTab): string => TAB_TITLES[tab],

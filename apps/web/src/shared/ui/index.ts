@@ -103,7 +103,7 @@ export type { SwitchProps, SwitchSize } from './Switch/Switch';
 export { NumberInput } from './NumberInput/NumberInput';
 export type { NumberInputProps } from './NumberInput/NumberInput';
 
-export { DateField, EMPTY_DATE } from './DateField/DateField';
+export { DateField, EMPTY_DATE, dateSegmentsOf, isoOfDateSegments } from './DateField/DateField';
 export type { DateFieldProps, DateSegmentKey, DateSegments } from './DateField/DateField';
 
 export { Autocomplete } from './Autocomplete/Autocomplete';
