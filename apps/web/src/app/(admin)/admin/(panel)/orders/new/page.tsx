@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { leadManagerContent as leadTexts } from '@/features/lead-manager';
 import { ORDERS_PATH, orderManagerContent as texts } from '@/features/order-manager';
 import { Card } from '@/shared/ui';
+import { DataBlock, FieldsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
-import { orderFormData } from '../data';
+import { orderFormLists, orderLeadSource, type OrderLeadSource } from '../data';
 import { OrderEditor } from '../OrderEditor';
 import styles from '../page.module.css';
 
@@ -28,9 +29,14 @@ type PageProps = { searchParams: Promise<{ lead?: string }> };
  *
  * Заголовок, подпись и путь назад даёт страница — форма приносит только поля,
  * как и в окне.
+ *
+ * 🔴 Обращение читается **до** первого куска потока (issue #651): `?lead=` на
+ * удалённое обращение обязан отвечать 404, а не 200 с текстом «не найдено».
+ * Им же собирается заголовок — он говорит, откуда взялся наряд. Списки
+ * клиентов, монтажников и занятость приезжают следом, отдельным куском.
  */
 export default async function AdminOrderNewPage({ searchParams }: PageProps) {
-  const { clients, installers, blocks, work, lead } = await orderFormData(await searchParams);
+  const lead = await orderLeadSource(await searchParams);
 
   return (
     <div className={styles.page}>
@@ -52,27 +58,44 @@ export default async function AdminOrderNewPage({ searchParams }: PageProps) {
           Наряд по обращению — случай другой: заголовок страницы говорит,
           откуда он взялся, а заголовок формы — что перед человеком ещё
           черновик, который никуда не записан. */}
-      {lead === null ? (
-        <Card>
-          <OrderEditor
-            clients={clients}
-            installers={installers}
-            blocks={blocks}
-            work={work}
-            surface="bare"
-          />
-        </Card>
-      ) : (
+      <DataBlock
+        skeleton={<FieldsSkeleton fields={7} />}
+        title={texts.loadFailed}
+        note={blockErrorNote(ORDERS_PATH)}
+      >
+        <NewOrderForm lead={lead} />
+      </DataBlock>
+    </div>
+  );
+}
+
+/** Форма заведения — то, что приезжает отдельным куском потока. */
+async function NewOrderForm({ lead }: { readonly lead: OrderLeadSource | null }) {
+  const { clients, installers, blocks, work } = await orderFormLists();
+
+  if (lead === null) {
+    return (
+      <Card>
         <OrderEditor
           clients={clients}
           installers={installers}
           blocks={blocks}
           work={work}
-          initial={lead.draft}
-          title={leadTexts.orderFormTitle}
-          hint={leadTexts.orderFormHint}
+          surface="bare"
         />
-      )}
-    </div>
+      </Card>
+    );
+  }
+
+  return (
+    <OrderEditor
+      clients={clients}
+      installers={installers}
+      blocks={blocks}
+      work={work}
+      initial={lead.draft}
+      title={leadTexts.orderFormTitle}
+      hint={leadTexts.orderFormHint}
+    />
   );
 }

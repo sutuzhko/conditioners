@@ -11,9 +11,10 @@ import {
 } from '@/features/article-form';
 import { getAdminSession, isOwner } from '@/server/auth';
 import { requireOwnerPage } from '@/server/guards';
-import { findById } from '@/server/repo/articles';
+import { findById, type ArticleDto } from '@/server/repo/articles';
 import { getGroup } from '@/server/repo/settings';
 import { env } from '@/shared/config/env';
+import { DataBlock, FieldsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
 import { ArticleEditor } from '../ArticleEditor';
 import styles from '../page.module.css';
@@ -45,6 +46,13 @@ export async function generateMetadata({
  * 🔴 Вкладка разбирается здесь, до чтения данных: страница приходит уже
  * открытой на той, что стоит в адресе (issue #340), а мусор в параметре
  * открывает первую, а не роняет раздел (#341).
+ *
+ * 🔴 Существование статьи решается **до** первого куска потока (issue #651).
+ * Пока заготовка стояла на границе раздела, она уходила в ответ первой, и
+ * `notFound()` заставал статус уже отправленным: удалённая статья отвечала
+ * 200. Здесь до первого байта успевает пройти только поиск самой статьи, и
+ * адрес удалённой записи отвечает честным 404. Приписка к заголовкам из
+ * настроек приезжает следом, отдельным куском потока.
  */
 export default async function AdminArticlePage({
   params,
@@ -59,15 +67,8 @@ export default async function AdminArticlePage({
   const [{ id }, { tab }] = await Promise.all([params, searchParams]);
   const selected = articleTabFromParam(tab);
 
-  /* Приписка к заголовкам нужна превью выдачи: без неё оно показывало бы не
-     то, что соберёт страница статьи. Битая запись не должна ронять правку —
-     разбираем со схемой. */
-  const [article, storedSeo] = await Promise.all([findById(id), getGroup('seo')]);
-
+  const article = await findById(id);
   if (article === null) notFound();
-
-  const seo = settingSchemas.seo.safeParse(storedSeo ?? {});
-  const titleSuffix = (seo.success ? seo.data.titleSuffix : '') ?? '';
 
   return (
     <div className={styles.page}>
@@ -82,27 +83,56 @@ export default async function AdminArticlePage({
 
       <ArticleTabs id={article.id} active={selected} />
 
-      <ArticleEditor
-        id={article.id}
-        cover={article.cover}
-        tab={selected}
-        siteUrl={env.SITE_URL}
-        titleSuffix={titleSuffix}
-        updatedAt={article.updatedAt}
-        values={{
-          title: article.title,
-          category: article.category,
-          // День по времени Тулы: репозиторий уже отдаёт его строкой.
-          date: article.date.slice(0, 10),
-          minutes: String(article.minutes),
-          excerpt: article.excerpt,
-          body: article.body,
-          published: article.published,
-          slug: article.slug,
-          seoTitle: article.seoTitle ?? '',
-          seoDescription: article.seoDescription ?? '',
-        }}
-      />
+      <DataBlock
+        skeleton={<FieldsSkeleton fields={6} />}
+        title={texts.loadFailed}
+        note={blockErrorNote(KNOWLEDGE_PATH)}
+        surface="bare"
+      >
+        <ArticleForm article={article} tab={selected} />
+      </DataBlock>
     </div>
+  );
+}
+
+/**
+ * Форма статьи — то, что приезжает отдельным куском потока.
+ *
+ * Приписка к заголовкам нужна превью выдачи: без неё оно показывало бы не то,
+ * что соберёт страница статьи. Битая запись не должна ронять правку —
+ * разбираем со схемой.
+ */
+async function ArticleForm({
+  article,
+  tab,
+}: {
+  readonly article: ArticleDto;
+  readonly tab: ReturnType<typeof articleTabFromParam>;
+}) {
+  const seo = settingSchemas.seo.safeParse((await getGroup('seo')) ?? {});
+  const titleSuffix = (seo.success ? seo.data.titleSuffix : '') ?? '';
+
+  return (
+    <ArticleEditor
+      id={article.id}
+      cover={article.cover}
+      tab={tab}
+      siteUrl={env.SITE_URL}
+      titleSuffix={titleSuffix}
+      updatedAt={article.updatedAt}
+      values={{
+        title: article.title,
+        category: article.category,
+        // День по времени Тулы: репозиторий уже отдаёт его строкой.
+        date: article.date.slice(0, 10),
+        minutes: String(article.minutes),
+        excerpt: article.excerpt,
+        body: article.body,
+        published: article.published,
+        slug: article.slug,
+        seoTitle: article.seoTitle ?? '',
+        seoDescription: article.seoDescription ?? '',
+      }}
+    />
   );
 }

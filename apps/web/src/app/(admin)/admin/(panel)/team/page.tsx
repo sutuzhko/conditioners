@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import { cache } from 'react';
+
 import {
   StaffList,
   StaffSearch,
   TEAM_NEW_PATH,
+  TEAM_PATH,
   staffManagerContent as texts,
   staffTitle,
   type StaffRowStats,
@@ -13,8 +16,10 @@ import { requireOwnerPage } from '@/server/guards';
 import { list } from '@/server/repo/admin-users';
 import { installerTally, teamMonth, weekLoad } from '@/server/repo/team-stats';
 import { formatMoney, formatNumber } from '@/shared/lib/format';
-import { StatTile, StatTiles, buttonClassName } from '@/shared/ui';
+import { Skeleton, StatTile, StatTiles, buttonClassName } from '@/shared/ui';
+import { DataBlock, blockErrorNote } from '@/widgets/admin-shell';
 
+import { TeamSkeleton } from './TeamSkeleton';
 import styles from './page.module.css';
 
 export const metadata: Metadata = { title: texts.title };
@@ -35,6 +40,11 @@ export const dynamic = 'force-dynamic';
  *
  * Читаем `repo` напрямую, а не своим же HTTP-запросом к `/api/admin/staff`:
  * страница и так серверная, лишний круг через сеть — лишний способ отказать.
+ *
+ * 🔴 Заготовки раздела живут внутри страницы, а не в `loading.tsx` (issue
+ * #651). Заготовка на границе раздела уходила в ответ первой и уносила с
+ * собой код 200: `notFound()` карточки уволенного человека менял потом лишь
+ * тело. Здесь до первого байта доходит только разбор адреса.
  */
 export default async function AdminTeamPage({
   searchParams,
@@ -47,15 +57,79 @@ export default async function AdminTeamPage({
   const { q } = await searchParams;
   const query = q?.trim() ?? '';
 
+  return (
+    <div className={styles.page}>
+      <header className={styles.header}>
+        <div className={styles.headline}>
+          <h1 className={styles.title}>{texts.title}</h1>
+
+          <Link className={buttonClassName({ size: 'sm' })} href={{ pathname: TEAM_NEW_PATH }}>
+            {texts.addOpen}
+          </Link>
+        </div>
+
+        {/* Строка счёта вместо прозы (макет `Team.png`): раздел открывают,
+            чтобы узнать, кто сегодня на смене.
+
+            Свой кусок потока: строка стоит над плитками, и ждать ради неё
+            наряды за месяц значит держать пустым весь экран. Заготовка
+            занимает ту же строку — плитки под ней не двигаются (ADR-239). */}
+        <DataBlock
+          surface="bare"
+          skeleton={<Skeleton variant="text" width="14ch" />}
+          title={texts.loadFailed}
+          note={blockErrorNote(TEAM_PATH)}
+        >
+          <TeamCount />
+        </DataBlock>
+      </header>
+
+      <DataBlock
+        skeleton={<TeamSkeleton />}
+        title={texts.loadFailed}
+        note={blockErrorNote(TEAM_PATH)}
+      >
+        <TeamBody query={query} />
+      </DataBlock>
+    </div>
+  );
+}
+
+/**
+ * Список людей панели — один поход в базу на все куски потока.
+ *
+ * 🔴 `cache` React держит результат в пределах одного запроса: счёт в шапке и
+ * таблица команды читают один и тот же список, и второй `SELECT` за теми же
+ * строками не ускорил бы ничего, зато счёт «на смене из пяти» мог бы
+ * разойтись с тем, что показывает таблица под ним.
+ */
+const staffOfPanel = cache(list);
+
+/** Счёт смены — свой кусок потока: строка стоит над плитками и таблицей. */
+async function TeamCount() {
+  const staff = await staffOfPanel();
+  const installers = staff.filter((person) => person.role === 'installer');
+  const active = installers.filter((person) => person.active).length;
+
+  return <p className={styles.lead}>{texts.count(active, installers.length)}</p>;
+}
+
+/**
+ * Плитки месяца, поиск и таблица команды — то, что приезжает отдельным куском
+ * потока.
+ *
+ * Фрагмент, а не обёртка: блоки страницы стоят колонкой с общим зазором, и
+ * лишний `<div>` сдвинул бы таблицу относительно того, что показала заготовка.
+ */
+async function TeamBody({ query }: { readonly query: string }) {
   const [staff, load, tally, month] = await Promise.all([
-    list(),
+    staffOfPanel(),
     weekLoad(),
     installerTally(),
     teamMonth(),
   ]);
 
   const installers = staff.filter((person) => person.role === 'installer');
-  const active = installers.filter((person) => person.active).length;
 
   /* 🔴 Поиск отбирается здесь, а не запросом к базе. Команда — это единицы
      человек, и список уже прочитан целиком ради плиток и средней загрузки:
@@ -108,21 +182,7 @@ export default async function AdminTeamPage({
   const doneDelta = month.done - month.donePrev;
 
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <div className={styles.headline}>
-          <h1 className={styles.title}>{texts.title}</h1>
-
-          <Link className={buttonClassName({ size: 'sm' })} href={{ pathname: TEAM_NEW_PATH }}>
-            {texts.addOpen}
-          </Link>
-        </div>
-
-        {/* Строка счёта вместо прозы (макет `Team.png`): раздел открывают,
-            чтобы узнать, кто сегодня на смене. */}
-        <p className={styles.lead}>{texts.count(active, installers.length)}</p>
-      </header>
-
+    <>
       <StatTiles label={texts.tilesMonthLabel}>
         <StatTile
           label={texts.tileMonthDone}
@@ -167,6 +227,6 @@ export default async function AdminTeamPage({
       <StaffSearch query={query} />
 
       <StaffList staff={found} stats={stats} query={query} />
-    </div>
+    </>
   );
 }

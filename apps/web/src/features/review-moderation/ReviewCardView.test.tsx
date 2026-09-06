@@ -12,6 +12,7 @@ import {
   pendingReview,
   rejectedReview,
   rejectedWithoutReason,
+  reviewWithMissingPhoto,
   reviewWithPhoto,
 } from './fixtures';
 
@@ -215,6 +216,52 @@ describe('Отзыв в модерации', () => {
 
     await user.click(screen.getByRole('button', { name: texts.removeConfirm.confirmLabel }));
     await waitFor(() => expect(remove).toHaveBeenCalledWith(rejectedReview.id));
+  });
+
+  /**
+   * 🔴 Пропавший файл — issue #662.
+   *
+   * Проверяется не «показали заглушку», а два следствия: битой картинки на
+   * экране нет и предложения открыть её в полный размер — тоже. Живая ссылка
+   * на месте пропавшего снимка вела в 404, то есть интерфейс обещал то, чего
+   * заведомо не мог исполнить.
+   */
+  it('🔴 снимок без файла: рамка с объяснением вместо битой картинки', () => {
+    render(<ReviewCardView review={reviewWithMissingPhoto} api={acceptingApi} tab="pending" />);
+
+    expect(screen.getByText(texts.photoGone)).toBeInTheDocument();
+    expect(screen.getByText(texts.photoGoneNote)).toBeInTheDocument();
+
+    expect(
+      screen.queryByRole('img', { name: texts.photoAlt(reviewWithMissingPhoto.name) }),
+    ).toBeNull();
+    expect(screen.queryByRole('button', { name: texts.photoOpen })).toBeNull();
+    expect(screen.queryByText(texts.photoOpen)).toBeNull();
+  });
+
+  /** Снимок на месте: превью — кнопка, и она открывает полный кадр. */
+  it('снимок с файлом остаётся кнопкой увеличения', () => {
+    render(<ReviewCardView review={reviewWithPhoto} api={acceptingApi} tab="pending" />);
+
+    expect(screen.getByRole('button', { name: texts.photoOpen })).toBeInTheDocument();
+    expect(screen.queryByText(texts.photoGone)).toBeNull();
+  });
+
+  /**
+   * 🔴 Витрина не ходит в сеть за снимком.
+   *
+   * Истории собираются статикой (ADR-231) и раздают только `apps/web/public`:
+   * `/api/media/...` там мёртв. Фикстура с таким адресом показывала в истории
+   * «Со снимком» битую картинку — то же самое, что соседняя история показывает
+   * нарочно, — и обе врали. Проверка сторожит именно это: адрес снимка обязан
+   * быть самодостаточным.
+   */
+  it('🔴 снимок истории не зависит от рантайма: адрес — data-URI', () => {
+    render(<ReviewCardView review={reviewWithPhoto} api={acceptingApi} tab="pending" />);
+
+    const image = screen.getByRole('img', { name: texts.photoAlt(reviewWithPhoto.name) });
+
+    expect(image.getAttribute('src')).toMatch(/^data:image\//);
   });
 
   it('отказ сервера объясняется и страница не перечитывается', async () => {

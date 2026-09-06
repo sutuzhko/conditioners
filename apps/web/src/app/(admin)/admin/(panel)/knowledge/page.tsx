@@ -5,7 +5,7 @@ import { KNOWLEDGE_NEW_PATH } from '@/features/article-form';
 import { requireOwnerPage } from '@/server/guards';
 import { adminCounts, categories, listAdmin } from '@/server/repo/articles';
 import { pageNumber } from '@/shared/lib/paging';
-import { Pager, Skeleton, buttonClassName } from '@/shared/ui';
+import { Pager, buttonClassName } from '@/shared/ui';
 import { DataBlock, blockErrorNote } from '@/widgets/admin-shell';
 import {
   AdminArticleList,
@@ -19,6 +19,7 @@ import {
   type ArticleSearchParams,
 } from '@/widgets/admin-knowledge';
 
+import { KnowledgeSummarySkeleton, KnowledgeTableSkeleton } from './KnowledgeSkeleton';
 import styles from './page.module.css';
 
 export const metadata: Metadata = { title: texts.title };
@@ -37,6 +38,11 @@ export const dynamic = 'force-dynamic';
  * браузер сразу, таблица приезжает отдельным куском потока на место
  * заготовки, а упавший запрос показывает ошибку на её месте, оставляя
  * навигацию рабочей.
+ *
+ * 🔴 Заготовки раздела живут внутри страницы, а не в `loading.tsx` (issue
+ * #651). Заготовка на границе раздела уходила в ответ первой и уносила с
+ * собой код 200: `notFound()` соседней статьи заставал статус уже
+ * отправленным. Здесь до первого байта доходит только разбор адреса.
  */
 export default async function AdminKnowledgePage({
   searchParams,
@@ -49,23 +55,24 @@ export default async function AdminKnowledgePage({
   const params = await searchParams;
   const filter = articleFilterOf(params);
 
-  /* 🔴 Счётчики и рубрики принадлежат шапке и фильтрам, а не списку: приехав
-     позже, они сдвинули бы таблицу вниз уже после того, как на неё
-     посмотрели. Отказ базы гасится здесь — об этом скажет блок списка, у
-     которого есть и объяснение, и повтор. */
-  const [counts, known] = await Promise.all([countsOrNull(), categoriesOrEmpty()]);
-
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <div>
           <h1 className={styles.title}>{texts.title}</h1>
           <p className={styles.lead}>{texts.lead}</p>
-          <p className={styles.summary}>
-            {counts === null
-              ? texts.summaryUnknown
-              : texts.summary(counts.total, counts.published, counts.drafts)}
-          </p>
+          {/* 🔴 Счётчики — свой кусок потока, а не общий со списком: строка
+              стоит над отбором, и ждать ради неё таблицу значит держать
+              пустым весь экран. Заготовка занимает ту же строку — отбор под
+              ней не двигается (ADR-239). */}
+          <DataBlock
+            surface="bare"
+            skeleton={<KnowledgeSummarySkeleton />}
+            title={texts.loadFailed}
+            note={blockErrorNote(KNOWLEDGE_PATH)}
+          >
+            <KnowledgeSummary />
+          </DataBlock>
         </div>
 
         <Link className={buttonClassName({ size: 'sm' })} href={{ pathname: KNOWLEDGE_NEW_PATH }}>
@@ -73,10 +80,20 @@ export default async function AdminKnowledgePage({
         </Link>
       </header>
 
-      <ArticleSearch filter={filter} categories={known} />
+      {/* 🔴 Рубрики фильтра приходят из базы, и ждать их незачем: до ответа
+          поле стоит на месте с пустым списком, а сам отбор набирается руками
+          и работает сразу (ADR-239). */}
+      <DataBlock
+        surface="bare"
+        skeleton={<ArticleSearch filter={filter} categories={[]} />}
+        title={texts.loadFailed}
+        note={blockErrorNote(KNOWLEDGE_PATH)}
+      >
+        <KnowledgeSearch filter={filter} />
+      </DataBlock>
 
       <DataBlock
-        skeleton={<Skeleton variant="block" className={styles.tableSkeleton} />}
+        skeleton={<KnowledgeTableSkeleton />}
         title={texts.loadFailed}
         note={blockErrorNote(KNOWLEDGE_PATH)}
       >
@@ -84,6 +101,32 @@ export default async function AdminKnowledgePage({
       </DataBlock>
     </div>
   );
+}
+
+/**
+ * Строка счётчиков раздела — свой кусок потока (issue #651).
+ *
+ * Отказ базы гасится внутри: ошибка раздела одна, и она принадлежит списку —
+ * там есть и объяснение, и повтор. Строка без чисел сохраняет высоту, и
+ * раскладка не прыгает.
+ */
+async function KnowledgeSummary() {
+  const counts = await countsOrNull();
+
+  return (
+    <p className={styles.summary}>
+      {counts === null
+        ? texts.summaryUnknown
+        : texts.summary(counts.total, counts.published, counts.drafts)}
+    </p>
+  );
+}
+
+/** Отбор со списком рубрик: рубрики приезжают из базы, форма — сразу. */
+async function KnowledgeSearch({ filter }: { readonly filter: ArticleFilter }) {
+  const known = await categoriesOrEmpty();
+
+  return <ArticleSearch filter={filter} categories={known} />;
 }
 
 /**
@@ -136,13 +179,7 @@ async function ArticlesBlock({
   );
 }
 
-/**
- * Счётчики раздела или `null`, если база не ответила.
- *
- * Отказ гасится здесь, а не поднимается выше: ошибка раздела одна, и она
- * принадлежит списку — там есть и объяснение, и повтор. Строка без чисел при
- * этом сохраняет высоту, и раскладка не прыгает.
- */
+/** Счётчики раздела или `null`, если база не ответила. */
 async function countsOrNull(): Promise<Awaited<ReturnType<typeof adminCounts>> | null> {
   try {
     return await adminCounts();

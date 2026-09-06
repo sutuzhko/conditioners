@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 
+import { cache } from 'react';
+
 import {
   STOCK_PATH,
   STOCK_TAB_TITLES,
@@ -28,9 +30,11 @@ import { requireOwnerPage } from '@/server/guards';
 import { list as listStaff } from '@/server/repo/admin-users';
 import { movements, overview, zones as listZones } from '@/server/repo/stock';
 import type { AdminSession } from '@/server/auth';
+import { DataBlock, LineSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
 import { PanelTabLinks } from '../PanelTabLinks';
 import { StockHeader } from './StockHeader';
+import { StockSkeleton, StockTableSkeleton } from './StockSkeleton';
 import styles from './page.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -81,12 +85,20 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
  *
  * Читаем `repo` напрямую, а не своим же запросом к `/api/admin/stock`: страница
  * и так серверная, лишний круг через сеть — лишний способ отказать.
+ *
+ * 🔴 Заготовки раздела живут внутри страницы, а не в `loading.tsx` (issue
+ * #651). Заготовка на границе раздела уходила в ответ первой и уносила с
+ * собой код 200: `notFound()` карточки удалённой позиции менял потом лишь
+ * тело. Здесь до первого байта доходит только разбор адреса, а место данных
+ * держат `Suspense` шапки и вкладки.
  */
 export default async function AdminStockPage({ searchParams }: PageProps) {
   const session = await requireOwnerPage();
 
   const params = await searchParams;
   const tab = stockTabFromParam(params.tab);
+
+  const viewer = { role: session.role, userId: session.userId };
 
   /* 🔴 Остатки читает сама страница, а не вкладка: их счёт стоит подстрокой
      заголовка, а заголовок один на три вкладки. Данные получает серверный
@@ -102,20 +114,31 @@ export default async function AdminStockPage({ searchParams }: PageProps) {
     archived: lowFromParam(params.archived),
   };
 
-  const found =
-    tab === 'stock'
-      ? await overview(
-          { ...filters, page: pageNumber(params.page) },
-          { role: session.role, userId: session.userId },
-        )
-      : null;
+  /* 🔴 Один и тот же объект запроса на оба куска потока, а не два одинаковых
+     литерала: `cache` React различает вызовы по ссылкам на аргументы, и
+     свежий объект на каждый вызов означал бы второй поход в базу за теми же
+     строками — с риском, что счёт в шапке разойдётся с таблицей под ним. */
+  const query = { ...filters, page: pageNumber(params.page) };
 
   return (
     <div className={styles.page}>
       <StockHeader
-        {...(found === null
-          ? {}
-          : { counts: texts.countsLine(found.itemsTotal, found.lowCount, found.nearCount) })}
+        counts={
+          tab === 'stock' ? (
+            <DataBlock
+              surface="bare"
+              skeleton={
+                <p className={styles.counts}>
+                  <LineSkeleton width="min(280px, 70%)" />
+                </p>
+              }
+              title={texts.loadFailed}
+              note={blockErrorNote(STOCK_PATH)}
+            >
+              <StockCounts query={query} viewer={viewer} />
+            </DataBlock>
+          ) : undefined
+        }
       />
 
       {/* 🔴 Лента вкладок прокручивается вбок, а не складывается столбиком.
@@ -133,21 +156,56 @@ export default async function AdminStockPage({ searchParams }: PageProps) {
         />
       </div>
 
-      {tab === 'log' ? <JournalTab params={params} /> : null}
-      {tab === 'zones' ? <ZonesTab session={session} /> : null}
-      {found === null ? null : <OverviewTab found={found} filters={filters} />}
+      <DataBlock
+        skeleton={tab === 'stock' ? <StockSkeleton /> : <StockTableSkeleton />}
+        title={texts.loadFailed}
+        note={blockErrorNote(STOCK_PATH)}
+      >
+        {tab === 'log' ? <JournalTab params={params} /> : null}
+        {tab === 'zones' ? <ZonesTab session={session} /> : null}
+        {tab === 'stock' ? <OverviewTab query={query} viewer={viewer} filters={filters} /> : null}
+      </DataBlock>
     </div>
   );
 }
 
+/**
+ * Остатки по зонам — один поход в базу на оба куска потока.
+ *
+ * `cache` React держит результат в пределах одного запроса: счёт в шапке и
+ * таблица под лентой вкладок читают одну и ту же выборку.
+ */
+const stockOverview = cache(overview);
+
+/** Счёт склада — подстрока заголовка, свой кусок потока (issue #609, #651). */
+async function StockCounts({
+  query,
+  viewer,
+}: {
+  readonly query: Parameters<typeof overview>[0];
+  readonly viewer: Parameters<typeof overview>[1];
+}) {
+  const found = await stockOverview(query, viewer);
+
+  return (
+    <p className={styles.counts}>
+      {texts.countsLine(found.itemsTotal, found.lowCount, found.nearCount)}
+    </p>
+  );
+}
+
 /** Остатки по зонам: таблица «позиции × зоны» и фильтры над ней. */
-function OverviewTab({
-  found,
+async function OverviewTab({
+  query,
+  viewer,
   filters,
 }: {
-  readonly found: StockOverview;
+  readonly query: Parameters<typeof overview>[0];
+  readonly viewer: Parameters<typeof overview>[1];
   readonly filters: StockFilterState;
 }) {
+  const found: StockOverview = await stockOverview(query, viewer);
+
   return (
     <>
       {/* 🔴 Плитки стоят до фильтра: «надо ли сегодня что-то заказывать» —

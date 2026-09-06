@@ -19,6 +19,9 @@ export const CLIENT_TAB_TITLES: Readonly<Record<ClientCardTab, string>> = {
 };
 
 export const clientManagerContent = {
+  /** Заголовки ошибок блоков раздела: что именно не приехало (issue #651). */
+  loadFailed: 'Не удалось загрузить клиентов',
+  cardLoadFailed: 'Не удалось загрузить карточку клиента',
   title: 'Клиенты',
   lead: 'Люди, с которыми компания работает: телефон, адрес и история обращений. Клиент заводится из обращения или руками — по телефону он в базе один.',
 

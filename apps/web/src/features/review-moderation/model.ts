@@ -174,6 +174,14 @@ export type ReviewCard = {
   readonly text: string;
   /** Снимок места установки: по нему модератор и принимает решение. */
   readonly photo: string | null;
+  /**
+   * Ссылка есть, а файла на диске нет — issue #662.
+   *
+   * 🔴 Отдельное состояние, а не `photo: null`: «фотографии не прикладывали» и
+   * «фотография была, но пропала» — разные новости. Первая ничего не значит,
+   * вторая говорит модератору, что решать придётся по одному тексту.
+   */
+  readonly photoMissing?: boolean | undefined;
   /** Фотография автора; нет — рисуются инициалы, это тоже аватар. */
   readonly avatar: string | null;
   readonly status: ReviewStatus;

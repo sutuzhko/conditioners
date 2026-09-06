@@ -23,8 +23,8 @@
  * числе на пустой базе после `prisma migrate reset`.
  */
 import { randomUUID } from 'node:crypto';
-import { mkdir, readdir, rename, rm, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { mkdir, readdir, rename, rm, stat, writeFile } from 'node:fs/promises';
+import { join, resolve } from 'node:path';
 
 import { hash as hashPassword } from '@node-rs/argon2';
 import { Prisma, PrismaClient } from '@prisma/client';
@@ -2849,6 +2849,62 @@ function phoneKeyOf(input: string): string {
  * законно, и отказываться работать здесь не за что — сказать нужно ровно
  * тогда, когда человек читает итог.
  */
+/**
+ * Сверяет ссылки на снимки с файлами на диске — issue #662.
+ *
+ * 🔴 Сид кладёт файл рядом с записью и всегда клал: `makeImage` пишет его в
+ * `UPLOADS_DIR` тем же прогоном. Ломается не это, а **пара** «база — том»:
+ * `UPLOADS_DIR` по умолчанию задан относительным путём (`.data/uploads`) и
+ * считается от рабочего каталога, а `DATABASE_URL` во всех деревьях и
+ * окружениях один. Значит, накатив демо-данные из одного рабочего дерева или
+ * из контейнера, во всех остальных получаешь записи со снимками, файлов
+ * которых там нет и не было.
+ *
+ * Молча это выглядит как сломанная вёрстка: битая картинка в модерации
+ * отзывов и в списке каталога. Поэтому сид проверяет себя сам и называет
+ * причину вместе с путём, по которому искал, — а интерфейс, со своей стороны,
+ * рисует честную заглушку вместо битого файла.
+ */
+async function verifyMedia(): Promise<void> {
+  const referenced = new Set<string>();
+  const take = (url: string | null): void => {
+    if (url !== null && url.startsWith(`${MEDIA_PREFIX}/`)) {
+      referenced.add(url.slice(MEDIA_PREFIX.length + 1));
+    }
+  };
+
+  for (const row of await prisma.productPhoto.findMany({ select: { url: true } })) take(row.url);
+  for (const row of await prisma.article.findMany({ select: { cover: true } })) take(row.cover);
+  for (const row of await prisma.review.findMany({ select: { photo: true, avatar: true } })) {
+    take(row.photo);
+    take(row.avatar);
+  }
+  for (const row of await prisma.clientUnit.findMany({ select: { photo: true } })) take(row.photo);
+
+  const missing: string[] = [];
+  for (const name of referenced) {
+    const ok = await stat(join(UPLOADS_DIR, name))
+      .then((info) => info.isFile())
+      .catch(() => false);
+
+    if (!ok) missing.push(name);
+  }
+
+  if (missing.length === 0) return;
+
+  console.error('');
+  console.error(`🔴 Снимков без файла: ${missing.length} из ${referenced.size}.`);
+  console.error(`   Искал в: ${resolve(UPLOADS_DIR)}`);
+  console.error('   UPLOADS_DIR задан относительным путём и считается от рабочего');
+  console.error('   каталога, а база у всех деревьев и окружений одна. Демо-данные,');
+  console.error('   накатанные из другого дерева или из контейнера, оставляют записи');
+  console.error('   со снимками, файлов которых здесь нет.');
+  console.error('   Лечится абсолютным UPLOADS_DIR, общим для всех деревьев,');
+  console.error('   либо повторным `pnpm seed:demo` из того дерева, где работаете.');
+
+  process.exitCode = 1;
+}
+
 async function warnIfNoOwner(): Promise<void> {
   if ((await prisma.adminUser.count({ where: { role: 'OWNER' } })) > 0) return;
 
@@ -3377,6 +3433,7 @@ async function main(): Promise<void> {
   console.error(`  журнал доставки — ${notifications.length} записей`);
 
   await warnIfNoOwner();
+  await verifyMedia();
 }
 
 main()
