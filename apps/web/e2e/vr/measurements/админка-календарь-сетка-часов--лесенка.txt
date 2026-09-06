@@ -21,7 +21,7 @@ section.TimeGrid__grid  358×659 @16,16
   div.AllDayBar__bar  358×38 @0,45  b0 0 1 0
     div.AllDayBar__rail  34×29 @0,4
       span.AllDayBar__label  28×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-    ul.AllDayBar__list  322×0 @36,4
+    ul.AllDayBar__lanes  322×0 @36,4
   div.TimeGrid__scroll  358×576 @0,83
     div.TimeGrid__hours  358×1008 @0,-336
       div.TimeGrid__rail  34×1008 @0,0
@@ -118,7 +118,7 @@ section.TimeGrid__grid  736×659 @16,16
   div.AllDayBar__bar  736×38 @0,45  b0 0 1 0
     div.AllDayBar__rail  34×29 @0,4
       span.AllDayBar__label  28×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-    ul.AllDayBar__list  700×0 @36,4
+    ul.AllDayBar__lanes  700×0 @36,4
   div.TimeGrid__scroll  736×576 @0,83
     div.TimeGrid__hours  736×1008 @0,-336
       div.TimeGrid__rail  34×1008 @0,0
@@ -224,7 +224,7 @@ section.TimeGrid__grid  1408×659 @16,16
   div.AllDayBar__bar  1408×38 @0,45  b0 0 1 0
     div.AllDayBar__rail  54×29 @0,4
       span.AllDayBar__label  48×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-    ul.AllDayBar__list  1350×0 @58,4
+    ul.AllDayBar__lanes  1350×0 @58,4
   div.TimeGrid__scroll  1408×576 @0,83
     div.TimeGrid__hours  1408×1152 @0,-384
       div.TimeGrid__rail  54×1152 @0,0
@@ -330,7 +330,7 @@ section.TimeGrid__grid
   div.AllDayBar__bar  border #0f172a #0f172a #e2e8f0 #0f172a
     div.AllDayBar__rail
       span.AllDayBar__label  color #5b6a7d
-    ul.AllDayBar__list
+    ul.AllDayBar__lanes
   div.TimeGrid__scroll
     div.TimeGrid__hours
       div.TimeGrid__rail
@@ -436,7 +436,7 @@ section.TimeGrid__grid
   div.AllDayBar__bar  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
     div.AllDayBar__rail
       span.AllDayBar__label  color #7e92a7
-    ul.AllDayBar__list
+    ul.AllDayBar__lanes
   div.TimeGrid__scroll
     div.TimeGrid__hours
       div.TimeGrid__rail
