@@ -2,14 +2,14 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×945
+390 → 390×1007
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×913 @16,16  r20  b1
-  div.Table__viewport  356×911 @1,1
-    table.Table__table  356×911 @0,0
+section.Card__card  358×975 @16,16  r20  b1
+  div.Table__viewport  356×973 @1,1
+    table.Table__table  356×973 @0,0
       tr[role=row]  1×56 @0,0
         th  114×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заголовок»
         th.AdminArticleList__colCategory  99×56 @114,0  Onest 700 15/23  b0 0 1 0  lines=1  «Рубрика»
@@ -18,27 +18,27 @@ section.Card__card  358×913 @16,16  r20  b1
         th.AdminArticleList__colState  102×56 @373,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
         th.AdminArticleList__colActions  36×56 @475,0  b0 0 1 0
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
-      tr[role=row]#2  356×304 @0,0  r14  b1
-        td.AdminArticleList__titleCell  354×82 @1,5
+      tr[role=row]#2  356×326 @0,0  r14  b1
+        td.AdminArticleList__titleCell  354×103 @1,5
           td.AdminArticleList__titleCell::before  65×20 @0,0
-          span.AdminArticleList__names  247×68 @93,7
+          span.AdminArticleList__names  247×89 @93,7
             span.AdminArticleList__name  247×45 @0,0  Manrope 600 15/22  lines=2  «Инвертор или обычный кондиционер»
-            span.AdminArticleList__sub  247×21 @0,47  clipped
-              span.AdminArticleList__slug  250×18 @0,1  JetBrains Mono 400 13/20  lines=1  «/knowledge/invertor-ili-obychnyy»
-              span  8×18 @250,1  Manrope 400 13/20  lines=1  «·»
-              span.AdminArticleList__chars  80×18 @258,1  Manrope 400 13/20  lines=1  «6 120 знаков»
-        td[role=cell]  354×42 @1,87
+            span.AdminArticleList__sub  247×42 @0,47
+              span.AdminArticleList__slug  187×38 @60,2  JetBrains Mono 400 13/20  lines=2  «/knowledge/invertor-ili-obychnyy»
+              span  8×18 @159,22  Manrope 400 13/20  lines=1  «·»
+              span.AdminArticleList__chars  80×18 @167,22  Manrope 400 13/20  lines=1  «6 120 знаков»
+        td[role=cell]  354×42 @1,108
           td[role=cell]::before  51×20 @0,0
           span.Badge__badge  114×28 @226,7  Manrope 600 12/16  r100  b1  lines=1  «Выбор техники»
-        td.AdminArticleList__date  354×36 @1,129  Manrope 400 15/22  lines=1  «01.08.2026»
+        td.AdminArticleList__date  354×36 @1,150  Manrope 400 15/22  lines=1  «01.08.2026»
           td.AdminArticleList__date::before  30×20 @0,0
-        td.AdminArticleList__minutes  354×36 @1,166  Manrope 400 15/22  lines=1  «6 мин»
+        td.AdminArticleList__minutes  354×36 @1,187  Manrope 400 15/22  lines=1  «6 мин»
           td.AdminArticleList__minutes::before  45×20 @0,0
-        td[role=cell]#2  354×42 @1,202
+        td[role=cell]#2  354×42 @1,223
           td[role=cell]#2::before  55×20 @0,0
           span.Badge__badge  123×28 @217,7  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  354×51 @1,248  b1 0 0 0
+        td[role=cell]#3  354×51 @1,270  b1 0 0 0
           div.TableActions__actions  116×36 @224,8
             span.Tooltip__wrap  36×36 @0,0  r100
               span.Tooltip__anchor  36×36 @0,0
@@ -56,27 +56,27 @@ section.Card__card  358×913 @16,16  r20  b1
                   button.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea  24×34 @6,1
                       svg#3  16×16 @4,9
-      tr[role=row]#3  356×282 @0,314  r14  b1
-        td.AdminArticleList__titleCell  354×60 @1,5
+      tr[role=row]#3  356×302 @0,336  r14  b1
+        td.AdminArticleList__titleCell  354×80 @1,5
           td.AdminArticleList__titleCell::before  65×20 @0,0
-          span.AdminArticleList__names#2  247×46 @93,7
+          span.AdminArticleList__names#2  247×66 @93,7
             span.AdminArticleList__name  247×22 @0,0  Manrope 600 15/22  lines=1  «Как часто чистить кондиционер»
-            span.AdminArticleList__sub  247×21 @0,24  clipped
-              span.AdminArticleList__slug#2  226×17 @0,2  JetBrains Mono 400 13/20  lines=1  «/knowledge/kak-chasto-chistit»
-              span#2  16×18 @226,1  Manrope 400 13/20  lines=1  «·»
-              span.AdminArticleList__chars#2  80×18 @234,1  Manrope 400 13/20  lines=1  «4 380 знаков»
-        td[role=cell]  354×42 @1,65
+            span.AdminArticleList__sub  247×41 @0,24
+              span.AdminArticleList__slug#2  226×17 @15,2  JetBrains Mono 400 13/20  lines=1  «/knowledge/kak-chasto-chistit»
+              span#2  6×18 @242,1  Manrope 400 13/20  lines=1  «·»
+              span.AdminArticleList__chars#2  80×18 @167,22  Manrope 400 13/20  lines=1  «4 380 знаков»
+        td[role=cell]  354×42 @1,85
           td[role=cell]::before  51×20 @0,0
           span.Badge__badge#2  110×28 @230,7  Manrope 600 12/16  r100  b1  lines=1  «Эксплуатация»
-        td.AdminArticleList__date  354×36 @1,107  Manrope 400 15/22  lines=1  «14.07.2026»
+        td.AdminArticleList__date  354×36 @1,127  Manrope 400 15/22  lines=1  «14.07.2026»
           td.AdminArticleList__date::before  30×20 @0,0
-        td.AdminArticleList__minutes  354×36 @1,143  Manrope 400 15/22  lines=1  «4 мин»
+        td.AdminArticleList__minutes  354×36 @1,163  Manrope 400 15/22  lines=1  «4 мин»
           td.AdminArticleList__minutes::before  45×20 @0,0
-        td[role=cell]#2  354×42 @1,180
+        td[role=cell]#2  354×42 @1,200
           td[role=cell]#2::before  55×20 @0,0
           span.Badge__badge#2  123×28 @217,7  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  354×51 @1,226  b1 0 0 0
+        td[role=cell]#3  354×51 @1,246  b1 0 0 0
           div.TableActions__actions#2  116×36 @224,8
             span.Tooltip__wrap  36×36 @0,0  r100
               span.Tooltip__anchor#3  36×36 @0,0
@@ -94,29 +94,29 @@ section.Card__card  358×913 @16,16  r20  b1
                   button.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea#2  24×34 @6,1
                       svg#2  16×16 @4,9
-      tr[role=row]#4  356×304 @0,606  r14  b1
-        td.AdminArticleList__titleCell  354×82 @1,5
+      tr[role=row]#4  356×326 @0,648  r14  b1
+        td.AdminArticleList__titleCell  354×103 @1,5
           td.AdminArticleList__titleCell::before  65×20 @0,0
-          span.AdminArticleList__names#3  247×68 @93,7
+          span.AdminArticleList__names#3  247×89 @93,7
             span.AdminArticleList__name  247×45 @0,0  Manrope 600 15/22  lines=2  «Черновик про монтаж в панельном доме»
-            span.AdminArticleList__sub  247×21 @0,47  clipped
-              span.AdminArticleList__slug#3  265×18 @0,1  JetBrains Mono 400 13/20  lines=1  «/knowledge/montazh-v-panelnom-dome»
-              span#3  8×18 @265,1  Manrope 400 13/20  lines=1  «·»
-              span.AdminArticleList__chars#3  80×18 @273,1  Manrope 400 13/20  lines=1  «1 840 знаков»
-              span#4  8×18 @353,1  Manrope 400 13/20  lines=1  «·»
-              span.AdminArticleList__warn  127×18 @361,1  Manrope 400 13/20  lines=1  «обложка не выбрана»
-        td[role=cell]  354×42 @1,87
+            span.AdminArticleList__sub  247×42 @0,47  clipped
+              span.AdminArticleList__slug#3  234×38 @13,2  JetBrains Mono 400 13/20  lines=2  «/knowledge/montazh-v-panelnom-dome»
+              span#3  8×18 @80,22  Manrope 400 13/20  lines=1  «·»
+              span.AdminArticleList__chars#3  80×18 @88,22  Manrope 400 13/20  lines=1  «1 840 знаков»
+              span#4  8×18 @168,22  Manrope 400 13/20  lines=1  «·»
+              span.AdminArticleList__warn  79×39 @176,22  Manrope 400 13/20  lines=2  «обложка не выбрана»
+        td[role=cell]  354×42 @1,108
           td[role=cell]::before  51×20 @0,0
           span.Badge__badge#3  73×28 @267,7  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
-        td.AdminArticleList__date  354×36 @1,129  Manrope 400 15/22  lines=1  «20.08.2026»
+        td.AdminArticleList__date  354×36 @1,150  Manrope 400 15/22  lines=1  «20.08.2026»
           td.AdminArticleList__date::before  30×20 @0,0
-        td.AdminArticleList__minutes  354×36 @1,166  Manrope 400 15/22  lines=1  «8 мин»
+        td.AdminArticleList__minutes  354×36 @1,187  Manrope 400 15/22  lines=1  «8 мин»
           td.AdminArticleList__minutes::before  45×20 @0,0
-        td[role=cell]#2  354×42 @1,202
+        td[role=cell]#2  354×42 @1,223
           td[role=cell]#2::before  55×20 @0,0
           span.Badge__badge#3  95×28 @245,7  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  354×51 @1,248  b1 0 0 0
+        td[role=cell]#3  354×51 @1,270  b1 0 0 0
           div.TableActions__actions#3  116×36 @224,8
             span.Tooltip__wrap  36×36 @0,0  r100
               span.Tooltip__anchor#4  36×36 @0,0
@@ -136,33 +136,33 @@ section.Card__card  358×913 @16,16  r20  b1
                       svg#2  16×16 @4,9
 
 [геометрия 768]
-section.Card__card  736×281 @16,16  r20  b1
-  div.Table__viewport  734×279 @1,1
-    table.Table__table  1185×279 @0,0
-      tr[role=row]  1185×56 @0,0
-        th  524×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заголовок»
-        th.AdminArticleList__colCategory  146×56 @524,0  Onest 700 15/23  b0 0 1 0  lines=1  «Рубрика»
-        th.AdminArticleList__colDate  115×56 @670,0  Onest 700 15/23  b0 0 1 0  lines=1  «Дата»
-        th.AdminArticleList__colMinutes  89×56 @785,0  Onest 700 15/23  b0 0 1 0  lines=1  «Чтение»
-        th.AdminArticleList__colState  159×56 @874,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
-        th.AdminArticleList__colActions  152×56 @1033,0  b0 0 1 0
+section.Card__card  736×502 @16,16  r20  b1
+  div.Table__viewport  734×500 @1,1
+    table.Table__table  793×500 @0,0
+      tr[role=row]  793×56 @0,0
+        th  132×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заголовок»
+        th.AdminArticleList__colCategory  146×56 @132,0  Onest 700 15/23  b0 0 1 0  lines=1  «Рубрика»
+        th.AdminArticleList__colDate  115×56 @278,0  Onest 700 15/23  b0 0 1 0  lines=1  «Дата»
+        th.AdminArticleList__colMinutes  89×56 @393,0  Onest 700 15/23  b0 0 1 0  lines=1  «Чтение»
+        th.AdminArticleList__colState  159×56 @482,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
+        th.AdminArticleList__colActions  152×56 @641,0  b0 0 1 0
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
-      tr[role=row]#2  1185×75 @0,56
-        td.AdminArticleList__titleCell  524×75 @0,0  b0 0 1 0
-          span.AdminArticleList__names  488×46 @18,15
-            span.AdminArticleList__name  488×22 @0,0  Manrope 600 15/22  lines=1  «Инвертор или обычный кондиционер»
-            span.AdminArticleList__sub  488×21 @0,24
-              span.AdminArticleList__slug  250×17 @0,2  JetBrains Mono 400 13/20  lines=1  «/knowledge/invertor-ili-obychnyy»
-              span  8×18 @250,1  Manrope 400 13/20  lines=1  «·»
-              span.AdminArticleList__chars  80×18 @258,1  Manrope 400 13/20  lines=1  «6 120 знаков»
-        td[role=cell]  146×75 @524,0  b0 0 1 0
+      tr[role=row]#2  793×141 @0,56
+        td.AdminArticleList__titleCell  132×141 @0,0  b0 0 1 0
+          span.AdminArticleList__names  96×112 @18,15
+            span.AdminArticleList__name  96×67 @0,0  Manrope 600 15/22  lines=3  «Инвертор или обычный кондиционер»
+            span.AdminArticleList__sub  96×42 @0,69  clipped
+              span.AdminArticleList__slug  94×59 @0,2  JetBrains Mono 400 13/20  lines=3  «/knowledge/invertor-ili-obychnyy»
+              span  6×18 @62,43  Manrope 400 13/20  lines=1  «·»
+              span.AdminArticleList__chars  80×18 @0,64  Manrope 400 13/20  lines=1  «6 120 знаков»
+        td[role=cell]  146×141 @132,0  b0 0 1 0
           span.Badge__badge  110×44 @18,15  Manrope 600 12/16  r100  b1  lines=2  «Выбор техники»
-        td.AdminArticleList__date  115×75 @670,0  Manrope 400 15/22  b0 0 1 0  lines=1  «01.08.2026»
-        td.AdminArticleList__minutes  89×75 @785,0  Manrope 400 15/22  b0 0 1 0  lines=1  «6 мин»
-        td[role=cell]#2  159×75 @874,0  b0 0 1 0
+        td.AdminArticleList__date  115×141 @278,0  Manrope 400 15/22  b0 0 1 0  lines=1  «01.08.2026»
+        td.AdminArticleList__minutes  89×141 @393,0  Manrope 400 15/22  b0 0 1 0  lines=1  «6 мин»
+        td[role=cell]#2  159×141 @482,0  b0 0 1 0
           span.Badge__badge  123×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  152×75 @1033,0  b0 0 1 0
+        td[role=cell]#3  152×141 @641,0  b0 0 1 0
           div.TableActions__actions  116×36 @18,15
             span.Tooltip__wrap  36×36 @0,0  r100
               span.Tooltip__anchor  36×36 @0,0
@@ -180,22 +180,22 @@ section.Card__card  736×281 @16,16  r20  b1
                   button.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea  24×34 @6,1
                       svg#3  16×16 @4,9
-      tr[role=row]#3  1185×75 @0,130
-        td.AdminArticleList__titleCell  524×75 @0,0  b0 0 1 0
-          span.AdminArticleList__names#2  488×46 @18,15
-            span.AdminArticleList__name  488×22 @0,0  Manrope 600 15/22  lines=1  «Как часто чистить кондиционер»
-            span.AdminArticleList__sub  488×21 @0,24
-              span.AdminArticleList__slug#2  226×17 @0,2  JetBrains Mono 400 13/20  lines=1  «/knowledge/kak-chasto-chistit»
-              span#2  8×18 @226,1  Manrope 400 13/20  lines=1  «·»
-              span.AdminArticleList__chars#2  80×18 @234,1  Manrope 400 13/20  lines=1  «4 380 знаков»
-        td[role=cell]  146×75 @524,0  b0 0 1 0
+      tr[role=row]#3  793×141 @0,196
+        td.AdminArticleList__titleCell  132×141 @0,0  b0 0 1 0
+          span.AdminArticleList__names#2  96×112 @18,15
+            span.AdminArticleList__name  96×67 @0,0  Manrope 600 15/22  lines=3  «Как часто чистить кондиционер»
+            span.AdminArticleList__sub  96×42 @0,69  clipped
+              span.AdminArticleList__slug#2  94×59 @0,2  JetBrains Mono 400 13/20  lines=3  «/knowledge/kak-chasto-chistit»
+              span#2  6×18 @55,43  Manrope 400 13/20  lines=1  «·»
+              span.AdminArticleList__chars#2  80×18 @0,64  Manrope 400 13/20  lines=1  «4 380 знаков»
+        td[role=cell]  146×141 @132,0  b0 0 1 0
           span.Badge__badge#2  110×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Эксплуатация»
-        td.AdminArticleList__date  115×75 @670,0  Manrope 400 15/22  b0 0 1 0  lines=1  «14.07.2026»
-        td.AdminArticleList__minutes  89×75 @785,0  Manrope 400 15/22  b0 0 1 0  lines=1  «4 мин»
-        td[role=cell]#2  159×75 @874,0  b0 0 1 0
+        td.AdminArticleList__date  115×141 @278,0  Manrope 400 15/22  b0 0 1 0  lines=1  «14.07.2026»
+        td.AdminArticleList__minutes  89×141 @393,0  Manrope 400 15/22  b0 0 1 0  lines=1  «4 мин»
+        td[role=cell]#2  159×141 @482,0  b0 0 1 0
           span.Badge__badge#2  123×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  152×75 @1033,0  b0 0 1 0
+        td[role=cell]#3  152×141 @641,0  b0 0 1 0
           div.TableActions__actions#2  116×36 @18,15
             span.Tooltip__wrap  36×36 @0,0  r100
               span.Tooltip__anchor#3  36×36 @0,0
@@ -213,24 +213,24 @@ section.Card__card  736×281 @16,16  r20  b1
                   button.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea#2  24×34 @6,1
                       svg#2  16×16 @4,9
-      tr[role=row]#4  1185×74 @0,205
-        td.AdminArticleList__titleCell  524×74 @0,0
-          span.AdminArticleList__names#3  488×46 @18,15
-            span.AdminArticleList__name  488×22 @0,0  Manrope 600 15/22  lines=1  «Черновик про монтаж в панельном доме»
-            span.AdminArticleList__sub  488×21 @0,24
-              span.AdminArticleList__slug#3  265×17 @0,2  JetBrains Mono 400 13/20  lines=1  «/knowledge/montazh-v-panelnom-dome»
-              span#3  8×18 @265,1  Manrope 400 13/20  lines=1  «·»
-              span.AdminArticleList__chars#3  80×18 @273,1  Manrope 400 13/20  lines=1  «1 840 знаков»
-              span#4  8×18 @353,1  Manrope 400 13/20  lines=1  «·»
-              span.AdminArticleList__warn  127×18 @361,1  Manrope 400 13/20  lines=1  «обложка не выбрана»
-        td[role=cell]  146×74 @524,0
+      tr[role=row]#4  793×163 @0,337
+        td.AdminArticleList__titleCell  132×163 @0,0
+          span.AdminArticleList__names#3  96×134 @18,15
+            span.AdminArticleList__name  96×90 @0,0  Manrope 600 15/22  lines=4  «Черновик про монтаж в панельном доме»
+            span.AdminArticleList__sub  96×42 @0,92  clipped
+              span.AdminArticleList__slug#3  94×80 @0,2  JetBrains Mono 400 13/20  lines=4  «/knowledge/montazh-v-panelnom-dome»
+              span#3  8×18 @31,64  Manrope 400 13/20  lines=1  «·»
+              span.AdminArticleList__chars#3  74×39 @0,64  Manrope 400 13/20  lines=2  «1 840 знаков»
+              span#4  6×18 @42,86  Manrope 400 13/20  lines=1  «·»
+              span.AdminArticleList__warn  71×38 @0,106  Manrope 400 13/20  lines=2  «обложка не выбрана»
+        td[role=cell]  146×163 @132,0
           span.Badge__badge#3  73×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
-        td.AdminArticleList__date  115×74 @670,0  Manrope 400 15/22  lines=1  «20.08.2026»
-        td.AdminArticleList__minutes  89×74 @785,0  Manrope 400 15/22  lines=1  «8 мин»
-        td[role=cell]#2  159×74 @874,0
+        td.AdminArticleList__date  115×163 @278,0  Manrope 400 15/22  lines=1  «20.08.2026»
+        td.AdminArticleList__minutes  89×163 @393,0  Manrope 400 15/22  lines=1  «8 мин»
+        td[role=cell]#2  159×163 @482,0
           span.Badge__badge#3  95×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  152×74 @1033,0
+        td[role=cell]#3  152×163 @641,0
           div.TableActions__actions#3  116×36 @18,15
             span.Tooltip__wrap  36×36 @0,0  r100
               span.Tooltip__anchor#4  36×36 @0,0
