@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import {
+  CLIENTS_PATH,
   CLIENT_CARD_TABS,
   CLIENT_TAB_TITLES,
   ClientForm,
@@ -14,15 +15,18 @@ import {
   type ClientLead,
   type ClientOrder,
 } from '@/features/client-manager';
+import type { ClientCard } from '@/entities/client/model';
 import { getAdminSession, isOwner } from '@/server/auth';
 import { requireOwnerPage } from '@/server/guards';
 import { listByClient as listUnits } from '@/server/repo/client-units';
 import { findById } from '@/server/repo/clients';
 import { listByClient as listLeads } from '@/server/repo/leads';
-import { listByClient as listOrders } from '@/server/repo/orders';
+import { listByClient as listOrders, type Viewer } from '@/server/repo/orders';
 import { todayKey } from '@/shared/lib/calendar';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
+import { DataBlock, RowsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
+import { PanelTabStrip } from '../../PanelTabStrip';
 import { PanelTabs } from '../../PanelTabs';
 import styles from '../page.module.css';
 
@@ -62,6 +66,13 @@ export async function generateMetadata({ params }: Pick<PageProps, 'params'>): P
  * запросом страницы и переключаются без похода в сеть (ADR-256).
  *
  * Раздел владельца: проверка до чтения данных (ADR-095).
+ *
+ * 🔴 Существование клиента решается **до** первого куска потока (issue #651).
+ * Пока заготовка стояла на границе раздела, она уходила в ответ первой, и
+ * `notFound()` заставал статус уже отправленным: карточка удалённого клиента
+ * отвечала 200. Здесь до первого байта успевает пройти только поиск самого
+ * клиента — по нему же собирается шапка, — а обращения, наряды и техника
+ * приезжают следом, отдельным куском потока.
  */
 export default async function AdminClientPage({ params, searchParams }: PageProps) {
   const session = await requireOwnerPage();
@@ -72,13 +83,74 @@ export default async function AdminClientPage({ params, searchParams }: PageProp
 
   const viewer = { role: session.role, userId: session.userId };
 
-  const [client, leads, units, orders] = await Promise.all([
-    findById(id),
-    listLeads(id),
-    listUnits(id),
-    listOrders(id, viewer),
-  ]);
+  const client = await findById(id);
   if (client === null) notFound();
+
+  return (
+    <div className={styles.page}>
+      <Link className={styles.back} href={{ pathname: '/admin/clients' }}>
+        {texts.back}
+      </Link>
+
+      <header className={styles.header}>
+        <h1 className={styles.title}>{client.name}</h1>
+        <p className={styles.meta}>
+          {/* 🔴 Телефон — кнопка звонка, а не строка: с телефона по нему
+              звонят, а не переписывают в другую руку (issue #350). Вид кнопки
+              включается на узком экране, действие у ссылки одно и то же. */}
+          <a className={`${styles.phone} tapAction`} href={phoneHref(client.phone)}>
+            {formatPhone(client.phone)}
+          </a>
+          <span>{texts.since(client.createdAt)}</span>
+          <span>{texts.leadCount(client.leadCount)}</span>
+        </p>
+      </header>
+
+      {/* 🔴 Лента вкладок приезжает вместе с содержимым, а не раньше него: у
+          подписей стоят счётчики, и лента без чисел, дорисованная потом,
+          дёргала бы ширину вкладок под курсором. Заготовка держит и ленту, и
+          три полотна той же высоты (ADR-239). */}
+      <DataBlock
+        surface="bare"
+        skeleton={
+          <>
+            <PanelTabStrip
+              tabs={CLIENT_CARD_TABS}
+              titles={CLIENT_TAB_TITLES}
+              label={texts.tabsLabel}
+            />
+            <RowsSkeleton rows={3} height="280px" />
+          </>
+        }
+        title={texts.cardLoadFailed}
+        note={blockErrorNote(CLIENTS_PATH)}
+      >
+        <ClientCard client={client} active={active} viewer={viewer} />
+      </DataBlock>
+    </div>
+  );
+}
+
+/**
+ * Вкладки карточки — то, что приезжает отдельным куском потока.
+ *
+ * Данные всех трёх вкладок читаются одним заходом и переключаются без похода
+ * в сеть (ADR-256): вкладка — это состояние экрана, а не новая страница.
+ */
+async function ClientCard({
+  client,
+  active,
+  viewer,
+}: {
+  readonly client: ClientCard;
+  readonly active: ReturnType<typeof clientCardTabFromParam>;
+  readonly viewer: Viewer;
+}) {
+  const [leads, units, orders] = await Promise.all([
+    listLeads(client.id),
+    listUnits(client.id),
+    listOrders(client.id, viewer),
+  ]);
 
   /* Заявке в карточке клиента нужно ровно то, чем вспоминают разговор: всё
      остальное — включая согласие на обработку — живёт в разделе заявок. */
@@ -106,66 +178,46 @@ export default async function AdminClientPage({ params, searchParams }: PageProp
   }));
 
   return (
-    <div className={styles.page}>
-      <Link className={styles.back} href={{ pathname: '/admin/clients' }}>
-        {texts.back}
-      </Link>
-
-      <header className={styles.header}>
-        <h1 className={styles.title}>{client.name}</h1>
-        <p className={styles.meta}>
-          {/* 🔴 Телефон — кнопка звонка, а не строка: с телефона по нему
-              звонят, а не переписывают в другую руку (issue #350). Вид кнопки
-              включается на узком экране, действие у ссылки одно и то же. */}
-          <a className={`${styles.phone} tapAction`} href={phoneHref(client.phone)}>
-            {formatPhone(client.phone)}
-          </a>
-          <span>{texts.since(client.createdAt)}</span>
-          <span>{texts.leadCount(client.leadCount)}</span>
-        </p>
-      </header>
-
-      <PanelTabs
-        active={active}
-        tabs={CLIENT_CARD_TABS}
-        titles={CLIENT_TAB_TITLES}
-        label={texts.tabsLabel}
-        idPrefix="client"
-        /* Счётчики у подписей (issue #602, макет `CardTabs.png`): по ним видно,
+    <PanelTabs
+      active={active}
+      tabs={CLIENT_CARD_TABS}
+      titles={CLIENT_TAB_TITLES}
+      label={texts.tabsLabel}
+      idPrefix="client"
+      /* Счётчики у подписей (issue #602, макет `CardTabs.png`): по ним видно,
            есть ли за вкладкой что-нибудь, до того как на неё нажали. */
-        counts={{ orders: orders.total, units: units.length }}
-        panels={{
-          data: (
-            <>
-              <ClientForm
-                clientId={client.id}
-                initial={{
-                  name: client.name,
-                  phone: client.phone,
-                  address: client.address ?? '',
-                  note: client.note ?? '',
-                }}
-                title={texts.cardTitle}
-                hint={texts.cardHint}
-                removable
-              />
-
-              {/* Обращения стоят рядом с данными, а не в «Заказах»: это след
-                  разговора с человеком, а не работа с деньгами и датой. */}
-              <ClientLeads leads={history} />
-            </>
-          ),
-          orders: (
-            <ClientOrders
-              orders={{ items: works, total: orders.total }}
-              allHref={{ pathname: '/admin/orders', query: { q: client.name, tab: 'all' } }}
+      counts={{ orders: orders.total, units: units.length }}
+      panels={{
+        data: (
+          <>
+            <ClientForm
+              clientId={client.id}
+              initial={{
+                name: client.name,
+                phone: client.phone,
+                address: client.address ?? '',
+                note: client.note ?? '',
+              }}
+              title={texts.cardTitle}
+              hint={texts.cardHint}
+              removable
             />
-          ),
-          /* «Сегодня» считает сервер: истекла гарантия или нет, не должно
+
+            {/* Обращения стоят рядом с данными, а не в «Заказах»: это след
+                  разговора с человеком, а не работа с деньгами и датой. */}
+            <ClientLeads leads={history} />
+          </>
+        ),
+        orders: (
+          <ClientOrders
+            orders={{ items: works, total: orders.total }}
+            allHref={{ pathname: '/admin/orders', query: { q: client.name, tab: 'all' } }}
+          />
+        ),
+        /* «Сегодня» считает сервер: истекла гарантия или нет, не должно
              зависеть от часов на машине смотрящего. */
-          units: <ClientUnits clientId={client.id} units={units} today={todayKey()} />,
-        }}
-      />
-    </div>
+        units: <ClientUnits clientId={client.id} units={units} today={todayKey()} />,
+      }}
+    />
   );
 }

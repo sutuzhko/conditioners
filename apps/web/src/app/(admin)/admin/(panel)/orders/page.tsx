@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import { cache } from 'react';
+
 import {
   DEFAULT_ORDER_FILTERS,
+  ORDERS_PATH,
   OrderFilters,
   OrderInstallerAgenda,
   OrderList,
@@ -20,9 +23,11 @@ import {
 } from '@/features/order-manager';
 import { requirePage } from '@/server/guards';
 import { listInstallers } from '@/server/repo/admin-users';
-import { agenda, counts, historyTotals, list } from '@/server/repo/orders';
-import { buttonClassName } from '@/shared/ui';
+import { agenda, counts, historyTotals, list, type Viewer } from '@/server/repo/orders';
+import { Skeleton, buttonClassName } from '@/shared/ui';
+import { DataBlock, blockErrorNote } from '@/widgets/admin-shell';
 
+import { OrdersAgendaSkeleton, OrdersSkeleton } from './OrdersSkeleton';
 import styles from './page.module.css';
 
 export const metadata: Metadata = { title: texts.title };
@@ -44,6 +49,12 @@ export const dynamic = 'force-dynamic';
  * Стопка, период, монтажник, сортировка, состав колонок, число строк и
  * страница живут в адресе: «Отказы за прошлый месяц» — ссылка, которую
  * сохраняют в закладки. Окно наряда дня — там же, параметром `when`.
+ *
+ * 🔴 Заготовки раздела живут внутри страницы, а не в `loading.tsx` (issue
+ * #651). Заготовка на границе раздела уходила в ответ первой и уносила с
+ * собой код 200: чужой наряд отвечал монтажнику «не найдено» телом при
+ * статусе 200 — и сквозной сценарий доступа вынужден был это признать. Здесь
+ * до первого байта доходит только разбор адреса.
  */
 export default async function AdminOrdersPage({
   searchParams,
@@ -72,11 +83,16 @@ export default async function AdminOrdersPage({
      стопками, фильтрами и разбивкой ему не нужен вовсе. */
   if (session.role !== 'owner') {
     const when = installerWhenFromParam(params.when);
-    const orders = await agenda(viewer, agendaWindow(when));
 
     return (
       <div className={styles.page}>
-        <OrderInstallerAgenda orders={orders} when={when} />
+        <DataBlock
+          skeleton={<OrdersAgendaSkeleton />}
+          title={texts.loadFailed}
+          note={blockErrorNote(ORDERS_PATH)}
+        >
+          <InstallerAgendaBlock viewer={viewer} when={when} />
+        </DataBlock>
       </div>
     );
   }
@@ -97,6 +113,100 @@ export default async function AdminOrdersPage({
     columns: orderColumnsFromParam(params.cols),
   };
 
+  return (
+    <div className={styles.page}>
+      <header className={styles.header}>
+        <div className={styles.headline}>
+          <h1 className={styles.title}>{texts.title}</h1>
+
+          <Link
+            className={buttonClassName({ size: 'sm' })}
+            href={{ pathname: '/admin/orders/new' }}
+          >
+            {texts.add}
+          </Link>
+        </div>
+
+        {/* 🔴 Строка счёта вместо прозы (issue #593, макет «Заказы»): три числа
+            отвечают на три вопроса, которые владелец задаёт разделу первым.
+            Проза объясняла, что такое наряд, — а это он знает и без нас.
+
+            Свой кусок потока: строка стоит над стопками, и ждать ради неё
+            таблицу значит держать пустым весь экран. */}
+        <DataBlock
+          surface="bare"
+          skeleton={<Skeleton variant="text" width="28ch" />}
+          title={texts.loadFailed}
+          note={blockErrorNote(ORDERS_PATH)}
+        >
+          <OrdersCount viewer={viewer} />
+        </DataBlock>
+      </header>
+
+      <DataBlock
+        skeleton={<OrdersSkeleton />}
+        title={texts.loadFailed}
+        note={blockErrorNote(ORDERS_PATH)}
+      >
+        <OrdersBlock filters={filters} page={pageNumber(params.page)} viewer={viewer} />
+      </DataBlock>
+    </div>
+  );
+}
+
+/**
+ * Стопки раздела — один поход в базу на все куски потока.
+ *
+ * 🔴 `cache` React держит результат в пределах одного запроса: строка счёта в
+ * шапке и лента стопок над таблицей считают одно и то же, и второй проход по
+ * нарядам не только ничего бы не ускорил, но и мог бы разойтись с первым.
+ */
+const stacksOfOrders = cache(counts);
+
+/** Наряд дня монтажника: свой запрос, своё окно и свой порядок — по времени. */
+async function InstallerAgendaBlock({
+  viewer,
+  when,
+}: {
+  readonly viewer: Viewer;
+  readonly when: ReturnType<typeof installerWhenFromParam>;
+}) {
+  const orders = await agenda(viewer, agendaWindow(when));
+
+  return <OrderInstallerAgenda orders={orders} when={when} />;
+}
+
+/** Строка счёта раздела — свой кусок потока: она стоит над стопками. */
+async function OrdersCount({ viewer }: { readonly viewer: Viewer }) {
+  const stacks = await stacksOfOrders(viewer);
+
+  return (
+    <p className={styles.lead}>
+      {[
+        texts.countAll(stacks.all),
+        texts.countActive(stacks.active),
+        texts.countOverdue(stacks.overdue),
+      ].join(' · ')}
+    </p>
+  );
+}
+
+/**
+ * Стопки, фильтры и таблица нарядов — то, что приезжает отдельным куском
+ * потока.
+ *
+ * Фрагмент, а не обёртка: блоки страницы стоят колонкой с общим зазором, и
+ * лишний `<div>` сдвинул бы таблицу относительно того, что показала заготовка.
+ */
+async function OrdersBlock({
+  filters,
+  page,
+  viewer,
+}: {
+  readonly filters: OrderFilterState;
+  readonly page: number;
+  readonly viewer: Viewer;
+}) {
   /* 🔴 Монтажники нужны владельцу и только ему: они наполняют фильтр по
      исполнителю и групповое назначение — оба решения владельца (CRM.md §6).
      Уволенных в списке нет: назначать наряд человеку, у которого закрыт
@@ -107,14 +217,14 @@ export default async function AdminOrdersPage({
         query: filters.query,
         tab: filters.tab,
         period: filters.period,
-        page: pageNumber(params.page),
+        page,
         installerId: filters.installer,
         sort: filters.sort,
         size: filters.size,
       },
       viewer,
     ),
-    counts(viewer),
+    stacksOfOrders(viewer),
     listInstallers(true),
   ]);
 
@@ -135,31 +245,7 @@ export default async function AdminOrdersPage({
       : undefined;
 
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <div className={styles.headline}>
-          <h1 className={styles.title}>{texts.title}</h1>
-
-          <Link
-            className={buttonClassName({ size: 'sm' })}
-            href={{ pathname: '/admin/orders/new' }}
-          >
-            {texts.add}
-          </Link>
-        </div>
-
-        {/* 🔴 Строка счёта вместо прозы (issue #593, макет «Заказы»): три числа
-            отвечают на три вопроса, которые владелец задаёт разделу первым.
-            Проза объясняла, что такое наряд, — а это он знает и без нас. */}
-        <p className={styles.lead}>
-          {[
-            texts.countAll(stacks.all),
-            texts.countActive(stacks.active),
-            texts.countOverdue(stacks.overdue),
-          ].join(' · ')}
-        </p>
-      </header>
-
+    <>
       {/* Стопки — над рядом фильтров, как в макете: сначала выбирают, что за
           список смотрят, и только потом сужают его условиями. */}
       <OrderTabs
@@ -172,6 +258,6 @@ export default async function AdminOrdersPage({
       <OrderFilters filters={filters} installers={crew} total={found.total} />
 
       <OrderList page={found} filters={filters} installers={crew} totals={totals} />
-    </div>
+    </>
   );
 }

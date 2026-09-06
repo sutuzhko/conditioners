@@ -1,10 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { StockMoveForm, STOCK_PATH, stockManagerContent as texts } from '@/features/stock-manager';
+import {
+  StockMoveForm,
+  STOCK_PATH,
+  moveDraftOf,
+  stockManagerContent as texts,
+  type StockItemRef,
+} from '@/features/stock-manager';
 import { Card } from '@/shared/ui';
+import { DataBlock, FieldsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
-import { moveFormData } from '../data';
+import { moveItemRef, moveZones, type StockMoveParams } from '../data';
 import styles from '../page.module.css';
 
 export const metadata: Metadata = { title: texts.moveTitle };
@@ -21,10 +28,14 @@ type PageProps = {
  * 🔴 Остаток не правится напрямую ни одним полем: он сумма движений. Правка
  * руками существует, но как инвентаризация с обязательным основанием
  * (ADR-134).
+ *
+ * 🔴 Существование позиции решается **до** первого куска потока (issue #651):
+ * адрес движения с удалённой позицией обязан отвечать 404, а не 200 с текстом
+ * «не найдено». Зоны хранения приезжают следом, отдельным куском.
  */
 export default async function AdminStockMovePage({ searchParams }: PageProps) {
   const params = await searchParams;
-  const { items, zones, initial } = await moveFormData(params);
+  const item = await moveItemRef(params);
 
   return (
     <div className={styles.page}>
@@ -37,9 +48,30 @@ export default async function AdminStockMovePage({ searchParams }: PageProps) {
         <p className={styles.lead}>{texts.moveHint}</p>
       </header>
 
-      <Card>
-        <StockMoveForm items={items} zones={zones} initial={initial} surface="bare" />
-      </Card>
+      <DataBlock
+        skeleton={<FieldsSkeleton fields={5} />}
+        title={texts.itemLoadFailed}
+        note={blockErrorNote(STOCK_PATH)}
+      >
+        <MoveForm item={item} params={params} />
+      </DataBlock>
     </div>
+  );
+}
+
+/** Форма движения — то, что приезжает отдельным куском потока. */
+async function MoveForm({
+  item,
+  params,
+}: {
+  readonly item: StockItemRef;
+  readonly params: StockMoveParams;
+}) {
+  const zones = await moveZones();
+
+  return (
+    <Card>
+      <StockMoveForm items={[item]} zones={zones} initial={moveDraftOf(params)} surface="bare" />
+    </Card>
   );
 }

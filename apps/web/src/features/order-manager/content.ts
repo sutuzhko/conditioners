@@ -153,6 +153,9 @@ function spanText(minutes: number): string {
 }
 
 export const orderManagerContent = {
+  /** Заголовки ошибок блоков раздела: что именно не приехало (issue #651). */
+  loadFailed: 'Не удалось загрузить наряды',
+  cardLoadFailed: 'Не удалось загрузить наряд',
   title: 'Заказы',
   installerTitle: 'Мои заказы',
 

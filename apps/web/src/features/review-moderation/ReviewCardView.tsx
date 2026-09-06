@@ -107,7 +107,11 @@ export function ReviewCardView({
 
         {review.photo === null ? null : (
           <div className={styles.photo}>
-            <ReviewPhoto src={review.photo} name={review.name} />
+            <ReviewPhoto
+              src={review.photo}
+              name={review.name}
+              missing={review.photoMissing === true}
+            />
           </div>
         )}
       </div>

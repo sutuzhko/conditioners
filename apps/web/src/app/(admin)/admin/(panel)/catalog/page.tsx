@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { CATALOG_NEW_PATH, CATALOG_SPECS_PATH } from '@/features/product-form';
 import { requireOwnerPage } from '@/server/guards';
 import { adminCounts, listAdmin } from '@/server/repo/products';
+import { mediaExists } from '@/server/uploads/store';
 import { pageNumber } from '@/shared/lib/paging';
-import { Pager, Skeleton, buttonClassName } from '@/shared/ui';
+import { Pager, buttonClassName } from '@/shared/ui';
 import { DataBlock, blockErrorNote } from '@/widgets/admin-shell';
 import {
   AdminCatalogList,
@@ -20,6 +21,7 @@ import {
   type CatalogSearchParams,
 } from '@/widgets/admin-catalog';
 
+import { CatalogSummarySkeleton, CatalogTableSkeleton } from './CatalogSkeleton';
 import styles from './page.module.css';
 
 export const metadata: Metadata = { title: texts.title };
@@ -38,6 +40,13 @@ export const dynamic = 'force-dynamic';
  * браузер сразу, таблица приезжает отдельным куском потока на место
  * заготовки, а упавший запрос показывает ошибку на её месте, оставляя
  * навигацию рабочей.
+ *
+ * 🔴 Заготовки раздела живут внутри страницы, а не в `loading.tsx` (issue
+ * #651). Заготовка на границе раздела уходила в ответ первой и уносила с
+ * собой код 200: страница ещё только шла в базу, а статус был отправлен, и
+ * `notFound()` соседней карточки менял потом лишь тело. Здесь до первого
+ * байта ответа доходит только разбор адреса, а место данных держит `Suspense`
+ * каждого блока.
  */
 export default async function AdminCatalogPage({
   searchParams,
@@ -50,12 +59,6 @@ export default async function AdminCatalogPage({
   const params = await searchParams;
   const filter = catalogFilterOf(params);
 
-  /* 🔴 Счётчики принадлежат шапке, а не списку: приехав позже, они сдвинули бы
-     таблицу вниз уже после того, как на неё посмотрели. Отказ базы гасится
-     здесь — об этом скажет блок списка, у которого есть и объяснение, и
-     повтор. */
-  const counts = await countsOrNull();
-
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -64,12 +67,20 @@ export default async function AdminCatalogPage({
           <p className={styles.lead}>{texts.lead}</p>
           {/* 🔴 Счётчики считаются по всему каталогу, а не по показанной
               странице: подпись «8 моделей» над списком из восьми при сорока в
-              базе — это не округление, а ложь. */}
-          <p className={styles.summary}>
-            {counts === null
-              ? texts.summaryUnknown
-              : texts.summary(counts.total, counts.visible, counts.onSale)}
-          </p>
+              базе — это не округление, а ложь.
+
+              Свой кусок потока, а не общий со списком: строка стоит над
+              отбором, и ждать ради неё таблицу значит держать пустым весь
+              экран. Заготовка занимает ту же строку — отбор под ней не
+              двигается (ADR-239). */}
+          <DataBlock
+            surface="bare"
+            skeleton={<CatalogSummarySkeleton />}
+            title={texts.loadFailed}
+            note={blockErrorNote(CATALOG_PATH)}
+          >
+            <CatalogSummary />
+          </DataBlock>
         </div>
 
         <div className={styles.headActions}>
@@ -90,13 +101,32 @@ export default async function AdminCatalogPage({
       <CatalogSearch filter={filter} />
 
       <DataBlock
-        skeleton={<Skeleton variant="block" className={styles.tableSkeleton} />}
+        skeleton={<CatalogTableSkeleton />}
         title={texts.loadFailed}
         note={blockErrorNote(CATALOG_PATH)}
       >
         <CatalogBlock filter={filter} page={pageNumber(params.page)} />
       </DataBlock>
     </div>
+  );
+}
+
+/**
+ * Строка счётчиков раздела — свой кусок потока (issue #651).
+ *
+ * Отказ базы гасится внутри: ошибка раздела одна, и она принадлежит списку —
+ * там есть и объяснение, и повтор. Строка без чисел при этом сохраняет
+ * высоту, и раскладка не прыгает.
+ */
+async function CatalogSummary() {
+  const counts = await countsOrNull();
+
+  return (
+    <p className={styles.summary}>
+      {counts === null
+        ? texts.summaryUnknown
+        : texts.summary(counts.total, counts.visible, counts.onSale)}
+    </p>
   );
 }
 
@@ -122,21 +152,32 @@ async function CatalogBlock({
   /* 🔴 Цены приходят посчитанными из домена (`getActivePrice`, ADR-011):
      перечёркнутой становится только та цена, по которой товар действительно
      продавался, а процент выводится из двух цен. Список их не пересчитывает. */
-  const rows: readonly CatalogRow[] = found.items.map((product) => ({
-    id: product.id,
-    name: product.name,
-    slug: product.slug,
-    badge: product.badge,
-    areaMax: product.areaMax,
-    currentPrice: product.currentPrice,
-    oldPrice: product.oldPrice,
-    discountPercent: product.discountPercent,
-    saleTo: product.saleActive ? product.saleTo : null,
-    visible: product.visible,
-    featured: product.featured,
-    sort: product.sort,
-    photo: product.photos[0]?.url ?? null,
-  }));
+  const rows: readonly CatalogRow[] = await Promise.all(
+    found.items.map(async (product) => {
+      /* 🔴 Ссылка без файла — это «снимка нет», а не битая картинка (issue
+         #662). Файл на томе и запись в базе живут порознь: том переехал,
+         каталог не примонтирован, база наполнена в другом окружении. У списка
+         уже есть честная заглушка для модели без фотографии — она и верна,
+         второго вида пустоты здесь не нужно. */
+      const photo = product.photos[0]?.url ?? null;
+
+      return {
+        id: product.id,
+        name: product.name,
+        slug: product.slug,
+        badge: product.badge,
+        areaMax: product.areaMax,
+        currentPrice: product.currentPrice,
+        oldPrice: product.oldPrice,
+        discountPercent: product.discountPercent,
+        saleTo: product.saleActive ? product.saleTo : null,
+        visible: product.visible,
+        featured: product.featured,
+        sort: product.sort,
+        photo: (await mediaExists(photo)) ? photo : null,
+      } satisfies CatalogRow;
+    }),
+  );
 
   return (
     <div className={styles.block} data-block="catalog">
@@ -154,13 +195,7 @@ async function CatalogBlock({
   );
 }
 
-/**
- * Счётчики раздела или `null`, если база не ответила.
- *
- * Отказ гасится здесь, а не поднимается выше: ошибка раздела одна, и она
- * принадлежит списку — там есть и объяснение, и повтор. Строка без чисел при
- * этом сохраняет высоту, и раскладка не прыгает.
- */
+/** Счётчики раздела или `null`, если база не ответила. */
 async function countsOrNull(): Promise<Awaited<ReturnType<typeof adminCounts>> | null> {
   try {
     return await adminCounts();

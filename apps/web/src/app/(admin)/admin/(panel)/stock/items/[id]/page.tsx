@@ -18,6 +18,7 @@ import { requireOwnerPage } from '@/server/guards';
 import { listAll } from '@/server/repo/products';
 import { item as findItem, movements } from '@/server/repo/stock';
 import { buttonClassName } from '@/shared/ui';
+import { DataBlock, FieldsSkeleton, RowsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
 import styles from '../../page.module.css';
 
@@ -46,6 +47,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
  * F5 не выбрасывает в список, и рядом с формой живёт журнал движений, ради
  * которого сюда и заходят. А вот движение заводится окном (ADR-137) — форма
  * его больше не занимает половину карточки.
+ *
+ * 🔴 Существование позиции решается **до** первого куска потока (issue #651).
+ * Пока заготовка стояла на границе раздела, она уходила в ответ первой, и
+ * `notFound()` заставал статус уже отправленным: удалённая позиция отвечала
+ * 200. Здесь до первого байта успевает пройти только чтение самой позиции —
+ * по ней же собирается шапка, — а справочник моделей и журнал движений
+ * приезжают следом.
  */
 export default async function AdminStockItemPage({ params, searchParams }: PageProps) {
   /* Раздел владельца: проверка до чтения данных (ADR-095). */
@@ -55,19 +63,8 @@ export default async function AdminStockItemPage({ params, searchParams }: PageP
   const { id } = await params;
   const { page } = await searchParams;
 
-  const [found, journal, catalog] = await Promise.all([
-    findItem(id, viewer),
-    movements({ item: id, page: pageNumber(page) }),
-    listAll(),
-  ]);
-
+  const found = await findItem(id, viewer);
   if (found === null) notFound();
-
-  const products: readonly StockItemProduct[] = catalog.map((product) => ({
-    id: product.id,
-    name: product.name,
-    slug: product.slug,
-  }));
 
   return (
     <div className={styles.page}>
@@ -99,16 +96,62 @@ export default async function AdminStockItemPage({ params, searchParams }: PageP
         </p>
       </header>
 
+      <DataBlock
+        surface="bare"
+        skeleton={
+          <>
+            <FieldsSkeleton fields={6} />
+            <RowsSkeleton rows={1} height="320px" />
+          </>
+        }
+        title={texts.itemLoadFailed}
+        note={blockErrorNote(STOCK_PATH)}
+      >
+        <ItemBody itemId={found.item.id} draft={itemDraftOf(found.item)} page={page} />
+      </DataBlock>
+    </div>
+  );
+}
+
+/**
+ * Форма позиции и её журнал — то, что приезжает отдельным куском потока.
+ *
+ * Справочник моделей нужен только форме, а журнал — только истории движений:
+ * ни то, ни другое не отвечает на вопрос «а есть ли такая позиция», и держать
+ * ради них код ответа не за что.
+ */
+async function ItemBody({
+  itemId,
+  draft,
+  page,
+}: {
+  readonly itemId: string;
+  readonly draft: ReturnType<typeof itemDraftOf>;
+  readonly page: string | undefined;
+}) {
+  const [catalog, journal] = await Promise.all([
+    listAll(),
+    movements({ item: itemId, page: pageNumber(page) }),
+  ]);
+
+  const products: readonly StockItemProduct[] = catalog.map((product) => ({
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+  }));
+
+  return (
+    <>
       <StockItemForm
-        itemId={found.item.id}
-        initial={itemDraftOf(found.item)}
+        itemId={itemId}
+        initial={draft}
         products={products}
         title={texts.itemCardTitle}
         hint={texts.itemCardHint}
         archivable
       />
 
-      <StockJournal journal={journal} basePath={stockItemPath(found.item.id)} />
-    </div>
+      <StockJournal journal={journal} basePath={stockItemPath(itemId)} />
+    </>
   );
 }

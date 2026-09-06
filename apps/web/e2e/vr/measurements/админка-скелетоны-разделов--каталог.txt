@@ -1,5 +1,5 @@
 # админка-скелетоны-разделов--каталог · ширины 390 768 1440 · темы light dark
-шрифты: Manrope 400, Manrope 600, Onest 700
+шрифты: —
 
 [документ]
 390 → 390×900
@@ -7,120 +7,16 @@
 1440 → 1440×900
 
 [геометрия 390]
-h1  95×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Каталог»
-span.Skeleton__skeleton  66×13 @0,38  r8
-a.Button__button  205×44 @0,60  Manrope 600 13/16  r9  b1  lines=1  «Справочник характеристик»
-a.Button__button#2  142×44 @213,60  Manrope 600 13/16  r9  b1  lines=1  «Добавить модель»
-section.Card__card  390×233 @0,120  r20  b1
-  form.CatalogSearch__form  348×191 @21,21
-    div.Field__field  348×103 @0,0
-      label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по каталогу»
-      input  348×49 @0,27  r11  b1
-      p.Field__hint  348×19 @0,83  Manrope 400 13/19  lines=1  «Название, марка, артикул или категория»
-    div.Field__field#2  200×76 @0,115
-      label.Field__label  200×20 @0,0  Manrope 600 13/20  lines=1  «Видимость»
-      span.Select__wrapper  200×49 @0,27
-        select.Select__select  200×49 @0,0  r11  b1
-          option  0×0 @-21,-283  Manrope 400 15/21  lines=0  «Все модели»
-          option#2  0×0 @-21,-283  Manrope 400 15/21  lines=0  «Видимые на сайте»
-          option#3  0×0 @-21,-283  Manrope 400 15/21  lines=0  «Скрытые»
-        svg.Select__chevron  14×14 @172,18
-    div.CatalogSearch__actions  69×44 @212,147
-      button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
-span.Skeleton__skeleton#2  390×420 @0,369  r14
+span.Skeleton__skeleton  390×420 @0,0  r14
 
 [геометрия 768]
-h1  542×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Каталог»
-p  542×22 @0,37  Manrope 400 15/22  lines=1  «Модели, которые видит посетитель. Порядо»
-span.Skeleton__skeleton  280×13 @0,67  r8
-a.Button__button  205×44 @0,90  Manrope 600 13/16  r9  b1  lines=1  «Справочник характеристик»
-a.Button__button#2  142×44 @213,90  Manrope 600 13/16  r9  b1  lines=1  «Добавить модель»
-section.Card__card  768×145 @0,150  r20  b1
-  form.CatalogSearch__form  726×103 @21,21
-    div.Field__field  433×103 @0,0
-      label.Field__label  433×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по каталогу»
-      input  433×49 @0,27  r11  b1
-      p.Field__hint  433×19 @0,83  Manrope 400 13/19  lines=1  «Название, марка, артикул или категория»
-    div.Field__field#2  200×76 @445,26
-      label.Field__label  200×20 @0,0  Manrope 600 13/20  lines=1  «Видимость»
-      span.Select__wrapper  200×49 @0,27
-        select.Select__select  200×49 @0,0  r11  b1
-          option  0×0 @-466,-224  Manrope 400 15/21  lines=0  «Все модели»
-          option#2  0×0 @-466,-224  Manrope 400 15/21  lines=0  «Видимые на сайте»
-          option#3  0×0 @-466,-224  Manrope 400 15/21  lines=0  «Скрытые»
-        svg.Select__chevron  14×14 @172,18
-    div.CatalogSearch__actions  69×44 @657,59
-      button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
-span.Skeleton__skeleton#2  768×420 @0,310  r14
+span.Skeleton__skeleton  768×420 @0,0  r14
 
 [геометрия 1440]
-h1  542×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Каталог»
-p  542×22 @0,46  Manrope 400 15/22  lines=1  «Модели, которые видит посетитель. Порядо»
-span.Skeleton__skeleton  280×13 @0,76  r8
-a.Button__button  205×40 @0,98  Manrope 600 13/16  r9  b1  lines=1  «Справочник характеристик»
-a.Button__button#2  142×40 @213,98  Manrope 600 13/16  r9  b1  lines=1  «Добавить модель»
-section.Card__card  1440×145 @0,154  r20  b1
-  form.CatalogSearch__form  1398×103 @21,21
-    div.Field__field  1105×103 @0,0
-      label.Field__label  1105×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по каталогу»
-      input  1105×49 @0,27  r11  b1
-      p.Field__hint  1105×19 @0,83  Manrope 400 13/19  lines=1  «Название, марка, артикул или категория»
-    div.Field__field#2  200×76 @1117,26
-      label.Field__label  200×20 @0,0  Manrope 600 13/20  lines=1  «Видимость»
-      span.Select__wrapper  200×49 @0,27
-        select.Select__select  200×49 @0,0  r11  b1
-          option  0×0 @-1138,-229  Manrope 400 15/21  lines=0  «Все модели»
-          option#2  0×0 @-1138,-229  Manrope 400 15/21  lines=0  «Видимые на сайте»
-          option#3  0×0 @-1138,-229  Manrope 400 15/21  lines=0  «Скрытые»
-        svg.Select__chevron  14×14 @172,18
-    div.CatalogSearch__actions  69×40 @1329,63
-      button.Button__button  69×40 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
-span.Skeleton__skeleton#2  1440×420 @0,315  r14
+span.Skeleton__skeleton  1440×420 @0,0  r14
 
 [палитра light]
-h1  color #0f172a
-p  color #475569
 span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-a.Button__button  color #0f172a  bg #ffffff  border #7e8fa6
-a.Button__button#2  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
-  form.CatalogSearch__form
-    div.Field__field
-      label.Field__label  color #334155
-      input  bg #ffffff  border #7e8fa6
-      p.Field__hint  color #556173
-    div.Field__field#2
-      label.Field__label  color #334155
-      span.Select__wrapper
-        select.Select__select  bg #ffffff  border #7e8fa6
-          option  color #0f172a
-          option#2  color #0f172a
-          option#3  color #0f172a
-        svg.Select__chevron
-    div.CatalogSearch__actions
-      button.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
 
 [палитра dark]
-h1  color #eaf1f8
-p  color #a8b6c6
 span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-a.Button__button  color #eaf1f8  bg #121d31  border #566d95
-a.Button__button#2  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
-  form.CatalogSearch__form
-    div.Field__field
-      label.Field__label  color #c9d5e2
-      input  bg #0b1424  border #566d95
-      p.Field__hint  color #8598ac
-    div.Field__field#2
-      label.Field__label  color #c9d5e2
-      span.Select__wrapper
-        select.Select__select  bg #0b1424  border #566d95
-          option  color #eaf1f8
-          option#2  color #eaf1f8
-          option#3  color #eaf1f8
-        svg.Select__chevron
-    div.CatalogSearch__actions
-      button.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
