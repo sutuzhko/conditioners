@@ -1924,14 +1924,27 @@ const events: readonly DemoEvent[] = [
 // ---------- Занятость ----------
 
 type DemoBlock = {
+  /** Логин монтажника либо `OWNER_BLOCK` — занятость самого владельца. */
   readonly login: string;
   readonly repeat: 'ONCE' | 'WEEKLY';
   readonly dayDelta?: number;
+  /**
+   * Последний день разовой отлучки включительно (ADR-165). Без него отлучка
+   * на один день — так лежит большинство записей.
+   */
+  readonly endDelta?: number;
   readonly weekday?: number;
   readonly fromMin?: number;
   readonly toMin?: number;
   readonly reason: string;
 };
+
+/**
+ * Занятость владельца заводится не по логину монтажника: владелец не в
+ * команде, а своя отлучка на стенде нужна — только её он и может подвинуть
+ * (ADR-115), и без неё перенос перетаскиванием смотреть не на чем.
+ */
+const OWNER_BLOCK = '@owner';
 
 /**
  * Занятость личная, и на стенде нужны все её виды: день целиком, окно на
@@ -1940,6 +1953,17 @@ type DemoBlock = {
  */
 const blocks: readonly DemoBlock[] = [
   { login: 'zaharov', repeat: 'WEEKLY', weekday: 2, reason: 'Постоянный выходной' },
+  /* 🔴 Многодневная отлучка владельца: она одна показывает и полосу через
+     колонки (issue #139), и перенос диапазона мышью (issue #144). Диапазон
+     нарочно переходит границу недели — полоса обязана дотянуться до края
+     сетки и обрезаться, а не оборваться посреди неё. */
+  {
+    login: OWNER_BLOCK,
+    repeat: 'ONCE',
+    dayDelta: 3,
+    endDelta: 12,
+    reason: 'Отпуск, десять дней',
+  },
   {
     login: 'zaharov',
     repeat: 'ONCE',
@@ -3375,7 +3399,7 @@ async function main(): Promise<void> {
 
   console.error('Занятость…');
   for (const block of blocks) {
-    const userId = staffIds.get(block.login);
+    const userId = block.login === OWNER_BLOCK ? owner?.id : staffIds.get(block.login);
     if (userId === undefined) throw new Error(`Нет монтажника ${block.login} для занятости`);
 
     await prisma.dayBlock.create({
@@ -3383,6 +3407,13 @@ async function main(): Promise<void> {
         userId,
         repeat: block.repeat,
         day: block.dayDelta === undefined ? null : msk(daysFromToday(block.dayDelta)),
+        /* Конец пишется всегда, когда есть начало: пустой конец значит «в тот
+           же день», и запросу за промежуток дат не приходится помнить про
+           исключение (ADR-165). */
+        endDay:
+          block.dayDelta === undefined
+            ? null
+            : msk(daysFromToday(block.endDelta ?? block.dayDelta)),
         weekday: block.weekday ?? null,
         fromMin: block.fromMin ?? null,
         toMin: block.toMin ?? null,

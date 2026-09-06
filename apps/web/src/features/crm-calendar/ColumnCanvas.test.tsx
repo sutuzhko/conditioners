@@ -14,6 +14,7 @@ function canvas(reachable = true) {
     edit: vi.fn(),
     remove: vi.fn(),
     move: vi.fn(),
+    moveBlock: vi.fn(),
     block: vi.fn(),
     pending: null,
   };

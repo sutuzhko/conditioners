@@ -47,6 +47,10 @@ export function AllDayBar({ columns, focusId }: AllDayBarProps) {
   const [open, setOpen] = useState(false);
 
   const bands = allDayBands(columns);
+  /* Дни колонок по порядку: по ним полоса считает перенос вбок (#144). Массив
+     строк, а не функция — сетка серверная, и функция границу сервер→клиент не
+     переживает. */
+  const days = columns.map((column) => column.day);
   const rows = bands.reduce((max, band) => Math.max(max, band.lane + 1), 0);
   const hidden = Math.max(rows - COLLAPSED_ROWS, 0);
   const collapsed = hidden > 0 && !open;
@@ -82,6 +86,10 @@ export function AllDayBar({ columns, focusId }: AllDayBarProps) {
           скринридер объявляет «список из двух». */}
       <ul
         className={[styles.lanes, collapsed ? styles.collapsed : null].filter(Boolean).join(' ')}
+        /* 🔴 Полоса лежит поперёк всех колонок сразу, и ширину колонки дня
+            перетаскивание берёт из неё: своей ячейки у многодневной отлучки
+            нет — она занимает столько колонок, сколько длится (#144). */
+        data-days=""
         style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}
         aria-label={texts.allDay}
       >
@@ -100,7 +108,16 @@ export function AllDayBar({ columns, focusId }: AllDayBarProps) {
               gridRow: band.lane + 1,
             }}
           >
-            <EventChip item={band.item} variant="bar" focused={band.item.id === focusId} />
+            {/* 🔴 Тащат за полосу целиком, а не за её кусок в дне: отпуск —
+                одна запись, и переносится он вместе со своей длительностью
+                (#144). Обрезанный краем недели край этому не мешает. */}
+            <EventChip
+              item={band.item}
+              variant="bar"
+              draggable
+              days={days}
+              focused={band.item.id === focusId}
+            />
           </li>
         ))}
       </ul>

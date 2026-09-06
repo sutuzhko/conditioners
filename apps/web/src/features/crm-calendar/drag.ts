@@ -1,5 +1,6 @@
-import type { DayKey } from '@/shared/lib/calendar';
+import { daysBetween, shiftDay, type DayKey } from '@/shared/lib/calendar';
 
+import type { DayBlockDraft } from './model';
 import type { ScheduleItem } from './schedule';
 
 /**
@@ -13,12 +14,22 @@ import type { ScheduleItem } from './schedule';
  * стоит уведомление монтажнику и расчёт, у заявки — свой путь, и молчаливый
  * сдвиг мышью обошёл бы и то и другое (ADR-093).
  *
- * Отлучки здесь пока нет намеренно: её перенос обязан сохранять длительность
- * диапазона, а дата окончания появляется в схеме отдельной задачей (#144).
+ * Отлучка — да, и вместе со всем своим диапазоном (#144): «отпуск по 15-е»
+ * человек двигает целиком, а не переставляет два конца по очереди. Но только
+ * разовая: у повторяемой занятости дат нет вовсе — у неё день недели, и сдвиг
+ * на сутки означал бы смену повтора, то есть другую правку, которую и делает
+ * форма (ADR-165).
+ *
  * Чужая запись не двигается вовсе — у неё нет правки (`edit === null`).
  */
 export function isDraggable(item: ScheduleItem): boolean {
-  return item.entity === 'event' && item.edit !== null && item.edit.kind === 'event';
+  const edit = item.edit;
+  if (edit === null) return false;
+
+  if (item.entity === 'event') return edit.kind === 'event';
+  if (item.entity === 'block') return edit.kind === 'block' && edit.draft.repeat === 'once';
+
+  return false;
 }
 
 /**
@@ -50,4 +61,57 @@ export function dayOfDrop(days: readonly DayKey[], day: DayKey, shift: number): 
   const target = Math.min(Math.max(index + shift, 0), days.length - 1);
 
   return days[target] ?? day;
+}
+
+/**
+ * Сдвиг многодневной записи в днях — уже зажатый краями показанного.
+ *
+ * 🔴 Зажимается не конец диапазона, а его видимость целиком: отпуск с 19
+ * августа по 1 сентября в неделе 24–30 обрезан с обеих сторон, и правило «не
+ * выпускать день за край сетки» запретило бы двигать его вовсе — первый
+ * видимый день полосы и есть край. Поэтому условие мягче: хотя бы один день
+ * записи обязан остаться на экране, а оба конца едут на одно и то же число
+ * дней, иначе перенос менял бы длительность отлучки.
+ *
+ * У однодневной записи оба конца совпадают, и правило вырождается ровно в
+ * `dayOfDrop`: дело за край недели не уезжает.
+ */
+export function rangeShift(
+  days: readonly DayKey[],
+  fromDay: DayKey,
+  toDay: DayKey,
+  shift: number,
+): number {
+  const first = days[0];
+  const last = days[days.length - 1];
+  /* 🔴 В виде дня колонка одна, и ронять запись некуда: у жеста нет ни цели,
+     ни видимого следствия — он читался бы как случайный сдвиг календаря на
+     день (то же правило у дела, issue #143). */
+  if (first === undefined || last === undefined || days.length < 2) return 0;
+
+  // конец обязан дотянуться до первой колонки, начало — не перескочить последнюю
+  const min = daysBetween(toDay, first);
+  const max = daysBetween(fromDay, last);
+  if (max < min) return 0;
+
+  return Math.min(Math.max(shift, min), max);
+}
+
+/**
+ * Черновик отлучки, переехавшей на `shift` дней.
+ *
+ * 🔴 Оба конца сдвигаются одинаково: длительность отпуска — то, ради чего
+ * диапазон и заведён, и перенос не имеет права её менять. Пустой конец значит
+ * «в тот же день» (ADR-165, дописка от 6 сентября) и пустым остаётся: сервер
+ * подставит туда начало сам, а повтор даты в форме человеку пришлось бы
+ * стирать руками.
+ */
+export function movedBlock(draft: DayBlockDraft, shift: number): DayBlockDraft {
+  if (draft.repeat !== 'once' || shift === 0) return draft;
+
+  return {
+    ...draft,
+    day: shiftDay(draft.day, shift),
+    endDay: draft.endDay === '' ? '' : shiftDay(draft.endDay, shift),
+  };
 }

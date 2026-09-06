@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useCallback, useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useState, useTransition, type ReactNode } from 'react';
 
 import { timeOfMinutes } from '@/entities/crm/lib/busy';
 import { type DayKey, weekdayOf } from '@/shared/lib/calendar';
@@ -12,7 +12,7 @@ import { BlockDialog } from './BlockDialog';
 import { CalendarActionsContext, type CalendarActions } from './actions';
 import { CRM_PATH, crmContent as texts, dayTitle } from './content';
 import { EventDialog } from './EventDialog';
-import { removeBlock, removeEvent, updateEvent } from './lib';
+import { removeBlock, removeEvent, updateBlock, updateEvent } from './lib';
 import {
   DEFAULT_EVENT_MIN,
   MIN_EVENT_MIN,
@@ -112,6 +112,12 @@ export function CalendarStage({
   );
   const [block, setBlock] = useState<EditingBlock | null>(null);
   const [pending, setPending] = useState<string | null>(null);
+  /* 🔴 Обновление дерева — часть сохранения, а не то, что случится потом.
+     Пока сервер не прислал новую сетку, на экране висит прежняя, и второй
+     жест по той же записи считался бы от устаревшего черновика: он отправил
+     бы те же даты второй раз, а объявление отчиталось бы о новых. Переход
+     держит `pending` до конца обновления, и запись на это время заперта. */
+  const [refreshing, startRefresh] = useTransition();
   const [note, setNote] = useState<string | null>(null);
   const [failure, setFailure] = useState<string | null>(null);
 
@@ -123,11 +129,16 @@ export function CalendarStage({
     if (preset !== undefined) router.replace(`${CRM_PATH}?view=day&day=${day}`);
   }, [day, preset, router]);
 
+  /* Запись отпирается, когда пришла новая сетка, а не когда пришёл ответ. */
+  useEffect(() => {
+    if (!refreshing) setPending(null);
+  }, [refreshing]);
+
   const actions = useMemo<CalendarActions>(() => {
     const done = (message: string): void => {
       setNote(message);
       setFailure(null);
-      router.refresh();
+      startRefresh(() => router.refresh());
     };
 
     return {
@@ -169,10 +180,33 @@ export function CalendarStage({
         void (async () => {
           setPending(id);
           const result = await updateEvent(id, draft);
-          setPending(null);
 
           if (result.ok) done(texts.movedNote(dayTitle(draft.day), draft.time));
-          else setFailure(result.message ?? texts.failure);
+          else {
+            setPending(null);
+            setFailure(result.message ?? texts.failure);
+          }
+        })();
+      },
+
+      moveBlock: (id, draft) => {
+        void (async () => {
+          setPending(id);
+          const result = await updateBlock(id, draft);
+
+          /* Пустой конец значит «в тот же день» (ADR-165): называть его
+             второй датой было бы повтором первой. */
+          if (result.ok)
+            done(
+              texts.busyMovedNote(
+                dayTitle(draft.day),
+                draft.endDay === '' || draft.endDay === draft.day ? null : dayTitle(draft.endDay),
+              ),
+            );
+          else {
+            setPending(null);
+            setFailure(result.message ?? texts.busyFailure);
+          }
         })();
       },
 
