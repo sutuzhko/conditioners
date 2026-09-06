@@ -10,6 +10,8 @@
  * Запуск:
  *   node scripts/labels-audit.mjs              → открытые задачи с нарушенной разметкой
  *   node scripts/labels-audit.mjs --state all  → включая закрытые
+ *   node scripts/labels-audit.mjs --issue 42 --comment → разбор одной задачи
+ *                                                        с обновлением заметки
  */
 import { execFile } from 'node:child_process';
 import { parseArgs, promisify } from 'node:util';
@@ -29,8 +31,91 @@ export function auditIssues(issues) {
     .filter((issue) => issue.problems.length > 0);
 }
 
+/** Метка заметки ревизора: по ней она находится и заменяется, а не плодится. */
+export const COMMENT_MARKER = '<!-- labels-audit -->';
+
+/**
+ * Текст заметки. Отдельной функцией, потому что проверять надо именно текст:
+ * заметка обращена к человеку, и «нарушены оси» ему ничего не говорит.
+ */
+export function renderComment(problems) {
+  return [
+    COMMENT_MARKER,
+    '**Разметка задачи неполная.**',
+    '',
+    ...problems.map((problem) => `- ${problem}`),
+    '',
+    'Оси и границы между ярлыками — [`docs/LABELS.md`](../blob/main/docs/LABELS.md).',
+    'Обязательны ровно одна `часть/` и ровно один `тип/`.',
+  ].join('\n');
+}
+
+/** Заметка ревизора среди комментариев задачи, если она уже есть. */
+export function findComment(comments) {
+  return comments.find((comment) => comment.body.startsWith(COMMENT_MARKER));
+}
+
+async function auditOne(number, shouldComment) {
+  const { stdout } = await run('gh', [
+    'issue',
+    'view',
+    String(number),
+    '--json',
+    'number,title,labels,comments',
+  ]);
+  const issue = JSON.parse(stdout);
+  const [broken] = auditIssues([issue]);
+  const existing = findComment(issue.comments ?? []);
+
+  if (!broken) {
+    console.log(`#${number}: разметка в порядке`);
+    if (shouldComment && existing) {
+      await run('gh', [
+        'api',
+        '-X',
+        'DELETE',
+        `repos/{owner}/{repo}/issues/comments/${existing.id}`,
+      ]);
+      console.log('прежняя заметка ревизора снята');
+    }
+    return;
+  }
+
+  console.log(`#${number} ${issue.title}`);
+  for (const problem of broken.problems) console.log(`    ${problem}`);
+  if (!shouldComment) return;
+
+  const body = renderComment(broken.problems);
+  if (existing) {
+    await run('gh', [
+      'api',
+      '-X',
+      'PATCH',
+      `repos/{owner}/{repo}/issues/comments/${existing.id}`,
+      '-f',
+      `body=${body}`,
+    ]);
+    console.log('заметка ревизора обновлена');
+  } else {
+    await run('gh', ['issue', 'comment', String(number), '--body', body]);
+    console.log('заметка ревизора оставлена');
+  }
+}
+
 async function main() {
-  const { values } = parseArgs({ options: { state: { type: 'string', default: 'open' } } });
+  const { values } = parseArgs({
+    options: {
+      state: { type: 'string', default: 'open' },
+      issue: { type: 'string' },
+      comment: { type: 'boolean' },
+    },
+  });
+
+  if (values.issue) {
+    await auditOne(values.issue, values.comment === true);
+    return;
+  }
+
   const { stdout } = await run('gh', [
     'issue',
     'list',
