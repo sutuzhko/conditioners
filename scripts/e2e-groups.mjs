@@ -60,6 +60,7 @@ export const GROUPS = Object.freeze({
     'crm-search',
     'crm-team-layer',
     'orders-list',
+    'content-paging',
   ],
 });
 

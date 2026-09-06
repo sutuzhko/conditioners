@@ -1,5 +1,6 @@
 /** Данные для историй и тестов списка статей. */
 import type { ArticleRow } from './AdminArticleList';
+import type { ArticleFilter } from './model';
 
 export const articleRowsFixture: readonly ArticleRow[] = [
   {
@@ -10,6 +11,8 @@ export const articleRowsFixture: readonly ArticleRow[] = [
     date: '2026-08-01T00:00:00.000Z',
     minutes: 6,
     published: true,
+    chars: 6120,
+    cover: '/uploads/articles/invertor.webp',
   },
   {
     id: '2',
@@ -19,6 +22,8 @@ export const articleRowsFixture: readonly ArticleRow[] = [
     date: '2026-07-14T00:00:00.000Z',
     minutes: 4,
     published: true,
+    chars: 4380,
+    cover: '/uploads/articles/chistka.webp',
   },
   {
     id: '3',
@@ -28,5 +33,21 @@ export const articleRowsFixture: readonly ArticleRow[] = [
     date: '2026-08-20T00:00:00.000Z',
     minutes: 8,
     published: false,
+    chars: 1840,
+    cover: null,
   },
 ];
+
+/** Рубрики для истории отбора: те же, что у строк выше. */
+export const articleCategoriesFixture: readonly string[] = [
+  'Выбор техники',
+  'Монтаж',
+  'Эксплуатация',
+];
+
+export const emptyArticleFilterFixture: ArticleFilter = {
+  query: '',
+  category: '',
+  state: undefined,
+  order: undefined,
+};

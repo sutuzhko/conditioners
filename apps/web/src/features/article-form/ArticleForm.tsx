@@ -2,8 +2,19 @@
 
 import { useId, useState, type FormEvent, type ReactNode } from 'react';
 
-import { Badge, Button, FormSection, Input, Switch, Textarea, useConfirm } from '@/shared/ui';
-import type { Confirm, FormSectionLevel, FormSurface } from '@/shared/ui';
+import {
+  Badge,
+  Button,
+  DateField,
+  FormSection,
+  Input,
+  Switch,
+  Textarea,
+  dateSegmentsOf,
+  isoOfDateSegments,
+  useConfirm,
+} from '@/shared/ui';
+import type { Confirm, DateSegments, FormSectionLevel, FormSurface } from '@/shared/ui';
 
 import { articleFormContent as texts } from './content';
 import { applyMarkup, type MarkupKind } from './markup';
@@ -99,6 +110,12 @@ export function ArticleForm({
   const [fieldError, setFieldError] = useState<{ field: string; message: string } | null>(null);
   const [removing, setRemoving] = useState(false);
   const [savedAt, setSavedAt] = useState<string | undefined>(updatedAt);
+
+  /* 🔴 Дата живёт в форме двумя видами: сегментами — потому что их набирают, и
+     строкой ISO — потому что её ждут схема и контракт. Выводить сегменты из
+     строки на каждый рендер нельзя: пока набран один день, полной даты ещё
+     нет, строка пуста, и набранная цифра пропала бы прямо под пальцами. */
+  const [dateParts, setDateParts] = useState<DateSegments>(() => dateSegmentsOf(initial.date));
 
   const sending = status === 'sending';
   const busy = sending || removing;
@@ -410,14 +427,20 @@ export function ArticleForm({
                 onChange={(event) => set('published', event.target.checked)}
               />
 
-              <Input
+              {/* 🔴 Три сегмента вместо `input[type=date]` (кит, `DateField`):
+                  нативный редактор приносит свой порядок сегментов, зависящий
+                  от локали системы, — на машине с английской локалью владелец
+                  получил бы месяц перед днём. */}
+              <DateField
                 label={texts.date}
-                type="date"
                 required
-                value={values.date}
+                value={dateParts}
                 error={errorFor('date')}
                 disabled={busy}
-                onChange={(event) => set('date', event.target.value)}
+                onChange={(next) => {
+                  setDateParts(next);
+                  set('date', isoOfDateSegments(next));
+                }}
               />
               <Input
                 label={texts.minutes}

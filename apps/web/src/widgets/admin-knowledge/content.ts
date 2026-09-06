@@ -1,5 +1,6 @@
 /** Подписи списка статей. */
 import { formatDateShort } from '@/shared/lib/format';
+import { plural, pluralize } from '@/shared/lib/plural';
 
 export const adminKnowledgeContent = {
   title: 'База знаний',
@@ -21,6 +22,48 @@ export const adminKnowledgeContent = {
   draft: 'Черновик',
   edit: 'Править',
 
+  /* Подписи фильтров и поиска (issue #614). Найти статью в двенадцати ещё
+     можно глазами, в сотне — нет. */
+  filterLabel: 'Отбор статей',
+  filterCategory: 'Рубрика',
+  filterCategoryAll: 'Все рубрики',
+  filterState: 'Состояние',
+  filterStateAll: 'Любое',
+  filterStatePublished: 'Опубликованные',
+  filterStateDraft: 'Черновики',
+  filterOrder: 'Порядок',
+  filterOrderNew: 'Сначала новые',
+  filterOrderOld: 'Сначала старые',
+  searchLabel: 'Поиск по статьям',
+  searchHint: 'Заголовок, текст, тизер или адрес',
+  searchPlaceholder: 'Заголовок или текст',
+  searchSubmit: 'Найти',
+  reset: 'Сбросить отбор',
+
+  /* Пусто из-за отбора и пусто вообще — разные новости с противоположными
+     шагами: в первом случае статьи есть, их скрыли условия. */
+  emptyFilteredTitle: 'Ничего не нашлось',
+  emptyFilteredText: 'Статьи в разделе есть — их скрыли поиск или фильтры.',
+  emptyFilteredAction: 'Показать все статьи',
+
+  pagerLabel: 'Страницы списка статей',
+
+  /* Блок списка упал: раздел называет, что именно не загрузилось, и оставляет
+     навигацию рабочей (issue #336). */
+  loadFailed: 'Не удалось загрузить статьи',
+  /* Счётчики не сложились — строка остаётся, но чисел в ней нет: пустое место
+     сдвинуло бы всё, что ниже. */
+  summaryUnknown: 'Счётчики раздела сейчас недоступны',
+
+  /* 🔴 Адрес статьи виден в списке: слаг задаёт владелец, и на него завязаны
+     разосланные ссылки. Число знаков рядом отвечает на второй вопрос списка —
+     статья написана или начата: текст на две тысячи знаков не ранжируется. */
+  slugPath: (slug: string): string => `/knowledge/${slug}`,
+  characters: (count: number): string => pluralize(count, 'знак', 'знака', 'знаков'),
+  /* Обложки нет — статья выйдет на сайт без картинки в листинге. Факт
+     сообщается там, где на статью смотрят, а не только внутри формы. */
+  noCover: 'обложка не выбрана',
+
   editLabel: (title: string): string => `Править: ${title}`,
   /** Имя группы действий строки: без него читалка объявляет её безымянной. */
   rowActions: (title: string): string => `Действия над статьёй: ${title}`,
@@ -31,4 +74,17 @@ export const adminKnowledgeContent = {
   viewDraftLabel: (title: string): string => `Черновик, на сайте его ещё нет: ${title}`,
   minutes: (value: number): string => `${value} мин`,
   date: (iso: string): string => formatDateShort(iso),
+
+  /**
+   * Строка счёта раздела: сколько статей, сколько на сайте, сколько черновиков.
+   *
+   * 🔴 Числа считаются по всей базе знаний, а не по показанной странице:
+   * подпись «12 статей» над списком из восьми — это не округление, а ложь.
+   */
+  summary: (total: number, published: number, drafts: number): string =>
+    [
+      pluralize(total, 'статья', 'статьи', 'статей'),
+      `${published} ${plural(published, 'опубликована', 'опубликованы', 'опубликованы')}`,
+      pluralize(drafts, 'черновик', 'черновика', 'черновиков'),
+    ].join(' · '),
 } as const;
