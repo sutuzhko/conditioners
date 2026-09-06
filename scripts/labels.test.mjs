@@ -13,7 +13,8 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
 import { AXES, LABELS, checkAxes, labelsOf, pathMap } from './labels.mjs';
-import { auditIssues } from './labels-audit.mjs';
+import { COMMENT_MARKER, auditIssues, findComment, renderComment } from './labels-audit.mjs';
+import { LABELER_PATH, renderLabeler } from './labeler-generate.mjs';
 import { planSync } from './labels-sync.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -154,5 +155,41 @@ describe('ревизор разметки', () => {
   it('ловит остатки старой разметки', () => {
     const [broken] = auditIssues([issue(7, ['часть/сайт', 'тип/дефект', 'ui'])]);
     expect(broken.problems.join()).toContain('ui');
+  });
+});
+
+describe('карта для labeler', () => {
+  it('🔴 файл в git совпадает с генерацией из словаря', () => {
+    const expected = renderLabeler(pathMap());
+    const actual = readFileSync(LABELER_PATH, 'utf8');
+    expect(actual, 'файл устарел: node scripts/labeler-generate.mjs --write').toBe(expected);
+  });
+
+  it('каждый ярлык карты есть в словаре', () => {
+    const text = readFileSync(LABELER_PATH, 'utf8');
+    const names = [...text.matchAll(/^'([^']+)':$/gm)].map((match) => match[1]);
+    expect(names.length).toBeGreaterThan(0);
+    expect(names.filter((name) => !(name in LABELS))).toEqual([]);
+  });
+});
+
+describe('заметка ревизора', () => {
+  it('называет причину человеку, а не «оси нарушены»', () => {
+    const text = renderComment(['нет ярлыка оси «часть»']);
+    expect(text.startsWith(COMMENT_MARKER)).toBe(true);
+    expect(text).toContain('нет ярлыка оси «часть»');
+    expect(text).toContain('LABELS.md');
+  });
+
+  it('🔴 находит свою прежнюю заметку и не плодит новых', () => {
+    const comments = [
+      { id: 1, body: 'обычный комментарий' },
+      { id: 2, body: renderComment(['нет ярлыка оси «тип»']) },
+    ];
+    expect(findComment(comments)?.id).toBe(2);
+  });
+
+  it('чужие комментарии своими не считает', () => {
+    expect(findComment([{ id: 1, body: 'разметка неполная' }])).toBeUndefined();
   });
 });

@@ -1,0 +1,228 @@
+# Карта «путь → ярлык» для actions/labeler.
+#
+# 🔴 Файл собирается из scripts/labels.mjs командой
+#    node scripts/labeler-generate.mjs --write
+# Правки руками теряются при следующей сборке; тест сверяет файл с
+# генерацией и краснеет на расхождении.
+'часть/сайт':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(site)/**'
+
+'часть/панель':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(admin)/**'
+          - 'apps/web/src/widgets/admin-*/**'
+
+'часть/api':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/api/**'
+          - 'apps/web/src/server/**'
+          - 'apps/web/prisma/**'
+
+'часть/инфра':
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/workflows/**'
+          - 'scripts/**'
+          - 'infra/**'
+          - 'apps/web/e2e/**'
+          - 'docker-compose*.yml'
+
+'часть/процесс':
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.agents/skills/**'
+          - '.husky/**'
+
+'часть/общее':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/shared/**'
+          - 'apps/web/src/entities/**'
+
+'часть/документы':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'docs/**'
+          - '*.md'
+
+'раздел/каталог':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(site)/catalog/**'
+          - 'apps/web/src/app/(admin)/admin/(panel)/catalog/**'
+          - 'apps/web/src/app/api/admin/models/**'
+          - 'apps/web/src/entities/product/**'
+          - 'apps/web/src/features/product-form/**'
+          - 'apps/web/src/features/product-photos/**'
+          - 'apps/web/src/widgets/catalog/**'
+          - 'apps/web/src/widgets/admin-catalog/**'
+
+'раздел/характеристики':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(admin)/admin/(panel)/catalog/specs/**'
+          - 'apps/web/src/features/specs-dictionary/**'
+
+'раздел/прайс':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(admin)/admin/(panel)/prices/**'
+          - 'apps/web/src/app/api/prices/**'
+          - 'apps/web/src/app/api/admin/prices/**'
+          - 'apps/web/src/entities/price/**'
+          - 'apps/web/src/features/prices-form/**'
+          - 'apps/web/src/widgets/pricing/**'
+
+'раздел/скидки':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/features/product-sale/**'
+          - 'apps/web/src/app/api/admin/models/*/sale/**'
+
+'раздел/заявки':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(admin)/admin/(panel)/leads/**'
+          - 'apps/web/src/app/api/leads/**'
+          - 'apps/web/src/app/api/admin/leads/**'
+          - 'apps/web/src/entities/lead/**'
+          - 'apps/web/src/features/lead-form/**'
+          - 'apps/web/src/features/lead-manager/**'
+          - 'apps/web/src/features/reminder-form/**'
+          - 'apps/web/src/widgets/lead/**'
+
+'раздел/клиенты':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(admin)/admin/(panel)/clients/**'
+          - 'apps/web/src/app/api/admin/clients/**'
+          - 'apps/web/src/entities/client/**'
+          - 'apps/web/src/features/client-manager/**'
+
+'раздел/наряды':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(admin)/admin/(panel)/orders/**'
+          - 'apps/web/src/app/api/admin/orders/**'
+          - 'apps/web/src/entities/order/**'
+          - 'apps/web/src/features/order-manager/**'
+
+'раздел/календарь':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(admin)/admin/(panel)/crm/**'
+          - 'apps/web/src/app/api/admin/crm/**'
+          - 'apps/web/src/entities/crm/**'
+          - 'apps/web/src/features/crm-calendar/**'
+
+'раздел/склад':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(admin)/admin/(panel)/stock/**'
+          - 'apps/web/src/app/api/admin/stock/**'
+          - 'apps/web/src/entities/stock/**'
+          - 'apps/web/src/features/stock-manager/**'
+
+'раздел/монтажники':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(admin)/admin/(panel)/team/**'
+          - 'apps/web/src/app/api/admin/staff/**'
+          - 'apps/web/src/entities/staff/**'
+          - 'apps/web/src/features/staff-manager/**'
+
+'раздел/отзывы':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/api/reviews/**'
+          - 'apps/web/src/app/(admin)/admin/(panel)/reviews/**'
+          - 'apps/web/src/app/api/admin/reviews/**'
+          - 'apps/web/src/entities/review/**'
+          - 'apps/web/src/features/review-form/**'
+          - 'apps/web/src/features/review-modal/**'
+          - 'apps/web/src/features/review-moderation/**'
+          - 'apps/web/src/widgets/reviews/**'
+
+'раздел/знания':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(site)/knowledge/**'
+          - 'apps/web/src/app/(admin)/admin/(panel)/knowledge/**'
+          - 'apps/web/src/app/api/admin/articles/**'
+          - 'apps/web/src/app/api/admin/blocks/**'
+          - 'apps/web/src/entities/article/**'
+          - 'apps/web/src/features/article-form/**'
+          - 'apps/web/src/widgets/knowledge/**'
+          - 'apps/web/src/widgets/article/**'
+          - 'apps/web/src/widgets/admin-knowledge/**'
+
+'раздел/настройки':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(admin)/admin/(panel)/settings/**'
+          - 'apps/web/src/app/(admin)/admin/(panel)/company/**'
+          - 'apps/web/src/app/api/settings/**'
+          - 'apps/web/src/app/api/admin/settings/**'
+          - 'apps/web/src/entities/settings/**'
+          - 'apps/web/src/features/settings-form/**'
+
+'раздел/уведомления':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/server/notifications/**'
+          - 'apps/web/src/app/api/admin/notifications/**'
+          - 'apps/web/src/app/api/telegram/**'
+          - 'apps/web/src/features/delivery-log/**'
+
+'раздел/доступ':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(admin)/admin/login/**'
+          - 'apps/web/src/app/(admin)/admin/(panel)/profile/**'
+          - 'apps/web/src/app/api/auth/**'
+          - 'apps/web/src/app/api/admin/profile/**'
+          - 'apps/web/src/features/admin-login/**'
+          - 'apps/web/src/features/profile-form/**'
+          - 'apps/web/src/server/auth.ts'
+          - 'apps/web/src/server/repo/sessions.ts'
+          - 'apps/web/src/server/repo/admin-users.ts'
+
+'раздел/лендинг':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(site)/page.tsx'
+          - 'apps/web/src/widgets/hero/**'
+          - 'apps/web/src/widgets/honesty/**'
+          - 'apps/web/src/widgets/trust/**'
+          - 'apps/web/src/widgets/faq/**'
+          - 'apps/web/src/widgets/installation/**'
+          - 'apps/web/src/widgets/service/**'
+          - 'apps/web/src/widgets/contacts/**'
+
+'раздел/сравнение':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/(site)/compare/**'
+
+'раздел/кит':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/shared/ui/**'
+          - 'apps/web/src/shared/styles/**'
+          - 'apps/web/.storybook/**'
+
+'раздел/медиа':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/api/media/**'
+          - 'apps/web/public/**'
+
+'раздел/погода':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'apps/web/src/app/api/weather/**'
+          - 'apps/web/src/features/weather-chip/**'
