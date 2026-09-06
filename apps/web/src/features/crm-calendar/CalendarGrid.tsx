@@ -4,11 +4,14 @@ import type { PersonTone } from '@/entities/crm/lib/palette';
 
 import { CRM_PATH, WEEKDAYS, crmContent as texts } from './content';
 import { EventChip } from './EventChip';
-import { monthRows, type ScheduleColumn, type ScheduleItem } from './schedule';
+import { monthBands, monthRows, type ScheduleColumn, type ScheduleItem } from './schedule';
 import styles from './CalendarGrid.module.css';
 
 /** Сколько записей помещается в клетку до того, как остаток свернётся в «Ещё N». */
 const VISIBLE = 3;
+
+/** Дней в неделе: ряд месячной сетки. */
+const WEEK_DAYS = 7;
 
 /**
  * Краска человека → класс модуля. Прямой перевод, а не сборка имени строкой:
@@ -59,6 +62,19 @@ export interface CalendarGridProps {
  * Серверный компонент: клетки приходят готовыми, интерактивна только запись.
  */
 export function CalendarGrid({ columns, label = texts.gridLabel, focusId }: CalendarGridProps) {
+  /* 🔴 Многодневная отлучка идёт сплошной плашкой через свои дни, а не
+     повторяется словом «Отпуск» в каждой клетке (ADR-165). Плашка лежит в той
+     же сетке, что и клетки, поэтому она перекрывает и зазоры между ними —
+     ровно этим она и читается как одна запись, а не как четырнадцать. */
+  const bands = monthBands(columns).filter((band) => band.item.span !== null);
+
+  /* Сколько дорожек занято плашками в каждом ряду: под них клетка отводит
+     место, иначе плашка накрыла бы собственные строки дня. */
+  const lanesOf = (index: number): number =>
+    bands
+      .filter((band) => band.row === Math.floor(index / WEEK_DAYS))
+      .reduce((max, band) => Math.max(max, band.lane + 1), 0);
+
   return (
     <section className={styles.grid} aria-label={label}>
       <div className={styles.weekdays} aria-hidden="true">
@@ -70,10 +86,21 @@ export function CalendarGrid({ columns, label = texts.gridLabel, focusId }: Cale
       </div>
 
       <div className={styles.days}>
-        {columns.map((column) => {
+        {columns.map((column, index) => {
           const rows = monthRows(column);
-          const shown = rows.slice(0, VISIBLE);
-          const rest = rows.length - shown.length;
+          const lanes = lanesOf(index);
+
+          /* Запись, ушедшая в плашку, из строк убирается: иначе она стоит в
+             клетке дважды — плашкой и строкой под ней. В точках на телефоне
+             она остаётся: там плашек нет вовсе, и потерять отлучку нельзя. */
+          const plain = rows.filter((item) => item.span === null);
+          const shown = plain.slice(0, Math.max(VISIBLE - lanes, 0));
+          const rest = plain.length - shown.length;
+
+          /* Точки на телефоне считают всё, что в дне есть, — плашки там нет, и
+             отлучка обязана остаться видной (issue #547). */
+          const dots = rows.slice(0, VISIBLE);
+          const restDots = rows.length - dots.length;
 
           return (
             /* Клетка — не ссылка: внутри неё лежат записи, а ссылка внутри
@@ -87,6 +114,14 @@ export function CalendarGrid({ columns, label = texts.gridLabel, focusId }: Cale
                 .filter(Boolean)
                 .join(' ')}
               key={column.key}
+              /* 🔴 Клетка стоит в сетке явно, а не автоматической раскладкой.
+                 Плашка отлучки занимает свои ячейки, и автораскладка обходила
+                 бы занятое: клетки поехали бы вправо, и месяц перестал бы
+                 совпадать с календарём. */
+              style={{
+                gridRow: Math.floor(index / WEEK_DAYS) + 1,
+                gridColumn: (index % WEEK_DAYS) + 1,
+              }}
             >
               {/* 🔴 Подпись называет число записей и требующие внимания
                   словами (issue #547). Точка ничего не сообщает ни
@@ -102,7 +137,7 @@ export function CalendarGrid({ columns, label = texts.gridLabel, focusId }: Cale
 
                 {rows.length === 0 ? null : (
                   <span className={styles.dots} aria-hidden="true">
-                    {shown.map((item) => (
+                    {dots.map((item) => (
                       <span
                         className={[
                           styles.dot,
@@ -114,12 +149,20 @@ export function CalendarGrid({ columns, label = texts.gridLabel, focusId }: Cale
                         key={item.id}
                       />
                     ))}
-                    {rest > 0 ? <span className={styles.rest}>{`+${rest}`}</span> : null}
+                    {restDots > 0 ? <span className={styles.rest}>{`+${restDots}`}</span> : null}
                   </span>
                 )}
               </Link>
 
-              {rows.length === 0 ? null : (
+              {/* Место под плашки — настоящие элементы, а не отступ на глаз:
+                  плашка лежит в сетке поверх клетки, и высота под неё обязана
+                  считаться тем же числом дорожек. Их столько же у всех клеток
+                  ряда, иначе строки дня встают лесенкой. */}
+              {Array.from({ length: lanes }, (_, lane) => (
+                <span className={styles.bandRoom} key={lane} aria-hidden="true" />
+              ))}
+
+              {shown.length === 0 ? null : (
                 <ul className={styles.rows}>
                   {shown.map((item) => (
                     <li className={styles.row} key={item.id}>
@@ -141,6 +184,32 @@ export function CalendarGrid({ columns, label = texts.gridLabel, focusId }: Cale
             </div>
           );
         })}
+
+        {/* 🔴 Плашки идут последними: они лежат поверх клеток и перекрывают
+            зазоры между ними — иначе отпуск на неделю читается как семь
+            одинаковых записей подряд (ADR-165). */}
+        {bands.map((band) => (
+          <div
+            className={[
+              styles.band,
+              band.clippedStart ? styles.fromEarlier : null,
+              band.clippedEnd ? styles.toLater : null,
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            /* Признак для проверок раскладки: плашка отличается от клетки не
+               оформлением, а тем, что она плашка. */
+            data-band=""
+            key={band.key}
+            style={{
+              gridRow: band.row + 1,
+              gridColumn: `${band.from + 1} / span ${band.span}`,
+              marginTop: `calc(var(--cal-band-top) + ${band.lane} * var(--cal-band-step))`,
+            }}
+          >
+            <EventChip item={band.item} variant="row" focused={band.item.id === focusId} />
+          </div>
+        ))}
       </div>
     </section>
   );
