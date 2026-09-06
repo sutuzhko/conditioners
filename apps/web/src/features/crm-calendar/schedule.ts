@@ -122,10 +122,32 @@ export type ScheduleEdit =
  * серверного компонента в клиентский лист пропсом, а функции и классы границу
  * не переживают.
  */
+/**
+ * Протяжённость записи, показанной больше чем в одной колонке, — ADR-165.
+ *
+ * 🔴 Многодневной в домене становится только отлучка: отпуск на две недели —
+ * одна запись, а не четырнадцать. Раскладка кладёт её в каждый день
+ * диапазона, а вид сшивает куски обратно в одну полосу по `recordId`: без
+ * этого в неделе четырнадцать раз подряд стоит одно и то же слово, и полоса
+ * читается как четырнадцать разных отлучек.
+ */
+export type ItemSpan = {
+  /** Сама запись, а не её кусок в этой колонке: по нему куски и сшиваются. */
+  readonly recordId: string;
+  /** Первый и последний день записи включительно. */
+  readonly fromDay: DayKey;
+  readonly toDay: DayKey;
+};
+
 export type ScheduleItem = {
   readonly id: string;
   readonly entity: 'event' | 'order' | 'lead' | 'block';
   readonly day: DayKey;
+  /**
+   * Протяжённость многодневной записи. `null` — запись живёт одним днём, и
+   * сшивать нечего: так устроены наряд, дело и заявка (ADR-165).
+   */
+  readonly span: ItemSpan | null;
   readonly icon: IconName;
   readonly tone: ScheduleTone;
   /** «Звонок», «Монтаж» — что это за работа. */
@@ -358,6 +380,7 @@ function itemOfOrder(
     id: order.id,
     entity: 'order',
     day,
+    span: null,
     icon: look.icon,
     tone: look.tone,
     kindTitle: look.title,
@@ -408,6 +431,7 @@ function itemOfEvent(event: CrmEventCard): ItemDraft {
     id: event.id,
     entity: 'event',
     day,
+    span: null,
     icon: look.icon,
     tone: look.tone,
     kindTitle: look.title,
@@ -471,6 +495,7 @@ function itemOfLead(lead: CalendarLead): ItemDraft {
   return {
     id: `lead-${lead.id}`,
     entity: 'lead',
+    span: null,
     day: dayKeyOf(at),
     icon: 'chat',
     tone: 'note',
@@ -516,7 +541,17 @@ function itemsOfBlocks(
     const whole = block.fromMin === null || block.toMin === null;
     const fromMin = block.fromMin ?? 0;
     const toMin = whole ? fromMin : (block.toMin ?? 0);
+
+    /* Диапазон есть только у разовой: повторяемая тянется неделями, и слово
+       «по» рядом с ней означало бы конец повтора, которого у неё нет. */
+    const fromDay = block.repeat === 'once' ? (block.day ?? day) : day;
+    const toDay = block.repeat === 'once' ? (block.endDay ?? fromDay) : day;
+    const manyDays = toDay > fromDay;
+
     const when = whole ? crmBusyContent.full : busyWindowTitle(fromMin, toMin);
+    /* 🔴 У отпуска на две недели «День закрыт» не отвечает на вопрос, до
+       какого числа человека нет: даты идут в подпись прямо (ADR-165). */
+    const period = manyDays ? texts.busyRange(dayTitle(fromDay), dayTitle(toDay)) : null;
 
     return {
       /* Повторяемая отлучка ложится на каждую такую неделю, и один номер
@@ -524,6 +559,9 @@ function itemsOfBlocks(
       id: `block-${block.id}-${day}-${index}`,
       entity: 'block',
       day,
+      /* 🔴 Кусок отлучки помнит запись целиком: по `recordId` вид сшивает
+         четырнадцать кусков обратно в одну полосу (ADR-165). */
+      span: manyDays ? { recordId: `block-${block.id}`, fromDay, toDay } : null,
       icon: whole ? 'danger' : 'clock',
       tone: 'note',
       kindTitle: crmBusyContent.busy,
@@ -531,10 +569,10 @@ function itemsOfBlocks(
       title: who,
       note: block.reason,
       phone: null,
-      detail: block.repeat === 'weekly' ? texts.busyRepeatNote : null,
+      detail: block.repeat === 'weekly' ? texts.busyRepeatNote : period,
       statusTitle: null,
       time: whole ? crmBusyContent.fullShort : timeOfMinutes(fromMin),
-      range: when,
+      range: period ?? when,
       fromMin,
       toMin,
       overtimeMin: 0,
@@ -553,6 +591,9 @@ function itemsOfBlocks(
             draft: {
               repeat: block.repeat,
               day: block.day ?? day,
+              /* Пустое поле значит «один день»: повтор даты начала форма
+                 заставила бы стирать у каждой однодневной отлучки. */
+              endDay: manyDays ? toDay : '',
               weekday: block.weekday ?? weekdayOf(day),
               allDay: whole,
               from: timeOfMinutes(fromMin),
@@ -561,7 +602,9 @@ function itemsOfBlocks(
             },
           }
         : null,
-      label: [who, when, block.reason].filter((part) => part !== null && part !== '').join(', '),
+      label: [who, when, period, block.reason]
+        .filter((part) => part !== null && part !== '')
+        .join(', '),
     } satisfies ItemDraft;
   });
 }
@@ -927,6 +970,134 @@ export function monthRows(column: ScheduleColumn): readonly ScheduleItem[] {
   ].sort((left, right) => left.fromMin - right.fromMin || left.toMin - right.toMin);
 
   return [...column.allDay, ...timed];
+}
+
+// ---------- Полоса «весь день» ----------
+
+/**
+ * Кусок полосы «весь день», уже поставленный по колонкам, — ADR-165.
+ *
+ * 🔴 Многодневная отлучка приезжает в раскладку четырнадцатью кусками (по
+ * одному на день диапазона) и обязана уехать на экран одной полосой. Сшивание
+ * живёт здесь, а не в разметке: это арифметика колонок, и проверять её глазами
+ * на каждой правке нельзя.
+ */
+export type AllDayBand = {
+  readonly key: string;
+  /** Запись, которую полоса показывает: берётся её первый видимый кусок. */
+  readonly item: ScheduleItem;
+  /** Первая колонка полосы, считая от нуля. */
+  readonly from: number;
+  /** Сколько колонок она занимает. У однодневной записи — одну. */
+  readonly span: number;
+  /** Строка полосы: сколько их, столько у неё и высоты. */
+  readonly lane: number;
+  /** Отлучка началась раньше показанного промежутка — полоса обрезана слева. */
+  readonly clippedStart: boolean;
+  /** …и кончается позже — обрезана справа. */
+  readonly clippedEnd: boolean;
+};
+
+/** Запись, а не её кусок в колонке: по этому ключу куски и сшиваются. */
+function recordKeyOf(item: ScheduleItem): string {
+  return item.span?.recordId ?? item.id;
+}
+
+/**
+ * Полосы «весь день» по колонкам вида.
+ *
+ * 🔴 Куски сшиваются только подряд идущими колонками. Разрыв обязан оставаться
+ * разрывом: повторяемая отлучка «каждую среду» в месяце попадает в четыре
+ * клетки одной колонки, и полоса через весь месяц была бы неправдой.
+ *
+ * Строки раздаются жадно и в порядке «раньше начинается — длиннее»: длинная
+ * полоса встаёт выше коротких, как в эталоне, и не режется ими пополам.
+ */
+export function allDayBands(columns: readonly ScheduleColumn[]): readonly AllDayBand[] {
+  const runs: { readonly key: string; item: ScheduleItem; readonly from: number; span: number }[] =
+    [];
+  const openRuns = new Map<string, { readonly from: number; span: number }>();
+
+  columns.forEach((column, index) => {
+    const seen = new Set<string>();
+
+    for (const item of column.allDay) {
+      const key = recordKeyOf(item);
+      seen.add(key);
+
+      const open = openRuns.get(key);
+      // продолжение возможно только из соседней колонки, иначе это новая полоса
+      if (open !== undefined && open.from + open.span === index) {
+        open.span += 1;
+        continue;
+      }
+
+      const run = { key, item, from: index, span: 1 };
+      runs.push(run);
+      openRuns.set(key, run);
+    }
+
+    for (const [key, open] of openRuns) {
+      if (!seen.has(key) && open.from + open.span === index) openRuns.delete(key);
+    }
+  });
+
+  const ordered = [...runs].sort(
+    (left, right) =>
+      left.from - right.from || right.span - left.span || left.key.localeCompare(right.key),
+  );
+
+  const lanes: { from: number; to: number }[][] = [];
+
+  return ordered.map((run) => {
+    const to = run.from + run.span;
+
+    let lane = 0;
+    while ((lanes[lane] ?? []).some((taken) => run.from < taken.to && taken.from < to)) {
+      lane += 1;
+    }
+    lanes[lane] = [...(lanes[lane] ?? []), { from: run.from, to }];
+
+    const span = run.item.span;
+    const first = columns[run.from]?.day ?? '';
+    const last = columns[to - 1]?.day ?? '';
+
+    return {
+      key: `${run.key}-${run.from}`,
+      item: run.item,
+      from: run.from,
+      span: run.span,
+      lane,
+      clippedStart: span !== null && span.fromDay < first,
+      clippedEnd: span !== null && span.toDay > last,
+    } satisfies AllDayBand;
+  });
+}
+
+/** Полоса месяца: та же полоса, но со своей неделей сетки. */
+export type MonthBand = AllDayBand & { readonly row: number };
+
+/** Дней в неделе — столько клеток в ряду месячной сетки. */
+const WEEK_DAYS = 7;
+
+/**
+ * Полосы «весь день» в месячной сетке — по неделе за раз.
+ *
+ * 🔴 Полоса не имеет права перепрыгнуть с воскресенья на понедельник
+ * следующего ряда: на экране это два разных места, и одна плашка через них
+ * читалась бы как отлучка, которой не было. Отпуск на две недели даёт две
+ * полосы — по одной в каждом ряду, — и обе помечены обрезанными краями.
+ */
+export function monthBands(columns: readonly ScheduleColumn[]): readonly MonthBand[] {
+  const weeks = Math.ceil(columns.length / WEEK_DAYS);
+
+  return Array.from({ length: weeks }, (_, row) =>
+    allDayBands(columns.slice(row * WEEK_DAYS, (row + 1) * WEEK_DAYS)).map((band) => ({
+      ...band,
+      row,
+      key: `${band.key}-${row}`,
+    })),
+  ).flat();
 }
 
 /**

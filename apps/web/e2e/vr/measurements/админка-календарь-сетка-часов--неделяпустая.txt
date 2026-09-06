@@ -34,13 +34,7 @@ section.TimeGrid__grid  358×667 @16,16
   div.AllDayBar__bar  358×38 @0,53  b0 0 1 0
     div.AllDayBar__rail  34×29 @0,4
       span.AllDayBar__label  28×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-    ul.AllDayBar__list  44×0 @36,4
-    ul.AllDayBar__list#2  44×0 @82,4
-    ul.AllDayBar__list#3  44×0 @129,4
-    ul.AllDayBar__list#4  44×0 @175,4
-    ul.AllDayBar__list#5  44×0 @221,4
-    ul.AllDayBar__list#6  44×0 @267,4
-    ul.AllDayBar__list#7  44×0 @314,4
+    ul.AllDayBar__lanes  322×0 @36,4
   div.TimeGrid__scroll  358×576 @0,91
     div.TimeGrid__hours  358×1008 @0,-336
       div.TimeGrid__rail  34×1008 @0,0
@@ -295,13 +289,7 @@ section.TimeGrid__grid  736×669 @16,16
   div.AllDayBar__bar  736×38 @0,55  b0 0 1 0
     div.AllDayBar__rail  34×29 @0,4
       span.AllDayBar__label  28×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-    ul.AllDayBar__list  98×0 @36,4
-    ul.AllDayBar__list#2  98×0 @136,4
-    ul.AllDayBar__list#3  98×0 @237,4
-    ul.AllDayBar__list#4  98×0 @337,4
-    ul.AllDayBar__list#5  98×0 @437,4
-    ul.AllDayBar__list#6  98×0 @537,4
-    ul.AllDayBar__list#7  98×0 @638,4
+    ul.AllDayBar__lanes  700×0 @36,4
   div.TimeGrid__scroll  736×576 @0,93
     div.TimeGrid__hours  736×1008 @0,-336
       div.TimeGrid__rail  34×1008 @0,0
@@ -556,13 +544,7 @@ section.TimeGrid__grid  1408×649 @16,16
   div.AllDayBar__bar  1408×38 @0,35  b0 0 1 0
     div.AllDayBar__rail  54×29 @0,4
       span.AllDayBar__label  48×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-    ul.AllDayBar__list  189×0 @58,4
-    ul.AllDayBar__list#2  189×0 @251,4
-    ul.AllDayBar__list#3  189×0 @445,4
-    ul.AllDayBar__list#4  189×0 @638,4
-    ul.AllDayBar__list#5  189×0 @832,4
-    ul.AllDayBar__list#6  189×0 @1025,4
-    ul.AllDayBar__list#7  189×0 @1219,4
+    ul.AllDayBar__lanes  1350×0 @58,4
   div.TimeGrid__scroll  1408×576 @0,73
     div.TimeGrid__hours  1408×1152 @0,-384
       div.TimeGrid__rail  54×1152 @0,0
@@ -817,13 +799,7 @@ section.TimeGrid__grid
   div.AllDayBar__bar  border #0f172a #0f172a #e2e8f0 #0f172a
     div.AllDayBar__rail
       span.AllDayBar__label  color #5b6a7d
-    ul.AllDayBar__list
-    ul.AllDayBar__list#2
-    ul.AllDayBar__list#3
-    ul.AllDayBar__list#4
-    ul.AllDayBar__list#5
-    ul.AllDayBar__list#6
-    ul.AllDayBar__list#7
+    ul.AllDayBar__lanes
   div.TimeGrid__scroll
     div.TimeGrid__hours
       div.TimeGrid__rail
@@ -1078,13 +1054,7 @@ section.TimeGrid__grid
   div.AllDayBar__bar  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
     div.AllDayBar__rail
       span.AllDayBar__label  color #7e92a7
-    ul.AllDayBar__list
-    ul.AllDayBar__list#2
-    ul.AllDayBar__list#3
-    ul.AllDayBar__list#4
-    ul.AllDayBar__list#5
-    ul.AllDayBar__list#6
-    ul.AllDayBar__list#7
+    ul.AllDayBar__lanes
   div.TimeGrid__scroll
     div.TimeGrid__hours
       div.TimeGrid__rail

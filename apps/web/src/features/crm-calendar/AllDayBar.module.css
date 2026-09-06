@@ -18,10 +18,27 @@
   --cal-bar-row: 24px;
 
   display: grid;
+
+  /* 🔴 Колонка часов и всё остальное: сами дни делит вложенная сетка полос.
+     Она обязана делить оставшееся теми же долями и тем же зазором — иначе
+     полоса перестаёт стоять над своим днём, а в этом весь её смысл. */
+  grid-template-columns: var(--cal-rail) minmax(0, 1fr);
   gap: 4px;
   align-items: start;
   border-bottom: 1px solid var(--line);
   padding: 4px 0;
+}
+
+/* Дорожки полос: колонки те же, что у шапки и у сетки часов, а строки
+   раздаёт `allDayBands` — многодневная отлучка занимает свою целиком. */
+.lanes {
+  display: grid;
+  gap: 3px 4px;
+  align-items: start;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .rail {
@@ -39,16 +56,6 @@
   text-align: right;
 }
 
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
 /* Свёрнутая полоса показывает ровно две строки: день с восемью заявками не
    имеет права съесть сетку часов, ради которой календарь и открывают.
 
@@ -62,6 +69,19 @@
 .item {
   display: block;
   min-width: 0;
+}
+
+/* 🔴 Полоса, начавшаяся до показанной недели или кончающаяся после неё,
+   обрывается ровно на краю: скруглённый угол там читался бы как «отпуск
+   начался в понедельник», а он начался неделей раньше (ADR-165). */
+.fromEarlier > * {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.toLater > * {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
 }
 
 /* 🔴 Граница — `--line-ui`, а не `--line` (ADR-181, issue #365). Заливка
@@ -119,6 +139,10 @@
        Заодно колонка отдаёт записи недостающие пиксели: с зазором 4px чип
        выходил 42,1 при норме 44. */
     gap: 2px;
+  }
+
+  .lanes {
+    gap: 3px 2px;
   }
 
   .toggle {

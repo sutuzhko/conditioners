@@ -182,6 +182,12 @@ export type DayBlockCard = DayBlockLike & {
 export type DayBlockDraft = {
   readonly repeat: DayBlockRepeat;
   readonly day: string;
+  /**
+   * Последний день разовой отлучки (ADR-165). Пустая строка — отлучка на один
+   * день: форма отдаёт пустое поле, а не повтор даты начала, чтобы «по какое
+   * число» не приходилось стирать у каждой однодневной записи.
+   */
+  readonly endDay: string;
   /** День недели по ISO-8601 у повторяемой занятости. */
   readonly weekday: number;
   readonly allDay: boolean;

@@ -137,11 +137,10 @@ export function TimeGrid({ columns, view, range, nowMin, label, focusId }: TimeG
         ))}
       </div>
 
-      <AllDayBar
-        columns={columns.map((column) => ({ key: column.key, items: column.allDay }))}
-        template={template}
-        focusId={focusId}
-      />
+      {/* 🔴 Полоса берёт колонки целиком, а не их записи: многодневная отлучка
+          идёт через несколько колонок одной полосой, и раскладка считается по
+          всему ряду сразу (ADR-165). */}
+      <AllDayBar columns={columns} focusId={focusId} />
 
       <GridScroll className={styles.scroll} workFromMin={range.workFromMin} label={texts.hours}>
         <div className={styles.hours} style={{ gridTemplateColumns: template }}>

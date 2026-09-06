@@ -139,6 +139,55 @@ describe('заведение занятости', () => {
     expect(parsed.success).toBe(false);
   });
 
+  it('🔴 принимает диапазон: отпуск с 1 по 14 июля — одна запись (ADR-165)', () => {
+    const parsed = dayBlockCreateSchema.safeParse({
+      ...onceBlock,
+      day: '2026-07-01',
+      endDay: '2026-07-14',
+    });
+
+    expect(parsed.success).toBe(true);
+    expect(parsed.success ? parsed.data.endDay : null).toBe('2026-07-14');
+  });
+
+  it('без конца диапазон остаётся пустым: это отлучка на один день', () => {
+    const parsed = dayBlockCreateSchema.safeParse(onceBlock);
+
+    expect(parsed.success ? parsed.data.endDay : 'нет разбора').toBeNull();
+  });
+
+  it('конец раньше начала не заводится', () => {
+    const parsed = dayBlockCreateSchema.safeParse({
+      ...onceBlock,
+      day: '2026-07-14',
+      endDay: '2026-07-01',
+    });
+
+    expect(parsed.success).toBe(false);
+  });
+
+  it('конец, равный началу, — обычная однодневная отлучка', () => {
+    const parsed = dayBlockCreateSchema.safeParse({
+      ...onceBlock,
+      day: '2026-07-01',
+      endDay: '2026-07-01',
+    });
+
+    expect(parsed.success).toBe(true);
+  });
+
+  it('повторяемая с диапазоном не заводится: она тянется неделями, а не днями', () => {
+    const parsed = dayBlockCreateSchema.safeParse({ ...weeklyBlock, endDay: '2026-07-14' });
+
+    expect(parsed.success).toBe(false);
+  });
+
+  it('несуществующая дата конца не заводится', () => {
+    const parsed = dayBlockCreateSchema.safeParse({ ...onceBlock, endDay: '2026-02-31' });
+
+    expect(parsed.success).toBe(false);
+  });
+
   it('половина окна не принимается: «с 14:00» без «до» — это не окно', () => {
     expect(dayBlockCreateSchema.safeParse({ ...onceBlock, fromMin: 840 }).success).toBe(false);
     expect(dayBlockCreateSchema.safeParse({ ...onceBlock, toMin: 960 }).success).toBe(false);

@@ -89,6 +89,7 @@ export const wholeDayBlock: DayBlockCard = {
   userName: 'Владелец',
   repeat: 'once',
   day: '2026-08-26',
+  endDay: '2026-08-26',
   weekday: null,
   fromMin: null,
   toMin: null,
@@ -102,6 +103,7 @@ export const doctorBlock: DayBlockCard = {
   userName: 'Владелец',
   repeat: 'once',
   day: '2026-08-24',
+  endDay: '2026-08-24',
   weekday: null,
   fromMin: 840,
   toMin: 960,
@@ -115,6 +117,7 @@ export const weeklyBlock: DayBlockCard = {
   userName: 'Владелец',
   repeat: 'weekly',
   day: null,
+  endDay: null,
   weekday: 4,
   fromMin: null,
   toMin: null,
@@ -128,6 +131,7 @@ export const extraThursdayBlock: DayBlockCard = {
   userName: 'Владелец',
   repeat: 'once',
   day: '2026-08-20',
+  endDay: '2026-08-20',
   weekday: null,
   fromMin: 600,
   toMin: 720,
@@ -141,10 +145,44 @@ export const foreignBlock: DayBlockCard = {
   userName: 'Дмитрий',
   repeat: 'once',
   day: '2026-08-23',
+  endDay: '2026-08-23',
   weekday: null,
   fromMin: 600,
   toMin: 720,
   reason: 'Учёба',
+};
+
+/**
+ * Отпуск с 19 августа по 1 сентября — одна запись, а не четырнадцать
+ * (ADR-165). Диапазон нарочно переходит границу месяца и накрывает неделю
+ * 24–30 августа целиком: полоса обязана дотянуться до края сетки и в неделе,
+ * и в месяце.
+ */
+export const vacationBlock: DayBlockCard = {
+  id: 'b6',
+  userId: viewerId,
+  userName: 'Владелец',
+  repeat: 'once',
+  day: '2026-08-19',
+  endDay: '2026-09-01',
+  weekday: null,
+  fromMin: null,
+  toMin: null,
+  reason: 'Отпуск',
+};
+
+/** Чужой отпуск: короткий диапазон внутри недели, слоем занятости команды. */
+export const foreignVacationBlock: DayBlockCard = {
+  id: 'b7',
+  userId: 'u2',
+  userName: 'Дмитрий',
+  repeat: 'once',
+  day: '2026-08-25',
+  endDay: '2026-08-27',
+  weekday: null,
+  fromMin: null,
+  toMin: null,
+  reason: 'Больничный',
 };
 
 export const monthBlocks: readonly DayBlockCard[] = [
