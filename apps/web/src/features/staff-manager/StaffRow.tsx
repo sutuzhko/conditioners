@@ -195,12 +195,21 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
       </td>
 
       <td role="cell" data-label={texts.colAccess}>
-        <Switch
-          label={staff.active ? texts.active : texts.inactive}
-          checked={staff.active}
-          disabled={busy}
-          onChange={() => void toggle()}
-        />
+        {/* 🔴 Подпись состояния снята с экрана и живёт подсказкой (issue #663).
+            Слово «Активен» повторяло в каждой строке то, что дорожка уже
+            показывает положением бегунка, и занимало место в колонке. Именем
+            ввода оно остаётся: `labelHidden` прячет подпись, но оставляет её
+            в разметке и в связи через `htmlFor`. Приём в разделе уже принят —
+            так же устроены ярлыки «Оформление» и «ИНН» в соседних колонках. */}
+        <Tooltip text={staff.active ? texts.active : texts.inactive}>
+          <Switch
+            label={staff.active ? texts.active : texts.inactive}
+            labelHidden
+            checked={staff.active}
+            disabled={busy}
+            onChange={() => void toggle()}
+          />
+        </Tooltip>
 
         {message === '' ? null : (
           <p className={styles.error} role="alert">
