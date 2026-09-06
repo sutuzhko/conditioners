@@ -1,0 +1,86 @@
+# админка-нижние-вкладки--естьожидающие · ширины 390 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+
+[геометрия 390]
+nav.AdminTabs__tabbar  390×57 @0,843  b1 0 0 0  fixed
+  ul.AdminTabs__tabs  390×56 @0,1
+    li.AdminTabs__cell  73×48 @4,4
+      a.AdminTabs__tab  73×48 @0,0  r12
+        svg  22×22 @26,5
+        span.AdminTabs__tabLabel  32×13 @21,30  Manrope 600 11/13  lines=1  «Обзор»
+    li.AdminTabs__cell#2  73×48 @81,4
+      a.AdminTabs__tab  73×48 @0,0  r12
+        svg#2  22×22 @26,5
+        span.AdminTabs__tabLabel#2  56×13 @8,30  Manrope 600 11/13  lines=1  «Календарь»
+    li.AdminTabs__cell#3  73×48 @158,4
+      a.AdminTabs__tab  73×48 @0,0  r12
+        svg#3  22×22 @26,5
+        span.AdminTabs__tabLabel#3  37×13 @18,30  Manrope 600 11/13  lines=1  «Заказы»
+    li.AdminTabs__cell#4  73×48 @236,4
+      a.AdminTabs__tab  73×48 @0,0  r12
+        svg#4  22×22 @26,5
+        span.AdminTabs__tabLabel#4  36×13 @19,30  Manrope 600 11/13  lines=1  «Заявки»
+    li.AdminTabs__cell#5  73×48 @313,4
+      button.AdminTabs__tab  73×48 @0,0  r12
+        span.AdminTabs__tabIcon  22×22 @26,5
+          svg  22×22 @0,0
+          span.AdminTabs__dot  12×12 @13,-1  r100  b2
+        span.AdminTabs__tabLabel  21×13 @26,30  Manrope 600 11/13  lines=1  «Ещё»
+        span  1×1 @36,24  Manrope 600 11/normal  lines=1  clipped  «2 на модерации»
+
+[палитра light]
+nav.AdminTabs__tabbar  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a
+  ul.AdminTabs__tabs
+    li.AdminTabs__cell
+      a.AdminTabs__tab
+        svg
+        span.AdminTabs__tabLabel  color #556173
+    li.AdminTabs__cell#2
+      a.AdminTabs__tab  bg #ecfeff
+        svg#2
+        span.AdminTabs__tabLabel#2  color #0e7490
+    li.AdminTabs__cell#3
+      a.AdminTabs__tab
+        svg#3
+        span.AdminTabs__tabLabel#3  color #556173
+    li.AdminTabs__cell#4
+      a.AdminTabs__tab
+        svg#4
+        span.AdminTabs__tabLabel#4  color #556173
+    li.AdminTabs__cell#5
+      button.AdminTabs__tab
+        span.AdminTabs__tabIcon
+          svg
+          span.AdminTabs__dot  bg #0e7490  border #ffffff
+        span.AdminTabs__tabLabel  color #556173
+        span  color #556173
+
+[палитра dark]
+nav.AdminTabs__tabbar  bg #121d31  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+  ul.AdminTabs__tabs
+    li.AdminTabs__cell
+      a.AdminTabs__tab
+        svg
+        span.AdminTabs__tabLabel  color #8598ac
+    li.AdminTabs__cell#2
+      a.AdminTabs__tab  bg #22d3ee1a
+        svg#2
+        span.AdminTabs__tabLabel#2  color #22d3ee
+    li.AdminTabs__cell#3
+      a.AdminTabs__tab
+        svg#3
+        span.AdminTabs__tabLabel#3  color #8598ac
+    li.AdminTabs__cell#4
+      a.AdminTabs__tab
+        svg#4
+        span.AdminTabs__tabLabel#4  color #8598ac
+    li.AdminTabs__cell#5
+      button.AdminTabs__tab
+        span.AdminTabs__tabIcon
+          svg
+          span.AdminTabs__dot  bg #22d3ee  border #121d31
+        span.AdminTabs__tabLabel  color #8598ac
+        span  color #8598ac
