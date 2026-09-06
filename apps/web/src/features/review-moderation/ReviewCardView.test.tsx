@@ -247,6 +247,23 @@ describe('Отзыв в модерации', () => {
     expect(screen.queryByText(texts.photoGone)).toBeNull();
   });
 
+  /**
+   * 🔴 Витрина не ходит в сеть за снимком.
+   *
+   * Истории собираются статикой (ADR-231) и раздают только `apps/web/public`:
+   * `/api/media/...` там мёртв. Фикстура с таким адресом показывала в истории
+   * «Со снимком» битую картинку — то же самое, что соседняя история показывает
+   * нарочно, — и обе врали. Проверка сторожит именно это: адрес снимка обязан
+   * быть самодостаточным.
+   */
+  it('🔴 снимок истории не зависит от рантайма: адрес — data-URI', () => {
+    render(<ReviewCardView review={reviewWithPhoto} api={acceptingApi} tab="pending" />);
+
+    const image = screen.getByRole('img', { name: texts.photoAlt(reviewWithPhoto.name) });
+
+    expect(image.getAttribute('src')).toMatch(/^data:image\//);
+  });
+
   it('отказ сервера объясняется и страница не перечитывается', async () => {
     const user = userEvent.setup();
     const onChanged = vi.fn();
