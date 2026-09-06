@@ -3,15 +3,23 @@ import { describe, expect, it } from 'vitest';
 import { formatQty } from './content';
 import { bracket, freon, items, noThresholdOverview, pipe, zones } from './fixtures';
 import {
+  DEFAULT_STOCK_JOURNAL_FILTERS,
+  DEFAULT_STOCK_PAGE_SIZE,
   checkMove,
+  filledZones,
   checkZone,
   emptyMoveDraft,
   hasShortage,
   itemDraftOf,
   moveBody,
   moveDraftOf,
+  moveKindFromParam,
+  pageSizeFromParam,
+  periodFromParam,
   qtyInput,
   stockFiltersApplied,
+  stockJournalApplied,
+  stockJournalQuery,
   stockMovePath,
   stockMoveQuery,
   stockQuery,
@@ -170,5 +178,68 @@ describe('🔴 окно перемещения открывается адрес
 
   it('зона-источник не переезжает в чужой вид: приход её не ждёт', () => {
     expect(moveDraftOf({ item: 's1', from: 'z1', to: 'z2', kind: 'income' }).fromZoneId).toBe('');
+  });
+});
+
+/**
+ * 🔴 Сколько строк на странице — выбор владельца, а не константа репозитория
+ * (issue #608). Живёт в адресе: ссылку на «пятьдесят строк» можно прислать.
+ */
+describe('шаг листания остатков', () => {
+  it('умолчание в адрес не уезжает', () => {
+    expect(stockQuery({ size: DEFAULT_STOCK_PAGE_SIZE })).toEqual({});
+  });
+
+  it('выбранная ступень уезжает', () => {
+    expect(stockQuery({ size: 8 })).toEqual({ size: '8' });
+  });
+
+  it('мусор и чужое число дают умолчание, а не отказ: адрес правят руками', () => {
+    expect(pageSizeFromParam('8')).toBe(8);
+    expect(pageSizeFromParam('7')).toBe(DEFAULT_STOCK_PAGE_SIZE);
+    expect(pageSizeFromParam('много')).toBe(DEFAULT_STOCK_PAGE_SIZE);
+    expect(pageSizeFromParam(undefined)).toBe(DEFAULT_STOCK_PAGE_SIZE);
+  });
+});
+
+describe('отбор журнала живёт в адресе', () => {
+  it('умолчания в адрес не уезжают', () => {
+    expect(stockJournalQuery(DEFAULT_STOCK_JOURNAL_FILTERS)).toEqual({});
+    expect(stockJournalApplied(DEFAULT_STOCK_JOURNAL_FILTERS)).toBe(false);
+  });
+
+  it('вид, период и поиск уезжают вместе', () => {
+    expect(stockJournalQuery({ kind: 'income', period: 'prev', query: ' труба ' })).toEqual({
+      kind: 'income',
+      period: 'prev',
+      q: 'труба',
+    });
+    expect(stockJournalApplied({ query: 'труба' })).toBe(true);
+  });
+
+  it('мусор в адресе — «покажи всё», а не пустой журнал с необъяснимым фильтром', () => {
+    expect(moveKindFromParam('income')).toBe('income');
+    expect(moveKindFromParam('чепуха')).toBeUndefined();
+    expect(periodFromParam('month')).toBe('month');
+    expect(periodFromParam('чепуха')).toBe('all');
+  });
+});
+
+/**
+ * 🔴 Свёртка зон на карточке телефона показывает только то, где что-то есть
+ * (issue #609): четыре строки «Газель Зверева 0» подряд занимали две трети
+ * экрана и не отвечали ни на один вопрос.
+ */
+describe('зоны с остатком', () => {
+  it('пустые зоны в разбивку не идут', () => {
+    expect(filledZones(pipe, zones).map((zone) => zone.id)).toEqual(['z1', 'z2']);
+  });
+
+  it('🔴 минус остаётся: он и есть сообщение, а не пустота', () => {
+    expect(filledZones(freon, zones).map((zone) => zone.id)).toEqual(['z1', 'z2']);
+  });
+
+  it('позиции нет нигде — разбивка пуста, и раскрывать нечего', () => {
+    expect(filledZones({ ...pipe, byZone: {}, total: 0 }, zones)).toEqual([]);
   });
 });

@@ -2,223 +2,224 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×2148
+390 → 390×900
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.StockTable__wrap  358×2116 @16,16
-  section.Card__card  358×1829 @0,0  r20  b1
-    div.Table__viewport  356×1827 @1,1
-      table.Table__table  356×1827 @0,0
-        tr[role=row]  1×161 @0,0
-          th.StockTable__itemHead  28×44 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Позиция»
-          th.StockTable__numberHead  138×116 @0,44  b0 0 1 0
+div.StockTable__wrap  358×636 @16,16
+  section.Card__card  358×494 @0,0
+    div.Table__viewport  358×494 @0,0
+      table.Table__table  358×494 @0,0
+        tr[role=row]  1×117 @0,0
+          th.StockTable__itemHead  64×116 @0,0  Onest 700 15/23  lines=1  «Позиция»
+          th.StockTable__unitHead  59×116 @64,0  Onest 700 15/23  b0 0 1 0  lines=1  «Ед.»
+          th.StockTable__numberHead  138×116 @123,0  b0 0 1 0
             span.StockTable__zoneName  102×47 @18,53  Onest 700 15/23  lines=2  «Гараж на Демидовской»
-          th.StockTable__numberHead#2  91×116 @138,44  b0 0 1 0
+          th.StockTable__numberHead#2  91×116 @261,0  b0 0 1 0
             span.StockTable__zoneName  55×23 @18,16  Onest 700 15/23  lines=1  «Газель»
             span.StockTable__zoneNote  55×60 @18,39  Manrope 400 13/20  lines=3  «машина: Дмитрий Соколов»
-          th.StockTable__numberHead#3  88×116 @229,44  b0 0 1 0
+          th.StockTable__numberHead#3  88×116 @352,0  b0 0 1 0
             span.StockTable__zoneName  52×23 @18,16  Onest 700 15/23  lines=1  «Ларгус»
             span.StockTable__zoneNote  52×60 @18,39  Manrope 400 13/20  lines=3  «машина: Сергей Панин»
-          th.StockTable__numberHead#4  71×116 @317,44  Onest 700 15/23  b0 0 1 0  lines=1  «Итог»
-          th.StockTable__menuHead  36×116 @387,44  b0 0 1 0
+          th.StockTable__numberHead#4  79×116 @440,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итого»
+          th.StockTable__zonesHead  106×116 @519,0  Onest 700 15/23  b0 0 1 0  lines=2  «Разбивка по зонам»
+          th.StockTable__menuHead  36×116 @625,0  b0 0 1 0
             span  1×1 @17,99  Onest 700 15/23  lines=1  clipped  «Действия»
-        tr[role=row]#2  356×449 @0,0  r14  b1
-          th.StockTable__itemHead  354×135 @1,5  b0 0 1 0
-            a.StockTable__name  134×44 @14,10  Manrope 600 15/23  lines=1  «Труба медная 1/4″»
-            span.StockTable__itemNote  326×20 @14,54  Manrope 400 13/20  lines=1  «Медная труба»
-            a.StockTable__move  85×44 @14,80  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockCell__cell  354×66 @1,140
-            td.StockCell__cell::before  142×20 @0,0
-            button.StockCell__button  170×52 @170,7  Manrope 400 15/22  r11  b1  lines=1  «43,5 м»
-          td.StockCell__cell#2  354×66 @1,207
-            td.StockCell__cell#2::before  42×20 @0,0
-            button.StockCell__button  270×52 @70,7  Manrope 400 15/22  r11  b1  lines=1  «12 м»
-          td.StockCell__cell#3  354×66 @1,273
-            td.StockCell__cell#3::before  44×20 @0,0
-            button.StockCell__button  268×52 @72,7  Manrope 400 15/22  r11  b1  lines=1  «0 м»
-          td.StockTable__number  354×42 @1,340  b1 0 0 0
-            td.StockTable__number::before  29×20 @0,0
-            span.StockTable__total  51×27 @289,8  Manrope 600 17/27  lines=1  «55,5 м»
-          td.StockTable__menuCell  354×59 @1,385  b1 0 0 0
-            span.StockRowMenu__root  44×44 @296,8
+        tr.StockTable__row  358×116 @0,0  r14  b1
+          th.StockTable__itemHead  251×44 @15,11
+            a.StockTable__name  134×44 @0,0  Manrope 600 15/23  lines=1  «Труба медная 1/4″»
+          td.StockTable__number  69×28 @274,19
+            span.Badge__badge  69×28 @0,0  Manrope 600 15/20  r100  b1  lines=1  «55,5»
+              span.StockTable__unitTail  11×20 @48,4  Manrope 600 15/20  lines=1  «м»
+          td.StockTable__zonesCell  82×44 @184,61
+            details.StockTable__zones  82×44 @0,0
+              summary.StockTable__zonesSummary  82×44 @0,0  Manrope 400 13/20  lines=1  «в 2 зонах»
+                svg.StockTable__zonesChevron  14×14 @64,15
+              ul.StockTable__zonesList  0×0 @-200,-77  r14  b1
+                li.StockTable__zonesItem  174×40 @95,138
+                  span.StockTable__zonesName  122×40 @0,0  Manrope 400 13/20  lines=2  «Гараж на Демидовской»
+                  span.StockTable__zonesQty  40×20 @134,0  Manrope 600 13/20  lines=1  «43,5 м»
+                li.StockTable__zonesItem#2  174×20 @95,182
+                  span.StockTable__zonesName  42×20 @0,0  Manrope 400 13/20  lines=1  «Газель»
+                  span.StockTable__zonesQty  28×20 @146,0  Manrope 600 13/20  lines=1  «12 м»
+          td.StockTable__menuCell  69×44 @274,61
+            span.StockRowMenu__root  44×44 @25,0
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg  16×16 @0,0
-        tr[role=row]#3  356×449 @0,459  r14  b1
-          th.StockTable__itemHead  354×135 @1,5  b0 0 1 0
-            a.StockTable__name#2  160×44 @14,10  Manrope 600 15/23  lines=1  «Кронштейны 450×450»
-            span.StockTable__itemNote#2  326×20 @14,54  Manrope 400 13/20  lines=1  «Крепёж»
-            a.StockTable__move#2  85×44 @14,80  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockCell__cell  354×66 @1,140
-            td.StockCell__cell::before  142×20 @0,0
-            button.StockCell__button#2  170×52 @170,7  Manrope 400 15/22  r11  b1  lines=1  «2 пар.»
-          td.StockCell__cell#2  354×66 @1,207
-            td.StockCell__cell#2::before  42×20 @0,0
-            button.StockCell__button#2  270×52 @70,7  Manrope 400 15/22  r11  b1  lines=1  «1 пар.»
-          td.StockCell__cell#3  354×66 @1,273
-            td.StockCell__cell#3::before  44×20 @0,0
-            button.StockCell__button#2  268×52 @72,7  Manrope 400 15/22  r11  b1  lines=1  «0 пар.»
-          td.StockTable__number  354×42 @1,340  b1 0 0 0
-            td.StockTable__number::before  29×20 @0,0
-            span.StockTable__total#2  49×27 @291,8  Manrope 600 17/27  lines=1  «3 пар.»
-          td.StockTable__menuCell  354×59 @1,385  b1 0 0 0
-            span.StockRowMenu__root#2  44×44 @296,8
+        tr.StockTable__row#2  358×116 @0,126  r14  b1
+          th.StockTable__itemHead  254×44 @15,11
+            a.StockTable__name#2  160×44 @0,0  Manrope 600 15/23  lines=1  «Кронштейны 450×450»
+          td.StockTable__number  66×28 @277,19
+            span.Badge__badge#2  66×28 @0,0  Manrope 600 15/20  r100  b1  lines=1  «3»
+              span.StockTable__unitTail  31×20 @25,4  Manrope 600 15/20  lines=1  «пар.»
+          td.StockTable__zonesCell  82×44 @187,61
+            details.StockTable__zones#2  82×44 @0,0
+              summary.StockTable__zonesSummary  82×44 @0,0  Manrope 400 13/20  lines=1  «в 2 зонах»
+                svg.StockTable__zonesChevron#2  14×14 @64,15
+              ul.StockTable__zonesList  0×0 @-203,-203  r14  b1
+                li.StockTable__zonesItem#3  174×40 @98,264
+                  span.StockTable__zonesName  125×40 @0,0  Manrope 400 13/20  lines=2  «Гараж на Демидовской»
+                  span.StockTable__zonesQty  37×20 @137,0  Manrope 600 13/20  lines=1  «2 пар.»
+                li.StockTable__zonesItem#4  174×20 @98,308
+                  span.StockTable__zonesName  42×20 @0,0  Manrope 400 13/20  lines=1  «Газель»
+                  span.StockTable__zonesQty  37×20 @137,0  Manrope 600 13/20  lines=1  «1 пар.»
+          td.StockTable__menuCell  66×44 @277,61
+            span.StockRowMenu__root#2  44×44 @22,0
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#2  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg#2  16×16 @0,0
-        tr[role=row]#4  356×449 @0,918  r14  b1
-          th.StockTable__itemHead  354×135 @1,5  b0 0 1 0
-            a.StockTable__name#3  77×44 @14,10  Manrope 600 15/23  lines=1  «Фреон R32»
-            span.StockTable__itemNote#3  326×20 @14,54  Manrope 400 13/20  lines=1  «Фреон»
-            a.StockTable__move#3  85×44 @14,80  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockCell__cell  354×66 @1,140
-            td.StockCell__cell::before  142×20 @0,0
-            button.StockCell__button#3  170×52 @170,7  Manrope 400 15/22  r11  b1  lines=1  «6,2 кг»
-          td.StockCell__cell#2  354×66 @1,207
-            td.StockCell__cell#2::before  42×20 @0,0
-            button.StockCell__button#3  270×52 @70,7  Manrope 600 15/22  r11  b1  lines=1  «−1,5 кг»
-          td.StockCell__cell#3  354×66 @1,273
-            td.StockCell__cell#3::before  44×20 @0,0
-            button.StockCell__button#3  268×52 @72,7  Manrope 400 15/22  r11  b1  lines=1  «0 кг»
-          td.StockTable__number  354×42 @1,340  b1 0 0 0
-            td.StockTable__number::before  29×20 @0,0
-            span.StockTable__total#3  44×27 @296,8  Manrope 600 17/27  lines=1  «4,7 кг»
-          td.StockTable__menuCell  354×59 @1,385  b1 0 0 0
-            span.StockRowMenu__root#3  44×44 @296,8
+        tr.StockTable__row#3  358×116 @0,252  r14  b1
+          th.StockTable__itemHead  256×44 @15,11
+            a.StockTable__name#3  77×44 @0,0  Manrope 600 15/23  lines=1  «Фреон R32»
+          td.StockTable__number  64×28 @279,19
+            span.Badge__badge#3  64×28 @0,0  Manrope 600 15/20  r100  b1  lines=1  «4,7»
+              span.StockTable__unitTail  15×20 @39,4  Manrope 600 15/20  lines=1  «кг»
+          td.StockTable__zonesCell  82×44 @189,61
+            details.StockTable__zones#3  82×44 @0,0
+              summary.StockTable__zonesSummary  82×44 @0,0  Manrope 400 13/20  lines=1  «в 2 зонах»
+                svg.StockTable__zonesChevron#3  14×14 @64,15
+              ul.StockTable__zonesList  0×0 @-205,-329  r14  b1
+                li.StockTable__zonesItem#5  174×40 @100,390
+                  span.StockTable__zonesName  127×40 @0,0  Manrope 400 13/20  lines=2  «Гараж на Демидовской»
+                  span.StockTable__zonesQty  35×20 @139,0  Manrope 600 13/20  lines=1  «6,2 кг»
+                li.StockTable__zonesItem#6  174×20 @100,434
+                  span.StockTable__zonesName  42×20 @0,0  Manrope 400 13/20  lines=1  «Газель»
+                  span.StockTable__zonesQty  43×20 @131,0  Manrope 600 13/20  lines=1  «−1,5 кг»
+          td.StockTable__menuCell  64×44 @279,61
+            span.StockRowMenu__root#3  44×44 @20,0
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#3  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg#3  16×16 @0,0
-        tr[role=row]#5  356×449 @0,1377  r14  b1
-          th.StockTable__itemHead  354×135 @1,5  b0 0 1 0
-            a.StockTable__name#4  136×44 @14,10  Manrope 600 15/23  lines=1  «Сплит-система 09»
-            span.StockTable__itemNote#4  326×20 @14,54  Manrope 400 13/20  lines=1  «Без группы»
-            a.StockTable__move#4  85×44 @14,80  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockCell__cell  354×66 @1,140
-            td.StockCell__cell::before  142×20 @0,0
-            button.StockCell__button#4  170×52 @170,7  Manrope 400 15/22  r11  b1  lines=1  «2 шт.»
-          td.StockCell__cell#2  354×66 @1,207
-            td.StockCell__cell#2::before  42×20 @0,0
-            button.StockCell__button#4  270×52 @70,7  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
-          td.StockCell__cell#3  354×66 @1,273
-            td.StockCell__cell#3::before  44×20 @0,0
-            button.StockCell__button#4  268×52 @72,7  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
-          td.StockTable__number  354×42 @1,340  b1 0 0 0
-            td.StockTable__number::before  29×20 @0,0
-            span.StockTable__total#4  41×27 @299,8  Manrope 600 17/27  lines=1  «2 шт.»
-          td.StockTable__menuCell  354×59 @1,385  b1 0 0 0
-            span.StockRowMenu__root#4  44×44 @296,8
+        tr.StockTable__row#4  358×116 @0,378  r14  b1
+          th.StockTable__itemHead  261×44 @15,11
+            a.StockTable__name#4  136×44 @0,0  Manrope 600 15/23  lines=1  «Сплит-система 09»
+          td.StockTable__number  59×28 @284,19
+            span.Badge__badge#4  59×28 @0,0  Manrope 600 15/20  r100  b1  lines=1  «2»
+              span.StockTable__unitTail  24×20 @25,4  Manrope 600 15/20  lines=1  «шт.»
+          td.StockTable__zonesCell  73×44 @203,61
+            details.StockTable__zones#4  73×44 @0,0
+              summary.StockTable__zonesSummary  73×44 @0,0  Manrope 400 13/20  lines=1  «в 1 зоне»
+                svg.StockTable__zonesChevron#4  14×14 @55,15
+              ul.StockTable__zonesList  0×0 @-219,-455  r14  b1
+                li.StockTable__zonesItem#7  174×40 @105,516
+                  span.StockTable__zonesName  131×40 @0,0  Manrope 400 13/20  lines=2  «Гараж на Демидовской»
+                  span.StockTable__zonesQty  31×20 @143,0  Manrope 600 13/20  lines=1  «2 шт.»
+          td.StockTable__menuCell  59×44 @284,61
+            span.StockRowMenu__root#4  44×44 @15,0
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#4  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg#4  16×16 @0,0
   p[role=status]  1×1 @-1,-1
-  p.StockTable__hint  358×40 @0,1841  Manrope 400 13/20  lines=2  «Таблица прокручивается вбок, название по»
-  p.StockTable__hint#2  358×81 @0,1893  Manrope 400 13/20  lines=4  «Остаток можно перетащить мышью в другую»
-  p.StockTable__warning  358×130 @0,1985  Manrope 400 15/22  r11  b1  lines=5  «Минус означает, что списали больше, чем»
+  p.StockTable__warning  358×130 @0,506  Manrope 400 15/22  r11  b1  lines=5  «Минус означает, что списали больше, чем»
 
 [геометрия 768]
-div.StockTable__wrap  736×851 @16,16
+div.StockTable__wrap  736×798 @16,16
   section.Card__card  736×691 @0,0  r20  b1
     div.Table__viewport  734×689 @1,1
-      table.Table__table  814×689 @0,0
-        tr[role=row]  814×116 @0,0
+      table.Table__table  988×689 @0,0
+        tr[role=row]  988×116 @0,0
           th.StockTable__itemHead  240×116 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
-          th.StockTable__numberHead  138×116 @240,0  b0 0 1 0
-            span.StockTable__zoneName  102×47 @19,53  Onest 700 15/23  lines=2  «Гараж на Демидовской»
-          th.StockTable__numberHead#2  130×116 @378,0  b0 0 1 0
+          th.StockTable__unitHead  90×116 @240,0  Onest 700 15/23  b0 0 1 0  lines=1  «Ед.»
+          th.StockTable__numberHead  138×116 @330,0  b0 0 1 0
+            span.StockTable__zoneName  102×47 @18,53  Onest 700 15/23  lines=2  «Гараж на Демидовской»
+          th.StockTable__numberHead#2  130×116 @468,0  b0 0 1 0
             span.StockTable__zoneName  94×23 @18,16  Onest 700 15/23  lines=1  «Газель»
             span.StockTable__zoneNote  94×60 @18,39  Manrope 400 13/20  lines=3  «машина: Дмитрий Соколов»
-          th.StockTable__numberHead#3  130×116 @508,0  b0 0 1 0
+          th.StockTable__numberHead#3  130×116 @598,0  b0 0 1 0
             span.StockTable__zoneName  94×23 @18,36  Onest 700 15/23  lines=1  «Ларгус»
             span.StockTable__zoneNote  94×40 @18,59  Manrope 400 13/20  lines=2  «машина: Сергей Панин»
-          th.StockTable__numberHead#4  120×116 @587,17  Onest 700 15/23  b0 0 1 1  lines=1  fixed  «Итог»
-          th.StockTable__menuHead  56×116 @695,17  b0 0 1 0  fixed
-            span  1×1 @27,99  Onest 700 15/23  lines=1  clipped  «Действия»
-        tr[role=row]#2  814×143 @0,116
+          th.StockTable__numberHead#4  130×116 @728,0  Onest 700 15/23  b0 0 1 0  lines=1  «Итого»
+          th.StockTable__menuHead  130×116 @858,0  b0 0 1 0
+            span  1×1 @17,99  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr.StockTable__row  988×143 @0,116
           th.StockTable__itemHead  240×143 @17,133  b0 1 1 0  fixed
             a.StockTable__name  129×44 @18,15  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
             span.StockTable__itemNote  204×20 @18,59  Manrope 400 13/20  lines=1  «Медная труба»
             a.StockTable__move  85×44 @18,85  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockCell__cell  138×143 @240,0  b0 0 1 0
-            button.StockCell__button  138×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «43,5 м»
-          td.StockCell__cell#2  130×143 @378,0  b0 0 1 0
-            button.StockCell__button  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12 м»
-          td.StockCell__cell#3  130×143 @508,0  b0 0 1 0
-            button.StockCell__button  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 м»
-          td.StockTable__number  120×143 @587,133  b0 0 1 1  fixed
-            span.StockTable__total  43×19 @59,16  Manrope 600 15/22  lines=1  «55,5 м»
-          td.StockTable__menuCell  56×143 @695,133  b0 0 1 0  fixed
-            span.StockRowMenu__root  44×44 @6,15
+          td.StockTable__unitCell  90×143 @240,0  Manrope 400 15/22  b0 0 1 0  lines=1  «м»
+          td.StockCell__cell  138×143 @330,0  b0 0 1 0
+            button.StockCell__button  138×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «43,5»
+          td.StockCell__cell#2  130×143 @468,0  b0 0 1 0
+            button.StockCell__button  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12»
+          td.StockCell__cell#3  130×143 @598,0  b0 0 1 0
+            button.StockCell__button  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+          td.StockTable__number  130×143 @728,0  b0 0 1 0
+            span.Badge__badge  46×24 @66,15  Manrope 600 12/16  r100  b1  lines=1  «55,5»
+          td.StockTable__menuCell  130×143 @858,0  b0 0 1 0
+            span.StockRowMenu__root  44×44 @18,15
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg  16×16 @0,0
-        tr[role=row]#3  814×143 @0,259
+        tr.StockTable__row#2  988×143 @0,259
           th.StockTable__itemHead  240×143 @17,276  b0 1 1 0  fixed
             a.StockTable__name#2  154×44 @18,15  Manrope 600 15/22  lines=1  «Кронштейны 450×450»
             span.StockTable__itemNote#2  204×20 @18,59  Manrope 400 13/20  lines=1  «Крепёж»
             a.StockTable__move#2  85×44 @18,85  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockCell__cell  138×143 @240,0  b0 0 1 0
-            button.StockCell__button#2  138×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 пар.»
-          td.StockCell__cell#2  130×143 @378,0  b0 0 1 0
-            button.StockCell__button#2  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1 пар.»
-          td.StockCell__cell#3  130×143 @508,0  b0 0 1 0
-            button.StockCell__button#2  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 пар.»
-          td.StockTable__number  120×143 @587,276  b0 0 1 1  fixed
-            span.StockTable__total#2  41×19 @61,16  Manrope 600 15/22  lines=1  «3 пар.»
-          td.StockTable__menuCell  56×143 @695,276  b0 0 1 0  fixed
-            span.StockRowMenu__root#2  44×44 @6,15
+          td.StockTable__unitCell  90×143 @240,0  Manrope 400 15/22  b0 0 1 0  lines=1  «пар.»
+          td.StockCell__cell  138×143 @330,0  b0 0 1 0
+            button.StockCell__button#2  138×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «2»
+          td.StockCell__cell#2  130×143 @468,0  b0 0 1 0
+            button.StockCell__button#2  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1»
+          td.StockCell__cell#3  130×143 @598,0  b0 0 1 0
+            button.StockCell__button#2  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+          td.StockTable__number  130×143 @728,0  b0 0 1 0
+            span.Badge__badge#2  27×24 @85,15  Manrope 600 12/16  r100  b1  lines=1  «3»
+          td.StockTable__menuCell  130×143 @858,0  b0 0 1 0
+            span.StockRowMenu__root#2  44×44 @18,15
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#2  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg#2  16×16 @0,0
-        tr[role=row]#4  814×143 @0,402
+        tr.StockTable__row#3  988×143 @0,402
           th.StockTable__itemHead  240×143 @17,419  b0 1 1 0  fixed
             a.StockTable__name#3  75×44 @18,15  Manrope 600 15/22  lines=1  «Фреон R32»
             span.StockTable__itemNote#3  204×20 @18,59  Manrope 400 13/20  lines=1  «Фреон»
             a.StockTable__move#3  85×44 @18,85  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockCell__cell  138×143 @240,0  b0 0 1 0
-            button.StockCell__button#3  138×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «6,2 кг»
-          td.StockCell__cell#2  130×143 @378,0  b0 0 1 0
-            button.StockCell__button#3  130×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5 кг»
-          td.StockCell__cell#3  130×143 @508,0  b0 0 1 0
-            button.StockCell__button#3  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 кг»
-          td.StockTable__number  120×143 @587,419  b0 0 1 1  fixed
-            span.StockTable__total#3  38×19 @64,16  Manrope 600 15/22  lines=1  «4,7 кг»
-          td.StockTable__menuCell  56×143 @695,419  b0 0 1 0  fixed
-            span.StockRowMenu__root#3  44×44 @6,15
+          td.StockTable__unitCell  90×143 @240,0  Manrope 400 15/22  b0 0 1 0  lines=1  «кг»
+          td.StockCell__cell  138×143 @330,0  b0 0 1 0
+            button.StockCell__button#3  138×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «6,2»
+          td.StockCell__cell#2  130×143 @468,0  b0 0 1 0
+            button.StockCell__button#3  130×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5»
+          td.StockCell__cell#3  130×143 @598,0  b0 0 1 0
+            button.StockCell__button#3  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+          td.StockTable__number  130×143 @728,0  b0 0 1 0
+            span.Badge__badge#3  38×24 @74,15  Manrope 600 12/16  r100  b1  lines=1  «4,7»
+          td.StockTable__menuCell  130×143 @858,0  b0 0 1 0
+            span.StockRowMenu__root#3  44×44 @18,15
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#3  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg#3  16×16 @0,0
-        tr[role=row]#5  814×143 @0,546
+        tr.StockTable__row#4  988×143 @0,546
           th.StockTable__itemHead  240×143 @17,563  b0 1 1 0  fixed
             a.StockTable__name#4  131×44 @18,15  Manrope 600 15/22  lines=1  «Сплит-система 09»
             span.StockTable__itemNote#4  204×20 @18,59  Manrope 400 13/20  lines=1  «Без группы»
             a.StockTable__move#4  85×44 @18,85  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockCell__cell  138×143 @240,0
-            button.StockCell__button#4  138×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 шт.»
-          td.StockCell__cell#2  130×143 @378,0
-            button.StockCell__button#4  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
-          td.StockCell__cell#3  130×143 @508,0
-            button.StockCell__button#4  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
-          td.StockTable__number  120×143 @587,563  b0 0 0 1  fixed
-            span.StockTable__total#4  34×19 @68,16  Manrope 600 15/22  lines=1  «2 шт.»
-          td.StockTable__menuCell  56×143 @695,563  fixed
-            span.StockRowMenu__root#4  44×44 @6,15
+          td.StockTable__unitCell  90×143 @240,0  Manrope 400 15/22  lines=1  «шт.»
+          td.StockCell__cell  138×143 @330,0
+            button.StockCell__button#4  138×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «2»
+          td.StockCell__cell#2  130×143 @468,0
+            button.StockCell__button#4  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+          td.StockCell__cell#3  130×143 @598,0
+            button.StockCell__button#4  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+          td.StockTable__number  130×143 @728,0
+            span.Badge__badge#4  27×24 @85,15  Manrope 600 12/16  r100  b1  lines=1  «2»
+          td.StockTable__menuCell  130×143 @858,0
+            span.StockRowMenu__root#4  44×44 @18,15
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#4  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg#4  16×16 @0,0
   p[role=status]  1×1 @-1,-1
   p.StockTable__hint  736×20 @0,703  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
-  p.StockTable__hint#2  736×40 @0,735  Manrope 400 13/20  lines=2  «Остаток можно перетащить мышью в другую»
-  p.StockTable__warning  736×63 @0,788  Manrope 400 15/22  r11  b1  lines=2  «Минус означает, что списали больше, чем»
+  p.StockTable__warning  736×63 @0,735  Manrope 400 15/22  r11  b1  lines=2  «Минус означает, что списали больше, чем»
 
 [геометрия 1440]
 div.StockTable__wrap  1408×602 @16,16
@@ -226,88 +227,93 @@ div.StockTable__wrap  1408×602 @16,16
     div.Table__viewport  1406×483 @1,1
       table.Table__table  1406×483 @0,0
         tr[role=row]  1406×76 @0,0
-          th.StockTable__itemHead  341×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
-          th.StockTable__numberHead  298×76 @341,0  b0 0 1 0
-            span.StockTable__zoneName  262×23 @19,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
-          th.StockTable__numberHead#2  286×76 @639,0  b0 0 1 0
-            span.StockTable__zoneName  250×23 @18,16  Onest 700 15/23  lines=1  «Газель»
-            span.StockTable__zoneNote  250×20 @18,39  Manrope 400 13/20  lines=1  «машина: Дмитрий Соколов»
-          th.StockTable__numberHead#3  254×76 @926,0  b0 0 1 0
-            span.StockTable__zoneName  217×23 @18,16  Onest 700 15/23  lines=1  «Ларгус»
-            span.StockTable__zoneNote  217×20 @18,39  Manrope 400 13/20  lines=1  «машина: Сергей Панин»
-          th.StockTable__numberHead#4  171×76 @1197,17  Onest 700 15/23  b0 0 1 1  lines=1  fixed  «Итог»
+          th.StockTable__itemHead  312×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
+          th.StockTable__unitHead  117×76 @312,0  Onest 700 15/23  b0 0 1 0  lines=1  «Ед.»
+          th.StockTable__numberHead  272×76 @428,0  b0 0 1 0
+            span.StockTable__zoneName  236×23 @18,36  Onest 700 15/23  lines=1  «Гараж на Демидовской»
+          th.StockTable__numberHead#2  262×76 @701,0  b0 0 1 0
+            span.StockTable__zoneName  226×23 @18,16  Onest 700 15/23  lines=1  «Газель»
+            span.StockTable__zoneNote  226×20 @18,39  Manrope 400 13/20  lines=1  «машина: Дмитрий Соколов»
+          th.StockTable__numberHead#3  232×76 @962,0  b0 0 1 0
+            span.StockTable__zoneName  195×23 @18,16  Onest 700 15/23  lines=1  «Ларгус»
+            span.StockTable__zoneNote  195×20 @18,39  Manrope 400 13/20  lines=1  «машина: Сергей Панин»
+          th.StockTable__numberHead#4  156×76 @1211,17  Onest 700 15/23  b0 0 1 1  lines=1  fixed  «Итого»
           th.StockTable__menuHead  56×76 @1367,17  b0 0 1 0  fixed
             span  1×1 @27,58  Onest 700 15/23  lines=1  clipped  «Действия»
-        tr[role=row]#2  1406×102 @0,76
-          th.StockTable__itemHead  341×102 @17,93  b0 1 1 0  fixed
+        tr.StockTable__row  1406×102 @0,76
+          th.StockTable__itemHead  312×102 @17,93  b0 1 1 0  fixed
             a.StockTable__name  129×19 @18,16  Manrope 600 15/22  lines=1  «Труба медная 1/4″»
-            span.StockTable__itemNote  304×20 @18,37  Manrope 400 13/20  lines=1  «Медная труба»
+            span.StockTable__itemNote  275×20 @18,37  Manrope 400 13/20  lines=1  «Медная труба»
             a.StockTable__move  85×24 @18,63  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockCell__cell  298×102 @341,0  b0 0 1 0
-            button.StockCell__button  298×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «43,5 м»
-          td.StockCell__cell#2  286×102 @639,0  b0 0 1 0
-            button.StockCell__button  286×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12 м»
-          td.StockCell__cell#3  254×102 @926,0  b0 0 1 0
-            button.StockCell__button  253×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 м»
-          td.StockTable__number  171×102 @1197,93  b0 0 1 1  fixed
-            span.StockTable__total  43×19 @110,16  Manrope 600 15/22  lines=1  «55,5 м»
+          td.StockTable__unitCell  117×102 @312,0  Manrope 400 15/22  b0 0 1 0  lines=1  «м»
+          td.StockCell__cell  272×102 @428,0  b0 0 1 0
+            button.StockCell__button  272×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «43,5»
+          td.StockCell__cell#2  262×102 @701,0  b0 0 1 0
+            button.StockCell__button  262×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12»
+          td.StockCell__cell#3  232×102 @962,0  b0 0 1 0
+            button.StockCell__button  231×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+          td.StockTable__number  156×102 @1211,93  b0 0 1 1  fixed
+            span.Badge__badge  46×24 @92,15  Manrope 600 12/16  r100  b1  lines=1  «55,5»
           td.StockTable__menuCell  56×102 @1367,93  b0 0 1 0  fixed
             span.StockRowMenu__root  44×44 @6,15
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg  16×16 @0,0
-        tr[role=row]#3  1406×102 @0,178
-          th.StockTable__itemHead  341×102 @17,195  b0 1 1 0  fixed
+        tr.StockTable__row#2  1406×102 @0,178
+          th.StockTable__itemHead  312×102 @17,195  b0 1 1 0  fixed
             a.StockTable__name#2  154×19 @18,16  Manrope 600 15/22  lines=1  «Кронштейны 450×450»
-            span.StockTable__itemNote#2  304×20 @18,37  Manrope 400 13/20  lines=1  «Крепёж»
+            span.StockTable__itemNote#2  275×20 @18,37  Manrope 400 13/20  lines=1  «Крепёж»
             a.StockTable__move#2  85×24 @18,63  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockCell__cell  298×102 @341,0  b0 0 1 0
-            button.StockCell__button#2  298×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 пар.»
-          td.StockCell__cell#2  286×102 @639,0  b0 0 1 0
-            button.StockCell__button#2  286×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1 пар.»
-          td.StockCell__cell#3  254×102 @926,0  b0 0 1 0
-            button.StockCell__button#2  253×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 пар.»
-          td.StockTable__number  171×102 @1197,195  b0 0 1 1  fixed
-            span.StockTable__total#2  41×19 @111,16  Manrope 600 15/22  lines=1  «3 пар.»
+          td.StockTable__unitCell  117×102 @312,0  Manrope 400 15/22  b0 0 1 0  lines=1  «пар.»
+          td.StockCell__cell  272×102 @428,0  b0 0 1 0
+            button.StockCell__button#2  272×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «2»
+          td.StockCell__cell#2  262×102 @701,0  b0 0 1 0
+            button.StockCell__button#2  262×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1»
+          td.StockCell__cell#3  232×102 @962,0  b0 0 1 0
+            button.StockCell__button#2  231×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+          td.StockTable__number  156×102 @1211,195  b0 0 1 1  fixed
+            span.Badge__badge#2  27×24 @110,15  Manrope 600 12/16  r100  b1  lines=1  «3»
           td.StockTable__menuCell  56×102 @1367,195  b0 0 1 0  fixed
             span.StockRowMenu__root#2  44×44 @6,15
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#2  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg#2  16×16 @0,0
-        tr[role=row]#4  1406×102 @0,279
-          th.StockTable__itemHead  341×102 @17,296  b0 1 1 0  fixed
+        tr.StockTable__row#3  1406×102 @0,279
+          th.StockTable__itemHead  312×102 @17,296  b0 1 1 0  fixed
             a.StockTable__name#3  75×19 @18,16  Manrope 600 15/22  lines=1  «Фреон R32»
-            span.StockTable__itemNote#3  304×20 @18,37  Manrope 400 13/20  lines=1  «Фреон»
+            span.StockTable__itemNote#3  275×20 @18,37  Manrope 400 13/20  lines=1  «Фреон»
             a.StockTable__move#3  85×24 @18,63  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockCell__cell  298×102 @341,0  b0 0 1 0
-            button.StockCell__button#3  298×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «6,2 кг»
-          td.StockCell__cell#2  286×102 @639,0  b0 0 1 0
-            button.StockCell__button#3  286×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5 кг»
-          td.StockCell__cell#3  254×102 @926,0  b0 0 1 0
-            button.StockCell__button#3  253×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 кг»
-          td.StockTable__number  171×102 @1197,296  b0 0 1 1  fixed
-            span.StockTable__total#3  38×19 @115,16  Manrope 600 15/22  lines=1  «4,7 кг»
+          td.StockTable__unitCell  117×102 @312,0  Manrope 400 15/22  b0 0 1 0  lines=1  «кг»
+          td.StockCell__cell  272×102 @428,0  b0 0 1 0
+            button.StockCell__button#3  272×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «6,2»
+          td.StockCell__cell#2  262×102 @701,0  b0 0 1 0
+            button.StockCell__button#3  262×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5»
+          td.StockCell__cell#3  232×102 @962,0  b0 0 1 0
+            button.StockCell__button#3  231×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+          td.StockTable__number  156×102 @1211,296  b0 0 1 1  fixed
+            span.Badge__badge#3  38×24 @99,15  Manrope 600 12/16  r100  b1  lines=1  «4,7»
           td.StockTable__menuCell  56×102 @1367,296  b0 0 1 0  fixed
             span.StockRowMenu__root#3  44×44 @6,15
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#3  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg#3  16×16 @0,0
-        tr[role=row]#5  1406×102 @0,381
-          th.StockTable__itemHead  341×102 @17,398  b0 1 1 0  fixed
+        tr.StockTable__row#4  1406×102 @0,381
+          th.StockTable__itemHead  312×102 @17,398  b0 1 1 0  fixed
             a.StockTable__name#4  131×19 @18,16  Manrope 600 15/22  lines=1  «Сплит-система 09»
-            span.StockTable__itemNote#4  304×20 @18,37  Manrope 400 13/20  lines=1  «Без группы»
+            span.StockTable__itemNote#4  275×20 @18,37  Manrope 400 13/20  lines=1  «Без группы»
             a.StockTable__move#4  85×24 @18,63  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockCell__cell  298×102 @341,0
-            button.StockCell__button#4  298×52 @1,1  Manrope 400 15/22  r11  b1  lines=1  «2 шт.»
-          td.StockCell__cell#2  286×102 @639,0
-            button.StockCell__button#4  286×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
-          td.StockCell__cell#3  254×102 @926,0
-            button.StockCell__button#4  253×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0 шт.»
-          td.StockTable__number  171×102 @1197,398  b0 0 0 1  fixed
-            span.StockTable__total#4  34×19 @118,16  Manrope 600 15/22  lines=1  «2 шт.»
+          td.StockTable__unitCell  117×102 @312,0  Manrope 400 15/22  lines=1  «шт.»
+          td.StockCell__cell  272×102 @428,0
+            button.StockCell__button#4  272×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «2»
+          td.StockCell__cell#2  262×102 @701,0
+            button.StockCell__button#4  262×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+          td.StockCell__cell#3  232×102 @962,0
+            button.StockCell__button#4  231×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+          td.StockTable__number  156×102 @1211,398  b0 0 0 1  fixed
+            span.Badge__badge#4  27×24 @110,15  Manrope 600 12/16  r100  b1  lines=1  «2»
           td.StockTable__menuCell  56×102 @1367,398  fixed
             span.StockRowMenu__root#4  44×44 @6,15
               div.RowMenu__root  44×44 @0,0
@@ -326,6 +332,7 @@ div.StockTable__wrap
       table.Table__table
         tr[role=row]  bg #ffffff
           th.StockTable__itemHead  color #0f172a  bg #ffffff  border #0f172a #e2e8f0 #e2e8f0 #0f172a
+          th.StockTable__unitHead  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
           th.StockTable__numberHead  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
             span.StockTable__zoneName  color #0f172a
           th.StockTable__numberHead#2  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
@@ -337,11 +344,12 @@ div.StockTable__wrap
           th.StockTable__numberHead#4  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #e2e8f0
           th.StockTable__menuHead  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
             span  color #0f172a
-        tr[role=row]#2  bg #f5f8fa
+        tr.StockTable__row  bg #f5f8fa
           th.StockTable__itemHead  bg #f5f8fa  border #0f172a #e2e8f0 #e2e8f0 #0f172a
             a.StockTable__name  color #0f172a
             span.StockTable__itemNote  color #556173
             a.StockTable__move  color #0e7490
+          td.StockTable__unitCell  color #556173  border #556173 #556173 #eef2f6 #556173
           td.StockCell__cell  border #334155 #334155 #eef2f6 #334155
             button.StockCell__button  color #334155  border transparent
           td.StockCell__cell#2  border #334155 #334155 #eef2f6 #334155
@@ -349,18 +357,19 @@ div.StockTable__wrap
           td.StockCell__cell#3  border #334155 #334155 #eef2f6 #334155
             button.StockCell__button  color #5b6a7d  border transparent
           td.StockTable__number  bg #f5f8fa  border #334155 #334155 #eef2f6 #e2e8f0
-            span.StockTable__total  color #334155
+            span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
           td.StockTable__menuCell  bg #f5f8fa  border #334155 #334155 #eef2f6 #334155
             span.StockRowMenu__root
               div.RowMenu__root
                 button.RowMenu__trigger  border transparent
                   span.RowMenu__dots
                     svg
-        tr[role=row]#3  bg #edf2f6
+        tr.StockTable__row#2  bg #edf2f6
           th.StockTable__itemHead  bg #edf2f6  border #0f172a #e2e8f0 #e2e8f0 #0f172a
             a.StockTable__name#2  color #0f172a
             span.StockTable__itemNote#2  color #556173
             a.StockTable__move#2  color #0e7490
+          td.StockTable__unitCell  color #556173  border #556173 #556173 #eef2f6 #556173
           td.StockCell__cell  border #334155 #334155 #eef2f6 #334155
             button.StockCell__button#2  color #334155  border transparent
           td.StockCell__cell#2  border #334155 #334155 #eef2f6 #334155
@@ -368,18 +377,19 @@ div.StockTable__wrap
           td.StockCell__cell#3  border #334155 #334155 #eef2f6 #334155
             button.StockCell__button#2  color #5b6a7d  border transparent
           td.StockTable__number  bg #edf2f6  border #334155 #334155 #eef2f6 #e2e8f0
-            span.StockTable__total#2  color #334155
+            span.Badge__badge#2  color #556173  bg #f8fafc  border #e2e8f0
           td.StockTable__menuCell  bg #edf2f6  border #334155 #334155 #eef2f6 #334155
             span.StockRowMenu__root#2
               div.RowMenu__root
                 button.RowMenu__trigger#2  border transparent
                   span.RowMenu__dots
                     svg#2
-        tr[role=row]#4  bg #f5f8fa
+        tr.StockTable__row#3  bg #f5f8fa
           th.StockTable__itemHead  bg #f5f8fa  border #0f172a #e2e8f0 #e2e8f0 #0f172a
             a.StockTable__name#3  color #0f172a
             span.StockTable__itemNote#3  color #556173
             a.StockTable__move#3  color #0e7490
+          td.StockTable__unitCell  color #556173  border #556173 #556173 #eef2f6 #556173
           td.StockCell__cell  border #334155 #334155 #eef2f6 #334155
             button.StockCell__button#3  color #334155  border transparent
           td.StockCell__cell#2  border #334155 #334155 #eef2f6 #334155
@@ -387,18 +397,19 @@ div.StockTable__wrap
           td.StockCell__cell#3  border #334155 #334155 #eef2f6 #334155
             button.StockCell__button#3  color #5b6a7d  border transparent
           td.StockTable__number  bg #f5f8fa  border #334155 #334155 #eef2f6 #e2e8f0
-            span.StockTable__total#3  color #334155
+            span.Badge__badge#3  color #556173  bg #f8fafc  border #e2e8f0
           td.StockTable__menuCell  bg #f5f8fa  border #334155 #334155 #eef2f6 #334155
             span.StockRowMenu__root#3
               div.RowMenu__root
                 button.RowMenu__trigger#3  border transparent
                   span.RowMenu__dots
                     svg#3
-        tr[role=row]#5  bg #edf2f6
+        tr.StockTable__row#4  bg #edf2f6
           th.StockTable__itemHead  bg #edf2f6  border #0f172a #e2e8f0 #e2e8f0 #0f172a
             a.StockTable__name#4  color #0f172a
             span.StockTable__itemNote#4  color #556173
             a.StockTable__move#4  color #0e7490
+          td.StockTable__unitCell  color #556173
           td.StockCell__cell
             button.StockCell__button#4  color #334155  border transparent
           td.StockCell__cell#2
@@ -406,7 +417,7 @@ div.StockTable__wrap
           td.StockCell__cell#3
             button.StockCell__button#4  color #5b6a7d  border transparent
           td.StockTable__number  bg #edf2f6  border #334155 #334155 #334155 #e2e8f0
-            span.StockTable__total#4  color #334155
+            span.Badge__badge#4  color #556173  bg #f8fafc  border #e2e8f0
           td.StockTable__menuCell  bg #edf2f6
             span.StockRowMenu__root#4
               div.RowMenu__root
@@ -418,49 +429,81 @@ div.StockTable__wrap
   p.StockTable__hint#2  color #5b6a7d
   p.StockTable__warning  color #92400e  bg #b4530914  border #b4530947
 [палитра light @390]
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.StockTable__itemHead  color #0f172a  bg #ffffff  border #0f172a #0f172a #eef2f6 #0f172a
+div.StockTable__wrap > section.Card__card
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.StockTable__itemHead  color #0f172a  bg #ffffff
 div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.StockTable__numberHead#4  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > th.StockTable__itemHead  border #0f172a #0f172a #eef2f6 #0f172a
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockCell__cell
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockCell__cell > td.StockCell__cell::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockCell__cell#2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockCell__cell#2 > td.StockCell__cell#2::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockCell__cell#3
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockCell__cell#3 > td.StockCell__cell#3::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockTable__number  border #eef2f6 #334155 #334155 #334155
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockTable__number > td.StockTable__number::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockTable__menuCell  border #eef2f6 #334155 #334155 #334155
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #edf2f6  border #e2e8f0
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > th.StockTable__itemHead  border #0f172a #0f172a #eef2f6 #0f172a
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockCell__cell
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockCell__cell > td.StockCell__cell::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockCell__cell#2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockCell__cell#2 > td.StockCell__cell#2::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockCell__cell#3
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockCell__cell#3 > td.StockCell__cell#3::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockTable__number  border #eef2f6 #334155 #334155 #334155
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockTable__number > td.StockTable__number::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockTable__menuCell  border #eef2f6 #334155 #334155 #334155
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #ffffff  border #e2e8f0
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > th.StockTable__itemHead  border #0f172a #0f172a #eef2f6 #0f172a
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockCell__cell
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockCell__cell > td.StockCell__cell::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockCell__cell#2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockCell__cell#2 > td.StockCell__cell#2::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockCell__cell#3
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockCell__cell#3 > td.StockCell__cell#3::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockTable__number  border #eef2f6 #334155 #334155 #334155
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockTable__number > td.StockTable__number::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockTable__menuCell  border #eef2f6 #334155 #334155 #334155
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5  bg #edf2f6  border #e2e8f0
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > th.StockTable__itemHead  border #0f172a #0f172a #eef2f6 #0f172a
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.StockCell__cell > td.StockCell__cell::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.StockCell__cell#2 > td.StockCell__cell#2::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.StockCell__cell#3 > td.StockCell__cell#3::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.StockTable__number  border #eef2f6 #334155 #334155 #334155
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.StockTable__number > td.StockTable__number::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.StockTable__menuCell  border #eef2f6 #334155 #334155 #334155
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.StockTable__zonesHead  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row  bg #ffffff  border #e2e8f0
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > th.StockTable__itemHead
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__number
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__number > span.Badge__badge > span.StockTable__unitTail  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > summary.StockTable__zonesSummary  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > summary.StockTable__zonesSummary > svg.StockTable__zonesChevron
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList  bg #ffffff  border #e2e8f0
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList > li.StockTable__zonesItem
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList > li.StockTable__zonesItem > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList > li.StockTable__zonesItem > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList > li.StockTable__zonesItem#2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList > li.StockTable__zonesItem#2 > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList > li.StockTable__zonesItem#2 > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__menuCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2  bg #edf2f6  border #e2e8f0
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > th.StockTable__itemHead
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__number
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__number > span.Badge__badge#2 > span.StockTable__unitTail  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > summary.StockTable__zonesSummary  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > summary.StockTable__zonesSummary > svg.StockTable__zonesChevron#2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList  bg #ffffff  border #e2e8f0
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList > li.StockTable__zonesItem#3
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList > li.StockTable__zonesItem#3 > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList > li.StockTable__zonesItem#3 > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList > li.StockTable__zonesItem#4
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList > li.StockTable__zonesItem#4 > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList > li.StockTable__zonesItem#4 > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__menuCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3  bg #ffffff  border #e2e8f0
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > th.StockTable__itemHead
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__number
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__number > span.Badge__badge#3 > span.StockTable__unitTail  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > summary.StockTable__zonesSummary  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > summary.StockTable__zonesSummary > svg.StockTable__zonesChevron#3
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList  bg #ffffff  border #e2e8f0
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList > li.StockTable__zonesItem#5
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList > li.StockTable__zonesItem#5 > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList > li.StockTable__zonesItem#5 > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList > li.StockTable__zonesItem#6
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList > li.StockTable__zonesItem#6 > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList > li.StockTable__zonesItem#6 > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__menuCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4  bg #edf2f6  border #e2e8f0
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > th.StockTable__itemHead
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__number
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__number > span.Badge__badge#4 > span.StockTable__unitTail  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > summary.StockTable__zonesSummary  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > summary.StockTable__zonesSummary > svg.StockTable__zonesChevron#4
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > ul.StockTable__zonesList  bg #ffffff  border #e2e8f0
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > ul.StockTable__zonesList > li.StockTable__zonesItem#7
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > ul.StockTable__zonesList > li.StockTable__zonesItem#7 > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > ul.StockTable__zonesList > li.StockTable__zonesItem#7 > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__menuCell
+[палитра light @768]
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.StockTable__numberHead#4  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__number  border #334155 #334155 #eef2f6 #334155
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__menuCell  border #334155 #334155 #eef2f6 #334155
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__number  border #334155 #334155 #eef2f6 #334155
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__menuCell  border #334155 #334155 #eef2f6 #334155
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__number  border #334155 #334155 #eef2f6 #334155
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__menuCell  border #334155 #334155 #eef2f6 #334155
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__number
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__menuCell
 
 [палитра dark]
 div.StockTable__wrap
@@ -469,6 +512,7 @@ div.StockTable__wrap
       table.Table__table
         tr[role=row]  bg #121d31
           th.StockTable__itemHead  color #eaf1f8  bg #121d31  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
+          th.StockTable__unitHead  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
           th.StockTable__numberHead  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
             span.StockTable__zoneName  color #eaf1f8
           th.StockTable__numberHead#2  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
@@ -480,11 +524,12 @@ div.StockTable__wrap
           th.StockTable__numberHead#4  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #1e2b41
           th.StockTable__menuHead  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
             span  color #eaf1f8
-        tr[role=row]#2  bg #121d31
+        tr.StockTable__row  bg #121d31
           th.StockTable__itemHead  bg #121d31  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
             a.StockTable__name  color #eaf1f8
             span.StockTable__itemNote  color #8598ac
             a.StockTable__move  color #22d3ee
+          td.StockTable__unitCell  color #8598ac  border #8598ac #8598ac #182338 #8598ac
           td.StockCell__cell  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
             button.StockCell__button  color #c9d5e2  border transparent
           td.StockCell__cell#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
@@ -492,18 +537,19 @@ div.StockTable__wrap
           td.StockCell__cell#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
             button.StockCell__button  color #7e92a7  border transparent
           td.StockTable__number  bg #121d31  border #c9d5e2 #c9d5e2 #182338 #1e2b41
-            span.StockTable__total  color #c9d5e2
+            span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
           td.StockTable__menuCell  bg #121d31  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
             span.StockRowMenu__root
               div.RowMenu__root
                 button.RowMenu__trigger  border transparent
                   span.RowMenu__dots
                     svg
-        tr[role=row]#3  bg #16223a
+        tr.StockTable__row#2  bg #16223a
           th.StockTable__itemHead  bg #16223a  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
             a.StockTable__name#2  color #eaf1f8
             span.StockTable__itemNote#2  color #8598ac
             a.StockTable__move#2  color #22d3ee
+          td.StockTable__unitCell  color #8598ac  border #8598ac #8598ac #182338 #8598ac
           td.StockCell__cell  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
             button.StockCell__button#2  color #c9d5e2  border transparent
           td.StockCell__cell#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
@@ -511,18 +557,19 @@ div.StockTable__wrap
           td.StockCell__cell#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
             button.StockCell__button#2  color #7e92a7  border transparent
           td.StockTable__number  bg #16223a  border #c9d5e2 #c9d5e2 #182338 #1e2b41
-            span.StockTable__total#2  color #c9d5e2
+            span.Badge__badge#2  color #8598ac  bg #0e1729  border #1e2b41
           td.StockTable__menuCell  bg #16223a  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
             span.StockRowMenu__root#2
               div.RowMenu__root
                 button.RowMenu__trigger#2  border transparent
                   span.RowMenu__dots
                     svg#2
-        tr[role=row]#4  bg #121d31
+        tr.StockTable__row#3  bg #121d31
           th.StockTable__itemHead  bg #121d31  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
             a.StockTable__name#3  color #eaf1f8
             span.StockTable__itemNote#3  color #8598ac
             a.StockTable__move#3  color #22d3ee
+          td.StockTable__unitCell  color #8598ac  border #8598ac #8598ac #182338 #8598ac
           td.StockCell__cell  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
             button.StockCell__button#3  color #c9d5e2  border transparent
           td.StockCell__cell#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
@@ -530,18 +577,19 @@ div.StockTable__wrap
           td.StockCell__cell#3  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
             button.StockCell__button#3  color #7e92a7  border transparent
           td.StockTable__number  bg #121d31  border #c9d5e2 #c9d5e2 #182338 #1e2b41
-            span.StockTable__total#3  color #c9d5e2
+            span.Badge__badge#3  color #8598ac  bg #0e1729  border #1e2b41
           td.StockTable__menuCell  bg #121d31  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
             span.StockRowMenu__root#3
               div.RowMenu__root
                 button.RowMenu__trigger#3  border transparent
                   span.RowMenu__dots
                     svg#3
-        tr[role=row]#5  bg #16223a
+        tr.StockTable__row#4  bg #16223a
           th.StockTable__itemHead  bg #16223a  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
             a.StockTable__name#4  color #eaf1f8
             span.StockTable__itemNote#4  color #8598ac
             a.StockTable__move#4  color #22d3ee
+          td.StockTable__unitCell  color #8598ac
           td.StockCell__cell
             button.StockCell__button#4  color #c9d5e2  border transparent
           td.StockCell__cell#2
@@ -549,7 +597,7 @@ div.StockTable__wrap
           td.StockCell__cell#3
             button.StockCell__button#4  color #7e92a7  border transparent
           td.StockTable__number  bg #16223a  border #c9d5e2 #c9d5e2 #c9d5e2 #1e2b41
-            span.StockTable__total#4  color #c9d5e2
+            span.Badge__badge#4  color #8598ac  bg #0e1729  border #1e2b41
           td.StockTable__menuCell  bg #16223a
             span.StockRowMenu__root#4
               div.RowMenu__root
@@ -561,46 +609,78 @@ div.StockTable__wrap
   p.StockTable__hint#2  color #7e92a7
   p.StockTable__warning  color #fbbf24  bg #fbbf241f  border #fbbf2452
 [палитра dark @390]
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.StockTable__itemHead  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
+div.StockTable__wrap > section.Card__card
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.StockTable__itemHead  color #eaf1f8  bg #121d31
 div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.StockTable__numberHead#4  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > th.StockTable__itemHead  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockCell__cell
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockCell__cell > td.StockCell__cell::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockCell__cell#2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockCell__cell#2 > td.StockCell__cell#2::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockCell__cell#3
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockCell__cell#3 > td.StockCell__cell#3::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockTable__number  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockTable__number > td.StockTable__number::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.StockTable__menuCell  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #16223a  border #1e2b41
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > th.StockTable__itemHead  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockCell__cell
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockCell__cell > td.StockCell__cell::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockCell__cell#2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockCell__cell#2 > td.StockCell__cell#2::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockCell__cell#3
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockCell__cell#3 > td.StockCell__cell#3::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockTable__number  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockTable__number > td.StockTable__number::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.StockTable__menuCell  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #121d31  border #1e2b41
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > th.StockTable__itemHead  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockCell__cell
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockCell__cell > td.StockCell__cell::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockCell__cell#2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockCell__cell#2 > td.StockCell__cell#2::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockCell__cell#3
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockCell__cell#3 > td.StockCell__cell#3::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockTable__number  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockTable__number > td.StockTable__number::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.StockTable__menuCell  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5  bg #16223a  border #1e2b41
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > th.StockTable__itemHead  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.StockCell__cell > td.StockCell__cell::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.StockCell__cell#2 > td.StockCell__cell#2::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.StockCell__cell#3 > td.StockCell__cell#3::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.StockTable__number  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.StockTable__number > td.StockTable__number::before
-div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.StockTable__menuCell  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.StockTable__zonesHead  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row  bg #121d31  border #1e2b41
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > th.StockTable__itemHead
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__number
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__number > span.Badge__badge > span.StockTable__unitTail  color #8598ac
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > summary.StockTable__zonesSummary  color #8598ac
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > summary.StockTable__zonesSummary > svg.StockTable__zonesChevron
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList  bg #ffffff  border #e2e8f0
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList > li.StockTable__zonesItem
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList > li.StockTable__zonesItem > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList > li.StockTable__zonesItem > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList > li.StockTable__zonesItem#2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList > li.StockTable__zonesItem#2 > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__zonesCell > details.StockTable__zones > ul.StockTable__zonesList > li.StockTable__zonesItem#2 > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__menuCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2  bg #16223a  border #1e2b41
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > th.StockTable__itemHead
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__number
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__number > span.Badge__badge#2 > span.StockTable__unitTail  color #8598ac
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > summary.StockTable__zonesSummary  color #8598ac
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > summary.StockTable__zonesSummary > svg.StockTable__zonesChevron#2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList  bg #ffffff  border #e2e8f0
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList > li.StockTable__zonesItem#3
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList > li.StockTable__zonesItem#3 > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList > li.StockTable__zonesItem#3 > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList > li.StockTable__zonesItem#4
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList > li.StockTable__zonesItem#4 > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__zonesCell > details.StockTable__zones#2 > ul.StockTable__zonesList > li.StockTable__zonesItem#4 > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__menuCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3  bg #121d31  border #1e2b41
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > th.StockTable__itemHead
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__number
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__number > span.Badge__badge#3 > span.StockTable__unitTail  color #8598ac
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > summary.StockTable__zonesSummary  color #8598ac
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > summary.StockTable__zonesSummary > svg.StockTable__zonesChevron#3
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList  bg #ffffff  border #e2e8f0
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList > li.StockTable__zonesItem#5
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList > li.StockTable__zonesItem#5 > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList > li.StockTable__zonesItem#5 > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList > li.StockTable__zonesItem#6
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList > li.StockTable__zonesItem#6 > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__zonesCell > details.StockTable__zones#3 > ul.StockTable__zonesList > li.StockTable__zonesItem#6 > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__menuCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4  bg #16223a  border #1e2b41
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > th.StockTable__itemHead
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__number
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__number > span.Badge__badge#4 > span.StockTable__unitTail  color #8598ac
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > summary.StockTable__zonesSummary  color #8598ac
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > summary.StockTable__zonesSummary > svg.StockTable__zonesChevron#4
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > ul.StockTable__zonesList  bg #ffffff  border #e2e8f0
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > ul.StockTable__zonesList > li.StockTable__zonesItem#7
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > ul.StockTable__zonesList > li.StockTable__zonesItem#7 > span.StockTable__zonesName  color #556173
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > ul.StockTable__zonesList > li.StockTable__zonesItem#7 > span.StockTable__zonesQty  color #0f172a
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__menuCell
+[палитра dark @768]
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.StockTable__numberHead#4  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__number  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__menuCell  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__number  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#2 > td.StockTable__menuCell  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__number  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#3 > td.StockTable__menuCell  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__number
+div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__menuCell

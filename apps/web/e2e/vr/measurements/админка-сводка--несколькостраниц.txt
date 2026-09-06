@@ -2,12 +2,12 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-390 → 390×2290
+390 → 390×2238
 768 → 768×1743
 1440 → 1440×1471
 
 [геометрия 390]
-div.AdminSummary__summary  358×2258 @16,16
+div.AdminSummary__summary  358×2206 @16,16
   header.AdminSummary__header  358×109 @0,0
     div.AdminSummary__headText  253×55 @0,0
       h1.AdminSummary__title  253×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Доброе утро, Сергей»
@@ -42,7 +42,7 @@ div.AdminSummary__summary  358×2258 @16,16
             span#4  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «рост»
         dd.StatTile__note#2  149×32 @13,70  Manrope 400 12/16  lines=2  «назначены и на объекте →»
   div.AdminSummary__charts  358×0 @0,358
-  section.Card__card  358×1748 @0,376  r20  b1
+  section.Card__card  358×1696 @0,376  r20  b1
     div.AdminSummary__cardHead  316×24 @21,21
       h2.AdminSummary__cardTitle  141×21 @0,2  Onest 700 17/21  ls0  lines=1  «Ближайшие дела»
       span.Badge__badge  34×24 @149,0  r100  b1
@@ -227,15 +227,14 @@ div.AdminSummary__summary  358×2258 @16,16
                   a.TableActions__action#2  36×36 @0,0  r100
                     span.TableActions__iconArea#2  36×36 @0,0
                       svg#2  18×18 @9,9
-    nav.Pager__pager  316×104 @21,1555
-      a.Pager__step  87×44 @45,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
-      ol.Pager__numbers  131×44 @140,4
-        a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
-        span.Pager__position  35×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
-        a.Pager__number#2  44×44 @87,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-      a.Pager__step#2  99×44 @108,56  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
-    a.AdminSummary__link  316×44 @21,1683  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  358×116 @0,2142  r20  b1
+    nav.Pager__pager  316×52 @21,1555
+      a.Pager__step  44×44 @73,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+        span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Назад»
+      span.Pager__position  66×44 @125,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 3»
+      a.Pager__step#2  44×44 @199,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+        span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Дальше»
+    a.AdminSummary__link  316×44 @21,1631  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  358×116 @0,2090  r20  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  316×45 @21,50  Manrope 400 15/22  lines=2  «Все данные о компании заполнены. Сайт мо»
 
@@ -452,12 +451,14 @@ div.AdminSummary__summary  736×1711 @16,16
                     span.TableActions__iconArea#2  36×36 @0,0
                       svg#2  18×18 @9,9
     nav.Pager__pager  694×52 @21,715
-      a.Pager__step  91×44 @170,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+      a.Pager__step  88×44 @173,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+        span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
       ol.Pager__numbers  135×44 @273,4
         a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
         span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
         a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-      a.Pager__step#2  103×44 @420,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+      a.Pager__step#2  100×44 @420,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+        span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
     a.AdminSummary__link  694×44 @21,791  Manrope 600 15/22  lines=1  «Открыть календарь →»
   section.Card__card#2  736×94 @0,1617  r20  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Готовность к запуску»
@@ -700,12 +701,14 @@ div.AdminSummary__summary  1408×1439 @16,16
                     span.TableActions__iconArea#2  36×36 @0,0
                       svg#2  18×18 @9,9
     nav.Pager__pager  1366×52 @21,570
-      a.Pager__step  91×44 @506,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
+      a.Pager__step  88×44 @509,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+        span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
       ol.Pager__numbers  135×44 @609,4
         a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
         span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
         a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-      a.Pager__step#2  103×44 @756,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+      a.Pager__step#2  100×44 @756,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+        span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
     a.AdminSummary__link  1366×24 @21,646  Manrope 600 15/22  lines=1  «Открыть календарь →»
   section.Card__card#2  1408×95 @0,1344  r20  b1
     h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Готовность к запуску»
@@ -949,11 +952,13 @@ div.AdminSummary__summary
                       svg#2
     nav.Pager__pager
       a.Pager__step  color #0e7490  border #7e8fa6
+        span.Pager__stepText  color #0e7490
       ol.Pager__numbers
         a.Pager__number  color #0e7490  border transparent
         span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
         a.Pager__number#2  color #0e7490  border transparent
       a.Pager__step#2  color #0e7490  border #7e8fa6
+        span.Pager__stepText  color #0e7490
     a.AdminSummary__link  color #0e7490
   section.Card__card#2  bg #f8fafc  border #eef2f6
     h2.AdminSummary__cardTitle  color #0f172a
@@ -1002,6 +1007,7 @@ div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Tab
 div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.SummaryTable__statusCol > td.SummaryTable__statusCol::before
 div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.SummaryTable__sumCol > td.SummaryTable__sumCol::before
 div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.SummaryTable__actions  border #eef2f6 #334155 #334155 #334155
+div.AdminSummary__summary > section.Card__card > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
 
 [палитра dark]
 div.AdminSummary__summary
@@ -1241,11 +1247,13 @@ div.AdminSummary__summary
                       svg#2
     nav.Pager__pager
       a.Pager__step  color #22d3ee  border #566d95
+        span.Pager__stepText  color #22d3ee
       ol.Pager__numbers
         a.Pager__number  color #22d3ee  border transparent
         span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
         a.Pager__number#2  color #22d3ee  border transparent
       a.Pager__step#2  color #22d3ee  border #566d95
+        span.Pager__stepText  color #22d3ee
     a.AdminSummary__link  color #22d3ee
   section.Card__card#2  bg #0e1729  border #182338
     h2.AdminSummary__cardTitle  color #eaf1f8
@@ -1294,3 +1302,4 @@ div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Tab
 div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.SummaryTable__statusCol > td.SummaryTable__statusCol::before
 div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.SummaryTable__sumCol > td.SummaryTable__sumCol::before
 div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.SummaryTable__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.AdminSummary__summary > section.Card__card > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490

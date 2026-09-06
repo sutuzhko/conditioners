@@ -1,5 +1,5 @@
 import { STOCK_TABS, stockManagerContent as texts } from '@/features/stock-manager';
-import { Skeleton } from '@/shared/ui';
+import { Skeleton, StatTiles } from '@/shared/ui';
 
 import { PanelTabLinks } from '../PanelTabLinks';
 import { StockHeader } from './StockHeader';
@@ -22,12 +22,28 @@ export default function StockLoading() {
     <div className={styles.page} aria-busy="true">
       <StockHeader />
 
-      <PanelTabLinks
-        tabs={STOCK_TABS}
-        titleOf={texts.tabTitle}
-        label={texts.tabsLabel}
-        hrefOf={(tab) => ({ pathname: '/admin/stock', query: tab === 'stock' ? {} : { tab } })}
-      />
+      <div className={styles.tabsStrip}>
+        <PanelTabLinks
+          tabs={STOCK_TABS}
+          titleOf={texts.tabTitle}
+          label={texts.tabsLabel}
+          hrefOf={(tab) => ({ pathname: '/admin/stock', query: tab === 'stock' ? {} : { tab } })}
+        />
+      </div>
+
+      {/* 🔴 Плитки резервируют место, а не появляются поверх готового списка
+          (issue #606): без резерва таблица уезжала бы вниз на две плитки в
+          момент прихода данных. Сетка берётся у кита — раскладка совпадает по
+          построению, а не по совпадению чисел (ADR-239). */}
+      {/* Плитки и строка счётчиков резервируют место каждая на своей ширине —
+          ровно так же, как их показывает готовая страница (issue #609). */}
+      <Skeleton variant="block" className={styles.countsSkeleton} />
+
+      <StatTiles className={styles.tilesSkeleton} label={texts.tilesLabel}>
+        {Array.from({ length: 4 }, (_, index) => (
+          <Skeleton key={index} variant="block" className={styles.tileSkeleton} />
+        ))}
+      </StatTiles>
 
       <Skeleton variant="block" className={styles.filtersSkeleton} />
       <Skeleton variant="block" className={styles.tableSkeleton} />

@@ -1,86 +1,148 @@
-/* Фильтр остатков: группы, порог заказа и поиск. */
+/* Ряд фильтров над таблицей остатков: пилюля слева, поиск справа.
 
-.card {
+   Геометрия снята с фильтра нарядов (`OrderFilters.module.css`): два ряда
+   отбора в соседних разделах панели обязаны выглядеть и работать одинаково,
+   а второй набор чисел рядом с первым разойдётся на первой же правке. */
+
+/* Ряд стал одной строкой: пилюля отбора и счётчики под ней. Поиск уехал в
+   лист пилюли — «Фильтр» это всё, чем сужают список. */
+.bar {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
   gap: 8px;
 }
 
-/* Ссылка-чип: фильтр — это адрес, а не кнопка с состоянием. */
-.chip {
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Пилюля раскрывается своим листом: `details` держит состояние сам, и рядом
+   с ним не нужно ни кнопки, ни обработчика. */
+.filter {
+  position: relative;
+}
+
+.pill {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  box-sizing: border-box;
   border: 1px solid var(--line);
   border-radius: var(--r-pill);
+  cursor: pointer;
   padding: 6px 14px;
+  min-height: var(--h-sm);
+  color: var(--body);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  list-style: none;
+}
+
+/* Стрелка сводки убирается в обоих движках: у пилюли свой вид. */
+.pill::-webkit-details-marker {
+  display: none;
+}
+
+.pill:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-text);
+}
+
+.pill:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
+}
+
+/* Лист пилюли ложится поверх содержимого, а не раздвигает ряд: иначе таблица
+   уезжала бы вниз на высоту листа каждый раз, когда фильтр открывают. */
+.sheet {
+  position: absolute;
+  z-index: 3;
+  top: calc(100% + 6px);
+  left: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
   background: var(--card);
-  color: var(--ink2);
+  box-shadow: var(--sh-md);
+  padding: 12px;
+  min-width: 220px;
+  max-width: min(320px, 90vw);
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.group + .group {
+  margin-top: 12px;
+}
+
+.groupTitle {
+  flex: 1 0 100%;
+  color: var(--faint);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  background: var(--bg-soft);
+  padding: 6px 12px;
+  min-height: var(--h-sm);
+  color: var(--body);
   font-size: var(--fs-caption);
   font-weight: 600;
   text-decoration: none;
 }
 
-.chip:hover {
-  border-color: var(--accent-line);
+.item:hover {
+  border-color: var(--accent-ink);
   color: var(--accent-text);
 }
 
-.quiet {
-  font-weight: 500;
+.item:focus-visible {
+  box-shadow: var(--ring-focus-ring);
+  outline: none;
 }
 
 .active {
-  border-color: var(--accent-line);
+  border-color: var(--accent-ink);
   background: var(--accent-bg);
   color: var(--accent-text);
 }
 
+/* Поиск в листе пилюли: поле и кнопка одной строкой. Подписи над полем нет —
+   подставленный текст говорит то же самое. Отбит от групп так же, как группы
+   отбиты друг от друга. */
 .form {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px;
   align-items: flex-start;
-}
-
-.field {
-  flex: 1 1 260px;
+  margin-top: 12px;
   min-width: 0;
 }
 
-/* Кнопка встаёт на строку поля, а не под подпись: подпись и подсказка у поля
-   занимают две строки над самим вводом. */
-.actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  padding-top: 26px;
-}
-
-.reset {
-  /* 🔴 Пол цели, а не оформление (issue #476). Ссылка-действие оформлена
-     блоком, а не стоит в строке текста, — значит по WCAG 2.5.8 она цель, и
-     меряется её рамка: строка кегля давала 22.5px при минимуме 24. */
-  display: inline-flex;
-  align-items: center;
-  min-height: 24px;
-  color: var(--muted);
-  font-size: var(--fs-dense);
-  text-decoration: none;
-}
-
-.reset:hover {
-  color: var(--accent-text);
-  text-decoration: underline;
+.field {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .total {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 14px;
+  align-items: baseline;
   margin: 0;
   color: var(--faint);
   font-size: var(--fs-caption);
@@ -91,19 +153,105 @@
   font-weight: 600;
 }
 
-@media (width < 600px) {
-  .actions {
-    padding-top: 0;
+.reset {
+  /* 🔴 Пол цели, а не оформление (issue #476). Ссылка-действие оформлена
+     блоком, а не стоит в строке текста, — значит по WCAG 2.5.8 она цель, и
+     меряется её рамка: строка кегля давала 22.5px при минимуме 24. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  color: var(--accent-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.reset:hover {
+  text-decoration: underline;
+}
+
+/* 🔴 Пол цели на сенсорной раскладке (issue #375, ADR-183). До 900px по
+   пилюле и пунктам листа целятся пальцем, а строка кегля даёт 34px при норме
+   44. Пилюля к тому же лежит первой в ряду — по ней и промахиваются. */
+@media (width < 900px) {
+  .pill,
+  .item,
+  .reset {
+    min-height: var(--tap);
   }
 }
 
-/* 🔴 Пол цели на сенсорной раскладке (issue #375, ADR-183). До 900px по этой
-   ссылке целятся пальцем, а строка кегля даёт 34px при норме 44. Правило стоит
-   в модуле, а не берёт общий `tapAction` из `global.css`: там пол нужен
-   отдельным ссылкам внутри компонента, здесь — всем без исключения элементам
-   класса, и место правила совпадает с местом класса. */
-@media (width < 900px) {
-  .chip {
+/* Крестик закрытия существует только на телефоне: там лист занимает экран
+   целиком и пилюля работает его шапкой. */
+.close {
+  display: none;
+}
+
+/* 🔴 На телефоне отбор раскрывается листом во весь экран, а не поповером под
+   пилюлей (замечание владельца 5 сентября). Поповер шириной в экран минус
+   40px — приём широкого экрана: он ложится на список, но не отменяет его,
+   палец мимо листа промахивается в строку под ним, а три группы условий и
+   поиск в него не помещаются без прокрутки внутри прокрутки.
+
+   Лист остаётся `details` — без единой строки своего JS: открытие,
+   закрытие, клавиатура и озвучка достаются от браузера. */
+@media (width < 600px) {
+  .filter[open] {
+    position: fixed;
+    z-index: 40;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+  }
+
+  /* Пилюля становится шапкой листа: имя отбора слева, крестик справа. */
+  .filter[open] .pill {
+    flex: 0 0 auto;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    padding: 0 var(--gutter);
     min-height: var(--tap);
+    background: var(--card);
+    font-size: var(--fs-body);
+  }
+
+  .filter[open] .close {
+    display: block;
+    margin-left: auto;
+    color: var(--muted);
+  }
+
+  .filter[open] .sheet {
+    position: static;
+    flex: 1 1 auto;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: var(--bg);
+    padding: 16px var(--gutter) calc(env(safe-area-inset-bottom) + 24px);
+    min-width: 0;
+
+    /* Без нулевого пола элемент флекса не сжимается ниже своего содержимого,
+       и длинный справочник групп вылезал бы за низ экрана вместо прокрутки
+       внутри листа. */
+    min-height: 0;
+    max-width: none;
+    overflow-y: auto;
+
+    /* Прокрутка листа не утягивает за собой страницу под ним. */
+    overscroll-behavior: contain;
+  }
+
+  /* 🔴 Счётчики сняты: те же числа стоят подстрокой под заголовком раздела.
+     Число не повторяется дважды на одном экране — иначе владелец ищет между
+     формулировками разницу, которой нет. */
+  .counter {
+    display: none;
+  }
+
+  /* Строка не схлопывается в ноль, когда в ней остался только сброс. */
+  .total:empty {
+    display: none;
   }
 }

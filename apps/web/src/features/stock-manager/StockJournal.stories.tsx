@@ -45,3 +45,29 @@ export const БезАвтора: Story = {
 export const ЖурналСклада: Story = {
   args: { basePath: STOCK_PATH, baseQuery: { tab: 'log' }, withItem: true },
 };
+
+/**
+ * 🔴 Журнал склада с отбором (issue #610): вид движения, период и поиск.
+ * Всё живёт в адресе — отфильтрованный журнал можно сохранить и прислать.
+ */
+export const СОтбором: Story = {
+  args: {
+    basePath: STOCK_PATH,
+    baseQuery: { tab: 'log' },
+    withItem: true,
+    withFilter: true,
+    filters: { kind: 'consume', period: 'month', query: 'труба' },
+  },
+};
+
+/** Отбор не нашёл ничего: это другой ответ, чем «движений не было вовсе». */
+export const ОтборНичегоНеНашёл: Story = {
+  args: {
+    journal: emptyJournal,
+    basePath: STOCK_PATH,
+    baseQuery: { tab: 'log' },
+    withItem: true,
+    withFilter: true,
+    filters: { kind: 'income', period: 'prev', query: '' },
+  },
+};

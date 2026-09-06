@@ -1,0 +1,133 @@
+# админка-склад-·-разбивка--мелкийшаг · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.StockPager__pager  358×129 @16,16  b1 0 0 0
+  div.StockPager__nav  326×52 @16,13
+    nav.Pager__pager  170×52 @78,0
+      a.Pager__step  44×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+        span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Назад»
+      span.Pager__position  66×44 @52,4  Manrope 600 15/17  r100  b1  lines=1  «4 из 6»
+      a.Pager__step#2  44×44 @126,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+        span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Дальше»
+  span.StockPager__size  326×44 @16,73
+    span.StockPager__sizeOn  44×44 @93,0  Manrope 700 13/16  r100  b1  lines=1  «8»
+    a.StockPager__sizeItem  44×44 @141,0  r100  b1
+      span  16×16 @14,14  Manrope 600 13/16  lines=1  «20»
+    a.StockPager__sizeItem#2  44×44 @189,0  r100  b1
+      span  16×16 @14,14  Manrope 600 13/16  lines=1  «50»
+
+[геометрия 768]
+div.StockPager__pager  736×131 @16,16  b1 0 0 0
+  span.StockPager__count  160×20 @16,29  Manrope 400 13/20  lines=1  «Показано 4 из 47 позиций»
+  div.StockPager__nav  0×0 @-16,-16
+    nav.Pager__pager  460×52 @276,29
+      a.Pager__step  88×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+        span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
+      ol.Pager__numbers  248×44 @100,4
+        a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+        li.Pager__gap  13×22 @48,11  Manrope 400 15/22  lines=1  «…»
+        a.Pager__number#2  44×44 @65,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+        span.Pager__position  39×44 @113,0  Manrope 600 15/17  r100  b1  lines=1  «4»
+        a.Pager__number#3  44×44 @156,0  Manrope 600 15/17  r100  b1  lines=1  «5»
+        a.Pager__number#4  44×44 @204,0  Manrope 600 15/17  r100  b1  lines=1  «6»
+      a.Pager__step#2  100×44 @360,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+        span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+  span.StockPager__size  265×44 @16,75
+    span.StockPager__sizeTitle  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
+    span.StockPager__sizeOn  44×44 @125,0  Manrope 600 13/16  r100  b1  lines=1  «8»
+    a.StockPager__sizeItem  44×44 @173,0  r100  b1
+      span  16×16 @14,14  Manrope 600 13/16  lines=1  «20»
+    a.StockPager__sizeItem#2  44×44 @221,0  r100  b1
+      span  16×16 @14,14  Manrope 600 13/16  lines=1  «50»
+
+[геометрия 1440]
+div.StockPager__pager  1408×77 @16,16  b1 0 0 0
+  span.StockPager__count  160×20 @16,29  Manrope 400 13/20  lines=1  «Показано 4 из 47 позиций»
+  div.StockPager__nav  0×0 @-16,-16
+    nav.Pager__pager  460×52 @437,29
+      a.Pager__step  88×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+        span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
+      ol.Pager__numbers  248×44 @100,4
+        a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+        li.Pager__gap  13×22 @48,11  Manrope 400 15/22  lines=1  «…»
+        a.Pager__number#2  44×44 @65,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+        span.Pager__position  39×44 @113,0  Manrope 600 15/17  r100  b1  lines=1  «4»
+        a.Pager__number#3  44×44 @156,0  Manrope 600 15/17  r100  b1  lines=1  «5»
+        a.Pager__number#4  44×44 @204,0  Manrope 600 15/17  r100  b1  lines=1  «6»
+      a.Pager__step#2  100×44 @360,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+        span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+  span.StockPager__size  265×44 @1127,17
+    span.StockPager__sizeTitle  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
+    span.StockPager__sizeOn  44×44 @125,0  Manrope 600 13/16  r100  b1  lines=1  «8»
+    a.StockPager__sizeItem  44×44 @173,0  r100  b1
+      span  16×16 @14,14  Manrope 600 13/16  lines=1  «20»
+    a.StockPager__sizeItem#2  44×44 @221,0  r100  b1
+      span  16×16 @14,14  Manrope 600 13/16  lines=1  «50»
+
+[палитра light]
+div.StockPager__pager  border #eef2f6 #0f172a #0f172a #0f172a
+  span.StockPager__count  color #5b6a7d
+  div.StockPager__nav
+    nav.Pager__pager
+      a.Pager__step  color #0e7490  border #7e8fa6
+        span.Pager__stepText  color #0e7490
+      ol.Pager__numbers
+        a.Pager__number  color #0e7490  border transparent
+        li.Pager__gap  color #5b6a7d
+        a.Pager__number#2  color #0e7490  border transparent
+        span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+        a.Pager__number#3  color #0e7490  border transparent
+        a.Pager__number#4  color #0e7490  border transparent
+      a.Pager__step#2  color #0e7490  border #7e8fa6
+        span.Pager__stepText  color #0e7490
+  span.StockPager__size
+    span.StockPager__sizeTitle  color #5b6a7d
+    span.StockPager__sizeOn  color #ffffff  bg #0e7490  border #0e7490
+    a.StockPager__sizeItem  border #7e8fa6
+      span  color #0e7490
+    a.StockPager__sizeItem#2  border #7e8fa6
+      span  color #0e7490
+[палитра light @390]
+div.StockPager__pager > div.StockPager__nav > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+div.StockPager__pager > span.StockPager__size > span.StockPager__sizeOn  color #0f172a  border transparent
+div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem  border transparent
+div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem > span  color #0f172a
+div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem#2  border transparent
+div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem#2 > span  color #0f172a
+
+[палитра dark]
+div.StockPager__pager  border #182338 #eaf1f8 #eaf1f8 #eaf1f8
+  span.StockPager__count  color #7e92a7
+  div.StockPager__nav
+    nav.Pager__pager
+      a.Pager__step  color #22d3ee  border #566d95
+        span.Pager__stepText  color #22d3ee
+      ol.Pager__numbers
+        a.Pager__number  color #22d3ee  border transparent
+        li.Pager__gap  color #7e92a7
+        a.Pager__number#2  color #22d3ee  border transparent
+        span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+        a.Pager__number#3  color #22d3ee  border transparent
+        a.Pager__number#4  color #22d3ee  border transparent
+      a.Pager__step#2  color #22d3ee  border #566d95
+        span.Pager__stepText  color #22d3ee
+  span.StockPager__size
+    span.StockPager__sizeTitle  color #7e92a7
+    span.StockPager__sizeOn  color #ffffff  bg #0e7490  border #0e7490
+    a.StockPager__sizeItem  border #566d95
+      span  color #22d3ee
+    a.StockPager__sizeItem#2  border #566d95
+      span  color #22d3ee
+[палитра dark @390]
+div.StockPager__pager > div.StockPager__nav > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+div.StockPager__pager > span.StockPager__size > span.StockPager__sizeOn  color #eaf1f8  border transparent
+div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem  border transparent
+div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem > span  color #eaf1f8
+div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem#2  border transparent
+div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem#2 > span  color #eaf1f8
