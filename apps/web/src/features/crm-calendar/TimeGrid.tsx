@@ -120,6 +120,10 @@ export function TimeGrid({ columns, view, range, nowMin, label, focusId }: TimeG
      нужен шапке, полосе «весь день» и сетке часов — иначе час в одной колонке
      перестаёт быть тем же часом в другой. */
   const template = `var(--cal-rail) repeat(${columns.length}, minmax(0, 1fr))`;
+  /* Дни колонок по порядку: по ним запись считает перенос вбок (issue #143).
+     Массив строк, а не функция — сетка серверная, и функция границу
+     сервер→клиент не переживает. */
+  const days = columns.map((column) => column.day);
   const offHours = Array.from({ length: HOURS_IN_DAY }, (_, hour) => hour).filter((hour) =>
     isOffHour(range, hour),
   );
@@ -186,6 +190,7 @@ export function TimeGrid({ columns, view, range, nowMin, label, focusId }: TimeG
                       ),
                     }}
                     draggable
+                    days={days}
                   />
                 );
               })}
