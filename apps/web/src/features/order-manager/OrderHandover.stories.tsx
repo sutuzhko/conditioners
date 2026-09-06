@@ -9,11 +9,21 @@ import {
   installerCompanyOrder,
   installerDetails,
   pendingWorkApi,
+  showcasePhotos,
 } from './fixtures';
 import type { OrderDetails } from './model';
 
-/** Наряд в работе: только такой и сдают. */
-const working = { ...installerDetails, status: 'in_progress' as const };
+/**
+ * Наряд в работе: только такой и сдают.
+ *
+ * Снимки подменены витринными: кадр лежит внутри адреса, а не за закрытым
+ * маршрутом панели, которого в статической витрине нет (issue #676).
+ */
+const working = {
+  ...installerDetails,
+  status: 'in_progress' as const,
+  photos: showcasePhotos,
+};
 
 /**
  * 🔴 Тот же наряд, но платит компания: `price` не приходит вовсе, а не
@@ -38,20 +48,6 @@ const meta = {
   title: 'Админка/Заказы/Сдача работы',
   component: OrderHandover,
   args: { order: working, api: acceptingWorkApi, statusApi: acceptingApi },
-  /* 🔴 Снимки отдаются по сессии (ADR-171): в витрине их некому отдать, и
-     миниатюры остаются пустыми рамками. Правило про загруженные картинки для
-     этих историй снимается — проверять здесь нечего. */
-  parameters: {
-    invariants: {
-      allow: [
-        {
-          rule: 'images',
-          reason:
-            'фото из тома загрузок сервера (/api/admin/orders/…/file): в статической витрине его нет (ADR-207)',
-        },
-      ],
-    },
-  },
 } satisfies Meta<typeof OrderHandover>;
 
 export default meta;
