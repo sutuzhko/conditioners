@@ -9,7 +9,7 @@
  * утечка персональных данных.
  */
 import { randomUUID } from 'node:crypto';
-import { mkdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, rm, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import sharp from 'sharp';
 import { env } from '@/shared/config/env';
@@ -172,6 +172,35 @@ export function resolveUploadPath(url: string): string | null {
   if (!isSafeFilename(name)) return null;
 
   return join(env.UPLOADS_DIR, name);
+}
+
+/**
+ * Есть ли файл, на который ссылается запись, — issue #662.
+ *
+ * 🔴 Файл из `UPLOADS_DIR` — внешний ресурс, и в этом проекте внешние ресурсы
+ * ненадёжны по умолчанию. Ссылка в базе и файл на диске живут порознь: том
+ * переехал, каталог не примонтирован, запись приехала из базы, которую
+ * наполняли в другом окружении. Без этой проверки страница показывает битую
+ * картинку — то есть выглядит сломанной вёрсткой, а не отсутствующим файлом.
+ *
+ * Проверка стоит на сервере, а не в `onError` браузера: разметка обязана
+ * приходить уже верной (инвариант 1), а `onError` сначала показал бы значок
+ * битого файла и только потом убрал его — с прыжком раскладки.
+ *
+ * `null` на входе — «фотографии нет вовсе», и это не то же самое, что
+ * «фотография была, а файла нет»: у них разные ответы на экране.
+ */
+export async function mediaExists(url: string | null): Promise<boolean> {
+  if (url === null) return false;
+
+  const path = resolveUploadPath(url);
+  if (path === null) return false;
+
+  try {
+    return (await stat(path)).isFile();
+  } catch {
+    return false;
+  }
 }
 
 /**

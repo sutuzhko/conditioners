@@ -11,6 +11,8 @@ import {
   rejectedFromTelegram,
   rejectedReview,
   rejectedWithoutReason,
+  reviewWithMissingPhoto,
+  reviewWithPhoto,
 } from './fixtures';
 
 const meta = {
@@ -70,6 +72,23 @@ export const ВАрхиве: Story = {
 /** Вкладка «Все»: сквозной поиск по архиву, действий минимум. */
 export const ВсеОтзывы: Story = {
   args: { review: approvedReview, tab: 'all' },
+};
+
+/** Со снимком места установки: превью открывается в полный размер. */
+export const СоСнимком: Story = {
+  args: { review: reviewWithPhoto },
+};
+
+/**
+ * 🔴 Файла снимка нет — issue #662.
+ *
+ * На месте превью рамка того же размера и объяснение словом: ни битой
+ * картинки, ни ссылки «открыть в полный размер», ведущей в 404. Высота
+ * карточки при этом та же, что и со снимком, — пропавший файл не двигает
+ * кнопки решения под курсором.
+ */
+export const СнимокНедоступен: Story = {
+  args: { review: reviewWithMissingPhoto },
 };
 
 export const ОтказСервера: Story = {

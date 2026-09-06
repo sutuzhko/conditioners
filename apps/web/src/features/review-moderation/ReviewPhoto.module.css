@@ -41,6 +41,37 @@
   text-decoration: underline;
 }
 
+/* 🔴 Пропавший файл: рамка ровно того же места, что занимало бы превью
+   (issue #662). Высота считается из 220×165 — пропорций снимка, — чтобы
+   карточка отзыва не меняла высоту в зависимости от того, дожил файл до
+   сегодня или нет. */
+.gone {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 220px;
+  height: 165px;
+  border: 1px dashed var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-soft);
+  padding: 8px;
+  text-align: center;
+}
+
+.goneTitle {
+  color: var(--body);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.goneNote {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
 /* Полный кадр: высота окна, ширина по месту, пропорции не трогаем. */
 .full {
   position: relative;
