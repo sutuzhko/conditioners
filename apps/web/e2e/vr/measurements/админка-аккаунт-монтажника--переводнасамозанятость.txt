@@ -46,6 +46,21 @@ section.Card__card  358×1086 @16,16  r20  b1
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+div.Modal__overlay  390×900 @0,0  fixed  portal
+  div.Modal__window  390×383 @0,517  r22 22 0 0  b1
+    div.Modal__head  388×216 @1,1  b0 0 1 0
+      h2.Modal__title  292×50 @20,20  Onest 700 21/25  ls0  lines=2  «Сменить трудовой договор на самозанятост»
+      p.Modal__description  292×121 @20,74  Manrope 400 13/20  lines=6  «Павел Орлов оформлен по трудовому догово»
+      button.IconButton__iconButton  40×40 @328,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  388×40 @1,217
+    div.Modal__footer  388×125 @1,257  b1 0 0 0
+      button.Button__button  171×44 @197,15  r11  b1
+        span.Button__content#2  133×17 @19,13
+          span.Button__label  133×17 @0,0  Manrope 600 15/17  lines=1  «Оставить как было»
+      button.Button__button#2  247×44 @121,67  r11  b1
+        span.Button__content  209×17 @19,13
+          span.Button__label#2  209×17 @0,0  Manrope 600 15/17  lines=1  «Перевести на самозанятость»
 
 [геометрия 768]
 section.Card__card  736×709 @16,16  r20  b1
@@ -87,6 +102,21 @@ section.Card__card  736×709 @16,16  r20  b1
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+div.Modal__overlay  768×900 @0,0  fixed  portal
+  div.Modal__window  420×363 @174,268  r22  b1
+    div.Modal__head  418×196 @1,1  b0 0 1 0
+      h2.Modal__title  322×50 @20,20  Onest 700 21/25  ls0  lines=2  «Сменить трудовой договор на самозанятост»
+      p.Modal__description  322×101 @20,74  Manrope 400 13/20  lines=5  «Павел Орлов оформлен по трудовому догово»
+      button.IconButton__iconButton  40×40 @358,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  418×40 @1,197
+    div.Modal__footer  418×125 @1,237  b1 0 0 0
+      button.Button__button  171×44 @227,15  r11  b1
+        span.Button__content#2  133×17 @19,13
+          span.Button__label  133×17 @0,0  Manrope 600 15/17  lines=1  «Оставить как было»
+      button.Button__button#2  247×44 @151,67  r11  b1
+        span.Button__content  209×17 @19,13
+          span.Button__label#2  209×17 @0,0  Manrope 600 15/17  lines=1  «Перевести на самозанятость»
 
 [геометрия 1440]
 section.Card__card  1408×554 @16,16  r20  b1
@@ -128,6 +158,21 @@ section.Card__card  1408×554 @16,16  r20  b1
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+div.Modal__overlay  1440×900 @0,0  fixed  portal
+  div.Modal__window  420×363 @510,268  r22  b1
+    div.Modal__head  418×196 @1,1  b0 0 1 0
+      h2.Modal__title  322×50 @20,20  Onest 700 21/25  ls0  lines=2  «Сменить трудовой договор на самозанятост»
+      p.Modal__description  322×101 @20,74  Manrope 400 13/20  lines=5  «Павел Орлов оформлен по трудовому догово»
+      button.IconButton__iconButton  40×40 @358,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  418×40 @1,197
+    div.Modal__footer  418×125 @1,237  b1 0 0 0
+      button.Button__button  171×44 @227,15  r11  b1
+        span.Button__content#2  133×17 @19,13
+          span.Button__label  133×17 @0,0  Manrope 600 15/17  lines=1  «Оставить как было»
+      button.Button__button#2  247×44 @151,67  r11  b1
+        span.Button__content  209×17 @19,13
+          span.Button__label#2  209×17 @0,0  Manrope 600 15/17  lines=1  «Перевести на самозанятость»
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
@@ -169,6 +214,21 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
       button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
         span.Button__content
           span.Button__label  color #ffffff
+div.Modal__overlay  bg #0f172a73
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
+      h2.Modal__title  color #0f172a
+      p.Modal__description  color #556173
+      button.IconButton__iconButton  border transparent  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+        svg
+    div.Modal__body
+    div.Modal__footer  border #e2e8f0 #0f172a #0f172a #0f172a
+      button.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content#2
+          span.Button__label  color #0f172a
+      button.Button__button#2  bg #be123c14  border #be123c73
+        span.Button__content
+          span.Button__label#2  color #be123c
 
 [палитра dark]
 section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
@@ -210,3 +270,18 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
       button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
         span.Button__content
           span.Button__label  color #ffffff
+div.Modal__overlay  bg #020610ad
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      h2.Modal__title  color #eaf1f8
+      p.Modal__description  color #8598ac
+      button.IconButton__iconButton  border transparent  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+        svg
+    div.Modal__body
+    div.Modal__footer  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+      button.Button__button  bg #121d31  border #566d95
+        span.Button__content#2
+          span.Button__label  color #eaf1f8
+      button.Button__button#2  bg #fb71851f  border #fb718580
+        span.Button__content
+          span.Button__label#2  color #fb7185
