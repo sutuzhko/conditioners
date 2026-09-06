@@ -4,6 +4,7 @@ import {
   VIEW,
   bandCenter,
   barAt,
+  endLabelsOf,
   padOf,
   pathOf,
   pointAt,
@@ -56,6 +57,10 @@ export interface ChartProps {
  *
  * 🔴 `aria-label` называет, что показано и какие числа, а не «график». Пустой
  * или общий текст здесь равен отсутствию графика для того, кто его не видит.
+ *
+ * 🔴 Подписи концов линий разводит `endLabelsOf` (issue #666): при равных
+ * величинах — а ноль и ноль это состояние любого нового бизнеса — обе вставали
+ * в одну точку и рисовались друг поверх друга.
  */
 export function Chart({
   series,
@@ -69,6 +74,11 @@ export function Chart({
   const ticks = ticksOf(scale);
   const pad = padOf(kind);
   const bars = kind === 'bars';
+
+  /* Подписи считаются по всем сериям разом: где встанет вторая, зависит от
+     того, где стоит первая (issue #666). Столбцам подписи концов не положены
+     вовсе — число каждого читается по шкале. */
+  const endLabels = bars ? [] : endLabelsOf(series, scale, pad);
 
   /* Описание для озвучки собирается из тех же чисел, что нарисованы: расхождение
      разметки и картинки — это разные данные для зрячего и незрячего. */
@@ -175,30 +185,37 @@ export function Chart({
                     className={[styles.line, index === 0 ? styles.line1 : styles.line2].join(' ')}
                     d={pathOf(line.points, scale, pad)}
                   />
-                  {end === undefined || last === undefined ? null : (
-                    <>
-                      <circle
-                        className={[styles.dot, index === 0 ? styles.dot1 : styles.dot2].join(' ')}
-                        cx={end.x}
-                        cy={end.y}
-                        r={3.5}
-                      />
-                      {/* Подпись значения на конце линии: она и есть точное
-                          число, график же показывает только форму. */}
-                      <text
-                        className={[styles.value, index === 0 ? styles.value1 : styles.value2].join(
-                          ' ',
-                        )}
-                        x={end.x + 8}
-                        y={end.y + 4}
-                      >
-                        {format(last)}
-                      </text>
-                    </>
+                  {/* 🔴 Точка остаётся у своего конца линии, даже когда подпись
+                      от неё отъехала: точка — это и есть последнее измерение,
+                      и двигать её значило бы двигать данные. */}
+                  {end === undefined ? null : (
+                    <circle
+                      className={[styles.dot, index === 0 ? styles.dot1 : styles.dot2].join(' ')}
+                      cx={end.x}
+                      cy={end.y}
+                      r={3.5}
+                    />
                   )}
                 </g>
               );
             })}
+
+        {/* Подписи значений — последним слоем, поверх линий: число читают, а
+            не угадывают из-под штриха. Она и есть точное значение, график же
+            показывает только форму. */}
+        {endLabels.map((label) => (
+          <text
+            key={label.index}
+            className={[
+              styles.value,
+              label.shared ? styles.valueShared : label.index === 0 ? styles.value1 : styles.value2,
+            ].join(' ')}
+            x={label.x + 8}
+            y={label.y + 4}
+          >
+            {format(label.value)}
+          </text>
+        ))}
       </svg>
     </figure>
   );

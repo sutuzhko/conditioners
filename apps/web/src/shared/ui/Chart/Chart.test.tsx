@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Chart } from './Chart';
+import { VALUE_LINE } from './geometry';
 
 const ORDERS = { id: 'orders', name: 'Заказы', points: [12, 18, 15, 24] };
 const REVENUE = { id: 'revenue', name: 'Выплаты', points: [8, 11, 9, 16] };
@@ -143,5 +144,46 @@ describe('График', () => {
     );
 
     expect(screen.getByRole('img')).toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Подписи концов не спорят за одно место — issue #666.
+   *
+   * Проверяется отрисованное: сколько подписей на холсте и где они стоят.
+   * Геометрия покрыта своими тестами, здесь — что компонент их слушает.
+   */
+  describe('подписи концов линий (issue #666)', () => {
+    const equal = [
+      { id: 'revenue', name: 'Выручка', points: [0, 0, 0] },
+      { id: 'payout', name: 'Выплаты', points: [0, 0, 0] },
+    ] as const;
+
+    it('🔴 равные величины дают одну подпись, а не две в одной точке', () => {
+      const { container } = render(
+        <Chart series={equal} labels={['1', '2', '3']} title="Выручка и выплаты" />,
+      );
+
+      const values = container.querySelectorAll('text[class*="value"]');
+      expect(values).toHaveLength(1);
+    });
+
+    it('близкие, но разные величины дают две подписи на разной высоте', () => {
+      const { container } = render(
+        <Chart
+          series={[
+            { id: 'revenue', name: 'Выручка', points: [0, 100] },
+            { id: 'payout', name: 'Выплаты', points: [0, 99] },
+          ]}
+          labels={['1', '2']}
+          title="Выручка и выплаты"
+        />,
+      );
+
+      const values = [...container.querySelectorAll('text[class*="value"]')];
+      expect(values).toHaveLength(2);
+
+      const [first, second] = values.map((node) => Number(node.getAttribute('y')));
+      expect(Math.abs((second ?? 0) - (first ?? 0))).toBeGreaterThanOrEqual(VALUE_LINE);
+    });
   });
 });
