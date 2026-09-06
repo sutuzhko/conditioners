@@ -7,11 +7,336 @@
 1440 → 1440×900
 
 [геометрия 390]
+div.Modal__overlay  390×900 @0,0  fixed  portal
+  div.Modal__window  390×828 @0,72  r22 22 0 0  b1
+    div.Modal__head  388×81 @1,1  b0 0 1 0
+      h2.Modal__title  126×25 @20,20  Onest 700 21/25  ls0  lines=1  «Правка дела»
+      button.IconButton__iconButton  40×40 @328,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  388×745 @1,82
+      form.EventDialog__form  348×874 @20,20
+        div.EventDialog__row  348×341 @0,0
+          div.Field__field  348×76 @0,0
+            label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Что за дело»
+            span.Select__wrapper  348×49 @0,27
+              select.Select__select  348×49 @0,0  r11  b1
+                option  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Звонок»
+                option#2  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Замер»
+                option#3  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Монтаж»
+                option#4  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Обслуживание»
+                option#5  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Встреча»
+                option#6  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Заметка»
+              svg.Select__chevron  14×14 @320,18
+          div.Field__field#2  348×76 @0,88
+            label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
+              span.Field__required  9×18 @31,1  Manrope 600 13/20  lines=1  «*»
+            input  348×49 @0,27  r11  b1
+          div.Field__field#3  348×77 @0,176
+            label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Время»
+              span.Field__required#2  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+            input  348×50 @0,27  r11  b1
+          div.Field__field#4  348×76 @0,265
+            label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Длительность»
+            span.Select__wrapper  348×49 @0,27
+              select.Select__select#2  348×49 @0,0  r11  b1
+                option  0×0 @-21,-466  Manrope 400 15/21  lines=0  «15 мин»
+                option#2  0×0 @-21,-466  Manrope 400 15/21  lines=0  «30 мин»
+                option#3  0×0 @-21,-466  Manrope 400 15/21  lines=0  «45 мин»
+                option#4  0×0 @-21,-466  Manrope 400 15/21  lines=0  «1 ч»
+                option#5  0×0 @-21,-466  Manrope 400 15/21  lines=0  «1 ч 30 мин»
+                option#6  0×0 @-21,-466  Manrope 400 15/21  lines=0  «2 ч»
+                option#7  0×0 @-21,-466  Manrope 400 15/21  lines=0  «3 ч»
+                option#8  0×0 @-21,-466  Manrope 400 15/21  lines=0  «4 ч»
+                option#9  0×0 @-21,-466  Manrope 400 15/21  lines=0  «5 ч»
+                option#10  0×0 @-21,-466  Manrope 400 15/21  lines=0  «6 ч»
+                option#11  0×0 @-21,-466  Manrope 400 15/21  lines=0  «8 ч»
+              svg.Select__chevron#2  14×14 @320,18
+        div.EventDialog__row#2  348×164 @0,355
+          div.Field__field  348×76 @0,0
+            label.Field__label#2  348×20 @0,0  Manrope 600 13/20  lines=1  «Клиент»
+              span.Field__required  9×18 @46,1  Manrope 600 13/20  lines=1  «*»
+            input  348×49 @0,27  r11  b1
+          div.Field__field#2  348×76 @0,88
+            label.Field__label#2  348×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+            input#2  348×49 @0,27  r11  b1
+        div.Field__field  348×76 @0,534
+          label.Field__label#3  348×20 @0,0  Manrope 600 13/20  lines=1  «Адрес»
+          input#2  348×49 @0,27  r11  b1
+        div.Field__field#2  348×123 @0,624
+          label.Field__label#3  348×20 @0,0  Manrope 600 13/20  lines=1  «Заметка»
+          textarea.Textarea__textarea  348×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Пятый этаж без лифта»
+        div.EventDialog__actions  348×113 @0,761  b1 0 0 0
+          button.Button__button  348×44 @0,69  r11  b1
+            span.Button__content  54×17 @147,13
+              span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
+          button.Button__button#2  348×44 @0,15  r11  b1
+            span.Button__content  77×17 @135,13
+              span.Button__label#2  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
 
 [геометрия 768]
+div.Modal__overlay  768×900 @0,0  fixed  portal
+  div.Modal__window  560×678 @104,111  r22  b1
+    div.Modal__head  558×81 @1,1  b0 0 1 0
+      h2.Modal__title  126×25 @20,20  Onest 700 21/25  ls0  lines=1  «Правка дела»
+      button.IconButton__iconButton  40×40 @498,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  558×595 @1,82
+      form.EventDialog__form  518×555 @20,20
+        div.EventDialog__row  518×165 @0,0
+          div.Field__field  204×77 @0,0
+            label.Field__label  204×20 @0,0  Manrope 600 13/20  lines=1  «Что за дело»
+            span.Select__wrapper  204×49 @0,27
+              select.Select__select  204×49 @0,0  r11  b1
+                option  0×0 @-125,-240  Manrope 400 15/21  lines=0  «Звонок»
+                option#2  0×0 @-125,-240  Manrope 400 15/21  lines=0  «Замер»
+                option#3  0×0 @-125,-240  Manrope 400 15/21  lines=0  «Монтаж»
+                option#4  0×0 @-125,-240  Manrope 400 15/21  lines=0  «Обслуживание»
+                option#5  0×0 @-125,-240  Manrope 400 15/21  lines=0  «Встреча»
+                option#6  0×0 @-125,-240  Manrope 400 15/21  lines=0  «Заметка»
+              svg.Select__chevron  14×14 @176,18
+          div.Field__field#2  170×77 @216,0
+            label.Field__label  170×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
+              span.Field__required  9×18 @31,1  Manrope 600 13/20  lines=1  «*»
+            input  170×49 @0,27  r11  b1
+          div.Field__field#3  119×77 @399,0
+            label.Field__label  119×20 @0,0  Manrope 600 13/20  lines=1  «Время»
+              span.Field__required#2  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+            input  119×50 @0,27  r11  b1
+          div.Field__field#4  204×76 @0,89
+            label.Field__label  204×20 @0,0  Manrope 600 13/20  lines=1  «Длительность»
+            span.Select__wrapper  204×49 @0,27
+              select.Select__select#2  204×49 @0,0  r11  b1
+                option  0×0 @-125,-329  Manrope 400 15/21  lines=0  «15 мин»
+                option#2  0×0 @-125,-329  Manrope 400 15/21  lines=0  «30 мин»
+                option#3  0×0 @-125,-329  Manrope 400 15/21  lines=0  «45 мин»
+                option#4  0×0 @-125,-329  Manrope 400 15/21  lines=0  «1 ч»
+                option#5  0×0 @-125,-329  Manrope 400 15/21  lines=0  «1 ч 30 мин»
+                option#6  0×0 @-125,-329  Manrope 400 15/21  lines=0  «2 ч»
+                option#7  0×0 @-125,-329  Manrope 400 15/21  lines=0  «3 ч»
+                option#8  0×0 @-125,-329  Manrope 400 15/21  lines=0  «4 ч»
+                option#9  0×0 @-125,-329  Manrope 400 15/21  lines=0  «5 ч»
+                option#10  0×0 @-125,-329  Manrope 400 15/21  lines=0  «6 ч»
+                option#11  0×0 @-125,-329  Manrope 400 15/21  lines=0  «8 ч»
+              svg.Select__chevron#2  14×14 @176,18
+        div.EventDialog__row#2  518×76 @0,179
+          div.Field__field  253×76 @0,0
+            label.Field__label#2  253×20 @0,0  Manrope 600 13/20  lines=1  «Клиент»
+              span.Field__required  9×18 @46,1  Manrope 600 13/20  lines=1  «*»
+            input  253×49 @0,27  r11  b1
+          div.Field__field#2  253×76 @265,0
+            label.Field__label#2  253×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+            input#2  253×49 @0,27  r11  b1
+        div.Field__field  518×76 @0,269
+          label.Field__label#3  518×20 @0,0  Manrope 600 13/20  lines=1  «Адрес»
+          input#2  518×49 @0,27  r11  b1
+        div.Field__field#2  518×123 @0,359
+          label.Field__label#3  518×20 @0,0  Manrope 600 13/20  lines=1  «Заметка»
+          textarea.Textarea__textarea  518×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Пятый этаж без лифта»
+        div.EventDialog__actions  518×59 @0,496  b1 0 0 0
+          button.Button__button  92×44 @300,15  r11  b1
+            span.Button__content  54×17 @19,13
+              span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
+          button.Button__button#2  115×44 @403,15  r11  b1
+            span.Button__content  77×17 @19,13
+              span.Button__label#2  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
 
 [геометрия 1440]
+div.Modal__overlay  1440×900 @0,0  fixed  portal
+  div.Modal__window  560×678 @440,111  r22  b1
+    div.Modal__head  558×81 @1,1  b0 0 1 0
+      h2.Modal__title  126×25 @20,20  Onest 700 21/25  ls0  lines=1  «Правка дела»
+      button.IconButton__iconButton  40×40 @498,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  558×595 @1,82
+      form.EventDialog__form  518×555 @20,20
+        div.EventDialog__row  518×165 @0,0
+          div.Field__field  204×77 @0,0
+            label.Field__label  204×20 @0,0  Manrope 600 13/20  lines=1  «Что за дело»
+            span.Select__wrapper  204×49 @0,27
+              select.Select__select  204×49 @0,0  r11  b1
+                option  0×0 @-461,-240  Manrope 400 15/21  lines=0  «Звонок»
+                option#2  0×0 @-461,-240  Manrope 400 15/21  lines=0  «Замер»
+                option#3  0×0 @-461,-240  Manrope 400 15/21  lines=0  «Монтаж»
+                option#4  0×0 @-461,-240  Manrope 400 15/21  lines=0  «Обслуживание»
+                option#5  0×0 @-461,-240  Manrope 400 15/21  lines=0  «Встреча»
+                option#6  0×0 @-461,-240  Manrope 400 15/21  lines=0  «Заметка»
+              svg.Select__chevron  14×14 @176,18
+          div.Field__field#2  170×77 @216,0
+            label.Field__label  170×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
+              span.Field__required  9×18 @31,1  Manrope 600 13/20  lines=1  «*»
+            input  170×49 @0,27  r11  b1
+          div.Field__field#3  119×77 @399,0
+            label.Field__label  119×20 @0,0  Manrope 600 13/20  lines=1  «Время»
+              span.Field__required#2  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
+            input  119×50 @0,27  r11  b1
+          div.Field__field#4  204×76 @0,89
+            label.Field__label  204×20 @0,0  Manrope 600 13/20  lines=1  «Длительность»
+            span.Select__wrapper  204×49 @0,27
+              select.Select__select#2  204×49 @0,0  r11  b1
+                option  0×0 @-461,-329  Manrope 400 15/21  lines=0  «15 мин»
+                option#2  0×0 @-461,-329  Manrope 400 15/21  lines=0  «30 мин»
+                option#3  0×0 @-461,-329  Manrope 400 15/21  lines=0  «45 мин»
+                option#4  0×0 @-461,-329  Manrope 400 15/21  lines=0  «1 ч»
+                option#5  0×0 @-461,-329  Manrope 400 15/21  lines=0  «1 ч 30 мин»
+                option#6  0×0 @-461,-329  Manrope 400 15/21  lines=0  «2 ч»
+                option#7  0×0 @-461,-329  Manrope 400 15/21  lines=0  «3 ч»
+                option#8  0×0 @-461,-329  Manrope 400 15/21  lines=0  «4 ч»
+                option#9  0×0 @-461,-329  Manrope 400 15/21  lines=0  «5 ч»
+                option#10  0×0 @-461,-329  Manrope 400 15/21  lines=0  «6 ч»
+                option#11  0×0 @-461,-329  Manrope 400 15/21  lines=0  «8 ч»
+              svg.Select__chevron#2  14×14 @176,18
+        div.EventDialog__row#2  518×76 @0,179
+          div.Field__field  253×76 @0,0
+            label.Field__label#2  253×20 @0,0  Manrope 600 13/20  lines=1  «Клиент»
+              span.Field__required  9×18 @46,1  Manrope 600 13/20  lines=1  «*»
+            input  253×49 @0,27  r11  b1
+          div.Field__field#2  253×76 @265,0
+            label.Field__label#2  253×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+            input#2  253×49 @0,27  r11  b1
+        div.Field__field  518×76 @0,269
+          label.Field__label#3  518×20 @0,0  Manrope 600 13/20  lines=1  «Адрес»
+          input#2  518×49 @0,27  r11  b1
+        div.Field__field#2  518×123 @0,359
+          label.Field__label#3  518×20 @0,0  Manrope 600 13/20  lines=1  «Заметка»
+          textarea.Textarea__textarea  518×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Пятый этаж без лифта»
+        div.EventDialog__actions  518×59 @0,496  b1 0 0 0
+          button.Button__button  92×44 @300,15  r11  b1
+            span.Button__content  54×17 @19,13
+              span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
+          button.Button__button#2  115×44 @403,15  r11  b1
+            span.Button__content  77×17 @19,13
+              span.Button__label#2  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
 
 [палитра light]
+div.Modal__overlay  bg #0f172a73
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
+      h2.Modal__title  color #0f172a
+      button.IconButton__iconButton  border transparent  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+        svg
+    div.Modal__body
+      form.EventDialog__form
+        div.EventDialog__row
+          div.Field__field
+            label.Field__label  color #334155
+            span.Select__wrapper
+              select.Select__select  bg #ffffff  border #7e8fa6
+                option  color #0f172a
+                option#2  color #0f172a
+                option#3  color #0f172a
+                option#4  color #0f172a
+                option#5  color #0f172a
+                option#6  color #0f172a
+              svg.Select__chevron
+          div.Field__field#2
+            label.Field__label  color #334155
+              span.Field__required  color #0e7490
+            input  bg #ffffff  border #7e8fa6
+          div.Field__field#3
+            label.Field__label  color #334155
+              span.Field__required#2  color #0e7490
+            input  bg #ffffff  border #7e8fa6
+          div.Field__field#4
+            label.Field__label  color #334155
+            span.Select__wrapper
+              select.Select__select#2  bg #ffffff  border #7e8fa6
+                option  color #0f172a
+                option#2  color #0f172a
+                option#3  color #0f172a
+                option#4  color #0f172a
+                option#5  color #0f172a
+                option#6  color #0f172a
+                option#7  color #0f172a
+                option#8  color #0f172a
+                option#9  color #0f172a
+                option#10  color #0f172a
+                option#11  color #0f172a
+              svg.Select__chevron#2
+        div.EventDialog__row#2
+          div.Field__field
+            label.Field__label#2  color #334155
+              span.Field__required  color #0e7490
+            input  bg #ffffff  border #7e8fa6
+          div.Field__field#2
+            label.Field__label#2  color #334155
+            input#2  bg #ffffff  border #7e8fa6
+        div.Field__field
+          label.Field__label#3  color #334155
+          input#2  bg #ffffff  border #7e8fa6
+        div.Field__field#2
+          label.Field__label#3  color #334155
+          textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
+        div.EventDialog__actions  border #e2e8f0 #475569 #475569 #475569
+          button.Button__button  border transparent
+            span.Button__content
+              span.Button__label  color #0e7490
+          button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content
+              span.Button__label#2  color #ffffff
 
 [палитра dark]
+div.Modal__overlay  bg #020610ad
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      h2.Modal__title  color #eaf1f8
+      button.IconButton__iconButton  border transparent  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+        svg
+    div.Modal__body
+      form.EventDialog__form
+        div.EventDialog__row
+          div.Field__field
+            label.Field__label  color #c9d5e2
+            span.Select__wrapper
+              select.Select__select  bg #0b1424  border #566d95
+                option  color #eaf1f8
+                option#2  color #eaf1f8
+                option#3  color #eaf1f8
+                option#4  color #eaf1f8
+                option#5  color #eaf1f8
+                option#6  color #eaf1f8
+              svg.Select__chevron
+          div.Field__field#2
+            label.Field__label  color #c9d5e2
+              span.Field__required  color #22d3ee
+            input  bg #0b1424  border #566d95
+          div.Field__field#3
+            label.Field__label  color #c9d5e2
+              span.Field__required#2  color #22d3ee
+            input  bg #0b1424  border #566d95
+          div.Field__field#4
+            label.Field__label  color #c9d5e2
+            span.Select__wrapper
+              select.Select__select#2  bg #0b1424  border #566d95
+                option  color #eaf1f8
+                option#2  color #eaf1f8
+                option#3  color #eaf1f8
+                option#4  color #eaf1f8
+                option#5  color #eaf1f8
+                option#6  color #eaf1f8
+                option#7  color #eaf1f8
+                option#8  color #eaf1f8
+                option#9  color #eaf1f8
+                option#10  color #eaf1f8
+                option#11  color #eaf1f8
+              svg.Select__chevron#2
+        div.EventDialog__row#2
+          div.Field__field
+            label.Field__label#2  color #c9d5e2
+              span.Field__required  color #22d3ee
+            input  bg #0b1424  border #566d95
+          div.Field__field#2
+            label.Field__label#2  color #c9d5e2
+            input#2  bg #0b1424  border #566d95
+        div.Field__field
+          label.Field__label#3  color #c9d5e2
+          input#2  bg #0b1424  border #566d95
+        div.Field__field#2
+          label.Field__label#3  color #c9d5e2
+          textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
+        div.EventDialog__actions  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
+          button.Button__button  border transparent
+            span.Button__content
+              span.Button__label  color #22d3ee
+          button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content
+              span.Button__label#2  color #ffffff

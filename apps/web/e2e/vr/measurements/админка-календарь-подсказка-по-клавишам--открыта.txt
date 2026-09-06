@@ -7,11 +7,166 @@
 1440 → 1440×900
 
 [геометрия 390]
+div.Modal__overlay  390×900 @0,0  fixed  portal
+  div.Modal__window  390×478 @0,422  r22 22 0 0  b1
+    div.Modal__head  388×131 @1,1  b0 0 1 0
+      h2.Modal__title  292×25 @20,20  Onest 700 21/25  ls0  lines=1  «Клавиши календаря»
+      p.Modal__description  292×60 @20,49  Manrope 400 13/20  lines=3  «Работают, когда курсор не в поле ввода.»
+      button.IconButton__iconButton  40×40 @328,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  388×273 @1,132
+      dl.CalendarHelp__list  348×233 @20,20
+        div.CalendarHelp__row  348×30 @0,0
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «D»
+          dd.CalendarHelp__what  36×22 @68,4  Manrope 400 15/22  lines=1  «День»
+        div.CalendarHelp__row#2  348×30 @0,40
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «W»
+          dd.CalendarHelp__what  52×22 @68,4  Manrope 400 15/22  lines=1  «Неделя»
+        div.CalendarHelp__row#3  348×30 @0,81
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «M»
+          dd.CalendarHelp__what  46×22 @68,4  Manrope 400 15/22  lines=1  «Месяц»
+        div.CalendarHelp__row#4  348×30 @0,121
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «T»
+          dd.CalendarHelp__what  59×22 @68,4  Manrope 400 15/22  lines=1  «Сегодня»
+        div.CalendarHelp__row#5  348×30 @0,162
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «← →»
+          dd.CalendarHelp__what  237×22 @68,4  Manrope 400 15/22  lines=1  «Предыдущий и следующий период»
+        div.CalendarHelp__row#6  348×30 @0,202
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «?»
+          dd.CalendarHelp__what  100×22 @68,4  Manrope 400 15/22  lines=1  «Эта подсказка»
+    div.Modal__footer  388×73 @1,404  b1 0 0 0
+      button.Button__button  100×44 @268,15  r11  b1
+        span.Button__content  62×17 @19,13
+          span.Button__label  62×17 @0,0  Manrope 600 15/17  lines=1  «Понятно»
 
 [геометрия 768]
+div.Modal__overlay  768×900 @0,0  fixed  portal
+  div.Modal__window  420×478 @174,211  r22  b1
+    div.Modal__head  418×131 @1,1  b0 0 1 0
+      h2.Modal__title  322×25 @20,20  Onest 700 21/25  ls0  lines=1  «Клавиши календаря»
+      p.Modal__description  322×60 @20,49  Manrope 400 13/20  lines=3  «Работают, когда курсор не в поле ввода.»
+      button.IconButton__iconButton  40×40 @358,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  418×273 @1,132
+      dl.CalendarHelp__list  378×233 @20,20
+        div.CalendarHelp__row  378×30 @0,0
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «D»
+          dd.CalendarHelp__what  36×22 @68,4  Manrope 400 15/22  lines=1  «День»
+        div.CalendarHelp__row#2  378×30 @0,40
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «W»
+          dd.CalendarHelp__what  52×22 @68,4  Manrope 400 15/22  lines=1  «Неделя»
+        div.CalendarHelp__row#3  378×30 @0,81
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «M»
+          dd.CalendarHelp__what  46×22 @68,4  Manrope 400 15/22  lines=1  «Месяц»
+        div.CalendarHelp__row#4  378×30 @0,121
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «T»
+          dd.CalendarHelp__what  59×22 @68,4  Manrope 400 15/22  lines=1  «Сегодня»
+        div.CalendarHelp__row#5  378×30 @0,162
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «← →»
+          dd.CalendarHelp__what  237×22 @68,4  Manrope 400 15/22  lines=1  «Предыдущий и следующий период»
+        div.CalendarHelp__row#6  378×30 @0,202
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «?»
+          dd.CalendarHelp__what  100×22 @68,4  Manrope 400 15/22  lines=1  «Эта подсказка»
+    div.Modal__footer  418×73 @1,404  b1 0 0 0
+      button.Button__button  100×44 @298,15  r11  b1
+        span.Button__content  62×17 @19,13
+          span.Button__label  62×17 @0,0  Manrope 600 15/17  lines=1  «Понятно»
 
 [геометрия 1440]
+div.Modal__overlay  1440×900 @0,0  fixed  portal
+  div.Modal__window  420×478 @510,211  r22  b1
+    div.Modal__head  418×131 @1,1  b0 0 1 0
+      h2.Modal__title  322×25 @20,20  Onest 700 21/25  ls0  lines=1  «Клавиши календаря»
+      p.Modal__description  322×60 @20,49  Manrope 400 13/20  lines=3  «Работают, когда курсор не в поле ввода.»
+      button.IconButton__iconButton  40×40 @358,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  418×273 @1,132
+      dl.CalendarHelp__list  378×233 @20,20
+        div.CalendarHelp__row  378×30 @0,0
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «D»
+          dd.CalendarHelp__what  36×22 @68,4  Manrope 400 15/22  lines=1  «День»
+        div.CalendarHelp__row#2  378×30 @0,40
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «W»
+          dd.CalendarHelp__what  52×22 @68,4  Manrope 400 15/22  lines=1  «Неделя»
+        div.CalendarHelp__row#3  378×30 @0,81
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «M»
+          dd.CalendarHelp__what  46×22 @68,4  Manrope 400 15/22  lines=1  «Месяц»
+        div.CalendarHelp__row#4  378×30 @0,121
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «T»
+          dd.CalendarHelp__what  59×22 @68,4  Manrope 400 15/22  lines=1  «Сегодня»
+        div.CalendarHelp__row#5  378×30 @0,162
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «← →»
+          dd.CalendarHelp__what  237×22 @68,4  Manrope 400 15/22  lines=1  «Предыдущий и следующий период»
+        div.CalendarHelp__row#6  378×30 @0,202
+          dt.CalendarHelp__keys  56×30 @0,0  JetBrains Mono 400 15/22  r8  b1  lines=1  «?»
+          dd.CalendarHelp__what  100×22 @68,4  Manrope 400 15/22  lines=1  «Эта подсказка»
+    div.Modal__footer  418×73 @1,404  b1 0 0 0
+      button.Button__button  100×44 @298,15  r11  b1
+        span.Button__content  62×17 @19,13
+          span.Button__label  62×17 @0,0  Manrope 600 15/17  lines=1  «Понятно»
 
 [палитра light]
+div.Modal__overlay  bg #0f172a73
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
+      h2.Modal__title  color #0f172a
+      p.Modal__description  color #556173
+      button.IconButton__iconButton  border transparent  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+        svg
+    div.Modal__body
+      dl.CalendarHelp__list
+        div.CalendarHelp__row
+          dt.CalendarHelp__keys  color #0f172a  bg #f8fafc  border #e2e8f0
+          dd.CalendarHelp__what  color #556173
+        div.CalendarHelp__row#2
+          dt.CalendarHelp__keys  color #0f172a  bg #f8fafc  border #e2e8f0
+          dd.CalendarHelp__what  color #556173
+        div.CalendarHelp__row#3
+          dt.CalendarHelp__keys  color #0f172a  bg #f8fafc  border #e2e8f0
+          dd.CalendarHelp__what  color #556173
+        div.CalendarHelp__row#4
+          dt.CalendarHelp__keys  color #0f172a  bg #f8fafc  border #e2e8f0
+          dd.CalendarHelp__what  color #556173
+        div.CalendarHelp__row#5
+          dt.CalendarHelp__keys  color #0f172a  bg #f8fafc  border #e2e8f0
+          dd.CalendarHelp__what  color #556173
+        div.CalendarHelp__row#6
+          dt.CalendarHelp__keys  color #0f172a  bg #f8fafc  border #e2e8f0
+          dd.CalendarHelp__what  color #556173
+    div.Modal__footer  border #e2e8f0 #0f172a #0f172a #0f172a
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff
 
 [палитра dark]
+div.Modal__overlay  bg #020610ad
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      h2.Modal__title  color #eaf1f8
+      p.Modal__description  color #8598ac
+      button.IconButton__iconButton  border transparent  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+        svg
+    div.Modal__body
+      dl.CalendarHelp__list
+        div.CalendarHelp__row
+          dt.CalendarHelp__keys  color #eaf1f8  bg #0e1729  border #1e2b41
+          dd.CalendarHelp__what  color #8598ac
+        div.CalendarHelp__row#2
+          dt.CalendarHelp__keys  color #eaf1f8  bg #0e1729  border #1e2b41
+          dd.CalendarHelp__what  color #8598ac
+        div.CalendarHelp__row#3
+          dt.CalendarHelp__keys  color #eaf1f8  bg #0e1729  border #1e2b41
+          dd.CalendarHelp__what  color #8598ac
+        div.CalendarHelp__row#4
+          dt.CalendarHelp__keys  color #eaf1f8  bg #0e1729  border #1e2b41
+          dd.CalendarHelp__what  color #8598ac
+        div.CalendarHelp__row#5
+          dt.CalendarHelp__keys  color #eaf1f8  bg #0e1729  border #1e2b41
+          dd.CalendarHelp__what  color #8598ac
+        div.CalendarHelp__row#6
+          dt.CalendarHelp__keys  color #eaf1f8  bg #0e1729  border #1e2b41
+          dd.CalendarHelp__what  color #8598ac
+    div.Modal__footer  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label  color #ffffff

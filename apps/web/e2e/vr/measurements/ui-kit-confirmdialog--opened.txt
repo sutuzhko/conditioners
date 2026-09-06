@@ -10,23 +10,98 @@
 button.Button__button  150×44 @16,16  r11  b1
   span.Button__content  112×17 @19,13
     span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Удалить статью»
+div.Modal__overlay  390×900 @0,0  fixed  portal
+  div.Modal__window  390×251 @0,649  r22 22 0 0  b1
+    div.Modal__head  388×136 @1,1  b0 0 1 0
+      h2.Modal__title  292×50 @20,20  Onest 700 21/25  ls0  lines=2  «Удалить статью «Как выбрать кондиционер"»
+      p.Modal__description  292×40 @20,74  Manrope 400 13/20  lines=2  «Отменить это будет нельзя, а её адрес ст»
+      button.IconButton__iconButton  40×40 @328,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  388×40 @1,137
+    div.Modal__footer  388×73 @1,177  b1 0 0 0
+      button.Button__button  92×44 @117,15  r11  b1
+        span.Button__content#2  54×17 @19,13
+          span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
+      button.Button__button#2  150×44 @218,15  r11  b1
+        span.Button__content  112×17 @19,13
+          span.Button__label#2  112×17 @0,0  Manrope 600 15/17  lines=1  «Удалить статью»
 
 [геометрия 768]
 button.Button__button  150×44 @16,16  r11  b1
   span.Button__content  112×17 @19,13
     span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Удалить статью»
+div.Modal__overlay  768×900 @0,0  fixed  portal
+  div.Modal__window  420×251 @174,325  r22  b1
+    div.Modal__head  418×136 @1,1  b0 0 1 0
+      h2.Modal__title  322×50 @20,20  Onest 700 21/25  ls0  lines=2  «Удалить статью «Как выбрать кондиционер"»
+      p.Modal__description  322×40 @20,74  Manrope 400 13/20  lines=2  «Отменить это будет нельзя, а её адрес ст»
+      button.IconButton__iconButton  40×40 @358,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  418×40 @1,137
+    div.Modal__footer  418×73 @1,177  b1 0 0 0
+      button.Button__button  92×44 @147,15  r11  b1
+        span.Button__content#2  54×17 @19,13
+          span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
+      button.Button__button#2  150×44 @248,15  r11  b1
+        span.Button__content  112×17 @19,13
+          span.Button__label#2  112×17 @0,0  Manrope 600 15/17  lines=1  «Удалить статью»
 
 [геометрия 1440]
 button.Button__button  150×44 @16,16  r11  b1
   span.Button__content  112×17 @19,13
     span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Удалить статью»
+div.Modal__overlay  1440×900 @0,0  fixed  portal
+  div.Modal__window  420×251 @510,325  r22  b1
+    div.Modal__head  418×136 @1,1  b0 0 1 0
+      h2.Modal__title  322×50 @20,20  Onest 700 21/25  ls0  lines=2  «Удалить статью «Как выбрать кондиционер"»
+      p.Modal__description  322×40 @20,74  Manrope 400 13/20  lines=2  «Отменить это будет нельзя, а её адрес ст»
+      button.IconButton__iconButton  40×40 @358,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  418×40 @1,137
+    div.Modal__footer  418×73 @1,177  b1 0 0 0
+      button.Button__button  92×44 @147,15  r11  b1
+        span.Button__content#2  54×17 @19,13
+          span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
+      button.Button__button#2  150×44 @248,15  r11  b1
+        span.Button__content  112×17 @19,13
+          span.Button__label#2  112×17 @0,0  Manrope 600 15/17  lines=1  «Удалить статью»
 
 [палитра light]
 button.Button__button  bg #ffffff  border #7e8fa6
   span.Button__content
     span.Button__label  color #0f172a
+div.Modal__overlay  bg #0f172a73
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
+      h2.Modal__title  color #0f172a
+      p.Modal__description  color #556173
+      button.IconButton__iconButton  border transparent  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+        svg
+    div.Modal__body
+    div.Modal__footer  border #e2e8f0 #0f172a #0f172a #0f172a
+      button.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content#2
+          span.Button__label  color #0f172a
+      button.Button__button#2  bg #be123c14  border #be123c73
+        span.Button__content
+          span.Button__label#2  color #be123c
 
 [палитра dark]
 button.Button__button  bg #121d31  border #566d95
   span.Button__content
     span.Button__label  color #eaf1f8
+div.Modal__overlay  bg #020610ad
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      h2.Modal__title  color #eaf1f8
+      p.Modal__description  color #8598ac
+      button.IconButton__iconButton  border transparent  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+        svg
+    div.Modal__body
+    div.Modal__footer  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+      button.Button__button  bg #121d31  border #566d95
+        span.Button__content#2
+          span.Button__label  color #eaf1f8
+      button.Button__button#2  bg #fb71851f  border #fb718580
+        span.Button__content
+          span.Button__label#2  color #fb7185

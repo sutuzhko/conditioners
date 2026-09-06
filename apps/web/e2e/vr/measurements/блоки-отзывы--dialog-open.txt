@@ -73,6 +73,37 @@ section.Reviews__section  320×842 @0,0
       button.Button__button  288×44 @0,0  r11  b1
         span.Button__content#2  112×17 @88,13
           span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Оставить отзыв»
+div.Modal__overlay  320×900 @0,0  fixed  portal
+  div.Modal__window  320×743 @0,157  r22 22 0 0  b1
+    div.Modal__head  318×81 @1,1  b0 0 1 0
+      h2.Modal__title  150×25 @20,20  Onest 700 21/25  ls0  lines=1  «Отзыв клиента»
+      button.IconButton__iconButton  40×40 @258,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  318×660 @1,82
+      div.ReviewDialog__dialog  278×620 @20,20
+        div.ReviewDialog__scroll  278×547 @0,0
+          div.ReviewDialog__head  258×43 @0,0
+            span.ReviewDialog__initial  40×40 @0,1  r100
+              span.ReviewDialog__letter  10×15 @15,13  Onest 700 15/15  lines=1  «В»
+            div.ReviewDialog__who  95×43 @52,0
+              p.ReviewDialog__name  95×22 @0,0  Manrope 600 15/22  lines=1  «Виктория»
+              p.ReviewDialog__date  95×20 @0,22
+                span  1×1 @-1,-1  Manrope 400 13/20  lines=1  clipped  «Дата отзыва:»
+                time  81×18 @0,1  Manrope 400 13/20  lines=1  «21 июня 2026»
+            span.Rating__stars  99×15 @159,14
+              svg.Rating__star#11  15×15 @0,0
+              svg.Rating__star#12  15×15 @21,0
+              svg.Rating__star#13  15×15 @42,0
+              svg.Rating__star#14  15×15 @63,0
+              svg.Rating__star#15  15×15 @84,0
+          blockquote.ReviewDialog__quote  258×595 @0,59
+            p.ReviewDialog__text  258×595 @0,0  Manrope 400 16/25  lines=24  «Кондиционер выбирали долго: квартира угл»
+        div.ReviewDialog__nav  278×59 @0,561  b1 0 0 0
+          button.IconButton__iconButton  44×44 @0,15  r11  b1
+            svg.ReviewDialog__back  20×20 @12,12
+          p.ReviewDialog__counter  47×20 @116,27  JetBrains Mono 400 13/20  lines=1  «1 из 4»
+          button.IconButton__iconButton#2  44×44 @234,15  r11  b1
+            svg  20×20 @12,12
 
 [геометрия 375]
 section.Reviews__section  375×739 @0,0
@@ -139,6 +170,37 @@ section.Reviews__section  375×739 @0,0
       button.Button__button  166×44 @0,0  r11  b1
         span.Button__content#2  112×17 @27,13
           span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Оставить отзыв»
+div.Modal__overlay  375×900 @0,0  fixed  portal
+  div.Modal__window  375×743 @0,157  r22 22 0 0  b1
+    div.Modal__head  373×81 @1,1  b0 0 1 0
+      h2.Modal__title  150×25 @20,20  Onest 700 21/25  ls0  lines=1  «Отзыв клиента»
+      button.IconButton__iconButton  40×40 @313,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  373×660 @1,82
+      div.ReviewDialog__dialog  333×620 @20,20
+        div.ReviewDialog__scroll  333×547 @0,0
+          div.ReviewDialog__head  313×43 @0,0
+            span.ReviewDialog__initial  40×40 @0,1  r100
+              span.ReviewDialog__letter  10×15 @15,13  Onest 700 15/15  lines=1  «В»
+            div.ReviewDialog__who  150×43 @52,0
+              p.ReviewDialog__name  150×22 @0,0  Manrope 600 15/22  lines=1  «Виктория»
+              p.ReviewDialog__date  150×20 @0,22
+                span  1×1 @-1,-1  Manrope 400 13/20  lines=1  clipped  «Дата отзыва:»
+                time  81×18 @0,1  Manrope 400 13/20  lines=1  «21 июня 2026»
+            span.Rating__stars  99×15 @214,14
+              svg.Rating__star#11  15×15 @0,0
+              svg.Rating__star#12  15×15 @21,0
+              svg.Rating__star#13  15×15 @42,0
+              svg.Rating__star#14  15×15 @63,0
+              svg.Rating__star#15  15×15 @84,0
+          blockquote.ReviewDialog__quote  313×496 @0,59
+            p.ReviewDialog__text  313×496 @0,0  Manrope 400 16/25  lines=20  «Кондиционер выбирали долго: квартира угл»
+        div.ReviewDialog__nav  333×59 @0,561  b1 0 0 0
+          button.IconButton__iconButton  44×44 @0,15  r11  b1
+            svg.ReviewDialog__back  20×20 @12,12
+          p.ReviewDialog__counter  47×20 @143,27  JetBrains Mono 400 13/20  lines=1  «1 из 4»
+          button.IconButton__iconButton#2  44×44 @289,15  r11  b1
+            svg  20×20 @12,12
 
 [геометрия 768]
 section.Reviews__section  768×762 @0,0
@@ -247,6 +309,37 @@ section.Reviews__section  768×762 @0,0
       button.Button__button  150×44 @0,0  r11  b1
         span.Button__content  112×17 @19,13
           span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Оставить отзыв»
+div.Modal__overlay  768×900 @0,0  fixed  portal
+  div.Modal__window  560×552 @104,174  r22  b1
+    div.Modal__head  558×81 @1,1  b0 0 1 0
+      h2.Modal__title  150×25 @20,20  Onest 700 21/25  ls0  lines=1  «Отзыв клиента»
+      button.IconButton__iconButton  40×40 @498,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  558×469 @1,82
+      div.ReviewDialog__dialog  518×429 @20,20
+        div.ReviewDialog__scroll  518×356 @0,0
+          div.ReviewDialog__head  498×43 @0,0
+            span.ReviewDialog__initial  40×40 @0,1  r100
+              span.ReviewDialog__letter  10×15 @15,13  Onest 700 15/15  lines=1  «В»
+            div.ReviewDialog__who  335×43 @52,0
+              p.ReviewDialog__name  335×22 @0,0  Manrope 600 15/22  lines=1  «Виктория»
+              p.ReviewDialog__date  335×20 @0,22
+                span  1×1 @-1,-1  Manrope 400 13/20  lines=1  clipped  «Дата отзыва:»
+                time  81×18 @0,1  Manrope 400 13/20  lines=1  «21 июня 2026»
+            span.Rating__stars  99×15 @399,14
+              svg.Rating__star#21  15×15 @0,0
+              svg.Rating__star#22  15×15 @21,0
+              svg.Rating__star#23  15×15 @42,0
+              svg.Rating__star#24  15×15 @63,0
+              svg.Rating__star#25  15×15 @84,0
+          blockquote.ReviewDialog__quote  498×298 @0,59
+            p.ReviewDialog__text  498×298 @0,0  Manrope 400 16/25  lines=12  «Кондиционер выбирали долго: квартира угл»
+        div.ReviewDialog__nav  518×59 @0,370  b1 0 0 0
+          button.IconButton__iconButton  44×44 @0,15  r11  b1
+            svg.ReviewDialog__back  20×20 @12,12
+          p.ReviewDialog__counter  47×20 @236,27  JetBrains Mono 400 13/20  lines=1  «1 из 4»
+          button.IconButton__iconButton#2  44×44 @474,15  r11  b1
+            svg  20×20 @12,12
 
 [геометрия 1200]
 section.Reviews__section  1200×839 @0,0
@@ -453,6 +546,37 @@ section.Reviews__section  1200×839 @0,0
       button.Button__button  150×44 @0,0  r11  b1
         span.Button__content  112×17 @19,13
           span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Оставить отзыв»
+div.Modal__overlay  1200×900 @0,0  fixed  portal
+  div.Modal__window  560×552 @320,174  r22  b1
+    div.Modal__head  558×81 @1,1  b0 0 1 0
+      h2.Modal__title  150×25 @20,20  Onest 700 21/25  ls0  lines=1  «Отзыв клиента»
+      button.IconButton__iconButton  40×40 @498,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  558×469 @1,82
+      div.ReviewDialog__dialog  518×429 @20,20
+        div.ReviewDialog__scroll  518×356 @0,0
+          div.ReviewDialog__head  498×43 @0,0
+            span.ReviewDialog__initial  40×40 @0,1  r100
+              span.ReviewDialog__letter  10×15 @15,13  Onest 700 15/15  lines=1  «В»
+            div.ReviewDialog__who  335×43 @52,0
+              p.ReviewDialog__name  335×22 @0,0  Manrope 600 15/22  lines=1  «Виктория»
+              p.ReviewDialog__date  335×20 @0,22
+                span  1×1 @-1,-1  Manrope 400 13/20  lines=1  clipped  «Дата отзыва:»
+                time  81×18 @0,1  Manrope 400 13/20  lines=1  «21 июня 2026»
+            span.Rating__stars  99×15 @399,14
+              svg.Rating__star#21  15×15 @0,0
+              svg.Rating__star#22  15×15 @21,0
+              svg.Rating__star#23  15×15 @42,0
+              svg.Rating__star#24  15×15 @63,0
+              svg.Rating__star#25  15×15 @84,0
+          blockquote.ReviewDialog__quote  498×298 @0,59
+            p.ReviewDialog__text  498×298 @0,0  Manrope 400 16/25  lines=12  «Кондиционер выбирали долго: квартира угл»
+        div.ReviewDialog__nav  518×59 @0,370  b1 0 0 0
+          button.IconButton__iconButton  44×44 @0,15  r11  b1
+            svg.ReviewDialog__back  20×20 @12,12
+          p.ReviewDialog__counter  47×20 @236,27  JetBrains Mono 400 13/20  lines=1  «1 из 4»
+          button.IconButton__iconButton#2  44×44 @474,15  r11  b1
+            svg  20×20 @12,12
 
 [палитра light]
 section.Reviews__section  bg #ffffff
@@ -659,6 +783,37 @@ section.Reviews__section  bg #ffffff
       button.Button__button  bg #ffffff  border #7e8fa6
         span.Button__content
           span.Button__label  color #0f172a
+div.Modal__overlay  bg #0f172a73
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
+      h2.Modal__title  color #0f172a
+      button.IconButton__iconButton  border transparent  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+        svg
+    div.Modal__body
+      div.ReviewDialog__dialog
+        div.ReviewDialog__scroll
+          div.ReviewDialog__head
+            span.ReviewDialog__initial  bg #0891b2
+              span.ReviewDialog__letter  color #0e7490
+            div.ReviewDialog__who
+              p.ReviewDialog__name  color #0f172a
+              p.ReviewDialog__date
+                span  color #5b6a7d
+                time  color #5b6a7d
+            span.Rating__stars
+              svg.Rating__star#21
+              svg.Rating__star#22
+              svg.Rating__star#23
+              svg.Rating__star#24
+              svg.Rating__star#25
+          blockquote.ReviewDialog__quote
+            p.ReviewDialog__text  color #334155
+        div.ReviewDialog__nav  bg #ffffff  border #eef2f6 #475569 #475569 #475569
+          button.IconButton__iconButton  border transparent
+            svg.ReviewDialog__back
+          p.ReviewDialog__counter  color #556173
+          button.IconButton__iconButton#2  border transparent
+            svg
 [палитра light @320]
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__more
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__more > button.Button__button  bg #ffffff  border #7e8fa6
@@ -666,6 +821,11 @@ section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__mor
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__more > button.Button__button > span.Button__content > span.Button__label  color #0f172a
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__action > button.Button__button > span.Button__content#2
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__action > button.Button__button > span.Button__content#2 > span.Button__label  color #0f172a
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#11
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#12
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#13
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#14
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#15
 [палитра light @375]
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__more
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__more > button.Button__button  bg #ffffff  border #7e8fa6
@@ -673,6 +833,11 @@ section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__mor
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__more > button.Button__button > span.Button__content > span.Button__label  color #0f172a
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__action > button.Button__button > span.Button__content#2
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__action > button.Button__button > span.Button__content#2 > span.Button__label  color #0f172a
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#11
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#12
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#13
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#14
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#15
 
 [палитра dark]
 section.Reviews__section  bg #0b1220
@@ -879,6 +1044,37 @@ section.Reviews__section  bg #0b1220
       button.Button__button  bg #121d31  border #566d95
         span.Button__content
           span.Button__label  color #eaf1f8
+div.Modal__overlay  bg #020610ad
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      h2.Modal__title  color #eaf1f8
+      button.IconButton__iconButton  border transparent  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+        svg
+    div.Modal__body
+      div.ReviewDialog__dialog
+        div.ReviewDialog__scroll
+          div.ReviewDialog__head
+            span.ReviewDialog__initial  bg #22d3ee
+              span.ReviewDialog__letter  color #22d3ee
+            div.ReviewDialog__who
+              p.ReviewDialog__name  color #eaf1f8
+              p.ReviewDialog__date
+                span  color #7e92a7
+                time  color #7e92a7
+            span.Rating__stars
+              svg.Rating__star#21
+              svg.Rating__star#22
+              svg.Rating__star#23
+              svg.Rating__star#24
+              svg.Rating__star#25
+          blockquote.ReviewDialog__quote
+            p.ReviewDialog__text  color #c9d5e2
+        div.ReviewDialog__nav  bg #121d31  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          button.IconButton__iconButton  border transparent
+            svg.ReviewDialog__back
+          p.ReviewDialog__counter  color #8598ac
+          button.IconButton__iconButton#2  border transparent
+            svg
 [палитра dark @320]
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__more
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__more > button.Button__button  bg #121d31  border #566d95
@@ -886,6 +1082,11 @@ section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__mor
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__more > button.Button__button > span.Button__content > span.Button__label  color #eaf1f8
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__action > button.Button__button > span.Button__content#2
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__action > button.Button__button > span.Button__content#2 > span.Button__label  color #eaf1f8
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#11
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#12
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#13
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#14
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#15
 [палитра dark @375]
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__more
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__more > button.Button__button  bg #121d31  border #566d95
@@ -893,3 +1094,8 @@ section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__mor
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__more > button.Button__button > span.Button__content > span.Button__label  color #eaf1f8
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__action > button.Button__button > span.Button__content#2
 section.Reviews__section > div.ReviewsGallery__actions > div.ReviewsGallery__action > button.Button__button > span.Button__content#2 > span.Button__label  color #eaf1f8
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#11
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#12
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#13
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#14
+div.Modal__overlay > div.Modal__window > div.Modal__body > div.ReviewDialog__dialog > div.ReviewDialog__scroll > div.ReviewDialog__head > span.Rating__stars > svg.Rating__star#15
