@@ -1,9 +1,10 @@
 'use client';
 
 import type { CSSProperties, ReactNode } from 'react';
-import { useCallback, useId, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useId, useRef, useState } from 'react';
 
 import { Portal } from '../lib/Portal';
+import { useAnchoredLayer } from '../lib/useAnchoredLayer';
 import styles from './Tooltip.module.css';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'right' | 'left';
@@ -45,22 +46,23 @@ const HIDDEN: CSSProperties = { position: 'fixed', opacity: 0 };
  */
 export function Tooltip({ text, children, placement = 'top', className }: TooltipProps) {
   const [open, setOpen] = useState(false);
-  const [at, setAt] = useState<CSSProperties | null>(null);
   const anchorRef = useRef<HTMLSpanElement>(null);
   const bubbleRef = useRef<HTMLSpanElement>(null);
   const tooltipId = useId();
 
-  const place = useCallback(() => {
+  /**
+   * Куда встать: сторона выбирается по месту на экране, а не по просьбе
+   * вызывающего — подсказка у нижней строки таблицы, поставленная сверху, ушла
+   * бы за край окна, а подсказка, которой не видно, не подсказка.
+   */
+  const measure = useCallback((): CSSProperties | null => {
     const anchor = anchorRef.current;
     const bubble = bubbleRef.current;
-    if (anchor === null || bubble === null) return;
+    if (anchor === null || bubble === null) return null;
 
     const rect = anchor.getBoundingClientRect();
     const { offsetWidth: width, offsetHeight: height } = bubble;
 
-    /* Сторона выбирается по месту на экране, а не по просьбе вызывающего:
-       подсказка у нижней строки таблицы, поставленная сверху, ушла бы за
-       край окна — а подсказка, которой не видно, не подсказка. */
     const fitsAbove = rect.top > height + GAP;
     const fitsBelow = window.innerHeight - rect.bottom > height + GAP;
     const side =
@@ -77,7 +79,7 @@ export function Tooltip({ text, children, placement = 'top', className }: Toolti
        вылезала за край, и половина слова оказывалась за экраном. */
     const clamp = (value: number, max: number): number => Math.max(GAP, Math.min(value, max - GAP));
 
-    setAt({
+    return {
       position: 'fixed',
       top:
         side === 'top'
@@ -91,28 +93,15 @@ export function Tooltip({ text, children, placement = 'top', className }: Toolti
           : side === 'right'
             ? rect.right + GAP
             : clamp(centreX, window.innerWidth - width),
-    });
+    };
   }, [placement]);
 
-  /* Замер до кадра: пузырёк встаёт на место в том же кадре, в котором
-     появился, и не успевает мигнуть не там. */
-  useLayoutEffect(() => {
-    if (!open) {
-      setAt(null);
-      return undefined;
-    }
-
-    place();
-
-    /* Прокрутка ловится на фазе погружения: прокручивается не окно, а
-       контейнер таблицы, и всплывающего события от него на `window` нет. */
-    window.addEventListener('scroll', place, true);
-    window.addEventListener('resize', place);
-    return () => {
-      window.removeEventListener('scroll', place, true);
-      window.removeEventListener('resize', place);
-    };
-  }, [open, place]);
+  /* 🔴 Пузырёк едет за своим якорем (ADR-319, issue #665). Прокрутки и
+     изменения размера окна мало: подмена шрифта переверстывает страницу, не
+     давая ни того, ни другого, — и подсказка оставалась стоять по замеру,
+     снятому до сдвига, указывая мимо своего ярлыка. Слежение общее с меню
+     строки, где тот же дефект чинился первым (issue #660). */
+  const at = useAnchoredLayer({ open, anchorRef, layerRef: bubbleRef, measure });
 
   return (
     <span
