@@ -16,6 +16,12 @@
  * структуры не меняет в снимке ни строки. Координаты округляются до целого:
  * дробные ширины текста плавают, а 1px — уже настоящий сдвиг.
  *
+ * 🔴 Обход идёт не только по корню витрины. Всё, что ушло `createPortal` в
+ * конец `body` — окно, шторка, меню строки, подсказка, — обходится вторым
+ * проходом, иначе история с открытым окном давала пустой файл (issue #672).
+ * Корень портала при этом сам себе начало отсчёта: где он стоит в документе,
+ * решает не он, и абсолютное число там только шумело бы.
+ *
  * 🔴 Функция самодостаточна: все помощники внутри тела, импортов нет —
  * `page.evaluate` сериализует её исходник и исполняет в браузере.
  */
@@ -27,6 +33,8 @@ export type MeasuredNode = {
   readonly parent: string | null;
   /** `position: fixed | sticky` — координаты от окна, а не от предка. */
   readonly fixed: boolean;
+  /** Корень портала: узел лежит в `body` мимо витрины и сам себе начало отсчёта. */
+  readonly portal?: true;
   readonly x: number;
   readonly y: number;
   readonly w: number;
@@ -220,7 +228,13 @@ export async function collectMeasurements(input: CollectInput): Promise<PartialM
     return seen === 1 ? base : `${base}#${seen}`;
   };
 
-  type Frame = { readonly key: string | null; readonly left: number; readonly top: number };
+  type Frame = {
+    readonly key: string | null;
+    readonly left: number;
+    readonly top: number;
+    /** Кадр портала: первый записанный узел под ним — сам себе начало отсчёта. */
+    readonly portal: boolean;
+  };
 
   const pseudoNode = (
     el: Element,
@@ -283,17 +297,29 @@ export async function collectMeasurements(input: CollectInput): Promise<PartialM
         /hidden|clip/.test(`${style.overflowX} ${style.overflowY}`) &&
         (el.scrollWidth > el.clientWidth + 1 || el.scrollHeight > el.clientHeight + 1);
 
+      /* 🔴 Корень портала своих координат не получает. Где он стоит в
+         документе, решает не он: оверлей окна лежит `position: fixed; inset: 0`
+         и просто повторяет окно браузера, а меню строки и подсказку ставит
+         сценарий по рамке кнопки — сдвинь кнопку внутри истории, и число
+         поедет, хотя ни одного стиля портала никто не тронул. Такие числа
+         шумят вместо того, чтобы показывать правку. Поэтому корень портала —
+         сам себе начало отсчёта: пишется его размер, а смещения считаются у
+         детей, и центровка окна в оверлее сохраняется. Абсолютное место
+         оверлея на экране проверяют инварианты — они ходят по `document.body`
+         целиком. */
+      const portalRoot = frame.portal;
       const node: Mutable<MeasuredNode> = {
         key,
         parent: frame.key,
         fixed,
-        x: round(fixed ? left : left - frame.left),
-        y: round(fixed ? top : top - frame.top),
+        x: portalRoot ? 0 : round(fixed ? left : left - frame.left),
+        y: portalRoot ? 0 : round(fixed ? top : top - frame.top),
         w: round(rect.width),
         h: round(rect.height),
         geometry: geometryOf(style, text !== ''),
         palette: paletteOf(style, text !== '', hasBorder),
       };
+      if (portalRoot) node.portal = true;
       if (text !== '') {
         node.text = text.slice(0, TEXT_LIMIT);
         node.lines = ownLines(el);
@@ -304,11 +330,16 @@ export async function collectMeasurements(input: CollectInput): Promise<PartialM
       const before = pseudoNode(el, key, '::before');
       if (before !== null) nodes.push(before);
 
-      nextFrame = { key, left, top };
+      nextFrame = { key, left, top, portal: false };
       /* У `fixed` координаты детей всё равно считаются от его рамки в
          документе — иначе они «поехали» бы вместе с прокруткой. */
       if (fixed) {
-        nextFrame = { key, left: rect.left + window.scrollX, top: rect.top + window.scrollY };
+        nextFrame = {
+          key,
+          left: rect.left + window.scrollX,
+          top: rect.top + window.scrollY,
+          portal: false,
+        };
       }
     }
 
@@ -325,8 +356,21 @@ export async function collectMeasurements(input: CollectInput): Promise<PartialM
 
   await document.fonts.ready;
 
-  const root = document.getElementById('storybook-root') ?? document.body;
-  for (const child of root.children) visit(child, { key: null, left: 0, top: 0 });
+  const root = document.getElementById('storybook-root');
+  const scope = root ?? document.body;
+  for (const child of scope.children) visit(child, { key: null, left: 0, top: 0, portal: false });
+
+  /* 🔴 Второй проход — по порталам (issue #672). Окно, шторка, меню строки и
+     подсказка уходят `createPortal` в конец `body` мимо корня витрины: без
+     этого прохода файл измерения такой истории писался пустым, и правка окна
+     панели не была видна в диффе PR вовсе. Соседи корня обходятся тем же
+     `visit`, но кадром портала — координаты им не пишутся (см. выше). */
+  if (root !== null) {
+    for (const sibling of document.body.children) {
+      if (sibling === root) continue;
+      visit(sibling, { key: null, left: 0, top: 0, portal: true });
+    }
+  }
 
   const fonts = new Set<string>();
   document.fonts.forEach((face) => {

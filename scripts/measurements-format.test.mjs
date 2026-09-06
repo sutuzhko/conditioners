@@ -153,6 +153,22 @@ describe('формат истории', () => {
     expect(parseStory(formatStory(set)).geometry[320][1].y).toBe(32);
   });
 
+  it('🔴 корень портала помечен флагом и переживает круговой разбор (issue #672)', () => {
+    const set = [320, 375].flatMap((width) =>
+      ['light', 'dark'].map((theme) =>
+        partial(width, theme, [
+          node('section.Pricing__root', null, [0, 0, width, 200]),
+          node('div.Modal__overlay', null, [0, 0, width, 900], { fixed: true, portal: true }),
+          node('div.Modal__window', 'div.Modal__overlay', [16, 240, 343, 420]),
+        ]),
+      ),
+    );
+    const text = formatStory(set);
+    expect(text).toContain('div.Modal__overlay  320×900 @0,0  fixed  portal');
+    expect(text).toContain('  div.Modal__window  343×420 @16,240');
+    expect(parseStory(text)).toEqual(buildModel(set));
+  });
+
   it('измерения разных историй в одной модели — ошибка', () => {
     const set = fullSet();
     set[0].story = 'другая--история';

@@ -27,7 +27,16 @@ import { parseStory } from './measurements-format.mjs';
 
 /** Допуск геометрии: округление и субпиксельный шум, а не сдвиг раскладки. */
 export const GEOMETRY_TOLERANCE = 1;
-const GEOMETRY_EXACT = ['font', 'radius', 'border', 'letterSpacing', 'lines', 'fixed', 'clipped'];
+const GEOMETRY_EXACT = [
+  'font',
+  'radius',
+  'border',
+  'letterSpacing',
+  'lines',
+  'fixed',
+  'portal',
+  'clipped',
+];
 const PALETTE_FIELDS = ['color', 'bg', 'border', 'shadow', 'outline', 'gradient'];
 const SHORT = { w: 'w', h: 'h', x: 'x', y: 'y', radius: 'r', border: 'b', letterSpacing: 'ls' };
 const PATH_SEP = ' > ';
