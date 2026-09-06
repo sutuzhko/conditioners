@@ -86,7 +86,11 @@ describe('Нижняя панель вкладок', () => {
     expect(within(sheet).getByRole('link', { name: 'Настройки' })).toBeInTheDocument();
     expect(within(sheet).getByRole('link', { name: 'Профиль' })).toBeInTheDocument();
 
-    const site = within(sheet).getByRole('link', { name: texts.site });
+    /* Имя по образцу: к видимой подписи ссылки добавлена озвучка «в новой
+       вкладке» — смена контекста названа словами (issue #659). */
+    const site = within(sheet).getByRole('link', {
+      name: `${texts.site} ${texts.siteNewTab}`,
+    });
     expect(site).toHaveAttribute('href', '/');
     expect(site).toHaveAttribute('target', '_blank');
 
