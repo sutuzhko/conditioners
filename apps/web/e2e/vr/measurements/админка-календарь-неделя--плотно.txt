@@ -161,23 +161,17 @@ div.WeekBoard__hours  736×718 @16,16
     div.AllDayBar__bar  736×53 @0,89  b0 0 1 0
       div.AllDayBar__rail  34×29 @0,4
         span.AllDayBar__label  28×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-      ul.AllDayBar__list  98×0 @36,4
-      ul.AllDayBar__list#2  98×0 @136,4
-      ul.AllDayBar__list#3  98×0 @237,4
-      ul.AllDayBar__list#4  98×44 @337,4
-        li.AllDayBar__item  98×44 @0,0
+      ul.AllDayBar__lanes  700×44 @36,4
+        li.AllDayBar__item  98×44 @301,0
           button.EventChip__chip  98×44 @0,0  r100  b1 1 1 3
             span.EventChip__head  12×12 @9,16
               svg.EventChip__icon  12×12 @0,0
             span.EventChip__name  63×15 @26,15  Manrope 600 12/15  lines=1  clipped  «Моя занятость»
-      ul.AllDayBar__list#5  98×0 @437,4
-      ul.AllDayBar__list#6  98×0 @537,4
-      ul.AllDayBar__list#7  98×44 @638,4
-        li.AllDayBar__item  98×44 @0,0
-          button.EventChip__chip#2  98×44 @0,0  r100  b1 1 1 3
-            span.EventChip__head  12×12 @9,16
-              svg.EventChip__icon#2  12×12 @0,0
-            span.EventChip__name  63×15 @26,15  Manrope 600 12/15  lines=1  «Сергей»
+        li.AllDayBar__item#2  98×44 @602,0
+          button.EventChip__chip  98×44 @0,0  r100  b1 1 1 3
+            span.EventChip__head#2  12×12 @9,16
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#2  63×15 @26,15  Manrope 600 12/15  lines=1  «Сергей»
     div.TimeGrid__scroll  736×576 @0,142
       div.TimeGrid__hours  736×1008 @0,-336
         div.TimeGrid__rail  34×1008 @0,0
@@ -311,9 +305,9 @@ div.WeekBoard__hours  736×718 @16,16
             button.ColumnCanvas__hour#96  97×42 @0,966  b1 0 0 0
           span.EventChip__slot  97×84 @1,420
             button.EventChip__chip  97×84 @1,1  r3 7 7 3  b1 1 1 3
-              span.EventChip__head#2  83×15 @8,3
+              span.EventChip__head#3  83×15 @8,3
                 span.EventChip__time  36×15 @0,0  JetBrains Mono 600 12/15  lines=1  «10:00»
-              span.EventChip__name#2  83×15 @8,19  Manrope 600 12/15  lines=1  clipped  «Моя занятость»
+              span.EventChip__name#3  83×15 @8,19  Manrope 600 12/15  lines=1  clipped  «Моя занятость»
               span.EventChip__where  83×15 @8,35  Manrope 400 12/15  lines=1  «Школа»
         div.TimeGrid__track#5  98×1008 @437,0  b0 0 0 1
           div.ColumnCanvas__canvas  97×1008 @1,0
@@ -343,9 +337,9 @@ div.WeekBoard__hours  736×718 @16,16
             button.ColumnCanvas__hour#120  97×42 @0,966  b1 0 0 0
           span.EventChip__slot  97×42 @1,378
             button.EventChip__chip#2  97×42 @1,1  r3 7 7 3  b1 1 1 3
-              span.EventChip__head#2  83×15 @8,3
-                span.EventChip__time#2  36×15 @0,0  JetBrains Mono 600 12/15  lines=1  «09:00»
-              span.EventChip__name#2  83×10 @8,19  Manrope 600 12/15  lines=1  clipped  «Ольга»
+              span.EventChip__head  83×15 @8,3
+                span.EventChip__time  36×15 @0,0  JetBrains Mono 600 12/15  lines=1  «09:00»
+              span.EventChip__name  83×10 @8,19  Manrope 600 12/15  lines=1  clipped  «Ольга»
               span.EventChip__where  83×10 @8,30  Manrope 400 12/15  lines=1  clipped  «Тула, Ленина 84»
             span.EventChip__edge  95×7 @1,0
             span.EventChip__edge#2  95×7 @1,35
@@ -411,9 +405,9 @@ div.WeekBoard__hours  736×718 @16,16
                 span.EventChip__markWord  81×15 @3,0  Manrope 700 12/15  lines=1  «Пересечение»
           span.EventChip__slot#2  97×168 @1,567
             button.EventChip__chip  97×168 @1,1  r3 7 7 3  b1 1 1 3
-              span.EventChip__head#3  38×15 @8,3
+              span.EventChip__head#4  38×15 @8,3
                 span.EventChip__time  36×15 @0,0  JetBrains Mono 600 12/15  lines=1  «13:30»
-              span.EventChip__name#3  38×15 @8,19  Manrope 600 12/15  lines=1  clipped  «Сергей»
+              span.EventChip__name#4  38×15 @8,19  Manrope 600 12/15  lines=1  clipped  «Сергей»
             span.EventChip__edge  95×7 @1,0
             span.EventChip__edge#2  95×7 @1,161
           a.TimeGrid__more  44×44 @53,420  JetBrains Mono 700 12/19  r100  b1  lines=1  «+1»
@@ -469,23 +463,17 @@ div.WeekBoard__hours  1408×664 @16,16
     div.AllDayBar__bar  1408×38 @0,51  b0 0 1 0
       div.AllDayBar__rail  54×29 @0,4
         span.AllDayBar__label  48×29 @0,0  Manrope 400 12/14  lines=2  «Весь день»
-      ul.AllDayBar__list  189×0 @58,4
-      ul.AllDayBar__list#2  189×0 @251,4
-      ul.AllDayBar__list#3  189×0 @445,4
-      ul.AllDayBar__list#4  189×24 @638,4
-        li.AllDayBar__item  189×24 @0,0
+      ul.AllDayBar__lanes  1350×24 @58,4
+        li.AllDayBar__item  189×24 @580,0
           button.EventChip__chip  189×24 @0,0  r100  b1 1 1 3
             span.EventChip__head  12×12 @9,6
               svg.EventChip__icon  12×12 @0,0
             span.EventChip__name  154×15 @26,5  Manrope 600 12/15  lines=1  «Моя занятость»
-      ul.AllDayBar__list#5  189×0 @832,4
-      ul.AllDayBar__list#6  189×0 @1025,4
-      ul.AllDayBar__list#7  189×24 @1219,4
-        li.AllDayBar__item  189×24 @0,0
-          button.EventChip__chip#2  189×24 @0,0  r100  b1 1 1 3
-            span.EventChip__head  12×12 @9,6
-              svg.EventChip__icon#2  12×12 @0,0
-            span.EventChip__name  154×15 @26,5  Manrope 600 12/15  lines=1  «Сергей»
+        li.AllDayBar__item#2  189×24 @1161,0
+          button.EventChip__chip  189×24 @0,0  r100  b1 1 1 3
+            span.EventChip__head#2  12×12 @9,6
+              svg.EventChip__icon  12×12 @0,0
+            span.EventChip__name#2  154×15 @26,5  Manrope 600 12/15  lines=1  «Сергей»
     div.TimeGrid__scroll  1408×576 @0,88
       div.TimeGrid__hours  1408×1152 @0,-384
         div.TimeGrid__rail  54×1152 @0,0
@@ -619,10 +607,10 @@ div.WeekBoard__hours  1408×664 @16,16
             button.ColumnCanvas__hour#96  188×48 @0,1104  b1 0 0 0
           span.EventChip__slot  188×96 @1,480
             button.EventChip__chip  188×96 @1,1  r3 7 7 3  b1 1 1 3
-              span.EventChip__head#2  174×15 @8,3
+              span.EventChip__head#3  174×15 @8,3
                 svg.EventChip__icon  12×12 @0,2
                 span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
-              span.EventChip__name#2  174×15 @8,19  Manrope 600 12/15  lines=1  «Моя занятость»
+              span.EventChip__name#3  174×15 @8,19  Manrope 600 12/15  lines=1  «Моя занятость»
               span.EventChip__where  174×15 @8,35  Manrope 400 12/15  lines=1  «Школа»
         div.TimeGrid__track#5  189×1152 @832,0  b0 0 0 1
           div.ColumnCanvas__canvas  188×1152 @1,0
@@ -652,10 +640,10 @@ div.WeekBoard__hours  1408×664 @16,16
             button.ColumnCanvas__hour#120  188×48 @0,1104  b1 0 0 0
           span.EventChip__slot  188×48 @1,432
             button.EventChip__chip#2  188×48 @1,1  r3 7 7 3  b1 1 1 3
-              span.EventChip__head#2  174×15 @8,3
+              span.EventChip__head  174×15 @8,3
                 svg.EventChip__icon#2  12×12 @0,2
-                span.EventChip__time#2  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «09:00»
-              span.EventChip__name#2  174×13 @8,19  Manrope 600 12/15  lines=1  clipped  «Ольга»
+                span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «09:00»
+              span.EventChip__name  174×13 @8,19  Manrope 600 12/15  lines=1  clipped  «Ольга»
               span.EventChip__where  174×13 @8,33  Manrope 400 12/15  lines=1  clipped  «Тула, Ленина 84»
             span.EventChip__edge  186×7 @1,0
             span.EventChip__edge#2  186×7 @1,41
@@ -715,7 +703,7 @@ div.WeekBoard__hours  1408×664 @16,16
             button.EventChip__chip#3  188×144 @1,1  r3 7 7 3  b1 1 1 3
               span.EventChip__head  145×15 @8,3
                 svg.EventChip__icon#3  12×12 @0,2
-                span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
+                span.EventChip__time#2  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
                 span.EventChip__number  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1059»
               span.EventChip__name  145×15 @8,19  Manrope 600 12/15  lines=1  «Ирина Соколова»
               span.EventChip__where  145×15 @8,35  Manrope 400 12/15  lines=1  clipped  «Тула, Первомайская, 12, кв. 4»
@@ -724,10 +712,10 @@ div.WeekBoard__hours  1408×664 @16,16
                 span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
           span.EventChip__slot#2  188×192 @1,648
             button.EventChip__chip  188×192 @1,1  r3 7 7 3  b1 1 1 3
-              span.EventChip__head#3  145×15 @8,3
+              span.EventChip__head#4  145×15 @8,3
                 svg.EventChip__icon  12×12 @0,2
                 span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «13:30»
-              span.EventChip__name#3  145×15 @8,19  Manrope 600 12/15  lines=1  «Сергей»
+              span.EventChip__name#4  145×15 @8,19  Manrope 600 12/15  lines=1  «Сергей»
               span.EventChip__where#2  145×15 @8,35  Manrope 400 12/15  lines=1  clipped  «Тула, Пролетарская 12, кв. 45»
             span.EventChip__edge  186×7 @1,0
             span.EventChip__edge#2  186×7 @1,185
@@ -784,23 +772,17 @@ div.WeekBoard__hours
     div.AllDayBar__bar  border #0f172a #0f172a #e2e8f0 #0f172a
       div.AllDayBar__rail
         span.AllDayBar__label  color #5b6a7d
-      ul.AllDayBar__list
-      ul.AllDayBar__list#2
-      ul.AllDayBar__list#3
-      ul.AllDayBar__list#4
+      ul.AllDayBar__lanes
         li.AllDayBar__item
           button.EventChip__chip  bg #eef2f6  border #334155
             span.EventChip__head
               svg.EventChip__icon
             span.EventChip__name  color #334155
-      ul.AllDayBar__list#5
-      ul.AllDayBar__list#6
-      ul.AllDayBar__list#7
-        li.AllDayBar__item
-          button.EventChip__chip#2  bg #eef2f6  border transparent transparent transparent #334155
-            span.EventChip__head
-              svg.EventChip__icon#2
-            span.EventChip__name  color #334155
+        li.AllDayBar__item#2
+          button.EventChip__chip  bg #eef2f6  border transparent transparent transparent #334155
+            span.EventChip__head#2
+              svg.EventChip__icon
+            span.EventChip__name#2  color #334155
     div.TimeGrid__scroll
       div.TimeGrid__hours
         div.TimeGrid__rail
@@ -934,10 +916,10 @@ div.WeekBoard__hours
             button.ColumnCanvas__hour#96  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
           span.EventChip__slot
             button.EventChip__chip  bg #eef2f6  border #334155
-              span.EventChip__head#2
+              span.EventChip__head#3
                 svg.EventChip__icon
                 span.EventChip__time  color #334155
-              span.EventChip__name#2  color #334155
+              span.EventChip__name#3  color #334155
               span.EventChip__where  color #334155
         div.TimeGrid__track#5  border #0f172a #0f172a #0f172a #eef2f6
           div.ColumnCanvas__canvas
@@ -967,10 +949,10 @@ div.WeekBoard__hours
             button.ColumnCanvas__hour#120  bg color(srgb 0.0588235 0.0901961 0.164706 / 0.05)  border #eef2f6 #000000 #000000 #000000
           span.EventChip__slot
             button.EventChip__chip#2  bg #4338ca14  border transparent transparent transparent #4338ca
-              span.EventChip__head#2
+              span.EventChip__head
                 svg.EventChip__icon#2
-                span.EventChip__time#2  color #4338ca
-              span.EventChip__name#2  color #4338ca
+                span.EventChip__time  color #4338ca
+              span.EventChip__name  color #4338ca
               span.EventChip__where  color #4338ca
             span.EventChip__edge
             span.EventChip__edge#2
@@ -1030,7 +1012,7 @@ div.WeekBoard__hours
             button.EventChip__chip#3  bg #15803d14  border #be123c
               span.EventChip__head
                 svg.EventChip__icon#3
-                span.EventChip__time  color #166534
+                span.EventChip__time#2  color #166534
                 span.EventChip__number  color #166534
               span.EventChip__name  color #166534
               span.EventChip__where  color #166534
@@ -1039,10 +1021,10 @@ div.WeekBoard__hours
                 span.EventChip__markWord  color #166534
           span.EventChip__slot#2
             button.EventChip__chip  bg #15803d14  border transparent transparent transparent #166534
-              span.EventChip__head#3
+              span.EventChip__head#4
                 svg.EventChip__icon
                 span.EventChip__time  color #166534
-              span.EventChip__name#3  color #166534
+              span.EventChip__name#4  color #166534
               span.EventChip__where#2  color #166534
             span.EventChip__edge
             span.EventChip__edge#2
@@ -1205,23 +1187,17 @@ div.WeekBoard__hours
     div.AllDayBar__bar  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
       div.AllDayBar__rail
         span.AllDayBar__label  color #7e92a7
-      ul.AllDayBar__list
-      ul.AllDayBar__list#2
-      ul.AllDayBar__list#3
-      ul.AllDayBar__list#4
+      ul.AllDayBar__lanes
         li.AllDayBar__item
           button.EventChip__chip  bg #182338  border #c9d5e2
             span.EventChip__head
               svg.EventChip__icon
             span.EventChip__name  color #c9d5e2
-      ul.AllDayBar__list#5
-      ul.AllDayBar__list#6
-      ul.AllDayBar__list#7
-        li.AllDayBar__item
-          button.EventChip__chip#2  bg #182338  border transparent transparent transparent #c9d5e2
-            span.EventChip__head
-              svg.EventChip__icon#2
-            span.EventChip__name  color #c9d5e2
+        li.AllDayBar__item#2
+          button.EventChip__chip  bg #182338  border transparent transparent transparent #c9d5e2
+            span.EventChip__head#2
+              svg.EventChip__icon
+            span.EventChip__name#2  color #c9d5e2
     div.TimeGrid__scroll
       div.TimeGrid__hours
         div.TimeGrid__rail
@@ -1355,10 +1331,10 @@ div.WeekBoard__hours
             button.ColumnCanvas__hour#96  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
           span.EventChip__slot
             button.EventChip__chip  bg #182338  border #c9d5e2
-              span.EventChip__head#2
+              span.EventChip__head#3
                 svg.EventChip__icon
                 span.EventChip__time  color #c9d5e2
-              span.EventChip__name#2  color #c9d5e2
+              span.EventChip__name#3  color #c9d5e2
               span.EventChip__where  color #c9d5e2
         div.TimeGrid__track#5  border #eaf1f8 #eaf1f8 #eaf1f8 #182338
           div.ColumnCanvas__canvas
@@ -1388,10 +1364,10 @@ div.WeekBoard__hours
             button.ColumnCanvas__hour#120  bg color(srgb 0.917647 0.945098 0.972549 / 0.05)  border #182338 #000000 #000000 #000000
           span.EventChip__slot
             button.EventChip__chip#2  bg #a5b4fc1f  border transparent transparent transparent #a5b4fc
-              span.EventChip__head#2
+              span.EventChip__head
                 svg.EventChip__icon#2
-                span.EventChip__time#2  color #a5b4fc
-              span.EventChip__name#2  color #a5b4fc
+                span.EventChip__time  color #a5b4fc
+              span.EventChip__name  color #a5b4fc
               span.EventChip__where  color #a5b4fc
             span.EventChip__edge
             span.EventChip__edge#2
@@ -1451,7 +1427,7 @@ div.WeekBoard__hours
             button.EventChip__chip#3  bg #4ade801f  border #fb7185
               span.EventChip__head
                 svg.EventChip__icon#3
-                span.EventChip__time  color #4ade80
+                span.EventChip__time#2  color #4ade80
                 span.EventChip__number  color #4ade80
               span.EventChip__name  color #4ade80
               span.EventChip__where  color #4ade80
@@ -1460,10 +1436,10 @@ div.WeekBoard__hours
                 span.EventChip__markWord  color #4ade80
           span.EventChip__slot#2
             button.EventChip__chip  bg #4ade801f  border transparent transparent transparent #4ade80
-              span.EventChip__head#3
+              span.EventChip__head#4
                 svg.EventChip__icon
                 span.EventChip__time  color #4ade80
-              span.EventChip__name#3  color #4ade80
+              span.EventChip__name#4  color #4ade80
               span.EventChip__where#2  color #4ade80
             span.EventChip__edge
             span.EventChip__edge#2

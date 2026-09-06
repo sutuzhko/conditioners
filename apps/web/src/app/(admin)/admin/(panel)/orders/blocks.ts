@@ -50,6 +50,7 @@ export async function loadBlocks(
     userId: row.userId,
     repeat: row.repeat,
     day: row.day,
+    endDay: row.endDay,
     weekday: row.weekday,
     fromMin: row.fromMin,
     toMin: row.toMin,

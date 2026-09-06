@@ -23,7 +23,7 @@ export { TeamFilter } from './TeamFilter';
 export type { TeamFilterProps } from './TeamFilter';
 
 export { AllDayBar } from './AllDayBar';
-export type { AllDayBarProps, AllDayColumn } from './AllDayBar';
+export type { AllDayBarProps } from './AllDayBar';
 
 export { ColumnCanvas } from './ColumnCanvas';
 export type { ColumnCanvasProps } from './ColumnCanvas';
@@ -69,19 +69,24 @@ export {
   DEFAULT_WORK_WINDOW,
   HOURS_IN_DAY,
   teamLoad,
+  allDayBands,
   dayColumns,
   hourRangeOf,
   isOffHour,
   lanePlace,
   marksOf,
+  monthBands,
   monthColumns,
   monthRows,
   offsetPercent,
   weekColumns,
 } from './schedule';
 export type {
+  AllDayBand,
   HourRange,
+  ItemSpan,
   LanePlace,
+  MonthBand,
   MoreMark,
   ScheduleFilter,
   ScheduleColumn,

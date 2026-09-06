@@ -31,6 +31,7 @@ const block = {
   userName: 'Владелец',
   repeat: 'once' as const,
   day: '2026-08-26',
+  endDay: '2026-08-26',
   weekday: null,
   fromMin: null,
   toMin: null,
@@ -40,6 +41,7 @@ const block = {
 const body = {
   repeat: 'once',
   day: '2026-08-26',
+  endDay: null,
   weekday: null,
   fromMin: null,
   toMin: null,

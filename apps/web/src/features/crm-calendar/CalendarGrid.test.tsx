@@ -13,6 +13,7 @@ import {
   monthOrders,
   morningInstall,
   plannedCall,
+  vacationBlock,
   viewerId,
   wholeDayBlock,
 } from './fixtures';
@@ -122,5 +123,54 @@ describe('Сетка месяца', () => {
     render(grid());
 
     expect(screen.getByRole('region', { name: texts.gridLabel })).toBeInTheDocument();
+  });
+});
+
+/**
+ * 🔴 Отпуск на две недели — одна запись, а не четырнадцать (ADR-165). В
+ * месяце он читается сплошной плашкой через свои дни: четырнадцать одинаковых
+ * строк «Отпуск» в четырнадцати клетках выглядят как четырнадцать отлучек.
+ */
+describe('Сетка месяца: многодневная отлучка', () => {
+  /** Отпуск фикстуры — 19 августа по 1 сентября, три ряда августовской сетки. */
+  function bands(): readonly HTMLElement[] {
+    const { container } = render(
+      grid({ blocks: [vacationBlock], events: [], orders: [], leads: [] }),
+    );
+
+    return [...container.querySelectorAll('[data-band]')].filter(
+      (node): node is HTMLElement => node instanceof HTMLElement,
+    );
+  }
+
+  it('идёт плашкой через свои дни, а не строкой в каждой клетке', () => {
+    const placed = bands();
+
+    /* Три плашки: хвост недели 17–23 (ряды сетки считаются с недели 27 июля),
+       вся неделя 24–30 и понедельник 31-го с первым сентября. Ряд месяца —
+       своё место на экране, и одна плашка через два ряда была бы неправдой. */
+    expect(placed).toHaveLength(3);
+    expect(placed.map((node) => node.style.gridColumn)).toEqual([
+      '3 / span 5',
+      '1 / span 7',
+      '1 / span 2',
+    ]);
+    expect(placed.map((node) => node.style.gridRow)).toEqual(['4', '5', '6']);
+  });
+
+  it('в клетке отлучка не повторяется строкой: она уже показана плашкой', () => {
+    render(grid({ blocks: [vacationBlock], events: [], orders: [], leads: [] }));
+
+    /* Слово «Отпуск» стоит в сетке трижды — по разу на плашку, — а не
+       четырнадцать раз по клетке. */
+    expect(screen.getAllByText(/Отпуск/)).toHaveLength(3);
+  });
+
+  it('однодневная отлучка плашкой не становится: она и так помещается в клетку', () => {
+    const { container } = render(
+      grid({ blocks: [wholeDayBlock], events: [], orders: [], leads: [] }),
+    );
+
+    expect(container.querySelectorAll('[data-band]')).toHaveLength(0);
   });
 });

@@ -8,13 +8,23 @@ const WEDNESDAY = '2026-08-26';
 const MONDAY = '2026-08-24';
 
 function once(day: string, extra: Partial<DayBlockLike> = {}): DayBlockLike {
-  return { repeat: 'once', day, weekday: null, fromMin: null, toMin: null, reason: null, ...extra };
+  return {
+    repeat: 'once',
+    day,
+    endDay: null,
+    weekday: null,
+    fromMin: null,
+    toMin: null,
+    reason: null,
+    ...extra,
+  };
 }
 
 function weekly(weekday: number, extra: Partial<DayBlockLike> = {}): DayBlockLike {
   return {
     repeat: 'weekly',
     day: null,
+    endDay: null,
     weekday,
     fromMin: null,
     toMin: null,
@@ -47,6 +57,64 @@ describe('занятость, попавшая на день', () => {
 
   it('день без записей пуст', () => {
     expect(blocksOn('2026-08-25', [once(WEDNESDAY), weekly(3)])).toEqual([]);
+  });
+
+  it('🔴 отпуск на две недели действует в каждый свой день (ADR-165)', () => {
+    const vacation = once('2026-07-01', { endDay: '2026-07-14', reason: 'Отпуск' });
+    const days = Array.from(
+      { length: 14 },
+      (_, index) => `2026-07-${String(index + 1).padStart(2, '0')}`,
+    );
+
+    for (const day of days) {
+      expect(blocksOn(day, [vacation])).toEqual([vacation]);
+    }
+  });
+
+  it('за границами диапазона отпуска человек свободен', () => {
+    const vacation = once('2026-07-01', { endDay: '2026-07-14' });
+
+    expect(blocksOn('2026-06-30', [vacation])).toEqual([]);
+    expect(blocksOn('2026-07-15', [vacation])).toEqual([]);
+  });
+
+  it('диапазон переживает границу месяца и года', () => {
+    const vacation = once('2026-12-28', { endDay: '2027-01-04' });
+
+    expect(blocksOn('2026-12-31', [vacation])).toEqual([vacation]);
+    expect(blocksOn('2027-01-01', [vacation])).toEqual([vacation]);
+    expect(blocksOn('2027-01-05', [vacation])).toEqual([]);
+  });
+
+  it('пустой конец читается как один день: так лежат записи, заведённые до диапазона', () => {
+    expect(blocksOn(WEDNESDAY, [once(WEDNESDAY)])).toHaveLength(1);
+    expect(blocksOn('2026-08-27', [once(WEDNESDAY)])).toEqual([]);
+  });
+});
+
+describe('занятость по диапазону отлучки', () => {
+  /** 🔴 Отпуск на 14 дней закрывает каждый из них целиком (ADR-165). */
+  it('каждый день отпуска закрыт целиком и назван причиной', () => {
+    const vacation = once('2026-07-01', { endDay: '2026-07-14', reason: 'Отпуск' });
+
+    expect(busyOn('2026-07-01', [vacation])).toEqual({ state: 'full', reasons: ['Отпуск'] });
+    expect(busyOn('2026-07-08', [vacation])).toEqual({ state: 'full', reasons: ['Отпуск'] });
+    expect(busyOn('2026-07-14', [vacation])).toEqual({ state: 'full', reasons: ['Отпуск'] });
+    expect(busyOn('2026-07-15', [vacation])).toEqual({ state: 'free' });
+  });
+
+  it('окно часов у диапазона повторяется в каждом его дне', () => {
+    const courses = once('2026-07-01', {
+      endDay: '2026-07-03',
+      fromMin: 600,
+      toMin: 720,
+      reason: 'Курсы',
+    });
+
+    for (const day of ['2026-07-01', '2026-07-02', '2026-07-03']) {
+      expect(busyAt(busyOn(day, [courses]), 660)).toBe(true);
+      expect(busyAt(busyOn(day, [courses]), 780)).toBe(false);
+    }
   });
 });
 
@@ -180,6 +248,7 @@ describe('занятость по нарядам и отлучкам вмест�
   it('складывает окно врача и окно монтажа в один ответ', () => {
     const doctor = {
       repeat: 'once' as const,
+      endDay: null,
       day: '2026-08-24',
       weekday: null,
       fromMin: 840,
@@ -203,6 +272,7 @@ describe('занятость по нарядам и отлучкам вмест�
       [
         {
           repeat: 'once',
+          endDay: null,
           day: '2026-08-24',
           weekday: null,
           fromMin: 780,
@@ -221,6 +291,7 @@ describe('занятость по нарядам и отлучкам вмест�
   it('закрытый целиком день перебивает наряды: человека нет, кто бы что ни назначил', () => {
     const off = {
       repeat: 'once' as const,
+      endDay: null,
       day: '2026-08-24',
       weekday: null,
       fromMin: null,
