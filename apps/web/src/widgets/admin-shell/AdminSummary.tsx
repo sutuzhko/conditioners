@@ -2,20 +2,36 @@ import Link from 'next/link';
 
 import type { PanelTab } from '@/shared/config/admin-tabs';
 import { formatMoney } from '@/shared/lib/format';
-import { Badge, Card, Chart, StatTile, StatTiles, Table } from '@/shared/ui';
+import {
+  Badge,
+  ButtonLink,
+  Card,
+  Chart,
+  Icon,
+  StatTile,
+  StatTiles,
+  Table,
+  type StatDelta,
+} from '@/shared/ui';
 
 import { adminSummaryContent as texts } from './summary-content';
+import { SummaryFilters } from './SummaryFilters';
+import { SummaryTable, type UpcomingItem } from './SummaryTable';
+import type { UpcomingFilters } from './summary-list';
+import type { SummaryDeltas } from './summary-tiles';
 import styles from './AdminSummary.module.css';
+
+export type { UpcomingItem, UpcomingNature } from './SummaryTable';
 
 /** Сегмент сводки: ключи словаря вкладок панели (`PANEL_TABS.overview`). */
 export type SummarySegment = PanelTab<'overview'>;
 
 /**
  * Цифры сегмента «Обзор» — про работу компании, а не про содержимое сайта
- * (CRM.md §3.8).
+ * (CRM.md §3.8, макет «Обзор»).
  *
  * Владелец заходит в панель утром за четырьмя вопросами: кто написал, сколько
- * работ в руках, сколько заработали и не ждёт ли ответа отзыв.
+ * работ в руках, сколько заработали и что от этого осталось после выплат.
  */
 export type SummaryCounts = {
   /** Заявок в статусе «новая» — то, ради чего владелец заходит в панель. */
@@ -24,8 +40,45 @@ export type SummaryCounts = {
   readonly activeOrders: number;
   /** Выручка месяца — то же число, что в сегменте «Деньги». */
   readonly revenue: number;
-  /** Отзывов на модерации. */
-  readonly pendingReviews: number;
+  /**
+   * 🔴 Выручка минус выплаты бригадам. Это не прибыль и не маржа: ни
+   * материалов, ни налогов, ни закупки техники в числе нет — закупочная цена
+   * появится на позиции склада отдельной задачей (ADR-318). Плитка называет
+   * ровно то, что считает, потому что по этому числу владелец назначает цену
+   * монтажа, и завышенное «остаётся» — та же ложь в цене, только внутрь.
+   */
+  readonly retained: number;
+};
+
+/** Ряд графика «Обзора»: подписи делений и значения при них. */
+export type SummarySeries = {
+  readonly labels: readonly string[];
+  readonly values: readonly number[];
+};
+
+export type SummaryCharts = {
+  /** Столбцы: выполненные наряды по неделям. */
+  readonly weeks: SummarySeries;
+  /** Линии: выручка и выплаты бригадам по месяцам, обе в одной шкале. */
+  readonly revenue: SummarySeries;
+  readonly payout: readonly number[];
+};
+
+/** Ближайшие дела с их отбором: таблица и ряд пилюль над ней. */
+export type SummaryUpcoming = {
+  readonly items: readonly UpcomingItem[];
+  readonly filters: UpcomingFilters;
+  readonly total: number;
+  readonly page: number;
+  readonly pages: number;
+};
+
+/** Шапка «Обзора»: с кем здороваемся и что за день (issue #588). */
+export type SummaryHead = {
+  /** «Доброе утро, Сергей» — собрано из сессии и московского часа. */
+  readonly greeting: string;
+  /** «Среда, 29 августа · 3 выезда сегодня». */
+  readonly dayLine: string;
 };
 
 /** Цифры сегмента «Работа»: успеваем ли, а не сколько заработали. */
@@ -72,33 +125,6 @@ export type ReadinessSummary = {
 };
 
 /**
- * 🔴 Наряд и дело — разные сущности с разным смыслом (ADR-093): наряд это
- * работа с деньгами и исполнителем, дело — напоминание позвонить. В общем
- * списке они идут вперемешку по времени, но помечены по-разному: сводка, в
- * которой одно неотличимо от другого, врёт о том, что предстоит сделать.
- */
-export type UpcomingNature = 'order' | 'event';
-
-/**
- * Строка «Ближайших дел» в том виде, в каком её показывает сводка.
- *
- * Все подписи приходят готовыми: сводка не знает ни видов дел, ни типов
- * нарядов, ни часового пояса работ — за них отвечают их разделы.
- */
-export type UpcomingItem = {
-  readonly id: string;
-  readonly nature: UpcomingNature;
-  /** «сегодня 18:00», «завтра 10:00», «14 июля, 09:00». */
-  readonly when: string;
-  /** Что это: «Монтаж», «Звонок». */
-  readonly kind: string;
-  readonly clientName: string;
-  /** Куда ведёт строка: наряд — в свою карточку, дело — в календарь. */
-  readonly href: string;
-  readonly overdue: boolean;
-};
-
-/**
  * Данные открытого сегмента.
  *
  * 🔴 Размеченное объединение, а не три необязательных ключа: страница читает
@@ -109,8 +135,10 @@ export type SummaryData =
   | {
       readonly segment: 'overview';
       readonly counts: SummaryCounts;
+      readonly deltas: SummaryDeltas;
+      readonly charts: SummaryCharts;
       readonly readiness: ReadinessSummary;
-      readonly upcoming: readonly UpcomingItem[];
+      readonly upcoming: SummaryUpcoming;
     }
   | {
       readonly segment: 'work';
@@ -123,6 +151,7 @@ export interface AdminSummaryProps {
   readonly data: SummaryData;
   /** Период, за который посчитаны числа: «Август 2026». */
   readonly period: string;
+  readonly head: SummaryHead;
 }
 
 /** Адрес сегмента. Первый в адрес не уезжает: `/admin` и есть «Обзор». */
@@ -136,6 +165,9 @@ export function segmentHref(segment: SummarySegment): {
 }
 
 const SEGMENTS: readonly SummarySegment[] = ['overview', 'work', 'money'];
+
+/** Куда ведёт главное действие шапки. Заводится наряд в своём разделе. */
+const NEW_ORDER_PATH = '/admin/orders/new';
 
 /**
  * Сводка на входе в панель: что требует внимания прямо сейчас (issue #344).
@@ -154,15 +186,30 @@ const SEGMENTS: readonly SummarySegment[] = ['overview', 'work', 'money'];
  * четыре плитки, панель под ними (ADR-241). Плитка не переезжает от того,
  * какие данные пришли, — и скелетон обещает ту же раскладку, что придёт.
  */
-export function AdminSummary({ data, period }: AdminSummaryProps) {
+export function AdminSummary({ data, period, head }: AdminSummaryProps) {
   return (
     <div className={styles.summary}>
-      {/* 🔴 Заголовок страницы: вход в панель — единственный экран, у которого
-          его когда-то не было вовсе, и читалка объявляла его безымянным
-          (инвариант 4). */}
+      {/* 🔴 Шапка макета «Обзор» (issue #588): приветствие, строка дня и
+          главное действие справа. Имя приходит из сессии, число выездов — из
+          данных: ни одной цифры о работе компании в коде (инвариант 8).
+
+          Заголовком страницы служит приветствие — так в макете. Название
+          раздела при этом не теряется: оно стоит в `<title>` документа и
+          отмечено `aria-current` в колонке разделов. */}
       <header className={styles.header}>
-        <h1 className={styles.title}>{texts.title}</h1>
-        <p className={styles.lead}>{texts.lead}</p>
+        <div className={styles.headText}>
+          <h1 className={styles.title}>{head.greeting}</h1>
+          <p className={styles.lead}>{head.dayLine}</p>
+        </div>
+
+        <ButtonLink
+          className={styles.headAction}
+          href={{ pathname: NEW_ORDER_PATH }}
+          size="sm"
+          iconStart={<Icon name="plus" size={16} />}
+        >
+          {texts.newOrder}
+        </ButtonLink>
       </header>
 
       <div className={styles.bar}>
@@ -193,13 +240,13 @@ export function AdminSummary({ data, period }: AdminSummaryProps) {
   );
 }
 
-/** Сегмент «Обзор»: четыре числа, ближайшие дела и готовность сайта. */
+/** Сегмент «Обзор»: четыре числа, два графика, ближайшие дела и готовность. */
 function OverviewSegment({
   data,
 }: {
   readonly data: Extract<SummaryData, { segment: 'overview' }>;
 }) {
-  const { counts, readiness, upcoming } = data;
+  const { counts, deltas, charts, readiness, upcoming } = data;
 
   return (
     <>
@@ -208,103 +255,161 @@ function OverviewSegment({
           href="/admin/leads"
           label={texts.leads}
           value={String(counts.newLeads)}
+          delta={deltas.leads}
           note={texts.leadsNote}
         />
         <LinkedTile
           href="/admin/orders"
           label={texts.orders}
           value={String(counts.activeOrders)}
+          delta={deltas.orders}
           note={texts.ordersNote}
         />
-        {/* 🔴 Выручка и отзывы уходят с первого экрана телефона: они живут в
-            своих сегментах, а на 358px четыре плитки становятся нечитаемыми
-            (issue #344). Прячет их модуль — данные при этом те же. */}
+        {/* 🔴 Выручка и остаток уходят с первого экрана телефона: они живут в
+            сегменте «Деньги», а на 358px четыре плитки становятся нечитаемыми
+            (issue #344, макет «Обзор» на 390). Прячет их модуль — данные при
+            этом те же. */}
         <LinkedTile
           className={styles.wide}
           href={segmentHref('money')}
           label={texts.revenue}
           value={formatMoney(counts.revenue)}
+          delta={deltas.revenue}
           note={texts.revenueNote}
         />
         <LinkedTile
           className={styles.wide}
-          href="/admin/reviews"
-          label={texts.reviews}
-          value={String(counts.pendingReviews)}
-          note={texts.reviewsNote}
+          href={segmentHref('money')}
+          label={texts.retained}
+          value={formatMoney(counts.retained)}
+          delta={deltas.retained}
+          note={texts.retainedNote}
         />
       </StatTiles>
 
-      {/* От 1200 расписание и готовность идут рядом (1.6fr / 1fr) — так стоит в
-          макете, и так на первом экране помещается и то, и другое. Ниже они
-          складываются в столбец, и порядок остаётся прежним. */}
-      <div className={styles.pair}>
-        <Card as="section" className={styles.panel} aria-labelledby="upcoming-title">
-          <h2 className={styles.cardTitle} id="upcoming-title">
-            {texts.upcomingTitle}
-          </h2>
-          <p className={styles.text}>{texts.upcomingNote}</p>
+      {/* 🔴 Два графика в ряд (issue #589, макет «Обзор»). Оба серверные: это
+          инлайновый SVG, и клиентского JS они не стоят ни байта — на первом
+          экране панели это решает, влезаем ли мы в бюджет собственного слоя.
 
-          {upcoming.length === 0 ? (
-            <p className={styles.text}>{texts.upcomingEmpty}</p>
+          Ниже 1200 остаются столбцы: две шкалы рядом на 768 дают подписи осей
+          в 8px. Ниже 600 уходят оба — столбец шириной 6px не читается, а на
+          вопрос «сколько работы» отвечают плитки и таблица. */}
+      <div className={styles.charts}>
+        <Card as="section" className={styles.chartCard} aria-labelledby="weeks-chart-title">
+          <div className={styles.chartHead}>
+            <h2 className={styles.cardTitle} id="weeks-chart-title">
+              {texts.weeksChartTitle}
+            </h2>
+            <p className={styles.chartNote}>{texts.weeksChartNote}</p>
+          </div>
+
+          {charts.weeks.values.some((value) => value > 0) ? (
+            <Chart
+              kind="bars"
+              series={[
+                {
+                  id: 'done',
+                  name: texts.weeksChartSeries,
+                  points: charts.weeks.values,
+                },
+              ]}
+              labels={charts.weeks.labels}
+              title={texts.weeksChartTitle}
+            />
           ) : (
-            <ul className={styles.events}>
-              {upcoming.map((item) => (
-                <li className={styles.event} key={`${item.nature}-${item.id}`}>
-                  <Link className={`${styles.eventLink} tapAction`} href={{ pathname: item.href }}>
-                    <span className={styles.eventWhen}>{item.when}</span>
-                    {/* Природа записи — словом и плашкой, а не одним цветом:
-                      наряд и дело различаются деньгами, и путать их нельзя
-                      даже в монохромном режиме. */}
-                    <Badge size="sm" variant={item.nature === 'order' ? 'accent' : 'neutral'}>
-                      {texts.natureTitle(item.nature)}
-                    </Badge>
-                    <span className={styles.eventKind}>{item.kind}</span>
-                    <span className={styles.eventName}>{item.clientName}</span>
-                    {item.overdue ? <Badge variant="warning">{texts.upcomingOverdue}</Badge> : null}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <p className={styles.text}>{texts.weeksChartEmpty}</p>
           )}
-
-          <Link className={`${styles.link} tapAction`} href={{ pathname: '/admin/crm' }}>
-            {texts.upcomingCta}
-          </Link>
         </Card>
 
-        {/* 🔴 Карточка готовности стоит последней всегда, а о незаполненных
-            настройках говорит цветом и содержимым (ADR-241). Раньше она
-            переезжала наверх, пока настройки не заполнены, — и позиция плиток
-            зависела от данных, которых у скелетона нет. */}
         <Card
           as="section"
-          variant={readiness.ready ? 'soft' : 'accent'}
-          aria-labelledby="readiness-title"
+          className={`${styles.chartCard} ${styles.linesCard}`}
+          aria-labelledby="lines-chart-title"
         >
-          <h2 className={styles.cardTitle} id="readiness-title">
-            {texts.readinessTitle}
-          </h2>
+          <div className={styles.chartHead}>
+            <h2 className={styles.cardTitle} id="lines-chart-title">
+              {texts.moneyLinesTitle}
+            </h2>
+            <p className={styles.chartNote}>{texts.moneyLinesNote}</p>
+          </div>
 
-          {readiness.ready ? (
-            <p className={styles.text}>{texts.readinessDone}</p>
+          {charts.revenue.values.some((value) => value > 0) ? (
+            <Chart
+              series={[
+                { id: 'revenue', name: texts.moneyLinesRevenue, points: charts.revenue.values },
+                { id: 'payout', name: texts.moneyLinesPayout, points: charts.payout },
+              ]}
+              labels={charts.revenue.labels}
+              title={texts.moneyLinesTitle}
+              format={texts.thousands}
+            />
           ) : (
-            <>
-              <p className={styles.text}>{texts.readinessPending}</p>
-              <ul className={styles.groups}>
-                {readiness.unfinished.map((group) => (
-                  <li key={group}>
-                    <Badge variant="warning">{texts.groupTitle(group)}</Badge>
-                  </li>
-                ))}
-              </ul>
-              <Link className={`${styles.link} tapAction`} href={{ pathname: '/admin/company' }}>
-                {texts.readinessCta}
-              </Link>
-            </>
+            <p className={styles.text}>{texts.moneyLinesEmpty}</p>
           )}
         </Card>
       </div>
+
+      <Card as="section" className={styles.panel} aria-labelledby="upcoming-title">
+        <div className={styles.cardHead}>
+          <h2 className={styles.cardTitle} id="upcoming-title">
+            {texts.upcomingTitle}
+          </h2>
+          <Badge size="sm" variant="neutral">
+            <span aria-hidden="true">{texts.upcomingCount(upcoming.total)}</span>
+            <span className="srOnly">{texts.upcomingCountLabel(upcoming.total)}</span>
+          </Badge>
+        </div>
+        <p className={styles.text}>{texts.upcomingNote}</p>
+
+        <SummaryFilters filters={upcoming.filters} total={upcoming.total} />
+
+        <SummaryTable
+          items={upcoming.items}
+          filters={upcoming.filters}
+          page={upcoming.page}
+          pages={upcoming.pages}
+        />
+
+        <Link className={`${styles.link} tapAction`} href={{ pathname: '/admin/crm' }}>
+          {texts.upcomingCta}
+        </Link>
+      </Card>
+
+      {/* 🔴 Карточка готовности стоит последней всегда, а о незаполненных
+          настройках говорит цветом и содержимым (ADR-241). Раньше она
+          переезжала наверх, пока настройки не заполнены, — и позиция плиток
+          зависела от данных, которых у скелетона нет.
+
+          Макет «Обзор» её не рисует вовсе, но убрать её нельзя: пока данные
+          компании не заполнены, на сайте стоят заглушки, и единственное место,
+          где владелец об этом узнаёт, — вход в панель. */}
+      <Card
+        as="section"
+        variant={readiness.ready ? 'soft' : 'accent'}
+        aria-labelledby="readiness-title"
+      >
+        <h2 className={styles.cardTitle} id="readiness-title">
+          {texts.readinessTitle}
+        </h2>
+
+        {readiness.ready ? (
+          <p className={styles.text}>{texts.readinessDone}</p>
+        ) : (
+          <>
+            <p className={styles.text}>{texts.readinessPending}</p>
+            <ul className={styles.groups}>
+              {readiness.unfinished.map((group) => (
+                <li key={group}>
+                  <Badge variant="warning">{texts.groupTitle(group)}</Badge>
+                </li>
+              ))}
+            </ul>
+            <Link className={`${styles.link} tapAction`} href={{ pathname: '/admin/company' }}>
+              {texts.readinessCta}
+            </Link>
+          </>
+        )}
+      </Card>
     </>
   );
 }
@@ -359,7 +464,7 @@ function WorkSegment({ data }: { readonly data: Extract<SummaryData, { segment: 
                  бы дважды. `--badge-fill` снимает заливку плашки, а
                  приглушённая подпись поднимается до `--body` (issue #347). */
               <li className={`${styles.event} ${styles.rowbad}`} key={item.id}>
-                <Link className={`${styles.eventLink} tapAction`} href={{ pathname: item.href }}>
+                <Link className={styles.eventLink} href={{ pathname: item.href }}>
                   <span className={styles.eventName}>{item.title}</span>
                   <Badge size="sm" variant="danger">
                     {item.reason === 'overdue' ? texts.attentionOverdue : texts.attentionUnassigned}
@@ -506,12 +611,14 @@ function LinkedTile({
   label,
   value,
   note,
+  delta,
   className,
 }: {
   readonly href: string | { readonly pathname: string; readonly query?: Record<string, string> };
   readonly label: string;
   readonly value: string;
   readonly note: string;
+  readonly delta?: StatDelta | null | undefined;
   readonly className?: string | undefined;
 }) {
   return (
@@ -519,7 +626,13 @@ function LinkedTile({
       className={[styles.tileLink, className].filter(Boolean).join(' ')}
       href={typeof href === 'string' ? { pathname: href } : href}
     >
-      <StatTile className={styles.tile} label={label} value={value} note={note} />
+      <StatTile
+        className={styles.tile}
+        label={label}
+        value={value}
+        note={note}
+        delta={delta ?? undefined}
+      />
     </Link>
   );
 }
