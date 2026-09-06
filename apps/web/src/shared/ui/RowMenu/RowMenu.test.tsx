@@ -256,3 +256,61 @@ describe('Подсказка', () => {
     expect(anchor).toHaveAttribute('aria-describedby', tooltip.id);
   });
 });
+
+/**
+ * 🔴 Тот же дефект, что у меню строки, и та же проверка (issue #665).
+ * Подсказка считала координаты один раз при открытии и слушала только
+ * прокрутку и изменение размера окна — а подмена шрифта не даёт ни того, ни
+ * другого: цель уезжала, пузырёк оставался стоять и указывал мимо своего
+ * ярлыка.
+ */
+describe('Подсказка — положение', () => {
+  it('🔴 едет за целью, когда раскладка доезжает после открытия', async () => {
+    const callbacks: ResizeObserverCallback[] = [];
+    const original = globalThis.ResizeObserver;
+
+    globalThis.ResizeObserver = class {
+      constructor(callback: ResizeObserverCallback) {
+        callbacks.push(callback);
+      }
+      observe(): void {}
+      unobserve(): void {}
+      disconnect(): void {}
+    };
+
+    try {
+      const user = userEvent.setup();
+      render(
+        <Tooltip text="Заказы за неделю">
+          <button type="button">Обзор</button>
+        </Tooltip>,
+      );
+
+      const target = screen.getByRole('button', { name: 'Обзор' });
+      const anchor = target.parentElement;
+      if (anchor === null) throw new Error('у цели нет обёртки-якоря');
+
+      let top = 200;
+      vi.spyOn(anchor, 'getBoundingClientRect').mockImplementation(
+        () => new DOMRect(100, top, 40, 20),
+      );
+
+      await user.hover(target);
+      expect(screen.getByRole('tooltip').style.top).toBe('192px');
+
+      /* Цель уехала вниз на 200px — ровно то, что делает подмена шрифта. */
+      top = 400;
+      /* Список слепком: наблюдатель, отданный обработчику, сам регистрирует
+         ещё один — перебор живого списка не кончился бы никогда. */
+      const observed = [...callbacks];
+      const dummy = new globalThis.ResizeObserver(() => {});
+      act(() => {
+        for (const callback of observed) callback([], dummy);
+      });
+
+      expect(screen.getByRole('tooltip').style.top).toBe('392px');
+    } finally {
+      globalThis.ResizeObserver = original;
+    }
+  });
+});
