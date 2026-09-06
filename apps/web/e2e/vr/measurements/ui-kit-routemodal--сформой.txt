@@ -7,11 +7,116 @@
 1440 → 1440×900
 
 [геометрия 390]
+div.Modal__overlay  390×900 @0,0  fixed  portal
+  div.Modal__window  390×378 @0,522  r22 22 0 0  b1
+    div.Modal__head  388×110 @1,1  b0 0 1 0
+      h2.Modal__title  292×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая позиция»
+      p.Modal__description  292×40 @20,49  Manrope 400 13/20  lines=2  «Позиция появится в справочнике. Остаток»
+      button.IconButton__iconButton  40×40 @328,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  388×192 @1,111
+      div.Field__field  348×76 @20,20
+        label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+        input  348×49 @0,27  r11  b1
+      div.Field__field#2  348×76 @20,96
+        label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Группа»
+        input  348×49 @0,27  r11  b1
+    div.Modal__footer  388×73 @1,304  b1 0 0 0
+      button.Button__button  92×44 @171,15  r11  b1
+        span.Button__content  54×17 @19,13
+          span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
+      button.Button__button#2  96×44 @272,15  r11  b1
+        span.Button__content  58×17 @19,13
+          span.Button__label#2  58×17 @0,0  Manrope 600 15/17  lines=1  «Завести»
 
 [геометрия 768]
+div.Modal__overlay  768×900 @0,0  fixed  portal
+  div.Modal__window  560×358 @104,271  r22  b1
+    div.Modal__head  558×90 @1,1  b0 0 1 0
+      h2.Modal__title  396×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая позиция»
+      p.Modal__description  396×20 @20,49  Manrope 400 13/20  lines=1  «Позиция появится в справочнике. Остаток»
+      button.IconButton__iconButton  40×40 @498,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  558×192 @1,91
+      div.Field__field  518×76 @20,20
+        label.Field__label  518×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+        input  518×49 @0,27  r11  b1
+      div.Field__field#2  518×76 @20,96
+        label.Field__label  518×20 @0,0  Manrope 600 13/20  lines=1  «Группа»
+        input  518×49 @0,27  r11  b1
+    div.Modal__footer  558×73 @1,284  b1 0 0 0
+      button.Button__button  92×44 @341,15  r11  b1
+        span.Button__content  54×17 @19,13
+          span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
+      button.Button__button#2  96×44 @442,15  r11  b1
+        span.Button__content  58×17 @19,13
+          span.Button__label#2  58×17 @0,0  Manrope 600 15/17  lines=1  «Завести»
 
 [геометрия 1440]
+div.Modal__overlay  1440×900 @0,0  fixed  portal
+  div.Modal__window  560×358 @440,271  r22  b1
+    div.Modal__head  558×90 @1,1  b0 0 1 0
+      h2.Modal__title  396×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая позиция»
+      p.Modal__description  396×20 @20,49  Manrope 400 13/20  lines=1  «Позиция появится в справочнике. Остаток»
+      button.IconButton__iconButton  40×40 @498,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  558×192 @1,91
+      div.Field__field  518×76 @20,20
+        label.Field__label  518×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+        input  518×49 @0,27  r11  b1
+      div.Field__field#2  518×76 @20,96
+        label.Field__label  518×20 @0,0  Manrope 600 13/20  lines=1  «Группа»
+        input  518×49 @0,27  r11  b1
+    div.Modal__footer  558×73 @1,284  b1 0 0 0
+      button.Button__button  92×44 @341,15  r11  b1
+        span.Button__content  54×17 @19,13
+          span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
+      button.Button__button#2  96×44 @442,15  r11  b1
+        span.Button__content  58×17 @19,13
+          span.Button__label#2  58×17 @0,0  Manrope 600 15/17  lines=1  «Завести»
 
 [палитра light]
+div.Modal__overlay  bg #0f172a73
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
+      h2.Modal__title  color #0f172a
+      p.Modal__description  color #556173
+      button.IconButton__iconButton  border transparent  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+        svg
+    div.Modal__body
+      div.Field__field
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#2
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+    div.Modal__footer  border #e2e8f0 #0f172a #0f172a #0f172a
+      button.Button__button  border transparent
+        span.Button__content
+          span.Button__label  color #0e7490
+      button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label#2  color #ffffff
 
 [палитра dark]
+div.Modal__overlay  bg #020610ad
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      h2.Modal__title  color #eaf1f8
+      p.Modal__description  color #8598ac
+      button.IconButton__iconButton  border transparent  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+        svg
+    div.Modal__body
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+    div.Modal__footer  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+      button.Button__button  border transparent
+        span.Button__content
+          span.Button__label  color #22d3ee
+      button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        span.Button__content
+          span.Button__label#2  color #ffffff

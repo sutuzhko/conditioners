@@ -429,6 +429,57 @@ export const photos: readonly OrderPhotoCard[] = [
   { id: 'p3', stage: 'after', url: '/api/admin/orders/o1/photos/p3/file', sort: 1 },
 ];
 
+function samplePhoto(body: string): string {
+  return (
+    'data:image/svg+xml;charset=utf-8,' +
+    encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">' +
+        '<rect width="300" height="300" fill="#E2F4F8"/>' +
+        '<rect y="228" width="300" height="72" fill="#CFF2F8"/>' +
+        body +
+        '</svg>',
+    )
+  );
+}
+
+/** Место установки до работы: голая стена, размечены точки крепления. */
+const BEFORE_PHOTO = samplePhoto(
+  '<rect x="60" y="92" width="180" height="4" rx="2" fill="#A5F3FC"/>' +
+    '<circle cx="86" cy="94" r="9" fill="none" stroke="#A5F3FC" stroke-width="4"/>' +
+    '<circle cx="214" cy="94" r="9" fill="none" stroke="#A5F3FC" stroke-width="4"/>' +
+    '<rect x="196" y="150" width="8" height="78" rx="4" fill="#CFF2F8"/>',
+);
+
+/** Та же стена после работы: блок повешен, трасса убрана в короб. */
+const AFTER_PHOTO = samplePhoto(
+  '<rect x="46" y="76" width="208" height="66" rx="16" fill="#FFFFFF" stroke="#A5F3FC" stroke-width="4"/>' +
+    '<rect x="66" y="120" width="168" height="8" rx="4" fill="#A5F3FC"/>' +
+    '<circle cx="226" cy="94" r="6" fill="#A5F3FC"/>' +
+    '<rect x="196" y="142" width="16" height="86" rx="6" fill="#CFF2F8"/>',
+);
+
+/**
+ * Те же снимки для витрины — с кадром внутри адреса, а не ссылкой на него.
+ *
+ * 🔴 Отдельный набор, а не правка `photos` выше: у `photos` есть работа, и она
+ * не про истории. `OrderPhotos.test.tsx` утверждает по нему, что снимок берётся
+ * с закрытого маршрута панели, а не из общего тома загрузок (ADR-171), —
+ * подменив там адрес на `data:`, мы стёрли бы эту проверку.
+ *
+ * Витрина собирается статикой (ADR-231) и раздаёт только `apps/web/public`:
+ * закрытый маршрут в ней мёртв, и истории показывали значки битых файлов
+ * вместо снимков «до» и «после» (issue #676). `next/image` для `data:` сам
+ * ставит `unoptimized` (`get-img-props`) — в боевой код ничего не уезжает.
+ *
+ * Квадрат — та же форма, что у превью 148×148: миниатюре задан
+ * `aspect-ratio: 1`, кадр другой формы сдвинул бы сетку.
+ */
+export const showcasePhotos: readonly OrderPhotoCard[] = [
+  { id: 'p1', stage: 'before', url: BEFORE_PHOTO, sort: 0 },
+  { id: 'p2', stage: 'after', url: AFTER_PHOTO, sort: 0 },
+  { id: 'p3', stage: 'after', url: AFTER_PHOTO, sort: 1 },
+];
+
 export const history: readonly OrderHistoryEntry[] = [
   {
     id: 'h3',

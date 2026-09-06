@@ -97,13 +97,41 @@ export const failingApi: ClientApi = {
  */
 export const today = '2026-08-27';
 
+/**
+ * Снимок прямо в фикстуре: data-URI, чтобы истории не зависели ни от
+ * загруженных файлов, ни от работающего `/api/media`.
+ *
+ * 🔴 Витрина собирается статикой (ADR-231) и раздаёт только `apps/web/public`,
+ * где лежат одни шрифты. Адрес `/api/media/...` в ней мёртв, и раздел
+ * «Техника клиента» показывал значок битого файла вместо того единственного,
+ * ради чего история заведена, — снимка установленной техники (issue #676).
+ *
+ * `next/image` для `data:` сам ставит `unoptimized` (`get-img-props`), поэтому
+ * ни одного пропа ради витрины в боевой код не уезжает.
+ *
+ * Квадрат — та же форма, что у превью 150×150: карточка отводит снимку
+ * `aspect-ratio: 1`, и кадр другой формы сдвинул бы раскладку строки.
+ */
+const SAMPLE_PHOTO =
+  'data:image/svg+xml;charset=utf-8,' +
+  encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">' +
+      '<rect width="300" height="300" fill="#E2F4F8"/>' +
+      '<rect y="228" width="300" height="72" fill="#CFF2F8"/>' +
+      '<rect x="46" y="86" width="208" height="66" rx="16" fill="#FFFFFF" stroke="#A5F3FC" stroke-width="4"/>' +
+      '<rect x="66" y="130" width="168" height="8" rx="4" fill="#A5F3FC"/>' +
+      '<circle cx="226" cy="104" r="6" fill="#A5F3FC"/>' +
+      '<rect x="66" y="164" width="168" height="6" rx="3" fill="#CFF2F8"/>' +
+      '</svg>',
+  );
+
 /** Монтаж со снимком «после» и действующей гарантией — как приходит из наряда. */
 export const unit: ClientUnitCard = {
   id: 'u1',
   model: 'Сплит-система 09',
   installedAt: '2026-07-14T06:30:00.000Z',
   warrantyUntil: '2029-07-14T00:00:00.000Z',
-  photo: '/api/media/after-1.jpg',
+  photo: SAMPLE_PHOTO,
   order: { id: 'o1', number: 1059 },
 };
 

@@ -87,6 +87,21 @@ div.ProfileForm__grid  358×1669 @16,16
           span.Button__content#4  64×23 @19,10
             span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
               svg  20×20 @0,0
+div.Modal__overlay  390×900 @0,0  fixed  portal
+  div.Modal__window  390×246 @0,654  r22 22 0 0  b1
+    div.Modal__head  388×131 @1,1  b0 0 1 0
+      h2.Modal__title  292×25 @20,20  Onest 700 21/25  ls0  lines=1  «Выйти на всех устройствах?»
+      p.Modal__description  292×60 @20,49  Manrope 400 13/20  lines=3  «Панель закроется везде, кроме этого брау»
+      button.IconButton__iconButton  40×40 @328,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  388×40 @1,132
+    div.Modal__footer  388×73 @1,172  b1 0 0 0
+      button.Button__button  167×44 @67,15  r11  b1
+        span.Button__content#5  129×17 @19,13
+          span.Button__label  129×17 @0,0  Manrope 600 15/17  lines=1  «Оставить как есть»
+      button.Button__button#2  127×44 @241,15  r11  b1
+        span.Button__content  89×17 @19,13
+          span.Button__label#2  89×17 @0,0  Manrope 600 15/17  lines=1  «Выйти везде»
 
 [геометрия 768]
 div.ProfileForm__grid  736×1094 @16,16
@@ -169,6 +184,21 @@ div.ProfileForm__grid  736×1094 @16,16
           span.Button__content#4  64×23 @19,10
             span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
               svg  20×20 @0,0
+div.Modal__overlay  768×900 @0,0  fixed  portal
+  div.Modal__window  420×246 @174,327  r22  b1
+    div.Modal__head  418×131 @1,1  b0 0 1 0
+      h2.Modal__title  322×25 @20,20  Onest 700 21/25  ls0  lines=1  «Выйти на всех устройствах?»
+      p.Modal__description  322×60 @20,49  Manrope 400 13/20  lines=3  «Панель закроется везде, кроме этого брау»
+      button.IconButton__iconButton  40×40 @358,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  418×40 @1,132
+    div.Modal__footer  418×73 @1,172  b1 0 0 0
+      button.Button__button  167×44 @97,15  r11  b1
+        span.Button__content#5  129×17 @19,13
+          span.Button__label  129×17 @0,0  Manrope 600 15/17  lines=1  «Оставить как есть»
+      button.Button__button#2  127×44 @271,15  r11  b1
+        span.Button__content  89×17 @19,13
+          span.Button__label#2  89×17 @0,0  Manrope 600 15/17  lines=1  «Выйти везде»
 
 [геометрия 1440]
 div.ProfileForm__grid  940×1038 @16,16
@@ -251,6 +281,21 @@ div.ProfileForm__grid  940×1038 @16,16
           span.Button__content#4  64×23 @19,10
             span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
               svg  20×20 @0,0
+div.Modal__overlay  1440×900 @0,0  fixed  portal
+  div.Modal__window  420×246 @510,327  r22  b1
+    div.Modal__head  418×131 @1,1  b0 0 1 0
+      h2.Modal__title  322×25 @20,20  Onest 700 21/25  ls0  lines=1  «Выйти на всех устройствах?»
+      p.Modal__description  322×60 @20,49  Manrope 400 13/20  lines=3  «Панель закроется везде, кроме этого брау»
+      button.IconButton__iconButton  40×40 @358,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  418×40 @1,132
+    div.Modal__footer  418×73 @1,172  b1 0 0 0
+      button.Button__button  167×44 @97,15  r11  b1
+        span.Button__content#5  129×17 @19,13
+          span.Button__label  129×17 @0,0  Manrope 600 15/17  lines=1  «Оставить как есть»
+      button.Button__button#2  127×44 @271,15  r11  b1
+        span.Button__content  89×17 @19,13
+          span.Button__label#2  89×17 @0,0  Manrope 600 15/17  lines=1  «Выйти везде»
 
 [палитра light]
 div.ProfileForm__grid
@@ -333,6 +378,21 @@ div.ProfileForm__grid
           span.Button__content#4
             span.Button__label  color #0f172a
               svg
+div.Modal__overlay  bg #0f172a73
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
+      h2.Modal__title  color #0f172a
+      p.Modal__description  color #556173
+      button.IconButton__iconButton  border transparent  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+        svg
+    div.Modal__body
+    div.Modal__footer  border #e2e8f0 #0f172a #0f172a #0f172a
+      button.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content#5
+          span.Button__label  color #0f172a
+      button.Button__button#2  bg #be123c14  border #be123c73
+        span.Button__content
+          span.Button__label#2  color #be123c
 
 [палитра dark]
 div.ProfileForm__grid
@@ -415,3 +475,18 @@ div.ProfileForm__grid
           span.Button__content#4
             span.Button__label  color #eaf1f8
               svg
+div.Modal__overlay  bg #020610ad
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      h2.Modal__title  color #eaf1f8
+      p.Modal__description  color #8598ac
+      button.IconButton__iconButton  border transparent  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+        svg
+    div.Modal__body
+    div.Modal__footer  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+      button.Button__button  bg #121d31  border #566d95
+        span.Button__content#5
+          span.Button__label  color #eaf1f8
+      button.Button__button#2  bg #fb71851f  border #fb718580
+        span.Button__content
+          span.Button__label#2  color #fb7185
