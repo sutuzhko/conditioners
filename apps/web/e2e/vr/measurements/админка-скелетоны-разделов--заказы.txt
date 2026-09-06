@@ -2,17 +2,14 @@
 шрифты: —
 
 [документ]
-390 → 390×1391
-768 → 768×938
+390 → 390×1248
+768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-span.Skeleton__skeleton  242×19 @0,13  r8
-span.Skeleton__skeleton#2  359×15 @0,54  r8
-span.Skeleton__skeleton#3  187×15 @0,76  r8
-span.Skeleton__skeleton#4  390×95 @0,111  r11
-span.Skeleton__skeleton#5  390×100 @0,222  r14
-section.Card__card  390×1053 @0,338  r20  b1
+span.Skeleton__skeleton  390×95 @0,0  r11
+span.Skeleton__skeleton#2  390×100 @0,95  r14
+section.Card__card  390×1053 @0,195  r20  b1
   span.Skeleton__skeleton  388×56 @1,1
   span.Skeleton__skeleton#2  388×240 @1,57
   span.Skeleton__skeleton#3  388×240 @1,309
@@ -20,12 +17,9 @@ section.Card__card  390×1053 @0,338  r20  b1
   span.Skeleton__skeleton#5  388×240 @1,812
 
 [геометрия 768]
-span.Skeleton__skeleton  280×23 @0,10  r8
-span.Skeleton__skeleton#2  560×15 @0,54  r8
-span.Skeleton__skeleton#3  320×15 @0,76  r8
-span.Skeleton__skeleton#4  768×47 @0,111  r11
-span.Skeleton__skeleton#5  768×95 @0,174  r14
-section.Card__card  768×653 @0,285  r20  b1
+span.Skeleton__skeleton  768×47 @0,0  r11
+span.Skeleton__skeleton#2  768×95 @0,47  r14
+section.Card__card  768×653 @0,142  r20  b1
   span.Skeleton__skeleton  766×56 @1,1
   span.Skeleton__skeleton#2  766×140 @1,57
   span.Skeleton__skeleton#3  766×140 @1,209
@@ -33,12 +27,9 @@ section.Card__card  768×653 @0,285  r20  b1
   span.Skeleton__skeleton#5  766×140 @1,512
 
 [геометрия 1440]
-span.Skeleton__skeleton  280×29 @0,9  r8
-span.Skeleton__skeleton#2  560×15 @0,56  r8
-span.Skeleton__skeleton#3  320×15 @0,78  r8
-span.Skeleton__skeleton#4  1440×44 @0,113  r11
-span.Skeleton__skeleton#5  1440×70 @0,172  r14
-section.Card__card  1440×493 @0,258  r20  b1
+span.Skeleton__skeleton  1440×44 @0,0  r11
+span.Skeleton__skeleton#2  1440×70 @0,44  r14
+section.Card__card  1440×493 @0,114  r20  b1
   span.Skeleton__skeleton  1438×56 @1,1
   span.Skeleton__skeleton#2  1438×100 @1,57
   span.Skeleton__skeleton#3  1438×100 @1,169
@@ -48,9 +39,6 @@ section.Card__card  1440×493 @0,258  r20  b1
 [палитра light]
 span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
 span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-span.Skeleton__skeleton#4  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-span.Skeleton__skeleton#5  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
   span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
   span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
@@ -61,9 +49,6 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
 [палитра dark]
 span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
 span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-span.Skeleton__skeleton#4  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-span.Skeleton__skeleton#5  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
 section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
   span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
   span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
