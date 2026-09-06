@@ -5,6 +5,7 @@ import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from
 
 import { Icon } from '../Icon';
 import { Portal } from '../lib/Portal';
+import { useAnchoredLayer } from '../lib/useAnchoredLayer';
 import styles from './RowMenu.module.css';
 
 export interface RowMenuItem {
@@ -62,9 +63,6 @@ const HIDDEN: CSSProperties = { position: 'fixed', opacity: 0 };
 export function RowMenu({ items, label, className }: RowMenuProps) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
-  /* Пока меню не измерено, координат нет и рисовать его нельзя: кадр в левом
-     верхнем углу успевает попасть на экран и читается как поломка. */
-  const [at, setAt] = useState<CSSProperties | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -84,73 +82,33 @@ export function RowMenu({ items, label, className }: RowMenuProps) {
     return () => document.removeEventListener('mousedown', onDocumentDown);
   }, [open]);
 
-  /**
-   * Куда встать: под кнопкой, а если снизу не помещается — над ней.
-   *
-   * Правый край меню совпадает с правым краем кнопки: колонка действий
-   * прижата вправо, и меню, растущее наружу, вылезало бы за край окна.
-   */
-  const place = useCallback((): void => {
+  const measure = useCallback((): CSSProperties | null => {
     const button = buttonRef.current;
     const menu = menuRef.current;
-    if (button === null || menu === null) return;
+    if (button === null || menu === null) return null;
 
     const rect = button.getBoundingClientRect();
     const height = menu.offsetHeight;
     const below = window.innerHeight - rect.bottom;
     const up = below < height + GAP && rect.top > height + GAP;
 
-    setAt({
+    return {
       position: 'fixed',
       top: up ? rect.top - GAP - height : rect.bottom + GAP,
       right: Math.max(GAP, window.innerWidth - rect.right),
-    });
+    };
   }, []);
 
-  /* Замер до кадра: `useLayoutEffect` ставит меню на место в том же кадре,
-     в котором оно появилось, и оно не успевает мигнуть не там. */
+  /* Слежение за якорем — общее с подсказкой (ADR-319, issue #665): и меню, и
+     подсказка обязаны ехать за элементом, у которого стоят, а формула счёта у
+     каждого своя. */
+  const at = useAnchoredLayer({ open, anchorRef: buttonRef, layerRef: menuRef, measure });
+
+  /* Фокус переезжает в меню в том же кадре, в котором оно появилось: до
+     отрисовки, иначе кадр без фокуса успевает попасть на экран. */
   useLayoutEffect(() => {
-    if (!open) {
-      setAt(null);
-      return undefined;
-    }
-
-    place();
-    menuRef.current?.focus();
-
-    /* Прокрутка ловится на фазе погружения: прокручивается не окно, а
-       контейнер таблицы, и всплывающего события от него на `window` нет. */
-    window.addEventListener('scroll', place, true);
-    window.addEventListener('resize', place);
-
-    /* 🔴 Раскладка умеет доезжать уже после открытия, и ни прокрутки, ни
-       изменения размера окна при этом не происходит (issue #660). Самый
-       частый случай — подмена шрифта: страница переверстывается, кнопка
-       уезжает, а меню остаётся стоять по замеру, снятому до подмены. В
-       снимках это выглядело как случайный сдвиг меню на полтора сантиметра,
-       у владельца — как меню мимо своей кнопки.
-
-       Наблюдатель следит за кнопкой и за самим меню: у кнопки меняется место,
-       у меню — высота, а от высоты зависит, раскрыться вниз или вверх.
-       Работает он ровно пока меню открыто. */
-    const watcher = new ResizeObserver(place);
-    if (buttonRef.current !== null) watcher.observe(buttonRef.current);
-    if (menuRef.current !== null) watcher.observe(menuRef.current);
-
-    /* Шрифт доезжает один раз за загрузку страницы, поэтому это не подписка,
-       а одно обещание; `alive` гасит его, если меню успели закрыть. */
-    let alive = true;
-    void document.fonts.ready.then(() => {
-      if (alive) place();
-    });
-
-    return () => {
-      alive = false;
-      watcher.disconnect();
-      window.removeEventListener('scroll', place, true);
-      window.removeEventListener('resize', place);
-    };
-  }, [open, place]);
+    if (open) menuRef.current?.focus();
+  }, [open]);
 
   const close = (returnFocus: boolean) => {
     setOpen(false);
