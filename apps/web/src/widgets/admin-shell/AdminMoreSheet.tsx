@@ -19,10 +19,13 @@ import styles from './AdminMoreSheet.module.css';
 export interface AdminMoreSheetProps {
   readonly role: AdminRole;
   /**
-   * Адрес открытого раздела: по нему подсвечивается пункт. `null` — открыт
-   * раздел, которого в листе нет, и подсвечивать нечего.
+   * Адрес открытого раздела: по нему подсвечивается пункт. `undefined` —
+   * открыт раздел, которого в листе нет, и подсвечивать нечего.
+   *
+   * Тип повторяет `navHrefOf`, который этот адрес и считает: перевод в `null`
+   * по дороге ничего не добавлял, но требовал приведения на каждом вызове.
    */
-  readonly activeHref: string | null;
+  readonly activeHref: string | undefined;
 }
 
 /** Порядок групп разделов в листе. Тот же, что в колонке. */
