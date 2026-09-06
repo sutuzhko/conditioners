@@ -22,7 +22,10 @@ import { dayKeyOf, dayRange, monthKeyOf, timeOf, todayKey } from '@/shared/lib/c
 import type { BadgeVariant } from '@/shared/ui';
 import {
   AdminSummary,
+  AdminSummarySkeleton,
+  DataBlock,
   adminSummaryContent as texts,
+  blockErrorNote,
   dayPartOf,
   dayShort,
   dayTitle,
@@ -76,6 +79,13 @@ type PageProps = {
  * сегментов, собирающая на каждый заход числа всех трёх, — это три запроса в
  * базу ради одного экрана; сегмент разбирается здесь, до чтения данных, и
  * мусор в параметре открывает первый (issue #341).
+ *
+ * 🔴 Заготовка сводки живёт внутри страницы, а не в `loading.tsx` группы
+ * (issue #651). Заготовка на границе `(panel)` стояла над **всей** панелью:
+ * она уходила в ответ первой, статус к тому моменту был отправлен, и
+ * `notFound()` любой карточки менял потом лишь тело — удалённая запись
+ * отвечала 200. Здесь до первого байта доходит только разбор адреса, а место
+ * сводки держит `Suspense` её собственного блока.
  */
 export default async function AdminHomePage({ searchParams }: PageProps) {
   /* Раздел владельца: проверка до чтения данных (ADR-095). Сводка адресована
@@ -84,6 +94,32 @@ export default async function AdminHomePage({ searchParams }: PageProps) {
   const session = await requireOwnerPage();
 
   const params = await searchParams;
+
+  return (
+    <DataBlock
+      surface="bare"
+      skeleton={<AdminSummarySkeleton />}
+      title={texts.loadFailed}
+      note={blockErrorNote('/admin')}
+    >
+      <SummaryBlock session={session} params={params} />
+    </DataBlock>
+  );
+}
+
+/**
+ * Сама сводка — то, что приезжает отдельным куском потока.
+ *
+ * Сегмент разбирается здесь же: за какими числами идти в базу, решает адрес,
+ * и лишнего запроса сводка не делает.
+ */
+async function SummaryBlock({
+  session,
+  params,
+}: {
+  readonly session: Awaited<ReturnType<typeof requireOwnerPage>>;
+  readonly params: Awaited<PageProps['searchParams']>;
+}) {
   const segment = resolvePanelTab(PANEL_TABS.overview, params.tab);
 
   const now = new Date();

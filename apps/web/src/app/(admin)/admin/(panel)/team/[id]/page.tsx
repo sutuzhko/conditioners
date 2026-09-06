@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import {
   InstallerNotes,
   STAFF_CARD_TABS,
+  TEAM_PATH,
   STAFF_TAB_TITLES,
   StaffAccountForm,
   StaffDangerZone,
@@ -18,8 +19,10 @@ import {
 import { getAdminSession, isOwner } from '@/server/auth';
 import { requireOwnerPage } from '@/server/guards';
 import { findById, findDetails, listNotes } from '@/server/repo/admin-users';
-import { installerTotals, listByInstaller } from '@/server/repo/orders';
+import { installerTotals, listByInstaller, type Viewer } from '@/server/repo/orders';
+import { DataBlock, FieldsSkeleton, RowsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
+import { PanelTabStrip } from '../../PanelTabStrip';
 import { PanelTabs } from '../../PanelTabs';
 import styles from '../page.module.css';
 
@@ -60,6 +63,13 @@ export async function generateMetadata({ params }: Pick<PageProps, 'params'>): P
  *
  * Вкладка разбирается здесь, на сервере: карточка приходит открытой на той,
  * что стоит в адресе (issue #340), мусор открывает первую (#341).
+ *
+ * 🔴 Существование человека решается **до** первого куска потока (issue
+ * #651). Пока заготовка стояла на границе раздела, она уходила в ответ
+ * первой, и `notFound()` заставал статус уже отправленным: карточка
+ * удалённого монтажника отвечала 200. Здесь до первого байта успевает пройти
+ * только чтение самой карточки — по ней же собирается шапка, — а наряды,
+ * выплаты и заметки приезжают следом.
  */
 export default async function AdminTeamMemberPage({ params, searchParams }: PageProps) {
   const session = await requireOwnerPage();
@@ -72,13 +82,71 @@ export default async function AdminTeamMemberPage({ params, searchParams }: Page
 
   /* Карточка с ИНН: реквизит правит владелец, и раздел закрыт `requireOwnerPage`
      выше по коду. Заголовку вкладки достаточно `findById` — там ИНН незачем. */
-  const [staff, notes, orders, totals] = await Promise.all([
-    findDetails(id),
-    listNotes(id),
-    listByInstaller(id, viewer),
-    installerTotals(id),
-  ]);
+  const staff = await findDetails(id);
   if (staff === null) notFound();
+
+  return (
+    <div className={styles.page}>
+      <Link className={styles.back} href={{ pathname: '/admin/team' }}>
+        {texts.back}
+      </Link>
+
+      <header className={styles.header}>
+        <h1 className={styles.title}>{staffTitle(staff)}</h1>
+        <p className={styles.meta}>
+          <span className={styles.login}>@{staff.login}</span>
+          <span>{texts.since(staff.createdAt)}</span>
+          <span>{texts.lastLogin(staff.lastLoginAt)}</span>
+        </p>
+      </header>
+
+      {/* 🔴 Лента вкладок приезжает вместе с содержимым: у подписей стоят
+          счётчики, и лента без чисел, дорисованная потом, дёргала бы ширину
+          вкладок под курсором. Заготовка держит и ленту, и форму аккаунта —
+          шесть полей: имя, логин, телефон, пароль, ИНН, оформление
+          (ADR-239). */}
+      <DataBlock
+        surface="bare"
+        skeleton={
+          <>
+            <PanelTabStrip
+              tabs={STAFF_CARD_TABS}
+              titles={STAFF_TAB_TITLES}
+              label={texts.tabsLabel}
+            />
+            <FieldsSkeleton fields={6} />
+            <RowsSkeleton rows={2} height="72px" />
+          </>
+        }
+        title={texts.cardLoadFailed}
+        note={blockErrorNote(TEAM_PATH)}
+      >
+        <StaffCard staff={staff} active={active} viewer={viewer} />
+      </DataBlock>
+    </div>
+  );
+}
+
+/**
+ * Вкладки карточки — то, что приезжает отдельным куском потока.
+ *
+ * Данные всех четырёх вкладок читаются одним заходом и переключаются без
+ * похода в сеть: вкладка — это состояние экрана, а не новая страница.
+ */
+async function StaffCard({
+  staff,
+  active,
+  viewer,
+}: {
+  readonly staff: NonNullable<Awaited<ReturnType<typeof findDetails>>>;
+  readonly active: ReturnType<typeof staffCardTabFromParam>;
+  readonly viewer: Viewer;
+}) {
+  const [notes, orders, totals] = await Promise.all([
+    listNotes(staff.id),
+    listByInstaller(staff.id, viewer),
+    installerTotals(staff.id),
+  ]);
 
   /* 🔴 Через границу сервер→клиент уезжает проекция, а не карточка наряда
      целиком: заметка владельца по наряду в карточке человека не показывается,
@@ -102,45 +170,30 @@ export default async function AdminTeamMemberPage({ params, searchParams }: Page
   };
 
   return (
-    <div className={styles.page}>
-      <Link className={styles.back} href={{ pathname: '/admin/team' }}>
-        {texts.back}
-      </Link>
-
-      <header className={styles.header}>
-        <h1 className={styles.title}>{staffTitle(staff)}</h1>
-        <p className={styles.meta}>
-          <span className={styles.login}>@{staff.login}</span>
-          <span>{texts.since(staff.createdAt)}</span>
-          <span>{texts.lastLogin(staff.lastLoginAt)}</span>
-        </p>
-      </header>
-
-      <PanelTabs
-        active={active}
-        tabs={STAFF_CARD_TABS}
-        titles={STAFF_TAB_TITLES}
-        label={texts.tabsLabel}
-        idPrefix="staff"
-        /* Счётчик у подписи (issue #602, макет `CardTabs.png`): по нему видно,
+    <PanelTabs
+      active={active}
+      tabs={STAFF_CARD_TABS}
+      titles={STAFF_TAB_TITLES}
+      label={texts.tabsLabel}
+      idPrefix="staff"
+      /* Счётчик у подписи (issue #602, макет `CardTabs.png`): по нему видно,
            есть ли за вкладкой наряды, до того как на неё нажали. */
-        counts={{ orders: orders.total, notes: notes.length }}
-        panels={{
-          account: (
-            <>
-              <StaffAccountForm staff={staff} />
+      counts={{ orders: orders.total, notes: notes.length }}
+      panels={{
+        account: (
+          <>
+            <StaffAccountForm staff={staff} />
 
-              {/* 🔴 Опасная зона всегда последняя: до неё доскроллят осознанно.
+            {/* 🔴 Опасная зона всегда последняя: до неё доскроллят осознанно.
                   Удаление закрыто, пока за человеком закреплены наряды —
                   иначе наряд остался бы без исполнителя. */}
-              <StaffDangerZone staff={staff} orders={orders.total} />
-            </>
-          ),
-          orders: <StaffOrders orders={{ items: works, total: orders.total }} allHref={allHref} />,
-          payouts: <StaffPayouts totals={totals} orders={works} />,
-          notes: <InstallerNotes staffId={staff.id} notes={notes} />,
-        }}
-      />
-    </div>
+            <StaffDangerZone staff={staff} orders={orders.total} />
+          </>
+        ),
+        orders: <StaffOrders orders={{ items: works, total: orders.total }} allHref={allHref} />,
+        payouts: <StaffPayouts totals={totals} orders={works} />,
+        notes: <InstallerNotes staffId={staff.id} notes={notes} />,
+      }}
+    />
   );
 }

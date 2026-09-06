@@ -54,11 +54,44 @@ export type OrderNewParams = { readonly lead?: string | undefined };
  * — здесь только чтение: переход по ссылке не меняет ничего в базе.
  */
 export async function orderFormData(params: OrderNewParams): Promise<OrderFormData> {
-  const session = await requireOwnerPage();
+  const [lead, lists] = await Promise.all([orderLeadSource(params), orderFormLists()]);
+
+  return { ...lists, lead };
+}
+
+/**
+ * Обращение, из которого заводят наряд, — или `null`, если заводят с нуля.
+ *
+ * 🔴 Отдельная функция, потому что она решает **код ответа** (issue #651):
+ * страница зовёт её до первого куска потока, и `?lead=` на удалённое
+ * обращение отвечает честным 404, а не 200 с текстом «не найдено». Ею же
+ * собирается заголовок страницы — он говорит, откуда взялся наряд.
+ */
+export async function orderLeadSource(params: OrderNewParams): Promise<OrderLeadSource | null> {
+  await requireOwnerPage();
 
   const leadId = params.lead;
-  const lead = leadId === undefined ? null : await findLead(leadId);
-  if (leadId !== undefined && lead === null) notFound();
+  if (leadId === undefined) return null;
+
+  const lead = await findLead(leadId);
+  if (lead === null) notFound();
+
+  return {
+    draft: {
+      ...emptyOrderDraft(),
+      type: guessOrderType(lead.topic),
+      clientId: lead.clientId ?? '',
+      address: lead.address ?? '',
+      comment: lead.comment ?? '',
+      leadId: lead.id,
+    },
+    from: leadTexts.orderFrom(lead.name, lead.topic),
+  };
+}
+
+/** Списки и занятость для формы: к существованию обращения отношения не имеют. */
+export async function orderFormLists(): Promise<Omit<OrderFormData, 'lead'>> {
+  const session = await requireOwnerPage();
 
   /* Только работающие: назначать наряд человеку, у которого закрыт доступ,
      значит отправить его в пустоту — он не увидит наряд в панели. */
@@ -85,19 +118,5 @@ export async function orderFormData(params: OrderNewParams): Promise<OrderFormDa
     })),
     blocks,
     work,
-    lead:
-      lead === null
-        ? null
-        : {
-            draft: {
-              ...emptyOrderDraft(),
-              type: guessOrderType(lead.topic),
-              clientId: lead.clientId ?? '',
-              address: lead.address ?? '',
-              comment: lead.comment ?? '',
-              leadId: lead.id,
-            },
-            from: leadTexts.orderFrom(lead.name, lead.topic),
-          },
   };
 }

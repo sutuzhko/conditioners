@@ -2,9 +2,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { productFormContent as texts } from '@/features/product-form';
+import { CATALOG_PATH, productFormContent as texts } from '@/features/product-form';
 import { getAdminSession, isOwner } from '@/server/auth';
-import { findById } from '@/server/repo/products';
+import { requireOwnerPage } from '@/server/guards';
+import { findById, type ProductDto } from '@/server/repo/products';
+import { DataBlock, FieldsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
 import { ProductEditor } from '../ProductEditor';
 import { productFormData } from '../data';
@@ -31,10 +33,22 @@ export async function generateMetadata({
   return { title: product?.name ?? texts.editTitle };
 }
 
-/** Правка модели каталога. */
+/**
+ * Правка модели каталога.
+ *
+ * 🔴 Существование модели решается **до** первого куска потока (issue #651).
+ * Пока заготовка стояла на границе раздела, она уходила в ответ первой, и
+ * `notFound()` заставал статус уже отправленным: удалённая модель отвечала
+ * 200. Здесь до первого байта успевает пройти только чтение самой модели —
+ * один поиск по ключу, — и адрес удалённой записи отвечает честным 404.
+ *
+ * Справочник характеристик приезжает следом, отдельным куском потока: он к
+ * существованию модели отношения не имеет, а заголовок с названием виден,
+ * пока форма ещё собирается.
+ */
 export default async function AdminProductPage({ params }: { params: Promise<{ id: string }> }) {
-  /* Раздел владельца: проверка до чтения данных (ADR-095) — она внутри. */
-  const { specDictionary } = await productFormData();
+  /* Раздел владельца: проверка до чтения данных (ADR-095). */
+  await requireOwnerPage();
 
   const { id } = await params;
   const product = await findById(id);
@@ -54,36 +68,57 @@ export default async function AdminProductPage({ params }: { params: Promise<{ i
         </div>
       </header>
 
-      <ProductEditor
-        specDictionary={specDictionary}
-        id={product.id}
-        priceNum={product.priceNum}
-        photos={product.photos}
-        sale={{
-          salePrice: product.salePrice === null ? '' : String(product.salePrice),
-          // Границы приходят днями по местному времени — так их и правит владелец.
-          saleFrom: product.saleFrom ?? '',
-          saleTo: product.saleTo ?? '',
-          saleLabel: product.saleLabel ?? '',
-        }}
-        values={{
-          name: product.name,
-          badge: product.badge,
-          areaMax: String(product.areaMax),
-          priceNum: String(product.priceNum),
-          tag: product.tag ?? '',
-          brand: product.brand ?? '',
-          sku: product.sku ?? '',
-          link: product.link ?? '',
-          slug: product.slug,
-          sort: String(product.sort),
-          visible: product.visible,
-          featured: product.featured,
-          seoTitle: product.seoTitle ?? '',
-          seoDescription: product.seoDescription ?? '',
-          specs: product.specs.map((spec) => ({ k: spec.k, v: spec.v })),
-        }}
-      />
+      <DataBlock
+        skeleton={<FieldsSkeleton fields={8} />}
+        title={texts.loadFailed}
+        note={blockErrorNote(CATALOG_PATH)}
+        surface="bare"
+      >
+        <ProductForm product={product} />
+      </DataBlock>
     </div>
+  );
+}
+
+/**
+ * Форма модели — то, что приезжает отдельным куском потока.
+ *
+ * Справочник характеристик читается здесь: он подсказывает названия в
+ * редакторе и на существование модели не влияет.
+ */
+async function ProductForm({ product }: { readonly product: ProductDto }) {
+  const { specDictionary } = await productFormData();
+
+  return (
+    <ProductEditor
+      specDictionary={specDictionary}
+      id={product.id}
+      priceNum={product.priceNum}
+      photos={product.photos}
+      sale={{
+        salePrice: product.salePrice === null ? '' : String(product.salePrice),
+        // Границы приходят днями по местному времени — так их и правит владелец.
+        saleFrom: product.saleFrom ?? '',
+        saleTo: product.saleTo ?? '',
+        saleLabel: product.saleLabel ?? '',
+      }}
+      values={{
+        name: product.name,
+        badge: product.badge,
+        areaMax: String(product.areaMax),
+        priceNum: String(product.priceNum),
+        tag: product.tag ?? '',
+        brand: product.brand ?? '',
+        sku: product.sku ?? '',
+        link: product.link ?? '',
+        slug: product.slug,
+        sort: String(product.sort),
+        visible: product.visible,
+        featured: product.featured,
+        seoTitle: product.seoTitle ?? '',
+        seoDescription: product.seoDescription ?? '',
+        specs: product.specs.map((spec) => ({ k: spec.k, v: spec.v })),
+      }}
+    />
   );
 }

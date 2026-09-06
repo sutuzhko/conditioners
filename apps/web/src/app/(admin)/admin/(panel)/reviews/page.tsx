@@ -20,6 +20,7 @@ import {
 } from '@/features/review-moderation';
 import { requireOwnerPage } from '@/server/guards';
 import { listByStatus } from '@/server/repo/reviews';
+import { mediaExists } from '@/server/uploads/store';
 import { pageNumber } from '@/shared/lib/paging';
 import { Pager } from '@/shared/ui';
 
@@ -77,6 +78,8 @@ export default async function AdminReviewsPage({
   const anyReviews =
     found.total > 0 || (status !== undefined && (await listByStatus({ page: 1 })).total > 0);
 
+  const reviews = await withPhotoState(found.items);
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -90,7 +93,7 @@ export default async function AdminReviewsPage({
 
       <ReviewsOfTab
         tab={selected}
-        reviews={found.items}
+        reviews={reviews}
         filtered={status !== undefined && anyReviews}
         searched={reviewFilterOn(filter)}
       />
@@ -104,6 +107,29 @@ export default async function AdminReviewsPage({
         numbers
       />
     </div>
+  );
+}
+
+/**
+ * Помечает отзывы, у которых ссылка на снимок есть, а файла нет — issue #662.
+ *
+ * 🔴 Спрашивает диск сервер, а не браузер. Ссылка в базе и файл на томе живут
+ * порознь: том переехал, каталог не примонтирован, база наполнена в другом
+ * окружении. Без этой проверки карточка рисует значок битого файла и живую
+ * ссылку «открыть в полный размер», ведущую в 404, — то есть выглядит
+ * сломанной вёрсткой, а не отсутствующим снимком.
+ *
+ * По одному `stat` на отзыв со снимком, и только на показанной странице:
+ * список разбит на страницы, а обращение к локальному тому стоит микросекунды
+ * против запроса в базу, который страница уже сделала.
+ */
+async function withPhotoState(reviews: readonly ReviewCard[]): Promise<readonly ReviewCard[]> {
+  return Promise.all(
+    reviews.map(async (review) => {
+      if (review.photo === null) return review;
+
+      return { ...review, photoMissing: !(await mediaExists(review.photo)) };
+    }),
   );
 }
 

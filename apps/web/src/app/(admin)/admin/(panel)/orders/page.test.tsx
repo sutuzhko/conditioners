@@ -1,4 +1,5 @@
 // @vitest-environment node
+import { isValidElement, type ReactElement } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type * as AuthModuleTypes from '@/server/auth';
@@ -44,8 +45,42 @@ function askedTab(): string | undefined {
   return vi.mocked(list).mock.calls[0]?.[0]?.tab;
 }
 
-function open(searchParams: Record<string, string> = {}) {
-  return AdminOrdersPage({ searchParams: Promise.resolve(searchParams) });
+/**
+ * Прогоняет асинхронные блоки страницы (issue #651).
+ *
+ * 🔴 Раздел больше не читает базу сам: заготовки уехали внутрь страницы, и за
+ * данными ходят блоки под `Suspense`. Вызов самой страницы возвращает дерево,
+ * в котором блок — ещё не вызванная функция, поэтому проверять «о чём раздел
+ * спросил репозиторий» можно только пройдя это дерево и позвав их.
+ *
+ * Обход идёт по асинхронным функциям-компонентам и по детям всех остальных.
+ * В заготовку он не заходит намеренно: она по построению не ходит в базу, а
+ * её обход выдал бы вызовы, которых на готовой странице не бывает.
+ */
+async function drainBlocks(node: unknown): Promise<void> {
+  if (Array.isArray(node)) {
+    for (const child of node) await drainBlocks(child);
+    return;
+  }
+
+  if (!isValidElement(node)) return;
+
+  const element = node as ReactElement<{ children?: unknown }>;
+
+  if (typeof element.type === 'function' && element.type.constructor.name === 'AsyncFunction') {
+    const block = element.type as (props: unknown) => Promise<unknown>;
+    await drainBlocks(await block(element.props));
+    return;
+  }
+
+  await drainBlocks(element.props.children);
+}
+
+async function open(searchParams: Record<string, string> = {}) {
+  const page = await AdminOrdersPage({ searchParams: Promise.resolve(searchParams) });
+  await drainBlocks(page);
+
+  return page;
 }
 
 beforeEach(() => {

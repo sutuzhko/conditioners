@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import {
+  ORDERS_PATH,
   OrderConsumption,
   OrderHistory,
   OrderInstallerHead,
@@ -14,12 +15,14 @@ import {
   orderManagerContent as texts,
   type ConsumptionLoad,
 } from '@/features/order-manager';
+import type { AdminSession } from '@/server/auth';
 import { requirePage } from '@/server/guards';
 import { listInstallers } from '@/server/repo/admin-users';
 import { listAll } from '@/server/repo/clients';
 import { findById, type Viewer } from '@/server/repo/orders';
 import { consumptionOf, directory } from '@/server/repo/stock';
 import { dayKeyOf } from '@/shared/lib/calendar';
+import { DataBlock, RowsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
 import { loadBlocks, loadWork } from '../blocks';
 import { OrderEditor } from '../OrderEditor';
@@ -53,6 +56,13 @@ export async function generateMetadata({ params }: Pick<PageProps, 'params'>): P
  * Работа с нарядом разложена по пяти вкладкам (CRM.md §3.3, issue #346):
  * наряд с итогом работ, расход материалов, чеклист выезда, документы и
  * фотографии, история изменений.
+ *
+ * 🔴 Существование наряда решается **до** первого куска потока (issue #651).
+ * Пока заготовка стояла на границе раздела, она уходила в ответ первой, и
+ * `notFound()` заставал статус уже отправленным: чужой наряд отвечал
+ * монтажнику 200 с телом «не найдено». Здесь до первого байта успевает пройти
+ * только чтение самого наряда — сужённое по исполнителю в самом запросе, — а
+ * расход, списки клиентов и занятость приезжают следом.
  */
 /**
  * 🔴 Начальные данные расхода читаются здесь, а не запрашиваются с клиента.
@@ -77,6 +87,9 @@ async function loadConsumption(orderId: string, viewer: Viewer): Promise<Consump
   }
 }
 
+/** Наряд, каким его отдаёт репозиторий смотрящему: состав полей зависит от роли. */
+type OrderOnCard = NonNullable<Awaited<ReturnType<typeof findById>>>;
+
 export default async function AdminOrderPage({ params, searchParams }: PageProps) {
   const session = await requirePage();
   const { id } = await params;
@@ -92,7 +105,15 @@ export default async function AdminOrderPage({ params, searchParams }: PageProps
   const order = await findById(id, viewer);
   if (order === null) notFound();
 
-  const consumption = await loadConsumption(order.id, viewer);
+  /* 🔴 Заготовка держит ленту вкладок и полотно открытой вкладки: без резерва
+     экран, собранный на телефоне по мобильной сети, прыгает под пальцем
+     ровно в тот момент, когда монтажник целится в кнопку (ADR-239). */
+  const skeleton = (
+    <>
+      <RowsSkeleton rows={1} height="44px" />
+      <RowsSkeleton rows={1} height="620px" />
+    </>
+  );
 
   if (session.role !== 'owner') {
     return (
@@ -102,39 +123,21 @@ export default async function AdminOrderPage({ params, searchParams }: PageProps
         </Link>
 
         {/* 🔴 Шапка стоит над вкладками, а не внутри «Наряда»: что за работа и
-            в каком она состоянии, нужно видеть и с вкладки чеклиста. */}
+            в каком она состоянии, нужно видеть и с вкладки чеклиста. Она
+            собрана из самого наряда и приезжает с первым же куском ответа. */}
         <OrderInstallerHead order={order} />
 
-        {/* 🔴 История монтажнику не приходит вовсе — её нет и в разметке, и в
-            ленте вкладок: `history` не передан, и вкладок остаётся четыре.
-
-            Расход монтажнику открыт: он и списывает материал с объекта. Что
-            видно в форме, решает сервер — ему придёт только своя машина. */}
-        <OrderWork
-          order={order}
-          tab={activeTab}
-          forInstaller
-          materials={
-            <OrderConsumption
-              orderId={order.id}
-              initial={consumption}
-              checklist={order.checklist}
-            />
-          }
+        <DataBlock
+          surface="bare"
+          skeleton={skeleton}
+          title={texts.cardLoadFailed}
+          note={blockErrorNote(ORDERS_PATH)}
         >
-          <OrderInstallerView order={order} />
-        </OrderWork>
+          <InstallerCard order={order} tab={activeTab} viewer={viewer} />
+        </DataBlock>
       </div>
     );
   }
-
-  /* Списки нужны только владельцу: монтажник наряд не переназначает. */
-  const [clients, installers, blocks, work] = await Promise.all([
-    listAll(),
-    listInstallers(true),
-    loadBlocks(session, dayKeyOf(new Date(order.at))),
-    loadWork(session, dayKeyOf(new Date(order.at)), order.id),
-  ]);
 
   return (
     <div className={styles.page}>
@@ -148,40 +151,110 @@ export default async function AdminOrderPage({ params, searchParams }: PageProps
         <h1 className={styles.title}>{texts.number(order.number)}</h1>
       </header>
 
-      {/* 🔴 Блок расхода читает склад сам, с клиента: наряд отдаётся страницей,
-          а остаток меняется прямо здесь — после каждого списания он обязан
-          быть новым, не перезагружая карточку целиком. Через границу уезжают
-          только данные: функция сервер→клиент не переживает сериализацию. */}
-      <OrderWork
-        order={order}
-        tab={activeTab}
-        materials={
-          <OrderConsumption orderId={order.id} initial={consumption} checklist={order.checklist} />
-        }
-        history={<OrderHistory entries={order.history ?? []} />}
+      <DataBlock
+        surface="bare"
+        skeleton={skeleton}
+        title={texts.cardLoadFailed}
+        note={blockErrorNote(ORDERS_PATH)}
       >
-        <OrderEditor
-          orderId={order.id}
-          orderNumber={order.number}
-          initial={orderDraftOf(order)}
-          clients={clients.map((client) => ({
-            id: client.id,
-            name: client.name,
-            phone: client.phone,
-          }))}
-          installers={installers.map((staff) => ({
-            id: staff.id,
-            name: staff.name,
-            login: staff.login,
-            employment: staff.employment,
-          }))}
-          blocks={blocks}
-          work={work}
-          title={texts.cardTitle}
-          hint={texts.cardHint}
-          removable
-        />
-      </OrderWork>
+        <OwnerCard order={order} tab={activeTab} session={session} />
+      </DataBlock>
     </div>
+  );
+}
+
+/**
+ * Карточка наряда глазами монтажника — отдельный кусок потока.
+ *
+ * 🔴 История монтажнику не приходит вовсе — её нет и в разметке, и в ленте
+ * вкладок: `history` не передан, и вкладок остаётся четыре.
+ *
+ * Расход монтажнику открыт: он и списывает материал с объекта. Что видно в
+ * форме, решает сервер — ему придёт только своя машина.
+ */
+async function InstallerCard({
+  order,
+  tab,
+  viewer,
+}: {
+  readonly order: OrderOnCard;
+  readonly tab: ReturnType<typeof orderCardTabFromParam>;
+  readonly viewer: Viewer;
+}) {
+  const consumption = await loadConsumption(order.id, viewer);
+
+  return (
+    <OrderWork
+      order={order}
+      tab={tab}
+      forInstaller
+      materials={
+        <OrderConsumption orderId={order.id} initial={consumption} checklist={order.checklist} />
+      }
+    >
+      <OrderInstallerView order={order} />
+    </OrderWork>
+  );
+}
+
+/**
+ * Карточка наряда глазами владельца — отдельный кусок потока.
+ *
+ * 🔴 Блок расхода читает склад сам, с клиента: наряд отдаётся страницей, а
+ * остаток меняется прямо здесь — после каждого списания он обязан быть новым,
+ * не перезагружая карточку целиком. Через границу уезжают только данные:
+ * функция сервер→клиент не переживает сериализацию.
+ */
+async function OwnerCard({
+  order,
+  tab,
+  session,
+}: {
+  readonly order: OrderOnCard;
+  readonly tab: ReturnType<typeof orderCardTabFromParam>;
+  readonly session: AdminSession;
+}) {
+  const day = dayKeyOf(new Date(order.at));
+
+  /* Списки нужны только владельцу: монтажник наряд не переназначает. */
+  const [consumption, clients, installers, blocks, work] = await Promise.all([
+    loadConsumption(order.id, session),
+    listAll(),
+    listInstallers(true),
+    loadBlocks(session, day),
+    loadWork(session, day, order.id),
+  ]);
+
+  return (
+    <OrderWork
+      order={order}
+      tab={tab}
+      materials={
+        <OrderConsumption orderId={order.id} initial={consumption} checklist={order.checklist} />
+      }
+      history={<OrderHistory entries={order.history ?? []} />}
+    >
+      <OrderEditor
+        orderId={order.id}
+        orderNumber={order.number}
+        initial={orderDraftOf(order)}
+        clients={clients.map((client) => ({
+          id: client.id,
+          name: client.name,
+          phone: client.phone,
+        }))}
+        installers={installers.map((staff) => ({
+          id: staff.id,
+          name: staff.name,
+          login: staff.login,
+          employment: staff.employment,
+        }))}
+        blocks={blocks}
+        work={work}
+        title={texts.cardTitle}
+        hint={texts.cardHint}
+        removable
+      />
+    </OrderWork>
   );
 }
