@@ -159,11 +159,18 @@ describe('Вкладки статьи', () => {
     expect(screen.getByText(texts.slugRequired)).toBeInTheDocument();
   });
 
-  it('вкладка «Публикация» показывает переключатель и дату', () => {
+  /* 🔴 Дата — поле кита `DateField`, а не `input[type=date]`: нативный
+     редактор приносит порядок сегментов от локали системы, и на английской
+     машине владелец задал бы месяц вместо дня. */
+  it('вкладка «Публикация» показывает переключатель и дату сегментами', () => {
     render(<ArticleForm values={filledArticle} save={vi.fn()} tab="publish" />);
 
     expect(screen.getByRole('switch', { name: texts.publishSwitch })).toBeInTheDocument();
-    expect(screen.getByLabelText(new RegExp(texts.date))).toBeInTheDocument();
+
+    const date = screen.getByRole('group', { name: texts.date });
+    expect(within(date).getByLabelText('День')).toHaveValue('01');
+    expect(within(date).getByLabelText('Месяц')).toHaveValue('08');
+    expect(within(date).getByLabelText('Год')).toHaveValue('2026');
   });
 });
 

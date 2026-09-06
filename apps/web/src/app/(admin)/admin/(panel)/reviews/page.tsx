@@ -1,12 +1,22 @@
 import type { Metadata } from 'next';
 
 import {
+  EMPTY_REVIEW_FILTER,
+  ReviewFilters,
   ReviewList,
+  ReviewTable,
   ReviewTabs,
   reviewModerationContent as texts,
+  reviewFilterOf,
+  reviewFilterOn,
   reviewStatusOfTab,
   reviewTabFromParam,
+  reviewTabShowsTable,
   reviewsQuery,
+  type ReviewCard,
+  type ReviewFilter,
+  type ReviewSearchParams,
+  type ReviewTab,
 } from '@/features/review-moderation';
 import { requireOwnerPage } from '@/server/guards';
 import { listByStatus } from '@/server/repo/reviews';
@@ -30,22 +40,34 @@ export const dynamic = 'force-dynamic';
  * 🔴 Вкладка разбирается здесь, до чтения данных: раздел идёт в базу за тем
  * статусом, что стоит в адресе, и приходит уже открытым на нём (issue #340).
  * Мусор в параметре открывает первую вкладку, а не роняет раздел (#341).
+ *
+ * 🔴 Карточки остались только на первой вкладке (issue #613): там решают по
+ * тексту целиком. На остальных ищут конкретный отзыв — и там таблица со
+ * своими колонками, а на «Все» ещё и сквозной отбор по статусу и оценке.
  */
 export default async function AdminReviewsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ tab?: string; page?: string }>;
+  searchParams: Promise<ReviewSearchParams>;
 }) {
   /* Раздел владельца: проверка до чтения данных (ADR-095). */
   await requireOwnerPage();
 
-  const { tab, page } = await searchParams;
-  const selected = reviewTabFromParam(tab);
+  const params = await searchParams;
+  const selected = reviewTabFromParam(params.tab);
   const status = reviewStatusOfTab(selected);
+
+  /* 🔴 Отбор действует только на «Все» — на остальных вкладках статус задаёт
+     сама вкладка, и второе условие поверх неё означало бы два фильтра одного
+     поля в одном экране (макет `ContentTabs`, вкладка 4). */
+  const filter: ReviewFilter = selected === 'all' ? reviewFilterOf(params) : EMPTY_REVIEW_FILTER;
 
   const found = await listByStatus({
     ...(status === undefined ? {} : { status }),
-    page: pageNumber(page),
+    ...(filter.query === '' ? {} : { query: filter.query }),
+    ...(filter.status === undefined ? {} : { status: filter.status }),
+    ...(filter.rating === undefined ? {} : { rating: filter.rating }),
+    page: pageNumber(params.page),
   });
 
   /* 🔴 Пустая вкладка и пустой раздел — разные новости с противоположными
@@ -64,18 +86,48 @@ export default async function AdminReviewsPage({
 
       <ReviewTabs active={selected} />
 
-      <ReviewList
-        reviews={found.items}
+      {selected === 'all' ? <ReviewFilters filter={filter} /> : null}
+
+      <ReviewsOfTab
         tab={selected}
+        reviews={found.items}
         filtered={status !== undefined && anyReviews}
+        searched={reviewFilterOn(filter)}
       />
 
       <Pager
         page={found.page}
         pages={found.pages}
         basePath="/admin/reviews"
-        query={reviewsQuery(selected)}
+        query={reviewsQuery(selected, filter)}
+        label={texts.pagerLabel}
+        numbers
       />
     </div>
   );
+}
+
+/**
+ * Карточки или таблица — в зависимости от вкладки.
+ *
+ * Развилка здесь, а не внутри списка: карточка и строка таблицы — разные
+ * представления с разной геометрией, и компонент, умеющий оба, был бы
+ * переключателем на двести строк вместо двух компонентов по сто.
+ */
+function ReviewsOfTab({
+  tab,
+  reviews,
+  filtered,
+  searched,
+}: {
+  readonly tab: ReviewTab;
+  readonly reviews: readonly ReviewCard[];
+  readonly filtered: boolean;
+  readonly searched: boolean;
+}) {
+  if (!reviewTabShowsTable(tab)) {
+    return <ReviewList reviews={reviews} tab={tab} filtered={filtered} />;
+  }
+
+  return <ReviewTable reviews={reviews} tab={tab} filtered={filtered} searched={searched} />;
 }

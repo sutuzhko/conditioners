@@ -3,7 +3,13 @@ import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { describe, expect, it } from 'vitest';
 
-import { DateField, EMPTY_DATE, type DateSegments } from './DateField';
+import {
+  DateField,
+  EMPTY_DATE,
+  dateSegmentsOf,
+  isoOfDateSegments,
+  type DateSegments,
+} from './DateField';
 
 /** Поле управляемое: обёртка держит значение, как это делает форма наряда. */
 function Harness({ initial = EMPTY_DATE }: { initial?: DateSegments }) {
@@ -98,5 +104,35 @@ describe('Поле даты сегментами', () => {
     for (const input of container.querySelectorAll('input')) {
       expect(input).not.toHaveAttribute('tabindex');
     }
+  });
+});
+
+describe('дата поля и дата хранения — одно и то же значение', () => {
+  it('ISO-день разбирается в сегменты в российском порядке', () => {
+    expect(dateSegmentsOf('2026-09-10')).toEqual({ day: '10', month: '09', year: '2026' });
+  });
+
+  /* 🔴 Гадать за владельца, какой день он имел в виду, поле не должно: пустая
+     и неразобранная строка дают пустое поле, а не «сегодня». */
+  it('пустая и битая строка дают пустое поле', () => {
+    expect(dateSegmentsOf('')).toEqual(EMPTY_DATE);
+    expect(dateSegmentsOf('10.09.2026')).toEqual(EMPTY_DATE);
+    expect(dateSegmentsOf('2026-9-1')).toEqual(EMPTY_DATE);
+  });
+
+  it('сегменты собираются обратно в ISO-день', () => {
+    expect(isoOfDateSegments({ day: '1', month: '9', year: '2026' })).toBe('2026-09-01');
+  });
+
+  /* 🔴 «10.09.» — не дата: половина значения на сервер не уходит, потому что
+     пустое поле он уже умеет назвать ошибкой, а `2026-09-` не разберёт. */
+  it('неполная дата даёт пустую строку, а не половину значения', () => {
+    expect(isoOfDateSegments({ day: '10', month: '09', year: '' })).toBe('');
+    expect(isoOfDateSegments({ day: '10', month: '', year: '2026' })).toBe('');
+    expect(isoOfDateSegments({ day: '10', month: '09', year: '20' })).toBe('');
+  });
+
+  it('разбор и сборка возвращают то же значение', () => {
+    expect(isoOfDateSegments(dateSegmentsOf('2026-09-10'))).toBe('2026-09-10');
   });
 });
