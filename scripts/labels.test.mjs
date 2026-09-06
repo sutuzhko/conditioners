@@ -13,6 +13,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
 import { AXES, LABELS, checkAxes, labelsOf, pathMap } from './labels.mjs';
+import { auditIssues } from './labels-audit.mjs';
 import { planSync } from './labels-sync.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -130,5 +131,28 @@ describe('синхронизация', () => {
     expect(plan.remove).toEqual(['ui']);
     expect(plan.create).toEqual([]);
     expect(plan.update).toEqual([]);
+  });
+});
+
+describe('ревизор разметки', () => {
+  const issue = (number, names) => ({
+    number,
+    title: `задача ${number}`,
+    labels: names.map((name) => ({ name })),
+  });
+
+  it('молчит, когда все задачи размечены', () => {
+    expect(auditIssues([issue(1, ['часть/панель', 'тип/дефект'])])).toEqual([]);
+  });
+
+  it('🔴 называет задачу и причину, а не только число', () => {
+    const [broken] = auditIssues([issue(42, ['тип/дефект'])]);
+    expect(broken.number).toBe(42);
+    expect(broken.problems.join()).toContain('часть');
+  });
+
+  it('ловит остатки старой разметки', () => {
+    const [broken] = auditIssues([issue(7, ['часть/сайт', 'тип/дефект', 'ui'])]);
+    expect(broken.problems.join()).toContain('ui');
   });
 });
