@@ -68,6 +68,8 @@ function emptyBlock(day: DayKey): DayBlockDraft {
   return {
     repeat: 'once',
     day,
+    // новая отлучка — на один день: диапазон человек задаёт сам
+    endDay: '',
     weekday: weekdayOf(day),
     allDay: true,
     from: timeOfMinutes(DEFAULT_FROM),

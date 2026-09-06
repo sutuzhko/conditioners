@@ -70,6 +70,9 @@ function blockPayloadOf(draft: DayBlockDraft): Record<string, string | number | 
     repeat: draft.repeat,
     // разовая держит дату, повторяемая — день недели; лишнее поле сервер отклонит
     day: draft.repeat === 'once' ? draft.day : null,
+    /* Пустое поле уходит как «нет конца»: сервер прочтёт это как отлучку на
+       один день. У повторяемой диапазона дат нет вовсе. */
+    endDay: draft.repeat === 'once' && draft.endDay !== '' ? draft.endDay : null,
     weekday: draft.repeat === 'weekly' ? draft.weekday : null,
     fromMin: draft.allDay ? null : minutesOfTime(draft.from),
     toMin: draft.allDay ? null : minutesOfTime(draft.to),
