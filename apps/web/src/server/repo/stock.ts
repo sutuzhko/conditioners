@@ -20,6 +20,8 @@ import type {
   StockZoneKind as DbZoneKind,
 } from '@prisma/client';
 import {
+  isLow,
+  isNearLow,
   zoneOwnerIssue,
   type OrderConsume,
   type OrderConsumption,
@@ -30,6 +32,7 @@ import {
   type StockMovementCard,
   type StockMovementCreate,
   type StockMoveKind,
+  type StockPeriod,
   type StockDirectory,
   type StockOverview,
   type StockUnit,
@@ -38,6 +41,7 @@ import {
   type StockZoneKind,
   type StockZoneUpdate,
 } from '@/entities/stock/model';
+import { momentOf, monthKeyOf, shiftMonth } from '@/shared/lib/calendar';
 import { pageWindow, type Page } from '@/shared/lib/paging';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
@@ -413,12 +417,14 @@ function toItemCard(
 
   const minQty = decimalToNumber(row.minQty);
 
-  return { ...shared, minQty, low: isLow(total, minQty) };
-}
-
-/** Ноль — за позицией не следим: порог задаётся на позицию, а не общим числом. */
-function isLow(total: number, minQty: number): boolean {
-  return minQty > 0 && total < minQty;
+  return {
+    ...shared,
+    minQty,
+    low: isLow(total, minQty),
+    /* Ступень раньше «ниже порога»: остаток, которого хватит на один выезд
+       сверх нормы, попадает в закупку этой недели (issue #606). */
+    near: isNearLow(total, minQty),
+  };
 }
 
 /** Карточка одной позиции с её остатком: заведение, правка и открытие карточки. */
@@ -582,8 +588,26 @@ async function assertZoneEmpty(zoneId: string): Promise<void> {
 
 // ---------- Остатки: страница раздела ----------
 
-/** Позиций на странице остатков — двадцать: это таблица, а не список карточек. */
+/**
+ * Позиций на странице остатков по умолчанию — двадцать: это таблица, а не
+ * список карточек.
+ *
+ * 🔴 Умолчание, а не единственно возможное число (issue #608). Сколько строк
+ * показывать, решает владелец, и его выбор живёт в адресе — как во всей
+ * панели. Ступени задаёт `STOCK_PAGE_SIZES` в разделе; репозиторий принимает
+ * любое разумное число и сам прижимает его к границам, потому что параметр
+ * приходит из адресной строки, а её правят руками.
+ */
 export const STOCK_PAGE_SIZE = 20;
+
+/** Границы размера страницы: адрес правят руками, и «?size=100000» — не отказ. */
+const MIN_PAGE_SIZE = 1;
+const MAX_PAGE_SIZE = 100;
+
+function pageSizeOf(size: number | undefined): number {
+  if (size === undefined || !Number.isFinite(size)) return STOCK_PAGE_SIZE;
+  return Math.min(MAX_PAGE_SIZE, Math.max(MIN_PAGE_SIZE, Math.trunc(size)));
+}
 
 /**
  * Сколько страниц справочника отдаётся форме списания за раз. Потолок
@@ -601,6 +625,8 @@ export type StockOverviewQuery = {
   /** Архив — отдельный вид списка, а не примесь к обычному. */
   readonly archived?: boolean | undefined;
   readonly page?: number | undefined;
+  /** Сколько строк на странице. Пусто — умолчание раздела (issue #608). */
+  readonly size?: number | undefined;
 };
 
 function itemWhere(query: StockOverviewQuery): Prisma.StockItemWhereInput {
@@ -629,31 +655,49 @@ async function groupsOf(): Promise<readonly string[]> {
   return rows.flatMap((row) => (row.group === null ? [] : [row.group]));
 }
 
+/** Позиции у порога: ниже него и подошедшие к нему вплотную. */
+type ThresholdWatch = {
+  readonly low: readonly string[];
+  readonly near: readonly string[];
+};
+
+const NO_WATCH: ThresholdWatch = { low: [], near: [] };
+
 /**
- * Позиции, опустившиеся ниже порога.
+ * Позиции, опустившиеся ниже порога, и подошедшие к нему.
  *
  * Считается по всему справочнику, а не по текущему фильтру: «пора заказывать»
  * — это цифра склада, и она не должна меняться от того, что владелец что-то
  * набрал в поиске.
+ *
+ * Обе цифры считаются одним проходом: остатки для них читаются одни и те же, и
+ * второй запрос за теми же строками стоил бы плитке лишнего похода в базу.
  */
-async function lowItemIds(zoneIds: readonly string[]): Promise<readonly string[]> {
+async function thresholdWatch(zoneIds: readonly string[]): Promise<ThresholdWatch> {
   const watched = await db.stockItem.findMany({
     where: { archived: false, minQty: { gt: 0 } },
     select: { id: true, minQty: true },
   });
-  if (watched.length === 0) return [];
+  if (watched.length === 0) return NO_WATCH;
 
   const balances = await balancesOf(
     watched.map((item) => item.id),
     zoneIds,
   );
 
-  return watched.flatMap((item) => {
+  const low: string[] = [];
+  const near: string[] = [];
+
+  for (const item of watched) {
     const byZone = balances.get(item.id);
     const total = round3([...(byZone?.values() ?? [])].reduce((sum, qty) => sum + qty, 0));
+    const minQty = decimalToNumber(item.minQty);
 
-    return isLow(total, decimalToNumber(item.minQty)) ? [item.id] : [];
-  });
+    if (isLow(total, minQty)) low.push(item.id);
+    else if (isNearLow(total, minQty)) near.push(item.id);
+  }
+
+  return { low, near };
 }
 
 /**
@@ -669,15 +713,21 @@ export async function overview(query: StockOverviewQuery, viewer: Viewer): Promi
   const owner = viewer.role === 'owner';
 
   /* Порога у монтажника нет вовсе — значит, и считать его незачем. */
-  const low = owner ? await lowItemIds(zoneIds) : [];
+  const watch = owner ? await thresholdWatch(zoneIds) : NO_WATCH;
 
   const where: Prisma.StockItemWhereInput = {
     ...itemWhere(query),
-    ...(owner && query.low === true ? { id: { in: [...low] } } : {}),
+    ...(owner && query.low === true ? { id: { in: [...watch.low] } } : {}),
   };
 
-  const total = await db.stockItem.count({ where });
-  const window = pageWindow(total, query.page ?? 1, STOCK_PAGE_SIZE);
+  const size = pageSizeOf(query.size);
+  const [total, itemsTotal] = await Promise.all([
+    db.stockItem.count({ where }),
+    /* Плитка «Позиций в справочнике» считает справочник, а не выборку: она не
+       должна меняться от того, что владелец набрал в поиске (issue #606). */
+    db.stockItem.count({ where: { archived: false } }),
+  ]);
+  const window = pageWindow(total, query.page ?? 1, size);
 
   const rows = await db.stockItem.findMany({
     where,
@@ -699,9 +749,11 @@ export async function overview(query: StockOverviewQuery, viewer: Viewer): Promi
     total,
     page: window.page,
     pages: window.pages,
+    size,
+    itemsTotal,
   };
 
-  return owner ? { ...shared, lowCount: low.length } : shared;
+  return owner ? { ...shared, lowCount: watch.low.length, nearCount: watch.near.length } : shared;
 }
 
 /**
@@ -792,8 +844,71 @@ export type StockMovementQuery = {
   readonly item?: string | undefined;
   /** Вид движения: «покажи только приходы» — обычный вопрос к журналу. */
   readonly kind?: StockMoveKind | undefined;
+  /** Период: всё время, этот месяц, прошлый (issue #610). */
+  readonly period?: StockPeriod | undefined;
+  /** Поиск по позиции, основанию и номеру наряда. */
+  readonly query?: string | undefined;
   readonly page?: number | undefined;
 };
+
+/** Полночь в поясе работ: с неё начинается календарный месяц. */
+const DAY_START = '00:00';
+
+/**
+ * Границы периода считаются календарём в поясе работ, а не `getMonth()`
+ * сервера: контейнер живёт в UTC, и первые три часа месяца по московскому
+ * времени попадали бы в прошлый. Ровно так же это устроено у списка нарядов.
+ */
+function movementPeriodWhere(
+  period: StockPeriod | undefined,
+  now: Date,
+): Prisma.StockMovementWhereInput {
+  if (period === undefined || period === 'all') return {};
+
+  const current = monthKeyOf(now);
+  const month = period === 'month' ? current : shiftMonth(current, -1);
+
+  return {
+    createdAt: {
+      gte: momentOf(`${month}-01`, DAY_START),
+      lt: momentOf(`${shiftMonth(month, 1)}-01`, DAY_START),
+    },
+  };
+}
+
+/** Номер наряда владелец диктует и ищет как «№ 1059» — знак и пробел лишние. */
+const ORDER_NUMBER_QUERY = /^№?\s*(\d{1,9})$/;
+
+/**
+ * Поиск по журналу одной строкой: позиция, основание, номер наряда.
+ *
+ * Номер добавляется в поиск, только когда строка целиком похожа на номер:
+ * иначе «12» в основании «накладная 12/4» приводило бы наряд № 12 в выдачу
+ * рядом с ней, и объяснить это владельцу было бы нечем.
+ */
+function movementSearchWhere(query: string): Prisma.StockMovementWhereInput {
+  const text = query.trim();
+  if (text === '') return {};
+
+  const digits = ORDER_NUMBER_QUERY.exec(text)?.[1];
+  const byNumber =
+    digits === undefined
+      ? []
+      : [
+          {
+            order: { number: Number.parseInt(digits, 10) },
+          } satisfies Prisma.StockMovementWhereInput,
+        ];
+
+  return {
+    OR: [
+      ...byNumber,
+      { item: { name: { contains: text, mode: 'insensitive' } } },
+      { reason: { contains: text, mode: 'insensitive' } },
+      { serials: { contains: text, mode: 'insensitive' } },
+    ],
+  };
+}
 
 /**
  * Журнал движений. Сверху последнее: журнал читают, чтобы понять, что
@@ -804,6 +919,8 @@ export async function movements(query: StockMovementQuery): Promise<Page<StockMo
   const where: Prisma.StockMovementWhereInput = {
     ...(itemId === '' ? {} : { itemId }),
     ...(query.kind === undefined ? {} : { kind: MOVE_KIND_TO_DB[query.kind] }),
+    ...movementPeriodWhere(query.period, new Date()),
+    ...movementSearchWhere(query.query ?? ''),
   };
 
   const total = await db.stockMovement.count({ where });

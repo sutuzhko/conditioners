@@ -1,0 +1,32 @@
+# админка-заказы-действие-монтажника--вработе · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.OrderInstallerActions__bar  358×113 @16,16  b1 0 0 0  fixed
+  a.Button__button  358×56 @0,13  Manrope 600 16/19  r12  b1  lines=1  «Работа выполнена»
+  p.OrderInstallerActions__hint  358×20 @0,77  Manrope 400 13/20  lines=1  «Откроется сдача: фото и итог работ»
+
+[геометрия 768]
+div.OrderInstallerActions__bar  736×113 @16,16  b1 0 0 0  fixed
+  a.Button__button  736×56 @0,13  Manrope 600 16/19  r12  b1  lines=1  «Работа выполнена»
+  p.OrderInstallerActions__hint  736×20 @0,77  Manrope 400 13/20  lines=1  «Откроется сдача: фото и итог работ»
+
+[геометрия 1440]
+div.OrderInstallerActions__bar  1408×113 @16,16  b1 0 0 0  fixed
+  a.Button__button  1408×56 @0,13  Manrope 600 16/19  r12  b1  lines=1  «Работа выполнена»
+  p.OrderInstallerActions__hint  1408×20 @0,77  Manrope 400 13/20  lines=1  «Откроется сдача: фото и итог работ»
+
+[палитра light]
+div.OrderInstallerActions__bar  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a
+  a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  p.OrderInstallerActions__hint  color #556173
+
+[палитра dark]
+div.OrderInstallerActions__bar  bg #121d31  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+  a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  p.OrderInstallerActions__hint  color #8598ac

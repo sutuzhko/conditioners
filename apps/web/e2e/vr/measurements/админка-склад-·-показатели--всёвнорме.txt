@@ -1,0 +1,97 @@
+# админка-склад-·-показатели--всёвнорме · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+
+[геометрия 768]
+div.StatTile__tiles  736×226 @16,16
+  dl.StatTile__tile  362×107 @0,0  r14  b1
+    dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Позиций в справочнике»
+    dd.StatTile__value  328×34 @17,36
+      span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «4»
+  dl.StatTile__tile#2  362×107 @374,0  r14  b1
+    dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Ниже порога»
+    dd.StatTile__value  328×34 @17,36
+      span.StatTile__number#2  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+    dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «Остатков хватает по всем позициям»
+  dl.StatTile__tile#3  362×107 @0,119  r14  b1
+    dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Подходят к порогу»
+    dd.StatTile__value  328×34 @17,36
+      span.StatTile__number#3  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+    dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «Хватит на один выезд сверх порога»
+  dl.StatTile__tile#4  362×107 @374,119  r14  b1
+    dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Зон хранения»
+    dd.StatTile__value  328×34 @17,36
+      span.StatTile__number#4  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «3»
+    dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «Гараж и машины монтажников»
+
+[геометрия 1440]
+div.StatTile__tiles  1408×107 @16,16
+  dl.StatTile__tile  340×107 @0,0  r14  b1
+    dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Позиций в справочнике»
+    dd.StatTile__value  306×34 @17,36
+      span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «4»
+  dl.StatTile__tile#2  340×107 @356,0  r14  b1
+    dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Ниже порога»
+    dd.StatTile__value  306×34 @17,36
+      span.StatTile__number#2  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+    dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «Остатков хватает по всем позициям»
+  dl.StatTile__tile#3  340×107 @712,0  r14  b1
+    dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Подходят к порогу»
+    dd.StatTile__value  306×34 @17,36
+      span.StatTile__number#3  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «0»
+    dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «Хватит на один выезд сверх порога»
+  dl.StatTile__tile#4  340×107 @1068,0  r14  b1
+    dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Зон хранения»
+    dd.StatTile__value  306×34 @17,36
+      span.StatTile__number#4  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «3»
+    dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «Гараж и машины монтажников»
+
+[палитра light]
+div.StatTile__tiles
+  dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #556173
+    dd.StatTile__value
+      span.StatTile__number  color #0f172a
+  dl.StatTile__tile#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #556173
+    dd.StatTile__value
+      span.StatTile__number#2  color #0f172a
+    dd.StatTile__note  color #556173
+  dl.StatTile__tile#3  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #556173
+    dd.StatTile__value
+      span.StatTile__number#3  color #0f172a
+    dd.StatTile__note  color #556173
+  dl.StatTile__tile#4  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #556173
+    dd.StatTile__value
+      span.StatTile__number#4  color #0f172a
+    dd.StatTile__note  color #556173
+
+[палитра dark]
+div.StatTile__tiles
+  dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #8598ac
+    dd.StatTile__value
+      span.StatTile__number  color #eaf1f8
+  dl.StatTile__tile#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #8598ac
+    dd.StatTile__value
+      span.StatTile__number#2  color #eaf1f8
+    dd.StatTile__note  color #8598ac
+  dl.StatTile__tile#3  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #8598ac
+    dd.StatTile__value
+      span.StatTile__number#3  color #eaf1f8
+    dd.StatTile__note  color #8598ac
+  dl.StatTile__tile#4  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    dt.StatTile__label  color #8598ac
+    dd.StatTile__value
+      span.StatTile__number#4  color #eaf1f8
+    dd.StatTile__note  color #8598ac

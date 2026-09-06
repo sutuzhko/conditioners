@@ -2,19 +2,19 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 600, Onest 700
 
 [документ]
-390 → 390×2448
-768 → 768×2147
-1440 → 1440×1943
+390 → 390×2451
+768 → 768×2150
+1440 → 1440×1946
 
 [геометрия 390]
-form.ArticleForm__form  358×2416 @16,16
+form.ArticleForm__form  358×2419 @16,16
   div.ArticleForm__editor  358×797 @0,0
     section.Card__card  358×797 @0,0  r20  b1
       div.FormSection__head  316×24 @21,21
         div.FormSection__titleRow  316×24 @0,0
           h2.FormSection__title  45×21 @0,2  Onest 700 17/21  ls0  lines=1  «Текст»
-          span.ArticleForm__narrowOnly  0×0 @-37,1511
-            span.Badge__badge  72×24 @92,-1511  Manrope 600 12/16  r100  b1  lines=1  «На сайте»
+          span.ArticleForm__narrowOnly  0×0 @-37,1514
+            span.Badge__badge  72×24 @92,-1514  Manrope 600 12/16  r100  b1  lines=1  «На сайте»
       div.ArticleForm__toolbar  316×44 @21,59
         button.Button__button  47×44 @0,0  r9  b1
           span.Button__content  17×16 @15,14
@@ -77,12 +77,12 @@ form.ArticleForm__form  358×2416 @16,16
         span.ArticleForm__canonicalLabel  290×20 @13,11  Manrope 600 13/20  lines=1  «Каноникал»
         output.ArticleForm__canonicalValue  290×40 @13,35  JetBrains Mono 400 13/20  lines=2  «https://example.test/knowledge/invertor-»
         span.ArticleForm__canonicalHint  290×74 @13,79  Manrope 400 12/19  lines=4  «Собирается из адреса сайта и адреса стра»
-  div.ArticleForm__publish  358×589 @0,1753
-    section.Card__card  358×589 @0,0  r20  b1
+  div.ArticleForm__publish  358×592 @0,1753
+    section.Card__card  358×592 @0,0  r20  b1
       div.FormSection__head#3  316×21 @21,21
         div.FormSection__titleRow  316×21 @0,0
           h2.FormSection__title#3  100×21 @0,0  Onest 700 17/21  ls0  lines=1  «Публикация»
-      div.ArticleForm__publishFields  316×513 @21,56
+      div.ArticleForm__publishFields  316×516 @21,56
         div.Switch__root  316×52 @0,0
           div.Switch__row  316×26 @0,0
             label.Switch__track  44×26 @272,0  r100  b1
@@ -90,25 +90,33 @@ form.ArticleForm__form  358×2416 @16,16
             input.Switch__input  1×1 @315,13
             label.Switch__label  161×20 @0,3  Manrope 400 15/20  lines=1  «Опубликовать на сайте»
           p.Field__hint  316×19 @0,33  Manrope 400 13/19  lines=1  «Появится в разделе «База знаний" и в кар»
-        div.Field__field  316×76 @0,66
+        div.Field__field  316×79 @0,66
           label.Field__label#5  316×20 @0,0  Manrope 600 13/20  lines=1  «Дата публикации»
             span.Field__required  9×18 @110,1  Manrope 600 13/20  lines=1  «*»
-          input#4  316×49 @0,27  r11  b1
-        div.Field__field#2  316×76 @0,157
+          div.DateField__shell  316×52 @0,27  r11  b1
+            span.DateField__segmentBox  26×24 @15,14
+              input.DateField__segment  26×24 @0,0
+            span.DateField__segmentBox#2  32×24 @41,14
+              span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+              input.DateField__segment  26×24 @6,0
+            span.DateField__segmentBox#3  50×24 @73,14
+              span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+              input.DateField__segment  45×24 @6,0
+        div.Field__field#2  316×76 @0,160
           label.Field__label#2  316×20 @0,0  Manrope 600 13/20  lines=1  «Время чтения, мин»
             span.Field__required  9×18 @119,1  Manrope 600 13/20  lines=1  «*»
           input  316×49 @0,27  r11  b1
-        div.Field__field#3  316×103 @0,247
+        div.Field__field#3  316×103 @0,250
           label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Рубрика»
             span.Field__required#3  9×18 @53,1  Manrope 600 13/20  lines=1  «*»
           input  316×49 @0,27  r11  b1
           p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «По ней статьи группируются в листинге»
-        div.Field__field#4  316×150 @0,363
+        div.Field__field#4  316×150 @0,366
           label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Анонс»
             span.Field__required#4  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
           textarea.Textarea__textarea  316×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Чем инверторный компрессор отличается от»
           p.Field__hint  316×19 @0,130  Manrope 400 13/19  lines=1  «Показывается в списке статей и в тизере»
-    div.ArticleForm__narrowOnly  0×0 @-16,-221
+    div.ArticleForm__narrowOnly  0×0 @-16,-218
   div.ArticleForm__actions  358×59 @16,825  b1 0 0 0  fixed
     button.Button__button  128×44 @0,13  r11  b1
       span.Button__content#2  90×17 @19,13
@@ -116,14 +124,14 @@ form.ArticleForm__form  358×2416 @16,16
       span.Button__spinner  126×42 @1,1
 
 [геометрия 768]
-form.ArticleForm__form  736×2115 @16,16
+form.ArticleForm__form  736×2118 @16,16
   div.ArticleForm__editor  736×758 @0,0
     section.Card__card  736×758 @0,0  r20  b1
       div.FormSection__head  694×24 @21,21
         div.FormSection__titleRow  694×24 @0,0
           h2.FormSection__title  48×22 @0,1  Onest 700 18/22  ls0  lines=1  «Текст»
-          span.ArticleForm__narrowOnly  0×0 @-37,1210
-            span.Badge__badge  72×24 @95,-1210  Manrope 600 12/16  r100  b1  lines=1  «На сайте»
+          span.ArticleForm__narrowOnly  0×0 @-37,1213
+            span.Badge__badge  72×24 @95,-1213  Manrope 600 12/16  r100  b1  lines=1  «На сайте»
       div.ArticleForm__toolbar  694×44 @21,59
         button.Button__button  47×44 @0,0  r9  b1
           span.Button__content  17×16 @15,14
@@ -186,12 +194,12 @@ form.ArticleForm__form  736×2115 @16,16
         span.ArticleForm__canonicalLabel  668×20 @13,11  Manrope 600 13/20  lines=1  «Каноникал»
         output.ArticleForm__canonicalValue  668×20 @13,35  JetBrains Mono 400 13/20  lines=1  «https://example.test/knowledge/invertor-»
         span.ArticleForm__canonicalHint  668×37 @13,59  Manrope 400 12/19  lines=2  «Собирается из адреса сайта и адреса стра»
-  div.ArticleForm__publish  736×500 @0,1542
-    section.Card__card  736×500 @0,0  r20  b1
+  div.ArticleForm__publish  736×503 @0,1542
+    section.Card__card  736×503 @0,0  r20  b1
       div.FormSection__head#3  694×22 @21,21
         div.FormSection__titleRow  694×22 @0,0
           h2.FormSection__title#3  105×22 @0,0  Onest 700 18/22  ls0  lines=1  «Публикация»
-      div.ArticleForm__publishFields  694×423 @21,57
+      div.ArticleForm__publishFields  694×426 @21,57
         div.Switch__root  694×52 @0,0
           div.Switch__row  694×26 @0,0
             label.Switch__track  44×26 @650,0  r100  b1
@@ -199,25 +207,33 @@ form.ArticleForm__form  736×2115 @16,16
             input.Switch__input  1×1 @693,13
             label.Switch__label  161×20 @0,3  Manrope 400 15/20  lines=1  «Опубликовать на сайте»
           p.Field__hint  694×19 @0,33  Manrope 400 13/19  lines=1  «Появится в разделе «База знаний" и в кар»
-        div.Field__field  221×76 @0,66
+        div.Field__field  221×79 @0,66
           label.Field__label#5  221×20 @0,0  Manrope 600 13/20  lines=1  «Дата публикации»
             span.Field__required  9×18 @110,1  Manrope 600 13/20  lines=1  «*»
-          input#4  221×49 @0,27  r11  b1
+          div.DateField__shell  221×52 @0,27  r11  b1
+            span.DateField__segmentBox  26×24 @15,14
+              input.DateField__segment  26×24 @0,0
+            span.DateField__segmentBox#2  32×24 @41,14
+              span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+              input.DateField__segment  26×24 @6,0
+            span.DateField__segmentBox#3  50×24 @73,14
+              span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+              input.DateField__segment  45×24 @6,0
         div.Field__field#2  221×76 @237,66
           label.Field__label#2  221×20 @0,0  Manrope 600 13/20  lines=1  «Время чтения, мин»
             span.Field__required  9×18 @119,1  Manrope 600 13/20  lines=1  «*»
           input  221×49 @0,27  r11  b1
-        div.Field__field#3  694×103 @0,157
+        div.Field__field#3  694×103 @0,160
           label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Рубрика»
             span.Field__required#3  9×18 @53,1  Manrope 600 13/20  lines=1  «*»
           input  694×49 @0,27  r11  b1
           p.Field__hint  694×19 @0,83  Manrope 400 13/19  lines=1  «По ней статьи группируются в листинге»
-        div.Field__field#4  694×150 @0,273
+        div.Field__field#4  694×150 @0,276
           label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Анонс»
             span.Field__required#4  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
           textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Чем инверторный компрессор отличается от»
           p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Показывается в списке статей и в тизере»
-    div.ArticleForm__narrowOnly  0×0 @-16,-311
+    div.ArticleForm__narrowOnly  0×0 @-16,-308
   div.ArticleForm__actions  736×59 @16,825  b1 0 0 0  fixed
     button.Button__button  128×44 @0,13  r11  b1
       span.Button__content#2  90×17 @19,13
@@ -225,7 +241,7 @@ form.ArticleForm__form  736×2115 @16,16
       span.Button__spinner  126×42 @1,1
 
 [геометрия 1440]
-form.ArticleForm__form  1408×1911 @16,16
+form.ArticleForm__form  1408×1914 @16,16
   div.ArticleForm__editor  1408×752 @0,0
     section.Card__card  1094×752 @0,0  r20  b1
       div.FormSection__head  1052×23 @21,21
@@ -309,12 +325,12 @@ form.ArticleForm__form  1408×1911 @16,16
         span.ArticleForm__canonicalLabel  946×20 @13,11  Manrope 600 13/20  lines=1  «Каноникал»
         output.ArticleForm__canonicalValue  946×20 @13,35  JetBrains Mono 400 13/20  lines=1  «https://example.test/knowledge/invertor-»
         span.ArticleForm__canonicalHint  946×19 @13,59  Manrope 400 12/19  lines=1  «Собирается из адреса сайта и адреса стра»
-  div.ArticleForm__publish  1408×501 @0,1337
-    section.Card__card  720×501 @0,0  r20  b1
+  div.ArticleForm__publish  1408×504 @0,1337
+    section.Card__card  720×504 @0,0  r20  b1
       div.FormSection__head#4  678×23 @21,21
         div.FormSection__titleRow  678×23 @0,0
           h2.FormSection__title#4  111×23 @0,0  Onest 700 19/23  ls0  lines=1  «Публикация»
-      div.ArticleForm__publishFields  678×423 @21,58
+      div.ArticleForm__publishFields  678×426 @21,58
         div.Switch__root  678×52 @0,0
           div.Switch__row  678×26 @0,0
             label.Switch__track  44×26 @634,0  r100  b1
@@ -322,20 +338,28 @@ form.ArticleForm__form  1408×1911 @16,16
             input.Switch__input  1×1 @677,13
             label.Switch__label  161×20 @0,3  Manrope 400 15/20  lines=1  «Опубликовать на сайте»
           p.Field__hint  678×19 @0,33  Manrope 400 13/19  lines=1  «Появится в разделе «База знаний" и в кар»
-        div.Field__field  331×76 @0,66
+        div.Field__field  331×79 @0,66
           label.Field__label#5  331×20 @0,0  Manrope 600 13/20  lines=1  «Дата публикации»
             span.Field__required  9×18 @110,1  Manrope 600 13/20  lines=1  «*»
-          input#4  331×49 @0,27  r11  b1
+          div.DateField__shell  331×52 @0,27  r11  b1
+            span.DateField__segmentBox  26×24 @15,14
+              input.DateField__segment  26×24 @0,0
+            span.DateField__segmentBox#2  32×24 @41,14
+              span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+              input.DateField__segment  26×24 @6,0
+            span.DateField__segmentBox#3  50×24 @73,14
+              span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+              input.DateField__segment  45×24 @6,0
         div.Field__field#2  331×76 @347,66
           label.Field__label#2  331×20 @0,0  Manrope 600 13/20  lines=1  «Время чтения, мин»
             span.Field__required  9×18 @119,1  Manrope 600 13/20  lines=1  «*»
           input  331×49 @0,27  r11  b1
-        div.Field__field#3  678×103 @0,157
+        div.Field__field#3  678×103 @0,160
           label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Рубрика»
             span.Field__required#3  9×18 @53,1  Manrope 600 13/20  lines=1  «*»
           input  678×49 @0,27  r11  b1
           p.Field__hint  678×19 @0,83  Manrope 400 13/19  lines=1  «По ней статьи группируются в листинге»
-        div.Field__field#4  678×150 @0,273
+        div.Field__field#4  678×150 @0,276
           label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Анонс»
             span.Field__required#4  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
           textarea.Textarea__textarea  678×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Чем инверторный компрессор отличается от»
@@ -447,7 +471,15 @@ form.ArticleForm__form
         div.Field__field
           label.Field__label#5  color #334155
             span.Field__required  color #0e7490
-          input#4  bg #f8fafc  border #7e8fa6
+          div.DateField__shell  bg #ffffff  border #7e8fa6
+            span.DateField__segmentBox
+              input.DateField__segment
+            span.DateField__segmentBox#2
+              span.DateField__separator  color #5b6a7d
+              input.DateField__segment
+            span.DateField__segmentBox#3
+              span.DateField__separator  color #5b6a7d
+              input.DateField__segment
         div.Field__field#2
           label.Field__label#2  color #334155
             span.Field__required  color #0e7490
@@ -589,7 +621,15 @@ form.ArticleForm__form
         div.Field__field
           label.Field__label#5  color #c9d5e2
             span.Field__required  color #22d3ee
-          input#4  bg #0e1729  border #566d95
+          div.DateField__shell  bg #0b1424  border #566d95
+            span.DateField__segmentBox
+              input.DateField__segment
+            span.DateField__segmentBox#2
+              span.DateField__separator  color #7e92a7
+              input.DateField__segment
+            span.DateField__segmentBox#3
+              span.DateField__separator  color #7e92a7
+              input.DateField__segment
         div.Field__field#2
           label.Field__label#2  color #c9d5e2
             span.Field__required  color #22d3ee

@@ -1,0 +1,105 @@
+/* Отбор в журнале движений: вид, период, поиск (issue #610).
+
+   Геометрия та же, что у фильтра остатков: два ряда ссылок-чипов и форма
+   поиска под ними. Ряды соседних вкладок одного раздела обязаны совпадать —
+   иначе переключение вкладки читается как переход в другой интерфейс. */
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Ссылка-чип: отбор — это адрес, а не кнопка с состоянием. */
+.chip {
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  padding: 6px 14px;
+  background: var(--card);
+  color: var(--ink2);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.chip:hover {
+  border-color: var(--accent-line);
+  color: var(--accent-text);
+}
+
+.quiet {
+  font-weight: 500;
+}
+
+.active {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.field {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+/* Кнопка встаёт на строку поля, а не под подпись: подпись и подсказка у поля
+   занимают две строки над самим вводом. */
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding-top: 26px;
+}
+
+.reset {
+  /* 🔴 Пол цели, а не оформление (issue #476). Ссылка-действие оформлена
+     блоком, а не стоит в строке текста, — значит по WCAG 2.5.8 она цель, и
+     меряется её рамка: строка кегля давала 22.5px при минимуме 24. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+  text-decoration: none;
+}
+
+.reset:hover {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+@media (width < 600px) {
+  .actions {
+    padding-top: 0;
+  }
+
+  /* Кнопка встаёт в строку поля: на 390 отдельная строка под неё стоит
+     сорока четырёх пикселей до первой записи журнала. */
+  .field {
+    flex: 1 1 160px;
+  }
+}
+
+/* 🔴 Пол цели на сенсорной раскладке (issue #375, ADR-183). До 900px по этим
+   ссылкам целятся пальцем, а строка кегля даёт 34px при норме 44. */
+@media (width < 900px) {
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+}

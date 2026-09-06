@@ -1,0 +1,107 @@
+# админка-заказы-наряд-дня-монтажника--пусто · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.OrderInstallerAgenda__agenda  358×443 @16,16
+  header.OrderInstallerAgenda__head  358×57 @0,0
+    h1.OrderInstallerAgenda__title  358×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Мои заказы»
+    p.OrderInstallerAgenda__summary  358×23 @0,34  Manrope 600 15/23  lines=1  «Сегодня — выездов нет»
+  nav.OrderInstallerAgenda__periods  358×44 @0,73
+    a.Button__button  99×44 @0,0  Manrope 600 15/17  r11  b1  lines=1  «Сегодня»
+    a.Button__button#2  88×44 @107,0  Manrope 600 15/17  r11  b1  lines=1  «Завтра»
+    a.Button__button#3  92×44 @203,0  Manrope 600 15/17  r11  b1  lines=1  «Неделя»
+  section.Card__card  358×310 @0,133  r20  b1
+    div.EmptyState__box  316×268 @21,21
+      span.EmptyState__badge  48×48 @134,28  r100
+        svg  20×20 @14,14
+      h2.EmptyState__title  103×21 @106,88  Onest 700 17/21  ls0  lines=1  «Выездов нет»
+      p.EmptyState__text  284×67 @16,113  Manrope 400 15/22  lines=3  «На этот день на вас ничего не назначено.»
+      div.EmptyState__action  284×44 @16,196
+        a.Button__button  284×44 @0,0  r9  b1
+          span.Button__content  112×16 @86,14
+            span.Button__label  112×16 @0,0  Manrope 600 13/16  lines=1  «Показать неделю»
+
+[геометрия 768]
+div.OrderInstallerAgenda__agenda  720×429 @16,16
+  header.OrderInstallerAgenda__head  720×65 @0,0
+    h1.OrderInstallerAgenda__title  720×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Мои заказы»
+    p.OrderInstallerAgenda__summary  720×23 @0,41  Manrope 600 15/23  lines=1  «Сегодня — выездов нет»
+  nav.OrderInstallerAgenda__periods  720×44 @0,81
+    a.Button__button  99×44 @0,0  Manrope 600 15/17  r11  b1  lines=1  «Сегодня»
+    a.Button__button#2  88×44 @107,0  Manrope 600 15/17  r11  b1  lines=1  «Завтра»
+    a.Button__button#3  92×44 @203,0  Manrope 600 15/17  r11  b1  lines=1  «Неделя»
+  section.Card__card  720×289 @0,141  r20  b1
+    div.EmptyState__box  678×247 @21,21
+      span.EmptyState__badge  48×48 @315,28  r100
+        svg  20×20 @14,14
+      h2.EmptyState__title  109×22 @285,88  Onest 700 18/22  ls0  lines=1  «Выездов нет»
+      p.EmptyState__text  371×45 @153,114  Manrope 400 15/22  lines=2  «На этот день на вас ничего не назначено.»
+      div.EmptyState__action  142×44 @268,175
+        a.Button__button  142×44 @0,0  r9  b1
+          span.Button__content  112×16 @15,14
+            span.Button__label  112×16 @0,0  Manrope 600 13/16  lines=1  «Показать неделю»
+
+[геометрия 1440]
+div.OrderInstallerAgenda__agenda  720×435 @16,16
+  header.OrderInstallerAgenda__head  720×73 @0,0
+    h1.OrderInstallerAgenda__title  720×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Мои заказы»
+    p.OrderInstallerAgenda__summary  720×23 @0,50  Manrope 600 15/23  lines=1  «Сегодня — выездов нет»
+  nav.OrderInstallerAgenda__periods  720×44 @0,89
+    a.Button__button  99×44 @0,0  Manrope 600 15/17  r11  b1  lines=1  «Сегодня»
+    a.Button__button#2  88×44 @107,0  Manrope 600 15/17  r11  b1  lines=1  «Завтра»
+    a.Button__button#3  92×44 @203,0  Manrope 600 15/17  r11  b1  lines=1  «Неделя»
+  section.Card__card  720×286 @0,149  r20  b1
+    div.EmptyState__box  678×244 @21,21
+      span.EmptyState__badge  48×48 @315,28  r100
+        svg  20×20 @14,14
+      h2.EmptyState__title  115×23 @282,88  Onest 700 19/23  ls0  lines=1  «Выездов нет»
+      p.EmptyState__text  371×45 @153,115  Manrope 400 15/22  lines=2  «На этот день на вас ничего не назначено.»
+      div.EmptyState__action  142×40 @268,176
+        a.Button__button  142×40 @0,0  r9  b1
+          span.Button__content  112×16 @15,12
+            span.Button__label  112×16 @0,0  Manrope 600 13/16  lines=1  «Показать неделю»
+
+[палитра light]
+div.OrderInstallerAgenda__agenda
+  header.OrderInstallerAgenda__head
+    h1.OrderInstallerAgenda__title  color #0f172a
+    p.OrderInstallerAgenda__summary  color #475569
+  nav.OrderInstallerAgenda__periods
+    a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    a.Button__button#2  color #0f172a  bg #ffffff  border #7e8fa6
+    a.Button__button#3  color #0f172a  bg #ffffff  border #7e8fa6
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.EmptyState__box
+      span.EmptyState__badge  bg #ecfeff
+        svg
+      h2.EmptyState__title  color #0f172a
+      p.EmptyState__text  color #556173
+      div.EmptyState__action
+        a.Button__button  bg #ffffff  border #7e8fa6
+          span.Button__content
+            span.Button__label  color #0f172a
+
+[палитра dark]
+div.OrderInstallerAgenda__agenda
+  header.OrderInstallerAgenda__head
+    h1.OrderInstallerAgenda__title  color #eaf1f8
+    p.OrderInstallerAgenda__summary  color #a8b6c6
+  nav.OrderInstallerAgenda__periods
+    a.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    a.Button__button#2  color #eaf1f8  bg #121d31  border #566d95
+    a.Button__button#3  color #eaf1f8  bg #121d31  border #566d95
+  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.EmptyState__box
+      span.EmptyState__badge  bg #22d3ee1a
+        svg
+      h2.EmptyState__title  color #eaf1f8
+      p.EmptyState__text  color #8598ac
+      div.EmptyState__action
+        a.Button__button  bg #121d31  border #566d95
+          span.Button__content
+            span.Button__label  color #eaf1f8

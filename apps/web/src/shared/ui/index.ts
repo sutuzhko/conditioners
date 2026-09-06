@@ -38,7 +38,7 @@ export { CopyField } from './CopyField/CopyField';
 export type { CopyFieldProps } from './CopyField/CopyField';
 
 export { Chart } from './Chart/Chart';
-export type { ChartProps, ChartSeries } from './Chart/Chart';
+export type { ChartKind, ChartProps, ChartSeries } from './Chart/Chart';
 
 export { Card } from './Card/Card';
 export type { CardElevation, CardPadding, CardProps, CardRadius, CardVariant } from './Card/Card';
@@ -103,7 +103,7 @@ export type { SwitchProps, SwitchSize } from './Switch/Switch';
 export { NumberInput } from './NumberInput/NumberInput';
 export type { NumberInputProps } from './NumberInput/NumberInput';
 
-export { DateField, EMPTY_DATE } from './DateField/DateField';
+export { DateField, EMPTY_DATE, dateSegmentsOf, isoOfDateSegments } from './DateField/DateField';
 export type { DateFieldProps, DateSegmentKey, DateSegments } from './DateField/DateField';
 
 export { Autocomplete } from './Autocomplete/Autocomplete';

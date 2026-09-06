@@ -1,0 +1,789 @@
+# админка-сводка--отборпримен · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+390 → 390×1318
+768 → 768×1380
+1440 → 1440×1181
+
+[геометрия 390]
+div.AdminSummary__summary  358×1286 @16,16
+  header.AdminSummary__header  358×109 @0,0
+    div.AdminSummary__headText  253×55 @0,0
+      h1.AdminSummary__title  253×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Доброе утро, Сергей»
+      p.AdminSummary__lead  253×22 @0,32  Manrope 400 15/22  lines=1  «Среда, 29 августа · 3 выезда сегодня»
+    a.Button__button  133×44 @0,65  r9  b1
+      span.Button__content  103×16 @15,14
+        svg  16×16 @0,0
+        span.Button__label  79×16 @24,0  Manrope 600 13/16  lines=1  «Новый заказ»
+  div.AdminSummary__bar  358×80 @0,127
+    nav.AdminSummary__segments  358×52 @0,0  r100  b1
+      a.AdminSummary__segment  115×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+      a.AdminSummary__segment#2  115×44 @121,4  Manrope 600 13/20  r100  lines=1  «Работа»
+      a.AdminSummary__segment#3  115×44 @239,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+    p.AdminSummary__period  77×20 @0,60  Manrope 600 13/20  lines=1  «Август 2026»
+  div.StatTile__tiles  358×115 @0,225
+    a.AdminSummary__tileLink  175×115 @0,0  r14
+      dl.StatTile__tile  175×115 @0,0  r14  b1
+        dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «Новые обращения»
+        dd.StatTile__value  149×34 @13,32
+          span.StatTile__number  11×21 @0,6  Onest 700 16/21  ls0  lines=1  «3»
+          span.StatTile__delta  71×24 @78,5  Manrope 600 12/14  r100  b1  lines=1  «1 сутки»
+            span  4×14 @10,5  Manrope 600 12/14  lines=1  «!»
+            span#2  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «требует внимания»
+        dd.StatTile__note  149×16 @13,70  Manrope 400 12/16  lines=1  «ждут ответа →»
+    a.AdminSummary__tileLink#2  175×115 @183,0  r14
+      dl.StatTile__tile  175×115 @0,0  r14  b1
+        dt.StatTile__label#2  149×15 @13,13  Manrope 600 12/15  lines=1  «Активные заказы»
+        dd.StatTile__value#2  149×34 @13,32
+          span.StatTile__number  11×21 @0,6  Onest 700 16/21  ls0  lines=1  «7»
+          span.StatTile__delta  104×24 @45,5  Manrope 600 12/14  r100  b1  lines=1  «2 за неделю»
+            span#3  9×14 @10,5  Manrope 600 12/14  lines=1  «↑»
+            span#4  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «рост»
+        dd.StatTile__note#2  149×32 @13,70  Manrope 400 12/16  lines=2  «назначены и на объекте →»
+  div.AdminSummary__charts  358×0 @0,358
+  section.Card__card  358×776 @0,376  r20  b1
+    div.AdminSummary__cardHead  316×24 @21,21
+      h2.AdminSummary__cardTitle  141×21 @0,2  Onest 700 17/21  ls0  lines=1  «Ближайшие дела»
+      span.Badge__badge  25×24 @149,0  r100  b1
+        span  5×16 @10,4  Manrope 600 12/16  lines=1  «1»
+        span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «1 дело в списке»
+    p.AdminSummary__text  316×45 @21,55  Manrope 400 15/22  lines=2  «Наряды и дела календаря по времени. Прос»
+    div.SummaryFilters__bar  316×260 @21,110
+      div.SummaryFilters__pills  316×148 @0,0
+        details.SummaryFilters__filter  110×44 @0,0
+          summary.SummaryFilters__pill  110×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
+            span.Badge__badge  27×24 @68,10  r100  b1
+              span#3  7×16 @10,4  Manrope 600 12/16  lines=1  «2»
+              span#4  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «2 условия применены»
+          div.SummaryFilters__sheet  0×0 @-37,-502  r14  b1
+            nav.SummaryFilters__group  194×244 @50,565
+              a.SummaryFilters__item  99×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё подряд»
+              a.SummaryFilters__item#2  121×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Только наряды»
+              a.SummaryFilters__item#3  104×44 @0,100  Manrope 600 13/20  r100  b1  lines=1  «Только дела»
+              a.SummaryFilters__item#4  121×44 @0,150  Manrope 600 13/20  r100  b1  lines=1  «Просроченное»
+              a.SummaryFilters__item#5  135×44 @0,200  Manrope 600 13/20  r100  b1  lines=1  «Без исполнителя»
+        details.SummaryFilters__filter#2  107×44 @118,0
+          summary.SummaryFilters__pill  107×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Сортировка»
+          div.SummaryFilters__sheet  0×0 @-155,-502  r14  b1
+            nav.SummaryFilters__group#2  194×44 @168,565
+              a.SummaryFilters__item  101×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «По времени»
+              a.SummaryFilters__item#2  86×44 @107,0  Manrope 600 13/20  r100  b1  lines=1  «По сумме»
+        details.SummaryFilters__filter#3  84×44 @0,52
+          summary.SummaryFilters__pill  84×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Колонки»
+          div.SummaryFilters__sheet  0×0 @-37,-554  r14  b1
+            nav.SummaryFilters__group#3  194×94 @50,617
+              a.SummaryFilters__item  113×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Монтажник»
+                span.SummaryFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+              a.SummaryFilters__item#2  84×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Статус»
+                span.SummaryFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+              a.SummaryFilters__item#3  83×44 @90,50  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
+                span.SummaryFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+        a.SummaryFilters__chip  134×44 @92,52  r100  b1
+          span.SummaryFilters__chipText  95×20 @13,12  Manrope 600 13/20  lines=1  «Просроченное»
+          span.SummaryFilters__chipCross  7×15 @114,15  Manrope 600 15/15  lines=1  «×»
+          span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Снять условие: Просроченное»
+        a.SummaryFilters__chip#2  126×44 @0,104  r100  b1
+          span.SummaryFilters__chipText  87×20 @13,12  Manrope 600 13/20  lines=1  ««Оборонная"»
+          span.SummaryFilters__chipCross  7×15 @106,15  Manrope 600 15/15  lines=1  «×»
+          span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Снять условие: «Оборонная"»
+      form.SummaryFilters__form  316×76 @0,156
+        div.Field__field  316×76 @0,0
+          label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
+          input  316×49 @0,27  r11  b1
+      p.SummaryFilters__total  316×20 @0,240  Manrope 400 13/20  lines=1  «1 дело в списке»
+    div.Table__viewport  316×307 @21,380
+      table.Table__table  316×307 @0,0
+        tr[role=row]  1×56 @0,0
+          th.SummaryTable__whenCol  79×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+          th.SummaryTable__workCol  158×56 @79,0  Onest 700 15/23  b0 0 1 0  lines=1  «Работа и объект»
+          th.SummaryTable__installerCol  122×56 @236,0  Onest 700 15/23  b0 0 1 0  lines=1  «Монтажник»
+          th.SummaryTable__statusCol  88×56 @359,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+          th.SummaryTable__sumCol  86×56 @446,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
+          th.SummaryTable__actionsCol  36×56 @532,0  b0 0 1 0
+            span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr[role=row]#2  316×307 @0,0  r14  b1
+          td.SummaryTable__whenCol  314×56 @1,5
+            td.SummaryTable__whenCol::before  36×20 @0,0
+            time.SummaryTable__when  79×41 @221,8
+              span.SummaryTable__day  79×20 @0,0  JetBrains Mono 700 13/20  lines=1  «чт, 28»
+              span.SummaryTable__clock  79×19 @0,22  JetBrains Mono 400 12/19  lines=1  «14:00 · 1 ч»
+          td.SummaryTable__workCol  314×79 @1,61
+            td.SummaryTable__workCol::before  99×20 @0,0
+            span.SummaryTable__workBox  173×65 @127,7
+              span.SummaryTable__kindRow  173×24 @0,0
+                span.SummaryTable__kind  51×22 @0,1  Manrope 600 15/22  lines=1  «Звонок»
+                span.Badge__badge  51×24 @59,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
+              span.SummaryTable__place  173×37 @0,28  Manrope 400 12/19  lines=2  «Сергей Данилов · Тула, Первомайская 12»
+          td.SummaryTable__installerCol  314×34 @1,140
+            td.SummaryTable__installerCol::before  70×20 @0,0
+            span.SummaryTable__none  102×20 @198,7  Manrope 400 13/20  lines=1  «дело без выезда»
+          td.SummaryTable__statusCol  314×38 @1,174
+            td.SummaryTable__statusCol::before  43×20 @0,0
+            span.Badge__badge  98×24 @202,7  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
+              span.Badge__dot  6×6 @10,9  r100
+          td.SummaryTable__sumCol  314×34 @1,212  Manrope 400 13/20  lines=1  «—»
+            td.SummaryTable__sumCol::before  41×20 @0,0
+          td.SummaryTable__actions  314×51 @1,251  b1 0 0 0
+            div.TableActions__actions  76×36 @224,8
+              span.Tooltip__wrap  36×36 @0,0  r100
+                span.Tooltip__anchor  36×36 @0,0
+                  a.TableActions__action  36×36 @0,0  r100
+                    span.TableActions__iconArea  36×36 @0,0
+                      svg  18×18 @9,9
+              a.SummaryTable__phone  36×36 @40,0  r100
+                svg  18×18 @9,6
+    a.AdminSummary__link  316×44 @21,711  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  358×116 @0,1170  r20  b1
+    h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Готовность к запуску»
+    p.AdminSummary__text  316×45 @21,50  Manrope 400 15/22  lines=2  «Все данные о компании заполнены. Сайт мо»
+
+[геометрия 768]
+div.AdminSummary__summary  736×1348 @16,16
+  header.AdminSummary__header  736×62 @0,0
+    div.AdminSummary__headText  312×62 @0,0
+      h1.AdminSummary__title  312×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Доброе утро, Сергей»
+      p.AdminSummary__lead  312×22 @0,39  Manrope 400 15/22  lines=1  «Среда, 29 августа · 3 выезда сегодня»
+    a.Button__button  133×44 @603,9  r9  b1
+      span.Button__content  103×16 @15,14
+        svg  16×16 @0,0
+        span.Button__label  79×16 @24,0  Manrope 600 13/16  lines=1  «Новый заказ»
+  div.AdminSummary__bar  736×52 @0,80
+    nav.AdminSummary__segments  239×52 @0,0  r100  b1
+      a.AdminSummary__segment  72×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+      a.AdminSummary__segment#2  77×44 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+      a.AdminSummary__segment#3  79×44 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+    p.AdminSummary__period  77×20 @659,16  Manrope 600 13/20  lines=1  «Август 2026»
+  div.StatTile__tiles  736×226 @0,150
+    a.AdminSummary__tileLink  362×107 @0,0  r14
+      dl.StatTile__tile  362×107 @0,0  r14  b1
+        dt.StatTile__label  328×15 @17,17  Manrope 600 12/15  lines=1  «Новые обращения»
+        dd.StatTile__value  328×34 @17,36
+          span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «3»
+          span.StatTile__delta  71×24 @257,5  Manrope 600 12/14  r100  b1  lines=1  «1 сутки»
+            span  4×14 @10,5  Manrope 600 12/14  lines=1  «!»
+            span#2  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «требует внимания»
+        dd.StatTile__note  328×16 @17,74  Manrope 400 12/16  lines=1  «ждут ответа →»
+    a.AdminSummary__tileLink#2  362×107 @374,0  r14
+      dl.StatTile__tile  362×107 @0,0  r14  b1
+        dt.StatTile__label#2  328×15 @17,17  Manrope 600 12/15  lines=1  «Активные заказы»
+        dd.StatTile__value#2  328×34 @17,36
+          span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «7»
+          span.StatTile__delta  104×24 @224,5  Manrope 600 12/14  r100  b1  lines=1  «2 за неделю»
+            span#3  9×14 @10,5  Manrope 600 12/14  lines=1  «↑»
+            span#4  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «рост»
+        dd.StatTile__note#2  328×16 @17,74  Manrope 400 12/16  lines=1  «назначены и на объекте →»
+    a.AdminSummary__tileLink#3  362×107 @0,119  r14
+      dl.StatTile__tile  362×107 @0,0  r14  b1
+        dt.StatTile__label#3  328×15 @17,17  Manrope 600 12/15  lines=1  «Выручка за месяц»
+        dd.StatTile__value#3  328×34 @17,36
+          span.StatTile__number  131×34 @0,0  Onest 700 26/34  ls-1  lines=1  «486 200 ₽»
+          span.StatTile__delta  64×24 @264,5  Manrope 600 12/14  r100  b1  lines=1  «9,3 %»
+            span#5  9×14 @10,5  Manrope 600 12/14  lines=1  «↑»
+            span#6  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «рост»
+        dd.StatTile__note#3  328×16 @17,74  Manrope 400 12/16  lines=1  «по выполненным нарядам →»
+    a.AdminSummary__tileLink#4  362×107 @374,119  r14
+      dl.StatTile__tile  362×107 @0,0  r14  b1
+        dt.StatTile__label#4  328×15 @17,17  Manrope 600 12/15  lines=1  «Выручка минус выплаты»
+        dd.StatTile__value#4  328×34 @17,36
+          span.StatTile__number  131×34 @0,0  Onest 700 26/34  ls-1  lines=1  «354 200 ₽»
+          span.StatTile__delta  61×24 @267,5  Manrope 600 12/14  r100  b1  lines=1  «73 %»
+            span#7  9×14 @10,5  Manrope 600 12/14  lines=1  «=»
+            span#8  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «без изменений»
+        dd.StatTile__note#4  328×16 @17,74  Manrope 400 12/16  lines=1  «до материалов и налогов →»
+  div.AdminSummary__charts  736×331 @0,394
+    section.Card__card  736×331 @0,0  r20  b1
+      div.AdminSummary__chartHead  694×42 @21,21
+        h2.AdminSummary__cardTitle  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Заказы по неделям»
+        p.AdminSummary__chartNote  694×19 @0,24  Manrope 400 12/19  lines=1  «выполненные наряды, 12 недель»
+      figure.Chart__figure  694×239 @21,71
+        svg.Chart__canvas  694×239 @0,0
+  section.Card__card  736×493 @0,743  r20  b1
+    div.AdminSummary__cardHead  694×24 @21,21
+      h2.AdminSummary__cardTitle  148×22 @0,1  Onest 700 18/22  ls0  lines=1  «Ближайшие дела»
+      span.Badge__badge  25×24 @156,0  r100  b1
+        span  5×16 @10,4  Manrope 600 12/16  lines=1  «1»
+        span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «1 дело в списке»
+    p.AdminSummary__text  694×22 @21,55  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
+    div.SummaryFilters__bar  694×156 @21,88
+      div.SummaryFilters__pills  694×44 @0,0
+        details.SummaryFilters__filter  110×44 @0,0
+          summary.SummaryFilters__pill  110×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
+            span.Badge__badge  27×24 @68,10  r100  b1
+              span#3  7×16 @10,4  Manrope 600 12/16  lines=1  «2»
+              span#4  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «2 условия применены»
+          div.SummaryFilters__sheet  0×0 @-37,-847  r14  b1
+            nav.SummaryFilters__group  194×244 @50,910
+              a.SummaryFilters__item  99×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё подряд»
+              a.SummaryFilters__item#2  121×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Только наряды»
+              a.SummaryFilters__item#3  104×44 @0,100  Manrope 600 13/20  r100  b1  lines=1  «Только дела»
+              a.SummaryFilters__item#4  121×44 @0,150  Manrope 600 13/20  r100  b1  lines=1  «Просроченное»
+              a.SummaryFilters__item#5  135×44 @0,200  Manrope 600 13/20  r100  b1  lines=1  «Без исполнителя»
+        details.SummaryFilters__filter#2  107×44 @118,0
+          summary.SummaryFilters__pill  107×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Сортировка»
+          div.SummaryFilters__sheet  0×0 @-155,-847  r14  b1
+            nav.SummaryFilters__group#2  194×44 @168,910
+              a.SummaryFilters__item  101×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «По времени»
+              a.SummaryFilters__item#2  86×44 @107,0  Manrope 600 13/20  r100  b1  lines=1  «По сумме»
+        details.SummaryFilters__filter#3  84×44 @233,0
+          summary.SummaryFilters__pill  84×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Колонки»
+          div.SummaryFilters__sheet  0×0 @-270,-847  r14  b1
+            nav.SummaryFilters__group#3  194×94 @283,910
+              a.SummaryFilters__item  113×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Монтажник»
+                span.SummaryFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+              a.SummaryFilters__item#2  84×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Статус»
+                span.SummaryFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+              a.SummaryFilters__item#3  83×44 @90,50  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
+                span.SummaryFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+        a.SummaryFilters__chip  134×44 @325,0  r100  b1
+          span.SummaryFilters__chipText  95×20 @13,12  Manrope 600 13/20  lines=1  «Просроченное»
+          span.SummaryFilters__chipCross  7×15 @114,15  Manrope 600 15/15  lines=1  «×»
+          span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Снять условие: Просроченное»
+        a.SummaryFilters__chip#2  126×44 @467,0  r100  b1
+          span.SummaryFilters__chipText  87×20 @13,12  Manrope 600 13/20  lines=1  ««Оборонная"»
+          span.SummaryFilters__chipCross  7×15 @106,15  Manrope 600 15/15  lines=1  «×»
+          span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Снять условие: «Оборонная"»
+      form.SummaryFilters__form  694×76 @0,52
+        div.Field__field  694×76 @0,0
+          label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
+          input  694×49 @0,27  r11  b1
+      p.SummaryFilters__total  694×20 @0,136  Manrope 400 13/20  lines=1  «1 дело в списке»
+    div.Table__viewport  694×150 @21,254
+      table.Table__table  720×150 @0,0
+        tr[role=row]  720×56 @0,0
+          th.SummaryTable__whenCol  116×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+          th.SummaryTable__workCol  220×56 @116,0  Onest 700 15/23  b0 0 1 0  lines=1  «Работа и объект»
+          th.SummaryTable__statusCol  140×56 @336,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+          th.SummaryTable__sumCol  118×56 @476,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
+          th.SummaryTable__actionsCol  126×56 @594,0  b0 0 1 0
+            span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr[role=row]#2  720×94 @0,56
+          td.SummaryTable__whenCol  116×94 @0,0
+            time.SummaryTable__when  80×41 @18,15
+              span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «чт, 28»
+              span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «14:00 · 1 ч»
+          td.SummaryTable__workCol  220×94 @116,0
+            span.SummaryTable__workBox  184×65 @18,15
+              span.SummaryTable__kindRow  184×24 @0,0
+                span.SummaryTable__kind  51×22 @0,1  Manrope 600 15/22  lines=1  «Звонок»
+                span.Badge__badge  51×24 @59,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
+              span.SummaryTable__place  184×37 @0,28  Manrope 400 12/19  lines=2  «Сергей Данилов · Тула, Первомайская 12»
+          td.SummaryTable__statusCol  140×94 @336,0
+            span.Badge__badge  98×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
+              span.Badge__dot  6×6 @10,9  r100
+          td.SummaryTable__sumCol  118×94 @476,0  Manrope 400 13/20  lines=1  «—»
+          td.SummaryTable__actions  126×94 @594,0
+            div.TableActions__actions  90×36 @18,15
+              span.Tooltip__wrap  36×36 @14,0  r100
+                span.Tooltip__anchor  36×36 @0,0
+                  a.TableActions__action  36×36 @0,0  r100
+                    span.TableActions__iconArea  36×36 @0,0
+                      svg  18×18 @9,9
+              a.SummaryTable__phone  36×36 @54,0  r100
+                svg  18×18 @9,6
+    a.AdminSummary__link  694×44 @21,428  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  736×94 @0,1254  r20  b1
+    h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Готовность к запуску»
+    p.AdminSummary__text  694×22 @21,51  Manrope 400 15/22  lines=1  «Все данные о компании заполнены. Сайт мо»
+
+[геометрия 1440]
+div.AdminSummary__summary  1408×1149 @16,16
+  header.AdminSummary__header  1408×70 @0,0
+    div.AdminSummary__headText  381×70 @0,0
+      h1.AdminSummary__title  381×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Доброе утро, Сергей»
+      p.AdminSummary__lead  381×22 @0,48  Manrope 400 15/22  lines=1  «Среда, 29 августа · 3 выезда сегодня»
+    a.Button__button  133×40 @1275,15  r9  b1
+      span.Button__content  103×16 @15,12
+        svg  16×16 @0,0
+        span.Button__label  79×16 @24,0  Manrope 600 13/16  lines=1  «Новый заказ»
+  div.AdminSummary__bar  1408×40 @0,88
+    nav.AdminSummary__segments  239×40 @0,0  r100  b1
+      a.AdminSummary__segment  72×32 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+      a.AdminSummary__segment#2  77×32 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+      a.AdminSummary__segment#3  79×32 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+    p.AdminSummary__period  77×20 @1331,10  Manrope 600 13/20  lines=1  «Август 2026»
+  div.StatTile__tiles  1408×107 @0,146
+    a.AdminSummary__tileLink  340×107 @0,0  r14
+      dl.StatTile__tile  340×107 @0,0  r14  b1
+        dt.StatTile__label  306×15 @17,17  Manrope 600 12/15  lines=1  «Новые обращения»
+        dd.StatTile__value  306×34 @17,36
+          span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «3»
+          span.StatTile__delta  71×24 @235,5  Manrope 600 12/14  r100  b1  lines=1  «1 сутки»
+            span  4×14 @10,5  Manrope 600 12/14  lines=1  «!»
+            span#2  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «требует внимания»
+        dd.StatTile__note  306×16 @17,74  Manrope 400 12/16  lines=1  «ждут ответа →»
+    a.AdminSummary__tileLink#2  340×107 @356,0  r14
+      dl.StatTile__tile  340×107 @0,0  r14  b1
+        dt.StatTile__label#2  306×15 @17,17  Manrope 600 12/15  lines=1  «Активные заказы»
+        dd.StatTile__value#2  306×34 @17,36
+          span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «7»
+          span.StatTile__delta  104×24 @202,5  Manrope 600 12/14  r100  b1  lines=1  «2 за неделю»
+            span#3  9×14 @10,5  Manrope 600 12/14  lines=1  «↑»
+            span#4  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «рост»
+        dd.StatTile__note#2  306×16 @17,74  Manrope 400 12/16  lines=1  «назначены и на объекте →»
+    a.AdminSummary__tileLink#3  340×107 @712,0  r14
+      dl.StatTile__tile  340×107 @0,0  r14  b1
+        dt.StatTile__label#3  306×15 @17,17  Manrope 600 12/15  lines=1  «Выручка за месяц»
+        dd.StatTile__value#3  306×34 @17,36
+          span.StatTile__number  131×34 @0,0  Onest 700 26/34  ls-1  lines=1  «486 200 ₽»
+          span.StatTile__delta  64×24 @242,5  Manrope 600 12/14  r100  b1  lines=1  «9,3 %»
+            span#5  9×14 @10,5  Manrope 600 12/14  lines=1  «↑»
+            span#6  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «рост»
+        dd.StatTile__note#3  306×16 @17,74  Manrope 400 12/16  lines=1  «по выполненным нарядам →»
+    a.AdminSummary__tileLink#4  340×107 @1068,0  r14
+      dl.StatTile__tile  340×107 @0,0  r14  b1
+        dt.StatTile__label#4  306×15 @17,17  Manrope 600 12/15  lines=1  «Выручка минус выплаты»
+        dd.StatTile__value#4  306×34 @17,36
+          span.StatTile__number  131×34 @0,0  Onest 700 26/34  ls-1  lines=1  «354 200 ₽»
+          span.StatTile__delta  61×24 @245,5  Manrope 600 12/14  r100  b1  lines=1  «73 %»
+            span#7  9×14 @10,5  Manrope 600 12/14  lines=1  «=»
+            span#8  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «без изменений»
+        dd.StatTile__note#4  306×16 @17,74  Manrope 400 12/16  lines=1  «до материалов и налогов →»
+  div.AdminSummary__charts  1408×345 @0,271
+    section.Card__card  696×318 @0,0  r20  b1
+      div.AdminSummary__chartHead  654×43 @21,21
+        h2.AdminSummary__cardTitle  654×23 @0,0  Onest 700 19/23  ls0  lines=1  «Заказы по неделям»
+        p.AdminSummary__chartNote  654×19 @0,25  Manrope 400 12/19  lines=1  «выполненные наряды, 12 недель»
+      figure.Chart__figure  654×225 @21,72
+        svg.Chart__canvas  654×225 @0,0
+    section.Card__card#2  696×345 @712,0  r20  b1
+      div.AdminSummary__chartHead  654×43 @21,21
+        h2.AdminSummary__cardTitle#2  654×23 @0,0  Onest 700 19/23  ls0  lines=1  «Выручка и выплаты»
+        p.AdminSummary__chartNote#2  654×19 @0,25  Manrope 400 12/19  lines=1  «обе величины в одной шкале, 8 месяцев»
+      figure.Chart__figure  654×251 @21,72
+        figcaption.Chart__legend  654×19 @0,0
+          span.Chart__legendItem  74×19 @0,0  Manrope 600 12/19  lines=1  «Выручка»
+            span.Chart__swatch  18×2 @0,8  b2 0 0 0
+          span.Chart__legendItem#2  160×19 @90,0  Manrope 600 12/19  lines=1  «Выплаты монтажникам»
+            span.Chart__swatch  18×2 @0,8  b2 0 0 0
+        svg.Chart__canvas#2  654×225 @0,27
+  section.Card__card  1408×402 @0,634  r20  b1
+    div.AdminSummary__cardHead  1366×24 @21,21
+      h2.AdminSummary__cardTitle  156×23 @0,1  Onest 700 19/23  ls0  lines=1  «Ближайшие дела»
+      span.Badge__badge  25×24 @164,0  r100  b1
+        span  5×16 @10,4  Manrope 600 12/16  lines=1  «1»
+        span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «1 дело в списке»
+    p.AdminSummary__text  1366×22 @21,55  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
+    div.SummaryFilters__bar  1366×104 @21,88
+      div.SummaryFilters__pills  1140×38 @0,0
+        details.SummaryFilters__filter  110×38 @0,0
+          summary.SummaryFilters__pill  110×38 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
+            span.Badge__badge  27×24 @68,7  r100  b1
+              span#3  7×16 @10,4  Manrope 600 12/16  lines=1  «2»
+              span#4  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «2 условия применены»
+          div.SummaryFilters__sheet  0×0 @-37,-738  r14  b1
+            nav.SummaryFilters__group  194×195 @50,795
+              a.SummaryFilters__item  99×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё подряд»
+              a.SummaryFilters__item#2  121×34 @0,40  Manrope 600 13/20  r100  b1  lines=1  «Только наряды»
+              a.SummaryFilters__item#3  104×34 @0,80  Manrope 600 13/20  r100  b1  lines=1  «Только дела»
+              a.SummaryFilters__item#4  121×34 @0,120  Manrope 600 13/20  r100  b1  lines=1  «Просроченное»
+              a.SummaryFilters__item#5  135×34 @0,161  Manrope 600 13/20  r100  b1  lines=1  «Без исполнителя»
+        details.SummaryFilters__filter#2  107×34 @118,2
+          summary.SummaryFilters__pill  107×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Сортировка»
+          div.SummaryFilters__sheet  0×0 @-155,-740  r14  b1
+            nav.SummaryFilters__group#2  194×34 @168,793
+              a.SummaryFilters__item  101×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «По времени»
+              a.SummaryFilters__item#2  86×34 @107,0  Manrope 600 13/20  r100  b1  lines=1  «По сумме»
+        details.SummaryFilters__filter#3  84×34 @233,2
+          summary.SummaryFilters__pill  84×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Колонки»
+          div.SummaryFilters__sheet  0×0 @-270,-740  r14  b1
+            nav.SummaryFilters__group#3  194×74 @283,793
+              a.SummaryFilters__item  113×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Монтажник»
+                span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
+              a.SummaryFilters__item#2  84×34 @0,40  Manrope 600 13/20  r100  b1  lines=1  «Статус»
+                span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
+              a.SummaryFilters__item#3  83×34 @90,40  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
+                span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
+        a.SummaryFilters__chip  134×34 @325,2  r100  b1
+          span.SummaryFilters__chipText  95×20 @13,7  Manrope 600 13/20  lines=1  «Просроченное»
+          span.SummaryFilters__chipCross  7×15 @114,10  Manrope 600 15/15  lines=1  «×»
+          span  1×1 @12,17  Manrope 600 13/20  lines=1  clipped  «Снять условие: Просроченное»
+        a.SummaryFilters__chip#2  126×34 @467,2  r100  b1
+          span.SummaryFilters__chipText  87×20 @13,7  Manrope 600 13/20  lines=1  ««Оборонная"»
+          span.SummaryFilters__chipCross  7×15 @106,10  Manrope 600 15/15  lines=1  «×»
+          span  1×1 @12,17  Manrope 600 13/20  lines=1  clipped  «Снять условие: «Оборонная"»
+      form.SummaryFilters__form  214×76 @1152,0
+        div.Field__field  214×76 @0,0
+          label.Field__label  214×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
+          input  214×49 @0,27  r11  b1
+      p.SummaryFilters__total  1366×20 @0,84  Manrope 400 13/20  lines=1  «1 дело в списке»
+    div.Table__viewport  1366×131 @21,202
+      table.Table__table  1366×131 @0,0
+        tr[role=row]  1366×56 @0,0
+          th.SummaryTable__whenCol  116×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+          th.SummaryTable__workCol  686×56 @116,0  Onest 700 15/23  b0 0 1 0  lines=1  «Работа и объект»
+          th.SummaryTable__installerCol  180×56 @802,0  Onest 700 15/23  b0 0 1 0  lines=1  «Монтажник»
+          th.SummaryTable__statusCol  140×56 @982,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+          th.SummaryTable__sumCol  118×56 @1122,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
+          th.SummaryTable__actionsCol  126×56 @1240,0  b0 0 1 0
+            span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr[role=row]#2  1366×75 @0,56
+          td.SummaryTable__whenCol  116×75 @0,0
+            time.SummaryTable__when  80×41 @18,15
+              span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «чт, 28»
+              span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «14:00 · 1 ч»
+          td.SummaryTable__workCol  686×75 @116,0
+            span.SummaryTable__workBox  650×47 @18,15
+              span.SummaryTable__kindRow  650×24 @0,0
+                span.SummaryTable__kind  51×22 @0,1  Manrope 600 15/22  lines=1  «Звонок»
+                span.Badge__badge  51×24 @59,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
+              span.SummaryTable__place  650×19 @0,28  Manrope 400 12/19  lines=1  «Сергей Данилов · Тула, Первомайская 12»
+          td.SummaryTable__installerCol  180×75 @802,0
+            span.SummaryTable__none  102×18 @18,17  Manrope 400 13/20  lines=1  «дело без выезда»
+          td.SummaryTable__statusCol  140×75 @982,0
+            span.Badge__badge  98×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
+              span.Badge__dot  6×6 @10,9  r100
+          td.SummaryTable__sumCol  118×75 @1122,0  Manrope 400 13/20  lines=1  «—»
+          td.SummaryTable__actions  126×75 @1240,0
+            div.TableActions__actions  90×36 @18,15
+              span.Tooltip__wrap  36×36 @14,0  r100
+                span.Tooltip__anchor  36×36 @0,0
+                  a.TableActions__action  36×36 @0,0  r100
+                    span.TableActions__iconArea  36×36 @0,0
+                      svg  18×18 @9,9
+              a.SummaryTable__phone  36×36 @54,0  r100
+                svg  18×18 @9,6
+    a.AdminSummary__link  1366×24 @21,357  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  1408×95 @0,1054  r20  b1
+    h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Готовность к запуску»
+    p.AdminSummary__text  1366×22 @21,52  Manrope 400 15/22  lines=1  «Все данные о компании заполнены. Сайт мо»
+
+[палитра light]
+div.AdminSummary__summary
+  header.AdminSummary__header
+    div.AdminSummary__headText
+      h1.AdminSummary__title  color #0f172a
+      p.AdminSummary__lead  color #475569
+    a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        svg
+        span.Button__label  color #ffffff
+  div.AdminSummary__bar
+    nav.AdminSummary__segments  bg #f8fafc  border #e2e8f0
+      a.AdminSummary__segment  color #0f172a  bg #ffffff
+      a.AdminSummary__segment#2  color #556173
+      a.AdminSummary__segment#3  color #556173
+    p.AdminSummary__period  color #556173
+  div.StatTile__tiles
+    a.AdminSummary__tileLink
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label  color #556173
+        dd.StatTile__value
+          span.StatTile__number  color #0f172a
+          span.StatTile__delta  color #be123c  bg #be123c14  border #be123c73
+            span  color #be123c
+            span#2  color #be123c
+        dd.StatTile__note  color #556173
+    a.AdminSummary__tileLink#2
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label#2  color #556173
+        dd.StatTile__value#2
+          span.StatTile__number  color #0f172a
+          span.StatTile__delta  color #166534  bg #15803d14  border #15803d47
+            span#3  color #166534
+            span#4  color #166534
+        dd.StatTile__note#2  color #556173
+    a.AdminSummary__tileLink#3
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label#3  color #556173
+        dd.StatTile__value#3
+          span.StatTile__number  color #0f172a
+          span.StatTile__delta  color #166534  bg #15803d14  border #15803d47
+            span#5  color #166534
+            span#6  color #166534
+        dd.StatTile__note#3  color #556173
+    a.AdminSummary__tileLink#4
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label#4  color #556173
+        dd.StatTile__value#4
+          span.StatTile__number  color #0f172a
+          span.StatTile__delta  color #556173  bg #f8fafc  border #e2e8f0
+            span#7  color #556173
+            span#8  color #556173
+        dd.StatTile__note#4  color #556173
+  div.AdminSummary__charts
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      div.AdminSummary__chartHead
+        h2.AdminSummary__cardTitle  color #0f172a
+        p.AdminSummary__chartNote  color #556173
+      figure.Chart__figure
+        svg.Chart__canvas
+    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      div.AdminSummary__chartHead
+        h2.AdminSummary__cardTitle#2  color #0f172a
+        p.AdminSummary__chartNote#2  color #556173
+      figure.Chart__figure
+        figcaption.Chart__legend
+          span.Chart__legendItem  color #556173
+            span.Chart__swatch  border #0891b2 #556173 #556173 #556173
+          span.Chart__legendItem#2  color #556173
+            span.Chart__swatch  border #b45309 #556173 #556173 #556173
+        svg.Chart__canvas#2
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.AdminSummary__cardHead
+      h2.AdminSummary__cardTitle  color #0f172a
+      span.Badge__badge  bg #f8fafc  border #e2e8f0
+        span  color #556173
+        span#2  color #556173
+    p.AdminSummary__text  color #475569
+    div.SummaryFilters__bar
+      div.SummaryFilters__pills
+        details.SummaryFilters__filter
+          summary.SummaryFilters__pill  color #475569  border #e2e8f0
+            span.Badge__badge  bg #ecfeff  border #a5f3fc
+              span#3  color #0e7490
+              span#4  color #0e7490
+          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0
+            nav.SummaryFilters__group
+              a.SummaryFilters__item  color #475569  bg #f8fafc  border transparent
+              a.SummaryFilters__item#2  color #475569  bg #f8fafc  border transparent
+              a.SummaryFilters__item#3  color #475569  bg #f8fafc  border transparent
+              a.SummaryFilters__item#4  color #0e7490  bg #ecfeff  border #0891b2
+              a.SummaryFilters__item#5  color #475569  bg #f8fafc  border transparent
+        details.SummaryFilters__filter#2
+          summary.SummaryFilters__pill  color #475569  border #e2e8f0
+          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0
+            nav.SummaryFilters__group#2
+              a.SummaryFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+              a.SummaryFilters__item#2  color #475569  bg #f8fafc  border transparent
+        details.SummaryFilters__filter#3
+          summary.SummaryFilters__pill  color #475569  border #e2e8f0
+          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0
+            nav.SummaryFilters__group#3
+              a.SummaryFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+                span.SummaryFilters__mark  color #0e7490
+              a.SummaryFilters__item#2  color #0e7490  bg #ecfeff  border #0891b2
+                span.SummaryFilters__mark  color #0e7490
+              a.SummaryFilters__item#3  color #0e7490  bg #ecfeff  border #0891b2
+                span.SummaryFilters__mark  color #0e7490
+        a.SummaryFilters__chip  bg #ecfeff  border #0891b2
+          span.SummaryFilters__chipText  color #0e7490
+          span.SummaryFilters__chipCross  color #0e7490
+          span  color #0e7490
+        a.SummaryFilters__chip#2  bg #ecfeff  border #0891b2
+          span.SummaryFilters__chipText  color #0e7490
+          span.SummaryFilters__chipCross  color #0e7490
+          span  color #0e7490
+      form.SummaryFilters__form
+        div.Field__field
+          label.Field__label  color #334155
+          input  bg #ffffff  border #7e8fa6
+      p.SummaryFilters__total  color #5b6a7d
+    div.Table__viewport
+      table.Table__table
+        tr[role=row]
+          th.SummaryTable__whenCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th.SummaryTable__workCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th.SummaryTable__installerCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th.SummaryTable__statusCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th.SummaryTable__sumCol  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th.SummaryTable__actionsCol  border #0f172a #0f172a #e2e8f0 #0f172a
+            span  color #0f172a
+        tr[role=row]#2  bg #ffffff  gradient linear-gradient(#be123c14, #be123c14)
+          td.SummaryTable__whenCol
+            time.SummaryTable__when
+              span.SummaryTable__day  color #0f172a
+              span.SummaryTable__clock  color #475569
+          td.SummaryTable__workCol
+            span.SummaryTable__workBox
+              span.SummaryTable__kindRow
+                span.SummaryTable__kind  color #0f172a
+                span.Badge__badge  color #475569  border #e2e8f0
+              span.SummaryTable__place  color #475569
+          td.SummaryTable__installerCol
+            span.SummaryTable__none  color #475569
+          td.SummaryTable__statusCol
+            span.Badge__badge  color #be123c  border #be123c73
+              span.Badge__dot  bg #be123c
+          td.SummaryTable__sumCol  color #475569
+          td.SummaryTable__actions
+            div.TableActions__actions
+              span.Tooltip__wrap
+                span.Tooltip__anchor
+                  a.TableActions__action
+                    span.TableActions__iconArea
+                      svg
+              a.SummaryTable__phone
+                svg
+    a.AdminSummary__link  color #0e7490
+  section.Card__card#2  bg #f8fafc  border #eef2f6
+    h2.AdminSummary__cardTitle  color #0f172a
+    p.AdminSummary__text  color #475569
+[палитра light @390]
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0  gradient linear-gradient(#be123c14, #be123c14)
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.SummaryTable__whenCol > td.SummaryTable__whenCol::before
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.SummaryTable__workCol > td.SummaryTable__workCol::before
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.SummaryTable__installerCol > td.SummaryTable__installerCol::before
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.SummaryTable__statusCol > td.SummaryTable__statusCol::before
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.SummaryTable__sumCol > td.SummaryTable__sumCol::before
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.SummaryTable__actions  border #eef2f6 #334155 #be123c73 #334155
+
+[палитра dark]
+div.AdminSummary__summary
+  header.AdminSummary__header
+    div.AdminSummary__headText
+      h1.AdminSummary__title  color #eaf1f8
+      p.AdminSummary__lead  color #a8b6c6
+    a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      span.Button__content
+        svg
+        span.Button__label  color #ffffff
+  div.AdminSummary__bar
+    nav.AdminSummary__segments  bg #0e1729  border #1e2b41
+      a.AdminSummary__segment  color #eaf1f8  bg #121d31
+      a.AdminSummary__segment#2  color #8598ac
+      a.AdminSummary__segment#3  color #8598ac
+    p.AdminSummary__period  color #8598ac
+  div.StatTile__tiles
+    a.AdminSummary__tileLink
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label  color #8598ac
+        dd.StatTile__value
+          span.StatTile__number  color #eaf1f8
+          span.StatTile__delta  color #fb7185  bg #fb71851f  border #fb718580
+            span  color #fb7185
+            span#2  color #fb7185
+        dd.StatTile__note  color #8598ac
+    a.AdminSummary__tileLink#2
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label#2  color #8598ac
+        dd.StatTile__value#2
+          span.StatTile__number  color #eaf1f8
+          span.StatTile__delta  color #4ade80  bg #4ade801f  border #4ade8052
+            span#3  color #4ade80
+            span#4  color #4ade80
+        dd.StatTile__note#2  color #8598ac
+    a.AdminSummary__tileLink#3
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label#3  color #8598ac
+        dd.StatTile__value#3
+          span.StatTile__number  color #eaf1f8
+          span.StatTile__delta  color #4ade80  bg #4ade801f  border #4ade8052
+            span#5  color #4ade80
+            span#6  color #4ade80
+        dd.StatTile__note#3  color #8598ac
+    a.AdminSummary__tileLink#4
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+        dt.StatTile__label#4  color #8598ac
+        dd.StatTile__value#4
+          span.StatTile__number  color #eaf1f8
+          span.StatTile__delta  color #8598ac  bg #0e1729  border #1e2b41
+            span#7  color #8598ac
+            span#8  color #8598ac
+        dd.StatTile__note#4  color #8598ac
+  div.AdminSummary__charts
+    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      div.AdminSummary__chartHead
+        h2.AdminSummary__cardTitle  color #eaf1f8
+        p.AdminSummary__chartNote  color #8598ac
+      figure.Chart__figure
+        svg.Chart__canvas
+    section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      div.AdminSummary__chartHead
+        h2.AdminSummary__cardTitle#2  color #eaf1f8
+        p.AdminSummary__chartNote#2  color #8598ac
+      figure.Chart__figure
+        figcaption.Chart__legend
+          span.Chart__legendItem  color #8598ac
+            span.Chart__swatch  border #22d3ee #8598ac #8598ac #8598ac
+          span.Chart__legendItem#2  color #8598ac
+            span.Chart__swatch  border #fbbf24 #8598ac #8598ac #8598ac
+        svg.Chart__canvas#2
+  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.AdminSummary__cardHead
+      h2.AdminSummary__cardTitle  color #eaf1f8
+      span.Badge__badge  bg #0e1729  border #1e2b41
+        span  color #8598ac
+        span#2  color #8598ac
+    p.AdminSummary__text  color #a8b6c6
+    div.SummaryFilters__bar
+      div.SummaryFilters__pills
+        details.SummaryFilters__filter
+          summary.SummaryFilters__pill  color #a8b6c6  border #1e2b41
+            span.Badge__badge  bg #22d3ee1a  border #22d3ee59
+              span#3  color #22d3ee
+              span#4  color #22d3ee
+          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0
+            nav.SummaryFilters__group
+              a.SummaryFilters__item  color #475569  bg #f8fafc  border transparent
+              a.SummaryFilters__item#2  color #475569  bg #f8fafc  border transparent
+              a.SummaryFilters__item#3  color #475569  bg #f8fafc  border transparent
+              a.SummaryFilters__item#4  color #0e7490  bg #ecfeff  border #0891b2
+              a.SummaryFilters__item#5  color #475569  bg #f8fafc  border transparent
+        details.SummaryFilters__filter#2
+          summary.SummaryFilters__pill  color #a8b6c6  border #1e2b41
+          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0
+            nav.SummaryFilters__group#2
+              a.SummaryFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+              a.SummaryFilters__item#2  color #475569  bg #f8fafc  border transparent
+        details.SummaryFilters__filter#3
+          summary.SummaryFilters__pill  color #a8b6c6  border #1e2b41
+          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0
+            nav.SummaryFilters__group#3
+              a.SummaryFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+                span.SummaryFilters__mark  color #0e7490
+              a.SummaryFilters__item#2  color #0e7490  bg #ecfeff  border #0891b2
+                span.SummaryFilters__mark  color #0e7490
+              a.SummaryFilters__item#3  color #0e7490  bg #ecfeff  border #0891b2
+                span.SummaryFilters__mark  color #0e7490
+        a.SummaryFilters__chip  bg #22d3ee1a  border #22d3ee
+          span.SummaryFilters__chipText  color #22d3ee
+          span.SummaryFilters__chipCross  color #22d3ee
+          span  color #22d3ee
+        a.SummaryFilters__chip#2  bg #22d3ee1a  border #22d3ee
+          span.SummaryFilters__chipText  color #22d3ee
+          span.SummaryFilters__chipCross  color #22d3ee
+          span  color #22d3ee
+      form.SummaryFilters__form
+        div.Field__field
+          label.Field__label  color #c9d5e2
+          input  bg #0b1424  border #566d95
+      p.SummaryFilters__total  color #7e92a7
+    div.Table__viewport
+      table.Table__table
+        tr[role=row]
+          th.SummaryTable__whenCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th.SummaryTable__workCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th.SummaryTable__installerCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th.SummaryTable__statusCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th.SummaryTable__sumCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th.SummaryTable__actionsCol  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+            span  color #eaf1f8
+        tr[role=row]#2  bg #121d31  gradient linear-gradient(#fb71851f, #fb71851f)
+          td.SummaryTable__whenCol
+            time.SummaryTable__when
+              span.SummaryTable__day  color #eaf1f8
+              span.SummaryTable__clock  color #a8b6c6
+          td.SummaryTable__workCol
+            span.SummaryTable__workBox
+              span.SummaryTable__kindRow
+                span.SummaryTable__kind  color #eaf1f8
+                span.Badge__badge  color #a8b6c6  border #1e2b41
+              span.SummaryTable__place  color #a8b6c6
+          td.SummaryTable__installerCol
+            span.SummaryTable__none  color #a8b6c6
+          td.SummaryTable__statusCol
+            span.Badge__badge  color #fb7185  border #fb718580
+              span.Badge__dot  bg #fb7185
+          td.SummaryTable__sumCol  color #a8b6c6
+          td.SummaryTable__actions
+            div.TableActions__actions
+              span.Tooltip__wrap
+                span.Tooltip__anchor
+                  a.TableActions__action
+                    span.TableActions__iconArea
+                      svg
+              a.SummaryTable__phone
+                svg
+    a.AdminSummary__link  color #22d3ee
+  section.Card__card#2  bg #0e1729  border #182338
+    h2.AdminSummary__cardTitle  color #eaf1f8
+    p.AdminSummary__text  color #a8b6c6
+[палитра dark @390]
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41  gradient linear-gradient(#fb71851f, #fb71851f)
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.SummaryTable__whenCol > td.SummaryTable__whenCol::before
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.SummaryTable__workCol > td.SummaryTable__workCol::before
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.SummaryTable__installerCol > td.SummaryTable__installerCol::before
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.SummaryTable__statusCol > td.SummaryTable__statusCol::before
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.SummaryTable__sumCol > td.SummaryTable__sumCol::before
+div.AdminSummary__summary > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.SummaryTable__actions  border #182338 #c9d5e2 #fb718580 #c9d5e2

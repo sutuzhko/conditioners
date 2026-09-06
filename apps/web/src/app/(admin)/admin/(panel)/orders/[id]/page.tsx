@@ -5,7 +5,9 @@ import { notFound } from 'next/navigation';
 import {
   OrderConsumption,
   OrderHistory,
+  OrderInstallerHead,
   OrderInstallerView,
+  installerContent as own,
   orderCardTabFromParam,
   orderCardTabsFor,
   orderDraftOf,
@@ -96,8 +98,12 @@ export default async function AdminOrderPage({ params, searchParams }: PageProps
     return (
       <div className={styles.page}>
         <Link className={styles.back} href={{ pathname: '/admin/orders' }}>
-          {texts.back}
+          {own.back}
         </Link>
+
+        {/* 🔴 Шапка стоит над вкладками, а не внутри «Наряда»: что за работа и
+            в каком она состоянии, нужно видеть и с вкладки чеклиста. */}
+        <OrderInstallerHead order={order} />
 
         {/* 🔴 История монтажнику не приходит вовсе — её нет и в разметке, и в
             ленте вкладок: `history` не передан, и вкладок остаётся четыре.

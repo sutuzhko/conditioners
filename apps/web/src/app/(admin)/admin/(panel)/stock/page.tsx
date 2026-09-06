@@ -6,17 +6,23 @@ import {
   STOCK_TABS,
   StockFilters,
   StockJournal,
+  StockStats,
   StockTable,
   StockZones,
   lowFromParam,
+  moveKindFromParam,
   pageNumber,
+  pageSizeFromParam,
+  periodFromParam,
   stockManagerContent as texts,
   stockTabFromParam,
   stockTabHref,
+  type StockFilterState,
+  type StockJournalFilterState,
+  type StockOverview,
   type StockTab,
   type StockZonePerson,
 } from '@/features/stock-manager';
-import { isStockMoveKind } from '@/entities/stock/model';
 import { staffTitle } from '@/entities/staff/model';
 import { requireOwnerPage } from '@/server/guards';
 import { list as listStaff } from '@/server/repo/admin-users';
@@ -36,7 +42,9 @@ type StockParams = {
   low?: string;
   archived?: string;
   page?: string;
+  size?: string;
   kind?: string;
+  period?: string;
 };
 
 type PageProps = { searchParams: Promise<StockParams> };
@@ -80,47 +88,73 @@ export default async function AdminStockPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const tab = stockTabFromParam(params.tab);
 
+  /* 🔴 Остатки читает сама страница, а не вкладка: их счёт стоит подстрокой
+     заголовка, а заголовок один на три вкладки. Данные получает серверный
+     компонент и раздаёт вниз пропсами — второй запрос за теми же строками
+     ради одной строки текста ничего бы не ускорил. */
+  const filters: StockFilterState = {
+    query: params.q?.trim() ?? '',
+    group: params.group?.trim() ?? '',
+    /* Сколько строк на странице — выбор владельца, а не константа (issue
+       #608). Мусор в параметре даёт умолчание раздела, а не отказ. */
+    size: pageSizeFromParam(params.size),
+    low: lowFromParam(params.low),
+    archived: lowFromParam(params.archived),
+  };
+
+  const found =
+    tab === 'stock'
+      ? await overview(
+          { ...filters, page: pageNumber(params.page) },
+          { role: session.role, userId: session.userId },
+        )
+      : null;
+
   return (
     <div className={styles.page}>
-      <StockHeader />
-
-      <PanelTabLinks
-        active={tab}
-        tabs={STOCK_TABS}
-        titleOf={texts.tabTitle}
-        label={texts.tabsLabel}
-        hrefOf={(key) => stockTabHref(key)}
+      <StockHeader
+        {...(found === null
+          ? {}
+          : { counts: texts.countsLine(found.itemsTotal, found.lowCount, found.nearCount) })}
       />
+
+      {/* 🔴 Лента вкладок прокручивается вбок, а не складывается столбиком.
+          Три подписи раздела («Остатки по зонам», «Журнал движений», «Зоны
+          хранения») на 320 не встают в строку, и перенос давал вертикальный
+          список из трёх ссылок — он читается как случайные ссылки, а не как
+          переключатель вида (issue #609). */}
+      <div className={styles.tabsStrip}>
+        <PanelTabLinks
+          active={tab}
+          tabs={STOCK_TABS}
+          titleOf={texts.tabTitle}
+          label={texts.tabsLabel}
+          hrefOf={(key) => stockTabHref(key)}
+        />
+      </div>
 
       {tab === 'log' ? <JournalTab params={params} /> : null}
       {tab === 'zones' ? <ZonesTab session={session} /> : null}
-      {tab === 'stock' ? <OverviewTab params={params} session={session} /> : null}
+      {found === null ? null : <OverviewTab found={found} filters={filters} />}
     </div>
   );
 }
 
 /** Остатки по зонам: таблица «позиции × зоны» и фильтры над ней. */
-async function OverviewTab({
-  params,
-  session,
+function OverviewTab({
+  found,
+  filters,
 }: {
-  readonly params: StockParams;
-  readonly session: AdminSession;
+  readonly found: StockOverview;
+  readonly filters: StockFilterState;
 }) {
-  const filters = {
-    query: params.q?.trim() ?? '',
-    group: params.group?.trim() ?? '',
-    low: lowFromParam(params.low),
-    archived: lowFromParam(params.archived),
-  };
-
-  const found = await overview(
-    { ...filters, page: pageNumber(params.page) },
-    { role: session.role, userId: session.userId },
-  );
-
   return (
     <>
+      {/* 🔴 Плитки стоят до фильтра: «надо ли сегодня что-то заказывать» —
+          вопрос, который задают раньше, чем начинают искать (issue #606).
+          Ниже 600px их место занимает строка под заголовком раздела. */}
+      <StockStats overview={found} />
+
       <StockFilters
         filters={filters}
         groups={found.groups}
@@ -142,10 +176,15 @@ async function OverviewTab({
  * этом остаётся в её карточке — это другой вопрос.
  */
 async function JournalTab({ params }: { readonly params: StockParams }) {
-  /* Вид приходит адресом, а адрес правят руками: неизвестное значение — это
+  /* Отбор приходит адресом, а адрес правят руками: неизвестное значение — это
      «покажи всё», а не пустой журнал с необъяснимым фильтром. */
-  const kind = params.kind !== undefined && isStockMoveKind(params.kind) ? params.kind : undefined;
-  const journal = await movements({ page: pageNumber(params.page), kind });
+  const filters: StockJournalFilterState = {
+    kind: moveKindFromParam(params.kind),
+    period: periodFromParam(params.period),
+    query: params.q?.trim() ?? '',
+  };
+
+  const journal = await movements({ ...filters, page: pageNumber(params.page) });
 
   return (
     <>
@@ -158,8 +197,8 @@ async function JournalTab({ params }: { readonly params: StockParams }) {
         baseQuery={{ tab: 'log' satisfies StockTab }}
         withItem
         withFilter
+        filters={filters}
         emptyText={texts.journalAllEmpty}
-        {...(kind === undefined ? {} : { kind })}
       />
     </>
   );

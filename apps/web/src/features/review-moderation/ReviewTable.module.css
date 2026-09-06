@@ -1,0 +1,122 @@
+/* Отзывы таблицей: «Опубликованные», «Отклонённые», «В архиве», «Все». */
+
+.colAuthor {
+  width: 200px;
+}
+
+.colRating {
+  width: 128px;
+}
+
+.colStatus {
+  width: 140px;
+}
+
+.colDate {
+  width: 120px;
+}
+
+/* Дата в ячейке: цифры одной ширины и без переноса — ширину задаёт шапка. */
+.cellDate {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.colReject {
+  width: 260px;
+}
+
+.colActions {
+  width: 210px;
+}
+
+.author {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  overflow: hidden;
+  color: var(--ink);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Оценка под именем: своё место у неё появляется только от 1200px. */
+.narrowOnly {
+  display: flex;
+}
+
+/* 🔴 Три строки с многоточием, а не одна: по одной строке отзыв не узнать, а
+   разворачивать её нечем — таблицу читают, сравнивая строки. Ниже 600px кит
+   раскладывает строки карточками, и там текст показывается целиком. */
+.text {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: var(--body);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.when {
+  color: var(--body);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.reason {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reasonText {
+  color: var(--ink);
+}
+
+.reasonBy,
+.reasonMissing {
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+@media (width >= 1200px) {
+  /* Оценка получила свою колонку — из подписи имени она уходит. */
+  .narrowOnly {
+    display: none;
+  }
+}
+
+@media (width < 1200px) {
+  /* Колонка оценки закрыта: восемь колонок в 696px честно не помещаются
+     (макет `ContentTabs`, 768). */
+  .colRating.colRating {
+    display: none;
+  }
+}
+
+@media (width < 600px) {
+  /* Карточками текст показывается целиком: там на него и смотрят. */
+  .text {
+    display: block;
+    -webkit-line-clamp: none;
+  }
+
+  /* И по левому краю: кит равняет значения ячейки вправо, но абзац в
+     несколько строк с рваным левым краем не читается. */
+  .text,
+  .reason {
+    text-align: left;
+  }
+}

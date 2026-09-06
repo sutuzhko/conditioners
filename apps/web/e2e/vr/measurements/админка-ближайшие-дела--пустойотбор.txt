@@ -1,0 +1,262 @@
+# админка-ближайшие-дела--пустойотбор · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  326×504 @32,32  r14  b1
+  div.SummaryFilters__bar  284×236 @21,21
+    div.SummaryFilters__pills  284×148 @0,0
+      details.SummaryFilters__filter  110×44 @0,0
+        summary.SummaryFilters__pill  110×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
+          span.Badge__badge  27×24 @68,10  r100  b1
+            span  7×16 @10,4  Manrope 600 12/16  lines=1  «2»
+            span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «2 условия применены»
+        div.SummaryFilters__sheet  220×270 @0,50  r14  b1
+          nav.SummaryFilters__group  194×244 @13,13
+            a.SummaryFilters__item  99×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё подряд»
+            a.SummaryFilters__item#2  121×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Только наряды»
+            a.SummaryFilters__item#3  104×44 @0,100  Manrope 600 13/20  r100  b1  lines=1  «Только дела»
+            a.SummaryFilters__item#4  121×44 @0,150  Manrope 600 13/20  r100  b1  lines=1  «Просроченное»
+            a.SummaryFilters__item#5  135×44 @0,200  Manrope 600 13/20  r100  b1  lines=1  «Без исполнителя»
+      details.SummaryFilters__filter#2  107×44 @118,0
+        summary.SummaryFilters__pill  107×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Сортировка»
+        div.SummaryFilters__sheet  220×70 @0,50  r14  b1
+          nav.SummaryFilters__group#2  194×44 @13,13
+            a.SummaryFilters__item  101×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «По времени»
+            a.SummaryFilters__item#2  86×44 @107,0  Manrope 600 13/20  r100  b1  lines=1  «По сумме»
+      details.SummaryFilters__filter#3  84×44 @0,52
+        summary.SummaryFilters__pill  84×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Колонки»
+        div.SummaryFilters__sheet  220×120 @0,50  r14  b1
+          nav.SummaryFilters__group#3  194×94 @13,13
+            a.SummaryFilters__item  113×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Монтажник»
+              span.SummaryFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+            a.SummaryFilters__item#2  84×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Статус»
+              span.SummaryFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+            a.SummaryFilters__item#3  83×44 @90,50  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
+              span.SummaryFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+      a.SummaryFilters__chip  134×44 @92,52  r100  b1
+        span.SummaryFilters__chipText  95×20 @13,12  Manrope 600 13/20  lines=1  «Просроченное»
+        span.SummaryFilters__chipCross  7×15 @114,15  Manrope 600 15/15  lines=1  «×»
+        span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Снять условие: Просроченное»
+      a.SummaryFilters__chip#2  126×44 @0,104  r100  b1
+        span.SummaryFilters__chipText  87×20 @13,12  Manrope 600 13/20  lines=1  ««Оборонная"»
+        span.SummaryFilters__chipCross  7×15 @106,15  Manrope 600 15/15  lines=1  «×»
+        span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Снять условие: «Оборонная"»
+    form.SummaryFilters__form  284×52 @0,156
+      div.Field__field  284×52 @0,0
+        label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
+        input  284×52 @0,0  r999  b1
+    p.SummaryFilters__total  284×20 @0,216  Manrope 400 13/20  lines=1  «0 дел в списке»
+  div.EmptyState__box  284×208 @21,271
+    span.EmptyState__badge  48×48 @118,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  157×21 @63,88  Onest 700 17/21  ls0  lines=1  «Ничего не нашлось»
+    p.EmptyState__text  252×67 @16,113  Manrope 400 15/22  lines=3  «По этому отбору дел нет. Снимите условие»
+
+[геометрия 768]
+section.Card__card  704×379 @32,32  r14  b1
+  div.SummaryFilters__bar  662×132 @21,21
+    div.SummaryFilters__pills  662×44 @0,0
+      details.SummaryFilters__filter  110×44 @0,0
+        summary.SummaryFilters__pill  110×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
+          span.Badge__badge  27×24 @68,10  r100  b1
+            span  7×16 @10,4  Manrope 600 12/16  lines=1  «2»
+            span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «2 условия применены»
+        div.SummaryFilters__sheet  220×270 @0,50  r14  b1
+          nav.SummaryFilters__group  194×244 @13,13
+            a.SummaryFilters__item  99×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё подряд»
+            a.SummaryFilters__item#2  121×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Только наряды»
+            a.SummaryFilters__item#3  104×44 @0,100  Manrope 600 13/20  r100  b1  lines=1  «Только дела»
+            a.SummaryFilters__item#4  121×44 @0,150  Manrope 600 13/20  r100  b1  lines=1  «Просроченное»
+            a.SummaryFilters__item#5  135×44 @0,200  Manrope 600 13/20  r100  b1  lines=1  «Без исполнителя»
+      details.SummaryFilters__filter#2  107×44 @118,0
+        summary.SummaryFilters__pill  107×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Сортировка»
+        div.SummaryFilters__sheet  220×70 @0,50  r14  b1
+          nav.SummaryFilters__group#2  194×44 @13,13
+            a.SummaryFilters__item  101×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «По времени»
+            a.SummaryFilters__item#2  86×44 @107,0  Manrope 600 13/20  r100  b1  lines=1  «По сумме»
+      details.SummaryFilters__filter#3  84×44 @233,0
+        summary.SummaryFilters__pill  84×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Колонки»
+        div.SummaryFilters__sheet  220×120 @0,50  r14  b1
+          nav.SummaryFilters__group#3  194×94 @13,13
+            a.SummaryFilters__item  113×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Монтажник»
+              span.SummaryFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+            a.SummaryFilters__item#2  84×44 @0,50  Manrope 600 13/20  r100  b1  lines=1  «Статус»
+              span.SummaryFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+            a.SummaryFilters__item#3  83×44 @90,50  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
+              span.SummaryFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
+      a.SummaryFilters__chip  134×44 @325,0  r100  b1
+        span.SummaryFilters__chipText  95×20 @13,12  Manrope 600 13/20  lines=1  «Просроченное»
+        span.SummaryFilters__chipCross  7×15 @114,15  Manrope 600 15/15  lines=1  «×»
+        span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Снять условие: Просроченное»
+      a.SummaryFilters__chip#2  126×44 @467,0  r100  b1
+        span.SummaryFilters__chipText  87×20 @13,12  Manrope 600 13/20  lines=1  ««Оборонная"»
+        span.SummaryFilters__chipCross  7×15 @106,15  Manrope 600 15/15  lines=1  «×»
+        span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Снять условие: «Оборонная"»
+    form.SummaryFilters__form  662×52 @0,52
+      div.Field__field  662×52 @0,0
+        label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
+        input  662×52 @0,0  r999  b1
+    p.SummaryFilters__total  662×20 @0,112  Manrope 400 13/20  lines=1  «0 дел в списке»
+  div.EmptyState__box  662×187 @21,167
+    span.EmptyState__badge  48×48 @307,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  165×22 @248,88  Onest 700 18/22  ls0  lines=1  «Ничего не нашлось»
+    p.EmptyState__text  371×45 @145,114  Manrope 400 15/22  lines=2  «По этому отбору дел нет. Снимите условие»
+
+[геометрия 1440]
+section.Card__card  1376×324 @32,32  r14  b1
+  div.SummaryFilters__bar  1334×76 @21,21
+    div.SummaryFilters__pills  1120×38 @0,0
+      details.SummaryFilters__filter  110×38 @0,0
+        summary.SummaryFilters__pill  110×38 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
+          span.Badge__badge  27×24 @68,7  r100  b1
+            span  7×16 @10,4  Manrope 600 12/16  lines=1  «2»
+            span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «2 условия применены»
+        div.SummaryFilters__sheet  220×221 @0,44  r14  b1
+          nav.SummaryFilters__group  194×195 @13,13
+            a.SummaryFilters__item  99×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Всё подряд»
+            a.SummaryFilters__item#2  121×34 @0,40  Manrope 600 13/20  r100  b1  lines=1  «Только наряды»
+            a.SummaryFilters__item#3  104×34 @0,80  Manrope 600 13/20  r100  b1  lines=1  «Только дела»
+            a.SummaryFilters__item#4  121×34 @0,120  Manrope 600 13/20  r100  b1  lines=1  «Просроченное»
+            a.SummaryFilters__item#5  135×34 @0,161  Manrope 600 13/20  r100  b1  lines=1  «Без исполнителя»
+      details.SummaryFilters__filter#2  107×34 @118,2
+        summary.SummaryFilters__pill  107×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Сортировка»
+        div.SummaryFilters__sheet  220×60 @0,40  r14  b1
+          nav.SummaryFilters__group#2  194×34 @13,13
+            a.SummaryFilters__item  101×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «По времени»
+            a.SummaryFilters__item#2  86×34 @107,0  Manrope 600 13/20  r100  b1  lines=1  «По сумме»
+      details.SummaryFilters__filter#3  84×34 @233,2
+        summary.SummaryFilters__pill  84×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Колонки»
+        div.SummaryFilters__sheet  220×100 @0,40  r14  b1
+          nav.SummaryFilters__group#3  194×74 @13,13
+            a.SummaryFilters__item  113×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Монтажник»
+              span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
+            a.SummaryFilters__item#2  84×34 @0,40  Manrope 600 13/20  r100  b1  lines=1  «Статус»
+              span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
+            a.SummaryFilters__item#3  83×34 @90,40  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
+              span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
+      a.SummaryFilters__chip  134×34 @325,2  r100  b1
+        span.SummaryFilters__chipText  95×20 @13,7  Manrope 600 13/20  lines=1  «Просроченное»
+        span.SummaryFilters__chipCross  7×15 @114,10  Manrope 600 15/15  lines=1  «×»
+        span  1×1 @12,17  Manrope 600 13/20  lines=1  clipped  «Снять условие: Просроченное»
+      a.SummaryFilters__chip#2  126×34 @467,2  r100  b1
+        span.SummaryFilters__chipText  87×20 @13,7  Manrope 600 13/20  lines=1  ««Оборонная"»
+        span.SummaryFilters__chipCross  7×15 @106,10  Manrope 600 15/15  lines=1  «×»
+        span  1×1 @12,17  Manrope 600 13/20  lines=1  clipped  «Снять условие: «Оборонная"»
+    form.SummaryFilters__form  202×48 @1132,0
+      div.Field__field  202×48 @0,0
+        label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
+        input  202×48 @0,0  r999  b1
+    p.SummaryFilters__total  1334×20 @0,56  Manrope 400 13/20  lines=1  «0 дел в списке»
+  div.EmptyState__box  1334×188 @21,111
+    span.EmptyState__badge  48×48 @643,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  174×23 @580,88  Onest 700 19/23  ls0  lines=1  «Ничего не нашлось»
+    p.EmptyState__text  371×45 @481,115  Manrope 400 15/22  lines=2  «По этому отбору дел нет. Снимите условие»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
+  div.SummaryFilters__bar
+    div.SummaryFilters__pills
+      details.SummaryFilters__filter
+        summary.SummaryFilters__pill  color #475569  border #e2e8f0
+          span.Badge__badge  bg #ecfeff  border #a5f3fc
+            span  color #0e7490
+            span#2  color #0e7490
+        div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
+          nav.SummaryFilters__group
+            a.SummaryFilters__item  color #475569  bg #f8fafc  border transparent
+            a.SummaryFilters__item#2  color #475569  bg #f8fafc  border transparent
+            a.SummaryFilters__item#3  color #475569  bg #f8fafc  border transparent
+            a.SummaryFilters__item#4  color #0e7490  bg #ecfeff  border #0891b2
+            a.SummaryFilters__item#5  color #475569  bg #f8fafc  border transparent
+      details.SummaryFilters__filter#2
+        summary.SummaryFilters__pill  color #475569  border #e2e8f0
+        div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
+          nav.SummaryFilters__group#2
+            a.SummaryFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+            a.SummaryFilters__item#2  color #475569  bg #f8fafc  border transparent
+      details.SummaryFilters__filter#3
+        summary.SummaryFilters__pill  color #475569  border #e2e8f0
+        div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
+          nav.SummaryFilters__group#3
+            a.SummaryFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+              span.SummaryFilters__mark  color #0e7490
+            a.SummaryFilters__item#2  color #0e7490  bg #ecfeff  border #0891b2
+              span.SummaryFilters__mark  color #0e7490
+            a.SummaryFilters__item#3  color #0e7490  bg #ecfeff  border #0891b2
+              span.SummaryFilters__mark  color #0e7490
+      a.SummaryFilters__chip  bg #ecfeff  border #0891b2
+        span.SummaryFilters__chipText  color #0e7490
+        span.SummaryFilters__chipCross  color #0e7490
+        span  color #0e7490
+      a.SummaryFilters__chip#2  bg #ecfeff  border #0891b2
+        span.SummaryFilters__chipText  color #0e7490
+        span.SummaryFilters__chipCross  color #0e7490
+        span  color #0e7490
+    form.SummaryFilters__form
+      div.Field__field
+        label.Field__label  color #556173
+        input  bg #f8fafc  border #7e8fa6
+    p.SummaryFilters__total  color #5b6a7d
+  div.EmptyState__box
+    span.EmptyState__badge  bg #ecfeff
+      svg
+    h2.EmptyState__title  color #0f172a
+    p.EmptyState__text  color #556173
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
+  div.SummaryFilters__bar
+    div.SummaryFilters__pills
+      details.SummaryFilters__filter
+        summary.SummaryFilters__pill  color #a8b6c6  border #1e2b41
+          span.Badge__badge  bg #22d3ee1a  border #22d3ee59
+            span  color #22d3ee
+            span#2  color #22d3ee
+        div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
+          nav.SummaryFilters__group
+            a.SummaryFilters__item  color #475569  bg #f8fafc  border transparent
+            a.SummaryFilters__item#2  color #475569  bg #f8fafc  border transparent
+            a.SummaryFilters__item#3  color #475569  bg #f8fafc  border transparent
+            a.SummaryFilters__item#4  color #0e7490  bg #ecfeff  border #0891b2
+            a.SummaryFilters__item#5  color #475569  bg #f8fafc  border transparent
+      details.SummaryFilters__filter#2
+        summary.SummaryFilters__pill  color #a8b6c6  border #1e2b41
+        div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
+          nav.SummaryFilters__group#2
+            a.SummaryFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+            a.SummaryFilters__item#2  color #475569  bg #f8fafc  border transparent
+      details.SummaryFilters__filter#3
+        summary.SummaryFilters__pill  color #a8b6c6  border #1e2b41
+        div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
+          nav.SummaryFilters__group#3
+            a.SummaryFilters__item  color #0e7490  bg #ecfeff  border #0891b2
+              span.SummaryFilters__mark  color #0e7490
+            a.SummaryFilters__item#2  color #0e7490  bg #ecfeff  border #0891b2
+              span.SummaryFilters__mark  color #0e7490
+            a.SummaryFilters__item#3  color #0e7490  bg #ecfeff  border #0891b2
+              span.SummaryFilters__mark  color #0e7490
+      a.SummaryFilters__chip  bg #22d3ee1a  border #22d3ee
+        span.SummaryFilters__chipText  color #22d3ee
+        span.SummaryFilters__chipCross  color #22d3ee
+        span  color #22d3ee
+      a.SummaryFilters__chip#2  bg #22d3ee1a  border #22d3ee
+        span.SummaryFilters__chipText  color #22d3ee
+        span.SummaryFilters__chipCross  color #22d3ee
+        span  color #22d3ee
+    form.SummaryFilters__form
+      div.Field__field
+        label.Field__label  color #8598ac
+        input  bg #0e1729  border #566d95
+    p.SummaryFilters__total  color #7e92a7
+  div.EmptyState__box
+    span.EmptyState__badge  bg #22d3ee1a
+      svg
+    h2.EmptyState__title  color #eaf1f8
+    p.EmptyState__text  color #8598ac

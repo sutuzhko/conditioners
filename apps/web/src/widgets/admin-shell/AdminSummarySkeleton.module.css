@@ -52,3 +52,50 @@
     min-height: 115.4px;
   }
 }
+
+/* Главное действие шапки: кнопка малого размера с значком и подписью
+   «Новый заказ» — 32px высотой от 900px, ниже растёт до тап-зоны (ADR-183). */
+.action {
+  width: 148px;
+  height: var(--h-sm);
+  border-radius: var(--r-md);
+}
+
+/* Холст графика. Высота следует из `viewBox` 640×220: при ширине карточки
+   доля постоянна, и место под график известно до отрисовки — вёрстка не
+   прыгает, когда данные приезжают. */
+.chart {
+  aspect-ratio: 640 / 220;
+  width: 100%;
+  border-radius: var(--r-sm);
+}
+
+/* Ряд над таблицей: три пилюли слева, поле поиска справа. */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.pill {
+  width: 104px;
+  height: var(--h-sm);
+  border-radius: var(--r-pill);
+}
+
+.search {
+  flex: 1 1 260px;
+  min-width: 0;
+  height: var(--h-md);
+  border-radius: var(--r-md);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
