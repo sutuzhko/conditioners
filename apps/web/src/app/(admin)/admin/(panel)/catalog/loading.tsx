@@ -3,18 +3,22 @@ import Link from 'next/link';
 import { CATALOG_NEW_PATH, CATALOG_SPECS_PATH } from '@/features/product-form';
 import { Skeleton, buttonClassName } from '@/shared/ui';
 import { LineSkeleton } from '@/widgets/admin-shell';
-import { adminCatalogContent as texts } from '@/widgets/admin-catalog';
+import { CatalogSearch, adminCatalogContent as texts } from '@/widgets/admin-catalog';
 
 import styles from './page.module.css';
 
 /**
- * Каталог: шапка с действиями настоящая, таблица моделей — заготовкой
+ * Каталог: шапка с действиями и отбор настоящие, таблица моделей — заготовкой
  * (issue #334). Высота таблицы зависит от числа моделей; заготовка держит
  * верх и первый экран.
  *
+ * 🔴 Форма отбора рисуется как есть, а не серой полосой: она от данных не
+ * зависит, а на узком экране переносится в два ряда — никакая полоса этого не
+ * повторит (ADR-239).
+ *
  * 🔴 Строка счётчиков зависит от данных, поэтому вместо неё стоит заготовка
  * в строчном боксе того же кегля (ADR-239): полоса другой высоты сдвинула бы
- * таблицу ещё до прихода данных.
+ * отбор и таблицу ещё до прихода данных.
  */
 export default function CatalogLoading() {
   return (
@@ -40,6 +44,8 @@ export default function CatalogLoading() {
           </Link>
         </div>
       </header>
+
+      <CatalogSearch filter={{ query: '', visibility: undefined }} />
 
       <Skeleton variant="block" className={styles.tableSkeleton} />
     </div>

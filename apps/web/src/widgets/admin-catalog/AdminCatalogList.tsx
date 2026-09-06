@@ -4,6 +4,7 @@ import { ProductRowRemove, VisibilitySwitch } from '@/features/product-form';
 import { formatMoney } from '@/shared/lib/format';
 import {
   Badge,
+  ButtonLink,
   Card,
   EmptyState,
   Icon,
@@ -14,6 +15,7 @@ import {
 } from '@/shared/ui';
 
 import { adminCatalogContent as texts } from './content';
+import { CATALOG_PATH } from './model';
 import styles from './AdminCatalogList.module.css';
 
 /**
@@ -53,6 +55,13 @@ export type CatalogRow = {
 export interface AdminCatalogListProps {
   /** Все модели, включая скрытые: в админке скрытая модель — не отсутствующая. */
   readonly products: readonly CatalogRow[];
+  /**
+   * Список пуст из-за отбора, а не потому, что каталог пуст.
+   *
+   * Два пустых состояния с противоположными шагами: в одном надо завести
+   * модель, в другом — снять условие (issue #335).
+   */
+  readonly filtered?: boolean | undefined;
 }
 
 /**
@@ -65,13 +74,27 @@ export interface AdminCatalogListProps {
  * подпись модели и своих колонок не занимают; ниже 600px кит раскладывает
  * строки карточками.
  */
-export function AdminCatalogList({ products }: AdminCatalogListProps) {
+export function AdminCatalogList({ products, filtered = false }: AdminCatalogListProps) {
   if (products.length === 0) {
     return (
       <Card as="section">
-        <EmptyState icon="conditioner" title={texts.emptyTitle}>
-          {texts.emptyText}
-        </EmptyState>
+        {filtered ? (
+          <EmptyState
+            icon="search"
+            title={texts.emptyFilteredTitle}
+            action={
+              <ButtonLink href={{ pathname: CATALOG_PATH }} size="sm" variant="bordered">
+                {texts.emptyFilteredAction}
+              </ButtonLink>
+            }
+          >
+            {texts.emptyFilteredText}
+          </EmptyState>
+        ) : (
+          <EmptyState icon="conditioner" title={texts.emptyTitle}>
+            {texts.emptyText}
+          </EmptyState>
+        )}
       </Card>
     );
   }
@@ -216,6 +239,9 @@ export function AdminCatalogList({ products }: AdminCatalogListProps) {
                       href={{ pathname: `/catalog/${product.slug}` }}
                     />
                   ) : (
+                    /* 🔴 У скрытой модели страницы на сайте нет — она отдаёт
+                       404 (ADR-109, issue #615). Действие не исчезает из ряда,
+                       а стоит отключённым и называет причину. */
                     <TableAction
                       tone="open"
                       label={texts.viewHiddenLabel(product.name)}
