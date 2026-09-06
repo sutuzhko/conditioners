@@ -7,11 +7,91 @@
 1440 → 1440×900
 
 [геометрия 390]
+div.Modal__overlay  390×900 @0,0  fixed  portal
+  div.Modal__window  390×232 @0,668  r14 14 0 0  b1
+    div.Modal__head  388×82 @1,1  b0 0 1 0
+      h2.Modal__title  254×25 @16,16  Onest 700 21/25  ls0  lines=1  «Отменить наряд № 1059?»
+      p.Modal__description  254×20 @16,45  Manrope 400 13/20  lines=1  «Монтажник получит уведомление»
+      button.IconButton__iconButton  40×40 @332,16  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  388×79 @1,83
+      p  356×47 @16,16  Manrope 400 15/23  lines=2  «Наряд уйдёт в отказ, а время в календаре»
+    div.Modal__footer  388×69 @1,162  b1 0 0 0
+      button.Button__button  103×44 @111,13  r999  b1
+        span.Button__content  65×17 @19,14
+          span.Button__label  65×17 @0,0  Manrope 600 14/17  lines=1  «Оставить»
+      button.Button__button#2  151×44 @221,13  r999  b1
+        span.Button__content  113×17 @19,14
+          span.Button__label#2  113×17 @0,0  Manrope 600 14/17  lines=1  «Отменить наряд»
 
 [геометрия 768]
+div.Modal__overlay  768×900 @0,0  fixed  portal
+  div.Modal__window  560×232 @104,334  r14  b1
+    div.Modal__head  558×82 @1,1  b0 0 1 0
+      h2.Modal__title  254×25 @16,16  Onest 700 21/25  ls0  lines=1  «Отменить наряд № 1059?»
+      p.Modal__description  254×20 @16,45  Manrope 400 13/20  lines=1  «Монтажник получит уведомление»
+      button.IconButton__iconButton  40×40 @502,16  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  558×79 @1,83
+      p  526×47 @16,16  Manrope 400 15/23  lines=2  «Наряд уйдёт в отказ, а время в календаре»
+    div.Modal__footer  558×69 @1,162  b1 0 0 0
+      button.Button__button  103×44 @281,13  r999  b1
+        span.Button__content  65×17 @19,14
+          span.Button__label  65×17 @0,0  Manrope 600 14/17  lines=1  «Оставить»
+      button.Button__button#2  151×44 @391,13  r999  b1
+        span.Button__content  113×17 @19,14
+          span.Button__label#2  113×17 @0,0  Manrope 600 14/17  lines=1  «Отменить наряд»
 
 [геометрия 1440]
+div.Modal__overlay  1440×900 @0,0  fixed  portal
+  div.Modal__window  560×228 @440,336  r14  b1
+    div.Modal__head  558×82 @1,1  b0 0 1 0
+      h2.Modal__title  254×25 @16,16  Onest 700 21/25  ls0  lines=1  «Отменить наряд № 1059?»
+      p.Modal__description  254×20 @16,45  Manrope 400 13/20  lines=1  «Монтажник получит уведомление»
+      button.IconButton__iconButton  40×40 @502,16  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  558×79 @1,83
+      p  526×47 @16,16  Manrope 400 15/23  lines=2  «Наряд уйдёт в отказ, а время в календаре»
+    div.Modal__footer  558×65 @1,162  b1 0 0 0
+      button.Button__button  103×40 @281,13  r999  b1
+        span.Button__content  65×17 @19,12
+          span.Button__label  65×17 @0,0  Manrope 600 14/17  lines=1  «Оставить»
+      button.Button__button#2  151×40 @391,13  r999  b1
+        span.Button__content  113×17 @19,12
+          span.Button__label#2  113×17 @0,0  Manrope 600 14/17  lines=1  «Отменить наряд»
 
 [палитра light]
+div.Modal__overlay  bg #0f172a73
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a0f 0px 0px 30px 0px, #0f172a1f 0px 30px 60px 0px
+    div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
+      h2.Modal__title  color #0f172a
+      p.Modal__description  color #556173
+      button.IconButton__iconButton  border transparent  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+        svg
+    div.Modal__body
+      p  color #475569
+    div.Modal__footer  border #e2e8f0 #0f172a #0f172a #0f172a
+      button.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content
+          span.Button__label  color #0f172a
+      button.Button__button#2  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label#2  color #ffffff
 
 [палитра dark]
+div.Modal__overlay  bg #020610ad
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #00000057 0px 0px 30px 0px, #00000075 0px 30px 60px 0px
+    div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      h2.Modal__title  color #eaf1f8
+      p.Modal__description  color #8598ac
+      button.IconButton__iconButton  border transparent  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+        svg
+    div.Modal__body
+      p  color #a8b6c6
+    div.Modal__footer  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+      button.Button__button  bg #121d31  border #566d95
+        span.Button__content
+          span.Button__label  color #eaf1f8
+      button.Button__button#2  bg #0e7490  border #0e7490
+        span.Button__content
+          span.Button__label#2  color #ffffff

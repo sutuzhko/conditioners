@@ -7,11 +7,481 @@
 1440 → 1440×900
 
 [геометрия 390]
+div.Modal__overlay  390×900 @0,0  fixed  portal
+  div.Modal__window  390×828 @0,72  r22 22 0 0  b1
+    div.Modal__head  388×131 @1,1  b0 0 1 0
+      h2.Modal__title  292×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая модель»
+      p.Modal__description  292×60 @20,49  Manrope 400 13/20  lines=3  «Фотографии, скидку и характеристики зада»
+      button.IconButton__iconButton  40×40 @328,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  388×695 @1,132
+      form.ProductForm__form  348×2076 @20,20
+        section.FormSection__section  348×799 @0,0
+          div.FormSection__head  348×18 @0,0
+            div.FormSection__titleRow  348×18 @0,0
+              h3.FormSection__title  70×18 @0,0  Onest 700 15/18  ls0  lines=1  «Основное»
+          div.ProductForm__fields  348×767 @0,32
+            div.Field__field  348×76 @0,0
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+                span.Field__required  9×18 @61,1  Manrope 600 13/20  lines=1  «*»
+              input  348×49 @0,27  r11  b1
+            div.Field__field#2  348×103 @0,90
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Класс мощности»
+                span.Field__required#2  9×18 @105,1  Manrope 600 13/20  lines=1  «*»
+              input  348×49 @0,27  r11  b1
+              p.Field__hint  348×19 @0,83  Manrope 400 13/19  lines=1  «Короткая метка на карточке: 07, 09, 12»
+            div.Field__field#3  348×122 @0,207
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Площадь помещения, м²»
+                span.Field__required#3  9×18 @155,1  Manrope 600 13/20  lines=1  «*»
+              input  348×49 @0,27  r11  b1
+              p.Field__hint  348×39 @0,83  Manrope 400 13/19  lines=2  «Максимум, на который рассчитана модель.»
+            div.Field__field#4  348×103 @0,343
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Цена под ключ, ₽»
+                span.Field__required#4  9×18 @108,1  Manrope 600 13/20  lines=1  «*»
+              input  348×49 @0,27  r11  b1
+              p.Field__hint  348×19 @0,83  Manrope 400 13/19  lines=1  «Обычная цена, без скидки. Скидка задаётс»
+            div.Field__field#5  348×122 @0,459
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Метка»
+              input  348×49 @0,27  r11  b1
+              p.Field__hint  348×39 @0,83  Manrope 400 13/19  lines=2  «Короткая подпись на карточке: «инвертор"»
+            div.Checkbox__root  348×69 @0,595
+              div.Checkbox__row  348×44 @0,0
+                input.Checkbox__input  20×20 @0,11  r6  b1
+                label.Checkbox__label  72×24 @31,10  Manrope 400 15/21  lines=1  «В продаже»
+              p.Field__hint  348×19 @0,50  Manrope 400 13/19  lines=1  «Модель есть в каталоге, её можно заказат»
+            div.Checkbox__root#2  348×89 @0,678
+              div.Checkbox__row  348×44 @0,0
+                input.Checkbox__input#2  20×20 @0,11  r6  b1
+                label.Checkbox__label#2  160×24 @31,10  Manrope 400 15/21  lines=1  «Показывать на главной»
+              p.Field__hint  348×39 @0,50  Manrope 400 13/19  lines=2  «Витрина лендинга — то, что продаём сегод»
+        section.FormSection__section#2  348×243 @0,813  b1 0 0 0
+          fieldset.ProductForm__specs  348×228 @0,15
+            legend.ProductForm__legend  122×23 @0,0  Onest 700 15/23  lines=1  «Характеристики»
+            p.ProductForm__hint  348×101 @0,23  Manrope 400 13/20  lines=5  «Набор характеристик произвольный: таблиц»
+            p.ProductForm__empty  348×40 @0,134  Manrope 400 13/20  lines=2  «Характеристик пока нет — модель не попад»
+            div.ProductForm__specActions  197×44 @0,184
+              button.Button__button  197×44 @0,0  r9  b1
+                span.Button__content  167×16 @15,14
+                  span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
+        section.FormSection__section#3  348×575 @0,1070  b1 0 0 0
+          div.FormSection__head  348×18 @0,15
+            div.FormSection__titleRow#2  348×18 @0,0
+              h3.FormSection__title  111×18 @0,0  Onest 700 15/18  ls0  lines=1  «Дополнительно»
+          div.ProductForm__fields  348×528 @0,47
+            div.Field__field#6  348×76 @0,0
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Бренд»
+              input  348×49 @0,27  r11  b1
+            div.Field__field#7  348×76 @0,90
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Артикул»
+              input  348×49 @0,27  r11  b1
+            div.Field__field#8  348×103 @0,180
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Порядок»
+              input  348×49 @0,27  r11  b1
+              p.Field__hint  348×19 @0,83  Manrope 400 13/19  lines=1  «Меньше — выше в каталоге»
+            div.Field__field#9  348×141 @0,297
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Адрес страницы»
+              input  348×49 @0,27  r11  b1
+              p.Field__hint  348×58 @0,83  Manrope 400 13/19  lines=3  «Пусто — соберётся из названия. У опублик»
+            div.Field__field#10  348×76 @0,452
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Ссылка на сайт производителя»
+              input  348×49 @0,27  r11  b1
+        section.FormSection__section#4  348×260 @0,1660  b1 0 0 0
+          div.FormSection__head  348×18 @0,15
+            div.FormSection__titleRow#3  348×18 @0,0
+              h3.FormSection__title  134×18 @0,0  Onest 700 15/18  ls0  lines=1  «Поисковая выдача»
+          div.ProductForm__fields  348×213 @0,47
+            div.Field__field#11  348×76 @0,0
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок страницы»
+              input  348×49 @0,27  r11  b1
+            div.Field__field#12  348×123 @0,90
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Описание страницы»
+              textarea.Textarea__textarea  348×96 @0,27  r11  b1
+        p.ProductForm__error  348×67 @0,1934  Manrope 400 15/22  r11  b1  lines=2  «Сервер не принял изменения. Попробуйте е»
+        div.ProductForm__actions  388×61 @1,818  b1 0 0 0  fixed
+          button.Button__button  154×44 @20,13  r11  b1
+            span.Button__content#2  116×17 @19,13
+              span.Button__label  116×17 @0,0  Manrope 600 15/17  lines=1  «Создать модель»
 
 [геометрия 768]
+div.Modal__overlay  768×900 @0,0  fixed  portal
+  div.Modal__window  720×828 @24,36  r22  b1
+    div.Modal__head  718×90 @1,1  b0 0 1 0
+      h2.Modal__title  546×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая модель»
+      p.Modal__description  546×20 @20,49  Manrope 400 13/20  lines=1  «Фотографии, скидку и характеристики зада»
+      button.IconButton__iconButton  40×40 @658,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  718×736 @1,91
+      form.ProductForm__form  678×1548 @20,20
+        section.FormSection__section  678×483 @0,0
+          div.FormSection__head  678×18 @0,0
+            div.FormSection__titleRow  678×18 @0,0
+              h3.FormSection__title  70×18 @0,0  Onest 700 15/18  ls0  lines=1  «Основное»
+          div.ProductForm__fields  678×451 @0,32
+            div.Field__field  678×76 @0,0
+              label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+                span.Field__required  9×18 @61,1  Manrope 600 13/20  lines=1  «*»
+              input  678×49 @0,27  r11  b1
+            div.Field__field#2  331×103 @0,90
+              label.Field__label  331×20 @0,0  Manrope 600 13/20  lines=1  «Класс мощности»
+                span.Field__required#2  9×18 @105,1  Manrope 600 13/20  lines=1  «*»
+              input  331×49 @0,27  r11  b1
+              p.Field__hint  331×19 @0,83  Manrope 400 13/19  lines=1  «Короткая метка на карточке: 07, 09, 12»
+            div.Field__field#3  331×122 @347,90
+              label.Field__label  331×20 @0,0  Manrope 600 13/20  lines=1  «Площадь помещения, м²»
+                span.Field__required#3  9×18 @155,1  Manrope 600 13/20  lines=1  «*»
+              input  331×49 @0,27  r11  b1
+              p.Field__hint  331×39 @0,83  Manrope 400 13/19  lines=2  «Максимум, на который рассчитана модель.»
+            div.Field__field#4  331×103 @0,226
+              label.Field__label  331×20 @0,0  Manrope 600 13/20  lines=1  «Цена под ключ, ₽»
+                span.Field__required#4  9×18 @108,1  Manrope 600 13/20  lines=1  «*»
+              input  331×49 @0,27  r11  b1
+              p.Field__hint  331×19 @0,83  Manrope 400 13/19  lines=1  «Обычная цена, без скидки. Скидка задаётс»
+            div.Field__field#5  331×122 @347,226
+              label.Field__label  331×20 @0,0  Manrope 600 13/20  lines=1  «Метка»
+              input  331×49 @0,27  r11  b1
+              p.Field__hint  331×39 @0,83  Manrope 400 13/19  lines=2  «Короткая подпись на карточке: «инвертор"»
+            div.Checkbox__root  331×69 @0,362
+              div.Checkbox__row  331×44 @0,0
+                input.Checkbox__input  20×20 @0,11  r6  b1
+                label.Checkbox__label  72×24 @31,10  Manrope 400 15/21  lines=1  «В продаже»
+              p.Field__hint  331×19 @0,50  Manrope 400 13/19  lines=1  «Модель есть в каталоге, её можно заказат»
+            div.Checkbox__root#2  331×89 @347,362
+              div.Checkbox__row  331×44 @0,0
+                input.Checkbox__input#2  20×20 @0,11  r6  b1
+                label.Checkbox__label#2  160×24 @31,10  Manrope 400 15/21  lines=1  «Показывать на главной»
+              p.Field__hint  331×39 @0,50  Manrope 400 13/19  lines=2  «Витрина лендинга — то, что продаём сегод»
+        section.FormSection__section#2  678×183 @0,497  b1 0 0 0
+          fieldset.ProductForm__specs  678×168 @0,15
+            legend.ProductForm__legend  122×23 @0,0  Onest 700 15/23  lines=1  «Характеристики»
+            p.ProductForm__hint  539×60 @0,23  Manrope 400 13/20  lines=3  «Набор характеристик произвольный: таблиц»
+            p.ProductForm__empty  415×20 @0,94  Manrope 400 13/20  lines=1  «Характеристик пока нет — модель не попад»
+            div.ProductForm__specActions  197×44 @0,124
+              button.Button__button  197×44 @0,0  r9  b1
+                span.Button__content  167×16 @15,14
+                  span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
+        section.FormSection__section#3  678×446 @0,693  b1 0 0 0
+          div.FormSection__head  678×18 @0,15
+            div.FormSection__titleRow#2  678×18 @0,0
+              h3.FormSection__title  111×18 @0,0  Onest 700 15/18  ls0  lines=1  «Дополнительно»
+          div.ProductForm__fields  678×399 @0,47
+            div.Field__field#6  331×76 @0,0
+              label.Field__label  331×20 @0,0  Manrope 600 13/20  lines=1  «Бренд»
+              input  331×49 @0,27  r11  b1
+            div.Field__field#7  331×76 @347,0
+              label.Field__label  331×20 @0,0  Manrope 600 13/20  lines=1  «Артикул»
+              input  331×49 @0,27  r11  b1
+            div.Field__field#8  331×103 @0,90
+              label.Field__label  331×20 @0,0  Manrope 600 13/20  lines=1  «Порядок»
+              input  331×49 @0,27  r11  b1
+              p.Field__hint  331×19 @0,83  Manrope 400 13/19  lines=1  «Меньше — выше в каталоге»
+            div.Field__field#9  678×103 @0,207
+              label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Адрес страницы»
+              input  678×49 @0,27  r11  b1
+              p.Field__hint  678×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — соберётся из названия. У опублик»
+            div.Field__field#10  678×76 @0,323
+              label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Ссылка на сайт производителя»
+              input  678×49 @0,27  r11  b1
+        section.FormSection__section#4  678×260 @0,1154  b1 0 0 0
+          div.FormSection__head  678×18 @0,15
+            div.FormSection__titleRow#3  678×18 @0,0
+              h3.FormSection__title  134×18 @0,0  Onest 700 15/18  ls0  lines=1  «Поисковая выдача»
+          div.ProductForm__fields  678×213 @0,47
+            div.Field__field#11  678×76 @0,0
+              label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок страницы»
+              input  678×49 @0,27  r11  b1
+            div.Field__field#12  678×123 @0,90
+              label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Описание страницы»
+              textarea.Textarea__textarea  678×96 @0,27  r11  b1
+        p.ProductForm__error  678×44 @0,1428  Manrope 400 15/22  r11  b1  lines=1  «Сервер не принял изменения. Попробуйте е»
+        div.ProductForm__actions  718×61 @25,782  b1 0 0 0  fixed
+          button.Button__button  154×44 @20,13  r11  b1
+            span.Button__content#2  116×17 @19,13
+              span.Button__label  116×17 @0,0  Manrope 600 15/17  lines=1  «Создать модель»
 
 [геометрия 1440]
+div.Modal__overlay  1440×900 @0,0  fixed  portal
+  div.Modal__window  820×828 @310,36  r22  b1
+    div.Modal__head  818×90 @1,1  b0 0 1 0
+      h2.Modal__title  546×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая модель»
+      p.Modal__description  546×20 @20,49  Manrope 400 13/20  lines=1  «Фотографии, скидку и характеристики зада»
+      button.IconButton__iconButton  40×40 @758,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  818×736 @1,91
+      form.ProductForm__form  778×1370 @20,20
+        section.FormSection__section  778×399 @0,0
+          div.FormSection__head  778×18 @0,0
+            div.FormSection__titleRow  778×18 @0,0
+              h3.FormSection__title  70×18 @0,0  Onest 700 15/18  ls0  lines=1  «Основное»
+          div.ProductForm__fields  778×367 @0,32
+            div.Field__field  778×76 @0,0
+              label.Field__label  778×20 @0,0  Manrope 600 13/20  lines=1  «Название»
+                span.Field__required  9×18 @61,1  Manrope 600 13/20  lines=1  «*»
+              input  778×49 @0,27  r11  b1
+            div.Field__field#2  249×103 @0,90
+              label.Field__label  249×20 @0,0  Manrope 600 13/20  lines=1  «Класс мощности»
+                span.Field__required#2  9×18 @105,1  Manrope 600 13/20  lines=1  «*»
+              input  249×49 @0,27  r11  b1
+              p.Field__hint  249×19 @0,83  Manrope 400 13/19  lines=1  «Короткая метка на карточке: 07, 09, 12»
+            div.Field__field#3  249×141 @265,90
+              label.Field__label  249×20 @0,0  Manrope 600 13/20  lines=1  «Площадь помещения, м²»
+                span.Field__required#3  9×18 @155,1  Manrope 600 13/20  lines=1  «*»
+              input  249×49 @0,27  r11  b1
+              p.Field__hint  249×58 @0,83  Manrope 400 13/19  lines=3  «Максимум, на который рассчитана модель.»
+            div.Field__field#4  249×122 @529,90
+              label.Field__label  249×20 @0,0  Manrope 600 13/20  lines=1  «Цена под ключ, ₽»
+                span.Field__required#4  9×18 @108,1  Manrope 600 13/20  lines=1  «*»
+              input  249×49 @0,27  r11  b1
+              p.Field__hint  249×39 @0,83  Manrope 400 13/19  lines=2  «Обычная цена, без скидки. Скидка задаётс»
+            div.Field__field#5  249×122 @0,245
+              label.Field__label  249×20 @0,0  Manrope 600 13/20  lines=1  «Метка»
+              input  249×49 @0,27  r11  b1
+              p.Field__hint  249×39 @0,83  Manrope 400 13/19  lines=2  «Короткая подпись на карточке: «инвертор"»
+            div.Checkbox__root  249×89 @265,245
+              div.Checkbox__row  249×44 @0,0
+                input.Checkbox__input  20×20 @0,11  r6  b1
+                label.Checkbox__label  72×24 @31,10  Manrope 400 15/21  lines=1  «В продаже»
+              p.Field__hint  249×39 @0,50  Manrope 400 13/19  lines=2  «Модель есть в каталоге, её можно заказат»
+            div.Checkbox__root#2  249×108 @529,245
+              div.Checkbox__row  249×44 @0,0
+                input.Checkbox__input#2  20×20 @0,11  r6  b1
+                label.Checkbox__label#2  160×24 @31,10  Manrope 400 15/21  lines=1  «Показывать на главной»
+              p.Field__hint  249×58 @0,50  Manrope 400 13/19  lines=3  «Витрина лендинга — то, что продаём сегод»
+        section.FormSection__section#2  778×179 @0,413  b1 0 0 0
+          fieldset.ProductForm__specs  778×164 @0,15
+            legend.ProductForm__legend  122×23 @0,0  Onest 700 15/23  lines=1  «Характеристики»
+            p.ProductForm__hint  539×60 @0,23  Manrope 400 13/20  lines=3  «Набор характеристик произвольный: таблиц»
+            p.ProductForm__empty  415×20 @0,94  Manrope 400 13/20  lines=1  «Характеристик пока нет — модель не попад»
+            div.ProductForm__specActions  197×40 @0,124
+              button.Button__button  197×40 @0,0  r9  b1
+                span.Button__content  167×16 @15,12
+                  span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
+        section.FormSection__section#3  778×356 @0,606  b1 0 0 0
+          div.FormSection__head  778×18 @0,15
+            div.FormSection__titleRow#2  778×18 @0,0
+              h3.FormSection__title  111×18 @0,0  Onest 700 15/18  ls0  lines=1  «Дополнительно»
+          div.ProductForm__fields  778×309 @0,47
+            div.Field__field#6  249×76 @0,0
+              label.Field__label  249×20 @0,0  Manrope 600 13/20  lines=1  «Бренд»
+              input  249×49 @0,27  r11  b1
+            div.Field__field#7  249×76 @265,0
+              label.Field__label  249×20 @0,0  Manrope 600 13/20  lines=1  «Артикул»
+              input  249×49 @0,27  r11  b1
+            div.Field__field#8  249×103 @529,0
+              label.Field__label  249×20 @0,0  Manrope 600 13/20  lines=1  «Порядок»
+              input  249×49 @0,27  r11  b1
+              p.Field__hint  249×19 @0,83  Manrope 400 13/19  lines=1  «Меньше — выше в каталоге»
+            div.Field__field#9  778×103 @0,117
+              label.Field__label  778×20 @0,0  Manrope 600 13/20  lines=1  «Адрес страницы»
+              input  778×49 @0,27  r11  b1
+              p.Field__hint  778×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — соберётся из названия. У опублик»
+            div.Field__field#10  778×76 @0,233
+              label.Field__label  778×20 @0,0  Manrope 600 13/20  lines=1  «Ссылка на сайт производителя»
+              input  778×49 @0,27  r11  b1
+        section.FormSection__section#4  778×260 @0,976  b1 0 0 0
+          div.FormSection__head  778×18 @0,15
+            div.FormSection__titleRow#3  778×18 @0,0
+              h3.FormSection__title  134×18 @0,0  Onest 700 15/18  ls0  lines=1  «Поисковая выдача»
+          div.ProductForm__fields  778×213 @0,47
+            div.Field__field#11  778×76 @0,0
+              label.Field__label  778×20 @0,0  Manrope 600 13/20  lines=1  «Заголовок страницы»
+              input  778×49 @0,27  r11  b1
+            div.Field__field#12  778×123 @0,90
+              label.Field__label  778×20 @0,0  Manrope 600 13/20  lines=1  «Описание страницы»
+              textarea.Textarea__textarea  778×96 @0,27  r11  b1
+        p.ProductForm__error  778×44 @0,1251  Manrope 400 15/22  r11  b1  lines=1  «Сервер не принял изменения. Попробуйте е»
+        div.ProductForm__actions  818×61 @311,782  b1 0 0 0  fixed
+          button.Button__button  154×44 @20,13  r11  b1
+            span.Button__content#2  116×17 @19,13
+              span.Button__label  116×17 @0,0  Manrope 600 15/17  lines=1  «Создать модель»
 
 [палитра light]
+div.Modal__overlay  bg #0f172a73
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
+      h2.Modal__title  color #0f172a
+      p.Modal__description  color #556173
+      button.IconButton__iconButton  border transparent
+        svg
+    div.Modal__body
+      form.ProductForm__form
+        section.FormSection__section
+          div.FormSection__head
+            div.FormSection__titleRow
+              h3.FormSection__title  color #0f172a
+          div.ProductForm__fields
+            div.Field__field
+              label.Field__label  color #334155
+                span.Field__required  color #0e7490
+              input  bg #ffffff  border #7e8fa6
+            div.Field__field#2
+              label.Field__label  color #334155
+                span.Field__required#2  color #0e7490
+              input  bg #ffffff  border #7e8fa6
+              p.Field__hint  color #556173
+            div.Field__field#3
+              label.Field__label  color #334155
+                span.Field__required#3  color #0e7490
+              input  bg #ffffff  border #7e8fa6
+              p.Field__hint  color #556173
+            div.Field__field#4
+              label.Field__label  color #334155
+                span.Field__required#4  color #0e7490
+              input  bg #ffffff  border #7e8fa6
+              p.Field__hint  color #556173
+            div.Field__field#5
+              label.Field__label  color #334155
+              input  bg #ffffff  border #7e8fa6
+              p.Field__hint  color #556173
+            div.Checkbox__root
+              div.Checkbox__row
+                input.Checkbox__input  bg #0e7490  border #0e7490
+                label.Checkbox__label  color #475569
+              p.Field__hint  color #556173
+            div.Checkbox__root#2
+              div.Checkbox__row
+                input.Checkbox__input#2  bg #ffffff  border #7e8fa6
+                label.Checkbox__label#2  color #475569
+              p.Field__hint  color #556173
+        section.FormSection__section#2  border #eef2f6 #475569 #475569 #475569
+          fieldset.ProductForm__specs
+            legend.ProductForm__legend  color #0f172a
+            p.ProductForm__hint  color #556173
+            p.ProductForm__empty  color #92400e
+            div.ProductForm__specActions
+              button.Button__button  bg #ffffff  border #7e8fa6
+                span.Button__content
+                  span.Button__label  color #0f172a
+        section.FormSection__section#3  border #eef2f6 #475569 #475569 #475569
+          div.FormSection__head
+            div.FormSection__titleRow#2
+              h3.FormSection__title  color #0f172a
+          div.ProductForm__fields
+            div.Field__field#6
+              label.Field__label  color #334155
+              input  bg #ffffff  border #7e8fa6
+            div.Field__field#7
+              label.Field__label  color #334155
+              input  bg #ffffff  border #7e8fa6
+            div.Field__field#8
+              label.Field__label  color #334155
+              input  bg #ffffff  border #7e8fa6
+              p.Field__hint  color #556173
+            div.Field__field#9
+              label.Field__label  color #334155
+              input  bg #ffffff  border #7e8fa6
+              p.Field__hint  color #556173
+            div.Field__field#10
+              label.Field__label  color #334155
+              input  bg #ffffff  border #7e8fa6
+        section.FormSection__section#4  border #eef2f6 #475569 #475569 #475569
+          div.FormSection__head
+            div.FormSection__titleRow#3
+              h3.FormSection__title  color #0f172a
+          div.ProductForm__fields
+            div.Field__field#11
+              label.Field__label  color #334155
+              input  bg #ffffff  border #7e8fa6
+            div.Field__field#12
+              label.Field__label  color #334155
+              textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+        p.ProductForm__error  color #be123c  bg #be123c14  border #be123c73
+        div.ProductForm__actions  bg #ffffff  border #e2e8f0 #475569 #475569 #475569  shadow #ffffff 0px 20px 0px 0px
+          button.Button__button  bg #0e7490  border #0e7490  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+            span.Button__content#2
+              span.Button__label  color #ffffff
 
 [палитра dark]
+div.Modal__overlay  bg #020610ad
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      h2.Modal__title  color #eaf1f8
+      p.Modal__description  color #8598ac
+      button.IconButton__iconButton  border transparent
+        svg
+    div.Modal__body
+      form.ProductForm__form
+        section.FormSection__section
+          div.FormSection__head
+            div.FormSection__titleRow
+              h3.FormSection__title  color #eaf1f8
+          div.ProductForm__fields
+            div.Field__field
+              label.Field__label  color #c9d5e2
+                span.Field__required  color #22d3ee
+              input  bg #0b1424  border #566d95
+            div.Field__field#2
+              label.Field__label  color #c9d5e2
+                span.Field__required#2  color #22d3ee
+              input  bg #0b1424  border #566d95
+              p.Field__hint  color #8598ac
+            div.Field__field#3
+              label.Field__label  color #c9d5e2
+                span.Field__required#3  color #22d3ee
+              input  bg #0b1424  border #566d95
+              p.Field__hint  color #8598ac
+            div.Field__field#4
+              label.Field__label  color #c9d5e2
+                span.Field__required#4  color #22d3ee
+              input  bg #0b1424  border #566d95
+              p.Field__hint  color #8598ac
+            div.Field__field#5
+              label.Field__label  color #c9d5e2
+              input  bg #0b1424  border #566d95
+              p.Field__hint  color #8598ac
+            div.Checkbox__root
+              div.Checkbox__row
+                input.Checkbox__input  bg #0e7490  border #0e7490
+                label.Checkbox__label  color #a8b6c6
+              p.Field__hint  color #8598ac
+            div.Checkbox__root#2
+              div.Checkbox__row
+                input.Checkbox__input#2  bg #0b1424  border #566d95
+                label.Checkbox__label#2  color #a8b6c6
+              p.Field__hint  color #8598ac
+        section.FormSection__section#2  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          fieldset.ProductForm__specs
+            legend.ProductForm__legend  color #eaf1f8
+            p.ProductForm__hint  color #8598ac
+            p.ProductForm__empty  color #fbbf24
+            div.ProductForm__specActions
+              button.Button__button  bg #121d31  border #566d95
+                span.Button__content
+                  span.Button__label  color #eaf1f8
+        section.FormSection__section#3  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          div.FormSection__head
+            div.FormSection__titleRow#2
+              h3.FormSection__title  color #eaf1f8
+          div.ProductForm__fields
+            div.Field__field#6
+              label.Field__label  color #c9d5e2
+              input  bg #0b1424  border #566d95
+            div.Field__field#7
+              label.Field__label  color #c9d5e2
+              input  bg #0b1424  border #566d95
+            div.Field__field#8
+              label.Field__label  color #c9d5e2
+              input  bg #0b1424  border #566d95
+              p.Field__hint  color #8598ac
+            div.Field__field#9
+              label.Field__label  color #c9d5e2
+              input  bg #0b1424  border #566d95
+              p.Field__hint  color #8598ac
+            div.Field__field#10
+              label.Field__label  color #c9d5e2
+              input  bg #0b1424  border #566d95
+        section.FormSection__section#4  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+          div.FormSection__head
+            div.FormSection__titleRow#3
+              h3.FormSection__title  color #eaf1f8
+          div.ProductForm__fields
+            div.Field__field#11
+              label.Field__label  color #c9d5e2
+              input  bg #0b1424  border #566d95
+            div.Field__field#12
+              label.Field__label  color #c9d5e2
+              textarea.Textarea__textarea  bg #0b1424  border #566d95
+        p.ProductForm__error  color #fb7185  bg #fb71851f  border #fb718580
+        div.ProductForm__actions  bg #121d31  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6  shadow #121d31 0px 20px 0px 0px
+          button.Button__button  bg #0e7490  border #0e7490  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+            span.Button__content#2
+              span.Button__label  color #ffffff

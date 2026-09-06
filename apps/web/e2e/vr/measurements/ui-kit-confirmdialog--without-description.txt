@@ -10,23 +10,93 @@
 button.Button__button  134×44 @16,16  r11  b1
   span.Button__content  96×17 @19,13
     span.Button__label  96×17 @0,0  Manrope 600 15/17  lines=1  «Удалить дело»
+div.Modal__overlay  390×900 @0,0  fixed  portal
+  div.Modal__window  390×196 @0,704  r22 22 0 0  b1
+    div.Modal__head  388×81 @1,1  b0 0 1 0
+      h2.Modal__title  286×25 @20,20  Onest 700 21/25  ls0  lines=1  «Удалить дело из календаря?»
+      button.IconButton__iconButton  40×40 @328,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  388×40 @1,82
+    div.Modal__footer  388×73 @1,122  b1 0 0 0
+      button.Button__button  92×44 @133,15  r11  b1
+        span.Button__content#2  54×17 @19,13
+          span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
+      button.Button__button#2  134×44 @234,15  r11  b1
+        span.Button__content  96×17 @19,13
+          span.Button__label#2  96×17 @0,0  Manrope 600 15/17  lines=1  «Удалить дело»
 
 [геометрия 768]
 button.Button__button  134×44 @16,16  r11  b1
   span.Button__content  96×17 @19,13
     span.Button__label  96×17 @0,0  Manrope 600 15/17  lines=1  «Удалить дело»
+div.Modal__overlay  768×900 @0,0  fixed  portal
+  div.Modal__window  420×196 @174,352  r22  b1
+    div.Modal__head  418×81 @1,1  b0 0 1 0
+      h2.Modal__title  286×25 @20,20  Onest 700 21/25  ls0  lines=1  «Удалить дело из календаря?»
+      button.IconButton__iconButton  40×40 @358,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  418×40 @1,82
+    div.Modal__footer  418×73 @1,122  b1 0 0 0
+      button.Button__button  92×44 @163,15  r11  b1
+        span.Button__content#2  54×17 @19,13
+          span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
+      button.Button__button#2  134×44 @264,15  r11  b1
+        span.Button__content  96×17 @19,13
+          span.Button__label#2  96×17 @0,0  Manrope 600 15/17  lines=1  «Удалить дело»
 
 [геометрия 1440]
 button.Button__button  134×44 @16,16  r11  b1
   span.Button__content  96×17 @19,13
     span.Button__label  96×17 @0,0  Manrope 600 15/17  lines=1  «Удалить дело»
+div.Modal__overlay  1440×900 @0,0  fixed  portal
+  div.Modal__window  420×196 @510,352  r22  b1
+    div.Modal__head  418×81 @1,1  b0 0 1 0
+      h2.Modal__title  286×25 @20,20  Onest 700 21/25  ls0  lines=1  «Удалить дело из календаря?»
+      button.IconButton__iconButton  40×40 @358,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  418×40 @1,82
+    div.Modal__footer  418×73 @1,122  b1 0 0 0
+      button.Button__button  92×44 @163,15  r11  b1
+        span.Button__content#2  54×17 @19,13
+          span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
+      button.Button__button#2  134×44 @264,15  r11  b1
+        span.Button__content  96×17 @19,13
+          span.Button__label#2  96×17 @0,0  Manrope 600 15/17  lines=1  «Удалить дело»
 
 [палитра light]
 button.Button__button  bg #ffffff  border #7e8fa6
   span.Button__content
     span.Button__label  color #0f172a
+div.Modal__overlay  bg #0f172a73
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
+      h2.Modal__title  color #0f172a
+      button.IconButton__iconButton  border transparent  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+        svg
+    div.Modal__body
+    div.Modal__footer  border #e2e8f0 #0f172a #0f172a #0f172a
+      button.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content#2
+          span.Button__label  color #0f172a
+      button.Button__button#2  bg #be123c14  border #be123c73
+        span.Button__content
+          span.Button__label#2  color #be123c
 
 [палитра dark]
 button.Button__button  bg #121d31  border #566d95
   span.Button__content
     span.Button__label  color #eaf1f8
+div.Modal__overlay  bg #020610ad
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      h2.Modal__title  color #eaf1f8
+      button.IconButton__iconButton  border transparent  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+        svg
+    div.Modal__body
+    div.Modal__footer  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+      button.Button__button  bg #121d31  border #566d95
+        span.Button__content#2
+          span.Button__label  color #eaf1f8
+      button.Button__button#2  bg #fb71851f  border #fb718580
+        span.Button__content
+          span.Button__label#2  color #fb7185

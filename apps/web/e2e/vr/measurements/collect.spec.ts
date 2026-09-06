@@ -239,3 +239,81 @@ test.describe('документ и шрифты', () => {
     expect(result.document.scrollHeight).toBeGreaterThan(0);
   });
 });
+
+test.describe('порталы', () => {
+  /** Окно кита: оверлей `position: fixed` в конце `body`, окно по центру. */
+  const OVERLAY =
+    `<div class="Modal__overlay" style="position: fixed; inset: 0; display: flex; align-items: center; justify-content: center">` +
+    `<div class="Modal__window" style="width: 300px; height: 200px">Окно</div>` +
+    `</div>`;
+
+  /**
+   * Узел портала в потоке `body`: его место в документе задаёт высота соседа,
+   * а не он сам. Ради этого случая координаты корня портала и не пишутся.
+   */
+  const NOTE =
+    `<div class="Note__root" style="width: 120px; padding: 8px">` +
+    `<span class="Note__text">Заметка</span>` +
+    `</div>`;
+
+  /** Страница витрины плюс то, что ушло порталом в конец `body` мимо корня. */
+  async function collectWithPortal(
+    page: Page,
+    root: string,
+    portal: string,
+  ): Promise<PartialMeasurement> {
+    await page.setViewportSize({ width: 800, height: 600 });
+    await page.setContent(
+      `<!doctype html><html><head><style>* { margin: 0; padding: 0; }</style></head>` +
+        `<body><div id="storybook-root">${root}</div>${portal}</body></html>`,
+    );
+    const input: CollectInput = { theme: 'light', width: 800 };
+    return page.evaluate(collectMeasurements, input);
+  }
+
+  test('содержимое портала записано: корень помечен, дети считаются от него', async ({ page }) => {
+    const result = await collectWithPortal(page, `<p class="Page__text">Страница</p>`, OVERLAY);
+    expect(result.nodes.map((node) => node.key)).toEqual([
+      'p.Page__text',
+      'div.Modal__overlay',
+      'div.Modal__window',
+    ]);
+    const nodes = byKey(result.nodes);
+    expect(must(nodes, 'div.Modal__overlay')).toMatchObject({
+      parent: null,
+      portal: true,
+      fixed: true,
+      x: 0,
+      y: 0,
+      w: 800,
+      h: 600,
+    });
+    /* Центровка окна в оверлее — то, ради чего измерение окна и заводилось. */
+    expect(must(nodes, 'div.Modal__window')).toMatchObject({
+      parent: 'div.Modal__overlay',
+      x: 250,
+      y: 200,
+    });
+    expect(must(nodes, 'div.Modal__window').portal).toBeUndefined();
+  });
+
+  test('высота соседа по body не меняет ни одного числа портала', async ({ page }) => {
+    const portalNodes = (result: PartialMeasurement): readonly MeasuredNode[] =>
+      result.nodes.filter((node) => node.key.includes('Note__'));
+    const short = await collectWithPortal(
+      page,
+      `<p class="Page__text" style="height: 100px">Страница</p>`,
+      NOTE,
+    );
+    const tall = await collectWithPortal(
+      page,
+      `<p class="Page__text" style="height: 3000px">Страница</p>`,
+      NOTE,
+    );
+    expect(portalNodes(tall)).toEqual(portalNodes(short));
+
+    const nodes = byKey(short.nodes);
+    expect(must(nodes, 'div.Note__root')).toMatchObject({ parent: null, portal: true, x: 0, y: 0 });
+    expect(must(nodes, 'span.Note__text')).toMatchObject({ parent: 'div.Note__root', x: 8, y: 8 });
+  });
+});
