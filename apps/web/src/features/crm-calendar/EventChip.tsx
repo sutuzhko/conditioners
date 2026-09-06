@@ -6,14 +6,16 @@ import { createPortal } from 'react-dom';
 import { timeOfMinutes } from '@/entities/crm/lib/busy';
 import type { PersonTone } from '@/entities/crm/lib/palette';
 import { crmClashContent } from '@/entities/crm/content';
+import type { DayKey } from '@/shared/lib/calendar';
 import { Icon } from '@/shared/ui';
 
 import { useCalendarActions } from './actions';
+import { columnShift, dayOfDrop, isDraggable } from './drag';
 import { capturePointer, releasePointer } from './pointer';
 import { crmContent as texts } from './content';
 import { EventPopover } from './EventPopover';
 import { DURATION_STEP_MIN, MIN_EVENT_MIN } from './model';
-import type { ScheduleItem } from './schedule';
+import { LANES_ABREAST, type ScheduleItem } from './schedule';
 import styles from './EventChip.module.css';
 
 /** Как показана запись: прямоугольник в сетке, строка в полосе или в месяце. */
@@ -46,6 +48,12 @@ export interface EventChipProps {
   /** Можно ли двигать запись мышью. Ускоритель, а не единственный путь. */
   readonly draggable?: boolean | undefined;
   /**
+   * Дни показанных колонок по порядку — по ним считается перенос вбок
+   * (issue #143). Массив строк, а не функция: сетка серверная, и функция
+   * границу сервер→клиент не переживает. Пусто — переносить некуда.
+   */
+  readonly days?: readonly DayKey[] | undefined;
+  /**
    * Запись найдена поиском — её подсвечивают, чтобы глаз нашёл её в сетке
    * (issue #132). Признак приходит пропом, а не читается из адреса: чип
    * рисуется в трёх видах и в полосе «весь день», и знание о маршрутизации в
@@ -76,12 +84,35 @@ const FOUND_MS = 5000;
 /** Ниже этого сдвига движение считается кликом, а не перетаскиванием. */
 const DRAG_THRESHOLD_PX = 4;
 
+/**
+ * Слой записи, которую тащат. Колонки — соседи в разметке, и сдвинутая вбок
+ * запись без этого уезжала бы под содержимое следующей колонки.
+ *
+ * Число не угадано: дорожки в колонке ограничены `laneLimit` (в неделе одна, в
+ * дне — `LANES_ABREAST`), остаток сворачивается в «+N», поэтому глубина записи
+ * никогда не превышает `LANES_ABREAST - 1`, а её слой — `LANES_ABREAST`. Один
+ * сверху и есть «поверх всех».
+ */
+const DRAG_DEPTH = LANES_ABREAST + 1;
+
 type Drag = {
   readonly mode: 'move' | 'start' | 'end';
+  readonly startX: number;
   readonly startY: number;
   readonly fromMin: number;
   readonly toMin: number;
   readonly perPx: number;
+  /** Ширина колонки дня в пикселях: по ней считается перенос вбок. */
+  readonly columnWidth: number;
+};
+
+/** Куда запись уехала за курсором, пока её не отпустили. */
+type Shift = {
+  readonly fromMin: number;
+  readonly toMin: number;
+  readonly day: DayKey;
+  /** Сдвиг вбок в пикселях: колонка чужая, а место в ней своё. */
+  readonly offsetPx: number;
 };
 
 /** Округление до шага: перетаскивание не должно давать «10:07». */
@@ -106,6 +137,7 @@ export function EventChip({
   variant = 'slot',
   place,
   draggable = false,
+  days = [],
   focused = false,
 }: EventChipProps) {
   const actions = useCalendarActions();
@@ -117,12 +149,10 @@ export function EventChip({
   const [open, setOpen] = useState(false);
   /* Сдвиг во время перетаскивания: запись едет за курсором, а сохраняется
      один раз — на отпускании. Промежуточные запросы залили бы сервер. */
-  const [shift, setShift] = useState<{ readonly fromMin: number; readonly toMin: number } | null>(
-    null,
-  );
+  const [shift, setShift] = useState<Shift | null>(null);
 
   const edit = item.edit;
-  const canDrag = draggable && edit !== null && edit.kind === 'event';
+  const canDrag = draggable && isDraggable(item);
 
   const show = (): void => {
     const rect = buttonRef.current?.getBoundingClientRect() ?? null;
@@ -153,10 +183,14 @@ export function EventChip({
     movedRef.current = false;
     dragRef.current = {
       mode,
+      startX: event.clientX,
       startY: event.clientY,
       fromMin: item.fromMin,
       toMin: item.toMin,
       perPx: MINUTES_IN_DAY / height,
+      /* Колонка дня и есть эта полоса: её ширину меряет сетка, а не общая с
+         CSS константа — та разошлась бы с шаблоном на первой правке. */
+      columnWidth: track.getBoundingClientRect().width,
     };
   };
 
@@ -165,7 +199,16 @@ export function EventChip({
     if (drag === null) return;
 
     const deltaPx = event.clientY - drag.startY;
-    if (!movedRef.current && Math.abs(deltaPx) < DRAG_THRESHOLD_PX) return;
+    const sidePx = event.clientX - drag.startX;
+    /* Порог считается по обеим осям: перенос на соседний день — движение
+       вбок, и требовать от него ещё и вертикали значило бы не давать его
+       вовсе. */
+    if (
+      !movedRef.current &&
+      Math.abs(deltaPx) < DRAG_THRESHOLD_PX &&
+      Math.abs(sidePx) < DRAG_THRESHOLD_PX
+    )
+      return;
 
     movedRef.current = true;
     const delta = snap(deltaPx * drag.perPx);
@@ -173,18 +216,29 @@ export function EventChip({
     if (drag.mode === 'move') {
       const length = drag.toMin - drag.fromMin;
       const from = Math.min(Math.max(drag.fromMin + delta, 0), MINUTES_IN_DAY - length);
-      setShift({ fromMin: from, toMin: from + length });
+      /* 🔴 День меняется, время остаётся тем, что показано (ADR-165): по
+         вертикали запись двигают отдельно, и одно движение не должно молча
+         менять оба. */
+      const index = days.indexOf(item.day);
+      const day = dayOfDrop(days, item.day, columnShift(sidePx, drag.columnWidth));
+
+      setShift({
+        fromMin: from,
+        toMin: from + length,
+        day,
+        offsetPx: index < 0 ? 0 : (days.indexOf(day) - index) * drag.columnWidth,
+      });
       return;
     }
 
     if (drag.mode === 'start') {
       const from = Math.min(Math.max(drag.fromMin + delta, 0), drag.toMin - MIN_EVENT_MIN);
-      setShift({ fromMin: from, toMin: drag.toMin });
+      setShift({ fromMin: from, toMin: drag.toMin, day: item.day, offsetPx: 0 });
       return;
     }
 
     const to = Math.min(Math.max(drag.toMin + delta, drag.fromMin + MIN_EVENT_MIN), MINUTES_IN_DAY);
-    setShift({ fromMin: drag.fromMin, toMin: to });
+    setShift({ fromMin: drag.fromMin, toMin: to, day: item.day, offsetPx: 0 });
   };
 
   const endDrag = (event: ReactPointerEvent<HTMLElement>): void => {
@@ -198,8 +252,20 @@ export function EventChip({
     setShift(null);
     if (!movedRef.current || next === null || edit === null || edit.kind !== 'event') return;
 
+    /* 🔴 Жест, ничего не изменивший, — это клик, а не перенос (issue #143).
+       Палец на тач-экране уезжает вбок на несколько пикселей у каждого тапа;
+       такой снос не меняет ни дня, ни часа — но, посчитанный движением, он
+       отправлял бы на сервер правку с прежними значениями и заодно съедал
+       нажатие, ради которого карточка и открывается. То же спасает от пустой
+       правки по вертикали: сдвиг на три минуты садится обратно на свой шаг. */
+    if (next.day === item.day && next.fromMin === item.fromMin && next.toMin === item.toMin) {
+      movedRef.current = false;
+      return;
+    }
+
     actions.move(edit.id, {
       ...edit.draft,
+      day: next.day,
       time: timeOfMinutes(next.fromMin),
       durationMin: Math.max(next.toMin - next.fromMin, MIN_EVENT_MIN),
     });
@@ -262,7 +328,12 @@ export function EventChip({
           }%`,
           left: `${place.leftPercent}%`,
           width: `${place.widthPercent}%`,
-          zIndex: place.depth + 1,
+          zIndex: shift === null ? place.depth + 1 : DRAG_DEPTH,
+          /* Пока запись едет вбок, она остаётся в своей колонке и просто
+             сдвинута: перевешивать её в чужую полосу посреди жеста значило бы
+             ломать раскладку соседей ради промежуточного состояния. */
+          transform:
+            shift === null || shift.offsetPx === 0 ? undefined : `translateX(${shift.offsetPx}px)`,
         };
 
   const person = item.person;
