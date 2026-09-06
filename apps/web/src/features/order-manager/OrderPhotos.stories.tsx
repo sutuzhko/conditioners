@@ -1,26 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { OrderPhotos } from './OrderPhotos';
-import { acceptingWorkApi, failingWorkApi, photos } from './fixtures';
+import { acceptingWorkApi, failingWorkApi, showcasePhotos } from './fixtures';
 
 const meta = {
   title: 'Админка/Заказы/Фотографии',
   component: OrderPhotos,
-  // Допущение инвариантов — причина в reason (ADR-230)
-  parameters: {
-    invariants: {
-      allow: [
-        {
-          rule: 'images',
-          reason:
-            'фото из тома загрузок сервера (/media, /api/media): в статической витрине его нет (ADR-207)',
-        },
-      ],
-    },
-  },
   args: {
     api: acceptingWorkApi,
-    photos,
+    /* Кадр внутри адреса, а не ссылка на закрытый маршрут панели: в статической
+       витрине отдавать снимок некому (issue #676). */
+    photos: showcasePhotos,
     confirmRemove: async () => true,
   },
 } satisfies Meta<typeof OrderPhotos>;

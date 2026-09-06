@@ -14,7 +14,7 @@ import {
   docs,
   emptyConsumptionApi,
   orderDetails,
-  photos,
+  showcasePhotos,
   stockChecklist,
 } from './fixtures';
 
@@ -46,7 +46,7 @@ const meta = {
     documents: (
       <>
         <OrderDocs api={api} docs={docs} editable confirmRemove={async () => true} />
-        <OrderPhotos api={api} photos={photos} confirmRemove={async () => true} />
+        <OrderPhotos api={api} photos={showcasePhotos} confirmRemove={async () => true} />
       </>
     ),
     history: <OrderHistory entries={orderDetails.history ?? []} />,
@@ -81,7 +81,12 @@ export const ГлазамиМонтажника: Story = {
     documents: (
       <>
         <OrderDocs api={api} docs={docs} />
-        <OrderPhotos api={api} photos={photos} forInstaller confirmRemove={async () => true} />
+        <OrderPhotos
+          api={api}
+          photos={showcasePhotos}
+          forInstaller
+          confirmRemove={async () => true}
+        />
       </>
     ),
     /* 🔴 Истории у монтажника нет вовсе: вкладок остаётся четыре (ADR-114). */
