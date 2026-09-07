@@ -169,6 +169,29 @@ describe('формат истории', () => {
     expect(parseStory(text)).toEqual(buildModel(set));
   });
 
+  it('🔴 сторона слоя записана полем и переживает круговой разбор (issue #689)', () => {
+    /* Корень портала пишется нулями, а размеры пузырька от стороны не
+       зависят — без этого поля переворот подсказки не менял бы в файле ни
+       строки, и ловил бы его один пиксельный снимок. */
+    const set = (side) =>
+      [320, 375].flatMap((width) =>
+        ['light', 'dark'].map((theme) =>
+          partial(width, theme, [
+            node('section.Pricing__root', null, [0, 0, width, 200]),
+            node('span.Tooltip__bubble', null, [0, 0, 120, 32], { portal: true, side }),
+          ]),
+        ),
+      );
+    const above = formatStory(set('top'));
+    expect(above).toContain('span.Tooltip__bubble  120×32 @0,0  portal  side=top');
+    expect(parseStory(above)).toEqual(buildModel(set('top')));
+
+    /* Числа те же, строка другая: ровно то, ради чего поле заведено. */
+    const below = formatStory(set('bottom'));
+    expect(below).not.toBe(above);
+    expect(below).toContain('side=bottom');
+  });
+
   it('измерения разных историй в одной модели — ошибка', () => {
     const set = fullSet();
     set[0].story = 'другая--история';

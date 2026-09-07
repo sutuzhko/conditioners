@@ -55,6 +55,21 @@ export const OpenByKeyboard: Story = {
   },
 };
 
+/**
+ * 🔴 Подсказка снизу — не украшение набора, а вторая проверка стороны
+ * (issue #689). Корень портала в измерениях пишется нулями (ADR-327), а
+ * размеры пузырька от стороны не зависят: без этой истории рядом с «Открыта
+ * наведением» перестановка стороны не была бы видна в диффе PR ничем, кроме
+ * пиксельного снимка.
+ */
+export const OpenBelow: Story = {
+  name: 'Открыта снизу',
+  args: { placement: 'bottom' },
+  play: async ({ canvasElement }) => {
+    await userEvent.hover(within(canvasElement).getByRole('button', { name: 'Обзор' }));
+  },
+};
+
 export const Placements: Story = {
   name: 'Стороны',
   render: (args) => (

@@ -87,6 +87,28 @@ export const Short: Story = {
   },
 };
 
+/**
+ * 🔴 Меню у последней строки таблицы: внизу окна места нет, и оно
+ * раскрывается вверх. История нужна не ради вида — она вторая проверка
+ * стороны (issue #689): размеры меню от неё не меняются, а корень портала
+ * измерения пишут нулями (ADR-327), поэтому переворот виден только полем
+ * `side` рядом с историей «Открыто».
+ */
+export const OpenUp: Story = {
+  name: 'Открыто вверх',
+  parameters: { layout: 'fullscreen' },
+  decorators: [
+    (Story) => (
+      <div style={{ height: '100vh', display: 'flex', alignItems: 'flex-end' }}>
+        <Story />
+      </div>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    await userEvent.click(within(canvasElement).getByRole('button'));
+  },
+};
+
 /** Без значков: они необязательны — смысл несёт подпись. */
 export const NoIcons: Story = {
   name: 'Без значков',

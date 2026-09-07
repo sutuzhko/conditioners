@@ -89,6 +89,9 @@ export function Tooltip({ text, children, placement = 'top', className }: Toolti
           : side === 'right'
             ? rect.right + GAP
             : clamp(centreX, window.innerWidth - width),
+      /* Выбранная сторона уезжает в `data-side`: она не выводится из размеров
+         пузырька, и без неё переворот подсказки не виден измерениям (#689). */
+      side,
     };
   }, [placement]);
 
