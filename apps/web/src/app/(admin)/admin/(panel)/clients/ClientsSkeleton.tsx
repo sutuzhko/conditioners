@@ -1,4 +1,5 @@
 import { Skeleton } from '@/shared/ui';
+import { BusyGroup } from '@/widgets/admin-shell';
 
 import styles from './page.module.css';
 
@@ -15,9 +16,9 @@ import styles from './page.module.css';
  */
 export function ClientsSkeleton() {
   return (
-    <>
+    <BusyGroup>
       <Skeleton variant="block" className={styles.searchSkeleton} />
       <Skeleton variant="block" className={styles.rowSkeleton} />
-    </>
+    </BusyGroup>
   );
 }

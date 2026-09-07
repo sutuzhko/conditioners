@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Card, Pager, Table } from '@/shared/ui';
+import { ButtonLink, Card, EmptyState, Pager, Table } from '@/shared/ui';
 
 import { STOCK_MOVE_TITLES, stockManagerContent as texts } from './content';
 import { StockJournalFilters } from './StockJournalFilters';
@@ -78,7 +78,26 @@ export function StockJournal({
       <Card as="section">
         <h2 className={styles.title}>{texts.journalTitle}</h2>
         {filter}
-        <p className={styles.empty}>{applied ? texts.journalNothingText : emptyText}</p>
+
+        {/* 🔴 Выход даётся только пустоте по отбору: движения есть, их скрыл
+            фильтр, и ссылка возвращает журнал целиком. У пустого журнала
+            выхода нет — сбрасывать нечего, остаток появится после первого
+            прихода, и кнопка «Сбросить» там солгала бы о причине (issue
+            #580). Адрес сброса — экран со своей вкладкой и без условий
+            журнала: без `tab` он увёл бы на остатки. */}
+        <EmptyState
+          icon={applied ? 'search' : 'stock'}
+          title={applied ? texts.journalNothingTitle : texts.journalEmptyTitle}
+          action={
+            applied ? (
+              <ButtonLink href={{ pathname: basePath, query: base }} size="sm" variant="bordered">
+                {texts.journalEmptyAction}
+              </ButtonLink>
+            ) : undefined
+          }
+        >
+          {applied ? texts.journalNothingText : emptyText}
+        </EmptyState>
       </Card>
     );
   }

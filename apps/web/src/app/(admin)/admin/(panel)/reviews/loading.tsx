@@ -1,7 +1,7 @@
 import { reviewModerationContent as texts, reviewTabItems } from '@/features/review-moderation';
 import { TabLinks } from '@/shared/ui';
-import { RowsSkeleton } from '@/widgets/admin-shell';
 
+import { ReviewsSkeleton } from './ReviewsSkeleton';
 import styles from '../leads/page.module.css';
 
 /**
@@ -10,7 +10,9 @@ import styles from '../leads/page.module.css';
  * потому что только так её высота совпадает при любом переносе строк.
  *
  * Открытую вкладку заготовка не подсвечивает: параметров адреса `loading.tsx`
- * не получает, и подсветить он может только не ту.
+ * не получает, и подсветить он может только не ту. Живёт это ровно до первого
+ * куска потока — дальше вкладки рисует сама страница, которая вкладку знает
+ * (issue #495).
  */
 export default function ReviewsLoading() {
   return (
@@ -22,7 +24,7 @@ export default function ReviewsLoading() {
 
       <TabLinks items={reviewTabItems()} label={texts.filterLabel} />
 
-      <RowsSkeleton rows={4} className={styles.reviewSkeleton} />
+      <ReviewsSkeleton />
     </div>
   );
 }

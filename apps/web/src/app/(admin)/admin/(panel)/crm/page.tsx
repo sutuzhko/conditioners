@@ -11,6 +11,8 @@ import {
   crmContent as texts,
   dayColumns,
   hourRangeOf,
+  layerFiltered,
+  layerResetHref,
   marksOf,
   monthColumns,
   parseCalendarView,
@@ -274,6 +276,11 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
                   range={hours}
                   nowMin={minutesOfDay(now)}
                   focusId={focusParam}
+                  /* 🔴 Повестка обязана отличать пустую неделю от недели,
+                     спрятанной отбором (issue #580): колонки к ней приезжают
+                     уже отобранными, и сама она этого не видит. */
+                  filtered={layerFiltered(place)}
+                  resetHref={layerResetHref(place)}
                 />
               ) : null}
 

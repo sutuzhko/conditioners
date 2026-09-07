@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×548 @16,16  r20  b1
+section.Card__card  358×763 @16,16  r20  b1
   h2.StockJournal__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Журнал движений»
   div.StockJournalFilters__filters  316×423 @21,52
     nav.StockJournalFilters__row  316×148 @0,0
@@ -31,10 +31,18 @@ section.Card__card  358×548 @16,16  r20  b1
           span.Button__content  39×16 @15,14
             span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
         a.StockJournalFilters__reset  112×24 @81,10  Manrope 400 15/22  lines=1  «Сбросить отбор»
-  p.StockJournal__empty  316×45 @21,482  Manrope 400 15/22  lines=2  «Движения на складе есть — их скрыл поиск»
+  div.EmptyState__box  316×268 @21,474
+    span.EmptyState__badge  48×48 @134,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  157×21 @79,88  Onest 700 17/21  ls0  lines=1  «Ничего не нашлось»
+    p.EmptyState__text  284×67 @16,113  Manrope 400 15/22  lines=3  «Движения на складе есть — их скрыл поиск»
+    div.EmptyState__action  284×44 @16,196
+      a.Button__button  284×44 @0,0  r9  b1
+        span.Button__content  142×16 @71,14
+          span.Button__label#2  142×16 @0,0  Manrope 600 13/16  lines=1  «Показать весь журнал»
 
 [геометрия 768]
-section.Card__card  736×389 @16,16  r20  b1
+section.Card__card  736×583 @16,16  r20  b1
   h2.StockJournal__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Журнал движений»
   div.StockJournalFilters__filters  694×263 @21,53
     nav.StockJournalFilters__row  694×96 @0,0
@@ -58,10 +66,18 @@ section.Card__card  736×389 @16,16  r20  b1
           span.Button__content  39×16 @15,14
             span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
         a.StockJournalFilters__reset  112×24 @81,36  Manrope 400 15/22  lines=1  «Сбросить отбор»
-  p.StockJournal__empty  531×45 @21,323  Manrope 400 15/22  lines=2  «Движения на складе есть — их скрыл поиск»
+  div.EmptyState__box  694×247 @21,315
+    span.EmptyState__badge  48×48 @323,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  165×22 @264,88  Onest 700 18/22  ls0  lines=1  «Ничего не нашлось»
+    p.EmptyState__text  371×45 @161,114  Manrope 400 15/22  lines=2  «Движения на складе есть — их скрыл поиск»
+    div.EmptyState__action  172×44 @261,175
+      a.Button__button  172×44 @0,0  r9  b1
+        span.Button__content  142×16 @15,14
+          span.Button__label#2  142×16 @0,0  Manrope 600 13/16  lines=1  «Показать весь журнал»
 
 [геометрия 1440]
-section.Card__card  1408×319 @16,16  r20  b1
+section.Card__card  1408×509 @16,16  r20  b1
   h2.StockJournal__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Журнал движений»
   div.StockJournalFilters__filters  1366×191 @21,54
     nav.StockJournalFilters__row  1366×34 @0,0
@@ -85,7 +101,15 @@ section.Card__card  1408×319 @16,16  r20  b1
           span.Button__content  39×16 @15,12
             span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
         a.StockJournalFilters__reset  112×24 @81,34  Manrope 400 15/22  lines=1  «Сбросить отбор»
-  p.StockJournal__empty  531×45 @21,253  Manrope 400 15/22  lines=2  «Движения на складе есть — их скрыл поиск»
+  div.EmptyState__box  1366×244 @21,245
+    span.EmptyState__badge  48×48 @659,28  r100
+      svg  20×20 @14,14
+    h2.EmptyState__title  174×23 @596,88  Onest 700 19/23  ls0  lines=1  «Ничего не нашлось»
+    p.EmptyState__text  371×45 @497,115  Manrope 400 15/22  lines=2  «Движения на складе есть — их скрыл поиск»
+    div.EmptyState__action  172×40 @597,176
+      a.Button__button  172×40 @0,0  r9  b1
+        span.Button__content  142×16 @15,12
+          span.Button__label#2  142×16 @0,0  Manrope 600 13/16  lines=1  «Показать весь журнал»
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
@@ -112,7 +136,15 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
           span.Button__content
             span.Button__label  color #ffffff
         a.StockJournalFilters__reset  color #556173
-  p.StockJournal__empty  color #556173
+  div.EmptyState__box
+    span.EmptyState__badge  bg #ecfeff
+      svg
+    h2.EmptyState__title  color #0f172a
+    p.EmptyState__text  color #556173
+    div.EmptyState__action
+      a.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content
+          span.Button__label#2  color #0f172a
 
 [палитра dark]
 section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
@@ -139,4 +171,12 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
           span.Button__content
             span.Button__label  color #ffffff
         a.StockJournalFilters__reset  color #8598ac
-  p.StockJournal__empty  color #8598ac
+  div.EmptyState__box
+    span.EmptyState__badge  bg #22d3ee1a
+      svg
+    h2.EmptyState__title  color #eaf1f8
+    p.EmptyState__text  color #8598ac
+    div.EmptyState__action
+      a.Button__button  bg #121d31  border #566d95
+        span.Button__content
+          span.Button__label#2  color #eaf1f8
