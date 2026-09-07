@@ -358,8 +358,32 @@ async function walkWithTab(page: Page, limit: number): Promise<readonly FocusSto
       el.dataset.tabWalk = 'yes';
 
       const box = el.getBoundingClientRect();
-      const style = getComputedStyle(el);
       const hit = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2);
+
+      /* 🔴 Кольцо ищется и на псевдоэлементах узла, а не только на нём самом.
+         Строка списка, которая нажимается целиком, рисует кольцо на растянутом
+         `::after` своей ссылки (ADR-347): у самого `<a>` при этом стоит
+         `outline: none` — рамка вокруг двух слов имени врала бы о размере
+         цели, — и по стилю узла фокус выглядит невидимым, хотя на экране
+         обведена вся строка. Слепота та же, что была у замера тап-зоны выше:
+         рамке элемента верить нельзя, когда работу делает псевдоэлемент
+         (#548, ADR-183).
+
+         Псевдоэлемент, который не рисуется, в счёт не идёт: коробки без
+         `content` у него нет, а объявленная тень осталась бы в вычисленном
+         стиле и зачла бы кольцо, которого не видно. */
+      const ringOn = (pseudo: string | null): boolean => {
+        const style = getComputedStyle(el, pseudo);
+        if (pseudo !== null && (style.content === 'none' || style.content === 'normal')) {
+          return false;
+        }
+
+        return (
+          (style.outlineStyle !== 'none' && Number.parseFloat(style.outlineWidth) > 0) ||
+          style.boxShadow !== 'none'
+        );
+      };
+
       const inTabbar = el.closest('nav')?.getAttribute('aria-label') === tabsLabel;
 
       /* 🔴 Строка раздела опознаётся по признаку `data-shell`, а не по тегу.
@@ -384,9 +408,7 @@ async function walkWithTab(page: Page, limit: number): Promise<readonly FocusSto
           box.bottom <= window.innerHeight &&
           box.right <= window.innerWidth,
         onTop: hit !== null && (el === hit || el.contains(hit)),
-        ring:
-          (style.outlineStyle !== 'none' && Number.parseFloat(style.outlineWidth) > 0) ||
-          style.boxShadow !== 'none',
+        ring: ringOn(null) || ringOn('::after') || ringOn('::before'),
       };
     }, texts.tabsLabel);
 
