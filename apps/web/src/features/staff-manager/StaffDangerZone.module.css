@@ -61,7 +61,7 @@
 /* Класс удвоен намеренно (ADR-038): краска кнопки задана в ките с той же
    специфичностью, и при равной специфичности выигрывает порядок сборки. */
 .remove.remove {
-  border-color: var(--error-line);
+  border-color: var(--error-line-ui);
   color: var(--error-ink);
 }
 

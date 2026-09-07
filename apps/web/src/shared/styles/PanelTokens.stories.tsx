@@ -21,7 +21,7 @@ import styles from './PanelTokens.module.css';
 
 const SURFACES = ['bg', 'bg-soft', 'card', 'field', 'stripe-a', 'stripe-b', 'panel'] as const;
 const INKS = ['ink', 'ink2', 'body', 'muted', 'faint', 'accent-text'] as const;
-const LINES = ['line-soft', 'line', 'line-strong', 'line-ui'] as const;
+const LINES = ['line-soft', 'line', 'line-strong', 'line-ui', 'error-line-ui'] as const;
 const STATES = ['ok', 'warn', 'error', 'info'] as const;
 const FILLS = ['error', 'ok'] as const;
 const SERIES = ['s1', 's2'] as const;
@@ -86,7 +86,12 @@ function ratioOf(values: Values, ink: string, ground: string, tint?: string): nu
   const layer = tint === undefined ? null : parseColor(values[tint] ?? '');
   const surface = layer === null ? second : blend(layer, second);
 
-  return contrastRatio(first, surface);
+  /* 🔴 Полупрозрачная краска кладётся на подложку, а не считается по номиналу
+     (ADR-181). Линия опасной кнопки задана долей, и по номиналу образец
+     показал бы 6,15:1 там, где на экране 3,87:1. */
+  const shown = first.alpha === 1 ? first : blend(first, surface);
+
+  return contrastRatio(shown, surface);
 }
 
 interface RatioProps {
@@ -174,7 +179,7 @@ function PanelTokens() {
 
       <Section
         caption="Линии"
-        note="Разделителю контраст не нужен, он декоративен. Но там, где линия и есть граница компонента, WCAG 1.4.11 требует 3:1 — и держит его только --line-ui."
+        note="Разделителю контраст не нужен, он декоративен. Но там, где линия и есть граница компонента, WCAG 1.4.11 требует 3:1 — и держат его только --line-ui и --error-line-ui, граница опасной кнопки."
       >
         <div className={styles.grid}>
           {LINES.map((token) => (
@@ -182,7 +187,7 @@ function PanelTokens() {
               <div className={styles.line} style={{ background: `var(--${token})` }} />
               <div className={styles.meta}>
                 <span className={styles.name}>--{token}</span>
-                {token === 'line-ui' ? (
+                {token === 'line-ui' || token === 'error-line-ui' ? (
                   <Ratio value={ratioOf(values, token, 'card')} norm={3} />
                 ) : (
                   <Ratio value={ratioOf(values, token, 'card')} />

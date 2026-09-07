@@ -217,6 +217,44 @@ describe.each(THEMES)('Семантические токены — %s тема',
     ).toBeGreaterThanOrEqual(AA_LARGE);
   });
 
+  /* 🔴 Опасная кнопка не залита: `--error-bg` даёт против карточки 1,08:1, и
+     весь её видимый контур — одна линия. Значит, действует 1.4.11, и линия
+     обязана держать 3:1 не только на чистой поверхности, но и на тинте
+     опасной зоны, внутри которой такая кнопка обычно и стоит
+     (`StaffDangerZone`): подложка там произведена от той же краски и запас
+     съедает. Найдено замером живой панели — 2,32:1 и 2,47:1 (issue #732). */
+  it.each(GROUNDS)('граница опасного контрола различима на «%s» и на тинте', (ground) => {
+    const line = color(palette, 'error-line-ui');
+    const surface = color(palette, ground);
+    const tinted = blend(color(palette, 'error-bg'), surface);
+
+    /* Линия полупрозрачна, и на экране её видно смешанной с подложкой —
+       считается то же, что рисует браузер, а не номинал токена (ADR-181). */
+    for (const [where, value] of [
+      [`--${ground}`, ratio(blend(line, surface), surface)],
+      [`тинте ошибки на --${ground}`, ratio(blend(line, tinted), tinted)],
+    ] as const) {
+      expect(
+        value,
+        `--error-line-ui на ${where} даёт ${formatRatio(value)}:1 при норме ${AA_LARGE}:1`,
+      ).toBeGreaterThanOrEqual(AA_LARGE);
+    }
+  });
+
+  /* Пока декоративная линия порога не берёт, разделение двух ролей оправдано.
+     Возьмёт — второй токен станет лишним, и об этом скажет упавшая проверка,
+     а не следующий аудит. */
+  it.each(GROUNDS)('декоративная линия ошибки границей контрола быть не может — «%s»', (ground) => {
+    const surface = color(palette, ground);
+    const weak = ratio(blend(color(palette, 'error-line'), surface), surface);
+
+    expect(
+      weak,
+      `--error-line внезапно проходит на --${ground} (${formatRatio(weak)}:1) — ` +
+        'отдельный --error-line-ui больше не нужен',
+    ).toBeLessThan(AA_LARGE);
+  });
+
   it.each(STATES)('краска «%s» читается и на чистой поверхности, и на своём тинте', (state) => {
     const ink = color(palette, `${state}-ink`);
     const tint = color(palette, `${state}-bg`);
