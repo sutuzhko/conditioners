@@ -643,6 +643,12 @@ export type OrderPhotoCard = {
   readonly stage: PhotoStage;
   readonly url: string;
   readonly sort: number;
+  /**
+   * 🔴 Запись есть, а файла на томе нет — issue #690. Ставит сервер: ссылка в
+   * базе и файл живут порознь (ADR-326), и карточка обязана прийти с этим
+   * знанием, а не выяснять его битой картинкой в браузере (инвариант 1).
+   */
+  readonly missing?: boolean | undefined;
 };
 
 export type OrderHistoryEntry = {

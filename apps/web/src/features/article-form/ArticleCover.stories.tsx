@@ -60,6 +60,17 @@ export const СОбложкой: Story = {
   args: { cover: SAMPLE_COVER },
 };
 
+/**
+ * 🔴 Ссылка есть, файла нет (issue #690): рамка со словами вместо значка
+ * сломанной картинки, `<img>` в разметке не появляется вовсе.
+ *
+ * Адрес обложки при этом рабочий — витрина показывает состояние компонента, а
+ * не неудачный запрос за картинкой: битый адрес в истории вычищал #676.
+ */
+export const ФайлПропал: Story = {
+  args: { cover: SAMPLE_COVER, coverMissing: true, remove: acceptingRemove },
+};
+
 export const ОтказСервера: Story = {
   args: { upload: failingUpload },
 };

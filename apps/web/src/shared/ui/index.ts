@@ -76,6 +76,8 @@ export { ErrorState } from './ErrorState/ErrorState';
 export type { ErrorStateProps } from './ErrorState/ErrorState';
 export { Skeleton } from './Skeleton/Skeleton';
 export type { SkeletonProps, SkeletonVariant } from './Skeleton/Skeleton';
+export { MediaGone } from './MediaGone/MediaGone';
+export type { MediaGoneProps } from './MediaGone/MediaGone';
 
 export { Input } from './Input/Input';
 export type { InputProps } from './Input/Input';

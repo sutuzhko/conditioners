@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { Badge, Button, Card, FileInput, Input, useConfirm } from '@/shared/ui';
+import { Badge, Button, Card, FileInput, Input, MediaGone, useConfirm } from '@/shared/ui';
 import type { Confirm } from '@/shared/ui';
 
 import { productPhotosContent as texts } from './content';
@@ -82,13 +82,21 @@ export function ProductPhotos({ photos, api, onChanged, confirmRemove }: Product
           {photos.map((photo, index) => (
             <li className={styles.item} key={photo.id}>
               <div className={styles.thumbBox}>
-                <Image
-                  className={styles.thumb}
-                  src={photo.url}
-                  alt={photo.alt ?? texts.altEmpty}
-                  width={THUMB}
-                  height={THUMB}
-                />
+                {/* 🔴 Пропавший файл рисуется рамкой, и `<img>` при этом не
+                    создаётся вовсе (issue #690): значку сломанной картинки
+                    взяться неоткуда. Есть ли файл, знает сервер — браузеру
+                    этот вопрос задавать поздно. */}
+                {photo.missing === true ? (
+                  <MediaGone className={styles.thumbGone} title={texts.gone} />
+                ) : (
+                  <Image
+                    className={styles.thumb}
+                    src={photo.url}
+                    alt={photo.alt ?? texts.altEmpty}
+                    width={THUMB}
+                    height={THUMB}
+                  />
+                )}
                 {photo.isMain ? (
                   <Badge variant="accent" className={styles.mainBadge}>
                     {texts.main}

@@ -21,6 +21,8 @@ export interface ArticleEditorProps {
   readonly id?: string | undefined;
   readonly values?: ArticleFormValues | undefined;
   readonly cover?: string | null | undefined;
+  /** Ссылка на обложку есть, а файла на томе нет — issue #690. */
+  readonly coverMissing?: boolean | undefined;
   /** Открытая вкладка. Не задана — форма показывает всё сразу (создание). */
   readonly tab?: ArticleTab | undefined;
   readonly siteUrl?: string | undefined;
@@ -44,6 +46,7 @@ export function ArticleEditor({
   id,
   values = emptyArticleValues,
   cover = null,
+  coverMissing = false,
   tab,
   siteUrl,
   titleSuffix,
@@ -69,6 +72,7 @@ export function ArticleEditor({
             cover: (
               <ArticleCover
                 cover={cover}
+                coverMissing={coverMissing}
                 upload={(file) => uploadCover(id, file)}
                 remove={() => removeCover(id)}
                 onChanged={() => router.refresh()}

@@ -18,13 +18,14 @@ import {
   type ClientLead,
   type ClientOrder,
 } from '@/features/client-manager';
-import type { ClientCard } from '@/entities/client/model';
+import type { ClientCard, ClientUnitCard } from '@/entities/client/model';
 import { getAdminSession, isOwner } from '@/server/auth';
 import { requireOwnerPage } from '@/server/guards';
 import { listByClient as listUnits } from '@/server/repo/client-units';
 import { findById } from '@/server/repo/clients';
 import { listByClient as listLeads } from '@/server/repo/leads';
 import { listByClient as listOrders, type Viewer } from '@/server/repo/orders';
+import { mediaExists } from '@/server/uploads/store';
 import { todayKey } from '@/shared/lib/calendar';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 import { TabLinks, TabPanels } from '@/shared/ui';
@@ -148,11 +149,13 @@ async function ClientCard({
   readonly active: ReturnType<typeof clientCardTabFromParam>;
   readonly viewer: Viewer;
 }) {
-  const [leads, units, orders] = await Promise.all([
+  const [leads, listed, orders] = await Promise.all([
     listLeads(client.id),
     listUnits(client.id),
     listOrders(client.id, viewer),
   ]);
+
+  const units = await withPhotoState(listed);
 
   /* Заявке в карточке клиента нужно ровно то, чем вспоминают разговор: всё
      остальное — включая согласие на обработку — живёт в разделе заявок. */
@@ -234,5 +237,29 @@ async function ClientCard({
       label={texts.tabsLabel}
       idPrefix="client"
     />
+  );
+}
+
+/**
+ * Дожил ли снимок установки до сегодня — issue #690.
+ *
+ * 🔴 Спрашивает диск сервер, а не браузер. Ссылка в базе и файл на томе живут
+ * порознь: том переехал, каталог не примонтирован, база наполнена в другом
+ * окружении (ADR-326). Без этой проверки карточка рисует значок сломанной
+ * картинки — то есть выглядит сломанной вёрсткой, а не пропавшим снимком.
+ *
+ * По одному `stat` на единицу техники со снимком, и только у одного клиента:
+ * это карточка записи, а не список на тысячи строк, и обращение к локальному
+ * тому стоит микросекунды против чтения базы, которое страница уже сделала.
+ */
+async function withPhotoState(
+  units: readonly ClientUnitCard[],
+): Promise<readonly ClientUnitCard[]> {
+  return await Promise.all(
+    units.map(async (unit) => {
+      if (unit.photo === null) return unit;
+
+      return { ...unit, photoMissing: !(await mediaExists(unit.photo)) };
+    }),
   );
 }

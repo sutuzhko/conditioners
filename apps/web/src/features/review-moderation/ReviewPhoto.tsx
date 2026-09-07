@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { Modal } from '@/shared/ui';
+import { MediaGone, Modal } from '@/shared/ui';
 
 import { reviewModerationContent as texts } from './content';
 import styles from './ReviewPhoto.module.css';
@@ -37,14 +37,13 @@ export function ReviewPhoto({ src, name, missing = false }: ReviewPhotoProps) {
   /* 🔴 Не кнопка и не ссылка: открывать нечего, а живая ссылка «открыть в
      полный размер» вела бы в 404 — предложение, которое интерфейс заведомо не
      исполнит. Рамка того же размера, что и превью: снявшийся с диска файл не
-     должен ещё и двигать карточку под курсором. */
+     должен ещё и двигать карточку под курсором.
+
+     Рамку рисует кит (issue #690): мест, где ссылка переживает файл, стало
+     шесть, и вторая реализация той же рамки разошлась бы с первой на первой
+     же правке. Раздел оставляет себе только размеры. */
   if (missing) {
-    return (
-      <div className={styles.gone} role="note">
-        <span className={styles.goneTitle}>{texts.photoGone}</span>
-        <span className={styles.goneNote}>{texts.photoGoneNote}</span>
-      </div>
-    );
+    return <MediaGone className={styles.gone} title={texts.photoGone} note={texts.photoGoneNote} />;
   }
 
   return (

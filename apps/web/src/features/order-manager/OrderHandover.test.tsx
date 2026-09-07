@@ -23,6 +23,22 @@ const ready = { ...installerDetails, status: 'in_progress' as const };
 const noPhotos = { ...ready, photos: ready.photos.filter((photo) => photo.stage === 'before') };
 
 describe('Сдача работы', () => {
+  it('🔴 пропавший файл рисуется рамкой и не создаёт картинки (issue #690)', () => {
+    const gone = {
+      ...ready,
+      photos: ready.photos.map((photo) => ({ ...photo, missing: photo.stage === 'after' })),
+    };
+    const { container } = render(
+      <OrderHandover order={gone} api={acceptingWorkApi} statusApi={acceptingApi} />,
+    );
+
+    /* Значку сломанной картинки взяться неоткуда. Снимок при этом остаётся
+       загруженным: остаток «загрузите ещё» считается по записям, а не по
+       файлам, — иначе пропажа файла молча запирала бы сдачу наряда. */
+    expect(container.querySelector('img')).toBeNull();
+    expect(screen.queryByText(own.photosLeft(2))).not.toBeInTheDocument();
+  });
+
   it('🔴 без снимков сдать нельзя, и экран называет остаток числом', () => {
     render(<OrderHandover order={noPhotos} api={acceptingWorkApi} statusApi={acceptingApi} />);
 

@@ -3,7 +3,15 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { Card, FileInput, Icon, IconButton, useConfirm, type Confirm } from '@/shared/ui';
+import {
+  Card,
+  FileInput,
+  Icon,
+  IconButton,
+  MediaGone,
+  useConfirm,
+  type Confirm,
+} from '@/shared/ui';
 
 import { PHOTO_STAGE_TITLE, orderManagerContent as texts } from './content';
 import { photosOfStage, type OrderPhotoCard, type OrderWorkApi, type PhotoStage } from './model';
@@ -109,18 +117,27 @@ export function OrderPhotos({
                 <ul className={styles.grid}>
                   {shots.map((photo, index) => (
                     <li className={styles.item} key={photo.id}>
-                      {/* 🔴 `unoptimized` — снимок отдаётся по сессии (ADR-171),
+                      {/* 🔴 Пропавший файл рисуется рамкой, и `<img>` при этом
+                          не создаётся вовсе (issue #690): значку сломанной
+                          картинки взяться неоткуда. Удаление рядом остаётся —
+                          снять запись, у которой нет файла, как раз и нужно.
+
+                          🔴 `unoptimized` — снимок отдаётся по сессии (ADR-171),
                           а оптимизатор ходит за картинкой сам, своим запросом с
                           сервера и без cookie панели: получает 401 и отдаёт
                           вместо снимка ошибку. */}
-                      <Image
-                        className={styles.thumb}
-                        src={photo.url}
-                        alt={texts.photoAlt(stageTitle, index + 1)}
-                        width={THUMB}
-                        height={THUMB}
-                        unoptimized
-                      />
+                      {photo.missing === true ? (
+                        <MediaGone className={styles.thumbGone} title={texts.photoGone} />
+                      ) : (
+                        <Image
+                          className={styles.thumb}
+                          src={photo.url}
+                          alt={texts.photoAlt(stageTitle, index + 1)}
+                          width={THUMB}
+                          height={THUMB}
+                          unoptimized
+                        />
+                      )}
 
                       {mayEdit(stage) ? (
                         <IconButton

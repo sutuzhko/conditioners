@@ -79,6 +79,7 @@ import { ApiException } from '@/server/http';
 import { cancelReasonFromDb, cancelReasonToDb } from '@/server/repo/cancel-reason';
 import { employmentFromDb } from '@/server/repo/employment';
 import { workWindow } from '@/server/repo/settings';
+import { protectedImageExists } from '@/server/uploads/store';
 
 // ---------- Словари: база ↔ контракт ----------
 
@@ -483,16 +484,27 @@ function toHistoryEntry(row: HistoryRow): OrderHistoryEntry {
  * владельца с людьми, а не работа монтажника (docs/CRM.md §6). Ключа `history`
  * в ответе монтажника нет вовсе — как и у заметки владельца.
  */
-function toDetails(
+async function toDetails(
   row: OrderDetailsRow,
   role: AdminRole,
   margin?: OrderMargin | undefined,
-): OrderDetails {
+): Promise<OrderDetails> {
   const shared = {
     ...toCard(row, role, margin),
     checklist: row.checklist.map(toChecklistCard),
     docs: row.docs.map((doc) => toDocCard(row.id, doc)),
-    photos: row.photos.map((photo) => toPhotoCard(row.id, photo)),
+    /* 🔴 Дожил ли снимок до сегодня, спрашивает сервер, а не браузер (issue
+       #690). Имя файла есть прямо здесь, в строке базы, — отдельного запроса
+       проверка не стоит, а карточка приходит уже верной: значку сломанной
+       картинки взяться неоткуда (инвариант 1). Проверяется закрытое
+       хранилище: у снимка наряда в колонке лежит имя файла, а не адрес
+       (ADR-171). */
+    photos: await Promise.all(
+      row.photos.map(async (photo) => ({
+        ...toPhotoCard(row.id, photo),
+        missing: !(await protectedImageExists(photo.url)),
+      })),
+    ),
   };
 
   if (role === 'owner') return { ...shared, history: row.history.map(toHistoryEntry) };
@@ -764,7 +776,7 @@ export async function findById(id: string, viewer: Viewer): Promise<OrderDetails
 
   const margins = await marginsOfRows([row], viewer.role);
 
-  return toDetails(row, viewer.role, margins.get(row.id));
+  return await toDetails(row, viewer.role, margins.get(row.id));
 }
 
 /**
@@ -1711,7 +1723,7 @@ export async function setResult(
     });
   });
 
-  return toDetails(row, viewer.role);
+  return await toDetails(row, viewer.role);
 }
 
 /** Удаление наряда. Позиции уходят каскадом — своей жизни у них нет. */

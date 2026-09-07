@@ -14,6 +14,7 @@ import { getAdminSession, isOwner } from '@/server/auth';
 import { requireOwnerPage } from '@/server/guards';
 import { findById, type ArticleDto } from '@/server/repo/articles';
 import { getGroup } from '@/server/repo/settings';
+import { mediaExists } from '@/server/uploads/store';
 import { env } from '@/shared/config/env';
 import { TabLinks } from '@/shared/ui';
 import { DataBlock, FieldsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
@@ -119,13 +120,20 @@ async function ArticleForm({
   readonly article: ArticleDto;
   readonly tab: ReturnType<typeof articleTabFromParam>;
 }) {
-  const seo = settingSchemas.seo.safeParse((await getGroup('seo')) ?? {});
+  /* 🔴 Дожил ли файл обложки до сегодня — спрашивает сервер, а не браузер
+     (issue #690). Ссылка в базе и файл на томе живут порознь: том переехал,
+     каталог не примонтирован, база наполнена в другом окружении (ADR-326).
+     Без проверки блок показывает значок сломанной картинки, то есть выглядит
+     сломанной вёрсткой, а не пропавшим файлом. Один `stat` на статью. */
+  const [group, coverExists] = await Promise.all([getGroup('seo'), mediaExists(article.cover)]);
+  const seo = settingSchemas.seo.safeParse(group ?? {});
   const titleSuffix = (seo.success ? seo.data.titleSuffix : '') ?? '';
 
   return (
     <ArticleEditor
       id={article.id}
       cover={article.cover}
+      coverMissing={article.cover !== null && !coverExists}
       tab={tab}
       siteUrl={env.SITE_URL}
       titleSuffix={titleSuffix}

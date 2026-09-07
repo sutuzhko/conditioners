@@ -1,7 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { ClientUnits } from './ClientUnits';
-import { acceptingUnitApi, expiredUnits, ownUnits, singleUnit, today, units } from './fixtures';
+import {
+  acceptingUnitApi,
+  expiredUnits,
+  goneUnits,
+  ownUnits,
+  singleUnit,
+  today,
+  units,
+} from './fixtures';
 
 const meta = {
   title: 'Админка/Техника клиента',
@@ -20,6 +28,15 @@ export const Базовое: Story = {};
 /** Один монтаж — со снимком «после» и ссылкой на наряд, из которого он вырос. */
 export const Одна: Story = {
   args: { units: singleUnit },
+};
+
+/**
+ * 🔴 Ссылка есть, файла нет (issue #690): рамка со словами вместо значка
+ * сломанной картинки, `<img>` в разметке не появляется вовсе. Ниже — запись
+ * без снимка вовсе: это другое состояние, и выглядит оно иначе.
+ */
+export const ФайлПропал: Story = {
+  args: { units: goneUnits },
 };
 
 /** Техники нет: ни одного выполненного монтажа и ничего не заведено руками. */
