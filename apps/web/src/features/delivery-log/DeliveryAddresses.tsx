@@ -15,8 +15,12 @@ export interface DeliveryAddressesProps {
   readonly api?: AddressApi | undefined;
 }
 
+/* Ключ на каждую роль: `Record` не даст завести роль и оставить её без
+   подписи — в списке адресов она уехала бы английским ключом (ADR-344). */
 const ROLE_TITLES: Readonly<Record<DeliveryAddressView['role'], string>> = {
   owner: texts.roleOwner,
+  admin: texts.roleAdmin,
+  manager: texts.roleManager,
   installer: texts.roleInstaller,
 };
 

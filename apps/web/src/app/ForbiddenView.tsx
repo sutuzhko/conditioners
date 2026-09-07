@@ -1,3 +1,4 @@
+import type { AdminRole } from '@/entities/staff/model';
 import { ButtonLink } from '@/shared/ui';
 
 import { ErrorDocumentAttrs } from './ErrorDocumentAttrs';
@@ -13,7 +14,13 @@ import styles from './forbidden.module.css';
  * `html#__next_error__` — без языка и без темы. Чинит это `ErrorDocumentAttrs`,
  * общий с 404 панели: см. его разбор.
  */
-export function ForbiddenView() {
+export function ForbiddenView({ role }: { role: AdminRole | null }) {
+  /* 🔴 Выход берётся по роли (ADR-344): единственный адрес на всех отправлял
+     менеджера на календарь выездов, то есть из отказа в отказ. `null` —
+     сессия истекла между проверкой и отрисовкой; такому человеку зовут на
+     вход. */
+  const exit = role === null ? t.guest : t[role];
+
   return (
     <main className={styles.page}>
       <ErrorDocumentAttrs />
@@ -23,8 +30,8 @@ export function ForbiddenView() {
         <h1 className={styles.title}>{t.title}</h1>
         <p className={styles.lead}>{t.lead}</p>
 
-        <ButtonLink href={t.workHref} size="lg" className={styles.action}>
-          {t.workLink}
+        <ButtonLink href={exit.href} size="lg" className={styles.action}>
+          {exit.label}
         </ButtonLink>
       </div>
     </main>

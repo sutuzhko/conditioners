@@ -13,11 +13,11 @@ import {
   type LeadQueueItem,
   type LeadStatus,
 } from '@/features/lead-manager';
-import { requireOwnerPage } from '@/server/guards';
+import { requireRolePage } from '@/server/guards';
 import { findById, listByStatus, queueCounts } from '@/server/repo/leads';
 import { pageNumber } from '@/shared/lib/paging';
 import { Card, EmptyState, Pager } from '@/shared/ui';
-import { DataBlock, blockErrorNote } from '@/widgets/admin-shell';
+import { ADMIN_LEADS_ROLES, DataBlock, blockErrorNote } from '@/widgets/admin-shell';
 
 import { LeadsSkeleton } from './LeadsSkeleton';
 import styles from './page.module.css';
@@ -51,8 +51,11 @@ export default async function AdminLeadsPage({
 }: {
   searchParams: Promise<LeadsParams>;
 }) {
-  /* Раздел владельца: проверка до чтения данных (ADR-095). */
-  await requireOwnerPage();
+  /* 🔴 Раздел клиентского цикла: владелец, администратор и менеджер — да,
+     монтажник — 403 (ADR-344, issue #770). Проверка идёт до чтения данных
+     (ADR-095), и перечень ролей берётся тот же, по которому раздел стоит в
+     колонке: своей копии у страницы нет намеренно. */
+  await requireRolePage(ADMIN_LEADS_ROLES);
 
   const { status, page, lead, q } = await searchParams;
   const selected = status !== undefined && isLeadStatus(status) ? status : undefined;

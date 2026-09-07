@@ -51,6 +51,8 @@ export const deliveryLogContent = {
   addressesEmpty: 'В команде пока никого нет.',
 
   roleOwner: 'владелец',
+  roleAdmin: 'администратор',
+  roleManager: 'менеджер',
   roleInstaller: 'монтажник',
   inactive: 'доступ отключён',
 
