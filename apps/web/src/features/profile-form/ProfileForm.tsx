@@ -11,6 +11,7 @@ import {
   CardFooter,
   CardHeader,
   Input,
+  PasswordInput,
   PhoneInput,
   useConfirm,
 } from '@/shared/ui';
@@ -233,9 +234,8 @@ export function ProfileForm({ me, api = profileApi }: ProfileFormProps) {
             />
 
             <CardBody className={styles.fields}>
-              <Input
+              <PasswordInput
                 label={texts.passwordCurrent}
-                type="password"
                 value={current}
                 disabled={changing}
                 autoComplete="current-password"
@@ -246,9 +246,8 @@ export function ProfileForm({ me, api = profileApi }: ProfileFormProps) {
                 }}
               />
 
-              <Input
+              <PasswordInput
                 label={texts.passwordNext}
-                type="password"
                 value={next}
                 disabled={changing}
                 autoComplete="new-password"
@@ -260,9 +259,8 @@ export function ProfileForm({ me, api = profileApi }: ProfileFormProps) {
                 onBlur={checkRepeat}
               />
 
-              <Input
+              <PasswordInput
                 label={texts.passwordRepeat}
-                type="password"
                 value={repeat}
                 disabled={changing}
                 autoComplete="new-password"

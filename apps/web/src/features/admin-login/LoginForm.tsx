@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 
-import { Button, Card, Input } from '@/shared/ui';
+import { Button, Card, Input, PasswordInput } from '@/shared/ui';
 
 import { adminLoginContent as texts } from './content';
 import { emptyLoginValues, postLogin, validateLoginValues } from './lib';
@@ -131,9 +131,8 @@ export function LoginForm({
           onChange={change('login')}
         />
 
-        <Input
+        <PasswordInput
           name="password"
-          type="password"
           label={texts.password}
           autoComplete="current-password"
           required

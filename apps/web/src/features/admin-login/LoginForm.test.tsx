@@ -52,7 +52,10 @@ describe('Форма входа в панель', () => {
     renderForm({ submit, redirectTo: '/admin/catalog' });
 
     await user.type(screen.getByLabelText(texts.login, { exact: false }), 'admin');
-    await user.type(screen.getByLabelText(texts.password, { exact: false }), 'секрет');
+    await user.type(
+      screen.getByLabelText(texts.password, { exact: false, selector: 'input' }),
+      'секрет',
+    );
     await user.click(screen.getByRole('button', { name: texts.submit }));
 
     await waitFor(() => {
@@ -65,7 +68,7 @@ describe('Форма входа в панель', () => {
     renderForm({ submit: failedSubmit });
 
     await user.type(screen.getByLabelText(texts.login, { exact: false }), 'admin');
-    const password = screen.getByLabelText(texts.password, { exact: false });
+    const password = screen.getByLabelText(texts.password, { exact: false, selector: 'input' });
     await user.type(password, 'неверный');
     await user.click(screen.getByRole('button', { name: texts.submit }));
 
@@ -81,7 +84,10 @@ describe('Форма входа в панель', () => {
     renderForm({ submit: rateLimitedSubmit });
 
     await user.type(screen.getByLabelText(texts.login, { exact: false }), 'admin');
-    await user.type(screen.getByLabelText(texts.password, { exact: false }), 'секрет');
+    await user.type(
+      screen.getByLabelText(texts.password, { exact: false, selector: 'input' }),
+      'секрет',
+    );
     await user.click(screen.getByRole('button', { name: texts.submit }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent('5 мин');
@@ -93,7 +99,10 @@ describe('Форма входа в панель', () => {
     renderForm({ submit });
 
     await user.type(screen.getByLabelText(texts.login, { exact: false }), 'admin');
-    await user.type(screen.getByLabelText(texts.password, { exact: false }), 'секрет');
+    await user.type(
+      screen.getByLabelText(texts.password, { exact: false, selector: 'input' }),
+      'секрет',
+    );
 
     const button = screen.getByRole('button', { name: texts.submit });
     await user.click(button);

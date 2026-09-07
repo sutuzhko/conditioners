@@ -2,7 +2,15 @@
 
 import { useState, type FormEvent } from 'react';
 
-import { Button, FormSection, Input, PhoneInput, Select, type FormSurface } from '@/shared/ui';
+import {
+  Button,
+  FormSection,
+  Input,
+  PasswordInput,
+  PhoneInput,
+  Select,
+  type FormSurface,
+} from '@/shared/ui';
 
 import { staffManagerContent as texts } from './content';
 import { staffApi } from './lib';
@@ -113,9 +121,8 @@ export function StaffCreateForm({
             error={errorFor('phone')}
             onChange={(phone) => set({ phone })}
           />
-          <Input
+          <PasswordInput
             label={texts.password}
-            type="password"
             value={draft.password}
             disabled={sending}
             error={errorFor('password')}

@@ -84,6 +84,8 @@ export type { InputProps } from './Input/Input';
 export type { FieldVariant } from './internal/Field';
 export { PhoneInput } from './Input/PhoneInput';
 export type { PhoneInputProps } from './Input/PhoneInput';
+export { PasswordInput } from './Input/PasswordInput';
+export type { PasswordInputProps } from './Input/PasswordInput';
 
 export { Textarea } from './Textarea/Textarea';
 export type { TextareaProps } from './Textarea/Textarea';
@@ -127,6 +129,8 @@ export type {
 
 export { Pager } from './Pager/Pager';
 export type { PagerProps } from './Pager/Pager';
+export { PageSize } from './Pager/PageSize';
+export type { PageSizeOption, PageSizeProps } from './Pager/PageSize';
 
 export { Table } from './Table/Table';
 export type { TableProps, TableVariant } from './Table/Table';
