@@ -26,6 +26,17 @@ describe('Фотографии наряда', () => {
     expect(shot.getAttribute('src')).not.toContain('/api/media/');
   });
 
+  it('🔴 пропавший файл рисуется рамкой и не создаёт картинки (issue #690)', () => {
+    const gone = photos.map((photo) => ({ ...photo, missing: photo.id === 'p1' }));
+    const { container } = render(<OrderPhotos api={acceptingWorkApi} photos={gone} />);
+
+    /* Значку сломанной картинки взяться неоткуда; уцелевшие снимки на месте, а
+       удаление у пропавшего остаётся — снять запись без файла и надо. */
+    expect(container.querySelectorAll('img')).toHaveLength(2);
+    expect(screen.getByText(texts.photoGone)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: texts.photoRemove(before, 1) })).toBeInTheDocument();
+  });
+
   it('этапы разведены по колонкам и названы работой, а не временем', () => {
     render(<OrderPhotos api={acceptingWorkApi} photos={photos} />);
 

@@ -532,6 +532,20 @@ export const showcasePhotos: readonly OrderPhotoCard[] = [
   { id: 'p3', stage: 'after', url: AFTER_PHOTO, sort: 1 },
 ];
 
+/**
+ * 🔴 Один снимок пережил свой файл — issue #690.
+ *
+ * Адрес у него при этом **рабочий**: витрина обязана показывать состояние
+ * компонента, а не неудачный запрос за картинкой. Историю с битым адресом
+ * вычищал #676, и она вернула бы допущение инварианта `images` — то есть
+ * ровно то, чего приёмка этой задачи не допускает.
+ */
+export const showcasePhotosGone: readonly OrderPhotoCard[] = [
+  { id: 'p1', stage: 'before', url: BEFORE_PHOTO, sort: 0 },
+  { id: 'p2', stage: 'after', url: AFTER_PHOTO, sort: 0, missing: true },
+  { id: 'p3', stage: 'after', url: AFTER_PHOTO, sort: 1 },
+];
+
 export const history: readonly OrderHistoryEntry[] = [
   {
     id: 'h3',

@@ -215,6 +215,25 @@ export function resolveProtectedPath(filename: string): string | null {
 }
 
 /**
+ * То же для закрытого хранилища — issue #690.
+ *
+ * 🔴 Отдельная функция, а не флаг у `mediaExists`: у закрытого снимка в базе
+ * лежит **имя файла**, а не адрес (ADR-171), и подсунуть его в проверку
+ * публичного префикса нельзя — она честно ответит «нет» на любое имя, и все
+ * снимки наряда разом стали бы пропавшими.
+ */
+export async function protectedImageExists(filename: string): Promise<boolean> {
+  const path = resolveProtectedPath(filename);
+  if (path === null) return false;
+
+  try {
+    return (await stat(path)).isFile();
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Удаляет файл вместе с записью о нём: иначе том постепенно наполняется
  * фотографиями удалённых карточек, а их никто уже не найдёт.
  */

@@ -19,8 +19,16 @@ vi.mock('@/shared/config/env', () => ({ env: testEnv }));
 
 const sharp = (await import('sharp')).default;
 const { detectImage, stripMetadata } = await import('@/server/uploads/image');
-const { deleteStoredImage, isSafeFilename, mimeFor, resolveUploadPath, saveImage } =
-  await import('@/server/uploads/store');
+const {
+  deleteStoredImage,
+  isSafeFilename,
+  mediaExists,
+  mimeFor,
+  protectedImageExists,
+  resolveUploadPath,
+  saveImage,
+  saveProtectedImage,
+} = await import('@/server/uploads/store');
 const { ApiException } = await import('@/server/http');
 
 /** Минимальный валидный JPEG: SOI + APP1 с Exif + APP0 + SOS + EOI. */
@@ -210,5 +218,40 @@ describe('путь к файлу для воркера', () => {
     expect(resolveUploadPath('/api/media/../../etc/passwd')).toBeNull();
     expect(resolveUploadPath('https://example.test/photo.jpg')).toBeNull();
     expect(resolveUploadPath('/uploads/leads/photo.jpg')).toBeNull();
+  });
+});
+
+/**
+ * 🔴 Дожил ли файл до сегодня — issue #690. Ссылка в базе и файл на томе живут
+ * порознь: том переехал, каталог не примонтирован, база наполнена в другом
+ * окружении (ADR-326).
+ */
+describe('проверка существования файла', () => {
+  it('видит сохранённый снимок и не видит стёртый', async () => {
+    const stored = await saveImage(upload(jpegWithExif()), 'photo');
+
+    expect(await mediaExists(stored.url)).toBe(true);
+
+    await deleteStoredImage(stored.url);
+    expect(await mediaExists(stored.url)).toBe(false);
+  });
+
+  it('«фотографии нет вовсе» — это не «файла нет»: у пустой ссылки ответ тот же, но вопрос другой', async () => {
+    expect(await mediaExists(null)).toBe(false);
+    expect(await mediaExists('https://example.test/photo.jpg')).toBe(false);
+  });
+
+  it('🔴 закрытое хранилище проверяется своей функцией: в базе там имя файла, а не адрес', async () => {
+    const stored = await saveProtectedImage(upload(jpegWithExif()), 'photo');
+
+    expect(await protectedImageExists(stored.filename)).toBe(true);
+    /* Публичная проверка на это имя честно отвечает «нет» — потому и заведена
+       отдельная: иначе все снимки нарядов разом стали бы пропавшими. */
+    expect(await mediaExists(stored.filename)).toBe(false);
+  });
+
+  it('чужое имя до диска не доходит', async () => {
+    expect(await protectedImageExists('../../etc/passwd')).toBe(false);
+    expect(await protectedImageExists('photo.php')).toBe(false);
   });
 });

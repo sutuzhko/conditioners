@@ -21,6 +21,19 @@ describe('Обложка статьи', () => {
     expect(screen.queryByText(texts.empty)).not.toBeInTheDocument();
   });
 
+  it('🔴 пропавший файл рисуется рамкой и не создаёт картинки (issue #690)', () => {
+    const { container } = render(
+      <ArticleCover cover="/api/media/cover.jpg" coverMissing upload={vi.fn()} remove={vi.fn()} />,
+    );
+
+    /* Значку сломанной картинки взяться неоткуда, а «обложки нет» здесь
+       неправда: запись осталась, и убрать её по-прежнему нужно кнопкой. */
+    expect(container.querySelector('img')).toBeNull();
+    expect(screen.getByText(texts.gone)).toBeInTheDocument();
+    expect(screen.queryByText(texts.empty)).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: texts.remove })).toBeInTheDocument();
+  });
+
   it('без обложки убирать нечего — и кнопки нет', () => {
     render(<ArticleCover cover={null} upload={vi.fn()} remove={vi.fn()} />);
 

@@ -1,0 +1,27 @@
+# ui-kit-mediagone--плитка · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.MediaGone__box  132×38 @32,32  r14  b1
+  span.MediaGone__title  65×20 @34,9  Manrope 600 13/20  lines=1  «Файла нет»
+
+[геометрия 768]
+div.MediaGone__box  132×38 @32,32  r14  b1
+  span.MediaGone__title  65×20 @34,9  Manrope 600 13/20  lines=1  «Файла нет»
+
+[геометрия 1440]
+div.MediaGone__box  132×38 @32,32  r14  b1
+  span.MediaGone__title  65×20 @34,9  Manrope 600 13/20  lines=1  «Файла нет»
+
+[палитра light]
+div.MediaGone__box  bg #f8fafc  border #e2e8f0
+  span.MediaGone__title  color #475569
+
+[палитра dark]
+div.MediaGone__box  bg #0e1729  border #1e2b41
+  span.MediaGone__title  color #a8b6c6

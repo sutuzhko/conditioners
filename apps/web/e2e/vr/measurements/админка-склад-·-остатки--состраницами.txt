@@ -3,7 +3,7 @@
 
 [документ]
 390 → 390×900
-768 → 768×961
+768 → 768×960
 1440 → 1440×900
 
 [геометрия 390]
@@ -155,10 +155,10 @@ div.StockTable__wrap  358×766 @16,16
   p.StockTable__warning  358×130 @0,636  Manrope 400 15/22  r11  b1  lines=5  «Минус означает, что списали больше, чем»
 
 [геометрия 768]
-div.StockTable__wrap  736×929 @16,16
-  section.Card__card  736×822 @0,0  r20  b1
-    div.Table__viewport  734×689 @1,1
-      table.Table__table  1118×689 @0,0
+div.StockTable__wrap  736×928 @16,16
+  section.Card__card  736×821 @0,0  r20  b1
+    div.Table__viewport  734×688 @1,1
+      table.Table__table  1118×688 @0,0
         tr[role=row]  1118×116 @0,0
           th.StockTable__itemHead  240×116 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
           th.StockTable__unitHead  90×116 @240,0  Onest 700 15/23  b0 0 1 0  lines=1  «Ед.»
@@ -243,7 +243,7 @@ div.StockTable__wrap  736×929 @16,16
                   span.RowMenu__dots  16×16 @14,14
                     svg#3  16×16 @0,0
         tr.StockTable__row#4  1118×143 @0,546
-          th.StockTable__itemHead  240×143 @17,563  b0 1 1 0  fixed
+          th.StockTable__itemHead  240×143 @17,563  b0 1 0 0  fixed
             a.StockTable__name#4  131×44 @18,15  Manrope 600 15/22  lines=1  «Сплит-система 09»
             span.StockTable__itemNote#4  204×20 @18,59  Manrope 400 13/20  lines=1  «Без группы»
             a.StockTable__move#4  85×44 @18,85  Manrope 600 13/20  lines=1  «Переместить»
@@ -263,10 +263,10 @@ div.StockTable__wrap  736×929 @16,16
                 button.RowMenu__trigger#4  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg#4  16×16 @0,0
-    div.StockPager__pager  734×131 @1,690  b1 0 0 0
+    div.StockPager__pager  734×131 @1,689  b1 0 0 0
       span.StockPager__count  160×20 @16,29  Manrope 400 13/20  lines=1  «Показано 4 из 47 позиций»
-      div.StockPager__nav  0×0 @-17,-706
-        nav.Pager__pager  347×52 @388,719
+      div.StockPager__nav  0×0 @-17,-705
+        nav.Pager__pager  347×52 @388,718
           a.Pager__step  88×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «←»
             span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
           ol.Pager__numbers  135×44 @100,4
@@ -284,14 +284,14 @@ div.StockTable__wrap  736×929 @16,16
         a.StockPager__sizeItem#2  44×44 @221,0  r100  b1
           span  16×16 @14,14  Manrope 600 13/16  lines=1  «50»
   p[role=status]  1×1 @-1,-1
-  p.StockTable__hint  736×20 @0,834  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
-  p.StockTable__warning  736×63 @0,866  Manrope 400 15/22  r11  b1  lines=2  «Минус означает, что списали больше, чем»
+  p.StockTable__hint  736×20 @0,833  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
+  p.StockTable__warning  736×63 @0,865  Manrope 400 15/22  r11  b1  lines=2  «Минус означает, что списали больше, чем»
 
 [геометрия 1440]
-div.StockTable__wrap  1408×679 @16,16
-  section.Card__card  1408×562 @0,0  r20  b1
-    div.Table__viewport  1406×483 @1,1
-      table.Table__table  1406×483 @0,0
+div.StockTable__wrap  1408×678 @16,16
+  section.Card__card  1408×561 @0,0  r20  b1
+    div.Table__viewport  1406×482 @1,1
+      table.Table__table  1406×482 @0,0
         tr[role=row]  1406×76 @0,0
           th.StockTable__itemHead  282×76 @17,17  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Позиция»
           th.StockTable__unitHead  106×76 @282,0  Onest 700 15/23  b0 0 1 0  lines=1  «Ед.»
@@ -375,31 +375,31 @@ div.StockTable__wrap  1408×679 @16,16
                 button.RowMenu__trigger#3  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg#3  16×16 @0,0
-        tr.StockTable__row#4  1406×102 @0,381
-          th.StockTable__itemHead  282×102 @17,398  b0 1 1 0  fixed
+        tr.StockTable__row#4  1406×101 @0,381
+          th.StockTable__itemHead  282×101 @17,398  b0 1 0 0  fixed
             a.StockTable__name#4  131×19 @18,16  Manrope 600 15/22  lines=1  «Сплит-система 09»
             span.StockTable__itemNote#4  245×20 @18,37  Manrope 400 13/20  lines=1  «Без группы»
             a.StockTable__move#4  85×24 @18,63  Manrope 600 13/20  lines=1  «Переместить»
-          td.StockTable__unitCell  106×102 @282,0  Manrope 400 15/22  lines=1  «шт.»
-          td.StockCell__cell  246×102 @387,0
+          td.StockTable__unitCell  106×101 @282,0  Manrope 400 15/22  lines=1  «шт.»
+          td.StockCell__cell  246×101 @387,0
             button.StockCell__button#4  246×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «2»
-          td.StockCell__cell#2  237×102 @633,0
+          td.StockCell__cell#2  237×101 @633,0
             button.StockCell__button#4  237×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
-          td.StockCell__cell#3  210×102 @870,0
+          td.StockCell__cell#3  210×101 @870,0
             button.StockCell__button#4  209×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
-          td.StockTable__number  141×102 @1096,398  b0 0 0 1  fixed
+          td.StockTable__number  141×101 @1096,398  b0 0 0 1  fixed
             span.Badge__badge#4  27×24 @95,15  Manrope 600 12/16  r100  b1  lines=1  «2»
-          td.StockTable__number#2  130×102 @1237,398  Manrope 400 15/22  lines=1  fixed  «—»
-          td.StockTable__menuCell  56×102 @1367,398  fixed
+          td.StockTable__number#2  130×101 @1237,398  Manrope 400 15/22  lines=1  fixed  «—»
+          td.StockTable__menuCell  56×101 @1367,398  fixed
             span.StockRowMenu__root#4  44×44 @6,15
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#4  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg#4  16×16 @0,0
-    div.StockPager__pager  1406×77 @1,484  b1 0 0 0
+    div.StockPager__pager  1406×77 @1,483  b1 0 0 0
       span.StockPager__count  160×20 @16,29  Manrope 400 13/20  lines=1  «Показано 4 из 47 позиций»
-      div.StockPager__nav  0×0 @-17,-500
-        nav.Pager__pager  347×52 @494,513
+      div.StockPager__nav  0×0 @-17,-499
+        nav.Pager__pager  347×52 @494,512
           a.Pager__step  88×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «←»
             span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
           ol.Pager__numbers  135×44 @100,4
@@ -417,9 +417,9 @@ div.StockTable__wrap  1408×679 @16,16
         a.StockPager__sizeItem#2  44×44 @221,0  r100  b1
           span  16×16 @14,14  Manrope 600 13/16  lines=1  «50»
   p[role=status]  1×1 @-1,-1
-  p.StockTable__hint  1408×20 @0,574  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
-  p.StockTable__hint#2  1408×20 @0,606  Manrope 400 13/20  lines=1  «Остаток можно перетащить мышью в другую»
-  p.StockTable__warning  1408×40 @0,638  Manrope 400 15/22  r11  b1  lines=1  «Минус означает, что списали больше, чем»
+  p.StockTable__hint  1408×20 @0,573  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
+  p.StockTable__hint#2  1408×20 @0,605  Manrope 400 13/20  lines=1  «Остаток можно перетащить мышью в другую»
+  p.StockTable__warning  1408×40 @0,637  Manrope 400 15/22  r11  b1  lines=1  «Минус означает, что списали больше, чем»
 
 [палитра light]
 div.StockTable__wrap
@@ -510,7 +510,7 @@ div.StockTable__wrap
                   span.RowMenu__dots
                     svg#3
         tr.StockTable__row#4  bg #edf2f6
-          th.StockTable__itemHead  bg #edf2f6  border #0f172a #e2e8f0 #e2e8f0 #0f172a
+          th.StockTable__itemHead  bg #edf2f6  border #0f172a #e2e8f0 #0f172a #0f172a
             a.StockTable__name#4  color #0f172a
             span.StockTable__itemNote#4  color #556173
             a.StockTable__move#4  color #0e7490
@@ -748,7 +748,7 @@ div.StockTable__wrap
                   span.RowMenu__dots
                     svg#3
         tr.StockTable__row#4  bg #16223a
-          th.StockTable__itemHead  bg #16223a  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
+          th.StockTable__itemHead  bg #16223a  border #eaf1f8 #1e2b41 #eaf1f8 #eaf1f8
             a.StockTable__name#4  color #eaf1f8
             span.StockTable__itemNote#4  color #8598ac
             a.StockTable__move#4  color #22d3ee

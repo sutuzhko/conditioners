@@ -2,14 +2,14 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-320 → 320×921
+320 → 320×920
 375 → 375×900
 768 → 768×900
 1200 → 1200×900
 
 [геометрия 320]
-section.CatalogCompare__compare  320×921 @0,0
-  div.CatalogCompare__container  320×921 @0,0
+section.CatalogCompare__compare  320×920 @0,0
+  div.CatalogCompare__container  320×920 @0,0
     h2  1×1 @15,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
     div.CatalogCompare__head  288×152 @16,28
       ul.CatalogCompare__chosen  288×96 @0,0
@@ -20,9 +20,9 @@ section.CatalogCompare__compare  320×921 @0,0
       p.CatalogCompare__actions  226×44 @0,108
         a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
         a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
-    div.Card__card  288×595 @16,198  r20  b1
-      div.Table__viewport  286×439 @1,1
-        table.Table__table  620×439 @0,0
+    div.Card__card  288×594 @16,198  r20  b1
+      div.Table__viewport  286×438 @1,1
+        table.Table__table  620×438 @0,0
           th  156×56 @17,199  Onest 700 15/23  b0 0 1 0  lines=1  fixed  «Характеристика»
           th#2  236×56 @156,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 07»
           th#3  228×56 @391,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 12»
@@ -43,20 +43,20 @@ section.CatalogCompare__compare  320×921 @0,0
           th#6  156×51 @17,512  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Уровень шума»
           td#5  236×51 @156,313  Manrope 400 15/22  b0 0 1 0  lines=1  «21 дБ»
           td#6  228×51 @391,313  Manrope 400 15/22  b0 0 1 0  lines=1  «23 дБ»
-          th#7  156×74 @17,564  Manrope 600 15/22  b0 0 1 0  lines=2  fixed  «Wi-Fi управление»
-          td#7  236×74 @156,365  Manrope 400 15/22  lines=1  «—»
-          td#8  228×74 @391,365  Manrope 400 15/22  lines=1  «Есть»
-      div.CompareTable__notes  286×154 @1,440  b1 0 0 0
+          th#7  156×73 @17,564  Manrope 600 15/22  lines=2  fixed  «Wi-Fi управление»
+          td#7  236×73 @156,365  Manrope 400 15/22  lines=1  «—»
+          td#8  228×73 @391,365  Manrope 400 15/22  lines=1  «Есть»
+      div.CompareTable__notes  286×154 @1,439  b1 0 0 0
         p.CompareTable__swipe  254×40 @16,15  Manrope 400 13/20  lines=2  «Проведите по таблице вбок, чтобы увидеть»
         p.CompareTable__note  254×74 @16,61  Manrope 400 12/19  lines=4  «Таблица собирается автоматически из хара»
-    p.CatalogCompare__order  288×52 @16,821
+    p.CatalogCompare__order  288×52 @16,820
       a.Button__button  187×52 @0,0  r12  b1
         span.Button__content  129×19 @29,16
           span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
 
 [геометрия 375]
-section.CatalogCompare__compare  375×853 @0,0
-  div.CatalogCompare__container  375×853 @0,0
+section.CatalogCompare__compare  375×852 @0,0
+  div.CatalogCompare__container  375×852 @0,0
     h2  1×1 @15,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
     div.CatalogCompare__head  343×100 @16,28
       ul.CatalogCompare__chosen  329×44 @0,0
@@ -67,9 +67,9 @@ section.CatalogCompare__compare  375×853 @0,0
       p.CatalogCompare__actions  226×44 @0,56
         a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
         a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
-    div.Card__card  343×576 @16,146  r20  b1
-      div.Table__viewport  341×439 @1,1
-        table.Table__table  620×439 @0,0
+    div.Card__card  343×575 @16,146  r20  b1
+      div.Table__viewport  341×438 @1,1
+        table.Table__table  620×438 @0,0
           th  156×56 @17,147  Onest 700 15/23  b0 0 1 0  lines=1  fixed  «Характеристика»
           th#2  235×56 @156,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 07»
           th#3  228×56 @391,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 12»
@@ -90,20 +90,20 @@ section.CatalogCompare__compare  375×853 @0,0
           th#6  156×51 @17,460  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Уровень шума»
           td#5  235×51 @156,313  Manrope 400 15/22  b0 0 1 0  lines=1  «21 дБ»
           td#6  228×51 @391,313  Manrope 400 15/22  b0 0 1 0  lines=1  «23 дБ»
-          th#7  156×74 @17,512  Manrope 600 15/22  b0 0 1 0  lines=2  fixed  «Wi-Fi управление»
-          td#7  235×74 @156,365  Manrope 400 15/22  lines=1  «—»
-          td#8  228×74 @391,365  Manrope 400 15/22  lines=1  «Есть»
-      div.CompareTable__notes  341×135 @1,440  b1 0 0 0
+          th#7  156×73 @17,512  Manrope 600 15/22  lines=2  fixed  «Wi-Fi управление»
+          td#7  235×73 @156,365  Manrope 400 15/22  lines=1  «—»
+          td#8  228×73 @391,365  Manrope 400 15/22  lines=1  «Есть»
+      div.CompareTable__notes  341×135 @1,439  b1 0 0 0
         p.CompareTable__swipe  308×40 @17,15  Manrope 400 13/20  lines=2  «Проведите по таблице вбок, чтобы увидеть»
         p.CompareTable__note  308×56 @17,61  Manrope 400 12/19  lines=3  «Таблица собирается автоматически из хара»
-    p.CatalogCompare__order  343×52 @16,750
+    p.CatalogCompare__order  343×52 @16,749
       a.Button__button  187×52 @0,0  r12  b1
         span.Button__content  129×19 @29,16
           span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
 
 [геометрия 768]
-section.CatalogCompare__compare  768×754 @0,0
-  div.CatalogCompare__container  768×754 @0,0
+section.CatalogCompare__compare  768×753 @0,0
+  div.CatalogCompare__container  768×753 @0,0
     h2  1×1 @19,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
     div.CatalogCompare__head  728×44 @20,28
       ul.CatalogCompare__chosen  329×44 @0,0
@@ -114,9 +114,9 @@ section.CatalogCompare__compare  768×754 @0,0
       p.CatalogCompare__actions  226×44 @501,0
         a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
         a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
-    div.Card__card  728×515 @20,90  r20  b1
-      div.Table__viewport  726×417 @1,1
-        table.Table__table  726×417 @0,0
+    div.Card__card  728×514 @20,90  r20  b1
+      div.Table__viewport  726×416 @1,1
+        table.Table__table  726×416 @0,0
           th  167×56 @21,91  Onest 700 15/23  b0 0 1 0  lines=1  fixed  «Характеристика»
           th#2  280×56 @167,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 07»
           th#3  278×56 @447,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 12»
@@ -137,20 +137,20 @@ section.CatalogCompare__compare  768×754 @0,0
           th#6  167×51 @21,404  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Уровень шума»
           td#5  280×51 @167,313  Manrope 400 15/22  b0 0 1 0  lines=1  «21 дБ»
           td#6  278×51 @447,313  Manrope 400 15/22  b0 0 1 0  lines=1  «23 дБ»
-          th#7  167×51 @21,456  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Wi-Fi управление»
+          th#7  167×51 @21,456  Manrope 600 15/22  lines=1  fixed  «Wi-Fi управление»
           td#7  280×51 @167,365  Manrope 400 15/22  lines=1  «—»
           td#8  278×51 @447,365  Manrope 400 15/22  lines=1  «Есть»
-      div.CompareTable__notes  726×96 @1,418  b1 0 0 0
+      div.CompareTable__notes  726×96 @1,417  b1 0 0 0
         p.CompareTable__swipe  686×20 @20,15  Manrope 400 13/20  lines=1  «Проведите по таблице вбок, чтобы увидеть»
         p.CompareTable__note  686×37 @20,41  Manrope 400 12/19  lines=2  «Таблица собирается автоматически из хара»
-    p.CatalogCompare__order  728×52 @20,633
+    p.CatalogCompare__order  728×52 @20,632
       a.Button__button  187×52 @0,0  r12  b1
         span.Button__content  129×19 @29,16
           span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
 
 [геометрия 1200]
-section.CatalogCompare__compare  1200×755 @0,0
-  div.CatalogCompare__container  1200×755 @0,0
+section.CatalogCompare__compare  1200×754 @0,0
+  div.CatalogCompare__container  1200×754 @0,0
     h2  1×1 @23,27  Onest 700 23/27  ls0  lines=1  clipped  «Сравнение по вашему выбору»
     div.CatalogCompare__head  1152×44 @24,28
       ul.CatalogCompare__chosen  329×44 @0,0
@@ -161,9 +161,9 @@ section.CatalogCompare__compare  1200×755 @0,0
       p.CatalogCompare__actions  226×44 @926,0
         a.CatalogCompare__back  148×44 @0,0  Manrope 700 13/20  lines=1  «← Вернуться в каталог»
         a.CatalogCompare__clear  61×44 @166,0  Manrope 600 13/20  lines=1  «Очистить»
-    div.Card__card  1152×497 @24,90  r20  b1
-      div.Table__viewport  1150×417 @1,1
-        table.Table__table  1150×417 @0,0
+    div.Card__card  1152×496 @24,90  r20  b1
+      div.Table__viewport  1150×416 @1,1
+        table.Table__table  1150×416 @0,0
           th  200×56 @25,91  Onest 700 15/23  b0 0 1 0  lines=1  fixed  «Характеристика»
           th#2  471×56 @200,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 07»
           th#3  478×56 @671,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сплит-система 12»
@@ -184,13 +184,13 @@ section.CatalogCompare__compare  1200×755 @0,0
           th#6  200×51 @25,404  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Уровень шума»
           td#5  471×51 @200,313  Manrope 400 15/22  b0 0 1 0  lines=1  «21 дБ»
           td#6  478×51 @671,313  Manrope 400 15/22  b0 0 1 0  lines=1  «23 дБ»
-          th#7  200×51 @25,456  Manrope 600 15/22  b0 0 1 0  lines=1  fixed  «Wi-Fi управление»
+          th#7  200×51 @25,456  Manrope 600 15/22  lines=1  fixed  «Wi-Fi управление»
           td#7  471×51 @200,365  Manrope 400 15/22  lines=1  «—»
           td#8  478×51 @671,365  Manrope 400 15/22  lines=1  «Есть»
-      div.CompareTable__notes  1150×78 @1,418  b1 0 0 0
+      div.CompareTable__notes  1150×78 @1,417  b1 0 0 0
         p.CompareTable__swipe  1102×20 @24,15  Manrope 400 13/20  lines=1  «Проведите по таблице вбок, чтобы увидеть»
         p.CompareTable__note  1102×19 @24,41  Manrope 400 12/19  lines=1  «Таблица собирается автоматически из хара»
-    p.CatalogCompare__order  1152×52 @24,615
+    p.CatalogCompare__order  1152×52 @24,614
       a.Button__button  187×52 @0,0  r12  b1
         span.Button__content  129×19 @29,16
           span.Button__label  129×19 @0,0  Manrope 600 16/19  lines=1  «Оставить заявку»
@@ -231,7 +231,7 @@ section.CatalogCompare__compare  bg #ffffff
           th#6  color #0f172a  bg #edf2f6  border #0f172a #0f172a #e2e8f0 #0f172a  shadow #e2e8f0 1px 0px 0px 0px
           td#5  color #334155  border #334155 #334155 #eef2f6 #334155
           td#6  color #334155  border #334155 #334155 #eef2f6 #334155
-          th#7  color #0f172a  bg #f5f8fa  border #0f172a #0f172a #e2e8f0 #0f172a  shadow #e2e8f0 1px 0px 0px 0px
+          th#7  color #0f172a  bg #f5f8fa  shadow #e2e8f0 1px 0px 0px 0px
           td#7  color #334155
           td#8  color #334155
       div.CompareTable__notes  border #eef2f6 #475569 #475569 #475569
@@ -278,7 +278,7 @@ section.CatalogCompare__compare  bg #0b1220
           th#6  color #eaf1f8  bg #16223a  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8  shadow #1e2b41 1px 0px 0px 0px
           td#5  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
           td#6  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
-          th#7  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8  shadow #1e2b41 1px 0px 0px 0px
+          th#7  color #eaf1f8  bg #121d31  shadow #1e2b41 1px 0px 0px 0px
           td#7  color #c9d5e2
           td#8  color #c9d5e2
       div.CompareTable__notes  border #182338 #a8b6c6 #a8b6c6 #a8b6c6

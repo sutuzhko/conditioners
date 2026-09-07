@@ -1,0 +1,30 @@
+/* Рамка на месте пропавшего файла (issue #662, #690).
+
+   🔴 Размеров здесь нет ни одного: их задаёт место, где рамка стоит, — она
+   обязана занять ровно то, что занимала бы картинка. Кит отвечает за краску,
+   пунктир и раскладку содержимого; пересечения свойств между этим модулем и
+   модулем раздела нет намеренно (порядок подключения модулей не определён). */
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px dashed var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-soft);
+  padding: 8px;
+  text-align: center;
+}
+
+.title {
+  color: var(--body);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.note {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}

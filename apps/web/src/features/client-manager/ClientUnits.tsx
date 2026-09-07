@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { Badge, Button, Card, useConfirm, type Confirm } from '@/shared/ui';
+import { Badge, Button, Card, MediaGone, useConfirm, type Confirm } from '@/shared/ui';
 
 import { ClientUnitForm } from './ClientUnitForm';
 import { clientManagerContent as texts } from './content';
@@ -159,6 +159,33 @@ export function ClientUnits({
   );
 }
 
+/**
+ * Снимок установки — issue #690.
+ *
+ * 🔴 Пропавший файл рисуется рамкой, а не битой картинкой. Ссылка в базе и
+ * файл на томе живут порознь (ADR-326), и «фотографии нет вовсе» — это другое
+ * состояние: у него на экране просто нет картинки, потому что технику могли
+ * завести руками, без наряда и без снимка.
+ */
+function UnitPhoto({ unit }: { readonly unit: ClientUnitCard }) {
+  if (unit.photo === null) return null;
+
+  if (unit.photoMissing === true) {
+    return <MediaGone className={styles.photoGone} title={texts.unitPhotoGone} />;
+  }
+
+  return (
+    <Image
+      className={styles.photo}
+      src={unit.photo}
+      alt={texts.unitPhotoAlt(unit.model)}
+      width={THUMB}
+      height={THUMB}
+      sizes="(width < 600px) 100vw, 150px"
+    />
+  );
+}
+
 type UnitRowProps = {
   readonly unit: ClientUnitCard;
   readonly today: string;
@@ -175,16 +202,11 @@ function UnitRow({ unit, today, busy, onEdit, onRemove }: UnitRowProps) {
 
   return (
     <div className={styles.row}>
-      {unit.photo === null ? null : (
-        <Image
-          className={styles.photo}
-          src={unit.photo}
-          alt={texts.unitPhotoAlt(unit.model)}
-          width={THUMB}
-          height={THUMB}
-          sizes="(width < 600px) 100vw, 150px"
-        />
-      )}
+      {/* 🔴 Три состояния, а не два (issue #690). «Снимка нет» — строка без
+          картинки: техника могла быть заведена руками. «Снимок был, а файла
+          нет» — рамка со словами: `<img>` при этом не создаётся вовсе, и
+          значку сломанной картинки взяться неоткуда. */}
+      <UnitPhoto unit={unit} />
 
       <div className={styles.body}>
         <div className={styles.line}>

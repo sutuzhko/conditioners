@@ -5,6 +5,12 @@ export type PhotoItem = {
   readonly alt: string | null;
   readonly isMain: boolean;
   readonly sort: number;
+  /**
+   * 🔴 Ссылка есть, файла на томе нет — issue #690. Признак ставит сервер
+   * (`mediaExists`): в контракт API он не входит и приезжает не с ответом, а
+   * со страницей, которая одна и знает про диск.
+   */
+  readonly missing?: boolean | undefined;
 };
 
 export type PhotoUploadResult =

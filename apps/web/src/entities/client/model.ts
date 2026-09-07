@@ -161,6 +161,12 @@ export type ClientUnitCard = {
   readonly warrantyUntil: string | null;
   /** Фотография установки: снимок «после» из наряда. */
   readonly photo: string | null;
+  /**
+   * 🔴 Ссылка есть, а файла на томе нет — issue #690. Это не «фотографии нет»:
+   * `photo: null` и «файл пропал» — разные ответы на экране. Признак ставит
+   * сервер, браузеру этот вопрос задавать поздно (инвариант 1).
+   */
+  readonly photoMissing?: boolean | undefined;
   /** Наряд, из которого техника выросла. `null` — запись завели руками. */
   readonly order: { readonly id: string; readonly number: number } | null;
 };

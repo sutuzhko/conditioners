@@ -7,8 +7,8 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.Table__viewport  326×345 @32,32
-  table.Table__table  379×345 @0,0
+div.Table__viewport  326×344 @32,32
+  table.Table__table  379×344 @0,0
     tr[role=row]  379×56 @0,0
       th  130×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
       th#2  73×56 @130,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
@@ -54,7 +54,7 @@ div.Table__viewport  326×345 @32,32
                 span.TableActions__iconArea#2  32×42 @6,1
                   svg#3  16×16 @8,13
     tr[role=row]#4  379×96 @0,249
-      th  130×96 @0,0  Manrope 600 15/22  b0 0 1 0  lines=3  «Мульти-сплит на два блока»
+      th  130×96 @0,0  Manrope 600 15/22  lines=3  «Мульти-сплит на два блока»
       td[role=cell]  73×96 @130,0  Manrope 400 15/22  lines=2  «58 700 ₽»
       td[role=cell]#2  176×96 @203,0
         div.TableActions__actions#3  140×44 @18,15
@@ -75,8 +75,8 @@ div.Table__viewport  326×345 @32,32
                   svg#4  16×16 @8,13
 
 [геометрия 768]
-div.Table__viewport  704×275 @32,32
-  table.Table__table  704×275 @0,0
+div.Table__viewport  704×274 @32,32
+  table.Table__table  704×274 @0,0
     tr[role=row]  704×56 @0,0
       th  351×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
       th#2  123×56 @351,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
@@ -122,7 +122,7 @@ div.Table__viewport  704×275 @32,32
                 span.TableActions__iconArea#2  32×42 @6,1
                   svg#3  16×16 @8,13
     tr[role=row]#4  704×73 @0,202
-      th  351×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Мульти-сплит на два блока»
+      th  351×73 @0,0  Manrope 600 15/22  lines=1  «Мульти-сплит на два блока»
       td[role=cell]  123×73 @351,0  Manrope 400 15/22  lines=1  «58 700 ₽»
       td[role=cell]#2  231×73 @473,0
         div.TableActions__actions#3  195×44 @18,15
@@ -143,8 +143,8 @@ div.Table__viewport  704×275 @32,32
                   svg#4  16×16 @8,13
 
 [геометрия 1440]
-div.Table__viewport  1376×239 @32,32
-  table.Table__table  1376×239 @0,0
+div.Table__viewport  1376×238 @32,32
+  table.Table__table  1376×238 @0,0
     tr[role=row]  1376×56 @0,0
       th  735×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Модель»
       th#2  257×56 @735,0  Onest 700 15/23  b0 0 1 0  lines=1  «Цена»
@@ -190,7 +190,7 @@ div.Table__viewport  1376×239 @32,32
                 span.TableActions__iconArea#2  20×30 @6,1
                   svg#3  16×16 @2,7
     tr[role=row]#4  1376×61 @0,178
-      th  735×61 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Мульти-сплит на два блока»
+      th  735×61 @0,0  Manrope 600 15/22  lines=1  «Мульти-сплит на два блока»
       td[role=cell]  257×61 @735,0  Manrope 400 15/22  lines=1  «58 700 ₽»
       td[role=cell]#2  385×61 @991,0
         div.TableActions__actions#3  349×32 @18,15
@@ -258,7 +258,7 @@ div.Table__viewport
                 span.TableActions__iconArea#2
                   svg#3
     tr[role=row]#4
-      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      th  color #0f172a
       td[role=cell]  color #556173
       td[role=cell]#2
         div.TableActions__actions#3
@@ -326,7 +326,7 @@ div.Table__viewport
                 span.TableActions__iconArea#2
                   svg#3
     tr[role=row]#4
-      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      th  color #eaf1f8
       td[role=cell]  color #8598ac
       td[role=cell]#2
         div.TableActions__actions#3

@@ -10,6 +10,7 @@ import {
   installerDetails,
   pendingWorkApi,
   showcasePhotos,
+  showcasePhotosGone,
 } from './fixtures';
 import type { OrderDetails } from './model';
 
@@ -55,6 +56,18 @@ type Story = StoryObj<typeof meta>;
 
 /** Всё на месте: два снимка, отчёт можно писать и сдавать. */
 export const Базовое: Story = {};
+
+/**
+ * 🔴 Ссылка есть, файла нет (issue #690): рамка со словами вместо значка
+ * сломанной картинки, `<img>` в разметке не появляется вовсе.
+ *
+ * Снимок при этом остаётся загруженным и считается в остатке «загрузите ещё»:
+ * запись в базе есть, и решать, что делать с пропажей, монтажник будет
+ * удалением, а не догадками о том, почему кнопка сдачи заблокирована.
+ */
+export const ФайлПропал: Story = {
+  args: { order: { ...working, photos: showcasePhotosGone } },
+};
 
 /** 🔴 Не хватает снимков: кнопка отключена, и причина названа числом. */
 export const НетФото: Story = {

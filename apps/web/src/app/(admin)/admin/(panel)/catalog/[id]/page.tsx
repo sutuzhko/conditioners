@@ -3,9 +3,11 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { CATALOG_PATH, productFormContent as texts } from '@/features/product-form';
+import type { PhotoItem } from '@/features/product-photos';
 import { getAdminSession, isOwner } from '@/server/auth';
 import { requireOwnerPage } from '@/server/guards';
 import { findById, type ProductDto } from '@/server/repo/products';
+import { mediaExists } from '@/server/uploads/store';
 import { DataBlock, FieldsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
 import { ProductEditor } from '../ProductEditor';
@@ -87,14 +89,17 @@ export default async function AdminProductPage({ params }: { params: Promise<{ i
  * редакторе и на существование модели не влияет.
  */
 async function ProductForm({ product }: { readonly product: ProductDto }) {
-  const { specDictionary } = await productFormData();
+  const [{ specDictionary }, photos] = await Promise.all([
+    productFormData(),
+    withPhotoState(product.photos),
+  ]);
 
   return (
     <ProductEditor
       specDictionary={specDictionary}
       id={product.id}
       priceNum={product.priceNum}
-      photos={product.photos}
+      photos={photos}
       sale={{
         salePrice: product.salePrice === null ? '' : String(product.salePrice),
         // Границы приходят днями по местному времени — так их и правит владелец.
@@ -120,5 +125,23 @@ async function ProductForm({ product }: { readonly product: ProductDto }) {
         specs: product.specs.map((spec) => ({ k: spec.k, v: spec.v })),
       }}
     />
+  );
+}
+
+/**
+ * Дожил ли файл до сегодня — issue #690.
+ *
+ * 🔴 Спрашивает диск сервер, а не браузер. Ссылка в базе и файл на томе живут
+ * порознь: том переехал, каталог не примонтирован, база наполнена в другом
+ * окружении (ADR-326). Без этой проверки блок рисует значок сломанной
+ * картинки — то есть выглядит сломанной вёрсткой, а не пропавшим файлом.
+ *
+ * По одному `stat` на снимок одной модели: это карточка записи, а не список,
+ * и обращение к локальному тому стоит микросекунды против чтения базы,
+ * которое страница уже сделала.
+ */
+async function withPhotoState(photos: ProductDto['photos']): Promise<readonly PhotoItem[]> {
+  return await Promise.all(
+    photos.map(async (photo) => ({ ...photo, missing: !(await mediaExists(photo.url)) })),
   );
 }

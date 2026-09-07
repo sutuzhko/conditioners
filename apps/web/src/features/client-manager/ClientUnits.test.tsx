@@ -4,7 +4,15 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { ClientUnits } from './ClientUnits';
 import { clientManagerContent as texts } from './content';
-import { acceptingUnitApi, expiredUnits, ownUnits, singleUnit, today, units } from './fixtures';
+import {
+  acceptingUnitApi,
+  expiredUnits,
+  goneUnits,
+  ownUnits,
+  singleUnit,
+  today,
+  units,
+} from './fixtures';
 
 const refresh = vi.fn();
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), refresh }) }));
@@ -16,6 +24,17 @@ describe('Техника клиента', () => {
     expect(screen.getByText('Сплит-система 09')).toBeInTheDocument();
     expect(screen.getByText('Тепловая завеса 1500')).toBeInTheDocument();
     expect(screen.getByText(texts.unitInstalled('2026-07-14T06:30:00.000Z'))).toBeInTheDocument();
+  });
+
+  it('🔴 пропавший файл рисуется рамкой и не создаёт картинки (issue #690)', () => {
+    const { container } = render(
+      <ClientUnits clientId="c1" units={goneUnits} today={today} api={acceptingUnitApi} />,
+    );
+
+    /* «Снимка нет вовсе» и «снимок был, а файла нет» — разные ответы: у завесы
+       рядом нет ни картинки, ни рамки. */
+    expect(container.querySelector('img')).toBeNull();
+    expect(screen.getAllByText(texts.unitPhotoGone)).toHaveLength(1);
   });
 
   it('ведёт в наряд, из которого техника выросла', () => {
