@@ -21,7 +21,8 @@
  *   `[документ]` — ширина прокрутки и высота на каждой ширине;
  *   `[геометрия <ширина>]` — дерево узлов отступом: размер и смещение от
  *     записанного предка, шрифт, радиус, граница, интервал, число строк, флаги
- *     `fixed`/`portal`/`clipped`, текст в «кавычках» последним;
+ *     `fixed`/`portal`/`clipped`, сторону всплывающего слоя `side=…`, текст в
+ *     «кавычках» последним;
  *   `[геометрия <ширина> dark]` — только узлы, чья геометрия в тёмной теме
  *     расходится со светлой больше чем на 1px, путём: у темы нет права двигать
  *     раскладку, и такая секция — находка, а не норма;
@@ -98,6 +99,7 @@ function geometryOf({ node, path, depth }) {
   if (node.fixed === true) entry.fixed = true;
   if (node.portal === true) entry.portal = true;
   if (node.clipped === true) entry.clipped = true;
+  if (node.side !== undefined) entry.side = collapse(node.side);
   if (node.text !== undefined && collapse(node.text) !== '') entry.text = normaliseText(node.text);
   return entry;
 }
@@ -128,7 +130,8 @@ function sameGeometry(a, b) {
     a.lines === b.lines &&
     a.fixed === b.fixed &&
     a.portal === b.portal &&
-    a.clipped === b.clipped
+    a.clipped === b.clipped &&
+    a.side === b.side
   );
 }
 
@@ -229,6 +232,7 @@ function geometryFields(node) {
   if (node.fixed === true) fields.push('fixed');
   if (node.portal === true) fields.push('portal');
   if (node.clipped === true) fields.push('clipped');
+  if (node.side !== undefined) fields.push(`side=${node.side}`);
   if (node.text !== undefined) fields.push(`«${node.text}»`);
   return fields.join(SEP);
 }
@@ -325,6 +329,7 @@ function geometryNode({ key, path, depth, rest }) {
       node.y = Number(size[4]);
     } else if (field.startsWith('«') && field.endsWith('»')) node.text = field.slice(1, -1);
     else if (field.startsWith('lines=')) node.lines = Number(field.slice('lines='.length));
+    else if (field.startsWith('side=')) node.side = field.slice('side='.length);
     else if (field === 'fixed') node.fixed = true;
     else if (field === 'portal') node.portal = true;
     else if (field === 'clipped') node.clipped = true;

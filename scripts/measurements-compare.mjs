@@ -36,6 +36,7 @@ const GEOMETRY_EXACT = [
   'fixed',
   'portal',
   'clipped',
+  'side',
 ];
 const PALETTE_FIELDS = ['color', 'bg', 'border', 'shadow', 'outline', 'gradient'];
 const SHORT = { w: 'w', h: 'h', x: 'x', y: 'y', radius: 'r', border: 'b', letterSpacing: 'ls' };
