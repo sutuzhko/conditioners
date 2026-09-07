@@ -1,7 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh: vi.fn(), push: vi.fn() }) }));
+
+import { tableAboveClassName } from '@/shared/ui';
 
 import { ClientList } from './ClientList';
 import { clientManagerContent as texts } from './content';
@@ -11,8 +13,39 @@ describe('Список клиентов', () => {
   it('показывает строки страницы', () => {
     render(<ClientList page={page} />);
 
-    expect(screen.getByRole('link', { name: 'Ирина Соколова' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Пётр Ильин' })).toBeInTheDocument();
+    /* 🔴 Подпись ссылки называет запись целиком, а не одно имя (issue #743):
+       нажимается вся строка, и список ссылок, прочитанный подряд, обязан
+       быть перечнем записей, а не перечнем людей (ADR-347). */
+    expect(screen.getByRole('link', { name: texts.rowLabel('Ирина Соколова') })).toHaveAttribute(
+      'href',
+      '/admin/clients/c1',
+    );
+    expect(screen.getByRole('link', { name: texts.rowLabel('Пётр Ильин') })).toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Раздел решает ровно одно: что поднято над перекрытием строки. Сам приём
+   * живёт в ките (`TableRow`), и его сторожит китовый тест; здесь проверяется
+   * выбор клиентов — телефон и меню строки. Без этого «позвонить» открывало бы
+   * карточку, а меню было бы недостижимо вовсе (issue #743).
+   */
+  it('🔴 над перекрытием строки подняты телефон и меню действий', () => {
+    render(<ClientList page={page} />);
+
+    const row = screen.getAllByRole('row')[1];
+    expect(row).toBeDefined();
+    if (row === undefined) return;
+
+    const phone = within(row)
+      .getAllByRole('link')
+      .find((link) => link.getAttribute('href')?.startsWith('tel:') === true);
+
+    expect(phone).toHaveClass(tableAboveClassName());
+
+    /* `closest`, а не `parentElement`: меню кита само оборачивает свою кнопку,
+       и число обёрток между ними — его дело, а не раздела. */
+    const menu = within(row).getByRole('button', { name: texts.rowActions('Ирина Соколова') });
+    expect(menu.closest(`.${tableAboveClassName()}`)).not.toBeNull();
   });
 
   /* 🔴 Три колонки, ради которых список перестал быть карточками (issue #602):
