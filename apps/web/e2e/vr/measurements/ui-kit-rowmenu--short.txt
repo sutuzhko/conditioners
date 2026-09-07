@@ -11,7 +11,7 @@ div.RowMenu__root  44×248 @314,32
   button.RowMenu__trigger  44×44 @0,0  r100  b1
     span.RowMenu__dots  16×16 @14,14
       svg  16×16 @0,0
-div.RowMenu__menu  200×98 @0,0  r14  b1  fixed  portal
+div.RowMenu__menu  200×98 @0,0  r14  b1  fixed  portal  side=bottom
   div.RowMenu__item  190×44 @5,5  Manrope 400 14/18  r12  lines=1  «Открыть наряд»
     span.RowMenu__itemIcon  16×16 @10,14
       svg  16×16 @0,0
@@ -24,7 +24,7 @@ div.RowMenu__root  44×248 @692,32
   button.RowMenu__trigger  44×44 @0,0  r100  b1
     span.RowMenu__dots  16×16 @14,14
       svg  16×16 @0,0
-div.RowMenu__menu  200×98 @0,0  r14  b1  fixed  portal
+div.RowMenu__menu  200×98 @0,0  r14  b1  fixed  portal  side=bottom
   div.RowMenu__item  190×44 @5,5  Manrope 400 14/18  r12  lines=1  «Открыть наряд»
     span.RowMenu__itemIcon  16×16 @10,14
       svg  16×16 @0,0
@@ -37,7 +37,7 @@ div.RowMenu__root  32×248 @1376,32
   button.RowMenu__trigger  32×32 @0,0  r100  b1
     span.RowMenu__dots  16×16 @8,8
       svg  16×16 @0,0
-div.RowMenu__menu  200×98 @0,0  r14  b1  fixed  portal
+div.RowMenu__menu  200×98 @0,0  r14  b1  fixed  portal  side=bottom
   div.RowMenu__item  190×44 @5,5  Manrope 400 14/18  r12  lines=1  «Открыть наряд»
     span.RowMenu__itemIcon  16×16 @10,14
       svg  16×16 @0,0

@@ -49,6 +49,7 @@ function differingFields(a: MeasuredNode, b: MeasuredNode): readonly string[] {
     'lines',
     'clipped',
     'fixed',
+    'side',
     'parent',
   ] as const) {
     if (JSON.stringify(a[field]) !== JSON.stringify(b[field])) fields.push(field);
@@ -295,6 +296,47 @@ test.describe('порталы', () => {
       y: 200,
     });
     expect(must(nodes, 'div.Modal__window').portal).toBeUndefined();
+  });
+
+  test('🔴 сторона слоя записана: перестановка меняет ровно одно поле (issue #689)', async ({
+    page,
+  }) => {
+    /* Пузырёк подсказки: размеры от стороны не зависят, а координаты корня
+       портала пишутся нулями (ADR-327). Без `data-side` переворот вниз не
+       менял бы в измерении ни строки. */
+    const bubble = (side: string): string =>
+      `<span class="Tooltip__bubble" data-side="${side}" style="position: fixed; top: 40px; left: 60px; width: 120px; height: 32px">Подсказка</span>`;
+
+    const above = await collectWithPortal(
+      page,
+      `<p class="Page__text">Страница</p>`,
+      bubble('top'),
+    );
+    const below = await collectWithPortal(
+      page,
+      `<p class="Page__text">Страница</p>`,
+      bubble('bottom'),
+    );
+
+    expect(must(byKey(above.nodes), 'span.Tooltip__bubble')).toMatchObject({
+      portal: true,
+      side: 'top',
+      x: 0,
+      y: 0,
+      w: 120,
+      h: 32,
+    });
+    expect(
+      differingFields(
+        must(byKey(above.nodes), 'span.Tooltip__bubble'),
+        must(byKey(below.nodes), 'span.Tooltip__bubble'),
+      ),
+    ).toEqual(['side']);
+  });
+
+  test('узел без data-side поля стороны не получает', async ({ page }) => {
+    const result = await collectWithPortal(page, `<p class="Page__text">Страница</p>`, NOTE);
+    expect(must(byKey(result.nodes), 'div.Note__root').side).toBeUndefined();
   });
 
   test('высота соседа по body не меняет ни одного числа портала', async ({ page }) => {
