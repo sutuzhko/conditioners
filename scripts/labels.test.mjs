@@ -181,6 +181,13 @@ describe('заметка ревизора', () => {
     expect(text).toContain('LABELS.md');
   });
 
+  it('🔴 называет оси теми именами, что стоят на GitHub', () => {
+    const text = renderComment(['нет ярлыка оси «часть»']);
+    expect(text).toContain('`area/`');
+    expect(text).toContain('`kind/`');
+    expect(text).not.toContain('`часть/`');
+  });
+
   it('🔴 находит свою прежнюю заметку и не плодит новых', () => {
     const comments = [
       { id: 1, body: 'обычный комментарий' },
