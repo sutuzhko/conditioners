@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Table } from './Table';
-import { TableAction, TableActionLink, TableActions } from './TableActions';
+import { TableAction, TableActionAnchor, TableActionLink, TableActions } from './TableActions';
 import { Badge } from '../Badge/Badge';
 import { Icon } from '../Icon';
 import { IconButton } from '../IconButton/IconButton';
@@ -244,6 +244,61 @@ const tonedRows = (
   </>
 );
 
+const callItems = [
+  { number: 1059, client: 'Ирина Соколова', phone: '+7 (900) 123-45-67' },
+  { number: 1060, client: 'Пётр Гаврилов', phone: '+7 (910) 765-43-21' },
+];
+
+/**
+ * Ряд наряда: открыть карточку, позвонить, удалить. Три действия — три вида
+ * носителя: маршрут приложения, адрес наружу и кнопка. Подсказка у всех трёх
+ * одна и та же китовая, поэтому по фокусу она приходит одинаково.
+ */
+const callRows = (
+  <>
+    <thead>
+      <tr role="row">
+        <th scope="col">Наряд</th>
+        <th scope="col">Клиент</th>
+        <th scope="col">
+          <span className="srOnly">Действия</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {callItems.map((item) => (
+        <tr key={item.number} role="row">
+          <th scope="row">№ {item.number}</th>
+          <td role="cell" data-label="Клиент">
+            {item.client}
+          </td>
+          <td role="cell">
+            <TableActions label={`Действия над нарядом № ${item.number}`}>
+              <TableActionLink
+                tone="open"
+                label={`Открыть наряд № ${item.number}`}
+                icon={<Icon name="orders" size={18} />}
+                href="/"
+              />
+              <TableActionAnchor
+                tone="open"
+                label={`Позвонить: ${item.client}, ${item.phone}`}
+                icon={<Icon name="phone" size={18} />}
+                href={`tel:${item.phone.replace(/[^\d+]/g, '')}`}
+              />
+              <TableAction
+                tone="remove"
+                label={`Удалить наряд № ${item.number}`}
+                icon={<Icon name="close" size={18} />}
+              />
+            </TableActions>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </>
+);
+
 const panel = (Story: () => ReactElement) => (
   <div data-ui="panel" style={{ background: 'var(--bg-soft)', padding: 16 }}>
     <Story />
@@ -306,6 +361,19 @@ export const RowActions: Story = {
 export const TonedRowActions: Story = {
   name: 'Действия строки с краской',
   args: { children: tonedRows, label: 'Каталог' },
+  decorators: [panel],
+};
+
+/**
+ * 🔴 Действие может вести и наружу — `tel:`, `mailto:`, карты. Такой адрес
+ * типизированные маршруты Next не описывают, поэтому у ряда есть третий
+ * носитель, `TableActionAnchor`: обычная ссылка с той же подсказкой, что у
+ * остальных. Родного `title` ни у одного из трёх нет — оно не открывается с
+ * клавиатуры и не гасится по Esc (issue #737).
+ */
+export const OuterLinkAction: Story = {
+  name: 'Действие ссылкой наружу',
+  args: { children: callRows, label: 'Наряды' },
   decorators: [panel],
 };
 

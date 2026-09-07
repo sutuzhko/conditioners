@@ -262,34 +262,9 @@
   white-space: nowrap;
 }
 
-/* Круг, высоту и приглушённый цвет действию задаёт колонка `TableActions`;
-   ссылке и кнопке остаётся раскладка значка внутри круга. */
-.action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background: none;
-  color: inherit;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.action:focus-visible {
-  box-shadow: var(--ring-focus-ring);
-  outline: none;
-}
-
-.action:disabled {
-  cursor: default;
-  opacity: 0.5;
-}
-
-/* Разрушающее действие краснеет — и только оно: три одинаковых значка, из
-   которых один стирает наряд, отличаются на ощупь только порядком. */
-.danger {
-  color: var(--error-ink);
-}
+/* Круга, размера, краски по смыслу и состояний у действий строки здесь нет:
+   всё это держит кит (`TableActions.module.css`), и заказы зовут его
+   компонентами, а не повторяют оформление у себя (issue #737). */
 
 /* 🔴 Строка срыва (issue #347). Тинт строки складывался с тинтом плашки, и
    пара «красная плашка на подсвеченной строке» давала 4.40:1 при норме 4.5,
