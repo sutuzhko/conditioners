@@ -54,7 +54,12 @@ test.describe('карточка наряда: чтение и правка', () 
         await expect(page.getByText(`Тула, ${tag}, 1`).first()).toBeVisible();
         await expect(page.getByRole('combobox', { name: texts.status })).toBeHidden();
         await expect(page.getByRole('combobox', { name: texts.client })).toBeHidden();
-        await expect(page.getByRole('button', { name: texts.save })).toBeHidden();
+        /* 🔴 «Сохранить» на карточке остаётся ровно одно — у итога работ.
+           Это отдельная форма владельца, а не правка наряда: её поля
+           проверены выше как отсутствующие. Число важно само по себе — два
+           «Сохранить» на экране означали бы, что форма правки никуда не
+           уехала, а просто встала рядом. */
+        await expect(page.getByRole('button', { name: texts.save })).toHaveCount(1);
 
         /* Правка — ссылка на свой адрес: её обязано открывать и средней
            кнопкой, как всякий другой адрес панели. */
