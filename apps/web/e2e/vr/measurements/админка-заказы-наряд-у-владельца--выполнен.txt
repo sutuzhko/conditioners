@@ -1,0 +1,452 @@
+# админка-заказы-наряд-у-владельца--выполнен · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×1627
+768 → 768×1415
+1440 → 1440×981
+
+[геометрия 390]
+div.OrderOwnerView__view  358×1595 @16,16
+  div.OrderOwnerView__main  358×1056 @0,0
+    section.Card__card  358×246 @0,0  r20  b1
+      h2.OrderOwnerView__blockTitle  316×16 @21,21  Onest 700 13/16  ls1  lines=1  «Объект»
+      p.OrderOwnerView__address  316×23 @21,47  Manrope 600 15/23  lines=1  «Тула, Первомайская, 12, кв. 4»
+      dl.OrderOwnerView__facts  316×115 @21,80
+        div.OrderOwnerView__fact  282×64 @0,0
+          dt  282×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
+          dd.OrderOwnerView__pair  282×44 @0,20
+            span  117×22 @0,11  Manrope 600 15/22  lines=1  «Ирина Соколова»
+            a.OrderOwnerView__phone  157×44 @125,0  JetBrains Mono 600 15/22  lines=1  «+7 (910) 155-24-68»
+        div.OrderOwnerView__fact#2  123×43 @0,72
+          dt  123×20 @0,0  Manrope 400 13/20  lines=1  «Подъезд и домофон»
+          dd.OrderOwnerView__mono  123×22 @0,20  JetBrains Mono 600 15/22  lines=1  «24К»
+        div.OrderOwnerView__fact#3  32×43 @143,72
+          dt  32×20 @0,0  Manrope 400 13/20  lines=1  «Этаж»
+          dd.OrderOwnerView__mono  32×22 @0,20  JetBrains Mono 600 15/22  lines=1  «5»
+      p.OrderOwnerView__warn  316×20 @21,205  Manrope 600 13/20  lines=1  «Нужна страховка: работы на высоте»
+    section.Card__card#2  358×230 @0,262  r20  b1
+      div.OrderOwnerView__blockHead  316×24 @21,21
+        h2.OrderOwnerView__blockTitle  120×16 @0,4  Onest 700 13/16  ls1  lines=1  «Оборудование»
+        span.Badge__badge  79×24 @237,0  Manrope 600 12/16  r100  b1  lines=1  «2 позиции»
+      ul.OrderOwnerView__units  316×153 @21,55
+        li.OrderOwnerView__unit  316×73 @0,0  r11
+          span.OrderOwnerView__unitModel  292×22 @12,10  Manrope 600 15/22  lines=1  «Сплит-система 09»
+          span.OrderOwnerView__unitMarks  292×24 @12,38
+            span.Badge__badge  52×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Наше»
+            span.Badge__badge#2  82×24 @58,0  Manrope 600 12/16  r100  b1  lines=1  «Трасса 4 м»
+            span.Badge__badge#3  63×24 @145,0  Manrope 600 12/16  r100  b1  lines=1  «1/4–3/8»
+            span.Badge__badge#4  66×24 @214,0  Manrope 600 12/16  r100  b1  lines=1  «Штроба»
+        li.OrderOwnerView__unit#2  316×73 @0,81  r11
+          span.OrderOwnerView__unitModel  292×22 @12,10  Manrope 600 15/22  lines=1  «Блок клиента, 12-я модель»
+          span.OrderOwnerView__unitMarks  292×24 @12,38
+            span.Badge__badge#5  69×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Клиента»
+            span.Badge__badge#6  82×24 @75,0  Manrope 600 12/16  r100  b1  lines=1  «Трасса 6 м»
+            span.Badge__badge#7  61×24 @163,0  Manrope 600 12/16  r100  b1  lines=1  «1/4–1/2»
+    section.Card__card#3  358×549 @0,507  r20  b1
+      form.OrderResultForm__form  316×507 @21,21
+        div.OrderResultForm__head  316×21 @0,0
+          h2.OrderResultForm__title  90×21 @0,0  Onest 700 17/21  ls0  lines=1  «Итог работ»
+          p.OrderResultForm__when  131×20 @185,1  Manrope 400 13/20  lines=1  «Заполнен 24.08.2026»
+        p.OrderResultForm__hint  316×40 @0,33  Manrope 400 13/20  lines=2  «Что сделали по факту. Плановую сумму ито»
+        fieldset.OrderResultForm__group  316×366 @0,85
+          div.Field__field  316×169 @0,0
+            label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Доп. работы и материалы»
+            textarea.Textarea__textarea  316×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Два метра трассы сверх наряда, кронштейн»
+            p.Field__hint  316×39 @0,130  Manrope 400 13/19  lines=2  «Что добавилось на объекте: лишние метры»
+          div.Field__field#2  316×185 @0,181
+            label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
+            textarea.Textarea__textarea  316×112 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Блок повешен, вакуумирование 20 минут, к»
+            p.Field__hint  316×39 @0,146  Manrope 400 13/19  lines=2  «Что сделано, что проверено, о чём предуп»
+        div.OrderResultForm__actions  316×44 @0,463
+          button.Button__button  150×44 @0,0  r11  b1
+            span.Button__content  112×17 @19,13
+              span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить итог»
+  div.OrderOwnerView__side  358×523 @0,1072
+    section.Card__card  358×240 @0,0  r20  b1
+      h2.OrderOwnerView__blockTitle#2  316×16 @21,21  Onest 700 13/16  ls1  lines=1  «Когда и кто»
+      dl.OrderOwnerView__facts#2  316×93 @21,47
+        div.OrderOwnerView__fact  200×43 @0,0
+          dt#2  200×20 @0,0  Manrope 400 13/20  lines=1  «Дата и время»
+          dd.OrderOwnerView__mono  200×22 @0,20  JetBrains Mono 600 15/22  lines=1  «· 3 ч»
+            time  148×19 @0,1  JetBrains Mono 600 15/22  lines=1  «28.08.2026, 11:00»
+        div.OrderOwnerView__fact#2  128×43 @0,51
+          dt#2  128×20 @0,0  Manrope 400 13/20  lines=1  «Монтажник»
+          dd  128×22 @0,20  Manrope 600 15/22  lines=1  «Дмитрий Соколов»
+      div.OrderOwnerView__note  316×69 @21,150
+        span.OrderOwnerView__noteLabel  316×20 @0,0  Manrope 400 13/20  lines=1  «Комментарий монтажнику»
+        p.OrderOwnerView__noteText  316×45 @0,24  Manrope 600 15/22  lines=2  «Домофон не работает, звонить на телефон»
+    section.Card__card#2  358×161 @0,256  r20  b1
+      h2.OrderOwnerView__blockTitle  316×16 @21,21  Onest 700 13/16  ls1  lines=1  «Деньги»
+      dl.OrderOwnerView__facts  316×93 @21,47
+        div.OrderOwnerView__fact#4  85×43 @0,0
+          dt  85×20 @0,0  Manrope 400 13/20  lines=1  «Сумма заказа»
+          dd.OrderOwnerView__sum  85×22 @0,20  JetBrains Mono 600 15/22  lines=1  «31 900 ₽»
+        div.OrderOwnerView__fact#5  176×43 @105,0
+          dt  176×20 @0,0  Manrope 400 13/20  lines=1  «Оплата»
+          dd  176×22 @0,20  Manrope 600 15/22  lines=1  «Клиент платит компании»
+        div.OrderOwnerView__fact#6  130×43 @0,51
+          dt  130×20 @0,0  Manrope 400 13/20  lines=1  «Выплата монтажнику»
+          dd.OrderOwnerView__money  130×22 @0,20  JetBrains Mono 600 15/22  lines=1  «8 200 ₽»
+        div.OrderOwnerView__fact#7  69×43 @150,51
+          dt  69×20 @0,0  Manrope 400 13/20  lines=1  «Удержание»
+          dd.OrderOwnerView__money  69×22 @0,20  JetBrains Mono 600 15/22  lines=1  «нет»
+    section.Card__card#3  358×90 @0,433  r20  b1
+      h2.OrderOwnerView__blockTitle  316×16 @21,21  Onest 700 13/16  ls1  lines=1  «Заметка владельца»
+      p.OrderOwnerView__noteText  316×22 @21,47  Manrope 600 15/22  lines=1  «Клиент постоянный, скидку не даём»
+
+[геометрия 768]
+div.OrderOwnerView__view  736×1383 @16,16
+  div.OrderOwnerView__main  736×968 @0,0
+    section.Card__card  736×195 @0,0  r20  b1
+      h2.OrderOwnerView__blockTitle  694×16 @21,21  Onest 700 13/16  ls1  lines=1  «Объект»
+      p.OrderOwnerView__address  694×23 @21,47  Manrope 600 15/23  lines=1  «Тула, Первомайская, 12, кв. 4»
+      dl.OrderOwnerView__facts  694×64 @21,80
+        div.OrderOwnerView__fact  282×64 @0,0
+          dt  282×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
+          dd.OrderOwnerView__pair  282×44 @0,20
+            span  117×22 @0,11  Manrope 600 15/22  lines=1  «Ирина Соколова»
+            a.OrderOwnerView__phone  157×44 @125,0  JetBrains Mono 600 15/22  lines=1  «+7 (910) 155-24-68»
+        div.OrderOwnerView__fact#2  123×64 @302,0
+          dt  123×20 @0,0  Manrope 400 13/20  lines=1  «Подъезд и домофон»
+          dd.OrderOwnerView__mono  123×22 @0,20  JetBrains Mono 600 15/22  lines=1  «24К»
+        div.OrderOwnerView__fact#3  32×64 @445,0
+          dt  32×20 @0,0  Manrope 400 13/20  lines=1  «Этаж»
+          dd.OrderOwnerView__mono  32×22 @0,20  JetBrains Mono 600 15/22  lines=1  «5»
+      p.OrderOwnerView__warn  694×20 @21,154  Manrope 600 13/20  lines=1  «Нужна страховка: работы на высоте»
+    section.Card__card#2  736×230 @0,211  r20  b1
+      div.OrderOwnerView__blockHead  694×24 @21,21
+        h2.OrderOwnerView__blockTitle  120×16 @0,4  Onest 700 13/16  ls1  lines=1  «Оборудование»
+        span.Badge__badge  79×24 @615,0  Manrope 600 12/16  r100  b1  lines=1  «2 позиции»
+      ul.OrderOwnerView__units  694×153 @21,55
+        li.OrderOwnerView__unit  694×73 @0,0  r11
+          span.OrderOwnerView__unitModel  670×22 @12,10  Manrope 600 15/22  lines=1  «Сплит-система 09»
+          span.OrderOwnerView__unitMarks  670×24 @12,38
+            span.Badge__badge  52×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Наше»
+            span.Badge__badge#2  82×24 @58,0  Manrope 600 12/16  r100  b1  lines=1  «Трасса 4 м»
+            span.Badge__badge#3  63×24 @145,0  Manrope 600 12/16  r100  b1  lines=1  «1/4–3/8»
+            span.Badge__badge#4  66×24 @214,0  Manrope 600 12/16  r100  b1  lines=1  «Штроба»
+        li.OrderOwnerView__unit#2  694×73 @0,81  r11
+          span.OrderOwnerView__unitModel  670×22 @12,10  Manrope 600 15/22  lines=1  «Блок клиента, 12-я модель»
+          span.OrderOwnerView__unitMarks  670×24 @12,38
+            span.Badge__badge#5  69×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Клиента»
+            span.Badge__badge#6  82×24 @75,0  Manrope 600 12/16  r100  b1  lines=1  «Трасса 6 м»
+            span.Badge__badge#7  61×24 @163,0  Manrope 600 12/16  r100  b1  lines=1  «1/4–1/2»
+    section.Card__card#3  736×511 @0,457  r20  b1
+      form.OrderResultForm__form  694×469 @21,21
+        div.OrderResultForm__head  694×22 @0,0
+          h2.OrderResultForm__title  95×22 @0,0  Onest 700 18/22  ls0  lines=1  «Итог работ»
+          p.OrderResultForm__when  131×20 @563,1  Manrope 400 13/20  lines=1  «Заполнен 24.08.2026»
+        p.OrderResultForm__hint  539×40 @0,34  Manrope 400 13/20  lines=2  «Что сделали по факту. Плановую сумму ито»
+        fieldset.OrderResultForm__group  694×327 @0,86
+          div.Field__field  694×150 @0,0
+            label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Доп. работы и материалы»
+            textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Два метра трассы сверх наряда, кронштейн»
+            p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Что добавилось на объекте: лишние метры»
+          div.Field__field#2  694×166 @0,162
+            label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
+            textarea.Textarea__textarea  694×112 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Блок повешен, вакуумирование 20 минут, к»
+            p.Field__hint  694×19 @0,146  Manrope 400 13/19  lines=1  «Что сделано, что проверено, о чём предуп»
+        div.OrderResultForm__actions  694×44 @0,425
+          button.Button__button  150×44 @0,0  r11  b1
+            span.Button__content  112×17 @19,13
+              span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить итог»
+  div.OrderOwnerView__side  736×399 @0,984
+    section.Card__card  736×167 @0,0  r20  b1
+      h2.OrderOwnerView__blockTitle#2  694×16 @21,21  Onest 700 13/16  ls1  lines=1  «Когда и кто»
+      dl.OrderOwnerView__facts#2  694×43 @21,47
+        div.OrderOwnerView__fact  200×43 @0,0
+          dt#2  200×20 @0,0  Manrope 400 13/20  lines=1  «Дата и время»
+          dd.OrderOwnerView__mono  200×22 @0,20  JetBrains Mono 600 15/22  lines=1  «· 3 ч»
+            time  148×19 @0,1  JetBrains Mono 600 15/22  lines=1  «28.08.2026, 11:00»
+        div.OrderOwnerView__fact#2  128×43 @220,0
+          dt#2  128×20 @0,0  Manrope 400 13/20  lines=1  «Монтажник»
+          dd  128×22 @0,20  Manrope 600 15/22  lines=1  «Дмитрий Соколов»
+      div.OrderOwnerView__note  694×47 @21,99
+        span.OrderOwnerView__noteLabel  694×20 @0,0  Manrope 400 13/20  lines=1  «Комментарий монтажнику»
+        p.OrderOwnerView__noteText  694×22 @0,24  Manrope 600 15/22  lines=1  «Домофон не работает, звонить на телефон»
+    section.Card__card#2  736×110 @0,183  r20  b1
+      h2.OrderOwnerView__blockTitle  694×16 @21,21  Onest 700 13/16  ls1  lines=1  «Деньги»
+      dl.OrderOwnerView__facts  694×43 @21,47
+        div.OrderOwnerView__fact#4  85×43 @0,0
+          dt  85×20 @0,0  Manrope 400 13/20  lines=1  «Сумма заказа»
+          dd.OrderOwnerView__sum  85×22 @0,20  JetBrains Mono 600 15/22  lines=1  «31 900 ₽»
+        div.OrderOwnerView__fact#5  176×43 @105,0
+          dt  176×20 @0,0  Manrope 400 13/20  lines=1  «Оплата»
+          dd  176×22 @0,20  Manrope 600 15/22  lines=1  «Клиент платит компании»
+        div.OrderOwnerView__fact#6  130×43 @301,0
+          dt  130×20 @0,0  Manrope 400 13/20  lines=1  «Выплата монтажнику»
+          dd.OrderOwnerView__money  130×22 @0,20  JetBrains Mono 600 15/22  lines=1  «8 200 ₽»
+        div.OrderOwnerView__fact#7  69×43 @451,0
+          dt  69×20 @0,0  Manrope 400 13/20  lines=1  «Удержание»
+          dd.OrderOwnerView__money  69×22 @0,20  JetBrains Mono 600 15/22  lines=1  «нет»
+    section.Card__card#3  736×90 @0,309  r20  b1
+      h2.OrderOwnerView__blockTitle  694×16 @21,21  Onest 700 13/16  ls1  lines=1  «Заметка владельца»
+      p.OrderOwnerView__noteText  694×22 @21,47  Manrope 600 15/22  lines=1  «Клиент постоянный, скидку не даём»
+
+[геометрия 1440]
+div.OrderOwnerView__view  1408×949 @16,16
+  div.OrderOwnerView__main  1052×949 @0,0
+    section.Card__card  1052×175 @0,0  r20  b1
+      h2.OrderOwnerView__blockTitle  1010×16 @21,21  Onest 700 13/16  ls1  lines=1  «Объект»
+      p.OrderOwnerView__address  1010×23 @21,47  Manrope 600 15/23  lines=1  «Тула, Первомайская, 12, кв. 4»
+      dl.OrderOwnerView__facts  1010×44 @21,80
+        div.OrderOwnerView__fact  282×44 @0,0
+          dt  282×20 @0,0  Manrope 400 13/20  lines=1  «Клиент»
+          dd.OrderOwnerView__pair  282×24 @0,20
+            span  117×22 @0,1  Manrope 600 15/22  lines=1  «Ирина Соколова»
+            a.OrderOwnerView__phone  157×24 @125,0  JetBrains Mono 600 15/22  lines=1  «+7 (910) 155-24-68»
+        div.OrderOwnerView__fact#2  123×44 @302,0
+          dt  123×20 @0,0  Manrope 400 13/20  lines=1  «Подъезд и домофон»
+          dd.OrderOwnerView__mono  123×22 @0,20  JetBrains Mono 600 15/22  lines=1  «24К»
+        div.OrderOwnerView__fact#3  32×44 @445,0
+          dt  32×20 @0,0  Manrope 400 13/20  lines=1  «Этаж»
+          dd.OrderOwnerView__mono  32×22 @0,20  JetBrains Mono 600 15/22  lines=1  «5»
+      p.OrderOwnerView__warn  1010×20 @21,134  Manrope 600 13/20  lines=1  «Нужна страховка: работы на высоте»
+    section.Card__card#2  1052×230 @0,191  r20  b1
+      div.OrderOwnerView__blockHead  1010×24 @21,21
+        h2.OrderOwnerView__blockTitle  120×16 @0,4  Onest 700 13/16  ls1  lines=1  «Оборудование»
+        span.Badge__badge  79×24 @931,0  Manrope 600 12/16  r100  b1  lines=1  «2 позиции»
+      ul.OrderOwnerView__units  1010×153 @21,55
+        li.OrderOwnerView__unit  1010×73 @0,0  r11
+          span.OrderOwnerView__unitModel  986×22 @12,10  Manrope 600 15/22  lines=1  «Сплит-система 09»
+          span.OrderOwnerView__unitMarks  986×24 @12,38
+            span.Badge__badge  52×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Наше»
+            span.Badge__badge#2  82×24 @58,0  Manrope 600 12/16  r100  b1  lines=1  «Трасса 4 м»
+            span.Badge__badge#3  63×24 @145,0  Manrope 600 12/16  r100  b1  lines=1  «1/4–3/8»
+            span.Badge__badge#4  66×24 @214,0  Manrope 600 12/16  r100  b1  lines=1  «Штроба»
+        li.OrderOwnerView__unit#2  1010×73 @0,81  r11
+          span.OrderOwnerView__unitModel  986×22 @12,10  Manrope 600 15/22  lines=1  «Блок клиента, 12-я модель»
+          span.OrderOwnerView__unitMarks  986×24 @12,38
+            span.Badge__badge#5  69×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Клиента»
+            span.Badge__badge#6  82×24 @75,0  Manrope 600 12/16  r100  b1  lines=1  «Трасса 6 м»
+            span.Badge__badge#7  61×24 @163,0  Manrope 600 12/16  r100  b1  lines=1  «1/4–1/2»
+    section.Card__card#3  1052×512 @0,437  r20  b1
+      form.OrderResultForm__form  1010×470 @21,21
+        div.OrderResultForm__head  1010×23 @0,0
+          h2.OrderResultForm__title  100×23 @0,0  Onest 700 19/23  ls0  lines=1  «Итог работ»
+          p.OrderResultForm__when  131×20 @879,2  Manrope 400 13/20  lines=1  «Заполнен 24.08.2026»
+        p.OrderResultForm__hint  539×40 @0,35  Manrope 400 13/20  lines=2  «Что сделали по факту. Плановую сумму ито»
+        fieldset.OrderResultForm__group  1010×327 @0,87
+          div.Field__field  1010×150 @0,0
+            label.Field__label  1010×20 @0,0  Manrope 600 13/20  lines=1  «Доп. работы и материалы»
+            textarea.Textarea__textarea  1010×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Два метра трассы сверх наряда, кронштейн»
+            p.Field__hint  1010×19 @0,130  Manrope 400 13/19  lines=1  «Что добавилось на объекте: лишние метры»
+          div.Field__field#2  1010×166 @0,162
+            label.Field__label  1010×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
+            textarea.Textarea__textarea  1010×112 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Блок повешен, вакуумирование 20 минут, к»
+            p.Field__hint  1010×19 @0,146  Manrope 400 13/19  lines=1  «Что сделано, что проверено, о чём предуп»
+        div.OrderResultForm__actions  1010×44 @0,426
+          button.Button__button  150×44 @0,0  r11  b1
+            span.Button__content  112×17 @19,13
+              span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить итог»
+  div.OrderOwnerView__side  340×523 @1084,28  fixed
+    section.Card__card  340×240 @0,0  r20  b1
+      h2.OrderOwnerView__blockTitle#2  298×16 @21,21  Onest 700 13/16  ls1  lines=1  «Когда и кто»
+      dl.OrderOwnerView__facts#2  298×93 @21,47
+        div.OrderOwnerView__fact  200×43 @0,0
+          dt#2  200×20 @0,0  Manrope 400 13/20  lines=1  «Дата и время»
+          dd.OrderOwnerView__mono  200×22 @0,20  JetBrains Mono 600 15/22  lines=1  «· 3 ч»
+            time  148×19 @0,1  JetBrains Mono 600 15/22  lines=1  «28.08.2026, 11:00»
+        div.OrderOwnerView__fact#2  128×43 @0,51
+          dt#2  128×20 @0,0  Manrope 400 13/20  lines=1  «Монтажник»
+          dd  128×22 @0,20  Manrope 600 15/22  lines=1  «Дмитрий Соколов»
+      div.OrderOwnerView__note  298×69 @21,150
+        span.OrderOwnerView__noteLabel  298×20 @0,0  Manrope 400 13/20  lines=1  «Комментарий монтажнику»
+        p.OrderOwnerView__noteText  298×45 @0,24  Manrope 600 15/22  lines=2  «Домофон не работает, звонить на телефон»
+    section.Card__card#2  340×161 @0,256  r20  b1
+      h2.OrderOwnerView__blockTitle  298×16 @21,21  Onest 700 13/16  ls1  lines=1  «Деньги»
+      dl.OrderOwnerView__facts  298×93 @21,47
+        div.OrderOwnerView__fact#4  85×43 @0,0
+          dt  85×20 @0,0  Manrope 400 13/20  lines=1  «Сумма заказа»
+          dd.OrderOwnerView__sum  85×22 @0,20  JetBrains Mono 600 15/22  lines=1  «31 900 ₽»
+        div.OrderOwnerView__fact#5  176×43 @105,0
+          dt  176×20 @0,0  Manrope 400 13/20  lines=1  «Оплата»
+          dd  176×22 @0,20  Manrope 600 15/22  lines=1  «Клиент платит компании»
+        div.OrderOwnerView__fact#6  130×43 @0,51
+          dt  130×20 @0,0  Manrope 400 13/20  lines=1  «Выплата монтажнику»
+          dd.OrderOwnerView__money  130×22 @0,20  JetBrains Mono 600 15/22  lines=1  «8 200 ₽»
+        div.OrderOwnerView__fact#7  69×43 @150,51
+          dt  69×20 @0,0  Manrope 400 13/20  lines=1  «Удержание»
+          dd.OrderOwnerView__money  69×22 @0,20  JetBrains Mono 600 15/22  lines=1  «нет»
+    section.Card__card#3  340×90 @0,433  r20  b1
+      h2.OrderOwnerView__blockTitle  298×16 @21,21  Onest 700 13/16  ls1  lines=1  «Заметка владельца»
+      p.OrderOwnerView__noteText  298×22 @21,47  Manrope 600 15/22  lines=1  «Клиент постоянный, скидку не даём»
+
+[палитра light]
+div.OrderOwnerView__view
+  div.OrderOwnerView__main
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      h2.OrderOwnerView__blockTitle  color #556173
+      p.OrderOwnerView__address  color #0f172a
+      dl.OrderOwnerView__facts
+        div.OrderOwnerView__fact
+          dt  color #5b6a7d
+          dd.OrderOwnerView__pair
+            span  color #475569
+            a.OrderOwnerView__phone  color #0e7490
+        div.OrderOwnerView__fact#2
+          dt  color #5b6a7d
+          dd.OrderOwnerView__mono  color #475569
+        div.OrderOwnerView__fact#3
+          dt  color #5b6a7d
+          dd.OrderOwnerView__mono  color #475569
+      p.OrderOwnerView__warn  color #92400e
+    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      div.OrderOwnerView__blockHead
+        h2.OrderOwnerView__blockTitle  color #556173
+        span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+      ul.OrderOwnerView__units
+        li.OrderOwnerView__unit  bg #f8fafc
+          span.OrderOwnerView__unitModel  color #0f172a
+          span.OrderOwnerView__unitMarks
+            span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+            span.Badge__badge#2  color #556173  bg #f8fafc  border #e2e8f0
+            span.Badge__badge#3  color #556173  bg #f8fafc  border #e2e8f0
+            span.Badge__badge#4  color #92400e  bg #b4530914  border #b4530947
+        li.OrderOwnerView__unit#2  bg #f8fafc
+          span.OrderOwnerView__unitModel  color #0f172a
+          span.OrderOwnerView__unitMarks
+            span.Badge__badge#5  color #556173  bg #f8fafc  border #e2e8f0
+            span.Badge__badge#6  color #556173  bg #f8fafc  border #e2e8f0
+            span.Badge__badge#7  color #556173  bg #f8fafc  border #e2e8f0
+    section.Card__card#3  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      form.OrderResultForm__form
+        div.OrderResultForm__head
+          h2.OrderResultForm__title  color #0f172a
+          p.OrderResultForm__when  color #556173
+        p.OrderResultForm__hint  color #556173
+        fieldset.OrderResultForm__group
+          div.Field__field
+            label.Field__label  color #334155
+            textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
+            p.Field__hint  color #556173
+          div.Field__field#2
+            label.Field__label  color #334155
+            textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
+            p.Field__hint  color #556173
+        div.OrderResultForm__actions
+          button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content
+              span.Button__label  color #ffffff
+  div.OrderOwnerView__side
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      h2.OrderOwnerView__blockTitle#2  color #556173
+      dl.OrderOwnerView__facts#2
+        div.OrderOwnerView__fact
+          dt#2  color #5b6a7d
+          dd.OrderOwnerView__mono  color #475569
+            time  color #475569
+        div.OrderOwnerView__fact#2
+          dt#2  color #5b6a7d
+          dd  color #475569
+      div.OrderOwnerView__note
+        span.OrderOwnerView__noteLabel  color #5b6a7d
+        p.OrderOwnerView__noteText  color #475569
+    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      h2.OrderOwnerView__blockTitle  color #556173
+      dl.OrderOwnerView__facts
+        div.OrderOwnerView__fact#4
+          dt  color #5b6a7d
+          dd.OrderOwnerView__sum  color #475569
+        div.OrderOwnerView__fact#5
+          dt  color #5b6a7d
+          dd  color #475569
+        div.OrderOwnerView__fact#6
+          dt  color #5b6a7d
+          dd.OrderOwnerView__money  color #475569
+        div.OrderOwnerView__fact#7
+          dt  color #5b6a7d
+          dd.OrderOwnerView__money  color #475569
+    section.Card__card#3  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      h2.OrderOwnerView__blockTitle  color #556173
+      p.OrderOwnerView__noteText  color #475569
+
+[палитра dark]
+div.OrderOwnerView__view
+  div.OrderOwnerView__main
+    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      h2.OrderOwnerView__blockTitle  color #8598ac
+      p.OrderOwnerView__address  color #eaf1f8
+      dl.OrderOwnerView__facts
+        div.OrderOwnerView__fact
+          dt  color #7e92a7
+          dd.OrderOwnerView__pair
+            span  color #a8b6c6
+            a.OrderOwnerView__phone  color #22d3ee
+        div.OrderOwnerView__fact#2
+          dt  color #7e92a7
+          dd.OrderOwnerView__mono  color #a8b6c6
+        div.OrderOwnerView__fact#3
+          dt  color #7e92a7
+          dd.OrderOwnerView__mono  color #a8b6c6
+      p.OrderOwnerView__warn  color #fbbf24
+    section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      div.OrderOwnerView__blockHead
+        h2.OrderOwnerView__blockTitle  color #8598ac
+        span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+      ul.OrderOwnerView__units
+        li.OrderOwnerView__unit  bg #0e1729
+          span.OrderOwnerView__unitModel  color #eaf1f8
+          span.OrderOwnerView__unitMarks
+            span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+            span.Badge__badge#2  color #8598ac  bg #0e1729  border #1e2b41
+            span.Badge__badge#3  color #8598ac  bg #0e1729  border #1e2b41
+            span.Badge__badge#4  color #fbbf24  bg #fbbf241f  border #fbbf2452
+        li.OrderOwnerView__unit#2  bg #0e1729
+          span.OrderOwnerView__unitModel  color #eaf1f8
+          span.OrderOwnerView__unitMarks
+            span.Badge__badge#5  color #8598ac  bg #0e1729  border #1e2b41
+            span.Badge__badge#6  color #8598ac  bg #0e1729  border #1e2b41
+            span.Badge__badge#7  color #8598ac  bg #0e1729  border #1e2b41
+    section.Card__card#3  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      form.OrderResultForm__form
+        div.OrderResultForm__head
+          h2.OrderResultForm__title  color #eaf1f8
+          p.OrderResultForm__when  color #8598ac
+        p.OrderResultForm__hint  color #8598ac
+        fieldset.OrderResultForm__group
+          div.Field__field
+            label.Field__label  color #c9d5e2
+            textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
+            p.Field__hint  color #8598ac
+          div.Field__field#2
+            label.Field__label  color #c9d5e2
+            textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
+            p.Field__hint  color #8598ac
+        div.OrderResultForm__actions
+          button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            span.Button__content
+              span.Button__label  color #ffffff
+  div.OrderOwnerView__side
+    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      h2.OrderOwnerView__blockTitle#2  color #8598ac
+      dl.OrderOwnerView__facts#2
+        div.OrderOwnerView__fact
+          dt#2  color #7e92a7
+          dd.OrderOwnerView__mono  color #a8b6c6
+            time  color #a8b6c6
+        div.OrderOwnerView__fact#2
+          dt#2  color #7e92a7
+          dd  color #a8b6c6
+      div.OrderOwnerView__note
+        span.OrderOwnerView__noteLabel  color #7e92a7
+        p.OrderOwnerView__noteText  color #a8b6c6
+    section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      h2.OrderOwnerView__blockTitle  color #8598ac
+      dl.OrderOwnerView__facts
+        div.OrderOwnerView__fact#4
+          dt  color #7e92a7
+          dd.OrderOwnerView__sum  color #a8b6c6
+        div.OrderOwnerView__fact#5
+          dt  color #7e92a7
+          dd  color #a8b6c6
+        div.OrderOwnerView__fact#6
+          dt  color #7e92a7
+          dd.OrderOwnerView__money  color #a8b6c6
+        div.OrderOwnerView__fact#7
+          dt  color #7e92a7
+          dd.OrderOwnerView__money  color #a8b6c6
+    section.Card__card#3  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      h2.OrderOwnerView__blockTitle  color #8598ac
+      p.OrderOwnerView__noteText  color #a8b6c6
