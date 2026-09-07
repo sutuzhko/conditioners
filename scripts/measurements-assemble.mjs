@@ -23,18 +23,38 @@ import { parseArgs } from 'node:util';
 
 import { formatStory } from './measurements-format.mjs';
 
-const PARTIAL_FILE = /^measure-(?!failed-).*\.json$/;
+/* 🔴 Отрицательные проверки перечисляют ВСЕ служебные имена: файл отказов и
+   файл пропущенных начинаются так же, и без вычитания они прочлись бы как
+   измерение, не нашли бы в себе `nodes` и уехали бы в отказы — то есть
+   осознанный пропуск покрасил бы работу. */
+const PARTIAL_FILE = /^measure-(?!failed-|skipped-).*\.json$/;
 const FAILED_FILE = /^measure-failed-.*\.json$/;
+const SKIPPED_FILE = /^measure-skipped-.*\.json$/;
 const THEMES = ['light', 'dark'];
 
 /** Частичные измерения и отказы раннера из каталога. */
 export function readPartials(dir) {
-  if (!existsSync(dir)) return { partials: [], failed: [] };
+  if (!existsSync(dir)) return { partials: [], failed: [], skipped: [] };
   const partials = [];
   const failed = [];
+  /* Пропущенные копятся множеством: одна история пропускается на каждой паре
+     «ширина + тема», и в отчёте она нужна один раз. */
+  const skipped = new Set();
   for (const name of readdirSync(dir).sort()) {
     const path = join(dir, name);
-    if (FAILED_FILE.test(name)) {
+    if (SKIPPED_FILE.test(name)) {
+      try {
+        const parsed = JSON.parse(readFileSync(path, 'utf8'));
+        for (const story of Array.isArray(parsed.skipped) ? parsed.skipped : []) {
+          skipped.add(String(story));
+        }
+      } catch (error) {
+        /* 🔴 Нечитаемый список пропущенных — отказ, а не пустой список: иначе
+           сравнение сочло бы пропущенные истории удалёнными и покрасило бы
+           работу по ложной причине. */
+        failed.push({ story: name, reason: `список пропущенных не читается: ${String(error)}` });
+      }
+    } else if (FAILED_FILE.test(name)) {
       try {
         const parsed = JSON.parse(readFileSync(path, 'utf8'));
         for (const item of Array.isArray(parsed.failed) ? parsed.failed : []) {
@@ -57,7 +77,7 @@ export function readPartials(dir) {
       }
     }
   }
-  return { partials, failed };
+  return { partials, failed, skipped: [...skipped].sort() };
 }
 
 /**
@@ -112,18 +132,23 @@ function main() {
     process.exit(2);
   }
 
-  const result = assemble(readPartials(values.partials));
+  const read = readPartials(values.partials);
+  const result = assemble(read);
   writeFiles(result.files, values.out);
 
   const report = {
     stories: result.stories,
     files: result.files.size,
     failed: result.failed,
+    /* Пропущенные по графу импортов — сравнению: без них файл в репозитории
+       без замера читается как удалённая история (issue #856). */
+    skipped: read.skipped,
   };
   if (values.report !== '') writeFileSync(values.report, `${JSON.stringify(report, null, 2)}\n`);
 
   console.log(
-    `историй: ${report.stories}, файлов записано: ${report.files}, отказов: ${report.failed.length}`,
+    `историй: ${report.stories}, файлов записано: ${report.files}, отказов: ${report.failed.length}` +
+      (report.skipped.length > 0 ? `, пропущено по графу: ${report.skipped.length}` : ''),
   );
   for (const item of result.failed) console.log(`  ✗ ${item.story}: ${item.reason}`);
 }

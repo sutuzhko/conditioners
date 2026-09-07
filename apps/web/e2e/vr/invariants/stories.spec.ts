@@ -5,6 +5,7 @@ import { firstLines } from '../outcome';
 import { shardFromEnv, shardSlice } from '../shard';
 import { FROZEN_NOW } from '../snapshot-run';
 import { FIXTURES_SECTION, PANEL_SECTIONS, PUBLIC_SECTIONS } from '../sections';
+import { affectedStoryPaths, changedFromEnv, normaliseStoryPath } from '../story-deps';
 import { loadStories, pinnedWidths, type StoryEntry } from '../story-index';
 import { waitForStoryReady, watchPlayFailures } from '../story-ready';
 import { measureInvariants } from './measure';
@@ -83,6 +84,31 @@ async function measureStories(page: Page, run: MeasureRun): Promise<void> {
   const tally = emptyInvariantsTally();
   const touch = run.width < TOUCH_BELOW;
 
+  /* 🔴 Меряются только истории, до которых правка дотягивается по графу
+     импортов (issue #856) — тот же приём и тот же код, что у снимков
+     (`snapshot-run.ts`, issue #444). До него правка одной строки в
+     `Button.module.css` заставляла обходить все 1183 истории на каждой из
+     четырнадцати пар «ширина + тема».
+
+     🔴 Пропуск безопасен ровно потому, что безопасен у снимков: история, до
+     которой ни один изменённый файл не дотягивается, не может нарушить
+     инвариант иначе, чем нарушала до правки, — а тогда работа была зелёной.
+     Всё, чего разбор не понял, задевает всё: `affectedStoryPaths` возвращает
+     `null`, и меряется каждая история.
+
+     Пропущенные не попадают в итог вовсе: сводка считает нарушения, а не
+     истории, и молчание о непройденной истории здесь не ложь. */
+  const affected = affectedStoryPaths({
+    changed: changedFromEnv(),
+    storyPaths: stories.flatMap((story) =>
+      story.importPath === undefined ? [] : [normaliseStoryPath(story.importPath)],
+    ),
+  });
+  const isAffected = (story: StoryEntry): boolean =>
+    affected === null ||
+    story.importPath === undefined ||
+    affected.has(normaliseStoryPath(story.importPath));
+
   /* Подготовка та же, что у снимков (`snapshot-run.ts`): подписка на отказы
      сценариев до первого перехода, область просмотра, покой для анимаций и
      замороженное «сейчас» — иначе история приходит к замеру в случайной точке
@@ -95,6 +121,7 @@ async function measureStories(page: Page, run: MeasureRun): Promise<void> {
   try {
     for (const story of stories) {
       if (!pinnedWidths(story, run.widths).includes(run.width)) continue;
+      if (!isAffected(story)) continue;
 
       /* Отказ одной истории не обрывает обход: причина записывается, замер
          идёт дальше, а в конце список отказов красит тест целиком. */

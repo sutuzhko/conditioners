@@ -8,6 +8,7 @@ import { firstLines } from '../outcome';
 import { FIXTURES_SECTION, PANEL_SECTIONS, PUBLIC_SECTIONS } from '../sections';
 import { shardFromEnv, shardSlice, type Shard } from '../shard';
 import { FROZEN_NOW } from '../snapshot-run';
+import { affectedStoryPaths, changedFromEnv, normaliseStoryPath } from '../story-deps';
 import { loadStories, pinnedWidths, type StoryEntry } from '../story-index';
 import { waitForStoryReady, watchPlayFailures } from '../story-ready';
 import { collectMeasurements } from './collect';
@@ -72,12 +73,46 @@ function failedFileName(run: MeasureRun, shard: Shard | null): string {
   return `measure-failed-${run.group}${part}-${run.width}-${run.theme}.json`;
 }
 
+/**
+ * Файл пропущенных по графу импортов. Имя отдельное от отказов: сборщик
+ * различает их по началу имени, и «пропущено осознанно» не должно попасть в
+ * отказы — это разные вещи и разный вердикт.
+ */
+function skippedFileName(run: MeasureRun, shard: Shard | null): string {
+  const part = shard === null ? '' : `-s${shard.index}of${shard.total}`;
+  return `measure-skipped-${run.group}${part}-${run.width}-${run.theme}.json`;
+}
+
 async function measureStories(page: Page, run: MeasureRun): Promise<void> {
   const shard = shardFromEnv();
   const stories = shard === null ? run.stories : shardSlice(run.stories, shard);
   const dir = outcomeDir();
   mkdirSync(dir, { recursive: true });
   const failed: Failure[] = [];
+  const skipped: string[] = [];
+
+  /* 🔴 Меряются только истории, до которых правка дотягивается по графу
+     импортов (issue #856) — тот же приём и тот же код, что у снимков
+     (`snapshot-run.ts`, issue #444). До него правка одной строки в ките
+     заставляла заново обходить все истории на каждой паре «ширина + тема».
+
+     🔴 Пропуск обязан быть назван вслух, а не выглядеть пропажей. Сравнение
+     считает файл в репозитории без замера удалённой историей и краснеет —
+     поэтому пропущенные пишутся списком рядом с отказами, сборщик несёт их в
+     отчёт, а сравнение вычитает их из пропавших.
+
+     Всё, чего разбор не понял, задевает всё: `affectedStoryPaths` возвращает
+     `null`, и меряется каждая история. */
+  const affected = affectedStoryPaths({
+    changed: changedFromEnv(),
+    storyPaths: stories.flatMap((story) =>
+      story.importPath === undefined ? [] : [normaliseStoryPath(story.importPath)],
+    ),
+  });
+  const isAffected = (story: StoryEntry): boolean =>
+    affected === null ||
+    story.importPath === undefined ||
+    affected.has(normaliseStoryPath(story.importPath));
 
   /* Подготовка та же, что у снимков и инвариантов: подписка на отказы
      сценариев до первого перехода, область просмотра, покой для анимаций и
@@ -91,6 +126,11 @@ async function measureStories(page: Page, run: MeasureRun): Promise<void> {
   try {
     for (const story of stories) {
       if (!pinnedWidths(story, run.widths).includes(run.width)) continue;
+
+      if (!isAffected(story)) {
+        skipped.push(story.id);
+        continue;
+      }
 
       /* Отказ одной истории не обрывает обход: причина записывается, замер
          идёт дальше, а в конце список отказов красит тест целиком. */
@@ -118,6 +158,11 @@ async function measureStories(page: Page, run: MeasureRun): Promise<void> {
     writeFileSync(
       join(dir, failedFileName(run, shard)),
       `${JSON.stringify({ failed }, null, 2)}\n`,
+      'utf8',
+    );
+    writeFileSync(
+      join(dir, skippedFileName(run, shard)),
+      `${JSON.stringify({ skipped }, null, 2)}\n`,
       'utf8',
     );
   }
