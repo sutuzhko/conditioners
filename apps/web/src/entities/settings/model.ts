@@ -13,6 +13,7 @@ import {
 } from '@/shared/lib/requisites';
 
 import { SETTING_PLACEHOLDER } from './lib/readiness';
+import { verificationTokenOf } from './lib/verification';
 
 /**
  * Настройки: всё, что владелец правит сам.
@@ -464,12 +465,35 @@ export const socialSchema = z
   })
   .strict();
 
+/**
+ * Значение подтверждения прав на сайт. Принимается и целый тег, и одно
+ * значение: из панели поисковика копируется тег целиком, и требовать от
+ * владельца разобрать его руками не с чего (issue #679).
+ *
+ * 🔴 Отказ громкий, а не молчаливый: строка, в которой значения нет, — это
+ * либо чужая разметка, либо обрезанная копия. Сохранённая как есть, она даёт
+ * тег внутри тега, проверка прав проваливается, и причину в панели не видно.
+ */
+const verificationTag = z
+  .string()
+  // предел выше обычного текстового поля: вставляется тег, а не значение
+  .max(600)
+  .transform(verificationTokenOf)
+  .refine((token): token is string => token !== null, {
+    message: 'Вставьте тег из Вебмастера целиком или только значение content',
+  })
+  .default('');
+
 export const seoSchema = z
   .object({
     homeTitle: optionalText,
     homeDescription: optionalLongText,
     titleSuffix: optionalText,
     ogImage: optionalText,
+    /* Оба поля необязательны и в отчёт готовности не входят: сайт без них
+       работает, а подтверждение прав — шаг после выкладки, а не до неё. */
+    yandexVerification: verificationTag,
+    googleVerification: verificationTag,
   })
   .strict();
 
@@ -621,7 +645,28 @@ export const notificationsSchema = z
  */
 export const integrationsSchema = z
   .object({
-    metrikaId: optionalText,
+    /**
+     * Номер счётчика Метрики — только цифры.
+     *
+     * 🔴 Проверка не косметическая: номер уезжает **внутрь тега `<script>`**
+     * публичной страницы, и произвольная строка там — это исполняемый код на
+     * каждой странице сайта (issue #678). Заодно опечатка отвергается сразу
+     * и вслух, а не превращается в счётчик, который молча ничего не считает.
+     */
+    metrikaId: z
+      .union(
+        [
+          z.literal(''),
+          z
+            .string()
+            .trim()
+            .regex(/^\d{5,10}$/),
+        ],
+        {
+          errorMap: () => ({ message: 'Номер счётчика — это только цифры' }),
+        },
+      )
+      .default(''),
     messengerButtons: z
       .object({ telegram: z.boolean().default(false), whatsapp: z.boolean().default(false) })
       .strict()
