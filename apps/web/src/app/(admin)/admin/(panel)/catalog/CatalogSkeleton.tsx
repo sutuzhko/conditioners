@@ -1,5 +1,5 @@
 import { Skeleton } from '@/shared/ui';
-import { LineSkeleton } from '@/widgets/admin-shell';
+import { BusyGroup, LineSkeleton } from '@/widgets/admin-shell';
 
 import styles from './page.module.css';
 
@@ -12,7 +12,9 @@ import styles from './page.module.css';
  */
 export function CatalogSummarySkeleton() {
   return (
-    <p className={styles.summary}>
+    /* `aria-busy` прямо на абзаце: контейнер здесь настоящий, и обёртка
+       поверх него была бы лишним узлом (issue #579). */
+    <p className={styles.summary} aria-busy="true">
       <LineSkeleton width="min(280px, 70%)" />
     </p>
   );
@@ -25,5 +27,9 @@ export function CatalogSummarySkeleton() {
  * серая полоса, и шапка с отбором над ним не двигается.
  */
 export function CatalogTableSkeleton() {
-  return <Skeleton variant="block" className={styles.tableSkeleton} />;
+  return (
+    <BusyGroup>
+      <Skeleton variant="block" className={styles.tableSkeleton} />
+    </BusyGroup>
+  );
 }
