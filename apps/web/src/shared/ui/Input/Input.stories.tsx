@@ -1,7 +1,10 @@
+import type { CSSProperties } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import { Input } from './Input';
-import type { FieldVariant } from '../internal/Field';
+import { Select } from '../Select/Select';
+import { buttonClassName } from '../Button/Button';
+import { fieldRowActionsClassName, fieldRowClassName, type FieldVariant } from '../internal/Field';
 
 const meta = {
   title: 'UI Kit/Input',
@@ -127,4 +130,66 @@ export const InPanel: Story = {
       ))}
     </div>
   ),
+};
+
+/* Раскладку ряда задаёт раздел — здесь она инлайном, чтобы история не заводила
+   своего модуля стилей ради трёх свойств. Выравнивание ряда инлайн не трогает:
+   его ставит класс кита, и в этом вся суть проверки. */
+const ROW: CSSProperties = { display: 'flex', flexWrap: 'wrap', gap: 12 };
+const ROW_ACTIONS: CSSProperties = { display: 'flex', gap: 12, alignItems: 'center' };
+
+function SearchRowDemo({ panel }: { readonly panel: boolean }) {
+  return (
+    <div
+      data-ui={panel ? 'panel' : undefined}
+      style={{ padding: 16, background: panel ? 'var(--bg-soft)' : undefined }}
+    >
+      <form className={fieldRowClassName()} style={ROW}>
+        <Input
+          label="Поиск по каталогу"
+          hint="Название, марка, артикул или категория"
+          placeholder="Название или мощность"
+          type="search"
+        />
+
+        <Select
+          label="Видимость"
+          options={[
+            { value: '', label: 'Любая' },
+            { value: 'visible', label: 'Показывается' },
+          ]}
+        />
+
+        <div className={fieldRowActionsClassName()} style={ROW_ACTIONS}>
+          <button className={buttonClassName({ size: 'sm' })} type="button">
+            Найти
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+/**
+ * Ряд отбора: поле с подсказкой, список и действия на одной строке ввода
+ * (issue #742).
+ *
+ * 🔴 Смотреть на верх кнопки «Найти» и верх поля: они на одной линии, и
+ * подсказка под полем эту линию не двигает. До правки ряд равнялся по нижнему
+ * краю самого высокого элемента — то есть по низу подсказки, — и кнопка
+ * уезжала на строку под полем.
+ */
+export const SearchRow: Story = {
+  name: 'Ряд отбора',
+  render: () => <SearchRowDemo panel={false} />,
+};
+
+/**
+ * Тот же ряд в панели: подпись лежит внутри контрола (ADR-307), компенсировать
+ * её строку не нужно — отступ действий кит обнуляет сам. Верх кнопки и верх
+ * поля совпадают и здесь.
+ */
+export const SearchRowInPanel: Story = {
+  name: 'Ряд отбора в панели',
+  render: () => <SearchRowDemo panel />,
 };

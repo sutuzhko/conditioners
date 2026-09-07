@@ -12,6 +12,9 @@ import {
   TableAction,
   TableActionLink,
   TableActions,
+  TableRow,
+  TableRowLink,
+  tableAboveClassName,
 } from '@/shared/ui';
 
 import { adminCatalogContent as texts } from './content';
@@ -69,6 +72,13 @@ export interface AdminCatalogListProps {
  *
  * Показывает и скрытые: владельцу важно видеть, что модель существует, но не
  * показывается, — иначе он заведёт её второй раз.
+ *
+ * 🔴 Строка нажимается целиком и ведёт в правку модели (issue #743). До этого
+ * название было обычным текстом, и открыть модель можно было одним кругом
+ * 32×32 у правого края — в строке высотой под сто пикселей. Приём китовый
+ * (`TableRow`, `TableRowLink`, ADR-347); над перекрытием подняты
+ * переключатель видимости и колонка действий — им положено действовать, а не
+ * открывать карточку.
  *
  * 🔴 Между брейкпоинтами (issue #354): до 1200px категория и порядок уходят в
  * подпись модели и своих колонок не занимают; ниже 600px кит раскладывает
@@ -131,7 +141,7 @@ export function AdminCatalogList({ products, filtered = false }: AdminCatalogLis
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product.id} role="row">
+            <TableRow key={product.id}>
               <td className={styles.modelCell} role="cell" data-label={texts.colName}>
                 <span className={styles.model}>
                   {/* Снимок 52×38 — размер из макета. Размеры заданы явно:
@@ -151,7 +161,13 @@ export function AdminCatalogList({ products, filtered = false }: AdminCatalogLis
                   )}
 
                   <span className={styles.names}>
-                    <span className={styles.name}>{product.name}</span>
+                    <TableRowLink
+                      className={`${styles.name} tapAction`}
+                      href={{ pathname: `/admin/catalog/${product.id}` }}
+                      label={texts.rowLabel(product.name)}
+                    >
+                      {product.name}
+                    </TableRowLink>
                     {/* 🔴 Подпись модели несёт то, чему не хватило колонки:
                         категорию — всегда, порядок — до 1200px, где своя
                         колонка у него закрыта (issue #354). Показанное и в
@@ -215,7 +231,15 @@ export function AdminCatalogList({ products, filtered = false }: AdminCatalogLis
               </td>
 
               <td role="cell" data-label={texts.colVisible}>
-                <VisibilitySwitch id={product.id} name={product.name} visible={product.visible} />
+                {/* Поднят сам переключатель, а не его ячейка: ниже 600px
+                    ячейка идёт полосой во всю ширину карточки и отняла бы у
+                    строки заметный кусок площади (ADR-347). */}
+                <VisibilitySwitch
+                  className={tableAboveClassName()}
+                  id={product.id}
+                  name={product.name}
+                  visible={product.visible}
+                />
               </td>
 
               <td
@@ -230,7 +254,10 @@ export function AdminCatalogList({ products, filtered = false }: AdminCatalogLis
                 {/* 🔴 Открыть · править · убрать — один набор на все списки
                     панели (issue #575). Удаление красное и спрашивает
                     подтверждение диалогом кита (ADR-113). */}
-                <TableActions label={texts.rowActions(product.name)}>
+                <TableActions
+                  className={tableAboveClassName()}
+                  label={texts.rowActions(product.name)}
+                >
                   {product.visible ? (
                     <TableActionLink
                       tone="open"
@@ -260,7 +287,7 @@ export function AdminCatalogList({ products, filtered = false }: AdminCatalogLis
                   <ProductRowRemove id={product.id} name={product.name} />
                 </TableActions>
               </td>
-            </tr>
+            </TableRow>
           ))}
         </tbody>
       </Table>

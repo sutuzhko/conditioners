@@ -1,6 +1,8 @@
 import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { formatPhone, phoneHref } from '@/shared/lib/format';
+
 import { OrderInstallerAgenda } from './OrderInstallerAgenda';
 import { orderManagerContent as texts } from './content';
 import { installerCompanyOrder, installerOrder } from './fixtures';
@@ -64,6 +66,28 @@ describe('Наряд дня монтажника', () => {
 
     /* Маршрут и звонок — у каждой из трёх карточек, а не только у активной. */
     expect(screen.getAllByRole('link', { name: /Маршрут до объекта/ })).toHaveLength(3);
+  });
+
+  it('🔴 номер клиента виден в карточке, а не спрятан в подсказку кнопки', () => {
+    open([working]);
+
+    /* Экран живёт на телефоне, где наведения нет вовсе: родное `title` с
+       номером не показывалось там никогда (issue #764). Номер обязан быть
+       текстом — его диктуют вслух и сверяют глазами до звонка.
+
+       Сверяется `textContent`, а не `getByText`: в отформатированном номере
+       стоят неразрывные пробелы, и поиск по строке спотыкается о них (тот же
+       приём, что в тесте шапки сайта). */
+    const card = screen.getByRole('listitem');
+
+    expect(card.textContent).toContain(working.client.name);
+    expect(card.textContent).toContain(formatPhone(working.client.phone));
+
+    const call = screen.getByRole('link', { name: own.callLabel(working.client.name) });
+
+    expect(call).toHaveAttribute('href', phoneHref(working.client.phone));
+    expect(call).not.toHaveAttribute('title');
+    expect(call.querySelector('[title]')).toBeNull();
   });
 
   it('🔴 номер наряда виден в списке и подан так же, как в карточке', () => {

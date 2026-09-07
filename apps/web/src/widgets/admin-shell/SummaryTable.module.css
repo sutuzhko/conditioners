@@ -150,8 +150,7 @@
 
 /* Круг, высоту и приглушённый цвет действию задаёт колонка `TableActions`;
    ссылке остаётся раскладка значка внутри круга. */
-.action,
-.phone {
+.action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -159,11 +158,6 @@
   background: none;
   color: inherit;
   text-decoration: none;
-}
-
-.phone:focus-visible {
-  box-shadow: var(--ring-focus-ring);
-  outline: none;
 }
 
 /* Пустое состояние занимает место таблицы: карточка не должна менять высоту

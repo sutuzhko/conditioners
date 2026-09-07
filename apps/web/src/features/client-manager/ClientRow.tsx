@@ -1,11 +1,18 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { formatPhone, phoneHref } from '@/shared/lib/format';
-import { Avatar, RowMenu, useConfirm, type Confirm } from '@/shared/ui';
+import {
+  Avatar,
+  RowMenu,
+  TableRow,
+  TableRowLink,
+  tableAboveClassName,
+  useConfirm,
+  type Confirm,
+} from '@/shared/ui';
 
 import { clientManagerContent as texts } from './content';
 import { clientApi } from './lib';
@@ -26,6 +33,12 @@ export interface ClientRowProps {
  * 🔴 Таблица, а не карточки: раздел открывают, чтобы сравнить людей — кто
  * ездит каждый год, кто отвалился, у кого больше всех работ. У карточек эти
  * значения стоят в разных местах каждой карточки.
+ *
+ * 🔴 Строка нажимается целиком (issue #743): карточка клиента открывается
+ * нажатием в любую её точку, а не одним именем. Приём китовый (`TableRow`,
+ * `TableRowLink`, ADR-347) — площадь строке отдаёт перекрытие ссылки имени, и
+ * целей у строки от этого не прибавляется. Над перекрытием подняты только
+ * те, что обязаны действовать сами: телефон и меню строки.
  *
  * 🔴 Действия достижимы из списка (ADR-307 §4): открыть, позвонить, удалить.
  * Удаление — исполнение требования 152-ФЗ, и оно спрашивает подтверждение
@@ -59,18 +72,19 @@ export function ClientRow({ client, api = clientApi, confirmRemove, onChanged }:
   };
 
   return (
-    <tr role="row">
+    <TableRow>
       <td role="cell" className={styles.who} data-label={texts.colClient}>
         <div className={styles.person}>
           <Avatar name={client.name} size="sm" />
 
           <div className={styles.names}>
-            <Link
+            <TableRowLink
               className={`${styles.name} tapAction`}
               href={{ pathname: `/admin/clients/${client.id}` }}
+              label={texts.rowLabel(client.name)}
             >
               {client.name}
-            </Link>
+            </TableRowLink>
 
             {/* Приписка под именем — то, что владелец помнит о человеке:
                 заметка и число обращений. Обрезается стилем, а не текстом:
@@ -81,7 +95,10 @@ export function ClientRow({ client, api = clientApi, confirmRemove, onChanged }:
       </td>
 
       <td role="cell" className={styles.phone} data-label={texts.colPhone}>
-        <a className="tapAction" href={phoneHref(client.phone)}>
+        {/* 🔴 Телефон поднят над перекрытием строки: «позвонить» обязано
+            звонить, а не открывать карточку. Иначе цель считалась бы накрытой
+            и на телефоне была бы недостижима вовсе. */}
+        <a className={tableAboveClassName('tapAction')} href={phoneHref(client.phone)}>
           {formatPhone(client.phone)}
         </a>
       </td>
@@ -111,7 +128,11 @@ export function ClientRow({ client, api = clientApi, confirmRemove, onChanged }:
       </td>
 
       <td role="cell" className={styles.actions}>
+        {/* 🔴 Поднято само меню, а не его ячейка: ниже 600px ячейка идёт
+            полосой во всю ширину карточки и отняла бы у строки заметный кусок
+            площади (ADR-347). */}
         <RowMenu
+          className={tableAboveClassName()}
           label={texts.rowActions(client.name)}
           items={[
             {
@@ -139,6 +160,6 @@ export function ClientRow({ client, api = clientApi, confirmRemove, onChanged }:
 
         {dialog}
       </td>
-    </tr>
+    </TableRow>
   );
 }

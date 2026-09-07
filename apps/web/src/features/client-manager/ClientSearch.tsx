@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Input } from '@/shared/ui';
+import { Button, Card, Input, fieldRowActionsClassName, fieldRowClassName } from '@/shared/ui';
 
 import { clientManagerContent as texts } from './content';
 import styles from './ClientSearch.module.css';
@@ -38,7 +38,12 @@ export function ClientSearch({ query, total }: ClientSearchProps) {
 
   return (
     <Card as="section" className={styles.card}>
-      <form className={styles.form} action="/admin/clients" method="get" onSubmit={submit}>
+      <form
+        className={fieldRowClassName(styles.form)}
+        action="/admin/clients"
+        method="get"
+        onSubmit={submit}
+      >
         <Input
           label={texts.searchLabel}
           hint={texts.searchHint}
@@ -51,7 +56,7 @@ export function ClientSearch({ query, total }: ClientSearchProps) {
           onChange={(event) => setValue(event.target.value)}
         />
 
-        <div className={styles.actions}>
+        <div className={fieldRowActionsClassName(styles.actions)}>
           <Button type="submit" size="sm">
             {texts.search}
           </Button>

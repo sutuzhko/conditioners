@@ -2,6 +2,8 @@ import { render as renderDom, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import { tableAboveClassName } from '@/shared/ui';
+
 import { StaffRow, type StaffRowProps } from './StaffRow';
 import { staffManagerContent as texts } from './content';
 import {
@@ -16,9 +18,19 @@ import {
   staffLoadFixture,
   unsetEmploymentInstaller,
 } from './fixtures';
-import { employmentTitle, staffTitle } from './model';
+import { employmentTitle, staffTitle, type StaffDetails } from './model';
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh: vi.fn(), push: vi.fn() }) }));
+
+/**
+ * Текст ярлыка оформления в строке.
+ *
+ * 🔴 Оформление бывает не заведено, и `null` там — не «неудобный для типов
+ * случай», а состояние, о котором строка обязана предупредить: у него своя
+ * короткая подпись вместо названия договора.
+ */
+const employmentBadge = (staff: StaffDetails): string =>
+  staff.employment === null ? texts.employmentUnsetShort : employmentTitle(staff.employment);
 
 /**
  * Строка живёт внутри таблицы: `<tr>` вне `<tbody>` браузер выбрасывает из
@@ -35,20 +47,57 @@ function render(props: StaffRowProps) {
 }
 
 describe('Монтажник строкой таблицы команды', () => {
-  it('имя ведёт в карточку, под ним — с какого числа человек в команде', () => {
+  it('строка ведёт в карточку, под именем — с какого числа человек в команде', () => {
     render({ staff: activeInstaller, api: acceptingApi });
 
-    expect(screen.getByRole('link', { name: activeInstaller.name ?? '' })).toHaveAttribute(
-      'href',
-      '/admin/team/u2',
-    );
+    /* 🔴 Нажимается вся строка, а подпись ссылки называет запись целиком
+       (issue #743, ADR-347): «Пётр Кузнецов, Ирина Белова» — это перечень
+       людей, а не перечень записей команды. */
+    expect(
+      screen.getByRole('link', { name: texts.rowLabel(activeInstaller.name ?? '') }),
+    ).toHaveAttribute('href', '/admin/team/u2');
     expect(screen.getByText(texts.inTeamSince(activeInstaller.createdAt))).toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Раздел решает ровно одно: что поднято над перекрытием строки. Приём
+   * живёт в ките (`TableRow`), и его сторожит китовый тест; здесь проверяется
+   * выбор команды. Ярлыки подняты не как цели — фокуса у них нет, — а ради
+   * подсказки: под перекрытием курсор стоит на ссылке, и наведение до ярлыка
+   * не доходит (WCAG 1.4.13, issue #743).
+   */
+  it('🔴 над перекрытием подняты ярлыки, телефон, доступ и колонка действий', () => {
+    /* 🔴 Оба состояния оформления, а не одно удобное: незаведённое — законное
+       значение поля, и именно ради его предупреждения ярлыки и подняты. */
+    for (const staff of [activeInstaller, unsetEmploymentInstaller]) {
+      const view = render({ staff, api: acceptingApi, stats: staffLoadFixture.get(staff.id) });
+      const raised = `.${tableAboveClassName()}`;
+
+      const badge = screen.getByText(employmentBadge(staff));
+      expect(badge.closest(raised)).not.toBeNull();
+
+      const phone = screen
+        .getAllByRole('link')
+        .find((link) => link.getAttribute('href')?.startsWith('tel:') === true);
+      expect(phone).toHaveClass(tableAboveClassName());
+
+      const access = screen.getByRole('switch', { name: texts.active });
+      expect(access.closest(raised)).not.toBeNull();
+
+      expect(screen.getByRole('group', { name: texts.rowActions(staffTitle(staff)) })).toHaveClass(
+        tableAboveClassName(),
+      );
+
+      view.unmount();
+    }
   });
 
   it('без имени показывает логин: пустая строка ничего не говорит', () => {
     render({ staff: namelessInstaller, api: acceptingApi });
 
-    expect(screen.getByRole('link', { name: namelessInstaller.login })).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: texts.rowLabel(namelessInstaller.login) }),
+    ).toBeInTheDocument();
   });
 
   /* 🔴 Доступ закрывается прямо из списка: заходить в карточку ради этого —

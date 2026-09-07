@@ -97,11 +97,14 @@ export function OrderInstallerView({ order, api, onChanged }: OrderInstallerView
           >
             {own.route}
           </a>
+          {/* 🔴 Родного `title` с номером у звонка нет (issue #764): номер
+              стоит видимой строкой выше, у имени клиента, — а подсказка
+              говорила бы номер там, где озвучка называет имя. Два разных
+              ответа на один вопрос «куда попадёт нажатие». */}
           <a
             className={`${buttonClassName({ variant: 'flat', size: 'lg', fullWidth: true })} ${styles.action}`}
             href={phoneHref(order.client.phone)}
             aria-label={own.callLabel(order.client.name)}
-            title={formatPhone(order.client.phone)}
           >
             {own.callOnSite}
           </a>
