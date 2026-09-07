@@ -6,6 +6,7 @@ import {
   orderManagerContent as orderTexts,
 } from '@/features/order-manager/content';
 import { reviewModerationContent as reviewTexts } from '@/features/review-moderation/content';
+import { adminSummaryContent as summaryTexts } from '@/widgets/admin-shell/summary-content';
 
 import { ADMIN_LOGIN, ADMIN_PASSWORD, BASE_URL } from './support/admin-api';
 import { loginViaUi } from './support/admin-ui';
@@ -22,10 +23,13 @@ import { loginViaUi } from './support/admin-ui';
  * `page.request`, и вкладка ищется в ней тем же признаком, каким её видит
  * человек: `aria-current` у ссылки и снятый `hidden` у панели.
  *
- * Вкладок в словаре тридцать, собранных на сегодня — двенадцать: пять стопок
- * заказов, четыре вкладки отзывов и три вкладки карточки наряда. Обзор,
- * карточки клиента и монтажника, склад и статья вкладками ещё не собраны —
- * их строят Фазы 8–10, и сценарий дополняется вместе с ними.
+ * Вкладок в словаре тридцать; сценарий держит пять стопок заказов, четыре
+ * вкладки отзывов, три вкладки карточки наряда и три сегмента сводки.
+ *
+ * 🔴 Сводка добавлена вместе с общим компонентом вкладки (issue #584, #587):
+ * лента одна на всю панель, но обличий у неё два — подчёркивание и капсулы, —
+ * и проверять адресом нужно оба. Капсулы собраны ровно в одном месте панели,
+ * и до этой задачи их вкладки жили своей разметкой внутри сводки.
  */
 test.use({ baseURL: BASE_URL });
 
@@ -34,6 +38,7 @@ test.skip(({ isMobile }) => isMobile === true, 'вкладки не завися
 
 const REVIEWS = '/admin/reviews';
 const ORDERS = '/admin/orders';
+const SUMMARY = '/admin';
 
 /** Четыре случая мусора из issue #341. `undefined` — параметра нет вовсе. */
 /**
@@ -253,6 +258,53 @@ test.describe('Вкладки разделов панели', () => {
       expect(card.status, `карточка ?tab=${tab ?? '—'}`).toBe(200);
       expect(openCardPanel(card.body)).toBe('job');
     }
+  });
+
+  /**
+   * Второе обличье ленты — капсулы сводки (issue #584, #585, #587).
+   *
+   * 🔴 Проверяется тем же способом, что подчёркивание: сегмент живёт в адресе,
+   * приходит с сервера первым же HTML и возвращается кнопкой «назад». До
+   * общего компонента у сводки была своя разметка, и ни одного сценария на неё
+   * не приходилось — расхождение обличий заметить было нечем.
+   */
+  test('сценарий 5: капсулы сводки живут в адресе так же, как подчёркивание', async ({ page }) => {
+    test.slow();
+
+    for (const segment of ['overview', 'work', 'money'] as const) {
+      const path = segment === 'overview' ? SUMMARY : withTab(SUMMARY, segment);
+      const { status, body } = await html(page, path);
+
+      expect(status, path).toBe(200);
+      expect(activeChip(body, summaryTexts.segmentsLabel), path).toBe(
+        summaryTexts.segmentTitle[segment],
+      );
+    }
+
+    /* Мусор в параметре оставляет «Обзор»: раздел обязан открыться и по
+       кривому адресу (issue #341). */
+    for (const tab of GARBAGE) {
+      const { status, body } = await html(page, withTab(SUMMARY, tab));
+
+      expect(status, `сводка ?tab=${tab ?? '—'}`).toBe(200);
+      expect(activeChip(body, summaryTexts.segmentsLabel)).toBe(summaryTexts.segmentTitle.overview);
+    }
+
+    await page.goto(SUMMARY);
+    await settled(page);
+    await hideDevOverlay(page);
+
+    const chip = page.locator(`nav[aria-label="${summaryTexts.segmentsLabel}"] a[aria-current]`);
+    await expect(chip).toHaveText(summaryTexts.segmentTitle.overview);
+
+    await page.getByRole('link', { name: summaryTexts.segmentTitle.money, exact: true }).click();
+    await expect(chip).toHaveText(summaryTexts.segmentTitle.money);
+    expect(new URL(page.url()).search).toBe('?tab=money');
+
+    /* «Назад» возвращает на предыдущий сегмент, а не выбрасывает из панели. */
+    await page.goBack();
+    await expect(chip).toHaveText(summaryTexts.segmentTitle.overview);
+    expect(new URL(page.url()).pathname).toBe(SUMMARY);
   });
 
   test('сценарий 4: ссылка на вкладку открывается у коллеги в чистом контексте', async ({
