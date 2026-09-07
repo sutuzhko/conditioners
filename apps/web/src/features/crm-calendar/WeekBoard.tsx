@@ -13,6 +13,15 @@ export interface WeekBoardProps {
   readonly nowMin: number;
   /** Найденная поиском запись — её подсвечивают и в сетке, и в повестке. */
   readonly focusId?: string | undefined;
+  /**
+   * Записи недели скрыл отбор слоя, а не их отсутствие.
+   *
+   * Нужен только повестке: часовая сетка пустой недели рисует сами часы, и
+   * пустого состояния у неё нет — объяснять нечего.
+   */
+  readonly filtered?: boolean | undefined;
+  /** Тот же вид и та же неделя без отбора слоя — выход из «ничего не видно». */
+  readonly resetHref?: string | undefined;
 }
 
 /**
@@ -31,7 +40,14 @@ export interface WeekBoardProps {
  * скринридером, ни проверкой инвариантов — второго календаря для человека не
  * существует.
  */
-export function WeekBoard({ columns, range, nowMin, focusId }: WeekBoardProps) {
+export function WeekBoard({
+  columns,
+  range,
+  nowMin,
+  focusId,
+  filtered,
+  resetHref,
+}: WeekBoardProps) {
   return (
     <>
       <div className={styles.hours}>
@@ -46,7 +62,7 @@ export function WeekBoard({ columns, range, nowMin, focusId }: WeekBoardProps) {
       </div>
 
       <div className={styles.agenda}>
-        <Agenda columns={columns} focusId={focusId} />
+        <Agenda columns={columns} focusId={focusId} filtered={filtered} resetHref={resetHref} />
       </div>
     </>
   );

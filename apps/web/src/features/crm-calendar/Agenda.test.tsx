@@ -59,5 +59,26 @@ describe('Повестка недели', () => {
 
     expect(screen.getByText(texts.agendaEmpty)).toBeInTheDocument();
     expect(screen.getByText(texts.agendaEmptyHint)).toBeInTheDocument();
+    /* Выхода тут нет и быть не должно: сбрасывать нечего, записей не было. */
+    expect(screen.queryByRole('link', { name: texts.agendaReset })).toBeNull();
+  });
+
+  /**
+   * 🔴 Неделя, спрятанная отбором, — issue #580.
+   *
+   * Слой людей и виды записей прячут записи молча: неделя с делами выглядела
+   * ровно так же, как неделя без них, и владелец шёл заводить второе дело
+   * поверх уже заведённого. Причина и шаг у этих двух состояний
+   * противоположные, и текст пустой недели под отбором назвал бы неверную.
+   */
+  it('🔴 под отбором говорит про отбор и даёт ссылку, снимающую его', () => {
+    const week = weekColumns(source({ events: [], orders: [], leads: [] }), DAY);
+    const here = `/admin/crm?view=week&day=${DAY}`;
+
+    render(<Agenda columns={week} filtered resetHref={here} />);
+
+    expect(screen.getByText(texts.agendaNothing)).toBeInTheDocument();
+    expect(screen.queryByText(texts.agendaEmpty)).toBeNull();
+    expect(screen.getByRole('link', { name: texts.agendaReset })).toHaveAttribute('href', here);
   });
 });

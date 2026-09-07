@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { ButtonLink } from '@/shared/ui';
+
 import { CRM_PATH, crmContent as texts } from './content';
 import { EventChip } from './EventChip';
 import { monthRows, type ScheduleColumn } from './schedule';
@@ -15,6 +17,15 @@ export interface AgendaProps {
    * (issue #132). Признак идёт с адреса и передаётся вниз пропом.
    */
   readonly focusId?: string | undefined;
+  /**
+   * Записи на неделе есть, но их скрыл слой людей или виды записей.
+   *
+   * Признак приходит со страницы: повестка получает уже отобранные колонки и
+   * сама отличить «на неделе пусто» от «отбор всё спрятал» не может.
+   */
+  readonly filtered?: boolean | undefined;
+  /** Тот же вид и та же неделя, но без отбора слоя. Есть только при `filtered`. */
+  readonly resetHref?: string | undefined;
 }
 
 /**
@@ -31,16 +42,36 @@ export interface AgendaProps {
  *
  * Серверный компонент: список приходит готовым, интерактивна только запись.
  */
-export function Agenda({ columns, label = texts.agendaLabel, focusId }: AgendaProps) {
+export function Agenda({
+  columns,
+  label = texts.agendaLabel,
+  focusId,
+  filtered = false,
+  resetHref,
+}: AgendaProps) {
   const days = columns
     .map((column) => ({ column, items: monthRows(column) }))
     .filter((day) => day.items.length > 0);
 
   if (days.length === 0) {
+    /* 🔴 Пустая неделя и неделя, спрятанная отбором, — разные новости с
+       противоположными шагами: завести дело либо снять слой. Один текст на оба
+       случая отправляет заводить второе дело поверх первого (issue #580).
+
+       Своя разметка, а не `EmptyState` кита: у календаря эталон Apple Calendar
+       (ADR-128), и значок в круге посреди повестки — из другого интерфейса. */
     return (
       <section className={styles.agenda} aria-label={label}>
-        <p className={styles.emptyTitle}>{texts.agendaEmpty}</p>
-        <p className={styles.emptyText}>{texts.agendaEmptyHint}</p>
+        <p className={styles.emptyTitle}>{filtered ? texts.agendaNothing : texts.agendaEmpty}</p>
+        <p className={styles.emptyText}>
+          {filtered ? texts.agendaNothingHint : texts.agendaEmptyHint}
+        </p>
+
+        {filtered && resetHref !== undefined ? (
+          <ButtonLink className={styles.emptyAction} href={resetHref} size="sm" variant="bordered">
+            {texts.agendaReset}
+          </ButtonLink>
+        ) : null}
       </section>
     );
   }

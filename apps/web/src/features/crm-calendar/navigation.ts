@@ -156,3 +156,25 @@ export function viewQuery(place: CalendarPlace, next: CalendarView): CalendarQue
 export function crmHref(query: CalendarQuery): `${typeof CRM_PATH}?${string}` {
   return `${CRM_PATH}?${new URLSearchParams(query).toString()}`;
 }
+
+/**
+ * Отбор слоя что-то прячет — issue #580.
+ *
+ * Виды записей и состав людей — единственные два условия календаря; вид и
+ * период условиями не считаются: они и есть то, на что человек смотрит.
+ */
+export function layerFiltered(place: CalendarPlace): boolean {
+  return place.who !== null || place.kinds !== null;
+}
+
+/**
+ * Тот же вид и тот же период, но со снятым отбором слоя — выход из «записей
+ * не видно» (issue #580).
+ *
+ * 🔴 Слой занятости остаётся включённым: его снимают переключателем в шапке, и
+ * гасить его заодно со сбросом значило бы менять экран сильнее, чем просил
+ * человек, нажавший «Показать все записи».
+ */
+export function layerResetHref(place: CalendarPlace): `${typeof CRM_PATH}?${string}` {
+  return crmHref(withLayer(hereQuery(place), { team: place.team, who: null, kinds: null }));
+}
