@@ -18,25 +18,25 @@ form.ClientUnitForm__form  358×486 @16,16  r11  b1
     div.Field__field#2  332×79 @0,115
       label.Field__label  332×20 @0,0  Manrope 600 13/20  lines=1  «Дата монтажа»
       div.DateField__shell  332×52 @0,27  r11  b1
-        span.DateField__segmentBox  26×24 @15,14
-          input.DateField__segment  26×24 @0,0
-        span.DateField__segmentBox#2  32×24 @41,14
+        span.DateField__segmentBox  46×24 @15,14
+          input.DateField__segment  46×44 @0,-10
+        span.DateField__segmentBox#2  52×24 @61,14
           span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-          input.DateField__segment  26×24 @6,0
-        span.DateField__segmentBox#3  50×24 @73,14
+          input.DateField__segment  46×44 @6,-10
+        span.DateField__segmentBox#3  70×24 @113,14
           span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-          input.DateField__segment  45×24 @6,0
+          input.DateField__segment  65×44 @6,-10
     div.Field__field#3  332×125 @0,206
       label.Field__label  332×20 @0,0  Manrope 600 13/20  lines=1  «Гарантия до»
       div.DateField__shell  332×52 @0,27  r11  b1
-        span.DateField__segmentBox#4  26×24 @15,14
-          input.DateField__segment  26×24 @0,0
-        span.DateField__segmentBox#5  32×24 @41,14
+        span.DateField__segmentBox#4  46×24 @15,14
+          input.DateField__segment  46×44 @0,-10
+        span.DateField__segmentBox#5  52×24 @61,14
           span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-          input.DateField__segment  26×24 @6,0
-        span.DateField__segmentBox#6  50×24 @73,14
+          input.DateField__segment  46×44 @6,-10
+        span.DateField__segmentBox#6  70×24 @113,14
           span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-          input.DateField__segment  45×24 @6,0
+          input.DateField__segment  65×44 @6,-10
       p.Field__hint  332×39 @0,86  Manrope 400 13/19  lines=2  «Из наряда считается по сроку из настроек»
   div.ClientUnitForm__actions  332×44 @13,429
     button.Button__button  99×44 @0,0  r9  b1
@@ -55,25 +55,25 @@ form.ClientUnitForm__form  736×414 @16,16  r11  b1
     div.Field__field#2  229×144 @0,115
       label.Field__label  229×20 @0,0  Manrope 600 13/20  lines=1  «Дата монтажа»
       div.DateField__shell  229×52 @0,27  r11  b1
-        span.DateField__segmentBox  26×24 @15,14
-          input.DateField__segment  26×24 @0,0
-        span.DateField__segmentBox#2  32×24 @41,14
+        span.DateField__segmentBox  46×24 @15,14
+          input.DateField__segment  46×44 @0,-10
+        span.DateField__segmentBox#2  52×24 @61,14
           span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-          input.DateField__segment  26×24 @6,0
-        span.DateField__segmentBox#3  50×24 @73,14
+          input.DateField__segment  46×44 @6,-10
+        span.DateField__segmentBox#3  70×24 @113,14
           span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-          input.DateField__segment  45×24 @6,0
+          input.DateField__segment  65×44 @6,-10
     div.Field__field#3  229×144 @241,115
       label.Field__label  229×20 @0,0  Manrope 600 13/20  lines=1  «Гарантия до»
       div.DateField__shell  229×52 @0,27  r11  b1
-        span.DateField__segmentBox#4  26×24 @15,14
-          input.DateField__segment  26×24 @0,0
-        span.DateField__segmentBox#5  32×24 @41,14
+        span.DateField__segmentBox#4  46×24 @15,14
+          input.DateField__segment  46×44 @0,-10
+        span.DateField__segmentBox#5  52×24 @61,14
           span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-          input.DateField__segment  26×24 @6,0
-        span.DateField__segmentBox#6  50×24 @73,14
+          input.DateField__segment  46×44 @6,-10
+        span.DateField__segmentBox#6  70×24 @113,14
           span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-          input.DateField__segment  45×24 @6,0
+          input.DateField__segment  65×44 @6,-10
       p.Field__hint  229×58 @0,86  Manrope 400 13/19  lines=3  «Из наряда считается по сроку из настроек»
   div.ClientUnitForm__actions  710×44 @13,357
     button.Button__button  99×44 @0,0  r9  b1

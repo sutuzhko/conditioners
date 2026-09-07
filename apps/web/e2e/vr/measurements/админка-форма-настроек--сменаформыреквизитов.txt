@@ -33,14 +33,14 @@ section.Card__card  358×1868 @16,16  r20  b1
       div.Field__field#5  316×125 @0,499
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Дата регистрации»
         div.DateField__shell  316×52 @0,27  r11  b1
-          span.DateField__segmentBox  26×24 @15,14
-            input.DateField__segment  26×24 @0,0
-          span.DateField__segmentBox#2  32×24 @41,14
+          span.DateField__segmentBox  46×24 @15,14
+            input.DateField__segment  46×44 @0,-10
+          span.DateField__segmentBox#2  52×24 @61,14
             span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  26×24 @6,0
-          span.DateField__segmentBox#3  50×24 @73,14
+            input.DateField__segment  46×44 @6,-10
+          span.DateField__segmentBox#3  70×24 @113,14
             span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  45×24 @6,0
+            input.DateField__segment  65×44 @6,-10
         p.Field__hint  316×39 @0,86  Manrope 400 13/19  lines=2  «Как в свидетельстве. Закон требует показ»
       div.Field__field#6  316×169 @0,638
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Орган регистрации»
@@ -113,14 +113,14 @@ section.Card__card  736×1514 @16,16  r20  b1
       div.Field__field#5  339×125 @0,390
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Дата регистрации»
         div.DateField__shell  339×52 @0,27  r11  b1
-          span.DateField__segmentBox  26×24 @15,14
-            input.DateField__segment  26×24 @0,0
-          span.DateField__segmentBox#2  32×24 @41,14
+          span.DateField__segmentBox  46×24 @15,14
+            input.DateField__segment  46×44 @0,-10
+          span.DateField__segmentBox#2  52×24 @61,14
             span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  26×24 @6,0
-          span.DateField__segmentBox#3  50×24 @73,14
+            input.DateField__segment  46×44 @6,-10
+          span.DateField__segmentBox#3  70×24 @113,14
             span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  45×24 @6,0
+            input.DateField__segment  65×44 @6,-10
         p.Field__hint  339×39 @0,86  Manrope 400 13/19  lines=2  «Как в свидетельстве. Закон требует показ»
       div.Field__field#6  694×150 @0,528
         label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Орган регистрации»
@@ -322,7 +322,7 @@ div.Modal__overlay  bg #0f172a73
       button.Button__button  bg #ffffff  border #7e8fa6
         span.Button__content#2
           span.Button__label  color #0f172a
-      button.Button__button#2  bg #be123c14  border #be123c73
+      button.Button__button#2  bg #be123c14  border #be123cb3
         span.Button__content
           span.Button__label#2  color #be123c
 
@@ -402,6 +402,6 @@ div.Modal__overlay  bg #020610ad
       button.Button__button  bg #121d31  border #566d95
         span.Button__content#2
           span.Button__label  color #eaf1f8
-      button.Button__button#2  bg #fb71851f  border #fb718580
+      button.Button__button#2  bg #fb71851f  border #fb7185b3
         span.Button__content
           span.Button__label#2  color #fb7185
