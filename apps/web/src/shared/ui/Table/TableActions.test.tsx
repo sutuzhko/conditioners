@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { IconButton } from '../IconButton/IconButton';
 import { Icon } from '../Icon';
-import { TableActions } from './TableActions';
+import { TableActionAnchor, TableActions } from './TableActions';
 
 describe('Действия строки таблицы', () => {
   it('собирает действия в именованную группу — без имени озвучка называет её «группа»', () => {
@@ -31,5 +31,28 @@ describe('Действия строки таблицы', () => {
     );
 
     expect(screen.getByRole('button', { name: 'Удалить' })).toBeVisible();
+  });
+
+  /* 🔴 Адрес наружу (`tel:`, карты) типизированные маршруты Next не описывают,
+     поэтому у ряда есть третий носитель — обычная ссылка. Проверяется, что
+     это именно ссылка с адресом и что родного `title` на ней нет: оно
+     появляется через секунду, не открывается с клавиатуры и не гасится по
+     Esc, а имя действия обязано приходить всеми способами ввода (issue #737). */
+  it('ссылка наружу несёт адрес и обходится без родного title', () => {
+    render(
+      <TableActions label="Действия">
+        <TableActionAnchor
+          label="Позвонить: Ирина Соколова, +7 (900) 123-45-67"
+          icon={<Icon name="phone" />}
+          href="tel:+79001234567"
+        />
+      </TableActions>,
+    );
+
+    const call = screen.getByRole('link', {
+      name: 'Позвонить: Ирина Соколова, +7 (900) 123-45-67',
+    });
+    expect(call).toHaveAttribute('href', 'tel:+79001234567');
+    expect(call.querySelector('[title]')).toBeNull();
   });
 });

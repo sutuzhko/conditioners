@@ -128,8 +128,14 @@ export type { PagerProps } from './Pager/Pager';
 
 export { Table } from './Table/Table';
 export type { TableProps, TableVariant } from './Table/Table';
-export { TableAction, TableActionLink, TableActions } from './Table/TableActions';
+export {
+  TableAction,
+  TableActionAnchor,
+  TableActionLink,
+  TableActions,
+} from './Table/TableActions';
 export type {
+  TableActionAnchorProps,
   TableActionLinkProps,
   TableActionProps,
   TableActionTone,
