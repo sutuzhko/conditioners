@@ -320,6 +320,44 @@ export const longJournal: StockMovementPage = { ...journal, total: 19, page: 2, 
 
 export const emptyJournal: StockMovementPage = { items: [], total: 0, page: 1, pages: 1 };
 
+/**
+ * 🔴 Длинные владельческие строки (issue #725). Название зоны, позиции и имя
+ * монтажника задаёт владелец, и на карточке телефона они делят одну строку с
+ * соседом: «Гараж на Оборонной 166, второй бокс» забирал строку целиком, а
+ * «Куда» выливалось за правый край карточки. Фикстура держит этот случай в
+ * витрине, чтобы он не вернулся молча.
+ */
+const wideZone: StockZoneCard = {
+  ...warehouse,
+  id: 'z9',
+  name: 'Гараж на Оборонной 166, второй бокс',
+};
+const wideVan: StockZoneCard = { ...van, id: 'z10', name: 'Газель Зверева, государственный номер' };
+
+export const longNamesJournal: StockMovementPage = {
+  items: [
+    {
+      ...transferMove,
+      id: 'm6',
+      item: { ...transferMove.item, name: 'Труба медная отожжённая в бухте 1/4 дюйма' },
+      fromZone: { id: wideZone.id, name: wideZone.name },
+      toZone: { id: wideVan.id, name: wideVan.name },
+      authorName: 'Константин Иванов-Петровский',
+    },
+    {
+      ...consumeMove,
+      id: 'm7',
+      item: { ...consumeMove.item, name: 'Труба медная отожжённая в бухте 1/4 дюйма' },
+      fromZone: { id: wideVan.id, name: wideVan.name },
+      reason: 'Накладная 4517 от поставщика с очень длинным названием',
+      authorName: 'Константин Иванов-Петровский',
+    },
+  ],
+  total: 2,
+  page: 1,
+  pages: 1,
+};
+
 export const acceptingApi: StockApi = {
   createItem: async () => ({ ok: true }),
   updateItem: async () => ({ ok: true }),

@@ -15,6 +15,7 @@ import {
   moveDraftOf,
   moveKindFromParam,
   pageSizeFromParam,
+  pageSizeQuery,
   periodFromParam,
   qtyInput,
   stockFiltersApplied,
@@ -199,6 +200,32 @@ describe('шаг листания остатков', () => {
     expect(pageSizeFromParam('7')).toBe(DEFAULT_STOCK_PAGE_SIZE);
     expect(pageSizeFromParam('много')).toBe(DEFAULT_STOCK_PAGE_SIZE);
     expect(pageSizeFromParam(undefined)).toBe(DEFAULT_STOCK_PAGE_SIZE);
+  });
+});
+
+/**
+ * 🔴 Шаг подставляется в адрес поверх прежнего, а не рядом с ним (issue #725).
+ * Умолчание в адрес не пишется — значит возврат к нему обязан снимать ключ,
+ * иначе с восьми строк уйти нельзя вовсе.
+ */
+describe('шаг листания в адресе соседней страницы', () => {
+  it('возврат к умолчанию снимает прежний шаг', () => {
+    expect(pageSizeQuery({ tab: 'log', size: '8' }, DEFAULT_STOCK_PAGE_SIZE)).toEqual({
+      tab: 'log',
+    });
+  });
+
+  it('другая ступень заменяет прежнюю', () => {
+    expect(pageSizeQuery({ tab: 'log', size: '8' }, 50)).toEqual({ tab: 'log', size: '50' });
+  });
+
+  it('остальной отбор переезжает целиком', () => {
+    expect(pageSizeQuery({ tab: 'log', period: 'prev', q: 'труба' }, 8)).toEqual({
+      tab: 'log',
+      period: 'prev',
+      q: 'труба',
+      size: '8',
+    });
   });
 });
 

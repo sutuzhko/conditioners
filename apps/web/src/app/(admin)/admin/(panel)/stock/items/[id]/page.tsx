@@ -9,6 +9,7 @@ import {
   STOCK_PATH,
   itemDraftOf,
   pageNumber,
+  pageSizeFromParam,
   stockItemPath,
   stockManagerContent as texts,
   stockMoveQuery,
@@ -26,7 +27,7 @@ export const dynamic = 'force-dynamic';
 
 type PageProps = {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; size?: string }>;
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -61,7 +62,7 @@ export default async function AdminStockItemPage({ params, searchParams }: PageP
   const viewer = { role: session.role, userId: session.userId };
 
   const { id } = await params;
-  const { page } = await searchParams;
+  const { page, size } = await searchParams;
 
   const found = await findItem(id, viewer);
   if (found === null) notFound();
@@ -107,7 +108,7 @@ export default async function AdminStockItemPage({ params, searchParams }: PageP
         title={texts.itemLoadFailed}
         note={blockErrorNote(STOCK_PATH)}
       >
-        <ItemBody itemId={found.item.id} draft={itemDraftOf(found.item)} page={page} />
+        <ItemBody itemId={found.item.id} draft={itemDraftOf(found.item)} page={page} size={size} />
       </DataBlock>
     </div>
   );
@@ -124,14 +125,21 @@ async function ItemBody({
   itemId,
   draft,
   page,
+  size,
 }: {
   readonly itemId: string;
   readonly draft: ReturnType<typeof itemDraftOf>;
   readonly page: string | undefined;
+  readonly size: string | undefined;
 }) {
+  /* Шаг листания журнала — тот же выбор владельца, что и на вкладке склада
+     (issue #725): раздел не имеет права давать его в одном месте и отнимать в
+     соседнем. */
+  const step = pageSizeFromParam(size);
+
   const [catalog, journal] = await Promise.all([
     listAll(),
-    movements({ item: itemId, page: pageNumber(page) }),
+    movements({ item: itemId, page: pageNumber(page), size: step }),
   ]);
 
   const products: readonly StockItemProduct[] = catalog.map((product) => ({
@@ -151,7 +159,7 @@ async function ItemBody({
         archivable
       />
 
-      <StockJournal journal={journal} basePath={stockItemPath(itemId)} />
+      <StockJournal journal={journal} basePath={stockItemPath(itemId)} size={step} />
     </>
   );
 }

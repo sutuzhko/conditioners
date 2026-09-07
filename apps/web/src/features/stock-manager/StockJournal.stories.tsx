@@ -1,7 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { StockJournal } from './StockJournal';
-import { authorlessMove, countMove, emptyJournal, journal, longJournal } from './fixtures';
+import {
+  authorlessMove,
+  countMove,
+  emptyJournal,
+  journal,
+  longJournal,
+  longNamesJournal,
+} from './fixtures';
 import { STOCK_PATH, stockItemPath } from './model';
 
 const basePath = stockItemPath('s1');
@@ -69,5 +76,35 @@ export const ОтборНичегоНеНашёл: Story = {
     withItem: true,
     withFilter: true,
     filters: { kind: 'income', period: 'prev', query: '' },
+  },
+};
+
+/**
+ * 🔴 Длинные владельческие имена (issue #725). Ниже 600px строка движения
+ * раскладывается карточкой, и «Откуда», «Куда» и «Кто» делят строку с соседом.
+ * Названия зон и позиций владелец задаёт сам: без предела ширины «Куда»
+ * выливалось за правый край карточки — замерено на 320.
+ */
+export const ДлинныеИмена: Story = {
+  args: {
+    journal: longNamesJournal,
+    basePath: STOCK_PATH,
+    baseQuery: { tab: 'log' },
+    withItem: true,
+  },
+};
+
+/**
+ * 🔴 Мелкий шаг листания (issue #725). Журнал стоял на зашитых двадцати
+ * строках, пока у остатков шаг уже переключался: подвал у обоих списков раздела
+ * теперь один, и «Строк на странице» работает на обеих вкладках.
+ */
+export const МелкийШаг: Story = {
+  args: {
+    journal: { ...longJournal, total: 19, page: 2, pages: 3 },
+    basePath: STOCK_PATH,
+    baseQuery: { tab: 'log' },
+    withItem: true,
+    size: 8,
   },
 };

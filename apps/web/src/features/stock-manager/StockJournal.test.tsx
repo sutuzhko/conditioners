@@ -75,6 +75,51 @@ describe('Журнал движений', () => {
     );
   });
 
+  /**
+   * 🔴 Шаг листания журнала — выбор владельца, а не константа репозитория
+   * (issue #725). Пока его не было, журнал стоял на зашитых двадцати, тогда
+   * как у остатков в том же разделе шаг уже переключался.
+   */
+  it('журнал даёт выбрать, сколько движений на странице', () => {
+    render(<StockJournal journal={longJournal} basePath={basePath} />);
+
+    const steps = screen.getByRole('group', { name: texts.perPage });
+    expect(within(steps).getByRole('link', { name: texts.perPageSet(8) })).toHaveAttribute(
+      'href',
+      `${basePath}?size=8`,
+    );
+  });
+
+  it('смена шага уносит с собой отбор и вкладку раздела, но не номер страницы', () => {
+    render(
+      <StockJournal
+        journal={longJournal}
+        basePath={STOCK_PATH}
+        baseQuery={{ tab: 'log' }}
+        withItem
+        withFilter
+        filters={{ ...DEFAULT_STOCK_JOURNAL_FILTERS, kind: 'income' }}
+        size={8}
+      />,
+    );
+
+    const steps = screen.getByRole('group', { name: texts.perPage });
+    expect(within(steps).getByRole('link', { name: texts.perPageSet(50) })).toHaveAttribute(
+      'href',
+      `${STOCK_PATH}?tab=log&kind=income&size=50`,
+    );
+  });
+
+  it('возврат к умолчанию снимает шаг из адреса, а не оставляет прежний', () => {
+    render(<StockJournal journal={longJournal} basePath={basePath} size={8} />);
+
+    const steps = screen.getByRole('group', { name: texts.perPage });
+    expect(within(steps).getByRole('link', { name: texts.perPageSet(20) })).toHaveAttribute(
+      'href',
+      basePath,
+    );
+  });
+
   it('🔴 журнал всего склада называет позицию: «что двигали» — первый вопрос к нему', () => {
     render(<StockJournal journal={journal} basePath={STOCK_PATH} withItem />);
 
