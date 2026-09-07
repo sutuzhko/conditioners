@@ -182,12 +182,31 @@ export async function countPending(): Promise<number> {
 }
 
 /**
+ * Чем закончилась смена статуса: сам отзыв и то, чем он был до неё.
+ *
+ * 🔴 Прежний статус отдаётся наружу потому, что о нём спрашивает журнал:
+ * «снял с публикации», не знающее, что отзыв был опубликован, — половина
+ * записи (ADR-345). Знает его только тот, кто менял: следом за обновлением
+ * прежнего значения в базе уже нет.
+ */
+export type ReviewModerationResult = {
+  readonly review: ReviewDto;
+  readonly from: ReviewStatusApi;
+};
+
+/**
  * Единственная операция модератора над отзывом.
  *
  * 🔴 Отказ записывается целиком — причина, кто и когда (ADR-300), — а любой
  * другой переход поля отказа гасит. Причина, пережившая возврат на модерацию,
  * читалась бы как действующая: отзыв опубликован, а под ним объяснение, за
  * что его отклонили.
+ *
+ * 🔴 Клиент передаётся снаружи, потому что рядом со сменой статуса в той же
+ * транзакции пишется событие журнала (ADR-345): разъехавшись по двум
+ * транзакциям, они дали бы отзыв, снятый с публикации без следа. Умолчание
+ * `db` оставлено для чтения-записи в одиночку — так репозиторий зовут отовсюду
+ * ещё с обращений (`repo/leads`).
  */
 export async function setStatus(
   id: string,
@@ -196,8 +215,9 @@ export async function setStatus(
      не учётная запись панели, и связывать отказ не с кем. Кто нажал, остаётся
      в самой причине — её складывает канал. */
   moderatorId: string | null,
-): Promise<ReviewDto> {
-  const exists = await db.review.findUnique({ where: { id }, select: { id: true } });
+  client: Prisma.TransactionClient = db,
+): Promise<ReviewModerationResult> {
+  const exists = await client.review.findUnique({ where: { id }, select: { status: true } });
   if (exists === null) throw new ApiException('not_found', 'Отзыв не найден');
 
   const reject: Prisma.ReviewUpdateInput =
@@ -210,12 +230,12 @@ export async function setStatus(
         }
       : { rejectReason: null, rejectedAt: null, rejectedBy: { disconnect: true } };
 
-  const row = await db.review.update({
+  const row = await client.review.update({
     where: { id },
     data: { status: TO_DB[moderation.status], ...reject },
     select: REVIEW_SELECT,
   });
-  return toDto(row);
+  return { review: toDto(row), from: FROM_DB[exists.status] };
 }
 
 /** Пути снимков возвращаются наружу: файлы чистит маршрут, как у моделей и статей. */
