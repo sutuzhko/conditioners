@@ -2,19 +2,19 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1080
+390 → 390×1214
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×1048 @16,16  r20  b1
+section.Card__card  358×1182 @16,16  r20  b1
   div.FormSection__head  316×70 @21,21
     div.FormSection__titleRow  316×24 @0,0
       h2.FormSection__title  181×21 @0,2  Onest 700 17/21  ls0  lines=1  «Позиция справочника»
       span.Badge__badge  123×24 @191,0  Manrope 600 12/16  r100  b1  lines=1  «Позиция в архиве»
     p.FormSection__hint  316×40 @0,30  Manrope 400 13/20  lines=2  «Правка названия и порога не трогает движ»
-  form.StockItemForm__form  316×924 @21,103
-    div.StockItemForm__grid  316×800 @0,0
+  form.StockItemForm__form  316×1058 @21,103
+    div.StockItemForm__grid  316×933 @0,0
       div.Field__field  316×103 @0,0
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Название»
         input  316×49 @0,27  r11  b1
@@ -43,36 +43,40 @@ section.Card__card  358×1048 @16,16  r20  b1
         input  316×49 @0,27  r11  b1
         p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Опустился ниже — позиция попадает в спис»
       div.Field__field#5  316×122 @0,516
+        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Закупочная цена»
+        input  316×49 @0,27  r11  b1
+        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «За единицу, целыми рублями. Пусто — марж»
+      div.Field__field#6  316×122 @0,650
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Модель каталога»
         span.Select__wrapper  316×49 @0,27
           select.Select__select#2  316×49 @0,0  r11  b1
-            option  0×0 @-37,-663  Manrope 400 15/21  lines=0  «Не техника — расходник»
-            option#2  0×0 @-37,-663  Manrope 400 15/21  lines=0  «Сплит-система 09»
-            option#3  0×0 @-37,-663  Manrope 400 15/21  lines=0  «Сплит-система 12»
+            option  0×0 @-37,-797  Manrope 400 15/21  lines=0  «Не техника — расходник»
+            option#2  0×0 @-37,-797  Manrope 400 15/21  lines=0  «Сплит-система 09»
+            option#3  0×0 @-37,-797  Manrope 400 15/21  lines=0  «Сплит-система 12»
           svg.Select__chevron#2  14×14 @288,18
         p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Только для техники: расходники ни на что»
-      div.Field__field#6  316×150 @0,650
+      div.Field__field#7  316×150 @0,784
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заметка»
         textarea.Textarea__textarea  316×96 @0,27  r11  b1
         p.Field__hint  316×19 @0,130  Manrope 400 13/19  lines=1  «Что помнить: поставщик, аналоги, чем зам»
-    div.StockItemForm__actions  316×44 @0,812
+    div.StockItemForm__actions  316×44 @0,945
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
       button.Button__button#2  169×44 @127,0  r11  b1
         span.Button__content  131×17 @19,13
           span.Button__label#2  131×17 @0,0  Manrope 600 15/17  lines=1  «Вернуть из архива»
-    p.StockItemForm__archiveHint  316×60 @0,864  Manrope 400 13/20  lines=3  «Позиция в архиве: она не показывается в»
+    p.StockItemForm__archiveHint  316×60 @0,997  Manrope 400 13/20  lines=3  «Позиция в архиве: она не показывается в»
 
 [геометрия 768]
-section.Card__card  736×760 @16,16  r20  b1
+section.Card__card  736×779 @16,16  r20  b1
   div.FormSection__head  694×50 @21,21
     div.FormSection__titleRow  694×24 @0,0
       h2.FormSection__title  190×22 @0,1  Onest 700 18/22  ls0  lines=1  «Позиция справочника»
       span.Badge__badge  123×24 @200,0  Manrope 600 12/16  r100  b1  lines=1  «Позиция в архиве»
     p.FormSection__hint  508×20 @0,30  Manrope 400 13/20  lines=1  «Правка названия и порога не трогает движ»
-  form.StockItemForm__form  694×655 @21,83
-    div.StockItemForm__grid  694×551 @0,0
+  form.StockItemForm__form  694×675 @21,83
+    div.StockItemForm__grid  694×571 @0,0
       div.Field__field  223×141 @0,0
         label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Название»
         input  223×49 @0,27  r11  b1
@@ -96,31 +100,35 @@ section.Card__card  736×760 @16,16  r20  b1
             option#9  0×0 @-508,-126  Manrope 400 15/21  lines=0  «Баллоны»
           svg.Select__chevron  14×14 @195,18
         p.Field__hint  223×58 @0,83  Manrope 400 13/19  lines=3  «В чём считаем остаток. Дробный остаток —»
-      div.Field__field#4  223×122 @0,153
+      div.Field__field#4  223×141 @0,153
         label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Порог заказа»
         input  223×49 @0,27  r11  b1
         p.Field__hint  223×39 @0,83  Manrope 400 13/19  lines=2  «Опустился ниже — позиция попадает в спис»
-      div.Field__field#5  694×103 @0,287
+      div.Field__field#5  223×141 @235,153
+        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Закупочная цена»
+        input  223×49 @0,27  r11  b1
+        p.Field__hint  223×58 @0,83  Manrope 400 13/19  lines=3  «За единицу, целыми рублями. Пусто — марж»
+      div.Field__field#6  694×103 @0,307
         label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Модель каталога»
         span.Select__wrapper  694×49 @0,27
           select.Select__select#2  694×49 @0,0  r11  b1
-            option  0×0 @-37,-414  Manrope 400 15/21  lines=0  «Не техника — расходник»
-            option#2  0×0 @-37,-414  Manrope 400 15/21  lines=0  «Сплит-система 09»
-            option#3  0×0 @-37,-414  Manrope 400 15/21  lines=0  «Сплит-система 12»
+            option  0×0 @-37,-433  Manrope 400 15/21  lines=0  «Не техника — расходник»
+            option#2  0×0 @-37,-433  Manrope 400 15/21  lines=0  «Сплит-система 09»
+            option#3  0×0 @-37,-433  Manrope 400 15/21  lines=0  «Сплит-система 12»
           svg.Select__chevron#2  14×14 @666,18
         p.Field__hint  694×19 @0,83  Manrope 400 13/19  lines=1  «Только для техники: расходники ни на что»
-      div.Field__field#6  694×150 @0,402
+      div.Field__field#7  694×150 @0,421
         label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Заметка»
         textarea.Textarea__textarea  694×96 @0,27  r11  b1
         p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Что помнить: поставщик, аналоги, чем зам»
-    div.StockItemForm__actions  694×44 @0,563
+    div.StockItemForm__actions  694×44 @0,583
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
       button.Button__button#2  169×44 @127,0  r11  b1
         span.Button__content  131×17 @19,13
           span.Button__label#2  131×17 @0,0  Manrope 600 15/17  lines=1  «Вернуть из архива»
-    p.StockItemForm__archiveHint  508×40 @0,615  Manrope 400 13/20  lines=2  «Позиция в архиве: она не показывается в»
+    p.StockItemForm__archiveHint  508×40 @0,635  Manrope 400 13/20  lines=2  «Позиция в архиве: она не показывается в»
 
 [геометрия 1440]
 section.Card__card  1408×626 @16,16  r20  b1
@@ -158,7 +166,11 @@ section.Card__card  1408×626 @16,16  r20  b1
         label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Порог заказа»
         input  218×49 @0,27  r11  b1
         p.Field__hint  218×58 @0,83  Manrope 400 13/19  lines=3  «Опустился ниже — позиция попадает в спис»
-      div.Field__field#5  1366×103 @0,153
+      div.Field__field#5  218×141 @919,0
+        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Закупочная цена»
+        input  218×49 @0,27  r11  b1
+        p.Field__hint  218×58 @0,83  Manrope 400 13/19  lines=3  «За единицу, целыми рублями. Пусто — марж»
+      div.Field__field#6  1366×103 @0,153
         label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Модель каталога»
         span.Select__wrapper  1366×49 @0,27
           select.Select__select#2  1366×49 @0,0  r11  b1
@@ -167,7 +179,7 @@ section.Card__card  1408×626 @16,16  r20  b1
             option#3  0×0 @-37,-280  Manrope 400 15/21  lines=0  «Сплит-система 12»
           svg.Select__chevron#2  14×14 @1338,18
         p.Field__hint  1366×19 @0,83  Manrope 400 13/19  lines=1  «Только для техники: расходники ни на что»
-      div.Field__field#6  1366×150 @0,268
+      div.Field__field#7  1366×150 @0,268
         label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Заметка»
         textarea.Textarea__textarea  1366×96 @0,27  r11  b1
         p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «Что помнить: поставщик, аналоги, чем зам»
@@ -218,6 +230,10 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
         p.Field__hint  color #556173
       div.Field__field#5
         label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+        p.Field__hint  color #556173
+      div.Field__field#6
+        label.Field__label  color #334155
         span.Select__wrapper
           select.Select__select#2  bg #ffffff  border #7e8fa6
             option  color #0f172a
@@ -225,7 +241,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
             option#3  color #0f172a
           svg.Select__chevron#2
         p.Field__hint  color #556173
-      div.Field__field#6
+      div.Field__field#7
         label.Field__label  color #334155
         textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
         p.Field__hint  color #556173
@@ -276,6 +292,10 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
         p.Field__hint  color #8598ac
       div.Field__field#5
         label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+        p.Field__hint  color #8598ac
+      div.Field__field#6
+        label.Field__label  color #c9d5e2
         span.Select__wrapper
           select.Select__select#2  bg #0b1424  border #566d95
             option  color #eaf1f8
@@ -283,7 +303,7 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
             option#3  color #eaf1f8
           svg.Select__chevron#2
         p.Field__hint  color #8598ac
-      div.Field__field#6
+      div.Field__field#7
         label.Field__label  color #c9d5e2
         textarea.Textarea__textarea  bg #0b1424  border #566d95
         p.Field__hint  color #8598ac

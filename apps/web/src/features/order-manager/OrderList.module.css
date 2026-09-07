@@ -30,3 +30,12 @@
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
+
+/* Оговорка к марже: сколько нарядов в неё не вошло. Мельче числа, но не
+   мельче служебного порога 12px — подпись, которую не прочли, не оговорка
+   (PIXEL_SPEC, «Служебные подписи не мельче 12px»). */
+.totalNote {
+  margin-left: 8px;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}

@@ -26,7 +26,8 @@ export type OrderColumn =
   | 'declined'
   | 'reason'
   | 'status'
-  | 'sum';
+  | 'sum'
+  | 'margin';
 
 export const ORDER_COLUMNS: readonly OrderColumn[] = [
   'number',
@@ -41,6 +42,7 @@ export const ORDER_COLUMNS: readonly OrderColumn[] = [
   'reason',
   'status',
   'sum',
+  'margin',
 ];
 
 export function isOrderColumn(value: string): value is OrderColumn {
@@ -56,7 +58,10 @@ export function isOrderColumn(value: string): value is OrderColumn {
 const TAB_COLUMNS: Readonly<Record<OrderTab, readonly OrderColumn[]>> = {
   active: ['number', 'type', 'client', 'installer', 'when', 'status', 'sum'],
   new: ['number', 'type', 'client', 'source', 'created', 'sum'],
-  history: ['number', 'type', 'client', 'installer', 'closed', 'status', 'sum'],
+  /* 🔴 Маржа только здесь: она есть у закрытой работы и только у неё. У
+     активного наряда материалы ещё не списаны, и число было бы не «пока
+     столько», а неправдой (ADR-310, issue #628). */
+  history: ['number', 'type', 'client', 'installer', 'closed', 'status', 'sum', 'margin'],
   cancelled: ['number', 'type', 'client', 'declined', 'reason'],
   all: ['number', 'type', 'client', 'when', 'status', 'sum'],
 };

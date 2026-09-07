@@ -41,6 +41,7 @@ const COLUMN_TITLE: Readonly<Record<OrderColumn, string>> = {
   reason: texts.colReason,
   status: texts.colStatus,
   sum: texts.colSum,
+  margin: texts.colMargin,
 };
 
 /**

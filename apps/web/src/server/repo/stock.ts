@@ -370,6 +370,7 @@ const itemSelect = {
   group: true,
   unit: true,
   minQty: true,
+  purchasePrice: true,
   note: true,
   archived: true,
   product: { select: { id: true, name: true, slug: true } },
@@ -381,6 +382,7 @@ type ItemRow = {
   group: string | null;
   unit: DbUnit;
   minQty: Prisma.Decimal;
+  purchasePrice: number | null;
   note: string | null;
   archived: boolean;
   product: { id: string; name: string; slug: string } | null;
@@ -391,6 +393,11 @@ type ItemRow = {
  *
  * `minQty` и `low` — владельческие ключи: порог заказа говорит о закупочных
  * привычках владельца, и открывать их всей команде он не обязан (ADR-134).
+ *
+ * `purchasePrice` — тем более: закупочная цена коммерческая тайна, наружу не
+ * уходит никогда и монтажнику не приходит вовсе (ADR-310, ADR-092). Ключ
+ * отсутствует, а не приходит пустым: `null` означает «цена не заведена», и
+ * путать это с «не твоё дело» нельзя.
  */
 function toItemCard(
   row: ItemRow,
@@ -420,6 +427,7 @@ function toItemCard(
   return {
     ...shared,
     minQty,
+    purchasePrice: row.purchasePrice,
     low: isLow(total, minQty),
     /* Ступень раньше «ниже порога»: остаток, которого хватит на один выезд
        сверх нормы, попадает в закупку этой недели (issue #606). */
@@ -456,6 +464,7 @@ export async function createItem(input: StockItemCreate, viewer: Viewer): Promis
       group: input.group,
       unit: UNIT_TO_DB[input.unit],
       minQty: input.minQty,
+      purchasePrice: input.purchasePrice,
       productId: input.productId,
       note: input.note,
     },
@@ -493,6 +502,7 @@ export async function updateItem(
       ...(input.group === undefined ? {} : { group: input.group }),
       ...(input.unit === undefined ? {} : { unit: UNIT_TO_DB[input.unit] }),
       ...(input.minQty === undefined ? {} : { minQty: input.minQty }),
+      ...(input.purchasePrice === undefined ? {} : { purchasePrice: input.purchasePrice }),
       ...(input.productId === undefined ? {} : { productId: input.productId }),
       ...(input.note === undefined ? {} : { note: input.note }),
       ...(input.archived === undefined ? {} : { archived: input.archived }),
@@ -1045,10 +1055,10 @@ function movementData(input: StockMovementCreate): MovementData {
  * туда, откуда их только что убрали, и остаток снова разошёлся бы с
  * реальностью.
  */
-async function assertMovable(data: MovementData): Promise<void> {
+async function assertMovable(data: MovementData): Promise<number | null> {
   const found = await db.stockItem.findUnique({
     where: { id: data.itemId },
-    select: { archived: true },
+    select: { archived: true, purchasePrice: true },
   });
   if (found === null) {
     throw new ApiException('validation_error', 'Такой позиции нет в справочнике', 'itemId');
@@ -1070,6 +1080,26 @@ async function assertMovable(data: MovementData): Promise<void> {
       throw new ApiException('validation_error', 'Такого наряда нет в базе', 'orderId');
     }
   }
+
+  /* Цена возвращается отсюда, а не читается вторым запросом: строка позиции
+     уже прочитана, и второй поход в базу за соседней колонкой той же строки —
+     это лишний запрос на каждое списание. */
+  return found.purchasePrice;
+}
+
+/**
+ * Закупочная цена, которая уезжает в движение.
+ *
+ * 🔴 Только у списания и возврата: расход наряда складывается из них двоих, а
+ * у прихода, перемещения и инвентаризации наряда нет вовсе — цена там ничего
+ * не значила бы и только путала бы журнал.
+ *
+ * 🔴 Снимок на момент движения. Читать текущую цену позиции при показе маржи
+ * было бы дешевле, но тогда переоценка трубы сегодня переписывала бы
+ * прибыльность каждого наряда за прошлый год (ADR-310).
+ */
+function costSnapshot(kind: DbMoveKind, purchasePrice: number | null): number | null {
+  return kind === 'CONSUME' || kind === 'RETURN' ? purchasePrice : null;
 }
 
 async function assertZoneMovable(zoneId: string | null, field: string): Promise<void> {
@@ -1137,10 +1167,10 @@ export async function move(
   authorId: string,
 ): Promise<StockMovementCard> {
   const data = movementData(input);
-  await assertMovable(data);
+  const purchasePrice = await assertMovable(data);
 
   const row = await db.stockMovement.create({
-    data: { ...data, authorId },
+    data: { ...data, unitCost: costSnapshot(data.kind, purchasePrice), authorId },
     select: movementSelect,
   });
 
@@ -1276,10 +1306,22 @@ export async function consume(
     }),
   );
 
-  for (const data of lines) await assertMovable(data);
+  /* Цена берётся той же проверкой, что и право провести движение: снимок
+     обязан быть снят до записи, а не после, иначе он опишет уже другую
+     цену. */
+  const costs = new Map<MovementData, number | null>();
+  for (const data of lines) costs.set(data, await assertMovable(data));
 
   await db.$transaction(
-    lines.map((data) => db.stockMovement.create({ data: { ...data, authorId: viewer.userId } })),
+    lines.map((data) =>
+      db.stockMovement.create({
+        data: {
+          ...data,
+          unitCost: costSnapshot(data.kind, costs.get(data) ?? null),
+          authorId: viewer.userId,
+        },
+      }),
+    ),
   );
 
   /* Порог считается один раз на всю форму: списали три позиции — один проход
@@ -1314,7 +1356,14 @@ export async function cancelConsumption(
 
   const row = await db.stockMovement.findFirst({
     where: { id: moveId, orderId, kind: 'CONSUME' },
-    select: { id: true, itemId: true, qty: true, fromZoneId: true, authorId: true },
+    select: {
+      id: true,
+      itemId: true,
+      qty: true,
+      fromZoneId: true,
+      authorId: true,
+      unitCost: true,
+    },
   });
   if (row === null) throw new ApiException('not_found', 'Списание не найдено');
 
@@ -1364,7 +1413,16 @@ export async function cancelConsumption(
      внятным текстом в обычном случае, база — в редком одновременном. */
   const created = await db.stockMovement
     .create({
-      data: { ...data, cancelsId: moveId, authorId: viewer.userId },
+      /* 🔴 Цена берётся у отменяемого списания, а не у позиции сегодня. Отмена
+         обязана вычесть ровно то, что списание прибавило: переоцени владелец
+         позицию между списанием и отменой — при текущей цене в расходе наряда
+         остался бы осадок из ничего, хотя материал вернулся целиком. */
+      data: {
+        ...data,
+        unitCost: row.unitCost,
+        cancelsId: moveId,
+        authorId: viewer.userId,
+      },
       select: movementSelect,
     })
     .catch((error: unknown) => {

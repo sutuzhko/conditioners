@@ -84,6 +84,7 @@ export const pipe: StockItemCard = {
   byZone: { z1: 43.5, z2: 12, z3: 0 },
   total: 55.5,
   minQty: 30,
+  purchasePrice: 250,
   low: false,
   near: false,
 };
@@ -100,6 +101,7 @@ export const bracket: StockItemCard = {
   byZone: { z1: 2, z2: 1, z3: 0 },
   total: 3,
   minQty: 6,
+  purchasePrice: 180,
   low: true,
   near: false,
 };
@@ -118,6 +120,9 @@ export const freon: StockItemCard = {
   /* 4,7 при пороге 4 — ещё не «ниже порога», но следующий выезд уведёт туда:
      это и есть «подходит к порогу» (issue #606). */
   minQty: 4,
+  /* 🔴 Цена не заведена: на такой позиции маржа наряда не считается вовсе, и
+     форма показывает пустое поле, а не ноль (ADR-310, issue #628). */
+  purchasePrice: null,
   low: false,
   near: true,
 };
@@ -134,6 +139,7 @@ export const unit: StockItemCard = {
   byZone: { z1: 2, z2: 0, z3: 0 },
   total: 2,
   minQty: 0,
+  purchasePrice: 24_900,
   low: false,
   near: false,
 };
