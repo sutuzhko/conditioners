@@ -1,6 +1,17 @@
 'use client';
 
-import { Checkbox, Input, Select, Textarea } from '@/shared/ui';
+import { useState } from 'react';
+
+import {
+  Checkbox,
+  DateField,
+  Input,
+  Select,
+  Textarea,
+  dateSegmentsOf,
+  isoOfDateSegments,
+} from '@/shared/ui';
+import type { DateSegments } from '@/shared/ui';
 
 import { ListField } from './ListField';
 import { ObjectListField, type ObjectRow } from './ObjectListField';
@@ -217,15 +228,14 @@ function Field({
 
   if (field.kind === 'date') {
     return (
-      <Input
-        {...shared}
-        type="date"
-        value={toDateValue(value)}
-        onChange={(event) => {
-          /* Очищенное поле — не «первое января»: ключ уходит из тела запроса,
-             и сервер подставляет умолчание схемы (ADR-139). */
-          onChange(event.target.value === '' ? undefined : event.target.value);
-        }}
+      <DateGroupField
+        label={field.label}
+        hint={field.hint}
+        error={error === '' ? undefined : error}
+        disabled={disabled}
+        className={field.fullRow === true ? styles.wide : undefined}
+        iso={toDateValue(value)}
+        onChange={onChange}
       />
     );
   }
@@ -248,5 +258,57 @@ function Field({
 
   return (
     <Input {...shared} value={asText(value)} onChange={(event) => onChange(event.target.value)} />
+  );
+}
+
+/**
+ * Поле даты в общем перечислителе настроек (issue #586).
+ *
+ * 🔴 Отдельным компонентом, а не веткой внутри `Field`: сегментам нужно своё
+ * состояние — их набирают по одному, и полной даты до последней цифры нет, —
+ * а хук в ветке после ранних возвратов вызывать нельзя.
+ *
+ * 🔴 Три сегмента вместо `input[type=date]`: нативный редактор приносит свой
+ * порядок сегментов, зависящий от локали системы, — на машине с английской
+ * локалью владелец получил бы месяц перед днём.
+ */
+function DateGroupField({
+  label,
+  hint,
+  error,
+  disabled,
+  className,
+  iso,
+  onChange,
+}: {
+  label: string;
+  hint: string | undefined;
+  error: string | undefined;
+  disabled: boolean;
+  className: string | undefined;
+  /** Значение группы: машинная дата `2015-03-12` либо пустая строка. */
+  iso: string;
+  onChange: (next: unknown) => void;
+}) {
+  const [parts, setParts] = useState<DateSegments>(() => dateSegmentsOf(iso));
+
+  return (
+    <DateField
+      label={label}
+      hint={hint}
+      error={error}
+      disabled={disabled}
+      className={className}
+      value={parts}
+      onChange={(next) => {
+        setParts(next);
+
+        /* Очищенное поле — не «первое января»: ключ уходит из тела запроса, и
+           сервер подставляет умолчание схемы (ADR-139). Недобранная дата —
+           тоже пусто: `2026-09-` не разберёт ни одна схема. */
+        const value = isoOfDateSegments(next);
+        onChange(value === '' ? undefined : value);
+      }}
+    />
   );
 }

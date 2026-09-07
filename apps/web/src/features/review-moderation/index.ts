@@ -4,11 +4,11 @@ export { ReviewList, type ReviewListProps } from './ReviewList';
 export { ReviewTable, type ReviewTableProps } from './ReviewTable';
 export { ReviewFilters, type ReviewFiltersProps } from './ReviewFilters';
 export { ReviewRowActions, type ReviewRowActionsProps } from './ReviewRowActions';
-export { ReviewTabs, type ReviewTabsProps } from './ReviewTabs';
 export { ReviewPhoto, type ReviewPhotoProps } from './ReviewPhoto';
 export { RejectDialog, type RejectDialogProps } from './RejectDialog';
 export { reviewModerationContent } from './content';
 export { reviewApi } from './lib';
+export { reviewTabItems } from './tabs';
 export { useReviewActions, type ReviewActionsControl } from './useReviewActions';
 export {
   DEFAULT_REVIEW_TAB,

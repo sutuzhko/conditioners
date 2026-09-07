@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.AdminSummary__summary  358×590 @16,16
+div.AdminSummary__summary  358×562 @16,16
   header.AdminSummary__header  358×109 @0,0
     div.AdminSummary__headText  253×55 @0,0
       h1.AdminSummary__title  253×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Доброе утро, Сергей»
@@ -16,13 +16,14 @@ div.AdminSummary__summary  358×590 @16,16
       span.Button__content  103×16 @15,14
         svg  16×16 @0,0
         span.Button__label  79×16 @24,0  Manrope 600 13/16  lines=1  «Новый заказ»
-  div.AdminSummary__bar  358×80 @0,127
-    nav.AdminSummary__segments  358×52 @0,0  r100  b1
-      a.AdminSummary__segment  115×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
-      a.AdminSummary__segment#2  115×44 @121,4  Manrope 600 13/20  r100  lines=1  «Работа»
-      a.AdminSummary__segment#3  115×44 @239,4  Manrope 600 13/20  r100  lines=1  «Деньги»
-    p.AdminSummary__period  77×20 @0,60  Manrope 600 13/20  lines=1  «Август 2026»
-  div.StatTile__tiles  358×99 @0,225
+  div.AdminSummary__bar  358×52 @0,127
+    nav.Tabs__strip  239×52 @0,0
+      div.Tabs__row  239×52 @0,0  r100  b1
+        a.Tabs__tab  72×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+        a.Tabs__tab#2  77×44 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+        a.Tabs__tab#3  79×44 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+    p.AdminSummary__period  77×20 @281,16  Manrope 600 13/20  lines=1  «Август 2026»
+  div.StatTile__tiles  358×99 @0,197
     a.AdminSummary__tileLink  175×99 @0,0  r14
       dl.StatTile__tile  175×99 @0,0  r14  b1
         dt.StatTile__label  149×15 @13,13  Manrope 600 12/15  lines=1  «Выполнено за месяц»
@@ -35,7 +36,7 @@ div.AdminSummary__summary  358×590 @16,16
         dd.StatTile__value#2  149×34 @13,32
           span.StatTile__number  11×21 @0,6  Onest 700 16/21  ls0  lines=1  «0»
         dd.StatTile__note#2  149×16 @13,70  Manrope 400 12/16  lines=1  «назначены и на объекте»
-  section.Card__card  358×248 @0,342  r20  b1
+  section.Card__card  358×248 @0,314  r20  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Требуют внимания»
     p.AdminSummary__text  316×45 @21,60  Manrope 400 15/22  lines=2  «Наряды, по которым время вышло или неком»
     p.AdminSummary__text#2  316×45 @21,115  Manrope 400 15/22  lines=2  «Ничего не горит: сроки соблюдаются, испо»
@@ -52,10 +53,11 @@ div.AdminSummary__summary  736×599 @16,16
         svg  16×16 @0,0
         span.Button__label  79×16 @24,0  Manrope 600 13/16  lines=1  «Новый заказ»
   div.AdminSummary__bar  736×52 @0,80
-    nav.AdminSummary__segments  239×52 @0,0  r100  b1
-      a.AdminSummary__segment  72×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
-      a.AdminSummary__segment#2  77×44 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
-      a.AdminSummary__segment#3  79×44 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+    nav.Tabs__strip  239×52 @0,0
+      div.Tabs__row  239×52 @0,0  r100  b1
+        a.Tabs__tab  72×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+        a.Tabs__tab#2  77×44 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+        a.Tabs__tab#3  79×44 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
     p.AdminSummary__period  77×20 @659,16  Manrope 600 13/20  lines=1  «Август 2026»
   div.StatTile__tiles  736×226 @0,150
     a.AdminSummary__tileLink  362×107 @0,0  r14
@@ -99,10 +101,11 @@ div.AdminSummary__summary  1408×457 @16,16
         svg  16×16 @0,0
         span.Button__label  79×16 @24,0  Manrope 600 13/16  lines=1  «Новый заказ»
   div.AdminSummary__bar  1408×40 @0,88
-    nav.AdminSummary__segments  239×40 @0,0  r100  b1
-      a.AdminSummary__segment  72×32 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
-      a.AdminSummary__segment#2  77×32 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
-      a.AdminSummary__segment#3  79×32 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+    nav.Tabs__strip  239×40 @0,0
+      div.Tabs__row  239×40 @0,0  r100  b1
+        a.Tabs__tab  72×32 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+        a.Tabs__tab#2  77×32 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+        a.Tabs__tab#3  79×32 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
     p.AdminSummary__period  77×20 @1331,10  Manrope 600 13/20  lines=1  «Август 2026»
   div.StatTile__tiles  1408×107 @0,146
     a.AdminSummary__tileLink  340×107 @0,0  r14
@@ -146,10 +149,11 @@ div.AdminSummary__summary
         svg
         span.Button__label  color #ffffff
   div.AdminSummary__bar
-    nav.AdminSummary__segments  bg #f8fafc  border #e2e8f0
-      a.AdminSummary__segment  color #556173
-      a.AdminSummary__segment#2  color #0f172a  bg #ffffff
-      a.AdminSummary__segment#3  color #556173
+    nav.Tabs__strip
+      div.Tabs__row  bg #f8fafc  border #e2e8f0
+        a.Tabs__tab  color #556173
+        a.Tabs__tab#2  color #0f172a  bg #ffffff
+        a.Tabs__tab#3  color #556173
     p.AdminSummary__period  color #556173
   div.StatTile__tiles
     a.AdminSummary__tileLink
@@ -193,10 +197,11 @@ div.AdminSummary__summary
         svg
         span.Button__label  color #ffffff
   div.AdminSummary__bar
-    nav.AdminSummary__segments  bg #0e1729  border #1e2b41
-      a.AdminSummary__segment  color #8598ac
-      a.AdminSummary__segment#2  color #eaf1f8  bg #121d31
-      a.AdminSummary__segment#3  color #8598ac
+    nav.Tabs__strip
+      div.Tabs__row  bg #0e1729  border #1e2b41
+        a.Tabs__tab  color #8598ac
+        a.Tabs__tab#2  color #eaf1f8  bg #121d31
+        a.Tabs__tab#3  color #8598ac
     p.AdminSummary__period  color #8598ac
   div.StatTile__tiles
     a.AdminSummary__tileLink

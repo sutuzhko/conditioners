@@ -5,12 +5,12 @@ import {
   ReviewFilters,
   ReviewList,
   ReviewTable,
-  ReviewTabs,
   reviewModerationContent as texts,
   reviewFilterOf,
   reviewFilterOn,
   reviewStatusOfTab,
   reviewTabFromParam,
+  reviewTabItems,
   reviewTabShowsTable,
   reviewsQuery,
   type ReviewCard,
@@ -22,7 +22,7 @@ import { requireOwnerPage } from '@/server/guards';
 import { listByStatus } from '@/server/repo/reviews';
 import { mediaExists } from '@/server/uploads/store';
 import { pageNumber } from '@/shared/lib/paging';
-import { Pager } from '@/shared/ui';
+import { Pager, TabLinks } from '@/shared/ui';
 
 import styles from '../leads/page.module.css';
 
@@ -87,7 +87,7 @@ export default async function AdminReviewsPage({
         <p className={styles.lead}>{texts.lead}</p>
       </header>
 
-      <ReviewTabs active={selected} />
+      <TabLinks items={reviewTabItems()} active={selected} label={texts.filterLabel} />
 
       {selected === 'all' ? <ReviewFilters filter={filter} /> : null}
 

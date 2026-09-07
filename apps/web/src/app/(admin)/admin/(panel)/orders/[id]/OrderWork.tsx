@@ -4,15 +4,19 @@ import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
 
 import {
+  INSTALLER_CARD_TABS,
+  ORDER_CARD_TABS,
+  ORDER_CARD_TAB_TITLE,
   OrderChecklist,
   OrderDocs,
   OrderPhotos,
   OrderResultForm,
-  OrderWorkTabs,
+  orderManagerContent as texts,
   orderWorkApi,
   type OrderCardTab,
   type OrderDetails,
 } from '@/features/order-manager';
+import { TabPanels } from '@/shared/ui';
 
 export interface OrderWorkProps {
   readonly order: OrderDetails;
@@ -53,42 +57,57 @@ export function OrderWork({
   const api = orderWorkApi(order.id);
   const refresh = (): void => router.refresh();
 
-  return (
-    <OrderWorkTabs
-      active={tab}
-      job={
-        <>
-          {children}
+  /* 🔴 Набор вкладок задают переданные панели, а не роль строкой: истории у
+     монтажника нет вовсе — ключа нет, значит и вкладки нет, а пустая вкладка
+     обещала бы пустую историю вместо закрытой (ADR-114). */
+  const panels: Readonly<Record<OrderCardTab, ReactNode>> = {
+    job: (
+      <>
+        {children}
 
-          {/* 🔴 У монтажника итог живёт не здесь, а на экране сдачи работы
-              (issue #632): фото, отчёт и оплата — одно действие, а не три
-              места, из которых он собирает его по памяти. Владельцу форма
-              остаётся тут: он правит уже сданный отчёт. */}
-          {forInstaller ? null : (
-            <OrderResultForm
-              api={api}
-              extraWork={order.extraWork}
-              report={order.report}
-              resultAt={order.resultAt}
-              onSaved={refresh}
-            />
-          )}
-        </>
-      }
-      materials={materials}
-      checklist={<OrderChecklist api={api} items={order.checklist} onChanged={refresh} />}
-      documents={
-        <>
-          <OrderDocs api={api} docs={order.docs} editable={!forInstaller} onChanged={refresh} />
-          <OrderPhotos
+        {/* 🔴 У монтажника итог живёт не здесь, а на экране сдачи работы
+            (issue #632): фото, отчёт и оплата — одно действие, а не три
+            места, из которых он собирает его по памяти. Владельцу форма
+            остаётся тут: он правит уже сданный отчёт. */}
+        {forInstaller ? null : (
+          <OrderResultForm
             api={api}
-            photos={order.photos}
-            forInstaller={forInstaller}
-            onChanged={refresh}
+            extraWork={order.extraWork}
+            report={order.report}
+            resultAt={order.resultAt}
+            onSaved={refresh}
           />
-        </>
-      }
-      history={history}
+        )}
+      </>
+    ),
+    materials,
+    checklist: <OrderChecklist api={api} items={order.checklist} onChanged={refresh} />,
+    documents: (
+      <>
+        <OrderDocs api={api} docs={order.docs} editable={!forInstaller} onChanged={refresh} />
+        <OrderPhotos
+          api={api}
+          photos={order.photos}
+          forInstaller={forInstaller}
+          onChanged={refresh}
+        />
+      </>
+    ),
+    history,
+  };
+
+  const tabs = history === undefined ? INSTALLER_CARD_TABS : ORDER_CARD_TABS;
+
+  return (
+    <TabPanels
+      items={tabs.map((tab) => ({
+        key: tab,
+        title: ORDER_CARD_TAB_TITLE[tab],
+        panel: panels[tab],
+      }))}
+      active={tab}
+      label={texts.workTabsLabel}
+      idPrefix="order"
     />
   );
 }

@@ -8,13 +8,17 @@ import { formatPhone } from '@/shared/lib/format';
 import {
   Button,
   Checkbox,
+  DateField,
   FormSection,
   Input,
   PhoneInput,
   Select,
   Textarea,
+  dateSegmentsOf,
+  isoOfDateSegments,
   useConfirm,
   type Confirm,
+  type DateSegments,
   type FormSurface,
 } from '@/shared/ui';
 
@@ -128,6 +132,12 @@ export function OrderForm({
 }: OrderFormProps) {
   const { confirm: ask, dialog } = useConfirm();
   const [draft, setDraft] = useState<OrderDraft>(() => initial ?? emptyOrderDraft());
+
+  /* 🔴 Дата живёт в форме двумя видами: сегментами — потому что их набирают, и
+     строкой ISO — потому что её ждут схема и контракт. Выводить сегменты из
+     строки на каждый рендер нельзя: пока набран один день, полной даты ещё
+     нет, строка пуста, и набранная цифра пропала бы прямо под пальцами. */
+  const [dayParts, setDayParts] = useState<DateSegments>(() => dateSegmentsOf(draft.day));
   const [status, setStatus] = useState<OrderFormStatus>('idle');
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState<Errors>({});
@@ -348,12 +358,18 @@ export function OrderForm({
               onChange={(event) => set('installerId', event.target.value)}
             />
 
-            <Input
+            {/* 🔴 Три сегмента вместо `input[type=date]` (кит, `DateField`):
+                  нативный редактор приносит свой порядок сегментов, зависящий
+                  от локали системы, — на машине с английской локалью владелец
+                  задал бы месяц вместо дня и не заметил бы этого (issue #586). */}
+            <DateField
               label={texts.day}
-              type="date"
-              value={draft.day}
+              value={dayParts}
               error={errors.day}
-              onChange={(event) => set('day', event.target.value)}
+              onChange={(next) => {
+                setDayParts(next);
+                set('day', isoOfDateSegments(next));
+              }}
             />
 
             <Input

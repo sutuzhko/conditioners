@@ -1,0 +1,57 @@
+# ui-kit-tabpanels--капсулы · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Tabs__wrap  358×121 @16,16
+  div.Tabs__strip  358×52 @0,0
+    div.Tabs__row  358×52 @0,0  r100  b1
+      button.Tabs__tab  72×44 @4,4  Manrope 600 13/normal  r100  lines=1  «Обзор»
+      button.Tabs__tab#2  77×44 @78,4  Manrope 600 13/normal  r100  lines=1  «Работа»
+      button.Tabs__tab#3  79×44 @157,4  Manrope 600 13/normal  r100  lines=1  «Деньги»
+  div.Tabs__panel  358×53 @0,68
+    p  358×23 @0,15  Manrope 400 15/23  lines=1  «Наряды и загрузка бригад.»
+
+[геометрия 768]
+div.Tabs__wrap  736×121 @16,16
+  div.Tabs__strip  736×52 @0,0
+    div.Tabs__row  736×52 @0,0  r100  b1
+      button.Tabs__tab  72×44 @4,4  Manrope 600 13/normal  r100  lines=1  «Обзор»
+      button.Tabs__tab#2  77×44 @78,4  Manrope 600 13/normal  r100  lines=1  «Работа»
+      button.Tabs__tab#3  79×44 @157,4  Manrope 600 13/normal  r100  lines=1  «Деньги»
+  div.Tabs__panel  736×53 @0,68
+    p  736×23 @0,15  Manrope 400 15/23  lines=1  «Наряды и загрузка бригад.»
+
+[геометрия 1440]
+div.Tabs__wrap  1408×109 @16,16
+  div.Tabs__strip  1408×40 @0,0
+    div.Tabs__row  1408×40 @0,0  r100  b1
+      button.Tabs__tab  72×32 @4,4  Manrope 600 13/normal  r100  lines=1  «Обзор»
+      button.Tabs__tab#2  77×32 @78,4  Manrope 600 13/normal  r100  lines=1  «Работа»
+      button.Tabs__tab#3  79×32 @157,4  Manrope 600 13/normal  r100  lines=1  «Деньги»
+  div.Tabs__panel  1408×53 @0,56
+    p  1408×23 @0,15  Manrope 400 15/23  lines=1  «Наряды и загрузка бригад.»
+
+[палитра light]
+div.Tabs__wrap
+  div.Tabs__strip
+    div.Tabs__row  bg #f8fafc  border #e2e8f0
+      button.Tabs__tab  color #556173
+      button.Tabs__tab#2  color #0f172a  bg #ffffff
+      button.Tabs__tab#3  color #556173
+  div.Tabs__panel
+    p  color #0f172a
+
+[палитра dark]
+div.Tabs__wrap
+  div.Tabs__strip
+    div.Tabs__row  bg #0e1729  border #1e2b41
+      button.Tabs__tab  color #8598ac
+      button.Tabs__tab#2  color #eaf1f8  bg #121d31
+      button.Tabs__tab#3  color #8598ac
+  div.Tabs__panel
+    p  color #eaf1f8

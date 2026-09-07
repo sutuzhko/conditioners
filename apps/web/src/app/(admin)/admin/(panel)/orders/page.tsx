@@ -9,7 +9,6 @@ import {
   OrderFilters,
   OrderInstallerAgenda,
   OrderList,
-  OrderTabs,
   agendaWindow,
   installerWhenFromParam,
   isOrderPeriod,
@@ -18,13 +17,14 @@ import {
   orderPageSizeFromParam,
   orderSortFromParam,
   orderTabFromParam,
+  orderTabItems,
   pageNumber,
   type OrderFilterState,
 } from '@/features/order-manager';
 import { requirePage } from '@/server/guards';
 import { listInstallers } from '@/server/repo/admin-users';
 import { agenda, counts, historyTotals, list, type Viewer } from '@/server/repo/orders';
-import { Skeleton, buttonClassName } from '@/shared/ui';
+import { Skeleton, TabLinks, buttonClassName } from '@/shared/ui';
 import { DataBlock, blockErrorNote } from '@/widgets/admin-shell';
 
 import { OrdersAgendaSkeleton, OrdersSkeleton } from './OrdersSkeleton';
@@ -248,11 +248,14 @@ async function OrdersBlock({
     <>
       {/* Стопки — над рядом фильтров, как в макете: сначала выбирают, что за
           список смотрят, и только потом сужают его условиями. */}
-      <OrderTabs
-        tab={filters.tab}
-        period={filters.period}
-        query={filters.query}
-        counts={{ active: stacks.active, new: stacks.new, all: stacks.all }}
+      <TabLinks
+        items={orderTabItems(filters, {
+          active: stacks.active,
+          new: stacks.new,
+          all: stacks.all,
+        })}
+        active={filters.tab}
+        label={texts.tabsLabel}
       />
 
       <OrderFilters filters={filters} installers={crew} total={found.total} />
