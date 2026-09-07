@@ -7,7 +7,7 @@
  * здесь не переписывается: два названия одной работы в соседних разделах
  * панели читаются как сбой.
  */
-import type { OrderCard, UnitSource } from '@/entities/order/model';
+import type { OrderCard, OrderUnitCard, UnitSource } from '@/entities/order/model';
 import type { BadgeVariant } from '@/shared/ui';
 import { WORK_TIME_ZONE, momentOf, shiftDay, todayKey, type DayKey } from '@/shared/lib/calendar';
 import { formatMoney } from '@/shared/lib/format';
@@ -192,6 +192,35 @@ export function orderMarks(order: OrderCard): readonly OrderMark[] {
 
   if (order.payment === 'cash_to_installer' && order.price !== undefined) {
     marks.push({ key: 'cash', variant: 'success', text: installerContent.cashMark(order.price) });
+  }
+
+  return marks;
+}
+
+/**
+ * Плашки одной позиции: чьё оборудование, сколько трассы, какой диаметр,
+ * штроба.
+ *
+ * 🔴 Один набор на обе роли (issue #598). Состав позиции — факт наряда, а не
+ * точка зрения: владелец и монтажник смотрят на одну и ту же трубу. Пока
+ * набор жил внутри карточки монтажника, карточка владельца получила бы свою
+ * копию, и они разошлись бы на первом же новом свойстве позиции.
+ */
+export function orderUnitMarks(unit: OrderUnitCard): readonly OrderMark[] {
+  const marks: OrderMark[] = [
+    { key: 'source', variant: 'neutral', text: SOURCE_MARK[unit.source] },
+  ];
+
+  if (unit.trassaM !== null) {
+    marks.push({ key: 'trassa', variant: 'neutral', text: `Трасса ${unit.trassaM} м` });
+  }
+
+  if (unit.diameter !== null) {
+    marks.push({ key: 'diameter', variant: 'neutral', text: unit.diameter });
+  }
+
+  if (unit.shtrob) {
+    marks.push({ key: 'shtrob', variant: 'warning', text: installerContent.shtrobUnitMark });
   }
 
   return marks;

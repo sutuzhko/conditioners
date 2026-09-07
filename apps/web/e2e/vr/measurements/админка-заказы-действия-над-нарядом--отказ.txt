@@ -1,0 +1,77 @@
+# админка-заказы-действия-над-нарядом--отказ · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.OrderOwnerActions__head  358×82 @16,16
+  div.OrderOwnerActions__marks  358×28 @0,0
+    span.Badge__badge  72×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
+      span.Badge__dot  6×6 @13,11  r100
+    span.Badge__badge#2  70×28 @80,0  Manrope 600 12/16  r100  b1  lines=1  «Ремонт»
+    span.OrderOwnerActions__address  147×22 @159,3  Manrope 600 15/22  lines=1  «Тула, Октябрьская, 3»
+  div.OrderOwnerActions__actions  358×44 @0,38
+    a.Button__button  125×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Править наряд»
+    div.RowMenu__root  44×44 @133,0
+      button.RowMenu__trigger  44×44 @0,0  r100  b1
+        span.RowMenu__dots  16×16 @14,14
+          svg  16×16 @0,0
+
+[геометрия 768]
+div.OrderOwnerActions__head  736×44 @16,16
+  div.OrderOwnerActions__marks  547×28 @0,8
+    span.Badge__badge  72×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
+      span.Badge__dot  6×6 @13,11  r100
+    span.Badge__badge#2  70×28 @80,0  Manrope 600 12/16  r100  b1  lines=1  «Ремонт»
+    span.OrderOwnerActions__address  147×22 @159,3  Manrope 600 15/22  lines=1  «Тула, Октябрьская, 3»
+  div.OrderOwnerActions__actions  177×44 @559,0
+    a.Button__button  125×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Править наряд»
+    div.RowMenu__root  44×44 @133,0
+      button.RowMenu__trigger  44×44 @0,0  r100  b1
+        span.RowMenu__dots  16×16 @14,14
+          svg  16×16 @0,0
+
+[геометрия 1440]
+div.OrderOwnerActions__head  1408×44 @16,16
+  div.OrderOwnerActions__marks  1219×28 @0,8
+    span.Badge__badge  72×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
+      span.Badge__dot  6×6 @13,11  r100
+    span.Badge__badge#2  70×28 @80,0  Manrope 600 12/16  r100  b1  lines=1  «Ремонт»
+    span.OrderOwnerActions__address  147×22 @159,3  Manrope 600 15/22  lines=1  «Тула, Октябрьская, 3»
+  div.OrderOwnerActions__actions  177×44 @1231,0
+    a.Button__button  125×40 @0,2  Manrope 600 13/16  r9  b1  lines=1  «Править наряд»
+    div.RowMenu__root  44×44 @133,0
+      button.RowMenu__trigger  44×44 @0,0  r100  b1
+        span.RowMenu__dots  16×16 @14,14
+          svg  16×16 @0,0
+
+[палитра light]
+div.OrderOwnerActions__head
+  div.OrderOwnerActions__marks
+    span.Badge__badge  color #be123c  bg #be123c14  border #be123c73
+      span.Badge__dot  bg #be123c
+    span.Badge__badge#2  color #556173  bg #f8fafc  border #e2e8f0
+    span.OrderOwnerActions__address  color #556173
+  div.OrderOwnerActions__actions
+    a.Button__button  color #0f172a  bg #ffffff  border #7e8fa6
+    div.RowMenu__root
+      button.RowMenu__trigger  border transparent
+        span.RowMenu__dots
+          svg
+
+[палитра dark]
+div.OrderOwnerActions__head
+  div.OrderOwnerActions__marks
+    span.Badge__badge  color #fb7185  bg #fb71851f  border #fb718580
+      span.Badge__dot  bg #fb7185
+    span.Badge__badge#2  color #8598ac  bg #0e1729  border #1e2b41
+    span.OrderOwnerActions__address  color #8598ac
+  div.OrderOwnerActions__actions
+    a.Button__button  color #eaf1f8  bg #121d31  border #566d95
+    div.RowMenu__root
+      button.RowMenu__trigger  border transparent
+        span.RowMenu__dots
+          svg

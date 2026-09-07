@@ -4,28 +4,27 @@ import { notFound } from 'next/navigation';
 
 import {
   ORDERS_PATH,
+  ORDER_CARD_TAB_TITLE,
   OrderConsumption,
   OrderHistory,
   OrderInstallerHead,
   OrderInstallerView,
+  OrderOwnerActions,
+  OrderOwnerView,
   installerContent as own,
   orderCardTabFromParam,
   orderCardTabsFor,
-  orderDraftOf,
   orderManagerContent as texts,
   type ConsumptionLoad,
 } from '@/features/order-manager';
 import type { AdminSession } from '@/server/auth';
 import { requirePage } from '@/server/guards';
-import { listInstallers } from '@/server/repo/admin-users';
-import { listAll } from '@/server/repo/clients';
 import { findById, type Viewer } from '@/server/repo/orders';
 import { consumptionOf, directory } from '@/server/repo/stock';
-import { dayKeyOf } from '@/shared/lib/calendar';
+import { TabLinks } from '@/shared/ui';
 import { DataBlock, RowsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
-import { loadBlocks, loadWork } from '../blocks';
-import { OrderEditor } from '../OrderEditor';
+import { OrderResultEditor } from '../OrderResultEditor';
 import { OrderWork } from './OrderWork';
 import styles from '../page.module.css';
 
@@ -107,10 +106,22 @@ export default async function AdminOrderPage({ params, searchParams }: PageProps
 
   /* 🔴 Заготовка держит ленту вкладок и полотно открытой вкладки: без резерва
      экран, собранный на телефоне по мобильной сети, прыгает под пальцем
-     ровно в тот момент, когда монтажник целится в кнопку (ADR-239). */
+     ровно в тот момент, когда монтажник целится в кнопку (ADR-239).
+
+     Лента — настоящая, а не серая полоса: у подписей стоят счётчики, и
+     полоса другой высоты сдвинула бы содержимое вниз в момент приезда
+     данных. Подсвеченной вкладки в ней нет — подсветить можно только не ту. */
   const skeleton = (
     <>
-      <RowsSkeleton rows={1} height="44px" />
+      <TabLinks
+        items={orderCardTabsFor(session.role !== 'owner').map((key) => ({
+          key,
+          title: ORDER_CARD_TAB_TITLE[key],
+        }))}
+        label={texts.workTabsLabel}
+        busy
+        scroll
+      />
       <RowsSkeleton rows={1} height="620px" />
     </>
   );
@@ -145,10 +156,13 @@ export default async function AdminOrderPage({ params, searchParams }: PageProps
         {texts.back}
       </Link>
 
-      {/* Подпись у шапки не дублируется: ту же мысль форма говорит своей
-          подсказкой, а два одинаковых предложения подряд читаются как сбой. */}
+      {/* 🔴 Шапка стоит над вкладками, а не внутри «Наряда» (issue #598): в
+          каком состоянии работа и что с ней можно сделать, нужно видеть и с
+          вкладки чеклиста. Она собрана из самого наряда и приезжает с первым
+          же куском ответа — списки и расход её не задерживают. */}
       <header className={styles.header}>
         <h1 className={styles.title}>{texts.number(order.number)}</h1>
+        <OrderOwnerActions order={order} />
       </header>
 
       <DataBlock
@@ -191,6 +205,7 @@ async function InstallerCard({
       materials={
         <OrderConsumption orderId={order.id} initial={consumption} checklist={order.checklist} />
       }
+      materialsCount={consumption.ok ? consumption.moves.length : undefined}
     >
       <OrderInstallerView order={order} />
     </OrderWork>
@@ -200,10 +215,19 @@ async function InstallerCard({
 /**
  * Карточка наряда глазами владельца — отдельный кусок потока.
  *
+ * 🔴 Наряд читается, а не заполняется (issue #598). Прежде здесь стояла форма
+ * правки со всеми полями наряда — она и давала карточке 5156px высоты на 390
+ * у наряда в работе. Правка уехала на свой адрес, а карточка отдаёт то, ради
+ * чего её открывают: объект, оборудование, деньги, исполнителя.
+ *
  * 🔴 Блок расхода читает склад сам, с клиента: наряд отдаётся страницей, а
  * остаток меняется прямо здесь — после каждого списания он обязан быть новым,
  * не перезагружая карточку целиком. Через границу уезжают только данные:
  * функция сервер→клиент не переживает сериализацию.
+ *
+ * 🔴 Ни клиентов, ни монтажников, ни занятости эта страница больше не читает:
+ * они нужны были списками формы, а форма отсюда ушла. Четыре запроса из пяти
+ * при каждом открытии карточки перестали делаться вовсе.
  */
 async function OwnerCard({
   order,
@@ -214,16 +238,7 @@ async function OwnerCard({
   readonly tab: ReturnType<typeof orderCardTabFromParam>;
   readonly session: AdminSession;
 }) {
-  const day = dayKeyOf(new Date(order.at));
-
-  /* Списки нужны только владельцу: монтажник наряд не переназначает. */
-  const [consumption, clients, installers, blocks, work] = await Promise.all([
-    loadConsumption(order.id, session),
-    listAll(),
-    listInstallers(true),
-    loadBlocks(session, day),
-    loadWork(session, day, order.id),
-  ]);
+  const consumption = await loadConsumption(order.id, session);
 
   return (
     <OrderWork
@@ -232,28 +247,22 @@ async function OwnerCard({
       materials={
         <OrderConsumption orderId={order.id} initial={consumption} checklist={order.checklist} />
       }
+      /* Счётчик «Расхода» знает только удавшееся чтение: на отказе склада
+         числа нет, и рисовать ноль нельзя — он соврал бы, что списаний нет,
+         хотя их просто не прочитали. */
+      materialsCount={consumption.ok ? consumption.moves.length : undefined}
       history={<OrderHistory entries={order.history ?? []} />}
     >
-      <OrderEditor
-        orderId={order.id}
-        orderNumber={order.number}
-        initial={orderDraftOf(order)}
-        clients={clients.map((client) => ({
-          id: client.id,
-          name: client.name,
-          phone: client.phone,
-        }))}
-        installers={installers.map((staff) => ({
-          id: staff.id,
-          name: staff.name,
-          login: staff.login,
-          employment: staff.employment,
-        }))}
-        blocks={blocks}
-        work={work}
-        title={texts.cardTitle}
-        hint={texts.cardHint}
-        removable
+      <OrderOwnerView
+        order={order}
+        result={
+          <OrderResultEditor
+            orderId={order.id}
+            extraWork={order.extraWork}
+            report={order.report}
+            resultAt={order.resultAt}
+          />
+        }
       />
     </OrderWork>
   );

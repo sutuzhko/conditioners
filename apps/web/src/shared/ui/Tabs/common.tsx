@@ -28,9 +28,13 @@ export type TabHref = ComponentProps<typeof Link>['href'];
  * 7» читалка объявляет как «Активные семь», и это не значит ничего: семь чего?
  * Существительное знает раздел, а не кит, поэтому фразу приносит он —
  * «Активные: 7 нарядов». Тип не даёт передать число, забыв её.
+ *
+ * 🔴 Строка, а не только число: чеклист выезда отвечает не «девять», а «4 из
+ * 9», и одним числом это не сказать — девять пунктов, из которых собран один,
+ * и девять собранных суть разные состояния сборов (issue #598).
  */
 export type TabCount =
-  | { readonly count: number; readonly countLabel: string }
+  | { readonly count: number | string; readonly countLabel: string }
   | { readonly count?: undefined; readonly countLabel?: undefined };
 
 /** Общая часть вкладки любого обличья: ключ адреса, подпись и счётчик. */

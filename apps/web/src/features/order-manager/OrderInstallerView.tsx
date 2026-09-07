@@ -1,9 +1,9 @@
-import type { OrderCard, OrderUnitCard } from '@/entities/order/model';
+import type { OrderCard } from '@/entities/order/model';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 import { Badge, Card, Icon, buttonClassName } from '@/shared/ui';
 
 import { EQUIP_TITLE, orderManagerContent as texts } from './content';
-import { installerContent as own } from './installer-content';
+import { installerContent as own, orderUnitMarks } from './installer-content';
 import { routeHref } from './installer-model';
 import { OrderInstallerActions } from './OrderInstallerActions';
 import type { OrderApi } from './model';
@@ -15,17 +15,6 @@ export interface OrderInstallerViewProps {
   readonly api?: OrderApi | undefined;
   /** Страницу обновляют снаружи: карточка не знает, откуда её открыли. */
   readonly onChanged?: (() => void) | undefined;
-}
-
-/** Плашки позиции: чьё оборудование, сколько трассы, какой диаметр, штроба. */
-function unitMarks(unit: OrderUnitCard): readonly { key: string; text: string }[] {
-  const marks = [{ key: 'source', text: own.sourceMark(unit.source) }];
-
-  if (unit.trassaM !== null) marks.push({ key: 'trassa', text: own.trassaMark(unit.trassaM) });
-  if (unit.diameter !== null) marks.push({ key: 'diameter', text: unit.diameter });
-  if (unit.shtrob) marks.push({ key: 'shtrob', text: own.shtrobUnitMark });
-
-  return marks;
 }
 
 /**
@@ -139,12 +128,8 @@ export function OrderInstallerView({ order, api, onChanged }: OrderInstallerView
               <li className={styles.unit} key={unit.id}>
                 <span className={styles.unitModel}>{unit.model ?? EQUIP_TITLE[unit.equip]}</span>
                 <span className={styles.unitMarks}>
-                  {unitMarks(unit).map((mark) => (
-                    <Badge
-                      key={mark.key}
-                      size="sm"
-                      variant={mark.key === 'shtrob' ? 'warning' : 'neutral'}
-                    >
+                  {orderUnitMarks(unit).map((mark) => (
+                    <Badge key={mark.key} size="sm" variant={mark.variant}>
                       {mark.text}
                     </Badge>
                   ))}

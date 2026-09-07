@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+import { cancelReasonTitle } from '@/shared/lib/cancel-reason';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 import { Avatar, Badge, ButtonLink, Icon, Table, TableActions } from '@/shared/ui';
 
 import {
-  ORDER_CANCEL_REASON_TITLE,
   ORDER_STATUS_TITLE,
   ORDER_STATUS_VARIANT,
   ORDER_TYPE_TITLE,
@@ -440,9 +440,7 @@ function Cell({
         undefined,
         <span className={styles.workBox}>
           <span className={styles.reasonTitle}>
-            {order.cancelReason === null
-              ? texts.moneyNone
-              : ORDER_CANCEL_REASON_TITLE[order.cancelReason]}
+            {order.cancelReason === null ? texts.moneyNone : cancelReasonTitle(order.cancelReason)}
           </span>
           {order.cancelNote === null ? null : (
             <span className={styles.address}>{order.cancelNote}</span>

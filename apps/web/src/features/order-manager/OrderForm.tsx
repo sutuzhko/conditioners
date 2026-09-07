@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react';
 
 import { busyAt, busyOn, minutesOfTime } from '@/entities/crm/lib/busy';
 import { BusyNote } from '@/entities/crm/ui';
+import { CANCEL_REASON_OPTIONS, isCancelReason } from '@/shared/lib/cancel-reason';
 import { formatPhone } from '@/shared/lib/format';
 import {
   Button,
@@ -25,7 +26,6 @@ import {
 import { OrderUnits } from './OrderUnits';
 import {
   DEDUCTION_NOTE,
-  ORDER_CANCEL_REASON_TITLE,
   ORDER_STATUS_TITLE,
   ORDER_TYPE_TITLE,
   PAYMENT_TITLE,
@@ -33,7 +33,6 @@ import {
 } from './content';
 import { orderApi } from './lib';
 import {
-  ORDER_CANCEL_REASONS,
   ORDER_STATUSES,
   ORDER_TYPES,
   PAYMENT_MODES,
@@ -41,7 +40,6 @@ import {
   emptyOrderDraft,
   installerName,
   orderCancelIssue,
-  isOrderCancelReason,
   isOrderField,
   isOrderStatus,
   isOrderType,
@@ -98,10 +96,8 @@ type Errors = Partial<Record<OrderField, string>>;
 const TYPE_OPTIONS = ORDER_TYPES.map((value) => ({ value, label: ORDER_TYPE_TITLE[value] }));
 const STATUS_OPTIONS = ORDER_STATUSES.map((value) => ({ value, label: ORDER_STATUS_TITLE[value] }));
 const PAYMENT_OPTIONS = PAYMENT_MODES.map((value) => ({ value, label: PAYMENT_TITLE[value] }));
-const CANCEL_REASON_OPTIONS = ORDER_CANCEL_REASONS.map((value) => ({
-  value,
-  label: ORDER_CANCEL_REASON_TITLE[value],
-}));
+/* Готовый список общего справочника: раздел заказов не собирает свой —
+   отказываются наряд и обращение по одним и тем же причинам (ADR-311). */
 
 /**
  * Наряд в правке владельцем — одна форма и на заведение, и на правку.
@@ -539,7 +535,7 @@ export function OrderForm({
                 error={errors.cancelReason}
                 required
                 onChange={(event) => {
-                  if (event.target.value === '' || isOrderCancelReason(event.target.value)) {
+                  if (event.target.value === '' || isCancelReason(event.target.value)) {
                     set('cancelReason', event.target.value);
                   }
                 }}

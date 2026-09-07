@@ -1,0 +1,77 @@
+# админка-заказы-действия-над-нарядом--выполнен · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.OrderOwnerActions__head  358×113 @16,16
+  div.OrderOwnerActions__marks  358×59 @0,0
+    span.Badge__badge  98×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+      span.Badge__dot  6×6 @13,11  r100
+    span.Badge__badge#2  73×28 @106,0  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+    span.OrderOwnerActions__address  204×22 @0,36  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
+  div.OrderOwnerActions__actions  358×44 @0,69
+    a.Button__button  125×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Править наряд»
+    div.RowMenu__root  44×44 @133,0
+      button.RowMenu__trigger  44×44 @0,0  r100  b1
+        span.RowMenu__dots  16×16 @14,14
+          svg  16×16 @0,0
+
+[геометрия 768]
+div.OrderOwnerActions__head  736×44 @16,16
+  div.OrderOwnerActions__marks  547×28 @0,8
+    span.Badge__badge  98×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+      span.Badge__dot  6×6 @13,11  r100
+    span.Badge__badge#2  73×28 @106,0  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+    span.OrderOwnerActions__address  204×22 @186,3  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
+  div.OrderOwnerActions__actions  177×44 @559,0
+    a.Button__button  125×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Править наряд»
+    div.RowMenu__root  44×44 @133,0
+      button.RowMenu__trigger  44×44 @0,0  r100  b1
+        span.RowMenu__dots  16×16 @14,14
+          svg  16×16 @0,0
+
+[геометрия 1440]
+div.OrderOwnerActions__head  1408×44 @16,16
+  div.OrderOwnerActions__marks  1219×28 @0,8
+    span.Badge__badge  98×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
+      span.Badge__dot  6×6 @13,11  r100
+    span.Badge__badge#2  73×28 @106,0  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+    span.OrderOwnerActions__address  204×22 @186,3  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
+  div.OrderOwnerActions__actions  177×44 @1231,0
+    a.Button__button  125×40 @0,2  Manrope 600 13/16  r9  b1  lines=1  «Править наряд»
+    div.RowMenu__root  44×44 @133,0
+      button.RowMenu__trigger  44×44 @0,0  r100  b1
+        span.RowMenu__dots  16×16 @14,14
+          svg  16×16 @0,0
+
+[палитра light]
+div.OrderOwnerActions__head
+  div.OrderOwnerActions__marks
+    span.Badge__badge  color #166534  bg #15803d14  border #15803d47
+      span.Badge__dot  bg #166534
+    span.Badge__badge#2  color #556173  bg #f8fafc  border #e2e8f0
+    span.OrderOwnerActions__address  color #556173
+  div.OrderOwnerActions__actions
+    a.Button__button  color #0f172a  bg #ffffff  border #7e8fa6
+    div.RowMenu__root
+      button.RowMenu__trigger  border transparent
+        span.RowMenu__dots
+          svg
+
+[палитра dark]
+div.OrderOwnerActions__head
+  div.OrderOwnerActions__marks
+    span.Badge__badge  color #4ade80  bg #4ade801f  border #4ade8052
+      span.Badge__dot  bg #4ade80
+    span.Badge__badge#2  color #8598ac  bg #0e1729  border #1e2b41
+    span.OrderOwnerActions__address  color #8598ac
+  div.OrderOwnerActions__actions
+    a.Button__button  color #eaf1f8  bg #121d31  border #566d95
+    div.RowMenu__root
+      button.RowMenu__trigger  border transparent
+        span.RowMenu__dots
+          svg

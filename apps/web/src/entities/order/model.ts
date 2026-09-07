@@ -3,6 +3,7 @@ import { z } from 'zod';
 import type { BadgeVariant } from '@/shared/ui';
 
 import { parseDayKey } from '@/shared/lib/calendar';
+import { CANCEL_REASONS, type CancelReason } from '@/shared/lib/cancel-reason';
 import type { Employment } from '@/shared/lib/employment';
 import { optionalPhoneField } from '@/shared/lib/zod';
 
@@ -73,42 +74,19 @@ export const ORDER_TYPE_TITLE: Record<OrderType, string> = {
 };
 
 /**
- * Почему отказались — справочник (ADR-310, issue #627).
+ * Почему отказались — общий справочник (ADR-310, ADR-311).
  *
- * 🔴 Свободного текста здесь недостаточно: «дорого», «Дорого» и «дороговато»
- * стали бы тремя разными причинами, и вкладка «Отказы» перестала бы обобщать
- * воронку. Уточнение словами живёт рядом отдельным полем — оно дополняет
- * справочник, а не заменяет его.
+ * 🔴 Своего списка здесь больше нет. До 7 сентября он тут стоял, и это была
+ * вторая копия словаря: заявка вела свою в `shared/lib/cancel-reason`, шесть
+ * ключей из семи совпали дословно, а «выбрал другого» разошёлся —
+ * `chose_other` против `other_contractor` (issue #638). Наряд и обращение
+ * отказываются по одним и тем же причинам, значит словарь один, и лежит он
+ * в `shared`: импорт вбок между слайсами одного слоя запрещён, а `entities`
+ * из `shared` читать можно.
+ *
+ * Схема разбора остаётся здесь — она про наряд; состав ей даёт словарь.
  */
-export const orderCancelReasonSchema = z.enum([
-  'client_refused',
-  'no_answer',
-  'too_expensive',
-  'chose_other',
-  'postponed',
-  'our_fault',
-  'other',
-]);
-export type OrderCancelReason = z.infer<typeof orderCancelReasonSchema>;
-export const ORDER_CANCEL_REASONS: readonly OrderCancelReason[] = orderCancelReasonSchema.options;
-
-/**
- * Причина отказа словами. Порядок — от частого к редкому, «Другое» последним:
- * оно и есть запасной путь, а не первый попавшийся пункт списка.
- */
-export const ORDER_CANCEL_REASON_TITLE: Record<OrderCancelReason, string> = {
-  client_refused: 'Отказ клиента',
-  no_answer: 'Не дозвонились',
-  too_expensive: 'Дорого',
-  chose_other: 'Выбрал другого подрядчика',
-  postponed: 'Перенос на потом',
-  our_fault: 'Наша ошибка',
-  other: 'Другое',
-};
-
-export function isOrderCancelReason(value: string): value is OrderCancelReason {
-  return ORDER_CANCEL_REASONS.some((reason) => reason === value);
-}
+export const orderCancelReasonSchema = z.enum(CANCEL_REASONS);
 
 export const paymentModeSchema = z.enum(['company', 'cash_to_installer']);
 export type PaymentMode = z.infer<typeof paymentModeSchema>;
@@ -521,7 +499,7 @@ export type OrderCard = {
    * Отказ: почему и когда. У наряда, который не отменяли, всё три пусты —
    * вкладка «Отказы» показывает только отменённые (ADR-310).
    */
-  readonly cancelReason: OrderCancelReason | null;
+  readonly cancelReason: CancelReason | null;
   readonly cancelNote: string | null;
   /** ISO в UTC; `null` — наряд не отменяли либо отказ старше самого поля. */
   readonly cancelledAt: string | null;
