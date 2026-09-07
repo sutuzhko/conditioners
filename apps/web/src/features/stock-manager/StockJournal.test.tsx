@@ -202,4 +202,35 @@ describe('Журнал движений', () => {
     expect(screen.getByText(texts.journalNothingText)).toBeVisible();
     expect(screen.queryByText(texts.journalAllEmpty)).not.toBeInTheDocument();
   });
+
+  /* ---------- Выход из пустого отбора (issue #580) ---------- */
+
+  it('🔴 из «ничего не нашлось» ведёт ссылка, и она сохраняет вкладку раздела', () => {
+    render(
+      <StockJournal
+        journal={emptyJournal}
+        basePath={STOCK_PATH}
+        baseQuery={{ tab: 'log' }}
+        withItem
+        withFilter
+        filters={{ kind: 'income', period: 'all', query: '' }}
+        emptyText={texts.journalAllEmpty}
+      />,
+    );
+
+    const reset = screen.getByRole('link', { name: texts.journalEmptyAction });
+    const href = reset.getAttribute('href') ?? '';
+
+    /* 🔴 Вкладка остаётся: адрес журнала без `tab` открывает остатки, и
+       «сброс отбора» уводил бы человека из журнала вовсе (issue #352). */
+    expect(href).toContain('tab=log');
+    expect(href).not.toContain('kind=income');
+  });
+
+  it('🔴 у пустого журнала выхода нет: сбрасывать нечего, движений не было вовсе', () => {
+    render(<StockJournal journal={emptyJournal} basePath={basePath} />);
+
+    expect(screen.getByRole('heading', { name: texts.journalEmptyTitle })).toBeVisible();
+    expect(screen.queryByRole('link', { name: texts.journalEmptyAction })).toBeNull();
+  });
 });
