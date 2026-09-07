@@ -1,0 +1,385 @@
+# ui-kit-table--row-target-cards · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Table__viewport  326×640 @32,32
+  table.Table__table  326×640 @0,0
+    th  105×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто и что»
+    th#2  72×56 @105,0  Onest 700 15/23  b0 0 1 0  lines=1  «Тема»
+    th#3  79×56 @177,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+    span  1×1 @273,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr.TableRow__row  326×207 @0,0  r14  b1
+      td[role=cell]  324×59 @1,5
+        td[role=cell]::before  56×20 @0,0
+        a.TableRow__link  63×45 @84,7  Manrope 600 15/22  lines=2  «Жуков Кирилл»
+        span.TableRow__above  150×40 @160,8  Manrope 400 13/20  lines=2  «Щёкино, Пионерская 4 · гостиная 32 м²»
+      td[role=cell]#2  324×38 @1,64
+        td[role=cell]#2::before  30×20 @0,0
+        span.Badge__badge  169×24 @141,7  Manrope 600 12/16  r100  b1  lines=1  «Установка кондиционера»
+      td[role=cell]#3  324×36 @1,102  Manrope 400 15/22  lines=1  «2 часа назад»
+        td[role=cell]#3::before  36×20 @0,0
+      td[role=cell]#4  324×59 @1,143  b1 0 0 0
+        div.TableActions__actions  92×44 @218,8
+          span.Tooltip__wrap  44×44 @0,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea  44×44 @0,0
+                  svg  16×16 @14,14
+          span.Tooltip__wrap#2  44×44 @48,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea  32×42 @6,1
+                  svg#2  16×16 @8,13
+    tr.TableRow__row#2  326×207 @0,217  r14  b1
+      td[role=cell]  324×59 @1,5
+        td[role=cell]::before  56×20 @0,0
+        a.TableRow__link#2  75×45 @84,7  Manrope 600 15/22  lines=2  «Белова Ирина»
+        span.TableRow__above#2  137×40 @173,8  Manrope 400 13/20  lines=2  «Тула, Кирова 18 · нужен замер»
+      td[role=cell]#2  324×38 @1,64
+        td[role=cell]#2::before  30×20 @0,0
+        span.Badge__badge#2  103×24 @207,7  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
+      td[role=cell]#3  324×36 @1,102  Manrope 400 15/22  lines=1  «вчера»
+        td[role=cell]#3::before  36×20 @0,0
+      td[role=cell]#4  324×59 @1,143  b1 0 0 0
+        div.TableActions__actions#2  92×44 @218,8
+          span.Tooltip__wrap  44×44 @0,0  r100
+            span.Tooltip__anchor#2  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#2  44×44 @0,0
+                  svg  16×16 @14,14
+          span.Tooltip__wrap#2  44×44 @48,0  r100
+            span.Tooltip__anchor#2  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#2  32×42 @6,1
+                  svg#2  16×16 @8,13
+    tr.TableRow__row#3  326×207 @0,433  r14  b1
+      td[role=cell]  324×59 @1,5
+        td[role=cell]::before  56×20 @0,0
+        a.TableRow__link#3  82×45 @84,7  Manrope 600 15/22  lines=2  «Соколов Пётр»
+        span.TableRow__above#3  131×40 @179,8  Manrope 400 13/20  lines=2  «Тула, Оборонная 12, кв. 34»
+      td[role=cell]#2  324×38 @1,64
+        td[role=cell]#2::before  30×20 @0,0
+        span.Badge__badge#3  108×24 @202,7  Manrope 600 12/16  r100  b1  lines=1  «Обслуживание»
+      td[role=cell]#3  324×36 @1,102  Manrope 400 15/22  lines=1  «3 дня назад»
+        td[role=cell]#3::before  36×20 @0,0
+      td[role=cell]#4  324×59 @1,143  b1 0 0 0
+        div.TableActions__actions#3  92×44 @218,8
+          span.Tooltip__wrap  44×44 @0,0  r100
+            span.Tooltip__anchor#3  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#3  44×44 @0,0
+                  svg  16×16 @14,14
+          span.Tooltip__wrap#2  44×44 @48,0  r100
+            span.Tooltip__anchor#3  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#3  32×42 @6,1
+                  svg#2  16×16 @8,13
+
+[геометрия 768]
+div.Table__viewport  704×355 @32,32
+  table.Table__table  704×355 @0,0
+    th  259×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто и что»
+    th#2  199×56 @259,0  Onest 700 15/23  b0 0 1 0  lines=1  «Тема»
+    th#3  118×56 @458,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+    span  1×1 @593,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr.TableRow__row  704×113 @0,56
+      td[role=cell]  259×113 @0,0  b0 0 1 0
+        a.TableRow__link  223×44 @18,15  Manrope 600 15/22  lines=1  «Жуков Кирилл»
+        span.TableRow__above  223×40 @18,59  Manrope 400 13/20  lines=2  «Щёкино, Пионерская 4 · гостиная 32 м²»
+      td[role=cell]#2  199×113 @259,0  b0 0 1 0
+        span.Badge__badge  163×40 @18,15  Manrope 600 12/16  r100  b1  lines=2  «Установка кондиционера»
+      td[role=cell]#3  118×113 @458,0  Manrope 400 15/22  b0 0 1 0  lines=2  «2 часа назад»
+      td[role=cell]#4  128×113 @576,0  b0 0 1 0
+        div.TableActions__actions  92×44 @18,15
+          span.Tooltip__wrap  44×44 @0,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea  44×44 @0,0
+                  svg  16×16 @14,14
+          span.Tooltip__wrap#2  44×44 @48,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea  32×42 @6,1
+                  svg#2  16×16 @8,13
+    tr.TableRow__row#2  704×93 @0,169
+      td[role=cell]  259×93 @0,0  b0 0 1 0
+        a.TableRow__link#2  223×44 @18,15  Manrope 600 15/22  lines=1  «Белова Ирина»
+        span.TableRow__above#2  223×20 @18,59  Manrope 400 13/20  lines=1  «Тула, Кирова 18 · нужен замер»
+      td[role=cell]#2  199×93 @259,0  b0 0 1 0
+        span.Badge__badge#2  103×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
+      td[role=cell]#3  118×93 @458,0  Manrope 400 15/22  b0 0 1 0  lines=1  «вчера»
+      td[role=cell]#4  128×93 @576,0  b0 0 1 0
+        div.TableActions__actions#2  92×44 @18,15
+          span.Tooltip__wrap  44×44 @0,0  r100
+            span.Tooltip__anchor#2  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#2  44×44 @0,0
+                  svg  16×16 @14,14
+          span.Tooltip__wrap#2  44×44 @48,0  r100
+            span.Tooltip__anchor#2  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#2  32×42 @6,1
+                  svg#2  16×16 @8,13
+    tr.TableRow__row#3  704×93 @0,262
+      td[role=cell]  259×93 @0,0
+        a.TableRow__link#3  223×44 @18,15  Manrope 600 15/22  lines=1  «Соколов Пётр»
+        span.TableRow__above#3  223×20 @18,59  Manrope 400 13/20  lines=1  «Тула, Оборонная 12, кв. 34»
+      td[role=cell]#2  199×93 @259,0
+        span.Badge__badge#3  108×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Обслуживание»
+      td[role=cell]#3  118×93 @458,0  Manrope 400 15/22  lines=1  «3 дня назад»
+      td[role=cell]#4  128×93 @576,0
+        div.TableActions__actions#3  92×44 @18,15
+          span.Tooltip__wrap  44×44 @0,0  r100
+            span.Tooltip__anchor#3  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#3  44×44 @0,0
+                  svg  16×16 @14,14
+          span.Tooltip__wrap#2  44×44 @48,0  r100
+            span.Tooltip__anchor#3  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea#3  32×42 @6,1
+                  svg#2  16×16 @8,13
+
+[геометрия 1440]
+div.Table__viewport  1376×270 @32,32
+  table.Table__table  1376×270 @0,0
+    th  535×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто и что»
+    th#2  400×56 @535,0  Onest 700 15/23  b0 0 1 0  lines=1  «Тема»
+    th#3  239×56 @935,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+    span  1×1 @1191,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr.TableRow__row  1376×72 @0,56
+      td[role=cell]  535×72 @0,0  b0 0 1 0
+        a.TableRow__link  499×22 @18,15  Manrope 600 15/22  lines=1  «Жуков Кирилл»
+        span.TableRow__above  499×20 @18,37  Manrope 400 13/20  lines=1  «Щёкино, Пионерская 4 · гостиная 32 м²»
+      td[role=cell]#2  400×72 @535,0  b0 0 1 0
+        span.Badge__badge  169×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Установка кондиционера»
+      td[role=cell]#3  239×72 @935,0  Manrope 400 15/22  b0 0 1 0  lines=1  «2 часа назад»
+      td[role=cell]#4  202×72 @1174,0  b0 0 1 0
+        div.TableActions__actions  166×32 @18,15
+          span.Tooltip__wrap  32×32 @98,0  r100
+            span.Tooltip__anchor  32×32 @0,0
+              a.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea  32×32 @0,0
+                  svg  16×16 @8,8
+          span.Tooltip__wrap#2  32×32 @134,0  r100
+            span.Tooltip__anchor  32×32 @0,0
+              button.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea  20×30 @6,1
+                  svg#2  16×16 @2,7
+    tr.TableRow__row#2  1376×72 @0,127
+      td[role=cell]  535×72 @0,0  b0 0 1 0
+        a.TableRow__link#2  499×22 @18,15  Manrope 600 15/22  lines=1  «Белова Ирина»
+        span.TableRow__above#2  499×20 @18,37  Manrope 400 13/20  lines=1  «Тула, Кирова 18 · нужен замер»
+      td[role=cell]#2  400×72 @535,0  b0 0 1 0
+        span.Badge__badge#2  103×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
+      td[role=cell]#3  239×72 @935,0  Manrope 400 15/22  b0 0 1 0  lines=1  «вчера»
+      td[role=cell]#4  202×72 @1174,0  b0 0 1 0
+        div.TableActions__actions#2  166×32 @18,15
+          span.Tooltip__wrap  32×32 @98,0  r100
+            span.Tooltip__anchor#2  32×32 @0,0
+              a.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea#2  32×32 @0,0
+                  svg  16×16 @8,8
+          span.Tooltip__wrap#2  32×32 @134,0  r100
+            span.Tooltip__anchor#2  32×32 @0,0
+              button.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea#2  20×30 @6,1
+                  svg#2  16×16 @2,7
+    tr.TableRow__row#3  1376×71 @0,199
+      td[role=cell]  535×71 @0,0
+        a.TableRow__link#3  499×22 @18,15  Manrope 600 15/22  lines=1  «Соколов Пётр»
+        span.TableRow__above#3  499×20 @18,37  Manrope 400 13/20  lines=1  «Тула, Оборонная 12, кв. 34»
+      td[role=cell]#2  400×71 @535,0
+        span.Badge__badge#3  108×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Обслуживание»
+      td[role=cell]#3  239×71 @935,0  Manrope 400 15/22  lines=1  «3 дня назад»
+      td[role=cell]#4  202×71 @1174,0
+        div.TableActions__actions#3  166×32 @18,15
+          span.Tooltip__wrap  32×32 @98,0  r100
+            span.Tooltip__anchor#3  32×32 @0,0
+              a.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea#3  32×32 @0,0
+                  svg  16×16 @8,8
+          span.Tooltip__wrap#2  32×32 @134,0  r100
+            span.Tooltip__anchor#3  32×32 @0,0
+              button.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea#3  20×30 @6,1
+                  svg#2  16×16 @2,7
+
+[палитра light]
+div.Table__viewport
+  table.Table__table
+    th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    th#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+    span  color #0f172a
+    tr.TableRow__row
+      td[role=cell]  border #334155 #334155 #eef2f6 #334155
+        a.TableRow__link  color #0f172a
+        span.TableRow__above  color #556173
+      td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+        span.Badge__badge  color #556173  bg #f8fafc  border #e2e8f0
+      td[role=cell]#3  color #475569  border #475569 #475569 #eef2f6 #475569
+      td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+        div.TableActions__actions
+          span.Tooltip__wrap
+            span.Tooltip__anchor
+              a.TableActions__action
+                span.TableActions__iconArea
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor
+              button.TableActions__action
+                span.TableActions__iconArea
+                  svg#2
+    tr.TableRow__row#2  bg #ecfeff  shadow #0891b2 3px 0px 0px 0px inset
+      td[role=cell]  border #334155 #334155 #eef2f6 #334155
+        a.TableRow__link#2  color #0f172a
+        span.TableRow__above#2  color #556173
+      td[role=cell]#2  border #334155 #334155 #eef2f6 #334155
+        span.Badge__badge#2  color #556173  bg #f8fafc  border #e2e8f0
+      td[role=cell]#3  color #475569  border #475569 #475569 #eef2f6 #475569
+      td[role=cell]#4  border #334155 #334155 #eef2f6 #334155
+        div.TableActions__actions#2
+          span.Tooltip__wrap
+            span.Tooltip__anchor#2
+              a.TableActions__action
+                span.TableActions__iconArea#2
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor#2
+              button.TableActions__action
+                span.TableActions__iconArea#2
+                  svg#2
+    tr.TableRow__row#3
+      td[role=cell]
+        a.TableRow__link#3  color #0f172a
+        span.TableRow__above#3  color #556173
+      td[role=cell]#2
+        span.Badge__badge#3  color #556173  bg #f8fafc  border #e2e8f0
+      td[role=cell]#3  color #475569
+      td[role=cell]#4
+        div.TableActions__actions#3
+          span.Tooltip__wrap
+            span.Tooltip__anchor#3
+              a.TableActions__action
+                span.TableActions__iconArea#3
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor#3
+              button.TableActions__action
+                span.TableActions__iconArea#3
+                  svg#2
+[палитра light @390]
+div.Table__viewport > table.Table__table > tr.TableRow__row  bg #ffffff  border #e2e8f0
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#2
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#3  color #475569
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+div.Table__viewport > table.Table__table > tr.TableRow__row#2  bg #ecfeff  border #e2e8f0  shadow #0891b2 3px 0px 0px 0px inset
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#2
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#3  color #475569
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+div.Table__viewport > table.Table__table > tr.TableRow__row#3  bg #ffffff  border #e2e8f0
+div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell]#4  border #eef2f6 #334155 #334155 #334155
+
+[палитра dark]
+div.Table__viewport
+  table.Table__table
+    th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    th#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    span  color #eaf1f8
+    tr.TableRow__row
+      td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        a.TableRow__link  color #eaf1f8
+        span.TableRow__above  color #8598ac
+      td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        span.Badge__badge  color #8598ac  bg #0e1729  border #1e2b41
+      td[role=cell]#3  color #a8b6c6  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+      td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        div.TableActions__actions
+          span.Tooltip__wrap
+            span.Tooltip__anchor
+              a.TableActions__action
+                span.TableActions__iconArea
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor
+              button.TableActions__action
+                span.TableActions__iconArea
+                  svg#2
+    tr.TableRow__row#2  bg #22d3ee1a  shadow #22d3ee 3px 0px 0px 0px inset
+      td[role=cell]  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        a.TableRow__link#2  color #eaf1f8
+        span.TableRow__above#2  color #8598ac
+      td[role=cell]#2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        span.Badge__badge#2  color #8598ac  bg #0e1729  border #1e2b41
+      td[role=cell]#3  color #a8b6c6  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
+      td[role=cell]#4  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        div.TableActions__actions#2
+          span.Tooltip__wrap
+            span.Tooltip__anchor#2
+              a.TableActions__action
+                span.TableActions__iconArea#2
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor#2
+              button.TableActions__action
+                span.TableActions__iconArea#2
+                  svg#2
+    tr.TableRow__row#3
+      td[role=cell]
+        a.TableRow__link#3  color #eaf1f8
+        span.TableRow__above#3  color #8598ac
+      td[role=cell]#2
+        span.Badge__badge#3  color #8598ac  bg #0e1729  border #1e2b41
+      td[role=cell]#3  color #a8b6c6
+      td[role=cell]#4
+        div.TableActions__actions#3
+          span.Tooltip__wrap
+            span.Tooltip__anchor#3
+              a.TableActions__action
+                span.TableActions__iconArea#3
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor#3
+              button.TableActions__action
+                span.TableActions__iconArea#3
+                  svg#2
+[палитра dark @390]
+div.Table__viewport > table.Table__table > tr.TableRow__row  bg #121d31  border #1e2b41
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#2
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#3  color #a8b6c6
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.Table__viewport > table.Table__table > tr.TableRow__row#2  bg #22d3ee1a  border #1e2b41  shadow #22d3ee 3px 0px 0px 0px inset
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#2
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#3  color #a8b6c6
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.Table__viewport > table.Table__table > tr.TableRow__row#3  bg #121d31  border #1e2b41
+div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell] > td[role=cell]::before
+div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell]#2 > td[role=cell]#2::before
+div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell]#3 > td[role=cell]#3::before
+div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell]#4  border #182338 #c9d5e2 #c9d5e2 #c9d5e2

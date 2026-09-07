@@ -144,6 +144,7 @@ div.StockTable__wrap  358×766 @16,16
           span.Pager__position  66×44 @52,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 3»
           a.Pager__step#2  44×44 @126,4  Manrope 600 15/17  r100  b1  lines=1  «→»
             span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Дальше»
+          p[role=status]  1×1 @84,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
       span.StockPager__size  326×44 @16,73
         a.StockPager__sizeItem  44×44 @93,0  r100  b1
           span  8×16 @18,14  Manrope 600 13/16  lines=1  «8»
@@ -274,6 +275,7 @@ div.StockTable__wrap  736×929 @16,16
             a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
           a.Pager__step#2  100×44 @247,4  Manrope 600 15/17  r100  b1  lines=1  «→»
             span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+          p[role=status]  1×1 @173,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
       span.StockPager__size  265×44 @16,75
         span.StockPager__sizeTitle  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
         a.StockPager__sizeItem  44×44 @125,0  r100  b1
@@ -406,6 +408,7 @@ div.StockTable__wrap  1408×679 @16,16
             a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
           a.Pager__step#2  100×44 @247,4  Manrope 600 15/17  r100  b1  lines=1  «→»
             span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+          p[role=status]  1×1 @173,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
       span.StockPager__size  265×44 @1125,17
         span.StockPager__sizeTitle  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
         a.StockPager__sizeItem  44×44 @125,0  r100  b1
@@ -539,6 +542,7 @@ div.StockTable__wrap
             a.Pager__number#2  color #0e7490  border transparent
           a.Pager__step#2  color #0e7490  border #7e8fa6
             span.Pager__stepText  color #0e7490
+          p[role=status]  color #475569
       span.StockPager__size
         span.StockPager__sizeTitle  color #5b6a7d
         a.StockPager__sizeItem  border #7e8fa6
@@ -776,6 +780,7 @@ div.StockTable__wrap
             a.Pager__number#2  color #22d3ee  border transparent
           a.Pager__step#2  color #22d3ee  border #566d95
             span.Pager__stepText  color #22d3ee
+          p[role=status]  color #a8b6c6
       span.StockPager__size
         span.StockPager__sizeTitle  color #7e92a7
         a.StockPager__sizeItem  border #566d95

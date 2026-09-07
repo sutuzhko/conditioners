@@ -86,6 +86,7 @@ section.ArticleList__section  320×1545 @0,0
         a.Pager__step  88×44 @26,4  Manrope 600 15/17  r100  b1  lines=1  «← Новее»
         span.Pager__position  139×44 @122,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
         span.Pager__stepOff  99×44 @95,56  Manrope 600 15/17  r100  b1  lines=1  «Старше →»
+        p[role=status]  1×1 @144,52  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 2»
 
 [геометрия 375]
 section.ArticleList__section  375×1438 @0,0
@@ -166,6 +167,7 @@ section.ArticleList__section  375×1438 @0,0
         a.Pager__step  88×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «← Новее»
         span.Pager__position  139×44 @96,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
         span.Pager__stepOff  99×44 @243,4  Manrope 600 15/17  r100  b1  lines=1  «Старше →»
+        p[role=status]  1×1 @171,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 2»
 
 [геометрия 768]
 section.ArticleList__section  768×1131 @0,0
@@ -250,6 +252,7 @@ section.ArticleList__section  768×1131 @0,0
         a.Pager__step  92×44 @183,4  Manrope 600 15/17  r100  b1  lines=1  «← Новее»
         span.Pager__position  143×44 @287,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
         span.Pager__stepOff  103×44 @442,4  Manrope 600 15/17  r100  b1  lines=1  «Старше →»
+        p[role=status]  1×1 @363,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 2»
 
 [геометрия 1200]
 section.ArticleList__section  1200×1460 @0,0
@@ -340,6 +343,7 @@ section.ArticleList__section  1200×1460 @0,0
         a.Pager__step  92×44 @395,4  Manrope 600 15/17  r100  b1  lines=1  «← Новее»
         span.Pager__position  143×44 @499,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
         span.Pager__stepOff  103×44 @654,4  Manrope 600 15/17  r100  b1  lines=1  «Старше →»
+        p[role=status]  1×1 @576,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 2»
 
 [палитра light]
 section.ArticleList__section  bg #ffffff
@@ -430,6 +434,7 @@ section.ArticleList__section  bg #ffffff
         a.Pager__step  color #0e7490  border #7e8fa6
         span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
         span.Pager__stepOff  color #556173  border #eef2f6
+        p[role=status]  color #0f172a
 
 [палитра dark]
 section.ArticleList__section  bg #0b1220
@@ -520,3 +525,4 @@ section.ArticleList__section  bg #0b1220
         a.Pager__step  color #22d3ee  border #566d95
         span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
         span.Pager__stepOff  color #8598ac  border #182338
+        p[role=status]  color #eaf1f8

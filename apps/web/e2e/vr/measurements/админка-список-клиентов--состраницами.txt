@@ -80,6 +80,7 @@ div.ClientList__list  358×841 @16,16
     span.Pager__position  66×44 @146,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 3»
     a.Pager__step#2  44×44 @220,4  Manrope 600 15/17  r100  b1  lines=1  «→»
       span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Дальше»
+    p[role=status]  1×1 @179,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
 
 [геометрия 768]
 div.ClientList__list  736×344 @16,16
@@ -146,6 +147,7 @@ div.ClientList__list  736×344 @16,16
       a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
     a.Pager__step#2  100×44 @441,4  Manrope 600 15/17  r100  b1  lines=1  «→»
       span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+    p[role=status]  1×1 @368,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
 
 [геометрия 1440]
 div.ClientList__list  1408×267 @16,16
@@ -212,6 +214,7 @@ div.ClientList__list  1408×267 @16,16
       a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
     a.Pager__step#2  100×44 @777,4  Manrope 600 15/17  r100  b1  lines=1  «→»
       span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+    p[role=status]  1×1 @704,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
 
 [палитра light]
 div.ClientList__list
@@ -278,6 +281,7 @@ div.ClientList__list
       a.Pager__number#2  color #0e7490  border transparent
     a.Pager__step#2  color #0e7490  border #7e8fa6
       span.Pager__stepText  color #0e7490
+    p[role=status]  color #0f172a
 [палитра light @390]
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]  bg #ffffff  border #e2e8f0
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__who
@@ -368,6 +372,7 @@ div.ClientList__list
       a.Pager__number#2  color #22d3ee  border transparent
     a.Pager__step#2  color #22d3ee  border #566d95
       span.Pager__stepText  color #22d3ee
+    p[role=status]  color #eaf1f8
 [палитра dark @390]
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]  bg #121d31  border #1e2b41
 div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__who
