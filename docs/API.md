@@ -318,8 +318,11 @@
 
 - **Отмена — состояние.** `PATCH { status: "rejected" }` **обязан** нести
   `cancelReason` из справочника (`shared/lib/cancel-reason`: `client_refused`,
-  `no_answer`, `too_expensive`, `other_contractor`, `postponed`, `our_fault`,
+  `no_answer`, `too_expensive`, `chose_other`, `postponed`, `our_fault`,
   `other`) и может нести свободное уточнение `cancelNote` (до 500 знаков).
+  🔴 Справочник общий с нарядом, и ключ «выбрал другого» — `chose_other`:
+  до 7 сентября здесь стоял `other_contractor`, а у наряда `chose_other`,
+  и это была одна и та же причина под двумя именами (ADR-311).
   Отказ без причины — `400` с `field: "cancelReason"`: ради разбора причин
   вкладка отказов и заводится. Причина при любом другом статусе — тоже `400`:
   обращение, вернувшееся в работу, не тащит объяснение, которое перестало быть

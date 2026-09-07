@@ -10,9 +10,9 @@
  * есть и оно пустое, а знать даже этого ему не положено.
  */
 import { Prisma } from '@prisma/client';
+import type { CancelReason as DbCancelReason } from '@prisma/client';
 import type {
   Employment as DbEmployment,
-  OrderCancelReason as DbCancelReason,
   OrderDocKind as DbDocKind,
   OrderEquip as DbEquip,
   OrderStatus as DbStatus,
@@ -39,7 +39,6 @@ import {
   orderCancelIssue,
   orderPairIssue,
   TAB_STATUSES,
-  type OrderCancelReason,
   type OrderCard,
   type OrderChecklistCard,
   type OrderCreate,
@@ -77,6 +76,7 @@ import { materialsOfOrders, materialsOfPeriod } from '@/server/repo/order-margin
 import * as clientUnits from '@/server/repo/client-units';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
+import { cancelReasonFromDb, cancelReasonToDb } from '@/server/repo/cancel-reason';
 import { employmentFromDb } from '@/server/repo/employment';
 import { workWindow } from '@/server/repo/settings';
 
@@ -108,26 +108,6 @@ const STATUS_FROM_DB: Record<DbStatus, OrderStatus> = {
   IN_PROGRESS: 'in_progress',
   DONE: 'done',
   CANCELLED: 'cancelled',
-};
-
-const CANCEL_REASON_TO_DB: Record<OrderCancelReason, DbCancelReason> = {
-  client_refused: 'CLIENT_REFUSED',
-  no_answer: 'NO_ANSWER',
-  too_expensive: 'TOO_EXPENSIVE',
-  chose_other: 'CHOSE_OTHER',
-  postponed: 'POSTPONED',
-  our_fault: 'OUR_FAULT',
-  other: 'OTHER',
-};
-
-const CANCEL_REASON_FROM_DB: Record<DbCancelReason, OrderCancelReason> = {
-  CLIENT_REFUSED: 'client_refused',
-  NO_ANSWER: 'no_answer',
-  TOO_EXPENSIVE: 'too_expensive',
-  CHOSE_OTHER: 'chose_other',
-  POSTPONED: 'postponed',
-  OUR_FAULT: 'our_fault',
-  OTHER: 'other',
 };
 
 const PAYMENT_TO_DB: Record<PaymentMode, DbPayment> = {
@@ -408,7 +388,7 @@ function toCard(row: OrderRow, role: AdminRole, margin?: OrderMargin | undefined
     leadId: row.leadId,
     /* Причина отказа приходит обеим ролям: это про работу, а не про деньги —
        монтажник, у которого выезд сняли, вправе знать, почему. */
-    cancelReason: row.cancelReason === null ? null : CANCEL_REASON_FROM_DB[row.cancelReason],
+    cancelReason: cancelReasonFromDb(row.cancelReason),
     cancelNote: row.cancelNote,
     cancelledAt: row.cancelledAt === null ? null : row.cancelledAt.toISOString(),
     /* Итог приходит обеим ролям: это отчёт монтажника о выезде, и он же его
@@ -1492,8 +1472,7 @@ function cancelData(
     ...(input.cancelReason === undefined
       ? {}
       : {
-          cancelReason:
-            input.cancelReason === null ? null : CANCEL_REASON_TO_DB[input.cancelReason],
+          cancelReason: cancelReasonToDb(input.cancelReason),
         }),
     ...(input.cancelNote === undefined ? {} : { cancelNote: input.cancelNote }),
     ...(wasCancelled ? {} : { cancelledAt: new Date() }),

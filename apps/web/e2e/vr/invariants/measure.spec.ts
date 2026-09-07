@@ -374,7 +374,7 @@ test.describe('overflowing-text', () => {
 
   /**
    * 🔴 Прокручивается не ряд, а обёртка над ним — форма полосы вкладок наряда
-   * (`div.OrderWorkTabs__strip` над `div.OrderWorkTabs__tabs`). Проверка
+   * (`div.PanelTabs__strip` над `div.PanelTabs__tabs`). Проверка
    * одного родителя дала здесь 22 ложных срабатывания на панели 390.
    */
   test('прокручивается дед, а не родитель, — выход поглощён, тишина', async ({ page: p }) => {

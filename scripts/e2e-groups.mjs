@@ -61,6 +61,7 @@ export const GROUPS = Object.freeze({
     'crm-block-drag',
     'crm-team-layer',
     'orders-list',
+    'order-card',
     'order-margin',
     'content-paging',
   ],

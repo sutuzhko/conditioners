@@ -4,13 +4,13 @@ import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
 
 import {
-  INSTALLER_CARD_TABS,
-  ORDER_CARD_TABS,
   ORDER_CARD_TAB_TITLE,
   OrderChecklist,
   OrderDocs,
   OrderPhotos,
-  OrderResultForm,
+  orderCardTabCountLabel,
+  orderCardTabCounts,
+  orderCardTabsFor,
   orderManagerContent as texts,
   orderWorkApi,
   type OrderCardTab,
@@ -30,26 +30,36 @@ export interface OrderWorkProps {
    * начальные движения и справочник, которые страница уже прочитала.
    */
   readonly materials: ReactNode;
+  /**
+   * Сколько движений склада по наряду — для счётчика вкладки. Отдельным
+   * числом, а не выводом из узла: узел уже собран, и заглянуть в него нельзя.
+   */
+  readonly materialsCount?: number | undefined;
   /** 🔴 История — только владельцу: монтажнику её не отдаёт сервер (ADR-114). */
   readonly history?: ReactNode | undefined;
-  /** Вкладка «Наряд»: форма владельца или карточка монтажника. */
+  /** Вкладка «Наряд»: карточка чтения владельца или карточка монтажника. */
   readonly children: ReactNode;
 }
 
 /**
- * Работа с нарядом: пять вкладок и итог работ (issue #346).
+ * Работа с нарядом: пять вкладок и итог работ (issue #346, #598).
  *
- * 🔴 Клиентский лист существует по той же причине, что и `OrderEditor`:
- * функция не переживает границу сервер→клиент, а действиям наряда нужен и
- * набор запросов, и обновление страницы после удачной правки. Сами данные
- * приходят с сервера — состав чеклиста, документов и снимков живёт в базе, а
- * не в памяти компонента.
+ * 🔴 Лента — общая вкладка кита, а не своя (issue #584, #598). Своя стояла
+ * здесь с issue #346 и была вкладками карточки клиента слово в слово: тот же
+ * `pushState` вместо перехода, те же стрелки, те же скрытые панели. Прокрутку
+ * включать не нужно: лента с панелями клиентская и едет вбок всегда, подвозя
+ * открытую вкладку к глазам, — а пять подписей на 390 в строку не помещаются.
+ *
+ * 🔴 Клиентский лист существует потому, что функция не переживает границу
+ * сервер→клиент, а действиям наряда нужен и набор запросов, и обновление
+ * страницы после удачной правки. Сами данные приходят с сервера.
  */
 export function OrderWork({
   order,
   tab,
   forInstaller = false,
   materials,
+  materialsCount,
   history,
   children,
 }: OrderWorkProps) {
@@ -57,29 +67,17 @@ export function OrderWork({
   const api = orderWorkApi(order.id);
   const refresh = (): void => router.refresh();
 
-  /* 🔴 Набор вкладок задают переданные панели, а не роль строкой: истории у
-     монтажника нет вовсе — ключа нет, значит и вкладки нет, а пустая вкладка
-     обещала бы пустую историю вместо закрытой (ADR-114). */
-  const panels: Readonly<Record<OrderCardTab, ReactNode>> = {
-    job: (
-      <>
-        {children}
+  /* Набор вкладок задаёт роль, а панели — то, что дала страница: истории у
+     монтажника нет ни в разметке, ни в ленте. */
+  const tabs = orderCardTabsFor(forInstaller);
+  const counts = orderCardTabCounts(order, materialsCount);
 
-        {/* 🔴 У монтажника итог живёт не здесь, а на экране сдачи работы
-            (issue #632): фото, отчёт и оплата — одно действие, а не три
-            места, из которых он собирает его по памяти. Владельцу форма
-            остаётся тут: он правит уже сданный отчёт. */}
-        {forInstaller ? null : (
-          <OrderResultForm
-            api={api}
-            extraWork={order.extraWork}
-            report={order.report}
-            resultAt={order.resultAt}
-            onSaved={refresh}
-          />
-        )}
-      </>
-    ),
+  const panels: Readonly<Record<OrderCardTab, ReactNode>> = {
+    /* 🔴 Итог работ уехал внутрь карточки владельца, в её левую колонку
+       (issue #598): по макету он стоит там же, где объект и оборудование, а не
+       отдельным хвостом под ними. У монтажника его здесь нет и не было — он
+       сдаёт выезд на своём экране (issue #632). */
+    job: children,
     materials,
     checklist: <OrderChecklist api={api} items={order.checklist} onChanged={refresh} />,
     documents: (
@@ -96,15 +94,20 @@ export function OrderWork({
     history,
   };
 
-  const tabs = history === undefined ? INSTALLER_CARD_TABS : ORDER_CARD_TABS;
-
   return (
     <TabPanels
-      items={tabs.map((tab) => ({
-        key: tab,
-        title: ORDER_CARD_TAB_TITLE[tab],
-        panel: panels[tab],
-      }))}
+      items={tabs.map((key) => {
+        const count = counts[key];
+
+        return {
+          key,
+          title: ORDER_CARD_TAB_TITLE[key],
+          panel: panels[key],
+          /* Счётчик приходит парой «число + фраза»: тип кита не даёт передать
+             цифру, забыв, чего именно она считает. */
+          ...(count === undefined ? {} : { count, countLabel: orderCardTabCountLabel(key, count) }),
+        };
+      })}
       active={tab}
       label={texts.workTabsLabel}
       idPrefix="order"

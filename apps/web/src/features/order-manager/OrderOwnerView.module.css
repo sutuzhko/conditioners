@@ -1,0 +1,232 @@
+/* Наряд глазами владельца — чтение в две колонки, макет `Order.png`. */
+
+.view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.main,
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* 🔴 Две колонки с 1200px, а не с 900. Правая колонка макета — 340px, и на
+   1024 левой оставалось бы около 620: позиции оборудования с плашками
+   переносились бы в три строки каждая, то есть колонки отняли бы у чтения
+   больше, чем дали. Ниже порога всё идёт одной лентой, и липнуть нечему.
+
+   Порог именно 1200, а не «удобное» 1100: набор порогов проекта закрыт —
+   600 · 900 · 1200 (DESIGN_BRIEF §6), и восемнадцатый порог заводится одной
+   строкой незаметно в диффе. Ловит его `scripts/css-breakpoints.test.mjs`. */
+@media (width >= 1200px) {
+  .view {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    align-items: start;
+  }
+
+  /* Липнет к тому же полю, что и колонка разделов оболочки: верхней полосы
+     над содержимым нет (ADR-309), и обе колонки начинаются на одной линии.
+
+     Своя прокрутка на случай длинной заметки владельца: без неё низ колонки
+     уезжает под сгиб и до него не добраться — колонка липкая, страница под
+     ней уже кончилась. */
+  .side {
+    position: sticky;
+    top: var(--pad-page, 28px);
+    max-height: calc(100dvh - 2 * var(--pad-page, 28px));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.blockHead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.blockTitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Адрес — главная строка карточки объекта: по ней сверяются, куда едет
+   бригада, и её читают первой. */
+.address {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0;
+}
+
+.fact {
+  min-width: 0;
+}
+
+.fact dt {
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.fact dd {
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* Имя клиента и его номер стоят в строку, но не слипаются: пробел разметки
+   даёт между ними 2.9px, и «Ирина Соколова+7 (910)…» читается одним словом.
+   Переносятся вместе с содержимым, когда строка не помещается. */
+.pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  align-items: baseline;
+}
+
+/* Домофон, этаж и время читают вслух по телефону — моноширинные, чтобы не
+   спутать ноль с буквой. */
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* 🔴 Телефон — цель нажатия, а не просто крашеная строка: по нему звонят с
+   того же телефона, с которого смотрят наряд. Строка кегля 15px даёт 22.5px
+   при нижней границе 24, и правило инвариантов ловит это на всех четырёх
+   кадрах карточки. */
+.phone {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  color: var(--accent-text);
+  font-family: var(--font-mono);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Пол цели на сенсорной раскладке — по порогу раскладки, а не по признаку
+   указателя (ADR-183): на сенсорном ноутбуке мышь, и там 24px достаточно. */
+@media (width < 900px) {
+  .phone {
+    min-height: var(--tap);
+  }
+}
+
+.phone:hover {
+  text-decoration: underline;
+}
+
+.quiet {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  overflow-wrap: anywhere;
+}
+
+/* Предупреждение внутри блока: высотные работы, переработка. Не плашка —
+   плашка рядом с заголовком читалась бы как состояние всего блока. */
+.warn {
+  margin: 0;
+  color: var(--warn-ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.units {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  padding: 10px 12px;
+  min-width: 0;
+}
+
+.unitModel {
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.unitMarks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Комментарий монтажнику — абзац, а не строка фактов: в нём бывает три
+   предложения про собаку, домофон и лестницу. */
+.note {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.noteLabel {
+  color: var(--faint);
+  font-size: var(--fs-caption);
+}
+
+.noteText {
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.money {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Сумма заказа — главная цифра блока денег, и она крупнее остальных: с неё
+   начинают, читая деньги наряда. */
+.sum {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}

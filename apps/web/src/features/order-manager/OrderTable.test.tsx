@@ -1,6 +1,8 @@
 import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
+import { cancelReasonTitle } from '@/shared/lib/cancel-reason';
+
 /* 🔴 Строка зовёт `useRouter().refresh()` после удаления и возврата в работу:
    список, счётчики вкладок и строка счёта считаются на сервере, и обновлять
    их по одному на клиенте значит завести четыре источника правды об одном
@@ -9,11 +11,7 @@ const refresh = vi.fn();
 vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh }) }));
 
 import { visibleColumns } from './columns';
-import {
-  ORDER_CANCEL_REASON_TITLE,
-  ORDER_STATUS_TITLE,
-  orderManagerContent as texts,
-} from './content';
+import { ORDER_STATUS_TITLE, orderManagerContent as texts } from './content';
 import { OrderTable } from './OrderTable';
 import {
   cancelledOrder,
@@ -97,12 +95,12 @@ describe('Таблица нарядов', () => {
     const row = rowOf(cancelledOrder.number);
     /* Справочник обобщает воронку, дописанное словами объясняет частный
        случай: в строке видно и то и другое (ADR-310). */
-    expect(within(row).getByText(ORDER_CANCEL_REASON_TITLE.too_expensive)).toBeInTheDocument();
+    expect(within(row).getByText(cancelReasonTitle('too_expensive'))).toBeInTheDocument();
     expect(within(row).getByText(cancelledOrder.cancelNote ?? '')).toBeInTheDocument();
 
     /* Отказ без уточнения показывает только справочник — и не пустую ячейку. */
     expect(
-      within(rowOf(declinedOrder.number)).getByText(ORDER_CANCEL_REASON_TITLE.no_answer),
+      within(rowOf(declinedOrder.number)).getByText(cancelReasonTitle('no_answer')),
     ).toBeInTheDocument();
   });
 
