@@ -1,11 +1,12 @@
 'use client';
 
-import { useDeferredValue, useState } from 'react';
+import { useDeferredValue, useRef, useState } from 'react';
 import { calculateInstallation } from '@/entities/price/lib/calculateInstallation';
 import { estimateScope } from '@/entities/price/lib/estimateScope';
 import type { InstallRates, PriceRow } from '@/entities/price/model';
 import { rememberLeadContext } from '@/features/lead-form';
 import { leadHref } from '@/shared/config/lead';
+import { METRIKA_GOALS, reachGoal } from '@/shared/analytics';
 import { formatMoney } from '@/shared/lib/format';
 import { Card, Checkbox, RangeSlider, Select } from '@/shared/ui';
 import { floorHint, lineLabel, meters, pricingText, qtyMultiplier, shtrobLabel } from '../content';
@@ -99,7 +100,18 @@ export function Calculator({
   const shown = useDeferredValue(form);
   const stale = shown !== form;
 
+  /* 🔴 Цель «калькулятором воспользовались» отмечается один раз за жизнь
+     блока, а не на каждое движение ползунка: иначе отчёт Метрики считал бы не
+     людей, а сантиметры хода пальца, и цифра «использований» перестала бы
+     что-либо значить. Ref, а не состояние: перерисовывать блок от этого
+     нечего. */
+  const calculatorGoalSent = useRef(false);
+
   const patch = (next: Partial<CalculatorForm>): void => {
+    if (!calculatorGoalSent.current) {
+      calculatorGoalSent.current = true;
+      reachGoal(METRIKA_GOALS.calculator);
+    }
     setForm((current) => ({ ...current, ...next }));
   };
 

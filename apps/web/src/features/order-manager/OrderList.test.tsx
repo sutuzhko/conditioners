@@ -83,21 +83,53 @@ describe('Список нарядов', () => {
     expect(href).not.toContain('page=');
   });
 
-  it('🔴 итог периода на «Истории» не выдумывает маржу', () => {
+  it('итог периода на «Истории» показывает закрытые, выручку и маржу', () => {
     render(
       <OrderList
         page={historyPage}
         filters={listFilters({ tab: 'history' })}
-        totals={{ closed: 18, revenue: 612_400 }}
+        totals={{ closed: 18, revenue: 612_400, margin: 214_900, marginSkipped: 0 }}
         now={NOW}
       />,
     );
 
     expect(screen.getByText(texts.historyClosed)).toBeInTheDocument();
     expect(screen.getByText(money(612_400))).toBeInTheDocument();
-    /* Маржи нет: без закупочной цены позиции склада её нечем считать
-       (ADR-310, issue #628), а разность «сумма минус выплата» ею не является. */
-    expect(screen.queryByText(/Маржа/)).not.toBeInTheDocument();
+    /* Маржа считается по движениям склада (ADR-310, issue #628): разность
+       «сумма минус выплата» ею не является и здесь не показывается.
+
+       Число, а не подпись: слово «Маржа» на этой вкладке встречается дважды —
+       в итоге и в шапке своей колонки, и обе встречи законны. */
+    expect(screen.getByText(money(214_900))).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: texts.colMargin })).toBeInTheDocument();
+  });
+
+  it('🔴 итог не умалчивает о нарядах, оставшихся без маржи', () => {
+    render(
+      <OrderList
+        page={historyPage}
+        filters={listFilters({ tab: 'history' })}
+        totals={{ closed: 18, revenue: 612_400, margin: 186_300, marginSkipped: 3 }}
+        now={NOW}
+      />,
+    );
+
+    /* Итог без оговорки владелец прочтёт как полный — и решит по нему, какую
+       цену ставить. */
+    expect(screen.getByText(texts.historyMarginSkipped(3))).toBeInTheDocument();
+  });
+
+  it('🔴 без пропусков оговорки нет: лишняя подпись в итоге только шумит', () => {
+    render(
+      <OrderList
+        page={historyPage}
+        filters={listFilters({ tab: 'history' })}
+        totals={{ closed: 18, revenue: 612_400, margin: 214_900, marginSkipped: 0 }}
+        now={NOW}
+      />,
+    );
+
+    expect(screen.queryByText(texts.historyMarginSkipped(0))).not.toBeInTheDocument();
   });
 
   it('плашка «Новых» объясняет, чем грозит наряд без исполнителя', () => {

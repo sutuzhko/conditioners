@@ -76,6 +76,33 @@
   white-space: nowrap;
 }
 
+/* Маржа — колонка тех же чисел, что и сумма, и живёт по тем же правилам:
+   ширина, моноширинный шрифт, выравнивание вправо. Свой класс, а не общий с
+   суммой, потому что прячется она хоть и на той же ширине, но по своей
+   причине — ниже 1200 обе уезжают в подпись работы. */
+.marginCol {
+  width: 116px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Убыточный наряд виден на просмотре списка, а не при чтении каждой строки:
+   ради этого колонка маржи и заводится (issue #628). Знака минуса мало —
+   в колонке моноширинных чисел он теряется. */
+.marginLoss {
+  color: var(--error-ink);
+}
+
+/* Маржа не посчитана: цвет слабее числа, потому что это отсутствие данных, а
+   не значение. Объяснение уходит голосом — см. `OrderTable.tsx`. */
+.marginUnknown {
+  color: var(--muted);
+}
+
 .reasonCol {
   width: auto;
   min-width: 0;
@@ -296,6 +323,8 @@
   .table td.installerCol,
   .table th.sumCol,
   .table td.sumCol,
+  .table th.marginCol,
+  .table td.marginCol,
   .table th.typeCol,
   .table td.typeCol,
   .table th.sourceCol,

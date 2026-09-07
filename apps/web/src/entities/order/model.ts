@@ -7,6 +7,8 @@ import { CANCEL_REASONS, type CancelReason } from '@/shared/lib/cancel-reason';
 import type { Employment } from '@/shared/lib/employment';
 import { optionalPhoneField } from '@/shared/lib/zod';
 
+import type { OrderMargin } from './lib/margin';
+
 /**
  * Наряд — работа с деньгами, датой и исполнителем.
  *
@@ -480,6 +482,15 @@ export type OrderCard = {
   readonly installerFee: number;
   readonly deductionSum?: number;
   readonly deductionReason?: string | null;
+  /**
+   * Маржа наряда: `price − installerFee − материалы + deductionSum` (ADR-310).
+   *
+   * 🔴 Ключ владельческий и необязательный сразу по двум причинам. Монтажнику
+   * маржи нет вовсе — как нет `price` и `deductionSum` (ADR-092). А там, где
+   * её не спрашивали, её не считали: собирать движения склада ради списка,
+   * который маржу не показывает, — лишний запрос на каждую отрисовку.
+   */
+  readonly margin?: OrderMargin;
   readonly comment: string | null;
   readonly ownerNote?: string | null;
   readonly leadId: string | null;
