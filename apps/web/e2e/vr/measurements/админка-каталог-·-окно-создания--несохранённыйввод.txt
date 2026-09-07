@@ -422,7 +422,7 @@ div.Modal__overlay  bg #0f172a73
           button.Button__button  border transparent
             span.Button__content#3
               span.Button__label  color #0e7490
-          button.Button__button#2  bg #be123c14  border #be123c73
+          button.Button__button#2  bg #be123c14  border #be123cb3
             span.Button__content
               span.Button__label#2  color #be123c
 
@@ -527,6 +527,6 @@ div.Modal__overlay  bg #020610ad
           button.Button__button  border transparent
             span.Button__content#3
               span.Button__label  color #22d3ee
-          button.Button__button#2  bg #fb71851f  border #fb718580
+          button.Button__button#2  bg #fb71851f  border #fb7185b3
             span.Button__content
               span.Button__label#2  color #fb7185

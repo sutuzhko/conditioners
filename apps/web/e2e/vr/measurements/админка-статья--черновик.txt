@@ -94,14 +94,14 @@ form.ArticleForm__form  358×2419 @16,16
           label.Field__label#5  316×20 @0,0  Manrope 600 13/20  lines=1  «Дата публикации»
             span.Field__required  9×18 @110,1  Manrope 600 13/20  lines=1  «*»
           div.DateField__shell  316×52 @0,27  r11  b1
-            span.DateField__segmentBox  26×24 @15,14
-              input.DateField__segment  26×24 @0,0
-            span.DateField__segmentBox#2  32×24 @41,14
+            span.DateField__segmentBox  46×24 @15,14
+              input.DateField__segment  46×44 @0,-10
+            span.DateField__segmentBox#2  52×24 @61,14
               span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  26×24 @6,0
-            span.DateField__segmentBox#3  50×24 @73,14
+              input.DateField__segment  46×44 @6,-10
+            span.DateField__segmentBox#3  70×24 @113,14
               span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  45×24 @6,0
+              input.DateField__segment  65×44 @6,-10
         div.Field__field#2  316×76 @0,160
           label.Field__label#2  316×20 @0,0  Manrope 600 13/20  lines=1  «Время чтения, мин»
             span.Field__required  9×18 @119,1  Manrope 600 13/20  lines=1  «*»
@@ -213,14 +213,14 @@ form.ArticleForm__form  736×2118 @16,16
           label.Field__label#5  221×20 @0,0  Manrope 600 13/20  lines=1  «Дата публикации»
             span.Field__required  9×18 @110,1  Manrope 600 13/20  lines=1  «*»
           div.DateField__shell  221×52 @0,27  r11  b1
-            span.DateField__segmentBox  26×24 @15,14
-              input.DateField__segment  26×24 @0,0
-            span.DateField__segmentBox#2  32×24 @41,14
+            span.DateField__segmentBox  46×24 @15,14
+              input.DateField__segment  46×44 @0,-10
+            span.DateField__segmentBox#2  52×24 @61,14
               span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  26×24 @6,0
-            span.DateField__segmentBox#3  50×24 @73,14
+              input.DateField__segment  46×44 @6,-10
+            span.DateField__segmentBox#3  70×24 @113,14
               span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  45×24 @6,0
+              input.DateField__segment  65×44 @6,-10
         div.Field__field#2  221×76 @237,66
           label.Field__label#2  221×20 @0,0  Manrope 600 13/20  lines=1  «Время чтения, мин»
             span.Field__required  9×18 @119,1  Manrope 600 13/20  lines=1  «*»

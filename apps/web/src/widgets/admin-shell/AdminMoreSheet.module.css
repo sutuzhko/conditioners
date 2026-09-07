@@ -177,8 +177,10 @@
 }
 
 @media (hover: hover) {
+  /* Граница опасного органа управления, а не декоративная линия сообщения:
+     на наведении она и есть контур кнопки (issue #732). */
   .logout:hover:not(:disabled) {
-    border-color: var(--error-line);
+    border-color: var(--error-line-ui);
     color: var(--error-ink);
   }
 

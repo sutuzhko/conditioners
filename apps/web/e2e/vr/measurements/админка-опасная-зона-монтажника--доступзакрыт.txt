@@ -65,7 +65,7 @@ section.Card__card  bg #be123c14  border #be123c73  shadow #0f172a33 0px 20px 44
         span.Button__label  color #0f172a
     p.StaffDangerZone__note  color #556173
   div.StaffDangerZone__row#2
-    button.Button__button  bg #ffffff  border #be123c73
+    button.Button__button  bg #ffffff  border #be123cb3
       span.Button__content#2
         span.Button__label  color #be123c
     p.StaffDangerZone__note  color #556173
@@ -81,7 +81,7 @@ section.Card__card  bg #fb71851f  border #fb718580  shadow #0f172a33 0px 20px 44
         span.Button__label  color #eaf1f8
     p.StaffDangerZone__note  color #8598ac
   div.StaffDangerZone__row#2
-    button.Button__button  bg #121d31  border #fb718580
+    button.Button__button  bg #121d31  border #fb7185b3
       span.Button__content#2
         span.Button__label  color #fb7185
     p.StaffDangerZone__note  color #8598ac

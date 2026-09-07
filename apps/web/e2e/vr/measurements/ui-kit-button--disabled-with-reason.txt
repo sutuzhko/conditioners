@@ -25,13 +25,13 @@ button.Button__button  96×44 @16,16  r11  b1
   span.Button__reason  1×1 @48,22  Manrope 600 15/17  lines=1  clipped  «Нельзя удалить последнего администратора»
 
 [палитра light]
-button.Button__button  bg #be123c14  border #be123c73
+button.Button__button  bg #be123c14  border #be123cb3
   span.Button__content
     span.Button__label  color #be123c
   span.Button__reason  color #be123c
 
 [палитра dark]
-button.Button__button  bg #fb71851f  border #fb718580
+button.Button__button  bg #fb71851f  border #fb7185b3
   span.Button__content
     span.Button__label  color #fb7185
   span.Button__reason  color #fb7185
