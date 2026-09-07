@@ -1,4 +1,5 @@
-import { ReviewTabs, reviewModerationContent as texts } from '@/features/review-moderation';
+import { reviewModerationContent as texts, reviewTabItems } from '@/features/review-moderation';
+import { TabLinks } from '@/shared/ui';
 
 import { ReviewsSkeleton } from './ReviewsSkeleton';
 import styles from '../leads/page.module.css';
@@ -21,7 +22,7 @@ export default function ReviewsLoading() {
         <p className={styles.lead}>{texts.lead}</p>
       </header>
 
-      <ReviewTabs />
+      <TabLinks items={reviewTabItems()} label={texts.filterLabel} />
 
       <ReviewsSkeleton />
     </div>

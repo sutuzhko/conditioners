@@ -1,0 +1,62 @@
+# ui-kit-tabpanels--глазамимонтажника · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Tabs__wrap  358×116 @16,16
+  div.Tabs__strip  358×47 @0,0  b0 0 1 0
+    div.Tabs__row  358×46 @0,0
+      button.Tabs__tab  73×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
+      button.Tabs__tab#2  79×44 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Расход»
+      button.Tabs__tab#3  87×44 @160,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист»
+      button.Tabs__tab#4  109×44 @251,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы»
+  div.Tabs__panel  358×53 @0,63
+    p  358×23 @0,15  Manrope 400 15/23  lines=1  «Что и кому делаем.»
+
+[геометрия 768]
+div.Tabs__wrap  736×116 @16,16
+  div.Tabs__strip  736×47 @0,0  b0 0 1 0
+    div.Tabs__row  736×46 @0,0
+      button.Tabs__tab  73×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
+      button.Tabs__tab#2  79×44 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Расход»
+      button.Tabs__tab#3  87×44 @160,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист»
+      button.Tabs__tab#4  109×44 @251,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы»
+  div.Tabs__panel  736×53 @0,63
+    p  736×23 @0,15  Manrope 400 15/23  lines=1  «Что и кому делаем.»
+
+[геометрия 1440]
+div.Tabs__wrap  1408×109 @16,16
+  div.Tabs__strip  1408×40 @0,0  b0 0 1 0
+    div.Tabs__row  1408×39 @0,0
+      button.Tabs__tab  73×37 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Наряд»
+      button.Tabs__tab#2  79×37 @77,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Расход»
+      button.Tabs__tab#3  87×37 @160,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Чеклист»
+      button.Tabs__tab#4  109×37 @251,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Документы»
+  div.Tabs__panel  1408×53 @0,56
+    p  1408×23 @0,15  Manrope 400 15/23  lines=1  «Что и кому делаем.»
+
+[палитра light]
+div.Tabs__wrap
+  div.Tabs__strip  border #0f172a #0f172a #e2e8f0 #0f172a
+    div.Tabs__row
+      button.Tabs__tab  color #0f172a  border #0f172a #0f172a #0891b2 #0f172a
+      button.Tabs__tab#2  color #556173  border #556173 #556173 transparent #556173
+      button.Tabs__tab#3  color #556173  border #556173 #556173 transparent #556173
+      button.Tabs__tab#4  color #556173  border #556173 #556173 transparent #556173
+  div.Tabs__panel
+    p  color #0f172a
+
+[палитра dark]
+div.Tabs__wrap
+  div.Tabs__strip  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    div.Tabs__row
+      button.Tabs__tab  color #eaf1f8  border #eaf1f8 #eaf1f8 #22d3ee #eaf1f8
+      button.Tabs__tab#2  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.Tabs__tab#3  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.Tabs__tab#4  color #8598ac  border #8598ac #8598ac transparent #8598ac
+  div.Tabs__panel
+    p  color #eaf1f8

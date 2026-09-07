@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -17,6 +17,31 @@ vi.mock('next/navigation', () => ({
 
 const fetchMock = vi.fn();
 const DAY = '2026-08-23';
+
+/**
+ * Дата в поле кита `DateField` — три сегмента вместо одной строки (issue #586).
+ *
+ * Нативное поле принимало `2026-08-25` целиком; здесь день, месяц и год живут
+ * отдельными полями, и полная строка ISO собирается, только когда набраны все
+ * три (`isoOfDateSegments`).
+ */
+function setDate(group: HTMLElement, iso: string): void {
+  const [year = '', month = '', day = ''] = iso.split('-');
+
+  fireEvent.change(within(group).getByLabelText('День'), { target: { value: day } });
+  fireEvent.change(within(group).getByLabelText('Месяц'), { target: { value: month } });
+  fireEvent.change(within(group).getByLabelText('Год'), { target: { value: year } });
+}
+
+/** Что стоит в поле даты: сегменты обратно в строку ISO. */
+function dateOf(group: HTMLElement): string {
+  const value = (label: string): string => {
+    const input = within(group).getByLabelText(label);
+    return input instanceof HTMLInputElement ? input.value : '';
+  };
+
+  return `${value('Год')}-${value('Месяц')}-${value('День')}`;
+}
 
 /** Дело из фикстур в том виде, в каком его отдаёт раскладка. */
 function eventItem() {
@@ -89,7 +114,7 @@ describe('Управляющий слой календаря', () => {
     await user.click(screen.getByRole('button', { name: texts.add }));
 
     expect(screen.getByRole('dialog', { name: texts.addTitle })).toBeInTheDocument();
-    expect(screen.getByLabelText(new RegExp(texts.fieldDay))).toHaveValue(DAY);
+    expect(dateOf(screen.getByRole('group', { name: new RegExp(texts.fieldDay) }))).toBe(DAY);
   });
 
   it('🔴 длительность есть в форме: растягивание края — ускоритель, а не путь', async () => {
@@ -192,9 +217,9 @@ describe('Управляющий слой календаря', () => {
     await user.click(screen.getByRole('button', { name: item.label }));
     await user.click(screen.getByRole('button', { name: texts.edit }));
 
-    const day = screen.getByLabelText(new RegExp(texts.fieldDay));
-    expect(day).toHaveValue(DAY);
-    fireEvent.change(day, { target: { value: '2026-08-25' } });
+    const day = screen.getByRole('group', { name: new RegExp(texts.fieldDay) });
+    expect(dateOf(day)).toBe(DAY);
+    setDate(day, '2026-08-25');
     await user.click(screen.getByRole('button', { name: texts.save }));
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalled());
@@ -246,13 +271,13 @@ describe('Управляющий слой календаря', () => {
     await user.click(screen.getByRole('button', { name: /Отпуск/ }));
     await user.click(screen.getByRole('button', { name: texts.busyEdit }));
 
-    const day = screen.getByLabelText(new RegExp(texts.fieldDay));
-    const endDay = screen.getByLabelText(new RegExp(texts.fieldEndDay));
-    expect(day).toHaveValue(vacationBlock.day);
-    expect(endDay).toHaveValue(vacationBlock.endDay);
+    const day = screen.getByRole('group', { name: new RegExp(texts.fieldDay) });
+    const endDay = screen.getByRole('group', { name: new RegExp(texts.fieldEndDay) });
+    expect(dateOf(day)).toBe(vacationBlock.day);
+    expect(dateOf(endDay)).toBe(vacationBlock.endDay);
 
-    fireEvent.change(day, { target: { value: '2026-08-20' } });
-    fireEvent.change(endDay, { target: { value: '2026-09-02' } });
+    setDate(day, '2026-08-20');
+    setDate(endDay, '2026-09-02');
     await user.click(screen.getByRole('button', { name: texts.save }));
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalled());

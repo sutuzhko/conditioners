@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -7,6 +7,16 @@ import { REPEAT_TITLE, crmContent as texts } from './content';
 import type { DayBlockDraft } from './model';
 
 const fetchMock = vi.fn();
+
+/** Что стоит в поле даты: сегменты обратно в строку ISO. */
+function dateOf(group: HTMLElement): string {
+  const value = (label: string): string => {
+    const input = within(group).getByLabelText(label);
+    return input instanceof HTMLInputElement ? input.value : '';
+  };
+
+  return `${value('Год')}-${value('Месяц')}-${value('День')}`;
+}
 
 const draft: DayBlockDraft = {
   repeat: 'once',
@@ -45,7 +55,9 @@ describe('Окно занятости', () => {
   it('в покое показывает выбранный день и «весь день»', () => {
     dialog();
 
-    expect(screen.getByLabelText(new RegExp(texts.fieldDay))).toHaveValue('2026-08-26');
+    expect(dateOf(screen.getByRole('group', { name: new RegExp(texts.fieldDay) }))).toBe(
+      '2026-08-26',
+    );
     expect(screen.getByLabelText(texts.fieldAllDay)).toBeChecked();
     expect(screen.queryByLabelText(new RegExp(texts.fieldFrom))).not.toBeInTheDocument();
   });
@@ -66,7 +78,9 @@ describe('Окно занятости', () => {
 
     await user.selectOptions(screen.getByLabelText(texts.fieldRepeat), 'weekly');
 
-    expect(screen.queryByLabelText(new RegExp(texts.fieldDay))).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('group', { name: new RegExp(texts.fieldDay) }),
+    ).not.toBeInTheDocument();
     expect(screen.getByLabelText(new RegExp(texts.fieldWeekday))).toHaveValue('3');
   });
 

@@ -2,16 +2,16 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1897
-768 → 768×1543
-1440 → 1440×1312
+390 → 390×1900
+768 → 768×1546
+1440 → 1440×1315
 
 [геометрия 390]
-section.Card__card  358×1865 @16,16  r20  b1
+section.Card__card  358×1868 @16,16  r20  b1
   h2.SettingsForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Реквизиты»
   p.SettingsForm__description  316×180 @21,46  Manrope 400 15/22  lines=8  «Наименование, ИНН и сведения о регистрац»
-  form.SettingsForm__form  316×1601 @21,243
-    div.SettingsForm__fields  316×1539 @0,0
+  form.SettingsForm__form  316×1604 @21,243
+    div.SettingsForm__fields  316×1542 @0,0
       div.Field__field  316×122 @0,0
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Форма»
         span.Select__wrapper  316×49 @0,27
@@ -30,35 +30,43 @@ section.Card__card  358×1865 @16,16  r20  b1
       div.Field__field#4  316×76 @0,409
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «ОГРНИП»
         input  316×49 @0,27  r11  b1
-      div.Field__field#5  316×122 @0,499
+      div.Field__field#5  316×125 @0,499
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Дата регистрации»
-        input  316×49 @0,27  r11  b1
-        p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Как в свидетельстве. Закон требует показ»
-      div.Field__field#6  316×169 @0,635
+        div.DateField__shell  316×52 @0,27  r11  b1
+          span.DateField__segmentBox  26×24 @15,14
+            input.DateField__segment  26×24 @0,0
+          span.DateField__segmentBox#2  32×24 @41,14
+            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+            input.DateField__segment  26×24 @6,0
+          span.DateField__segmentBox#3  50×24 @73,14
+            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+            input.DateField__segment  45×24 @6,0
+        p.Field__hint  316×39 @0,86  Manrope 400 13/19  lines=2  «Как в свидетельстве. Закон требует показ»
+      div.Field__field#6  316×169 @0,638
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Орган регистрации»
         textarea.Textarea__textarea  316×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Межрайонная ИФНС России № 10 по Тульской»
         p.Field__hint  316×39 @0,130  Manrope 400 13/19  lines=2  «Кто выдал свидетельство — целиком, как в»
-      div.Field__field#7  316×188 @0,818
+      div.Field__field#7  316×188 @0,821
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Адрес регистрации»
         textarea.Textarea__textarea  316×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «г. Тула, ул. Замочная, д. 1, кв. 2»
         p.Field__hint  316×58 @0,130  Manrope 400 13/19  lines=3  «На сайт не выводится: у предпринимателя»
-      div.Field__field#8  316×150 @0,1020
+      div.Field__field#8  316×150 @0,1023
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Банк»
         textarea.Textarea__textarea  316×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Тульское отделение № 8604 ПАО Сбербанк»
         p.Field__hint  316×19 @0,130  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#9  316×103 @0,1184
+      div.Field__field#9  316×103 @0,1187
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «БИК»
         input  316×49 @0,27  r11  b1
         p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#10  316×122 @0,1300
+      div.Field__field#10  316×122 @0,1303
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Расчётный счёт»
         input  316×49 @0,27  r11  b1
         p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится. Контрольный ключ с»
-      div.Field__field#11  316×103 @0,1436
+      div.Field__field#11  316×103 @0,1439
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Корреспондентский счёт»
         input  316×49 @0,27  r11  b1
         p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-    div.SettingsForm__actions  316×44 @0,1557
+    div.SettingsForm__actions  316×44 @0,1560
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
@@ -79,11 +87,11 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
           span.Button__label#2  143×17 @0,0  Manrope 600 15/17  lines=1  «Сменить и очистить»
 
 [геометрия 768]
-section.Card__card  736×1511 @16,16  r20  b1
+section.Card__card  736×1514 @16,16  r20  b1
   h2.SettingsForm__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Реквизиты»
   p.SettingsForm__description  694×90 @21,47  Manrope 400 15/22  lines=4  «Наименование, ИНН и сведения о регистрац»
-  form.SettingsForm__form  694×1336 @21,154
-    div.SettingsForm__fields  694×1274 @0,0
+  form.SettingsForm__form  694×1339 @21,154
+    div.SettingsForm__fields  694×1277 @0,0
       div.Field__field  339×122 @0,0
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Форма»
         span.Select__wrapper  339×49 @0,27
@@ -102,35 +110,43 @@ section.Card__card  736×1511 @16,16  r20  b1
       div.Field__field#4  339×76 @355,299
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «ОГРНИП»
         input  339×49 @0,27  r11  b1
-      div.Field__field#5  339×122 @0,390
+      div.Field__field#5  339×125 @0,390
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Дата регистрации»
-        input  339×49 @0,27  r11  b1
-        p.Field__hint  339×39 @0,83  Manrope 400 13/19  lines=2  «Как в свидетельстве. Закон требует показ»
-      div.Field__field#6  694×150 @0,525
+        div.DateField__shell  339×52 @0,27  r11  b1
+          span.DateField__segmentBox  26×24 @15,14
+            input.DateField__segment  26×24 @0,0
+          span.DateField__segmentBox#2  32×24 @41,14
+            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+            input.DateField__segment  26×24 @6,0
+          span.DateField__segmentBox#3  50×24 @73,14
+            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+            input.DateField__segment  45×24 @6,0
+        p.Field__hint  339×39 @0,86  Manrope 400 13/19  lines=2  «Как в свидетельстве. Закон требует показ»
+      div.Field__field#6  694×150 @0,528
         label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Орган регистрации»
         textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Межрайонная ИФНС России № 10 по Тульской»
         p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Кто выдал свидетельство — целиком, как в»
-      div.Field__field#7  694×169 @0,689
+      div.Field__field#7  694×169 @0,692
         label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Адрес регистрации»
         textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «г. Тула, ул. Замочная, д. 1, кв. 2»
         p.Field__hint  694×39 @0,130  Manrope 400 13/19  lines=2  «На сайт не выводится: у предпринимателя»
-      div.Field__field#8  694×150 @0,872
+      div.Field__field#8  694×150 @0,875
         label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Банк»
         textarea.Textarea__textarea  694×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Тульское отделение № 8604 ПАО Сбербанк»
         p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#9  339×103 @0,1035
+      div.Field__field#9  339×103 @0,1038
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «БИК»
         input  339×49 @0,27  r11  b1
         p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#10  339×122 @355,1035
+      div.Field__field#10  339×122 @355,1038
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Расчётный счёт»
         input  339×49 @0,27  r11  b1
         p.Field__hint  339×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится. Контрольный ключ с»
-      div.Field__field#11  339×103 @0,1171
+      div.Field__field#11  339×103 @0,1174
         label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Корреспондентский счёт»
         input  339×49 @0,27  r11  b1
         p.Field__hint  339×19 @0,83  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-    div.SettingsForm__actions  694×44 @0,1292
+    div.SettingsForm__actions  694×44 @0,1295
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
@@ -151,11 +167,11 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
           span.Button__label#2  143×17 @0,0  Manrope 600 15/17  lines=1  «Сменить и очистить»
 
 [геометрия 1440]
-section.Card__card  1408×1280 @16,16  r20  b1
+section.Card__card  1408×1283 @16,16  r20  b1
   h2.SettingsForm__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Реквизиты»
   p.SettingsForm__description  1366×45 @21,48  Manrope 400 15/22  lines=2  «Наименование, ИНН и сведения о регистрац»
-  form.SettingsForm__form  1366×1148 @21,111
-    div.SettingsForm__fields  1366×1086 @0,0
+  form.SettingsForm__form  1366×1151 @21,111
+    div.SettingsForm__fields  1366×1089 @0,0
       div.Field__field  260×141 @0,0
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Форма»
         span.Select__wrapper  260×49 @0,27
@@ -174,35 +190,43 @@ section.Card__card  1408×1280 @16,16  r20  b1
       div.Field__field#4  260×76 @276,319
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «ОГРНИП»
         input  260×49 @0,27  r11  b1
-      div.Field__field#5  260×141 @553,319
+      div.Field__field#5  260×144 @553,319
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Дата регистрации»
-        input  260×49 @0,27  r11  b1
-        p.Field__hint  260×58 @0,83  Manrope 400 13/19  lines=3  «Как в свидетельстве. Закон требует показ»
-      div.Field__field#6  1366×150 @0,474
+        div.DateField__shell  260×52 @0,27  r11  b1
+          span.DateField__segmentBox  26×24 @15,14
+            input.DateField__segment  26×24 @0,0
+          span.DateField__segmentBox#2  32×24 @41,14
+            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+            input.DateField__segment  26×24 @6,0
+          span.DateField__segmentBox#3  50×24 @73,14
+            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+            input.DateField__segment  45×24 @6,0
+        p.Field__hint  260×58 @0,86  Manrope 400 13/19  lines=3  «Как в свидетельстве. Закон требует показ»
+      div.Field__field#6  1366×150 @0,477
         label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Орган регистрации»
         textarea.Textarea__textarea  1366×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Межрайонная ИФНС России № 10 по Тульской»
         p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «Кто выдал свидетельство — целиком, как в»
-      div.Field__field#7  1366×150 @0,638
+      div.Field__field#7  1366×150 @0,641
         label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Адрес регистрации»
         textarea.Textarea__textarea  1366×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «г. Тула, ул. Замочная, д. 1, кв. 2»
         p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «На сайт не выводится: у предпринимателя»
-      div.Field__field#8  1366×150 @0,801
+      div.Field__field#8  1366×150 @0,804
         label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Банк»
         textarea.Textarea__textarea  1366×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Тульское отделение № 8604 ПАО Сбербанк»
         p.Field__hint  1366×19 @0,130  Manrope 400 13/19  lines=1  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#9  260×122 @0,965
+      div.Field__field#9  260×122 @0,968
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «БИК»
         input  260×49 @0,27  r11  b1
         p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится: нужно для счетов и»
-      div.Field__field#10  260×122 @276,965
+      div.Field__field#10  260×122 @276,968
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Расчётный счёт»
         input  260×49 @0,27  r11  b1
         p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится. Контрольный ключ с»
-      div.Field__field#11  260×122 @553,965
+      div.Field__field#11  260×122 @553,968
         label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Корреспондентский счёт»
         input  260×49 @0,27  r11  b1
         p.Field__hint  260×39 @0,83  Manrope 400 13/19  lines=2  «На сайт не выводится: нужно для счетов и»
-    div.SettingsForm__actions  1366×44 @0,1104
+    div.SettingsForm__actions  1366×44 @0,1107
       button.Button__button  115×44 @0,0  r11  b1
         span.Button__content  77×17 @19,13
           span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
@@ -248,7 +272,15 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
         input  bg #ffffff  border #7e8fa6
       div.Field__field#5
         label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
+        div.DateField__shell  bg #ffffff  border #7e8fa6
+          span.DateField__segmentBox
+            input.DateField__segment
+          span.DateField__segmentBox#2
+            span.DateField__separator  color #5b6a7d
+            input.DateField__segment
+          span.DateField__segmentBox#3
+            span.DateField__separator  color #5b6a7d
+            input.DateField__segment
         p.Field__hint  color #556173
       div.Field__field#6
         label.Field__label  color #334155
@@ -320,7 +352,15 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
         input  bg #0b1424  border #566d95
       div.Field__field#5
         label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
+        div.DateField__shell  bg #0b1424  border #566d95
+          span.DateField__segmentBox
+            input.DateField__segment
+          span.DateField__segmentBox#2
+            span.DateField__separator  color #7e92a7
+            input.DateField__segment
+          span.DateField__segmentBox#3
+            span.DateField__separator  color #7e92a7
+            input.DateField__segment
         p.Field__hint  color #8598ac
       div.Field__field#6
         label.Field__label  color #c9d5e2
