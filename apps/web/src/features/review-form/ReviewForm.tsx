@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from 'react';
 
+import { METRIKA_GOALS, YM_MASK, reachGoal } from '@/shared/analytics';
 import {
   Button,
   Card,
@@ -189,6 +190,8 @@ export function ReviewForm({
     if (result.ok) {
       setGreeting(values.name.trim());
       setStatus('success');
+      /* 🔴 Не в ветке ловушки выше: там успех поддельный и отзыва нет. */
+      reachGoal(METRIKA_GOALS.review);
       onSuccess?.(result.id);
       return;
     }
@@ -290,6 +293,7 @@ export function ReviewForm({
 
             <Input
               name="name"
+              className={YM_MASK}
               label={texts.nameLabel}
               placeholder={texts.namePlaceholder}
               autoComplete="name"
@@ -307,6 +311,7 @@ export function ReviewForm({
 
             <Textarea
               name="text"
+              className={YM_MASK}
               label={texts.textLabel}
               placeholder={texts.textPlaceholder}
               hint={texts.textHint}

@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { forgetLeadContext, readLeadContext } from '@/features/lead-form';
+import { METRIKA_GOALS } from '@/shared/analytics';
 
 import { Pricing } from './Pricing';
 import { pricingText } from './content';
@@ -211,6 +212,36 @@ describe('Цены — калькулятор монтажа', () => {
     for (const line of breakdown().filter((item) => !item.label.startsWith('За один блок'))) {
       expect(handoff.text).toContain(line.label);
     }
+  });
+});
+
+describe('Цены — калькулятор и Метрика (issue #678)', () => {
+  afterEach(() => {
+    delete window.ymGoal;
+  });
+
+  /* 🔴 Один раз за жизнь блока, а не на каждое движение ползунка: иначе
+     отчёт считал бы не людей, а сантиметры хода пальца. */
+  it('🔴 цель отмечается один раз, сколько бы человек ни двигал ползунок', () => {
+    const sent = vi.fn();
+    window.ymGoal = sent;
+    render(<Pricing prices={priceRows} rates={rates} />);
+
+    expect(sent).not.toHaveBeenCalled();
+
+    setTrassa(rates.trassaIncludedM + 2);
+    setTrassa(rates.trassaIncludedM + 5);
+    selectOption('Класс мощности', '12');
+
+    expect(sent).toHaveBeenCalledTimes(1);
+    expect(sent).toHaveBeenCalledWith(METRIKA_GOALS.calculator);
+  });
+
+  it('без счётчика калькулятор работает как работал', () => {
+    render(<Pricing prices={priceRows} rates={rates} calcDefaults={{ cls: '09' }} />);
+
+    expect(() => setTrassa(rates.trassaIncludedM + 2)).not.toThrow();
+    expect(total()).toBe(6_000 + 2 * rates.trassaPerM);
   });
 });
 
