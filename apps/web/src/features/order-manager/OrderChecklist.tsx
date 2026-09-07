@@ -193,6 +193,7 @@ export function OrderChecklist({ api, items, disabled = false, onChanged }: Orde
                       наряда сервер удалить не даст, и молчаливый отказ на
                       нажатие был бы хуже отсутствующей кнопки. */}
                   <IconButton
+                    className={styles.removeItem}
                     label={texts.checklistRemove(item.text)}
                     variant="ghost"
                     size="sm"
