@@ -324,7 +324,7 @@ div.ProfileForm__grid
           dd.ProfileForm__factValue  color #0f172a
         p.ProfileForm__hint  color #556173
         div.ProfileForm__exitRow
-          button.Button__button  bg #be123c14  border #be123c73
+          button.Button__button  bg #be123c14  border #be123cb3
             span.Button__content#3
               span.Button__label  color #be123c
       div.CardBelt__footer#2  border #e2e8f0 #475569 #475569 #475569
@@ -406,7 +406,7 @@ div.ProfileForm__grid
           dd.ProfileForm__factValue  color #eaf1f8
         p.ProfileForm__hint  color #8598ac
         div.ProfileForm__exitRow
-          button.Button__button  bg #fb71851f  border #fb718580
+          button.Button__button  bg #fb71851f  border #fb7185b3
             span.Button__content#3
               span.Button__label  color #fb7185
       div.CardBelt__footer#2  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6

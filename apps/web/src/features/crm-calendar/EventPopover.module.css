@@ -180,8 +180,10 @@
   color: var(--error-ink);
 }
 
+/* Граница остаётся контуром кнопки и на наведении — отсюда `--error-line-ui`
+   с её 3:1, а не декоративная `--error-line` (issue #732). */
 .danger:hover {
-  border-color: var(--error-line);
+  border-color: var(--error-line-ui);
   color: var(--error-ink);
 }
 

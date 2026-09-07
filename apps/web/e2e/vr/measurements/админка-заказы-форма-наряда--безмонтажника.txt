@@ -54,14 +54,14 @@ section.Card__card  358×3884 @16,16  r20  b1
         div.Field__field#5  286×79 @0,353
           label.Field__label  286×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
           div.DateField__shell  286×52 @0,27  r11  b1
-            span.DateField__segmentBox  26×24 @15,14
-              input.DateField__segment  26×24 @0,0
-            span.DateField__segmentBox#2  32×24 @41,14
+            span.DateField__segmentBox  46×24 @15,14
+              input.DateField__segment  46×44 @0,-10
+            span.DateField__segmentBox#2  52×24 @61,14
               span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  26×24 @6,0
-            span.DateField__segmentBox#3  50×24 @73,14
+              input.DateField__segment  46×44 @6,-10
+            span.DateField__segmentBox#3  70×24 @113,14
               span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  45×24 @6,0
+              input.DateField__segment  65×44 @6,-10
         div.Field__field#6  286×77 @0,444
           label.Field__label  286×20 @0,0  Manrope 600 13/20  lines=1  «Время»
           input  286×50 @0,27  r11  b1
@@ -265,14 +265,14 @@ section.Card__card  736×2761 @16,16  r20  b1
         div.Field__field#5  213×79 @451,176
           label.Field__label  213×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
           div.DateField__shell  213×52 @0,27  r11  b1
-            span.DateField__segmentBox  26×24 @15,14
-              input.DateField__segment  26×24 @0,0
-            span.DateField__segmentBox#2  32×24 @41,14
+            span.DateField__segmentBox  46×24 @15,14
+              input.DateField__segment  46×44 @0,-10
+            span.DateField__segmentBox#2  52×24 @61,14
               span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  26×24 @6,0
-            span.DateField__segmentBox#3  50×24 @73,14
+              input.DateField__segment  46×44 @6,-10
+            span.DateField__segmentBox#3  70×24 @113,14
               span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  45×24 @6,0
+              input.DateField__segment  65×44 @6,-10
         div.Field__field#6  213×180 @0,267
           label.Field__label  213×20 @0,0  Manrope 600 13/20  lines=1  «Время»
           input  213×50 @0,27  r11  b1

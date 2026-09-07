@@ -80,14 +80,14 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
             label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
               span.Field__required  9×18 @31,1  Manrope 600 13/20  lines=1  «*»
             div.DateField__shell  348×52 @0,27  r11  b1
-              span.DateField__segmentBox  26×24 @15,14
-                input.DateField__segment  26×24 @0,0
-              span.DateField__segmentBox#2  32×24 @41,14
+              span.DateField__segmentBox  46×24 @15,14
+                input.DateField__segment  46×44 @0,-10
+              span.DateField__segmentBox#2  52×24 @61,14
                 span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-                input.DateField__segment  26×24 @6,0
-              span.DateField__segmentBox#3  50×24 @73,14
+                input.DateField__segment  46×44 @6,-10
+              span.DateField__segmentBox#3  70×24 @113,14
                 span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-                input.DateField__segment  45×24 @6,0
+                input.DateField__segment  65×44 @6,-10
           div.Field__field#3  348×77 @0,179
             label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Время»
               span.Field__required#2  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
@@ -189,37 +189,37 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
     div.Modal__body  558×598 @1,82
       form.EventDialog__form  518×558 @20,20
         div.EventDialog__row  518×167 @0,0
-          div.Field__field  204×79 @0,0
-            label.Field__label  204×20 @0,0  Manrope 600 13/20  lines=1  «Что за дело»
-            span.Select__wrapper  204×49 @0,27
-              select.Select__select  204×49 @0,0  r11  b1
+          div.Field__field  186×79 @0,0
+            label.Field__label  186×20 @0,0  Manrope 600 13/20  lines=1  «Что за дело»
+            span.Select__wrapper  186×49 @0,27
+              select.Select__select  186×49 @0,0  r11  b1
                 option  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Звонок»
                 option#2  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Замер»
                 option#3  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Монтаж»
                 option#4  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Обслуживание»
                 option#5  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Встреча»
                 option#6  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Заметка»
-              svg.Select__chevron  14×14 @176,18
-          div.Field__field#2  170×79 @216,0
-            label.Field__label  170×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
+              svg.Select__chevron  14×14 @158,18
+          div.Field__field#2  199×79 @198,0
+            label.Field__label  199×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
               span.Field__required  9×18 @31,1  Manrope 600 13/20  lines=1  «*»
-            div.DateField__shell  170×52 @0,27  r11  b1
-              span.DateField__segmentBox  26×24 @15,14
-                input.DateField__segment  26×24 @0,0
-              span.DateField__segmentBox#2  32×24 @41,14
+            div.DateField__shell  199×52 @0,27  r11  b1
+              span.DateField__segmentBox  46×24 @15,14
+                input.DateField__segment  46×44 @0,-10
+              span.DateField__segmentBox#2  52×24 @61,14
                 span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-                input.DateField__segment  26×24 @6,0
-              span.DateField__segmentBox#3  50×24 @73,14
+                input.DateField__segment  46×44 @6,-10
+              span.DateField__segmentBox#3  70×24 @113,14
                 span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-                input.DateField__segment  45×24 @6,0
-          div.Field__field#3  119×79 @399,0
-            label.Field__label  119×20 @0,0  Manrope 600 13/20  lines=1  «Время»
+                input.DateField__segment  65×44 @6,-10
+          div.Field__field#3  109×79 @409,0
+            label.Field__label  109×20 @0,0  Manrope 600 13/20  lines=1  «Время»
               span.Field__required#2  9×18 @40,1  Manrope 600 13/20  lines=1  «*»
-            input  119×50 @0,27  r11  b1
-          div.Field__field#4  204×76 @0,91
-            label.Field__label  204×20 @0,0  Manrope 600 13/20  lines=1  «Длительность»
-            span.Select__wrapper  204×49 @0,27
-              select.Select__select#2  204×49 @0,0  r11  b1
+            input  109×50 @0,27  r11  b1
+          div.Field__field#4  186×76 @0,91
+            label.Field__label  186×20 @0,0  Manrope 600 13/20  lines=1  «Длительность»
+            span.Select__wrapper  186×49 @0,27
+              select.Select__select#2  186×49 @0,0  r11  b1
                 option  0×0 @-125,-330  Manrope 400 15/21  lines=0  «15 мин»
                 option#2  0×0 @-125,-330  Manrope 400 15/21  lines=0  «30 мин»
                 option#3  0×0 @-125,-330  Manrope 400 15/21  lines=0  «45 мин»
@@ -231,7 +231,7 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
                 option#9  0×0 @-125,-330  Manrope 400 15/21  lines=0  «5 ч»
                 option#10  0×0 @-125,-330  Manrope 400 15/21  lines=0  «6 ч»
                 option#11  0×0 @-125,-330  Manrope 400 15/21  lines=0  «8 ч»
-              svg.Select__chevron#2  14×14 @176,18
+              svg.Select__chevron#2  14×14 @158,18
         div.EventDialog__row#2  518×76 @0,181
           div.Field__field  253×76 @0,0
             label.Field__label#2  253×20 @0,0  Manrope 600 13/20  lines=1  «Клиент»
