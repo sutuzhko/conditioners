@@ -169,6 +169,9 @@ export const stockManagerContent = {
     `Показывать по ${size} ${plural(size, 'строке', 'строки', 'строк')}`,
   shown: (shown: number, total: number): string =>
     `Показано ${shown} из ${total} ${plural(total, 'позиции', 'позиций', 'позиций')}`,
+  /** Тот же счёт, но у журнала считаются движения, а не позиции (issue #725). */
+  shownMoves: (shown: number, total: number): string =>
+    `Показано ${shown} из ${total} ${plural(total, 'движения', 'движений', 'движений')}`,
 
   tableLabel: 'Остатки по зонам хранения',
   tableHint: 'Таблица прокручивается вбок, название позиции остаётся на месте.',

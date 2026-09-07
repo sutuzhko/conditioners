@@ -859,6 +859,8 @@ export type StockMovementQuery = {
   /** Поиск по позиции, основанию и номеру наряда. */
   readonly query?: string | undefined;
   readonly page?: number | undefined;
+  /** Сколько движений на странице. Пусто — умолчание раздела (issue #725). */
+  readonly size?: number | undefined;
 };
 
 /** Полночь в поясе работ: с неё начинается календарный месяц. */
@@ -923,6 +925,10 @@ function movementSearchWhere(query: string): Prisma.StockMovementWhereInput {
 /**
  * Журнал движений. Сверху последнее: журнал читают, чтобы понять, что
  * произошло сегодня, а не с чего всё начиналось.
+ *
+ * 🔴 Шаг листания — такой же выбор владельца, как у остатков (issue #725), и
+ * приходит он тем же путём: из адреса, с прижатием к границам. Двадцать здесь
+ * остались умолчанием, а не единственно возможным числом.
  */
 export async function movements(query: StockMovementQuery): Promise<Page<StockMovementCard>> {
   const itemId = query.item?.trim() ?? '';
@@ -934,7 +940,7 @@ export async function movements(query: StockMovementQuery): Promise<Page<StockMo
   };
 
   const total = await db.stockMovement.count({ where });
-  const window = pageWindow(total, query.page ?? 1, STOCK_PAGE_SIZE);
+  const window = pageWindow(total, query.page ?? 1, pageSizeOf(query.size));
 
   const rows = await db.stockMovement.findMany({
     where,

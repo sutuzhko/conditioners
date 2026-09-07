@@ -1,17 +1,20 @@
 import Link from 'next/link';
 
-import { ButtonLink, Card, EmptyState, Pager, Table } from '@/shared/ui';
+import { ButtonLink, Card, EmptyState, Table } from '@/shared/ui';
 
 import { STOCK_MOVE_TITLES, stockManagerContent as texts } from './content';
 import { StockJournalFilters } from './StockJournalFilters';
+import { StockPager } from './StockPager';
 import {
   DEFAULT_STOCK_JOURNAL_FILTERS,
+  DEFAULT_STOCK_PAGE_SIZE,
   stockJournalApplied,
   stockJournalQuery,
   stockItemPath,
   type StockJournalFilterState,
   type StockMovementCard,
   type StockMovementPage,
+  type StockPageSize,
 } from './model';
 import styles from './StockJournal.module.css';
 
@@ -39,6 +42,12 @@ export interface StockJournalProps {
   readonly filters?: StockJournalFilterState | undefined;
   /** Показывать ли отбор: у одной позиции движений мало, и он там лишний. */
   readonly withFilter?: boolean | undefined;
+  /**
+   * Сколько строк на странице. Выбор владельца, а не константа (issue #725):
+   * журнал стоял на зашитых двадцати, пока у остатков шаг уже переключался, —
+   * и две разбивки с разными возможностями в одном разделе читаются как сбой.
+   */
+  readonly size?: StockPageSize | undefined;
 }
 
 /**
@@ -58,6 +67,7 @@ export function StockJournal({
   emptyText = texts.journalEmpty,
   filters = DEFAULT_STOCK_JOURNAL_FILTERS,
   withFilter = false,
+  size = DEFAULT_STOCK_PAGE_SIZE,
 }: StockJournalProps) {
   /* Отбор переезжает вместе со страницей: иначе «Дальше» сбрасывает фильтр и
      человек читает не тот журнал, который открыл. Вкладка раздела едет с ним
@@ -104,7 +114,11 @@ export function StockJournal({
 
   return (
     <div className={styles.wrap}>
-      <Card as="section" padding="none">
+      {/* 🔴 Ниже 600px карточка списка снимает с себя рамку, фон и тень: под
+          ней лежат двадцать своих карточек движений, и вторая коробка вокруг
+          них только шумит. Приём тот же, что у остатков (issue #609): одна
+          скруглённая коробка на движение — само движение. */}
+      <Card as="section" padding="none" className={styles.board}>
         <div className={styles.head}>
           <h2 className={styles.title}>{texts.journalTitle}</h2>
           <p className={styles.hint}>{texts.journalHint}</p>
@@ -127,7 +141,7 @@ export function StockJournal({
           {/* `cards` требует подписи в каждой ячейке и явных ролей: раскладка
               карточками сделана через `display: block`, а он снимает с таблицы
               её семантику (см. комментарий в Table.tsx). */}
-          <Table variant="cards" label={texts.journalTitle}>
+          <Table variant="cards" className={styles.grid} label={texts.journalTitle}>
             <thead>
               <tr role="row">
                 <th scope="col">{texts.colWhen}</th>
@@ -148,25 +162,43 @@ export function StockJournal({
             </tbody>
           </Table>
         </div>
-      </Card>
 
-      <Pager page={journal.page} pages={journal.pages} basePath={basePath} query={carried} />
+        {/* Подвал рисует сам пагинатор: когда листать нечего и выбирать шаг не
+            из чего, под журналом не остаётся пустой полосы с линией. */}
+        <StockPager
+          page={journal.page}
+          pages={journal.pages}
+          count={texts.shownMoves(journal.items.length, journal.total)}
+          scope={journal.total}
+          size={size}
+          basePath={basePath}
+          query={carried}
+        />
+      </Card>
     </div>
   );
 }
 
-/** Одно движение. Знак у количества свой только у инвентаризации. */
+/**
+ * Одно движение. Знак у количества свой только у инвентаризации.
+ *
+ * 🔴 `data-blank` на ячейке — это разметка, а не догадка стилей (issue #725).
+ * На карточке телефона пустая колонка не рисуется вовсе: прочерк «Откуда — »
+ * занимает строку и не сообщает ничего, а вот на широком экране он держит
+ * колонку и остаётся. Отличить одно от другого в CSS нечем — признак ставит
+ * тот, кто знает данные.
+ */
 function Row({ move, withItem }: { readonly move: StockMovementCard; readonly withItem: boolean }) {
   return (
-    <tr role="row">
-      <td role="cell" data-label={texts.colWhen}>
+    <tr className={styles.row} role="row">
+      <td role="cell" data-label={texts.colWhen} className={styles.when}>
         <time dateTime={move.createdAt}>{texts.moment(move.createdAt)}</time>
       </td>
-      <td role="cell" data-label={texts.colKind}>
+      <td role="cell" data-label={texts.colKind} className={styles.kind}>
         {STOCK_MOVE_TITLES[move.kind]}
       </td>
       {withItem ? (
-        <td role="cell" data-label={texts.colItem}>
+        <td role="cell" data-label={texts.colItem} className={styles.itemCell}>
           {/* Из журнала склада уходят в карточку: «куда делась эта труба» —
               следующий вопрос после «что вообще происходило». */}
           <Link className={styles.item} href={{ pathname: stockItemPath(move.item.id) }}>
@@ -179,13 +211,28 @@ function Row({ move, withItem }: { readonly move: StockMovementCard; readonly wi
       <td role="cell" data-label={texts.colQty} className={styles.qty}>
         {texts.qtySigned(move.kind, move.qty, move.item.unit)}
       </td>
-      <td role="cell" data-label={texts.colFrom}>
+      <td
+        role="cell"
+        data-label={texts.colFrom}
+        className={styles.from}
+        data-blank={move.fromZone === null ? '' : undefined}
+      >
         {move.fromZone === null ? texts.dash : move.fromZone.name}
       </td>
-      <td role="cell" data-label={texts.colTo}>
+      <td
+        role="cell"
+        data-label={texts.colTo}
+        className={styles.to}
+        data-blank={move.toZone === null ? '' : undefined}
+      >
         {move.toZone === null ? texts.dash : move.toZone.name}
       </td>
-      <td role="cell" data-label={texts.colOrder}>
+      <td
+        role="cell"
+        data-label={texts.colOrder}
+        className={styles.orderCell}
+        data-blank={move.order === null ? '' : undefined}
+      >
         {move.order === null ? (
           texts.dash
         ) : (
@@ -194,10 +241,15 @@ function Row({ move, withItem }: { readonly move: StockMovementCard; readonly wi
           </Link>
         )}
       </td>
-      <td role="cell" data-label={texts.colAuthor}>
+      <td role="cell" data-label={texts.colAuthor} className={styles.author}>
         {move.authorName ?? <span className={styles.gone}>{texts.authorGone}</span>}
       </td>
-      <td role="cell" data-label={texts.colReason} className={styles.reason}>
+      <td
+        role="cell"
+        data-label={texts.colReason}
+        className={styles.reason}
+        data-blank={move.reason === null ? '' : undefined}
+      >
         {move.reason ?? texts.dash}
       </td>
     </tr>
