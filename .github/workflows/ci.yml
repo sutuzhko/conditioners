@@ -1197,6 +1197,16 @@ jobs:
             printf '  %s\n' $changed
           fi
 
+          # 🔴 Список изменённого — раннеру (issue #856): он обходит только
+          # истории, до которых правка дотягивается по графу импортов, тем же
+          # кодом, что снимки (`story-deps.ts`, issue #444). Многострочный
+          # выход — через ограничитель, иначе вторая строка ломает файл.
+          {
+            echo "changed<<VR_CHANGED_EOF"
+            printf '%s\n' "$changed"
+            echo "VR_CHANGED_EOF"
+          } >> "$GITHUB_OUTPUT"
+
       # Тот же образ, что у снимков: шрифты и браузер в нём те же, что видит
       # пиксельная регрессия, — иначе размер цели и перенос текста здесь и там
       # разошлись бы.
@@ -1244,12 +1254,17 @@ jobs:
         id: run
         if: steps.scope.outputs.pixels == 'true'
         continue-on-error: true
+        # Список изменённого раннеру: он обходит только достижимые истории
+        # (issue #856). `docker run` окружения шага не наследует (ADR-222),
+        # поэтому переменная объявлена здесь и передана явно ниже.
+        env:
+          VR_CHANGED: ${{ steps.scope.outputs.changed }}
         run: |
           mkdir -p vr-outcome
           docker run --name inv-run --network inv \
             -v "$PWD/vr-outcome:/vr/outcome" \
             -e VR_OUTCOME_DIR=/vr/outcome \
-            -e VR_SHARD=${{ matrix.shard }}/4 \
+            -e VR_SHARD=${{ matrix.shard }}/4 -e VR_CHANGED \
             -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web vr:invariants
@@ -1447,6 +1462,16 @@ jobs:
             printf '  %s\n' $changed
           fi
 
+          # 🔴 Список изменённого — раннеру (issue #856): он обходит только
+          # истории, до которых правка дотягивается по графу импортов, тем же
+          # кодом, что снимки (`story-deps.ts`, issue #444). Многострочный
+          # выход — через ограничитель, иначе вторая строка ломает файл.
+          {
+            echo "changed<<VR_CHANGED_EOF"
+            printf '%s\n' "$changed"
+            echo "VR_CHANGED_EOF"
+          } >> "$GITHUB_OUTPUT"
+
       # Тот же образ, что у снимков: те же шрифты и браузер — иначе ширина
       # строки и перенос текста здесь и в снимках разошлись бы.
       - name: Дев-образ
@@ -1495,12 +1520,17 @@ jobs:
         id: run
         if: steps.scope.outputs.pixels == 'true'
         continue-on-error: true
+        # Список изменённого раннеру: он обходит только достижимые истории
+        # (issue #856). `docker run` окружения шага не наследует (ADR-222),
+        # поэтому переменная объявлена здесь и передана явно ниже.
+        env:
+          VR_CHANGED: ${{ steps.scope.outputs.changed }}
         run: |
           mkdir -p vr-outcome
           docker run --name measure-run --network measure \
             -v "$PWD/vr-outcome:/vr/outcome" \
             -e VR_OUTCOME_DIR=/vr/outcome \
-            -e VR_SHARD=${{ matrix.shard }}/4 \
+            -e VR_SHARD=${{ matrix.shard }}/4 -e VR_CHANGED \
             -e VR_BASE_URL=http://storybook:6006 -e CI=true -e VR_WORKERS=4 \
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web vr:measure
@@ -1669,7 +1699,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [site, shell, panel, flows]
+        group: [site, sweeps, panel, flows]
 
     env:
       # 🔴 Адрес тот же, по которому сценарии стучатся в приложение: из него

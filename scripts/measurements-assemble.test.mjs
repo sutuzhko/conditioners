@@ -92,6 +92,46 @@ describe('сборка измерений', () => {
   });
 
   it('каталога нет — измерений нет, и это не исключение', () => {
-    expect(readPartials('/нет/такого/каталога')).toEqual({ partials: [], failed: [] });
+    expect(readPartials('/нет/такого/каталога')).toEqual({
+      partials: [],
+      failed: [],
+      skipped: [],
+    });
+  });
+
+  it('🔴 список пропущенных не читается как измерение и не уходит в отказы', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'measure-skipped-'));
+    try {
+      writeFileSync(
+        join(dir, 'measure-skipped-panel-s1of4-390-light.json'),
+        JSON.stringify({ skipped: ['кит-кнопка--базовое', 'сайт-цены--базовое'] }),
+      );
+      writeFileSync(
+        join(dir, 'measure-skipped-panel-s1of4-390-dark.json'),
+        JSON.stringify({ skipped: ['кит-кнопка--базовое'] }),
+      );
+
+      const read = readPartials(dir);
+      expect(read.failed, 'пропуск — не отказ').toEqual([]);
+      expect(read.partials, 'пропуск — не измерение').toEqual([]);
+      // Одна история пропускается на каждой паре «ширина + тема», а в отчёте
+      // нужна один раз.
+      expect(read.skipped).toEqual(['кит-кнопка--базовое', 'сайт-цены--базовое']);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('🔴 нечитаемый список пропущенных — отказ, а не тихий пустой список', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'measure-skipped-bad-'));
+    try {
+      writeFileSync(join(dir, 'measure-skipped-panel-390-light.json'), 'не json');
+      const read = readPartials(dir);
+      expect(read.skipped).toEqual([]);
+      expect(read.failed.length).toBe(1);
+      expect(read.failed[0].reason).toMatch(/список пропущенных не читается/);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 });

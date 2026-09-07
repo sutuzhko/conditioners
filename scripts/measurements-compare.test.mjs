@@ -176,3 +176,56 @@ describe('вердикт', () => {
     expect(result.markdown).toMatch(/### Не читаются — 1/);
   });
 });
+
+describe('пропущенные по графу правки (issue #856)', () => {
+  it('🔴 файл без замера не считается пропавшим, если история пропущена намеренно', () => {
+    const committed = asMap({ 'кит-кнопка': story('кит-кнопка'), 'сайт-цены': story('сайт-цены') });
+    const actual = asMap({ 'кит-кнопка': story('кит-кнопка') });
+
+    const blind = compare({ committed, actual });
+    expect(blind.removed, 'без списка пропущенных история читается как удалённая').toEqual([
+      'сайт-цены',
+    ]);
+    expect(blind.ok).toBe(false);
+
+    const scoped = compare({ committed, actual, skipped: ['сайт-цены'] });
+    expect(scoped.removed).toEqual([]);
+    expect(scoped.ok, 'пропуск по графу — не повод краснеть').toBe(true);
+  });
+
+  it('🔴 настоящее удаление ловится и при включённом пропуске', () => {
+    // Историю убрали из витрины: раннер её не видел вовсе, поэтому в списке
+    // пропущенных её нет — и она обязана остаться пропавшей.
+    const committed = asMap({
+      'кит-кнопка': story('кит-кнопка'),
+      'кит-старое': story('кит-старое'),
+    });
+    const actual = asMap({ 'кит-кнопка': story('кит-кнопка') });
+
+    const result = compare({ committed, actual, skipped: ['сайт-цены'] });
+    expect(result.removed).toEqual(['кит-старое']);
+    expect(result.ok).toBe(false);
+  });
+
+  it('пропуск не прячет расхождение в измеренной истории', () => {
+    const after = story('кит-кнопка', (p) => {
+      p.nodes[2].geometry.radius = '11px';
+    });
+    const result = compare({
+      committed: asMap({ 'кит-кнопка': story('кит-кнопка') }),
+      actual: asMap({ 'кит-кнопка': after }),
+      skipped: ['сайт-цены'],
+    });
+    expect(result.changed.length).toBe(1);
+    expect(result.ok).toBe(false);
+  });
+
+  it('число пропущенных названо в сводке', () => {
+    const result = compare({
+      committed: asMap({ a: story('a') }),
+      actual: asMap({ a: story('a') }),
+      skipped: ['b', 'c'],
+    });
+    expect(result.markdown).toMatch(/\| Пропущено по графу правки \| 2 \|/);
+  });
+});

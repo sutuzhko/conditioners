@@ -190,9 +190,17 @@ const cell = (text) => text.replace(/\|/g, '\\|').replace(/\s+/g, ' ').slice(0, 
  * Сводка и вердикт. Чистая функция: на вход — тексты историй из репозитория и
  * из прогона плюс отказы сборки, на выход — красить ли, почему и что показать.
  */
-export function compare({ committed, actual, failed = [], details = 40 }) {
+export function compare({ committed, actual, failed = [], skipped = [], details = 40 }) {
+  /* 🔴 Пропущенные по графу импортов — не пропавшие. Раннер меряет только
+     истории, до которых дотягивается правка (issue #856), и файл в
+     репозитории без замера означает «не мерили», а не «истории больше нет».
+     Без этого вычитания осознанный пропуск красил бы работу сообщением про
+     удалённую историю — то есть по ложной причине. */
+  const untouched = new Set(skipped);
   const added = [...actual.keys()].filter((story) => !committed.has(story)).sort();
-  const removed = [...committed.keys()].filter((story) => !actual.has(story)).sort();
+  const removed = [...committed.keys()]
+    .filter((story) => !actual.has(story) && !untouched.has(story))
+    .sort();
   const changed = [];
   const broken = [];
   for (const story of [...committed.keys()].filter((s) => actual.has(s)).sort()) {
@@ -231,7 +239,8 @@ export function compare({ committed, actual, failed = [], details = 40 }) {
   lines.push(`| Изменились | ${changed.length} |`);
   lines.push(`| Новые (нет файла) | ${added.length} |`);
   lines.push(`| Пропавшие (нет истории) | ${removed.length} |`);
-  lines.push(`| Отказы замера | ${failed.length} |`, '');
+  lines.push(`| Отказы замера | ${failed.length} |`);
+  lines.push(`| Пропущено по графу правки | ${untouched.size} |`, '');
 
   if (changed.length > 0) {
     lines.push(`### Изменились — ${changed.length}`, '');
@@ -312,15 +321,18 @@ function main() {
   }
 
   let failed = [];
+  let skipped = [];
   if (values['assemble-report'] !== '' && existsSync(values['assemble-report'])) {
     const report = JSON.parse(readFileSync(values['assemble-report'], 'utf8'));
     failed = Array.isArray(report.failed) ? report.failed : [];
+    skipped = Array.isArray(report.skipped) ? report.skipped : [];
   }
 
   const result = compare({
     committed: readStories(values.committed),
     actual: readStories(values.actual),
     failed,
+    skipped,
     details: Number(values.details),
   });
 
