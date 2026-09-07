@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.Card__card  326×810 @32,32  r14  b1
+div.Card__card  326×809 @32,32  r14  b1
   div.CardBelt__header  324×69 @1,1  b0 0 1 0
     div.CardBelt__headText  138×38 @16,15
       h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
@@ -16,9 +16,9 @@ div.Card__card  326×810 @32,32  r14  b1
       button.Button__button  92×44 @0,0  r999  b1
         span.Button__content  62×16 @15,14
           span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
-  div.CardBelt__body  324×739 @1,70
-    div.Table__viewport  324×739 @0,0
-      table.Table__table  324×739 @0,0
+  div.CardBelt__body  324×738 @1,70
+    div.Table__viewport  324×738 @0,0
+      table.Table__table  324×738 @0,0
         th  83×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
         th#2  90×56 @83,0  Onest 700 15/23  b0 0 1 0  lines=1  «Объект»
         th#3  74×56 @173,0  Onest 700 15/23  b0 0 1 0  lines=1  «Срок»
@@ -52,23 +52,23 @@ div.Card__card  326×810 @32,32  r14  b1
             div.TableActions__actions#2  44×44 @264,8
               button.IconButton__iconButton  44×44 @0,0  r100  b1
                 svg#2  20×20 @12,12
-        tr[role=row]#3  324×240 @0,499  r14  b1
-          th  88×51 @1,5  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1059»
-          td[role=cell]  322×36 @1,56  Manrope 400 15/22  lines=1  «Заказ на Пролетарской»
+        tr[role=row]#3  324×239 @0,499  r14  b1
+          th  88×50 @1,5  Manrope 600 15/22  lines=1  «№ 1059»
+          td[role=cell]  322×36 @1,55  Manrope 400 15/22  lines=1  «Заказ на Пролетарской»
             td[role=cell]::before  45×20 @0,0
-          td[role=cell]#2  322×36 @1,93  Manrope 400 15/22  lines=1  «3 сентября»
+          td[role=cell]#2  322×36 @1,92  Manrope 400 15/22  lines=1  «3 сентября»
             td[role=cell]#2::before  31×20 @0,0
-          td[role=cell]#3  322×42 @1,129
+          td[role=cell]#3  322×42 @1,128
             td[role=cell]#3::before  43×20 @0,0
             span.Badge__badge#3  90×28 @218,7  Manrope 600 12/16  r100  b1  lines=1  «В работе»
               span.Badge__dot  6×6 @13,11  r100
-          td[role=cell]#4  322×59 @1,176  b1 0 0 0
+          td[role=cell]#4  322×59 @1,175  b1 0 0 0
             div.TableActions__actions#3  44×44 @264,8
               button.IconButton__iconButton  44×44 @0,0  r100  b1
                 svg#3  20×20 @12,12
 
 [геометрия 768]
-div.Card__card  704×346 @32,32  r14  b1
+div.Card__card  704×345 @32,32  r14  b1
   div.CardBelt__header  702×69 @1,1  b0 0 1 0
     div.CardBelt__headText  138×38 @16,15
       h3.CardBelt__title  138×20 @0,0  Onest 700 15/20  ls0  lines=1  «Наряды на неделю»
@@ -77,9 +77,9 @@ div.Card__card  704×346 @32,32  r14  b1
       button.Button__button  92×44 @0,0  r999  b1
         span.Button__content  62×16 @15,14
           span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
-  div.CardBelt__body  702×275 @1,70
-    div.Table__viewport  702×275 @0,0
-      table.Table__table  702×275 @0,0
+  div.CardBelt__body  702×274 @1,70
+    div.Table__viewport  702×274 @0,0
+      table.Table__table  702×274 @0,0
         th  98×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
         th#2  250×56 @98,0  Onest 700 15/23  b0 0 1 0  lines=1  «Объект»
         th#3  125×56 @348,0  Onest 700 15/23  b0 0 1 0  lines=1  «Срок»
@@ -108,7 +108,7 @@ div.Card__card  704×346 @32,32  r14  b1
               button.IconButton__iconButton  44×44 @9,0  r100  b1
                 svg#2  20×20 @12,12
         tr[role=row]#3  702×73 @0,202
-          th  98×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1059»
+          th  98×73 @0,0  Manrope 600 15/22  lines=1  «№ 1059»
           td[role=cell]  250×73 @98,0  Manrope 400 15/22  lines=1  «Заказ на Пролетарской»
           td[role=cell]#2  125×73 @348,0  Manrope 400 15/22  lines=1  «3 сентября»
           td[role=cell]#3  140×73 @473,0
@@ -129,9 +129,9 @@ div.Card__card  1376×303 @32,32  r14  b1
       button.Button__button  92×32 @0,0  r999  b1
         span.Button__content  62×16 @15,8
           span.Button__label  62×16 @0,0  Manrope 600 13/16  lines=1  «Добавить»
-  div.CardBelt__body  1374×239 @1,64
-    div.Table__viewport  1374×239 @0,0
-      table.Table__table  1374×239 @0,0
+  div.CardBelt__body  1374×238 @1,64
+    div.Table__viewport  1374×238 @0,0
+      table.Table__table  1374×238 @0,0
         th  195×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
         th#2  500×56 @195,0  Onest 700 15/23  b0 0 1 0  lines=1  «Объект»
         th#3  249×56 @695,0  Onest 700 15/23  b0 0 1 0  lines=1  «Срок»
@@ -160,7 +160,7 @@ div.Card__card  1376×303 @32,32  r14  b1
               button.IconButton__iconButton  32×32 @83,0  r100  b1
                 svg#2  20×20 @6,6
         tr[role=row]#3  1374×61 @0,178
-          th  195×61 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1059»
+          th  195×61 @0,0  Manrope 600 15/22  lines=1  «№ 1059»
           td[role=cell]  500×61 @195,0  Manrope 400 15/22  lines=1  «Заказ на Пролетарской»
           td[role=cell]#2  249×61 @695,0  Manrope 400 15/22  lines=1  «3 сентября»
           td[role=cell]#3  279×61 @944,0
@@ -212,7 +212,7 @@ div.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0
               button.IconButton__iconButton  border transparent
                 svg#2
         tr[role=row]#3  bg #f5f8fa
-          th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+          th  color #0f172a
           td[role=cell]  color #334155
           td[role=cell]#2  color #556173
           td[role=cell]#3
@@ -286,7 +286,7 @@ div.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #0
               button.IconButton__iconButton  border transparent
                 svg#2
         tr[role=row]#3  bg #121d31
-          th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+          th  color #eaf1f8
           td[role=cell]  color #c9d5e2
           td[role=cell]#2  color #8598ac
           td[role=cell]#3

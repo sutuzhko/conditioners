@@ -7,8 +7,8 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.Table__viewport  358×314 @16,16
-  table.Table__table  760×314 @0,0
+div.Table__viewport  358×313 @16,16
+  table.Table__table  760×313 @0,0
     th  286×56 @16,16  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Характеристика»
     th#2  120×56 @286,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 07»
     th#3  122×56 @406,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 09»
@@ -34,15 +34,15 @@ div.Table__viewport  358×314 @16,16
     td#14  122×51 @406,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
     td#15  116×51 @527,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
     td#16  117×51 @643,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
-    th#10  286×51 @16,278  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Гарантия»
+    th#10  286×51 @16,278  Manrope 600 15/22  b0 1 0 0  lines=1  fixed  «Гарантия»
     td#17  120×51 @286,262  Manrope 400 15/22  lines=1  «—»
     td#18  122×51 @406,262  Manrope 400 15/22  lines=1  «—»
     td#19  116×51 @527,262  Manrope 400 15/22  lines=1  «—»
     td#20  117×51 @643,262  Manrope 400 15/22  lines=1  «—»
 
 [геометрия 768]
-div.Table__viewport  736×314 @16,16
-  table.Table__table  760×314 @0,0
+div.Table__viewport  736×313 @16,16
+  table.Table__table  760×313 @0,0
     th  286×56 @16,16  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Характеристика»
     th#2  120×56 @286,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 07»
     th#3  122×56 @406,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 09»
@@ -68,15 +68,15 @@ div.Table__viewport  736×314 @16,16
     td#14  122×51 @406,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
     td#15  116×51 @527,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
     td#16  117×51 @643,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
-    th#10  286×51 @16,278  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Гарантия»
+    th#10  286×51 @16,278  Manrope 600 15/22  b0 1 0 0  lines=1  fixed  «Гарантия»
     td#17  120×51 @286,262  Manrope 400 15/22  lines=1  «—»
     td#18  122×51 @406,262  Manrope 400 15/22  lines=1  «—»
     td#19  116×51 @527,262  Manrope 400 15/22  lines=1  «—»
     td#20  117×51 @643,262  Manrope 400 15/22  lines=1  «—»
 
 [геометрия 1440]
-div.Table__viewport  1408×314 @16,16
-  table.Table__table  1408×314 @0,0
+div.Table__viewport  1408×313 @16,16
+  table.Table__table  1408×313 @0,0
     th  529×56 @16,16  Onest 700 15/23  b0 1 1 0  lines=1  fixed  «Характеристика»
     th#2  223×56 @529,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 07»
     th#3  225×56 @752,0  Onest 700 15/23  b0 0 1 0  lines=1  «Класс 09»
@@ -102,7 +102,7 @@ div.Table__viewport  1408×314 @16,16
     td#14  225×51 @752,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
     td#15  214×51 @977,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
     td#16  217×51 @1191,210  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
-    th#10  529×51 @16,278  Manrope 600 15/22  b0 1 1 0  lines=1  fixed  «Гарантия»
+    th#10  529×51 @16,278  Manrope 600 15/22  b0 1 0 0  lines=1  fixed  «Гарантия»
     td#17  223×51 @529,262  Manrope 400 15/22  lines=1  «—»
     td#18  225×51 @752,262  Manrope 400 15/22  lines=1  «—»
     td#19  214×51 @977,262  Manrope 400 15/22  lines=1  «—»
@@ -136,7 +136,7 @@ div.Table__viewport
     td#14  color #334155  border #334155 #334155 #eef2f6 #334155
     td#15  color #334155  border #334155 #334155 #eef2f6 #334155
     td#16  color #334155  border #334155 #334155 #eef2f6 #334155
-    th#10  color #0f172a  bg #f5f8fa  border #0f172a #e2e8f0 #e2e8f0 #0f172a
+    th#10  color #0f172a  bg #f5f8fa  border #0f172a #e2e8f0 #0f172a #0f172a
     td#17  color #334155
     td#18  color #334155
     td#19  color #334155
@@ -170,7 +170,7 @@ div.Table__viewport
     td#14  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
     td#15  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
     td#16  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
-    th#10  color #eaf1f8  bg #121d31  border #eaf1f8 #1e2b41 #1e2b41 #eaf1f8
+    th#10  color #eaf1f8  bg #121d31  border #eaf1f8 #1e2b41 #eaf1f8 #eaf1f8
     td#17  color #c9d5e2
     td#18  color #c9d5e2
     td#19  color #c9d5e2

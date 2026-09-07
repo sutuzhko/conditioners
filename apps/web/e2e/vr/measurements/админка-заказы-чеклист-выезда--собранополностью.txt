@@ -7,96 +7,96 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×786 @16,16  r20  b1
+section.Card__card  358×776 @16,16  r20  b1
   div.OrderChecklist__head  316×22 @21,21
     h2.OrderChecklist__title  132×21 @0,0  Onest 700 17/21  ls0  lines=1  «Чеклист выезда»
     p.OrderChecklist__progress  109×20 @207,2  JetBrains Mono 400 13/20  lines=1  «Собрано 5 из 5»
   p.OrderChecklist__hint  316×81 @21,47  Manrope 400 13/20  lines=4  «Собран из наряда: тип работ, позиции, шт»
-  ul.OrderChecklist__list  316×378 @21,142
-    li.OrderChecklist__item  316×70 @0,0  r11
-      div.Checkbox__root  300×62 @8,4
-        div.Checkbox__row  300×62 @0,0
-          input.Checkbox__input  20×20 @0,11  r6  b1
-          label.Checkbox__label  269×42 @31,10  Manrope 400 15/21  lines=2  «Забрать со склада — Позиция 1, Сплит-сис»
-    li.OrderChecklist__item#2  316×70 @0,74  r11
-      div.Checkbox__root  300×62 @8,4
-        div.Checkbox__row#2  300×62 @0,0
-          input.Checkbox__input  20×20 @0,11  r6  b1
-          label.Checkbox__label  269×42 @31,10  Manrope 400 15/21  lines=2  «Позиция 1, Сплит-система 09: медная трас»
-    li.OrderChecklist__item#3  316×52 @0,148  r11
-      div.Checkbox__root  300×44 @8,4
-        div.Checkbox__row#3  300×44 @0,0
-          input.Checkbox__input  20×20 @0,11  r6  b1
-          label.Checkbox__label  258×24 @31,10  Manrope 400 15/21  lines=1  «Перфоратор с бурами и удлинителем»
-    li.OrderChecklist__item#4  316×70 @0,204  r11
-      div.Checkbox__root  300×62 @8,4
-        div.Checkbox__row#4  300×62 @0,0
-          input.Checkbox__input  20×20 @0,11  r6  b1
-          label.Checkbox__label  269×42 @31,10  Manrope 400 15/21  lines=2  «Страховочная система и каска: работы на»
-    li.OrderChecklist__item#5  316×100 @0,278  r11
-      div.Checkbox__root  300×44 @8,4
-        div.Checkbox__row#5  300×44 @0,0
-          input.Checkbox__input  20×20 @0,11  r6  b1
-          label.Checkbox__label  190×24 @31,10  Manrope 400 15/21  lines=1  «Чехлы на мебель и пылесос»
-      span.Badge__badge  84×24 @8,64  Manrope 600 12/16  r100  b1  lines=1  «свой пункт»
-      button.IconButton__iconButton  40×40 @100,56  r11  b1
-        svg  16×16 @12,12
-  form.OrderChecklist__add  316×147 @21,534  b1 0 0 0
+  ul.OrderChecklist__list  316×368 @21,142
+    li.OrderChecklist__item  316×60 @0,0  r11
+      div.Checkbox__root  300×52 @8,4
+        div.Checkbox__row  300×52 @0,0
+          input.Checkbox__input  20×20 @0,17  r6  b1
+          label.Checkbox__label  269×44 @31,4  Manrope 400 15/21  lines=2  «Забрать со склада — Позиция 1, Сплит-сис»
+    li.OrderChecklist__item#2  316×60 @0,64  r11
+      div.Checkbox__root  300×52 @8,4
+        div.Checkbox__row#2  300×52 @0,0
+          input.Checkbox__input  20×20 @0,17  r6  b1
+          label.Checkbox__label  269×44 @31,4  Manrope 400 15/21  lines=2  «Позиция 1, Сплит-система 09: медная трас»
+    li.OrderChecklist__item#3  316×60 @0,128  r11
+      div.Checkbox__root  300×52 @8,4
+        div.Checkbox__row#3  300×52 @0,0
+          input.Checkbox__input  20×20 @0,17  r6  b1
+          label.Checkbox__label  258×44 @31,4  Manrope 400 15/21  lines=1  «Перфоратор с бурами и удлинителем»
+    li.OrderChecklist__item#4  316×60 @0,192  r11
+      div.Checkbox__root  300×52 @8,4
+        div.Checkbox__row#4  300×52 @0,0
+          input.Checkbox__input  20×20 @0,17  r6  b1
+          label.Checkbox__label  269×44 @31,4  Manrope 400 15/21  lines=2  «Страховочная система и каска: работы на»
+    li.OrderChecklist__item#5  316×112 @0,256  r11
+      div.Checkbox__root  300×52 @8,4
+        div.Checkbox__row#5  300×52 @0,0
+          input.Checkbox__input  20×20 @0,17  r6  b1
+          label.Checkbox__label  190×44 @31,4  Manrope 400 15/21  lines=1  «Чехлы на мебель и пылесос»
+      span.Badge__badge  84×24 @8,74  Manrope 600 12/16  r100  b1  lines=1  «свой пункт»
+      button.IconButton__iconButton  44×44 @100,64  r11  b1
+        svg  16×16 @14,14
+  form.OrderChecklist__add  316×147 @21,524  b1 0 0 0
     div.Field__field  316×76 @0,15
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Что ещё взять»
       input  316×49 @0,27  r11  b1
     button.Button__button  164×44 @0,103  r9  b1
       span.Button__content  134×16 @15,14
         span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Добавить свой пункт»
-  div.OrderChecklist__actions  316×72 @21,693
+  div.OrderChecklist__actions  316×72 @21,683
     button.Button__button  181×44 @0,0  r9  b1
       span.Button__content#2  151×16 @15,14
         span.Button__label  151×16 @0,0  Manrope 600 13/16  lines=1  «Пересобрать из наряда»
     span.OrderChecklist__quiet  266×20 @0,52  Manrope 400 13/20  lines=1  «Отметки и дописанные пункты сохранятся.»
 
 [геометрия 768]
-section.Card__card  736×560 @16,16  r20  b1
+section.Card__card  736×600 @16,16  r20  b1
   div.OrderChecklist__head  694×22 @21,21
     h2.OrderChecklist__title  138×22 @0,0  Onest 700 18/22  ls0  lines=1  «Чеклист выезда»
     p.OrderChecklist__progress  109×20 @585,2  JetBrains Mono 400 13/20  lines=1  «Собрано 5 из 5»
   p.OrderChecklist__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Собран из наряда: тип работ, позиции, шт»
-  ul.OrderChecklist__list  694×276 @21,101
-    li.OrderChecklist__item  694×52 @0,0  r11
-      div.Checkbox__root  678×44 @8,4
-        div.Checkbox__row  678×44 @0,0
-          input.Checkbox__input  20×20 @0,11  r6  b1
-          label.Checkbox__label  346×24 @31,10  Manrope 400 15/21  lines=1  «Забрать со склада — Позиция 1, Сплит-сис»
-    li.OrderChecklist__item#2  694×52 @0,56  r11
-      div.Checkbox__root  678×44 @8,4
-        div.Checkbox__row#2  678×44 @0,0
-          input.Checkbox__input  20×20 @0,11  r6  b1
-          label.Checkbox__label  454×24 @31,10  Manrope 400 15/21  lines=1  «Позиция 1, Сплит-система 09: медная трас»
-    li.OrderChecklist__item#3  694×52 @0,112  r11
-      div.Checkbox__root  678×44 @8,4
-        div.Checkbox__row#3  678×44 @0,0
-          input.Checkbox__input  20×20 @0,11  r6  b1
-          label.Checkbox__label  258×24 @31,10  Manrope 400 15/21  lines=1  «Перфоратор с бурами и удлинителем»
-    li.OrderChecklist__item#4  694×52 @0,168  r11
-      div.Checkbox__root  678×44 @8,4
-        div.Checkbox__row#4  678×44 @0,0
-          input.Checkbox__input  20×20 @0,11  r6  b1
-          label.Checkbox__label  342×24 @31,10  Manrope 400 15/21  lines=1  «Страховочная система и каска: работы на»
-    li.OrderChecklist__item#5  694×52 @0,224  r11
-      div.Checkbox__root  538×44 @8,4
-        div.Checkbox__row#5  538×44 @0,0
-          input.Checkbox__input  20×20 @0,11  r6  b1
-          label.Checkbox__label  190×24 @31,10  Manrope 400 15/21  lines=1  «Чехлы на мебель и пылесос»
-      span.Badge__badge  84×24 @554,14  Manrope 600 12/16  r100  b1  lines=1  «свой пункт»
-      button.IconButton__iconButton  40×40 @646,6  r11  b1
-        svg  16×16 @12,12
-  form.OrderChecklist__add  694×91 @21,391  b1 0 0 0
+  ul.OrderChecklist__list  694×316 @21,101
+    li.OrderChecklist__item  694×60 @0,0  r11
+      div.Checkbox__root  678×52 @8,4
+        div.Checkbox__row  678×52 @0,0
+          input.Checkbox__input  20×20 @0,17  r6  b1
+          label.Checkbox__label  346×44 @31,4  Manrope 400 15/21  lines=1  «Забрать со склада — Позиция 1, Сплит-сис»
+    li.OrderChecklist__item#2  694×60 @0,64  r11
+      div.Checkbox__root  678×52 @8,4
+        div.Checkbox__row#2  678×52 @0,0
+          input.Checkbox__input  20×20 @0,17  r6  b1
+          label.Checkbox__label  454×44 @31,4  Manrope 400 15/21  lines=1  «Позиция 1, Сплит-система 09: медная трас»
+    li.OrderChecklist__item#3  694×60 @0,128  r11
+      div.Checkbox__root  678×52 @8,4
+        div.Checkbox__row#3  678×52 @0,0
+          input.Checkbox__input  20×20 @0,17  r6  b1
+          label.Checkbox__label  258×44 @31,4  Manrope 400 15/21  lines=1  «Перфоратор с бурами и удлинителем»
+    li.OrderChecklist__item#4  694×60 @0,192  r11
+      div.Checkbox__root  678×52 @8,4
+        div.Checkbox__row#4  678×52 @0,0
+          input.Checkbox__input  20×20 @0,17  r6  b1
+          label.Checkbox__label  342×44 @31,4  Manrope 400 15/21  lines=1  «Страховочная система и каска: работы на»
+    li.OrderChecklist__item#5  694×60 @0,256  r11
+      div.Checkbox__root  534×52 @8,4
+        div.Checkbox__row#5  534×52 @0,0
+          input.Checkbox__input  20×20 @0,17  r6  b1
+          label.Checkbox__label  190×44 @31,4  Manrope 400 15/21  lines=1  «Чехлы на мебель и пылесос»
+      span.Badge__badge  84×24 @550,18  Manrope 600 12/16  r100  b1  lines=1  «свой пункт»
+      button.IconButton__iconButton  44×44 @642,8  r11  b1
+        svg  16×16 @14,14
+  form.OrderChecklist__add  694×91 @21,431  b1 0 0 0
     div.Field__field  518×76 @0,15
       label.Field__label  518×20 @0,0  Manrope 600 13/20  lines=1  «Что ещё взять»
       input  518×49 @0,27  r11  b1
     button.Button__button  164×44 @530,47  r9  b1
       span.Button__content  134×16 @15,14
         span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Добавить свой пункт»
-  div.OrderChecklist__actions  694×44 @21,495
+  div.OrderChecklist__actions  694×44 @21,535
     button.Button__button  181×44 @0,0  r9  b1
       span.Button__content#2  151×16 @15,14
         span.Button__label  151×16 @0,0  Manrope 600 13/16  lines=1  «Пересобрать из наряда»

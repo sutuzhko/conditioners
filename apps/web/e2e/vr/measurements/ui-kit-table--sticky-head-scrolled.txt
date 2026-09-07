@@ -8,7 +8,7 @@
 
 [геометрия 390]
 div.Table__viewport  326×260 @32,32
-  table.Table__table  860×639 @0,0
+  table.Table__table  860×638 @0,0
     th  103×55 @32,32  Onest 700 15/23  lines=1  fixed  «Наряд»
     th#2  261×55 @135,32  Onest 700 15/23  lines=1  fixed  «Объект»
     th#3  130×55 @396,32  Onest 700 15/23  lines=1  fixed  «Срок»
@@ -120,7 +120,7 @@ div.Table__viewport  326×260 @32,32
           button.IconButton__iconButton#3  44×44 @124,0  r11  b1
             svg#7  20×20 @12,12
     tr[role=row]#8  860×73 @0,566
-      th  103×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1064»
+      th  103×73 @0,0  Manrope 600 15/22  lines=1  «№ 1064»
       td[role=cell]  261×73 @103,0  Manrope 400 15/22  lines=1  «Заказ на Первомайской»
       td[role=cell]#2  130×73 @364,0  Manrope 400 15/22  lines=1  «5 сентября»
       td[role=cell]#3  162×73 @494,0
@@ -137,7 +137,7 @@ div.Table__viewport  326×260 @32,32
 
 [геометрия 768]
 div.Table__viewport  704×260 @32,32
-  table.Table__table  860×639 @0,0
+  table.Table__table  860×638 @0,0
     th  103×55 @32,32  Onest 700 15/23  lines=1  fixed  «Наряд»
     th#2  261×55 @135,32  Onest 700 15/23  lines=1  fixed  «Объект»
     th#3  130×55 @396,32  Onest 700 15/23  lines=1  fixed  «Срок»
@@ -249,7 +249,7 @@ div.Table__viewport  704×260 @32,32
           button.IconButton__iconButton#3  44×44 @124,0  r11  b1
             svg#7  20×20 @12,12
     tr[role=row]#8  860×73 @0,566
-      th  103×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1064»
+      th  103×73 @0,0  Manrope 600 15/22  lines=1  «№ 1064»
       td[role=cell]  261×73 @103,0  Manrope 400 15/22  lines=1  «Заказ на Первомайской»
       td[role=cell]#2  130×73 @364,0  Manrope 400 15/22  lines=1  «5 сентября»
       td[role=cell]#3  162×73 @494,0
@@ -266,7 +266,7 @@ div.Table__viewport  704×260 @32,32
 
 [геометрия 1440]
 div.Table__viewport  1376×260 @32,32
-  table.Table__table  1376×639 @0,0
+  table.Table__table  1376×638 @0,0
     th  165×55 @32,32  Onest 700 15/23  lines=1  fixed  «Наряд»
     th#2  417×55 @197,32  Onest 700 15/23  lines=1  fixed  «Объект»
     th#3  209×55 @614,32  Onest 700 15/23  lines=1  fixed  «Срок»
@@ -378,7 +378,7 @@ div.Table__viewport  1376×260 @32,32
           button.IconButton__iconButton#3  44×44 @246,0  r11  b1
             svg#7  20×20 @12,12
     tr[role=row]#8  1376×73 @0,566
-      th  165×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1064»
+      th  165×73 @0,0  Manrope 600 15/22  lines=1  «№ 1064»
       td[role=cell]  417×73 @165,0  Manrope 400 15/22  lines=1  «Заказ на Первомайской»
       td[role=cell]#2  209×73 @582,0  Manrope 400 15/22  lines=1  «5 сентября»
       td[role=cell]#3  259×73 @791,0
@@ -507,7 +507,7 @@ div.Table__viewport
           button.IconButton__iconButton#3  border transparent
             svg#7
     tr[role=row]#8  bg #edf2f6
-      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      th  color #0f172a
       td[role=cell]  color #334155
       td[role=cell]#2  color #556173
       td[role=cell]#3
@@ -636,7 +636,7 @@ div.Table__viewport
           button.IconButton__iconButton#3  border transparent
             svg#7
     tr[role=row]#8  bg #16223a
-      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      th  color #eaf1f8
       td[role=cell]  color #c9d5e2
       td[role=cell]#2  color #8598ac
       td[role=cell]#3

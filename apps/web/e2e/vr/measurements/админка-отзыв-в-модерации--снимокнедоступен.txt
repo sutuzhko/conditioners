@@ -35,8 +35,8 @@ article.Card__card  358×477 @16,16  r20  b1
     blockquote.ReviewCardView__text  316×91 @0,0  Manrope 400 15/22  b0 0 0 3  lines=3  «Приехали в тот же день, смету назвали за»
     div.ReviewCardView__photo  316×165 @0,103
       div.ReviewPhoto__gone  220×165 @0,0  r14  b1
-        span.ReviewPhoto__goneTitle  111×20 @55,50  Manrope 600 13/20  lines=1  «Фото недоступно»
-        span.ReviewPhoto__goneNote  202×40 @9,74  Manrope 400 13/20  lines=2  «Файл снимка не найден — решайте по текст»
+        span.MediaGone__title  111×20 @55,50  Manrope 600 13/20  lines=1  «Фото недоступно»
+        span.MediaGone__note  202×40 @9,74  Manrope 400 13/20  lines=2  «Файл снимка не найден — решайте по текст»
 
 [геометрия 768]
 article.Card__card  736×380 @16,16  r20  b1
@@ -67,8 +67,8 @@ article.Card__card  736×380 @16,16  r20  b1
     blockquote.ReviewCardView__text  694×46 @0,0  Manrope 400 15/22  b0 0 0 3  lines=1  «Приехали в тот же день, смету назвали за»
     div.ReviewCardView__photo  694×165 @0,58
       div.ReviewPhoto__gone  220×165 @0,0  r14  b1
-        span.ReviewPhoto__goneTitle  111×20 @55,50  Manrope 600 13/20  lines=1  «Фото недоступно»
-        span.ReviewPhoto__goneNote  202×40 @9,74  Manrope 400 13/20  lines=2  «Файл снимка не найден — решайте по текст»
+        span.MediaGone__title  111×20 @55,50  Manrope 600 13/20  lines=1  «Фото недоступно»
+        span.MediaGone__note  202×40 @9,74  Manrope 400 13/20  lines=2  «Файл снимка не найден — решайте по текст»
 
 [геометрия 1440]
 article.Card__card  1408×267 @16,16  r20  b1
@@ -99,8 +99,8 @@ article.Card__card  1408×267 @16,16  r20  b1
     blockquote.ReviewCardView__text  1134×46 @0,0  Manrope 400 15/22  b0 0 0 3  lines=1  «Приехали в тот же день, смету назвали за»
     div.ReviewCardView__photo  220×165 @1146,0
       div.ReviewPhoto__gone  220×165 @0,0  r14  b1
-        span.ReviewPhoto__goneTitle  111×20 @55,50  Manrope 600 13/20  lines=1  «Фото недоступно»
-        span.ReviewPhoto__goneNote  202×40 @9,74  Manrope 400 13/20  lines=2  «Файл снимка не найден — решайте по текст»
+        span.MediaGone__title  111×20 @55,50  Manrope 600 13/20  lines=1  «Фото недоступно»
+        span.MediaGone__note  202×40 @9,74  Manrope 400 13/20  lines=2  «Файл снимка не найден — решайте по текст»
 
 [палитра light]
 article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
@@ -131,8 +131,8 @@ article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
     blockquote.ReviewCardView__text  color #475569  bg #f8fafc  border #475569 #475569 #475569 #cbd5e1
     div.ReviewCardView__photo
       div.ReviewPhoto__gone  bg #f8fafc  border #e2e8f0
-        span.ReviewPhoto__goneTitle  color #475569
-        span.ReviewPhoto__goneNote  color #556173
+        span.MediaGone__title  color #475569
+        span.MediaGone__note  color #556173
 
 [палитра dark]
 article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
@@ -163,5 +163,5 @@ article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
     blockquote.ReviewCardView__text  color #a8b6c6  bg #0e1729  border #a8b6c6 #a8b6c6 #a8b6c6 #2c3d59
     div.ReviewCardView__photo
       div.ReviewPhoto__gone  bg #0e1729  border #1e2b41
-        span.ReviewPhoto__goneTitle  color #a8b6c6
-        span.ReviewPhoto__goneNote  color #8598ac
+        span.MediaGone__title  color #a8b6c6
+        span.MediaGone__note  color #8598ac

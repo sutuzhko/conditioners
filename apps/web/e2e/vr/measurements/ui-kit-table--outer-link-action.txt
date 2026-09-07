@@ -7,8 +7,8 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.Table__viewport  326×204 @32,32
-  table.Table__table  362×204 @0,0
+div.Table__viewport  326×203 @32,32
+  table.Table__table  362×203 @0,0
     tr[role=row]  362×56 @0,0
       th  83×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
       th#2  103×56 @83,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
@@ -33,10 +33,10 @@ div.Table__viewport  326×204 @32,32
               button.TableActions__action  44×44 @0,0  r100
                 span.TableActions__iconArea  32×42 @6,1
                   svg#3  18×18 @7,12
-    tr[role=row]#3  362×74 @0,130
-      th  83×74 @0,0  Manrope 600 15/22  b0 0 1 0  lines=2  «№ 1060»
-      td[role=cell]  103×74 @83,0  Manrope 400 15/22  lines=2  «Пётр Гаврилов»
-      td[role=cell]#2  176×74 @186,0
+    tr[role=row]#3  362×73 @0,130
+      th  83×73 @0,0  Manrope 600 15/22  lines=2  «№ 1060»
+      td[role=cell]  103×73 @83,0  Manrope 400 15/22  lines=2  «Пётр Гаврилов»
+      td[role=cell]#2  176×73 @186,0
         div.TableActions__actions#2  140×44 @18,15
           span.Tooltip__wrap  44×44 @0,0  r100
             span.Tooltip__anchor#2  44×44 @0,0
@@ -55,8 +55,8 @@ div.Table__viewport  326×204 @32,32
                   svg#3  18×18 @7,12
 
 [геометрия 768]
-div.Table__viewport  704×202 @32,32
-  table.Table__table  704×202 @0,0
+div.Table__viewport  704×201 @32,32
+  table.Table__table  704×201 @0,0
     tr[role=row]  704×56 @0,0
       th  151×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
       th#2  254×56 @151,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
@@ -82,7 +82,7 @@ div.Table__viewport  704×202 @32,32
                 span.TableActions__iconArea  32×42 @6,1
                   svg#3  18×18 @7,12
     tr[role=row]#3  704×73 @0,129
-      th  151×73 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1060»
+      th  151×73 @0,0  Manrope 600 15/22  lines=1  «№ 1060»
       td[role=cell]  254×73 @151,0  Manrope 400 15/22  lines=1  «Пётр Гаврилов»
       td[role=cell]#2  299×73 @405,0
         div.TableActions__actions#2  263×44 @18,15
@@ -103,8 +103,8 @@ div.Table__viewport  704×202 @32,32
                   svg#3  18×18 @7,12
 
 [геометрия 1440]
-div.Table__viewport  1376×178 @32,32
-  table.Table__table  1376×178 @0,0
+div.Table__viewport  1376×177 @32,32
+  table.Table__table  1376×177 @0,0
     tr[role=row]  1376×56 @0,0
       th  323×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Наряд»
       th#2  544×56 @323,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
@@ -130,7 +130,7 @@ div.Table__viewport  1376×178 @32,32
                 span.TableActions__iconArea  20×30 @6,1
                   svg#3  18×18 @1,6
     tr[role=row]#3  1376×61 @0,117
-      th  323×61 @0,0  Manrope 600 15/22  b0 0 1 0  lines=1  «№ 1060»
+      th  323×61 @0,0  Manrope 600 15/22  lines=1  «№ 1060»
       td[role=cell]  544×61 @323,0  Manrope 400 15/22  lines=1  «Пётр Гаврилов»
       td[role=cell]#2  509×61 @867,0
         div.TableActions__actions#2  473×32 @18,15
@@ -178,7 +178,7 @@ div.Table__viewport
                 span.TableActions__iconArea
                   svg#3
     tr[role=row]#3
-      th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      th  color #0f172a
       td[role=cell]  color #334155
       td[role=cell]#2
         div.TableActions__actions#2
@@ -226,7 +226,7 @@ div.Table__viewport
                 span.TableActions__iconArea
                   svg#3
     tr[role=row]#3
-      th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      th  color #eaf1f8
       td[role=cell]  color #c9d5e2
       td[role=cell]#2
         div.TableActions__actions#2
